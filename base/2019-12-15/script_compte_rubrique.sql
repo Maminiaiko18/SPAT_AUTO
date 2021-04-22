@@ -1,0 +1,601 @@
+create table compte_rubrique(
+	id varchar2(100),
+	reference varchar2(100),
+	compte varchar2(100),
+	libelle varchar2(500),
+	etat number(10),
+	constraint PK_CPTRUBRIQUE primary key (id)
+);
+
+CREATE SEQUENCE seq_compte_rubrique
+  MINVALUE 1
+  MAXVALUE 999999999999999999999999999
+  START WITH 1
+  INCREMENT BY 1
+  CACHE 20;
+
+create or replace FUNCTION getseq_compte_rubrique
+  RETURN NUMBER IS
+  retour NUMBER;
+BEGIN
+  SELECT seq_compte_rubrique.nextval INTO retour FROM dual;
+  return retour;
+END;
+
+
+create table rubrique(
+	id varchar2(50),
+	libelle varchar2(500),
+	reference varchar2(100),
+	etat number(10),
+	constraint PK_RUBRIQUE primary key (id)
+);
+
+CREATE SEQUENCE seq_rubrique
+  MINVALUE 1
+  MAXVALUE 999999999999999999999999999
+  START WITH 1
+  INCREMENT BY 1
+  CACHE 20;
+
+create or replace FUNCTION getseq_rubrique
+  RETURN NUMBER IS
+  retour NUMBER;
+BEGIN
+  SELECT seq_rubrique.nextval INTO retour FROM dual;
+  return retour;
+END;
+
+insert into rubrique values ('RUB0001','Immobilisations nettes','A1',1);
+insert into rubrique values ('RUB0002','Stocks','A2',1);
+insert into rubrique values ('RUB0003','Créances nettes','A3',1);
+insert into rubrique values ('RUB0004','Autres créances','A4',1);
+insert into rubrique values ('RUB0005','Trésorerie','A5',1);
+insert into rubrique values ('RUB0006','Capitaux Propres ','P1',1);
+insert into rubrique values ('RUB0007','Provisions','P2',1);
+insert into rubrique values ('RUB0008','Emprunts','P3',1);
+insert into rubrique values ('RUB0009','Dettes fournisseurs','P4',1);
+insert into rubrique values ('RUB0010','Autres dettes','P5',1);
+insert into rubrique values ('RUB0011','Chiffre d''affaires','X1',1);
+insert into rubrique values ('RUB0012','Autres produits opérationnels','X2',1);
+insert into rubrique values ('RUB0013','Reprises sur provisions et pertes de valeur','X3',1);
+insert into rubrique values ('RUB0014','Produits financiers','X4',1);
+insert into rubrique values ('RUB0015','Produits extraordinaires','X5',1);
+insert into rubrique values ('RUB0016','Achats consommés','C1',1);
+insert into rubrique values ('RUB0017','Services extérieurs et autres consommations','C2',1);
+insert into rubrique values ('RUB0018','Charges de personnel','C3',1);
+insert into rubrique values ('RUB0019','Impôts, taxes et versement assimilés','C4',1);
+insert into rubrique values ('RUB0020','Autres charges opérationnelles','C5',1);
+insert into rubrique values ('RUB0021','Dotations aux amortissements, aux provisions et pertes de valeur','C6',1);
+insert into rubrique values ('RUB0022','Charges financières','C7',1);
+insert into rubrique values ('RUB0023','Impôt exigible sur résultat','C8',1);
+insert into rubrique values ('RUB0024','Charges extraordinaires','C9',1);
+
+insert into compte_rubrique values ('CPTRUB0001','P1','10100','Capital',1);
+insert into compte_rubrique values ('CPTRUB0002','P1','10500','Ecart d''Evaluation',1);
+insert into compte_rubrique values ('CPTRUB0003','P1','10610','Réserve légale',1);
+insert into compte_rubrique values ('CPTRUB0004','P1','11100','Report à nouveau',1);
+insert into compte_rubrique values ('CPTRUB0005','P1','11300','Report à nouveau créditeur',1);
+insert into compte_rubrique values ('CPTRUB0006','P1','12100','Résultat de l''exercice (bénéfice)',1);
+insert into compte_rubrique values ('CPTRUB0007','P1','12160','Résultat de l''exercice Projet d''ext',1);
+insert into compte_rubrique values ('CPTRUB0008','P1','13100','Subventions d''équipement',1);
+insert into compte_rubrique values ('CPTRUB0009','P1','13200','Subvention pour Investissement',1);
+insert into compte_rubrique values ('CPTRUB0010','P2','15100','Provisions pour risques',1);
+insert into compte_rubrique values ('CPTRUB0011','P2','15600','Prov pour renouv des immob',1);
+insert into compte_rubrique values ('CPTRUB0012','P2','15800','Provision pour regime de retraite',1);
+insert into compte_rubrique values ('CPTRUB0013','P3','16500','Dépôts et cautionnements re‡us',1);
+insert into compte_rubrique values ('CPTRUB0014','P3','16610','Emprunt trésor-Jica',1);
+insert into compte_rubrique values ('CPTRUB0015','P3','16611','Emprunt Trésor Pub-JICA/Catégorie B',1);
+insert into compte_rubrique values ('CPTRUB0016','P3','16860','Intérêt à Payer : Emprunt Tresor -',1);
+insert into compte_rubrique values ('CPTRUB0017','P3','18160','Compte de liaison SPAT-Projet JICA',1);
+insert into compte_rubrique values ('CPTRUB0018','A1','21110','Terrains ',1);
+insert into compte_rubrique values ('CPTRUB0019','A1','21311','Bâtiments administratifs',1);
+insert into compte_rubrique values ('CPTRUB0020','A1','21312','Bâtiment à usage technique',1);
+insert into compte_rubrique values ('CPTRUB0021','A1','21313','Bâtiment à usage social',1);
+insert into compte_rubrique values ('CPTRUB0022','A1','21314','Logement social ',1);
+insert into compte_rubrique values ('CPTRUB0023','A1','21315','Poste de contrôle',1);
+insert into compte_rubrique values ('CPTRUB0024','A1','21316','Magasins',1);
+insert into compte_rubrique values ('CPTRUB0025','A1','21317','Hangars',1);
+insert into compte_rubrique values ('CPTRUB0026','A1','21318','Entrepôts',1);
+insert into compte_rubrique values ('CPTRUB0027','A1','21319','Postes Sanitaires',1);
+insert into compte_rubrique values ('CPTRUB0028','A1','21320','Guichet Unique et autres Bureaux',1);
+insert into compte_rubrique values ('CPTRUB0029','A1','21411','Quai, Digue et Pylone',1);
+insert into compte_rubrique values ('CPTRUB0030','A1','21412','Terre plein',1);
+insert into compte_rubrique values ('CPTRUB0031','A1','21413','Voie',1);
+insert into compte_rubrique values ('CPTRUB0032','A1','21418','Autres ouvrages',1);
+insert into compte_rubrique values ('CPTRUB0033','A1','21811','Voiture utilitaire',1);
+insert into compte_rubrique values ('CPTRUB0034','A1','21812','Voiture particulière',1);
+insert into compte_rubrique values ('CPTRUB0035','A1','21813','AUTRES VEHICULES',1);
+insert into compte_rubrique values ('CPTRUB0036','A1','21821','Remorqueur',1);
+insert into compte_rubrique values ('CPTRUB0037','A1','21822','Vedette',1);
+insert into compte_rubrique values ('CPTRUB0038','A1','21823','Elévateurs-Chargeur',1);
+insert into compte_rubrique values ('CPTRUB0039','A1','21824','Tracteurs',1);
+insert into compte_rubrique values ('CPTRUB0040','A1','21825','Remorques',1);
+insert into compte_rubrique values ('CPTRUB0041','A1','21831','Matériel de bureau',1);
+insert into compte_rubrique values ('CPTRUB0042','A1','21832','Mobilier de bureau',1);
+insert into compte_rubrique values ('CPTRUB0043','A1','21833','Matériel de logt',1);
+insert into compte_rubrique values ('CPTRUB0044','A1','21840','Matériel informatique',1);
+insert into compte_rubrique values ('CPTRUB0045','A1','21850','Pont Bascule',1);
+insert into compte_rubrique values ('CPTRUB0046','A1','21860','Matériel de communication',1);
+insert into compte_rubrique values ('CPTRUB0047','A1','21871','Matériel médicaux',1);
+insert into compte_rubrique values ('CPTRUB0048','A1','21872','Outils médicaux',1);
+insert into compte_rubrique values ('CPTRUB0049','A1','21881','Drague',1);
+insert into compte_rubrique values ('CPTRUB0050','A1','21882','Matériel et outil',1);
+insert into compte_rubrique values ('CPTRUB0051','A1','21883','Matériel de sécurité',1);
+insert into compte_rubrique values ('CPTRUB0052','A1','21884','Matériel électrique',1);
+insert into compte_rubrique values ('CPTRUB0053','A1','21885','Mat audiovisuel,  instrumt de musiq',1);
+insert into compte_rubrique values ('CPTRUB0054','A1','21886','Autres',1);
+insert into compte_rubrique values ('CPTRUB0055','A1','22411','IMMOBILISATION EN CONCESSION',1);
+insert into compte_rubrique values ('CPTRUB0056','A1','22430','Immob mise en concession en cours',1);
+insert into compte_rubrique values ('CPTRUB0057','P3','22900','DROIT DU CONCEDANT',1);
+insert into compte_rubrique values ('CPTRUB0058','A1','23100','Immob. corporelles en cours',1);
+insert into compte_rubrique values ('CPTRUB0059','A1','23700','Avances et acomptes /immo. corpor.',1);
+insert into compte_rubrique values ('CPTRUB0060','A1','23860','Avances et Acomptes Immb Extens ',1);
+insert into compte_rubrique values ('CPTRUB0061','A1','27400','placement auprès dun trésor public',1);
+insert into compte_rubrique values ('CPTRUB0062','A1','27401','Interêt sur placement Trésor',1);
+insert into compte_rubrique values ('CPTRUB0063','A1','27410','Prêt MTP - Air Mad',1);
+insert into compte_rubrique values ('CPTRUB0064','A1','27411','Prêt CUA S/V Conv Quadriparttite',1);
+insert into compte_rubrique values ('CPTRUB0065','A1','27412','Starwood-Minfin',1);
+insert into compte_rubrique values ('CPTRUB0066','A1','27413','Prêt Etat, Ministère de la Défense',1);
+insert into compte_rubrique values ('CPTRUB0067','A1','27500','Titre de participation  PTP',1);
+insert into compte_rubrique values ('CPTRUB0068','A1','27501','Dividende sur Titre PTP',1);
+insert into compte_rubrique values ('CPTRUB0069','A1','27512','Caution Coffre fort bmoi',1);
+insert into compte_rubrique values ('CPTRUB0070','A1','28111','Amor voiture utilitaire',1);
+insert into compte_rubrique values ('CPTRUB0071','A1','28112','Amor voiture particulière',1);
+insert into compte_rubrique values ('CPTRUB0072','A1','28113','Amort autres véhicules',1);
+insert into compte_rubrique values ('CPTRUB0073','A1','28121','Amort remorqueur',1);
+insert into compte_rubrique values ('CPTRUB0074','A1','28122','Amort vedette',1);
+insert into compte_rubrique values ('CPTRUB0075','A1','28130','Amort. Autres constructions',1);
+insert into compte_rubrique values ('CPTRUB0076','A1','28131','Amort. bâtiment administratif',1);
+insert into compte_rubrique values ('CPTRUB0077','A1','28132','Amort. bâtiment à usage technique ',1);
+insert into compte_rubrique values ('CPTRUB0078','A1','28133','Amort. bâtiment à usage social',1);
+insert into compte_rubrique values ('CPTRUB0079','A1','28134','Amort. logement social',1);
+insert into compte_rubrique values ('CPTRUB0080','A1','28135','Amort. Poste de contrôle',1);
+insert into compte_rubrique values ('CPTRUB0081','A1','28136','Amort. Poste sanitaire',1);
+insert into compte_rubrique values ('CPTRUB0082','A1','28137','Amort. Entrepôts',1);
+insert into compte_rubrique values ('CPTRUB0083','A1','28138','Amort. Magasins',1);
+insert into compte_rubrique values ('CPTRUB0084','A1','28139','Amort. Hangars',1);
+insert into compte_rubrique values ('CPTRUB0085','A1','28141','Amort. quai',1);
+insert into compte_rubrique values ('CPTRUB0086','A1','28142','Amort. terre-plein',1);
+insert into compte_rubrique values ('CPTRUB0087','A1','28143','Amort. voie',1);
+insert into compte_rubrique values ('CPTRUB0088','A1','28148','Amort. autres ouvrages',1);
+insert into compte_rubrique values ('CPTRUB0089','A1','28151','Amort. Matériel médical',1);
+insert into compte_rubrique values ('CPTRUB0090','A1','28152','Amort. Outillage Médical',1);
+insert into compte_rubrique values ('CPTRUB0091','A1','28154','Amort matériels informatiques',1);
+insert into compte_rubrique values ('CPTRUB0092','A1','28155','Amort. Elévateurs',1);
+insert into compte_rubrique values ('CPTRUB0093','A1','28156','Amort. Tracteurs',1);
+insert into compte_rubrique values ('CPTRUB0094','A1','28157','Amort. Remorques',1);
+insert into compte_rubrique values ('CPTRUB0095','A1','28180','Amort. Drague',1);
+insert into compte_rubrique values ('CPTRUB0096','A1','28181','Amort. matériel de bureau',1);
+insert into compte_rubrique values ('CPTRUB0097','A1','28182','Amort. mobilier de bureau',1);
+insert into compte_rubrique values ('CPTRUB0098','A1','28183','Amort. matériel de sécurité',1);
+insert into compte_rubrique values ('CPTRUB0099','A1','28184','Amort. matériel électrique',1);
+insert into compte_rubrique values ('CPTRUB0100','A1','28185','Amort. pont bascule',1);
+insert into compte_rubrique values ('CPTRUB0101','A1','28186','Amort. matériel de communication',1);
+insert into compte_rubrique values ('CPTRUB0102','A1','28187','Amort. matériel audiovisuel et inst',1);
+insert into compte_rubrique values ('CPTRUB0103','A1','28188','Amort. spot lumineux',1);
+insert into compte_rubrique values ('CPTRUB0104','A1','28189','Amort. matériel et outillage',1);
+insert into compte_rubrique values ('CPTRUB0105','A1','28211','Amort Droit du concedant',1);
+insert into compte_rubrique values ('CPTRUB0106','A1','29741','Pro/Perte Val Immob Financière',1);
+insert into compte_rubrique values ('CPTRUB0107','A2','31110','Bois',1);
+insert into compte_rubrique values ('CPTRUB0108','A2','31120','Matériaux de bâtiments et trav. pub',1);
+insert into compte_rubrique values ('CPTRUB0109','A2','31130','Matériaux d''ouvrage  métallique',1);
+insert into compte_rubrique values ('CPTRUB0110','A2','31140','Quincaillerie',1);
+insert into compte_rubrique values ('CPTRUB0111','A2','32110','Equipement électrique',1);
+insert into compte_rubrique values ('CPTRUB0112','A2','32120','Pièce de rech. matériel naval',1);
+insert into compte_rubrique values ('CPTRUB0113','A2','32220','Petits outillages ',1);
+insert into compte_rubrique values ('CPTRUB0114','A2','32230','Médicaments',1);
+insert into compte_rubrique values ('CPTRUB0115','A2','32240','Fournitures médicales',1);
+insert into compte_rubrique values ('CPTRUB0116','A2','32250','Outillages consommables',1);
+insert into compte_rubrique values ('CPTRUB0117','A2','32270','Emballages',1);
+insert into compte_rubrique values ('CPTRUB0118','A2','36000','Immob destinées à la vente',1);
+insert into compte_rubrique values ('CPTRUB0119','A2','37110','Marchandises',1);
+insert into compte_rubrique values ('CPTRUB0120','P4','40110','Fournisseurs de biens et services',1);
+insert into compte_rubrique values ('CPTRUB0121','P4','40111','Compte à créer',1);
+insert into compte_rubrique values ('CPTRUB0122','P4','40113','FOURNISSEURS AU COMPTANT',1);
+insert into compte_rubrique values ('CPTRUB0123','P4','40115','Fournisseur au comptant à lettrer',1);
+insert into compte_rubrique values ('CPTRUB0124','P4','40410','Fournisseur d''immobilisation',1);
+insert into compte_rubrique values ('CPTRUB0125','P4','40420','Fourn. d''immob retenue de garantie',1);
+insert into compte_rubrique values ('CPTRUB0126','P4','40426','FRNS d''immo retenue de garanti-JICA',1);
+insert into compte_rubrique values ('CPTRUB0127','P4','40460','FRNS d''Immob JICA',1);
+insert into compte_rubrique values ('CPTRUB0128','P4','40510','Fourn. d''immob effet à payer',1);
+insert into compte_rubrique values ('CPTRUB0129','P4','40810','Fourn biens  et  serv - fact non parv',1);
+insert into compte_rubrique values ('CPTRUB0130','P4','40820','Fourn d''immo - fact non parv',1);
+insert into compte_rubrique values ('CPTRUB0131','P4','40860','Frns B et S ProjetExt-Fact non Parvenu',1);
+insert into compte_rubrique values ('CPTRUB0132','A3','40910','Fourn biens  et  ser - avces et acptes',1);
+insert into compte_rubrique values ('CPTRUB0133','A3','40930','Fourn d''immo - avces et acptes',1);
+insert into compte_rubrique values ('CPTRUB0134','A3','40936','Avance de démarrage Projet JICA',1);
+insert into compte_rubrique values ('CPTRUB0135','A3','41110','Clients malagasy',1);
+insert into compte_rubrique values ('CPTRUB0136','A3','41111','Créances anterieurs 2008',1);
+insert into compte_rubrique values ('CPTRUB0137','A3','41112','Créances non rapproché',1);
+insert into compte_rubrique values ('CPTRUB0138','A3','41130','client occasionnel au comptant',1);
+insert into compte_rubrique values ('CPTRUB0139','A3','41180','Clients externes CEMEDI',1);
+insert into compte_rubrique values ('CPTRUB0140','A3','41300','Collectif client-effets à recevoir',1);
+insert into compte_rubrique values ('CPTRUB0141','A3','41600','Clients douteux ou litigieux',1);
+insert into compte_rubrique values ('CPTRUB0142','A3','41800','Clients - fact à établir',1);
+insert into compte_rubrique values ('CPTRUB0143','P5','41910','Clients - avances et acomptes',1);
+insert into compte_rubrique values ('CPTRUB0144','P5','41911','Avances sur Redev Concessionnaires',1);
+insert into compte_rubrique values ('CPTRUB0145','P5','42110','Personnel - Rémunérations dues CS',1);
+insert into compte_rubrique values ('CPTRUB0146','P5','42111','Personnel - Rémunération dues Agt',1);
+insert into compte_rubrique values ('CPTRUB0147','P5','42112','Personnels Temporaires d–s',1);
+insert into compte_rubrique values ('CPTRUB0148','P5','42411','PERSONNEL : PRIME DE RESULTAT',1);
+insert into compte_rubrique values ('CPTRUB0149','A4','42500','AVANCE AGT TEMPOR',1);
+insert into compte_rubrique values ('CPTRUB0150','A4','42510','Personnel - avance CS',1);
+insert into compte_rubrique values ('CPTRUB0151','A4','42511','Personnel - Avances de soldes',1);
+insert into compte_rubrique values ('CPTRUB0152','A4','42512','Prêts scolaires',1);
+insert into compte_rubrique values ('CPTRUB0153','P5','42513','CESSION RIZ',1);
+insert into compte_rubrique values ('CPTRUB0154','P5','42517','Ancien cpte Cession Log Canada',1);
+insert into compte_rubrique values ('CPTRUB0155','P5','42518','Ancien cpte Cession Log Vohits',1);
+insert into compte_rubrique values ('CPTRUB0156','P5','42520','Personnel - Avance exceptionnelle',1);
+insert into compte_rubrique values ('CPTRUB0157','P5','42521','Retenues logements CANADA',1);
+insert into compte_rubrique values ('CPTRUB0158','P5','42522','Retenues logements VOHITSARA',1);
+insert into compte_rubrique values ('CPTRUB0159','A4','42523','Retenues factures',1);
+insert into compte_rubrique values ('CPTRUB0160','P5','42524','Retenue Hospitalisation',1);
+insert into compte_rubrique values ('CPTRUB0161','A4','42530','Prêt scolaire',1);
+insert into compte_rubrique values ('CPTRUB0162','A4','42531','Autres retenues',1);
+insert into compte_rubrique values ('CPTRUB0163','A4','42532','Prêt scol CS',1);
+insert into compte_rubrique values ('CPTRUB0164','A4','42533','PRET SCOL AGT TEMPOR',1);
+insert into compte_rubrique values ('CPTRUB0165','A4','42540','PRET SPAT AGT (Cyclone ...)',1);
+insert into compte_rubrique values ('CPTRUB0166','P5','42541','Bon de caisse',1);
+insert into compte_rubrique values ('CPTRUB0167','A4','42542','Prêrt SPAT (CS)',1);
+insert into compte_rubrique values ('CPTRUB0168','A4','42543','PRET SPAT AGT CONTRACT',1);
+insert into compte_rubrique values ('CPTRUB0169','A4','42710','Personnel - opposition CS',1);
+insert into compte_rubrique values ('CPTRUB0170','P5','42711','Personnel - Oppositions',1);
+insert into compte_rubrique values ('CPTRUB0171','A4','42712','BONS PROVISOIRES CREANCES',1);
+insert into compte_rubrique values ('CPTRUB0172','P5','42810','Personnel - charges à payer',1);
+insert into compte_rubrique values ('CPTRUB0173','P5','42811','Personnel - charges à Payer CS',1);
+insert into compte_rubrique values ('CPTRUB0174','A4','42812','DIVERS AVANTAGES ET INDTES',1);
+insert into compte_rubrique values ('CPTRUB0175','P5','42830','Provision sur Indté de retraite',1);
+insert into compte_rubrique values ('CPTRUB0176','P5','43110','FONDS MALAG DE FORM PROF',1);
+insert into compte_rubrique values ('CPTRUB0177','P5','43111','CNAPS Agt',1);
+insert into compte_rubrique values ('CPTRUB0178','A4','43112','CRCM',1);
+insert into compte_rubrique values ('CPTRUB0179','P5','43113','CPR',1);
+insert into compte_rubrique values ('CPTRUB0180','A4','43120','CRCM',1);
+insert into compte_rubrique values ('CPTRUB0181','P5','43121','ALLOCATION FAMILIALE',1);
+insert into compte_rubrique values ('CPTRUB0182','A4','43122','Rentes viagères',1);
+insert into compte_rubrique values ('CPTRUB0183','A4','43210','Allocation familiale',1);
+insert into compte_rubrique values ('CPTRUB0184','P5','44160','TVA déductibles En Att Remb MFB',1);
+insert into compte_rubrique values ('CPTRUB0185','P5','44310','IRSA',1);
+insert into compte_rubrique values ('CPTRUB0186','A3','44410','Acompte provisionnel d''IBS',1);
+insert into compte_rubrique values ('CPTRUB0187','P5','44420','Impôt sur le bénéfice des sociétés',1);
+insert into compte_rubrique values ('CPTRUB0188','P5','44450','IBS NET A PAYER',1);
+insert into compte_rubrique values ('CPTRUB0189','A3','44470','Credit d''IR',1);
+insert into compte_rubrique values ('CPTRUB0190','A3','44510','TVA déductible ',1);
+insert into compte_rubrique values ('CPTRUB0191','P5','44520','TVA collectée',1);
+insert into compte_rubrique values ('CPTRUB0192','P5','44530','TVA à décaisser',1);
+insert into compte_rubrique values ('CPTRUB0193','P5','44536','TVA à décaisserùProjet d''extension',1);
+insert into compte_rubrique values ('CPTRUB0194','P3','44540','DROIT DE DOUANE NOE',1);
+insert into compte_rubrique values ('CPTRUB0195','A3','44550','Crédit TVA',1);
+insert into compte_rubrique values ('CPTRUB0196','A3','44556','credit TVA sur Extension Port-JICA',1);
+insert into compte_rubrique values ('CPTRUB0197','A3','44560','TVA déduct sur Extens du Port JICA',1);
+insert into compte_rubrique values ('CPTRUB0198','P5','44580','TVA à régulariser',1);
+insert into compte_rubrique values ('CPTRUB0199','A3','44586','TVA à Régulariser',1);
+insert into compte_rubrique values ('CPTRUB0200','P5','44700','Autres impôts et vers.assim',1);
+insert into compte_rubrique values ('CPTRUB0201','A3','44735','IRCM',1);
+insert into compte_rubrique values ('CPTRUB0202','P5','45700','Actionnaire - dividendes à payer',1);
+insert into compte_rubrique values ('CPTRUB0203','P5','46100','MIN FINANCE',1);
+insert into compte_rubrique values ('CPTRUB0204','P1','46111','Prêt CUA S/V Conv Quadripartite',1);
+insert into compte_rubrique values ('CPTRUB0205','A4','46200','IMPOT SEPT PAYER P SPAT/ATD 40/MFB',1);
+insert into compte_rubrique values ('CPTRUB0206','A4','46310','Chg  Personnel MICTSL à Refacturer',1);
+insert into compte_rubrique values ('CPTRUB0207','A4','46411','CAISSE GERMAIN',1);
+insert into compte_rubrique values ('CPTRUB0208','A4','46412','INTOANDRO',1);
+insert into compte_rubrique values ('CPTRUB0209','A4','46413','Caisse THOMAS',1);
+insert into compte_rubrique values ('CPTRUB0210','A4','46530','PRET SCOL AGT TEMPORAIRE',1);
+insert into compte_rubrique values ('CPTRUB0211','A4','46531','PRIME RESULTAT PERS EXT',1);
+insert into compte_rubrique values ('CPTRUB0212','A4','46538','AUTRES PRETS',1);
+insert into compte_rubrique values ('CPTRUB0213','A4','46600','Péages d''hydrocarbures PTP',1);
+insert into compte_rubrique values ('CPTRUB0214','A4','46700','Autres comptes débiteurs/créditeurs',1);
+insert into compte_rubrique values ('CPTRUB0215','A4','46710','Chg de prsnl refacturée par la SMMC',1);
+insert into compte_rubrique values ('CPTRUB0216','A4','46711','Decaissements refacturé par la SMMC',1);
+insert into compte_rubrique values ('CPTRUB0217','A4','46721','Créances SMMC',1);
+insert into compte_rubrique values ('CPTRUB0218','A4','46722','Creances encais par la smmc',1);
+insert into compte_rubrique values ('CPTRUB0219','P5','46731','Redevance Cummune',1);
+insert into compte_rubrique values ('CPTRUB0220','P5','46732','Redevance Région',1);
+insert into compte_rubrique values ('CPTRUB0221','P5','46733','Redevance APMF',1);
+insert into compte_rubrique values ('CPTRUB0222','A4','46734','COMMISø/ REDEVANCE DSMIE MICTSL',1);
+insert into compte_rubrique values ('CPTRUB0223','P5','46741','VIRT OTIV Divers délégations',1);
+insert into compte_rubrique values ('CPTRUB0224','P5','46742','Divers délégataires CS',1);
+insert into compte_rubrique values ('CPTRUB0225','P5','46743','Autres engagements',1);
+insert into compte_rubrique values ('CPTRUB0226','P5','46751','Dettes/acquis immob.payées/SEPT',1);
+insert into compte_rubrique values ('CPTRUB0227','P5','46752','Det/elts sal .01-03 /08 payé/Sept',1);
+insert into compte_rubrique values ('CPTRUB0228','P5','46753','Dette/avce solde payée/SEPT',1);
+insert into compte_rubrique values ('CPTRUB0229','P5','46754','Règlem FRNS par SEPT à Rembourser',1);
+insert into compte_rubrique values ('CPTRUB0230','P5','46762','Crnce/pdt access/sal.encaissé/Sept',1);
+insert into compte_rubrique values ('CPTRUB0231','P5','46763','Creances sur Prime SEPT',1);
+insert into compte_rubrique values ('CPTRUB0232','P5','46764','CREANCES/PAIEM/AVREXT- SEPT',1);
+insert into compte_rubrique values ('CPTRUB0233','P3','46770','Dettes et créances mises en compens',1);
+insert into compte_rubrique values ('CPTRUB0234','A4','46771','Créances résiduelles/Compens SMMC',1);
+insert into compte_rubrique values ('CPTRUB0235','P5','46772','Dettes et créance mise en comp SEPT',1);
+insert into compte_rubrique values ('CPTRUB0236','P5','46780','NOTE DE DEBIT/FRAIS DE SEJOUR ',1);
+insert into compte_rubrique values ('CPTRUB0237','P5','46781','Dette/Enc fact SMMC/SPAT à remb',1);
+insert into compte_rubrique values ('CPTRUB0238','P5','46860','Charges à payer',1);
+insert into compte_rubrique values ('CPTRUB0239','P5','46861','Frais Banc. et assim Projet à Payer',1);
+insert into compte_rubrique values ('CPTRUB0240','P5','46870','Produits à recevoir',1);
+insert into compte_rubrique values ('CPTRUB0241','A4','47100','Compte transitoire',1);
+insert into compte_rubrique values ('CPTRUB0242','P5','47120','SOUSCR 100 ACT SPAT MAI 2005',1);
+insert into compte_rubrique values ('CPTRUB0243','A4','47160','SITUA TION/JRNL CAISSE  30 AVR 2008',1);
+insert into compte_rubrique values ('CPTRUB0244','A4','47170','Comptes transitoires CANTINES',1);
+insert into compte_rubrique values ('CPTRUB0245','A4','47200','ATTENTE PIECES',1);
+insert into compte_rubrique values ('CPTRUB0246','A4','47400','Compte d''attente personnel',1);
+insert into compte_rubrique values ('CPTRUB0247','A4','48600','Charges constatées d''avance',1);
+insert into compte_rubrique values ('CPTRUB0248','P1','48700','Produits constatés d''avance',1);
+insert into compte_rubrique values ('CPTRUB0249','P5','48710','Produits constaté d''avance',1);
+insert into compte_rubrique values ('CPTRUB0250','A4','48730','Prod const d''Av SMMC',1);
+insert into compte_rubrique values ('CPTRUB0251','A3','49110','Perte de valeur sur créances saines',1);
+insert into compte_rubrique values ('CPTRUB0252','A4','49200','PROVISION BONS PROVISOIRES',1);
+insert into compte_rubrique values ('CPTRUB0253','A4','49600','Perte valeur  débiteurs divers',1);
+insert into compte_rubrique values ('CPTRUB0254','A5','50700','BTF Bon de Trésor FIHARY',1);
+insert into compte_rubrique values ('CPTRUB0255','A5','50701','BT FIHARY A011859',1);
+insert into compte_rubrique values ('CPTRUB0256','A5','50702','BT FIHARY A011860',1);
+insert into compte_rubrique values ('CPTRUB0257','A5','50703','BT FIHARY A011861',1);
+insert into compte_rubrique values ('CPTRUB0258','A5','50704','Compte à créer',1);
+insert into compte_rubrique values ('CPTRUB0259','A5','50810','DAT BGFI Bank-MGA 51000513221-24',1);
+insert into compte_rubrique values ('CPTRUB0260','A5','50811','DAT BFV Tamatave',1);
+insert into compte_rubrique values ('CPTRUB0261','A5','50812','DAT SBM Tamatave',1);
+insert into compte_rubrique values ('CPTRUB0262','A5','50818','DAT BOA (EN ARIARY)',1);
+insert into compte_rubrique values ('CPTRUB0263','A5','50821','DAT BMOI Euro (1.000.000 Euro)',1);
+insert into compte_rubrique values ('CPTRUB0264','A5','50822','DAT BMOI (EN ARIARY)',1);
+insert into compte_rubrique values ('CPTRUB0265','A5','50837','BTA BCM-DCR',1);
+insert into compte_rubrique values ('CPTRUB0266','A5','50840','DAT BNI',1);
+insert into compte_rubrique values ('CPTRUB0267','A5','50870','Intérêts courus sur DAT',1);
+insert into compte_rubrique values ('CPTRUB0268','A5','51110','RETOUR CHQ IMPAYES',1);
+insert into compte_rubrique values ('CPTRUB0269','A5','51120','Chèques à encaisser',1);
+insert into compte_rubrique values ('CPTRUB0270','A5','51200','COMPTES BLOQUES ATT MAIN LEVEE',1);
+insert into compte_rubrique values ('CPTRUB0271','A5','51202','COFFRE-FORT BMOI',1);
+insert into compte_rubrique values ('CPTRUB0272','A5','51211','BFV SG 00008 00490 0200 1000034 87',1);
+insert into compte_rubrique values ('CPTRUB0273','A5','51212','BMOI SPAT00004 00010 01002700105 32',1);
+insert into compte_rubrique values ('CPTRUB0274','A5','51213','BMOI CSC 00004 00010 07003500151 32',1);
+insert into compte_rubrique values ('CPTRUB0275','A5','51214','BNI CANT 00005 000020 4002748010 22',1);
+insert into compte_rubrique values ('CPTRUB0276','A5','51215','BMOI CMDI 0004 00010 01002900119 32',1);
+insert into compte_rubrique values ('CPTRUB0277','A5','51216','SBM T/VE 00007 00902 30100002376 54',1);
+insert into compte_rubrique values ('CPTRUB0278','A5','51217','BNI TAVE 00005 00020 13505820100 03',1);
+insert into compte_rubrique values ('CPTRUB0279','A5','51218','BOA T/VE 00009 07400 22706130002 05',1);
+insert into compte_rubrique values ('CPTRUB0280','A5','51219','BGFIBank 00012 01250 51000513011-72',1);
+insert into compte_rubrique values ('CPTRUB0281','A5','51221','BFV EUR 00008 00490 02071000013 09',1);
+insert into compte_rubrique values ('CPTRUB0282','A5','51222','BMOI EUR 00004 00010 01002701172 32',1);
+insert into compte_rubrique values ('CPTRUB0283','A5','51260','BANQUE PROJET',1);
+insert into compte_rubrique values ('CPTRUB0284','A5','51261','BANQUE PAIEM TVA PROJET',1);
+insert into compte_rubrique values ('CPTRUB0285','A5','51262','BANQUE PAIEM DIFF CHANGE PROJET',1);
+insert into compte_rubrique values ('CPTRUB0286','A5','51312','PROVI BMOI EN ATTENTE D''UTIL',1);
+insert into compte_rubrique values ('CPTRUB0287','A5','51510','TRESOR PUBLIC',1);
+insert into compte_rubrique values ('CPTRUB0288','A5','51520','Compte auprès du Trésor Public',1);
+insert into compte_rubrique values ('CPTRUB0289','A5','51820','Intérêt couru à recevoir',1);
+insert into compte_rubrique values ('CPTRUB0290','A5','53110','Caisse ',1);
+insert into compte_rubrique values ('CPTRUB0291','A5','53120','CAISSE CANTINE',1);
+insert into compte_rubrique values ('CPTRUB0292','A5','53130','CAISSE CSCS',1);
+insert into compte_rubrique values ('CPTRUB0293','A5','53140','CAISSE CEMEDI',1);
+insert into compte_rubrique values ('CPTRUB0294','A5','54101','Caisse : Régie d''avance',1);
+insert into compte_rubrique values ('CPTRUB0295','A5','54102','Banque : Régie d''avance',1);
+insert into compte_rubrique values ('CPTRUB0296','A5','58000','Mouvements de fonds',1);
+insert into compte_rubrique values ('CPTRUB0297','A5','58101','Apurement par Esp',1);
+insert into compte_rubrique values ('CPTRUB0298','A5','58102','Apurement par CHQ ou Traite (AC)',1);
+insert into compte_rubrique values ('CPTRUB0299','A5','58132','VRT CAISSE',1);
+insert into compte_rubrique values ('CPTRUB0300','A5','58201','Paiement groupé-Paie',1);
+insert into compte_rubrique values ('CPTRUB0301','A5','58202','Paiement groupé - Fournisseur',1);
+insert into compte_rubrique values ('CPTRUB0302','A5','58301','ATTENTE PIECES BMOI CEMEDI',1);
+insert into compte_rubrique values ('CPTRUB0303','C1','60111','Bois',1);
+insert into compte_rubrique values ('CPTRUB0304','C1','60112','Matériel BTP',1);
+insert into compte_rubrique values ('CPTRUB0305','C1','60113','Mat ouvrages métalliques',1);
+insert into compte_rubrique values ('CPTRUB0306','C1','60114','Quincailleries',1);
+insert into compte_rubrique values ('CPTRUB0307','C1','60211','Quincailleries',1);
+insert into compte_rubrique values ('CPTRUB0308','C1','60212','PDR Matériel Naval',1);
+insert into compte_rubrique values ('CPTRUB0309','C1','60213','PDR Matériels roulants',1);
+insert into compte_rubrique values ('CPTRUB0310','C1','60214','PDR drague',1);
+insert into compte_rubrique values ('CPTRUB0311','C1','60215','PDR autres materiels',1);
+insert into compte_rubrique values ('CPTRUB0312','C1','60221','Combustibles',1);
+insert into compte_rubrique values ('CPTRUB0313','C1','60222','Petits Outillages',1);
+insert into compte_rubrique values ('CPTRUB0314','C1','60223','Médicaments',1);
+insert into compte_rubrique values ('CPTRUB0315','C1','60224','Fournitures Médicales',1);
+insert into compte_rubrique values ('CPTRUB0316','C1','60225','Carburants',1);
+insert into compte_rubrique values ('CPTRUB0317','C1','60226','Lubrifiants',1);
+insert into compte_rubrique values ('CPTRUB0318','C1','60228','Autres matieres consommables',1);
+insert into compte_rubrique values ('CPTRUB0319','C1','60231','Fourniture de bureau',1);
+insert into compte_rubrique values ('CPTRUB0320','C1','60232','Fourniture informatique',1);
+insert into compte_rubrique values ('CPTRUB0321','C1','60233','Petits matériels de bureau',1);
+insert into compte_rubrique values ('CPTRUB0322','C1','60310','Variation stocks matières premières',1);
+insert into compte_rubrique values ('CPTRUB0323','C1','60320','Variation stocks autres approv.',1);
+insert into compte_rubrique values ('CPTRUB0324','C1','60330','Variation de stock médicament',1);
+insert into compte_rubrique values ('CPTRUB0325','C1','60370','Variation stocks marchandises',1);
+insert into compte_rubrique values ('CPTRUB0326','C1','60500','Achats Matériel, équipements, trav.',1);
+insert into compte_rubrique values ('CPTRUB0327','C1','60610','Eau, électricité ...',1);
+insert into compte_rubrique values ('CPTRUB0328','C1','60620','LOGICIELS INFORMATIQUES',1);
+insert into compte_rubrique values ('CPTRUB0329','C1','60650','Fournitures diverses',1);
+insert into compte_rubrique values ('CPTRUB0330','C1','60680','Autres matères et fournitures',1);
+insert into compte_rubrique values ('CPTRUB0331','C1','60701','Achat de denree',1);
+insert into compte_rubrique values ('CPTRUB0332','C1','60702','Achat de boissons',1);
+insert into compte_rubrique values ('CPTRUB0333','C1','60704','Autres Achats',1);
+insert into compte_rubrique values ('CPTRUB0334','C1','60900','R.R.R obtenus sur achats',1);
+insert into compte_rubrique values ('CPTRUB0335','C1','60960','R.R.R. Obtenus sur Achat Projet Ext',1);
+insert into compte_rubrique values ('CPTRUB0336','C2','61312','Logements de personnel',1);
+insert into compte_rubrique values ('CPTRUB0337','C2','61313','Matériels de manutentions',1);
+insert into compte_rubrique values ('CPTRUB0338','C2','61314','Outillages et autres matériels',1);
+insert into compte_rubrique values ('CPTRUB0339','C2','61315','Matériels de transports',1);
+insert into compte_rubrique values ('CPTRUB0340','C2','61318','Autres locations',1);
+insert into compte_rubrique values ('CPTRUB0341','C2','61510','Entretien et réparation immobilière',1);
+insert into compte_rubrique values ('CPTRUB0342','C2','61520','Entretien et réparation mat roulant',1);
+insert into compte_rubrique values ('CPTRUB0343','C2','61521','Diverses Confections',1);
+insert into compte_rubrique values ('CPTRUB0344','C2','61530','Entretien et réparation mat naval',1);
+insert into compte_rubrique values ('CPTRUB0345','C2','61531','Carennages',1);
+insert into compte_rubrique values ('CPTRUB0346','C2','61532','Maintenance DAMEN',1);
+insert into compte_rubrique values ('CPTRUB0347','C2','61580','Autres entretien et réparation',1);
+insert into compte_rubrique values ('CPTRUB0348','C2','61610','Assurance incendie',1);
+insert into compte_rubrique values ('CPTRUB0349','C2','61620','Assurance flotte automobile',1);
+insert into compte_rubrique values ('CPTRUB0350','C2','61630','Assurance maritime',1);
+insert into compte_rubrique values ('CPTRUB0351','C2','61680','Autres assurances',1);
+insert into compte_rubrique values ('CPTRUB0352','C2','61810','Documentation générale',1);
+insert into compte_rubrique values ('CPTRUB0353','C2','61811','Dépenses CEMEDI',1);
+insert into compte_rubrique values ('CPTRUB0354','C2','61812','Prestations diverses ',1);
+insert into compte_rubrique values ('CPTRUB0355','C2','61813','Dépenses diverses',1);
+insert into compte_rubrique values ('CPTRUB0356','C2','62110','Personnel exterieur',1);
+insert into compte_rubrique values ('CPTRUB0357','C2','62111','Frais médic personnel exterieur',1);
+insert into compte_rubrique values ('CPTRUB0358','C2','62130','Cad. Primes Fin d''année Agt/Loc sce',1);
+insert into compte_rubrique values ('CPTRUB0359','C2','62211','Frais de Louages de services',1);
+insert into compte_rubrique values ('CPTRUB0360','C2','62212','Frais d''acte et contentieux',1);
+insert into compte_rubrique values ('CPTRUB0361','C2','62213','Commission sur droit de port',1);
+insert into compte_rubrique values ('CPTRUB0362','C2','62300','Publicité, publications, relations',1);
+insert into compte_rubrique values ('CPTRUB0363','C2','62311','Annonces et insertions',1);
+insert into compte_rubrique values ('CPTRUB0364','C2','62312','Cadeau à la clientèle',1);
+insert into compte_rubrique values ('CPTRUB0365','C2','62411','Fret et transport sur achat',1);
+insert into compte_rubrique values ('CPTRUB0366','C2','62412','Frais sur achat JICA',1);
+insert into compte_rubrique values ('CPTRUB0367','C2','62511','Réceptions',1);
+insert into compte_rubrique values ('CPTRUB0368','C2','62512','Mission et Déplacement',1);
+insert into compte_rubrique values ('CPTRUB0369','C2','62513','Mission et Depl agt Ext',1);
+insert into compte_rubrique values ('CPTRUB0370','C2','62611','Affranchissement',1);
+insert into compte_rubrique values ('CPTRUB0371','C2','62612','Frais de télécom et internet',1);
+insert into compte_rubrique values ('CPTRUB0372','C2','62613','Autres frais postaux ',1);
+insert into compte_rubrique values ('CPTRUB0373','C2','62614','Hebergement site web',1);
+insert into compte_rubrique values ('CPTRUB0374','C2','62710','Frais bancaires et assimilés',1);
+insert into compte_rubrique values ('CPTRUB0375','C2','62760','Frais Banc. et Assim Projet',1);
+insert into compte_rubrique values ('CPTRUB0376','C2','62800','Divers autres services exterieurs ',1);
+insert into compte_rubrique values ('CPTRUB0377','C2','62810','Divers Travaux de nétoyages',1);
+insert into compte_rubrique values ('CPTRUB0378','C4','63120','Impôs fonciers et taxes annexes',1);
+insert into compte_rubrique values ('CPTRUB0379','C4','63140','Visite technique',1);
+insert into compte_rubrique values ('CPTRUB0380','C4','63160','Vignette auto et droit stationnemen',1);
+insert into compte_rubrique values ('CPTRUB0381','C4','63180','Droit et taxe d''importation',1);
+insert into compte_rubrique values ('CPTRUB0382','C4','63320','Impôt sur les indtes du CA',1);
+insert into compte_rubrique values ('CPTRUB0383','C4','63510','Autres impôts et taxes',1);
+insert into compte_rubrique values ('CPTRUB0384','C3','64111','Salaire et appointement',1);
+insert into compte_rubrique values ('CPTRUB0385','C3','64112','Heures supplémentaires',1);
+insert into compte_rubrique values ('CPTRUB0386','C3','64113','Primes et gratifications',1);
+insert into compte_rubrique values ('CPTRUB0387','C3','64114','Indemnités et avantage espèces dive',1);
+insert into compte_rubrique values ('CPTRUB0388','C3','64115','Charges connexes aux salaires',1);
+insert into compte_rubrique values ('CPTRUB0389','C3','64116','Sal de base CS',1);
+insert into compte_rubrique values ('CPTRUB0390','C3','64117','Indemnités CS',1);
+insert into compte_rubrique values ('CPTRUB0391','C3','64118','Primes et gratifications CS',1);
+insert into compte_rubrique values ('CPTRUB0392','C3','64120','Congés non pris Agt Payés',1);
+insert into compte_rubrique values ('CPTRUB0393','C3','64121','Congés non pris  CS Payés',1);
+insert into compte_rubrique values ('CPTRUB0394','C3','64123','Salaires Agt Temporaire',1);
+insert into compte_rubrique values ('CPTRUB0395','C3','64124','Heures suppl Agt Temporaire',1);
+insert into compte_rubrique values ('CPTRUB0396','C3','64125','Divers Primes Agt Temporaire',1);
+insert into compte_rubrique values ('CPTRUB0397','C3','64126','Divers Indemnités Agt Temporaire',1);
+insert into compte_rubrique values ('CPTRUB0398','C3','64130','Primes  fin d''année Agt perm/ temp',1);
+insert into compte_rubrique values ('CPTRUB0399','C3','64131','Ancien compte',1);
+insert into compte_rubrique values ('CPTRUB0400','C3','64140','PROV Prime de resultat (mars)',1);
+insert into compte_rubrique values ('CPTRUB0401','C3','64141','Primes de Récouvrement',1);
+insert into compte_rubrique values ('CPTRUB0402','C3','64142','INDTE DE NOURRITURE',1);
+insert into compte_rubrique values ('CPTRUB0403','C3','64143','INDEMNITE DE RETRAITE',1);
+insert into compte_rubrique values ('CPTRUB0404','C3','64144','STC des retraités',1);
+insert into compte_rubrique values ('CPTRUB0405','C3','64145','INDTE DE TENUE',1);
+insert into compte_rubrique values ('CPTRUB0406','C3','64148','Autres indemnités',1);
+insert into compte_rubrique values ('CPTRUB0407','C3','64510','Cotisation patronale CS',1);
+insert into compte_rubrique values ('CPTRUB0408','C3','64511','Cotisation patronale',1);
+insert into compte_rubrique values ('CPTRUB0409','C3','64711','Contribution aux événemnt familiaux',1);
+insert into compte_rubrique values ('CPTRUB0410','C3','64712','Formation du Personnel',1);
+insert into compte_rubrique values ('CPTRUB0411','C3','64810','Autres chages de personnel',1);
+insert into compte_rubrique values ('CPTRUB0412','C3','64812','Frais médicaux',1);
+insert into compte_rubrique values ('CPTRUB0413','C3','64813','FRAIS DE TRANSPORTS',1);
+insert into compte_rubrique values ('CPTRUB0414','C3','64814','Solde Fin carière',1);
+insert into compte_rubrique values ('CPTRUB0415','C3','64815','Congés payés Agt et PROV',1);
+insert into compte_rubrique values ('CPTRUB0416','C3','64816','Congés payés CS et PROV',1);
+insert into compte_rubrique values ('CPTRUB0417','C3','64817','Cadeaux fin d''année Agt Perm/tempor',1);
+insert into compte_rubrique values ('CPTRUB0418','C3','64818','Autres Indtés ',1);
+insert into compte_rubrique values ('CPTRUB0419','C3','64830','Autres charges du pers. - Retraite',1);
+insert into compte_rubrique values ('CPTRUB0420','C5','65211','MOINS VALUE SUR CESSION IMMO CORPO',1);
+insert into compte_rubrique values ('CPTRUB0421','C5','65320','Charges Administrateurs',1);
+insert into compte_rubrique values ('CPTRUB0422','C5','65410','Perte sur créances irrécouvrables',1);
+insert into compte_rubrique values ('CPTRUB0423','C5','65710','Pénalités et amandes',1);
+insert into compte_rubrique values ('CPTRUB0424','C5','65720','Surestaries',1);
+insert into compte_rubrique values ('CPTRUB0425','C5','65760','Surestaries Projet d''Extension',1);
+insert into compte_rubrique values ('CPTRUB0426','C5','65810','Charges de gestion courante ',1);
+insert into compte_rubrique values ('CPTRUB0427','C5','65812','Autres dépenses pour ministères',1);
+insert into compte_rubrique values ('CPTRUB0428','C5','65813','Autres Charge de gestion courante',1);
+insert into compte_rubrique values ('CPTRUB0429','C5','65860','Charge de gestion courante Projet E',1);
+insert into compte_rubrique values ('CPTRUB0430','C7','66112','Intérêts débiteurs',1);
+insert into compte_rubrique values ('CPTRUB0431','C7','66610','Perte de change',1);
+insert into compte_rubrique values ('CPTRUB0432','C7','66660','Perte de changes Projet',1);
+insert into compte_rubrique values ('CPTRUB0433','C9','67110','Opérations extraordinaires',1);
+insert into compte_rubrique values ('CPTRUB0434','C9','67521','Valeur Cpt Els Cédés immo corpo',1);
+insert into compte_rubrique values ('CPTRUB0435','C6','68111','Dot/amort. immob. coporelles',1);
+insert into compte_rubrique values ('CPTRUB0436','C6','68120','Prov pour renouv immob',1);
+insert into compte_rubrique values ('CPTRUB0437','C6','68130','Dot/prov sur régime de retraite',1);
+insert into compte_rubrique values ('CPTRUB0438','C6','68150','Dot/prov. risques  et  charges expl.',1);
+insert into compte_rubrique values ('CPTRUB0439','C6','68170','Dot/perte de val actifs circulants',1);
+insert into compte_rubrique values ('CPTRUB0440','C6','68174','Dot/Prov/Perte Val Immob Financière',1);
+insert into compte_rubrique values ('CPTRUB0441','C6','68660','Dot/prov. éléments financiers',1);
+insert into compte_rubrique values ('CPTRUB0442','C8','69511','IR (Impôt sur les Revenus)',1);
+insert into compte_rubrique values ('CPTRUB0443','X1','70600','CESSION EAU DOUCE',1);
+insert into compte_rubrique values ('CPTRUB0444','X1','70601','ENLEVEMENT ORDURES',1);
+insert into compte_rubrique values ('CPTRUB0445','X1','70602','STATIONNEMENT OU IMMOBILISATION',1);
+insert into compte_rubrique values ('CPTRUB0446','X1','70603','LOCATION REMORQUEURS',1);
+insert into compte_rubrique values ('CPTRUB0447','X1','70604','LOC VEDETTES DE SERVITUDES',1);
+insert into compte_rubrique values ('CPTRUB0448','X1','70605','PIQUAGES, PEINTURES, ...',1);
+insert into compte_rubrique values ('CPTRUB0449','X1','70606','PIQUET D''INCENDIE',1);
+insert into compte_rubrique values ('CPTRUB0450','X1','70610','AUTRES PRESTATION CONNEXE',1);
+insert into compte_rubrique values ('CPTRUB0451','X1','70611','OUVERTURE MAGASIN',1);
+insert into compte_rubrique values ('CPTRUB0452','X1','70630','REDEV D''EXPLOITATION',1);
+insert into compte_rubrique values ('CPTRUB0453','X1','70631','REDEVANCES LOCATIVES',1);
+insert into compte_rubrique values ('CPTRUB0454','X1','70632','REDEVANCES DOMANIALES',1);
+insert into compte_rubrique values ('CPTRUB0455','X1','70634','DROIT DE PORT/CONVENTION',1);
+insert into compte_rubrique values ('CPTRUB0456','X1','70640','REDEVANCE FIXE MICTSL',1);
+insert into compte_rubrique values ('CPTRUB0457','X1','70641','REDEVANCE VAR MICTSL',1);
+insert into compte_rubrique values ('CPTRUB0458','X1','70642','DROIT DE PORT MICTSL',1);
+insert into compte_rubrique values ('CPTRUB0459','X1','70651','CONSOMMATION EAU COURANTE',1);
+insert into compte_rubrique values ('CPTRUB0460','X1','70652','PERCEPTION ANNUL FACTURES -P.DIV',1);
+insert into compte_rubrique values ('CPTRUB0461','X1','70653','REDEVANCE SANITAIRE',1);
+insert into compte_rubrique values ('CPTRUB0462','X1','70660','PEAGE A L''EMBARQUEMENT',1);
+insert into compte_rubrique values ('CPTRUB0463','X1','70662','DROIT DE PORT/HYDRO DGB',1);
+insert into compte_rubrique values ('CPTRUB0464','X1','70670','DROIT DU PORT SUR MARCH ET PASSAGER',1);
+insert into compte_rubrique values ('CPTRUB0465','X1','70671','PEAGE M/SE DEBARQUEE (BORNAGE)',1);
+insert into compte_rubrique values ('CPTRUB0466','X1','70672','PEAGE M/SE EMBARQUEE (BORNAGE)',1);
+insert into compte_rubrique values ('CPTRUB0467','X1','70680','DROIT DE PORT',1);
+insert into compte_rubrique values ('CPTRUB0468','X1','70681','LAMANAGE',1);
+insert into compte_rubrique values ('CPTRUB0469','X1','70682','PILOTAGE',1);
+insert into compte_rubrique values ('CPTRUB0470','X1','70683','REMORQUAGE',1);
+insert into compte_rubrique values ('CPTRUB0471','X1','70684','STATIONNEMENT',1);
+insert into compte_rubrique values ('CPTRUB0472','X1','70685','VEILLE DE SECURITE',1);
+insert into compte_rubrique values ('CPTRUB0473','X1','70690','LABO : ANALYSE MED',1);
+insert into compte_rubrique values ('CPTRUB0474','X1','70691','CONSULTATION ET SOINS',1);
+insert into compte_rubrique values ('CPTRUB0475','X1','70692','STOMATO : DETR EXTR SOIN DENT',1);
+insert into compte_rubrique values ('CPTRUB0476','X1','70693','ECHO : ECHOGRAPHIE',1);
+insert into compte_rubrique values ('CPTRUB0477','X1','70694','ECG : ELECTROCARDIOGRAMME',1);
+insert into compte_rubrique values ('CPTRUB0478','X1','70695','EXAMEN ECHO',1);
+insert into compte_rubrique values ('CPTRUB0479','X1','70697','RADIOGRAPHIE',1);
+insert into compte_rubrique values ('CPTRUB0480','X1','70701','Vente de denrées',1);
+insert into compte_rubrique values ('CPTRUB0481','X1','70702','Vente de boisson',1);
+insert into compte_rubrique values ('CPTRUB0482','X1','70704','Divers locations',1);
+insert into compte_rubrique values ('CPTRUB0483','X1','70900','R.R.R.accordés sur vente',1);
+insert into compte_rubrique values ('CPTRUB0484','X1','70912','Avoir externe',1);
+insert into compte_rubrique values ('CPTRUB0485','X2','75211','Plus-val/cess d''actifs non courants',1);
+insert into compte_rubrique values ('CPTRUB0486','X2','75810','Prod access : reten médicale CS',1);
+insert into compte_rubrique values ('CPTRUB0487','X2','75811','Pdts access. (ret médicale Agents)',1);
+insert into compte_rubrique values ('CPTRUB0488','X2','75812','Autres produits de gestion courante',1);
+insert into compte_rubrique values ('CPTRUB0489','X2','75813','CESSION  IMMOB',1);
+insert into compte_rubrique values ('CPTRUB0490','X2','75814','Prdts access:Accident et infraction',1);
+insert into compte_rubrique values ('CPTRUB0491','X2','75840','Reprise prov congés non pris',1);
+insert into compte_rubrique values ('CPTRUB0492','X2','75860','Produit de Gestion Courante Projet',1);
+insert into compte_rubrique values ('CPTRUB0493','X4','76411','Intérêts sur dépôt à terme',1);
+insert into compte_rubrique values ('CPTRUB0494','X4','76412','Intérêts sur bon de trésor',1);
+insert into compte_rubrique values ('CPTRUB0495','X4','76413','INTERET CREDITEUR C/C',1);
+insert into compte_rubrique values ('CPTRUB0496','X4','76415','Intérêt sur Titre PTP',1);
+insert into compte_rubrique values ('CPTRUB0497','X4','76610','Gain de change',1);
+insert into compte_rubrique values ('CPTRUB0498','X4','76660','Gains de changes Projet',1);
+insert into compte_rubrique values ('CPTRUB0499','X3','78150','Rep/prov. rsiques  et  charges exploit',1);
+insert into compte_rubrique values ('CPTRUB0500','X3','78170','Rep/prov. dépréciation actifs circ',1);
+insert into compte_rubrique values ('CPTRUB0501','X3','78660','Repr/prov. éléments financiers',1);
+
+create or replace view comptabilan as
+  select
+    rub.id, rub.libelle as rubrique, rub.reference, rub.etat,
+    cptrub.compte as cpt_rubrique, cptrub.libelle as libelle_cpt_rubrique,
+    case
+      when ecr."EC_Sens" = 0 then 'Debit'
+      else 'Credit'
+    end as type,
+    ecr."EC_Montant" as ec_montant,
+    ecr."EC_Date" as ec_date
+  from rubrique rub
+    join compte_rubrique cptrub on cptrub.reference = rub.reference
+    join spat_compta.f_ecriturec ecr on ecr."CG_Num" = cptrub.compte;
+    
+create or replace view comptabilanactif as
+  select * from comptabilan where reference like 'A%';
+    
+create or replace view comptabilanpassif as
+  select * from comptabilan where reference like 'P%';
+
+create or replace view comptabilanproduit as
+  select * from comptabilan where reference like 'X%';
+  
+create or replace view comptabilancharge as
+  select * from comptabilan where reference like 'C%';
+  

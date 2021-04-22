@@ -1,0 +1,30 @@
+create or replace view AS_BONDECOMMANDE_LIBELLE_TIERS
+            (ID, DATY, ETAT, REMARQUE, DESIGNATION, MODEPAIEMENT, FOURNISSEUR, TVA, NOMFOURNISSEUR, NUMBC, MONTANT,
+             MONTANTTVA, MONTANTTTC, IDFACTURE, MONTANT_A_PAYER, MONTANT_PAYE_REEL, RESTEPAYERGENERAL, RESTEAPAYERREEL,
+             CODE_ETAB, PROJET, ETATLIB)
+AS
+select distinct op.ID,
+       DATY,
+       op.ETAT,
+       REMARQUE,
+       DESIGNATION,
+       MODEPAIEMENT,
+        FOURNISSEUR,
+       TVA,
+       FOURNISSEUR,
+       NUMBC,
+       cast(MONTANT as number(10,2)) as MONTANT,
+       cast(MONTANTTVA as number(10,2)) as MONTANTTVA,
+       cast(MONTANTTTC as number(10,2)) as MONTANTTTC,
+       IDFACTURE,
+       cast(MONTANT_A_PAYER as number(10,2)) as MONTANTTTC,
+       cast(MONTANT_PAYE_REEL as number(10,2)) as MONTANT_PAYE_REEL,
+       cast(RESTEPAYERGENERAL as number(10,2)) as RESTEPAYERGENERAL,
+       cast(RESTEAPAYERREEL as number(10,2)) as RESTEAPAYERREEL,
+       CODE_ETAB,
+        PROJET,
+       ETATLIB
+from AS_BONDECOMMANDE_LIBELLE_LIB op
+        join tiers ti on ti.NOM=op.FOURNISSEUR
+
+/

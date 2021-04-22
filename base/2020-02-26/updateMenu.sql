@@ -1,0 +1,3 @@
+INSERT INTO menudynamique (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE) VALUES ('MEN00000120', 'Repport','fa fa-check-square', '#', '5', '5','MEN0031');
+INSERT INTO menudynamique (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE) VALUES ('MEN00000121', 'Liste','fa fa-list', '/spat/pages/globalnegoce.jsp?but=treso/report-liste.jsp', '1', '6','MEN00000120');
+INSERT INTO menudynamique (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE) VALUES ('MEN00000122', 'Saisie','fa fa-plus', '/spat/pages/globalnegoce.jsp?but=treso/report-saisie.jsp', '2', '6','MEN00000120');

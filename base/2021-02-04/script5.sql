@@ -1,0 +1,30 @@
+CREATE OR REPLACE FORCE VIEW ANALYSEGLOBALEFACTURE_ANALYSE
+AS
+     SELECT nmfact,
+            daty,
+            categorie_facture,
+            sous_categorie_facture,
+            client,
+            categorie_client,
+            designation,
+            cast(SUM (mttc) AS NUMBER (25, 2)) AS mttc,
+            CAST (SUM (mtht) AS NUMBER (25, 2)) AS mtht,
+            CAST (SUM (taxe) AS NUMBER (25, 2)) AS taxe,
+            devfact,
+            CAST (SUM (mtdevise) AS NUMBER (25, 2)) AS mtdevise,
+            CAST (SUM (mtavoir) AS NUMBER (25, 2)) AS mtavoir,
+            CAST (SUM (paye) AS NUMBER (25, 2)) AS paye,
+            CAST (SUM (reste) AS NUMBER (25, 2)) AS reste,
+            numcompte,
+            valcat
+       FROM analyseglobalefacture
+   GROUP BY nmfact,
+            daty,
+            categorie_facture,
+            sous_categorie_facture,
+            client,
+            categorie_client,
+            designation,
+            devfact,
+            numcompte,
+            valcat;

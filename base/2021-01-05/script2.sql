@@ -1,0 +1,57 @@
+CREATE OR REPLACE FORCE VIEW ADDITIFLIB AS 
+  SELECT
+	ad.ID,
+	ad.DATY,
+	ad.IDFACTURE,
+	ff.DESIGNATION,
+	ad.MONTANT,
+	ad.TYPE,
+CASE
+		WHEN ad.TYPE = '1' THEN 'HT'
+		WHEN ad.TYPE = '2' THEN 'TTC'
+	END AS TYPEAVOIR_desce,
+	ad.ETAT,
+	ad.TVA 
+FROM
+	additif ad
+LEFT JOIN FACTUREFOURNISSEUR ff ON
+	ff.id = ad.IDFACTURE
+;
+
+CREATE OR REPLACE
+FORCE VIEW AVOIR_LIB AS
+SELECT
+	av.id,
+	av.daty,
+	fc.DESIGNATION AS idfacture,
+	AV.montant,
+CASE
+		WHEN AV.TYPE = '1' THEN 'HT'
+		WHEN AV.TYPE = '2' THEN 'TTC'
+	END AS TYPE ,
+	AV.etat,
+	AV.TVA
+FROM
+	avoir av
+LEFT JOIN FACTUREFOURNISSEUR fc ON
+	fc.id = av.idfacture;
+	
+CREATE OR REPLACE
+FORCE VIEW AVOIR_LIB_VAL AS
+SELECT
+	av."ID",
+	av."DATY",
+	av."IDFACTURE",
+	av."MONTANT",
+	av."TYPE",
+	av."ETAT",
+	fc.DESIGNATION ,
+CASE
+		WHEN AV.TYPE = '1' THEN 'HT'
+		WHEN AV.TYPE = '2' THEN 'TTC'
+	END AS TYPEAVOIR_desce,
+	av.tva
+FROM
+	avoir av
+LEFT JOIN FACTUREFOURNISSEUR fc ON
+	fc.id = av.idfacture ;

@@ -1,0 +1,12 @@
+
+   CREATE SEQUENCE  seqDirection  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 43 CACHE 20 NOORDER  NOCYCLE ;
+ 
+
+
+	create or replace FUNCTION getSeqDirection
+	  RETURN NUMBER IS
+	  retour NUMBER;
+	BEGIN
+	  SELECT seqDirection.nextval INTO retour FROM dual;
+	  return retour;
+	END;

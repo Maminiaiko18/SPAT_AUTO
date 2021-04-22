@@ -1,0 +1,79 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package mg.spat;
+
+import bean.ClassEtat;
+import java.sql.Connection;
+import java.sql.Date;
+import service.BilletageService;
+import service.ClotureService;
+
+/**
+ *
+ * @author john
+ */
+public class Billetage extends ClassEtat{
+    private String id, caisse;
+    private Date daty;
+    private double montant;
+    
+    public Billetage() {
+        super.setNomTable("billetage");
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCaisse() {
+        return caisse;
+    }
+
+    public void setCaisse(String caisse) {
+        this.caisse = caisse;
+    }
+
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+    public void controler(Connection c) throws Exception{
+        try{
+            BilletageService.testDateCloture(this.daty, this.caisse, c);
+        }catch(Exception e){
+            throw e;
+        }
+    }
+    
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("BLT", "getseqbilletage");
+        this.setId(makePK(c));
+    }
+    
+    @Override
+    public String getTuppleID() {
+        return id;
+    }
+
+    @Override
+    public String getAttributIDName() {
+        return "id";
+    }
+}

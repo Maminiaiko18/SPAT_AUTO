@@ -1,0 +1,1 @@
+insert into MENUDYNAMIQUE values ('MENU003', 'Capitaine', 'fa fa-list', '/spat/pages/globalnegoce.jsp?but=configuration/idvaldesce.jsp&ciblename=pilote', 8, 4, 'MEN0046');

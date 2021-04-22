@@ -1,0 +1,67 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package mg.spat;
+
+/**
+ *
+ * @author nyamp
+ */
+public class JournalCaisseLibComplet extends JournalCaisse{
+    private String tierslib,idcaisse,valcaisse, descecaisse, valtypecheque,descetypecheque;
+    
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
+    
+    public JournalCaisseLibComplet(){
+        this.setNomTable("JOURNALCAISSELIBCOMPLET");
+    }
+
+    public String getIdcaisse() {
+        return idcaisse;
+    }
+
+    public void setIdcaisse(String idcaisse) {
+        this.idcaisse = idcaisse;
+    }
+
+    public String getValcaisse() {
+        return valcaisse;
+    }
+
+    public void setValcaisse(String valcaisse) {
+        this.valcaisse = valcaisse;
+    }
+
+    public String getDescecaisse() {
+        return descecaisse;
+    }
+
+    public void setDescecaisse(String descecaisse) {
+        this.descecaisse = descecaisse;
+    }
+
+    public String getValtypecheque() {
+        return valtypecheque;
+    }
+
+    public void setValtypecheque(String valtypecheque) {
+        this.valtypecheque = valtypecheque;
+    }
+
+    public String getDescetypecheque() {
+        return descetypecheque;
+    }
+
+    public void setDescetypecheque(String descetypecheque) {
+        this.descetypecheque = descetypecheque;
+    }
+    
+}

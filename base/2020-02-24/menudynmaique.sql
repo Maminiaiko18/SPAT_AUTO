@@ -1,0 +1,1 @@
+insert into menudynamique values ('MEN00236','Marque','fa fa-list','/spat/pages/globalnegoce.jsp?but=configuration/idvaldesce.jsp'||'&'||'ciblename=Marque_Materiel'||'&'||'value=Marque_Materiel','9','2','MENP007');

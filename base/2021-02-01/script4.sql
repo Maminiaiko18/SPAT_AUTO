@@ -1,0 +1,1 @@
+delete from menudynamique where id='MEN0052';

@@ -1,0 +1,212 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package mg.spat.placement;
+
+import bean.CGenUtil;
+import bean.ClassEtat;
+import java.sql.Connection;
+import java.sql.Date;
+import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
+
+/**
+ *
+ * @author Antsa
+ */
+public class Placement extends ClassEtat {
+    
+    private String id;
+    private String entite;
+    private String numero;
+    private String iddevise;
+    private Date date_placement;
+    private Date date_echeance;
+    private double duree;
+    private double montant;
+    private double taux;
+    private double montantdevise;
+    private String banque;
+
+    public Placement() {
+         super.setNomTable("placement");
+    }
+
+    public String getIddevise() {
+        return iddevise;
+    }
+
+    public void setIddevise(String iddevise) {
+        this.iddevise = iddevise;
+    }
+
+    public double getMontantdevise() {
+        return montantdevise;
+    }
+
+    public void setMontantdevise(double montantdevise) {
+        this.montantdevise = montantdevise;
+    }
+
+    
+    
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEntite() {
+        return entite;
+    }
+
+    public void setEntite(String entite) {
+        this.entite = entite;
+    }
+
+    public Date getDate_placement() {
+        return date_placement;
+    }
+
+    public void setDate_placement(Date date_placement) {
+        this.date_placement = date_placement;
+    }
+
+    public Date getDate_echeance() {
+        return date_echeance;
+    }
+
+    public void setDate_echeance(Date date_echeance) throws Exception{
+        if(this.getMode().compareTo("modif")==0){
+            if(date_echeance == null) throw new Exception("Date échéance obligatoire");
+            if(this.getDate_placement()!=null && Utilitaire.compareDaty(date_echeance, this.getDate_placement())!=1)
+                throw new Exception("La date d échéance doit être supérieure à la date de placement");
+        }
+        this.date_echeance = date_echeance;  
+    }
+
+    public double getDuree() {
+        return duree;
+    }
+
+    public void setDuree(double duree) {
+        this.duree = duree;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) throws Exception {
+        if(montant < 0){
+            throw new Exception("montant negatif");
+        }
+        this.montant = montant;
+        
+    }
+
+    public double getTaux() {
+        return taux;
+    }
+
+    public void setTaux(double taux)  throws Exception {
+         if(taux < 0 || taux >100){
+            throw new Exception("montant negatif");
+        }
+        this.taux = taux;
+    }
+    @Override
+     public void controlerUpdate(Connection c) throws Exception {
+         try{
+            this.setDuree(Utilitaire.diffMoisDaty(this.getDate_echeance(), this.getDate_placement()));
+         }
+         catch(Exception ex){
+             throw ex;
+         }
+    } 
+     
+    @Override
+    public void controler(Connection c) throws Exception{
+        this.setDuree(Utilitaire.diffMoisDaty(this.getDate_echeance(), this.getDate_placement()));
+    }
+
+    @Override
+    public String getTuppleID() {
+      return this.id;
+    }
+ @Override
+    public String getAttributIDName() {
+        return "id";
+    }
+    
+    public void construirePK(Connection c) throws Exception {
+         this.preparePk("PLC", "getseqplacement");
+        this.setId(makePK(c));
+        
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getBanque() {
+        return banque;
+    }
+
+    public void setBanque(String banque) {
+        this.banque = banque;
+    }
+    
+    public void controlerEntite(Connection c) throws Exception{
+        int verif = 0;
+        try{
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+                c.setAutoCommit(false);
+            }
+            Liaisonplacement lpla = new Liaisonplacement();
+            lpla.setIdentite(this.getEntite());
+            if(!this.getBanque().equals("BANQ000000")){
+                lpla.setIdbanque(this.getBanque());
+                Liaisonplacement[] liste=(Liaisonplacement[]) CGenUtil.rechercher(lpla, null, null, c, " ");
+                if(liste.length == 0)
+                     throw new Exception("Cette entite n est pas liee a une banque.");
+            }
+            if(verif == 1) c.commit();
+        }catch(Exception e){
+            if(verif == 1 && c != null) c.rollback();
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    public DetailsPlacements getDetailsPlacement(Connection c) throws Exception{
+        DetailsPlacements dp = new DetailsPlacements();
+        DetailsPlacements temp = new DetailsPlacements(); temp.setIdmere(this.getId());
+        DetailsPlacements[] dps = (DetailsPlacements[]) CGenUtil.rechercher(temp, null, null, c, "");
+        if(dps != null && dps.length >0){
+            dp = dps[0];
+        }
+        return dp;
+    }
+    public Placement getPlacement(Connection c) throws Exception{
+        Placement dp = new Placement();
+        Placement temp = new Placement(); temp.setId(this.getId());
+        Placement[] dps = (Placement[]) CGenUtil.rechercher(temp, null, null, c, "");
+        if(dps != null && dps.length >0){
+            dp = dps[0];
+        }
+        return dp;
+    }
+}

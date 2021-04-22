@@ -1,0 +1,78 @@
+<%-- 
+    Document   : details-bc
+    Created on : 14 déc. 2020, 10:13:13
+    Author     : ASUS
+--%>
+
+<%@page import="bean.CGenUtil"%>
+<%@page import="utilitaire.Utilitaire"%>
+<%@page import="mg.spat.stock.BonDeCommandeFille"%>
+<%@page import="data.DetailsBcData"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    DetailsBcData data=new DetailsBcData(request.getParameter("id"));                                 
+    data.setBC("AS_BONDECOMMANDE_LIBELLE_lib","BC_BL_LIVRE");
+    BonDeCommandeFille[] liste = data.getBcFille();
+    double total = data.getBc().getMontantTTC();
+    double tva=data.getBc().getMontanttva();
+%>
+                <div class="box-title with-border">
+                    <h1 class="box-title">D&eacute;tails bon de commande</h1>
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Quantit&eacute; command&eacute;e</th>
+                                <th>Quantit&eacute; livr&eacute;e</th>
+                                <th>Reste à livrer</th>
+                                <th>Unit&eacute;</th>
+                                <th>P.U</th>
+                                <th>Montant</th>
+                                <th>TVA</th>
+                                <th>Montant BL</th>
+                                <th>Montant BL reste</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <%   
+                                    
+                                for (int i = 0; i < liste.length; i++) {
+                                    double montant = liste[i].getQuantite() * liste[i].getPu();
+                            %>
+                            <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
+                                <td  align="center"><%=liste[i].getProduit()%> </td>
+                                <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantite())%></td>
+                                <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantitelivre())%></td>
+                                <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantitereste())%></td>
+                                <td  align="center"><%=liste[i].getUnite()%></td>
+                                <td  align="right"><%=Utilitaire.formaterAr(liste[i].getPu())%></td>
+                                <td  align="right"><%=Utilitaire.formaterAr(montant)%></td>
+                                <td  align="right"><%=Utilitaire.formaterAr(liste[i].getTva())%></td>
+                                <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantbl())%></td>
+                                <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantblreste())%></td>
+                            </tr>
+                            <%
+                                     
+                                }
+
+                               
+                            %>
+                            <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
+                                <td  colspan="5" rowspan="3"></td>
+                                <th  align="right">Montant HT</th>
+                                <td  align="right"><%=Utilitaire.formaterAr(data.getBc().getMontant())%></td>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
+                                <th  align="right">Montant TVA</th>
+                                <td  align="right"><%=Utilitaire.formaterAr(tva)%></td>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
+                                <th  align="right">Montant TTC</th>
+                                <td  align="right"><%=Utilitaire.formaterAr(total)%></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>

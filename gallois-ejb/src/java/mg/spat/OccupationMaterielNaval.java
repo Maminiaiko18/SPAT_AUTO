@@ -1,0 +1,432 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package mg.spat;
+
+import bean.AdminGen;
+import bean.CGenUtil;
+import bean.ClassEtat;
+import bean.ClassMAPTable;
+import factureclient.FactureClient;
+import factureclient.FactureClientDetail;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.concurrent.TimeUnit;
+import rubrique.RubriqueFactureFournisseur;
+import rubrique.TarifRubriqueFactureClient;
+import service.PrevisionService;
+import user.UserEJB;
+import utilitaire.ConstanteEtat;
+import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
+
+/**
+ *
+ * @author Asus
+ */
+public class OccupationMaterielNaval extends ClassEtat {
+
+    private String id, idmateriel_naval, idpilote, idcommandant, idnatureoperation, idmanoeuvrebord,
+            idnavire,/*idclient,*/ position, positionlib, observation, idarrivee, idarriveelib;
+    private Date daty;
+    private String heuredebut;
+    private Date datefin;
+    private String heurefin;
+    private double duree;
+    private String etatlib;
+    private String idprevision, escale;
+
+    public OccupationMaterielNaval() {
+        super.setNomTable("occupationmaterielnaval");
+    }
+
+    public TarifRubriqueFactureClient[] getTarifRubrique(Connection c) throws Exception {
+        int verif = 0;
+        TarifRubriqueFactureClient[] tarifs = new TarifRubriqueFactureClient[0];
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+
+            tarifs = (TarifRubriqueFactureClient[]) CGenUtil.rechercher(new TarifRubriqueFactureClient(), null, null, c, " and idnature = '" + this.getIdnatureoperation() + "' and etat >= " + ConstanteEtat.getEtatValider() + " order by borne_inf, borne_sup");
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return tarifs;
+    }
+
+    public OccupationMaterielNavalLibComplet[] getOccupations(String[] ids, Connection c) throws Exception {
+        int verif = 0;
+        OccupationMaterielNavalLibComplet[] occupations = new OccupationMaterielNavalLibComplet[0];
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+
+            String awhere = " and id in (" + Utilitaire.tabToString(ids, "'", ",") + ")";
+            occupations = (OccupationMaterielNavalLibComplet[]) CGenUtil.rechercher(new OccupationMaterielNavalLibComplet(), null, null, c, awhere);
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return occupations;
+    }
+
+    public double calculMontant(OccupationMaterielNavalLibComplet occup, Connection c) throws Exception {
+        TarifRubriqueFactureClient[] tarifs = occup.getTarifRubrique(c);
+
+        double duree = occup.getDuree();
+        double montant = 0;
+
+        for (int i = 0; i < tarifs.length; i++) {
+            if (tarifs[i].getBorne_inf() <= occup.getDuree()) {
+                double unite = tarifs[i].getUnite(), pu = tarifs[i].getPrixunitaire();
+                double ecart = (tarifs[i].getBorne_sup() - tarifs[i].getBorne_inf());
+                
+                if (unite > 0) {
+                    double d = duree >= ecart ? ecart : duree;
+                    montant += d / unite * pu;
+                } else {
+                    montant += pu;
+                }
+                
+                duree -= ecart;
+                occup.setObservation(tarifs[i].getCompte());
+            }
+        }
+
+        return montant;
+    }
+
+    private void creerFactureFille(UserEJB u, String idmere, OccupationMaterielNavalLibComplet[] details, Connection c) throws Exception {
+        for (OccupationMaterielNavalLibComplet occup : details) {
+            if(occup.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Occupation " + occup.getId() + " non visée");
+            FactureClientDetail fille = new FactureClientDetail();
+            fille.setIdfacture(idmere);
+            fille.setMedicament(occup.getIdnatureoperation());
+            fille.setIdacte(occup.getId());
+            fille.setDesignation(occup.getValnatureoperation());
+            fille.setQuantite(occup.getDuree());
+
+            double montant = calculMontant(occup, c);
+
+            fille.setComptecredit(occup.getObservation());
+            fille.setMontant(montant / fille.getQuantite());
+            fille.setMontantt(montant);
+
+            u.createObject(fille, c);
+        }
+    }
+
+    private void controlFacturation(String[] ids, Connection c) throws Exception {
+        OccupationMaterielNaval occup = new OccupationMaterielNaval();
+        occup.setNomTable("OCCUPATION_FACTURE_VALIDE");
+
+        String awhere = " and id in (" + Utilitaire.tabToString(ids, "'", ",") + ")";
+
+        OccupationMaterielNaval[] details = (OccupationMaterielNaval[]) CGenUtil.rechercher(occup, null, null, c, awhere);
+
+        if (details != null && details.length > 0) {
+            throw new Exception("Déjà facturé");
+        }
+    }
+
+    public String facturerMultiple(UserEJB u, String[] ids, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            if (ids.length == 0) {
+                throw new Exception("Vous devez cocher!");
+            }
+
+            controlFacturation(ids, c);
+            OccupationMaterielNavalLibComplet[] details = getOccupations(ids, c);
+
+            FactureClient mere = new FactureClient();
+            mere.setDesignation("Facturation Occupation Materiel Naval");
+            mere.setDaty(Utilitaire.dateDuJourSql());
+            u.createObject(mere, c);
+
+            if (details != null && details.length > 0) {
+                creerFactureFille(u, mere.getId(), details, c);
+            }
+
+            if (verif == 1) {
+                c.commit();
+            }
+
+            return mere.getId();
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
+    public String getPositionlib() {
+        return positionlib;
+    }
+
+    /*
+    public String getIdclient() {
+    return idclient;
+    }
+    public void setIdclient(String idclient) {
+    this.idclient = idclient;
+    }*/
+    public void setPositionlib(String positionlib) {
+        this.positionlib = positionlib;
+    }
+
+    public String getIdarriveelib() {
+        return idarriveelib;
+    }
+
+    public void setIdarriveelib(String idarriveelib) {
+        this.idarriveelib = idarriveelib;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIdmateriel_naval() {
+        return idmateriel_naval;
+    }
+
+    public void setIdmateriel_naval(String idmateriel_naval) {
+        this.idmateriel_naval = idmateriel_naval;
+    }
+
+    public String getIdpilote() {
+        return idpilote;
+    }
+
+    public void setIdpilote(String idpilote) {
+        this.idpilote = idpilote;
+    }
+
+    public String getIdcommandant() {
+        return idcommandant;
+    }
+
+    public void setIdcommandant(String idcommandant) {
+        this.idcommandant = idcommandant;
+    }
+
+    public String getIdnatureoperation() {
+        return idnatureoperation;
+    }
+
+    public void setIdnatureoperation(String idnatureoperation) {
+        this.idnatureoperation = idnatureoperation;
+    }
+
+    public String getIdmanoeuvrebord() {
+        return idmanoeuvrebord;
+    }
+
+    public void setIdmanoeuvrebord(String idmanoeuvrebord) {
+        this.idmanoeuvrebord = idmanoeuvrebord;
+    }
+
+    public String getHeuredebut() {
+        return heuredebut;
+    }
+
+    public void setHeuredebut(String heuredebut) throws Exception {
+        if (getMode().compareToIgnoreCase("modif") == 0) {
+            if (heuredebut != null && heuredebut.compareTo("") != 0) {
+                if (heuredebut.split(":").length < 3) {
+                    heuredebut += ":00";
+                }
+                Utilitaire.testHeureValide(heuredebut);
+            }
+        }
+        this.heuredebut = heuredebut;
+    }
+
+    public String getHeurefin() {
+        return heurefin;
+    }
+
+    public void setHeurefin(String hf) throws Exception {
+        if (getMode().compareToIgnoreCase("modif") == 0) {
+            System.out.println("hf " + hf);
+            if (hf != null && hf.compareTo("") != 0) {
+                if (hf.split(":").length < 3) {
+                    hf += ":00";
+                }
+                Utilitaire.testHeureValide(hf);
+
+                if (getDaty() != null && getDatefin() != null && Utilitaire.compareDaty(getDaty(), getDatefin()) == 0) {
+                    if (getHeuredebut() != null && Utilitaire.comparerHeure(this.getHeuredebut(), hf) == -1) {
+                        throw new Exception("Heure de fin invalide par rapport à l heure de debut");
+                    }
+                }
+            }
+        }
+        this.heurefin = hf;
+    }
+
+    public String getIdnavire() {
+        return idnavire;
+    }
+
+    public void setIdnavire(String idnavire) {
+        this.idnavire = idnavire;
+    }
+
+    /*public String getIdclient() {
+        return idclient;
+    }
+
+    public void setIdclient(String idclient) {
+        this.idclient = idclient;
+    }*/
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
+
+    public double getDuree() {
+        return duree;
+    }
+
+    public void setDuree(double duree) {
+        this.duree = duree;
+    }
+
+    private void setDureeFromDate() throws Exception {
+        if (this.getDaty() != null && this.getDatefin() != null) {
+            Timestamp hdebut = Utilitaire.convertStringToTimestampHour(this.getHeuredebut(), ":");
+            hdebut.setTime(this.getDaty().getTime() + hdebut.getTime());
+            Timestamp hfin = Utilitaire.convertStringToTimestampHour(this.getHeurefin(), ":");
+            hfin.setTime(this.getDatefin().getTime() + hfin.getTime());
+
+            long diffEnMillies = hfin.getTime() - hdebut.getTime();
+            duree = TimeUnit.MINUTES.convert(diffEnMillies, TimeUnit.MILLISECONDS);
+        }
+    }
+
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        setDureeFromDate();
+    }
+
+    public void controler(Connection c) throws Exception {
+        try {
+            setDureeFromDate();
+            //PrevisionService.testerOccupationMaterielNaval(this,c);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public String getTuppleID() {
+        return this.id;
+    }
+
+    @Override
+    public String getAttributIDName() {
+        return "id";
+    }
+
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("OMN", "getseqoccupationMaterielNaval");
+        this.setId(makePK(c));
+
+    }
+
+    public String getIdarrivee() {
+        return idarrivee;
+    }
+
+    public void setIdarrivee(String idarrivee) {
+        this.idarrivee = idarrivee;
+    }
+
+    public Date getDatefin() {
+        return datefin;
+    }
+
+    public void setDatefin(Date datefin) throws Exception {
+        this.datefin = datefin;
+    }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
+    }
+
+    public String getIdprevision() {
+        return idprevision;
+    }
+
+    public void setIdprevision(String idprevision) {
+        this.idprevision = idprevision;
+    }
+
+    public String getEscale() {
+        return escale;
+    }
+
+    public void setEscale(String escale) {
+        this.escale = escale;
+    }
+    
+}

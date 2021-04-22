@@ -1,0 +1,1 @@
+update menudynamique set href = '/spat/pages/globalnegoce.jsp?but=treso/analyse-recap-treso.jsp' where id = 'MEN0021';

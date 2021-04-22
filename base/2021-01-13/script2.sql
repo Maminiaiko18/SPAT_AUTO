@@ -1,0 +1,1 @@
+ALTER TABLE journalcaisse ADD idplacement VARCHAR2(100) constraint fk_placement_journal references PLACEMENT;

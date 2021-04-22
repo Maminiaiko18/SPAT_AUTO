@@ -1,0 +1,42 @@
+
+<%@page import="mg.spat.StatistiqueSMMC"%>
+<%@ page import="user.*" %>
+<%@ page import="bean.*" %>
+<%@ page import="utilitaire.*" %>
+<%@ page import="affichage.*" %>
+<%
+    try{
+        
+    String idClient=request.getParameter("idClient");
+    String lien=(String)session.getValue("lien");
+    if(idClient==null || idClient.compareTo("")==0){ %>
+        <script language="JavaScript"> document.location.replace("<%=lien%>?but=capitainerie/statistique-activite/choix-client-normal.jsp");</script> 
+    <%}
+        
+    String autreparsley = "data-parsley-range='[8, 40]' required";
+    StatistiqueSMMC pj = new StatistiqueSMMC();
+    PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
+      
+    pi.getFormu().getChamp("daty").setLibelle("Date");
+    pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour()); 
+    
+    pi.setLien((String) session.getValue("lien"));
+    pi.preparerDataFormu();
+    
+%>
+<div class="content-wrapper">
+    <h1>Saisie d'une statistique pour SMMC</h1>
+    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
+        <%
+            pi.getFormu().makeHtmlInsertTabIndex();
+            out.println(pi.getFormu().getHtmlInsert());
+        %>
+    <input name="idClient" type="hidden" id="idClient" value="<%=idClient%>">
+    <input name="acte" type="hidden" id="nature" value="insertStatistiqueSMMC">
+    <input name="bute" type="hidden" id="bute" value="capitainerie/statistique-activite/statistique-activite-liste.jsp">
+    <input name="classe" type="hidden" id="classe" value="mg.spat.StatistiqueSMMC">
+    </form>
+</div>
+<%}catch(Exception e){
+    e.printStackTrace();
+}%>

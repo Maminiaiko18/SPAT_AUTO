@@ -1,0 +1,342 @@
+
+create or replace view LIAISONINTRATABLE_OP_tous as
+select lt."ID",
+       lt."ID1",
+       lt."ID2",
+       lt."MONTANT",
+       op.DED_ID,
+       op.MONTANT AS MONTANTOP,
+       op.etat,
+       ff.NUMFACT
+from LIAISONINTRATABLE lt
+         join ordonnerpayement op on op.id = lt.ID2
+         left join FACTUREFOURNISSEUR ff on ff.id = lt.id1
+/
+
+create view concat_numfact_ff as
+select
+       listagg(id1,';') within group (order by id1 ) as ded_id,
+       op.ID2,
+       op.etat,
+       listagg(NUMFACT,';')within group (order by id1 ) as numfact
+
+from LIAISONINTRATABLE_OP_tous op
+        group by '-',  op.ID2, op.DED_ID,  op.etat;
+
+CREATE OR REPLACE VIEW ORDONNERPAYEMENT_LIB
+            (ID, DED_ID, IDLIGNE, DESTINATION, DATY, MONTANT, REMARQUE, ETAT, NUMEROOP, MODEPAIEMENT, TIERS, ADRESSE ,NUMFACT) AS
+select op.ID,
+       op1.DED_ID,
+       IDLIGNE,
+       DESTINATION,
+       DATY,
+       MONTANT,
+       REMARQUE,
+       op.ETAT,
+       NUMEROOP,
+       mp.VAL  as MODEPAIEMENT,
+       fup.NOM as TIERS,
+       fup.ADRESSE,
+       op1.numfact
+from ORDONNERPAYEMENT op
+         left join MODEPAIEMENT mp on mp.id = op.MODEPAIEMENT
+         left join FOURNISSEUR_UNION_PERSONNEL fup on fup.id = op.TIERS
+         left join concat_numfact_ff op1 on op.id=op1.id2;
+
+
+create or replace view LIAISONINTRATABLE_OP_VISE as
+select *
+from LIAISONINTRATABLE_OP_tous op
+where op.etat = 11;
+
+CREATE or replace VIEW ETATFACTUREMONTANTDATYVISEII
+            (ID, DATY, IDFOURNISSEUR, NOMFOURNISSEUR, IDTVA, REMARQUE, DATEEMISSION, DESIGNATION, IDDEVISE, NUMFACT,
+             DATYECHEANCE, ETAT, MONTANTPAYE, RESTE, ENTITE, MONTANTTTDEVISE, BUDGET, RETENUE, NUMID, TIERSLIB, TVA,
+             MONTANT, MONTANTAVOIR, MONTANTADDITIF, MONTANTNET, MONTANTTVA, MONTANTTTC, MONTANTTOTALAPAYER, TYPE,
+             CODE_ETABLISSEMENT, PROJET)
+AS
+SELECT et.ID,
+       et.DATY,
+       et.IDFOURNISSEUR,
+       et.NOMFOURNISSEUR,
+       et.IDTVA,
+       et.REMARQUE,
+       et.DATEEMISSION,
+       et.DESIGNATION,
+       et.IDDEVISE,
+       et.NUMFACT,
+       et.DATYECHEANCE,
+       et.ETAT,
+       et.MONTANTPAYE,
+       et.RESTE,
+       et.ENTITE,
+       et.MONTANTTTDEVISE,
+       et.BUDGET,
+       et.RETENUE,
+       et.NUMID,
+       et.TIERSLIB,
+       et.TVA,
+       et.MONTANT,
+       et.MONTANTAVOIR,
+       et.MONTANTADDITIF,
+       et.MONTANTNET,
+       et.MONTANTTVA,
+       et.MONTANTTTC,
+       et.MONTANTTOTALAPAYER,
+       et.TYPE,
+       et.CODE_ETABLISSEMENT,
+       et.PROJET
+FROM EtatFactureMontantDaty et
+WHERE et.etat = 11
+  and et.ID not in (select id1 from LIAISONINTRATABLE_OP_VISE);
+
+create view LIAISONINTRATABLE_OP_JOURNAL AS
+select op.*,
+       jc.ID as idjournal
+from LIAISONINTRATABLE_OP_tous op
+         left join JOURNALCAISSE jc on jc.IDORDRE = op.ID2;
+
+create or replace view ETATFACTUREATTENTEPAIEMENT
+    (ID, DATY, IDFOURNISSEUR, NOMFOURNISSEUR, IDTVA, REMARQUE, DATEEMISSION, DESIGNATION, IDDEVISE, NUMFACT,
+             DATYECHEANCE, ETAT, MONTANTPAYE, RESTE, ENTITE, MONTANTTTDEVISE, BUDGET, RETENUE, NUMID, TIERSLIB, TVA,
+             MONTANT, MONTANTAVOIR, MONTANTADDITIF, MONTANTNET, MONTANTTVA, MONTANTTTC, MONTANTTOTALAPAYER, TYPE,
+             CODE_ETABLISSEMENT, PROJET)
+    as
+select e.ID,
+       e.DATY,
+       e.IDFOURNISSEUR,
+       e.NOMFOURNISSEUR,
+       e.IDTVA,
+       e.REMARQUE,
+       e.DATEEMISSION,
+       e.DESIGNATION,
+       e.IDDEVISE,
+       e.NUMFACT,
+       e.DATYECHEANCE,
+       e.ETAT,
+       e.MONTANTPAYE,
+       e.RESTE,
+       e.ENTITE,
+       e.MONTANTTTDEVISE,
+       e.BUDGET,
+       e.RETENUE,
+       e.NUMID,
+       e.TIERSLIB,
+       e.TVA,
+       e.MONTANT,
+       e.MONTANTAVOIR,
+       e.MONTANTADDITIF,
+       e.MONTANTNET,
+       e.MONTANTTVA,
+       e.MONTANTTTC,
+       e.MONTANTTOTALAPAYER,
+       e.TYPE,
+       e.CODE_ETABLISSEMENT,
+       e.PROJET
+
+from ETATFACTUREMONTANTDATY e
+         join LIAISONINTRATABLE_OP_JOURNAL P ON p.id1 = e.id and p.IDJOURNAL IS NULL and e.etat = 11 and p.etat = 11
+group by e.ID, e.DATY, e.IDFOURNISSEUR, e.NOMFOURNISSEUR, e.IDTVA, e.REMARQUE, e.DATEEMISSION, e.DESIGNATION,
+         e.IDDEVISE, e.NUMFACT, e.DATYECHEANCE, e.ETAT, e.MONTANTPAYE, e.RESTE, e.ENTITE, e.MONTANTTTDEVISE, e.BUDGET,
+         e.RETENUE, e.NUMID, e.TIERSLIB, e.TVA, e.MONTANT, e.MONTANTAVOIR, e.MONTANTADDITIF, e.MONTANTNET, e.MONTANTTVA,
+         e.MONTANTTTC, e.MONTANTTOTALAPAYER, e.TYPE, e.CODE_ETABLISSEMENT, e.PROJET
+/
+
+
+CREATE OR REPLACE VIEW EtatFactureMontantDatyPAYE
+            (ID, DATY, IDFOURNISSEUR, NOMFOURNISSEUR, IDTVA, REMARQUE, DATEEMISSION, DESIGNATION, IDDEVISE, NUMFACT,
+             DATYECHEANCE, ETAT, MONTANTPAYE, RESTE, ENTITE, MONTANTTTDEVISE, BUDGET, RETENUE, NUMID, TIERSLIB, TVA,
+             MONTANT, MONTANTAVOIR, MONTANTADDITIF, MONTANTNET, MONTANTTVA, MONTANTTTC, MONTANTTOTALAPAYER, TYPE,
+             CODE_ETABLISSEMENT, PROJET)
+AS
+select e.ID,
+       e.DATY,
+       e.IDFOURNISSEUR,
+       e.NOMFOURNISSEUR,
+       e.IDTVA,
+       e.REMARQUE,
+       e.DATEEMISSION,
+       e.DESIGNATION,
+       e.IDDEVISE,
+       e.NUMFACT,
+       e.DATYECHEANCE,
+       e.ETAT,
+       e.MONTANTPAYE,
+       e.RESTE,
+       e.ENTITE,
+       e.MONTANTTTDEVISE,
+       e.BUDGET,
+       e.RETENUE,
+       e.NUMID,
+       e.TIERSLIB,
+       e.TVA,
+       e.MONTANT,
+       e.MONTANTAVOIR,
+       e.MONTANTADDITIF,
+       e.MONTANTNET,
+       e.MONTANTTVA,
+       e.MONTANTTTC,
+       e.MONTANTTOTALAPAYER,
+       e.TYPE,
+       e.CODE_ETABLISSEMENT,
+       e.PROJET
+
+from ETATFACTUREMONTANTDATY e
+         join LIAISONINTRATABLE_OP_JOURNAL P ON p.ded_id = e.id
+WHERE p.IDJOURNAL IS NOT NULL
+  and p.etat >= 11
+  and e.ETAT = 11
+group by e.ID, e.DATY, e.IDFOURNISSEUR, e.NOMFOURNISSEUR, e.IDTVA, e.REMARQUE, e.DATEEMISSION, e.DESIGNATION,
+         e.IDDEVISE, e.NUMFACT, e.DATYECHEANCE, e.ETAT, e.MONTANTPAYE, e.RESTE, e.ENTITE, e.MONTANTTTDEVISE, e.BUDGET,
+         e.RETENUE, e.NUMID, e.TIERSLIB, e.TVA, e.MONTANT, e.MONTANTAVOIR, e.MONTANTADDITIF, e.MONTANTNET, e.MONTANTTVA,
+         e.MONTANTTTC, e.MONTANTTOTALAPAYER, e.TYPE, e.CODE_ETABLISSEMENT, e.PROJET;
+
+
+
+CREATE OR REPLACE VIEW LIAISONINTRATABLE_OP_JOURNAL
+    (ID, ID1, ID2, MONTANT, DED_ID, MONTANTOP, ETAT, NUMFACT, IDJOURNAL,ETATJC) AS
+select op.ID,
+       op.ID1,
+       op.ID2,
+       op.MONTANT,
+       op.DED_ID,
+       op.MONTANTOP,
+       op.ETAT,
+       op.NUMFACT,
+       jc.ID as idjournal,
+       jc.ETAT
+from LIAISONINTRATABLE_OP_tous op
+         left join JOURNALCAISSE jc on jc.IDORDRE = op.ID2;
+
+create view ETATFACTUREATTENTEPAIEMENTII as
+select e.ID,
+       e.DATY,
+       e.IDFOURNISSEUR,
+       e.NOMFOURNISSEUR,
+       e.IDTVA,
+       e.REMARQUE,
+       e.DATEEMISSION,
+       e.DESIGNATION,
+       e.IDDEVISE,
+       e.NUMFACT,
+       e.DATYECHEANCE,
+       e.ETAT,
+       e.MONTANTPAYE,
+       e.RESTE,
+       e.ENTITE,
+       e.MONTANTTTDEVISE,
+       e.BUDGET,
+       e.RETENUE,
+       e.NUMID,
+       e.TIERSLIB,
+       e.TVA,
+       e.MONTANT,
+       e.MONTANTAVOIR,
+       e.MONTANTADDITIF,
+       e.MONTANTNET,
+       e.MONTANTTVA,
+       e.MONTANTTTC,
+       e.MONTANTTOTALAPAYER,
+       e.TYPE,
+       e.CODE_ETABLISSEMENT,
+       e.PROJET
+
+from ETATFACTUREMONTANTDATY e
+         join LIAISONINTRATABLE_OP_JOURNAL P ON p.id1 = e.id and (p.IDJOURNAL IS NULL and e.etat = 11 and p.etat = 11)
+
+group by e.ID, e.DATY, e.IDFOURNISSEUR, e.NOMFOURNISSEUR, e.IDTVA, e.REMARQUE, e.DATEEMISSION, e.DESIGNATION,
+         e.IDDEVISE, e.NUMFACT, e.DATYECHEANCE, e.ETAT, e.MONTANTPAYE, e.RESTE, e.ENTITE, e.MONTANTTTDEVISE, e.BUDGET,
+         e.RETENUE, e.NUMID, e.TIERSLIB, e.TVA, e.MONTANT, e.MONTANTAVOIR, e.MONTANTADDITIF, e.MONTANTNET, e.MONTANTTVA,
+         e.MONTANTTTC, e.MONTANTTOTALAPAYER, e.TYPE, e.CODE_ETABLISSEMENT, e.PROJET
+/
+
+create view ETATFACTUREATTENTEPAIEMENTI as
+select e.ID,
+       e.DATY,
+       e.IDFOURNISSEUR,
+       e.NOMFOURNISSEUR,
+       e.IDTVA,
+       e.REMARQUE,
+       e.DATEEMISSION,
+       e.DESIGNATION,
+       e.IDDEVISE,
+       e.NUMFACT,
+       e.DATYECHEANCE,
+       e.ETAT,
+       e.MONTANTPAYE,
+       e.RESTE,
+       e.ENTITE,
+       e.MONTANTTTDEVISE,
+       e.BUDGET,
+       e.RETENUE,
+       e.NUMID,
+       e.TIERSLIB,
+       e.TVA,
+       e.MONTANT,
+       e.MONTANTAVOIR,
+       e.MONTANTADDITIF,
+       e.MONTANTNET,
+       e.MONTANTTVA,
+       e.MONTANTTTC,
+       e.MONTANTTOTALAPAYER,
+       e.TYPE,
+       e.CODE_ETABLISSEMENT,
+       e.PROJET
+
+from ETATFACTUREMONTANTDATY e
+         join LIAISONINTRATABLE_OP_JOURNAL P ON p.id1 = e.id and (p.IDJOURNAL IS not NULL and e.etat = 11 and p.etat = 11 and p.ETATJC<11)
+
+group by e.ID, e.DATY, e.IDFOURNISSEUR, e.NOMFOURNISSEUR, e.IDTVA, e.REMARQUE, e.DATEEMISSION, e.DESIGNATION,
+         e.IDDEVISE, e.NUMFACT, e.DATYECHEANCE, e.ETAT, e.MONTANTPAYE, e.RESTE, e.ENTITE, e.MONTANTTTDEVISE, e.BUDGET,
+         e.RETENUE, e.NUMID, e.TIERSLIB, e.TVA, e.MONTANT, e.MONTANTAVOIR, e.MONTANTADDITIF, e.MONTANTNET, e.MONTANTTVA,
+         e.MONTANTTTC, e.MONTANTTOTALAPAYER, e.TYPE, e.CODE_ETABLISSEMENT, e.PROJET
+/
+
+CREATE OR REPLACE VIEW EtatFactureMontantDatyPAYE
+            (ID, DATY, IDFOURNISSEUR, NOMFOURNISSEUR, IDTVA, REMARQUE, DATEEMISSION, DESIGNATION, IDDEVISE, NUMFACT,
+             DATYECHEANCE, ETAT, MONTANTPAYE, RESTE, ENTITE, MONTANTTTDEVISE, BUDGET, RETENUE, NUMID, TIERSLIB, TVA,
+             MONTANT, MONTANTAVOIR, MONTANTADDITIF, MONTANTNET, MONTANTTVA, MONTANTTTC, MONTANTTOTALAPAYER, TYPE,
+             CODE_ETABLISSEMENT, PROJET)
+AS
+select e.ID,
+       e.DATY,
+       e.IDFOURNISSEUR,
+       e.NOMFOURNISSEUR,
+       e.IDTVA,
+       e.REMARQUE,
+       e.DATEEMISSION,
+       e.DESIGNATION,
+       e.IDDEVISE,
+       e.NUMFACT,
+       e.DATYECHEANCE,
+       e.ETAT,
+       e.MONTANTPAYE,
+       e.RESTE,
+       e.ENTITE,
+       e.MONTANTTTDEVISE,
+       e.BUDGET,
+       e.RETENUE,
+       e.NUMID,
+       e.TIERSLIB,
+       e.TVA,
+       e.MONTANT,
+       e.MONTANTAVOIR,
+       e.MONTANTADDITIF,
+       e.MONTANTNET,
+       e.MONTANTTVA,
+       e.MONTANTTTC,
+       e.MONTANTTOTALAPAYER,
+       e.TYPE,
+       e.CODE_ETABLISSEMENT,
+       e.PROJET
+
+from ETATFACTUREMONTANTDATY e
+         join LIAISONINTRATABLE_OP_JOURNAL P ON p.ded_id = e.id
+WHERE p.IDJOURNAL IS NOT NULL
+  and p.etat >= 11
+  and e.ETAT = 11
+    and p.ETATJC=11
+group by e.ID, e.DATY, e.IDFOURNISSEUR, e.NOMFOURNISSEUR, e.IDTVA, e.REMARQUE, e.DATEEMISSION, e.DESIGNATION,
+         e.IDDEVISE, e.NUMFACT, e.DATYECHEANCE, e.ETAT, e.MONTANTPAYE, e.RESTE, e.ENTITE, e.MONTANTTTDEVISE, e.BUDGET,
+         e.RETENUE, e.NUMID, e.TIERSLIB, e.TVA, e.MONTANT, e.MONTANTAVOIR, e.MONTANTADDITIF, e.MONTANTNET, e.MONTANTTVA,
+         e.MONTANTTTC, e.MONTANTTOTALAPAYER, e.TYPE, e.CODE_ETABLISSEMENT, e.PROJET;

@@ -1,0 +1,2 @@
+
+update  TIERS set NIF='' ,STAT='', CONTACT='' where id in ('TIE000007','TIE000005','TIE000004','TIE000003','TIE000002');

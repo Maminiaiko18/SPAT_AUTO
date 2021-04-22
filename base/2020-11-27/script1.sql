@@ -1,0 +1,19 @@
+CREATE table TypeFF( 
+	id varchar2(100)CONSTRAINT typeff_pk PRIMARY key,
+	val varchar2(500),
+	DESCE varchar2(500)
+);
+CREATE SEQUENCE SEQ_TypeFF
+  MINVALUE 1
+  MAXVALUE 999999999999999999999999999
+  START WITH 1
+  INCREMENT BY 1
+  CACHE 20;
+
+create or replace FUNCTION GET_SEQ_TypeFF
+  RETURN NUMBER IS
+  retour NUMBER;
+BEGIN
+  SELECT SEQ_TypeFF.nextval INTO retour FROM dual;
+  return retour;
+END;

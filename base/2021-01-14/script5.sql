@@ -1,0 +1,1 @@
+update caisse set val = 'Caisse Centrale' where id = 'CAISS001';

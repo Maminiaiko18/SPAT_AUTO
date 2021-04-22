@@ -1,0 +1,508 @@
+package ded;
+
+import bean.*;
+import factureclient.PaiementFactureRemise;
+import facturefournisseur.EtatFactureMontantDaty;
+import java.sql.Connection;
+import java.sql.Date;
+import mg.allosakafo.produits.LiaisonIntraTable;
+import mg.spat.JournalCaisse;
+import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
+import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
+//import finance.MvtCaisse;
+//import finance.MvtCaisseUtil;
+//import facturefournisseur.FactureFournisseurLc;
+//import lc.LigneCredit;
+
+/**
+ * <p>
+ * Title: Gestion des recettes </p>
+ * <p>
+ * Description: </p>
+ * <p>
+ * Copyright: Copyright (c) 2005</p>
+ * <p>
+ * Company: </p>
+ *
+ * @author unascribed
+ * @version 1.0
+ */
+public class OrdonnerPayement extends ClassEtat {
+
+    private String id;
+    private String ded_Id;
+    private String idLigne;
+    private java.sql.Date daty;
+    private double montant;
+    private String remarque;
+    private String numeroop, destination, modepaiement,etatlib,tiers;
+    private String numerobed;
+    private String folio, numcheque, numfact;
+  private double montantpaye,reste;
+  private String modepaiementlib;
+
+    public double getMontantpaye() {
+        return montantpaye;
+    }
+
+    public void setMontantpaye(double montantpaye) {
+        this.montantpaye = montantpaye;
+    }
+
+    public double getReste() {
+        return reste;
+    }
+
+    public void setReste(double reste) {
+        this.reste = reste;
+    }
+  
+
+    public String getNumfact() {
+        return numfact;
+    }
+
+    public void setNumfact(String numfact) {
+        this.numfact = numfact;
+    }
+    
+    public static OrdonnerPayement getOp(String idfc, Connection c) throws Exception {
+        boolean in = false;
+        try {
+            if(c == null){
+                c = new UtilDB().GetConn();
+                in = !in;
+            }
+            OrdonnerPayement[] ordoPaye = (OrdonnerPayement[])CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id = '"+idfc+"' and etat = " + ConstanteEtat.getEtatValider());
+            if(ordoPaye.length >= 1){
+                return ordoPaye[0];
+            }
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if(in && c!=null) c.close();
+        }
+        return null;
+    }
+    
+    
+    public String getNumerobed() {
+        return numerobed;
+    }
+
+    public void setNumerobed(String numerobed) {
+        this.numerobed = numerobed;
+    }
+
+    public String getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(String tiers) {
+        this.tiers = tiers;
+    }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getModepaiement() {
+        return modepaiement;
+    }
+
+    public void setModepaiement(String modepaiement) {
+        this.modepaiement = modepaiement;
+    }
+
+    public String getFolio() {
+        return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
+
+    public String getNumcheque() {
+        return numcheque;
+    }
+
+    public void setNumcheque(String numcheque) {
+        this.numcheque = numcheque;
+    }
+
+    public OrdonnerPayement() {
+        this.setNomTable("OrdonnerPayement");
+    }
+
+    public OrdonnerPayement(String id) {
+        this.setNomTable("OrdonnerPayement");
+        this.setId(id);
+    }
+
+    public OrdonnerPayement (String ded_id,double montant,Date daty,String iduser,String remarque,int etat){
+        this.setNomTable("OrdonnerPayement");
+        this.setDed_Id(ded_id);
+        this.setMontant(montant);
+        this.setDaty(daty);
+        this.setIduser(iduser);
+        this.setRemarque(remarque);
+        this.setEtat(etat);
+    }
+    public OrdonnerPayement(String id, String ded, String ligne, String dt, String mont, String rem, String eta) {
+        this.setNomTable("OrdonnerPayement");
+        this.setId(id);
+        this.setDed_Id(ded);
+        this.setIdLigne(ligne);
+        this.setDaty((utilitaire.Utilitaire.string_date("dd/MM/yyyy", dt)));
+        this.setMontant(utilitaire.Utilitaire.stringToDouble(mont));
+        this.setRemarque(rem);
+        this.setEtat(utilitaire.Utilitaire.stringToInt(eta));
+    }
+
+    public OrdonnerPayement(String id, String ded, java.sql.Date dt, double mont, String rem) {
+        this.setNomTable("OrdonnerPayement");
+        this.setId(id);
+        this.setDed_Id(ded);
+        this.setDaty(dt);
+        this.setMontant(mont);
+        this.setRemarque(rem);
+    }
+
+    public OrdonnerPayement(String ded, String ligne, String dt, String mont, String rem, String eta) throws Exception {
+        this.setNomTable("OrdonnerPayement");
+        this.preparePk("ORP", "get_Seq_Op");
+        this.setId(makePK());
+        this.setDed_Id(ded);
+        this.setIdLigne(ligne);
+        this.setDaty(utilitaire.Utilitaire.string_date("dd/MM/yyyy", dt));
+        this.setMontant(utilitaire.Utilitaire.stringToDouble(mont));
+        this.setRemarque(rem);
+        this.setEtat(utilitaire.Utilitaire.stringToInt(eta));
+    }
+
+    public String getAttributIDName() {
+        return "id";
+    }
+
+    public String getNumeroop() {
+        return numeroop;
+    }
+
+    public void setNumeroop(String numeroop) {
+        this.numeroop = numeroop;
+    }
+
+    public String getTuppleID() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setDed_Id(String ded_Id) {
+        this.ded_Id = ded_Id;
+    }
+
+    public String getDed_Id() {
+        return ded_Id;
+    }
+
+    public void setIdLigne(String idLigne) {
+        this.idLigne = idLigne;
+    }
+
+    public String getIdLigne() {
+        return idLigne;
+    }
+
+    public void setDaty(java.sql.Date daty) {
+        this.daty = daty;
+    }
+
+    public java.sql.Date getDaty() {
+        return daty;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setRemarque(String remarque) {
+        this.remarque = remarque;
+    }
+
+    public String getRemarque() {
+        return remarque;
+    }
+
+    public String getEtatLettre() {
+        if (getEtat() == 1) {
+            return "vise";
+        }
+        if (getEtat() == 0) {
+            return "non vise";
+        }
+        return "";
+    }
+
+    public String getModepaiementlib() {
+        return modepaiementlib;
+    }
+
+    public void setModepaiementlib(String modepaiementlib) {
+        this.modepaiementlib = modepaiementlib;
+    }
+
+    
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("ORP", "get_Seq_Op");
+        this.setId(makePK(c));
+    }
+
+//    public void controlTiers(EtatFactureMontantDaty[] factures) throws Exception {
+//        if (factures == null || factures.length < 2) {
+//            return;
+//        }
+//
+//        String[] atts = {"idfournisseur"};
+//        String[] values = {factures[0].getIdFournisseur()};
+//        ClassMAPTable[] memeTiers = AdminGen.find(factures, atts, values);
+//
+//        if (factures.length != memeTiers.length) {
+//            throw new Exception("Les factures n'ont pas le même tiers");
+//        }
+//    }
+    private void createObjectFC(String u, Connection c) throws Exception{
+        
+            this.setIduser(u);
+            String[] idFact = this.getDed_Id().split(";");
+
+            PaiementFactureRemise f = new PaiementFactureRemise();
+
+            PaiementFactureRemise[] factures = f.getByIds(idFact, c);
+            if (idFact.length != factures.length) {
+                throw new Exception("Certaines factures n'ont pas été trouvées");
+            }
+            if (this.getDed_Id().contains(";")) {
+    //            controlTiers(factures);
+                double montantTotal = AdminGen.calculSommeDouble(factures, "resteapayer");
+                //if(this.getMontant()==0){
+                    this.setMontant(montantTotal);
+                //}
+            }
+            this.controler(c);
+            this.construirePK(c);
+            this.insertToTableWithHisto(u, c);
+
+            for (int i = 0; i < factures.length; i++) {
+                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getResteapayer());
+                liaison.createObject(u, c);
+            }
+    }
+
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+
+     
+        if(this.getDed_Id().startsWith("FC")){
+            createObjectFC(u, c);
+        }
+        else{
+            this.setIduser(u);
+            String[] idFact = this.getDed_Id().split(";");
+            EtatFactureMontantDaty f = new EtatFactureMontantDaty();
+
+            EtatFactureMontantDaty[] factures = f.getByIds(idFact, c);
+            if (idFact.length != factures.length) {
+                throw new Exception("Certaines factures n'ont pas été trouvées");
+            }
+            if (this.getDed_Id().contains(";")) {
+    //            controlTiers(factures);
+                double montantTotal = AdminGen.calculSommeDouble(factures, "reste");
+                //if(this.getMontant()==0){
+                    this.setMontant(montantTotal);
+                //}
+            }
+            this.controler(c);
+            this.construirePK(c);
+            this.insertToTableWithHisto(u, c);
+
+            for (int i = 0; i < factures.length; i++) {
+                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getReste());
+                liaison.createObject(u, c);
+            }
+        }
+        
+        
+        return this;
+    }
+    
+    public void payer(String u, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            
+            JournalCaisse jc = new JournalCaisse(null, Constante.caisseCentraleBP, null, this.getRemarque(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), this.getMontant(), 0);
+            jc.setIdordre(this.getId());
+            jc.setTiers(this.getTiers());
+//            jc.setIddevise(Constante.deviseAr);
+    
+            EtatFactureMontantDaty[] factures = this.getFactures(c);
+            if(factures != null && factures.length > 0) {
+//                System.out.println("devise " + factures[0].getIdDevise());
+                jc.setIddevise(factures[0].getIdDevise());
+            }     
+            
+            jc.createObject(u, c);
+            jc.validerObject(u, c);
+            
+            if(verif == 1) c.commit();
+        } catch (Exception e) {
+            if(c != null && verif == 1) c.rollback();
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
+    public OrdonnerPayement getOP(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+
+            OrdonnerPayement[] tmp = (OrdonnerPayement[]) CGenUtil.rechercher(this, null, null, c, String.format(" and id = '%s'", this.getId()));
+
+            if (tmp != null && tmp.length > 0) {
+                return tmp[0];
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return null;
+    }
+
+    /*public void viser(UserEJBBean user, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            
+            this.validerObject(user, c);
+            user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
+            if (verif == 1 && c != null) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }*/
+
+    public Object validerObject(String u, Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
+                throw new Exception("OP Deja valide");
+            }
+            EtatFactureMontantDaty[] factures=this.getFactures(c);
+            OrdonnerPayement op=new OrdonnerPayement();
+            op.setNomTable("ordonnerpayementgroupefact");
+            OrdonnerPayement[] listeOP = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, "and ded_id = '" + this.getDed_Id() + "'");
+            double montantTTc=AdminGen.calculSommeDouble(factures, "montantTTC");
+            double reste=AdminGen.calculSommeDouble(factures, "reste");
+            if(listeOP.length>0){
+                if(listeOP[0].getMontant()==montantTTc){
+                    throw new Exception("Facture(s) déjà payée(s) ou en attente de paiement");
+                }
+                if(reste<this.getMontant()){
+                    throw new Exception("Montant supérieur au reste à payer");
+                }
+            }
+            super.validerObject(u, c);
+            if (c != null && verif == 1) c.commit();
+        } catch (Exception e) {
+            if (c != null ) c.rollback();
+            throw e;
+        } finally {
+            if (c != null && verif == 1) c.close();
+        }
+        return this;
+    }
+
+    public EtatFactureMontantDaty[] getFactures(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            return (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, c, "and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    @Override
+    public String getValColLibelle() {
+        return this.getId()+";"+this.getRemarque()+";"+this.getDed_Id()+";"+Utilitaire.formaterAr(this.getMontant());
+    }
+}

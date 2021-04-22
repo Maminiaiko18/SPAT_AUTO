@@ -1,0 +1,2 @@
+update menudynamique set href = '/spat/pages/globalnegoce.jsp?but=treso/recette-liste.jsp'||'&'||'type=credit' where id = 'MEN00175';
+update menudynamique set href = '/spat/pages/globalnegoce.jsp?but=treso/recette-liste.jsp'||'&'||'type=debit' where id = 'MEN00172';
