@@ -58,7 +58,7 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Analyse mouvement</h1>
+        <h1>Analyse bon de commande</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>" method="get" name="analyse" id="analyse">
