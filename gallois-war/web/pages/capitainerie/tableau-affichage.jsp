@@ -35,6 +35,7 @@
         TableauAffichageData tad = new TableauAffichageData();
         tad.getRecapAffichage(null, date_d, date_f);
         MouvementLibComplet[] listeOccupation = tad.getListeOccupation();
+        System.out.println("listeOccupation=="+ listeOccupation.length);
         PrevisionLibComplet[] listePrevision = tad.getListePrevision();
 %>
 <div class="content-wrapper">
@@ -102,54 +103,6 @@
                             <table width="100%" border="0" align="center" cellpadding="3" cellspacing="3" class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="12" style="background-color:#103a8e;color:#fff;">Mouvement des navires</th>                                       
-                                    </tr>
-                                    <tr>
-                                        <th>Navire</th>
-                                        <th>Consignataire</th>
-                                        <th>Cargaison</th>
-                                        <th>Provenance</th>
-                                        <th>Quai</th>
-                                        <th>Destination</th>
-                                        <th>Quai</th>
-                                        <th>Date d'arrivée</th>
-                                        <th>Heure d'arrivée</th>
-                                        <th>Date de départ prévue</th>
-                                        <th>Heure de départ prévue</th>
-                                        <th>Durée</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% if (listeOccupation.length != 0) {
-                                            for (int i = 0; i < listeOccupation.length; i++) {
-                                    %>
-                                    <tr>
-                                        
-                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getNomnavire())%></td>
-                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getDesceconsignataire())%></td>
-                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getValcargaison())%></td>
-                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getValpaysprovenance())%></td>
-                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getValquaisprovenance())%></td>
-                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getValpaysdestination())%></td>
-                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getValquaisdestination())%></td>                               <td><%=Utilitaire.formatterDaty("" + listeOccupation[i].getDatearrivee())%></td>
-
-                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getHeure())%></td>
-                                         <td><%=Utilitaire.formatterDaty("" + listeOccupation[i].getDate_depart())%></td>
-                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getHeure_depart())%></td>
-                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getDuree())%></td>
-
-                                    </tr>
-                                    <% }
-                                        }%>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="box-body table-responsive no-padding">
-                        <div id="selectnonee">
-                            <table width="100%" border="0" align="center" cellpadding="3" cellspacing="3" class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
                                         <th colspan="12" style="background-color:#103a8e;color:#fff;">Prévision de touchées des navires</th>                                       
                                     </tr>
                                     <tr>
@@ -184,6 +137,55 @@
                                         <td><%=Utilitaire.formatterDaty("" + listePrevision[i].getDate_depart())%></td>
                                         <td><%=Utilitaire.champNull("" + listePrevision[i].getHeure_depart())%></td>
                                         <!--<td><%/*Utilitaire.champNull("" + listePrevision[i].getDuree())*/%></td>-->
+
+                                    </tr>
+                                    <% }
+                                        }%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        <div id="selectnonee">
+                            <table width="100%" border="0" align="center" cellpadding="3" cellspacing="3" class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="12" style="background-color:#103a8e;color:#fff;">Mouvement des navires</th>                                       
+                                    </tr>
+                                    <tr>
+                                        <th>Navire</th>
+                                        <th>Consignataire</th>
+                                        <th>Cargaison</th>
+                                        <th>Provenance</th>
+                                        <th>Quai</th>
+                                        <th>Destination</th>
+                                        <th>Quai</th>
+                                        <th>Date d'arrivée</th>
+                                        <th>Heure d'arrivée</th>
+                                        <th>Date de départ prévue</th>
+                                        <th>Heure de départ prévue</th>
+                                        <th>Durée</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (listeOccupation.length != 0) {
+                                            for (int i = 0; i < listeOccupation.length; i++) {
+                                    %>
+                                    <tr>
+                                        
+                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getNomnavire())%></td>
+                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getDesceconsignataire())%></td>
+                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getValcargaison())%></td>
+                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getValpaysprovenance())%></td>
+                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getValquaisprovenance())%></td>
+                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getValpaysdestination())%></td>
+                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getValquaisdestination())%></td>                               
+                                        <td><%=Utilitaire.formatterDaty("" + listeOccupation[i].getDatearrivee())%></td>
+
+                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getHeure())%></td>
+                                         <td><%=Utilitaire.formatterDaty("" + listeOccupation[i].getDate_depart())%></td>
+                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getHeure_depart())%></td>
+                                        <td><%=Utilitaire.champNull("" + listeOccupation[i].getDuree())%></td>
 
                                     </tr>
                                     <% }

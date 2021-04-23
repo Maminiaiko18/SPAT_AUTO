@@ -15,7 +15,7 @@
         String champReturn = request.getParameter("champReturn");
         PosteDestinataireLibComplet posteDestinataire = new PosteDestinataireLibComplet();
         posteDestinataire.setNomTable("postedestinatairelibcomplet");
-        String listeCrt[] = {"id", "quai", "interne", "valpays", "paysquais", "valquais"};
+        String listeCrt[] = {"id", "valquais", "interne", "valpays", "paysquais"};
         String listeInt[] = {};
         String libEntete[] = {"id", "valpays", "valquais", "longueur", "profondeur", "tirant"};
         PageRechercheChoix pr = new PageRechercheChoix(posteDestinataire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -24,7 +24,9 @@
         pr.setApres("listePostedestinataireTousChoix.jsp");
         pr.setChampReturn(champReturn);
         String[] colSomme = null;
+        pr.getFormu().getChamp("valquais").setLibelle("Quai");
         pr.creerObjetPage(libEntete, colSomme);
+        
 %>
 <html>
     <head>
