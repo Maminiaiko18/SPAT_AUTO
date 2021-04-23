@@ -18,9 +18,9 @@
     mouvement.setNomTable(nomTable);
     
     //String listeCrt[] = {"id","escale","nomnavire", "valconsignataire", "valcargaison", "valquaisdestination","datearrivee", "date_depart","quaisdestination"};
-    String listeCrt[] = {"id", "nomnavire", "escale", "desceconsignataire","date_depart","datearrivee"};
+    String listeCrt[] = {"id", "nomnavire", "escalelib", "desceconsignataire","date_depart","datearrivee"};
     String listeInt[] = {"date_depart","datearrivee"};
-    String libEntete[] = {"id","escale","nomnavire", "desceconsignataire","valpaysdestination", "valcargaison", "datearrivee", "heure","valquaisdestination", "date_depart","heure_depart","duree"};
+    String libEntete[] = {"id","escalelib","nomnavire", "desceconsignataire","valpaysdestination", "valcargaison", "datearrivee", "heure","valquaisdestination", "date_depart","heure_depart","duree"};
     PageRecherche pr = new PageRecherche(mouvement, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -28,6 +28,7 @@
     pr.getFormu().getChamp("date_depart2").setLibelle("date depart max");
     pr.getFormu().getChamp("datearrivee1").setLibelle("date arrivée min");
     pr.getFormu().getChamp("datearrivee2").setLibelle("date arrivée max");
+    pr.getFormu().getChamp("escalelib").setLibelle("Escale");
     
     String rqt="";
     if(request.getParameter("idquaidestination")!=null){
