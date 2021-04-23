@@ -15,6 +15,7 @@ import mg.spat.Prevision;
 import mg.spat.Quais;
 import mg.spat.RecapOccupationQuais;
 import mg.spat.RecapQuai;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -36,7 +37,7 @@ public class RecapQuaisDatas {
             Quais quaisMG = new Quais();
             quaisMG.setNomTable("QUAIS_MG");
             Quais[] liste = (Quais[]) CGenUtil.rechercher(quaisMG, null, null, c, "");
-            RecapQuai[] ls = (RecapQuai[]) CGenUtil.rechercher(new RecapQuai(), null, null, c, " order by DATE_ARRIVEE_OCCUP asc");
+            RecapQuai[] ls = (RecapQuai[]) CGenUtil.rechercher(new RecapQuai(), null, null, c, " and etat >= " + ConstanteEtat.getEtatValider() + " order by DATE_ARRIVEE_OCCUP asc");
 //            int total = 0;
             
             for (int j = 0; j < liste.length; j++) {

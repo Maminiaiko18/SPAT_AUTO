@@ -5,6 +5,7 @@
  */
 package mg.spat;
 
+import bean.ClassEtat;
 import bean.ClassMAPTable;
 import java.sql.Date;
 
@@ -13,7 +14,7 @@ import java.sql.Date;
  * @author MEVA
  */
 
-public class RecapQuai extends ClassMAPTable{
+public class RecapQuai extends ClassEtat {
     
     private String idquai, nomquai, numeroescale_prev, nomnavire_prev, valconsignataire_prev, cargval_prev, numeroescale_occup, nomnavire_occup, valconsignataire_occup, cargval_occup;
     private Date date_arrivee_prev, date_depart_prev, date_arrivee_occup, date_depart_occup;
