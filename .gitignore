@@ -1,0 +1,8 @@
+build-exploded-application.xml
+build-file/
+gallois-ejb/build
+gallois-war/build
+nbproject
+gallois-ejb/nbproject
+gallois-war/nbproject
+.svn
