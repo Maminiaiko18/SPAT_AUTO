@@ -58,7 +58,8 @@
     
     pi.getFormu().changerEnChamp(liste);
     
-    pi.getFormu().getChamp("idmateriel_naval").setPageAppel("choix/listeMaterielNava.jsp");
+//    pi.getFormu().getChamp("idmateriel_naval").setPageAppel("choix/listeMaterielNava.jsp");
+    pi.getFormu().getChamp("idmateriel_naval").setPageAppel("choix/listeMaterielNavalChoixMultiple.jsp");
     pi.getFormu().getChamp("idmateriel_naval").setAutre("readonly");
     pi.getFormu().getChamp("idmateriel_naval").setLibelle("Flotte");
     pi.getFormu().getChamp("idcommandant").setLibelle("Commandant");

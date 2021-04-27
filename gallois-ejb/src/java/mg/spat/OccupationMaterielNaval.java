@@ -44,6 +44,19 @@ public class OccupationMaterielNaval extends ClassEtat {
         super.setNomTable("occupationmaterielnaval");
     }
 
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        String[] flottes = this.getIdmateriel_naval().split(";");
+        
+        for(String flotte: flottes) {
+            this.setIdmateriel_naval(flotte);
+            this.setId(null);
+            super.createObject(u, c);
+        }
+        
+        return this;
+    }
+
     public TarifRubriqueFactureClient[] getTarifRubrique(Connection c) throws Exception {
         int verif = 0;
         TarifRubriqueFactureClient[] tarifs = new TarifRubriqueFactureClient[0];
