@@ -14,7 +14,7 @@
         UserEJB u = u = (UserEJB) session.getValue("u");
         String  mapping = "bordereau.BordereauFille",
                 nomtable = "liaisonbordereauFF",
-                apres = "ded/bordereauxFF-fiche.jsp",
+                apres = "ded/bordereauxFF-details-fiche.jsp",
                 titre = "Saisie détails bordereaux facture";
         
         BordereauFille objet = new BordereauFille();
