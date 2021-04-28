@@ -102,7 +102,7 @@
                                         </a>
                                     </td>
                                     <td><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
-                                    <td><a style="margin-right : 20px" class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + detail.getId() %>&acte=delete&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFille&nomtable=liaisonbordereauFF&rajoutLien=idmere&idmere=<%=id%>" style="margin-right: 10px">Supprimer</a></td>
+                                    <td><a style="margin-right : 20px" class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + detail.getId() %>&acte=delete&bute=ded/bordereauxFF-liste.jsp&classe=bordereau.BordereauFille&nomtable=liaisonbordereauFF" style="margin-right: 10px">Suprimer</a></td>
                                 </tr>
                                 <%}
                                 } else {%>
