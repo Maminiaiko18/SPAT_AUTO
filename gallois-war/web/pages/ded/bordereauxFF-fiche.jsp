@@ -34,7 +34,7 @@
     fille.setIdbordereau(id);
     fille.setNomTable("liaisonbordereauFF_libcomplet");
     BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
-     
+    double total=AdminGen.calculSommeDouble(liste, "montant");
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -104,8 +104,12 @@
                                     <td><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
                                     <td><a style="margin-right : 20px" class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + detail.getId() %>&acte=delete&bute=ded/bordereauxFF-liste.jsp&classe=bordereau.BordereauFille&nomtable=liaisonbordereauFF" style="margin-right: 10px">Suprimer</a></td>
                                 </tr>
-                                <%}
-                                } else {%>
+                                <%}%>
+                                 <tr>
+                                     <th colspan="4" align="right"><b>Total</b></th>   
+                                     <th align="right"><%=utilitaire.Utilitaire.formaterAr(total)%></th>   
+                                 </tr>
+                                <%} else {%>
                                 <tr><td colspan="3" style="text-align: center;"><strong>Aucun fichier</strong></td></tr>
                                 <%}%>
                             </tbody>
