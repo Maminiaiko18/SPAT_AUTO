@@ -10,22 +10,38 @@
 <%@ page import="affichage.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <%!
+    <%!
         UserEJB u = null;
-        String idfacture="";
-        String lien=null;
-        String apresLien=null;
+        String idfacture = "";
+        String lien = null;
+        String apresLien = null;
     %>
-     <%
+    <%
         try {
-            idfacture=(String) request.getParameter("id");
+            idfacture = (String) request.getParameter("id");
+            String acte = request.getParameter("acte");
+            String bute = request.getParameter("bute");
             u = (UserEJB) session.getAttribute("u");
-             lien = (String) session.getValue("lien");
-           apresLien=u.checkPageSelonUtilisateur(idfacture, null);
-              
+            lien = (String) session.getValue("lien");
+            apresLien = bute;
+            
+            if (acte.compareToIgnoreCase("payer") == 0) {
+                apresLien = u.checkPageSelonUtilisateur(idfacture, null);
+            }
+            
+            if (acte.compareToIgnoreCase("editerBED") == 0) {
+                String[] listeFacture = request.getParameterValues("id");
+                
+                if(listeFacture == null) throw new Exception("Vous devez cocher!");
+                
+                String ded_id = Utilitaire.tabToString(listeFacture, "", ";");
     %>
-              <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= apresLien%>");</script>
- <%
+    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&idsOP=<%=ded_id%>");</script>
+    <%
+        }
+    %>
+    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= apresLien%>");</script>
+    <%
 
     } catch (Exception e) {
         e.printStackTrace();

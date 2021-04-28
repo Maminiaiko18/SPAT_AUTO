@@ -135,7 +135,7 @@
                     
                     <hr>
                     <h4><i class="fa fa-plus"></i> Actions </h4>
-                    <a style="margin-right : 5px" class="btn btn-success "  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + a.getId() %>">Payer</a>
+                    <a style="margin-right : 5px" class="btn btn-success "  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&acte=payer&id=" + a.getId() %>">Payer</a>
                 </div>
 
             </div>

@@ -76,7 +76,7 @@
         <%out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <form action="<%=pr.getLien()%>?but=apresTarif.jsp" method="post" name="form_arif" id="form_arif">
-            <input type="hidden" name="bute" value="ded/ordonnerpayement-saisie.jsp"/>
+            <input type="hidden" name="bute" id="bute" value="ded/ordonnerpayement-saisie.jsp"/>
             <input type="hidden" name="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
@@ -99,7 +99,7 @@
         %>
         
         <a name="reg" id="btnRegularisation" class="pull-right"><input type="button" class="btn btn-info" value="Régulariser BP" /></a>
-        <a name="bed" id="btnBED" class="pull-right"><input type="button" class="btn btn-info" value="Editer BED" /></a>    
+        <input type="button" class="btn btn-info" onclick="editerBED()" style="margin-right:30px" value="Editer BED"/>
 
         </form>
         <% out.println(pr.getBasPage());%>
@@ -118,6 +118,13 @@
     }
     document.getElementById("btnBED").onclick = function(){
         document.getElementById("acte").value =  "bed";
+        document.getElementById("form_arif").submit();
+    }
+    
+    function editerBED() {
+        document.getElementById("acte").value =  "editerBED";
+        document.getElementById("bute").value =  "ded/bordereauxFF-saisie.jsp";
+        document.getElementById("form_arif").action = '<%=pr.getLien()%>?but=apresFacture.jsp';
         document.getElementById("form_arif").submit();
     }
     
