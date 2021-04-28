@@ -54,7 +54,7 @@ public class BordereauFille extends ClassMAPTable{
     }
     @Override
     public void construirePK(Connection c) throws Exception{
-        this.preparePk("BRD","get_seq_liaisonbordereau");
+        this.preparePk("BRDF","get_seq_liaisonbordereau");
         this.setId(makePK(c));
     }
 }
