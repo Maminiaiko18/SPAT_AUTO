@@ -22,6 +22,7 @@ public class Bordereau extends ClassEtat {
 
     private String id, numero, designation, tiers;
     private Date daty;
+    private double montant;
 
     public Bordereau() {
         this.setNomTable("bordereau");
@@ -149,6 +150,14 @@ public class Bordereau extends ClassEtat {
 
     public void setTiers(String tiers) {
         this.tiers = tiers;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
     }
     
     @Override
