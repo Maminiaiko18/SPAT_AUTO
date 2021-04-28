@@ -23,9 +23,9 @@
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
     pr.getFormu().getChamp("numeroop").setLibelle("Numero Op");
     pr.getFormu().getChamp("modepaiementlib").setLibelle("Mode de paiement");
-    
     String[] colSomme ={"montant"};
     pr.creerObjetPage(libEntete, colSomme);
+    pr.getTableau().setNameBoutton("Editer bordereau");
 %>
 <script>
     function changerDesignation() {
