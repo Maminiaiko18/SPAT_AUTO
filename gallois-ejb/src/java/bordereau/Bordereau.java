@@ -23,9 +23,92 @@ public class Bordereau extends ClassEtat {
     private String id, numero, designation, tiers;
     private Date daty;
     private double montant;
+    private String nomTableFille;
 
     public Bordereau() {
         this.setNomTable("bordereau");
+        this.setNomTableFille("liaisonbordereau");
+    }
+
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        if (estPresent(c)) {
+            throw new Exception("L'un(e) de ces OP/factures est déjà présent(e) dans un autre bordereau");
+        }
+
+        return super.validerObject(u, c);
+    }
+
+    private String[] getOps(BordereauFille[] filles) {
+        String[] ops = new String[filles.length];
+
+        for (int i = 0; i < filles.length; i++) {
+            ops[i] = filles[i].getIdop();
+        }
+
+        return ops;
+    }
+
+    public boolean estPresent(Connection c) throws Exception {
+        int verif = 0;
+        boolean retour = false;
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+
+            BordereauFille[] filles = getFilles(c);
+
+            if (filles != null && filles.length > 0) {
+
+                String obj = Utilitaire.tabToString(getOps(filles), "'", ";");
+
+                String req = "SELECT f.* FROM " + this.getNomTableFille() + " f "
+                        + " JOIN " + this.getNomTable() + " b ON b.id = f.idbordereau "
+                        + " WHERE idop in (" + obj + ") AND idbordereau != '" + this.getId() + "'"
+                        + " and b.etat >= " + ConstanteEtat.getEtatValider();
+
+//                System.out.println("req " + req);
+
+                filles = (BordereauFille[]) CGenUtil.rechercher(new BordereauFille(), req, c);
+            }
+            
+            retour = filles != null && filles.length > 0;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return retour;
+    }
+
+    public BordereauFille[] getFilles(Connection c) throws Exception {
+        int verif = 0;
+        BordereauFille[] res = new BordereauFille[0];
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+
+            BordereauFille op = new BordereauFille();
+            op.setNomTable(this.getNomTableFille());
+            res = (BordereauFille[]) CGenUtil.rechercher(op, null, null, c, " and idbordereau = '" + this.getId() + "'");
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return res;
     }
 
     public void payer(String u, Connection c) throws Exception {
@@ -41,10 +124,12 @@ public class Bordereau extends ClassEtat {
             if (bordereau == null) {
                 throw new Exception("Bordereau " + this.getId() + " non trouvé");
             }
-            if(bordereau.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Bordereau non visé");
-            
+            if (bordereau.getEtat() < ConstanteEtat.getEtatValider()) {
+                throw new Exception("Bordereau non visé");
+            }
+
             OrdonnerPayement[] ops = bordereau.getOPs(c);
-            
+
             for (int i = 0; i < ops.length; i++) {
                 if (ops[i].getEtat() < ConstanteEtat.getEtatValider()) {
                     throw new Exception("OP " + ops[i].getId() + " non visé");
@@ -81,15 +166,17 @@ public class Bordereau extends ClassEtat {
             OrdonnerPayement op = new OrdonnerPayement();
             op.setNomTable("ORDONNERPAYEMENT_BORDEREAU");
             res = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, " and idbordereau = '" + this.getId() + "'");
-            
-            if(res.length>0){
-                String[] idsOP=new String[res.length];
-                for(int i=0;i<res.length;i++){
-                    idsOP[i]=res[i].getId();
+
+            if (res.length > 0) {
+                String[] idsOP = new String[res.length];
+                for (int i = 0; i < res.length; i++) {
+                    idsOP[i] = res[i].getId();
                 }
                 op.setNomTable("ORDONNERPAYEMENT_PAYE_LIB");
                 OrdonnerPayement[] tab = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, " and id in ( " + Utilitaire.tabToString(idsOP, "'", ",") + ")");
-                if(tab.length>0) throw new Exception("Il existe un OP déjà payé");
+                if (tab.length > 0) {
+                    throw new Exception("Il existe un OP déjà payé");
+                }
             }
         } catch (Exception e) {
             throw e;
@@ -100,6 +187,14 @@ public class Bordereau extends ClassEtat {
         }
 
         return res;
+    }
+
+    public String getNomTableFille() {
+        return nomTableFille;
+    }
+
+    public void setNomTableFille(String nomTableFille) {
+        this.nomTableFille = nomTableFille;
     }
 
     @Override
@@ -159,10 +254,10 @@ public class Bordereau extends ClassEtat {
     public void setMontant(double montant) {
         this.montant = montant;
     }
-    
+
     @Override
-    public void construirePK(Connection c) throws Exception{
-        this.preparePk("BRD","get_seq_bordereau");
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("BRD", "get_seq_bordereau");
         this.setId(makePK(c));
     }
 }

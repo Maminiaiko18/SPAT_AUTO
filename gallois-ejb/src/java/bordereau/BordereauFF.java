@@ -12,5 +12,6 @@ package bordereau;
 public class BordereauFF extends Bordereau{
     public BordereauFF(){
         this.setNomTable("BORDEREAUFF");
+        this.setNomTableFille("liaisonbordereauFF");
     }
 }
