@@ -36,7 +36,8 @@
     fille.setIdbordereau(id);
     BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
 //    pc.getChampByName("tiers").setLien((String) session.getValue("lien") + "?but=cms/ordonnance/ordonnance-externe-fiche.jsp"+res.getTiers(), "id=");
-   
+    double total=AdminGen.calculSommeDouble(liste, "montant");
+
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -99,10 +100,15 @@
                                             <%=utilitaire.Utilitaire.champNull(detail.getIdop())%> 
                                         </a>
                                     </td>
-                                    <td><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
+                                    <td align="right"><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
                                 </tr>
-                                <%}
-                                } else {%>
+                                <%}%>
+                                
+                                 <tr>
+                                     <td colspan="4" align="right"><b>Total</b></td>   
+                                     <td align="right"><%=utilitaire.Utilitaire.formaterAr(total)%></td>   
+                                 </tr>
+                                <%} else {%>
                                 <tr><td colspan="3" style="text-align: center;"><strong>Aucun fichier</strong></td></tr>
                                 <%}%>
                             </tbody>

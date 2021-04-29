@@ -101,13 +101,13 @@
                                             <%=utilitaire.Utilitaire.champNull(detail.getIdop())%> 
                                         </a>
                                     </td>
-                                    <td><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
+                                    <td align="right"><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
                                     <td><a style="margin-right : 20px" class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + detail.getId() %>&acte=delete&bute=ded/bordereauxFF-liste.jsp&classe=bordereau.BordereauFille&nomtable=liaisonbordereauFF" style="margin-right: 10px">Suprimer</a></td>
                                 </tr>
                                 <%}%>
                                  <tr>
-                                     <th colspan="4" align="right"><b>Total</b></th>   
-                                     <th align="right"><%=utilitaire.Utilitaire.formaterAr(total)%></th>   
+                                     <td colspan="4" align="right"><b>Total</b></td>   
+                                     <td align="right"><%=utilitaire.Utilitaire.formaterAr(total)%></td>   
                                  </tr>
                                 <%} else {%>
                                 <tr><td colspan="3" style="text-align: center;"><strong>Aucun fichier</strong></td></tr>
