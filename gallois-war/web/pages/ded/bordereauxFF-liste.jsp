@@ -12,6 +12,11 @@
 <% 
     Bordereau bordereaux = new Bordereau();
     bordereaux.setNomTable("BORDEREAUFF_LIB_MONTANT");
+    
+    if(request.getParameter("etatvue")!=null && request.getParameter("etatvue").length()>0){
+        bordereaux.setNomTable(request.getParameter("etatvue"));
+    }
+    
     String libEntete[] = {"id", "daty","numero","designation","tiers","montant"};
     String listeCrt[] = {"id","designation", "daty","tiers"};
     String listeInt[] = {"daty"};
@@ -27,7 +32,11 @@
     pr.creerObjetPage(libEntete, colSomme);
 %>
 
-
+<script>
+    function changerDesignation() {
+        document.analyse.submit();
+    }
+</script>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>Liste bordereaux facture fournisseur</h1>
@@ -37,6 +46,25 @@
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
+            <div class="row col-md-12">  
+                <div class="col-md-4"></div> <div class="col-md-4">
+                <div class="form-group">
+                    <label>Etat : </label>
+                    <select name="etatvue" class="champ form-control" id="etatvue" onchange="changerDesignation()" style="display: inline-block; width: 250px;">
+                        <option value="BORDEREAUFF_LIB_MONTANT" <% if (request.getParameter("etatvue") == null || request.getParameter("etatvue").compareToIgnoreCase("") == 0 || request.getParameter("etatvue").compareToIgnoreCase("BORDEREAUFF_LIB_MONTANT")==0) {
+                                out.print(" selected");
+                            }%>>Tous</option>
+                        <option value="BORDEREAUFF_LIB_MONTANTC" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("BORDEREAUFF_LIB_MONTANTC") == 0) {
+                                out.print("selected");
+                            }%>>Cr&eacute;e(s)</option>
+                        <option value="BORDEREAUFF_LIB_MONTANTV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("BORDEREAUFF_LIB_MONTANTV") == 0) {
+                                out.print("selected");
+                            }%>>Vis&eacute;(s)</option>
+                    </select>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            </div>
         </form>
             <%
                 String lienTableau[] = {pr.getLien() + "?but=ded/bordereauxFF-fiche.jsp"};
