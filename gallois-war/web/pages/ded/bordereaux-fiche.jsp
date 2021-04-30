@@ -30,7 +30,7 @@
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("tiers").setVisible(false);
-    pc.setTitre("Fiche bordereau");
+    pc.setTitre("Fiche bordereau OP");
     String id=res.getId();
     BordereauFilleLibComplet fille=new BordereauFilleLibComplet();
     fille.setIdbordereau(id);
