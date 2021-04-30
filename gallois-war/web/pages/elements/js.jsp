@@ -1,6 +1,6 @@
 <!-- jQuery 2.1.4 -->
 
-<script src="${pageContext.request.contextPath}/assets/js/socket.io/socket.io.js"></script>
+<!--<script src="${pageContext.request.contextPath}/assets/js/socket.io/socket.io.js"></script>-->
 <script src="${pageContext.request.contextPath}/assets/js/moment.min.js"></script>
 
 
@@ -62,37 +62,37 @@
 //        showInputs: false
 //    });
 
-    $(window).bind("load", function() {
-        getMessageDeploiement();
-        window.setInterval(getMessageDeploiement, 30000);
+    $(window).bind("load", function () {
+//        getMessageDeploiement();
+//        window.setInterval(getMessageDeploiement, 30000);
     });
-    
-    function getMessageDeploiement(){
+
+    function getMessageDeploiement() {
         var text = 'ok';
         $.ajax({
-            type:'GET',
-            url:'${pageContext.request.contextPath}/MessageDeploiement',
+            type: 'GET',
+            url: '${pageContext.request.contextPath}/MessageDeploiement',
             contentType: 'application/json',
-            data: {'mes':text},
-            success:function(ma){
-                if(ma!=null){
+            data: {'mes': text},
+            success: function (ma) {
+                if (ma != null) {
                     var data = JSON.parse(ma);
-                    if(data.message!=null){
+                    if (data.message != null) {
                         alert(data.message);
                     }
-                    if(data.erreur!=null){
+                    if (data.erreur != null) {
                         alert(data.erreur);
                     }
                 }
 
             },
-            error: function(e) {
+            error: function (e) {
                 //alert("Erreur Ajax");
             }
 
         });
     }
-    
+
     function pagePopUp(page, width, height) {
         w = 750;
         h = 600;
@@ -136,14 +136,14 @@
         $(".select2").select2();
         $("#example1").DataTable();
         $('#example2').DataTable({
-          "paging": true,
-          "lengthChange": false,
-          "searching": false,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
         });
-      });
+    });
     function CocheToutCheckbox(ref, name) {
         var form = ref;
 
@@ -159,14 +159,14 @@
             }
         }
     }
-    function showNotification(message,classe, url){
+    function showNotification(message, classe, url) {
         $.notify({
-	        message: message ,
+            message: message,
             url: url
-        },{
+        }, {
             type: classe
         });
-    }    
+    }
     function add_line() {
         var indexMultiple = document.getElementById('indexMultiple').value;
         var nbrLigne = document.getElementById('nbrLigne').value;
@@ -183,44 +183,44 @@
         var nbrLigne = document.getElementById('nbrLigne').value;
         //document.getElementById('nbrLigne').value = nbrLigne - 1;
     }
-    
-    function getHtmlTabeauLigne(){
+
+    function getHtmlTabeauLigne() {
         var htmlComplet = $('#tableauLigne').html();
         document.getElementById('htmlComplet').value = htmlComplet;
         $('#declarationFormulaire').submit();
-        
-    
+
+
     }
-    
-    function changeInput(input){
+
+    function changeInput(input) {
 //        alert(input.id);
 //        document.getElementById(input.id).value = ;
-         $('#'+input.id).attr('value',input.value);
+        $('#' + input.id).attr('value', input.value);
     }
-    function dependante(valeurFiltre,champDependant,nomTable,nomClasse,nomColoneFiltre,nomColvaleur,nomColAffiche)
+    function dependante(valeurFiltre, champDependant, nomTable, nomClasse, nomColoneFiltre, nomColvaleur, nomColAffiche)
     {
-        document.getElementById(champDependant).length=0;
-        var param = {'valeurFiltre':valeurFiltre,'nomTable':nomTable,'nomClasse':nomClasse,'nomColoneFiltre':nomColoneFiltre,'nomColvaleur':nomColvaleur,'nomColAffiche':nomColAffiche};
-        var lesValeur=[];  
+        document.getElementById(champDependant).length = 0;
+        var param = {'valeurFiltre': valeurFiltre, 'nomTable': nomTable, 'nomClasse': nomClasse, 'nomColoneFiltre': nomColoneFiltre, 'nomColvaleur': nomColvaleur, 'nomColAffiche': nomColAffiche};
+        var lesValeur = [];
         $.ajax({
-            type:'GET',
-            url:'/spat/Deroulante',
+            type: 'GET',
+            url: '/spat/Deroulante',
             contentType: 'application/json',
-            data:param,
-            success:function(ma){
-                var data = JSON.parse(ma);   
+            data: param,
+            success: function (ma) {
+                var data = JSON.parse(ma);
 
-                for(i in data.valeure)
+                for (i in data.valeure)
                 {
                     lesValeur.push(new Option(data.valeure[i].valeur, data.valeure[i].id, false, false));
                 }
-                addOptions(champDependant,lesValeur);
+                addOptions(champDependant, lesValeur);
             }
         });
 
 
     }
-    function addOptions(nomListe,lesopt)
+    function addOptions(nomListe, lesopt)
     {
         var List = document.getElementById(nomListe);
         var elOption = lesopt;
@@ -228,58 +228,58 @@
         var i, n;
         n = elOption.length;
 
-        for (i=0; i<n; i++)
+        for (i = 0; i < n; i++)
         {
-                List.options.add(elOption[i]);
+            List.options.add(elOption[i]);
         }
     }
-    function dependanteChamp(valeurFiltre,champDependant,nomTable,nomClasse,nomColoneFiltre,nomColvaleur,nomColAffiche,nomOrderby,sensOrderBy)
+    function dependanteChamp(valeurFiltre, champDependant, nomTable, nomClasse, nomColoneFiltre, nomColvaleur, nomColAffiche, nomOrderby, sensOrderBy)
     {
-        $('#'+champDependant+" option").remove();
-        var param = {'valeurFiltre':valeurFiltre,'nomTable':nomTable,'nomClasse':nomClasse,'nomColoneFiltre':nomColoneFiltre,'nomColvaleur':nomColvaleur,'nomColAffiche':nomColAffiche,'nomOrderby':nomOrderby,'sensOrderBy':sensOrderBy};
-        var valeur="";  
+        $('#' + champDependant + " option").remove();
+        var param = {'valeurFiltre': valeurFiltre, 'nomTable': nomTable, 'nomClasse': nomClasse, 'nomColoneFiltre': nomColoneFiltre, 'nomColvaleur': nomColvaleur, 'nomColAffiche': nomColAffiche, 'nomOrderby': nomOrderby, 'sensOrderBy': sensOrderBy};
+        var valeur = "";
         $.ajax({
-            type:'GET',
-            url:'/spat/Deroulante',
+            type: 'GET',
+            url: '/spat/Deroulante',
             contentType: 'application/json',
-            data:param,
-            success:function(ma){
-                var data = JSON.parse(ma);   
-                
-                for(i in data.valeure)
+            data: param,
+            success: function (ma) {
+                var data = JSON.parse(ma);
+
+                for (i in data.valeure)
                 {
-                    valeur+=data.valeure[i].valeur;
+                    valeur += data.valeure[i].valeur;
                 }
                 console.log(valeur);
-                addChamp(champDependant,valeur);
+                addChamp(champDependant, valeur);
             }
         });
 
 
     }
-    function addChamp(nomListe,valeur)
+    function addChamp(nomListe, valeur)
     {
-        document.getElementById(nomListe).value=valeur;
-        
+        document.getElementById(nomListe).value = valeur;
+
     }
-    function dependanteChampUneValeur(valeurFiltre,champDependant,nomTable,nomClasse,nomColoneFiltre,nomColvaleur,nomColAffiche,nomOrderby,sensOrderBy)
+    function dependanteChampUneValeur(valeurFiltre, champDependant, nomTable, nomClasse, nomColoneFiltre, nomColvaleur, nomColAffiche, nomOrderby, sensOrderBy)
     {
-        $('#'+champDependant+" option").remove();
-        var param = {'valeurFiltre':valeurFiltre,'nomTable':nomTable,'nomClasse':nomClasse,'nomColoneFiltre':nomColoneFiltre,'nomColvaleur':nomColvaleur,'nomColAffiche':nomColAffiche,'nomOrderby':nomOrderby,'sensOrderBy':sensOrderBy};
-        var valeur="";  
+        $('#' + champDependant + " option").remove();
+        var param = {'valeurFiltre': valeurFiltre, 'nomTable': nomTable, 'nomClasse': nomClasse, 'nomColoneFiltre': nomColoneFiltre, 'nomColvaleur': nomColvaleur, 'nomColAffiche': nomColAffiche, 'nomOrderby': nomOrderby, 'sensOrderBy': sensOrderBy};
+        var valeur = "";
         $.ajax({
-            type:'GET',
-            url:'/spat/Deroulante?estListe=false',
+            type: 'GET',
+            url: '/spat/Deroulante?estListe=false',
             contentType: 'application/json',
-            data:param,
-            success:function(ma){
-                var data = JSON.parse(ma);   
-                
-                for(i in data.valeure)
+            data: param,
+            success: function (ma) {
+                var data = JSON.parse(ma);
+
+                for (i in data.valeure)
                 {
-                    valeur+=data.valeure[i].valeur;
+                    valeur += data.valeure[i].valeur;
                 }
-                addChamp(champDependant,valeur);
+                addChamp(champDependant, valeur);
             }
         });
 
@@ -294,37 +294,61 @@
 <script src="${pageContext.request.contextPath}/assets/js/soundmanager2-jsmin.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/assets/js/messagews.js" type="text/javascript"></script>
 <script type="text/javascript">
-if(typeof(Storage) !== "undefined") {
-    // Code for localStorage/sessionStorage.
-    var collapse=localStorage.getItem("menuCollapse");
-    
-} else {
-    // Sorry! No Web Storage support..
-}
-$(document).ready(function(){
-    
-    if(localStorage.getItem("menuCollapse")=="true"){
-        $("body").addClass("sidebar-collapse");
+    if (typeof (Storage) !== "undefined") {
+        // Code for localStorage/sessionStorage.
+        var collapse = localStorage.getItem("menuCollapse");
+
+    } else {
+        // Sorry! No Web Storage support..
     }
-    
-    $(".sidebar-toggle").click(function(){
-        if(localStorage.getItem("menuCollapse")=="false" || localStorage.getItem("menuCollapse")==""){
-            localStorage.setItem("menuCollapse","true");
-        }else{
-            localStorage.setItem("menuCollapse","false");
+    $(document).ready(function () {
+
+        if (localStorage.getItem("menuCollapse") == "true") {
+            $("body").addClass("sidebar-collapse");
         }
+
+        $(".sidebar-toggle").click(function () {
+            if (localStorage.getItem("menuCollapse") == "false" || localStorage.getItem("menuCollapse") == "") {
+                localStorage.setItem("menuCollapse", "true");
+            } else {
+                localStorage.setItem("menuCollapse", "false");
+            }
+        });
+
+        //TAB INDEX
+        var tab = $("[tabindex]");
+        for (var i = 0; i < tab.length; i++) {
+            $(tab[i]).removeAttr("tabindex");
+        }
+        var nombre_form = $($("form")[1]).length;
+
+        for (var f = 0; f < nombre_form; f++) {
+            var id_index = 1;
+
+            var new_elm = $($("form")[1])[f];
+
+            for (var i = 0; i < new_elm.length; i++) {
+                if ($(new_elm[i]).context.type === "hidden" || $(new_elm[i]).context.readOnly) {
+
+                } else {
+                    $(new_elm[i]).attr("tabindex", id_index);
+                    id_index++;
+                }
+
+            }
+        }
+
     });
-});
 
 
 </script>
 <script language="javascript">
-        (function($){            
-            var title = ($('h1:first').text());
-            if(title==='' || title==null)
-                title=($('h2:first').text());
-            if(title==='' || title==null)
-                title='SPAT';
-            document.title = title;
-        }(jQuery));
-    </script>
+    (function ($) {
+        var title = ($('h1:first').text());
+        if (title === '' || title == null)
+            title = ($('h2:first').text());
+        if (title === '' || title == null)
+            title = 'SPAT';
+        document.title = title;
+    }(jQuery));
+</script>
