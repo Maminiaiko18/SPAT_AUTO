@@ -28,7 +28,7 @@
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
     pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
-    String[] colSomme = null;
+    String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
 %>
 
