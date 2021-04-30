@@ -19,7 +19,7 @@
         UserEJB u = u = (UserEJB) session.getValue("u");
         String classeMere = "bordereau.Bordereau",
                classeFille = "bordereau.BordereauFille",
-               titre = "Bordereau saisie",
+               titre = "Saisie bordereau OP",
 			   redirection = "ded/bordereaux-fiche.jsp",
 			   colonneMere = "idbordereau",
                nomSaisie = "Bordereau";
