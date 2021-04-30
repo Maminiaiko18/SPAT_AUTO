@@ -30,7 +30,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste bordereaux</h1>
+        <h1>Liste bordereaux OP</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=ded/bordereaux-liste.jsp" method="post" name="travaux" id="travaux">
