@@ -60,22 +60,23 @@ public class Bordereau extends ClassEtat {
             }
 
             BordereauFille[] filles = getFilles(c);
+            BordereauFille[] tmp = null;
 
             if (filles != null && filles.length > 0) {
 
-                String obj = Utilitaire.tabToString(getOps(filles), "'", ";");
+                String obj = Utilitaire.tabToString(getOps(filles), "'", ",");
 
                 String req = "SELECT f.* FROM " + this.getNomTableFille() + " f "
                         + " JOIN " + this.getNomTable() + " b ON b.id = f.idbordereau "
                         + " WHERE idop in (" + obj + ") AND idbordereau != '" + this.getId() + "'"
                         + " and b.etat >= " + ConstanteEtat.getEtatValider();
 
-//                System.out.println("req " + req);
+                System.out.println("req " + req);
 
-                filles = (BordereauFille[]) CGenUtil.rechercher(new BordereauFille(), req, c);
+                tmp = (BordereauFille[]) CGenUtil.rechercher(new BordereauFille(), req, c);
             }
             
-            retour = filles != null && filles.length > 0;
+            retour = tmp != null && tmp.length > 0;
         } catch (Exception e) {
             throw e;
         } finally {
