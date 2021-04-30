@@ -22,7 +22,7 @@
         UserEJB u = u = (UserEJB) session.getValue("u");
         String classeMere = "bordereau.BordereauFF",
                classeFille = "bordereau.BordereauFilleFF",
-               titre = "Bordereau saisie",
+               titre = "Saisie Bordereau FF",
 			   redirection = "ded/bordereauxFF-fiche.jsp",
 			   colonneMere = "idbordereau",
                nomSaisie = "Bordereau";
