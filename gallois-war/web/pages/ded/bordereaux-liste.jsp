@@ -11,8 +11,15 @@
 
 <% 
     Bordereau bordereaux = new Bordereau();
-    bordereaux.setNomTable("bordereau_lib");
-    String libEntete[] = {"id", "daty","numero","designation","tiers"};
+    if (request.getParameter("etat") == null || request.getParameter("etat").compareToIgnoreCase("") == 0) {
+        bordereaux.setNomTable("BORDEREAU_LIB_MONTANT");
+    } else {
+        System.out.println(request.getParameter("etat"));
+        bordereaux.setNomTable(request.getParameter("etat"));
+
+    }
+    
+    String libEntete[] = {"id", "daty","numero","designation","tiers","montant"};
     String listeCrt[] = {"id","designation", "daty","tiers"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(bordereaux, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -23,7 +30,7 @@
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
     pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
-    String[] colSomme = null;
+    String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
 %>
 
@@ -37,6 +44,24 @@
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
+            <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Etat : </label>
+                        <select name="etat" class="champ form-control" id="etat" onchange="changerDesignation()" style="display: inline-block; width: 250px;">
+                            <option value="BORDEREAU_LIB_MONTANT" <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("BORDEREAU_LIB_MONTANT") == 0  ) {
+                                    out.print(" selected");
+                                }%>>Tous </option>
+                            <option value="BORDEREAU_LIB_MONTANTC" <%if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("BORDEREAU_LIB_MONTANTC") == 0) {
+                                    out.print("selected");
+                                }%>>Crée(s)</option>
+                            <option value="BORDEREAU_LIB_MONTANTV" <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("BORDEREAU_LIB_MONTANTV") == 0) {
+                                    out.print(" selected");
+                                }%>>Visé(s) </option>
+                        </select>
+                    </div>
+                </div>
+            <div class="col-md-4"></div>
         </form>
             <%
                 String lienTableau[] = {pr.getLien() + "?but=ded/bordereaux-fiche.jsp"};
@@ -47,7 +72,7 @@
             %>
             <br>
             <%
-                String libEnteteAffiche[] = {"id", "Date","num&eacute;ro","Désignation","Tiers"};
+                String libEnteteAffiche[] = {"id", "Date","num&eacute;ro","Désignation","Tiers","Montant"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 out.println(pr.getTableau().getHtml());
                 out.println(pr.getBasPage());
