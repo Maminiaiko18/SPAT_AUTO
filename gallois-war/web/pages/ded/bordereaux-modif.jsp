@@ -51,7 +51,7 @@ try{
 <div class="content-wrapper">
     <div class="row">
         <div class="box">
-            <h1>Modification bordereau</h1>
+            <h1>Modification bordereau OP</h1>
             <form action="<%=(String) session.getValue("lien")%>?but=apresMultiple.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
                 <%
                     pi.getFormu().makeHtmlInsertTabIndex();
