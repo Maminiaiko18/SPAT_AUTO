@@ -1,0 +1,16 @@
+
+  CREATE or replace VIEW BORDEREAU_LIB_MONTANT (ID, DATY, NUMERO, DESIGNATION, ETAT, TIERS, MONTANT) AS
+  SELECT bf.ID,
+       bf.DATY,
+       bf.NUMERO,
+       bf.DESIGNATION,
+       bf.ETAT,
+       bf.TIERSLIB  as TIERS,
+       cast(NVL(MO.MONTANT, 0)as number(30,2)) as montant
+FROM BORDEREAU_LIBCOMPLET BF
+         LEFT JOIN LIAISONBORDEREAU_SUM_MONTANT MO ON MO.IDBORDEREAU = BF.ID;
+
+	create or replace view BORDEREAU_LIB_MONTANTC as
+    select *from BORDEREAU_LIB_MONTANT where ETAT=1;
+create or replace view BORDEREAU_LIB_MONTANTV as
+    select *from BORDEREAU_LIB_MONTANT where ETAT>=11;
