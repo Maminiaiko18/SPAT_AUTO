@@ -11,6 +11,11 @@
     titre.put("codeetablissement", "Code etablissement");
     titre.put("typeavoir", "Type avoir");
     titre.put("typeadditif", "Type additif");
+    titre.put("typemesure", "Type mesure");
+    titre.put("typemarchandise", "Type marchandise");
+    titre.put("typemanipulation", "Type manipulation");
+    titre.put("nomsociete", "Société");
+    titre.put("typeactionconteneur", "Type Action Conteneur");
     titre.put("unitechantier", "Unite");
     titre.put("banque", "Banque");
     titre.put("entite", "Entité");
