@@ -14,8 +14,13 @@
 <%@ page import="affichage.*" %>
 
 <%
-    try{
-    String lien = (String) session.getValue("lien");
+    try {
+        String lien = (String) session.getValue("lien");
+        UserEJB u = (UserEJB) session.getAttribute("u");
+
+        TypeObjet typesaisie = new TypeObjet();
+        typesaisie.setNomTable("TYPESAISIE");
+        TypeObjet[] tab = (TypeObjet[]) u.getData(typesaisie, null, null, null, "");
 %>
 <div class="content-wrapper">
     <div class="box box-solid collapsed">
@@ -29,8 +34,9 @@
                 </div>
                 <div class="col-xs-4" align="center">
                     <select class="form-control" id="type">
-                        <option value="conteneur">Conteneur</option>
-                        <option value="societe">Societe</option>
+                        <% for (TypeObjet type : tab) {%>
+                        <option value="<%=Utilitaire.champNull(type.getVal().toLowerCase())%>"><%=Utilitaire.champNull(type.getDesce())%></option>
+                        <% }%>
                     </select>
                 </div>
                 <div class="col-md-4" align="center">
@@ -40,10 +46,10 @@
         </div>
     </div>    
 </div>
-    
-<script language="JavaScript"> 
-    function redirect(){
-        document.location.replace("<%=lien%>?but=statistique/"+document.getElementById("type").value+"-saisie.jsp");
+
+<script language="JavaScript">
+    function redirect() {
+        document.location.replace("<%=lien%>?but=statistique/" + document.getElementById("type").value + "-saisie.jsp");
     }
 </script>
 
@@ -52,7 +58,7 @@
 } catch (Exception e) {
     e.printStackTrace();
 %>
-<script language="JavaScript"> 
-	alert('<%=e.getMessage()%>');
+<script language="JavaScript">
+    alert('<%=e.getMessage()%>');
     history.back();</script>
-<% }%>
+    <% }%>

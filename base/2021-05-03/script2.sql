@@ -8,4 +8,4 @@ WHERE ID='NS001';
 
 INSERT INTO TYPESAISIE
 (ID, VAL, DESCE)
-VALUES('TSAI002', 'Société', 'Société');
+VALUES('TSAI002', 'societe', 'Société');
