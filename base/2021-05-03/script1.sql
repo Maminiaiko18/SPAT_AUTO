@@ -25,3 +25,12 @@ FROM STATISTIQUEACTIVITE s
          LEFT JOIN TYPEMARCHANDISE t3 ON s.IDTYPEMARCHANDISE = t3.ID
          LEFT JOIN TYPEMESURE t4 ON s.IDTYPEMESURE = t4.ID
         left join TYPESAISIE ts on ts.ID=s.TYPESAISIE;
+		
+create view statistiqueactivitelibc
+    as
+    select l.*
+    from statistiqueactivitelib l where l.ETAT=1;
+create view statistiqueactivitelibv
+    as
+    select l.*
+    from statistiqueactivitelib l where l.ETAT>=11;
