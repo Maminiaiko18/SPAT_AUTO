@@ -32,7 +32,8 @@
     //pi.getFormu().getChamp("typesaisie").setVisible(false);
     System.out.println("ici se trouve le mode"+mode);
     if(mode.compareToIgnoreCase(Constante.conteneurTypeSaisie)==0){
-        affichage.Champ[] liste = new affichage.Champ[2];
+        affichage.Champ[] liste = new affichage.Champ[3];
+        
         TypeObjet cons = new TypeObjet();
         cons.setNomTable("typeActionConteneur");
         liste[0] = new Liste("idtypeActionConteneur", cons, "VAL", "id");
@@ -40,6 +41,12 @@
         TypeObjet typeSaisie = new TypeObjet();
         typeSaisie.setNomTable("typeSaisie");
         liste[1] = new Liste("typeSaisie", typeSaisie, "val", "id");
+        
+        
+        TypeObjet idtypemanipulation = new TypeObjet();
+        idtypemanipulation.setNomTable("typemanipulation");
+        liste[2] = new Liste("idtypemanipulation", idtypemanipulation, "val", "id");
+        
         pi.getFormu().changerEnChamp(liste);
         
         pi.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type Action Conteneur");  
@@ -54,6 +61,7 @@
         pi.getFormu().getChamp("nombreunite").setVisible(false);
         pi.getFormu().getChamp("poids").setVisible(false);
         pi.getFormu().getChamp("typesaisie").setLibelle("Type");
+        pi.getFormu().getChamp("idtypemanipulation").setLibelle("Manipulation");
     }else if(mode.compareToIgnoreCase("TS0002")==0){
         affichage.Champ[] liste = new affichage.Champ[4];
         TypeObjet cons = new TypeObjet();
