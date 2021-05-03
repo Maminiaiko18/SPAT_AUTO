@@ -6,6 +6,7 @@ public class Constante {
     public static String tonnage = "TMES001";
     public static String conteneur = "TS0001";
     public static String societe = "TS0002";
+    public static String typesociete = "TSAI002";
     public static String typeconteneur = "TSAI001";
     public static String mictsl = "NS004";
     private static String idTypeLCRecette = "TLC00001";
