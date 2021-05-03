@@ -39,13 +39,6 @@ public class StatistiqueActivite extends ClassEtat{
         super.setNomTable("statistique_activite");
     }
 
-    @Override
-    public ClassMAPTable createObject(String u, Connection c) throws Exception {
-        if(getTypeSaisie().equalsIgnoreCase(Constante.typeconteneur)) setIdnomsociete(Constante.mictsl);
-        
-        return super.createObject(u, c); 
-    }
-
     public String getNavire() {
         return navire;
     }
@@ -155,6 +148,8 @@ public class StatistiqueActivite extends ClassEtat{
     }
 
     public void setTypeSaisie(String typeSaisie) {
+        if(typeSaisie.equalsIgnoreCase(Constante.typeconteneur)) setIdnomsociete(Constante.mictsl);
+        
         this.typeSaisie = typeSaisie;
     }
     
