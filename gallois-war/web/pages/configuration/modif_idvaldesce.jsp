@@ -18,6 +18,11 @@
         titres.put("pays", "Pays");
         titres.put("typequais", "Type quais");
         titres.put("type_materiel", "Type mat&eacute;riel naval");
+        titres.put("typemesure", "Type mesure");
+        titres.put("typemarchandise", "Type marchandise");
+        titres.put("typemanipulation", "Type manipulation");
+        titres.put("nomsociete", "Société");
+        titres.put("typeactionconteneur", "Type Action Conteneur");
         titres.put("typetravaux ", "Type travaux");
         titres.put("poste", "Poste");
         titres.put("typepatrimoine", "Type patrimoine");
@@ -39,7 +44,6 @@
         /*if (titre.compareToIgnoreCase("BUDGET_CATEGORIE_REJET_OP") == 0) {
             titre = "Categorie rejet OP";
         }*/
-
         String val = "Valeur";
         String desce = "Description";
 
