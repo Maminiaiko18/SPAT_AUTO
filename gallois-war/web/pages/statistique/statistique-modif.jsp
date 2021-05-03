@@ -9,6 +9,9 @@
 <%@ page import="bean.*"%>
 <%@ page import="utilitaire.*"%>
 <%@ page import="affichage.*"%>
+<%@page import="affichage.Liste"%>
+<%@page import="utilitaire.Constante"%>
+
 <%
     try{
     StatistiqueActivite stat = new StatistiqueActivite();
@@ -19,19 +22,25 @@
     stat = (StatistiqueActivite)pi.getBase();
     String mode = stat.getTypeSaisie();
     
+    pi.getFormu().getChamp("id").setVisible(false);
     pi.getFormu().getChamp("titre").setLibelle("Titre");
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("navire").setAutre("readonly");
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("typesaisie").setVisible(false);
+    //pi.getFormu().getChamp("typesaisie").setVisible(false);
     
-    if(mode.compareToIgnoreCase("TS0001")==0){
-        affichage.Champ[] liste = new affichage.Champ[1];
+    if(mode.compareToIgnoreCase(Constante.conteneurTypeSaisie)==0){
+        affichage.Champ[] liste = new affichage.Champ[2];
         TypeObjet cons = new TypeObjet();
         cons.setNomTable("typeActionConteneur");
         liste[0] = new Liste("idtypeActionConteneur", cons, "VAL", "id");
+        
+        TypeObjet typeSaisie = new TypeObjet();
+        typeSaisie.setNomTable("typeSaisie");
+        liste[1] = new Liste("typeSaisie", typeSaisie, "val", "id");
         pi.getFormu().changerEnChamp(liste);
+        
         pi.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type Action Conteneur");  
         pi.getFormu().getChamp("Plein20Pieds").setLibelle("20 pieds plein");
         pi.getFormu().getChamp("Vide20Pieds").setLibelle("20 pieds vide");
@@ -43,6 +52,7 @@
         pi.getFormu().getChamp("idtypemesure").setVisible(false);
         pi.getFormu().getChamp("nombreunite").setVisible(false);
         pi.getFormu().getChamp("poids").setVisible(false);
+        pi.getFormu().getChamp("typesaisie").setLibelle("Type");
     }else if(mode.compareToIgnoreCase("TS0002")==0){
         affichage.Champ[] liste = new affichage.Champ[4];
         TypeObjet cons = new TypeObjet();
