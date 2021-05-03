@@ -6,8 +6,10 @@
 package mg.spat;
 
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.Constante;
 
 /**
  *
@@ -35,6 +37,13 @@ public class StatistiqueActivite extends ClassEtat{
 
     public StatistiqueActivite() {
         super.setNomTable("statistique_activite");
+    }
+
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        if(getTypeSaisie().equalsIgnoreCase(Constante.typeconteneur)) setIdnomsociete(Constante.mictsl);
+        
+        return super.createObject(u, c); 
     }
 
     public String getNavire() {
