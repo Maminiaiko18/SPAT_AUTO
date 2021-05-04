@@ -42,3 +42,4 @@ AS
 select*
 from previsionSTATACTIVITELIB
 where ETAT >= 11;
+
