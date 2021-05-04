@@ -58,6 +58,7 @@
         pi.getFormu().getChamp("nombreunite").setVisible(false);
         pi.getFormu().getChamp("poids").setVisible(false);
         pi.getFormu().getChamp("typesaisie").setLibelle("Type");
+        pi.getFormu().getChamp("idtypemanipulation").setLibelle("Manipulation");
     }else if(mode.compareToIgnoreCase("TS0002")==0){
         affichage.Champ[] liste = new affichage.Champ[4];
         TypeObjet cons = new TypeObjet();
