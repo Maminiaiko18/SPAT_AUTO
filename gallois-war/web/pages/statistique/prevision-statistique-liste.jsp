@@ -7,6 +7,8 @@
 <%@page import="mg.spat.StatistiqueActivite"%>
 <%@page import="mg.spat.PosteDestinataireLibComplet"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="utilitaire.Constante"%>
+
 <% 
     StatistiqueActivite posteDestinataire = new StatistiqueActivite();
     posteDestinataire.setNomTable("previsionstatactivitelib");
@@ -23,6 +25,7 @@
     pr.setApres("statistique/prevision-statistique-liste.jsp");
     pr.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type action conteneur");
     pr.getFormu().getChamp("idtypemanipulation").setLibelle("Type manipulation");
+    pr.setAWhere(" and idTypeSaisie = '"+Constante.typeconteneur+"' ");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
