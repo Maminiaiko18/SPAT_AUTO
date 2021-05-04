@@ -4,6 +4,7 @@
     Author     : Andriamiary
 --%>
 
+<%@page import="utilitaire.Constante"%>
 <%@page import="mg.spat.StatistiqueActivite"%>
 <%@page import="mg.spat.PosteDestinataireLibComplet"%>
 <%@page import="affichage.PageRecherche"%>
@@ -24,6 +25,7 @@
     pr.setApres("statistique/prevision-statistique-societe-liste.jsp");
     pr.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type action conteneur");
     pr.getFormu().getChamp("idtypemanipulation").setLibelle("Type manipulation");
+    pr.setAWhere(" and idTypeSaisie = '"+Constante.typesociete+"' ");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>

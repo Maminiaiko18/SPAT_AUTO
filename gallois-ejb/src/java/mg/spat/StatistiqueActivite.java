@@ -33,10 +33,19 @@ public class StatistiqueActivite extends ClassEtat{
     private int nombreunite ;
     private double poids ;
     private String typeSaisie;
+    private String idTypeSaisie;
     private String navire;
 
     public StatistiqueActivite() {
         super.setNomTable("statistique_activite");
+    }
+
+    public String getIdTypeSaisie() {
+        return idTypeSaisie;
+    }
+
+    public void setIdTypeSaisie(String idTypeSaisie) {
+        this.idTypeSaisie = idTypeSaisie;
     }
 
     public String getNavire() {
