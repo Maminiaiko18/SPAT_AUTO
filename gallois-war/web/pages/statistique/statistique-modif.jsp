@@ -31,7 +31,7 @@
     //pi.getFormu().getChamp("typesaisie").setVisible(false);
     
     if(mode.compareToIgnoreCase(Constante.conteneurTypeSaisie)==0){
-        affichage.Champ[] liste = new affichage.Champ[2];
+        affichage.Champ[] liste = new affichage.Champ[3];
         TypeObjet cons = new TypeObjet();
         cons.setNomTable("typeActionConteneur");
         liste[0] = new Liste("idtypeActionConteneur", cons, "VAL", "id");
@@ -39,6 +39,11 @@
         TypeObjet typeSaisie = new TypeObjet();
         typeSaisie.setNomTable("typeSaisie");
         liste[1] = new Liste("typeSaisie", typeSaisie, "val", "id");
+        
+        TypeObjet idtypemanipulation = new TypeObjet();
+        idtypemanipulation.setNomTable("typemanipulation");
+        liste[2] = new Liste("idtypemanipulation", idtypemanipulation, "val", "id");
+        
         pi.getFormu().changerEnChamp(liste);
         
         pi.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type Action Conteneur");  
@@ -47,7 +52,7 @@
         pi.getFormu().getChamp("Plein40Pieds").setLibelle("40 pieds plein");
         pi.getFormu().getChamp("Vide40Pieds").setLibelle("40 pieds vide");    
         pi.getFormu().getChamp("idnomsociete").setVisible(false);
-        pi.getFormu().getChamp("idtypemanipulation").setVisible(false);
+        //pi.getFormu().getChamp("idtypemanipulation").setVisible(false);
         pi.getFormu().getChamp("idtypemarchandise").setVisible(false);
         pi.getFormu().getChamp("idtypemesure").setVisible(false);
         pi.getFormu().getChamp("nombreunite").setVisible(false);
