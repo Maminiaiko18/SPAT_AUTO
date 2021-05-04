@@ -25,22 +25,26 @@
     PageInsert pi = new PageInsert(objet, request, u);
     pi.setLien((String) session.getValue("lien"));  
     
-    affichage.Champ[] liste = new affichage.Champ[2];
+    affichage.Champ[] liste = new affichage.Champ[3];
     TypeObjet typeActionConteneur = new TypeObjet();
     typeActionConteneur.setNomTable("typeActionConteneur");
     liste[0] = new Liste("idtypeActionConteneur", typeActionConteneur, "val", "id");
     TypeObjet typeSaisie = new TypeObjet();
     typeSaisie.setNomTable("typeSaisie");
     liste[1] = new Liste("typeSaisie", typeSaisie, "val", "id");
+    TypeObjet manipulation = new TypeObjet();
+    manipulation.setNomTable("TYPEMANIPULATION");
+    liste[2] = new Liste("Idtypemanipulation", manipulation, "val", "id");
     pi.getFormu().changerEnChamp(liste);
 	
+    pi.getFormu().getChamp("typeSaisie").setDefaut(Constante.conteneur);
     pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("navire").setAutre("readonly");
     pi.getFormu().getChamp("Etat").setVisible(false);
     pi.getFormu().getChamp("Poids").setVisible(false);
     pi.getFormu().getChamp("Nombreunite").setVisible(false);
     pi.getFormu().getChamp("Idtypemesure").setVisible(false);
-    pi.getFormu().getChamp("Idtypemanipulation").setVisible(false);
+    pi.getFormu().getChamp("Idtypemanipulation").setLibelle("Type manipulation");
     pi.getFormu().getChamp("Idtypemarchandise").setVisible(false);
     pi.getFormu().getChamp("Idnomsociete").setVisible(false);
     pi.getFormu().getChamp("typeSaisie").setDefaut(Constante.conteneur);
@@ -53,6 +57,7 @@
     pi.getFormu().getChamp("typeSaisie").setLibelle("Type");
     pi.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type action conteneur");
             
+    
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
