@@ -7,6 +7,7 @@
 <%@page import="mg.spat.StatistiqueActivite"%>
 <%@page import="mg.spat.PosteDestinataireLibComplet"%>
 <%@page import="affichage.PageRecherche"%>
+
 <% 
     StatistiqueActivite posteDestinataire = new StatistiqueActivite();
     posteDestinataire.setNomTable("statistiqueactivitelib");
@@ -68,7 +69,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Titre", "Date","navire", "Type action conteneur", "Type manipulation", "20 pieds plein", "20 pied vide", "40 pied plein", "40 pied vide"};
+            String libEnteteAffiche[] = {"Id", "Titre", "Date","navire", "Type action conteneur", "Type manipulation", "20 pieds plein", "20 pieds vide", "40 pieds plein", "40 pieds vide"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
