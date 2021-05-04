@@ -7,6 +7,7 @@
 <%@page import="mg.spat.StatistiqueActivite"%>
 <%@page import="mg.spat.PosteDestinataireLibComplet"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="utilitaire.Constante"%>
 
 <% 
     StatistiqueActivite posteDestinataire = new StatistiqueActivite();
@@ -22,6 +23,7 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("statistique/statistique-societe-liste.jsp");
+    pr.setAWhere(" and idTypeSaisie = '"+Constante.typesociete+"' ");
     pr.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type action conteneur");
     pr.getFormu().getChamp("idtypemanipulation").setLibelle("Type manipulation");
     String[] colSomme = null;
