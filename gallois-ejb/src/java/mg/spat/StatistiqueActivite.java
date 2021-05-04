@@ -15,23 +15,23 @@ import utilitaire.Constante;
  *
  * @author Asus
  */
-public class StatistiqueActivite extends ClassEtat{
-    
-    private String id,idclient,rubrique;
+public class StatistiqueActivite extends ClassEtat {
+
+    private String id, idclient, rubrique;
     private Date daty;
     private double cumul;
     private String titre;
     private String idtypeActionConteneur;
-    private double Plein20Pieds  ;
-    private double Vide20Pieds  ;
-    private double Plein40Pieds  ;
-    private double Vide40Pieds  ;
+    private double Plein20Pieds;
+    private double Vide20Pieds;
+    private double Plein40Pieds;
+    private double Vide40Pieds;
     private String idnomsociete;
     private String idtypemanipulation;
     private String idtypemarchandise;
     private String idtypemesure;
-    private int nombreunite ;
-    private double poids ;
+    private int nombreunite;
+    private double poids;
     private String typeSaisie;
     private String idTypeSaisie;
     private String navire;
@@ -157,30 +157,31 @@ public class StatistiqueActivite extends ClassEtat{
     }
 
     public void setTypeSaisie(String typeSaisie) {
-        if(typeSaisie.equalsIgnoreCase(Constante.typeconteneur)) setIdnomsociete(Constante.mictsl);
-        
+        if (getMode().equalsIgnoreCase("modif")) {
+            if (typeSaisie.equalsIgnoreCase(Constante.typeconteneur)) {
+                setIdnomsociete(Constante.mictsl);
+            }
+        }
+
         this.typeSaisie = typeSaisie;
     }
-    
-    
 
     public StatistiqueActivite(String id, String idclient, String rubrique, Date daty, double cumul) throws Exception {
-         super.setNomTable("statistique_activite");
+        super.setNomTable("statistique_activite");
         this.setId(id);
         this.setIdclient(idclient);
         this.setRubrique(rubrique);
         this.setDaty(daty);
         this.setCumul(cumul);
     }
+
     public StatistiqueActivite(String idclient, String rubrique, Date daty, double cumul) throws Exception {
-         super.setNomTable("statistique_activite");
+        super.setNomTable("statistique_activite");
         this.setIdclient(idclient);
         this.setRubrique(rubrique);
         this.setDaty(daty);
         this.setCumul(cumul);
     }
-    
-    
 
     public String getId() {
         return id;
@@ -221,32 +222,27 @@ public class StatistiqueActivite extends ClassEtat{
     public void setCumul(double cumul) throws Exception {
         if (getMode().compareToIgnoreCase("modif") == 0) {
             if (cumul < 0) {
-               throw new Exception("cumul invalide");
-            } 
+                throw new Exception("cumul invalide");
+            }
         }
-         this.cumul = cumul;
-       
-       
-       
+        this.cumul = cumul;
+
     }
-    
-    
-    
 
     @Override
     public String getTuppleID() {
-    return this.id;
+        return this.id;
     }
 
     @Override
     public String getAttributIDName() {
-    return "id";
+        return "id";
     }
-    
-     public void construirePK(Connection c) throws Exception {
-         this.preparePk("STA", "getseq_statistique_activite");
+
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("STA", "getseq_statistique_activite");
         this.setId(makePK(c));
-        
+
     }
-    
+
 }
