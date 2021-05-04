@@ -34,7 +34,7 @@
     liste[1] = new Liste("typeSaisie", typeSaisie, "val", "id");
     TypeObjet manipulation = new TypeObjet();
     manipulation.setNomTable("TYPEMANIPULATION");
-    liste[2] = new Liste("Idtypemanipulation", manipulation, "val", "id");
+    liste[2] = new Liste("idtypemanipulation", manipulation, "val", "id");
     pi.getFormu().changerEnChamp(liste);
 	
     pi.getFormu().getChamp("typeSaisie").setDefaut(Constante.typeconteneur);
@@ -44,9 +44,9 @@
     pi.getFormu().getChamp("Poids").setVisible(false);
     pi.getFormu().getChamp("Nombreunite").setVisible(false);
     pi.getFormu().getChamp("Idtypemesure").setVisible(false);
-    pi.getFormu().getChamp("Idtypemanipulation").setLibelle("Type manipulation");
-    pi.getFormu().getChamp("Idtypemarchandise").setVisible(false);
-    pi.getFormu().getChamp("Idnomsociete").setVisible(false);
+    pi.getFormu().getChamp("idtypemanipulation").setLibelle("Type manipulation");
+    pi.getFormu().getChamp("idtypemarchandise").setVisible(false);
+    pi.getFormu().getChamp("idnomsociete").setVisible(false);
     pi.getFormu().getChamp("typeSaisie").setDefaut(Constante.conteneur);
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("daty").setLibelle("Date");
