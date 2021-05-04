@@ -7,6 +7,7 @@
 
     StatistiqueActivite s = new StatistiqueActivite();
     s.setNomTable("previsionSTATACTIVITELIB");
+    
     PageConsulte pc = new PageConsulte( s , request, (user.UserEJB) session.getValue("u"));
     pc.setTitre("Fiche Statistique");
     pc.getChampByName("idtypeActionConteneur").setLibelle("type action conteneur");
@@ -43,8 +44,8 @@
                         <br/>
                         <div class="pull-right">
                             <p>
-                                <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=statistique/statistique-fiche.jsp&classe=mg.spat.StatistiqueActivite&nomtable=previsionSTATACTIVITELIB"><button class="btn btn-success">Viser</button></a>
-                                <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=annulerVisa&bute=statistique/statistique-fiche.jsp&classe=mg.spat.StatistiqueActivite&nomtable=previsionSTATACTIVITELIB"><button class="btn btn-danger">Annuler visa</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=statistique/prevision-statistique-fiche.jsp&classe=mg.spat.StatistiqueActivite&nomtable=prevision_stat_activite"><button class="btn btn-success">Viser</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=annulerVisa&bute=statistique/prevision-statistique-fiche.jsp&classe=mg.spat.StatistiqueActivite&nomtable=prevision_stat_activite"><button class="btn btn-danger">Annuler visa</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "?but=statistique/prevision-statistique-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning">Modifier</button></a>
                             </p>
                         </div>
