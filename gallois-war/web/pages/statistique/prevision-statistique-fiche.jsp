@@ -21,7 +21,7 @@
     pc.getChampByName("nombreunite").setLibelle("Nombre unite");
     pc.getChampByName("typeSaisie").setLibelle("Type saisie");
     pc.getChampByName("daty").setLibelle("Date");
-    
+    pc.getChampByName("idTypeSaisie").setVisible(false);
    
 
 %>
