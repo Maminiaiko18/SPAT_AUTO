@@ -37,7 +37,7 @@
     liste[2] = new Liste("Idtypemanipulation", manipulation, "val", "id");
     pi.getFormu().changerEnChamp(liste);
 	
-    pi.getFormu().getChamp("typeSaisie").setDefaut(Constante.conteneur);
+    pi.getFormu().getChamp("typeSaisie").setDefaut(Constante.typeconteneur);
     pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("navire").setAutre("readonly");
     pi.getFormu().getChamp("Etat").setVisible(false);

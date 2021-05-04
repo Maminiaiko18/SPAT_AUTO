@@ -27,7 +27,7 @@
     
     affichage.Champ[] liste = new affichage.Champ[6];
     TypeObjet nomsociete = new TypeObjet();
-    nomsociete.setNomTable("nomsociete");
+    nomsociete.setNomTable("NOMSOCIETEFILTRE");
     liste[0] = new Liste("idnomsociete", nomsociete, "val", "id");
     TypeObjet typeSaisie = new TypeObjet();
     typeSaisie.setNomTable("typeSaisie");
@@ -49,6 +49,8 @@
 	
     pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("navire").setAutre("readonly");
+    pi.getFormu().getChamp("typeSaisie").setDefaut(Constante.typesociete);
+    System.out.println("Constante.typesociete=="+Constante.typesociete);
     pi.getFormu().getChamp("Etat").setVisible(false);
 //    pi.getFormu().getChamp("IdtypeActionConteneur").setVisible(false); 
     pi.getFormu().getChamp("Plein20Pieds").setVisible(false); 
@@ -56,7 +58,6 @@
     pi.getFormu().getChamp("Plein40Pieds").setVisible(false); 
     pi.getFormu().getChamp("Vide40Pieds").setVisible(false); 
     pi.getFormu().getChamp("idtypemesure").setDefaut(Constante.tonnage);
-    pi.getFormu().getChamp("typeSaisie").setDefaut(Constante.societe);
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("idnomsociete").setLibelle("Nom");
