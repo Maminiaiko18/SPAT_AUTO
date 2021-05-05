@@ -78,7 +78,6 @@
                                     <th style="background-color:#bed1dd;">ID</th>
                                     <th style="background-color:#bed1dd;">Designation</th>
                                     <th style="background-color:#bed1dd;">Facture</th>
-                                    <th style="background-color:#bed1dd;">Ordonner payement</th>
                                     <th style="background-color:#bed1dd;">Montant OP</th>
                                     <th style="background-color:#bed1dd;"></th>
                                 </tr>
@@ -96,11 +95,7 @@
                                             <%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>
                                         </a>
                                     </td>
-                                    <td>
-                                        <a href="<%=(String) session.getValue("lien")%>?but=ded/ordonnerpayement-fiche.jsp&id=<%=utilitaire.Utilitaire.champNull(detail.getIdop())%>">
-                                            <%=utilitaire.Utilitaire.champNull(detail.getIdop())%> 
-                                        </a>
-                                    </td>
+                                    
                                     <td align="right"><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
                                     <td><a style="margin-right : 20px" class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + detail.getId() %>&acte=delete&bute=ded/bordereauxFF-liste.jsp&classe=bordereau.BordereauFille&nomtable=liaisonbordereauFF" style="margin-right: 10px">Suprimer</a></td>
                                 </tr>
