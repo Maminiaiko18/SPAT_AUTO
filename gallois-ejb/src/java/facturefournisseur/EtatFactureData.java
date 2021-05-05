@@ -32,7 +32,7 @@ public class EtatFactureData {
             journalCaisse.setNomTable("journalcaisseOP");
 //            payment=(JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, " and DED_ID='" + ff.getId() + "'");
             OrdonnerPayement o=new OrdonnerPayement();
-            ordonner=(OrdonnerPayement[]) CGenUtil.rechercher(o, null, null, c, " and DED_ID like'%" + ff.getId() + "%'");
+            ordonner=(OrdonnerPayement[]) CGenUtil.rechercher(o, null, null, c, " and DED_ID ='" + ff.getId() + "'");
         }catch(Exception e){
             throw e;
         }finally{
