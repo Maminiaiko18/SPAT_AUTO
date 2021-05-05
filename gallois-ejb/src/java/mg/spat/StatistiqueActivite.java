@@ -35,7 +35,63 @@ public class StatistiqueActivite extends ClassEtat {
     private String typeSaisie;
     private String idTypeSaisie;
     private String navire;
+    private int mois, annee;
+    private String moislib;
+    private String idtypeactionconteneurlib;
+    private double somme_plein20_vide20_plein40;
+    private String idtypemanipulationlib;
 
+    public String getIdtypemanipulationlib() {
+        return idtypemanipulationlib;
+    }
+
+    public void setIdtypemanipulationlib(String idtypemanipulationlib) {
+        this.idtypemanipulationlib = idtypemanipulationlib;
+    }
+    
+    
+    
+    public int getMois() {
+        return mois;
+    }
+
+    public void setMois(int mois) {
+        this.mois = mois;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    public String getMoislib() {
+        return moislib;
+    }
+
+    public void setMoislib(String moislib) {
+        this.moislib = moislib;
+    }
+
+    public String getIdtypeactionconteneurlib() {
+        return idtypeactionconteneurlib;
+    }
+
+    public void setIdtypeactionconteneurlib(String idtypeactionconteneurlib) {
+        this.idtypeactionconteneurlib = idtypeactionconteneurlib;
+    }
+
+    public double getSomme_plein20_vide20_plein40() {
+        return somme_plein20_vide20_plein40;
+    }
+
+    public void setSomme_plein20_vide20_plein40(double somme_plein20_vide20_plein40) {
+        this.somme_plein20_vide20_plein40 = somme_plein20_vide20_plein40;
+    }
+
+    
     public StatistiqueActivite() {
         super.setNomTable("statistique_activite");
     }
