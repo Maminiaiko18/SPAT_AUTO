@@ -11,8 +11,8 @@
 
         StatistiqueActivite lv = new StatistiqueActivite();
         lv.setNomTable("STATISTIQUEACTIVITE_NMICTSL_GR");
-        String listeCrt[] = {"idtypemanipulationlib","moislib"};
-        String listeInt[] = {};
+        String listeCrt[] = {"idtypemanipulationlib","moislib","annee"};
+        String listeInt[] = {"annee"};
 
         String[] pourcentage = {};
         String somDefaut[] ={"nombreunite"};
@@ -23,6 +23,8 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
+        pr.getFormu().getChamp("annee1").setLibelle("Annee Min");
+        pr.getFormu().getChamp("annee2").setLibelle("Annee Max");
         pr.getFormu().getChamp("idtypemanipulationlib").setLibelle("Type manipulation");
         pr.getFormu().getChamp("moislib").setLibelle("Mois");
         
