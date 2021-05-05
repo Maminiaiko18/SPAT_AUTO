@@ -645,17 +645,12 @@ public class PageRechercheGroupe extends Page {
     }
 
     public void makeTableauRecap() throws Exception {
-        
-        String lang = String.valueOf(getReq().getSession().getAttribute("lang"));
-        ResourceBundle RB = ResourceBundle.getBundle("text", new Locale(lang));
-        
         String[][] data = null;
         String[] entete = null;
         int nbColSomme = 0;
         if (getColSomme() != null) {
             nbColSomme = getColSomme().length;
         }
-        
         entete = new String[nbColSomme + 2];
         data = new String[1][entete.length];
         entete[0] = "";
@@ -667,7 +662,7 @@ public class PageRechercheGroupe extends Page {
             entete[i + 2] = "Somme de " + String.valueOf(getColSomme()[i]);
         }
         TableauRecherche t = new TableauRecherche(data, entete);
-        t.setTitre(RB.getString("recapitulation"));
+        t.setTitre("RECAP");
         setTableauRecap(t);
     }
 
@@ -998,6 +993,7 @@ public class PageRechercheGroupe extends Page {
         this.ligneGroupe = ligneGroupe;
     }
     
+    
     public void creerObjetPageCroise(String lien) throws Exception
     {
         getValeurFormulaire(); //Recuperation des valeurs choisi
@@ -1007,9 +1003,8 @@ public class PageRechercheGroupe extends Page {
         makeTableauRecap();
         //String[] enteteAuto = Utilitaire.ajouterTableauString(getColGroupe(), getSommeGroupe());
         
-        setTableau(new TableauRechercheGroupe(getListe(), this.getColGroupe(),getSommeGroupeDefaut(),lien) ); // Formation 
+        setTableau(new TableauRechercheGroupe(getListe(), this.getColGroupe(),getSommeGroupeDefaut(),lien) ); // Formation du tableau de resultat   
     }
-    
     public void creerObjetPageCroise(String []colon,String lien) throws Exception
     {
         if(this.getLigneGroupe()!=null&&this.getLigneGroupe().length>0)colon=this.getLigneGroupe();

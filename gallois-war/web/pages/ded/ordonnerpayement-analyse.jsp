@@ -32,15 +32,20 @@
         String[] pourcentage = {};
         String colDefaut[] = {"id","daty","ded_Id","tiers","remarque"};
         String somDefaut[] = {"montant","montantpaye","reste"};
+        
+        String[] colGr = {"daty","remarque"};
+        String[] colGrCol = {"ded_Id"};
 
-        PageRechercheGroupe pr = new PageRechercheGroupe(op, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length,1);
+        PageRechercheGroupe pr = new PageRechercheGroupe(op, request, listeCrt, listeInt, 3, colGr, somDefaut, pourcentage, 3,1);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.getFormu().getChamp("ded_Id").setLibelle("facture");
         pr.getFormu().getChamp("daty1").setLibelle("date de début");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.setApres("ded/ordonnerpayement-analyse.jsp");
-        pr.creerObjetPage();
+//        pr.creerObjetPage();
+        
+        pr.creerObjetPageCroise(colGrCol,pr.getLien()+"?but=fin/mvtcaisse-liste.jsp");
 %>
 <script>
     function changerDesignation() {
@@ -95,9 +100,11 @@
                 pr.getTableau().setLien(tablink);
                 pr.getTableau().setColonneLien(collink);
             }
+//            out.println(pr.getTableau().getHtml());
+//            out.println(pr.getBasPage());
+//            out.println(pr.getInsertLienModal());
+            out.println(pr.getTableauRecap().getHtml()); 
             out.println(pr.getTableau().getHtml());
-            out.println(pr.getBasPage());
-            out.println(pr.getInsertLienModal());
         %>
     </section>
 </div>
