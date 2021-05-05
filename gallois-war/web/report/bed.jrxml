@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5a2a4c-d9f3-419e-bdaf-7d68b4b0a8e6">
-	<property name="ireport.zoom" value="0.9090909090909327"/>
+	<property name="ireport.zoom" value="1.1000000000000287"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="2"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
 	<parameter name="code_etab" class="java.lang.String"/>
 	<parameter name="projet" class="java.lang.String"/>
+	<parameter name="date" class="java.util.Date"/>
+	<parameter name="service" class="java.lang.String"/>
+	<parameter name="direction" class="java.lang.String"/>
+	<parameter name="departement" class="java.lang.String"/>
 	<field name="id" class="java.lang.String"/>
-	<field name="idfacture" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String"/>
-	<field name="puht" class="java.lang.Double"/>
-	<field name="quantite" class="java.lang.Double"/>
 	<field name="montanttva" class="java.lang.Double"/>
-	<field name="montantttc" class="java.lang.Double"/>
-	<field name="tiers" class="java.lang.String"/>
+	<field name="montantTTC" class="java.lang.Double"/>
+	<field name="tierslib" class="java.lang.String"/>
 	<field name="daty" class="java.util.Date"/>
-	<field name="numfact" class="java.lang.String"/>
-	<field name="prestataire" class="java.lang.String"/>
+	<field name="numFact" class="java.lang.String"/>
+	<field name="montant" class="java.lang.Double"/>
 	<variable name="totalht" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{puht}*$F{quantite}]]></variableExpression>
+		<variableExpression><![CDATA[$F{montant}]]></variableExpression>
 	</variable>
 	<variable name="totaltva" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{montanttva}]]></variableExpression>
 	</variable>
 	<variable name="totalttc" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{montantttc}]]></variableExpression>
+		<variableExpression><![CDATA[$F{montantTTC}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -215,24 +216,6 @@
 					</textElement>
 					<text><![CDATA[SERVICE :]]></text>
 				</staticText>
-				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="89" y="0" width="186" height="15" uuid="8008d5d2-2724-49ae-86af-3aa3d23f170c"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<paragraph rightIndent="3"/>
-					</textElement>
-				</textField>
-				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="89" y="15" width="186" height="15" uuid="4d86e0d7-af61-4af8-8d17-7bfb0e9d6e29"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<paragraph rightIndent="3"/>
-					</textElement>
-				</textField>
-				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="89" y="30" width="186" height="15" uuid="74677059-0455-4541-9929-0f56b2ab35d4"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<paragraph rightIndent="3"/>
-					</textElement>
-				</textField>
 			</frame>
 			<frame>
 				<reportElement x="318" y="95" width="229" height="47" uuid="23d3e5ad-4e2d-4045-aaa4-0fa71f865793"/>
@@ -267,6 +250,34 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center"/>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="449" y="32" width="98" height="15" uuid="c1d8f6a0-e117-45f3-bf1d-4f9306164efb"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="90" y="95" width="184" height="15" uuid="6a3434e6-7b0b-4b09-9fed-697b463fd4ff"/>
+				<textElement verticalAlignment="Top">
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{direction}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="90" y="111" width="184" height="15" uuid="80fee1c3-cc2f-45b9-bc36-fa66d65c2ca2"/>
+				<textElement verticalAlignment="Top">
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{departement}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="90" y="127" width="184" height="15" uuid="b33a44be-aec1-4d25-851d-70cb23dc8231"/>
+				<textElement verticalAlignment="Top">
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{service}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -379,7 +390,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<paragraph rightIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{puht}*$F{quantite}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="485" y="0" width="70" height="40" uuid="c6981dc8-08bc-4e51-ba8c-3c8b9839355d"/>
@@ -406,7 +417,7 @@
 					<font size="8"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tiers}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="71" y="0" width="70" height="40" uuid="2cac3462-297b-4fa1-97fe-c285fa9c6e19"/>
@@ -432,7 +443,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<paragraph rightIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{numfact}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{numFact}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

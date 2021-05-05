@@ -13,7 +13,7 @@ import java.sql.Connection;
  * @author rasol
  */
 public class CodeEtablissement extends TypeObjet{
-    private String departement, service;
+    private String departement, service, descelib, departementlib, servicelib;
 
     public CodeEtablissement() {
         this.setNomTable("codeetablissement");
@@ -39,5 +39,29 @@ public class CodeEtablissement extends TypeObjet{
     public void construirePK(Connection c) throws Exception {
         this.preparePk("CET", "get_seq_codeetabliss");
         this.setId(makePK(c));
+    }
+
+    public String getDescelib() {
+        return descelib;
+    }
+
+    public void setDescelib(String descelib) {
+        this.descelib = descelib;
+    }
+
+    public String getDepartementlib() {
+        return departementlib;
+    }
+
+    public void setDepartementlib(String departementlib) {
+        this.departementlib = departementlib;
+    }
+
+    public String getServicelib() {
+        return servicelib;
+    }
+
+    public void setServicelib(String servicelib) {
+        this.servicelib = servicelib;
     }
 }

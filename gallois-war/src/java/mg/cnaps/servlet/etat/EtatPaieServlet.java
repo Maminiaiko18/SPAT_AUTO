@@ -4,6 +4,8 @@ import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.TypeObjet;
+import bordereau.BordereauFilleLibComplet;
+import bordereau.BordereauLibComplet;
 import ded.OrdonnerPayementPDF;
 import java.io.File;
 import java.io.IOException;
@@ -49,6 +51,7 @@ import mg.spat.FactureAnalyse;
 import mg.spat.BonProvisoireComplet;
 import utilitaire.UtilDB;
 import mg.amadia.facture.*;
+import mg.cnaps.formation.CodeEtablissement;
 import mg.spat.EtatCaisse;
 import service.EtatCaisseService;
 import mg.spat.JournalCaisse;
@@ -57,6 +60,7 @@ import mg.spat.placement.Placement;
 import mg.spat.Caisse;
 import mg.spat.JournalCaisseSubReport;
 import mg.spat.JournalCaisseMode;
+import projet.Projet;
 
 /**
  *
@@ -325,24 +329,82 @@ public class EtatPaieServlet extends HttpServlet {
     private void imprimerBed2(HttpServletRequest request, HttpServletResponse response) throws  Exception {
         try {
             String id = request.getParameter("id");
-            BonEngagementPDF be = new BonEngagementPDF();
-            be.setNomTable("BED_PDF_II");
-            be.setId(id);
-            BonEngagementPDF[] tabBe = (BonEngagementPDF[]) CGenUtil.rechercher( be , null, null, " ") ;
-            Map param = new HashMap();
-            if(tabBe.length > 0){
-                param.put("id",tabBe[0].getNumeroop());
-                param.put("tiers",tabBe[0].getPrestataire());
-                param.put("code_etab",tabBe[0].getCode_etablissement());
-                param.put("projet",tabBe[0].getProjet());
+//            BonEngagementPDF be = new BonEngagementPDF();
+//            be.setNomTable("BED_PDF_II");
+//            be.setId(id);
+//            BonEngagementPDF[] tabBe = (BonEngagementPDF[]) CGenUtil.rechercher( be , null, null, " ") ;
+//            Map param = new HashMap();
+//            if(tabBe.length > 0){
+//                param.put("id",tabBe[0].getNumeroop());
+//                param.put("tiers",tabBe[0].getPrestataire());
+//                param.put("code_etab",tabBe[0].getCode_etablissement());
+//                param.put("projet",tabBe[0].getProjet());
+//            }
+//            
+//            List dataSources = new ArrayList();
+//            dataSources.addAll(Arrays.asList(tabBe));
+//            
+//            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+//            setNomJasper("bed");
+//            UtilitaireImpression.imprimer(request, response, "bed", param, dataSources, getReportPath(), rt);
+            
+            BordereauLibComplet res = new BordereauLibComplet();
+            res.setNomTable("bordereauFF_libcomplet");
+            res = (BordereauLibComplet)res.getById(id, null, null); 
+            if(res != null)
+            {
+                Map param = new HashMap();
+                BordereauFilleLibComplet fille=new BordereauFilleLibComplet();
+                fille.setIdbordereau(id);
+                fille.setNomTable("liaisonbordereauFF_libcomplet");
+                BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
+                EtatFactureMontantDaty[] ff = (EtatFactureMontantDaty[])CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, "");
+                int tailleff = ff.length;
+                int taillefille = liste.length;
+                List<EtatFactureMontantDaty> facturef = new ArrayList(); 
+                for(int i = 0; i < taillefille; i++)
+                {
+                    for(int j = 0; j < tailleff; j++)
+                    {
+                        if(liste[i].getIdfacture().compareToIgnoreCase(ff[j].getId()) == 0)
+                            facturef.add(ff[j]);
+                    }
+                }
+                
+                if(facturef.size() > 0)
+                {
+                    FactureFournisseur factf = new FactureFournisseur();
+                    factf.setId(facturef.get(0).getId());
+                    factf = (FactureFournisseur)factf.getById(factf.getId(), null, null);
+                    
+                    CodeEtablissement ce = new CodeEtablissement();
+                    ce.setNomTable("codeetablissement_libcomplet");
+                    ce.setId(factf.getCode_etablissement());
+                    ce = (CodeEtablissement)ce.getById(ce.getId(), null, null);
+                    param.put("code_etab",ce.getVal());
+                    param.put("direction",ce.getDescelib());
+                    param.put("departement",ce.getDepartementlib());
+                    param.put("service",ce.getServicelib());
+                    
+                    Projet prj = new Projet();
+                    prj.setNomTable("projet");
+                    prj.setId(factf.getProjet());
+                    prj = (Projet)prj.getById(prj.getId(), null, null);
+                    param.put("projet",prj.getDesignation());
+                }
+                
+                param.put("date",res.getDaty());
+                param.put("tiers",res.getTierslib());
+                
+                EtatFactureMontantDaty[] etatfmd = (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), "select * from etatfacturemontantdaty where id in (select idop from liaisonbordereauFF where idbordereau = '" + id + "')");
+                
+                List dataSources = new ArrayList();
+                dataSources.addAll(Arrays.asList(etatfmd));
+                
+                ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+                setNomJasper("bed");
+                UtilitaireImpression.imprimer(request, response, "bed", param, dataSources, getReportPath(), rt);
             }
-            
-            List dataSources = new ArrayList();
-            dataSources.addAll(Arrays.asList(tabBe));
-            
-            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            setNomJasper("bed");
-            UtilitaireImpression.imprimer(request, response, "bed", param, dataSources, getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -16,7 +16,7 @@ import utilitaire.Utilitaire;
  */
 public class EtatFactureMontantDaty extends EtatFacture{
     private double montantAvoir, montantAdditif, montantTotalApayer,montanttva,montant;
-    private String typefacture,type;
+    private String typefacture,type,tierslib;
 
     private String code_etablissement,projet,numid,etatlib;
 
@@ -142,6 +142,14 @@ public class EtatFactureMontantDaty extends EtatFacture{
 
     public void setEtatlib(String etatlib) {
         this.etatlib = etatlib;
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
     }
     
 }
