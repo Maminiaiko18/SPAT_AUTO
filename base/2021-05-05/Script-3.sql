@@ -1,0 +1,1 @@
+INSERT INTO MENUDYNAMIQUE (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE) VALUES('MENM07', 'Analyse', 'fa fa-area-chart', '/spat/pages/globalnegoce.jsp?but=stock/bc/bondecommande-analyse.jsp', 3, 4, 'MEN00212');
