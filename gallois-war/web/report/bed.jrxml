@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5a2a4c-d9f3-419e-bdaf-7d68b4b0a8e6">
 	<property name="ireport.zoom" value="1.1000000000000287"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="160"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
 	<parameter name="code_etab" class="java.lang.String"/>
@@ -452,10 +452,10 @@
 			</textField>
 		</band>
 	</detail>
-	<pageFooter>
-		<band height="173">
+	<lastPageFooter>
+		<band height="175">
 			<staticText>
-				<reportElement x="0" y="79" width="141" height="15" uuid="c2cfaf14-b6c6-4f0a-b10a-88ed4031cdf3"/>
+				<reportElement x="0" y="71" width="141" height="15" uuid="c2cfaf14-b6c6-4f0a-b10a-88ed4031cdf3"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -469,7 +469,7 @@
 				<text><![CDATA[ETABLI PAR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="189" y="79" width="160" height="15" uuid="b832e82f-739f-45b7-8150-c4185e7bb549"/>
+				<reportElement x="189" y="71" width="160" height="15" uuid="b832e82f-739f-45b7-8150-c4185e7bb549"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -483,7 +483,7 @@
 				<text><![CDATA[APPROUVE PAR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="349" y="8" width="53" height="20" uuid="f8ec3380-2e29-48c6-a720-cb35809e1a26"/>
+				<reportElement x="349" y="0" width="53" height="20" uuid="f8ec3380-2e29-48c6-a720-cb35809e1a26"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -497,7 +497,7 @@
 				<text><![CDATA[Total HT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="349" y="28" width="53" height="20" uuid="3425ba1b-3672-430e-a9dc-33764cc4d29b"/>
+				<reportElement x="349" y="20" width="53" height="20" uuid="3425ba1b-3672-430e-a9dc-33764cc4d29b"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -511,7 +511,7 @@
 				<text><![CDATA[Taxe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="349" y="48" width="53" height="20" uuid="ec354732-d4dd-4de8-a957-e007c9ea4c35"/>
+				<reportElement x="349" y="40" width="53" height="20" uuid="ec354732-d4dd-4de8-a957-e007c9ea4c35"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -525,7 +525,7 @@
 				<text><![CDATA[Total TTC]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="402" y="8" width="153" height="20" uuid="7d5b34a5-7ee2-48af-8f36-5e97651ef823"/>
+				<reportElement x="402" y="0" width="153" height="20" uuid="7d5b34a5-7ee2-48af-8f36-5e97651ef823"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -538,7 +538,7 @@
 				<textFieldExpression><![CDATA[$V{totalht}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="402" y="28" width="153" height="20" uuid="55c82ec3-ca81-4269-af69-d0d1a0e78a11"/>
+				<reportElement x="402" y="20" width="153" height="20" uuid="55c82ec3-ca81-4269-af69-d0d1a0e78a11"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -551,7 +551,7 @@
 				<textFieldExpression><![CDATA[$V{totaltva}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="402" y="48" width="153" height="20" uuid="752a0c04-646c-4ab9-b01b-a324381bb832"/>
+				<reportElement x="402" y="40" width="153" height="20" uuid="752a0c04-646c-4ab9-b01b-a324381bb832"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -564,7 +564,7 @@
 				<textFieldExpression><![CDATA[$V{totalttc}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="0" y="94" width="141" height="48" uuid="7ae471ae-7034-43b3-80b2-fda834468e88"/>
+				<reportElement x="0" y="86" width="141" height="48" uuid="7ae471ae-7034-43b3-80b2-fda834468e88"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -576,7 +576,7 @@
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="142" width="141" height="15" uuid="49034249-6058-4431-bfca-cc97aaa6ba5a"/>
+				<reportElement x="0" y="134" width="141" height="15" uuid="49034249-6058-4431-bfca-cc97aaa6ba5a"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -590,7 +590,7 @@
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="189" y="94" width="160" height="48" uuid="bcd3a69e-2c98-4ebd-a6c4-b1db0331ad90"/>
+				<reportElement x="189" y="86" width="160" height="48" uuid="bcd3a69e-2c98-4ebd-a6c4-b1db0331ad90"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -602,7 +602,7 @@
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="189" y="142" width="160" height="15" uuid="ed8597cb-fcf6-458e-b21a-6197076cd364"/>
+				<reportElement x="189" y="134" width="160" height="15" uuid="ed8597cb-fcf6-458e-b21a-6197076cd364"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -616,5 +616,5 @@
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 		</band>
-	</pageFooter>
+	</lastPageFooter>
 </jasperReport>
