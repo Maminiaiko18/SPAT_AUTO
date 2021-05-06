@@ -8,6 +8,7 @@ package bordereau;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import ded.OrdonnerPayement;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.ConstanteEtat;
@@ -260,5 +261,18 @@ public class Bordereau extends ClassEtat {
     public void construirePK(Connection c) throws Exception {
         this.preparePk("BRD", "get_seq_bordereau");
         this.setId(makePK(c));
+    }
+    public static void resetSequence(Connection c) throws Exception {
+        CallableStatement cs = null;
+        try {
+            cs = c.prepareCall("ALTER SEQUENCE SEQNUMEROBORDEREAUFF RESTART WITH 1");
+            cs.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+        }
     }
 }
