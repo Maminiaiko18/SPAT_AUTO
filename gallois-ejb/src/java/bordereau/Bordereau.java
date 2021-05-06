@@ -7,10 +7,12 @@ package bordereau;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -29,6 +31,29 @@ public class Bordereau extends ClassEtat {
     public Bordereau() {
         this.setNomTable("bordereau");
         this.setNomTableFille("liaisonbordereau");
+    }
+    
+     @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        setNumero(creerNumeroSequence(c));
+        
+        return super.createObject(u, c);
+    }
+    
+    public String creerNumeroSequence(Connection c) throws Exception {
+        checkAnnee(c);
+        int maxSeq = Utilitaire.getMaxSeq("get_seqnumerobordereauFF", c);
+        String numero = Utilitaire.completerInt(Constante.longueurNumeroBordereau, maxSeq);
+        
+        return numero;
+    }
+    
+    public void checkAnnee(Connection c) throws Exception {
+        if(Utilitaire.getAneeEnCours() > Constante.getAnneeEnCours()) {
+            Constante.setAnneeEnCours(Utilitaire.getAneeEnCours());
+            
+            resetSequence(c);
+        }
     }
 
     @Override
@@ -265,7 +290,8 @@ public class Bordereau extends ClassEtat {
     public static void resetSequence(Connection c) throws Exception {
         CallableStatement cs = null;
         try {
-            cs = c.prepareCall("ALTER SEQUENCE SEQNUMEROBORDEREAUFF RESTART WITH 1");
+//            cs = c.prepareCall("ALTER SEQUENCE SEQNUMEROBORDEREAUFF RESTART WITH 1");
+            cs = c.prepareCall("CALL reset_seq('SEQNUMEROBORDEREAUFF')");
             cs.executeUpdate();
         } catch (Exception e) {
             throw e;
