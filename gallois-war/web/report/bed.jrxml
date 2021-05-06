@@ -11,6 +11,7 @@
 	<parameter name="service" class="java.lang.String"/>
 	<parameter name="direction" class="java.lang.String"/>
 	<parameter name="departement" class="java.lang.String"/>
+	<parameter name="numero" class="java.lang.String"/>
 	<field name="id" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String"/>
 	<field name="montanttva" class="java.lang.Double"/>
@@ -62,6 +63,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{numero}.charAt( 0 )]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="509" y="17" width="15" height="15" uuid="3abd7e56-957b-41d8-ae39-f9a862bc992d"/>
@@ -72,6 +74,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{numero}.charAt( 1 )]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="524" y="17" width="15" height="15" uuid="34f27020-bc3d-47be-83b8-1951778ad1d9"/>
@@ -82,6 +85,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{numero}.charAt( 2 )]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="1" y="-2" width="71" height="61" uuid="6f1458ac-c619-42fe-bacc-2347db6eba49"/>
@@ -250,6 +254,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{numero}.charAt( 3 )]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="449" y="32" width="98" height="15" uuid="c1d8f6a0-e117-45f3-bf1d-4f9306164efb"/>

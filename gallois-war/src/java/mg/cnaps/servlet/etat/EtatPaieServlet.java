@@ -354,27 +354,17 @@ public class EtatPaieServlet extends HttpServlet {
             if(res != null)
             {
                 Map param = new HashMap();
+                param.put("numero",res.getNumero());
                 BordereauFilleLibComplet fille=new BordereauFilleLibComplet();
                 fille.setIdbordereau(id);
                 fille.setNomTable("liaisonbordereauFF_libcomplet");
                 BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
-                EtatFactureMontantDaty[] ff = (EtatFactureMontantDaty[])CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, "");
-                int tailleff = ff.length;
-                int taillefille = liste.length;
-                List<EtatFactureMontantDaty> facturef = new ArrayList(); 
-                for(int i = 0; i < taillefille; i++)
-                {
-                    for(int j = 0; j < tailleff; j++)
-                    {
-                        if(liste[i].getIdfacture().compareToIgnoreCase(ff[j].getId()) == 0)
-                            facturef.add(ff[j]);
-                    }
-                }
+                EtatFactureMontantDaty[] etatfmd = (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), "select * from etatfacturemontantdaty where id in (select idop from liaisonbordereauFF where idbordereau = '" + id + "')");
                 
-                if(facturef.size() > 0)
+                if(etatfmd.length > 0)
                 {
                     FactureFournisseur factf = new FactureFournisseur();
-                    factf.setId(facturef.get(0).getId());
+                    factf.setId(etatfmd[0].getId());
                     factf = (FactureFournisseur)factf.getById(factf.getId(), null, null);
                     
                     CodeEtablissement ce = new CodeEtablissement();
@@ -395,8 +385,6 @@ public class EtatPaieServlet extends HttpServlet {
                 
                 param.put("date",res.getDaty());
                 param.put("tiers",res.getTierslib());
-                
-                EtatFactureMontantDaty[] etatfmd = (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), "select * from etatfacturemontantdaty where id in (select idop from liaisonbordereauFF where idbordereau = '" + id + "')");
                 
                 List dataSources = new ArrayList();
                 dataSources.addAll(Arrays.asList(etatfmd));
