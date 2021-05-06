@@ -36,7 +36,7 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste </h1>
+        <h1>Liste statistique sociétés</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=statistique/statistique-societe-liste.jsp" method="post" name="listestatistique" id="listestatistique">
