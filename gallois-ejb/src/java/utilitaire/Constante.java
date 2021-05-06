@@ -96,16 +96,7 @@ public class Constante {
     public static final String deviseAr = "Ar";
     public static final int rangMahitaNyHafa = 6;
     public static String bc = "/SPAT/DG/DECOMAA-";
-    public static int anneeEnCours = 2021;
     public static final int longueurNumeroBordereau = 4;
-
-    public static int getAnneeEnCours() {
-        return anneeEnCours;
-    }
-
-    public static void setAnneeEnCours(int anneeEnCours) {
-        Constante.anneeEnCours = anneeEnCours;
-    }
 
     public static int getRangMahitaNyHafa() {
         return rangMahitaNyHafa;

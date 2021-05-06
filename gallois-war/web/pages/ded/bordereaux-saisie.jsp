@@ -22,7 +22,8 @@
                titre = "Saisie bordereau OP",
 			   redirection = "ded/bordereaux-fiche.jsp",
 			   colonneMere = "idbordereau",
-               nomSaisie = "Bordereau";
+               nomSaisie = "Bordereau",
+               nomFonctionSequence = "get_seqnumerobordereau";
         int taille = 10;
         String[] lesOp = new String[]{};
         OrdonnerPayement[] ords = new OrdonnerPayement[0];
@@ -40,6 +41,7 @@
         pi.setLien((String) session.getValue("lien"));
 
         pi.getFormu().getChamp("Etat").setVisible(false);
+        pi.getFormu().getChamp("numero").setVisible(false);
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
@@ -83,6 +85,7 @@
         <input name="classefille" type="hidden" id="classefille" value="<%=classeFille%>">
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=pi.getNombreLigne()%>">
         <input name="colonneMere" type="hidden" id="colonneMere" value="<%=colonneMere%>">
+        <input name="nomFonctionSequence" type="hidden" id="colonneMere" value="<%=nomFonctionSequence%>">
     </form>
 </div>
 

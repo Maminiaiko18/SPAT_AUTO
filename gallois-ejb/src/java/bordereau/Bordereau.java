@@ -8,6 +8,7 @@ package bordereau;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import bean.TypeObjet;
 import ded.OrdonnerPayement;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -26,11 +27,12 @@ public class Bordereau extends ClassEtat {
     private String id, numero, designation, tiers;
     private Date daty;
     private double montant;
-    private String nomTableFille;
+    private String nomTableFille, nomFonctionSequence;
 
     public Bordereau() {
         this.setNomTable("bordereau");
         this.setNomTableFille("liaisonbordereau");
+        this.setNomFonctionSequence("get_seqnumerobordereau");
     }
     
      @Override
@@ -42,17 +44,29 @@ public class Bordereau extends ClassEtat {
     
     public String creerNumeroSequence(Connection c) throws Exception {
         checkAnnee(c);
-        int maxSeq = Utilitaire.getMaxSeq("get_seqnumerobordereauFF", c);
+        
+        int maxSeq = Utilitaire.getMaxSeq(getNomFonctionSequence(), c);
         String numero = Utilitaire.completerInt(Constante.longueurNumeroBordereau, maxSeq);
         
         return numero;
     }
     
     public void checkAnnee(Connection c) throws Exception {
-        if(Utilitaire.getAneeEnCours() > Constante.getAnneeEnCours()) {
-            Constante.setAnneeEnCours(Utilitaire.getAneeEnCours());
+        TypeObjet obj = new TypeObjet();
+        obj.setNomTable("ANNEE");
+        obj = (TypeObjet)CGenUtil.rechercher(obj, null, null, c, "")[0];
+        
+        int anneeEnCours = Utilitaire.stringToInt(obj.getVal());
+        
+        if(Utilitaire.getAneeEnCours() > anneeEnCours) {
+            obj.setVal(""+Utilitaire.getAneeEnCours());
+            obj.setDesce(obj.getVal());
             
-            resetSequence(c);
+            obj.updateToTable(c);
+            
+            String prefix = "GET_";
+            String seq = this.getNomFonctionSequence().substring(prefix.length());
+            resetSequence(c, seq);
         }
     }
 
@@ -282,16 +296,26 @@ public class Bordereau extends ClassEtat {
         this.montant = montant;
     }
 
+    public String getNomFonctionSequence() {
+        return nomFonctionSequence;
+    }
+
+    public void setNomFonctionSequence(String nomFonctionSequence) {
+        this.nomFonctionSequence = nomFonctionSequence;
+    }
+
     @Override
     public void construirePK(Connection c) throws Exception {
         this.preparePk("BRD", "get_seq_bordereau");
         this.setId(makePK(c));
     }
-    public static void resetSequence(Connection c) throws Exception {
+    public static void resetSequence(Connection c, String seq) throws Exception {
         CallableStatement cs = null;
         try {
 //            cs = c.prepareCall("ALTER SEQUENCE SEQNUMEROBORDEREAUFF RESTART WITH 1");
-            cs = c.prepareCall("CALL reset_seq('SEQNUMEROBORDEREAUFF')");
+            
+            System.out.println("seq " + seq);
+            cs = c.prepareCall("CALL reset_seq('" + seq + "')");
             cs.executeUpdate();
         } catch (Exception e) {
             throw e;

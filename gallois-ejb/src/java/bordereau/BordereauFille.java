@@ -18,10 +18,11 @@ import utilitaire.UtilDB;
 public class BordereauFille extends ClassMAPTable {
 
     private String id, idbordereau, idop;
-    private String nomTableMere = "BORDEREAU";
+    private String nomTableMere;
 
     public BordereauFille() {
         this.setNomTable("liaisonbordereau");
+        this.setNomTableMere("BORDEREAU");
     }
 
     @Override

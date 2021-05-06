@@ -25,7 +25,8 @@
                titre = "Saisie Bordereau Facture fournisseur",
 			   redirection = "ded/bordereauxFF-fiche.jsp",
 			   colonneMere = "idbordereau",
-               nomSaisie = "Bordereau";
+               nomSaisie = "Bordereau",
+               nomFonctionSequence = "get_seqnumerobordereauFF";
         int taille = 10;
         String[] lesOp = new String[]{};
         EtatFactureMontantDaty[] facture = new EtatFactureMontantDaty[0];
@@ -88,6 +89,7 @@
         <input name="classefille" type="hidden" id="classefille" value="<%=classeFille%>">
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=pi.getNombreLigne()%>">
         <input name="colonneMere" type="hidden" id="colonneMere" value="<%=colonneMere%>">
+        <input name="nomFonctionSequence" type="hidden" id="colonneMere" value="<%=nomFonctionSequence%>">
     </form>
 </div>
 
