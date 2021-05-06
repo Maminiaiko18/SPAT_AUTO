@@ -25,6 +25,7 @@ try{
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("Etat").setAutre("readonly");
+    pi.getFormu().getChamp("numero").setAutre("readonly");
     pi.getFormu().getChamp("Daty").setLibelle("Date");
     
     pi.getFormufle().getChamp("Idop_0").setLibelle("Facture fournisseur");     
@@ -36,7 +37,9 @@ try{
 <div class="content-wrapper">
     <div class="row">
         <div class="box">
-            <h1>Modification bordereau Facture fournisseur</h1>
+
+            <h1>Modification bordereau facture fournisseur</h1>
+
             <form action="<%=(String) session.getValue("lien")%>?but=apresMultiple.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
                 <%
                     pi.getFormu().makeHtmlInsertTabIndex();
