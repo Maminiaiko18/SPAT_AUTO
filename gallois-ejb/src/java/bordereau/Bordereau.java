@@ -111,8 +111,6 @@ public class Bordereau extends ClassEtat {
                         + " WHERE idop in (" + obj + ") AND idbordereau != '" + this.getId() + "'"
                         + " and b.etat >= " + ConstanteEtat.getEtatValider();
 
-                System.out.println("req " + req);
-
                 tmp = (BordereauFille[]) CGenUtil.rechercher(new BordereauFille(), req, c);
             }
             
@@ -312,9 +310,6 @@ public class Bordereau extends ClassEtat {
     public static void resetSequence(Connection c, String seq) throws Exception {
         CallableStatement cs = null;
         try {
-//            cs = c.prepareCall("ALTER SEQUENCE SEQNUMEROBORDEREAUFF RESTART WITH 1");
-            
-            System.out.println("seq " + seq);
             cs = c.prepareCall("CALL reset_seq('" + seq + "')");
             cs.executeUpdate();
         } catch (Exception e) {
