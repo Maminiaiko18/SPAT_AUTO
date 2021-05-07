@@ -7,6 +7,7 @@ package bordereau;
 
 import bean.CGenUtil;
 import bean.ClassMAPTable;
+import bean.ClassEtat;
 import java.sql.Connection;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -19,10 +20,33 @@ public class BordereauFille extends ClassMAPTable {
 
     private String id, idbordereau, idop;
     private String nomTableMere;
+//    private String nomTableDetails;
 
     public BordereauFille() {
         this.setNomTable("liaisonbordereau");
         this.setNomTableMere("BORDEREAU");
+//        this.setNomTableDetails("ordonnerPayement");
+    }
+
+    @Override
+    public void controler(Connection c) throws Exception {
+        super.controler(c);
+
+        String nomTableDetails = this.getIdop().startsWith("ORP") ? "ordonnerPayement" : "facturefournisseur";  
+        
+        ClassEtat obj = (ClassEtat) new ded.OrdonnerPayement();
+//        obj.setNomTable(this.getNomTableDetails());
+        obj.setNomTable(nomTableDetails);
+
+        ClassEtat[] tmp = (ClassEtat[]) CGenUtil.rechercher(obj, null, null, c, " and id = '" + this.getIdop() + "'");
+
+        if (tmp == null || tmp.length == 0) {
+            throw new Exception("Details non trouvé");
+        }
+        
+        if (tmp[0].getEtat() < ConstanteEtat.getEtatValider()) {
+            throw new Exception("Facture/OP non visé(e)");
+        }
     }
 
     @Override
@@ -105,6 +129,14 @@ public class BordereauFille extends ClassMAPTable {
     public void setNomTableMere(String nomTableMere) {
         this.nomTableMere = nomTableMere;
     }
+
+//    public String getNomTableDetails() {
+//        return nomTableDetails;
+//    }
+//
+//    public void setNomTableDetails(String nomTableDetails) {
+//        this.nomTableDetails = nomTableDetails;
+//    }
 
     @Override
     public void construirePK(Connection c) throws Exception {

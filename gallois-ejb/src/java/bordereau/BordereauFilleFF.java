@@ -12,5 +12,6 @@ public class BordereauFilleFF extends BordereauFille{
     public BordereauFilleFF() {
         this.setNomTable("liaisonbordereauFF");
         this.setNomTableMere("BORDEREAUFF");
+//        this.setNomTableDetails("facturefournisseur");
     }
 }
