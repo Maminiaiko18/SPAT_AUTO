@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="affichage.Liste"%>
 <%@page import="mg.spat.StatistiqueActivite"%>
 <%@page import="affichage.PageRechercheGroupe"%>
 <%
@@ -12,21 +13,30 @@
 
         StatistiqueActivite lv = new StatistiqueActivite();
         lv.setNomTable("STATISTIQUEACTIVITE_MICTSL_GR");
-        String listeCrt[] = {"idtypeactionconteneurlib","moislib","annee"};
-        String listeInt[] = {"annee"};
+        String listeCrt[] = {"idtypeactionconteneurlib","mois","annee"};
+        String listeInt[] = {"annee","mois"};
 
         String[] pourcentage = {};
         String somDefaut[] ={"somme_plein20_vide20_plein40"};
-        String colDefaut[] =  {"moislib"};
-        String[] colGrCol = {"idtypeactionconteneurlib"};
+        String colDefaut[] =  {"idtypeactionconteneurlib"};
+        String[] colGrCol = {"moislib"};
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, colDefaut.length, 0);
         
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
+        
+        affichage.Champ[] liste = new affichage.Champ[1];
+        StatistiqueActivite stat = new StatistiqueActivite();
+        stat.setNomTable("STATISTIQUEACTIVITE_MICTSL_GR");
+        
+        liste[0] = new Liste("idtypeactionconteneurlib", stat, "idtypeactionconteneurlib", "idtypeactionconteneur");
+        
+        pr.getFormu().changerEnChamp(liste);
 
         pr.getFormu().getChamp("annee1").setLibelle("Annee Min");
         pr.getFormu().getChamp("annee2").setLibelle("Annee Max");
-        pr.getFormu().getChamp("moislib").setLibelle("Mois");
+        pr.getFormu().getChamp("mois1").setLibelle("Mois Min");
+        pr.getFormu().getChamp("mois2").setLibelle("Mois Max");
         pr.getFormu().getChamp("idtypeactionconteneurlib").setLibelle("Type action");
         
         pr.setApres("statistique/analyse-statistique-mictsl.jsp");
