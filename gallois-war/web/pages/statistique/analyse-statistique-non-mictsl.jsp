@@ -17,7 +17,7 @@
         String[] pourcentage = {};
         String somDefaut[] ={"nombreunite"};
         String colDefaut[] =  {"idtypemanipulationlib"};
-        String[] colGrCol = {"mois"};
+        String[] colGrCol = {"moislib"};
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, colDefaut.length, 0);
         
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
