@@ -25,7 +25,7 @@
     PageInsert pi = new PageInsert(objet, request, u);
     pi.setLien((String) session.getValue("lien"));  
     
-    affichage.Champ[] liste = new affichage.Champ[6];
+    affichage.Champ[] liste = new affichage.Champ[5];
     TypeObjet nomsociete = new TypeObjet();
     nomsociete.setNomTable("NOMSOCIETEFILTRE");
     liste[0] = new Liste("idnomsociete", nomsociete, "val", "id");
@@ -41,16 +41,16 @@
     TypeObjet typemesure = new TypeObjet();
     typemesure .setNomTable("typemesure");
     liste[4] = new Liste("idtypemesure", typemesure , "val", "id");
-    TypeObjet typeActionConteneur = new TypeObjet();
+    /*TypeObjet typeActionConteneur = new TypeObjet();
     typeActionConteneur.setNomTable("TYPEACTIONCONTENEUR");
-    liste[5] = new Liste("idtypeActionConteneur", typeActionConteneur , "val", "id");
+    liste[5] = new Liste("idtypeActionConteneur", typeActionConteneur , "val", "id");*/
     
     pi.getFormu().changerEnChamp(liste);
 	
     pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("navire").setAutre("readonly");
     pi.getFormu().getChamp("Etat").setVisible(false);
-//    pi.getFormu().getChamp("IdtypeActionConteneur").setVisible(false); 
+    pi.getFormu().getChamp("IdtypeActionConteneur").setVisible(false); 
     pi.getFormu().getChamp("Plein20Pieds").setVisible(false); 
     pi.getFormu().getChamp("Vide20Pieds").setVisible(false); 
     pi.getFormu().getChamp("Plein40Pieds").setVisible(false); 
@@ -63,7 +63,7 @@
     pi.getFormu().getChamp("typeSaisie").setLibelle("Type");
     pi.getFormu().getChamp("idtypemanipulation").setLibelle("Type manipulation");
     pi.getFormu().getChamp("idtypemarchandise").setLibelle("Type marchandise");
-    pi.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type Action Conteneur");
+// pi.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type Action Conteneur");
     pi.getFormu().getChamp("idtypemesure").setLibelle("Type mesure");
     pi.getFormu().getChamp("nombreunite").setLibelle("Nombre d'unite");
             
