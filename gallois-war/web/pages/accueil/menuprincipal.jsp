@@ -45,9 +45,14 @@
                 </div>
             </div>
             <div class="row singlebtn" >
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <a class ="menulink" href="<%= session.getValue("lien") %>?but=accueil/finance.jsp"> 
                         <button class="menubtn">Finances</button>
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <a class ="menulink" href="<%= session.getValue("lien") %>?but=accueil/exploitant-accueil.jsp"> 
+                        <button class="menubtn">Exploitants</button>
                     </a>
                 </div>
             </div>
