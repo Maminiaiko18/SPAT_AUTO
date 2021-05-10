@@ -11,12 +11,12 @@
 
         StatistiqueActivite lv = new StatistiqueActivite();
         lv.setNomTable("STATISTIQUEACTIVITE_NMICTSL_GR");
-        String listeCrt[] = {"idtypemanipulationlib","moislib","annee"};
-        String listeInt[] = {"annee"};
+        String listeCrt[] = {"idtypemanipulationlib","mois","annee"};
+        String listeInt[] = {"annee", "mois"};
 
         String[] pourcentage = {};
         String somDefaut[] ={"nombreunite"};
-        String colDefaut[] =  {"moislib"};
+        String colDefaut[] =  {"mois"};
         String[] colGrCol = {"idtypemanipulationlib"};
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, colDefaut.length, 0);
         
@@ -25,8 +25,10 @@
 
         pr.getFormu().getChamp("annee1").setLibelle("Annee Min");
         pr.getFormu().getChamp("annee2").setLibelle("Annee Max");
+        pr.getFormu().getChamp("mois1").setLibelle("Mois Min");
+        pr.getFormu().getChamp("mois2").setLibelle("Mois Max");
         pr.getFormu().getChamp("idtypemanipulationlib").setLibelle("Type manipulation");
-        pr.getFormu().getChamp("moislib").setLibelle("Mois");
+        //pr.getFormu().getChamp("moislib").setLibelle("Mois");
         
         pr.setApres("statistique/analyse-statistique-non-mictsl.jsp");
         pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but=statistique/analyse-statistique-non-mictsl.jsp");
