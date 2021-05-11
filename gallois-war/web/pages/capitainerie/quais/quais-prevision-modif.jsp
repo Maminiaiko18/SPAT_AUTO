@@ -18,6 +18,7 @@
     pi.getFormu().getChamp("heure_depart").setLibelle("Heure de départ");
     pi.getFormu().getChamp("date_rade").setLibelle("Date rade");
     pi.getFormu().getChamp("pilote").setLibelle("Commandant");
+    pi.getFormu().getChamp("noVoyage").setLibelle("No voyage");
     pi.getFormu().getChamp("date_arrivee").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("heure_arrivee").setDefaut(Utilitaire.getHeureActuel());
     pi.getFormu().getChamp("date_rade").setVisible(false);
