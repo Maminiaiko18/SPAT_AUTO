@@ -96,6 +96,7 @@
         pc.getChampByName("valmvt").setLibelle("Type de mouvement");
         pc.getChampByName("Etatlib").setVisible(false);
         pc.getChampByName("escale").setLibelle("Prévision");
+        pc.getChampByName("noVoyage").setLibelle("No voyage");
         pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-fiche.jsp&tab=liste-mouvement", "id=");
         
         
