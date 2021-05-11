@@ -48,6 +48,7 @@
         pc.getChampByName("valpaysprovenance").setLibelle("Pays de provenance");
         pc.getChampByName("valpaysdestination").setLibelle("Pays de destination");
         pc.getChampByName("type").setLibelle("type navire");
+        pc.getChampByName("noVoyage").setLibelle("No voyage");
 
         pc.setTitre("Fiche prevision");
 
