@@ -50,7 +50,7 @@
     pi.getFormu().getChamp("numPiece").setVisible(false);
     pi.getFormu().getChamp("idtypecheque").setVisible(false);
 //    pi.getFormu().getChamp("Idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp");
-    pi.getFormu().getChamp("Idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp", "idordre;idordrelibelle;libelle;remarque;debit");
+    pi.getFormu().getChamp("Idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp", "idordre;idordrelibelle;libelle;remarque;debit;idordrelibelle");
     pi.getFormu().getChamp("Idordre").setAutre("readonly");
     pi.getFormu().getChamp("Tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("Tiers").setAutre("readonly");

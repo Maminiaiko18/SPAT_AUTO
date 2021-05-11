@@ -503,6 +503,6 @@ public class OrdonnerPayement extends ClassEtat {
     }
     @Override
     public String getValColLibelle() {
-        return this.getId()+";"+this.getRemarque()+";"+this.getDed_Id()+";"+Utilitaire.formaterAr(this.getMontant());
+        return this.getId()+";"+this.getRemarque()+";"+this.getDed_Id()+";"+Utilitaire.formaterAr(this.getMontant())+";"+numeroop;
     }
 }
