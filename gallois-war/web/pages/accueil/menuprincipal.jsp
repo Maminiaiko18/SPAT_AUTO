@@ -21,36 +21,34 @@
                 </div>
             </div>
             <div class="row singlebtn">
-                <div class="col-lg-6">
-                    <a class ="menulink" href="<%= session.getValue("lien") %>?but=accueil/concessionnaire-accueil.jsp"> 
-                        <button class="menubtn"><p>Concessionnaires<br>/Permissionnaires/Autres</p></button>
-                    </a>
-                </div>
+                
                 <div class="col-lg-6">
                     <a class ="menulink" href="<%= session.getValue("lien") %>?but=accueil/patrimoine-accueil.jsp"> 
                         <button class="menubtn">Gestion patrimoines</button>
                     </a>
                 </div>
-            </div>
-            <div class="row singlebtn">
                 <div class="col-lg-6">
                     <a class ="menulink" href="<%= session.getValue("lien") %>?but=accueil/accueil-rh.jsp"> 
                         <button class="menubtn">Ressources Humaines</button>
                     </a>
                 </div>
+            </div>
+            <div class="row singlebtn">
+                
                 <div class="col-lg-6">
                     <a class ="menulink" href="<%= session.getValue("lien") %>?but=travaux/analyse-travaux.jsp&currentMenu=MENP013"> 
                         <button class="menubtn">Travaux</button>
                     </a>
                 </div>
-            </div>
-            <div class="row singlebtn" >
                 <div class="col-lg-6">
                     <a class ="menulink" href="<%= session.getValue("lien") %>?but=accueil/finance.jsp"> 
                         <button class="menubtn">Finances</button>
                     </a>
                 </div>
-                <div class="col-lg-6">
+            </div>
+            <div class="row singlebtn" >
+                
+                <div class="col-lg-12">
                     <a class ="menulink" href="<%= session.getValue("lien") %>?but=accueil/exploitant-accueil.jsp"> 
                         <button class="menubtn">Exploitants</button>
                     </a>
