@@ -25,7 +25,7 @@
         pi.getFormu().getChamp("id").setVisible(false);
         pi.getFormu().getChamp("titre").setLibelle("Titre");
         pi.getFormu().getChamp("daty").setLibelle("Date");
-        pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
+        pi.getFormu().getChamp("navire").setPageAppel("choix/listeArriveeChoix.jsp", "navire;navirelibelle;daty");
         pi.getFormu().getChamp("navire").setAutre("readonly");
         pi.getFormu().getChamp("etat").setVisible(false);
         //pi.getFormu().getChamp("typesaisie").setVisible(false);
