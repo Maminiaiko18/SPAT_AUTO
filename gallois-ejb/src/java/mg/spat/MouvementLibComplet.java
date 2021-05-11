@@ -10,6 +10,7 @@ import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -21,7 +22,10 @@ public class MouvementLibComplet extends Mouvement{
             quaisdestination,internedestination,paysdestination,valquaisdestination,descequaisdestination,typequaisdestianantion,valpaysdestination,descepaysdestination,
             referencenavire,nomnavire,pavillonnavire,remarquenavire,valconsignataire,desceconsignataire,valtypequaisprovenance,descetypequaisprovenance,valtypequaisdestination,descetypequaisdestination,noVoyage;
 
-    
+    @Override
+    public String getValColLibelle(){
+        return getNomnavire()+";"+Utilitaire.formatterDaty(getDatearrivee());
+    }
 
    
     @Override

@@ -39,7 +39,8 @@
     
     pi.getFormu().changerEnChamp(liste);
 	
-    pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
+    pi.getFormu().getChamp("navire").setPageAppel("choix/listeArriveeChoix.jsp", "navire;navirelibelle;daty");
+    //C:\Users\Daniel\Documents\bici\spat-capitainerie\gallois-war\web\pages\choix\listeArriveeChoix.jsp
     pi.getFormu().getChamp("navire").setAutre("readonly");
     pi.getFormu().getChamp("Etat").setVisible(false);
     pi.getFormu().getChamp("Poids").setVisible(false);
