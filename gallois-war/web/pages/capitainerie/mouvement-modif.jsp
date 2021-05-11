@@ -76,8 +76,8 @@
             pi.getFormu().getChamp("provenance").setDefaut(mvtLibComp.getDestination());
             pi.getFormu().getChamp("heure_depart").setDefaut(Utilitaire.heureCouranteHMS());
             pi.getFormu().getChamp("date_depart").setDefaut(Utilitaire.dateDuJour());
-            pi.getFormu().getChamp("heure").setVisible(false);
-            pi.getFormu().getChamp("datearrivee").setVisible(false);
+            //pi.getFormu().getChamp("heure").setVisible(false);
+            //pi.getFormu().getChamp("datearrivee").setVisible(false);
         }
         else{
             
@@ -86,8 +86,8 @@
             pi.getFormu().getChamp("provenance").setValeurLibelle(mvtLibComp.getValpaysprovenance()+"-"+mvtLibComp.getValquaisprovenance());
             pi.getFormu().getChamp("destination").setValeurLibelle(mvtLibComp.getValpaysdestination()+" - "+mvtLibComp.getValquaisdestination());
             pi.getFormu().getChamp("destination").setDefaut(mvtLibComp.getDestination());
-            pi.getFormu().getChamp("heure_depart").setVisible(false);
-            pi.getFormu().getChamp("date_depart").setVisible(false);
+            //pi.getFormu().getChamp("heure_depart").setVisible(false);
+            //pi.getFormu().getChamp("date_depart").setVisible(false);
 
         }
 //        pi.getFormu().getChamp("heure").setDefaut(mvtLibComp.getHeure());
