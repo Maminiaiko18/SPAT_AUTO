@@ -41,6 +41,15 @@ public class StatistiqueActivite extends ClassEtat {
     private double somme_plein20_vide20_plein40;
     private String idtypemanipulationlib;
     private int teus;
+    private String noVoyage;
+
+    public String getNoVoyage() {
+        return noVoyage;
+    }
+
+    public void setNoVoyage(String noVoyage) {
+        this.noVoyage = noVoyage;
+    }
 
     public int getTeus() {
         return teus;
