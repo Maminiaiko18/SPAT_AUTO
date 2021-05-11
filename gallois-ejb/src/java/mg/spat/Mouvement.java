@@ -28,12 +28,18 @@ public class Mouvement extends ClassEtat {
     private String heure, typeMvt;
     private Date date_depart;
     private String cargaison;
-    private String heure_depart;
+    private String heure_depart, noVoyage;
     private String escalelib;
     private String couleur = "#ffb401";
 
-    
-    
+    public String getNoVoyage() {
+        return noVoyage;
+    }
+
+    public void setNoVoyage(String noVoyage) {
+        this.noVoyage = noVoyage;
+    }
+
     @Override
     public void viser(UserEJBBean u, Connection c) throws Exception{
         this.updateMouvementPrecedent(u, c);
