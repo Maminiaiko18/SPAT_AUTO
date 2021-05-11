@@ -91,7 +91,7 @@
 <script>
     var chmp = '<div class="col-md-4"> ' +
             '<table class="table table-bordered"><tbody><tr><th><label for="teusval">Nb d\'EVP</label></th><td><input name="teusval" class="form-control" type="text" id="teusval" value="" readonly/></td></tr></tbody></table></div>';
-    $('.box-body').find('.row').append(chmp);
+    $('.box-body').find('.row:first').append(chmp);
 
     function calculNbEVP() {
         var nb = parseInt($('#Vide20Pieds').val()) + parseInt($('#Plein20Pieds').val()); 

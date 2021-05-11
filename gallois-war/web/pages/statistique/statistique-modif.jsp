@@ -13,81 +13,86 @@
 <%@page import="utilitaire.Constante"%>
 
 <%
-    try{
-    StatistiqueActivite stat = new StatistiqueActivite();
-    stat.setNomTable("statistiqueActivite");
-    PageUpdate pi = new PageUpdate(stat, request, (user.UserEJB) session.getValue("u"));
-    pi.setLien((String) session.getValue("lien"));
-    
-    stat = (StatistiqueActivite)pi.getBase();
-    String mode = stat.getTypeSaisie();
-    
-    pi.getFormu().getChamp("id").setVisible(false);
-    pi.getFormu().getChamp("titre").setLibelle("Titre");
-    pi.getFormu().getChamp("daty").setLibelle("Date");
-    pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
-    pi.getFormu().getChamp("navire").setAutre("readonly");
-    pi.getFormu().getChamp("etat").setVisible(false);
-    //pi.getFormu().getChamp("typesaisie").setVisible(false);
-    
-    if(mode.compareToIgnoreCase(Constante.conteneurTypeSaisie)==0){
-        affichage.Champ[] liste = new affichage.Champ[3];
-        TypeObjet cons = new TypeObjet();
-        cons.setNomTable("typeActionConteneur");
-        liste[0] = new Liste("idtypeActionConteneur", cons, "VAL", "id");
-        
-        TypeObjet typeSaisie = new TypeObjet();
-        typeSaisie.setNomTable("typeSaisie");
-        liste[1] = new Liste("typeSaisie", typeSaisie, "val", "id");
-        
-        TypeObjet idtypemanipulation = new TypeObjet();
-        idtypemanipulation.setNomTable("typemanipulation");
-        liste[2] = new Liste("idtypemanipulation", idtypemanipulation, "val", "id");
-        
-        pi.getFormu().changerEnChamp(liste);
-        
-        pi.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type Action Conteneur");  
-        pi.getFormu().getChamp("Plein20Pieds").setLibelle("20 pieds plein");
-        pi.getFormu().getChamp("Vide20Pieds").setLibelle("20 pieds vide");
-        pi.getFormu().getChamp("Plein40Pieds").setLibelle("40 pieds plein");
-        pi.getFormu().getChamp("Vide40Pieds").setLibelle("40 pieds vide");    
-        pi.getFormu().getChamp("idnomsociete").setVisible(false);
-        //pi.getFormu().getChamp("idtypemanipulation").setVisible(false);
-        pi.getFormu().getChamp("idtypemarchandise").setVisible(false);
-        pi.getFormu().getChamp("idtypemesure").setVisible(false);
-        pi.getFormu().getChamp("nombreunite").setVisible(false);
-        pi.getFormu().getChamp("poids").setVisible(false);
-        pi.getFormu().getChamp("typesaisie").setLibelle("Type");
-        pi.getFormu().getChamp("idtypemanipulation").setLibelle("Manipulation");
-    }else if(mode.compareToIgnoreCase("TS0002")==0){
-        affichage.Champ[] liste = new affichage.Champ[4];
-        TypeObjet cons = new TypeObjet();
-        cons.setNomTable("nomsociete");
-        liste[0] = new Liste("idnomsociete", cons, "VAL", "id");
-        TypeObjet cons1 = new TypeObjet();
-        cons1.setNomTable("typemanipulation");
-        liste[1] = new Liste("idtypemanipulation", cons1, "VAL", "id");
-        TypeObjet cons2 = new TypeObjet();
-        cons2.setNomTable("typemarchandise");
-        liste[2] = new Liste("idtypemarchandise", cons2, "VAL", "id");
-        TypeObjet cons3 = new TypeObjet();
-        cons3.setNomTable("typemesure");
-        liste[3] = new Liste("idtypemesure", cons3, "VAL", "id");
-        pi.getFormu().changerEnChamp(liste);
-        pi.getFormu().getChamp("idnomsociete").setLibelle("Nom société");  
-        pi.getFormu().getChamp("idtypemanipulation").setLibelle("Type de manipulation");  
-        pi.getFormu().getChamp("idtypemarchandise").setLibelle("Type de marchandise");  
-        pi.getFormu().getChamp("idtypemesure").setLibelle("Type de mesure");  
-        pi.getFormu().getChamp("nombreunite").setLibelle("Nombre d'unite");  
-        pi.getFormu().getChamp("poids").setLibelle("Poids");
-        pi.getFormu().getChamp("idtypeActionConteneur").setVisible(false);
-        pi.getFormu().getChamp("Plein20Pieds").setVisible(false);
-        pi.getFormu().getChamp("Vide20Pieds").setVisible(false);
-        pi.getFormu().getChamp("Plein40Pieds").setVisible(false);
-        pi.getFormu().getChamp("Vide40Pieds").setVisible(false);
-    }
-    
-    pi.preparerDataFormu();
+    try {
+        StatistiqueActivite stat = new StatistiqueActivite();
+        stat.setNomTable("statistiqueActivite");
+        PageUpdate pi = new PageUpdate(stat, request, (user.UserEJB) session.getValue("u"));
+        pi.setLien((String) session.getValue("lien"));
+
+        stat = (StatistiqueActivite) pi.getBase();
+        String mode = stat.getTypeSaisie();
+
+        pi.getFormu().getChamp("id").setVisible(false);
+        pi.getFormu().getChamp("titre").setLibelle("Titre");
+        pi.getFormu().getChamp("daty").setLibelle("Date");
+        pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
+        pi.getFormu().getChamp("navire").setAutre("readonly");
+        pi.getFormu().getChamp("etat").setVisible(false);
+        //pi.getFormu().getChamp("typesaisie").setVisible(false);
+
+        if (mode.compareToIgnoreCase(Constante.conteneurTypeSaisie) == 0) {
+            affichage.Champ[] liste = new affichage.Champ[3];
+            TypeObjet cons = new TypeObjet();
+            cons.setNomTable("typeActionConteneur");
+            liste[0] = new Liste("idtypeActionConteneur", cons, "VAL", "id");
+
+            TypeObjet typeSaisie = new TypeObjet();
+            typeSaisie.setNomTable("typeSaisie");
+            liste[1] = new Liste("typeSaisie", typeSaisie, "val", "id");
+
+            TypeObjet idtypemanipulation = new TypeObjet();
+            idtypemanipulation.setNomTable("typemanipulation");
+            liste[2] = new Liste("idtypemanipulation", idtypemanipulation, "val", "id");
+
+            pi.getFormu().changerEnChamp(liste);
+
+            pi.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type Action Conteneur");
+            pi.getFormu().getChamp("Plein20Pieds").setLibelle("20 pieds plein");
+            pi.getFormu().getChamp("Vide20Pieds").setLibelle("20 pieds vide");
+            pi.getFormu().getChamp("Plein40Pieds").setLibelle("40 pieds plein");
+            pi.getFormu().getChamp("Vide40Pieds").setLibelle("40 pieds vide");
+            pi.getFormu().getChamp("idnomsociete").setVisible(false);
+            //pi.getFormu().getChamp("idtypemanipulation").setVisible(false);
+            pi.getFormu().getChamp("idtypemarchandise").setVisible(false);
+            pi.getFormu().getChamp("idtypemesure").setVisible(false);
+            pi.getFormu().getChamp("nombreunite").setVisible(false);
+            pi.getFormu().getChamp("poids").setVisible(false);
+            pi.getFormu().getChamp("typesaisie").setLibelle("Type");
+            pi.getFormu().getChamp("idtypemanipulation").setLibelle("Manipulation");
+
+            pi.getFormu().getChamp("Plein20Pieds").setAutre("onchange='calculNbEVP()'");
+            pi.getFormu().getChamp("Vide20Pieds").setAutre("onchange='calculNbEVP()'");
+            pi.getFormu().getChamp("Plein40Pieds").setAutre("onchange='calculNbEVP()'");
+            pi.getFormu().getChamp("Vide40Pieds").setAutre("onchange='calculNbEVP()'");
+        } else if (mode.compareToIgnoreCase("TS0002") == 0) {
+            affichage.Champ[] liste = new affichage.Champ[4];
+            TypeObjet cons = new TypeObjet();
+            cons.setNomTable("nomsociete");
+            liste[0] = new Liste("idnomsociete", cons, "VAL", "id");
+            TypeObjet cons1 = new TypeObjet();
+            cons1.setNomTable("typemanipulation");
+            liste[1] = new Liste("idtypemanipulation", cons1, "VAL", "id");
+            TypeObjet cons2 = new TypeObjet();
+            cons2.setNomTable("typemarchandise");
+            liste[2] = new Liste("idtypemarchandise", cons2, "VAL", "id");
+            TypeObjet cons3 = new TypeObjet();
+            cons3.setNomTable("typemesure");
+            liste[3] = new Liste("idtypemesure", cons3, "VAL", "id");
+            pi.getFormu().changerEnChamp(liste);
+            pi.getFormu().getChamp("idnomsociete").setLibelle("Nom société");
+            pi.getFormu().getChamp("idtypemanipulation").setLibelle("Type de manipulation");
+            pi.getFormu().getChamp("idtypemarchandise").setLibelle("Type de marchandise");
+            pi.getFormu().getChamp("idtypemesure").setLibelle("Type de mesure");
+            pi.getFormu().getChamp("nombreunite").setLibelle("Nombre d'unite");
+            pi.getFormu().getChamp("poids").setLibelle("Poids");
+            pi.getFormu().getChamp("idtypeActionConteneur").setVisible(false);
+            pi.getFormu().getChamp("Plein20Pieds").setVisible(false);
+            pi.getFormu().getChamp("Vide20Pieds").setVisible(false);
+            pi.getFormu().getChamp("Plein40Pieds").setVisible(false);
+            pi.getFormu().getChamp("Vide40Pieds").setVisible(false);
+        }
+
+        pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -116,9 +121,20 @@
         </div>
     </div>
 </div>
-                        
-                        <%
-                            }catch(Exception e){
-e.printStackTrace();
-}
-                        %>
+<script>
+    var chmp = '<div class="col-md-6"> ' +
+            '<table class="table table-bordered"><tbody><tr><th><label for="teusval">Nb d\'EVP</label></th><td><input name="teusval" class="form-control" type="text" id="teusval" value="" readonly/></td></tr></tbody></table></div>';
+    $('#stat').find('.row:first').append(chmp);
+
+    function calculNbEVP() {
+        var nb = parseInt($('#Vide20Pieds').val()) + parseInt($('#Plein20Pieds').val()); 
+        nb += 2*(parseInt($('#Vide40Pieds').val()) + parseInt($('#Plein40Pieds').val()));
+        
+        $('#teusval').val(nb);
+    }
+</script>
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+%>
