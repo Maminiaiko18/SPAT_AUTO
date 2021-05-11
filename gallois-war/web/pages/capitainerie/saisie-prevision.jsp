@@ -39,6 +39,7 @@
     pi.getFormu().getChamp("date_rade").setLibelle("Date rade");
     pi.getFormu().getChamp("destination").setLibelle("Quai");
     pi.getFormu().getChamp("pilote").setLibelle("Commandant");
+    pi.getFormu().getChamp("noVoyage").setLibelle("N° voyage");
     
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
