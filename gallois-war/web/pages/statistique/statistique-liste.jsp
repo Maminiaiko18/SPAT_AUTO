@@ -4,6 +4,8 @@
     Author     : john
 --%>
 
+<%@page import="affichage.Liste"%>
+<%@page import="bean.TypeObjet"%>
 <%@page import="mg.spat.StatistiqueActivite"%>
 <%@page import="mg.spat.PosteDestinataireLibComplet"%>
 <%@page import="affichage.PageRecherche"%>
@@ -18,14 +20,25 @@
     }
     String listeCrt[] = {"id", "titre", "daty", "navire","idtypeActionConteneur","idtypemanipulation"};
     String listeInt[] = {"daty"};
-    String libEntete[] = {"id","titre","daty", "navire","idtypeActionConteneur","idtypemanipulation","Plein20Pieds","Vide20Pieds","Plein40Pieds","Vide40Pieds"};
+    String libEntete[] = {"id","titre","daty", "navire","idtypeActionConteneur", "Plein20Pieds", "Vide20Pieds","Plein40Pieds","Vide40Pieds", "teus"};
     PageRecherche pr = new PageRecherche(posteDestinataire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("statistique/statistique-liste.jsp");
     pr.setAWhere(" and idTypeSaisie = '"+Constante.typeconteneur+"' ");
+    
+    affichage.Champ[] liste = new affichage.Champ[1];
+    TypeObjet typeAction = new TypeObjet();
+    typeAction.setNomTable("TYPEACTIONCONTENEUR");
+    liste[0] = new Liste("idtypeActionConteneur", typeAction, "val", "id");
+    
+    pr.getFormu().changerEnChamp(liste);
+    
     pr.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type action conteneur");
     pr.getFormu().getChamp("idtypemanipulation").setLibelle("Type manipulation");
+    pr.getFormu().getChamp("daty1").setLibelle("Date début");
+    pr.getFormu().getChamp("daty2").setLibelle("Date fin");
+    
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -71,7 +84,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Titre", "Date","navire", "Type action conteneur", "Type manipulation", "20 pieds plein", "20 pieds vide", "40 pieds plein", "40 pieds vide"};
+            String libEnteteAffiche[] = {"Id", "Titre", "Date","navire", "Type action conteneur", "20 pieds plein", "20 pieds vide", "40 pieds plein", "40 pieds vide", "Nb EVP"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
