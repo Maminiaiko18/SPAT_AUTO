@@ -34,6 +34,9 @@ public class Prevision extends ClassEtat {
     private String heure_depart;
     private String destination, escale;
     private String couleur = "#1E90FF";
+    private String noVoyage;
+
+    
 
     
 
@@ -79,6 +82,15 @@ public class Prevision extends ClassEtat {
     public void setCouleur(String couleur) {
         this.couleur = couleur;
     }
+    
+    public String getNoVoyage() {
+        return noVoyage;
+    }
+
+    public void setNoVoyage(String noVoyage) {
+        this.noVoyage = noVoyage;
+    }
+    
     public String getNavire() {
         return navire;
     }
