@@ -47,7 +47,7 @@
     
     pi.getFormu().changerEnChamp(liste);
 	
-    pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
+    pi.getFormu().getChamp("navire").setPageAppel("choix/listeArriveeChoix.jsp", "navire;navirelibelle;daty");
     pi.getFormu().getChamp("navire").setAutre("readonly");
     pi.getFormu().getChamp("Etat").setVisible(false);
     pi.getFormu().getChamp("IdtypeActionConteneur").setVisible(false); 
