@@ -40,6 +40,15 @@ public class StatistiqueActivite extends ClassEtat {
     private String idtypeactionconteneurlib;
     private double somme_plein20_vide20_plein40;
     private String idtypemanipulationlib;
+    private int teus;
+
+    public int getTeus() {
+        return teus;
+    }
+
+    public void setTeus(int teus) {
+        this.teus = teus;
+    }
 
     public String getIdtypemanipulationlib() {
         return idtypemanipulationlib;
