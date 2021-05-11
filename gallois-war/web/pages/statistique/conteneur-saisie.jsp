@@ -58,11 +58,16 @@
     pi.getFormu().getChamp("typeSaisie").setLibelle("Type");
     pi.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type action conteneur");
     //pi.getFormu().getChamp("idtypemanipulation").setLibelle("Type manipulation");
-            
+    
+    pi.getFormu().getChamp("Plein20Pieds").setAutre("onchange='calculNbEVP()'");
+    pi.getFormu().getChamp("Vide20Pieds").setAutre("onchange='calculNbEVP()'");
+    pi.getFormu().getChamp("Plein40Pieds").setAutre("onchange='calculNbEVP()'");
+    pi.getFormu().getChamp("Vide40Pieds").setAutre("onchange='calculNbEVP()'");
+    
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-    
+
     <div class="box-title with-border">
         <h1 class="box-title">
             <a href="<%=pi.getLien()%>?but=statistique/statistique-saisie.jsp">
@@ -71,7 +76,7 @@
             <%=titre%>
         </h1>
     </div>
-    
+
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
@@ -83,12 +88,24 @@
         <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
     </form>
 </div>
+<script>
+    var chmp = '<div class="col-md-4"> ' +
+            '<table class="table table-bordered"><tbody><tr><th><label for="teusval">Nb d\'EVP</label></th><td><input name="teusval" class="form-control" type="text" id="teusval" value="" readonly/></td></tr></tbody></table></div>';
+    $('.box-body').find('.row').append(chmp);
+
+    function calculNbEVP() {
+        var nb = parseInt($('#Vide20Pieds').val()) + parseInt($('#Plein20Pieds').val()); 
+        nb += 2*(parseInt($('#Vide40Pieds').val()) + parseInt($('#Plein40Pieds').val()));
         
+        $('#teusval').val(nb);
+    }
+</script>
+
 <%
 } catch (Exception e) {
     e.printStackTrace();
 %>
-<script language="JavaScript"> 
-	alert('<%=e.getMessage()%>');
+<script language="JavaScript">
+    alert('<%=e.getMessage()%>');
     history.back();</script>
-<% }%>
+    <% }%>
