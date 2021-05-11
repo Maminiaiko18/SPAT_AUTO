@@ -20,9 +20,9 @@
         }
       
       
-      String listeCtrl[]={"id","paysprovenance","quaiprovenance","escale","nomnavire","valconsignataire","valcargaison","valpilote","date_arrivee","heure_arrivee","date_depart","heure_depart","paysdestination"};
+      String listeCtrl[]={"id","paysprovenance","quaiprovenance","escale","nomnavire","valconsignataire","valcargaison","valpilote","date_arrivee","heure_arrivee","date_depart","heure_depart","paysdestination","noVoyage"};
       String listeInt[]={"date_arrivee","date_depart"};
-      String libEntete[]={"id","date_rade","valpaysprovenance", "valquaisprovenance","escale","nomnavire","valconsignataire","valcargaison","date_arrivee","heure_arrivee","date_depart","heure_depart","valpaysdestination","valquaisdestination","valpilote"};
+      String libEntete[]={"id","valpaysprovenance", "valquaisprovenance","escale","nomnavire","valconsignataire","valcargaison","date_arrivee","heure_arrivee","date_depart","heure_depart","valpaysdestination","valquaisdestination","valpilote","noVoyage"};
       PageRecherche pr=new PageRecherche(prevision,request,listeCtrl,listeInt,3,libEntete,libEntete.length);
       pr.setUtilisateur((user.UserEJB) session.getValue("u"));
       pr.setLien((String) session.getValue("lien"));
@@ -42,6 +42,7 @@
       pr.getFormu().getChamp("paysdestination").setLibelle("Destination");
       pr.getFormu().getChamp("valcargaison").setLibelle("Cargaison");
       pr.getFormu().getChamp("valconsignataire").setLibelle("Consignataire");
+      pr.getFormu().getChamp("noVoyage").setLibelle("Numero voyage");
     pr.setApres("capitainerie/quais/quais-prevision-liste.jsp");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme); 
@@ -79,7 +80,7 @@
         <br />
         
         <%
-            String libEnteteAffiche[] = {"id","date de création","Pays Provenance","Quai de provenance","Escale" ," Nom Navire","Consignataire","Cargaison","date d'arrivée","heure d' arrivée","date de depart","heure du depart","destination","Quai de destination","Commandant"};
+            String libEnteteAffiche[] = {"id","Pays Provenance","Quai de provenance","Escale" ," Nom Navire","Consignataire","Cargaison","date d'arrivée","heure d' arrivée","date de depart","heure du depart","destination","Quai de destination","Commandant","Numero voyage"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             //pr.getTableau().construire_libelle(champ, libelle_comp);
             out.println(pr.getTableau().getHtml());

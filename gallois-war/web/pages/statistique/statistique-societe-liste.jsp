@@ -16,16 +16,17 @@
     if(request.getParameter("etatvue")!=null){
         posteDestinataire.setNomTable(request.getParameter("etatvue"));
     }
-    String listeCrt[] = {"id", "titre", "daty", "navire","idtypeActionConteneur","idtypemanipulation"};
+    String listeCrt[] = {"id", "titre", "daty", "navire","idtypemanipulation","noVoyage"};
     String listeInt[] = {"daty"};
-    String libEntete[] = {"id","titre","daty", "navire","idtypeActionConteneur","idtypemanipulation","idtypemarchandise","idtypemesure","nombreunite","poids"};
+    String libEntete[] = {"id","titre","daty", "navire","idtypemanipulation","idtypemarchandise","idtypemesure","nombreunite","poids","noVoyage"};
     PageRecherche pr = new PageRecherche(posteDestinataire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("statistique/statistique-societe-liste.jsp");
     pr.setAWhere(" and idTypeSaisie = '"+Constante.typesociete+"' ");
-    pr.getFormu().getChamp("idtypeActionConteneur").setLibelle("Type action conteneur");
     pr.getFormu().getChamp("idtypemanipulation").setLibelle("Type manipulation");
+    pr.getFormu().getChamp("noVoyage").setLibelle("Numero voyage");
+    
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -71,7 +72,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Titre", "Date","navire", "Type action conteneur", "Type manipulation", "Type marchandise", "Type mesure", "Nombre unité", "Poids"};
+            String libEnteteAffiche[] = {"Id", "Titre", "Date","navire", "Type manipulation", "Type marchandise", "Type mesure", "Nombre unité", "Poids","Numero voyage"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
