@@ -19,7 +19,9 @@ public class MouvementLibComplet extends Mouvement{
     private String valmvt,descemvt,valcargaison,descecargaison,
             quaiprovenance,interneprovenance,paysprovenance,valquaisprovenance,descequaisprovenance,typequaisprovenance,valpaysprovenance,descepaysprovenance,
             quaisdestination,internedestination,paysdestination,valquaisdestination,descequaisdestination,typequaisdestianantion,valpaysdestination,descepaysdestination,
-            referencenavire,nomnavire,pavillonnavire,remarquenavire,valconsignataire,desceconsignataire,valtypequaisprovenance,descetypequaisprovenance,valtypequaisdestination,descetypequaisdestination;
+            referencenavire,nomnavire,pavillonnavire,remarquenavire,valconsignataire,desceconsignataire,valtypequaisprovenance,descetypequaisprovenance,valtypequaisdestination,descetypequaisdestination,noVoyage;
+
+    
 
    
     @Override
@@ -387,6 +389,14 @@ public class MouvementLibComplet extends Mouvement{
 
     public void setDescetypequaisprovenance(String descetypequaisprovenance) {
         this.descetypequaisprovenance = descetypequaisprovenance;
+    }
+    
+    public String getNoVoyage() {
+        return noVoyage;
+    }
+
+    public void setNoVoyage(String noVoyage) {
+        this.noVoyage = noVoyage;
     }
 
     public String getValtypequaisdestination() {
