@@ -5,8 +5,11 @@
  */
 package facture;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
+import fin.Coursdevise;
 import java.sql.Connection;
+import utilitaire.Utilitaire;
 /**
  *
  * @author
@@ -17,6 +20,7 @@ public class FactureClientDetails extends ClassMAPTable {
     private String id,idmere;
     private double quantite,pu,taux;
     private String compte,idproduit,devise,designation;
+    private FactureClient mere;
     
     
     public FactureClientDetails(){
@@ -26,6 +30,22 @@ public class FactureClientDetails extends ClassMAPTable {
     public void construirePK(Connection c) throws Exception {
         preparePk("FClifille", "get_seq_facture_client_fille");
         setId(makePK(c));
+    }
+
+    @Override
+    public ClassMAPTable createObject(String user, Connection c) throws Exception {
+        setTaux(getTauxRecent(c));
+        return super.createObject(user, c);
+    }
+    
+    public double getTauxRecent(Connection c) throws Exception {
+        String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(this.getMere().getDaty()) + "' and iddevise = '" + this.getDevise() + "') "
+                + " and iddevise = '" + this.getDevise() + "'";
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
+        
+        if(cd != null && cd.length > 0) return cd[0].getMontant();
+        
+        return 0;
     }
 
     @Override
@@ -107,4 +127,13 @@ public class FactureClientDetails extends ClassMAPTable {
     public void setDesignation(String designation) {
         this.designation = designation;
     }
+
+    public FactureClient getMere() {
+        return mere;
+    }
+
+    public void setMere(FactureClient mere) {
+        this.mere = mere;
+    }
+    
 }

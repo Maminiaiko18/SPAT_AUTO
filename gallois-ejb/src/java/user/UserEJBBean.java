@@ -979,7 +979,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             ClassUser temp = (ClassUser) e;
             apresWhere = testRangUser(e, c) + apresWhere;
         }
-        
+
         return CGenUtil.rechercherPageMaxSansRecap(e, colInt, valInt, numPage, apresWhere, nomColSomme, c, npp);
     }
 
@@ -2029,7 +2029,6 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             testDelete(o, c);
             ClassMAPTable[] liste = (ClassMAPTable[]) CGenUtil.rechercher(o, null, null, c, "");
             if (liste.length > 0) {
-
                 if (o instanceof mg.spat.Navire) {
                     this.updateEtat(liste[0], ConstanteEtat.getEtatAnnuler(), ((Navire) liste[0]).getId(), c);
                 } else {
@@ -2785,6 +2784,12 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 mere = billetage;
                 //System.out.println("AAAAAAAAAAAAAAAAAAAA: "+montant);
             }
+            if(mere instanceof facture.FactureClient) {
+                for(int i=0; i < fille.length; i++) {
+                    ((facture.FactureClientDetails)fille[i]).setMere((facture.FactureClient)mere);
+                }
+            }
+            
             Object idmere = createObject(mere, c);
             //System.out.println(" ((ClassMAPTable)idmere).getTuppleID() === " + ((ClassMAPTable) idmere).getTuppleID());
             ret = createObjectMultiple(fille, colonneMere, ((ClassMAPTable) idmere).getTuppleID(), c);
@@ -3399,17 +3404,25 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 EtatFactureMontantDaty[] factures = temp.getByIds(new String[]{idfacture}, c);
                 if (factures.length > 0) {
                     EtatFactureMontantDaty facture = factures[0];
-                    op = new OrdonnerPayement(facture.getId(),facture.getReste(),facture.getDaty(),this.getUser().getTuppleID(),"Paiement facture " + facture.getId() + "via caisse",ConstanteEtat.getEtatCreer());
+                    op = new OrdonnerPayement(facture.getId(), facture.getReste(), facture.getDaty(), this.getUser().getTuppleID(), "Paiement facture " + facture.getId() + "via caisse", ConstanteEtat.getEtatCreer());
                     op.createObject(this.getUser().getRefuser() + "", c);
                     op.validerObject(this.getUser().getRefuser() + "", c);
                 }
-                if(c!=null && verif==1)c.commit();
-            }else throw new Exception ("Facture(s) introuvable(s)");
+                if (c != null && verif == 1) {
+                    c.commit();
+                }
+            } else {
+                throw new Exception("Facture(s) introuvable(s)");
+            }
         } catch (Exception e) {
-            if (c != null) c.rollback();
+            if (c != null) {
+                c.rollback();
+            }
             throw e;
         } finally {
-            if (c != null && verif == 1) c.close();
+            if (c != null && verif == 1) {
+                c.close();
+            }
         }
         return op.getId();
     }
@@ -3434,10 +3447,14 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                     retour = "treso/journalcaisse-saisie.jsp&id=" + idOp;
                 }
             }
-            if(c!=null && verif==1)c.commit();
+            if (c != null && verif == 1) {
+                c.commit();
+            }
             return retour;
         } catch (Exception e) {
-            if (c != null ) c.rollback();
+            if (c != null) {
+                c.rollback();
+            }
             throw e;
         } finally {
             if (c != null && verif == 1) {
@@ -3445,7 +3462,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             }
         }
     }
-    
+
     @Override
     public HashMap<String, String> getMapAutoComplete() {
         return mapAutoComplete;
@@ -3455,6 +3472,5 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     public void setMapAutoComplete(HashMap<String, String> mapAutoComplete) {
         this.mapAutoComplete = mapAutoComplete;
     }
-    
-    
+
 }

@@ -7,6 +7,7 @@ package facture;
 
 
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
 
@@ -30,7 +31,11 @@ public class FactureClient extends ClassEtat {
         this.tierslib = tierslib;
     }
 
-    
+    @Override
+    public ClassMAPTable createObject(String iduser, Connection cnctn) throws Exception {
+        this.setIduser(iduser);
+        return super.createObject(iduser, cnctn);
+    }
     
     public FactureClient(){
        setNomTable("Factureclient"); 
