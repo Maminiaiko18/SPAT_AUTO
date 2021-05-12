@@ -12,7 +12,7 @@ try{
             classeFille = "facture.FactureClientDetails",
             buteLien = "facture/factureclient-modif.jsp" ,
             colonneMereDansFille = "idmere",
-            buteApresVisa = "facture/factureclient-fiche.jsp";
+            buteApresVisa = "facture/factureclient-fiche-vaovao.jsp";
     String autreparsley = "data-parsley-range='[8, 40]' required";
     FactureClient mere = new FactureClient();
     FactureClientDetails fille = new FactureClientDetails();;

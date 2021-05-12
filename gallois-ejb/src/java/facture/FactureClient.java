@@ -20,6 +20,15 @@ public class FactureClient extends ClassEtat {
     private Date daty,date_echeance;
     private String tiers,designation,type,remarque,iduser;
     private double tva, montant;
+    private String tierslib;
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
 
     
     

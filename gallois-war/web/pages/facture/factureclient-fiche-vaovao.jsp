@@ -1,0 +1,152 @@
+<%-- 
+    Document   : factureclient-fiche-vaovao
+    Created on : 12 mai 2021, 13:56:24
+    Author     : nyamp
+--%>
+
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="utilitaire.ConstanteEtat"%>
+<%@page import="facture.FactureClientDetails"%>
+<%@page import="facture.FactureClient"%>
+<%@page import="bean.CGenUtil"%>
+<%@page import="utilitaire.Utilitaire"%>
+<%@page import="service.UploadService"%>
+<%@page import="mg.spat.AttacherFichier"%>
+<%@page import="affichage.PageConsulte"%>
+<%@page import="user.UserEJB"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    try{
+    UserEJB u = (user.UserEJB) session.getValue("u");
+    FactureClient e = new FactureClient();
+    e.setNomTable("factureclientMSum_lib");
+    PageConsulte pc = new PageConsulte(e, request, u);
+    pc.setTitre("FICHE FACTURE CLIENT");
+    
+    pc.getChampByName("iduser").setVisible(false);
+    pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("tierslib").setLibelle("Tiers");
+    pc.getChampByName("daty").setLibelle("Date");
+    pc.getChampByName("date_echeance").setLibelle("Date echeance");
+//    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp", "id");
+    e = (FactureClient) pc.getBase();
+    String bute="facture/factureclient-fiche-vaovao.jsp";
+    String classe="facture.FactureClient";
+    String modifPage="facture/factureclient-modif.jsp";
+    
+    String lien = (String) session.getValue("lien");
+    String redirect = lien + "?but="+modifPage+"&id=" + request.getParameter("id");
+    if(e.getEtat() < ConstanteEtat.getEtatValider()) out.println("<script language='JavaScript'> document.location.replace('"+redirect+"'); </script>");
+    
+    AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
+    configuration.CynthiaConf.load();
+    String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
+    String dossier="facture";
+    String id= e.getId();
+    FactureClientDetails fille=new FactureClientDetails();
+    FactureClientDetails[] detail= (FactureClientDetails[]) CGenUtil.rechercher(fille , null, null, " and idmere = '" + id+ "'");
+    
+    Map<String, String> map = new HashMap<String, String>();
+    map.put("facture-client-fille", "");
+    String tab = request.getParameter("tab");
+    if (tab == null) {
+        tab = "facture-client-fille";
+    }
+    map.put(tab, "active");
+    tab = "inc/" + tab + ".jsp";
+%>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <div class="box">
+                <h1 class="box-title">
+                    <a href="#">
+                        <i class="fa fa-arrow-circle-left"></i>
+                    </a> <%=pc.getTitre()%> 
+                </h1>
+                <div class="box-body">
+                    <%
+                        out.println(pc.getHtml());
+                    %>
+                </div>
+                <div class="box-footer">
+                    <p>
+                        <!--<a class="btn btn-defaut"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=dupliquer&bute=<%=modifPage%>&classe=<%=classe%>" style="margin-right: 10px">Dupliquer</a>-->
+                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrent.jsp&id=" + e.getId() %>" style="margin-right: 10px">Récurrent</a>
+                        <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Ajouter Avoir</a>
+                        <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + e.getId() + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute="   +bute+"&id=" + e.getId() %>" style="margin-right: 10px">Attacher Fichier</a> 
+                        <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + e.getId() %>" style="margin-right: 10px">Modifier</a>
+                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
+                        <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=annulerVisa&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Annuler visa</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+                    
+    <!--    detail      -->
+    
+    
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 ">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("facture-client-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-client-fille&idmere=<%=e.getId()%>">Detail facture client</a></li>
+                </ul>
+                <div class="tab-content">       
+                    <jsp:include page="<%=tab%>" />  
+                </div>
+            </div>
+            </div>
+        </div>  
+                
+    <!--    fin detail      -->
+        <div class="row">
+           <div class="col-md-2"></div>
+           <div class="col-md-8">
+               <div class="box-title with-border">
+                   <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
+               </div>
+               <div class="box-body">
+                   <table class="table table-striped table-bordered table-condensed table-responsive tree">
+                        <thead>
+                            <tr>
+                                <th style="background-color:#bed1dd;"></th>
+                                <th style="background-color:#bed1dd;">Libellé</th>
+                                <th style="background-color:#bed1dd;">Fichier</th>
+                                <th style="background-color:#bed1dd;">Voir</th>
+                                <th style="background-color:#bed1dd;">#</th>
+                            </tr>
+                           </thead>
+                        <tbody>
+                              <%if(fichiers==null || fichiers.length==0){%>
+                              <tr>
+                                   <td colspan="3" style="text-align: center;"><strong>Aucun fichier</strong></td>
+                               </tr>
+                             <%} else{
+                                   for(AttacherFichier fichier : fichiers){%> 
+                               <tr class="treegrid-1 treegrid-expanded">
+                                   <td><span class="treegrid-expander glyphicon glyphicon-minus"></span></td>
+                                   <td><%=fichier.getChemin() %></td>
+                                   <td><%=Utilitaire.champNull(fichier.getLibelle())%></td>
+                                   <td><a href="#" class="btn btn-primary" onclick="javascript:pagePopUp('<%=cdn + dossier +"/"+ fichier.getChemin()%>')">Voir</a></td>
+                                   <td></td>
+                               </tr>
+                               <%}}%>
+                        </tbody>  
+                   </table>
+               </div>
+           </div>
+       </div>
+</div>
+<%
+} catch (Exception e) {
+    e.printStackTrace();
+%>
+<script language="JavaScript"> alert('<%=e.getMessage()%>');
+    history.back();</script>
+<% }%>
+
