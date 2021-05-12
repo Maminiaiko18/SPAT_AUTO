@@ -15,10 +15,8 @@ public class FactureClientDetails extends ClassMAPTable {
 
     
     private String id,idmere;
-    private double quantite,pu,taux; 
-
-    
-    private String compte,idproduit,devise;
+    private double quantite,pu,taux;
+    private String compte,idproduit,devise,designation;
     
     
     public FactureClientDetails(){
@@ -101,5 +99,12 @@ public class FactureClientDetails extends ClassMAPTable {
 
     public void setDevise(String devise) {
         this.devise = devise;
+    }
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 }
