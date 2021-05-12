@@ -115,6 +115,24 @@
                     id = o.getTuppleID();
                 }
             }
+            if (acte.compareToIgnoreCase("dupliquer") == 0) {
+                String classeFille = request.getParameter("nomClasseFille");
+                String nomColonneMere = request.getParameter("nomColonneMere");
+                t = (ClassMAPTable) (Class.forName(classe).newInstance());
+                t.setValChamp(t.getAttributIDName(), request.getParameter("id"));
+                if (request.getAttribute("nomtable") != null) {
+                    nomtable = (String) request.getAttribute("nomtable");
+                }
+                if (nomtable != null && nomtable.compareToIgnoreCase("") != 0 && nomtable.compareToIgnoreCase("null") != 0) {
+                    t.setNomTable(nomtable);
+                }
+                ClassMAPTable o = (ClassMAPTable) u.dupliquerObject(t, classeFille, nomColonneMere);
+                val = request.getParameter("id");
+                bute += "&nomtable=" + t.getNomTable();
+        %>
+        <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&id=<%=val%>");</script>
+        <%
+            }
             if (acte.compareToIgnoreCase("insertUser") == 0) {
                 t = (ClassMAPTable) (Class.forName(classe).newInstance());
                 PageInsert p = new PageInsert(t, request);
