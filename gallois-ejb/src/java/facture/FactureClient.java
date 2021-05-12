@@ -65,10 +65,10 @@ public class FactureClient extends ClassEtat {
             if (tmp != null && tmp.length > 0) {
                 int nbJ = Utilitaire.stringToInt(tmp[0].getVal());
                 Date dateRef = Utilitaire.ajoutJourDate(fc.getDaty(), nbJ);
+                fc.setEtat(ConstanteEtat.getEtatCreer());
                 
                 for (int i = 0; i < nb; i++) {
-                    this.setDaty(dateRef);
-                    this.setEtat(ConstanteEtat.getEtatCreer());
+                    fc.setDaty(dateRef);
                     
                     String idF = (String) u.dupliquerObject(fc, "facture.FactureClientDetails", "idmere", c);
                     
@@ -77,7 +77,7 @@ public class FactureClient extends ClassEtat {
                     dateRef = Utilitaire.ajoutJourDate(dateRef, nbJ);
                 }
                 
-                if(ouvert) c.rollback();
+                if(ouvert) c.commit();
             }
         }
         catch(Exception ex) {
