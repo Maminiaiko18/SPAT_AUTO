@@ -23,6 +23,7 @@
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("teus").setLibelle("Nb EVP");
     pc.getChampByName("idtypesaisie").setVisible(false);
+    pc.getChampByName("noVoyage").setLibelle("Numero voyage");
    
 
 %>
