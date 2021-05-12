@@ -19,7 +19,7 @@ public class FactureClient extends ClassEtat {
     private String id;
     private Date daty,date_echeance;
     private String tiers,designation,type,remarque,iduser;
-    private double tva;
+    private double tva, montant;
 
     
     
@@ -114,4 +114,13 @@ public class FactureClient extends ClassEtat {
     public void setTva(double tva) {
         this.tva = tva;
     }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+    
 }
