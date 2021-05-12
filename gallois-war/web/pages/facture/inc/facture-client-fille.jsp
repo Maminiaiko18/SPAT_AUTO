@@ -12,7 +12,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     FactureClientDetails cht = new FactureClientDetails();
-    //cht.setNomTable("avoir_lib_val");
     String libEntete[] = {"id", "designation", "quantite","pu", "taux", "devise","compte"};
     String listeCrt[] = {"idmere"};
     String listeInt[] = {};
