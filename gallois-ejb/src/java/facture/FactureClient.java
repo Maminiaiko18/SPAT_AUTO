@@ -5,21 +5,26 @@
  */
 package facture;
 
-
+import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
+import user.UserEJB;
+import utilitaire.ConstanteEtat;
+import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
  * @author
  */
 public class FactureClient extends ClassEtat {
-    
+
     private String id;
-    private Date daty,date_echeance;
-    private String tiers,designation,type,remarque,iduser;
+    private Date daty, date_echeance;
+    private String tiers, designation, type, remarque, iduser;
     private double tva, montant;
     private String tierslib;
 
@@ -36,11 +41,54 @@ public class FactureClient extends ClassEtat {
         this.setIduser(iduser);
         return super.createObject(iduser, cnctn);
     }
-    
-    public FactureClient(){
-       setNomTable("Factureclient"); 
+
+    public FactureClient() {
+        setNomTable("Factureclient");
     }
-    
+
+    public void recurrent(UserEJB u, Connection c, String typefrequence, int nb) throws Exception {
+        boolean ouvert = false;
+
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            
+            FactureClient fc = (FactureClient) this.getById(this.getId(), this.getNomTable(), c);
+            
+            TypeObjet typeFreq = new TypeObjet();
+            typeFreq.setNomTable("TYPEFREQUENCE");
+            TypeObjet[] tmp = (TypeObjet[]) CGenUtil.rechercher(typeFreq, null, null, c, " and id = '" + typefrequence + "'");
+
+            if (tmp != null && tmp.length > 0) {
+                int nbJ = Utilitaire.stringToInt(tmp[0].getVal());
+                Date dateRef = Utilitaire.ajoutJourDate(fc.getDaty(), nbJ);
+                
+                for (int i = 0; i < nb; i++) {
+                    this.setDaty(dateRef);
+                    this.setEtat(ConstanteEtat.getEtatCreer());
+                    
+                    String idF = (String) u.dupliquerObject(fc, "facture.FactureClientDetails", "idmere", c);
+                    
+//                    System.out.println("fc " + idF);
+                    
+                    dateRef = Utilitaire.ajoutJourDate(dateRef, nbJ);
+                }
+                
+                if(ouvert) c.rollback();
+            }
+        }
+        catch(Exception ex) {
+            if(c != null && ouvert) c.rollback();
+            throw ex;
+        }
+        finally {
+            if(c != null && ouvert) c.close();
+        }
+    }
+
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("FCli", "get_seq_Factureclient");
@@ -56,7 +104,7 @@ public class FactureClient extends ClassEtat {
     public String getAttributIDName() {
         return "id";
     }
-    
+
     public String getId() {
         return id;
     }
@@ -64,7 +112,7 @@ public class FactureClient extends ClassEtat {
     public void setId(String id) {
         this.id = id;
     }
-    
+
     public Date getDaty() {
         return daty;
     }
@@ -136,5 +184,5 @@ public class FactureClient extends ClassEtat {
     public void setMontant(double montant) {
         this.montant = montant;
     }
-    
+
 }
