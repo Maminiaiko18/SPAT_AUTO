@@ -126,7 +126,7 @@
                 if (nomtable != null && nomtable.compareToIgnoreCase("") != 0 && nomtable.compareToIgnoreCase("null") != 0) {
                     t.setNomTable(nomtable);
                 }
-                ClassMAPTable o = (ClassMAPTable) u.dupliquerObject(t, classeFille, nomColonneMere);
+                val=(String) u.dupliquerObject(t, classeFille, nomColonneMere);
                 val = request.getParameter("id");
                 bute += "&nomtable=" + t.getNomTable();
         %>

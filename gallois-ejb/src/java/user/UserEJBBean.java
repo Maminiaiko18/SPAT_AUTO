@@ -3012,9 +3012,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public Object dupliquerObject(ClassMAPTable o, String mapFille, String nomColonneMere, Connection c) throws Exception {
-        if (testRestriction(u.getIdrole(), "ACT000010", o.getNomTable(), c) == 1) {
-            throw new Exception("ERREUR DE DROIT");
-        }
+//        if (testRestriction(u.getIdrole(), "ACT000010", o.getNomTable(), c) == 1) {
+//            throw new Exception("ERREUR DE DROIT");
+//        }
         try {
             o.setMode("modif");
             String id = o.getValInsert("id");

@@ -34,6 +34,7 @@
     e = (FactureClient) pc.getBase();
     String bute="facture/factureclient-fiche-vaovao.jsp";
     String classe="facture.FactureClient";
+    String classefille="facture.FactureClientDetails";
     String modifPage="facture/factureclient-modif.jsp";
     
     String lien = (String) session.getValue("lien");
@@ -60,7 +61,7 @@
 %>
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-7 col-md-offset-2">
 
             <div class="box">
                 <h1 class="box-title">
@@ -75,7 +76,7 @@
                 </div>
                 <div class="box-footer">
                     <p>
-                        <!--<a class="btn btn-defaut"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=dupliquer&bute=<%=modifPage%>&classe=<%=classe%>" style="margin-right: 10px">Dupliquer</a>-->
+                        <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=dupliquer&bute=<%=modifPage%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrent.jsp&id=" + e.getId() %>" style="margin-right: 10px">Récurrent</a>
                         <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Ajouter Avoir</a>
                         <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + e.getId() + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute="   +bute+"&id=" + e.getId() %>" style="margin-right: 10px">Attacher Fichier</a> 
