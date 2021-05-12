@@ -97,7 +97,9 @@
                     <li class="<%= map.get("facture-client-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-client-fille&idmere=<%=e.getId()%>">Detail facture client</a></li>
                 </ul>
                 <div class="tab-content">       
-                    <jsp:include page="<%=tab%>" />  
+                    <jsp:include page="<%=tab%>" >
+                        <jsp:param name="idmere" value="<%=e.getId()%>" />
+                    </jsp:include>
                 </div>
             </div>
             </div>
