@@ -8,8 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AvoirLibComplet cht = new AvoirLibComplet();
-    cht.setNomTable("avoir_lib_val");
-    String libEntete[] = {"id", "designation", "typeavoir_desce","remarque", "daty", "montant","tva"};
+    cht.setNomTable("AVOIRFC_MONTANT");
+    String libEntete[] = {"id", "daty", "montant", "etat"};
     String listeCrt[] = {"idfacture"};
     String listeInt[] = {};
 
@@ -19,12 +19,12 @@
     
     pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
-    if(request.getParameter("id") != null){
-        System.out.println("idfacture ----------------------- "+request.getParameter("id"));
-        pr.setAWhere(" or idfacture = '"+request.getParameter("id")+"'");
+    if(request.getParameter("idfacture") != null){
+        System.out.println("idfacture ----------------------- "+request.getParameter("idfacture"));
+        pr.setAWhere(" and idfacture = '"+request.getParameter("idfacture")+"' ");
     }
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "Désignation","Type","remarque", "Date", "Montant","tva"};
+    String libEnteteAffiche[] = {"id", "Date", "Montant", "etat"};
     String lienTableau[] = {pr.getLien() + "?but=avoir/avoir-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);

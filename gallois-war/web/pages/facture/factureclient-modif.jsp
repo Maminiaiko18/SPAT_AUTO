@@ -30,7 +30,9 @@ try{
     pi.getFormu().getChamp("date_echeance").setLibelle("date d'Echeance");
     pi.getFormu().getChamp("daty").setLibelle("date");
     pi.getFormu().getChamp("type").setVisible(false);
-    pi.getFormu().getChamp("etat").setVisible(false);
+    //pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("etat").setAutre("readonly");
+     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("montant").setVisible(false);
     pi.getFormu().getChamp("montanttva").setVisible(false);
     pi.getFormu().getChamp("montantttc").setVisible(false);
