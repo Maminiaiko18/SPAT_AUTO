@@ -55,6 +55,7 @@
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     
     
     
