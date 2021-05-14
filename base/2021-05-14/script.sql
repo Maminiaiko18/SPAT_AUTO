@@ -161,3 +161,19 @@ select *
 from FACTURECLIENTMSUM_LIB
 where etat >= 11;
 
+create view AvoirFCFille_plus as
+select fc.*,
+       cast(0.0 as NUMBER(30,2)) as montantdf,
+       cast('-' as varchar2(500)) as designation,
+       cast('-' as varchar2(500)) as devise
+from AvoirFCFille fc;
+
+alter table ORDONNERPAYEMENt modify  ded_id varchar2(500);
+alter table ORDONNERPAYEMENt modify  REMARQUE varchar2(4000);
+
+create view avoirfc_montant as
+select fc.*,
+       cast(nvl(mr.montant, 0.0) as NUMBER(30,2)) as montant
+from AVOIRFC fc
+left join avoirfcavectaux_grp_mere mr on mr.IDMERE=fc.ID;
+
