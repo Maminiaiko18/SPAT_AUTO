@@ -100,7 +100,7 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("facture-client-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-client-fille&idmere=<%=e.getId()%>">Detail facture client</a></li>
-                    <li class="<%= map.get("avoir-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=avoir-liste&idfacture=<%=e.getId()%>">Facture avoir</a></li>
+                    <li class="<%= map.get("avoir-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=avoir-liste">Facture avoir</a></li>
                 </ul>
                 <div class="tab-content">       
                     <jsp:include page="<%=tab%>" >

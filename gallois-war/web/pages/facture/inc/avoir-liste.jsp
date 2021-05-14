@@ -19,9 +19,9 @@
     
     pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
-    if(request.getParameter("idfacture") != null){
-        System.out.println("idfacture ----------------------- "+request.getParameter("idfacture"));
-        pr.setAWhere(" and idfacture = '"+request.getParameter("idfacture")+"'");
+    if(request.getParameter("id") != null){
+        System.out.println("idfacture ----------------------- "+request.getParameter("id"));
+        pr.setAWhere(" or idfacture = '"+request.getParameter("id")+"'");
     }
     pr.creerObjetPage(libEntete, colSomme);
     String libEnteteAffiche[] = {"id", "Désignation","Type","remarque", "Date", "Montant","tva"};
