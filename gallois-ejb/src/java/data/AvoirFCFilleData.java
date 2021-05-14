@@ -34,7 +34,7 @@ public class AvoirFCFilleData {
         this.idfacture = idfacture;
     }
     
-    public void setFCDetails() throws Exception{
+    public void findFCDetails() throws Exception{
         Connection c=null;
         int verif = 0;
         try {
@@ -44,6 +44,7 @@ public class AvoirFCFilleData {
                 verif = 1;
             }            
             FactureClientDetails p = new FactureClientDetails();
+            p.setNomTable("FACTURE_CLIENT_MONTANT");
             fcdetails = (FactureClientDetails[]) CGenUtil.rechercher(p, null, null, " and idmere = '" + idfacture+ "'");
             
             if(c!=null && verif==1) c.commit();

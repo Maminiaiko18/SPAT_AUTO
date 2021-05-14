@@ -21,6 +21,7 @@ public class FactureClientDetails extends ClassMAPTable {
     private double quantite,pu,taux;
     private String compte,idproduit,devise,designation;
     private FactureClient mere;
+    private double montant;
     
     
     public FactureClientDetails(){
@@ -134,6 +135,14 @@ public class FactureClientDetails extends ClassMAPTable {
 
     public void setMere(FactureClient mere) {
         this.mere = mere;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
     }
     
 }

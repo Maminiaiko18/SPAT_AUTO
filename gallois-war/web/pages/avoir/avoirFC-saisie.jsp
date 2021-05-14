@@ -27,7 +27,7 @@
     AvoirFCFilleLib avoirfille = new AvoirFCFilleLib();
     AvoirFCFilleData d = new AvoirFCFilleData();
     d.setIdfacture(request.getParameter("idfacture"));
-    d.setFCDetails();
+    d.findFCDetails();
     FactureClientDetails[] data = d.getFcdetails();
     
     PageInsertMultiple pi = new PageInsertMultiple(avoir, avoirfille, request, data.length, u);
@@ -47,7 +47,7 @@
     
     for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){;
         pi.getFormufle().getChamp("iddetailfacture_"+i).setDefaut(data[i].getId());
-        pi.getFormufle().getChamp("montantdf_"+i).setDefaut(""+data[i].getQuantite()*data[i].getPu());
+        pi.getFormufle().getChamp("montantdf_"+i).setDefaut(""+data[i].getMontant());
         pi.getFormufle().getChamp("devise_"+i).setDefaut(data[i].getDevise());
         pi.getFormufle().getChamp("designation_"+i).setDefaut(data[i].getDesignation());
     }
