@@ -28,7 +28,7 @@ public class FactureClientDetails extends ClassMAPTable {
     }
     @Override
     public void construirePK(Connection c) throws Exception {
-        preparePk("FClifille", "get_seq_facture_client_fille");
+        preparePk("FCF", "get_seq_facture_client_fille");
         setId(makePK(c));
     }
 
