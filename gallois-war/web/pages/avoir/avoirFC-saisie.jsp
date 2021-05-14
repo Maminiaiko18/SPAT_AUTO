@@ -7,6 +7,7 @@
 <%@page import="avoir.AvoirFC"%>
 <%@page import="affichage.Liste"%>
 <%@page import="avoir.AvoirFCFille"%>
+<%@page import="avoir.AvoirFCFilleLib"%>
 <%@page import="data.AvoirFCFilleData"%>
 <%@page import="user.*"%> 
 <%@page import="facture.FactureClientDetails"%>
@@ -23,7 +24,7 @@
 
     String autreparsley = "data-parsley-range='[8, 40]' required";
     AvoirFC  avoir = new AvoirFC();   
-    AvoirFCFille avoirfille = new AvoirFCFille();
+    AvoirFCFilleLib avoirfille = new AvoirFCFilleLib();
     AvoirFCFilleData d = new AvoirFCFilleData();
     d.setIdfacture(request.getParameter("idfacture"));
     d.setFCDetails();
@@ -40,13 +41,20 @@
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("idfacture").setLibelle("Facture");
-    pi.getFormu().getChamp("idfacture").setPageAppel("choix/listeFactureCientChoix.jsp");
+    pi.getFormu().getChamp("idfacture").setPageAppel("choix/listeFactureClientChoix.jsp");
+    pi.getFormu().getChamp("idfacture").setAutre("readonly");
      
     
     for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){;
         pi.getFormufle().getChamp("iddetailfacture_"+i).setDefaut(data[i].getId());
+        pi.getFormufle().getChamp("montantdf_"+i).setDefaut(""+data[i].getQuantite()*data[i].getPu());
+        pi.getFormufle().getChamp("devise_"+i).setDefaut(data[i].getDevise());
+        pi.getFormufle().getChamp("designation_"+i).setDefaut(data[i].getDesignation());
     }
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idMere"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
@@ -54,9 +62,12 @@
     
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureCientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle");
     pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
-    pi.getFormufle().getChamp("Id_0").setLibelle("Id");
     pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
     pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
+    pi.getFormufle().getChamp("Montantdf_0").setLibelle("Montant detail facture");
+    pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
+    pi.getFormufle().getChamp("Designation_0").setLibelle("Designation");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     
     pi.preparerDataFormu();
        
