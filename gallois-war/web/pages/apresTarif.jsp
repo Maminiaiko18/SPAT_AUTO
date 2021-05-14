@@ -127,7 +127,7 @@
                     t.setNomTable(nomtable);
                 }
                 val=(String) u.dupliquerObject(t, classeFille, nomColonneMere);
-                val = request.getParameter("id");
+                
                 bute += "&nomtable=" + t.getNomTable();
         %>
         <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&id=<%=val%>");</script>
