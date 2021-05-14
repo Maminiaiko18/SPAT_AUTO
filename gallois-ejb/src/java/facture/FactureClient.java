@@ -25,7 +25,7 @@ public class FactureClient extends ClassEtat {
     private String id;
     private Date daty, date_echeance;
     private String tiers, designation, type, remarque, iduser;
-    private double tva, montant,montanttva,montantttc;
+    private double tva, montant, montanttva, montantttc;
     private String tierslib;
 
     public String getTierslib() {
@@ -50,14 +50,14 @@ public class FactureClient extends ClassEtat {
         boolean ouvert = false;
 
         try {
-            if(c == null) {
+            if (c == null) {
                 c = (new UtilDB()).GetConn();
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            
+
             FactureClient fc = (FactureClient) this.getById(this.getId(), this.getNomTable(), c);
-            
+
             TypeObjet typeFreq = new TypeObjet();
             typeFreq.setNomTable("TYPEFREQUENCE");
             TypeObjet[] tmp = (TypeObjet[]) CGenUtil.rechercher(typeFreq, null, null, c, " and id = '" + typefrequence + "'");
@@ -66,26 +66,32 @@ public class FactureClient extends ClassEtat {
                 int nbJ = Utilitaire.stringToInt(tmp[0].getVal());
                 Date dateRef = Utilitaire.ajoutJourDate(fc.getDaty(), nbJ);
                 fc.setEtat(ConstanteEtat.getEtatCreer());
-                
+
                 for (int i = 0; i < nb; i++) {
-                    fc.setDaty(dateRef);
-                    
                     String idF = (String) u.dupliquerObject(fc, "facture.FactureClientDetails", "idmere", c);
-                    
-//                    System.out.println("fc " + idF);
-                    
+
+                    fc.setId(idF);
+                    fc.setDaty(dateRef);
+
+//                    System.out.println("fc " + fc.getId());
+                    u.updateObject(fc, c);
+
                     dateRef = Utilitaire.ajoutJourDate(dateRef, nbJ);
                 }
-                
-                if(ouvert) c.commit();
+
+                if (ouvert) {
+                    c.commit();
+                }
             }
-        }
-        catch(Exception ex) {
-            if(c != null && ouvert) c.rollback();
+        } catch (Exception ex) {
+            if (c != null && ouvert) {
+                c.rollback();
+            }
             throw ex;
-        }
-        finally {
-            if(c != null && ouvert) c.close();
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
         }
     }
 
@@ -184,7 +190,7 @@ public class FactureClient extends ClassEtat {
     public void setMontant(double montant) {
         this.montant = montant;
     }
-    
+
     public double getMontanttva() {
         return montanttva;
     }
