@@ -10,10 +10,10 @@
     try{
     FactureClient facture = new FactureClient();
     facture.setNomTable("factureclientMSumC");
-    String listeCrt[] = {"id","daty","tiers","designation","type","date_echeance"};
+    String listeCrt[] = {"id","daty","tierslib","designation","date_echeance"};
     String listeInt[] = {"daty","date_echeance"};
-    String libEntete[] = {"id","daty","tiers","designation","type","tva","remarque","iduser","date_echeance","montant"};
-    PageRecherche pr = new PageRecherche(facture, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+    String libEntete[] = {"id","daty","tierslib","designation","tva","date_echeance", "montant", "montanttva", "montantttc"};
+    PageRecherche pr = new PageRecherche(facture, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     
@@ -21,9 +21,13 @@
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
     pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
     pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
+    /*pr.getFormu().getChamp("montant").setLibelle("montant HT");
+    pr.getFormu().getChamp("montanttva").setLibelle("montant TVA");
+    pr.getFormu().getChamp("montantttc").setLibelle("montant TTC");*/
+    pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
     
     pr.setApres("facture/factureclient-visa-multiple.jsp");
-    String[] colSomme = null;
+    String[] colSomme = {"montant", "montanttva", "montantttc"};
     pr.creerObjetPage(libEntete, colSomme);%>
 
 <div class="content-wrapper">
@@ -31,7 +35,7 @@
         <h1>Liste des facture client &agrave; viser</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=capitainerie/mouvement-visa.jsp" method="post" name="incident" id="incident">
+        <form action="<%=pr.getLien()%>?but=facture/factureclient-visa-multiple.jsp" method="post" name="incident" id="incident">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
@@ -50,7 +54,7 @@
             
             <%
                 
-                String libEnteteAffiche[] ={"id","daty","tiers","designation","type","tva","remarque","user","date echeance","montant"};
+                String libEnteteAffiche[] ={"id","daty","tiers","designation","tva","date echeance","montant HT", "montant TVA", "montant TTC"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");
