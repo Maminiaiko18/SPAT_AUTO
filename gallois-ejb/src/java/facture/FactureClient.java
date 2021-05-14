@@ -91,7 +91,7 @@ public class FactureClient extends ClassEtat {
 
     @Override
     public void construirePK(Connection c) throws Exception {
-        preparePk("FCli", "get_seq_Factureclient");
+        preparePk("FCL", "get_seq_Factureclient");
         setId(makePK(c));
     }
 
