@@ -15,6 +15,7 @@ try{
             buteApresVisa = "facture/factureclient-fiche-vaovao.jsp";
     String autreparsley = "data-parsley-range='[8, 40]' required";
     FactureClient mere = new FactureClient();
+        mere.setNomTable("FACTURECLIENTMSUM_LIB");
     FactureClientDetails fille = new FactureClientDetails();;
     fille.setIdmere(request.getParameter("id"));
     FactureClientDetails[] liste = (FactureClientDetails[])CGenUtil.rechercher(fille, null, null, "");
@@ -28,12 +29,19 @@ try{
     pi.getFormu().getChamp("iduser").setLibelle("User");
     pi.getFormu().getChamp("date_echeance").setLibelle("date d'Echeance");
     pi.getFormu().getChamp("daty").setLibelle("date");
+    pi.getFormu().getChamp("type").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("montant").setVisible(false);
+    pi.getFormu().getChamp("montanttva").setVisible(false);
+    pi.getFormu().getChamp("montantttc").setVisible(false);
+    pi.getFormu().getChamp("tierslib").setVisible(false);
     
     
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
      
     affichage.Liste[] listed = new affichage.Liste[1];
         TypeObjet o = new TypeObjet();
@@ -49,10 +57,11 @@ try{
     pi.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
     pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
+    
+    mere = (FactureClient) pi.getBase();
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-    <div class="row">
         <div class="box">
             <h1><%= titrePage %></h1>
             <form action="<%=(String) session.getValue("lien")%>?but=apresMultiple.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
@@ -78,9 +87,11 @@ try{
                 <input name="colonneMere" type="hidden" id="colonneMere" value="<%= colonneMereDansFille %>">
 
             </form>
-        </div>
     </div>
 </div>
+<script>
+    document.getElementById("tierslibelle").value = "<%= mere.getTierslib() %>";
+</script>
 <%}catch(Exception ex){
     ex.printStackTrace();
 }%>
