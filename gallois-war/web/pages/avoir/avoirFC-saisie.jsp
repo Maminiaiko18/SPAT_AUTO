@@ -60,7 +60,7 @@
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
     
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureCientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureClientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle");
     pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
     pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
     pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");

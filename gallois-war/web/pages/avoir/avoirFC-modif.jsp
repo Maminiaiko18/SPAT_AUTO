@@ -15,6 +15,7 @@ try{
             buteApresVisa = "avoir/avoirFC-fiche.jsp";
     String autreparsley = "data-parsley-range='[8, 40]' required";
     AvoirFC mere = new AvoirFC();
+    mere.setNomTable("AVOIRFC_designation_fc");
     AvoirFCFille fille = new AvoirFCFille();
     fille.setIdmere(request.getParameter("id"));
     AvoirFCFille[] liste = (AvoirFCFille[])CGenUtil.rechercher(fille, null, null, "");
@@ -22,14 +23,15 @@ try{
     pi.setLien((String) session.getValue("lien"));
     
     
-    pi.getFormu().getChamp("idfacture").setPageAppel("choix/listeFactureCientChoix.jsp");
+    pi.getFormu().getChamp("idfacture").setPageAppel("choix/listeFactureClientChoix.jsp");
     pi.getFormu().getChamp("idfacture").setAutre("readonly");
     pi.getFormu().getChamp("idfacture").setLibelle("Facture");
     pi.getFormu().getChamp("daty").setLibelle("date");
-    pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("etat").setAutre("readonly");
+    pi.getFormu().getChamp("designationFacture").setVisible(false);
     
     
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureCientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureClientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idMere"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
@@ -39,7 +41,8 @@ try{
      pi.getFormufle().getChamp("Id_0").setLibelle("Id");
      pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
      pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
-    pi.preparerDataFormu();
+     mere = (AvoirFC) pi.getBase();
+     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -71,6 +74,13 @@ try{
         </div>
     </div>
 </div>
+      
+<script>
+    <%  for(int i=0; liste!=null && i<liste.length; i++){%>
+        document.getElementById("iddetailfacturelibelle_<%=i%>").value = "<%=liste[i].getIddetailfacture()%>";
+    <%}%>
+    document.getElementById("idfacturelibelle").value = "<%=mere.getDesignationFacture()!=null && !mere.getDesignationFacture().equals("") ? mere.getDesignationFacture() : mere.getIdfacture() %>";
+</script>
 <%}catch(Exception ex){
     ex.printStackTrace();
 }%>

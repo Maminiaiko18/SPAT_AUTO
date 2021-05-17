@@ -19,11 +19,16 @@ public class AvoirFC extends ClassEtat {
     
     private String id;
     private Date daty;
-    private String idfacture;
+    private String idfacture, designationFacture;
 
+    public String getDesignationFacture() {
+        return designationFacture;
+    }
 
-    
-    
+    public void setDesignationFacture(String designationFacture) {
+        this.designationFacture = designationFacture;
+    }
+
     public AvoirFC() {
         setNomTable("AvoirFC");
     }
