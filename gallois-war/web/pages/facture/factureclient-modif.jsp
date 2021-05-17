@@ -41,6 +41,7 @@ try{
     
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("Taux"), false);
     
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
@@ -58,7 +59,7 @@ try{
     pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
     pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
-    pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
+    //pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
     
     mere = (FactureClient) pi.getBase();
     pi.preparerDataFormu();
