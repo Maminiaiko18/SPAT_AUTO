@@ -25,6 +25,23 @@ public class FactureClientDetails extends ClassMAPTable {
     private double montanttaux;
     private double montantavoirsanstaux;
     private double montantavoiravectaux;
+    private double qtelivree, restealivrer;
+
+    public double getQtelivree() {
+        return qtelivree;
+    }
+
+    public void setQtelivree(double qtelivree) {
+        this.qtelivree = qtelivree;
+    }
+
+    public double getRestealivrer() {
+        return restealivrer;
+    }
+
+    public void setRestealivrer(double restealivrer) {
+        this.restealivrer = restealivrer;
+    }
 
     public double getMontantavoirsanstaux() {
         return montantavoirsanstaux;
