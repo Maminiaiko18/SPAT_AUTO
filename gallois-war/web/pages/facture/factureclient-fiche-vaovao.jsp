@@ -26,11 +26,13 @@
     pc.setTitre("FICHE FACTURE CLIENT");
     
     pc.getChampByName("iduser").setVisible(false);
+    pc.getChampByName("type").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("montant").setLibelle("Montant HT");
     pc.getChampByName("montanttva").setLibelle("Montant TVA");
+    pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
     pc.getChampByName("montantttc").setLibelle("Montant TTC");
     pc.getChampByName("date_echeance").setLibelle("Date echeance");
 //    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp", "id");

@@ -22,6 +22,34 @@ public class FactureClientDetails extends ClassMAPTable {
     private String compte,idproduit,devise,designation;
     private FactureClient mere;
     private double montant;
+    private double montanttaux;
+    private double montantavoirsanstaux;
+    private double montantavoiravectaux;
+
+    public double getMontantavoirsanstaux() {
+        return montantavoirsanstaux;
+    }
+
+    public void setMontantavoirsanstaux(double montantavoirsanstaux) {
+        this.montantavoirsanstaux = montantavoirsanstaux;
+    }
+
+    public double getMontantavoiravectaux() {
+        return montantavoiravectaux;
+    }
+
+    public void setMontantavoiravectaux(double montantavoiravectaux) {
+        this.montantavoiravectaux = montantavoiravectaux;
+    }
+   
+
+    public double getMontanttaux() {
+        return montanttaux;
+    }
+
+    public void setMontanttaux(double montanttaux) {
+        this.montanttaux = montanttaux;
+    }
     
     
     public FactureClientDetails(){

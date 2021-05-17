@@ -27,7 +27,17 @@ public class FactureClient extends ClassEtat {
     private String tiers, designation, type, remarque, iduser;
     private double tva, montant, montanttva, montantttc;
     private String tierslib;
+    private double montantavoir;
 
+    public double getMontantavoir() {
+        return montantavoir;
+    }
+
+    public void setMontantavoir(double montantavoir) {
+        this.montantavoir = montantavoir;
+    }
+    
+    
     public String getTierslib() {
         return tierslib;
     }
