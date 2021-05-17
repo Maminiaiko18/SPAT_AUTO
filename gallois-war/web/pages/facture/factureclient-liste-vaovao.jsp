@@ -17,7 +17,7 @@
 
         String listeCrt[] = {"id","daty","tiers","designation","date_echeance"};
         String listeInt[] = {"daty","date_echeance"};
-        String libEntete[] = {"id","daty","tiers","designation","tva","date_echeance","montant", "montantTVA", "montantTTC"};
+        String libEntete[] = {"id","daty","tiers","designation","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -30,7 +30,7 @@
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         
-        String[] colSomme = {"montant", "montantTVA", "montantTTC"};
+        String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
@@ -85,7 +85,7 @@
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
-            String libEnteteAffiche[] = {"id","daty","tiers","designation", "tva", "date echeance","montant HT", "montant TVA", "montant TTC"};
+            String libEnteteAffiche[] = {"id","daty","tiers","designation", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
