@@ -20,7 +20,7 @@
         String listeInt[] = {"daty", "date_echeance"};
         String[] pourcentage = {""};
         String colDefaut[] = {"id","daty","tierslib","designation","date_echeance"};
-        String somDefaut[] = {"montant", "montanttva", "montantttc"};
+        String somDefaut[] = {"montant", "montanttva", "montantttc", "montantavoir"};
 
         PageRechercheGroupe pr = new PageRechercheGroupe(mvt, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, somDefaut.length);
 
@@ -58,6 +58,10 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%  
+            String lienTableau[] = { pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
+            pr.getTableau().setLien(lienTableau);
+            String collien[] = {"id"};
+            pr.getTableau().setColonneLien(collien);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
             out.println(pr.getInsertLienModal());
