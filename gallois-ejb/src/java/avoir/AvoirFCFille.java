@@ -5,26 +5,55 @@
  */
 package avoir;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
+import facture.FactureClient;
 import java.sql.Connection;
+import utilitaire.ConstanteEtat;
 
 /**
  *
- * @author 
+ * @author
  */
 public class AvoirFCFille extends ClassMAPTable {
-    
+
     private String id;
-    private double montant;
-    private String idmere,compte,iddetailfacture;
+    private double montant, montantdf;
+    private String idmere, compte, iddetailfacture;
 
+    public FactureClient getFacture(Connection c) throws Exception {
+        FactureClient fc = new FactureClient();
+        fc.setNomTable("AVOIRFC_FACTURE");
+        FactureClient[] tFact = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and idavoir = '" + this.getIdmere() + "'");
 
-    
-    
-    public AvoirFCFille(){
+        if (tFact != null && tFact.length > 0) {
+            return tFact[0];
+        }
+
+        return null;
+    }
+
+    @Override
+    public void controler(Connection c) throws Exception {
+        FactureClient fc = getFacture(c);
+
+        if (fc != null) {
+            if (fc.getEtat() < ConstanteEtat.getEtatValider()) {
+                throw new Exception("Facture non visée");
+            }
+        }
+        
+        if (this.getMontant() > this.getMontantdf()) {
+            throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + this.getMontantdf() + ") ");
+        }
+
+        super.controler(c);
+    }
+
+    public AvoirFCFille() {
         setNomTable("avoirFCfille");
     }
-    
+
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("AVRFCfille", "get_seqavoirFCfille");
@@ -40,7 +69,7 @@ public class AvoirFCFille extends ClassMAPTable {
     public String getAttributIDName() {
         return "id";
     }
-    
+
     public String getId() {
         return id;
     }
@@ -48,7 +77,7 @@ public class AvoirFCFille extends ClassMAPTable {
     public void setId(String id) {
         this.id = id;
     }
-    
+
     public double getMontant() {
         return montant;
     }
@@ -72,11 +101,20 @@ public class AvoirFCFille extends ClassMAPTable {
     public void setCompte(String compte) {
         this.compte = compte;
     }
+
     public String getIddetailfacture() {
         return iddetailfacture;
     }
 
     public void setIddetailfacture(String iddetailfacture) {
         this.iddetailfacture = iddetailfacture;
+    }
+
+    public double getMontantdf() {
+        return montantdf;
+    }
+
+    public void setMontantdf(double montantdf) {
+        this.montantdf = montantdf;
     }
 }

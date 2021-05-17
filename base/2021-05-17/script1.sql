@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW AVOIRFC_FACTURE AS 
+(
+	SELECT 
+		fc.*,
+		a.ID AS idavoir,
+		af.ID AS idavoirfille
+	FROM FACTURECLIENT fc 
+	JOIN AVOIRFC a ON a.IDFACTURE = fc.ID 
+	LEFT JOIN AVOIRFCFILLE af ON af.idmere = a.id
+);

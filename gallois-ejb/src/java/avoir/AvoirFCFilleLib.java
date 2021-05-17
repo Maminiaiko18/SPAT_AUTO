@@ -10,8 +10,7 @@ package avoir;
  * @author je sais pas
  */
 public class AvoirFCFilleLib extends AvoirFCFille{
-    private double montantdf;
-    private String devise,designation;
+    private String devise, designation;
     
     public AvoirFCFilleLib(){
         setNomTable("AvoirFCFille_plus");
@@ -32,13 +31,4 @@ public class AvoirFCFilleLib extends AvoirFCFille{
     public void setDesignation(String designation) {
         this.designation = designation;
     }
-
-    public double getMontantdf() {
-        return montantdf;
-    }
-
-    public void setMontantdf(double montantdf) {
-        this.montantdf = montantdf;
-    }
-    
 }
