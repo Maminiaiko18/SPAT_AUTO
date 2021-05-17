@@ -9,6 +9,7 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import fin.Coursdevise;
 import java.sql.Connection;
+import java.sql.Date;
 import utilitaire.Utilitaire;
 /**
  *
@@ -85,13 +86,24 @@ public class FactureClientDetails extends ClassMAPTable {
     }
     
     public double getTauxRecent(Connection c) throws Exception {
-        String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(this.getMere().getDaty()) + "' and iddevise = '" + this.getDevise() + "') "
+        Date date = this.getMere() != null ? this.getMere().getDaty() : getMere(c).getDaty();
+        String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
                 + " and iddevise = '" + this.getDevise() + "'";
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
         
         if(cd != null && cd.length > 0) return cd[0].getMontant();
         
         return 0;
+    }
+    
+    public FactureClient getMere(Connection c) throws Exception {
+        FactureClient mere = new FactureClient();
+        mere.setId(idmere);
+        mere = (FactureClient) mere.getById(idmere, null, c);
+        if(mere == null){
+            throw new Exception("FactureClient mere non trouvee !");
+        }
+        return mere;
     }
 
     @Override

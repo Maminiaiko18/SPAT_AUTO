@@ -42,7 +42,7 @@ try{
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
      
     affichage.Liste[] listed = new affichage.Liste[1];
