@@ -22,6 +22,7 @@
     String autreparsley = "data-parsley-range='[8, 40]' required";
     FactureClient  fc = new FactureClient();   
     FactureClientDetails fcfille = new FactureClientDetails();
+    fcfille.setNomTable("facture_client_fille_plus");
     
     PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, 10, u);
     pi.setLien((String) session.getValue("lien"));
@@ -45,6 +46,13 @@
         listed[0] = new Liste("devise", o, "VAL", "id");
     pi.getFormufle().changerEnChamp(listed);
     
+    int taille = pi.getNombreLigne();
+    for( int i = 0 ; i < taille ; i++ ){       
+        pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
+        pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
+        pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
+    }
+    
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false); 
@@ -54,7 +62,8 @@
     pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle");
+    pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     
     
@@ -82,7 +91,20 @@
     </form>
  
 </div>
-
+<script  language="JavaScript">
+    function calculerMontant(indice) {
+        var quantite, pu, montant;
+        quantite = parseFloat($('#quantite_' + indice).val());
+//        quantite = quantite / 1000;
+        pu = parseFloat($('#pu_' + indice).val());
+        if (!isNaN(quantite) && !isNaN(pu)) {
+            montant = quantite * pu;
+            $('#montant_' + indice).val(montant.toFixed(2));
+        } else {
+            $('#montant_' + indice).val('');
+        }
+    }
+</script>
 <%
 	} catch (Exception e) {
 		e.printStackTrace();

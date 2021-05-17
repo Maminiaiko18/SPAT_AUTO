@@ -92,7 +92,7 @@ public class Produits extends ClassMAPTable{
     private double poids;
     
     public String getValColLibelle(){
-        return nom+";"+ccg+";"+pa;
+        return nom+";"+ccg+";"+pa+";"+nom;
     }
     
     public Produits() {
