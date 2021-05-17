@@ -51,6 +51,7 @@
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
+        pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
     }
     
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
