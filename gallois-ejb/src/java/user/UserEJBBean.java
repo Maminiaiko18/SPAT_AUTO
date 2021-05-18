@@ -2784,12 +2784,12 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 mere = billetage;
                 //System.out.println("AAAAAAAAAAAAAAAAAAAA: "+montant);
             }
-            if(mere instanceof facture.FactureClient) {
-                for(int i=0; i < fille.length; i++) {
-                    ((facture.FactureClientDetails)fille[i]).setMere((facture.FactureClient)mere);
+            if (mere instanceof facture.FactureClient) {
+                for (int i = 0; i < fille.length; i++) {
+                    ((facture.FactureClientDetails) fille[i]).setMere((facture.FactureClient) mere);
                 }
             }
-            
+
             Object idmere = createObject(mere, c);
             //System.out.println(" ((ClassMAPTable)idmere).getTuppleID() === " + ((ClassMAPTable) idmere).getTuppleID());
             ret = createObjectMultiple(fille, colonneMere, ((ClassMAPTable) idmere).getTuppleID(), c);
@@ -3473,4 +3473,48 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         this.mapAutoComplete = mapAutoComplete;
     }
 
+    @Override
+    public Object[] annulerObjectMultiple(ClassEtat o, String[] listeIdObjet, Connection c) throws Exception {
+        Object[] ret = null;
+        
+        try {
+            String ids = Utilitaire.tabToString(listeIdObjet, "'", ",");
+            ClassEtat[] objs = (ClassEtat[]) CGenUtil.rechercher(o, listeIdObjet, listeIdObjet, c, " and id in (" + ids + ")");
+
+            for (ClassEtat obj : objs) {
+                annulerObject(obj, c);
+            }
+
+            ret = objs;
+        } catch (Exception ex) {
+            if(c != null) c.rollback();
+            throw ex;
+        }
+        
+        return ret;
+    }
+
+    @Override
+    public Object[] annulerObjectMultiple(ClassEtat o, String[] listeIdObjet) throws Exception {
+        Connection c = null;
+        Object[] ret = null;
+
+        try {
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            ret = annulerObjectMultiple(o, listeIdObjet, c);
+            c.commit();
+        } catch (Exception e) {
+            if (c != null) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        return ret;
+    }
 }
