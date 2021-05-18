@@ -1,5 +1,5 @@
-<%@page import="facture.FactureClientPorfoDetails"%>
-<%@page import="facture.FactureClientPorfo"%>
+<%@page import="facture.FactureProformaDetails"%>
+<%@page import="facture.FactureProforma"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="user.*" %>
 <%@ page import="bean.*" %>
@@ -14,12 +14,12 @@ try{
             colonneMereDansFille = "idmere",
             buteApresVisa = "facture/facture-proforma-fiche.jsp";
     String autreparsley = "data-parsley-range='[8, 40]' required";
-    FactureClientPorfo mere = new FactureClientPorfo();
+    FactureProforma mere = new FactureProforma();
         mere.setNomTable("FACTUREPROFMSUM_LIB");
-    FactureClientPorfoDetails fille = new FactureClientPorfoDetails();
+    FactureProformaDetails fille = new FactureProformaDetails();
         fille.setNomTable("FACTURE_PROF_FILLE");
     fille.setIdmere(request.getParameter("id"));
-    FactureClientPorfoDetails[] liste = (FactureClientPorfoDetails[])CGenUtil.rechercher(fille, null, null, "");
+    FactureProformaDetails[] liste = (FactureProformaDetails[])CGenUtil.rechercher(fille, null, null, "");
     PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
     pi.setLien((String) session.getValue("lien"));
     
@@ -61,7 +61,7 @@ try{
     pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
     
-    mere = (FactureClientPorfo) pi.getBase();
+    mere = (FactureProforma) pi.getBase();
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
