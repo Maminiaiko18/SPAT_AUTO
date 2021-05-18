@@ -4,12 +4,12 @@
     Author     : Lenovo
 --%>
 
-<%@page import="facture.FactureClient"%>
+<%@page import="facture.FactureProforma"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
-        FactureClient ff = new FactureClient();
+        FactureProforma ff = new FactureProforma();
         ff.setNomTable("factureprofMSum_lib");
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             ff.setNomTable(request.getParameter("etat"));
