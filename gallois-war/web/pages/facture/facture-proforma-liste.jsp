@@ -40,7 +40,7 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste facture client</h1>
+        <h1>Liste facture proforma</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=facture/facture-proforma-liste.jsp" method="post" name="incident" id="incident">
