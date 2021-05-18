@@ -25,6 +25,7 @@
     String bute = request.getParameter("bute");
     String classe = request.getParameter("classe");
     String acte = request.getParameter("acte");
+    String[] ids = request.getParameterValues("id");
     
     ClassEtat t = null;
     System.out.println(" mbola niditra tao @visa-multiple");
@@ -79,6 +80,12 @@
             t = (ClassEtat) (Class.forName(classe).newInstance());
             t.setNomTable(table);
             u.cloturerObjectMultiple(t, val);
+        }
+        
+         if (acte.compareToIgnoreCase("annuler") == 0) {
+            t = (ClassEtat) (Class.forName(classe).newInstance());
+            t.setNomTable(table);
+//            u.annulerObjectMultiple(t,ids);
         }
         /*if (acte.compareToIgnoreCase("insertFB") == 0) {
             t = (ClassEtat) (Class.forName(classe).newInstance());
