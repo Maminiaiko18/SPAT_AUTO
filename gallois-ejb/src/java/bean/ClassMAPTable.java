@@ -28,7 +28,7 @@ public abstract class ClassMAPTable implements Serializable {
     public ClassMAPTable() {
         INDICE_PK = "EX";
         nomProcedureSequence = "GetSeqExecutions";
-        longuerClePrimaire = 6;
+        longuerClePrimaire = 10;
         setNombreChamp();
     }
     public ClassMAPTable getById(String id,String nTable,Connection c) throws Exception
