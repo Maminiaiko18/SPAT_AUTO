@@ -6,20 +6,20 @@
 try{
     String acte = request.getParameter("acte"),
         bute = request.getParameter("bute"),
-        lien = (String) session.getValue("lien");
+        lien = (String) session.getValue("lien"),
+        id = request.getParameter("id");
     UserEJB u = (user.UserEJB) session.getValue("u");
     
     if(acte != null && acte.equalsIgnoreCase("genererFacture")){
-        FactureProforma fc = new FactureProforma();
-//        fc = fc.proformaToFactureClient(u,null);
-        
-        %>
-            <script language="JavaScript"> 
-                document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=fc.getId()%>");
-            </script>
-        <%
+        FactureProforma fact = new FactureProforma();
+        fact.setId(id);
+        FactureClient fc = fact.proformaToFactureClient(u,null);
+        if(fc != null) id = fc.getId();
     }
 %>
+    <script language="JavaScript"> 
+                document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=id%>");
+            </script>
 <%
 } catch (Exception e) {
     e.printStackTrace();

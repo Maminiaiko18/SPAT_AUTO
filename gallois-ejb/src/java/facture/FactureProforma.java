@@ -7,6 +7,8 @@ package facture;
 
 import bean.CGenUtil;
 import java.sql.Connection;
+import user.UserEJB;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 /**
  *
@@ -44,6 +46,56 @@ public class FactureProforma extends FactureClient{
             
             
             
+        } catch (Exception ex) {
+            if (c != null && ouvert) {
+                c.rollback();
+            }
+            throw ex;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+    }
+    
+    public FactureClient proformaToFactureClient(UserEJB u, Connection c) throws Exception {
+        boolean ouvert = false;
+        
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+
+            FactureProforma fact = (FactureProforma) this.getById(this.getId(), this.getNomTable(), c);
+
+            if (fact.getEtat() < ConstanteEtat.getEtatValider()) {
+                throw new Exception("Facture proforma non visée");
+            }
+
+            fact.setNomTable("factureclient");
+            
+            fact.setId(null);
+            u.createObject(fact, c);
+
+            initialiserFilles(c, "facture_prof_fille");
+
+            if (filles != null) {
+                for (int i = 0; i < filles.length; i++) {
+                    filles[i].setNomTable("facture_client_fille");
+                    filles[i].setIdmere(fact.getId());
+                    filles[i].setId(null);
+                    
+                    u.createObject(filles[i], c);
+                }
+            }
+            
+            if (ouvert) {
+                c.commit();
+            }
+            
+            return fact;
         } catch (Exception ex) {
             if (c != null && ouvert) {
                 c.rollback();
