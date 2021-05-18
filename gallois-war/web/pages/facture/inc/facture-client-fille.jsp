@@ -24,7 +24,7 @@
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "designation", "quantité","quantité livrée","reste à livrée", "devise","compte","pu", "taux","montant"};
+    String libEnteteAffiche[] = {"id", "designation", "quantité","quantité livrer","reste à livrée", "devise","compte","pu", "taux","montant"};
 //    String lienTableau[] = {pr.getLien() + "?but=avoir/avoir-fiche.jsp"};
 //    String colonneLien[] = {"id"};
 //    pr.getTableau().setLien(lienTableau);
