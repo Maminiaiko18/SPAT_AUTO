@@ -12,8 +12,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     FactureClientDetails cht = new FactureClientDetails();
-    cht.setNomTable("FACTURE_CLIENT_MONTANT");
-    String libEntete[] = {"id", "designation", "quantite", "devise","compte","pu", "taux","montanttaux"};
+    cht.setNomTable("facture_client_fille_lib_reste");
+    String libEntete[] = {"id", "designation", "quantite","qtelivree","restealivrer", "devise","compte","pu", "taux","montanttaux"};
     String listeCrt[] = {"idmere"};
     String listeInt[] = {};
 
@@ -24,7 +24,7 @@
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "designation", "quantite","compte", "devise","pu", "taux","Montant"};
+    String libEnteteAffiche[] = {"id", "designation", "quantité","quantité livrée","reste à livrée", "devise","compte","pu", "taux","montant"};
 //    String lienTableau[] = {pr.getLien() + "?but=avoir/avoir-fiche.jsp"};
 //    String colonneLien[] = {"id"};
 //    pr.getTableau().setLien(lienTableau);
