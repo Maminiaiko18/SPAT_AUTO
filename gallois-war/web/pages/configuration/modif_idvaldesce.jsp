@@ -34,6 +34,10 @@
         titres.put("commandant", "Commandant");
         titres.put("manoeuvrebord", "Manoeuvre de bord");
         titres.put("cargaison", "Cargaison");
+        titres.put("categoriefacturation", "Catégorie");
+        titres.put("redevance", "Redevance");
+        titres.put("unite_activite", "Unité");
+
         TypeObjet p = new TypeObjet();
         p.setNomTable(nomtable);
         u = (user.UserEJB) session.getValue("u");

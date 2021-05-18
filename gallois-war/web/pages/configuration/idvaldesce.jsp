@@ -35,6 +35,9 @@
     titre.put("cargaison", "Cargaison");
     titre.put("pilote", "Capitaine");
     titre.put("typenavire", "type navire");
+    titre.put("categoriefacturation", "Catégorie");
+    titre.put("redevance", "Redevance");
+    titre.put("unite_activite", "Unité");
 
     titre.put("Marque_Materiel", "Marque mat&eacute;riel");
 
