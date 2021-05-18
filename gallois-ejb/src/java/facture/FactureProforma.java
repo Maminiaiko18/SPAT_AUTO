@@ -14,7 +14,7 @@ import java.sql.Connection;
 public class FactureProforma extends FactureClient{
     
     public FactureProforma(){
-        super.setNomTable("FactureProforma");
+        super.setNomTable("facture_prof_mere");
     }
     
     @Override
