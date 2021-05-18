@@ -51,8 +51,6 @@
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
     String dossier="facture";
     String id= e.getId();
-    FactureClientDetails fille=new FactureClientDetails();
-    FactureClientDetails[] detail= (FactureClientDetails[]) CGenUtil.rechercher(fille , null, null, " and idmere = '" + id+ "'");
     
     Map<String, String> map = new HashMap<String, String>();
     map.put("facture-client-fille", "");
