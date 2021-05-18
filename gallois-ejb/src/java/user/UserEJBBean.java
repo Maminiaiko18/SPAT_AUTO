@@ -3479,7 +3479,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         
         try {
             String ids = Utilitaire.tabToString(listeIdObjet, "'", ",");
-            ClassEtat[] objs = (ClassEtat[]) CGenUtil.rechercher(o, listeIdObjet, listeIdObjet, c, " and id in (" + ids + ")");
+            ClassEtat[] objs = (ClassEtat[]) CGenUtil.rechercher(o, null, null, c, " and id in (" + ids + ")");
 
             for (ClassEtat obj : objs) {
                 annulerObject(obj, c);

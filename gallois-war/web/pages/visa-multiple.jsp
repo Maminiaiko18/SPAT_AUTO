@@ -83,9 +83,10 @@
         }
         
          if (acte.compareToIgnoreCase("annuler") == 0) {
+             System.out.println("ANNULERRRRRRRR -----------");
             t = (ClassEtat) (Class.forName(classe).newInstance());
             t.setNomTable(table);
-//            u.annulerObjectMultiple(t,ids);
+            u.annulerObjectMultiple(t,ids);
         }
         /*if (acte.compareToIgnoreCase("insertFB") == 0) {
             t = (ClassEtat) (Class.forName(classe).newInstance());
