@@ -10,8 +10,17 @@ package mg.spat.stock;
  * @author Daniel
  */
 public class BonDeLivraisonClient extends BonDeLivraison {
+    private String designationFacture;
     
     public BonDeLivraisonClient(){
         super.setNomTable("as_bondelivraison_cl");
+    }
+
+    public String getDesignationFacture() {
+        return designationFacture;
+    }
+
+    public void setDesignationFacture(String designationFacture) {
+        this.designationFacture = designationFacture;
     }
 }
