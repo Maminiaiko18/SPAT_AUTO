@@ -56,7 +56,7 @@ public class AvoirFCFille extends ClassMAPTable {
 
     @Override
     public void construirePK(Connection c) throws Exception {
-        preparePk("AVRFCfille", "get_seqavoirFCfille");
+        preparePk("AVRFCF", "get_seqavoirFCfille");
         setId(makePK(c));
     }
 
