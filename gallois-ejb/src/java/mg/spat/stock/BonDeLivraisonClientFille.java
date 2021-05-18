@@ -12,6 +12,8 @@ package mg.spat.stock;
 public class BonDeLivraisonClientFille extends BonDeLivraisonFille {
     private String produitLib;
     
+    private String pdt;
+    
     public BonDeLivraisonClientFille(){
         super.setNomTable("as_bondelivraison_cl_fille");
     }
@@ -23,4 +25,12 @@ public class BonDeLivraisonClientFille extends BonDeLivraisonFille {
     public void setProduitLib(String produitLib) {
         this.produitLib = produitLib;
     }
+    public String getPdt() {
+        return pdt;
+    }
+
+    public void setPdt(String pdt) {
+        this.pdt = pdt;
+    }
+    
 }
