@@ -37,6 +37,8 @@ try{
     pi.getFormu().getChamp("montanttva").setVisible(false);
     pi.getFormu().getChamp("montantttc").setVisible(false);
     pi.getFormu().getChamp("tierslib").setVisible(false);
+    pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("montantavoir").setVisible(false);
     
     
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
