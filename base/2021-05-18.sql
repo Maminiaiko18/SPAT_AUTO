@@ -705,4 +705,32 @@ from ACTIVITE ac
          left join direction di on cast(di.IDDIRECTEUR as varchar2(100)) =cast(ra.DIRECTION as varchar2(100))
 /
 
+create or replace view ACTIVITELIBCOMPLET as
+select ac.*,
+       ra.DESIGNATION as rubriquelib,
+       nv.NOM         as bateaulib,
+       nv.PLT as poids,
+       nv.LHT as  longueur,
+       nv.LM as largeur,
+       cast('-' as varchar2(100)) as autres,
+       ra.pu,
+       ra.devise,
+       ra.compte,
+       ra.unite,
+       ra.direction,
+       ra.condition,
+       ra.tva,
+       ra.objet,
+       ra.redevance,
+       fup.NOM as clientlib,
+       ra.DESIGNATION as redevancelib,
+       di.LIBELLEDIR as directionlib
+from ACTIVITE ac
+         left join RUBRIQUE_ACTIVITE ra on ra.id = ac.RUBRIQUE
+         left join NAVIRE nv on nv.ID = ac.BATEAU
+         left join FOURNISSEUR_UNION_PERSONNEL fup on fup.id=ac.CLIENT
+          left join REDEVANCE re on re.id=ra.REDEVANCE
+         left join direction di on cast(di.IDDIRECTEUR as varchar2(100)) =cast(ra.DIRECTION as varchar2(100))
+/
+
 
