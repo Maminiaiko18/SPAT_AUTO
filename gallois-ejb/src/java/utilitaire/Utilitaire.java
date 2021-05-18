@@ -2377,7 +2377,7 @@ public class Utilitaire extends Parametre {
     public static String heureCourante() {
         Calendar a = Calendar.getInstance();
         String retour = null;
-        retour = String.valueOf(String.valueOf(completerInt(2, a.get(11) + 1))).concat(":");
+        retour = String.valueOf(String.valueOf(completerInt(2, a.get(11)))).concat(":");
         retour = retour + String.valueOf(completerInt(2, a.get(12))) + ":";
         retour = retour + String.valueOf(completerInt(2, a.get(13))) + ":";
         //retour = String.valueOf(String.valueOf((new StringBuffer(String.valueOf(String.valueOf(retour)))).append(completerInt(2, a.get(13))).append(":")));

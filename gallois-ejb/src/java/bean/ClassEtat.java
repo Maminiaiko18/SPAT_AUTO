@@ -48,7 +48,7 @@ public abstract class ClassEtat extends ClassUser{
         if (value == ConstanteEtat.getEtatEchu()) return "<b style='color:red'>ECHU</b>";
         return null;
     }
-    public int updateEtat(int valeurEtat, String id, Connection c) throws Exception {
+    /*public int updateEtat(int valeurEtat, String id, Connection c) throws Exception {
         Statement cmd = null;
         try {
             String req = "update " + getNomTable() + " set etat=" + valeurEtat + " where " + getAttributIDName() + " = '" + id + "'";
@@ -61,24 +61,38 @@ public abstract class ClassEtat extends ClassUser{
         } finally {
             cmd.close();
         }
+    }*/
+    /*
+    **Sur definissiavana ity raha misy controle hafa avant annuler ka tiana atao personnalisé
+    */
+    public void controleAnnuler() throws Exception
+    {
+        if(getEtat()>=ConstanteEtat.getEtatValider()) throw new Exception("Impossible à annuler, deja valide");
+    }
+    public void controleAnnulerVisa() throws Exception
+    {
+        if(getEtat()>ConstanteEtat.getEtatValider()) throw new Exception("Impossible d annuler le Visa, superieur valide");
     }
     public int annuler(Connection c)throws Exception
     {
-        if(getEtat()>=ConstanteEtat.getEtatValider()) throw new Exception("Impossible à annuler, deja valide");
+        controleAnnuler();
         setMode("modif");
-        return this.updateEtat(ConstanteEtat.getEtatAnnuler(), CGenUtil.getValeurInsert(this, "id"), c);
+        this.setEtat(ConstanteEtat.getEtatAnnuler());
+        return this.updateToTable(c);
     }
     public int annuler(String user,Connection c)throws Exception
     {
+        controleAnnuler();
         setMode("modif");
         this.setEtat(ConstanteEtat.getEtatAnnuler());
         return this.updateToTableWithHisto(user, c);
     }
     public int annulerVisa(String user,Connection c) throws Exception
     {
-        if(getEtat()>ConstanteEtat.getEtatValider()) throw new Exception("Impossible à annuler, superieur valide");
+        controleAnnulerVisa();
         setMode("modif");
-        return this.updateEtat(ConstanteEtat.getEtatCreer(), this.getTuppleID(), c);
+        this.setEtat(ConstanteEtat.getEtatCreer());
+        return this.updateToTableWithHisto(user,c);
     }
     public Object validerObject(String u, Connection c) throws Exception
     {

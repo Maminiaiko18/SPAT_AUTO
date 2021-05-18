@@ -853,7 +853,8 @@ public class Formulaire {
                 if (c.getNom().compareToIgnoreCase("iduser") == 0) {
                     c.setVisible(false);
                 }
-                if (c.getVisible() == true) {
+                if (c.getVisible() == true) 
+                {
                     //temp+="<div class='form-group'>";
                     
                     c.setAutre("tabindex='" + (i + 1) + "'" + c.getAutre());
@@ -992,7 +993,27 @@ public class Formulaire {
         //Autocomplete 
         temp += getHtmlAutocomplete();
         //Autocomplete 
+        temp+=getHtmlChampInvisible();
         setHtmlInsert(temp);
+    }
+    public ArrayList<Champ> getChampInvisible()
+    {
+        ArrayList<Champ> lc=new ArrayList<Champ>();
+        for(Champ c:getListeChamp())
+        {
+            if(c.getVisible()==false)lc.add(c);
+        }
+        return lc;
+    }
+    public String getHtmlChampInvisible() throws Exception
+    {
+        String retour="";
+        ArrayList<Champ>lc= getChampInvisible();
+        for(Champ c:lc)
+        {
+            retour=retour+c.getHtml();
+        }
+        return retour;
     }
 
     public String getHtmlAutocomplete() throws Exception {

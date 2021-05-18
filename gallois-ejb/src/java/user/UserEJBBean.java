@@ -2648,9 +2648,10 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         try {
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
-            Object ob = annulerObject(o, c);
+            if(o instanceof ClassEtat)
+            ((ClassEtat)o).annuler(this.getUser().getTuppleID(), c);
             c.commit();
-            return ob;
+            return o;
         } catch (Exception ex) {
             ex.printStackTrace();
             c.rollback();
@@ -2669,8 +2670,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         testValidationEtat(o, c);
         try {
             o.setMode("modif");
-            this.updateEtat(o, ConstanteEtat.getEtatAnnuler(), CGenUtil.getValeurInsert(o, "id"), c);
-            c.commit();
+            if(o instanceof ClassEtat) ((ClassEtat)o).annuler(this.getUser().getTuppleID(), c);
             return o;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -2680,16 +2680,15 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public void updateEtat(ClassMAPTable e, int valeurEtat, String id, Connection c) throws Exception {
-        Statement cmd = null;
         try {
-            String req = "update " + e.getNomTable() + " set etat='" + valeurEtat + "' where id = '" + id + "'";
+            /*String req = "update " + e.getNomTable() + " set etat='" + valeurEtat + "' where id = '" + id + "'";
             cmd = c.createStatement();
-            cmd.executeUpdate(req);
+            cmd.executeUpdate(req);*/
+            e.setValChamp("etat", valeurEtat);
+            e.updateToTableWithHisto(this.getUser().getTuppleID(), c);
         } catch (Exception ex) {
             throw ex;
-        } finally {
-            cmd.close();
-        }
+        } 
     }
 
     public void annulerVisa(ClassMAPTable o) throws Exception {
