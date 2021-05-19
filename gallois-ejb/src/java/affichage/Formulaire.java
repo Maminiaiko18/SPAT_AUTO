@@ -1738,6 +1738,7 @@ public class Formulaire {
         
         temp += getHtmlAutocomplete();
         //System.out.println("temp + = "+temp);
+        temp+=getHtmlChampInvisible();
         setHtmlTableauInsert(temp);
     }
     public String getHtmlAutocomplete(int k) throws Exception {
