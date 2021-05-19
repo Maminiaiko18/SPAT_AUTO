@@ -4,7 +4,7 @@
     Author     : nyamp
 --%>
 
-<%@page import="mg.spat.stock.BonDeLivraisonFille"%>
+<%@page import="mg.spat.stock.BonDeLivraisonClientFille"%>
 <%@page import="bean.AdminGen"%>
 <%@page import="affichage.TableauRecherche"%>
 <%@page import="utilitaire.ConstanteEtat"%>
@@ -12,9 +12,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    BonDeLivraisonFille cht = new BonDeLivraisonFille();
-    cht.setNomTable("as_bondelivraison_cl_fille");
-    String libEntete[] = {"id", "produit", "quantite"};
+    BonDeLivraisonClientFille cht = new BonDeLivraisonClientFille();
+    cht.setNomTable("AS_BONDELIVRAISON_CL_FILLE_LIB");
+    String libEntete[] = {"id", "produitlib", "quantite"};
     String listeCrt[] = {"numbl"};
     String listeInt[] = {};
 
