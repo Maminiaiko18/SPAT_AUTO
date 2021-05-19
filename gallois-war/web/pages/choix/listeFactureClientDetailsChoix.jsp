@@ -3,10 +3,10 @@
 <%
     String champReturn = request.getParameter("champReturn");
     FactureClientDetails fDet = new FactureClientDetails();
-    fDet.setNomTable("facture_client_fille");
+    fDet.setNomTable("FACTURE_CLIENT_FILLE_LIB");
     String listeCrt[] = {"id","idmere" ,"designation","compte","devise","quantite"};
     String listeInt[] = {"quantite"};
-    String libEntete[] = {"id","idmere","designation", "quantite","pu", "compte", "idproduit", "devise","taux"};
+    String libEntete[] = {"id","idmere","designation", "quantite","pu", "compte", "idproduitlib", "devise","taux", "montant", "montanttaux"};
     PageRechercheChoix pr = new PageRechercheChoix(fDet, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     //pr.setOrdre(" order by daty desc");
@@ -44,7 +44,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <% 
-                       String libEnteteAff[] =  {"Id","Mère","Designation","Quantite","PU","Compte","Produit","Devise","Taux"};
+                       String libEnteteAff[] =  {"Id","Mère","Designation","Quantite","PU","Compte","Produit","Devise","Taux", "Montant", "montant Taux"};
                        pr.getTableau().setLibeEntete(libEnteteAff);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>

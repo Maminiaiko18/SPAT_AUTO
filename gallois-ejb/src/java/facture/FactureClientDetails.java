@@ -20,13 +20,31 @@ public class FactureClientDetails extends ClassMAPTable {
     
     private String id,idmere;
     private double quantite,pu,taux;
-    private String compte,idproduit,devise,designation;
+    private String compte,idproduit,devise,designation, idProduitLib;
     private FactureClient mere;
     private double montant;
     private double montanttaux;
     private double montantavoirsanstaux;
     private double montantavoiravectaux;
     private double qtelivree, restealivrer;
+    
+    
+    @Override
+    public String getValColLibelle() {
+        return getLibDesignation()+";"+Utilitaire.formaterAr(montanttaux)+";"+Utilitaire.formaterAr(montanttaux)+";"+devise;
+    }
+    
+    public String getLibDesignation(){
+        return designation==null || designation.equals("") ? id : designation;
+    }
+    
+    public String getIdProduitLib() {
+        return idProduitLib;
+    }
+
+    public void setIdProduitLib(String idProduitLib) {
+        this.idProduitLib = idProduitLib;
+    }
 
     public double getQtelivree() {
         return qtelivree;

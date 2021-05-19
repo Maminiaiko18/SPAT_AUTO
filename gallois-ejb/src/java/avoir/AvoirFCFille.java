@@ -18,8 +18,8 @@ import utilitaire.ConstanteEtat;
 public class AvoirFCFille extends ClassMAPTable {
 
     private String id;
-    private double montant, montantdf;
-    private String idmere, compte, iddetailfacture;
+    private double montant, montantdf, montantDFTaux;
+    private String idmere, compte, iddetailfacture, devise, designation;
 
     public FactureClient getFacture(Connection c) throws Exception {
         FactureClient fc = new FactureClient();
@@ -31,6 +31,30 @@ public class AvoirFCFille extends ClassMAPTable {
         }
 
         return null;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
+    }
+
+    public double getMontantDFTaux() {
+        return montantDFTaux;
+    }
+
+    public void setMontantDFTaux(double montantDFTaux) {
+        this.montantDFTaux = montantDFTaux;
     }
 
     @Override

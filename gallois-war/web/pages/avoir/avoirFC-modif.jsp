@@ -17,6 +17,7 @@ try{
     AvoirFC mere = new AvoirFC();
     mere.setNomTable("AVOIRFC_designation_fc");
     AvoirFCFille fille = new AvoirFCFille();
+    fille.setNomTable("AVOIRFCFILLE_MONTANTFACTURE");
     fille.setIdmere(request.getParameter("id"));
     AvoirFCFille[] liste = (AvoirFCFille[])CGenUtil.rechercher(fille, null, null, "");
     PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
@@ -27,20 +28,26 @@ try{
     pi.getFormu().getChamp("idfacture").setAutre("readonly");
     pi.getFormu().getChamp("idfacture").setLibelle("Facture");
     pi.getFormu().getChamp("daty").setLibelle("date");
-    pi.getFormu().getChamp("etat").setAutre("readonly");
+    pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("designationFacture").setVisible(false);
     
     
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureClientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureClientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle;montant;montantDFTaux;devise");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idMere"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdftaux"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("montantdf"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("designation"), false);
     
      pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
      pi.getFormufle().getChamp("Id_0").setLibelle("Id");
      pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
      pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
+     pi.getFormufle().getChamp("montantdftaux_0").setLibelle("Montant FD Taux");
+     pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
      mere = (AvoirFC) pi.getBase();
      pi.preparerDataFormu();
 %>
@@ -77,7 +84,7 @@ try{
       
 <script>
     <%  for(int i=0; liste!=null && i<liste.length; i++){%>
-        document.getElementById("iddetailfacturelibelle_<%=i%>").value = "<%=liste[i].getIddetailfacture()%>";
+        document.getElementById("iddetailfacturelibelle_<%=i%>").value = "<%=liste[i].getDesignation() %>";
     <%}%>
     document.getElementById("idfacturelibelle").value = "<%=mere.getDesignationFacture()!=null && !mere.getDesignationFacture().equals("") ? mere.getDesignationFacture() : mere.getIdfacture() %>";
 </script>
