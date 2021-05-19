@@ -7,6 +7,7 @@ package facture;
 
 import bean.CGenUtil;
 import java.sql.Connection;
+import java.util.ArrayList;
 import user.UserEJB;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -17,6 +18,8 @@ import utilitaire.UtilDB;
 public class FactureProforma extends FactureClient{
     
     private FactureProformaDetails[] filles;
+    private ArrayList<FactureProformaDetails> listeDetails;
+    private String adresse, contact;
     
     public FactureProforma(){
         super.setNomTable("facture_prof_mere");
@@ -114,5 +117,29 @@ public class FactureProforma extends FactureClient{
 
     public void setFilles(FactureProformaDetails[] filles) {
         this.filles = filles;
+    }
+
+    public ArrayList<FactureProformaDetails> getListeDetails() {
+        return listeDetails;
+    }
+
+    public void setListeDetails(ArrayList<FactureProformaDetails> listeDetails) {
+        this.listeDetails = listeDetails;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }

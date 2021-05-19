@@ -61,6 +61,8 @@ import mg.spat.Caisse;
 import mg.spat.JournalCaisseSubReport;
 import mg.spat.JournalCaisseMode;
 import projet.Projet;
+import facture.FactureProforma;
+import facture.FactureProformaDetails;
 
 /**
  *
@@ -107,6 +109,8 @@ public class EtatPaieServlet extends HttpServlet {
                 fiche_facture(request, response);
             }else if (action.equalsIgnoreCase("journalCaisseDepense")) {
                 journalCaisseDepense(request, response);
+            }else if (action.equalsIgnoreCase("imprimerFacture")) {
+                imprimerFacture(request, response);
             }
             
         } catch(Exception ex){
@@ -591,6 +595,46 @@ public class EtatPaieServlet extends HttpServlet {
         }catch(Exception e){
             e.printStackTrace();
         }         
+    }
+    
+    private void imprimerFacture(HttpServletRequest request, HttpServletResponse response) throws  Exception {
+        try {
+            Map param = new HashMap();
+            String id = request.getParameter("id");
+            FactureProforma e = new FactureProforma();
+            e.setNomTable("factureprofMSum_lib");
+            FactureProforma[] mere = (FactureProforma[]) CGenUtil.rechercher(e, null, null, null, " and id = '"+id+"'");
+            param.put("daty",mere[0].getDaty());
+            param.put("id",mere[0].getId());
+            param.put("client",mere[0].getTierslib());
+            param.put("adresse",mere[0].getAdresse());
+            param.put("phone",mere[0].getContact());
+            param.put("montant",mere[0].getMontant());
+            param.put("montantTVA",mere[0].getMontanttva());
+            param.put("montantTTC",mere[0].getMontantttc());
+            String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
+            param.put("montantlettre",montantlettre);
+            
+            FactureProformaDetails cht = new FactureProformaDetails();
+            cht.setNomTable("FACTURE_CLIENT_PROFMONTANT");
+            FactureProformaDetails[] details = (FactureProformaDetails[]) CGenUtil.rechercher(cht, null, null, null, " and idmere = '"+id+"'");
+            ArrayList<FactureProformaDetails> arrList = new ArrayList<FactureProformaDetails>();
+            for(int i = 0; i < details.length; i++)
+            {
+                arrList.add(details[i]);
+            }
+            mere[0].setListeDetails(arrList);
+            
+            List dataSources = new ArrayList();
+            dataSources.add(mere[0]);
+            
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("facture_client2");
+            UtilitaireImpression.imprimer(request, response, "facture-proforma", param, dataSources, getReportPath(), rt);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }
