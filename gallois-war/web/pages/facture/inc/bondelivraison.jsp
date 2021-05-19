@@ -12,8 +12,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     BonDeLivraison cht = new BonDeLivraison();
-    cht.setNomTable("as_bondelivraison_cl");
-    String libEntete[] = {"id", "remarque", "daty","point","etat"};
+    cht.setNomTable("AS_BONDELIVRAISON_CL_LIBELLE");
+    String libEntete[] = {"id", "remarque", "daty","etatlib"};
     String listeCrt[] = {"idbc"};
     String listeInt[] = {};
 
@@ -23,7 +23,7 @@
     
     //pr.setApres("facture/inc/avoir-liste.jsp");
     pr.creerObjetPage(libEntete);
-    String libEnteteAffiche[] = {"id", "remarque", "date","point","etat"};
+    String libEnteteAffiche[] = {"id", "remarque", "date","etat"};
     String lienTableau[] = {pr.getLien() + "?but=facture/bondelivraison-client-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
