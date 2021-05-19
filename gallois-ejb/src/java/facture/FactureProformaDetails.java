@@ -5,11 +5,24 @@
  */
 package facture;
 
+import java.sql.Connection;
+
 /**
  *
  * @author je sais pas
  */
-public class FactureProformaDetails extends FactureClientDetails{
+public class FactureProformaDetails extends FactureClientDetails {
+    
+    @Override
+    public FactureProforma getMere(Connection c) throws Exception {
+        FactureProforma mere = new FactureProforma();
+        mere.setId(getIdmere());
+        mere = (FactureProforma) mere.getById(getIdmere(), null, c);
+        if(mere == null){
+            throw new Exception("Facture Proforma mere non trouvee !");
+        }
+        return mere;
+    }
     
     public FactureProformaDetails(){
         super.setNomTable("facture_prof_fille");

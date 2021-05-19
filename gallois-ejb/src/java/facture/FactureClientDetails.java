@@ -104,7 +104,7 @@ public class FactureClientDetails extends ClassMAPTable {
     }
     
     public double getTauxRecent(Connection c) throws Exception {
-        Date date = this.getMere() != null ? this.getMere().getDaty() : getMere(c).getDaty();
+        Date date = this.getMere(c).getDaty();
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
                 + " and iddevise = '" + this.getDevise() + "'";
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
@@ -115,6 +115,9 @@ public class FactureClientDetails extends ClassMAPTable {
     }
     
     public FactureClient getMere(Connection c) throws Exception {
+        if(this.getMere() != null){
+            return this.getMere();
+        }
         FactureClient mere = new FactureClient();
         mere.setId(idmere);
         mere = (FactureClient) mere.getById(idmere, null, c);

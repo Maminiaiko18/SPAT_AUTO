@@ -8,8 +8,8 @@
 <%
 try{
     String titrePage = "Modification Facture Client" ,
-            classeMere = "facture.FactureClientPorfo" ,
-            classeFille = "facture.FactureClientPorfoDetails",
+            classeMere = "facture.FactureProforma" ,
+            classeFille = "facture.FactureProformaDetails",
             buteLien = "facture/facture-proforma-modif.jsp" ,
             colonneMereDansFille = "idmere",
             buteApresVisa = "facture/facture-proforma-fiche.jsp";
