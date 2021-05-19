@@ -21,9 +21,22 @@ public class BonDeLivraisonClientFille extends BonDeLivraisonFille {
     public BonDeLivraisonClientFille(){
         super.setNomTable("as_bondelivraison_cl_fille");
     }
+
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        controlQte(c);
+        
+        super.controlerUpdate(c); 
+    }
     
     @Override
     public void controler(Connection c) throws Exception {
+        controlQte(c);
+        
+        super.controler(c);
+    }
+    
+    public void controlQte(Connection c) throws Exception {
         FactureClientDetails fcd = new FactureClientDetails();
         fcd.setNomTable("facture_client_fille_lib_reste");
         FactureClientDetails[] tFcd = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, " and id = '" + this.getIddetailsfacturefournisseur() + "'");
@@ -31,8 +44,6 @@ public class BonDeLivraisonClientFille extends BonDeLivraisonFille {
         if(tFcd != null && tFcd.length > 0) {
             if(tFcd[0].getRestealivrer() < this.getQuantite()) throw new Exception("Quantité supérieure au reste à livrer");
         }
-        
-        super.controler(c);
     }
 
     public String getProduitLib() {
