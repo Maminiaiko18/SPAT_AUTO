@@ -3,7 +3,7 @@
 <%
     String champReturn = request.getParameter("champReturn");
     FactureClient facture = new FactureClient();
-    facture.setNomTable("factureclientMSumC");
+    facture.setNomTable("factureclientMSum_lib");
     String listeCrt[] = {"id","daty" ,"tierslib","designation"};
     String listeInt[] = {"daty"};
     String libEntete[] = {"id","daty" ,"tierslib","designation","tva", "date_echeance", "montant", "montanttva", "montantttc"};
