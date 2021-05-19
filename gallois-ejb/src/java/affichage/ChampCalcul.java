@@ -13,7 +13,13 @@ public class ChampCalcul extends Champ{
     
     public void makeHtml() throws Exception{
         String temp = "";
-        temp = "<input name=" + getNom() + " type=" + getType() + " class=" + getCss() + "  id=" + getNom() + " value='" + Utilitaire.doubleWithoutExponential(Utilitaire.stringToDouble(getValeur())) + "' onblur=\"calculer('"+getNom()+"')\" " + getAutre() + ">";
+        if(getVisible()==false)
+        {
+            temp = "<input name=" + getNom() + " type='hidden' class=" + getCss() + "  id=" + getNom() + " value='" + Utilitaire.doubleWithoutExponential(Utilitaire.stringToDouble(getValeur())) + "' onblur=\"calculer('"+getNom()+"')\" " + getAutre() + ">";
+        }
+        else {
+            temp = "<input name=" + getNom() + " type=" + getType() + " class=" + getCss() + "  id=" + getNom() + " value='" + Utilitaire.doubleWithoutExponential(Utilitaire.stringToDouble(getValeur())) + "' onblur=\"calculer('"+getNom()+"')\" " + getAutre() + ">";
+        }
         setHtml(temp);
     }
 }
