@@ -55,6 +55,7 @@
     Map<String, String> map = new HashMap<String, String>();
     map.put("facture-client-fille", "");
     map.put("avoir-liste", "");
+    map.put("bondelivraison", "");
     String tab = request.getParameter("tab");
     if (tab == null) {
         tab = "facture-client-fille";
@@ -106,10 +107,12 @@
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("facture-client-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-client-fille&idmere=<%=e.getId()%>">Detail facture client</a></li>
                     <li class="<%= map.get("avoir-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=avoir-liste">Facture avoir</a></li>
+                    <li class="<%= map.get("bondelivraison")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=bondelivraison">Bon de livraison</a></li>
                 </ul>
                 <div class="tab-content">       
                     <jsp:include page="<%=tab%>" >
                         <jsp:param name="idmere" value="<%=e.getId()%>" />
+                        <jsp:param name="idbc" value="<%=e.getId()%>" />
                     </jsp:include>
                 </div>
             </div>

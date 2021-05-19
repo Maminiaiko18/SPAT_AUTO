@@ -5,6 +5,8 @@
  */
 package mg.spat.stock;
 
+import java.sql.Connection;
+
 /**
  *
  * @author Daniel
@@ -23,4 +25,6 @@ public class BonDeLivraisonClient extends BonDeLivraison {
     public void setDesignationFacture(String designationFacture) {
         this.designationFacture = designationFacture;
     }
+    @Override
+    public void controlQuantite(Connection c) throws Exception {}
 }
