@@ -4,6 +4,8 @@
     Author     : Lenovo
 --%>
 
+<%@page import="java.sql.Date"%>
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureClient"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -28,6 +30,16 @@
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
+        
+        Date firstDate = Utilitaire.dateDuJourSql();   
+        firstDate.setDate(1);        
+        Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
+        
+        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+        
+        pr.getFormu().getChamp("date_echeance1").setDefaut(debutDate);
+        pr.getFormu().getChamp("date_echeance2").setDefaut(dateFin);
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         
