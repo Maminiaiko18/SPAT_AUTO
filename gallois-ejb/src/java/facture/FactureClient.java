@@ -8,6 +8,7 @@ package facture;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import bean.ClassMere;
 import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,7 +21,7 @@ import utilitaire.Utilitaire;
  *
  * @author
  */
-public class FactureClient extends ClassEtat {
+public class FactureClient extends ClassMere {
 
     private String id;
     private Date daty, date_echeance;
@@ -57,9 +58,12 @@ public class FactureClient extends ClassEtat {
         return super.createObject(iduser, cnctn);
     }
 
-    public FactureClient() {
+    public FactureClient() throws Exception {
         setNomTable("Factureclient");
+        this.setLiaisonFille("idmere");
+        this.setNomClasseFille("facture.FactureClientDetails");
     }
+    
 
     public void recurrent(UserEJB u, Connection c, String typefrequence, int nb) throws Exception {
         boolean ouvert = false;

@@ -86,6 +86,38 @@ public abstract class ClassMAPTable implements Serializable {
     public void controlerUpdate(Connection c) throws Exception {
 
     }
+    public void controlerDelete(Connection c) throws Exception {
+
+    }
+
+    public ClassMAPTable dupliquer(String user,Connection c) throws Exception
+    {
+        boolean estOuvert=false;
+        try{
+            if(c==null)
+            {
+                estOuvert=true;
+                c=new UtilDB().GetConn();
+            }
+            ClassMAPTable retour=(ClassMAPTable)Class.forName(this.getClassName()).newInstance();
+            Field[] listeC=this.getFieldList();
+            for(Field f:listeC)
+            {
+                CGenUtil.setValChamp(retour, f, CGenUtil.getValeurFieldByMethod(this, f) );
+            }
+            retour.construirePK(c);
+            return retour;
+        }
+        catch(Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+            if(c!=null && estOuvert==true)c.close();
+        }
+    }        
+    
     public ClassMAPTable createObject(String u,Connection c)throws Exception
     {
         controler(c);
@@ -93,6 +125,7 @@ public abstract class ClassMAPTable implements Serializable {
         insertToTableWithHisto(u, c);
         return this;
     }
+    
     public String makePK() {
         int maxSeq = Utilitaire.getMaxSeq(nomProcedureSequence);
         String nombre = Utilitaire.completerInt(longuerClePrimaire, maxSeq);
@@ -358,6 +391,7 @@ public abstract class ClassMAPTable implements Serializable {
     }
 
     public int deleteToTable(Connection cDb) throws Exception {
+        controlerDelete(cDb);
         PreparedStatement stmt;
         String sqlQry;
         int retoure;
@@ -561,6 +595,7 @@ public abstract class ClassMAPTable implements Serializable {
 
     public int updateToTable(Connection cDb)
             throws Exception {
+        controlerUpdate(cDb);
         String tableName = getNomTable();
         PreparedStatement stmt = null, insertHistoSync = null;
         Field fld = null;
@@ -902,6 +937,7 @@ public abstract class ClassMAPTable implements Serializable {
             throws Exception {
         UtilDB util = new UtilDB();
         try {
+            
             histo.insertToTable(c);
             return (updateToTable(c));
         } catch (Exception e) {

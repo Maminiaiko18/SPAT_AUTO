@@ -13,7 +13,6 @@ import java.sql.Connection;
  */
 public class FactureProformaDetails extends FactureClientDetails {
     
-    @Override
     public FactureProforma getMere(Connection c) throws Exception {
         FactureProforma mere = new FactureProforma();
         mere.setId(getIdmere());

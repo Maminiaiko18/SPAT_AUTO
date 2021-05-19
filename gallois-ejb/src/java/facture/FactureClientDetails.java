@@ -6,6 +6,7 @@
 package facture;
 
 import bean.CGenUtil;
+import bean.ClassFille;
 import bean.ClassMAPTable;
 import fin.Coursdevise;
 import java.sql.Connection;
@@ -15,7 +16,7 @@ import utilitaire.Utilitaire;
  *
  * @author
  */
-public class FactureClientDetails extends ClassMAPTable {
+public class FactureClientDetails extends ClassFille {
 
     
     private String id,idmere;
@@ -26,7 +27,7 @@ public class FactureClientDetails extends ClassMAPTable {
     private double montanttaux;
     private double montantavoirsanstaux;
     private double montantavoiravectaux;
-    private double qtelivree, restealivrer;
+    private double qtelivree, restealivrer; 
     
     
     @Override
@@ -88,8 +89,10 @@ public class FactureClientDetails extends ClassMAPTable {
     }
     
     
-    public FactureClientDetails(){
+    public FactureClientDetails() throws Exception{
         setNomTable("facture_client_fille");
+        this.setNomClasseMere("facture.FactureClient");
+        this.setLiaisonMere("idmere");
     }
     @Override
     public void construirePK(Connection c) throws Exception {
@@ -104,7 +107,7 @@ public class FactureClientDetails extends ClassMAPTable {
     }
     
     public double getTauxRecent(Connection c) throws Exception {
-        Date date = this.getMere(c).getDaty();
+        Date date = ((FactureClient)this.findMere("",c)).getDaty();
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
                 + " and iddevise = '" + this.getDevise() + "'";
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
@@ -114,7 +117,7 @@ public class FactureClientDetails extends ClassMAPTable {
         return 0;
     }
     
-    public FactureClient getMere(Connection c) throws Exception {
+    /*public FactureClient getMere(Connection c) throws Exception {
         if(this.getMere() != null){
             return this.getMere();
         }
@@ -125,7 +128,7 @@ public class FactureClientDetails extends ClassMAPTable {
             throw new Exception("FactureClient mere non trouvee !");
         }
         return mere;
-    }
+    }*/
 
     @Override
     public String getTuppleID() {
@@ -211,9 +214,9 @@ public class FactureClientDetails extends ClassMAPTable {
         return mere;
     }
 
-    public void setMere(FactureClient mere) {
+    /*public void setMere(FactureClient mere) {
         this.mere = mere;
-    }
+    }*/
 
     public double getMontant() {
         return montant;

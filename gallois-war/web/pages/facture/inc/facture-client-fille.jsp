@@ -3,6 +3,7 @@
     Created on : 12 mai 2021, 14:37:18
     Author     : nyamp
 --%>
+<%@page import="facture.FactureClient"%>
 <%@page import="facture.FactureClientDetails"%>
 <%@page import="bean.AdminGen"%>
 <%@page import="affichage.TableauRecherche"%>
@@ -30,8 +31,21 @@
 //    pr.getTableau().setLien(lienTableau);
 //    pr.getTableau().setColonneLien(colonneLien);
     pr.getTableau().setLibeEntete(libEnteteAffiche);
+    
     FactureClientDetails[] liste=(FactureClientDetails[])pr.getTableau().getData();
-    if(pr.getTableau().getHtml() != null){
+    
+    
+    /*
+    FactureClient fm=(FactureClient) liste[0].findMere(null,null);
+    FactureClientDetails[] lcdf=(FactureClientDetails[])fm.getFille(null, null,"");
+    FactureClient dfm=(FactureClient)fm.dupliquer(pr.getUtilisateur().getUser().getTuppleID(), null);
+*/
+    
+    
+    
+    
+    if(pr.getTableau().getHtml() != null)
+    {
         out.println(pr.getTableau().getHtml());
          double total=0;
         total=AdminGen.calculSommeDouble(liste,"montanttaux");
