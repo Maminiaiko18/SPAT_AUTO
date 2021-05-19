@@ -58,6 +58,12 @@ public class AvoirFCFille extends ClassMAPTable {
     }
 
     @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        controlQte();
+        super.controlerUpdate(c);
+    }
+
+    @Override
     public void controler(Connection c) throws Exception {
         FactureClient fc = getFacture(c);
 
@@ -66,12 +72,16 @@ public class AvoirFCFille extends ClassMAPTable {
                 throw new Exception("Facture non visée");
             }
         }
-        
+
+        controlQte();
+
+        super.controler(c);
+    }
+    
+    public void controlQte() throws Exception {
         if (this.getMontant() > this.getMontantdf()) {
             throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + this.getMontantdf() + ") ");
         }
-
-        super.controler(c);
     }
 
     public AvoirFCFille() {
