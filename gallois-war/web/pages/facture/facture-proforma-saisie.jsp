@@ -84,7 +84,7 @@
         %>
         
         <input name="acte" type="hidden" id="nature" value="insert">
-        <input name="bute" type="hidden" id="bute" value="facture/factureclient-fiche-vaovao.jsp">
+        <input name="bute" type="hidden" id="bute" value="facture/facture-proforma-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="facture.FactureProforma">
         <input name="classefille" type="hidden" id="classefille" value="facture.FactureProformaDetails">
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="10">
