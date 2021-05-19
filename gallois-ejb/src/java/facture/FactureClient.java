@@ -28,6 +28,11 @@ public class FactureClient extends ClassEtat {
     private double tva, montant, montanttva, montantttc;
     private String tierslib;
     private double montantavoir;
+    
+    @Override
+    public String getValColLibelle() {
+        return designation;
+    }
 
     public double getMontantavoir() {
         return montantavoir;
