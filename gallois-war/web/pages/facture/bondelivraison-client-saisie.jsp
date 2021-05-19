@@ -65,7 +65,7 @@
        
 %>
 <div class="content-wrapper">
-    <h1>Enregistrer facture client</h1>
+    <h1>Enregistrer Bon de livraison client</h1>
     <!--  -->
     <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
         <%
