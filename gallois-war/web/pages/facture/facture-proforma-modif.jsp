@@ -31,8 +31,7 @@ try{
     pi.getFormu().getChamp("date_echeance").setLibelle("date d'Echeance");
     pi.getFormu().getChamp("daty").setLibelle("date");
     pi.getFormu().getChamp("type").setVisible(false);
-    //pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("etat").setAutre("readonly");
+    pi.getFormu().getChamp("etat").setVisible(false);
      pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("tierslib").setVisible(false);
     pi.getFormu().getChamp("Montant").setVisible(false);
@@ -43,7 +42,7 @@ try{
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
      
     affichage.Liste[] listed = new affichage.Liste[1];
