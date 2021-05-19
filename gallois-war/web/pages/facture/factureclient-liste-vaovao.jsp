@@ -10,14 +10,14 @@
 <%
     try {
         FactureClient ff = new FactureClient();
-        ff.setNomTable("factureclientMSum");
+        ff.setNomTable("factureclientMSum_lib");
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tiers","designation","date_echeance"};
+        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance"};
         String listeInt[] = {"daty","date_echeance"};
-        String libEntete[] = {"id","daty","tiers","designation","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir"};
+        String libEntete[] = {"id","daty","tierslib","designation","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -27,6 +27,7 @@
         
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
+        pr.getFormu().getChamp("tierslib").setLibelle("tiers");
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         
@@ -54,8 +55,8 @@
                 <div class="col-md-4">
                     Etat : 
                     <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("factureclientMSum") == 0) {%>    
-                        <option value="factureclientMSum" selected>Tous</option>
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("factureclientMSum_lib") == 0) {%>    
+                        <option value="factureclientMSum_lib" selected>Tous</option>
                         <% } else { %>
                         <option value="factureclientMSum" >Tous</option>
                         <% } %>
