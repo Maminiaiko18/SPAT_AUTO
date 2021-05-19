@@ -27,7 +27,7 @@
         
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
-        pr.getFormu().getChamp("tierslib").setLibelle("tiers");
+        pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         
@@ -86,7 +86,7 @@
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
-            String libEnteteAffiche[] = {"id","daty","tiers","designation", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir"};
+            String libEnteteAffiche[] = {"id","daty","Client","designation", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
