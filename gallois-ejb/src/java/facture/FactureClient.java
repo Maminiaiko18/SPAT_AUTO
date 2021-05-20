@@ -31,6 +31,16 @@ public class FactureClient extends ClassMere {
     private String tierslib;
     private double montantavoir;
     private ArrayList<FactureClientDetails> arrayDetails;
+
+    public FactureClient(Date daty, String tiers, String designation, double tva) {
+        setNomTable("Factureclient");
+        setLiaisonFille("idmere");
+        setDaty(daty);
+        setTiers(tiers);
+        setDesignation(designation);
+        setTva(tva);
+        setArrayDetails(new ArrayList<FactureClientDetails>());
+    }
     
     @Override
     public String getValColLibelle() {
