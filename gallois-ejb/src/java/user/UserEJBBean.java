@@ -2727,7 +2727,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             if (liste.length == 0) {
                 throw new Exception("Objet inexistante");
             }
-            this.updateEtat(o, ConstanteEtat.getEtatCreer(), id, c);
+            this.updateEtat(liste[0], ConstanteEtat.getEtatCreer(), id, c);
 
         } catch (Exception e) {
             throw e;
@@ -2786,11 +2786,11 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 mere = billetage;
                 //System.out.println("AAAAAAAAAAAAAAAAAAAA: "+montant);
             }
-            if (mere instanceof facture.FactureClient) {
-                for (int i = 0; i < fille.length; i++) {
-                    ((facture.FactureClientDetails) fille[i]).setMere((facture.FactureClient) mere);
-                }
-            }
+//            if (mere instanceof facture.FactureClient) {
+//                for (int i = 0; i < fille.length; i++) {
+//                    ((facture.FactureClientDetails) fille[i]).setMere((facture.FactureClient) mere);
+//                }
+//            }
 
             Object idmere = createObject(mere, c);
             //System.out.println(" ((ClassMAPTable)idmere).getTuppleID() === " + ((ClassMAPTable) idmere).getTuppleID());
