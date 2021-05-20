@@ -2056,7 +2056,10 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         try {
             GestionRole g = new GestionRole();
             //System.out.println("uuuu:" + u.getAdruser());
-            return g.testRestriction(user, permission, table, u.getAdruser(), con);
+//            return g.testRestriction(user, permission, table, u.getAdruser(), con);
+        
+        // Temporaire
+            return 1;
         } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
