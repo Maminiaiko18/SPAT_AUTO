@@ -22,10 +22,12 @@ try{
     BonDeLivraisonClientFille[] liste = (BonDeLivraisonClientFille[])CGenUtil.rechercher(fille, null, null, "");
     PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
     pi.setLien((String) session.getValue("lien"));
+    pi.getFormu().getChamp("etatlib").setLibelle("Etat");
     pi.getFormu().getChamp("idbc").setLibelle("Facture");
     pi.getFormu().getChamp("point").setVisible(false);
     pi.getFormu().getChamp("designationFacture").setVisible(false);
-    pi.getFormu().getChamp("etat").setAutre("readonly");
+    pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("etatlib").setAutre("readonly");
     pi.getFormu().getChamp("idbc").setAutre("readonly");
     
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");

@@ -23,7 +23,7 @@ public class FactureProformaDetails extends FactureClientDetails {
         return mere;
     }
     
-    public FactureProformaDetails(){
+    public FactureProformaDetails() throws Exception {
         super.setNomTable("facture_prof_fille");
     }
 }
