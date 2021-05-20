@@ -7,6 +7,7 @@ package avoir;
 
 
 import bean.ClassEtat;
+import bean.ClassMere;
 import java.sql.Connection;
 import java.sql.Date;
 
@@ -15,7 +16,7 @@ import java.sql.Date;
  *
  * @author
  */
-public class AvoirFC extends ClassEtat {
+public class AvoirFC extends ClassMere {
     
     private String id;
     private Date daty;
@@ -29,8 +30,10 @@ public class AvoirFC extends ClassEtat {
         this.designationFacture = designationFacture;
     }
 
-    public AvoirFC() {
+    public AvoirFC() throws Exception {
         setNomTable("AvoirFC");
+        this.setLiaisonFille("idmere");
+        this.setNomClasseFille("avoir.AvoirFCFille");
     }
     
     @Override

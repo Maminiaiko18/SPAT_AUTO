@@ -118,9 +118,9 @@ public class PageInsertMultiple  extends Page {
     }
     
     public ClassMAPTable getObjectAvecValeur() throws Exception {
-        Field[]tempChamp=getBase().getFieldList();
+        //Field[]tempChamp=getBase().getFieldList();
         try {
-            //Field[] tempChamp = bean.ListeColonneTable.getFieldListeHeritage(getBase());
+            Field[] tempChamp = bean.ListeColonneTable.getFieldListeHeritage(getBase());
             for (int i = 0; i < tempChamp.length; i++) {
                 Field f = tempChamp[i];
                 String valeur = getParamSansNull(f.getName());

@@ -6,6 +6,7 @@
 package avoir;
 
 import bean.CGenUtil;
+import bean.ClassFille;
 import bean.ClassMAPTable;
 import facture.FactureClient;
 import java.sql.Connection;
@@ -15,7 +16,7 @@ import utilitaire.ConstanteEtat;
  *
  * @author
  */
-public class AvoirFCFille extends ClassMAPTable {
+public class AvoirFCFille extends ClassFille {
 
     private String id;
     private double montant, montantdf, montantDFTaux;
@@ -84,8 +85,10 @@ public class AvoirFCFille extends ClassMAPTable {
         }
     }
 
-    public AvoirFCFille() {
+    public AvoirFCFille() throws Exception {
         setNomTable("avoirFCfille");
+        this.setNomClasseMere("avoir.AvoirFC");
+        this.setLiaisonMere("idmere");
     }
 
     @Override
@@ -151,4 +154,5 @@ public class AvoirFCFille extends ClassMAPTable {
     public void setMontantdf(double montantdf) {
         this.montantdf = montantdf;
     }
+   
 }
