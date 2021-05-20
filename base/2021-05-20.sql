@@ -1,0 +1,49 @@
+alter table FACTURE_CLIENT_FILLE add idactivite varchar2(100) constraint iactivite_fc_fk references ACTIVITE;
+
+
+  CREATE OR REPLACE VIEW ACTIVITELIBCOMPLET  AS
+  select ac.*,
+       ra.DESIGNATION                            as rubriquelib,
+       nv.NOM                                    as bateaulib,
+       nv.PLT                                    as poids,
+       nv.LHT                                    as longueur,
+       nv.LM                                     as largeur,
+       cast('-' as varchar2(100))                as autres,
+       ra.pu,
+       ra.devise,
+       ra.compte,
+       ra.unite,
+       ra.direction,
+       ra.condition,
+       ra.tva,
+       ra.objet,
+       ra.redevance,
+       fup.NOM                                   as clientlib,
+       re.VAL                                    as redevancelib,
+       di.LIBELLEDIR                             as directionlib,
+       case
+           when ac.etat = 1 then 'CREE(E)'
+           WHEN AC.ETAT = 11 THEN 'VISE(E)'
+           WHEN AC.ETAT = 0 THEN 'ANNULE(E)' END AS ETATLIB,
+       MOIS.VAL                                  AS MOISLIB,
+       ra.CATEGORIE,
+       cf.VAL as CATEGORIELIB
+from ACTIVITE ac
+         left join RUBRIQUE_ACTIVITE ra on ra.id = ac.RUBRIQUE
+         left join NAVIRE nv on nv.ID = ac.BATEAU
+         left join FOURNISSEUR_UNION_PERSONNEL fup on fup.id = ac.CLIENT
+         left join REDEVANCE re on re.id = ra.REDEVANCE
+         left join direction di on (di.IDDIr) = ra.DIRECTION
+         LEFT JOIN MOIS ON MOIS.ID = AC.MOIS
+         left join CATEGORIEFACTURATION cf on ra.CATEGORIE = cf.ID;
+
+create view facture_client_fille_vm as
+select fcf.*
+from facture_client_fille fcf
+         join factureclient fc on fcf.IDMERE = fc.ID
+where fc.etat >= 11;
+		 
+create view activitesNonFacturees as
+select ac.*
+from ACTIVITELIBCOMPLET ac
+where id not in (select idactivite from facture_client_fille_vm);

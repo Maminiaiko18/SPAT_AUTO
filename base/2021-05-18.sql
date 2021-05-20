@@ -64,27 +64,7 @@ create table facture_prof_mere
 )
 /
 
-create table facture_prof_fille
-(
-    ID          VARCHAR2(500) not null
-        constraint facture_prof_fille_PK
-            primary key,
-    IDMERE      VARCHAR2(500)
-        constraint MERE_FILLE_prof_FK
-            references facture_prof_mere,
-    DESIGNATION VARCHAR2(4000),
-    QUANTITE    NUMBER(10, 2),
-    PU          NUMBER(30, 2),
-    COMPTE      VARCHAR2(500),
-    IDPRODUIT   VARCHAR2(500)
-        constraint FACTURE_CLIENT_PRODUIT_FK
-            references AS_PRODUITS,
-    DEVISE      VARCHAR2(500)
-        constraint DEVISE_FC_FK
-            references DEVISE,
-    TAUX        NUMBER(10, 2)
-)
-/
+
 
 
 CREATE SEQUENCE seqfacture_prof_fille
