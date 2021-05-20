@@ -118,14 +118,14 @@ public class PageInsertMultiple  extends Page {
     }
     
     public ClassMAPTable getObjectAvecValeur() throws Exception {
-        
+        Field[]tempChamp=getBase().getFieldList();
         try {
-            Field[] tempChamp = bean.ListeColonneTable.getFieldListeHeritage(getBase());
+            //Field[] tempChamp = bean.ListeColonneTable.getFieldListeHeritage(getBase());
             for (int i = 0; i < tempChamp.length; i++) {
                 Field f = tempChamp[i];
                 String valeur = getParamSansNull(f.getName());
                 getBase().setMode("modif");
-                if (f.getType().getName().compareToIgnoreCase("java.lang.String") == 0) {
+                if (f.getType().getName().compareToIgnoreCase("java.lang.String") == 0&&f.getName().compareToIgnoreCase("liaisonMere")!=0&&f.getName().compareToIgnoreCase("liaisonFille")!=0) {
                     //System.out.println("base---------------"+getBase());
                     //System.out.println("f---------------"+f);
                     //System.out.println("valeur---------------"+valeur);
@@ -205,8 +205,9 @@ public class PageInsertMultiple  extends Page {
         try {
             Field[] tempChamp = bean.ListeColonneTable.getFieldListeHeritage(getFille());
             int x=0;
+            ClassMAPTable ex=null;
             for (int iLigne = 0; iLigne < nombreLigne; iLigne++) {
-                ClassMAPTable ex =  (ClassMAPTable)Class.forName(getFille().getClassName()).newInstance();
+                ex =  (ClassMAPTable)Class.forName(getFille().getClassName()).newInstance();
                 for(int indice=0; indice<tIndice.length; indice++){
                     String ligne = ""+iLigne;
                     if(ligne.equals(tIndice[indice])){
@@ -218,7 +219,7 @@ public class PageInsertMultiple  extends Page {
                                 ex=null;
                                 break;
                             }*/
-                            if (f.getType().getName().compareToIgnoreCase("java.lang.String") == 0) {
+                            if (f.getType().getName().compareToIgnoreCase("java.lang.String") == 0&&f.getName().compareToIgnoreCase("liaisonMere")!=0&&f.getName().compareToIgnoreCase("liaisonFille")!=0) {
                                 bean.CGenUtil.setValChamp(ex, f, valeur);
                             }
                             if (f.getType().getName().compareToIgnoreCase("java.sql.Date") == 0) {
@@ -244,8 +245,8 @@ public class PageInsertMultiple  extends Page {
                     }
                 }
             }
-            ClassMAPTable[] ret = new ClassMAPTable[x]; 
-			
+            //ClassMAPTable[] ret = new ClassMAPTable[x]; 
+            ClassMAPTable[] ret = (ClassMAPTable[]) java.lang.reflect.Array.newInstance(ex.getClass().newInstance().getClass(), liste.length);
             int countOk = 0; 
             for(int j = 0; j<tIndice.length; j++){
                 if (liste[j] != null){
@@ -307,7 +308,7 @@ public class PageInsertMultiple  extends Page {
                 Field f = tempChamp[i];
                 String valeur = getParamSansNull(f.getName(), listeValeur);
                 getFille().setMode("insert");
-                if (f.getType().getName().compareToIgnoreCase("java.lang.String") == 0) {
+                if (f.getType().getName().compareToIgnoreCase("java.lang.String") == 0&&f.getName().compareToIgnoreCase("liaisonMere")!=0&&f.getName().compareToIgnoreCase("liaisonFille")!=0) {
                     bean.CGenUtil.setValChamp(getFille(), f, valeur);
                 }
                 if (f.getType().getName().compareToIgnoreCase("java.sql.Date") == 0) {

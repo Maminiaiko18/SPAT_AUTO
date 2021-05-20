@@ -3,7 +3,9 @@ package user;
 import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ClassFille;
 import bean.ClassMAPTable;
+import bean.ClassMere;
 import bean.ClassUser;
 import bean.ErreurDAO;
 import bean.ListeColonneTable;
@@ -2786,11 +2788,17 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 mere = billetage;
                 //System.out.println("AAAAAAAAAAAAAAAAAAAA: "+montant);
             }
-//            if (mere instanceof facture.FactureClient) {
-//                for (int i = 0; i < fille.length; i++) {
-//                    ((facture.FactureClientDetails) fille[i]).setMere((facture.FactureClient) mere);
-//                }
-//            }
+            /*if (mere instanceof facture.FactureClient) {
+                for (int i = 0; i < fille.length; i++) {
+                    ((facture.FactureClientDetails) fille[i]).setMere((facture.FactureClient) mere);
+                }
+            }*/
+            if(mere instanceof ClassMere && fille.length>0 && fille[0] instanceof ClassFille)
+            {
+                ((ClassMere)mere).setFille((ClassFille[])fille);
+                ((ClassMere)mere).createObject(this.getUser().getTuppleID(), c);
+                return mere;
+            }
 
             Object idmere = createObject(mere, c);
             //System.out.println(" ((ClassMAPTable)idmere).getTuppleID() === " + ((ClassMAPTable) idmere).getTuppleID());

@@ -34,7 +34,6 @@
     
     FactureClientDetails[] liste=(FactureClientDetails[])pr.getTableau().getData();
     
-    
     /*
     FactureClient fm=(FactureClient) liste[0].findMere(null,null);
     FactureClientDetails[] lcdf=(FactureClientDetails[])fm.getFille(null, null,"");

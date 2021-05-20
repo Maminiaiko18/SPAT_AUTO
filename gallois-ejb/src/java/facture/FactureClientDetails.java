@@ -107,6 +107,9 @@ public class FactureClientDetails extends ClassFille {
     }
     
     public double getTauxRecent(Connection c) throws Exception {
+         //this.setLiaisonMere("idmere");
+         //this.setNomClasseMere("facture.FactureClient");
+         System.out.println("liaison mere "+this.getLiaisonMere());
         Date date = ((FactureClient)this.findMere("",c)).getDaty();
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
                 + " and iddevise = '" + this.getDevise() + "'";
