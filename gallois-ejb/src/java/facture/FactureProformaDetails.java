@@ -25,5 +25,7 @@ public class FactureProformaDetails extends FactureClientDetails {
     
     public FactureProformaDetails() throws Exception {
         super.setNomTable("facture_prof_fille");
+        setLiaisonMere("idmere");
+        this.setNomClasseMere("facture.FactureProforma");
     }
 }

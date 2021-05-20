@@ -32,9 +32,10 @@ public class FactureClient extends ClassMere {
     private double montantavoir;
     private ArrayList<FactureClientDetails> arrayDetails;
 
-    public FactureClient(Date daty, String tiers, String designation, double tva) {
+    public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");
+        this.setNomClasseFille("facture.FactureClientDetails");
         setDaty(daty);
         setTiers(tiers);
         setDesignation(designation);
