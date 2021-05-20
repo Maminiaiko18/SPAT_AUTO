@@ -24,7 +24,7 @@
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.setOrdre(" order by daty desc");
+//        pr.setOrdre(" order by daty desc");
         pr.setApres("facture/factureclient-liste-vaovao.jsp");
         
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
@@ -70,7 +70,7 @@
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("factureclientMSum_lib") == 0) {%>    
                         <option value="factureclientMSum_lib" selected>Tous</option>
                         <% } else { %>
-                        <option value="factureclientMSum" >Tous</option>
+                        <option value="factureclientMSum_lib" >Tous</option>
                         <% } %>
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("factureclientMSumC") == 0) {%>
                         <option value="factureclientMSumC" selected>Créée(s)</option>
