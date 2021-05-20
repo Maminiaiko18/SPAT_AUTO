@@ -11,7 +11,7 @@ package avoir;
  */
 public class AvoirLibComplet extends Avoir {
 
-    private String typeavoir_desce;
+    private String typeavoir_desce, etatlib;
 
     public String getTypeavoir_desce() {
         return typeavoir_desce;
@@ -20,5 +20,14 @@ public class AvoirLibComplet extends Avoir {
     public void setTypeavoir_desce(String typeavoir_desce) {
         this.typeavoir_desce = typeavoir_desce;
     }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
+    }
+    
 
 }

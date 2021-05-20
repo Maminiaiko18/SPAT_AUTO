@@ -8,8 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AvoirLibComplet cht = new AvoirLibComplet();
-    cht.setNomTable("AVOIRFC_MONTANT");
-    String libEntete[] = {"id", "daty", "montant", "etat"};
+    cht.setNomTable("AVOIRFC_MONTANTLIBETAT");
+    String libEntete[] = {"id", "daty", "montant", "etatlib"};
     String listeCrt[] = {"idfacture"};
     String listeInt[] = {};
 
