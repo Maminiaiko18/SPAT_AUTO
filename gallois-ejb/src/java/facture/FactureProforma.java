@@ -20,8 +20,9 @@ public class FactureProforma extends FactureClient{
     private FactureProformaDetails[] filles;
     private ArrayList<FactureProformaDetails> listeDetails;
     private String adresse, contact;
+    private double montanttaux;
     
-    public FactureProforma(){
+    public FactureProforma() throws Exception{
         super.setNomTable("facture_prof_mere");
     }
     
@@ -142,4 +143,13 @@ public class FactureProforma extends FactureClient{
     public void setContact(String contact) {
         this.contact = contact;
     }
+
+    public double getMontanttaux() {
+        return montanttaux;
+    }
+
+    public void setMontanttaux(double montanttaux) {
+        this.montanttaux = montanttaux;
+    }
+    
 }

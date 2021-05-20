@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<field name="designation" class="java.lang.String"/>
 	<field name="devise" class="java.lang.String"/>
-	<field name="montant" class="java.lang.Double"/>
+	<field name="montanttaux" class="java.lang.Double"/>
 	<field name="taux" class="java.lang.Double"/>
 	<field name="quantite" class="java.lang.Double"/>
 	<field name="pu" class="java.lang.Double"/>
@@ -108,7 +108,7 @@
 					<font isBold="false"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montanttaux}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="189" height="20" uuid="ac11884b-143c-4486-9d1d-0bab11d5fb38"/>

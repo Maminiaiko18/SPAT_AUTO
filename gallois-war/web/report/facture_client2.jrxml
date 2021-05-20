@@ -8,13 +8,14 @@
 		<defaultValueExpression><![CDATA["H:\\win-Project\\cemedi\\cemedi\\cemedi-war\\web\\report\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="id" class="java.lang.String"/>
-	<parameter name="daty" class="java.util.Date"/>
+	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="client" class="java.lang.String"/>
 	<parameter name="adresse" class="java.lang.String"/>
 	<parameter name="phone" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
 	<parameter name="montantTVA" class="java.lang.Double"/>
 	<parameter name="montantTTC" class="java.lang.Double"/>
+	<parameter name="tva" class="java.lang.Double"/>
 	<field name="listeDetails" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -32,7 +33,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="111" splitType="Stretch">
+		<band height="122" splitType="Stretch">
 			<staticText>
 				<reportElement x="351" y="0" width="80" height="20" uuid="f1c3b42e-7265-4ad0-8da5-36a9914af94d"/>
 				<textElement verticalAlignment="Middle">
@@ -122,6 +123,22 @@
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{phone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="303" y="100" width="75" height="20" uuid="4f6c1307-c7de-42c5-986a-c838afc51137"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ TVA             :
+]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="378" y="100" width="177" height="20" uuid="fac918d2-fabb-45d8-a58e-218db65618ea"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tva}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

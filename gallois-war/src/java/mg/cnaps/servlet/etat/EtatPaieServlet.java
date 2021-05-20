@@ -604,7 +604,7 @@ public class EtatPaieServlet extends HttpServlet {
             FactureProforma e = new FactureProforma();
             e.setNomTable("factureprofMSum_lib");
             FactureProforma[] mere = (FactureProforma[]) CGenUtil.rechercher(e, null, null, null, " and id = '"+id+"'");
-            param.put("daty",mere[0].getDaty());
+            param.put("daty",Utilitaire.formatterDatySql(mere[0].getDaty()));
             param.put("id",mere[0].getId());
             param.put("client",mere[0].getTierslib());
             param.put("adresse",mere[0].getAdresse());
@@ -612,6 +612,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("montant",mere[0].getMontant());
             param.put("montantTVA",mere[0].getMontanttva());
             param.put("montantTTC",mere[0].getMontantttc());
+            param.put("tva",mere[0].getTva());
             String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
             param.put("montantlettre",montantlettre);
             
