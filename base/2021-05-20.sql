@@ -86,3 +86,14 @@ from ACTIVITE ac
   select ac."ID",ac."DESIGNATION",ac."CLIENT",ac."RUBRIQUE",ac."QTE",ac."MOIS",ac."ANNEE",ac."DATY",ac."BATEAU",ac."ETAT",ac."RUBRIQUELIB",ac."BATEAULIB",ac."POIDS",ac."LONGUEUR",ac."LARGEUR",ac."AUTRES",ac."PU",ac."DEVISE",ac."COMPTE",ac."UNITE",ac."DIRECTION",ac."CONDITION",ac."TVA",ac."OBJET",ac."REDEVANCE",ac."CLIENTLIB",ac."REDEVANCELIB",ac."DIRECTIONLIB",ac."ETATLIB",ac."MOISLIB"
 from ACTIVITELIBCOMPLET ac
 where id not in (select idactivite from facture_client_fille_vm WHERE ac.id = IDACTIVITE);
+
+CREATE OR REPLACE VIEW AVOIRFC_MONTANTLIBETAT as
+SELECT
+	op.* ,
+CASE
+		WHEN op.etat = 0 THEN 'annule'
+		WHEN op.etat = 1 THEN 'cree'
+		WHEN op.etat = 11 THEN 'vise'
+	END AS etatlib
+FROM
+	AVOIRFC_MONTANT op;
