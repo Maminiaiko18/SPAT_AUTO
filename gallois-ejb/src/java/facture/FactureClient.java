@@ -12,6 +12,7 @@ import bean.ClassMere;
 import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.ArrayList;
 import user.UserEJB;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -29,6 +30,7 @@ public class FactureClient extends ClassMere {
     private double tva, montant, montanttva, montantttc;
     private String tierslib;
     private double montantavoir;
+    private ArrayList<FactureClientDetails> arrayDetails;
     
     @Override
     public String getValColLibelle() {
@@ -226,6 +228,13 @@ public class FactureClient extends ClassMere {
 
     public void setMontantttc(double montantttc) {
         this.montantttc = montantttc;
+    }
+    public ArrayList<FactureClientDetails> getArrayDetails() {
+        return arrayDetails;
+    }
+
+    public void setArrayDetails(ArrayList<FactureClientDetails> arrayDetails) {
+        this.arrayDetails = arrayDetails;
     }
 
 }
