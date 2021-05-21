@@ -31,6 +31,7 @@
     String dossier="avoir";
     String id= e.getId();
     AvoirFCFille avoirFille=new AvoirFCFille();
+    avoirFille.setNomTable("AVOIRFCFILLE_MONTANTFACTURE");
     AvoirFCFille[] detail= (AvoirFCFille[]) CGenUtil.rechercher(avoirFille , null, null, " and idmere = '" + id+ "'");
     String bute="avoir/avoirFC-fiche.jsp";
     String classe="avoir.AvoirFC";
@@ -76,8 +77,10 @@
                         <tr>
                             <th style="background-color:#bed1dd;">Id</th>
                             <th style="background-color:#bed1dd;">Detail Facture</th>
+                            <th style="background-color:#bed1dd;">D&eacute;signation</th>
                             <th style="background-color:#bed1dd;">Montant</th>
                             <th style="background-color:#bed1dd;">Compte</th>
+                            <th style="background-color:#bed1dd;">Devise</th>
                         </tr>
                        </thead>
                     <tbody>
@@ -90,8 +93,10 @@
                            <tr class="treegrid-1 treegrid-expanded">
                                <td><%=Utilitaire.champNull(item.getId())%></td>
                                <td><%=Utilitaire.champNull(item.getIddetailfacture())%></td>
+                               <td><%=Utilitaire.champNull(item.getDesignation())%></td>
                                <td><%=Utilitaire.formaterAr(item.getMontant())%></td>
                                <td><%=Utilitaire.champNull(item.getCompte())%></td>
+                               <td><%=Utilitaire.champNull(item.getDevise())%></td>
                            </tr>
                            <%}}%>
                     </tbody>
