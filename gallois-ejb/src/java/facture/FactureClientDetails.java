@@ -21,7 +21,7 @@ public class FactureClientDetails extends ClassFille {
     
     private String id,idmere;
     private double quantite,pu,taux;
-    private String compte,idproduit,devise,designation, idProduitLib,idactivite;
+    private String compte,idproduit,devise,designation, idProduitLib,idactivite,categorieFacturelib;
     private FactureClient mere;
     private double montant;
     private double montanttaux;
@@ -239,5 +239,13 @@ public class FactureClientDetails extends ClassFille {
 
     public void setIdactivite(String idactivite) {
         this.idactivite = idactivite;
+    }
+    
+    public String getCategorieFacturelib() {
+        return categorieFacturelib;
+    }
+
+    public void setCategorieFacturelib(String categorieFacturelib) {
+        this.categorieFacturelib = categorieFacturelib;
     }
 }
