@@ -22,7 +22,7 @@
     
     pc.getChampByName("idfacture").setLibelle("Facture");
     pc.getChampByName("daty").setLibelle("Date");
-    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp", "id");
+    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp", "id=");
     e = (AvoirFC) pc.getBase();
     
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
