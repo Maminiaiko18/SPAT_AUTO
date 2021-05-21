@@ -52,7 +52,7 @@
         
     <table class="table table-striped table-bordered table-condensed table-responsive tree" >
         <tr>
-            <th width="16%" align="right">Montant total</th>
+            <th width="16%" align="right">Montant total HT</th>
             <td width="16%" align="right"><%= utilitaire.Utilitaire.formaterAr(total)%></td>
         </tr>
     </table>
