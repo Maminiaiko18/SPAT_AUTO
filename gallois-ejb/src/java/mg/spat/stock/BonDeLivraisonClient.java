@@ -5,7 +5,10 @@
  */
 package mg.spat.stock;
 
+import bean.CGenUtil;
+import bean.TypeObjet;
 import java.sql.Connection;
+import facture.FactureClient;
 
 /**
  *
@@ -14,6 +17,34 @@ import java.sql.Connection;
 public class BonDeLivraisonClient extends BonDeLivraison {
     private String designationFacture;
     
+    public FactureClient getFacture(Connection c) throws Exception{
+        FactureClient facture=null;
+        FactureClient[] factures=(FactureClient[]) CGenUtil.rechercher(new FactureClient(), null, null, c, " and id = '" + this.getIdbc() + "'");
+        if(factures.length>0){
+            facture=factures[0];
+        }
+        return facture;
+    }
+    
+    public void testerVisaFacture(Connection c) throws Exception{
+        FactureClient facture = this.getFacture(c);
+        if(facture!=null && facture.getEtat()<11){
+             throw new Exception("Facture non visée");
+        }
+    }
+    
+    
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        testerVisaFacture(c);
+        super.controlerUpdate(c); 
+    }
+    
+    @Override
+    public void controler(Connection c) throws Exception {
+        testerVisaFacture(c);
+        super.controler(c);
+    }
     public BonDeLivraisonClient(){
         super.setNomTable("as_bondelivraison_cl");
     }
