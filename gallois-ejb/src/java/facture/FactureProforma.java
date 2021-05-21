@@ -86,12 +86,14 @@ public class FactureProforma extends FactureClient{
             u.createObject(fact, c);
 
             initialiserFilles(c, "facture_prof_fille");
-
+            
             if (filles != null) {
                 for (int i = 0; i < filles.length; i++) {
                     filles[i].setNomTable("facture_client_fille");
                     filles[i].setIdmere(fact.getId());
                     filles[i].setId(null);
+                    
+                    filles[i].setNomClasseMere("facture.FactureClient");
                     
                     u.createObject(filles[i], c);
                 }
