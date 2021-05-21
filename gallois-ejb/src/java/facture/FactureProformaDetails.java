@@ -28,4 +28,9 @@ public class FactureProformaDetails extends FactureClientDetails {
         setLiaisonMere("idmere");
         this.setNomClasseMere("facture.FactureProforma");
     }
+    
+    @Override
+    public String getLiaisonMere(){
+        return "idmere";
+    }
 }
