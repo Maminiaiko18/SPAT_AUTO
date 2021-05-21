@@ -80,7 +80,7 @@
                 </div>
                 <div class="box-footer">
                     <p>
-                        <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=dupliquer&bute=<%=modifPage%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
+                        <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=dupliquer&bute=<%=bute%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrent.jsp&id=" + e.getId() %>" style="margin-right: 10px">Récurrent</a>
                         <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Ajouter Avoir</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-client-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Livrer</a>

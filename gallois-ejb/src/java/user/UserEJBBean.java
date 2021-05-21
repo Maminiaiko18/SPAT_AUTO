@@ -2801,7 +2801,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                     mere.setValChamp("etat", ConstanteEtat.getEtatCreer());
                     mere.setValChamp("iduser", u.getTuppleID());
                 }
-                
+
                 ((ClassMere) mere).setFille((ClassFille[]) fille);
                 ((ClassMere) mere).createObject(this.getUser().getTuppleID(), c);
                 return mere;
@@ -3038,6 +3038,20 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 //            if (o.getClassName().compareToIgnoreCase("mg.cnaps.bibliotheque.BibltEmpruntInfo") == 0) {
 //                throw new Exception("Duplication impossible pour emprunt de livre");
 //            }
+            if (o instanceof bean.ClassMere) {
+                o.setValChamp("id", id);
+                o.setNomTable(o.getNomTable());
+                
+                ClassMere[] liste = (ClassMere[])CGenUtil.rechercher(o, null, null, c, "");
+                
+                if (liste.length == 0) {
+                    throw new Exception("Objet inexistant");
+                }
+                
+                o = liste[0].dupliquer(u.getTuppleID(), c);
+                
+                return o.getValInsert("id");
+            }
             if (o.getClass().getSuperclass().getSimpleName().compareToIgnoreCase("ClassEtat") == 0) {
                 ClassEtat te = (ClassEtat) (Class.forName(o.getClassName()).newInstance());
                 te.setValChamp("id", id);
