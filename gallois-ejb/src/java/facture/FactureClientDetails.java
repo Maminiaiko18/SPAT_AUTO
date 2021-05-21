@@ -101,6 +101,11 @@ public class FactureClientDetails extends ClassFille {
     }
 
     @Override
+    public String getLiaisonMere() {
+        return "idmere";
+    }
+
+    @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
         setTaux(getTauxRecent(c));
         return super.createObject(user, c);

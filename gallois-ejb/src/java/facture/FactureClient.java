@@ -76,6 +76,11 @@ public class FactureClient extends ClassMere {
         this.setLiaisonFille("idmere");
         this.setNomClasseFille("facture.FactureClientDetails");
     }
+
+    @Override
+    public String getLiaisonFille() {
+        return "idmere";
+    }
     
 
     public void recurrent(UserEJB u, Connection c, String typefrequence, int nb) throws Exception {

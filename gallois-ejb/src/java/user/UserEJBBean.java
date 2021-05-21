@@ -2059,8 +2059,8 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             GestionRole g = new GestionRole();
             //System.out.println("uuuu:" + u.getAdruser());
 //            return g.testRestriction(user, permission, table, u.getAdruser(), con);
-            
-        // Temporaire
+
+            // Temporaire
             return 0;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -2653,8 +2653,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         try {
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
-            if(o instanceof ClassEtat)
-            ((ClassEtat)o).annuler(this.getUser().getTuppleID(), c);
+            if (o instanceof ClassEtat) {
+                ((ClassEtat) o).annuler(this.getUser().getTuppleID(), c);
+            }
             c.commit();
             return o;
         } catch (Exception ex) {
@@ -2675,7 +2676,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         testValidationEtat(o, c);
         try {
             o.setMode("modif");
-            if(o instanceof ClassEtat) ((ClassEtat)o).annuler(this.getUser().getTuppleID(), c);
+            if (o instanceof ClassEtat) {
+                ((ClassEtat) o).annuler(this.getUser().getTuppleID(), c);
+            }
             return o;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -2693,7 +2696,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             e.updateToTableWithHisto(this.getUser().getTuppleID(), c);
         } catch (Exception ex) {
             throw ex;
-        } 
+        }
     }
 
     public void annulerVisa(ClassMAPTable o) throws Exception {
@@ -2793,10 +2796,14 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                     ((facture.FactureClientDetails) fille[i]).setMere((facture.FactureClient) mere);
                 }
             }*/
-            if(mere instanceof ClassMere && fille.length>0 && fille[0] instanceof ClassFille)
-            {
-                ((ClassMere)mere).setFille((ClassFille[])fille);
-                ((ClassMere)mere).createObject(this.getUser().getTuppleID(), c);
+            if (mere instanceof ClassMere && fille.length > 0 && fille[0] instanceof ClassFille) {
+                if (mere instanceof bean.ClassEtat) {
+                    mere.setValChamp("etat", ConstanteEtat.getEtatCreer());
+                    mere.setValChamp("iduser", u.getTuppleID());
+                }
+                
+                ((ClassMere) mere).setFille((ClassFille[]) fille);
+                ((ClassMere) mere).createObject(this.getUser().getTuppleID(), c);
                 return mere;
             }
 
@@ -3486,7 +3493,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     @Override
     public Object[] annulerObjectMultiple(ClassEtat o, String[] listeIdObjet, Connection c) throws Exception {
         Object[] ret = null;
-        
+
         try {
             String ids = Utilitaire.tabToString(listeIdObjet, "'", ",");
             ClassEtat[] objs = (ClassEtat[]) CGenUtil.rechercher(o, null, null, c, " and id in (" + ids + ")");
@@ -3497,10 +3504,12 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 
             ret = objs;
         } catch (Exception ex) {
-            if(c != null) c.rollback();
+            if (c != null) {
+                c.rollback();
+            }
             throw ex;
         }
-        
+
         return ret;
     }
 
