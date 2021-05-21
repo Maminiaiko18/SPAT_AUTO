@@ -1,0 +1,16 @@
+INSERT INTO rubrique_activite (ID, DESIGNATION, CATEGORIE, REDEVANCE, PU, DEVISE ,UNITE , DIRECTION ) VALUES('r1', 'debarquement conteneur vide 20', 'CATFC002', 'REDV002' ,10 ,'Eur' ,'UA001' ,'DIR00001');
+INSERT INTO rubrique_activite (ID, DESIGNATION, CATEGORIE, REDEVANCE, PU, DEVISE ,UNITE , DIRECTION) VALUES('r2', 'location remorqueur 40cv', 'CATFC001', 'REDV003' ,45000 ,'Ar' ,'UA002' ,'DIR000044');
+INSERT INTO rubrique_activite (ID, DESIGNATION, CATEGORIE, REDEVANCE, PU, DEVISE ,UNITE) VALUES('r3', 'location remorqueur 20cv', 'CATFC001', 'REDV003' ,35000 ,'Ar' ,'UA002');
+INSERT INTO rubrique_activite (ID, DESIGNATION, CATEGORIE, REDEVANCE, PU, DEVISE ,UNITE , DIRECTION) VALUES('r4', 'occupation quai 2', 'CATFC001', 'REDV003' ,24 ,'Eur' ,'UA002' ,'DIR000044');
+INSERT INTO rubrique_activite (ID, DESIGNATION, CATEGORIE) VALUES('r5', 'occupation quai 3', 'CATFC001');
+INSERT INTO rubrique_activite (ID, DESIGNATION,DIRECTION) VALUES('r6', 'embarquement conteneur vide 20', 'DIR00001');
+INSERT INTO rubrique_activite (ID, DESIGNATION) VALUES('r7', 'deplacement conteneur vide 20');
+INSERT INTO rubrique_activite (ID, DESIGNATION) VALUES('r8', 'Lamanage');
+INSERT INTO rubrique_activite (ID, DESIGNATION) VALUES('r9', 'droit de port');
+INSERT INTO rubrique_activite (ID, DESIGNATION, CATEGORIE, REDEVANCE) VALUES('r10', 'redevance fixe', 'CATFC002', 'REDV001');
+INSERT INTO rubrique_activite (ID, DESIGNATION, REDEVANCE) VALUES('r11', 'redevance communale', 'REDV003');
+INSERT INTO rubrique_activite (ID, DESIGNATION, CATEGORIE) VALUES('r12', 'penalité de retard', 'CATFC008');
+INSERT INTO rubrique_activite (ID, DESIGNATION, CATEGORIE) VALUES('r13', 'importation gasoil', 'CATFC003');
+INSERT INTO rubrique_activite (ID, DESIGNATION, CATEGORIE) VALUES('14', 'export gasoil', 'CATFC003');
+INSERT INTO detFormuFact (ID, MIN, FORMULE, MERE) VALUES('RUACT0001',0, 'bat.poids*pu*qte', 'r4');
+INSERT INTO detFormuFact (ID, MIN, FORMULE, MERE) VALUES('RUACT0002',2, 'bat.poids*pu*1,1*(qte-2)', 'r4');
