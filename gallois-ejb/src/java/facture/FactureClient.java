@@ -31,6 +31,7 @@ public class FactureClient extends ClassMere {
     private String tierslib;
     private double montantavoir;
     private ArrayList<FactureClientDetails> arrayDetails;
+    private String contact, adresse;
 
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
@@ -251,6 +252,22 @@ public class FactureClient extends ClassMere {
 
     public void setArrayDetails(ArrayList<FactureClientDetails> arrayDetails) {
         this.arrayDetails = arrayDetails;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
 }
