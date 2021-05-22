@@ -823,14 +823,20 @@ public class TableauRecherche {
         dataDirecte = new String[getData().length][getLibeEntete().length];
         for (int i = 0; i < getData().length; i++) {
             int j = 0;
-            for (j = 0; j < getLibeEntete().length; j++) {
+            for (j = 0; j < getLibeEntete().length; j++) 
+            {
                 bean.Champ c = ListeColonneTable.getChamp(data[i], getLibeEntete()[j]);
                 valeurC = CGenUtil.getValeurFieldByMethod(data[i], getLibeEntete()[j]);
-                if (valeurC == null || c == null) {
+                if (valeurC == null && c == null) {
                     dataDirecte[i][j] = "";
                     continue;
                 }
-                if (c.getTypeJava().compareToIgnoreCase("double") == 0) {
+                else if(valeurC!=null&&c==null)
+                {
+                    dataDirecte[i][j]=String.valueOf(valeurC);
+                    if(valeurC instanceof Number) dataDirecte[i][j]=utilitaire.Utilitaire.formaterAr(String.valueOf(valeurC));
+                }
+                else if (c.getTypeJava().compareToIgnoreCase("double") == 0) {
                     dataDirecte[i][j] = utilitaire.Utilitaire.formaterAr(String.valueOf(valeurC));
                 } else if (c.getTypeJava().compareToIgnoreCase("java.sql.Date") == 0) {
                     dataDirecte[i][j] = Utilitaire.formatterDaty((java.sql.Date) (valeurC));

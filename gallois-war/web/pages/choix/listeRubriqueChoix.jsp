@@ -14,7 +14,7 @@
     String champReturn = request.getParameter("champReturn");
     Rubrique objet = new Rubrique();
     objet.setNomTable("RUBRIQUE_ACTIVITELIB");
-    String listeCrt[] = {"id","designation","categorie","compte","direction"};
+    String listeCrt[] = {"id","designation","categorie","compte","direction","code"};
     String listeInt[] = {};
     String libEntete[] = {"id","designation","code","categorie","redevance","pu","devise", "compte", "unite","objet","tva","direction","condition"};
 

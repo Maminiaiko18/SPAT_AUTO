@@ -12,7 +12,7 @@ package avoir;
 public class AvoirFCFilleLib extends AvoirFCFille{
     private String devise, designation;
     
-    public AvoirFCFilleLib(){
+    public AvoirFCFilleLib() throws Exception{
         setNomTable("AvoirFCFille_plus");
     }
 

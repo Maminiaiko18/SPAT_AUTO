@@ -14,7 +14,7 @@
 <%
     FactureClientDetails cht = new FactureClientDetails();
     cht.setNomTable("facture_client_fille_lib_reste");
-    String libEntete[] = {"id", "designation", "quantite","qtelivree","restealivrer", "devise","compte","pu", "taux","montanttaux"};
+    String libEntete[] = {"id", "designation", "quantite","qtelivree","restealivrer", "devise","compte","pu", "taux","montanttaux","tva","montantTva"};
     String listeCrt[] = {"idmere"};
     String listeInt[] = {};
 
@@ -25,7 +25,7 @@
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "designation", "quantité","quantité livrée","reste à livrer", "devise","compte","pu", "taux","montant"};
+    String libEnteteAffiche[] = {"id", "designation", "quantité","quantité livrée","reste à livrer", "devise","compte","pu", "taux","montant","tva","montant Tva"};
 //    String lienTableau[] = {pr.getLien() + "?but=avoir/avoir-fiche.jsp"};
 //    String colonneLien[] = {"id"};
 //    pr.getTableau().setLien(lienTableau);
@@ -50,12 +50,7 @@
         total=AdminGen.calculSommeDouble(liste,"montanttaux");
 %>
         
-    <table class="table table-striped table-bordered table-condensed table-responsive tree" >
-        <tr>
-            <th width="16%" align="right">Montant total HT</th>
-            <td width="16%" align="right"><%= utilitaire.Utilitaire.formaterAr(total)%></td>
-        </tr>
-    </table>
+
         
     <% }else{
         %><center><h4>Aucun details </h4></center><%

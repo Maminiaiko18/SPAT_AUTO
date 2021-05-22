@@ -51,7 +51,8 @@ public class RegulBP extends ClassEtat {
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
         BonProvisoire bp = getBonProvisoire(c);
-        bp.updateEtat(ConstanteEtat.getEtatRegulariser(), bp.getId(), c);
+        bp.setEtat(ConstanteEtat.getEtatRegulariser());
+        bp.updateToTableWithHisto(u, c);
         
         if(this.getMontant()>0){
             JournalCaisse sortie = new JournalCaisse(null, Constante.caisseCentrale, null, "Regularisation Bon Provisoire " + bp.getId(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), this.getMontant(), 0);

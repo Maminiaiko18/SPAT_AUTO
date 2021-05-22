@@ -28,6 +28,19 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoirsanstaux;
     private double montantavoiravectaux;
     private double qtelivree, restealivrer; 
+    double tva;
+
+    public double getTva() {
+        return tva;
+    }
+
+    public void setTva(double tva) {
+        this.tva = tva;
+    }
+    public double getMontantTva() throws Exception
+    {
+        return this.getMontanttaux() *this.getTva()/100;
+    }
     
     
     @Override
