@@ -56,7 +56,8 @@
     
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false); 
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false);
+    affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
     pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("designation_0").setLibelle("Designation");
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
@@ -64,6 +65,7 @@
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
     pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+    pi.getFormufle().getChamp("tva_0").setLibelle("tva");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     

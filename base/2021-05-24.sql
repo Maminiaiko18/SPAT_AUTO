@@ -240,3 +240,75 @@ AS
      FROM FACTURECLIENT fc
           LEFT JOIN facture_client_grp grp ON grp.idmere = fc.id;
 
+
+CREATE OR REPLACE FORCE VIEW FACTURE_CLIENT_FILLE_LIB_RESTE
+(
+   ID,
+   IDMERE,
+   DESIGNATION,
+   QUANTITE,
+   PU,
+   COMPTE,
+   IDPRODUIT,
+   DEVISE,
+   TAUX,
+   QTELIVREE,
+   RESTEALIVRER,
+   MONTANTTAUX,
+   MONTANT,
+   MONTANTAVOIRSANSTAUX,
+   MONTANTAVOIRAVECTAUX,
+   tva
+)
+AS
+   SELECT fc.ID,
+          fc.IDMERE,
+          fc.DESIGNATION,
+          fc.QUANTITE,
+          fc.PU,
+          fc.COMPTE,
+          pr.NOM AS IDPRODUIT,
+          fc.DEVISE,
+          fc.TAUX,
+          CAST (NVL (gr.QUANTITE, 0) AS NUMBER (10, 2)) AS qteLivree,
+          CAST (fc.QUANTITE - NVL (gr.QUANTITE, 0) AS NUMBER (10, 2))
+             AS resteAlivrer,
+          CAST (fcm.MONTANTTAUX AS NUMBER (32, 2)),
+          CAST (fcm.MONTANT AS NUMBER (32, 5)),
+          CAST (fcm.MONTANTAVOIRSANSTAUX AS NUMBER (32, 2)),
+          CAST (fcm.MONTANTAVOIRAVECTAUX AS NUMBER (32, 2)),
+		  cast(nvl(fc.tva,20) as Number(20,2))
+     FROM facture_client_fille fc
+          LEFT JOIN AS_PRODUITS pr ON pr.ID = fc.IDPRODUIT
+          LEFT JOIN as_bondelivraison_cl_grp gr
+             ON gr.IDDETAILSFACTUREFOURNISSEUR = fc.ID
+          LEFT JOIN FACTURE_CLIENT_MONTANT fcm ON fcm.id = fc.id;
+		  
+
+CREATE OR REPLACE FORCE VIEW FACTURE_CLIENT_FILLE_PLUS
+(
+   ID,
+   IDMERE,
+   DESIGNATION,
+   QUANTITE,
+   PU,
+   COMPTE,
+   IDPRODUIT,
+   DEVISE,
+   TAUX,
+   MONTANT,
+   tva
+)
+AS
+   SELECT facture_client_fille."ID",
+          facture_client_fille."IDMERE",
+          facture_client_fille."DESIGNATION",
+          facture_client_fille."QUANTITE",
+          facture_client_fille."PU",
+          facture_client_fille."COMPTE",
+          facture_client_fille."IDPRODUIT",
+          facture_client_fille."DEVISE",
+          facture_client_fille."TAUX",
+          CAST (0.0 AS NUMBER (30, 2)) AS montant,
+		  tva
+     FROM facture_client_fille where 1>2;
