@@ -89,3 +89,48 @@ AS
           LEFT JOIN as_bondelivraison_cl_grp gr
              ON gr.IDDETAILSFACTUREFOURNISSEUR = fc.ID
           LEFT JOIN FACTURE_CLIENT_MONTANT fcm ON fcm.id = fc.id;
+
+CREATE OR REPLACE FORCE VIEW ANALYSEGLOBALEFACTURE_VAOVAO
+(
+   NMFACT,
+   DATY,
+   CATEGORIE_FACTURE,
+   SOUS_CATEGORIE_FACTURE,
+   CLIENT,
+   CATEGORIE_CLIENT,
+   DESIGNATION,
+   MTTC,
+   MTHT,
+   TAXE,
+   DEVFACT,
+   MTDEVISE,
+   MTAVOIR,
+   PAYE,
+   RESTE,
+   NUMCOMPTE,
+   VALCAT
+)
+AS
+   SELECT fc.id,
+          fc.daty,
+          cat.ID,
+          '-',
+          fc.tiers,
+          cl.categorie,
+          fc.designation,
+          fc.montantttc,
+          fc.montant,
+          fc.montanttva,
+          '-',
+          fc.montantttc,
+          fc.montantavoir,
+          0,
+          0,
+          '-',
+          cat.val
+     FROM factureclientmsum_lib fc
+          LEFT JOIN FACTURE_CLIENT_FILLE ff ON fc.id = FF.IDMERE
+          LEFT JOIN ACTIVITE act ON ff.IDACTIVITE = act.ID
+          LEFT JOIN RUBRIQUE_ACTIVITE rub ON act.RUBRIQUE = rub.ID
+          LEFT JOIN CATEGORIEFACTURATION cat ON rub.CATEGORIE = cat.ID
+          LEFT JOIN V_client_categorie cl ON fc.tiers = CL.CDCLT;
