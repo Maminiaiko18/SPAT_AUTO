@@ -103,7 +103,26 @@ public class AdminGen {
         temp.copyInto(retour);
         return retour;
     }
+public static ClassMAPTable findUnique(ClassMAPTable[] liste, String[] attributET, String[] valET) throws Exception {
 
+        for (int i = 0; i < liste.length; i++) {
+            Object valeurListe[] = new Object[attributET.length];
+            int nbMitovy = 0;
+            for (int iAtr = 0; iAtr < attributET.length; iAtr++) {
+                valeurListe[iAtr] = CGenUtil.getValeurFieldByMethod(liste[i], attributET[iAtr]);
+                if(valeurListe[iAtr]==null) continue;
+                if (valeurListe[iAtr].toString().compareTo(valET[iAtr]) == 0) {
+                    nbMitovy++;
+                } else {
+                    break;
+                }
+            }
+            if (nbMitovy == attributET.length) {
+                return liste[i];
+            }
+        }
+        return null;
+    }
     public static double[] findAvecSommeOrder(ClassMAPTable[] liste, String[] attributET, String[] valET, String[] asommer) throws Exception {
         ClassMAPTable[] retour = null;
         if (liste.length == 0) {

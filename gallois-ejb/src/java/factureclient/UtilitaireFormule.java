@@ -13,6 +13,7 @@ import java.util.List;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import mg.cnaps.configuration.Configuration;
+import mg.spat.exploitant.Activite;
 
 
 /**
@@ -27,7 +28,7 @@ public class UtilitaireFormule {
         try {
             retour = new ArrayList<>();
 
-            if (formule.contains("[") || formule.contains("]")) {
+            if (formule.contains("[") && formule.contains("]")) {
                 String temp = "";
                 boolean encours = false;
                 for (int i = 0; i < formule.length(); i++) {
@@ -64,7 +65,7 @@ public class UtilitaireFormule {
         return retour;
     }
     
-    public static String remplacerRubriqueParChiffre(ClassMAPTable aCalc,String formule) throws Exception
+    public static String remplacerRubriqueParChiffre(ClassMAPTable aCalc,String formule,ClassMAPTable[] lConfig) throws Exception
     {
         if(formule==null||formule.compareToIgnoreCase("")==0)return "";
         String retour=formule;
@@ -75,96 +76,36 @@ public class UtilitaireFormule {
             
             for(String rub:listeRub)
             {
-                /*String[]sousRub=rub.split("::");
+                valeur=rub;
+                String[]sousRub=rub.split("::");
                 
-                if(sousRub.length>1) // Traitement Au cas ou info vient de pers
+                if(sousRub.length>1) // Traitement Au cas ou info vient de Config
                 {
-                    if(sousRub[0].compareToIgnoreCase("Pers")==0||sousRub[0].compareToIgnoreCase("Personne")==0)
-                    {
-                        Object oval=CGenUtil.getValeurFieldByMethod(aCalc, sousRub[1]);
-                        if (oval instanceof Number){
-                            valeur=oval.toString();
-                        }
-                        else {
-                            valeur="'"+oval.toString()+"'";
-                        }
-                    }
-                    if(sousRub[0].compareToIgnoreCase("Point")==0||sousRub[0].compareToIgnoreCase("Pointage")==0)
-                    {
-                        if(sousRub[1].compareToIgnoreCase("majoration")==0||sousRub[1].compareToIgnoreCase("maj")==0)
-                        {                            
-                            PaieInfoPersEltPaieComplet elmt=(PaieInfoPersEltPaieComplet)aCalc;
-                            valeur= point.getHeureMajoration(elmt)+"";
-                        }
-                        else
-                        {
-                            Object oval=CGenUtil.getValeurFieldByMethod(point, sousRub[1]);
-                            if (oval instanceof Number){
-                                valeur=oval.toString();
-                            }
-                            else {
-                                valeur="'"+oval.toString()+"'";
-                            }
-                        }
-                    }
+                
                     if(sousRub[0].compareToIgnoreCase("Conf")==0||sousRub[0].compareToIgnoreCase("Configuration")==0)
                     {
-                        Configuration[] lConfig=PaieInfoPersonnel.getListeConfig();
                         String[] splitPointPoint=sousRub[1].split("\\.\\.");
                         String[] attrFiltre={"id"};
                         String[] attrValeur={splitPointPoint[0]};
                         Configuration conf=(Configuration)AdminGen.findUnique(lConfig, attrFiltre, attrValeur);
                         if(conf==null) throw new Exception("Configuration inexistante");
-                        valeur=CGenUtil.getValeurFieldByMethod(conf,"min").toString();
-                        if(splitPointPoint.length>1&&splitPointPoint[1].compareToIgnoreCase("max")==0) valeur=CGenUtil.getValeurFieldByMethod(conf,"max").toString();
+                        valeur=CGenUtil.getValeurFieldByMethod(conf,"valmin").toString();
+                        if(splitPointPoint.length>1&&splitPointPoint[1].compareToIgnoreCase("valmax")==0) valeur=CGenUtil.getValeurFieldByMethod(conf,"valmax").toString();
                     }
                     
                 }
-                else if(rub.startsWith("++")) //Traitement de la somme [++imposable==I..gain]
+                
+                else // Traitement info vient de Activite*/
                 {
-                    String reste=rub.substring(2);
-                    String[] splitEgale=reste.split("==");
-                    if(splitEgale.length>1)
-                    {
-                        String[] splitPointPoint=splitEgale[1].split("\\.\\.");
-                        double[] gr=PaieInfoPersonnel.getValeurEltPaieInserable(listeEltAInserer, splitEgale[0], splitPointPoint[0]);
-                        valeur=gr[0]+"";
-                        if(splitPointPoint.length<=1)
-                        {
-                            valeur=(gr[0]-gr[1])+"";
-                        }
-                        else
-                        {
-                            if(splitPointPoint[1].compareToIgnoreCase("retenue")==0||splitPointPoint[1].compareToIgnoreCase("retenu")==0)valeur=gr[1]+"";
-                        }
+                    
+                    Object oval=CGenUtil.getValeurFieldByMethod(aCalc, rub);
+                    if (oval!=null && oval instanceof Number){
+                        valeur=oval.toString();
                     }
-                }
-                else // Traitement info vient de rubrique*/
-                {
-                    /*String[] splitPP=rub.split("\\.\\.");
-                    if(splitPP.length>1)
-                    {
-                        ArrayList<PaieInfoPersEltPaieComplet> elmtP=PaieInfoPersonnel.getListeEltPaieInserable(listeEltAInserer, "code", splitPP[0]);
-                        
-                        if(elmtP.size()>0) 
-                        {
-                            valeur=CGenUtil.getValeurFieldByMethod(elmtP.get(0), splitPP[1]).toString();
-                        }
+                    else if(oval!=null) {
+                        valeur="'"+oval.toString()+"'";
                     }
-                    else*/
-                    {
-                        Object oval=CGenUtil.getValeurFieldByMethod(aCalc, rub);
-                        if (oval instanceof Number){
-                            valeur=oval.toString();
-                        }
-                        else {
-                            valeur="'"+oval.toString()+"'";
-                        }
-                        /*double[] gainRetenue=PaieInfoPersonnel.getValeurEltPaie(listeEltAInserer, "code", rub);
-                        valeur=gainRetenue[0]+"";
-                        if(gainRetenue[0]<=0&&gainRetenue[1]>0) valeur=gainRetenue[1]+"";*/
-                    }
-                }
+                 }
                 
                 //String aRemp="\\["+rub+"\\]";
                 //retour=retour.replaceAll(aRemp, valeur+"");
@@ -173,9 +114,14 @@ public class UtilitaireFormule {
             }
             
         }
+        catch(NoSuchMethodException nm)
+        {
+            return valeur;
+        }
         catch(Exception e)
         {
             e.printStackTrace();
+            return valeur;
         }
         return retour;
     }

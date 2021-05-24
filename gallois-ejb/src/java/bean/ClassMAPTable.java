@@ -4,6 +4,7 @@
 // Source File Name:   ClassMAPTable.java
 package bean;
 
+import factureclient.UtilitaireFormule;
 import historique.Historique_valeur;
 import historique.MapHistorique;
 import java.io.Serializable;
@@ -88,6 +89,19 @@ public abstract class ClassMAPTable implements Serializable {
     }
     public void controlerDelete(Connection c) throws Exception {
 
+    }
+    public void remplacerChampFormule(ClassMAPTable[] listeConfig) throws Exception
+    {
+        Field[] lc=this.getFieldList();
+        for(Field f:lc)
+        {
+            String valIns=this.getValInsert(f.getName());
+            if(valIns!=null&&valIns.contains("[") &&valIns.contains("]"))
+            {
+                String valeur=UtilitaireFormule.remplacerRubriqueParChiffre(this, valIns, listeConfig);
+                if(valeur!=null) CGenUtil.setValChamp(this, f, valeur);
+            }
+        }
     }
 
     public ClassMAPTable dupliquer(String user,Connection c) throws Exception

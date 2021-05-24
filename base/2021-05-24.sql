@@ -20,6 +20,8 @@ ALTER TABLE DETFORMUFACT ADD (
   CONSTRAINT DETFORMUFACT_PK
   PRIMARY KEY
   (ID));
+ALTER TABLE RUBRIQUE_ACTIVITE
+MODIFY(PU VARCHAR2(400));
   
 update menudynamique set href='/spat/pages/globalnegoce.jsp?but=exploitants/activites-saisie.jsp' where id='MEN00741001';
 update menudynamique set href='/spat/pages/globalnegoce.jsp?but=exploitants/activites-liste.jsp' where id='MEN00741002'; 
@@ -29,25 +31,25 @@ Insert into RUBRIQUE_ACTIVITE
     PU, DEVISE, UNITE, TVA)
  Values
    ('rub4', 'Transbordement 20 pied vide', 'T20V', 'CATFC002', 'REDV002', 
-    1, 'Eur', 'UA001', 20);
+    '1', 'Eur', 'UA001', 20);
 Insert into RUBRIQUE_ACTIVITE
    (ID, DESIGNATION, CODE, CATEGORIE, REDEVANCE, 
     PU, DEVISE, UNITE, TVA)
  Values
    ('rub3', 'Embarquement 20 pied vide', 'E20V', 'CATFC002', 'REDV002', 
-    2, 'Eur', 'UA001', 20);
+    '2', 'Eur', 'UA001', 20);
 Insert into RUBRIQUE_ACTIVITE
    (ID, DESIGNATION, CODE, CATEGORIE, REDEVANCE, 
     PU, DEVISE, UNITE, TVA)
  Values
    ('rub2', 'Debarquement 20 pied vide', 'D20V', 'CATFC002', 'REDV002', 
-    5, 'Eur', 'UA001', 20);
+    '5', 'Eur', 'UA001', 20);
 Insert into RUBRIQUE_ACTIVITE
    (ID, DESIGNATION, CODE, CATEGORIE, REDEVANCE, 
     PU, DEVISE, UNITE, OBJET, TVA)
  Values
    ('rub1', 'Occupation Q2', 'OQ2', 'CATFC001', 'REDV002', 
-    10, 'Eur', 'UA002', 'Q2', 20);
+    '10', 'Eur', 'UA002', 'Q2', 20);
 COMMIT;
 
 
