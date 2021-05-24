@@ -19,7 +19,9 @@
         FactureAnalyse facture = new FactureAnalyse();
         if(request.getParameter("idFacture") != null){
             FactureAnalyse temporaire = new FactureAnalyse();
-            temporaire.setNomTable("ANALYSEGLOBALEFACTURE_ANALYSE");
+             String v= request.getParameter("vue");
+            if (v!=null)  temporaire.setNomTable(v);
+            else  temporaire.setNomTable("ANALYSEGLOBALEFACTURE_ANALYSE");
             temporaire.setNmfact(request.getParameter("idFacture"));
             FactureAnalyse[] liste = (FactureAnalyse[]) CGenUtil.rechercher(temporaire, null, null, null, "");
             if(liste != null && liste.length >0){
@@ -54,6 +56,7 @@
         pi.getFormu().getChamp("dateEffet").setLibelle("Date Effet");
         pi.getFormu().getChamp("numPiece").setLibelle("Numéro pièce");
         pi.getFormu().getChamp("libelle").setLibelle("Libellé");
+        pi.getFormu().getChamp("libelle").setDefaut(facture.getDesignation());
         pi.getFormu().getChamp("debit").setLibelle("Crédit");
         pi.getFormu().getChamp("credit").setLibelle("Débit");
         pi.getFormu().getChamp("idtypecheque").setLibelle("Type");
@@ -64,6 +67,7 @@
         pi.getFormu().getChamp("designation").setVisible(false);
         pi.getFormu().getChamp("dateEffet").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("idTypeCheque").setDefaut(Constante.typeCheque);
+        pi.getFormu().getChamp("tiers").setDefaut(facture.getClient());
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp");
