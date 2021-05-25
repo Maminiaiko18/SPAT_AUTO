@@ -18,6 +18,7 @@ import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 import mg.spat.JournalCaisse;
+import utilitaire.Constante;
 
 /**
  *
@@ -157,7 +158,7 @@ public class FactureClient extends ClassMere {
 
     @Override
     public void construirePK(Connection c) throws Exception {
-        preparePk("FCL", "get_seq_Factureclient");
+        preparePk(Constante.fcPrefix, "get_seq_Factureclient");
         setId(makePK(c));
     }
 

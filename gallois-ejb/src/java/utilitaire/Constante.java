@@ -62,6 +62,7 @@ public class Constante {
     public static String tableOrFcLc = "ORFCLC";
     static public String tableFactureCLC = "FactureClientLC";
     static public String factureClient = "FACTURECLIENT";
+    public static final String fcPrefix = "FCL";
     public static final String constanteTiersStock = "TIERS1";
     public static final String constantePeriode = "T";
      public static final String financeTypeAnnulation = "3";

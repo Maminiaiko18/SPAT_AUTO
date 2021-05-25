@@ -9,6 +9,7 @@ import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
+import facture.FactureClient;
 import facturefournisseur.RegulFacture;
 import java.sql.Connection;
 import java.sql.Date;
@@ -385,7 +386,19 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             placement.validerObject(user.getUser().getTuppleID(), c);
         }
     }
+    
+    public void checkMontantFactureClient(Connection c) throws Exception {
+        FactureClient fc = new FactureClient();
 
+        fc = (FactureClient) fc.getById(this.getIdplacement(), "factureclientMSum_lib", c);
+
+        if (fc != null) {
+            if (fc.getMontantreste() < this.getCredit()) {
+                throw new Exception("Montant supérieur au reste à payer");
+            }
+        }
+    }
+    
     @Override
     public void viser(UserEJBBean user, Connection c) throws Exception {
         int verif = 0;
@@ -402,7 +415,11 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 this.traitementOP(user, c);
             }
             if (this.getIdplacement() != null) {
-                this.traitementPlacement(user, c);
+                if (this.getIdplacement().startsWith(Constante.fcPrefix)) {
+                    checkMontantFactureClient(c);
+                } else {
+                    this.traitementPlacement(user, c);
+                }
             }
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
