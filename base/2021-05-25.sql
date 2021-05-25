@@ -140,3 +140,25 @@ AS
 INSERT INTO MENUDYNAMIQUE
 (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
 VALUES('MEN00741003', 'Analyse', 'fa fa-area-chart', '/spat/pages/globalnegoce.jsp?but=exploitants/activites-analyse.jsp', 3, 3, 'MEN0074100');
+
+
+
+Insert into DETFORMUFACT
+   (ID, MIN, MAX, FORMULE, MERE, 
+    FORMULEQTE)
+ Values
+   ('d1', 0, 2, '[pu]', 'rub1', 
+    'Math.min([qte],2)');
+Insert into DETFORMUFACT
+   (ID, MIN, MAX, FORMULE, MERE, 
+    FORMULEQTE)
+ Values
+   ('d2', 2, 4, '[pu]*1.05', 'rub1', 
+    'Math.max(Math.min([qte]-2,4),0)');
+Insert into DETFORMUFACT
+   (ID, MIN, MAX, FORMULE, MERE, 
+    FORMULEQTE)
+ Values
+   ('d3', 4, -1, '[pu]*1.1', 'rub1', 
+    'Math.max([qte]-6,0)');
+COMMIT;
