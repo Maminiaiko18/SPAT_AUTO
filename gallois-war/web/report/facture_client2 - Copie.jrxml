@@ -358,7 +358,7 @@
 									<text><![CDATA[Désignation]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<jr:detailCell height="20" rowSpan="1">
 								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="208" height="20" uuid="61d7f2f9-2836-4966-a139-02882010df34"/>
 									<box>
@@ -368,7 +368,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement verticalAlignment="Middle" markup="none">
-										<font isBold="false"/>
+										<font size="7" isBold="false"/>
 										<paragraph leftIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
@@ -392,7 +392,7 @@
 									<text><![CDATA[Quantité]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<jr:detailCell height="20" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="46" height="20" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
 									<box>
@@ -402,7 +402,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font isBold="false"/>
+										<font size="7" isBold="false"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{quantite}]]></textFieldExpression>
@@ -425,7 +425,7 @@
 									<text><![CDATA[PU]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<jr:detailCell height="20" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="49" height="20" uuid="9709acd6-11cf-49a6-8376-4b66505f2523"/>
 									<box>
@@ -435,7 +435,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-										<font isBold="false"/>
+										<font size="7" isBold="false"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{pu}]]></textFieldExpression>
@@ -468,7 +468,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font isBold="false"/>
+										<font size="7" isBold="false"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{devise}]]></textFieldExpression>
@@ -492,7 +492,7 @@
 									<text><![CDATA[Taux]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<jr:detailCell height="20" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="90" height="20" uuid="d98b66ca-f11a-4f48-8cc6-60ed50be7d0d"/>
 									<box>
@@ -502,7 +502,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-										<font isBold="false"/>
+										<font size="7" isBold="false"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{taux}]]></textFieldExpression>
@@ -536,7 +536,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-										<font isBold="false"/>
+										<font size="7" isBold="false"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{montanttaux}]]></textFieldExpression>
