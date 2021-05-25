@@ -5,6 +5,10 @@
  */
 package facture;
 
+import bean.CGenUtil;
+import java.sql.Connection;
+import utilitaire.Utilitaire;
+
 /**
  *
  * @author
@@ -25,4 +29,9 @@ public class AdminFactureClient {
         this.listeFactureClient = listeFactureClient;
     }
     
+    public void findFactureClient(String[] ids,Connection c) throws Exception {
+        String id=Utilitaire.tabToString(ids,"'",",");
+        FactureClient[]listeFact=  (FactureClient[]) CGenUtil.rechercher(new FactureClient(), null, null, c, " and  id in(" + id + ")");
+        this.setListeFactureClient(listeFact);
+    }
 }
