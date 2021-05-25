@@ -14,11 +14,13 @@
 
 <%
     Tiers t = new Tiers();
-    t.setNomTable("union_tiers_tbd_cemedi");
+    t.setNomTable("union_client_fournisseur");
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
     pc.setTitre("Fiche Tiers");
     pc.getChampByName("id").setVisible(false);
+    pc.getChampByName("compteAuxClient").setLibelle("Compte client");
+    pc.getChampByName("compteAuxFournisseur").setLibelle("Compte fournisseur");
     
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
     configuration.CynthiaConf.load();
