@@ -1,6 +1,6 @@
 <project name="deploy-ejb" default="deploy" basedir="./build-file">
     <property environment="env"/>
-    <property name="deploy.dir" value="/Volumes/Data/wildfly-10.0.0.Final/standalone/deployments"/>
+    <property name="deploy.dir" value="/opt/env/wildfly-10.0.0.Final/standalone/deployments"/>
     <property name="gallois-warname" value="gallois.war"/>
     <property name="gallois-jarname" value="gallois-ejb.jar"/>
     <property name="gallois-earname" value="gallois.ear"/>
@@ -126,7 +126,6 @@
                 <include name="**/*"/>
             </fileset>	
         </copy>
-         <touch file="${deploy.dir}/spat.war.dodeploy"/>
         <echo> deployement exploded war done </echo>	
         <echo> 
             Compilation gallois GENIUS_ART_C [DONE]----------------
