@@ -14,7 +14,7 @@ import java.sql.Connection;
  */
 public class Tiers extends ClassEtat {
 
-    private String id, nom, description, nif, stat, contact, responsable, adresse, type;
+    private String id, nom, description, nif, stat, contact, responsable, adresse, type,compteAuxFournisseur,compteAuxClient;
 
     public Tiers() {
         this.setNomTable("tiers");
@@ -146,6 +146,22 @@ public class Tiers extends ClassEtat {
 
     public void setType(String type) {
         this.type = type;
+    }
+    
+    public String getCompteAuxFournisseur() {
+        return compteAuxFournisseur;
+    }
+
+    public void setCompteAuxFournisseur(String compteAuxFournisseur) {
+        this.compteAuxFournisseur = compteAuxFournisseur;
+    }
+
+    public String getCompteAuxClient() {
+        return compteAuxClient;
+    }
+
+    public void setCompteAuxClient(String compteAuxClient) {
+        this.compteAuxClient = compteAuxClient;
     }
 
     @Override
