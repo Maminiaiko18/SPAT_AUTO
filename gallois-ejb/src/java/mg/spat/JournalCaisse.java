@@ -217,9 +217,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
 
     public double getDebit() {
-        if (!this.getMode().equalsIgnoreCase("modif")) {
+        /*if (!this.getMode().equalsIgnoreCase("modif")) {
             return credit;
-        }
+        }*/
 
         return debit;
     }
@@ -245,9 +245,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
 
     public double getCredit() {
-        if (!this.getMode().equalsIgnoreCase("modif")) {
+        /*if (!this.getMode().equalsIgnoreCase("modif")) {
             return debit;
-        }
+        }*/
 
         return credit;
     }

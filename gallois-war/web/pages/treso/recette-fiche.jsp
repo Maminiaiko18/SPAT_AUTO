@@ -27,8 +27,8 @@
     pc.getChampByName("valTypeCheque").setLibelle("Type chèque");
     pc.getChampByName("typemvt").setLibelle("type mouvement");
     pc.getChampByName("credit").setLibelle("Sortie");
-    pc.getChampByName("credit").setLibelle("Sortie");
-    pc.getChampByName("debit").setLibelle("Entree");
+    pc.getChampByName("credit").setLibelle("Entree");
+    pc.getChampByName("debit").setLibelle("Sortie");
     pc.getChampByName("caisse").setVisible(false);
     pc.getChampByName("idmode").setVisible(false);
     pc.getChampByName("idTypeCheque").setVisible(false);
