@@ -16,13 +16,16 @@
          nomTable=request.getParameter("table");
     }
     t.setNomTable(nomTable);
-    String listeCrt[] = {"id","nom","description","nif","stat","contact","responsable","adresse","type"};
+    String listeCrt[] = {"id","nom","description","nif","stat","contact","responsable","adresse","type","compteAuxFournisseur","compteAuxClient"};
     String listeInt[] = {};
-    String libEntete[] = {"id","nom","description","nif","stat","contact","responsable","adresse","type"};
+    String libEntete[] = {"id","nom","description","nif","stat","contact","responsable","adresse","type","compteAuxFournisseur","compteAuxClient"};
     PageRecherche pr = new PageRecherche(t, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("travaux/tiers-liste.jsp");
+    
+    pr.getFormu().getChamp("compteAuxFournisseur").setLibelle("Compte founisseur");
+    pr.getFormu().getChamp("compteAuxClient").setLibelle("Compte client");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -77,7 +80,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id","Nom","Description","Nif","Stat","Contact","Responsable","Adresse","Type"};
+            String libEnteteAffiche[] = {"Id","Nom","Description","Nif","Stat","Contact","Responsable","Adresse","Type","Compte fournisseur","Compte client"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
