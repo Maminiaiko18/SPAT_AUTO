@@ -46,7 +46,7 @@
   
     int taille = pi.getNombreLigne();
     for( int i = 0 ; i < taille ; i++ ){       
-        pi.getFormufle().getChamp("pdt_"+i).setDefaut(data[i].getIdproduit());
+        pi.getFormufle().getChamp("pdt_"+i).setDefaut(data[i].getDesignation());
         pi.getFormufle().getChamp("quantite_"+i).setDefaut(""+data[i].getRestealivrer());
         pi.getFormufle().getChamp("iddetailsfacturefournisseur_"+i).setDefaut(""+data[i].getId());
     }
