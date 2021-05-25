@@ -18,6 +18,9 @@
     pi.getFormu().changerEnChamp(liste);
     
     pi.getFormu().getChamp("etat").setVisible(false); 
+    
+    pi.getFormu().getChamp("compteAuxFournisseur").setLibelle("Compte Fournisseur"); 
+    pi.getFormu().getChamp("compteAuxClient").setLibelle("Compte Client");
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
