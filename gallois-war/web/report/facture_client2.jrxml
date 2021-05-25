@@ -3,6 +3,58 @@
 	<property name="ireport.zoom" value="1.0000000000000042"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="144d36eb-cf59-4343-ad70-5452edcf11f7">
+		<parameter name="montantlettre" class="java.lang.String"/>
+		<parameter name="montantTTC" class="java.lang.Double"/>
+		<parameter name="montantTVA" class="java.lang.Double"/>
+		<parameter name="montant" class="java.lang.Double"/>
+		<field name="designation" class="java.lang.String"/>
+		<field name="devise" class="java.lang.String"/>
+		<field name="montanttaux" class="java.lang.Double"/>
+		<field name="taux" class="java.lang.Double"/>
+		<field name="quantite" class="java.lang.Double"/>
+		<field name="pu" class="java.lang.Double"/>
+	</subDataset>
 	<parameter name="montantlettre" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["H:\\win-Project\\cemedi\\cemedi\\cemedi-war\\web\\report\\"]]></defaultValueExpression>
@@ -16,7 +68,7 @@
 	<parameter name="montantTVA" class="java.lang.Double"/>
 	<parameter name="montantTTC" class="java.lang.Double"/>
 	<parameter name="tva" class="java.lang.Double"/>
-	<field name="listeDetails" class="java.util.List"/>
+	<parameter name="list_table" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -142,141 +194,358 @@
 			</textField>
 		</band>
 	</pageHeader>
-	<detail>
-		<band height="72" splitType="Stretch">
-			<subreport>
-				<reportElement x="0" y="0" width="555" height="72" uuid="b1d86a49-328d-4edc-a861-bfe395fd76b0"/>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listeDetails})]]></dataSourceExpression>
-				<subreportExpression><![CDATA["facture_client2_subreport1.jasper"]]></subreportExpression>
-			</subreport>
-		</band>
-	</detail>
 	<summary>
-		<band height="144" splitType="Stretch">
-			<staticText>
-				<reportElement x="138" y="0" width="282" height="20" uuid="b57aa151-54a5-4c53-98e9-ea8c8b0e7979"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Montant Facture en Ar :
+		<band height="62" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" mode="Transparent" x="0" y="0" width="555" height="62" uuid="4ed3219d-4414-49a6-8571-6ebe2af49e47"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="3237a177-1661-4191-859b-c24f3df841e0">
+						<datasetParameter name="montant">
+							<datasetParameterExpression><![CDATA[$P{montant}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="montantlettre">
+							<datasetParameterExpression><![CDATA[$P{montantlettre}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="montantTTC">
+							<datasetParameterExpression><![CDATA[$P{montantTTC}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="montantTVA">
+							<datasetParameterExpression><![CDATA[$P{montantTVA}]]></datasetParameterExpression>
+						</datasetParameter>
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:columnGroup width="555" uuid="c85b85a2-8567-49c3-af50-1ae971a715d3">
+						<jr:tableFooter height="154" rowSpan="1">
+							<staticText>
+								<reportElement x="328" y="0" width="125" height="14" uuid="02c1289c-b91d-4142-9452-4cdf10392a4b"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Montant Facture en Ar :
 ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="138" y="40" width="282" height="20" uuid="d873579a-ea24-468f-b204-a9b7061ad7a7"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Montant TTC:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="78" width="92" height="20" uuid="02a2737c-b957-4fdc-86f5-4ed587ec6d3c"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Soit en lettres :
+							</staticText>
+							<staticText>
+								<reportElement x="328" y="14" width="125" height="14" uuid="ad22cb2f-bb57-4d6e-9e17-a884fce50a1d"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Montant TVA:
 ]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="92" y="78" width="463" height="20" uuid="3334878b-cf44-49fd-bc16-83c2df32fe54"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle" markup="none">
-					<font isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{montantlettre}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="273" y="124" width="282" height="20" uuid="c73cb02e-6010-47e1-b2fb-bd2722c89e21"/>
-				<box>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Le Responsable,
+							</staticText>
+							<staticText>
+								<reportElement x="328" y="28" width="125" height="14" uuid="9191436d-944f-40ec-9b85-0e40199738c0"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Montant TTC:]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="66" width="92" height="20" uuid="92bfbc67-d08f-439e-91c5-4b6b7fd4d390"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font isBold="true" isUnderline="true"/>
+								</textElement>
+								<text><![CDATA[Soit en lettres :
 ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="138" y="20" width="282" height="20" uuid="20d0d750-de9e-417c-a3aa-f01d969b33ee"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Montant TVA:
+							</staticText>
+							<textField isBlankWhenNull="true">
+								<reportElement x="92" y="66" width="463" height="20" uuid="7b368c4d-4ec8-483b-ab1e-f47f01b2f5f0"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement verticalAlignment="Middle" markup="none">
+									<font isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{montantlettre}]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement x="376" y="105" width="179" height="22" uuid="b57b973e-8697-4da7-8cd4-2ce68d8861dd"/>
+								<box>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Le Responsable,
 ]]></text>
-			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="420" y="0" width="135" height="20" uuid="c74ffba1-e2d6-4abe-a970-dcd499c9fcd0"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-					<font isBold="false"/>
-					<paragraph rightIndent="3"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="420" y="20" width="135" height="20" uuid="6f8dc793-e9f4-43e1-8f7a-80192711709f"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-					<font isBold="false"/>
-					<paragraph rightIndent="3"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="420" y="40" width="135" height="20" uuid="86090f5f-3235-4678-a56d-721d6c2581ca"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-					<font isBold="false"/>
-					<paragraph rightIndent="3"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{montantTTC}]]></textFieldExpression>
-			</textField>
+							</staticText>
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement x="453" y="0" width="102" height="14" uuid="650e6d6f-3b81-4087-bd2a-85a1856c7f9c"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+									<font isBold="false"/>
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
+							</textField>
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement x="453" y="14" width="102" height="14" uuid="2cd6c53c-2fbc-4745-bf4e-628fae064685"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+									<font isBold="false"/>
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
+							</textField>
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement x="453" y="28" width="102" height="14" uuid="afc632c6-69e4-45d2-98ba-37fe2d48b444"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+									<font isBold="false"/>
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{montantTTC}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:column width="208" uuid="f8303b2e-ed0d-426d-a6d0-6530c5be8bf4">
+							<jr:columnHeader height="27" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="208" height="27" uuid="be6285bf-59a4-4488-a315-bcc512cd8d2a"/>
+									<box>
+										<topPen lineWidth="0.25"/>
+										<leftPen lineWidth="0.25"/>
+										<bottomPen lineWidth="0.25"/>
+										<rightPen lineWidth="0.25"/>
+									</box>
+									<textElement verticalAlignment="Middle">
+										<font isBold="true"/>
+										<paragraph leftIndent="3"/>
+									</textElement>
+									<text><![CDATA[Désignation]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="208" height="20" uuid="d334a2d4-3f12-49c7-89b1-67f8d0891e47"/>
+									<box>
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement verticalAlignment="Middle" markup="none">
+										<font size="7" isBold="false"/>
+										<paragraph leftIndent="3"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="46" uuid="8fd0b3b1-ae5b-4c77-b33d-b2908565fbee">
+							<jr:columnHeader height="27" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="46" height="27" uuid="e6bd1a33-96fc-4339-bbe1-af1df697b579"/>
+									<box>
+										<topPen lineWidth="0.25"/>
+										<leftPen lineWidth="0.25"/>
+										<bottomPen lineWidth="0.25"/>
+										<rightPen lineWidth="0.25"/>
+									</box>
+									<textElement verticalAlignment="Middle">
+										<font isBold="true"/>
+										<paragraph leftIndent="3"/>
+									</textElement>
+									<text><![CDATA[Quantité]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="46" height="20" uuid="581cad92-7a48-437a-9e55-f15d264ffd33"/>
+									<box>
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+										<font size="7" isBold="false"/>
+										<paragraph rightIndent="3"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{quantite}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="49" uuid="4169b902-e5d3-4e55-960a-860d98ae95fe">
+							<jr:columnHeader height="27" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="49" height="27" uuid="64ae453b-ec5f-44f1-975a-10c6b7da6be9"/>
+									<box>
+										<topPen lineWidth="0.25"/>
+										<leftPen lineWidth="0.25"/>
+										<bottomPen lineWidth="0.25"/>
+										<rightPen lineWidth="0.25"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[PU]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="49" height="20" uuid="af98a024-e15b-4e5b-8b34-c13d89113f7b"/>
+									<box>
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+										<font size="7" isBold="false"/>
+										<paragraph rightIndent="3"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{pu}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="60" uuid="0a1822a0-52d5-4b1e-9403-370da4e7a1e5">
+							<jr:columnHeader height="27" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="60" height="27" uuid="db10d592-5e86-4ebe-9af7-67fdfe069ff8"/>
+									<box>
+										<topPen lineWidth="0.25"/>
+										<leftPen lineWidth="0.25"/>
+										<bottomPen lineWidth="0.25"/>
+										<rightPen lineWidth="0.25"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[Devise]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="60" height="20" uuid="d81658b3-0d91-417c-8c6c-11c3a9f6bf4b"/>
+									<box>
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+										<font size="7" isBold="false"/>
+										<paragraph rightIndent="3"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{devise}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="9f732ba5-2c7a-4172-9a6b-631e23e545c0">
+							<jr:columnHeader height="27" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="90" height="27" uuid="cab04adc-3bad-4949-bb19-fcb23b047eff"/>
+									<box>
+										<topPen lineWidth="0.25"/>
+										<leftPen lineWidth="0.25"/>
+										<bottomPen lineWidth="0.25"/>
+										<rightPen lineWidth="0.25"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+										<paragraph leftIndent="3"/>
+									</textElement>
+									<text><![CDATA[Taux]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="90" height="20" uuid="a712ecae-42ef-4252-9aaf-c69515d59d02"/>
+									<box>
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+										<font size="7" isBold="false"/>
+										<paragraph rightIndent="3"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{taux}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="102" uuid="4421e60a-0887-4e13-ae41-2703a7a18bda">
+							<jr:columnHeader height="27" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="102" height="27" uuid="011395f4-c77f-4417-abe7-6ca4e956115c"/>
+									<box>
+										<topPen lineWidth="0.25"/>
+										<leftPen lineWidth="0.25"/>
+										<bottomPen lineWidth="0.25"/>
+										<rightPen lineWidth="0.25"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+										<paragraph leftIndent="3"/>
+									</textElement>
+									<text><![CDATA[Montant]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="102" height="20" uuid="87fa6f35-95f1-4af2-a83f-efca89779671"/>
+									<box>
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+										<font size="7" isBold="false"/>
+										<paragraph rightIndent="3"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{montanttaux}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
 		</band>
 	</summary>
 </jasperReport>

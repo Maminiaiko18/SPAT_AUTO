@@ -631,7 +631,9 @@ public class EtatPaieServlet extends HttpServlet {
             mere[0].setListeDetails(arrList);
             
             List dataSources = new ArrayList();
-            dataSources.add(mere[0]);
+            dataSources.addAll(mere[0].getListeDetails());
+            
+            param.put("list_table",dataSources);
             
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("facture_client2");
