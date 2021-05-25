@@ -92,6 +92,10 @@
                         <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
                         <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=annulerVisa&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Annuler visa</a>
                     </p>
+                    <p>
+                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture="+id +"&vue=ANALYSEGLOBALEFACTURE_VAOVAO"%>" style="margin-right: 10px">Entrée banque</a>
+                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture="+id +"&vue=ANALYSEGLOBALEFACTURE_VAOVAO" %>" style="margin-right: 10px">Entrée caisse</a>
+                    </p>
                     <hr>
                 </div>
             </div>
