@@ -92,6 +92,7 @@ import utilitaire.Utilitaire;
 import utilitaire.UtilitaireMetier;
 import ded.OrdonnerPayement;
 import facturefournisseur.EtatFactureMontantDaty;
+import facture.*;
 
 @Stateful
 @AccessTimeout(10000)
@@ -3041,15 +3042,15 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             if (o instanceof bean.ClassMere) {
                 o.setValChamp("id", id);
                 o.setNomTable(o.getNomTable());
-                
-                ClassMere[] liste = (ClassMere[])CGenUtil.rechercher(o, null, null, c, "");
-                
+
+                ClassMere[] liste = (ClassMere[]) CGenUtil.rechercher(o, null, null, c, "");
+
                 if (liste.length == 0) {
                     throw new Exception("Objet inexistant");
                 }
-                
+
                 o = liste[0].dupliquer(u.getTuppleID(), c);
-                
+
                 return o.getValInsert("id");
             }
             if (o.getClass().getSuperclass().getSimpleName().compareToIgnoreCase("ClassEtat") == 0) {
@@ -3549,5 +3550,29 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         }
 
         return ret;
+    }
+
+    public void payerFCMultiple(String[] listeId, TransitionPaiementVide t) throws Exception {
+        Connection c = null;
+
+        try {
+            c = (new UtilDB()).GetConn();
+            c.setAutoCommit(false);
+
+            AdminFactureClient adminFC = new AdminFactureClient(t);
+            adminFC.findFactureClient(listeId, c);
+            adminFC.payer(this, c);
+
+            c.commit();
+        } catch (Exception e) {
+            if (c != null) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
     }
 }

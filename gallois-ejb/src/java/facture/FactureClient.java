@@ -48,7 +48,7 @@ public class FactureClient extends ClassMere {
     
     }
     
-    public void payer(String caisse, String mode, String numcheque, String typeCheque, String iddevise, UserEJB user,Connection c) throws Exception{
+    public void payer(String caisse, String mode, String numcheque, String typeCheque, String iddevise, UserEJBBean user,Connection c) throws Exception{
         System.out.println("-----------------FactureClienteeeeeeeeeeeeeeeeeeee.paye");
         JournalCaisse journal=new JournalCaisse();
        
@@ -63,7 +63,8 @@ public class FactureClient extends ClassMere {
         journal.setIddevise(iddevise);
         journal.setLibelle("Paiement multiple Auto "+this.getId());
         journal.createObject(user.getUser().getTuppleID(),c);
-        journal.viser((UserEJBBean)user, c);
+        
+        journal.viser(user, c);
     }
     
     @Override

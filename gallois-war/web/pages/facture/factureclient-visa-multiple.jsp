@@ -6,29 +6,29 @@
 <%@page import="facture.FactureClient"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRecherche"%>
-<% 
-    try{
-    FactureClient facture = new FactureClient();
-    facture.setNomTable("factureclientMSumC");
-    String listeCrt[] = {"id","daty","tierslib","designation","date_echeance"};
-    String listeInt[] = {"daty","date_echeance"};
-    String libEntete[] = {"id","daty","tierslib","designation","tva","date_echeance", "montant", "montanttva", "montantttc","montantAvoir","montantpaye","montantreste"};
-    PageRecherche pr = new PageRecherche(facture, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
-    pr.setUtilisateur((user.UserEJB) session.getValue("u"));
-    pr.setLien((String) session.getValue("lien"));
-    
-    pr.getFormu().getChamp("daty1").setLibelle("date debut");
-    pr.getFormu().getChamp("daty2").setLibelle("date fin");
-    pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
-    pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
-    /*pr.getFormu().getChamp("montant").setLibelle("montant HT");
+<%
+    try {
+        FactureClient facture = new FactureClient();
+        facture.setNomTable("factureclientMSumC");
+        String listeCrt[] = {"id", "daty", "tierslib", "designation", "date_echeance"};
+        String listeInt[] = {"daty", "date_echeance"};
+        String libEntete[] = {"id", "daty", "tierslib", "designation", "tva", "date_echeance", "montant", "montanttva", "montantttc", "montantAvoir", "montantpaye", "montantreste"};
+        PageRecherche pr = new PageRecherche(facture, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
+        pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+        pr.setLien((String) session.getValue("lien"));
+
+        pr.getFormu().getChamp("daty1").setLibelle("date debut");
+        pr.getFormu().getChamp("daty2").setLibelle("date fin");
+        pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
+        pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
+        /*pr.getFormu().getChamp("montant").setLibelle("montant HT");
     pr.getFormu().getChamp("montanttva").setLibelle("montant TVA");
     pr.getFormu().getChamp("montantttc").setLibelle("montant TTC");*/
-    pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
-    
-    pr.setApres("facture/factureclient-visa-multiple.jsp");
-    String[] colSomme = {"montant", "montanttva", "montantttc","montantAvoir","montantpaye","montantreste"};
-    pr.creerObjetPage(libEntete, colSomme);%>
+        pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+
+        pr.setApres("facture/factureclient-visa-multiple.jsp");
+        String[] colSomme = {"montant", "montanttva", "montantttc", "montantAvoir", "montantpaye", "montantreste"};
+        pr.creerObjetPage(libEntete, colSomme);%>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -47,25 +47,32 @@
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
         <br/>
-        <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="id" id="id">
+        <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="fcform" id="fcform">
             <input type="hidden" name="bute" value="facture/factureclient-visa-multiple.jsp"/>
             <input type="hidden" name="classe" value="facture.FactureClient"/>
             <input type="hidden" name="acte" value="viser"/>
-            
+
             <%
-                
-                String libEnteteAffiche[] ={"id","daty","tiers","designation","tva","date echeance","montant HT", "montant TVA", "montant TTC","montant Avoir","montant payé","reste à payer"};
+
+                String libEnteteAffiche[] = {"id", "daty", "tiers", "designation", "tva", "date echeance", "montant HT", "montant TVA", "montant TTC", "montant Avoir", "montant payé", "reste à payer"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");
-                
+
                 out.println(pr.getTableau().getHtmlWithCheckbox());
             %>
-            <a href="<%=pr.getLien()%>?but=transitionPaiement.jsp" class="btn btn-info">Payer</a>
+            <input type="button" class="btn btn-info" onclick="payer()" style="margin-right:30px" value="Payer"/>
+            <!--<a href="<%=pr.getLien()%>?but=transitionPaiement.jsp" class="btn btn-info">Payer</a>-->
         </form>
-            <% out.println(pr.getBasPage());%>
+        <% out.println(pr.getBasPage());%>
     </section>
 </div>
-<% }catch(Exception e){
-    e.printStackTrace();
-}%>
+<script>
+    function payer() {
+        document.getElementById("fcform").action = "<%=pr.getLien()%>?but=transitionPaiement.jsp";
+        document.getElementById("fcform").submit();
+    }
+</script>
+<% } catch (Exception e) {
+        e.printStackTrace();
+    }%>

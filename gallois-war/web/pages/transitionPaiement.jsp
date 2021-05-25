@@ -18,7 +18,8 @@
             titre = "Transition Paiement",
             acte = "payerFC";
     String[] ids = request.getParameterValues("id");
-    String listeId = ids!=null ? Utilitaire.tabToString(ids, "'", ",") : "";
+    System.out.println("fc length " + ids.length);
+    String listeId = ids!=null ? Utilitaire.tabToString(ids, "", ";") : "";
     
     TransitionPaiementVide objet = new TransitionPaiementVide();
     objet.setNomTable(nomtable);
@@ -40,7 +41,7 @@
         
         TypeObjet devise= new TypeObjet();
         devise.setNomTable("DEVISE");
-        liste[3] = new Liste("iddevise", typeCheque , "val", "id");
+        liste[3] = new Liste("iddevise", devise , "val", "id");
     pi.getFormu().changerEnChamp(liste);
     
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
