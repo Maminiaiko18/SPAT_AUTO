@@ -19,6 +19,8 @@
     pi.getFormu().changerEnChamp(liste);
     
     pi.getFormu().getChamp("type").setDefaut("prestataire"); 
+    pi.getFormu().getChamp("compteAuxFournisseur").setLibelle("Compte fournisseur"); 
+    pi.getFormu().getChamp("compteAuxClient").setLibelle("Compte client"); 
     pi.getFormu().getChamp("etat").setVisible(false); 
     
     pi.setLien((String) session.getValue("lien"));
