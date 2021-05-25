@@ -18,6 +18,7 @@ import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 import mg.spat.JournalCaisse;
+import user.UserEJBBean;
 import utilitaire.Constante;
 
 /**
@@ -47,9 +48,10 @@ public class FactureClient extends ClassMere {
     
     }
     
-    public void payer(String caisse, String mode, String numcheque, String typeCheque, String iddevise, String user,Connection c) throws Exception{
+    public void payer(String caisse, String mode, String numcheque, String typeCheque, String iddevise, UserEJB user,Connection c) throws Exception{
+        System.out.println("-----------------FactureClienteeeeeeeeeeeeeeeeeeee.paye");
         JournalCaisse journal=new JournalCaisse();
-        
+       
         journal.setIdplacement(this.getId());
         journal.setTiers(this.getTiers());
         journal.setCredit(this.getMontantreste());
@@ -60,9 +62,8 @@ public class FactureClient extends ClassMere {
         journal.setIdTypeCheque(typeCheque);
         journal.setIddevise(iddevise);
         journal.setLibelle("Paiement multiple Auto "+this.getId());
-        journal.setEtat(ConstanteEtat.getEtatValider());
-        journal.createObject(user,c);
-        
+        journal.createObject(user.getUser().getTuppleID(),c);
+        journal.viser((UserEJBBean)user, c);
     }
     
     @Override
