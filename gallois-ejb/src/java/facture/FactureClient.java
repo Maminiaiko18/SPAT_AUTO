@@ -27,7 +27,7 @@ public class FactureClient extends ClassMere {
     private String id;
     private Date daty, date_echeance;
     private String tiers, designation, type, remarque, iduser;
-    private double tva, montant, montanttva, montantttc;
+    private double tva, montant, montanttva, montantttc,montantpaye,montantreste;
     private String tierslib;
     private double montantavoir;
     private ArrayList<FactureClientDetails> arrayDetails;
@@ -268,6 +268,22 @@ public class FactureClient extends ClassMere {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+    
+    public double getMontantpaye() {
+        return montantpaye;
+    }
+
+    public void setMontantpaye(double montantpaye) {
+        this.montantpaye = montantpaye;
+    }
+
+    public double getMontantreste() {
+        return montantreste;
+    }
+
+    public void setMontantreste(double montantreste) {
+        this.montantreste = montantreste;
     }
 
 }
