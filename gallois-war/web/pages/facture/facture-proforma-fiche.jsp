@@ -29,7 +29,7 @@
     pc.getChampByName("tiers").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
-    pc.getChampByName("montant").setLibelle("Montant HT");
+    pc.getChampByName("montant").setLibelle("Montant Total HT");
     pc.getChampByName("montanttva").setLibelle("Montant TVA");
     pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
     pc.getChampByName("montantttc").setLibelle("Montant TTC");
