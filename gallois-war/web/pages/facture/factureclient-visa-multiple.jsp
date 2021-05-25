@@ -12,7 +12,7 @@
     facture.setNomTable("factureclientMSumC");
     String listeCrt[] = {"id","daty","tierslib","designation","date_echeance"};
     String listeInt[] = {"daty","date_echeance"};
-    String libEntete[] = {"id","daty","tierslib","designation","tva","date_echeance", "montant", "montanttva", "montantttc"};
+    String libEntete[] = {"id","daty","tierslib","designation","tva","date_echeance", "montant", "montanttva", "montantttc","montantAvoir","montantpaye","montantreste"};
     PageRecherche pr = new PageRecherche(facture, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -27,7 +27,7 @@
     pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
     
     pr.setApres("facture/factureclient-visa-multiple.jsp");
-    String[] colSomme = {"montant", "montanttva", "montantttc"};
+    String[] colSomme = {"montant", "montanttva", "montantttc","montantAvoir","montantpaye","montantreste"};
     pr.creerObjetPage(libEntete, colSomme);%>
 
 <div class="content-wrapper">
@@ -54,14 +54,14 @@
             
             <%
                 
-                String libEnteteAffiche[] ={"id","daty","tiers","designation","tva","date echeance","montant HT", "montant TVA", "montant TTC"};
+                String libEnteteAffiche[] ={"id","daty","tiers","designation","tva","date echeance","montant HT", "montant TVA", "montant TTC","montant Avoir","montant payé","reste à payer"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");
                 
                 out.println(pr.getTableau().getHtmlWithCheckbox());
             %>
-
+            <a href="<%=pr.getLien()%>?but=transitionPaiement.jsp" class="btn btn-info">Payer</a>
         </form>
             <% out.println(pr.getBasPage());%>
     </section>

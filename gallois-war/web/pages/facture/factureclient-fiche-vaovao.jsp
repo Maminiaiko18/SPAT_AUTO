@@ -35,6 +35,8 @@
     pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
     pc.getChampByName("montantttc").setLibelle("Montant TTC");
     pc.getChampByName("date_echeance").setLibelle("Date echeance");
+    pc.getChampByName("montantpaye").setLibelle("Montant payé");
+    pc.getChampByName("montantreste").setLibelle("Reste à payer");
 //    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp", "id");
     e = (FactureClient) pc.getBase();
     String bute="facture/factureclient-fiche-vaovao.jsp";
