@@ -134,3 +134,9 @@ AS
           LEFT JOIN RUBRIQUE_ACTIVITE rub ON act.RUBRIQUE = rub.ID
           LEFT JOIN CATEGORIEFACTURATION cat ON rub.CATEGORIE = cat.ID
           LEFT JOIN V_client_categorie cl ON fc.tiers = CL.CDCLT;
+		  
+
+
+INSERT INTO MENUDYNAMIQUE
+(ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
+VALUES('MEN00741003', 'Analyse', 'fa fa-area-chart', '/spat/pages/globalnegoce.jsp?but=exploitants/activites-analyse.jsp', 3, 3, 'MEN0074100');
