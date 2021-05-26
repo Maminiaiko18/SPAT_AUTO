@@ -25,8 +25,16 @@ public class ChampDate extends Champ{
         String val = getValeur();
         if(mode.compareToIgnoreCase(MODEUPDATE) == 0){
             val = Utilitaire.convertDatyFormtoRealDatyFormat(getValeur());
+        }else{
+            val = Utilitaire.dateDuJour();
         }
-        temp = "<input name=" + getNom() + " type=" + getType() + " class=" + getCss() + "  id=" + getNom() + " value='" + val + "' onmouseover=\"datepicker('"+getNom()+"')\" " + getAutre() + ">";
+        if(getVisible()==false)
+        {
+            temp = "<input name=" + getNom() + " type='hidden' class=" + getCss() + "  id=" + getNom() + " value='" + val + "' onmouseover=\"datepicker('"+getNom()+"')\" " + getAutre() + ">";
+        }
+        else {
+            temp = "<input name=" + getNom() + " type=" + getType() + " class=" + getCss() + "  id=" + getNom() + " value='" + val + "' onmouseover=\"datepicker('"+getNom()+"')\" " + getAutre() + ">";
+        }
         setHtml(temp);
     }
 }
