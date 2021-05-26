@@ -20,6 +20,7 @@ import utilitaire.Utilitaire;
 import mg.spat.JournalCaisse;
 import user.UserEJBBean;
 import utilitaire.Constante;
+import mg.spat.stock.BonDeLivraisonClient;
 
 /**
  *
@@ -174,6 +175,29 @@ public class FactureClient extends ClassMere {
             throw e;
         }
         finally{
+            if(c != null && isOpen){
+                c.close();
+            }
+        }
+    }
+    
+    public BonDeLivraisonClient[] getBonDeLivraison(Connection c) throws Exception{
+	
+	boolean isOpen = false;
+	try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                isOpen = true;
+            }
+            BonDeLivraisonClient blc = new BonDeLivraisonClient();
+			blc.setNomTable("as_bondelivraison_cl");
+			BonDeLivraisonClient[] bondelivraisonclient = (BonDeLivraisonClient[]) CGenUtil.rechercher(blc, null, null, c, " and idbc ='"+this.getId()+"'");
+			return bondelivraisonclient;
+        }
+		catch(Exception e){
+            throw e;
+        }
+		finally{
             if(c != null && isOpen){
                 c.close();
             }
