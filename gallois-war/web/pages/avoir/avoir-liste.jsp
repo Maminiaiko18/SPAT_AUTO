@@ -40,7 +40,7 @@
         <%out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=facture/avoir-fiche.jsp"};
+            String lienTableau[] = {pr.getLien() + "?but=avoir/avoir-fiche.jsp"};
 
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
