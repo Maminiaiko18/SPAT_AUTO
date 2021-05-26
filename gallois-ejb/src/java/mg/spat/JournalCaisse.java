@@ -393,6 +393,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         fc = (FactureClient) fc.getById(this.getIdplacement(), "factureclientMSum_lib", c);
 
         if (fc != null) {
+            if(fc.getMontantreste() <= 0) throw new Exception("Facture déjà payée en totalité" + fc.getId());
             if (fc.getMontantreste() < this.getCredit()) {
                 throw new Exception("Montant supérieur au reste à payer");
             }
