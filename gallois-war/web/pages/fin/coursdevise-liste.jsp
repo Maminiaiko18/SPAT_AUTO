@@ -3,6 +3,8 @@
     Created on : 8 févr. 2021, 16:26:55
     Author     : ACER
 --%>
+<%@page import="java.sql.Date"%>
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="fin.Coursdevise"%>
 <%@page import="affichage.PageRecherche"%>
 <% 
@@ -17,8 +19,18 @@
         pr.getFormu().getChamp("iddevise").setLibelle("Devise");
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
-        pr.getFormu().getChamp("daty1").setDefaut(utilitaire.Utilitaire.dateDuJour());
-        pr.getFormu().getChamp("daty2").setDefaut(utilitaire.Utilitaire.dateDuJour());
+        Date firstDate = Utilitaire.dateDuJourSql();   
+        firstDate.setDate(1);        
+        Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
+        
+        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+        
+        if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+            pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+            pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+            
+        }
     
         pr.setOrdre(" order by daty desc");
         pr.setApres("fin/coursdevise-liste.jsp");
