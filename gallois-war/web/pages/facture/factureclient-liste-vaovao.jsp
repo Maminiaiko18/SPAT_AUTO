@@ -70,10 +70,10 @@
                 <div class="col-md-4">
                     Etat : 
                     <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("factureclientMSum_lib") == 0) {%>    
-                        <option value="factureclientMSum_lib" selected>Tous</option>
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("facture_client_union") == 0) {%>    
+                        <option value="facture_client_union" selected>Tous</option>
                         <% } else { %>
-                        <option value="factureclientMSum_lib" >Tous</option>
+                        <option value="facture_client_union" >Tous</option>
                         <% } %>
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("factureclientMSumC") == 0) {%>
                         <option value="factureclientMSumC" selected>Créée(s)</option>
