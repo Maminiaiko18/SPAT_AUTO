@@ -21,6 +21,7 @@ import mg.spat.JournalCaisse;
 import user.UserEJBBean;
 import utilitaire.Constante;
 import mg.spat.stock.BonDeLivraisonClient;
+import avoir.AvoirFC;
 
 /**
  *
@@ -202,6 +203,30 @@ public class FactureClient extends ClassMere {
                 c.close();
             }
         }
+    }
+    
+    public AvoirFC[] getAvoir(Connection c) throws Exception {
+        boolean ouvert = false;
+
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                
+                ouvert = true;
+            }
+            AvoirFC avoirFC = new AvoirFC();
+            avoirFC.setNomTable("avoirfc_vise");
+            AvoirFC[] avoir = (AvoirFC[]) CGenUtil.rechercher(avoirFC, null, null, c, " and idfacture = '" + this.getId() + "'");
+            return avoir;
+        } catch (Exception ex) {
+            
+            throw ex;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+        
     }
 
     @Override
