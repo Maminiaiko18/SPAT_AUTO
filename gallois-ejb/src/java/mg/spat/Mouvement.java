@@ -46,6 +46,9 @@ public class Mouvement extends ClassEtat {
     @Override
     public void viser(UserEJBBean u, Connection c) throws Exception{
         this.updateMouvementPrecedent(u, c);
+        if(this.getTypeMvt().equals(Constante.idtypeMvtDepart)){
+            creerActivite(u, c);
+        }
         if(this.estTouchee(c) && this.getEscale()==null){
             this.creerPrevision(u,c);
         }
@@ -76,6 +79,9 @@ public class Mouvement extends ClassEtat {
             Rubrique[]liste =(Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, "and categorie='"+ utilitaire.Constante.idcategorieCapitainerie +"' and objet='"+ mouvement.getQuaiprovenance()+"'");
             if(liste.length>0){
                 rubrique=liste[0];
+            }
+            else{
+                throw new Exception("Rubrique introuvable");
             }
             if(c!=null && verif==1) c.commit();
         }catch (Exception e) {
@@ -510,7 +516,8 @@ public class Mouvement extends ClassEtat {
             double qte = mvt[0].getDuree();
             int mois = Utilitaire.getMois(mvt[0].getDatearrivee()),
                 annee = Utilitaire.getAnnee(mvt[0].getDatearrivee());
-
+             
+            System.out.println("rub="+rub);
             act = new Activite(Utilitaire.dateDuJourSql(), rub.getDesignation(), this.getConsignataire(), rub.getId(), this.getNavire(),qte, mois, annee);
             
             u.createObject(act, c);
