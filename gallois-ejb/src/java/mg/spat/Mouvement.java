@@ -18,7 +18,7 @@ import service.SpatService;
 import user.UserEJBBean;
 import utilitaire.Constante;
 import utilitaire.UtilDB;
-import  mg.spat.exploitant.Rubrique;
+import mg.spat.exploitant.Rubrique;
 import user.UserEJB;
 import utilitaire.Utilitaire;
 
@@ -47,25 +47,25 @@ public class Mouvement extends ClassEtat {
     }
 
     @Override
-    public void viser(UserEJBBean u, Connection c) throws Exception{
+    public void viser(UserEJBBean u, Connection c) throws Exception {
         this.updateMouvementPrecedent(u, c);
-        if(this.getTypeMvt().equals(Constante.idtypeMvtDepart)){
+        if (this.getTypeMvt().equals(Constante.idtypeMvtDepart)) {
             creerActivite(u, c);
         }
-        if(this.estTouchee(c) && this.getEscale()==null){
-            this.creerPrevision(u,c);
+        if (this.estTouchee(c) && this.getEscale() == null) {
+            this.creerPrevision(u, c);
         }
         this.setMode("modif");
         this.setEtat(utilitaire.ConstanteEtat.getEtatValider());
-        u.updateObject(this,c);
+        u.updateObject(this, c);
 //        super.viser(u, c);
-        
+
     }
-    
-    public Rubrique findRubrique(Connection c) throws Exception{
-        
-        Rubrique rubrique=null;
-         int verif = 0;
+
+    public Rubrique findRubrique(Connection c) throws Exception {
+
+        Rubrique rubrique = null;
+        int verif = 0;
         try {
             if (c == null) {
                 c = new UtilDB().GetConn();
@@ -75,19 +75,20 @@ public class Mouvement extends ClassEtat {
             MouvementLibComplet mouvement = new MouvementLibComplet();
             mouvement.setNomTable("mouvementlibcomplet");
             mouvement.setId(this.getId());
-            MouvementLibComplet[]listeMouvement=(MouvementLibComplet[]) CGenUtil.rechercher(mouvement, null, null, c, "");
-            if(listeMouvement.length>0){
-                mouvement=listeMouvement[0];
+            MouvementLibComplet[] listeMouvement = (MouvementLibComplet[]) CGenUtil.rechercher(mouvement, null, null, c, "");
+            if (listeMouvement.length > 0) {
+                mouvement = listeMouvement[0];
             }
-            Rubrique[]liste =(Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, "and categorie='"+ utilitaire.Constante.idcategorieCapitainerie +"' and objet='"+ mouvement.getQuaiprovenance()+"'");
-            if(liste.length>0){
-                rubrique=liste[0];
-            }
-            else{
+            Rubrique[] liste = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, "and categorie='" + utilitaire.Constante.idcategorieCapitainerie + "' and objet='" + mouvement.getQuaiprovenance() + "'");
+            if (liste.length > 0) {
+                rubrique = liste[0];
+            } else {
                 throw new Exception("Rubrique introuvable");
             }
-            if(c!=null && verif==1) c.commit();
-        }catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
             if (c != null && verif == 1) {
                 c.rollback();
             }
@@ -99,8 +100,8 @@ public class Mouvement extends ClassEtat {
         }
         return rubrique;
     }
-    
-    public void  creerPrevision(UserEJBBean u,Connection c) throws Exception{
+
+    public void creerPrevision(UserEJBBean u, Connection c) throws Exception {
         int verif = 0;
         try {
             if (c == null) {
@@ -110,7 +111,7 @@ public class Mouvement extends ClassEtat {
             }
             /*eto no apetraka ny code*/
 //            creer prevision a partir des information du mouvement
-            Prevision prevision=new Prevision();
+            Prevision prevision = new Prevision();
             prevision.setProvenance(this.getProvenance());
             prevision.setConsignataire(this.getConsignataire());
             prevision.setCargaison(this.getCargaison());
@@ -122,11 +123,13 @@ public class Mouvement extends ClassEtat {
             prevision.setEtat(utilitaire.ConstanteEtat.getEtatValider());
             prevision.setNavire(this.getNavire());
 //            inserer prevision dans la base
-            prevision.createObject(u.getUser().getRefuser()+"", c);
-            
+            prevision.createObject(u.getUser().getRefuser() + "", c);
+
             this.setEscale(prevision.getId());
-                        
-            if(c!=null && verif==1) c.commit();
+
+            if (c != null && verif == 1) {
+                c.commit();
+            }
         } catch (Exception e) {
             if (c != null && verif == 1) {
                 c.rollback();
@@ -138,24 +141,25 @@ public class Mouvement extends ClassEtat {
             }
         }
     }
-    boolean ifDateArriverMin(Mouvement[] liste){
-        boolean min=false;
-        
-        if(this.getDatearrivee()!=null){
-            min=true;
-            for(int i=0;i<liste.length;i++){
-                System.out.println(liste[i].getDatearrivee()+"------------------"+(this.getDatearrivee()));
-                if(liste[i]!= null && liste[i].getDatearrivee()!=null && this.getDatearrivee()!=null && liste[i].getDatearrivee().before(this.getDatearrivee())){
-                    min=false;
+
+    boolean ifDateArriverMin(Mouvement[] liste) {
+        boolean min = false;
+
+        if (this.getDatearrivee() != null) {
+            min = true;
+            for (int i = 0; i < liste.length; i++) {
+                System.out.println(liste[i].getDatearrivee() + "------------------" + (this.getDatearrivee()));
+                if (liste[i] != null && liste[i].getDatearrivee() != null && this.getDatearrivee() != null && liste[i].getDatearrivee().before(this.getDatearrivee())) {
+                    min = false;
                     break;
                 }
             }
         }
         return min;
     }
-    
-    public boolean estTouchee(Connection c) throws SQLException, Exception{
-        boolean verifier=false;
+
+    public boolean estTouchee(Connection c) throws SQLException, Exception {
+        boolean verifier = false;
         int verif = 0;
         try {
             if (c == null) {
@@ -164,24 +168,24 @@ public class Mouvement extends ClassEtat {
                 verif = 1;
             }
             /*eto no apetraka ny code*/
-            if(this.getTypeMvt().compareTo(Constante.tpmvtarrive)==0){
-                if(this.getEscale()==null){
-                    verifier=true;
-                }
-                else{
-                    Mouvement[] liste =this.getMouvementMemeEscale(c);
+            if (this.getTypeMvt().compareTo(Constante.tpmvtarrive) == 0) {
+                if (this.getEscale() == null) {
+                    verifier = true;
+                } else {
+                    Mouvement[] liste = this.getMouvementMemeEscale(c);
                     System.out.println(liste);
-                    if(liste==null || liste.length==0){
-                        verifier =true;
-                    }
-                    else{
-                        if(ifDateArriverMin(liste)){
-                            verifier=true;
+                    if (liste == null || liste.length == 0) {
+                        verifier = true;
+                    } else {
+                        if (ifDateArriverMin(liste)) {
+                            verifier = true;
                         }
                     }
                 }
             }
-            if(c!=null && verif==1) c.commit();
+            if (c != null && verif == 1) {
+                c.commit();
+            }
         } catch (Exception e) {
             if (c != null && verif == 1) {
                 c.rollback();
@@ -202,7 +206,7 @@ public class Mouvement extends ClassEtat {
     public void setEscalelib(String escalelib) {
         this.escalelib = escalelib;
     }
-    
+
     public String getCargaison() {
         return cargaison;
     }
@@ -233,9 +237,9 @@ public class Mouvement extends ClassEtat {
     public void setHeure_depart(String heure_depart) throws Exception {
         try {
             if (getMode().compareToIgnoreCase("modif") == 0) {
-                if (heure_depart != null && heure_depart.compareTo("") != 0 && this.getDatearrivee() != null) {
+                if (heure_depart != null && heure_depart.trim().compareTo("") != 0 && this.getDatearrivee() != null) {
                     Utilitaire.testHeureValide(heure_depart);
-                    if (Utilitaire.compareDaty(this.getDate_depart(), this.getDatearrivee()) == 0 && Utilitaire.comparerHeure(this.getHeure(), heure_depart) == -1 && this.getTypeMvt().compareTo(Constante.idtypeMvtDepart) != 0) {
+                    if (this.getTypeMvt().compareTo(Constante.idtypeMvtDepart) != 0 && Utilitaire.compareDaty(this.getDate_depart(), this.getDatearrivee()) == 0 && Utilitaire.comparerHeure(this.getHeure(), heure_depart) == -1) {
                         throw new Exception("Heure de départ invalide par rapport à l heure d arrivee");
                     }
                 }
@@ -250,7 +254,7 @@ public class Mouvement extends ClassEtat {
     public Mouvement() {
         super.setNomTable("mouvement");
     }
-    
+
     public String getCouleur() {
         return couleur;
     }
@@ -258,7 +262,7 @@ public class Mouvement extends ClassEtat {
     public void setCouleur(String couleur) {
         this.couleur = couleur;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -309,12 +313,12 @@ public class Mouvement extends ClassEtat {
     }
 
     public void setDestination(String destination) throws Exception {
-        if(this.getMode().equalsIgnoreCase("modif")) {
-            if(this.getProvenance().equalsIgnoreCase(destination)) {
+        if (this.getMode().equalsIgnoreCase("modif")) {
+            if (this.getProvenance().equalsIgnoreCase(destination)) {
                 throw new Exception("La destination et la provenance ne peuvent être la même!");
             }
         }
-        
+
         this.destination = destination;
     }
 
@@ -345,32 +349,35 @@ public class Mouvement extends ClassEtat {
     public void setDatearrivee(Date dateArrivee) {
         this.datearrivee = dateArrivee;
     }
-    
+
     public static Timestamp getTimestamp(Date d, String h) throws Exception {
         SimpleDateFormat dateJava = new SimpleDateFormat("yyyy-MM-dd");
         String date = dateJava.format(d) + " " + Utilitaire.formatHeureMinSec(h);
-        
+
         return Timestamp.valueOf(date);
     }
-    
+
     public static double diffEnHeure(Date dsup, String hsup, Date dinf, String hinf) throws Exception {
         Timestamp datesup = getTimestamp(dsup, hsup),
                 dateinf = getTimestamp(dinf, hinf);
-        
+
         long diffInMillies = Math.abs(datesup.getTime() - dateinf.getTime());
         double diff = TimeUnit.HOURS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        
+
         return diff;
     }
-    
+
     public double getDuree() throws Exception {
-//        if (this.getDatearrivee() != null && this.getDate_depart() != null) {
-        if (this.getDatearrivee() != null && this.getHeure() != null && this.getDate_depart() != null && this.getHeure_depart() != null) {
+        if (this.getTypeMvt() != null && this.getTypeMvt().compareTo(Constante.idtypeMvtDepart) != 0) {
+            if (this.getDatearrivee() != null && this.getHeure() != null && !this.getHeure().trim().equalsIgnoreCase("") && this.getDate_depart() != null && this.getHeure_depart() != null && !this.getHeure_depart().trim().equalsIgnoreCase("")) {
 //            return Utilitaire.diffJourDatyGallois(this.getDate_depart(),this.getDatearrivee());
-            return diffEnHeure(this.getDatearrivee(), this.getHeure(), this.getDate_depart(), this.getHeure_depart());
-        } else {
-            return this.duree;
+//                System.out.println("date dep " + this.getDate_depart() + " " + this.getHeure_depart());
+//                System.out.println("date arr " + this.getDatearrivee() + " " + this.getHeure());
+                return diffEnHeure(this.getDatearrivee(), this.getHeure(), this.getDate_depart(), this.getHeure_depart());
+            }
         }
+        
+        return this.duree;
     }
 
     public void setDuree(double duree) throws Exception {
@@ -389,7 +396,7 @@ public class Mouvement extends ClassEtat {
 
     public void setHeure(String heure) throws Exception {
         try {
-            if (heure != null && heure.compareTo("") != 0) {
+            if (heure != null && heure.trim().compareTo("") != 0) {
                 Utilitaire.testHeureValide(heure);
             }
             this.heure = heure;
@@ -498,11 +505,11 @@ public class Mouvement extends ClassEtat {
             }
             Mouvement mvt = new Mouvement();
             String order = "";
-            
+
             if (this.getTypeMvt().compareTo(Constante.getTpmvtdepart()) == 0) {
                 mvt.setNomTable("MOUVEMENT_ARRIVEE_PREV");
                 order = " order by datearrivee desc, heure desc ";
-            }else{
+            } else {
                 mvt.setNomTable("MOUVEMENT_DEPART_PREV");
                 order = " order by date_depart desc, heure_depart desc ";
             }
@@ -515,8 +522,8 @@ public class Mouvement extends ClassEtat {
             }
         }
     }
-    
-     public Activite creerActivite(UserEJB u, Connection c) throws Exception {
+
+    public Activite creerActivite(UserEJB u, Connection c) throws Exception {
         int verif = 0;
         Activite act = null;
 
@@ -537,13 +544,13 @@ public class Mouvement extends ClassEtat {
 
             double qte = mvt[0].getDuree();
             int mois = Utilitaire.getMois(mvt[0].getDatearrivee()),
-                annee = Utilitaire.getAnnee(mvt[0].getDatearrivee());
-             
-            System.out.println("rub="+rub);
-            act = new Activite(Utilitaire.dateDuJourSql(), rub.getDesignation(), this.getConsignataire(), rub.getId(), this.getNavire(),qte, mois, annee);
-            
+                    annee = Utilitaire.getAnnee(mvt[0].getDatearrivee());
+
+            System.out.println("rub=" + rub);
+            act = new Activite(Utilitaire.dateDuJourSql(), rub.getDesignation(), this.getConsignataire(), rub.getId(), this.getNavire(), qte, mois, annee);
+
             u.createObject(act, c);
-            
+
             if (verif == 1) {
                 c.commit();
             }
@@ -586,7 +593,7 @@ public class Mouvement extends ClassEtat {
                 verif = 1;
             }
             String ref = String.valueOf(user.getUser().getRefuser());
-            System.out.println("Refuser dans visa = "+ref);
+            System.out.println("Refuser dans visa = " + ref);
             if (this.getTypeMvt().compareToIgnoreCase(Constante.getTpmvtdepart()) == 0) {
                 Mouvement[] precedent = this.getMouvementMemeEscalePrec(c);
                 if (precedent.length != 0) {
