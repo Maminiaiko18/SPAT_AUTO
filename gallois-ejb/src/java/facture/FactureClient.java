@@ -159,10 +159,25 @@ public class FactureClient extends ClassMere {
     }
     
     public JournalCaisse[] getPaiement(Connection c) throws Exception{
-        JournalCaisse j = new JournalCaisse();
-        j.setNomTable("journalcaisselib_vise");
-        JournalCaisse[] journals = (JournalCaisse[]) CGenUtil.rechercher(j, null, null, c, " and idplacement ='"+this.getId()+"'");
-        return journals;
+        boolean isOpen = false;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                isOpen = true;
+            }
+            JournalCaisse j = new JournalCaisse();
+            j.setNomTable("journalcaisselib_vise");
+            JournalCaisse[] journals = (JournalCaisse[]) CGenUtil.rechercher(j, null, null, c, " and idplacement ='"+this.getId()+"'");
+            return journals;
+        }
+        catch(Exception e){
+            throw e;
+        }
+        finally{
+            if(c != null && isOpen){
+                c.close();
+            }
+        }
     }
 
     @Override
