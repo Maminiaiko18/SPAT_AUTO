@@ -14,6 +14,7 @@ import service.SpatService;
 import user.UserEJBBean;
 import utilitaire.Constante;
 import utilitaire.UtilDB;
+import  mg.spat.exploitant.Rubrique;
 import utilitaire.Utilitaire;
 
 /**
@@ -51,6 +52,41 @@ public class Mouvement extends ClassEtat {
         u.updateObject(this,c);
 //        super.viser(u, c);
         
+    }
+    
+    public Rubrique findRubrique(Connection c) throws Exception{
+        
+        Rubrique rubrique=null;
+         int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            MouvementLibComplet mouvement = new MouvementLibComplet();
+            mouvement.setNomTable("mouvementlibcomplet");
+            mouvement.setId(this.getId());
+            MouvementLibComplet[]listeMouvement=(MouvementLibComplet[]) CGenUtil.rechercher(mouvement, null, null, c, "");
+            if(listeMouvement.length>0){
+                mouvement=listeMouvement[0];
+            }
+            Rubrique[]liste =(Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, "and categorie='"+ utilitaire.Constante.idcategorieCapitainerie +"' and objet='"+ mouvement.getQuaiprovenance()+"'");
+            if(liste.length>0){
+                rubrique=liste[0];
+            }
+            if(c!=null && verif==1) c.commit();
+        }catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return rubrique;
     }
     
     public void  creerPrevision(UserEJBBean u,Connection c) throws Exception{

@@ -2,6 +2,7 @@ package utilitaire;
 
 public class Constante {
     
+    public static String idcategorieCapitainerie="CATFC001";
     public static String conteneurTypeSaisie = "TSAI001";
     public static String tonnage = "TMES001";
     public static String conteneur = "TS0001";
