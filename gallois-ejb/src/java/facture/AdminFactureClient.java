@@ -10,6 +10,7 @@ import java.sql.Connection;
 import user.UserEJB;
 import user.UserEJBBean;
 import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -70,6 +71,7 @@ public class AdminFactureClient {
             String idTiers = listeFactureClient[0].getTiers();
 
             for (FactureClient fc : listeFactureClient) {
+                if(fc.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Ne peut payer une facture non visée " + fc.getId());
                 if (!fc.getTiers().equalsIgnoreCase(idTiers)) {
                     throw new Exception("Tiers différents pour les factures à payer");
                 }
