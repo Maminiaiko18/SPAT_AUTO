@@ -21,8 +21,8 @@
     PageConsulte pc = new PageConsulte(jc, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
     pc.setTitre("Fiche Journal Caisse");
     pc.getChampByName("dateSaisie").setVisible(false);
-    pc.getChampByName("debit").setLibelle("Débit");
-    pc.getChampByName("credit").setLibelle("Crédit");
+    pc.getChampByName("credit").setLibelle("Débit");
+    pc.getChampByName("debit").setLibelle("Crédit");
     pc.getChampByName("dateEffet").setLibelle("Date");
     pc.getChampByName("numPiece").setLibelle("Num&eacute;ro pi&egrave;ce");
     pc.getChampByName("idTypeCheque").setLibelle("Type ch&egrave;que");
