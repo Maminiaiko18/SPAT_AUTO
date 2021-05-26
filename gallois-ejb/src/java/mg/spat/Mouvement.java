@@ -10,6 +10,9 @@ import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 import mg.spat.exploitant.Activite;
 import service.SpatService;
 import user.UserEJBBean;
@@ -342,10 +345,29 @@ public class Mouvement extends ClassEtat {
     public void setDatearrivee(Date dateArrivee) {
         this.datearrivee = dateArrivee;
     }
-
-    public double getDuree() {
-        if (this.getDatearrivee() != null && this.getDate_depart() != null) {
-            return Utilitaire.diffJourDatyGallois(this.getDate_depart(),this.getDatearrivee());
+    
+    public static Timestamp getTimestamp(Date d, String h) throws Exception {
+        SimpleDateFormat dateJava = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateJava.format(d) + " " + Utilitaire.formatHeureMinSec(h);
+        
+        return Timestamp.valueOf(date);
+    }
+    
+    public static double diffEnHeure(Date dsup, String hsup, Date dinf, String hinf) throws Exception {
+        Timestamp datesup = getTimestamp(dsup, hsup),
+                dateinf = getTimestamp(dinf, hinf);
+        
+        long diffInMillies = Math.abs(datesup.getTime() - dateinf.getTime());
+        double diff = TimeUnit.HOURS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        
+        return diff;
+    }
+    
+    public double getDuree() throws Exception {
+//        if (this.getDatearrivee() != null && this.getDate_depart() != null) {
+        if (this.getDatearrivee() != null && this.getHeure() != null && this.getDate_depart() != null && this.getHeure_depart() != null) {
+//            return Utilitaire.diffJourDatyGallois(this.getDate_depart(),this.getDatearrivee());
+            return diffEnHeure(this.getDatearrivee(), this.getHeure(), this.getDate_depart(), this.getHeure_depart());
         } else {
             return this.duree;
         }
