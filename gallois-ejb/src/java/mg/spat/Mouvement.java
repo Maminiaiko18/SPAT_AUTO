@@ -10,11 +10,13 @@ import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import mg.spat.exploitant.Activite;
 import service.SpatService;
 import user.UserEJBBean;
 import utilitaire.Constante;
 import utilitaire.UtilDB;
 import  mg.spat.exploitant.Rubrique;
+import user.UserEJB;
 import utilitaire.Utilitaire;
 
 /**
@@ -484,6 +486,50 @@ public class Mouvement extends ClassEtat {
                 c.close();;
             }
         }
+    }
+    
+     public Activite creerActivite(UserEJB u, Connection c) throws Exception {
+        int verif = 0;
+        Activite act = null;
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            Mouvement[] mvt = getMouvementMemeEscalePrec(c);
+
+            if (mvt == null || mvt.length == 0) {
+                throw new Exception("Pas de mouvement même escale");
+            }
+
+            Rubrique rub = findRubrique(c);
+
+            double qte = mvt[0].getDuree();
+            int mois = Utilitaire.getMois(mvt[0].getDatearrivee()),
+                annee = Utilitaire.getAnnee(mvt[0].getDatearrivee());
+
+            act = new Activite(Utilitaire.dateDuJourSql(), rub.getDesignation(), this.getConsignataire(), rub.getId(), this.getNavire(),qte, mois, annee);
+            
+            u.createObject(act, c);
+            
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return act;
     }
 
     public Mouvement[] getMouvementMemeEscale(Connection c) throws Exception {
