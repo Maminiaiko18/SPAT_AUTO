@@ -2733,6 +2733,10 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             if (liste.length == 0) {
                 throw new Exception("Objet inexistante");
             }
+            if(liste[0] instanceof facture.FactureClient) {
+                ((facture.FactureClient) liste[0]).controlerAnnulation(c);
+            }
+            
             this.updateEtat(liste[0], ConstanteEtat.getEtatCreer(), id, c);
 
         } catch (Exception e) {

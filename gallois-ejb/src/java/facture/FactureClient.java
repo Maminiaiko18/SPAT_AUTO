@@ -90,6 +90,12 @@ public class FactureClient extends ClassMere {
     public void setTierslib(String tierslib) {
         this.tierslib = tierslib;
     }
+    
+    public void controlerAnnulation(Connection c) throws Exception {
+        if(getAvoir(c).length > 0) throw new Exception("Impossible à annuler: avoir existant");
+        if(getBonDeLivraison(c).length > 0) throw new Exception("Impossible à annuler: bon de livraison existant");
+        if(getPaiement(c).length > 0) throw new Exception("Impossible à annuler: paiement existant");
+    }
 
     @Override
     public ClassMAPTable createObject(String iduser, Connection cnctn) throws Exception {
@@ -192,7 +198,7 @@ public class FactureClient extends ClassMere {
             }
             BonDeLivraisonClient blc = new BonDeLivraisonClient();
 			blc.setNomTable("as_bondelivraison_cl");
-			BonDeLivraisonClient[] bondelivraisonclient = (BonDeLivraisonClient[]) CGenUtil.rechercher(blc, null, null, c, " and idbc ='"+this.getId()+"'");
+			BonDeLivraisonClient[] bondelivraisonclient = (BonDeLivraisonClient[]) CGenUtil.rechercher(blc, null, null, c, " and idbc ='"+this.getId()+"' and etat >= " + ConstanteEtat.getEtatValider());
 			return bondelivraisonclient;
         }
 		catch(Exception e){
