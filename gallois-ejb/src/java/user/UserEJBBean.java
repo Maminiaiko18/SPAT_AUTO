@@ -3044,10 +3044,11 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 //                throw new Exception("Duplication impossible pour emprunt de livre");
 //            }
             if (o instanceof bean.ClassMere) {
-                o.setValChamp("id", id);
-                o.setNomTable(o.getNomTable());
+                ClassMere mere = (ClassMere) (Class.forName(o.getClassName()).newInstance());
+                mere.setValChamp("id", id);
+                mere.setNomTable(o.getNomTable());
 
-                ClassMere[] liste = (ClassMere[]) CGenUtil.rechercher(o, null, null, c, "");
+                ClassMere[] liste = (ClassMere[]) CGenUtil.rechercher(mere, null, null, c, "");
 
                 if (liste.length == 0) {
                     throw new Exception("Objet inexistant");
