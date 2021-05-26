@@ -12,7 +12,7 @@
 <%
     try {
         FactureClient ff = new FactureClient();
-        ff.setNomTable("factureclientMSum_lib");
+        ff.setNomTable("facture_client_union");
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             ff.setNomTable(request.getParameter("etat"));
         }
