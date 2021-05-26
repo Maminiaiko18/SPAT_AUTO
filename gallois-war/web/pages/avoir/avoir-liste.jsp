@@ -30,7 +30,7 @@
         <h1>Liste avoir</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=facture/avoir-liste.jsp" method="post" name="incident" id="incident">
+        <form action="<%=pr.getLien()%>?but=avoir/avoir-liste.jsp" method="post" name="incident" id="incident">
             <%
                 String libelleAffiche[] = {};
                 pr.getTableau().setLibelleAffiche(libelleAffiche);
