@@ -37,6 +37,8 @@
     pc.getChampByName("idDevise").setLibelle("devise");
     pc.getChampByName("valCaisse").setLibelle("caisse");
     pc.getChampByName("DESCETYPECHEQUE").setLibelle("mode de paiement");
+    pc.getChampByName("idordre").setLibelle("OP");
+    pc.getChampByName("idplacement ").setLibelle("Source");
     
     pc.setTitre("Fiche journal");
     pc.getChampByName("id").setVisible(false);
