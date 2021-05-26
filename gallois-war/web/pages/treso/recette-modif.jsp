@@ -36,7 +36,7 @@
         liste[0] = new Liste("caisse", esc, "VAL", "id");
 
         TypeObjet op = new TypeObjet();
-        op.setNomTable("DEVISEDEMAT");
+        op.setNomTable("DEVISE");
         liste[1] = new Liste("iddevise", op, "desce", "id");
         TypeObjet mode = new TypeObjet();
         mode.setNomTable("MODEPAIEMENTCV");
