@@ -75,7 +75,7 @@
 
         //pi.getFormu().getChamp("idplacement").setAutre("readonly");
        
-        pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(""+facture.getMttc()));
+        pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(""+facture.getReste()));
         
         pi.getFormu().getChamp("idplacement").setDefaut(""+facture.getNmfact());
         pi.getFormu().getChamp("idplacement").setLibelle("Placement");

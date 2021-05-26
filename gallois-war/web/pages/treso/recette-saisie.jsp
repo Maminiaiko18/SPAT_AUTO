@@ -38,7 +38,7 @@
         pi.getFormu().getChamp("datesaisie").setVisible(false);
         pi.getFormu().getChamp("dateeffet").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("numcheque").setLibelle("Numero du cheque");        
-        pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(""+facture.getMttc()));
+        pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(""+facture.getReste()));
         pi.getFormu().getChamp("idplacement").setDefaut(""+facture.getNmfact());
         pi.getFormu().getChamp("idplacement").setAutre("readonly");
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
