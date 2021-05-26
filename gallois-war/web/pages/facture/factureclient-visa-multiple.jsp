@@ -9,7 +9,7 @@
 <%
     try {
         FactureClient facture = new FactureClient();
-        facture.setNomTable("factureclientMSumC");
+        facture.setNomTable("facture_client_union");
         String listeCrt[] = {"id", "daty", "tierslib", "designation", "date_echeance"};
         String listeInt[] = {"daty", "date_echeance"};
         String libEntete[] = {"id", "daty", "tierslib", "designation", "tva", "date_echeance", "montant", "montanttva", "montantttc", "montantAvoir", "montantpaye", "montantreste"};
