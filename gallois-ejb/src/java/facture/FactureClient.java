@@ -157,6 +157,13 @@ public class FactureClient extends ClassMere {
             }
         }
     }
+    
+    public JournalCaisse[] getPaiement(Connection c) throws Exception{
+        JournalCaisse j = new JournalCaisse();
+        j.setNomTable("journalcaisselib_vise");
+        JournalCaisse[] journals = (JournalCaisse[]) CGenUtil.rechercher(j, null, null, c, " and idplacement ='"+this.getId()+"'");
+        return journals;
+    }
 
     @Override
     public void construirePK(Connection c) throws Exception {

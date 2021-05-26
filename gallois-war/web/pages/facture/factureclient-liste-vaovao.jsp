@@ -38,9 +38,9 @@
         String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
         String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
         
-        if(request.getParameter("date_echeance1") == null && request.getParameter("date_echeance2") == null){
-            pr.getFormu().getChamp("date_echeance1").setDefaut(debutDate);
-            pr.getFormu().getChamp("date_echeance2").setDefaut(dateFin);
+        if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+            pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+            pr.getFormu().getChamp("daty2").setDefaut(dateFin);
             
         }
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
