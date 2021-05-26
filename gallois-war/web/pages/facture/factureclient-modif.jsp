@@ -39,6 +39,10 @@ try{
     pi.getFormu().getChamp("tierslib").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("montantavoir").setVisible(false);
+    pi.getFormu().getChamp("Montantpaye").setVisible(false);
+    pi.getFormu().getChamp("Montantreste").setVisible(false);
+    pi.getFormu().getChamp("Contact").setVisible(false);
+    pi.getFormu().getChamp("Adresse").setVisible(false);
     
     
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
