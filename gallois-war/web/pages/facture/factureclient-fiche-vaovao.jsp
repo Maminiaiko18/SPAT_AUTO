@@ -21,7 +21,7 @@
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
     FactureClient e = new FactureClient();
-    e.setNomTable("factureclientMSum_lib");
+    e.setNomTable("facture_client_union");
     PageConsulte pc = new PageConsulte(e, request, u);
     pc.setTitre("FICHE FACTURE CLIENT");
     
