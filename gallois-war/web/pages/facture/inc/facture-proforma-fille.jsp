@@ -14,7 +14,7 @@
 <%
     FactureProformaDetails cht = new FactureProformaDetails();
     cht.setNomTable("FACTURE_CLIENT_PROFMONTANT");
-    String libEntete[] = {"id", "designation", "quantite","devise","compte","pu", "taux","montanttva","montanttaux"};
+    String libEntete[] = {"id", "designation", "quantite","devise","compte","pu", "taux", "tva", "montanttva","montanttaux"};
     String listeCrt[] = {"idmere"};
     String listeInt[] = {};
 
@@ -23,7 +23,7 @@
     pr.setLien((String) session.getValue("lien"));
     String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "designation", "quantité", "devise","compte","pu", "taux","Montant tva","montant"};
+    String libEnteteAffiche[] = {"id", "designation", "quantité", "devise","compte","pu", "taux", "TVA", "Montant tva","montant"};
     pr.getTableau().setLibeEntete(libEnteteAffiche);
     FactureClientDetails[] liste=(FactureClientDetails[])pr.getTableau().getData();
     if(pr.getTableau().getHtml() != null){

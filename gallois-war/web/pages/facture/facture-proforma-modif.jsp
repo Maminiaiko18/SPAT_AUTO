@@ -59,6 +59,7 @@ try{
     pi.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
     pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
+    pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
     
     mere = (FactureProforma) pi.getBase();
     pi.preparerDataFormu();
