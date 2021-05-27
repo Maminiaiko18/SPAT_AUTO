@@ -16,11 +16,14 @@
         String autreparsley = "data-parsley-range='[8, 40]' required";
         JournalCaisse pj = new JournalCaisse();
 
+        PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
+        
         FactureAnalyse facture = new FactureAnalyse();
         String idfact = request.getParameter("idFacture");
-        boolean checkFact = idfact.startsWith(Constante.fcPrefix);
+        
 
         if (idfact != null) {
+            boolean checkFact = idfact.startsWith(Constante.fcPrefix);
             FactureAnalyse temporaire = new FactureAnalyse();
             String v = request.getParameter("vue");
             if (v != null) {
@@ -39,12 +42,20 @@
             if (liste != null && liste.length > 0) {
                 facture = liste[0];
             }
+            double reste = checkFact ? facture.getReste() : facture.getMontantreste();
+            String client = checkFact ? facture.getClient() : facture.getTiers();
+            
+            pi.getFormu().getChamp("libelle").setDefaut(facture.getDesignation());
+            pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + reste));
+
+            pi.getFormu().getChamp("idplacement").setDefaut("" + facture.getNmfact());
+            pi.getFormu().getChamp("tiers").setDefaut(client);
+            pi.getFormu().getChamp("idplacement").setDefaut(idfact);
         }
         
-        double reste = checkFact ? facture.getReste() : facture.getMontantreste();
-        String client = checkFact ? facture.getClient() : facture.getTiers();
         
-        PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
+        
+        
 
         affichage.Liste[] liste = new affichage.Liste[4];
 
@@ -72,7 +83,7 @@
         pi.getFormu().getChamp("dateEffet").setLibelle("Date Effet");
         pi.getFormu().getChamp("numPiece").setLibelle("Numéro pièce");
         pi.getFormu().getChamp("libelle").setLibelle("Libellé");
-        pi.getFormu().getChamp("libelle").setDefaut(facture.getDesignation());
+        
         pi.getFormu().getChamp("debit").setLibelle("Crédit");
         pi.getFormu().getChamp("credit").setLibelle("Débit");
         pi.getFormu().getChamp("idtypecheque").setLibelle("Type");
@@ -83,16 +94,14 @@
         pi.getFormu().getChamp("designation").setVisible(false);
         pi.getFormu().getChamp("dateEffet").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("idTypeCheque").setDefaut(Constante.typeCheque);
-        pi.getFormu().getChamp("tiers").setDefaut(client);
+        
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp");
         pi.getFormu().getChamp("idordre").setAutre("readonly");
 
         //pi.getFormu().getChamp("idplacement").setAutre("readonly");
-        pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + reste));
-
-        pi.getFormu().getChamp("idplacement").setDefaut("" + facture.getNmfact());
+        
         pi.getFormu().getChamp("idplacement").setLibelle("Placement");
 
         if (request.getParameter("id") != null) {
@@ -141,7 +150,7 @@
         }
 
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
-        pi.getFormu().getChamp("idplacement").setDefaut(idfact);
+        
 
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();
