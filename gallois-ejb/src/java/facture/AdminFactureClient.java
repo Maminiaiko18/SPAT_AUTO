@@ -41,7 +41,8 @@ public class AdminFactureClient {
     public void findFactureClient(String[] ids, Connection c) throws Exception {
         String id = Utilitaire.tabToString(ids, "'", ",");
         FactureClient fc = new FactureClient();
-        fc.setNomTable("factureclientMSum_lib");
+        //fc.setNomTable("factureclientMSum_lib");
+        fc.setNomTable("facture_client_union");
         FactureClient[] listeFact = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and  id in(" + id + ")");
         this.setListeFactureClient(listeFact);
     }
