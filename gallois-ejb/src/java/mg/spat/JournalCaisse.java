@@ -390,7 +390,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public void checkMontantFactureClient(Connection c) throws Exception {
         FactureClient fc = new FactureClient();
 
-        fc = (FactureClient) fc.getById(this.getIdplacement(), "factureclientMSum_lib", c);
+        fc = (FactureClient) fc.getById(this.getIdplacement(), "FACTURE_CLIENT_UNION", c);
 
         if (fc != null) {
             if(fc.getMontantreste() <= 0) throw new Exception("Facture déjà payée en totalité" + fc.getId());
