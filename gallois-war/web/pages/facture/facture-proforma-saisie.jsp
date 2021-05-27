@@ -52,6 +52,7 @@
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
+        pi.getFormufle().getChamp("tva_"+i).setDefaut(""+Constante.getTvaDefaut());
     }
     
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
@@ -64,6 +65,7 @@
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
     pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+    pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     

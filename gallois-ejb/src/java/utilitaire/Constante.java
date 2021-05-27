@@ -99,6 +99,15 @@ public class Constante {
     public static final int rangMahitaNyHafa = 6;
     public static String bc = "/SPAT/DG/DECOMAA-";
     public static final int longueurNumeroBordereau = 4;
+    public static int tvaDefaut = 20;
+
+    public static int getTvaDefaut() {
+        return tvaDefaut;
+    }
+
+    public static void setTvaDefaut(int tvaDefaut) {
+        Constante.tvaDefaut = tvaDefaut;
+    }
 
     public static int getRangMahitaNyHafa() {
         return rangMahitaNyHafa;
