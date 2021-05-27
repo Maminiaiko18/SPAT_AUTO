@@ -38,7 +38,7 @@
     <body class="skin-blue sidebar-mini">
         <div class="wrapper">
             <section class="content-header">
-                <h1>Choix Client</h1>
+                <h1>Choix activit&&eacute;</h1>
             </section>
             <section class="content">
                 <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="personneliste" id="personneliste">
