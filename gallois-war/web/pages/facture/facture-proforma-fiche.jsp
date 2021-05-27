@@ -31,7 +31,8 @@
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("montant").setLibelle("Montant Total HT");
     pc.getChampByName("montanttva").setLibelle("Montant TVA");
-    pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
+    //pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
+    pc.getChampByName("montantavoir").setVisible(false);
     pc.getChampByName("montantttc").setLibelle("Montant TTC");
     pc.getChampByName("date_echeance").setLibelle("Date echeance");
 //    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp", "id");

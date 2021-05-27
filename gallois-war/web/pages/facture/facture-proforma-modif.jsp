@@ -7,7 +7,7 @@
 <%@ page import="affichage.*" %>
 <%
 try{
-    String titrePage = "Modification Facture Client" ,
+    String titrePage = "Modification Facture Proforma" ,
             classeMere = "facture.FactureProforma" ,
             classeFille = "facture.FactureProformaDetails",
             buteLien = "facture/facture-proforma-modif.jsp" ,
