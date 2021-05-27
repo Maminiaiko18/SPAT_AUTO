@@ -67,7 +67,9 @@
     map.put(tab, "active");
     tab = "inc/" + tab + ".jsp";
     
-    String vue = e.getId().startsWith(Constante.fcPrefix) ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
+    //String vue = e.getId().startsWith(Constante.fcPrefix) ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
+    String vue =e.getRemarque()!=null&&e.getRemarque().startsWith("--") ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
+    
 %>
 <div class="content-wrapper">
     <div class="row">
