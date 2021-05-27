@@ -153,3 +153,5 @@ BEGIN
   return retour;
 END;
 
+
+update menudynamique set libelle='Activite' where id='MEN0074100';
