@@ -187,7 +187,7 @@
 			<componentElement>
 				<reportElement key="table 1" style="table 1" mode="Transparent" x="0" y="0" width="555" height="57" uuid="c7ba0eb2-5f1b-4313-9a74-3e3fe27f4753"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="4bc9708d-4821-426e-a988-b25b026534d5">
+					<datasetRun subDataset="Table Dataset 1" uuid="edfee400-515b-43bc-bc1d-868f178f1908">
 						<datasetParameter name="montant">
 							<datasetParameterExpression><![CDATA[$P{montant}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -199,6 +199,9 @@
 						</datasetParameter>
 						<datasetParameter name="montantTVA">
 							<datasetParameterExpression><![CDATA[$P{montantTVA}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="montantAvoir">
+							<datasetParameterExpression><![CDATA[$P{montantAvoir}]]></datasetParameterExpression>
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
@@ -326,7 +329,7 @@
 									<font isBold="false"/>
 									<paragraph rightIndent="3"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$P{montantTTC}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$P{montantAvoir}]]></textFieldExpression>
 							</textField>
 							<staticText>
 								<reportElement x="320" y="28" width="125" height="14" uuid="e7667f54-f3c8-4242-b63f-dd9fc4a9bcf9"/>
