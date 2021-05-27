@@ -14,7 +14,7 @@
 <%
     FactureProformaDetails cht = new FactureProformaDetails();
     cht.setNomTable("FACTURE_CLIENT_PROFMONTANT");
-    String libEntete[] = {"id", "designation", "quantite","devise","compte","pu", "taux","montanttaux","montanttva"};
+    String libEntete[] = {"id", "designation", "quantite","devise","compte","pu", "taux","montanttva","montanttaux"};
     String listeCrt[] = {"idmere"};
     String listeInt[] = {};
 
@@ -23,7 +23,7 @@
     pr.setLien((String) session.getValue("lien"));
     String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "designation", "quantité", "devise","compte","pu", "taux","montant","Montant tva"};
+    String libEnteteAffiche[] = {"id", "designation", "quantité", "devise","compte","pu", "taux","Montant tva","montant"};
     pr.getTableau().setLibeEntete(libEnteteAffiche);
     FactureClientDetails[] liste=(FactureClientDetails[])pr.getTableau().getData();
     if(pr.getTableau().getHtml() != null){
@@ -34,8 +34,8 @@
         
     <table class="table table-striped table-bordered table-condensed table-responsive tree" >
         <tr>
-            <th width="16%" align="right">Montant total HT</th>
-            <td width="16%" align="right"><%=utilitaire.Utilitaire.formaterAr(total) %></td>
+            <th width="11%" align="right">Montant total HT</th>
+            <td width="11%" align="right"><%=utilitaire.Utilitaire.formaterAr(total) %></td>
         </tr>
     </table>
          
