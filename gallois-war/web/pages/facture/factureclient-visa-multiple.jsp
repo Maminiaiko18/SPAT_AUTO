@@ -29,25 +29,58 @@
         pr.setApres("facture/factureclient-visa-multiple.jsp");
         String[] colSomme = {"montant", "montanttva", "montantttc", "montantAvoir", "montantpaye", "montantreste"};
         pr.creerObjetPage(libEntete, colSomme);%>
-
+<script>
+    function changerDesignation() {
+        document.incident.submit();
+    }
+</script>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>Liste des facture client &agrave; viser</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=facture/factureclient-visa-multiple.jsp" method="post" name="incident" id="incident">
+            
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
+            <div class="row col-md-12">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    Etat : 
+                    <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("facture_client_union") == 0) {%>    
+                        <option value="facture_client_union" selected>Tous</option>
+                        <% } else { %>
+                        <option value="facture_client_union" >Tous</option>
+                        <% } %>
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("factureclientMSumC") == 0) {%>
+                        <option value="factureclientMSumC" selected>Créée(s)</option>
+                        <% } else { %>
+                        <option value="factureclientMSumC">Créée(s)</option>
+                        <% } %>
+
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("factureclientMSumV") == 0) {%>
+                        <option value="factureclientMSumV" selected>Visée(s)</option>
+                        <% } else { %>
+                        <option value="factureclientMSumV">Visée(s)</option>
+                        <% } %>
+
+                    </select>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
         </form>
 
         <%  String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
-            out.println(pr.getTableauRecap().getHtml());%>
+            out.println(pr.getTableauRecap().getHtml());
+        %>
         <br/>
         <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="fcform" id="fcform">
+            
             <input type="hidden" name="bute" value="facture/factureclient-visa-multiple.jsp"/>
             <input type="hidden" name="classe" value="facture.FactureClient"/>
             <input type="hidden" name="acte" value="viser"/>
