@@ -21,7 +21,7 @@ public class FactureClientDetails extends ClassFille {
     
     private String id,idmere;
     private double quantite,pu,taux;
-    private String compte,idproduit,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib;
+    private String compte,idproduit,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib;
     private FactureClient mere;
     private double montant;
     private double montanttaux;
@@ -30,7 +30,14 @@ public class FactureClientDetails extends ClassFille {
     private double qtelivree, restealivrer; 
     double tva;
     //double montantTva;
+    public String getActivitelib() {
+        return activitelib;
+    }
 
+    public void setActivitelib(String activitelib) {
+        this.activitelib = activitelib;
+    }
+    
     public double getTva() {
         return tva;
     }
