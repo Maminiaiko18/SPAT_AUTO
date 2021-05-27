@@ -54,13 +54,13 @@
                         <% } else { %>
                         <option value="facture_client_union" >Tous</option>
                         <% } %>
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("factureclientMSumC") == 0) {%>
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("facture_client_unionC") == 0) {%>
                         <option value="facture_client_unionC" selected>Créée(s)</option>
                         <% } else { %>
                         <option value="facture_client_unionC">Créée(s)</option>
                         <% } %>
 
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("factureclientMSumV") == 0) {%>
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("facture_client_unionV") == 0) {%>
                         <option value="facture_client_unionV" selected>Visée(s)</option>
                         <% } else { %>
                         <option value="facture_client_unionV">Visée(s)</option>
