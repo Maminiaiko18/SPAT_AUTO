@@ -31,7 +31,6 @@
     pc.getChampByName("tiers").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
-    pc.getChampByName("activitelib").setLibelle("Activité");
     pc.getChampByName("montant").setLibelle("Montant HT");
     pc.getChampByName("montanttva").setLibelle("Montant TVA");
     pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
