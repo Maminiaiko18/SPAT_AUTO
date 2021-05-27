@@ -141,6 +141,7 @@
         }
 
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
+        pi.getFormu().getChamp("idplacement").setDefaut(idfact);
 
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();
