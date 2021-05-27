@@ -68,13 +68,13 @@ public class AdminFactureClient {
     public void payer(UserEJBBean u, Connection c) throws Exception {
         try {
         if (listeFactureClient != null && listeFactureClient.length > 0 && transPV != null) {
-            String idTiers = listeFactureClient[0].getTiers();
+            //String idTiers = listeFactureClient[0].getTiers();
 
             for (FactureClient fc : listeFactureClient) {
                 if(fc.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Ne peut payer une facture non visée " + fc.getId());
-                if (!fc.getTiers().equalsIgnoreCase(idTiers)) {
+               /* if (!fc.getTiers().equalsIgnoreCase(idTiers)) {
                     throw new Exception("Tiers différents pour les factures à payer");
-                }
+                }*/
 
                 fc.payer(transPV.getCaisse(), transPV.getModepaiement(), transPV.getNumcheque(), transPV.getTypecheque(), transPV.getIddevise(), u, c);
             }

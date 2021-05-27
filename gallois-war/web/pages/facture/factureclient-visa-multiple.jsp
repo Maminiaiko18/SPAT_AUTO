@@ -10,6 +10,9 @@
     try {
         FactureClient facture = new FactureClient();
         facture.setNomTable("facture_client_union");
+        if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
+            facture.setNomTable(request.getParameter("etat"));
+        }
         String listeCrt[] = {"id", "daty", "tierslib", "designation", "date_echeance"};
         String listeInt[] = {"daty", "date_echeance"};
         String libEntete[] = {"id", "daty", "tierslib", "designation", "tva", "date_echeance", "montant", "montanttva", "montantttc", "montantAvoir", "montantpaye", "montantreste"};
