@@ -16,10 +16,15 @@
         FactureAnalyse facture = new FactureAnalyse();
         if(request.getParameter("idFacture") != null){
             FactureAnalyse temporaire = new FactureAnalyse();
+            temporaire.setNomTable("ANALYSEGLOBALEFACTURE_ANALYSE");
             String v= request.getParameter("vue");
             if (v!=null)  temporaire.setNomTable(v);
-            else  temporaire.setNomTable("ANALYSEGLOBALEFACTURE_ANALYSE");
+            if(temporaire.getNomTable().compareTo("ANALYSEGLOBALEANTSIKA")==0){
+                temporaire.setId(request.getParameter("idFacture"));
+            }
             temporaire.setNmfact(request.getParameter("idFacture"));
+            
+            
             FactureAnalyse[] liste = (FactureAnalyse[]) CGenUtil.rechercher(temporaire, null, null, null, "");
             if(liste != null && liste.length >0){
                 facture = liste[0];
@@ -37,9 +42,15 @@
         pi.getFormu().getChamp("datesaisie").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("datesaisie").setVisible(false);
         pi.getFormu().getChamp("dateeffet").setDefaut(Utilitaire.dateDuJour());
-        pi.getFormu().getChamp("numcheque").setLibelle("Numero du cheque");        
-        pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(""+facture.getReste()));
-        pi.getFormu().getChamp("idplacement").setDefaut(""+facture.getNmfact());
+        pi.getFormu().getChamp("numcheque").setLibelle("Numero du cheque"); 
+        if(facture.getNomTable().compareTo("ANALYSEGLOBALEANTSIKA")==0){
+            pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(""+facture.getMontantreste()));
+            pi.getFormu().getChamp("idplacement").setDefaut(""+facture.getId());
+        }else{
+            pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(""+facture.getReste()));
+            pi.getFormu().getChamp("idplacement").setDefaut(""+facture.getNmfact());
+        }
+        
         pi.getFormu().getChamp("idplacement").setAutre("readonly");
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
         pi.getFormu().getChamp("credit").setLibelle("Montant du chèque");

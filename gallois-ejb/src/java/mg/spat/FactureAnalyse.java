@@ -17,7 +17,16 @@ public class FactureAnalyse extends ClassMAPTable{
     private Date daty;
     private double mttc,mtht,taxe,mtdevise,mtavoir,paye,reste;
     private double montantreste;
-    private String id, tiers;
+    private String id, tiers,remarque;
+
+    public String getRemarque() {
+        return remarque;
+    }
+
+    public void setRemarque(String remarque) {
+        this.remarque = remarque;
+    }
+    
 
     public String getId() {
         return id;
