@@ -16,7 +16,8 @@ try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     FactureClient mere = new FactureClient();
         mere.setNomTable("FACTURECLIENTMSUM_LIB");
-    FactureClientDetails fille = new FactureClientDetails();;
+    FactureClientDetails fille = new FactureClientDetails();
+        fille.setNomTable("FACTURE_CLIENT_FILLE_libelle");
     fille.setIdmere(request.getParameter("id"));
     FactureClientDetails[] liste = (FactureClientDetails[])CGenUtil.rechercher(fille, null, null, "");
     PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
@@ -48,11 +49,14 @@ try{
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("Taux"), false);
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("Idactivite"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("activitelib"), false);
     
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
-     
+    
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
+    
     affichage.Liste[] listed = new affichage.Liste[1];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
@@ -67,6 +71,7 @@ try{
     pi.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
     pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("tva_0").setLibelle("tva");
+    pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
     
     mere = (FactureClient) pi.getBase();
     pi.preparerDataFormu();
@@ -101,6 +106,9 @@ try{
 </div>
 <script>
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib() %>";
+    <%for(int i=0; i<liste.length; i++){%>
+        document.getElementById("idactivitelibelle_<%=i%>").value = "<%=liste[i].getActivitelib() != null ? liste[i].getActivitelib() : liste[i].getIdactivite()%>";
+    <%}%>
 </script>
 <%}catch(Exception ex){
     ex.printStackTrace();
