@@ -546,7 +546,6 @@ public class Mouvement extends ClassEtat {
             int mois = Utilitaire.getMois(mvt[0].getDatearrivee()),
                     annee = Utilitaire.getAnnee(mvt[0].getDatearrivee());
 
-            System.out.println("rub=" + rub);
             act = new Activite(Utilitaire.dateDuJourSql(), rub.getDesignation(), this.getConsignataire(), rub.getId(), this.getNavire(), qte, mois, annee);
 
             u.createObject(act, c);
