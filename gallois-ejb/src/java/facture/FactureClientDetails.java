@@ -29,7 +29,7 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoiravectaux;
     private double qtelivree, restealivrer; 
     double tva;
-    double montantTva;
+    //double montantTva;
 
     public double getTva() {
         return tva;
