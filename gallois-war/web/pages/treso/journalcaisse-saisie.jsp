@@ -12,22 +12,38 @@
 <%@ page import="affichage.Liste" %>
 <%@page import="mg.spat.FactureAnalyse"%>
 <%
-   try {
+    try {
         String autreparsley = "data-parsley-range='[8, 40]' required";
         JournalCaisse pj = new JournalCaisse();
-        
+
         FactureAnalyse facture = new FactureAnalyse();
-        if(request.getParameter("idFacture") != null){
+        String idfact = request.getParameter("idFacture");
+        boolean checkFact = idfact.startsWith(Constante.fcPrefix);
+
+        if (idfact != null) {
             FactureAnalyse temporaire = new FactureAnalyse();
-             String v= request.getParameter("vue");
-            if (v!=null)  temporaire.setNomTable(v);
-            else  temporaire.setNomTable("ANALYSEGLOBALEFACTURE_ANALYSE");
-            temporaire.setNmfact(request.getParameter("idFacture"));
+            String v = request.getParameter("vue");
+            if (v != null) {
+                temporaire.setNomTable(v);
+            } else {
+                temporaire.setNomTable("ANALYSEGLOBALEFACTURE_ANALYSE");
+            }
+            if (checkFact) {
+                temporaire.setNmfact(idfact);
+            }
+            else {
+                temporaire.setId(idfact);
+            }
+            
             FactureAnalyse[] liste = (FactureAnalyse[]) CGenUtil.rechercher(temporaire, null, null, null, "");
-            if(liste != null && liste.length >0){
+            if (liste != null && liste.length > 0) {
                 facture = liste[0];
             }
         }
+        
+        double reste = checkFact ? facture.getReste() : facture.getMontantreste();
+        String client = checkFact ? facture.getClient() : facture.getTiers();
+        
         PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
 
         affichage.Liste[] liste = new affichage.Liste[4];
@@ -38,16 +54,16 @@
         TypeObjet cheque = new TypeObjet();
         cheque.setNomTable("TYPECHEQUE");
         liste[1] = new Liste("idTypeCheque", cheque, "VAL", "id");
-        
+
         TypeObjet op = new TypeObjet();
         op.setNomTable("DEVISE");
-        liste[2] = new Liste("iddevise", op, "desce", "id");   
-        
+        liste[2] = new Liste("iddevise", op, "desce", "id");
+
         TypeObjet mode = new TypeObjet();
         mode.setNomTable("MODEPAIEMENT");
-        liste[3] = new Liste("idmode", mode, "desce", "id");   
+        liste[3] = new Liste("idmode", mode, "desce", "id");
         pi.getFormu().changerEnChamp(liste);
-        
+
         pi.getFormu().changerEnChamp(liste);
         pi.getFormu().getChamp("dateSaisie").setVisible(false);
         pi.getFormu().getChamp("typemvt").setVisible(false);
@@ -67,22 +83,21 @@
         pi.getFormu().getChamp("designation").setVisible(false);
         pi.getFormu().getChamp("dateEffet").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("idTypeCheque").setDefaut(Constante.typeCheque);
-        pi.getFormu().getChamp("tiers").setDefaut(facture.getClient());
+        pi.getFormu().getChamp("tiers").setDefaut(client);
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp");
         pi.getFormu().getChamp("idordre").setAutre("readonly");
 
         //pi.getFormu().getChamp("idplacement").setAutre("readonly");
-       
-        pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(""+facture.getReste()));
-        
-        pi.getFormu().getChamp("idplacement").setDefaut(""+facture.getNmfact());
+        pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + reste));
+
+        pi.getFormu().getChamp("idplacement").setDefaut("" + facture.getNmfact());
         pi.getFormu().getChamp("idplacement").setLibelle("Placement");
-        
+
         if (request.getParameter("id") != null) {
-            
-            if (request.getParameter("id")!= null && request.getParameter("id").compareTo("") != 0){
+
+            if (request.getParameter("id") != null && request.getParameter("id").compareTo("") != 0) {
                 pi.getFormu().getChamp("idordre").setDefaut(request.getParameter("id"));
                 MvtcaisseOrdonnerpayementFacture ordre = new MvtcaisseOrdonnerpayementFacture(request.getParameter("id"));
                 ordre.setNomTable("JOURNALCAISSE_INFO");
@@ -91,43 +106,42 @@
                 pi.getFormu().getChamp("tiers").setValeurLibelle(preremplie.getNomfournisseur());
                 pi.getFormu().getChamp("tiers").setDefaut(preremplie.getIdfournisseur());
                 pi.getFormu().getChamp("idmode").setDefaut(preremplie.getModepaiement());
-                pi.getFormu().getChamp("debit").setDefaut(""+Utilitaire.formaterAr(""+preremplie.getReste()));
-                
+                pi.getFormu().getChamp("debit").setDefaut("" + Utilitaire.formaterAr("" + preremplie.getReste()));
+
             }
             OrdonnerPayement[] ord = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, null, " and id = '" + request.getParameter("id") + "'");
             if (ord.length > 0) {
                 pi.getFormu().getChamp("designation").setDefaut(ord[0].getRemarque());
                 pi.getFormu().getChamp("libelle").setDefaut(ord[0].getRemarque());
-               
+
                 pi.getFormu().getChamp("idordre").setDefaut(ord[0].getId());
                 pi.getFormu().getChamp("idordre").setValeurLibelle(ord[0].getRemarque());
                 pi.getFormu().getChamp("idmode").setDefaut(ord[0].getModepaiement());
-                if(request.getParameter("entree") != null){
-                    pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(""+ord[0].getMontant()));
+                if (request.getParameter("entree") != null) {
+                    pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + ord[0].getMontant()));
 
-                }
-                else{
-                     pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(""+ord[0].getMontant()));
+                } else {
+                    pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + ord[0].getMontant()));
                 }
             }
         }
-        if(request.getParameter("idplacement") != null){
+        if (request.getParameter("idplacement") != null) {
             String idplacement = (String) request.getParameter("idplacement");
             pi.getFormu().getChamp("idplacement").setDefaut(idplacement);
             pi.getFormu().getChamp("idplacement").setValeurLibelle(idplacement);
-            Placement placement = new Placement(); placement.setId(idplacement);
-            if(request.getParameter("param") != null && request.getParameter("param").equalsIgnoreCase("sortie")){                
+            Placement placement = new Placement();
+            placement.setId(idplacement);
+            if (request.getParameter("param") != null && request.getParameter("param").equalsIgnoreCase("sortie")) {
                 Placement pl = placement.getPlacement(null);
-                pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(""+pl.getMontant()));
-            }
-            else {
+                pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + pl.getMontant()));
+            } else {
                 DetailsPlacements dp = placement.getDetailsPlacement(null);
-                pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(""+dp.getMontant_terme()));
+                pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + dp.getMontant_terme()));
             }
         }
-        
+
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
-        
+
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();
 %>

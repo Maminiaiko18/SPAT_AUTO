@@ -4,6 +4,7 @@
     Author     : nyamp
 --%>
 
+<%@page import="utilitaire.Constante"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.HashMap"%>
@@ -65,6 +66,8 @@
     }
     map.put(tab, "active");
     tab = "inc/" + tab + ".jsp";
+    
+    String vue = e.getId().startsWith(Constante.fcPrefix) ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -87,8 +90,8 @@
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrent.jsp&id=" + e.getId() %>" style="margin-right: 10px">Récurrent</a>
                         <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Ajouter Avoir</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-client-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Livrer</a>
-                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture="+id +"&vue=ANALYSEGLOBALEFACTURE_VAOVAO"%>" style="margin-right: 10px">Entrée banque</a>
-                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture="+id +"&vue=ANALYSEGLOBALEFACTURE_VAOVAO" %>" style="margin-right: 10px">Entrée caisse</a>
+                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture="+id +"&vue=" + vue%>" style="margin-right: 10px">Entrée banque</a>
+                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture="+id +"&vue=" + vue %>" style="margin-right: 10px">Entrée caisse</a>
                     </p>
                     <hr>
                     <p>

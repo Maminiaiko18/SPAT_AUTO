@@ -16,6 +16,24 @@ public class FactureAnalyse extends ClassMAPTable{
     private String nmfact,source, client,designation,devfact,numCompte, categorie_facture, sous_categorie_facture,categorie_client,valCat;
     private Date daty;
     private double mttc,mtht,taxe,mtdevise,mtavoir,paye,reste;
+    private double montantreste;
+    private String id, tiers;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(String tiers) {
+        this.tiers = tiers;
+    }
 
     public String getNmfact() {
         return nmfact;
@@ -178,6 +196,14 @@ public class FactureAnalyse extends ClassMAPTable{
 
     public void setCategorie_client(String categorie_client) {
         this.categorie_client = categorie_client;
+    }
+
+    public double getMontantreste() {
+        return montantreste;
+    }
+
+    public void setMontantreste(double montantreste) {
+        this.montantreste = montantreste;
     }
     
     @Override
