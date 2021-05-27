@@ -52,6 +52,8 @@
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
+        pi.getFormufle().getChamp("idactivite_"+i).setAutre("readonly");
+//        pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
     }
     
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
@@ -66,6 +68,8 @@
     pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
     pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
     pi.getFormufle().getChamp("tva_0").setLibelle("tva");
+    pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     
