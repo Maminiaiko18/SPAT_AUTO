@@ -101,7 +101,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[FACTURE]]></text>
+				<text><![CDATA[FACTURE PROFORMA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="351" y="40" width="27" height="20" uuid="7679ab02-901b-418f-a870-5260ae9c5da1"/>
