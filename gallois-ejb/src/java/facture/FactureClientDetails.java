@@ -11,6 +11,7 @@ import bean.ClassMAPTable;
 import fin.Coursdevise;
 import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.exploitant.Activite;
 import utilitaire.Utilitaire;
 /**
  *
@@ -283,4 +284,19 @@ public class FactureClientDetails extends ClassFille {
     public void setCategorieClientlib(String categorieClientlib) {
         this.categorieClientlib = categorieClientlib;
     }
+    public void checkActivite(Connection c) throws Exception{
+        if(this.getIdactivite()!=null && this.getIdactivite().compareTo("")!=0){
+            Activite act=new Activite();
+            act.setNomTable("ACTIVITESNONFACTUREES");
+            Activite[] activites = (Activite[]) CGenUtil.rechercher(act, null, null, c, " and id ='" +this.getIdactivite()+ "'");
+        
+            if(activites.length == 0) {
+                throw new Exception("Cette activite a deja ete facturee ou n est pas encore visee");
+            }
+        }
+    }
+    public void controler(Connection c) throws Exception {
+        this.checkActivite(c);
+    }
+
 }
