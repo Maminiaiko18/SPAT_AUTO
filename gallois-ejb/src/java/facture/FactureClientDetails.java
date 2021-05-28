@@ -131,6 +131,12 @@ public class FactureClientDetails extends ClassFille {
         setTaux(getTauxRecent(c));
         return super.createObject(user, c);
     }
+
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        setTaux(getTauxRecent(c));
+        super.controlerUpdate(c);
+    }
     
     public double getTauxRecent(Connection c) throws Exception {
          //this.setLiaisonMere("idmere");
