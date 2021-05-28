@@ -416,7 +416,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 this.traitementOP(user, c);
             }
             if (this.getIdplacement() != null) {
-                if (this.getIdplacement().startsWith(Constante.fcPrefix)) {
+                if (this.getIdplacement().startsWith("FC")) {
                     checkMontantFactureClient(c);
                 } else {
                     this.traitementPlacement(user, c);
