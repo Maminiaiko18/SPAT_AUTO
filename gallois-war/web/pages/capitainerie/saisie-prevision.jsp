@@ -24,7 +24,7 @@
     pi.getFormu().getChamp("cargaison").setPageAppel("choix/listeCargaisonChoix.jsp");
     pi.getFormu().getChamp("cargaison").setAutre("readonly");
 //    pi.getFormu().getChamp("pilote").setPageAppel("choix/piloteChoix.jsp");
-    pi.getFormu().getChamp("consignataire").setPageAppel("choix/listeConsignataireValChoix.jsp");
+    pi.getFormu().getChamp("consignataire").setPageAppel("choix/listeClientChoix.jsp");
     pi.getFormu().getChamp("consignataire").setAutre("readonly");    
     pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("navire").setAutre("readonly");

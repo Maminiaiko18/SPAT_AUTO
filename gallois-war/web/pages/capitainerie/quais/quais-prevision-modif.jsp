@@ -29,7 +29,7 @@
     pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireInterneChoix.jsp");    
     pi.getFormu().getChamp("pilote").setPageAppel("choix/piloteChoix.jsp");
     pi.getFormu().getChamp("pilote").setAutre("readonly");     
-    pi.getFormu().getChamp("consignataire").setPageAppel("choix/listeConsignataireChoix.jsp");
+    pi.getFormu().getChamp("consignataire").setPageAppel("choix/listeClientChoix.jsp");
     pi.getFormu().getChamp("consignataire").setAutre("readonly");
     
     pi.getFormu().getChamp("pilote").setValeurLibelle(copie.getValpilote());
