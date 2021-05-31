@@ -1,0 +1,1 @@
+INSERT INTO CATEGORIEFACTURATION (ID, VAL, DESCE) VALUES ('CATFC009', 'prestations connexes', 'prestations connexes');
