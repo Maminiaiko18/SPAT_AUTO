@@ -8,10 +8,13 @@ package facture;
 import bean.CGenUtil;
 import bean.ClassFille;
 import bean.ClassMAPTable;
+import bean.TypeObjet;
 import fin.Coursdevise;
 import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.exploitant.Activite;
+import utilitaire.Constante;
+import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 /**
  *
@@ -138,12 +141,34 @@ public class FactureClientDetails extends ClassFille {
         setTaux(getTauxRecent(c));
         super.controlerUpdate(c);
     }
-    
+    public Activite getActivite(Connection c) throws Exception{
+        Activite retour=null;
+        Boolean estOuvert=false;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                estOuvert=true;
+            }
+            Activite ac=new Activite();
+            ac.setNomTable("ACTIVITELIBCOMPLET");
+            Activite[] liste=(Activite[])CGenUtil.rechercher(ac, null, null, c, " and id='"+this.getIdactivite()+"'");
+            if(liste.length==0) throw new Exception("Activite introuvable");
+            retour=liste[0];
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if(c!=null && estOuvert) c.close();
+        }
+        return retour;
+    }
     public double getTauxRecent(Connection c) throws Exception {
-         //this.setLiaisonMere("idmere");
-         //this.setNomClasseMere("facture.FactureClient");
-         System.out.println("liaison mere "+this.getLiaisonMere());
         Date date = ((FactureClient)this.findMere("",c)).getDaty();
+        if(this.getIdactivite()!=null){
+            if(this.getActivite(c).getRubrique()!=null&&this.getActivite(c)!=null&&this.getActivite(c).getCategorie().compareToIgnoreCase(Constante.idcategorieCapitainerie)==0){
+                date=Utilitaire.ajoutJourDate(date, -1);
+            }
+        }
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
                 + " and iddevise = '" + this.getDevise() + "'";
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
@@ -153,18 +178,6 @@ public class FactureClientDetails extends ClassFille {
         return 0;
     }
     
-    /*public FactureClient getMere(Connection c) throws Exception {
-        if(this.getMere() != null){
-            return this.getMere();
-        }
-        FactureClient mere = new FactureClient();
-        mere.setId(idmere);
-        mere = (FactureClient) mere.getById(idmere, null, c);
-        if(mere == null){
-            throw new Exception("FactureClient mere non trouvee !");
-        }
-        return mere;
-    }*/
 
     @Override
     public String getTuppleID() {
@@ -284,6 +297,7 @@ public class FactureClientDetails extends ClassFille {
     public void setCategorieClientlib(String categorieClientlib) {
         this.categorieClientlib = categorieClientlib;
     }
+    
     public void checkActivite(Connection c) throws Exception{
         if(this.getIdactivite()!=null && this.getIdactivite().compareTo("")!=0){
             Activite act=new Activite();
