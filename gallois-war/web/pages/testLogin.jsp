@@ -131,10 +131,17 @@
             String menu = "admin.jsp";
             session.setAttribute("menu", menu);
             out.println("<script language='JavaScript'> document.location.replace('" + lien + "?" + queryString + "');</script>");
-        } /**
-         * *
-         */
-        else {
+        }else if(ut.getIdrole().compareTo("ROL001300") == 0){
+            queryString = "but=capitainerie/page-commandant.jsp";
+            session.setAttribute("dir", "%");
+            session.setAttribute("dirlib", "");
+            //lien = "module.jsp";
+            session.setAttribute("lien", lien);
+            String menu = "admin.jsp";
+            session.setAttribute("menu", menu);
+            out.println("<script language='JavaScript'> document.location.replace('" + lien + "?" + queryString + "');</script>");
+            return;
+        }else {
             session.setAttribute("dir", "%");
             session.setAttribute("dirlib", "");
             //lien = "module.jsp";
@@ -144,6 +151,8 @@
             out.println("<script language='JavaScript'> document.location.replace('" + lien + "?" + queryString + "');</script>");
 
         }
+        
+        
     } catch (Exception e) {
 
         e.printStackTrace();
