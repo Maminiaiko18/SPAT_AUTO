@@ -5,19 +5,26 @@
  */
 package lignecredit;
 
-import bean.ClassMAPTable;
+import bean.ClassEtat;
 import java.sql.Connection;
 
 /**
  *
- * @author rasol
+ * @author
  */
-public class LigneCredit  extends ClassMAPTable{
-    private String id, designation, compte, idtypelingecredit;
-    private double annee, mois, creditinitial;
-
-    public LigneCredit() {
-        this.setNomTable("lignecredit");
+public class LigneCredit extends ClassEtat {
+    
+    private String id;
+    private String designation,compte;
+    private double quantite,montant,annee;
+    
+    public LigneCredit(){
+        this.setNomTable("ligneCreditRecette");
+    }
+    
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("LCRD", "get_seqligneCreditRecette");
+        this.setId(makePK(c));
     }
 
     @Override
@@ -30,11 +37,6 @@ public class LigneCredit  extends ClassMAPTable{
         return "id";
     }
     
-    public void construirePK(Connection c) throws Exception{
-        this.preparePk("LC", "getseqlignecredit");
-        this.setId(makePK(c));
-    }
-
     public String getId() {
         return id;
     }
@@ -42,7 +44,7 @@ public class LigneCredit  extends ClassMAPTable{
     public void setId(String id) {
         this.id = id;
     }
-
+    
     public String getDesignation() {
         return designation;
     }
@@ -59,36 +61,27 @@ public class LigneCredit  extends ClassMAPTable{
         this.compte = compte;
     }
 
-    public String getIdtypelingecredit() {
-        return idtypelingecredit;
+    public double getQuantite() {
+        return quantite;
     }
 
-    public void setIdtypelingecredit(String idtypelingecredit) {
-        this.idtypelingecredit = idtypelingecredit;
+    public void setQuantite(double quantite) {
+        this.quantite = quantite;
     }
-    
-    
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+
     public double getAnnee() {
         return annee;
     }
 
     public void setAnnee(double annee) {
         this.annee = annee;
-    }
-
-    public double getMois() {
-        return mois;
-    }
-
-    public void setMois(double mois) {
-        this.mois = mois;
-    }
-
-    public double getCreditinitial() {
-        return creditinitial;
-    }
-
-    public void setCreditinitial(double creditinitial) {
-        this.creditinitial = creditinitial;
     }
 }
