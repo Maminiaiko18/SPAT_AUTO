@@ -78,8 +78,6 @@
                         <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=capitainerie/prevision-liste.jsp&classe=mg.spat.Prevision"><button class="btn btn-danger">Supprimer</button></a>
                         <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/quais/quais-prevision-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                         <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=TPMM00004&idPrevision=" + base.getId()%>" style="margin-right: 10px">Arrivée</a>   
-                        <br/>
-                        <a class="btn btn-info pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir prévision</a>   
                     </div>
                     <br/>
 
