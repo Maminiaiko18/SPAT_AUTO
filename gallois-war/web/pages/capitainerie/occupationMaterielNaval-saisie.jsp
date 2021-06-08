@@ -30,6 +30,9 @@
     if(request.getParameter("idmvt")!=null){
         pi.getFormu().getChamp("idarrivee").setDefaut(request.getParameter("idmvt"));
     }
+    if(request.getParameter("idPrevision")!=null){
+        pi.getFormu().getChamp("idarrivee").setDefaut(request.getParameter("idPrevision"));
+    }
     pi.getFormu().getChamp("idnavire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("idnavire").setAutre("readonly");
     pi.getFormu().getChamp("idarrivee").setPageAppel("choix/listeMouvementArriveeChoix.jsp");
