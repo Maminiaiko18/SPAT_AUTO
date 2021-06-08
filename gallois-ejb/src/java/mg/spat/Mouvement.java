@@ -49,9 +49,9 @@ public class Mouvement extends ClassEtat {
     @Override
     public void viser(UserEJBBean u, Connection c) throws Exception {
         this.updateMouvementPrecedent(u, c);
-        if (this.getTypeMvt().equals(Constante.idtypeMvtDepart)) {
+        /*if (this.getTypeMvt().equals(Constante.idtypeMvtDepart)) { Décommentena ity rehefa hampandeha Facture
             creerActivite(u, c);
-        }
+        }*/
         if (this.estTouchee(c) && this.getEscale() == null) {
             this.creerPrevision(u, c);
         }
