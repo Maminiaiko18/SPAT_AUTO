@@ -44,7 +44,7 @@
         pc.getChampByName("valquaisprovenance").setLibelle("Quai de provenance");
         pc.getChampByName("valquaisdestination").setLibelle("Quai de destination");
         pc.getChampByName("date_arrivee").setLibelle("Date d'arrivée");
-        pc.getChampByName("date_depart").setLibelle("Date de départ");
+        pc.getChampByName("date_depart").setVisible(false);
         pc.getChampByName("valpaysprovenance").setLibelle("Pays de provenance");
         pc.getChampByName("valpaysdestination").setLibelle("Pays de destination");
         pc.getChampByName("type").setLibelle("type navire");
