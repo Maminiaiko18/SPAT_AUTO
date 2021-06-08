@@ -12,6 +12,8 @@
 <%
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
+    UserEJB u = (UserEJB) session.getValue("u");
+    
     OccupationMaterielNaval pj = new OccupationMaterielNaval();
     PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
     if(request.getParameter("id")!=null){
@@ -33,6 +35,7 @@
     if(request.getParameter("idPrevision")!=null){
         pi.getFormu().getChamp("idarrivee").setDefaut(request.getParameter("idPrevision"));
     }
+    
     pi.getFormu().getChamp("idnavire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("idnavire").setAutre("readonly");
     pi.getFormu().getChamp("idarrivee").setPageAppel("choix/listeMouvementArriveeChoix.jsp");
@@ -76,6 +79,16 @@
     pi.getFormu().getChamp("heuredebut").setLibelle("heure d&eacutebut");
     pi.getFormu().getChamp("heurefin").setLibelle("heure fin");
     //pi.getFormu().getChamp("heurefin").setAutre("required");
+    
+    if(request.getParameter("estCommandant") != null && request.getParameter("estCommandant").trim().equalsIgnoreCase("1")) {
+        pi.getFormu().getChamp("idcommandant").setDefaut(""+u.getUser().getRefuser());
+        pi.getFormu().getChamp("idarrivee").setDefaut(Utilitaire.champNull(request.getParameter("idEscale")));
+        pi.getFormu().getChamp("daty").setDefaut(Utilitaire.champNull(request.getParameter("date_debut")));
+        pi.getFormu().getChamp("heuredebut").setDefaut(Utilitaire.champNull(request.getParameter("heure_debut")));
+        pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.champNull(request.getParameter("date_fin")));
+        pi.getFormu().getChamp("heurefin").setDefaut(Utilitaire.champNull(request.getParameter("heure_fin")));
+    }
+    
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("duree").setVisible(false);
     pi.getFormu().getChamp("idnavire").setVisible(false);
