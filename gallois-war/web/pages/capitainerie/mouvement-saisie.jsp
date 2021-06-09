@@ -138,11 +138,12 @@
 </div>
 <script>
     <%
-        if(typemvt == null) {
+        if(typemvt == null || !typemvt.equals(Constante.tpmvtdepart)) {
     %>
         $('#date_depart').val("");
-    <%    }
-    %>
+    <% } else { %>
+        $('#datearrivee').val("");
+    <% } %>
 </script>
 <%} catch (Exception e) {
         e.printStackTrace();
