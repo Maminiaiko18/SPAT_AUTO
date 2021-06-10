@@ -35,7 +35,7 @@
     pi.getFormu().getChamp("date_arrivee").setLibelle("Date d'arrivée");
     pi.getFormu().getChamp("heure_arrivee").setLibelle("Heure d'arrivée");
     pi.getFormu().getChamp("date_depart").setLibelle("Date de départ");
-    pi.getFormu().getChamp("date_depart").setVisible(false);
+    //pi.getFormu().getChamp("date_depart").setVisible(false);
     pi.getFormu().getChamp("heure_depart").setLibelle("Heure de départ");
     pi.getFormu().getChamp("date_rade").setLibelle("Date rade");
     pi.getFormu().getChamp("destination").setLibelle("Quai");
