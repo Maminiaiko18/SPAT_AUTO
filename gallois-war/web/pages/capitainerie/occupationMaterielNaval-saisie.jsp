@@ -1,4 +1,5 @@
 
+<%@page import="mg.spat.Mouvement"%>
 <%@page import="mg.spat.PrevisionMaterielNavalLibComplet"%>
 <%@page import="service.PrevisionService"%>
 <%@page import="mg.spat.OccupationMaterielNaval"%>
@@ -16,6 +17,14 @@
     
     OccupationMaterielNaval pj = new OccupationMaterielNaval();
     PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
+    if(request.getParameter("idPrevision")!=null && !request.getParameter("idPrevision").isEmpty()){
+        Prevision[] prevision = (Prevision[]) CGenUtil.rechercher(new Prevision(), null, null, " and id='"+request.getParameter("idPrevision")+"' ");
+        pi.getFormu().getChamp("idprevision").setDefaut(prevision[0].getId());
+        pi.getFormu().getChamp("daty").setDefaut( Utilitaire.format(prevision[0].getDate_arrivee()));
+        pi.getFormu().getChamp("heuredebut").setDefaut(prevision[0].getHeure_arrivee());
+        pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.format(prevision[0].getDate_depart()));
+        pi.getFormu().getChamp("heurefin").setDefaut(prevision[0].getHeure_depart());
+    }
     if(request.getParameter("id")!=null){
         PrevisionMaterielNavalLibComplet prev= PrevisionService.getPrevisionMaterielNavalById(request.getParameter("id"),null);
         pi.getFormu().getChamp("idnavire").setDefaut(prev.getIdnavire());
@@ -29,8 +38,10 @@
         pi.getFormu().getChamp("idmateriel_naval").setValeurLibelle(prev.getDenomination());
         pi.getFormu().getChamp("idarrivee").setValeurLibelle(prev.getIdarriveelib());
     }
-    if(request.getParameter("idmvt")!=null){
+    if(request.getParameter("idmvt")!=null && !request.getParameter("idmvt").isEmpty()){
+        Mouvement[] mvt = (Mouvement[]) CGenUtil.rechercher(new Mouvement(), null, null, " and id='"+request.getParameter("idmvt")+"' ");
         pi.getFormu().getChamp("idarrivee").setDefaut(request.getParameter("idmvt"));
+        pi.getFormu().getChamp("idprevision").setDefaut(mvt[0].getEscale());
     }
     if(request.getParameter("idPrevision")!=null){
         pi.getFormu().getChamp("idarrivee").setDefaut(request.getParameter("idPrevision"));
@@ -65,6 +76,8 @@
     pi.getFormu().changerEnChamp(liste);
     
 //    pi.getFormu().getChamp("idmateriel_naval").setPageAppel("choix/listeMaterielNava.jsp");
+    pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
+    pi.getFormu().getChamp("idprevision").setAutre("readonly");
     pi.getFormu().getChamp("idmateriel_naval").setPageAppel("choix/listeMaterielNavalChoixMultiple.jsp");
     pi.getFormu().getChamp("idmateriel_naval").setAutre("readonly");
     pi.getFormu().getChamp("idmateriel_naval").setLibelle("Flotte");
@@ -78,6 +91,7 @@
     pi.getFormu().getChamp("idmanoeuvrebord").setLibelle("Manoeuvre bord");
     pi.getFormu().getChamp("heuredebut").setLibelle("heure d&eacutebut");
     pi.getFormu().getChamp("heurefin").setLibelle("heure fin");
+    pi.getFormu().getChamp("Idprevision").setLibelle("Prévision");
     //pi.getFormu().getChamp("heurefin").setAutre("required");
     
     if(request.getParameter("estCommandant") != null && request.getParameter("estCommandant").trim().equalsIgnoreCase("1")) {
@@ -94,8 +108,8 @@
     pi.getFormu().getChamp("idnavire").setVisible(false);
     pi.getFormu().getChamp("position").setVisible(false);
     pi.getFormu().getChamp("idpilote").setVisible(false);
-    String[] ordreFormu = {"idmateriel_naval", "idcommandant", "idnatureoperation", "idmanoeuvrebord", "observation", "idarrivee", "daty", "heuredebut", "datefin", "heurefin","etat","duree","idnavire","position","idpilote"};
-    pi.getFormu().setOrdre(ordreFormu);
+    //String[] ordreFormu = {"idmateriel_naval", "idcommandant", "idnatureoperation", "idmanoeuvrebord", "observation", "idarrivee", "daty", "heuredebut", "datefin", "heurefin"};
+    //pi.getFormu().setOrdre(ordreFormu);
     
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
