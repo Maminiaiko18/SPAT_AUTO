@@ -32,6 +32,16 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoirsanstaux;
     private double montantavoiravectaux;
     private double qtelivree, restealivrer; 
+    private Date datefact;
+
+    public Date getDatefact() {
+        return datefact;
+    }
+
+    public void setDatefact(Date datefact) {
+        this.datefact = datefact;
+    }
+    
     double tva;
     //double montantTva;
     public String getActivitelib() {
