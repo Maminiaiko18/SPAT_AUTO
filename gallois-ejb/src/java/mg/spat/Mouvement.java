@@ -38,6 +38,14 @@ public class Mouvement extends ClassEtat {
     private String escalelib;
     private String couleur = "#ffb401";
 
+    public Prevision getPrevision(Connection c) throws Exception {
+        Prevision[] prev = (Prevision[]) CGenUtil.rechercher(new Prevision(), null, null, c, " and id='"+this.getEscale()+"'");
+        if(prev.length <= 0){
+            throw new Exception("Prevision non trouvee !");
+        }
+        return prev[0];
+    }
+    
     public String getNoVoyage() {
         return noVoyage;
     }
