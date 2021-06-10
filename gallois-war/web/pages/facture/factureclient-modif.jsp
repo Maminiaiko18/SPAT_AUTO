@@ -31,14 +31,14 @@ try{
     pi.getFormu().getChamp("date_echeance").setLibelle("date d'Echeance");
     pi.getFormu().getChamp("daty").setLibelle("date");
     pi.getFormu().getChamp("type").setVisible(false);
-    //pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("etat").setAutre("readonly");
+    pi.getFormu().getChamp("etat").setVisible(false);
      pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("montant").setVisible(false);
     pi.getFormu().getChamp("montanttva").setVisible(false);
     pi.getFormu().getChamp("montantttc").setVisible(false);
     pi.getFormu().getChamp("tierslib").setVisible(false);
-    pi.getFormu().getChamp("etat").setVisible(false);
+    
     pi.getFormu().getChamp("montantavoir").setVisible(false);
     pi.getFormu().getChamp("Montantpaye").setVisible(false);
     pi.getFormu().getChamp("Montantreste").setVisible(false);
@@ -54,8 +54,10 @@ try{
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
+    
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("datefact"), "readonly");
     
     affichage.Liste[] listed = new affichage.Liste[1];
         TypeObjet o = new TypeObjet();
@@ -63,6 +65,7 @@ try{
         listed[0] = new Liste("devise", o, "VAL", "id");
     pi.getFormufle().changerEnChamp(listed);
     
+    pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
     pi.getFormufle().getChamp("Id_0").setLibelle("Id"); 
     pi.getFormufle().getChamp("designation_0").setLibelle("Désignation"); 
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
@@ -71,13 +74,14 @@ try{
     pi.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
     pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("tva_0").setLibelle("tva");
-    pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
+    //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
+    pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
     
     mere = (FactureClient) pi.getBase();
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-        <div class="box">
+        <!--<div class="box">-->
             <h1><%= titrePage %></h1>
             <form action="<%=(String) session.getValue("lien")%>?but=apresMultiple.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
                 <%
@@ -102,7 +106,7 @@ try{
                 <input name="colonneMere" type="hidden" id="colonneMere" value="<%= colonneMereDansFille %>">
 
             </form>
-    </div>
+    <!--</div>-->
 </div>
 <script>
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib() %>";
