@@ -174,11 +174,18 @@ public class FactureClientDetails extends ClassFille {
     }
     public double getTauxRecent(Connection c) throws Exception {
         Date date = ((FactureClient)this.findMere("",c)).getDaty();
+        
         if(this.getIdactivite()!=null){
-            if(this.getActivite(c).getRubrique()!=null&&this.getActivite(c)!=null&&this.getActivite(c).getCategorie().compareToIgnoreCase(Constante.idcategorieCapitainerie)==0){
+            Activite activite = this.getActivite(c);
+            
+            if(activite != null && activite.getRubrique()!=null && activite.getCategorie().compareToIgnoreCase(Constante.idcategorieCapitainerie)==0){
                 date=Utilitaire.ajoutJourDate(date, -1);
             }
+            if(this.getDatefact() != null) {
+                date=Utilitaire.ajoutJourDate(this.getDatefact(), -1);
+            }
         }
+        
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
                 + " and iddevise = '" + this.getDevise() + "'";
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
