@@ -33,9 +33,15 @@
                     </tr>
                 </tbody>
             </table>
+<<<<<<< Updated upstream
             <input name="debut" type="button" class="btn btn-info pull-left" id="debut" value="Début" onclick="debuter()">
             <input name="fin" type="button" class="btn btn-warning pull-right" id="fin" value="Fin" onclick="finir()">
             <input name="acte" type="hidden" id="acte">
+=======
+            <input name="acte" type="hidden" id="acte">
+            <input name="debut" type="button" class="btn btn-info pull-left" id="debut" value="Début" onclick="debuter()">
+            <input name="fin" type="button" class="btn btn-warning pull-right" id="fin" value="Fin" onclick="finir()">
+>>>>>>> Stashed changes
             <br/>
             <br/>
         </form>

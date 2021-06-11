@@ -58,6 +58,17 @@ public class Mouvement extends ClassEtat {
     public void viser(UserEJBBean u, Connection c) throws Exception {
         this.updateMouvementPrecedent(u, c);
         if (this.getTypeMvt().equals(Constante.idtypeMvtDepart)) {
+            Postedestinataire destination = new Postedestinataire();
+            destination = (Postedestinataire) destination.getById(this.getDestination(), destination.getNomTable(), c);
+            
+            if(destination != null && destination.getInterne().compareTo("1") == 0) {
+                Prevision prevision = this.getPrevision(c);
+                
+                prevision.setDate_depart(this.getDate_depart());
+                
+                prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
+            }
+            
             creerActivite(u, c);
         }
         if (this.estTouchee(c) && this.getEscale() == null) {
