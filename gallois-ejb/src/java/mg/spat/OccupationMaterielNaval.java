@@ -55,14 +55,34 @@ public class OccupationMaterielNaval extends ClassEtat {
         return null;
     }
     public Activite genererActivite(Connection c)  throws Exception{
-        
-        OccupationMaterielNaval occupation=(OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallib", c);
-        String nomRubrique=this.genererNomRubrique(c);
-        Rubrique rubrique = this.findRubrique(c, nomRubrique);
-        if(rubrique==null){
-            throw new Exception("Rubrique introuvable pour cette prestation");
+        int verif = 0;
+        Activite activite=null;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            OccupationMaterielNaval occupation=(OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallib", c);
+            String nomRubrique=this.genererNomRubrique(c);
+            Rubrique rubrique = this.findRubrique(c, nomRubrique);
+            if(rubrique==null){
+                throw new Exception("Rubrique introuvable pour cette prestation");
+            }
+            activite=new Activite(this.getDaty(),"Activite auto via prestation "+this.getId(), occupation.getIdclient(), rubrique.getId(), occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatValider());
+            activite.insertToTable(c); 
+            if (verif == 1) {
+                c.commit();
+            }
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
         }
-        Activite activite=new Activite(this.getDaty(),"Activite auto via prestation "+this.getId(), occupation.getIdclient(), rubrique.getId(), occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatValider());
+      
         return activite;
     }
     
