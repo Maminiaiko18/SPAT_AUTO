@@ -21,10 +21,11 @@ public class JourFerie extends ClassMAPTable{
     public JourFerie(){
         this.setNomTable("jour_ferie");
     }
-//    public void construirePK(Connection c) throws Exception {
-//        this.preparePk("TRA", "getseq_travaux");
-//        this.setId(makePK(c));
-//    }
+    
+   public void construirePK(Connection c) throws Exception {
+        this.preparePk("JF", "get_seqjour_ferie");
+        this.setId(makePK(c));
+    }
     
     @Override
     public String getTuppleID() {
@@ -59,5 +60,6 @@ public class JourFerie extends ClassMAPTable{
     public void setDesignation(String designation) {
         this.designation = designation;
     }
+    
     
 }
