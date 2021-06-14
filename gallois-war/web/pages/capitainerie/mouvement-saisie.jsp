@@ -117,6 +117,8 @@
     pi.getFormu().getChamp("CONSIGNATAIRE").setLibelle("Consignataire");
     pi.getFormu().getChamp("typeMvt").setLibelle("Type mouvement");
     
+    String[] colOrdre = {"date_depart", "heure_depart", "dateArrivee", "heure", "escale", "navire", "consignataire", "provenance", "destination", "remarque", "typeMvt", "cargaison", "id", "daty", "duree", "etat"};
+    pi.getFormu().setOrdre(colOrdre);
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
