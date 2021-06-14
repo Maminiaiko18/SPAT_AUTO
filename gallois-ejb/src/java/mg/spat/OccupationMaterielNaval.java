@@ -62,6 +62,12 @@ public class OccupationMaterielNaval extends ClassEtat {
         return Utilitaire.dayOfDate(d)==1 || Utilitaire.dayOfDate(d)==7;
     }
     
+    public boolean estJour(String heure_debut) throws Exception {
+        int c1 = Utilitaire.comparerHeure(heure_debut, "05:00");
+        int c2 = Utilitaire.comparerHeure(heure_debut, "18:59");
+        return  (c1==1 || c1==0) && (c2==-1 && c2==0);
+    }
+    
     public OccupationMaterielNaval() {
         super.setNomTable("occupationmaterielnaval");
     }
