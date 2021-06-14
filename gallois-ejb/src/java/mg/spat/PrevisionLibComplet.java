@@ -7,6 +7,7 @@ package mg.spat;
 
 import bean.ClassEtat;
 import java.sql.Date;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -21,7 +22,9 @@ public class PrevisionLibComplet extends Prevision {
     
     @Override
     public String getValColLibelle(){
-        return this.getEscale();
+        String datArr = Utilitaire.formatterDaty(this.getDate_arrivee());
+        String datDep = Utilitaire.formatterDaty(this.getDate_depart());
+        return this.getEscale()+";"+datArr+";"+this.getHeure_arrivee()+";"+datDep+";"+this.getHeure_depart();
     }
     
     public String getType() {

@@ -51,8 +51,10 @@
     pi.getFormu().getChamp("idmateriel_naval").setLibelle("Flotte");
     pi.getFormu().getChamp("idcommandant").setLibelle("Commandant");
     pi.getFormu().getChamp("idnatureoperation").setLibelle("Nature operation");
-    pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
+    
+    pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp", "idprevision;idprevisionlibelle;daty;heuredebut;datefin;heurefin");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
+    
     pi.getFormu().getChamp("idpilote").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("duree").setVisible(false);
