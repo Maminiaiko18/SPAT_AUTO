@@ -16,6 +16,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
+import mg.spat.exploitant.Rubrique;
 import rubrique.RubriqueFactureFournisseur;
 import rubrique.TarifRubriqueFactureClient;
 import service.PrevisionService;
@@ -39,6 +40,16 @@ public class OccupationMaterielNaval extends ClassEtat {
     private double duree;
     private String etatlib;
     private String idprevision, escale;
+    
+    
+    private Rubrique findRubrique(Connection c,String awhere) throws Exception{
+        Rubrique rubrique =null;
+        Rubrique[] liste=(Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c,"and upper(designation) like upper('%"+awhere+"%')");
+        if(liste.length>0){
+            rubrique=liste[0];
+        }
+        return rubrique;
+    }
     
     public boolean estFerie(Date d, Connection c) throws Exception{
         if(d == null){
