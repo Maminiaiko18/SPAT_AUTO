@@ -18,6 +18,9 @@ public class JourFerie extends ClassMAPTable{
     private Date daty;
     private String designation;
     
+    public JourFerie(){
+        this.setNomTable("jour_ferie");
+    }
 //    public void construirePK(Connection c) throws Exception {
 //        this.preparePk("TRA", "getseq_travaux");
 //        this.setId(makePK(c));
