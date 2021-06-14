@@ -39,7 +39,18 @@ public class OccupationMaterielNaval extends ClassEtat {
     private double duree;
     private String etatlib;
     private String idprevision, escale;
-
+    
+    public boolean estFerie(Date d, Connection c) throws Exception{
+        if(d == null){
+            return false;
+        }
+        JourFerie[] jfs = (JourFerie[]) CGenUtil.rechercher(new JourFerie(), null, null, c, " and daty = '"+Utilitaire.formatterDaty(d) +"' ");
+        if(jfs.length > 0){
+            return true;
+        }
+        return Utilitaire.dayOfDate(d)==1 || Utilitaire.dayOfDate(d)==7;
+    }
+    
     public OccupationMaterielNaval() {
         super.setNomTable("occupationmaterielnaval");
     }
