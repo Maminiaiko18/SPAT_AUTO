@@ -65,6 +65,7 @@ public class Mouvement extends ClassEtat {
                 Prevision prevision = this.getPrevision(c);
                 
                 prevision.setDate_depart(this.getDate_depart());
+                prevision.setHeure_depart(this.getHeure_depart());
                 
                 prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
             }
