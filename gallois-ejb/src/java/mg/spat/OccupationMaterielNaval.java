@@ -16,6 +16,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
+import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.Rubrique;
 import rubrique.RubriqueFactureFournisseur;
 import rubrique.TarifRubriqueFactureClient;
@@ -40,9 +41,32 @@ public class OccupationMaterielNaval extends ClassEtat {
     private double duree;
     private String etatlib;
     private String idprevision, escale;
+    private String idclient;
+
+    public String getIdclient() {
+        return idclient;
+    }
+
+    public void setIdclient(String idclient) {
+        this.idclient = idclient;
+    }
     
+    public String genererNomRubrique(Connection c) {
+        return null;
+    }
+    public Activite genererActivite(Connection c)  throws Exception{
+        
+        OccupationMaterielNaval occupation=(OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallib", c);
+        String nomRubrique=this.genererNomRubrique(c);
+        Rubrique rubrique = this.findRubrique(c, nomRubrique);
+        if(rubrique==null){
+            throw new Exception("Rubrique introuvable pour cette prestation");
+        }
+        Activite activite=new Activite(this.getDaty(),"Activite auto via prestation "+this.getId(), occupation.getIdclient(), rubrique.getId(), occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatValider());
+        return activite;
+    }
     
-    private Rubrique findRubrique(Connection c,String awhere) throws Exception{
+    public Rubrique findRubrique(Connection c,String awhere) throws Exception{
         Rubrique rubrique =null;
         Rubrique[] liste=(Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c,"and upper(designation) like upper('%"+awhere+"%')");
         if(liste.length>0){
