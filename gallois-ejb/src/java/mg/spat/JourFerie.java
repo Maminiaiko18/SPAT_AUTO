@@ -1,0 +1,60 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package mg.spat;
+
+import java.sql.Date;
+import bean.ClassMAPTable;
+import java.sql.Connection;
+
+/**
+ *
+ * @author nyamp
+ */
+public class JourFerie extends ClassMAPTable{
+    private String id;
+    private Date daty;
+    private String designation;
+    
+//    public void construirePK(Connection c) throws Exception {
+//        this.preparePk("TRA", "getseq_travaux");
+//        this.setId(makePK(c));
+//    }
+    
+    @Override
+    public String getTuppleID() {
+        return this.getId();
+    }
+
+    @Override
+    public String getAttributIDName() {
+        return "id";
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+    
+}
