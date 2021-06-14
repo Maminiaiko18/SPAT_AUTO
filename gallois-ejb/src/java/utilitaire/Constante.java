@@ -1,7 +1,6 @@
 package utilitaire;
 
 public class Constante {
-    
     public static String idcategorieCapitainerie="CATFC001";
     public static String conteneurTypeSaisie = "TSAI001";
     public static String tonnage = "TMES001";
@@ -100,6 +99,11 @@ public class Constante {
     public static String bc = "/SPAT/DG/DECOMAA-";
     public static final int longueurNumeroBordereau = 4;
     public static int tvaDefaut = 20;
+    private static String roleCommandant="ROL001300";
+
+    public static String getRoleCommandant() {
+        return roleCommandant;
+    }
 
     public static int getTvaDefaut() {
         return tvaDefaut;

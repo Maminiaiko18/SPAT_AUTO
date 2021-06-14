@@ -115,6 +115,11 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     CNAPSUser cnapsUser;
     TypeObjet caisse = null;
     private HashMap<String, String> mapAutoComplete = new HashMap<>();
+    TypeObjet commandant=null;
+
+    public TypeObjet getCommandant() {
+        return commandant;
+    }
 
     public TypeObjet getCaisse() {
         return caisse;
@@ -768,7 +773,13 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 }
             }
             CNAPSUser[] cnp = (CNAPSUser[]) CGenUtil.rechercher(new CNAPSUser(), null, null, c, " and id_utilisateur = '" + u.getRefuser() + "'");
-
+            if(type.compareToIgnoreCase(Constante.getRoleCommandant())==0){
+                TypeObjet to=new TypeObjet();
+                to.setNomTable("commandant");
+                TypeObjet[] listeCommandant=(TypeObjet[])CGenUtil.rechercher(to, null, null, c, " and iduser='"+u.getRefuser()+"'");
+                if(listeCommandant==null|| listeCommandant.length==0) throw new Exception("Commandant introuvable");
+                this.commandant=listeCommandant[0];
+            }
             this.cnapsUser = (cnp != null) ? cnp[0] : null;
             if (interim != null && interim.compareToIgnoreCase("1") == 0 && cnp.length > 0) {
                 LogService[] ls = (LogService[]) CGenUtil.rechercher(new LogService(), null, null, c, " AND ID = '" + service + "'");

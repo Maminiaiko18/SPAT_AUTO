@@ -314,4 +314,5 @@ public interface UserEJB {
     public Object[] annulerObjectMultiple(ClassEtat o, String[] listeIdObjet) throws Exception;
     
     public void payerFCMultiple(String[] listeId, facture.TransitionPaiementVide t) throws Exception;
+    public TypeObjet getCommandant() throws Exception;
 }

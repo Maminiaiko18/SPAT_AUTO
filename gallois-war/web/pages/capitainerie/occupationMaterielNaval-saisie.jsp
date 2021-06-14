@@ -95,7 +95,9 @@
     //pi.getFormu().getChamp("heurefin").setAutre("required");
     
     if(request.getParameter("estCommandant") != null && request.getParameter("estCommandant").trim().equalsIgnoreCase("1")) {
-        pi.getFormu().getChamp("idcommandant").setDefaut(""+u.getUser().getRefuser());
+        if(u.getCommandant()!=null){
+            pi.getFormu().getChamp("idcommandant").setDefaut(""+u.getCommandant().getId());
+        }
         pi.getFormu().getChamp("idarrivee").setDefaut(Utilitaire.champNull(request.getParameter("idEscale")));
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.champNull(request.getParameter("date_debut")));
         pi.getFormu().getChamp("heuredebut").setDefaut(Utilitaire.champNull(request.getParameter("heure_debut")));
