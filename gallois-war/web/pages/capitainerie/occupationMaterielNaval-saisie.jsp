@@ -1,4 +1,6 @@
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="mg.spat.Mouvement"%>
 <%@page import="mg.spat.PrevisionMaterielNavalLibComplet"%>
 <%@page import="service.PrevisionService"%>
@@ -17,14 +19,7 @@
     
     OccupationMaterielNaval pj = new OccupationMaterielNaval();
     PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
-    if(request.getParameter("idPrevision")!=null && !request.getParameter("idPrevision").isEmpty()){
-        Prevision[] prevision = (Prevision[]) CGenUtil.rechercher(new Prevision(), null, null, " and id='"+request.getParameter("idPrevision")+"' ");
-        pi.getFormu().getChamp("idprevision").setDefaut(prevision[0].getId());
-        pi.getFormu().getChamp("daty").setDefaut( Utilitaire.format(prevision[0].getDate_arrivee()));
-        pi.getFormu().getChamp("heuredebut").setDefaut(prevision[0].getHeure_arrivee());
-        pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.format(prevision[0].getDate_depart()));
-        pi.getFormu().getChamp("heurefin").setDefaut(prevision[0].getHeure_depart());
-    }
+    
     if(request.getParameter("id")!=null){
         PrevisionMaterielNavalLibComplet prev= PrevisionService.getPrevisionMaterielNavalById(request.getParameter("id"),null);
         pi.getFormu().getChamp("idnavire").setDefaut(prev.getIdnavire());
@@ -42,9 +37,6 @@
         Mouvement[] mvt = (Mouvement[]) CGenUtil.rechercher(new Mouvement(), null, null, " and id='"+request.getParameter("idmvt")+"' ");
         pi.getFormu().getChamp("idarrivee").setDefaut(request.getParameter("idmvt"));
         pi.getFormu().getChamp("idprevision").setDefaut(mvt[0].getEscale());
-    }
-    if(request.getParameter("idPrevision")!=null){
-        pi.getFormu().getChamp("idarrivee").setDefaut(request.getParameter("idPrevision"));
     }
     
     pi.getFormu().getChamp("idnavire").setPageAppel("choix/listeNavireChoix.jsp");
@@ -110,8 +102,26 @@
     pi.getFormu().getChamp("idnavire").setVisible(false);
     pi.getFormu().getChamp("position").setVisible(false);
     pi.getFormu().getChamp("idpilote").setVisible(false);
-    //String[] ordreFormu = {"idmateriel_naval", "idcommandant", "idnatureoperation", "idmanoeuvrebord", "observation", "idarrivee", "daty", "heuredebut", "datefin", "heurefin"};
-    //pi.getFormu().setOrdre(ordreFormu);
+    
+    
+    List<String> col = new ArrayList();
+    List<String> colVal = new ArrayList();
+    
+    if(request.getParameter("idPrevision")!=null && !request.getParameter("idPrevision").isEmpty()){
+        Prevision[] prevision = (Prevision[]) CGenUtil.rechercher(new Prevision(), null, null, " and id='"+request.getParameter("idPrevision")+"' ");
+        pi.getFormu().getChamp("idprevision").setDefaut(prevision[0].getId());
+        pi.getFormu().getChamp("daty").setDefaut(Utilitaire.formatterDaty(prevision[0].getDate_arrivee()));
+        pi.getFormu().getChamp("heuredebut").setDefaut(prevision[0].getHeure_arrivee());
+        pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.formatterDaty(prevision[0].getDate_depart()));
+        pi.getFormu().getChamp("heurefin").setDefaut(prevision[0].getHeure_depart());
+        col.add("daty");
+        colVal.add(Utilitaire.formatterDaty(prevision[0].getDate_arrivee()));
+        col.add("datefin");
+        colVal.add(Utilitaire.formatterDaty(prevision[0].getDate_depart()));
+    }
+    
+    String[] ordreFormu = {"daty", "heuredebut", "datefin", "heurefin", "idmateriel_naval", "idcommandant", "idnatureoperation", "idmanoeuvrebord", "observation", "idarrivee", "idprevision", "id", "idpilote", "idnavire", "idclient", "duree", "position", "etat"};
+    pi.getFormu().setOrdre(ordreFormu);
     
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
@@ -129,7 +139,11 @@
     <input name="classe" type="hidden" id="classe" value="mg.spat.OccupationMaterielNaval">
     </form>
 </div>
-
+<script language="JavaScript">
+    <%for(int i=0; i<col.size(); i++){%>
+        document.getElementById("<%=col.get(i)%>").value = "<%=colVal.get(i)%>";
+    <%}%>
+</script>
 <%
 } catch (Exception e) {
     e.printStackTrace();
