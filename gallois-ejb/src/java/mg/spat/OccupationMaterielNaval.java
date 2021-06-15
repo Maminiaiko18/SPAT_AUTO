@@ -54,6 +54,14 @@ public class OccupationMaterielNaval extends ClassEtat {
         this.idclient = idclient;
     }
     
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception
+    {
+        Activite act = genererActivite(c);
+        System.out.println("Activite :: " + act.getId()+" - OccupationMaterielNaval :: " + this.getId());
+        return super.validerObject(u, c);
+    }
+    
     public Activite genererActivite(Connection c)  throws Exception{
         int verif = 0;
         Activite activite=null;
@@ -88,6 +96,7 @@ public class OccupationMaterielNaval extends ClassEtat {
     
     public Rubrique findRubrique(Connection c,String awhere) throws Exception{
         Rubrique rubrique =null;
+        System.out.println("NOM RUB :: " + awhere);
         Rubrique[] liste=(Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c,"and upper(designation) like upper('%"+awhere+"%')");
         if(liste.length>0){
             rubrique=liste[0];
@@ -107,33 +116,35 @@ public class OccupationMaterielNaval extends ClassEtat {
     }
     
     public boolean estJour(String heure_debut) throws Exception {
+        if(heure_debut == null || heure_debut.isEmpty()) return false;
         int c1 = Utilitaire.comparerHeure(heure_debut, "05:00");
         int c2 = Utilitaire.comparerHeure(heure_debut, "18:59");
-        return  (c1==1 || c1==0) && (c2==-1 && c2==0);
+        return  (c1==-1 || c1==0) && (c2==1 || c2==0);
     }
     
-    public String genererNomRubrique(Connection c) throws Exception{
+    public String genererNomRubrique(Connection c) throws Exception {
         OccupationMaterielNavalLibComplet oc = new OccupationMaterielNavalLibComplet();
         oc.setNomTable("OCCUPATIONMATERIELNAVALLIBCPL");
         OccupationMaterielNavalLibComplet[] liste = (OccupationMaterielNavalLibComplet[]) CGenUtil.rechercher(oc, null, null, c," and id='"+this.getId()+"'");
-        
+        if(liste.length <=0){
+            throw new Exception("OCCUPATION MATERIEL NAVAL non trouve !");
+        }
+        oc = liste[0];
         String nom = oc.getIdnatureoperation();
             if(estFerie(oc.getDaty(), c)){
-                nom += "ferie";
+                nom += " ferie";
             }else if(estJour(oc.getHeuredebut())){
-                nom += "jour";
+                nom += " jour";
             }else{
-                nom += "nuit";
+                nom += " nuit";
             }
             
-            if(oc.getPavillon().equals(Constante.idPavillonMada)){
-                nom += "C";
-            }else if(!oc.getCargaison().equals(Constante.idCargaisonPetrole)){
-                nom += "LC";
-            } else if(!oc.getIdmanoeuvrebord().equalsIgnoreCase("sortie")){
-                nom += "PFI LC";
+            if(oc.getPavillon()!=null && oc.getPavillon().equals(Constante.idPavillonMada)){
+                nom += " C";
+            } else if( (oc.getCargaison()!=null && oc.getCargaison().equals(Constante.idCargaisonPetrole)) && (oc.getIdmanoeuvrebord()!=null && !oc.getIdmanoeuvrebord().equalsIgnoreCase("sortie"))){
+                nom += " PFI LC";
             } else {
-                nom += "LC";
+                nom += " LC";
             }
         return nom;
     }
