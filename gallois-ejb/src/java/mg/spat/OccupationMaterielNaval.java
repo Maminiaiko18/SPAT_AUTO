@@ -43,6 +43,15 @@ public class OccupationMaterielNaval extends ClassEtat {
     private String etatlib;
     private String idprevision, escale;
     private String idclient;
+    private Activite activite;
+
+    public Activite getActivite() {
+        return activite;
+    }
+
+    public void setActivite(Activite activite) {
+        this.activite = activite;
+    }
     
     
     
@@ -57,8 +66,7 @@ public class OccupationMaterielNaval extends ClassEtat {
     @Override
     public Object validerObject(String u, Connection c) throws Exception
     {
-        Activite act = genererActivite(c);
-        System.out.println("Activite :: " + act.getId()+" - OccupationMaterielNaval :: " + this.getId());
+        this.setActivite(genererActivite(c));
         return super.validerObject(u, c);
     }
     
@@ -73,11 +81,14 @@ public class OccupationMaterielNaval extends ClassEtat {
             }
             OccupationMaterielNaval occupation=(OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallib", c);
             String nomRubrique=this.genererNomRubrique(c);
+            System.out.println("Nom rubrique===="+nomRubrique);
             Rubrique rubrique = this.findRubrique(c, nomRubrique);
-            if(rubrique==null){
+            /*if(rubrique==null){
                 throw new Exception("Rubrique introuvable pour cette prestation");
-            }
-            activite=new Activite(this.getDaty(),"Activite auto via prestation "+this.getId(), occupation.getIdclient(), rubrique.getId(), occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatValider());
+            }*/
+            String idRubrique=null;
+            if(rubrique!=null)idRubrique = rubrique.getId();
+            activite=new Activite(this.getDaty(),"Activite auto via prestation "+this.getId(), occupation.getIdclient(), idRubrique, occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatValider());
             activite.construirePK(c);
             activite.insertToTable(c); 
             if (verif == 1) {

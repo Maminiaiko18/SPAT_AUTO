@@ -65,7 +65,7 @@
                         %>
                         <br/>
                         <div class="box-footer">
-                            <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&bute=capitainerie/occupationMaterielNaval-fiche.jsp&classe=mg.spat.OccupationMaterielNaval&id=" + prevision.getId()%>" style="margin-right: 10px">Viser</a>
+                            <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresPrestation.jsp&acte=valider&bute=exploitants/activites-fiche.jsp&classe=mg.spat.OccupationMaterielNaval&id=" + prevision.getId()%>" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-modif.jsp&id=" + prevision.getId()%>" style="margin-right: 10px">Modifier</a>
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + prevision.getId()%>&acte=delete&bute=capitainerie/occupationMaterielNaval-fiche.jsp&classe=mg.spat.OccupationMaterielNaval"><button class="btn btn-danger">Supprimer</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=exploitants/activites-saisie.jsp&idPrestation=" + prevision.getId()%>"><button class="btn btn-primary">Saisir activité</button></a>
