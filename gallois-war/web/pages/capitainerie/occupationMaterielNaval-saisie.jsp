@@ -90,7 +90,8 @@
         if(u.getCommandant()!=null){
             pi.getFormu().getChamp("idcommandant").setDefaut(""+u.getCommandant().getId());
         }
-        pi.getFormu().getChamp("idarrivee").setDefaut(Utilitaire.champNull(request.getParameter("idEscale")));
+//        pi.getFormu().getChamp("idarrivee").setDefaut(Utilitaire.champNull(request.getParameter("idEscale")));
+        pi.getFormu().getChamp("idprevision").setDefaut(Utilitaire.champNull(request.getParameter("idEscale")));
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.champNull(request.getParameter("date_debut")));
         pi.getFormu().getChamp("heuredebut").setDefaut(Utilitaire.champNull(request.getParameter("heure_debut")));
         pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.champNull(request.getParameter("date_fin")));

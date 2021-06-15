@@ -28,7 +28,8 @@
                             <input type="hidden" value="" name="idEscale" id="idEscale">
                         </td>
                         <td>
-                            <input name="choix" type="button" class="submit" onclick="pagePopUp('choix/listeMouvementArriveeChoix.jsp?champReturn=idEscale;idEscalelibelle&amp;apresLienPageAppel=')" value="...">
+                            <!--<input name="choix" type="button" class="submit" onclick="pagePopUp('choix/listeMouvementArriveeChoix.jsp?champReturn=idEscale;idEscalelibelle&amp;apresLienPageAppel=')" value="...">-->
+                            <input name="choix" type="button" class="submit" onclick="pagePopUp('choix/listePrevisionChoix.jsp?champReturn=idEscale;idEscalelibelle&amp;apresLienPageAppel=')" value="...">
                         </td>
                     </tr>
                 </tbody>
