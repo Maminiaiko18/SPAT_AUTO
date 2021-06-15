@@ -6,10 +6,10 @@
     UserEJB u = (user.UserEJB) session.getValue("u");
     
     Prevision prevision = u.getPrevision();
-    String previsionlib = null, idprevision = null;
+    String escale = null, idprevision = null;
     
     if(prevision != null) { 
-        previsionlib = prevision.getEscale(); 
+        escale = prevision.getEscale(); 
         idprevision = prevision.getId();
     }
 
@@ -37,8 +37,8 @@
                             <label for="idEscale" tabindex="3">Choix Escale</label> 
                         </td>
                         <td>
-                            <input name="idEscalelibelle" type="textbox" value="<%=Utilitaire.champNull(previsionlib)%>" class="form-control" id="idEscalelibelle" tabindex="4" readonly>
-                            <input type="hidden" value="" name="idEscale" value="<%=Utilitaire.champNull(idprevision)%>" id="idEscale">
+                            <input name="idEscalelibelle" type="textbox" value="<%=Utilitaire.champNull(escale)%>" class="form-control" id="idEscalelibelle" tabindex="4" readonly>
+                            <input type="hidden" name="idEscale" value="<%=Utilitaire.champNull(idprevision)%>" id="idEscale">
                         </td>
                         <td>
                             <!--<input name="choix" type="button" class="submit" onclick="pagePopUp('choix/listeMouvementArriveeChoix.jsp?champReturn=idEscale;idEscalelibelle&amp;apresLienPageAppel=')" value="...">-->
