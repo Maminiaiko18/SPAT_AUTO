@@ -1,5 +1,18 @@
+<%@page import="utilitaire.Utilitaire"%>
+<%@page import="mg.spat.Prevision"%>
+<%@page import="user.UserEJB"%>
 <%
     String lien = (String) session.getValue("lien");
+    UserEJB u = (user.UserEJB) session.getValue("u");
+    
+    Prevision prevision = u.getPrevision();
+    String previsionlib = null, idprevision = null;
+    
+    if(prevision != null) { 
+        previsionlib = prevision.getEscale(); 
+        idprevision = prevision.getId();
+    }
+
 %>
 <script>
     function debuter(){
@@ -24,8 +37,8 @@
                             <label for="idEscale" tabindex="3">Choix Escale</label> 
                         </td>
                         <td>
-                            <input name="idEscalelibelle" type="textbox" class="form-control" id="idEscalelibelle" tabindex="4" readonly>
-                            <input type="hidden" value="" name="idEscale" id="idEscale">
+                            <input name="idEscalelibelle" type="textbox" value="<%=Utilitaire.champNull(previsionlib)%>" class="form-control" id="idEscalelibelle" tabindex="4" readonly>
+                            <input type="hidden" value="" name="idEscale" value="<%=Utilitaire.champNull(idprevision)%>" id="idEscale">
                         </td>
                         <td>
                             <!--<input name="choix" type="button" class="submit" onclick="pagePopUp('choix/listeMouvementArriveeChoix.jsp?champReturn=idEscale;idEscalelibelle&amp;apresLienPageAppel=')" value="...">-->
