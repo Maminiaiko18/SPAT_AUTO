@@ -42,7 +42,9 @@ public class OccupationMaterielNaval extends ClassEtat {
     private String etatlib;
     private String idprevision, escale;
     private String idclient;
-
+    
+    
+    
     public String getIdclient() {
         return idclient;
     }
@@ -52,7 +54,7 @@ public class OccupationMaterielNaval extends ClassEtat {
     }
     
     public String genererNomRubrique(Connection c) {
-        return null;
+        return "";
     }
     public Activite genererActivite(Connection c)  throws Exception{
         int verif = 0;
@@ -70,11 +72,11 @@ public class OccupationMaterielNaval extends ClassEtat {
                 throw new Exception("Rubrique introuvable pour cette prestation");
             }
             activite=new Activite(this.getDaty(),"Activite auto via prestation "+this.getId(), occupation.getIdclient(), rubrique.getId(), occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatValider());
+            activite.construirePK(c);
             activite.insertToTable(c); 
             if (verif == 1) {
                 c.commit();
             }
-
         } catch (Exception ex) {
             throw ex;
         } finally {
