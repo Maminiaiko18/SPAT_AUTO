@@ -8,6 +8,7 @@ package mg.spat;
 import java.sql.Date;
 import bean.ClassMAPTable;
 import java.sql.Connection;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -66,7 +67,10 @@ public class JourFerie extends ClassMAPTable{
         return heureDebut;
     }
 
-    public void setHeureDebut(String heureDebut) {
+    public void setHeureDebut(String heureDebut) throws Exception {
+        if(getMode().equalsIgnoreCase("modif")){
+            if(heureDebut!=null && !heureDebut.isEmpty()) Utilitaire.testHeureValide(heureDebut);
+        }
         this.heureDebut = heureDebut;
     }
 }
