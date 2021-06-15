@@ -34,7 +34,10 @@ public class OccupationMaterielNavalLibComplet extends OccupationMaterielNaval{
             pavillonnavire,
             remarque,
             valpavillon,
-            descepavillon
+            descepavillon,
+            pavillon,
+            pavillonLib,
+            cargaison
             ;
     private double jnt,jbt,plt,lht,lm,te,volume;
     private double puissance,etatmaterielnaval;
@@ -42,6 +45,30 @@ public class OccupationMaterielNavalLibComplet extends OccupationMaterielNaval{
     
     public OccupationMaterielNavalLibComplet(){
         super.setNomTable("OCCUPMATERIELNAVALLIBCOMPLET");
+    }
+
+    public String getCargaison() {
+        return cargaison;
+    }
+
+    public void setCargaison(String cargaison) {
+        this.cargaison = cargaison;
+    }
+
+    public String getPavillon() {
+        return pavillon;
+    }
+
+    public void setPavillon(String pavillon) {
+        this.pavillon = pavillon;
+    }
+
+    public String getPavillonLib() {
+        return pavillonLib;
+    }
+
+    public void setPavillonLib(String pavillonLib) {
+        this.pavillonLib = pavillonLib;
     }
 
     public String getDenomination() {

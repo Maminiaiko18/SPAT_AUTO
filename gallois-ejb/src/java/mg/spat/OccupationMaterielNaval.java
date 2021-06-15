@@ -22,6 +22,7 @@ import rubrique.RubriqueFactureFournisseur;
 import rubrique.TarifRubriqueFactureClient;
 import service.PrevisionService;
 import user.UserEJB;
+import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -53,9 +54,6 @@ public class OccupationMaterielNaval extends ClassEtat {
         this.idclient = idclient;
     }
     
-    public String genererNomRubrique(Connection c) {
-        return "";
-    }
     public Activite genererActivite(Connection c)  throws Exception{
         int verif = 0;
         Activite activite=null;
@@ -112,6 +110,32 @@ public class OccupationMaterielNaval extends ClassEtat {
         int c1 = Utilitaire.comparerHeure(heure_debut, "05:00");
         int c2 = Utilitaire.comparerHeure(heure_debut, "18:59");
         return  (c1==1 || c1==0) && (c2==-1 && c2==0);
+    }
+    
+    public String genererNomRubrique(Connection c) throws Exception{
+        OccupationMaterielNavalLibComplet oc = new OccupationMaterielNavalLibComplet();
+        oc.setNomTable("OCCUPATIONMATERIELNAVALLIBCPL");
+        OccupationMaterielNavalLibComplet[] liste = (OccupationMaterielNavalLibComplet[]) CGenUtil.rechercher(oc, null, null, c," and id='"+this.getId()+"'");
+        
+        String nom = oc.getIdnatureoperation();
+            if(estFerie(oc.getDaty(), c)){
+                nom += "ferie";
+            }else if(estJour(oc.getHeuredebut())){
+                nom += "jour";
+            }else{
+                nom += "nuit";
+            }
+            
+            if(oc.getPavillon().equals(Constante.idPavillonMada)){
+                nom += "C";
+            }else if(!oc.getCargaison().equals(Constante.idCargaisonPetrole)){
+                nom += "LC";
+            } else if(!oc.getIdmanoeuvrebord().equalsIgnoreCase("sortie")){
+                nom += "PFI LC";
+            } else {
+                nom += "LC";
+            }
+        return nom;
     }
     
     public OccupationMaterielNaval() {
