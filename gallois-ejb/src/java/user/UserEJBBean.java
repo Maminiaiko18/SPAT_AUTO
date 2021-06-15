@@ -794,10 +794,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                     Prevision previsionTemp = new Prevision();
                     previsionTemp.setEscale(escale);
                     this.prevision = (Prevision) previsionTemp.getById(null, "PREVISION", c);
-                    
-                    System.out.println("PREVISION==="+this.prevision.getId());
                 }
-                
             }
             this.cnapsUser = (cnp != null) ? cnp[0] : null;
             if (interim != null && interim.compareToIgnoreCase("1") == 0 && cnp.length > 0) {
