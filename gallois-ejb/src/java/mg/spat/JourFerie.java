@@ -16,7 +16,8 @@ import java.sql.Connection;
 public class JourFerie extends ClassMAPTable{
     private String id;
     private Date daty;
-    private String designation;
+    private String designation, heureDebut;
+
     
     public JourFerie(){
         this.setNomTable("jour_ferie");
@@ -61,5 +62,11 @@ public class JourFerie extends ClassMAPTable{
         this.designation = designation;
     }
     
-    
+    public String getHeureDebut() {
+        return heureDebut;
+    }
+
+    public void setHeureDebut(String heureDebut) {
+        this.heureDebut = heureDebut;
+    }
 }
