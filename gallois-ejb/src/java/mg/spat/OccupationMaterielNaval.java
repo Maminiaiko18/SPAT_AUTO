@@ -88,7 +88,7 @@ public class OccupationMaterielNaval extends ClassEtat {
             }*/
             String idRubrique=null;
             if(rubrique!=null)idRubrique = rubrique.getId();
-            activite=new Activite(this.getDaty(),"Activite auto via prestation "+this.getId(), occupation.getIdclient(), idRubrique, occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatValider());
+            activite=new Activite(this.getDaty(),"Activite auto via prestation "+this.getId(), occupation.getIdclient(), idRubrique, occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatCreer());
             activite.construirePK(c);
             activite.insertToTable(c); 
             if (verif == 1) {
