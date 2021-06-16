@@ -52,9 +52,7 @@ public class OccupationMaterielNaval extends ClassEtat {
     public void setActivite(Activite activite) {
         this.activite = activite;
     }
-    
-    
-    
+
     public String getIdclient() {
         return idclient;
     }
@@ -62,35 +60,48 @@ public class OccupationMaterielNaval extends ClassEtat {
     public void setIdclient(String idclient) {
         this.idclient = idclient;
     }
-    
+
+    public Prevision getPrevision(Connection c) throws Exception {
+        Prevision prevision = new Prevision();
+
+        if (this.getIdprevision() != null) {
+            prevision = (Prevision) prevision.getById(this.getIdprevision(), prevision.getNomTable(), c);
+            
+            return prevision;
+        }
+
+        return null;
+    }
+
     @Override
-    public Object validerObject(String u, Connection c) throws Exception
-    {
+    public Object validerObject(String u, Connection c) throws Exception {
         this.setActivite(genererActivite(c));
         return super.validerObject(u, c);
     }
-    
-    public Activite genererActivite(Connection c)  throws Exception{
+
+    public Activite genererActivite(Connection c) throws Exception {
         int verif = 0;
-        Activite activite=null;
+        Activite activite = null;
         try {
             if (c == null) {
                 c = new UtilDB().GetConn();
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            OccupationMaterielNaval occupation=(OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallib", c);
-            String nomRubrique=this.genererNomRubrique(c);
-            System.out.println("Nom rubrique===="+nomRubrique);
+            OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallib", c);
+            String nomRubrique = this.genererNomRubrique(c);
+            System.out.println("Nom rubrique====" + nomRubrique);
             Rubrique rubrique = this.findRubrique(c, nomRubrique);
             /*if(rubrique==null){
                 throw new Exception("Rubrique introuvable pour cette prestation");
             }*/
-            String idRubrique=null;
-            if(rubrique!=null)idRubrique = rubrique.getId();
-            activite=new Activite(this.getDaty(),"Activite auto via prestation "+this.getId(), occupation.getIdclient(), idRubrique, occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatCreer());
+            String idRubrique = null;
+            if (rubrique != null) {
+                idRubrique = rubrique.getId();
+            }
+            activite = new Activite(this.getDaty(), "Activite auto via prestation " + this.getId(), occupation.getIdclient(), idRubrique, occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatCreer());
             activite.construirePK(c);
-            activite.insertToTable(c); 
+            activite.insertToTable(c);
             if (verif == 1) {
                 c.commit();
             }
@@ -101,65 +112,67 @@ public class OccupationMaterielNaval extends ClassEtat {
                 c.close();
             }
         }
-      
+
         return activite;
     }
-    
-    public Rubrique findRubrique(Connection c,String awhere) throws Exception{
-        Rubrique rubrique =null;
+
+    public Rubrique findRubrique(Connection c, String awhere) throws Exception {
+        Rubrique rubrique = null;
         System.out.println("NOM RUB :: " + awhere);
-        Rubrique[] liste=(Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c,"and upper(designation) like upper('%"+awhere+"%')");
-        if(liste.length>0){
-            rubrique=liste[0];
+        Rubrique[] liste = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, "and upper(designation) like upper('%" + awhere + "%')");
+        if (liste.length > 0) {
+            rubrique = liste[0];
         }
         return rubrique;
     }
-    
-    public boolean estFerie(Date d, Connection c) throws Exception{
-        if(d == null){
+
+    public boolean estFerie(Date d, Connection c) throws Exception {
+        if (d == null) {
             return false;
         }
-        JourFerie[] jfs = (JourFerie[]) CGenUtil.rechercher(new JourFerie(), null, null, c, " and daty = '"+Utilitaire.formatterDaty(d) +"' ");
-        if(jfs.length > 0){
+        JourFerie[] jfs = (JourFerie[]) CGenUtil.rechercher(new JourFerie(), null, null, c, " and daty = '" + Utilitaire.formatterDaty(d) + "' ");
+        if (jfs.length > 0) {
             return true;
         }
-        return Utilitaire.dayOfDate(d)==1 || Utilitaire.dayOfDate(d)==7;
+        return Utilitaire.dayOfDate(d) == 1 || Utilitaire.dayOfDate(d) == 7;
     }
-    
+
     public boolean estJour(String heure_debut) throws Exception {
-        if(heure_debut == null || heure_debut.isEmpty()) return false;
+        if (heure_debut == null || heure_debut.isEmpty()) {
+            return false;
+        }
         int c1 = Utilitaire.comparerHeure(heure_debut, "05:00");
         int c2 = Utilitaire.comparerHeure(heure_debut, "18:59");
-        return  (c1==-1 || c1==0) && (c2==1 || c2==0);
+        return (c1 == -1 || c1 == 0) && (c2 == 1 || c2 == 0);
     }
-    
+
     public String genererNomRubrique(Connection c) throws Exception {
         OccupationMaterielNavalLibComplet oc = new OccupationMaterielNavalLibComplet();
         oc.setNomTable("OCCUPATIONMATERIELNAVALLIBCPL");
-        OccupationMaterielNavalLibComplet[] liste = (OccupationMaterielNavalLibComplet[]) CGenUtil.rechercher(oc, null, null, c," and id='"+this.getId()+"'");
-        if(liste.length <=0){
+        OccupationMaterielNavalLibComplet[] liste = (OccupationMaterielNavalLibComplet[]) CGenUtil.rechercher(oc, null, null, c, " and id='" + this.getId() + "'");
+        if (liste.length <= 0) {
             throw new Exception("OCCUPATION MATERIEL NAVAL non trouve !");
         }
         oc = liste[0];
         String nom = oc.getIdnatureoperation();
-            if(estFerie(oc.getDaty(), c)){
-                nom += " ferie";
-            }else if(estJour(oc.getHeuredebut())){
-                nom += " jour";
-            }else{
-                nom += " nuit";
-            }
-            
-            if(oc.getPavillon()!=null && oc.getPavillon().equals(Constante.idPavillonMada)){
-                nom += " C";
-            } else if( (oc.getCargaison()!=null && oc.getCargaison().equals(Constante.idCargaisonPetrole)) && (oc.getIdmanoeuvrebord()!=null && !oc.getIdmanoeuvrebord().equalsIgnoreCase("sortie"))){
-                nom += " PFI LC";
-            } else {
-                nom += " LC";
-            }
+        if (estFerie(oc.getDaty(), c)) {
+            nom += " ferie";
+        } else if (estJour(oc.getHeuredebut())) {
+            nom += " jour";
+        } else {
+            nom += " nuit";
+        }
+
+        if (oc.getPavillon() != null && oc.getPavillon().equals(Constante.idPavillonMada)) {
+            nom += " C";
+        } else if ((oc.getCargaison() != null && oc.getCargaison().equals(Constante.idCargaisonPetrole)) && (oc.getIdmanoeuvrebord() != null && !oc.getIdmanoeuvrebord().equalsIgnoreCase("sortie"))) {
+            nom += " PFI LC";
+        } else {
+            nom += " LC";
+        }
         return nom;
     }
-    
+
     public OccupationMaterielNaval() {
         super.setNomTable("occupationmaterielnaval");
     }
@@ -167,13 +180,13 @@ public class OccupationMaterielNaval extends ClassEtat {
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         String[] flottes = this.getIdmateriel_naval().split(";");
-        
-        for(String flotte: flottes) {
+
+        for (String flotte : flottes) {
             this.setIdmateriel_naval(flotte);
             this.setId(null);
             super.createObject(u, c);
         }
-        
+
         return this;
     }
 
@@ -232,14 +245,14 @@ public class OccupationMaterielNaval extends ClassEtat {
             if (tarifs[i].getBorne_inf() <= occup.getDuree()) {
                 double unite = tarifs[i].getUnite(), pu = tarifs[i].getPrixunitaire();
                 double ecart = (tarifs[i].getBorne_sup() - tarifs[i].getBorne_inf());
-                
+
                 if (unite > 0) {
                     double d = duree >= ecart ? ecart : duree;
                     montant += d / unite * pu;
                 } else {
                     montant += pu;
                 }
-                
+
                 duree -= ecart;
                 occup.setObservation(tarifs[i].getCompte());
             }
@@ -250,7 +263,9 @@ public class OccupationMaterielNaval extends ClassEtat {
 
     private void creerFactureFille(UserEJB u, String idmere, OccupationMaterielNavalLibComplet[] details, Connection c) throws Exception {
         for (OccupationMaterielNavalLibComplet occup : details) {
-            if(occup.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Occupation " + occup.getId() + " non visée");
+            if (occup.getEtat() < ConstanteEtat.getEtatValider()) {
+                throw new Exception("Occupation " + occup.getId() + " non visée");
+            }
             FactureClientDetail fille = new FactureClientDetail();
             fille.setIdfacture(idmere);
             fille.setMedicament(occup.getIdnatureoperation());
@@ -498,12 +513,10 @@ public class OccupationMaterielNaval extends ClassEtat {
     }
 
     public void controler(Connection c) throws Exception {
-        try {
-            setDureeFromDate();
-            //PrevisionService.testerOccupationMaterielNaval(this,c);
-        } catch (Exception e) {
-            throw e;
-        }
+        if(this.getPrevision(c).getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Pr\u00e9vision non vis\u00e9e");
+        
+        setDureeFromDate();
+        //PrevisionService.testerOccupationMaterielNaval(this,c);
     }
 
     @Override
@@ -561,5 +574,5 @@ public class OccupationMaterielNaval extends ClassEtat {
     public void setEscale(String escale) {
         this.escale = escale;
     }
-    
+
 }
