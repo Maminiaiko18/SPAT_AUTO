@@ -9,6 +9,8 @@
 <%@page import="affichage.PageRecherche"%>
 <%
     try{
+        user.UserEJB u = (user.UserEJB) session.getValue("u");
+        
         String[] vuesEtat = new String[]{"previsionLibComplet","previsionlibcompletc", "previsionlibcompletv", "previsionlibcompleta"};
         String[] libsEtat = new String[]{"TOUS","CREE", "VALIDE", "ANNULE"};
         String selectedEtat = request.getParameter("etat");
@@ -24,7 +26,7 @@
       String listeInt[]={"date_arrivee","date_depart"};
       String libEntete[]={"id","valpaysprovenance", "valquaisprovenance","escale","nomnavire","valconsignataire","valcargaison","date_arrivee","heure_arrivee","date_depart","heure_depart","valpaysdestination","valquaisdestination","valpilote","noVoyage"};
       PageRecherche pr=new PageRecherche(prevision,request,listeCtrl,listeInt,3,libEntete,libEntete.length);
-      pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+      pr.setUtilisateur(u);
       pr.setLien((String) session.getValue("lien"));
       //pr.setAWhere(" and etat != "+ConstanteEtat.getEtatValider()+" and etatnavire!="+ConstanteEtat.getEtatAnnuler());
       pr.setAWhere(" order by date_arrivee asc");
@@ -44,6 +46,13 @@
       pr.getFormu().getChamp("valconsignataire").setLibelle("Consignataire");
       pr.getFormu().getChamp("noVoyage").setLibelle("Numero voyage");
     pr.setApres("capitainerie/quais/quais-prevision-liste.jsp");
+    
+    Prevision prev = u.getPrevision();
+    if(prev != null) { 
+        pr.getFormu().getChamp("id").setDefaut(prev.getId());
+        pr.setAWhere(" and id = '" + prev.getId() + "'"); 
+    }
+    
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme); 
       
