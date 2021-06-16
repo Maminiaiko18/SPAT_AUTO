@@ -78,13 +78,15 @@
     //pi.getFormu().getChamp("idclient").setVisible(false);
     pi.getFormu().getChamp("daty").setLibelle("Date d&eacutebut");
     pi.getFormu().getChamp("datefin").setLibelle("Date Fin");
-    pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("heuredebut").setDefaut(Utilitaire.getHeureActuel());
     pi.getFormu().getChamp("idmanoeuvrebord").setLibelle("Manoeuvre bord");
     pi.getFormu().getChamp("heuredebut").setLibelle("heure d&eacutebut");
     pi.getFormu().getChamp("heurefin").setLibelle("heure fin");
     pi.getFormu().getChamp("Idprevision").setLibelle("Prévision");
     //pi.getFormu().getChamp("heurefin").setAutre("required");
+    
+    List<String> col = new ArrayList();
+    List<String> colVal = new ArrayList();
     
     if(request.getParameter("estCommandant") != null && request.getParameter("estCommandant").trim().equalsIgnoreCase("1")) {
         if(u.getCommandant()!=null){
@@ -96,6 +98,11 @@
         pi.getFormu().getChamp("heuredebut").setDefaut(Utilitaire.champNull(request.getParameter("heure_debut")));
         pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.champNull(request.getParameter("date_fin")));
         pi.getFormu().getChamp("heurefin").setDefaut(Utilitaire.champNull(request.getParameter("heure_fin")));
+        
+        col.add("daty");
+        colVal.add(request.getParameter("date_debut"));
+        col.add("datefin");
+        colVal.add(request.getParameter("date_fin"));
     }
     
     pi.getFormu().getChamp("etat").setVisible(false);
@@ -103,10 +110,6 @@
     pi.getFormu().getChamp("idnavire").setVisible(false);
     pi.getFormu().getChamp("position").setVisible(false);
     pi.getFormu().getChamp("idpilote").setVisible(false);
-    
-    
-    List<String> col = new ArrayList();
-    List<String> colVal = new ArrayList();
     
     if(request.getParameter("idPrevision")!=null && !request.getParameter("idPrevision").isEmpty()){
         Prevision[] prevision = (Prevision[]) CGenUtil.rechercher(new Prevision(), null, null, " and id='"+request.getParameter("idPrevision")+"' ");
@@ -141,9 +144,11 @@
     </form>
 </div>
 <script language="JavaScript">
-    <%for(int i=0; i<col.size(); i++){%>
-        document.getElementById("<%=col.get(i)%>").value = "<%=colVal.get(i)%>";
-    <%}%>
+    $(document).ready(function() {
+        <%for(int i=0; i<col.size(); i++){%>
+            document.getElementById("<%=col.get(i)%>").value = "<%=Utilitaire.champNull(colVal.get(i))%>";
+        <%}%>
+    });
 </script>
 <%
 } catch (Exception e) {
