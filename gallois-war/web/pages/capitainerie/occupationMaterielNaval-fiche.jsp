@@ -33,6 +33,8 @@
     pc.getChampByName("heurefin").setLibelle("Heure fin");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("datefin").setLibelle("Date fin");
+   
+    pc.getChampByName("idprevision").setLien(session.getValue("lien")+"?but=capitainerie/quais/quais-prevision-fiche.jsp","id=");
     pc.getChampByName("idarrivee").setVisible(false);
     pc.getChampByName("idnavire").setVisible(false);
     pc.getChampByName("idpilote").setVisible(false);

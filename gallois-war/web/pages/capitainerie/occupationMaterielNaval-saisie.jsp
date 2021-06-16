@@ -44,6 +44,7 @@
     pi.getFormu().getChamp("idarrivee").setPageAppel("choix/listeMouvementArriveeChoix.jsp");
     pi.getFormu().getChamp("idarrivee").setAutre("readonly");
     pi.getFormu().getChamp("idarrivee").setLibelle("Arrivee");
+    pi.getFormu().getChamp("idclient").setVisible(false);
     
     affichage.Champ[] liste = new affichage.Champ[3];
     

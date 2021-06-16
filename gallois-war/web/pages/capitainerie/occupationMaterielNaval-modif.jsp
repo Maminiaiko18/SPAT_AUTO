@@ -55,6 +55,8 @@
     pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp", "idprevision;idprevisionlibelle;daty;heuredebut;datefin;heurefin");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     
+    pi.getFormu().getChamp("idclient").setVisible(false);
+    
     pi.getFormu().getChamp("idpilote").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("duree").setVisible(false);
