@@ -66,6 +66,8 @@
     pi.getFormu().getChamp("daty").setLibelle("Date d&eacutebut");
     pi.getFormu().getChamp("heurefin").setLibelle("heure fin");
     pi.getFormu().getChamp("datefin").setLibelle("Date Fin");
+    pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.champNull(request.getParameter("date_fin")));
+    pi.getFormu().getChamp("heurefin").setDefaut(Utilitaire.champNull(request.getParameter("heure_fin")));
     pi.getFormu().getChamp("idmanoeuvrebord").setLibelle("Manoeuvre bord");
     
     String[] ordreFormu = {"id","idmateriel_naval","daty","heuredebut","datefin","heurefin","idcommandant","idnatureoperation","idmanoeuvrebord","observation","idclient","idpilote","idnavire","duree","position","etat","idarrivee","idprevision"};
