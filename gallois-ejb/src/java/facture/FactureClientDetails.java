@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.exploitant.Activite;
 import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 /**
@@ -34,6 +35,7 @@ public class FactureClientDetails extends ClassFille {
     private double qtelivree, restealivrer; 
     private Date datefact;
 
+    
     public Date getDatefact() {
         return datefact;
     }
@@ -146,8 +148,16 @@ public class FactureClientDetails extends ClassFille {
         return super.createObject(user, c);
     }
 
+    public void verifActivite(Connection c) throws Exception{
+        Activite act = getActivite(c);
+        if(act.getEtat() < ConstanteEtat.getEtatValider()){
+            throw new Exception("Activite non visee !");
+        }
+    }
+    
     @Override
     public void controlerUpdate(Connection c) throws Exception {
+        verifActivite(c);
         setTaux(getTauxRecent(c));
         super.controlerUpdate(c);
     }
@@ -327,6 +337,7 @@ public class FactureClientDetails extends ClassFille {
         }
     }
     public void controler(Connection c) throws Exception {
+        verifActivite(c);
         this.checkActivite(c);
     }
 
