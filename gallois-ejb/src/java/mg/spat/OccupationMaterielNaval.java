@@ -33,7 +33,7 @@ import utilitaire.Utilitaire;
  */
 public class OccupationMaterielNaval extends ClassEtat {
 
-    private String id, idmateriel_naval, idpilote, idcommandant, idnatureoperation, idmanoeuvrebord,
+    private String id, idmateriel_naval, idpilote, idcommandant, commandantId, idnatureoperation, idmanoeuvrebord,
             idnavire,/*idclient,*/ position, positionlib, observation, idarrivee, idarriveelib;
     private Date daty;
     private String heuredebut;
@@ -47,6 +47,14 @@ public class OccupationMaterielNaval extends ClassEtat {
 
     public Activite getActivite() {
         return activite;
+    }
+
+    public String getCommandantId() {
+        return commandantId;
+    }
+
+    public void setCommandantId(String commandantId) {
+        this.commandantId = commandantId;
     }
     
     public void setActivite(Activite activite) {

@@ -38,6 +38,11 @@
         aWhere += " and idprevision='"+prev.getId()+"' ";
     }
     
+    TypeObjet commandant = u.getCommandant();
+    if(commandant != null){
+        aWhere += " or commandantId='"+commandant.getId()+"' ";
+    }
+    
     pr.setApres("capitainerie/occupationMaterielNaval-liste.jsp");
     pr.setOrdre("order by daty desc");
     
