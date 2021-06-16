@@ -4,6 +4,7 @@
     Author     : Asus
 --%>
 
+<%@page import="mg.spat.Prevision"%>
 <%@page import="mg.spat.OccupationMaterielNaval"%>
 <%@page import="service.UploadService"%>
 <%@page import="mg.spat.AttacherFichier"%>
@@ -17,10 +18,9 @@
 
 <% 
     try{
-  
+        UserEJB u = (user.UserEJB) session.getValue("u");
     OccupationMaterielNaval oprevision = new OccupationMaterielNaval();
     oprevision.setNomTable("occupmaterielnavallib");
-    
     
     String[] champ = {"id","idmateriel_naval","idcommandant","idnatureoperation","idmanoeuvrebord","heuredebut","datefin","heurefin","position","observation","daty","duree"};
     String[] libelle_comp = {"Id","Materiel naval","Commandant","Nature operation","Manoeuvre bord","Heure debut","date fin","heure fin","Position","Observation","Date début","Duree"};
@@ -29,11 +29,21 @@
     String listeInt[] = {"duree"};
     String libEntete[] = {"id","idmateriel_naval", "idcommandant", "idnatureoperation","idmanoeuvrebord","observation","daty","duree","heuredebut","datefin","heurefin","position"};
     PageRecherche pr = new PageRecherche(oprevision, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-    pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+    pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
+    
+    String aWhere = "";
+    Prevision prev = u.getPrevision();
+    if(prev!=null){
+        aWhere += " and idprevision='"+prev.getId()+"' ";
+    }
+    
     pr.setApres("capitainerie/occupationMaterielNaval-liste.jsp");
     pr.setOrdre("order by daty desc");
     
+    
+    
+     
     pr.getFormu().getChamp("idmateriel_naval").setLibelle("Materiel naval");
 //    pr.getFormu().getChamp("idpilote").setLibelle("Pilote");
 //    pr.getFormu().getChamp("idcommandant").setLibelle("Commandant");
@@ -41,7 +51,7 @@
 //    pr.getFormu().getChamp("idmanoeuvrebord").setLibelle("Manoeuvre de bord");
 //    pr.getFormu().getChamp("idnavire").setLibelle("Navire");
     
-    
+    pr.setAWhere(aWhere);
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
