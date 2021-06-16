@@ -509,6 +509,8 @@ public class OccupationMaterielNaval extends ClassEtat {
     
     public void verifPrevision(Connection c) throws Exception{
         Prevision p = getPrevision(c);
+        
+        if(p == null) throw new Exception("Previson introuvable");
         if(p.getEtat() < ConstanteEtat.getEtatValider()){
             throw new Exception("Prevision non visee");
         }
@@ -521,7 +523,7 @@ public class OccupationMaterielNaval extends ClassEtat {
     }
 
     public void controler(Connection c) throws Exception {
-        if(this.getPrevision(c).getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Pr\u00e9vision non vis\u00e9e");
+        verifPrevision(c);
         
         setDureeFromDate();
         //PrevisionService.testerOccupationMaterielNaval(this,c);
