@@ -65,18 +65,29 @@
     
     pi.getFormu().changerEnChamp(liste);
     
+    List<String> col = new ArrayList();
+    List<String> colVal = new ArrayList();
+    
+    col.add("daty");
+    col.add("datefin");
+    
     if(request.getParameter("idmvt")!=null && !request.getParameter("idmvt").isEmpty()){
         Mouvement[] mvt = (Mouvement[]) CGenUtil.rechercher(new Mouvement(), null, null, " and id='"+request.getParameter("idmvt")+"' ");
         pi.getFormu().getChamp("idarrivee").setDefaut(request.getParameter("idmvt"));
         pi.getFormu().getChamp("idprevision").setDefaut(mvt[0].getEscale());
         
-        if(mvt[0].getDatearrivee() != null) pi.getFormu().getChamp("daty").setDefaut(Utilitaire.datetostring(mvt[0].getDatearrivee()));
+//        if(mvt[0].getDatearrivee() != null) pi.getFormu().getChamp("daty").setDefaut(Utilitaire.datetostring(mvt[0].getDatearrivee()));
         pi.getFormu().getChamp("heuredebut").setDefaut(Utilitaire.champNull(mvt[0].getHeure()));
-        if(mvt[0].getDate_depart() != null) pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.datetostring(mvt[0].getDate_depart()));
+//        if(mvt[0].getDate_depart() != null) pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.datetostring(mvt[0].getDate_depart()));
         pi.getFormu().getChamp("heurefin").setDefaut(Utilitaire.champNull(mvt[0].getHeure_depart()));
         
         String manoeuvre = mvt[0].getTypeMvt().equalsIgnoreCase(Constante.idtypeMvtDepart) ? Constante.manoeuvreSortie : Constante.manoeuvreEntree;
         pi.getFormu().getChamp("idmanoeuvrebord").setDefaut(manoeuvre);
+        
+        String datedeb = mvt[0].getDatearrivee() != null ? Utilitaire.datetostring(mvt[0].getDatearrivee()) : "";
+        String datefin = mvt[0].getDate_depart() != null ? Utilitaire.datetostring(mvt[0].getDate_depart()) : "";
+        colVal.add(datedeb);
+        colVal.add(datefin);
     }
     
 //    pi.getFormu().getChamp("idmateriel_naval").setPageAppel("choix/listeMaterielNava.jsp");
@@ -97,9 +108,6 @@
     pi.getFormu().getChamp("Idprevision").setLibelle("Prévision");
     //pi.getFormu().getChamp("heurefin").setAutre("required");
     
-    List<String> col = new ArrayList();
-    List<String> colVal = new ArrayList();
-    
     if(request.getParameter("estCommandant") != null && request.getParameter("estCommandant").trim().equalsIgnoreCase("1")) {
         if(u.getCommandant()!=null){
             pi.getFormu().getChamp("idcommandant").setDefaut(""+u.getCommandant().getId());
@@ -111,9 +119,7 @@
         pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.champNull(request.getParameter("date_fin")));
         pi.getFormu().getChamp("heurefin").setDefaut(Utilitaire.champNull(request.getParameter("heure_fin")));
         
-        col.add("daty");
         colVal.add(request.getParameter("date_debut"));
-        col.add("datefin");
         colVal.add(request.getParameter("date_fin"));
     }
     
@@ -130,9 +136,8 @@
         pi.getFormu().getChamp("heuredebut").setDefaut(prevision[0].getHeure_arrivee());
         pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.formatterDaty(prevision[0].getDate_depart()));
         pi.getFormu().getChamp("heurefin").setDefaut(prevision[0].getHeure_depart());
-        col.add("daty");
+        
         colVal.add(Utilitaire.formatterDaty(prevision[0].getDate_arrivee()));
-        col.add("datefin");
         colVal.add(Utilitaire.formatterDaty(prevision[0].getDate_depart()));
     }
     
