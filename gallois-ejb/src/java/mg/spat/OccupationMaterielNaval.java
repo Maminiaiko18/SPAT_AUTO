@@ -48,7 +48,7 @@ public class OccupationMaterielNaval extends ClassEtat {
     public Activite getActivite() {
         return activite;
     }
-
+    
     public void setActivite(Activite activite) {
         this.activite = activite;
     }
@@ -506,10 +506,18 @@ public class OccupationMaterielNaval extends ClassEtat {
             duree = TimeUnit.MINUTES.convert(diffEnMillies, TimeUnit.MILLISECONDS);
         }
     }
-
+    
+    public void verifPrevision(Connection c) throws Exception{
+        Prevision p = getPrevision(c);
+        if(p.getEtat() < ConstanteEtat.getEtatValider()){
+            throw new Exception("Prevision non visee");
+        }
+    }
+    
     @Override
     public void controlerUpdate(Connection c) throws Exception {
         setDureeFromDate();
+        verifPrevision(c);
     }
 
     public void controler(Connection c) throws Exception {
