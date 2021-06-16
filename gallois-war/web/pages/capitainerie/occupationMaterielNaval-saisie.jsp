@@ -33,11 +33,8 @@
         pi.getFormu().getChamp("idmateriel_naval").setValeurLibelle(prev.getDenomination());
         pi.getFormu().getChamp("idarrivee").setValeurLibelle(prev.getIdarriveelib());
     }
-    if(request.getParameter("idmvt")!=null && !request.getParameter("idmvt").isEmpty()){
-        Mouvement[] mvt = (Mouvement[]) CGenUtil.rechercher(new Mouvement(), null, null, " and id='"+request.getParameter("idmvt")+"' ");
-        pi.getFormu().getChamp("idarrivee").setDefaut(request.getParameter("idmvt"));
-        pi.getFormu().getChamp("idprevision").setDefaut(mvt[0].getEscale());
-    }
+    
+    pi.getFormu().getChamp("heuredebut").setDefaut(Utilitaire.getHeureActuel());
     
     pi.getFormu().getChamp("idnavire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("idnavire").setAutre("readonly");
@@ -68,6 +65,20 @@
     
     pi.getFormu().changerEnChamp(liste);
     
+    if(request.getParameter("idmvt")!=null && !request.getParameter("idmvt").isEmpty()){
+        Mouvement[] mvt = (Mouvement[]) CGenUtil.rechercher(new Mouvement(), null, null, " and id='"+request.getParameter("idmvt")+"' ");
+        pi.getFormu().getChamp("idarrivee").setDefaut(request.getParameter("idmvt"));
+        pi.getFormu().getChamp("idprevision").setDefaut(mvt[0].getEscale());
+        
+        if(mvt[0].getDatearrivee() != null) pi.getFormu().getChamp("daty").setDefaut(Utilitaire.datetostring(mvt[0].getDatearrivee()));
+        pi.getFormu().getChamp("heuredebut").setDefaut(Utilitaire.champNull(mvt[0].getHeure()));
+        if(mvt[0].getDate_depart() != null) pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.datetostring(mvt[0].getDate_depart()));
+        pi.getFormu().getChamp("heurefin").setDefaut(Utilitaire.champNull(mvt[0].getHeure_depart()));
+        
+        String manoeuvre = mvt[0].getTypeMvt().equalsIgnoreCase(Constante.idtypeMvtDepart) ? Constante.manoeuvreSortie : Constante.manoeuvreEntree;
+        pi.getFormu().getChamp("idmanoeuvrebord").setDefaut(manoeuvre);
+    }
+    
 //    pi.getFormu().getChamp("idmateriel_naval").setPageAppel("choix/listeMaterielNava.jsp");
     pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
@@ -79,7 +90,7 @@
     //pi.getFormu().getChamp("idclient").setVisible(false);
     pi.getFormu().getChamp("daty").setLibelle("Date d&eacutebut");
     pi.getFormu().getChamp("datefin").setLibelle("Date Fin");
-    pi.getFormu().getChamp("heuredebut").setDefaut(Utilitaire.getHeureActuel());
+    
     pi.getFormu().getChamp("idmanoeuvrebord").setLibelle("Manoeuvre bord");
     pi.getFormu().getChamp("heuredebut").setLibelle("heure d&eacutebut");
     pi.getFormu().getChamp("heurefin").setLibelle("heure fin");

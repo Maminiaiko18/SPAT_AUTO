@@ -84,6 +84,8 @@ public class Constante {
     public static final String idtypeMvtDepart = "TPMM00003";
     public static final String idtypeMvt = "TPMM00002";
     public static final String idtypeMvtArrivee = "TPMM00001";
+    public static final String manoeuvreEntree = "MDB_0003";
+    public static final String manoeuvreSortie = "MDB_0005";
     private static double tauxIRCM=20;
 
     public static final String typeCheque = "TCHQ00001";
