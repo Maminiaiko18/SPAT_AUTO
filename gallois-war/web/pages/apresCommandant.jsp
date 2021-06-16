@@ -44,8 +44,10 @@
         Object[] tmp = u.getData(o, null, null, null, " and datefin is null");
 
         if (tmp == null || tmp.length == 0) {
-            o = (OccupationMaterielNaval) tmp[0];
+            throw new Exception("Aucune prestation encore d\u00e9but\u00e9e");
         }
+
+        o = (OccupationMaterielNaval) tmp[0];
 
         redirect += "&id=" + Utilitaire.champNull(o.getId());
 
