@@ -1,0 +1,1 @@
+alter table JOUR_FERIE add heuredebut varchar2(100);
