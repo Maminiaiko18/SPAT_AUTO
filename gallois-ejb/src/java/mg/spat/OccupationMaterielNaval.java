@@ -88,7 +88,7 @@ public class OccupationMaterielNaval extends ClassEtat {
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallib", c);
+            OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallibcpl", c);
             String nomRubrique = this.genererNomRubrique(c);
             System.out.println("Nom rubrique====" + nomRubrique);
             Rubrique rubrique = this.findRubrique(c, nomRubrique);
@@ -99,7 +99,7 @@ public class OccupationMaterielNaval extends ClassEtat {
             if (rubrique != null) {
                 idRubrique = rubrique.getId();
             }
-            activite = new Activite(this.getDaty(), "Activite auto via prestation " + this.getId(), occupation.getIdclient(), idRubrique, occupation.getIdprevision(), this.getDuree(), Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatCreer());
+            activite = new Activite(this.getDaty(), "Activite auto via prestation " + this.getId(), occupation.getIdclient(), idRubrique, occupation.getIdprevision(), this.getDuree()/60, Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatCreer());
             activite.construirePK(c);
             activite.insertToTable(c);
             if (verif == 1) {
