@@ -79,6 +79,7 @@
                                     <th style="background-color:#bed1dd;">ID</th>
                                     <th style="background-color:#bed1dd;">Designation</th>
                                     <th style="background-color:#bed1dd;">Facture</th>
+                                    <th style="background-color:#bed1dd;">Code Dir</th>
                                     <th style="background-color:#bed1dd;">Montant OP</th>
                                     <th style="background-color:#bed1dd;"></th>
                                 </tr>
@@ -96,7 +97,7 @@
                                             <%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>
                                         </a>
                                     </td>
-                                    
+                                    <td align="right"><%=utilitaire.Utilitaire.champNull(detail.getCode_etablissement())%></td>
                                     <td align="right"><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
                                     <td><a style="margin-right : 20px" class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + detail.getId() %>&acte=delete&bute=ded/bordereauxFF-liste.jsp&classe=bordereau.BordereauFilleFF&nomtable=liaisonbordereauFF" style="margin-right: 10px">Supprimer</a></td>
                                 </tr>
