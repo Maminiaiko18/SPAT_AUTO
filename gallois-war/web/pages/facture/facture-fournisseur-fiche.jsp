@@ -76,7 +76,7 @@
         /*Onglets*/
         String tab = null;
         Map<String, String> map = new HashMap<String, String>();
-        map.put("avoir-liste", "");
+        map.put("avoirFF-liste", "");
         map.put("additif-liste", "");
         map.put("bon-provisoire-liste", "");
         tab = request.getParameter("tab");
@@ -264,7 +264,7 @@
         <div class="col-md-8">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="<%= map.get("avoir-liste")%>"><a href="globalnegoce.jsp?but=facture/facture-fournisseur-fiche.jsp&id=<%=request.getParameter("id")+"&montant="+a.getReste()%>&tab=avoir-liste&idfacture=<%=request.getParameter("id")%>">Avoir</a></li>
+                    <li class="<%= map.get("avoirFF-liste")%>"><a href="globalnegoce.jsp?but=facture/facture-fournisseur-fiche.jsp&id=<%=request.getParameter("id")%>&tab=avoirFF-liste">Avoir</a></li>
                     <li class="<%= map.get("additif-liste")%>"><a href="globalnegoce.jsp?but=facture/facture-fournisseur-fiche.jsp&id=<%=request.getParameter("id")%>&tab=additif-liste&idfacture=<%=request.getParameter("id")%>">Additif</a></li>
                     <li class="<%= map.get("bon-provisoire-liste")%>"><a href="globalnegoce.jsp?but=facture/facture-fournisseur-fiche.jsp&id=<%=request.getParameter("id")%>&tab=bon-provisoire-liste&idfacture=<%=request.getParameter("id")%>">Liste Bon provisoire</a></li>
                 </ul>
@@ -319,5 +319,5 @@
     $('#fiche .row .col-md-6').removeClass('col-md-6').removeClass('col-md-center').addClass('col-md-8').addClass('col-md-offset-2');
 </script>
 <%} catch (Exception e) {
-        throw e;
+        e.printStackTrace();
     }%>
