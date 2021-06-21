@@ -3,6 +3,7 @@
     Created on : 1 déc. 2016, 09:52:16
     Author     : Joe
 --%>
+<%@page import="java.sql.Date"%>
 <%@page import="mg.spat.stock.BonDeCommande"%>
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
@@ -41,6 +42,24 @@
     liste[0] = new Liste("modepaiement", ou, "VAL", "VAL");
 	
     pr.getFormu().changerEnChamp(liste);*/
+    
+    Date firstDate = Utilitaire.dateDuJourSql();   
+    firstDate.setDate(1);        
+    Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
+
+    String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+    String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+
+    if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+        pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+        pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+
+    }
+    
+    pr.getFormu().getChamp("daty1").setLibelle("Date debut");
+    pr.getFormu().getChamp("daty2").setLibelle("Date fin");
+
+    pr.setOrdre(" order by daty desc");
     
     pr.setApres("stock/bc/asBonDeCommande-liste.jsp");
     String[] colSomme = {"montantTTC"};
