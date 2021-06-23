@@ -1152,7 +1152,7 @@ public class CGenUtil {
                     {
                        // retour = retour + " and " + g[k].Name + " like '" + g[k].GetValue(e, null).ToString().Replace("'", "''") + "'";
                     if(ch[k].getNomColonne().compareToIgnoreCase("id")==0){
-                        retour = retour + " and " + ch[k].getNomClasse().getName() + " like '%" + Utilitaire.replaceChar(valeurk.toString()) + "%'";
+                        retour = retour + " and " + ch[k].getNomClasse().getName() + " ='" + Utilitaire.replaceChar(valeurk.toString()) + "'";
                     }else{
                         retour = retour + " and " + ch[k].getNomClasse().getName() + " like '%" + Utilitaire.replaceChar(valeurk.toString()) + "%'";
                 
