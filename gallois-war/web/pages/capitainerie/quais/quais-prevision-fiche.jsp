@@ -72,14 +72,19 @@
                     %>
                     <br/>
                     <div class="box-footer">
-                        <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
-                        <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Prevision" style="margin-right: 10px">Viser</a>
-                        <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=annulerVisa&bute=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Prevision" style="margin-right: 10px">Annuler Visa</a>
-                        <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=capitainerie/prevision-liste.jsp&classe=mg.spat.Prevision"><button class="btn btn-danger">Supprimer</button></a>
-                        <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/quais/quais-prevision-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
-                        <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=TPMM00004&idPrevision=" + base.getId()%>" style="margin-right: 10px">Arrivée</a>   
+                        <p>
+                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
+                            <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Prevision" style="margin-right: 10px">Viser</a>
+                            <a class="btn btn-danger pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=annulerVisa&bute=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Prevision" style="margin-right: 10px">Annuler Visa</a>
+                            <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=capitainerie/prevision-liste.jsp&classe=mg.spat.Prevision"><button class="btn btn-danger">Supprimer</button></a>
+                            <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/quais/quais-prevision-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
+                        </p>
                         <br/>
-                        <a class="btn btn-info pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir prestation</a>   
+                        <p>
+                            <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=TPMM00004&idPrevision=" + base.getId()%>" style="margin-right: 10px">Arrivée</a>   
+                            <a class="btn btn-info pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir prestation</a>   
+                            <a class="btn btn-default pull-left"  href="<%=(String) session.getValue("lien") + "?but=exploitants/activites-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir activite </a>   
+                        <p>
                     </div>
                     <br/>
 
