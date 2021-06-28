@@ -20,6 +20,7 @@ import utilitaire.Utilitaire;
 public class AdminPrestation {
     
     private OccupationMaterielNavalLibComplet[] listePrestation;
+    private Prevision prevision;
     
     
     public AdminPrestation(){
@@ -30,6 +31,14 @@ public class AdminPrestation {
         OccupationMaterielNavalLibComplet[] ls = (OccupationMaterielNavalLibComplet[]) CGenUtil.rechercher(o, null, null, " and id in ("+Utilitaire.tabToString(ids, "'", ",")+")");
         if(ls.length > 0){
             setListePrestation(ls);
+        }
+    }
+    
+    public void initPrevision(String idPrevision) throws Exception{
+        Prevision p = new Prevision();
+        Prevision[] ls = (Prevision[]) CGenUtil.rechercher(p, null, null, " and id='"+idPrevision+"'");
+        if(ls.length > 0){
+            this.prevision = ls[0];
         }
     }
     
