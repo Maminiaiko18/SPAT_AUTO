@@ -133,6 +133,15 @@ public class OccupationMaterielNaval extends ClassEtat {
         }
         return rubrique;
     }
+    
+    public Rubrique getRubriqueCalcule(Connection c) throws Exception{
+        Rubrique rubrique = null;
+        Rubrique[] liste = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, "and upper(designation) like upper('%" + this.getIdnatureoperation() + " calculé%')");
+        if (liste.length > 0) {
+            rubrique = liste[0];
+        }
+        return rubrique;
+    }
 
     public boolean estFerie(Date d, Connection c) throws Exception {
         if (d == null) {
