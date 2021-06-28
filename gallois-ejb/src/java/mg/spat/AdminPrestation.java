@@ -82,4 +82,13 @@ public class AdminPrestation {
     public void setListePrestation(OccupationMaterielNavalLibComplet[] listePrestation) {
         this.listePrestation = listePrestation;
     }
+
+    public Prevision getPrevision() {
+        return prevision;
+    }
+
+    public void setPrevision(Prevision prevision) {
+        this.prevision = prevision;
+    }
+    
 }
