@@ -9,6 +9,7 @@ import bean.CGenUtil;
 import java.sql.Connection;
 import java.util.ArrayList;
 import mg.spat.exploitant.Activite;
+import mg.spat.exploitant.AdminActivite;
 import utilitaire.Utilitaire;
 
 /**
@@ -37,6 +38,29 @@ public class AdminPrestation {
                 reps.add(OccupationMaterielNaval.genererActivite(listePrestation[i], c));
             }
         return reps;
+    }
+    
+    public void facturer(String user) throws Exception {
+        Connection c = null;
+        
+        try {
+            c = (new utilitaire.UtilDB()).GetConn();
+            c.setAutoCommit(false);
+            
+            AdminActivite adminAct = new AdminActivite();
+            java.util.List<Activite> activites = this.genererActivite(c);
+            adminAct.setListeActivites(activites.toArray(new Activite[activites.size()]));
+            
+            adminAct.facturer(user, c);
+            
+            c.commit();
+        } catch (Exception e) {
+            if(c != null) c.rollback();
+            throw e;
+        }
+        finally {
+            if(c != null) c.close();
+        }
     }
             
             
