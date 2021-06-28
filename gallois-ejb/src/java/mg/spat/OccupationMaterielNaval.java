@@ -87,7 +87,7 @@ public class OccupationMaterielNaval extends ClassEtat {
         return super.validerObject(u, c);
     }
 
-    public static Activite genererActivite(OccupationMaterielNaval prestation, Connection c) throws Exception {
+    public static Activite genererActivite(OccupationMaterielNaval prestation, String u, Connection c) throws Exception {
         Activite rep = new Activite();
         Prevision prevision= prestation.getPrevision(c);
         Rubrique rubrique = prestation.getRubriqueCalcule(c);
@@ -106,6 +106,7 @@ public class OccupationMaterielNaval extends ClassEtat {
         rep.setAnnee(Utilitaire.getAnnee(prestation.getDaty()) );
         rep.setDaty(prestation.getDaty());
         rep.setBateau(prestation.getIdprevision());
+        rep.createObject(u, c);
         return rep;
     }
     

@@ -33,10 +33,10 @@ public class AdminPrestation {
         }
     }
     
-    public ArrayList<Activite> genererActivite(Connection c) throws Exception {
+    public ArrayList<Activite> genererActivite(String u, Connection c) throws Exception {
         ArrayList<Activite> reps = new ArrayList();
             for(int i=0; listePrestation!=null && i<listePrestation.length; i++){
-                reps.add(OccupationMaterielNaval.genererActivite(listePrestation[i], c));
+                reps.add(OccupationMaterielNaval.genererActivite(listePrestation[i], u, c));
             }
         return reps;
     }
@@ -49,7 +49,7 @@ public class AdminPrestation {
             c.setAutoCommit(false);
             
             AdminActivite adminAct = new AdminActivite();
-            java.util.List<Activite> activites = this.genererActivite(c);
+            java.util.List<Activite> activites = this.genererActivite(user, c);
             adminAct.setListeActivites(activites.toArray(new Activite[activites.size()]));
             
             fc=adminAct.facturer(user, c);
