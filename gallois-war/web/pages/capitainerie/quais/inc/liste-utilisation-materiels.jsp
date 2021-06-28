@@ -51,16 +51,16 @@
 
 
 
-<form action="<%=pr.getLien()%>?but=apresTarif.jsp" method="post" name="facturation" id="facturation">
+<form action="<%=pr.getLien()%>?but=apresPrevision.jsp" method="post" name="facturation" id="facturation">
     <%
         pr.getTableau().setNameBoutton("Facturer");
-        pr.getTableau().setNameActe("facturerOccupation");
+        pr.getTableau().setNameActe("facturerPrevision");
         out.println(pr.getTableau().getHtmlWithCheckbox());
 
 
     //   out.println(pr.getBasPage());
     %>
-    <input name="acte" type="hidden" id="acte" value="facturerOccupation">
+    <input name="acte" type="hidden" id="acte" value="facturerPrevision">
     <input name="bute" type="hidden" id="bute" value="facture/facture-client-modif.jsp">
     <input name="classe" type="hidden" id="classe" value="mg.spat.OccupationMaterielNaval">
 </form> 

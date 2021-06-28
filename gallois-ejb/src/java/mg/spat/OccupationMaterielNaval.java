@@ -89,14 +89,23 @@ public class OccupationMaterielNaval extends ClassEtat {
 
     public static Activite genererActivite(OccupationMaterielNaval prestation, Connection c) throws Exception {
         Activite rep = new Activite();
-            rep.setDesignation(prestation.getIdnatureoperation() + prestation.getPrevision(c).getId() );
-            rep.setClient(prestation.getIdclient());
-            rep.setRubrique(prestation.getRubriqueCalcule(c).getId());
-            rep.setMois(Utilitaire.getMois(prestation.getDaty()) );
-            rep.setAnnee(Utilitaire.getAnnee(prestation.getDaty()) );
-            rep.setDaty(prestation.getDaty());
-            rep.setBateau(prestation.getIdprevision());
-            //rep.setPoste(poste);
+        Prevision prevision= prestation.getPrevision(c);
+        Rubrique rubrique = prestation.getRubriqueCalcule(c);
+        String previsionId="",idrubrique="";
+        
+        if(prevision!=null){
+            previsionId=prevision.getId();
+        }
+        if(rubrique !=null){
+            idrubrique=rubrique.getId();
+        }
+        rep.setDesignation(prestation.getIdnatureoperation() +  previsionId);
+        rep.setClient(prestation.getIdclient());
+        rep.setRubrique(idrubrique);
+        rep.setMois(Utilitaire.getMois(prestation.getDaty()) );
+        rep.setAnnee(Utilitaire.getAnnee(prestation.getDaty()) );
+        rep.setDaty(prestation.getDaty());
+        rep.setBateau(prestation.getIdprevision());
         return rep;
     }
     

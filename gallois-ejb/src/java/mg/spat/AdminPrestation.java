@@ -6,6 +6,7 @@
 package mg.spat;
 
 import bean.CGenUtil;
+import facture.FactureClient;
 import java.sql.Connection;
 import java.util.ArrayList;
 import mg.spat.exploitant.Activite;
@@ -40,9 +41,9 @@ public class AdminPrestation {
         return reps;
     }
     
-    public void facturer(String user) throws Exception {
+    public FactureClient facturer(String user) throws Exception {
         Connection c = null;
-        
+        FactureClient fc=null;
         try {
             c = (new utilitaire.UtilDB()).GetConn();
             c.setAutoCommit(false);
@@ -51,7 +52,7 @@ public class AdminPrestation {
             java.util.List<Activite> activites = this.genererActivite(c);
             adminAct.setListeActivites(activites.toArray(new Activite[activites.size()]));
             
-            adminAct.facturer(user, c);
+            fc=adminAct.facturer(user, c);
             
             c.commit();
         } catch (Exception e) {
@@ -61,6 +62,7 @@ public class AdminPrestation {
         finally {
             if(c != null) c.close();
         }
+        return fc;
     }
             
             
