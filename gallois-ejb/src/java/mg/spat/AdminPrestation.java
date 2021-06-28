@@ -5,6 +5,9 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
+import utilitaire.Utilitaire;
+
 /**
  *
  * @author
@@ -15,6 +18,14 @@ public class AdminPrestation {
     
     
     public AdminPrestation(){
+    }
+    
+    public void findPrestations(String[] ids) throws Exception{
+        OccupationMaterielNavalLibComplet o = new OccupationMaterielNavalLibComplet();
+        OccupationMaterielNavalLibComplet[] ls = (OccupationMaterielNavalLibComplet[]) CGenUtil.rechercher(o, null, null, " and id in ("+Utilitaire.tabToString(ids, "'", ",")+")");
+        if(ls.length > 0){
+            setListePrestation(ls);
+        }
     }
     
     public OccupationMaterielNavalLibComplet[] getListePrestation() {
