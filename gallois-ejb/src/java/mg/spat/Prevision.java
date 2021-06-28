@@ -10,6 +10,8 @@ import bean.ClassEtat;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.exploitant.Activite;
+import mg.spat.exploitant.Rubrique;
 import service.NavireService;
 import service.PrevisionService;
 import utilitaire.UtilDB;
@@ -43,7 +45,29 @@ public class Prevision extends ClassEtat {
     public Prevision() {
         super.setNomTable("prevision");
     }
-
+    
+    public Rubrique getRubrique(Connection c) throws Exception{
+        Rubrique rubrique = null;
+        Rubrique[] liste = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, " and upper(designation) like upper('%Droit de port calculé%')");
+        if (liste.length > 0) {
+            rubrique = liste[0];
+        }
+        return rubrique;
+    }
+    
+    public Activite genererDroitDePort(String u, Connection c)  throws Exception {
+        Activite rep = new Activite();
+            rep.setDesignation("Droit de port "+getId());
+            rep.setClient(getConsignataire());
+            rep.setMois(Utilitaire.getMois(getDate_arrivee()));
+            rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
+            rep.setDaty(getDate_arrivee());
+            rep.setBateau(getId());
+            rep.setRubrique(getRubrique(c).getId());
+        rep.createObject(u, c);
+        return rep;
+    }
+    
     @Override
     public ClassMAPTable createObject(String u,Connection c) throws Exception {
         controlerDoublon(c);
