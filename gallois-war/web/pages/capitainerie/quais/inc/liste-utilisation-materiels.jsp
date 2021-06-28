@@ -60,6 +60,7 @@
 
     //   out.println(pr.getBasPage());
     %>
+    <input name="idprevision" type="hidden" id="acte" value="<%=request.getParameter("idprevision")%>">
     <input name="acte" type="hidden" id="acte" value="facturerPrevision">
     <input name="bute" type="hidden" id="bute" value="facture/facture-client-modif.jsp">
     <input name="classe" type="hidden" id="classe" value="mg.spat.OccupationMaterielNaval">

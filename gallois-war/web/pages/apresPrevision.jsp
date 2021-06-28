@@ -92,7 +92,9 @@
 
             System.out.println("acte ==========="+acte);
             if (acte.compareToIgnoreCase("facturerPrevision") == 0) {
+                String idprevision = request.getParameter("idprevision");
                 AdminPrestation  adminPrestation=new AdminPrestation();
+                adminPrestation.initPrevision(idprevision);
                 adminPrestation.findPrestations(ids);
                 FactureClient facture = adminPrestation.facturer(u.getUser().getTuppleID());
                 id=facture.getId();
