@@ -6,6 +6,9 @@
 package mg.spat;
 
 import bean.CGenUtil;
+import java.sql.Connection;
+import java.util.ArrayList;
+import mg.spat.exploitant.Activite;
 import utilitaire.Utilitaire;
 
 /**
@@ -28,6 +31,15 @@ public class AdminPrestation {
         }
     }
     
+    public ArrayList<Activite> genererActivite(Connection c) throws Exception {
+        ArrayList<Activite> reps = new ArrayList();
+            for(int i=0; listePrestation!=null && i<listePrestation.length; i++){
+                reps.add(OccupationMaterielNaval.genererActivite(listePrestation[i], c));
+            }
+        return reps;
+    }
+            
+            
     public OccupationMaterielNavalLibComplet[] getListePrestation() {
         return listePrestation;
     }
