@@ -45,7 +45,12 @@ public class AdminPrestation {
     public ArrayList<Activite> genererActivite(String u, Connection c) throws Exception {
         ArrayList<Activite> reps = new ArrayList();
             for(int i=0; listePrestation!=null && i<listePrestation.length; i++){
-                reps.add(OccupationMaterielNaval.genererActivite(listePrestation[i], u, c));
+                Activite act = OccupationMaterielNaval.genererActivite(listePrestation[i], u, c);
+                act.validerObject(u, c);
+                Activite actDroitePort = listePrestation[i].getPrevision(c).genererDroitDePort(u, c);
+                actDroitePort.validerObject(u, c);
+                reps.add(act);
+                reps.add(actDroitePort);
             }
         return reps;
     }
