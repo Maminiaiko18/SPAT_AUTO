@@ -24,7 +24,7 @@ public class PrevisionLibComplet extends Prevision {
     public String getValColLibelle(){
         String datArr = Utilitaire.formatterDaty(this.getDate_arrivee());
         String datDep = Utilitaire.formatterDaty(this.getDate_depart());
-        return this.getEscale()+";"+datArr+";"+this.getHeure_arrivee()+";"+datDep+";"+this.getHeure_depart();
+        return this.getEscale()+";"+datArr+";"+this.getHeure_arrivee()+";"+datDep+";"+this.getHeure_depart()+";"+this.getConsignataire()+";"+this.getValconsignataire();
     }
     
     public String getType() {
