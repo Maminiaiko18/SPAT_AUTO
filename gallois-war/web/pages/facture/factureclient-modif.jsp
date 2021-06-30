@@ -50,6 +50,7 @@ try{
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("Taux"), false);
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("activitelib"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
     
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
@@ -116,6 +117,7 @@ try{
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib() %>";
     <%for(int i=0; i<liste.length; i++){%>
         document.getElementById("idactivitelibelle_<%=i%>").value = "<%=liste[i].getActivitelib() != null ? liste[i].getActivitelib() : liste[i].getIdactivite()%>";
+        document.getElementById("rubriquelibelle_<%=i%>").value = "<%=liste[i].getRubriquelib() != null ? liste[i].getRubriquelib() : liste[i].getRubrique()%>";
     <%}%>
 </script>
 <%}catch(Exception ex){

@@ -34,6 +34,15 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoiravectaux;
     private double qtelivree, restealivrer; 
     private Date datefact;
+    private String rubriquelib;
+
+    public String getRubriquelib() {
+        return rubriquelib;
+    }
+
+    public void setRubriquelib(String rubriquelib) {
+        this.rubriquelib = rubriquelib;
+    }
     
     
 
