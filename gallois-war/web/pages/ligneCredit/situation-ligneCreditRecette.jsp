@@ -13,7 +13,7 @@
 
         String listeCrt[] = {"id","designation","compte"};
         String listeInt[] = {""};
-        String libEntete[] = {"id","designation","compte","annee","montant","facture","paye","etat"};
+        String libEntete[] = {"id","designation","compte","annee","montant","facture","paye"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -40,7 +40,7 @@
         %>
         <br>
         <%
-            String libEnteteAffiche[] = {"id","designation","compte","annee","montant","facture","paye","etat"};
+            String libEnteteAffiche[] = {"id","designation","compte","annee","montant","facture","paye"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
