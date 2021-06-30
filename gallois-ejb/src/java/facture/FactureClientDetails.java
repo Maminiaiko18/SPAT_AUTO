@@ -26,7 +26,7 @@ public class FactureClientDetails extends ClassFille {
     
     private String id,idmere;
     private double quantite,pu,taux;
-    private String compte,idproduit,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib;
+    private String compte,idproduit,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib,rubrique;
     private FactureClient mere;
     private double montant;
     private double montanttaux;
@@ -316,6 +316,14 @@ public class FactureClientDetails extends ClassFille {
 
     public void setCategorieClientlib(String categorieClientlib) {
         this.categorieClientlib = categorieClientlib;
+    }
+    
+    public String getRubrique() {
+        return rubrique;
+    }
+
+    public void setRubrique(String rubrique) {
+        this.rubrique = rubrique;
     }
     
     public void checkActivite(Connection c) throws Exception{
