@@ -34,6 +34,8 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoiravectaux;
     private double qtelivree, restealivrer; 
     private Date datefact;
+    
+    
 
     
     public Date getDatefact() {
