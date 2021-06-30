@@ -43,9 +43,7 @@
             bute = request.getParameter("bute");
             action = request.getParameter("action");
             String[] ids = request.getParameterValues("id");
-            if (ids == null || ids.length == 0) {
-                throw new Exception("Vous devez  cocher au moins un element");
-            }
+
             Object temp = null;
             String[] rajoutLien = null;
             String classe = request.getParameter("classe");
@@ -63,11 +61,11 @@
             String[] rajoutLienFormu = null;
             if (tempRajoutLienFormu != null && tempRajoutLienFormu.compareToIgnoreCase("") != 0) {
                 rajoutLienFormu = utilitaire.Utilitaire.split(tempRajoutLienFormu, "-");
-                if(rajoutLienFormu.length == 2){
-                    rajoutLieFormu = "&"+rajoutLienFormu[0]+"="+rajoutLienFormu[1];
+                if (rajoutLienFormu.length == 2) {
+                    rajoutLieFormu = "&" + rajoutLienFormu[0] + "=" + rajoutLienFormu[1];
                 }
             }
-            
+
             if (bute == null || bute.compareToIgnoreCase("") == 0) {
                 bute = "pub/Pub.jsp";
             }
@@ -90,26 +88,34 @@
 
             }
 
-            System.out.println("acte ==========="+acte);
-            if (acte.compareToIgnoreCase("facturerPrevision") == 0) {
-                String idprevision = request.getParameter("idprevision");
-                AdminPrestation  adminPrestation=new AdminPrestation();
-                adminPrestation.initPrevision(idprevision);
-                adminPrestation.findPrestations(ids);
-                FactureClient facture = adminPrestation.facturer(u.getUser().getTuppleID());
-                id=facture.getId();
-                System.out.println("facture ==========="+facture.getId());
-            }
             if (acte.compareToIgnoreCase("factureGlobale") == 0) {
                 String idprevision = request.getParameter("idPrevision");
                 mg.spat.Prevision prevision = new mg.spat.Prevision();
                 prevision.setId(idprevision);
-                
-                facture.FactureClient fc = prevision.facturer(""+u.getUser().getRefuser(), null);
+
+                facture.FactureClient fc = prevision.facturer("" + u.getUser().getRefuser(), null);
                 bute = "facture/factureclient-modif.jsp";
                 id = fc.getId();
-            }
+    %>
+    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>
+    <%
+        }
 
+        if (ids == null || ids.length == 0) {
+            throw new Exception("Vous devez  cocher au moins un element");
+        }
+
+        System.out.println("acte ===========" + acte);
+        if (acte.compareToIgnoreCase("facturerPrevision") == 0) {
+            String idprevision = request.getParameter("idprevision");
+            AdminPrestation adminPrestation = new AdminPrestation();
+            adminPrestation.initPrevision(idprevision);
+
+            adminPrestation.findPrestations(ids);
+            FactureClient facture = adminPrestation.facturer(u.getUser().getTuppleID());
+            id = facture.getId();
+            System.out.println("facture ===========" + facture.getId());
+        }
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>
     <%

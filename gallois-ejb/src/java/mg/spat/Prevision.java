@@ -40,22 +40,42 @@ public class Prevision extends ClassEtat {
     private String destination, escale;
     private String couleur = "#1E90FF";
     private String noVoyage;
-    
-    public FactureClient facturer(String user,Connection c) throws Exception{
-        FactureClient facture =null;
-        AdminActivite adminActivite=new AdminActivite();
-        adminActivite.initActivite(genererActiviteVisees(user,c));
-        facture=adminActivite.facturer(user, c);
+
+    public FactureClient facturer(String user, Connection c) throws Exception {
+        FactureClient facture = null;
+        int verif = 0;
+        
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            
+            Prevision prevision = new Prevision();
+            prevision = (Prevision) prevision.getById(this.getId(), prevision.getNomTable(), c);
+            
+            AdminActivite adminActivite = new AdminActivite();
+            adminActivite.initActivite(prevision.genererActiviteVisees(user, c));
+            facture = adminActivite.facturer(user, c);
+            
+            if(verif == 1) c.commit();
+        } catch (Exception e) {
+            if(c != null && verif == 1) c.rollback();
+            throw e;
+        }
+        finally {
+            if(c != null && verif == 1) c.close();
+        }
+
         return facture;
     }
-    
-    
 
     public Prevision() {
         super.setNomTable("prevision");
     }
-    
-    public Rubrique getRubrique(Connection c,String awhere) throws Exception{
+
+    public Rubrique getRubrique(Connection c, String awhere) throws Exception {
         Rubrique rubrique = null;
         Rubrique[] liste = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, awhere);
         if (liste.length > 0) {
@@ -63,35 +83,35 @@ public class Prevision extends ClassEtat {
         }
         return rubrique;
     }
-    
+
     public Activite[] genererActiviteVisees(String u, Connection c) throws Exception {
         java.util.List<Activite> activites = new java.util.ArrayList<>();
-        
+
         String awhere = " and id = '%s'";
         activites.add(
-                (Activite) this.genererActivite(u, c, "Droit de port " + this.getId(), 
+                (Activite) this.genererActivite(u, c, "Droit de port " + this.getId(),
                         String.format(awhere, Constante.idDroitDePortCalcule)).validerObject(u, c)
         );
         activites.add(
-                (Activite) this.genererActivite(u, c, "Pilotage " + this.getId(), 
+                (Activite) this.genererActivite(u, c, "Pilotage " + this.getId(),
                         String.format(awhere, Constante.idPilotageCalcule)).validerObject(u, c)
         );
         activites.add(
-                (Activite) this.genererActivite(u, c, "Remorquage " + this.getId(), 
+                (Activite) this.genererActivite(u, c, "Remorquage " + this.getId(),
                         String.format(awhere, Constante.idRemorquageCalcule)).validerObject(u, c)
         );
         activites.add(
-                (Activite) this.genererActivite(u, c, "Lamanage " + this.getId(), 
+                (Activite) this.genererActivite(u, c, "Lamanage " + this.getId(),
                         String.format(awhere, Constante.idLamanageCalcule)).validerObject(u, c)
         );
         activites.add(
-                (Activite) this.genererActivite(u, c, "Redevance communale " + this.getId(), 
+                (Activite) this.genererActivite(u, c, "Redevance communale " + this.getId(),
                         String.format(awhere, Constante.idRedevanceCommunaleCalcule)).validerObject(u, c)
         );
-        
+
         return activites.toArray(new Activite[activites.size()]);
     }
-    
+
     public Activite genererActivite(String u, Connection c, String designation, String awhere) throws Exception {
         Activite rep = new Activite();
         rep.setDesignation(designation);
@@ -100,12 +120,12 @@ public class Prevision extends ClassEtat {
         rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
         rep.setDaty(getDate_arrivee());
         rep.setBateau(getId());
-        rep.setRubrique(getRubrique(c,awhere).getId());
+        rep.setRubrique(getRubrique(c, awhere).getId());
         rep.createObject(u, c);
-        
+
         return rep;
     }
-    
+
 //    public Activite genererDroitDePort(String u, Connection c)  throws Exception {
 //        Activite rep = new Activite();
 //        rep.setDesignation("Droit de port "+getId());
@@ -130,9 +150,8 @@ public class Prevision extends ClassEtat {
 //        rep.createObject(u, c);
 //        return rep;
 //    }
-    
     @Override
-    public ClassMAPTable createObject(String u,Connection c) throws Exception {
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
         controlerDoublon(c);
         super.createObject(u, c);
         return this;
@@ -162,6 +181,7 @@ public class Prevision extends ClassEtat {
     public void setProvenance(String provenance) {
         this.provenance = provenance;
     }
+
     public String getCouleur() {
         return couleur;
     }
@@ -169,7 +189,7 @@ public class Prevision extends ClassEtat {
     public void setCouleur(String couleur) {
         this.couleur = couleur;
     }
-    
+
     public String getNoVoyage() {
         return noVoyage;
     }
@@ -177,7 +197,7 @@ public class Prevision extends ClassEtat {
     public void setNoVoyage(String noVoyage) {
         this.noVoyage = noVoyage;
     }
-    
+
     public String getNavire() {
         return navire;
     }
