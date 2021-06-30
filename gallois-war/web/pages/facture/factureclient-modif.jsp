@@ -58,7 +58,7 @@ try{
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
     
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
     
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("datefact"), "readonly");
