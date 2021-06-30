@@ -46,9 +46,9 @@ public class Prevision extends ClassEtat {
         super.setNomTable("prevision");
     }
     
-    public Rubrique getRubrique(Connection c) throws Exception{
+    public Rubrique getRubrique(Connection c,String awhere) throws Exception{
         Rubrique rubrique = null;
-        Rubrique[] liste = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, " and upper(designation) like upper('%Droit de port calculé%')");
+        Rubrique[] liste = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, awhere);
         if (liste.length > 0) {
             rubrique = liste[0];
         }
@@ -57,13 +57,25 @@ public class Prevision extends ClassEtat {
     
     public Activite genererDroitDePort(String u, Connection c)  throws Exception {
         Activite rep = new Activite();
-            rep.setDesignation("Droit de port "+getId());
-            rep.setClient(getConsignataire());
-            rep.setMois(Utilitaire.getMois(getDate_arrivee()));
-            rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
-            rep.setDaty(getDate_arrivee());
-            rep.setBateau(getId());
-            rep.setRubrique(getRubrique(c).getId());
+        rep.setDesignation("Droit de port "+getId());
+        rep.setClient(getConsignataire());
+        rep.setMois(Utilitaire.getMois(getDate_arrivee()));
+        rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
+        rep.setDaty(getDate_arrivee());
+        rep.setBateau(getId());
+        rep.setRubrique(getRubrique(c," and upper(designation) like upper('Droit de port calcule')").getId());
+        rep.createObject(u, c);
+        return rep;
+    }
+    public Activite genererRedevanceCommunale(String u, Connection c)  throws Exception {
+        Activite rep = new Activite();
+        rep.setDesignation("Redevance communale "+getId());
+        rep.setClient(getConsignataire());
+        rep.setMois(Utilitaire.getMois(getDate_arrivee()));
+        rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
+        rep.setDaty(getDate_arrivee());
+        rep.setBateau(getId());
+        rep.setRubrique(getRubrique(c," and upper(designation) like upper('Redevance communale calcule')").getId());
         rep.createObject(u, c);
         return rep;
     }

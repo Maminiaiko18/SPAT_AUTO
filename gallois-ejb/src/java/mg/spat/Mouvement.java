@@ -61,7 +61,7 @@ public class Mouvement extends ClassEtat {
             Postedestinataire destination = new Postedestinataire();
             destination = (Postedestinataire) destination.getById(this.getDestination(), destination.getNomTable(), c);
             
-            if(destination != null && destination.getInterne().compareTo("1") == 0) {
+            if(destination != null && destination.getInterne().compareTo("0") == 0) {
                 Prevision prevision = this.getPrevision(c);
                 
                 prevision.setDate_depart(this.getDate_depart());
@@ -70,7 +70,7 @@ public class Mouvement extends ClassEtat {
                 prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
             }
             
-            creerActivite(u, c);
+            //creerActivite(u, c);
         }
         if (this.estTouchee(c) && this.getEscale() == null) {
             this.creerPrevision(u, c);

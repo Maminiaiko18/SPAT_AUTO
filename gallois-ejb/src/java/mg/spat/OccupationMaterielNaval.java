@@ -87,10 +87,10 @@ public class OccupationMaterielNaval extends ClassEtat {
         return super.validerObject(u, c);
     }
 
-    public static Activite genererActivite(OccupationMaterielNaval prestation, String u, Connection c) throws Exception {
+    public Activite genererActivite(String u, Connection c) throws Exception {
         Activite rep = new Activite();
-        Prevision prevision= prestation.getPrevision(c);
-        Rubrique rubrique = prestation.getRubriqueCalcule(c);
+        Prevision prevision= this.getPrevision(c);
+        Rubrique rubrique = this.getRubriqueCalcule(c);
         String previsionId="",idrubrique="";
         
         if(prevision!=null){
@@ -99,13 +99,15 @@ public class OccupationMaterielNaval extends ClassEtat {
         if(rubrique !=null){
             idrubrique=rubrique.getId();
         }
-        rep.setDesignation(prestation.getIdnatureoperation() +  previsionId);
-        rep.setClient(prestation.getIdclient());
+        rep.setDesignation(this.getIdnatureoperation() +  previsionId);
+        rep.setClient(this.getIdclient());
+        System.out.println("rep.getClient=="+rep.getClient());
         rep.setRubrique(idrubrique);
-        rep.setMois(Utilitaire.getMois(prestation.getDaty()) );
-        rep.setAnnee(Utilitaire.getAnnee(prestation.getDaty()) );
-        rep.setDaty(prestation.getDaty());
-        rep.setBateau(prestation.getIdprevision());
+        System.out.println("idRubrique dans genererActivite=="+idrubrique);
+        rep.setMois(Utilitaire.getMois(this.getDaty()) );
+        rep.setAnnee(Utilitaire.getAnnee(this.getDaty()) );
+        rep.setDaty(this.getDaty());
+        rep.setBateau(previsionId);
         rep.createObject(u, c);
         return rep;
     }
@@ -159,7 +161,7 @@ public class OccupationMaterielNaval extends ClassEtat {
     
     public Rubrique getRubriqueCalcule(Connection c) throws Exception{
         Rubrique rubrique = null;
-        Rubrique[] liste = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, "and upper(designation) like upper('%" + this.getIdnatureoperation() + " calculé%')");
+        Rubrique[] liste = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, "and upper(designation) like upper('%" + this.getIdnatureoperation() + " calcule%')");
         if (liste.length > 0) {
             rubrique = liste[0];
         }
@@ -195,7 +197,7 @@ public class OccupationMaterielNaval extends ClassEtat {
         }
         oc = liste[0];
         String nom = oc.getIdnatureoperation();
-        if (estFerie(oc.getDaty(), c)) {
+        /*if (estFerie(oc.getDaty(), c)) {
             nom += " ferie";
         } else if (estJour(oc.getHeuredebut())) {
             nom += " jour";
@@ -209,8 +211,8 @@ public class OccupationMaterielNaval extends ClassEtat {
             nom += " PFI LC";
         } else {
             nom += " LC";
-        }
-        return nom;
+        }*/
+        return nom+" calcule";
     }
 
     public OccupationMaterielNaval() {
