@@ -314,8 +314,59 @@ Insert into DETFORMUFACT
  Values
    ('DFF0000000023170483', 'Remorquage V>=5.000 international ferie', 1, 1, '8.045', 'UA048', 
     'RB0000000021170446', '[natureoperation]==''NAT0005''&&[estNational]==''International''&&[volume]>=5000&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&[cargaison]!=''CGM00001''', '[volumeArrondi]');	
+/*Majoration Remorquage entre 3.000 et 5.000 jour normal cargo*/ --manomboka 535
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170535', 'Maj. Remorq. 3000<=V<5.000 national', 1, 1, '65.67', 'UA043', 
+    'RB0000000021170446', '[natureoperation]==''NAT0005''&&[estNational]==''National''&&[volume]>=3000&&[volume]<5000&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&[cargaison]!=''CGM00001''&&[nbQuartHeure]>0', '[nbQuartHeure]');	
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF00000000231704536', 'Maj. Remorq. 3000<=V<5.000 international', 1, 1, '124.775', 'UA043', 
+    'RB0000000021170446', '[natureoperation]==''NAT0005''&&[estNational]==''International''&&[volume]>=3000&&[volume]<5000&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&[cargaison]!=''CGM00001''&&[nbQuartHeure]>0', '[nbQuartHeure]');	
+/*Majoration Remorquage entre 3.000 et 5.000 jour normal férié et nuit cargo*/
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170537', 'Maj. Remorq. 3000<=V<5.000 national ferie', 1, 1, '98.505', 'UA043', 
+    'RB0000000021170446', '[natureoperation]==''NAT0005''&&[estNational]==''National''&&[volume]>=3000&&[volume]<5000&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&[cargaison]!=''CGM00001''&&[nbQuartHeure]>0', '[nbQuartHeure]');	
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170538', 'Maj. Remorq. 3000<=V<5.000 international ferie', 1, 1, '187.163', 'UA043', 
+    'RB0000000021170446', '[natureoperation]==''NAT0005''&&[estNational]==''International''&&[volume]>=3000&&[volume]<5000&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&[cargaison]!=''CGM00001''&&[nbQuartHeure]>0', '[nbQuartHeure]');	
+/*Majoration Remorquage supérieur à 5.000 jour normal cargo*/	
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170539', 'Maj. Remorq. V>=5.000 national', 1, 1, '126.385', 'UA043', 
+    'RB0000000021170446', '[natureoperation]==''NAT0005''&&[estNational]==''National''&&[volume]>=5000&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&[cargaison]!=''CGM00001''&&[nbQuartHeure]>0', '[nbQuartHeure]');	
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF00000000231704540', 'Maj. Remorq. V>=5.000 international', 1, 1, '198.765', 'UA043', 
+    'RB0000000021170446', '[natureoperation]==''NAT0005''&&[estNational]==''International''&&[volume]>=5000&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&[cargaison]!=''CGM00001''&&[nbQuartHeure]>0', '[nbQuartHeure]');	
+/*Majoration Remorquage supérieur à 5.000 jour férié et nuit cargo*/
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170541', 'Maj. Remorq. V>=5.000 national ferie', 1, 1, '98.505', 'UA043', 
+    'RB0000000021170446', '[natureoperation]==''NAT0005''&&[estNational]==''National''&&[volume]>=5000&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&[cargaison]!=''CGM00001''&&[nbQuartHeure]>0', '[nbQuartHeure]');	
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170542', 'Maj. Remorq. V>=5.000 international ferie', 1, 1, '187.163', 'UA043', 
+    'RB0000000021170446', '[natureoperation]==''NAT0005''&&[estNational]==''International''&&[volume]>=5000&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&[cargaison]!=''CGM00001''&&[nbQuartHeure]>0', '[nbQuartHeure]');	
 
-	
 /*Remorquage sortie pétrolier Entre 3000 et 20.000 jour normal*/
 Insert into DETFORMUFACT
    (ID,REM, MIN, MAX, FORMULE, UNITE, 
@@ -691,3 +742,84 @@ Insert into DETFORMUFACT
  Values
    ('DFF0000000023170534', 'Redevance communale cabotage national', 1, 1, '30000', 'UA006', 
     'RB0000000021170448', '[estNational]==''National''', '1');	
+
+/*Manomboka 543*/	
+/*Stationnement à quais ordinaire*/
+Insert into RUBRIQUE_ACTIVITE
+   (ID, DESIGNATION, CATEGORIE, REDEVANCE, DEVISE, 
+    UNITE, TVA, DIRECTION)
+ Values
+   ('RB0000000021170449', 'Stationnement calcule', 'CATFC001', 'REDV001', 'Eur', 
+    'UA045', 0, 'DIR00006');
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170543', 'Stationnement poste ordinaire nav. national', 1, 1, '0.033', 'UA045', 
+    'RB0000000021170448', '[estNational]==''National''&&[typequais]==''TYPE000003''', '[longueur]*[nbheure]');		
+	
+	
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170544', 'Stationnement poste ordinaire nav. international', 1, 1, '0.063', 'UA045', 
+    'RB0000000021170448', '[estNational]==''International''&&[typequais]==''TYPE000003''', '[longueur]*[nbheure]');	
+
+/*Stationnement à quais spécialisé*/
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170545', 'Stationnement poste spec. nav. national', 1, 1, '0.048', 'UA045', 
+    'RB0000000021170448', '[estNational]==''National''&&[typequais]==''TQ001''', '[longueur]*[nbheure]');		
+	
+	
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170546', 'Stationnement poste spec. nav. international', 1, 1, '0.091', 'UA045', 
+    'RB0000000021170448', '[estNational]==''International''&&[typequais]==''TQ001''', '[longueur]*[nbheure]');	
+	
+/*Stationnement poste pétrolier*/
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170547', 'Stationnement poste petrolier nav. national', 1, 1, '3.971', 'UA045', 
+    'RB0000000021170448', '[estNational]==''National''&&[typequais]==''TYPE000001''', '[longueur]*[nbheure]');		
+	
+	
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170548', 'Stationnement poste petrolier nav. international', 1, 1, '7.545', 'UA045', 
+    'RB0000000021170448', '[estNational]==''International''&&[typequais]==''TYPE000001''', '[longueur]*[nbheure]');	
+
+/*Stationnement en rade*/	
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170549', 'Stationnement poste de mouillage nav. national', 1, 1, '0.025', 'UA045', 
+    'RB0000000021170448', '[estNational]==''National''&&[typequais]==''TYPE000001''', '[longueur]*[nbheure]');		
+	
+	
+Insert into DETFORMUFACT
+   (ID,REM, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170550', 'Stationnement poste de mouillage nav. international', 1, 1, '0.048', 'UA045', 
+    'RB0000000021170448', '[estNational]==''International''&&[typequais]==''TYPE000001''', '[longueur]*[nbheure]');	
+
+/*Stationnement sans operation commerciale*/		
+
+	
+	
+	
+	
+	
+	
+	
