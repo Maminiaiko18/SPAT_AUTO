@@ -8,9 +8,11 @@ package mg.spat;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import facture.FactureClient;
 import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.exploitant.Activite;
+import mg.spat.exploitant.AdminActivite;
 import mg.spat.exploitant.Rubrique;
 import service.NavireService;
 import service.PrevisionService;
@@ -38,9 +40,15 @@ public class Prevision extends ClassEtat {
     private String destination, escale;
     private String couleur = "#1E90FF";
     private String noVoyage;
-
     
-
+    public FactureClient facturer(String user,Connection c) throws Exception{
+        FactureClient facture =null;
+        AdminActivite adminActivite=new AdminActivite();
+        adminActivite.initActivite(genererActiviteVisees(user,c));
+        facture=adminActivite.facturer(user, c);
+        return facture;
+    }
+    
     
 
     public Prevision() {
