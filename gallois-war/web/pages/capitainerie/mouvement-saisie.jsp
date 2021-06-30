@@ -92,11 +92,11 @@
             pi.getFormu().getChamp("typeMvt").setDefaut(typemvt);
 
             if (typemvt.equals(Constante.tpmvtdepart)) {
-                pi.setTitre("Saisie départ");
+                pi.setTitre("Saisie dï¿½part");
                 pi.getFormu().getChamp("heure").setVisible(false);
                 pi.getFormu().getChamp("datearrivee").setVisible(false);
             } else {
-                pi.setTitre("Saisie arrivée");
+                pi.setTitre("Saisie arrivï¿½e");
                 pi.getFormu().getChamp("heure_depart").setVisible(false);
                 pi.getFormu().getChamp("date_depart").setVisible(false);
             }

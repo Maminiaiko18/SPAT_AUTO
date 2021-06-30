@@ -22,6 +22,7 @@
     String mot = "mot";
     String mot_null = null;
     Configuration[] configo = null;
+    String escale=null;
 
 %>
 
@@ -32,12 +33,13 @@
         //String serverAddress = request.getRemoteAddr()+"-"+request.getRemoteHost();
         username = request.getParameter("identifiant");
         pwd = request.getParameter("passe");
+        escale = request.getParameter("escale");
         interim = request.getParameter("interim");
         service = request.getParameter("service");
 
         u = UserEJBClient.lookupUserEJBBeanLocal();
         //u.setAddrIp(serverAddress);
-        u.testLogin(username, pwd, interim, service);
+        u.testLogin(username, pwd, interim, service,escale);
 //        System.out.println("METY APRES TEST LOGIN!!!!!!!!!!!!!!!!!");
         configo = u.findConfiguration();
         session.setMaxInactiveInterval(216000);
@@ -131,10 +133,17 @@
             String menu = "admin.jsp";
             session.setAttribute("menu", menu);
             out.println("<script language='JavaScript'> document.location.replace('" + lien + "?" + queryString + "');</script>");
-        } /**
-         * *
-         */
-        else {
+        }else if(ut.getIdrole().compareTo("ROL001300") == 0){
+            queryString = "but=capitainerie/page-commandant.jsp";
+            session.setAttribute("dir", "%");
+            session.setAttribute("dirlib", "");
+            //lien = "module.jsp";
+            session.setAttribute("lien", lien);
+            String menu = "admin.jsp";
+            session.setAttribute("menu", menu);
+            out.println("<script language='JavaScript'> document.location.replace('" + lien + "?" + queryString + "');</script>");
+            return;
+        }else {
             session.setAttribute("dir", "%");
             session.setAttribute("dirlib", "");
             //lien = "module.jsp";
@@ -144,6 +153,8 @@
             out.println("<script language='JavaScript'> document.location.replace('" + lien + "?" + queryString + "');</script>");
 
         }
+        
+        
     } catch (Exception e) {
 
         e.printStackTrace();

@@ -16,7 +16,10 @@ public class LigneCredit extends ClassEtat {
     
     private String id;
     private String designation,compte;
-    private double quantite,montant,annee;
+    private double quantite,montant,facture,paye;
+    private int annee;
+
+    
     
     public LigneCredit(){
         this.setNomTable("ligneCreditRecette");
@@ -77,11 +80,27 @@ public class LigneCredit extends ClassEtat {
         this.montant = montant;
     }
 
-    public double getAnnee() {
+    public int getAnnee() {
         return annee;
     }
 
-    public void setAnnee(double annee) {
+    public void setAnnee(int annee) {
         this.annee = annee;
+    }
+    
+    public double getFacture() {
+        return facture;
+    }
+
+    public void setFacture(double facture) {
+        this.facture = facture;
+    }
+
+    public double getPaye() {
+        return paye;
+    }
+
+    public void setPaye(double paye) {
+        this.paye = paye;
     }
 }

@@ -1,8 +1,14 @@
 package utilitaire;
 
 public class Constante {
-    
     public static String idcategorieCapitainerie="CATFC001";
+    public static String idDroitDePortCalcule="RB0000000021170444";
+    public static String idRedevanceCommunaleCalcule="RB0000000021170448";
+    public static String idPilotageCalcule="RB0000000021170445";
+    public static String idRemorquageCalcule="RB0000000021170446";
+    public static String idLamanageCalcule="RB0000000021170447";
+    public static String idPavillonMada="PAYS000057";
+    public static String idCargaisonPetrole="CGM00001";
     public static String conteneurTypeSaisie = "TSAI001";
     public static String tonnage = "TMES001";
     public static String conteneur = "TS0001";
@@ -83,6 +89,8 @@ public class Constante {
     public static final String idtypeMvtDepart = "TPMM00003";
     public static final String idtypeMvt = "TPMM00002";
     public static final String idtypeMvtArrivee = "TPMM00001";
+    public static final String manoeuvreEntree = "MDB_0003";
+    public static final String manoeuvreSortie = "MDB_0005";
     private static double tauxIRCM=20;
 
     public static final String typeCheque = "TCHQ00001";
@@ -100,6 +108,11 @@ public class Constante {
     public static String bc = "/SPAT/DG/DECOMAA-";
     public static final int longueurNumeroBordereau = 4;
     public static int tvaDefaut = 20;
+    private static String roleCommandant="ROL001300";
+
+    public static String getRoleCommandant() {
+        return roleCommandant;
+    }
 
     public static int getTvaDefaut() {
         return tvaDefaut;

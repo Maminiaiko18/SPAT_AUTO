@@ -1,0 +1,3 @@
+INSERT INTO MENUDYNAMIQUE (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE) VALUES('MENM08', 'Jours fériés', 'fa fa-calendar', '#', 9, 3, 'MENM01');
+INSERT INTO MENUDYNAMIQUE (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE) VALUES('MENM09', 'Saisie', 'fa fa-plus', '/spat/pages/globalnegoce.jsp?but=exploitant/jourferie-saisie.jsp', 1, 4, 'MENM08');
+INSERT INTO MENUDYNAMIQUE (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE) VALUES('MENM10', 'Liste', 'fa fa-list', '/spat/pages/globalnegoce.jsp?but=exploitant/jourferie-liste.jsp', 2, 4, 'MENM08');

@@ -15,6 +15,7 @@
 <%
     Navire navire = new Navire();
     navire.setNomTable("navirelib");
+    //if(request.getParameter("id")!=null && request.getParameter("id").compareToIgnoreCase("")!=0)navire.setId(request.getParameter("id"));
     PageConsulte pc = pc = new PageConsulte(navire, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
     pc.setTitre("Fiche navire");

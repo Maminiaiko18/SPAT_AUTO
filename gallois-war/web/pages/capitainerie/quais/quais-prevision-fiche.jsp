@@ -35,16 +35,16 @@
         prevision.setNomTable("previsionfiche");
         PageConsulte pc = pc = new PageConsulte(prevision, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
-        pc.getChampByName("heure_arrivee").setLibelle("Heure d'arrivée");
-        pc.getChampByName("heure_depart").setLibelle("Heure de départ");
+        pc.getChampByName("heure_arrivee").setLibelle("Heure d'arrivï¿½e");
+        pc.getChampByName("heure_depart").setLibelle("Heure de dï¿½part");
         pc.getChampByName("nomnavire").setLibelle("Navire");
         pc.getChampByName("valconsignataire").setLibelle("Consignataire");
         pc.getChampByName("valcargaison").setLibelle("Cargaison");
         pc.getChampByName("valpilote").setLibelle("Commandant");
         pc.getChampByName("valquaisprovenance").setLibelle("Quai de provenance");
         pc.getChampByName("valquaisdestination").setLibelle("Quai de destination");
-        pc.getChampByName("date_arrivee").setLibelle("Date d'arrivée");
-        pc.getChampByName("date_depart").setLibelle("Date de départ");
+        pc.getChampByName("date_arrivee").setLibelle("Date d'arrivï¿½e");
+        pc.getChampByName("date_depart").setLibelle("Date de dï¿½part");
         pc.getChampByName("valpaysprovenance").setLibelle("Pays de provenance");
         pc.getChampByName("valpaysdestination").setLibelle("Pays de destination");
         pc.getChampByName("type").setLibelle("type navire");
@@ -72,12 +72,20 @@
                     %>
                     <br/>
                     <div class="box-footer">
-                        <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
-                        <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Prevision" style="margin-right: 10px">Viser</a>
-                        <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=annulerVisa&bute=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Prevision" style="margin-right: 10px">Annuler Visa</a>
-                        <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=capitainerie/prevision-liste.jsp&classe=mg.spat.Prevision"><button class="btn btn-danger">Supprimer</button></a>
-                        <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/quais/quais-prevision-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
-                        <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=TPMM00004&idPrevision=" + base.getId()%>" style="margin-right: 10px">Arrivée</a>   
+                        <p>
+                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
+                            <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Prevision" style="margin-right: 10px">Viser</a>
+                            <a class="btn btn-danger pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=annulerVisa&bute=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Prevision" style="margin-right: 10px">Annuler Visa</a>
+                            <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=capitainerie/prevision-liste.jsp&classe=mg.spat.Prevision"><button class="btn btn-danger">Supprimer</button></a>
+                            <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/quais/quais-prevision-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
+                        </p>
+                        <br/>
+                        <p>
+                            <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=TPMM00004&idPrevision=" + base.getId()%>" style="margin-right: 10px">Arrivï¿½e</a>   
+                            <a class="btn btn-info pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir prestation</a>   
+                            <a class="btn btn-default pull-left"  href="<%=(String) session.getValue("lien") + "?but=exploitants/activites-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir activite </a>   
+                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresPrevision.jsp&acte=factureGlobale&idPrevision=" + base.getId()%>" style="margin-right: 10px">Facturer </a>   
+                        <p>
                     </div>
                     <br/>
 
@@ -102,14 +110,14 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="box-title with-border">
-                    <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
+                    <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachï¿½s</h2>
                 </div>
                 <div class="box-body">
                     <table class="table table-striped table-bordered table-condensed table-responsive tree">
                         <thead>
                             <tr>
                                 <th style="background-color:#bed1dd;"></th>
-                                <th style="background-color:#bed1dd;">Libellé</th>
+                                <th style="background-color:#bed1dd;">Libellï¿½</th>
                                 <th style="background-color:#bed1dd;">Fichier</th>
                                 <th style="background-color:#bed1dd;">Voir</th>
                                 <th style="background-color:#bed1dd;">#</th>

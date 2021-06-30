@@ -62,11 +62,11 @@ VALUES('USRMEN0001', '1060', 'MENBDG0001', 'dg', NULL, NULL, 0);
 
 INSERT INTO MENUDYNAMIQUE
 (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
-VALUES('MENBDG00011', 'Ligne crédit recette', 'fa fa-money', '#', 1, 2, 'MENBDG0001');
+VALUES('MENBDG00011', 'Ligne crï¿½dit recette', 'fa fa-money', '#', 1, 2, 'MENBDG0001');
 
 INSERT INTO MENUDYNAMIQUE
 (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
-VALUES('MENBDG00021', 'Ligne crédit dépense', 'fa fa-money', '#', 2, 2, 'MENBDG0001');
+VALUES('MENBDG00021', 'Ligne crï¿½dit dï¿½pense', 'fa fa-money', '#', 2, 2, 'MENBDG0001');
 
 INSERT INTO MENUDYNAMIQUE
 (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
@@ -84,3 +84,12 @@ VALUES('MENBDG000211', 'Saisie', 'fa fa-plus', '/spat/pages/globalnegoce.jsp?but
 INSERT INTO MENUDYNAMIQUE
 (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
 VALUES('MENBDG000212', 'Liste', 'fa fa-list', '/spat/pages/globalnegoce.jsp?but=ligneCredit/situation-ligneCreditDepense.jsp', 2, 3, 'MENBDG00021');
+
+alter table activite add refobjet varchar(50);
+alter table activite add typeSource varchar(50);
+alter table activite add  dateFact date;
+
+alter table activite drop constraint FK_NAVIRE_ACTIVITE_RUB;
+update activite set bateau=null; --manadio donnï¿½es
+alter table activite modify bateau  varchar2(100) constraint FK_NAVIRE_PREVISION references prevision(id);
+alter table activite modify bateau  varchar2(100) constraint FK_NAVIRE_PREVISION references prevision(id);

@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.exploitant.Activite;
 import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 /**
@@ -25,13 +26,35 @@ public class FactureClientDetails extends ClassFille {
     
     private String id,idmere;
     private double quantite,pu,taux;
-    private String compte,idproduit,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib;
+    private String compte,idproduit,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib,rubrique;
     private FactureClient mere;
     private double montant;
     private double montanttaux;
     private double montantavoirsanstaux;
     private double montantavoiravectaux;
     private double qtelivree, restealivrer; 
+    private Date datefact;
+    private String rubriquelib;
+
+    public String getRubriquelib() {
+        return rubriquelib;
+    }
+
+    public void setRubriquelib(String rubriquelib) {
+        this.rubriquelib = rubriquelib;
+    }
+    
+    
+
+    
+    public Date getDatefact() {
+        return datefact;
+    }
+
+    public void setDatefact(Date datefact) {
+        this.datefact = datefact;
+    }
+    
     double tva;
     //double montantTva;
     public String getActivitelib() {
@@ -136,8 +159,16 @@ public class FactureClientDetails extends ClassFille {
         return super.createObject(user, c);
     }
 
+    public void verifActivite(Connection c) throws Exception{
+        Activite act = getActivite(c);
+        if(act.getEtat() < ConstanteEtat.getEtatValider()){
+            throw new Exception("Activite non visee !");
+        }
+    }
+    
     @Override
     public void controlerUpdate(Connection c) throws Exception {
+        verifActivite(c);
         setTaux(getTauxRecent(c));
         super.controlerUpdate(c);
     }
@@ -164,11 +195,11 @@ public class FactureClientDetails extends ClassFille {
     }
     public double getTauxRecent(Connection c) throws Exception {
         Date date = ((FactureClient)this.findMere("",c)).getDaty();
-        if(this.getIdactivite()!=null){
-            if(this.getActivite(c).getRubrique()!=null&&this.getActivite(c)!=null&&this.getActivite(c).getCategorie().compareToIgnoreCase(Constante.idcategorieCapitainerie)==0){
-                date=Utilitaire.ajoutJourDate(date, -1);
-            }
+        
+        if(this.getIdactivite()!=null && this.getDatefact() != null){
+            date=Utilitaire.ajoutJourDate(this.getDatefact(), -1);
         }
+        
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
                 + " and iddevise = '" + this.getDevise() + "'";
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
@@ -298,6 +329,14 @@ public class FactureClientDetails extends ClassFille {
         this.categorieClientlib = categorieClientlib;
     }
     
+    public String getRubrique() {
+        return rubrique;
+    }
+
+    public void setRubrique(String rubrique) {
+        this.rubrique = rubrique;
+    }
+    
     public void checkActivite(Connection c) throws Exception{
         if(this.getIdactivite()!=null && this.getIdactivite().compareTo("")!=0){
             Activite act=new Activite();
@@ -310,6 +349,7 @@ public class FactureClientDetails extends ClassFille {
         }
     }
     public void controler(Connection c) throws Exception {
+        verifActivite(c);
         this.checkActivite(c);
     }
 
