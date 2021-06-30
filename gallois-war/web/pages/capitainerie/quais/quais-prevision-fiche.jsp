@@ -84,6 +84,7 @@
                             <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=TPMM00004&idPrevision=" + base.getId()%>" style="margin-right: 10px">Arrivée</a>   
                             <a class="btn btn-info pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir prestation</a>   
                             <a class="btn btn-default pull-left"  href="<%=(String) session.getValue("lien") + "?but=exploitants/activites-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir activite </a>   
+                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresPrevision&acte=factureGlobale&idPrevision=" + base.getId()%>" style="margin-right: 10px">Facturer </a>   
                         <p>
                     </div>
                     <br/>
