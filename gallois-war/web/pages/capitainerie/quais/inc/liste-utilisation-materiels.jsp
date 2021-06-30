@@ -47,12 +47,19 @@
     String libEnteteAffiche[] = {"Id", "Commandant", "Opération","Mouvement","Manoeuvre","Date arrivée","Heure début","Date fin","Heure fin","Durée","Etat"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
-
+<form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="facturation" id="facturation">
     <%
-        pr.getTableau().setNameBoutton("Facturer");
-        pr.getTableau().setNameActe("facturerPrevision");
-        out.println(pr.getTableau().getHtml());
+        pr.getTableau().setNameBoutton("Valider");
+//        pr.getTableau().setNameActe("facturerPrevision");
+        pr.getTableau().setNameActe("viser");
+        out.println(pr.getTableau().getHtmlWithCheckbox());
+//        out.println(pr.getTableau().getHtml());
     %>
+    <input type="hidden" name="acte" id="acte" value="viser"/>
+    <input name="idprevision" type="hidden" id="idprevision" value="<%=request.getParameter("idprevision")%>">
+    <input name="bute" type="hidden" id="bute" value="capitainerie/quais/quais-prevision-fiche.jsp&id=<%=request.getParameter("idprevision")%>">
+    <input name="classe" type="hidden" id="classe" value="mg.spat.OccupationMaterielNaval">
+</form>
 <%} catch (Exception e) {
         e.printStackTrace();
     }%>
