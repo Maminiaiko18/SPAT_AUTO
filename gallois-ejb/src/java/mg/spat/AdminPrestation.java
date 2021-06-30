@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.AdminActivite;
+import utilitaire.Constante;
 import utilitaire.Utilitaire;
 
 /**
@@ -51,11 +52,13 @@ public class AdminPrestation {
             act.validerObject(u, c);
             reps.add(act);
         }
-        Activite actDroitePort = this.prevision.genererDroitDePort(u, c);
+//        Activite actDroitePort = this.prevision.genererDroitDePort(u, c);
+        Activite actDroitePort = this.prevision.genererActivite(u, c, "Droit de port " + this.prevision.getId(), " and id = '" + Constante.idDroitDePortCalcule + "'");
         actDroitePort.validerObject(u, c);
         reps.add(actDroitePort);
         
-        Activite actRedevanceCommunale = this.prevision.genererRedevanceCommunale(u, c);
+//        Activite actRedevanceCommunale = this.prevision.genererRedevanceCommunale(u, c);
+        Activite actRedevanceCommunale = this.prevision.genererActivite(u, c, "Redevance communale " + this.prevision.getId(), " and id = '" + Constante.idRedevanceCommunaleCalcule + "'");
         actRedevanceCommunale.validerObject(u, c);
         reps.add(actRedevanceCommunale);
         return reps;

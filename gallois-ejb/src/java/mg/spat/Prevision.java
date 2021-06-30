@@ -14,6 +14,7 @@ import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.Rubrique;
 import service.NavireService;
 import service.PrevisionService;
+import utilitaire.Constante;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -55,30 +56,72 @@ public class Prevision extends ClassEtat {
         return rubrique;
     }
     
-    public Activite genererDroitDePort(String u, Connection c)  throws Exception {
+    public Activite[] genererActiviteVisees(String u, Connection c) throws Exception {
+        java.util.List<Activite> activites = new java.util.ArrayList<>();
+        
+        String awhere = " and id = '%s'";
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Droit de port " + this.getId(), 
+                        String.format(awhere, Constante.idDroitDePortCalcule)).validerObject(u, c)
+        );
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Pilotage " + this.getId(), 
+                        String.format(awhere, Constante.idPilotageCalcule)).validerObject(u, c)
+        );
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Remorquage " + this.getId(), 
+                        String.format(awhere, Constante.idRemorquageCalcule)).validerObject(u, c)
+        );
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Lamanage " + this.getId(), 
+                        String.format(awhere, Constante.idLamanageCalcule)).validerObject(u, c)
+        );
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Redevance communale " + this.getId(), 
+                        String.format(awhere, Constante.idRedevanceCommunaleCalcule)).validerObject(u, c)
+        );
+        
+        return activites.toArray(new Activite[activites.size()]);
+    }
+    
+    public Activite genererActivite(String u, Connection c, String designation, String awhere) throws Exception {
         Activite rep = new Activite();
-        rep.setDesignation("Droit de port "+getId());
+        rep.setDesignation(designation);
         rep.setClient(getConsignataire());
         rep.setMois(Utilitaire.getMois(getDate_arrivee()));
         rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
         rep.setDaty(getDate_arrivee());
         rep.setBateau(getId());
-        rep.setRubrique(getRubrique(c," and upper(designation) like upper('Droit de port calcule')").getId());
+        rep.setRubrique(getRubrique(c,awhere).getId());
         rep.createObject(u, c);
+        
         return rep;
     }
-    public Activite genererRedevanceCommunale(String u, Connection c)  throws Exception {
-        Activite rep = new Activite();
-        rep.setDesignation("Redevance communale "+getId());
-        rep.setClient(getConsignataire());
-        rep.setMois(Utilitaire.getMois(getDate_arrivee()));
-        rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
-        rep.setDaty(getDate_arrivee());
-        rep.setBateau(getId());
-        rep.setRubrique(getRubrique(c," and upper(designation) like upper('Redevance communale calcule')").getId());
-        rep.createObject(u, c);
-        return rep;
-    }
+    
+//    public Activite genererDroitDePort(String u, Connection c)  throws Exception {
+//        Activite rep = new Activite();
+//        rep.setDesignation("Droit de port "+getId());
+//        rep.setClient(getConsignataire());
+//        rep.setMois(Utilitaire.getMois(getDate_arrivee()));
+//        rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
+//        rep.setDaty(getDate_arrivee());
+//        rep.setBateau(getId());
+//        rep.setRubrique(getRubrique(c," and upper(designation) like upper('Droit de port calcule')").getId());
+//        rep.createObject(u, c);
+//        return rep;
+//    }
+//    public Activite genererRedevanceCommunale(String u, Connection c)  throws Exception {
+//        Activite rep = new Activite();
+//        rep.setDesignation("Redevance communale "+getId());
+//        rep.setClient(getConsignataire());
+//        rep.setMois(Utilitaire.getMois(getDate_arrivee()));
+//        rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
+//        rep.setDaty(getDate_arrivee());
+//        rep.setBateau(getId());
+//        rep.setRubrique(getRubrique(c," and upper(designation) like upper('Redevance communale calcule')").getId());
+//        rep.createObject(u, c);
+//        return rep;
+//    }
     
     @Override
     public ClassMAPTable createObject(String u,Connection c) throws Exception {

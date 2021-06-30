@@ -2,6 +2,11 @@ package utilitaire;
 
 public class Constante {
     public static String idcategorieCapitainerie="CATFC001";
+    public static String idDroitDePortCalcule="RB0000000021170444";
+    public static String idRedevanceCommunaleCalcule="RB0000000021170448";
+    public static String idPilotageCalcule="RB0000000021170445";
+    public static String idRemorquageCalcule="RB0000000021170446";
+    public static String idLamanageCalcule="RB0000000021170447";
     public static String idPavillonMada="PAYS000057";
     public static String idCargaisonPetrole="CGM00001";
     public static String conteneurTypeSaisie = "TSAI001";
