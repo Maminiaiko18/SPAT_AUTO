@@ -428,6 +428,7 @@ public class OccupationMaterielNaval extends ClassEtat {
     }
 
     public String getIdcommandant() {
+        if(!this.getMode().equalsIgnoreCase("modif")) return utilitaire.Utilitaire.champNull(idcommandant);
         return idcommandant;
     }
 
