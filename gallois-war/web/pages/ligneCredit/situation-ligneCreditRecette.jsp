@@ -24,7 +24,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste des Absences </h1>
+        <h1>Liste des Credits Recettes </h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=ligneCredit/situation-ligneCreditRecette.jsp" method="post" name="absence" id="absence">
