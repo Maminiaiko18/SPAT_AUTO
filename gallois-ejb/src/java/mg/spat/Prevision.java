@@ -40,7 +40,17 @@ public class Prevision extends ClassEtat {
     private String destination, escale;
     private String couleur = "#1E90FF";
     private String noVoyage;
-
+    
+    private static String[] getIdsFromTab(ClassMAPTable[] tab) {
+        String[] ids = new String[tab.length];
+        
+        for(int i=0; i < tab.length; i++) {
+            ids[i] = tab[i].getTuppleID();
+        }
+        
+        return ids;
+    }
+    
     public FactureClient facturer(String user, Connection c) throws Exception {
         FactureClient facture = null;
         int verif = 0;
@@ -56,7 +66,10 @@ public class Prevision extends ClassEtat {
             prevision = (Prevision) prevision.getById(this.getId(), prevision.getNomTable(), c);
             
             AdminActivite adminActivite = new AdminActivite();
-            adminActivite.initActivite(prevision.genererActiviteVisees(user, c));
+            Activite[] activites = prevision.genererActiviteVisees(user, c);
+            adminActivite.findactivite(getIdsFromTab(activites), c);
+
+//            adminActivite.initActivite(prevision.genererActiviteVisees(user, c));
             facture = adminActivite.facturer(user, c);
             
             if(verif == 1) c.commit();
