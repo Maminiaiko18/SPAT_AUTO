@@ -46,25 +46,13 @@
 
     String libEnteteAffiche[] = {"Id", "Commandant", "Opération","Mouvement","Manoeuvre","Date arrivée","Heure début","Date fin","Heure fin","Durée","Etat"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-//    pr.getTableau().construire_libelle(champ, libelle_comp);
 %>
 
-
-
-<form action="<%=pr.getLien()%>?but=apresPrevision.jsp" method="post" name="facturation" id="facturation">
     <%
         pr.getTableau().setNameBoutton("Facturer");
         pr.getTableau().setNameActe("facturerPrevision");
-        out.println(pr.getTableau().getHtmlWithCheckbox());
-
-
-    //   out.println(pr.getBasPage());
+        out.println(pr.getTableau().getHtml());
     %>
-    <input name="idprevision" type="hidden" id="acte" value="<%=request.getParameter("idprevision")%>">
-    <input name="acte" type="hidden" id="acte" value="facturerPrevision">
-    <input name="bute" type="hidden" id="bute" value="facture/facture-client-modif.jsp">
-    <input name="classe" type="hidden" id="classe" value="mg.spat.OccupationMaterielNaval">
-</form> 
 <%} catch (Exception e) {
         e.printStackTrace();
     }%>
