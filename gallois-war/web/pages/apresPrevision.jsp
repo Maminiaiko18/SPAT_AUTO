@@ -100,7 +100,15 @@
                 id=facture.getId();
                 System.out.println("facture ==========="+facture.getId());
             }
-
+            if (acte.compareToIgnoreCase("factureGlobale") == 0) {
+                String idprevision = request.getParameter("idPrevision");
+                mg.spat.Prevision prevision = new mg.spat.Prevision();
+                prevision.setId(idprevision);
+                
+                facture.FactureClient fc = prevision.facturer(""+u.getUser().getRefuser(), null);
+                bute = "facture/factureclient-modif.jsp";
+                id = fc.getId();
+            }
 
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>
