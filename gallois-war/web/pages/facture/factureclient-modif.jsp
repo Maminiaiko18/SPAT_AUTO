@@ -57,6 +57,9 @@ try{
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
     
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
+    
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("datefact"), "readonly");
     
     affichage.Liste[] listed = new affichage.Liste[1];
@@ -76,6 +79,7 @@ try{
     pi.getFormufle().getChamp("tva_0").setLibelle("tva");
     //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
     pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
+    pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
     
     mere = (FactureClient) pi.getBase();
     pi.preparerDataFormu();
