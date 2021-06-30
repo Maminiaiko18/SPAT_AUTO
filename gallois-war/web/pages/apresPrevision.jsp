@@ -101,7 +101,7 @@
     <%
         }
 
-        if (ids == null || ids.length == 0) {
+        /*if (ids == null || ids.length == 0) {
             throw new Exception("Vous devez  cocher au moins un element");
         }
 
@@ -115,7 +115,7 @@
             FactureClient facture = adminPrestation.facturer(u.getUser().getTuppleID());
             id = facture.getId();
             System.out.println("facture ===========" + facture.getId());
-        }
+        }*/
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>
     <%
