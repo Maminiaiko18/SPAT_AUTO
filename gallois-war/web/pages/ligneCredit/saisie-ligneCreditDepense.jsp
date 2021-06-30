@@ -31,7 +31,7 @@
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-    <h1>Saisie Activite</h1>
+    <h1>Saisie ligne crédit dépenses</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="lignecredit" id="lignecredit" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
