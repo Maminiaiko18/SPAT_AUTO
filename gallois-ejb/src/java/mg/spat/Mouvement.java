@@ -38,6 +38,14 @@ public class Mouvement extends ClassEtat {
     private String escalelib;
     private String couleur = "#ffb401";
 
+    public Prevision getPrevision(Connection c) throws Exception {
+        Prevision[] prev = (Prevision[]) CGenUtil.rechercher(new Prevision(), null, null, c, " and id='"+this.getEscale()+"'");
+        if(prev.length <= 0){
+            throw new Exception("Prevision non trouvee !");
+        }
+        return prev[0];
+    }
+    
     public String getNoVoyage() {
         return noVoyage;
     }
@@ -49,9 +57,21 @@ public class Mouvement extends ClassEtat {
     @Override
     public void viser(UserEJBBean u, Connection c) throws Exception {
         this.updateMouvementPrecedent(u, c);
-        /*if (this.getTypeMvt().equals(Constante.idtypeMvtDepart)) { Décommentena ity rehefa hampandeha Facture
-            creerActivite(u, c);
-        }*/
+        if (this.getTypeMvt().equals(Constante.idtypeMvtDepart)) {
+            Postedestinataire destination = new Postedestinataire();
+            destination = (Postedestinataire) destination.getById(this.getDestination(), destination.getNomTable(), c);
+            
+            if(destination != null && destination.getInterne().compareTo("0") == 0) {
+                Prevision prevision = this.getPrevision(c);
+                
+                prevision.setDate_depart(this.getDate_depart());
+                prevision.setHeure_depart(this.getHeure_depart());
+                
+                prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
+            }
+            
+            //creerActivite(u, c);
+        }
         if (this.estTouchee(c) && this.getEscale() == null) {
             this.creerPrevision(u, c);
         }

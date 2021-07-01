@@ -33,6 +33,8 @@
     pc.getChampByName("heurefin").setLibelle("Heure fin");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("datefin").setLibelle("Date fin");
+   
+    pc.getChampByName("idprevision").setLien(session.getValue("lien")+"?but=capitainerie/quais/quais-prevision-fiche.jsp","id=");
     pc.getChampByName("idarrivee").setVisible(false);
     pc.getChampByName("idnavire").setVisible(false);
     pc.getChampByName("idpilote").setVisible(false);
@@ -68,6 +70,7 @@
                             <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&bute=capitainerie/occupationMaterielNaval-fiche.jsp&classe=mg.spat.OccupationMaterielNaval&id=" + prevision.getId()%>" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-modif.jsp&id=" + prevision.getId()%>" style="margin-right: 10px">Modifier</a>
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + prevision.getId()%>&acte=delete&bute=capitainerie/occupationMaterielNaval-fiche.jsp&classe=mg.spat.OccupationMaterielNaval"><button class="btn btn-danger">Supprimer</button></a>
+                            <a href="<%=(String) session.getValue("lien") + "?but=exploitants/activites-saisie.jsp&idPrestation=" + prevision.getId()%>"><button class="btn btn-primary">Saisir activité</button></a>
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + prevision.getId() + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/occupationMaterielNaval-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                             
                         </div>

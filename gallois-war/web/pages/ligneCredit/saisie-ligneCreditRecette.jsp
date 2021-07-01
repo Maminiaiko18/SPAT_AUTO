@@ -23,7 +23,7 @@
 
         pi.getFormu().getChamp("designation").setLibelle("Désignation");
         pi.getFormu().getChamp("annee").setLibelle("Année");
-        pi.getFormu().getChamp("quantite").setLibelle("Quantité");
+        pi.getFormu().getChamp("quantite").setVisible(false);
         pi.getFormu().getChamp("annee").setDefaut(Utilitaire.getAnneeEnCours());
 
         pi.getFormu().getChamp("etat").setVisible(false);
@@ -31,7 +31,7 @@
         pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-    <h1>Saisie Activite</h1>
+    <h1>Saisie ligne crédit recettes</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="lignecredit" id="lignecredit" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();

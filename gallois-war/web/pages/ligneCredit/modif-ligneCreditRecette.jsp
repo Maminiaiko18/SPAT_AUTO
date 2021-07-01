@@ -16,7 +16,7 @@
     PageUpdate pi = new PageUpdate(a, request, (user.UserEJB) session.getValue("u"));
     pi.setLien(lien);
     pi.getFormu().getChamp("Etat").setVisible(false);
-    pi.getFormu().getChamp("Quantite").setLibelle("Quantité");
+    pi.getFormu().getChamp("Quantite").setVisible(false);
     pi.getFormu().getChamp("Annee").setLibelle("Année");
     
     pi.preparerDataFormu();

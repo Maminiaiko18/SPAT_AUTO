@@ -4,6 +4,7 @@
     Author     : Asus
 --%>
 
+<%@page import="mg.spat.Prevision"%>
 <%@page import="mg.spat.OccupationMaterielNaval"%>
 <%@page import="service.UploadService"%>
 <%@page import="mg.spat.AttacherFichier"%>
@@ -17,10 +18,13 @@
 
 <% 
     try{
-  
+        UserEJB u = (user.UserEJB) session.getValue("u");
     OccupationMaterielNaval oprevision = new OccupationMaterielNaval();
     oprevision.setNomTable("occupmaterielnavallib");
-    
+    String nomTableEtat = request.getParameter("nomTableEtat");
+    if(nomTableEtat!=null && !nomTableEtat.isEmpty()){
+        oprevision.setNomTable(nomTableEtat);
+    }
     
     String[] champ = {"id","idmateriel_naval","idcommandant","idnatureoperation","idmanoeuvrebord","heuredebut","datefin","heurefin","position","observation","daty","duree"};
     String[] libelle_comp = {"Id","Materiel naval","Commandant","Nature operation","Manoeuvre bord","Heure debut","date fin","heure fin","Position","Observation","Date début","Duree"};
@@ -29,11 +33,26 @@
     String listeInt[] = {"duree"};
     String libEntete[] = {"id","idmateriel_naval", "idcommandant", "idnatureoperation","idmanoeuvrebord","observation","daty","duree","heuredebut","datefin","heurefin","position"};
     PageRecherche pr = new PageRecherche(oprevision, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-    pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+    pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
+    
+    String aWhere = "";
+    Prevision prev = u.getPrevision();
+    if(prev!=null){
+        aWhere += " and idprevision='"+prev.getId()+"' ";
+    }
+    
+    TypeObjet commandant = u.getCommandant();
+    if(commandant != null){
+        aWhere += " or commandantId='"+commandant.getId()+"' ";
+    }
+    
     pr.setApres("capitainerie/occupationMaterielNaval-liste.jsp");
     pr.setOrdre("order by daty desc");
     
+    
+    
+     
     pr.getFormu().getChamp("idmateriel_naval").setLibelle("Materiel naval");
 //    pr.getFormu().getChamp("idpilote").setLibelle("Pilote");
 //    pr.getFormu().getChamp("idcommandant").setLibelle("Commandant");
@@ -41,11 +60,18 @@
 //    pr.getFormu().getChamp("idmanoeuvrebord").setLibelle("Manoeuvre de bord");
 //    pr.getFormu().getChamp("idnavire").setLibelle("Navire");
     
-    
+    pr.setAWhere(aWhere);
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
+    
+    String[] etatVal = {"occupmaterielnavallib", "occupmaterielnavallibC", "occupmaterielnavallibV"};
+    String[] etatAff = {"Tous", "Créée", "Visée"};
 %>
-
+<script>
+    function submitFormulaire(){
+        document.getElementById("listeoccupationMaterielNaval").submit();
+    }
+</script>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>Liste des prestations</h1>
@@ -55,6 +81,19 @@
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
+            <div class="row">
+                <div class="col-md-12">
+                    <br>
+                    <select name="nomTableEtat" id="nomTableEtat" onchange="submitFormulaire()" class="form-control"style="max-width: 200px; margin: 0 auto;">
+                            <%for(int i=0; i<etatVal.length; i++){
+                                String selected = oprevision.getNomTable().equalsIgnoreCase(etatVal[i]) ? "selected" : "";
+                            %>
+                            <option value="<%=etatVal[i]%>" <%=selected%>><%=etatAff[i]%></option>
+                            <%}%>
+                        </select>
+                    <br>
+                </div>
+            </div>
         </form>
         <%
             String lienTableau[] = {pr.getLien() + "?but=capita"

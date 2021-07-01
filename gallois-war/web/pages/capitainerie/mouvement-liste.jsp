@@ -4,11 +4,13 @@
     Author     : john
 --%>
 
+<%@page import="mg.spat.Prevision"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="mg.spat.MouvementLibComplet"%>
 <%@page import="affichage.PageRecherche"%>
 <% 
       try{
+          user.UserEJB u = (user.UserEJB) session.getValue("u");
     MouvementLibComplet mouvement = new MouvementLibComplet();
      
     String nomTable = "MOUVEMENTLIBCOMPLET";    
@@ -22,7 +24,7 @@
     String listeInt[] = {"date_depart","datearrivee"};
     String libEntete[] = {"id","escalelib","nomnavire", "desceconsignataire","valpaysdestination", "valcargaison", "datearrivee", "heure","valquaisdestination", "date_depart","heure_depart","duree","noVoyage"};
     PageRecherche pr = new PageRecherche(mouvement, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-    pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+    pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
     pr.getFormu().getChamp("date_depart1").setLibelle("date depart min");
     pr.getFormu().getChamp("date_depart2").setLibelle("date depart max");
@@ -31,6 +33,13 @@
     pr.getFormu().getChamp("escalelib").setLibelle("Escale");
     
     String rqt="";
+    
+    Prevision prev = u.getPrevision();
+    if(prev != null) { 
+        pr.getFormu().getChamp("escalelib").setDefaut(prev.getEscale());
+        rqt += " and escale = '" + prev.getId() + "'"; 
+    }
+    
     if(request.getParameter("idquaidestination")!=null){
         rqt+=" and  quaisdestination='"+request.getParameter("idquaidestination")+"'";
     }

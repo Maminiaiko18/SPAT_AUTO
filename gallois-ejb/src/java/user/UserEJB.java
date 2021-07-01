@@ -35,10 +35,14 @@ import mg.spat.relationhumaine.InfoProfessionnel;
 import mg.spat.relationhumaine.InfoSalaire;
 import mg.spat.stock.BonDeCommande;
 import mg.spat.stock.BonDeLivraison;
+import mg.spat.Prevision;
 
 @Local
 public interface UserEJB {
-
+    public Prevision getPrevision() ;
+    
+    public void testLogin(String user, String pass, String interim, String service,String escale) throws Exception;
+    
     public void insertPrevisionStatistiqueSMMC(StatistiqueSMMC smmc, Connection c, String idClient) throws Exception;
 
     public void insertStatistiqueSMMC(StatistiqueSMMC smmc, Connection c, String idClient) throws Exception;
@@ -314,4 +318,5 @@ public interface UserEJB {
     public Object[] annulerObjectMultiple(ClassEtat o, String[] listeIdObjet) throws Exception;
     
     public void payerFCMultiple(String[] listeId, facture.TransitionPaiementVide t) throws Exception;
+    public TypeObjet getCommandant() throws Exception;
 }

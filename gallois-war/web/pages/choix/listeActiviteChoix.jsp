@@ -12,8 +12,8 @@
 
     String listeCrt[] = {"id","designation","clientlib","categorielib","bateaulib"};
     String listeInt[] = {};
-    String libEntete[] = {"id","designation","clientlib","categorielib","qte","daty","bateaulib","rubriquelib","moislib","annee","tva"};
-    String libelleAffiche[] = {"id","designation","client","categorie","quantite","date","bateau","rubrique","moislib","annee","TVA"};
+    String libEntete[] = {"id","designation","clientlib","categorielib","qte","daty","datefact","bateaulib","rubriquelib","moislib","annee","tva"};
+    String libelleAffiche[] = {"id","designation","client","categorie","quantite","date","date fact","bateau","rubrique","moislib","annee","TVA"};
     
     PageRechercheChoix pr = new PageRechercheChoix(activite, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));

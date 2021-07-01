@@ -93,6 +93,7 @@ import utilitaire.UtilitaireMetier;
 import ded.OrdonnerPayement;
 import facturefournisseur.EtatFactureMontantDaty;
 import facture.*;
+import mg.spat.Prevision;
 
 @Stateful
 @AccessTimeout(10000)
@@ -115,6 +116,17 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     CNAPSUser cnapsUser;
     TypeObjet caisse = null;
     private HashMap<String, String> mapAutoComplete = new HashMap<>();
+    TypeObjet commandant=null;
+    Prevision prevision;
+
+    @Override
+    public Prevision getPrevision() {
+        return prevision;
+    }
+            
+    public TypeObjet getCommandant() {
+        return commandant;
+    }
 
     public TypeObjet getCaisse() {
         return caisse;
@@ -734,9 +746,13 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             throw new Exception(ex.getMessage());
         }
     }
+    
+    public void testLogin(String user, String pass, String interim, String service) throws Exception {
+        testLogin(user, pass, interim, service, null);
+    }
 
     @Override
-    public void testLogin(String user, String pass, String interim, String service) throws Exception {
+    public void testLogin(String user, String pass, String interim, String service,String escale) throws Exception {
         Connection c = null;
         try {
 
@@ -768,7 +784,18 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 }
             }
             CNAPSUser[] cnp = (CNAPSUser[]) CGenUtil.rechercher(new CNAPSUser(), null, null, c, " and id_utilisateur = '" + u.getRefuser() + "'");
-
+            if(type.compareToIgnoreCase(Constante.getRoleCommandant())==0){
+                TypeObjet to=new TypeObjet();
+                to.setNomTable("commandant");
+                TypeObjet[] listeCommandant=(TypeObjet[])CGenUtil.rechercher(to, null, null, c, " and iduser='"+u.getRefuser()+"'");
+                if(listeCommandant==null|| listeCommandant.length==0) throw new Exception("Commandant introuvable");
+                this.commandant=listeCommandant[0];
+                if(escale!=null  && escale.length()>0){
+                    Prevision previsionTemp = new Prevision();
+                    previsionTemp.setEscale(escale);
+                    this.prevision = (Prevision) previsionTemp.getById(null, "PREVISION", c);
+                }
+            }
             this.cnapsUser = (cnp != null) ? cnp[0] : null;
             if (interim != null && interim.compareToIgnoreCase("1") == 0 && cnp.length > 0) {
                 LogService[] ls = (LogService[]) CGenUtil.rechercher(new LogService(), null, null, c, " AND ID = '" + service + "'");
@@ -792,6 +819,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
              String retour = Utilitaire.tabToString(users, "'", ",");
              usersInferieurEnCours = retour;*/
             //u.setRefuser(u.getRefuser());
+          
             u.setPwduser(getAddrIp());
             MapHistorique histo = new MapHistorique("login", "login", String.valueOf(u.getRefuser()), String.valueOf(u.getRefuser()));
             histo.setObjet("mg.cnaps.utilisateur.CNAPSUser");

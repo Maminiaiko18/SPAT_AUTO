@@ -77,6 +77,10 @@
               <span class="input-group-addon"><i class="fa fa-lock"></i></span>
               <input type="password" name="passe" class="form-control" placeholder="Mot de passe" />
             </div><br/>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-cogs "></i></span>
+              <input type="text" name="escale" class="form-control" placeholder="Escale" />
+            </div><br/>
             <!--<div class="row">
                 <div class="col-xs-3"> 
                     <label>Interim</label>
