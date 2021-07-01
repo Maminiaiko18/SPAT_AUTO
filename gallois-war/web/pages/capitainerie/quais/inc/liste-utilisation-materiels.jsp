@@ -18,7 +18,8 @@
 <%
     try {
         OccupationMaterielNaval oprevision = new OccupationMaterielNaval();
-        oprevision.setNomTable("prestations_escale");
+        //oprevision.setNomTable("prestations_escale");OCCUPMATERIELNAVALLIB
+        oprevision.setNomTable("OCCUPMATERIELNAVALLIB");
         String id = request.getParameter("id");
         String listeCrt[] = {"idprevision"};
         String listeInt[] = {};

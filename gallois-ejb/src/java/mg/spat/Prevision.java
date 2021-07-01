@@ -121,11 +121,16 @@ public class Prevision extends ClassEtat {
                 (Activite) this.genererActivite(u, c, "Redevance communale " + this.getId(),
                         String.format(awhere, Constante.idRedevanceCommunaleCalcule)).validerObject(u, c)
         );
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Stationnement " + this.getId(),
+                        String.format(awhere, Constante.idStationnement)).validerObject(u, c)
+        );
 
         return activites.toArray(new Activite[activites.size()]);
     }
 
     public Activite genererActivite(String u, Connection c, String designation, String awhere) throws Exception {
+        System.out.println("Designation=="+designation);
         Activite rep = new Activite();
         rep.setDesignation(designation);
         rep.setClient(getConsignataire());
