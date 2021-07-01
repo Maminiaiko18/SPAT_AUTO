@@ -1,5 +1,8 @@
 alter table FACTURE_CLIENT_FILLE add datefact date;
 alter table OCCUPATIONMATERIELNAVAL add idprevision varchar2(200) constraint occupation_prevision_fk references PREVISION;	
+
+alter table detformufact add compte varchar2(500);
+alter table detformufact modify condition varchar2(500);
 create or replace view     FACTURE_CLIENT_FILLE_PLUS as
 SELECT facture_client_fille.ID,
           facture_client_fille.IDMERE,
@@ -896,7 +899,7 @@ FROM factureclientmsum_lib fc
          LEFT JOIN RUBRIQUE_ACTIVITE rub ON act.RUBRIQUE = rub.ID
          LEFT JOIN CATEGORIEFACTURATION cat ON rub.CATEGORIE = cat.ID
          LEFT JOIN V_client_categorie cl ON fc.tiers = CL.CDCLT;
-create view FACTURE_CLIENT_FILLE_LIBELLE as
+create or replace view FACTURE_CLIENT_FILLE_LIBELLE as
 select fi.ID,
        fi.IDMERE,
        fi.DESIGNATION,
@@ -2157,6 +2160,8 @@ INSERT INTO RUBRIQUE_ACTIVITE (ID, DESIGNATION, CATEGORIE, PU, DEVISE, UNITE) VA
 INSERT INTO RUBRIQUE_ACTIVITE (ID, DESIGNATION, CATEGORIE, PU, DEVISE, UNITE) VALUES('RBR0128', 'Autorisation piquage de rouille et peinture coque calcule','CATFC009','','Eur','UA051');
 INSERT INTO RUBRIQUE_ACTIVITE (ID, DESIGNATION, CATEGORIE, PU, DEVISE, UNITE) VALUES('RBR0129', 'Autorisation d''immobilisation calcule','CATFC009','','Eur','UA051');
 INSERT INTO RUBRIQUE_ACTIVITE (ID, DESIGNATION, CATEGORIE, PU, DEVISE, UNITE) VALUES('RBR0130', 'Enlevement d''ordures calcule','CATFC009','','Eur','');
+
+alter table detformufact add compte varchar2(500);
 Insert into DETFORMUFACT (ID, REM,MIN, MAX, FORMULE, UNITE, MERE, CONDITION, FORMULEQTE) Values 
 ('DFF00000000300001', 'Cession d''eau douce cabotage national', 1, 1, '1.263', 'UA003', 
     'RBR0126', '[natureoperation]==''NATM0001''&&[estNational]==''National''', '[volume]');
@@ -2202,10 +2207,11 @@ UPDATE MENUDYNAMIQUE SET LIBELLE='Saisie', ICONE='fa fa-plus', HREF='/spat/pages
 UPDATE MENUDYNAMIQUE SET LIBELLE='Liste', ICONE='fa fa-list', HREF='/spat/pages/globalnegoce.jsp?but=ligneCredit/situation-ligneCreditDepense.jsp', RANG=2, NIVEAU=4, ID_PERE='MENBDG00021' WHERE ID='MENBDG000212';
 
 	
-alter table detformufact add compte varchar2(500);
+
 alter table facture_client_fille add rubrique varchar(100);
 
-create view OCCUPATIONMATERIELNAVAL_DATY as
+create materialized view OCCUPATIONMATERIELNAVAL_DATY
+    refresh on COMMIT as
 select to_date(extract(day from DATY) || '-' || extract(month from DATY) || '-' || extract(year from DATY) || OCCUPATIONMATERIELNAVAL.HEUREDEBUT, 'dd-mm-yyyy hh24:mi:ss') as datydebut,
        to_date(extract(day from DATEFIN) || '-' || extract(month from DATEFIN) || '-' || extract(year from DATEFIN) || OCCUPATIONMATERIELNAVAL.HEUREFIN, 'dd-mm-yyyy hh24:mi:ss') as datyfin
        ,id
@@ -2877,7 +2883,7 @@ select fcf.* ,
            from FACTURECLIENTMSUM_LIB l
     left join FACTURE_CLIENT_MERE_FILLE fcf on fcf.IDMERE=l.id;
 		 
-create or replace view situationLCDepense as
+create or replace view SITUATIONLCRECETTE as
 select l.id                       as id,
        l.DESIGNATION              as designation,
        l.COMPTE                  as compte,
@@ -2889,6 +2895,7 @@ from LIGNECREDITRECETTE l
          left join FACTURE_CLIENT_MEREF_paye mf
                    on SUBSTR(mf.COMPTE, 0, length(l.COMPTE)) like l.COMPTE and extract(year from DATY) = l.ANNEE
 group by l.id, l.DESIGNATION, l.COMPTE, l.ANNEE, l.MONTANT;
+drop materialized view OCCUPATIONMATERIELNAVAL_DATY;
 
 create materialized view OCCUPATIONMATERIELNAVAL_DATY
     refresh on COMMIT as
@@ -3184,7 +3191,7 @@ select a.*
 from ACTIVITECOMPLETFORMULE_II a;
 
 
-create  view DETAILSFACTUREFOURNISSEUR_paye as
+create or replace  view DETAILSFACTUREFOURNISSEUR_paye as
 select dff.*,
        ff.MONTANTTTC,
        (ff.MONTANTPAYE * 100) / nvl(nullif(MONTANTTTC, 0), 1)                        as montantpayepourc,
@@ -3204,13 +3211,18 @@ from ETATFACTUREMONTANTDATY ff
 		 
 alter table detformufact add compte varchar2(500);
 alter table facture_client_fille add rubrique varchar(100);
+drop materialized view OCCUPATIONMATERIELNAVAL_DATY;
 
-create view OCCUPATIONMATERIELNAVAL_DATY as
-select to_date(extract(day from DATY) || '-' || extract(month from DATY) || '-' || extract(year from DATY) || OCCUPATIONMATERIELNAVAL.HEUREDEBUT, 'dd-mm-yyyy hh24:mi:ss') as datydebut,
-       to_date(extract(day from DATEFIN) || '-' || extract(month from DATEFIN) || '-' || extract(year from DATEFIN) || OCCUPATIONMATERIELNAVAL.HEUREFIN, 'dd-mm-yyyy hh24:mi:ss') as datyfin
-       ,id
+create materialized view OCCUPATIONMATERIELNAVAL_DATY
+    refresh on COMMIT as
+select to_date(extract(year from DATY) || '-' || extract(month from DATY) || '-' || extract(DAy from DATY) || ' ' ||
+               OCCUPATIONMATERIELNAVAL.HEUREDEBUT, 'yy-mm-dd hh24:mi:ss') as datydebut,
+       to_date(extract(year from DATEFIN) || '-' || extract(month from DATEFIN) || '-' || extract(DAy from DATEFIN) ||
+               ' ' ||
+               OCCUPATIONMATERIELNAVAL.HEUREFIN, 'yy-mm-dd hh24:mi:ss')   as datyfin
+        ,
+       id
 from OCCUPATIONMATERIELNAVAL;
-
 
 
 CREATE or replace VIEW ACTIVITECOMPLETFORMULE_I
@@ -3302,7 +3314,7 @@ FROM ACTIVITE ac
     --  LEFT JOIN occupationmaterielnaval occ ON occ.idprevision = pre.id
          LEFT JOIN POSTEDESTINATAIRELIBCOMPLET pd ON pd.ID = ac.POSTE
      -- LEFT JOIN natureoperation nat ON occ.idnatureoperation = nat.id
-where ac.RUBRIQUE in ('RB0000000021170444', 'RB0000000021170448');
+where ac.RUBRIQUE in ('RB0000000021170444', 'RB0000000021170448','RB0000000021170449');
 
 
 
@@ -3413,7 +3425,7 @@ FROM ACTIVITE ac
          LEFT JOIN POSTEDESTINATAIRELIBCOMPLET pd ON pd.ID = ac.POSTE
          LEFT JOIN natureoperation nat ON occ.idnatureoperation = nat.id
          left join OCCUPATIONMATERIELNAVAL_daty na on na.id=occ.id
-where Ra.ID not in ('RB0000000021170444', 'RB0000000021170448');
+where Ra.ID not in ('RB0000000021170444', 'RB0000000021170448','RB0000000021170449');
 
 
 
@@ -3592,7 +3604,7 @@ FROM ACTIVITE ac
          LEFT JOIN POSTEDESTINATAIRELIBCOMPLET pd ON pd.ID = ac.POSTE
          LEFT JOIN natureoperation nat ON occ.idnatureoperation = nat.id
          left join OCCUPATIONMATERIELNAVAL_daty na on na.id=occ.id
-where Ra.ID not in ('RB0000000021170444', 'RB0000000021170448');
+where Ra.ID not in ('RB0000000021170444', 'RB0000000021170448','RB0000000021170449');
 
 
 CREATE OR REPLACE VIEW FACTURE_CLIENT_FILLE_LIBELLE AS 
@@ -3722,7 +3734,7 @@ FROM ACTIVITE ac
     --  LEFT JOIN occupationmaterielnaval occ ON occ.idprevision = pre.id
          LEFT JOIN POSTEDESTINATAIRELIBCOMPLET pd ON pd.ID = ac.POSTE
      -- LEFT JOIN natureoperation nat ON occ.idnatureoperation = nat.id
-where ac.RUBRIQUE in ('RB0000000021170444', 'RB0000000021170448');
+where ac.RUBRIQUE in ('RB0000000021170444', 'RB0000000021170448','RB0000000021170449');
 
 
 CREATE OR REPLACE VIEW ACTIVITECOMPLETFORMULE_II (ID, DESIGNATION, CLIENT, RUBRIQUE, QTE, MOIS, MOISLIB,
@@ -3843,7 +3855,7 @@ FROM ACTIVITE ac
          LEFT JOIN POSTEDESTINATAIRELIBCOMPLET pd ON pd.ID = ac.POSTE
          LEFT JOIN natureoperation nat ON occ.idnatureoperation = nat.id
          left join OCCUPATIONMATERIELNAVAL_daty na on na.id=occ.id
-where Ra.ID not in ('RB0000000021170444', 'RB0000000021170448');
+where Ra.ID not in ('RB0000000021170444', 'RB0000000021170448','RB0000000021170449');
 
 CREATE OR REPLACE VIEW FACTURE_CLIENT_FILLE_LIBELLE (ID, IDMERE, DESIGNATION,
       QUANTITE, PU, COMPTE, IDPRODUIT, DEVISE, TAUX, IDACTIVITE, TVA, PRODUIT_LIB,
@@ -3889,7 +3901,7 @@ from LIGNECREDITRECETTE l
          left join FACTURE_CLIENT_MEREF_paye mf
                    on SUBSTR(mf.COMPTE, 0, length(l.COMPTE)) like l.COMPTE and extract(year from DATY) = l.ANNEE
 group by l.id, l.DESIGNATION, l.COMPTE, l.ANNEE, l.MONTANT;
-
+drop  materialized view OCCUPATIONMATERIELNAVAL_DATY;
 create materialized view OCCUPATIONMATERIELNAVAL_DATY
     refresh on COMMIT as
 select to_date(extract(year from DATY) || '-' || extract(month from DATY) || '-' || extract(DAy from DATY) || ' ' ||
@@ -3991,7 +4003,7 @@ FROM ACTIVITE ac
     --  LEFT JOIN occupationmaterielnaval occ ON occ.idprevision = pre.id
          LEFT JOIN POSTEDESTINATAIRELIBCOMPLET pd ON pd.ID = ac.POSTE
      -- LEFT JOIN natureoperation nat ON occ.idnatureoperation = nat.id
-where ac.RUBRIQUE in ('RB0000000021170444', 'RB0000000021170448');
+where ac.RUBRIQUE in ('RB0000000021170444', 'RB0000000021170448','RB0000000021170449');
 
 
 CREATE or replace VIEW ACTIVITECOMPLETFORMULE_II
@@ -4111,7 +4123,7 @@ FROM ACTIVITE ac
          LEFT JOIN POSTEDESTINATAIRELIBCOMPLET pd ON pd.ID = ac.POSTE
          LEFT JOIN natureoperation nat ON occ.idnatureoperation = nat.id
          left join OCCUPATIONMATERIELNAVAL_daty na on na.id = occ.id
-where Ra.ID not in ('RB0000000021170444', 'RB0000000021170448');
+where Ra.ID not in ('RB0000000021170444', 'RB0000000021170448','RB0000000021170449');
 
 
 
@@ -4280,7 +4292,7 @@ FROM factureclientmsum_lib fc
          LEFT JOIN V_client_categorie cl ON fc.tiers = CL.CDCLT;
 
 
-create view FACTURE_CLIENT_FILLE_LIBELLE as
+create or replace view FACTURE_CLIENT_FILLE_LIBELLE as
 select fi.ID,
        fi.IDMERE,
        fi.DESIGNATION,
@@ -4428,3 +4440,66 @@ from (
 
 
 
+delete from detformufact where id in ('DFF0000000023170543','DFF0000000023170544','DFF0000000023170545','DFF0000000023170546','DFF0000000023170547','DFF0000000023170548','DFF0000000023170549','DFF0000000023170550')
+Insert into DETFORMUFACT
+   (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170543', 'Stationnement poste ordinaire nav. national', '70634', 1, 1, '0.033', 'UA045', 
+    'RB0000000021170449', '[estNational]==''National''&&[typequais]==''TYPE000003''', '[longueur]*[nbheure]');        
+    
+    
+Insert into DETFORMUFACT
+   (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170544', 'Stationnement poste ordinaire nav. international', '70634', 1, 1, '0.063', 'UA045', 
+    'RB0000000021170449', '[estNational]==''International''&&[typequais]==''TYPE000003''', '[longueur]*[nbheure]');    
+
+/*Stationnement à quais spécialisé*/
+Insert into DETFORMUFACT
+   (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170545', 'Stationnement poste spec. nav. national', '70634', 1, 1, '0.048', 'UA045', 
+    'RB0000000021170449', '[estNational]==''National''&&[typequais]==''TQ001''', '[longueur]*[nbheure]');        
+    
+    
+Insert into DETFORMUFACT
+   (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170546', 'Stationnement poste spec. nav. international', '70634', 1, 1, '0.091', 'UA045', 
+    'RB0000000021170449', '[estNational]==''International''&&[typequais]==''TQ001''', '[longueur]*[nbheure]');    
+    
+/*Stationnement poste pétrolier*/
+Insert into DETFORMUFACT
+   (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170547', 'Stationnement poste petrolier nav. national', '70634', 1, 1, '3.971', 'UA045', 
+    'RB0000000021170449', '[estNational]==''National''&&[typequais]==''TYPE000001''', '[longueur]*[nbheure]');        
+    
+    
+Insert into DETFORMUFACT
+   (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170548', 'Stationnement poste petrolier nav. international', '70634', 1, 1, '7.545', 'UA045', 
+    'RB0000000021170449', '[estNational]==''International''&&[typequais]==''TYPE000001''', '[longueur]*[nbheure]');    
+
+/*Stationnement en rade*/    
+Insert into DETFORMUFACT
+   (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170549', 'Stationnement poste de mouillage nav. national', '70634', 1, 1, '0.025', 'UA045', 
+    'RB0000000021170449', '[estNational]==''National''&&[typequais]==''TYPE000001''', '[longueur]*[nbheure]');        
+    
+    
+Insert into DETFORMUFACT
+   (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
+    MERE, CONDITION, FORMULEQTE)
+ Values
+   ('DFF0000000023170550', 'Stationnement poste de mouillage nav. international', '70634', 1, 1, '0.048', 'UA045', 
+    'RB0000000021170449', '[estNational]==''International''&&[typequais]==''TYPE000001''', '[longueur]*[nbheure]');
