@@ -23,7 +23,7 @@
 
         pi.getFormu().getChamp("designation").setLibelle("Désignation");
         pi.getFormu().getChamp("annee").setLibelle("Année");
-        pi.getFormu().getChamp("quantite").setLibelle("Quantité");
+        pi.getFormu().getChamp("quantite").setVisible(false);
         pi.getFormu().getChamp("annee").setDefaut(Utilitaire.getAnneeEnCours());
 
         pi.getFormu().getChamp("etat").setVisible(false);
