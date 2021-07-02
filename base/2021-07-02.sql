@@ -672,3 +672,5 @@ select * from SITUATIONLCDEPENSE where etat=1;
 
 CREATE OR REPLACE  VIEW SITUATIONLCDEPENSEV as
 select * from SITUATIONLCDEPENSE where etat>=11;
+
+update detformufact set condition='[natureoperation]==''NAT0009''&&[estNational]==''National''&&[volume]<15000&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''' where id='DFF0000000023170452';
