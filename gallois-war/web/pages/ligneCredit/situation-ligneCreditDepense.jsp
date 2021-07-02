@@ -49,19 +49,16 @@
                         <option value="situationLCDepense" >Tous</option>
                         <% } %>
                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("situationLCDepenseC") == 0) {%>
-                        <option value="situationLCDepenseC" selected> D&eacute;part </option>
+                        <option value="situationLCDepenseC" selected> Cr&eacute;&eacute; </option>
                         <% } else { %>
                         <option value="situationLCDepenseC"> Cr&eacute;&eacute; </option>
                         <% } %>
 
                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("situationLCDepenseV") == 0) {%>
-                        <option value="situationLCDepenseV" selected> Arriv&eacute;e  </option>
+                        <option value="situationLCDepenseV" selected> Vis&eacute;  </option>
                         <% } else { %>
                         <option value="situationLCDepenseV"> Vis&eacute;  </option>
                         <% } %>
-
-
-
                     </select>
                 </div>
             </div>
