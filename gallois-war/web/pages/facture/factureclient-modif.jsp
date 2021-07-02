@@ -26,6 +26,12 @@ try{
     
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeClientChoix.jsp");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
+    
+    pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
+    pi.getFormu().getChamp("idprevision").setAutre("readonly");
+    pi.getFormu().getChamp("idprevision").setLibelle("Escale");
+    
+    
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setLibelle("User");
     pi.getFormu().getChamp("date_echeance").setLibelle("date d'Echeance");
