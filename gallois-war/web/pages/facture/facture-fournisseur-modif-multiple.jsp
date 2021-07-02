@@ -25,7 +25,7 @@ try{
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idmere"), "readonly");
     affichage.Champ[] liste1 = new affichage.Champ[1];    
     TypeObjet op = new TypeObjet();
-    op.setNomTable("DEVISEDEMAT");
+    op.setNomTable("DEVISE");
     liste1[0] = new Liste("iddevise", op, "desce", "id");
 //        Tva tva = new Tva();
 //        liste[1] = new Liste("idtva", tva, "valeurtva", "valeurtva");    
