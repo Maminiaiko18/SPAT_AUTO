@@ -18,9 +18,9 @@
         prevision.setNomTable("previsionLibComplet");
     
       String champReturn = request.getParameter("champReturn");
-      String listeCtrl[]={"id","paysprovenance","quaiprovenance","nomnavire","valconsignataire","valcargaison","valpilote","date_arrivee","heure_arrivee","date_depart","heure_depart","paysdestination"};
+      String listeCtrl[]={"id","escale","paysprovenance","quaiprovenance","nomnavire","valconsignataire","valcargaison","date_arrivee","date_depart","paysdestination"};
       String listeInt[]={"date_arrivee","date_depart"};
-      String libEntete[]={"id","date_rade","valpaysprovenance", "valquaisprovenance", "nomnavire","valconsignataire","valcargaison","date_arrivee","heure_arrivee","date_depart","heure_depart","valpaysdestination","valquaisdestination","valpilote"};
+      String libEntete[]={"id","escale","valpaysprovenance", "valquaisprovenance", "nomnavire","valconsignataire","valcargaison","date_arrivee","heure_arrivee","date_depart","heure_depart","valpaysdestination","valquaisdestination","valpilote"};
       PageRechercheChoix pr = new PageRechercheChoix(prevision, request, listeCtrl, listeInt, 3, libEntete,libEntete.length);
       
       pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -31,11 +31,8 @@
       pr.getFormu().getChamp("Date_arrivee2").setLibelle("Date d'arrivée Max");
       pr.getFormu().getChamp("Date_depart1").setLibelle("date de départ Min");
       pr.getFormu().getChamp("Date_depart2").setLibelle("date de départ Max");
-      pr.getFormu().getChamp("heure_arrivee").setLibelle("Heure d'arrivée");
-      pr.getFormu().getChamp("heure_depart").setLibelle("Heure du depart");
       pr.getFormu().getChamp("paysprovenance").setLibelle("Provenance");
       pr.getFormu().getChamp("nomnavire").setLibelle("Navire");
-      pr.getFormu().getChamp("valpilote").setLibelle("Pilote");
       pr.getFormu().getChamp("quaiprovenance").setLibelle("Quais");
       
       pr.getFormu().getChamp("paysdestination").setLibelle("Destination");
@@ -73,7 +70,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <%
-                        String libEnteteAffiche[] = {"id","date de création","Pays Provenance","Quai de provenance"," Nom Navire","Consignataire","Cargaison","date d'arrivée","heure d' arrivée","date de depart","heure du depart","destination","Quai de destination","Pilote"};
+                        String libEnteteAffiche[] = {"id","Escale","Pays Provenance","Quai de provenance"," Nom Navire","Consignataire","Cargaison","date d'arrivée","heure d' arrivée","date de depart","heure du depart","destination","Quai de destination","Pilote"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); 
                     %>
