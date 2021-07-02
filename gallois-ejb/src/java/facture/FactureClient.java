@@ -31,7 +31,7 @@ public class FactureClient extends ClassMere {
 
     private String id;
     private Date daty, date_echeance;
-    private String tiers, designation, type, remarque, iduser;
+    private String tiers, designation, type, remarque, iduser,idprevision;
     private double tva, montant, montanttva, montantttc,montantpaye,montantreste;
     private String tierslib;
     private double montantavoir;
@@ -67,6 +67,14 @@ public class FactureClient extends ClassMere {
         journal.createObject(user.getUser().getTuppleID(),c);
         
         journal.viser(user, c);
+    }
+
+    public String getIdprevision() {
+        return idprevision;
+    }
+
+    public void setIdprevision(String idprevision) {
+        this.idprevision = idprevision;
     }
     
     @Override
