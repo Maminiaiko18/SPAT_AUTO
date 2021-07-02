@@ -125,10 +125,7 @@ public class Prevision extends ClassEtat {
                 (Activite) this.genererActivite(u, c, "Stationnement " + this.getId(),
                         String.format(awhere, Constante.idStationnement)).validerObject(u, c)
         );
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Cession Eau douce " + this.getId(),
-                        String.format(awhere, Constante.idCessionEauDouce)).validerObject(u, c)
-        );
+        
         activites.add(
                 (Activite) this.genererActivite(u, c, "Service Haute mer " + this.getId(),
                         String.format(awhere, Constante.idServiceHauteMere)).validerObject(u, c)
