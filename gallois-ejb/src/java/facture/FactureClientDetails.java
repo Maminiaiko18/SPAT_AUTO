@@ -161,7 +161,7 @@ public class FactureClientDetails extends ClassFille {
 
     public void verifActivite(Connection c) throws Exception{
         Activite act = getActivite(c);
-        if(act.getEtat() < ConstanteEtat.getEtatValider()){
+        if(act!=null && act.getEtat() < ConstanteEtat.getEtatValider()){
             throw new Exception("Activite non visee !");
         }
     }
@@ -184,8 +184,7 @@ public class FactureClientDetails extends ClassFille {
             Activite ac=new Activite();
             ac.setNomTable("ACTIVITELIBCOMPLET");
             Activite[] liste=(Activite[])CGenUtil.rechercher(ac, null, null, c, " and id='"+this.getIdactivite()+"'");
-            if(liste.length==0) throw new Exception("Activite introuvable");
-            retour=liste[0];
+            if(liste.length>0) retour=liste[0];
         }catch(Exception e){
             throw e;
         }finally{

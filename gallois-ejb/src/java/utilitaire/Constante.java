@@ -2,6 +2,11 @@ package utilitaire;
 
 public class Constante {
     public static String idcategorieCapitainerie="CATFC001";
+    public static String idCessionEauDouce="RBR0126";
+    public static String idServiceHauteMere="RBR0127";
+    public static String idPiquagePeinture="RBR0128";
+    public static String idImmobilisationNavire="RBR0129";
+    public static String idEnlevementOrdures="RBR0130";
     public static String idStationnement="RB0000000021170449";
     public static String idDroitDePortCalcule="RB0000000021170444";
     public static String idRedevanceCommunaleCalcule="RB0000000021170448";

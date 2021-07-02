@@ -125,7 +125,26 @@ public class Prevision extends ClassEtat {
                 (Activite) this.genererActivite(u, c, "Stationnement " + this.getId(),
                         String.format(awhere, Constante.idStationnement)).validerObject(u, c)
         );
-
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Cession Eau douce " + this.getId(),
+                        String.format(awhere, Constante.idCessionEauDouce)).validerObject(u, c)
+        );
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Service Haute mer " + this.getId(),
+                        String.format(awhere, Constante.idServiceHauteMere)).validerObject(u, c)
+        );
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Autorisation piquage de rouille et peinture coque " + this.getId(),
+                        String.format(awhere, Constante.idPiquagePeinture)).validerObject(u, c)
+        );
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Autorisation immobilisation " + this.getId(),
+                        String.format(awhere, Constante.idImmobilisationNavire)).validerObject(u, c)
+        );
+        activites.add(
+                (Activite) this.genererActivite(u, c, "Enlevement ordure " + this.getId(),
+                        String.format(awhere, Constante.idEnlevementOrdures)).validerObject(u, c)
+        );
         return activites.toArray(new Activite[activites.size()]);
     }
 
