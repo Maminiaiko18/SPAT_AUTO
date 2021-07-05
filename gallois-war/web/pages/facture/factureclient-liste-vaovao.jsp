@@ -17,7 +17,7 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance"};
+        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale"};
         String listeInt[] = {"daty","date_echeance"};
         String libEntete[] = {"id","daty","tierslib","escale","designation","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
 
