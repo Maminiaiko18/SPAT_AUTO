@@ -70,7 +70,10 @@ public class Prevision extends ClassEtat {
             adminActivite.findactivite(getIdsFromTab(activites), c);
 
 //            adminActivite.initActivite(prevision.genererActiviteVisees(user, c));
+            
             facture = adminActivite.facturer(user, c);
+            facture.setIdprevision(this.getId());
+            facture.updateToTableWithHisto(user, c);
             
             if(verif == 1) c.commit();
         } catch (Exception e) {
