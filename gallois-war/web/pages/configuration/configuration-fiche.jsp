@@ -47,7 +47,7 @@
                        
                         <div class="box-footer">
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=configuration/configuration-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
-                            <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=configuration/configuration-fiche.jsp&id=<%=base.getId()%>&classe=mg.cnaps.configuration.Configuration" style="margin-right: 10px">Viser</a>
+                            
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=configuration/configuration-liste.jsp&classe=mg.cnaps.configuration.Configuration"><button class="btn btn-danger">Supprimer</button></a>
                         </div>
                         
