@@ -158,6 +158,7 @@ public class Prevision extends ClassEtat {
         rep.setDaty(getDate_arrivee());
         rep.setBateau(getId());
         rep.setRubrique(getRubrique(c, awhere).getId());
+        rep.setQte(1);
         rep.createObject(u, c);
 
         return rep;

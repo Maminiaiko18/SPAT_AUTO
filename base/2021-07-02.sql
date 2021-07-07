@@ -605,3 +605,72 @@ delete from facture_client_fille where idactivite is not null;
 delete from factureclient where id in ('FCL0000000043025111','FCL0000000044030219','FCL0000000045030551','FCL0000000021145038','FCL0000000022145909','FCL0000000023151134');
 
 delete from activite;
+
+--
+delete from DETFORMUFACT where id in ('DFF00000000300001','DFF00000000300002');
+
+Insert into DETFORMUFACT (ID, REM,MIN, MAX, FORMULE, UNITE, MERE, CONDITION, FORMULEQTE) Values 
+('DFF00000000300001', 'Cession d''eau douce cabotage national', 1, 1, '1.263', 'UA003', 
+    'RBR0126', '[estNational]==''National''', '[volume]');
+
+Insert into DETFORMUFACT (ID, REM,MIN, MAX, FORMULE, UNITE, MERE, CONDITION, FORMULEQTE) Values 
+('DFF00000000300002', 'Cession d''eau douce cabotage international/Long', 1, 1, '2.399', 'UA003', 
+    'RBR0126', '[estNational]==''International''', '[volume]');
+	
+delete from natureoperation where id='NATM0001'	
+
+
+CREATE OR REPLACE  VIEW SITUATIONLCRECETTE
+AS
+     SELECT l.id AS id,
+            l.DESIGNATION AS designation,
+            l.COMPTE AS compte,
+            l.ANNEE AS annee,
+            l.MONTANT AS montant,
+            l.etat,
+            CAST (SUM (mf.QUANTITE * mf.pu * mf.TAUX) AS NUMBER (30, 3))
+               AS facture,
+            CAST (SUM (montantpaye) AS NUMBER (30, 3)) paye
+       FROM LIGNECREDITRECETTE l
+            LEFT JOIN FACTURE_CLIENT_MEREF_paye mf
+               ON     SUBSTR (mf.COMPTE, 0, LENGTH (l.COMPTE)) LIKE l.COMPTE
+                  AND EXTRACT (YEAR FROM DATY) = l.ANNEE
+   GROUP BY l.id,
+            l.DESIGNATION,
+            l.COMPTE,
+            l.ANNEE,
+            l.MONTANT, l.etat;
+
+CREATE OR REPLACE  VIEW SITUATIONLCRECETTEC as
+select * from SITUATIONLCRECETTE where etat=1;
+CREATE OR REPLACE  VIEW SITUATIONLCRECETTEV as
+select * from SITUATIONLCRECETTE where etat>=11;
+
+
+CREATE OR REPLACE  VIEW SITUATIONLCDEPENSE
+AS
+     SELECT l.id AS id,
+            l.DESIGNATION AS designation,
+            l.COMPTE AS compte,
+            l.ANNEE AS annee,
+            l.MONTANT AS montant,
+			l.etat,
+            CAST (NVL (SUM (pu * l.QUANTITE * tva), 0) AS NUMBER (30, 3))
+               AS facture,
+            CAST (NVL (SUM (montantpaye), 0) AS NUMBER (30, 2)) paye
+       FROM LIGNECREDITDEPENSE l
+            LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf
+               ON     SUBSTR (mf.COMPTE, 0, LENGTH (l.COMPTE)) LIKE l.COMPTE
+                  AND EXTRACT (YEAR FROM daty) = l.ANNEE
+   GROUP BY l.id,
+            l.DESIGNATION,
+            l.COMPTE,
+            l.ANNEE,
+            l.MONTANT,l.etat;
+CREATE OR REPLACE  VIEW SITUATIONLCDEPENSEC as
+select * from SITUATIONLCDEPENSE where etat=1;
+
+CREATE OR REPLACE  VIEW SITUATIONLCDEPENSEV as
+select * from SITUATIONLCDEPENSE where etat>=11;
+
+update detformufact set condition='[natureoperation]==''NAT0009''&&[estNational]==''National''&&[volume]<15000&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''' where id='DFF0000000023170452';

@@ -85,7 +85,7 @@
 
         affichage.Champ[] liste = new affichage.Champ[1];
         TypeObjet op = new TypeObjet();
-        op.setNomTable("DEVISEDEMAT");
+        op.setNomTable("DEVISE");
         liste[0] = new Liste("iddevise", op, "desce", "id");
         pi.getFormu().changerEnChamp(liste);
 
