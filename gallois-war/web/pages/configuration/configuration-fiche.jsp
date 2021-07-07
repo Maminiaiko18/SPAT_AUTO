@@ -33,8 +33,8 @@
 %>
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-6">
-            <div class="box-fiche col-md-12">
+        <div class="col-md-offset-3 col-md-6">
+            <div class="box">
                 <div class="box">
                     <div class="box-title with-border">
                         <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=configuration/configuration-liste.jsp"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
