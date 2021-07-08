@@ -11,18 +11,33 @@
     PageUpdate pi = new PageUpdate(materielNaval, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
+    
+    affichage.Liste[] listeD = new Liste[3];
+        TypeObjet marque=new TypeObjet();
+        marque.setNomTable("Marque_Materiel");
+        listeD[0] = new Liste("IdMarque", marque, "val", "id");
+        
+        TypeObjet typeM = new TypeObjet();
+        typeM.setNomTable("Type_materiel");
+        listeD[1] = new Liste("IdType_materiel", typeM, "val", "id");
+        
+        TypeObjet cat = new TypeObjet();
+        cat.setNomTable("categorie_materiel");
+        listeD[2] = new Liste("idcategorie", cat, "val", "id");
+    pi.getFormu().changerEnChamp(listeD);
     //pi.getFormu().getChamp("pavillon").setPageAppel("choix/listePaysChoix.jsp");
-    pi.getFormu().getChamp("Date_aquisition").setLibelle("Date d'aquisition");
    
-    pi.getFormu().getChamp("IdType_materiel").setLibelle("Type de Matériel");
-   
-    pi.getFormu().getChamp("IdMarque").setPageAppel("choix/listeMarqueChoix.jsp");
+    /*pi.getFormu().getChamp("IdMarque").setPageAppel("choix/listeMarqueChoix.jsp");
     pi.getFormu().getChamp("IdMarque").setAutre("readonly");
-    pi.getFormu().getChamp("IdMarque").setLibelle("Marque");
     
     pi.getFormu().getChamp("IdType_materiel").setPageAppel("choix/listeTypeMaterielChoix.jsp");
-    pi.getFormu().getChamp("IdType_materiel").setAutre("readonly");
+    pi.getFormu().getChamp("IdType_materiel").setAutre("readonly");*/
+    
+    pi.getFormu().getChamp("Date_aquisition").setLibelle("Date d'aquisition");
     pi.getFormu().getChamp("IdType_materiel").setLibelle("Type de Matériel");
+    pi.getFormu().getChamp("IdMarque").setLibelle("Marque");
+    pi.getFormu().getChamp("IdType_materiel").setLibelle("Type de Matériel");
+    pi.getFormu().getChamp("idcategorie").setLibelle("Catégorie");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.preparerDataFormu();
 %>
