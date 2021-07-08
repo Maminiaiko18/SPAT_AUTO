@@ -4,12 +4,12 @@
    MaterielNaval materiel=new MaterielNaval();
    materiel.setNomTable("materielnavallib");
    
-    String[] champ = {"id","denomination","date_aquisition","idMarque","puissance","detenteur","maintenance","idType_materiel","immatriculation"};
-    String[] libelle_comp = {"id","Dénomination","Date d'aquisition","Marque","Puissance","Détenteur","Maintenance"," Type matériel","Immatriculation"};
+    String[] champ = {"id","denomination","date_aquisition","idMarque","puissance","detenteur","maintenance","idType_materiel","immatriculation","idCategorielib"};
+    String[] libelle_comp = {"id","Dénomination","Date d'aquisition","Marque","Puissance","Détenteur","Maintenance"," Type matériel","Immatriculation","Catégorie"};
    
-   String listeCrt[] = {"id","denomination", "date_aquisition", "idMarque","puissance","detenteur","maintenance","idType_materiel","immatriculation"};
+   String listeCrt[] = {"id","denomination", "date_aquisition", "idMarque","puissance","detenteur","maintenance","idType_materiel","immatriculation","idCategorielib"};
    String listeInt[] = {"date_aquisition","puissance"};
-    String libEntete[] = {"id","denomination", "date_aquisition", "idMarque","puissance","detenteur","maintenance","idType_materiel","immatriculation"};
+    String libEntete[] = {"id","denomination", "date_aquisition", "idMarque","puissance","detenteur","maintenance","idType_materiel","immatriculation","idCategorielib"};
     PageRecherche pr = new PageRecherche(materiel, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -19,6 +19,7 @@
     pr.getFormu().getChamp("Puissance2").setLibelle("Puissance Max");
     pr.getFormu().getChamp("IdType_materiel").setLibelle("Type de matériel");
     pr.getFormu().getChamp("IdMarque").setLibelle("Marque");
+    pr.getFormu().getChamp("idCategorielib").setLibelle("Categorie");
 
     pr.setApres("capitainerie/materiel/materiel-naval-liste.jsp");
     String[] colSomme = null;
