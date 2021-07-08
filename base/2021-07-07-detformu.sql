@@ -14,37 +14,37 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170551', 'Mise a sec et remise a l eau Poids<=25t', '-', 1, 1, '1037.78', 'UA006', 
+   ('DFF0000000023170551', 'Mise a sec et remise a l eau Poids<=25t', '70670', 1, 1, '1037.78', 'UA006', 
     'RB0000000021170450', '[plt]<=25', '1');	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170552', 'Mise a sec et remise a l eau 25t<Poids<=50t', '-', 1, 1, '1135', 'UA006', 
+   ('DFF0000000023170552', 'Mise a sec et remise a l eau 25t<Poids<=50t', '70670', 1, 1, '1135', 'UA006', 
     'RB0000000021170450', '[plt]>25&&[plt]<=50', '1');		
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170553', 'Mise a sec et remise a l eau 51t<Poids<=75t', '-', 1, 1, '1196.5', 'UA006', 
+   ('DFF0000000023170553', 'Mise a sec et remise a l eau 51t<Poids<=75t', '70670', 1, 1, '1196.5', 'UA006', 
     'RB0000000021170450', '[plt]>51&&[plt]<=75', '1');		
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170554', 'Mise a sec et remise a l eau 76t<Poids<=100t', '-', 1, 1, '1281.97', 'UA006', 
+   ('DFF0000000023170554', 'Mise a sec et remise a l eau 76t<Poids<=100t', '70670', 1, 1, '1281.97', 'UA006', 
     'RB0000000021170450', '[plt]>76&&[plt]<=100', '1');		
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170555', 'Mise a sec et remise a l eau 101t<Poids<=150t', '-', 1, 1, '1404.06', 'UA006', 
+   ('DFF0000000023170555', 'Mise a sec et remise a l eau 101t<Poids<=150t', '70670', 1, 1, '1404.06', 'UA006', 
     'RB0000000021170450', '[plt]>101&&[plt]<=150', '1');	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170556', 'Mise a sec et remise a l eau Poids>150t', '-', 1, 1, '1526.15', 'UA006', 
+   ('DFF0000000023170556', 'Mise a sec et remise a l eau Poids>150t', '70670', 1, 1, '1526.15', 'UA006', 
     'RB0000000021170450', '[plt]>150', '1');	
 	
 /*Occupation de surface*/	
@@ -59,7 +59,7 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170557', 'Occupation de surface', '-', 1, 1, '0.256', 'UNI0021', 
+   ('DFF0000000023170557', 'Occupation de surface', '70670', 1, 1, '0.256', 'UNI0021', 
     'RB0000000021170451', null, '[surface]*[nb5jours]');
 
 /*Enlèvement ordures*/	
@@ -98,7 +98,7 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170558', 'Redevance pour les travaux', '-', 1, 1, '5', 'UA004', 
+   ('DFF0000000023170558', 'Redevance pour les travaux', '70670', 1, 1, '5', 'UA004', 
     'RB0000000021170455', null, '[nbjour]');	
 	
 /*Provision avant mise a sec du navire*/
@@ -137,7 +137,7 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170559', 'Remise a l eau hors site', '-', 1, 1, '2300', 'UA004', 
+   ('DFF0000000023170559', 'Remise a l eau hors site', '70670', 1, 1, '2300', 'UA004', 
     'RB0000000021170459', null, '[lht]*[nbjour]');	
 
 /*Location de materiels*/	
@@ -157,14 +157,14 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170560', 'Transport par vedette national TG', '-', 1, 1, '16.799', 'UA006', 
+   ('DFF0000000023170560', 'Transport par vedette national TG', '70689', 1, 1, '16.799', 'UA006', 
     'RB0000000021170460', '[estNational]==''National''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&([quais]==''QUA000010'')', '1');	
 	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170561', 'Transport par vedette international TG', '-', 1, 1, '39.919', 'UA006', 
+   ('DFF0000000023170561', 'Transport par vedette international TG', '70689', 1, 1, '39.919', 'UA006', 
     'RB0000000021170460', '[estNational]==''International''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&([quais]==''QUA000010'')', '1');	
 
 /*Transport par vedette jour férié et nuit TG*/		
@@ -172,13 +172,13 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170562', 'Transport par vedette national ferie TG', '-', 1, 1, '25.199', 'UA006', 
+   ('DFF0000000023170562', 'Transport par vedette national ferie TG', '70689', 1, 1, '25.199', 'UA006', 
     'RB0000000021170460', '[estNational]==''National''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&([quais]==''QUA000010'')', '1');	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170563', 'Transport par vedette international ferie TG', '-', 1, 1, '47.879', 'UA006', 
+   ('DFF0000000023170563', 'Transport par vedette international ferie TG', '70689', 1, 1, '47.879', 'UA006', 
     'RB0000000021170460', '[estNational]==''National''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&([quais]==''QUA000010'')', '1');	
 
 /*Transport par vedette jour normal Sherritt*/	
@@ -186,14 +186,14 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170564', 'Transport par vedette national Sherritt', '-', 1, 1, '33.599', 'UA006', 
+   ('DFF0000000023170564', 'Transport par vedette national Sherritt', '70689', 1, 1, '33.599', 'UA006', 
     'RB0000000021170460', '[estNational]==''National''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&([quais]==''QUA000086122119''||[quais]==''QUA000013''||[quais]==''QUA000014''||[quais]==''QUA000029''||[quais]==''QUA000087172643'')', '1');	
 	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170565', 'Transport par vedette international Sherritt', '-', 1, 1, '63.839', 'UA006', 
+   ('DFF0000000023170565', 'Transport par vedette international Sherritt', '70689', 1, 1, '63.839', 'UA006', 
     'RB0000000021170460', '[estNational]==''International''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&([quais]==''QUA000086122119''||[quais]==''QUA000013''||[quais]==''QUA000014''||[quais]==''QUA000029''||[quais]==''QUA000087172643'')', '1');	
 
 /*Transport par vedette jour férié et nuit Sherritt*/	
@@ -201,13 +201,13 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170566', 'Transport par vedette national ferie Sherritt', '-', 1, 1, '50.399', 'UA006', 
+   ('DFF0000000023170566', 'Transport par vedette national ferie Sherritt', '70689', 1, 1, '50.399', 'UA006', 
     'RB0000000021170460', '[estNational]==''National''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&([quais]==''QUA000086122119''||[quais]==''QUA000013''||[quais]==''QUA000014''||[quais]==''QUA000029''||[quais]==''QUA000087172643'')', '1');	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170567', 'Transport par vedette international ferie Sherritt', '-', 1, 1, '95.759', 'UA006', 
+   ('DFF0000000023170567', 'Transport par vedette international ferie Sherritt', '70689', 1, 1, '95.759', 'UA006', 
     'RB0000000021170460', '[estNational]==''National''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&([quais]==''QUA000086122119''||[quais]==''QUA000013''||[quais]==''QUA000014''||[quais]==''QUA000029''||[quais]==''QUA000087172643'')', '1');	
 
 /*Transport par vedette jour normal Rade*/	
@@ -215,14 +215,14 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170568', 'Transport par vedette national Rade', '-', 1, 1, '67.198', 'UA006', 
+   ('DFF0000000023170568', 'Transport par vedette national Rade', '70689', 1, 1, '67.198', 'UA006', 
     'RB0000000021170460', '[estNational]==''National''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&([quais]==''QUA000030''||[quais]==''QUA000035'')', '1');	
 	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170569', 'Transport par vedette international Rade', '-', 1, 1, '127.676', 'UA006', 
+   ('DFF0000000023170569', 'Transport par vedette international Rade', '70689', 1, 1, '127.676', 'UA006', 
     'RB0000000021170460', '[estNational]==''International''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&([quais]==''QUA000030''||[quais]==''QUA000035'')', '1');	
 
 /*Transport par vedette jour ferie et nuit Rade*/	
@@ -230,14 +230,14 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170570', 'Transport par vedette national Rade ferie', '-', 1, 1, '100.797', 'UA006', 
+   ('DFF0000000023170570', 'Transport par vedette national Rade ferie', '70689', 1, 1, '100.797', 'UA006', 
     'RB0000000021170460', '[estNational]==''National''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&([quais]==''QUA000030''||[quais]==''QUA000035'')', '1');	
 	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170571', 'Transport par vedette international Rade ferie', '-', 1, 1, '191.514', 'UA006', 
+   ('DFF0000000023170571', 'Transport par vedette international Rade ferie', '70689', 1, 1, '191.514', 'UA006', 
     'RB0000000021170460', '[estNational]==''International''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&([quais]==''QUA000030''||[quais]==''QUA000035'')', '1');	
 	
 	
@@ -254,14 +254,14 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170571', 'Vedette de servitude national', '-', 1, 1, '67.198', 'UA002', 
+   ('DFF0000000023170571', 'Vedette de servitude national', '70686', 1, 1, '67.198', 'UA002', 
     'RB0000000021170461', '[estNational]==''National''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''', '[nbheure]');	
 	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170572', 'Vedette de servitude international', '-', 1, 1, '127.676', 'UA002', 
+   ('DFF0000000023170572', 'Vedette de servitude international', '70686', 1, 1, '127.676', 'UA002', 
     'RB0000000021170461', '[estNational]==''International''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''', '[nbheure]');	
  
 /*Vedette de servitude jour ferie et nuit*/	
@@ -269,14 +269,14 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170573', 'Vedette de servitude national ferie', '-', 1, 1, '80.638', 'UA002', 
+   ('DFF0000000023170573', 'Vedette de servitude national ferie', '70686', 1, 1, '80.638', 'UA002', 
     'RB0000000021170461', '[estNational]==''National''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))', '[nbheure]');	
 	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170574', 'Vedette de servitude international ferie', '-', 1, 1, '153.211', 'UA002', 
+   ('DFF0000000023170574', 'Vedette de servitude international ferie', '70686', 1, 1, '153.211', 'UA002', 
     'RB0000000021170461', '[estNational]==''International''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))', '[nbheure]');	
   
 /*Remorqueur*/
@@ -293,14 +293,14 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170575', 'Remorqueur arme national', '-', 1, 1, '262.684', 'UA002', 
+   ('DFF0000000023170575', 'Remorqueur arme national', '70685', 1, 1, '262.684', 'UA002', 
     'RB0000000021170462', '[estNational]==''National''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&[categorie_flotte]=''CM001''', '[nbheure]');	
 	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170576', 'Remorqueur arme international', '-', 1, 1, '499.100', 'UA002', 
+   ('DFF0000000023170576', 'Remorqueur arme international', '70685', 1, 1, '499.100', 'UA002', 
     'RB0000000021170462', '[estNational]==''International''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&[categorie_flotte]=''CM001''', '[nbheure]');	
  	
 /*Remorqueur armé jour ferie et nuit*/
@@ -308,14 +308,14 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170577', 'Remorqueur arme national ferie', '-', 1, 1, '315.221', 'UA002', 
+   ('DFF0000000023170577', 'Remorqueur arme national ferie', '70685', 1, 1, '315.221', 'UA002', 
     'RB0000000021170462', '[estNational]==''National''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&[categorie_flotte]=''CM001''', '[nbheure]');	
 	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170578', 'Remorqueur arme international ferie', '-', 1, 1, '598.920', 'UA002', 
+   ('DFF0000000023170578', 'Remorqueur arme international ferie', '70685', 1, 1, '598.920', 'UA002', 
     'RB0000000021170462', '[estNational]==''International''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&[categorie_flotte]=''CM001''', '[nbheure]');	
  	
 /*Remorqueur servitude jour normal*/	
@@ -323,14 +323,14 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170579', 'Remorqueur de servitude national', '-', 1, 1, '91.634', 'UA002', 
+   ('DFF0000000023170579', 'Remorqueur de servitude national', '70684', 1, 1, '91.634', 'UA002', 
     'RB0000000021170462', '[estNational]==''National''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&[categorie_flotte]=''CM002''', '[nbheure]');	
 	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170580', 'Remorqueur de servitude international', '-', 1, 1, '174.105', 'UA002', 
+   ('DFF0000000023170580', 'Remorqueur de servitude international', '70684', 1, 1, '174.105', 'UA002', 
     'RB0000000021170462', '[estNational]==''International''&&[estFerie]==''NONFERIE''&&[estJour]==''JOUR''&&[estWeekend]==''normal''&&[categorie_flotte]=''CM002''', '[nbheure]');	
  
  /*Remorqueur servitude jour ferie et nuit*/
@@ -338,14 +338,14 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170581', 'Remorqueur de servitude national ferie', '-', 1, 1, '109.961', 'UA002', 
+   ('DFF0000000023170581', 'Remorqueur de servitude national ferie', '70684', 1, 1, '109.961', 'UA002', 
     'RB0000000021170462', '[estNational]==''National''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&[categorie_flotte]=''CM002''', '[nbheure]');	
 	
 Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170582', 'Remorqueur de servitude international ferie', '-', 1, 1, '208.926', 'UA002', 
+   ('DFF0000000023170582', 'Remorqueur de servitude international ferie', '70684', 1, 1, '208.926', 'UA002', 
     'RB0000000021170462', '[estNational]==''International''&&([estFerie]==''FERIE''||[estWeekend]==''weekend''||([estFerie]==''NONFERIE''&&[estJour]==''NUIT''))&&[categorie_flotte]=''CM002''', '[nbheure]');	
  
 /*Materiels divers*/	
@@ -416,7 +416,7 @@ Insert into DETFORMUFACT
    (ID,REM, COMPTE, MIN, MAX, FORMULE, UNITE, 
     MERE, CONDITION, FORMULEQTE)
  Values
-   ('DFF0000000023170586', 'Camion incendie', '-', 1, 1, '60.225', 'UA002', 
+   ('DFF0000000023170586', 'Camion incendie', '70651', 1, 1, '60.225', 'UA002', 
     'RB0000000021170467', null, '[nbheure]');
 	
 /*Prestation diverses*/
