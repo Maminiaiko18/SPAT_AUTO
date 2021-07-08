@@ -22,7 +22,7 @@ public class MaterielNaval extends ClassEtat {
     private int puissance;
     private String detenteur;
     private String maintenance;
-    private String idType_materiel,idcategorie ;
+    private String idType_materiel,idcategorie,idCategorielib ;
     private String immatriculation;
     
     public MaterielNaval()
@@ -30,6 +30,14 @@ public class MaterielNaval extends ClassEtat {
         super.setNomTable("Materiel_naval");
     }
 
+    public String getIdCategorielib() {
+        return idCategorielib;
+    }
+
+    public void setIdCategorielib(String idCategorielib) {
+        this.idCategorielib = idCategorielib;
+    }
+    
     public String getIdcategorie() {
         return idcategorie;
     }
