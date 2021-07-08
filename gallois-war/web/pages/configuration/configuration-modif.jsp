@@ -34,7 +34,7 @@
         <div class="col-md-offset-3 col-md-6">
             <div class="box">
                 <div class="box">
-                    <h1>Modification Avoir</h1>
+                    <h1>Modification Configuration</h1>
                     <form action="<%=(String) session.getValue("lien")%>?but=apresTarif.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
                         <%
                             out.println(pi.getFormu().getHtmlInsert());
