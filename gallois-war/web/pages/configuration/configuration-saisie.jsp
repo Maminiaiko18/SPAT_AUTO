@@ -27,7 +27,7 @@
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("typeconfig").setVisible(false);
     pi.getFormu().getChamp("compte_credit").setVisible(false);
-  
+    
    
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
@@ -44,6 +44,15 @@
     <input name="classe" type="hidden" id="classe" value="mg.cnaps.configuration.Configuration">
     </form>
 </div>
+<script>
+    $('table > tbody > tr:first').before("<tr>"
+            +"<th><label for='id'>ID</label></th>"+
+                "<td>"+
+                    "<input name='id' type='textbox' class='form-control' id='id' value=''>"+
+                "</td>"+
+            "</tr>"
+    );
+</script>
 <%}catch(Exception e){
     e.printStackTrace();
 }%>

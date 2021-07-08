@@ -24,6 +24,9 @@
     pi.getFormu().getChamp("typeconfig").setVisible(false);
     pi.getFormu().getChamp("compte_credit").setVisible(false);
     
+    pi.getFormu().getChamp("id").setVisible(true);
+    pi.getFormu().getChamp("id").setAutre("readonly");
+    
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
@@ -51,3 +54,8 @@
         </div>
     </div>
 </div>
+<script>
+    var idElem = document.getElementById("id"); 
+    idElem.type = "textbox";
+    idElem.removeAttribute('readonly');
+</script>
