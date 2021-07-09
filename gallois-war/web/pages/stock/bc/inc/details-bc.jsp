@@ -15,6 +15,7 @@
     BonDeCommandeFille[] liste = data.getBcFille();
     double total = data.getBc().getMontantTTC();
     double tva=data.getBc().getMontanttva();
+    double remise=data.getBc().getMontantRemise();
 %>
                 <div class="box-title with-border">
                     <h1 class="box-title">D&eacute;tails bon de commande</h1>
@@ -63,13 +64,17 @@
                                
                             %>
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
-                                <td  colspan="5" rowspan="3"></td>
+                                <td  colspan="5" rowspan="4"></td>
                                 <th  align="right">Montant HT</th>
                                 <td  align="right"><%=Utilitaire.formaterAr(data.getBc().getMontant())%></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
                                 <th  align="right">Montant TVA</th>
                                 <td  align="right"><%=Utilitaire.formaterAr(tva)%></td>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
+                                <th  align="right">Montant Remise</th>
+                                <td  align="right"><%=Utilitaire.formaterAr(remise)%></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
                                 <th  align="right">Montant TTC</th>
