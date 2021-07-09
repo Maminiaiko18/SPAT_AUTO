@@ -21,7 +21,7 @@
         etat = request.getParameter("etat");
     }
 	
-    String libEntete[] = {"id", "daty","code_etab","projet", "fournisseur", "designation", "modepaiement", "remarque","numbc","montant","montanttva","montantTTC","montant_A_payer","restepayergeneral","montantfacture","montant_paye_reel","resteapayerreel","etatlib"};
+    String libEntete[] = {"id", "daty","code_etab","projet", "fournisseur", "designation", "modepaiement", "remarque","numbc","montant","montantRemise","montanttva","montantTTC","montant_A_payer","restepayergeneral","montantfacture","montant_paye_reel","resteapayerreel","etatlib"};
     String listeCrt[] = {"id","daty","code_etab","projet", "fournisseur", "designation", "modepaiement", "remarque","numbc"};
     String listeInt[] = {"daty"};
 
@@ -134,7 +134,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Date","Code","Projet", "Fournisseur", "Designation", "Mode de paiement", "Remarque","numero BC","Montant HT","Montant TVA","Montant TTC","Montant BL TTC","Reste à livrer","Montant factur&eacute;","Montant payé réèl","Reste à payer réel", "Etat"};
+            String libEnteteAffiche[] = {"Id", "Date","Code","Projet", "Fournisseur", "Designation", "Mode de paiement", "Remarque","numero BC","Montant HT","Montant Remise","Montant TVA","Montant TTC","Montant BL TTC","Reste à livrer","Montant factur&eacute;","Montant payé réèl","Reste à payer réel", "Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 			  
 				out.println(pr.getTableau().getHtml());
