@@ -25,7 +25,15 @@ public class BonDeCommande extends ClassEtat {
     private String projet, code_etab, etatlib;
     private String projet_lib, code_etab_lib, fournisseur_lib, modepaiement_lib;
     private String adresse;
-    private double remise;
+    private double remise,montantRemise;
+
+    public double getMontantRemise() {
+        return montantRemise;
+    }
+
+    public void setMontantRemise(double montantRemise) {
+        this.montantRemise = montantRemise;
+    }
     private String delailivraison;
     private String typepaiement;
     private String fournisseurlibelle,projetlibelle,code_etablibelle;
