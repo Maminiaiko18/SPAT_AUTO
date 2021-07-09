@@ -30,6 +30,7 @@ try{
     pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setLibelle("Escale");
+    pi.getFormu().getChamp("escale").setVisible(false);
     
     
     pi.getFormu().getChamp("iduser").setAutre("readonly");
@@ -125,6 +126,7 @@ try{
         document.getElementById("idactivitelibelle_<%=i%>").value = "<%=liste[i].getActivitelib() != null ? liste[i].getActivitelib() : liste[i].getIdactivite()%>";
         document.getElementById("rubriquelibelle_<%=i%>").value = "<%=liste[i].getRubriquelib() != null ? liste[i].getRubriquelib() : liste[i].getRubrique()%>";
     <%}%>
+    document.getElementById("idprevisionlibelle").value = '<%=mere.getEscale()%>';
 </script>
 <%}catch(Exception ex){
     ex.printStackTrace();
