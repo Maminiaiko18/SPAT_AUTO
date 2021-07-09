@@ -34,6 +34,14 @@ public class PrevisionLibComplet extends Prevision {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getIdnavire() {
+        return idnavire;
+    }
+
+    public void setIdnavire(String idnavire) {
+        this.idnavire = idnavire;
+    }
     private String idnavire;
     private double longueurprovenance,tirantprovenance,profondeurprovenance,jntnavire,jbtnavire,pltnavire,lhtnavire,lmnavire,tenavire,volumenavire,longueurdestination,
             tirantdestination,profondeurdestination;
