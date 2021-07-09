@@ -79,6 +79,7 @@ try{
     pi.getFormufle().getChamp("id_0").setLibelle("ID");
     pi.getFormufle().getChamp("idbc_0").setLibelle("Bon de commande");
     pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
+    pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("Quantiteparpack"), false);
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idbc"), "readonly");
