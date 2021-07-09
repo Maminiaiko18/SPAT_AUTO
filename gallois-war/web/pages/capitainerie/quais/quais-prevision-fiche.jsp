@@ -19,6 +19,7 @@
 <%
     
     try {
+        String lien = (String)session.getValue("lien");
         String tab = null;
         Map<String, String> map = new HashMap<String, String>();
         map.put("liste-mouvement", "");
@@ -40,6 +41,8 @@
         pc.getChampByName("heure_arrivee").setLibelle("Heure d'arrivée");
         pc.getChampByName("heure_depart").setLibelle("Heure de départ");
         pc.getChampByName("nomnavire").setLibelle("Navire");
+        pc.getChampByName("idnavire").setVisible(false);
+        pc.getChampByName("nomnavire").setLien(lien+"?but=capitainerie/navire-fiche.jsp", "id="+((PrevisionLibComplet)pc.getBase()).getIdnavire()+"&nom=");
         pc.getChampByName("valconsignataire").setLibelle("Consignataire");
         pc.getChampByName("valcargaison").setLibelle("Cargaison");
         pc.getChampByName("valpilote").setLibelle("Commandant");
