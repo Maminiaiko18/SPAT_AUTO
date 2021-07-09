@@ -30,6 +30,7 @@
                                 <th>Unit&eacute;</th>
                                 <th>P.U</th>
                                 <th>Montant</th>
+                                <th>Montant Remise</th>
                                 <th>TVA</th>
                                 <th>Montant BL</th>
                                 <th>Montant BL reste</th>
@@ -50,6 +51,7 @@
                                 <td  align="center"><%=liste[i].getUnite()%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getPu())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(montant)%></td>
+                                <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantremise())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getTva())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantbl())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantblreste())%></td>

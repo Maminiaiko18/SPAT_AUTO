@@ -27,6 +27,7 @@
     pc.getChampByName("montantfacture").setVisible(false);
     //pc.getChampByName("nomfournisseur").setLien((String) session.getValue("lien") + "?but=travaux/tiers-fiche.jsp&id="+base.getFournisseur(), "nom=");
     //pc.getChampByName("nomfournisseur").setLibelle("Fournisseur");
+    pc.getChampByName("montantremise").setLibelle("Montant remise");
     pc.getChampByName("etatlib").setLibelle("Etat");
     pc.getChampByName("modepaiement").setLibelle("Mode de paiement");
     pc.getChampByName("montant").setLibelle("montant HT");
