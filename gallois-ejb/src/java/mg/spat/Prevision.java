@@ -128,23 +128,6 @@ public class Prevision extends ClassEtat {
                 (Activite) this.genererActivite(u, c, "Stationnement " + this.getId(),
                         String.format(awhere, Constante.idStationnement)).validerObject(u, c)
         );
-        
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Service Haute mer " + this.getId(),
-                        String.format(awhere, Constante.idServiceHauteMere)).validerObject(u, c)
-        );
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Autorisation piquage de rouille et peinture coque " + this.getId(),
-                        String.format(awhere, Constante.idPiquagePeinture)).validerObject(u, c)
-        );
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Autorisation immobilisation " + this.getId(),
-                        String.format(awhere, Constante.idImmobilisationNavire)).validerObject(u, c)
-        );
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Enlevement ordure " + this.getId(),
-                        String.format(awhere, Constante.idEnlevementOrdures)).validerObject(u, c)
-        );
         return activites.toArray(new Activite[activites.size()]);
     }
 
@@ -158,36 +141,11 @@ public class Prevision extends ClassEtat {
         rep.setDaty(getDate_arrivee());
         rep.setBateau(getId());
         rep.setRubrique(getRubrique(c, awhere).getId());
-        rep.setQte(1);
         rep.createObject(u, c);
 
         return rep;
     }
 
-//    public Activite genererDroitDePort(String u, Connection c)  throws Exception {
-//        Activite rep = new Activite();
-//        rep.setDesignation("Droit de port "+getId());
-//        rep.setClient(getConsignataire());
-//        rep.setMois(Utilitaire.getMois(getDate_arrivee()));
-//        rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
-//        rep.setDaty(getDate_arrivee());
-//        rep.setBateau(getId());
-//        rep.setRubrique(getRubrique(c," and upper(designation) like upper('Droit de port calcule')").getId());
-//        rep.createObject(u, c);
-//        return rep;
-//    }
-//    public Activite genererRedevanceCommunale(String u, Connection c)  throws Exception {
-//        Activite rep = new Activite();
-//        rep.setDesignation("Redevance communale "+getId());
-//        rep.setClient(getConsignataire());
-//        rep.setMois(Utilitaire.getMois(getDate_arrivee()));
-//        rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
-//        rep.setDaty(getDate_arrivee());
-//        rep.setBateau(getId());
-//        rep.setRubrique(getRubrique(c," and upper(designation) like upper('Redevance communale calcule')").getId());
-//        rep.createObject(u, c);
-//        return rep;
-//    }
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         controlerDoublon(c);
