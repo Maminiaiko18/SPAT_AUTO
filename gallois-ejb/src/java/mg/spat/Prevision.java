@@ -17,6 +17,7 @@ import mg.spat.exploitant.Rubrique;
 import service.NavireService;
 import service.PrevisionService;
 import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -40,6 +41,15 @@ public class Prevision extends ClassEtat {
     private String destination, escale;
     private String couleur = "#1E90FF";
     private String noVoyage;
+    
+   public OccupationMaterielNaval[] getPrestationsVisees(Connection c) throws Exception{
+       OccupationMaterielNaval occupation =new OccupationMaterielNaval();
+       occupation.setNomTable("occupationmaterielnaval");
+       occupation.setEtat(ConstanteEtat.getEtatValider());
+       OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='"+this.getId()+"'");
+       return liste;
+   }
+
     
     private static String[] getIdsFromTab(ClassMAPTable[] tab) {
         String[] ids = new String[tab.length];
