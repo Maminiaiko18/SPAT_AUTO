@@ -83,7 +83,7 @@ public class OccupationMaterielNaval extends ClassEtat {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        this.setActivite(genererActivite(c));
+        //this.setActivite(genererActivite(c));
         return super.validerObject(u, c);
     }
 
