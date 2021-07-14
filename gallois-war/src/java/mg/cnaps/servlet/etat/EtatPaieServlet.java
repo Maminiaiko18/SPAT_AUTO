@@ -226,7 +226,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("CODE_ETAB",bc.getCode_etab());
                 param.put("DELAI",bc.getDelaipaiement());
                 param.put("TOTAL_HT",bc.getMontant());
-                param.put("REMISE",bc.getRemise());
+                //param.put("REMISE",bc.getRemise());
                 param.put("TOTAL_TVA",bc.getMontanttva());
                 param.put("TOTAL_TTC",bc.getMontantTTC());
                 
@@ -248,6 +248,13 @@ public class EtatPaieServlet extends HttpServlet {
             BonDeCommandeFille[] liste = (BonDeCommandeFille[]) CGenUtil.rechercher( f , null, null, " and IDBC = '"+id+"'") ;
             
             List dataSources = new ArrayList();
+            int i=0;
+            double totalremise=0;
+            while(i<liste.length){
+                totalremise=totalremise+liste[i].getMontantremise();
+                i=i+1;
+            }
+            param.put("REMISE",totalremise);
             for(BonDeCommandeFille fille : liste){
                 dataSources.add(fille);
             }
