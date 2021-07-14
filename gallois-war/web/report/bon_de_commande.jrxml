@@ -25,7 +25,7 @@
 	<field name="unite" class="java.lang.String"/>
 	<field name="tva" class="java.lang.Double"/>
 	<field name="montanttva" class="java.lang.Double"/>
-	<field name="montantremise" class="java.lang.String"/>
+	<field name="montantremise" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
