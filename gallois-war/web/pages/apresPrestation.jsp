@@ -87,6 +87,19 @@
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&id=<%=val%>");</script>
     <%
         }
+
+        if (acte.compareToIgnoreCase("genererActivite") == 0) {     // VISER
+            t = (ClassMAPTable) (Class.forName(classe).newInstance());
+            t.setValChamp(t.getAttributIDName(), request.getParameter("id"));
+            t.setNomTable(nomtable);
+            OccupationMaterielNaval o = (OccupationMaterielNaval) (t);
+            o.genererActivite(u.getUser().getTuppleID(), null);
+            temp = o;
+            val = o.getActivite().getId();
+    %>
+    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&id=<%=val%>");</script>
+    <%
+        }
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>
     <%
