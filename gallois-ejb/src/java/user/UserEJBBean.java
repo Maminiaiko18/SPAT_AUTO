@@ -116,14 +116,14 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     CNAPSUser cnapsUser;
     TypeObjet caisse = null;
     private HashMap<String, String> mapAutoComplete = new HashMap<>();
-    TypeObjet commandant=null;
+    TypeObjet commandant = null;
     Prevision prevision;
 
     @Override
     public Prevision getPrevision() {
         return prevision;
     }
-            
+
     public TypeObjet getCommandant() {
         return commandant;
     }
@@ -746,13 +746,13 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             throw new Exception(ex.getMessage());
         }
     }
-    
+
     public void testLogin(String user, String pass, String interim, String service) throws Exception {
         testLogin(user, pass, interim, service, null);
     }
 
     @Override
-    public void testLogin(String user, String pass, String interim, String service,String escale) throws Exception {
+    public void testLogin(String user, String pass, String interim, String service, String escale) throws Exception {
         Connection c = null;
         try {
 
@@ -784,13 +784,15 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 }
             }
             CNAPSUser[] cnp = (CNAPSUser[]) CGenUtil.rechercher(new CNAPSUser(), null, null, c, " and id_utilisateur = '" + u.getRefuser() + "'");
-            if(type.compareToIgnoreCase(Constante.getRoleCommandant())==0){
-                TypeObjet to=new TypeObjet();
+            if (type.compareToIgnoreCase(Constante.getRoleCommandant()) == 0) {
+                TypeObjet to = new TypeObjet();
                 to.setNomTable("commandant");
-                TypeObjet[] listeCommandant=(TypeObjet[])CGenUtil.rechercher(to, null, null, c, " and iduser='"+u.getRefuser()+"'");
-                if(listeCommandant==null|| listeCommandant.length==0) throw new Exception("Commandant introuvable");
-                this.commandant=listeCommandant[0];
-                if(escale!=null  && escale.length()>0){
+                TypeObjet[] listeCommandant = (TypeObjet[]) CGenUtil.rechercher(to, null, null, c, " and iduser='" + u.getRefuser() + "'");
+                if (listeCommandant == null || listeCommandant.length == 0) {
+                    throw new Exception("Commandant introuvable");
+                }
+                this.commandant = listeCommandant[0];
+                if (escale != null && escale.length() > 0) {
                     Prevision previsionTemp = new Prevision();
                     previsionTemp.setEscale(escale);
                     this.prevision = (Prevision) previsionTemp.getById(null, "PREVISION", c);
@@ -819,7 +821,6 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
              String retour = Utilitaire.tabToString(users, "'", ",");
              usersInferieurEnCours = retour;*/
             //u.setRefuser(u.getRefuser());
-          
             u.setPwduser(getAddrIp());
             MapHistorique histo = new MapHistorique("login", "login", String.valueOf(u.getRefuser()), String.valueOf(u.getRefuser()));
             histo.setObjet("mg.cnaps.utilisateur.CNAPSUser");
@@ -2756,17 +2757,26 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             boolean defaultVisa = true;
             String id = o.getValInsert("id");
             o.setValChamp("id", id);
-            ClassMAPTable[] liste = (ClassMAPTable[]) CGenUtil.rechercher(o, null, null, c, "");
+//            ClassMAPTable[] liste = (ClassMAPTable[]) CGenUtil.rechercher(o, null, null, c, "");
+//
+//            if (liste.length == 0) {
+//                throw new Exception("Objet inexistante");
+//            }
+//            if(liste[0] instanceof facture.FactureClient) {
+//                ((facture.FactureClient) liste[0]).controlerAnnulation(c);
+//            }
+//            
+//            this.updateEtat(liste[0], ConstanteEtat.getEtatCreer(), id, c);
 
-            if (liste.length == 0) {
-                throw new Exception("Objet inexistante");
-            }
-            if(liste[0] instanceof facture.FactureClient) {
-                ((facture.FactureClient) liste[0]).controlerAnnulation(c);
-            }
-            
-            this.updateEtat(liste[0], ConstanteEtat.getEtatCreer(), id, c);
+            if (o instanceof ClassEtat) {
+                ClassEtat[] liste = (ClassEtat[]) CGenUtil.rechercher(o, null, null, c, "");
 
+                if (liste.length == 0) {
+                    throw new Exception("Objet inexistante");
+                }
+
+                liste[0].annulerValidation("" + u.getRefuser(), c);
+            }
         } catch (Exception e) {
             throw e;
         }

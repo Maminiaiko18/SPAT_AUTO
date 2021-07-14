@@ -49,6 +49,12 @@ public class FactureClient extends ClassMere {
         setArrayDetails(new ArrayList<FactureClientDetails>());
     
     }
+
+    @Override
+    public Object annulerValidation(String u, Connection c) throws Exception {
+        this.controlerAnnulation(c);
+        return super.annulerValidation(u, c);
+    }
     
     public void payer(String caisse, String mode, String numcheque, String typeCheque, String iddevise, UserEJBBean user,Connection c) throws Exception{
         System.out.println("-----------------FactureClienteeeeeeeeeeeeeeeeeeee.paye");
