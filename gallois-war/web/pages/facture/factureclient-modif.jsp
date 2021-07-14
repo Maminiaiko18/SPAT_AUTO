@@ -127,6 +127,15 @@ try{
         document.getElementById("rubriquelibelle_<%=i%>").value = "<%=liste[i].getRubriquelib() != null ? liste[i].getRubriquelib() : liste[i].getRubrique()%>";
     <%}%>
     document.getElementById("idprevisionlibelle").value = '<%=mere.getEscale()%>';
+    
+    var designation = document.getElementById("designation");
+    var textarea = document.createElement("textarea");
+        textarea.name="designation";
+        textarea.id="designation";
+        textarea.className="form-control";
+        textarea.style.height="100px";
+        textarea.value = designation.value;
+    designation.parentNode.replaceChild(textarea , designation);
 </script>
 <%}catch(Exception ex){
     ex.printStackTrace();
