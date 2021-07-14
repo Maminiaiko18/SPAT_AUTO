@@ -409,3 +409,16 @@ FROM ACTIVITE ac
          LEFT JOIN quais q ON q.id = pd2.quai
          LEFT JOIN occupationmaterielnaval occ ON occ.id = ac.REFOBJET
          left join MATERIEL_NAVAL cm on cm.id = occ.IDMATERIEL_NAVAL;
+		 
+create or replace view ACTIVITES_AVECFACTURE as
+select ac.*,
+       vm.ID as idfacture
+from ACTIVITELIBCOMPLET ac
+         left join facture_client_fille_vm vm on vm.IDACTIVITE = ac.id;
+		 
+create or replace view ACTIVITES_AVECFACTURE as
+select ac.*,
+       vm.ID as idfacturefille,
+       vm.IDMERE as idfacture
+from ACTIVITELIBCOMPLET ac
+         left join facture_client_fille_vm vm on vm.IDACTIVITE = ac.id;
