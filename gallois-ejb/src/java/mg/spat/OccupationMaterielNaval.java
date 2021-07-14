@@ -9,6 +9,7 @@ import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import facture.FactureClientDetails;
 import factureclient.FactureClient;
 import factureclient.FactureClientDetail;
 import java.sql.Connection;
@@ -419,6 +420,12 @@ public class OccupationMaterielNaval extends ClassEtat {
         }
     }
 
+     public void estDejaFacturee(Connection c) throws Exception{
+        FactureClientDetails ff = new FactureClientDetails();
+        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(ff, null, null, c, " and idprevision='"+this.getId()+"'");
+        if(liste.length > 0) throw new Exception("Déja facturé!");
+    }
+     
     public String getPositionlib() {
         return positionlib;
     }

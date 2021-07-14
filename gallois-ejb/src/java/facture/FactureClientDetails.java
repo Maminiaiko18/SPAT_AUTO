@@ -34,7 +34,7 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoiravectaux;
     private double qtelivree, restealivrer; 
     private Date datefact;
-    private String rubriquelib;
+    private String rubriquelib, idprestation;
 
     public String getRubriquelib() {
         return rubriquelib;
@@ -42,6 +42,14 @@ public class FactureClientDetails extends ClassFille {
 
     public void setRubriquelib(String rubriquelib) {
         this.rubriquelib = rubriquelib;
+    }
+
+    public String getIdprestation() {
+        return idprestation;
+    }
+
+    public void setIdprestation(String idprestation) {
+        this.idprestation = idprestation;
     }
     
     
