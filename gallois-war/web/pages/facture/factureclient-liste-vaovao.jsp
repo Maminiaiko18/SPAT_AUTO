@@ -12,7 +12,9 @@
 <%
     try {
         FactureClient ff = new FactureClient();
-        ff.setNomTable("facture_client_union");
+        String[] etatVal = {"facture_client_union", "facture_client_unionC", "facture_client_unionV", "factureclientApayer"};
+        String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "A payer"};
+        ff.setNomTable(etatVal[0]);
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             ff.setNomTable(request.getParameter("etat"));
         }
@@ -46,6 +48,7 @@
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         
+        
         String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -70,23 +73,11 @@
                 <div class="col-md-4">
                     Etat : 
                     <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("facture_client_union") == 0) {%>    
-                        <option value="facture_client_union" selected>Tous</option>
-                        <% } else { %>
-                        <option value="facture_client_union" >Tous</option>
-                        <% } %>
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("facture_client_unionC") == 0) {%>
-                        <option value="facture_client_unionC" selected>Créée(s)</option>
-                        <% } else { %>
-                        <option value="facture_client_unionC">Créée(s)</option>
-                        <% } %>
-
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("facture_client_unionV") == 0) {%>
-                        <option value="facture_client_unionV" selected>Visée(s)</option>
-                        <% } else { %>
-                        <option value="facture_client_unionV">Visée(s)</option>
-                        <% } %>
-
+                        <%for(int i=0; i<etatVal.length; i++){
+                            String selected = etatVal[i].equalsIgnoreCase(ff.getNomTable()) ? "selected" : "";
+                        %>
+                        <option value="<%=etatVal[i]%>" <%=selected%>><%=etatAff[i]%></option>
+                        <%}%>
                     </select>
                 </div>
                 <div class="col-md-4"></div>
