@@ -34,7 +34,7 @@ import utilitaire.Utilitaire;
 public class OccupationMaterielNaval extends ClassEtat {
 
     private String id, idmateriel_naval, idpilote, idcommandant, commandantId, idnatureoperation, idmanoeuvrebord,
-            idnavire,/*idclient,*/ position, positionlib, observation, idarrivee, idarriveelib;
+            idnavire,/*idclient,*/ position, positionlib, observation, idarrivee, idarriveelib, idActivite;
     private Date daty;
     private String heuredebut;
     private Date datefin;
@@ -42,7 +42,7 @@ public class OccupationMaterielNaval extends ClassEtat {
     private double duree;
     private String etatlib;
     private String idprevision, escale;
-    private String idclient;
+    private String idclient, estFacture;
     private Activite activite;
     
     public boolean  possedeActiviteVisee(Connection c) throws Exception {
@@ -57,8 +57,23 @@ public class OccupationMaterielNaval extends ClassEtat {
         }
         return possedeActiviter;
     }
+
+    public String getEstFacture() {
+        return estFacture;
+    }
+
+    public void setEstFacture(String estFacture) {
+        this.estFacture = estFacture;
+    }
     
-    
+    public String getIdActivite() {
+        return idActivite;
+    }
+
+    public void setIdActivite(String idActivite) {
+        this.idActivite = idActivite;
+    }
+        
     public Activite getActivite() {
         return activite;
     }
