@@ -102,6 +102,11 @@ public class OccupationMaterielNaval extends ClassEtat {
     }
 
     public Activite genererActivite(String u, Connection c) throws Exception {
+        
+        if(possedeActiviteVisee( c)){
+            throw new Exception("Il existe deja une activite visee pour cette prestation");
+        }
+        
         OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallibcpl", c);
         Activite rep = new Activite();
         Prevision prevision= this.getPrevision(c);
