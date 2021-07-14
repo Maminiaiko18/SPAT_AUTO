@@ -44,7 +44,21 @@ public class OccupationMaterielNaval extends ClassEtat {
     private String idprevision, escale;
     private String idclient;
     private Activite activite;
-
+    
+    public boolean  possedeActiviteVisee(Connection c) throws Exception {
+        boolean possedeActiviter =false;
+        //select * from activite where etat>11 and refObject=this.getId
+        Activite activiteTemp = new Activite();
+        activiteTemp.setEtat(ConstanteEtat.getEtatValider());
+        activiteTemp.setRefobjet(this.getId());
+        Activite[] activites =(Activite[]) CGenUtil.rechercher(activiteTemp, null, null, c, "");
+        if(activites.length>0){
+            possedeActiviter=true;
+        }
+        return possedeActiviter;
+    }
+    
+    
     public Activite getActivite() {
         return activite;
     }
