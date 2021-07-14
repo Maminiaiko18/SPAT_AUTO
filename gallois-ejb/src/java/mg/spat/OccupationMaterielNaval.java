@@ -88,9 +88,10 @@ public class OccupationMaterielNaval extends ClassEtat {
     }
 
     public Activite genererActivite(String u, Connection c) throws Exception {
+        OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallibcpl", c);
         Activite rep = new Activite();
         Prevision prevision= this.getPrevision(c);
-        Rubrique rubrique = this.getRubriqueCalcule(c);
+        Rubrique rubrique = occupation.getRubriqueCalcule(c);
         String previsionId="",idrubrique="";
         
         if(prevision!=null){
@@ -99,15 +100,19 @@ public class OccupationMaterielNaval extends ClassEtat {
         if(rubrique !=null){
             idrubrique=rubrique.getId();
         }
-        rep.setDesignation(this.getIdnatureoperation() +  previsionId);
-        rep.setClient(this.getIdclient());
-        System.out.println("rep.getClient=="+rep.getClient());
+        rep.setDesignation(occupation.getIdnatureoperation() +  previsionId);
+        System.out.println("Idclienttt dans prestation=="+prevision.getConsignataire());
+        rep.setClient(prevision.getConsignataire());
         rep.setRubrique(idrubrique);
-        System.out.println("idRubrique dans genererActivite=="+idrubrique);
         rep.setMois(Utilitaire.getMois(this.getDaty()) );
         rep.setAnnee(Utilitaire.getAnnee(this.getDaty()) );
         rep.setDaty(this.getDaty());
         rep.setBateau(previsionId);
+        rep.setRefobjet(this.getId());
+        rep.setDatedebut(this.getDaty());
+        rep.setHeuredebut(this.getHeuredebut());
+        rep.setDatefin(this.getDatefin());
+        rep.setHeurefin(this.getHeurefin());
         rep.createObject(u, c);
         return rep;
     }

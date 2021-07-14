@@ -45,8 +45,7 @@ public class Prevision extends ClassEtat {
    public OccupationMaterielNaval[] getPrestationsVisees(Connection c) throws Exception{
        OccupationMaterielNaval occupation =new OccupationMaterielNaval();
        occupation.setNomTable("occupationmaterielnaval");
-       occupation.setEtat(ConstanteEtat.getEtatValider());
-       OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='"+this.getId()+"'");
+       OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='"+this.getId()+"' and etat>="+ConstanteEtat.getEtatValider());
        return liste;
    }
 
@@ -110,34 +109,40 @@ public class Prevision extends ClassEtat {
         return rubrique;
     }
 
-    public Activite[] genererActiviteVisees(String u, Connection c) throws Exception {
+     public Activite[] genererActiviteVisees(String u, Connection c) throws Exception {
         java.util.List<Activite> activites = new java.util.ArrayList<>();
 
         String awhere = " and id = '%s'";
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Droit de port " + this.getId(),
-                        String.format(awhere, Constante.idDroitDePortCalcule)).validerObject(u, c)
-        );
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Pilotage " + this.getId(),
-                        String.format(awhere, Constante.idPilotageCalcule)).validerObject(u, c)
-        );
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Remorquage " + this.getId(),
-                        String.format(awhere, Constante.idRemorquageCalcule)).validerObject(u, c)
-        );
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Lamanage " + this.getId(),
-                        String.format(awhere, Constante.idLamanageCalcule)).validerObject(u, c)
-        );
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Redevance communale " + this.getId(),
-                        String.format(awhere, Constante.idRedevanceCommunaleCalcule)).validerObject(u, c)
-        );
-        activites.add(
-                (Activite) this.genererActivite(u, c, "Stationnement " + this.getId(),
-                        String.format(awhere, Constante.idStationnement)).validerObject(u, c)
-        );
+        Activite act1=(Activite) this.genererActivite(u, c, "Droit de port " + this.getId(),String.format(awhere, Constante.idDroitDePortCalcule));
+        if(act1!=null){
+            act1.construirePK(c);
+            act1.insertToTable();//atao insertToTable aloha pour tester
+            act1.validerObject(u, c);
+            activites.add(act1);
+        }
+        Activite act2=(Activite) this.genererActivite(u, c, "Redevance communale " + this.getId(),String.format(awhere, Constante.idRedevanceCommunaleCalcule));
+        if(act2!=null){
+            act2.createObject(u,c);
+            act2.validerObject(u, c);
+            activites.add(act2);
+        }
+        Activite act3=(Activite) this.genererActivite(u, c, "Stationnement " + this.getId(),String.format(awhere, Constante.idStationnement));
+        if(act3!=null){
+            act3.createObject(u, c);
+            act3.validerObject(u, c);
+            activites.add(act3);
+        }
+        OccupationMaterielNaval[] listePrestation=this.getPrestationsVisees(c);
+        if(listePrestation!=null || listePrestation.length>0){
+            for(int i=0;i<listePrestation.length;i++){
+                Activite act4=(Activite) listePrestation[i].genererActivite(u, c);
+                if(act4!=null){
+                    act4.validerObject(u, c);
+                    activites.add(act4);
+                }
+            }
+        }
+        
         return activites.toArray(new Activite[activites.size()]);
     }
 
@@ -151,8 +156,10 @@ public class Prevision extends ClassEtat {
         rep.setDaty(getDate_arrivee());
         rep.setBateau(getId());
         rep.setRubrique(getRubrique(c, awhere).getId());
-        rep.createObject(u, c);
-
+        rep.setDatedebut(this.getDate_arrivee());
+        rep.setHeuredebut(this.getHeure_arrivee());
+        rep.setDatefin(this.getDate_depart());
+        rep.setHeurefin(this.getHeure_depart());
         return rep;
     }
 
