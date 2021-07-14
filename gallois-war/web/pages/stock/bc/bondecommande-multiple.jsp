@@ -70,6 +70,7 @@
         pi.getFormu().getChamp("delaipaiement").setLibelle("Délai de paiement (Jours)");
         pi.getFormu().getChamp("delailivraison").setLibelle("Délai de livraison");
         pi.getFormu().getChamp("typepaiement").setLibelle("Type paiement");
+       
         
 //        pi.getFormu().setColOrdre(new String[] {"designation", "daty", "fournisseur", "modepaiement","remarque"});
         
@@ -94,6 +95,7 @@
         pi.getFormufle().getChamp("pu_0").setLibelle("Prix Unitaire");
         pi.getFormufle().getChamp("quantite_0").setLibelle("Quantité");
         pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
+        pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("Quantiteparpack"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idbc"), false);

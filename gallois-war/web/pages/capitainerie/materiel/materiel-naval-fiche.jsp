@@ -15,6 +15,8 @@
     pc.setTitre("Fiche Materiel Naval");
     pc.getChampByName("Date_aquisition").setLibelle("Date d'aquisition");
     pc.getChampByName("IdMarque").setLibelle("Marque");
+    pc.getChampByName("idCategorielib").setLibelle("Categorie");
+    pc.getChampByName("idCategorie").setVisible(false);
     pc.getChampByName("IdType_materiel").setLibelle("Type de Matériel");
     
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
@@ -38,7 +40,6 @@
                         <br/>
                         <div class="box-footer">
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/materiel/materiel-naval-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=capitainerie/materiel/materiel-naval-liste.jsp&classe=mg.spat.MaterielNaval"><button class="btn btn-danger">Supprimer</button></a>
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/materiel/materiel-naval-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                         </div>
                         <br/>

@@ -31,12 +31,12 @@ public class FactureClient extends ClassMere {
 
     private String id;
     private Date daty, date_echeance;
-    private String tiers, designation, type, remarque, iduser;
+    private String tiers, designation, type, remarque, iduser,idprevision,escale;
     private double tva, montant, montanttva, montantttc,montantpaye,montantreste;
     private String tierslib;
     private double montantavoir;
     private ArrayList<FactureClientDetails> arrayDetails;
-    private String contact, adresse;
+    private String contact, adresse, etatLib;
 
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
@@ -67,6 +67,30 @@ public class FactureClient extends ClassMere {
         journal.createObject(user.getUser().getTuppleID(),c);
         
         journal.viser(user, c);
+    }
+
+    public String getEtatLib() {
+        return etatLib;
+    }
+
+    public void setEtatLib(String etatLib) {
+        this.etatLib = etatLib;
+    }
+
+    public String getEscale() {
+        return escale;
+    }
+
+    public void setEscale(String escale) {
+        this.escale = escale;
+    }
+
+    public String getIdprevision() {
+        return idprevision;
+    }
+
+    public void setIdprevision(String idprevision) {
+        this.idprevision = idprevision;
     }
     
     @Override

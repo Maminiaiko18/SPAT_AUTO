@@ -122,18 +122,18 @@ public class Configuration extends ClassMAPTable{
     }
 
     public void setRemarque(String remarque) throws Exception{
-        try{
+       /* try{
             if(getMode().compareTo("modif")!=0){
                 this.remarque =  remarque;
                 return;
             }
             if(remarque==null || remarque.compareToIgnoreCase("")==0){
                 throw new Exception("Code vide");
-            }            
-            this.remarque = remarque;
+            }
         }catch(Exception e){
             throw e;
-        }         
+        }*/
+       this.remarque = remarque;
     }
 
     public Date getDaty() {

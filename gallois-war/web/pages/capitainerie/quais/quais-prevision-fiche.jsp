@@ -19,10 +19,13 @@
 <%
     
     try {
+        String lien = (String)session.getValue("lien");
         String tab = null;
         Map<String, String> map = new HashMap<String, String>();
         map.put("liste-mouvement", "");
         map.put("liste-utilisation-materiels", "");
+        map.put("liste-factures", "");
+        
         String id = request.getParameter("id");
         tab = request.getParameter("tab");
         if (tab == null) {
@@ -35,16 +38,18 @@
         prevision.setNomTable("previsionfiche");
         PageConsulte pc = pc = new PageConsulte(prevision, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
-        pc.getChampByName("heure_arrivee").setLibelle("Heure d'arrivï¿½e");
-        pc.getChampByName("heure_depart").setLibelle("Heure de dï¿½part");
+        pc.getChampByName("heure_arrivee").setLibelle("Heure d'arrivée");
+        pc.getChampByName("heure_depart").setLibelle("Heure de départ");
         pc.getChampByName("nomnavire").setLibelle("Navire");
+        pc.getChampByName("idnavire").setVisible(false);
+        pc.getChampByName("nomnavire").setLien(lien+"?but=capitainerie/navire-fiche.jsp", "id="+((PrevisionLibComplet)pc.getBase()).getIdnavire()+"&nom=");
         pc.getChampByName("valconsignataire").setLibelle("Consignataire");
         pc.getChampByName("valcargaison").setLibelle("Cargaison");
         pc.getChampByName("valpilote").setLibelle("Commandant");
         pc.getChampByName("valquaisprovenance").setLibelle("Quai de provenance");
         pc.getChampByName("valquaisdestination").setLibelle("Quai de destination");
-        pc.getChampByName("date_arrivee").setLibelle("Date d'arrivï¿½e");
-        pc.getChampByName("date_depart").setLibelle("Date de dï¿½part");
+        pc.getChampByName("date_arrivee").setLibelle("Date d'arrivée");
+        pc.getChampByName("date_depart").setLibelle("Date de départ");
         pc.getChampByName("valpaysprovenance").setLibelle("Pays de provenance");
         pc.getChampByName("valpaysdestination").setLibelle("Pays de destination");
         pc.getChampByName("type").setLibelle("type navire");
@@ -98,6 +103,7 @@
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("liste-mouvement")%>"><a href="module.jsp?but=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&tab=liste-mouvement&idprevision=<%=base.getId()%>">Liste mouvements</a></li>
                     <li class="<%= map.get("liste-utilisation-materiels")%>"><a href="module.jsp?but=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&tab=liste-utilisation-materiels&idprevision=<%=base.getId()%>">Liste prestations</a></li>
+                    <li class="<%= map.get("liste-factures")%>"><a href="module.jsp?but=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&tab=liste-factures">Factures</a></li>
                 </ul>
                 <div class="tab-content">       
                     <jsp:include page="<%=tab%>" />  

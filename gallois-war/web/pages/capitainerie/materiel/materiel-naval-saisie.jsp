@@ -17,13 +17,23 @@
         pi.getFormu().getChamp("date_aquisition").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("etat").setVisible(false);
         
-        pi.getFormu().getChamp("idMarque").setPageAppel("choix/listeMarqueChoix.jsp");
-        pi.getFormu().getChamp("idMarque").setAutre("readonly");
-        pi.getFormu().getChamp("idMarque").setLibelle("Marque");
+        affichage.Liste[] liste = new affichage.Liste[3];
+        TypeObjet marque = new TypeObjet();
+        marque.setNomTable("MARQUE_MATERIEL");
+        liste[0] = new Liste("idMarque", marque, "val", "id");
         
-        pi.getFormu().getChamp("idType_materiel").setPageAppel("choix/listeTypeMaterielChoix.jsp");
-        pi.getFormu().getChamp("idType_materiel").setAutre("readonly");
+        TypeObjet type_materiel = new TypeObjet();
+        type_materiel.setNomTable("TYPE_MATERIEL");
+        liste[1] = new Liste("idType_materiel", type_materiel, "val", "id");
+        
+        TypeObjet categorie = new TypeObjet();
+        categorie.setNomTable("CATEGORIE_MATERIEL");
+        liste[2] = new Liste("idcategorie", categorie, "val", "id");
+        pi.getFormu().changerEnChamp(liste);
+        
+        pi.getFormu().getChamp("idMarque").setLibelle("Marque");
         pi.getFormu().getChamp("idType_materiel").setLibelle("Type du matériel");
+        pi.getFormu().getChamp("idcategorie").setLibelle("Catégorie");
         
         pi.getFormu().getChamp("etat").setVisible(false);
         

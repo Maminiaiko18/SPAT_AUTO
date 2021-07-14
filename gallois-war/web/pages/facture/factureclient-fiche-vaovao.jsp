@@ -38,8 +38,10 @@
     pc.getChampByName("date_echeance").setLibelle("Date echeance");
     pc.getChampByName("montantpaye").setLibelle("Montant payé");
     pc.getChampByName("montantreste").setLibelle("Reste à payer");
+    pc.getChampByName("escale").setLibelle("Escale");
 //    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp", "id");
     e = (FactureClient) pc.getBase();
+    pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-fiche.jsp&id="+e.getIdprevision(), "escale=");
     String bute="facture/factureclient-fiche-vaovao.jsp";
     String classe="facture.FactureClient";
     String classefille="facture.FactureClientDetails";

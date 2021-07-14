@@ -17,9 +17,9 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance"};
+        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale"};
         String listeInt[] = {"daty","date_echeance"};
-        String libEntete[] = {"id","daty","tierslib","designation","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+        String libEntete[] = {"id","daty","tierslib","escale","designation","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -95,14 +95,17 @@
         <%out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
-
-            String colonneLien[] = {"id"};
+            String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
+            String colonneLien[] = {"id", "escale"};
+            String[] urlLienMultiple = {"id", "idprevision"};
+            String[] urlLienAffiche = {"id", "id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
-            String libEnteteAffiche[] = {"id","daty","Client","designation", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer"};
+            String libEnteteAffiche[] = {"id","daty","Client","Escale","designation", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+            pr.getTableau().setUrlLienAffiche(urlLienAffiche);
+            pr.getTableau().setUrlLien(urlLienMultiple);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
         %>
