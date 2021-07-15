@@ -45,6 +45,24 @@ public class OccupationMaterielNaval extends ClassEtat {
     private String idprevision, escale;
     private String idclient, estFacture;
     private Activite activite;
+    private String idfacturelfille,idfacturemere;
+
+    public String getIdfacturelfille() {
+        return idfacturelfille;
+    }
+
+    public void setIdfacturelfille(String idfacturelfille) {
+        this.idfacturelfille = idfacturelfille;
+    }
+
+    public String getIdfacturemere() {
+        return idfacturemere;
+    }
+
+    public void setIdfacturemere(String idfacturemere) {
+        this.idfacturemere = idfacturemere;
+    }
+    
     
     public boolean  possedeActiviteVisee(Connection c) throws Exception {
         boolean possedeActiviter =false;
