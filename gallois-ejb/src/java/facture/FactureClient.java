@@ -22,6 +22,7 @@ import user.UserEJBBean;
 import utilitaire.Constante;
 import mg.spat.stock.BonDeLivraisonClient;
 import avoir.AvoirFC;
+import mg.spat.exploitant.Activite;
 
 /**
  *
@@ -37,7 +38,35 @@ public class FactureClient extends ClassMere {
     private double montantavoir;
     private ArrayList<FactureClientDetails> arrayDetails;
     private String contact, adresse, etatLib;
-
+    
+    
+    public FactureClient facturer(String u, Activite a, Connection c) throws Exception {
+        boolean in = false;
+        try {
+            if(c == null){
+                c = new UtilDB().GetConn();
+                in = true;
+                c.setAutoCommit(false);
+            }
+            FactureClient fc = new FactureClient();
+            fc.setDaty(Utilitaire.dateDuJourSql());
+            fc.setTiers(a.getClient());
+            fc.setDesignation("Facturation via activité " + a.getDesignation());
+            fc.setIdprevision(a.getBateau());
+            fc.setEtat(ConstanteEtat.getEtatCreer());
+            ArrayList<FactureClientDetails> lst = a.creerDetailsFacture(c);
+            fc.setFille(lst.toArray(new FactureClientDetails[lst.size()]));
+            fc.createObject(u, c);
+            if(in) c.commit();
+            return fc;
+        } catch (Exception e) {
+            if(in && c!=null) c.rollback();
+            throw e;
+        }finally{
+            if(in && c!=null) c.close();
+        }
+    }
+    
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");
