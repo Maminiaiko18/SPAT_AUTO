@@ -64,3 +64,13 @@ select mon.ID,
        MONTANTREMISE
 from AS_BONDECOMMANDE_FILLE_MONTANT mon
          left join union_produit_tbd_cemedi pr on pr.id = mon.PRODUIT;
+		 
+		 create or replace view AS_BONDECOMMANDE_FILLE_GROUPER as
+SELECT IDBC,
+       sum(montantht)  as montantht,
+       sum(montanttva) as montanttva,
+       sum(montantttc) as montantttc,
+       nvl(sum(montantremise),0) as montantremise
+FROM AS_BONDECOMMANDE_FILLE_MONTANT
+--WHERE ETAT >= 11
+group by IDBC;
