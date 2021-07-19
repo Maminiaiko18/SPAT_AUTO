@@ -20,8 +20,9 @@
         
         if (acte.compareToIgnoreCase("facturer") == 0) {
             Activite a = new Activite();
-            a.facturer(null);
-        ;%>
+            a.setId(id);
+            a.facturer(u.getUser().getTuppleID(), null);
+        %>
         <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>");</script>
         <%}
     }catch(Exception e){
