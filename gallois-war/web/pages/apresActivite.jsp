@@ -1,3 +1,4 @@
+<%@page import="facture.FactureClient"%>
 <%@page import="mg.spat.exploitant.Activite"%>
 <%@page import="user.UserEJB"%>
 <%!
@@ -10,6 +11,7 @@
         String champReturn;
         String action = null;
         String id;
+        String val;
     %>
     <% try{
         lien = (String) session.getValue("lien");
@@ -21,9 +23,10 @@
         if (acte.compareToIgnoreCase("facturer") == 0) {
             Activite a = new Activite();
             a.setId(id);
-            a.facturer(u.getUser().getTuppleID(), null);
+            FactureClient fc = a.facturer(u.getUser().getTuppleID(), null);
+            val = fc.getId();
         %>
-        <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>");</script>
+        <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=val%>");</script>
         <%}
     }catch(Exception e){
         e.printStackTrace();
