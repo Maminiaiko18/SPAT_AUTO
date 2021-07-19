@@ -115,6 +115,8 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerFacture(request, response);
             }else if (action.equalsIgnoreCase("imprimerFactureClient")) {
                 imprimerFactureClient(request, response);
+            }else if(action.equalsIgnoreCase("fichePrestation")){
+                fichePrestation(request, response);
             }
             
         } catch(Exception ex){
@@ -180,6 +182,11 @@ public class EtatPaieServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
+    private void fichePrestation(HttpServletRequest request, HttpServletResponse response) throws  Exception {
+    
+    System.out.println("test");
+    }
         
     private void ordonnerpayement(HttpServletRequest request, HttpServletResponse response) throws  Exception {
         try {
