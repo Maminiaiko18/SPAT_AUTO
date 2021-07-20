@@ -40,6 +40,7 @@
     pc.getChampByName("idpilote").setVisible(false);
     pc.getChampByName("position").setVisible(false);
     pc.getChampByName("etatlib").setVisible(false);
+    pc.getChampByName("commandantId").setVisible(false);
    
     pc.setTitre("Fiche prestation");
     
