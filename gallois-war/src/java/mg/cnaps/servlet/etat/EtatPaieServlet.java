@@ -65,6 +65,8 @@ import facture.FactureProforma;
 import facture.FactureProformaDetails;
 import facture.FactureClient;
 import facture.FactureClientDetails;
+import mg.spat.OccupationMaterielNaval;
+import mg.spat.PrevisionLibComplet;
 
 /**
  *
@@ -184,6 +186,63 @@ public class EtatPaieServlet extends HttpServlet {
 
     
     private void fichePrestation(HttpServletRequest request, HttpServletResponse response) throws  Exception {
+        try{
+            PrevisionLibComplet prevision = new PrevisionLibComplet();
+            prevision.setNomTable("previsionfiche");
+            String id = request.getParameter("id");
+            PrevisionLibComplet[] liste = (PrevisionLibComplet[]) CGenUtil.rechercher( prevision , null, null, " and id ='"+id+"'") ;
+            
+            OccupationMaterielNaval oprevision = new OccupationMaterielNaval();
+            oprevision.setNomTable("OCCUPMATERIELNAVALLIB");
+            OccupationMaterielNaval[] ls = (OccupationMaterielNaval[]) CGenUtil.rechercher(oprevision , null, null, " and idprevision ='"+id+"' and etat=11") ;
+            System.out.println("ls ="+ls.length);
+            Map param = new HashMap();
+            if(liste.length!=0){
+                
+                
+                param.put("num","");
+                param.put("escale",liste[0].getEscale());
+                param.put("navire",liste[0].getNomnavire());
+                param.put("valconsignataire",liste[0].getValconsignataire());
+                param.put("caboteur","");
+                param.put("bornage","");
+                param.put("amateur","");
+                param.put("pavillon",liste[0].getPavillonnavire());
+                param.put("portP",liste[0].getValquaisprovenance());
+                param.put("portD",liste[0].getValquaisdestination());
+                param.put("jaugeN",liste[0].getJntnavire());
+                param.put("Lht",liste[0].getLhtnavire());
+                param.put("jaugeB",liste[0].getJbtnavire());
+                
+                param.put("lht",liste[0].getLmnavire());
+                param.put("jaugeN",liste[0].getJntnavire());
+                param.put("tiran",liste[0].getTenavire());
+                
+                param.put("type",liste[0].getType());
+                param.put("dateA",liste[0].getDate_arrivee());
+                param.put("heureA",liste[0].getHeure_arrivee());
+                param.put("dateD",liste[0].getDate_depart());
+                param.put("heureD",liste[0].getHeure_depart());
+                param.put("dateJ",utilitaire.Utilitaire.dateDuJour());
+                
+            }
+            List<OccupationMaterielNaval> res = new ArrayList<>();
+            int i=0;
+            while(i<ls.length){
+                res.add(ls[i]);
+                i=i+1;
+            }
+            param.put("prestation",res);
+            
+            
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("fiche_prestation_compet");
+            UtilitaireImpression.imprimer(request, response, "fiche prestation", param, new ArrayList(), getReportPath(), rt);
+            
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     
     System.out.println("test");
     }
