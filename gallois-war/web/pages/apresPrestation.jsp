@@ -93,6 +93,7 @@
             t.setValChamp(t.getAttributIDName(), request.getParameter("id"));
             t.setNomTable(nomtable);
             OccupationMaterielNaval o = (OccupationMaterielNaval) (t);
+            o = (OccupationMaterielNaval) o.getById(o.getId(), null, null);
             o.genererActivite(u.getUser().getTuppleID(), null);
             temp = o;
             val = o.getActivite().getId();
