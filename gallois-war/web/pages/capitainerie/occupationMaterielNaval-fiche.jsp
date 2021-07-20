@@ -4,6 +4,8 @@
     Author     : john
 --%>
 
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="mg.spat.OccupationMaterielNaval"%>
 <%@page import="service.UploadService"%>
 <%@page import="mg.spat.AttacherFichier"%>
@@ -51,7 +53,16 @@
     String dossier="occupationMaterielNaval";
     prevision = (OccupationMaterielNaval)pc.getBase();
     pc.getChampByName("idarriveelib").setLien((String) session.getValue("lien") + "?but=capitainerie/mouvement-fiche.jsp&id="+prevision.getIdarrivee(), "idarriveelib=");
-
+    
+    Map<String, String> map = new HashMap<String, String>();
+    map.put("liste_activites", "");
+    String tab = request.getParameter("tab");
+    if (tab == null) {
+        tab = "liste_activites";
+    }
+    map.put(tab, "active");
+    tab = "inc/" + tab + ".jsp";
+    String bute="capitainerie/occupationMaterielNaval-fiche.jsp";
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -81,6 +92,21 @@
                 </div>
             </div>
         </div>
+                            
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 ">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("liste_activites")%>"><a href="module.jsp?but=<%=bute%>&id=<%=prevision.getId()%>&tab=liste_activites">Liste Activités</a></li>
+                </ul>
+                <div class="tab-content">       
+                    <jsp:include page="<%=tab%>" >
+                        <jsp:param name="refobjet" value="<%=prevision.getId()%>" />
+                    </jsp:include>
+                </div>
+            </div>
+            </div>
+        </div>  
                         
         <div class="col-md-12">
             <div class="col-md-2"></div>
