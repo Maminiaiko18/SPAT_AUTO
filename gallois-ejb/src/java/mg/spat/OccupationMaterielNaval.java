@@ -66,11 +66,8 @@ public class OccupationMaterielNaval extends ClassEtat {
     
     public boolean  possedeActiviteVisee(Connection c) throws Exception {
         boolean possedeActiviter =false;
-        //select * from activite where etat>11 and refObject=this.getId
-        Activite activiteTemp = new Activite();
-        activiteTemp.setEtat(ConstanteEtat.getEtatValider());
-        activiteTemp.setRefobjet(this.getId());
-        Activite[] activites =(Activite[]) CGenUtil.rechercher(activiteTemp, null, null, c, "");
+        Activite[] activites =(Activite[]) CGenUtil.rechercher(new Activite(), null, null, c, " and etat>="+ConstanteEtat.getEtatValider()+" and refobjet='"+this.getId()+"'");
+        System.out.println("Taille activite==="+activites.length);
         if(activites.length>0){
             possedeActiviter=true;
         }
@@ -119,10 +116,8 @@ public class OccupationMaterielNaval extends ClassEtat {
 
     public Prevision getPrevision(Connection c) throws Exception {
         Prevision prevision = new Prevision();
-
         if (this.getIdprevision() != null) {
             prevision = (Prevision) prevision.getById(this.getIdprevision(), prevision.getNomTable(), c);
-            
             return prevision;
         }
 
@@ -144,6 +139,7 @@ public class OccupationMaterielNaval extends ClassEtat {
         OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallibcpl", c);
         Activite rep = new Activite();
         Prevision prevision= this.getPrevision(c);
+        System.out.println("Idclienttt dans prestation=="+prevision.getConsignataire());
         Rubrique rubrique = occupation.getRubriqueCalcule(c);
         String previsionId="",idrubrique="";
         
@@ -154,7 +150,7 @@ public class OccupationMaterielNaval extends ClassEtat {
             idrubrique=rubrique.getId();
         }
         rep.setDesignation(occupation.getIdnatureoperation() +  previsionId);
-        System.out.println("Idclienttt dans prestation=="+prevision.getConsignataire());
+        
         rep.setClient(prevision.getConsignataire());
         rep.setRubrique(idrubrique);
         rep.setMois(Utilitaire.getMois(this.getDaty()) );
