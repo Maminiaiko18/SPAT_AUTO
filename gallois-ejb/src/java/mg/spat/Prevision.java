@@ -44,7 +44,8 @@ public class Prevision extends ClassEtat {
     
    public OccupationMaterielNaval[] getPrestationsVisees(Connection c) throws Exception{
        OccupationMaterielNaval occupation =new OccupationMaterielNaval();
-       occupation.setNomTable("occupationmaterielnaval");
+//       occupation.setNomTable("occupationmaterielnaval");
+       occupation.setNomTable("OCCUPMATERIELNONAVALNFACTURE");
        OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='"+this.getId()+"' and etat>="+ConstanteEtat.getEtatValider());
        return liste;
    }
