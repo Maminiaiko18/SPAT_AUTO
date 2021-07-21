@@ -725,6 +725,7 @@ public class EtatPaieServlet extends HttpServlet {
             FactureClient e = new FactureClient();
             e.setNomTable("factureclientMSum_lib");
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(e, null, null, null, " and id = '"+id+"'");
+            if(mere.length!=0){
             param.put("daty",Utilitaire.formatterDatySql(mere[0].getDaty()));
             param.put("id",mere[0].getId());
             param.put("client",mere[0].getTierslib());
@@ -737,25 +738,25 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("tva",mere[0].getTva());
             String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
             param.put("montantlettre",montantlettre);
-            
+            }
             FactureClientDetails cht = new FactureClientDetails();
-            cht.setNomTable("facture_client_fille_lib_reste");
+            cht.setNomTable("FACTURE_CLIENT_FILLE_LIB_PDF");
             FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, null, " and idmere = '"+id+"'");
             ArrayList<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
             for(int i = 0; i < details.length; i++)
             {
                 arrList.add(details[i]);
             }
-            mere[0].setArrayDetails(arrList);
+            //mere[0].setArrayDetails(arrList);
+            List<FactureClientDetails> res = new ArrayList<FactureClientDetails>();
+            /*List dataSources = new ArrayList();
+            dataSources.addAll(mere[0].getArrayDetails());*/
             
-            List dataSources = new ArrayList();
-            dataSources.addAll(mere[0].getArrayDetails());
-            
-            param.put("list_table",dataSources);
+            param.put("list_table",arrList);
             
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("facture_client2 - Copie");
-            UtilitaireImpression.imprimer(request, response, "facture-client", param, dataSources, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "facture-client", param, null, getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();

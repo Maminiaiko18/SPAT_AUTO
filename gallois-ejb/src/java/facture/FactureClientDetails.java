@@ -37,7 +37,7 @@ public class FactureClientDetails extends ClassFille {
     private Date datefact;
     private String rubriquelib, idprestation;
     private int mois, annee;
-    private String heureDebut, heureFin;
+    private String heureDebut, heureFin, moislib,anneelib;
 
     public String getProduit_lib() {
         return produit_lib;
@@ -61,6 +61,23 @@ public class FactureClientDetails extends ClassFille {
         }
         return prestation;
     }
+
+    public String getMoislib() {
+        return moislib;
+    }
+
+    public void setMoislib(String moislib) {
+        this.moislib = moislib;
+    }
+
+    public String getAnneelib() {
+        return anneelib;
+    }
+
+    public void setAnneelib(String anneelib) {
+        this.anneelib = anneelib;
+    }
+    
     
     public String getRubriquelib() {
         return rubriquelib;
