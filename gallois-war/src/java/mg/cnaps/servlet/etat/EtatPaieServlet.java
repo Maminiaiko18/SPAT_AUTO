@@ -65,6 +65,7 @@ import facture.FactureProforma;
 import facture.FactureProformaDetails;
 import facture.FactureClient;
 import facture.FactureClientDetails;
+import facture.FactureClientDetailsGrouper;
 import mg.spat.OccupationMaterielNaval;
 import mg.spat.PrevisionLibComplet;
 
@@ -119,6 +120,8 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerFactureClient(request, response);
             }else if(action.equalsIgnoreCase("fichePrestation")){
                 fichePrestation(request, response);
+            }else if(action.equalsIgnoreCase("fact")){
+                fact(request, response);
             }
             
         } catch(Exception ex){
@@ -185,6 +188,29 @@ public class EtatPaieServlet extends HttpServlet {
     }// </editor-fold>
 
     
+    private void fact(HttpServletRequest request, HttpServletResponse response)throws  Exception{
+        try{
+            System.out.println("test2");
+            String id = request.getParameter("id");
+            FactureClientDetailsGrouper f = new FactureClientDetailsGrouper();
+            f.setNomTable("facture_client_fille_gp");
+            FactureClientDetailsGrouper[] liste = (FactureClientDetailsGrouper[]) CGenUtil.rechercher( f , null, null, " and idmere='"+id+"'") ;
+            int i=0;
+            List<FactureClientDetailsGrouper> res = new ArrayList<FactureClientDetailsGrouper>();
+            while(i<liste.length){
+                res.add(liste[i]);
+                i=i+1;
+            }
+            Map param = new HashMap();
+            param.put("list_table", res);
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("fact");
+            UtilitaireImpression.imprimer(request, response, "fiche prestation", param, new ArrayList(), getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    
+    }
     private void fichePrestation(HttpServletRequest request, HttpServletResponse response) throws  Exception {
         try{
             PrevisionLibComplet prevision = new PrevisionLibComplet();

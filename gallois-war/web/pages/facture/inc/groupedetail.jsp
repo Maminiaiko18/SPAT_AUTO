@@ -43,14 +43,14 @@
     
     if(pr.getTableau().getHtml() != null)
     {%>
-    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient&id=<%=request.getParameter("id")%>" style="margin-right: 10px">Imprimer</a>
+    
 
     <%    pr.getTableau().setLibeEntete(libEnteteAffiche);
         out.println(pr.getTableau().getHtml());
          double total=0;
         total=AdminGen.calculSommeDouble(liste,"montant");
 %>
-      
+<p><a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=fact&id=<%=request.getParameter("id")%>" style="margin-right: 10px">Imprimer</a></p>
 
         
     <% }else{
