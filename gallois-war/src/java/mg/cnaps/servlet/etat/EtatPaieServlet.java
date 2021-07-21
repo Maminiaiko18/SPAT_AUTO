@@ -188,19 +188,19 @@ public class EtatPaieServlet extends HttpServlet {
     private void fichePrestation(HttpServletRequest request, HttpServletResponse response) throws  Exception {
         try{
             PrevisionLibComplet prevision = new PrevisionLibComplet();
-            prevision.setNomTable("previsionfiche");
+            prevision.setNomTable("PREVISIONFICHE_II");
             String id = request.getParameter("id");
             PrevisionLibComplet[] liste = (PrevisionLibComplet[]) CGenUtil.rechercher( prevision , null, null, " and id ='"+id+"'") ;
             
             OccupationMaterielNaval oprevision = new OccupationMaterielNaval();
-            oprevision.setNomTable("OCCUPMATERIELNAVALLIB");
-            OccupationMaterielNaval[] ls = (OccupationMaterielNaval[]) CGenUtil.rechercher(oprevision , null, null, " and idprevision ='"+id+"' and etat=11") ;
+            oprevision.setNomTable("OCCUPMATERIELNAVALLIBCOMPLET");
+            OccupationMaterielNaval[] ls = (OccupationMaterielNaval[]) CGenUtil.rechercher(oprevision , null, null, " and idprevision ='"+id+"' and etat =11 ") ;
             System.out.println("ls ="+ls.length);
             Map param = new HashMap();
             if(liste.length!=0){
                 
                 
-                param.put("num","");
+                param.put("num",liste[0].getEscale());
                 param.put("escale",liste[0].getEscale());
                 param.put("navire",liste[0].getNomnavire());
                 param.put("valconsignataire",liste[0].getValconsignataire());
@@ -230,6 +230,7 @@ public class EtatPaieServlet extends HttpServlet {
             int i=0;
             while(i<ls.length){
                 res.add(ls[i]);
+                
                 i=i+1;
             }
             param.put("prestation",res);

@@ -46,6 +46,41 @@ public class OccupationMaterielNaval extends ClassEtat {
     private String idclient, estFacture;
     private Activite activite;
     private String idfacturelfille, idfacturemere;
+    private String valcommandant;
+    private String VALMANOEUVREBORD;
+    private String VALNATUREOPERATION;
+
+    public String getVALNATUREOPERATION() {
+        return VALNATUREOPERATION;
+    }
+
+    public void setVALNATUREOPERATION(String VALNATUREOPERATION) {
+        this.VALNATUREOPERATION = VALNATUREOPERATION;
+    }
+    
+    
+
+    public String getVALMANOEUVREBORD() {
+        return VALMANOEUVREBORD;
+    }
+
+    public void setVALMANOEUVREBORD(String VALMANOEUVREBORD) {
+        this.VALMANOEUVREBORD = VALMANOEUVREBORD;
+    }
+
+    
+    
+    
+
+    public String getValcommandant() {
+        return valcommandant;
+    }
+
+    public void setValcommandant(String valcommandant) {
+        this.valcommandant = valcommandant;
+    }
+    
+    
 
     public String getIdfacturelfille() {
         return idfacturelfille;
