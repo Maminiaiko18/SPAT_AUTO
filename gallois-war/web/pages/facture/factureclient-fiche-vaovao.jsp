@@ -49,7 +49,7 @@
     
     String lien = (String) session.getValue("lien");
     String redirect = lien + "?but="+modifPage+"&id=" + request.getParameter("id");
-    if(e.getEtat() < ConstanteEtat.getEtatValider()) out.println("<script language='JavaScript'> document.location.replace('"+redirect+"'); </script>");
+    //if(e.getEtat() < ConstanteEtat.getEtatValider()) out.println("<script language='JavaScript'> document.location.replace('"+redirect+"'); </script>");
     
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
     configuration.CynthiaConf.load();

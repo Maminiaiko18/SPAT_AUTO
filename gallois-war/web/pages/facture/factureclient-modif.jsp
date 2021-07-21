@@ -10,7 +10,7 @@ try{
     String titrePage = "Modification Facture Client" ,
             classeMere = "facture.FactureClient" ,
             classeFille = "facture.FactureClientDetails",
-            buteLien = "facture/factureclient-modif.jsp" ,
+            buteLien = "facture/factureclient-fiche-vaovao.jsp" ,
             colonneMereDansFille = "idmere",
             buteApresVisa = "facture/factureclient-fiche-vaovao.jsp";
     String autreparsley = "data-parsley-range='[8, 40]' required";
