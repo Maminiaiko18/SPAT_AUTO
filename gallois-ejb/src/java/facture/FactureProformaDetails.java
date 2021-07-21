@@ -12,7 +12,43 @@ import java.sql.Connection;
  * @author je sais pas
  */
 public class FactureProformaDetails extends FactureClientDetails {
-    
+    private double mois;
+    private double annee;   
+    private String heureDebut;
+    private String heureFin;
+
+    public double getMois() {
+        return mois;
+    }
+
+    public void setMois(double mois) {
+        this.mois = mois;
+    }
+
+    public double getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(double annee) {
+        this.annee = annee;
+    }
+
+    public String getHeureDebut() {
+        return heureDebut;
+    }
+
+    public void setHeureDebut(String heureDebut) {
+        this.heureDebut = heureDebut;
+    }
+
+    public String getHeureFin() {
+        return heureFin;
+    }
+
+    public void setHeureFin(String heureFin) {
+        this.heureFin = heureFin;
+    }
+
     public FactureProforma getMere(Connection c) throws Exception {
         FactureProforma mere = new FactureProforma();
         mere.setId(getIdmere());
