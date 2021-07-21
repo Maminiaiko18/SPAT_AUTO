@@ -8,9 +8,7 @@
 
         String bateau = request.getParameter("id");
 
-        System.out.println("bateau " + bateau);
-
-        String listeCrt[] = {"id", "designation", "daty", "clientlib", "rubriquelib", "bateaulib"};
+        String listeCrt[] = {};
         String listeInt[] = {};
         String libEntete[] = {"id", "daty", "designation", "clientlib", "rubriquelib", "bateaulib", "qte", "moisLib", "annee", "pu", "datedebut", "heuredebut", "datefin", "heurefin", "nbHeure", "nbJour", "etatlib"};
 
@@ -21,7 +19,6 @@
 
         pr.setAWhere(" and bateau = '" + bateau + "'");
         String[] colSomme = null;
-        System.out.println("avvant creerObjet");
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <section class="content">
