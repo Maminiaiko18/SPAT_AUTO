@@ -63,7 +63,7 @@
 %>
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-7 col-md-offset-2">
+        <div class="col-md- col-md-offset-2">
 
             <div class="box">
                 <h1 class="box-title">
@@ -94,7 +94,7 @@
     
     
         <div class="row">
-            <div class="col-md-10 col-md-offset-1 ">
+            <div class="col-md-12 ">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("facture-proforma-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-proforma-fille">Details</a></li>
