@@ -369,7 +369,7 @@ public class Champ {
         } // ==== nampiana 
         else if (!this.isPhoto()) 
         {
-            temp = "<input name=" + getNom() + " type=" + getType() + " class=" + getCss() + "  id=" + getNom() + " value='" + getValeur() + "' " + getAutre() + ">";
+            temp = "<input name=" + getNom() + " type=" + getType() + " class=" + getCss() + "  id=" + getNom() + " value=\"" + getValeur() + "\" " + getAutre() + ">";
             if (!this.isAutoComplete()) {
                 temp += "<input type=hidden value='' name=" + getNom() + "auto>";
             }
@@ -387,7 +387,7 @@ public class Champ {
         //System.out.println("i="+i);
         if(getVisible()==false)
         {
-            temp = "<input name='" + getNom() + "' type='hidden' class=" + getCss() + "  id=" + getNom() + " value='" + getValeur() + "' " + getAutre() + ">";
+            temp = "<input name='" + getNom() + "' type='hidden' class=" + getCss() + "  id=" + getNom() + " value=\"" + getValeur() + "\" " + getAutre() + ">";
         }
         else if (type.compareTo(ConstanteAffichage.textarea) == 0) {
             //temp = "<textarea name='" + getNom() + "' row='3' class='" + getCss() + "' id='" + getNom() + "' maxlength='" + getTaille() + "'>" + getValeur() + "</textarea>";
@@ -395,7 +395,7 @@ public class Champ {
         } 
         else if (!this.isPhoto()) {
             //System.out.println("***************"+getValeur());
-            temp = "<input name='" + getNom() + "' type=" + getType() + " class=" + getCss() + "  id=" + getNom() + " value='" + getValeur() + "' " + getAutre() + ">";
+            temp = "<input name='" + getNom() + "' type=" + getType() + " class=" + getCss() + "  id=" + getNom() + " value=\"" + getValeur() + "\" " + getAutre() + ">";
 
         } else {
             //System.out.println("getValeur() insert ===  " + getValeur());
