@@ -53,8 +53,9 @@ public class FactureClient extends ClassMere {
     
     public void fusionner(String u, String colonneFusion, Connection c, String idAutre)throws Exception{
         FactureClient autre = (FactureClient) getById(idAutre, null, c);
-        if(this.getEtat() < ConstanteEtat.getEtatValider() || this.getEtat()!= autre.getEtat()){
-            throw new Exception("Les factures doivent être visées !");
+        
+        if(this.getEtat() >= ConstanteEtat.getEtatValider() || this.getEtat()!= autre.getEtat()){
+            throw new Exception("Facture deja visee ou etats differents!");
         }
         
         if(!this.getTiers().equals(autre.getTiers())){
