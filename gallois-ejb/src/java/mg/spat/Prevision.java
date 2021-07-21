@@ -114,20 +114,20 @@ public class Prevision extends ClassEtat {
         java.util.List<Activite> activites = new java.util.ArrayList<>();
 
         String awhere = " and id = '%s'";
-        Activite act1=(Activite) this.genererActivite(u, c, "Droit de port " + this.getId(),String.format(awhere, Constante.idDroitDePortCalcule));
+        Activite act1=(Activite) this.genererActivite(u, c, "Droit de port " + this.getEscale(),String.format(awhere, Constante.idDroitDePortCalcule));
         if(act1!=null){
             act1.construirePK(c);
             act1.insertToTable();//atao insertToTable aloha pour tester
             act1.validerObject(u, c);
             activites.add(act1);
         }
-        Activite act2=(Activite) this.genererActivite(u, c, "Redevance communale " + this.getId(),String.format(awhere, Constante.idRedevanceCommunaleCalcule));
+        Activite act2=(Activite) this.genererActivite(u, c, "Redevance communale " + this.getEscale(),String.format(awhere, Constante.idRedevanceCommunaleCalcule));
         if(act2!=null){
             act2.createObject(u,c);
             act2.validerObject(u, c);
             activites.add(act2);
         }
-        Activite act3=(Activite) this.genererActivite(u, c, "Stationnement " + this.getId(),String.format(awhere, Constante.idStationnement));
+        Activite act3=(Activite) this.genererActivite(u, c, "Stationnement " + this.getEscale(),String.format(awhere, Constante.idStationnement));
         if(act3!=null){
             act3.createObject(u, c);
             act3.validerObject(u, c);

@@ -156,7 +156,7 @@ public class OccupationMaterielNaval extends ClassEtat {
             if (rubrique != null) {
                 idrubrique = rubrique.getId();
             }
-            rep.setDesignation(occupation.getIdnatureoperation() + previsionId);
+            rep.setDesignation(occupation.getIdnatureoperation() +" "+prevision.getEscale());
 
             rep.setClient(prevision.getConsignataire());
             rep.setRubrique(idrubrique);
