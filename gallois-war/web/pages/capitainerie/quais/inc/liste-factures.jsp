@@ -55,7 +55,7 @@
         }else{
             out.println(pr.getTableau().getHtmlWithCheckbox());%>
     
-            <button class="btn btn-primary pull-right" onclick="changer()">Fusionner</button>
+            <button class="btn btn-primary" onclick="changer()">Fusionner</button>
        <% }  %>
     <input type="hidden" name="acte" id="acte" value="viser"/>
     <input name="bute" type="hidden" id="bute" value="capitainerie/quais/quais-prevision-fiche.jsp&tab=liste-factures&id=<%=id%>">
@@ -65,7 +65,7 @@
     
 <script>
     function changer(){
-        document.facturation.action = "<%=pr.getLien()%>?but=apresFacture.java";
+        document.facturation.action = "<%=pr.getLien()%>?but=apresFacture.jsp";
         document.getElementById("acte").value="fusionner";
 	document.facturation.submit();
     }

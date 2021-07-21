@@ -28,7 +28,14 @@
         %>
         <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=val%>");</script>
         <%}
-    }catch(Exception e){
+
+    } catch (Exception e) {
         e.printStackTrace();
-    }
     %>
+
+    <script language="JavaScript"> alert("<%=new String(e.getMessage().getBytes(), "UTF-8")%>");
+        history.back();</script>
+        <%
+                return;
+            }
+        %>

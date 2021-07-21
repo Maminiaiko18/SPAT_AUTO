@@ -49,7 +49,41 @@ public class FactureClient extends ClassMere {
         setArrayDetails(new ArrayList<FactureClientDetails>());
     
     }
+    
+    public void fusionner(String colonneFusion, Connection c,String idAutre)throws Exception{
+        
+    } 
+    
+    public void fusionner(String colonneFusion, Connection c,String[] idAutre) throws Exception{
+        boolean ouvert = false;
 
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            if (ouvert) {
+                c.commit();
+            }
+            
+            for (String idAutre1 : idAutre) {
+                fusionner(colonneFusion, c, idAutre1);
+            }
+            
+            
+        } catch (Exception ex) {
+            if (c != null && ouvert) {
+                c.rollback();
+            }
+            throw ex;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+    }
+    
     @Override
     public Object annulerValidation(String u, Connection c) throws Exception {
         this.controlerAnnulation(c);
