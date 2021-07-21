@@ -3,6 +3,8 @@
     Created on : 14 Mars 2016, 10:26:05
     Author     : Do
 --%>
+<%@page import="affichage.TableauRecherche"%>
+<%@page import="affichage.TableauRecherche"%>
 <%@page import="lignecredit.SituationCredit"%>
 <%@page import="affichage.PageRecherche"%>
 <%
@@ -10,22 +12,26 @@
 
         SituationCredit fa = new SituationCredit();
 
-        String nomTable = "situationLCRecette";
+        String nomTable = "situationLC_vide";
         if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("") != 0) {
             nomTable = request.getParameter("table");
         }
         fa.setNomTable(nomTable);
 
         String listeCrt[] = {"id", "designation", "compte"};
-        String listeInt[] = {""};
-        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye"};
+        String listeInt[] = {"daty"};
+        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye","daty"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-
+        
         pr.setApres("ligneCredit/situation-ligneCreditRecette.jsp");
         String[] colSomme = null;
-        pr.creerObjetPage(libEntete, colSomme);%>
+        SituationCredit[] liste  = SituationCredit.findSituationCreditRecette(request.getParameter("id"),request.getParameter("designation"),request.getParameter("compte"),request.getParameter("daty1"),request.getParameter("daty2"),null);
+        pr.creerObjetPage(libEntete, colSomme);
+        pr.setTableau(new TableauRecherche(liste, libEntete));
+
+%>
 <script>
     function changerDesignation() {
         document.absence.submit();
@@ -72,7 +78,7 @@
         %>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye"};
+            String libEnteteAffiche[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye","Date"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
