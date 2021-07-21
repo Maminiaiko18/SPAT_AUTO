@@ -88,6 +88,11 @@ try{
     //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
     pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
     pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
+    pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
+    pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
+    pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
+    pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
+    pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
     
     mere = (FactureClient) pi.getBase();
     pi.preparerDataFormu();
