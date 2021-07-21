@@ -12,7 +12,7 @@ import java.sql.Connection;
  * @author je sais pas
  */
 public class FactureProformaDetails extends FactureClientDetails {
-    }
+    
 
     public FactureProforma getMere(Connection c) throws Exception {
         FactureProforma mere = new FactureProforma();
