@@ -63,6 +63,7 @@
     map.put("bondelivraison", "");
     map.put("paiement", "");
     map.put("activite", "");
+    map.put("groupedetail", "");
     String tab = request.getParameter("tab");
     if (tab == null) {
         tab = "facture-client-fille";
@@ -124,7 +125,9 @@
                     <li class="<%= map.get("bondelivraison")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=bondelivraison">Bon de livraison</a></li>
                     <li class="<%= map.get("paiement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=paiement">Paiement</a></li>
                     <li class="<%= map.get("activite")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=activite">Activit&eacute;s</a></li>
+                    <li class="<%= map.get("activite")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=groupedetail">Grouper d&eacute;stails</a></li>
                 </ul>
+                <div class="tab-content">       
                 <div class="tab-content">       
                     <jsp:include page="<%=tab%>" >
                         <jsp:param name="idmere" value="<%=e.getId()%>" />
