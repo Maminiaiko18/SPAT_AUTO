@@ -36,6 +36,8 @@ public class FactureClientDetails extends ClassFille {
     private double qtelivree, restealivrer; 
     private Date datefact;
     private String rubriquelib, idprestation;
+    private int mois, annee;
+    private String heureDebut, heureFin;
 
     
     public OccupationMaterielNaval getPrestation(Connection c) throws Exception {
@@ -66,6 +68,38 @@ public class FactureClientDetails extends ClassFille {
 
     public void setIdprestation(String idprestation) {
         this.idprestation = idprestation;
+    }
+
+    public int getMois() {
+        return mois;
+    }
+
+    public void setMois(int mois) {
+        this.mois = mois;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    public String getHeureDebut() {
+        return heureDebut;
+    }
+
+    public void setHeureDebut(String heureDebut) {
+        this.heureDebut = heureDebut;
+    }
+
+    public String getHeureFin() {
+        return heureFin;
+    }
+
+    public void setHeureFin(String heureFin) {
+        this.heureFin = heureFin;
     }
     
     
