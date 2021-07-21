@@ -32,7 +32,7 @@ public class LigneCredit extends ClassEtat {
         this.daty = daty;
     }
     
-    public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2,Connection c) throws Exception {
+    public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2, String etat, Connection c) throws Exception {
          LigneCredit[] ret = null; 
            boolean newCon = false;
            try{
@@ -46,6 +46,7 @@ public class LigneCredit extends ClassEtat {
              if(compte!=null   && !compte.equals("")) where+= " and upper(l.compte) like upper('%"+compte+"%')";
              if(date1!=null   && !date1.equals("")) where+= " and daty >= '"+date1+"'";
              if(date2!=null   && !date2.equals("")) where+= " and daty <= '"+date2+"'";
+             if(etat != null && !etat.equals("")) where += " and l.etat = " + etat;
              
              String req="SELECT l.id AS id,\n" +
 "            l.DESIGNATION AS designation,\n" +
@@ -68,6 +69,7 @@ public class LigneCredit extends ClassEtat {
 "            l.MONTANT,l.etat,mf.DATY";
                System.out.println("req=="+req);
              LigneCredit stock = new LigneCredit();
+             stock.setNomTable("situationLC_vide");
             ret = (LigneCredit[]) CGenUtil.rechercher(stock, req, c);
        }
       catch(Exception e)
