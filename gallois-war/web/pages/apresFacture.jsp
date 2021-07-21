@@ -3,6 +3,7 @@
     Created on : 15 janv. 2021, 11:38:49
     Author     : Tsiory
 --%>
+<%@page import="facture.FactureClient"%>
 <%@ page import="user.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="bean.*" %>
@@ -24,6 +25,22 @@
             u = (UserEJB) session.getAttribute("u");
             lien = (String) session.getValue("lien");
             apresLien = bute;
+            
+            if (acte.compareToIgnoreCase("fusionner") == 0) {
+                System.out.println("===================================== fusionner =====================================");
+               String[] listeFacture = request.getParameterValues("id");
+               if(listeFacture==null && listeFacture.length==0){
+                   throw new Exception("Vous devez cocher!");
+               }
+               FactureClient facture =new FactureClient();
+               facture=(FactureClient)facture.getById(listeFacture[0], "Factureclient", null);
+               String[] idautre= new String[listeFacture.length-1];
+               for(int i=1;i<listeFacture.length;i++){
+                   idautre[i-1]=listeFacture[i];
+               }
+               String colonneFusion="idmere";
+               facture.fusionner(u.getUser().getTuppleID(),colonneFusion, null, idautre);
+            }
             
             if (acte.compareToIgnoreCase("payer") == 0) {
                 apresLien = u.checkPageSelonUtilisateur(idfacture, null);
