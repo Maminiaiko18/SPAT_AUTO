@@ -15,7 +15,7 @@ public class FactureClientDetailsGrouper  extends ClassFille {
     private String idRubrique;
     private String idmere;
     private String designationRubrique;
-    private double qte;
+    private double quantite;
     private double pu;
     private double montant;
     
@@ -46,13 +46,14 @@ public class FactureClientDetailsGrouper  extends ClassFille {
         this.designationRubrique = designationRubrique;
     }
 
-    public double getQte() {
-        return qte;
+    public double getQuantite() {
+        return quantite;
     }
 
-    public void setQte(double qte) {
-        this.qte = qte;
+    public void setQuantite(double quantite) {
+        this.quantite = quantite;
     }
+
 
     public double getPu() {
         return pu;
