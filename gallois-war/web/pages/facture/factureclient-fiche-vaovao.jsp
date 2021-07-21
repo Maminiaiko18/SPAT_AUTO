@@ -62,6 +62,7 @@
     map.put("avoir-liste", "");
     map.put("bondelivraison", "");
     map.put("paiement", "");
+    map.put("activite", "");
     String tab = request.getParameter("tab");
     if (tab == null) {
         tab = "facture-client-fille";
@@ -122,12 +123,14 @@
                     <li class="<%= map.get("avoir-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=avoir-liste">Facture avoir</a></li>
                     <li class="<%= map.get("bondelivraison")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=bondelivraison">Bon de livraison</a></li>
                     <li class="<%= map.get("paiement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=paiement">Paiement</a></li>
+                    <li class="<%= map.get("activite")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=activite">Activit&eacute;s</a></li>
                 </ul>
                 <div class="tab-content">       
                     <jsp:include page="<%=tab%>" >
                         <jsp:param name="idmere" value="<%=e.getId()%>" />
                         <jsp:param name="idbc" value="<%=e.getId()%>" />
                         <jsp:param name="idplacement" value="<%=e.getId()%>" />
+                        <jsp:param name="idfacture" value="<%=e.getId()%>" />
                     </jsp:include>
                 </div>
             </div>

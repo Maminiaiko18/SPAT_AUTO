@@ -4,6 +4,8 @@
     Author     : john
 --%>
 
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="mg.spat.OccupationMaterielNaval"%>
 <%@page import="service.UploadService"%>
 <%@page import="mg.spat.AttacherFichier"%>
@@ -40,6 +42,7 @@
     pc.getChampByName("idpilote").setVisible(false);
     pc.getChampByName("position").setVisible(false);
     pc.getChampByName("etatlib").setVisible(false);
+    pc.getChampByName("commandantId").setVisible(false);
    
     pc.setTitre("Fiche prestation");
     
@@ -50,7 +53,16 @@
     String dossier="occupationMaterielNaval";
     prevision = (OccupationMaterielNaval)pc.getBase();
     pc.getChampByName("idarriveelib").setLien((String) session.getValue("lien") + "?but=capitainerie/mouvement-fiche.jsp&id="+prevision.getIdarrivee(), "idarriveelib=");
-
+    
+    Map<String, String> map = new HashMap<String, String>();
+    map.put("liste_activites", "");
+    String tab = request.getParameter("tab");
+    if (tab == null) {
+        tab = "liste_activites";
+    }
+    map.put(tab, "active");
+    tab = "inc/" + tab + ".jsp";
+    String bute="capitainerie/occupationMaterielNaval-fiche.jsp";
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -70,7 +82,7 @@
                             <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&bute=capitainerie/occupationMaterielNaval-fiche.jsp&classe=mg.spat.OccupationMaterielNaval&id=" + prevision.getId()%>" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-modif.jsp&id=" + prevision.getId()%>" style="margin-right: 10px">Modifier</a>
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + prevision.getId()%>&acte=delete&bute=capitainerie/occupationMaterielNaval-fiche.jsp&classe=mg.spat.OccupationMaterielNaval"><button class="btn btn-danger">Supprimer</button></a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=exploitants/activites-saisie.jsp&idPrestation=" + prevision.getId()%>"><button class="btn btn-primary">Saisir activité</button></a>
+                            <a href="<%=(String) session.getValue("lien") + "?but=apresPrestation.jsp&acte=genererActivite&classe=mg.spat.OccupationMaterielNaval&bute=exploitants/activites-fiche.jsp&id="+prevision.getId()%>"><button class="btn btn-primary">Saisir activité</button></a>
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + prevision.getId() + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/occupationMaterielNaval-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                             
                         </div>
@@ -80,6 +92,21 @@
                 </div>
             </div>
         </div>
+                            
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 ">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("liste_activites")%>"><a href="module.jsp?but=<%=bute%>&id=<%=prevision.getId()%>&tab=liste_activites">Liste Activités</a></li>
+                </ul>
+                <div class="tab-content">       
+                    <jsp:include page="<%=tab%>" >
+                        <jsp:param name="refobjet" value="<%=prevision.getId()%>" />
+                    </jsp:include>
+                </div>
+            </div>
+            </div>
+        </div>  
                         
         <div class="col-md-12">
             <div class="col-md-2"></div>

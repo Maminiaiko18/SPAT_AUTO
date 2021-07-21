@@ -22,6 +22,7 @@ import user.UserEJBBean;
 import utilitaire.Constante;
 import mg.spat.stock.BonDeLivraisonClient;
 import avoir.AvoirFC;
+import bean.ClassFille;
 
 /**
  *
@@ -48,6 +49,59 @@ public class FactureClient extends ClassMere {
         setTva(tva);
         setArrayDetails(new ArrayList<FactureClientDetails>());
     
+    }
+    
+    public void fusionner(String u, String colonneFusion, Connection c, String idAutre)throws Exception{
+        FactureClient autre = (FactureClient) getById(idAutre, null, c);
+        if(this.getEtat() < ConstanteEtat.getEtatValider() || this.getEtat()!= autre.getEtat()){
+            throw new Exception("Les factures doivent être visées !");
+        }
+        
+        if(!this.getTiers().equals(autre.getTiers())){
+            throw new Exception("Les factures doivent avoir le même tiers !");
+        }
+        
+        ClassFille[] fillesAutre =  autre.getFille(null, c, null);
+        for(int i=0; i<fillesAutre.length; i++){
+            FactureClientDetails det = (FactureClientDetails)fillesAutre[i];
+            det.setIdmere(this.getId());
+            det.updateToTableWithHisto(u, c);
+        }
+    } 
+    
+    public void fusionner(String u, String colonneFusion, Connection c,String[] idAutre) throws Exception{
+        boolean ouvert = false;
+
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            
+            for (String idAutre1 : idAutre) {
+                fusionner(u, colonneFusion, c, idAutre1);
+            }
+            
+            if (ouvert) {
+                c.commit();
+            }
+        } catch (Exception ex) {
+            if (c != null && ouvert) {
+                c.rollback();
+            }
+            throw ex;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+    }
+    
+    @Override
+    public Object annulerValidation(String u, Connection c) throws Exception {
+        this.controlerAnnulation(c);
+        return super.annulerValidation(u, c);
     }
     
     public void payer(String caisse, String mode, String numcheque, String typeCheque, String iddevise, UserEJBBean user,Connection c) throws Exception{

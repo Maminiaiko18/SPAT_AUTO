@@ -90,6 +90,8 @@
                             <a class="btn btn-info pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir prestation</a>   
                             <a class="btn btn-default pull-left"  href="<%=(String) session.getValue("lien") + "?but=exploitants/activites-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir activite </a>   
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresPrevision.jsp&acte=factureGlobale&idPrevision=" + base.getId()%>" style="margin-right: 10px">Facturer </a>   
+                            <a class="btn btn-primary pull-left"  href="${pageContext.request.contextPath}/Paie?action=fichePrestation&id=<%=base.getId()%>" style="margin-right: 10px">Imprimer </a>   
+                        
                         <p>
                     </div>
                     <br/>

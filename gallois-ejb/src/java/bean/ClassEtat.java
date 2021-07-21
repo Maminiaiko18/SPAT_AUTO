@@ -108,7 +108,8 @@ public abstract class ClassEtat extends ClassUser{
     }
     public Object annulerValidation(String u, Connection c) throws Exception
     {
-        return null;
+        annulerVisa(u, c);
+        return this;
     }
     public Object cloturer(UserEJBBean user,Connection c,int etat) throws Exception
     {

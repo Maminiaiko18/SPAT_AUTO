@@ -12,6 +12,7 @@ import bean.TypeObjet;
 import fin.Coursdevise;
 import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.OccupationMaterielNaval;
 import mg.spat.exploitant.Activite;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
@@ -34,14 +35,37 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoiravectaux;
     private double qtelivree, restealivrer; 
     private Date datefact;
-    private String rubriquelib;
+    private String rubriquelib, idprestation;
 
+    
+    public OccupationMaterielNaval getPrestation(Connection c) throws Exception {
+        OccupationMaterielNaval prestation=new OccupationMaterielNaval();
+        prestation.setNomTable("occupationmaterielnavalfacture");
+        prestation.setIdfacturelfille(this.getId());
+        OccupationMaterielNaval[] prestations =(OccupationMaterielNaval[]) CGenUtil.rechercher(prestation, null, null, c, "");
+        if(prestations.length>0){
+            prestation = prestations[0];
+        }
+        else{
+           prestation=null; 
+        }
+        return prestation;
+    }
+    
     public String getRubriquelib() {
         return rubriquelib;
     }
 
     public void setRubriquelib(String rubriquelib) {
         this.rubriquelib = rubriquelib;
+    }
+
+    public String getIdprestation() {
+        return idprestation;
+    }
+
+    public void setIdprestation(String idprestation) {
+        this.idprestation = idprestation;
     }
     
     

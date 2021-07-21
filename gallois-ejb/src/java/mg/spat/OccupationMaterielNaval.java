@@ -9,6 +9,7 @@ import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import facture.FactureClientDetails;
 import factureclient.FactureClient;
 import factureclient.FactureClientDetail;
 import java.sql.Connection;
@@ -34,7 +35,7 @@ import utilitaire.Utilitaire;
 public class OccupationMaterielNaval extends ClassEtat {
 
     private String id, idmateriel_naval, idpilote, idcommandant, commandantId, idnatureoperation, idmanoeuvrebord,
-            idnavire,/*idclient,*/ position, positionlib, observation, idarrivee, idarriveelib;
+            idnavire,/*idclient,*/ position, positionlib, observation, idarrivee, idarriveelib, idActivite;
     private Date daty;
     private String heuredebut;
     private Date datefin;
@@ -42,8 +43,86 @@ public class OccupationMaterielNaval extends ClassEtat {
     private double duree;
     private String etatlib;
     private String idprevision, escale;
-    private String idclient;
+    private String idclient, estFacture;
     private Activite activite;
+    private String idfacturelfille, idfacturemere;
+    private String valcommandant;
+    private String VALMANOEUVREBORD;
+    private String VALNATUREOPERATION;
+
+    public String getVALNATUREOPERATION() {
+        return VALNATUREOPERATION;
+    }
+
+    public void setVALNATUREOPERATION(String VALNATUREOPERATION) {
+        this.VALNATUREOPERATION = VALNATUREOPERATION;
+    }
+    
+    
+
+    public String getVALMANOEUVREBORD() {
+        return VALMANOEUVREBORD;
+    }
+
+    public void setVALMANOEUVREBORD(String VALMANOEUVREBORD) {
+        this.VALMANOEUVREBORD = VALMANOEUVREBORD;
+    }
+
+    
+    
+    
+
+    public String getValcommandant() {
+        return valcommandant;
+    }
+
+    public void setValcommandant(String valcommandant) {
+        this.valcommandant = valcommandant;
+    }
+    
+    
+
+    public String getIdfacturelfille() {
+        return idfacturelfille;
+    }
+
+    public void setIdfacturelfille(String idfacturelfille) {
+        this.idfacturelfille = idfacturelfille;
+    }
+
+    public String getIdfacturemere() {
+        return idfacturemere;
+    }
+
+    public void setIdfacturemere(String idfacturemere) {
+        this.idfacturemere = idfacturemere;
+    }
+
+    public boolean possedeActiviteVisee(Connection c) throws Exception {
+        boolean possedeActiviter = false;
+        Activite[] activites = (Activite[]) CGenUtil.rechercher(new Activite(), null, null, c, " and etat>=" + ConstanteEtat.getEtatValider() + " and refobjet='" + this.getId() + "'");
+        System.out.println("Taille activite===" + activites.length);
+        if (activites.length > 0) {
+            possedeActiviter = true;
+        }
+        return possedeActiviter;
+    }
+
+    public String getEstFacture() {
+        return estFacture;
+    }
+
+    public void setEstFacture(String estFacture) {
+        this.estFacture = estFacture;
+    }
+
+    public String getIdActivite() {
+        return idActivite;
+    }
+
+    public void setIdActivite(String idActivite) {
+        this.idActivite = idActivite;
+    }
 
     public Activite getActivite() {
         return activite;
@@ -56,7 +135,7 @@ public class OccupationMaterielNaval extends ClassEtat {
     public void setCommandantId(String commandantId) {
         this.commandantId = commandantId;
     }
-    
+
     public void setActivite(Activite activite) {
         this.activite = activite;
     }
@@ -71,10 +150,8 @@ public class OccupationMaterielNaval extends ClassEtat {
 
     public Prevision getPrevision(Connection c) throws Exception {
         Prevision prevision = new Prevision();
-
         if (this.getIdprevision() != null) {
             prevision = (Prevision) prevision.getById(this.getIdprevision(), prevision.getNomTable(), c);
-            
             return prevision;
         }
 
@@ -83,40 +160,66 @@ public class OccupationMaterielNaval extends ClassEtat {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        this.setActivite(genererActivite(c));
+        //this.setActivite(genererActivite(c));
         return super.validerObject(u, c);
     }
 
     public Activite genererActivite(String u, Connection c) throws Exception {
-        OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallibcpl", c);
-        Activite rep = new Activite();
-        Prevision prevision= this.getPrevision(c);
-        Rubrique rubrique = occupation.getRubriqueCalcule(c);
-        String previsionId="",idrubrique="";
+        int verif = 0;
+        Activite rep = null;
         
-        if(prevision!=null){
-            previsionId=prevision.getId();
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            if (possedeActiviteVisee(c)) {
+                throw new Exception("Il existe deja une activite visee pour cette prestation");
+            }
+
+            OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallibcpl", c);
+            rep = new Activite();
+            Prevision prevision = this.getPrevision(c);
+            System.out.println("Idclienttt dans prestation==" + prevision.getConsignataire());
+            Rubrique rubrique = occupation.getRubriqueCalcule(c);
+            String previsionId = "", idrubrique = "";
+
+            if (prevision != null) {
+                previsionId = prevision.getId();
+            }
+            if (rubrique != null) {
+                idrubrique = rubrique.getId();
+            }
+            rep.setDesignation(occupation.getIdnatureoperation() +" "+prevision.getEscale());
+
+            rep.setClient(prevision.getConsignataire());
+            rep.setRubrique(idrubrique);
+            rep.setMois(Utilitaire.getMois(this.getDaty()));
+            rep.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+            rep.setDaty(this.getDaty());
+            rep.setBateau(previsionId);
+            rep.setRefobjet(this.getId());
+            rep.setDatedebut(this.getDaty());
+            rep.setHeuredebut(this.getHeuredebut());
+            rep.setDatefin(this.getDatefin());
+            rep.setHeurefin(this.getHeurefin());
+            rep.createObject(u, c);
+            
+            this.setActivite(rep);
+            
+            if(verif == 1) c.commit();
+        } catch (Exception e) {
+            if(c != null && verif == 1) c.rollback();
+            throw e;
         }
-        if(rubrique !=null){
-            idrubrique=rubrique.getId();
+        finally {
+            if(c != null && verif == 1) c.close();
         }
-        rep.setDesignation(occupation.getIdnatureoperation() +  previsionId);
-        System.out.println("Idclienttt dans prestation=="+prevision.getConsignataire());
-        rep.setClient(prevision.getConsignataire());
-        rep.setRubrique(idrubrique);
-        rep.setMois(Utilitaire.getMois(this.getDaty()) );
-        rep.setAnnee(Utilitaire.getAnnee(this.getDaty()) );
-        rep.setDaty(this.getDaty());
-        rep.setBateau(previsionId);
-        rep.setRefobjet(this.getId());
-        rep.setDatedebut(this.getDaty());
-        rep.setHeuredebut(this.getHeuredebut());
-        rep.setDatefin(this.getDatefin());
-        rep.setHeurefin(this.getHeurefin());
-        rep.createObject(u, c);
+        
         return rep;
     }
-    
+
     public Activite genererActivite(Connection c) throws Exception {
         int verif = 0;
         Activite activite = null;
@@ -137,7 +240,7 @@ public class OccupationMaterielNaval extends ClassEtat {
             if (rubrique != null) {
                 idRubrique = rubrique.getId();
             }
-            activite = new Activite(this.getDaty(), "Activite auto via prestation " + this.getId(), occupation.getIdclient(), idRubrique, occupation.getIdprevision(), this.getDuree()/60, Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatCreer());
+            activite = new Activite(this.getDaty(), "Activite auto via prestation " + this.getId(), occupation.getIdclient(), idRubrique, occupation.getIdprevision(), this.getDuree() / 60, Utilitaire.getMois(this.getDaty()), Utilitaire.getAnnee(this.getDaty()), ConstanteEtat.getEtatCreer());
             activite.construirePK(c);
             activite.insertToTable(c);
             if (verif == 1) {
@@ -163,8 +266,8 @@ public class OccupationMaterielNaval extends ClassEtat {
         }
         return rubrique;
     }
-    
-    public Rubrique getRubriqueCalcule(Connection c) throws Exception{
+
+    public Rubrique getRubriqueCalcule(Connection c) throws Exception {
         Rubrique rubrique = null;
         Rubrique[] liste = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, "and upper(designation) like upper('%" + this.getIdnatureoperation() + " calcule%')");
         if (liste.length > 0) {
@@ -217,7 +320,7 @@ public class OccupationMaterielNaval extends ClassEtat {
         } else {
             nom += " LC";
         }*/
-        return nom+" calcule";
+        return nom + " calcule";
     }
 
     public OccupationMaterielNaval() {
@@ -385,6 +488,14 @@ public class OccupationMaterielNaval extends ClassEtat {
         }
     }
 
+    public void estDejaFacturee(Connection c) throws Exception {
+        FactureClientDetails ff = new FactureClientDetails();
+        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(ff, null, null, c, " and idprevision='" + this.getId() + "'");
+        if (liste.length > 0) {
+            throw new Exception("Déja facturé!");
+        }
+    }
+
     public String getPositionlib() {
         return positionlib;
     }
@@ -433,7 +544,9 @@ public class OccupationMaterielNaval extends ClassEtat {
     }
 
     public String getIdcommandant() {
-        if(!this.getMode().equalsIgnoreCase("modif")) return utilitaire.Utilitaire.champNull(idcommandant);
+        if (!this.getMode().equalsIgnoreCase("modif")) {
+            return utilitaire.Utilitaire.champNull(idcommandant);
+        }
         return idcommandant;
     }
 
@@ -554,16 +667,18 @@ public class OccupationMaterielNaval extends ClassEtat {
             duree = TimeUnit.MINUTES.convert(diffEnMillies, TimeUnit.MILLISECONDS);
         }
     }
-    
-    public void verifPrevision(Connection c) throws Exception{
+
+    public void verifPrevision(Connection c) throws Exception {
         Prevision p = getPrevision(c);
-        
-        if(p == null) throw new Exception("Previson introuvable");
-        if(p.getEtat() < ConstanteEtat.getEtatValider()){
+
+        if (p == null) {
+            throw new Exception("Previson introuvable");
+        }
+        if (p.getEtat() < ConstanteEtat.getEtatValider()) {
             throw new Exception("Prevision non visee");
         }
     }
-    
+
     @Override
     public void controlerUpdate(Connection c) throws Exception {
         setDureeFromDate();
@@ -572,7 +687,7 @@ public class OccupationMaterielNaval extends ClassEtat {
 
     public void controler(Connection c) throws Exception {
         verifPrevision(c);
-        
+
         setDureeFromDate();
         //PrevisionService.testerOccupationMaterielNaval(this,c);
     }

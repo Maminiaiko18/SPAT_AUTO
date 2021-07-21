@@ -23,7 +23,7 @@
         String id = request.getParameter("id");
         String listeCrt[] = {"idprevision"};
         String listeInt[] = {};
-        String libEntete[] = {"id", "idcommandant", "idnatureoperation", "idarrivee", "idmanoeuvrebord", "daty", "heuredebut", "datefin", "heurefin", "duree", "etatlib"};
+        String libEntete[] = {"id", "idcommandant", "idnatureoperation", "idarrivee", "idmanoeuvrebord", "daty", "heuredebut", "datefin", "heurefin", "duree", "idActivite", "estFacture","etatlib"};
         PageRecherche pr = new PageRecherche(oprevision, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -36,16 +36,17 @@
 
 <%
     String lienTableau[] = {pr.getLien() + "?but=capitainerie/occupationMaterielNaval-fiche.jsp",
-                            pr.getLien() + "?but=capitainerie/mouvement-fiche.jsp"};
-    String colonneLien[] = {"id","idarrivee"};
-    String[] urlLienMultiple = {"id","idarrivee"};
-    String[] urlLienAffiche = {"id","id"};
+                            pr.getLien() + "?but=capitainerie/mouvement-fiche.jsp",
+                            pr.getLien() + "?but=exploitants/activites-fiche.jsp"};
+    String colonneLien[] = {"id","idarrivee", "idActivite"};
+    String[] urlLienMultiple = {"id","idarrivee", "idActivite"};
+    String[] urlLienAffiche = {"id","id", "id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     pr.getTableau().setUrlLienAffiche(urlLienAffiche);
     pr.getTableau().setUrlLien(urlLienMultiple);
 
-    String libEnteteAffiche[] = {"Id", "Commandant", "Opération","Mouvement","Manoeuvre","Date arrivée","Heure début","Date fin","Heure fin","Durée","Etat"};
+    String libEnteteAffiche[] = {"Id", "Commandant", "Opération","Mouvement","Manoeuvre","Date arrivée","Heure début","Date fin","Heure fin","Durée", "Activité", "Est Facturée", "Etat"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
 <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="facturation" id="facturation">
