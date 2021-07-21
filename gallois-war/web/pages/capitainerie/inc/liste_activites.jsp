@@ -33,9 +33,17 @@
     pr.getTableau().setColonneLien(colonneLien);
     pr.getTableau().setLibeEntete(libEnteteAffiche);
     
-    if (pr.getTableau().getHtml() != null) {
-        out.println(pr.getTableau().getHtml());
-%>   
+    if (pr.getTableau().getHtmlWithCheckbox() != null) {%>
+        <form action="<%=pr.getLien()%>?but=apresMultiple.jsp" method="post" name="id" id="id">
+            <input type="hidden" name="bute" value="capitainerie/occupationMaterielNaval-fiche.jsp&id=<%=request.getParameter("id")%>"/>
+            <input type="hidden" name="classe" value="mg.spat.exploitant.Activite"/>
+            <input type="hidden" name="acte" value="valider"/>
+            <% 
+                pr.getTableau().setNameActe("valider");
+                pr.getTableau().setNameBoutton("Valider");
+                out.println(pr.getTableau().getHtmlWithCheckbox());
+            %>  
+        </form>
 <% } else {
 %><center><h4>Aucun details </h4></center><%
     }
