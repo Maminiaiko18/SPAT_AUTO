@@ -22,6 +22,7 @@ import user.UserEJBBean;
 import utilitaire.Constante;
 import mg.spat.stock.BonDeLivraisonClient;
 import avoir.AvoirFC;
+import bean.ClassFille;
 
 /**
  *
@@ -50,11 +51,25 @@ public class FactureClient extends ClassMere {
     
     }
     
-    public void fusionner(String colonneFusion, Connection c,String idAutre)throws Exception{
+    public void fusionner(String u, String colonneFusion, Connection c, String idAutre)throws Exception{
+        FactureClient autre = (FactureClient) getById(idAutre, null, c);
+        if(this.getEtat() < ConstanteEtat.getEtatValider() || this.getEtat()!= autre.getEtat()){
+            throw new Exception("Les factures doivent être visées !");
+        }
         
+        if(!this.getTiers().equals(autre.getTiers())){
+            throw new Exception("Les factures doivent avoir le même tiers !");
+        }
+        
+        ClassFille[] fillesAutre =  autre.getFille(null, c, null);
+        for(int i=0; i<fillesAutre.length; i++){
+            FactureClientDetails det = (FactureClientDetails)fillesAutre[i];
+            det.setIdmere(this.getId());
+            det.updateToTableWithHisto(u, c);
+        }
     } 
     
-    public void fusionner(String colonneFusion, Connection c,String[] idAutre) throws Exception{
+    public void fusionner(String u, String colonneFusion, Connection c,String[] idAutre) throws Exception{
         boolean ouvert = false;
 
         try {
@@ -63,15 +78,14 @@ public class FactureClient extends ClassMere {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
+            
+            for (String idAutre1 : idAutre) {
+                fusionner(u, colonneFusion, c, idAutre1);
+            }
+            
             if (ouvert) {
                 c.commit();
             }
-            
-            for (String idAutre1 : idAutre) {
-                fusionner(colonneFusion, c, idAutre1);
-            }
-            
-            
         } catch (Exception ex) {
             if (c != null && ouvert) {
                 c.rollback();
