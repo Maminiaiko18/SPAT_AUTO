@@ -25,7 +25,7 @@ public class SituationCredit extends LigneCredit{
         this.preparePk("SCRD", "get_seqligneCreditDepense");
         this.setId(makePK(c));
     }
-    public static SituationCredit[] findSituationCreditRecette(String id,String desingation,String compte,String date1,String date2,Connection c) throws Exception {
+    public static SituationCredit[] findSituationCreditRecette(String id,String desingation,String compte,String date1,String date2,String etat,Connection c) throws Exception {
          SituationCredit[] ret = null; 
            boolean newCon = false;
            try{
@@ -39,6 +39,7 @@ public class SituationCredit extends LigneCredit{
              if(compte!=null   && !compte.equals("")) where+= " and upper(l.compte) like upper('%"+compte+"%')";
              if(date1!=null   && !date1.equals("")) where+= " and daty >= '"+date1+"'";
              if(date2!=null   && !date2.equals("")) where+= " and daty <= '"+date2+"'";
+             if(etat!=null   && !etat.equals("")) where+= " and l.etat = "+ etat;
              
              String req="SELECT l.id          AS                     id,\n" +
             "       l.DESIGNATION AS                     designation,\n" +
@@ -49,7 +50,7 @@ public class SituationCredit extends LigneCredit{
             "       CAST(sum(mf.QUANTITE*mf.pu*mf.TAUX )AS NUMBER(30, 3))\n" +
             "                     AS                     facture,\n" +
             "       CAST(sum(montantpaye) AS NUMBER(30, 3)) paye,\n" +
-            "       DATY\n" +
+            "       CAST(mf.DATY AS DATE) AS DATY \n" +
             "FROM LIGNECREDITRECETTE l\n" +
             "         LEFT JOIN FACTURE_CLIENT_MEREF_paye mf\n" +
             "                   ON SUBSTR(mf.COMPTE, 0, LENGTH(l.COMPTE)) LIKE l.COMPTE\n" +
@@ -59,7 +60,8 @@ public class SituationCredit extends LigneCredit{
             "         l.COMPTE,\n" +
             "         l.ANNEE,\n" +
             "         l.MONTANT, l.etat, mf.DATY";
-             SituationCredit stock = new SituationCredit();
+            SituationCredit stock = new SituationCredit();
+            stock.setNomTable("situationLC_vide");
             ret = (SituationCredit[]) CGenUtil.rechercher(stock, req, c);
        }
       catch(Exception e)
