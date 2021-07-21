@@ -12,23 +12,6 @@ import java.sql.Connection;
  * @author je sais pas
  */
 public class FactureProformaDetails extends FactureClientDetails {
-    private String heureDebut;
-    private String heureFin;
-    
-    public String getHeureDebut() {
-        return heureDebut;
-    }
-
-    public void setHeureDebut(String heureDebut) {
-        this.heureDebut = heureDebut;
-    }
-
-    public String getHeureFin() {
-        return heureFin;
-    }
-
-    public void setHeureFin(String heureFin) {
-        this.heureFin = heureFin;
     }
 
     public FactureProforma getMere(Connection c) throws Exception {
