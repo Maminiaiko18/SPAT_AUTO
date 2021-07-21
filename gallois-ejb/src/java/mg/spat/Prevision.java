@@ -41,57 +41,60 @@ public class Prevision extends ClassEtat {
     private String destination, escale;
     private String couleur = "#1E90FF";
     private String noVoyage;
-    
-   public OccupationMaterielNaval[] getPrestationsVisees(Connection c) throws Exception{
-       OccupationMaterielNaval occupation =new OccupationMaterielNaval();
-//       occupation.setNomTable("occupationmaterielnaval");
-       occupation.setNomTable("OCCUPMATERIELNONAVALNFACTURE");
-       OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='"+this.getId()+"' and etat>="+ConstanteEtat.getEtatValider());
-       return liste;
-   }
 
-    
+    public OccupationMaterielNaval[] getPrestationsVisees(Connection c) throws Exception {
+        OccupationMaterielNaval occupation = new OccupationMaterielNaval();
+//       occupation.setNomTable("occupationmaterielnaval");
+        occupation.setNomTable("OCCUPMATERIELNONAVALNFACTURE");
+        OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='" + this.getId() + "' and etat>=" + ConstanteEtat.getEtatValider());
+        return liste;
+    }
+
     private static String[] getIdsFromTab(ClassMAPTable[] tab) {
         String[] ids = new String[tab.length];
-        
-        for(int i=0; i < tab.length; i++) {
+
+        for (int i = 0; i < tab.length; i++) {
             ids[i] = tab[i].getTuppleID();
         }
-        
+
         return ids;
     }
-    
+
     public FactureClient facturer(String user, Connection c) throws Exception {
         FactureClient facture = null;
         int verif = 0;
-        
+
         try {
-            if(c == null) {
+            if (c == null) {
                 c = (new UtilDB()).GetConn();
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            
+
             Prevision prevision = new Prevision();
             prevision = (Prevision) prevision.getById(this.getId(), prevision.getNomTable(), c);
-            
+
             AdminActivite adminActivite = new AdminActivite();
             Activite[] activites = prevision.genererActiviteVisees(user, c);
             adminActivite.findactivite(getIdsFromTab(activites), c);
 
 //            adminActivite.initActivite(prevision.genererActiviteVisees(user, c));
-            
             facture = adminActivite.facturer(user, c);
             facture.setIdprevision(this.getId());
             facture.updateToTableWithHisto(user, c);
-            
-            if(verif == 1) c.commit();
+
+            if (verif == 1) {
+                c.commit();
+            }
         } catch (Exception e) {
-            if(c != null && verif == 1) c.rollback();
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
             throw e;
-        }
-        finally {
-            if(c != null && verif == 1) c.close();
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
         }
 
         return facture;
@@ -110,45 +113,48 @@ public class Prevision extends ClassEtat {
         return rubrique;
     }
 
-     public Activite[] genererActiviteVisees(String u, Connection c) throws Exception {
+    public Activite[] genererActiviteVisees(String u, Connection c) throws Exception {
         java.util.List<Activite> activites = new java.util.ArrayList<>();
+        String[] designations = {"Droit de port " + this.getEscale(), "Redevance communale " + this.getEscale(), "Stationnement " + this.getEscale()};
+        String[] idRubriques = {Constante.idDroitDePortCalcule, Constante.idRedevanceCommunaleCalcule, Constante.idStationnement};
 
-        String awhere = " and id = '%s'";
-        Activite act1=(Activite) this.genererActivite(u, c, "Droit de port " + this.getEscale(),String.format(awhere, Constante.idDroitDePortCalcule));
-        if(act1!=null){
-            act1.construirePK(c);
-            act1.insertToTable();//atao insertToTable aloha pour tester
-            act1.validerObject(u, c);
-            activites.add(act1);
+        String awhere = " and etat >= " + ConstanteEtat.getEtatValider()
+                + " and bateau = '" + this.getId() + "'"
+                + " and rubrique in (" + Utilitaire.tabToString(idRubriques, "'", ",") + ")";
+
+        Activite[] tmp = (Activite[]) CGenUtil.rechercher(new Activite(), null, null, c, awhere);
+
+        awhere = " and id = '%s'";
+        
+        if (tmp == null || tmp.length == 0) {
+            for (int i = 0; i < idRubriques.length; i++) {
+                Activite act = (Activite) this.genererActivite(u, c, designations[i], String.format(awhere, idRubriques[i]));
+                if (act != null) {
+                    act.createObject(u, c);
+                    act.validerObject(u, c);
+                    activites.add(act);
+                }
+            }
         }
-        Activite act2=(Activite) this.genererActivite(u, c, "Redevance communale " + this.getEscale(),String.format(awhere, Constante.idRedevanceCommunaleCalcule));
-        if(act2!=null){
-            act2.createObject(u,c);
-            act2.validerObject(u, c);
-            activites.add(act2);
-        }
-        Activite act3=(Activite) this.genererActivite(u, c, "Stationnement " + this.getEscale(),String.format(awhere, Constante.idStationnement));
-        if(act3!=null){
-            act3.createObject(u, c);
-            act3.validerObject(u, c);
-            activites.add(act3);
-        }
-        OccupationMaterielNaval[] listePrestation=this.getPrestationsVisees(c);
-        if(listePrestation!=null || listePrestation.length>0){
-            for(int i=0;i<listePrestation.length;i++){
-                Activite act4=(Activite) listePrestation[i].genererActivite(u, c);
-                if(act4!=null){
+
+        OccupationMaterielNaval[] listePrestation = this.getPrestationsVisees(c);
+        if (listePrestation != null || listePrestation.length > 0) {
+            for (int i = 0; i < listePrestation.length; i++) {
+                Activite act4 = (Activite) listePrestation[i].genererActivite(u, c);
+                if (act4 != null) {
                     act4.validerObject(u, c);
                     activites.add(act4);
                 }
             }
         }
-        
+
         return activites.toArray(new Activite[activites.size()]);
     }
 
     public Activite genererActivite(String u, Connection c, String designation, String awhere) throws Exception {
-        System.out.println("Designation=="+designation);
+        System.out.println("Designation==" + designation);
+        Rubrique rubrique = getRubrique(c, awhere);
+
         Activite rep = new Activite();
         rep.setDesignation(designation);
         rep.setClient(getConsignataire());
@@ -156,7 +162,7 @@ public class Prevision extends ClassEtat {
         rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
         rep.setDaty(getDate_arrivee());
         rep.setBateau(getId());
-        rep.setRubrique(getRubrique(c, awhere).getId());
+        rep.setRubrique(rubrique.getId());
         rep.setDatedebut(this.getDate_arrivee());
         rep.setHeuredebut(this.getHeure_arrivee());
         rep.setDatefin(this.getDate_depart());
