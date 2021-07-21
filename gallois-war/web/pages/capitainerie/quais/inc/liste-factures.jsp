@@ -53,14 +53,24 @@
         if(pr.getTableau().getHtmlWithCheckbox() == null){
             out.println("Aucun !");
         }else{
-            out.println(pr.getTableau().getHtmlWithCheckbox());
-        }
-        
-    %>
+            out.println(pr.getTableau().getHtmlWithCheckbox());%>
+    
+            <button class="btn btn-primary pull-right" onclick="changer()">Fusionner</button>
+       <% }  %>
     <input type="hidden" name="acte" id="acte" value="viser"/>
     <input name="bute" type="hidden" id="bute" value="capitainerie/quais/quais-prevision-fiche.jsp&tab=liste-factures&id=<%=id%>">
     <input name="classe" type="hidden" id="classe" value="facture.FactureClient">
 </form>
+    
+    
+<script>
+    function changer(){
+        document.facturation.action = "<%=pr.getLien()%>?but=apresFacture.java";
+        document.getElementById("acte").value="fusionner";
+	document.facturation.submit();
+    }
+</script>
+    
 <%} catch (Exception e) {
         e.printStackTrace();
     }%>
