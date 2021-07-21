@@ -27,7 +27,7 @@ public class FactureClientDetails extends ClassFille {
     
     private String id,idmere;
     private double quantite,pu,taux;
-    private String compte,idproduit,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib,rubrique;
+    private String compte,idproduit, produit_lib,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib,rubrique;
     private FactureClient mere;
     private double montant;
     private double montanttaux;
@@ -38,6 +38,14 @@ public class FactureClientDetails extends ClassFille {
     private String rubriquelib, idprestation;
     private int mois, annee;
     private String heureDebut, heureFin;
+
+    public String getProduit_lib() {
+        return produit_lib;
+    }
+
+    public void setProduit_lib(String produit_lib) {
+        this.produit_lib = produit_lib;
+    }
 
     
     public OccupationMaterielNaval getPrestation(Connection c) throws Exception {
