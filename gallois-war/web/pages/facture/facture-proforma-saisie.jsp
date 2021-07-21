@@ -39,11 +39,20 @@
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
+    pi.getFormu().getChamp("idprevision").setLibelle("escale");
+    pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
+     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     
-    affichage.Liste[] listed = new affichage.Liste[1];
+    affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
         listed[0] = new Liste("devise", o, "VAL", "id");
+        
+        TypeObjet mois = new TypeObjet();
+        mois.setNomTable("mois");
+        listed[1] = new Liste("mois", mois, "VAL", "id");
+        
+        
     pi.getFormufle().changerEnChamp(listed);
     
     int taille = pi.getNombreLigne();
@@ -66,8 +75,21 @@
     pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
     pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
     pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
+    pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
+    pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
+    pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
+    pi.getFormufle().getChamp("annee_0").setLibelle("Année");
+    pi.getFormufle().getChamp("heureDebut_0").setLibelle("Heure debut");
+    pi.getFormufle().getChamp("heureFin_0").setLibelle("Heure fin");
+    pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("datefact"), "readonly");
+    pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
     
     
     
