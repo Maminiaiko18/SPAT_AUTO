@@ -27,7 +27,7 @@ public class FactureClientDetails extends ClassFille {
     
     private String id,idmere;
     private double quantite,pu,taux;
-    private String compte,idproduit,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib,rubrique;
+    private String compte,idproduit, produit_lib,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib,rubrique;
     private FactureClient mere;
     private double montant;
     private double montanttaux;
@@ -36,6 +36,16 @@ public class FactureClientDetails extends ClassFille {
     private double qtelivree, restealivrer; 
     private Date datefact;
     private String rubriquelib, idprestation;
+    private int mois, annee;
+    private String heureDebut, heureFin, moislib,anneelib;
+
+    public String getProduit_lib() {
+        return produit_lib;
+    }
+
+    public void setProduit_lib(String produit_lib) {
+        this.produit_lib = produit_lib;
+    }
 
     
     public OccupationMaterielNaval getPrestation(Connection c) throws Exception {
@@ -51,6 +61,23 @@ public class FactureClientDetails extends ClassFille {
         }
         return prestation;
     }
+
+    public String getMoislib() {
+        return moislib;
+    }
+
+    public void setMoislib(String moislib) {
+        this.moislib = moislib;
+    }
+
+    public String getAnneelib() {
+        return anneelib;
+    }
+
+    public void setAnneelib(String anneelib) {
+        this.anneelib = anneelib;
+    }
+    
     
     public String getRubriquelib() {
         return rubriquelib;
@@ -66,6 +93,38 @@ public class FactureClientDetails extends ClassFille {
 
     public void setIdprestation(String idprestation) {
         this.idprestation = idprestation;
+    }
+
+    public int getMois() {
+        return mois;
+    }
+
+    public void setMois(int mois) {
+        this.mois = mois;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    public String getHeureDebut() {
+        return heureDebut;
+    }
+
+    public void setHeureDebut(String heureDebut) {
+        this.heureDebut = heureDebut;
+    }
+
+    public String getHeureFin() {
+        return heureFin;
+    }
+
+    public void setHeureFin(String heureFin) {
+        this.heureFin = heureFin;
     }
     
     

@@ -52,16 +52,18 @@ public class FactureClient extends ClassMere {
     }
     
     public void fusionner(String u, String colonneFusion, Connection c, String idAutre)throws Exception{
-        FactureClient autre = (FactureClient) getById(idAutre, null, c);
-        if(this.getEtat() < ConstanteEtat.getEtatValider() || this.getEtat()!= autre.getEtat()){
-            throw new Exception("Les factures doivent être visées !");
+        FactureClient autre = (FactureClient) new FactureClient().getById(idAutre, "Factureclient", c);
+        
+        if(this.getEtat() >= ConstanteEtat.getEtatValider() || this.getEtat()!= autre.getEtat()){
+            throw new Exception("Facture deja visee ou etats differents!");
+
         }
         
         if(!this.getTiers().equals(autre.getTiers())){
             throw new Exception("Les factures doivent avoir le même tiers !");
         }
         
-        ClassFille[] fillesAutre =  autre.getFille(null, c, null);
+        ClassFille[] fillesAutre =  autre.getFille("facture_client_fille", c, "");
         for(int i=0; i<fillesAutre.length; i++){
             FactureClientDetails det = (FactureClientDetails)fillesAutre[i];
             det.setIdmere(this.getId());

@@ -13,6 +13,7 @@ import java.sql.Connection;
  */
 public class FactureProformaDetails extends FactureClientDetails {
     
+
     public FactureProforma getMere(Connection c) throws Exception {
         FactureProforma mere = new FactureProforma();
         mere.setId(getIdmere());
@@ -32,5 +33,24 @@ public class FactureProformaDetails extends FactureClientDetails {
     @Override
     public String getLiaisonMere(){
         return "idmere";
+    }
+    
+    public String moislib;
+    public String anneelib;
+
+    public String getMoislib() {
+        return moislib;
+    }
+
+    public void setMoislib(String moislib) {
+        this.moislib = moislib;
+    }
+
+    public String getAnneelib() {
+        return anneelib;
+    }
+
+    public void setAnneelib(String anneelib) {
+        this.anneelib = anneelib;
     }
 }

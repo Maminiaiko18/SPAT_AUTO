@@ -10,14 +10,14 @@ try{
     String titrePage = "Modification Facture Proforma" ,
             classeMere = "facture.FactureProforma" ,
             classeFille = "facture.FactureProformaDetails",
-            buteLien = "facture/facture-proforma-modif.jsp" ,
+            buteLien = "facture/facture-proforma-fiche.jsp" ,
             colonneMereDansFille = "idmere",
             buteApresVisa = "facture/facture-proforma-fiche.jsp";
     String autreparsley = "data-parsley-range='[8, 40]' required";
     FactureProforma mere = new FactureProforma();
         mere.setNomTable("FACTUREPROFMSUM_LIB");
     FactureProformaDetails fille = new FactureProformaDetails();
-        fille.setNomTable("FACTURE_PROF_FILLE");
+        fille.setNomTable("FACTURE_PROF_FILLE_libelle");
     fille.setIdmere(request.getParameter("id"));
     FactureProformaDetails[] liste = (FactureProformaDetails[])CGenUtil.rechercher(fille, null, null, "");
     PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
@@ -38,13 +38,28 @@ try{
     pi.getFormu().getChamp("Montanttva").setVisible(false);
     pi.getFormu().getChamp("Montantavoir").setVisible(false);
     pi.getFormu().getChamp("Montantttc").setVisible(false);
+    pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
+    pi.getFormu().getChamp("idprevision").setAutre("readonly");
+    pi.getFormu().getChamp("idprevision").setLibelle("Escale");
+    pi.getFormu().getChamp("escale").setVisible(false);
     
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("taux"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
-     
+    
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
+    
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
+    
+    for(int i=0; i<liste.length; i++){
+        pi.getFormufle().getChamp("datefact_"+i).setAutre("readonly");
+    }
+    
     affichage.Liste[] listed = new affichage.Liste[1];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
@@ -61,6 +76,19 @@ try{
     pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
     pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
     
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("activitelib"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("produit_lib"), false);
+    
+    pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
+    pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
+    pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
+    pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
+    pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
+    pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
+    pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
+    
+    
     mere = (FactureProforma) pi.getBase();
     pi.preparerDataFormu();
 %>
@@ -75,7 +103,7 @@ try{
                 %>
                    <center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa %>&classe=<%= classeMere %>">Viser</a> </center>
                 <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
+                    <div class="col-md-12">
                         <%
                             out.println(pi.getFormufle().getHtmlTableauInsert());
                         %>
@@ -94,6 +122,22 @@ try{
 </div>
 <script>
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib() %>";
+    <%for(int i=0; i<liste.length; i++){%>
+        document.getElementById("idactivitelibelle_<%=i%>").value = "<%= liste[i].getActivitelib() != null ? liste[i].getActivitelib() : Utilitaire.champNull(liste[i].getIdactivite())%>";
+        document.getElementById("rubriquelibelle_<%=i%>").value = "<%= liste[i].getRubriquelib() != null ? liste[i].getRubriquelib() : Utilitaire.champNull(liste[i].getRubrique())%>";
+        document.getElementById("idproduitlibelle_<%=i%>").value = "<%=liste[i].getProduit_lib() != null ? liste[i].getProduit_lib() : Utilitaire.champNull(liste[i].getIdproduit()) %>";
+    
+    <%}%>
+    document.getElementById("idprevisionlibelle").value = '<%=Utilitaire.champNull(mere.getEscale())%>';
+    
+    var designation = document.getElementById("designation");
+    var textarea = document.createElement("textarea");
+        textarea.name="designation";
+        textarea.id="designation";
+        textarea.className="form-control";
+        textarea.style.height="100px";
+        textarea.value = designation.value;
+    designation.parentNode.replaceChild(textarea , designation);
 </script>
 <%}catch(Exception ex){
     ex.printStackTrace();

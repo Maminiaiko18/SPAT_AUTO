@@ -10,7 +10,7 @@ try{
     String titrePage = "Modification Facture Client" ,
             classeMere = "facture.FactureClient" ,
             classeFille = "facture.FactureClientDetails",
-            buteLien = "facture/factureclient-modif.jsp" ,
+            buteLien = "facture/factureclient-fiche-vaovao.jsp" ,
             colonneMereDansFille = "idmere",
             buteApresVisa = "facture/factureclient-fiche-vaovao.jsp";
     String autreparsley = "data-parsley-range='[8, 40]' required";
@@ -55,9 +55,10 @@ try{
     
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("Taux"), false);
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("Taux"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("activitelib"), false);
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("produit_lib"), false);
     
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
@@ -68,7 +69,9 @@ try{
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
     
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("datefact"), "readonly");
+    for(int i=0; i<liste.length; i++){
+        pi.getFormufle().getChamp("datefact_"+i).setAutre("readonly");
+    }
     
     affichage.Liste[] listed = new affichage.Liste[1];
         TypeObjet o = new TypeObjet();
@@ -88,12 +91,18 @@ try{
     //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
     pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
     pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
+    pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
+    pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
+    pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
+    pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
+    pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
+    pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
     
     mere = (FactureClient) pi.getBase();
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-        <!--<div class="box">-->
+        <div class="box">
             <h1><%= titrePage %></h1>
             <form action="<%=(String) session.getValue("lien")%>?but=apresMultiple.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
                 <%
@@ -103,7 +112,7 @@ try{
                 %>
                    <center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa %>&classe=<%= classeMere %>">Viser</a> </center>
                 <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
+                    <div class="col-md-12">
                         <%
                             out.println(pi.getFormufle().getHtmlTableauInsert());
                         %>
@@ -118,13 +127,14 @@ try{
                 <input name="colonneMere" type="hidden" id="colonneMere" value="<%= colonneMereDansFille %>">
 
             </form>
-    <!--</div>-->
+    </div>
 </div>
 <script>
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib() %>";
     <%for(int i=0; i<liste.length; i++){%>
-        document.getElementById("idactivitelibelle_<%=i%>").value = "<%=liste[i].getActivitelib() != null ? liste[i].getActivitelib() : liste[i].getIdactivite()%>";
-        document.getElementById("rubriquelibelle_<%=i%>").value = "<%=liste[i].getRubriquelib() != null ? liste[i].getRubriquelib() : liste[i].getRubrique()%>";
+        document.getElementById("idactivitelibelle_<%=i%>").value = "<%=liste[i].getActivitelib() != null ? liste[i].getActivitelib() : Utilitaire.champNull(liste[i].getIdactivite())%>";
+        document.getElementById("rubriquelibelle_<%=i%>").value = "<%=liste[i].getRubriquelib() != null ? liste[i].getRubriquelib() : Utilitaire.champNull(liste[i].getRubrique())%>";
+        document.getElementById("idproduitlibelle_<%=i%>").value = "<%=liste[i].getProduit_lib() != null ? liste[i].getProduit_lib() : Utilitaire.champNull(liste[i].getIdproduit()) %>";
     <%}%>
     document.getElementById("idprevisionlibelle").value = '<%=mere.getEscale()%>';
     

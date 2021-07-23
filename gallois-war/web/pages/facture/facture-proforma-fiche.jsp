@@ -27,6 +27,7 @@
     pc.getChampByName("iduser").setVisible(false);
     pc.getChampByName("type").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("idprevision").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("montant").setLibelle("Montant Total HT");
@@ -35,7 +36,6 @@
     pc.getChampByName("montantavoir").setVisible(false);
     pc.getChampByName("montantttc").setLibelle("Montant TTC");
     pc.getChampByName("date_echeance").setLibelle("Date echeance");
-//    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp", "id");
     e = (FactureProforma) pc.getBase();
     String id= e.getId();
     String bute="facture/facture-proforma-fiche.jsp";
@@ -44,6 +44,7 @@
     
     String lien = (String) session.getValue("lien");
     String redirect = lien + "?but="+modifPage+"&id=" + id;
+    pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-fiche.jsp&id="+e.getIdprevision(), "escale=");
 //    if(e.getEtat() < ConstanteEtat.getEtatValider()) out.println("<script language='JavaScript'> document.location.replace('"+redirect+"'); </script>");
     
     AttacherFichier[] fichiers = UploadService.getUploadFile(id);
@@ -62,7 +63,7 @@
 %>
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-7 col-md-offset-2">
+        <div class="col-md- col-md-offset-2">
 
             <div class="box">
                 <h1 class="box-title">
@@ -93,7 +94,7 @@
     
     
         <div class="row">
-            <div class="col-md-10 col-md-offset-1 ">
+            <div class="col-md-12 ">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("facture-proforma-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-proforma-fille">Details</a></li>

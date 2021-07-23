@@ -25,6 +25,7 @@
         map.put("liste-mouvement", "");
         map.put("liste-utilisation-materiels", "");
         map.put("liste-factures", "");
+        map.put("activites", "");
         
         String id = request.getParameter("id");
         tab = request.getParameter("tab");
@@ -106,6 +107,7 @@
                     <li class="<%= map.get("liste-mouvement")%>"><a href="module.jsp?but=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&tab=liste-mouvement&idprevision=<%=base.getId()%>">Liste mouvements</a></li>
                     <li class="<%= map.get("liste-utilisation-materiels")%>"><a href="module.jsp?but=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&tab=liste-utilisation-materiels&idprevision=<%=base.getId()%>">Liste prestations</a></li>
                     <li class="<%= map.get("liste-factures")%>"><a href="module.jsp?but=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&tab=liste-factures">Factures</a></li>
+                    <li class="<%= map.get("activites")%>"><a href="module.jsp?but=capitainerie/quais/quais-prevision-fiche.jsp&id=<%=base.getId()%>&tab=activites">Activit&eacute;s</a></li>
                 </ul>
                 <div class="tab-content">       
                     <jsp:include page="<%=tab%>" />  
