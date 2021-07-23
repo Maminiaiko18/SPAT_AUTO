@@ -42,7 +42,7 @@
     pi.getFormu().getChamp("navire").setAutre("readonly");
     pi.getFormu().getChamp("destination").setLibelle("Quai");
     
-    pi.getFormu().getChamp("cargaison").setPageAppel("choix/listeCargaisonChoixMultiple.jsp");
+    pi.getFormu().getChamp("cargaison").setPageAppel("choix/listeCargaisonChoix.jsp");
     pi.getFormu().getChamp("cargaison").setAutre("readonly");
     pi.getFormu().getChamp("provenance").setAutre("readonly");
     
