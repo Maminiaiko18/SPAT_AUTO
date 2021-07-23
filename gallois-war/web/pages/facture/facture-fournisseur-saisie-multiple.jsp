@@ -206,7 +206,7 @@
         pi.getFormufle().getChamp("pu_0").setLibelle("Prix Unitaire");
         pi.getFormufle().getChamp("qte_0").setLibelle("Quantité");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
-        String[] ordreFille = {"idingredient", "pu", "qte", "montant","tva"};
+        String[] ordreFille = {"idingredient", "compte","pu", "qte", "montant","tva"};
         pi.getFormufle().setColOrdre(ordreFille);
        // pi.getFormufle().setOrdre(ordreFille);
         pi.preparerDataFormu();
