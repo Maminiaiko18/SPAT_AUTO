@@ -22,7 +22,9 @@ import user.UserEJBBean;
 import utilitaire.Constante;
 import mg.spat.stock.BonDeLivraisonClient;
 import avoir.AvoirFC;
+import bean.AdminGen;
 import bean.ClassFille;
+import fin.Coursdevise;
 
 /**
  *
@@ -32,14 +34,14 @@ public class FactureClient extends ClassMere {
 
     private String id;
     private Date daty, date_echeance;
-    private String tiers, designation, type, remarque, iduser,idprevision,escale;
-    private double tva, montant, montanttva, montantttc,montantpaye,montantreste;
+    private String tiers, designation, type, remarque, iduser, idprevision, escale;
+    private double tva, montant, montanttva, montantttc, montantpaye, montantreste;
     private String tierslib;
-    private double montantavoir, montantEuro, montantTVAEuro;
+    private double montantavoir;
     private ArrayList<FactureClientDetails> arrayDetails;
     private String contact, adresse, etatLib, typelib;
     private FactureClientDetails[] listeDetails;
-    private double deviseEuro,deviseDollar,coeff,montantHTEuro,montantHTVADollar,montantTVADollar,montantTTCDollar;
+    private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
 
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
@@ -50,30 +52,30 @@ public class FactureClient extends ClassMere {
         setDesignation(designation);
         setTva(tva);
         setArrayDetails(new ArrayList<FactureClientDetails>());
-    
+
     }
-    
-    public void fusionner(String u, String colonneFusion, Connection c, String idAutre)throws Exception{
+
+    public void fusionner(String u, String colonneFusion, Connection c, String idAutre) throws Exception {
         FactureClient autre = (FactureClient) new FactureClient().getById(idAutre, "Factureclient", c);
-        
-        if(this.getEtat() >= ConstanteEtat.getEtatValider() || this.getEtat()!= autre.getEtat()){
+
+        if (this.getEtat() >= ConstanteEtat.getEtatValider() || this.getEtat() != autre.getEtat()) {
             throw new Exception("Facture deja visee ou etats differents!");
 
         }
-        
-        if(!this.getTiers().equals(autre.getTiers())){
+
+        if (!this.getTiers().equals(autre.getTiers())) {
             throw new Exception("Les factures doivent avoir le même tiers !");
         }
-        
-        ClassFille[] fillesAutre =  autre.getFille("facture_client_fille", c, "");
-        for(int i=0; i<fillesAutre.length; i++){
-            FactureClientDetails det = (FactureClientDetails)fillesAutre[i];
+
+        ClassFille[] fillesAutre = autre.getFille("facture_client_fille", c, "");
+        for (int i = 0; i < fillesAutre.length; i++) {
+            FactureClientDetails det = (FactureClientDetails) fillesAutre[i];
             det.setIdmere(this.getId());
             det.updateToTableWithHisto(u, c);
         }
-    } 
-    
-    public void fusionner(String u, String colonneFusion, Connection c,String[] idAutre) throws Exception{
+    }
+
+    public void fusionner(String u, String colonneFusion, Connection c, String[] idAutre) throws Exception {
         boolean ouvert = false;
 
         try {
@@ -82,11 +84,11 @@ public class FactureClient extends ClassMere {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            
+
             for (String idAutre1 : idAutre) {
                 fusionner(u, colonneFusion, c, idAutre1);
             }
-            
+
             if (ouvert) {
                 c.commit();
             }
@@ -101,17 +103,17 @@ public class FactureClient extends ClassMere {
             }
         }
     }
-    
+
     @Override
     public Object annulerValidation(String u, Connection c) throws Exception {
         this.controlerAnnulation(c);
         return super.annulerValidation(u, c);
     }
-    
-    public void payer(String caisse, String mode, String numcheque, String typeCheque, String iddevise, UserEJBBean user,Connection c) throws Exception{
+
+    public void payer(String caisse, String mode, String numcheque, String typeCheque, String iddevise, UserEJBBean user, Connection c) throws Exception {
         System.out.println("-----------------FactureClienteeeeeeeeeeeeeeeeeeee.paye");
-        JournalCaisse journal=new JournalCaisse();
-       
+        JournalCaisse journal = new JournalCaisse();
+
         journal.setIdplacement(this.getId());
         journal.setTiers(this.getTiers());
         journal.setCredit(this.getMontantreste());
@@ -121,9 +123,9 @@ public class FactureClient extends ClassMere {
         journal.setNumcheque(numcheque);
         journal.setIdTypeCheque(typeCheque);
         journal.setIddevise(iddevise);
-        journal.setLibelle("Paiement multiple Auto "+this.getId());
-        journal.createObject(user.getUser().getTuppleID(),c);
-        
+        journal.setLibelle("Paiement multiple Auto " + this.getId());
+        journal.createObject(user.getUser().getTuppleID(), c);
+
         journal.viser(user, c);
     }
 
@@ -160,7 +162,8 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantHTEuro() {
-        return montantHTEuro;
+        return AdminGen.calculSommeDouble(listeDetails, "montantHTEuro");
+//        return montantHTEuro;
     }
 
     public void setMontantHTEuro(double montantHTEuro) {
@@ -168,7 +171,8 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantHTVADollar() {
-        return montantHTVADollar;
+        return getMontantHTEuro() * getCoeff();
+//        return montantHTVADollar;
     }
 
     public void setMontantHTVADollar(double montantHTVADollar) {
@@ -176,7 +180,8 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantTVADollar() {
-        return montantTVADollar;
+        return getMontantTVAEuro() * getCoeff();
+//        return montantTVADollar;
     }
 
     public void setMontantTVADollar(double montantTVADollar) {
@@ -184,13 +189,14 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantTTCDollar() {
-        return montantTTCDollar;
+        return getMontantTVADollar() + getMontantHTVADollar();
+//        return montantTTCDollar;
     }
 
     public void setMontantTTCDollar(double montantTTCDollar) {
         this.montantTTCDollar = montantTTCDollar;
     }
-    
+
     public String getEtatLib() {
         return etatLib;
     }
@@ -214,7 +220,7 @@ public class FactureClient extends ClassMere {
     public void setIdprevision(String idprevision) {
         this.idprevision = idprevision;
     }
-    
+
     @Override
     public String getValColLibelle() {
         return designation;
@@ -235,7 +241,7 @@ public class FactureClient extends ClassMere {
     public void setTypelib(String typelib) {
         this.typelib = typelib;
     }
-    
+
     public String getTierslib() {
         return tierslib;
     }
@@ -243,11 +249,17 @@ public class FactureClient extends ClassMere {
     public void setTierslib(String tierslib) {
         this.tierslib = tierslib;
     }
-    
+
     public void controlerAnnulation(Connection c) throws Exception {
-        if(getAvoir(c).length > 0) throw new Exception("Impossible à annuler: avoir existant");
-        if(getBonDeLivraison(c).length > 0) throw new Exception("Impossible à annuler: bon de livraison existant");
-        if(getPaiement(c).length > 0) throw new Exception("Impossible à annuler: paiement existant");
+        if (getAvoir(c).length > 0) {
+            throw new Exception("Impossible à annuler: avoir existant");
+        }
+        if (getBonDeLivraison(c).length > 0) {
+            throw new Exception("Impossible à annuler: bon de livraison existant");
+        }
+        if (getPaiement(c).length > 0) {
+            throw new Exception("Impossible à annuler: paiement existant");
+        }
     }
 
     @Override
@@ -266,7 +278,6 @@ public class FactureClient extends ClassMere {
     public String getLiaisonFille() {
         return "idmere";
     }
-    
 
     public void recurrent(UserEJB u, Connection c, String typefrequence, int nb) throws Exception {
         boolean ouvert = false;
@@ -318,59 +329,55 @@ public class FactureClient extends ClassMere {
             }
         }
     }
-    
-    public JournalCaisse[] getPaiement(Connection c) throws Exception{
+
+    public JournalCaisse[] getPaiement(Connection c) throws Exception {
         boolean isOpen = false;
-        try{
-            if(c == null){
+        try {
+            if (c == null) {
                 c = new UtilDB().GetConn();
                 isOpen = true;
             }
             JournalCaisse j = new JournalCaisse();
             j.setNomTable("journalcaisselib_vise");
-            JournalCaisse[] journals = (JournalCaisse[]) CGenUtil.rechercher(j, null, null, c, " and idplacement ='"+this.getId()+"'");
+            JournalCaisse[] journals = (JournalCaisse[]) CGenUtil.rechercher(j, null, null, c, " and idplacement ='" + this.getId() + "'");
             return journals;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             throw e;
-        }
-        finally{
-            if(c != null && isOpen){
+        } finally {
+            if (c != null && isOpen) {
                 c.close();
             }
         }
     }
-    
-    public BonDeLivraisonClient[] getBonDeLivraison(Connection c) throws Exception{
-	
-	boolean isOpen = false;
-	try{
-            if(c == null){
+
+    public BonDeLivraisonClient[] getBonDeLivraison(Connection c) throws Exception {
+
+        boolean isOpen = false;
+        try {
+            if (c == null) {
                 c = new UtilDB().GetConn();
                 isOpen = true;
             }
             BonDeLivraisonClient blc = new BonDeLivraisonClient();
-			blc.setNomTable("as_bondelivraison_cl");
-			BonDeLivraisonClient[] bondelivraisonclient = (BonDeLivraisonClient[]) CGenUtil.rechercher(blc, null, null, c, " and idbc ='"+this.getId()+"' and etat >= " + ConstanteEtat.getEtatValider());
-			return bondelivraisonclient;
-        }
-		catch(Exception e){
+            blc.setNomTable("as_bondelivraison_cl");
+            BonDeLivraisonClient[] bondelivraisonclient = (BonDeLivraisonClient[]) CGenUtil.rechercher(blc, null, null, c, " and idbc ='" + this.getId() + "' and etat >= " + ConstanteEtat.getEtatValider());
+            return bondelivraisonclient;
+        } catch (Exception e) {
             throw e;
-        }
-		finally{
-            if(c != null && isOpen){
+        } finally {
+            if (c != null && isOpen) {
                 c.close();
             }
         }
     }
-    
+
     public AvoirFC[] getAvoir(Connection c) throws Exception {
         boolean ouvert = false;
 
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
-                
+
                 ouvert = true;
             }
             AvoirFC avoirFC = new AvoirFC();
@@ -378,14 +385,14 @@ public class FactureClient extends ClassMere {
             AvoirFC[] avoir = (AvoirFC[]) CGenUtil.rechercher(avoirFC, null, null, c, " and idfacture = '" + this.getId() + "'");
             return avoir;
         } catch (Exception ex) {
-            
+
             throw ex;
         } finally {
             if (c != null && ouvert) {
                 c.close();
             }
         }
-        
+
     }
 
     @Override
@@ -436,16 +443,9 @@ public class FactureClient extends ClassMere {
         this.tiers = tiers;
     }
 
-    public double getMontantEuro() {
-        return montantEuro;
-    }
-
-    public void setMontantEuro(double montantEuro) {
-        this.montantEuro = montantEuro;
-    }
-
     public double getMontantTVAEuro() {
-        return montantTVAEuro;
+        return AdminGen.calculSommeDouble(listeDetails, "montantTVAEuro");
+//        return montantTVAEuro;
     }
 
     public void setMontantTVAEuro(double montantTVAEuro) {
@@ -515,6 +515,7 @@ public class FactureClient extends ClassMere {
     public void setMontantttc(double montantttc) {
         this.montantttc = montantttc;
     }
+
     public ArrayList<FactureClientDetails> getArrayDetails() {
         return arrayDetails;
     }
@@ -538,7 +539,7 @@ public class FactureClient extends ClassMere {
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
-    
+
     public double getMontantpaye() {
         return montantpaye;
     }
@@ -555,4 +556,52 @@ public class FactureClient extends ClassMere {
         this.montantreste = montantreste;
     }
 
+    public void setDeviseEuro(Connection c) throws Exception {
+        setDeviseEuro(getTauxRecent(c, "Eur"));
+    }
+
+    public void setDeviseDollar(Connection c) throws Exception {
+        setDeviseDollar(getTauxRecent(c, "Dollars"));
+    }
+
+    public double getTauxRecent(Connection c, String iddevise) throws Exception {
+        String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(this.getDaty()) + "' and iddevise = '" + iddevise + "') "
+                + " and iddevise = '" + iddevise + "'";
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
+
+        if (cd != null && cd.length > 0) {
+            return cd[0].getMontant();
+        }
+
+        return 0;
+    }
+
+    public void initDetails(Connection c) throws Exception {
+        int verif = 0;
+
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                verif = 1;
+            }
+
+            FactureClientDetails fcd = new FactureClientDetails();
+            fcd.setNomTable("FACTURE_CLIENT_MERE_FILLE");
+            listeDetails = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, " and idmere = '" + this.getId() + "'");
+            if (listeDetails == null) {
+                throw new Exception("Aucun details pour la facture " + this.getId());
+            }
+            
+            setDeviseEuro(c);
+            setDeviseDollar(c);
+            coeff = deviseEuro / deviseDollar;
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
 }
