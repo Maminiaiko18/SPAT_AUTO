@@ -37,11 +37,19 @@
     pi.getFormu().getChamp("idprevision").setLibelle("escale");
     pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
-    pi.getFormu().getChamp("type").setVisible(false);
+    
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
+    
+    affichage.Liste[] listes= new affichage.Liste[1];
+    
+    TypeObjet type = new TypeObjet();
+        type.setNomTable("typefc");
+        listes[0] = new Liste("type", type, "VAL", "id");
+    
+        pi.getFormu().changerEnChamp(listes);
     
     
     affichage.Liste[] listed = new affichage.Liste[2];
@@ -52,6 +60,8 @@
         TypeObjet mois = new TypeObjet();
         mois.setNomTable("mois");
         listed[1] = new Liste("mois", mois, "VAL", "id");
+        
+        
         
     pi.getFormufle().changerEnChamp(listed);
     
