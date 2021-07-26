@@ -40,7 +40,23 @@ public class Prevision extends ClassEtat {
     private String heure_depart;
     private String destination, escale;
     private String couleur = "#1E90FF";
-    private String noVoyage;
+    private String noVoyage, armateur,armateurlib;
+
+    public String getArmateur() {
+        return armateur;
+    }
+
+    public void setArmateur(String armateur) {
+        this.armateur = armateur;
+    }
+
+    public String getArmateurlib() {
+        return armateurlib;
+    }
+
+    public void setArmateurlib(String armateurlib) {
+        this.armateurlib = armateurlib;
+    }
 
     public OccupationMaterielNaval[] getPrestationsVisees(Connection c) throws Exception {
         OccupationMaterielNaval occupation = new OccupationMaterielNaval();
