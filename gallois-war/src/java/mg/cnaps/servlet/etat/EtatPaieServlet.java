@@ -232,7 +232,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("valconsignataire",liste[0].getValconsignataire());
                 param.put("caboteur","");
                 param.put("bornage","");
-                param.put("amateur","");
+                param.put("amateur",liste[0].getArmateurlib());
                 param.put("pavillon",liste[0].getPavillonnavire());
                 param.put("portP",liste[0].getValquaisprovenance());
                 param.put("portD",liste[0].getValquaisdestination());
