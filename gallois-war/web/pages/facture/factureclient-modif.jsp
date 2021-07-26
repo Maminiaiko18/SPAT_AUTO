@@ -136,7 +136,7 @@ try{
         document.getElementById("rubriquelibelle_<%=i%>").value = "<%=liste[i].getRubriquelib() != null ? liste[i].getRubriquelib() : Utilitaire.champNull(liste[i].getRubrique())%>";
         document.getElementById("idproduitlibelle_<%=i%>").value = "<%=liste[i].getProduit_lib() != null ? liste[i].getProduit_lib() : Utilitaire.champNull(liste[i].getIdproduit()) %>";
     <%}%>
-    document.getElementById("idprevisionlibelle").value = '<%=mere.getEscale()%>';
+    document.getElementById("idprevisionlibelle").value = '<%=Utilitaire.champNull(mere.getEscale())%>';
     
     var designation = document.getElementById("designation");
     var textarea = document.createElement("textarea");
