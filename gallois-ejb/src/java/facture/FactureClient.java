@@ -35,7 +35,7 @@ public class FactureClient extends ClassMere {
     private String tiers, designation, type, remarque, iduser,idprevision,escale;
     private double tva, montant, montanttva, montantttc,montantpaye,montantreste;
     private String tierslib;
-    private double montantavoir;
+    private double montantavoir, montantEuro, montantTVAEuro;
     private ArrayList<FactureClientDetails> arrayDetails;
     private String contact, adresse, etatLib, typelib;
 
@@ -368,6 +368,22 @@ public class FactureClient extends ClassMere {
 
     public void setTiers(String tiers) {
         this.tiers = tiers;
+    }
+
+    public double getMontantEuro() {
+        return montantEuro;
+    }
+
+    public void setMontantEuro(double montantEuro) {
+        this.montantEuro = montantEuro;
+    }
+
+    public double getMontantTVAEuro() {
+        return montantTVAEuro;
+    }
+
+    public void setMontantTVAEuro(double montantTVAEuro) {
+        this.montantTVAEuro = montantTVAEuro;
     }
 
     public String getDesignation() {
