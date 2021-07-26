@@ -38,6 +38,8 @@ public class FactureClient extends ClassMere {
     private double montantavoir, montantEuro, montantTVAEuro;
     private ArrayList<FactureClientDetails> arrayDetails;
     private String contact, adresse, etatLib, typelib;
+    private FactureClientDetails[] listeDetails;
+    private double deviseEuro,deviseDollar,coeff,montantHTEuro,montantHTVADollar,montantTVADollar,montantTTCDollar;
 
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
@@ -125,6 +127,70 @@ public class FactureClient extends ClassMere {
         journal.viser(user, c);
     }
 
+    public FactureClientDetails[] getListeDetails() {
+        return listeDetails;
+    }
+
+    public void setListeDetails(FactureClientDetails[] listeDetails) {
+        this.listeDetails = listeDetails;
+    }
+
+    public double getDeviseEuro() {
+        return deviseEuro;
+    }
+
+    public void setDeviseEuro(double deviseEuro) {
+        this.deviseEuro = deviseEuro;
+    }
+
+    public double getDeviseDollar() {
+        return deviseDollar;
+    }
+
+    public void setDeviseDollar(double deviseDollar) {
+        this.deviseDollar = deviseDollar;
+    }
+
+    public double getCoeff() {
+        return coeff;
+    }
+
+    public void setCoeff(double coeff) {
+        this.coeff = coeff;
+    }
+
+    public double getMontantHTEuro() {
+        return montantHTEuro;
+    }
+
+    public void setMontantHTEuro(double montantHTEuro) {
+        this.montantHTEuro = montantHTEuro;
+    }
+
+    public double getMontantHTVADollar() {
+        return montantHTVADollar;
+    }
+
+    public void setMontantHTVADollar(double montantHTVADollar) {
+        this.montantHTVADollar = montantHTVADollar;
+    }
+
+    public double getMontantTVADollar() {
+        return montantTVADollar;
+    }
+
+    public void setMontantTVADollar(double montantTVADollar) {
+        this.montantTVADollar = montantTVADollar;
+    }
+
+    public double getMontantTTCDollar() {
+        return montantTTCDollar;
+    }
+
+    public void setMontantTTCDollar(double montantTTCDollar) {
+        this.montantTTCDollar = montantTTCDollar;
+    }
+    
     public String getEtatLib() {
         return etatLib;
     }
