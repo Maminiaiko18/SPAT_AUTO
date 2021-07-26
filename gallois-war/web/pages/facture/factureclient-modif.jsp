@@ -23,6 +23,11 @@ try{
     PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
     pi.setLien((String) session.getValue("lien"));
     
+    affichage.Liste[] listeM = new affichage.Liste[1];
+        TypeObjet oM = new TypeObjet();
+        oM.setNomTable("TYPEFC");
+        listeM[0] = new Liste("type", oM, "VAL", "id");
+    pi.getFormu().changerEnChamp(listeM);
     
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeClientChoix.jsp");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
@@ -37,7 +42,7 @@ try{
     pi.getFormu().getChamp("iduser").setLibelle("User");
     pi.getFormu().getChamp("date_echeance").setLibelle("date d'Echeance");
     pi.getFormu().getChamp("daty").setLibelle("date");
-    pi.getFormu().getChamp("type").setVisible(false);
+    pi.getFormu().getChamp("type").setLibelle("Type FC");
     pi.getFormu().getChamp("etat").setAutre("readonly");
     pi.getFormu().getChamp("etat").setVisible(false);
      pi.getFormu().getChamp("iduser").setAutre("readonly");
