@@ -35,7 +35,7 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoiravectaux;
     private double qtelivree, restealivrer; 
     private Date datefact;
-    private String rubriquelib, idprestation;
+    private String rubriquelib, idprestation,clientlib;
     private int mois, annee;
     private String heureDebut, heureFin, moislib,anneelib;
 
@@ -47,6 +47,14 @@ public class FactureClientDetails extends ClassFille {
         this.produit_lib = produit_lib;
     }
 
+    public String getClientlib() {
+        return clientlib;
+    }
+
+    public void setClientlib(String clientlib) {
+        this.clientlib = clientlib;
+    }
+    
     
     public OccupationMaterielNaval getPrestation(Connection c) throws Exception {
         OccupationMaterielNaval prestation=new OccupationMaterielNaval();
