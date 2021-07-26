@@ -42,7 +42,9 @@
         pc.getChampByName("heure_arrivee").setLibelle("Heure d'arrivée");
         pc.getChampByName("heure_depart").setLibelle("Heure de départ");
         pc.getChampByName("nomnavire").setLibelle("Navire");
+        pc.getChampByName("armateurlib").setLibelle("Armateur");
         pc.getChampByName("idnavire").setVisible(false);
+        pc.getChampByName("armateur").setVisible(false);
         pc.getChampByName("nomnavire").setLien(lien+"?but=capitainerie/navire-fiche.jsp", "id="+((PrevisionLibComplet)pc.getBase()).getIdnavire()+"&nom=");
         pc.getChampByName("valconsignataire").setLibelle("Consignataire");
         pc.getChampByName("valcargaison").setLibelle("Cargaison");
