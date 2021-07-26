@@ -752,8 +752,19 @@ public class EtatPaieServlet extends HttpServlet {
             e.setNomTable("factureclientMSum_lib");
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(e, null, null, null, " and id = '"+id+"'");
             if(mere.length!=0){
+            mg.spat.Prevision p = new mg.spat.Prevision();
+            p.setNomTable("PREVISIONLIBCOMPLET");
+            mg.spat.Prevision[] pre = (mg.spat.Prevision[]) CGenUtil.rechercher(p, null, null, null, " and id = '"+mere[0].getIdprevision()+"'");
+            if(pre.length!=0){
+                System.out.println("miditra="+pre[0].getArmateurlib());
+                 param.put("armateur",pre[0].getArmateurlib());
+            }
+            
+            
             param.put("daty",Utilitaire.formatterDatySql(mere[0].getDaty()));
             param.put("id",mere[0].getId());
+            param.put("type",mere[0].getTypelib());
+           
             param.put("client",mere[0].getTierslib());
             param.put("adresse",mere[0].getAdresse());
             param.put("phone",mere[0].getContact());

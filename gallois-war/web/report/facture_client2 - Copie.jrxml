@@ -77,6 +77,8 @@
 	<parameter name="montantTVA" class="java.lang.Double"/>
 	<parameter name="montant" class="java.lang.Double"/>
 	<parameter name="montantAvoir" class="java.lang.Double"/>
+	<parameter name="type" class="java.lang.String"/>
+	<parameter name="armateur" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -93,7 +95,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="122" splitType="Stretch">
+		<band height="201" splitType="Stretch">
 			<staticText>
 				<reportElement x="347" y="0" width="80" height="20" uuid="f1c3b42e-7265-4ad0-8da5-36a9914af94d"/>
 				<textElement verticalAlignment="Middle">
@@ -117,11 +119,11 @@
 				<text><![CDATA[N° :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="26" y="60" width="45" height="20" uuid="782dd403-aad1-4694-bce1-febf8b305400"/>
+				<reportElement x="0" y="91" width="81" height="20" uuid="782dd403-aad1-4694-bce1-febf8b305400"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Doit :]]></text>
+				<text><![CDATA[Consignataire:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="302" y="60" width="75" height="20" uuid="29653b0f-4824-41dd-9b2c-ead2ff1f27b0"/>
@@ -153,7 +155,7 @@
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="71" y="63" width="203" height="40" uuid="3ffc35ee-59eb-4256-a647-2773e7eff06a"/>
+				<reportElement x="84" y="94" width="203" height="40" uuid="3ffc35ee-59eb-4256-a647-2773e7eff06a"/>
 				<textElement verticalAlignment="Top" markup="none">
 					<font size="11" isBold="false"/>
 					<paragraph lineSpacing="1_1_2" leftIndent="3"/>
@@ -183,6 +185,28 @@
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{phone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="138" width="82" height="20" uuid="0dd25a86-ac6b-4b78-883b-7bf4ad8c3753"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Armateur:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="84" y="138" width="189" height="35" uuid="691089ed-936e-4fe8-b354-8d34b301c12c"/>
+				<textFieldExpression><![CDATA[$P{armateur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="49" width="82" height="20" uuid="634f294b-f6d6-4148-9084-8991690c46f6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="84" y="49" width="203" height="42" uuid="a759990f-4432-4ed6-8c6c-e50044a3987c"/>
+				<textFieldExpression><![CDATA[$P{type}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
