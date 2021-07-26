@@ -37,7 +37,7 @@ public class FactureClient extends ClassMere {
     private String tierslib;
     private double montantavoir;
     private ArrayList<FactureClientDetails> arrayDetails;
-    private String contact, adresse, etatLib;
+    private String contact, adresse, etatLib, typelib;
 
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
@@ -161,7 +161,14 @@ public class FactureClient extends ClassMere {
     public void setMontantavoir(double montantavoir) {
         this.montantavoir = montantavoir;
     }
-    
+
+    public String getTypelib() {
+        return typelib;
+    }
+
+    public void setTypelib(String typelib) {
+        this.typelib = typelib;
+    }
     
     public String getTierslib() {
         return tierslib;
