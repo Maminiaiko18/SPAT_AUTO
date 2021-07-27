@@ -14,7 +14,7 @@ import java.sql.Date;
  * @author Andri
  */
 public class EditionMICTSL extends ClassMAPTable{
-    private String id, type, noteExplicative;
+    private String id, type, noteexplicative;
     private Date daty;
     private int mois, annee;
     
@@ -30,12 +30,12 @@ public class EditionMICTSL extends ClassMAPTable{
         this.type = type;
     }
 
-    public String getNoteExplicative() {
-        return noteExplicative;
+    public String getNoteexplicative() {
+        return noteexplicative;
     }
 
-    public void setNoteExplicative(String noteExplicative) {
-        this.noteExplicative = noteExplicative;
+    public void setNoteexplicative(String noteExplicative) {
+        this.noteexplicative = noteExplicative;
     }
 
     public Date getDaty() {
