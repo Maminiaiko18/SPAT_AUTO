@@ -18,7 +18,7 @@
     PageRechercheChoix pr = new PageRechercheChoix(navire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.setApres("listeFactureProvisionChoix.jsp");
+    pr.setApres("choix/listeFactureProvisionChoix.jsp");
 
     pr.getFormu().getChamp("daty1").setLibelle("date debut");
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
