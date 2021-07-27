@@ -23,11 +23,19 @@ try{
     PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
     pi.setLien((String) session.getValue("lien"));
     
-    affichage.Liste[] listeM = new affichage.Liste[1];
+    affichage.Liste[] listeM = new affichage.Liste[2];
         TypeObjet oM = new TypeObjet();
         oM.setNomTable("TYPEFC");
         listeM[0] = new Liste("type", oM, "VAL", "id");
+        
+        TypeObjet oM1 = new TypeObjet();
+        oM1.setNomTable("categorieFC");
+        listeM[1] = new Liste("idcategorie", oM1, "VAL", "id");
     pi.getFormu().changerEnChamp(listeM);
+    
+    pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+    pi.getFormu().getChamp("idProvision").setAutre("readonly");
+    pi.getFormu().getChamp("idProvision").setLibelle("Provision");
     
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeClientChoix.jsp");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
@@ -36,6 +44,9 @@ try{
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setLibelle("Escale");
     pi.getFormu().getChamp("escale").setVisible(false);
+    pi.getFormu().getChamp("typelib").setVisible(false);
+    pi.getFormu().getChamp("categorielib").setVisible(false);
+    pi.getFormu().getChamp("idProvisionlib").setVisible(false);
     
     
     pi.getFormu().getChamp("iduser").setAutre("readonly");
@@ -43,7 +54,10 @@ try{
     pi.getFormu().getChamp("date_echeance").setLibelle("date d'Echeance");
     pi.getFormu().getChamp("daty").setLibelle("date");
     pi.getFormu().getChamp("type").setLibelle("Type FC");
+    pi.getFormu().getChamp("idcategorie").setLibelle("Catégorie");
+    
     pi.getFormu().getChamp("etat").setAutre("readonly");
+    pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
      pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("montant").setVisible(false);
@@ -142,6 +156,7 @@ try{
         document.getElementById("idproduitlibelle_<%=i%>").value = "<%=liste[i].getProduit_lib() != null ? liste[i].getProduit_lib() : Utilitaire.champNull(liste[i].getIdproduit()) %>";
     <%}%>
     document.getElementById("idprevisionlibelle").value = '<%=Utilitaire.champNull(mere.getEscale())%>';
+    document.getElementById("idProvisionlibelle").value = '<%=Utilitaire.champNull(mere.getIdProvisionlib())%>';
     
     var designation = document.getElementById("designation");
     var textarea = document.createElement("textarea");
