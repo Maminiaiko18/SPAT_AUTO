@@ -3,6 +3,8 @@
     Created on : 12 mai 2021, 14:37:18
     Author     : nyamp
 --%>
+<%@page import="utilitaire.Utilitaire"%>
+<%@page import="bean.CGenUtil"%>
 <%@page import="facture.FactureClient"%>
 <%@page import="facture.FactureClientDetails"%>
 <%@page import="bean.AdminGen"%>
@@ -14,7 +16,7 @@
 <%
     FactureClientDetails cht = new FactureClientDetails();
     cht.setNomTable("facture_client_fille_lib_reste");
-    String libEntete[] = {"id", "designation", "quantite","qtelivree","restealivrer", "devise","compte","pu", "taux","montanttaux","tva","montantTva","activitelib","mois","annee","heureDebut","heureFin"};
+    String libEntete[] = {"id", "designation", "quantite","qtelivree","restealivrer", "devise","compte","pu", "taux","montanttaux","tva","montantTva","montantHTEuro","montantTVAEuro","activitelib","heureDebut","heureFin"};
     String listeCrt[] = {"idmere"};
     String listeInt[] = {};
 
@@ -25,7 +27,7 @@
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "designation", "quantité","quantité livrée","reste à livrer", "devise","compte","pu", "taux","montant","tva","montant Tva","Activite","Mois","Année","Heure début","Heure fin"};
+    String libEnteteAffiche[] = {"id", "designation", "quantité","quantité livrée","reste à livrer", "devise","compte","pu", "taux","montant","tva","montant Tva","HT Euro","TVA Euro","Activite","Heure début","Heure fin"};
 //    String lienTableau[] = {pr.getLien() + "?but=avoir/avoir-fiche.jsp"};
 //    String colonneLien[] = {"id"};
 //    pr.getTableau().setLien(lienTableau);
@@ -48,9 +50,42 @@
         out.println(pr.getTableau().getHtml());
          double total=0;
         total=AdminGen.calculSommeDouble(liste,"montanttaux");
+        FactureClient facture = new FactureClient();
+        facture.setId(liste[0].getIdmere());
+        facture.initDetails(null);
+        double hTEuro = facture.getMontantHTEuro();
+        double tvaEuro = facture.getMontantTVAEuro();
+        double hTDollar = facture.getMontantHTVADollar();
+        double tvaDollar = facture.getMontantTVADollar();
+        double ttcDollar = facture.getMontantTTCDollar();
 %>
-        
-
+<div class="row">
+    <div class="col-md-7"></div>
+<div class="col-md-4">
+<table class="table table-striped table-bordered table-condensed table-responsive tree">
+    <tr>
+        <th>HT Euro</th>
+        <td><%=Utilitaire.formaterAr(hTEuro)%></td>
+    </tr>
+    <tr>
+        <th>TVA Euro</th>
+        <td><%=Utilitaire.formaterAr(tvaEuro)%></td>
+    </tr>
+    <tr>
+        <th>HT Dollar</th>
+        <td><%=Utilitaire.formaterAr(hTDollar)%></td>
+    </tr>
+    <tr>
+        <th>TVA Dollar</th>
+         <td><%=Utilitaire.formaterAr(tvaDollar)%></td>
+    </tr>
+    <tr>
+        <th>TTC Dollar</th>
+        <td><%=Utilitaire.formaterAr(ttcDollar)%></td>
+    </tr>
+</table>
+</div>
+</div>
         
     <% }else{
         %><center><h4>Aucun details </h4></center><%
