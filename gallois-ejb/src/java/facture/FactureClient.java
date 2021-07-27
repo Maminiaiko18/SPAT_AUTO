@@ -181,8 +181,10 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantHTEuro() {
+        if(listeDetails == null){
+            return montantHTEuro;
+        }
         return AdminGen.calculSommeDouble(listeDetails, "montantHTEuro");
-//        return montantHTEuro;
     }
 
     public void setMontantHTEuro(double montantHTEuro) {
@@ -463,8 +465,10 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantTVAEuro() {
+         if(listeDetails == null){
+            return montantTVAEuro;
+        }
         return AdminGen.calculSommeDouble(listeDetails, "montantTVAEuro");
-//        return montantTVAEuro;
     }
 
     public void setMontantTVAEuro(double montantTVAEuro) {
