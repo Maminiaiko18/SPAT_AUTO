@@ -596,6 +596,41 @@ public class FactureClient extends ClassMere {
     public void setDeviseDollar(Connection c) throws Exception {
         setDeviseDollar(getTauxRecent(c, "Dollars"));
     }
+    
+    public FactureClient genererDefinitive(UserEJB u, Connection c) throws Exception {
+        int verif = 0;
+        FactureClient fact2 = null;
+        
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            
+            FactureClient fc = this;
+            if(fc.getDaty() == null) fc = (FactureClient) this.getById(this.getId(), this.getNomTable(), c);
+            
+            fact2 = (FactureClient) fc.dupliquer(u.getUser().getTuppleID(), c);
+            fact2.setIdProvision(this.getId());
+            u.updateObject(fact2, c);
+            
+            if(verif == 1) c.commit();
+        } catch (Exception e) {
+            if(c != null && verif == 1) c.rollback();
+            throw e;
+        }
+        finally {
+            if(c != null && verif == 1) c.close();
+        }
+        
+        return fact2;
+    }
+    
+    public JournalCaisse[] getListePaiement(String id, Connection c) throws Exception {
+        String awhere = " and etat >= " + ConstanteEtat.getEtatValider() + " and idplacement = '" + id + "'";
+        return (JournalCaisse[]) CGenUtil.rechercher(new JournalCaisse(), null, null, c, awhere);
+    }
 
     public double getTauxRecent(Connection c, String iddevise) throws Exception {
         if(this.getDaty() == null){
