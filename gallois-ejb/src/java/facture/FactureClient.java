@@ -633,11 +633,11 @@ public class FactureClient extends ClassMere {
     }
 
     public void setDeviseEuro(Connection c) throws Exception {
-        setDeviseEuro(getTauxRecent(c, "Eur"));
+        setDeviseEuro(getTauxRecent(c, Constante.deviseEuro));
     }
 
     public void setDeviseDollar(Connection c) throws Exception {
-        setDeviseDollar(getTauxRecent(c, "Dollars"));
+        setDeviseDollar(getTauxRecent(c, Constante.deviseDollars));
     }
     
     public FactureClient genererDefinitive(UserEJB u, Connection c) throws Exception {
@@ -708,6 +708,14 @@ public class FactureClient extends ClassMere {
             
             setDeviseEuro(c);
             setDeviseDollar(c);
+            
+            for(int i=0; i < listeDetails.length; i++) {
+                if(listeDetails[i].getDevise().equalsIgnoreCase(Constante.deviseAr)) {
+                    listeDetails[i].setMontantHTEuro(listeDetails[i].getMontant() / this.getDeviseEuro());
+                    listeDetails[i].setMontantTVAEuro(listeDetails[i].getMontantTVAEuro() / this.getDeviseEuro());
+                }
+            }
+            
             coeff = deviseEuro / deviseDollar;
 
         } catch (Exception e) {

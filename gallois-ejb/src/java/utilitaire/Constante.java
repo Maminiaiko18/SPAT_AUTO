@@ -114,6 +114,8 @@ public class Constante {
     public static final String caisseCentraleBP = "CAIS000016";
     public static final String caisseCentraleEspece = "CAIS000015";
     public static final String deviseAr = "Ar";
+    public static final String deviseEuro = "Eur";
+    public static final String deviseDollars = "Dollars";
     public static final int rangMahitaNyHafa = 6;
     public static String bc = "/SPAT/DG/DECOMAA-";
     public static final int longueurNumeroBordereau = 4;
