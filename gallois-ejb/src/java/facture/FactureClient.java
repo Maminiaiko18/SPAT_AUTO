@@ -81,13 +81,22 @@ public class FactureClient extends ClassMere {
             throw new Exception("Il existe deja une facture definitive visee pour cette provision");
         }
         
-    }  
+    }
+    
+    public void updatePaiement(String u, Connection c) throws Exception {
+        JournalCaisse[] lst = getListePaiement(this.getIdProvision(), c);
+        for(int i=0; lst!=null && i<lst.length; i++){
+            lst[i].setIdplacement(this.getId());
+            lst[i].updateToTableWithHisto(u, c);
+        }
+    }
+    
     @Override
     public Object validerObject(String u, Connection c) throws Exception{
         if(this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive)){
             
             this.controlerVisaFactureDefinitive(c);
-            //this.updatePaiement(c);
+            this.updatePaiement(u, c);
 
         }
         super.validerObject(u, c);
