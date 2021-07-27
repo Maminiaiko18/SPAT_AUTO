@@ -70,7 +70,29 @@ public class FactureClient extends ClassMere {
             throw new Exception("Cette provision a deja ete facturee !");
         }
     }
-   
+    public void controlerVisaFactureDefinitive(Connection c) throws Exception{
+        if(this.getIdProvision()==null){
+            throw new Exception ("Aucune reference de provision pour cette facture");
+        }
+        FactureClient facture = new FactureClient();
+        facture.setEtat(ConstanteEtat.getEtatValider());
+        FactureClient[] factures= (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and idProvision ='" + this.getIdProvision()+ "' and type = 'definitive'");
+        if(factures.length>0){
+            throw new Exception("Il existe deja une facture definitive visee pour cette provision");
+        }
+        
+    }  
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception{
+        if(this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive)){
+            
+            this.controlerVisaFactureDefinitive(c);
+            //this.updatePaiement(c);
+
+        }
+        super.validerObject(u, c);
+        return this;
+    }
     
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
@@ -191,10 +213,8 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantHTEuro() {
-        if(listeDetails == null){
-            return montantHTEuro;
-        }
         return AdminGen.calculSommeDouble(listeDetails, "montantHTEuro");
+//        return montantHTEuro;
     }
 
     public void setMontantHTEuro(double montantHTEuro) {
@@ -475,10 +495,8 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantTVAEuro() {
-         if(listeDetails == null){
-            return montantTVAEuro;
-        }
         return AdminGen.calculSommeDouble(listeDetails, "montantTVAEuro");
+//        return montantTVAEuro;
     }
 
     public void setMontantTVAEuro(double montantTVAEuro) {
