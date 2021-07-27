@@ -59,7 +59,17 @@ public class FactureClient extends ClassMere {
         this.idProvision = idProvision;
     }
     
-
+    public void controlerDefinitive(Connection c) throws Exception {
+        if(!this.getIdcategorie().equals(Constante.idCategorieFCProvision) ){
+            throw new Exception("Cette facture n est pas une facture de provision!");
+        }
+        FactureClient fc = new FactureClient();
+        fc.setNomTable("ProvisionFactureDefinitive");
+        FactureClient[] lst = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, "id='"+this.id+"'");
+        if(lst.length > 0){
+            throw new Exception("Cette provision a deja ete facturee !");
+        }
+    }
    
     
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
