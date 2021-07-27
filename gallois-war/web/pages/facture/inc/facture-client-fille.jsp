@@ -58,30 +58,44 @@
         double hTDollar = facture.getMontantHTVADollar();
         double tvaDollar = facture.getMontantTVADollar();
         double ttcDollar = facture.getMontantTTCDollar();
+        double deviseEur = facture.getDeviseEuro();
+        double deviseDollar = facture.getDeviseDollar();
 %>
 <div class="row">
-    <div class="col-md-7"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <table class="table table-striped table-bordered table-condensed table-responsive tree">
+        <tr>
+            <th>Devise Euro</th>
+            <td align="right"><%=Utilitaire.formaterAr(deviseEur)%></td>
+        </tr>
+        <tr>
+            <th>Devise Dollar</th>
+            <td align="right"><%=Utilitaire.formaterAr(deviseDollar)%></td>
+        </tr>
+    </table>
+    </div>
 <div class="col-md-4">
 <table class="table table-striped table-bordered table-condensed table-responsive tree">
     <tr>
         <th>HT Euro</th>
-        <td><%=Utilitaire.formaterAr(hTEuro)%></td>
+        <td align="right"><%=Utilitaire.formaterAr(hTEuro)%></td>
     </tr>
     <tr>
         <th>TVA Euro</th>
-        <td><%=Utilitaire.formaterAr(tvaEuro)%></td>
+        <td align="right"><%=Utilitaire.formaterAr(tvaEuro)%></td>
     </tr>
     <tr>
         <th>HT Dollar</th>
-        <td><%=Utilitaire.formaterAr(hTDollar)%></td>
+        <td align="right"><%=Utilitaire.formaterAr(hTDollar)%></td>
     </tr>
     <tr>
         <th>TVA Dollar</th>
-         <td><%=Utilitaire.formaterAr(tvaDollar)%></td>
+         <td align="right"><%=Utilitaire.formaterAr(tvaDollar)%></td>
     </tr>
     <tr>
         <th>TTC Dollar</th>
-        <td><%=Utilitaire.formaterAr(ttcDollar)%></td>
+        <td align="right"><%=Utilitaire.formaterAr(ttcDollar)%></td>
     </tr>
 </table>
 </div>
