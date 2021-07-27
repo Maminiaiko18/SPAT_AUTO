@@ -51,17 +51,15 @@
         categorie=e.getIdcategorie();
     }
     if(categorie.equals(Constante.idCategorieFCDefinitive)){ 
-         pc.getChampByName("categorielib").setLibelle("Fiche Facture client");
+         pc.setTitre("Fiche Facture client");
     }
     else if(categorie.equals(Constante.idCategorieFCProforma)){ 
-         pc.getChampByName("categorielib").setLibelle("Fiche Facture Proforma");
+         pc.setTitre("Fiche Facture Proforma");
     }
     else if(categorie.equals(Constante.idCategorieFCProvision)){ 
-         pc.getChampByName("categorielib").setLibelle("Fiche Facture de provision");
+         pc.setTitre("Fiche Facture de provision");
     }
-    else{
-        pc.getChampByName("categorielib").setLibelle("Categorie FC");
-    }
+    pc.getChampByName("categorielib").setLibelle("Categorie");
        
 //
 //Si categorieFC = proforma alors “Fiche Facture Proforma”
