@@ -37,20 +37,28 @@
     pi.getFormu().getChamp("idprevision").setLibelle("escale");
     pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
+    pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     
-    affichage.Liste[] listes= new affichage.Liste[1];
+    affichage.Liste[] listes= new affichage.Liste[2];
     
     TypeObjet type = new TypeObjet();
         type.setNomTable("typefc");
         listes[0] = new Liste("type", type, "VAL", "id");
+        
+     TypeObjet categ = new TypeObjet();
+        categ.setNomTable("categorieFC");
+        listes[1] = new Liste("idcategorie", categ, "VAL", "id");
     
         pi.getFormu().changerEnChamp(listes);
     
+    pi.getFormu().getChamp("idProvision").setAutre("readonly");
+    pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
+    pi.getFormu().getChamp("idProvision").setLibelle("Provision");    
     
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
