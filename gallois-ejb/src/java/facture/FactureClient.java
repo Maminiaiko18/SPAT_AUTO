@@ -736,11 +736,15 @@ public class FactureClient extends ClassMere {
             setDeviseDollar(c);
             
             for(int i=0; i < listeDetails.length; i++) {
-                System.out.println("listeDetails i " + listeDetails[i].getMontant());
+                double montantHT = listeDetails[i].getMontant(), montantTVA = listeDetails[i].getMontantTva();
+                
                 if(listeDetails[i].getDevise().equalsIgnoreCase(Constante.deviseAr)) {
-                    listeDetails[i].setMontantHTEuro(listeDetails[i].getMontant() / this.getDeviseEuro());
-                    listeDetails[i].setMontantTVAEuro(listeDetails[i].getMontantTva() / this.getDeviseEuro());
+                    montantHT = listeDetails[i].getMontant() / this.getDeviseEuro();
+                    montantTVA = listeDetails[i].getMontantTva() / this.getDeviseEuro();
                 }
+                
+                listeDetails[i].setMontantHTEuro(montantHT);
+                listeDetails[i].setMontantTVAEuro(montantTVA);
             }
             
             coeff = deviseEuro / deviseDollar;
