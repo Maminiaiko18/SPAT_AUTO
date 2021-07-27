@@ -6,7 +6,6 @@
 package facture;
 
 import java.sql.Connection;
-import bean.ClassMAPTable;
 
 /**
  *
