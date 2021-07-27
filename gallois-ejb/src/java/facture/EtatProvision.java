@@ -5,18 +5,19 @@
  */
 package facture;
 
+import bean.ClassMAPTable;
 import java.sql.Connection;
 
 /**
  *
  * @author Andriamiary
  */
-public class EtatProvision {
+public class EtatProvision extends ClassMAPTable {
     private String id;
     private double montantfacture, montantprovision, ecart;
     
-    public EtatProvision(){
-        
+    public EtatProvision(){ 
+        this.setNomTable("etatprovision");
     }
        
     public String getId() {
@@ -50,5 +51,11 @@ public class EtatProvision {
     public void setEcart(double ecart) {
         this.ecart = ecart;
     }
+
+    @Override
+    public String getTuppleID() {return id;}
+
+    @Override
+    public String getAttributIDName() {return "id";}
     
 }
