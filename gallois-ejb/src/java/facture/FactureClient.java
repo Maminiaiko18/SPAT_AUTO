@@ -6,7 +6,6 @@
 package facture;
 
 import bean.CGenUtil;
-import bean.ClassEtat;
 import bean.ClassMAPTable;
 import bean.ClassMere;
 import bean.TypeObjet;
@@ -42,7 +41,27 @@ public class FactureClient extends ClassMere {
     private String contact, adresse, etatLib, typelib;
     private FactureClientDetails[] listeDetails;
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
+    private String idcategorie ,idProvision ;
 
+    public String getIdcategorie() {
+        return idcategorie;
+    }
+
+    public void setIdcategorie(String idcategorie) {
+        this.idcategorie = idcategorie;
+    }
+
+    public String getIdProvision() {
+        return idProvision;
+    }
+
+    public void setIdProvision(String idProvision) {
+        this.idProvision = idProvision;
+    }
+    
+
+   
+    
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");
