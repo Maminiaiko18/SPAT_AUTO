@@ -584,6 +584,9 @@ public class FactureClient extends ClassMere {
     }
 
     public double getTauxRecent(Connection c, String iddevise) throws Exception {
+        if(this.getDaty() == null){
+            this.setDaty(((FactureClient)this.getById(this.getId(), this.getNomTable(), c)).getDaty());
+        }
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(this.getDaty()) + "' and iddevise = '" + iddevise + "') "
                 + " and iddevise = '" + iddevise + "'";
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
