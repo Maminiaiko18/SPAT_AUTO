@@ -4,6 +4,7 @@ public class Constante {
     
     public static  final String  idCategorieFCDefinitive="CATFCO3";
     public static String idCategorieFCProvision="CATFCO2";
+    public static String idCategorieFCProforma="CATFCO1";
     public static String idcategorieCapitainerie="CATFC001";
     public static String idCessionEauDouce="RBR0126";
     public static String idServiceHauteMere="RBR0127";
