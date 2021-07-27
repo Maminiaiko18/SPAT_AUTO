@@ -376,7 +376,7 @@ public class Formulaire {
         setCrtFormu(transformerEnChamp(crt));
         Vector liste = new Vector();
         for (int i = 0; i < crt.length; i++) {
-            System.out.println("critere = "+crt[i]+" get Champ =========="+getObjet()+"======= "+ListeColonneTable.getChamp(getObjet(),crt[i]));
+            //System.out.println("critere = "+crt[i]+" get Champ =========="+getObjet()+"======= "+ListeColonneTable.getChamp(getObjet(),crt[i]));
             String type = ListeColonneTable.getChamp(getObjet(), crt[i]).getTypeColonne();
             //System.out.println("type ="+type);
             if (utilitaire.Utilitaire.estIlDedans(crt[i], listeInterval) != -1) //On fait des intervalles pour les valeurs dates et montant
