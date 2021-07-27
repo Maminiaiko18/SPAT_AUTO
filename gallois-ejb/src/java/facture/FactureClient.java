@@ -41,7 +41,23 @@ public class FactureClient extends ClassMere {
     private String contact, adresse, etatLib, typelib;
     private FactureClientDetails[] listeDetails;
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
-    private String idcategorie ,idProvision ;
+    private String idcategorie ,idProvision,categorielib, idProvisionlib;
+
+    public String getCategorielib() {
+        return categorielib;
+    }
+
+    public void setCategorielib(String categorielib) {
+        this.categorielib = categorielib;
+    }
+
+    public String getIdProvisionlib() {
+        return idProvisionlib;
+    }
+
+    public void setIdProvisionlib(String idProvisionlib) {
+        this.idProvisionlib = idProvisionlib;
+    }
 
     public String getIdcategorie() {
         return idcategorie;

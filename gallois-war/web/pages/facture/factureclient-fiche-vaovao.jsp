@@ -29,6 +29,9 @@
     pc.getChampByName("iduser").setVisible(false);
     pc.getChampByName("type").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("etatlib").setVisible(false);
+    pc.getChampByName("Idcategorie").setVisible(false);
+    pc.getChampByName("IdProvision").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("montant").setLibelle("Montant HT");
@@ -40,8 +43,30 @@
     pc.getChampByName("montantreste").setLibelle("Reste à payer");
     pc.getChampByName("typelib").setLibelle("Type");
     pc.getChampByName("escale").setLibelle("Escale");
-//    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp", "id");
+    pc.getChampByName("idProvisionlib").setLibelle("Provision");
     e = (FactureClient) pc.getBase();
+    pc.getChampByName("idProvisionlib").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp&id="+e.getIdProvision(), "idProvisionlib=");
+    String categorie="";
+    if(e.getIdcategorie()!=null){
+        categorie=e.getIdcategorie();
+    }
+    if(categorie.equals(Constante.idCategorieFCDefinitive)){ 
+         pc.getChampByName("categorielib").setLibelle("Fiche Facture client");
+    }
+    else if(categorie.equals(Constante.idCategorieFCProforma)){ 
+         pc.getChampByName("categorielib").setLibelle("Fiche Facture Proforma");
+    }
+    else if(categorie.equals(Constante.idCategorieFCProvision)){ 
+         pc.getChampByName("categorielib").setLibelle("Fiche Facture de provision");
+    }
+    else{
+        pc.getChampByName("categorielib").setLibelle("Categorie FC");
+    }
+       
+//
+//Si categorieFC = proforma alors “Fiche Facture Proforma”
+//
+//Si categorieFC = provision alors “Fiche Facture de provision”
     pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-fiche.jsp&id="+e.getIdprevision(), "escale=");
     String bute="facture/factureclient-fiche-vaovao.jsp";
     String classe="facture.FactureClient";
@@ -107,6 +132,12 @@
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + e.getId() %>" style="margin-right: 10px">Modifier</a>
                         <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
                         <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=annulerVisa&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Annuler visa</a>
+                        <%
+                            if(e.getType()!=null &&  e.getType().equals("provision")){%>
+                            <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId() %>&acte=genererDefinitive&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
+
+                            <%}
+                        %>
                     </p>
                     <hr>
                 </div>
