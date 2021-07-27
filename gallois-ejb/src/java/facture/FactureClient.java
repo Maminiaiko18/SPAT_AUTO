@@ -76,6 +76,7 @@ public class FactureClient extends ClassMere {
     }
     
     public void controlerDefinitive(Connection c) throws Exception {
+        if(this.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Provision non visee");
         if(!this.getIdcategorie().equals(Constante.idCategorieFCProvision) ){
             throw new Exception("Cette facture n est pas une facture de provision!");
         }
@@ -238,8 +239,8 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantHTEuro() {
+        if(listeDetails == null) return montantHTEuro;
         return AdminGen.calculSommeDouble(listeDetails, "montantHTEuro");
-//        return montantHTEuro;
     }
 
     public void setMontantHTEuro(double montantHTEuro) {
@@ -520,8 +521,8 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantTVAEuro() {
+        if(listeDetails == null) return montantTVAEuro;
         return AdminGen.calculSommeDouble(listeDetails, "montantTVAEuro");
-//        return montantTVAEuro;
     }
 
     public void setMontantTVAEuro(double montantTVAEuro) {
@@ -654,6 +655,8 @@ public class FactureClient extends ClassMere {
             FactureClient fc = this;
             if(fc.getDaty() == null) fc = (FactureClient) this.getById(this.getId(), this.getNomTable(), c);
             
+            fc.controlerDefinitive(c);
+            
             fact2 = (FactureClient) fc.dupliquer(u.getUser().getTuppleID(), c);
             fact2.setIdProvision(this.getId());
             u.updateObject(fact2, c);
@@ -700,7 +703,7 @@ public class FactureClient extends ClassMere {
             }
 
             FactureClientDetails fcd = new FactureClientDetails();
-            fcd.setNomTable("FACTURE_CLIENT_MERE_FILLE");
+            fcd.setNomTable("facture_client_montanttc");
             listeDetails = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, " and idmere = '" + this.getId() + "'");
             if (listeDetails == null) {
                 throw new Exception("Aucun details pour la facture " + this.getId());
@@ -710,9 +713,10 @@ public class FactureClient extends ClassMere {
             setDeviseDollar(c);
             
             for(int i=0; i < listeDetails.length; i++) {
+                System.out.println("listeDetails i " + listeDetails[i].getMontant());
                 if(listeDetails[i].getDevise().equalsIgnoreCase(Constante.deviseAr)) {
                     listeDetails[i].setMontantHTEuro(listeDetails[i].getMontant() / this.getDeviseEuro());
-                    listeDetails[i].setMontantTVAEuro(listeDetails[i].getMontantTVAEuro() / this.getDeviseEuro());
+                    listeDetails[i].setMontantTVAEuro(listeDetails[i].getMontantTva() / this.getDeviseEuro());
                 }
             }
             

@@ -116,6 +116,7 @@ public class Constante {
     public static final String deviseAr = "Ar";
     public static final String deviseEuro = "Eur";
     public static final String deviseDollars = "Dollars";
+    public static final String idprovision = "TFC003";
     public static final int rangMahitaNyHafa = 6;
     public static String bc = "/SPAT/DG/DECOMAA-";
     public static final int longueurNumeroBordereau = 4;
