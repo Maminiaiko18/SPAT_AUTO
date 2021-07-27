@@ -120,6 +120,29 @@ public class FactureClient extends ClassMere {
         return this;
     }
     
+    public FactureClient genererRedevanceFixe(int mois, int annee, Connection c)throws Exception {
+        return null;
+    }
+
+    public FactureClient genererRedevanceVariable(int mois, int annee, Connection c)throws Exception {
+        return null;
+    }
+    
+    public FactureClient genererDroitDePort(int mois, int annee, Connection c) throws Exception {
+        return null;
+    }
+    
+    public FactureClient creerMICTSL(Date d, String type, String noteExplicative, int mois, int annee, Connection c) throws Exception {
+        if(type.equals("1")){
+            return genererRedevanceFixe(mois, annee, c);
+        }else if(type.equals("2")){
+            return genererRedevanceVariable(mois, annee, c);
+        }else if(type.equals("3")){
+            return genererDroitDePort(mois, annee, c);
+        }
+        return null;
+    }
+    
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");
