@@ -47,27 +47,26 @@ public class LigneCredit extends ClassEtat {
              if(date1!=null   && !date1.equals("")) where+= " and daty >= '"+date1+"'";
              if(date2!=null   && !date2.equals("")) where+= " and daty <= '"+date2+"'";
              if(etat != null && !etat.equals("")) where += " and l.etat = " + etat;
-             
-             String req = "SELECT l.id    AS                                id,\n" +
-                    "       l.DESIGNATION AS                                designation,\n" +
-                    "       l.COMPTE      AS                                compte,\n" +
-                    "       l.ANNEE       AS                                annee,\n" +
-                    "       l.MONTANT     AS                                montant,\n" +
-                    "       l.etat,\n" +
-                    "       CAST(NVL(SUM(nvl(mf.pu, 0) * mf.QTE ), 0) AS NUMBER(30, 3))\n" +
-                    "                     AS                                facture,\n" +
-                    "       CAST(NVL(SUM(montantpaye), 0) AS NUMBER(30, 2)) paye,\n" +
-                    "       mf.DATY\n" +
-                    "FROM LIGNECREDITDEPENSE l\n" +
-                    "         LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n" +
-                    "                   ON SUBSTR(mf.COMPTE, 0, LENGTH(l.COMPTE)) LIKE l.COMPTE\n" +
-                    "                       AND EXTRACT(YEAR FROM daty) = l.ANNEE\n" +where+
-                    "GROUP BY l.id,\n" +
-                    "         l.DESIGNATION,\n" +
-                    "         l.COMPTE,\n" +
-                    "         l.ANNEE,\n" +
-                    "         l.MONTANT, l.etat,\n" +
-                    "         mf.DATY";
+             String req = "SELECT l.id        AS                        id,\n" +
+                        "       l.DESIGNATION AS                        designation,\n" +
+                        "       l.COMPTE      AS                        compte,\n" +
+                        "       l.ANNEE       AS                        annee,\n" +
+                        "       l.MONTANT     AS                        montant,\n" +
+                        "       l.etat,\n" +
+                        "       CAST(SUM(mf.QUANTITE * mf.pu * mf.TAUX) AS NUMBER(30, 3))\n" +
+                        "                     AS                        facture,\n" +
+                        "       CAST(SUM(montantpaye) AS NUMBER(30, 3)) paye,\n" +
+                        "       mf.DATY\n" +
+                        "FROM LIGNECREDITRECETTE l\n" +
+                        "         LEFT JOIN FACTURE_CLIENT_MEREF_paye mf\n" +
+                        "                   ON SUBSTR(mf.COMPTE, 0, LENGTH(l.COMPTE)) LIKE l.COMPTE\n" +
+                        "                       AND EXTRACT(YEAR FROM DATY) = l.ANNEE and mf.IDMERE not in\n" +
+                        "                                                                 (select id from ProvisionFactureDefinitive)\n" +
+                        " "+where+ "GROUP BY l.id,\n" +
+                        "         l.DESIGNATION,\n" +
+                        "         l.COMPTE,\n" +
+                        "         l.ANNEE,\n" +
+                        "         l.MONTANT, l.etat, mf.DATY";
              
                System.out.println("req=="+req);
              LigneCredit stock = new LigneCredit();
