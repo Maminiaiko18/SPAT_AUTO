@@ -748,13 +748,23 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             Map param = new HashMap();
             String id = request.getParameter("id");
-            FactureClient e = new FactureClient();
-            e.setNomTable("factureclientMSum_lib");
-            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(e, null, null, null, " and id = '"+id+"'");
+            FactureClient facture = new FactureClient();
+            facture.setNomTable("factureclientMSum_lib");
+            
+            
+            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
             if(mere.length!=0){
             mg.spat.Prevision p = new mg.spat.Prevision();
             p.setNomTable("PREVISIONLIBCOMPLET");
             mg.spat.Prevision[] pre = (mg.spat.Prevision[]) CGenUtil.rechercher(p, null, null, null, " and id = '"+mere[0].getIdprevision()+"'");
+            
+            facture.setId(id);
+            facture.initDetails(null);
+            double hTEuro = facture.getMontantHTEuro();
+            double tvaEuro = facture.getMontantTVAEuro();
+            double hTDollar = facture.getMontantHTVADollar();
+            double tvaDollar = facture.getMontantTVADollar();
+            double ttcDollar = facture.getMontantTTCDollar();
             if(pre.length!=0){
                 System.out.println("miditra="+pre[0].getArmateurlib());
                  param.put("armateur",pre[0].getArmateurlib());
@@ -764,7 +774,9 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("daty",Utilitaire.formatterDatySql(mere[0].getDaty()));
             param.put("id",mere[0].getId());
             param.put("type",mere[0].getTypelib());
-           
+            param.put("cat",mere[0].getCategorielib());
+            
+          
             param.put("client",mere[0].getTierslib());
             param.put("adresse",mere[0].getAdresse());
             param.put("phone",mere[0].getContact());
@@ -775,6 +787,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("tva",mere[0].getTva());
             String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
             param.put("montantlettre",montantlettre);
+            param.put("htdollar",115);
             }
             FactureClientDetails cht = new FactureClientDetails();
             cht.setNomTable("FACTURE_CLIENT_FILLE_LIB_PDF");
