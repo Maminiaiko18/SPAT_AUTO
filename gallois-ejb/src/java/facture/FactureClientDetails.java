@@ -38,7 +38,15 @@ public class FactureClientDetails extends ClassFille {
     private String rubriquelib, idprestation,clientlib;
     private int mois, annee;
     private String heureDebut, heureFin, moislib,anneelib;
-    private double montantHTEuro,montantTVAEuro;
+    private double montantHTEuro,montantTVAEuro, montanttaxe;
+
+    public double getMontanttaxe() {
+        return montanttaxe;
+    }
+
+    public void setMontanttaxe(double montanttaxe) {
+        this.montanttaxe = montanttaxe;
+    }
 
     public String getProduit_lib() {
         return produit_lib;
