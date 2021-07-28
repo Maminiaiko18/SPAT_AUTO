@@ -790,6 +790,8 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("htdollar",hTDollar);
             param.put("dollartva",tvaDollar);
             param.put("dollarttc",ttcDollar);
+            param.put("hteuro",hTEuro);
+            param.put("tvaeuro",tvaEuro);
             }
             FactureClientDetails cht = new FactureClientDetails();
             cht.setNomTable("FACTURE_CLIENT_FILLE_LIB_PDF");
