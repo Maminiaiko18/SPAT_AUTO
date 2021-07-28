@@ -48,7 +48,7 @@ public class FactureClient extends ClassMere {
         FactureClientDetails  fcd = new FactureClientDetails();
         fcd.setNomTable("FACTURE_CLIENT_FILLE_VM");
         
-        String awhere = " and tiers = '%s' and rubrique in ('%s', '%s') and mois = %s and annee = %s";
+        String awhere = " and tiers in ('%s', '%s') and rubrique = '%s' and mois = %s and annee = %s";
         awhere = String.format(awhere, Constante.idMICTSL, Constante.idMICTSL2, Constante.idRedevanceFixe, mois, annee);
         FactureClientDetails[] tab = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, awhere);
         
