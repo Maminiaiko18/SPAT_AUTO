@@ -26,8 +26,8 @@
             u = (UserEJB) session.getAttribute("u");
             lien = (String) session.getValue("lien");
             apresLien = bute;
-
-            if (acte.compareToIgnoreCase("fusionner") == 0) {
+            
+            if (acte != null && acte.compareToIgnoreCase("fusionner") == 0) {
                 System.out.println("===================================== fusionner =====================================");
                 String[] listeFacture = request.getParameterValues("id");
                 if (listeFacture == null && listeFacture.length == 0) {
@@ -43,27 +43,27 @@
                 facture.fusionner(u.getUser().getTuppleID(), colonneFusion, null, idautre);
             }
 
-            if (acte.compareToIgnoreCase("payer") == 0) {
+            if (acte != null && acte.compareToIgnoreCase("payer") == 0) {
                 apresLien = u.checkPageSelonUtilisateur(idfacture, null);
             }
             
-            if (acte.compareToIgnoreCase("genererMICTSL") == 0) {
+            if (acte != null && acte.compareToIgnoreCase("genererMICTSL") == 0) {
                 int mois = Utilitaire.stringToInt(request.getParameter("mois"));
                 int annee = Utilitaire.stringToInt(request.getParameter("annee"));
                 String type = request.getParameter("type");
                 String noteExplicative = request.getParameter("noteExplicative");
                 Date daty = Utilitaire.stringDate(request.getParameter("daty"));
                  FactureClient factureclient = new FactureClient();
-                factureclient = (FactureClient) factureclient.getById(idfacture, "Factureclient", null);
+//                factureclient = (FactureClient) factureclient.getById(idfacture, "Factureclient", null);
                 
                 FactureClient factRetour  = factureclient.creerMICTSL(daty, type, noteExplicative, mois, annee, u.getUser().getTuppleID(),null);
-                factRetour.createObject(u.getUser().getTuppleID(), null);
+//                factRetour.createObject(u.getUser().getTuppleID(), null);
                 %>
-                <script language="JavaScript"> document.location.replace("<%=lien%>?but=facture/factureclient-modif.jsp&id=<%=factRetour.getId()%>);</script>
+                <script language="JavaScript"> document.location.replace("<%=lien%>?but=facture/factureclient-modif.jsp&id=<%=factRetour.getId()%>");</script>
                 <%
             }
 
-            if (acte.compareToIgnoreCase("genererDefinitive") == 0) {
+            if (acte != null && acte.compareToIgnoreCase("genererDefinitive") == 0) {
                 FactureClient facture = new FactureClient();
                 facture = (FactureClient) facture.getById(idfacture, facture.getNomTable(), null);
                 
@@ -73,7 +73,7 @@
                 apresLien = "facture/factureclient-modif.jsp&id=" + fact2.getId();
             }
 
-            if (acte.compareToIgnoreCase("editerBED") == 0) {
+            if (acte != null && acte.compareToIgnoreCase("editerBED") == 0) {
                 String[] listeFacture = request.getParameterValues("id");
 
                 if (listeFacture == null) {

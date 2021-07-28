@@ -51,7 +51,7 @@
 <div class="content-wrapper">
     <h1> <%=titre%></h1>
     
-    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
+    <form action="<%=pi.getLien()%>?but=apresFacture.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());

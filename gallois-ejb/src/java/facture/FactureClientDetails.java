@@ -39,7 +39,24 @@ public class FactureClientDetails extends ClassFille {
     private int mois, annee;
     private String heureDebut, heureFin, moislib,anneelib;
     private double montantHTEuro,montantTVAEuro, montanttaxe;
-
+    
+    public static Date getFinMois(int mois, int annee) {
+        String moisS = mois < 10 ? "0" + mois : "" + mois; 
+        Date date = Utilitaire.stringDate("01/" + moisS + "/" + annee);
+        
+        return Utilitaire.getLastDayOfDateSQL(date);
+    }
+    
+    public double getTauxFinDuMois(Connection c, int mois, int annee, String iddevise) throws Exception {
+        Date finDuMois = getFinMois(mois, annee);
+                
+        String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(finDuMois) + "' and iddevise = '" + iddevise + "') "
+                + " and iddevise = '" + iddevise + "'";
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
+        
+        return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
+    }
+    
     public double getMontanttaxe() {
         return montanttaxe;
     }

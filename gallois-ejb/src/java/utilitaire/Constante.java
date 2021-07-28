@@ -14,6 +14,7 @@ public class Constante {
     public static String idStationnement="RB0000000021170449";
     public static String idDroitDePortCalcule="RB0000000021170444";
     public static String idRedevanceCommunaleCalcule="RB0000000021170448";
+    public static String idRedevanceFixe="RB0000000026172740";
     public static String idPilotageCalcule="RB0000000021170445";
     public static String idRemorquageCalcule="RB0000000021170446";
     public static String idLamanageCalcule="RB0000000021170447";
@@ -25,6 +26,7 @@ public class Constante {
     public static String societe = "TS0002";
     public static String typesociete = "TSAI002";
     public static String typeconteneur = "TSAI001";
+    public static String idMICTSL = "0120037";
     public static String mictsl = "NS004";
     private static String idTypeLCRecette = "TLC00001";
     private static String idTypeLCDepense = "TLC00002";

@@ -24,6 +24,7 @@ import avoir.AvoirFC;
 import bean.AdminGen;
 import bean.ClassFille;
 import fin.Coursdevise;
+import mg.spat.exploitant.Rubrique;
 
 /**
  *
@@ -41,8 +42,11 @@ public class FactureClient extends ClassMere {
     private String contact, adresse, etatLib, typelib;
     private FactureClientDetails[] listeDetails;
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
-    private String idcategorie ,idProvision,categorielib, idProvisionlib;
-
+    private String idcategorie, idProvision, categorielib, idProvisionlib;
+    
+    public void controlerRedevanceFixe(Connection c) throws Exception {
+    }
+    
     public String getCategorielib() {
         return categorielib;
     }
@@ -74,44 +78,47 @@ public class FactureClient extends ClassMere {
     public void setIdProvision(String idProvision) {
         this.idProvision = idProvision;
     }
-    
+
     public void controlerDefinitive(Connection c) throws Exception {
-        if(this.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Provision non visee");
-        if(!this.getIdcategorie().equals(Constante.idCategorieFCProvision) ){
+        if (this.getEtat() < ConstanteEtat.getEtatValider()) {
+            throw new Exception("Provision non visee");
+        }
+        if (!this.getIdcategorie().equals(Constante.idCategorieFCProvision)) {
             throw new Exception("Cette facture n est pas une facture de provision!");
         }
         FactureClient fc = new FactureClient();
         fc.setNomTable("ProvisionFactureDefinitive");
-        FactureClient[] lst = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, "id='"+this.id+"'");
-        if(lst.length > 0){
+        FactureClient[] lst = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, "id='" + this.id + "'");
+        if (lst.length > 0) {
             throw new Exception("Cette provision a deja ete facturee !");
         }
     }
-    public void controlerVisaFactureDefinitive(Connection c) throws Exception{
-        if(this.getIdProvision()==null){
-            throw new Exception ("Aucune reference de provision pour cette facture");
+
+    public void controlerVisaFactureDefinitive(Connection c) throws Exception {
+        if (this.getIdProvision() == null) {
+            throw new Exception("Aucune reference de provision pour cette facture");
         }
         FactureClient facture = new FactureClient();
         facture.setEtat(ConstanteEtat.getEtatValider());
-        FactureClient[] factures= (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and idProvision ='" + this.getIdProvision()+ "' and type = 'definitive'");
-        if(factures.length>0){
+        FactureClient[] factures = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and idProvision ='" + this.getIdProvision() + "' and type = 'definitive'");
+        if (factures.length > 0) {
             throw new Exception("Il existe deja une facture definitive visee pour cette provision");
         }
-        
+
     }
-    
+
     public void updatePaiement(String u, Connection c) throws Exception {
         JournalCaisse[] lst = getListePaiement(this.getIdProvision(), c);
-        for(int i=0; lst!=null && i<lst.length; i++){
+        for (int i = 0; lst != null && i < lst.length; i++) {
             lst[i].setIdplacement(this.getId());
             lst[i].updateToTableWithHisto(u, c);
         }
     }
-    
+
     @Override
-    public Object validerObject(String u, Connection c) throws Exception{
-        if(this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive)){
-            
+    public Object validerObject(String u, Connection c) throws Exception {
+        if (this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive)) {
+
             this.controlerVisaFactureDefinitive(c);
             this.updatePaiement(u, c);
 
@@ -119,30 +126,90 @@ public class FactureClient extends ClassMere {
         super.validerObject(u, c);
         return this;
     }
-    
-    public FactureClient genererRedevanceFixe(int mois, int annee, String u, Connection c)throws Exception {
+
+    public FactureClient genererRedevanceFixe(int mois, int annee, String u, Connection c) throws Exception {
+        boolean ouvert = false;
+        
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            
+            controlerRedevanceFixe(c);
+            
+            String moisEnLettre = Utilitaire.nbToMois(mois);
+            String designation = "Redevance Fixe MICTSL " + moisEnLettre + " " + annee;
+                        
+        //Generer Details
+            FactureClientDetails fcd = new FactureClientDetails();
+            fcd.setDesignation(designation);
+            fcd.setQuantite(0.5);
+            
+            Rubrique rubRedevance = new Rubrique();
+            rubRedevance = (Rubrique) rubRedevance.getById(Constante.idRedevanceFixe, rubRedevance.getNomTable(), c);
+            
+            fcd.setRubrique(rubRedevance.getId());
+            fcd.setPu(Utilitaire.stringToDouble(rubRedevance.getPu()));
+            fcd.setDevise(rubRedevance.getDevise());
+            
+            double taux = fcd.getTauxFinDuMois(c, mois, annee, fcd.getDevise());
+            
+//            System.out.println("taux " + taux);
+            
+            fcd.setTaux(taux);
+            
+        //Generer Facture
+            FactureClient fc = new FactureClient(Utilitaire.dateDuJourSql(), Constante.idMICTSL, designation, 0);
+            fc.setIdcategorie(Constante.idCategorieFCDefinitive);
+            
+            fc.setIduser(u);
+            
+//            fc.setFille(new FactureClientDetails[] {fcd}); Modifie à nouveau la valeur du taux
+            
+            fc.createObject(u, c);
+            fcd.setIdmere(fc.getId());
+            fcd.controler(c);
+            fcd.construirePK(c);
+            fcd.insertToTableWithHisto(u, c);
+            
+            if (ouvert) {
+                c.commit();
+            }
+            
+            return fc;
+        } catch (Exception ex) {
+            if (c != null && ouvert) {
+                c.rollback();
+            }
+            throw ex;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }        
+    }
+
+    public FactureClient genererRedevanceVariable(int mois, int annee, String u, Connection c) throws Exception {
         return null;
     }
 
-    public FactureClient genererRedevanceVariable(int mois, int annee, String u,Connection c)throws Exception {
-        return null;
-    }
-    
     public FactureClient genererDroitDePort(int mois, int annee, String u, Connection c) throws Exception {
         return null;
     }
-    
+
     public FactureClient creerMICTSL(Date d, String type, String noteExplicative, int mois, int annee, String u, Connection c) throws Exception {
-        if(type.equals("1")){
+        if (type.equals("1")) {
             return genererRedevanceFixe(mois, annee, u, c);
-        }else if(type.equals("2")){
+        } else if (type.equals("2")) {
             return genererRedevanceVariable(mois, annee, u, c);
-        }else if(type.equals("3")){
+        } else if (type.equals("3")) {
             return genererDroitDePort(mois, annee, u, c);
         }
         return null;
     }
-    
+
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");
@@ -262,7 +329,9 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantHTEuro() {
-        if(listeDetails == null) return montantHTEuro;
+        if (listeDetails == null) {
+            return montantHTEuro;
+        }
         return AdminGen.calculSommeDouble(listeDetails, "montantHTEuro");
     }
 
@@ -413,10 +482,10 @@ public class FactureClient extends ClassMere {
 //                    System.out.println("fc " + fc.getId());
                     u.updateObject(fc, c);
                 }
+            }
 
-                if (ouvert) {
-                    c.commit();
-                }
+            if (ouvert) {
+                c.commit();
             }
         } catch (Exception ex) {
             if (c != null && ouvert) {
@@ -544,7 +613,9 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantTVAEuro() {
-        if(listeDetails == null) return montantTVAEuro;
+        if (listeDetails == null) {
+            return montantTVAEuro;
+        }
         return AdminGen.calculSommeDouble(listeDetails, "montantTVAEuro");
     }
 
@@ -663,47 +734,54 @@ public class FactureClient extends ClassMere {
     public void setDeviseDollar(Connection c) throws Exception {
         setDeviseDollar(getTauxRecent(c, Constante.deviseDollars));
     }
-    
+
     public FactureClient genererDefinitive(UserEJB u, Connection c) throws Exception {
         int verif = 0;
         FactureClient fact2 = null;
-        
+
         try {
-            if(c == null) {
+            if (c == null) {
                 c = (new UtilDB()).GetConn();
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            
+
             FactureClient fc = this;
-            if(fc.getDaty() == null) fc = (FactureClient) this.getById(this.getId(), this.getNomTable(), c);
-            
+            if (fc.getDaty() == null) {
+                fc = (FactureClient) this.getById(this.getId(), this.getNomTable(), c);
+            }
+
             fc.controlerDefinitive(c);
-            
+
             fact2 = (FactureClient) fc.dupliquer(u.getUser().getTuppleID(), c);
             fact2.setIdProvision(this.getId());
             u.updateObject(fact2, c);
-            
-            if(verif == 1) c.commit();
+
+            if (verif == 1) {
+                c.commit();
+            }
         } catch (Exception e) {
-            if(c != null && verif == 1) c.rollback();
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
             throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
         }
-        finally {
-            if(c != null && verif == 1) c.close();
-        }
-        
+
         return fact2;
     }
-    
+
     public JournalCaisse[] getListePaiement(String id, Connection c) throws Exception {
         String awhere = " and etat >= " + ConstanteEtat.getEtatValider() + " and idplacement = '" + id + "'";
         return (JournalCaisse[]) CGenUtil.rechercher(new JournalCaisse(), null, null, c, awhere);
     }
 
     public double getTauxRecent(Connection c, String iddevise) throws Exception {
-        if(this.getDaty() == null){
-            this.setDaty(((FactureClient)this.getById(this.getId(), this.getNomTable(), c)).getDaty());
+        if (this.getDaty() == null) {
+            this.setDaty(((FactureClient) this.getById(this.getId(), this.getNomTable(), c)).getDaty());
         }
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(this.getDaty()) + "' and iddevise = '" + iddevise + "') "
                 + " and iddevise = '" + iddevise + "'";
@@ -731,22 +809,22 @@ public class FactureClient extends ClassMere {
             if (listeDetails == null) {
                 throw new Exception("Aucun details pour la facture " + this.getId());
             }
-            
+
             setDeviseEuro(c);
             setDeviseDollar(c);
-            
-            for(int i=0; i < listeDetails.length; i++) {
+
+            for (int i = 0; i < listeDetails.length; i++) {
                 double montantHT = listeDetails[i].getMontant(), montantTVA = listeDetails[i].getMontanttaxe();
-                
-                if(listeDetails[i].getDevise().equalsIgnoreCase(Constante.deviseAr)) {
+
+                if (listeDetails[i].getDevise().equalsIgnoreCase(Constante.deviseAr)) {
                     montantHT = montantHT / this.getDeviseEuro();
                     montantTVA = montantTVA / this.getDeviseEuro();
                 }
-                
+
                 listeDetails[i].setMontantHTEuro(montantHT);
                 listeDetails[i].setMontantTVAEuro(montantTVA);
             }
-            
+
             coeff = deviseEuro / deviseDollar;
 
         } catch (Exception e) {
