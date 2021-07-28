@@ -55,8 +55,9 @@
                 Date daty = Utilitaire.stringDate(request.getParameter("daty"));
                  FactureClient factureclient = new FactureClient();
 //                factureclient = (FactureClient) factureclient.getById(idfacture, "Factureclient", null);
-                
+                //System.out.println("ID UTSER ==== "+u.getUser().getTuppleID());
                 FactureClient factRetour  = factureclient.creerMICTSL(daty, type, noteExplicative, mois, annee, u.getUser().getTuppleID(),null);
+                
 //                factRetour.createObject(u.getUser().getTuppleID(), null);
                 %>
                 <script language="JavaScript"> document.location.replace("<%=lien%>?but=facture/factureclient-modif.jsp&id=<%=factRetour.getId()%>");</script>

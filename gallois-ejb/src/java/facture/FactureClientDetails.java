@@ -39,6 +39,15 @@ public class FactureClientDetails extends ClassFille {
     private int mois, annee;
     private String heureDebut, heureFin, moislib,anneelib;
     private double montantHTEuro,montantTVAEuro, montanttaxe;
+    boolean tauxDonne=false;
+
+    public boolean getTauxDonne() {
+        return tauxDonne;
+    }
+
+    public void setTauxDonne(boolean tauxDonne) {
+        this.tauxDonne = tauxDonne;
+    }
     
     public static Date getFinMois(int mois, int annee) {
         String moisS = mois < 10 ? "0" + mois : "" + mois; 
@@ -52,9 +61,15 @@ public class FactureClientDetails extends ClassFille {
                 
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(finDuMois) + "' and iddevise = '" + iddevise + "') "
                 + " and iddevise = '" + iddevise + "'";
+        //System.out.println("apres where "+awhere );
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
         
         return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
+    }
+    public void setTauxFinDuMois(Connection c,int mois,int annee,String iddevise) throws Exception
+    {
+        double tauxFm=getTauxFinDuMois(c,mois,annee,iddevise);
+        this.setTaux(tauxFm);
     }
     
     public double getMontanttaxe() {
@@ -288,7 +303,7 @@ public class FactureClientDetails extends ClassFille {
 
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
-        setTaux(getTauxRecent(c));
+        if(getTauxDonne()==false)setTaux(getTauxRecent(c));
         return super.createObject(user, c);
     }
 

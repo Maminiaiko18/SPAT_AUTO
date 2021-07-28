@@ -15,8 +15,11 @@ public class Constante {
     public static String idDroitDePortCalcule="RB0000000021170444";
     public static String idRedevanceCommunaleCalcule="RB0000000021170448";
     public static String idRedevanceFixe="RB0000000026172740";
+    public static String idRedevanceVariable="RB0000000027173349";
+    public static String compteTransbordement="70627";
     public static String idPilotageCalcule="RB0000000021170445";
     public static String idRemorquageCalcule="RB0000000021170446";
+    
     public static String idLamanageCalcule="RB0000000021170447";
     public static String idPavillonMada="PAYS000057";
     public static String idCargaisonPetrole="CGM00001";
