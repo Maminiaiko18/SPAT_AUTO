@@ -788,6 +788,8 @@ public class EtatPaieServlet extends HttpServlet {
             String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
             param.put("montantlettre",montantlettre);
             param.put("htdollar",hTDollar);
+            param.put("dollartva",tvaDollar);
+            param.put("dollarttc",ttcDollar);
             }
             FactureClientDetails cht = new FactureClientDetails();
             cht.setNomTable("FACTURE_CLIENT_FILLE_LIB_PDF");
