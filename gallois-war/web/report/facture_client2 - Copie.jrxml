@@ -49,7 +49,7 @@
 		<parameter name="montantTVA" class="java.lang.Double"/>
 		<parameter name="montant" class="java.lang.Double"/>
 		<parameter name="htdollar" class="java.lang.Double"/>
-		<parameter name="montantAvoir" class="java.lang.String"/>
+		<parameter name="montantAvoir" class="java.lang.Double"/>
 		<field name="designation" class="java.lang.String"/>
 		<field name="devise" class="java.lang.String"/>
 		<field name="montanttaux" class="java.lang.Double"/>
@@ -81,7 +81,7 @@
 	<parameter name="type" class="java.lang.String"/>
 	<parameter name="armateur" class="java.lang.String"/>
 	<parameter name="cat" class="java.lang.String"/>
-	<parameter name="htdollar" class="java.lang.String"/>
+	<parameter name="htdollar" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -226,7 +226,7 @@
 			<componentElement>
 				<reportElement key="table 1" style="table 1" mode="Transparent" x="0" y="0" width="555" height="57" uuid="c7ba0eb2-5f1b-4313-9a74-3e3fe27f4753"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="edfee400-515b-43bc-bc1d-868f178f1908">
+					<datasetRun subDataset="Table Dataset 1" uuid="937e3ac5-64ef-4f87-95ef-efdfaa81133b">
 						<datasetParameter name="montant">
 							<datasetParameterExpression><![CDATA[$P{montant}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -241,6 +241,9 @@
 						</datasetParameter>
 						<datasetParameter name="montantAvoir">
 							<datasetParameterExpression><![CDATA[$P{montantAvoir}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="htdollar">
+							<datasetParameterExpression><![CDATA[$P{htdollar}]]></datasetParameterExpression>
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
@@ -411,7 +414,7 @@
 								</textElement>
 								<text><![CDATA[Montant en dollar]]></text>
 							</staticText>
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
+							<textField pattern="#,##0.00000" isBlankWhenNull="true">
 								<reportElement x="442" y="0" width="103" height="10" uuid="056ba9b0-cc34-4fed-8e6c-5312d4f9c2b4"/>
 								<box>
 									<pen lineWidth="0.5"/>
