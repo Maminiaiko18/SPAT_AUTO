@@ -171,15 +171,15 @@ public class FactureClient extends ClassMere {
             fcd.setAnnee(annee);
             
         //Generer Facture
-            FactureClient fc = new FactureClient(Utilitaire.dateDuJourSql(), Constante.idMICTSL, designation, 0);
+            /*FactureClient fc = new FactureClient(Utilitaire.dateDuJourSql(), Constante.idMICTSL, designation, 0);
             fc.setIdcategorie(Constante.idCategorieFCDefinitive);
             
             fc.setIduser(u);
             
 //            fc.setFille(new FactureClientDetails[] {fcd}); Modifie à nouveau la valeur du taux
             
-            fc.createObject(u, c);
-            fcd.setIdmere(fc.getId());
+            fc.createObject(u, c);*/
+            fcd.setIdmere(getId());
             fcd.controler(c);
             fcd.construirePK(c);
             fcd.insertToTableWithHisto(u, c);
@@ -210,6 +210,12 @@ public class FactureClient extends ClassMere {
     }
 
     public FactureClient creerMICTSL(Date d, String type, String noteExplicative, int mois, int annee, String u, Connection c) throws Exception {
+        this.setDaty(d);
+        this.setRemarque(noteExplicative);
+        this.setTiers(Constante.idMICTSL);
+        this.setIdcategorie(Constante.idCategorieFCDefinitive);
+        this.setIduser(iduser);
+        this.createObject(iduser, c);
         if (type.equals("1")) {
             return genererRedevanceFixe(mois, annee, u, c);
         } else if (type.equals("2")) {
