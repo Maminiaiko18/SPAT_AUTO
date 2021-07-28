@@ -44,7 +44,15 @@ public class FactureClient extends ClassMere {
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
     private String idcategorie, idProvision, categorielib, idProvisionlib;
     
-    public void controlerRedevanceFixe(Connection c) throws Exception {
+    public void controlerRedevanceFixe(Connection c, int mois, int annee) throws Exception {
+        FactureClientDetails  fcd = new FactureClientDetails();
+        fcd.setNomTable("FACTURE_CLIENT_FILLE_VM");
+        
+        String awhere = " and tiers = '%s' and rubrique in ('%s', '%s') and mois = %s and annee = %s";
+        awhere = String.format(awhere, Constante.idMICTSL, Constante.idMICTSL2, Constante.idRedevanceFixe, mois, annee);
+        FactureClientDetails[] tab = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, awhere);
+        
+        if(tab != null && tab.length > 0) throw new Exception("Rubrique deja facturee pour ce mois");
     }
     
     public String getCategorielib() {
@@ -137,7 +145,7 @@ public class FactureClient extends ClassMere {
                 ouvert = true;
             }
             
-            controlerRedevanceFixe(c);
+            controlerRedevanceFixe(c, mois, annee);
             
             String moisEnLettre = Utilitaire.nbToMois(mois);
             String designation = "Redevance Fixe MICTSL " + moisEnLettre + " " + annee;
@@ -159,6 +167,8 @@ public class FactureClient extends ClassMere {
 //            System.out.println("taux " + taux);
             
             fcd.setTaux(taux);
+            fcd.setMois(mois);
+            fcd.setAnnee(annee);
             
         //Generer Facture
             FactureClient fc = new FactureClient(Utilitaire.dateDuJourSql(), Constante.idMICTSL, designation, 0);
