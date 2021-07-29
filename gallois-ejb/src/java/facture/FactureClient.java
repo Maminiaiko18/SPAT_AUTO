@@ -168,6 +168,7 @@ public class FactureClient extends ClassMere {
             Rubrique rubRedevance = new Rubrique();
             rubRedevance = (Rubrique) rubRedevance.getById(Constante.idRedevanceFixe, rubRedevance.getNomTable(), c);
             
+            fcd.setTva(rubRedevance.getTva());
             fcd.setRubrique(rubRedevance.getId());
             fcd.setPu(Utilitaire.stringToDouble(rubRedevance.getPu()));
             fcd.setDevise(rubRedevance.getDevise());

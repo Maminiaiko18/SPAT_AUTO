@@ -22,7 +22,7 @@
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
     FactureClient e = new FactureClient();
-    e.setNomTable("facture_client_union");
+    e.setNomTable("factureClientValide");
     PageConsulte pc = new PageConsulte(e, request, u);
     pc.setTitre("FICHE FACTURE CLIENT");
     
