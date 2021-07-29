@@ -184,3 +184,47 @@ AS
              (fc.pu * QUANTITE) + (fc.pu * QUANTITE * fc.TVA) / 100 AS NUMBER (20, 3))
              AS montanttc
      FROM facture_client_montant fc;	
+	 
+	 
+CREATE OR REPLACE  VIEW ACTIVITELIBCOMCONTGPMA
+(
+   RUBRIQUE,
+   RUBRIQUELIB,
+   MOIS,
+   ANNEE,
+   MOISLIB,
+   COMPTE,
+   CLIENTLIB,
+   QTE,
+   PU,
+   VOLUMERUBRIQUE,
+   DEVISE,
+   tva
+)
+AS
+     SELECT rubrique,
+            rubriqueLib,
+            mois,
+            annee,
+            moislib,
+            compte,
+            clientlib,
+            CAST (SUM (qte) AS NUMBER (30, 3)) AS qte,
+            pu,
+            volumerubrique,
+            devise,
+			tva
+       FROM ActiviteLibCompletVConteneur
+      WHERE clientLib LIKE 'MICTSL'
+   GROUP BY rubriqueLib,
+            mois,
+            annee,
+            moislib,
+            compte,
+            clientlib,
+            pu,
+            volumerubrique,
+            devise,
+            rubrique,
+			tva;
+	 

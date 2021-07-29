@@ -113,9 +113,9 @@ public class FactureClient extends ClassMere {
     }
 
     public void controlerVisaFactureDefinitive(Connection c) throws Exception {
-        if (this.getIdProvision() == null) {
+        /*if (this.getIdProvision() == null) {
             throw new Exception("Aucune reference de provision pour cette facture");
-        }
+        }*/
         FactureClient facture = new FactureClient();
         facture.setEtat(ConstanteEtat.getEtatValider());
         FactureClient[] factures = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and idProvision ='" + this.getIdProvision() + "' and type = 'definitive'");
@@ -275,6 +275,7 @@ public class FactureClient extends ClassMere {
             ret[i].setPu(Utilitaire.stringToDouble(listeAct[i].getPu()));
             ret[i].setDevise(listeAct[i].getDevise());
             ret[i].setRubrique(listeAct[i].getRubrique());
+            ret[i].setTva(listeAct[i].getTva());
             ret[i].setTaux(tauxFinDuMois);
             ret[i].setTauxDonne(true);
             
