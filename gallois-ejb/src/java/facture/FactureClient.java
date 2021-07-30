@@ -135,7 +135,7 @@ public class FactureClient extends ClassMere {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        if (this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive)) {
+        if (this.getIdcategorie()!=null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive)) {
 
             this.controlerVisaFactureDefinitive(c);
             this.updatePaiement(u, c);
@@ -232,6 +232,7 @@ public class FactureClient extends ClassMere {
             FactureClientDetails fcd = new FactureClientDetails();
             fcd.setDesignation(designation);
             fcd.setQuantite(qte);
+            fcd.setTva(rubRedevance.getTva());
             
             
             fcd.setRubrique(rubRedevance.getId());
