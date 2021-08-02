@@ -39,12 +39,13 @@
      pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
      pi.getFormu().getChamp("daty").setLibelle("Date");
      pi.getFormu().getChamp("iddevise").setLibelle("devise");
+    pi.getFormu().getChamp("estMICTSL").setLibelle("Est MICTSL");
             
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
     <h1> <%=titre%></h1>
-    
+
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
@@ -60,7 +61,7 @@
 } catch (Exception e) {
     e.printStackTrace();
 %>
-<script language="JavaScript"> 
-	alert('<%=e.getMessage()%>');
+<script language="JavaScript">
+    alert('<%=e.getMessage()%>');
     history.back();</script>
-<% }%>
+    <% }%>

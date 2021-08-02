@@ -21,7 +21,7 @@
     liste[0] = new Liste("caisse", esc, "VAL", "id");
     
     TypeObjet dev = new TypeObjet();
-    dev.setNomTable("devisedemat");
+    dev.setNomTable("devise");
     liste[1] = new Liste("devise", dev, "VAL", "ID");
     
     pi.getFormu().changerEnChamp(liste);
