@@ -87,11 +87,7 @@ try{
     
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
-    
-    for(int i=0; i<liste.length; i++){
-        pi.getFormufle().getChamp("datefact_"+i).setAutre("readonly");
-    }
-    
+        
     affichage.Liste[] listed = new affichage.Liste[1];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
@@ -118,7 +114,15 @@ try{
     pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
     
     mere = (FactureClient) pi.getBase();
-    pi.preparerDataFormu();
+    pi.preparerDataFormu();    
+
+    for(int i=0; i<liste.length; i++){
+        affichage.Champ datefactChp = pi.getFormufle().getChamp("datefact_"+i);
+        datefactChp.setAutre("readonly");
+        String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
+        datefactChp.setValeur(dateF);
+    }
+
 %>
 <div class="content-wrapper">
         <div class="box">
