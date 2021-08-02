@@ -59,7 +59,7 @@ public class FactureClientDetails extends ClassFille {
     public double getTauxFinDuMois(Connection c, int mois, int annee, String iddevise) throws Exception {
         Date finDuMois = getFinMois(mois, annee);
                 
-        String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(finDuMois) + "' and iddevise = '" + iddevise + "') "
+        String awhere = " and daty = (SELECT max(daty) FROM coursdeviseNonMICTSL WHERE  daty <= '" + Utilitaire.datetostring(finDuMois) + "' and iddevise = '" + iddevise + "') "
                 + " and iddevise = '" + iddevise + "'";
         //System.out.println("apres where "+awhere );
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
