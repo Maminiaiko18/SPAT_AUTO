@@ -10,9 +10,10 @@
 <% 
     try{
         Coursdevise cd = new Coursdevise();
+        cd.setNomTable("coursdeviselib");
         String listeCrt[] = {"id", "iddevise", "daty"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "daty", "iddevise", "montant"};
+        String libEntete[] = {"id", "daty", "iddevise", "montant", "estMICTSLlib"};
         PageRecherche pr = new PageRecherche(cd, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -60,7 +61,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Date", "Devise", "Montant"};
+            String libEnteteAffiche[] = {"Id", "Date", "Devise", "Montant", "Est MICTSL"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
