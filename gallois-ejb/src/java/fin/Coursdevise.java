@@ -20,6 +20,15 @@ public class Coursdevise extends ClassMAPTable {
     private double montant;
     private Date daty;
     private int estMICTSL;
+    private String estMICTSLlib;
+
+    public String getEstMICTSLlib() {
+        return estMICTSLlib;
+    }
+
+    public void setEstMICTSLlib(String estMICTSLlib) {
+        this.estMICTSLlib = estMICTSLlib;
+    }
 
     public int getEstMICTSL() {
         return estMICTSL;
