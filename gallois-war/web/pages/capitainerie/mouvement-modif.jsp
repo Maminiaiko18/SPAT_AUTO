@@ -46,8 +46,8 @@
 
     pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("consignataire").setPageAppel("choix/listeClientChoix.jsp");
-    pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireInterneChoix.jsp");
-    pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireInterneChoix.jsp");
+    pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireTousChoix.jsp");
+    pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireTousChoix.jsp");
     pi.getFormu().getChamp("cargaison").setPageAppel("choix/listeCargaisonChoixMultiple.jsp");
   
     pi.getFormu().getChamp("navire").setAutre("readonly");
