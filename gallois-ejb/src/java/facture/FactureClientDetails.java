@@ -372,6 +372,18 @@ public class FactureClientDetails extends ClassFille {
         return 0;
     }
     
+    public double getTauxRecentMICTSL (Connection c) throws Exception {
+        Date date = ((FactureClient)this.findMere("",c)).getDaty();
+        
+        String awhere = " and daty = (SELECT max(daty) FROM coursdeviseMICTSL   WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
+                + " and iddevise = '" + this.getDevise() + "'";
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
+        
+        if(cd != null && cd.length > 0) return cd[0].getMontant();
+        
+        return 0;
+    }
+    
 
     @Override
     public String getTuppleID() {
