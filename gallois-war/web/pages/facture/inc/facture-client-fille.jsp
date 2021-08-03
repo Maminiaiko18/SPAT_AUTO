@@ -16,7 +16,7 @@
 <%
     FactureClientDetails cht = new FactureClientDetails();
     cht.setNomTable("facture_client_fille_lib_reste");
-    String libEntete[] = {"id", "designation", "quantite","qtelivree","restealivrer", "devise","compte","pu", "taux","montanttaux","tva","montantTva","montantHTEuro","montantTVAEuro","activitelib","heureDebut","heureFin"};
+    String libEntete[] = {"id", "designation", "quantite","qtelivree","restealivrer", "devise","compte","pu", "taux","montanttaux","tva","montantTva","montantHTEuro","montantTVAEuro","activitelib","heureDebut","heureFin","reduction","majoration"};
     String listeCrt[] = {"idmere"};
     String listeInt[] = {};
 
@@ -27,7 +27,7 @@
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "designation", "quantité","quantité livrée","reste à livrer", "devise","compte","pu", "taux","montant","tva","montant Tva","HT Euro","TVA Euro","Activite","Heure début","Heure fin"};
+    String libEnteteAffiche[] = {"id", "designation", "quantité","quantité livrée","reste à livrer", "devise","compte","pu", "taux","montant","tva","montant Tva","HT Euro","TVA Euro","Activite","Heure début","Heure fin","RED.%", "MAJ.%"};
 //    String lienTableau[] = {pr.getLien() + "?but=avoir/avoir-fiche.jsp"};
 //    String colonneLien[] = {"id"};
 //    pr.getTableau().setLien(lienTableau);
