@@ -38,7 +38,23 @@ public class FactureClientDetails extends ClassFille {
     private String rubriquelib, idprestation,clientlib;
     private int mois, annee;
     private String heureDebut, heureFin, moislib,anneelib;
-    private double montantHTEuro,montantTVAEuro, montanttaxe;
+    private double montantHTEuro,montantTVAEuro, montanttaxe,majoration,reduction;
+
+    public double getMajoration() {
+        return majoration;
+    }
+
+    public void setMajoration(double majoration) {
+        this.majoration = majoration;
+    }
+
+    public double getReduction() {
+        return reduction;
+    }
+
+    public void setReduction(double reduction) {
+        this.reduction = reduction;
+    }
     boolean tauxDonne=false;
 
     public boolean getTauxDonne() {

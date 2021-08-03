@@ -45,6 +45,15 @@ public class FactureClient extends ClassMere {
     private FactureClientDetails[] listeDetails;
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
     private String idcategorie, idProvision, categorielib, idProvisionlib;
+    private String estDDPMICTSL;
+
+    public String getEstDDPMICTSL() {
+        return estDDPMICTSL;
+    }
+
+    public void setEstDDPMICTSL(String estDDPMICTSL) {
+        this.estDDPMICTSL = estDDPMICTSL;
+    }
 
     public String getDeviseMere() {
         return deviseMere;
