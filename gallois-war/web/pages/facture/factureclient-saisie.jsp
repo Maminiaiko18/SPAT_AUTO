@@ -112,7 +112,15 @@
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
     
+    String[]valeurChampEstDDPMICTSL = {"0", "1"};
+    String[]afficheChampEstDDPMICTSL = {"non", "oui"};
     
+    affichage.Liste[] lst= new affichage.Liste[1];
+    lst[0] = new Liste("EstDDPMICTSL");
+    lst[0].ajouterValeur(valeurChampEstDDPMICTSL, afficheChampEstDDPMICTSL);    
+    pi.getFormu().changerEnChamp(lst);
+    pi.getFormu().getChamp("EstDDPMICTSL").setDefaut("0");
+    pi.getFormu().getChamp("EstDDPMICTSL").setLibelle("Droit de Port MICTSL");
     
     pi.preparerDataFormu();
        
