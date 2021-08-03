@@ -17,7 +17,7 @@
     FactureClientDetails cht = new FactureClientDetails();
     cht.setNomTable("facture_client_fille_lib_reste");
     String libEntete[] = {"id", "designation", "quantite","qtelivree","restealivrer", "devise","compte","pu", "taux","montanttaux","tva","montantTva","montantHTEuro","montantTVAEuro","activitelib","heureDebut","heureFin","reduction","majoration"};
-    String listeCrt[] = {"idmere"};
+    String listeCrt[] = {"idmere"}; 
     String listeInt[] = {};
 
     PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
