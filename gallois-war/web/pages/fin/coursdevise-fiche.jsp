@@ -20,7 +20,7 @@
         
         pc.getChampByName("iddevise").setLibelle("Devise");
         pc.getChampByName("daty").setLibelle("Date");
-        pc.getChampByName("estMICTSLlib").setLibelle("estMICTSL");
+        pc.getChampByName("estMICTSLlib").setLibelle("Est MICTSL");
         pc.getChampByName("estMICTSL").setVisible(false);
         
         pc.setTitre("Fiche cours devise");
