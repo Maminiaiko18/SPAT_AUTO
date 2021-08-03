@@ -67,6 +67,8 @@
 		<field name="anneelib" class="java.lang.String"/>
 		<field name="heureDebut" class="java.lang.String"/>
 		<field name="heureFin" class="java.lang.String"/>
+		<field name="majoration" class="java.lang.Double"/>
+		<field name="reduction" class="java.lang.Double"/>
 	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["H:\\win-Project\\cemedi\\cemedi\\cemedi-war\\web\\report\\"]]></defaultValueExpression>
@@ -268,7 +270,7 @@
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:columnGroup width="576" uuid="38df97f6-b17b-4222-b816-91967c5417b0">
+					<jr:columnGroup width="584" uuid="38df97f6-b17b-4222-b816-91967c5417b0">
 						<jr:tableFooter height="244" rowSpan="1">
 							<staticText>
 								<reportElement x="308" y="50" width="81" height="10" uuid="8097e9c5-8a1b-4d33-9161-4f4902844243"/>
@@ -329,7 +331,7 @@
 ]]></text>
 							</staticText>
 							<textField isBlankWhenNull="true">
-								<reportElement x="92" y="104" width="484" height="10" uuid="fbdb1d65-6496-4601-bbb7-2aa31cffc273"/>
+								<reportElement x="92" y="104" width="492" height="10" uuid="fbdb1d65-6496-4601-bbb7-2aa31cffc273"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.0"/>
@@ -342,7 +344,7 @@
 								<textFieldExpression><![CDATA[$P{montantlettre}]]></textFieldExpression>
 							</textField>
 							<staticText>
-								<reportElement x="0" y="127" width="544" height="10" uuid="6787acf0-78d7-4aa9-a6d3-b90c76c912d4"/>
+								<reportElement x="0" y="127" width="564" height="10" uuid="6787acf0-78d7-4aa9-a6d3-b90c76c912d4"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -516,7 +518,7 @@
 								<textFieldExpression><![CDATA[$P{dollartva}]]></textFieldExpression>
 							</textField>
 							<textField>
-								<reportElement x="0" y="170" width="576" height="10" uuid="5c701dfb-de15-4243-af4b-813d3f067937"/>
+								<reportElement x="3" y="170" width="576" height="10" uuid="5c701dfb-de15-4243-af4b-813d3f067937"/>
 								<box>
 									<pen lineWidth="0.0"/>
 									<topPen lineWidth="0.0"/>
@@ -528,7 +530,6 @@
 									<font size="7"/>
 									<paragraph rightIndent="3"/>
 								</textElement>
-								<textFieldExpression><![CDATA[""]]></textFieldExpression>
 							</textField>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement x="389" y="40" width="102" height="10" uuid="e1a6e934-f3e4-4795-be16-d65f5a95bebb"/>
@@ -606,10 +607,10 @@
 								<textFieldExpression><![CDATA[$P{hteuro}]]></textFieldExpression>
 							</textField>
 						</jr:tableFooter>
-						<jr:column width="164" uuid="76cbe827-23e1-4591-bbfa-1bdb6cc979a1">
+						<jr:column width="126" uuid="76cbe827-23e1-4591-bbfa-1bdb6cc979a1">
 							<jr:columnHeader height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="164" height="30" uuid="f5680931-ff66-4bb1-8fad-87543bafde32"/>
+									<reportElement x="0" y="0" width="126" height="30" uuid="f5680931-ff66-4bb1-8fad-87543bafde32"/>
 									<box>
 										<topPen lineWidth="0.25"/>
 										<leftPen lineWidth="0.25"/>
@@ -623,9 +624,9 @@
 									<text><![CDATA[Désignation]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="164" height="20" uuid="61d7f2f9-2836-4966-a139-02882010df34"/>
+									<reportElement x="0" y="0" width="126" height="29" uuid="61d7f2f9-2836-4966-a139-02882010df34"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -657,9 +658,9 @@
 									<text><![CDATA[Quantité]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="45" height="20" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
+									<reportElement x="0" y="0" width="45" height="29" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -690,9 +691,9 @@
 									<text><![CDATA[PU]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="32" height="20" uuid="9709acd6-11cf-49a6-8376-4b66505f2523"/>
+									<reportElement x="0" y="0" width="32" height="29" uuid="9709acd6-11cf-49a6-8376-4b66505f2523"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -707,10 +708,10 @@
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="36" uuid="dd7e50fa-6892-4774-aab7-3de842054f75">
+						<jr:column width="33" uuid="dd7e50fa-6892-4774-aab7-3de842054f75">
 							<jr:columnHeader height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="36" height="30" uuid="c82dbec5-285a-4343-857e-7baea652c4ab"/>
+									<reportElement x="0" y="0" width="33" height="30" uuid="c82dbec5-285a-4343-857e-7baea652c4ab"/>
 									<box>
 										<topPen lineWidth="0.25"/>
 										<leftPen lineWidth="0.25"/>
@@ -723,9 +724,9 @@
 									<text><![CDATA[Devise]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="36" height="20" uuid="dad5ca26-e6cc-40f4-8216-90988376f31b"/>
+									<reportElement x="0" y="0" width="33" height="29" uuid="dad5ca26-e6cc-40f4-8216-90988376f31b"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -757,9 +758,9 @@
 									<text><![CDATA[Taux]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="31" height="20" uuid="d98b66ca-f11a-4f48-8cc6-60ed50be7d0d"/>
+									<reportElement x="0" y="0" width="31" height="29" uuid="d98b66ca-f11a-4f48-8cc6-60ed50be7d0d"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -791,9 +792,9 @@
 									<text><![CDATA[TVA]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="34" height="20" uuid="bfbd6226-2bf5-4abb-b8a4-df17fbb8e039"/>
+									<reportElement x="0" y="0" width="34" height="29" uuid="bfbd6226-2bf5-4abb-b8a4-df17fbb8e039"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -825,9 +826,9 @@
 									<text><![CDATA[Montant TVA]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="46" height="20" uuid="8ad07146-4868-4cf2-9c5b-339789fb5c2f"/>
+									<reportElement x="0" y="0" width="46" height="29" uuid="8ad07146-4868-4cf2-9c5b-339789fb5c2f"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -859,9 +860,9 @@
 									<text><![CDATA[Montant]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="54" height="20" uuid="01ef0a35-35ed-41fb-849d-f3d8d30efcbb"/>
+									<reportElement x="0" y="0" width="54" height="29" uuid="01ef0a35-35ed-41fb-849d-f3d8d30efcbb"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -893,9 +894,9 @@
 									<text><![CDATA[Mois]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="28" height="20" uuid="e628a1e6-4be0-4b33-88ea-6337ba9c8705"/>
+									<reportElement x="0" y="0" width="28" height="29" uuid="e628a1e6-4be0-4b33-88ea-6337ba9c8705"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -910,10 +911,10 @@
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="35" uuid="4c50de86-b4a4-4605-b699-c0e448624e04">
+						<jr:column width="33" uuid="4c50de86-b4a4-4605-b699-c0e448624e04">
 							<jr:columnHeader height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="35" height="30" uuid="b52f131b-ee96-4c57-b9aa-122b0e4c3918"/>
+									<reportElement x="0" y="0" width="33" height="30" uuid="b52f131b-ee96-4c57-b9aa-122b0e4c3918"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -927,9 +928,9 @@
 									<text><![CDATA[Année]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField pattern="" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="35" height="20" uuid="f9c09e0d-0d9b-4d49-b65f-5978cecf9155"/>
+									<reportElement x="0" y="0" width="33" height="29" uuid="f9c09e0d-0d9b-4d49-b65f-5978cecf9155"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -961,9 +962,9 @@
 									<text><![CDATA[Heure debut]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="39" height="20" uuid="b65857f3-8638-408e-b937-7a9fc4293856"/>
+									<reportElement x="0" y="0" width="39" height="29" uuid="b65857f3-8638-408e-b937-7a9fc4293856"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -995,9 +996,9 @@
 									<text><![CDATA[Heure Fin]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
+							<jr:detailCell height="30" rowSpan="1">
 								<textField isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="32" height="20" uuid="5a672964-10f4-46bb-8b7b-ae81175288fc"/>
+									<reportElement x="0" y="0" width="32" height="29" uuid="5a672964-10f4-46bb-8b7b-ae81175288fc"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -1009,6 +1010,74 @@
 										<font size="7"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{heureFin}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="27" uuid="42a7820b-dbf4-4c8f-846b-c9a6186f3aba">
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="27" height="30" uuid="cfdf0e2a-94be-4a4b-a10d-ab705169c372"/>
+									<box>
+										<pen lineWidth="0.5"/>
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[RED %]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="30" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="27" height="30" uuid="2cc5f71a-6daa-425d-89ce-e5f3900278f4"/>
+									<box>
+										<pen lineWidth="0.5"/>
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement>
+										<font size="7"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{reduction}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="24" uuid="a79326ec-98d7-4288-8daf-684bfc4d2779">
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="24" height="30" uuid="3b78c6f2-d2c7-48cf-8bac-0f1a8e75a577"/>
+									<box>
+										<pen lineWidth="0.5"/>
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[MAJ%]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="30" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="24" height="30" uuid="1c71ac8d-8a59-46a3-8839-998d5e72155b"/>
+									<box>
+										<pen lineWidth="0.5"/>
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement>
+										<font size="7"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{majoration}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
