@@ -116,8 +116,8 @@
         pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
         pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
         pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
-        pi.getFormufle().getChamp("reduction").setLibelle("RED. %");
-        pi.getFormufle().getChamp("majoration").setLibelle("MAJ. %");
+        pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
+        pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
 
         mere = (FactureClient) pi.getBase();
         pi.preparerDataFormu();
