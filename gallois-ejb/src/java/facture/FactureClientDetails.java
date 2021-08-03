@@ -356,32 +356,58 @@ public class FactureClientDetails extends ClassFille {
         }
         return retour;
     }
+    
+    private double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
+        String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
+                + " and iddevise = '" + this.getDevise() + "'";
+        Coursdevise cours = new Coursdevise();
+        cours.setNomTable(nomTable);
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(cours, null, null, c, awhere);
+
+        return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
+    }
+
     public double getTauxRecent(Connection c) throws Exception {
-        Date date = ((FactureClient)this.findMere("",c)).getDaty();
+        this.findMere(c);
         
-        if(this.getIdactivite()!=null && this.getDatefact() != null){
-            date=Utilitaire.ajoutJourDate(this.getDatefact(), -1);
+        if(this.getMere() == null) throw new Exception("Facture mere introuvable");
+        String estDDPMICTSL = this.getMere().getEstDDPMICTSL();
+        if(estDDPMICTSL != null && estDDPMICTSL.equalsIgnoreCase("1")) return getTauxRecentMICTSL(c);
+        
+        return getTauxRecentNormal(c);
+    }
+    
+    private FactureClient findMere(Connection c) throws Exception {
+        if(this.getMere() == null) {
+            FactureClient fc = new FactureClient();
+            fc.setId(this.getIdmere());
+            fc.setEstDDPMICTSL(null);
+            FactureClient[] tmp = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, "");
+            
+            if(tmp != null && tmp.length > 0) { 
+                this.mere = tmp[0];
+                return tmp[0];
+            }
         }
         
-        String awhere = " and daty = (SELECT max(daty) FROM coursdeviseNonMICTSL  WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
-                + " and iddevise = '" + this.getDevise() + "'";
-        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
-        
-        if(cd != null && cd.length > 0) return cd[0].getMontant();
-        
-        return 0;
+        return null;
+    }
+    
+    public double getTauxRecentNormal(Connection c) throws Exception {
+        this.findMere(c);
+        Date date = this.getMere().getDaty();
+
+        if (this.getIdactivite() != null && this.getDatefact() != null) {
+            date = Utilitaire.ajoutJourDate(this.getDatefact(), -1);
+        }
+
+        return getValeurTaux(c, "coursdeviseNonMICTSL", date);
     }
     
     public double getTauxRecentMICTSL (Connection c) throws Exception {
-        Date date = ((FactureClient)this.findMere("",c)).getDaty();
-        
-        String awhere = " and daty = (SELECT max(daty) FROM coursdeviseMICTSL   WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
-                + " and iddevise = '" + this.getDevise() + "'";
-        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
-        
-        if(cd != null && cd.length > 0) return cd[0].getMontant();
-        
-        return 0;
+        this.findMere(c);
+        Date date = this.getMere().getDaty();
+        return getValeurTaux(c, "coursdeviseMICTSL", date);
     }
     
 
