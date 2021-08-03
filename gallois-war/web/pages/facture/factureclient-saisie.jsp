@@ -101,6 +101,8 @@
     pi.getFormufle().getChamp("annee_0").setLibelle("Année");
     pi.getFormufle().getChamp("heureDebut_0").setLibelle("Heure debut");
     pi.getFormufle().getChamp("heureFin_0").setLibelle("Heure fin");
+    pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
+    pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
     
    
   
