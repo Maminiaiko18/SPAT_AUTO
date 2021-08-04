@@ -564,6 +564,7 @@ public class FactureClient extends ClassMere {
     @Override
     public ClassMAPTable createObject(String iduser, Connection cnctn) throws Exception {
         this.setIduser(iduser);
+        this.setId(null);
         return super.createObject(iduser, cnctn);
     }
 
@@ -911,7 +912,9 @@ public class FactureClient extends ClassMere {
 
     public double getTauxRecent(Connection c, String iddevise) throws Exception {
         if (this.getDaty() == null) {
-            this.setDaty(((FactureClient) this.getById(this.getId(), this.getNomTable(), c)).getDaty());
+            FactureClient fc = new FactureClient();
+            fc.setEstDDPMICTSL(null);
+            this.setDaty(((FactureClient) fc.getById(this.getId(), this.getNomTable(), c)).getDaty());
         }
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(this.getDaty()) + "' and iddevise = '" + iddevise + "') "
                 + " and iddevise = '" + iddevise + "'";
