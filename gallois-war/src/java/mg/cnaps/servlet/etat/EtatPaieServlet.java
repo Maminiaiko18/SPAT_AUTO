@@ -749,10 +749,12 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             String id = request.getParameter("id");
             FactureClient facture = new FactureClient();
-            facture.setNomTable("factureclientMSum_lib");
+            facture.setNomTable("factureClientValide");
             
-            
+           
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
+           
+            
             if(mere.length!=0){
             mg.spat.Prevision p = new mg.spat.Prevision();
             p.setNomTable("PREVISIONLIBCOMPLET");
@@ -765,6 +767,7 @@ public class EtatPaieServlet extends HttpServlet {
             double hTDollar = facture.getMontantHTVADollar();
             double tvaDollar = facture.getMontantTVADollar();
             double ttcDollar = facture.getMontantTTCDollar();
+            
             if(pre.length!=0){
                 System.out.println("miditra="+pre[0].getArmateurlib());
                  param.put("armateur",pre[0].getArmateurlib());
@@ -786,6 +789,13 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("montantAvoir",mere[0].getMontantavoir());
             param.put("tva",mere[0].getTva());
             String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
+            
+            if(mere[0].getDeviseMere()!=null){
+                 if(mere[0].getDeviseMere().compareToIgnoreCase("Dollars")==0){
+                    montantlettre = ChiffreLettre.convertRealToString( new Double( ttcDollar ) )+" Dollars " ;            
+                }
+            }
+           
             param.put("montantlettre",montantlettre);
             param.put("htdollar",hTDollar);
             param.put("dollartva",tvaDollar);
@@ -793,8 +803,10 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("hteuro",hTEuro);
             param.put("tvaeuro",tvaEuro);
             }
+            /************************************************************************************************/
             FactureClientDetails cht = new FactureClientDetails();
             cht.setNomTable("FACTURE_CLIENT_FILLE_LIB_PDF");
+            
             FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, null, " and idmere = '"+id+"'");
             ArrayList<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
             for(int i = 0; i < details.length; i++)
