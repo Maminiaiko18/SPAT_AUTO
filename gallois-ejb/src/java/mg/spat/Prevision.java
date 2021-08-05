@@ -75,7 +75,11 @@ public class Prevision extends ClassEtat {
         }
         return null;
     }
-
+    
+    public boolean estNavireEtranger(Connection c) throws Exception{
+	return findNavire(c).estEtranger(c);
+    }
+    
     private static String[] getIdsFromTab(ClassMAPTable[] tab) {
         String[] ids = new String[tab.length];
 
