@@ -75,6 +75,38 @@ public class FactureClient extends ClassMere {
         if(tab != null && tab.length > 0) throw new Exception("Rubrique deja facturee pour ce mois");
     }
     
+    public void updateDeviseMere(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            this.setDeviseMere("Ar");
+            if(this.getIdprevision() != null){
+                Prevision prevision = this.findPrevision(c);
+                if(prevision != null && prevision.estNavireEtranger(c)){
+                    this.setDeviseMere("Dollars");
+                }
+            }
+            this.updateToTable(c);
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    
     public String getCategorielib() {
         return categorielib;
     }
