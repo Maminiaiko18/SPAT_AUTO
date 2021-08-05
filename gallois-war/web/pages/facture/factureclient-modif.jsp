@@ -16,8 +16,9 @@
         String autreparsley = "data-parsley-range='[8, 40]' required";
         FactureClient mere = new FactureClient();
         mere.setNomTable("FACTURECLIENTMSUM_LIB");
+        mere.setEstDDPMICTSL(null);
         FactureClientDetails fille = new FactureClientDetails();
-        fille.setNomTable("FACTURE_CLIENT_FILLE_libelle");
+        fille.setNomTable("FACTURE_CLIENT_FILLE_LIBELLE");
         fille.setIdmere(request.getParameter("id"));
         FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, "");
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
