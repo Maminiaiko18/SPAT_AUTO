@@ -24,6 +24,7 @@ import avoir.AvoirFC;
 import bean.AdminGen;
 import bean.ClassFille;
 import fin.Coursdevise;
+import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.AdminActivite;
 import mg.spat.exploitant.Rubrique;
@@ -967,5 +968,13 @@ public class FactureClient extends ClassMere {
                 c.close();
             }
         }
+    }
+    
+    public Prevision findPrevision(Connection c)throws Exception{
+        String awhere = " and id = '%s'";
+        awhere = String.format(awhere, this.getIdprevision());
+        Prevision[] result =  (Prevision[]) CGenUtil.rechercher(new Prevision(), null, null, c, awhere);
+        if(result.length == 0) throw new Exception("Pas de prevision pour la facture "+this.getId());
+        return result[0];
     }
 }
