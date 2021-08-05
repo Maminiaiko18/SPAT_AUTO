@@ -30,6 +30,14 @@ public class Navire extends ClassEtat{
         return nom;
     }
     
+    public boolean estEtranger(Connection c){
+        boolean retour = true;
+        if(this.pavillon.equals("PAYS000054")||this.pavillon.equals("PAYS000010")||this.pavillon.equals("PAYS000057")){
+            retour = false;
+        }
+        return retour;
+    }
+    
     @Override
     public Navire createObject(String u,Connection c)throws Exception {
         boolean estOuvert=false;
