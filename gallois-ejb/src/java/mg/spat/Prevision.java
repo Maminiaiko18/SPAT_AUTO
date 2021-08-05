@@ -65,6 +65,16 @@ public class Prevision extends ClassEtat {
         OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='" + this.getId() + "' and etat>=" + ConstanteEtat.getEtatValider());
         return liste;
     }
+    
+    public Navire findNavire(Connection c) throws Exception{
+        Navire navire = new Navire();
+        navire.setNomTable("navire");
+        Navire [] liste = (Navire []) CGenUtil.rechercher(navire, null, null, c, " and id='" +this.getNavire()+"'");
+        if(liste.length > 0){
+            return liste [0];
+        }
+        return null;
+    }
 
     private static String[] getIdsFromTab(ClassMAPTable[] tab) {
         String[] ids = new String[tab.length];
