@@ -1,6 +1,10 @@
 package utilitaire;
 
 public class Constante {
+    
+    public static  final String  idCategorieFCDefinitive="CATFCO3";
+    public static String idCategorieFCProvision="CATFCO2";
+    public static String idCategorieFCProforma="CATFCO1";
     public static String idcategorieCapitainerie="CATFC001";
     public static String idCessionEauDouce="RBR0126";
     public static String idServiceHauteMere="RBR0127";
@@ -10,8 +14,12 @@ public class Constante {
     public static String idStationnement="RB0000000021170449";
     public static String idDroitDePortCalcule="RB0000000021170444";
     public static String idRedevanceCommunaleCalcule="RB0000000021170448";
+    public static String idRedevanceFixe="RB0000000026172740";
+    public static String idRedevanceVariable="RB0000000027173349";
+    public static String compteTransbordement="70627";
     public static String idPilotageCalcule="RB0000000021170445";
     public static String idRemorquageCalcule="RB0000000021170446";
+    
     public static String idLamanageCalcule="RB0000000021170447";
     public static String idPavillonMada="PAYS000057";
     public static String idCargaisonPetrole="CGM00001";
@@ -21,6 +29,8 @@ public class Constante {
     public static String societe = "TS0002";
     public static String typesociete = "TSAI002";
     public static String typeconteneur = "TSAI001";
+    public static String idMICTSL = "0120037";
+    public static String idMICTSL2 = "clt1";
     public static String mictsl = "NS004";
     private static String idTypeLCRecette = "TLC00001";
     private static String idTypeLCDepense = "TLC00002";
@@ -110,6 +120,9 @@ public class Constante {
     public static final String caisseCentraleBP = "CAIS000016";
     public static final String caisseCentraleEspece = "CAIS000015";
     public static final String deviseAr = "Ar";
+    public static final String deviseEuro = "Eur";
+    public static final String deviseDollars = "Dollars";
+    public static final String idprovision = "TFC003";
     public static final int rangMahitaNyHafa = 6;
     public static String bc = "/SPAT/DG/DECOMAA-";
     public static final int longueurNumeroBordereau = 4;

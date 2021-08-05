@@ -1,0 +1,230 @@
+CREATE OR REPLACE FORCE VIEW PROVISIONFACTUREDEFINITIVE
+(
+   ID,
+   DATY,
+   TIERS,
+   DESIGNATION,
+   TYPE,
+   TVA,
+   REMARQUE,
+   IDUSER,
+   DATE_ECHEANCE,
+   ETAT,
+   MONTANT,
+   MONTANTTVA,
+   MONTANTAVOIR,
+   MONTANTTTC,
+   MONTANTPAYE,
+   MONTANTRESTE,
+   TIERSLIB,
+   CONTACT,
+   ADRESSE,
+   IDPREVISION,
+   ESCALE,
+   ETATLIB,
+   TYPELIB,
+   IDCATEGORIE,
+   CATEGORIELIB,
+   IDPROVISION,
+   IDPROVISIONLIB
+)
+AS
+   SELECT "ID",
+          "DATY",
+          "TIERS",
+          "DESIGNATION",
+          "TYPE",
+          "TVA",
+          "REMARQUE",
+          "IDUSER",
+          "DATE_ECHEANCE",
+          "ETAT",
+          cast(MONTANT as number(32,3)) as MONTANT,
+          cast(MONTANTTVA as number(32,3)) as montanttva,
+          cast(MONTANTAVOIR as number(32,3)) as MONTANTAVOIR,
+          cast(MONTANTTTC as number(32,3)) as MONTANTTTC,
+          cast(MONTANTPAYE as number(32,3)) as MONTANTPAYE,
+          cast(MONTANTRESTE as number(32,3)) as MONTANTRESTE,
+          "TIERSLIB",
+          "CONTACT",
+          "ADRESSE",
+          "IDPREVISION",
+          "ESCALE",
+          "ETATLIB",
+          "TYPELIB",
+          "IDCATEGORIE",
+          "CATEGORIELIB",
+          "IDPROVISION",
+          "IDPROVISIONLIB"
+     FROM facture_client_union
+    WHERE     idcategorie = 'CATFCO2'
+          AND id IN (SELECT idProvision
+                       FROM factureclient
+                      WHERE etat >= 11)
+          AND etat >= 11;
+		  
+CREATE OR REPLACE FORCE VIEW FACTURECLIENTVALIDE
+(
+   ID,
+   DATY,
+   TIERS,
+   DESIGNATION,
+   TYPE,
+   TVA,
+   REMARQUE,
+   IDUSER,
+   DATE_ECHEANCE,
+   ETAT,
+   MONTANT,
+   MONTANTTVA,
+   MONTANTAVOIR,
+   MONTANTTTC,
+   MONTANTPAYE,
+   MONTANTRESTE,
+   TIERSLIB,
+   CONTACT,
+   ADRESSE,
+   IDPREVISION,
+   ESCALE,
+   ETATLIB,
+   TYPELIB,
+   IDCATEGORIE,
+   CATEGORIELIB,
+   IDPROVISION,
+   IDPROVISIONLIB
+)
+AS
+   SELECT "ID",
+          "DATY",
+          "TIERS",
+          "DESIGNATION",
+          "TYPE",
+          "TVA",
+          "REMARQUE",
+          "IDUSER",
+          "DATE_ECHEANCE",
+          "ETAT",
+          cast(MONTANT as number(32,3)) as MONTANT,
+          cast(MONTANTTVA as number(32,3)) as montanttva,
+          cast(MONTANTAVOIR as number(32,3)) as MONTANTAVOIR,
+          cast(MONTANTTTC as number(32,3)) as MONTANTTTC,
+          cast(MONTANTPAYE as number(32,3)) as MONTANTPAYE,
+          cast(MONTANTRESTE as number(32,3)) as MONTANTRESTE,
+          "TIERSLIB",
+          "CONTACT",
+          "ADRESSE",
+          "IDPREVISION",
+          "ESCALE",
+          "ETATLIB",
+          "TYPELIB",
+          "IDCATEGORIE",
+          "CATEGORIELIB",
+          "IDPROVISION",
+          "IDPROVISIONLIB"
+     FROM facture_client_union
+    WHERE id NOT IN (SELECT id FROM ProvisionFactureDefinitive);	
+
+
+CREATE OR REPLACE FORCE VIEW FACTURE_CLIENT_MONTANTTC
+(
+   ID,
+   IDMERE,
+   DESIGNATION,
+   QUANTITE,
+   PU,
+   COMPTE,
+   IDPRODUIT,
+   DEVISE,
+   TAUX,
+   DATY,
+   TIERS,
+   DESIGNATIONMERE,
+   TYPE,
+   TVA,
+   REMARQUE,
+   IDUSER,
+   DATE_ECHEANCE,
+   ETAT,
+   MONTANT,
+   MONTANTTAUX,
+   MONTANTAVOIRSANSTAUX,
+   MONTANTAVOIRAVECTAUX,
+   MONTANTTVA,
+   MONTANTTAXE,
+   MONTANTTC
+)
+AS
+   SELECT fc.ID,
+          fc.IDMERE,
+          fc.DESIGNATION,
+          fc.QUANTITE,
+          fc.PU,
+          fc.COMPTE,
+          fc.IDPRODUIT,
+          fc.DEVISE,
+          fc.TAUX,
+          fc.DATY,
+          fc.TIERS,
+          fc.DESIGNATIONMERE,
+          fc.TYPE,
+          fc.TVA,
+          fc.REMARQUE,
+          fc.IDUSER,
+          fc.DATE_ECHEANCE,
+          fc.ETAT,
+          cast(fc.MONTANT as number(32,3)) as MONTANT,
+          cast(fc.MONTANTTAUX as number(32,3)) as MONTANTTAUX,
+          cast(fc.MONTANTAVOIRSANSTAUX as number(32,3)) as MONTANTAVOIRSANSTAUX,
+          cast(fc.MONTANTAVOIRAVECTAUX as number(32,3)) as MONTANTAVOIRAVECTAUX,
+          CAST ( (fc.pu * QUANTITE * fc.TVA) / 100 AS NUMBER (20, 3))
+             AS montanttva,
+          CAST ( (fc.pu * QUANTITE * fc.TVA) / 100 AS NUMBER (20, 3))
+             AS montanttaxe,
+          CAST (
+             (fc.pu * QUANTITE) + (fc.pu * QUANTITE * fc.TVA) / 100 AS NUMBER (20, 3))
+             AS montanttc
+     FROM facture_client_montant fc;	
+	 
+	 
+CREATE OR REPLACE  VIEW ACTIVITELIBCOMCONTGPMA
+(
+   RUBRIQUE,
+   RUBRIQUELIB,
+   MOIS,
+   ANNEE,
+   MOISLIB,
+   COMPTE,
+   CLIENTLIB,
+   QTE,
+   PU,
+   VOLUMERUBRIQUE,
+   DEVISE,
+   tva
+)
+AS
+     SELECT rubrique,
+            rubriqueLib,
+            mois,
+            annee,
+            moislib,
+            compte,
+            clientlib,
+            CAST (SUM (qte) AS NUMBER (30, 3)) AS qte,
+            pu,
+            volumerubrique,
+            devise,
+			tva
+       FROM ActiviteLibCompletVConteneur
+      WHERE clientLib LIKE 'MICTSL'
+   GROUP BY rubriqueLib,
+            mois,
+            annee,
+            moislib,
+            compte,
+            clientlib,
+            pu,
+            volumerubrique,
+            devise,
+            rubrique,
+			tva;
+	 

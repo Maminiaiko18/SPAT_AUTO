@@ -1603,14 +1603,22 @@ public class Utilitaire extends Parametre {
     }
 
     public static String doubleWithoutExponential(double val) {
-        String vals = String.format("%.2f", val);
+        /*String vals = String.format("%f", val);
         String[] temp = vals.split(",");
         if (temp.length > 1 && temp[1].compareToIgnoreCase("00") == 0) {
             vals = temp[0];
         } else if (temp.length > 1 && temp[1].endsWith("0")) {
             vals = temp[0] + "," + temp[1].substring(0, 1);
-        }
-        return Utilitaire.replaceChar(vals, ",", ".");
+        }*/
+        DecimalFormat formatter;
+
+    if(val - (int)val > 0.0)
+    formatter = new DecimalFormat("0.000"); //Here you can also deal with rounding if you wish..
+    else
+    formatter = new DecimalFormat("0");
+
+     
+        return Utilitaire.replaceChar(formatter.format(val), ",", ".");
     }
 
     public static String formaterAr(double montant) {

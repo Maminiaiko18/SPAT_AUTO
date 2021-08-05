@@ -5,21 +5,21 @@
 
         FactureClientDetails lv = new FactureClientDetails();
         lv.setNomTable("facture_client_fille_lib");
-        String listeCrt[] = {"categorieClientlib", "categorieFacturelib"};
+        String listeCrt[] = {"clientlib", "rubriquelib"};
         String listeInt[] = {};
 
         String[] pourcentage = {};
         String somDefaut[] ={"montanttaux"}; //sum
-        String colDefaut[] =  {"categorieFacturelib"}; // colonne
-        String[] colGrCol = {"categorieClientlib"}; //ligne
+        String colDefaut[] =  {"clientlib"}; // colonne
+        String[] colGrCol = {"rubriquelib"}; //ligne
         
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, colDefaut.length, 0);
         
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
-        pr.getFormu().getChamp("categorieClientlib").setLibelle("Catégorie Client");
-        pr.getFormu().getChamp("categorieFacturelib").setLibelle("Catégorie Facture");
+        pr.getFormu().getChamp("clientlib").setLibelle("Client");
+        pr.getFormu().getChamp("rubriquelib").setLibelle("Rubrique");
         
         pr.setApres("facture/analyse-facture-client-vaovao.jsp");
         pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+pr.getApres());

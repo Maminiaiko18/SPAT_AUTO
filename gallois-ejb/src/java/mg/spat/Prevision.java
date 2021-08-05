@@ -40,7 +40,23 @@ public class Prevision extends ClassEtat {
     private String heure_depart;
     private String destination, escale;
     private String couleur = "#1E90FF";
-    private String noVoyage;
+    private String noVoyage, armateur,armateurlib;
+
+    public String getArmateur() {
+        return armateur;
+    }
+
+    public void setArmateur(String armateur) {
+        this.armateur = armateur;
+    }
+
+    public String getArmateurlib() {
+        return armateurlib;
+    }
+
+    public void setArmateurlib(String armateurlib) {
+        this.armateurlib = armateurlib;
+    }
 
     public OccupationMaterielNaval[] getPrestationsVisees(Connection c) throws Exception {
         OccupationMaterielNaval occupation = new OccupationMaterielNaval();
@@ -49,7 +65,21 @@ public class Prevision extends ClassEtat {
         OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='" + this.getId() + "' and etat>=" + ConstanteEtat.getEtatValider());
         return liste;
     }
-
+    
+    public Navire findNavire(Connection c) throws Exception{
+        Navire navire = new Navire();
+        navire.setNomTable("navire");
+        Navire [] liste = (Navire []) CGenUtil.rechercher(navire, null, null, c, " and id='" +this.getNavire()+"'");
+        if(liste.length > 0){
+            return liste [0];
+        }
+        return null;
+    }
+    
+    public boolean estNavireEtranger(Connection c) throws Exception{
+	return findNavire(c).estEtranger(c);
+    }
+    
     private static String[] getIdsFromTab(ClassMAPTable[] tab) {
         String[] ids = new String[tab.length];
 

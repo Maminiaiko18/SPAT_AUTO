@@ -1,0 +1,1 @@
+update quais set typequais='TQ001' where id='QUA000007';

@@ -19,6 +19,24 @@ public class Coursdevise extends ClassMAPTable {
     private String iddevise;
     private double montant;
     private Date daty;
+    private String estMICTSL;
+
+    public String getEstMICTSL() {
+        return estMICTSL;
+    }
+
+    public void setEstMICTSL(String estMICTSL) {
+        this.estMICTSL = estMICTSL;
+    }
+    private String estMICTSLlib;
+
+    public String getEstMICTSLlib() {
+        return estMICTSLlib;
+    }
+
+    public void setEstMICTSLlib(String estMICTSLlib) {
+        this.estMICTSLlib = estMICTSLlib;
+    }
 
     public Coursdevise() {
         this.setNomTable("coursdevise");

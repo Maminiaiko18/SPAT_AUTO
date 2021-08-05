@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="utilitaire.Constante"%>
+
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.HashMap"%>
@@ -22,13 +23,16 @@
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
     FactureClient e = new FactureClient();
-    e.setNomTable("facture_client_union");
+    e.setNomTable("factureClientValide");
     PageConsulte pc = new PageConsulte(e, request, u);
     pc.setTitre("FICHE FACTURE CLIENT");
     
     pc.getChampByName("iduser").setVisible(false);
     pc.getChampByName("type").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("etatlib").setVisible(false);
+    pc.getChampByName("Idcategorie").setVisible(false);
+    pc.getChampByName("IdProvision").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("montant").setLibelle("Montant HT");
@@ -38,9 +42,30 @@
     pc.getChampByName("date_echeance").setLibelle("Date echeance");
     pc.getChampByName("montantpaye").setLibelle("Montant payé");
     pc.getChampByName("montantreste").setLibelle("Reste à payer");
+    pc.getChampByName("typelib").setLibelle("Type");
     pc.getChampByName("escale").setLibelle("Escale");
-//    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp", "id");
+    pc.getChampByName("idProvisionlib").setLibelle("Provision");
     e = (FactureClient) pc.getBase();
+    pc.getChampByName("idProvisionlib").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp&id="+e.getIdProvision(), "idProvisionlib=");
+    String categorie="";
+    if(e.getIdcategorie()!=null){
+        categorie=e.getIdcategorie();
+    }
+    if(categorie.equals(Constante.idCategorieFCDefinitive)){ 
+         pc.setTitre("Fiche Facture client");
+    }
+    else if(categorie.equals(Constante.idCategorieFCProforma)){ 
+         pc.setTitre("Fiche Facture Proforma");
+    }
+    else if(categorie.equals(Constante.idCategorieFCProvision)){ 
+         pc.setTitre("Fiche Facture de provision");
+    }
+    pc.getChampByName("categorielib").setLibelle("Categorie");
+       
+//
+//Si categorieFC = proforma alors “Fiche Facture Proforma”
+//
+//Si categorieFC = provision alors “Fiche Facture de provision”
     pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-fiche.jsp&id="+e.getIdprevision(), "escale=");
     String bute="facture/factureclient-fiche-vaovao.jsp";
     String classe="facture.FactureClient";
@@ -106,6 +131,12 @@
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + e.getId() %>" style="margin-right: 10px">Modifier</a>
                         <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
                         <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=annulerVisa&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Annuler visa</a>
+                        <%
+                            if(e.getIdcategorie()!=null &&  e.getIdcategorie().equals(Constante.idCategorieFCProvision)){%>
+                            <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId() %>&acte=genererDefinitive&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
+
+                            <%}
+                        %>
                     </p>
                     <hr>
                 </div>
@@ -120,7 +151,7 @@
             <div class="col-md-10 col-md-offset-1 ">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
-                    <li class="<%= map.get("facture-client-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-client-fille&idmere=<%=e.getId()%>">Detail facture client</a></li>
+                    <li class="<%= map.get("facture-client-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-client-fille&idmere=<%=e.getId()%>">D&eacute;tails facture client</a></li>
                     <li class="<%= map.get("avoir-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=avoir-liste">Facture avoir</a></li>
                     <li class="<%= map.get("bondelivraison")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=bondelivraison">Bon de livraison</a></li>
                     <li class="<%= map.get("paiement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=paiement">Paiement</a></li>

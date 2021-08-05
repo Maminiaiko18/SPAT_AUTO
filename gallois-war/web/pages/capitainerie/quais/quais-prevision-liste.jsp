@@ -11,8 +11,8 @@
     try{
         user.UserEJB u = (user.UserEJB) session.getValue("u");
         
-        String[] vuesEtat = new String[]{"previsionLibComplet","previsionlibcompletc", "previsionlibcompletv", "previsionfacturee", "previsionlibcompleta"};
-        String[] libsEtat = new String[]{"TOUS","CREE", "VALIDE", "FACTURE", "ANNULE"};
+        String[] vuesEtat = new String[]{"previsionLibComplet","previsionlibcompletc", "previsionlibcompletv", "previsionfacturee", "previsionNonFacturee", "previsionlibcompleta"};
+        String[] libsEtat = new String[]{"TOUS","CREE", "VALIDE", "FACTUREE", "NON FACTUREE", "ANNULEE"};
         String selectedEtat = request.getParameter("etat");
         PrevisionLibComplet prevision=new PrevisionLibComplet();
         if(selectedEtat!= null && !selectedEtat.equals("")){
@@ -22,9 +22,9 @@
         }
       
       
-      String listeCtrl[]={"id","paysprovenance","quaiprovenance","escale","nomnavire","valconsignataire","valcargaison","valpilote","date_arrivee","heure_arrivee","date_depart","heure_depart","paysdestination","noVoyage"};
+      String listeCtrl[]={"id","paysprovenance","quaiprovenance","escale","nomnavire","valconsignataire","valcargaison","valpilote","date_arrivee","heure_arrivee","date_depart","heure_depart","paysdestination","armateurlib"};
       String listeInt[]={"date_arrivee","date_depart"};
-      String libEntete[]={"id","valpaysprovenance", "valquaisprovenance","escale","nomnavire","valconsignataire","valcargaison","date_arrivee","heure_arrivee","date_depart","heure_depart","valpaysdestination","valquaisdestination","valpilote","noVoyage"};
+      String libEntete[]={"id","valpaysprovenance", "valquaisprovenance","escale","nomnavire","valconsignataire","valcargaison","date_arrivee","heure_arrivee","date_depart","heure_depart","valpaysdestination","valquaisdestination","valpilote","noVoyage","armateurlib"};
       PageRecherche pr=new PageRecherche(prevision,request,listeCtrl,listeInt,3,libEntete,libEntete.length);
       pr.setUtilisateur(u);
       pr.setLien((String) session.getValue("lien"));
@@ -44,7 +44,8 @@
       pr.getFormu().getChamp("paysdestination").setLibelle("Destination");
       pr.getFormu().getChamp("valcargaison").setLibelle("Cargaison");
       pr.getFormu().getChamp("valconsignataire").setLibelle("Consignataire");
-      pr.getFormu().getChamp("noVoyage").setLibelle("Numero voyage");
+      pr.getFormu().getChamp("armateurlib").setLibelle("Armateur lib");
+      //pr.getFormu().getChamp("noVoyage").setLibelle("Numero voyage");
     pr.setApres("capitainerie/quais/quais-prevision-liste.jsp");
     
     Prevision prev = u.getPrevision();
@@ -89,7 +90,7 @@
         <br />
         
         <%
-            String libEnteteAffiche[] = {"id","Pays Provenance","Quai de provenance","Escale" ," Nom Navire","Consignataire","Cargaison","date d'arrivée","heure d' arrivée","date de depart","heure du depart","destination","Quai de destination","Commandant","Numero voyage"};
+            String libEnteteAffiche[] = {"id","Pays Provenance","Quai de provenance","Escale" ," Nom Navire","Consignataire","Cargaison","date d'arrivée","heure d' arrivée","date de depart","heure du depart","destination","Quai de destination","Commandant","Numero voyage","Armateur lib"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             //pr.getTableau().construire_libelle(champ, libelle_comp);
             out.println(pr.getTableau().getHtml());

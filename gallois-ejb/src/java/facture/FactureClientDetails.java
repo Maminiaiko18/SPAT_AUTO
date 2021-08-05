@@ -35,9 +35,66 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoiravectaux;
     private double qtelivree, restealivrer; 
     private Date datefact;
-    private String rubriquelib, idprestation;
+    private String rubriquelib, idprestation,clientlib;
     private int mois, annee;
     private String heureDebut, heureFin, moislib,anneelib;
+    private double montantHTEuro,montantTVAEuro, montanttaxe,majoration,reduction;
+
+    public double getMajoration() {
+        return majoration;
+    }
+
+    public void setMajoration(double majoration) {
+        this.majoration = majoration;
+    }
+
+    public double getReduction() {
+        return reduction;
+    }
+
+    public void setReduction(double reduction) {
+        this.reduction = reduction;
+    }
+    boolean tauxDonne=false;
+
+    public boolean getTauxDonne() {
+        return tauxDonne;
+    }
+
+    public void setTauxDonne(boolean tauxDonne) {
+        this.tauxDonne = tauxDonne;
+    }
+    
+    public static Date getFinMois(int mois, int annee) {
+        String moisS = mois < 10 ? "0" + mois : "" + mois; 
+        Date date = Utilitaire.stringDate("01/" + moisS + "/" + annee);
+        
+        return Utilitaire.getLastDayOfDateSQL(date);
+    }
+    
+    public double getTauxFinDuMois(Connection c, int mois, int annee, String iddevise) throws Exception {
+        Date finDuMois = getFinMois(mois, annee);
+                
+        String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(finDuMois) + "' and iddevise = '" + iddevise + "') "
+                + " and iddevise = '" + iddevise + "'";
+        //System.out.println("apres where "+awhere );
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
+        
+        return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
+    }
+    public void setTauxFinDuMois(Connection c,int mois,int annee,String iddevise) throws Exception
+    {
+        double tauxFm=getTauxFinDuMois(c,mois,annee,iddevise);
+        this.setTaux(tauxFm);
+    }
+    
+    public double getMontanttaxe() {
+        return montanttaxe;
+    }
+
+    public void setMontanttaxe(double montanttaxe) {
+        this.montanttaxe = montanttaxe;
+    }
 
     public String getProduit_lib() {
         return produit_lib;
@@ -47,6 +104,30 @@ public class FactureClientDetails extends ClassFille {
         this.produit_lib = produit_lib;
     }
 
+    public String getClientlib() {
+        return clientlib;
+    }
+
+    public void setClientlib(String clientlib) {
+        this.clientlib = clientlib;
+    }
+
+    public double getMontantHTEuro() {
+        return montantHTEuro;
+    }
+
+    public void setMontantHTEuro(double montantHTEuro) {
+        this.montantHTEuro = montantHTEuro;
+    }
+
+    public double getMontantTVAEuro() {
+        return montantTVAEuro;
+    }
+
+    public void setMontantTVAEuro(double montantTVAEuro) {
+        this.montantTVAEuro = montantTVAEuro;
+    }
+    
     
     public OccupationMaterielNaval getPrestation(Connection c) throws Exception {
         OccupationMaterielNaval prestation=new OccupationMaterielNaval();
@@ -238,7 +319,7 @@ public class FactureClientDetails extends ClassFille {
 
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
-        setTaux(getTauxRecent(c));
+        if(getTauxDonne()==false)setTaux(getTauxRecent(c));
         return super.createObject(user, c);
     }
 
@@ -275,20 +356,58 @@ public class FactureClientDetails extends ClassFille {
         }
         return retour;
     }
+    
+    private double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
+        String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
+                + " and iddevise = '" + this.getDevise() + "'";
+        Coursdevise cours = new Coursdevise();
+        cours.setNomTable(nomTable);
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(cours, null, null, c, awhere);
+
+        return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
+    }
+
     public double getTauxRecent(Connection c) throws Exception {
-        Date date = ((FactureClient)this.findMere("",c)).getDaty();
+        this.findMere(c);
         
-        if(this.getIdactivite()!=null && this.getDatefact() != null){
-            date=Utilitaire.ajoutJourDate(this.getDatefact(), -1);
+        if(this.getMere() == null) throw new Exception("Facture mere introuvable");
+        String estDDPMICTSL = this.getMere().getEstDDPMICTSL();
+        if(estDDPMICTSL != null && estDDPMICTSL.equalsIgnoreCase("1")) return getTauxRecentMICTSL(c);
+        
+        return getTauxRecentNormal(c);
+    }
+    
+    private FactureClient findMere(Connection c) throws Exception {
+        if(this.getMere() == null) {
+            FactureClient fc = new FactureClient();
+            fc.setId(this.getIdmere());
+            fc.setEstDDPMICTSL(null);
+            FactureClient[] tmp = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, "");
+            
+            if(tmp != null && tmp.length > 0) { 
+                this.mere = tmp[0];
+                return tmp[0];
+            }
         }
         
-        String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
-                + " and iddevise = '" + this.getDevise() + "'";
-        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
-        
-        if(cd != null && cd.length > 0) return cd[0].getMontant();
-        
-        return 0;
+        return null;
+    }
+    
+    public double getTauxRecentNormal(Connection c) throws Exception {
+        this.findMere(c);
+        Date date = this.getMere().getDaty();
+
+        if (this.getIdactivite() != null && this.getDatefact() != null) {
+            date = Utilitaire.ajoutJourDate(this.getDatefact(), -1);
+        }
+
+        return getValeurTaux(c, "coursdeviseNonMICTSL", date);
+    }
+    
+    public double getTauxRecentMICTSL (Connection c) throws Exception {
+        this.findMere(c);
+        Date date = this.getMere().getDaty();
+        return getValeurTaux(c, "coursdeviseMICTSL", date);
     }
     
 

@@ -21,12 +21,18 @@
     PageUpdate pi = new PageUpdate(a, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     pi.getFormu().getChamp("daty").setLibelle("Date");
-    affichage.Champ[] liste = new affichage.Champ[1];
+    affichage.Champ[] liste = new affichage.Champ[2];
     TypeObjet typeAvoir = new TypeObjet();
     typeAvoir.setNomTable("devise");
     liste[0] = new Liste("iddevise", typeAvoir, "val", "id");
+    String[]ajoutValeur={"0","1"};
+    String ajoutAffiche[]={"Non","Oui"};
+    liste[1]=new Liste("estMICTSL"); 
+    ((Liste)liste[1]).ajouterValeur(ajoutValeur,ajoutAffiche);
+    
     pi.getFormu().changerEnChamp(liste);
-    pi.getFormu().getChamp("iddevise").setLibelle("Devise");   
+    pi.getFormu().getChamp("iddevise").setLibelle("Devise");
+    pi.getFormu().getChamp("estMICTSL").setLibelle("Est MICTSL");   
 
     
     pi.preparerDataFormu();

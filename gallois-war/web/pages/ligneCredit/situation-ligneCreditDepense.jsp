@@ -18,7 +18,7 @@
         }
         fa.setNomTable("situationLC_vide");
 
-        String listeCrt[] = {"id", "designation", "compte"};
+        String listeCrt[] = {"id", "designation", "compte", "daty"};
         String listeInt[] = {"daty"};
         String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye", "daty"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -28,7 +28,9 @@
         pr.setApres("ligneCredit/situation-ligneCreditDepense.jsp");
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
-
+        
+        pr.getFormu().getChamp("daty1").setLibelle("Date Min");
+        pr.getFormu().getChamp("daty2").setLibelle("Date Max");
         LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, null);
         pr.setTableau(new TableauRecherche(liste, libEntete));
 

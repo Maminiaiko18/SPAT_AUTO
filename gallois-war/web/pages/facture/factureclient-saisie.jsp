@@ -37,12 +37,29 @@
     pi.getFormu().getChamp("idprevision").setLibelle("escale");
     pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
-    pi.getFormu().getChamp("type").setVisible(false);
+    pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+    
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("deviseMere").setVisible(false);
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     
+    affichage.Liste[] listes= new affichage.Liste[2];
+    
+    TypeObjet type = new TypeObjet();
+        type.setNomTable("typefc");
+        listes[0] = new Liste("type", type, "VAL", "id");
+        
+     TypeObjet categ = new TypeObjet();
+        categ.setNomTable("categorieFC");
+        listes[1] = new Liste("idcategorie", categ, "VAL", "id");
+    
+        pi.getFormu().changerEnChamp(listes);
+    
+    pi.getFormu().getChamp("idProvision").setAutre("readonly");
+    pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
+    pi.getFormu().getChamp("idProvision").setLibelle("Provision");    
     
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
@@ -52,6 +69,8 @@
         TypeObjet mois = new TypeObjet();
         mois.setNomTable("mois");
         listed[1] = new Liste("mois", mois, "VAL", "id");
+        
+        
         
     pi.getFormufle().changerEnChamp(listed);
     
@@ -83,6 +102,8 @@
     pi.getFormufle().getChamp("annee_0").setLibelle("Année");
     pi.getFormufle().getChamp("heureDebut_0").setLibelle("Heure debut");
     pi.getFormufle().getChamp("heureFin_0").setLibelle("Heure fin");
+    pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
+    pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
     
    
   
@@ -94,7 +115,15 @@
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
     
+    String[]valeurChampEstDDPMICTSL = {"0", "1"};
+    String[]afficheChampEstDDPMICTSL = {"non", "oui"};
     
+    affichage.Liste[] lst= new affichage.Liste[1];
+    lst[0] = new Liste("EstDDPMICTSL");
+    lst[0].ajouterValeur(valeurChampEstDDPMICTSL, afficheChampEstDDPMICTSL);    
+    pi.getFormu().changerEnChamp(lst);
+    pi.getFormu().getChamp("EstDDPMICTSL").setDefaut("0");
+    pi.getFormu().getChamp("EstDDPMICTSL").setLibelle("Droit de Port MICTSL");
     
     pi.preparerDataFormu();
        

@@ -42,6 +42,8 @@
     pi.getFormu().getChamp("pilote").setLibelle("Commandant");
     pi.getFormu().getChamp("noVoyage").setLibelle("N° voyage");
     
+    pi.getFormu().getChamp("armateur").setPageAppel("choix/listeClientChoix.jsp");
+    
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>

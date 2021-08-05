@@ -24,7 +24,7 @@
   pr.getFormu().getChamp("nomfournisseur").setLibelle("fournisseur");
     
     pr.setLien((String) session.getValue("lien"));
-    pr.setApres("choix/listeFactureChoixMultiple.jsp");
+    pr.setApres("listeFactureChoixMultiple.jsp");
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);

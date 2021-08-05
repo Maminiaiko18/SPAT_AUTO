@@ -33,6 +33,9 @@
     pi.getFormu().getChamp("consignataire").setPageAppel("choix/listeClientChoix.jsp");
     pi.getFormu().getChamp("consignataire").setAutre("readonly");
     
+    pi.getFormu().getChamp("armateur").setPageAppel("choix/listeClientChoix.jsp");
+    pi.getFormu().getChamp("armateur").setAutre("readonly");
+    
     pi.getFormu().getChamp("pilote").setValeurLibelle(copie.getValpilote());
     pi.getFormu().getChamp("cargaison").setValeurLibelle(copie.getValcargaison());
     pi.getFormu().getChamp("consignataire").setValeurLibelle(copie.getValconsignataire());
@@ -42,11 +45,12 @@
     pi.getFormu().getChamp("navire").setAutre("readonly");
     pi.getFormu().getChamp("destination").setLibelle("Quai");
     
-    pi.getFormu().getChamp("cargaison").setPageAppel("choix/listeCargaisonChoixMultiple.jsp");
+    pi.getFormu().getChamp("cargaison").setPageAppel("choix/listeCargaisonChoix.jsp");
     pi.getFormu().getChamp("cargaison").setAutre("readonly");
     pi.getFormu().getChamp("provenance").setAutre("readonly");
     
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("Armateurlib").setVisible(false);
     pi.getFormu().getChamp("quaiprovenance").setVisible(false);
     pi.getFormu().getChamp("internepovenance").setVisible(false);
     pi.getFormu().getChamp("paysprovenance").setVisible(false);

@@ -15,10 +15,13 @@
     Coursdevise a;
     try{
         a = new Coursdevise();
+        a.setNomTable("coursdeviselib");
         PageConsulte pc = new PageConsulte(a, request, (user.UserEJB) session.getValue("u"));
         
         pc.getChampByName("iddevise").setLibelle("Devise");
         pc.getChampByName("daty").setLibelle("Date");
+        pc.getChampByName("estMICTSLlib").setLibelle("Est MICTSL");
+        pc.getChampByName("estMICTSL").setVisible(false);
         
         pc.setTitre("Fiche cours devise");
         

@@ -154,6 +154,7 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Produit</th>
+                                <th>Compte</th>
                                 <th>Quantit&eacute;</th>
                                 <th>P.U</th>
                                 <th>Montant HT</th>
@@ -173,6 +174,7 @@
                             <tr  onmouseout="this.style.backgroundColor = ''">
                                 <td  align="center"><%=liste[i].getId()%></td>
                                 <td  align="center"><%=liste[i].getIdingredient()%></td>
+                                <td  align="center"><%=Utilitaire.champNull(liste[i].getCompte()) %></td>
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQte())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getPu())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr((liste[i].getMontant()))%></td>

@@ -24,22 +24,28 @@
     PageInsert pi = new PageInsert(objet, request, u);
     pi.setLien((String) session.getValue("lien"));  
     
-     affichage.Champ[] liste = new affichage.Champ[1];
+     affichage.Champ[] liste = new affichage.Champ[2];
      TypeObjet liste1 = new TypeObjet();
      liste1.setNomTable("devise");
 //     liste1.setNomTable("devisedemat");
-     liste[0] = new Liste("iddevise", liste1, "val", "id");
+    liste[0] = new Liste("iddevise", liste1, "val", "id");
+    String[]ajoutValeur={"0","1"};
+    String ajoutAffiche[]={"Non","Oui"};
+    liste[1]=new Liste("estMICTSL"); 
+    ((Liste)liste[1]).ajouterValeur(ajoutValeur,ajoutAffiche);
+     
      pi.getFormu().changerEnChamp(liste);
 	
      pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
      pi.getFormu().getChamp("daty").setLibelle("Date");
      pi.getFormu().getChamp("iddevise").setLibelle("devise");
+    pi.getFormu().getChamp("estMICTSL").setLibelle("Est MICTSL");
             
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
     <h1> <%=titre%></h1>
-    
+
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
@@ -55,7 +61,7 @@
 } catch (Exception e) {
     e.printStackTrace();
 %>
-<script language="JavaScript"> 
-	alert('<%=e.getMessage()%>');
+<script language="JavaScript">
+    alert('<%=e.getMessage()%>');
     history.back();</script>
-<% }%>
+    <% }%>
