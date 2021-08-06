@@ -301,7 +301,7 @@ public class FactureClient extends ClassMere {
         
         return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
-    public FactureClientDetails[] genererDroitDePort(int mois, int annee, String u, Connection c) throws Exception {
+    public FactureClientDetails[] genererDroitDePort(int mois, int annee, String u, Connection c, FactureClient mere) throws Exception {
         Activite crt=new Activite();
         crt.setNomTable("ActiviteLibComContGPMA");
         Activite[] listeAct=(Activite[])CGenUtil.rechercher(crt, null, null, c," and mois ="+mois+" and annee="+annee);
@@ -323,6 +323,7 @@ public class FactureClient extends ClassMere {
             ret[i].setTauxDonne(true);
             
         }
+        mere.setEstDDPMICTSL("1");
         return ret;
     }
 
