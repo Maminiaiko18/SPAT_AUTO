@@ -45,7 +45,7 @@
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     
-    affichage.Liste[] listes= new affichage.Liste[2];
+    affichage.Liste[] listes= new affichage.Liste[3];
     
     TypeObjet type = new TypeObjet();
         type.setNomTable("typefc");
@@ -54,12 +54,17 @@
      TypeObjet categ = new TypeObjet();
         categ.setNomTable("categorieFC");
         listes[1] = new Liste("idcategorie", categ, "VAL", "id");
+        
+    TypeObjet prestation = new TypeObjet();
+        prestation.setNomTable("code_prestation");
+        listes[2] = new Liste("codePrestation", prestation, "VAL", "id");
     
         pi.getFormu().changerEnChamp(listes);
-    
+        
+    pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
     pi.getFormu().getChamp("idProvision").setAutre("readonly");
     pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
-    pi.getFormu().getChamp("idProvision").setLibelle("Provision");    
+    pi.getFormu().getChamp("idProvision").setLibelle("Provision");
     
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
