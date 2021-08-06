@@ -24,7 +24,7 @@
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
-        affichage.Liste[] listeM = new affichage.Liste[3];
+        affichage.Liste[] listeM = new affichage.Liste[4];
         TypeObjet oM = new TypeObjet();
         oM.setNomTable("TYPEFC");
         listeM[0] = new Liste("type", oM, "VAL", "id");
@@ -37,6 +37,11 @@
         String ajoutAffiche[] = {"Non", "Oui"};
         listeM[2] = new Liste("estDDPMICTSL");
         ((Liste) listeM[2]).ajouterValeur(ajoutValeur, ajoutAffiche);
+        
+        TypeObjet typeObjCodePrestation = new TypeObjet();
+        typeObjCodePrestation.setNomTable("code_prestation");
+        listeM[3] = new Liste("codePrestation", typeObjCodePrestation, "VAL", "id");
+        
         pi.getFormu().changerEnChamp(listeM);
 
         pi.getFormu().getChamp("estDDPMICTSL").setLibelle("Droit de Port MICTSL");
@@ -61,6 +66,7 @@
         pi.getFormu().getChamp("daty").setLibelle("date");
         pi.getFormu().getChamp("type").setLibelle("Type FC");
         pi.getFormu().getChamp("idcategorie").setLibelle("Catégorie");
+        pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
 
         pi.getFormu().getChamp("etat").setAutre("readonly");
         pi.getFormu().getChamp("etat").setVisible(false);
@@ -77,6 +83,7 @@
         pi.getFormu().getChamp("Contact").setVisible(false);
         pi.getFormu().getChamp("Adresse").setVisible(false);
         pi.getFormu().getChamp("DeviseMere").setVisible(false);
+        pi.getFormu().getChamp("codePrestationlib").setVisible(false);
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
