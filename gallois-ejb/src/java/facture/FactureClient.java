@@ -355,7 +355,7 @@ public class FactureClient extends ClassMere {
                 zanany=genererRedevanceVariable(mois, annee, u, c);
             } else if (type.equals("3")) {
                 controlerDoublonRubrique(c, mois, annee,Constante.idDroitDePortCalcule);
-                zanany= genererDroitDePort(mois, annee, u, c);
+                zanany= genererDroitDePort(mois, annee, u, c, this);
             }
             this.setFille(zanany);
             this.createObject(iduser, c);
