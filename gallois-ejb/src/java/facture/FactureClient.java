@@ -339,7 +339,7 @@ public class FactureClient extends ClassMere {
             this.setRemarque(noteExplicative);
             this.setTiers(Constante.idMICTSL);
             this.setIdcategorie(Constante.idCategorieFCDefinitive);
-            this.setIduser(iduser);
+            this.setIduser(u);
             this.setDeviseMere("Dollars");
             this.setType("TFC001"); //Crédit
             
@@ -358,7 +358,7 @@ public class FactureClient extends ClassMere {
                 zanany= genererDroitDePort(mois, annee, u, c, this);
             }
             this.setFille(zanany);
-            this.createObject(iduser, c);
+            this.createObject(u, c);
             if(ouvert)c.commit();
             return this;
         }
