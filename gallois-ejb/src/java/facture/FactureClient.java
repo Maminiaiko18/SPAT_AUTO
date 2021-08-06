@@ -48,6 +48,7 @@ public class FactureClient extends ClassMere {
     private String idcategorie, idProvision, categorielib, idProvisionlib;
     private String estDDPMICTSL="0";
     private String codePrestation, codePrestationlib;
+  
 
     public String getCodePrestation() {
         return codePrestation;
