@@ -76,6 +76,7 @@
         pi.getFormu().getChamp("Montantreste").setVisible(false);
         pi.getFormu().getChamp("Contact").setVisible(false);
         pi.getFormu().getChamp("Adresse").setVisible(false);
+        pi.getFormu().getChamp("DeviseMere").setVisible(false);
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);

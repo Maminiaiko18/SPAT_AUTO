@@ -84,11 +84,11 @@ public class FactureClient extends ClassMere {
                 verif = 1;
             }
 
-            this.setDeviseMere("Ar");
+            this.setDeviseMere(Constante.deviseAr);
             if(this.getIdprevision() != null){
                 Prevision prevision = this.findPrevision(c);
                 if(prevision != null && prevision.estNavireEtranger(c)){
-                    this.setDeviseMere("Dollars");
+                    this.setDeviseMere(Constante.deviseDollars);
                 }
             }
             this.updateToTable(c);
