@@ -99,6 +99,7 @@
     pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
     pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
     pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
+    
     pi.getFormufle().getChamp("annee_0").setLibelle("Année");
     pi.getFormufle().getChamp("heureDebut_0").setLibelle("Heure debut");
     pi.getFormufle().getChamp("heureFin_0").setLibelle("Heure fin");
@@ -115,6 +116,7 @@
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
     
+    affichage.Champ.setDefaut(pi.getFormufle().getChampFille("annee"),Utilitaire.getAnneeEnCours());
     String[]valeurChampEstDDPMICTSL = {"0", "1"};
     String[]afficheChampEstDDPMICTSL = {"non", "oui"};
     
