@@ -383,21 +383,23 @@ public class Mouvement extends ClassEtat {
 
         long diffInMillies = Math.abs(datesup.getTime() - dateinf.getTime());
         double diff = TimeUnit.HOURS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-
+        
         return diff;
     }
 
     public double getDuree() throws Exception {
+        double d = this.duree;
+        
         if (this.getTypeMvt() != null && this.getTypeMvt().compareTo(Constante.idtypeMvtDepart) != 0) {
             if (this.getDatearrivee() != null && this.getHeure() != null && !this.getHeure().trim().equalsIgnoreCase("") && this.getDate_depart() != null && this.getHeure_depart() != null && !this.getHeure_depart().trim().equalsIgnoreCase("")) {
 //            return Utilitaire.diffJourDatyGallois(this.getDate_depart(),this.getDatearrivee());
 //                System.out.println("date dep " + this.getDate_depart() + " " + this.getHeure_depart());
 //                System.out.println("date arr " + this.getDatearrivee() + " " + this.getHeure());
-                return diffEnHeure(this.getDatearrivee(), this.getHeure(), this.getDate_depart(), this.getHeure_depart());
+                d = diffEnHeure(this.getDatearrivee(), this.getHeure(), this.getDate_depart(), this.getHeure_depart());
             }
         }
         
-        return this.duree;
+        return Math.floor(d);
     }
 
     public void setDuree(double duree) throws Exception {
