@@ -1,5 +1,7 @@
 package mg.cnaps.servlet.etat;
 
+
+
 import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
@@ -123,6 +125,7 @@ public class EtatPaieServlet extends HttpServlet {
             }else if(action.equalsIgnoreCase("fact")){
                 fact(request, response);
             }
+
             
         } catch(Exception ex){
             ex.printStackTrace();
@@ -772,7 +775,7 @@ public class EtatPaieServlet extends HttpServlet {
             if(pre.length!=0){
                 //System.out.println("miditra="+pre[0].getArmateurlib());
                 // param.put("armateur",pre[0].getArmateur());
-                 param.put("navire",pre[0].getNavire());
+                 param.put("navire",pre[0].getNomnavire());
                 // param.put("escale",pre[0].getEscale());
                  param.put("date_arrivee",pre[0].getDate_arrivee());
                  param.put("pavillon",pre[0].getPavillonnavire());
@@ -843,5 +846,8 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    
+    
+  
     
 }

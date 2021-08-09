@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.6105100000000074"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="51"/>
+	<property name="ireport.y" value="336"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -295,14 +295,14 @@
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Période du :021/07/2020"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Période du :21/07/2020"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="224" y="270" width="148" height="20" uuid="f7af6c34-8b72-4398-a1ec-9e2d583223a6"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["au :021/07/2020"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["au :21/07/2020"]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -322,7 +322,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
-							<textField>
+							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="70" height="30" uuid="38d410d0-19b5-438f-9427-cb74d9fa8c63"/>
 								<textElement>
 									<paragraph leftIndent="2"/>
@@ -335,11 +335,12 @@
 						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="170" height="30" uuid="89063e7d-51d0-4ebe-ad79-eac4661bcb4d"/>
+								<textElement textAlignment="Center"/>
 								<text><![CDATA[Désignation]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
-							<textField>
+							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="170" height="30" uuid="f880f062-6403-492c-bf67-c3d142362d27"/>
 								<textElement>
 									<paragraph leftIndent="2"/>
@@ -357,7 +358,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
-							<textField>
+							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="90" height="30" uuid="2ba1d4d3-2e40-4e46-bdf3-9a47f59b1018"/>
 								<textElement>
 									<paragraph rightIndent="2"/>
@@ -375,7 +376,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
-							<textField>
+							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="50" height="30" uuid="d48c5cca-af01-402c-94da-35ef3925efda"/>
 								<textElement textAlignment="Right">
 									<paragraph rightIndent="2"/>
@@ -502,7 +503,7 @@
 			</textField>
 			<textField>
 				<reportElement x="445" y="81" width="100" height="20" uuid="bbe60157-d0d6-4a5a-ab8e-5b453ef314dd"/>
-				<textFieldExpression><![CDATA["20"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="445" y="101" width="100" height="20" uuid="b8b34f13-f121-40d8-98d5-7b16ae7777db"/>
