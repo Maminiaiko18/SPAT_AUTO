@@ -40,12 +40,11 @@
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("deviseMere").setVisible(false);
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     
-    affichage.Liste[] listes= new affichage.Liste[3];
+    affichage.Liste[] listes= new affichage.Liste[4];
     
     TypeObjet type = new TypeObjet();
         type.setNomTable("typefc");
@@ -59,8 +58,14 @@
         prestation.setNomTable("code_prestation");
         listes[2] = new Liste("codePrestation", prestation, "VAL", "id");
     
+    TypeObjet devise = new TypeObjet();
+        devise.setNomTable("devise");
+        listes[3] = new Liste("deviseMere", devise, "VAL", "id");
+    
         pi.getFormu().changerEnChamp(listes);
-        
+    
+    
+    pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
     pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
     pi.getFormu().getChamp("idProvision").setAutre("readonly");
     pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
