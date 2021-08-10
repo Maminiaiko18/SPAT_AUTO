@@ -40,12 +40,11 @@
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("deviseMere").setVisible(false);
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     
-    affichage.Liste[] listes= new affichage.Liste[2];
+    affichage.Liste[] listes= new affichage.Liste[4];
     
     TypeObjet type = new TypeObjet();
         type.setNomTable("typefc");
@@ -54,12 +53,23 @@
      TypeObjet categ = new TypeObjet();
         categ.setNomTable("categorieFC");
         listes[1] = new Liste("idcategorie", categ, "VAL", "id");
+        
+    TypeObjet prestation = new TypeObjet();
+        prestation.setNomTable("code_prestation");
+        listes[2] = new Liste("codePrestation", prestation, "VAL", "id");
+    
+    TypeObjet devise = new TypeObjet();
+        devise.setNomTable("devise");
+        listes[3] = new Liste("deviseMere", devise, "VAL", "id");
     
         pi.getFormu().changerEnChamp(listes);
     
+    
+    pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
+    pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
     pi.getFormu().getChamp("idProvision").setAutre("readonly");
     pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
-    pi.getFormu().getChamp("idProvision").setLibelle("Provision");    
+    pi.getFormu().getChamp("idProvision").setLibelle("Provision");
     
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
@@ -99,6 +109,7 @@
     pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
     pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
     pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
+    
     pi.getFormufle().getChamp("annee_0").setLibelle("Année");
     pi.getFormufle().getChamp("heureDebut_0").setLibelle("Heure debut");
     pi.getFormufle().getChamp("heureFin_0").setLibelle("Heure fin");
@@ -115,6 +126,7 @@
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
     
+    affichage.Champ.setDefaut(pi.getFormufle().getChampFille("annee"),Utilitaire.getAnneeEnCours());
     String[]valeurChampEstDDPMICTSL = {"0", "1"};
     String[]afficheChampEstDDPMICTSL = {"non", "oui"};
     

@@ -1,5 +1,7 @@
 package mg.cnaps.servlet.etat;
 
+
+
 import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
@@ -123,6 +125,7 @@ public class EtatPaieServlet extends HttpServlet {
             }else if(action.equalsIgnoreCase("fact")){
                 fact(request, response);
             }
+
             
         } catch(Exception ex){
             ex.printStackTrace();
@@ -749,14 +752,16 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             String id = request.getParameter("id");
             FactureClient facture = new FactureClient();
-            facture.setNomTable("factureclientMSum_lib");
-            
-            
+            facture.setNomTable("factureClientValide");
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+           
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
+           
+            
             if(mere.length!=0){
-            mg.spat.Prevision p = new mg.spat.Prevision();
+            mg.spat.PrevisionLibelleComplet p = new mg.spat.PrevisionLibelleComplet();
             p.setNomTable("PREVISIONLIBCOMPLET");
-            mg.spat.Prevision[] pre = (mg.spat.Prevision[]) CGenUtil.rechercher(p, null, null, null, " and id = '"+mere[0].getIdprevision()+"'");
+            mg.spat.PrevisionLibelleComplet[] pre = (mg.spat.PrevisionLibelleComplet[]) CGenUtil.rechercher(p, null, null, null, " and id = '"+mere[0].getIdprevision()+"'");
             
             facture.setId(id);
             facture.initDetails(null);
@@ -765,9 +770,25 @@ public class EtatPaieServlet extends HttpServlet {
             double hTDollar = facture.getMontantHTVADollar();
             double tvaDollar = facture.getMontantTVADollar();
             double ttcDollar = facture.getMontantTTCDollar();
+            
+            
             if(pre.length!=0){
-                System.out.println("miditra="+pre[0].getArmateurlib());
-                 param.put("armateur",pre[0].getArmateurlib());
+                //System.out.println("miditra="+pre[0].getArmateurlib());
+                // param.put("armateur",pre[0].getArmateur());
+                 param.put("navire",pre[0].getNomnavire());
+                // param.put("escale",pre[0].getEscale());
+                 param.put("date_arrivee",pre[0].getDate_arrivee());
+                 param.put("pavillon",pre[0].getPavillonnavire());
+                 param.put("date_depart",pre[0].getDate_depart());
+                 param.put("destination",pre[0].getDestination());
+                 param.put("lmnnavire",pre[0].getLmnavire());
+                 param.put("lmnnavire",pre[0].getLmnavire());
+                 param.put("tenavire",pre[0].getTenavire());
+                 
+                 setNomJasper("facture_client2 - Copie");
+                 
+            }else{
+                setNomJasper("facture-client-sans-prevision");
             }
             
             
@@ -786,6 +807,13 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("montantAvoir",mere[0].getMontantavoir());
             param.put("tva",mere[0].getTva());
             String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
+            
+            if(mere[0].getDeviseMere()!=null){
+                 if(mere[0].getDeviseMere().compareToIgnoreCase("Dollars")==0){
+                    montantlettre = ChiffreLettre.convertRealToString( new Double( ttcDollar ) )+" Dollars " ;            
+                }
+            }
+           
             param.put("montantlettre",montantlettre);
             param.put("htdollar",hTDollar);
             param.put("dollartva",tvaDollar);
@@ -793,8 +821,10 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("hteuro",hTEuro);
             param.put("tvaeuro",tvaEuro);
             }
+            /************************************************************************************************/
             FactureClientDetails cht = new FactureClientDetails();
             cht.setNomTable("FACTURE_CLIENT_FILLE_LIB_PDF");
+            
             FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, null, " and idmere = '"+id+"'");
             ArrayList<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
             for(int i = 0; i < details.length; i++)
@@ -808,13 +838,16 @@ public class EtatPaieServlet extends HttpServlet {
             
             param.put("list_table",arrList);
             
-            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            setNomJasper("facture_client2 - Copie");
+            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            //setNomJasper("facture_client2 - Copie");
             UtilitaireImpression.imprimer(request, response, "facture-client", param, null, getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
+    
+  
     
 }

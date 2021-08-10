@@ -61,7 +61,10 @@
          pc.setTitre("Fiche Facture de provision");
     }
     pc.getChampByName("categorielib").setLibelle("Categorie");
-       
+    pc.getChampByName("codePrestation").setVisible(false);
+    pc.getChampByName("codePrestationlib").setLibelle("Code Prestation");
+    pc.getChampByName("deviseMere").setLibelle("Devise");
+    
 //
 //Si categorieFC = proforma alors “Fiche Facture Proforma”
 //

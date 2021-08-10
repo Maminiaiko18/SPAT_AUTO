@@ -47,6 +47,24 @@ public class FactureClient extends ClassMere {
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
     private String idcategorie, idProvision, categorielib, idProvisionlib;
     private String estDDPMICTSL="0";
+    private String codePrestation, codePrestationlib;
+  
+
+    public String getCodePrestation() {
+        return codePrestation;
+    }
+
+    public void setCodePrestation(String codePrestation) {
+        this.codePrestation = codePrestation;
+    }
+
+    public String getCodePrestationlib() {
+        return codePrestationlib;
+    }
+
+    public void setCodePrestationlib(String codePrestationlib) {
+        this.codePrestationlib = codePrestationlib;
+    }
 
     public String getEstDDPMICTSL() {
         return estDDPMICTSL;
@@ -84,11 +102,11 @@ public class FactureClient extends ClassMere {
                 verif = 1;
             }
 
-            this.setDeviseMere("Ar");
+            this.setDeviseMere(Constante.deviseAr);
             if(this.getIdprevision() != null){
                 Prevision prevision = this.findPrevision(c);
                 if(prevision != null && prevision.estNavireEtranger(c)){
-                    this.setDeviseMere("Dollars");
+                    this.setDeviseMere(Constante.deviseDollars);
                 }
             }
             this.updateToTable(c);
@@ -301,7 +319,7 @@ public class FactureClient extends ClassMere {
         
         return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
-    public FactureClientDetails[] genererDroitDePort(int mois, int annee, String u, Connection c) throws Exception {
+    public FactureClientDetails[] genererDroitDePort(int mois, int annee, String u, Connection c, FactureClient mere) throws Exception {
         Activite crt=new Activite();
         crt.setNomTable("ActiviteLibComContGPMA");
         Activite[] listeAct=(Activite[])CGenUtil.rechercher(crt, null, null, c," and mois ="+mois+" and annee="+annee);
@@ -323,6 +341,7 @@ public class FactureClient extends ClassMere {
             ret[i].setTauxDonne(true);
             
         }
+        mere.setEstDDPMICTSL("1");
         return ret;
     }
 
@@ -338,7 +357,7 @@ public class FactureClient extends ClassMere {
             this.setRemarque(noteExplicative);
             this.setTiers(Constante.idMICTSL);
             this.setIdcategorie(Constante.idCategorieFCDefinitive);
-            this.setIduser(iduser);
+            this.setIduser(u);
             this.setDeviseMere("Dollars");
             this.setType("TFC001"); //Crédit
             
@@ -354,10 +373,10 @@ public class FactureClient extends ClassMere {
                 zanany=genererRedevanceVariable(mois, annee, u, c);
             } else if (type.equals("3")) {
                 controlerDoublonRubrique(c, mois, annee,Constante.idDroitDePortCalcule);
-                zanany= genererDroitDePort(mois, annee, u, c);
+                zanany= genererDroitDePort(mois, annee, u, c, this);
             }
             this.setFille(zanany);
-            this.createObject(iduser, c);
+            this.createObject(u, c);
             if(ouvert)c.commit();
             return this;
         }
