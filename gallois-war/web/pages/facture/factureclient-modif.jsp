@@ -88,6 +88,8 @@
         pi.getFormu().getChamp("Contact").setVisible(false);
         pi.getFormu().getChamp("Adresse").setVisible(false);
         pi.getFormu().getChamp("codePrestationlib").setVisible(false);
+        pi.getFormu().getChamp("codePrestation").setVisible(false);
+        pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
@@ -108,7 +110,7 @@
         affichage.Liste[] listed = new affichage.Liste[1];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
-        listed[0] = new Liste("devise", o, "VAL", "id");
+        listed[0] = new Liste("devise_0", o, "VAL", "id");
         pi.getFormufle().changerEnChamp(listed);
 
         pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");

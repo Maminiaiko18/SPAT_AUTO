@@ -20,7 +20,7 @@
     idUser = ""+u.getUser().getTuppleID();
 
     String autreparsley = "data-parsley-range='[8, 40]' required";
-    FactureClient  fc = new FactureClient();   
+    FactureClient  fc = new FactureClient();
     FactureClientDetails fcfille = new FactureClientDetails();
     fcfille.setNomTable("facture_client_fille_plus");
     
@@ -130,16 +130,24 @@
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
     
     affichage.Champ.setDefaut(pi.getFormufle().getChampFille("annee"),Utilitaire.getAnneeEnCours());
-    String[]valeurChampEstDDPMICTSL = {"0", "1"};
-    String[]afficheChampEstDDPMICTSL = {"non", "oui"};
+    //String[]valeurChampEstDDPMICTSL = {"0", "1"};
+    //String[]afficheChampEstDDPMICTSL = {"non", "oui"};
+    
+    //affichage.Liste[] lst= new affichage.Liste[1];
+    //lst[0] = new Liste("EstDDPMICTSL");
+    //lst[0].ajouterValeur(valeurChampEstDDPMICTSL, afficheChampEstDDPMICTSL);
+    
+    String[]valeurChampEstMICTSL = {"0", "1"};
+    String[]afficheChampEstMICTSL = {"non", "oui"};
     
     affichage.Liste[] lst= new affichage.Liste[1];
-    lst[0] = new Liste("EstDDPMICTSL");
-    lst[0].ajouterValeur(valeurChampEstDDPMICTSL, afficheChampEstDDPMICTSL);    
-    pi.getFormu().changerEnChamp(lst);
-    pi.getFormu().getChamp("EstDDPMICTSL").setDefaut("0");
-    pi.getFormu().getChamp("EstDDPMICTSL").setLibelle("Droit de Port MICTSL");
+    lst[0] = new Liste("estMictsl");
+    lst[0].ajouterValeur(valeurChampEstMICTSL, afficheChampEstMICTSL); 
     
+    pi.getFormu().changerEnChamp(lst);
+//    pi.getFormu().getChamp("EstDDPMICTSL").setDefaut("0");
+//    pi.getFormu().getChamp("EstDDPMICTSL").setLibelle("Droit de Port MICTSL");
+    pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
     pi.preparerDataFormu();
        
 %>
