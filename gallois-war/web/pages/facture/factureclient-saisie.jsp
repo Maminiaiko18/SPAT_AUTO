@@ -39,7 +39,7 @@
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     
-    pi.getFormu().getChamp("etat").setVisible(false);
+    
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
@@ -62,7 +62,7 @@
         devise.setNomTable("devise");
         listes[3] = new Liste("deviseMere", devise, "VAL", "id");
     
-        pi.getFormu().changerEnChamp(listes);
+    pi.getFormu().changerEnChamp(listes);
     
     
     pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
@@ -71,14 +71,17 @@
     pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
     pi.getFormu().getChamp("idProvision").setLibelle("Provision");
     
+    pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("codePrestation").setVisible(false);
+    
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
-        listed[0] = new Liste("devise", o, "VAL", "id");
+        listed[0] = new Liste("devise_0", o, "VAL", "id");
         
         TypeObjet mois = new TypeObjet();
         mois.setNomTable("mois");
-        listed[1] = new Liste("mois", mois, "VAL", "id");
+        listed[1] = new Liste("mois_0", mois, "VAL", "id");
         
         
         
@@ -91,7 +94,7 @@
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
         pi.getFormufle().getChamp("idactivite_"+i).setAutre("readonly");
-//        pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
+        pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
     }
     
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
@@ -118,15 +121,15 @@
     
    
   
-    pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
-    
-    affichage.Champ.setDefaut(pi.getFormufle().getChampFille("annee"),Utilitaire.getAnneeEnCours());
+//    pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
+//    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
+//    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
+//    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
+//    affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
+//    affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
+//    affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
+//    
+//    affichage.Champ.setDefaut(pi.getFormufle().getChampFille("annee"),Utilitaire.getAnneeEnCours());
     String[]valeurChampEstDDPMICTSL = {"0", "1"};
     String[]afficheChampEstDDPMICTSL = {"non", "oui"};
     
