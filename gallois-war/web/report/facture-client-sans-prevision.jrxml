@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.6105100000000074"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="336"/>
+	<property name="ireport.y" value="192"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -102,7 +102,7 @@
 		<defaultValueExpression><![CDATA["H:\\win-Project\\cemedi\\cemedi\\cemedi-war\\web\\report\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="id" class="java.lang.String"/>
-	<parameter name="daty" class="java.lang.String"/>
+	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="client" class="java.lang.String"/>
 	<parameter name="adresse" class="java.lang.String"/>
 	<parameter name="phone" class="java.lang.String"/>
@@ -121,6 +121,14 @@
 	<parameter name="dollartva" class="java.lang.Double"/>
 	<parameter name="hteuro" class="java.lang.Double"/>
 	<parameter name="tvaeuro" class="java.lang.Double"/>
+	<parameter name="dateEcheance" class="java.lang.String"/>
+	<parameter name="deviseMere" class="java.lang.String"/>
+	<parameter name="code" class="java.lang.String"/>
+	<parameter name="valeuro" class="java.lang.Double"/>
+	<parameter name="valdollar" class="java.lang.Double"/>
+	<parameter name="reduction" class="java.lang.Double"/>
+	<parameter name="montantsns" class="java.lang.Double"/>
+	<parameter name="total" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -138,7 +146,7 @@
 				<textElement>
 					<font size="17"/>
 				</textElement>
-				<textFieldExpression><![CDATA["12101RF000001"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{code}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -240,7 +248,7 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="81" y="82" width="143" height="20" uuid="56bffbe4-afdd-4007-94b9-d704fefc38ab"/>
-				<textFieldExpression><![CDATA["Euro"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{deviseMere}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="97" y="102" width="127" height="20" uuid="7fe33ce1-80bf-4a77-ad08-9a3dc8006fc6"/>
@@ -288,7 +296,7 @@
 				<textField>
 					<reportElement x="153" y="246" width="100" height="20" uuid="87f52370-53cb-4fd7-bbcf-9b6b5351c41d"/>
 					<textElement verticalAlignment="Bottom"/>
-					<textFieldExpression><![CDATA["11/01/2021"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{dateEcheance}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="21" y="270" width="148" height="20" uuid="e65a5624-1eb3-4147-a2c2-4c12afaa1388"/>
@@ -436,25 +444,25 @@
 		</band>
 		<band height="300">
 			<staticText>
-				<reportElement x="0" y="2" width="468" height="20" uuid="13129940-bebd-4edf-90e1-2c3fe111327b"/>
+				<reportElement x="0" y="2" width="418" height="20" uuid="13129940-bebd-4edf-90e1-2c3fe111327b"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="3" y="41" width="147" height="20" uuid="b24ca81c-dcad-4792-9fcb-c468e9f4b3a9"/>
+				<reportElement x="3" y="41" width="78" height="20" uuid="b24ca81c-dcad-4792-9fcb-c468e9f4b3a9"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Change du :"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="3" y="61" width="150" height="20" uuid="518943c8-daba-4d1e-8091-e9192e96419b"/>
+				<reportElement x="3" y="61" width="46" height="20" uuid="518943c8-daba-4d1e-8091-e9192e96419b"/>
 				<textFieldExpression><![CDATA["1 Euro ="]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="3" y="81" width="150" height="20" uuid="022775fc-cd32-47a9-89c8-3657f9b61659"/>
+				<reportElement x="3" y="81" width="52" height="17" uuid="022775fc-cd32-47a9-89c8-3657f9b61659"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA["1 Dollar ="]]></textFieldExpression>
 			</textField>
@@ -491,26 +499,31 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Net à payer :]]></text>
+				<text><![CDATA[Net à payer : ]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="445" y="41" width="100" height="20" uuid="6cf17e17-eb93-48e2-81ca-f3a678ea4765"/>
-				<textFieldExpression><![CDATA["20"]]></textFieldExpression>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{montantsns}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="445" y="61" width="100" height="20" uuid="16102a93-ec8e-462f-a017-d7d5217cbd10"/>
-				<textFieldExpression><![CDATA["20"]]></textFieldExpression>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{reduction}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="445" y="81" width="100" height="20" uuid="bbe60157-d0d6-4a5a-ab8e-5b453ef314dd"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="445" y="101" width="100" height="20" uuid="b8b34f13-f121-40d8-98d5-7b16ae7777db"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="445" y="121" width="100" height="20" uuid="1d06c10e-6f55-45af-9430-95cb7cfb4e62"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{montantTTC}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -524,17 +537,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantlettre}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="180" width="100" height="20" uuid="a007f9d1-07a6-4d3d-a85c-999e4432c02b"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Mode de Paiement :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="100" y="180" width="204" height="20" uuid="ae5ce014-c7d8-4e9f-b2cc-3431b88edad4"/>
-				<text><![CDATA[Chèque cértifié au guichet de la S.P.A.T]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="0" y="229" width="100" height="20" uuid="07098315-ce40-4076-9fa1-8a57128ab2a3"/>
 				<text><![CDATA[le Contrôleur]]></text>
@@ -552,6 +554,11 @@
 					<bottomPen lineWidth="2.0"/>
 					<rightPen lineWidth="2.0"/>
 				</box>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="418" y="0" width="100" height="20" uuid="b4e8269f-8992-4c49-942a-80e24c7e458b"/>
+					<textElement verticalAlignment="Bottom"/>
+					<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement x="0" y="38" width="150" height="65" uuid="9969b6b4-f920-4ae9-a06e-74bc6ae2303b"/>
@@ -561,6 +568,18 @@
 					<bottomPen lineWidth="2.5" lineStyle="Double"/>
 					<rightPen lineWidth="2.5" lineStyle="Double"/>
 				</box>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="53" y="23" width="97" height="20" uuid="94fbd140-b3ab-4267-a98a-a3bda687d51d"/>
+					<textFieldExpression><![CDATA[$P{valeuro}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="55" y="45" width="95" height="17" uuid="3b773a68-1886-417e-aefb-1712a2e99888"/>
+					<textFieldExpression><![CDATA[$P{valdollar}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement x="81" y="3" width="69" height="20" uuid="1e43bbd5-0a0b-49eb-b013-9e25db7c4e70"/>
+					<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</detail>

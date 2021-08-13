@@ -19,10 +19,59 @@ public class PrevisionLibelleComplet extends ClassEtat{
     private String paysprovenance,quaidestination,internedestination,paysdestination,idquaiprovenance,idquaidestination,cargval,cargdesce,idtypequaiprovenance,typequaiprovenance,idtypequaidestination,typequaidestination;
     private Date date_rade,date_arrivee,date_depart;
     private double jntnavire,jbtnavire,pltnavire,lhtnavire,lmnavire,tenavire,volumenavire,longueurprovenance,profondeurprovenance,tirantprovenance,longueurdestination,profondeurdestination,tirantdestination;
-
+    private String pavillonlib , escale , armateurlib, valquaisprovenance, valquaisdestination; 
+    
+    
     public PrevisionLibelleComplet() {
         super.setNomTable("mouvementLibComplet");
     }
+
+    public String getValquaisprovenance() {
+        return valquaisprovenance;
+    }
+
+    public void setValquaisprovenance(String valquaisprovenance) {
+        this.valquaisprovenance = valquaisprovenance;
+    }
+
+    public String getValquaisdestination() {
+        return valquaisdestination;
+    }
+
+    public void setValquaisdestination(String valquaisdestination) {
+        this.valquaisdestination = valquaisdestination;
+    }
+
+    
+    
+    public String getArmateurlib() {
+        return armateurlib;
+    }
+
+    public void setArmateurlib(String armateurlib) {
+        this.armateurlib = armateurlib;
+    }
+
+    
+    
+    public String getEscale() {
+        return escale;
+    }
+
+    public void setEscale(String escale) {
+        this.escale = escale;
+    }
+
+    
+    
+    public String getPavillonlib() {
+        return pavillonlib;
+    }
+
+    public void setPavillonlib(String pavillonlib) {
+        this.pavillonlib = pavillonlib;
+    }
+    
     
     public String getId() {
         return id;

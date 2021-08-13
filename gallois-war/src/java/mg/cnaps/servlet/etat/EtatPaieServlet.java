@@ -1,5 +1,10 @@
 package mg.cnaps.servlet.etat;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+
 
 
 import bean.AdminGen;
@@ -68,6 +73,8 @@ import facture.FactureProformaDetails;
 import facture.FactureClient;
 import facture.FactureClientDetails;
 import facture.FactureClientDetailsGrouper;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import mg.spat.OccupationMaterielNaval;
 import mg.spat.PrevisionLibComplet;
 
@@ -757,12 +764,6 @@ public class EtatPaieServlet extends HttpServlet {
            
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
            
-            
-            if(mere.length!=0){
-            mg.spat.PrevisionLibelleComplet p = new mg.spat.PrevisionLibelleComplet();
-            p.setNomTable("PREVISIONLIBCOMPLET");
-            mg.spat.PrevisionLibelleComplet[] pre = (mg.spat.PrevisionLibelleComplet[]) CGenUtil.rechercher(p, null, null, null, " and id = '"+mere[0].getIdprevision()+"'");
-            
             facture.setId(id);
             facture.initDetails(null);
             double hTEuro = facture.getMontantHTEuro();
@@ -770,19 +771,35 @@ public class EtatPaieServlet extends HttpServlet {
             double hTDollar = facture.getMontantHTVADollar();
             double tvaDollar = facture.getMontantTVADollar();
             double ttcDollar = facture.getMontantTTCDollar();
+            double deviseEuro = facture.getDeviseEuro();
+            double deviseDollar = facture.getDeviseDollar();
+            
+            if(mere.length!=0){
+            mg.spat.PrevisionLibelleComplet p = new mg.spat.PrevisionLibelleComplet();
+            p.setNomTable("PREVISIONLIBCOMPLET");
+            mg.spat.PrevisionLibelleComplet[] pre = (mg.spat.PrevisionLibelleComplet[]) CGenUtil.rechercher(p, null, null, null, " and id = '"+mere[0].getIdprevision()+"'");
+            
+            
             
             
             if(pre.length!=0){
-                //System.out.println("miditra="+pre[0].getArmateurlib());
-                // param.put("armateur",pre[0].getArmateur());
+
                  param.put("navire",pre[0].getNomnavire());
                 // param.put("escale",pre[0].getEscale());
                  param.put("date_arrivee",pre[0].getDate_arrivee());
-                 param.put("pavillon",pre[0].getPavillonnavire());
+                 //param.put("pavillon",pre[0].getPavillon);
                  param.put("date_depart",pre[0].getDate_depart());
-                 param.put("destination",pre[0].getDestination());
-                 param.put("lmnnavire",pre[0].getLmnavire());
-                 param.put("lmnnavire",pre[0].getLmnavire());
+                 param.put("destination",pre[0].getValquaisdestination());
+                 param.put("lhtnavire",pre[0].getLhtnavire());
+                 param.put("jntnavire",pre[0].getJntnavire());
+                 param.put("lmnavire",pre[0].getLmnavire());
+                 param.put("provenance",pre[0].getValquaisprovenance());
+                 param.put("escale",pre[0].getEscale());
+                 param.put("pavillonlib", pre[0].getPavillonlib());
+                 param.put("heure_depart",pre[0].getHeure_depart());
+                 param.put("heure_arrivee",pre[0].getHeure_arrivee());
+                 param.put("armateur",pre[0].getArmateurlib());
+                 
                  param.put("tenavire",pre[0].getTenavire());
                  
                  setNomJasper("facture_client2 - Copie");
@@ -792,7 +809,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
             
             
-            param.put("daty",Utilitaire.formatterDatySql(mere[0].getDaty()));
+            param.put("daty",mere[0].getDaty());
             param.put("id",mere[0].getId());
             param.put("type",mere[0].getTypelib());
             param.put("cat",mere[0].getCategorielib());
@@ -806,6 +823,10 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("montantTTC",mere[0].getMontantttc());
             param.put("montantAvoir",mere[0].getMontantavoir());
             param.put("tva",mere[0].getTva());
+            
+            param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
+            param.put("deviseMere", mere[0].getDeviseMere());
+            param.put("code", mere[0].getCode());
             String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
             
             if(mere[0].getDeviseMere()!=null){
@@ -820,6 +841,8 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("dollarttc",ttcDollar);
             param.put("hteuro",hTEuro);
             param.put("tvaeuro",tvaEuro);
+            param.put("valeuro",deviseEuro);
+            param.put("valdollar",deviseDollar);
             }
             /************************************************************************************************/
             FactureClientDetails cht = new FactureClientDetails();
@@ -827,15 +850,24 @@ public class EtatPaieServlet extends HttpServlet {
             
             FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, null, " and idmere = '"+id+"'");
             ArrayList<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
+           double total=0;
+           double reduction =0;
             for(int i = 0; i < details.length; i++)
             {
+                details[i].setMontanttaux(details[i].getQuantite()*details[i].getPu());
+                total=total+details[i].getMontanttaux();
                 arrList.add(details[i]);
+                reduction += details[i].getReduction();
+                
+                //total=
             }
             //mere[0].setArrayDetails(arrList);
             List<FactureClientDetails> res = new ArrayList<FactureClientDetails>();
             /*List dataSources = new ArrayList();
             dataSources.addAll(mere[0].getArrayDetails());*/
-            
+            param.put("total", total);
+            param.put("montantsns",hTEuro);
+            param.put("reduction",reduction);
             param.put("list_table",arrList);
             
             //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
@@ -846,7 +878,10 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    /********************************************************************************************************************************************************************************************/
     
+	
+
     
   
     
