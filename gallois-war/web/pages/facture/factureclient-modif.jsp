@@ -24,7 +24,7 @@
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
-        affichage.Liste[] listeM = new affichage.Liste[5];
+        affichage.Liste[] listeM = new affichage.Liste[4];
         TypeObjet oM = new TypeObjet();
         oM.setNomTable("TYPEFC");
         listeM[0] = new Liste("type", oM, "VAL", "id");
@@ -38,13 +38,13 @@
         listeM[2] = new Liste("estMictsl");
         listeM[2].ajouterValeur(ajoutValeur, ajoutAffiche);
         
-        TypeObjet typeObjCodePrestation = new TypeObjet();
-        typeObjCodePrestation.setNomTable("code_prestation");
-        listeM[3] = new Liste("codePrestation", typeObjCodePrestation, "VAL", "id");
+//        TypeObjet typeObjCodePrestation = new TypeObjet();
+//        typeObjCodePrestation.setNomTable("code_prestation");
+//        listeM[3] = new Liste("codePrestation", typeObjCodePrestation, "VAL", "id");
         
         TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
-        listeM[4] = new Liste("deviseMere", devise, "VAL", "id");
+        listeM[3] = new Liste("deviseMere", devise, "VAL", "id");
         
         pi.getFormu().changerEnChamp(listeM);
 
@@ -110,7 +110,7 @@
         affichage.Liste[] listed = new affichage.Liste[1];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
-        listed[0] = new Liste("devise_0", o, "VAL", "id");
+        listed[0] = new Liste("devise", o, "VAL", "id");
         pi.getFormufle().changerEnChamp(listed);
 
         pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");

@@ -44,7 +44,7 @@
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     
-    affichage.Liste[] listes= new affichage.Liste[4];
+    affichage.Liste[] listes= new affichage.Liste[3];
     
     TypeObjet type = new TypeObjet();
         type.setNomTable("typefc");
@@ -54,13 +54,13 @@
         categ.setNomTable("categorieFC");
         listes[1] = new Liste("idcategorie", categ, "VAL", "id");
         
-    TypeObjet prestation = new TypeObjet();
-        prestation.setNomTable("code_prestation");
-        listes[2] = new Liste("codePrestation", prestation, "VAL", "id");
+//    TypeObjet prestation = new TypeObjet();
+//        prestation.setNomTable("code_prestation");
+//        listes[2] = new Liste("codePrestation", prestation, "VAL", "id");
     
     TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
-        listes[3] = new Liste("deviseMere", devise, "VAL", "id");
+        listes[2] = new Liste("deviseMere", devise, "VAL", "id");
     
     pi.getFormu().changerEnChamp(listes);
     
@@ -70,18 +70,15 @@
     pi.getFormu().getChamp("idProvision").setAutre("readonly");
     pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
     pi.getFormu().getChamp("idProvision").setLibelle("Provision");
-    
-    pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("codePrestation").setVisible(false);
-    
+       
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
-        listed[0] = new Liste("devise_0", o, "VAL", "id");
+        listed[0] = new Liste("devise", o, "VAL", "id");
         
         TypeObjet mois = new TypeObjet();
         mois.setNomTable("mois");
-        listed[1] = new Liste("mois_0", mois, "VAL", "id");
+        listed[1] = new Liste("mois", mois, "VAL", "id");
         
         
         
@@ -119,8 +116,6 @@
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
     pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
     
-   
-  
     pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
@@ -148,6 +143,9 @@
 //    pi.getFormu().getChamp("EstDDPMICTSL").setDefaut("0");
 //    pi.getFormu().getChamp("EstDDPMICTSL").setLibelle("Droit de Port MICTSL");
     pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
+    pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("codePrestation").setVisible(false);
+
     pi.preparerDataFormu();
        
 %>
@@ -161,7 +159,7 @@
             out.println(pi.getFormu().getHtmlInsert());
             out.println(pi.getFormufle().getHtmlTableauInsert());
         %>
-        
+
         <input name="acte" type="hidden" id="nature" value="insert">
         <input name="bute" type="hidden" id="bute" value="facture/factureclient-fiche-vaovao.jsp">
         <input name="classe" type="hidden" id="classe" value="facture.FactureClient">
@@ -169,7 +167,7 @@
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="10">
         <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
     </form>
- 
+
 </div>
 <script  language="JavaScript">
     function calculerMontant(indice) {
@@ -186,11 +184,12 @@
     }
 </script>
 <%
-	} catch (Exception e) {
-		e.printStackTrace();
+        } catch (Exception e) {
+                e.printStackTrace();
+    
 %>
-    <script language="JavaScript">
-        alert('<%=e.getMessage()%>');
-        history.back();
-    </script>
+<script language="JavaScript">
+    alert('<%=e.getMessage()%>');
+    history.back();
+</script>
 <% }%>
