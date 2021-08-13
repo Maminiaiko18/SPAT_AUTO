@@ -51,6 +51,20 @@ public class FactureClient extends ClassMere {
     private String code;
     private String estMictsl ;
 
+    public String genererLettreMictsl(Connection c) throws Exception {
+        ClassFille[] filles = this.getFille(null, c, "");
+        if(filles!=null && filles.length > 0){
+            TypeObjet obj = new TypeObjet();
+            obj.setNomTable("code_rubrique_mictsl");
+            TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '"+((FactureClientDetails)filles[0]).getRubrique() +"'");
+            if(lst!=null && lst.length > 0){
+                return lst[0].getDesce();
+            }
+        }
+        return "A";
+    }
+
+
     public String genererPremierCaractere(Connection c) throws Exception {
         TypeObjet obj = new TypeObjet();
         obj.setNomTable("codeFCPremierCaractere");
