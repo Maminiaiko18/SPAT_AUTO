@@ -45,6 +45,7 @@
     pc.getChampByName("typelib").setLibelle("Type");
     pc.getChampByName("escale").setLibelle("Escale");
     pc.getChampByName("idProvisionlib").setLibelle("Provision");
+    pc.getChampByName("code").setLibelle("Code");   
     e = (FactureClient) pc.getBase();
     pc.getChampByName("idProvisionlib").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp&id="+e.getIdProvision(), "idProvisionlib=");
     String categorie="";
