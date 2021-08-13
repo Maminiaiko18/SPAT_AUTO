@@ -60,6 +60,19 @@ public class FactureClient extends ClassMere {
         return null;
     }
     
+    public String genererCodePrestation(Connection c)throws Exception {
+        FactureClientDetails[] filles = (FactureClientDetails[]) this.getFille(null, c, "");
+        if(filles!=null && filles.length > 0){
+            TypeObjet obj = new TypeObjet();
+            obj.setNomTable("code_prestation");
+            TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '"+filles[0].getRubrique(c).getCategorie() +"' ");
+            if(lst!=null && lst.length > 0){
+                return lst[0].getDesce();
+            }
+        }
+        return null;
+    }
+    
     public String getCode() {
         return code;
     }
