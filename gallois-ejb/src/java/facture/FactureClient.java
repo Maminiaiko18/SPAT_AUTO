@@ -1081,4 +1081,18 @@ public class FactureClient extends ClassMere {
         if(result.length == 0) throw new Exception("Pas de prevision pour la facture "+this.getId());
         return result[0];
     }
+    
+    public String calculerCodeMictsl(Connection c) throws Exception {
+        return genererPremierCaractere(c) + 
+                Utilitaire.genererAnnee() + 
+                Utilitaire.genererMois() + 
+                genererLettreMictsl(c) +
+                genererSequence(c, "numerofacturemictsl", 6); 
+    }
+
+    private String genererSequence(Connection c, String nomtable, int longueur) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     
 }
