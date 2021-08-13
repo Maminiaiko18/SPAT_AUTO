@@ -4046,7 +4046,7 @@ public class Utilitaire extends Parametre {
     } 
     
     public static String genererMois(){
-        return completerInt(2, getMoisEnCours());
+        return completerInt(2, getMoisEnCoursReel());
     } 
     
     

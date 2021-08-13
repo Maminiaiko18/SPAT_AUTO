@@ -661,8 +661,10 @@ public class FactureClient extends ClassMere {
 
     @Override
     public ClassMAPTable createObject(String iduser, Connection cnctn) throws Exception {
+        this.setNomClasseFille("facture.FactureClientDetails");
         this.setIduser(iduser);
         this.setId(null);
+        this.setCode(calculerCode(cnctn));
         return super.createObject(iduser, cnctn);
     }
 
@@ -1090,8 +1092,36 @@ public class FactureClient extends ClassMere {
                 genererSequence(c, "numerofacturemictsl", 6); 
     }
 
-    private String genererSequence(Connection c, String nomtable, int longueur) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String genererSequence(Connection c, String nomtable, int longueur) throws Exception {
+        String requete = "SELECT  nextsequence as val FROM %s";
+        requete = String.format(requete, nomtable);
+        
+//        System.out.println("requete " + requete);
+        TypeObjet obj = new TypeObjet();
+        obj.setNomTable("CODE_PRESTATION");
+        TypeObjet[] seq = (TypeObjet[]) CGenUtil.rechercher(obj, requete, c);
+        
+        String sequence = "";
+        if(seq != null && seq.length > 0) sequence = seq[0].getVal();
+        
+        return Utilitaire.completerInt(longueur, sequence);
+    }
+    
+    public String calculerCodeSimple(Connection c) throws Exception {
+        String code = "";
+        code += Utilitaire.champNull(genererPremierCaractere(c));
+        code += Utilitaire.genererAnnee();
+        code += Utilitaire.genererMois();
+        code += Utilitaire.champNull(genererCodePrestation(c));
+        code += "A";
+        code += genererSequence(c, "numerofacturesimple", 3);
+        return code;
+    }
+    
+    public String calculerCode(Connection c) throws Exception {
+        if(estMictsl != null && estMictsl.compareTo("1") == 0) return calculerCodeMictsl(c);
+        
+        return calculerCodeSimple(c);
     }
     
      
