@@ -35,8 +35,8 @@
 
         String[] ajoutValeur = {"0", "1"};
         String ajoutAffiche[] = {"Non", "Oui"};
-        listeM[2] = new Liste("estDDPMICTSL");
-        ((Liste) listeM[2]).ajouterValeur(ajoutValeur, ajoutAffiche);
+        listeM[2] = new Liste("estMictsl");
+        listeM[2].ajouterValeur(ajoutValeur, ajoutAffiche);
         
         TypeObjet typeObjCodePrestation = new TypeObjet();
         typeObjCodePrestation.setNomTable("code_prestation");
@@ -89,7 +89,7 @@
         pi.getFormu().getChamp("Adresse").setVisible(false);
         pi.getFormu().getChamp("codePrestationlib").setVisible(false);
         pi.getFormu().getChamp("codePrestation").setVisible(false);
-        pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);
+        pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
