@@ -449,6 +449,18 @@ public class FactureClient extends ClassMere {
         setArrayDetails(new ArrayList<FactureClientDetails>());
 
     }
+    public FactureClient(Date daty, String tiers, String designation, double tva,String type) throws Exception {
+        setNomTable("Factureclient");
+        setLiaisonFille("idmere");
+        this.setNomClasseFille("facture.FactureClientDetails");
+        setDaty(daty);
+        setTiers(tiers);
+        setDesignation(designation);
+        setTva(tva);
+        setArrayDetails(new ArrayList<FactureClientDetails>());
+        this.setType(type);
+
+    }
 
     public void fusionner(String u, String colonneFusion, Connection c, String idAutre) throws Exception {
         FactureClient autre = (FactureClient) new FactureClient().getById(idAutre, "Factureclient", c);

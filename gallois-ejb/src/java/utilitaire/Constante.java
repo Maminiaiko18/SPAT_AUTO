@@ -128,6 +128,11 @@ public class Constante {
     public static final int longueurNumeroBordereau = 4;
     public static int tvaDefaut = 20;
     private static String roleCommandant="ROL001300";
+    private static String typeFCAcredit="TFC001";
+
+    public static String getTypeFCAcredit() {
+        return typeFCAcredit;
+    }
 
     public static String getRoleCommandant() {
         return roleCommandant;
