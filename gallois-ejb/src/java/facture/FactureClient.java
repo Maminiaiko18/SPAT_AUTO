@@ -49,6 +49,7 @@ public class FactureClient extends ClassMere {
     private String estDDPMICTSL="0";
     private String codePrestation, codePrestationlib;
     private String code;
+    private String estMictsl ;
 
     public String genererPremierCaractere(Connection c) throws Exception {
         TypeObjet obj = new TypeObjet();
@@ -792,6 +793,13 @@ public class FactureClient extends ClassMere {
     @Override
     public String getAttributIDName() {
         return "id";
+    }
+    public String getEstMictsl() {
+        return estMictsl;
+    }
+
+    public void setEstMictsl(String estMictsl) {
+        this.estMictsl = estMictsl;
     }
 
     public String getId() {
