@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.OccupationMaterielNaval;
 import mg.spat.exploitant.Activite;
+import mg.spat.exploitant.Rubrique;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -39,7 +40,7 @@ public class FactureClientDetails extends ClassFille {
     private int mois, annee;
     private String heureDebut, heureFin, moislib,anneelib;
     private double montantHTEuro,montantTVAEuro, montanttaxe,majoration,reduction;
-
+    
     public double getMajoration() {
         return majoration;
     }
@@ -336,6 +337,20 @@ public class FactureClientDetails extends ClassFille {
         setTaux(getTauxRecent(c));
         super.controlerUpdate(c);
     }
+    
+    public Rubrique getRubrique(Connection c) throws Exception {
+        String awhere = " and id = '%s'";
+        String idRubrique = null;
+        
+        if(this.getRubrique() != null) idRubrique = this.getRubrique();
+        else if(this.getIdactivite() != null) idRubrique = this.getActivite(c).getRubrique();
+        
+        awhere = String.format(awhere, idRubrique);
+        Rubrique[] rub = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, awhere);
+        
+        return rub != null && rub.length > 0 ? rub[0] : null;
+    }
+    
     public Activite getActivite(Connection c) throws Exception{
         Activite retour=null;
         Boolean estOuvert=false;
