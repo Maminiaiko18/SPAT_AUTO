@@ -1085,11 +1085,12 @@ public class FactureClient extends ClassMere {
     }
     
     public String calculerCodeMictsl(Connection c) throws Exception {
+        String daty = Utilitaire.datetostring(this.getDaty());
         return genererPremierCaractere(c) + 
-                Utilitaire.genererAnnee() + 
-                Utilitaire.genererMois() + 
+                Utilitaire.genererAnnee(daty) + 
+                Utilitaire.genererMois(daty) + 
                 genererLettreMictsl(c) +
-                genererSequence(c, "numerofacturemictsl", 6); 
+                genererSequence(c, "NUMEROFACTUREMCTSL", 6); 
     }
 
     public String genererSequence(Connection c, String nomtable, int longueur) throws Exception {
@@ -1098,7 +1099,7 @@ public class FactureClient extends ClassMere {
         
 //        System.out.println("requete " + requete);
         TypeObjet obj = new TypeObjet();
-        obj.setNomTable("CODE_PRESTATION");
+        obj.setNomTable(nomtable);
         TypeObjet[] seq = (TypeObjet[]) CGenUtil.rechercher(obj, requete, c);
         
         String sequence = "";
@@ -1108,10 +1109,11 @@ public class FactureClient extends ClassMere {
     }
     
     public String calculerCodeSimple(Connection c) throws Exception {
+        String daty = Utilitaire.datetostring(this.getDaty());
         String code = "";
         code += Utilitaire.champNull(genererPremierCaractere(c));
-        code += Utilitaire.genererAnnee();
-        code += Utilitaire.genererMois();
+        code += Utilitaire.genererAnnee(daty);
+        code += Utilitaire.genererMois(daty);
         code += Utilitaire.champNull(genererCodePrestation(c));
         code += "A";
         code += genererSequence(c, "numerofacturesimple", 3);

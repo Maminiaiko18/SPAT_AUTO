@@ -4040,13 +4040,15 @@ public class Utilitaire extends Parametre {
         return valeur;
     }
     
-    public static String genererAnnee(){
-        String annee = String.valueOf(getAneeEnCours());
+    public static String genererAnnee(String date){
+//        String annee = String.valueOf(getAneeEnCours());
+        String annee = getAnnee(date);
         return annee.substring(annee.length()-2);
     } 
     
-    public static String genererMois(){
-        return completerInt(2, getMoisEnCoursReel());
+    public static String genererMois(String date){
+        String mois = getMois(date);
+        return completerInt(2, mois);
     } 
     
     
