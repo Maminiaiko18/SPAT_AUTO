@@ -1094,7 +1094,7 @@ public class FactureClient extends ClassMere {
     }
 
     public String genererSequence(Connection c, String nomtable, int longueur) throws Exception {
-        String requete = "SELECT  nextsequence as val FROM %s";
+        String requete = "SELECT  * FROM %s";
         requete = String.format(requete, nomtable);
         
 //        System.out.println("requete " + requete);
