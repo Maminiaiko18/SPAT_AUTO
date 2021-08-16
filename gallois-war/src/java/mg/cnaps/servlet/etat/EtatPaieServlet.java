@@ -759,11 +759,14 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             String id = request.getParameter("id");
             FactureClient facture = new FactureClient();
-            facture.setNomTable("factureClientValide");
+            facture.setNomTable("factureClient");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
            
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
-           
+            String code = mere[0].getCode();
+            facture.setNomTable("factureClientValide");
+            mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
+            
             facture.setId(id);
             facture.initDetails(null);
             double hTEuro = facture.getMontantHTEuro();
@@ -813,6 +816,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("id",mere[0].getId());
             param.put("type",mere[0].getTypelib());
             param.put("cat",mere[0].getCategorielib());
+            param.put("reduction", mere[0].getReduction());
             
           
             param.put("client",mere[0].getTierslib());
@@ -826,7 +830,7 @@ public class EtatPaieServlet extends HttpServlet {
             
             param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
             param.put("deviseMere", mere[0].getDeviseMere());
-            param.put("code", mere[0].getCode());
+            param.put("code", code);
             String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
             
             if(mere[0].getDeviseMere()!=null){

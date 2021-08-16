@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.6105100000000074"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -129,6 +129,11 @@
 	<parameter name="reduction" class="java.lang.Double"/>
 	<parameter name="montantsns" class="java.lang.Double"/>
 	<parameter name="total" class="java.lang.Double"/>
+	<parameter name="designation" class="java.lang.String"/>
+	<parameter name="stat" class="java.lang.String"/>
+	<parameter name="nif" class="java.lang.String"/>
+	<parameter name="rc" class="java.lang.String"/>
+	<parameter name="quittance" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -172,7 +177,7 @@
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="49" y="22" width="154" height="20" uuid="7a9ea6d7-4ba4-4619-9fb3-e59333fc097c"/>
-				<textFieldExpression><![CDATA["839 10305 0666 196"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{stat}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="224" y="22" width="28" height="20" uuid="f9dad9f9-ce10-4942-95e5-40be0191ae0e"/>
@@ -183,7 +188,7 @@
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="252" y="22" width="138" height="20" uuid="81710f0b-f824-42e7-883d-60e4a04c35ae"/>
-				<textFieldExpression><![CDATA["898 1813"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{nif}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="403" y="22" width="28" height="20" uuid="cb94b191-05e4-4690-b20a-82e3a73d7f89"/>
@@ -194,11 +199,11 @@
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="431" y="22" width="114" height="20" uuid="ae5400e1-389a-4bb6-a50c-c1824b3452fe"/>
-				<textFieldExpression><![CDATA["2005B 00426"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="81" y="42" width="143" height="20" uuid="0c3df8e6-3aeb-4e1a-86fe-a0bdfcbdbc3d"/>
-				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{quittance}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="21" y="42" width="60" height="20" uuid="4600e204-a11b-4ae5-bdb5-8929aeb29d1a"/>
@@ -252,15 +257,15 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="97" y="102" width="127" height="20" uuid="7fe33ce1-80bf-4a77-ad08-9a3dc8006fc6"/>
-				<textFieldExpression><![CDATA["Ar"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{deviseMere}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="115" y="122" width="109" height="20" uuid="d2ab241c-d1c8-438f-ad82-97d9c977735c"/>
-				<textFieldExpression><![CDATA["crédit"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{type}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="115" y="141" width="137" height="40" uuid="15baee1b-c3a2-4e7d-b254-7d3a7dfb66a6"/>
-				<textFieldExpression><![CDATA["redevance fixe du 01/07/2020 au 31/12/2020"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{designation}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="21" y="122" width="94" height="20" uuid="c06a9add-8461-49f4-985c-93f7a8dbba19"/>
@@ -286,31 +291,21 @@
 					<rightPen lineWidth="2.5" lineStyle="Double"/>
 				</box>
 				<textField>
-					<reportElement x="418" y="1" width="127" height="20" uuid="c975cfb3-68dd-4263-8e32-e65dc19a2377"/>
-					<textFieldExpression><![CDATA["Toamasina - "+$P{daty}]]></textFieldExpression>
+					<reportElement x="418" y="1" width="67" height="20" uuid="c975cfb3-68dd-4263-8e32-e65dc19a2377"/>
+					<textFieldExpression><![CDATA["Toamasina - "]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement x="81" y="221" width="100" height="20" uuid="ef6e84e0-c850-4e1a-a0d2-8948a5c4b8aa"/>
-					<textFieldExpression><![CDATA["0%"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{reduction}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="153" y="246" width="100" height="20" uuid="87f52370-53cb-4fd7-bbcf-9b6b5351c41d"/>
 					<textElement verticalAlignment="Bottom"/>
 					<textFieldExpression><![CDATA[$P{dateEcheance}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="21" y="270" width="148" height="20" uuid="e65a5624-1eb3-4147-a2c2-4c12afaa1388"/>
-					<textElement>
-						<font isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Période du :21/07/2020"]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="224" y="270" width="148" height="20" uuid="f7af6c34-8b72-4398-a1ec-9e2d583223a6"/>
-					<textElement>
-						<font isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["au :21/07/2020"]]></textFieldExpression>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement x="485" y="1" width="70" height="20" uuid="925113be-1529-4815-8de5-a92f3f00a6d4"/>
+					<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -366,9 +361,9 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
-							<textField isBlankWhenNull="true">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="90" height="30" uuid="2ba1d4d3-2e40-4e46-bdf3-9a47f59b1018"/>
-								<textElement>
+								<textElement textAlignment="Right">
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{pu}]]></textFieldExpression>
@@ -384,7 +379,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
-							<textField isBlankWhenNull="true">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="50" height="30" uuid="d48c5cca-af01-402c-94da-35ef3925efda"/>
 								<textElement textAlignment="Right">
 									<paragraph rightIndent="2"/>
