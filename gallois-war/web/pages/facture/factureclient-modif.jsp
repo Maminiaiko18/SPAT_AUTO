@@ -71,6 +71,7 @@
         pi.getFormu().getChamp("type").setLibelle("Type FC");
         pi.getFormu().getChamp("idcategorie").setLibelle("Catégorie");
         pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
+        pi.getFormu().getChamp("code").setLibelle("Code");
         pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
 
         pi.getFormu().getChamp("etat").setAutre("readonly");
