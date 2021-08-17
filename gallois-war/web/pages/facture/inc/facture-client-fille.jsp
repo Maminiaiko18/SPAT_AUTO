@@ -41,14 +41,15 @@
     facture.setListeDetails(liste);
     facture.initDetails(null);
     pr.getTableau().transformerDataString();
-        
-    if (pr.getTableau().getHtml() != null) {
-        String libEnteteAffiche[] = {"id", "designation", "quantité", "quantité livrée", "reste à livrer", "devise", "compte", "pu", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "Activite", "Heure début", "Heure fin", "RED.%", "MAJ.%"};
+
+    String libEnteteAffiche[] = {"id", "designation", "quantité", "quantité livrée", "reste à livrer", "devise", "compte", "pu", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "Activite", "Heure début", "Heure fin", "RED.%", "MAJ.%"};
 //    String lienTableau[] = {pr.getLien() + "?but=avoir/avoir-fiche.jsp"};
 //    String colonneLien[] = {"id"};
 //    pr.getTableau().setLien(lienTableau);
 //    pr.getTableau().setColonneLien(colonneLien);
-        pr.getTableau().setLibeEntete(libEnteteAffiche);
+    pr.getTableau().setLibeEntete(libEnteteAffiche);
+
+    if (pr.getTableau().getHtml() != null) {
 
         out.println(pr.getTableau().getHtml());
 //        double total=0;
