@@ -777,6 +777,8 @@ public class EtatPaieServlet extends HttpServlet {
             double deviseEuro = facture.getDeviseEuro();
             double deviseDollar = facture.getDeviseDollar();
             String cat= facture.getCategorielib();
+            String designation = facture.getDesignation();
+            param.put("designation",designation);
             if(mere.length!=0){
             mg.spat.PrevisionLibelleComplet p = new mg.spat.PrevisionLibelleComplet();
             p.setNomTable("PREVISIONLIBCOMPLET");
@@ -802,7 +804,6 @@ public class EtatPaieServlet extends HttpServlet {
                  param.put("heure_depart",pre[0].getHeure_depart());
                  param.put("heure_arrivee",pre[0].getHeure_arrivee());
                  param.put("armateur",pre[0].getArmateurlib());
-                 
                  param.put("tenavire",pre[0].getTenavire());
                  
                  setNomJasper("facture_client2 - Copie");
@@ -848,6 +849,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("valeuro",deviseEuro);
             param.put("valdollar",deviseDollar);
             param.put("cat",cat);
+            param.put("designation",designation);
             }
             /************************************************************************************************/
             FactureClientDetails cht = new FactureClientDetails();
