@@ -37,7 +37,7 @@ public class FactureClient extends ClassMere {
 
     private String id;
     private Date daty, date_echeance;
-    private String tiers, designation, type, remarque, iduser, idprevision, escale,deviseMere;
+    private String tiers, designation, type, remarque, iduser, idprevision, escale, deviseMere;
     private double tva, montant, montanttva, montantttc, montantpaye, montantreste;
     private String tierslib;
     private double montantavoir;
@@ -46,43 +46,42 @@ public class FactureClient extends ClassMere {
     private FactureClientDetails[] listeDetails;
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
     private String idcategorie, idProvision, categorielib, idProvisionlib;
-    private String estDDPMICTSL="0";
+    private String estDDPMICTSL = "0";
     private String codePrestation, codePrestationlib;
     private String code;
-    private String estMictsl ;
+    private String estMictsl;
     private double reduction;
 
     public String genererLettreMictsl(Connection c) throws Exception {
         ClassFille[] filles = this.getFille(null, c, "");
-        if(filles!=null && filles.length > 0){
+        if (filles != null && filles.length > 0) {
             TypeObjet obj = new TypeObjet();
             obj.setNomTable("code_rubrique_mictsl");
-            TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '"+((FactureClientDetails)filles[0]).getRubrique() +"'");
-            if(lst!=null && lst.length > 0){
+            TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '" + ((FactureClientDetails) filles[0]).getRubrique() + "'");
+            if (lst != null && lst.length > 0) {
                 return lst[0].getDesce();
             }
         }
         return "A";
     }
 
-
     public String genererPremierCaractere(Connection c) throws Exception {
         TypeObjet obj = new TypeObjet();
         obj.setNomTable("codeFCPremierCaractere");
-        TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and (val = '"+getType()+"' or val='"+getIdcategorie()+"')");
-        if(lst!=null && lst.length > 0){
+        TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and (val = '" + getType() + "' or val='" + getIdcategorie() + "')");
+        if (lst != null && lst.length > 0) {
             return lst[0].getDesce();
         }
         return null;
     }
-    
-    public String genererCodePrestation(Connection c)throws Exception {
+
+    public String genererCodePrestation(Connection c) throws Exception {
         FactureClientDetails[] filles = (FactureClientDetails[]) this.getFille(null, c, "");
-        if(filles!=null && filles.length > 0){
+        if (filles != null && filles.length > 0) {
             TypeObjet obj = new TypeObjet();
             obj.setNomTable("code_prestation");
-            TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '"+filles[0].getRubrique(c).getCategorie() +"' ");
-            if(lst!=null && lst.length > 0){
+            TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '" + filles[0].getRubrique(c).getCategorie() + "' ");
+            if (lst != null && lst.length > 0) {
                 return lst[0].getDesce();
             }
         }
@@ -96,8 +95,7 @@ public class FactureClient extends ClassMere {
     public void setReduction(double reduction) {
         this.reduction = reduction;
     }
-    
-    
+
     public String getCode() {
         return code;
     }
@@ -137,18 +135,20 @@ public class FactureClient extends ClassMere {
     public void setDeviseMere(String deviseMere) {
         this.deviseMere = deviseMere;
     }
-    
-    public void controlerDoublonRubrique(Connection c, int mois, int annee,String rubMICTSL) throws Exception {
-        FactureClientDetails  fcd = new FactureClientDetails();
+
+    public void controlerDoublonRubrique(Connection c, int mois, int annee, String rubMICTSL) throws Exception {
+        FactureClientDetails fcd = new FactureClientDetails();
         fcd.setNomTable("FACTURE_CLIENT_FILLE_VM");
-        
+
         String awhere = " and tiers in ('%s', '%s') and rubrique = '%s' and mois = %s and annee = %s";
         awhere = String.format(awhere, Constante.idMICTSL, Constante.idMICTSL2, rubMICTSL, mois, annee);
         FactureClientDetails[] tab = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, awhere);
-        
-        if(tab != null && tab.length > 0) throw new Exception("Rubrique deja facturee pour ce mois");
+
+        if (tab != null && tab.length > 0) {
+            throw new Exception("Rubrique deja facturee pour ce mois");
+        }
     }
-    
+
     public void updateDeviseMere(Connection c) throws Exception {
         int verif = 0;
         try {
@@ -159,9 +159,9 @@ public class FactureClient extends ClassMere {
             }
 
             this.setDeviseMere(Constante.deviseAr);
-            if(this.getIdprevision() != null){
+            if (this.getIdprevision() != null) {
                 Prevision prevision = this.findPrevision(c);
-                if(prevision != null && prevision.estNavireEtranger(c)){
+                if (prevision != null && prevision.estNavireEtranger(c)) {
                     this.setDeviseMere(Constante.deviseDollars);
                 }
             }
@@ -180,7 +180,7 @@ public class FactureClient extends ClassMere {
             }
         }
     }
-    
+
     public String getCategorielib() {
         return categorielib;
     }
@@ -251,7 +251,7 @@ public class FactureClient extends ClassMere {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        if (this.getIdcategorie()!=null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive)) {
+        if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive)) {
 
             this.controlerVisaFactureDefinitive(c);
             this.updatePaiement(u, c);
@@ -263,42 +263,39 @@ public class FactureClient extends ClassMere {
 
     public FactureClientDetails[] genererRedevanceFixe(int mois, int annee, String u, Connection c) throws Exception {
         boolean ouvert = false;
-        
+
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            
-            
-            
+
             String moisEnLettre = Utilitaire.nbToMois(mois);
             String designation = "Redevance Fixe MICTSL " + moisEnLettre + " " + annee;
-                        
-        //Generer Details
+
+            //Generer Details
             FactureClientDetails fcd = new FactureClientDetails();
             fcd.setDesignation(designation);
             fcd.setQuantite(0.5);
-            
+
             Rubrique rubRedevance = new Rubrique();
             rubRedevance = (Rubrique) rubRedevance.getById(Constante.idRedevanceFixe, rubRedevance.getNomTable(), c);
-            
+
             fcd.setTva(rubRedevance.getTva());
             fcd.setRubrique(rubRedevance.getId());
             fcd.setPu(Utilitaire.stringToDouble(rubRedevance.getPu()));
             fcd.setDevise(rubRedevance.getDevise());
-            
+
             double taux = fcd.getTauxFinDuMois(c, mois, annee, fcd.getDevise());
-            
+
 //            System.out.println("taux " + taux);
-            
             fcd.setTaux(taux);
             fcd.setMois(mois);
             fcd.setAnnee(annee);
             fcd.setTauxDonne(true);
-            
-        //Generer Facture
+
+            //Generer Facture
             /*FactureClient fc = new FactureClient(Utilitaire.dateDuJourSql(), Constante.idMICTSL, designation, 0);
             fc.setIdcategorie(Constante.idCategorieFCDefinitive);
             
@@ -307,16 +304,15 @@ public class FactureClient extends ClassMere {
 //            fc.setFille(new FactureClientDetails[] {fcd}); Modifie à nouveau la valeur du taux
             
             fc.createObject(u, c);*/
-            /*fcd.setIdmere(getId());
+ /*fcd.setIdmere(getId());
             fcd.controler(c);
             fcd.construirePK(c);
             fcd.insertToTableWithHisto(u, c);*/
-            
             if (ouvert) {
                 c.commit();
             }
-            FactureClientDetails[]ret=new FactureClientDetails[1];
-            ret[0]=fcd;
+            FactureClientDetails[] ret = new FactureClientDetails[1];
+            ret[0] = fcd;
             return ret;
         } catch (Exception ex) {
             if (c != null && ouvert) {
@@ -327,65 +323,66 @@ public class FactureClient extends ClassMere {
             if (c != null && ouvert) {
                 c.close();
             }
-        }        
+        }
     }
 
     public FactureClientDetails[] genererRedevanceVariable(int mois, int annee, String u, Connection c) throws Exception {
-        Activite crt=new Activite();
+        Activite crt = new Activite();
         crt.setNomTable("ActiviteLibComContGPMA");
-        Activite[] listeAct=(Activite[])CGenUtil.rechercher(crt, null, null, c," and mois ="+mois+" and annee="+annee);
-        double qte=AdminActivite.getQteEVP(listeAct);
-        
-        FactureClientDetails[] ret=new FactureClientDetails[1];
-        double tauxFinDuMois=getTauxFinDuMois(c,mois,annee,listeAct[0].getDevise());
+        Activite[] listeAct = (Activite[]) CGenUtil.rechercher(crt, null, null, c, " and mois =" + mois + " and annee=" + annee);
+        double qte = AdminActivite.getQteEVP(listeAct);
+
+        FactureClientDetails[] ret = new FactureClientDetails[1];
+        double tauxFinDuMois = getTauxFinDuMois(c, mois, annee, listeAct[0].getDevise());
         Rubrique rubRedevance = new Rubrique();
         rubRedevance = (Rubrique) rubRedevance.getById(Constante.idRedevanceVariable, rubRedevance.getNomTable(), c);
-        
+
         String moisEnLettre = Utilitaire.nbToMois(mois);
         String designation = "Redevance variable MICTSL " + moisEnLettre + " " + annee;
-                        
+
         //Generer Details
-            FactureClientDetails fcd = new FactureClientDetails();
-            fcd.setDesignation(designation);
-            fcd.setQuantite(qte);
-            fcd.setTva(rubRedevance.getTva());
-            
-            
-            fcd.setRubrique(rubRedevance.getId());
-            fcd.setPu(Utilitaire.stringToDouble(rubRedevance.getPu()));
-            fcd.setDevise(rubRedevance.getDevise());
-            
-            double taux = getTauxFinDuMois(c, mois, annee, fcd.getDevise());
-            
-            
-            fcd.setTaux(taux);
-            fcd.setMois(mois);
-            fcd.setAnnee(annee);
-            fcd.setTauxDonne(true);
-        
-        ret[0]=fcd;
+        FactureClientDetails fcd = new FactureClientDetails();
+        fcd.setDesignation(designation);
+        fcd.setQuantite(qte);
+        fcd.setTva(rubRedevance.getTva());
+
+        fcd.setRubrique(rubRedevance.getId());
+        fcd.setPu(Utilitaire.stringToDouble(rubRedevance.getPu()));
+        fcd.setDevise(rubRedevance.getDevise());
+
+        double taux = getTauxFinDuMois(c, mois, annee, fcd.getDevise());
+
+        fcd.setTaux(taux);
+        fcd.setMois(mois);
+        fcd.setAnnee(annee);
+        fcd.setTauxDonne(true);
+
+        ret[0] = fcd;
         return ret;
     }
+
     public double getTauxFinDuMois(Connection c, int mois, int annee, String iddevise) throws Exception {
         Date finDuMois = FactureClientDetails.getFinMois(mois, annee);
-                
+
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(finDuMois) + "' and iddevise = '" + iddevise + "') "
                 + " and iddevise = '" + iddevise + "'";
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
-        
+
         return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
+
     public FactureClientDetails[] genererDroitDePort(int mois, int annee, String u, Connection c, FactureClient mere) throws Exception {
-        Activite crt=new Activite();
+        Activite crt = new Activite();
         crt.setNomTable("ActiviteLibComContGPMA");
-        Activite[] listeAct=(Activite[])CGenUtil.rechercher(crt, null, null, c," and mois ="+mois+" and annee="+annee);
-        if(listeAct==null||listeAct.length==0)throw new Exception("Pas d activite pour cette periode "+mois+"/"+annee);
-        FactureClientDetails[] ret=new FactureClientDetails[listeAct.length];
-        double tauxFinDuMois=getTauxFinDuMois(c,mois,annee,listeAct[0].getDevise());
-        for(int i=0;i<listeAct.length;i++)
-        {
-            ret[i]=new FactureClientDetails();
-            ret[i].setDesignation("Droit de port "+listeAct[i].getRubriquelib());
+        Activite[] listeAct = (Activite[]) CGenUtil.rechercher(crt, null, null, c, " and mois =" + mois + " and annee=" + annee);
+        if (listeAct == null || listeAct.length == 0) {
+            throw new Exception("Pas d activite pour cette periode " + mois + "/" + annee);
+        }
+        FactureClientDetails[] ret = new FactureClientDetails[listeAct.length];
+        double tauxFinDuMois = getTauxFinDuMois(c, mois, annee, listeAct[0].getDevise());
+        for (int i = 0; i < listeAct.length; i++) {
+            ret[i] = new FactureClientDetails();
+            ret[i].setDesignation("Droit de port " + listeAct[i].getRubriquelib());
             ret[i].setMois(mois);
             ret[i].setAnnee(annee);
             ret[i].setQuantite(listeAct[i].getQte());
@@ -395,19 +392,18 @@ public class FactureClient extends ClassMere {
             ret[i].setTva(listeAct[i].getTva());
             ret[i].setTaux(tauxFinDuMois);
             ret[i].setTauxDonne(true);
-            
+
         }
         mere.setEstDDPMICTSL("1");
         return ret;
     }
 
     public FactureClient creerMICTSL(Date d, String type, String noteExplicative, int mois, int annee, String u, Connection c) throws Exception {
-        boolean ouvert=false;
-        try{
-            if(c==null)
-            {
-                c=new UtilDB().GetConn();
-                ouvert=true;
+        boolean ouvert = false;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                ouvert = true;
             }
             this.setDaty(d);
             this.setRemarque(noteExplicative);
@@ -416,27 +412,28 @@ public class FactureClient extends ClassMere {
             this.setIduser(u);
             this.setDeviseMere("Dollars");
             this.setType("TFC001"); //Crédit
-            
-            FactureClient controle=new FactureClient();
+
+            FactureClient controle = new FactureClient();
             controle.setTiers(this.getTiers());
-            
-            FactureClientDetails[] zanany=null;
+
+            FactureClientDetails[] zanany = null;
             if (type.equals("1")) {
-                controlerDoublonRubrique(c, mois, annee,Constante.idRedevanceFixe);
-                zanany= genererRedevanceFixe(mois, annee, u, c);
+                controlerDoublonRubrique(c, mois, annee, Constante.idRedevanceFixe);
+                zanany = genererRedevanceFixe(mois, annee, u, c);
             } else if (type.equals("2")) {
-                controlerDoublonRubrique(c, mois, annee,Constante.idRedevanceVariable);
-                zanany=genererRedevanceVariable(mois, annee, u, c);
+                controlerDoublonRubrique(c, mois, annee, Constante.idRedevanceVariable);
+                zanany = genererRedevanceVariable(mois, annee, u, c);
             } else if (type.equals("3")) {
-                controlerDoublonRubrique(c, mois, annee,Constante.idDroitDePortCalcule);
-                zanany= genererDroitDePort(mois, annee, u, c, this);
+                controlerDoublonRubrique(c, mois, annee, Constante.idDroitDePortCalcule);
+                zanany = genererDroitDePort(mois, annee, u, c, this);
             }
             this.setFille(zanany);
             this.createObject(u, c);
-            if(ouvert)c.commit();
+            if (ouvert) {
+                c.commit();
+            }
             return this;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             if (c != null && ouvert) {
                 c.rollback();
             }
@@ -445,7 +442,7 @@ public class FactureClient extends ClassMere {
             if (c != null && ouvert) {
                 c.close();
             }
-        }     
+        }
     }
 
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
@@ -459,7 +456,8 @@ public class FactureClient extends ClassMere {
         setArrayDetails(new ArrayList<FactureClientDetails>());
 
     }
-    public FactureClient(Date daty, String tiers, String designation, double tva,String type) throws Exception {
+
+    public FactureClient(Date daty, String tiers, String designation, double tva, String type) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");
         this.setNomClasseFille("facture.FactureClientDetails");
@@ -832,6 +830,7 @@ public class FactureClient extends ClassMere {
     public String getAttributIDName() {
         return "id";
     }
+
     public String getEstMictsl() {
         return estMictsl;
     }
@@ -1065,11 +1064,13 @@ public class FactureClient extends ClassMere {
                 verif = 1;
             }
 
-            FactureClientDetails fcd = new FactureClientDetails();
-            fcd.setNomTable("facture_client_montanttc");
-            listeDetails = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, " and idmere = '" + this.getId() + "'");
             if (listeDetails == null) {
-                throw new Exception("Aucun details pour la facture " + this.getId());
+                FactureClientDetails fcd = new FactureClientDetails();
+                fcd.setNomTable("facture_client_montanttc");
+                listeDetails = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, " and idmere = '" + this.getId() + "'");
+                if (listeDetails == null) {
+                    throw new Exception("Aucun details pour la facture " + this.getId());
+                }
             }
 
             setDeviseEuro(c);
@@ -1082,7 +1083,7 @@ public class FactureClient extends ClassMere {
                     montantHT = montantHT / this.getDeviseEuro();
                     montantTVA = montantTVA / this.getDeviseEuro();
                 }
-
+                
                 listeDetails[i].setMontantHTEuro(montantHT);
                 listeDetails[i].setMontantTVAEuro(montantTVA);
             }
@@ -1097,39 +1098,43 @@ public class FactureClient extends ClassMere {
             }
         }
     }
-    
-    public Prevision findPrevision(Connection c)throws Exception{
+
+    public Prevision findPrevision(Connection c) throws Exception {
         String awhere = " and id = '%s'";
         awhere = String.format(awhere, this.getIdprevision());
-        Prevision[] result =  (Prevision[]) CGenUtil.rechercher(new Prevision(), null, null, c, awhere);
-        if(result.length == 0) throw new Exception("Pas de prevision pour la facture "+this.getId());
+        Prevision[] result = (Prevision[]) CGenUtil.rechercher(new Prevision(), null, null, c, awhere);
+        if (result.length == 0) {
+            throw new Exception("Pas de prevision pour la facture " + this.getId());
+        }
         return result[0];
     }
-    
+
     public String calculerCodeMictsl(Connection c) throws Exception {
         String daty = Utilitaire.datetostring(this.getDaty());
-        return genererPremierCaractere(c) + 
-                Utilitaire.genererAnnee(daty) + 
-                Utilitaire.genererMois(daty) + 
-                genererLettreMictsl(c) +
-                genererSequence(c, "NUMEROFACTUREMCTSL", 6); 
+        return genererPremierCaractere(c)
+                + Utilitaire.genererAnnee(daty)
+                + Utilitaire.genererMois(daty)
+                + genererLettreMictsl(c)
+                + genererSequence(c, "NUMEROFACTUREMCTSL", 6);
     }
 
     public String genererSequence(Connection c, String nomtable, int longueur) throws Exception {
         String requete = "SELECT  * FROM %s";
         requete = String.format(requete, nomtable);
-        
+
 //        System.out.println("requete " + requete);
         TypeObjet obj = new TypeObjet();
         obj.setNomTable(nomtable);
         TypeObjet[] seq = (TypeObjet[]) CGenUtil.rechercher(obj, requete, c);
-        
+
         String sequence = "";
-        if(seq != null && seq.length > 0) sequence = seq[0].getVal();
-        
+        if (seq != null && seq.length > 0) {
+            sequence = seq[0].getVal();
+        }
+
         return Utilitaire.completerInt(longueur, sequence);
     }
-    
+
     public String calculerCodeSimple(Connection c) throws Exception {
         String daty = Utilitaire.datetostring(this.getDaty());
         String code = "";
@@ -1141,12 +1146,13 @@ public class FactureClient extends ClassMere {
         code += genererSequence(c, "numerofacturesimple", 3);
         return code;
     }
-    
+
     public String calculerCode(Connection c) throws Exception {
-        if(estMictsl != null && estMictsl.compareTo("1") == 0) return calculerCodeMictsl(c);
-        
+        if (estMictsl != null && estMictsl.compareTo("1") == 0) {
+            return calculerCodeMictsl(c);
+        }
+
         return calculerCodeSimple(c);
     }
-    
-     
+
 }
