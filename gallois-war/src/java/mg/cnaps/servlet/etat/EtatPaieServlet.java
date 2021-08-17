@@ -776,7 +776,7 @@ public class EtatPaieServlet extends HttpServlet {
             double ttcDollar = facture.getMontantTTCDollar();
             double deviseEuro = facture.getDeviseEuro();
             double deviseDollar = facture.getDeviseDollar();
-            
+            String cat= facture.getCategorielib();
             if(mere.length!=0){
             mg.spat.PrevisionLibelleComplet p = new mg.spat.PrevisionLibelleComplet();
             p.setNomTable("PREVISIONLIBCOMPLET");
@@ -847,6 +847,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("tvaeuro",tvaEuro);
             param.put("valeuro",deviseEuro);
             param.put("valdollar",deviseDollar);
+            param.put("cat",cat);
             }
             /************************************************************************************************/
             FactureClientDetails cht = new FactureClientDetails();
