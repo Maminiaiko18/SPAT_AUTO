@@ -74,11 +74,11 @@
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
-        listed[0] = new Liste("devise", o, "VAL", "id");
+        listed[0] = new Liste("devise_0", o, "VAL", "id");
         
         TypeObjet mois = new TypeObjet();
         mois.setNomTable("mois");
-        listed[1] = new Liste("mois", mois, "VAL", "id");
+        listed[1] = new Liste("mois_0", mois, "VAL", "id");
         
         
         
@@ -145,6 +145,7 @@
     pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("codePrestation").setVisible(false);
+    pi.getFormu().getChamp("code").setVisible(false);
 
     pi.preparerDataFormu();
        
