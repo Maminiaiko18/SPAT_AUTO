@@ -50,6 +50,7 @@ public class FactureClient extends ClassMere {
     private String codePrestation, codePrestationlib;
     private String code;
     private String estMictsl ;
+    private double reduction;
 
     public String genererLettreMictsl(Connection c) throws Exception {
         ClassFille[] filles = this.getFille(null, c, "");
@@ -87,6 +88,15 @@ public class FactureClient extends ClassMere {
         }
         return null;
     }
+
+    public double getReduction() {
+        return reduction;
+    }
+
+    public void setReduction(double reduction) {
+        this.reduction = reduction;
+    }
+    
     
     public String getCode() {
         return code;
