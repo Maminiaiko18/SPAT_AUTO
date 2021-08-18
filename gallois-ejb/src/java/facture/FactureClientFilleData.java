@@ -24,9 +24,10 @@ public class FactureClientFilleData {
                 c = new UtilDB().GetConn();
                 in = true;
             }
-            
+            String nomTable="factureClientValide";
             facture =  new FactureClient();
             facture.setEstDDPMICTSL(null);
+            facture.setNomTable(nomTable);
             facture = (FactureClient) facture.getById(idFacture, null, c);
             facture.setListeDetails(liste);
             facture.initDetails(c);

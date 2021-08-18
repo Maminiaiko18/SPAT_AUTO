@@ -31,7 +31,6 @@
     pr.creerObjetPage(libEntete, colSomme);
 
     FactureClientDetails[] liste = (FactureClientDetails[]) pr.getTableau().getData();
-
     /*
     FactureClient fm=(FactureClient) liste[0].findMere(null,null);
     FactureClientDetails[] lcdf=(FactureClientDetails[])fm.getFille(null, null,"");
@@ -57,16 +56,26 @@
 
         double hTEuro = facture.getMontantHTEuro();
         double tvaEuro = facture.getMontantTVAEuro();
+        double ttcEuro = facture.getMontantHTEuro() + facture.getMontantTVAEuro();
+        
         double hTDollar = facture.getMontantHTVADollar();
         double tvaDollar = facture.getMontantTVADollar();
         double ttcDollar = facture.getMontantTTCDollar();
+        
+        double ttcAr = facture.getMontantttc();
+        double htAr = facture.getMontant();
+        double tvaAr = facture.getMontanttva();
+        
         double deviseEur = facture.getDeviseEuro();
         double deviseDollar = facture.getDeviseDollar();
 %>
 <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <table class="table table-striped table-bordered table-condensed table-responsive tree">
+            <tr>
+                <th>Cours de change du : date facture</th>
+                <th></th>
+            </tr>
             <tr>
                 <th>Devise Euro</th>
                 <td align="right"><%=Utilitaire.formaterAr(deviseEur)%></td>
@@ -77,27 +86,63 @@
             </tr>
         </table>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <table class="table table-striped table-bordered table-condensed table-responsive tree">
             <tr>
-                <th>HT Euro</th>
+                <th>Montant en euro</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>HT</th>
                 <td align="right"><%=Utilitaire.formaterAr(hTEuro)%></td>
             </tr>
             <tr>
-                <th>TVA Euro</th>
+                <th>TVA</th>
                 <td align="right"><%=Utilitaire.formaterAr(tvaEuro)%></td>
             </tr>
             <tr>
-                <th>HT Dollar</th>
+                <th>TTC</th>
+                <td align="right"><%=Utilitaire.formaterAr(ttcEuro)%></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-3">
+        <table class="table table-striped table-bordered table-condensed table-responsive tree">
+            <tr>
+                <th>Montant en dollar</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>HT</th>
                 <td align="right"><%=Utilitaire.formaterAr(hTDollar)%></td>
             </tr>
             <tr>
-                <th>TVA Dollar</th>
+                <th>TVA</th>
                 <td align="right"><%=Utilitaire.formaterAr(tvaDollar)%></td>
             </tr>
             <tr>
-                <th>TTC Dollar</th>
+                <th>TTC</th>
                 <td align="right"><%=Utilitaire.formaterAr(ttcDollar)%></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-3">
+        <table class="table table-striped table-bordered table-condensed table-responsive tree">
+            <tr>
+                <th>Montant en Ar</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>HT</th>
+                <td align="right"><%=Utilitaire.formaterAr(htAr)%></td>
+            </tr>
+            <tr>
+                <th>TVA</th>
+                <td align="right"><%=Utilitaire.formaterAr(tvaAr)%></td>
+            </tr>
+            <tr>
+                <th>TTC</th>
+                <td align="right"><%=Utilitaire.formaterAr(ttcAr)%></td>
             </tr>
         </table>
     </div>
