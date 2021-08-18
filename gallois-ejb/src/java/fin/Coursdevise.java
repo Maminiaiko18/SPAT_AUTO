@@ -31,6 +31,11 @@ public class Coursdevise extends ClassMAPTable {
             throw new Exception("Il existe deja un cours pour cette date");
         }
     }
+    
+    @Override
+    public void controler(Connection c) throws Exception {
+        this.checkDoublon(c);
+    }
 
     public String getEstMICTSL() {
         return estMICTSL;
