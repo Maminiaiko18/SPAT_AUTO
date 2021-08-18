@@ -125,6 +125,7 @@
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
     
     affichage.Champ.setDefaut(pi.getFormufle().getChampFille("annee"),Utilitaire.getAnneeEnCours());
+    affichage.Champ.setDefaut(pi.getFormufle().getChampFille("mois"),new Integer (Utilitaire.getMoisEnCours() + 1).toString());
     //String[]valeurChampEstDDPMICTSL = {"0", "1"};
     //String[]afficheChampEstDDPMICTSL = {"non", "oui"};
     
