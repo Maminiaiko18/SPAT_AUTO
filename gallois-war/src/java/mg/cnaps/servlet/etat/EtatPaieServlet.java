@@ -771,6 +771,7 @@ public class EtatPaieServlet extends HttpServlet {
             facture.initDetails(null);
             double hTEuro = facture.getMontantHTEuro();
             double tvaEuro = facture.getMontantTVAEuro();
+            double ttcEuro = hTEuro + tvaEuro;
             double hTDollar = facture.getMontantHTVADollar();
             double tvaDollar = facture.getMontantTVADollar();
             double ttcDollar = facture.getMontantTTCDollar();
@@ -848,6 +849,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("dollarttc",ttcDollar);
             param.put("hteuro",hTEuro);
             param.put("tvaeuro",tvaEuro);
+            param.put("ttcEuro",ttcEuro);            
             param.put("valeuro",deviseEuro);
             System.out.println("EEEEEEEEEEEEEEEEEEEEEEE");
             System.out.println(deviseEuro);

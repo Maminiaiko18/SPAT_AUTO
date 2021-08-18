@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.4641000000000066"/>
-	<property name="ireport.x" value="60"/>
-	<property name="ireport.y" value="319"/>
+	<property name="ireport.x" value="45"/>
+	<property name="ireport.y" value="384"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -61,6 +61,7 @@
 		<parameter name="valeuro" class="java.lang.Double"/>
 		<parameter name="valdollar" class="java.lang.Double"/>
 		<parameter name="daty" class="java.util.Date"/>
+		<parameter name="ttcEuro" class="java.lang.Double"/>
 		<field name="designation" class="java.lang.String"/>
 		<field name="devise" class="java.lang.String"/>
 		<field name="montanttaux" class="java.lang.Double"/>
@@ -120,6 +121,7 @@
 	<parameter name="designation" class="java.lang.String"/>
 	<parameter name="valeuro" class="java.lang.Double"/>
 	<parameter name="valdollar" class="java.lang.Double"/>
+	<parameter name="ttcEuro" class="java.lang.Double"/>
 	<field name="designation" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -432,7 +434,7 @@
 			<componentElement>
 				<reportElement key="table 1" style="table 1" mode="Transparent" x="0" y="0" width="555" height="57" uuid="c7ba0eb2-5f1b-4313-9a74-3e3fe27f4753"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="7b72ea70-9d41-46ef-8c35-dca7e6db86e9">
+					<datasetRun subDataset="Table Dataset 1" uuid="f8098ab1-3a7c-4fd0-a724-11e1f713eb25">
 						<datasetParameter name="montant">
 							<datasetParameterExpression><![CDATA[$P{montant}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -471,6 +473,9 @@
 						</datasetParameter>
 						<datasetParameter name="daty">
 							<datasetParameterExpression><![CDATA[$P{daty}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="ttcEuro">
+							<datasetParameterExpression><![CDATA[$P{ttcEuro}]]></datasetParameterExpression>
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
@@ -604,7 +609,7 @@
 								<textFieldExpression><![CDATA[$P{montantTTC}]]></textFieldExpression>
 							</textField>
 							<staticText>
-								<reportElement x="176" y="52" width="30" height="15" uuid="505d9ad1-a884-44f0-bef7-4ac690cac69c"/>
+								<reportElement x="179" y="52" width="30" height="15" uuid="505d9ad1-a884-44f0-bef7-4ac690cac69c"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -618,7 +623,7 @@
 								<text><![CDATA[HT ]]></text>
 							</staticText>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="351" y="52" width="70" height="15" uuid="056ba9b0-cc34-4fed-8e6c-5312d4f9c2b4"/>
+								<reportElement x="348" y="52" width="70" height="15" uuid="056ba9b0-cc34-4fed-8e6c-5312d4f9c2b4"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -646,7 +651,7 @@
 								<text><![CDATA[Dollar]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="176" y="67" width="30" height="15" uuid="3bc9edac-1e17-496a-8f61-d7d3e08f41b1"/>
+								<reportElement x="179" y="67" width="30" height="15" uuid="3bc9edac-1e17-496a-8f61-d7d3e08f41b1"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -660,7 +665,7 @@
 								<text><![CDATA[TVA]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="176" y="82" width="30" height="15" uuid="fdd44500-f345-404c-b15f-6a7e82e4dca9"/>
+								<reportElement x="179" y="82" width="30" height="15" uuid="fdd44500-f345-404c-b15f-6a7e82e4dca9"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -674,7 +679,7 @@
 								<text><![CDATA[TTC]]></text>
 							</staticText>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="351" y="67" width="70" height="15" uuid="0f75b6af-c645-4fcf-b236-2c2bd554d459"/>
+								<reportElement x="348" y="67" width="70" height="15" uuid="0f75b6af-c645-4fcf-b236-2c2bd554d459"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -702,7 +707,7 @@
 								<textFieldExpression><![CDATA[$P{valeuro}]]></textFieldExpression>
 							</textField>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="351" y="82" width="70" height="15" uuid="e1a6e934-f3e4-4795-be16-d65f5a95bebb"/>
+								<reportElement x="348" y="82" width="70" height="15" uuid="e1a6e934-f3e4-4795-be16-d65f5a95bebb"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -716,7 +721,7 @@
 								<textFieldExpression><![CDATA[$P{dollarttc}]]></textFieldExpression>
 							</textField>
 							<staticText>
-								<reportElement x="321" y="52" width="30" height="15" uuid="514b8fc3-0fc8-475f-976e-32be4f7c7ba6"/>
+								<reportElement x="318" y="52" width="30" height="15" uuid="514b8fc3-0fc8-475f-976e-32be4f7c7ba6"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -730,7 +735,7 @@
 								<text><![CDATA[HT]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="321" y="67" width="30" height="15" uuid="5c032eed-d583-4d87-b780-b435430bc6c7"/>
+								<reportElement x="318" y="67" width="30" height="15" uuid="5c032eed-d583-4d87-b780-b435430bc6c7"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -744,7 +749,7 @@
 								<text><![CDATA[TVA]]></text>
 							</staticText>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="206" y="67" width="70" height="15" uuid="88135c4c-645b-43c3-8af7-57cbb5378dbc"/>
+								<reportElement x="209" y="67" width="70" height="15" uuid="88135c4c-645b-43c3-8af7-57cbb5378dbc"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -758,7 +763,7 @@
 								<textFieldExpression><![CDATA[$P{tvaeuro}]]></textFieldExpression>
 							</textField>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="206" y="52" width="70" height="15" uuid="5959d653-b2d0-49bc-be8b-28065c1206a5"/>
+								<reportElement x="209" y="52" width="70" height="15" uuid="5959d653-b2d0-49bc-be8b-28065c1206a5"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -772,7 +777,7 @@
 								<textFieldExpression><![CDATA[$P{hteuro}]]></textFieldExpression>
 							</textField>
 							<staticText>
-								<reportElement x="176" y="37" width="100" height="15" uuid="56ee1402-9a3d-47c6-a247-8e6df18db12e"/>
+								<reportElement x="179" y="37" width="100" height="15" uuid="56ee1402-9a3d-47c6-a247-8e6df18db12e"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -786,7 +791,7 @@
 								<text><![CDATA[Montant en Euro]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="321" y="37" width="100" height="15" uuid="475b2b66-9a2a-414b-a4b1-f6a59fda3719"/>
+								<reportElement x="318" y="37" width="100" height="15" uuid="475b2b66-9a2a-414b-a4b1-f6a59fda3719"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -856,7 +861,7 @@
 								<text><![CDATA[]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="321" y="82" width="30" height="15" uuid="b726b610-4a78-461e-913c-bafc5a000efa"/>
+								<reportElement x="318" y="82" width="30" height="15" uuid="b726b610-4a78-461e-913c-bafc5a000efa"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
@@ -882,17 +887,18 @@
 								</textElement>
 								<textFieldExpression><![CDATA[$P{valdollar}]]></textFieldExpression>
 							</textField>
-							<textField>
-								<reportElement x="206" y="82" width="70" height="15" uuid="e59518b7-954e-43cd-9302-2ea0881c5a0b"/>
+							<textField pattern="#,##0.000" isBlankWhenNull="true">
+								<reportElement x="209" y="82" width="70" height="15" uuid="e59518b7-954e-43cd-9302-2ea0881c5a0b"/>
 								<box>
 									<topPen lineWidth="1.0"/>
 									<leftPen lineWidth="1.0"/>
 									<bottomPen lineWidth="1.0"/>
 									<rightPen lineWidth="1.0"/>
 								</box>
-								<textElement>
+								<textElement textAlignment="Right">
 									<font size="10"/>
 								</textElement>
+								<textFieldExpression><![CDATA[$P{ttcEuro}]]></textFieldExpression>
 							</textField>
 							<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 								<reportElement x="102" y="37" width="40" height="15" uuid="734ac705-2636-4109-9f3d-f5f4b2bad0a7"/>
@@ -1333,7 +1339,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="51" height="29" uuid="925db123-c3ab-480d-831d-9598e15bb29a"/>
 									<box>
 										<topPen lineWidth="0.5"/>
