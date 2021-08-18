@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.6105100000000074"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="135"/>
+	<property name="ireport.y" value="351"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -435,17 +435,17 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="a3582a54-144e-4eb8-8da7-be52c2e42363">
+					<jr:column width="92" uuid="a3582a54-144e-4eb8-8da7-be52c2e42363">
 						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="31" uuid="6d7a77a2-f725-4d97-a394-dcedb8ad285b"/>
+								<reportElement x="0" y="1" width="90" height="29" uuid="6d7a77a2-f725-4d97-a394-dcedb8ad285b"/>
 								<textElement textAlignment="Center"/>
 								<text><![CDATA[Montant Euro]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="90" height="30" uuid="2e85386a-0263-4734-9f4c-1bed741ebaef"/>
+								<reportElement x="0" y="0" width="92" height="30" uuid="2e85386a-0263-4734-9f4c-1bed741ebaef"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
@@ -465,7 +465,7 @@
 		</band>
 		<band height="300">
 			<staticText>
-				<reportElement x="0" y="2" width="418" height="20" uuid="13129940-bebd-4edf-90e1-2c3fe111327b"/>
+				<reportElement x="0" y="2" width="445" height="20" uuid="13129940-bebd-4edf-90e1-2c3fe111327b"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font isBold="true"/>
 				</textElement>
@@ -576,8 +576,10 @@
 					<rightPen lineWidth="2.0"/>
 				</box>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="418" y="0" width="100" height="20" uuid="b4e8269f-8992-4c49-942a-80e24c7e458b"/>
-					<textElement verticalAlignment="Bottom"/>
+					<reportElement x="445" y="0" width="110" height="20" uuid="b4e8269f-8992-4c49-942a-80e24c7e458b"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<paragraph rightIndent="3"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
 				</textField>
 			</frame>

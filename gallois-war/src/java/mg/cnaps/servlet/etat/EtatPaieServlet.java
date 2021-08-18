@@ -759,6 +759,7 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             String id = request.getParameter("id");
             FactureClient facture = new FactureClient();
+            facture.setEstDDPMICTSL(null);
             facture.setNomTable("factureClient");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
            
