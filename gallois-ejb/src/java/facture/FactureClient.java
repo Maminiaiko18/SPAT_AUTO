@@ -159,7 +159,7 @@ public class FactureClient extends ClassMere {
             }
 
             this.setDeviseMere(Constante.deviseAr);
-            if (this.getIdprevision() != null) {
+            if (this.getIdprevision() != null && this.getIdprevision().compareTo("") != 0) {
                 Prevision prevision = this.findPrevision(c);
                 if (prevision != null && prevision.estNavireEtranger(c)) {
                     this.setDeviseMere(Constante.deviseDollars);
@@ -685,7 +685,10 @@ public class FactureClient extends ClassMere {
         this.setIduser(iduser);
         this.setId(null);
         this.setCode(calculerCode(cnctn));
-        return super.createObject(iduser, cnctn);
+        
+        super.createObject(iduser, cnctn);
+        this.updateDeviseMere(cnctn);
+        return this;
     }
 
     public FactureClient() throws Exception {
@@ -1100,7 +1103,8 @@ public class FactureClient extends ClassMere {
                 verif = 1;
             }
             FactureClient fc = new FactureClient();
-            fc = (FactureClient) fc.getById(this.getId(), "", c);
+            fc.setEstDDPMICTSL(null);
+            fc = (FactureClient) fc.getById(this.getId(), this.getNomTable(), c);
 
             
             if (listeDetails == null) {
