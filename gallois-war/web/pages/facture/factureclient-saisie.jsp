@@ -184,6 +184,16 @@
             $('#montant_' + indice).val('');
         }
     }
+    $('#designation').each(function() {
+        var textbox = $(document.createElement('textarea')).val(this.value);
+        console.log(this.attributes);
+        $.each(this.attributes, function() {
+          if (this.specified) {
+            textbox.prop(this.name, this.value)
+          }
+        });
+        $(this).replaceWith(textbox);
+    });
 </script>
 <%
         } catch (Exception e) {
