@@ -154,7 +154,7 @@
 <div class="content-wrapper">
     <h1>Enregistrer facture client</h1>
     <!--  -->
-    <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
+    <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             pi.getFormufle().makeHtmlInsertTableauIndex();
