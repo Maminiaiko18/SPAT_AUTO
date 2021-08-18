@@ -108,12 +108,27 @@
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
 
-        affichage.Liste[] listed = new affichage.Liste[1];
+        affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
         listed[0] = new Liste("devise", o, "VAL", "id");
+        
+        TypeObjet o1 = new TypeObjet();
+        o1.setNomTable("mois");
+        listed[1] = new Liste("mois", o1, "VAL", "id");
+        
         pi.getFormufle().changerEnChamp(listed);
-
+        
+        for (int i = 0; i < liste.length; i++) {
+            pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 150px;\" ");
+            affichage.Champ datefactChp = pi.getFormufle().getChamp("datefact_" + i);
+            datefactChp.setAutre("readonly");
+            if (datefactChp.getValeur() != null && !"".equals(datefactChp.getValeur())) {
+                String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
+                datefactChp.setValeur(dateF);
+            }
+        }
+        
         pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
         pi.getFormufle().getChamp("Id_0").setLibelle("Id");
         pi.getFormufle().getChamp("designation_0").setLibelle("Désignation");
@@ -127,7 +142,6 @@
         pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
         pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
         pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
-        pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
         pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
         pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
         pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
@@ -138,15 +152,7 @@
         mere = (FactureClient) pi.getBase();
         pi.preparerDataFormu();
 
-        for (int i = 0; i < liste.length; i++) {
-            pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 150px;\" ");
-            affichage.Champ datefactChp = pi.getFormufle().getChamp("datefact_" + i);
-            datefactChp.setAutre("readonly");
-            if (datefactChp.getValeur() != null && !"".equals(datefactChp.getValeur())) {
-                String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
-                datefactChp.setValeur(dateF);
-            }
-        }
+        
 
 %>
 <div class="content-wrapper">
