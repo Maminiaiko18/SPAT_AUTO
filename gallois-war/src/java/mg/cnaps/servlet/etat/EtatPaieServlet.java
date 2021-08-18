@@ -778,6 +778,8 @@ public class EtatPaieServlet extends HttpServlet {
             double deviseDollar = facture.getDeviseDollar();
             String cat= facture.getCategorielib();
             String designation = facture.getDesignation();
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                     System.out.println(designation); 
             param.put("designation",designation);
             if(mere.length!=0){
             mg.spat.PrevisionLibelleComplet p = new mg.spat.PrevisionLibelleComplet();
@@ -847,21 +849,27 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("hteuro",hTEuro);
             param.put("tvaeuro",tvaEuro);
             param.put("valeuro",deviseEuro);
+            System.out.println("EEEEEEEEEEEEEEEEEEEEEEE");
+            System.out.println(deviseEuro);
+            System.out.println(deviseDollar);
             param.put("valdollar",deviseDollar);
             param.put("cat",cat);
             param.put("designation",designation);
             }
             /************************************************************************************************/
             FactureClientDetails cht = new FactureClientDetails();
-            cht.setNomTable("FACTURE_CLIENT_FILLE_LIB_PDF");
+            cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
             
             FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, null, " and idmere = '"+id+"'");
             ArrayList<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
+            facture.setId(details[0].getIdmere());
+            facture.setListeDetails(details);
+            facture.initDetails(null);
            double total=0;
            double reduction =0;
             for(int i = 0; i < details.length; i++)
             {
-                details[i].setMontanttaux(details[i].getQuantite()*details[i].getPu());
+                //details[i].setMontantHTEuro( details[i].getQuantite()*details[i].getPu());
                 total=total+details[i].getMontanttaux();
                 arrList.add(details[i]);
                 reduction += details[i].getReduction();
