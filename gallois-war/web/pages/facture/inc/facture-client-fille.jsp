@@ -3,6 +3,7 @@
     Created on : 12 mai 2021, 14:37:18
     Author     : nyamp
 --%>
+<%@page import="facture.FactureClientFilleData"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="bean.CGenUtil"%>
 <%@page import="facture.FactureClient"%>
@@ -36,10 +37,9 @@
     FactureClientDetails[] lcdf=(FactureClientDetails[])fm.getFille(null, null,"");
     FactureClient dfm=(FactureClient)fm.dupliquer(pr.getUtilisateur().getUser().getTuppleID(), null);
      */
-    FactureClient facture = new FactureClient();
-    facture.setId(liste[0].getIdmere());
-    facture.setListeDetails(liste);
-    facture.initDetails(null);
+    
+    FactureClientFilleData dataF = new FactureClientFilleData(liste[0].getIdmere(), liste, null);
+    FactureClient facture = dataF.getFacture();
     pr.getTableau().transformerDataString();
 
     String libEnteteAffiche[] = {"id", "designation", "quantité", "quantité livrée", "reste à livrer", "devise", "compte", "pu", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "Activite", "Heure début", "Heure fin", "RED.%", "MAJ.%"};

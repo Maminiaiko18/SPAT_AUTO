@@ -372,7 +372,7 @@ public class FactureClientDetails extends ClassFille {
         return retour;
     }
     
-    private double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
+    public double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
         String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
                 + " and iddevise = '" + this.getDevise() + "'";
         Coursdevise cours = new Coursdevise();
@@ -405,17 +405,15 @@ public class FactureClientDetails extends ClassFille {
             }
         }
         
-        return null;
+        return this.getMere();
     }
     
     public double getTauxRecentNormal(Connection c) throws Exception {
         this.findMere(c);
         Date date = this.getMere().getDaty();
-
         if (this.getIdactivite() != null && this.getDatefact() != null) {
             date = Utilitaire.ajoutJourDate(this.getDatefact(), -1);
         }
-
         return getValeurTaux(c, "coursdeviseNonMICTSL", date);
     }
     
