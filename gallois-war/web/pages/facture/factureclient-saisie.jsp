@@ -86,6 +86,7 @@
     
     int taille = pi.getNombreLigne();
     for( int i = 0 ; i < taille ; i++ ){       
+        pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 200px;\" ");
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
