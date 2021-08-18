@@ -64,6 +64,7 @@
     pc.getChampByName("categorielib").setLibelle("Categorie");
     pc.getChampByName("codePrestation").setVisible(false);
     pc.getChampByName("codePrestationlib").setLibelle("Code Prestation");
+    pc.getChampByName("codePrestationlib").setVisible(false);
     pc.getChampByName("deviseMere").setLibelle("Devise");
     
 //
