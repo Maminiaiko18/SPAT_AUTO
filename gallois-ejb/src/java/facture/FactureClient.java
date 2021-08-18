@@ -986,14 +986,6 @@ public class FactureClient extends ClassMere {
         this.montantreste = montantreste;
     }
 
-    public void setDeviseEuro(Connection c) throws Exception {
-        setDeviseEuro(getTauxRecent(c, Constante.deviseEuro));
-    }
-
-    public void setDeviseDollar(Connection c) throws Exception {
-        setDeviseDollar(getTauxRecent(c, Constante.deviseDollars));
-    }
-
     public FactureClient genererDefinitive(UserEJB u, Connection c) throws Exception {
         int verif = 0;
         FactureClient fact2 = null;
@@ -1054,7 +1046,51 @@ public class FactureClient extends ClassMere {
 
         return 0;
     }
+    public double getTauxRecent(Connection c, String nomTable, String iddevise) throws Exception {
+        if (this.getDaty() == null) {
+            FactureClient fc = new FactureClient();
+            fc.setEstDDPMICTSL(null);
+            this.setDaty(((FactureClient) fc.getById(this.getId(), this.getNomTable(), c)).getDaty());
+        }
+        String awhere = " and daty = (SELECT max(daty) FROM "+nomTable+" WHERE  daty <= '" + Utilitaire.datetostring(this.getDaty()) + "' and iddevise = '" + iddevise + "') "
+                + " and iddevise = '" + iddevise + "'";
+        Coursdevise crd = new Coursdevise();
+        crd.setNomTable(nomTable);
+        System.out.println("awhere : " + awhere);
+        System.out.println("nomTable : " + nomTable);
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(crd, null, null, c, awhere);
 
+        if (cd != null && cd.length > 0) {
+            return cd[0].getMontant();
+        }
+
+        return 0;
+    }
+    
+    public String getNomTableCoursDevise(){
+        String nomTable = "coursdeviseNonMICTSL";
+        if(getEstDDPMICTSL() != null && getEstDDPMICTSL().equalsIgnoreCase("1")){
+            nomTable = "coursdeviseMICTSL";
+        }
+        return nomTable;
+    }
+    
+    public void setDeviseEuro(Connection c) throws Exception {
+        setDeviseEuro(getTauxRecent(c, getNomTableCoursDevise(), Constante.deviseEuro));
+    }
+
+    public void setDeviseDollar(Connection c) throws Exception {
+        setDeviseDollar(getTauxRecent(c, getNomTableCoursDevise(), Constante.deviseDollars));
+    }
+    
+    public void setDevises(Connection c) throws Exception {
+        if(listeDetails!=null && listeDetails.length > 0 && listeDetails[0].getIdactivite() != null && listeDetails[0].getDatefact() != null ){
+                this.setDaty(Utilitaire.ajoutJourDate(listeDetails[0].getDatefact(), -1));
+        }
+        this.setDeviseEuro(c);
+        this.setDeviseDollar(c);
+    }
+    
     public void initDetails(Connection c) throws Exception {
         int verif = 0;
 
@@ -1063,7 +1099,10 @@ public class FactureClient extends ClassMere {
                 c = (new UtilDB()).GetConn();
                 verif = 1;
             }
+            FactureClient fc = new FactureClient();
+            fc = (FactureClient) fc.getById(this.getId(), "", c);
 
+            
             if (listeDetails == null) {
                 FactureClientDetails fcd = new FactureClientDetails();
                 fcd.setNomTable("facture_client_montanttc");
@@ -1072,9 +1111,11 @@ public class FactureClient extends ClassMere {
                     throw new Exception("Aucun details pour la facture " + this.getId());
                 }
             }
-
-            setDeviseEuro(c);
-            setDeviseDollar(c);
+            
+            fc.listeDetails = listeDetails;
+            fc.setDevises(c);
+            setDeviseEuro(fc.getDeviseEuro());
+            setDeviseDollar(fc.getDeviseDollar());
 
             for (int i = 0; i < listeDetails.length; i++) {
                 double montantHT = listeDetails[i].getMontant(), montantTVA = listeDetails[i].getMontanttaxe();
