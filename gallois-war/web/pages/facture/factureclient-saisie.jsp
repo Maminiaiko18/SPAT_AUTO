@@ -192,6 +192,21 @@
         });
         $(this).replaceWith(textbox);
     });
+    var selectList = $('#test option');
+    function sortList(select){
+        var selectList = select.find("option");
+        selectList.sort(function(a,b){
+            a = a.value;
+            b = b.value;
+
+            return a-b;
+        });
+        select.html(selectList);
+    }
+    for(var iL=0; iL<<%=taille%>; iL++){
+        sortList($('#mois_'+iL));
+    }
+
 </script>
 <%
         } catch (Exception e) {
