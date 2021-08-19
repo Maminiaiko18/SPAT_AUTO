@@ -74,14 +74,12 @@
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
-        listed[0] = new Liste("devise_0", o, "VAL", "id");
+        listed[0] = new Liste("devise", o, "VAL", "id");
         
         TypeObjet mois = new TypeObjet();
         mois.setNomTable("mois");
-        listed[1] = new Liste("mois_0", mois, "VAL", "id");
-        
-        
-        
+        listed[1] = new Liste("mois", mois, "val", "id");
+        listed[1].setApresW("order by id asc");
     pi.getFormufle().changerEnChamp(listed);
     
     int taille = pi.getNombreLigne();
@@ -94,7 +92,6 @@
         pi.getFormufle().getChamp("idactivite_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
     }
-    
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false);
