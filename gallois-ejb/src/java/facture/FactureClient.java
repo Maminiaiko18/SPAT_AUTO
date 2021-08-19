@@ -165,7 +165,6 @@ public class FactureClient extends ClassMere {
                     this.setDeviseMere(Constante.deviseDollars);
                 }
             }
-            this.updateToTable(c);
             if (verif == 1) {
                 c.commit();
             }
@@ -685,10 +684,7 @@ public class FactureClient extends ClassMere {
         this.setIduser(iduser);
         this.setId(null);
         this.setCode(calculerCode(cnctn));
-        
-        super.createObject(iduser, cnctn);
-        this.updateDeviseMere(cnctn);
-        return this;
+        return super.createObject(iduser, cnctn);
     }
 
     public FactureClient() throws Exception {
