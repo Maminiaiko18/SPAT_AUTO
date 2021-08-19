@@ -68,12 +68,13 @@
         
         double deviseEur = facture.getDeviseEuro();
         double deviseDollar = facture.getDeviseDollar();
+        String dateFacture = liste[0].getDatefact() != null ? Utilitaire.datetostring(liste[0].getDatefact()) : Utilitaire.datetostring(facture.getDaty());
 %>
 <div class="row">
     <div class="col-md-3">
         <table class="table table-striped table-bordered table-condensed table-responsive tree">
             <tr>
-                <th>Cours de change du : date facture</th>
+                <th>Cours de change du : <%= dateFacture %></th>
                 <th></th>
             </tr>
             <tr>
