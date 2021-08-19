@@ -780,9 +780,6 @@ public class EtatPaieServlet extends HttpServlet {
             double deviseDollar = facture.getDeviseDollar();
             String cat= facture.getCategorielib();
             String designation = facture.getDesignation();
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                     System.out.println(designation); 
-            param.put("designation",designation);
             if(mere.length!=0){
             mg.spat.PrevisionLibelleComplet p = new mg.spat.PrevisionLibelleComplet();
             p.setNomTable("PREVISIONLIBCOMPLET");
@@ -820,10 +817,11 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("daty",mere[0].getDaty());
             param.put("id",mere[0].getId());
             param.put("type",mere[0].getTypelib());
-            param.put("cat",mere[0].getCategorielib());
+            cat = mere[0].getCategorielib();
+            param.put("cat",cat);
+            designation= mere[0].getDesignation();
+            param.put("designation",designation);
             param.put("reduction", mere[0].getReduction());
-            
-          
             param.put("client",mere[0].getTierslib());
             param.put("adresse",mere[0].getAdresse());
             param.put("phone",mere[0].getContact());
