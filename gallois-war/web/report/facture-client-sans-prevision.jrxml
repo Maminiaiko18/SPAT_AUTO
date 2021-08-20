@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.6105100000000074"/>
-	<property name="ireport.x" value="135"/>
-	<property name="ireport.y" value="351"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="20"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -98,6 +98,7 @@
 		<field name="id" class="java.lang.String"/>
 		<field name="pu" class="java.lang.Double"/>
 		<field name="montantHTEuro" class="java.lang.Double"/>
+		<field name="majoration" class="java.lang.Double"/>
 	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["H:\\win-Project\\cemedi\\cemedi\\cemedi-war\\web\\report\\"]]></defaultValueExpression>
@@ -335,17 +336,17 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="111" uuid="1662ca25-15f7-460e-b9ed-716dd008c39c">
+					<jr:column width="83" uuid="1662ca25-15f7-460e-b9ed-716dd008c39c">
 						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="111" height="30" uuid="89063e7d-51d0-4ebe-ad79-eac4661bcb4d"/>
+								<reportElement x="0" y="0" width="83" height="30" uuid="89063e7d-51d0-4ebe-ad79-eac4661bcb4d"/>
 								<textElement textAlignment="Center"/>
 								<text><![CDATA[Désignation]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="111" height="30" uuid="f880f062-6403-492c-bf67-c3d142362d27"/>
+								<reportElement x="0" y="0" width="83" height="30" uuid="f880f062-6403-492c-bf67-c3d142362d27"/>
 								<textElement>
 									<paragraph leftIndent="2"/>
 								</textElement>
@@ -353,17 +354,17 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="61" uuid="5b2dbaea-d4d5-4057-8961-16e59106b19a">
+					<jr:column width="44" uuid="5b2dbaea-d4d5-4057-8961-16e59106b19a">
 						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="1" width="61" height="30" uuid="9019a5c4-5571-43a2-b64b-e098d51419f4"/>
+								<reportElement x="0" y="1" width="44" height="30" uuid="9019a5c4-5571-43a2-b64b-e098d51419f4"/>
 								<textElement textAlignment="Center"/>
 								<text><![CDATA[PU]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
 							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="61" height="30" uuid="2ba1d4d3-2e40-4e46-bdf3-9a47f59b1018"/>
+								<reportElement x="0" y="0" width="44" height="30" uuid="2ba1d4d3-2e40-4e46-bdf3-9a47f59b1018"/>
 								<textElement textAlignment="Right">
 									<paragraph rightIndent="2"/>
 								</textElement>
@@ -417,6 +418,22 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
+					<jr:column width="42" uuid="504fa8bc-133b-464d-8846-be9843eaf65e">
+						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="42" height="31" uuid="5493c65b-a970-42da-9565-c20add28b200"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Maj]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="42" height="30" uuid="37c54c68-081c-4446-a2ef-f623a9ef5b0c"/>
+								<textElement textAlignment="Right"/>
+								<textFieldExpression><![CDATA[$F{majoration}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
 					<jr:column width="88" uuid="eada7083-8b1c-430d-8832-2081abbdcce1">
 						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
 							<staticText>
@@ -435,17 +452,17 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="92" uuid="a3582a54-144e-4eb8-8da7-be52c2e42363">
+					<jr:column width="96" uuid="a3582a54-144e-4eb8-8da7-be52c2e42363">
 						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="1" width="90" height="29" uuid="6d7a77a2-f725-4d97-a394-dcedb8ad285b"/>
+								<reportElement x="6" y="2" width="90" height="29" uuid="6d7a77a2-f725-4d97-a394-dcedb8ad285b"/>
 								<textElement textAlignment="Center"/>
 								<text><![CDATA[Montant Euro]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="92" height="30" uuid="2e85386a-0263-4734-9f4c-1bed741ebaef"/>
+								<reportElement x="0" y="0" width="96" height="30" uuid="2e85386a-0263-4734-9f4c-1bed741ebaef"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
