@@ -53,7 +53,8 @@ public class FactureClient extends ClassMere {
     private double reduction;
 
     public String genererLettreMictsl(Connection c) throws Exception {
-        ClassFille[] filles = this.getFille(null, c, "");
+        ClassFille[] filles = this.getFille();
+        if(filles == null) filles = this.getFille(null, c, "");
         if (filles != null && filles.length > 0) {
             TypeObjet obj = new TypeObjet();
             obj.setNomTable("code_rubrique_mictsl");
