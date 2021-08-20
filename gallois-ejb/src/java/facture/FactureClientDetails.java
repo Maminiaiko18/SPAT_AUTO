@@ -426,12 +426,27 @@ public class FactureClientDetails extends ClassFille {
         return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
 
+    public boolean verifTauxRecentMICTSL(Connection c) throws Exception  {
+        String getEstMictsl = this.getMere().getEstMictsl();
+        if(getEstMictsl != null && getEstMictsl.equals(Constante.estMictsl) && this.getRubrique()!=null){
+            Rubrique[] rubs = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, " and CATEGORIE = '"+Constante.idCategorieFCDefinitive+"'");
+            for (int i = 0; i < rubs.length; i++) {
+                if(this.getRubrique().equals(rubs[i].getId())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
     public double getTauxRecent(Connection c) throws Exception {
         this.findMere(c);
         
         if(this.getMere() == null) throw new Exception("Facture mere introuvable");
-        String estDDPMICTSL = this.getMere().getEstDDPMICTSL();
-        if(estDDPMICTSL != null && estDDPMICTSL.equalsIgnoreCase("1")) return getTauxRecentMICTSL(c);
+        
+        if(verifTauxRecentMICTSL(c)){
+            return getTauxRecentMICTSL(c);
+        }
         
         return getTauxRecentNormal(c);
     }

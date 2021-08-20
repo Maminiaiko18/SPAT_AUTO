@@ -3,6 +3,7 @@ package utilitaire;
 public class Constante {
     
     public static  final String  idCategorieFCDefinitive="CATFCO3";
+    public static  final String  idCatRubConteneur="CATFC002";
     public static String idCategorieFCProvision="CATFCO2";
     public static String idCategorieFCProforma="CATFCO1";
     public static String idcategorieCapitainerie="CATFC001";
