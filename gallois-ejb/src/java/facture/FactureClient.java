@@ -68,7 +68,12 @@ public class FactureClient extends ClassMere {
     public String genererPremierCaractere(Connection c) throws Exception {
         TypeObjet obj = new TypeObjet();
         obj.setNomTable("codeFCPremierCaractere");
-        TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and (val = '" + getType() + "' or val='" + getIdcategorie() + "')");
+        String awhere = " and val = '%s'";
+        
+        String val = getIdcategorie().compareTo(Constante.idCategorieFCDefinitive) != 0 ? getIdcategorie() : getType();
+        awhere = String.format(awhere, val);
+        
+        TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, awhere);
         if (lst != null && lst.length > 0) {
             return lst[0].getDesce();
         }
@@ -76,7 +81,8 @@ public class FactureClient extends ClassMere {
     }
 
     public String genererCodePrestation(Connection c) throws Exception {
-        FactureClientDetails[] filles = (FactureClientDetails[]) this.getFille(null, c, "");
+        FactureClientDetails[] filles = (FactureClientDetails[]) this.getFille();
+        if(filles == null) filles = (FactureClientDetails[]) this.getFille(null, c, "");
         if (filles != null && filles.length > 0) {
             TypeObjet obj = new TypeObjet();
             obj.setNomTable("code_prestation");
