@@ -39,6 +39,9 @@ import mg.spat.Prevision;
 
 @Local
 public interface UserEJB {
+    
+    public Object updateObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille, Connection c) throws Exception;
+    
     public Prevision getPrevision() ;
     
     public void testLogin(String user, String pass, String interim, String service,String escale) throws Exception;

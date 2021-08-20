@@ -1005,8 +1005,9 @@ public class FactureClient extends ClassMere {
 
             fact2 = (FactureClient) fc.dupliquer(u.getUser().getTuppleID(), c);
             fact2.setIdProvision(this.getId());
-            u.updateObject(fact2, c);
-
+            fact2.setIdcategorie(Constante.idCategorieFCDefinitive);
+            fact2.setDaty(Utilitaire.dateDuJourSql());
+            u.updateObjectMultiple(fact2, "idmere", fact2.getFille(), c);
             if (verif == 1) {
                 c.commit();
             }

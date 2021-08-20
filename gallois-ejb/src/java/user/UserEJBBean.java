@@ -3417,31 +3417,36 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             }
         }
     }
-
-    @Override
-    public Object updateObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille) throws Exception {
-        Connection c = null;
+    
+    
+    public Object updateObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille, Connection c) throws Exception {
+        boolean in = false;
         Object ret = null;
         try {
-            c = new UtilDB().GetConn();
-            c.setAutoCommit(false);
-
+            if(c == null ){
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                in = true;
+            }
             Object idmere = updateObject(mere, c);
-
             ret = updateObjectMultiple(fille, colonneMere, ((ClassMAPTable) idmere).getTuppleID(), c);
             ret = idmere;
-
-            c.commit();
+            if(in) c.commit();
         } catch (Exception ex) {
             ex.printStackTrace();
-            c.rollback();
+            if(in && c!=null) c.rollback();
             throw ex;
         } finally {
-            if (c != null) {
+            if (in && c != null) {
                 c.close();
             }
         }
         return ret;
+    }
+    
+    @Override
+    public Object updateObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille) throws Exception {
+        return updateObjectMultiple(mere, colonneMere, fille, null);
     }
 
     public Object[] updateObjectMultiple(ClassMAPTable[] o, String colonneMere, String idmere, Connection c) throws Exception {
