@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.4641000000000066"/>
 	<property name="ireport.x" value="45"/>
-	<property name="ireport.y" value="88"/>
+	<property name="ireport.y" value="348"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -392,22 +392,22 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{pavillonlib}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="139" y="299" width="100" height="20" uuid="db38766d-e81f-4854-87bb-04da5c53a0b5"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{lhtnavire}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="90" y="319" width="100" height="20" uuid="950f4b5b-264b-46ae-8144-5a76a9b43e4d"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{jntnavire}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="459" y="299" width="96" height="20" uuid="4227f6e3-a6be-4cea-82ca-e48117b77d6f"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{lmnavire}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="459" y="319" width="96" height="20" uuid="8c4c8a7c-3527-4b97-8d01-101ebc156419"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{tenavire}]]></textFieldExpression>
@@ -551,7 +551,7 @@
 								</textElement>
 								<text><![CDATA[Le Responsable Facturation]]></text>
 							</staticText>
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
+							<textField pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement x="485" y="52" width="70" height="15" uuid="c664f795-b506-4248-b0c2-845df8d70e80"/>
 								<box>
 									<topPen lineWidth="1.0"/>
@@ -565,7 +565,7 @@
 								</textElement>
 								<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 							</textField>
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
+							<textField pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement x="485" y="67" width="70" height="15" uuid="e255cee7-92fe-45ad-9b74-3f17cf807d75"/>
 								<box>
 									<topPen lineWidth="1.0"/>
@@ -594,7 +594,7 @@
 								</textElement>
 								<text><![CDATA[]]></text>
 							</staticText>
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
+							<textField pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement x="485" y="82" width="70" height="15" uuid="3057f06d-780d-4835-8487-514afbceeb82"/>
 								<box>
 									<topPen lineWidth="1.0"/>
@@ -1031,7 +1031,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="33" height="29" uuid="dad5ca26-e6cc-40f4-8216-90988376f31b"/>
 									<box>
 										<topPen lineWidth="0.5"/>
@@ -1065,7 +1065,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="29" height="29" uuid="d98b66ca-f11a-4f48-8cc6-60ed50be7d0d"/>
 									<box>
 										<topPen lineWidth="0.5"/>
@@ -1099,7 +1099,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="34" height="29" uuid="bfbd6226-2bf5-4abb-b8a4-df17fbb8e039"/>
 									<box>
 										<topPen lineWidth="0.5"/>
@@ -1133,7 +1133,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="47" height="29" uuid="8ad07146-4868-4cf2-9c5b-339789fb5c2f"/>
 									<box>
 										<topPen lineWidth="0.5"/>
@@ -1167,7 +1167,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="54" height="29" uuid="01ef0a35-35ed-41fb-849d-f3d8d30efcbb"/>
 									<box>
 										<topPen lineWidth="0.5"/>
@@ -1269,7 +1269,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
-								<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<textField pattern="#,##0.000" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="27" height="29" uuid="2cc5f71a-6daa-425d-89ce-e5f3900278f4"/>
 									<box>
 										<pen lineWidth="0.5"/>
@@ -1304,7 +1304,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
-								<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<textField pattern="#,##0.000" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="24" height="29" uuid="1c71ac8d-8a59-46a3-8839-998d5e72155b"/>
 									<box>
 										<pen lineWidth="0.5"/>
