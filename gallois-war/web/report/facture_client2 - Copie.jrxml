@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.4641000000000066"/>
-	<property name="ireport.x" value="45"/>
-	<property name="ireport.y" value="348"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="384"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -580,7 +580,7 @@
 								<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
 							</textField>
 							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement x="494" y="82" width="50" height="15" uuid="e45028c6-f2d9-4b7b-bcae-165dd321513f"/>
+								<reportElement x="453" y="118" width="50" height="15" uuid="e45028c6-f2d9-4b7b-bcae-165dd321513f"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
 									<font size="8" isBold="false"/>
 									<paragraph rightIndent="3"/>
