@@ -415,8 +415,9 @@ public class FactureClient extends ClassMere {
             this.setTiers(Constante.idMICTSL);
             this.setIdcategorie(Constante.idCategorieFCDefinitive);
             this.setIduser(u);
-            this.setDeviseMere("Dollars");
-            this.setType("TFC001"); //Crédit
+            this.setDeviseMere(Constante.deviseDollars);
+            this.setType(Constante.getTypeFCAcredit()); //Crédit
+            this.setEstMictsl(Constante.estMictsl);
 
             FactureClient controle = new FactureClient();
             controle.setTiers(this.getTiers());

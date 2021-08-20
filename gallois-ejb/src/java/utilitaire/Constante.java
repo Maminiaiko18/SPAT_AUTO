@@ -61,6 +61,7 @@ public class Constante {
     static private String dedFactProfFourn = "DedFACTUREProfFOURNISSEUR";
     static private String DetailLcCree = "0";
     static private String DetailLcValide = "1";
+    static public String estMictsl = "1";
     static private String objetDedBc = "DedBc";
     static private String objetLcDetMvt = "LcDetailMvtCaisse";
     static private String objetLcDetDed = "LcDetailDed";
