@@ -208,7 +208,7 @@
             textarea<%=i%>.name = "designation_<%=i%>";
             textarea<%=i%>.id = "designation_<%=i%>";
             textarea<%=i%>.className = "form-control";
-            textarea<%=i%>.style.height = "200px";
+            textarea<%=i%>.style.height = "100px";
             textarea<%=i%>.value = designation<%=i%>.value;
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
     <%}%>
