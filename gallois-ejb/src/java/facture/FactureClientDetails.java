@@ -429,7 +429,7 @@ public class FactureClientDetails extends ClassFille {
     public boolean verifTauxRecentMICTSL(Connection c) throws Exception  {
         String getEstMictsl = this.getMere().getEstMictsl();
         if(getEstMictsl != null && getEstMictsl.equals(Constante.estMictsl) && this.getRubrique()!=null){
-            Rubrique[] rubs = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, " and CATEGORIE = '"+Constante.idCategorieFCDefinitive+"'");
+            Rubrique[] rubs = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, " and CATEGORIE = '"+Constante.idCatRubConteneur+"'");
             for (int i = 0; i < rubs.length; i++) {
                 if(this.getRubrique().equals(rubs[i].getId())){
                     return true;
