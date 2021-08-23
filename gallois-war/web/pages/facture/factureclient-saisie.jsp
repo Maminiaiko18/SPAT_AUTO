@@ -84,7 +84,7 @@
     
     int taille = pi.getNombreLigne();
     for( int i = 0 ; i < taille ; i++ ){       
-        pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 200px;\" ");
+        //pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 200px;\" ");
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
@@ -206,7 +206,17 @@
     for(var iL=0; iL<<%=taille%>; iL++){
         sortList($('#mois_'+iL));
     }
-
+    
+    <%for (int i = 0; i < pi.getNombreLigne(); i++) {%>
+        var designation<%=i%> = document.getElementById("designation_<%=i%>");
+        var textarea<%=i%> = document.createElement("textarea");
+            textarea<%=i%>.name = "designation_<%=i%>";
+            textarea<%=i%>.id = "designation_<%=i%>";
+            textarea<%=i%>.className = "form-control";
+            textarea<%=i%>.style.height = "200px";
+            textarea<%=i%>.value = designation<%=i%>.value;
+        designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
+    <%}%>
 </script>
 <%
         } catch (Exception e) {

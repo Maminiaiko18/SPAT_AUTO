@@ -201,6 +201,17 @@
     textarea.style.height = "100px";
     textarea.value = designation.value;
     designation.parentNode.replaceChild(textarea, designation);
+    
+    <%for (int i = 0; i < pi.getNombreLigne(); i++) {%>
+        var designation<%=i%> = document.getElementById("designation_<%=i%>");
+        var textarea<%=i%> = document.createElement("textarea");
+            textarea<%=i%>.name = "designation_<%=i%>";
+            textarea<%=i%>.id = "designation_<%=i%>";
+            textarea<%=i%>.className = "form-control";
+            textarea<%=i%>.style.height = "200px";
+            textarea<%=i%>.value = designation<%=i%>.value;
+        designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
+    <%}%>
 </script>
 <%} catch (Exception ex) {
         ex.printStackTrace();
