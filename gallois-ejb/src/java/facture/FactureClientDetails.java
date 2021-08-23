@@ -42,6 +42,7 @@ public class FactureClientDetails extends ClassFille {
     private double montantHTEuro,montantTVAEuro, montanttaxe,majoration,reduction;
 
     public FactureClientDetails(String id, String idmere, double quantite, double pu, double taux, String compte, String idproduit, String produit_lib, String devise, String designation, String idProduitLib, String idactivite, String categorieFacturelib, String categorieClientlib, String activitelib, String rubrique, FactureClient mere, double montant, double montanttaux, double montantavoirsanstaux, double montantavoiravectaux, double qtelivree, double restealivrer, Date datefact, String rubriquelib, String idprestation, String clientlib, int mois, int annee, String heureDebut, String heureFin, String moislib, String anneelib, double montantHTEuro, double montantTVAEuro, double montanttaxe, double majoration, double reduction, double tva) {
+        setNomTable("facture_client_fille");
         this.id = id;
         this.idmere = idmere;
         this.quantite = quantite;
@@ -428,8 +429,10 @@ public class FactureClientDetails extends ClassFille {
 
     public boolean verifTauxRecentMICTSL(Connection c) throws Exception  {
         String getEstMictsl = this.getMere().getEstMictsl();
+        
         if(getEstMictsl != null && getEstMictsl.equals(Constante.estMictsl) && this.getRubrique()!=null){
             Rubrique[] rubs = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, " and CATEGORIE = '"+Constante.idCatRubConteneur+"'");
+            
             for (int i = 0; i < rubs.length; i++) {
                 if(this.getRubrique().equals(rubs[i].getId())){
                     return true;

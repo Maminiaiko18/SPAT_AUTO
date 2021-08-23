@@ -1059,6 +1059,7 @@ public class FactureClient extends ClassMere {
         FactureClientDetails fd = null;
         if(listeDetails != null && listeDetails.length > 0){
             fd = new FactureClientDetails(listeDetails[0].getId(), listeDetails[0].getIdmere(), listeDetails[0].getQuantite(), listeDetails[0].getPu(), listeDetails[0].getTaux(), listeDetails[0].getCompte(), listeDetails[0].getIdproduit(), listeDetails[0].getProduit_lib(), listeDetails[0].getDevise(), listeDetails[0].getDesignation(), listeDetails[0].getIdProduitLib(), listeDetails[0].getIdactivite(), listeDetails[0].getCategorieFacturelib(), listeDetails[0].getCategorieClientlib(), listeDetails[0].getActivitelib(), listeDetails[0].getRubrique(), listeDetails[0].getMere(), listeDetails[0].getMontant(), listeDetails[0].getMontanttaux(), listeDetails[0].getMontantavoirsanstaux(), listeDetails[0].getMontantavoiravectaux(), listeDetails[0].getQtelivree(), listeDetails[0].getRestealivrer(), listeDetails[0].getDatefact(), listeDetails[0].getRubriquelib(), listeDetails[0].getIdprestation(), listeDetails[0].getClientlib(), listeDetails[0].getMois(), listeDetails[0].getAnnee(), listeDetails[0].getHeureDebut(), listeDetails[0].getHeureFin(), listeDetails[0].getMoislib(), listeDetails[0].getAnneelib(), listeDetails[0].getMontantHTEuro(), listeDetails[0].getMontantTVAEuro(), listeDetails[0].getMontanttaxe(), listeDetails[0].getMajoration(), listeDetails[0].getReduction(), listeDetails[0].getTva());
+            fd.setRubrique(listeDetails[0].getRubrique());
         }
         fd.setMere(this);
         return fd;
