@@ -15,6 +15,7 @@ import java.sql.Connection;
 public class EtatProvision extends ClassMAPTable {
     private String id;
     private double montantfacture, montantprovision, ecart,montantpaye;
+    private String tierslib;
 
     public EtatProvision(){ 
         this.setNomTable("etatprovision");
@@ -73,5 +74,13 @@ public class EtatProvision extends ClassMAPTable {
 
     @Override
     public String getAttributIDName() {return "id";}
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
     
 }
