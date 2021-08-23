@@ -157,6 +157,18 @@ public class FactureClientDetails extends ClassFille {
     public void setClientlib(String clientlib) {
         this.clientlib = clientlib;
     }
+    
+    public double getMontantMaj(double montant) {
+        return montant * this.getMajoration() / 100;
+    }
+    
+    public double getMontantReduction(double montant) {
+        return montant * this.getReduction() / 100;
+    }
+    
+    public double getMontantAvecMajRed(double montant) {
+        return montant - this.getMontantReduction(montant) + this.getMontantMaj(montant);
+    }
 
     public double getMontantHTEuro() {
         return montantHTEuro;
