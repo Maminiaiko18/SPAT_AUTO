@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.4641000000000066"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="384"/>
+	<property name="ireport.y" value="114"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -1265,7 +1265,7 @@
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font isBold="true"/>
 									</textElement>
-									<text><![CDATA[RED %]]></text>
+									<text><![CDATA[Réd %]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
@@ -1300,7 +1300,7 @@
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font isBold="true"/>
 									</textElement>
-									<text><![CDATA[MAJ%]]></text>
+									<text><![CDATA[Maj%]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">

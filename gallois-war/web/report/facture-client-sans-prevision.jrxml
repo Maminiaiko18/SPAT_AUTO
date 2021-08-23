@@ -397,7 +397,7 @@
 							<staticText>
 								<reportElement x="0" y="0" width="62" height="30" uuid="3d62fefe-4045-4085-8c74-eb03bf995714"/>
 								<textElement textAlignment="Center"/>
-								<text><![CDATA[Réd.]]></text>
+								<text><![CDATA[Réd %]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
@@ -415,7 +415,7 @@
 							<staticText>
 								<reportElement x="0" y="0" width="36" height="31" uuid="5493c65b-a970-42da-9565-c20add28b200"/>
 								<textElement textAlignment="Center"/>
-								<text><![CDATA[Maj]]></text>
+								<text><![CDATA[Maj %]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30" rowSpan="1">
