@@ -1,6 +1,6 @@
 <%@page import="mg.spat.exploitant.Activite"%>
 <%@page import="utilitaire.ConstanteEtat"%>
-<%@page import="affichage.PageRecherche"%>
+<%@page import="affichage.PageRechercheChoix"%>
 <%
     try {
         Activite activite = new Activite();
@@ -12,7 +12,7 @@
         String listeInt[] = {};
         String libEntete[] = {"id", "daty", "designation", "clientlib", "rubriquelib", "bateaulib", "qte", "moisLib", "annee", "pu", "datedebut", "heuredebut", "datefin", "heurefin", "nbHeure", "nbJour", "etatlib"};
 
-        PageRecherche pr = new PageRecherche(activite, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+        PageRechercheChoix pr = new PageRechercheChoix(activite, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("capitainerie/quais/inc/activites.jsp");
@@ -34,13 +34,17 @@
         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
         //pr.getTableau().construire_libelle(champ, libelle_comp);
 
-        String html = pr.getTableau().getHtml();
-        if (html != null) {
-            out.println(html);
-        }    else {
+        String html = pr.getTableau().getHtmlWithMultipleCheckbox();
+        if (html != null) { 
     %>
+        <form action="<%=pr.getLien()%>?but=apresActivite.jsp" method="post" name="frmchx" id="frmchx">
+            <input type="hidden" name="bute" value="facture/factureclient-modif.jsp">
+            <input type="hidden" name="acte" value="facturerMultiple">
+            <% out.println(html); %>
+        </form>
+    <%    }    else {  %>
     <center><h4>Aucun details </h4></center>
-        <% } %>
+    <% } %>
 </section>
 <%
     }catch (Exception e) {
