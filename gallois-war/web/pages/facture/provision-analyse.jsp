@@ -1,5 +1,4 @@
-<%@page import="mg.mapping.TacheLibComplet"%>
-<%@page import="mg.mapping.Tache"%>
+
 <%@ page import="user.*" %>
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
@@ -8,7 +7,7 @@
 
 <%
 try{
-    FactureClient p = new FactureClient();
+    facture.FactureClient p = new facture.FactureClient();
     
     String nomTable = "PROVISIONVISEENONFACTUREE";
     p.setNomTable(nomTable);
