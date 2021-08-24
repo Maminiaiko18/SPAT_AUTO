@@ -18,6 +18,7 @@
 <%@page import="mg.spat.AttacherFichier"%>
 <%@page import="affichage.PageConsulte"%>
 <%@page import="user.UserEJB"%>
+<%@page import="utilitaire.Constante"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try{
@@ -94,6 +95,7 @@
     map.put("paiement", "");
     map.put("activite", "");
     map.put("groupedetail", "");
+    map.put("facturesdefinitives", "");
     String tab = request.getParameter("tab");
     if (tab == null) {
         tab = "facture-client-fille";
@@ -162,14 +164,19 @@
                     <li class="<%= map.get("paiement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=paiement">Paiement</a></li>
                     <li class="<%= map.get("activite")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=activite">Activit&eacute;s</a></li>
                     <li class="<%= map.get("groupedetail")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=groupedetail">Grouper d&eacute;stails</a></li>
+                    <% if (e.getIdcategorie().equals(Constante.idCategorieFCProvision)){ %>
+                    <li class="<%= map.get("facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesdefinitives">Factures d&eacute;finitives</a></li>
+                    <% } %>
                 </ul>
                 <div class="tab-content">       
+                    
                 <div class="tab-content">       
                     <jsp:include page="<%=tab%>" >
                         <jsp:param name="idmere" value="<%=e.getId()%>" />
                         <jsp:param name="idbc" value="<%=e.getId()%>" />
                         <jsp:param name="idplacement" value="<%=e.getId()%>" />
                         <jsp:param name="idfacture" value="<%=e.getId()%>" />
+                        <jsp:param name="idProvision" value="<%=e.getId()%>" />
                     </jsp:include>
                 </div>
             </div>
