@@ -35,6 +35,6 @@
         out.println(pr.getTableauRecap().getHtml());
         out.println(pr.getTableau().getHtml());
     }else{ %>
-        <center><h4>Aucun details </h4></center><%
+        <center><h4>Aucunes factures </h4></center><%
     }
 %>
