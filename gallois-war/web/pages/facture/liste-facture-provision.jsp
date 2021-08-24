@@ -12,8 +12,8 @@
 <%
     try {
         FactureClient ff = new FactureClient();
-        String[] etatVal = {"provisionfacturetous", "PROVISIONNonVISEENONFACTUREE", "PROVISIONVISEENONFACTUREE", "provisionviseeApayer", "PROVISIONFACTUREDEFINITIVE"};
-        String[] etatAff = {"Tous", "Non visée(s)", "Visée(s)", "A payer", "Facturée(s)"};
+        String[] etatVal = {"provisionfacturetous", "PROVISIONNonVISEENONFACTUREE", "PROVISIONVISEENONFACTUREE", "provisionviseeApayer", "PROVISIONFACTUREDEFINITIVE", "provisionviseepayee"};
+        String[] etatAff = {"Tous", "Non visée(s)", "Visée(s)", "A payer", "Facturée(s)", "Payée(s)"};
         ff.setNomTable(etatVal[0]);
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             ff.setNomTable(request.getParameter("etat"));
