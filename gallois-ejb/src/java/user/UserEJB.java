@@ -303,6 +303,7 @@ public interface UserEJB {
     public String updateNoteFormationMutliple(String idFormation, String[] logPersonnel, String[] note, String noteFormateur) throws Exception;
 
     public Object createObject(ClassMAPTable o, String action) throws Exception;
+    public Object[] createObjectMultiple(ClassMAPTable[] o, Connection c) throws Exception;
 
     public void createTypeObjetMultiple(String nomTable, String proc, String pref, String[] typ, String[] desc) throws Exception;
 

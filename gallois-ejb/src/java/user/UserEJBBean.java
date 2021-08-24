@@ -1349,6 +1349,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 
     }
 
+    @Override
     public Object[] createObjectMultiple(ClassMAPTable[] o, Connection c) throws Exception {
         try {
             Object[] ret = new Object[o.length];
