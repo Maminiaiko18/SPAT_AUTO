@@ -33,7 +33,7 @@
         <%}
 
         if (acte.compareToIgnoreCase("facturerMultiple") == 0) {
-            FactureClient fc = AdminActivite.facturerActivites(ids, u.getUser().getTuppleID(), null);
+            FactureClient fc = new AdminActivite().facturerActivites(ids, u.getUser().getTuppleID(), null);
             val = fc.getId();
         %>
         <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=val%>");</script>
