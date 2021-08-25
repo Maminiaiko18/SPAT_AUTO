@@ -47,11 +47,19 @@ public class FactureClient extends ClassMere {
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
     private String idcategorie, idProvision, categorielib, idProvisionlib,iddefinitive;
     private String estDDPMICTSL;
-    private String codePrestation, codePrestationlib;
+    private String codePrestation, codePrestationlib, codeProvision;
     private String code;
     private String estMictsl;
     private double reduction;
 
+    public String getCodeProvision() {
+        return codeProvision;
+    }
+
+    public void setCodeProvision(String codeProvision) {
+        this.codeProvision = codeProvision;
+    }
+    
     public void controlerProvision(Connection c) throws Exception {
         if(this.getEtat() < ConstanteEtat.getEtatValider()){
             throw new Exception("Facture non visée !");

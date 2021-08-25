@@ -34,6 +34,7 @@
     pc.getChampByName("etatlib").setVisible(false);
     pc.getChampByName("Idcategorie").setVisible(false);
     pc.getChampByName("IdProvision").setVisible(false);
+    pc.getChampByName("idProvisionlib").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("montant").setLibelle("Montant HT");
@@ -45,10 +46,11 @@
     pc.getChampByName("montantreste").setLibelle("Reste à payer");
     pc.getChampByName("typelib").setLibelle("Type");
     pc.getChampByName("escale").setLibelle("Escale");
-    pc.getChampByName("idProvisionlib").setLibelle("Provision");
+    pc.getChampByName("codeProvision").setLibelle("Provision");
+    
     pc.getChampByName("code").setLibelle("Code");   
     e = (FactureClient) pc.getBase();
-    pc.getChampByName("idProvisionlib").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp&id="+e.getIdProvision(), "idProvisionlib=");
+    pc.getChampByName("codeProvision").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp&id="+e.getIdProvision(), "codeProvision=");
     String categorie="";
     if(e.getIdcategorie()!=null){
         categorie=e.getIdcategorie();

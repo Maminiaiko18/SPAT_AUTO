@@ -11,7 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     FactureClient base = new FactureClient();
-    base.setNomTable("provisionfacturedefinitive");
+    base.setNomTable("provisionfacturedefinitivetous");
     
     String listeCrt[] = {"iddefinitive"};
     String listeInt[] = {};
