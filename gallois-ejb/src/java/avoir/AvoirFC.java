@@ -20,7 +20,49 @@ public class AvoirFC extends ClassMere {
     
     private String id;
     private Date daty;
-    private String idfacture, designationFacture;
+    private String idfacture, designationFacture,tiers,tierslib;
+    private double montant, montantpaye,montantreste;
+
+    public String getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(String tiers) {
+        this.tiers = tiers;
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+
+    public double getMontantpaye() {
+        return montantpaye;
+    }
+
+    public void setMontantpaye(double montantpaye) {
+        this.montantpaye = montantpaye;
+    }
+
+    public double getMontantreste() {
+        return montantreste;
+    }
+
+    public void setMontantreste(double montantreste) {
+        this.montantreste = montantreste;
+    }
+
 
     public String getDesignationFacture() {
         return designationFacture;
@@ -35,7 +77,18 @@ public class AvoirFC extends ClassMere {
         this.setLiaisonFille("idmere");
         this.setNomClasseFille("avoir.AvoirFCFille");
     }
-    
+    public AvoirFC(String id, Date daty, String idfacture, String designationFacture, String tiers, String tierslib, double montant, double montantpaye, double montantreste) {
+        setNomTable("AvoirFC");        
+        this.id = id;
+        this.daty = daty;
+        this.idfacture = idfacture;
+        this.designationFacture = designationFacture;
+        this.tiers = tiers;
+        this.tierslib = tierslib;
+        this.montant = montant;
+        this.montantpaye = montantpaye;
+        this.montantreste = montantreste;
+    }    
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("AVRFC", "get_seqAvoirFC");
