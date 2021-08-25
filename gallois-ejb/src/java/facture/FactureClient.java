@@ -1031,6 +1031,20 @@ public class FactureClient extends ClassMere {
             1 genere une facture définitive
             2 genere une facture de provision
     */
+    
+    public FactureClient setIdProvision(FactureClient fact2, int type, UserEJB u, Connection c) throws Exception {
+        if(type == 1) { 
+            fact2.setIdProvision(this.getId());
+        }else {
+            if(this.getIdProvision()!=null && !this.getIdProvision().isEmpty()){
+                throw new Exception("Impossible generer, facture deja liee a une provision ");
+            }
+            this.setIdProvision(fact2.getId());
+            this.updateToTableWithHisto(u.getUser().getTuppleID(), c);
+        }
+        return fact2;
+    }
+    
     public FactureClient genererDefinitive(UserEJB u, int type, Connection c) throws Exception {
         int verif = 0;
         FactureClient fact2 = null;
@@ -1059,7 +1073,7 @@ public class FactureClient extends ClassMere {
             }
 
             fact2 = (FactureClient) fc.dupliquer(u.getUser().getTuppleID(), c);
-            fact2.setIdProvision(this.getId());
+            fact2 = fc.setIdProvision(fact2, type, u, c);
             fact2.setIdcategorie(categorie);
             fact2.setDaty(Utilitaire.dateDuJourSql());
             u.updateObjectMultiple(fact2, "idmere", fact2.getFille(), c);
