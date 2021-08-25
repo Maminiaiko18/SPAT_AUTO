@@ -1020,7 +1020,12 @@ public class FactureClient extends ClassMere {
         this.montantreste = montantreste;
     }
 
-    public FactureClient genererDefinitive(UserEJB u, Connection c) throws Exception {
+    /*
+        Argument type:
+            1 genere une facture définitive
+            2 genere une facture de provision
+    */
+    public FactureClient genererDefinitive(UserEJB u, int type, Connection c) throws Exception {
         int verif = 0;
         FactureClient fact2 = null;
 
@@ -1036,11 +1041,20 @@ public class FactureClient extends ClassMere {
                 fc = (FactureClient) this.getById(this.getId(), this.getNomTable(), c);
             }
 
-            fc.controlerDefinitive(c);
+            String categorie = fc.getIdcategorie();
+            
+            if(type == 1) { 
+                fc.controlerDefinitive(c); 
+                categorie = Constante.idCategorieFCDefinitive;
+            }
+            else { 
+                fc.controlerProvision(c); 
+                categorie = Constante.idCategorieFCProvision;
+            }
 
             fact2 = (FactureClient) fc.dupliquer(u.getUser().getTuppleID(), c);
             fact2.setIdProvision(this.getId());
-            fact2.setIdcategorie(Constante.idCategorieFCDefinitive);
+            fact2.setIdcategorie(categorie);
             fact2.setDaty(Utilitaire.dateDuJourSql());
             u.updateObjectMultiple(fact2, "idmere", fact2.getFille(), c);
             if (verif == 1) {
