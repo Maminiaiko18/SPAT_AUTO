@@ -27,12 +27,9 @@
         
     String[] libelleAffiche = {"id","daty","Client","Escale","designation","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer", "Etat"};
     pr.getTableau().setLibelleAffiche(libelleAffiche);
-    
-    
-    
+   
     if(pr.getTableau().getHtml() != null){
-        
-        out.println(pr.getTableauRecap().getHtml());
+
         out.println(pr.getTableau().getHtml());
     }else{ %>
         <center><h4>Aucunes factures </h4></center><%

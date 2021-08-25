@@ -175,7 +175,7 @@
                     <li class="<%= map.get("facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesdefinitives">Factures d&eacute;finitives</a></li>
                     <% } %>
                     <% if (e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)){ %>
-                    <li class="<%= map.get("provision-facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=provision-facturesdefinitives">Provision factures d&eacute;finitives</a></li>
+                    <li class="<%= map.get("provision-facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=provision-facturesdefinitives">Provisions</a></li>
                     <% } %> 
                 </ul>
                 <div class="tab-content">       
