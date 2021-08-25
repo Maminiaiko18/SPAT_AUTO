@@ -114,7 +114,13 @@ public class FactureClient extends ClassMere {
         if (filles != null && filles.length > 0) {
             TypeObjet obj = new TypeObjet();
             obj.setNomTable("code_prestation");
-            TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '" + filles[0].getRubrique(c).getCategorie() + "' ");
+            
+            Rubrique rubrique = filles[0].getRubrique(c);
+            
+            // Prestations diverses
+            if(rubrique == null) return "07";
+            
+            TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '" + rubrique.getCategorie() + "' ");
             if (lst != null && lst.length > 0) {
                 return lst[0].getDesce();
             }
