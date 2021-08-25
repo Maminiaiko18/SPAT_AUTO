@@ -25,17 +25,19 @@
     PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-
+    
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
 
     FactureClientDetails[] liste = (FactureClientDetails[]) pr.getTableau().getData();
+    
     /*
     FactureClient fm=(FactureClient) liste[0].findMere(null,null);
     FactureClientDetails[] lcdf=(FactureClientDetails[])fm.getFille(null, null,"");
     FactureClient dfm=(FactureClient)fm.dupliquer(pr.getUtilisateur().getUser().getTuppleID(), null);
      */
+    //if(liste == null) liste = new  FactureClientDetails[0]; 
     
     FactureClientFilleData dataF = new FactureClientFilleData(liste[0].getIdmere(), liste, null);
     FactureClient facture = dataF.getFacture();
