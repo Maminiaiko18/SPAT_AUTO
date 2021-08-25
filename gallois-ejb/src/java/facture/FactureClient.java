@@ -259,12 +259,12 @@ public class FactureClient extends ClassMere {
         if (!this.getIdcategorie().equals(Constante.idCategorieFCProvision)) {
             throw new Exception("Cette facture n est pas une facture de provision!");
         }
-        FactureClient fc = new FactureClient();
+        /*FactureClient fc = new FactureClient();
         fc.setNomTable("ProvisionFactureDefinitive");
         FactureClient[] lst = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and id='" + this.id + "' and montantreste=0");
         if (lst.length > 0) {
             throw new Exception("Cette provision a deja ete facturee !");
-        }
+        }*/
     }
 
     public void controlerVisaFactureDefinitive(Connection c) throws Exception {
