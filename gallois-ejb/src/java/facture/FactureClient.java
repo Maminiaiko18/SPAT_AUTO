@@ -52,6 +52,22 @@ public class FactureClient extends ClassMere {
     private String estMictsl;
     private double reduction;
 
+    public void controlerProvision(Connection c) throws Exception {
+        if(this.getEtat() < ConstanteEtat.getEtatValider()){
+            throw new Exception("Facture non visée !");
+        }
+        
+        if(this.getIdcategorie() == null || !this.getIdcategorie().equals(Constante.idCategorieFCDefinitive) ){
+            throw new Exception("Seule une facture de type definitive peut generer une facture de provision !");
+        }
+        FactureClient fc = new FactureClient();
+            fc.setNomTable("PROVISIONFACTUREDEFINITIVE");
+        FactureClient[] fcs = (FactureClient[]) CGenUtil.rechercher(this, null, null, c, " and IDDEFINITIVE = '"+this.getId()+"'");
+        if(fcs!=null && fcs.length > 0){
+            throw new Exception("Cette facture est deja liee a une provision !");
+        }
+    }
+    
     public String genererLettreMictsl(Connection c) throws Exception {
         ClassFille[] filles = this.getFille();
         if (filles == null) {
