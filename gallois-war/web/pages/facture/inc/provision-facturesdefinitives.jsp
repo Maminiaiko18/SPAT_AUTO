@@ -27,7 +27,12 @@
         
     String[] libelleAffiche = {"id","daty","Client","Escale","designation","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer", "Etat"};
     pr.getTableau().setLibelleAffiche(libelleAffiche);
-   
+
+            String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
+            String colonneLien[] = {"id"};
+            pr.getTableau().setLien(lienTableau);
+            pr.getTableau().setColonneLien(colonneLien);    
+    
     if(pr.getTableau().getHtml() != null){
 
         out.println(pr.getTableau().getHtml());
