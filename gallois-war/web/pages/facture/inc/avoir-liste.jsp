@@ -48,4 +48,3 @@
         %><center><h4>Aucun Avoir</h4></center><%
     }
 %>
-<a style="margin-right : 5px" class="btn btn-primary "  href="<%=(String) session.getValue("lien") + "?but=avoir/avoir-saisie.jsp&idfacture=" + request.getParameter("id")%>&montant=<%=request.getParameter("montant")%>">Avoir</a>
