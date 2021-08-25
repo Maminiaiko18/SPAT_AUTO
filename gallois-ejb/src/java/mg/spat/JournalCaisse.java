@@ -453,4 +453,14 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
         return super.createObject(u, c);
     }
+    
+    public FactureClient findFactureClient(Connection c) throws Exception{
+        FactureClient fc = new FactureClient();
+        fc.setNomTable("facture_client_union");
+        String where = String.format(" and id = '%s' ", this.getIdplacement());
+        FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, where);
+        if (result != null && result.length > 0) 
+            return result[0];
+        return null;
+    }
 }
