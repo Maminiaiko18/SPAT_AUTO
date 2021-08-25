@@ -29,7 +29,23 @@ import utilitaire.Utilitaire;
 public class JournalCaisse extends ClassEtat {
 
     private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib;
-    private double sommeCredit;
+    private double sommeCredit, sortie, entree;
+
+    public double getSortie() {
+        return sortie;
+    }
+
+    public void setSortie(double sortie) {
+        this.sortie = sortie;
+    }
+
+    public double getEntree() {
+        return entree;
+    }
+
+    public void setEntree(double entree) {
+        this.entree = entree;
+    }
     
     public String getDesceTypeCheque() {
         return desceTypeCheque;
