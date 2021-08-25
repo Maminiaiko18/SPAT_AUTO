@@ -33,7 +33,7 @@
     pc.getChampByName("tiers").setVisible(false);
     pc.getChampByName("etatlib").setVisible(false);
     pc.getChampByName("Idcategorie").setVisible(false);
-    pc.getChampByName("IdProvision").setVisible(false);
+    pc.getChampByName("IdProvision").setVisible(true);
     pc.getChampByName("idProvisionlib").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
@@ -50,7 +50,7 @@
     
     pc.getChampByName("code").setLibelle("Code");   
     e = (FactureClient) pc.getBase();
-    pc.getChampByName("codeProvision").setLien((String) session.getValue("lien") + "?but=facture/facture-client-fiche.jsp&id="+e.getIdProvision(), "codeProvision=");
+    pc.getChampByName("IdProvision").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp&id="+e.getIdProvision(), "");
     String categorie="";
     if(e.getIdcategorie()!=null){
         categorie=e.getIdcategorie();
