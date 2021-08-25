@@ -29,10 +29,17 @@
     pr.getTableau().setLibelleAffiche(libelleAffiche);
     
     
-    
+    String[] lien = {pr.getLien() + "?but=factureclient-fiche-vaovao.jsp"};
+    String[] colLien = {"id"};
+    //String[] urlLien = {"id"};
+    //String[] urlLienAff ={"id"};
+    pr.getTableau().setLien(lien);
+    pr.getTableau().setColonneLien(colLien);
+    //pr.getTableau().setUrlLien(urlLien);
+    //pr.getTableau().setUrlLienAffiche(urlLienAff);
+        
     if(pr.getTableau().getHtml() != null){
         
-        out.println(pr.getTableauRecap().getHtml());
         out.println(pr.getTableau().getHtml());
     }else{ %>
         <center><h4>Aucunes factures </h4></center><%

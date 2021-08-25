@@ -25,10 +25,10 @@
         pr.getFormu().getChamp("daty1").setLibelle("Date debut");
         pr.getFormu().getChamp("daty2").setLibelle("Date fin");
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
-        pr.getFormu().getChamp("date_echeance1").setLibelle("Date échéance min");
-        pr.getFormu().getChamp("date_echeance2").setLibelle("Date échéance max");
-        pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
-        pr.creerObjetPagePourc();
+        pr.getFormu().getChamp("date_echeance1").setLibelle("Date ï¿½chï¿½ance min");
+        pr.getFormu().getChamp("date_echeance2").setLibelle("Date ï¿½chï¿½ance max");
+        pr.getFormu().getChamp("categorielib").setLibelle("Catï¿½gorie");
+        pr.creerObjetPage();
 %>
 <script>
     function changerDesignation() {
