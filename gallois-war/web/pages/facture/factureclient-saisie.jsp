@@ -61,9 +61,9 @@
     TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
         listes[2] = new Liste("deviseMere", devise, "VAL", "id");
+        listes[2].setDefaultSelected("Ar");
     
     pi.getFormu().changerEnChamp(listes);
-    
     
     pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
     pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
