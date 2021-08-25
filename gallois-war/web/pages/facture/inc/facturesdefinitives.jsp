@@ -29,7 +29,7 @@
     pr.getTableau().setLibelleAffiche(libelleAffiche);
     
     
-    String[] lien = {pr.getLien() + "?but=factureclient-fiche-vaovao.jsp"};
+    String[] lien = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
     String[] colLien = {"id"};
     //String[] urlLien = {"id"};
     //String[] urlLienAff ={"id"};
