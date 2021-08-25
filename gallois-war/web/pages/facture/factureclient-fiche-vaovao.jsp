@@ -95,6 +95,7 @@
     map.put("paiement", "");
     map.put("activite", "");
     map.put("facturesdefinitives", "");
+    map.put("provision-facturesdefinitives", "");
     String tab = request.getParameter("tab");
     if (tab == null) {
         tab = "facture-client-fille";
@@ -171,6 +172,9 @@
                     <% if (e.getIdcategorie().equals(Constante.idCategorieFCProvision)){ %>
                     <li class="<%= map.get("facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesdefinitives">Factures d&eacute;finitives</a></li>
                     <% } %>
+                    <% if (e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)){ %>
+                    <li class="<%= map.get("provision-facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=provision-facturesdefinitives">Provision factures d&eacute;finitives</a></li>
+                    <% } %> 
                 </ul>
                 <div class="tab-content">       
                     
@@ -181,6 +185,7 @@
                         <jsp:param name="idplacement" value="<%=e.getId()%>" />
                         <jsp:param name="idfacture" value="<%=e.getId()%>" />
                         <jsp:param name="idProvision" value="<%=e.getId()%>" />
+                        <jsp:param name="iddefinitive" value="<%=e.getId()%>" />
                     </jsp:include>
                 </div>
             </div>
