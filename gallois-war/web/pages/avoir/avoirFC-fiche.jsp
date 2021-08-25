@@ -16,12 +16,17 @@
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
     AvoirFC e = new AvoirFC();
-    e.setNomTable("AvoirFC");
+    e.setNomTable("avoirFC_montant");
     PageConsulte pc = new PageConsulte(e, request, u);
     pc.setTitre("FICHE AVOIR FACTURE CLIENT");
     
     pc.getChampByName("idfacture").setLibelle("Facture");
     pc.getChampByName("daty").setLibelle("Date");
+    pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("tierslib").setLibelle("Tiers");
+    pc.getChampByName("montant").setLibelle("Montant");
+    pc.getChampByName("montantpaye").setLibelle("Montant payé");
+    pc.getChampByName("montantreste").setLibelle("RAP");
     pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp", "id=");
     e = (AvoirFC) pc.getBase();
     
