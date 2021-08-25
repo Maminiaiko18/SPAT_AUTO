@@ -239,7 +239,7 @@ public class FactureClient extends ClassMere {
         }
         FactureClient fc = new FactureClient();
         fc.setNomTable("ProvisionFactureDefinitive");
-        FactureClient[] lst = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and id='" + this.id + "'");
+        FactureClient[] lst = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and id='" + this.id + "' and montantreste=0");
         if (lst.length > 0) {
             throw new Exception("Cette provision a deja ete facturee !");
         }
