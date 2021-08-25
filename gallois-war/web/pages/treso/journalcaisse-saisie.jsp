@@ -1,3 +1,4 @@
+<%@page import="avoir.AvoirFC"%>
 <%@page import="ded.OrdonnerPayement"%>
 <%@page import="mg.spat.MvtcaisseOrdonnerpayementFacture"%>
 <%@page import="mg.spat.JournalCaisse"%>
@@ -151,6 +152,19 @@
 
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
         
+        String idAvoir = request.getParameter("idAvoir");
+        if(idAvoir!=null && !idAvoir.isEmpty()){
+            AvoirFC avoir = new AvoirFC();
+            avoir = (AvoirFC) avoir.getById(idAvoir, "AvoirFC_montant", null);
+                if(avoir == null){
+                    throw new Exception("Avoir introuvable ou non visé");
+                }
+            pi.getFormu().getChamp("libelle").setDefaut("Paiement avoir via facture client - " + idAvoir);
+            pi.getFormu().getChamp("idplacement").setDefaut(idAvoir);
+            pi.getFormu().getChamp("idplacement").setAutre("readonly");
+            pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(avoir.getMontantreste()));
+            pi.getFormu().getChamp("tiers").setDefaut(avoir.getTiers());
+        }
 
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();
@@ -175,6 +189,8 @@
     e.printStackTrace();
 %>
 <script language="JavaScript"> alert('<%=e.getMessage()%>');
-    history.back();</script>
+    alert("<%=new String(e.getMessage().getBytes(), "UTF-8")%>");
+    history.back();
+</script>
 
 <% }%>
