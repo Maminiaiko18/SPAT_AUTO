@@ -46,7 +46,7 @@ public class FactureClient extends ClassMere {
     private FactureClientDetails[] listeDetails;
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
     private String idcategorie, idProvision, categorielib, idProvisionlib,iddefinitive;
-    private String estDDPMICTSL = "0";
+    private String estDDPMICTSL;
     private String codePrestation, codePrestationlib;
     private String code;
     private String estMictsl;
@@ -433,7 +433,7 @@ public class FactureClient extends ClassMere {
             ret[i].setTauxDonne(true);
 
         }
-        mere.setEstDDPMICTSL("1");
+        //mere.setEstDDPMICTSL("1");
         return ret;
     }
 
@@ -1088,7 +1088,7 @@ public class FactureClient extends ClassMere {
     public double getTauxRecent(Connection c, String iddevise) throws Exception {
         if (this.getDaty() == null) {
             FactureClient fc = new FactureClient();
-            fc.setEstDDPMICTSL(null);
+            //fc.setEstDDPMICTSL(null);
             this.setDaty(((FactureClient) fc.getById(this.getId(), this.getNomTable(), c)).getDaty());
         }
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(this.getDaty()) + "' and iddevise = '" + iddevise + "') "
