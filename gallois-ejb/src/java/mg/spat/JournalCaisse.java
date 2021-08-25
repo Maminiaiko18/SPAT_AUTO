@@ -5,6 +5,7 @@
  */
 package mg.spat;
 
+import avoir.AvoirFC;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
@@ -281,6 +282,14 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         this.credit = credit;
     }
 
+    public AvoirFC findAvoirFC(Connection c) throws Exception {
+        AvoirFC avoir = new AvoirFC();
+        avoir.setNomTable("avoirFC_montant");
+        AvoirFC[] avoirs = (AvoirFC[]) CGenUtil.rechercher(avoir, null, null, c, " and id = '" + this.getIdplacement() + "'");
+        
+        return avoirs != null && avoirs.length > 0 ? avoirs[0] : null;
+    }
+
     public void controler(Connection c) throws Exception {
         try {
             ClotureService.testDateCloture(this.dateEffet, this.caisse, c);
@@ -302,6 +311,16 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     throw new Exception("Montant superieur reste a payer");
                 }
             }*/
+            
+            FactureClient fc = findFactureClient(c);
+            if(fc != null) {
+                if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+            }
+            
+            AvoirFC avoir = findAvoirFC(c);
+            if(avoir != null) {
+                if(this.getDebit() > avoir.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+            }
         } catch (Exception e) {
             throw e;
         }
