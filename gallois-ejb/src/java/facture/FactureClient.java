@@ -45,7 +45,7 @@ public class FactureClient extends ClassMere {
     private String contact, adresse, etatLib, typelib;
     private FactureClientDetails[] listeDetails;
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
-    private String idcategorie, idProvision, categorielib, idProvisionlib;
+    private String idcategorie, idProvision, categorielib, idProvisionlib,iddefinitive;
     private String estDDPMICTSL = "0";
     private String codePrestation, codePrestationlib;
     private String code;
@@ -68,6 +68,13 @@ public class FactureClient extends ClassMere {
         return "A";
     }
 
+    public String getIddefinitive() {
+        return iddefinitive;
+    }
+
+    public void setIddefinitive(String iddefinitive) {
+        this.iddefinitive = iddefinitive;
+    }
     public String genererPremierCaractere(Connection c) throws Exception {
         TypeObjet obj = new TypeObjet();
         obj.setNomTable("codeFCPremierCaractere");
