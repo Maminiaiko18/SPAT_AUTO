@@ -143,6 +143,12 @@
 
                             <%}
                         %>
+                         <%
+                            if(e.getIdcategorie()!=null &&  e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)){%>
+                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId() %>&acte=genererProvision&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer Provision</a>
+
+                            <%}
+                        %>
                     </p>
                     <hr>
                 </div>
