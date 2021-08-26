@@ -120,7 +120,6 @@ public class FactureClientDetails extends ClassFille {
     
     public double getTauxFinDuMois(Connection c, int mois, int annee, String iddevise) throws Exception {
         Date finDuMois = getFinMois(mois, annee);
-                
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(finDuMois) + "' and iddevise = '" + iddevise + "') "
                 + " and iddevise = '" + iddevise + "'";
         //System.out.println("apres where "+awhere );
@@ -456,9 +455,10 @@ public class FactureClientDetails extends ClassFille {
     
     public double getTauxRecent(Connection c) throws Exception {
         this.findMere(c);
-        
         if(this.getMere() == null) throw new Exception("Facture mere introuvable");
-        
+        if(this.getRubrique()!=null && this.getRubrique().compareTo(Constante.idRedevanceVariable)==0){
+            return getTauxFinDuMois(c,this.getMois(),this.getAnnee(),this.getDevise());
+        }
         if(verifTauxRecentMICTSL(c)){
             return getTauxRecentMICTSL(c);
         }
