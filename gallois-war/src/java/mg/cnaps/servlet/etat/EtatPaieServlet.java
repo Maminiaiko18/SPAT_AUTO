@@ -831,10 +831,10 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("montantAvoir",mere[0].getMontantavoir());
             param.put("tva",mere[0].getTva());
             
-            if(mere[0].getTypelib().compareToIgnoreCase("au comptant")==0){
-                param.put("dateEcheanceLib", "Date limite de paiement");
-            }
-            param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
+            if(mere[0].getTypelib().compareToIgnoreCase("au comptant")!=0){
+                param.put("dateEcheanceLib", "Date limite de paiement :");
+                param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
+            }            
             param.put("deviseMere", mere[0].getDeviseMere());
             param.put("code", code);
             String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
@@ -874,7 +874,7 @@ public class EtatPaieServlet extends HttpServlet {
             for(int i = 0; i < details.length; i++)
             {
                 //details[i].setMontantHTEuro( details[i].getQuantite()*details[i].getPu());
-                total=total+details[i].getMontanttaux();
+                total=total+details[i].getMontantHTEuro();
                 arrList.add(details[i]);
                 reduction += details[i].getReduction();
                 
