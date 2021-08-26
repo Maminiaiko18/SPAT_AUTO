@@ -319,17 +319,20 @@
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="70" uuid="c07e964d-76c4-4009-80a9-f2842eca4e21">
-						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+						<jr:columnHeader style="table 2_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="70" height="30" uuid="c3111df4-7578-4c75-b12f-399c4a8fc9c0"/>
-								<textElement textAlignment="Center"/>
+								<reportElement x="0" y="0" width="70" height="17" uuid="c3111df4-7578-4c75-b12f-399c4a8fc9c0"/>
+								<textElement textAlignment="Center">
+									<font size="9"/>
+								</textElement>
 								<text><![CDATA[Réf]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="17" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="70" height="30" uuid="38d410d0-19b5-438f-9427-cb74d9fa8c63"/>
+								<reportElement x="0" y="0" width="70" height="17" uuid="38d410d0-19b5-438f-9427-cb74d9fa8c63"/>
 								<textElement>
+									<font size="9"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
@@ -337,17 +340,20 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="109" uuid="1662ca25-15f7-460e-b9ed-716dd008c39c">
-						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+						<jr:columnHeader style="table 2_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="109" height="30" uuid="89063e7d-51d0-4ebe-ad79-eac4661bcb4d"/>
-								<textElement textAlignment="Center"/>
+								<reportElement x="0" y="0" width="109" height="17" uuid="89063e7d-51d0-4ebe-ad79-eac4661bcb4d"/>
+								<textElement textAlignment="Center">
+									<font size="9"/>
+								</textElement>
 								<text><![CDATA[Désignation]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="17" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="109" height="30" uuid="f880f062-6403-492c-bf67-c3d142362d27"/>
+								<reportElement x="0" y="0" width="109" height="17" uuid="f880f062-6403-492c-bf67-c3d142362d27"/>
 								<textElement>
+									<font size="9"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
@@ -355,17 +361,20 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="44" uuid="5b2dbaea-d4d5-4057-8961-16e59106b19a">
-						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+						<jr:columnHeader style="table 2_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="44" height="31" uuid="9019a5c4-5571-43a2-b64b-e098d51419f4"/>
-								<textElement textAlignment="Center"/>
+								<reportElement x="0" y="0" width="44" height="17" uuid="9019a5c4-5571-43a2-b64b-e098d51419f4"/>
+								<textElement textAlignment="Center">
+									<font size="9"/>
+								</textElement>
 								<text><![CDATA[PU]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="17" rowSpan="1">
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="44" height="30" uuid="2ba1d4d3-2e40-4e46-bdf3-9a47f59b1018"/>
+								<reportElement x="0" y="0" width="44" height="17" uuid="2ba1d4d3-2e40-4e46-bdf3-9a47f59b1018"/>
 								<textElement textAlignment="Right">
+									<font size="9"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{pu}]]></textFieldExpression>
@@ -373,17 +382,20 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="32" uuid="3c68d33c-a0ed-4693-9b58-6ae36b462f0c">
-						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+						<jr:columnHeader style="table 2_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="32" height="30" uuid="82d9eb56-ab24-4b3f-8a63-d85fa1fc1796"/>
-								<textElement textAlignment="Center"/>
+								<reportElement x="0" y="0" width="32" height="17" uuid="82d9eb56-ab24-4b3f-8a63-d85fa1fc1796"/>
+								<textElement textAlignment="Center">
+									<font size="9"/>
+								</textElement>
 								<text><![CDATA[Qté]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="17" rowSpan="1">
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="0" y="1" width="32" height="29" uuid="d48c5cca-af01-402c-94da-35ef3925efda"/>
+								<reportElement x="0" y="0" width="32" height="17" uuid="d48c5cca-af01-402c-94da-35ef3925efda"/>
 								<textElement textAlignment="Right">
+									<font size="9"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{quantite}]]></textFieldExpression>
@@ -391,17 +403,20 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="62" uuid="9ca21b0d-afc4-407a-8d97-cd9612206bd6">
-						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+						<jr:columnHeader style="table 2_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="62" height="30" uuid="3d62fefe-4045-4085-8c74-eb03bf995714"/>
-								<textElement textAlignment="Center"/>
+								<reportElement x="0" y="0" width="62" height="17" uuid="3d62fefe-4045-4085-8c74-eb03bf995714"/>
+								<textElement textAlignment="Center">
+									<font size="9"/>
+								</textElement>
 								<text><![CDATA[Réd %]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="17" rowSpan="1">
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="62" height="30" uuid="54bf9f8a-58fb-42d8-b722-ea5a70d82d79"/>
+								<reportElement x="0" y="0" width="62" height="17" uuid="54bf9f8a-58fb-42d8-b722-ea5a70d82d79"/>
 								<textElement textAlignment="Right">
+									<font size="9"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{reduction}]]></textFieldExpression>
@@ -409,55 +424,67 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="36" uuid="504fa8bc-133b-464d-8846-be9843eaf65e">
-						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+						<jr:columnHeader style="table 2_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="36" height="31" uuid="5493c65b-a970-42da-9565-c20add28b200"/>
-								<textElement textAlignment="Center"/>
+								<reportElement x="0" y="0" width="36" height="17" uuid="5493c65b-a970-42da-9565-c20add28b200"/>
+								<textElement textAlignment="Center">
+									<font size="9"/>
+								</textElement>
 								<text><![CDATA[Maj %]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="30" rowSpan="1">
+						<jr:detailCell height="17" rowSpan="1">
 							<textField pattern="#,##0.000">
-								<reportElement x="0" y="0" width="36" height="30" uuid="37c54c68-081c-4446-a2ef-f623a9ef5b0c"/>
+								<reportElement x="0" y="0" width="36" height="17" uuid="37c54c68-081c-4446-a2ef-f623a9ef5b0c"/>
 								<box>
 									<bottomPen lineWidth="1.0"/>
 									<rightPen lineWidth="1.0"/>
 								</box>
-								<textElement textAlignment="Right"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{majoration}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="40" uuid="be93b622-f516-4c3c-bfca-de243cc4fc9d">
-						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+						<jr:columnHeader style="table 2_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="40" height="31" uuid="c3b7a356-16a4-4b7a-baf4-d6736578b7ec"/>
+								<reportElement x="0" y="0" width="40" height="17" uuid="c3b7a356-16a4-4b7a-baf4-d6736578b7ec"/>
+								<textElement textAlignment="Center">
+									<font size="9"/>
+								</textElement>
 								<text><![CDATA[TVA]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="30" rowSpan="1">
+						<jr:detailCell height="17" rowSpan="1">
 							<textField pattern="#,##0.000">
-								<reportElement x="0" y="0" width="40" height="30" uuid="3751442a-f033-4062-8586-1ef2e8e34ebf"/>
+								<reportElement x="0" y="0" width="40" height="17" uuid="3751442a-f033-4062-8586-1ef2e8e34ebf"/>
 								<box>
 									<bottomPen lineWidth="1.0"/>
 								</box>
-								<textElement textAlignment="Right"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{tva}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="74" uuid="eada7083-8b1c-430d-8832-2081abbdcce1">
-						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+						<jr:columnHeader style="table 2_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="74" height="30" uuid="cf5390da-721b-43df-bdfb-81fd83c9fa5d"/>
-								<textElement textAlignment="Center"/>
+								<reportElement x="0" y="0" width="74" height="17" uuid="cf5390da-721b-43df-bdfb-81fd83c9fa5d"/>
+								<textElement textAlignment="Center">
+									<font size="9"/>
+								</textElement>
 								<text><![CDATA[Montant]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="17" rowSpan="1">
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="74" height="30" uuid="a663e888-c2e9-4d5d-b972-e81db77160d1"/>
+								<reportElement x="0" y="0" width="74" height="17" uuid="a663e888-c2e9-4d5d-b972-e81db77160d1"/>
 								<textElement textAlignment="Right">
+									<font size="9"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{montanttaux}]]></textFieldExpression>
@@ -465,16 +492,18 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="87" uuid="a3582a54-144e-4eb8-8da7-be52c2e42363">
-						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+						<jr:columnHeader style="table 2_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="2" width="87" height="29" uuid="6d7a77a2-f725-4d97-a394-dcedb8ad285b"/>
-								<textElement textAlignment="Center"/>
+								<reportElement x="0" y="0" width="87" height="17" uuid="6d7a77a2-f725-4d97-a394-dcedb8ad285b"/>
+								<textElement textAlignment="Center">
+									<font size="9"/>
+								</textElement>
 								<text><![CDATA[Montant Euro]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="30" rowSpan="1">
+						<jr:detailCell height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="87" height="30" uuid="2e85386a-0263-4734-9f4c-1bed741ebaef"/>
+								<reportElement x="0" y="0" width="87" height="17" uuid="2e85386a-0263-4734-9f4c-1bed741ebaef"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
@@ -482,7 +511,7 @@
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Right" verticalAlignment="Top" markup="none">
-									<font isBold="false"/>
+									<font size="9" isBold="false"/>
 									<paragraph rightIndent="3"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{montantHTEuro}]]></textFieldExpression>
