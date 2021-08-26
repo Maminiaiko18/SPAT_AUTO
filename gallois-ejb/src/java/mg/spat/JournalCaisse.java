@@ -314,11 +314,13 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             
             FactureClient fc = findFactureClient(c);
             if(fc != null) {
+                if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
                 if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
             }
             
             AvoirFC avoir = findAvoirFC(c);
             if(avoir != null) {
+                if(avoir.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Avoir non visee");
                 if(this.getDebit() > avoir.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
             }
         } catch (Exception e) {
