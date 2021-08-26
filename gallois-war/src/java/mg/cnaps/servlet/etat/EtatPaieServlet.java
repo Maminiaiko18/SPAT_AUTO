@@ -795,13 +795,13 @@ public class EtatPaieServlet extends HttpServlet {
                  param.put("date_arrivee",pre[0].getDate_arrivee());
                  //param.put("pavillon",pre[0].getPavillon);
                  param.put("date_depart",pre[0].getDate_depart());
-                 param.put("destination",pre[0].getValquaisdestination());
+                 param.put("destination",pre[0].getDestination());
                  param.put("lhtnavire",pre[0].getLhtnavire());
                  param.put("jntnavire",pre[0].getJntnavire());
                  param.put("lmnavire",pre[0].getLmnavire());
                  param.put("provenance",pre[0].getValquaisprovenance());
                  param.put("escale",pre[0].getEscale());
-                 param.put("pavillonlib", pre[0].getPavillonlib());
+                 param.put("pavillonlib", pre[0].getPavillonnavire());
                  param.put("heure_depart",pre[0].getHeure_depart());
                  param.put("heure_arrivee",pre[0].getHeure_arrivee());
                  param.put("armateur",pre[0].getArmateurlib());
@@ -831,10 +831,13 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("montantAvoir",mere[0].getMontantavoir());
             param.put("tva",mere[0].getTva());
             
-            if(mere[0].getTypelib().compareToIgnoreCase("au comptant")!=0){
-                param.put("dateEcheanceLib", "Date limite de paiement :");
-                param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
-            }            
+            if(mere[0].getTypelib()!=null){
+                if(mere[0].getTypelib().compareToIgnoreCase("au comptant")!=0){
+                    param.put("dateEcheanceLib", "Date limite de paiement :");
+                    param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
+                }                
+            }
+            
             param.put("deviseMere", mere[0].getDeviseMere());
             param.put("code", code);
             String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
