@@ -831,6 +831,9 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("montantAvoir",mere[0].getMontantavoir());
             param.put("tva",mere[0].getTva());
             
+            if(mere[0].getTypelib().compareToIgnoreCase("au comptant")==0){
+                param.put("dateEcheanceLib", "Date limite de paiement");
+            }
             param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
             param.put("deviseMere", mere[0].getDeviseMere());
             param.put("code", code);

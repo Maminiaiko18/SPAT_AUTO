@@ -213,7 +213,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="378" y="135" width="177" height="20" uuid="1de2de5d-7905-4d25-a0c9-2ce6dacd3328"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font size="9" isBold="false"/>
+					<font size="10" isBold="false"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
@@ -221,7 +221,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="378" y="157" width="177" height="20" uuid="e7db8947-ed99-4bde-a43b-a683747d3e02"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font size="9" isBold="false"/>
+					<font size="10" isBold="false"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{phone}]]></textFieldExpression>
