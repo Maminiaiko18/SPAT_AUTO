@@ -3,6 +3,7 @@
     Created on : 15 janv. 2021, 11:38:49
     Author     : Tsiory
 --%>
+<%@page import="java.sql.Connection"%>
 <%@page import="facture.FactureClient"%>
 <%@ page import="user.*" %>
 <%@ page import="utilitaire.*" %>
@@ -95,6 +96,11 @@
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&idsOP=<%=ded_id%>");</script>
     <%
+        } if (acte != null && acte.equalsIgnoreCase("modifierEntete")) { 
+            Page p = new Page(new FactureClient(), request);
+            FactureClient fc = (FactureClient)p.getObjectAvecValeur();
+            fc.setIduser(u.getUser().getRefuser());
+            fc.modifierEntete(null);
         }
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= apresLien%>");</script>
