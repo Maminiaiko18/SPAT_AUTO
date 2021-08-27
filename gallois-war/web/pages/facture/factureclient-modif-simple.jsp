@@ -16,7 +16,7 @@
                 table = "Factureclient",
                 classe = "facture.FactureClient",
                 bute = "facture/factureclient-fiche-vaovao.jsp",
-                titre = "Modification Entête Facture Client"
+                titre = "Modification entête facture client"
         ;
         FactureClient o = new FactureClient();
         PageUpdate pi = new PageUpdate(o, request, (user.UserEJB) session.getValue("u"));
@@ -44,8 +44,8 @@
 %>
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="">
+        <div class="col-md-6">
+            <div class="box-fiche">
                 <div class="box">
                     <h1><%= titre %></h1>
                     <form action="<%=pi.getLien()%>?but=<%= but %>" method="post" name="starticle" id="starticle">
@@ -63,6 +63,17 @@
         </div>
     </div>
 </div>
+<script>
+    var designation = document.getElementById("designation");
+    var textarea = document.createElement("textarea");
+    textarea.name = "designation";
+    textarea.id = "designation";
+    textarea.className = "form-control";
+    textarea.style.height = "100px";
+    textarea.value = designation.value;
+    designation.parentNode.replaceChild(textarea, designation);
+
+</script>
     <%
     }catch(Exception e){
 e.printStackTrace();
