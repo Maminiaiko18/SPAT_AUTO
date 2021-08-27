@@ -2,7 +2,7 @@
 <%@page import="bean.CGenUtil"%>
 <%@page import="avoir.AvoirFCFille"%>
 <%
-    String id = request.getParameter("idAvoir");
+    String id = request.getParameter("id");
     AvoirFCFille avoirFille=new AvoirFCFille();
     avoirFille.setNomTable("AVOIRFCFILLE_MONTANTFACTURE");
     AvoirFCFille[] detail= (AvoirFCFille[]) CGenUtil.rechercher(avoirFille , null, null, " and idmere = '" + id+ "'");
