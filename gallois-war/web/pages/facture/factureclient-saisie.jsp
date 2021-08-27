@@ -31,6 +31,7 @@
     String mere=request.getParameter("idmere");
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
+    pi.getFormu().getChamp("designation").setLibelle("Note explicative");
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
@@ -97,7 +98,7 @@
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false);
     affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
     pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
-    pi.getFormufle().getChamp("designation_0").setLibelle("Designation");
+    pi.getFormufle().getChamp("designation_0").setLibelle("Note explicative");
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
     pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
