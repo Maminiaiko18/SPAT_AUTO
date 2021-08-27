@@ -99,8 +99,7 @@
         } if (acte != null && acte.equalsIgnoreCase("modifierEntete")) { 
             Page p = new Page(new FactureClient(), request);
             FactureClient fc = (FactureClient)p.getObjectAvecValeur();
-            fc.setIduser(u.getUser().getRefuser());
-            fc.modifierEntete(null);
+            fc.modifierEntete(u.getUser().getRefuser(), null);
         }
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= apresLien%>");</script>
