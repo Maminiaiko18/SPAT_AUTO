@@ -99,9 +99,9 @@
         } if (acte != null && acte.equalsIgnoreCase("modifierEntete")) { 
             Page p = new Page(new FactureClient(), request);
             FactureClient fc = (FactureClient)p.getObjectAvecValeur();
-            fc.modifierEntete(u.getUser().getRefuser(), null);
-    %>
-    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= bute %>&id=<%= fc.getId() %>");</script>
+            fc.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
+        %>
+        <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= bute %>&id=<%= fc.getId() %>");</script>
     <% } %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= apresLien%>");</script>
     <%
