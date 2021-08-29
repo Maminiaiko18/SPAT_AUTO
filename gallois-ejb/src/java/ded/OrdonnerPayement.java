@@ -1,5 +1,6 @@
 package ded;
 
+import avoir.AvoirFC;
 import bean.*;
 import factureclient.PaiementFactureRemise;
 import facturefournisseur.EtatFactureMontantDaty;
@@ -422,6 +423,35 @@ public class OrdonnerPayement extends ClassEtat {
         }
     }*/
 
+    public void controlerMontant(double montantTTc, double reste, Connection c)throws Exception{
+        OrdonnerPayement op=new OrdonnerPayement();
+        op.setNomTable("ordonnerpayementgroupefact");
+        OrdonnerPayement[] listeOP = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, "and ded_id = '" + this.getDed_Id() + "'");
+        if(listeOP.length>0){
+            if(listeOP[0].getMontant()==montantTTc){
+                throw new Exception("Déjà payé en total ou en attente de paiement");
+            }
+            if(reste<this.getMontant()){
+                throw new Exception("Montant supérieur au reste à payer");
+            }
+        }
+    }
+    public void controlerAvoirFC(AvoirFC[] avoirListe, Connection c)throws Exception{
+        OrdonnerPayement op=new OrdonnerPayement();
+        op.setNomTable("ordonnerpayementgroupefact");
+        OrdonnerPayement[] listeOP = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, "and ded_id = '" + this.getDed_Id() + "'");
+        double montantTTc=AdminGen.calculSommeDouble(avoirListe, "montant");
+        double reste=AdminGen.calculSommeDouble(avoirListe, "montantreste");
+        if(listeOP.length>0){
+            if(listeOP[0].getMontant()==montantTTc){
+                throw new Exception("Facture(s) déjà payée(s) ou en attente de paiement");
+            }
+            if(reste<this.getMontant()){
+                throw new Exception("Montant supérieur au reste à payer");
+            }
+        }
+    }
+    
     public Object validerObject(String u, Connection c) throws Exception{
         int verif = 0;
         try {
@@ -434,23 +464,24 @@ public class OrdonnerPayement extends ClassEtat {
                 throw new Exception("OP Deja valide");
             }
             EtatFactureMontantDaty[] factures=this.getFactures(c);
-            OrdonnerPayement op=new OrdonnerPayement();
-            op.setNomTable("ordonnerpayementgroupefact");
-            OrdonnerPayement[] listeOP = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, "and ded_id = '" + this.getDed_Id() + "'");
-            double montantTTc=AdminGen.calculSommeDouble(factures, "montantTTC");
-            double reste=AdminGen.calculSommeDouble(factures, "reste");
-            if(listeOP.length>0){
-                if(listeOP[0].getMontant()==montantTTc){
-                    throw new Exception("Facture(s) déjà payée(s) ou en attente de paiement");
-                }
-                if(reste<this.getMontant()){
-                    throw new Exception("Montant supérieur au reste à payer");
+            if(factures.length>0){
+                double montantTTc=AdminGen.calculSommeDouble(factures, "montantTTC");
+                double reste=AdminGen.calculSommeDouble(factures, "reste");
+                this.controlerMontant(montantTTc,reste, c);
+                for (int i = 0; i < factures.length; i++) {
+                    LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getReste());
+                    liaison.createObject(u, c);
                 }
             }
-
-            for (int i = 0; i < factures.length; i++) {
-                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getReste());
-                liaison.createObject(u, c);
+            AvoirFC[] avoirList=this.getAvoirFC(c);
+            if(avoirList.length>0){
+                double montantTTc=AdminGen.calculSommeDouble(factures, "montant");
+                double reste=AdminGen.calculSommeDouble(factures, "montantreste");
+                this.controlerMontant(montantTTc,reste, c);
+                for (int i = 0; i < factures.length; i++) {
+                    LiaisonIntraTable liaison = new LiaisonIntraTable(avoirList[i].getId(), this.getTuppleID(), avoirList[i].getMontantreste());
+                    liaison.createObject(u, c);
+                }
             }
             super.validerObject(u, c);
             if (c != null && verif == 1) c.commit();
@@ -472,6 +503,29 @@ public class OrdonnerPayement extends ClassEtat {
                 verif = 1;
             }
             if(this.getDed_Id()!=null) return (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, c, "and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
+            return null;
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    public AvoirFC[] getAvoirFC(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            AvoirFC av=new AvoirFC();
+            av.setNomTable("AVOIRFC_MONTANT");
+            if(this.getDed_Id()!=null) return (AvoirFC[]) CGenUtil.rechercher(av, null, null, c, "and id='" + this.getDed_Id()+"'");
             return null;
         } catch (Exception e) {
             if (c != null && verif == 1) {
