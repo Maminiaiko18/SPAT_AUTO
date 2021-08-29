@@ -531,7 +531,19 @@ public class FactureClient extends ClassMere {
         setArrayDetails(new ArrayList<FactureClientDetails>());
 
     }
+    public FactureClient(Date daty, String tiers, String designation, double tva, String type,String idcategorie) throws Exception {
+        setNomTable("Factureclient");
+        setLiaisonFille("idmere");
+        this.setNomClasseFille("facture.FactureClientDetails");
+        setDaty(daty);
+        setTiers(tiers);
+        setDesignation(designation);
+        setTva(tva);
+        this.setIdcategorie(idcategorie);
+        setArrayDetails(new ArrayList<FactureClientDetails>());
+        this.setType(type);
 
+    }
     public FactureClient(Date daty, String tiers, String designation, double tva, String type) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");

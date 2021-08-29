@@ -104,7 +104,7 @@ public class Prevision extends ClassEtat {
 
             Prevision prevision = new Prevision();
             prevision = (Prevision) prevision.getById(this.getId(), prevision.getNomTable(), c);
-
+            if(prevision.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception("Prevision non visee");
             AdminActivite adminActivite = new AdminActivite();
             Activite[] activites = prevision.genererActiviteVisees(user, c);
             adminActivite.findactivite(getIdsFromTab(activites), c);
