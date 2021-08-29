@@ -9,7 +9,7 @@
 <%
     AvoirLibComplet cht = new AvoirLibComplet();
     cht.setNomTable("AVOIRFC_MONTANTLIBETAT");
-    String libEntete[] = {"id", "daty", "montant", "etatlib"};
+    String libEntete[] = {"id", "daty", "montant", "etatlib", "tierslib", "montantpaye", "montantreste"};
     String listeCrt[] = {"idfacture"};
     String listeInt[] = {};
 
@@ -23,7 +23,7 @@
         pr.setAWhere(" and idfacture = '"+request.getParameter("idfacture")+"' ");
     }
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "Date", "Montant", "etat"};
+    String libEnteteAffiche[] = {"id", "Date", "Montant", "Etat", "Tiers", "Montant paye", "Montant reste"};
     String lienTableau[] = {pr.getLien() + "?but=avoir/avoirFC-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
@@ -48,4 +48,3 @@
         %><center><h4>Aucun Avoir</h4></center><%
     }
 %>
-<a style="margin-right : 5px" class="btn btn-primary "  href="<%=(String) session.getValue("lien") + "?but=avoir/avoir-saisie.jsp&idfacture=" + request.getParameter("id")%>&montant=<%=request.getParameter("montant")%>">Avoir</a>

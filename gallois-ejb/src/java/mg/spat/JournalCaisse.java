@@ -5,6 +5,7 @@
  */
 package mg.spat;
 
+import avoir.AvoirFC;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
@@ -29,7 +30,23 @@ import utilitaire.Utilitaire;
 public class JournalCaisse extends ClassEtat {
 
     private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib;
-    private double sommeCredit;
+    private double sommeCredit, sortie, entree;
+
+    public double getSortie() {
+        return sortie;
+    }
+
+    public void setSortie(double sortie) {
+        this.sortie = sortie;
+    }
+
+    public double getEntree() {
+        return entree;
+    }
+
+    public void setEntree(double entree) {
+        this.entree = entree;
+    }
     
     public String getDesceTypeCheque() {
         return desceTypeCheque;
@@ -265,6 +282,14 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         this.credit = credit;
     }
 
+    public AvoirFC findAvoirFC(Connection c) throws Exception {
+        AvoirFC avoir = new AvoirFC();
+        avoir.setNomTable("avoirFC_montant");
+        AvoirFC[] avoirs = (AvoirFC[]) CGenUtil.rechercher(avoir, null, null, c, " and id = '" + this.getIdplacement() + "'");
+        
+        return avoirs != null && avoirs.length > 0 ? avoirs[0] : null;
+    }
+
     public void controler(Connection c) throws Exception {
         try {
             ClotureService.testDateCloture(this.dateEffet, this.caisse, c);
@@ -286,6 +311,18 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     throw new Exception("Montant superieur reste a payer");
                 }
             }*/
+            
+            FactureClient fc = findFactureClient(c);
+            if(fc != null) {
+                if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
+                if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+            }
+            
+            AvoirFC avoir = findAvoirFC(c);
+            if(avoir != null) {
+                if(avoir.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Avoir non visee");
+                if(this.getDebit() > avoir.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+            }
         } catch (Exception e) {
             throw e;
         }
@@ -452,5 +489,15 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
         }
         return super.createObject(u, c);
+    }
+    
+    public FactureClient findFactureClient(Connection c) throws Exception{
+        FactureClient fc = new FactureClient();
+        fc.setNomTable("facture_client_union");
+        String where = String.format(" and id = '%s' ", this.getIdplacement());
+        FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, where);
+        if (result != null && result.length > 0) 
+            return result[0];
+        return null;
     }
 }

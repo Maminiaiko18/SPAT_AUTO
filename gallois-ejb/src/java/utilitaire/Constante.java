@@ -3,6 +3,7 @@ package utilitaire;
 public class Constante {
     
     public static  final String  idCategorieFCDefinitive="CATFCO3";
+    public static  final String  idCatRubConteneur="CATFC002";
     public static String idCategorieFCProvision="CATFCO2";
     public static String idCategorieFCProforma="CATFCO1";
     public static String idcategorieCapitainerie="CATFC001";
@@ -61,6 +62,7 @@ public class Constante {
     static private String dedFactProfFourn = "DedFACTUREProfFOURNISSEUR";
     static private String DetailLcCree = "0";
     static private String DetailLcValide = "1";
+    static public String estMictsl = "1";
     static private String objetDedBc = "DedBc";
     static private String objetLcDetMvt = "LcDetailMvtCaisse";
     static private String objetLcDetDed = "LcDetailDed";
@@ -128,6 +130,11 @@ public class Constante {
     public static final int longueurNumeroBordereau = 4;
     public static int tvaDefaut = 20;
     private static String roleCommandant="ROL001300";
+    private static String typeFCAcredit="TFC001";
+
+    public static String getTypeFCAcredit() {
+        return typeFCAcredit;
+    }
 
     public static String getRoleCommandant() {
         return roleCommandant;

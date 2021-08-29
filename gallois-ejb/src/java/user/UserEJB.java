@@ -39,6 +39,9 @@ import mg.spat.Prevision;
 
 @Local
 public interface UserEJB {
+    
+    public Object updateObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille, Connection c) throws Exception;
+    
     public Prevision getPrevision() ;
     
     public void testLogin(String user, String pass, String interim, String service,String escale) throws Exception;
@@ -300,6 +303,7 @@ public interface UserEJB {
     public String updateNoteFormationMutliple(String idFormation, String[] logPersonnel, String[] note, String noteFormateur) throws Exception;
 
     public Object createObject(ClassMAPTable o, String action) throws Exception;
+    public Object[] createObjectMultiple(ClassMAPTable[] o, Connection c) throws Exception;
 
     public void createTypeObjetMultiple(String nomTable, String proc, String pref, String[] typ, String[] desc) throws Exception;
 

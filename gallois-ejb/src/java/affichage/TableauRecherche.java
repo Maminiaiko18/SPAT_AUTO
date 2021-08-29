@@ -1114,7 +1114,7 @@ public class TableauRecherche {
         }
         String temp = "";
         temp += "<p align=center><strong><u>" + getTitre() + "</u></strong></p>";
-        temp += "<div id=\"divchck\">";
+        temp += "<div id=\"divchck\" class='table-responsive'>";
         temp += "<table width=" + getTailleTableau() + " border=0 align=center cellpadding=3 cellspacing=3 class=" + getCssTableau() + ">";
         temp += "<tr class=" + getCssEntete() + ">";
         int nombreLigne = 0, nombreColonne = 0;
@@ -1181,8 +1181,8 @@ public class TableauRecherche {
             temp += "</tr>";
         }
         temp += "</table>";
-        temp += "<input class=\"btn btn-success\" type=\"submit\" value=\"Valider\" />";
         temp += "</div>";
+        temp += "<input class=\"btn btn-success\" type=\"submit\" value=\"Valider\" />";
         setHtml(temp);
     }
 

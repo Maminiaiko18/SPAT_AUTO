@@ -312,11 +312,10 @@ public class ChiffreLettre
         double valeurApresVirgule = intToString - (double)(long)intToString;
         long valeurAvantVirgule = (long)(intToString - valeurApresVirgule);
         String result = "";
-        double arr = Utilitaire.arrondir(valeurApresVirgule, 2);
-        BigDecimal cent = new BigDecimal("100");
+        double arr = Utilitaire.arrondir(valeurApresVirgule, 3);
+        BigDecimal cent = new BigDecimal("1000");
         BigDecimal apr = cent.multiply(new BigDecimal(String.valueOf(arr)));
         long apres = apr.longValue();
-//        System.out.println("APRES--------------".concat(String.valueOf(String.valueOf(apres))));
         if(apres == (long)0)
             result = convertIntToString(valeurAvantVirgule);
         else

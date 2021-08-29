@@ -47,6 +47,7 @@ public class Prevision extends ClassEtat {
     }
 
     public void setArmateur(String armateur) {
+        System.out.println("Armateur==="+armateur);
         this.armateur = armateur;
     }
 
@@ -103,7 +104,7 @@ public class Prevision extends ClassEtat {
 
             Prevision prevision = new Prevision();
             prevision = (Prevision) prevision.getById(this.getId(), prevision.getNomTable(), c);
-
+            if(prevision.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception("Prevision non visee");
             AdminActivite adminActivite = new AdminActivite();
             Activite[] activites = prevision.genererActiviteVisees(user, c);
             adminActivite.findactivite(getIdsFromTab(activites), c);
@@ -111,6 +112,7 @@ public class Prevision extends ClassEtat {
 //            adminActivite.initActivite(prevision.genererActiviteVisees(user, c));
             facture = adminActivite.facturer(user, c);
             facture.setIdprevision(this.getId());
+            facture.updateDeviseMere(c);
             facture.updateToTableWithHisto(user, c);
 
             if (verif == 1) {

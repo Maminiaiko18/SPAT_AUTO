@@ -24,7 +24,7 @@
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
-        affichage.Liste[] listeM = new affichage.Liste[5];
+        affichage.Liste[] listeM = new affichage.Liste[4];
         TypeObjet oM = new TypeObjet();
         oM.setNomTable("TYPEFC");
         listeM[0] = new Liste("type", oM, "VAL", "id");
@@ -35,16 +35,16 @@
 
         String[] ajoutValeur = {"0", "1"};
         String ajoutAffiche[] = {"Non", "Oui"};
-        listeM[2] = new Liste("estDDPMICTSL");
-        ((Liste) listeM[2]).ajouterValeur(ajoutValeur, ajoutAffiche);
+        listeM[2] = new Liste("estMictsl");
+        listeM[2].ajouterValeur(ajoutValeur, ajoutAffiche);
         
-        TypeObjet typeObjCodePrestation = new TypeObjet();
-        typeObjCodePrestation.setNomTable("code_prestation");
-        listeM[3] = new Liste("codePrestation", typeObjCodePrestation, "VAL", "id");
+//        TypeObjet typeObjCodePrestation = new TypeObjet();
+//        typeObjCodePrestation.setNomTable("code_prestation");
+//        listeM[3] = new Liste("codePrestation", typeObjCodePrestation, "VAL", "id");
         
         TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
-        listeM[4] = new Liste("deviseMere", devise, "VAL", "id");
+        listeM[3] = new Liste("deviseMere", devise, "VAL", "id");
         
         pi.getFormu().changerEnChamp(listeM);
 
@@ -52,6 +52,7 @@
         pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
         pi.getFormu().getChamp("idProvision").setAutre("readonly");
         pi.getFormu().getChamp("idProvision").setLibelle("Provision");
+        pi.getFormu().getChamp("designation").setLibelle("Note explicative");
 
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeClientChoix.jsp");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
@@ -71,6 +72,7 @@
         pi.getFormu().getChamp("type").setLibelle("Type FC");
         pi.getFormu().getChamp("idcategorie").setLibelle("Catégorie");
         pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
+        pi.getFormu().getChamp("code").setLibelle("Code");
         pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
 
         pi.getFormu().getChamp("etat").setAutre("readonly");
@@ -88,6 +90,8 @@
         pi.getFormu().getChamp("Contact").setVisible(false);
         pi.getFormu().getChamp("Adresse").setVisible(false);
         pi.getFormu().getChamp("codePrestationlib").setVisible(false);
+        pi.getFormu().getChamp("codePrestation").setVisible(false);
+        pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
@@ -105,15 +109,30 @@
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
 
-        affichage.Liste[] listed = new affichage.Liste[1];
+        affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
         listed[0] = new Liste("devise", o, "VAL", "id");
+        
+        TypeObjet o1 = new TypeObjet();
+        o1.setNomTable("mois");
+        listed[1] = new Liste("mois", o1, "VAL", "id");
+        
         pi.getFormufle().changerEnChamp(listed);
-
+        
+        for (int i = 0; i < liste.length; i++) {
+            pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 150px;\" ");
+            affichage.Champ datefactChp = pi.getFormufle().getChamp("datefact_" + i);
+            datefactChp.setAutre("readonly");
+            if (datefactChp.getValeur() != null && !"".equals(datefactChp.getValeur())) {
+                String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
+                datefactChp.setValeur(dateF);
+            }
+        }
+        
         pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
         pi.getFormufle().getChamp("Id_0").setLibelle("Id");
-        pi.getFormufle().getChamp("designation_0").setLibelle("Désignation");
+        pi.getFormufle().getChamp("designation_0").setLibelle("Note explicative");
         pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
         pi.getFormufle().getChamp("pu_0").setLibelle("pu");
         pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
@@ -123,7 +142,6 @@
         //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
         pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
         pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
-        pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
         pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
         pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
         pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
@@ -135,14 +153,7 @@
         mere = (FactureClient) pi.getBase();
         pi.preparerDataFormu();
 
-        for (int i = 0; i < liste.length; i++) {
-            affichage.Champ datefactChp = pi.getFormufle().getChamp("datefact_" + i);
-            datefactChp.setAutre("readonly");
-            if (datefactChp.getValeur() != null && !"".equals(datefactChp.getValeur())) {
-                String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
-                datefactChp.setValeur(dateF);
-            }
-        }
+        
 
 %>
 <div class="content-wrapper">
@@ -191,6 +202,17 @@
     textarea.style.height = "100px";
     textarea.value = designation.value;
     designation.parentNode.replaceChild(textarea, designation);
+    
+    <%for (int i = 0; i < pi.getNombreLigne(); i++) {%>
+        var designation<%=i%> = document.getElementById("designation_<%=i%>");
+        var textarea<%=i%> = document.createElement("textarea");
+            textarea<%=i%>.name = "designation_<%=i%>";
+            textarea<%=i%>.id = "designation_<%=i%>";
+            textarea<%=i%>.className = "form-control";
+            textarea<%=i%>.style.height = "100px";
+            textarea<%=i%>.value = designation<%=i%>.value;
+        designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
+    <%}%>
 </script>
 <%} catch (Exception ex) {
         ex.printStackTrace();

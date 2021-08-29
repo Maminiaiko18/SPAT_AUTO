@@ -5,9 +5,11 @@
  */
 package fin;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -20,6 +22,20 @@ public class Coursdevise extends ClassMAPTable {
     private double montant;
     private Date daty;
     private String estMICTSL;
+    
+    public void checkDoublon(Connection c) throws Exception {
+        String apresW = " and iddevise='%s' and daty='%s' and estMICTSL='%s' ";
+        apresW = String.format(apresW, this.iddevise, Utilitaire.format(this.daty), this.estMICTSL);
+        Coursdevise[] crs = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, apresW);
+        if(crs!=null && crs.length > 0){
+            throw new Exception("Il existe deja un cours pour cette date");
+        }
+    }
+    
+    @Override
+    public void controler(Connection c) throws Exception {
+        this.checkDoublon(c);
+    }
 
     public String getEstMICTSL() {
         return estMICTSL;
