@@ -323,41 +323,19 @@ public class OrdonnerPayement extends ClassEtat {
             }
     }
 
+    
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
 
-     
-        if(this.getDed_Id().startsWith("FC")){
-            createObjectFC(u, c);
-        }
-        else{
-            this.setIduser(u);
-            String[] idFact = this.getDed_Id().split(";");
-            EtatFactureMontantDaty f = new EtatFactureMontantDaty();
+        this.setIduser(u);
+        String[] idFact = this.getDed_Id().split(";");
+        EtatFactureMontantDaty f = new EtatFactureMontantDaty();
 
-            EtatFactureMontantDaty[] factures = f.getByIds(idFact, c);
-            if (idFact.length != factures.length) {
-                throw new Exception("Certaines factures n'ont pas été trouvées");
-            }
-            if (this.getDed_Id().contains(";")) {
-    //            controlTiers(factures);
-                double montantTotal = AdminGen.calculSommeDouble(factures, "reste");
-                //if(this.getMontant()==0){
-                    this.setMontant(montantTotal);
-                //}
-            }
-            this.controler(c);
-            this.construirePK(c);
-            this.insertToTableWithHisto(u, c);
-
-            for (int i = 0; i < factures.length; i++) {
-                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getReste());
-                liaison.createObject(u, c);
-            }
+        EtatFactureMontantDaty[] factures = this.getFactures(c);
+        if(factures.length>0){
+            this.setMontant(AdminGen.calculSommeDouble(factures, "reste"));
         }
-        
-        
-        return this;
+        return super.createObject(u, c);
     }
     
     public void payer(String u, Connection c) throws Exception {
@@ -469,6 +447,11 @@ public class OrdonnerPayement extends ClassEtat {
                     throw new Exception("Montant supérieur au reste à payer");
                 }
             }
+
+            for (int i = 0; i < factures.length; i++) {
+                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getReste());
+                liaison.createObject(u, c);
+            }
             super.validerObject(u, c);
             if (c != null && verif == 1) c.commit();
         } catch (Exception e) {
@@ -488,8 +471,8 @@ public class OrdonnerPayement extends ClassEtat {
                 c.setAutoCommit(false);
                 verif = 1;
             }
-
-            return (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, c, "and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
+            if(this.getDed_Id()!=null) return (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, c, "and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
+            return null;
         } catch (Exception e) {
             if (c != null && verif == 1) {
                 c.rollback();
