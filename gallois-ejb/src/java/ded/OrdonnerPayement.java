@@ -451,7 +451,30 @@ public class OrdonnerPayement extends ClassEtat {
             }
         }
     }
-    
+    public void gererFF(String u,Connection c)throws Exception{
+        EtatFactureMontantDaty[] factures=this.getFactures(c);
+        if(factures.length>0){
+            double montantTTc=AdminGen.calculSommeDouble(factures, "montantTTC");
+            double reste=AdminGen.calculSommeDouble(factures, "reste");
+            this.controlerMontant(montantTTc,reste, c);
+            for (int i = 0; i < factures.length; i++) {
+                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getReste());
+                liaison.createObject(u, c);
+            }
+        }
+    }
+    public void gererAvoirFC(String u,Connection c)throws Exception{
+        AvoirFC[] avoirList=this.getAvoirFC(c);
+        if(avoirList.length>0){
+            double montantTTc=AdminGen.calculSommeDouble(avoirList, "montant");
+            double reste=AdminGen.calculSommeDouble(avoirList, "montantreste");
+            this.controlerMontant(montantTTc,reste, c);
+            for (int i = 0; i < avoirList.length; i++) {
+                LiaisonIntraTable liaison = new LiaisonIntraTable(avoirList[i].getId(), this.getTuppleID(), avoirList[i].getMontantreste());
+                liaison.createObject(u, c);
+            }
+        }
+    }
     public Object validerObject(String u, Connection c) throws Exception{
         int verif = 0;
         try {
@@ -463,26 +486,9 @@ public class OrdonnerPayement extends ClassEtat {
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("OP Deja valide");
             }
-            EtatFactureMontantDaty[] factures=this.getFactures(c);
-            if(factures.length>0){
-                double montantTTc=AdminGen.calculSommeDouble(factures, "montantTTC");
-                double reste=AdminGen.calculSommeDouble(factures, "reste");
-                this.controlerMontant(montantTTc,reste, c);
-                for (int i = 0; i < factures.length; i++) {
-                    LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getReste());
-                    liaison.createObject(u, c);
-                }
-            }
-            AvoirFC[] avoirList=this.getAvoirFC(c);
-            if(avoirList.length>0){
-                double montantTTc=AdminGen.calculSommeDouble(factures, "montant");
-                double reste=AdminGen.calculSommeDouble(factures, "montantreste");
-                this.controlerMontant(montantTTc,reste, c);
-                for (int i = 0; i < factures.length; i++) {
-                    LiaisonIntraTable liaison = new LiaisonIntraTable(avoirList[i].getId(), this.getTuppleID(), avoirList[i].getMontantreste());
-                    liaison.createObject(u, c);
-                }
-            }
+            this.gererFF( u, c);
+            this.gererAvoirFC( u, c);
+            
             super.validerObject(u, c);
             if (c != null && verif == 1) c.commit();
         } catch (Exception e) {
