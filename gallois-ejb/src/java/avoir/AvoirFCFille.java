@@ -21,7 +21,8 @@ public class AvoirFCFille extends ClassFille {
     private String id;
     private double montant, montantdf, montantDFTaux;
     private String idmere, compte, iddetailfacture, devise, designation;
-
+    private String remise;
+    
     public FactureClient getFacture(Connection c) throws Exception {
         FactureClient fc = new FactureClient();
         fc.setNomTable("AVOIRFC_FACTURE");
@@ -33,7 +34,27 @@ public class AvoirFCFille extends ClassFille {
 
         return null;
     }
+    public AvoirFCFille(String id, double montant, double montantdf, double montantDFTaux, String idmere, String compte, String iddetailfacture, String devise, String designation, String remise) {
+        this.id = id;
+        this.montant = montant;
+        this.montantdf = montantdf;
+        this.montantDFTaux = montantDFTaux;
+        this.idmere = idmere;
+        this.compte = compte;
+        this.iddetailfacture = iddetailfacture;
+        this.devise = devise;
+        this.designation = designation;
+        this.remise = remise;
+    }
 
+    public String getRemise() {
+        return remise;
+    }
+
+    public void setRemise(String remise) {
+        this.remise = remise;
+    }
+    
     public String getDesignation() {
         return designation;
     }
