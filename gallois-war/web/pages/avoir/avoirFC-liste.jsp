@@ -16,7 +16,7 @@
 
         String listeCrt[] = {"id","tierslib","idfacture"};
         String listeInt[] = null;
-        String libEntete[] =  {"id","tierslib","idfacture","montant","montantpaye","montantreste"};
+        String libEntete[] =  {"id","tierslib","idfacture","montant","montantpaye","montantreste", "code"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -63,7 +63,7 @@
         <%out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <%
-            String libelleAffiche[] = {"id","tiers","facture","montant","montant payé","montant reste"};
+            String libelleAffiche[] = {"id","tiers","facture","montant","montant payé","montant reste", "Code"};
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             
             

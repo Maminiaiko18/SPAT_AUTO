@@ -458,7 +458,7 @@
 								<text><![CDATA[Durée]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="17" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="17" rowSpan="1"/>
 					</jr:column>
 					<jr:column width="40" uuid="be93b622-f516-4c3c-bfca-de243cc4fc9d">
 						<jr:columnHeader style="table 2_CH" height="17" rowSpan="1">
@@ -470,7 +470,7 @@
 								<text><![CDATA[MAJ]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="17" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="17" rowSpan="1"/>
 					</jr:column>
 					<jr:column width="36" uuid="eada7083-8b1c-430d-8832-2081abbdcce1">
 						<jr:columnHeader style="table 2_CH" height="17" rowSpan="1">
