@@ -202,7 +202,7 @@ public class AvoirFC extends ClassMere {
         return super.createObject(u, c);
     }
 
-    private String calculerCode(Connection c) {
+    public String calculerCode(Connection c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
