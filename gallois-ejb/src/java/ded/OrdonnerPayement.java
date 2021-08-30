@@ -43,6 +43,7 @@ public class OrdonnerPayement extends ClassEtat {
     private String folio, numcheque, numfact;
   private double montantpaye,reste;
   private String modepaiementlib;
+    private String idfacture;
 
     public double getMontantpaye() {
         return montantpaye;
@@ -59,8 +60,15 @@ public class OrdonnerPayement extends ClassEtat {
     public void setReste(double reste) {
         this.reste = reste;
     }
-  
 
+    public String getIdfacture() {
+        return idfacture;
+    }
+
+    public void setIdfacture(String idfacture) {
+        this.idfacture = idfacture;
+    }
+  
     public String getNumfact() {
         return numfact;
     }

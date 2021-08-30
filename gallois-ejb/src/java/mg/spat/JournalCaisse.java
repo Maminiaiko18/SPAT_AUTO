@@ -439,6 +439,13 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
     }
     
+    public OrdonnerPayement getOP(String nomtable, Connection c) throws Exception {
+        OrdonnerPayement op = new OrdonnerPayement();
+        op.setId(this.getIdordre());
+        if(nomtable != null && !nomtable.trim().isEmpty()) op.setNomTable(nomtable);
+        return (OrdonnerPayement) op.getById(op.getId(), op.getNomTable(), c);
+    }
+    
     @Override
     public void viser(UserEJBBean user, Connection c) throws Exception {
         int verif = 0;
@@ -448,6 +455,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 c.setAutoCommit(false);
                 verif = 1;
             }
+            
+            String refuser = "" + user.getUser().getRefuser();
+            
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("mouvement caissse deja valide");
             }
@@ -460,11 +470,32 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 } else {
                     this.traitementPlacement(user, c);
                 }
+
+                FactureClient fc = findFactureClient(c);
+                if(fc != null) {
+                    PaiementFacture paiementFact = new PaiementFacture();
+                    paiementFact.setIdMvt(this.getId());
+                    paiementFact.setIdFact(fc.getId());
+                    paiementFact.setMontant(this.getCredit());
+                    
+                    paiementFact.createObject(refuser, c);
+                }
+                
+                OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c);
+                
+                if(op != null) {
+                    PaiementFacture paiementFact = new PaiementFacture();
+                    paiementFact.setIdMvt(this.getId());
+                    paiementFact.setIdFact(op.getIdfacture());
+                    paiementFact.setMontant(-op.getMontant());
+                    
+                    paiementFact.createObject(refuser, c);
+                }
             }
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
 
-            if (c != null && verif == 1) {
+            if (verif == 1) {
                 c.commit();
             }
         } catch (Exception e) {
