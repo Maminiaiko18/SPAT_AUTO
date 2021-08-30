@@ -162,7 +162,7 @@ public class FactureClient extends ClassMere {
         FactureClient[] definitives = getFactureLiees(null, c);
         if(definitives.length > 0) throw new Exception("Est deja liee a une facture definitive");
         
-        super.controleAnnuler(c);
+        //super.controleAnnuler(c);
     }
 
     public String genererCodePrestation(Connection c) throws Exception {
