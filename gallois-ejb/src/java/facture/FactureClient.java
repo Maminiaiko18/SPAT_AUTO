@@ -1302,4 +1302,25 @@ public class FactureClient extends ClassMere {
         return null;
     }
 
+    public FactureClient[] getFactureLiees(String  nomtable, Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureClient fc = new FactureClient();
+            if (nomtable == null)
+                nomtable = this.getNomTable();
+            fc.setNomTable(nomtable);
+            String awhere = String.format(" and idProvision = '%s' ", this.getId());
+            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
+            return result;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
 }
