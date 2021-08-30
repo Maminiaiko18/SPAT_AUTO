@@ -47,6 +47,9 @@
     pi.getFormu().getChamp("idfacture").setAutre("readonly");
     
     if(data.length > 0 ){
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
         for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){;
             pi.getFormufle().getChamp("iddetailfacture_"+i).setDefaut(data[i].getId());
             pi.getFormufle().getChamp("montantdf_"+i).setDefaut(""+data[i].getMontant());
@@ -54,11 +57,8 @@
             pi.getFormufle().getChamp("designation_"+i).setDefaut(data[i].getDesignation());
         }
     }
-    
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
+    
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idMere"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     
