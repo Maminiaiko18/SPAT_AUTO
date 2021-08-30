@@ -21,7 +21,11 @@ public class AvoirFC extends ClassMere {
     private String id;
     private Date daty;
     private String idfacture, designationFacture,tiers,tierslib;
-    private double montant, montantpaye,montantreste;
+    private double montant, montantpaye,montantreste;    
+    private String designation;
+    private String code;
+    private String categorie;
+
 
     public String getTiers() {
         return tiers;
@@ -72,6 +76,30 @@ public class AvoirFC extends ClassMere {
         this.designationFacture = designationFacture;
     }
 
+        public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+    
     public AvoirFC() throws Exception {
         setNomTable("AvoirFC");
         this.setLiaisonFille("idmere");
@@ -89,6 +117,23 @@ public class AvoirFC extends ClassMere {
         this.montantpaye = montantpaye;
         this.montantreste = montantreste;
     }    
+    
+    public AvoirFC(String id, Date daty, String idfacture, String designationFacture, String tiers, String tierslib, double montant, double montantpaye, double montantreste, String designation, String code, String categorie) {
+        setNomTable("AvoirFC"); 
+        this.id = id;
+        this.daty = daty;
+        this.idfacture = idfacture;
+        this.designationFacture = designationFacture;
+        this.tiers = tiers;
+        this.tierslib = tierslib;
+        this.montant = montant;
+        this.montantpaye = montantpaye;
+        this.montantreste = montantreste;
+        this.designation = designation;
+        this.code = code;
+        this.categorie = categorie;
+    }
+    
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("AVRFC", "get_seqAvoirFC");
