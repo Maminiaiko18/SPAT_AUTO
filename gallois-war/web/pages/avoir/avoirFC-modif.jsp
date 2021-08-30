@@ -43,17 +43,19 @@ try{
     listeMere[1] = new Liste("motif",motif, "val", "id");
     pi.getFormu().changerEnChamp(listeMere);
     
-    affichage.Champ[] listeFille = new affichage.Champ[1];
-    TypeObjet devise = new TypeObjet();
-    devise.setNomTable("devise");
-    listeFille[0] = new Liste("devise",devise, "val", "id");
-    pi.getFormufle().changerEnChamp(listeFille);
+//    affichage.Champ[] listeFille = new affichage.Champ[1];
+//    TypeObjet devise = new TypeObjet();
+//    devise.setNomTable("devise");
+//    listeFille[0] = new Liste("devise",devise, "val", "id");
+//    pi.getFormufle().changerEnChamp(listeFille);
     
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureClientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle;montant;montantDFTaux;devise");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idMere"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
 //    affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdftaux"), "readonly");
 //    affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
 //    affichage.Champ.setVisible(pi.getFormufle().getChampFille("montantdf"), false);
