@@ -3471,6 +3471,19 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 
     }
 
+    public OrdonnerPayement creerOPViseFF(String idfacture, Connection c) throws Exception {
+        OrdonnerPayement op = new OrdonnerPayement();
+        EtatFactureMontantDaty temp = new EtatFactureMontantDaty();
+            EtatFactureMontantDaty[] factures = temp.getByIds(new String[]{idfacture}, c);
+            if (factures.length > 0) {
+                EtatFactureMontantDaty facture = factures[0];
+                op = new OrdonnerPayement(facture.getId(), facture.getReste(), facture.getDaty(), this.getUser().getTuppleID(), "Paiement facture " + facture.getId() + "via caisse", ConstanteEtat.getEtatCreer());
+                op.createObject(this.getUser().getRefuser() + "", c);
+                op.validerObject(this.getUser().getRefuser() + "", c);
+            }
+        return op;
+    }
+    
     @Override
     public String creerOPviseCaisse(String idfacture, Connection c) throws Exception {
         OrdonnerPayement op = new OrdonnerPayement();
@@ -3482,14 +3495,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                     c.setAutoCommit(false);
                     verif = 1;
                 }
-                EtatFactureMontantDaty temp = new EtatFactureMontantDaty();
-                EtatFactureMontantDaty[] factures = temp.getByIds(new String[]{idfacture}, c);
-                if (factures.length > 0) {
-                    EtatFactureMontantDaty facture = factures[0];
-                    op = new OrdonnerPayement(facture.getId(), facture.getReste(), facture.getDaty(), this.getUser().getTuppleID(), "Paiement facture " + facture.getId() + "via caisse", ConstanteEtat.getEtatCreer());
-                    op.createObject(this.getUser().getRefuser() + "", c);
-                    op.validerObject(this.getUser().getRefuser() + "", c);
-                }
+                op = creerOPViseFF(idfacture, c);
                 if (c != null && verif == 1) {
                     c.commit();
                 }
