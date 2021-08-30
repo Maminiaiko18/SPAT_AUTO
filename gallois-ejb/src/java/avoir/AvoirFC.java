@@ -325,7 +325,7 @@ public class AvoirFC extends ClassMere {
     }
          public AvoirFCFille[] getAvoirFilles(String nomTable, Connection c) throws Exception{
         if(nomTable == null){
-            nomTable = "avoiFCFille";
+            nomTable = "avoirFCFille";
         }
         String requete = "SELECT * from %s WHERE idmere = '%s'";
         requete = String.format(requete, nomTable, this.getId());
