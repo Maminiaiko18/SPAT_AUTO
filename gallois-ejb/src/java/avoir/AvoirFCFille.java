@@ -11,6 +11,8 @@ import bean.ClassMAPTable;
 import facture.FactureClient;
 import java.sql.Connection;
 import utilitaire.ConstanteEtat;
+import facture.FactureClientDetails;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -181,7 +183,7 @@ public class AvoirFCFille extends ClassFille {
         this.montantdf = montantdf;
     }
     
-    public FactureClientDetails getFactureClientDetail(Connection c) {
+    public FactureClientDetails getFactureClientDetail(Connection c) throws Exception {
         int verif = 0;
         try {
             if (c == null) {
