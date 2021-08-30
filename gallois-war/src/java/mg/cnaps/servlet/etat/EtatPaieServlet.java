@@ -131,6 +131,8 @@ public class EtatPaieServlet extends HttpServlet {
                 fichePrestation(request, response);
             }else if(action.equalsIgnoreCase("fact")){
                 fact(request, response);
+            }else if(action.equalsIgnoreCase("imprimerAvoir")){
+                fact(request, response);
             }
 
             
@@ -902,8 +904,8 @@ public class EtatPaieServlet extends HttpServlet {
     }
     /********************************************************************************************************************************************************************************************/
     
-	
-
+    private void imprimerAvoir(HttpServletRequest request, HttpServletResponse response) throws  Exception { 
+    }
     
   
     
