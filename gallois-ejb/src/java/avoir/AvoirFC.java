@@ -228,8 +228,17 @@ public class AvoirFC extends ClassMere {
         this.setCode(this.calculerCode(c));
         return super.createObject(u, c);
     }
-
-    public String calculerCode(Connection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public TypeObjet getCategorie(Connection c) throws Exception {
+        return null;
+    }
+    
+    public String calculerCode(Connection c) throws Exception {
+        String daty = Utilitaire.datetostring(getDaty());
+        String annee = Utilitaire.genererAnnee(daty);
+        String mois = Utilitaire.genererMois(daty);
+        String valCateg = this.getCategorie(c).getVal();
+        String seq = this.genererSequence(c, "NUMEROAVOIRFC", 3);
+        return annee+mois+valCateg+seq;
     }
 }
