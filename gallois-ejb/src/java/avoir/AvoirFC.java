@@ -278,4 +278,47 @@ public class AvoirFC extends ClassMere {
     public void setMotiflib(String motiflib) {
         this.motiflib = motiflib;
     }
+	
+	public FactureClient getFactureLiee(String nomtable, Connection c) throws Exception {
+        int verif = 0;
+	try {
+		if (c == null) {
+			c = (new UtilDB()).GetConn();
+			verif = 1;
+		}
+                if(nomtable == null){
+                    nomtable = this.getNomTable();
+                }
+		FactureClient fc = new FactureClient();
+		fc.setNomTable(nomtable);
+		String awhere = String.format(" and id = '%s' ", this.getIdfacture());
+		FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
+		if(result != null && result.length > 0) 
+			return result[0];
+		return null;
+	} finally {
+		if (c != null && verif == 1) {
+			c.close();
+		}
+	}
+	
+	public FactureClient getFactureLiee(Connection conn)throws Exception{
+        int verify =0;
+        try{    
+            String nomTable = "facture_client_union";
+            if (conn == null) {
+                conn = (new UtilDB()).GetConn();
+                verify = 1;
+            }
+            FactureClient fc = new FactureClient();
+            fc.setNomTable(nomTable);
+            String awhere = String.format(" and id = '%s' ", this.getIdfacture());
+            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, conn, awhere);
+            if(result != null && result.length > 0) 
+                return result[0];
+            return null;
+        }finally{
+            if(conn!=null && verify == 1) conn.close();
+        }
+    }
 }
