@@ -8,6 +8,7 @@ package avoir;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import bean.ClassMere;
 import bean.TypeObjet;
 import java.sql.Connection;
@@ -192,5 +193,16 @@ public class AvoirFC extends ClassMere {
         }
 
         return Utilitaire.completerInt(longueur, sequence);
-    }    
+    } 
+    
+    @Override
+    public ClassMAPTable createObject(String u, Connection c)throws Exception
+    {
+        this.setCode(this.calculerCode(c));
+        return super.createObject(u, c);
+    }
+
+    private String calculerCode(Connection c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
