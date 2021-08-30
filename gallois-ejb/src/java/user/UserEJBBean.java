@@ -3496,6 +3496,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                     verif = 1;
                 }
                 op = creerOPViseFF(idfacture, c);
+                creerOPViseAvoir(idfacture, c);
                 if (c != null && verif == 1) {
                     c.commit();
                 }
