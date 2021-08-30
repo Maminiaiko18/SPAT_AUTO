@@ -263,7 +263,7 @@ public class AvoirFC extends ClassMere {
         if(nomTable == null){
             nomTable = "avoiFCFille";
         }
-        String requete = "SELECT * from %s WHERE idmere = %s";
+        String requete = "SELECT * from %s WHERE idmere = '%s"';
         requete = String.format(requete, nomTable, this.getId());
         AvoirFCFille fille = new AvoirFCFille();
         fille.setNomTable(nomTable);
