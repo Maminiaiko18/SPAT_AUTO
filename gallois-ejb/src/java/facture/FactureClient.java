@@ -52,6 +52,15 @@ public class FactureClient extends ClassMere {
     private String code;
     private String estMictsl;
     private double reduction;
+    private double ecart;
+
+    public double getEcart() {
+        return ecart;
+    }
+
+    public void setEcart(double ecart) {
+        this.ecart = ecart;
+    }
 
     public String getCodeProvision() {
         return codeProvision;
