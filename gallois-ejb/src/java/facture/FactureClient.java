@@ -141,6 +141,20 @@ public class FactureClient extends ClassMere {
         }
         return null;
     }
+    
+    @Override
+    public void controleAnnuler(Connection c) throws Exception {
+        PaiementFacture[] paiementFact = getPaiementFacture(c);
+        if(paiementFact.length > 0) throw new Exception("Paiement existant");
+        
+        FactureClient provision = getProvision(null, c);
+        if(provision != null) throw new Exception("Est liee a une provision");
+        
+        FactureClient[] definitives = getFactureLiees(null, c);
+        if(definitives.length > 0) throw new Exception("Est deja liee a une facture definitive");
+        
+        super.controleAnnuler(c);
+    }
 
     public String genererCodePrestation(Connection c) throws Exception {
         FactureClientDetails[] filles = (FactureClientDetails[]) this.getFille();
@@ -1364,13 +1378,14 @@ public class FactureClient extends ClassMere {
                     FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
                     if(result != null && result.length > 0) 
                             return result[0];
-                    return null;
+                    
                 }
-		return null;
 	} finally {
 		if (c != null && verif == 1) {
 			c.close();
 		}
 	}
+        
+        return null;
     }
 }
