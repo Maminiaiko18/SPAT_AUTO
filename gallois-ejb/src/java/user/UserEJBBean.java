@@ -1,5 +1,6 @@
 package user;
 
+import avoir.AvoirFC;
 import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
@@ -3623,5 +3624,51 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 c.close();
             }
         }
+    }
+    
+    public OrdonnerPayement creerOPViseAvoir(String idfacture, Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            AvoirFC avoir = new AvoirFC();
+            avoir.setNomTable("avoirFC_montant");
+            String awhere = String.format(" and id = '%s' ", idfacture);
+            AvoirFC[] result = (AvoirFC[])CGenUtil.rechercher(avoir, null, null, c, awhere);
+            if(result == null || result.length == 0){
+                throw new Exception("Pas d'avoir pour la facture "+idfacture);
+            }
+            avoir = result[0];
+            OrdonnerPayement op = new OrdonnerPayement();
+            op.setDed_Id(avoir.getId());
+            op.setMontant(avoir.getMontant());
+            op.setDaty(avoir.getDaty());
+            op.setIduser(String.valueOf(this.getUser().getRefuser()));
+            op.setRemarque("paiement avoir "+avoir.getCode());
+            op.setEtat(1);
+            
+            this.createObject(op, c);
+            this.validerObject(op, c);
+            
+            if (verif == 1) {
+                c.commit();
+            }
+            
+            return op;
+            
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        
     }
 }
