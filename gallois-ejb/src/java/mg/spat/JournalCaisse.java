@@ -12,6 +12,7 @@ import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import facture.FactureClient;
 import facture.PaiementFacture;
+import factureclient.PayementFacture;
 import facturefournisseur.RegulFacture;
 import java.sql.Connection;
 import java.sql.Date;
@@ -502,7 +503,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return null;
     }
     
-    public PaiementFacture[] getPayementFactureTous(Connection c) throws Exception{
+    public PayementFacture[] getPayementFactureTous(Connection c) throws Exception{
         int verif = 0;
         try {
             if (c == null) {
@@ -510,10 +511,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            PaiementFacture pf = new PaiementFacture();
+            PayementFacture pf = new PayementFacture();
             pf.setNomTable("paiementfacture");
             String awhere = String.format(" and idmvt = '%s' ", this.getId());
-            PaiementFacture[] result = (PaiementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
+            PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;
         } finally {
             if (c != null && verif == 1) {
