@@ -29,6 +29,7 @@ import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.AdminActivite;
 import mg.spat.exploitant.Rubrique;
+import oracle.net.aso.c;
 
 /**
  *
@@ -1323,4 +1324,28 @@ public class FactureClient extends ClassMere {
             }
         }
     }
+    
+    public PaiementFacture[] getPaiementFacture(Connection c) throws Exception{
+        boolean ouvert = false;
+
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+
+                ouvert = true;
+            }
+            PaiementFacture pF = new PaiementFacture();
+            pF.setNomTable("paiementFacture");
+            PaiementFacture[] paiement = (PaiementFacture[]) CGenUtil.rechercher(pF, null, null, c, String.format(" and idFact='%s' order by id desc", this.getId()));
+            return paiement;
+        } catch (Exception ex) {
+
+            throw ex;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+    }
+    
 }
