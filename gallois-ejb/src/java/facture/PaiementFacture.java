@@ -21,6 +21,12 @@ public class PaiementFacture extends ClassMAPTable{
         this.setNomTable("paiementFacture");
     }
 
+    @Override
+    public void construirePK(Connection c) throws Exception {
+        preparePk("PFACT", "get_seq_paiementFacture");
+        setId(makePK(c));
+    }
+
     public PaiementFacture(String id, String idMvt, String idFact, double montant) {
         this.id = id;
         this.idMvt = idMvt;
@@ -107,5 +113,4 @@ public class PaiementFacture extends ClassMAPTable{
             }
         }
     }
-    
 }
