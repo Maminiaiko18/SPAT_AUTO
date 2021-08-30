@@ -13,6 +13,7 @@ import bean.ClassMere;
 import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
 
@@ -229,10 +230,6 @@ public class AvoirFC extends ClassMere {
         return super.createObject(u, c);
     }
     
-    public TypeObjet getCategorie(Connection c) throws Exception {
-        return null;
-    }
-    
     public String calculerCode(Connection c) throws Exception {
         String daty = Utilitaire.datetostring(getDaty());
         String annee = Utilitaire.genererAnnee(daty);
@@ -240,5 +237,26 @@ public class AvoirFC extends ClassMere {
         String valCateg = this.getCategorie(c).getVal();
         String seq = this.genererSequence(c, "NUMEROAVOIRFC", 3);
         return annee+mois+valCateg+seq;
+    }
+    
+    public TypeObjet getCategorie(Connection c) throws Exception {
+        int verif = 0;
+	try {
+		if (c == null) {
+			c = (new UtilDB()).GetConn();
+			verif = 1;
+		}
+		TypeObjet typeObj = new TypeObjet();
+		typeObj.setNomTable("categorieAvoirFC");
+		String awhere = String.format(" and id = '%s' ", this.getCategorie());
+		TypeObjet[] result = (TypeObjet[])CGenUtil.rechercher(typeObj, null, null, c, awhere);
+		if(result != null && result.length > 0) 
+			return result[0];
+		return null;
+	} finally {
+		if (c != null && verif == 1) {
+			c.close();
+		}
+	}
     }
 }
