@@ -180,5 +180,27 @@ public class AvoirFCFille extends ClassFille {
     public void setMontantdf(double montantdf) {
         this.montantdf = montantdf;
     }
+    
+    public FactureClientDetails getFactureClientDetail(Connection c) {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureClientDetails fc = new FactureClientDetails();
+            fc.setNomTable("facture_client_fille");
+            String awhere = String.format(" and id = '%s' ", this.getIddetailfacture());
+            FactureClientDetails[] result = (FactureClientDetails[])CGenUtil.rechercher(fc, null, null, c, awhere);
+            if(result != null && result.length > 0)
+                return result[0];
+            return null;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
    
 }
