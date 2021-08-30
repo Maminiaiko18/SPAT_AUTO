@@ -33,6 +33,7 @@
     pc.getChampByName("montantreste").setLibelle("RAP");
     pc.getChampByName("motiflib").setLibelle("Motif");
     pc.getChampByName("categorielib").setLibelle("Categorie");
+    pc.getChampByName("code").setLibelle("Code");
     pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp", "id=");
     e = (AvoirFC) pc.getBase();
     
