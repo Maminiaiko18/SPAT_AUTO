@@ -6,10 +6,13 @@
 package avoir;
 
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMere;
+import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.Utilitaire;
 
 
 /**
@@ -173,4 +176,21 @@ public class AvoirFC extends ClassMere {
     public void setIdfacture(String idfacture) {
         this.idfacture = idfacture;
     }
+    
+    public String genererSequence(Connection c, String nomtable, int longueur) throws Exception {
+        String requete = "SELECT  * FROM %s";
+        requete = String.format(requete, nomtable);
+
+//        System.out.println("requete " + requete);
+        TypeObjet obj = new TypeObjet();
+        obj.setNomTable(nomtable);
+        TypeObjet[] seq = (TypeObjet[]) CGenUtil.rechercher(obj, requete, c);
+
+        String sequence = "";
+        if (seq != null && seq.length > 0) {
+            sequence = seq[0].getVal();
+        }
+
+        return Utilitaire.completerInt(longueur, sequence);
+    }    
 }
