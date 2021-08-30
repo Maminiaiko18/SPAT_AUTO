@@ -12,6 +12,7 @@ import facture.FactureClient;
 import java.sql.Connection;
 import utilitaire.ConstanteEtat;
 import facture.FactureClientDetails;
+import factureclient.FactureClientDetail;
 import utilitaire.UtilDB;
 
 /**
@@ -142,9 +143,9 @@ public class AvoirFCFille extends ClassFille {
         return montant;
     }
 
-    public void setMontant(double montant) {
+    public void setMontant(double montant) throws Exception {
         if(this.getMode().equalsIgnoreCase("modif")){
-            double montantDetail = 0;
+            double montantDetail=getFactureClientDetail(null).getPu()*getFactureClientDetail(null).getQuantite();
             if (this.getRemise() > 0)
                 montant=(montantDetail * this.getRemise())/100;
         }
