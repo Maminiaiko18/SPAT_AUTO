@@ -29,7 +29,7 @@ public class AvoirFC extends ClassMere {
     private String designation;
     private String code;
     private String categorie;
-
+    private String motif;
 
     public String getTiers() {
         return tiers;
@@ -103,12 +103,39 @@ public class AvoirFC extends ClassMere {
     public void setCategorie(String categorie) {
         this.categorie = categorie;
     }
+    public String getMotif() {
+        return motif;
+    }
+
+    public void setMotif(String motif) {
+        this.motif = motif;
+    }    
     
     public AvoirFC() throws Exception {
         setNomTable("AvoirFC");
         this.setLiaisonFille("idmere");
         this.setNomClasseFille("avoir.AvoirFCFille");
     }
+
+    public AvoirFC(String id, Date daty, String idfacture, String designationFacture, String tiers, String tierslib, double montant, double montantpaye, double montantreste, String designation, String code, String categorie, String motif) {
+        setNomTable("AvoirFC");   
+        this.id = id;
+        this.daty = daty;
+        this.idfacture = idfacture;
+        this.designationFacture = designationFacture;
+        this.tiers = tiers;
+        this.tierslib = tierslib;
+        this.montant = montant;
+        this.montantpaye = montantpaye;
+        this.montantreste = montantreste;
+        this.designation = designation;
+        this.code = code;
+        this.categorie = categorie;
+        this.motif = motif;
+    }
+    
+    
+    
     public AvoirFC(String id, Date daty, String idfacture, String designationFacture, String tiers, String tierslib, double montant, double montantpaye, double montantreste) {
         setNomTable("AvoirFC");        
         this.id = id;
