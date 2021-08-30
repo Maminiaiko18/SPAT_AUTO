@@ -1313,7 +1313,7 @@ public class FactureClient extends ClassMere {
         return calculerCodeSimple(c);
     }
 
-    public FactureClient[] getFactureLiees(String  nomtable, Connection c) throws Exception{
+    public FactureClient[] getFactureLiees(String  nomtable, Connection c) throws Exception{ //iza daholo ny factures liées amin’io provision io
         int verif = 0;
         try {
             if (c == null) {
@@ -1358,7 +1358,7 @@ public class FactureClient extends ClassMere {
         }
     }
     
-    public FactureClient getProvision(String nomtable, Connection c) throws Exception {
+    public FactureClient getProvision(String nomtable, Connection c) throws Exception { //iza ny provision liée amin’io facture io
         int verif = 0;
 	try {
 		if (c == null) {
