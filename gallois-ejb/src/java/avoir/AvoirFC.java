@@ -333,4 +333,5 @@ public class AvoirFC extends ClassMere {
         fille.setNomTable(nomTable);
         AvoirFCFille[] filles = (AvoirFCFille[])CGenUtil.rechercher(fille, requete, c);
         return filles;
+         }
 }
