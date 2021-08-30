@@ -111,7 +111,72 @@
     String vue =e.getRemarque()!=null&&e.getRemarque().startsWith("--") ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
     
 %>
+
+<style type="text/css">
+    #div-password {
+        position: absolute;
+        z-index: 10;
+        background-color: #f1f1f1;
+        border: 1px solid #d3d3d3;
+        text-align: center;
+        top: 150px;
+        left: 50vw;
+        width: 300px;
+        height: 180px;
+        display: none;
+        box-shadow: 3px 6px 47px 3px rgb(0 0 0);
+    }
+
+    #div-password-header {
+        padding: 10px;
+        cursor: move;
+        z-index: 10;
+        background-color: #2196F3;
+        color: #fff;
+    }
+    .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+        background-color: #ecf0f5;
+    }
+    .main-footer{
+        margin-left: 0px;
+    }
+</style>
+
+<script>
+    function annulation(){
+        document.getElementById("mdp").value = "";
+        var elmnt = document.getElementById("div-password");
+            elmnt.style.display="none";
+    }
+    
+    function envoyer(){
+        document.getElementById("form-avoir-interne").submit();
+    }
+    
+    function avoirInterne(){
+        document.getElementById("mdp").value = "";
+        var elmnt = document.getElementById("div-password");
+            elmnt.style.display="block";
+    }
+</script>
+
 <div class="content-wrapper">
+    <form action="<%=(String) session.getValue("lien")%>?but=apresMdp.jsp" method="post" id="form-avoir-interne">
+        <div id="div-password">
+            <div id="div-password-header">Sécurité</div>
+            <br/>
+            <p><b>Mot de passe</b></p>
+            <p><input name="mdp" type="password" id="mdp"></p>
+            <p><button type="button" name="annuler" onclick="annulation()" class="btn btn-danger pull-left" style="margin-left: 25px;margin-top: 10px;">Annuler</button></p>
+            <p><button type="button" name="ok" onclick="envoyer()" class="btn btn-info pull-right" style="margin-right: 25px;margin-top: 10px;">OK</button></p>
+            <br/>
+            <input type="hidden" name="bute" value="apresTarif.jsp">
+            <input type="hidden" name="bute2" value="facture/factureclient-fiche-vaovao.jsp">
+            <input type="hidden" name="classe" value="facture.FactureClient">
+            <input type="hidden" name="acte" value="annuler">
+            <input type="hidden" name="id" value="<%= e.getId()%>">
+        </div>
+    </form>
     <div class="row">
         <div class="col-md-7 col-md-offset-2">
 
@@ -133,7 +198,8 @@
                         <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Ajouter Avoir</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-client-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Livrer</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture="+id +"&vue=" + vue%>" style="margin-right: 10px">Entrée banque</a>
-                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture="+id +"&vue=" + vue %>" style="margin-right: 10px">Entrée caisse</a>
+                        <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture="+id +"&vue=" + vue %>" style="margin-right: 10px">Entrée caisse</a>
+                        <a class="btn btn-primary pull-right"  href="#" onclick="avoirInterne()" style="margin-right: 10px">Avoir Interne</a>
                     </p>
                     <hr>
                     
