@@ -98,7 +98,7 @@
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false);
     affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
     pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
-    pi.getFormufle().getChamp("designation_0").setLibelle("Note explicative");
+    pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
     pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
