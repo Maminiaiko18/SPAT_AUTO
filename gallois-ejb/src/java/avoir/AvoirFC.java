@@ -8,6 +8,7 @@ package avoir;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import facture.FactureClient;
 import bean.ClassMAPTable;
 import bean.ClassMere;
 import bean.TypeObjet;
@@ -279,28 +280,29 @@ public class AvoirFC extends ClassMere {
         this.motiflib = motiflib;
     }
 	
-	public FactureClient getFactureLiee(String nomtable, Connection c) throws Exception {
-        int verif = 0;
-	try {
-		if (c == null) {
-			c = (new UtilDB()).GetConn();
-			verif = 1;
-		}
-                if(nomtable == null){
-                    nomtable = this.getNomTable();
-                }
-		FactureClient fc = new FactureClient();
-		fc.setNomTable(nomtable);
-		String awhere = String.format(" and id = '%s' ", this.getIdfacture());
-		FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
-		if(result != null && result.length > 0) 
-			return result[0];
-		return null;
-	} finally {
-		if (c != null && verif == 1) {
-			c.close();
-		}
-	}
+    public FactureClient getFactureLiee(String nomtable, Connection c) throws Exception {
+    int verif = 0;
+    try {
+            if (c == null) {
+                    c = (new UtilDB()).GetConn();
+                    verif = 1;
+            }
+            if(nomtable == null){
+                nomtable = this.getNomTable();
+            }
+            FactureClient fc = new FactureClient();
+            fc.setNomTable(nomtable);
+            String awhere = String.format(" and id = '%s' ", this.getIdfacture());
+            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
+            if(result != null && result.length > 0) 
+                    return result[0];
+            return null;
+    } finally {
+            if (c != null && verif == 1) {
+                    c.close();
+            }
+    }
+    }
 	
 	public FactureClient getFactureLiee(Connection conn)throws Exception{
         int verify =0;
