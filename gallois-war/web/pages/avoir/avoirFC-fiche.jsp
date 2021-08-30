@@ -25,10 +25,14 @@
     pc.getChampByName("idfacture").setLibelle("Facture");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("motif").setVisible(false);
+    pc.getChampByName("categorie").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("montant").setLibelle("Montant");
     pc.getChampByName("montantpaye").setLibelle("Montant payé");
     pc.getChampByName("montantreste").setLibelle("RAP");
+    pc.getChampByName("motiflib").setLibelle("Motif");
+    pc.getChampByName("categorielib").setLibelle("Categorie");
     pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp", "id=");
     e = (AvoirFC) pc.getBase();
     
@@ -72,7 +76,7 @@
                     <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + e.getId() + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute="   +bute+"&id=" + e.getId() %>" style="margin-right: 10px">Attacher Fichier</a> 
                     <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + e.getId() %>" style="margin-right: 10px">Modifier</a>
                     <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
-                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idAvoir=" + e.getId() %>" style="margin-right: 10px">Payer</a>        
+                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&acte=payer&idAvoir=" + e.getId() %>" style="margin-right: 10px">Payer</a>        
                     <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=annulerVisa&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Annuler visa</a>
 
                 </div>
