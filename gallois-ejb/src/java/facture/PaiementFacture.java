@@ -8,6 +8,7 @@ package facture;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
+import mg.spat.JournalCaisse;
 import utilitaire.UtilDB;
 
 public class PaiementFacture extends ClassMAPTable{
@@ -77,6 +78,26 @@ public class PaiementFacture extends ClassMAPTable{
             fc.setNomTable("factureclient");
             String awhere = String.format(" and id = '%s' ", this.getIdFact());
             FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
+            if(result != null && result.length > 0) 
+                return result[0];
+            return null;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    public JournalCaisse getpayement(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                verif = 1;
+            }
+            JournalCaisse jc = new JournalCaisse();
+            jc.setNomTable("journalcaisse");
+            String awhere = String.format(" and id = '%s' ", this.getIdMvt());
+            JournalCaisse[] result = (JournalCaisse[])CGenUtil.rechercher(jc, null, null, c, awhere);
             if(result != null && result.length > 0) 
                 return result[0];
             return null;
