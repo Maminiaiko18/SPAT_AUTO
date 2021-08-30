@@ -21,7 +21,7 @@ public class AvoirFCFille extends ClassFille {
     private String id;
     private double montant, montantdf, montantDFTaux;
     private String idmere, compte, iddetailfacture, devise, designation;
-    private String remise;
+    private double remise;
     
     public FactureClient getFacture(Connection c) throws Exception {
         FactureClient fc = new FactureClient();
@@ -34,7 +34,7 @@ public class AvoirFCFille extends ClassFille {
 
         return null;
     }
-    public AvoirFCFille(String id, double montant, double montantdf, double montantDFTaux, String idmere, String compte, String iddetailfacture, String devise, String designation, String remise) {
+    public AvoirFCFille(String id, double montant, double montantdf, double montantDFTaux, String idmere, String compte, String iddetailfacture, String devise, String designation, double remise) {
         this.id = id;
         this.montant = montant;
         this.montantdf = montantdf;
@@ -47,11 +47,11 @@ public class AvoirFCFille extends ClassFille {
         this.remise = remise;
     }
 
-    public String getRemise() {
+    public double getRemise() {
         return remise;
     }
 
-    public void setRemise(String remise) {
+    public void setRemise(double remise) {
         this.remise = remise;
     }
     
@@ -141,6 +141,11 @@ public class AvoirFCFille extends ClassFille {
     }
 
     public void setMontant(double montant) {
+        if(this.getMode().equalsIgnoreCase("modif")){
+            double montantDetail = 0;
+            if (this.getRemise() > 0)
+                montant=(montantDetail * this.getRemise())/100;
+        }
         this.montant = montant;
     }
 
