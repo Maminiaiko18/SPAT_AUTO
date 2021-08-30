@@ -24,6 +24,7 @@ import avoir.AvoirFC;
 import bean.AdminGen;
 import bean.ClassFille;
 import fin.Coursdevise;
+import mg.spat.ClientCategorie;
 import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.AdminActivite;
@@ -1287,6 +1288,18 @@ public class FactureClient extends ClassMere {
         }
 
         return calculerCodeSimple(c);
+    }
+    
+    public ClientCategorie getClient(Connection c)throws Exception{        
+        ClientCategorie base = new ClientCategorie();
+        base.setNomTable("V_CLIENT_CATEGORIE");
+        String awhere = " and id = '%s'";
+        awhere = String.format(awhere, this.getTiers());        
+        ClientCategorie[] result = (ClientCategorie[]) CGenUtil.rechercher(base, null, null, c, awhere);
+        if(result.length != 0){
+            return result[0];
+        }
+        return null;
     }
 
 }
