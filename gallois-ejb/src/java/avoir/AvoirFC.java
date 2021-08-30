@@ -11,6 +11,7 @@ import bean.ClassEtat;
 import bean.ClassMAPTable;
 import bean.ClassMere;
 import bean.TypeObjet;
+import facture.FactureClient;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.UtilDB;
@@ -263,11 +264,36 @@ public class AvoirFC extends ClassMere {
         if(nomTable == null){
             nomTable = "avoiFCFille";
         }
-        String requete = "SELECT * from %s WHERE idmere = '%s"';
+        String requete = "SELECT * from %s WHERE idmere = '%s'";
         requete = String.format(requete, nomTable, this.getId());
         AvoirFCFille fille = new AvoirFCFille();
         fille.setNomTable(nomTable);
         AvoirFCFille[] filles = (AvoirFCFille[])CGenUtil.rechercher(fille, requete, c);
         return filles;
+    }
+    
+    
+    public FactureClient getFactureLiee(String nomtable, Connection c) throws Exception {
+        int verif = 0;
+	try {
+		if (c == null) {
+			c = (new UtilDB()).GetConn();
+			verif = 1;
+		}
+                if(nomtable == null){
+                    nomtable = this.getNomTable();
+                }
+		FactureClient fc = new FactureClient();
+		fc.setNomTable(nomtable);
+		String awhere = String.format(" and id = '%s' ", this.getIdfacture());
+		FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
+		if(result != null && result.length > 0) 
+			return result[0];
+		return null;
+	} finally {
+		if (c != null && verif == 1) {
+			c.close();
+		}
+	}
     }
 }
