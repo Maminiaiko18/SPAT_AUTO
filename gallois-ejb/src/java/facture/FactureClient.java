@@ -29,7 +29,6 @@ import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.AdminActivite;
 import mg.spat.exploitant.Rubrique;
-import oracle.net.aso.c;
 
 /**
  *
@@ -1348,4 +1347,30 @@ public class FactureClient extends ClassMere {
         }
     }
     
+    public FactureClient getProvision(String nomtable, Connection c) throws Exception {
+        int verif = 0;
+	try {
+		if (c == null) {
+			c = (new UtilDB()).GetConn();
+			verif = 1;
+		}
+                if(this.getIdProvision() != null){
+                    if(nomtable == null){
+                        nomtable = this.getNomTable();
+                    }
+                    FactureClient fc = new FactureClient();
+                    fc.setNomTable(nomtable);
+                    String awhere = String.format(" and id = '%s' ", this.getIdProvision());
+                    FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
+                    if(result != null && result.length > 0) 
+                            return result[0];
+                    return null;
+                }
+		return null;
+	} finally {
+		if (c != null && verif == 1) {
+			c.close();
+		}
+	}
+    }
 }
