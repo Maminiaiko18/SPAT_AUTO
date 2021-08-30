@@ -81,6 +81,13 @@
     liste[1] = new Liste("motif",motif, "val", "id");
     pi.getFormu().changerEnChamp(liste);
 
+    affichage.Champ[] listeFille = new affichage.Champ[1];
+    TypeObjet devise = new TypeObjet();
+    devise.setNomTable("devise");
+    listeFille[0] = new Liste("devise",devise, "val", "id");
+    pi.getFormufle().changerEnChamp(listeFille);
+    
+    
 
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureClientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle");
     pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
@@ -91,7 +98,6 @@
     pi.getFormufle().getChamp("Designation_0").setLibelle("Designation");
     pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
-    
     
     
     pi.preparerDataFormu();
