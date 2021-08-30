@@ -114,7 +114,7 @@
 
 <style type="text/css">
     #div-password {
-        position: absolute;
+        position: fixed;
         z-index: 10;
         background-color: #f1f1f1;
         border: 1px solid #d3d3d3;
