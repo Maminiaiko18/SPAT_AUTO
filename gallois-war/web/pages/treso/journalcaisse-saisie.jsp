@@ -51,7 +51,7 @@
 
             pi.getFormu().getChamp("idplacement").setDefaut("" + facture.getNmfact());
             pi.getFormu().getChamp("tiers").setDefaut(client);
-            pi.getFormu().getChamp("idplacement").setDefaut(idfact);
+            //pi.getFormu().getChamp("idplacement").setDefaut(idfact);
         }
         
         
@@ -70,6 +70,8 @@
         TypeObjet op = new TypeObjet();
         op.setNomTable("DEVISE");
         liste[2] = new Liste("iddevise", op, "desce", "id");
+
+        liste[2].setDefaultSelected("Ar");
 
         TypeObjet mode = new TypeObjet();
         mode.setNomTable("MODEPAIEMENT");
@@ -101,7 +103,7 @@
         pi.getFormu().getChamp("idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp");
         pi.getFormu().getChamp("idordre").setAutre("readonly");
 
-        //pi.getFormu().getChamp("idplacement").setAutre("readonly");
+        pi.getFormu().getChamp("idplacement").setAutre("readonly");
         
         pi.getFormu().getChamp("idplacement").setLibelle("Placement");
 
@@ -165,7 +167,9 @@
             pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(avoir.getMontantreste()));
             pi.getFormu().getChamp("tiers").setDefaut(avoir.getTiers());
         }
-
+        if(idfact!=null){
+            pi.getFormu().getChamp("idplacement").setDefaut(null);
+        }
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();
 %>
@@ -177,6 +181,7 @@
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());
         %>
+        <!--<input name="idplacement" type="hidden" id="idplacement" value="<%= //idfact %>">-->
         <input name="acte" type="hidden" id="nature" value="insert">
         <input name="bute" type="hidden" id="bute" value="treso/recette-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="mg.allosakafo.fin.MvtCaisse">
