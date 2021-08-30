@@ -5,7 +5,10 @@
  */
 package facture;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
+import java.sql.Connection;
+import utilitaire.UtilDB;
 
 public class PaiementFacture extends ClassMAPTable{
     private String id;
@@ -62,5 +65,26 @@ public class PaiementFacture extends ClassMAPTable{
     @Override
     public String getAttributIDName() {return "id";}
 
+    public FactureClient getFacture(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureClient fc = new FactureClient();
+            fc.setNomTable("factureclient");
+            String awhere = String.format(" and id = '%s' ", this.getIdFact());
+            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
+            if(result != null && result.length > 0) 
+                return result[0];
+            return null;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
     
 }
