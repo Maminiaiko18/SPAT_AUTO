@@ -323,4 +323,14 @@ public class AvoirFC extends ClassMere {
             if(conn!=null && verify == 1) conn.close();
         }
     }
+         public AvoirFCFille[] getAvoirFilles(String nomTable, Connection c) throws Exception{
+        if(nomTable == null){
+            nomTable = "avoiFCFille";
+        }
+        String requete = "SELECT * from %s WHERE idmere = '%s'";
+        requete = String.format(requete, nomTable, this.getId());
+        AvoirFCFille fille = new AvoirFCFille();
+        fille.setNomTable(nomTable);
+        AvoirFCFille[] filles = (AvoirFCFille[])CGenUtil.rechercher(fille, requete, c);
+        return filles;
 }
