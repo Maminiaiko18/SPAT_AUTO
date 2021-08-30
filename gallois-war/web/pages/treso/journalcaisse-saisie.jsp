@@ -181,7 +181,6 @@
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());
         %>
-        <!--<input name="idplacement" type="hidden" id="idplacement" value="<%= //idfact %>">-->
         <input name="acte" type="hidden" id="nature" value="insert">
         <input name="bute" type="hidden" id="bute" value="treso/recette-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="mg.allosakafo.fin.MvtCaisse">
