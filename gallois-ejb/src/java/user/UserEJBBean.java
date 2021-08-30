@@ -2685,6 +2685,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         try {
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
+            o = o.getById(o.getTuppleID(), null, c);
             if (o instanceof ClassEtat) {
                 ((ClassEtat) o).annuler(this.getUser().getTuppleID(), c);
             }
