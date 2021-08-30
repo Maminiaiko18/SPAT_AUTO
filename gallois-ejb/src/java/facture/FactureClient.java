@@ -1303,18 +1303,6 @@ public class FactureClient extends ClassMere {
 
         return calculerCodeSimple(c);
     }
-    
-    public ClientCategorie getClient(Connection c)throws Exception{        
-        ClientCategorie base = new ClientCategorie();
-        base.setNomTable("V_CLIENT_CATEGORIE");
-        String awhere = " and id = '%s'";
-        awhere = String.format(awhere, this.getTiers());        
-        ClientCategorie[] result = (ClientCategorie[]) CGenUtil.rechercher(base, null, null, c, awhere);
-        if(result.length != 0){
-            return result[0];
-        }
-        return null;
-    }
 
     public FactureClient[] getFactureLiees(String  nomtable, Connection c) throws Exception{
         int verif = 0;
@@ -1387,5 +1375,27 @@ public class FactureClient extends ClassMere {
 	}
         
         return null;
+    }
+    
+    public ClientCategorie getClient(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            ClientCategorie cc = new ClientCategorie();
+            cc.setNomTable("V_CLIENT_CATEGORIE");
+            String awhere = String.format(" and cdclt = '%s' ", this.getTiers());
+            ClientCategorie[] result = (ClientCategorie[])CGenUtil.rechercher(cc, null, null, c, awhere);
+            if(result != null && result.length > 0)
+                return result[0];
+            return null;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
     }
 }
