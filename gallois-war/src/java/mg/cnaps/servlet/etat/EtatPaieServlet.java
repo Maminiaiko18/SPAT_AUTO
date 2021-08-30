@@ -1,5 +1,7 @@
 package mg.cnaps.servlet.etat;
 
+import avoir.AvoirFC;
+import avoir.AvoirFCFille;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -132,7 +134,7 @@ public class EtatPaieServlet extends HttpServlet {
             }else if(action.equalsIgnoreCase("fact")){
                 fact(request, response);
             }else if(action.equalsIgnoreCase("imprimerAvoir")){
-                fact(request, response);
+                imprimerAvoir(request, response);
             }
 
             
@@ -905,6 +907,68 @@ public class EtatPaieServlet extends HttpServlet {
     /********************************************************************************************************************************************************************************************/
     
     private void imprimerAvoir(HttpServletRequest request, HttpServletResponse response) throws  Exception { 
+        try {
+            Map param = new HashMap();
+            String id = request.getParameter("id");
+            AvoirFC facture = new AvoirFC();
+            facture.setNomTable("avoirFC_montant");
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+           
+            AvoirFC[] mere = (AvoirFC[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
+           
+            TypeObjet cat = mere[0].getCategorie(null);
+            if(cat!=null){
+                param.put("categorie", cat.getVal());   
+            }            
+            param.put("daty",utilitaire.Utilitaire.dateDuJourSql());
+            param.put("code",mere[0].getCode());
+            param.put("designationAvoir",mere[0].getDesignation());
+            param.put("motif",mere[0].getMotif());
+            
+            FactureClient fc = mere[0].getFactureLiee(null);
+            double deviseEuro = fc.getDeviseEuro();
+            double deviseDollar = fc.getDeviseDollar();            
+            param.put("codefact",fc.getCode());
+            param.put("pdaty",fc.getDaty());
+            param.put("client",fc.getTierslib());
+            param.put("adresse",fc.getAdresse());            
+            param.put("type",fc.getType());            
+            param.put("deviseMere",fc.getDeviseMere());  
+            param.put("valeuro",deviseEuro);            
+            param.put("valdollar",deviseDollar);  
+            
+            AvoirFCFille[]avoirFille = mere[0].getAvoirFilles(null, null);
+            double montanttotal = 0;
+            List<AvoirFCFille>arrList = new ArrayList<AvoirFCFille>();
+            for(int i = 0; i<avoirFille.length; i++){
+                double mtt = avoirFille[i].getFacture(null).getMontantHTEuro();
+                montanttotal = montanttotal + mtt;
+                arrList.add(avoirFille[i]);
+            }
+            
+            param.put("montant", fc.getMontant());
+            param.put("montantTVA", fc.getMontanttva());
+            param.put("montantTTC", fc.getMontantttc());
+            param.put("total", montanttotal);
+            
+            String montantlettre = ChiffreLettre.convertRealToString( new Double( fc.getMontantttc() ) ) +" Ariary " ;
+            
+            if(fc.getDeviseMere()!=null){
+                 if(fc.getDeviseMere().compareToIgnoreCase("Dollars")==0){
+                    montantlettre = ChiffreLettre.convertRealToString( new Double( fc.getMontantTTCDollar() ) )+" Dollars " ;            
+                }
+            }
+           
+            param.put("montantlettre",montantlettre);           
+            param.put("list_table",arrList);
+            setNomJasper("facture-client-avoir");
+            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            //setNomJasper("facture_client2 - Copie");
+            UtilitaireImpression.imprimer(request, response, "facture-clien-avoirt", param, null, getReportPath(), rt);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
     }
     
   
