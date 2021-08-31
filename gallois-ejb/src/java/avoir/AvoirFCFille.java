@@ -22,9 +22,9 @@ import utilitaire.UtilDB;
 public class AvoirFCFille extends ClassFille {
 
     private String id;
-    private double montant, montantdf, montantDFTaux;
     private String idmere, compte, iddetailfacture, devise, designation;
     private double remise;
+     private double montant, montantdf, montantDFTaux;
     
     public FactureClient getFacture(Connection c) throws Exception {
         FactureClient fc = new FactureClient();
@@ -145,7 +145,8 @@ public class AvoirFCFille extends ClassFille {
 
     public void setMontant(double montant) throws Exception {
         if(this.getMode().equalsIgnoreCase("modif")){
-            double montantDetail=getFactureClientDetail(null).getPu()*getFactureClientDetail(null).getQuantite();
+            FactureClientDetails fc = getFactureClientDetail(null);
+            double montantDetail = fc.getPu() * fc.getQuantite();
             if (this.getRemise() > 0)
                 montant=(montantDetail * this.getRemise())/100;
         }
