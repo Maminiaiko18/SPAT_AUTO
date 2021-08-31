@@ -80,7 +80,7 @@ public class FactureClient extends ClassMere {
                 ClientCategorie cl = this.getClient(c);
                 if(cl!=null){
                     FactureClient[] provision= cl.getResteProvision(c);
-                    if(provision.length>0){
+                    if(provision.length>0 && this.idProvision ==null){
                         provisionString=provision[0].getId();
                         this.setIdProvision(provisionString);
                         ValidationException validationException= new ValidationException("Voulez-vous rattacher cette facture \\u00e0 une provision restante?");
