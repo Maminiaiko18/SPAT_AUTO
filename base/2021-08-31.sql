@@ -81,3 +81,46 @@ AS
      FROM factureclientMSum m
           LEFT JOIN FOURNISSEUR_UNION_PERSONNEL fup ON fup.ID = m.tiers
           LEFT JOIN paiementfacturesum pf ON pf.idfact = m.id;
+	
+	
+CREATE OR REPLACE FORCE VIEW NUMEROAVOIRFC
+(
+   ID,
+   VAL,
+   DESCE
+)
+AS
+   SELECT CAST ('-' AS VARCHAR2 (100)) AS id,
+          CAST (
+             NVL (CAST (MAX (maxidparmoisane) + 1 AS NUMBER (10)), 1) AS VARCHAR2 (500))
+             AS val,
+          CAST ('-' AS VARCHAR2 (10)) AS desce
+     FROM AVOIRFC_SEQUENCE;		
+CREATE OR REPLACE FORCE VIEW AVOIRFC_SEQUENCE
+(
+   ID,
+   DATY,
+   DESIGNATION,
+   ETAT,
+   CODE,
+   DATEMOISSEQ,
+   DATEMOIS,
+   MAXIDPARMOISANE
+)
+AS
+   SELECT fc.ID,
+          DATY,
+          DESIGNATION,
+          ETAT,
+          CODE,
+             SUBSTR ( (CODE), 2, 2)
+          || '/'
+          || SUBSTR ( (CODE), 4, 2)
+          || '/01/'
+          || SUBSTR ( (CODE), LENGTH ( (CODE)) - 5, 6)
+             AS datemoisseq,
+          CAST (
+             '01/' || SUBSTR ( (CODE), 4, 2) || '/' || SUBSTR ( (CODE), 2, 2) AS VARCHAR2 (100))
+             AS datemois,
+          SUBSTR ( (CODE), LENGTH ( (CODE)) - 2, 6) AS maxidparmoisane
+     FROM AVOIRFC fc;	 
