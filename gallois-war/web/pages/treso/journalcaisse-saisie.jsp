@@ -167,9 +167,9 @@
             pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(avoir.getMontantreste()));
             pi.getFormu().getChamp("tiers").setDefaut(avoir.getTiers());
         }
-        if(idfact!=null){
+        /*if(idfact!=null){
             pi.getFormu().getChamp("idplacement").setDefaut(null);
-        }
+        }*/
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();
 %>
