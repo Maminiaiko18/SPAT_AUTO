@@ -1,5 +1,5 @@
+<%@page import="avoir.AvoirFCLibComplet"%>
 <%@page import="bean.AdminGen"%>
-<%@page import="avoir.AvoirLibComplet"%>
 <%@page import="avoir.Avoir"%>
 <%@page import="affichage.TableauRecherche"%>
 <%@page import="utilitaire.ConstanteEtat"%>
@@ -7,7 +7,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    AvoirLibComplet cht = new AvoirLibComplet();
+    AvoirFCLibComplet cht = new AvoirFCLibComplet();
     cht.setNomTable("AVOIRFC_MONTANTLIBETAT");
     String libEntete[] = {"id", "daty", "montant", "etatlib", "tierslib", "montantpaye", "montantreste", "code"};
     String listeCrt[] = {"idfacture"};
@@ -29,7 +29,7 @@
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     pr.getTableau().setLibeEntete(libEnteteAffiche);
-    AvoirLibComplet[] liste=(AvoirLibComplet[])pr.getTableau().getData();
+    AvoirFCLibComplet[] liste=(AvoirFCLibComplet[]) pr.getTableau().getData();
     if(pr.getTableau().getHtml() != null){
         out.println(pr.getTableau().getHtml());
         double total=0;
