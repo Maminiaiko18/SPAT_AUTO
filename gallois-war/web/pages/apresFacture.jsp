@@ -105,7 +105,11 @@
                 FactureClient facture = new FactureClient();
                 facture = (FactureClient) facture.getById(idfacture, facture.getNomTable(), null);
                 
-                facture.validerFacture(u,null);
+                facture.validerFacture(u,null); 
+                %>
+                
+                    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=facture.getId()%>");</script>
+                    <%
             }
              
             if (acte != null && acte.compareToIgnoreCase("editerBED") == 0) {

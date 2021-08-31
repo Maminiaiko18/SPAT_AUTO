@@ -25,10 +25,11 @@
         ClassMAPTable o = null;
         if(acte.compareToIgnoreCase("validefacture") == 0) {
             u.getValidation().setResponse(true);
-
-            if(u.getValidation().getListe_object().size()>0) {
-                ClassMAPTable object = (ClassMAPTable) u.validerObject(u.getValidation().getListe_object().get(0));
+             if(u.getValidation().getListe_object().size()>0) {
+                FactureClient object =(FactureClient) u.getValidation().getListe_object().get(0);
+                object.updateToTableWithHisto(u.getUser().getAdruser());
                 id=object.getTuppleID();
+
             }
             retour = "module.jsp?but="+bute+"&id="+id;
         }
@@ -36,11 +37,10 @@
             
     }else{
         if(acte.compareToIgnoreCase("validefacture") == 0) {
-             if(u.getValidation().getListe_object().size()>0) {
-                FactureClient object =(FactureClient) u.getValidation().getListe_object().get(0);
-                object.updateToTableWithHisto(u.getUser().getAdruser());
-                id=object.getTuppleID();
 
+            if(u.getValidation().getListe_object().size()>0) {
+                ClassMAPTable object = (ClassMAPTable) u.validerObject(u.getValidation().getListe_object().get(0));
+                id=object.getTuppleID();
             }
             retour = "module.jsp?but="+bute+"&id="+id;
         }

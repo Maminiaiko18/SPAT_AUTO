@@ -78,18 +78,21 @@ public class FactureClient extends ClassMere {
             }
             if(this.getEtat()<ConstanteEtat.getEtatValider()){
                 ClientCategorie cl = this.getClient(c);
-                FactureClient[] provision= cl.getResteProvision(c);
-                if(provision.length>0){
-                    provisionString=provision[0].getId();
-                    this.setIdProvision(provisionString);
-                    ValidationException validationException= new ValidationException("Voulez vous continuer ?");
-                    List<ClassMAPTable> liste_object = new ArrayList<ClassMAPTable>();
-                    this.setNomTable("factureclient");
-                    liste_object.add(this);
-                    user.setValidation(validationException);
-                    user.getValidation().setListe_object(liste_object);
-                    throw validationException;
+                if(cl!=null){
+                    FactureClient[] provision= cl.getResteProvision(c);
+                    if(provision.length>0){
+                        provisionString=provision[0].getId();
+                        this.setIdProvision(provisionString);
+                        ValidationException validationException= new ValidationException("Voulez-vous rattacher cette facture \\u00e0 une provision restante?");
+                        List<ClassMAPTable> liste_object = new ArrayList<ClassMAPTable>();
+                        this.setNomTable("factureclient");
+                        liste_object.add(this);
+                        user.setValidation(validationException);
+                        user.getValidation().setListe_object(liste_object);
+                        throw validationException;
+                    }
                 }
+                user.validerObject(this);
             }
             if (verif == 1) {
                 c.commit();
