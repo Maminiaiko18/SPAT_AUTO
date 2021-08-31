@@ -124,3 +124,45 @@ AS
              AS datemois,
           SUBSTR ( (CODE), LENGTH ( (CODE)) - 2, 6) AS maxidparmoisane
      FROM AVOIRFC fc;	 
+	 
+	 
+CREATE OR REPLACE FORCE VIEW AVOIRFC_MONTANT
+(
+   ID,
+   DATY,
+   IDFACTURE,
+   ETAT,
+   MONTANT,
+   TIERS,
+   TIERSLIB,
+   MONTANTPAYE,
+   MONTANTRESTE,
+   CATEGORIE,
+   CATEGORIELIB,
+   MOTIF,
+   MOTIFLIB,
+   code
+)
+AS
+   SELECT fc.ID,
+          fc.DATY,
+          fc.IDFACTURE,
+          fc.ETAT,
+          CAST (NVL (mr.montant, 0.0) AS NUMBER (30, 3)) AS montant,
+          f.TIERS,
+          f.tierslib,
+          CAST (NVL (gr.DEBIT, 0) AS NUMBER (30, 3)) AS montantpaye,
+          CAST (NVL (mr.montant, 0.0) - NVL (gr.DEBIT, 0) AS NUMBER (30, 3))
+             AS montantreste,
+          fc.CATEGORIE,
+          c.VAL AS categorielib,
+          fc.MOTIF,
+          mo.val AS motiflib,
+		  fc.code
+     FROM AVOIRFC fc
+          LEFT JOIN CATEGORIEAVOIRFC c ON fc.CATEGORIE = c.id
+          LEFT JOIN MOTIFAVOIRFC mo ON fc.MOTIF = mo.id
+          LEFT JOIN avoirfcavectaux_grp_mere mr ON mr.IDMERE = fc.ID
+          LEFT JOIN FACTURECLIENT_libcomplet f ON fc.IDFACTURE = f.ID
+          LEFT JOIN JOURNALCAISSELIB_VISE_grp gr ON gr.IDPLACEMENT = fc.ID;
+	 
