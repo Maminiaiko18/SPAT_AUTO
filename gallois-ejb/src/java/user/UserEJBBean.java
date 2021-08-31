@@ -3475,7 +3475,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public OrdonnerPayement creerOPViseFF(String idfacture, Connection c) throws Exception {
-        OrdonnerPayement op = new OrdonnerPayement();
+        OrdonnerPayement op = null;
         EtatFactureMontantDaty temp = new EtatFactureMontantDaty();
             EtatFactureMontantDaty[] factures = temp.getByIds(new String[]{idfacture}, c);
             if (factures.length > 0) {
@@ -3489,7 +3489,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     
     @Override
     public String creerOPviseCaisse(String idfacture, Connection c) throws Exception {
-        OrdonnerPayement op = new OrdonnerPayement();
+        OrdonnerPayement op = null;
         int verif = 0;
         try {
             if (idfacture != null) {
@@ -3499,12 +3499,13 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                     verif = 1;
                 }
                 op = creerOPViseFF(idfacture, c);
-                creerOPViseAvoir(idfacture, c);
+                if(op!=null) return op.getId();
+                op=creerOPViseAvoir(idfacture, c);
                 if (c != null && verif == 1) {
                     c.commit();
                 }
             } else {
-                throw new Exception("Facture(s) introuvable(s)");
+                throw new Exception("Avoir(s) introuvable(s)");
             }
         } catch (Exception e) {
             if (c != null) {
