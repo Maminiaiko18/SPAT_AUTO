@@ -94,6 +94,7 @@ public class FactureClient extends ClassMere {
                 }
                 user.validerObject(this);
             }
+            user.validerObject(this);
             if (verif == 1) {
                 c.commit();
             }
