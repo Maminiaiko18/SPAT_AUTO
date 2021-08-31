@@ -4,6 +4,7 @@ import bean.ClassEtat;
 import bean.ClassMAPTable;
 import bean.ResultatEtSomme;
 import bean.TypeObjet;
+import bean.ValidationException;
 import historique.MapRoles;
 import historique.MapUtilisateur;
 import java.sql.Connection;
@@ -323,4 +324,18 @@ public interface UserEJB {
     
     public void payerFCMultiple(String[] listeId, facture.TransitionPaiementVide t) throws Exception;
     public TypeObjet getCommandant() throws Exception;
+    
+    public ValidationException getValidation();
+
+    public void setValidation(ValidationException validation);
+
+    public Object createObjectValidation(ClassMAPTable o, Connection c) throws Exception;
+
+    public Object createObjectValidation(ClassMAPTable o) throws Exception;
+
+    public Object updateObjectValidation(ClassMAPTable o) throws Exception;
+
+    public Object updateObjectValidation(ClassMAPTable o, Connection c) throws Exception;
+
+    public void deleteObjectValidation(ClassMAPTable o) throws Exception;
 }

@@ -13,16 +13,22 @@
 <%@ page import="affichage.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
+    <br>
+    <br>
+    <br>
+    <h1 id="message"></h1>
     <%!
         UserEJB u = null;
         String idfacture = "";
         String lien = null;
         String apresLien = null;
+        String acte="";
+        String provision="";
     %>
     <%
         try {
             idfacture = (String) request.getParameter("id");
-            String acte = request.getParameter("acte");
+            acte = request.getParameter("acte");
             String bute = request.getParameter("bute");
             u = (UserEJB) session.getAttribute("u");
             lien = (String) session.getValue("lien");
@@ -74,6 +80,16 @@
                 
                 apresLien = "facture/factureclient-modif.jsp&id=" + fact2.getId();
             }
+
+            if (acte != null && acte.compareToIgnoreCase("genererDefinitive") == 0) {
+                FactureClient facture = new FactureClient();
+                facture = (FactureClient) facture.getById(idfacture, facture.getNomTable(), null);
+                
+                FactureClient fact2 = facture.genererDefinitive(u, 1, null);
+                if(fact2 == null) throw new Exception("Erreur lors de la generation");
+                
+                apresLien = "facture/factureclient-modif.jsp&id=" + fact2.getId();
+            }
             
             if (acte != null && acte.compareToIgnoreCase("genererProvision") == 0) {
                 FactureClient facture = new FactureClient();
@@ -83,6 +99,13 @@
                 if(fact2 == null) throw new Exception("Erreur lors de la generation");
                 
                 apresLien = "facture/factureclient-modif.jsp&id=" + fact2.getId();
+            }
+            
+            if (acte != null && acte.compareToIgnoreCase("valider") == 0) {
+                FactureClient facture = new FactureClient();
+                facture = (FactureClient) facture.getById(idfacture, facture.getNomTable(), null);
+                
+                facture.validerFacture(u,null);
             }
              
             if (acte != null && acte.compareToIgnoreCase("editerBED") == 0) {
@@ -106,6 +129,71 @@
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= apresLien%>");</script>
     <%
 
+    } catch (ValidationException validation) {
+        validation.printStackTrace();
+    %>
+    <script language="JavaScript">
+        var reponse = true;
+        if (confirm("<%= validation.getMessageavalider()%>")) {
+            var valeur = {
+                'acte': 'validefacture',
+                'reponse': reponse,
+                'bute':'<%=apresLien%>',
+            };
+            document.getElementById("message").innerHTML = "Veuilllez attendre .....!";
+            $.ajax({
+                url: 'validationajax.jsp',
+                type: 'GET',
+                contentType: 'application/json',
+                data: valeur,
+                success: function (data) {
+                    //called when successful
+
+                    console.log('data = ' + data);
+
+                    if (data.length > 0) {
+                        document.location.replace(data);
+                    }
+                },
+                error: function (e) {
+                    //called when there is an error
+                    //console.log(e.message);
+                }
+            });
+            
+        } else {
+            reponse = false;
+
+            var valeur = {
+                'acte': 'validefacture',
+                'reponse': reponse,
+                'bute':'<%=apresLien%>',
+            };
+            document.getElementById("message").innerHTML = "Veuilllez attendre .....!";
+            $.ajax({
+                url: 'validationajax.jsp',
+                type: 'GET',
+                contentType: 'application/json',
+                data: valeur,
+                success: function (data) {
+                    //called when successful
+                    console.log('data = ' + data);
+
+                    if (data.length > 0) {
+                        document.location.replace(data);
+                    }
+                    //history.back();
+                },
+                error: function (e) {
+                    //called when there is an error
+                    //console.log(e.message);
+                }
+            });
+
+        }
+    </script>
+    <%
+    
     } catch (Exception e) {
         e.printStackTrace();
     %>

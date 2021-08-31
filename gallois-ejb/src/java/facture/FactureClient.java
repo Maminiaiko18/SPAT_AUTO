@@ -23,7 +23,9 @@ import mg.spat.stock.BonDeLivraisonClient;
 import avoir.AvoirFC;
 import bean.AdminGen;
 import bean.ClassFille;
+import bean.ValidationException;
 import fin.Coursdevise;
+import java.util.List;
 import mg.spat.ClientCategorie;
 import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
@@ -65,7 +67,44 @@ public class FactureClient extends ClassMere {
     public String getCodeProvision() {
         return codeProvision;
     }
-
+    public String  validerFacture(UserEJB user,Connection c ) throws Exception{
+        String provisionString="";
+        int verif = 0;
+        try{
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            if(this.getEtat()<ConstanteEtat.getEtatValider()){
+                ClientCategorie cl = this.getClient(c);
+                FactureClient[] provision= cl.getResteProvision(c);
+                if(provision.length>0){
+                    provisionString=provision[0].getId();
+                    this.setIdProvision(provisionString);
+                    ValidationException validationException= new ValidationException("Voulez vous continuer ?");
+                    List<ClassMAPTable> liste_object = new ArrayList<ClassMAPTable>();
+                    this.setNomTable("factureclient");
+                    liste_object.add(this);
+                    user.setValidation(validationException);
+                    user.getValidation().setListe_object(liste_object);
+                    throw validationException;
+                }
+            }
+            if (verif == 1) {
+                c.commit();
+            }
+        }
+        catch(Exception exception){
+            throw exception;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return provisionString;
+    }
+    
     public void setCodeProvision(String codeProvision) {
         this.codeProvision = codeProvision;
     }
