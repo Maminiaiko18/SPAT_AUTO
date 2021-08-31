@@ -135,6 +135,12 @@
                 } else {
                     pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + ord[0].getMontant()));
                 }
+                
+                if(ord[0].getDed_Id()!=null && ord[0].getDed_Id().startsWith("AVRFC")){
+                    AvoirFC av = new AvoirFC();
+                    av = (AvoirFC) av.getById(ord[0].getDed_Id(), null, null);
+                    pi.getFormu().getChamp("idplacement").setDefaut(av.getIdfacture());
+                }
             }
         }
         if (request.getParameter("idplacement") != null) {
