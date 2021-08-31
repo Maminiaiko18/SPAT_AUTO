@@ -51,7 +51,7 @@
 
             pi.getFormu().getChamp("idplacement").setDefaut("" + facture.getNmfact());
             pi.getFormu().getChamp("tiers").setDefaut(client);
-            //pi.getFormu().getChamp("idplacement").setDefaut(idfact);
+            pi.getFormu().getChamp("idplacement").setDefaut(idfact);
         }
         
         
