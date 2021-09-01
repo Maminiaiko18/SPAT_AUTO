@@ -114,7 +114,12 @@ public class AvoirFCFille extends ClassFille {
         this.setNomClasseMere("avoir.AvoirFC");
         this.setLiaisonMere("idmere");
     }
-
+    
+    @Override
+    public String getLiaisonMere(){
+        return "idmere";
+    }
+    
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("AVRFCF", "get_seqavoirFCfille");
