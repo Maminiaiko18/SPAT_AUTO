@@ -34,6 +34,24 @@ public class AvoirFC extends ClassMere {
     private String motif;
     private String categorielib;
     private String motiflib;
+    private String type;
+    private String typelib;
+
+    public String getTypelib() {
+        return typelib;
+    }
+
+    public void setTypelib(String typelib) {
+        this.typelib = typelib;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getTiers() {
         return tiers;
@@ -237,7 +255,7 @@ public class AvoirFC extends ClassMere {
         String daty = Utilitaire.datetostring(getDaty());
         String annee = Utilitaire.genererAnnee(daty);
         String mois = Utilitaire.genererMois(daty);
-        String valCateg = this.getCategorie(c).getVal();
+        String valCateg = "1".equals(this.getType()) ? "IS" : this.getCategorie(c).getVal();
         String seq = this.genererSequence(c, "NUMEROAVOIRFC", 3);
         return annee+mois+valCateg+seq;
     }
