@@ -860,9 +860,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("tvaeuro",tvaEuro);
             param.put("ttcEuro",ttcEuro);            
             param.put("valeuro",deviseEuro);
-            System.out.println("EEEEEEEEEEEEEEEEEEEEEEE");
-            System.out.println(deviseEuro);
-            System.out.println(deviseDollar);
+            
             param.put("valdollar",deviseDollar);
             param.put("cat",cat);
             param.put("designation",designation);
@@ -945,6 +943,8 @@ public class EtatPaieServlet extends HttpServlet {
             FactureClientDetails[]details = new FactureClientDetails[avoirFille.length];
             for(int i = 0; i<avoirFille.length; i++){
                 details[i] = avoirFille[i].getFactureClientDetail(null);
+                details[i].setMontant(avoirFille[i].getMontant());
+                details[i].setId(avoirFille[i].getId());
             }
             fc.setListeDetails(details);
             fc.initDetails(null);            
