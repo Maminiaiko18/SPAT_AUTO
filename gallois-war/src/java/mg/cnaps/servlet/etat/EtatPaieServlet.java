@@ -923,16 +923,20 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("daty",utilitaire.Utilitaire.dateDuJourSql());
             param.put("code",mere[0].getCode());
             param.put("designationAvoir",mere[0].getDesignation());
-            param.put("motif",mere[0].getMotif());
+            param.put("designation",mere[0].getMotiflib());
+            param.put("typeavoir",mere[0].getTypelib());   
+            
             
             FactureClient fc = mere[0].getFactureLiee(null);
+            //fc.initDetails(null);
             double deviseEuro = fc.getDeviseEuro();
             double deviseDollar = fc.getDeviseDollar();            
             param.put("codefact",fc.getCode());
             param.put("pdaty",fc.getDaty());
             param.put("client",fc.getTierslib());
+            param.put("codeClient",fc.getTiers());
             param.put("adresse",fc.getAdresse());            
-            param.put("type",fc.getType());            
+            param.put("type",fc.getTypelib());       
             param.put("deviseMere",fc.getDeviseMere());  
             param.put("valeuro",deviseEuro);            
             param.put("valdollar",deviseDollar);  
@@ -946,16 +950,16 @@ public class EtatPaieServlet extends HttpServlet {
                 arrList.add(avoirFille[i]);
             }
             
-            param.put("montant", fc.getMontant());
-            param.put("montantTVA", fc.getMontanttva());
-            param.put("montantTTC", fc.getMontantttc());
+            param.put("montant", mere[0].getMontant());
+            param.put("montantTVA", 0);
+            param.put("montantTTC", mere[0].getMontantpaye());
             param.put("total", montanttotal);
             
-            String montantlettre = ChiffreLettre.convertRealToString( new Double( fc.getMontantttc() ) ) +" Ariary " ;
+            String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantpaye() ) ) +" Ariary " ;
             
             if(fc.getDeviseMere()!=null){
                  if(fc.getDeviseMere().compareToIgnoreCase("Dollars")==0){
-                    montantlettre = ChiffreLettre.convertRealToString( new Double( fc.getMontantTTCDollar() ) )+" Dollars " ;            
+                    montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantpaye() ) )+" Dollars " ;            
                 }
             }
            

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="38"/>
+	<property name="ireport.y" value="218"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -94,7 +94,6 @@
 		<field name="designation" class="java.lang.String"/>
 		<field name="id" class="java.lang.String"/>
 		<field name="montant" class="java.lang.Double"/>
-		<field name="field1" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["H:\\win-Project\\cemedi\\cemedi\\cemedi-war\\web\\report\\"]]></defaultValueExpression>
@@ -139,7 +138,7 @@
 	<parameter name="designationAvoir" class="java.lang.String"/>
 	<parameter name="codefact" class="java.lang.String"/>
 	<parameter name="pdaty" class="java.util.Date"/>
-	<parameter name="parameter1" class="java.lang.String"/>
+	<parameter name="typeavoir" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -320,7 +319,7 @@
 				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="19" width="128" height="35" uuid="9b0d8706-ed57-4641-828e-a866ab35843e"/>
+				<reportElement x="355" y="19" width="210" height="35" uuid="9b0d8706-ed57-4641-828e-a866ab35843e"/>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
@@ -350,14 +349,14 @@
 				<textFieldExpression><![CDATA[$P{designationAvoir}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="19" width="555" height="35" uuid="781c15db-32fa-4e05-b071-f4dc0d19dd60"/>
+				<reportElement x="0" y="19" width="455" height="35" uuid="781c15db-32fa-4e05-b071-f4dc0d19dd60"/>
 				<textElement textAlignment="Center">
 					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AVOIR]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="327" y="19" width="100" height="35" uuid="2c343259-c36f-4113-9514-92be6557429b"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="266" y="19" width="89" height="35" uuid="2c343259-c36f-4113-9514-92be6557429b"/>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
@@ -544,18 +543,11 @@
 				<textFieldExpression><![CDATA["1 Dollar ="]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="291" y="41" width="111" height="20" uuid="8cae0e4a-f680-459a-ac04-003da275ef22"/>
+				<reportElement x="291" y="61" width="111" height="20" uuid="8cae0e4a-f680-459a-ac04-003da275ef22"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant en Ar HTVA:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="291" y="61" width="111" height="20" uuid="fd740747-bdeb-4178-978d-06a9bdbf793f"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[TVA en Ar:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="291" y="79" width="111" height="20" uuid="2ca275cc-2747-402b-887d-1d6f86c957dc"/>
@@ -565,14 +557,9 @@
 				<text><![CDATA[Net à payer en Ar : ]]></text>
 			</staticText>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="403" y="41" width="152" height="20" uuid="bbe60157-d0d6-4a5a-ab8e-5b453ef314dd"/>
+				<reportElement x="403" y="61" width="152" height="20" uuid="bbe60157-d0d6-4a5a-ab8e-5b453ef314dd"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.000" isBlankWhenNull="false">
-				<reportElement x="403" y="61" width="152" height="20" uuid="b8b34f13-f121-40d8-98d5-7b16ae7777db"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="403" y="79" width="152" height="20" uuid="1d06c10e-6f55-45af-9430-95cb7cfb4e62"/>
