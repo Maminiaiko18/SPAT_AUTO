@@ -34,13 +34,21 @@ try{
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
     pi.getFormu().getChamp("code").setVisible(false);
 
-    affichage.Champ[] listeMere = new affichage.Champ[2];
+    affichage.Champ[] listeMere = new affichage.Champ[3];
     TypeObjet categorie = new TypeObjet();
     categorie.setNomTable("categorieAvoirFC");
+    
     TypeObjet motif = new TypeObjet();
     motif.setNomTable("motifAvoirFC");
+    
+    Liste li = new Liste("type");
+    String [] val = {"1", "2"};
+    String [] aff = {"Interne", "Externe"};
+    li.ajouterValeur( val, aff );
+    
     listeMere[0] = new Liste("categorie",categorie, "val", "id");
     listeMere[1] = new Liste("motif",motif, "val", "id");
+    listeMere[2] = li;
     pi.getFormu().changerEnChamp(listeMere);
     
 //    affichage.Champ[] listeFille = new affichage.Champ[1];
