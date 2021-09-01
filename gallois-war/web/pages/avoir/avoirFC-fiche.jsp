@@ -27,6 +27,8 @@
     pc.getChampByName("tiers").setVisible(false);
     pc.getChampByName("motif").setVisible(false);
     pc.getChampByName("categorie").setVisible(false);
+    pc.getChampByName("type").setVisible(false);
+    pc.getChampByName("typelib").setLibelle("Type");
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("montant").setLibelle("Montant");
     pc.getChampByName("montantpaye").setLibelle("Montant payé");
