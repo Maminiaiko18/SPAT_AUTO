@@ -70,7 +70,7 @@
     pi.getFormu().getChamp("categorie").setLibelle("Catégorie");
     pi.getFormu().getChamp("code").setVisible(false);
     
-    affichage.Champ[] liste = new affichage.Champ[2];
+    affichage.Liste[] liste = new affichage.Liste[3];
     TypeObjet categorie = new TypeObjet();
     categorie.setNomTable("categorieAvoirFC");
     
@@ -79,6 +79,15 @@
     
     liste[0] = new Liste("categorie",categorie, "val", "id");
     liste[1] = new Liste("motif",motif, "val", "id");
+    
+    String[]valeurChampType = {"1", "2"};
+    String[]afficheChampType = {"interne", "externe"};
+    
+    liste[2] = new Liste("type");
+    liste[2].ajouterValeur(valeurChampType, afficheChampType);
+    if ((String)request.getParameter("type")!=null) {
+        liste[2].setDefaut((String)request.getParameter("type"));
+    }
     pi.getFormu().changerEnChamp(liste);
 
 //    affichage.Champ[] listeFille = new affichage.Champ[1];
