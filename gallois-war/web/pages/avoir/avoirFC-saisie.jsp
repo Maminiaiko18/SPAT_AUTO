@@ -85,8 +85,8 @@
     
     liste[2] = new Liste("type");
     liste[2].ajouterValeur(valeurChampType, afficheChampType);
-    if ((String)request.getParameter("type")!=null) {
-        liste[2].setDefaut((String)request.getParameter("type"));
+    if (request.getParameter("type")!=null) {
+        liste[2].setDefaut(request.getParameter("type"));
     }
     pi.getFormu().changerEnChamp(liste);
 
