@@ -928,7 +928,7 @@ public class EtatPaieServlet extends HttpServlet {
             
             
             FactureClient fc = mere[0].getFactureLiee(null);
-            //fc.initDetails(null);
+            fc.initDetails(null);
             double deviseEuro = fc.getDeviseEuro();
             double deviseDollar = fc.getDeviseDollar();            
             param.put("codefact",fc.getCode());
@@ -952,14 +952,14 @@ public class EtatPaieServlet extends HttpServlet {
             
             param.put("montant", mere[0].getMontant());
             param.put("montantTVA", 0);
-            param.put("montantTTC", mere[0].getMontantpaye());
+            param.put("montantTTC", mere[0].getMontant());
             param.put("total", montanttotal);
             
-            String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantpaye() ) ) +" Ariary " ;
+            String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontant() ) ) +" Ariary " ;
             
             if(fc.getDeviseMere()!=null){
                  if(fc.getDeviseMere().compareToIgnoreCase("Dollars")==0){
-                    montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantpaye() ) )+" Dollars " ;            
+                    montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontant() ) )+" Dollars " ;            
                 }
             }
            
