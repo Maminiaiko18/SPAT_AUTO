@@ -34,10 +34,18 @@ try {
         if(uI != null) {
             %>
                 <form action="<%=lien%>?but=<%=bute%>" method="POST" id="form-apresMdp">
-                    <input type="hidden" name="bute" value="<%=bute2%>">
-                    <input type="hidden" name="classe" value="<%=classe%>">
-                    <input type="hidden" name="acte" value="<%=acte%>">
-                    <input type="hidden" name="id" value="<%=id%>">
+                    <%if(bute2!=null && !bute2.isEmpty()){%>
+                        <input type="hidden" name="bute" value="<%=bute2%>">
+                    <%}%>
+                    <%if(classe!=null && !classe.isEmpty()){%>
+                        <input type="hidden" name="classe" value="<%=classe%>">
+                    <%}%>
+                    <%if(acte!=null && !acte.isEmpty()){%>
+                        <input type="hidden" name="acte" value="<%=acte%>">
+                    <%}%>
+                    <%if(id!=null && !id.isEmpty()){%>
+                        <input type="hidden" name="id" value="<%=id%>">
+                    <%}%>
                 </form>
                 <script>
                     document.getElementById("form-apresMdp").submit();
