@@ -352,4 +352,12 @@ public class AvoirFC extends ClassMere {
         AvoirFCFille[] filles = (AvoirFCFille[])CGenUtil.rechercher(fille, requete, c);
         return filles;
          }
+         
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        if(this.getType().equals("1")){
+            this.getFactureLiee(c).annuler(c);
+        }
+        return super.validerObject(u, c); 
+    }
 }
