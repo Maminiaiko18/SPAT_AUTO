@@ -942,12 +942,18 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("valdollar",deviseDollar);  
             
             AvoirFCFille[]avoirFille = mere[0].getAvoirFilles(null, null);
-            double montanttotal = 0;
-            List<AvoirFCFille>arrList = new ArrayList<AvoirFCFille>();
+            FactureClientDetails[]details = new FactureClientDetails[avoirFille.length];
             for(int i = 0; i<avoirFille.length; i++){
-                double mtt = avoirFille[i].getFacture(null).getMontantHTEuro();
-                montanttotal = montanttotal + mtt;
-                arrList.add(avoirFille[i]);
+                details[i] = avoirFille[i].getFactureClientDetail(null);
+            }
+            fc.setListeDetails(details);
+            fc.initDetails(null);            
+            
+            double montanttotal = 0;
+            List<FactureClientDetails>arrList = new ArrayList<FactureClientDetails>();
+            for(int i = 0; i<details.length; i++){
+                montanttotal = montanttotal + details[i].getMontantHTEuro();
+                arrList.add(details[i]);
             }
             
             param.put("montant", mere[0].getMontant());
