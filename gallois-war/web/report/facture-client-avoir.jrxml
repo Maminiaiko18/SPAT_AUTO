@@ -619,7 +619,7 @@
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="107" y="41" width="69" height="20" uuid="1e43bbd5-0a0b-49eb-b013-9e25db7c4e70"/>
-				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{pdaty}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="291" y="2" width="264" height="20" uuid="a9d586ff-de38-4791-94c8-7e02c24b980a"/>
