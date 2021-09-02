@@ -93,8 +93,7 @@ public class FactureClient extends ClassMere {
                     }
                 }
                 user.validerObject(this);
-            }
-            user.validerObject(this);
+            }else throw new Exception("Objet deja visé");
             if (verif == 1) {
                 c.commit();
             }
@@ -361,26 +360,9 @@ public class FactureClient extends ClassMere {
         if (!this.getIdcategorie().equals(Constante.idCategorieFCProvision)) {
             throw new Exception("Cette facture n est pas une facture de provision!");
         }
-        /*FactureClient fc = new FactureClient();
-        fc.setNomTable("ProvisionFactureDefinitive");
-        FactureClient[] lst = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and id='" + this.id + "' and montantreste=0");
-        if (lst.length > 0) {
-            throw new Exception("Cette provision a deja ete facturee !");
-        }*/
     }
 
-    public void controlerVisaFactureDefinitive(Connection c) throws Exception {
-        /*if (this.getIdProvision() == null) {
-            throw new Exception("Aucune reference de provision pour cette facture");
-        }*/
-        FactureClient facture = new FactureClient();
-        facture.setEtat(ConstanteEtat.getEtatValider());
-        FactureClient[] factures = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and idProvision ='" + this.getIdProvision() + "' and type = 'definitive'");
-        if (factures.length > 0) {
-            throw new Exception("Il existe deja une facture definitive visee pour cette provision");
-        }
-
-    }
+    
 
     public void updatePaiement(String u, Connection c) throws Exception {
         JournalCaisse[] lst = getListePaiement(this.getIdProvision(), c);
@@ -389,14 +371,54 @@ public class FactureClient extends ClassMere {
             lst[i].updateToTableWithHisto(u, c);
         }
     }
-
+    public PaiementFacture[] findPaiementProvision(String idProvision,Connection c) throws Exception{
+        boolean ouvert = false;
+        PaiementFacture[] retour=null;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            retour=(PaiementFacture[])CGenUtil.rechercher(new PaiementFacture(), null, null, c, " and idFact='"+idProvision+"'");
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+        return retour;
+    }
+    public void genererPaiementDefinitive(String u,String idProvision,Connection c)throws Exception{
+        boolean ouvert = false;
+        PaiementFacture[] retour=null;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            PaiementFacture[] listeProvision=this.findPaiementProvision(idProvision, c);
+            if(listeProvision!=null && listeProvision.length>0){
+                for(int i=0;i<listeProvision.length;i++){
+                    listeProvision[i].setIdFact(this.getId());
+                    listeProvision[i].setId(null);
+                    listeProvision[i].createObject(u, c);
+                }
+            }
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+    }
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive)) {
-
-            this.controlerVisaFactureDefinitive(c);
-            this.updatePaiement(u, c);
-
+        if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive) && this.getIdProvision()!=null) {
+            this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
         super.validerObject(u, c);
         return this;

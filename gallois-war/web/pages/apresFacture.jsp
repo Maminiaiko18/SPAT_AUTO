@@ -80,16 +80,6 @@
                 
                 apresLien = "facture/factureclient-modif.jsp&id=" + fact2.getId();
             }
-
-            if (acte != null && acte.compareToIgnoreCase("genererDefinitive") == 0) {
-                FactureClient facture = new FactureClient();
-                facture = (FactureClient) facture.getById(idfacture, facture.getNomTable(), null);
-                
-                FactureClient fact2 = facture.genererDefinitive(u, 1, null);
-                if(fact2 == null) throw new Exception("Erreur lors de la generation");
-                
-                apresLien = "facture/factureclient-modif.jsp&id=" + fact2.getId();
-            }
             
             if (acte != null && acte.compareToIgnoreCase("genererProvision") == 0) {
                 FactureClient facture = new FactureClient();

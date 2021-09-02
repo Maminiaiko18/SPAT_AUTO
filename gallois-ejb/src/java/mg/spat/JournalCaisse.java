@@ -445,7 +445,6 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         if(nomtable != null && !nomtable.trim().isEmpty()) op.setNomTable(nomtable);
         return (OrdonnerPayement) op.getById(op.getId(), op.getNomTable(), c);
     }
-    
     @Override
     public void viser(UserEJBBean user, Connection c) throws Exception {
         int verif = 0;
