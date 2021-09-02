@@ -19,7 +19,23 @@ public class PrevisionLibelleComplet extends ClassEtat{
     private String paysprovenance,quaidestination,internedestination,paysdestination,idquaiprovenance,idquaidestination,cargval,cargdesce,idtypequaiprovenance,typequaiprovenance,idtypequaidestination,typequaidestination;
     private Date date_rade,date_arrivee,date_depart;
     private double jntnavire,jbtnavire,pltnavire,lhtnavire,lmnavire,tenavire,volumenavire,longueurprovenance,profondeurprovenance,tirantprovenance,longueurdestination,profondeurdestination,tirantdestination;
-    private String pavillonlib , escale , armateurlib, valquaisprovenance, valquaisdestination; 
+    private String pavillonlib , escale , armateurlib, valquaisprovenance, valquaisdestination,valpaysprovenance,valpaysdestination; 
+
+    public String getValpaysprovenance() {
+        return valpaysprovenance;
+    }
+
+    public void setValpaysprovenance(String valpaysprovenance) {
+        this.valpaysprovenance = valpaysprovenance;
+    }
+
+    public String getValpaysdestination() {
+        return valpaysdestination;
+    }
+
+    public void setValpaysdestination(String valpaysdestination) {
+        this.valpaysdestination = valpaysdestination;
+    }
     
     
     public PrevisionLibelleComplet() {
