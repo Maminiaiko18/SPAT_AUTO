@@ -519,15 +519,9 @@
 								<text><![CDATA[Montant en euro]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="32" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="32" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="87" height="26" uuid="2e85386a-0263-4734-9f4c-1bed741ebaef"/>
-								<box>
-									<topPen lineWidth="0.5"/>
-									<leftPen lineWidth="0.5"/>
-									<bottomPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
-								</box>
 								<textElement textAlignment="Right" verticalAlignment="Top" markup="none">
 									<font size="9" isBold="false"/>
 									<paragraph rightIndent="3"/>
