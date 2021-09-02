@@ -105,16 +105,24 @@ public class Prevision extends ClassEtat {
             Prevision prevision = new Prevision();
             prevision = (Prevision) prevision.getById(this.getId(), prevision.getNomTable(), c);
             if(prevision.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception("Prevision non visee");
+            
+            
             AdminActivite adminActivite = new AdminActivite();
-            Activite[] activites = prevision.genererActiviteVisees(user, c);
-            adminActivite.findactivite(getIdsFromTab(activites), c);
+            Activite[] activites=null;
+            Navire nav=prevision.findNavire(c);
+            if(nav!=null){
+                if(nav.getType()!=null){
+                    if(nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0) activites=prevision.genererActiviteViseesBP(user, c);
+                    else activites= prevision.genererActiviteVisees(user, c);
 
-//            adminActivite.initActivite(prevision.genererActiviteVisees(user, c));
-            facture = adminActivite.facturer(user, c);
-            facture.setIdprevision(this.getId());
-            facture.updateDeviseMere(c);
-            facture.updateToTableWithHisto(user, c);
+                    adminActivite.findactivite(getIdsFromTab(activites), c);
 
+                    facture = adminActivite.facturer(user, c);
+                    facture.setIdprevision(this.getId());
+                    facture.updateDeviseMere(c);
+                    facture.updateToTableWithHisto(user, c);
+                } else throw new Exception("Type de navire vide");
+            }
             if (verif == 1) {
                 c.commit();
             }
@@ -144,7 +152,30 @@ public class Prevision extends ClassEtat {
         }
         return rubrique;
     }
+    public Activite[] genererActiviteViseesBP(String u, Connection c) throws Exception {
+        java.util.List<Activite> activites = new java.util.ArrayList<>();
+        String[] designations = {"Droit de port " + this.getEscale(), "Stationnement " + this.getEscale(), "Redevance sanitaire " + this.getEscale(), "Redevance communale " + this.getEscale()};
+        String[] idRubriques = {Constante.getDroitDePortBP(), Constante.getStationnementBP(), Constante.getRedevanceSanitaire(), Constante.getRedevanceCommBP()};
 
+        String awhere = " and etat >= " + ConstanteEtat.getEtatValider()
+                + " and bateau = '" + this.getId() + "'"
+                + " and rubrique in (" + Utilitaire.tabToString(idRubriques, "'", ",") + ")";
+
+        Activite[] tmp = (Activite[]) CGenUtil.rechercher(new Activite(), null, null, c, awhere);
+
+        awhere = " and id = '%s'";
+        if (tmp == null || tmp.length == 0) {
+            for (int i = 0; i < idRubriques.length; i++) {
+                Activite act = (Activite) this.genererActivite(u, c, designations[i], String.format(awhere, idRubriques[i]));
+                if (act != null) {
+                    act.createObject(u, c);
+                    act.validerObject(u, c);
+                    activites.add(act);
+                }
+            }
+        }
+        return activites.toArray(new Activite[activites.size()]);
+    }
     public Activite[] genererActiviteVisees(String u, Connection c) throws Exception {
         java.util.List<Activite> activites = new java.util.ArrayList<>();
         String[] designations = {"Droit de port " + this.getEscale(), "Redevance communale " + this.getEscale(), "Stationnement " + this.getEscale()};
@@ -184,7 +215,6 @@ public class Prevision extends ClassEtat {
     }
 
     public Activite genererActivite(String u, Connection c, String designation, String awhere) throws Exception {
-        System.out.println("Designation==" + designation);
         Rubrique rubrique = getRubrique(c, awhere);
 
         Activite rep = new Activite();
