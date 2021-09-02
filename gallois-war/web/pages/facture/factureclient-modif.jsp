@@ -106,7 +106,7 @@
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
 
-        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
 
         affichage.Liste[] listed = new affichage.Liste[2];
