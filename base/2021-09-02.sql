@@ -155,3 +155,9 @@ AS
           LEFT JOIN TYPENAVIRE tn ON tn.id = na.TYPE
           LEFT JOIN CONSIGNATAIREMAT cons ON cons.CDCLT = pre.ARMATEUR
           LEFT JOIN FACTURECLIENT fc ON fc.IDPREVISION = pre.id;
+
+
+create view previsiontypeBornage as          
+select p.*,n.type from prevision p
+join navire n on p.navire=n.id
+where n.type='TYPE000062';    	  
