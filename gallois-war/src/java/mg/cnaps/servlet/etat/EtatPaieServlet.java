@@ -965,7 +965,8 @@ public class EtatPaieServlet extends HttpServlet {
             
             if(fc.getDeviseMere()!=null){
                  if(fc.getDeviseMere().compareToIgnoreCase("Dollars")==0){
-                    montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontant() ) )+" Dollars " ;            
+                    double montantDollar = mere[0].getMontant() / deviseDollar;
+                    montantlettre = ChiffreLettre.convertRealToString( new Double( montantDollar ) )+" Dollars " ;            
                 }
             }
            
