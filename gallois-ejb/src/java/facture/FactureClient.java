@@ -290,7 +290,7 @@ public class FactureClient extends ClassMere {
             throw new Exception("Rubrique deja facturee pour ce mois");
         }
     }
-
+    
     public void updateDeviseMere(Connection c) throws Exception {
         int verif = 0;
         try {
@@ -302,7 +302,7 @@ public class FactureClient extends ClassMere {
 
             this.setDeviseMere(Constante.deviseAr);
             if (this.getIdprevision() != null && this.getIdprevision().compareTo("") != 0) {
-                Prevision prevision = this.findPrevision(c);
+                Prevision prevision = this.findPrevision(null,c);
                 if (prevision != null && prevision.estNavireEtranger(c)) {
                     this.setDeviseMere(Constante.deviseDollars);
                 }
@@ -1300,10 +1300,12 @@ public class FactureClient extends ClassMere {
         }
     }
 
-    public Prevision findPrevision(Connection c) throws Exception {
+    public Prevision findPrevision(String nomtable,Connection c) throws Exception {
         String awhere = " and id = '%s'";
         awhere = String.format(awhere, this.getIdprevision());
-        Prevision[] result = (Prevision[]) CGenUtil.rechercher(new Prevision(), null, null, c, awhere);
+        Prevision pr=new Prevision();
+        if(nomtable==null || nomtable.compareTo("")==0) nomtable=pr.getNomTable();
+        Prevision[] result = (Prevision[]) CGenUtil.rechercher(pr, null, null, c, awhere);
         if (result.length == 0) {
             throw new Exception("Pas de prevision pour la facture " + this.getId());
         }

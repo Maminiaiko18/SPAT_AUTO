@@ -13,6 +13,7 @@ import fin.Coursdevise;
 import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.OccupationMaterielNaval;
+import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.Rubrique;
 import utilitaire.Constante;
@@ -485,8 +486,13 @@ public class FactureClientDetails extends ClassFille {
     public double getTauxRecentNormal(Connection c) throws Exception {
         this.findMere(c);
         Date date = this.getMere().getDaty();
-        if (this.getIdactivite() != null && this.getDatefact() != null) {
-            date = Utilitaire.ajoutJourDate(this.getDatefact(), -1);
+        if(this.getMere().getIdProvision()!=null){
+            Prevision prev=this.getMere().findPrevision("previsiontypeBornage",c);
+            if(prev.getType()!=null && prev.getType().compareTo(Constante.getNavireBornageEtPeche())!=0){ // cas escale
+                if (this.getIdactivite() != null && this.getDatefact() != null) {
+                    date =this.getDatefact();
+                }
+            }
         }
         return getValeurTaux(c, "coursdeviseNonMICTSL", date);
     }
