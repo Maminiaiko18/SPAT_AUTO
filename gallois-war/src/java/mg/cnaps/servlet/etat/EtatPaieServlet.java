@@ -805,7 +805,7 @@ public class EtatPaieServlet extends HttpServlet {
                  param.put("lmnavire",pre[0].getLmnavire());
                  param.put("provenance",pre[0].getValquaisprovenance());
                  param.put("escale",pre[0].getEscale());
-                 param.put("pavillonlib", pre[0].getPavillonnavire());
+                 param.put("pavillonlib", pre[0].getPavillonlib());
                  param.put("heure_depart",pre[0].getHeure_depart());
                  param.put("heure_arrivee",pre[0].getHeure_arrivee());
                  param.put("armateur",pre[0].getArmateurlib());
