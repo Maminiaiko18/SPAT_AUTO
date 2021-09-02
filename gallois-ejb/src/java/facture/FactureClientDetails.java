@@ -486,9 +486,9 @@ public class FactureClientDetails extends ClassFille {
     public double getTauxRecentNormal(Connection c) throws Exception {
         this.findMere(c);
         Date date = this.getMere().getDaty();
-        if(this.getMere().getIdProvision()!=null){
+        if(this.getMere().getIdprevision()!=null){
             Prevision prev=this.getMere().findPrevision("previsiontypeBornage",c);
-            if(prev.getType()!=null && prev.getType().compareTo(Constante.getNavireBornageEtPeche())!=0){ // cas escale
+            if(prev==null){ // cas escale
                 if (this.getIdactivite() != null && this.getDatefact() != null) {
                     date =this.getDatefact();
                 }

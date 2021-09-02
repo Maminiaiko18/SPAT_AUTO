@@ -40,7 +40,15 @@ public class Prevision extends ClassEtat {
     private String heure_depart;
     private String destination, escale;
     private String couleur = "#1E90FF";
-    private String noVoyage, armateur,armateurlib;
+    private String noVoyage, armateur,armateurlib,type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getArmateur() {
         return armateur;
@@ -111,17 +119,15 @@ public class Prevision extends ClassEtat {
             Activite[] activites=null;
             Navire nav=prevision.findNavire(c);
             if(nav!=null){
-                if(nav.getType()!=null){
-                    if(nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0) activites=prevision.genererActiviteViseesBP(user, c);
-                    else activites= prevision.genererActiviteVisees(user, c);
+                if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0) activites=prevision.genererActiviteViseesBP(user, c);
+                else activites= prevision.genererActiviteVisees(user, c);
 
-                    adminActivite.findactivite(getIdsFromTab(activites), c);
+                adminActivite.findactivite(getIdsFromTab(activites), c);
 
-                    facture = adminActivite.facturer(user, c);
-                    facture.setIdprevision(this.getId());
-                    facture.updateDeviseMere(c);
-                    facture.updateToTableWithHisto(user, c);
-                } else throw new Exception("Type de navire vide");
+                facture = adminActivite.facturer(user, c);
+                facture.setIdprevision(this.getId());
+                facture.updateDeviseMere(c);
+                facture.updateToTableWithHisto(user, c);
             }
             if (verif == 1) {
                 c.commit();
