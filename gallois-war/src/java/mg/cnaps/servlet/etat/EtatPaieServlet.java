@@ -135,6 +135,8 @@ public class EtatPaieServlet extends HttpServlet {
                 fact(request, response);
             }else if(action.equalsIgnoreCase("imprimerAvoir")){
                 imprimerAvoir(request, response);
+            }else if(action.equalsIgnoreCase("imprimerEtatProvision")){
+                imprimerEtatProvision(request, response);
             }
 
             
@@ -981,7 +983,19 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }        
     }
-    
+    private void imprimerEtatProvision(HttpServletRequest request, HttpServletResponse response) throws  Exception { 
+        try {
+            Map param = new HashMap();
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("EtatProvision");
+            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            //setNomJasper("facture_client2 - Copie");
+            UtilitaireImpression.imprimer(request, response, "etat-provision", param, null, getReportPath(), rt);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+    }    
   
     
 }
