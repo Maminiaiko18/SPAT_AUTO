@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EtatProvision" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7970a8ec-fb58-4615-b146-b968bf732a3d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<title>
+		<band height="122" splitType="Stretch">
+			<image>
+				<reportElement x="214" y="0" width="134" height="122" uuid="d35d42fd-6803-41e0-a8cd-01e4fea7aade"/>
+				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="365" y="102" width="100" height="20" uuid="10ac29fe-c3a9-4430-9ebc-c3373ee1f446"/>
+				<textElement>
+					<font isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Toamasina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="66" width="196" height="20" uuid="8de7cef4-6716-4791-815e-c5b361c7b6c9"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S P A T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="86" width="196" height="20" uuid="e2031349-f0ae-47f7-ae2c-2b9dfee3d5ae"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEPARTEMENT FACTURATION]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="417" splitType="Stretch">
+			<staticText>
+				<reportElement x="-6" y="35" width="555" height="31" uuid="852235ea-5c35-471d-a4a1-11219f688f2e"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ETAT DE PROVISION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="66" width="135" height="20" uuid="77a8e3e7-e525-40ed-aa5e-229c992db0fe"/>
+				<textElement>
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[N° Provision]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="106" width="135" height="20" uuid="383aca23-ddc0-4db8-91fe-bd6238ca6ba1"/>
+				<textElement>
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Navire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="146" width="135" height="20" uuid="5bb8af15-fdf2-442e-b23b-aa02cd10a283"/>
+				<textElement>
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Banque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="166" width="135" height="20" uuid="902d1506-a1fc-484e-95b5-902bf5612104"/>
+				<textElement>
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[N° Pièce]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="186" width="135" height="20" uuid="06630270-2dda-4157-9a08-953b575b3c4a"/>
+				<textElement>
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Montant provision]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="126" width="135" height="20" uuid="36b6753c-c502-45e5-a619-eeeab6a134f1"/>
+				<textElement>
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Mode de paiement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="86" width="135" height="20" uuid="1a573f08-c600-4744-ace5-cca8667b6489"/>
+				<textElement>
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Client]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="206" width="135" height="20" uuid="8e5aec69-70e0-4540-8354-8f77c2b007e1"/>
+				<textElement>
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Opération]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="257" width="129" height="20" uuid="337c1bdd-8ead-4acb-b4c5-5c2345ad22b2"/>
+				<textElement>
+					<font size="12" isItalic="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[N° Facture Proforma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="257" width="100" height="20" uuid="a0c4bdfb-be91-4aa9-9ae5-fada32ca964b"/>
+				<textElement>
+					<font size="12" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Montant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="320" width="135" height="20" uuid="1de44e7f-82e0-4d65-9b17-65b3df994800"/>
+				<textElement>
+					<font size="12" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Total Proforma:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="364" width="198" height="20" uuid="33fabd50-5de7-4862-b114-5a6ad1fe7f4b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Le Chef du département facturation]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
