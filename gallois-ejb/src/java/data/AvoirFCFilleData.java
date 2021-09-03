@@ -44,7 +44,8 @@ public class AvoirFCFilleData {
                 verif = 1;
             }            
             FactureClientDetails p = new FactureClientDetails();
-            p.setNomTable("FACTURE_CLIENT_MONTANT");
+            //p.setNomTable("FACTURE_CLIENT_MONTANT");
+            p.setNomTable("facture_client_filleTTC");
             fcdetails = (FactureClientDetails[]) CGenUtil.rechercher(p, null, null, " and idmere = '" + idfacture+ "'");
             
             if(c!=null && verif==1) c.commit();

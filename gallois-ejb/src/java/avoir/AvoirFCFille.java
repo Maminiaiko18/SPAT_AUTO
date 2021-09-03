@@ -151,9 +151,8 @@ public class AvoirFCFille extends ClassFille {
     public void setMontant(double montant) throws Exception {
         if(this.getMode().equalsIgnoreCase("modif")){
             FactureClientDetails fc = getFactureClientDetail(null);
-            double montantDetail = fc.getPu() * fc.getQuantite();
             if (this.getRemise() > 0)
-                montant=(montantDetail * this.getRemise())/100;
+                montant=(fc.getMontantTTC() * this.getRemise())/100;
         }
         this.montant = montant;
     }
@@ -199,7 +198,7 @@ public class AvoirFCFille extends ClassFille {
                 verif = 1;
             }
             FactureClientDetails fc = new FactureClientDetails();
-            fc.setNomTable("facture_client_fille");
+            fc.setNomTable("facture_client_filleTTC");
             String awhere = String.format(" and id = '%s' ", this.getIddetailfacture());
             FactureClientDetails[] result = (FactureClientDetails[])CGenUtil.rechercher(fc, null, null, c, awhere);
             if(result != null && result.length > 0)

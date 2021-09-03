@@ -35,12 +35,20 @@ public class FactureClientDetails extends ClassFille {
     private double montanttaux;
     private double montantavoirsanstaux;
     private double montantavoiravectaux;
-    private double qtelivree, restealivrer; 
+    private double qtelivree, restealivrer,montantTTC; 
     private Date datefact;
     private String rubriquelib, idprestation,clientlib;
     private int mois, annee;
     private String heureDebut, heureFin, moislib,anneelib;
     private double montantHTEuro,montantTVAEuro, montanttaxe,majoration,reduction;
+
+    public double getMontantTTC() {
+        return montantTTC;
+    }
+
+    public void setMontantTTC(double montantTTC) {
+        this.montantTTC = montantTTC;
+    }
 
     public FactureClientDetails(String id, String idmere, double quantite, double pu, double taux, String compte, String idproduit, String produit_lib, String devise, String designation, String idProduitLib, String idactivite, String categorieFacturelib, String categorieClientlib, String activitelib, String rubrique, FactureClient mere, double montant, double montanttaux, double montantavoirsanstaux, double montantavoiravectaux, double qtelivree, double restealivrer, Date datefact, String rubriquelib, String idprestation, String clientlib, int mois, int annee, String heureDebut, String heureFin, String moislib, String anneelib, double montantHTEuro, double montantTVAEuro, double montanttaxe, double majoration, double reduction, double tva) {
         setNomTable("facture_client_fille");

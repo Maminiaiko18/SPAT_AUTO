@@ -52,9 +52,10 @@
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
         for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){;
             pi.getFormufle().getChamp("iddetailfacture_"+i).setDefaut(data[i].getId());
-            pi.getFormufle().getChamp("montantdf_"+i).setDefaut(""+data[i].getMontant());
+            pi.getFormufle().getChamp("montantdf_"+i).setDefaut(""+data[i].getMontantTTC());
             pi.getFormufle().getChamp("devise_"+i).setDefaut(data[i].getDevise());
             pi.getFormufle().getChamp("designation_"+i).setDefaut(data[i].getDesignation());
+            pi.getFormufle().getChamp("remise_"+i).setDefaut("100");
         }
     }
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
