@@ -35,6 +35,7 @@
     pc.getChampByName("Idcategorie").setVisible(false);
     pc.getChampByName("IdProvision").setVisible(true);
     pc.getChampByName("idProvisionlib").setVisible(false);
+    pc.getChampByName("montanttva").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("montant").setLibelle("Montant HT");
