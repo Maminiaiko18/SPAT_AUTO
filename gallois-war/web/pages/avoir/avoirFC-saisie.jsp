@@ -93,6 +93,8 @@
     }
     
     liste[2].setDeroulanteDependante(liste[1], "desce", "onblur");
+    liste[2].setDeroulanteDependante(liste[0], "type", "onclick");
+    
     pi.getFormu().changerEnChamp(liste);
 
 //    affichage.Champ[] listeFille = new affichage.Champ[1];
