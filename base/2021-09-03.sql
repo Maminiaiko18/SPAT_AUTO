@@ -30,3 +30,34 @@ AS
           END
              AS etatlib
      FROM AVOIRFC_MONTANT op;
+	 
+create or replace view facture_client_filleHT as
+        select 
+            ff.*,
+            cast(ff.quantite*ff.pu as number(30,3)) as montantHTSimple
+        from facture_client_fille ff;
+
+create or replace view facture_client_filleMR as
+        select
+            ff.*,
+            (montantHTSimple*majoration)/100 as montantMaj,
+            (montantHTSimple*reduction)/100 as montantRed
+        from facture_client_filleHT ff;
+
+create or replace view facture_client_filleNet as
+        select
+            ff.*,
+            montantHTSimple+montantMaj-montantRed as montantNET
+        from facture_client_filleMR ff;
+
+create or replace view facture_client_filleWithTVA as
+        select
+            ff.*,
+            (montantNET*tva)/100 as montantTVA
+        from facture_client_filleNet ff;		
+		
+create or replace view facture_client_filleTTC as
+        select
+            ff.*,
+            montantNET+montantTVA as montantTTC
+        from facture_client_filleWithTVA ff;		
