@@ -33,12 +33,13 @@
     String ajoutAffiche[]={"Non","Oui"};
     liste[1]=new Liste("estMICTSL"); 
     ((Liste)liste[1]).ajouterValeur(ajoutValeur,ajoutAffiche);
-     
-     pi.getFormu().changerEnChamp(liste);
-	
-     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
-     pi.getFormu().getChamp("daty").setLibelle("Date");
-     pi.getFormu().getChamp("iddevise").setLibelle("devise");
+    String[] ordre = {"daty","iddevise", "montant", "estMICTSL"};
+    pi.getFormu().changerEnChamp(liste);
+
+    pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
+    pi.getFormu().getChamp("daty").setLibelle("Date");
+    pi.getFormu().getChamp("iddevise").setLibelle("devise");
+    pi.getFormu().setOrdre(ordre);
     pi.getFormu().getChamp("estMICTSL").setLibelle("Est MICTSL");
             
     pi.preparerDataFormu();
