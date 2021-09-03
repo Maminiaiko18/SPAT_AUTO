@@ -12,14 +12,14 @@
 <%
     try {
         FactureClient ff = new FactureClient();
-        String[] etatVal = {"factureClientValide", "facture_client_unionC", "FACTURE_CLIENT_UNIONV", "factureclientApayer"};
-        String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "A payer"};
+        String[] etatVal = {"factureClientValide", "facture_client_unionC", "FACTURE_CLIENT_UNIONV", "factureclientApayer", "factureclientAuComptant", "factureclientACredit"};
+        String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "A payer", "Au comptant", "A crédit"};
         ff.setNomTable(etatVal[0]);
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib"};
+        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib", "code"};
         String listeInt[] = {"daty","date_echeance"};
         String libEntete[] = {"id","daty","tierslib","escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
 
