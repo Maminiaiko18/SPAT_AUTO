@@ -116,6 +116,8 @@
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
     
+    String[] ordre = {"id","daty","idfacture","etat","designation","code","type","categorie","motif"};
+    pi.getFormu().setOrdre(ordre);
     
     pi.preparerDataFormu();
        
