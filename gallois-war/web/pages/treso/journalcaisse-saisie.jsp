@@ -58,7 +58,7 @@
         
         
 
-        affichage.Liste[] liste = new affichage.Liste[4];
+        affichage.Liste[] liste = new affichage.Liste[5];
 
         TypeObjet esc = new TypeObjet();
         esc.setNomTable("CAISSE_LIB");
@@ -76,6 +76,11 @@
         TypeObjet mode = new TypeObjet();
         mode.setNomTable("MODEPAIEMENT");
         liste[3] = new Liste("idmode", mode, "desce", "id");
+        
+        TypeObjet banq = new TypeObjet();
+        banq.setNomTable("BANQUE");
+        liste[4] = new Liste("banque", banq, "VAL", "id");
+        
         pi.getFormu().changerEnChamp(liste);
 
         pi.getFormu().changerEnChamp(liste);
