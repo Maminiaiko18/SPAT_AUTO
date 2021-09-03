@@ -39,6 +39,7 @@
     pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+    pi.getFormu().getChamp("tva").setVisible(false);
     
     
     pi.getFormu().getChamp("tiers").setAutre("readonly");
