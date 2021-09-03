@@ -33,7 +33,18 @@ public class JournalCaisse extends ClassEtat {
 
     private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib;
     private double sommeCredit, sortie, entree;
+    private String banque;
 
+    public String getBanque() {
+        return banque;
+    }
+
+    public void setBanque(String banque) {
+        this.banque = banque;
+    }
+    
+    
+    
     public double getSortie() {
         return sortie;
     }
@@ -121,6 +132,40 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         this.setCredit(credit);
     }
 
+    public JournalCaisse(String id, String folio, String caisse, String numPiece, String libelle, String remarque, String tiers, String idTypeCheque, String idplacement, String valCaisse, String valTypeCheque, String desceTypeCheque, String tiersLib, double sommeCredit, double sortie, double entree, String banque, String designation, String iddevise, String idmode, String numcheque, String typemvt, String idordre, double reste, Date dateSaisie, Date dateEffet, double debit, double credit, double montant) {
+        this.id = id;
+        this.folio = folio;
+        this.caisse = caisse;
+        this.numPiece = numPiece;
+        this.libelle = libelle;
+        this.remarque = remarque;
+        this.tiers = tiers;
+        this.idTypeCheque = idTypeCheque;
+        this.idplacement = idplacement;
+        this.valCaisse = valCaisse;
+        this.valTypeCheque = valTypeCheque;
+        this.desceTypeCheque = desceTypeCheque;
+        this.tiersLib = tiersLib;
+        this.sommeCredit = sommeCredit;
+        this.sortie = sortie;
+        this.entree = entree;
+        this.banque = banque;
+        this.designation = designation;
+        this.iddevise = iddevise;
+        this.idmode = idmode;
+        this.numcheque = numcheque;
+        this.typemvt = typemvt;
+        this.idordre = idordre;
+        this.reste = reste;
+        this.dateSaisie = dateSaisie;
+        this.dateEffet = dateEffet;
+        this.debit = debit;
+        this.credit = credit;
+        this.montant = montant;
+    }
+
+    
+    
     public JournalCaisse(String folio, String caisse, String numPiece, String libelle, String remarque, String tiers, String idTypeCheque, Date dateSaisie, Date dateEffet, double debit, double credit) throws Exception {
         super.setNomTable("journalcaisse");
         this.setFolio(folio);
