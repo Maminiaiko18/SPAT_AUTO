@@ -1,3 +1,4 @@
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="avoir.AvoirFCLibComplet"%>
 <%@page import="bean.AdminGen"%>
 <%@page import="avoir.Avoir"%>
@@ -9,7 +10,7 @@
 <%
     AvoirFCLibComplet cht = new AvoirFCLibComplet();
     cht.setNomTable("AVOIRFC_MONTANTLIBETAT");
-    String libEntete[] = {"id", "daty", "montant", "etatlib", "tierslib", "montantpaye", "montantreste", "code"};
+    String libEntete[] = {"id", "code", "daty", "tierslib", "montant", "montantpaye", "montantreste", "etatlib"};
     String listeCrt[] = {"idfacture"};
     String listeInt[] = {};
 
@@ -23,7 +24,7 @@
         pr.setAWhere(" and idfacture = '"+request.getParameter("idfacture")+"' ");
     }
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "Date", "Montant", "Etat", "Tiers", "Montant paye", "Montant reste", "Code"};
+    String libEnteteAffiche[] = {"id", "Code", "Date", "Client","Montant", "Montant paye", "Montant reste", "Etat"};
     String lienTableau[] = {pr.getLien() + "?but=avoir/avoirFC-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
@@ -41,7 +42,7 @@
             <tr>
                 <td colspan="5"></td>
                 <th width="20%" align="right">Montant total</th>
-                <td width="20%" align="right"><%=total%></td>
+                <td width="20%" align="right"><%=Utilitaire.formaterAr(total)%> Ar</td>
             </tr>
         </table>
     <% }else{
