@@ -1,6 +1,7 @@
 CREATE OR REPLACE FORCE VIEW AVOIRFC_MONTANTLIBETAT
 (
    ID,
+   CODE,
    DATY,
    IDFACTURE,
    ETAT,
@@ -13,6 +14,7 @@ CREATE OR REPLACE FORCE VIEW AVOIRFC_MONTANTLIBETAT
 )
 AS
    SELECT op."ID",
+		  op."CODE",
           op."DATY",
           op."IDFACTURE",
           op."ETAT",
