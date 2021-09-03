@@ -77,18 +77,22 @@
     
     TypeObjet motif = new TypeObjet();
     motif.setNomTable("motifAvoirFC");
+    if (request.getParameter("type")!=null) {
+        motif.setDesce(request.getParameter("type"));
+    }
     
     liste[0] = new Liste("categorie",categorie, "val", "id");
     liste[1] = new Liste("motif",motif, "val", "id");
     
-    String[]valeurChampType = {"1", "2"};
-    String[]afficheChampType = {"interne", "externe"};
+    TypeObjet typeAv = new TypeObjet();
+    typeAv.setNomTable("typeAvoirFC");
+    liste[2] = new Liste("type", typeAv, "val", "id");
     
-    liste[2] = new Liste("type");
-    liste[2].ajouterValeur(valeurChampType, afficheChampType);
     if (request.getParameter("type")!=null) {
         liste[2].setDefaut(request.getParameter("type"));
     }
+    
+    liste[2].setDeroulanteDependante(liste[1], "desce", "onblur");
     pi.getFormu().changerEnChamp(liste);
 
 //    affichage.Champ[] listeFille = new affichage.Champ[1];
