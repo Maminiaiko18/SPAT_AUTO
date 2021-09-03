@@ -583,7 +583,7 @@ public class EtatPaieServlet extends HttpServlet {
                 
             String idFacture = request.getParameter("idFacture");
             FactureAnalyse facture = new FactureAnalyse();
-            facture.setNomTable("ANALYSEGLOBALEFACTURE_ANALYSE");
+            facture.setNomTable("facture_client_union");
             facture.setNmfact(idFacture);
             FactureAnalyse[] tabFact = (FactureAnalyse[]) CGenUtil.rechercher( facture , null, null, "  ") ;
             Map param = new HashMap();   
