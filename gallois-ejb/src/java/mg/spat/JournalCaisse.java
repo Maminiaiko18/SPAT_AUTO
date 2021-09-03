@@ -299,31 +299,22 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if (report.length > 0) {
                 throw new Exception("Caisse deja reportee");
             }
-            //ClotureService.modifSequentiel(this.debit,this.credit,this.dateEffet,this.caisse,c);
             if (this.getTypemvt() != null && this.getTypemvt().compareToIgnoreCase(Constante.financeTypeAnnulation) == 0) {
                 return;
             }
-            /*
-            EtatOP[] sop = (EtatOP[]) CGenUtil.rechercher(new EtatOP(), null, null, " AND ID = '" + this.getIdordre() + "'");
-            if (sop.length > 0) {
-                if (sop[0].getReste() == 0) {
-                    throw new Exception("Mvt Caisse DEJA PAYE");
-                }
-                if (this.getDebit() > sop[0].getReste()) {
-                    throw new Exception("Montant superieur reste a payer");
-                }
-            }*/
+            if(this.getIdordre()==null){
             
-            FactureClient fc = findFactureClient(c);
-            if(fc != null) {
-                if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
-                if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
-            }
-            
-            AvoirFC avoir = findAvoirFC(c);
-            if(avoir != null) {
-                if(avoir.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Avoir non visee");
-                if(this.getDebit() > avoir.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                FactureClient fc = findFactureClient(c);
+                if(fc != null) {
+                    if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
+                    if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                }
+
+                AvoirFC avoir = findAvoirFC(c);
+                if(avoir != null) {
+                    if(avoir.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Avoir non visee");
+                    if(this.getDebit() > avoir.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                }
             }
         } catch (Exception e) {
             throw e;
@@ -432,7 +423,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         fc = (FactureClient) fc.getById(this.getIdplacement(), "FACTURE_CLIENT_UNION", c);
 
         if (fc != null) {
-            if(fc.getMontantreste() <= 0) throw new Exception("Facture déjà payée en totalité" + fc.getId());
+            //if(fc.getMontantreste() <= 0) throw new Exception("Facture déjà payée en totalité" + fc.getId());
+            System.out.println("MontantReste="+fc.getMontantreste()+" et credit="+this.getCredit());
             if (fc.getMontantreste() < this.getCredit()) {
                 throw new Exception("Montant supérieur au reste à payer");
             }
@@ -461,34 +453,33 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 throw new Exception("mouvement caissse deja valide");
             }
             if (this.getIdordre() != null) {
-                this.traitementOP(user, c);
-            }
-            if (this.getIdplacement() != null) {
-                if (this.getIdplacement().startsWith("FC")) {
-                    checkMontantFactureClient(c);
-                } else {
-                    this.traitementPlacement(user, c);
-                }
-
-                FactureClient fc = findFactureClient(c);
-                if(fc != null) {
-                    PaiementFacture paiementFact = new PaiementFacture();
-                    paiementFact.setIdMvt(this.getId());
-                    paiementFact.setIdFact(fc.getId());
-                    paiementFact.setMontant(this.getCredit());
-                    
-                    paiementFact.createObject(refuser, c);
-                }
-                
-                OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c);
-                
+                this.traitementOP(user, c); 
+                OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir
                 if(op != null) {
+                    if(op.getType().compareTo("1")==0) throw new Exception("Impossible a payer : avoir interne");
                     PaiementFacture paiementFact = new PaiementFacture();
                     paiementFact.setIdMvt(this.getId());
                     paiementFact.setIdFact(op.getIdfacture());
                     paiementFact.setMontant(-op.getMontant());
                     
                     paiementFact.createObject(refuser, c);
+                }
+            }else{
+                if (this.getIdplacement() != null) {
+                    if (!this.getIdplacement().startsWith("FC")) {
+                        this.traitementPlacement(user, c);
+                    }
+
+                    FactureClient fc = findFactureClient(c);
+                    if(fc != null) {
+                        checkMontantFactureClient(c); 
+                        PaiementFacture paiementFact = new PaiementFacture();
+                        paiementFact.setIdMvt(this.getId());
+                        paiementFact.setIdFact(fc.getId());
+                        paiementFact.setMontant(this.getCredit());
+
+                        paiementFact.createObject(refuser, c);
+                    }
                 }
             }
 

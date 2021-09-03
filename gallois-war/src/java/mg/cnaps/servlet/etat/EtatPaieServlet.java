@@ -925,7 +925,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("typeavoir",mere[0].getTypelib());   
             
             
-            FactureClient fc = mere[0].getFactureLiee(null);
+            FactureClient fc = mere[0].getFactureLiee(null,null);
             fc.initDetails(null);
             double deviseEuro = fc.getDeviseEuro();
             double deviseDollar = fc.getDeviseDollar();            

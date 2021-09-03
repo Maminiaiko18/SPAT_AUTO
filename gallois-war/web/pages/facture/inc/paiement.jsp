@@ -3,6 +3,7 @@
     Created on : 26 mai 2021, 08:56:48
     Author     : nyamp
 --%>
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="mg.spat.JournalCaisseLibComplet"%>
 <%@page import="bean.AdminGen"%>
 <%@page import="affichage.TableauRecherche"%>
@@ -46,8 +47,8 @@
         </tr>
         <tr>
             <td align="right"></td>
-            <td align="right"><%=totalCredit%></td>
-            <td align="right"><%=totaldebit%></td>
+            <td align="right"><%=Utilitaire.formaterAr(totalCredit)%></td>
+            <td align="right"><%=Utilitaire.formaterAr(totaldebit)%></td>
         </tr>
     </table>
 
