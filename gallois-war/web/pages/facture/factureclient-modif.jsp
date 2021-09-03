@@ -92,6 +92,7 @@
         pi.getFormu().getChamp("codePrestationlib").setVisible(false);
         pi.getFormu().getChamp("codePrestation").setVisible(false);
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
+        pi.getFormu().getChamp("tva").setVisible(false);    
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
