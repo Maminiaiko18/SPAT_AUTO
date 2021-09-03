@@ -17,11 +17,14 @@
         a = new Coursdevise();
         a.setNomTable("coursdeviselib");
         PageConsulte pc = new PageConsulte(a, request, (user.UserEJB) session.getValue("u"));
-        
+        String[] ordre = {"daty"};
+        pc.setOrdre(ordre);
         pc.getChampByName("iddevise").setLibelle("Devise");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("estMICTSLlib").setLibelle("Est MICTSL");
         pc.getChampByName("estMICTSL").setVisible(false);
+        
+        
         
         pc.setTitre("Fiche cours devise");
         
