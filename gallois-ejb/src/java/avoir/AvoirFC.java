@@ -300,14 +300,12 @@ public class AvoirFC extends ClassMere {
 	
     public FactureClient getFactureLiee(String nomtable, Connection c) throws Exception {
     int verif = 0;
-    try {
+        try {
             if (c == null) {
                     c = (new UtilDB()).GetConn();
                     verif = 1;
             }
-            if(nomtable == null){
-                nomtable = this.getNomTable();
-            }
+            if(nomtable == null || nomtable.compareTo("")==0) nomtable = "facture_client_union";
             FactureClient fc = new FactureClient();
             fc.setNomTable(nomtable);
             String awhere = String.format(" and id = '%s' ", this.getIdfacture());
@@ -315,17 +313,19 @@ public class AvoirFC extends ClassMere {
             if(result != null && result.length > 0) 
                     return result[0];
             return null;
-    } finally {
+        } catch(Exception e){
+            throw e;
+        }finally {
             if (c != null && verif == 1) {
                     c.close();
             }
-    }
+        }
     }
 	
-	public FactureClient getFactureLiee(Connection conn)throws Exception{
+	/*public FactureClient getFactureLiee(Connection conn)throws Exception{
         int verify =0;
         try{    
-            String nomTable = "facture_client_union";
+            
             if (conn == null) {
                 conn = (new UtilDB()).GetConn();
                 verify = 1;
@@ -340,8 +340,8 @@ public class AvoirFC extends ClassMere {
         }finally{
             if(conn!=null && verify == 1) conn.close();
         }
-    }
-         public AvoirFCFille[] getAvoirFilles(String nomTable, Connection c) throws Exception{
+    }*/
+    public AvoirFCFille[] getAvoirFilles(String nomTable, Connection c) throws Exception{
         if(nomTable == null){
             nomTable = "avoirFCFille";
         }
@@ -356,7 +356,7 @@ public class AvoirFC extends ClassMere {
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
         if(this.getType().equals("1")){
-            this.getFactureLiee(c).annuler(c);
+            this.getFactureLiee("factureclient",c).annuler(c);
         }
         return super.validerObject(u, c); 
     }
