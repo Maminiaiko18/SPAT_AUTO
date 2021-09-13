@@ -744,10 +744,10 @@ public class EtatPaieServlet extends HttpServlet {
             {
                 arrList.add(details[i]);
             }
-            mere[0].setListeDetails(arrList);
+            //mere[0].setListeDetails(arrList);
             
             List dataSources = new ArrayList();
-            dataSources.addAll(mere[0].getListeDetails());
+            //dataSources.addAll(mere[0].getListeDetails());
             
             param.put("list_table",dataSources);
             
