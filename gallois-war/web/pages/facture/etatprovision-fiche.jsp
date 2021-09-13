@@ -16,15 +16,17 @@
     pc.getChampByName("idnavire").setVisible(false);
     pc.getChampByName("idmode").setVisible(false);
     pc.getChampByName("idbanque").setVisible(false);
-      pc.getChampByName("Numpiece").setLibelle("Numero du piece");
-    pc.getChampByName("NumProvision").setLibelle("Numero porovision");
+      pc.getChampByName("numpiece").setLibelle("Numero du piece");
+    pc.getChampByName("numProvision").setLibelle("Numero porovision");
     pc.getChampByName("tierslib").setLibelle("Tiers");
-    pc.getChampByName("idnavelib").setLibelle("Navire");
-    pc.getChampByName("idmodelib").setLibelle("Mode")..setLien((String) session.getValue("lien") + "?but=capitainerie/navire-fiche.jsp&id=");
+    pc.getChampByName("idnavirelib").setLibelle("Navire");
+    
+    pc.getChampByName("idmodelib").setLibelle("Mode");
     pc.getChampByName("idbanquelib").setLibelle("Banque");
     pc.getChampByName("IdFacturelib").setLibelle("Facture");
     pc.setTitre("Fiche etat provision");
     a=(EtatProvision)pc.getBase();
+    pc.getChampByName("idnavirelib").setLien((String) session.getValue("lien") + "?but=capitainerie/navire-fiche.jsp&id="+a.getIdnavire(), "id=");
 %>
 <div class="content-wrapper">
     <div class="row">
