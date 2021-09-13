@@ -48,6 +48,7 @@ import mg.spat.stock.*;
 import utilitaire.ChiffreLettre;
 import ded.BonEngagementPDF;
 import caisse.SituationComptesData;
+import facture.EtatProvision;
 import java.util.Collection;
 import mg.amadia.stock.EtatdeStockDate;
 import mg.amadia.stock.RecapitulatifComptesSubReport;
@@ -986,6 +987,32 @@ public class EtatPaieServlet extends HttpServlet {
     private void imprimerEtatProvision(HttpServletRequest request, HttpServletResponse response) throws  Exception { 
         try {
             Map param = new HashMap();
+            String id = request.getParameter("id");
+            EtatProvision a = new EtatProvision();
+            a.setNomTable("etat_provisionlib");    
+            param.put("daty",utilitaire.Utilitaire.dateDuJourSql());
+            EtatProvision[] mere = (EtatProvision[]) CGenUtil.rechercher(a, null, null, null, " and id = '"+id+"'");
+            String idfc = "";
+            if(mere.length!=0){
+                param.put("numprovision", mere[0].getNumProvision());
+                param.put("tierslib", mere[0].getTierslib());
+                param.put("idnavirelib", mere[0].getIdnavirelib());
+                param.put("idmodelib", mere[0].getIdmodelib());
+                param.put("idbanquelib", mere[0].getIdbanquelib());
+                param.put("numpiece", mere[0].getNumpiece());
+                param.put("operation", mere[0].getOperation());
+                idfc = mere[0].getIdFacture();
+            }
+            
+            FactureClient fc = new FactureClient();
+            fc.setNomTable("facture_client_union");
+            FactureClient[] fclt = (FactureClient[]) CGenUtil.rechercher(fc, null, null, null, " and id = '"+idfc+"'");
+            if(fclt.length!=0){
+                param.put("montantttc", fclt[0].getMontantttc());
+                param.put("code", fclt[0].getCode());
+            }
+            
+            
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("EtatProvision");
             //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;

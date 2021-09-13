@@ -27,6 +27,7 @@
     pc.setTitre("Fiche etat provision");
     a=(EtatProvision)pc.getBase();
     pc.getChampByName("idnavirelib").setLien((String) session.getValue("lien") + "?but=capitainerie/navire-fiche.jsp&id="+a.getIdnavire(), "id=");
+    String id = a.getId();
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -44,7 +45,7 @@
                         <br/>
                         </div>
                         <div class="box-footer" style="margin-left:30%">
-                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/eta-provision.jsp&id=" + request.getParameter("id") %>" style="margin-right: 10px">Etat de provision</a>
+                            <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerEtatProvision&id=<%=id%>" style="margin-right: 10px">Etat de provision</a>
                         </div>                    
                 </div>
             </div>
