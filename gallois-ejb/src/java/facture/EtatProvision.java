@@ -20,7 +20,7 @@ public class EtatProvision extends ClassMAPTable {
     private Date daty;
 
     public EtatProvision(){ 
-        this.setNomTable("etatprovision");
+        this.setNomTable("etat_provision");
     }
     
     public EtatProvision(String id, double montantfacture, double montantprovision, double ecart, double montantpaye) {
