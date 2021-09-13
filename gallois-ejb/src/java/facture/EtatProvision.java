@@ -16,7 +16,7 @@ import java.sql.Date;
 public class EtatProvision extends ClassMAPTable {
     private String id;
     private double montantfacture, montantprovision, ecart,montantpaye;
-    private String tierslib;
+    private String tiers,tierslib;
     private Date daty;
 
     public EtatProvision(){ 
@@ -41,7 +41,16 @@ public class EtatProvision extends ClassMAPTable {
         this.daty = daty;
     }
     
-    
+    public EtatProvision(String id, double montantfacture, double montantprovision, double ecart, double montantpaye, String tiers, String tierslib, Date daty) {
+        this.id = id;
+        this.montantfacture = montantfacture;
+        this.montantprovision = montantprovision;
+        this.ecart = ecart;
+        this.montantpaye = montantpaye;
+        this.tiers = tiers;
+        this.tierslib = tierslib;
+        this.daty = daty;
+    }
     
     public Date getDaty() {
         return daty;
@@ -102,6 +111,14 @@ public class EtatProvision extends ClassMAPTable {
 
     public void setTierslib(String tierslib) {
         this.tierslib = tierslib;
+    }
+    
+    public String getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(String tiers) {
+        this.tiers = tiers;
     }
     
 }
