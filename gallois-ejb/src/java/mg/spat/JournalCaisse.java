@@ -31,7 +31,7 @@ import utilitaire.Utilitaire;
  */
 public class JournalCaisse extends ClassEtat {
 
-    private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib;
+    private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib;
     private double sommeCredit, sortie, entree;
     private String banque;
 
@@ -113,7 +113,21 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         this.montant = montant;
     }
 
-    
+    public String getIdbanque() {
+        return idbanque;
+    }
+
+    public void setIdbanque(String idbanque) {
+        this.idbanque = idbanque;
+    }
+
+    public String getIdbanquelib() {
+        return idbanquelib;
+    }
+
+    public void setIdbanquelib(String idbanquelib) {
+        this.idbanquelib = idbanquelib;
+    }
 
     public JournalCaisse() {
         super.setNomTable("journalcaisse");
@@ -191,6 +205,40 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         this.setDateSaisie(dateSaisie);
         this.setDateEffet(dateEffet);
         this.setDebit(debit);
+    }
+    
+    public JournalCaisse(String id, String folio, String caisse, String numPiece, String libelle, String remarque, String tiers, String idTypeCheque, String idplacement, String valCaisse, String valTypeCheque, String desceTypeCheque, String tiersLib, String idbanque, String idbanquelib, double sommeCredit, double sortie, double entree, String banque, String designation, String iddevise, String idmode, String numcheque, String typemvt, String idordre, double reste, Date dateSaisie, Date dateEffet, double debit, double credit, double montant) {
+        this.id = id;
+        this.folio = folio;
+        this.caisse = caisse;
+        this.numPiece = numPiece;
+        this.libelle = libelle;
+        this.remarque = remarque;
+        this.tiers = tiers;
+        this.idTypeCheque = idTypeCheque;
+        this.idplacement = idplacement;
+        this.valCaisse = valCaisse;
+        this.valTypeCheque = valTypeCheque;
+        this.desceTypeCheque = desceTypeCheque;
+        this.tiersLib = tiersLib;
+        this.idbanque = idbanque;
+        this.idbanquelib = idbanquelib;
+        this.sommeCredit = sommeCredit;
+        this.sortie = sortie;
+        this.entree = entree;
+        this.banque = banque;
+        this.designation = designation;
+        this.iddevise = iddevise;
+        this.idmode = idmode;
+        this.numcheque = numcheque;
+        this.typemvt = typemvt;
+        this.idordre = idordre;
+        this.reste = reste;
+        this.dateSaisie = dateSaisie;
+        this.dateEffet = dateEffet;
+        this.debit = debit;
+        this.credit = credit;
+        this.montant = montant;
     }
 
     public void construirePK(Connection c) throws Exception {
