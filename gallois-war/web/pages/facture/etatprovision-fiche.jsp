@@ -17,7 +17,7 @@
     pc.getChampByName("idmode").setVisible(false);
     pc.getChampByName("idbanque").setVisible(false);
       pc.getChampByName("numpiece").setLibelle("Numero du piece");
-    pc.getChampByName("numProvision").setLibelle("Numero porovision");
+    pc.getChampByName("numProvision").setLibelle("Numero du provision");
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("idnavirelib").setLibelle("Navire");
     
