@@ -66,7 +66,6 @@ public class SituationCredit extends LigneCredit{
             "         l.MONTANT, l.etat";
 //                     + ", mf.DATY";
 
-            System.out.println("req " + req);
             SituationCredit stock = new SituationCredit();
             stock.setNomTable("situationLC_vide");
             ret = (SituationCredit[]) CGenUtil.rechercher(stock, req, c);
