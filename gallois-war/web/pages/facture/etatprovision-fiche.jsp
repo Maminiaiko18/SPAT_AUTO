@@ -45,7 +45,7 @@
                         <br/>
                         </div>
                         <div class="box-footer" style="margin-left:30%">
-                            <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerEtatProvision&id=<%=id%>" style="margin-right: 10px">Etat de provision</a>
+                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien")%>?but=facture/etatprovision-liste.jsp" style="margin-right: 10px">Etat de provision</a>
                         </div>                    
                 </div>
             </div>
