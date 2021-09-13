@@ -21,7 +21,7 @@ public class EtatProvision extends ClassMAPTable {
     
     private String numpiece;
     private String numProvision;
-    private String operation, idmode;
+    private String operation;
     private String idnavire, idnavirelib;
     private String idmode, idmodelib;
     private String idbanque, idbanquelib;
@@ -88,14 +88,6 @@ public class EtatProvision extends ClassMAPTable {
 
     public void setIdbanque(String idbanque) {
         this.idbanque = idbanque;
-    }
-
-    public String getIdmode() {
-        return idmode;
-    }
-
-    public void setIdmode(String idmode) {
-        this.idmode = idmode;
     }
 
     public String getIdFacturelib() {
