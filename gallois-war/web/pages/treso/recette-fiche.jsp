@@ -9,6 +9,9 @@
 <%@ page import="affichage.*" %>
 
 <%
+try {
+            
+        
     JournalCaisse journal = new JournalCaisse();
     journal.setNomTable("JOURNALCAISSELIBCOMPLET");
     PageConsulte pc = new PageConsulte(journal, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
@@ -29,8 +32,8 @@
     pc.getChampByName("credit").setLibelle("Sortie");
     pc.getChampByName("credit").setLibelle("Entree");
     pc.getChampByName("debit").setLibelle("Sortie");
-    pc.getChampByName("banquelib").setLibelle("Banque");
-    pc.getChampByName("banque").setVisible(false);
+    pc.getChampByName("idbanquelib").setLibelle("Banque");
+    pc.getChampByName("idbanque").setVisible(false);
     pc.getChampByName("caisse").setVisible(false);
     pc.getChampByName("idmode").setVisible(false);
     pc.getChampByName("idTypeCheque").setVisible(false);
@@ -131,5 +134,8 @@
             </div>
     </div>
 </div>
+<% } catch (Exception e) {
+    e.printStackTrace();
+}%>
 
 
