@@ -52,6 +52,8 @@
             pi.getFormu().getChamp("idplacement").setDefaut("" + facture.getNmfact());
             pi.getFormu().getChamp("tiers").setDefaut(client);
             pi.getFormu().getChamp("idplacement").setDefaut(idfact);
+            
+            
         }
         
         
@@ -79,7 +81,7 @@
         
         TypeObjet banq = new TypeObjet();
         banq.setNomTable("BANQUE");
-        liste[4] = new Liste("banque", banq, "VAL", "id");
+        liste[4] = new Liste("idbanque", banq, "VAL", "id");
         
         pi.getFormu().changerEnChamp(liste);
 
@@ -87,6 +89,7 @@
         pi.getFormu().getChamp("dateSaisie").setVisible(false);
         pi.getFormu().getChamp("typemvt").setVisible(false);
 
+        pi.getFormu().getChamp("idbanque").setLibelle("Banque");
         pi.getFormu().getChamp("idmode").setLibelle("Mode");
         pi.getFormu().getChamp("dateEffet").setLibelle("Date Effet");
         pi.getFormu().getChamp("numPiece").setLibelle("Numéro pièce");
