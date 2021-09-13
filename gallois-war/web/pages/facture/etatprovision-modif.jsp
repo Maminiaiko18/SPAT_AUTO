@@ -23,13 +23,6 @@
     
     a = (EtatProvision) pi.getBase();
     
-    String idFacture = request.getParameter("idFacture");
-    if(idFacture == null || idFacture.equals("")){
-        idFacture = a.getIdFacture();
-    }
-    
-    a.setIdFacture(idFacture);
-    
     pi.getFormu().getChamp("idnavire").setPageAppel("choix/listeNavireChoix.jsp", "idnavire;idnavirelibelle");
     pi.getFormu().getChamp("idnavire").setAutre("readonly");
     
@@ -62,6 +55,10 @@
     pi.getFormu().getChamp("numProvision").setLibelle("Num provision");
     
     pi.preparerDataFormu();
+    String idFacture = request.getParameter("idFacture");
+    if(idFacture != null && !idFacture.equals("")){
+        pi.getFormu().getChamp("idFacture").setDefaut(request.getParameter("idFacture"));
+    }
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -86,8 +83,10 @@
     document.getElementById("idnavire").value = "<%= Utilitaire.champNull(a.getIdnavire()) %>";
     document.getElementById("idnavirelibelle").value = "<%= Utilitaire.champNull(a.getIdnavirelib()) %>";
     
-    document.getElementById("idFacture").value = "<%= Utilitaire.champNull(a.getIdFacture()) %>";
-    document.getElementById("idFacturelibelle").value = "<%= Utilitaire.champNull(a.getIdFacturelib()) %>";
+    <% if(idFacture == null || idFacture.equals("")){ %>
+        document.getElementById("idFacture").value = "<%= Utilitaire.champNull(a.getIdFacture()) %>";
+        document.getElementById("idFacturelibelle").value = "<%= Utilitaire.champNull(a.getIdFacturelib()) %>";
+    <% } %>
 </script>
 <%
     }catch(Exception e){
