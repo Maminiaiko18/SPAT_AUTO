@@ -21,7 +21,7 @@ public class EtatProvision extends ClassMAPTable {
     
     private String numpiece;
     private String numProvision;
-    private String operation;
+    private String operation, idmode;
     private String idnavire, idnavirelib;
     private String idmodelib;
     private String idbanque, idbanquelib;
@@ -64,6 +64,14 @@ public class EtatProvision extends ClassMAPTable {
     public void construirePK(Connection c) throws Exception {
         this.preparePk("ETPROV", "get_seq_etat_provision");
         this.setId(makePK(c));
+    }
+
+    public String getIdmode() {
+        return idmode;
+    }
+
+    public void setIdmode(String idmode) {
+        this.idmode = idmode;
     }
 
     public String getIdnavire() {
