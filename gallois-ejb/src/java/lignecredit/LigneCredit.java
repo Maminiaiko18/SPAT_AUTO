@@ -56,8 +56,7 @@ public class LigneCredit extends ClassEtat {
                         "       l.etat,\n" +
                         "       CAST(NVL(SUM(nvl(pu, 0) * mf.QTE * tva), 0) AS NUMBER(30, 3))\n" +
                         "                     AS                                facture,\n" +
-                        "       CAST(NVL(SUM(montantpaye), 0) AS NUMBER(30, 2)) paye,\n" +
-                        "       mf.DATY\n" +
+                        "       CAST(NVL(SUM(montantpaye), 0) AS NUMBER(30, 2)) paye\n" +
                         "FROM LIGNECREDITDEPENSE l\n" +
                         "LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n" +
                         "ON SUBSTR(mf.COMPTE, 0, LENGTH(l.COMPTE)) LIKE l.COMPTE\n" +
@@ -67,7 +66,7 @@ public class LigneCredit extends ClassEtat {
                         "         l.DESIGNATION,\n" +
                         "         l.COMPTE,\n" +
                         "         l.ANNEE,\n" +
-                        "         l.MONTANT, l.etat, mf.DATY";
+                        "         l.MONTANT, l.etat";
                System.out.println("req=="+req);
              LigneCredit stock = new LigneCredit();
              stock.setNomTable("situationLC_vide");
