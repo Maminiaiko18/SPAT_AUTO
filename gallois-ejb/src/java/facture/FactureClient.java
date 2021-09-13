@@ -1212,6 +1212,7 @@ public class FactureClient extends ClassMere {
             fact2 = fc.setIdProvision(fact2, type, u, c);
             fact2.setIdcategorie(categorie);
             fact2.setDaty(Utilitaire.dateDuJourSql());
+            fact2.calculerCode(c);
             u.updateObjectMultiple(fact2, "idmere", fact2.getFille(), c);
             if (verif == 1) {
                 c.commit();
