@@ -18,6 +18,13 @@ public class EtatProvision extends ClassMAPTable {
     private double montantfacture, montantprovision, ecart,montantpaye;
     private String tiers,tierslib;
     private Date daty;
+    
+    private String numpiece;
+    private String numProvision;
+    private String operation;
+    private String idnavirelib;
+    private String idmodelib;
+    private String idbanquelib;
 
     public EtatProvision(){ 
         this.setNomTable("etat_provision");
@@ -119,6 +126,54 @@ public class EtatProvision extends ClassMAPTable {
 
     public void setTiers(String tiers) {
         this.tiers = tiers;
+    }
+
+    public String getNumpiece() {
+        return numpiece;
+    }
+
+    public void setNumpiece(String numpiece) {
+        this.numpiece = numpiece;
+    }
+
+    public String getNumProvision() {
+        return numProvision;
+    }
+
+    public void setNumProvision(String numProvision) {
+        this.numProvision = numProvision;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
+
+    public String getIdnavirelib() {
+        return idnavirelib;
+    }
+
+    public void setIdnavirelib(String idnavirelib) {
+        this.idnavirelib = idnavirelib;
+    }
+
+    public String getIdmodelib() {
+        return idmodelib;
+    }
+
+    public void setIdmodelib(String idmodelib) {
+        this.idmodelib = idmodelib;
+    }
+
+    public String getIdbanquelib() {
+        return idbanquelib;
+    }
+
+    public void setIdbanquelib(String idbanquelib) {
+        this.idbanquelib = idbanquelib;
     }
     
 }
