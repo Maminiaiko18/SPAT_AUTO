@@ -36,11 +36,13 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoirsanstaux;
     private double montantavoiravectaux;
     private double qtelivree, restealivrer,montantTTC; 
-    private Date datefact;
+    private Date datefact,daty;
     private String rubriquelib, idprestation,clientlib;
     private int mois, annee;
     private String heureDebut, heureFin, moislib,anneelib;
     private double montantHTEuro,montantTVAEuro, montanttaxe,majoration,reduction;
+    private int rang;
+    
 
     public double getMontantTTC() {
         return montantTTC;
@@ -118,6 +120,22 @@ public class FactureClientDetails extends ClassFille {
 
     public void setTauxDonne(boolean tauxDonne) {
         this.tauxDonne = tauxDonne;
+    }
+    
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
+
+    public int getRang() {
+        return rang;
+    }
+
+    public void setRang(int rang) {
+        this.rang = rang;
     }
     
     public static Date getFinMois(int mois, int annee) {
@@ -372,6 +390,52 @@ public class FactureClientDetails extends ClassFille {
         this.setNomClasseMere("facture.FactureClient");
         this.setLiaisonMere("idmere");
     }
+    
+    public FactureClientDetails(String id, String idmere, double quantite, double pu, double taux, String compte, String idproduit, String produit_lib, String devise, String designation, String idProduitLib, String idactivite, String categorieFacturelib, String categorieClientlib, String activitelib, String rubrique, FactureClient mere, double montant, double montanttaux, double montantavoirsanstaux, double montantavoiravectaux, double qtelivree, double restealivrer, double montantTTC, Date datefact, Date daty, String rubriquelib, String idprestation, String clientlib, int mois, int annee, String heureDebut, String heureFin, String moislib, String anneelib, double montantHTEuro, double montantTVAEuro, double montanttaxe, double majoration, double reduction, int rang, double tva) {
+        this.id = id;
+        this.idmere = idmere;
+        this.quantite = quantite;
+        this.pu = pu;
+        this.taux = taux;
+        this.compte = compte;
+        this.idproduit = idproduit;
+        this.produit_lib = produit_lib;
+        this.devise = devise;
+        this.designation = designation;
+        this.idProduitLib = idProduitLib;
+        this.idactivite = idactivite;
+        this.categorieFacturelib = categorieFacturelib;
+        this.categorieClientlib = categorieClientlib;
+        this.activitelib = activitelib;
+        this.rubrique = rubrique;
+        this.mere = mere;
+        this.montant = montant;
+        this.montanttaux = montanttaux;
+        this.montantavoirsanstaux = montantavoirsanstaux;
+        this.montantavoiravectaux = montantavoiravectaux;
+        this.qtelivree = qtelivree;
+        this.restealivrer = restealivrer;
+        this.montantTTC = montantTTC;
+        this.datefact = datefact;
+        this.daty = daty;
+        this.rubriquelib = rubriquelib;
+        this.idprestation = idprestation;
+        this.clientlib = clientlib;
+        this.mois = mois;
+        this.annee = annee;
+        this.heureDebut = heureDebut;
+        this.heureFin = heureFin;
+        this.moislib = moislib;
+        this.anneelib = anneelib;
+        this.montantHTEuro = montantHTEuro;
+        this.montantTVAEuro = montantTVAEuro;
+        this.montanttaxe = montanttaxe;
+        this.majoration = majoration;
+        this.reduction = reduction;
+        this.rang = rang;
+        this.tva = tva;
+    }
+    
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("FCF", "get_seq_facture_client_fille");
