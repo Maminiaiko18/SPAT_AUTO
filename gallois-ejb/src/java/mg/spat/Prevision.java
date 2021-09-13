@@ -228,7 +228,7 @@ public class Prevision extends ClassEtat {
         rep.setClient(getConsignataire());
         rep.setMois(Utilitaire.getMois(getDate_arrivee()));
         rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
-        if(rubrique.getCategorie().equals(Constante.idCatDroitDePort)){
+        if(rubrique.getCategorie()!=null && rubrique.getCategorie().equals(Constante.idCatDroitDePort)){
             rep.setDaty(getDate_depart());
         }else{
             rep.setDaty(getDate_arrivee());
