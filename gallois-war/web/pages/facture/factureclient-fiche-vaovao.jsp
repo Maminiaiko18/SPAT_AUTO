@@ -211,7 +211,7 @@
                         <%
                             if(e.getIdcategorie()!=null &&  e.getIdcategorie().equals(Constante.idCategorieFCProvision)){%>
                             <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId() %>&acte=genererDefinitive&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
-
+                            <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/etatprovision-saisie.jsp&idFacture=" + e.getId() %>" style="margin-right: 10px">Saisir Etat de provision</a>
                             <%}
                         %>
                          <%
@@ -220,6 +220,7 @@
 
                             <%}
                         %>
+       
                     <hr>
                 </div>
             </div>
