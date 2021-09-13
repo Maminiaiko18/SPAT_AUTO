@@ -20,7 +20,7 @@
         FactureClientDetails fille = new FactureClientDetails();
         fille.setNomTable("FACTURE_CLIENT_FILLE_LIBELLE");
         fille.setIdmere(request.getParameter("id"));
-        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, "");
+        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, " order by daty, rang");
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
@@ -100,6 +100,9 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("activitelib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("produit_lib"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("daty"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
 
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
