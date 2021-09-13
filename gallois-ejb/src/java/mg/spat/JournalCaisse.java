@@ -518,6 +518,11 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         if (fc != null) {
             //if(fc.getMontantreste() <= 0) throw new Exception("Facture déjà payée en totalité" + fc.getId());
             System.out.println("MontantReste="+fc.getMontantreste()+" et credit="+this.getCredit());
+            
+            if(this.getIdTypeCheque().equals(Constante.typeCheque)) {
+                if(this.getCredit() != fc.getMontantttc()) throw new Exception("Une facture au comptant doit etre payee en totalite");
+            }
+            
             if (fc.getMontantreste() < this.getCredit()) {
                 throw new Exception("Montant supérieur au reste à payer");
             }
