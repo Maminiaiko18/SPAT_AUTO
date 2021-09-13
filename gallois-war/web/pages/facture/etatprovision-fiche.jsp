@@ -36,7 +36,7 @@
             <div class="box-fiche">
                 <div class="box">
                     <div class="box-title with-border">
-                        <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=tiers/compte-client-liste.jsp"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
+                        <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=facture/etatprovision-liste.jsp"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
                     </div>
                     <div class="box-body">
                         <%
