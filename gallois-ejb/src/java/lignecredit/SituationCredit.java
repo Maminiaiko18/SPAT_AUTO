@@ -34,9 +34,6 @@ public class SituationCredit extends LigneCredit{
                 newCon=true;
             }
              
-             if(date1 == null || date1.trim().isEmpty()) date1 = "01/01/"+Utilitaire.getAnneeEnCours();
-             if(date2 == null || date2.trim().isEmpty()) date2 = "31/12/"+Utilitaire.getAnneeEnCours();
-             
              String where =" where 1<2 ";
              if(id!=null   && !id.equals("")) where+=" and upper(l.id) like upper('%"+id+"%')";
              if(desingation!=null   && !desingation.equals("")) where+= "and upper(l.designation) like upper('%"+desingation+"%')";

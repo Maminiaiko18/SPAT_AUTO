@@ -29,7 +29,14 @@
         
         pr.setApres("ligneCredit/situation-ligneCreditRecette.jsp");
         
-        SituationCredit[] liste  = SituationCredit.findSituationCreditRecette(request.getParameter("id"),request.getParameter("designation"),request.getParameter("compte"),request.getParameter("daty1"),request.getParameter("daty2"), request.getParameter("etat"), null);
+        String date1 = request.getParameter("daty1"), date2 = request.getParameter("daty2");
+        if(date1 == null || date1.trim().isEmpty()) date1 = "01/01/"+Utilitaire.getAnneeEnCours();
+        if(date2 == null || date2.trim().isEmpty()) date2 = "31/12/"+Utilitaire.getAnneeEnCours();
+        
+        pr.getFormu().getChamp("daty1").setDefaut(date1);
+        pr.getFormu().getChamp("daty2").setDefaut(date2);
+        
+        SituationCredit[] liste  = SituationCredit.findSituationCreditRecette(request.getParameter("id"),request.getParameter("designation"),request.getParameter("compte"),date1,date2, request.getParameter("etat"), null);
         System.out.println("liste : " + liste.length);
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
