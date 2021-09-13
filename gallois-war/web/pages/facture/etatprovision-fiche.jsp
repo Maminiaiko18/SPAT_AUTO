@@ -36,7 +36,7 @@
             <div class="box-fiche">
                 <div class="box">
                     <div class="box-title with-border">
-                        <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=facture/etatprovision-liste.jsp"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
+                        <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=facture/etatprovision-.jsp"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
                     </div>
                     <div class="box-body">
                         <%
@@ -45,7 +45,7 @@
                         <br/>
                         </div>
                         <div class="box-footer" style="margin-left:30%">
-                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien")%>?but=facture/etatprovision-liste.jsp" style="margin-right: 10px">Etat de provision</a>
+                            <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerEtatProvision&id=<%=id%>" style="margin-right: 10px">Etat de provision</a>
                         </div>                    
                 </div>
             </div>
