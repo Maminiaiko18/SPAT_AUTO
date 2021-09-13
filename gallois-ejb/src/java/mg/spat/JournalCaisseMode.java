@@ -11,7 +11,15 @@ package mg.spat;
  */
 public class JournalCaisseMode  extends JournalCaisse{
 
-    private String idmode,numcheque,valmode;
+    private String idmode,numcheque,valmode,type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getIdmode() {
         return idmode;
