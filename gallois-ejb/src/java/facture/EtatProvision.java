@@ -60,6 +60,12 @@ public class EtatProvision extends ClassMAPTable {
         this.daty = daty;
     }
 
+    @Override
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("ETPROV", "get_seq_etat_provision");
+        this.setId(makePK(c));
+    }
+
     public String getIdnavire() {
         return idnavire;
     }
