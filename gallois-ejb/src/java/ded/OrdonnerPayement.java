@@ -1,5 +1,6 @@
 package ded;
 
+import avoir.AvoirFC;
 import bean.*;
 import factureclient.PaiementFactureRemise;
 import facturefournisseur.EtatFactureMontantDaty;
@@ -42,6 +43,15 @@ public class OrdonnerPayement extends ClassEtat {
     private String folio, numcheque, numfact;
   private double montantpaye,reste;
   private String modepaiementlib;
+    private String idfacture,type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public double getMontantpaye() {
         return montantpaye;
@@ -58,8 +68,15 @@ public class OrdonnerPayement extends ClassEtat {
     public void setReste(double reste) {
         this.reste = reste;
     }
-  
 
+    public String getIdfacture() {
+        return idfacture;
+    }
+
+    public void setIdfacture(String idfacture) {
+        this.idfacture = idfacture;
+    }
+  
     public String getNumfact() {
         return numfact;
     }
@@ -323,41 +340,19 @@ public class OrdonnerPayement extends ClassEtat {
             }
     }
 
+    
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
 
-     
-        if(this.getDed_Id().startsWith("FC")){
-            createObjectFC(u, c);
-        }
-        else{
-            this.setIduser(u);
-            String[] idFact = this.getDed_Id().split(";");
-            EtatFactureMontantDaty f = new EtatFactureMontantDaty();
+        this.setIduser(u);
+        String[] idFact = this.getDed_Id().split(";");
+        EtatFactureMontantDaty f = new EtatFactureMontantDaty();
 
-            EtatFactureMontantDaty[] factures = f.getByIds(idFact, c);
-            if (idFact.length != factures.length) {
-                throw new Exception("Certaines factures n'ont pas été trouvées");
-            }
-            if (this.getDed_Id().contains(";")) {
-    //            controlTiers(factures);
-                double montantTotal = AdminGen.calculSommeDouble(factures, "reste");
-                //if(this.getMontant()==0){
-                    this.setMontant(montantTotal);
-                //}
-            }
-            this.controler(c);
-            this.construirePK(c);
-            this.insertToTableWithHisto(u, c);
-
-            for (int i = 0; i < factures.length; i++) {
-                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getReste());
-                liaison.createObject(u, c);
-            }
+        EtatFactureMontantDaty[] factures = this.getFactures(c);
+        if(factures.length>0){
+            this.setMontant(AdminGen.calculSommeDouble(factures, "reste"));
         }
-        
-        
-        return this;
+        return super.createObject(u, c);
     }
     
     public void payer(String u, Connection c) throws Exception {
@@ -444,6 +439,58 @@ public class OrdonnerPayement extends ClassEtat {
         }
     }*/
 
+    public void controlerMontant(double montantTTc, double reste, Connection c)throws Exception{
+        OrdonnerPayement op=new OrdonnerPayement();
+        op.setNomTable("ordonnerpayementgroupefact");
+        OrdonnerPayement[] listeOP = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, "and ded_id = '" + this.getDed_Id() + "'");
+        if(listeOP.length>0){
+            if(listeOP[0].getMontant()==montantTTc){
+                throw new Exception("Déjà payé en total ou en attente de paiement");
+            }
+            if(reste<this.getMontant()){
+                throw new Exception("Montant supérieur au reste à payer");
+            }
+        }
+    }
+    public void controlerAvoirFC(AvoirFC[] avoirListe, Connection c)throws Exception{
+        OrdonnerPayement op=new OrdonnerPayement();
+        op.setNomTable("ordonnerpayementgroupefact");
+        OrdonnerPayement[] listeOP = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, "and ded_id = '" + this.getDed_Id() + "'");
+        double montantTTc=AdminGen.calculSommeDouble(avoirListe, "montant");
+        double reste=AdminGen.calculSommeDouble(avoirListe, "montantreste");
+        if(listeOP.length>0){
+            if(listeOP[0].getMontant()==montantTTc){
+                throw new Exception("Facture(s) déjà payée(s) ou en attente de paiement");
+            }
+            if(reste<this.getMontant()){
+                throw new Exception("Montant supérieur au reste à payer");
+            }
+        }
+    }
+    public void gererFF(String u,Connection c)throws Exception{
+        EtatFactureMontantDaty[] factures=this.getFactures(c);
+        if(factures.length>0){
+            double montantTTc=AdminGen.calculSommeDouble(factures, "montantTTC");
+            double reste=AdminGen.calculSommeDouble(factures, "reste");
+            this.controlerMontant(montantTTc,reste, c);
+            for (int i = 0; i < factures.length; i++) {
+                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getReste());
+                liaison.createObject(u, c);
+            }
+        }
+    }
+    public void gererAvoirFC(String u,Connection c)throws Exception{
+        AvoirFC[] avoirList=this.getAvoirFC(c);
+        if(avoirList.length>0){
+            double montantTTc=AdminGen.calculSommeDouble(avoirList, "montant");
+            double reste=AdminGen.calculSommeDouble(avoirList, "montantreste");
+            this.controlerMontant(montantTTc,reste, c);
+            for (int i = 0; i < avoirList.length; i++) {
+                LiaisonIntraTable liaison = new LiaisonIntraTable(avoirList[i].getId(), this.getTuppleID(), avoirList[i].getMontantreste());
+                liaison.createObject(u, c);
+            }
+        }
+    }
     public Object validerObject(String u, Connection c) throws Exception{
         int verif = 0;
         try {
@@ -455,20 +502,9 @@ public class OrdonnerPayement extends ClassEtat {
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("OP Deja valide");
             }
-            EtatFactureMontantDaty[] factures=this.getFactures(c);
-            OrdonnerPayement op=new OrdonnerPayement();
-            op.setNomTable("ordonnerpayementgroupefact");
-            OrdonnerPayement[] listeOP = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, "and ded_id = '" + this.getDed_Id() + "'");
-            double montantTTc=AdminGen.calculSommeDouble(factures, "montantTTC");
-            double reste=AdminGen.calculSommeDouble(factures, "reste");
-            if(listeOP.length>0){
-                if(listeOP[0].getMontant()==montantTTc){
-                    throw new Exception("Facture(s) déjà payée(s) ou en attente de paiement");
-                }
-                if(reste<this.getMontant()){
-                    throw new Exception("Montant supérieur au reste à payer");
-                }
-            }
+            this.gererFF( u, c);
+            this.gererAvoirFC( u, c);
+            
             super.validerObject(u, c);
             if (c != null && verif == 1) c.commit();
         } catch (Exception e) {
@@ -488,8 +524,31 @@ public class OrdonnerPayement extends ClassEtat {
                 c.setAutoCommit(false);
                 verif = 1;
             }
-
-            return (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, c, "and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
+            if(this.getDed_Id()!=null) return (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, c, "and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
+            return null;
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    public AvoirFC[] getAvoirFC(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            AvoirFC av=new AvoirFC();
+            av.setNomTable("AVOIRFC_MONTANT");
+            if(this.getDed_Id()!=null) return (AvoirFC[]) CGenUtil.rechercher(av, null, null, c, "and id='" + this.getDed_Id()+"'");
+            return null;
         } catch (Exception e) {
             if (c != null && verif == 1) {
                 c.rollback();

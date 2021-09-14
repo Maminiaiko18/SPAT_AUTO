@@ -18,7 +18,7 @@ import utilitaire.UtilDB;
 public class FactureProforma extends FactureClient{
     
     private FactureProformaDetails[] filles;
-    private ArrayList<FactureProformaDetails> listeDetails;
+    private FactureClientDetails[] listeDetails;
     private String adresse, contact;
     private double montanttaux;
     
@@ -124,11 +124,11 @@ public class FactureProforma extends FactureClient{
         this.filles = filles;
     }
 
-    public ArrayList<FactureProformaDetails> getListeDetails() {
+    public FactureClientDetails[] getListeDetails() {
         return listeDetails;
     }
 
-    public void setListeDetails(ArrayList<FactureProformaDetails> listeDetails) {
+    public void setListeDetails(FactureClientDetails[] listeDetails) {
         this.listeDetails = listeDetails;
     }
 

@@ -52,13 +52,15 @@
             pi.getFormu().getChamp("idplacement").setDefaut("" + facture.getNmfact());
             pi.getFormu().getChamp("tiers").setDefaut(client);
             pi.getFormu().getChamp("idplacement").setDefaut(idfact);
+            
+            
         }
         
         
         
         
 
-        affichage.Liste[] liste = new affichage.Liste[4];
+        affichage.Liste[] liste = new affichage.Liste[5];
 
         TypeObjet esc = new TypeObjet();
         esc.setNomTable("CAISSE_LIB");
@@ -71,15 +73,23 @@
         op.setNomTable("DEVISE");
         liste[2] = new Liste("iddevise", op, "desce", "id");
 
+        liste[2].setDefaultSelected("Ar");
+
         TypeObjet mode = new TypeObjet();
         mode.setNomTable("MODEPAIEMENT");
         liste[3] = new Liste("idmode", mode, "desce", "id");
+        
+        TypeObjet banq = new TypeObjet();
+        banq.setNomTable("BANQUE");
+        liste[4] = new Liste("idbanque", banq, "VAL", "id");
+        
         pi.getFormu().changerEnChamp(liste);
 
         pi.getFormu().changerEnChamp(liste);
         pi.getFormu().getChamp("dateSaisie").setVisible(false);
         pi.getFormu().getChamp("typemvt").setVisible(false);
 
+        pi.getFormu().getChamp("idbanque").setLibelle("Banque");
         pi.getFormu().getChamp("idmode").setLibelle("Mode");
         pi.getFormu().getChamp("dateEffet").setLibelle("Date Effet");
         pi.getFormu().getChamp("numPiece").setLibelle("Numéro pièce");
@@ -101,7 +111,7 @@
         pi.getFormu().getChamp("idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp");
         pi.getFormu().getChamp("idordre").setAutre("readonly");
 
-        //pi.getFormu().getChamp("idplacement").setAutre("readonly");
+        pi.getFormu().getChamp("idplacement").setAutre("readonly");
         
         pi.getFormu().getChamp("idplacement").setLibelle("Placement");
 
@@ -132,6 +142,12 @@
 
                 } else {
                     pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + ord[0].getMontant()));
+                }
+                
+                if(ord[0].getDed_Id()!=null && ord[0].getDed_Id().startsWith("AVRFC")){
+                    AvoirFC av = new AvoirFC();
+                    av = (AvoirFC) av.getById(ord[0].getDed_Id(), null, null);
+                    pi.getFormu().getChamp("idplacement").setDefaut(av.getIdfacture());
                 }
             }
         }
@@ -165,7 +181,9 @@
             pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(avoir.getMontantreste()));
             pi.getFormu().getChamp("tiers").setDefaut(avoir.getTiers());
         }
-
+        /*if(idfact!=null){
+            pi.getFormu().getChamp("idplacement").setDefaut(null);
+        }*/
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();
 %>

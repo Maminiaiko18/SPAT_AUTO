@@ -12,6 +12,7 @@ import facturefournisseur.EtatFactureMontantDaty;
 import java.sql.Connection;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -59,24 +60,17 @@ public class LiaisonIntraTable extends ClassMAPTable {
     public boolean checkfacturevisee(Connection c) throws Exception {
         int verif = 0;
         EtatFactureMontantDaty[] tmp = null;
-        boolean verifier=false;
+        boolean verifier=true;
         try {
             if (c == null) {
                 c = new UtilDB().GetConn();
                 verif = 1;
             }
-            if(this.getId1().startsWith("FC")){
-                PaiementFactureRemise ff = new PaiementFactureRemise();
-                PaiementFactureRemise[] tab=(PaiementFactureRemise[]) CGenUtil.rechercher(ff, null, null, c, " and id = '" + this.getId1() + "' and etat= "+ ConstanteEtat.getEtatValider());
-                verifier= tab != null && tab.length > 0;
-
-            }
-            else{
-                EtatFactureMontantDaty ff = new EtatFactureMontantDaty();
-                ff.setNomTable("ETATFACTUREMONTANTDATYVISE");
-                tmp = (EtatFactureMontantDaty[]) CGenUtil.rechercher(ff, null, null, c, " and id = '" + this.getId1() + "'");
-                verifier= tmp != null && tmp.length > 0;
-            }
+            EtatFactureMontantDaty ff = new EtatFactureMontantDaty();
+            ff.setNomTable("ETATFACTUREMONTANTDATY");
+            tmp = (EtatFactureMontantDaty[]) CGenUtil.rechercher(ff, null, null, c, " and id = '" + this.getId1() + "'");
+            if(tmp!=null && tmp.length>0 && Utilitaire.stringToInt(tmp[0].getEtat())<ConstanteEtat.getEtatValider()) return false;            
+            
         } catch (Exception e) {
             throw e;
         } finally {
@@ -84,8 +78,8 @@ public class LiaisonIntraTable extends ClassMAPTable {
                 c.close();
             }
         }
-        
         return verifier;
+        
     }
 
     public String getId() {

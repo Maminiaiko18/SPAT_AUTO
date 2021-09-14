@@ -11,6 +11,8 @@ import bean.ClassEtat;
 import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import facture.FactureClient;
+import facture.PaiementFacture;
+import factureclient.PayementFacture;
 import facturefournisseur.RegulFacture;
 import java.sql.Connection;
 import java.sql.Date;
@@ -29,9 +31,20 @@ import utilitaire.Utilitaire;
  */
 public class JournalCaisse extends ClassEtat {
 
-    private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib;
+    private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib;
     private double sommeCredit, sortie, entree;
+    private String banque;
 
+    public String getBanque() {
+        return banque;
+    }
+
+    public void setBanque(String banque) {
+        this.banque = banque;
+    }
+    
+    
+    
     public double getSortie() {
         return sortie;
     }
@@ -100,7 +113,21 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         this.montant = montant;
     }
 
-    
+    public String getIdbanque() {
+        return idbanque;
+    }
+
+    public void setIdbanque(String idbanque) {
+        this.idbanque = idbanque;
+    }
+
+    public String getIdbanquelib() {
+        return idbanquelib;
+    }
+
+    public void setIdbanquelib(String idbanquelib) {
+        this.idbanquelib = idbanquelib;
+    }
 
     public JournalCaisse() {
         super.setNomTable("journalcaisse");
@@ -119,6 +146,40 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         this.setCredit(credit);
     }
 
+    public JournalCaisse(String id, String folio, String caisse, String numPiece, String libelle, String remarque, String tiers, String idTypeCheque, String idplacement, String valCaisse, String valTypeCheque, String desceTypeCheque, String tiersLib, double sommeCredit, double sortie, double entree, String banque, String designation, String iddevise, String idmode, String numcheque, String typemvt, String idordre, double reste, Date dateSaisie, Date dateEffet, double debit, double credit, double montant) {
+        this.id = id;
+        this.folio = folio;
+        this.caisse = caisse;
+        this.numPiece = numPiece;
+        this.libelle = libelle;
+        this.remarque = remarque;
+        this.tiers = tiers;
+        this.idTypeCheque = idTypeCheque;
+        this.idplacement = idplacement;
+        this.valCaisse = valCaisse;
+        this.valTypeCheque = valTypeCheque;
+        this.desceTypeCheque = desceTypeCheque;
+        this.tiersLib = tiersLib;
+        this.sommeCredit = sommeCredit;
+        this.sortie = sortie;
+        this.entree = entree;
+        this.banque = banque;
+        this.designation = designation;
+        this.iddevise = iddevise;
+        this.idmode = idmode;
+        this.numcheque = numcheque;
+        this.typemvt = typemvt;
+        this.idordre = idordre;
+        this.reste = reste;
+        this.dateSaisie = dateSaisie;
+        this.dateEffet = dateEffet;
+        this.debit = debit;
+        this.credit = credit;
+        this.montant = montant;
+    }
+
+    
+    
     public JournalCaisse(String folio, String caisse, String numPiece, String libelle, String remarque, String tiers, String idTypeCheque, Date dateSaisie, Date dateEffet, double debit, double credit) throws Exception {
         super.setNomTable("journalcaisse");
         this.setFolio(folio);
@@ -144,6 +205,40 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         this.setDateSaisie(dateSaisie);
         this.setDateEffet(dateEffet);
         this.setDebit(debit);
+    }
+    
+    public JournalCaisse(String id, String folio, String caisse, String numPiece, String libelle, String remarque, String tiers, String idTypeCheque, String idplacement, String valCaisse, String valTypeCheque, String desceTypeCheque, String tiersLib, String idbanque, String idbanquelib, double sommeCredit, double sortie, double entree, String banque, String designation, String iddevise, String idmode, String numcheque, String typemvt, String idordre, double reste, Date dateSaisie, Date dateEffet, double debit, double credit, double montant) {
+        this.id = id;
+        this.folio = folio;
+        this.caisse = caisse;
+        this.numPiece = numPiece;
+        this.libelle = libelle;
+        this.remarque = remarque;
+        this.tiers = tiers;
+        this.idTypeCheque = idTypeCheque;
+        this.idplacement = idplacement;
+        this.valCaisse = valCaisse;
+        this.valTypeCheque = valTypeCheque;
+        this.desceTypeCheque = desceTypeCheque;
+        this.tiersLib = tiersLib;
+        this.idbanque = idbanque;
+        this.idbanquelib = idbanquelib;
+        this.sommeCredit = sommeCredit;
+        this.sortie = sortie;
+        this.entree = entree;
+        this.banque = banque;
+        this.designation = designation;
+        this.iddevise = iddevise;
+        this.idmode = idmode;
+        this.numcheque = numcheque;
+        this.typemvt = typemvt;
+        this.idordre = idordre;
+        this.reste = reste;
+        this.dateSaisie = dateSaisie;
+        this.dateEffet = dateEffet;
+        this.debit = debit;
+        this.credit = credit;
+        this.montant = montant;
     }
 
     public void construirePK(Connection c) throws Exception {
@@ -297,31 +392,22 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if (report.length > 0) {
                 throw new Exception("Caisse deja reportee");
             }
-            //ClotureService.modifSequentiel(this.debit,this.credit,this.dateEffet,this.caisse,c);
             if (this.getTypemvt() != null && this.getTypemvt().compareToIgnoreCase(Constante.financeTypeAnnulation) == 0) {
                 return;
             }
-            /*
-            EtatOP[] sop = (EtatOP[]) CGenUtil.rechercher(new EtatOP(), null, null, " AND ID = '" + this.getIdordre() + "'");
-            if (sop.length > 0) {
-                if (sop[0].getReste() == 0) {
-                    throw new Exception("Mvt Caisse DEJA PAYE");
-                }
-                if (this.getDebit() > sop[0].getReste()) {
-                    throw new Exception("Montant superieur reste a payer");
-                }
-            }*/
+            if(this.getIdordre()==null){
             
-            FactureClient fc = findFactureClient(c);
-            if(fc != null) {
-                if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
-                if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
-            }
-            
-            AvoirFC avoir = findAvoirFC(c);
-            if(avoir != null) {
-                if(avoir.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Avoir non visee");
-                if(this.getDebit() > avoir.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                FactureClient fc = findFactureClient(c);
+                if(fc != null) {
+                    if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
+                    if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                }
+
+                AvoirFC avoir = findAvoirFC(c);
+                if(avoir != null) {
+                    if(avoir.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Avoir non visee");
+                    if(this.getDebit() > avoir.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                }
             }
         } catch (Exception e) {
             throw e;
@@ -430,13 +516,25 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         fc = (FactureClient) fc.getById(this.getIdplacement(), "FACTURE_CLIENT_UNION", c);
 
         if (fc != null) {
-            if(fc.getMontantreste() <= 0) throw new Exception("Facture déjà payée en totalité" + fc.getId());
+            //if(fc.getMontantreste() <= 0) throw new Exception("Facture déjà payée en totalité" + fc.getId());
+            System.out.println("MontantReste="+fc.getMontantreste()+" et credit="+this.getCredit());
+            
+            if(this.getIdTypeCheque().equals(Constante.typeCheque)) {
+                if(this.getCredit() != fc.getMontantttc()) throw new Exception("Une facture au comptant doit etre payee en totalite");
+            }
+            
             if (fc.getMontantreste() < this.getCredit()) {
                 throw new Exception("Montant supérieur au reste à payer");
             }
         }
     }
     
+    public OrdonnerPayement getOP(String nomtable, Connection c) throws Exception {
+        OrdonnerPayement op = new OrdonnerPayement();
+        op.setId(this.getIdordre());
+        if(nomtable != null && !nomtable.trim().isEmpty()) op.setNomTable(nomtable);
+        return (OrdonnerPayement) op.getById(op.getId(), op.getNomTable(), c);
+    }
     @Override
     public void viser(UserEJBBean user, Connection c) throws Exception {
         int verif = 0;
@@ -446,23 +544,46 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 c.setAutoCommit(false);
                 verif = 1;
             }
+            
+            String refuser = "" + user.getUser().getRefuser();
+            
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("mouvement caissse deja valide");
             }
             if (this.getIdordre() != null) {
-                this.traitementOP(user, c);
-            }
-            if (this.getIdplacement() != null) {
-                if (this.getIdplacement().startsWith("FC")) {
-                    checkMontantFactureClient(c);
-                } else {
-                    this.traitementPlacement(user, c);
+                this.traitementOP(user, c); 
+                OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir
+                if(op != null) {
+                    if(op.getType().compareTo("1")==0) throw new Exception("Impossible a payer : avoir interne");
+                    PaiementFacture paiementFact = new PaiementFacture();
+                    paiementFact.setIdMvt(this.getId());
+                    paiementFact.setIdFact(op.getIdfacture());
+                    paiementFact.setMontant(-op.getMontant());
+                    
+                    paiementFact.createObject(refuser, c);
+                }
+            }else{
+                if (this.getIdplacement() != null) {
+                    if (!this.getIdplacement().startsWith("FC")) {
+                        this.traitementPlacement(user, c);
+                    }
+
+                    FactureClient fc = findFactureClient(c);
+                    if(fc != null) {
+                        checkMontantFactureClient(c); 
+                        PaiementFacture paiementFact = new PaiementFacture();
+                        paiementFact.setIdMvt(this.getId());
+                        paiementFact.setIdFact(fc.getId());
+                        paiementFact.setMontant(this.getCredit());
+
+                        paiementFact.createObject(refuser, c);
+                    }
                 }
             }
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
 
-            if (c != null && verif == 1) {
+            if (verif == 1) {
                 c.commit();
             }
         } catch (Exception e) {
@@ -499,5 +620,44 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         if (result != null && result.length > 0) 
             return result[0];
         return null;
+    }
+    
+    public PayementFacture[] getPayementFactureTous(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            PayementFacture pf = new PayementFacture();
+            pf.setNomTable("paiementfacture");
+            String awhere = String.format(" and idmvt = '%s' ", this.getId());
+            PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
+            return result;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    
+    public PayementFacture[] getPayementFacture(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                verif = 1;
+            }
+            PayementFacture pf = new PayementFacture();
+            pf.setNomTable("paiementfactureHorsProvision");
+            String awhere = String.format(" and idmvt = '%s' ", this.getId());
+            PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
+            return result;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
     }
 }

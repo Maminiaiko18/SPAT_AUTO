@@ -2,6 +2,7 @@ package utilitaire;
 
 public class Constante {
     
+    public static  final String  idCatDroitDePort="CATFC006";
     public static  final String  idCategorieFCDefinitive="CATFCO3";
     public static  final String  idCatRubConteneur="CATFC002";
     public static String idCategorieFCProvision="CATFCO2";
@@ -131,6 +132,31 @@ public class Constante {
     public static int tvaDefaut = 20;
     private static String roleCommandant="ROL001300";
     private static String typeFCAcredit="TFC001";
+    private static String stationnementBP="RB0000000021170495";
+    private static String droitDePortBP="RB0000000021170493";
+    private static String redevanceSanitaire="RB0000000059112123";
+    private static String redevanceCommBP="RB0000000060112257"; 
+    private static String navireBornageEtPeche="TYPE000062";
+
+    public static String getNavireBornageEtPeche() {
+        return navireBornageEtPeche;
+    }
+
+    public static String getStationnementBP() {
+        return stationnementBP;
+    }
+
+    public static String getDroitDePortBP() {
+        return droitDePortBP;
+    }
+
+    public static String getRedevanceSanitaire() {
+        return redevanceSanitaire;
+    }
+
+    public static String getRedevanceCommBP() {
+        return redevanceCommBP;
+    }
 
     public static String getTypeFCAcredit() {
         return typeFCAcredit;

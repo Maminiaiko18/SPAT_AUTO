@@ -1,5 +1,6 @@
 package user;
 
+import avoir.AvoirFC;
 import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
@@ -15,6 +16,7 @@ import bean.TypeObjet;
 import bean.TypeObjetUtil;
 import bean.UnionIntraTable;
 import bean.UploadPj;
+import bean.ValidationException;
 import config.Config;
 import historique.HistoriqueEJBClient;
 import historique.HistoriqueEtat;
@@ -118,6 +120,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     private HashMap<String, String> mapAutoComplete = new HashMap<>();
     TypeObjet commandant = null;
     Prevision prevision;
+    public ValidationException validation;
 
     @Override
     public Prevision getPrevision() {
@@ -2684,6 +2687,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         try {
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
+            o = o.getById(o.getTuppleID(), null, c);
             if (o instanceof ClassEtat) {
                 ((ClassEtat) o).annuler(this.getUser().getTuppleID(), c);
             }
@@ -3470,9 +3474,22 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 
     }
 
+    public OrdonnerPayement creerOPViseFF(String idfacture, Connection c) throws Exception {
+        OrdonnerPayement op = null;
+        EtatFactureMontantDaty temp = new EtatFactureMontantDaty();
+            EtatFactureMontantDaty[] factures = temp.getByIds(new String[]{idfacture}, c);
+            if (factures.length > 0) {
+                EtatFactureMontantDaty facture = factures[0];
+                op = new OrdonnerPayement(facture.getId(), facture.getReste(), facture.getDaty(), this.getUser().getTuppleID(), "Paiement facture " + facture.getId() + "via caisse", ConstanteEtat.getEtatCreer());
+                op.createObject(this.getUser().getRefuser() + "", c);
+                op.validerObject(this.getUser().getRefuser() + "", c);
+            }
+        return op;
+    }
+    
     @Override
     public String creerOPviseCaisse(String idfacture, Connection c) throws Exception {
-        OrdonnerPayement op = new OrdonnerPayement();
+        OrdonnerPayement op = null;
         int verif = 0;
         try {
             if (idfacture != null) {
@@ -3481,19 +3498,14 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                     c.setAutoCommit(false);
                     verif = 1;
                 }
-                EtatFactureMontantDaty temp = new EtatFactureMontantDaty();
-                EtatFactureMontantDaty[] factures = temp.getByIds(new String[]{idfacture}, c);
-                if (factures.length > 0) {
-                    EtatFactureMontantDaty facture = factures[0];
-                    op = new OrdonnerPayement(facture.getId(), facture.getReste(), facture.getDaty(), this.getUser().getTuppleID(), "Paiement facture " + facture.getId() + "via caisse", ConstanteEtat.getEtatCreer());
-                    op.createObject(this.getUser().getRefuser() + "", c);
-                    op.validerObject(this.getUser().getRefuser() + "", c);
-                }
+                op = creerOPViseFF(idfacture, c);
+                if(op!=null) return op.getId();
+                op=creerOPViseAvoir(idfacture, c);
                 if (c != null && verif == 1) {
                     c.commit();
                 }
             } else {
-                throw new Exception("Facture(s) introuvable(s)");
+                throw new Exception("Avoir(s) introuvable(s)");
             }
         } catch (Exception e) {
             if (c != null) {
@@ -3624,4 +3636,208 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             }
         }
     }
+    
+    public OrdonnerPayement creerOPViseAvoir(String idfacture, Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            AvoirFC avoir = new AvoirFC();
+            avoir.setNomTable("avoirFC_montant");
+            String awhere = String.format(" and id = '%s' ", idfacture);
+            AvoirFC[] result = (AvoirFC[])CGenUtil.rechercher(avoir, null, null, c, awhere);
+            if(result == null || result.length == 0){
+                throw new Exception("Pas d'avoir pour la facture "+idfacture);
+            }
+            avoir = result[0];
+            OrdonnerPayement op = new OrdonnerPayement();
+            op.setDed_Id(avoir.getId());
+            op.setMontant(avoir.getMontant());
+            op.setDaty(avoir.getDaty());
+            op.setIduser(String.valueOf(this.getUser().getRefuser()));
+            op.setRemarque("paiement avoir "+avoir.getCode());
+            op.setEtat(1);
+            
+            this.createObject(op, c);
+            this.validerObject(op, c);
+            
+            if (verif == 1) {
+                c.commit();
+            }
+            
+            return op;
+            
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        
+    }
+    @Override
+    public Object createObjectValidation(ClassMAPTable o) throws Exception {
+        Connection c = null;
+        try {
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+
+            Object ob = createObjectValidation(o, c);
+            c.commit();
+            return ob;
+        } catch (ValidationException valid) {
+            throw valid;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            c.rollback();
+            throw ex;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+    @Override
+    public Object createObjectValidation(ClassMAPTable o, Connection c) throws Exception {
+        try {
+            boolean nandalo = false;
+            o.setMode("insert");
+            /*if (o.getClassName().compareToIgnoreCase("jeton.MouvementJeton") == 0) {
+             return null;
+             }*/
+            o.controler(c);
+            o.construirePK(c);
+
+            if (getValidation() == null) {
+                ValidationException validat = new ValidationException(" Voulez vous continuez? ");
+                setValidation(validat);
+                nandalo = true;
+            }
+
+            if (getValidation().isResponse() == false && nandalo == true) {
+                getValidation().setObjet(o);
+                throw getValidation();
+            }
+            if (getValidation() == null || getValidation() != null && getValidation().isResponse() == true) {
+                o.insertToTable(c);
+            }
+            setValidation(null);
+            return o;
+        } catch (ValidationException valid) {
+            throw valid;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
+    @Override
+    public Object updateObjectValidation(ClassMAPTable o) throws Exception {
+        Connection c = null;
+        try {
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            Object ob = updateObjectValidation(o, c);
+            c.commit();
+            return ob;
+        } catch (ValidationException valid) {
+            throw valid;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            c.rollback();
+            throw ex;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+    @Override
+    public Object updateObjectValidation(ClassMAPTable o, Connection c) throws Exception {
+        try {
+            o.setMode("update");
+            boolean nandalo = false;
+            if (getValidation() == null) {
+                ValidationException validat = new ValidationException(" Voulez vous continuez l'update ? ");
+                setValidation(validat);
+                nandalo = true;
+            }
+
+            if (getValidation().isResponse() == false && nandalo == true) {
+                getValidation().setObjet(o);
+                throw getValidation();
+            }
+            if (getValidation() == null || getValidation() != null && getValidation().isResponse() == true) {
+                o.controlerUpdate(c);
+                o.updateToTableWithHisto(u.getTuppleID(), c);
+            }
+            setValidation(null);
+            return o;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
+    @Override
+    public void deleteObjectValidation(ClassMAPTable o) throws Exception {
+        Connection c = null;
+        boolean nandalo = false;
+        try {
+            if (u.isSuperUser() == false) {
+                throw new Exception("Pas de droit");
+            }
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            o.controler(c);
+            o.construirePK(c);
+
+            if (getValidation() == null) {
+                ValidationException validat = new ValidationException(" Voulez vous continuez? ");
+                setValidation(validat);
+                nandalo = true;
+            }
+
+            if (getValidation().isResponse() == false && nandalo == true) {
+                getValidation().setObjet(o);
+                throw getValidation();
+            }
+            if (getValidation() == null || getValidation() != null && getValidation().isResponse() == true) {
+                o.deleteToTableWithHisto(u.getTuppleID(), c);
+                c.commit();
+            }
+            setValidation(null);
+
+        } catch (ValidationException valid) {
+            throw valid;
+        } catch (Exception ex) {
+            c.rollback();
+            ex.printStackTrace();
+            throw ex;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+    @Override
+    public ValidationException getValidation() {
+        return validation;
+    }
+
+    @Override
+    public void setValidation(ValidationException validation) {
+        this.validation = validation;
+    }
+
 }

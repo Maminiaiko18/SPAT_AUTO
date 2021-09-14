@@ -35,6 +35,7 @@
     pc.getChampByName("Idcategorie").setVisible(false);
     pc.getChampByName("IdProvision").setVisible(true);
     pc.getChampByName("idProvisionlib").setVisible(false);
+    pc.getChampByName("montanttva").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("montant").setLibelle("Montant HT");
@@ -111,7 +112,68 @@
     String vue =e.getRemarque()!=null&&e.getRemarque().startsWith("--") ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
     
 %>
+
+<style type="text/css">
+    #div-password {
+        position: fixed;
+        z-index: 10;
+        background-color: #f1f1f1;
+        border: 1px solid #d3d3d3;
+        text-align: center;
+        top: 150px;
+        left: 50vw;
+        width: 300px;
+        height: 180px;
+        display: none;
+        box-shadow: 3px 6px 47px 3px rgb(0 0 0);
+    }
+
+    #div-password-header {
+        padding: 10px;
+        cursor: move;
+        z-index: 10;
+        background-color: #2196F3;
+        color: #fff;
+    }
+    .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+        background-color: #ecf0f5;
+    }
+    .main-footer{
+        margin-left: 0px;
+    }
+</style>
+
+<script>
+    function annulation(){
+        document.getElementById("mdp").value = "";
+        var elmnt = document.getElementById("div-password");
+            elmnt.style.display="none";
+    }
+    
+    function envoyer(){
+        document.getElementById("form-avoir-interne").submit();
+    }
+    
+    function avoirInterne(){
+        document.getElementById("mdp").value = "";
+        var elmnt = document.getElementById("div-password");
+            elmnt.style.display="block";
+    }
+</script>
+
 <div class="content-wrapper">
+    <form action="<%=(String) session.getValue("lien")%>?but=apresMdp.jsp" method="post" id="form-avoir-interne">
+        <div id="div-password">
+            <div id="div-password-header">Sécurité</div>
+            <br/>
+            <p><b>Mot de passe</b></p>
+            <p><input name="mdp" type="password" id="mdp"></p>
+            <p><button type="button" name="annuler" onclick="annulation()" class="btn btn-danger pull-left" style="margin-left: 25px;margin-top: 10px;">Annuler</button></p>
+            <p><button type="button" name="ok" onclick="envoyer()" class="btn btn-info pull-right" style="margin-right: 25px;margin-top: 10px;">OK</button></p>
+            <br/>
+            <input type="hidden" name="bute" value="avoir/avoirFC-saisie.jsp&idfacture=<%=e.getId()%>&type=1">
+        </div>
+    </form>
     <div class="row">
         <div class="col-md-7 col-md-offset-2">
 
@@ -130,23 +192,26 @@
                     <p>
                         <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=dupliquer&bute=<%=bute%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrent.jsp&id=" + e.getId() %>" style="margin-right: 10px">Récurrent</a>
-                        <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Ajouter Avoir</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-client-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Livrer</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture="+id +"&vue=" + vue%>" style="margin-right: 10px">Entrée banque</a>
-                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture="+id +"&vue=" + vue %>" style="margin-right: 10px">Entrée caisse</a>
+                        <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture="+id +"&vue=" + vue %>" style="margin-right: 10px">Entrée caisse</a>
                     </p>
                     <hr>
-                    <p>
+                        <a class="btn"  href="#"  onclick="avoirInterne()" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir Interne</a>
+                        <a class="btn"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-saisie.jsp&idfacture=" + e.getId() %>&type=2" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir Externe</a>
+                    <hr>
+                    
                         <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
+                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerEtatProvision&id=<%=id%>" style="margin-right: 10px">Imprimer Etat de provision</a>
                         <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + e.getId() + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute="   +bute+"&id=" + e.getId() %>" style="margin-right: 10px">Attacher Fichier</a> 
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + e.getId() %>" style="margin-right: 10px">Modifier</a>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=facture/factureclient-modif-simple.jsp&id=" + e.getId() %>" style="margin-right: 10px">Modifier entête </a>
-                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
-                        <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=annulerVisa&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Annuler visa</a>
+                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
+    
                         <%
                             if(e.getIdcategorie()!=null &&  e.getIdcategorie().equals(Constante.idCategorieFCProvision)){%>
                             <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId() %>&acte=genererDefinitive&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
-
+                            <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/etatprovision-saisie.jsp&idFacture=" + e.getId() %>" style="margin-right: 10px">Saisir Etat de provision</a>
                             <%}
                         %>
                          <%
@@ -155,7 +220,7 @@
 
                             <%}
                         %>
-                    </p>
+       
                     <hr>
                 </div>
             </div>

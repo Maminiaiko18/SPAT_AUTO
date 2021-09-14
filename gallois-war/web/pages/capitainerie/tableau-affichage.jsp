@@ -150,7 +150,7 @@
                             <table width="100%" border="0" align="center" cellpadding="3" cellspacing="3" class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="12" style="background-color:#103a8e;color:#fff;">Mouvement des navires</th>                                       
+                                        <th colspan="12" style="background-color:#103a8e;color:#fff;">Occupation de quai</th>                                       
                                     </tr>
                                     <tr>
                                         <th>Navire</th>

@@ -11,6 +11,9 @@ import bean.ClassMAPTable;
 import facture.FactureClient;
 import java.sql.Connection;
 import utilitaire.ConstanteEtat;
+import facture.FactureClientDetails;
+import factureclient.FactureClientDetail;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -19,9 +22,10 @@ import utilitaire.ConstanteEtat;
 public class AvoirFCFille extends ClassFille {
 
     private String id;
-    private double montant, montantdf, montantDFTaux;
     private String idmere, compte, iddetailfacture, devise, designation;
-
+    private double remise;
+     private double montant, montantdf, montantDFTaux;
+    
     public FactureClient getFacture(Connection c) throws Exception {
         FactureClient fc = new FactureClient();
         fc.setNomTable("AVOIRFC_FACTURE");
@@ -33,7 +37,27 @@ public class AvoirFCFille extends ClassFille {
 
         return null;
     }
+    public AvoirFCFille(String id, double montant, double montantdf, double montantDFTaux, String idmere, String compte, String iddetailfacture, String devise, String designation, double remise) {
+        this.id = id;
+        this.montant = montant;
+        this.montantdf = montantdf;
+        this.montantDFTaux = montantDFTaux;
+        this.idmere = idmere;
+        this.compte = compte;
+        this.iddetailfacture = iddetailfacture;
+        this.devise = devise;
+        this.designation = designation;
+        this.remise = remise;
+    }
 
+    public double getRemise() {
+        return remise;
+    }
+
+    public void setRemise(double remise) {
+        this.remise = remise;
+    }
+    
     public String getDesignation() {
         return designation;
     }
@@ -90,7 +114,12 @@ public class AvoirFCFille extends ClassFille {
         this.setNomClasseMere("avoir.AvoirFC");
         this.setLiaisonMere("idmere");
     }
-
+    
+    @Override
+    public String getLiaisonMere(){
+        return "idmere";
+    }
+    
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("AVRFCF", "get_seqavoirFCfille");
@@ -119,7 +148,12 @@ public class AvoirFCFille extends ClassFille {
         return montant;
     }
 
-    public void setMontant(double montant) {
+    public void setMontant(double montant) throws Exception {
+        if(this.getMode().equalsIgnoreCase("modif")){
+            FactureClientDetails fc = getFactureClientDetail(null);
+            if (this.getRemise() > 0)
+                montant=(fc.getMontantTTC() * this.getRemise())/100;
+        }
         this.montant = montant;
     }
 
@@ -153,6 +187,28 @@ public class AvoirFCFille extends ClassFille {
 
     public void setMontantdf(double montantdf) {
         this.montantdf = montantdf;
+    }
+    
+    public FactureClientDetails getFactureClientDetail(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureClientDetails fc = new FactureClientDetails();
+            fc.setNomTable("facture_client_filleTTC");
+            String awhere = String.format(" and id = '%s' ", this.getIddetailfacture());
+            FactureClientDetails[] result = (FactureClientDetails[])CGenUtil.rechercher(fc, null, null, c, awhere);
+            if(result != null && result.length > 0)
+                return result[0];
+            return null;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
     }
    
 }

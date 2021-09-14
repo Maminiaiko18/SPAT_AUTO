@@ -1,5 +1,7 @@
 package mg.cnaps.servlet.etat;
 
+import avoir.AvoirFC;
+import avoir.AvoirFCFille;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,6 +48,7 @@ import mg.spat.stock.*;
 import utilitaire.ChiffreLettre;
 import ded.BonEngagementPDF;
 import caisse.SituationComptesData;
+import facture.EtatProvision;
 import java.util.Collection;
 import mg.amadia.stock.EtatdeStockDate;
 import mg.amadia.stock.RecapitulatifComptesSubReport;
@@ -131,6 +134,10 @@ public class EtatPaieServlet extends HttpServlet {
                 fichePrestation(request, response);
             }else if(action.equalsIgnoreCase("fact")){
                 fact(request, response);
+            }else if(action.equalsIgnoreCase("imprimerAvoir")){
+                imprimerAvoir(request, response);
+            }else if(action.equalsIgnoreCase("imprimerEtatProvision")){
+                imprimerEtatProvision(request, response);
             }
 
             
@@ -579,7 +586,7 @@ public class EtatPaieServlet extends HttpServlet {
                 
             String idFacture = request.getParameter("idFacture");
             FactureAnalyse facture = new FactureAnalyse();
-            facture.setNomTable("ANALYSEGLOBALEFACTURE_ANALYSE");
+            facture.setNomTable("facture_client_union");
             facture.setNmfact(idFacture);
             FactureAnalyse[] tabFact = (FactureAnalyse[]) CGenUtil.rechercher( facture , null, null, "  ") ;
             Map param = new HashMap();   
@@ -738,10 +745,10 @@ public class EtatPaieServlet extends HttpServlet {
             {
                 arrList.add(details[i]);
             }
-            mere[0].setListeDetails(arrList);
+            //mere[0].setListeDetails(arrList);
             
             List dataSources = new ArrayList();
-            dataSources.addAll(mere[0].getListeDetails());
+            //dataSources.addAll(mere[0].getListeDetails());
             
             param.put("list_table",dataSources);
             
@@ -763,7 +770,7 @@ public class EtatPaieServlet extends HttpServlet {
             facture.setNomTable("factureClient");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
            
-            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
+            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"' order by daty, rang");
             String code = mere[0].getCode();
             facture.setNomTable("factureClientValide");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
@@ -801,7 +808,7 @@ public class EtatPaieServlet extends HttpServlet {
                  param.put("lmnavire",pre[0].getLmnavire());
                  param.put("provenance",pre[0].getValquaisprovenance());
                  param.put("escale",pre[0].getEscale());
-                 param.put("pavillonlib", pre[0].getPavillonnavire());
+                 param.put("pavillonlib", pre[0].getPavillonlib());
                  param.put("heure_depart",pre[0].getHeure_depart());
                  param.put("heure_arrivee",pre[0].getHeure_arrivee());
                  param.put("armateur",pre[0].getArmateurlib());
@@ -856,9 +863,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("tvaeuro",tvaEuro);
             param.put("ttcEuro",ttcEuro);            
             param.put("valeuro",deviseEuro);
-            System.out.println("EEEEEEEEEEEEEEEEEEEEEEE");
-            System.out.println(deviseEuro);
-            System.out.println(deviseDollar);
+            
             param.put("valdollar",deviseDollar);
             param.put("cat",cat);
             param.put("designation",designation);
@@ -902,9 +907,122 @@ public class EtatPaieServlet extends HttpServlet {
     }
     /********************************************************************************************************************************************************************************************/
     
-	
+    private void imprimerAvoir(HttpServletRequest request, HttpServletResponse response) throws  Exception { 
+        try {
+            Map param = new HashMap();
+            String id = request.getParameter("id");
+            AvoirFC facture = new AvoirFC();
+            facture.setNomTable("avoirFC_montant");
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+           
+            AvoirFC[] mere = (AvoirFC[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
+           
+            TypeObjet cat = mere[0].getCategorie(null);
+            if(cat!=null){
+                param.put("categorie", cat.getVal());   
+            }            
+            param.put("daty",utilitaire.Utilitaire.dateDuJourSql());
+            param.put("code",mere[0].getCode());
+            param.put("designationAvoir",mere[0].getDesignation());
+            param.put("designation",mere[0].getMotiflib());
+            param.put("typeavoir",mere[0].getTypelib());   
+            
+            
+            FactureClient fc = mere[0].getFactureLiee(null,null);
+            fc.initDetails(null);
+            double deviseEuro = fc.getDeviseEuro();
+            double deviseDollar = fc.getDeviseDollar();            
+            param.put("codefact",fc.getCode());
+            param.put("pdaty",fc.getDaty());
+            param.put("client",fc.getTierslib());
+            param.put("codeClient",fc.getTiers());
+            param.put("adresse",fc.getAdresse());            
+            param.put("type",fc.getTypelib());       
+            param.put("deviseMere",fc.getDeviseMere());  
+            param.put("valeuro",deviseEuro);            
+            param.put("valdollar",deviseDollar);  
+            
+            AvoirFCFille[]avoirFille = mere[0].getAvoirFilles(null, null);
+            FactureClientDetails[]details = new FactureClientDetails[avoirFille.length];
+            for(int i = 0; i<avoirFille.length; i++){
+                details[i] = avoirFille[i].getFactureClientDetail(null);
+                details[i].setMontant(avoirFille[i].getMontant());
+                details[i].setId(avoirFille[i].getId());
+            }
+            fc.setListeDetails(details);
+            fc.initDetails(null);            
+            
+            double montanttotal = 0;
+            List<FactureClientDetails>arrList = new ArrayList<FactureClientDetails>();
+            for(int i = 0; i<details.length; i++){
+                montanttotal = montanttotal + details[i].getMontantHTEuro();
+                arrList.add(details[i]);
+            }
+            
+            param.put("montant", mere[0].getMontant());
+            param.put("montantTVA", 0);
+            param.put("montantTTC", mere[0].getMontant());
+            param.put("total", montanttotal);
+            
+            String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontant() ) ) +" Ariary " ;
+            
+            if(fc.getDeviseMere()!=null){
+                 if(fc.getDeviseMere().compareToIgnoreCase("Dollars")==0){
+                    double montantDollar = mere[0].getMontant() / deviseDollar;
+                    montantlettre = ChiffreLettre.convertRealToString( new Double( montantDollar ) )+" Dollars " ;            
+                }
+            }
+           
+            param.put("montantlettre",montantlettre);           
+            param.put("list_table",arrList);
+            setNomJasper("facture-client-avoir");
+            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            //setNomJasper("facture_client2 - Copie");
+            UtilitaireImpression.imprimer(request, response, "facture-clien-avoirt", param, null, getReportPath(), rt);
 
-    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+    }
+    private void imprimerEtatProvision(HttpServletRequest request, HttpServletResponse response) throws  Exception { 
+        try {
+            Map param = new HashMap();
+            String id = request.getParameter("id");
+            EtatProvision a = new EtatProvision();
+            a.setNomTable("etat_provisionlib");    
+            param.put("daty",utilitaire.Utilitaire.dateDuJourSql());
+            EtatProvision[] mere = (EtatProvision[]) CGenUtil.rechercher(a, null, null, null, " and id = '"+id+"'");
+            String idfc = "";
+            if(mere.length!=0){
+                param.put("numprovision", mere[0].getNumProvision());
+                param.put("tierslib", mere[0].getTierslib());
+                param.put("idnavirelib", mere[0].getIdnavirelib());
+                param.put("idmodelib", mere[0].getIdmodelib());
+                param.put("idbanquelib", mere[0].getIdbanquelib());
+                param.put("numpiece", mere[0].getNumpiece());
+                param.put("operation", mere[0].getOperation());
+                idfc = mere[0].getIdFacture();
+            }
+            
+            FactureClient fc = new FactureClient();
+            fc.setNomTable("facture_client_union");
+            FactureClient[] fclt = (FactureClient[]) CGenUtil.rechercher(fc, null, null, null, " and id = '"+idfc+"'");
+            if(fclt.length!=0){
+                param.put("montantttc", fclt[0].getMontantttc());
+                param.put("code", fclt[0].getCode());
+            }
+            
+            
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("EtatProvision");
+            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            //setNomJasper("facture_client2 - Copie");
+            UtilitaireImpression.imprimer(request, response, "etat-provision", param, null, getReportPath(), rt);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+    }    
   
     
 }

@@ -65,7 +65,7 @@ public abstract class ClassEtat extends ClassUser{
     /*
     **Sur definissiavana ity raha misy controle hafa avant annuler ka tiana atao personnalisé
     */
-    public void controleAnnuler() throws Exception
+    public void controleAnnuler(Connection c) throws Exception
     {
         if(getEtat()>=ConstanteEtat.getEtatValider()) throw new Exception("Impossible à annuler, deja valide");
     }
@@ -75,14 +75,14 @@ public abstract class ClassEtat extends ClassUser{
     }
     public int annuler(Connection c)throws Exception
     {
-        controleAnnuler();
+        controleAnnuler(c);
         setMode("modif");
         this.setEtat(ConstanteEtat.getEtatAnnuler());
         return this.updateToTable(c);
     }
     public int annuler(String user,Connection c)throws Exception
     {
-        controleAnnuler();
+        controleAnnuler(c);
         setMode("modif");
         this.setEtat(ConstanteEtat.getEtatAnnuler());
         return this.updateToTableWithHisto(user, c);

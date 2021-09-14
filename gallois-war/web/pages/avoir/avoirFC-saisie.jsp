@@ -29,8 +29,10 @@
     d.setIdfacture(request.getParameter("idfacture"));
     d.findFCDetails();
     FactureClientDetails[] data = d.getFcdetails();
-    
-    PageInsertMultiple pi = new PageInsertMultiple(avoir, avoirfille, request, data.length, u);
+    int nbLigneFille = 10;
+    if(data.length > 0)
+        nbLigneFille = data.length;
+    PageInsertMultiple pi = new PageInsertMultiple(avoir, avoirfille, request, nbLigneFille, u);
     pi.setLien((String) session.getValue("lien"));
     
     String mere=request.getParameter("idmere");
@@ -43,23 +45,66 @@
     pi.getFormu().getChamp("idfacture").setLibelle("Facture");
     pi.getFormu().getChamp("idfacture").setPageAppel("choix/listeFactureClientChoix.jsp");
     pi.getFormu().getChamp("idfacture").setAutre("readonly");
-     
     
-    for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){;
-        pi.getFormufle().getChamp("iddetailfacture_"+i).setDefaut(data[i].getId());
-        pi.getFormufle().getChamp("montantdf_"+i).setDefaut(""+data[i].getMontant());
-        pi.getFormufle().getChamp("devise_"+i).setDefaut(data[i].getDevise());
-        pi.getFormufle().getChamp("designation_"+i).setDefaut(data[i].getDesignation());
+    if(data.length > 0 ){
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
+        for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){;
+            pi.getFormufle().getChamp("iddetailfacture_"+i).setDefaut(data[i].getId());
+            pi.getFormufle().getChamp("montantdf_"+i).setDefaut(""+data[i].getMontantTTC());
+            pi.getFormufle().getChamp("devise_"+i).setDefaut(data[i].getDevise());
+            pi.getFormufle().getChamp("designation_"+i).setDefaut(data[i].getDesignation());
+            pi.getFormufle().getChamp("remise_"+i).setDefaut("100");
+        }
     }
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
+    
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idMere"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
+    
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
     
+    pi.getFormu().getChamp("designation").setLibelle("Note explicative");
+    pi.getFormu().getChamp("motif").setLibelle("Motif");
+    pi.getFormu().getChamp("categorie").setLibelle("Catégorie");
+    pi.getFormu().getChamp("code").setVisible(false);
+    
+    affichage.Liste[] liste = new affichage.Liste[3];
+    TypeObjet categorie = new TypeObjet();
+    categorie.setNomTable("categorieAvoirFC");
+    
+    TypeObjet motif = new TypeObjet();
+    motif.setNomTable("motifAvoirFC");
+    if (request.getParameter("type")!=null) {
+        motif.setDesce(request.getParameter("type"));
+    }
+    
+    liste[0] = new Liste("categorie",categorie, "val", "id");
+    liste[1] = new Liste("motif",motif, "val", "id");
+    
+    TypeObjet typeAv = new TypeObjet();
+    typeAv.setNomTable("typeAvoirFC");
+    liste[2] = new Liste("type", typeAv, "val", "id");
+    
+    if (request.getParameter("type")!=null) {
+        liste[2].setDefaut(request.getParameter("type"));
+    }
+    
+    liste[2].setDeroulanteDependante(liste[1], "desce", "onblur");
+    liste[2].setDeroulanteDependante(liste[0], "type", "onclick");
+    
+    pi.getFormu().changerEnChamp(liste);
+
+//    affichage.Champ[] listeFille = new affichage.Champ[1];
+//    TypeObjet devise = new TypeObjet();
+//    devise.setNomTable("devise");
+//    listeFille[0] = new Liste("devise",devise, "val", "id");
+//    pi.getFormufle().changerEnChamp(listeFille);
+//    
+    
+
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureClientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle");
     pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
     pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
@@ -67,7 +112,14 @@
     pi.getFormufle().getChamp("Montantdf_0").setLibelle("Montant detail facture");
     pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("Designation_0").setLibelle("Designation");
+    pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
+    
+    String[] ordre = {"id","daty","idfacture","etat","designation","code","type","categorie","motif"};
+    pi.getFormu().setOrdre(ordre);
     
     pi.preparerDataFormu();
        
@@ -87,7 +139,7 @@
         <input name="bute" type="hidden" id="bute" value="avoir/avoirFC-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="avoir.AvoirFC">
         <input name="classefille" type="hidden" id="classefille" value="avoir.AvoirFCFille">
-        <input name="nombreLigne" type="hidden" id="nombreLigne" value="10">
+        <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=nbLigneFille%>">
         <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
     </form>
  

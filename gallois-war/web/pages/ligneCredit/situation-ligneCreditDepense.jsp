@@ -3,6 +3,7 @@
     Created on : 14 Mars 2016, 10:26:05
     Author     : Do
 --%>
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="affichage.TableauRecherche"%>
 <%@page import="lignecredit.LigneCredit"%>
 <%@page import="affichage.PageRecherche"%>
@@ -20,7 +21,7 @@
 
         String listeCrt[] = {"id", "designation", "compte", "daty"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye", "daty"};
+        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -29,8 +30,20 @@
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
         
+        String date1 = request.getParameter("daty1"), date2 = request.getParameter("daty2");
+        String anneeEnCours = Utilitaire.getAnneeEnCours();
+        if( date1 == null){
+            date1 = "01/01/"+anneeEnCours;
+        }
+        if(date2 == null){
+            date2 = "31/12/"+anneeEnCours;
+        }
+        pr.getFormu().getChamp("daty1").setDefaut(date1);
+        pr.getFormu().getChamp("daty2").setDefaut(date2);
+        
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
+        
         LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, null);
         pr.setTableau(new TableauRecherche(liste, libEntete));
 
@@ -74,7 +87,7 @@
         %>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye","Date"};
+            String libEnteteAffiche[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

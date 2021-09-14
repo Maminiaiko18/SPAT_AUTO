@@ -30,7 +30,7 @@
         pi.getFormu().getChamp("idplacement").setAutre("readonly");
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
 
-        affichage.Champ[] liste = new affichage.Champ[3];
+        affichage.Champ[] liste = new affichage.Champ[4];
         Caisse esc = new Caisse();
         esc.setNomTable("caisse_banque");
         liste[0] = new Liste("caisse", esc, "VAL", "id");
@@ -41,9 +41,13 @@
         TypeObjet mode = new TypeObjet();
         mode.setNomTable("MODEPAIEMENTCV");
         liste[2] = new Liste("idmode", mode, "desce", "id");
+        TypeObjet banque = new TypeObjet();
+        op.setNomTable("banque");
+        liste[3] = new Liste("banque", banque, "desce", "id");
 
         pi.getFormu().changerEnChamp(liste);
-        pi.getFormu().getChamp("caisse").setLibelle("Banque");
+        pi.getFormu().getChamp("caisse").setLibelle("Caisse");
+        pi.getFormu().getChamp("banque").setLibelle("Banque");
         pi.getFormu().getChamp("iddevise").setLibelle("Devise");
         pi.getFormu().getChamp("idmode").setLibelle("mode de paiement");
         pi.setLien((String) session.getValue("lien"));

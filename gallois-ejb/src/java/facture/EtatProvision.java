@@ -7,6 +7,7 @@ package facture;
 
 import bean.ClassMAPTable;
 import java.sql.Connection;
+import java.sql.Date;
 
 /**
  *
@@ -15,10 +16,19 @@ import java.sql.Connection;
 public class EtatProvision extends ClassMAPTable {
     private String id;
     private double montantfacture, montantprovision, ecart,montantpaye;
-    private String tierslib;
+    private String tiers,tierslib;
+    private Date daty;
+    
+    private String numpiece;
+    private String numProvision;
+    private String operation;
+    private String idnavire, idnavirelib;
+    private String idmode, idmodelib;
+    private String idbanque, idbanquelib;
+    private String idFacture, idFacturelib;
 
     public EtatProvision(){ 
-        this.setNomTable("etatprovision");
+        this.setNomTable("etat_provision");
     }
     
     public EtatProvision(String id, double montantfacture, double montantprovision, double ecart, double montantpaye) {
@@ -27,8 +37,82 @@ public class EtatProvision extends ClassMAPTable {
         this.montantprovision = montantprovision;
         this.ecart = ecart;
         this.montantpaye = montantpaye;
-    }    
+    } 
+
+    public EtatProvision(String id, double montantfacture, double montantprovision, double ecart, double montantpaye, String tierslib, Date daty) {
+        this.id = id;
+        this.montantfacture = montantfacture;
+        this.montantprovision = montantprovision;
+        this.ecart = ecart;
+        this.montantpaye = montantpaye;
+        this.tierslib = tierslib;
+        this.daty = daty;
+    }
     
+    public EtatProvision(String id, double montantfacture, double montantprovision, double ecart, double montantpaye, String tiers, String tierslib, Date daty) {
+        this.id = id;
+        this.montantfacture = montantfacture;
+        this.montantprovision = montantprovision;
+        this.ecart = ecart;
+        this.montantpaye = montantpaye;
+        this.tiers = tiers;
+        this.tierslib = tierslib;
+        this.daty = daty;
+    }
+
+    @Override
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("ETPROV", "get_seq_etat_provision");
+        this.setId(makePK(c));
+    }
+
+    public String getIdmode() {
+        return idmode;
+    }
+
+    public void setIdmode(String idmode) {
+        this.idmode = idmode;
+    }
+
+    public String getIdnavire() {
+        return idnavire;
+    }
+
+    public void setIdnavire(String idnavire) {
+        this.idnavire = idnavire;
+    }
+
+    public String getIdbanque() {
+        return idbanque;
+    }
+
+    public void setIdbanque(String idbanque) {
+        this.idbanque = idbanque;
+    }
+
+    public String getIdFacturelib() {
+        return idFacturelib;
+    }
+
+    public void setIdFacturelib(String idFacturelib) {
+        this.idFacturelib = idFacturelib;
+    }
+
+    public String getIdFacture() {
+        return idFacture;
+    }
+
+    public void setIdFacture(String idFacture) {
+        this.idFacture = idFacture;
+    }
+    
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }   
     public double getMontantpaye() {
         return montantpaye;
     }
@@ -81,6 +165,62 @@ public class EtatProvision extends ClassMAPTable {
 
     public void setTierslib(String tierslib) {
         this.tierslib = tierslib;
+    }
+    
+    public String getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(String tiers) {
+        this.tiers = tiers;
+    }
+
+    public String getNumpiece() {
+        return numpiece;
+    }
+
+    public void setNumpiece(String numpiece) {
+        this.numpiece = numpiece;
+    }
+
+    public String getNumProvision() {
+        return numProvision;
+    }
+
+    public void setNumProvision(String numProvision) {
+        this.numProvision = numProvision;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
+
+    public String getIdnavirelib() {
+        return idnavirelib;
+    }
+
+    public void setIdnavirelib(String idnavirelib) {
+        this.idnavirelib = idnavirelib;
+    }
+
+    public String getIdmodelib() {
+        return idmodelib;
+    }
+
+    public void setIdmodelib(String idmodelib) {
+        this.idmodelib = idmodelib;
+    }
+
+    public String getIdbanquelib() {
+        return idbanquelib;
+    }
+
+    public void setIdbanquelib(String idbanquelib) {
+        this.idbanquelib = idbanquelib;
     }
     
 }

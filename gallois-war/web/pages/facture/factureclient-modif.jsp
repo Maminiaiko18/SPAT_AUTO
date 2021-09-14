@@ -20,7 +20,7 @@
         FactureClientDetails fille = new FactureClientDetails();
         fille.setNomTable("FACTURE_CLIENT_FILLE_LIBELLE");
         fille.setIdmere(request.getParameter("id"));
-        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, "");
+        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, " order by daty, rang");
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
@@ -92,6 +92,7 @@
         pi.getFormu().getChamp("codePrestationlib").setVisible(false);
         pi.getFormu().getChamp("codePrestation").setVisible(false);
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
+        pi.getFormu().getChamp("tva").setVisible(false);    
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
@@ -99,6 +100,9 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("activitelib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("produit_lib"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("daty"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
 
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
@@ -106,7 +110,7 @@
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
 
-        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
 
         affichage.Liste[] listed = new affichage.Liste[2];
@@ -165,7 +169,7 @@
                 pi.getFormufle().makeHtmlInsertTableauIndex();
                 out.println(pi.getFormu().getHtmlInsert());
             %>
-            <center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
+            <center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
             <div class="row">
                 <div class="col-md-12">
                     <%

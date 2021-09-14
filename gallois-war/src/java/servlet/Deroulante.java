@@ -77,10 +77,10 @@ public class Deroulante extends HttpServlet {
             if(nomColAffiche==null||nomColAffiche.compareToIgnoreCase("")==0)nomColAffiche="val";
             
             String nomOrderby=request.getParameter("nomOrderby");
-            if(nomOrderby==null||nomOrderby.compareToIgnoreCase("")==0)nomColAffiche="desce";
+            if(nomOrderby==null||nomOrderby.compareToIgnoreCase("")==0)nomOrderby="desce";
             
             String sensOrderBy=request.getParameter("sensOrderBy");
-            if(sensOrderBy==null||nomOrderby.compareToIgnoreCase("")==0)nomColAffiche="asc";
+            if(sensOrderBy==null||nomOrderby.compareToIgnoreCase("")==0)sensOrderBy="asc";
             
             String estListe=request.getParameter("estListe");
             

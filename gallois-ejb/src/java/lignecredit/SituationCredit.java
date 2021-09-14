@@ -33,12 +33,13 @@ public class SituationCredit extends LigneCredit{
                 c = new UtilDB().GetConn();
                 newCon=true;
             }
+             
              String where =" where 1<2 ";
              if(id!=null   && !id.equals("")) where+=" and upper(l.id) like upper('%"+id+"%')";
              if(desingation!=null   && !desingation.equals("")) where+= "and upper(l.designation) like upper('%"+desingation+"%')";
              if(compte!=null   && !compte.equals("")) where+= " and upper(l.compte) like upper('%"+compte+"%')";
-             if(date1!=null   && !date1.equals("")) where+= " and daty >= '"+date1+"'";
-             if(date2!=null   && !date2.equals("")) where+= " and daty <= '"+date2+"'";
+             if(date1!=null   && !date1.equals("")) where+= " and mf.daty >= '"+date1+"'";
+             if(date2!=null   && !date2.equals("")) where+= " and mf.daty <= '"+date2+"'";
              if(etat!=null   && !etat.equals("")) where+= " and l.etat = "+ etat;
              
              String req="SELECT l.id          AS                     id,\n" +
@@ -49,17 +50,22 @@ public class SituationCredit extends LigneCredit{
             "       l.etat,\n" +
             "       CAST(sum(mf.QUANTITE*mf.pu*mf.TAUX )AS NUMBER(30, 3))\n" +
             "                     AS                     facture,\n" +
-            "       CAST(sum(montantpaye) AS NUMBER(30, 3)) paye,\n" +
-            "       CAST(mf.DATY AS DATE) AS DATY \n" +
+            "       CAST(sum(montantpaye) AS NUMBER(30, 3)) paye\n" +
+//            "       ,CAST(mf.DATY AS DATE) AS DATY \n" +
             "FROM LIGNECREDITRECETTE l\n" +
             "         LEFT JOIN FACTURE_CLIENT_MEREF_paye mf\n" +
             "                   ON SUBSTR(mf.COMPTE, 0, LENGTH(l.COMPTE)) LIKE l.COMPTE\n" +
-            "                       AND EXTRACT(YEAR FROM DATY) = l.ANNEE\n" +where+
+            "                       AND EXTRACT(YEAR FROM DATY) = l.ANNEE\n" +
+            "                       AND mf.IDMERE NOT IN (SELECT id\n" +
+            "                               FROM ProvisionFactureDefinitive)\n" + 
+            where+
             "GROUP BY l.id,\n" +
             "         l.DESIGNATION,\n" +
             "         l.COMPTE,\n" +
             "         l.ANNEE,\n" +
-            "         l.MONTANT, l.etat, mf.DATY";
+            "         l.MONTANT, l.etat";
+//                     + ", mf.DATY";
+
             SituationCredit stock = new SituationCredit();
             stock.setNomTable("situationLC_vide");
             ret = (SituationCredit[]) CGenUtil.rechercher(stock, req, c);

@@ -57,6 +57,10 @@
     titre.put("service", "service");
     
     titre.put("categorieFC", "categorie facture client");
+    
+    titre.put("motifAvoirFC","Motif avoir facture client");
+    
+    titre.put("categorieAvoirFC","Categorie avoir facture client");
 
     TypeObjet act = new TypeObjet();
     act.setNomTable(cible);

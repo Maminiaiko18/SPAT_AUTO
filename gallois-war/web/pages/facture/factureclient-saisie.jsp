@@ -39,6 +39,7 @@
     pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+    pi.getFormu().getChamp("tva").setVisible(false);
     
     
     pi.getFormu().getChamp("tiers").setAutre("readonly");
@@ -98,7 +99,7 @@
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false);
     affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
     pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
-    pi.getFormufle().getChamp("designation_0").setLibelle("Note explicative");
+    pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
     pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
@@ -118,7 +119,7 @@
     pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");

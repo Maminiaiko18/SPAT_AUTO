@@ -10,11 +10,12 @@
 <% try {
 
         EtatProvision tiers = new EtatProvision();
+        tiers.setNomTable("etatprovisionvrai");
 
-        String listeCrt[] = {"id", "tierslib"};
-        String listeInt[] = {};
-        String[] colGr = {"id", "tierslib"};
-        String[] sommGr =  {"montantprovision", "montantfacture", "montantpaye", "ecart"};
+        String listeCrt[] = {"id", "tierslib", "daty"};
+        String listeInt[] = {"daty"};
+        String[] colGr = {"id", "daty", "tierslib"};
+        String[] sommGr =  {"montantprovision", "montantfacture", "montantpaye"};
         
         PageRechercheGroupe pr = new PageRechercheGroupe(tiers, request, listeCrt, listeInt, 3, colGr, sommGr, colGr.length+1, sommGr.length+1);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -23,6 +24,8 @@
 
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+        pr.getFormu().getChamp("daty1").setLibelle("Date min.");
+        pr.getFormu().getChamp("daty2").setLibelle("Date max.");
         
         pr.creerObjetPage();
 %> 

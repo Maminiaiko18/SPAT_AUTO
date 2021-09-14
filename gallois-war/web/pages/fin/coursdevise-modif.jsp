@@ -31,6 +31,10 @@
     ((Liste)liste[1]).ajouterValeur(ajoutValeur,ajoutAffiche);
     
     pi.getFormu().changerEnChamp(liste);
+    
+    String[] ordre = {"id","daty","iddevise", "montant", "estMICTSL"};
+    pi.getFormu().setOrdre(ordre);
+    
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
     pi.getFormu().getChamp("estMICTSL").setLibelle("Est MICTSL");   
 

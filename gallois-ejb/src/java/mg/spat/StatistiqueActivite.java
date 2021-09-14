@@ -81,7 +81,7 @@ public class StatistiqueActivite extends ClassEtat {
         return annee;
     }
 
-    public void setAnnee(int annee) {
+    public void setAnnee(int annee) throws Exception  {
         this.annee = annee;
     }
 

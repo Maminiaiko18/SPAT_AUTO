@@ -50,15 +50,15 @@ public class MvtCaisse extends JournalCaisse {
     }
     
     
-    public OrdonnerPayement getOP(Connection c) throws Exception {
-        OrdonnerPayement crtOrd = new OrdonnerPayement();
-        crtOrd.setId(this.getIdordre());
-        OrdonnerPayement ret[] = (OrdonnerPayement[]) CGenUtil.rechercher(crtOrd, null, null, c, "");
-        if (ret.length == 0) {
-            return null;
-        }
-        return ret[0];
-    }
+//    public OrdonnerPayement getOP(Connection c) throws Exception {
+//        OrdonnerPayement crtOrd = new OrdonnerPayement();
+//        crtOrd.setId(this.getIdordre());
+//        OrdonnerPayement ret[] = (OrdonnerPayement[]) CGenUtil.rechercher(crtOrd, null, null, c, "");
+//        if (ret.length == 0) {
+//            return null;
+//        }
+//        return ret[0];
+//    }
 
    
 

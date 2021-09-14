@@ -28,7 +28,8 @@
     
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
-    pr.creerObjetPage(libEntete, colSomme);
+    pr.setOrdre(" order by daty,rang");
+    pr.creerObjetPage(libEntete, colSomme); 
 
     FactureClientDetails[] liste = (FactureClientDetails[]) pr.getTableau().getData();
     

@@ -10,6 +10,7 @@
 <%@ page import="utilitaire.*"%>
 <%@ page import="affichage.*"%>
 <%
+    try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     JournalCaisse jc = new JournalCaisse();
     jc.setNomTable("journalcaisse");
@@ -23,7 +24,7 @@
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("typemvt").setVisible(false);
-    affichage.Champ[] liste = new affichage.Champ[4];
+    affichage.Champ[] liste = new affichage.Champ[5];
     TypeObjet typeObjet = new TypeObjet();
     TypeObjet esc = new TypeObjet();
         esc.setNomTable("CAISSE_LIB");
@@ -33,17 +34,23 @@
         liste[1] = new Liste("idTypeCheque", cheque, "VAL", "id");
         
         TypeObjet op = new TypeObjet();
-        op.setNomTable("DEVISEDEMAT");
+        op.setNomTable("DEVISE");
         liste[2] = new Liste("iddevise", op, "desce", "id");   
         
         TypeObjet mode = new TypeObjet();
         mode.setNomTable("MODEPAIEMENT");
         liste[3] = new Liste("idmode", mode, "desce", "id");   
+        
+        TypeObjet banque = new TypeObjet();
+        banque.setNomTable("banque");
+        liste[4] = new Liste("idbanque", banque, "desce", "id");   
+        
         pi.getFormu().changerEnChamp(liste);
         
     pi.getFormu().changerEnChamp(liste);
     
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
+    pi.getFormu().getChamp("idbanque").setLibelle("Banque");
     pi.getFormu().getChamp("idmode").setLibelle("Mode de paiement");
     pi.getFormu().getChamp("dateSaisie").setVisible(false);
     pi.getFormu().getChamp("dateEffet").setLibelle("Date");
@@ -83,3 +90,8 @@
         </div>
     </div>
 </div>
+<%
+    }catch(Exception ex){
+        ex.printStackTrace();
+    }
+%>
