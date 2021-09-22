@@ -190,28 +190,39 @@
                 </div>
                 <div class="box-footer">
                     <p>
-                        <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=dupliquer&bute=<%=bute%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
+                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
+                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=dupliquer&bute=<%=bute%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrent.jsp&id=" + e.getId() %>" style="margin-right: 10px">Récurrent</a>
-                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-client-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Livrer</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture="+id +"&vue=" + vue%>" style="margin-right: 10px">Entrée banque</a>
-                        <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture="+id +"&vue=" + vue %>" style="margin-right: 10px">Entrée caisse</a>
-                    </p>
+                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture="+id +"&vue=" + vue %>" style="margin-right: 10px">Entrée caisse</a>
                     <hr>
+                    <p><a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-client-saisie.jsp&idfacture=" + e.getId() %>" style="margin-right: 10px">Livrer</a></p>
+                    <hr> 
+                    <p>
                         <a class="btn"  href="#"  onclick="avoirInterne()" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir Interne</a>
                         <a class="btn"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-saisie.jsp&idfacture=" + e.getId() %>&type=2" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir Externe</a>
+                    </p>
                     <hr>
-                    
+                    <p>
+                        <a class="btn btn-default"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + e.getId() + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute="   +bute+"&id=" + e.getId() %>" style="margin-right: 10px">Attacher Fichier</a>
+                    </p>
+                    <hr>
+                    <p>
                         <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
                         <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerEtatProvision&id=<%=id%>" style="margin-right: 10px">Imprimer Etat de provision</a>
-                        <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + e.getId() + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute="   +bute+"&id=" + e.getId() %>" style="margin-right: 10px">Attacher Fichier</a> 
+                    </p>
+                    </hr>
+                    <p>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + e.getId() %>" style="margin-right: 10px">Modifier</a>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=facture/factureclient-modif-simple.jsp&id=" + e.getId() %>" style="margin-right: 10px">Modifier entête </a>
-                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
-    
+                    </p>
+                    <hr>
                         <%
                             if(e.getIdcategorie()!=null &&  e.getIdcategorie().equals(Constante.idCategorieFCProvision)){%>
+                           <p>
                             <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId() %>&acte=genererDefinitive&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
                             <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/etatprovision-saisie.jsp&idFacture=" + e.getId() %>" style="margin-right: 10px">Saisir Etat de provision</a>
+                            </p><hr>
                             <%}
                         %>
                          <%
