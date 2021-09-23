@@ -48,7 +48,7 @@ public class FactureClient extends ClassMere {
     private String contact, adresse, etatLib, typelib;
     private FactureClientDetails[] listeDetails;
     private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
-    private String idcategorie, idProvision, categorielib, idProvisionlib,iddefinitive;
+    private String idcategorie, idProvision, categorielib, idProvisionlib, iddefinitive;
     private String estDDPMICTSL;
     private String codePrestation, codePrestationlib, codeProvision;
     private String code;
@@ -67,23 +67,24 @@ public class FactureClient extends ClassMere {
     public String getCodeProvision() {
         return codeProvision;
     }
-    public String  validerFacture(UserEJB user,Connection c ) throws Exception{
-        String provisionString="";
+
+    public String validerFacture(UserEJB user, Connection c) throws Exception {
+        String provisionString = "";
         int verif = 0;
-        try{
+        try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            if(this.getEtat()<ConstanteEtat.getEtatValider()){
+            if (this.getEtat() < ConstanteEtat.getEtatValider()) {
                 ClientCategorie cl = this.getClient(c);
-                if(cl!=null){
-                    FactureClient[] provision= cl.getResteProvision(c);
-                    if(provision.length>0 && this.idProvision ==null){
-                        provisionString=provision[0].getId();
+                if (cl != null) {
+                    FactureClient[] provision = cl.getResteProvision(c);
+                    if (provision.length > 0 && this.idProvision == null) {
+                        provisionString = provision[0].getId();
                         this.setIdProvision(provisionString);
-                        ValidationException validationException= new ValidationException("Voulez-vous rattacher cette facture \\u00e0 une provision restante?");
+                        ValidationException validationException = new ValidationException("Voulez-vous rattacher cette facture \\u00e0 une provision restante?");
                         List<ClassMAPTable> liste_object = new ArrayList<ClassMAPTable>();
                         this.setNomTable("factureclient");
                         liste_object.add(this);
@@ -93,12 +94,13 @@ public class FactureClient extends ClassMere {
                     }
                 }
                 user.validerObject(this);
-            }else throw new Exception("Objet deja visé");
+            } else {
+                throw new Exception("Objet deja visé");
+            }
             if (verif == 1) {
                 c.commit();
             }
-        }
-        catch(Exception exception){
+        } catch (Exception exception) {
             throw exception;
         } finally {
             if (c != null && verif == 1) {
@@ -107,11 +109,11 @@ public class FactureClient extends ClassMere {
         }
         return provisionString;
     }
-    
+
     public void setCodeProvision(String codeProvision) {
         this.codeProvision = codeProvision;
     }
-    
+
     public FactureClient modifierEntete(String refUser, Connection c) throws Exception {
         int verif = 0;
         try {
@@ -120,9 +122,9 @@ public class FactureClient extends ClassMere {
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            
+
             this.updateToTableWithHisto(refUser, c);
-            
+
             if (verif == 1) {
                 c.commit();
             }
@@ -138,23 +140,23 @@ public class FactureClient extends ClassMere {
         }
         return this;
     }
-    
+
     public void controlerProvision(Connection c) throws Exception {
-        if(this.getEtat() < ConstanteEtat.getEtatValider()){
+        if (this.getEtat() < ConstanteEtat.getEtatValider()) {
             throw new Exception("Facture non visée !");
         }
-        
-        if(this.getIdcategorie() == null || !this.getIdcategorie().equals(Constante.idCategorieFCDefinitive) ){
+
+        if (this.getIdcategorie() == null || !this.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {
             throw new Exception("Seule une facture de type definitive peut generer une facture de provision !");
         }
         FactureClient fc = new FactureClient();
-            fc.setNomTable("PROVISIONFACTUREDEFINITIVE");
-        FactureClient[] fcs = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and IDDEFINITIVE = '"+this.getId()+"'");
-        if(fcs!=null && fcs.length > 0){
+        fc.setNomTable("PROVISIONFACTUREDEFINITIVE");
+        FactureClient[] fcs = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and IDDEFINITIVE = '" + this.getId() + "'");
+        if (fcs != null && fcs.length > 0) {
             throw new Exception("Cette facture est deja liee a une provision !");
         }
     }
-    
+
     public String genererLettreMictsl(Connection c) throws Exception {
         ClassFille[] filles = this.getFille();
         if (filles == null) {
@@ -178,6 +180,7 @@ public class FactureClient extends ClassMere {
     public void setIddefinitive(String iddefinitive) {
         this.iddefinitive = iddefinitive;
     }
+
     public String genererPremierCaractere(Connection c) throws Exception {
         TypeObjet obj = new TypeObjet();
         obj.setNomTable("codeFCPremierCaractere");
@@ -192,18 +195,24 @@ public class FactureClient extends ClassMere {
         }
         return null;
     }
-    
+
     @Override
     public void controleAnnuler(Connection c) throws Exception {
         PaiementFacture[] paiementFact = getPaiementFacture(c);
-        if(paiementFact.length > 0) throw new Exception("Paiement existant");
-        
+        if (paiementFact.length > 0) {
+            throw new Exception("Paiement existant");
+        }
+
         FactureClient provision = getProvision(null, c);
-        if(provision != null) throw new Exception("Est liee a une provision");
-        
+        if (provision != null) {
+            throw new Exception("Est liee a une provision");
+        }
+
         FactureClient[] definitives = getFactureLiees(null, c);
-        if(definitives.length > 0) throw new Exception("Est deja liee a une facture definitive");
-        
+        if (definitives.length > 0) {
+            throw new Exception("Est deja liee a une facture definitive");
+        }
+
         //super.controleAnnuler(c);
     }
 
@@ -215,12 +224,14 @@ public class FactureClient extends ClassMere {
         if (filles != null && filles.length > 0) {
             TypeObjet obj = new TypeObjet();
             obj.setNomTable("code_prestation");
-            
+
             Rubrique rubrique = filles[0].getRubrique(c);
-            
+
             // Prestations diverses
-            if(rubrique == null) return "07";
-            
+            if (rubrique == null) {
+                return "07";
+            }
+
             TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '" + rubrique.getCategorie() + "' ");
             if (lst != null && lst.length > 0) {
                 return lst[0].getDesce();
@@ -289,7 +300,7 @@ public class FactureClient extends ClassMere {
             throw new Exception("Rubrique deja facturee pour ce mois");
         }
     }
-    
+
     public void updateDeviseMere(Connection c) throws Exception {
         int verif = 0;
         try {
@@ -301,7 +312,7 @@ public class FactureClient extends ClassMere {
 
             this.setDeviseMere(Constante.deviseAr);
             if (this.getIdprevision() != null && this.getIdprevision().compareTo("") != 0) {
-                Prevision prevision = this.findPrevision(null,c);
+                Prevision prevision = this.findPrevision(null, c);
                 if (prevision != null && prevision.estNavireEtranger(c)) {
                     this.setDeviseMere(Constante.deviseDollars);
                 }
@@ -362,8 +373,6 @@ public class FactureClient extends ClassMere {
         }
     }
 
-    
-
     public void updatePaiement(String u, Connection c) throws Exception {
         JournalCaisse[] lst = getListePaiement(this.getIdProvision(), c);
         for (int i = 0; lst != null && i < lst.length; i++) {
@@ -371,53 +380,61 @@ public class FactureClient extends ClassMere {
             lst[i].updateToTableWithHisto(u, c);
         }
     }
-    public PaiementFacture[] findPaiementProvision(String idProvision,Connection c) throws Exception{
+
+    public PaiementFacture[] findPaiementProvision(String idProvision, Connection c) throws Exception {
         boolean ouvert = false;
-        PaiementFacture[] retour=null;
+        PaiementFacture[] retour = null;
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            retour=(PaiementFacture[])CGenUtil.rechercher(new PaiementFacture(), null, null, c, " and idFact='"+idProvision+"'");
-        }catch(Exception e){
+            retour = (PaiementFacture[]) CGenUtil.rechercher(new PaiementFacture(), null, null, c, " and idFact='" + idProvision + "'");
+        } catch (Exception e) {
             throw e;
-        }finally{
+        } finally {
             if (c != null && ouvert) {
                 c.close();
             }
         }
         return retour;
     }
-    public void genererPaiementDefinitive(String u,String idProvision,Connection c)throws Exception{
+
+    public void genererPaiementDefinitive(String u, String idProvision, Connection c) throws Exception {
         boolean ouvert = false;
-        PaiementFacture[] retour=null;
+        PaiementFacture[] retour = null;
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            PaiementFacture[] listeProvision=this.findPaiementProvision(idProvision, c);
-            if(listeProvision!=null && listeProvision.length>0){
-                for(int i=0;i<listeProvision.length;i++){
+
+            FactureClient fc = new FactureClient();
+            fc = (FactureClient) fc.getById(this.getId(), "facture_client_union", c);
+
+            PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
+            if (listeProvision != null && listeProvision.length > 0) {
+                for (int i = 0; i < listeProvision.length; i++) {
                     listeProvision[i].setIdFact(this.getId());
+                    listeProvision[i].setMontant(fc.getMontantttc());
                     listeProvision[i].setId(null);
                     listeProvision[i].createObject(u, c);
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             throw e;
-        }finally{
+        } finally {
             if (c != null && ouvert) {
                 c.close();
             }
         }
     }
+
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive) && this.getIdProvision()!=null) {
+        if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
         super.validerObject(u, c);
@@ -620,7 +637,8 @@ public class FactureClient extends ClassMere {
         setArrayDetails(new ArrayList<FactureClientDetails>());
 
     }
-    public FactureClient(Date daty, String tiers, String designation, double tva, String type,String idcategorie) throws Exception {
+
+    public FactureClient(Date daty, String tiers, String designation, double tva, String type, String idcategorie) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");
         this.setNomClasseFille("facture.FactureClientDetails");
@@ -633,6 +651,7 @@ public class FactureClient extends ClassMere {
         this.setType(type);
 
     }
+
     public FactureClient(Date daty, String tiers, String designation, double tva, String type) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");
@@ -1166,13 +1185,12 @@ public class FactureClient extends ClassMere {
         Argument type:
             1 genere une facture définitive
             2 genere une facture de provision
-    */
-    
+     */
     public FactureClient setIdProvision(FactureClient fact2, int type, UserEJB u, Connection c) throws Exception {
-        if(type == 1) { 
+        if (type == 1) {
             fact2.setIdProvision(this.getId());
-        }else {
-            if(this.getIdProvision()!=null && !this.getIdProvision().isEmpty()){
+        } else {
+            if (this.getIdProvision() != null && !this.getIdProvision().isEmpty()) {
                 throw new Exception("Impossible generer, facture deja liee a une provision ");
             }
             this.setIdProvision(fact2.getId());
@@ -1180,7 +1198,7 @@ public class FactureClient extends ClassMere {
         }
         return fact2;
     }
-    
+
     public FactureClient genererDefinitive(UserEJB u, int type, Connection c) throws Exception {
         int verif = 0;
         FactureClient fact2 = null;
@@ -1198,13 +1216,12 @@ public class FactureClient extends ClassMere {
             }
 
             String categorie = fc.getIdcategorie();
-            
-            if(type == 1) { 
-                fc.controlerDefinitive(c); 
+
+            if (type == 1) {
+                fc.controlerDefinitive(c);
                 categorie = Constante.idCategorieFCDefinitive;
-            }
-            else { 
-                fc.controlerProvision(c); 
+            } else {
+                fc.controlerProvision(c);
                 categorie = Constante.idCategorieFCProvision;
             }
 
@@ -1323,11 +1340,13 @@ public class FactureClient extends ClassMere {
         }
     }
 
-    public Prevision findPrevision(String nomtable,Connection c) throws Exception {
+    public Prevision findPrevision(String nomtable, Connection c) throws Exception {
         String awhere = " and id = '%s'";
         awhere = String.format(awhere, this.getIdprevision());
-        Prevision pr=new Prevision();
-        if(nomtable==null || nomtable.compareTo("")==0) nomtable=pr.getNomTable();
+        Prevision pr = new Prevision();
+        if (nomtable == null || nomtable.compareTo("") == 0) {
+            nomtable = pr.getNomTable();
+        }
         Prevision[] result = (Prevision[]) CGenUtil.rechercher(pr, null, null, c, awhere);
         if (result.length == 0) {
             throw new Exception("Pas de prevision pour la facture " + this.getId());
@@ -1381,7 +1400,7 @@ public class FactureClient extends ClassMere {
         return calculerCodeSimple(c);
     }
 
-    public FactureClient[] getFactureLiees(String  nomtable, Connection c) throws Exception{ //iza daholo ny factures liées amin’io provision io
+    public FactureClient[] getFactureLiees(String nomtable, Connection c) throws Exception { //iza daholo ny factures liées amin’io provision io
         int verif = 0;
         try {
             if (c == null) {
@@ -1390,11 +1409,12 @@ public class FactureClient extends ClassMere {
                 verif = 1;
             }
             FactureClient fc = new FactureClient();
-            if (nomtable == null)
+            if (nomtable == null) {
                 nomtable = this.getNomTable();
+            }
             fc.setNomTable(nomtable);
             String awhere = String.format(" and idProvision = '%s' ", this.getId());
-            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
+            FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, awhere);
             return result;
         } finally {
             if (c != null && verif == 1) {
@@ -1402,8 +1422,8 @@ public class FactureClient extends ClassMere {
             }
         }
     }
-    
-    public PaiementFacture[] getPaiementFacture(Connection c) throws Exception{
+
+    public PaiementFacture[] getPaiementFacture(Connection c) throws Exception {
         boolean ouvert = false;
 
         try {
@@ -1425,36 +1445,37 @@ public class FactureClient extends ClassMere {
             }
         }
     }
-    
+
     public FactureClient getProvision(String nomtable, Connection c) throws Exception { //iza ny provision liée amin’io facture io
         int verif = 0;
-	try {
-		if (c == null) {
-			c = (new UtilDB()).GetConn();
-			verif = 1;
-		}
-                if(this.getIdProvision() != null){
-                    if(nomtable == null){
-                        nomtable = this.getNomTable();
-                    }
-                    FactureClient fc = new FactureClient();
-                    fc.setNomTable(nomtable);
-                    String awhere = String.format(" and id = '%s' ", this.getIdProvision());
-                    FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
-                    if(result != null && result.length > 0) 
-                            return result[0];
-                    
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                verif = 1;
+            }
+            if (this.getIdProvision() != null) {
+                if (nomtable == null) {
+                    nomtable = this.getNomTable();
                 }
-	} finally {
-		if (c != null && verif == 1) {
-			c.close();
-		}
-	}
-        
+                FactureClient fc = new FactureClient();
+                fc.setNomTable(nomtable);
+                String awhere = String.format(" and id = '%s' ", this.getIdProvision());
+                FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, awhere);
+                if (result != null && result.length > 0) {
+                    return result[0];
+                }
+
+            }
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
         return null;
     }
-    
-    public ClientCategorie getClient(Connection c) throws Exception{
+
+    public ClientCategorie getClient(Connection c) throws Exception {
         int verif = 0;
         try {
             if (c == null) {
@@ -1465,9 +1486,10 @@ public class FactureClient extends ClassMere {
             ClientCategorie cc = new ClientCategorie();
             cc.setNomTable("V_CLIENT_CATEGORIE");
             String awhere = String.format(" and cdclt = '%s' ", this.getTiers());
-            ClientCategorie[] result = (ClientCategorie[])CGenUtil.rechercher(cc, null, null, c, awhere);
-            if(result != null && result.length > 0)
+            ClientCategorie[] result = (ClientCategorie[]) CGenUtil.rechercher(cc, null, null, c, awhere);
+            if (result != null && result.length > 0) {
                 return result[0];
+            }
             return null;
         } finally {
             if (c != null && verif == 1) {
