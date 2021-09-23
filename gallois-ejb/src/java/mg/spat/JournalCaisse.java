@@ -574,7 +574,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                         PaiementFacture paiementFact = new PaiementFacture();
                         paiementFact.setIdMvt(this.getId());
                         paiementFact.setIdFact(fc.getId());
-                        paiementFact.setMontant(this.getCredit());
+//                        paiementFact.setMontant(this.getCredit());
+                        paiementFact.setMontant(fc.getMontantttc());
 
                         paiementFact.createObject(refuser, c);
                     }
