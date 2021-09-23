@@ -520,7 +520,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             System.out.println("MontantReste="+fc.getMontantreste()+" et credit="+this.getCredit());
             
             if(this.getIdTypeCheque().equals(Constante.typeCheque)) {
-                if(this.getCredit() != fc.getMontantttc()) throw new Exception("Une facture au comptant doit etre payee en totalite");
+                if(this.getCredit() != fc.getMontantreste()) throw new Exception("Une facture au comptant doit etre payee en totalite");
             }
             
             if (fc.getMontantreste() < this.getCredit()) {
