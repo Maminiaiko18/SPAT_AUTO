@@ -1221,6 +1221,10 @@ public class FactureClient extends ClassMere {
                 fc.controlerDefinitive(c);
                 categorie = Constante.idCategorieFCDefinitive;
             } else {
+                JournalCaisse[] jc = this.getPaiement(c);
+                if(jc.length == 0){
+                    throw new Exception("Pas de paiement pour cette provision");
+                }
                 fc.controlerProvision(c);
                 categorie = Constante.idCategorieFCProvision;
             }
