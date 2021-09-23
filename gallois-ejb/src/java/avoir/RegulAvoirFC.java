@@ -5,8 +5,11 @@
  */
 package avoir;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
+import facture.FactureClient;
 import java.sql.Connection;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -68,4 +71,25 @@ public class RegulAvoirFC extends ClassMAPTable {
         setId(makePK(c));
     }
     
+    public FactureClient getFacture(Connection c) throws Exception{
+        boolean verif = false;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verif = true;
+                c.setAutoCommit(false);
+            }
+            
+            FactureClient fc = new FactureClient();
+            fc.setNomTable("facture_client_union");
+            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, String.format(" and id = '%s' ", this.getIdFacture()));
+            if(result.length > 0)
+                return result[0];
+            return null;
+        } finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+    }
 }
