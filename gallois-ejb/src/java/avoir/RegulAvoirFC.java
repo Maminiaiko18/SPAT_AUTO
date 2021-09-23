@@ -92,4 +92,26 @@ public class RegulAvoirFC extends ClassMAPTable {
             }
         }
     }
+    
+    public AvoirFC getAvoir(Connection c) throws Exception{
+        boolean verif = false;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verif = true;
+                c.setAutoCommit(false);
+            }
+            
+            AvoirFC afc = new AvoirFC();
+            afc.setNomTable("avoirFC_montant");
+            AvoirFC[] result = (AvoirFC[])CGenUtil.rechercher(afc, null, null, c, String.format(" and id = '%s' ", this.getIdAvoir()));
+            if(result.length > 0)
+                return result[0];
+            return null;
+        } finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+    }
 }
