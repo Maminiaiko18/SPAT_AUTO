@@ -114,4 +114,40 @@ public class RegulAvoirFC extends ClassMAPTable {
             }
         }
     }
+
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        boolean verif = false;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verif = true;
+                c.setAutoCommit(false);
+            }
+            
+            this.regulariser(c);
+            super.createObject(u, c); 
+            if(verif){
+                c.commit();
+            }
+            return this;
+        } catch(Exception ex){ 
+            if(c != null && verif) {
+                c.rollback();
+            }
+            throw ex;
+        } finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+        
+        
+    }
+
+    private void regulariser(Connection c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }
