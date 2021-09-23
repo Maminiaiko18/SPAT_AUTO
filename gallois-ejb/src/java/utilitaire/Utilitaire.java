@@ -1560,9 +1560,13 @@ public class Utilitaire extends Parametre {
             String ns = replaceVirgule(s);
 //            ns = enleverEspace(ns);
             String nso = enleverNonChiffre(ns);
+            
             //ns=ns.trim();
             Double ger = new Double(nso);
             double d = ger.doubleValue();
+            
+            if(s.trim().startsWith("-")) d *= -1;
+            
             return d;
         } catch (NumberFormatException ex) {
             d1 = 0.0D;
