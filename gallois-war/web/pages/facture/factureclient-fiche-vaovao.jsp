@@ -263,8 +263,8 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <td class="left"><b>Trop perçu</b></td>
-                                <td class="pull-right"><%=Utilitaire.formaterAr(montant)%></td>
+                                <td align="left"><b>Trop perçu</b></td>
+                                <td align="right"><%=Utilitaire.formaterAr(montant)%></td>
                                 <td align="center"><a class="btn btn-primary" href="<%=(String) session.getValue("lien")%>?but=avoir/avoirFC-saisie.jsp&idfacture=<%=e.getId()%>&type=2" <%=montant == 0 ? "disabled" : ""%>>Rembourser</a></td>
                             </tr>
                         </tbody>
