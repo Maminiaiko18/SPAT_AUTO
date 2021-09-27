@@ -38,6 +38,7 @@
     String mere=request.getParameter("idmere");
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
+    pi.preparerDataFormu();
     pi.getFormu().getChamp("idfacture").setDefaut(request.getParameter("idfacture"));
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
@@ -121,7 +122,6 @@
     String[] ordre = {"id","daty","idfacture","etat","designation","code","type","categorie","motif"};
     pi.getFormu().setOrdre(ordre);
     
-    pi.preparerDataFormu();
        
 %>
 <div class="content-wrapper">
