@@ -413,12 +413,16 @@ public class FactureClient extends ClassMere {
 
             FactureClient fc = new FactureClient();
             fc = (FactureClient) fc.getById(this.getId(), "facture_client_union", c);
-
+            FactureClient provision = fc.getProvision("facture_client_union", c);
+            
+            double montant = provision.getMontantttc();
+            if(provision.getMontantttc() > fc.getMontantttc()) fc.getMontantttc();
+            
             PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
             if (listeProvision != null && listeProvision.length > 0) {
                 for (int i = 0; i < listeProvision.length; i++) {
                     listeProvision[i].setIdFact(this.getId());
-                    listeProvision[i].setMontant(fc.getMontantttc());
+                    listeProvision[i].setMontant(montant);
                     listeProvision[i].setId(null);
                     listeProvision[i].createObject(u, c);
                 }
