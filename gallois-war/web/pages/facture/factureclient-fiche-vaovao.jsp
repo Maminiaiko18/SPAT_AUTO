@@ -110,7 +110,7 @@
         //String vue = e.getId().startsWith(Constante.fcPrefix) ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
         String vue = e.getRemarque() != null && e.getRemarque().startsWith("--") ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
         EtatProvision etatProv = null;
-        if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCProvision)) {
+        if (e.getIdcategorie() != null && e.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive) && e.getIdProvision() != null) {
             etatProv = new EtatProvision();
             etatProv.setNomTable("etatprovisionvrai");
             EtatProvision[] datas = (EtatProvision[]) u.getData(etatProv, null, null, null, String.format(" and id = '%s'", e.getId()));
