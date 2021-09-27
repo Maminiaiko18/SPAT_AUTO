@@ -416,7 +416,7 @@ public class FactureClient extends ClassMere {
             FactureClient provision = fc.getProvision("facture_client_union", c);
             
             double montant = provision.getMontantttc();
-            if(provision.getMontantttc() > fc.getMontantttc()) fc.getMontantttc();
+            if(provision.getMontantttc() > fc.getMontantttc()) montant = fc.getMontantttc();
             
             PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
             if (listeProvision != null && listeProvision.length > 0) {
