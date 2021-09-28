@@ -183,9 +183,8 @@ public class RegulAvoirFC extends ClassMAPTable {
                 Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), avoir.getMontant(), 0);
         jc.setIdplacement(avoir.getIdfacture());
         jc.setIddevise(Constante.deviseAr);
-        jc.construirePK(c);
-        jc.setEtat(ConstanteEtat.getEtatValider());
-        jc.insertToTableWithHisto(u, c);
+        jc.createObject(u, c);
+        jc.validerObject(u, c);
 
         PaiementFacture paiement = new PaiementFacture(null, jc.getId(), avoir.getIdfacture(), -avoir.getMontant());
         paiement.createObject(u, c);
