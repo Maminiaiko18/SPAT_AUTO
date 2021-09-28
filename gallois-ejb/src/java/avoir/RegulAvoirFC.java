@@ -195,11 +195,13 @@ public class RegulAvoirFC extends ClassMAPTable {
         JournalCaisse jc = new JournalCaisse(null, Constante.caisseCentrale,
                 null, libelle, null, avoir.getTiers(), Constante.typeCheque,
                 Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, avoir.getMontant());
-        jc.setIdplacement(avoir.getIdfacture());
+        jc.setIdplacement(this.getIdFacture());
         jc.setIddevise(Constante.deviseAr);
-        jc.construirePK(c);
-        jc.setEtat(ConstanteEtat.getEtatValider());
-        jc.insertToTableWithHisto(u, c);
+        jc.createObject(u, c);
+        jc.validerObject(u, c);
+        
+        PaiementFacture paiementFact = new PaiementFacture(null, jc.getId(), this.getIdFacture(), avoir.getMontant());
+        paiementFact.createObject(u, c);
     }
 
     private void regulariser(String u, Connection c) throws Exception {
