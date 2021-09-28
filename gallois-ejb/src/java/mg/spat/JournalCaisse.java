@@ -568,6 +568,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     if (!this.getIdplacement().startsWith("FC")) {
                         this.traitementPlacement(user, c);
                     }
+                    
+                    genererPaiement(c, refuser);
 
                     /*FactureClient fc = findFactureClient(c);
                     if(fc != null) {
