@@ -187,7 +187,7 @@ public class RegulAvoirFC extends ClassMAPTable {
         jc.setEtat(ConstanteEtat.getEtatValider());
         jc.insertToTableWithHisto(u, c);
 
-        PaiementFacture paiement = new PaiementFacture(null, jc.getId(), avoir.getIdfacture(), avoir.getMontant());
+        PaiementFacture paiement = new PaiementFacture(null, jc.getId(), avoir.getIdfacture(), -avoir.getMontant());
         paiement.createObject(u, c);
     }
     
