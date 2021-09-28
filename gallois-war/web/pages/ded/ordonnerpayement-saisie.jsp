@@ -1,3 +1,5 @@
+<%@page import="bean.CGenUtil"%>
+<%@page import="avoir.AvoirFC"%>
 <%@page import="ded.OrdonnerPayement"%>
 <%@page import="ded.OrdonnerPayementData"%>
 <%@page import="user.*"%> 
@@ -7,9 +9,13 @@
 <%
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
+    String idavoir = request.getParameter("idAvoir");
+    
+    
     OrdonnerPayement a = new OrdonnerPayement();
     PageInsert pi = new PageInsert(a, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
+    
 
     pi.getFormu().getChamp("ded_Id").setLibelle("N° facture");
     pi.getFormu().getChamp("ded_Id").setAutre("readonly");
@@ -50,6 +56,21 @@
     pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(opd.getMontant()));
     
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
+    
+    if(idavoir!= null){
+        avoir.AvoirFC avoir = new AvoirFC();
+        avoir.setNomTable("avoirFC_montant");
+        AvoirFC ls [] = (AvoirFC[]) CGenUtil.rechercher( avoir , null, null, " and id='"+idavoir+"'") ;
+         //BonDeCommande[] tabBc = (BonDeCommande[]) CGenUtil.rechercher( bc , null, null, " ") ;
+        if(ls.length!=0){
+            pi.getFormu().getChamp("ded_Id").setDefaut(ls[0].getId());
+            pi.getFormu().getChamp("montant").setDefaut(ls[0].getMontant()+"");
+            pi.getFormu().getChamp("daty").setDefaut(utilitaire.Utilitaire.dateDuJour());
+            pi.getFormu().getChamp("remarque").setDefaut("Paiement Avoir "+ls[0].getCode());
+            
+        }
+        
+    }
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
