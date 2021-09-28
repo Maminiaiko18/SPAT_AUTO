@@ -364,7 +364,7 @@ public class AvoirFC extends ClassMere {
     
     public OrdonnerPayement genererOP(Connection c) throws Exception{
         OrdonnerPayement op = new OrdonnerPayement();
-        op.setDed_Id(this.getIdfacture());
+        op.setDed_Id(this.getId());
         AvoirFC avoirFCMontant = new AvoirFC();
         avoirFCMontant.setNomTable("avoirFC_montant");
         AvoirFC[] result = (AvoirFC[])CGenUtil.rechercher(avoirFCMontant, null, null, c, String.format(" and id = '%s' ", this.getId()));
