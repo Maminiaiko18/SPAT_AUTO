@@ -550,7 +550,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("mouvement caissse deja valide");
             }
-            if (this.getIdordre() != null) {
+            /*if (this.getIdordre() != null) {
                 this.traitementOP(user, c); 
                 OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir
                 if(op != null) {
@@ -562,13 +562,13 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     
                     paiementFact.createObject(refuser, c);
                 }
-            }else{
+            }else{*/
                 if (this.getIdplacement() != null) {
                     if (!this.getIdplacement().startsWith("FC")) {
                         this.traitementPlacement(user, c);
                     }
 
-                    FactureClient fc = findFactureClient(c);
+                    /*FactureClient fc = findFactureClient(c);
                     if(fc != null) {
                         checkMontantFactureClient(c); 
                         PaiementFacture paiementFact = new PaiementFacture();
@@ -578,9 +578,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                         paiementFact.setMontant(fc.getMontantttc());
 
                         paiementFact.createObject(refuser, c);
-                    }
+                    }*/
                 }
-            }
+            //}
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
 
