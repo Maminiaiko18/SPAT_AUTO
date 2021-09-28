@@ -661,4 +661,38 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
         }
     }
+    
+    public void genererPaiement(Connection c, String refuser) throws Exception{
+        boolean verif = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = true;
+            }
+            FactureClient fc = findFactureClient(c);
+            if(fc != null){
+                PaiementFacture pf = new PaiementFacture();
+                pf.setIdMvt(this.getId());
+                pf.setIdFact(this.getIdplacement());
+                pf.setMontant(genererMontantPaiement(c));
+                pf.createObject(refuser, c);
+                
+            }
+            if(verif) c.commit();
+        } catch(Exception ex){ 
+            if(c != null && verif){
+                c.rollback();
+            }
+            throw ex;
+        }finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+    }
+
+    private double genererMontantPaiement(Connection c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
