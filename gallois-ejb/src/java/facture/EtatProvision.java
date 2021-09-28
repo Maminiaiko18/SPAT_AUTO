@@ -5,9 +5,11 @@
  */
 package facture;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -25,6 +27,7 @@ public class EtatProvision extends ClassMAPTable {
     private String idmode, idmodelib;
     private String idbanque, idbanquelib;
     private String idFacture, idFacturelib;
+    private String idprovision;
     
     public EtatProvision(){ 
         this.setNomTable("etat_provision");
@@ -274,5 +277,35 @@ public class EtatProvision extends ClassMAPTable {
     public void setMontantreste(double montantreste) {
         this.montantreste = montantreste;
     }
+    
+    public String getIdprovision() {
+        return idprovision;
+    }
+
+    public void setIdprovision(String idprovision) {
+        this.idprovision = idprovision;
+    }
+    
+    public double getResteProvision(Connection c) throws Exception{
+        boolean verif = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            EtatProvision base = new EtatProvision();
+            base.setNomTable("etatprovisionvrai");
+            EtatProvision[] result = (EtatProvision[]) CGenUtil.rechercher(base, null, null, c, String.format(" and idprovision = '%s' ", this.getIdprovision()));
+            if(result.length > 0){
+                return result[0].getMontantreste();
+            }
+            return 0;
+        } finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+    }
+
     
 }
