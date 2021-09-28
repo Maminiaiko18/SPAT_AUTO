@@ -10,6 +10,7 @@ import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
+import facture.EtatProvision;
 import facture.FactureClient;
 import facture.PaiementFacture;
 import factureclient.PayementFacture;
@@ -692,7 +693,25 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
     }
 
-    private double genererMontantPaiement(Connection c) {
+    private double genererMontantPaiement(Connection c) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public double getMontantResteProvision(Connection c)throws Exception{
+        double result = 0.;
+        int verify = 0;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verify = 1;
+            }
+            EtatProvision ep = new EtatProvision();
+            String awhere = String.format(" and idProvision = '%s' ", this.getIdplacement());
+            EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, awhere);
+            result = etatProv[0].getResteProvision(c);
+        }finally{
+            if(c!=null && verify==1) c.close();
+        }
+        return result;
     }
 }
