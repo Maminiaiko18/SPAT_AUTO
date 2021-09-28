@@ -710,7 +710,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             EtatProvision ep = new EtatProvision();
             String awhere = String.format(" and idProvision = '%s' ", this.getIdplacement());
             EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, awhere);
-            result = etatProv[0].getResteProvision(c);
+            if(etatProv.length>0)
+                result = etatProv[0].getResteProvision(c);
         }finally{
             if(c!=null && verify==1) c.close();
         }
