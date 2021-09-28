@@ -217,15 +217,15 @@ public class FactureClient extends ClassMere {
     }
 
     public String genererCodePrestation(Connection c) throws Exception {
-        FactureClientDetails[] filles = (FactureClientDetails[]) this.getFille();
+        ClassFille[] filles = (ClassFille[]) this.getFille();
         if (filles == null) {
-            filles = (FactureClientDetails[]) this.getFille(null, c, "");
+            filles = (ClassFille[]) this.getFille(null, c, "");
         }
         if (filles != null && filles.length > 0) {
             TypeObjet obj = new TypeObjet();
             obj.setNomTable("code_prestation");
 
-            Rubrique rubrique = filles[0].getRubrique(c);
+            Rubrique rubrique = ((FactureClientDetails) filles[0]).getRubrique(c);
 
             // Prestations diverses
             if (rubrique == null) {
