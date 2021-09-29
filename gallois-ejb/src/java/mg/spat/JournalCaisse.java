@@ -639,7 +639,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             String awhere = String.format(" and idmvt = '%s' ", this.getId());
             PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;
-        } finally {
+        }  catch(Exception ex) {
+            throw ex;
+        }  finally {
             if (c != null && verif == 1) {
                 c.close();
             }
@@ -658,7 +660,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             String awhere = String.format(" and idmvt = '%s' ", this.getId());
             PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;
-        } finally {
+        } catch(Exception ex) {
+            throw ex;
+        }  finally {
             if (c != null && verif == 1) {
                 c.close();
             }
@@ -709,7 +713,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             
             if(montant >= this.getCredit()) montant = this.getCredit();
             
-        } finally{
+        } catch(Exception ex) {
+            throw ex;
+        }  finally{
             if(c != null && verif){
                 c.close();
             }

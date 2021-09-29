@@ -139,7 +139,9 @@ public class RegulFCProvision extends ClassEtat{
                 return result[0];
             }            
             return null;
-        } finally {
+        } catch(Exception ex) {
+            throw ex;
+        }  finally {
             if (c != null && verif == 1) {
                 c.close();
             }
