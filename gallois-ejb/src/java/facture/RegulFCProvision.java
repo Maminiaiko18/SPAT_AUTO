@@ -10,7 +10,6 @@ import bean.ClassEtat;
 import java.sql.Connection;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
-
 /**
  *
  * @author rijan
@@ -20,8 +19,9 @@ public class RegulFCProvision extends ClassEtat{
     private String id, idProvision,idFacture,idProvisionCode,idFactureCode;
     private int etat;
     private String etatlib;
-
-    public RegulFCProvision(String id, String idProvision, String idFacture, String idProvisionCode, String idFactureCode, int etat ,String etatlib) {
+    double resteProvision ;
+    
+    public RegulFCProvision(String id, String idProvision, String idFacture, String idProvisionCode, String idFactureCode, int etat ,String etatlib, double resteProvision) {
         this.setNomTable("regulFCProvision");
         this.setId(id);
         this.setIdProvision(idProvision);
@@ -30,10 +30,19 @@ public class RegulFCProvision extends ClassEtat{
         this.setIdFactureCode(idFactureCode);
         this.setEtat(etat);
         this.setEtatlib(etatlib);
+        this.setResteProvision(resteProvision);
     }
     
     public RegulFCProvision(){ 
         this.setNomTable("regulFCProvision");
+    }
+    
+    public double getResteProvision() {
+        return resteProvision;
+    }
+
+    public void setResteProvision(double resteProvision) {
+        this.resteProvision = resteProvision;
     }
     
     public String getEtatlib() {
@@ -91,6 +100,11 @@ public class RegulFCProvision extends ClassEtat{
 
     public void setIdFactureCode(String idFactureCode) {
         this.idFactureCode = idFactureCode;
+    }
+    
+    public void construirePK(Connection c) throws Exception{
+        this.preparePk("RFP", "get_seq_regulFCProvision");
+        this.setId(makePK(c));
     }
 
     @Override
