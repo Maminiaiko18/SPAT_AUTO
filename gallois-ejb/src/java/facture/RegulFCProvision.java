@@ -212,23 +212,24 @@ public class RegulFCProvision extends ClassEtat {
             fcd.setNomTable("facture_client_filleTTC");
             fcd.setIdmere(this.getIdProvision());
             FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, " order by montantttc");
-            
+
             double montantinit = montant;
-            
+
             for (int i = 0; i < details.length; i++) {
                 montant = montantinit > details[i].getMontantTTC() ? details[i].getMontantTTC() : montantinit;
-                
+
+                if (montantinit > 0) {
+                    montantinit = montantinit - montant;
+                } else {
+                    break;
+                }
+
                 AvoirFCFille fille = new AvoirFCFille();
                 fille.setIdmere(idavoir);
                 fille.setIddetailfacture(details[i].getId());
                 fille.setMontant(montant);
 
                 fille.createObject(user, c);
-                
-                if(montantinit > 0) { 
-                    montantinit = montantinit - montant; 
-                }
-                else { break; }
             }
 
             if (verif == 1) {
@@ -268,9 +269,9 @@ public class RegulFCProvision extends ClassEtat {
             avoir.setMotif(Constante.motifAvoirFC);
 
             avoir.createObject(user, c);
-            
+
             genererAvoirFille(avoir.getId(), user, c, montant);
-            
+
             if (verif == 1) {
                 c.commit();
             }
