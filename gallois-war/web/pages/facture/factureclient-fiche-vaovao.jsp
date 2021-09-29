@@ -267,7 +267,7 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <td align="left"><b>ici<%= factData.getLib() %></b></td>
+                                <td align="left"><b><%= factData.getLib() %></b></td>
                                 <td align="right"><%=Utilitaire.formaterAr(factData.getMontantTP())%></td>
                                 <td align="center"><a class="btn btn-primary" href="<%=(String) session.getValue("lien")%>?but=avoir/avoirFC-saisie.jsp&idfacture=<%=e.getId()%>&type=2" <%=resteProv== 0 ? "disabled" : ""%>>Rembourser</a></td>
                             </tr>
