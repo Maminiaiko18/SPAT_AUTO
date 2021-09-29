@@ -1,3 +1,4 @@
+<%@page import="facture.FactureClient"%>
 <%@page import="facture.RegulFCProvision"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,12 +10,14 @@
 try{
     UserEJB u = (user.UserEJB) session.getValue("u");
     String idProvision = request.getParameter("idProvision");
+    String idProvisionLibelle = null;
     String  mapping = "facture.RegulFCProvision",
             nomtable = "regulFCProvision",
             apres = "facture/regul-fc-fiche.jsp",
             titre = "Saisie Régul FC Provision";
     
     RegulFCProvision objet = new RegulFCProvision();
+     
     objet.setNomTable(nomtable);
     
     PageInsert pi = new PageInsert(objet, request, u);
@@ -28,6 +31,8 @@ try{
     
     if(idProvision!=null && !idProvision.isEmpty()){
         pi.getFormu().getChamp("idProvision").setDefaut(idProvision);
+        FactureClient pr = objet.getFacture(null, idProvision);
+        idProvisionLibelle = pr!=null ? pr.getCode() : "";
     }
     pi.getFormu().getChamp("etat").setVisible(false);
     
@@ -49,6 +54,9 @@ try{
         <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
     </form>
 </div>
+<script type="text/javascript">
+    document.getElementById("idProvisionlibelle").value = "<%= idProvisionLibelle==null || idProvisionLibelle.isEmpty() ? Utilitaire.champNull(idProvision) : idProvisionLibelle%>";
+</script>
 <%
 } catch (Exception e) {
     e.printStackTrace();
