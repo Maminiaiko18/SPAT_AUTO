@@ -261,6 +261,7 @@ public class RegulFCProvision extends ClassEtat{
             etatProv = (EtatProvision) etatProv.getById(this.getIdProvision(), "etatprovisionvrai", c);
             
             AvoirFC avoir = genererAvoir(u, c, etatProv.getMontantreste());
+            avoir = (AvoirFC) new AvoirFC().getById(avoir.getId(), "avoirFC_montant", c);
             
             //Sortie
             genererSortie(avoir, u, c);
