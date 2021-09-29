@@ -412,7 +412,8 @@ public class FactureClient extends ClassMere {
             }
 
             montant = getMontantResteProvision(c);
-
+            
+            System.out.println(" montant ttc " + this.getMontantttc());
             if (montant >= this.getMontantttc()) {
                 montant = this.getMontantttc();
             }
@@ -462,8 +463,11 @@ public class FactureClient extends ClassMere {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-
-            double montant = genererMontantPaiement(c);
+            
+            FactureClient fc = new FactureClient();
+            fc = (FactureClient) fc.getById(this.getId(), "facture_client_union", c);
+            
+            double montant = fc.genererMontantPaiement(c);
 
             PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
             if (listeProvision != null && listeProvision.length > 0) {
