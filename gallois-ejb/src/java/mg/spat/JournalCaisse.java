@@ -694,9 +694,28 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
         }
     }
-
-    private double genererMontantPaiement(Connection c) throws Exception{
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public double genererMontantPaiement(Connection c) throws Exception {
+        boolean verif = false;
+        double montant = 0;
+        
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            
+            montant = getMontantResteProvision(c);
+            
+            if(montant >= this.getCredit()) montant = this.getCredit();
+            
+        } finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+        
+        return montant;
     }
     
     public double getMontantResteProvision(Connection c)throws Exception{
