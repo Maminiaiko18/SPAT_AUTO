@@ -5,11 +5,16 @@
  */
 package facture;
 
+import avoir.AvoirFC;
 import bean.CGenUtil;
 import bean.ClassEtat;
+import ded.OrdonnerPayement;
 import java.sql.Connection;
+import mg.spat.JournalCaisse;
+import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 /**
  *
  * @author rijan
@@ -156,5 +161,37 @@ public class RegulFCProvision extends ClassEtat{
         EtatProvision etatP = new EtatProvision();
         etatP.setId(getIdProvision());
         return etatP.getResteProvision(c);
+    }
+    
+    private void genererSortie(AvoirFC avoir, String u, Connection c) throws Exception {
+        OrdonnerPayement op = avoir.genererOP(c);
+        op.createObject(u, c);
+        op.validerObject(u, c);
+
+        String libelle = "Regul Facture Avoir " + this.getId();
+        JournalCaisse jc = new JournalCaisse(null, Constante.caisseCentrale,
+                null, libelle, null, avoir.getTiers(), Constante.typeCheque,
+                Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), avoir.getMontant(), 0);
+        jc.setIdplacement(avoir.getIdfacture());
+        jc.setIddevise(Constante.deviseAr);
+        jc.createObject(u, c);
+        jc.validerObject(u, c);
+
+        PaiementFacture paiement = new PaiementFacture(null, jc.getId(), avoir.getIdfacture(), -avoir.getMontant());
+        paiement.createObject(u, c);
+    }
+    
+    private void genererEntree(AvoirFC avoir, String u, Connection c) throws Exception {
+        String libelle = "Regul Facture Avoir " + this.getId();
+        JournalCaisse jc = new JournalCaisse(null, Constante.caisseCentrale,
+                null, libelle, null, avoir.getTiers(), Constante.typeCheque,
+                Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, avoir.getMontant());
+        jc.setIdplacement(this.getIdFacture());
+        jc.setIddevise(Constante.deviseAr);
+        jc.createObject(u, c);
+        jc.validerObject(u, c);
+        
+        PaiementFacture paiementFact = new PaiementFacture(null, jc.getId(), this.getIdFacture(), avoir.getMontant());
+        paiementFact.createObject(u, c);
     }
 }
