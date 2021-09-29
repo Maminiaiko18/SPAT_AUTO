@@ -400,49 +400,55 @@ public class FactureClient extends ClassMere {
         }
         return retour;
     }
-    
+
     public double genererMontantPaiement(Connection c) throws Exception {
         boolean verif = false;
         double montant = 0;
-        
-        try{
-            if(c == null) {
+
+        try {
+            if (c == null) {
                 c = new UtilDB().GetConn();
                 verif = true;
             }
-            
+
             montant = getMontantResteProvision(c);
-            
-            if(montant >= this.getMontantttc()) montant = this.getMontantttc();
-            
-        } catch(Exception ex) {
+
+            if (montant >= this.getMontantttc()) {
+                montant = this.getMontantttc();
+            }
+
+        } catch (Exception ex) {
             throw ex;
-        }  finally{
-            if(c != null && verif){
+        } finally {
+            if (c != null && verif) {
                 c.close();
             }
         }
-        
+
         return montant;
     }
-    
-    public double getMontantResteProvision(Connection c)throws Exception{
+
+    public double getMontantResteProvision(Connection c) throws Exception {
         double result = 0.;
         int verify = 0;
-        try{
-            if(c == null){
+        try {
+            if (c == null) {
                 c = new UtilDB().GetConn();
                 verify = 1;
             }
             EtatProvision ep = new EtatProvision();
-            String awhere = String.format(" and idProvision = '%s' ", this.getIdProvision());
-            EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, awhere);
-            if(etatProv.length>0)
+            ep.setNomTable("etatprovisionvrai");
+            ep.setId(this.getIdplacement());
+            EtatProvision[] etatProv = (EtatProvision[]) CGenUtil.rechercher(ep, null, null, c, "");
+            if (etatProv.length > 0) {
                 result = etatProv[0].getResteProvision(c);
-        }catch(Exception e){
+            }
+        } catch (Exception e) {
             throw e;
-        }finally{
-            if(c!=null && verify==1) c.close();
+        } finally {
+            if (c != null && verify == 1) {
+                c.close();
+            }
         }
         return result;
     }
@@ -458,7 +464,7 @@ public class FactureClient extends ClassMere {
             }
 
             double montant = genererMontantPaiement(c);
-            
+
             PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
             if (listeProvision != null && listeProvision.length > 0) {
                 for (int i = 0; i < listeProvision.length; i++) {
@@ -1267,7 +1273,7 @@ public class FactureClient extends ClassMere {
                 categorie = Constante.idCategorieFCDefinitive;
             } else {
                 JournalCaisse[] jc = this.getPaiement(c);
-                if(jc.length == 0){
+                if (jc.length == 0) {
                     throw new Exception("Pas de paiement pour cette provision");
                 }
                 fc.controlerProvision(c);
@@ -1546,24 +1552,24 @@ public class FactureClient extends ClassMere {
             }
         }
     }
-    
+
     public double affResteProvision(double resteProvision) {
         return Math.abs(resteProvision);
     }
-    
-    public String affLibelle(Connection c) throws Exception{
+
+    public String affLibelle(Connection c) throws Exception {
         int verif = 0;
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
                 c.setAutoCommit(false);
                 verif = 1;
-            }        
+            }
             String retour = "Manque";
             EtatProvision etatProvision = new EtatProvision();
             etatProvision.setId(this.getId());
             double reste = etatProvision.getResteProvision(c);
-            if(reste>0){
+            if (reste > 0) {
                 retour = "Trop perçu";
             }
             return retour;
@@ -1572,5 +1578,5 @@ public class FactureClient extends ClassMere {
                 c.close();
             }
         }
-    }    
+    }
 }
