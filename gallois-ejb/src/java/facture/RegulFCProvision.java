@@ -241,4 +241,45 @@ public class RegulFCProvision extends ClassEtat{
 
         return avoir;
     }  
+
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        regulariser(u, c);
+        return super.validerObject(u, c);
+    }
+    
+    private void regulariser(String u, Connection c) throws Exception {
+        boolean verif = false;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+                c.setAutoCommit(false);
+            }
+            
+            EtatProvision etatProv = new EtatProvision();
+            etatProv = (EtatProvision) etatProv.getById(this.getIdProvision(), "etatprovisionvrai", c);
+            
+            AvoirFC avoir = genererAvoir(u, c, etatProv.getMontantreste());
+            
+            //Sortie
+            genererSortie(avoir, u, c);
+            
+            //Entree
+            genererEntree(avoir, u, c);
+            
+            if (verif) {
+                c.commit();
+            }
+        } catch (Exception ex) {
+            if (c != null && verif) {
+                c.rollback();
+            }
+            throw ex;
+        } finally {
+            if (c != null && verif) {
+                c.close();
+            }
+        }
+    }
 }
