@@ -1505,4 +1505,8 @@ public class FactureClient extends ClassMere {
             }
         }
     }
+    
+    public double affResteProvision(double resteProvision) {
+        return Math.abs(resteProvision);
+    }
 }
