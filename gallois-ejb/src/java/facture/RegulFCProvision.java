@@ -15,8 +15,9 @@ public class RegulFCProvision extends ClassEtat{
     
     private String id, idProvision,idFacture,idProvisionCode,idFactureCode;
     private int etat;
+    private String etatlib;
 
-    public RegulFCProvision(String id, String idProvision, String idFacture, String idProvisionCode, String idFactureCode, int etat) {
+    public RegulFCProvision(String id, String idProvision, String idFacture, String idProvisionCode, String idFactureCode, int etat ,String etatlib) {
         this.setNomTable("regulFCProvision");
         this.setId(id);
         this.setIdProvision(idProvision);
@@ -24,13 +25,21 @@ public class RegulFCProvision extends ClassEtat{
         this.setIdProvisionCode(idProvisionCode);
         this.setIdFactureCode(idFactureCode);
         this.setEtat(etat);
+        this.setEtatlib(etatlib);
     }
     
     public RegulFCProvision(){ 
         this.setNomTable("regulFCProvision");
     }
     
-    
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
+    }
+
 
     public int getEtat() {
         return etat;
