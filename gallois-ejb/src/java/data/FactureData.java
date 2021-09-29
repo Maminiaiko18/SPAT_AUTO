@@ -34,12 +34,16 @@ public class FactureData {
         FactureClient factClient = new FactureClient();
         factClient.setId(idFactureClient);
         Connection conn = null;
+        int verify = 0;
         try{
-            conn =  new UtilDB().GetConn();
+            if(conn == null){
+                conn =  new UtilDB().GetConn();
+                verify =1;
+            }
             this.setLib(factClient.affLibelle(conn));
             this.setMontantTP(factClient.affResteProvision(resteProv));
         }finally{
-            if(conn!=null) conn.close();   
+            if(conn!=null && verify==1) conn.close();   
         }
         
     }
