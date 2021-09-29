@@ -181,7 +181,7 @@ public class RegulFCProvision extends ClassEtat {
         jc.createObject(u, c);
         jc.validerObject(u, c);
 
-        PaiementFacture paiement = new PaiementFacture(null, jc.getId(), avoir.getIdfacture(), avoir.getMontant());
+        PaiementFacture paiement = new PaiementFacture(null, jc.getId(), avoir.getIdfacture(), -avoir.getMontant());
         paiement.createObject(u, c);
     }
 
