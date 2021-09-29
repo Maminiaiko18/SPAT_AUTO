@@ -6,6 +6,7 @@
 package facture;
 
 import avoir.AvoirFC;
+import avoir.AvoirFCFille;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import ded.OrdonnerPayement;
@@ -194,4 +195,47 @@ public class RegulFCProvision extends ClassEtat{
         PaiementFacture paiementFact = new PaiementFacture(null, jc.getId(), this.getIdFacture(), avoir.getMontant());
         paiementFact.createObject(u, c);
     }
+    
+    public AvoirFC genererAvoir(String user, Connection c, double montant)throws Exception{
+        int verif = 0;
+        AvoirFC avoir = null;
+        
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            
+            avoir = new AvoirFC();
+            
+            String designation = "Avoir auto regul provision " + this.getIdProvision();
+            avoir.setDaty(utilitaire.Utilitaire.dateDuJourSql());
+            avoir.setDesignation(designation);
+            avoir.setIdfacture(this.getIdProvision());
+            avoir.setCategorie(Constante.categorieAvoirFC);
+            avoir.setType(Constante.typeAvoirFC);
+            avoir.setMotif(Constante.motifAvoirFC);
+            
+            avoir.createObject(user, c);
+            
+            AvoirFCFille fille = new AvoirFCFille();
+            fille.setIdmere(avoir.getId());
+            fille.setMontant(montant);
+            
+            
+            if(verif == 1) c.commit();
+        } 
+        catch(Exception ex) {
+            if(c != null && verif == 1) c.rollback();
+            throw ex;
+        }
+        finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }    
+
+        return avoir;
+    }  
 }
