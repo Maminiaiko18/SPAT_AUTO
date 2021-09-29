@@ -5,7 +5,10 @@
  */
 package facture;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
+import java.sql.Connection;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -98,5 +101,28 @@ public class RegulFCProvision extends ClassEtat{
     public String getAttributIDName() {
         return "id";
     }
+    
+    public FactureClient getFacture(Connection c, String id)throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureClient cc = new FactureClient();
+            cc.setNomTable("facture_client_union");
+            String awhere = String.format(" and id = '%s' ", id);
+            FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(cc, null, null, c, awhere);
+            if (result != null && result.length > 0) {
+                return result[0];
+            }            
+            return null;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }            
+    }    
     
 }
