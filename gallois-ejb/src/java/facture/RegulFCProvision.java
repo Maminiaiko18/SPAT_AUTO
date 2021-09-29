@@ -226,6 +226,7 @@ public class RegulFCProvision extends ClassEtat {
 
                 AvoirFCFille fille = new AvoirFCFille();
                 fille.setIdmere(idavoir);
+                fille.setMontantdf(details[i].getMontantTTC());
                 fille.setIddetailfacture(details[i].getId());
                 fille.setMontant(montant);
 
