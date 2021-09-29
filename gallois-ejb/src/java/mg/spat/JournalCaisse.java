@@ -511,10 +511,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
     }
     
-    public void checkMontantFactureClient(Connection c) throws Exception {
-        FactureClient fc = new FactureClient();
+    public void checkMontantFactureClient(FactureClient fc,Connection c) throws Exception {
+        /*FactureClient fc = new FactureClient();
 
-        fc = (FactureClient) fc.getById(this.getIdplacement(), "FACTURE_CLIENT_UNION", c);
+        fc = (FactureClient) fc.getById(this.getIdplacement(), "FACTURE_CLIENT_UNION", c);*/
 
         if (fc != null) {
             //if(fc.getMontantreste() <= 0) throw new Exception("Facture déjà payée en totalité" + fc.getId());
@@ -551,7 +551,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("mouvement caissse deja valide");
             }
-            /*if (this.getIdordre() != null) {
+            if (this.getIdordre() != null) {
                 this.traitementOP(user, c); 
                 OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir
                 if(op != null) {
@@ -563,7 +563,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     
                     paiementFact.createObject(refuser, c);
                 }
-            }else{*/
+            }else{
                 if (this.getIdplacement() != null) {
                     if (!this.getIdplacement().startsWith("FC")) {
                         this.traitementPlacement(user, c);
@@ -583,7 +583,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                         paiementFact.createObject(refuser, c);
                     }*/
                 }
-            //}
+            }
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
 
@@ -679,6 +679,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             FactureClient fc = findFactureClient(c);
             if(fc != null){
+                checkMontantFactureClient(fc,c);
                 PaiementFacture pf = new PaiementFacture();
                 pf.setIdMvt(this.getId());
                 pf.setIdFact(this.getIdplacement());
