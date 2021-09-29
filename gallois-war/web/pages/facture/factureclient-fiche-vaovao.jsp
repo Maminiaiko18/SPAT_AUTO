@@ -4,6 +4,7 @@
     Author     : nyamp
 --%>
 
+<%@page import="data.FactureData"%>
 <%@page import="utilitaire.Constante"%>
 
 <%@page import="java.util.Map"%>
@@ -247,8 +248,11 @@
 
     <!-- Trop perçu -->     
     <% if (etatProv != null) { 
-        double montant = 0;
-        if(etatProv.getMontantreste() < 0) montant = -etatProv.getMontantreste();
+        //double montant = 0;
+        //if(etatProv.getMontantreste() < 0) montant = -etatProv.getMontantreste();
+        FactureData factData = new FactureData();
+        double resteProv = etatProv.getMontantreste();
+        factData.initData(e.getId(), resteProv);
     %>
     <div class="row">
         <div class="col-md-7 col-md-offset-2">
@@ -263,9 +267,9 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <td align="left"><b>Trop perçu</b></td>
-                                <td align="right"><%=Utilitaire.formaterAr(montant)%></td>
-                                <td align="center"><a class="btn btn-primary" href="<%=(String) session.getValue("lien")%>?but=avoir/avoirFC-saisie.jsp&idfacture=<%=e.getId()%>&type=2" <%=montant == 0 ? "disabled" : ""%>>Rembourser</a></td>
+                                <td align="left"><b>ici<%= factData.getLib() %></b></td>
+                                <td align="right"><%=Utilitaire.formaterAr(factData.getMontantTP())%></td>
+                                <td align="center"><a class="btn btn-primary" href="<%=(String) session.getValue("lien")%>?but=avoir/avoirFC-saisie.jsp&idfacture=<%=e.getId()%>&type=2" <%=resteProv== 0 ? "disabled" : ""%>>Rembourser</a></td>
                             </tr>
                         </tbody>
                     </table>
