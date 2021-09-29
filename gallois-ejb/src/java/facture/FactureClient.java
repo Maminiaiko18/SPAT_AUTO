@@ -438,7 +438,7 @@ public class FactureClient extends ClassMere {
             }
             EtatProvision ep = new EtatProvision();
             ep.setNomTable("etatprovisionvrai");
-            ep.setId(this.getIdplacement());
+            ep.setId(this.getIdProvision());
             EtatProvision[] etatProv = (EtatProvision[]) CGenUtil.rechercher(ep, null, null, c, "");
             if (etatProv.length > 0) {
                 result = etatProv[0].getResteProvision(c);
