@@ -737,7 +737,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             ep.setId(this.getIdplacement());
             EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, "");
             if(etatProv.length>0)
-                result = etatProv[0].getResteProvision(c);
+                result = etatProv[0].getMontantreste();
         }catch(Exception e){
             throw e;
         }finally{

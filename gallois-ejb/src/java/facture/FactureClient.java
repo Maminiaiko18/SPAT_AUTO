@@ -442,7 +442,7 @@ public class FactureClient extends ClassMere {
             ep.setId(this.getIdProvision());
             EtatProvision[] etatProv = (EtatProvision[]) CGenUtil.rechercher(ep, null, null, c, "");
             if (etatProv.length > 0) {
-                result = etatProv[0].getResteProvision(c);
+                result = etatProv[0].getMontantreste();
             }
         } catch (Exception e) {
             throw e;
