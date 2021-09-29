@@ -412,7 +412,7 @@ public class FactureClient extends ClassMere {
             }
 
             montant = getMontantResteProvision(c);
-            
+
             System.out.println(" montant ttc " + this.getMontantttc());
             if (montant >= this.getMontantttc()) {
                 montant = this.getMontantttc();
@@ -463,10 +463,10 @@ public class FactureClient extends ClassMere {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            
+
             FactureClient fc = new FactureClient();
             fc = (FactureClient) fc.getById(this.getId(), "facture_client_union", c);
-            
+
             double montant = fc.genererMontantPaiement(c);
 
             PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
@@ -1561,6 +1561,15 @@ public class FactureClient extends ClassMere {
         return Math.abs(resteProvision);
     }
 
+    public String affLibelle(double reste) throws Exception {
+        String retour = "Manque";
+       
+        if (reste > 0) {
+            retour = "Trop per&ccedil;u";
+        }
+        return retour;
+    }
+
     public String affLibelle(Connection c) throws Exception {
         int verif = 0;
         try {
@@ -1569,14 +1578,11 @@ public class FactureClient extends ClassMere {
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            String retour = "Manque";
             EtatProvision etatProvision = new EtatProvision();
             etatProvision.setId(this.getId());
             double reste = etatProvision.getResteProvision(c);
-            if (reste > 0) {
-                retour = "Trop perçu";
-            }
-            return retour;
+            
+            return affLibelle(reste);
         } finally {
             if (c != null && verif == 1) {
                 c.close();

@@ -111,15 +111,6 @@
 
         //String vue = e.getId().startsWith(Constante.fcPrefix) ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
         String vue = e.getRemarque() != null && e.getRemarque().startsWith("--") ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
-        EtatProvision etatProv = null;
-        if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCProvision)) {
-            etatProv = new EtatProvision();
-            etatProv.setNomTable("etatprovisionvrai");
-            EtatProvision[] datas = (EtatProvision[]) u.getData(etatProv, null, null, null, String.format(" and id = '%s'", e.getId()));
-            if (datas != null && datas.length > 0) {
-                etatProv = datas[0];
-            }
-        }
 %>
 
 <style type="text/css">
@@ -248,12 +239,11 @@
     </div>
 
     <!-- Trop perçu -->     
-    <% if (etatProv != null) { 
+    <% if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCProvision)) { 
         //double montant = 0;
         //if(etatProv.getMontantreste() < 0) montant = -etatProv.getMontantreste();
         FactureData factData = new FactureData();
-        double resteProv = etatProv.getMontantreste();
-        factData.initData(e.getId(), resteProv);
+        factData.initData(e.getId());
     %>
     <div class="row">
         <div class="col-md-7 col-md-offset-2">
@@ -270,7 +260,7 @@
                             <tr>
                                 <td align="left"><b><%= factData.getLib() %></b></td>
                                 <td align="right"><%=Utilitaire.formaterAr(factData.getMontantTP())%></td>
-                                <td align="center"><a class="btn btn-primary" href="<%=(String) session.getValue("lien")%>?but=avoir/avoirFC-saisie.jsp&idfacture=<%=e.getId()%>&type=2" <%=resteProv== 0 ? "disabled" : ""%>>Rembourser</a></td>
+                                <td align="center"><a class="btn btn-primary" href="<%=(String) session.getValue("lien")%>?but=avoir/avoirFC-saisie.jsp&idfacture=<%=e.getId()%>&type=2" <%=factData.isDisabled() ? "disabled" : ""%>>Rembourser</a></td>
                             </tr>
                         </tbody>
                     </table>

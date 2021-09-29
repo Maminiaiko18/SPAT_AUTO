@@ -295,7 +295,8 @@ public class EtatProvision extends ClassMAPTable {
             }
             EtatProvision base = new EtatProvision();
             base.setNomTable("etatprovisionvrai");
-            EtatProvision[] result = (EtatProvision[]) CGenUtil.rechercher(base, null, null, c, String.format(" and id = '%s' ", this.getIdprovision()));
+            EtatProvision[] result = (EtatProvision[]) CGenUtil.rechercher(base, null, null, c, String.format(" and id = '%s' ", this.getId()));
+//            EtatProvision[] result = (EtatProvision[]) CGenUtil.rechercher(base, null, null, c, String.format(" and id = '%s' ", this.getIdprovision()));
             if(result.length > 0){
                 return result[0].getMontantreste();
             }
