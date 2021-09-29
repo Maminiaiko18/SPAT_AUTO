@@ -151,4 +151,10 @@ public class RegulFCProvision extends ClassEtat{
             throw new Exception("Facture non visee");
         }
     }
+    
+    public double getResteProvision(Connection c) throws Exception {
+        EtatProvision etatP = new EtatProvision();
+        etatP.setId(getIdProvision());
+        return etatP.getResteProvision(c);
+    }
 }
