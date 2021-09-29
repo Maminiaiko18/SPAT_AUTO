@@ -400,6 +400,52 @@ public class FactureClient extends ClassMere {
         }
         return retour;
     }
+    
+    public double genererMontantPaiement(Connection c) throws Exception {
+        boolean verif = false;
+        double montant = 0;
+        
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            
+            montant = getMontantResteProvision(c);
+            
+            if(montant >= this.getMontantttc()) montant = this.getMontantttc();
+            
+        } catch(Exception ex) {
+            throw ex;
+        }  finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+        
+        return montant;
+    }
+    
+    public double getMontantResteProvision(Connection c)throws Exception{
+        double result = 0.;
+        int verify = 0;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verify = 1;
+            }
+            EtatProvision ep = new EtatProvision();
+            String awhere = String.format(" and idProvision = '%s' ", this.getIdProvision());
+            EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, awhere);
+            if(etatProv.length>0)
+                result = etatProv[0].getResteProvision(c);
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if(c!=null && verify==1) c.close();
+        }
+        return result;
+    }
 
     public void genererPaiementDefinitive(String u, String idProvision, Connection c) throws Exception {
         boolean ouvert = false;
@@ -411,12 +457,7 @@ public class FactureClient extends ClassMere {
                 ouvert = true;
             }
 
-            FactureClient fc = new FactureClient();
-            fc = (FactureClient) fc.getById(this.getId(), "facture_client_union", c);
-            FactureClient provision = fc.getProvision("facture_client_union", c);
-            
-            double montant = provision.getMontantttc();
-            if(provision.getMontantttc() > fc.getMontantttc()) montant = fc.getMontantttc();
+            double montant = genererMontantPaiement(c);
             
             PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
             if (listeProvision != null && listeProvision.length > 0) {
