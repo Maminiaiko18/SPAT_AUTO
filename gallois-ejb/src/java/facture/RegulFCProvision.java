@@ -8,6 +8,7 @@ package facture;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 
 /**
@@ -125,4 +126,15 @@ public class RegulFCProvision extends ClassEtat{
         }            
     }    
     
+    @Override
+    public void controler(Connection c) throws Exception {
+        FactureClient pr = getFacture(c, getIdProvision());
+        if(pr.getEtat() < ConstanteEtat.getEtatValider()){
+            throw new Exception("Provision non visee");
+        }
+        FactureClient fc = getFacture(c, getIdFacture());
+        if(fc.getEtat() < ConstanteEtat.getEtatValider()){
+            throw new Exception("Facture non visee");
+        }
+    }
 }
