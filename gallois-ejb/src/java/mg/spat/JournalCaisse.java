@@ -733,8 +733,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 verify = 1;
             }
             EtatProvision ep = new EtatProvision();
-            String awhere = String.format(" and idProvision = '%s' ", this.getIdplacement());
-            EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, awhere);
+            ep.setNomTable("etatprovisionvrai");
+            ep.setId(this.getIdplacement());
+            EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, "");
             if(etatProv.length>0)
                 result = etatProv[0].getResteProvision(c);
         }catch(Exception e){

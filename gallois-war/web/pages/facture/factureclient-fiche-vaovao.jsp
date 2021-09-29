@@ -115,7 +115,7 @@
         if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCProvision)) {
             etatProv = new EtatProvision();
             etatProv.setNomTable("etatprovisionvrai");
-            EtatProvision[] datas = (EtatProvision[]) u.getData(etatProv, null, null, null, String.format(" and idprovision = '%s'", e.getId()));
+            EtatProvision[] datas = (EtatProvision[]) u.getData(etatProv, null, null, null, String.format(" and id = '%s'", e.getId()));
             if (datas != null && datas.length > 0) {
                 etatProv = datas[0];
             }
