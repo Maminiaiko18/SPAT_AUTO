@@ -1509,4 +1509,27 @@ public class FactureClient extends ClassMere {
     public double affResteProvision(double resteProvision) {
         return Math.abs(resteProvision);
     }
+    
+    public String affLibelle(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }        
+            String retour = "Manque";
+            EtatProvision etatProvision = new EtatProvision();
+            etatProvision.setId(this.getId());
+            double reste = etatProvision.getResteProvision(c);
+            if(reste>0){
+                retour = "Trop perçu";
+            }
+            return retour;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }    
 }
