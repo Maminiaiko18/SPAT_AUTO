@@ -175,6 +175,7 @@ public class RegulFCProvision extends ClassEtat {
         JournalCaisse jc = new JournalCaisse(null, Constante.caisseCentrale,
                 null, libelle, null, avoir.getTiers(), Constante.typeCheque,
                 Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), avoir.getMontant(), 0);
+        jc.setIdordre(op.getId());
         jc.setIdplacement(avoir.getIdfacture());
         jc.setIddevise(Constante.deviseAr);
         jc.createObject(u, c);
