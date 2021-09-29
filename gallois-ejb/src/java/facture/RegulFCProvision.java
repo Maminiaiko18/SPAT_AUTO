@@ -223,6 +223,7 @@ public class RegulFCProvision extends ClassEtat{
             fille.setIdmere(avoir.getId());
             fille.setMontant(montant);
             
+            fille.createObject(user, c);
             
             if(verif == 1) c.commit();
         } 
