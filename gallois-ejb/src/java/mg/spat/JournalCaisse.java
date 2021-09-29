@@ -731,6 +731,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, awhere);
             if(etatProv.length>0)
                 result = etatProv[0].getResteProvision(c);
+        }catch(Exception e){
+            throw e;
         }finally{
             if(c!=null && verify==1) c.close();
         }

@@ -42,6 +42,8 @@ public class FactureData {
             }
             this.setLib(factClient.affLibelle(conn));
             this.setMontantTP(factClient.affResteProvision(resteProv));
+        }catch(Exception e){
+            throw e;
         }finally{
             if(conn!=null && verify==1) conn.close();   
         }
