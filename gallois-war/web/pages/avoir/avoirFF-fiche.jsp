@@ -20,7 +20,7 @@
     AvoirFC e = new AvoirFC();
     e.setNomTable("avoirFF");
     PageConsulte pc = new PageConsulte(e, request, u);
-    pc.setTitre("FICHE AVOIR FACTURE CLIENT");
+    pc.setTitre("FICHE AVOIR FACTURE FOURNISSEUR");
     
     pc.getChampByName("idfacture").setLibelle("Facture");
     pc.getChampByName("daty").setLibelle("Date");
