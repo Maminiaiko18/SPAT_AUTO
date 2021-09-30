@@ -112,5 +112,5 @@
     $('#fiche .row .col-md-6').removeClass('col-md-6').removeClass('col-md-center').addClass('col-md-8').addClass('col-md-offset-2');
 </script>
 <%} catch (Exception e) {
-        throw e;
+       e.printStackTrace();
     }%>

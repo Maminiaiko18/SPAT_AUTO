@@ -12,6 +12,7 @@ import facture.FactureClient;
 import bean.ClassMAPTable;
 import bean.ClassMere;
 import bean.TypeObjet;
+import ded.OrdonnerPayement;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.UtilDB;
@@ -359,5 +360,18 @@ public class AvoirFC extends ClassMere {
             this.getFactureLiee("factureclient",c).annuler(c);
         }
         return super.validerObject(u, c); 
+    }
+    
+    public OrdonnerPayement genererOP(Connection c) throws Exception{
+        OrdonnerPayement op = new OrdonnerPayement();
+        op.setDed_Id(this.getId());
+        AvoirFC avoirFCMontant = new AvoirFC();
+        avoirFCMontant.setNomTable("avoirFC_montant");
+        AvoirFC[] result = (AvoirFC[])CGenUtil.rechercher(avoirFCMontant, null, null, c, String.format(" and id = '%s' ", this.getId()));
+        if(result.length > 0)
+            op.setMontant(result[0].getMontant());
+        op.setRemarque("Paiement avoir "+this.getId());
+        op.setDaty(Utilitaire.dateDuJourSql());
+        return op;
     }
 }

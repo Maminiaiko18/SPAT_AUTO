@@ -10,6 +10,7 @@ import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
+import facture.EtatProvision;
 import facture.FactureClient;
 import facture.PaiementFacture;
 import factureclient.PayementFacture;
@@ -510,17 +511,17 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
     }
     
-    public void checkMontantFactureClient(Connection c) throws Exception {
-        FactureClient fc = new FactureClient();
+    public void checkMontantFactureClient(FactureClient fc,Connection c) throws Exception {
+        /*FactureClient fc = new FactureClient();
 
-        fc = (FactureClient) fc.getById(this.getIdplacement(), "FACTURE_CLIENT_UNION", c);
+        fc = (FactureClient) fc.getById(this.getIdplacement(), "FACTURE_CLIENT_UNION", c);*/
 
         if (fc != null) {
             //if(fc.getMontantreste() <= 0) throw new Exception("Facture déjà payée en totalité" + fc.getId());
             System.out.println("MontantReste="+fc.getMontantreste()+" et credit="+this.getCredit());
             
             if(this.getIdTypeCheque().equals(Constante.typeCheque)) {
-                if(this.getCredit() != fc.getMontantttc()) throw new Exception("Une facture au comptant doit etre payee en totalite");
+                if(this.getCredit() != fc.getMontantreste()) throw new Exception("Une facture au comptant doit etre payee en totalite");
             }
             
             if (fc.getMontantreste() < this.getCredit()) {
@@ -567,17 +568,20 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     if (!this.getIdplacement().startsWith("FC")) {
                         this.traitementPlacement(user, c);
                     }
+                    
+                    genererPaiement(c, refuser);
 
-                    FactureClient fc = findFactureClient(c);
+                    /*FactureClient fc = findFactureClient(c);
                     if(fc != null) {
                         checkMontantFactureClient(c); 
                         PaiementFacture paiementFact = new PaiementFacture();
                         paiementFact.setIdMvt(this.getId());
                         paiementFact.setIdFact(fc.getId());
-                        paiementFact.setMontant(this.getCredit());
+//                        paiementFact.setMontant(this.getCredit());
+                        paiementFact.setMontant(fc.getMontantttc());
 
                         paiementFact.createObject(refuser, c);
-                    }
+                    }*/
                 }
             }
 
@@ -635,7 +639,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             String awhere = String.format(" and idmvt = '%s' ", this.getId());
             PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;
-        } finally {
+        }  catch(Exception ex) {
+            throw ex;
+        }  finally {
             if (c != null && verif == 1) {
                 c.close();
             }
@@ -654,10 +660,90 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             String awhere = String.format(" and idmvt = '%s' ", this.getId());
             PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;
-        } finally {
+        } catch(Exception ex) {
+            throw ex;
+        }  finally {
             if (c != null && verif == 1) {
                 c.close();
             }
         }
+    }
+    
+    public void genererPaiement(Connection c, String refuser) throws Exception{
+        boolean verif = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = true;
+            }
+            FactureClient fc = findFactureClient(c);
+            if(fc != null){
+                checkMontantFactureClient(fc,c);
+                PaiementFacture pf = new PaiementFacture();
+                pf.setIdMvt(this.getId());
+                pf.setIdFact(this.getIdplacement());
+                pf.setMontant(genererMontantPaiement(c));
+                pf.createObject(refuser, c);
+                
+            }
+            if(verif) c.commit();
+        } catch(Exception ex){ 
+            if(c != null && verif){
+                c.rollback();
+            }
+            throw ex;
+        }finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+    }
+    
+    public double genererMontantPaiement(Connection c) throws Exception {
+        boolean verif = false;
+        double montant = 0;
+        
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            
+            montant = getMontantResteProvision(c);
+            
+            if(montant >= this.getCredit()) montant = this.getCredit();
+            
+        } catch(Exception ex) {
+            throw ex;
+        }  finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+        
+        return montant;
+    }
+    
+    public double getMontantResteProvision(Connection c)throws Exception{
+        double result = 0.;
+        int verify = 0;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verify = 1;
+            }
+            EtatProvision ep = new EtatProvision();
+            ep.setNomTable("etatprovisionvrai");
+            ep.setId(this.getIdplacement());
+            EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, "");
+            if(etatProv.length>0)
+                result = etatProv[0].getMontantreste();
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if(c!=null && verify==1) c.close();
+        }
+        return result;
     }
 }

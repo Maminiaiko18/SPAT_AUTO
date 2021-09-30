@@ -5,9 +5,11 @@
  */
 package facture;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -15,10 +17,9 @@ import java.sql.Date;
  */
 public class EtatProvision extends ClassMAPTable {
     private String id;
-    private double montantfacture, montantprovision, ecart,montantpaye;
+    private double montantfacture, montantprovision, ecart,montantpaye,montantreste;
     private String tiers,tierslib;
     private Date daty;
-    
     private String numpiece;
     private String numProvision;
     private String operation;
@@ -26,9 +27,55 @@ public class EtatProvision extends ClassMAPTable {
     private String idmode, idmodelib;
     private String idbanque, idbanquelib;
     private String idFacture, idFacturelib;
-
+    private String idprovision;
+    
     public EtatProvision(){ 
         this.setNomTable("etat_provision");
+    }
+    
+    public EtatProvision(String id, double montantfacture, double montantprovision, double ecart, double montantpaye, double montantreste, String tiers, String tierslib, Date daty, String numpiece, String numProvision, String operation, String idnavire, String idnavirelib, String idmode, String idmodelib, String idbanque, String idbanquelib, String idFacture, String idFacturelib) {
+        this.setNomTable("etat_provision");
+        this.setId(id);
+        this.setMontantfacture(montantfacture);
+        this.setMontantprovision(montantprovision);
+        this.setEcart(ecart);
+        this.setMontantpaye(montantpaye);
+        this.setMontantreste(montantreste);
+        this.setTiers(tiers);
+        this.setTierslib(tierslib);
+        this.setDaty(daty);
+        this.setNumpiece(numpiece);
+        this.setNumProvision(numProvision);
+        this.setOperation(operation);
+        this.setIdnavire(idnavire);
+        this.setIdnavirelib(idnavirelib);
+        this.setIdmode(idmode);
+        this.setIdmodelib(idmodelib);
+        this.setIdbanque(idbanque);
+        this.setIdbanquelib(idbanquelib);
+        this.setIdFacture(idFacture);
+        this.setIdFacturelib(idFacturelib);
+    }
+
+    public EtatProvision(String id, double montantfacture, double montantprovision, double ecart, double montantpaye, String tiers, String tierslib, Date daty, String numpiece, String numProvision, String operation, String idnavire, String idnavirelib, String idmodelib, String idmode, String idbanque, String idbanquelib, String idFacture) {
+        this.id = id;
+        this.montantfacture = montantfacture;
+        this.montantprovision = montantprovision;
+        this.ecart = ecart;
+        this.montantpaye = montantpaye;
+        this.tiers = tiers;
+        this.tierslib = tierslib;
+        this.daty = daty;
+        this.numpiece = numpiece;
+        this.numProvision = numProvision;
+        this.operation = operation;
+        this.idnavire = idnavire;
+        this.idnavirelib = idnavirelib;
+        this.idmodelib = idmodelib;
+        this.idmode = idmode;
+        this.idbanque = idbanque;
+        this.idbanquelib = idbanquelib;
+        this.idFacture = idFacture;
     }
     
     public EtatProvision(String id, double montantfacture, double montantprovision, double ecart, double montantpaye) {
@@ -222,5 +269,44 @@ public class EtatProvision extends ClassMAPTable {
     public void setIdbanquelib(String idbanquelib) {
         this.idbanquelib = idbanquelib;
     }
+    
+    public double getMontantreste() {
+        return montantreste;
+    }
+
+    public void setMontantreste(double montantreste) {
+        this.montantreste = montantreste;
+    }
+    
+    public String getIdprovision() {
+        return idprovision;
+    }
+
+    public void setIdprovision(String idprovision) {
+        this.idprovision = idprovision;
+    }
+    
+    public double getResteProvision(Connection c) throws Exception{
+        boolean verif = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            EtatProvision base = new EtatProvision();
+            base.setNomTable("etatprovisionvrai");
+            EtatProvision[] result = (EtatProvision[]) CGenUtil.rechercher(base, null, null, c, String.format(" and id = '%s' ", this.getId()));
+//            EtatProvision[] result = (EtatProvision[]) CGenUtil.rechercher(base, null, null, c, String.format(" and id = '%s' ", this.getIdprovision()));
+            if(result.length > 0){
+                return result[0].getMontantreste();
+            }
+            return 0;
+        } finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+    }
+
     
 }

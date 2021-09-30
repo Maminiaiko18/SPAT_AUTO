@@ -42,9 +42,7 @@
                         <% out.println(pc.getHtml());%>
                         <br/>
                         <div class="pull-right">
-                            <p>
-                                <a class="btn btn-info pull-right"  href="<%=lien + "?but=configuration/idvaldesce.jsp&ciblename=consignatairetab&valeur=" + base.getCdclt() + "&descr=" + base.getNomclt()%>" style="margin-right: 10px">Définir en tant que société</a> 
-                            </p>
+                           
                         </div>
                     </div>
                 </div>

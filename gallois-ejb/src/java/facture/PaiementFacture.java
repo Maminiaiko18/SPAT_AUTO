@@ -28,10 +28,11 @@ public class PaiementFacture extends ClassMAPTable{
     }
 
     public PaiementFacture(String id, String idMvt, String idFact, double montant) {
-        this.id = id;
-        this.idMvt = idMvt;
-        this.idFact = idFact;
-        this.montant = montant;
+        this.setNomTable("paiementFacture");
+        setId(id);
+        setIdMvt(idMvt);
+        setIdFact(idFact);
+        setMontant(montant);
     }
 
     public String getId() {

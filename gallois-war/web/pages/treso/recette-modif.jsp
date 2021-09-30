@@ -6,6 +6,7 @@
 <%@ page import="utilitaire.*"%>
 <%@ page import="affichage.*"%>
 <%
+    try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     JournalCaisse pj = new JournalCaisse();
     PageUpdate pi = new PageUpdate(pj, request, (user.UserEJB) session.getValue("u"));
@@ -42,12 +43,12 @@
         mode.setNomTable("MODEPAIEMENTCV");
         liste[2] = new Liste("idmode", mode, "desce", "id");
         TypeObjet banque = new TypeObjet();
-        op.setNomTable("banque");
-        liste[3] = new Liste("banque", banque, "desce", "id");
+        banque.setNomTable("banque");
+        liste[3] = new Liste("idbanque", banque, "desce", "id");
 
         pi.getFormu().changerEnChamp(liste);
         pi.getFormu().getChamp("caisse").setLibelle("Caisse");
-        pi.getFormu().getChamp("banque").setLibelle("Banque");
+        pi.getFormu().getChamp("idbanque").setLibelle("Banque");
         pi.getFormu().getChamp("iddevise").setLibelle("Devise");
         pi.getFormu().getChamp("idmode").setLibelle("mode de paiement");
         pi.setLien((String) session.getValue("lien"));
@@ -80,4 +81,9 @@
         </div>
     </div>
 </div>
+<% 
+    } catch(Exception ex){
+        ex.printStackTrace();
+    }
+%>
 

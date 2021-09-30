@@ -4,7 +4,7 @@
     String champReturn = request.getParameter("champReturn");
     FactureClient facture = new FactureClient();
     facture.setNomTable("factureclientMSum_lib");
-    String listeCrt[] = {"id","daty" ,"tierslib","designation"};
+    String listeCrt[] = {"id","daty" ,"tierslib","designation", "code"};
     String listeInt[] = {"daty"};
     String libEntete[] = {"id","daty" ,"tierslib","designation","tva", "date_echeance", "montant", "montanttva", "montantttc"};
     PageRechercheChoix pr = new PageRechercheChoix(facture, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -14,6 +14,8 @@
     pr.setApres("listeFactureClientChoix.jsp");
    
     
+    pr.getFormu().getChamp("code").setLibelle("Code");
+    pr.getFormu().getChamp("daty1").setLibelle("Date Min");
     pr.getFormu().getChamp("daty1").setLibelle("Date Min");
     pr.getFormu().getChamp("daty2").setLibelle("Date Max");
     pr.getFormu().getChamp("tierslib").setLibelle("Tiers");

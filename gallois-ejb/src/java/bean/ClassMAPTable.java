@@ -1428,7 +1428,8 @@ public abstract class ClassMAPTable implements Serializable {
 
                 throw new Exception("Erreur insertion dans la table " + getNomTable() + " " + e.getMessage() + " ref= " + getTuppleID());
             } catch (Exception ex) {
-                return 0;
+                throw ex;
+                //return 0;
             }
         } finally {
             try {

@@ -38,6 +38,7 @@
     String mere=request.getParameter("idmere");
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
+    
     pi.getFormu().getChamp("idfacture").setDefaut(request.getParameter("idfacture"));
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
@@ -84,14 +85,21 @@
     liste[0] = new Liste("categorie",categorie, "val", "id");
     liste[1] = new Liste("motif",motif, "val", "id");
     
-    TypeObjet typeAv = new TypeObjet();
+    /*TypeObjet typeAv = new TypeObjet();
     typeAv.setNomTable("typeAvoirFC");
-    liste[2] = new Liste("type", typeAv, "val", "id");
+    liste[2] = new Liste("type", typeAv, "val", "id");*/
+    
+    String[] affiches = {"Interne", "Externe"};
+    String[] valeurs = {"1", "2"};
+    liste[2] = new Liste("type");
+    liste[2].ajouterValeur(valeurs, affiches);
     
     if (request.getParameter("type")!=null) {
         liste[2].setDefaut(request.getParameter("type"));
     }
     
+    liste[2].setColValeur("id");
+    liste[2].setColAffiche("val");
     liste[2].setDeroulanteDependante(liste[1], "desce", "onblur");
     liste[2].setDeroulanteDependante(liste[0], "type", "onclick");
     
@@ -120,9 +128,7 @@
     
     String[] ordre = {"id","daty","idfacture","etat","designation","code","type","categorie","motif"};
     pi.getFormu().setOrdre(ordre);
-    
     pi.preparerDataFormu();
-       
 %>
 <div class="content-wrapper">
     <h1>Enregistrer avoir facture client</h1>

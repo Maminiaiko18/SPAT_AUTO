@@ -15,7 +15,7 @@
         String listeCrt[] = {"id", "tierslib", "daty"};
         String listeInt[] = {"daty"};
         String[] colGr = {"id", "daty", "tierslib"};
-        String[] sommGr =  {"montantprovision", "montantfacture", "montantpaye"};
+        String[] sommGr =  {"montantprovision", "montantfacture", "montantpaye", "montantreste"};
         
         PageRechercheGroupe pr = new PageRechercheGroupe(tiers, request, listeCrt, listeInt, 3, colGr, sommGr, colGr.length+1, sommGr.length+1);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
