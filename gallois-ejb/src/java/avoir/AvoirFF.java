@@ -15,6 +15,11 @@ import utilitaire.UtilDB;
  * @author Princie
  */
 public class AvoirFF extends AvoirFC {
+    public AvoirFF() throws Exception {
+        setNomTable("AvoirFF");
+        this.setLiaisonFille("idmere");
+        this.setNomClasseFille("avoir.AvoirFFFille");
+    }
     
     public FactureFournisseur getFactureFournisseurLiee(String nomtable, Connection c) throws Exception {
     int verif = 0;
