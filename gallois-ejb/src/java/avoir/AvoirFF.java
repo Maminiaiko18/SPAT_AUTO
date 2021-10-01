@@ -65,4 +65,9 @@ public class AvoirFF extends AvoirFC {
         return super.validerObject(u, c); 
     }
     
+    @Override
+    public void construirePK(Connection c) throws Exception {
+        preparePk("AVRFF", "GET_SEQ_AVOIRFF");
+        setId(makePK(c));
+    }
 }

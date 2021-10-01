@@ -17,11 +17,6 @@ import utilitaire.UtilDB;
  * @author Sam25v14
  */
 public class AvoirFFFille extends AvoirFCFille {
-    @Override
-    public void construirePK(Connection c) throws Exception {
-        preparePk("AVRFFF", "get_seqavoirFFfille");
-        setId(makePK(c));
-    }
     
     public FactureFournisseur getFactureFournisseur(Connection c) throws Exception {
         FactureFournisseur fc = new FactureFournisseur();
@@ -82,6 +77,26 @@ public class AvoirFFFille extends AvoirFCFille {
 //        }
         super.setMontant(montant);
     }
+    @Override
+     public void construirePK(Connection c) throws Exception {
+        preparePk("AVRFFF", "GET_SEQ_AVOIRFFFILLE");
+        setId(makePK(c));
+    }
+    public AvoirFFFille() throws Exception {
+        super.setNomTable("avoirFFfille");
+    }
+
+    @Override
+    public String getTuppleID() {
+        return id;
+    }
+
+    @Override
+    public String getAttributIDName() {
+        return "id";
+    }
+    
+
 
     public AvoirFFFille() throws Exception {
         super.setNomTable("avoirFFfille");
