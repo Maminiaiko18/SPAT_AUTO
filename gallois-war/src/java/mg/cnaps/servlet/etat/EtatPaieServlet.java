@@ -762,7 +762,9 @@ public class EtatPaieServlet extends HttpServlet {
     }
     
     private void imprimerFactureClient(HttpServletRequest request, HttpServletResponse response) throws  Exception {
+        Connection c = null;
         try {
+            c = (new UtilDB()).GetConn();
             Map param = new HashMap();
             String id = request.getParameter("id");
             FactureClient facture = new FactureClient();
@@ -770,13 +772,13 @@ public class EtatPaieServlet extends HttpServlet {
             facture.setNomTable("factureClient");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
            
-            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"' order by daty");
+            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '"+id+"' order by daty");
             String code = mere[0].getCode();
             facture.setNomTable("factureClientValide");
-            mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, null, " and id = '"+id+"'");
+            mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '"+id+"'");
             
             facture.setId(id);
-            facture.initDetails(null);
+            facture.initDetails(c);
             double hTEuro = facture.getMontantHTEuro();
             double tvaEuro = facture.getMontantTVAEuro();
             double ttcEuro = hTEuro + tvaEuro;
@@ -790,7 +792,7 @@ public class EtatPaieServlet extends HttpServlet {
             if(mere.length!=0){
             mg.spat.PrevisionLibelleComplet p = new mg.spat.PrevisionLibelleComplet();
             p.setNomTable("PREVISIONLIBCOMPLET");
-            mg.spat.PrevisionLibelleComplet[] pre = (mg.spat.PrevisionLibelleComplet[]) CGenUtil.rechercher(p, null, null, null, " and id = '"+mere[0].getIdprevision()+"'");
+            mg.spat.PrevisionLibelleComplet[] pre = (mg.spat.PrevisionLibelleComplet[]) CGenUtil.rechercher(p, null, null, c, " and id = '"+mere[0].getIdprevision()+"'");
             
             
             
@@ -872,7 +874,7 @@ public class EtatPaieServlet extends HttpServlet {
             FactureClientDetails cht = new FactureClientDetails();
             cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
             
-            FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, null, " and idmere = '"+id+"'");
+            FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '"+id+"'");
             ArrayList<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
             facture.setId(details[0].getIdmere());
             facture.setListeDetails(details);
@@ -903,6 +905,10 @@ public class EtatPaieServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
         }
     }
     /********************************************************************************************************************************************************************************************/
