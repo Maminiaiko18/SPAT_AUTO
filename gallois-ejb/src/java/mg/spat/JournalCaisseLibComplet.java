@@ -10,7 +10,24 @@ package mg.spat;
  * @author nyamp
  */
 public class JournalCaisseLibComplet extends JournalCaisse{
-    private String tierslib,idcaisse,valcaisse, descecaisse, valtypecheque,descetypecheque;
+    private String tierslib,idcaisse,valcaisse, descecaisse, valtypecheque,descetypecheque,idfact;
+    private double montant;
+
+    public String getIdfact() {
+        return idfact;
+    }
+
+    public void setIdfact(String idfact) {
+        this.idfact = idfact;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
     
     public String getTierslib() {
         return tierslib;
