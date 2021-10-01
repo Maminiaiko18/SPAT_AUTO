@@ -44,7 +44,7 @@
     
     
     String bute="avoir/avoirFF-fiche.jsp";
-    String classe="avoir.AvoirFC";
+    String classe="avoir.AvoirFF";
     String modifPage="avoir/avoirFF-modif.jsp";
     
     Map<String, String> map = new HashMap();
@@ -76,7 +76,7 @@
                     <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + e.getId() + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute="   +bute+"&id=" + e.getId() %>" style="margin-right: 10px">Attacher Fichier</a> 
                     <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + e.getId() %>" style="margin-right: 10px">Modifier</a>
                     <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
-                    <a class="btn btn-primary pull-primary"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-regul.jsp&idAvoir=" + e.getId() %>" style="margin-right: 10px">Régulariser facture</a> 
+                    <!--<a class="btn btn-primary pull-primary"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-regul.jsp&idAvoir=" + e.getId() %>" style="margin-right: 10px">Régulariser facture</a>--> 
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-saisie.jsp&idAvoir=" + e.getId() %>" style="margin-right: 10px">Payer</a>        
                     <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=annulerVisa&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Annuler visa</a>
                     <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerAvoir&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
@@ -89,7 +89,7 @@
         <div class="col-md-10 col-md-offset-1 ">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
-                    <li class="<%= map.get("avoirFFfille")%>"><a href="module.jsp?but=<%=bute%>&idAvoir=<%=e.getId()%>&tab=avoirFffille">D&eacute;tails Avoir</a></li>
+                    <li class="<%= map.get("avoirFFfille")%>"><a href="module.jsp?but=<%=bute%>&idAvoir=<%=e.getId()%>&tab=avoirFFfille">D&eacute;tails Avoir</a></li>
                     <li class="<%= map.get("paiements")%>"><a href="module.jsp?but=<%=bute%>&idplacement=<%=e.getId()%>&tab=paiements">Paiements</a></li>
                 </ul>
                 <div class="tab-content">

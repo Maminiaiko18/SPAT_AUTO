@@ -6,9 +6,11 @@
 package avoir;
 
 import bean.CGenUtil;
+import ded.OrdonnerPayement;
 import facturefournisseur.FactureFournisseur;
 import java.sql.Connection;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -21,6 +23,12 @@ public class AvoirFF extends AvoirFC {
         this.setNomClasseFille("avoir.AvoirFFFille");
     }
     
+    @Override
+    public void construirePK(Connection c) throws Exception {
+        preparePk("AVRFF", "GET_SEQ_AVOIRFF");
+        setId(makePK(c));
+    }
+    
     public FactureFournisseur getFactureFournisseurLiee(String nomtable, Connection c) throws Exception {
     int verif = 0;
         try {
@@ -28,7 +36,7 @@ public class AvoirFF extends AvoirFC {
                     c = (new UtilDB()).GetConn();
                     verif = 1;
             }
-            if(nomtable == null || nomtable.compareTo("")==0) nomtable = "ETATFACTUREMONTANTDATYETATLIB";
+            if(nomtable == null || nomtable.compareTo("")==0) nomtable = "ETATFACTUREMONTANTDATY";
             FactureFournisseur ff = new FactureFournisseur();
             ff.setNomTable(nomtable);
             String awhere = String.format(" and id = '%s' ", this.getIdfacture());
@@ -65,9 +73,16 @@ public class AvoirFF extends AvoirFC {
         return super.validerObject(u, c); 
     }
     
-    @Override
-    public void construirePK(Connection c) throws Exception {
-        preparePk("AVRFF", "GET_SEQ_AVOIRFF");
-        setId(makePK(c));
+    public OrdonnerPayement genererOP(Connection c) throws Exception{
+        OrdonnerPayement op = new OrdonnerPayement();
+        op.setDed_Id(this.getId());
+        AvoirFF avoirFCMontant = new AvoirFF();
+        avoirFCMontant.setNomTable("avoirFF_montant");
+        AvoirFF[] result = (AvoirFF[])CGenUtil.rechercher(avoirFCMontant, null, null, c, String.format(" and id = '%s' ", this.getId()));
+        if(result.length > 0)
+            op.setMontant(result[0].getMontant());
+        op.setRemarque("Paiement avoir "+this.getId());
+        op.setDaty(Utilitaire.dateDuJourSql());
+        return op;
     }
 }

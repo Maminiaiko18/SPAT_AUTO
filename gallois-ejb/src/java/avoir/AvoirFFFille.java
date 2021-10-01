@@ -7,6 +7,7 @@ package avoir;
 
 import bean.CGenUtil;
 import facturefournisseur.DetailsFactureFournisseur;
+import facturefournisseur.Detailsffbonlivraison;
 import facturefournisseur.FactureFournisseur;
 import java.sql.Connection;
 import utilitaire.ConstanteEtat;
@@ -53,7 +54,7 @@ public class AvoirFFFille extends AvoirFCFille {
         super.controler(c);
     }
     
-    public DetailsFactureFournisseur getFactureFournisseurDetail(Connection c) throws Exception {
+    public Detailsffbonlivraison getFactureFournisseurDetail(Connection c) throws Exception {
         int verif = 0;
         try {
             if (c == null) {
@@ -61,10 +62,11 @@ public class AvoirFFFille extends AvoirFCFille {
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            DetailsFactureFournisseur fc = new DetailsFactureFournisseur();
-            fc.setNomTable("facture_client_filleTTC");
+            Detailsffbonlivraison fc = new Detailsffbonlivraison();
+//            fc.setNomTable("facture_client_filleTTC");
+            fc.setNomTable("Detailsffbonlivraison");
             String awhere = String.format(" and id = '%s' ", this.getIddetailfacture());
-            DetailsFactureFournisseur[] result = (DetailsFactureFournisseur[]) CGenUtil.rechercher(fc, null, null, c, awhere);
+            Detailsffbonlivraison[] result = (Detailsffbonlivraison[]) CGenUtil.rechercher(fc, null, null, c, awhere);
             if (result != null && result.length > 0) {
                 return result[0];
             }
@@ -76,11 +78,36 @@ public class AvoirFFFille extends AvoirFCFille {
         }
     }
     
+//    public DetailsFactureFournisseur getFactureFournisseurDetail(Connection c) throws Exception {
+//        int verif = 0;
+//        try {
+//            if (c == null) {
+//                c = (new UtilDB()).GetConn();
+//                c.setAutoCommit(false);
+//                verif = 1;
+//            }
+//            DetailsFactureFournisseur fc = new DetailsFactureFournisseur();
+////            fc.setNomTable("facture_client_filleTTC");
+//            String awhere = String.format(" and id = '%s' ", this.getIddetailfacture());
+//            DetailsFactureFournisseur[] result = (DetailsFactureFournisseur[]) CGenUtil.rechercher(fc, null, null, c, awhere);
+//            if (result != null && result.length > 0) {
+//                return result[0];
+//            }
+//            return null;
+//        } finally {
+//            if (c != null && verif == 1) {
+//                c.close();
+//            }
+//        }
+//    }
+    
     public void setMontant(double montant) throws Exception {
 //        if (this.getMode().equalsIgnoreCase("modif")) {
-//            DetailsFactureFournisseur fc = getFactureFournisseurDetail(null);
-//            if (this.getRemise() > 0) {
-//                montant = (fc.getMontantTTC() * this.getRemise()) / 100;
+////            DetailsFactureFournisseur fc = getFactureFournisseurDetail(null);
+//            Detailsffbonlivraison fc = getFactureFournisseurDetail(null);
+//            if (fc != null && this.getRemise() > 0) {
+////                montant = (fc.getMontantTTC() * this.getRemise()) / 100;
+//                montant = (fc.getMontantttc()* this.getRemise()) / 100;
 //            }
 //        }
         super.setMontant(montant);

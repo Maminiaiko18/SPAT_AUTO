@@ -12,9 +12,7 @@
 <%@ page import="affichage.*" %>
 <%
     try {
-        
-        
-        
+
         EtatFactureMontantDaty a = new EtatFactureMontantDaty();
         a.setNomTable("ETATFACTUREMONTANTDATYETATLIB");
         PageConsulte pc = new PageConsulte(a, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
@@ -54,8 +52,7 @@
         pc.getChampByName("idtva").setVisible(false);
         pc.getChampByName("idfournisseur").setVisible(false);
         pc.getChampByName("type").setVisible(false);
-        
-        
+
         EtatFactureMontantDaty ff = (EtatFactureMontantDaty) pc.getBase();
 
         pc.setTitre("Consultation Facture Fournisseur");
@@ -71,7 +68,7 @@
         String id = a.getId();
 
         pc.setTitre("Fiche Facture Fournisseur");
-        
+
         EtatFactureMontantDaty base = (EtatFactureMontantDaty) pc.getBase();
         /*Onglets*/
         String tab = null;
@@ -85,26 +82,82 @@
         }
         map.put(tab, "active");
         tab = "inc/" + tab + ".jsp";
-        
+
         String blStart = "BL", ccStart = "CC";
         String lien = "";
-        if(a != null && a.getRemarque() != null){
-            if(a.getRemarque().startsWith(blStart)){
+        if (a != null && a.getRemarque() != null) {
+            if (a.getRemarque().startsWith(blStart)) {
                 lien = "stock/bl/bondelivraison-fiche.jsp";
-            }
-            else if(a.getRemarque().startsWith(ccStart)){
+            } else if (a.getRemarque().startsWith(ccStart)) {
                 lien = "travaux/contrat-fiche.jsp";
             }
         }
-        pc.getChampByName("remarque").setLien((String) session.getValue("lien") + "?but="+ lien, "id=");
-        
+        pc.getChampByName("remarque").setLien((String) session.getValue("lien") + "?but=" + lien, "id=");
+
 %>
 <style>
     .col-md-center .box-fiche{
         min-width:100%;
     }
+
+    #div-password {
+        position: fixed;
+        z-index: 10;
+        background-color: #f1f1f1;
+        border: 1px solid #d3d3d3;
+        text-align: center;
+        top: 150px;
+        left: 50vw;
+        width: 300px;
+        height: 180px;
+        display: none;
+        box-shadow: 3px 6px 47px 3px rgb(0 0 0);
+    }
+
+    #div-password-header {
+        padding: 10px;
+        cursor: move;
+        z-index: 10;
+        background-color: #2196F3;
+        color: #fff;
+    }
+    .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+        background-color: #ecf0f5;
+    }
+    .main-footer{
+        margin-left: 0px;
+    }
 </style>
+<script>
+    function annulation() {
+        document.getElementById("mdp").value = "";
+        var elmnt = document.getElementById("div-password");
+        elmnt.style.display = "none";
+    }
+
+    function envoyer() {
+        document.getElementById("form-avoir-interne").submit();
+    }
+
+    function avoirInterne() {
+        document.getElementById("mdp").value = "";
+        var elmnt = document.getElementById("div-password");
+        elmnt.style.display = "block";
+    }
+</script>
 <div class="content-wrapper">
+    <form action="<%=(String) session.getValue("lien")%>?but=apresMdp.jsp" method="post" id="form-avoir-interne">
+        <div id="div-password">
+            <div id="div-password-header">Sécurité</div>
+            <br/>
+            <p><b>Mot de passe</b></p>
+            <p><input name="mdp" type="password" id="mdp"></p>
+            <p><button type="button" name="annuler" onclick="annulation()" class="btn btn-danger pull-left" style="margin-left: 25px;margin-top: 10px;">Annuler</button></p>
+            <p><button type="button" name="ok" onclick="envoyer()" class="btn btn-info pull-right" style="margin-right: 25px;margin-top: 10px;">OK</button></p>
+            <br/>
+            <input type="hidden" name="bute" value="avoir/avoirFC-saisie.jsp&idfacture=<%=ff.getId()%>&type=1">
+        </div>
+    </form>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="box" id="fiche">
@@ -117,25 +170,26 @@
                 <div class="box-footer">
                     <h4><i class="fa fa-edit"></i> Modification fiche</h4>
                     <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + id + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=facture/facture-fournisseur-fiche.jsp&id=" + id%>" style="margin-right: 10px">Attacher Fichier</a>
-                    <%if(request.getParameter("idbon")!=null && request.getParameter("idbon").compareTo("")!=0){%>
-                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=facturefournisseur.FactureFournisseur&bute=facture/facture-fournisseur-fiche.jsp&id=" + id + "&idbon="+request.getParameter("idbon")%>"  style="margin-right: 10px">Viser</a>
-                    <%}else{%>
-                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=facturefournisseur.FactureFournisseur&bute=facture/facture-fournisseur-fiche.jsp&id=" + id%>"  style="margin-right: 10px">Viser</a>
+                    <%if (request.getParameter("idbon") != null && request.getParameter("idbon").compareTo("") != 0) {%>
+                    <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=facturefournisseur.FactureFournisseur&bute=facture/facture-fournisseur-fiche.jsp&id=" + id + "&idbon=" + request.getParameter("idbon")%>"  style="margin-right: 10px">Viser</a>
+                    <%} else {%>
+                    <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=facturefournisseur.FactureFournisseur&bute=facture/facture-fournisseur-fiche.jsp&id=" + id%>"  style="margin-right: 10px">Viser</a>
                     <%}%>
 
                     <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&classe=facturefournisseur.FactureFournisseur&bute=facture/facture-fournisseur-fiche.jsp&id=" + id%>" style="margin-right: 10px">Annuler Visa</a>
-                    
+
                     <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-modif-multiple.jsp&id=" + id%>" style="margin-right: 10px">Modifier</a>
-                    
-                    <%if(request.getParameter("idbon")!=null && request.getParameter("idbon").compareTo("")!=0){%>
-                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regularisation.jsp&idfacture=" + id + "&idbon="+request.getParameter("idbon")%>" style="margin-right: 10px">Régulariser bon</a>
-                    <%}else{%>
-                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regularisation.jsp&idfacture=" + id%>" style="margin-right: 10px">Régulariser bon</a>
+
+                    <%if (request.getParameter("idbon") != null && request.getParameter("idbon").compareTo("") != 0) {%>
+                    <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regularisation.jsp&idfacture=" + id + "&idbon=" + request.getParameter("idbon")%>" style="margin-right: 10px">Régulariser bon</a>
+                    <%} else {%>
+                    <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regularisation.jsp&idfacture=" + id%>" style="margin-right: 10px">Régulariser bon</a>
                     <%}%>
-                    
+
                     <hr>
                     <h4><i class="fa fa-plus"></i> Actions </h4>
-                    <a style="margin-right : 5px" class="btn btn-success "  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&acte=payer&id=" + a.getId() %>">Payer</a>
+                    <a style="margin-right : 5px" class="btn btn-success "  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&acte=payer&id=" + a.getId()%>">Payer</a>
+                    <a class="btn"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFF-saisie.jsp&idfacture=" + ff.getId()%>&type=2" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir</a>
                 </div>
 
             </div>
@@ -174,7 +228,7 @@
                             <tr  onmouseout="this.style.backgroundColor = ''">
                                 <td  align="center"><%=liste[i].getId()%></td>
                                 <td  align="center"><%=liste[i].getIdingredient()%></td>
-                                <td  align="center"><%=Utilitaire.champNull(liste[i].getCompte()) %></td>
+                                <td  align="center"><%=Utilitaire.champNull(liste[i].getCompte())%></td>
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQte())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getPu())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr((liste[i].getMontant()))%></td>
@@ -243,7 +297,7 @@
                                 <td  align="center"><%=Utilitaire.champNull(payment[i].getDed_Id())%></td>
                                 <td  align="center"><%=Utilitaire.formatterDaty(payment[i].getDaty())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(payment[i].getMontant())%></td>
-                                <td  align="right"><%=ConstanteEtat.etatToChaine(""+payment[i].getEtat())%></td>
+                                <td  align="right"><%=ConstanteEtat.etatToChaine("" + payment[i].getEtat())%></td>
                             </tr>
                             <% }
                                 }%>
