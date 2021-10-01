@@ -1419,26 +1419,23 @@ public class FactureClient extends ClassMere {
                 + Utilitaire.genererAnnee(daty)
                 + Utilitaire.genererMois(daty)
                 + genererLettreMictsl(c)
-//                + genererSequence(c, "NUMEROFACTUREMCTSL", 6);
-                + genererSequence(c, "NUMEROFACTUREMCTSL_PARDATE", 6);
+                + genererSequence(c, "NUMEROFACTUREMCTSL", 6);
     }
 
     public String genererSequence(Connection c, String nomtable, int longueur) throws Exception {
-        String daty = Utilitaire.datetostring(this.getDaty());
-        
-        String sequence = "1";
-                
-        NumeroFacture num = new NumeroFacture();
-        num.setNomTable(nomtable);
-        
-        String awhere = " and mois = %s and annee = %s";
-        String mois = Utilitaire.genererMois(daty), annee = Utilitaire.getAnnee(daty);
-        awhere = String.format(awhere, mois, annee);
-        
-        NumeroFacture[] nums = (NumeroFacture[]) CGenUtil.rechercher(num, null, null, c, awhere);
-        
-        if(nums != null && nums.length > 0) sequence = ""+nums[0].getNumerosuivant();
-        
+        String requete = "SELECT  * FROM %s";
+        requete = String.format(requete, nomtable);
+
+//        System.out.println("requete " + requete);
+        TypeObjet obj = new TypeObjet();
+        obj.setNomTable(nomtable);
+        TypeObjet[] seq = (TypeObjet[]) CGenUtil.rechercher(obj, requete, c);
+
+        String sequence = "";
+        if (seq != null && seq.length > 0) {
+            sequence = seq[0].getVal();
+        }
+
         return Utilitaire.completerInt(longueur, sequence);
     }
 
@@ -1450,8 +1447,7 @@ public class FactureClient extends ClassMere {
         code += Utilitaire.genererMois(daty);
         code += Utilitaire.champNull(genererCodePrestation(c));
         code += "A";
-//        code += genererSequence(c, "numerofacturesimple", 3);
-        code += genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3);
+        code += genererSequence(c, "numerofacturesimple", 3);
         return code;
     }
 
