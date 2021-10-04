@@ -140,4 +140,14 @@ public class FactureFournisseur extends FactureClient{
         this.preparePk("FAF", "get_seq_factFournMere");
         this.setId(makePK(c));
     }
+    
+    @Override
+    public String getTuppleID(){
+        return id;
+    }
+    
+    @Override
+    public String getAttributIDName(){
+        return "id";
+    }
 }

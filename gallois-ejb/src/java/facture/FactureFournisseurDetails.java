@@ -5,6 +5,7 @@
  */
 package facture;
 
+import bean.CGenUtil;
 import java.sql.Connection;
 import java.sql.Date;
 
@@ -19,12 +20,33 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     private Date datefact;
     private int mois , annee;
     
+    @Override
+    public FactureFournisseur findMere(Connection c) throws Exception {
+        if(this.getMere() == null) {
+            FactureFournisseur fc = new FactureFournisseur();
+            System.out.println("this.getIdmere() : " + this.getIdmere());
+            fc.setId(this.getIdmere());
+            fc.setEstDDPMICTSL(null);
+            FactureFournisseur[] tmp = (FactureFournisseur[]) CGenUtil.rechercher(fc, null, null, c, "");
+            
+            if(tmp != null && tmp.length > 0) {
+                this.setMere(tmp[0]);
+                return tmp[0];
+            }
+        }
+        return (FactureFournisseur) this.getMere();
+    }
+    
     public FactureFournisseurDetails() throws Exception{ 
         this.setNomTable("facture_fournisseur_fille");
+        this.setNomClasseMere("facture.FactureFournisseur");
+        this.setLiaisonMere("idmere");
     }
 
     public FactureFournisseurDetails(String id, String idmere, String designation, String compte, String idproduit, String devise, String idactivite, String rubrique, String heureDebut, String heureFin, double quantite, double pu, double taux, double tva, double reduction, double majoration, double test, Date datefact, int mois, int annee) throws Exception{
         this.setNomTable("facture_fournisseur_fille");
+         this.setNomClasseMere("facture.FactureFournisseur");
+        this.setLiaisonMere("idmere");
         this.setId(id);
         this.setIdmere(idmere);
         this.setDesignation(designation);
@@ -219,5 +241,15 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     public void construirePK(Connection c) throws Exception {
         this.preparePk("FFD", "get_seq_factFournFille");
         this.setId(makePK(c));
+    }
+    
+    @Override
+    public String getTuppleID(){
+        return id;
+    }
+    
+    @Override
+    public String getAttributIDName(){
+        return "id";
     }
 }
