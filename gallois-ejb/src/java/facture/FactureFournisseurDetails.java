@@ -6,36 +6,28 @@
 package facture;
 
 import bean.CGenUtil;
+import bean.ClassFille;
+import bean.ClassMAPTable;
+import fin.Coursdevise;
 import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.Prevision;
+import utilitaire.Constante;
+import utilitaire.Utilitaire;
 
 /**
  *
  * @author rijan
  */
-public class FactureFournisseurDetails extends FactureClientDetails{
+public class FactureFournisseurDetails extends ClassFille{
     
-    private String id , idmere , designation , compte , idproduit , devise , idactivite , rubrique , heureDebut , heureFin,produit_lib;
-    private double quantite , pu , taux , tva , reduction , majoration , test;
+    private String id , idmere , designation , compte , idproduit , devise , idactivite , rubrique , heureDebut , heureFin;
+    private double quantite , pu , taux , tva , reduction , majoration, montant;
     private Date datefact;
     private int mois , annee;
+    boolean tauxDonne=false;
     
-    @Override
-    public FactureFournisseur findMere(Connection c) throws Exception {
-        if(this.getMere() == null) {
-            FactureFournisseur fc = new FactureFournisseur();
-            System.out.println("this.getIdmere() : " + this.getIdmere());
-            fc.setId(this.getIdmere());
-            fc.setEstDDPMICTSL(null);
-            FactureFournisseur[] tmp = (FactureFournisseur[]) CGenUtil.rechercher(fc, null, null, c, "");
-            
-            if(tmp != null && tmp.length > 0) {
-                this.setMere(tmp[0]);
-                return tmp[0];
-            }
-        }
-        return (FactureFournisseur) this.getMere();
-    }
+    
     
     public FactureFournisseurDetails() throws Exception{ 
         this.setNomTable("facture_fournisseur_fille");
@@ -45,8 +37,6 @@ public class FactureFournisseurDetails extends FactureClientDetails{
 
     public FactureFournisseurDetails(String id, String idmere, String designation, String compte, String idproduit, String devise, String idactivite, String rubrique, String heureDebut, String heureFin, double quantite, double pu, double taux, double tva, double reduction, double majoration, double test, Date datefact, int mois, int annee) throws Exception{
         this.setNomTable("facture_fournisseur_fille");
-         this.setNomClasseMere("facture.FactureFournisseur");
-        this.setLiaisonMere("idmere");
         this.setId(id);
         this.setIdmere(idmere);
         this.setDesignation(designation);
@@ -63,11 +53,20 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         this.setTva(tva);
         this.setReduction(reduction);
         this.setMajoration(majoration);
-        this.setTest(test);
         this.setDatefact(datefact);
         this.setMois(mois);
         this.setAnnee(annee);
     }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+    
+    
     
     public String getId() {
         return id;
@@ -197,13 +196,7 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         this.majoration = majoration;
     }
 
-    public double getTest() {
-        return test;
-    }
-
-    public void setTest(double test) {
-        this.test = test;
-    }
+    
 
     public Date getDatefact() {
         return datefact;
@@ -229,27 +222,79 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         this.annee = annee;
     }
 
-    public String getProduit_lib() {
-        return produit_lib;
+    public boolean getTauxDonne() {
+        return tauxDonne;
     }
 
-    public void setProduit_lib(String produit_lib) {
-        this.produit_lib = produit_lib;
+    public void setTauxDonne(boolean tauxDonne) {
+        this.tauxDonne = tauxDonne;
     }
+    
+    
     
     @Override
     public void construirePK(Connection c) throws Exception {
         this.preparePk("FFD", "get_seq_factFournFille");
         this.setId(makePK(c));
     }
-    
+
     @Override
-    public String getTuppleID(){
+    public String getTuppleID() {
         return id;
+    }
+
+    @Override
+    public String getAttributIDName() {
+        return "id";
+    }
+  /*  
+    
+    private FactureFournisseur findMere(Connection c) throws Exception {
+        if(this.getMere() == null) {
+            FactureFournisseur fc = new FactureFournisseur();
+            fc.setId(this.getIdmere());
+            //fc.setEstDDPMICTSL(null);
+            FactureFournisseur[] tmp = (FactureFournisseur[]) CGenUtil.rechercher(fc, null, null, c, "");
+            
+            if(tmp != null && tmp.length > 0) { 
+                this.setMere(tmp[0]);
+                return tmp[0];
+            }
+        }
+        
+        return this.getMere();
+    }*/
+    public double getTauxRecentNormal(Connection c) throws Exception {
+        FactureFournisseur mere = (FactureFournisseur) this.getMere();
+        if(mere == null) mere = (FactureFournisseur) super.findMere(null, c);
+        Date date = mere.getDaty();
+        
+        return getValeurTaux(c, "coursdeviseNonMICTSL", date);
+    }
+    
+    public double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
+        String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
+                + " and iddevise = '" + this.getDevise() + "'";
+        Coursdevise cours = new Coursdevise();
+        cours.setNomTable(nomTable);
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(cours, null, null, c, awhere);
+
+        return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
+    }
+    
+    public double getTauxRecent(Connection c) throws Exception {
+        super.findMere(null,c);
+        if(this.getMere() == null) throw new Exception("Facture mere introuvable");
+        
+        
+        
+        return getTauxRecentNormal(c);
     }
     
     @Override
-    public String getAttributIDName(){
-        return "id";
+    public ClassMAPTable createObject(String user, Connection c) throws Exception {
+        System.out.println(this.getClass().toString());
+        if(getTauxDonne()==false)setTaux(getTauxRecent(c));
+        return super.createObject(user, c);
     }
 }

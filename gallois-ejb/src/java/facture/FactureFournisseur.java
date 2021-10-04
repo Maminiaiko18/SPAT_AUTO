@@ -5,6 +5,7 @@
  */
 package facture;
 
+import bean.ClassMere;
 import java.sql.Connection;
 import java.sql.Date;
 
@@ -12,15 +13,22 @@ import java.sql.Date;
  *
  * @author rijan
  */
-public class FactureFournisseur extends FactureClient{
+public class FactureFournisseur extends ClassMere{
     
-    private String id , tiers , designation , type , remarque , iduser , idprevision , idcategorie;
+    private String id , tiers , designation , type , remarque , iduser , idprevision , idcategorie, deviseMere;
     private double tva; 
-    private Date daty , dateEcheance;
-    private int etat;
+    private Date daty , date_echeance;
+
     
     public FactureFournisseur() throws Exception{ 
         this.setNomTable("facture_Fournisseur_Mere");
+        this.setLiaisonFille("idmere");
+        this.setNomClasseFille("facture.FactureFournisseurDetails");
+        
+    }
+    @Override
+    public String getLiaisonFille() {
+        return "idmere";
     }
 
     public FactureFournisseur(String id, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String idcategorie, double tva, Date daty, Date dateEcheance, int etat) throws Exception{
@@ -35,7 +43,7 @@ public class FactureFournisseur extends FactureClient{
         this.setIdcategorie(idcategorie);
         this.setTva(tva);
         this.setDaty(daty);
-        this.setDateEcheance(dateEcheance);
+        this.setDate_echeance(dateEcheance);
         this.setEtat(etat);
     }  
 
@@ -71,6 +79,15 @@ public class FactureFournisseur extends FactureClient{
         this.type = type;
     }
 
+    public String getDeviseMere() {
+        return deviseMere;
+    }
+
+    public void setDeviseMere(String deviseMere) {
+        this.deviseMere = deviseMere;
+    }
+
+    
     public String getRemarque() {
         return remarque;
     }
@@ -119,35 +136,31 @@ public class FactureFournisseur extends FactureClient{
         this.daty = daty;
     }
 
-    public Date getDateEcheance() {
-        return dateEcheance;
+    public Date getDate_echeance() {
+        return date_echeance;
     }
 
-    public void setDateEcheance(Date dateEcheance) {
-        this.dateEcheance = dateEcheance;
+    public void setDate_echeance(Date date_echeance) {
+        this.date_echeance = date_echeance;
     }
 
-    public int getEtat() {
-        return etat;
-    }
+    
 
-    public void setEtat(int etat) {
-        this.etat = etat;
-    }
+    
    
     @Override
     public void construirePK(Connection c) throws Exception {
         this.preparePk("FAF", "get_seq_factFournMere");
         this.setId(makePK(c));
     }
-    
+
     @Override
-    public String getTuppleID(){
+    public String getTuppleID() {
         return id;
     }
-    
+
     @Override
-    public String getAttributIDName(){
+    public String getAttributIDName() {
         return "id";
     }
 }

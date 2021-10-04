@@ -18,7 +18,7 @@
     String autreparsley = "data-parsley-range='[8, 40]' required";
     facture.FactureFournisseur  fc = new facture.FactureFournisseur();
     fc.setNomTable("facture_Fournisseur_Mere");
-    FactureClientDetails fcfille = new FactureClientDetails();
+    facture.FactureFournisseurDetails fcfille = new facture.FactureFournisseurDetails();
     fcfille.setNomTable("FACTFOURN_FILLE_PLUS");
     
     
@@ -33,17 +33,17 @@
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
-    pi.getFormu().getChamp("idprevision").setLibelle("escale");
-    pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
-    pi.getFormu().getChamp("tiers").setPageAppel("choix/listeBEDTiersChoix.jsp");
-    pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+    //pi.getFormu().getChamp("idprevision").setVisible(false);
+    //pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
+    pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+    //pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
-    pi.getFormu().getChamp("estMictsl").setVisible(false);
+    //pi.getFormu().getChamp("estMictsl").setVisible(false);
     
     
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
-    pi.getFormu().getChamp("idprevision").setAutre("readonly");
+    //pi.getFormu().getChamp("idprevision").setAutre("readonly");
     
     affichage.Liste[] listes= new affichage.Liste[3];
     
@@ -52,7 +52,7 @@
         listes[0] = new Liste("type", type, "VAL", "id");
         
      TypeObjet categ = new TypeObjet();
-        categ.setNomTable("categorieFC");
+        categ.setNomTable("categorieFF");
         listes[1] = new Liste("idcategorie", categ, "VAL", "id");
         
 //    TypeObjet prestation = new TypeObjet();
@@ -67,10 +67,10 @@
     pi.getFormu().changerEnChamp(listes);
     
     pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
-    pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
-    pi.getFormu().getChamp("idProvision").setAutre("readonly");
+    //pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
+   // pi.getFormu().getChamp("idProvision").setAutre("readonly");
     pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
-    pi.getFormu().getChamp("idProvision").setLibelle("Provision");
+   // pi.getFormu().getChamp("idProvision").setLibelle("Provision");
        
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
@@ -96,6 +96,11 @@
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("idactivite"),false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubrique"),false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureDebut"),false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"),false);
+    
     affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
     pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
@@ -110,13 +115,13 @@
     pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
     
     pi.getFormufle().getChamp("annee_0").setLibelle("Année");
-    pi.getFormufle().getChamp("heureDebut_0").setVisible(false);
-    pi.getFormufle().getChamp("heureFin_0").setVisible(false);
+    //pi.getFormufle().getChamp("heureDebut_0").setVisible(false);
+    //pi.getFormufle().getChamp("heureFin_0").setVisible(false);
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
     pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
     
-    pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
+    //pi.getFormufle().getChamp("idactivite_0").setVisible(false);
+    //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise");
     //affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
@@ -142,16 +147,16 @@
     //pi.getFormu().changerEnChamp(lst);
 //    pi.getFormu().getChamp("EstDDPMICTSL").setDefaut("0");
 //    pi.getFormu().getChamp("EstDDPMICTSL").setLibelle("Droit de Port MICTSL");
-    pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
+    //pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("codePrestation").setVisible(false);
-    pi.getFormu().getChamp("code").setVisible(false);
+   // pi.getFormu().getChamp("codePrestation").setVisible(false);
+   // pi.getFormu().getChamp("code").setVisible(false);
 
     pi.preparerDataFormu();
        
 %>
 <div class="content-wrapper">
-    <h1>Enregistrer facture client</h1>
+    <h1>Enregistrer facture fournisseur</h1>
     <!--  -->
     <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
         <%
@@ -162,9 +167,9 @@
         %>
 
         <input name="acte" type="hidden" id="nature" value="insert">
-        <input name="bute" type="hidden" id="bute" value="facture/factureclient-fiche-vaovao.jsp">
-        <input name="classe" type="hidden" id="classe" value="facture.FactureClient">
-        <input name="classefille" type="hidden" id="classefille" value="facture.FactureClientDetails">
+        <input name="bute" type="hidden" id="bute" value="facture/facture-fournisseur-fiche-vaovao.jsp">
+        <input name="classe" type="hidden" id="classe" value="facture.FactureFournisseur">
+        <input name="classefille" type="hidden" id="classefille" value="facture.FactureFournisseurDetails">
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="10">
         <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
     </form>
