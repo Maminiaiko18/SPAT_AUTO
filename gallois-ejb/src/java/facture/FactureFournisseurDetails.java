@@ -19,7 +19,7 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     private Date datefact;
     private int mois , annee;
     
-    public FactureFournisseurDetails(){ 
+    public FactureFournisseurDetails() throws Exception{ 
         this.setNomTable("facture_client_fille");
     }
 
