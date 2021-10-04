@@ -14,7 +14,7 @@ import java.sql.Date;
  */
 public class FactureFournisseurDetails extends FactureClientDetails{
     
-    private String id , idmere , designation , compte , idproduit , devise , idactivite , rubrique , heureDebut , heureFin;
+    private String id , idmere , designation , compte , idproduit , devise , idactivite , rubrique , heureDebut , heureFin,produit_lib;
     private double quantite , pu , taux , tva , reduction , majoration , test;
     private Date datefact;
     private int mois , annee;
@@ -205,6 +205,14 @@ public class FactureFournisseurDetails extends FactureClientDetails{
 
     public void setAnnee(int annee) {
         this.annee = annee;
+    }
+
+    public String getProduit_lib() {
+        return produit_lib;
+    }
+
+    public void setProduit_lib(String produit_lib) {
+        this.produit_lib = produit_lib;
     }
     
     @Override
