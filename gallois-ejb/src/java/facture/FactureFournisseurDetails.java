@@ -20,10 +20,11 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     private int mois , annee;
     
     public FactureFournisseurDetails() throws Exception{ 
-        this.setNomTable("facture_client_fille");
+        this.setNomTable("facture_fournisseur_fille");
     }
 
     public FactureFournisseurDetails(String id, String idmere, String designation, String compte, String idproduit, String devise, String idactivite, String rubrique, String heureDebut, String heureFin, double quantite, double pu, double taux, double tva, double reduction, double majoration, double test, Date datefact, int mois, int annee) throws Exception{
+        this.setNomTable("facture_fournisseur_fille");
         this.setId(id);
         this.setIdmere(idmere);
         this.setDesignation(designation);
