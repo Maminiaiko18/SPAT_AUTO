@@ -19,7 +19,7 @@ public class FactureFournisseur extends FactureClient{
     private Date daty , dateEcheance;
     private int etat;
     
-    public FactureFournisseur(){ 
+    public FactureFournisseur() throws Exception{ 
         this.setNomTable("facture_Fournisseur_Mere");
     }
 
