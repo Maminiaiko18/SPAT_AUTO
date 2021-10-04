@@ -13,9 +13,9 @@
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             facture.setNomTable(request.getParameter("etat"));
         }
-        String listeCrt[] = {"id", "daty", "tierslib", "designation", "date_echeance"};
+        String listeCrt[] = {"id", "daty", "tierslib", "designation", "date_echeance", "code"};
         String listeInt[] = {"daty", "date_echeance"};
-        String libEntete[] = {"id", "daty", "tierslib", "designation", "tva", "date_echeance", "montant", "montanttva", "montantttc", "montantAvoir", "montantpaye", "montantreste"};
+        String libEntete[] = {"id", "daty", "tierslib", "code", "designation", "tva", "date_echeance", "montant", "montanttva", "montantttc", "montantAvoir", "montantpaye", "montantreste"};
         PageRecherche pr = new PageRecherche(facture, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -24,6 +24,7 @@
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
+        pr.getFormu().getChamp("code").setLibelle("Code");
         /*pr.getFormu().getChamp("montant").setLibelle("montant HT");
     pr.getFormu().getChamp("montanttva").setLibelle("montant TVA");
     pr.getFormu().getChamp("montantttc").setLibelle("montant TTC");*/
@@ -90,7 +91,7 @@
 
             <%
 
-                String libEnteteAffiche[] = {"id", "daty", "tiers", "designation", "tva", "date echeance", "montant HT", "montant TVA", "montant TTC", "montant Avoir", "montant payé", "reste à payer"};
+                String libEnteteAffiche[] = {"id", "daty", "tiers", "Code", "designation", "tva", "date echeance", "montant HT", "montant TVA", "montant TTC", "montant Avoir", "montant payé", "reste à payer"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");
