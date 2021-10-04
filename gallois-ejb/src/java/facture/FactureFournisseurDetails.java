@@ -21,7 +21,7 @@ import utilitaire.Utilitaire;
  */
 public class FactureFournisseurDetails extends ClassFille{
     
-    private String id , idmere , designation , compte , idproduit , devise , idactivite , rubrique , heureDebut , heureFin;
+    private String id , idmere , designation , compte , idproduit , devise , idactivite , rubrique , heureDebut , heureFin,  produitlib;
     private double quantite , pu , taux , tva , reduction , majoration, montant;
     private Date datefact;
     private int mois , annee;
@@ -58,6 +58,22 @@ public class FactureFournisseurDetails extends ClassFille{
         this.setAnnee(annee);
     }
 
+    
+    public String getProduitlib() {
+        return produitlib;
+    }
+
+    public void setProduitlib(String produitlib) {
+        this.produitlib = produitlib;
+    }
+    
+
+    public boolean isTauxDonne() {
+        return tauxDonne;
+    }
+
+    
+    
     public double getMontant() {
         return montant;
     }

@@ -15,7 +15,7 @@ import java.sql.Date;
  */
 public class FactureFournisseur extends ClassMere{
     
-    private String id , tiers , designation , type , remarque , iduser , idprevision , idcategorie, deviseMere;
+    private String id , tiers , designation , type , remarque , iduser , idprevision , idcategorie, deviseMere , tierslib;
     private double tva; 
     private Date daty , date_echeance;
 
@@ -47,6 +47,16 @@ public class FactureFournisseur extends ClassMere{
         this.setEtat(etat);
     }  
 
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
+
+    
+    
     public String getId() {
         return id;
     }
