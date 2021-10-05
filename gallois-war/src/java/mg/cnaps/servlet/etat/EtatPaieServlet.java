@@ -76,6 +76,8 @@ import facture.FactureProformaDetails;
 import facture.FactureClient;
 import facture.FactureClientDetails;
 import facture.FactureClientDetailsGrouper;
+import facture.FactureFournisseurDetails;
+import facture.FactureFournisseurFilleData;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import mg.spat.OccupationMaterielNaval;
@@ -138,6 +140,9 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerAvoir(request, response);
             }else if(action.equalsIgnoreCase("imprimerEtatProvision")){
                 imprimerEtatProvision(request, response);
+            }
+            else if(action.equalsIgnoreCase("imprimerFactureFournisseur")){
+                imprimerFactureFournisseur(request, response);
             }
 
             
@@ -777,6 +782,7 @@ public class EtatPaieServlet extends HttpServlet {
             facture.setNomTable("factureClientValide");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '"+id+"'");
             
+            facture = mere[0];
             facture.setId(id);
             facture.initDetails(c);
             double hTEuro = facture.getMontantHTEuro();
@@ -1029,6 +1035,132 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }        
     }    
-  
+    private void imprimerFactureFournisseur(HttpServletRequest request, HttpServletResponse response) throws  Exception {
+        Connection c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+            Map param = new HashMap();
+            String id = request.getParameter("id");
+            facture.FactureFournisseur facture = new facture.FactureFournisseur();
+            facture.setEstDDPMICTSL(null);
+            facture.setNomTable("facture_Fournisseur_Mere");
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+           
+            facture.FactureFournisseur[] mere = (facture.FactureFournisseur[]) CGenUtil.rechercher(facture, null, null, c, " and id = '"+id+"' order by daty");
+            String code = mere[0].getCode();
+            facture.setNomTable("FACTFOURN_VALIDE");
+            mere = (facture.FactureFournisseur[]) CGenUtil.rechercher(facture, null, null, c, " and id = '"+id+"'");
+            
+            
+            if(mere.length!=0){
+
+            setNomJasper("facture-client-sans-prevision");
+            FactureFournisseurDetails cht = new FactureFournisseurDetails();
+            cht.setNomTable("FACTFOURN_FILL_LIB_REST_TAXE");
+            
+            FactureFournisseurDetails[] details = (FactureFournisseurDetails[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '"+id+"'");
+            ArrayList<FactureFournisseurDetails> arrList = new ArrayList<FactureFournisseurDetails>();
+            
+            FactureFournisseurFilleData dataF = new FactureFournisseurFilleData(id, details, null);
+            facture.FactureFournisseur fact = dataF.getFacture();
+            facture.setId(id);
+            facture = mere[0];
+            //facture.initDetails(c);
+            double hTEuro = fact.getMontantHTEuro();
+            double tvaEuro = fact.getMontantTVAEuro();
+            double ttcEuro = hTEuro + tvaEuro;
+            double hTDollar = fact.getMontantHTVADollar();
+            double tvaDollar = fact.getMontantTVADollar();
+            double ttcDollar = fact.getMontantTTCDollar();
+            double deviseEuro = fact.getDeviseEuro();
+            double deviseDollar = fact.getDeviseDollar();
+            String cat= fact.getCategorielib();
+            String designation = fact.getDesignation();
+            facture.setId(details[0].getIdmere());
+            facture.setListeDetails(details);
+            facture.initDetails(null);
+            double total=0;
+            double reduction =0;
+            for(int i = 0; i < details.length; i++)
+            {
+                //details[i].setMontantHTEuro( details[i].getQuantite()*details[i].getPu());
+                total=total+details[i].getMontantHTEuro();
+                arrList.add(details[i]);
+                reduction += details[i].getReduction();
+                
+                //total=
+            }
+            //mere[0].setArrayDetails(arrList);
+            List<FactureFournisseurDetails> res = new ArrayList<FactureFournisseurDetails>();
+            /*List dataSources = new ArrayList();
+            dataSources.addAll(mere[0].getArrayDetails());*/
+            param.put("total", total);
+            param.put("montantsns",hTEuro);
+            param.put("reduction",reduction);
+            param.put("list_table",arrList);
+            
+            
+            param.put("daty",mere[0].getDaty());
+            param.put("id",mere[0].getId());
+            param.put("type",mere[0].getTypelib());
+            cat = mere[0].getCategorielib();
+            param.put("cat",cat);
+            designation= mere[0].getDesignation();
+            param.put("designation",designation);
+            param.put("reduction", mere[0].getReduction());
+            param.put("client",mere[0].getTierslib());
+            param.put("adresse",mere[0].getAdresse());
+            param.put("phone",mere[0].getContact());
+            param.put("montant",mere[0].getMontant());
+            param.put("montantTVA",mere[0].getMontanttva());
+            param.put("montantTTC",mere[0].getMontantttc());
+            param.put("montantAvoir",mere[0].getMontantavoir());
+            param.put("tva",mere[0].getTva());
+            
+            if(mere[0].getTypelib()!=null){
+                if(mere[0].getTypelib().compareToIgnoreCase("au comptant")!=0){
+                    param.put("dateEcheanceLib", "Date limite de paiement :");
+                    param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
+                }                
+            }
+            
+            param.put("deviseMere", mere[0].getDeviseMere());
+            param.put("code", code);
+            String montantlettre = ChiffreLettre.convertRealToString( new Double( mere[0].getMontantttc() ) ) +" Ariary " ;
+            
+            if(mere[0].getDeviseMere()!=null){
+                 if(mere[0].getDeviseMere().compareToIgnoreCase("Dollars")==0){
+                    montantlettre = ChiffreLettre.convertRealToString( new Double( ttcDollar ) )+" Dollars " ;            
+                }
+            }
+           
+            param.put("montantlettre",montantlettre);
+            param.put("htdollar",hTDollar);
+            param.put("dollartva",tvaDollar);
+            param.put("dollarttc",ttcDollar);
+            param.put("hteuro",hTEuro);
+            param.put("tvaeuro",tvaEuro);
+            param.put("ttcEuro",ttcEuro);            
+            param.put("valeuro",deviseEuro);
+            
+            param.put("valdollar",deviseDollar);
+            param.put("cat",cat);
+            param.put("designation",designation);
+            }
+            /************************************************************************************************/
+            
+            
+            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            //setNomJasper("facture_client2 - Copie");
+            UtilitaireImpression.imprimer(request, response, "facture-fournisseur", param, null, getReportPath(), rt);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
     
 }
