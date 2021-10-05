@@ -3,6 +3,8 @@
     Created on : 12 mai 2021, 14:37:18
     Author     : nyamp
 --%>
+<%@page import="facture.FactureFournisseur"%>
+<%@page import="facture.FactureFournisseurFilleData"%>
 <%@page import="facture.FactureFournisseurDetails"%>
 <%@page import="facture.FactureClientFilleData"%>
 <%@page import="utilitaire.Utilitaire"%>
@@ -16,6 +18,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    try{    
     FactureFournisseurDetails cht = new FactureFournisseurDetails();
 //    cht.setNomTable("facture_client_fille_lib_reste");
     cht.setNomTable("FACTFOURN_FILL_LIB_REST_TAXE");
@@ -41,8 +44,8 @@
      */
     //if(liste == null) liste = new  FactureClientDetails[0]; 
     
-    FactureClientFilleData dataF = new FactureClientFilleData(liste[0].getIdmere(), liste, null);
-    FactureClient facture = dataF.getFacture();
+    FactureFournisseurFilleData dataF = new FactureFournisseurFilleData(liste[0].getIdmere(), liste, null);
+    FactureFournisseur facture = dataF.getFacture();
     pr.getTableau().transformerDataString();
 
     String libEnteteAffiche[] = {"id", "designation", "quantité", "quantité livrée", "reste à livrer", "devise", "compte", "pu", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "Activite", "Heure début", "Heure fin", "RED.%", "MAJ.%"};
@@ -156,4 +159,7 @@
 <% } else {
 %><center><h4>Aucun details </h4></center><%
     }
+}catch(Exception ex){
+    ex.printStackTrace();
+}
     %>
