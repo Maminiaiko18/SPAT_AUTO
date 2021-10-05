@@ -33,17 +33,16 @@
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
-    //pi.getFormu().getChamp("idprevision").setVisible(false);
-    //pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
+    pi.getFormu().getChamp("idprevision").setVisible(false);
+    
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
-    //pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+    pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
-    //pi.getFormu().getChamp("estMictsl").setVisible(false);
+    pi.getFormu().getChamp("estMictsl").setVisible(false);
     
     
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
-    //pi.getFormu().getChamp("idprevision").setAutre("readonly");
     
     affichage.Liste[] listes= new affichage.Liste[3];
     
@@ -67,10 +66,10 @@
     pi.getFormu().changerEnChamp(listes);
     
     pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
-    //pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
-   // pi.getFormu().getChamp("idProvision").setAutre("readonly");
+    pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
+    pi.getFormu().getChamp("idProvision").setAutre("readonly");
     pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
-   // pi.getFormu().getChamp("idProvision").setLibelle("Provision");
+    pi.getFormu().getChamp("idProvision").setLibelle("Provision");
        
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
@@ -147,10 +146,10 @@
     //pi.getFormu().changerEnChamp(lst);
 //    pi.getFormu().getChamp("EstDDPMICTSL").setDefaut("0");
 //    pi.getFormu().getChamp("EstDDPMICTSL").setLibelle("Droit de Port MICTSL");
-    //pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
+    pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
-   // pi.getFormu().getChamp("codePrestation").setVisible(false);
-   // pi.getFormu().getChamp("code").setVisible(false);
+    pi.getFormu().getChamp("codePrestation").setVisible(false);
+    pi.getFormu().getChamp("code").setVisible(false);
 
     pi.preparerDataFormu();
        
