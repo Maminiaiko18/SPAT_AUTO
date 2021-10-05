@@ -81,7 +81,7 @@
         String bute = "facture/facture-fournisseur-fiche-vaovao.jsp";
         String classe = "facture.FactureFournisseur";
         String classefille = "facture.FactureFournisseurDetails";
-        String modifPage = "facture/factureclient-modif.jsp";
+        String modifPage = "facture/facture-fournisseur-modif-vaovao.jsp";
 
         String lien = (String) session.getValue("lien");
         String redirect = lien + "?but=" + modifPage + "&id=" + request.getParameter("id");
@@ -199,7 +199,7 @@
                     <p><a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-client-saisie.jsp&idfacture=" + e.getId()%>" style="margin-right: 10px">Livrer</a></p>
                     <hr> 
                     <p>
-                        <a class="btn"  href="#"  onclick="avoirInterne()" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir Interne</a>
+
                         <a class="btn"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFF-saisie.jsp&idfacture=" + e.getId()%>&type=2" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir</a>
                     </p>
                     <hr>
@@ -209,7 +209,6 @@
                     <hr>
                     <p>
                         <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureFournisseur&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
-                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerEtatProvision&id=<%=id%>" style="margin-right: 10px">Imprimer Etat de provision</a>
                     </p>
                     </hr>
                     <p>
