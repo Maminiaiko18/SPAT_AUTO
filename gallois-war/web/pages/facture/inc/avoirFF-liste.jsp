@@ -3,40 +3,44 @@
     Created on : 21 juin 2021, 10:56:48
     Author     : nyamp
 --%>
+<%@page import="utilitaire.Utilitaire"%>
+<%@page import="avoir.AvoirFCLibComplet"%>
 <%@page import="bean.AdminGen"%>
-<%@page import="avoir.AvoirLibComplet"%>
+<%@page import="avoir.Avoir"%>
+<%@page import="affichage.TableauRecherche"%>
+<%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRecherche"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%
-    try {
-   AvoirLibComplet cht = new AvoirLibComplet();
-    cht.setNomTable("avoir_lib_val");
-    String libEntete[] = {"id", "designation", "typeavoir_desce","remarque", "daty", "montant","tva"};
-    String listeCrt[] = {"idfacture"};
-    String listeInt[] = {};
+    try{
+        AvoirFCLibComplet cht = new AvoirFCLibComplet();
+        cht.setNomTable("AVOIRFF_MONTANTLIBETAT");
+        String libEntete[] = {"id", "code", "daty", "tierslib", "montant", "montantpaye", "montantreste", "etatlib"};
+        String listeCrt[] = {"idfacture"};
+        String listeInt[] = {};
 
-    PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-    pr.setUtilisateur((user.UserEJB) session.getValue("u"));
-    pr.setLien((String) session.getValue("lien"));    
-    String[] colSomme = null;
-    pr.creerObjetPage(libEntete, colSomme);
-    
-    String libEnteteAffiche[] = {"id", "Désignation","Type","remarque", "Date", "Montant","tva"};
-    pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-    String lienTableau[] = {pr.getLien() + "?but=avoir/avoir-fiche.jsp"};
-    String colonneLien[] = {"id"};
-    pr.getTableau().setLien(lienTableau);
-    pr.getTableau().setColonneLien(colonneLien);
+        PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+        pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+        pr.setLien((String) session.getValue("lien"));
 
-       
-    
-    if(pr.getTableau().getHtml() != null){
-        out.println(pr.getTableau().getHtml());        
-        AvoirLibComplet[] liste=(AvoirLibComplet[])pr.getTableau().getData();
-
-        double total=0;
-        total=AdminGen.calculSommeDouble(liste,"montant");
+        pr.setApres("facture/inc/avoirFF-liste.jsp");
+        String[] colSomme = {"montant"};
+        if(request.getParameter("idfacture") != null){
+            pr.setAWhere(" and idfacture = '"+request.getParameter("idfacture")+"' ");
+        }
+        pr.creerObjetPage(libEntete, colSomme);
+        String libEnteteAffiche[] = {"id", "Code", "Date", "Client","Montant", "Montant paye", "Montant reste", "Etat"};
+        String lienTableau[] = {pr.getLien() + "?but=avoir/avoirFF-fiche.jsp"};
+        String colonneLien[] = {"id"};
+        pr.getTableau().setLien(lienTableau);
+        pr.getTableau().setColonneLien(colonneLien);
+        pr.getTableau().setLibeEntete(libEnteteAffiche);
+        AvoirFCLibComplet[] liste=(AvoirFCLibComplet[]) pr.getTableau().getData();
+        if(pr.getTableau().getHtml() != null){
+            out.println(pr.getTableau().getHtml());
+            double total=0;
+            total=AdminGen.calculSommeDouble(liste,"montant");
 
 %>
         
@@ -44,13 +48,14 @@
             <tr>
                 <td colspan="5"></td>
                 <th width="20%" align="right">Montant total</th>
-                <td width="20%" align="right"><%=total%></td>
+                <td width="20%" align="right"><%=Utilitaire.formaterAr(total)%> Ar</td>
             </tr>
         </table>
     <% }else{
         %><center><h4>Aucun Avoir</h4></center><%
+    }%>
+<%
+    }catch(Exception e){
+        e.printStackTrace();
     }
 %>
-<%} catch (Exception e) {
-       e.printStackTrace();
-    }%>
