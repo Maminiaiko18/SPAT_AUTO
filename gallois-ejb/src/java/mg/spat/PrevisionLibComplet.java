@@ -19,12 +19,21 @@ public class PrevisionLibComplet extends Prevision {
             referencenavire,nomnavire,pavillonnavire,remarquenavire,valconsignataire,desceconsignataire,valcargaison,descecargaison,valpilote,descepilote,quaidestination,
             internedestination,paysdestination,valpaysprovenance,descepaysprovenance,valpaysdestination,descepaysdestination,valtypequaisprovenance,descetypequaisprovenance,
             valtypequaisdestination,descetypequaisdestination,valquaisprovenance,descequaisprovenance,valquaisdestination,descequaisdestination,typequaisprovenance,typequaisdestination,type;
+    private String pavillonlib;
     
     @Override
     public String getValColLibelle(){
         String datArr = Utilitaire.formatterDaty(this.getDate_arrivee());
         String datDep = Utilitaire.formatterDaty(this.getDate_depart());
         return this.getEscale()+";"+datArr+";"+this.getHeure_arrivee()+";"+datDep+";"+this.getHeure_depart()+";"+this.getConsignataire()+";"+this.getValconsignataire();
+    }
+
+    public String getPavillonlib() {
+        return pavillonlib;
+    }
+
+    public void setPavillonlib(String pavillonlib) {
+        this.pavillonlib = pavillonlib;
     }
     
     public String getType() {

@@ -790,9 +790,9 @@ public class EtatPaieServlet extends HttpServlet {
             String cat= facture.getCategorielib();
             String designation = facture.getDesignation();
             if(mere.length!=0){
-            mg.spat.PrevisionLibelleComplet p = new mg.spat.PrevisionLibelleComplet();
+            mg.spat.PrevisionLibComplet p = new mg.spat.PrevisionLibComplet();
             p.setNomTable("PREVISIONLIBCOMPLET");
-            mg.spat.PrevisionLibelleComplet[] pre = (mg.spat.PrevisionLibelleComplet[]) CGenUtil.rechercher(p, null, null, c, " and id = '"+mere[0].getIdprevision()+"'");
+            mg.spat.PrevisionLibComplet[] pre = (mg.spat.PrevisionLibComplet[]) CGenUtil.rechercher(p, null, null, c, " and id = '"+mere[0].getIdprevision()+"'");
             
             
             
