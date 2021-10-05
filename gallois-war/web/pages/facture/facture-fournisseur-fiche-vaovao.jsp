@@ -78,7 +78,7 @@
 //
 //Si categorieFC = provision alors “Fiche Facture de provision”
         pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-fiche.jsp&id=" + e.getIdprevision(), "escale=");
-        String bute = "facture/factureclient-fiche-vaovao.jsp";
+        String bute = "facture/facture-fournisseur-fiche-vaovao.jsp";
         String classe = "facture.FactureFournisseur";
         String classefille = "facture.FactureFournisseurDetails";
         String modifPage = "facture/factureclient-modif.jsp";
@@ -190,7 +190,7 @@
                 </div>
                 <div class="box-footer">
                     <p>
-                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/factureclient-fiche-vaovao.jsp&classe=facture.FactureClient" style="margin-right: 10px">Viser</a>
+                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur" style="margin-right: 10px">Viser</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId()%>&acte=dupliquer&bute=<%=bute%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrent.jsp&id=" + e.getId()%>" style="margin-right: 10px">Récurrent</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture=" + id + "&vue=" + vue%>" style="margin-right: 10px">Entrée banque</a>
