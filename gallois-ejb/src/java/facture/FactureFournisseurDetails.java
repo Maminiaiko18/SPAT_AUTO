@@ -9,6 +9,7 @@ import bean.CGenUtil;
 import bean.ClassMere;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.ConstanteEtat;
 
 /**
  *
@@ -68,6 +69,11 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         }
         
         return this.getMere();
+    }
+    
+    public void controlerUpdate(Connection c) throws Exception {
+        FactureClient m=findMere(c);
+        if(m.getEtat()>=ConstanteEtat.getEtatValider()) throw new Exception("Objet mere deja valide");
     }
     
     
