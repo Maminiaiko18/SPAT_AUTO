@@ -36,7 +36,7 @@
 //    pc.getChampByName("motiflib").setLibelle("Motif");
     pc.getChampByName("categorielib").setLibelle("Categorie");
     pc.getChampByName("code").setLibelle("Code");
-    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp", "id=");
+    pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
     e = (AvoirFC) pc.getBase();
     
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
