@@ -45,7 +45,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <% 
-                       String libEnteteAff[] =  {"Id","Mère","Ingredient","Quantite","PU","Devise"};
+                       String libEnteteAff[] =  {"Id","Mère","Designation","Quantite","PU","Devise"};
                        pr.getTableau().setLibeEntete(libEnteteAff);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>
