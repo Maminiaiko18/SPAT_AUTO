@@ -115,9 +115,11 @@
 //    
         //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureFournisseurDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle");
         for (int i = 0; i < pi.getNombreLigne(); i++) {;
-            pi.getFormufle().getChamp("id_" + i).setPageAppel("choix/listeFactureFournisseurDetails.jsp", "id_"+i+";idlibelle_"+i );            
+            pi.getFormufle().getChamp("iddetailfacture_" + i).setPageAppel("choix/listeFactureFournisseurDetails.jsp", "iddetailfacture_"+i+";iddetailfacturelibelle_"+i+";designation_"+i+";devise_"+i);            
         }
-        pi.getFormufle().getChamp("id_0").setLibelle("Id Détail Facture");
+        
+        pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
+        pi.getFormufle().getChamp("idmere_0").setLibelle("Mere");
         pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
         pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
         pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
