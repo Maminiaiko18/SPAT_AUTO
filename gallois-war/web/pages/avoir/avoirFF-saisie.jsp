@@ -25,7 +25,7 @@
         AvoirFFFilleData d = new AvoirFFFilleData();
         d.setIdfacture(request.getParameter("idfacture"));
         d.findFFDetails();
-        Detailsffbonlivraison[] data = d.getFfdetails();
+        facture.FactureFournisseurDetails[] data = d.getFfdetails();
         int nbLigneFille = 10;
         //if(data.length > 0)
         //    nbLigneFille = data.length;
@@ -45,15 +45,18 @@
         pi.getFormu().getChamp("idfacture").setPageAppel("choix/listeFactureFournisseurChoix.jsp");
         pi.getFormu().getChamp("idfacture").setAutre("readonly");
 
+        
+        
         if (data.length > 0) {
-            affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
-            affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
-            affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
+            
             for (int i = 0; i < data.length; i++) {;
                 pi.getFormufle().getChamp("iddetailfacture_" + i).setDefaut(data[i].getId());
-                pi.getFormufle().getChamp("montantdf_" + i).setDefaut("" + data[i].getMontantttc());
-                //pi.getFormufle().getChamp("devise_"+i).setDefaut(data[i].getDevise());
-                pi.getFormufle().getChamp("designation_" + i).setDefaut(data[i].getIdingredient());
+                pi.getFormufle().getChamp("montantdf_" + i).setDefaut("" + data[i].getMontantTTC());
+                pi.getFormufle().getChamp("devise_"+i).setDefaut(data[i].getDevise());
+                pi.getFormufle().getChamp("designation_" + i).setDefaut(data[i].getDesignation());
                 pi.getFormufle().getChamp("remise_" + i).setDefaut("100");
             }
         }

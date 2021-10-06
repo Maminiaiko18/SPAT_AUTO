@@ -16,13 +16,13 @@ import utilitaire.UtilDB;
  * @author Sam25v14
  */
 public class AvoirFFFilleData extends AvoirFCFilleData {
-    private Detailsffbonlivraison[] ffdetails;
+    private facture.FactureFournisseurDetails[] ffdetails;
 
-    public Detailsffbonlivraison[] getFfdetails() {
+    public facture.FactureFournisseurDetails[] getFfdetails() {
         return ffdetails;
     }
 
-    public void setFfdetails(Detailsffbonlivraison[] ffdetails) {
+    public void setFfdetails(facture.FactureFournisseurDetails[] ffdetails) {
         this.ffdetails = ffdetails;
     }
     
@@ -35,10 +35,10 @@ public class AvoirFFFilleData extends AvoirFCFilleData {
                 c.setAutoCommit(false);
                 verif = 1;
             }            
-            Detailsffbonlivraison p = new Detailsffbonlivraison();
+            facture.FactureFournisseurDetails p = new facture.FactureFournisseurDetails();
 //            p.setNomTable("facture_client_filleTTC");
-            p.setNomTable("Detailsffbonlivraison");
-            ffdetails = (Detailsffbonlivraison[]) CGenUtil.rechercher(p, null, null, " and idmere = '" + this.getIdfacture() + "'");
+            p.setNomTable("FACTFOURN_filleTTC");
+            ffdetails = (facture.FactureFournisseurDetails[]) CGenUtil.rechercher(p, null, null, " and idmere = '" + this.getIdfacture() + "'");
             
             System.out.println("details " + ffdetails.length);
             
