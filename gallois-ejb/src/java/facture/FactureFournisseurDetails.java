@@ -10,6 +10,7 @@ import bean.ClassMere;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.ConstanteEtat;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -76,5 +77,8 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         if(m.getEtat()>=ConstanteEtat.getEtatValider()) throw new Exception("Objet mere deja valide");
     }
     
-    
+     @Override
+    public String getValColLibelle() {
+        return getLibDesignation()+";"+getLibDesignation()+";"+getDevise();
+    }
 }
