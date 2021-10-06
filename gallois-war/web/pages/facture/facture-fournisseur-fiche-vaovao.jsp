@@ -200,7 +200,7 @@
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture=" + id + "&vue=" + vue%>" style="margin-right: 10px">Entrée banque</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture=" + id + "&vue=" + vue%>" style="margin-right: 10px">Entrée caisse</a>
                     <hr>
-                    <p><a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-client-saisie.jsp&idfacture=" + e.getId()%>" style="margin-right: 10px">Livrer</a></p>
+                    <p><a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-fournisseur-saisie.jsp&idfacture=" + e.getId()%>" style="margin-right: 10px">Livrer</a></p>
                     <hr> 
                     <p>
 
