@@ -19,7 +19,7 @@ try{
     AvoirFF mere = new AvoirFF();
     mere.setNomTable("avoirFF");
     AvoirFFFille fille = new AvoirFFFille();
-    fille.setNomTable("avoirFFfille_plus");
+    fille.setNomTable("AVOIRFFFILLE_MONTANTFACTURE");
     fille.setIdmere(request.getParameter("id"));
     AvoirFFFille[] liste = (AvoirFFFille[])CGenUtil.rechercher(fille, null, null, "");
     PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
@@ -82,7 +82,7 @@ try{
     
     //pi.getFormufle().getChamp("Montantdf_0").setLibelle("Montant detail facture");
     //pi.getFormufle().getChamp("Designation_0").setLibelle("Designation");
-    pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
+    //pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
     
     pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
     pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
@@ -90,9 +90,10 @@ try{
     pi.getFormufle().getChamp("Montantdf_0").setLibelle("Montant detail facture");
     //pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("Designation_0").setLibelle("Designation");
-    pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
+    //pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("montantdftaux"), false);
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     
     

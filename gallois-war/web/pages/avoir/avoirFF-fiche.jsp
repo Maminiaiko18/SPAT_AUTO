@@ -18,7 +18,7 @@
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
     AvoirFC e = new AvoirFC();
-    e.setNomTable("avoirFF");
+    e.setNomTable("avoirFF_montant");
     PageConsulte pc = new PageConsulte(e, request, u);
     pc.setTitre("FICHE AVOIR FACTURE FOURNISSEUR");
     
@@ -26,12 +26,15 @@
     pc.getChampByName("daty").setLibelle("Date");
 //    pc.getChampByName("motif").setVisible(false);
     pc.getChampByName("categorie").setVisible(false);
-    pc.getChampByName("type").setLibelle("Type");
+    pc.getChampByName("type").setVisible(false);
+    pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("typelib").setLibelle("Type");
+    pc.getChampByName("tierslib").setLibelle("Tiers");
 //    pc.getChampByName("montant").setLibelle("Montant");
 //    pc.getChampByName("montantpaye").setLibelle("Montant payé");
 //    pc.getChampByName("montantreste").setLibelle("RAP");
 //    pc.getChampByName("motiflib").setLibelle("Motif");
-    pc.getChampByName("categorie").setLibelle("Categorie");
+    pc.getChampByName("categorielib").setLibelle("Categorie");
     pc.getChampByName("code").setLibelle("Code");
     pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp", "id=");
     e = (AvoirFC) pc.getBase();

@@ -33,11 +33,15 @@
         pc.getChampByName("iduser").setVisible(false);
         pc.getChampByName("type").setVisible(false);
         pc.getChampByName("tiers").setVisible(false);
-//        pc.getChampByName("etatlib").setVisible(false);
+        pc.getChampByName("etatlib").setVisible(false);
         pc.getChampByName("Idcategorie").setVisible(false);
         pc.getChampByName("IdProvision").setVisible(true);
         pc.getChampByName("idProvisionlib").setVisible(false);
         pc.getChampByName("montanttva").setVisible(false);
+        pc.getChampByName("estMictsl").setVisible(false);
+        pc.getChampByName("estDDPMICTSL").setVisible(false);
+        pc.getChampByName("escale").setVisible(false);
+        pc.getChampByName("idprevision").setVisible(false);
         pc.getChampByName("tierslib").setLibelle("Tiers");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("montant").setLibelle("Montant HT");
@@ -48,7 +52,7 @@
         pc.getChampByName("montantpaye").setLibelle("Montant payé");
         pc.getChampByName("montantreste").setLibelle("Reste à payer");
         pc.getChampByName("typelib").setLibelle("Type");
-        pc.getChampByName("escale").setLibelle("Escale");
+        //pc.getChampByName("escale").setLibelle("Escale");
         pc.getChampByName("codeProvision").setLibelle("Provision");
 
         pc.getChampByName("code").setLibelle("Code");

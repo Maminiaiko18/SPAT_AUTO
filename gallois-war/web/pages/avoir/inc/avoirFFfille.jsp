@@ -4,7 +4,7 @@
 <%
     String id = request.getParameter("id");
     AvoirFCFille avoirFille=new AvoirFCFille();
-    avoirFille.setNomTable("avoirFFfille");
+    avoirFille.setNomTable("AVOIRFFFILLE_MONTANTFACTURE");
     AvoirFCFille[] detail= (AvoirFCFille[]) CGenUtil.rechercher(avoirFille , null, null, " and idmere = '" + id+ "'");
     
 %>
