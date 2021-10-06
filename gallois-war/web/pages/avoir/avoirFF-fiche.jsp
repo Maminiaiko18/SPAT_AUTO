@@ -24,16 +24,16 @@
     
     pc.getChampByName("idfacture").setLibelle("Facture");
     pc.getChampByName("daty").setLibelle("Date");
-//    pc.getChampByName("motif").setVisible(false);
+    pc.getChampByName("motif").setVisible(false);
     pc.getChampByName("categorie").setVisible(false);
     pc.getChampByName("type").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);
     pc.getChampByName("typelib").setLibelle("Type");
     pc.getChampByName("tierslib").setLibelle("Tiers");
 //    pc.getChampByName("montant").setLibelle("Montant");
-//    pc.getChampByName("montantpaye").setLibelle("Montant payé");
-//    pc.getChampByName("montantreste").setLibelle("RAP");
-//    pc.getChampByName("motiflib").setLibelle("Motif");
+    pc.getChampByName("montantpaye").setLibelle("Montant payé");
+    pc.getChampByName("montantreste").setLibelle("RAP");
+    pc.getChampByName("motiflib").setLibelle("Motif");
     pc.getChampByName("categorielib").setLibelle("Categorie");
     pc.getChampByName("code").setLibelle("Code");
     pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
