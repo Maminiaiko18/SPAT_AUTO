@@ -55,7 +55,7 @@
 
         pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
         pi.getFormu().getChamp("idprevision").setAutre("readonly");
-        pi.getFormu().getChamp("idprevision").setLibelle("Escale");
+        pi.getFormu().getChamp("idprevision").setVisible(false);
         pi.getFormu().getChamp("escale").setVisible(false);
         pi.getFormu().getChamp("typelib").setVisible(false);
         pi.getFormu().getChamp("categorielib").setVisible(false);
@@ -102,15 +102,20 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("daty"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("idactivite"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubrique"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureDebut"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"), false);
+        
 
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
 
-        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
-        affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
+        //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
+        //affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
 
-        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise");
-        affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
+        //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise");
+        //affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
 
         affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
@@ -133,7 +138,7 @@
             }
         }
         
-        pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
+       // pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
         pi.getFormufle().getChamp("Id_0").setLibelle("Id");
         pi.getFormufle().getChamp("designation_0").setLibelle("Note explicative");
         pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
@@ -143,11 +148,11 @@
         pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
         pi.getFormufle().getChamp("tva_0").setLibelle("tva");
         pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
-        pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
+       // pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
         pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
         pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
-        pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
-        pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
+        //pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
+        //pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
         pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
         pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
         pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
