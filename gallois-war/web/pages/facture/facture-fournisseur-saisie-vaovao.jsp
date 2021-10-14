@@ -69,7 +69,7 @@
     pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
     pi.getFormu().getChamp("idProvision").setAutre("readonly");
     pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
-    pi.getFormu().getChamp("idProvision").setLibelle("Provision");
+    pi.getFormu().getChamp("idProvision").setLibelle("Bon provisoire");
        
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
@@ -113,7 +113,7 @@
     pi.getFormufle().getChamp("rubrique_0").setVisible(false);
     pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
     
-    pi.getFormufle().getChamp("annee_0").setLibelle("Année");
+    pi.getFormufle().getChamp("annee_0").setLibelle("Ann&eacute;e");
     //pi.getFormufle().getChamp("heureDebut_0").setVisible(false);
     //pi.getFormufle().getChamp("heureFin_0").setVisible(false);
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
