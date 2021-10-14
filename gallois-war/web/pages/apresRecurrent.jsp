@@ -1,3 +1,4 @@
+<%@page import="facture.FactureFournisseur"%>
 <%@page import="user.UserEJB"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureClient"%>
@@ -13,6 +14,16 @@ try{
     
     if(acte != null && acte.equalsIgnoreCase("recurrent")){
         FactureClient fc = new FactureClient();
+            fc.setId(id);
+            fc.recurrent(u, null, typefrequence, Utilitaire.stringToInt(nombre));
+        %>
+            <script language="JavaScript"> 
+                document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=id%>");
+            </script>
+        <%
+    }
+        if(acte != null && acte.equalsIgnoreCase("recurrentff")){
+        FactureFournisseur fc = new FactureFournisseur();
             fc.setId(id);
             fc.recurrent(u, null, typefrequence, Utilitaire.stringToInt(nombre));
         %>
