@@ -36,8 +36,8 @@
         pc.getChampByName("etatlib").setVisible(false);
         pc.getChampByName("Idcategorie").setVisible(false);
         pc.getChampByName("IdProvision").setVisible(true);
-        pc.getChampByName("idProvisionlib").setVisible(false);
-        pc.getChampByName("montanttva").setVisible(false);
+//        pc.getChampByName("idProvisionlib").setVisible(false);
+//        pc.getChampByName("montanttva").setVisible(false);
         pc.getChampByName("estMictsl").setVisible(false);
         pc.getChampByName("estDDPMICTSL").setVisible(false);
         pc.getChampByName("escale").setVisible(false);
@@ -52,6 +52,7 @@
         pc.getChampByName("montantpaye").setLibelle("Montant payé");
         pc.getChampByName("montantreste").setLibelle("Reste à payer");
         pc.getChampByName("typelib").setLibelle("Type");
+        pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoir");
         //pc.getChampByName("escale").setLibelle("Escale");
         pc.getChampByName("codeProvision").setLibelle("Provision");
 
@@ -217,7 +218,7 @@
                     </hr>
                     <p>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=" + modifPage + "&id=" + e.getId()%>" style="margin-right: 10px">Modifier</a>
-                        <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=facture/factureclient-modif-simple.jsp&id=" + e.getId()%>" style="margin-right: 10px">Modifier entête </a>
+                        <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-modif-simple.jsp&id=" + e.getId()%>" style="margin-right: 10px">Modifier entête </a>
                     </p>
                     <hr>
                     <%
