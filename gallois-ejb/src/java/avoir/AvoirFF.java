@@ -6,6 +6,7 @@
 package avoir;
 
 import bean.CGenUtil;
+import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import facturefournisseur.FactureFournisseur;
 import java.sql.Connection;
@@ -21,6 +22,12 @@ public class AvoirFF extends AvoirFC {
         setNomTable("AvoirFF");
         this.setLiaisonFille("idmere");
         this.setNomClasseFille("avoir.AvoirFFFille");
+    }
+
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        this.setId(null);
+        return super.createObject(u, c);
     }
     
     @Override

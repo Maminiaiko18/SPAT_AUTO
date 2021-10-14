@@ -248,6 +248,7 @@ public class AvoirFC extends ClassMere {
     @Override
     public ClassMAPTable createObject(String u, Connection c)throws Exception
     {
+        this.setId(null);
         this.setCode(this.calculerCode(c));
         return super.createObject(u, c);
     }
