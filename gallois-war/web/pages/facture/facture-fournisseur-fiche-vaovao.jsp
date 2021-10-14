@@ -42,6 +42,7 @@
         pc.getChampByName("estDDPMICTSL").setVisible(false);
         pc.getChampByName("escale").setVisible(false);
         pc.getChampByName("idprevision").setVisible(false);
+        pc.getChampByName("idProvision").setVisible(false);
         pc.getChampByName("tierslib").setLibelle("Tiers");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("montant").setLibelle("Montant HT");
