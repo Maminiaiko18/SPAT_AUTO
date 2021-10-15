@@ -6,10 +6,12 @@
 package facture;
 
 import bean.CGenUtil;
+import bean.ClassMAPTable;
 import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
 import user.UserEJB;
+import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -101,18 +103,63 @@ public class FactureFournisseur extends FactureClient{
         }
     }
     
-    public FactureClientDetails genererFFDetails() throws Exception{
-        FactureClientDetails fcd = new FactureClientDetails();
+    @Override
+    public ClassMAPTable createObject(String iduser, Connection cnctn) throws Exception {
+        if(this.getIdcategorie() != null && this.getIdcategorie().equals(Constante.getCategorieFFBP())) {
+            return genererBP(iduser, cnctn);
+        }
+        
+        return super.createObject(iduser, cnctn);
+    }
+
+    public FactureFournisseurDetails genererFFDetails() throws Exception {
+        FactureFournisseurDetails fcd = new FactureFournisseurDetails();
         fcd.setNomTable("FACTURE_FOURNISSEUR_FILLE");
         fcd.setIdmere(this.getId());
-        fcd.setDesignation("bon provisoire no "+this.getCode());
+        fcd.setDesignation("bon provisoire no " + this.getCode());
         fcd.setQuantite(1);
         fcd.setPu(this.getMontant());
-        fcd.setDevise("ar");
+        fcd.setDevise(Constante.deviseAr);
         fcd.setTaux(1);
         fcd.setTva(0);
         return fcd;
     }
+
+    public FactureFournisseur genererBP(String iduser, Connection c) throws Exception {
+        boolean ouvert = false;
+
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            
+            this.setType(Constante.getTypeFCAcredit());
+            this.setIdcategorie(Constante.getCategorieFFBP());
+            this.setDeviseMere(Constante.deviseAr);
+            super.createObject(iduser, c);
+            
+            FactureClientDetails ffd = genererFFDetails();
+            ffd.createObject(iduser, c);
+            
+            if (ouvert) {
+                c.commit();
+            }
+        } catch (Exception ex) {
+            if (c != null && ouvert) {
+                c.rollback();
+            }
+            throw ex;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+        
+        return this;
+    }
+    
     String idBL;
 
     public String getIdBL() {

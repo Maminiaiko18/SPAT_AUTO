@@ -132,6 +132,7 @@ public class Constante {
     public static int tvaDefaut = 20;
     private static String roleCommandant="ROL001300";
     private static String typeFCAcredit="TFC001";
+    private static String categorieFFBP="CATGFF002";
     private static String stationnementBP="RB0000000021170495";
     private static String droitDePortBP="RB0000000021170493";
     private static String redevanceSanitaire="RB0000000059112123";
@@ -164,6 +165,10 @@ public class Constante {
 
     public static String getTypeFCAcredit() {
         return typeFCAcredit;
+    }
+
+    public static String getCategorieFFBP() {
+        return categorieFFBP;
     }
 
     public static String getRoleCommandant() {
