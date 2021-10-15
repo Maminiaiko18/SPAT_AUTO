@@ -1,4 +1,5 @@
 
+<%@page import="data.FactureFournisseurData"%>
 <%@page import="utilisateur.Utilisateur"%>
 <%@page import="affichage.Liste"%>
 <%@page import="user.*"%> 
@@ -20,9 +21,13 @@
     fc.setNomTable("facture_Fournisseur_Mere");
     facture.FactureFournisseurDetails fcfille = new facture.FactureFournisseurDetails();
     fcfille.setNomTable("FACTFOURN_FILLE_PLUS");
-    
-    
-    PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, 10, u);
+    FactureFournisseurData data=new FactureFournisseurData(request.getParameter("idBL"));
+    data.initData();
+    int nbr=10;
+    if ((data.getFille()!=null)&&(data.getFille().length>0)) {
+            nbr=data.getFille().length;
+        }
+    PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, nbr, u);
     pi.setLien((String) session.getValue("lien"));
     
     
@@ -36,11 +41,13 @@
     pi.getFormu().getChamp("idprevision").setVisible(false);
     
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+    pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+    pi.getFormu().getChamp("idBL").setDefaut(Utilitaire.champNull(request.getParameter("idBL")));
     pi.getFormu().getChamp("tva").setVisible(false);
     pi.getFormu().getChamp("estMictsl").setVisible(false);
     
-    
+    pi.getFormu().getChamp("idBL").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     
@@ -68,7 +75,8 @@
     pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
     pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
     pi.getFormu().getChamp("idProvision").setAutre("readonly");
-    pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
+    pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");   
+    pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");  
     pi.getFormu().getChamp("idProvision").setLibelle("Bon provisoire");
        
     affichage.Liste[] listed = new affichage.Liste[2];
@@ -88,10 +96,16 @@
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
+        pi.getFormufle().getChamp("idBLF_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
         pi.getFormufle().getChamp("idactivite_"+i).setVisible(false);
         //pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
     }
+    if ((data.getFille()!=null)&&(data.getFille().length>0)) {
+            for (int i = 0; i < nbr; i++) {
+                pi.getFormufle().getChamp("idBLF_"+i).setDefaut(""+data.getFille()[i].getId());
+            }
+        }
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false);
@@ -107,6 +121,7 @@
     pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
+    pi.getFormufle().getChamp("idBLF_0").setLibelle("BL détail");
     pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
     pi.getFormufle().getChamp("tva_0").setLibelle("tva");
     pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
