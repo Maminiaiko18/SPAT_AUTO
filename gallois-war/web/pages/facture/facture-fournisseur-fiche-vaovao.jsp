@@ -202,8 +202,7 @@
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture=" + id + "&vue=" + vue%>" style="margin-right: 10px">Entrée banque</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture=" + id + "&vue=" + vue%>" style="margin-right: 10px">Entrée caisse</a>
                     <hr>
-                    <p><a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-fournisseur-saisie.jsp&idfacture=" + e.getId()%>" style="margin-right: 10px">Livrer</a></p>
-                    <hr> 
+                    
                     <p>
 
                         <a class="btn"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFF-saisie.jsp&idfacture=" + e.getId()%>&type=2" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir</a>
@@ -284,7 +283,7 @@
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("facture-fournisseur-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-fournisseur-fille&idmere=<%=e.getId()%>">D&eacute;tails facture client</a></li>
                     <li class="<%= map.get("avoirFF-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=avoirFF-liste">Facture avoir</a></li>
-                    <li class="<%= map.get("bondelivraisonFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=bondelivraisonFF">Bon de livraison</a></li>
+                    
                     <li class="<%= map.get("paiementFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfact=<%=e.getId()%>&tab=paiementFF">Paiement</a></li>
                    <!--- <li class="<%= map.get("activite")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=activite">Activit&eacute;s</a></li>
                         <% if (e.getIdcategorie().equals(Constante.idCategorieFCProvision)) {%>
