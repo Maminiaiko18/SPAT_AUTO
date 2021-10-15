@@ -53,7 +53,7 @@
      TypeObjet categ = new TypeObjet();
         categ.setNomTable("categorieFF");
         listes[1] = new Liste("idcategorie", categ, "VAL", "id");
-        
+        listes[1].setDefaultSelected(Constante.categorieFFdefault);
 //    TypeObjet prestation = new TypeObjet();
 //        prestation.setNomTable("code_prestation");
 //        listes[2] = new Liste("codePrestation", prestation, "VAL", "id");
@@ -61,7 +61,7 @@
     TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
         listes[2] = new Liste("deviseMere", devise, "VAL", "id");
-        listes[2].setDefaultSelected("Ar");
+        listes[2].setDefaultSelected(Constante.deviseAr);
     
     pi.getFormu().changerEnChamp(listes);
     
