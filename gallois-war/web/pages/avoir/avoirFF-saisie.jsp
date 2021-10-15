@@ -74,39 +74,39 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
 
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
-        pi.getFormu().getChamp("motif").setLibelle("Motif");
+        pi.getFormu().getChamp("motif").setVisible(false);;
         pi.getFormu().getChamp("categorie").setLibelle("Catégorie");
         pi.getFormu().getChamp("code").setVisible(false);
 
-        affichage.Liste[] liste = new affichage.Liste[3];
+        affichage.Liste[] liste = new affichage.Liste[2];
         TypeObjet categorie = new TypeObjet();
-        categorie.setNomTable("categorieAvoirFC");
+        categorie.setNomTable("categorieAvoirFF");
 
-        TypeObjet motif = new TypeObjet();
+        /*TypeObjet motif = new TypeObjet();
         motif.setNomTable("motifAvoirFC");
         if (request.getParameter("type") != null) {
             motif.setDesce(request.getParameter("type"));
-        }
+        }*/
 
         liste[0] = new Liste("categorie", categorie, "val", "id");
-        liste[1] = new Liste("motif", motif, "val", "id");
+        //liste[1] = new Liste("motif", motif, "val", "id");
 
         /*TypeObjet typeAv = new TypeObjet();
     typeAv.setNomTable("typeAvoirFF");
     liste[2] = new Liste("type", typeAv, "val", "id");*/
         String[] affiches = {"Interne", "Externe"};
         String[] valeurs = {"1", "2"};
-        liste[2] = new Liste("type");
-        liste[2].ajouterValeur(valeurs, affiches);
+        liste[1] = new Liste("type");
+        liste[1].ajouterValeur(valeurs, affiches);
 
         if (request.getParameter("type") != null) {
-            liste[2].setDefaut(request.getParameter("type"));
+            liste[1].setDefaut(request.getParameter("type"));
         }
 
-        liste[2].setColValeur("id");
-        liste[2].setColAffiche("val");
-        liste[2].setDeroulanteDependante(liste[1], "desce", "onblur");
-        liste[2].setDeroulanteDependante(liste[0], "type", "onclick");
+        liste[1].setColValeur("id");
+        liste[1].setColAffiche("val");
+        /*liste[1].setDeroulanteDependante(liste[1], "desce", "onblur");*/
+        liste[1].setDeroulanteDependante(liste[0], "type", "onclick");
 
         pi.getFormu().changerEnChamp(liste);
 
@@ -121,7 +121,7 @@
             pi.getFormufle().getChamp("iddetailfacture_" + i).setPageAppel("choix/listeFactureFournisseurDetails.jsp", "iddetailfacture_"+i+";iddetailfacturelibelle_"+i+";designation_"+i+";devise_"+i);            
         }
         
-        pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
+        pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Détail Facture");
         pi.getFormufle().getChamp("idmere_0").setLibelle("Mere");
         pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
         pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
