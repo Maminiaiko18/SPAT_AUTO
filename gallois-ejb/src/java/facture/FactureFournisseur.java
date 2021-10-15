@@ -101,4 +101,17 @@ public class FactureFournisseur extends FactureClient{
         }
     }
     
+    public FactureClientDetails genererFFDetails() throws Exception{
+        FactureClientDetails fcd = new FactureClientDetails();
+        fcd.setNomTable("FACTURE_FOURNISSEUR_FILLE");
+        fcd.setIdmere(this.getId());
+        fcd.setDesignation("bon provisoire no "+this.getCode());
+        fcd.setQuantite(1);
+        fcd.setPu(this.getMontant());
+        fcd.setDevise("ar");
+        fcd.setTaux(1);
+        fcd.setTva(0);
+        return fcd;
+    }      
+    
 }
