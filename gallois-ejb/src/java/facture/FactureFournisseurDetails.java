@@ -81,4 +81,14 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     public String getValColLibelle() {
         return getLibDesignation()+";"+getLibDesignation()+";"+getDevise();
     }
+    String idBLF;
+
+    public String getIdBLF() {
+        return idBLF;
+    }
+
+    public void setIdBLF(String idBLF) {
+        this.idBLF = idBLF;
+    }
+
 }
