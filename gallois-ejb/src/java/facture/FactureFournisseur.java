@@ -112,6 +112,15 @@ public class FactureFournisseur extends FactureClient{
         fcd.setTaux(1);
         fcd.setTva(0);
         return fcd;
-    }      
+    }
+    String idBL;
+
+    public String getIdBL() {
+        return idBL;
+    }
+
+    public void setIdBL(String idBL) {
+        this.idBL = idBL;
+    }
     
 }
