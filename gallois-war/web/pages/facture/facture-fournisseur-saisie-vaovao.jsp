@@ -87,7 +87,7 @@
         listed[1].setApresW("order by id asc");
     pi.getFormufle().changerEnChamp(listed);
     
-    int taille = pi.getNombreLigne();
+    int taille = pi.getNombreLigne() > livraisons.length ? pi.getNombreLigne() : livraisons.length;
     for( int i = 0 ; i < taille ; i++ ){
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
