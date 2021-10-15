@@ -55,13 +55,13 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         this.setId(makePK(c));
     }
 
-    public FactureClient findMere(Connection c) throws Exception {
+    public FactureFournisseur findMere(Connection c) throws Exception {
         if(this.getMere() == null) {
-            FactureClient fc = new FactureClient();
+            FactureFournisseur fc = new FactureFournisseur();
             fc.setNomTable("facture_Fournisseur_Mere");
             fc.setId(this.getIdmere());
             fc.setEstDDPMICTSL(null);
-            FactureClient[] tmp = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, "");
+            FactureFournisseur[] tmp = (FactureFournisseur[]) CGenUtil.rechercher(fc, null, null, c, "");
             
             if(tmp != null && tmp.length > 0) { 
                 this.setMere(tmp[0]);
@@ -71,7 +71,11 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         
         return this.getMere();
     }
-    
+    @Override
+    public FactureFournisseur getMere() {
+        return (FactureFournisseur) super.getMere();
+    }
+
     public void controlerUpdate(Connection c) throws Exception {
         FactureClient m=findMere(c);
         if(m.getEtat()>=ConstanteEtat.getEtatValider()) throw new Exception("Objet mere deja valide");
