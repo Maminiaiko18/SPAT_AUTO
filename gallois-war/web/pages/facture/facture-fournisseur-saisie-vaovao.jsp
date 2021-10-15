@@ -31,7 +31,10 @@
     facture.FactureFournisseurDetails fcfille = new facture.FactureFournisseurDetails();
     fcfille.setNomTable("FACTFOURN_FILLE_PLUS");
     
-    PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, 10, u);
+    int taille = 10;
+    if(livraisons.length > taille) taille = livraisons.length;
+    
+    PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, taille, u);
     pi.setLien((String) session.getValue("lien"));
     
     String mere=request.getParameter("idmere");
@@ -87,7 +90,6 @@
         listed[1].setApresW("order by id asc");
     pi.getFormufle().changerEnChamp(listed);
     
-    int taille = pi.getNombreLigne();
     for( int i = 0 ; i < taille ; i++ ){
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
