@@ -1,4 +1,5 @@
 
+<%@page import="mg.spat.stock.BonDeLivraisonFilleReste"%>
 <%@page import="utilisateur.Utilisateur"%>
 <%@page import="affichage.Liste"%>
 <%@page import="user.*"%> 
@@ -18,13 +19,20 @@
     String autreparsley = "data-parsley-range='[8, 40]' required";
     facture.FactureFournisseur  fc = new facture.FactureFournisseur();
     fc.setNomTable("facture_Fournisseur_Mere");
+    
+// Data BL
+    String idBL = request.getParameter("idBL");
+    if(idBL != null) fc.setIdBL(idBL);
+    BonDeLivraisonFilleReste[] livraisons = fc.getBP(null);
+    
+//------------------------------------
+    
+    
     facture.FactureFournisseurDetails fcfille = new facture.FactureFournisseurDetails();
     fcfille.setNomTable("FACTFOURN_FILLE_PLUS");
     
-    
     PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, 10, u);
     pi.setLien((String) session.getValue("lien"));
-    
     
     String mere=request.getParameter("idmere");
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
@@ -54,9 +62,6 @@
         categ.setNomTable("categorieFF");
         listes[1] = new Liste("idcategorie", categ, "VAL", "id");
         listes[1].setDefaultSelected(Constante.categorieFFdefault);
-//    TypeObjet prestation = new TypeObjet();
-//        prestation.setNomTable("code_prestation");
-//        listes[2] = new Liste("codePrestation", prestation, "VAL", "id");
     
     TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
@@ -83,14 +88,23 @@
     pi.getFormufle().changerEnChamp(listed);
     
     int taille = pi.getNombreLigne();
-    for( int i = 0 ; i < taille ; i++ ){       
-        //pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 200px;\" ");
+    for( int i = 0 ; i < taille ; i++ ){
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
+        pi.getFormufle().getChamp("taux_"+i).setDefaut("1");
+        pi.getFormufle().getChamp("mois_"+i).setDefaut(""+Utilitaire.getMoisEnCoursReel());
+        pi.getFormufle().getChamp("annee_"+i).setDefaut(Utilitaire.getAnneeEnCours());
         pi.getFormufle().getChamp("idactivite_"+i).setVisible(false);
-        //pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
+        
+        if(i < livraisons.length) {
+            pi.getFormufle().getChamp("idBLF_"+i).setDefaut(livraisons[i].getId());
+            pi.getFormufle().getChamp("pu_"+i).setDefaut(Utilitaire.formaterAr(livraisons[i].getPu()));
+            pi.getFormufle().getChamp("quantite_"+i).setDefaut(Utilitaire.formaterAr(livraisons[i].getQuantite()));
+            pi.getFormufle().getChamp("tva_"+i).setDefaut(Utilitaire.formaterAr(livraisons[i].getTva()));
+            pi.getFormufle().getChamp("designation_"+i).setDefaut(Utilitaire.champNull(livraisons[i].getProduit()));
+        }
     }
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
@@ -114,38 +128,17 @@
     pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
     
     pi.getFormufle().getChamp("annee_0").setLibelle("Ann&eacute;e");
-    //pi.getFormufle().getChamp("heureDebut_0").setVisible(false);
-    //pi.getFormufle().getChamp("heureFin_0").setVisible(false);
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
     pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
     
-    //pi.getFormufle().getChamp("idactivite_0").setVisible(false);
-    //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
-    //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise");
-    //affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
+   
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
     
     affichage.Champ.setDefaut(pi.getFormufle().getChampFille("annee"),Utilitaire.getAnneeEnCours());
     affichage.Champ.setDefaut(pi.getFormufle().getChampFille("mois"),new Integer (Utilitaire.getMoisEnCours() + 1).toString());
-    //String[]valeurChampEstDDPMICTSL = {"0", "1"};
-    //String[]afficheChampEstDDPMICTSL = {"non", "oui"};
-    
-    //affichage.Liste[] lst= new affichage.Liste[1];
-    //lst[0] = new Liste("EstDDPMICTSL");
-    //lst[0].ajouterValeur(valeurChampEstDDPMICTSL, afficheChampEstDDPMICTSL);
-    
-    //String[]valeurChampEstMICTSL = {"0", "1"};
-    //String[]afficheChampEstMICTSL = {"non", "oui"};
-    
-    //affichage.Liste[] lst= new affichage.Liste[1];
-    //lst[0] = new Liste("estMictsl");
-    //lst[0].ajouterValeur(valeurChampEstMICTSL, afficheChampEstMICTSL); 
-    
-    //pi.getFormu().changerEnChamp(lst);
-//    pi.getFormu().getChamp("EstDDPMICTSL").setDefaut("0");
-//    pi.getFormu().getChamp("EstDDPMICTSL").setLibelle("Droit de Port MICTSL");
+   
     pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("codePrestation").setVisible(false);
