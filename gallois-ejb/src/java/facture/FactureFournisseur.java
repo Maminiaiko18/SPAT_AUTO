@@ -19,7 +19,6 @@ import utilitaire.Utilitaire;
  * @author rijan
  */
 public class FactureFournisseur extends FactureClient{
-    double montant;
     
     
     public FactureFournisseur() throws Exception{ 
@@ -101,15 +100,5 @@ public class FactureFournisseur extends FactureClient{
             }
         }
     }
-
-    public double getMontant() {
-        return montant;
-    }
-
-    public void setMontant(double montant) {
-        this.montant = montant;
-    }
-    
-
     
 }
