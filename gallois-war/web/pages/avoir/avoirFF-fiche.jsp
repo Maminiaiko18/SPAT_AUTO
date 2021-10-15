@@ -25,6 +25,7 @@
     pc.getChampByName("idfacture").setLibelle("Facture");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("motif").setVisible(false);
+    pc.getChampByName("motiflib").setVisible(false);
     pc.getChampByName("categorie").setVisible(false);
     pc.getChampByName("type").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);
