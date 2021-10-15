@@ -45,7 +45,10 @@
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("idprevision").setVisible(false);
-    
+    pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
+    pi.getFormu().getChamp("idBL").setAutre("readonly");
+    pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");  
+    pi.getFormu().getChamp("idBL").setDefaut(Utilitaire.champNull(request.getParameter("idBL")));
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
@@ -78,7 +81,7 @@
     pi.getFormu().getChamp("idProvision").setAutre("readonly");
     pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
     pi.getFormu().getChamp("idProvision").setLibelle("Bon provisoire");
-       
+    
     affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
@@ -91,6 +94,7 @@
     pi.getFormufle().changerEnChamp(listed);
     
     for( int i = 0 ; i < taille ; i++ ){
+        pi.getFormufle().getChamp("idBLF_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
@@ -117,6 +121,7 @@
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"),false);
     
     affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
+    pi.getFormufle().getChamp("idBLF_0").setLibelle("BL d&eacute;tail");
     pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
