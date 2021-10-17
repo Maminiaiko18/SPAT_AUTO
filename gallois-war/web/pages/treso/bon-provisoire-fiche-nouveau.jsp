@@ -97,7 +97,7 @@
                         <br/>
                         <div class="box-footer">
                             
-                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but= facture/facture-fournisseur-modif-vaovao.jsp&id=" + id%>" style="margin-right: 10px">Modifier</a>
+                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-modif-vaovao.jsp&id=" + id%>" style="margin-right: 10px">Modifier</a>
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id%>&acte=valider&bute=treso/bon-provisoire-fiche-nouveau.jsp&classe=facture.FactureFournisseur" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + id + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=treso/bon-provisoire-fiche-nouveau.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                         </div>

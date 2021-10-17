@@ -10,6 +10,7 @@ import bean.ClassMAPTable;
 import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.JournalCaisse;
 import mg.spat.stock.BonDeLivraisonFilleReste;
 import user.UserEJB;
 import utilitaire.Constante;
@@ -133,7 +134,7 @@ public class FactureFournisseur extends FactureClient {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-
+            System.out.println("Niditra tao amin'ny genererBP dans FF");
             this.setType(Constante.getTypeFCAcredit());
             this.setIdcategorie(Constante.getCategorieFFBP());
             this.setDeviseMere(Constante.deviseAr);
@@ -194,5 +195,188 @@ public class FactureFournisseur extends FactureClient {
         }
 
         return livraisons;
+    }
+    public FactureFournisseur setIdProvision(FactureFournisseur fact2, int type, UserEJB u, Connection c) throws Exception {
+        if (type == 1) {
+            fact2.setIdProvision(this.getId());
+        } else {
+            if (this.getIdProvision() != null && !this.getIdProvision().isEmpty()) {
+                throw new Exception("Impossible a generer, facture deja liee a un bon provisoire ");
+            }
+            this.setIdProvision(fact2.getId());
+            this.updateToTableWithHisto(u.getUser().getTuppleID(), c);
+        }
+        return fact2;
+    }
+    public void controlerDefinitive(Connection c) throws Exception {
+        if (this.getEtat() < ConstanteEtat.getEtatValider()) {
+            throw new Exception("Bon provisoire non visee");
+        }
+        if (!this.getIdcategorie().equals(Constante.getCategorieFFBP())) {
+            throw new Exception("Cette facture n est pas une facture de provision!");
+        }
+    }
+    public FactureFournisseur genererDefinitive(UserEJB u, int type, Connection c) throws Exception {
+        int verif = 0;
+        FactureFournisseur fact2 = null;
+
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            FactureFournisseur fc = this;
+            if (fc.getDaty() == null) {
+                fc = (FactureFournisseur) this.getById(this.getId(), this.getNomTable(), c);
+            }
+
+            String categorie = fc.getIdcategorie();
+
+            if (type == 1) {
+                fc.controlerDefinitive(c);
+                categorie = Constante.categorieFFdefault;
+            } else {
+                JournalCaisse[] jc = this.getPaiement(c);
+                if (jc.length == 0) {
+                    throw new Exception("Pas de paiement pour ce bon provisoire");
+                }
+                fc.controlerProvision(c);
+                categorie = Constante.getCategorieFFBP();
+            }
+
+            fact2 = (FactureFournisseur) fc.dupliquer(u.getUser().getTuppleID(), c);
+            fact2 = (FactureFournisseur) fc.setIdProvision(fact2, type, u, c);
+            fact2.setIdcategorie(categorie);
+            fact2.setDaty(Utilitaire.dateDuJourSql());
+            fact2.calculerCode(c);
+            u.updateObjectMultiple(fact2, "idmere", fact2.getFille(), c);
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return fact2;
+    }
+    public double getMontantResteProvision(Connection c) throws Exception {
+        double result = 0.;
+        int verify = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verify = 1;
+            }
+            EtatProvision ep = new EtatProvision();
+            ep.setNomTable("etatbpvrai");
+            ep.setId(this.getIdProvision());
+            EtatProvision[] etatProv = (EtatProvision[]) CGenUtil.rechercher(ep, null, null, c, "");
+            if (etatProv.length > 0) {
+                result = etatProv[0].getMontantreste();
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verify == 1) {
+                c.close();
+            }
+        }
+        return result;
+    }
+    public double genererMontantPaiement(Connection c) throws Exception {
+        boolean verif = false;
+        double montant = 0;
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+
+            montant = getMontantResteProvision(c);
+
+            if (montant >= this.getMontantttc()) {
+                montant = this.getMontantttc();
+            }
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (c != null && verif) {
+                c.close();
+            }
+        }
+
+        return montant;
+    }
+    public PaiementFacture[] findPaiementProvision(String idProvision, Connection c) throws Exception {
+        boolean ouvert = false;
+        PaiementFacture[] retour = null;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            PaiementFacture pf=new PaiementFacture();
+            pf.setNomTable("paiementfacturef");
+            retour = (PaiementFacture[]) CGenUtil.rechercher(pf, null, null, c, " and idFact='" + idProvision + "'");
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+        return retour;
+    }
+    public void genererPaiementDefinitive(String u, String idProvision, Connection c) throws Exception {
+        boolean ouvert = false;
+        PaiementFacture[] retour = null;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+
+            FactureFournisseur fc = new FactureFournisseur();
+            fc = (FactureFournisseur) fc.getById(this.getId(), "FACTFOURN_MSUM_LIB", c);
+
+            double montant = fc.genererMontantPaiement(c);
+
+            PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
+            if (listeProvision != null && listeProvision.length > 0) {
+                for (int i = 0; i < listeProvision.length; i++) {
+                    listeProvision[i].setIdFact(this.getId());
+                    listeProvision[i].setMontant(montant);
+                    listeProvision[i].setId(null);
+                    listeProvision[i].createObject(u, c);
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+    }
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
+            this.genererPaiementDefinitive(u, this.getIdProvision(), c);
+        }
+        super.validerObject(u, c);
+        return this;
     }
 }

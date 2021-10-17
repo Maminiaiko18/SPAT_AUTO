@@ -16,13 +16,23 @@
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("type").setVisible(false);
     pi.getFormu().getChamp("tiers").setLibelle("Bénéficiaire");
-    pi.getFormu().getChamp("tiers").setPageAppel("choix/listePersonnelChoix.jsp","tiers;tierslibelle");
+    pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp","tiers;tierslibelle");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
 
     pi.getFormu().getChamp("designation").setLibelle("Désignation");
     pi.getFormu().getChamp("code").setLibelle("Numéro pièce");    
     pi.getFormu().getChamp("montant").setLibelle("Montant"); 
     pi.getFormu().getChamp("remarque").setLibelle("Remarque");
+    pi.getFormu().getChamp("idcategorie").setLibelle("Cateogorie");
+    
+    affichage.Liste[] listes= new affichage.Liste[1];
+      
+    TypeObjet categ = new TypeObjet();
+    categ.setNomTable("categorieFF");
+    listes[0] = new Liste("idcategorie", categ, "VAL", "id");
+    listes[0].setDefaultSelected(Constante.getCategorieFFBP());
+    
+    pi.getFormu().changerEnChamp(listes);
     
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();

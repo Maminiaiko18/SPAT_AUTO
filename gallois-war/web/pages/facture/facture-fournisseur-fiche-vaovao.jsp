@@ -64,13 +64,11 @@
         if (e.getIdcategorie() != null) {
             categorie = e.getIdcategorie();
         }
-        if (categorie.equals(Constante.idCategorieFCDefinitive)) {
+        if (categorie.equals(Constante.getCategorieFFBP())) {
+            pc.setTitre("Fiche Bon provisoire");
+        } else {
             pc.setTitre("Fiche Facture Fournisseur");
-        } else if (categorie.equals(Constante.idCategorieFCProforma)) {
-            pc.setTitre("Fiche Facture Proforma");
-        } else if (categorie.equals(Constante.idCategorieFCProvision)) {
-            pc.setTitre("Fiche Facture de provision");
-        }
+        } 
         pc.getChampByName("categorielib").setLibelle("Categorie");
         pc.getChampByName("codePrestation").setVisible(false);
         pc.getChampByName("codePrestationlib").setLibelle("Code Prestation");
@@ -223,10 +221,9 @@
                     </p>
                     <hr>
                     <%
-                        if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCProvision)) {%>
+                        if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.getCategorieFFBP())) {%>
                     <p>
-                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererDefinitive&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
-                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/etatprovision-saisie.jsp&idFacture=" + e.getId()%>" style="margin-right: 10px">Saisir Etat de provision</a>
+                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererDefinitiveFF&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regul-fc-provision.jsp&idProvision=" + e.getId()%>" style="margin-right: 10px">Regulariser</a>
                     </p><hr>
                     <%}

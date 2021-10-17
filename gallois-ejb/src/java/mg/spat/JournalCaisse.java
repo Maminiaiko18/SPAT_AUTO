@@ -693,7 +693,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 PaiementFacture pf = new PaiementFacture();
                 pf.setIdMvt(this.getId());
                 pf.setIdFact(this.getIdplacement());
-                pf.setMontant(genererMontantPaiement(c));
+                pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",this.getCredit()));
                 pf.createObject(refuser, c);
                 
             }
@@ -704,7 +704,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 pf.setNomTable("paiementfacturef");
                 pf.setIdMvt(this.getId());
                 pf.setIdFact(this.getIdplacement());
-                pf.setMontant(this.getDebit());
+                pf.setMontant(genererMontantPaiement(c,"etatbpvrai",this.getDebit()));//pf.setMontant(this.getDebit());
                 pf.createObject(refuser, c);
             }
             if(verif) c.commit();
@@ -720,7 +720,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
     }
     
-    public double genererMontantPaiement(Connection c) throws Exception {
+    public double genererMontantPaiement(Connection c,String nomtable,double montantV) throws Exception {
         boolean verif = false;
         double montant = 0;
         
@@ -730,9 +730,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 verif = true;
             }
             
-            montant = getMontantResteProvision(c);
+            montant = getMontantResteProvision(c, nomtable);
             
-            if(montant >= this.getCredit()) montant = this.getCredit();
+            if(montant >= montantV) montant = montantV;
             
         } catch(Exception ex) {
             throw ex;
@@ -745,7 +745,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return montant;
     }
     
-    public double getMontantResteProvision(Connection c)throws Exception{
+    public double getMontantResteProvision(Connection c,String nomtable)throws Exception{
         double result = 0.;
         int verify = 0;
         try{
@@ -754,7 +754,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 verify = 1;
             }
             EtatProvision ep = new EtatProvision();
-            ep.setNomTable("etatprovisionvrai");
+            ep.setNomTable(nomtable);//"etatprovisionvrai" ny tsotra
             ep.setId(this.getIdplacement());
             EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, "");
             if(etatProv.length>0)
