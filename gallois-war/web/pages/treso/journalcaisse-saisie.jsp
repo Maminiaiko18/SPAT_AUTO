@@ -95,8 +95,8 @@
         pi.getFormu().getChamp("numPiece").setLibelle("Numéro pièce");
         pi.getFormu().getChamp("libelle").setLibelle("Libellé");
         
-        pi.getFormu().getChamp("debit").setLibelle("Crédit");
-        pi.getFormu().getChamp("credit").setLibelle("Débit");
+        pi.getFormu().getChamp("debit").setLibelle("Sortie");
+        pi.getFormu().getChamp("credit").setLibelle("Entrée");
         pi.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pi.getFormu().getChamp("iddevise").setLibelle("Devise");
         pi.getFormu().getChamp("numcheque").setLibelle("Numero chèque");

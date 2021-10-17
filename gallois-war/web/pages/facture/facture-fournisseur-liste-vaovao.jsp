@@ -88,6 +88,10 @@
         </form>
         <%out.println(pr.getTableauRecap().getHtml());%>
         <br/>
+        <form action="<%=pr.getLien()%>?but=apresTarif.jsp" method="post" name="form_arif" id="form_arif">
+            <input type="hidden" name="bute" id="bute" value="ded/ordonnerpayement-saisie.jsp"/>
+            <input type="hidden" name="classe" value="facturefournisseur.FactureFournisseur"/>
+            <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
             String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
             String colonneLien[] = {"id", "escale"};
@@ -100,12 +104,40 @@
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);
-            out.println(pr.getTableau().getHtml());
-            out.println(pr.getBasPage());
+            pr.getTableau().setNameActe("editerOP");
+            pr.getTableau().setNameBoutton("Editer OP");
+            out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
+        <a name="reg" id="btnRegularisation" class="pull-right"><input type="button" class="btn btn-info" value="Régulariser BP" /></a>
+        <input type="button" class="btn btn-info" onclick="editerBED()" style="margin-right:30px" value="Editer BED"/>
+        </form>
         <% out.println(pr.getBasPage());%>
     </section>
 </div>
+<script>
+    document.getElementById("btnRegularisation").onclick = function(){
+        console.log(document.getElementById("acte"));
+        console.log(document.getElementById("form_arif"));
+        document.getElementById("acte").value =  "regularisation";
+        document.getElementById("form_arif").submit();
+    }
+    function regularisation (){
+        document.getElementById("acte").value =  "regularisation";
+        document.getElementById("form_arif").submit();
+    }
+    document.getElementById("btnBED").onclick = function(){
+        document.getElementById("acte").value =  "bed";
+        document.getElementById("form_arif").submit();
+    }
+    
+    function editerBED() {
+        document.getElementById("acte").value =  "editerBED";
+        document.getElementById("bute").value =  "ded/bordereauxFF-saisie.jsp";
+        document.getElementById("form_arif").action = '<%=pr.getLien()%>?but=apresFacture.jsp';
+        document.getElementById("form_arif").submit();
+    }
+    
+</script>
 <% } catch (Exception e) {
         e.printStackTrace();
     }%>

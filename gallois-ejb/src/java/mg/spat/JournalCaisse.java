@@ -489,8 +489,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public String getAttributIDName() {
         return "id";
     }
-
-    public void traitementOP(UserEJBBean user, Connection c) throws Exception {
+    
+    public OrdonnerPayement traitementOP(UserEJBBean user, Connection c) throws Exception {
         OrdonnerPayement ordonnerPayement = new OrdonnerPayement(this.getIdordre());
         ordonnerPayement = (OrdonnerPayement) ordonnerPayement.getById(this.getIdordre(), ordonnerPayement.getNomTable(), c);
         ordonnerPayement.setMontant(Math.abs(this.getDebit() - this.getCredit()));
@@ -498,6 +498,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         if (ordonnerPayement.getEtat() < ConstanteEtat.getEtatValider()) {
             throw new Exception("OP non visé");
         }
+        return ordonnerPayement;
     }
     public Placement estPlacement(Connection c)throws Exception{
         Placement placement = null;
@@ -557,7 +558,15 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 throw new Exception("mouvement caissse deja valide");
             }
             if (this.getIdordre() != null) {
-                this.traitementOP(user, c); 
+                OrdonnerPayement opTsotra=this.traitementOP(user, c); 
+                if(opTsotra!=null){
+                    PaiementFacture[] lpf=opTsotra.genererPaiementFacture(c,this);
+                    if(lpf.length>0){
+                        for(int i=0;i<lpf.length;i++){
+                            lpf[i].createObject(refuser,c);
+                        }
+                    }
+                }
                 OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir
                 if(op != null) {
                     if(op.getType().compareTo("1")==0) throw new Exception("Impossible a payer : avoir interne");
