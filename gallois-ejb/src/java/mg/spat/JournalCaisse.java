@@ -12,6 +12,7 @@ import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import facture.EtatProvision;
 import facture.FactureClient;
+import facture.FactureFournisseur;
 import facture.PaiementFacture;
 import factureclient.PayementFacture;
 import facturefournisseur.RegulFacture;
@@ -512,19 +513,23 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
     
     public void checkMontantFactureClient(FactureClient fc,Connection c) throws Exception {
-        /*FactureClient fc = new FactureClient();
-
-        fc = (FactureClient) fc.getById(this.getIdplacement(), "FACTURE_CLIENT_UNION", c);*/
-
         if (fc != null) {
-            //if(fc.getMontantreste() <= 0) throw new Exception("Facture déjà payée en totalité" + fc.getId());
-            System.out.println("MontantReste="+fc.getMontantreste()+" et credit="+this.getCredit());
-            
-            if(this.getIdTypeCheque().equals(Constante.typeCheque)) {
+            if(fc.getType().equals(Constante.typeCheque)) {
                 if(this.getCredit() != fc.getMontantreste()) throw new Exception("Une facture au comptant doit etre payee en totalite");
             }
             
             if (fc.getMontantreste() < this.getCredit()) {
+                throw new Exception("Montant supérieur au reste à payer");
+            }
+        }
+    }
+    public void checkMontantFactureFournisseur(FactureFournisseur fc,Connection c) throws Exception {
+
+        if (fc != null) {
+            if(fc.getType().equals(Constante.typeCheque)) {
+                if(this.getDebit() != fc.getMontantreste()) throw new Exception("Une facture au comptant doit etre payee en totalite");
+            }
+            if (fc.getMontantreste() < this.getDebit()) {
                 throw new Exception("Montant supérieur au reste à payer");
             }
         }
@@ -568,20 +573,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     if (!this.getIdplacement().startsWith("FC")) {
                         this.traitementPlacement(user, c);
                     }
-                    
                     genererPaiement(c, refuser);
-
-                    /*FactureClient fc = findFactureClient(c);
-                    if(fc != null) {
-                        checkMontantFactureClient(c); 
-                        PaiementFacture paiementFact = new PaiementFacture();
-                        paiementFact.setIdMvt(this.getId());
-                        paiementFact.setIdFact(fc.getId());
-//                        paiementFact.setMontant(this.getCredit());
-                        paiementFact.setMontant(fc.getMontantttc());
-
-                        paiementFact.createObject(refuser, c);
-                    }*/
                 }
             }
 
@@ -621,6 +613,15 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         fc.setNomTable("facture_client_union");
         String where = String.format(" and id = '%s' ", this.getIdplacement());
         FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, where);
+        if (result != null && result.length > 0) 
+            return result[0];
+        return null;
+    }
+    public FactureFournisseur findFactureFournisseur(Connection c) throws Exception{
+        FactureFournisseur fc = new FactureFournisseur();
+        fc.setNomTable("FACTFOURN_MSUM_LIB");
+        String where = String.format(" and id = '%s' ", this.getIdplacement());
+        FactureFournisseur[] result = (FactureFournisseur[])CGenUtil.rechercher(fc, null, null, c, where);
         if (result != null && result.length > 0) 
             return result[0];
         return null;
@@ -686,6 +687,16 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 pf.setMontant(genererMontantPaiement(c));
                 pf.createObject(refuser, c);
                 
+            }
+            FactureFournisseur ff = this.findFactureFournisseur(c);
+            if(ff!=null){
+                checkMontantFactureFournisseur(ff,c);
+                PaiementFacture pf = new PaiementFacture();
+                pf.setNomTable("paiementfacturef");
+                pf.setIdMvt(this.getId());
+                pf.setIdFact(this.getIdplacement());
+                pf.setMontant(this.getDebit());
+                pf.createObject(refuser, c);
             }
             if(verif) c.commit();
         } catch(Exception ex){ 
