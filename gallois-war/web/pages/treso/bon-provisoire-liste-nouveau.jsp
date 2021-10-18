@@ -4,6 +4,8 @@
     Author     : john
 --%>
 
+<%@page import="java.sql.Date"%>
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureFournisseur"%>
 <%@page import="mg.spat.BonProvisoireComplet"%>
 <%@page import="mg.spat.BonProvisoireRetourRegule"%>
@@ -13,32 +15,43 @@
 
 <% try{ 
     FactureFournisseur bonProvisoire = new FactureFournisseur();
-    String nomTable = "FACTFOURN_MSUM_LIB";
+    String nomTable = "BPvalide";
     if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("") != 0) {
         nomTable = request.getParameter("table");
     }
     bonProvisoire.setNomTable(nomTable);
     
-    String listeCrt[] = {"id", "tiers", "code", "designation", "daty"};
-    String listeInt[] = {"daty"};
-    String libEntete[] = {"id", "tiers", "code", "designation", "montant", "remarque", "daty"};
+    String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib", "code"};
+    String listeInt[] = {"daty","date_echeance"};
+    String libEntete[] = {"id","daty","tierslib", "code", "escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     PageRecherche pr = new PageRecherche(bonProvisoire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     
-    pr.getFormu().getChamp("id").setLibelle("ID");
-    pr.getFormu().getChamp("tiers").setLibelle("Bénéficiaire");
-    pr.getFormu().getChamp("code").setLibelle("Numéro pièce");
-    pr.getFormu().getChamp("designation").setLibelle("Désignation");
-    pr.getFormu().getChamp("daty1").setLibelle("Date min");
-    pr.getFormu().getChamp("daty2").setLibelle("Date max");
-    
-    pr.getFormu().getChamp("daty1").setDefaut(utilitaire.Utilitaire.dateDuJour());
-    pr.getFormu().getChamp("daty2").setDefaut(utilitaire.Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("daty1").setLibelle("date debut");
+        pr.getFormu().getChamp("daty2").setLibelle("date fin");
+        pr.getFormu().getChamp("tierslib").setLibelle("Client");
+        pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
+        
+        Date firstDate = Utilitaire.dateDuJourSql();   
+        firstDate.setDate(1);        
+        Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
+        
+        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+        
+        if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+            pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+            pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+            
+        }
+        pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
+        pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
+        pr.getFormu().getChamp("designation").setLibelle("Note explicative");        
     
     pr.setApres("treso/bon-provisoire-liste-nouveau.jsp");
     //pr.setAWhere(" and etat != "+ConstanteEtat.getEtatRegulariser());
-    String[] colSomme = {"montant"};
+    String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
@@ -62,37 +75,40 @@
                     <select name="table" class="champ" id="table" onchange="changerDesignation()" >
                         
                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("bon_provisoire_libcomplet") == 0) {%>    
-                        <option value="FACTFOURN_MSUM_LIB" selected>Tous</option>
+                        <option value="BPvalide" selected>Tous</option>
                         <% } else { %>
-                        <option value="FACTFOURN_MSUM_LIB" >Tous</option>
+                        <option value="BPvalide" >Tous</option>
                         <% } %>
                         
                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BON_PROVISOIRE_LIB_cree") == 0) {%>    
-                        <option value="FACTFOURN_MSUM_LIBC" selected>Cr&eacute;&eacute;</option>
+                        <option value="BPvalide_c" selected>Cr&eacute;&eacute;</option>
                         <% } else { %>
-                        <option value="FACTFOURN_MSUM_LIBC" >Cr&eacute;&eacute;</option>
+                        <option value="BPvalide_c" >Cr&eacute;&eacute;</option>
                         <% } %>
 
                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BON_PROVISOIRE_LIB_valide") == 0) {%>    
-                        <option value="FACTFOURN_MSUM_LIBV" selected>Valid&eacute;</option>
+                        <option value="BPvalide_v" selected>Valid&eacute;</option>
                         <% } else { %>
-                        <option value="FACTFOURN_MSUM_LIBV" >Valid&eacute;</option>
+                        <option value="BPvalide_v" >Valid&eacute;</option>
                         <% } %>
                     </select>
                 </div>
             </div>
         </form>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=treso"
-                    + "/bon-provisoire-fiche-nouveau.jsp"};
-            String colonneLien[] = {"id"};
+            String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
+            String colonneLien[] = {"id", "escale"};
+            String[] urlLienMultiple = {"id", "idprevision"};
+            String[] urlLienAffiche = {"id", "id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"ID", "Bénéficiaire", "Numéro pièce", "Désignation", "Montant", "Remarque", "Date"};
+            String libEnteteAffiche[] = {"id","daty","Client","Code", "Escale","Note explicative","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+            pr.getTableau().setUrlLienAffiche(urlLienAffiche);
+            pr.getTableau().setUrlLien(urlLienMultiple);            
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
         %>
