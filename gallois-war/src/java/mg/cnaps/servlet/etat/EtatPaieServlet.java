@@ -1043,7 +1043,7 @@ public class EtatPaieServlet extends HttpServlet {
             String id = request.getParameter("id");
             facture.FactureFournisseur facture = new facture.FactureFournisseur();
             facture.setEstDDPMICTSL(null);
-            facture.setNomTable("facture_Fournisseur_Mere");
+            facture.setNomTable("FACTFOURN_MSUM_LIB");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
            
             facture.FactureFournisseur[] mere = (facture.FactureFournisseur[]) CGenUtil.rechercher(facture, null, null, c, " and id = '"+id+"' order by daty");
