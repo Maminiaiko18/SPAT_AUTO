@@ -27,7 +27,11 @@
     
 //------------------------------------
     
-    
+    String titre="Enregistrer facture fournisseur";
+    String mode=request.getParameter("mode");
+    if((mode!=null) && (mode.compareToIgnoreCase("1")==0)){
+        titre="Enregistrer Bon provisoire";
+    }
     facture.FactureFournisseurDetails fcfille = new facture.FactureFournisseurDetails();
     fcfille.setNomTable("FACTFOURN_FILLE_PLUS");
     
@@ -155,7 +159,7 @@
        
 %>
 <div class="content-wrapper">
-    <h1>Enregistrer facture fournisseur</h1>
+    <h1><%= titre %></h1>
     <!--  -->
     <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
         <%
