@@ -6,6 +6,7 @@
 package avoir;
 
 import bean.CGenUtil;
+import facture.FactureClientDetails;
 import facturefournisseur.DetailsFactureFournisseur;
 import facturefournisseur.Detailsffbonlivraison;
 import facturefournisseur.FactureFournisseur;
@@ -102,16 +103,32 @@ public class AvoirFFFille extends AvoirFCFille {
 //    }
     
     public void setMontant(double montant) throws Exception {
-//        if (this.getMode().equalsIgnoreCase("modif")) {
-////            DetailsFactureFournisseur fc = getFactureFournisseurDetail(null);
-//            Detailsffbonlivraison fc = getFactureFournisseurDetail(null);
-//            if (fc != null && this.getRemise() > 0) {
-////                montant = (fc.getMontantTTC() * this.getRemise()) / 100;
-//                montant = (fc.getMontantttc()* this.getRemise()) / 100;
-//            }
-//        }
         super.setMontant(montant);
     }
+    
+    public FactureClientDetails getFactureClientDetail(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureClientDetails fc = new FactureClientDetails();
+            fc.setNomTable("FACTFOURN_FILLETTC");
+            String awhere = String.format(" and id = '%s' ", this.getIddetailfacture());
+            FactureClientDetails[] result = (FactureClientDetails[]) CGenUtil.rechercher(fc, null, null, c, awhere);
+            if (result != null && result.length > 0) {
+                return result[0];
+            }
+            return null;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    
     @Override
      public void construirePK(Connection c) throws Exception {
         preparePk("AVRFFF", "GET_SEQ_AVOIRFFFILLE");
