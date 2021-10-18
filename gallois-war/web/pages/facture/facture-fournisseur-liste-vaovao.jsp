@@ -13,7 +13,7 @@
 <%
     try {
         FactureFournisseur ff = new FactureFournisseur();
-        String[] etatVal = {"factfourn_msum_lib", "factfourn_msum_libc", "factfourn_msum_libv", "facture_fournisseur_msum_libep", "facture_fournisseur_msum_libp"};
+        String[] etatVal = {"FACTUREFOURNVALIDE", "FACTUREFOURNVALIDE_C", "FACTUREFOURNVALIDE_V", "FACTUREFOURNVALIDE_EP", "FACTUREFOURNVALIDE_P"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "En attente de paiement", "Payéé(s)"};
         ff.setNomTable(etatVal[0]);
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
