@@ -32,8 +32,9 @@ public class ImportExcel {
     private static Sheet sheet;
     public static ArrayList<Activite> importerTous(InputStream fileUrl) throws Exception {
         try {
+            String heuredeb = "00:00:00";
+            String heurefin = "00:00:00";
             
-            //System.out.println(fileUrl);
             workbook = WorkbookFactory.create((fileUrl));
             sheet = workbook.getSheetAt(0);
             int indice = 10; // miala ny indice 0 satria titre
@@ -71,7 +72,7 @@ public class ImportExcel {
                             java.sql.Date datefin =utilitaire.Utilitaire.stringDate(date);
                             int mois =utilitaire.Utilitaire.stringToInt(datesplit[1]);
                             double qte = c.getNumericCellValue();
-                            Activite temp = new Activite(datefin, Constante.idMICTSL, idConteneur, qte, mois, utilitaire.Utilitaire.stringToInt(annee));
+                            Activite temp = new Activite(datefin, Constante.idMICTSL, idConteneur, qte, mois, utilitaire.Utilitaire.stringToInt(annee), datefin,datefin, heuredeb, heurefin);
                             ls.add(temp);
                             
                             //System.out.println(temp.getRubrique()+"*****"+temp.getQte());
