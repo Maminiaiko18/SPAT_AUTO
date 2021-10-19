@@ -700,6 +700,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             AvoirFF avoirFF=this.findAvoirFF(c);
             if(avoirFF!=null){
+                avoirFF.controlerPaiement(c);
                 PaiementFacture paiementFact = new PaiementFacture();
                 paiementFact.setNomTable("paiementfacturef");
                 paiementFact.setIdMvt(this.getId());

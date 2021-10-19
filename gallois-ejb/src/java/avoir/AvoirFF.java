@@ -10,6 +10,7 @@ import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import facturefournisseur.FactureFournisseur;
 import java.sql.Connection;
+import mg.spat.JournalCaisse;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -93,5 +94,17 @@ public class AvoirFF extends AvoirFC {
         op.setRemarque("Paiement avoir "+this.getId());
         op.setDaty(Utilitaire.dateDuJourSql());
         return op;
+    }
+    
+    public void controlerPaiement(Connection c) throws Exception{
+        JournalCaisse j = new JournalCaisse();
+        j.setNomTable("journalcaisselib_vise");
+        JournalCaisse[] result = (JournalCaisse[])CGenUtil.rechercher(j, null, null, c, " and idplacement ='"+this.getId()+"'");
+        if(result.length!=0){
+            throw new Exception("Avoir FF deja payer"); 
+        }
+        
+        
+    
     }
 }
