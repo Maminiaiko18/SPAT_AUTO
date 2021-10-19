@@ -81,7 +81,7 @@
                     <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + e.getId() %>" style="margin-right: 10px">Modifier</a>
                     <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=valider&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Viser</a>
                     <!--<a class="btn btn-primary pull-primary"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFC-regul.jsp&idAvoir=" + e.getId() %>" style="margin-right: 10px">Régulariser facture</a>--> 
-                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-saisie.jsp&idAvoir=" + e.getId() %>" style="margin-right: 10px">Payer</a>        
+                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idAvoirFF=" + e.getId() %>" style="margin-right: 10px">Payer</a>        
                     <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=annulerVisa&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Annuler visa</a>
                     <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerAvoir&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
                 </div>

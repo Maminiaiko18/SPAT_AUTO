@@ -28,9 +28,11 @@
 //------------------------------------
     
     String titre="Enregistrer facture fournisseur";
+    String categorie=Constante.categorieFFdefault;
     String mode=request.getParameter("mode");
     if((mode!=null) && (mode.compareToIgnoreCase("1")==0)){
         titre="Enregistrer Bon provisoire";
+        categorie=Constante.getCategorieFFBP();
     }
     facture.FactureFournisseurDetails fcfille = new facture.FactureFournisseurDetails();
     fcfille.setNomTable("FACTFOURN_FILLE_PLUS");
@@ -71,7 +73,7 @@
      TypeObjet categ = new TypeObjet();
         categ.setNomTable("categorieFF");
         listes[1] = new Liste("idcategorie", categ, "VAL", "id");
-        listes[1].setDefaultSelected(Constante.categorieFFdefault);
+        listes[1].setDefaultSelected(categorie);
     
     TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");

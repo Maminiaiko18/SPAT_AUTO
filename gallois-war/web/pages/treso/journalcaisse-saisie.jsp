@@ -1,3 +1,4 @@
+<%@page import="avoir.AvoirFF"%>
 <%@page import="avoir.AvoirFC"%>
 <%@page import="ded.OrdonnerPayement"%>
 <%@page import="mg.spat.MvtcaisseOrdonnerpayementFacture"%>
@@ -180,6 +181,19 @@
             pi.getFormu().getChamp("idplacement").setAutre("readonly");
             pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(avoir.getMontantreste()));
             pi.getFormu().getChamp("tiers").setDefaut(avoir.getTiers());
+        }
+        String idAvoirFF = request.getParameter("idAvoirFF");
+        if(idAvoirFF!=null && !idAvoirFF.isEmpty()){
+            AvoirFF avoirFF = new AvoirFF();
+            avoirFF = (AvoirFF) avoirFF.getById(idAvoirFF, "AvoirFF_montant", null);
+            if(avoirFF == null){
+                throw new Exception("Avoir introuvable ou non visé");
+            }
+            pi.getFormu().getChamp("libelle").setDefaut("Paiement avoir via facture client - " + idAvoir);
+            pi.getFormu().getChamp("idplacement").setDefaut(idAvoirFF);
+            pi.getFormu().getChamp("idplacement").setAutre("readonly");
+            pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(avoirFF.getMontantreste()));
+            pi.getFormu().getChamp("tiers").setDefaut(avoirFF.getTiers());
         }
         /*if(idfact!=null){
             pi.getFormu().getChamp("idplacement").setDefaut(null);

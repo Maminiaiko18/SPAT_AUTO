@@ -105,10 +105,9 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public ClassMAPTable createObject(String iduser, Connection cnctn) throws Exception {
-        if (this.getIdcategorie() != null && this.getIdcategorie().equals(Constante.getCategorieFFBP())) {
-            return genererBP(iduser, cnctn);
-        }
-
+        this.setNomClasseFille("facture.FactureFournisseurDetails");
+        this.setIduser(iduser);
+        this.setId(null);
         return super.createObject(iduser, cnctn);
     }
 

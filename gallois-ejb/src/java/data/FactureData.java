@@ -53,7 +53,10 @@ public class FactureData {
             
             EtatProvision etatProvision = new EtatProvision();
             etatProvision.setId(idFactureClient);
-            double reste = etatProvision.getResteProvision(conn);
+            //double reste = etatProvision.getResteProvision(conn);
+            EtatProvision restePov=etatProvision.getEtatProvision("etatprovisionvrai",conn);
+            double reste=0;
+            if(restePov!=null)reste=restePov.getEcart();
             disabled = reste < 0;
             this.setLib(factClient.affLibelle(reste));
             this.setMontantTP(factClient.affResteProvision(reste));

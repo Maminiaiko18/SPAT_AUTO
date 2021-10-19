@@ -6,6 +6,7 @@
 package mg.spat;
 
 import avoir.AvoirFC;
+import avoir.AvoirFF;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
@@ -557,17 +558,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("mouvement caissse deja valide");
             }
-            if (this.getIdordre() != null) {
-                OrdonnerPayement opTsotra=this.traitementOP(user, c); 
-                if(opTsotra!=null){
-                    PaiementFacture[] lpf=opTsotra.genererPaiementFacture(c,this);
-                    if(lpf.length>0){
-                        for(int i=0;i<lpf.length;i++){
-                            lpf[i].createObject(refuser,c);
-                        }
-                    }
-                }
-                OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir
+            if (this.getIdordre() != null) { 
+                OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir FC
                 if(op != null) {
                     if(op.getType().compareTo("1")==0) throw new Exception("Impossible a payer : avoir interne");
                     PaiementFacture paiementFact = new PaiementFacture();
@@ -576,6 +568,16 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     paiementFact.setMontant(-op.getMontant());
                     
                     paiementFact.createObject(refuser, c);
+                }else{
+                    OrdonnerPayement opTsotra=this.traitementOP(user, c);
+                    if(opTsotra!=null){
+                        PaiementFacture[] lpf=opTsotra.genererPaiementFacture(c,this);
+                        if(lpf.length>0){
+                            for(int i=0;i<lpf.length;i++){
+                                lpf[i].createObject(refuser,c);
+                            }
+                        }
+                    }
                 }
             }else{
                 if (this.getIdplacement() != null) {
@@ -622,6 +624,15 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         fc.setNomTable("facture_client_union");
         String where = String.format(" and id = '%s' ", this.getIdplacement());
         FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, where);
+        if (result != null && result.length > 0) 
+            return result[0];
+        return null;
+    }
+    public AvoirFF findAvoirFF(Connection c) throws Exception{
+        AvoirFF fc = new AvoirFF();
+        fc.setNomTable("avoirFF_montant");
+        String where = String.format(" and id = '%s' ", this.getIdplacement());
+        AvoirFF[] result = (AvoirFF[])CGenUtil.rechercher(fc, null, null, c, where);
         if (result != null && result.length > 0) 
             return result[0];
         return null;
@@ -686,6 +697,15 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 c = new UtilDB().GetConn();
                 c.setAutoCommit(false);
                 verif = true;
+            }
+            AvoirFF avoirFF=this.findAvoirFF(c);
+            if(avoirFF!=null){
+                PaiementFacture paiementFact = new PaiementFacture();
+                paiementFact.setNomTable("paiementfacturef");
+                paiementFact.setIdMvt(this.getId());
+                paiementFact.setIdFact(avoirFF.getIdfacture());
+                paiementFact.setMontant(-avoirFF.getMontant());
+                paiementFact.createObject(refuser, c);
             }
             FactureClient fc = findFactureClient(c);
             if(fc != null){

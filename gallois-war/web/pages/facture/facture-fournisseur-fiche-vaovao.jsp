@@ -4,6 +4,7 @@
     Author     : nyamp
 --%>
 
+<%@page import="data.FactureFData"%>
 <%@page import="data.FactureData"%>
 <%@page import="utilitaire.Constante"%>
 
@@ -242,28 +243,23 @@
     </div>
 
     <!-- Trop perçu -->     
-    <% if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCProvision)) { 
+    <% if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.getCategorieFFBP())) { 
         //double montant = 0;
         //if(etatProv.getMontantreste() < 0) montant = -etatProv.getMontantreste();
-        FactureData factData = new FactureData();
+        FactureFData factData = new FactureFData();
         factData.initData(e.getId());
     %>
     <div class="row">
         <div class="col-md-7 col-md-offset-2">
 
             <div class="box">
-                <!--                <h1 class="box-title">
-                                    <a href="#">
-                                        <i class="fa fa-arrow-circle-left"></i>
-                                    </a> 
-                                </h1>-->
                 <div class="box-body">
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
                                 <td align="left"><b><%= factData.getLib() %></b></td>
                                 <td align="right"><%=Utilitaire.formaterAr(factData.getMontantTP())%></td>
-                                <td align="center"><a class="btn btn-primary" href="<%=(String) session.getValue("lien")%>?but=avoir/avoirFC-saisie.jsp&idfacture=<%=e.getId()%>&type=2" <%=factData.isDisabled() ? "disabled" : ""%>>Rembourser</a></td>
+                                <td align="center"><a class="btn btn-primary" href="<%=(String) session.getValue("lien")%>?but=avoir/avoirFF-saisie.jsp&idfacture=<%=e.getId()%>&type=2" <%=factData.isDisabled() ? "disabled" : ""%>>Rembourser</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -283,14 +279,10 @@
                     <li class="<%= map.get("avoirFF-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=avoirFF-liste">Facture avoir</a></li>
                     
                     <li class="<%= map.get("paiementFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfact=<%=e.getId()%>&tab=paiementFF">Paiement</a></li>
-                   <!--- <li class="<%= map.get("activite")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=activite">Activit&eacute;s</a></li>
-                        <% if (e.getIdcategorie().equals(Constante.idCategorieFCProvision)) {%>
-                    <li class="<%= map.get("facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesdefinitives">Factures d&eacute;finitives</a></li>
+                    <% if (e.getIdcategorie().equals(Constante.getCategorieFFBP())) {%>
+                    <li class="<%= map.get("facturesfdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesfdefinitives">Factures d&eacute;finitives</a></li>
                     <li class="<%= map.get("regularisation")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=regularisation&idProvision=<%=e.getId()%>">Régularisation</a></li>
-                        <% } %>
-                        <% if (e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {%>
-                    <li class="<%= map.get("provision-facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=provision-facturesdefinitives">Provisions</a></li>
-                        <% }%> -->
+                    <% } %>
                 </ul>
                 <div class="tab-content">       
 
