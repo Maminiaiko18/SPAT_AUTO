@@ -137,7 +137,7 @@ public class Constante {
     private static String droitDePortBP="RB0000000021170493";
     private static String redevanceSanitaire="RB0000000059112123";
     private static String redevanceCommBP="RB0000000060112257"; 
-    private static String navireBornageEtPeche="TYPE000062";
+    private static String navireBornageEtPeche="TYPES0001";
     public static final String categorieAvoirFC="CT006";
     public static final String motifAvoirFC="MT008";
     public static final String typeAvoirFC="2";

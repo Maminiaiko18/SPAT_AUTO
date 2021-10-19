@@ -123,9 +123,9 @@ public class Prevision extends ClassEtat {
                 else activites= prevision.genererActiviteVisees(user, c);
 
                 adminActivite.findactivite(getIdsFromTab(activites), c);
-
+                adminActivite.setPrevision(this);
                 facture = adminActivite.facturer(user, c);
-                facture.setIdprevision(this.getId());
+//                facture.setIdprevision(this.getId());
                 facture.updateDeviseMere(c);
                 facture.updateToTableWithHisto(user, c);
             }

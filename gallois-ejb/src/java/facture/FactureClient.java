@@ -1403,14 +1403,14 @@ public class FactureClient extends ClassMere {
         String awhere = " and id = '%s'";
         awhere = String.format(awhere, this.getIdprevision());
         Prevision pr = new Prevision();
-        if (nomtable == null || nomtable.compareTo("") == 0) {
-            nomtable = pr.getNomTable();
+        if (nomtable != null && nomtable.compareTo("") != 0) {
+            pr.setNomTable(nomtable);
         }
         Prevision[] result = (Prevision[]) CGenUtil.rechercher(pr, null, null, c, awhere);
-        if (result.length == 0) {
-            throw new Exception("Pas de prevision pour la facture " + this.getId());
-        }
-        return result[0];
+//        if (result.length == 0) {
+//            throw new Exception("Pas de prevision pour la facture " + this.getId());
+//        }
+        return result.length > 0 ? result[0] : null;
     }
 
     public String calculerCodeMictsl(Connection c) throws Exception {
