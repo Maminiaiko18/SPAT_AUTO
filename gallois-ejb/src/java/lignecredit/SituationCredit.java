@@ -25,7 +25,7 @@ public class SituationCredit extends LigneCredit{
         this.preparePk("SCRD", "get_seqligneCreditDepense");
         this.setId(makePK(c));
     }
-    public static SituationCredit[] findSituationCreditRecette(String id,String desingation,String compte,String date1,String date2,String etat,Connection c) throws Exception {
+    public static SituationCredit[] findSituationCreditRecette(String id,String desingation,String compte,String date1,String date2,String etat, String niveau,Connection c) throws Exception {
          SituationCredit[] ret = null; 
            boolean newCon = false;
            try{
@@ -42,7 +42,7 @@ public class SituationCredit extends LigneCredit{
              if(date2!=null   && !date2.equals("")) where+= " and mf.daty <= '"+date2+"'";
              if(etat!=null   && !etat.equals("")) where+= " and l.etat = "+ etat;
              
-             String req="SELECT l.id          AS                     id,\n" +
+             /*String req="SELECT l.id          AS                     id,\n" +
             "       l.DESIGNATION AS                     designation,\n" +
             "       l.COMPTE      AS                     compte,\n" +
             "       l.ANNEE       AS                     annee,\n" +
@@ -63,9 +63,28 @@ public class SituationCredit extends LigneCredit{
             "         l.DESIGNATION,\n" +
             "         l.COMPTE,\n" +
             "         l.ANNEE,\n" +
-            "         l.MONTANT, l.etat";
+            "         l.MONTANT, l.etat";*/
 //                     + ", mf.DATY";
-
+            String req = "SELECT l.id          AS                        id,\n" +
+"       l.DESIGNATION AS                        designation,\n" +
+"       substr(l.COMPTE, 1, "+niveau+")      AS                        compte,\n" +
+"       l.ANNEE       AS                        annee,\n" +
+"       l.MONTANT     AS                        montant,\n" +
+"       l.etat,\n" +
+"       CAST(SUM(mf.MONTANTTTC) AS NUMBER(30, 3))\n" +
+"                     AS                        facture,\n" +
+"       CAST(SUM(montantpaye) AS NUMBER(30, 3)) paye\n" +
+"FROM LIGNECREDITRECETTE l\n" +
+"         LEFT JOIN FACTURE_CLIENT_MF_PAYE mf\n" +
+"                   ON substr(mf.COMPTE, 1, "+niveau+") LIKE substr(l.COMPTE, 1, "+niveau+")\n" +
+"                       AND EXTRACT(YEAR FROM DATY) = l.ANNEE and mf.IDMERE not in\n" +
+"                                                                 (select id from ProvisionFactureDefinitive) %s \n" +
+"GROUP BY l.id,\n" +
+"         l.DESIGNATION,\n" +
+"         substr(l.COMPTE, 1, "+niveau+"),\n" +
+"         l.ANNEE,\n" +
+"         l.MONTANT, l.etat";
+            req = String.format(req, where);
             SituationCredit stock = new SituationCredit();
             stock.setNomTable("situationLC_vide");
             ret = (SituationCredit[]) CGenUtil.rechercher(stock, req, c);

@@ -32,7 +32,7 @@ public class LigneCredit extends ClassEtat {
         this.daty = daty;
     }
     
-    public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2, String etat, Connection c) throws Exception {
+    public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2, String etat, String niveau, Connection c) throws Exception {
          LigneCredit[] ret = null; 
            boolean newCon = false;
            try{
@@ -47,7 +47,7 @@ public class LigneCredit extends ClassEtat {
              if(date1!=null   && !date1.equals("")) where+= " and daty >= '"+date1+"'";
              if(date2!=null   && !date2.equals("")) where+= " and daty <= '"+date2+"'";
              if(etat != null && !etat.equals("")) where += " and l.etat = " + etat;
-             String req = "SELECT \n" +
+             /*String req = "SELECT \n" +
                         "	   l.id          AS                                id,\n" +
                         "       l.DESIGNATION AS                                designation,\n" +
                         "       l.COMPTE      AS                                compte,\n" +
@@ -66,7 +66,26 @@ public class LigneCredit extends ClassEtat {
                         "         l.DESIGNATION,\n" +
                         "         l.COMPTE,\n" +
                         "         l.ANNEE,\n" +
-                        "         l.MONTANT, l.etat";
+                        "         l.MONTANT, l.etat";*/
+             String req = "SELECT l.id                   AS                       id,\n" +
+"       l.DESIGNATION          AS                       designation,\n" +
+"       substr(l.COMPTE, 1, "+niveau+") AS                       compte,\n" +
+"       l.ANNEE                AS                       annee,\n" +
+"       l.MONTANT              AS                       montant,\n" +
+"       l.etat,\n" +
+"       CAST(nvl(sum(MONTANTTTC), 0) AS NUMBER(30, 3))\n" +
+"                              AS                       facture,\n" +
+"       CAST(NVL(SUM(montantpaye), 0) AS NUMBER(30, 2)) paye\n" +
+"FROM LIGNECREDITDEPENSE l\n" +
+"         LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n" +
+"                   ON substr(mf.COMPTE, 1, "+niveau+") LIKE substr(l.COMPTE, 1, "+niveau+")\n" +
+"                       AND EXTRACT(YEAR FROM daty) = l.ANNEE %s \n" +
+"GROUP BY l.id,\n" +
+"         l.DESIGNATION,\n" +
+"         substr(l.COMPTE, 1, "+niveau+"),\n" +
+"         l.ANNEE,\n" +
+"         l.MONTANT, l.etat";
+             req = String.format(req, where);
                System.out.println("req=="+req);
              LigneCredit stock = new LigneCredit();
              stock.setNomTable("situationLC_vide");
