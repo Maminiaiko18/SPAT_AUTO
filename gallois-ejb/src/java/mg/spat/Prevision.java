@@ -358,11 +358,11 @@ public class Prevision extends ClassEtat {
     }
 
     public void setEscale(String esc) throws Exception {
-        if (this.getMode().compareTo("modif") == 0) {
+        /*if (this.getMode().compareTo("modif") == 0) {
             if (esc != null && esc.equalsIgnoreCase("") == false && esc.length() != 11) {
                 throw new Exception("Le nombre de caractères pour l\\'escale doit être égale à 11");
             }
-        }
+        }*/
         this.escale = esc;
     }
 
