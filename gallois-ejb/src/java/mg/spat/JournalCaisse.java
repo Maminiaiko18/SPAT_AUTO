@@ -562,6 +562,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir FC
                 if(op != null) {
                     if(op.getType().compareTo("1")==0) throw new Exception("Impossible a payer : avoir interne");
+                    controlerPaiementAvoirFC(c, op.getDed_Id());
                     PaiementFacture paiementFact = new PaiementFacture();
                     paiementFact.setIdMvt(this.getId());
                     paiementFact.setIdFact(op.getIdfacture());
