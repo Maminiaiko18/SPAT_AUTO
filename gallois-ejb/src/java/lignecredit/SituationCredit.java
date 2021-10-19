@@ -69,7 +69,7 @@ public class SituationCredit extends LigneCredit{
 "       l.DESIGNATION AS                        designation,\n" +
 "       substr(l.COMPTE, 1, "+niveau+")      AS                        compte,\n" +
 "       l.ANNEE       AS                        annee,\n" +
-"       l.MONTANT     AS                        montant,\n" +
+"       sum(l.MONTANT)     AS                        montant,\n" +
 "       l.etat,\n" +
 "       CAST(SUM(mf.MONTANTTTC) AS NUMBER(30, 3))\n" +
 "                     AS                        facture,\n" +
@@ -83,7 +83,7 @@ public class SituationCredit extends LigneCredit{
 "         l.DESIGNATION,\n" +
 "         substr(l.COMPTE, 1, "+niveau+"),\n" +
 "         l.ANNEE,\n" +
-"         l.MONTANT, l.etat";
+"          l.etat";
             req = String.format(req, where);
             SituationCredit stock = new SituationCredit();
             stock.setNomTable("situationLC_vide");

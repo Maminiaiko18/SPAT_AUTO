@@ -71,7 +71,7 @@ public class LigneCredit extends ClassEtat {
 "       l.DESIGNATION          AS                       designation,\n" +
 "       substr(l.COMPTE, 1, "+niveau+") AS                       compte,\n" +
 "       l.ANNEE                AS                       annee,\n" +
-"       l.MONTANT              AS                       montant,\n" +
+"       sum(l.MONTANT)              AS                       montant,\n" +
 "       l.etat,\n" +
 "       CAST(nvl(sum(MONTANTTTC), 0) AS NUMBER(30, 3))\n" +
 "                              AS                       facture,\n" +
@@ -84,7 +84,7 @@ public class LigneCredit extends ClassEtat {
 "         l.DESIGNATION,\n" +
 "         substr(l.COMPTE, 1, "+niveau+"),\n" +
 "         l.ANNEE,\n" +
-"         l.MONTANT, l.etat";
+"          l.etat";
              req = String.format(req, where);
                System.out.println("req=="+req);
              LigneCredit stock = new LigneCredit();
