@@ -787,4 +787,24 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
         return result;
     }
+    
+    public void controlerPaiementAvoirFC(Connection c, String idAvoir) throws Exception{
+        boolean verif = false;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            OrdonnerPayement op = new OrdonnerPayement();
+            op.setNomTable("ORDONNERPAYEMENT_JC_VISE");
+            OrdonnerPayement[] tabOp = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, String.format(" and ded_id = '%s' ", idAvoir));
+            if (tabOp.length>0) 
+                throw new Exception("Avoir déja payé");
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(c!=null && verif)
+                c.close();
+        }
+    }
 }
