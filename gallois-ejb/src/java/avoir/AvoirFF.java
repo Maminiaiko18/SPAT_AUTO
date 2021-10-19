@@ -10,6 +10,7 @@ import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import facturefournisseur.FactureFournisseur;
 import java.sql.Connection;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -74,10 +75,11 @@ public class AvoirFF extends AvoirFC {
     
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        if(this.getType().equals("1")){
-            this.getFactureFournisseurLiee("facturefournisseur",c).annuler(c);
-        }
-        return super.validerObject(u, c); 
+        setMode("modif");
+        controler(c);
+        this.setEtat(ConstanteEtat.getEtatValider());
+        this.updateToTableWithHisto(u, c);
+        return this; 
     }
     
     public OrdonnerPayement genererOP(Connection c) throws Exception{

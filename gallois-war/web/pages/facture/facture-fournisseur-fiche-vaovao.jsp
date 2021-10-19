@@ -225,7 +225,7 @@
                         if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.getCategorieFFBP())) {%>
                     <p>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererDefinitiveFF&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
-                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regul-fc-provision.jsp&idProvision=" + e.getId()%>" style="margin-right: 10px">Regulariser</a>
+                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regul-ff-provision.jsp&idProvision=" + e.getId()%>" style="margin-right: 10px">Regulariser</a>
                     </p><hr>
                     <%}
                     %>
