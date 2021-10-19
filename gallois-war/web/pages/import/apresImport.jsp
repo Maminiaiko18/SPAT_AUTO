@@ -20,7 +20,7 @@
             acte = request.getParameter("acte");
             file = request.getParameter("file");
             lien = (String) session.getValue("lien");
-            String bute = "import/ImportExcel.jsp";
+            String bute = "exploitants/activites-liste.jsp&etat=ACTIVITELIBCOMPLET_C&rubrique=Conteneur";
             
             if(acte.compareTo("import")==0){
                 System.out.println("import excel");
