@@ -59,7 +59,8 @@
     
     if(idavoir!= null){
         avoir.AvoirFC avoir = new AvoirFC();
-        avoir.setNomTable("avoirFC_montant");
+//        avoir.setNomTable("avoirFC_montant");
+        avoir.setNomTable("union_AVOIRFF_MONTANT");
         AvoirFC ls [] = (AvoirFC[]) CGenUtil.rechercher( avoir , null, null, " and id='"+idavoir+"'") ;
          //BonDeCommande[] tabBc = (BonDeCommande[]) CGenUtil.rechercher( bc , null, null, " ") ;
         if(ls.length!=0){

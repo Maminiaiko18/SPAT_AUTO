@@ -15,7 +15,7 @@ import java.sql.Connection;
  */
 public class BonDeLivraisonFille extends ClassMAPTable {
 
-    private String id, produit, numbl, iddetailsfacturefournisseur, idbondecommande;
+    private String id, produit, numbl, iddetailsfacturefournisseur, idbondecommande, pdt;
     private double quantite, quantiteparpack;
 
     public void controlQuantite(BonDeCommandeFilleReste[] bcF) throws Exception {
@@ -113,6 +113,16 @@ public class BonDeLivraisonFille extends ClassMAPTable {
     public void setQuantiteparpack(double quantiteparpack) {
         this.quantiteparpack = quantiteparpack;
     }
+
+    public String getPdt() {
+        return pdt;
+    }
+
+    public void setPdt(String pdt) {
+        this.pdt = pdt;
+    }
+    
+    
 
     @Override
     public String getTuppleID() {

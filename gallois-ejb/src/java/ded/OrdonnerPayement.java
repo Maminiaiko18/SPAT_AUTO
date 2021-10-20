@@ -2,6 +2,8 @@ package ded;
 
 import avoir.AvoirFC;
 import bean.*;
+import facture.FactureFournisseur;
+import facture.PaiementFacture;
 import factureclient.PaiementFactureRemise;
 import facturefournisseur.EtatFactureMontantDaty;
 import java.sql.Connection;
@@ -346,11 +348,10 @@ public class OrdonnerPayement extends ClassEtat {
 
         this.setIduser(u);
         String[] idFact = this.getDed_Id().split(";");
-        EtatFactureMontantDaty f = new EtatFactureMontantDaty();
 
-        EtatFactureMontantDaty[] factures = this.getFactures(c);
+        FactureFournisseur[] factures = this.getFactures(c);
         if(factures.length>0){
-            this.setMontant(AdminGen.calculSommeDouble(factures, "reste"));
+            this.setMontant(AdminGen.calculSommeDouble(factures, "montantreste"));
         }
         return super.createObject(u, c);
     }
@@ -369,10 +370,10 @@ public class OrdonnerPayement extends ClassEtat {
             jc.setTiers(this.getTiers());
 //            jc.setIddevise(Constante.deviseAr);
     
-            EtatFactureMontantDaty[] factures = this.getFactures(c);
+            FactureFournisseur[] factures = this.getFactures(c);
             if(factures != null && factures.length > 0) {
 //                System.out.println("devise " + factures[0].getIdDevise());
-                jc.setIddevise(factures[0].getIdDevise());
+                jc.setIddevise(factures[0].getDeviseMere());
             }     
             
             jc.createObject(u, c);
@@ -468,16 +469,38 @@ public class OrdonnerPayement extends ClassEtat {
         }
     }
     public void gererFF(String u,Connection c)throws Exception{
-        EtatFactureMontantDaty[] factures=this.getFactures(c);
+        FactureFournisseur[] factures=this.getFactures(c);
         if(factures.length>0){
             double montantTTc=AdminGen.calculSommeDouble(factures, "montantTTC");
-            double reste=AdminGen.calculSommeDouble(factures, "reste");
+            double reste=AdminGen.calculSommeDouble(factures, "montantreste");
             this.controlerMontant(montantTTc,reste, c);
             for (int i = 0; i < factures.length; i++) {
-                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getReste());
+                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getMontantreste());
                 liaison.createObject(u, c);
             }
         }
+    }
+    public LiaisonIntraTable[] getLiaisonIntratable(Connection c) throws Exception{
+        int verif = 0;
+        LiaisonIntraTable[] retour=null;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            retour=(LiaisonIntraTable[]) CGenUtil.rechercher(new LiaisonIntraTable(), null, null, c, " and id2='"+this.getId()+"'");
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return retour;
     }
     public void gererAvoirFC(String u,Connection c)throws Exception{
         AvoirFC[] avoirList=this.getAvoirFC(c);
@@ -516,7 +539,7 @@ public class OrdonnerPayement extends ClassEtat {
         return this;
     }
 
-    public EtatFactureMontantDaty[] getFactures(Connection c) throws Exception {
+    public FactureFournisseur[] getFactures(Connection c) throws Exception {
         int verif = 0;
         try {
             if (c == null) {
@@ -524,7 +547,9 @@ public class OrdonnerPayement extends ClassEtat {
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            if(this.getDed_Id()!=null) return (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, c, "and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
+            FactureFournisseur ff=new FactureFournisseur();
+            ff.setNomTable("factfourn_msum_lib");
+            if(this.getDed_Id()!=null) return (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, "and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
             return null;
         } catch (Exception e) {
             if (c != null && verif == 1) {
@@ -564,4 +589,40 @@ public class OrdonnerPayement extends ClassEtat {
     public String getValColLibelle() {
         return this.getId()+";"+this.getRemarque()+";"+this.getDed_Id()+";"+Utilitaire.formaterAr(this.getMontant())+";"+numeroop;
     }
+    public PaiementFacture[] genererPaiementFacture(Connection c, JournalCaisse jc) throws Exception{
+        int verif = 0;
+        PaiementFacture[] retour=null;
+        try{
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            LiaisonIntraTable[] listeLiaison=this.getLiaisonIntratable(c);
+            if(listeLiaison.length>0){
+                retour=new PaiementFacture[listeLiaison.length];
+                for(int i=0;i<listeLiaison.length;i++){
+                    PaiementFacture pf=new PaiementFacture();
+                    pf.setNomTable("paiementfactureF");
+                    pf.setIdMvt(jc.getId());
+                    pf.setIdFact(listeLiaison[i].getId1());
+                    double valeurPource=(100*listeLiaison[i].getMontant())/jc.getDebit();
+                    pf.setMontant((jc.getDebit()*valeurPource)/100);
+                    retour[i]=pf;
+                }
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return retour;
+    }
+    
+    
 }

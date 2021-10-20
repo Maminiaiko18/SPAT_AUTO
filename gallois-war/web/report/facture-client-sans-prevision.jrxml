@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="138"/>
+	<property name="ireport.y" value="173"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -572,7 +572,7 @@
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="285">
+		<band height="332">
 			<staticText>
 				<reportElement x="305" y="3" width="126" height="20" uuid="8cae0e4a-f680-459a-ac04-003da275ef22"/>
 				<textElement>
@@ -588,7 +588,7 @@
 				<text><![CDATA[Montant TVA 20% en Ar:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="305" y="43" width="126" height="20" uuid="2ca275cc-2747-402b-887d-1d6f86c957dc"/>
+				<reportElement x="305" y="63" width="126" height="20" uuid="2ca275cc-2747-402b-887d-1d6f86c957dc"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -605,27 +605,27 @@
 				<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="431" y="43" width="124" height="20" uuid="1d06c10e-6f55-45af-9430-95cb7cfb4e62"/>
+				<reportElement x="431" y="63" width="124" height="20" uuid="1d06c10e-6f55-45af-9430-95cb7cfb4e62"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{montantTTC}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="76" width="207" height="20" uuid="44c0541b-d06b-4c2a-ae6a-325e46e714f5"/>
+				<reportElement x="0" y="98" width="207" height="20" uuid="44c0541b-d06b-4c2a-ae6a-325e46e714f5"/>
 				<text><![CDATA[Arrêtée la présente facture à la somme de :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="207" y="76" width="347" height="37" uuid="081d1768-355e-4b05-84ee-26453e4a4d63"/>
+				<reportElement x="207" y="98" width="347" height="37" uuid="081d1768-355e-4b05-84ee-26453e4a4d63"/>
 				<textElement>
 					<font isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantlettre}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="132" width="100" height="20" uuid="07098315-ce40-4076-9fa1-8a57128ab2a3"/>
+				<reportElement x="0" y="154" width="100" height="20" uuid="07098315-ce40-4076-9fa1-8a57128ab2a3"/>
 				<text><![CDATA[Le Contrôleur]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="418" y="132" width="127" height="20" uuid="9a03b892-1a1b-46f1-a640-757c037d404c"/>
+				<reportElement x="418" y="154" width="127" height="20" uuid="9a03b892-1a1b-46f1-a640-757c037d404c"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Le Chef de Département]]></text>
 			</staticText>
@@ -669,6 +669,18 @@
 					<reportElement x="0" y="22" width="153" height="1" uuid="b3e0461f-51b8-4b38-abee-e074c8d9a319"/>
 				</line>
 			</frame>
+			<staticText>
+				<reportElement x="305" y="43" width="126" height="20" uuid="a9b1d451-dc96-4049-b828-f95b20c137c5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant Avoir en Ar : ]]></text>
+			</staticText>
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
+				<reportElement x="431" y="43" width="124" height="20" uuid="b9a87872-cf28-423c-b5f7-8d8d3e83f680"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{montantAvoir}]]></textFieldExpression>
+			</textField>
 		</band>
 	</lastPageFooter>
 </jasperReport>

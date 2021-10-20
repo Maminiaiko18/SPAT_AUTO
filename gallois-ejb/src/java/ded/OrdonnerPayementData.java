@@ -6,6 +6,7 @@
 package ded;
 
 import bean.CGenUtil;
+import facture.FactureFournisseur;
 import factureclient.PaiementFactureRemise;
 import facturefournisseur.EtatFactureMontantDaty;
 import facturefournisseur.RegulFacture;
@@ -20,6 +21,7 @@ import utilitaire.Utilitaire;
 public class OrdonnerPayementData {
     private double montant = 0;
     private String idfacture;
+
 
     public double getMontant() {
         return montant;
@@ -66,11 +68,12 @@ public class OrdonnerPayementData {
                         }
                     }
                     else{
-                       
-                        EtatFactureMontantDaty[] efd=(EtatFactureMontantDaty[])CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, c, " and id in ("+apres+")");
+                       FactureFournisseur ff=new FactureFournisseur();
+                       ff.setNomTable("factfourn_msum_lib");
+                        FactureFournisseur[] efd=(FactureFournisseur[])CGenUtil.rechercher(ff, null, null, c, " and id in ("+apres+")");
                         if(efd.length>0){
                             for(int i=0;i<efd.length;i++){
-                                this.montant+=efd[i].getReste();
+                                this.montant+=efd[i].getMontantreste();
                             }
                         }
                     }

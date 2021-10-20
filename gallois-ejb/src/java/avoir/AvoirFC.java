@@ -248,6 +248,7 @@ public class AvoirFC extends ClassMere {
     @Override
     public ClassMAPTable createObject(String u, Connection c)throws Exception
     {
+        this.setId(null);
         this.setCode(this.calculerCode(c));
         return super.createObject(u, c);
     }
@@ -356,7 +357,7 @@ public class AvoirFC extends ClassMere {
          
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        if(this.getType().equals("1")){
+        if(this.getType()!=null && this.getType().equals("1")){
             this.getFactureLiee("factureclient",c).annuler(c);
         }
         return super.validerObject(u, c); 

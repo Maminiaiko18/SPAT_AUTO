@@ -997,7 +997,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement x="0" y="1" width="31" height="29" uuid="9709acd6-11cf-49a6-8376-4b66505f2523"/>
+									<reportElement x="0" y="0" width="31" height="29" uuid="9709acd6-11cf-49a6-8376-4b66505f2523"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>

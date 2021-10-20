@@ -30,7 +30,6 @@ public class FactureClientDetails extends ClassFille {
     private String id,idmere;
     private double quantite,pu,taux;
     private String compte,idproduit, produit_lib,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib,rubrique;
-    private FactureClient mere;
     private double montant;
     private double montanttaux;
     private double montantavoirsanstaux;
@@ -70,7 +69,7 @@ public class FactureClientDetails extends ClassFille {
         this.categorieClientlib = categorieClientlib;
         this.activitelib = activitelib;
         this.rubrique = rubrique;
-        this.mere = mere;
+        this.setMere(mere);
         this.montant = montant;
         this.montanttaux = montanttaux;
         this.montantavoirsanstaux = montantavoirsanstaux;
@@ -408,7 +407,7 @@ public class FactureClientDetails extends ClassFille {
         this.categorieClientlib = categorieClientlib;
         this.activitelib = activitelib;
         this.rubrique = rubrique;
-        this.mere = mere;
+        this.setMere(mere);
         this.montant = montant;
         this.montanttaux = montanttaux;
         this.montantavoirsanstaux = montantavoirsanstaux;
@@ -539,7 +538,7 @@ public class FactureClientDetails extends ClassFille {
         return getTauxRecentNormal(c);
     }
     
-    private FactureClient findMere(Connection c) throws Exception {
+    public FactureClient findMere(Connection c) throws Exception {
         if(this.getMere() == null) {
             FactureClient fc = new FactureClient();
             fc.setId(this.getIdmere());
@@ -547,7 +546,7 @@ public class FactureClientDetails extends ClassFille {
             FactureClient[] tmp = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, "");
             
             if(tmp != null && tmp.length > 0) { 
-                this.mere = tmp[0];
+                this.setMere(tmp[0]);
                 return tmp[0];
             }
         }
@@ -656,13 +655,10 @@ public class FactureClientDetails extends ClassFille {
         this.designation = designation;
     }
 
+    @Override
     public FactureClient getMere() {
-        return mere;
+        return (FactureClient) super.getMere();
     }
-
-    /*public void setMere(FactureClient mere) {
-        this.mere = mere;
-    }*/
 
     public double getMontant() {
         return montant;

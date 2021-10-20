@@ -315,7 +315,10 @@ public class DetailsFactureFournisseur  extends ClassMAPTable{
     public void setTva(double tva) {
         this.tva = tva;
     }
-
+    public String getValColLibelle() {
+        return id;
+    }
+    
     
     
 }

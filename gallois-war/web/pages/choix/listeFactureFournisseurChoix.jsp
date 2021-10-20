@@ -5,14 +5,15 @@
 --%>
 
 <%@page import="facturefournisseur.EtatFactureMontantDaty"%>
+<%@page import="facture.FactureFournisseur"%>
 <%@page import="affichage.PageRechercheChoix"%>
 
 <%
     String champReturn = request.getParameter("champReturn");
-    EtatFactureMontantDaty ff = new EtatFactureMontantDaty();
-    ff.setNomTable("EtatFactureMontantDaty");
-    String libEntete[] = {"id", "daty", "nomfournisseur", "dateemission", "designation", "numfact", "datyecheance", "iddevise", "montantttc", "montantpaye", "reste", "etat"};
-    String listeCrt[] = {"daty", "nomfournisseur"};
+    FactureFournisseur ff = new FactureFournisseur();
+    ff.setNomTable("FACTFOURN_MSUM_LIB");
+    String libEntete[] = {"id","daty","tierslib", "code", "escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+    String listeCrt[] = {"id","daty"};
     String listeInt[] = {"daty"};
     PageRechercheChoix pr = new PageRechercheChoix(ff, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -21,7 +22,7 @@
     pr.setChampReturn(champReturn);
     pr.getFormu().getChamp("daty1").setLibelleAffiche("Date Min");
     pr.getFormu().getChamp("daty2").setLibelleAffiche("Date Max");
-    pr.getFormu().getChamp("nomfournisseur").setLibelleAffiche("Nom Fournisseur");
+    //pr.getFormu().getChamp("nomfournisseur").setLibelleAffiche("Nom Fournisseur");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -42,7 +43,9 @@
                 <% out.println(pr.getFormu().getHtmlEnsemble());%>
             </form>
             <%
-                String libelles[] = {"id", "date", "Fournisseur", "date &eacute;mission", "d&eacute;signation", "numero facture", "date &eacute;ch&eacute;ance", "devise", "Montant TTC", "Montant pay&eacute;", "Reste &agrave; payer", "&Eacute;tat"};
+                String libelles[] = {"id","daty","Client","Code", "Escale","Note explicative","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer"};
+           
+                //String libelles[] = {"id", "date", "Fournisseur", "date &eacute;mission", "d&eacute;signation", "numero facture", "date &eacute;ch&eacute;ance", "devise", "Montant TTC", "Montant pay&eacute;", "Reste &agrave; payer", "&Eacute;tat"};
                 pr.getTableau().setLibelleAffiche(libelles);
                 out.println(pr.getTableauRecap().getHtml());
             %>

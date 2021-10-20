@@ -1,0 +1,6 @@
+UPDATE SPAT_CAPITAINERIE.MENUDYNAMIQUE
+SET LIBELLE='Liste', ICONE='fa fa-list', HREF='/spat/pages/globalnegoce.jsp?but=treso/bon-provisoire-liste-vaovao.jsp', RANG=1, NIVEAU=5, ID_PERE='MEN00147'
+WHERE ID='MEN00148';
+UPDATE SPAT_CAPITAINERIE.MENUDYNAMIQUE
+SET LIBELLE='Saisie', ICONE='fa fa-plus', HREF='/spat/pages/globalnegoce.jsp?but=treso/bon-provisoire-saisie-vaovao.jsp', RANG=2, NIVEAU=5, ID_PERE='MEN00147'
+WHERE ID='MEN00149';

@@ -36,7 +36,13 @@
         pr.getFormu().getChamp("daty1").setDefaut(date1);
         pr.getFormu().getChamp("daty2").setDefaut(date2);
         
-        SituationCredit[] liste  = SituationCredit.findSituationCreditRecette(request.getParameter("id"),request.getParameter("designation"),request.getParameter("compte"),date1,date2, request.getParameter("etat"), null);
+        String reqniv = "2";
+
+        if(request.getParameter("niveau")!=null && request.getParameter("niveau").compareToIgnoreCase("")!=0){
+            reqniv = request.getParameter("niveau");
+        }                   
+        
+        SituationCredit[] liste  = SituationCredit.findSituationCreditRecette(request.getParameter("id"),request.getParameter("designation"),request.getParameter("compte"),date1,date2, request.getParameter("etat"), reqniv, null);
         System.out.println("liste : " + liste.length);
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
@@ -49,6 +55,22 @@
     function changerDesignation() {
         document.absence.submit();
     }
+    
+    function ajoutChampsNiveau(){
+        var d = document.getElementById("pagerecherche");
+        var inputanneeniv = "<div class='col-md-4'>\n\
+        <label for='anneestr'> Année </label>\n\
+        <input id='anneestr' class='form-control' name='anneestr' type='textbox' value='' onkeydown='return searchKeyPress(event)'>\n\
+        </div>";
+        
+        var inputniv = "<div class='col-md-4'>\n\
+        <label for='niveau'> Niveau </label>\n\
+        <input id='niveau' class='form-control' name='niveau' type='textbox' value='<%=reqniv%>' onkeydown='return searchKeyPress(event)'>\n\
+        </div>";        
+        //d.insertAdjacentHTML('beforeend', inputanneeniv);
+        d.insertAdjacentHTML('beforeend', inputniv);
+    }
+    window.onload = ajoutChampsNiveau;        
 </script>
 <div class="content-wrapper">
     <section class="content-header">
