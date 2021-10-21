@@ -57,7 +57,8 @@ try{
 //    listeFille[0] = new Liste("devise",devise, "val", "id");
 //    pi.getFormufle().changerEnChamp(listeFille);
     
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureClientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle;montant;montantDFTaux;devise");
+    
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureClientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle;montant;montantdf;devise");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idMere"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
@@ -97,6 +98,7 @@ try{
     
     mere = (AvoirFC) pi.getBase();
     pi.preparerDataFormu();
+    
 %>
 <div class="content-wrapper">
     <div class="row">

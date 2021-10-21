@@ -60,7 +60,7 @@
                             <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + livraison.getId()%>&acte=annulerVisa&bute=stock/bl/bondelivraison-fiche.jsp&classe=mg.spat.stock.BonDeLivraison&nomtable=AS_BONDELIVRAISON" style="margin-right:10px">Annuler</a>
                             <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/bondelivraison-modif.jsp&id=" + livraison.getId()%>" style="margin-right:10px">Modifier</a>
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.stock.BonDeLivraison&bute=stock/bl/bondelivraison-fiche.jsp&id=" + livraison.getId()%>" style="margin-right: 10px">Viser</a>
-                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-multiple.jsp&idBL=" + livraison.getId()%>" style="margin-right:10px">Facturer</a>
+                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idBL=" + livraison.getId()%>" style="margin-right:10px">Facturer</a>
 
                         </div>
                     </div>

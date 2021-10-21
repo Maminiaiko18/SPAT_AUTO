@@ -3,6 +3,7 @@
     Created on : 15 janv. 2021, 11:38:49
     Author     : Tsiory
 --%>
+<%@page import="facture.FactureFournisseur"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="facture.FactureClient"%>
 <%@ page import="user.*" %>
@@ -79,6 +80,15 @@
                 if(fact2 == null) throw new Exception("Erreur lors de la generation");
                 
                 apresLien = "facture/factureclient-modif.jsp&id=" + fact2.getId();
+            }
+            if (acte != null && acte.compareToIgnoreCase("genererDefinitiveFF") == 0) {
+                FactureFournisseur facture = new FactureFournisseur();
+                facture = (FactureFournisseur) facture.getById(idfacture, facture.getNomTable(), null);
+                
+                FactureClient fact2 = facture.genererDefinitive(u, 1, null);
+                if(fact2 == null) throw new Exception("Erreur lors de la generation");
+                
+                apresLien = "facture/facture-fournisseur-modif-vaovao.jsp&id=" + fact2.getId();
             }
             
             if (acte != null && acte.compareToIgnoreCase("genererProvision") == 0) {

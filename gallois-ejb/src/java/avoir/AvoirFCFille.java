@@ -153,8 +153,10 @@ public class AvoirFCFille extends ClassFille {
 
     public void setMontant(double montant) throws Exception {
         if (this.getMode().equalsIgnoreCase("modif")) {
+            if(montant < 0) throw new Exception("Montant negatif");
+            
             FactureClientDetails fc = getFactureClientDetail(null);
-            if (this.getRemise() > 0) {
+            if (fc != null && this.getRemise() > 0) {
                 montant = (fc.getMontantTTC() * this.getRemise()) / 100;
             }
         }

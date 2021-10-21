@@ -307,6 +307,27 @@ public class EtatProvision extends ClassMAPTable {
             }
         }
     }
+    public EtatProvision getEtatProvision(String nomtable,Connection c) throws Exception{
+        boolean verif = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            EtatProvision base = new EtatProvision();
+            base.setNomTable(nomtable);
+            EtatProvision[] result = (EtatProvision[]) CGenUtil.rechercher(base, null, null, c, String.format(" and id = '%s' ", this.getId()));
+//            EtatProvision[] result = (EtatProvision[]) CGenUtil.rechercher(base, null, null, c, String.format(" and id = '%s' ", this.getIdprovision()));
+            if(result.length > 0){
+                return result[0];
+            }
+            return null;
+        } finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+    }
 
     
 }
