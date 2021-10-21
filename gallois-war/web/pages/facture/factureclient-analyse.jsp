@@ -7,7 +7,7 @@
 <%
     try {
         FactureClient base = new FactureClient();
-        base.setNomTable("factureClientValide");
+        base.setNomTable("factureClientValide_v");
 
 
         String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib"};
