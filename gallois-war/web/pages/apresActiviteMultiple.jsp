@@ -45,12 +45,17 @@
     if (acte != null && acte.compareToIgnoreCase("saisieMICTSLmultiple") == 0) {
         int mois = Utilitaire.stringToInt(request.getParameter("mois"));
         int annee = Utilitaire.stringToInt(request.getParameter("annee"));
-
+        
+        String escale = request.getParameter("escale");
+        
+        
+//        System.out.println("date " + request.getParameter("daty"));
         Date date = Utilitaire.stringDate(request.getParameter("daty"));
+//        System.out.println("date " + date);
         String[] qte = request.getParameterValues("qte");
         String[] rub = request.getParameterValues("rubrique");
 
-        new Activite().creerActiviteMultiple(date, mois, annee, qte, rub, u, null);
+        new Activite().creerActiviteMultiple(date, mois, annee, escale, qte, rub, u, null);
 %>
 <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>");</script>
 <% }
