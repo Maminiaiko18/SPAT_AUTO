@@ -1,3 +1,4 @@
+<%@page import="affichage.PageRecherche"%>
 <%@page import="mg.spat.exploitant.Activite"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRechercheChoix"%>
@@ -34,7 +35,8 @@
         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
         //pr.getTableau().construire_libelle(champ, libelle_comp);
 
-        String html = pr.getTableau().getHtmlWithMultipleCheckbox();
+        pr.getTableau().setNameActe("facturerMultiple");
+        String html = pr.getTableau().getHtmlWithCheckbox();
         if (html != null) { 
     %>
         <form action="<%=pr.getLien()%>?but=apresActivite.jsp" method="post" name="frmchx" id="frmchx">
@@ -51,3 +53,6 @@
         e.printStackTrace();
     }
 %>
+<script>
+    $('#frmchx button[type="submit"]').html("Facturer");
+</script>
