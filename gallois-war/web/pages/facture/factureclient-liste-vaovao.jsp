@@ -51,7 +51,7 @@
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
         
         
-        String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+        String[] colSomme = {"montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
