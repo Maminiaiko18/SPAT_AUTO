@@ -50,7 +50,7 @@
         pc.getChampByName("montanttva").setLibelle("Montant TVA");
         pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
         pc.getChampByName("montantttcvrai").setLibelle("Montant TTC");
-        pc.getChampByName("montantttc").setLibelle("Net à paye");
+        pc.getChampByName("montantttc").setLibelle("Net à payer");
         pc.getChampByName("date_echeance").setLibelle("Date echeance");
         pc.getChampByName("montantpaye").setLibelle("Montant payé");
         pc.getChampByName("montantreste").setLibelle("Reste à payer");
