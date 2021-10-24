@@ -47,7 +47,7 @@ public class FactureClient extends ClassMere {
     private ArrayList<FactureClientDetails> arrayDetails;
     private String contact, adresse, etatLib, typelib;
     private FactureClientDetails[] listeDetails;
-    private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar;
+    private double deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar, montantttcvrai;
     private String idcategorie, idProvision, categorielib, idProvisionlib, iddefinitive;
     private String estDDPMICTSL;
     private String codePrestation, codePrestationlib, codeProvision;
@@ -56,6 +56,15 @@ public class FactureClient extends ClassMere {
     private double reduction;
     private double ecart;
 
+    public double getMontantttcvrai() {
+        return montantttcvrai;
+    }
+
+    public void setMontantttcvrai(double montantttcvrai) {
+        this.montantttcvrai = montantttcvrai;
+    }
+
+    
     public double getEcart() {
         return ecart;
     }
