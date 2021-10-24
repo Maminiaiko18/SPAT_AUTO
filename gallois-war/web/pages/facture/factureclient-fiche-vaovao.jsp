@@ -26,7 +26,7 @@
     try {
         UserEJB u = (user.UserEJB) session.getValue("u");
         FactureClient e = new FactureClient();
-        e.setNomTable("facture_client_union");
+        e.setNomTable("facture_client_union_ordre");
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE CLIENT");
 
@@ -37,13 +37,14 @@
         pc.getChampByName("Idcategorie").setVisible(false);
         pc.getChampByName("IdProvision").setVisible(true);
         pc.getChampByName("idProvisionlib").setVisible(false);
-        pc.getChampByName("montanttva").setVisible(false);
+//        pc.getChampByName("montanttva").setVisible(false);
         pc.getChampByName("tierslib").setLibelle("Tiers");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("montant").setLibelle("Montant HT");
         pc.getChampByName("montanttva").setLibelle("Montant TVA");
         pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
-        pc.getChampByName("montantttc").setLibelle("Montant TTC");
+        pc.getChampByName("montantttc").setLibelle("Net à paye");
+        pc.getChampByName("montantttcvrai").setLibelle("Montant TTC");
         pc.getChampByName("date_echeance").setLibelle("Date echeance");
         pc.getChampByName("montantpaye").setLibelle("Montant payé");
         pc.getChampByName("montantreste").setLibelle("Reste à payer");

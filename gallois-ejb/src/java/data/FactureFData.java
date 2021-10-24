@@ -56,7 +56,7 @@ public class FactureFData {
             EtatProvision restePov=etatProvision.getEtatProvision("etatbpvrai",conn);
             double reste=0;
             if(restePov!=null)reste=restePov.getEcart();
-            disabled = reste < 0;
+            disabled = reste <= 0;
             this.setLib(factClient.affLibelle(reste));
             this.setMontantTP(factClient.affResteProvision(reste));
         }catch(Exception e){

@@ -5,8 +5,10 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -106,6 +108,28 @@ public class Quais extends ClassMAPTable{
          this.preparePk("QUA", "GETSEQQUAIS");
         this.setId(makePK(c));
         
+    }
+    
+    public void checkDoublon(Connection c)throws Exception{
+        int verif = 0;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            Quais  q = new Quais();
+            String where = " and val like '%"+this.getVal()+"%'";
+            Quais[]result = (Quais[])CGenUtil.rechercher(q, null, null, c, where);
+            if(result.length > 0){
+                throw new Exception("Erreur doublon");
+            }
+        }catch(Exception ex){
+            throw ex;            
+        }finally{
+            if(c!=null){
+                c.close();
+            }
+        }
     }
     
 }

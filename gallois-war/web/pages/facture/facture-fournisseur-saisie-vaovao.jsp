@@ -97,8 +97,10 @@
         mois.setNomTable("mois");
         listed[1] = new Liste("mois", mois, "val", "id");
         listed[1].setApresW("order by id asc");
-    pi.getFormufle().changerEnChamp(listed);
-    
+        pi.getFormufle().changerEnChamp(listed);
+        if(livraisons.length>0){
+           pi.getFormu().getChamp("tiers").setDefaut(livraisons[0].getIdtiers());
+        }
     for( int i = 0 ; i < taille ; i++ ){
         pi.getFormufle().getChamp("idBLF_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
@@ -113,7 +115,7 @@
         if(i < livraisons.length) {
             pi.getFormufle().getChamp("idBLF_"+i).setDefaut(livraisons[i].getId());
             pi.getFormufle().getChamp("pu_"+i).setDefaut(Utilitaire.formaterAr(livraisons[i].getPu()));
-            pi.getFormufle().getChamp("quantite_"+i).setDefaut(Utilitaire.formaterAr(livraisons[i].getQuantite()));
+            pi.getFormufle().getChamp("quantite_"+i).setDefaut(Utilitaire.formaterAr(livraisons[i].getQuantiteReste()));
             pi.getFormufle().getChamp("tva_"+i).setDefaut(Utilitaire.formaterAr(livraisons[i].getTva()));
             pi.getFormufle().getChamp("designation_"+i).setDefaut(Utilitaire.champNull(livraisons[i].getProduit()));
         }
