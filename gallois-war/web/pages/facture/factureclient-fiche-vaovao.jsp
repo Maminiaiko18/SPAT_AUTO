@@ -196,6 +196,7 @@
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrent.jsp&id=" + e.getId()%>" style="margin-right: 10px">Récurrent</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture=" + id + "&vue=" + vue%>" style="margin-right: 10px">Entrée banque</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture=" + id + "&vue=" + vue%>" style="margin-right: 10px">Entrée caisse</a>
+                        <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/fille-multiple.jsp&idmere=" + id %>" style="margin-right: 10px">Scinder</a>
                     <hr>
                     <p><a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-client-saisie.jsp&idfacture=" + e.getId()%>" style="margin-right: 10px">Livrer</a></p>
                     <hr> 
