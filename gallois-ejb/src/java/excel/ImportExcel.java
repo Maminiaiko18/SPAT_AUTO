@@ -100,7 +100,7 @@ public class ImportExcel {
             sheet = workbook.getSheetAt(0);
             int indice = 19; // miala entet
             Row row = sheet.getRow(indice);
-            System.out.println("atooo p");
+            
             AdminActivite act = new AdminActivite();
             int[] colIlaina = {4,11,15,21}; 
             
