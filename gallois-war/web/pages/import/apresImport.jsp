@@ -62,6 +62,7 @@
                 
                 System.out.println("import Journalier");
                 System.out.println(file);
+                String idescale = null;
                 DiskFileItemFactory factory = new DiskFileItemFactory();
                 ServletFileUpload upload = new ServletFileUpload(factory);
                 List items = upload.parseRequest(request);
@@ -71,11 +72,18 @@
                     FileItem itemTemp = (FileItem) i.next();
                     if(!itemTemp.isFormField()) {
                         fichierExcel = itemTemp;
+                    }else {
+                        String name = itemTemp.getFieldName();
+                        String value = itemTemp.getString();
+                        
+                        if(name.equalsIgnoreCase("escale")) {
+                            idescale = value;
+                        }
                     }
                 }
                 
                 ImportExcel ex = new ImportExcel();
-                ArrayList<Activite> ls=ex.importJournalier(fichierExcel.getInputStream());
+                ArrayList<Activite> ls=ex.importJournalier(fichierExcel.getInputStream(),idescale);
                 System.out.println("liste.lenght==="+ls.size());
                 AdminActivite admin= new AdminActivite();
                 admin.insererActiviteMultiple(ls, u.getUser().getRefuser()+"", null);

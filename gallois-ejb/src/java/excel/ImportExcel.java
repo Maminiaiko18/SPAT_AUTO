@@ -96,7 +96,7 @@ public class ImportExcel {
         
     }
     
-    public ArrayList<Activite> importJournalier(InputStream fileUrl) throws Exception{
+    public ArrayList<Activite> importJournalier(InputStream fileUrl, String idescale) throws Exception{
         workbook = WorkbookFactory.create((fileUrl));
             sheet = workbook.getSheetAt(0);
             int indice = 19; // miala entet
@@ -162,6 +162,7 @@ public class ImportExcel {
                                 //System.out.println("20 Full");
                                 String idConteneur = act.Rubrique20Full(colIlaina[compteCol]);
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
+                                temp.setBateau(idescale);
                                 ls.add(temp);
                             
                             }
@@ -169,30 +170,35 @@ public class ImportExcel {
                                 ////System.out.println("20 E");
                                 String idConteneur = act.Rubrique20Empty(colIlaina[compteCol]);
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
+                                temp.setBateau(idescale);
                                 ls.add(temp);
                             }
                             if(rubrique.compareToIgnoreCase("40  Full")==0){
                                 //System.out.println("40 Full");
                                 String idConteneur = act.Rubrique40Full(colIlaina[compteCol]);
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
+                                temp.setBateau(idescale);
                                 ls.add(temp);
                             }
                             if(rubrique.compareToIgnoreCase("40  Empty")==0){
                                 //System.out.println("40 E");
                                 String idConteneur = act.Rubrique40Empty(colIlaina[compteCol]);
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
+                                temp.setBateau(idescale);
                                 ls.add(temp);
                             }
                             if(rubrique.compareToIgnoreCase("45  Full")==0){
                                 //System.out.println("45 Full");
                                 String idConteneur = act.Rubrique45Full(colIlaina[compteCol]);
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
+                                temp.setBateau(idescale);
                                 ls.add(temp);
                             }
                             if(rubrique.compareToIgnoreCase("45  Empty")==0){
                                 //System.out.println("45 E");
                                 String idConteneur = act.Rubrique45Empty(colIlaina[compteCol]);
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
+                                temp.setBateau(idescale);
                                 ls.add(temp);
                             }
                         }
