@@ -930,7 +930,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="112" height="29" uuid="61d7f2f9-2836-4966-a139-02882010df34"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="112" height="29" uuid="61d7f2f9-2836-4966-a139-02882010df34"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -964,7 +964,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="50" height="29" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="29" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -997,7 +997,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="31" height="29" uuid="9709acd6-11cf-49a6-8376-4b66505f2523"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="31" height="29" uuid="9709acd6-11cf-49a6-8376-4b66505f2523"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -1030,7 +1030,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="33" height="29" uuid="dad5ca26-e6cc-40f4-8216-90988376f31b"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="33" height="29" uuid="dad5ca26-e6cc-40f4-8216-90988376f31b"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -1064,7 +1064,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="32" height="29" uuid="d98b66ca-f11a-4f48-8cc6-60ed50be7d0d"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="32" height="29" uuid="d98b66ca-f11a-4f48-8cc6-60ed50be7d0d"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -1098,7 +1098,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="34" height="29" uuid="bfbd6226-2bf5-4abb-b8a4-df17fbb8e039"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="34" height="29" uuid="bfbd6226-2bf5-4abb-b8a4-df17fbb8e039"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -1132,7 +1132,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="47" height="29" uuid="8ad07146-4868-4cf2-9c5b-339789fb5c2f"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="47" height="29" uuid="8ad07146-4868-4cf2-9c5b-339789fb5c2f"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -1166,7 +1166,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="54" height="29" uuid="01ef0a35-35ed-41fb-849d-f3d8d30efcbb"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="54" height="29" uuid="01ef0a35-35ed-41fb-849d-f3d8d30efcbb"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -1200,7 +1200,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="35" height="29" uuid="b65857f3-8638-408e-b937-7a9fc4293856"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="35" height="29" uuid="b65857f3-8638-408e-b937-7a9fc4293856"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -1218,7 +1218,7 @@
 						<jr:column width="33" uuid="47610557-fece-42f6-8fdf-7a8cfb2ac599">
 							<jr:columnHeader height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="32" height="30" uuid="56a42f7f-e23f-4dfe-9ce4-aa6d28beb947"/>
+									<reportElement x="0" y="0" width="33" height="30" uuid="56a42f7f-e23f-4dfe-9ce4-aa6d28beb947"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -1234,7 +1234,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="32" height="29" uuid="5a672964-10f4-46bb-8b7b-ae81175288fc"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="33" height="29" uuid="5a672964-10f4-46bb-8b7b-ae81175288fc"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -1268,7 +1268,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="27" height="29" uuid="2cc5f71a-6daa-425d-89ce-e5f3900278f4"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="27" height="29" uuid="2cc5f71a-6daa-425d-89ce-e5f3900278f4"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -1303,7 +1303,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="24" height="29" uuid="1c71ac8d-8a59-46a3-8839-998d5e72155b"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="24" height="29" uuid="1c71ac8d-8a59-46a3-8839-998d5e72155b"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -1338,7 +1338,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="51" height="29" uuid="925db123-c3ab-480d-831d-9598e15bb29a"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="51" height="29" uuid="925db123-c3ab-480d-831d-9598e15bb29a"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
