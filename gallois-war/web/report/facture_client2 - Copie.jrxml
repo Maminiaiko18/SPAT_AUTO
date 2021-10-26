@@ -427,6 +427,9 @@
 			</textField>
 		</band>
 	</title>
+	<pageHeader>
+		<band height="59"/>
+	</pageHeader>
 	<detail>
 		<band height="74">
 			<componentElement>
