@@ -586,22 +586,25 @@ public class EtatPaieServlet extends HttpServlet {
         try{
             JournalCaisseMode jc = new JournalCaisseMode();
             jc.setId(request.getParameter("id"));
-            jc.setNomTable("JOURNALCAISSE_BANQUE");
+            jc.setNomTable("JOURNALCAISSELIBCOMPLET");
             JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher( jc , null, null, " ") ;
                 
             String idFacture = request.getParameter("idFacture");
-            FactureAnalyse facture = new FactureAnalyse();
-            facture.setNomTable("facture_client_union");
-            facture.setNmfact(idFacture);
-            FactureAnalyse[] tabFact = (FactureAnalyse[]) CGenUtil.rechercher( facture , null, null, "  ") ;
+            FactureClient facture = new FactureClient();
+            facture.setNomTable("factureclientmsum_lib");
+            String where = " and id = '%s'";
+            if (tabJournal.length>0){
+                where = String.format(where, tabJournal[0].getIdplacement());   
+            }            
+            FactureClient[] tabFact = (FactureClient[]) CGenUtil.rechercher( facture , null, null, where) ;
             Map param = new HashMap();   
             param.put("datyJ",Utilitaire.dateDuJourSql());
             if(tabFact.length > 0){
-                param.put("nmFact",tabFact[0].getNmfact());
-                param.put("montant",tabFact[0].getMttc());
+                param.put("nmFact",tabFact[0].getCode());
+                param.put("montant",tabFact[0].getMontantttcvrai());
                 param.put("datyFact",tabFact[0].getDaty());
                 
-                String montantString = String.valueOf((long)tabFact[0].getMttc());
+                String montantString = String.valueOf((long)tabFact[0].getMontantttcvrai());
                 long montantLong = Long.valueOf(montantString);
 
                 param.put("montantLettre",ChiffreLettre.convertIntToString(montantLong)+" Ariary ");
@@ -618,14 +621,14 @@ public class EtatPaieServlet extends HttpServlet {
             }
             if(tabJournal.length > 0){
                 param.put("numPiece",tabJournal[0].getNumPiece());
-                param.put("client",tabJournal[0].getTiers());
+                param.put("client",tabJournal[0].getTiersLib());
                 param.put("operation",tabJournal[0].getLibelle());
                 param.put("datyPiece",tabJournal[0].getDateEffet());
             }
             String nomJasper = "piece_de_caisse";
             if(tabJournal[0].getIdmode().equalsIgnoreCase("pay1") == false){
                 nomJasper = "piece_de_caisse_banque";
-                param.put("banque","");
+                param.put("banque",tabJournal[0].getIdbanquelib());
                 param.put("numCheque",tabJournal[0].getNumcheque());
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
