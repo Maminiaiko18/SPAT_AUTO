@@ -90,15 +90,15 @@
                             <%if(jcaisse.getEtat() != ConstanteEtat.getEtatValider()){%>
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=treso/journalcaisse-fiche.jsp&classe=mg.spat.JournalCaisse">Viser</a>
                             <%}%>
-                            <%
+                            <%                                
                             if(jcaisse.getCredit()!=0){
                             %>
-                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseDepense&idop=<%=jcaisse.getIdordre()%>&id=<%=id%>" style="margin-right: 10px">imprimer pièce de caisse</a>
+                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseRecette&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pièce de caisse</a>
                             <%
                             }
                             else if(jcaisse.getDebit()!=0){
                             %>
-                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseRecette&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pièce de caisse</a>
+                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseDepense&idop=<%=jcaisse.getIdordre()%>&id=<%=id%>" style="margin-right: 10px">imprimer pièce de caisse</a>
                             <%
                             }
                             %>
