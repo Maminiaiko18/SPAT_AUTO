@@ -817,4 +817,17 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
         return null;
     }
+    String genererCodeType()
+    {
+        String result="";
+        if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00001")==0)
+        {
+            result = "1";
+        }
+        if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00002")==0)
+        {
+            result = "3";
+        }
+        return result;
+    }
 }
