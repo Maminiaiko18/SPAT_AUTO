@@ -1625,7 +1625,32 @@ public class FactureClient extends ClassMere {
             }            
         }
     }
-    
+    public static FactureClient scinder(String mere, String[] idfille,Connection c) throws Exception{
+        int verif = 0;
+        FactureClient fact2 = null;
+        try {
+                if (c == null) {
+                    c = (new UtilDB()).GetConn();
+                    c.setAutoCommit(false);
+                    verif = 1;
+                }
+            FactureClient fc= (FactureClient) new FactureClient().getById(mere, "Factureclient", c);
+            fact2=fc.scinder(idfille, c);
+        if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return fact2;
+    }
     public FactureClient scinder(String[] idfille,Connection c) throws Exception{
     int verif = 0;
         try {
