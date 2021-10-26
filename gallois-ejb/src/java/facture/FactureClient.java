@@ -1602,4 +1602,27 @@ public class FactureClient extends ClassMere {
             }
         }
     }
+    
+    public FactureClientDetails[] getFilles(String [] idfille, Connection c)throws Exception{
+        int verif = 0;
+        try{
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            utilitaire.Utilitaire.tabToString(idfille, code, iduser);
+            FactureClientDetails fcd = new FactureClientDetails();
+            fcd.setNomTable("facture_client_fille");
+            String awhere = String.format(" and id in (%s)", utilitaire.Utilitaire.tabToString(idfille, "'", ","));
+            FactureClientDetails[] result = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, awhere);            
+            return result;
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if (c != null && verif == 1) {
+                c.close();
+            }            
+        }
+    }
 }
