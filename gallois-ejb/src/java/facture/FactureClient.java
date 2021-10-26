@@ -1625,4 +1625,86 @@ public class FactureClient extends ClassMere {
             }            
         }
     }
+    
+    public FactureClient scinder(String[] idfille,Connection c) throws Exception{
+    int verif = 0;
+        try {
+                if (c == null) {
+                    c = (new UtilDB()).GetConn();
+                    c.setAutoCommit(false);
+                    verif = 1;
+                }
+                FactureClient fc = new FactureClient( daty, date_echeance,  tiers,  designation,  type,  remarque,  iduser,  idprevision,  escale,  deviseMere,  tva,  montant, montanttva,  montantttc,  montantpaye,  montantreste,  tierslib,  montantavoir, contact,  adresse,  etatLib,  typelib,  deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar, montantttcvrai, idcategorie, idProvision, categorielib, idProvisionlib, iddefinitive,  estDDPMICTSL, codePrestation, codePrestationlib, codeProvision, code,  estMictsl,  reduction, ecart);
+                fc.construirePK(c);
+                fc.insertToTableWithHisto(iduser,c);
+                FactureClientDetails[] filles =   getFilles(idfille,  c); 
+                for(int i=0; i<filles.length; i++ )
+                {
+                     filles[i].setIdmere(fc.getId());
+                     filles[i].updateToTableWithHisto(iduser, c);
+                
+                }
+                        
+                return fc;      
+        }catch(Exception e){
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        }finally{
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
+    public FactureClient(Date daty, Date date_echeance, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String escale, String deviseMere, double tva, double montant, double montanttva, double montantttc, double montantpaye, double montantreste, String tierslib, double montantavoir, String contact, String adresse, String etatLib, String typelib, double deviseEuro, double deviseDollar, double coeff, double montantHTEuro, double montantTVAEuro, double montantHTVADollar, double montantTVADollar, double montantTTCDollar, double montantttcvrai, String idcategorie, String idProvision, String categorielib, String idProvisionlib, String iddefinitive, String estDDPMICTSL, String codePrestation, String codePrestationlib, String codeProvision, String code, String estMictsl, double reduction, double ecart) {
+        this.daty = daty;
+        this.date_echeance = date_echeance;
+        this.tiers = tiers;
+        this.designation = designation;
+        this.type = type;
+        this.remarque = remarque;
+        this.iduser = iduser;
+        this.idprevision = idprevision;
+        this.escale = escale;
+        this.deviseMere = deviseMere;
+        this.tva = tva;
+        this.montant = montant;
+        this.montanttva = montanttva;
+        this.montantttc = montantttc;
+        this.montantpaye = montantpaye;
+        this.montantreste = montantreste;
+        this.tierslib = tierslib;
+        this.montantavoir = montantavoir;
+        this.contact = contact;
+        this.adresse = adresse;
+        this.etatLib = etatLib;
+        this.typelib = typelib;
+        this.deviseEuro = deviseEuro;
+        this.deviseDollar = deviseDollar;
+        this.coeff = coeff;
+        this.montantHTEuro = montantHTEuro;
+        this.montantTVAEuro = montantTVAEuro;
+        this.montantHTVADollar = montantHTVADollar;
+        this.montantTVADollar = montantTVADollar;
+        this.montantTTCDollar = montantTTCDollar;
+        this.montantttcvrai = montantttcvrai;
+        this.idcategorie = idcategorie;
+        this.idProvision = idProvision;
+        this.categorielib = categorielib;
+        this.idProvisionlib = idProvisionlib;
+        this.iddefinitive = iddefinitive;
+        this.estDDPMICTSL = estDDPMICTSL;
+        this.codePrestation = codePrestation;
+        this.codePrestationlib = codePrestationlib;
+        this.codeProvision = codeProvision;
+        this.code = code;
+        this.estMictsl = estMictsl;
+        this.reduction = reduction;
+        this.ecart = ecart;
+    }
+
+    
+    
 }
