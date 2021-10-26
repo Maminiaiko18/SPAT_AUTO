@@ -13,6 +13,7 @@ import fin.Coursdevise;
 import java.sql.Connection;
 import utilitaire.UtilDB;
 import mg.amadia.stock.EtatdeStockDate;
+import mg.spat.EtatCaisseBP;
 
 /**
  *
@@ -353,6 +354,11 @@ public class SituationComptesData {
         }
 
         return situations;
+    }
+    
+    public double getBonProvisoire(Connection c) throws Exception{
+        EtatCaisseBP[] ls = (EtatCaisseBP[]) CGenUtil.rechercher(new EtatCaisseBP(), null, null, c, "");
+        return ls[0].getMontant();
     }
 
 //    public SituationCaisse[] getSituationDevise(Connection c, String nomTable, String devise) throws Exception {
