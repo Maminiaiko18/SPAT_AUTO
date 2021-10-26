@@ -17,18 +17,29 @@
 <%
     String id = request.getParameter("id");
     JournalCaisse jc = new JournalCaisse();
-    jc.setNomTable("JOURNALCAISSE_LIB");
+    jc.setNomTable("JOURNALCAISSELIBCOMPLET");
     PageConsulte pc = new PageConsulte(jc, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
-    pc.setTitre("Fiche Journal Caisse");
-    pc.getChampByName("dateSaisie").setVisible(false);
-    pc.getChampByName("idbanque").setVisible(false);    
-    pc.getChampByName("credit").setLibelle("Débit");
-    pc.getChampByName("debit").setLibelle("Crédit");
-    pc.getChampByName("dateEffet").setLibelle("Date");
+    pc.setTitre("Fiche Journal de Caisse");
+    pc.getChampByName("dateSaisie").setLibelle("Date de Saisie");
+    pc.getChampByName("idbanque").setVisible(false); 
+    pc.getChampByName("idbanque").setVisible(false);
+    pc.getChampByName("caisse").setVisible(false);
+    pc.getChampByName("idmode").setVisible(false);
+    pc.getChampByName("idTypeCheque").setVisible(false);
+    pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("credit").setLibelle("Entree");
+    pc.getChampByName("debit").setLibelle("Sortie");
+    pc.getChampByName("dateEffet").setLibelle("Date D'effet");
     pc.getChampByName("numPiece").setLibelle("Num&eacute;ro pi&egrave;ce");
     pc.getChampByName("idTypeCheque").setLibelle("Type ch&egrave;que");
     pc.getChampByName("idplacement").setLibelle("Source");
-    pc.getChampByName("idbanquelib").setLibelle("Banque");    
+    pc.getChampByName("idbanquelib").setLibelle("Banque"); 
+     pc.getChampByName("valTypeCheque").setLibelle("Type chèque");
+     pc.getChampByName("tierslib").setLibelle("tiers");
+    pc.getChampByName("idDevise").setLibelle("devise");
+    pc.getChampByName("valCaisse").setLibelle("caisse");
+    pc.getChampByName("DESCETYPECHEQUE").setLibelle("mode de paiement");
+    pc.getChampByName("idordre").setLibelle("OP");
     JournalCaisse jcaisse = (JournalCaisse)pc.getBase();
     if(jcaisse.getIdplacement()!=null){
         if(jcaisse.getIdplacement().startsWith("PLC")){
@@ -46,7 +57,7 @@
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
     String dossier = "journal";
-    Caisse[] caisse = (Caisse[])CGenUtil.rechercher(new Caisse(), null, null,null, " and val like '"+jcaisse.getCaisse()+"'");
+    Caisse[] caisse = (Caisse[])CGenUtil.rechercher(new Caisse(), null, null,null, " and val like '"+jcaisse.getValCaisse()+"'");
     
     String listeCrt[] = {};
     String listeInt[] = {};
@@ -67,7 +78,7 @@
         <div class="col-md-6">
             <div class="box">
                 <div class="box-title with-border">
-                    <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=treso/journalcaisse-liste.jsp"><i class="fa fa-arrow-circle-left"></i></a> Fiche Journal caisse</h1>
+                    <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=treso/journalcaisse-liste.jsp"><i class="fa fa-arrow-circle-left"></i></a> Fiche Journal de Caisse</h1>
                 </div>
                 <div class="box-body">
                     <%
