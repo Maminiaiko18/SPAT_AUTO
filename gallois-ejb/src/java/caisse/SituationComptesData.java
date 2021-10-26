@@ -38,6 +38,7 @@ public class SituationComptesData {
     private EtatdeStockDate[] recapitulatifPlacement;
     private double totalTresorerie;
     private double totalPlacement;
+    private double montantBP;
     private double total;
 
     public double getTotal() {
@@ -46,6 +47,14 @@ public class SituationComptesData {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public double getMontantBP() {
+        return montantBP;
+    }
+
+    public void setMontantBP(double montantBP) {
+        this.montantBP = montantBP;
     }
 
     public double getTotalTresorerie() {
@@ -197,7 +206,9 @@ public class SituationComptesData {
 
             totalTresorerie = getTotalPlacement(recapitulatifComptes);
             totalPlacement = getTotalPlacement(recapitulatifPlacement);
-
+            
+            montantBP = getBonProvisoire(c);
+            
             total = totalTresorerie + totalPlacement;
         } catch (Exception e) {
             throw e;
