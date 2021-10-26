@@ -103,6 +103,7 @@
         map.put("facturesdefinitives", "");
         map.put("provision-facturesdefinitives", "");
         map.put("regularisation", "");
+        map.put("etat-provision", "");
         String tab = request.getParameter("tab");
         if (tab == null) {
             tab = "facture-client-fille";
@@ -287,6 +288,7 @@
                         <% if (e.getIdcategorie().equals(Constante.idCategorieFCProvision)) {%>
                     <li class="<%= map.get("facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesdefinitives">Factures d&eacute;finitives</a></li>
                     <li class="<%= map.get("regularisation")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=regularisation&idProvision=<%=e.getId()%>">Régularisation</a></li>
+                    <li class="<%= map.get("etat-provision")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=etat-provision&idProvision=<%=e.getId()%>">Etat de provision</a></li>
                         <% } %>
                         <% if (e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {%>
                     <li class="<%= map.get("provision-facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=provision-facturesdefinitives">Provisions</a></li>
