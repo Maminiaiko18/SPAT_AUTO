@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse_banque" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1aeaf117-a05d-4327-8a4b-0e54fb8087cd">
 	<property name="ireport.zoom" value="1.1000000000000048"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="105"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="datyJ" class="java.util.Date"/>
 	<parameter name="numPiece" class="java.lang.String"/>
 	<parameter name="client" class="java.lang.String"/>
@@ -74,21 +74,21 @@
 	<pageHeader>
 		<band height="343" splitType="Stretch">
 			<staticText>
-				<reportElement x="123" y="20" width="82" height="20" uuid="f69ff7db-e59b-4314-8a8b-491cb1c2ba1b"/>
+				<reportElement x="87" y="20" width="147" height="20" uuid="f69ff7db-e59b-4314-8a8b-491cb1c2ba1b"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[N° Pièce :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="123" y="40" width="95" height="20" uuid="01be95c3-5254-4c0d-ba50-424aa122e97b"/>
+				<reportElement x="87" y="40" width="147" height="20" uuid="01be95c3-5254-4c0d-ba50-424aa122e97b"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Nom du Client :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="123" y="100" width="82" height="20" uuid="09300264-554c-4e28-86b7-fef7fb3a3d45"/>
+				<reportElement x="87" y="100" width="147" height="20" uuid="09300264-554c-4e28-86b7-fef7fb3a3d45"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -242,21 +242,21 @@
 				<text><![CDATA[Ar]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="284" width="247" height="20" uuid="453e1b28-83fd-4704-be89-352f2c2b45e0"/>
+				<reportElement x="0" y="284" width="302" height="20" uuid="453e1b28-83fd-4704-be89-352f2c2b45e0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Arretée la présente pièce à la somme de :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="247" y="284" width="308" height="44" uuid="9b1abdc7-ba32-4602-8844-1fc09e297e3a"/>
+				<reportElement x="302" y="284" width="253" height="44" uuid="9b1abdc7-ba32-4602-8844-1fc09e297e3a"/>
 				<textElement verticalAlignment="Top">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantLettre}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="123" y="60" width="82" height="20" uuid="39bbbeeb-48ab-4244-819b-ef2ee5aaea1e"/>
+				<reportElement x="87" y="60" width="147" height="20" uuid="39bbbeeb-48ab-4244-819b-ef2ee5aaea1e"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -270,7 +270,7 @@
 				<textFieldExpression><![CDATA[$P{banque}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="123" y="80" width="124" height="20" uuid="60a31ce9-48c0-4c89-bf79-5591f47b0d75"/>
+				<reportElement x="87" y="80" width="147" height="20" uuid="60a31ce9-48c0-4c89-bf79-5591f47b0d75"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
