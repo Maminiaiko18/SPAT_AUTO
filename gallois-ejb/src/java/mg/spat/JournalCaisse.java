@@ -15,6 +15,7 @@ import facture.EtatProvision;
 import facture.FactureClient;
 import facture.FactureFournisseur;
 import facture.PaiementFacture;
+import facture.UtilitaireFacture;
 import factureclient.PayementFacture;
 import facturefournisseur.RegulFacture;
 import java.sql.Connection;
@@ -829,5 +830,14 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             result = "3";
         }
         return result;
+    }
+    
+    public String calculerNumeroPiece(Connection c) throws Exception{
+        String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
+        return Utilitaire.genererAnnee(dateEffetStr) + 
+                Utilitaire.genererMois(dateEffetStr) + "-" + 
+                genererCodeModePaiement() + "-" + 
+                UtilitaireFacture.genererSequence(c, "numeropiece",7,dateEffetStr);
+
     }
 }

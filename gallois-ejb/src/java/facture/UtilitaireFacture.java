@@ -13,7 +13,7 @@ import utilitaire.Utilitaire;
 
 public class UtilitaireFacture {
  
-    public String genererSequence(Connection c, String nomtable, int longueur,String date) throws Exception {
+    public static String genererSequence(Connection c, String nomtable, int longueur,String date) throws Exception {
         //String daty = Utilitaire.datetostring(date);
         
         String sequence = "1";
