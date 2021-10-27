@@ -589,6 +589,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     genererPaiement(c, refuser);
                 }
             }
+            String numeroPiece = calculerNumeroPiece(c);
+            this.setNumPiece(numeroPiece);
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
 
