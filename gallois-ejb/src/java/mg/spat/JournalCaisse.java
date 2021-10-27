@@ -808,4 +808,13 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 c.close();
         }
     }
+    
+    public String genererCodeModePaiement(){
+        if(this.getIdmode().compareToIgnoreCase("pay1") == 0){
+            return "E";
+        }else if(this.getIdmode().compareToIgnoreCase("pay2") == 0){
+            return "C";
+        }
+        return null;
+    }
 }
