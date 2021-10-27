@@ -66,6 +66,7 @@
         TypeObjet esc = new TypeObjet();
         esc.setNomTable("CAISSE_LIB");
         liste[0] = new Liste("caisse", esc, "VAL", "id");
+        liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
         TypeObjet cheque = new TypeObjet();
         cheque.setNomTable("TYPECHEQUE");
         liste[1] = new Liste("idTypeCheque", cheque, "VAL", "id");
