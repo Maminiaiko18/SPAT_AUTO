@@ -553,6 +553,7 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("direction",tabFact[0].getDirection());
                     param.put("departement",tabFact[0].getDepartement());
                     param.put("service",tabFact[0].getService());
+                    param.put("tiers",tabFact[0].getTierslib());
                 }
                 LiaisonIntraTable liaison = new LiaisonIntraTable();
                 liaison.setNomTable("LIAISONINTRATABLE");
@@ -563,16 +564,17 @@ public class EtatPaieServlet extends HttpServlet {
             }else{
                 JournalCaisse jc = new JournalCaisse();
                 jc.setId(request.getParameter("id"));
-                jc.setNomTable("JOURNALCAISSE_LIB");
+                jc.setNomTable("JOURNALCAISSELIBCOMPLET");
                 JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher( jc , null, null, " ") ;
                 if(tabJournal.length > 0){
                     param.put("daty",tabJournal[0].getDateEffet());
-                    param.put("montant",tabJournal[0].getCredit());
-                    String montantString = String.valueOf((long)tabJournal[0].getCredit());
+                    param.put("montant",tabJournal[0].getDebit());
+                    String montantString = String.valueOf((long)tabJournal[0].getDebit());
                     long montantLong = Long.valueOf(montantString);
                     param.put("montant_lettre",(ChiffreLettre.convertIntToString(montantLong)+" ARIARY ").toUpperCase());
                     param.put("facture_lib",tabJournal[0].getLibelle());
-                    param.put("facture_montant",tabJournal[0].getCredit());
+                    param.put("facture_montant",tabJournal[0].getDebit());
+                    param.put("tiers",tabJournal[0].getTiersLib());
                 }
                 
             }

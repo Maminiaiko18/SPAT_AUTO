@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse_depenses" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48507b75-f3ed-4992-8bc5-60c122b5167c">
 	<property name="ireport.zoom" value="2.200000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="410"/>
+	<property name="ireport.y" value="364"/>
 	<parameter name="libelle" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
 	<parameter name="daty" class="java.util.Date"/>
@@ -12,6 +12,7 @@
 	<parameter name="direction" class="java.lang.String"/>
 	<parameter name="departement" class="java.lang.String"/>
 	<parameter name="service" class="java.lang.String"/>
+	<parameter name="tiers" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -1446,7 +1447,7 @@
 				<textFieldExpression><![CDATA[$P{facture_lib}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="213" y="135" width="112" height="15" uuid="73828f14-00b5-448f-b1fd-fe03fbc1abbe"/>
+				<reportElement x="210" y="136" width="111" height="15" uuid="73828f14-00b5-448f-b1fd-fe03fbc1abbe"/>
 				<textElement textAlignment="Right" verticalAlignment="Top" markup="none">
 					<font size="9" isBold="false"/>
 				</textElement>
@@ -1463,7 +1464,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[TOTAL]]></text>
+				<text><![CDATA[TOTAL Ar]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="239" width="122" height="15" uuid="2a69c1ee-6ca7-4448-898d-4c0df230ff21"/>
@@ -1534,6 +1535,20 @@
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{service}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="256" width="122" height="31" uuid="cf77dd46-4fd6-46de-93a1-9af768b85061"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tiers}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="210" y="224" width="111" height="15" uuid="58f3c461-b3e1-4ccc-b29a-0ce00d7a7fa7"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" markup="none">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{facture_montant}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
