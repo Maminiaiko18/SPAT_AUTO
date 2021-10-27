@@ -13,6 +13,7 @@ import fin.Coursdevise;
 import java.sql.Connection;
 import utilitaire.UtilDB;
 import mg.amadia.stock.EtatdeStockDate;
+import mg.spat.EtatCaisseBP;
 
 /**
  *
@@ -37,6 +38,7 @@ public class SituationComptesData {
     private EtatdeStockDate[] recapitulatifPlacement;
     private double totalTresorerie;
     private double totalPlacement;
+    private double montantBP;
     private double total;
 
     public double getTotal() {
@@ -45,6 +47,14 @@ public class SituationComptesData {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public double getMontantBP() {
+        return montantBP;
+    }
+
+    public void setMontantBP(double montantBP) {
+        this.montantBP = montantBP;
     }
 
     public double getTotalTresorerie() {
@@ -196,7 +206,9 @@ public class SituationComptesData {
 
             totalTresorerie = getTotalPlacement(recapitulatifComptes);
             totalPlacement = getTotalPlacement(recapitulatifPlacement);
-
+            
+            montantBP = getBonProvisoire(c);
+            
             total = totalTresorerie + totalPlacement;
         } catch (Exception e) {
             throw e;
@@ -353,6 +365,11 @@ public class SituationComptesData {
         }
 
         return situations;
+    }
+    
+    public double getBonProvisoire(Connection c) throws Exception{
+        EtatCaisseBP[] ls = (EtatCaisseBP[]) CGenUtil.rechercher(new EtatCaisseBP(), null, null, c, "");
+        return ls[0].getMontant();
     }
 
 //    public SituationCaisse[] getSituationDevise(Connection c, String nomTable, String devise) throws Exception {
