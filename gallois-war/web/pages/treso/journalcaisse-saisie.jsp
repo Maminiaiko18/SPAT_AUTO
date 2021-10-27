@@ -130,13 +130,17 @@
                 pi.getFormu().getChamp("debit").setDefaut("" + Utilitaire.formaterAr("" + preremplie.getReste()));
 
             }
-            OrdonnerPayement[] ord = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, null, " and id = '" + request.getParameter("id") + "'");
+            OrdonnerPayement ordP = new OrdonnerPayement();
+            ordP.setNomTable("ORDONNERPAYEMENT_TIERSLIB");
+            OrdonnerPayement[] ord = (OrdonnerPayement[]) CGenUtil.rechercher(ordP, null, null, null, " and id = '" + request.getParameter("id") + "'");
             if (ord.length > 0) {
                 pi.getFormu().getChamp("designation").setDefaut(ord[0].getRemarque());
                 pi.getFormu().getChamp("libelle").setDefaut(ord[0].getRemarque());
 
                 pi.getFormu().getChamp("idordre").setDefaut(ord[0].getId());
                 pi.getFormu().getChamp("idordre").setValeurLibelle(ord[0].getRemarque());
+                pi.getFormu().getChamp("tiers").setDefaut(ord[0].getTiers());
+                pi.getFormu().getChamp("tiers").setValeurLibelle(ord[0].getTierslib());
                 pi.getFormu().getChamp("idmode").setDefaut(ord[0].getModepaiement());
                 if (request.getParameter("entree") != null) {
                     pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + ord[0].getMontant()));
