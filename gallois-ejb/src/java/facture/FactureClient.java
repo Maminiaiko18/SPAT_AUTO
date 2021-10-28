@@ -1694,7 +1694,8 @@ public class FactureClient extends ClassMere {
                 verif = 1;
             }
             FactureClient cc = new FactureClient();
-            String requete = "select tiers,tierslib,sum(montantreste) as montant  "
+            cc.setNomTable("factureclientgroupvide");
+            String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,3)) as montant  "
                     + " from FACTURECLIENTMSUM_LIBV "
                     + " where id in('"+ids.replace(";", "','")+"') group by tiers,tierslib";
             FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(cc, requete, c);
@@ -1711,9 +1712,11 @@ public class FactureClient extends ClassMere {
 
     public static FactureClient grouperFacture(String ids, Connection c) throws Exception{
         FactureClient[] factures = getFactures(ids,c);
+        if(factures == null || factures.length == 0) throw new Exception("Factures introuvables ou non visees");
         if(factures.length > 1) throw new Exception("Client differents!");
-        else if(factures.length == 0) throw new Exception("Factures introuvables ou non visees");
-        else if(factures.length == 1) return factures[0];
+        else if(factures.length == 1) { 
+            return factures[0];
+        }
         return null;
     }
 
