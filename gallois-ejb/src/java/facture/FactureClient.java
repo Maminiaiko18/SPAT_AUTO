@@ -1625,7 +1625,7 @@ public class FactureClient extends ClassMere {
             }            
         }
     }
-    public static FactureClient scinder(String mere, String[] idfille,Connection c) throws Exception{
+    public FactureClient scinder(String mere, String[] idfille,Connection c) throws Exception{
         int verif = 0;
         FactureClient fact2 = null;
         try {
@@ -1635,6 +1635,7 @@ public class FactureClient extends ClassMere {
                     verif = 1;
                 }
             FactureClient fc= (FactureClient) new FactureClient().getById(mere, "Factureclient", c);
+            if(fc.getEtat() >= 11) throw new Exception("Une facture visee ne peut etre scindee");
             fact2=fc.scinder(idfille, c);
         if (verif == 1) {
                 c.commit();

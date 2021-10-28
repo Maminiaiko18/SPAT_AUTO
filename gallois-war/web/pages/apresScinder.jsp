@@ -69,7 +69,7 @@
             int type = Utilitaire.stringToInt(typeBoutton);
             if (acte != null && acte.compareToIgnoreCase("scinder") == 0) {
                 String param=request.getParameter("param");
-                FactureClient f = FactureClient.scinder(param,tId, null);
+                FactureClient f = new FactureClient().scinder(param,tId, null);
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=facture/factureclient-modif.jsp&id=<%=f.getId()%>");</script>
     <% }
