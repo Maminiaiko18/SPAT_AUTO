@@ -1429,9 +1429,9 @@ public class FactureClient extends ClassMere {
                 + Utilitaire.genererMois(daty)
                 + genererLettreMictsl(c)
 //                + genererSequence(c, "NUMEROFACTUREMCTSL", 6);
-                + genererSequence(c, "NUMEROFACTUREMCTSL_PARDATE", 6);
+                + new UtilitaireFacture().genererSequence(c, "NUMEROFACTUREMCTSL_PARDATE", 6, daty);
     }
-
+/*
     public String genererSequence(Connection c, String nomtable, int longueur) throws Exception {
         String daty = Utilitaire.datetostring(this.getDaty());
         
@@ -1450,7 +1450,7 @@ public class FactureClient extends ClassMere {
         
         return Utilitaire.completerInt(longueur, sequence);
     }
-
+*/
     public String calculerCodeSimple(Connection c) throws Exception {
         String daty = Utilitaire.datetostring(this.getDaty());
         String code = "";
@@ -1460,7 +1460,7 @@ public class FactureClient extends ClassMere {
         code += Utilitaire.champNull(genererCodePrestation(c));
         code += "A";
 //        code += genererSequence(c, "numerofacturesimple", 3);
-        code += genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3);
+        code += new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty);
         return code;
     }
 

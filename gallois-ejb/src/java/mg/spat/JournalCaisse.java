@@ -15,6 +15,7 @@ import facture.EtatProvision;
 import facture.FactureClient;
 import facture.FactureFournisseur;
 import facture.PaiementFacture;
+import facture.UtilitaireFacture;
 import factureclient.PayementFacture;
 import facturefournisseur.RegulFacture;
 import java.sql.Connection;
@@ -588,6 +589,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     genererPaiement(c, refuser);
                 }
             }
+            String numeroPiece = calculerNumeroPiece(c);
+            this.setNumPiece(numeroPiece);
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
 
@@ -807,5 +810,36 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if(c!=null && verif)
                 c.close();
         }
+    }
+    
+    public String genererCodeModePaiement(){
+        if(this.getIdmode().compareToIgnoreCase("pay1") == 0){
+            return "E";
+        }else if(this.getIdmode().compareToIgnoreCase("pay2") == 0){
+            return "C";
+        }
+        return null;
+    }
+    String genererCodeType()
+    {
+        String result="";
+        if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00001")==0)
+        {
+            result = "1";
+        }
+        if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00002")==0)
+        {
+            result = "3";
+        }
+        return result;
+    }
+    
+    public String calculerNumeroPiece(Connection c) throws Exception{
+        String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
+        return Utilitaire.genererAnnee(dateEffetStr) + 
+                Utilitaire.genererMois(dateEffetStr) + "-" + 
+                genererCodeModePaiement() + "-" + 
+                UtilitaireFacture.genererSequence(c, "numeropiece",7,dateEffetStr);
+
     }
 }
