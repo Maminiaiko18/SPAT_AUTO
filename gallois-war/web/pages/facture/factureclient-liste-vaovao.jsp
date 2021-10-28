@@ -101,6 +101,7 @@
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);
             pr.getTableau().setNameBoutton("Encaisser");
+            pr.getTableau().setNameActe("encaisserMultiple");
             out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
         <input type="hidden" name="acte" value="encaisserMultiple"/>

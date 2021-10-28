@@ -116,7 +116,7 @@
                 String[] ids=request.getParameterValues("id");
                 %>
                 
-                    <script language="JavaScript"> document.location.replace("<%=lien%>?but=treso/journalcaisse-saisie.jsp&idFactures=<%=Utilitaire.tabToString(ids,"'",",")%>");</script>
+                    <script language="JavaScript"> document.location.replace("<%=lien%>?but=treso/journalcaisse-saisie.jsp&idFactures=<%=Utilitaire.tabToString(ids,"",";")%>");</script>
                     <%
             }
              
