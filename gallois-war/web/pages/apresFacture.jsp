@@ -111,6 +111,14 @@
                     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=facture.getId()%>");</script>
                     <%
             }
+
+            if (acte != null && acte.compareToIgnoreCase("encaisserMultiple") == 0) {
+                String[] ids=request.getParameterValues("id");
+                %>
+                
+                    <script language="JavaScript"> document.location.replace("<%=lien%>?but=treso/journalcaisse-saisie.jsp&idFactures=<%=Utilitaire.tabToString(ids,"",";")%>");</script>
+                    <%
+            }
              
             if (acte != null && acte.compareToIgnoreCase("editerBED") == 0) {
                 String[] listeFacture = request.getParameterValues("id");

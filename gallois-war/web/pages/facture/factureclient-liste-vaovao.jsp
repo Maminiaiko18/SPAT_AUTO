@@ -87,6 +87,7 @@
         </form>
         <%out.println(pr.getTableauRecap().getHtml());%>
         <br/>
+        <form action="<%=pr.getLien()%>?but=apresFacture.jsp" method="post" name="incidents" id="incidents">
         <%
             String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
             String colonneLien[] = {"id", "escale"};
@@ -99,9 +100,12 @@
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);
-            out.println(pr.getTableau().getHtml());
-            out.println(pr.getBasPage());
+            pr.getTableau().setNameBoutton("Encaisser");
+            pr.getTableau().setNameActe("encaisserMultiple");
+            out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
+        <input type="hidden" name="acte" value="encaisserMultiple"/>
+        </form>
         <% out.println(pr.getBasPage());%>
     </section>
 </div>

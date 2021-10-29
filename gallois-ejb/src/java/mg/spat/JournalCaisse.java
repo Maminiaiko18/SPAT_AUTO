@@ -401,10 +401,12 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             if(this.getIdordre()==null){
             
-                FactureClient fc = findFactureClient(c);
-                if(fc != null) {
-                    if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
-                    if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                FactureClient[] listeFC = findFactureClient(c);
+                if(listeFC != null && listeFC.length > 0) {
+                    for(FactureClient fc : listeFC) {
+                        if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
+                        if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                    }
                 }
 
                 AvoirFC avoir = findAvoirFC(c);
@@ -623,13 +625,14 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return super.createObject(u, c);
     }
     
-    public FactureClient findFactureClient(Connection c) throws Exception{
+    public FactureClient[] findFactureClient(Connection c) throws Exception{
         FactureClient fc = new FactureClient();
         fc.setNomTable("facture_client_union");
-        String where = String.format(" and id = '%s' ", this.getIdplacement());
+        String ids = this.getIdplacement().contains(";") ? this.getIdplacement().replace(";", "','") : this.getIdplacement();
+        String where = " and id in '" +this.getIdplacement()+"'";
         FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, where);
         if (result != null && result.length > 0) 
-            return result[0];
+            return result;
         return null;
     }
     public AvoirFF findAvoirFF(Connection c) throws Exception{
@@ -712,15 +715,16 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 paiementFact.setMontant(-avoirFF.getMontant());
                 paiementFact.createObject(refuser, c);
             }
-            FactureClient fc = findFactureClient(c);
-            if(fc != null){
-                checkMontantFactureClient(fc,c);
-                PaiementFacture pf = new PaiementFacture();
-                pf.setIdMvt(this.getId());
-                pf.setIdFact(this.getIdplacement());
-                pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",this.getCredit()));
-                pf.createObject(refuser, c);
-                
+            FactureClient[] fcListe = findFactureClient(c);
+            if(fcListe != null && fcListe.length > 0){
+                for(FactureClient fc: fcListe) {
+                    checkMontantFactureClient(fc,c);
+                    PaiementFacture pf = new PaiementFacture();
+                    pf.setIdMvt(this.getId());
+                    pf.setIdFact(this.getIdplacement());
+                    pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",this.getCredit()));
+                    pf.createObject(refuser, c);
+                }
             }
             FactureFournisseur ff = this.findFactureFournisseur(c);
             if(ff!=null){
