@@ -528,6 +528,18 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
         }
     }
+    
+    public void checkMontantFactureClient(FactureClient[] fc, Connection c) throws Exception{
+        if(fc != null && fc.length > 0){
+            double sommeReste = 0;
+            for(int i=0; i<fc.length; i++){
+                if(fc[i].getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Facture "+fc[i].getId()+" non visee");
+                sommeReste += fc[i].getMontantreste();
+            }
+            if(sommeReste < this.getCredit()) throw new Exception("Montant supérieur au reste à payer");
+        }
+    }
+    
     public void checkMontantFactureFournisseur(FactureFournisseur fc,Connection c) throws Exception {
 
         if (fc != null) {
@@ -629,7 +641,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         FactureClient fc = new FactureClient();
         fc.setNomTable("facture_client_union");
         String ids = this.getIdplacement().contains(";") ? this.getIdplacement().replace(";", "','") : this.getIdplacement();
-        String where = " and id in '" +this.getIdplacement()+"'";
+        String where = " and id in ('" +ids+"')";
         FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, where);
         if (result != null && result.length > 0) 
             return result;
@@ -717,12 +729,12 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             FactureClient[] fcListe = findFactureClient(c);
             if(fcListe != null && fcListe.length > 0){
+                checkMontantFactureClient(fcListe, c);
                 for(FactureClient fc: fcListe) {
-                    checkMontantFactureClient(fc,c);
                     PaiementFacture pf = new PaiementFacture();
                     pf.setIdMvt(this.getId());
-                    pf.setIdFact(this.getIdplacement());
-                    pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",this.getCredit()));
+                    pf.setIdFact(fc.getId());
+                    pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",fc.getId(),fc.getMontantreste())); // this.getCredit() izy taloha
                     pf.createObject(refuser, c);
                 }
             }
@@ -774,6 +786,31 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return montant;
     }
     
+     public double genererMontantPaiement(Connection c,String nomtable,String idFacture,double montantV) throws Exception {
+        boolean verif = false;
+        double montant = 0;
+        
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            
+            montant = getMontantResteProvision(c, nomtable,idFacture);
+            
+            if(montant >= montantV) montant = montantV;
+            
+        } catch(Exception ex) {
+            throw ex;
+        }  finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+        
+        return montant;
+    }
+    
     public double getMontantResteProvision(Connection c,String nomtable)throws Exception{
         double result = 0.;
         int verify = 0;
@@ -785,6 +822,29 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             EtatProvision ep = new EtatProvision();
             ep.setNomTable(nomtable);//"etatprovisionvrai" ny tsotra
             ep.setId(this.getIdplacement());
+            EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, "");
+            if(etatProv.length>0)
+                result = etatProv[0].getMontantreste();
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if(c!=null && verify==1) c.close();
+        }
+        return result;
+    }
+    
+    
+    public double getMontantResteProvision(Connection c,String nomtable, String idFacture)throws Exception{
+        double result = 0.;
+        int verify = 0;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verify = 1;
+            }
+            EtatProvision ep = new EtatProvision();
+            ep.setNomTable(nomtable);//"etatprovisionvrai" ny tsotra
+            ep.setId(idFacture);
             EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, "");
             if(etatProv.length>0)
                 result = etatProv[0].getMontantreste();
