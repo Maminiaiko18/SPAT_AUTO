@@ -552,6 +552,18 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
     }
     
+     public void checkMontantFactureFournisseur(FactureFournisseur[] fc,Connection c) throws Exception {
+
+        if (fc != null && fc.length > 0) {
+            double sommeReste = 0;
+            for(int i=0; i<fc.length; i++){
+                if(fc[i].getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Facture "+fc[i].getId()+" non visee");
+                sommeReste += fc[i].getMontantreste();
+            }
+            if(sommeReste < this.getDebit()) throw new Exception("Montant supérieur au reste à payer");
+        }
+    }
+    
     public OrdonnerPayement getOP(String nomtable, Connection c) throws Exception {
         OrdonnerPayement op = new OrdonnerPayement();
         op.setId(this.getIdordre());
@@ -730,15 +742,17 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     pf.createObject(refuser, c);
                 }
             }
-            FactureFournisseur ff = this.findFactureFournisseur(c);
-            if(ff!=null){
-                checkMontantFactureFournisseur(ff,c);
-                PaiementFacture pf = new PaiementFacture();
-                pf.setNomTable("paiementfacturef");
-                pf.setIdMvt(this.getId());
-                pf.setIdFact(this.getIdplacement());
-                pf.setMontant(genererMontantPaiement(c,"etatbpvrai",this.getDebit()));//pf.setMontant(this.getDebit());
-                pf.createObject(refuser, c);
+            FactureFournisseur[] ffListe = this.findFactureFournisseur(c);
+            if(ffListe != null && ffListe.length >0){
+                checkMontantFactureFournisseur(ffListe,c);
+                for(FactureFournisseur ff : ffListe){
+                    PaiementFacture pf = new PaiementFacture();
+                    pf.setNomTable("paiementfacturef");
+                    pf.setIdMvt(this.getId());
+                    pf.setIdFact(ff.getId());
+                    pf.setMontant(genererMontantPaiement(c,"etatbpvrai",ff.getId(),ff.getMontantreste()));//this.getCredit() izy taloha
+                    pf.createObject(refuser, c);
+                }
             }
             if(verif) c.commit();
         } catch(Exception ex){ 
