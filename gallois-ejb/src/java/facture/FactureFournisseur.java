@@ -51,7 +51,32 @@ public class FactureFournisseur extends FactureClient {
         this.preparePk("FAF", "get_seq_factFournMere");
         this.setId(makePK(c));
     }
-
+    
+    public static FactureFournisseur[] getFactures(String ids, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureFournisseur cc = new FactureFournisseur();
+            cc.setNomTable("factureclientgroupvide");
+            String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,3)) as montant  "
+                    + " from FACTUREFOURNVALIDE_V "
+                    + " where id in('"+ids.replace(";", "','")+"') group by tiers,tierslib";
+            FactureFournisseur[] result = (FactureFournisseur[]) CGenUtil.rechercher(cc, requete, c);
+            if (result != null && result.length > 0) {
+                return result;
+            }
+            return null;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    
     public void recurrent(UserEJB u, Connection c, String typefrequence, int nb) throws Exception {
         boolean ouvert = false;
 
