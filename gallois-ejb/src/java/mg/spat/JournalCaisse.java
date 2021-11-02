@@ -689,7 +689,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 verif = 1;
             }
             PayementFacture pf = new PayementFacture();
-            pf.setNomTable("paiementfacture");
+            pf.setNomTable("paiementfacturecp");
             String awhere = String.format(" and idmvt = '%s' ", this.getId());
             PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;

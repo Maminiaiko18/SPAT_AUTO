@@ -78,6 +78,7 @@ import facture.FactureClientDetails;
 import facture.FactureClientDetailsGrouper;
 import facture.FactureFournisseurDetails;
 import facture.FactureFournisseurFilleData;
+import factureclient.PayementFacture;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import mg.spat.OccupationMaterielNaval;
@@ -591,24 +592,20 @@ public class EtatPaieServlet extends HttpServlet {
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
             JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher( jc , null, null, " ") ;
                 
+            PayementFacture[] tabFact = null;
             String idFacture = request.getParameter("idFacture");
-            FactureClient facture = new FactureClient();
-            String requete = null;
-            //facture.setNomTable("factureclientmsum_lib");
-            //String where = " and id = '%s'";
-            facture.setNomTable("factureclientmsum_lib");
             if (tabJournal.length>0){
-                requete = "select * from factureclientmsum_lib where id in ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
+//                requete = "select * from factureclientmsum_lib where id in ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
+                    tabFact = jc.getPayementFactureTous(null);
             }            
-            FactureClient[] tabFact = (FactureClient[]) CGenUtil.rechercher(facture, requete);
             Map param = new HashMap();   
             param.put("datyJ",Utilitaire.dateDuJourSql());
-            ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();   
+            ArrayList<PayementFacture> arrList = new ArrayList<PayementFacture>();   
             double montantFacture = 0;
             double arrondi = 0;
             double totalGeneral = 0;
             for(int i = 0; i<tabFact.length; i++){
-                montantFacture = montantFacture + tabFact[i].getMontantreste();
+                montantFacture = montantFacture + tabFact[i].getMontant();
                 arrList.add(tabFact[i]);            
             }
             tabJournal[0].arrondir();

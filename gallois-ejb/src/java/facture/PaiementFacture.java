@@ -8,6 +8,7 @@ package facture;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
+import java.sql.Date;
 import mg.spat.JournalCaisse;
 import utilitaire.UtilDB;
 
@@ -16,6 +17,24 @@ public class PaiementFacture extends ClassMAPTable{
     private String idMvt;
     private String idFact;
     private double montant;
+    private String code;
+    private Date daty;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
 
     public PaiementFacture() {
         this.setNomTable("paiementFacture");
