@@ -38,6 +38,7 @@ public class JournalCaisse extends ClassEtat {
     private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib;
     private double sommeCredit, sortie, entree;
     private String banque;
+    private String descecaisse;
 
     public String getBanque() {
         return banque;
@@ -922,5 +923,13 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         if (result != null && result.length > 0) 
             return result;
         return null;
+    }
+
+    public String getDescecaisse() {
+        return descecaisse;
+    }
+
+    public void setDescecaisse(String descecaisse) {
+        this.descecaisse = descecaisse;
     }
 }
