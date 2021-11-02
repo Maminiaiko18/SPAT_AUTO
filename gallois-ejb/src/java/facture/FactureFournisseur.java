@@ -403,4 +403,14 @@ public class FactureFournisseur extends FactureClient {
         super.validerObject(u, c);
         return this;
     }
+    
+			public static FactureFournisseur grouperFacture(String ids, Connection c) throws Exception{
+				FactureFournisseur[] factures = this.getFactures(ids,c);
+				if(factures == null || factures.length == 0) throw new Exception("Factures introuvables ou non visees");
+				if(factures.length > 1) throw new Exception("Fournisseur differents!");
+				else if(factures.length == 1) { 
+					return factures[0];
+				}
+				return null;
+			}        
 }
