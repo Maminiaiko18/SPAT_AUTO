@@ -656,15 +656,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             return result[0];
         return null;
     }
-    public FactureFournisseur findFactureFournisseur(Connection c) throws Exception{
-        FactureFournisseur fc = new FactureFournisseur();
-        fc.setNomTable("FACTFOURN_MSUM_LIB");
-        String where = String.format(" and id = '%s' ", this.getIdplacement());
-        FactureFournisseur[] result = (FactureFournisseur[])CGenUtil.rechercher(fc, null, null, c, where);
-        if (result != null && result.length > 0) 
-            return result[0];
-        return null;
-    }
+    
     
     public PayementFacture[] getPayementFactureTous(Connection c) throws Exception{
         int verif = 0;
@@ -905,5 +897,16 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 genererCodeModePaiement() + "-" + 
                 UtilitaireFacture.genererSequence(c, "numeropiece",7,dateEffetStr);
 
+    }
+    
+    public FactureFournisseur[] findFactureFournisseur(Connection c) throws Exception{
+        FactureFournisseur ff = new FactureFournisseur();
+        ff.setNomTable("FACTUREFOURNVALIDE_V");
+        String ids = this.getIdplacement().contains(";") ? this.getIdplacement().replace(";", "','") : this.getIdplacement();
+        String where = " and id in ('" +ids+"')";
+        FactureFournisseur[] result = (FactureFournisseur[])CGenUtil.rechercher(ff, null, null, c, where);
+        if (result != null && result.length > 0) 
+            return result;
+        return null;
     }
 }
