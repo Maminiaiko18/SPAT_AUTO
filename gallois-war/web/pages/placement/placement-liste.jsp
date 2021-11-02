@@ -24,12 +24,13 @@
         pr.getFormu().getChamp("date_placement2").setLibelle("Date Placement max");
         pr.getFormu().getChamp("date_echeance1").setLibelle("Date Echeance min");
         pr.getFormu().getChamp("date_echeance2").setLibelle("Date Echeance max");
-        pr.getFormu().getChamp("date_placement1").setDefaut(utilitaire.Utilitaire.dateDuJour());
-        pr.getFormu().getChamp("date_placement2").setDefaut(utilitaire.Utilitaire.dateDuJour());
+
     
         pr.setApres("placement/placement-liste.jsp");
         String[] colSomme = {"montant"};
         pr.creerObjetPage(libEntete, colSomme);
+        pr.getFormu().getChamp("date_placement1").setDefaut(utilitaire.Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("date_placement2").setDefaut(utilitaire.Utilitaire.dateDuJour());        
 %>
 <script>
     function changerDesignation() {
