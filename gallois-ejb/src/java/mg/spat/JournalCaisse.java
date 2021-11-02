@@ -618,6 +618,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             String numeroPiece = calculerNumeroPiece(c);
             this.setNumPiece(numeroPiece);
+            if(getIdmode().equals(Constante.modePaiementEspece) && 
+                    getIdTypeCheque().equals(Constante.typeChequeAuComptant)){
+                this.arrondir();
+            }
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
 
@@ -931,5 +935,11 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
 
     public void setDescecaisse(String descecaisse) {
         this.descecaisse = descecaisse;
+    }
+    
+    public void arrondir() throws Exception{
+        if(this.getCredit()%100 != 0){
+            this.setCredit(this.getCredit() + (100 - this.getCredit()%100));
+        }
     }
 }
