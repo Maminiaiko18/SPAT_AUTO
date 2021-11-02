@@ -12,6 +12,7 @@ import ded.OrdonnerPayement;
 import java.sql.Connection;
 import utilitaire.UtilDB;
 import facture.FactureClient;
+import facture.FactureFournisseur;
 import javax.servlet.http.HttpServletRequest;
 import mg.spat.placement.DetailsPlacements;
 import mg.spat.placement.Placement;
@@ -117,6 +118,7 @@ public class JournalCaisseData {
 
             String idFact = request.getParameter("idFacture");
             String idFactures = request.getParameter("idFactures");
+            String idFacturesF = request.getParameter("idFacturesF");
             String idOP = request.getParameter("id");
             String idplacement = request.getParameter("idplacement");
             String idAvoirFC = request.getParameter("idAvoir");
@@ -127,18 +129,20 @@ public class JournalCaisseData {
             }
             if (idFactures != null && !idFactures.trim().isEmpty()) {
                 facture = FactureClient.grouperFacture(idFactures, c);
+            }else if (idFacturesF != null && !idFacturesF.trim().isEmpty()) {
+                facture = FactureFournisseur.grouperFacture(idFacturesF, c);
             }
             if (idOP != null && !idOP.trim().isEmpty()) {
                 initJCInfo(c, idOP);
                 initOP(c, idOP);
             }
-            if (idplacement != null && !idplacement.trim().isEmpty()) {
+            if ((idplacement != null) && !(idplacement.trim().isEmpty())) {
                 initPlacement(c, idplacement);
             }
-            if (idAvoirFC != null && !idAvoirFC.trim().isEmpty()) {
+            if ((idAvoirFC != null) && !(idAvoirFC.trim().isEmpty())) {
                 initAvoirFC(c, idAvoirFC);
             }
-            if (idAvoirFF != null && !idAvoirFF.trim().isEmpty()) {
+            if ((idAvoirFF != null) && !(idAvoirFF.trim().isEmpty())) {
                 initAvoirFF(c, idAvoirFF);
             }
         } catch (Exception e) {
