@@ -613,11 +613,16 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     if (!this.getIdplacement().startsWith("FC")) {
                         this.traitementPlacement(user, c);
                     }
+                    
+                    if(this.getIdplacement().startsWith("FC")){
+                        String numeroPiece = calculerNumeroPiece(c);
+                        this.setNumPiece(numeroPiece);
+                    }
+                    
                     genererPaiement(c, refuser);
                 }
             }
-            String numeroPiece = calculerNumeroPiece(c);
-            this.setNumPiece(numeroPiece);
+           
             if(getIdmode().equals(Constante.modePaiementEspece) && 
                     getIdTypeCheque().equals(Constante.typeChequeAuComptant)){
                 this.arrondir();
