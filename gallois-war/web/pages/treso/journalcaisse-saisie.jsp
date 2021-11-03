@@ -25,6 +25,7 @@
         FactureAnalyse facture = new FactureAnalyse();
         String idfact = request.getParameter("idFacture");
         String idFactures = request.getParameter("idFactures");
+        String idFacturesF = request.getParameter("idFacturesF");
         String idOP = request.getParameter("id");
         String idplacement = request.getParameter("idplacement");
         
@@ -48,6 +49,12 @@
             FactureClient fc = datas.getFacture();
             pi.getFormu().getChamp("idplacement").setDefaut(idFactures);
             pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
+            pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(fc.getTiers()));
+            pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(fc.getTierslib()));
+        }else if(idFacturesF != null) {
+            FactureClient fc = datas.getFacture();
+            pi.getFormu().getChamp("idplacement").setDefaut(idFacturesF);
+            pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
             pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(fc.getTiers()));
             pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(fc.getTierslib()));
         }

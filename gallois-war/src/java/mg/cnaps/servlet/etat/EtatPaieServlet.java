@@ -78,6 +78,7 @@ import facture.FactureClientDetails;
 import facture.FactureClientDetailsGrouper;
 import facture.FactureFournisseurDetails;
 import facture.FactureFournisseurFilleData;
+import factureclient.PayementFacture;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import mg.spat.OccupationMaterielNaval;
@@ -591,17 +592,36 @@ public class EtatPaieServlet extends HttpServlet {
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
             JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher( jc , null, null, " ") ;
                 
+            PayementFacture[] tabFact = null;
             String idFacture = request.getParameter("idFacture");
-            FactureClient facture = new FactureClient();
-            facture.setNomTable("factureclientmsum_lib");
-            String where = " and id = '%s'";
             if (tabJournal.length>0){
-                where = String.format(where, tabJournal[0].getIdplacement());   
+//                requete = "select * from factureclientmsum_lib where id in ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
+                    tabFact = jc.getPayementFactureTous(null);
             }            
-            FactureClient[] tabFact = (FactureClient[]) CGenUtil.rechercher( facture , null, null, where) ;
             Map param = new HashMap();   
             param.put("datyJ",Utilitaire.dateDuJourSql());
-            if(tabFact.length > 0){
+            ArrayList<PayementFacture> arrList = new ArrayList<PayementFacture>();   
+            double montantFacture = 0;
+            double arrondi = 0;
+            double totalGeneral = 0;
+            for(int i = 0; i<tabFact.length; i++){
+                montantFacture = montantFacture + tabFact[i].getMontant();
+                arrList.add(tabFact[i]);            
+            }
+            tabJournal[0].arrondir();
+            arrondi = tabJournal[0].getCredit() - montantFacture;
+            totalGeneral = tabJournal[0].getCredit();
+            param.put("montant",montantFacture);                        
+            param.put("arrondi",arrondi);                        
+            param.put("total",totalGeneral); 
+            
+                String montantString = String.valueOf((long)totalGeneral);
+                long montantLong = Long.valueOf(montantString);
+
+                param.put("montantLettre",ChiffreLettre.convertIntToString(montantLong)+" Ariary ");
+                
+            param.put("list_table",arrList);                        
+            /*if(tabFact.length > 0){
                 param.put("nmFact",tabFact[0].getCode());
                 param.put("montant",tabFact[0].getMontantttcvrai());
                 param.put("datyFact",tabFact[0].getDaty());
@@ -620,7 +640,7 @@ public class EtatPaieServlet extends HttpServlet {
                     long montantLong = Long.valueOf(montantString);
                     param.put("montantLettre",ChiffreLettre.convertIntToString(montantLong)+" Ariary ");
                 }
-            }
+            }*/
             if(tabJournal.length > 0){
                 param.put("numPiece",tabJournal[0].getNumPiece());
                 param.put("client",tabJournal[0].getTiersLib());
