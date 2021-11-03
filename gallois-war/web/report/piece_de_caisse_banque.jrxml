@@ -158,8 +158,8 @@
 			<componentElement>
 				<reportElement key="table" x="2" y="0" width="555" height="50" uuid="77724ec1-9b97-44df-9538-3b2e6ea15cd1"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="eeba392e-9c17-4355-bbf9-fe2c9caceff5">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
+					<datasetRun subDataset="Table Dataset 1" uuid="3d008830-3598-490e-bde8-94bbdad4f2d5">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="174" uuid="db1c0489-b011-4521-9bb5-feff00b1e9fe">
 						<jr:tableHeader height="30" rowSpan="1">
