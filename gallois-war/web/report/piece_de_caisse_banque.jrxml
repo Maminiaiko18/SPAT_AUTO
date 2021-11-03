@@ -192,7 +192,7 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell height="33" rowSpan="1">
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
+							<textField pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="174" height="33" uuid="933bff53-2ecb-4aac-978c-a863c8e159d4"/>
 								<textElement textAlignment="Center">
 									<font size="12"/>
@@ -246,7 +246,7 @@
 				</textElement>
 				<text><![CDATA[Total Général]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="249" y="4" width="148" height="20" uuid="a22f3231-b274-49b4-ac3a-3bf42a4b0e41"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -260,7 +260,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="249" y="24" width="148" height="20" uuid="640dc340-987d-4c5c-944e-5d6e089fc677"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -274,7 +274,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{arrondi}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="249" y="44" width="148" height="20" uuid="2bb3d06b-7313-4c12-8a22-d111cb7a2f4d"/>
 				<box>
 					<topPen lineWidth="0.5"/>

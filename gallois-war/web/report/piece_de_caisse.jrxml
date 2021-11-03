@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1aeaf117-a05d-4327-8a4b-0e54fb8087cd">
 	<property name="ireport.zoom" value="1.4641000000000068"/>
-	<property name="ireport.x" value="3"/>
-	<property name="ireport.y" value="164"/>
+	<property name="ireport.x" value="1"/>
+	<property name="ireport.y" value="163"/>
 	<subDataset name="Table Dataset 1" uuid="2efaac0a-5632-43a0-b273-90bf56aa8145">
 		<field name="code" class="java.lang.String"/>
 		<field name="montant" class="java.lang.Double"/>
@@ -128,7 +128,7 @@
 			<componentElement>
 				<reportElement key="table" x="0" y="0" width="555" height="50" uuid="a75eaadc-1116-48bc-be90-19b70040a9e2"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="a0f75cac-9597-4c38-b85a-0a990fdb3634">
+					<datasetRun subDataset="Table Dataset 1" uuid="20a1c9cf-5e38-469a-9717-eab39cc60c1b">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="173" uuid="0131ec74-2a0a-446d-8fd1-7b3712667762">
@@ -162,7 +162,7 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell height="29" rowSpan="1">
-							<textField isBlankWhenNull="true">
+							<textField pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="192" height="29" uuid="b3069454-04fe-4de5-931f-9ad248cc1e3a"/>
 								<textElement textAlignment="Center">
 									<font size="12"/>
@@ -216,7 +216,7 @@
 				</textElement>
 				<text><![CDATA[Total Général]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="247" y="0" width="148" height="20" uuid="a22f3231-b274-49b4-ac3a-3bf42a4b0e41"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -230,7 +230,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="247" y="20" width="148" height="20" uuid="640dc340-987d-4c5c-944e-5d6e089fc677"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -244,7 +244,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{arrondi}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="247" y="40" width="148" height="20" uuid="2bb3d06b-7313-4c12-8a22-d111cb7a2f4d"/>
 				<box>
 					<topPen lineWidth="0.5"/>

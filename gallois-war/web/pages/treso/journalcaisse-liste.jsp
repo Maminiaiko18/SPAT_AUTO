@@ -19,7 +19,7 @@
             journalCaisse.setNomTable(request.getParameter("etatvue"));
         }
 
-        String listeCrt[] = {"id","folio", "caisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement", "descecaisse"};
+        String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement", "descecaisse"};
         String listeInt[] = {"dateEffet"};
         String libEntete[] = {"id", "folio", "valcaisse","descetypecheque", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -43,6 +43,7 @@
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
+        pr.getFormu().getChamp("valcaisse").setLibelle("Caisse");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         String[] colSomme = {"credit", "debit"};
         pr.creerObjetPage(libEntete, colSomme);
