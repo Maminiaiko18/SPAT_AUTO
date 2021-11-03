@@ -608,7 +608,7 @@ public class EtatPaieServlet extends HttpServlet {
                 montantFacture = montantFacture + tabFact[i].getMontant();
                 arrList.add(tabFact[i]);            
             }
-            tabJournal[0].arrondir();
+            //tabJournal[0].arrondir();
             arrondi = tabJournal[0].getCredit() - montantFacture;
             totalGeneral = tabJournal[0].getCredit();
             param.put("montant",montantFacture);                        
@@ -649,6 +649,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
             String nomJasper = "piece_de_caisse";
             if(tabJournal[0].getIdmode().equalsIgnoreCase("pay1") == false){
+                
                 nomJasper = "piece_de_caisse_banque";
                 param.put("banque",tabJournal[0].getIdbanquelib());
                 param.put("numCheque",tabJournal[0].getNumcheque());
