@@ -900,7 +900,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
         return null;
     }
-    String genererCodeType()
+    public String genererCodeType()
     {
         String result="";
         if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00001")==0)
@@ -919,6 +919,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return Utilitaire.genererAnnee(dateEffetStr) + 
                 Utilitaire.genererMois(dateEffetStr) + "-" + 
                 genererCodeModePaiement() + "-" + 
+                genererCodeType() + "-" + 
                 UtilitaireFacture.genererSequence(c, "numeropiece",7,dateEffetStr);
 
     }
