@@ -623,8 +623,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 }
             }
            
-            if(getIdmode().equals(Constante.modePaiementEspece) && 
-                    getIdTypeCheque().equals(Constante.typeChequeAuComptant)){
+            if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece) && 
+                   getIdTypeCheque()!=null && getIdTypeCheque().equals(Constante.typeChequeAuComptant)){
                 this.arrondir();
             }
 
