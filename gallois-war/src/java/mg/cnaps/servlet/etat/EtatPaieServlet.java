@@ -536,7 +536,13 @@ public class EtatPaieServlet extends HttpServlet {
             op.setNomTable("OrdonnerPayement_LIB");
             op.setId(idop);
             OrdonnerPayementPDF[] tabOp = (OrdonnerPayementPDF[]) CGenUtil.rechercher( op , null, null, "  ") ;
-            Map param = new HashMap();    
+            Map param = new HashMap();   
+            JournalCaisse jc = new JournalCaisse();
+                jc.setId(request.getParameter("id"));
+                jc.setNomTable("JOURNALCAISSELIBCOMPLET");
+                JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher( jc , null, null, " ") ;
+                param.put("facture_lib",tabJournal[0].getLibelle());
+                
             if(tabOp.length > 0){
                 tabOp[0].setDevise(" ARIARY");
                 
@@ -549,7 +555,7 @@ public class EtatPaieServlet extends HttpServlet {
                 a.setId(tabOp[0].getDed_Id());
                 EtatFactureDepService[] tabFact = (EtatFactureDepService[]) CGenUtil.rechercher( a , null, null, "  ") ;
                 if(tabFact.length > 0){
-                    param.put("facture_lib",tabFact[0].getDesignation());
+                    //param.put("facture_lib",tabFact[0].getDesignation());
                     
                     param.put("direction",tabFact[0].getDirection());
                     param.put("departement",tabFact[0].getDepartement());
@@ -563,17 +569,14 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("facture_montant",tabLiaison[0].getMontant());
                 }
             }else{
-                JournalCaisse jc = new JournalCaisse();
-                jc.setId(request.getParameter("id"));
-                jc.setNomTable("JOURNALCAISSELIBCOMPLET");
-                JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher( jc , null, null, " ") ;
+                
                 if(tabJournal.length > 0){
                     param.put("daty",tabJournal[0].getDateEffet());
                     param.put("montant",tabJournal[0].getDebit());
                     String montantString = String.valueOf((long)tabJournal[0].getDebit());
                     long montantLong = Long.valueOf(montantString);
                     param.put("montant_lettre",(ChiffreLettre.convertIntToString(montantLong)+" ARIARY ").toUpperCase());
-                    param.put("facture_lib",tabJournal[0].getLibelle());
+                    
                     param.put("facture_montant",tabJournal[0].getDebit());
                     param.put("tiers",tabJournal[0].getTiersLib());
                 }
