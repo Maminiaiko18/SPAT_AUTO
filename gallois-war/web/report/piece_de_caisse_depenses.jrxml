@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse_depenses" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48507b75-f3ed-4992-8bc5-60c122b5167c">
-	<property name="ireport.zoom" value="2.200000000000006"/>
+	<property name="ireport.zoom" value="1.2418426461183134"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="364"/>
+	<property name="ireport.y" value="130"/>
 	<parameter name="libelle" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
 	<parameter name="daty" class="java.util.Date"/>
@@ -1441,7 +1441,7 @@
 			</line>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="135" width="195" height="15" uuid="c7bf0fe1-1b88-4bc1-886a-d16ff13ab80a"/>
-				<textElement verticalAlignment="Top" markup="none">
+				<textElement verticalAlignment="Top" markup="html">
 					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{facture_lib}]]></textFieldExpression>
