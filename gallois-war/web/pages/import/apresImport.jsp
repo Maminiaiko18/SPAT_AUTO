@@ -27,6 +27,7 @@
                 System.out.println(file);
                 
                 String idescale = null;
+                String mois = null;
                 
                 DiskFileItemFactory factory = new DiskFileItemFactory();
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -45,11 +46,16 @@
                         if(name.equalsIgnoreCase("escale")) {
                             idescale = value;
                         }
+                        if(name.equalsIgnoreCase("mois")){
+                            mois = value;
+                        }
                     }
                 }
-                
+                if(mois==null || mois.length()==0){
+                    throw new Exception("mois invalide");
+                }
                 ImportExcel ex = new ImportExcel();
-                ArrayList<Activite> ls=ex.importerTous(fichierExcel.getInputStream(), idescale);
+                ArrayList<Activite> ls=ex.importerTous(fichierExcel.getInputStream(), idescale,utilitaire.Utilitaire.stringToInt(mois) );
                 AdminActivite admin= new AdminActivite();
                 admin.insererActiviteMultiple(ls, u.getUser().getRefuser()+"", null);
                 
@@ -96,7 +102,8 @@
                 
             
         }catch(Exception e){
-            e.printStackTrace();
-        
-        }
+            e.printStackTrace();%>
+        <script language="JavaScript"> alert("<%=new String(e.getMessage().getBytes(), "UTF-8")%>");
+        history.back();</script>
+        <%}
 %>

@@ -8,6 +8,8 @@
 <%@page import="mg.spat.JournalCaisseMivadika"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="affichage.Liste"%>
+<%@page import="bean.TypeObjet"%>
 <%
     try {
         JournalCaisse journalCaisse = new JournalCaisse();
@@ -17,18 +19,31 @@
             journalCaisse.setNomTable(request.getParameter("etatvue"));
         }
 
-        String listeCrt[] = {"id","folio", "caisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement"};
+        String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement", "descecaisse"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] = {"id", "folio", "caisse","idtypecheque", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
+        String libEntete[] = {"id", "folio", "valcaisse","descetypecheque", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("treso/journalcaisse-liste.jsp");
+        
+        
+        Liste[] listes = new Liste[2];
+        listes[0] = new Liste("descecaisse", new String[]{"Tous", "Caisse", "Banque"}, new String[]{"", "Caisse", "Banque"});
+        
+        TypeObjet typeCheque = new TypeObjet();
+        typeCheque.setNomTable("typecheque");
+        listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
+        
+        
+        pr.getFormu().changerEnChamp(listes);
+        pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
         pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
+        pr.getFormu().getChamp("valcaisse").setLibelle("Caisse");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         String[] colSomme = {"credit", "debit"};
         pr.creerObjetPage(libEntete, colSomme);
@@ -58,6 +73,12 @@
                         <option value="JOURNALCAISSELIBCOMPLET_VISE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_vise_miv") == 0) {
                                 out.print("selected");
                             }%>>Vis&eacute;</option>
+                        <option value="journalcaisselibrecette" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("journalcaisselibrecette") == 0) {
+                                out.print("selected");
+                            }%>>Recettes</option>
+                        <option value="journalcaisselibdepense" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("journalcaisselibdepense") == 0) {
+                                out.print("selected");
+                            }%>>D&eacute;penses</option>
 
                         
                     </select>
@@ -91,4 +112,5 @@
 </div>
 <% } catch (Exception e) {
         e.printStackTrace();
+        
     }%>

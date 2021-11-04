@@ -188,8 +188,16 @@ public class PayementFacture extends ClassEtat {
     public void setMatricule(String matricule) {
         this.matricule = matricule;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
     
-    private String id,tiers,patient,designation,typee,devise,compte,remarque,idjournal,idtiers, matricule;
+    private String id,tiers,patient,designation,typee,devise,compte,remarque,idjournal,idtiers, matricule, code;
     private Date daty,date_echeance;
     private double montant,tva,montanttva,coursdevise,montantpayer,resteapayer, montanttotal,avoir;
 }

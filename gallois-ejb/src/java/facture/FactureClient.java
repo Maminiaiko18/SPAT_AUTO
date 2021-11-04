@@ -1429,9 +1429,9 @@ public class FactureClient extends ClassMere {
                 + Utilitaire.genererMois(daty)
                 + genererLettreMictsl(c)
 //                + genererSequence(c, "NUMEROFACTUREMCTSL", 6);
-                + genererSequence(c, "NUMEROFACTUREMCTSL_PARDATE", 6);
+                + new UtilitaireFacture().genererSequence(c, "NUMEROFACTUREMCTSL_PARDATE", 6, daty);
     }
-
+/*
     public String genererSequence(Connection c, String nomtable, int longueur) throws Exception {
         String daty = Utilitaire.datetostring(this.getDaty());
         
@@ -1450,17 +1450,17 @@ public class FactureClient extends ClassMere {
         
         return Utilitaire.completerInt(longueur, sequence);
     }
-
+*/
     public String calculerCodeSimple(Connection c) throws Exception {
         String daty = Utilitaire.datetostring(this.getDaty());
-        String code = "";
+        String code = "", codePrestation = genererCodePrestation(c);
         code += Utilitaire.champNull(genererPremierCaractere(c));
         code += Utilitaire.genererAnnee(daty);
         code += Utilitaire.genererMois(daty);
-        code += Utilitaire.champNull(genererCodePrestation(c));
+        code += Utilitaire.champNull(codePrestation);
         code += "A";
 //        code += genererSequence(c, "numerofacturesimple", 3);
-        code += genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3);
+        code += new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty, codePrestation);
         return code;
     }
 
@@ -1683,6 +1683,41 @@ public class FactureClient extends ClassMere {
                 c.close();
             }
         }
+    }
+    
+    public static FactureClient[] getFactures(String ids, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureClient cc = new FactureClient();
+            cc.setNomTable("factureclientgroupvide");
+            String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,3)) as montant  "
+                    + " from FACTURECLIENTMSUM_LIBV "
+                    + " where id in('"+ids.replace(";", "','")+"') group by tiers,tierslib";
+            FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(cc, requete, c);
+            if (result != null && result.length > 0) {
+                return result;
+            }
+            return null;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
+    public static FactureClient grouperFacture(String ids, Connection c) throws Exception{
+        FactureClient[] factures = getFactures(ids,c);
+        if(factures == null || factures.length == 0) throw new Exception("Factures introuvables ou non visees");
+        if(factures.length > 1) throw new Exception("Client differents!");
+        else if(factures.length == 1) { 
+            return factures[0];
+        }
+        return null;
     }
 
     public FactureClient(Date daty, Date date_echeance, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String escale, String deviseMere, double tva, double montant, double montanttva, double montantttc, double montantpaye, double montantreste, String tierslib, double montantavoir, String contact, String adresse, String etatLib, String typelib, double deviseEuro, double deviseDollar, double coeff, double montantHTEuro, double montantTVAEuro, double montantHTVADollar, double montantTVADollar, double montantTTCDollar, double montantttcvrai, String idcategorie, String idProvision, String categorielib, String idProvisionlib, String iddefinitive, String estDDPMICTSL, String codePrestation, String codePrestationlib, String codeProvision, String code, String estMictsl, double reduction, double ecart) {

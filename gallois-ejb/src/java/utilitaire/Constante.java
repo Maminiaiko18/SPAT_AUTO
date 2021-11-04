@@ -143,6 +143,9 @@ public class Constante {
     public static final String typeAvoirFC="2";
     public static final String categorieFFdefault="CATGFF001";
     public static final String categorieAvoirFF="CT001X";
+    
+    public static final String modePaiementEspece = "pay1";
+    public static final String typeChequeAuComptant = "TCHQ00001";
 
     public static String getNavireBornageEtPeche() {
         return navireBornageEtPeche;

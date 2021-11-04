@@ -108,13 +108,22 @@
             pr.getTableau().setNameBoutton("Editer OP");
             out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
-        <a name="reg" id="btnRegularisation" class="pull-right"><input type="button" class="btn btn-info" value="Régulariser BP" /></a>
-        <input type="button" class="btn btn-info" onclick="editerBED()" style="margin-right:30px" value="Editer BED"/>
+        <div style="display: flex; justify-content: flex-end; align-items: center;">
+        <input name="reg" type="button" id="btnRegularisation" class="btn btn-info" value="Régulariser BP" />
+        <input type="button" class="btn btn-info" onclick="editerBED()" style="margin:10px" value="Editer BED"/>
+        <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
+        </div>
         </form>
         <% out.println(pr.getBasPage());%>
     </section>
 </div>
 <script>
+    function decaisser(){
+        $('#form_arif').attr('action', '<%= pr.getLien() %>?but=apresFactureF.jsp');
+        $('#acte').val('decaisserMultiple');
+        document.getElementById("form_arif").submit();
+    }
+    
     document.getElementById("btnRegularisation").onclick = function(){
         console.log(document.getElementById("acte"));
         console.log(document.getElementById("form_arif"));

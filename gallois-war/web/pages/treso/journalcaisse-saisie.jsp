@@ -1,3 +1,5 @@
+<%@page import="facture.FactureClient"%>
+<%@page import="mg.spat.JournalCaisseData"%>
 <%@page import="avoir.AvoirFF"%>
 <%@page import="avoir.AvoirFC"%>
 <%@page import="ded.OrdonnerPayement"%>
@@ -22,30 +24,18 @@
         
         FactureAnalyse facture = new FactureAnalyse();
         String idfact = request.getParameter("idFacture");
+        String idFactures = request.getParameter("idFactures");
+        String idFacturesF = request.getParameter("idFacturesF");
+        String idOP = request.getParameter("id");
+        String idplacement = request.getParameter("idplacement");
         
-
+        JournalCaisseData datas = new JournalCaisseData(request);
+        datas.init(null);
+        
         if (idfact != null) {
-            boolean checkFact = idfact.startsWith(Constante.fcPrefix);
-            FactureAnalyse temporaire = new FactureAnalyse();
-            String v = request.getParameter("vue");
-            if (v != null) {
-                temporaire.setNomTable(v);
-            } else {
-                temporaire.setNomTable("ANALYSEGLOBALEFACTURE_ANALYSE");
-            }
-            if (checkFact) {
-                temporaire.setNmfact(idfact);
-            }
-            else {
-                temporaire.setId(idfact);
-            }
-            
-            FactureAnalyse[] liste = (FactureAnalyse[]) CGenUtil.rechercher(temporaire, null, null, null, "");
-            if (liste != null && liste.length > 0) {
-                facture = liste[0];
-            }
-            double reste = checkFact ? facture.getReste() : facture.getMontantreste();
-            String client = checkFact ? facture.getClient() : facture.getTiers();
+            facture = datas.getFactureAnalyse();
+            double reste = facture.getReste();
+            String client = facture.getClient();
             
             pi.getFormu().getChamp("libelle").setDefaut(facture.getDesignation());
             pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + reste));
@@ -53,19 +43,28 @@
             pi.getFormu().getChamp("idplacement").setDefaut("" + facture.getNmfact());
             pi.getFormu().getChamp("tiers").setDefaut(client);
             pi.getFormu().getChamp("idplacement").setDefaut(idfact);
-            
-            
         }
         
+        if(idFactures != null) {
+            FactureClient fc = datas.getFacture();
+            pi.getFormu().getChamp("idplacement").setDefaut(idFactures);
+            pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
+            pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(fc.getTiers()));
+            pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(fc.getTierslib()));
+        }else if(idFacturesF != null) {
+            FactureClient fc = datas.getFacture();
+            pi.getFormu().getChamp("idplacement").setDefaut(idFacturesF);
+            pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
+            pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(fc.getTiers()));
+            pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(fc.getTierslib()));
+        }
         
-        
-        
-
         affichage.Liste[] liste = new affichage.Liste[5];
 
         TypeObjet esc = new TypeObjet();
         esc.setNomTable("CAISSE_LIB");
         liste[0] = new Liste("caisse", esc, "VAL", "id");
+        liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
         TypeObjet cheque = new TypeObjet();
         cheque.setNomTable("TYPECHEQUE");
         liste[1] = new Liste("idTypeCheque", cheque, "VAL", "id");
@@ -116,57 +115,54 @@
         
         pi.getFormu().getChamp("idplacement").setLibelle("Placement");
 
-        if (request.getParameter("id") != null) {
+        if (idOP != null) {
 
-            if (request.getParameter("id") != null && request.getParameter("id").compareTo("") != 0) {
-                pi.getFormu().getChamp("idordre").setDefaut(request.getParameter("id"));
-                MvtcaisseOrdonnerpayementFacture ordre = new MvtcaisseOrdonnerpayementFacture(request.getParameter("id"));
-                ordre.setNomTable("JOURNALCAISSE_INFO");
-                MvtcaisseOrdonnerpayementFacture preremplie = ordre.getOrdre(null);
-                pi.getFormu().getChamp("idordre").setValeurLibelle(preremplie.getRemarque());
-                pi.getFormu().getChamp("tiers").setValeurLibelle(preremplie.getNomfournisseur());
-                pi.getFormu().getChamp("tiers").setDefaut(preremplie.getIdfournisseur());
-                pi.getFormu().getChamp("idmode").setDefaut(preremplie.getModepaiement());
-                pi.getFormu().getChamp("debit").setDefaut("" + Utilitaire.formaterAr("" + preremplie.getReste()));
-
+            if (idOP != null && idOP.compareTo("") != 0) {
+                MvtcaisseOrdonnerpayementFacture preremplie = datas.getJcInfo();
+                pi.getFormu().getChamp("idordre").setDefaut(idOP);
+                
+                if(preremplie != null) {
+                    pi.getFormu().getChamp("idordre").setValeurLibelle(preremplie.getRemarque());
+                    pi.getFormu().getChamp("tiers").setValeurLibelle(preremplie.getNomfournisseur());
+                    pi.getFormu().getChamp("tiers").setDefaut(preremplie.getIdfournisseur());
+                    pi.getFormu().getChamp("idmode").setDefaut(preremplie.getModepaiement());
+                    pi.getFormu().getChamp("debit").setDefaut("" + Utilitaire.formaterAr("" + preremplie.getReste()));
+                }
             }
-            OrdonnerPayement ordP = new OrdonnerPayement();
-            ordP.setNomTable("ORDONNERPAYEMENT_TIERSLIB");
-            OrdonnerPayement[] ord = (OrdonnerPayement[]) CGenUtil.rechercher(ordP, null, null, null, " and id = '" + request.getParameter("id") + "'");
-            if (ord.length > 0) {
-                pi.getFormu().getChamp("designation").setDefaut(ord[0].getRemarque());
-                pi.getFormu().getChamp("libelle").setDefaut(ord[0].getRemarque());
+            
+            OrdonnerPayement ordP = datas.getOp();
+            
+            if (ordP != null) {
+                pi.getFormu().getChamp("designation").setDefaut(ordP.getRemarque());
+                pi.getFormu().getChamp("libelle").setDefaut(ordP.getRemarque());
 
-                pi.getFormu().getChamp("idordre").setDefaut(ord[0].getId());
-                pi.getFormu().getChamp("idordre").setValeurLibelle(ord[0].getRemarque());
-                pi.getFormu().getChamp("tiers").setDefaut(ord[0].getTiers());
-                pi.getFormu().getChamp("tiers").setValeurLibelle(ord[0].getTierslib());
-                pi.getFormu().getChamp("idmode").setDefaut(ord[0].getModepaiement());
+                pi.getFormu().getChamp("idordre").setDefaut(ordP.getId());
+                pi.getFormu().getChamp("idordre").setValeurLibelle(ordP.getRemarque());
+                pi.getFormu().getChamp("tiers").setDefaut(ordP.getTiers());
+                pi.getFormu().getChamp("tiers").setValeurLibelle(ordP.getTierslib());
+                pi.getFormu().getChamp("idmode").setDefaut(ordP.getModepaiement());
                 if (request.getParameter("entree") != null) {
-                    pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + ord[0].getMontant()));
+                    pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + ordP.getMontant()));
 
                 } else {
-                    pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + ord[0].getMontant()));
+                    pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + ordP.getMontant()));
                 }
                 
-                if(ord[0].getDed_Id()!=null && ord[0].getDed_Id().startsWith("AVRFC")){
-                    AvoirFC av = new AvoirFC();
-                    av = (AvoirFC) av.getById(ord[0].getDed_Id(), null, null);
+                if(ordP.getDed_Id()!=null && ordP.getDed_Id().startsWith("AVRFC")){
+                    AvoirFC av = datas.getAvoirFC();
                     pi.getFormu().getChamp("idplacement").setDefaut(av.getIdfacture());
                 }
             }
         }
-        if (request.getParameter("idplacement") != null) {
-            String idplacement = (String) request.getParameter("idplacement");
+        if (idplacement != null) {
             pi.getFormu().getChamp("idplacement").setDefaut(idplacement);
             pi.getFormu().getChamp("idplacement").setValeurLibelle(idplacement);
-            Placement placement = new Placement();
-            placement.setId(idplacement);
+            
             if (request.getParameter("param") != null && request.getParameter("param").equalsIgnoreCase("sortie")) {
-                Placement pl = placement.getPlacement(null);
+                Placement pl = datas.getPlacement();
                 pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + pl.getMontant()));
             } else {
-                DetailsPlacements dp = placement.getDetailsPlacement(null);
+                DetailsPlacements dp = datas.getDetailsPlacement();
                 pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + dp.getMontant_terme()));
             }
         }
@@ -175,11 +171,7 @@
         
         String idAvoir = request.getParameter("idAvoir");
         if(idAvoir!=null && !idAvoir.isEmpty()){
-            AvoirFC avoir = new AvoirFC();
-            avoir = (AvoirFC) avoir.getById(idAvoir, "AvoirFC_montant", null);
-                if(avoir == null){
-                    throw new Exception("Avoir introuvable ou non visé");
-                }
+            AvoirFC avoir = datas.getAvoirFC();
             pi.getFormu().getChamp("libelle").setDefaut("Paiement avoir via facture client - " + idAvoir);
             pi.getFormu().getChamp("idplacement").setDefaut(idAvoir);
             pi.getFormu().getChamp("idplacement").setAutre("readonly");
@@ -188,11 +180,7 @@
         }
         String idAvoirFF = request.getParameter("idAvoirFF");
         if(idAvoirFF!=null && !idAvoirFF.isEmpty()){
-            AvoirFF avoirFF = new AvoirFF();
-            avoirFF = (AvoirFF) avoirFF.getById(idAvoirFF, "AvoirFF_montant", null);
-            if(avoirFF == null){
-                throw new Exception("Avoir introuvable ou non visé");
-            }
+            AvoirFF avoirFF = datas.getAvoirFF();
             pi.getFormu().getChamp("libelle").setDefaut("Paiement avoir via facture client - " + idAvoir);
             pi.getFormu().getChamp("idplacement").setDefaut(idAvoirFF);
             pi.getFormu().getChamp("idplacement").setAutre("readonly");

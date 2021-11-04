@@ -30,7 +30,7 @@ public class ImportExcel {
     
     private static Workbook workbook;
     private static Sheet sheet;
-    public static ArrayList<Activite> importerTous(InputStream fileUrl, String idescale) throws Exception {
+    public static ArrayList<Activite> importerTous(InputStream fileUrl, String idescale, int mois) throws Exception {
         try {
             String heuredeb = "00:00:00";
             String heurefin = "00:00:00";
@@ -65,19 +65,19 @@ public class ImportExcel {
                         }else if(c.getNumericCellValue()==0){
                         
                         }else{
-                            //System.out.println(idConteneur);  
+                             
                             Cell daty = row.getCell(4);
                             String date = utilitaire.Utilitaire.datetostring(daty.getDateCellValue());
-                            String[] datesplit= date.split("/");
+                            
 
                             java.sql.Date datefin =utilitaire.Utilitaire.stringDate(date);
-                            int mois =utilitaire.Utilitaire.stringToInt(datesplit[1]);
+                            
                             double qte = c.getNumericCellValue();
                             Activite temp = new Activite(datefin, Constante.idMICTSL, idConteneur, qte, mois, utilitaire.Utilitaire.stringToInt(annee), datefin,datefin, heuredeb, heurefin);
                             temp.setBateau(idescale);
                             ls.add(temp);
                             
-                            //System.out.println(temp.getRubrique()+"*****"+temp.getQte());
+                            
                         }
                        
                     }

@@ -15,6 +15,7 @@ import facture.EtatProvision;
 import facture.FactureClient;
 import facture.FactureFournisseur;
 import facture.PaiementFacture;
+import facture.UtilitaireFacture;
 import factureclient.PayementFacture;
 import facturefournisseur.RegulFacture;
 import java.sql.Connection;
@@ -37,6 +38,7 @@ public class JournalCaisse extends ClassEtat {
     private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib;
     private double sommeCredit, sortie, entree;
     private String banque;
+    private String descecaisse;
 
     public String getBanque() {
         return banque;
@@ -400,10 +402,12 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             if(this.getIdordre()==null){
             
-                FactureClient fc = findFactureClient(c);
-                if(fc != null) {
-                    if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
-                    if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                FactureClient[] listeFC = findFactureClient(c);
+                if(listeFC != null && listeFC.length > 0) {
+                    for(FactureClient fc : listeFC) {
+                        if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
+                        if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                    }
                 }
 
                 AvoirFC avoir = findAvoirFC(c);
@@ -525,6 +529,19 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
         }
     }
+    
+    public void checkMontantFactureClient(FactureClient[] fc, Connection c) throws Exception{
+        if(fc != null && fc.length > 0){
+            double sommeReste = 0;
+            for(int i=0; i<fc.length; i++){
+                if(fc[i].getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Facture "+fc[i].getId()+" non visee");
+                sommeReste += fc[i].getMontantreste();
+            }
+            
+            if(Utilitaire.arrondir(sommeReste, 3) < this.getCredit()) throw new Exception("Montant supérieur au reste à payer");
+        }
+    }
+    
     public void checkMontantFactureFournisseur(FactureFournisseur fc,Connection c) throws Exception {
 
         if (fc != null) {
@@ -534,6 +551,19 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if (fc.getMontantreste() < this.getDebit()) {
                 throw new Exception("Montant supérieur au reste à payer");
             }
+        }
+    }
+    
+     public void checkMontantFactureFournisseur(FactureFournisseur[] fc,Connection c) throws Exception {
+
+        if (fc != null && fc.length > 0) {
+            double sommeReste = 0;
+            for(int i=0; i<fc.length; i++){
+                if(fc[i].getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Facture "+fc[i].getId()+" non visee");
+                sommeReste += fc[i].getMontantreste();
+            }
+            
+            if(Utilitaire.arrondir(sommeReste, 3) < this.getDebit()) throw new Exception("Montant supérieur au reste à payer");
         }
     }
     
@@ -585,8 +615,19 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     if (!this.getIdplacement().startsWith("FC")) {
                         this.traitementPlacement(user, c);
                     }
+                    
+                    if(this.getIdplacement().startsWith("FC")){
+                        String numeroPiece = calculerNumeroPiece(c);
+                        this.setNumPiece(numeroPiece);
+                    }
+                    
                     genererPaiement(c, refuser);
                 }
+            }
+           
+            if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece) && 
+                   getIdTypeCheque()!=null && getIdTypeCheque().equals(Constante.typeChequeAuComptant)){
+                this.arrondir();
             }
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
@@ -620,13 +661,14 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return super.createObject(u, c);
     }
     
-    public FactureClient findFactureClient(Connection c) throws Exception{
+    public FactureClient[] findFactureClient(Connection c) throws Exception{
         FactureClient fc = new FactureClient();
         fc.setNomTable("facture_client_union");
-        String where = String.format(" and id = '%s' ", this.getIdplacement());
+        String ids = this.getIdplacement().contains(";") ? this.getIdplacement().replace(";", "','") : this.getIdplacement();
+        String where = " and id in ('" +ids+"')";
         FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, where);
         if (result != null && result.length > 0) 
-            return result[0];
+            return result;
         return null;
     }
     public AvoirFF findAvoirFF(Connection c) throws Exception{
@@ -638,15 +680,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             return result[0];
         return null;
     }
-    public FactureFournisseur findFactureFournisseur(Connection c) throws Exception{
-        FactureFournisseur fc = new FactureFournisseur();
-        fc.setNomTable("FACTFOURN_MSUM_LIB");
-        String where = String.format(" and id = '%s' ", this.getIdplacement());
-        FactureFournisseur[] result = (FactureFournisseur[])CGenUtil.rechercher(fc, null, null, c, where);
-        if (result != null && result.length > 0) 
-            return result[0];
-        return null;
-    }
+    
     
     public PayementFacture[] getPayementFactureTous(Connection c) throws Exception{
         int verif = 0;
@@ -657,7 +691,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 verif = 1;
             }
             PayementFacture pf = new PayementFacture();
-            pf.setNomTable("paiementfacture");
+            pf.setNomTable("paiementfacturecp");
             String awhere = String.format(" and idmvt = '%s' ", this.getId());
             PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;
@@ -709,25 +743,28 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 paiementFact.setMontant(-avoirFF.getMontant());
                 paiementFact.createObject(refuser, c);
             }
-            FactureClient fc = findFactureClient(c);
-            if(fc != null){
-                checkMontantFactureClient(fc,c);
-                PaiementFacture pf = new PaiementFacture();
-                pf.setIdMvt(this.getId());
-                pf.setIdFact(this.getIdplacement());
-                pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",this.getCredit()));
-                pf.createObject(refuser, c);
-                
+            FactureClient[] fcListe = findFactureClient(c);
+            if(fcListe != null && fcListe.length > 0){
+                checkMontantFactureClient(fcListe, c);
+                for(FactureClient fc: fcListe) {
+                    PaiementFacture pf = new PaiementFacture();
+                    pf.setIdMvt(this.getId());
+                    pf.setIdFact(fc.getId());
+                    pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",fc.getId(),fc.getMontantreste())); // this.getCredit() izy taloha
+                    pf.createObject(refuser, c);
+                }
             }
-            FactureFournisseur ff = this.findFactureFournisseur(c);
-            if(ff!=null){
-                checkMontantFactureFournisseur(ff,c);
-                PaiementFacture pf = new PaiementFacture();
-                pf.setNomTable("paiementfacturef");
-                pf.setIdMvt(this.getId());
-                pf.setIdFact(this.getIdplacement());
-                pf.setMontant(genererMontantPaiement(c,"etatbpvrai",this.getDebit()));//pf.setMontant(this.getDebit());
-                pf.createObject(refuser, c);
+            FactureFournisseur[] ffListe = this.findFactureFournisseur(c);
+            if(ffListe != null && ffListe.length >0){
+                checkMontantFactureFournisseur(ffListe,c);
+                for(FactureFournisseur ff : ffListe){
+                    PaiementFacture pf = new PaiementFacture();
+                    pf.setNomTable("paiementfacturef");
+                    pf.setIdMvt(this.getId());
+                    pf.setIdFact(ff.getId());
+                    pf.setMontant(genererMontantPaiement(c,"etatbpvrai",ff.getId(),ff.getMontantreste()));//this.getCredit() izy taloha
+                    pf.createObject(refuser, c);
+                }
             }
             if(verif) c.commit();
         } catch(Exception ex){ 
@@ -767,6 +804,31 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return montant;
     }
     
+     public double genererMontantPaiement(Connection c,String nomtable,String idFacture,double montantV) throws Exception {
+        boolean verif = false;
+        double montant = 0;
+        
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            
+            montant = getMontantResteProvision(c, nomtable,idFacture);
+            
+            if(montant >= montantV) montant = montantV;
+            
+        } catch(Exception ex) {
+            throw ex;
+        }  finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+        
+        return montant;
+    }
+    
     public double getMontantResteProvision(Connection c,String nomtable)throws Exception{
         double result = 0.;
         int verify = 0;
@@ -778,6 +840,29 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             EtatProvision ep = new EtatProvision();
             ep.setNomTable(nomtable);//"etatprovisionvrai" ny tsotra
             ep.setId(this.getIdplacement());
+            EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, "");
+            if(etatProv.length>0)
+                result = etatProv[0].getMontantreste();
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if(c!=null && verify==1) c.close();
+        }
+        return result;
+    }
+    
+    
+    public double getMontantResteProvision(Connection c,String nomtable, String idFacture)throws Exception{
+        double result = 0.;
+        int verify = 0;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verify = 1;
+            }
+            EtatProvision ep = new EtatProvision();
+            ep.setNomTable(nomtable);//"etatprovisionvrai" ny tsotra
+            ep.setId(idFacture);
             EtatProvision[] etatProv = (EtatProvision[])CGenUtil.rechercher(ep, null, null, c, "");
             if(etatProv.length>0)
                 result = etatProv[0].getMontantreste();
@@ -806,6 +891,63 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         } finally{
             if(c!=null && verif)
                 c.close();
+        }
+    }
+    
+    public String genererCodeModePaiement(){
+        if(this.getIdmode().compareToIgnoreCase("pay1") == 0){
+            return "E";
+        }else if(this.getIdmode().compareToIgnoreCase("pay2") == 0){
+            return "C";
+        }
+        return null;
+    }
+    public String genererCodeType()
+    {
+        String result="";
+        if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00001")==0)
+        {
+            result = "1";
+        }
+        if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00002")==0)
+        {
+            result = "3";
+        }
+        return result;
+    }
+    
+    public String calculerNumeroPiece(Connection c) throws Exception{
+        String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
+        return Utilitaire.genererAnnee(dateEffetStr) + 
+                Utilitaire.genererMois(dateEffetStr) + "-" + 
+                genererCodeModePaiement() + "-" + 
+                genererCodeType() + "-" + 
+                UtilitaireFacture.genererSequence(c, "numeropiece",7,dateEffetStr);
+
+    }
+    
+    public FactureFournisseur[] findFactureFournisseur(Connection c) throws Exception{
+        FactureFournisseur ff = new FactureFournisseur();
+        ff.setNomTable("FACTUREFOURNVALIDE_V");
+        String ids = this.getIdplacement().contains(";") ? this.getIdplacement().replace(";", "','") : this.getIdplacement();
+        String where = " and id in ('" +ids+"')";
+        FactureFournisseur[] result = (FactureFournisseur[])CGenUtil.rechercher(ff, null, null, c, where);
+        if (result != null && result.length > 0) 
+            return result;
+        return null;
+    }
+
+    public String getDescecaisse() {
+        return descecaisse;
+    }
+
+    public void setDescecaisse(String descecaisse) {
+        this.descecaisse = descecaisse;
+    }
+    
+    public void arrondir() throws Exception{
+        if(this.getCredit()%100 != 0){
+            this.setCredit(this.getCredit() + (100 - this.getCredit()%100));
         }
     }
 }
