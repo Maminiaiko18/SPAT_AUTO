@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ORDRE_PAYER" pageWidth="421" pageHeight="595" columnWidth="381" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="482ea57c-6d82-4138-ae48-165f25e19e79">
 	<property name="ireport.zoom" value="1.6105100000000074"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="28"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="NUM_OP" class="java.lang.String"/>
 	<parameter name="DESTINATION" class="java.lang.String"/>
 	<parameter name="PAIEMENT" class="java.lang.String"/>
@@ -40,14 +40,14 @@
 				<textFieldExpression><![CDATA[$P{NUM_OP}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="23" width="173" height="10" uuid="11e7c457-c142-424c-b776-1058933c44c6"/>
+				<reportElement x="0" y="23" width="145" height="10" uuid="11e7c457-c142-424c-b776-1058933c44c6"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DEPARTEMENT FINANCIER]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="33" width="173" height="10" uuid="55b7615f-da39-4423-9618-2f37efab0748"/>
+				<reportElement x="0" y="33" width="145" height="10" uuid="55b7615f-da39-4423-9618-2f37efab0748"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="7" isBold="true"/>
 				</textElement>
@@ -131,7 +131,7 @@
 				<textFieldExpression><![CDATA[$P{MONTANT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="84" y="83" width="297" height="35" uuid="eeb56261-43bf-4f37-9f4e-d0934bcef7cf"/>
+				<reportElement x="84" y="83" width="297" height="20" uuid="eeb56261-43bf-4f37-9f4e-d0934bcef7cf"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>

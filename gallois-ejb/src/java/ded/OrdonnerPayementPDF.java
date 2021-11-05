@@ -12,15 +12,7 @@ import utilitaire.ChiffreLettre;
  * @author Lenovo
  */
 public class OrdonnerPayementPDF extends OrdonnerPayement {
-    String adresse, montant_lettre,devise,beneficiaire,numfact, destinationlib;
-
-    public String getDestinationlib() {
-        return destinationlib;
-    }
-
-    public void setDestinationlib(String destinationlib) {
-        this.destinationlib = destinationlib;
-    }
+    String adresse, montant_lettre,devise,beneficiaire,numfact;
 
     public String getNumfact() {
         return numfact;

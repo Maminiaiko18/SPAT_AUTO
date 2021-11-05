@@ -74,7 +74,7 @@
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li class="<%= map.get("detail-bl")%>"><a href="globalnegoce.jsp?but=stock/bl/bondelivraison-fiche.jsp&id=<%=request.getParameter("id")%>&tab=detail-bl">Détails</a></li>
-                <li class="<%= map.get("facture-fournisseur-liste")%>"><a href="globalnegoce.jsp?but=stock/bl/bondelivraison-fiche.jsp&id=<%=request.getParameter("id")%>&tab=facture-fournisseur-liste&idbl=<%=livraison.getId()%>">Facture fournisseur</a></li>
+                <li class="<%= map.get("facture-fournisseur-liste")%>"><a href="globalnegoce.jsp?but=stock/bl/bondelivraison-fiche.jsp&id=<%=request.getParameter("id")%>&tab=facture-fournisseur-liste&remarque=<%=livraison.getId()%>">Facture fournisseur</a></li>
             </ul>
 
             <div class="tab-content">       
