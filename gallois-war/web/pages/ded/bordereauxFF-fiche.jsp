@@ -93,7 +93,7 @@
                                     <td><%=utilitaire.Utilitaire.champNull(detail.getId())%></td>
                                     <td><%=utilitaire.Utilitaire.champNull(detail.getRemarque())%></td>
                                     <td>
-                                        <a href="<%=(String) session.getValue("lien")%>?but=facture/facture-fournisseur-fiche.jsp&id=<%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>">
+                                        <a href="<%=(String) session.getValue("lien")%>?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=<%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>">
                                             <%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>
                                         </a>
                                     </td>
