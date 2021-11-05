@@ -64,6 +64,9 @@
             for (int i = 0; i < taille; i++) {
                 pi.getFormufle().getChamp("montant_" + i).setAutre("readonly");
                 
+                pi.getFormufle().getChamp("idop_" + i).setPageAppel("choix/listeFactureFournisseurChoix.jsp");
+                pi.getFormufle().getChamp("idop_" + i).setAutre("readonly");
+                
                 if(i < lesOp.length) {
                     pi.getFormufle().getChamp("idop_" + i).setDefaut(lesOp[i]);
                     pi.getFormufle().getChamp("idop_" + i).setValeurLibelle(lesOp[i]);

@@ -1,4 +1,5 @@
 
+<%@page import="bordereau.BordereauLibComplet"%>
 <%@page import="bordereau.BordereauFilleFF"%>
 <%@page import="bordereau.BordereauFF"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,7 +11,8 @@
 <%
 try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
-    BordereauFF mere = new BordereauFF();
+    BordereauLibComplet mere = new BordereauLibComplet();
+    mere.setNomTable("bordereauFF_libcomplet");
     BordereauFilleFF fille = new BordereauFilleFF();
     
     
@@ -28,11 +30,23 @@ try{
     pi.getFormu().getChamp("numero").setAutre("readonly");
     pi.getFormu().getChamp("Daty").setLibelle("Date");
     
+    pi.getFormu().getChamp("tierslib").setVisible(false);
+    
+        for(int i=0; i < pi.getNombreLigne(); i++) {
+            pi.getFormufle().getChamp("idop_" + i).setAutre("readonly");
+            
+            if(i < liste.length) pi.getFormufle().getChamp("idop_" + i).setDefaut(liste[i].getIdop());
+        }
+    
     pi.getFormufle().getChamp("Idop_0").setLibelle("Facture fournisseur");     
     pi.getFormufle().getChamp("Idbordereau_0").setLibelle("Bordereau");     
     pi.getFormufle().getChamp("id_0").setLibelle("ID");
 
     pi.preparerDataFormu();
+    
+// Initialisation valeurs champs défaut
+    mere = (BordereauLibComplet) pi.getBase();
+    pi.getFormu().getChamp("tiers").setValeurLibelle(mere.getTierslib());
 %>
 <div class="content-wrapper">
     <div class="row">
