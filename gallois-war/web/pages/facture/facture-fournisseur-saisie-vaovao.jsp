@@ -177,7 +177,7 @@
         <input name="bute" type="hidden" id="bute" value="facture/facture-fournisseur-fiche-vaovao.jsp">
         <input name="classe" type="hidden" id="classe" value="facture.FactureFournisseur">
         <input name="classefille" type="hidden" id="classefille" value="facture.FactureFournisseurDetails">
-        <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=taille%>">
+        <input name="nombreLigne" type="hidden" id="nombreLigne" value="10">
         <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
     </form>
 

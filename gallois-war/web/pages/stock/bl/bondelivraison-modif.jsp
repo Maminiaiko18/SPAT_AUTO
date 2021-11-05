@@ -29,7 +29,7 @@
 //    pi.getFormu().changerEnChamp(liste);
 //    
     pi.getFormu().getChamp("point").setVisible(false);
-    pi.getFormu().getChamp("remarque").setLibelle("Numero BL");
+    pi.getFormu().getChamp("remarque").setLibelle("remarque");
     pi.getFormu().getChamp("id_bc").setLibelle("N° Bon de commande");
     pi.getFormu().getChamp("id_bc").setAutre("readonly");
 
