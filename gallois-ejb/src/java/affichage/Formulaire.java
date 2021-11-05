@@ -1614,9 +1614,11 @@ public class Formulaire {
         temp += "</div>";
         setHtmlInsert(temp);
     }
+    
     public void makeHtmlInsertTableauIndex() throws Exception {
         String temp = "";
         String acstring = "";
+        
         temp += "<div class='row'>";
         temp += "<div class='row col-md-12'>";
         temp += "<div class='box'>";
@@ -1655,7 +1657,7 @@ public class Formulaire {
         {
             Champ c = this.getChamp(colonne[i]+"_"+0);
             if(i == 0)
-                temp += "<th style='background-color:#bed1dd' colspan='1'></th>";
+                temp += "<th style='background-color:#bed1dd; text-align: center' colspan='1'><input onclick=\"CocheToutCheckbox(this, 'id')\" type=\"checkbox\"></th>";
             if (c.getVisible() == true) {
                 c.setAutre("tabindex='" + (i + 1) + "'" + c.getAutre());
                 temp += "<th style='background-color:#bed1dd' colspan='1'><label for='" + c.getNom() + "' " + c.getAutre() + ">" + c.getLibelle() + "</label></th>";
