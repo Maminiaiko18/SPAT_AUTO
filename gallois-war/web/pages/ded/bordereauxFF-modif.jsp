@@ -23,7 +23,7 @@ try{
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idbordereau"), "readonly");
 
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idop"), "choix/listeOrdonnerPayementChoix.jsp","idop;",true);
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idop"), "choix/listeFactureFournisseurChoix.jsp","idop;idoplibelle;idoplibelle");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("Etat").setAutre("readonly");
@@ -70,7 +70,7 @@ try{
                 </div>
 
                 <input name="acte" type="hidden" id="nature" value="updateInsert">
-                <input name="bute" type="hidden" id="bute" value="ded/bordereauxFF-modif.jsp?id=<%=request.getParameter("id")%>">
+                <input name="bute" type="hidden" id="bute" value="ded/bordereauxFF-fiche.jsp?id=<%=request.getParameter("id")%>">
                 <input name="classe" type="hidden" id="classe" value="bordereau.BordereauFF">
                 <input name="classefille" type="hidden" id="classefille" value="bordereau.BordereauFilleFF">
                 <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=pi.getNombreLigne()%>">
