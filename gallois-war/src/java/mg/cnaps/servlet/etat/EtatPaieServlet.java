@@ -308,7 +308,7 @@ public class EtatPaieServlet extends HttpServlet {
             if(tabOp.length > 0){
                 op = tabOp[0];
                 param.put("NUM_OP",op.getNumeroop());
-                param.put("DESTINATION",op.getDestination());
+                param.put("DESTINATION",op.getDestinationlib());
                 param.put("PAIEMENT",op.getModepaiement());
                 param.put("MONTANT",op.getMontant());
                 param.put("MONTANT_LETTRE",op.getMontant_lettre());
