@@ -1,3 +1,4 @@
+<%@page import="facture.FactureFournisseur"%>
 @@ -0,0 +1,100 @@
 <%-- 
     Document   : bordereaux-saisie
@@ -21,24 +22,29 @@
         String autreparsley = "data-parsley-range='[8, 40]' required";
         UserEJB u = u = (UserEJB) session.getValue("u");
         String classeMere = "bordereau.BordereauFF",
-               classeFille = "bordereau.BordereauFilleFF",
-               titre = "Saisie Bordereau Facture fournisseur",
-			   redirection = "ded/bordereauxFF-fiche.jsp",
-			   colonneMere = "idbordereau",
-               nomSaisie = "Bordereau",
-               nomFonctionSequence = "get_seqnumerobordereauFF";
+                classeFille = "bordereau.BordereauFilleFF",
+                titre = "Saisie Bordereau Facture fournisseur",
+                redirection = "ded/bordereauxFF-fiche.jsp",
+                colonneMere = "idbordereau",
+                nomSaisie = "Bordereau",
+                nomFonctionSequence = "get_seqnumerobordereauFF";
         int taille = 10;
         String[] lesOp = new String[]{};
-        EtatFactureMontantDaty[] facture = new EtatFactureMontantDaty[0];
-        if(request.getParameter("idsOP") != null) {
+        FactureFournisseur[] factures = new FactureFournisseur[0];
+        if (request.getParameter("idsOP") != null) {
 //            lesOp = request.getParameter("idsOP").split(";");
-            lesOp = Utilitaire.stringToTab(request.getParameter("idsOP"),";");
-            String afterW =" and id in ( " + Utilitaire.tabToString(lesOp, "'", ",") + ")" ;
-            System.out.println("OPS ---- "+afterW);
-            facture = (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), null, null, null, afterW);
-            taille = facture.length;
+            lesOp = Utilitaire.stringToTab(request.getParameter("idsOP"), ";");
+            String afterW = " and id in ( " + Utilitaire.tabToString(lesOp, "'", ",") + ")";
+            
+            FactureFournisseur facture = new FactureFournisseur();
+            facture.setNomTable("FACTFOURN_MSUM_LIB");
+            
+            factures = (FactureFournisseur[]) u.getData(facture, null, null, null, afterW);
+            if (factures.length > 0) {
+                taille = factures.length;
+            }
         }
-        
+
         BordereauFF mere = new BordereauFF();
         BordereauFilleFFLibComplet fille = new BordereauFilleFFLibComplet();
         PageInsertMultiple pi = new PageInsertMultiple(mere, fille, request, taille, u);
@@ -50,27 +56,36 @@
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("daty").setLibelle("Date");
-        
+
 //        for( int i = 0 ; i < taille ; i++ ){
 //            pi.getFormufle().getChamp("idop_"+i).setAutre("readonly");
 //            pi.getFormufle().getChamp("idop_"+i).setPageAppel("choix/listeOrdonnerPayementChoix.jsp","idop;idoplibelle");
 //        }
-        if(lesOp.length >0){
-            for(int i = 0 ; i < taille ; i++){
-                pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
-                pi.getFormufle().getChamp("montant_"+i).setDefaut(facture[i].getMontantTTC()+"");
-                pi.getFormufle().getChamp("idop_"+i).setDefaut(facture[i].getId());
-                pi.getFormufle().getChamp("idop_"+i).setValeurLibelle(facture[i].getId());
+            for (int i = 0; i < taille; i++) {
+                pi.getFormufle().getChamp("montant_" + i).setAutre("readonly");
+                
+                pi.getFormufle().getChamp("idop_" + i).setPageAppel("choix/listeFactureFournisseurChoix.jsp");
+                pi.getFormufle().getChamp("idop_" + i).setAutre("readonly");
+                
+                if(i < lesOp.length) {
+                    pi.getFormufle().getChamp("idop_" + i).setDefaut(lesOp[i]);
+                    pi.getFormufle().getChamp("idop_" + i).setValeurLibelle(lesOp[i]);
+                }
+                if (i < factures.length) {
+                    pi.getFormufle().getChamp("montant_" + i).setDefaut(factures[i].getMontantttc() + "");
+                    pi.getFormufle().getChamp("idop_" + i).setDefaut(factures[i].getId());
+                    pi.getFormufle().getChamp("idop_" + i).setValeurLibelle(factures[i].getId());
+                }
             }
-        }
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idbordereau"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("remarque"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idfacture"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idbordereaulib"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("code_etablissement"), false);
         pi.getFormufle().getChamp("idop_0").setLibelle("Facture");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
-        
+
         pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
@@ -94,11 +109,11 @@
 </div>
 
 <%
-	} catch (Exception e) {
-		e.printStackTrace();
+} catch (Exception e) {
+    e.printStackTrace();
 %>
-    <script language="JavaScript">
-        alert('<%=e.getMessage()%>');
-        history.back();
-    </script>
+<script language="JavaScript">
+    alert('<%=e.getMessage()%>');
+    history.back();
+</script>
 <% }%>

@@ -25,6 +25,7 @@
    
     pc.getChampByName("idbordereau").setLibelle("Bordereau");
     pc.getChampByName("idfacture").setLibelle("Facture");
+    pc.getChampByName("code_etablissement").setLibelle("Code Etablissement");
     pc.getChampByName("idop").setLibelle("Ordonner payement");
     pc.getChampByName("idbordereaulib").setLibelle(" Designation bordereau");
     pc.getChampByName("idbordereau").setLien("module.jsp?but=ded/bordereauxFF-fiche.jsp", "id=");

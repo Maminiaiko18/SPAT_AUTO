@@ -30,6 +30,13 @@ public class FactureFournisseur extends FactureClient {
         this.setNomClasseFille("facture.FactureFournisseurDetails");
     }
 
+    @Override
+    public String getValColLibelle() {
+        return getDesignation()+";"+getId();
+    }
+    
+    
+
     public FactureFournisseur(String id, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String idcategorie, double tva, Date daty, Date dateEcheance, int etat) throws Exception {
         this.setNomTable("facture_Fournisseur_Mere");
         this.setId(id);
