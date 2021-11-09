@@ -665,7 +665,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         FactureClient fc = new FactureClient();
         fc.setNomTable("facture_client_union");
         String ids = this.getIdplacement().contains(";") ? this.getIdplacement().replace(";", "','") : this.getIdplacement();
-        String where = " and id in ('" +ids+"')";
+        String where = " and id in ('" +ids+"') order by daty asc";
         FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, where);
         if (result != null && result.length > 0) 
             return result;
