@@ -91,7 +91,17 @@
         pi.getFormu().getChamp("codePrestation").setVisible(false);
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
         pi.getFormu().getChamp("tva").setVisible(false);    
-        pi.getFormu().getChamp("estMictsl").setVisible(false);    
+        pi.getFormu().getChamp("estMictsl").setVisible(false);
+        
+        pi.getFormu().getChamp("projetlib").setVisible(false);    
+        pi.getFormu().getChamp("code_etablissementlib").setVisible(false);
+        pi.getFormu().getChamp("numeroop").setLibelle("Numéro Compta");
+        pi.getFormu().getChamp("code_etablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp", "code_etablissement;code_etablissementlibelle");
+        pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp", "projet;projetlibelle"); 
+        pi.getFormu().getChamp("projet").setAutre("readonly");
+        pi.getFormu().getChamp("code_etablissement").setAutre("readonly");
+        pi.getFormu().getChamp("code_etablissement").setLibelle("Code direction");
+        pi.getFormu().getChamp("projet").setLibelle("Projet");
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
@@ -157,9 +167,8 @@
         pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
         pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
 
-        mere = (FactureFournisseur) pi.getBase();
         pi.preparerDataFormu();
-
+        mere = (FactureFournisseur) pi.getBase();
         
 
 %>
@@ -192,6 +201,8 @@
     </div>
 </div>
 <script>
+    document.getElementById("projetlibelle").value = "<%= Utilitaire.champNull(mere.getProjetlib()) %>";
+    document.getElementById("code_etablissementlibelle").value = "<%= Utilitaire.champNull(mere.getCode_etablissementlib()) %>";
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib()%>";
     <%for (int i = 0; i < liste.length; i++) {%>
     document.getElementById("idactivitelibelle_<%=i%>").value = "<%=liste[i].getActivitelib() != null ? liste[i].getActivitelib() : Utilitaire.champNull(liste[i].getIdactivite())%>";
@@ -201,6 +212,8 @@
     document.getElementById("idprevisionlibelle").value = '<%=Utilitaire.champNull(mere.getEscale())%>';
     document.getElementById("idProvisionlibelle").value = '<%=Utilitaire.champNull(mere.getIdProvisionlib())%>';
 
+    
+    
     var designation = document.getElementById("designation");
     var textarea = document.createElement("textarea");
     textarea.name = "designation";
