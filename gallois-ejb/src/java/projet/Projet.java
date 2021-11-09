@@ -140,6 +140,7 @@ public class Projet extends ClassEtat{
         this.exercice = exercice;
     }
     
+    @Override
     public String getValColLibelle(){
         return designation;
     }

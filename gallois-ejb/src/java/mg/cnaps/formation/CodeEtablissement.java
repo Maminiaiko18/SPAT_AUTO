@@ -64,4 +64,9 @@ public class CodeEtablissement extends TypeObjet{
     public void setServicelib(String servicelib) {
         this.servicelib = servicelib;
     }
+    
+    @Override
+    public String getValColLibelle(){
+        return this.val;
+    }
 }

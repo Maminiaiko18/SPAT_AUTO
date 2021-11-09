@@ -47,6 +47,7 @@
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
+    pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro Compta");
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
@@ -54,6 +55,12 @@
     pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("idBL").setAutre("readonly");
     pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");  
+    pi.getFormu().getChamp("code_etablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp", "code_etablissement;code_etablissementlibelle");
+    pi.getFormu().getChamp("code_etablissement").setAutre("readonly");
+    pi.getFormu().getChamp("code_etablissement").setLibelle("Code direction");  
+    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp", "projet;projetlibelle"); 
+    pi.getFormu().getChamp("projet").setAutre("readonly");
+    pi.getFormu().getChamp("projet").setLibelle("Projet");  
     pi.getFormu().getChamp("idBL").setDefaut(Utilitaire.champNull(request.getParameter("idBL")));
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
