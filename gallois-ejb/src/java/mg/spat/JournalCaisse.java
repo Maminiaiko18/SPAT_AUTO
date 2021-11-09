@@ -746,17 +746,27 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             FactureClient[] fcListe = findFactureClient(c);
             if(fcListe != null && fcListe.length > 0){
                 checkMontantFactureClient(fcListe, c);
+                
+                double resteCredit = this.getCredit();
+                
                 for(FactureClient fc: fcListe) {
+                    double aPayer = fc.getMontantreste() < resteCredit ? fc.getMontantreste() : resteCredit;
+                                        
                     PaiementFacture pf = new PaiementFacture();
                     pf.setIdMvt(this.getId());
                     pf.setIdFact(fc.getId());
-                    pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",fc.getId(),fc.getMontantreste())); // this.getCredit() izy taloha
+                    pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",fc.getId(), aPayer)); // this.getCredit() izy taloha
                     pf.createObject(refuser, c);
+                    
+                    resteCredit -= aPayer;
+                    
+                    if(resteCredit <= 0) break;
                 }
             }
             FactureFournisseur[] ffListe = this.findFactureFournisseur(c);
             if(ffListe != null && ffListe.length >0){
                 checkMontantFactureFournisseur(ffListe,c);
+                                
                 for(FactureFournisseur ff : ffListe){
                     PaiementFacture pf = new PaiementFacture();
                     pf.setNomTable("paiementfacturef");
