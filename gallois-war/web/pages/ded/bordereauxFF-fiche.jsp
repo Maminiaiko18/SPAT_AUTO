@@ -93,13 +93,21 @@
                                     <td><%=utilitaire.Utilitaire.champNull(detail.getId())%></td>
                                     <td><%=utilitaire.Utilitaire.champNull(detail.getRemarque())%></td>
                                     <td>
-                                        <a href="<%=(String) session.getValue("lien")%>?but=facture/facture-fournisseur-fiche.jsp&id=<%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>">
+                                        <a href="<%=(String) session.getValue("lien")%>?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=<%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>">
                                             <%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>
                                         </a>
                                     </td>
                                     <td align="right"><%=utilitaire.Utilitaire.champNull(detail.getCode_etablissement())%></td>
                                     <td align="right"><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
-                                    <td><a style="margin-right : 20px" class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + detail.getId() %>&acte=delete&bute=ded/bordereauxFF-liste.jsp&classe=bordereau.BordereauFilleFF&nomtable=liaisonbordereauFF" style="margin-right: 10px">Supprimer</a></td>
+                                    <td>
+                                    <form action="<%=(String) session.getValue("lien")+"?but=apresTarif.jsp&id=" + detail.getId()%>" method="post">
+                                        <input type="hidden" name="acte" value="delete"/>
+                                        <input type="hidden" name="bute" value="ded/bordereauxFF-fiche.jsp&id=<%=request.getParameter("id")%>"/>
+                                        <input type="hidden" name="classe" value="bordereau.BordereauFilleFF"/>
+                                        <input type="hidden" name="nomtable" value="liaisonbordereauFF"/>
+                                        <input type="submit" class="btn btn-danger pull-right" value="Supprimer"/>
+                                    </form>
+                                    </td>
                                 </tr>
                                 <%}%>
                                  <tr>

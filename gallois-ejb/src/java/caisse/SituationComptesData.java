@@ -201,8 +201,8 @@ public class SituationComptesData {
             totalPlacementAr = getTotalPlacement(placementAr);
             totalPlacementDevise = getTotalPlacement(placementDevise);
 
-            recapitulatifComptes = getRecapitulatifComptes(c, totalComptes.getReste(), totalBanqueDevise.getReste());
-            recapitulatifPlacement = getRecapitulatifPlacement(c, totalPlacementAr, totalPlacementDevise);
+            recapitulatifComptes = getRecapitulatifComptes(c, totalComptes.getReste(), totalBanqueDevise.getReste(), daty1);
+            recapitulatifPlacement = getRecapitulatifPlacement(c, totalPlacementAr, totalPlacementDevise, daty1);
 
             totalTresorerie = getTotalPlacement(recapitulatifComptes);
             totalPlacement = getTotalPlacement(recapitulatifPlacement);
@@ -219,11 +219,11 @@ public class SituationComptesData {
         }
     }
 
-    public double convertirDevise(Connection c, String iddevise, double montant) throws Exception {
-        return getMontantDevise(c, iddevise) * montant;
+    public double convertirDevise(Connection c, String iddevise, double montant, String dateDebut) throws Exception {
+        return getMontantDevise(c, iddevise, dateDebut) * montant;
     }
 
-    public double getMontantDevise(Connection c, String iddevise) throws Exception {
+    public double getMontantDevise(Connection c, String iddevise, String dateDebut) throws Exception {
         int verif = 0;
         double montant = 1;
 
@@ -232,10 +232,12 @@ public class SituationComptesData {
                 c = new UtilDB().GetConn();
                 verif = 1;
             }
-
+            
+            String awhere = " and daty <= '" + dateDebut + "' and iddevise = '" + iddevise + "' order by daty desc";
+            
             Coursdevise cours = new Coursdevise();
             cours.setNomTable("COURSDEVISE");
-            Coursdevise[] tmp = (Coursdevise[]) CGenUtil.rechercher(cours, null, null, c, " and iddevise = '" + iddevise + "' order by daty desc");
+            Coursdevise[] tmp = (Coursdevise[]) CGenUtil.rechercher(cours, null, null, c, awhere);
 
             if (tmp != null && tmp.length > 0) {
                 montant = tmp[0].getMontant();
@@ -255,14 +257,14 @@ public class SituationComptesData {
         return getTotal(recapitulatifPlacement);
     }
 
-    public EtatdeStockDate[] getRecapitulatifPlacement(Connection c, double totalPlacementAr, double totalPlacementDevise) throws Exception {
+    public EtatdeStockDate[] getRecapitulatifPlacement(Connection c, double totalPlacementAr, double totalPlacementDevise, String dateDebut) throws Exception {
         EtatdeStockDate[] recapPlacements = new EtatdeStockDate[2];
 
         recapPlacements[0] = new EtatdeStockDate();
         recapPlacements[0].setIngredients("Total placement en ariary");
         recapPlacements[0].setMontantStock(totalPlacementAr);
         
-        totalPlacementDevise = convertirDevise(c, deviseEuro, totalPlacementDevise);
+        totalPlacementDevise = convertirDevise(c, deviseEuro, totalPlacementDevise, dateDebut);
         
         recapPlacements[1] = new EtatdeStockDate();
         recapPlacements[1].setIngredients("Total placement en devise (convertit en Ariary)");
@@ -271,14 +273,14 @@ public class SituationComptesData {
         return recapPlacements;
     }
 
-    public EtatdeStockDate[] getRecapitulatifComptes(Connection c, double totalSituationComptesAr, double totalSituationBanqueDevise) throws Exception {
+    public EtatdeStockDate[] getRecapitulatifComptes(Connection c, double totalSituationComptesAr, double totalSituationBanqueDevise, String dateDebut) throws Exception {
         EtatdeStockDate[] recapComptes = new EtatdeStockDate[2];
 
         recapComptes[0] = new EtatdeStockDate();
         recapComptes[0].setIngredients("Total comptes courants");
         recapComptes[0].setMontantStock(totalSituationComptesAr);
 
-        totalSituationBanqueDevise = convertirDevise(c, deviseEuro, totalSituationBanqueDevise);
+        totalSituationBanqueDevise = convertirDevise(c, deviseEuro, totalSituationBanqueDevise, dateDebut);
         
         recapComptes[1] = new EtatdeStockDate();
         recapComptes[1].setIngredients("Total compte banque en devise (convertit en Ariary)");

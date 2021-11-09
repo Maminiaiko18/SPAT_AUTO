@@ -82,6 +82,7 @@
         pi.getFormu().getChamp("montant").setVisible(false);
         pi.getFormu().getChamp("montanttva").setVisible(false);
         pi.getFormu().getChamp("montantttc").setVisible(false);
+        pi.getFormu().getChamp("montantttcvrai").setVisible(false);
         pi.getFormu().getChamp("tierslib").setVisible(false);
 
         pi.getFormu().getChamp("montantavoir").setVisible(false);

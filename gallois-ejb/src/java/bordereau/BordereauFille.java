@@ -32,7 +32,7 @@ public class BordereauFille extends ClassMAPTable {
     public void controler(Connection c) throws Exception {
         super.controler(c);
 
-        String nomTableDetails = this.getIdop().startsWith("ORP") ? "ordonnerPayement" : "facturefournisseur";  
+        String nomTableDetails = this.getIdop().startsWith("ORP") ? "ordonnerPayement" : "facture_Fournisseur_Mere";  
         
         ClassEtat obj = (ClassEtat) new ded.OrdonnerPayement();
 //        obj.setNomTable(this.getNomTableDetails());
