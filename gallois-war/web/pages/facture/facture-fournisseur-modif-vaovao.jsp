@@ -75,12 +75,15 @@
 
         pi.getFormu().getChamp("etat").setAutre("readonly");
         pi.getFormu().getChamp("etat").setVisible(false);
-        pi.getFormu().getChamp("etat").setVisible(false);
+        pi.getFormu().getChamp("EtatLib").setVisible(false);
         pi.getFormu().getChamp("iduser").setAutre("readonly");
         pi.getFormu().getChamp("montant").setVisible(false);
         pi.getFormu().getChamp("montanttva").setVisible(false);
         pi.getFormu().getChamp("montantttc").setVisible(false);
+        pi.getFormu().getChamp("idBL").setVisible(false);
+        pi.getFormu().getChamp("montantttcvrai").setVisible(false);
         pi.getFormu().getChamp("tierslib").setVisible(false);
+        pi.getFormu().getChamp("codeProvision").setVisible(false);
 
         pi.getFormu().getChamp("montantavoir").setVisible(false);
         pi.getFormu().getChamp("Montantpaye").setVisible(false);
