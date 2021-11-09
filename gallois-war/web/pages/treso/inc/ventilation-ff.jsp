@@ -30,7 +30,7 @@
     pr.getTableau().setColonneLien(colonneLien);
     pr.getTableau().setUrlLien(urlLien);
     pr.getTableau().setUrlLienAffiche(urlLienAff);
-    pr.getTableau().setLibeEntete(libEnteteAffiche);    
+    pr.getTableau().setLibelleAffiche(libEnteteAffiche);    
     if(pr.getTableau().getHtml() != null)
     {
         out.println(pr.getTableau().getHtml());
