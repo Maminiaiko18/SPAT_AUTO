@@ -20,9 +20,9 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib", "code"};
+        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib", "numeroop", "projetlib"};
         String listeInt[] = {"daty","date_echeance"};
-        String libEntete[] = {"id","daty","tierslib", "code", "escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+        String libEntete[] = {"id","daty","tierslib", "numeroop", "projetlib", "code_etablissementlib", "escale","designation","categorielib","tva","date_echeance", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -34,6 +34,8 @@
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
+        pr.getFormu().getChamp("projetlib").setLibelle("Projet");
+        pr.getFormu().getChamp("numeroop").setLibelle("Numero compta");
         
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
@@ -52,7 +54,7 @@
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
         
         
-        String[] colSomme = {"montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+        String[] colSomme = {"montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
@@ -100,7 +102,7 @@
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
-            String libEnteteAffiche[] = {"id","daty","Client","Code", "Escale","Note explicative","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "Net à payer", "montant Avoir","Montant payé","Reste à payer"};
+            String libEnteteAffiche[] = {"id","daty","Client","Numero compta", "Projet", "Code direction", "Escale","Note explicative","Catégorie", "tva", "date echeance", "montant TTC", "Net à payer", "montant Avoir","Montant payé","Reste à payer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);
