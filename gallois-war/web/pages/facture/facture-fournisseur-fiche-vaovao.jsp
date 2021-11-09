@@ -37,6 +37,7 @@
         pc.getChampByName("etatlib").setVisible(false);
         pc.getChampByName("Idcategorie").setVisible(false);
         pc.getChampByName("IdProvision").setVisible(true);
+        pc.getChampByName("projet").setVisible(false);
 //        pc.getChampByName("idProvisionlib").setVisible(false);
 //        pc.getChampByName("montanttva").setVisible(false);
         pc.getChampByName("estMictsl").setVisible(false);
@@ -44,6 +45,7 @@
         pc.getChampByName("escale").setVisible(false);
         pc.getChampByName("idprevision").setVisible(false);
         pc.getChampByName("idProvision").setVisible(false);
+        pc.getChampByName("code_etablissement").setVisible(false);
         pc.getChampByName("tierslib").setLibelle("Tiers");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("montant").setLibelle("Montant HT");
@@ -56,6 +58,9 @@
         pc.getChampByName("montantreste").setLibelle("Reste à payer");
         pc.getChampByName("typelib").setLibelle("Type");
         pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoir");
+        pc.getChampByName("projetlib").setLibelle("Projet");
+        pc.getChampByName("numeroop").setLibelle("Numéro compta");
+        pc.getChampByName("code_etablissementlib").setLibelle("Code direction");
         //pc.getChampByName("escale").setLibelle("Escale");
         pc.getChampByName("codeProvision").setLibelle("Provision");
 
