@@ -10,7 +10,7 @@
 <%
     PaiementFacture cht = new PaiementFacture();
     cht.setNomTable("paiementfactureF");
-    String libEntete[] = {"id", "idfact", "montant"};
+    String libEntete[] = {"id", "idFact", "montant"};
     String listeCrt[] = {"idmvt"};
     String listeInt[] = {};
 
@@ -23,8 +23,8 @@
     pr.creerObjetPage(libEntete, colSomme);
     String libEnteteAffiche[] = {"Id", "Facture", "Montant"};
     String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp"};
-    String colonneLien[] = {"idfact"};
-    String urlLien[] = {"idfact"};
+    String colonneLien[] = {"idFact"};
+    String urlLien[] = {"idFact"};
     String urlLienAff[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
