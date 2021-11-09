@@ -16,9 +16,9 @@
         jc.setNomTable(request.getParameter("etatvue"));
     }
  
-    String listeCrt[] = {"id","folio", "caisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement"};
+    String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement"};
     String listeInt[] = {"dateEffet"};
-    String libEntete[] =  {"id", "folio", "caisse","idtypecheque", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
+    String libEntete[] =  {"id", "folio", "valcaisse","idtypecheque", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
     PageRecherche pr = new PageRecherche(jc, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
