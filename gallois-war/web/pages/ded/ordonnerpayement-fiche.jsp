@@ -52,6 +52,7 @@
                 <div class="box-footer">
                     <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + id + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=ded/ordonnerpayement-fiche.jsp&id=" + id%>" style="margin-right: 10px">Attacher Fichier</a> 
                     <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=ded.OrdonnerPayement&bute=ded/ordonnerpayement-fiche.jsp&id=" + id%>"  style="margin-right: 10px">Viser</a>
+                    <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-modif.jsp&id=" + id%>"  style="margin-right: 10px">Modifier</a>
                     <% if(a.getDed_Id().startsWith("FC")){%>
                     <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&id=" + id +"&entree=1" %>"  style="margin-right: 10px">Entre caisse</a>
                     <%} else{%>
