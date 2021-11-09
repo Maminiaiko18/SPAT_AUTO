@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="mg.spat.Caisse"%>
 <%@page import="service.UploadService"%>
 <%@page import="mg.spat.AttacherFichier"%>
@@ -69,6 +71,18 @@
   
     String colSomme[] = null;
     pr.creerObjetPage(libEntete, colSomme);
+    
+    HashMap<String, String> map = new HashMap<String, String>();
+    map.put("ventilation-ff", "");
+    
+    String tab = request.getParameter("tab");
+    if (tab == null) {
+        tab = "ventilation-ff";
+    }
+    map.put(tab, "active");
+    tab = "inc/" + tab + ".jsp";
+    String bute = "treso/journalcaisse-fiche.jsp";
+    JournalCaisse base = (JournalCaisse)pc.getBase();
 
 %>
 
@@ -111,6 +125,25 @@
                 </div>
             </div>
         </div>
+                        
+        <div class="row">
+        <div class="col-md-10 col-md-offset-1 ">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("ventilation-ff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-ff">Ventilation FF</a></li>
+                    
+                </ul>
+                <div class="tab-content">       
+
+                    <div class="tab-content">       
+                        <jsp:include page="<%=tab%>" >
+                            <jsp:param name="idmvt" value="<%=base.getId()%>" />
+                        </jsp:include>
+                    </div>
+                </div>
+            </div>
+        </div>  
+                
         <div class="col-md-12">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
