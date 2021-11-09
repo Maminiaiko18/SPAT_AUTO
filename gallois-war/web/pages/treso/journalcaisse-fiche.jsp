@@ -74,10 +74,11 @@
     
     HashMap<String, String> map = new HashMap<String, String>();
     map.put("ventilation-ff", "");
+    map.put("ventilation-fc", "");
     
     String tab = request.getParameter("tab");
     if (tab == null) {
-        tab = "ventilation-ff";
+        tab = "ventilation-fc";
     }
     map.put(tab, "active");
     tab = "inc/" + tab + ".jsp";
@@ -130,6 +131,7 @@
         <div class="col-md-10 col-md-offset-1 ">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("ventilation-fc")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-fc">Ventilation FC</a></li>
                     <li class="<%= map.get("ventilation-ff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-ff">Ventilation FF</a></li>
                     
                 </ul>
