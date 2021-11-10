@@ -81,7 +81,7 @@ public class Mouvement extends ClassEtat {
                 prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
             }
             
-            //creerActivite(u, c);
+            creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
         }
         if (this.estTouchee(c) && this.getEscale() == null) {
             this.creerPrevision(u, c);
