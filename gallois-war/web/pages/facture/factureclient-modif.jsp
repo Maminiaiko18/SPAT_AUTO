@@ -128,7 +128,7 @@
         for (int i = 0; i < liste.length; i++) {
             pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 150px;\" ");
             affichage.Champ datefactChp = pi.getFormufle().getChamp("datefact_" + i);
-            datefactChp.setAutre("readonly");
+            //datefactChp.setAutre("readonly");
             if (datefactChp.getValeur() != null && !"".equals(datefactChp.getValeur())) {
                 String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
                 datefactChp.setValeur(dateF);
