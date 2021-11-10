@@ -59,12 +59,12 @@
         pc.getChampByName("typelib").setLibelle("Type");
         pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoir");
         pc.getChampByName("projetlib").setLibelle("Projet");
-        pc.getChampByName("numeroop").setLibelle("Numéro compta");
+        pc.getChampByName("numeroop").setVisible(false);
         pc.getChampByName("code_etablissementlib").setLibelle("Code direction");
         //pc.getChampByName("escale").setLibelle("Escale");
         pc.getChampByName("codeProvision").setLibelle("Provision");
 
-        pc.getChampByName("code").setLibelle("Code");
+        pc.getChampByName("code").setLibelle("Numero Compta");
         e = (FactureFournisseur) pc.getBase();
         pc.getChampByName("IdProvision").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
         String categorie = "";
