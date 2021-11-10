@@ -672,4 +672,28 @@ public class Mouvement extends ClassEtat {
             }
         }
     }
+    
+     public Activite creerActiviteStationnement(String u, Connection c) throws Exception{
+        Mouvement[] mvts = getMouvementMemeEscalePrec(c);
+        Mouvement mvtPrec = null;
+        if(mvts != null && mvts.length > 0) mvtPrec = mvts[0];
+        Prevision prev = this.getPrevision(c);
+        
+        Activite a = new Activite();
+        a.setRubrique(Constante.idStationnement);
+        a.setDesignation("Stationnement");
+        a.setClient(prev.getConsignataire());
+        a.setMois(Utilitaire.getMois(mvtPrec.getDatearrivee()));
+        a.setAnnee(Utilitaire.getAnnee(mvtPrec.getDatearrivee()));
+        a.setDaty(Utilitaire.dateDuJourSql());
+        a.setBateau(prev.getId());
+        a.setDatedebut(mvtPrec.getDatearrivee());
+        a.setHeuredebut(mvtPrec.getHeure());
+        a.setDatefin(this.getDate_depart());
+        a.setHeurefin(this.getHeure_depart());
+        a.setTva(getValeurTaux(c, "coursdeviseNonMICTSL",this.getDate_depart()));
+        
+        return a;
+    }
+    
 }
