@@ -7,6 +7,7 @@ package mg.spat;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import fin.Coursdevise;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -52,6 +53,16 @@ public class Mouvement extends ClassEtat {
 
     public void setNoVoyage(String noVoyage) {
         this.noVoyage = noVoyage;
+    }
+    
+    public double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
+        String awhere = " and daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + Constante.deviseEuro + "' "
+                + " order by daty desc";
+        Coursdevise cours = new Coursdevise();
+        cours.setNomTable(nomTable);
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(cours, null, null, c, awhere);
+
+        return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
 
     @Override
