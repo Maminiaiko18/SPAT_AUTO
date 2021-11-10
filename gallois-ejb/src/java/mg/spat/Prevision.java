@@ -184,8 +184,8 @@ public class Prevision extends ClassEtat {
     }
     public Activite[] genererActiviteVisees(String u, Connection c) throws Exception {
         java.util.List<Activite> activites = new java.util.ArrayList<>();
-        String[] designations = {"Droit de port " + this.getEscale(), "Redevance communale " + this.getEscale(), "Stationnement " + this.getEscale()};
-        String[] idRubriques = {Constante.idDroitDePortCalcule, Constante.idRedevanceCommunaleCalcule, Constante.idStationnement};
+        String[] designations = {"Droit de port " + this.getEscale(), "Redevance communale " + this.getEscale()};
+        String[] idRubriques = {Constante.idDroitDePortCalcule, Constante.idRedevanceCommunaleCalcule};
 
         String awhere = " and etat >= " + ConstanteEtat.getEtatValider()
                 + " and bateau = '" + this.getId() + "'"
