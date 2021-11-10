@@ -665,7 +665,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         FactureClient fc = new FactureClient();
         fc.setNomTable("facture_client_union");
         String ids = this.getIdplacement().contains(";") ? this.getIdplacement().replace(";", "','") : this.getIdplacement();
-        String where = " and id in ('" +ids+"')";
+        String where = " and id in ('" +ids+"') order by daty asc";
         FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, where);
         if (result != null && result.length > 0) 
             return result;
@@ -746,17 +746,27 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             FactureClient[] fcListe = findFactureClient(c);
             if(fcListe != null && fcListe.length > 0){
                 checkMontantFactureClient(fcListe, c);
+                
+                double resteCredit = this.getCredit();
+                
                 for(FactureClient fc: fcListe) {
+                    double aPayer = fc.getMontantreste() < resteCredit ? fc.getMontantreste() : resteCredit;
+                                        
                     PaiementFacture pf = new PaiementFacture();
                     pf.setIdMvt(this.getId());
                     pf.setIdFact(fc.getId());
-                    pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",fc.getId(),fc.getMontantreste())); // this.getCredit() izy taloha
+                    pf.setMontant(genererMontantPaiement(c,"etatprovisionvrai",fc.getId(), aPayer)); // this.getCredit() izy taloha
                     pf.createObject(refuser, c);
+                    
+                    resteCredit -= aPayer;
+                    
+                    if(resteCredit <= 0) break;
                 }
             }
             FactureFournisseur[] ffListe = this.findFactureFournisseur(c);
             if(ffListe != null && ffListe.length >0){
                 checkMontantFactureFournisseur(ffListe,c);
+                                
                 for(FactureFournisseur ff : ffListe){
                     PaiementFacture pf = new PaiementFacture();
                     pf.setNomTable("paiementfacturef");

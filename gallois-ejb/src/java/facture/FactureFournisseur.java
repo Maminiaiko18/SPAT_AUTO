@@ -23,6 +23,48 @@ import utilitaire.Utilitaire;
  * @author rijan
  */
 public class FactureFournisseur extends FactureClient {
+   private String numeroop,projet,code_etablissement,projetlib,code_etablissementlib;
+    public String getNumeroop() {
+        return numeroop;
+    }
+
+    public void setNumeroop(String numeroop) {
+        this.numeroop = numeroop;
+    }
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getCode_etablissement() {
+        return code_etablissement;
+    }
+
+    public void setCode_etablissement(String code_etablissement) {
+        this.code_etablissement = code_etablissement;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
+
+    public String getCode_etablissementlib() {
+        return code_etablissementlib;
+    }
+
+    public void setCode_etablissementlib(String code_etablissementlib) {
+        this.code_etablissementlib = code_etablissementlib;
+    }
+   
+
 
     public FactureFournisseur() throws Exception {
         this.setNomTable("facture_Fournisseur_Mere");

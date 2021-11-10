@@ -481,7 +481,11 @@ public class EtatPaieServlet extends HttpServlet {
             
             BordereauLibComplet res = new BordereauLibComplet();
             res.setNomTable("bordereauFF_libcomplet");
-            res = (BordereauLibComplet)res.getById(id, null, null); 
+            BordereauLibComplet[] blc = (BordereauLibComplet[])CGenUtil.rechercher(res, null, null, String.format(" and id = '%s'", id));
+            if(blc.length>0){
+                res = blc[0];
+            }
+            //res = (BordereauLibComplet)res.getById(id, null, null); 
             if(res != null)
             {
                 Map param = new HashMap();
@@ -490,28 +494,43 @@ public class EtatPaieServlet extends HttpServlet {
                 fille.setIdbordereau(id);
                 fille.setNomTable("liaisonbordereauFF_libcomplet");
                 BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
-                EtatFactureMontantDaty[] etatfmd = (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), "select * from etatfacturemontantdaty where id in (select idop from liaisonbordereauFF where idbordereau = '" + id + "')");
+                EtatFactureMontantDaty[] etatfmd = (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), "select * from factfourn_msum_lib where id in (select idop from liaisonbordereauFF where idbordereau = '" + id + "')");
                 
                 if(etatfmd.length > 0)
                 {
-                    FactureFournisseur factf = new FactureFournisseur();
-                    factf.setId(etatfmd[0].getId());
-                    factf = (FactureFournisseur)factf.getById(factf.getId(), null, null);
+                    facture.FactureFournisseur factf = new facture.FactureFournisseur();
+                    //factf.setId(etatfmd[0].getId());
+                    //factf = (facture.FactureFournisseur)factf.getById(factf.getId(), null, null);
+                    facture.FactureFournisseur[] ff = (facture.FactureFournisseur[])CGenUtil.rechercher(factf, null, null, String.format(" and id = '%s'", etatfmd[0].getId()));
+                    if(ff.length>0){
+                        factf = ff[0];                                            
                     
-                    CodeEtablissement ce = new CodeEtablissement();
-                    ce.setNomTable("codeetablissement_libcomplet");
-                    ce.setId(factf.getCode_etablissement());
-                    ce = (CodeEtablissement)ce.getById(ce.getId(), null, null);
-                    param.put("code_etab",ce.getVal());
-                    param.put("direction",ce.getDescelib());
-                    param.put("departement",ce.getDepartementlib());
-                    param.put("service",ce.getServicelib());
-                    
-                    Projet prj = new Projet();
-                    prj.setNomTable("projet");
-                    prj.setId(factf.getProjet());
-                    prj = (Projet)prj.getById(prj.getId(), null, null);
-                    param.put("projet",prj.getDesignation());
+                        CodeEtablissement ce = new CodeEtablissement();
+                        ce.setNomTable("codeetablissement_libcomplet");
+                        //ce.setId(factf.getCode_etablissement());
+                        //ce = (CodeEtablissement)ce.getById(ce.getId(), null, null);
+                        CodeEtablissement[] cde = (CodeEtablissement[])CGenUtil.rechercher(ce, null, null, String.format(" and id = '%s'", factf.getCode_etablissement()));                        
+                        if(cde.length>0){
+                            ce = cde[0];
+                            
+                            param.put("code_etab",ce.getVal());
+                            param.put("direction",ce.getDescelib());
+                            param.put("departement",ce.getDepartementlib());
+                            param.put("service",ce.getServicelib());
+
+                        }
+                        
+                            Projet prj = new Projet();
+                            prj.setNomTable("projet");
+                            //prj.setId(factf.getProjet());
+                            //prj = (Projet)prj.getById(prj.getId(), null, null);
+                            Projet[] pr = (Projet[])CGenUtil.rechercher(prj, null, null, String.format(" and id = '%s'", factf.getProjet()));                        
+                            if(pr.length>0){
+                                prj = pr[0];
+                                param.put("projet",prj.getDesignation());                                                                               
+                            }                            
+                    }                    
+
                 }
                 
                 param.put("date",res.getDaty());
