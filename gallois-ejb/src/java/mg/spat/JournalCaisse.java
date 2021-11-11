@@ -20,6 +20,7 @@ import factureclient.PayementFacture;
 import facturefournisseur.RegulFacture;
 import java.sql.Connection;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import mg.allosakafo.fin.EtatOP;
 import mg.spat.placement.Placement;
 import service.ClotureService;
@@ -537,7 +538,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 if(fc[i].getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Facture "+fc[i].getId()+" non visee");
                 sommeReste += fc[i].getMontantreste();
             }
-            if(Utilitaire.arrondir(sommeReste, 3) < this.getCredit()) throw new Exception("Montant supérieur au reste à payer");
+            
+            if(Utilitaire.stringToDouble((new DecimalFormat("###.###")).format(sommeReste)) < this.getCredit()) throw new Exception("Montant supérieur au reste à payer");
         }
     }
     
@@ -561,7 +563,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 if(fc[i].getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Facture "+fc[i].getId()+" non visee");
                 sommeReste += fc[i].getMontantreste();
             }
-            if(sommeReste < this.getDebit()) throw new Exception("Montant supérieur au reste à payer");
+            if(Utilitaire.stringToDouble((new DecimalFormat("###.###")).format(sommeReste)) < this.getDebit()) throw new Exception("Montant supérieur au reste à payer");
         }
     }
     

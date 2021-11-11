@@ -47,7 +47,8 @@
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
-    pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro Compta");
+    //pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro Compta");
+    pi.getFormu().getChamp("numeroop").setVisible(false);
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());

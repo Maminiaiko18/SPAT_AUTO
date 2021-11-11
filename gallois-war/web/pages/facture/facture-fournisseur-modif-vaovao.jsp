@@ -98,7 +98,8 @@
         
         pi.getFormu().getChamp("projetlib").setVisible(false);    
         pi.getFormu().getChamp("code_etablissementlib").setVisible(false);
-        pi.getFormu().getChamp("numeroop").setLibelle("Numéro Compta");
+        pi.getFormu().getChamp("numeroop").setVisible(false);
+        pi.getFormu().getChamp("code").setLibelle("Numéro Compta");
         pi.getFormu().getChamp("code_etablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp", "code_etablissement;code_etablissementlibelle");
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp", "projet;projetlibelle"); 
         pi.getFormu().getChamp("projet").setAutre("readonly");

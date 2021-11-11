@@ -74,7 +74,7 @@
         pc.getChampByName("paysdestination").setVisible(false);
         pc.getChampByName("date_depart").setLibelle("Date de d&eacute;part");
         pc.getChampByName("heure_depart").setLibelle("Heure de d&eacute;part");
-        pc.getChampByName("duree").setLibelle("Dur&eacute;e (en j)");
+        pc.getChampByName("duree").setLibelle("Dur&eacute;e (en h)");
         pc.getChampByName("descemvt").setVisible(false);
         pc.getChampByName("descecargaison").setVisible(false);
         pc.getChampByName("valcargaison").setLibelle("Cargaison");
