@@ -20,9 +20,9 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib", "numeroop", "projetlib"};
+        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib", "code", "projetlib"};
         String listeInt[] = {"daty","date_echeance"};
-        String libEntete[] = {"id","daty","tierslib", "numeroop", "projetlib", "code_etablissementlib", "escale","designation","categorielib","tva","date_echeance", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+        String libEntete[] = {"id","daty","tierslib", "code", "projetlib", "code_etablissementlib", "escale","designation","categorielib","tva","date_echeance", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -35,7 +35,7 @@
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
-        pr.getFormu().getChamp("numeroop").setLibelle("Numero compta");
+        pr.getFormu().getChamp("code").setLibelle("Numero compta");
         
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
