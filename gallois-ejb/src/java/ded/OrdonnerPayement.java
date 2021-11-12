@@ -4,6 +4,7 @@ import avoir.AvoirFC;
 import bean.*;
 import facture.FactureFournisseur;
 import facture.PaiementFacture;
+import facture.UtilitaireFacture;
 import factureclient.PaiementFactureRemise;
 import facturefournisseur.EtatFactureMontantDaty;
 import java.sql.Connection;
@@ -631,6 +632,19 @@ public class OrdonnerPayement extends ClassEtat {
         }
         return retour;
     }
+     public String genererNumeroOP(){
+        String numero = ""; 
+        try{   
+            numero += UtilitaireFacture.genererSequence(null, "numfact", 4, utilitaire.Utilitaire.datetostring(this.getDaty()));
+            numero+="/";
+            numero+=Utilitaire.genererMois(utilitaire.Utilitaire.datetostring(this.getDaty()));
+            numero+="/";
+            numero+=Utilitaire.getJour(utilitaire.Utilitaire.datetostring(this.getDaty()));
+         }catch(Exception e){
+             e.printStackTrace();
+         }
+         return numero;
+     }
     
     
 }
