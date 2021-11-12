@@ -4,6 +4,7 @@ import avoir.AvoirFC;
 import bean.*;
 import facture.FactureFournisseur;
 import facture.PaiementFacture;
+import facture.UtilitaireFacture;
 import factureclient.PaiementFactureRemise;
 import facturefournisseur.EtatFactureMontantDaty;
 import java.sql.Connection;
@@ -361,6 +362,8 @@ public class OrdonnerPayement extends ClassEtat {
         if(factures.length>0){
             this.setMontant(AdminGen.calculSommeDouble(factures, "montantreste"));
         }
+        this.setNumeroop(genererNumeroOP(c));
+        
         return super.createObject(u, c);
     }
     
@@ -631,6 +634,19 @@ public class OrdonnerPayement extends ClassEtat {
         }
         return retour;
     }
+     public String genererNumeroOP(Connection c){
+        String numero = ""; 
+        try{   
+            numero += UtilitaireFacture.genererSequence(c, "NUMEROOP", 4, utilitaire.Utilitaire.datetostring(this.getDaty()));
+            numero+="/";
+            numero+=Utilitaire.genererMois(utilitaire.Utilitaire.datetostring(this.getDaty()));
+            numero+="/";
+            numero+=Utilitaire.genererAnnee(utilitaire.Utilitaire.datetostring(this.getDaty()));
+         }catch(Exception e){
+             e.printStackTrace();
+         }
+         return numero;
+     }
     
     
 }
