@@ -81,6 +81,7 @@ import facture.FactureFournisseurFilleData;
 import factureclient.PayementFacture;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import mg.spat.JournalCaissePdf;
 import mg.spat.OccupationMaterielNaval;
 import mg.spat.PrevisionLibComplet;
 
@@ -145,6 +146,9 @@ public class EtatPaieServlet extends HttpServlet {
             else if(action.equalsIgnoreCase("imprimerFactureFournisseur")){
                 imprimerFactureFournisseur(request, response);
             }
+            else if(action.equalsIgnoreCase("listeJournalCaisse")){
+                listeJournalCaisse(request, response);
+            }  
 
             
         } catch(Exception ex){
@@ -1205,6 +1209,63 @@ public class EtatPaieServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+    
+    public void listeJournalCaisse(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+        Connection c = null;
+        try{
+        c = (new UtilDB()).GetConn();
+        Map param = new HashMap();
+        
+        
+        
+        JournalCaisse journalCaisse = new JournalCaisse();
+        journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
+        JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, " and rownum <= 10");
+        
+        ArrayList<JournalCaissePdf> ls = new ArrayList<JournalCaissePdf>();
+        
+        int i =0;
+            while(i<details.length){
+                PayementFacture[] p = details[i].getPayementFactureTous(null);
+                JournalCaissePdf temp = new  JournalCaissePdf();
+                
+                temp.setClient(details[i].getTiersLib());
+                temp.setMotif(details[i].getLibelle());
+                temp.setNumpiece(details[i].getNumPiece());
+                
+                
+                int a = 0;
+                System.out.println("len"+p.length);
+                //while(a<p.length){
+                    JournalCaisse caissetemp = new JournalCaisse();
+                    caissetemp.setMontant(1000.0);
+                    caissetemp.setNumPiece("code");
+                    //numfact.add(p[a].getCode());
+                    //montant.add(p[a].getMontant());
+                    ArrayList<JournalCaisse> j = new ArrayList<JournalCaisse>();
+                    j.add(caissetemp);
+                    j.add(caissetemp);
+                    temp.setJcaisse(j);//(caissetemp);
+                    //temp.getJcaisse().add(caissetemp);
+                    a = a+1;
+                //}
+                //temp.setMontant(montant);
+                //temp.setNumfacture(numfact);
+                ls.add(temp);
+                i = i+1;
+            }
+        param.put("list_table",ls);                        
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("journalcaisse");
+        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
             if (c != null) {
                 c.close();
             }

@@ -7,8 +7,12 @@
 		<field name="numpiece" class="java.lang.String"/>
 		<field name="client" class="java.lang.String"/>
 		<field name="motif" class="java.lang.String"/>
+		<field name="jcaisse" class="java.util.List"/>
 	</subDataset>
 	<parameter name="list_table" class="java.util.List"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\BICI\\projet BICI\\spat-capitainerie\\gallois-war\\web\\report\\"]]></defaultValueExpression>
+	</parameter>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -43,13 +47,12 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="164" splitType="Stretch">
+		<band height="63" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table" x="0" y="14" width="555" height="50" uuid="76946eaf-d05c-4e6f-be49-fe2590e362fb"/>
+				<reportElement key="table" x="0" y="0" width="555" height="50" uuid="76946eaf-d05c-4e6f-be49-fe2590e362fb"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="795b8675-06d1-48d0-8f38-f8a9be264095">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})
-]]></dataSourceExpression>
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="84" uuid="1caf3b36-45ad-4894-ad1e-50aafc738f04">
 						<jr:tableHeader height="30" rowSpan="1">
@@ -139,7 +142,13 @@
 								<text><![CDATA[N° facture]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell height="33" rowSpan="1"/>
+						<jr:detailCell height="33" rowSpan="1">
+							<subreport>
+								<reportElement x="0" y="0" width="96" height="33" uuid="5c91dda8-92be-4926-840f-ee038758cdfe"/>
+								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
+								<subreportExpression><![CDATA["journalcaisse_subreport1.jasper"]]></subreportExpression>
+							</subreport>
+						</jr:detailCell>
 					</jr:column>
 					<jr:column width="77" uuid="fe2e6aeb-d1ae-46cd-9231-f7ba8013441b">
 						<jr:tableHeader height="30" rowSpan="1">
@@ -160,20 +169,24 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
+		</band>
+	</detail>
+	<summary>
+		<band height="56">
 			<staticText>
-				<reportElement x="122" y="83" width="81" height="20" uuid="20fa1538-d372-4ad8-b1bf-c6992b280bea"/>
+				<reportElement x="122" y="0" width="81" height="20" uuid="20fa1538-d372-4ad8-b1bf-c6992b280bea"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Total Général]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="117" width="131" height="20" uuid="721c5886-5baf-4712-84d8-b170e944f8d3"/>
+				<reportElement x="0" y="34" width="131" height="20" uuid="721c5886-5baf-4712-84d8-b170e944f8d3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Arretée à la somme de]]></text>
 			</staticText>
 		</band>
-	</detail>
+	</summary>
 </jasperReport>
