@@ -362,6 +362,8 @@ public class OrdonnerPayement extends ClassEtat {
         if(factures.length>0){
             this.setMontant(AdminGen.calculSommeDouble(factures, "montantreste"));
         }
+        this.setNumeroop(genererNumeroOP(c));
+        
         return super.createObject(u, c);
     }
     
@@ -632,14 +634,14 @@ public class OrdonnerPayement extends ClassEtat {
         }
         return retour;
     }
-     public String genererNumeroOP(){
+     public String genererNumeroOP(Connection c){
         String numero = ""; 
         try{   
-            numero += UtilitaireFacture.genererSequence(null, "numfact", 4, utilitaire.Utilitaire.datetostring(this.getDaty()));
+            numero += UtilitaireFacture.genererSequence(c, "NUMEROOP", 4, utilitaire.Utilitaire.datetostring(this.getDaty()));
             numero+="/";
             numero+=Utilitaire.genererMois(utilitaire.Utilitaire.datetostring(this.getDaty()));
             numero+="/";
-            numero+=Utilitaire.getJour(utilitaire.Utilitaire.datetostring(this.getDaty()));
+            numero+=Utilitaire.genererAnnee(utilitaire.Utilitaire.datetostring(this.getDaty()));
          }catch(Exception e){
              e.printStackTrace();
          }
