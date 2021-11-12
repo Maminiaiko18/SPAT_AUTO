@@ -1220,12 +1220,52 @@ public class EtatPaieServlet extends HttpServlet {
         try{
         c = (new UtilDB()).GetConn();
         Map param = new HashMap();
+        String id=request.getParameter("id");
+        String folio=request.getParameter("folio");
+        String valcaisse=request.getParameter("valcaisse");
+        String libelle=request.getParameter("libelle");
+        String remarque=request.getParameter("remarque");
+        String dateEffet1=request.getParameter("dateEffet1");
+        String dateEffet2=request.getParameter("dateEffet2");
+        String idtypecheque=request.getParameter("idtypecheque");
+        String idplacement=request.getParameter("idplacement");
+        String descecaisse=request.getParameter("descecaisse");
         
-        
+        String sql = "";
+        if(id!=null && id.compareToIgnoreCase("null")!=0 && id.length()!=0){
+            sql = sql + " and UPPER(id) like UPPER('%"+id+"%') ";
+        }
+        if(folio!=null && folio.compareToIgnoreCase("null")!=0 && folio.length()!=0){
+            sql = sql + " and UPPER(folio) like UPPER('%"+folio+"%')";
+        }
+        if(valcaisse!=null && valcaisse.compareToIgnoreCase("null")!=0 && valcaisse.length()!=0){
+            sql = sql + " and UPPER(valcaisse) like UPPER('%"+valcaisse+"%') ";
+        }
+        if(libelle!=null && libelle.compareToIgnoreCase("null")!=0 && libelle.length()!=0){
+            sql = sql + " and UPPER(libelle) like UPPER('%"+libelle+"%') ";
+        }
+        if(remarque!=null && remarque.compareToIgnoreCase("null")!=0 && remarque.length()!=0){
+            sql = sql + " and UPPER(remarque) like UPPER('%"+remarque+"%') ";
+        }
+        if(dateEffet1!=null && dateEffet1.compareToIgnoreCase("null")!=0 && dateEffet1.length()!=0){
+            sql = sql + " and dateEffet >= '+"+dateEffet1+"'";
+        }
+        if(dateEffet2!=null && dateEffet2.compareToIgnoreCase("null")!=0 && dateEffet2.length()!=0){
+            sql = sql + " and dateEffet <= '+"+dateEffet2+"'";
+        }
+        if(idtypecheque!=null && idtypecheque.compareToIgnoreCase("null")!=0 && idtypecheque.length()!=0){
+            sql = sql + " and UPPER(idtypecheque) like UPPER('%"+idtypecheque+"%') ";
+        }
+        if(idplacement!=null && idplacement.compareToIgnoreCase("null")!=0 && idplacement.length()!=0){
+            sql = sql + " and UPPER(idplacement) like UPPER('%"+idplacement+"%') ";
+        }
+        if(descecaisse!=null && descecaisse.compareToIgnoreCase("null")!=0 && descecaisse.length()!=0){
+            sql = sql + " and UPPER(descecaisse) like UPPER('%"+descecaisse+"%') ";
+        }
         
         JournalCaisse journalCaisse = new JournalCaisse();
         journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
-        JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, " and rownum <= 10");
+        JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, sql);
         
         ArrayList<JournalCaissePdf> ls = new ArrayList<JournalCaissePdf>();
         

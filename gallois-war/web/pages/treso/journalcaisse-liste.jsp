@@ -106,7 +106,7 @@
 
                 out.println(pr.getTableau().getHtmlWithCheckbox());
             %>
-            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listeJournalCaisse&id=<%=request.getParameter("id")%>&folio=<%=request.getParameter("folio")%>&valcaisse=<%=request.getParameter("valcaisse")%>&libelle=<%=request.getParameter("libelle")%>&remarque=<%=request.getParameter("remarque")%>&dateEffet=<%=request.getParameter("dateEffet")%>&idtypecheque=<%=request.getParameter("idtypecheque")%>&idplacement=<%=request.getParameter("idplacement")%>&descecaisse=<%=request.getParameter("descecaisse")%>" style="margin-right: 10px">Imprimer</a>
+            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listeJournalCaisse&id=<%=request.getParameter("id")%>&folio=<%=request.getParameter("folio")%>&valcaisse=<%=request.getParameter("valcaisse")%>&libelle=<%=request.getParameter("libelle")%>&remarque=<%=request.getParameter("remarque")%>&dateEffet1=<%=request.getParameter("dateEffet1")%>&dateEffet2=<%=request.getParameter("dateEffet2")%>" style="margin-right: 10px">Imprimer</a>
         </form>
         <% out.println(pr.getBasPage());%>
     </section>
