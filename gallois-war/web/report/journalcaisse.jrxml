@@ -13,6 +13,10 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["E:\\BICI\\projet BICI\\spat-capitainerie\\gallois-war\\web\\report\\"]]></defaultValueExpression>
 	</parameter>
+	<field name="numpiece" class="java.lang.String"/>
+	<field name="client" class="java.lang.String"/>
+	<field name="motif" class="java.lang.String"/>
+	<field name="jcaisse" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -51,9 +55,9 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="63" splitType="Stretch">
+		<band height="146" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table" x="0" y="0" width="555" height="50" uuid="76946eaf-d05c-4e6f-be49-fe2590e362fb"/>
+				<reportElement key="table" x="0" y="81" width="555" height="50" uuid="76946eaf-d05c-4e6f-be49-fe2590e362fb"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="795b8675-06d1-48d0-8f38-f8a9be264095">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
@@ -169,10 +173,74 @@
 								<text><![CDATA[Montant]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell height="33" rowSpan="1"/>
+						<jr:detailCell height="33" rowSpan="1">
+							<subreport>
+								<reportElement x="0" y="0" width="77" height="33" uuid="ebb68a9f-eb6e-4202-b577-d32e560bbba4"/>
+								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
+								<subreportExpression><![CDATA["journalcaisse_subreport2.jasper"]]></subreportExpression>
+							</subreport>
+						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<staticText>
+				<reportElement x="0" y="15" width="84" height="20" uuid="58384001-97af-4af7-8fc0-8dd3d7f86f11"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[N° P.C]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="478" y="15" width="77" height="20" uuid="42c6d4d6-7e2d-4be4-b6a9-8f3b64b2e6b0"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Montant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="15" width="96" height="20" uuid="978f6f3e-d7d9-4731-a2fa-4fef8bacab47"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[N° facture]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="15" width="104" height="20" uuid="a23aa3a0-55ee-4d0e-a6ca-30d4335eb369"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Client]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="15" width="194" height="20" uuid="50930222-f18e-458b-8c00-95fc5ce7af4c"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Motif]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="188" y="35" width="194" height="33" uuid="cd97082c-29be-4089-9329-7626bc5e683b"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motif}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="382" y="35" width="96" height="33" uuid="2a83c7b1-0fdc-45c9-b175-91598a52eb21"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["journalcaisse_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="84" y="35" width="104" height="33" uuid="17ee871a-cbca-4105-978d-bd848a0dfe90"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{client}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="35" width="84" height="33" uuid="a04a6548-b096-4720-b055-f6ae346759c7"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numpiece}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="476" y="35" width="77" height="33" uuid="c0d2515d-c3f4-4253-81a7-4522f9388aba"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["journalcaisse_subreport2.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<summary>
