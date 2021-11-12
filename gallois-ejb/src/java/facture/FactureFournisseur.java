@@ -462,4 +462,17 @@ public class FactureFournisseur extends FactureClient {
 				}
 				return null;
 			}        
+
+    @Override
+    public String calculerCodeSimple(Connection c) throws Exception {
+        String daty = Utilitaire.datetostring(this.getDaty());
+        String code = "";
+        code += Utilitaire.genererAnnee(daty);
+        code += Utilitaire.genererMois(daty);
+        code += Utilitaire.getJour(daty);
+        code += UtilitaireFacture.genererSequence( c, "NUMEROCOMPTA", 4, daty);
+        return code;
+    }
+                        
+    
 }
