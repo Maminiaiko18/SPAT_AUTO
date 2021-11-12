@@ -182,6 +182,7 @@ public class FactureFournisseur extends FactureClient {
         this.setNomClasseFille("facture.FactureFournisseurDetails");
         this.setIduser(iduser);
         this.setId(null);
+        this.setCode(calculerCodeSimple(cnctn));
         return super.createObject(iduser, cnctn);
     }
 
