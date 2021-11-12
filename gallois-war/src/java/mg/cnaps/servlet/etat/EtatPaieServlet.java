@@ -1281,19 +1281,23 @@ public class EtatPaieServlet extends HttpServlet {
                 
                 int a = 0;
                 System.out.println("len"+p.length);
-                //while(a<p.length){
+                ArrayList<JournalCaisse> j = new ArrayList<JournalCaisse>();
+                while(a<p.length){
                     JournalCaisse caissetemp = new JournalCaisse();
-                    caissetemp.setMontant(1000.0);
-                    caissetemp.setNumPiece("code");
+                    //caissetemp.setMontant(1000.0);
+                    //caissetemp.setNumPiece("code");
+                    caissetemp.setNumPiece(p[a].getCode());
+                    caissetemp.setMontant(p[a].getMontant());
                     //numfact.add(p[a].getCode());
                     //montant.add(p[a].getMontant());
-                    ArrayList<JournalCaisse> j = new ArrayList<JournalCaisse>();
+                    System.out.println("codddeeeee="+p[a].getCode());
                     j.add(caissetemp);
-                    j.add(caissetemp);
-                    temp.setJcaisse(j);//(caissetemp);
+                    //j.add(caissetemp);
+                    //temp.setJcaisse(j);//(caissetemp);
                     //temp.getJcaisse().add(caissetemp);
                     a = a+1;
-                //}
+                }
+                temp.setJcaisse(j);
                 //temp.setMontant(montant);
                 //temp.setNumfacture(numfact);
                 ls.add(temp);
@@ -1302,7 +1306,7 @@ public class EtatPaieServlet extends HttpServlet {
         param.put("list_table",ls);                        
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("journalcaisse");
-        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, null, getReportPath(), rt);
+        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, ls, getReportPath(), rt);
         }catch(Exception e){
             e.printStackTrace();
         }finally {
