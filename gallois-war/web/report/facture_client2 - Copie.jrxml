@@ -480,7 +480,7 @@
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:columnGroup width="567" uuid="38df97f6-b17b-4222-b816-91967c5417b0">
+					<jr:columnGroup width="569" uuid="38df97f6-b17b-4222-b816-91967c5417b0">
 						<jr:tableFooter height="244" rowSpan="1">
 							<staticText>
 								<reportElement x="455" y="52" width="30" height="15" uuid="8097e9c5-8a1b-4d33-9161-4f4902844243"/>
@@ -948,10 +948,10 @@
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="46" uuid="9173f711-1bcc-4b13-b087-059dd7fdf33e">
+						<jr:column width="69" uuid="9173f711-1bcc-4b13-b087-059dd7fdf33e">
 							<jr:columnHeader height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="46" height="30" uuid="05d9a56c-6e26-4477-ac53-d3313924c6aa"/>
+									<reportElement x="0" y="0" width="69" height="30" uuid="05d9a56c-6e26-4477-ac53-d3313924c6aa"/>
 									<box>
 										<topPen lineWidth="0.25"/>
 										<leftPen lineWidth="0.25"/>
@@ -967,7 +967,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="46" height="29" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="69" height="29" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -982,10 +982,10 @@
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="31" uuid="a7f6630c-778a-45a4-b5e2-3c7f8560fb17">
+						<jr:column width="57" uuid="a7f6630c-778a-45a4-b5e2-3c7f8560fb17">
 							<jr:columnHeader height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="31" height="30" uuid="6daa0c01-4d9d-4162-a348-c366a2838a5d"/>
+									<reportElement x="0" y="0" width="57" height="30" uuid="6daa0c01-4d9d-4162-a348-c366a2838a5d"/>
 									<box>
 										<topPen lineWidth="0.25"/>
 										<leftPen lineWidth="0.25"/>
@@ -1000,7 +1000,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="31" height="29" uuid="9709acd6-11cf-49a6-8376-4b66505f2523"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="57" height="29" uuid="9709acd6-11cf-49a6-8376-4b66505f2523"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -1045,40 +1045,6 @@
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{devise}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="59" uuid="10acfcb5-ceba-46ef-87ac-a82f561e20e1">
-							<jr:columnHeader height="30" rowSpan="1">
-								<staticText>
-									<reportElement x="0" y="0" width="59" height="30" uuid="fc841934-93ee-40a7-b2bd-ec1423fcc179"/>
-									<box>
-										<topPen lineWidth="0.25"/>
-										<leftPen lineWidth="0.25"/>
-										<bottomPen lineWidth="0.25"/>
-										<rightPen lineWidth="0.25"/>
-									</box>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<font isBold="true"/>
-										<paragraph leftIndent="3"/>
-									</textElement>
-									<text><![CDATA[Taux]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="30" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="59" height="29" uuid="d98b66ca-f11a-4f48-8cc6-60ed50be7d0d"/>
-									<box>
-										<topPen lineWidth="0.5"/>
-										<leftPen lineWidth="0.5"/>
-										<bottomPen lineWidth="0.5"/>
-										<rightPen lineWidth="0.5"/>
-									</box>
-									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-										<font size="8" isBold="false"/>
-										<paragraph rightIndent="3"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$F{taux}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
@@ -1253,10 +1219,10 @@
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="24" uuid="a79326ec-98d7-4288-8daf-684bfc4d2779">
+						<jr:column width="37" uuid="a79326ec-98d7-4288-8daf-684bfc4d2779">
 							<jr:columnHeader height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="24" height="30" uuid="3b78c6f2-d2c7-48cf-8bac-0f1a8e75a577"/>
+									<reportElement x="0" y="0" width="37" height="30" uuid="3b78c6f2-d2c7-48cf-8bac-0f1a8e75a577"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -1272,7 +1238,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="30" rowSpan="1">
 								<textField pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="24" height="29" uuid="1c71ac8d-8a59-46a3-8839-998d5e72155b"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="37" height="29" uuid="1c71ac8d-8a59-46a3-8839-998d5e72155b"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -1288,7 +1254,7 @@
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="52" uuid="d34136c9-22bd-4258-b9c7-6c9aa947c501">
+						<jr:column width="51" uuid="d34136c9-22bd-4258-b9c7-6c9aa947c501">
 							<jr:columnHeader height="30" rowSpan="1">
 								<staticText>
 									<reportElement x="0" y="0" width="51" height="30" uuid="eab9da29-5bca-4e51-a9a8-e7b79ebde100"/>
