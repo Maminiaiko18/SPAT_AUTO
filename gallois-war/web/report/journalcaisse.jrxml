@@ -34,8 +34,8 @@
 				<text><![CDATA[Page]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="476" y="39" width="79" height="20" uuid="1b100f62-e4a1-41ed-823f-25d36dbc8f57"/>
-				<textFieldExpression><![CDATA["Page 1 sur 2"]]></textFieldExpression>
+				<reportElement x="476" y="39" width="53" height="20" uuid="1b100f62-e4a1-41ed-823f-25d36dbc8f57"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" sur "]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="50" y="2" width="163" height="37" uuid="a2326ddd-181e-4102-aee3-58b06a3e0dad"/>
@@ -44,6 +44,10 @@
 				</textElement>
 				<text><![CDATA[DEPARTEMENT FINANCIER SERVICE TRESORERIE]]></text>
 			</staticText>
+			<textField evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement x="529" y="39" width="26" height="20" uuid="e07dd3e5-dc5e-402d-ba3b-18b0147471ed"/>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
