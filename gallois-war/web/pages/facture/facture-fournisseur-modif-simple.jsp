@@ -7,6 +7,7 @@
 <%@page import="bean.TypeObjet"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="affichage.PageUpdate"%>
+<%@page import="affichage.Liste"%>
 <%
     String autreparsley = "data-parsley-range='[8, 40]' required";
     try{
@@ -42,11 +43,20 @@
         pi.getFormu().getChamp("deviseMere").setVisible(false);
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);
         pi.getFormu().getChamp("codePrestation").setVisible(false);
-//        pi.getFormu().getChamp("code").setVisible(false);
-//        pi.getFormu().getChamp("estMictsl").setVisible(false);
-//        pi.getFormu().getChamp("tierslib").setVisible(false);
-//        pi.getFormu().getChamp("categorielib").setVisible(false);
-//        pi.getFormu().getChamp("typelib").setVisible(false);
+        pi.getFormu().getChamp("estmictsl").setVisible(false);
+        pi.getFormu().getChamp("idbl").setVisible(false);
+        pi.getFormu().getChamp("projet").setVisible(false);
+        pi.getFormu().getChamp("code_etablissement").setVisible(false);
+
+        Liste[] listes = new Liste[1];
+        TypeObjet nature = new TypeObjet();
+        nature.setNomTable("nature");
+        listes[0] = new Liste("nature", nature, "val", "id");
+        pi.getFormu().changerEnChamp(listes);
+        pi.getFormu().getChamp("numeroop").setLibelle("N° facture");
+        pi.getFormu().getChamp("code").setLibelle("N° Compta");
+        
+        
         
         pi.preparerDataFormu();
 %>

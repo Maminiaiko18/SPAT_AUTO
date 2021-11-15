@@ -53,6 +53,7 @@
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("idprevision").setVisible(false);
+    pi.getFormu().getChamp("nature").setVisible(false);
     pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("idBL").setAutre("readonly");
     pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");  

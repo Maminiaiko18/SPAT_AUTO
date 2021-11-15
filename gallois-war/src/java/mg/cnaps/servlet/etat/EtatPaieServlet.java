@@ -862,7 +862,7 @@ public class EtatPaieServlet extends HttpServlet {
                  param.put("date_arrivee",pre[0].getDate_arrivee());
                  //param.put("pavillon",pre[0].getPavillon);
                  param.put("date_depart",pre[0].getDate_depart());
-                 param.put("destination",pre[0].getDestination());
+                 param.put("destination",pre[0].getValquaisdestination());
                  param.put("lhtnavire",pre[0].getLhtnavire());
                  param.put("jntnavire",pre[0].getJntnavire());
                  param.put("lmnavire",pre[0].getLmnavire());
@@ -1220,20 +1220,62 @@ public class EtatPaieServlet extends HttpServlet {
         try{
         c = (new UtilDB()).GetConn();
         Map param = new HashMap();
+        String id=request.getParameter("id");
+        String folio=request.getParameter("folio");
+        String valcaisse=request.getParameter("valcaisse");
+        String libelle=request.getParameter("libelle");
+        String remarque=request.getParameter("remarque");
+        String dateEffet1=request.getParameter("dateEffet1");
+        String dateEffet2=request.getParameter("dateEffet2");
+        String idtypecheque=request.getParameter("idtypecheque");
+        String idplacement=request.getParameter("idplacement");
+        String descecaisse=request.getParameter("descecaisse");
         
-        
+        String sql = "";
+        if(id!=null && id.compareToIgnoreCase("null")!=0 && id.length()!=0){
+            sql = sql + " and UPPER(id) like UPPER('%"+id+"%') ";
+        }
+        if(folio!=null && folio.compareToIgnoreCase("null")!=0 && folio.length()!=0){
+            sql = sql + " and UPPER(folio) like UPPER('%"+folio+"%')";
+        }
+        if(valcaisse!=null && valcaisse.compareToIgnoreCase("null")!=0 && valcaisse.length()!=0){
+            sql = sql + " and UPPER(valcaisse) like UPPER('%"+valcaisse+"%') ";
+        }
+        if(libelle!=null && libelle.compareToIgnoreCase("null")!=0 && libelle.length()!=0){
+            sql = sql + " and UPPER(libelle) like UPPER('%"+libelle+"%') ";
+        }
+        if(remarque!=null && remarque.compareToIgnoreCase("null")!=0 && remarque.length()!=0){
+            sql = sql + " and UPPER(remarque) like UPPER('%"+remarque+"%') ";
+        }
+        if(dateEffet1!=null && dateEffet1.compareToIgnoreCase("null")!=0 && dateEffet1.length()!=0){
+            sql = sql + " and dateEffet >= '+"+dateEffet1+"'";
+        }
+        if(dateEffet2!=null && dateEffet2.compareToIgnoreCase("null")!=0 && dateEffet2.length()!=0){
+            sql = sql + " and dateEffet <= '+"+dateEffet2+"'";
+        }
+        if(idtypecheque!=null && idtypecheque.compareToIgnoreCase("null")!=0 && idtypecheque.length()!=0){
+            sql = sql + " and UPPER(idtypecheque) like UPPER('%"+idtypecheque+"%') ";
+        }
+        if(idplacement!=null && idplacement.compareToIgnoreCase("null")!=0 && idplacement.length()!=0){
+            sql = sql + " and UPPER(idplacement) like UPPER('%"+idplacement+"%') ";
+        }
+        if(descecaisse!=null && descecaisse.compareToIgnoreCase("null")!=0 && descecaisse.length()!=0){
+            sql = sql + " and UPPER(descecaisse) like UPPER('%"+descecaisse+"%') ";
+        }
         
         JournalCaisse journalCaisse = new JournalCaisse();
         journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
-        JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, " and rownum <= 10");
+        JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, sql);
         
         ArrayList<JournalCaissePdf> ls = new ArrayList<JournalCaissePdf>();
-        
+        double totalmontant =0;
+        double totalcredit = 0;
         int i =0;
             while(i<details.length){
                 PayementFacture[] p = details[i].getPayementFactureTous(null);
                 JournalCaissePdf temp = new  JournalCaissePdf();
-                
+                double montant = 0;
+               
                 temp.setClient(details[i].getTiersLib());
                 temp.setMotif(details[i].getLibelle());
                 temp.setNumpiece(details[i].getNumPiece());
@@ -1241,28 +1283,56 @@ public class EtatPaieServlet extends HttpServlet {
                 
                 int a = 0;
                 System.out.println("len"+p.length);
-                //while(a<p.length){
+                ArrayList<JournalCaisse> j = new ArrayList<JournalCaisse>();
+                
+                if(a<p.length){
+                    while(a<p.length){
+                        JournalCaisse caissetemp = new JournalCaisse();
+                        if(a==0){
+                            caissetemp.setCaisse(details[i].getLibelle());
+                        }
+                        
+                        caissetemp.setNumPiece(p[a].getCode());
+                        caissetemp.setMontant(p[a].getMontant());
+                        montant = montant + p[a].getMontant();
+
+                        
+                        System.out.println("codddeeeee="+p[a].getCode());
+                        j.add(caissetemp);
+                        
+                        a = a+1;
+                    }
+                }
+                else{
                     JournalCaisse caissetemp = new JournalCaisse();
-                    caissetemp.setMontant(1000.0);
-                    caissetemp.setNumPiece("code");
-                    //numfact.add(p[a].getCode());
-                    //montant.add(p[a].getMontant());
-                    ArrayList<JournalCaisse> j = new ArrayList<JournalCaisse>();
+                    caissetemp.setCaisse(details[i].getLibelle());
                     j.add(caissetemp);
-                    j.add(caissetemp);
-                    temp.setJcaisse(j);//(caissetemp);
-                    //temp.getJcaisse().add(caissetemp);
-                    a = a+1;
-                //}
+                }
+                //temp.setMotif(details[i].getLibelle());
+                temp.setMontant(montant);
+                temp.setReste(details[i].getCredit()-montant);
+                totalmontant = totalmontant+montant;
+                totalcredit = totalcredit+(details[i].getCredit()-montant);
+                
+                
+                
+                temp.setJcaisse(j);
                 //temp.setMontant(montant);
                 //temp.setNumfacture(numfact);
                 ls.add(temp);
                 i = i+1;
-            }
+                }
+            double totalfinale = totalmontant+totalcredit;
+            
+            
         param.put("list_table",ls);                        
+        param.put("totalmontant",totalmontant);                        
+        param.put("totalcredit",totalcredit);                        
+        param.put("totalfinale",totalfinale);                        
+        param.put("lettre",ChiffreLettre.convertRealToString(totalfinale));                        
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("journalcaisse");
-        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, null, getReportPath(), rt);
+        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, ls, getReportPath(), rt);
         }catch(Exception e){
             e.printStackTrace();
         }finally {

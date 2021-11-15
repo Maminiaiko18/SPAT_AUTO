@@ -9,10 +9,29 @@
 		<field name="motif" class="java.lang.String"/>
 		<field name="jcaisse" class="java.util.List"/>
 	</subDataset>
+	<subDataset name="Table Dataset 2" uuid="d664732b-3870-4b7b-a46b-6ca13de950dd">
+		<field name="numpiece" class="java.lang.String"/>
+		<field name="client" class="java.lang.String"/>
+		<field name="motif" class="java.lang.String"/>
+		<field name="jcaisse" class="java.util.List"/>
+		<field name="montant" class="java.lang.Double"/>
+		<field name="reste" class="java.lang.Double"/>
+	</subDataset>
 	<parameter name="list_table" class="java.util.List"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["E:\\BICI\\projet BICI\\spat-capitainerie\\gallois-war\\web\\report\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="montant" class="java.lang.String"/>
+	<parameter name="totalfinale" class="java.lang.Double"/>
+	<parameter name="totalcredit" class="java.lang.Double"/>
+	<parameter name="totalmontant" class="java.lang.Double"/>
+	<parameter name="lettre" class="java.lang.String"/>
+	<field name="numpiece" class="java.lang.String"/>
+	<field name="client" class="java.lang.String"/>
+	<field name="motif" class="java.lang.String"/>
+	<field name="jcaisse" class="java.util.List"/>
+	<field name="montant" class="java.lang.Double"/>
+	<field name="reste" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -51,125 +70,136 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="63" splitType="Stretch">
+		<band height="178" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table" x="0" y="0" width="555" height="50" uuid="76946eaf-d05c-4e6f-be49-fe2590e362fb"/>
+				<reportElement key="table" x="0" y="68" width="553" height="110" uuid="f72f121e-49ff-447c-9ad2-414115e3e919"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="795b8675-06d1-48d0-8f38-f8a9be264095">
+					<datasetRun subDataset="Table Dataset 2" uuid="94256fe2-ea37-4ad1-998f-3e076a7da039">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="84" uuid="1caf3b36-45ad-4894-ad1e-50aafc738f04">
-						<jr:tableHeader height="30" rowSpan="1">
-							<box>
-								<pen lineStyle="Double"/>
-								<topPen lineStyle="Double"/>
-								<leftPen lineStyle="Double"/>
-								<bottomPen lineWidth="1.0" lineStyle="Double"/>
-								<rightPen lineStyle="Double"/>
-							</box>
+					<jr:column width="87" uuid="873c8b85-ea38-453e-ad19-a088859a2881">
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="84" height="30" uuid="225f88e3-bd9b-4cf8-98ae-5d07e7f1c1f4"/>
-								<textElement textAlignment="Center">
-									<font size="12"/>
-								</textElement>
+								<reportElement x="0" y="0" width="87" height="30" uuid="5c8244fd-27ad-4c39-8119-b1a783242f94"/>
+								<textElement textAlignment="Center"/>
 								<text><![CDATA[N° P.C]]></text>
 							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell height="33" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="84" height="33" uuid="caadc2dd-fed3-4fb9-ac5d-cde8f7fa1452"/>
-								<textElement textAlignment="Center">
-									<font size="12"/>
-								</textElement>
+						</jr:columnHeader>
+						<jr:detailCell height="54" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="87" height="54" uuid="95237dcc-d32e-4362-a8c0-d6bf7c788dd2"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+								</box>
 								<textFieldExpression><![CDATA[$F{numpiece}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="104" uuid="47702890-cc08-4520-8ea0-e754b8e5088b">
-						<jr:tableHeader height="30" rowSpan="1">
-							<box>
-								<pen lineStyle="Double"/>
-								<topPen lineStyle="Double"/>
-								<leftPen lineStyle="Double"/>
-								<bottomPen lineWidth="1.0" lineStyle="Double"/>
-								<rightPen lineStyle="Double"/>
-							</box>
+					<jr:column width="126" uuid="477b9f95-1dda-4cbd-926b-584f4ce91340">
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="104" height="30" uuid="5d930531-b897-445d-90f3-56469a946511"/>
+								<reportElement x="0" y="0" width="126" height="30" uuid="8bbb516b-d850-4d30-b7cc-6e0d34999441"/>
 								<textElement textAlignment="Center"/>
 								<text><![CDATA[Client]]></text>
 							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell height="33" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="104" height="33" uuid="d8867979-b52e-44a2-9526-b8c9489f305f"/>
-								<textElement textAlignment="Center">
-									<font size="12"/>
-								</textElement>
+						</jr:columnHeader>
+						<jr:detailCell height="54" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="126" height="54" uuid="d53f42a3-a6cd-4993-ae02-9285b6bf763e"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+								</box>
 								<textFieldExpression><![CDATA[$F{client}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="194" uuid="3f5f3b39-f3e9-4b0c-8efd-b619bd73b08e">
-						<jr:tableHeader height="30" rowSpan="1">
-							<box>
-								<pen lineStyle="Double"/>
-								<topPen lineStyle="Double"/>
-								<leftPen lineStyle="Double"/>
-								<bottomPen lineWidth="1.0" lineStyle="Double"/>
-								<rightPen lineStyle="Double"/>
-							</box>
+					<jr:column width="151" uuid="35d420a6-8f00-4f41-beb3-c21e8e89e9d0">
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="194" height="30" uuid="0b988731-81d9-43a6-95ca-db9de049738a"/>
+								<reportElement x="0" y="0" width="151" height="30" uuid="6831df67-1323-4550-b2cf-908643b42be2"/>
+								<box>
+									<topPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.5"/>
+								</box>
 								<textElement textAlignment="Center"/>
 								<text><![CDATA[Motif]]></text>
 							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell height="33" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="194" height="33" uuid="2052b712-62f7-4a79-9924-2073ab53b37a"/>
-								<textElement textAlignment="Center">
-									<font size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{motif}]]></textFieldExpression>
-							</textField>
+						</jr:columnHeader>
+						<jr:detailCell height="54" rowSpan="1">
+							<subreport>
+								<reportElement x="0" y="0" width="151" height="27" uuid="54c44c39-3472-4378-87e9-e5b3869fc1c0"/>
+								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
+								<subreportExpression><![CDATA["journalcaisse_subreport3.jasper"]]></subreportExpression>
+							</subreport>
+							<staticText>
+								<reportElement positionType="FixRelativeToBottom" x="0" y="27" width="151" height="27" uuid="f1389b70-96a6-42b2-8593-f1ff84877c80"/>
+								<box>
+									<bottomPen lineWidth="0.5"/>
+								</box>
+								<text><![CDATA[Total par piece]]></text>
+							</staticText>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="96" uuid="a67a1c9a-cd04-456d-83c8-75e32302af80">
-						<jr:tableHeader height="30" rowSpan="1">
-							<box>
-								<bottomPen lineWidth="1.0" lineStyle="Double"/>
-							</box>
+					<jr:column width="101" uuid="248244dd-a92d-4fbc-b6c1-f74803d22b31">
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="96" height="30" uuid="d2ff785f-484a-447b-9324-35c37d574fb4"/>
+								<reportElement x="0" y="0" width="101" height="30" uuid="14118781-bb42-4fe6-b796-26f28f94971d"/>
+								<box>
+									<bottomPen lineWidth="0.5"/>
+								</box>
 								<textElement textAlignment="Center"/>
-								<text><![CDATA[N° facture]]></text>
+								<text><![CDATA[N° Facture]]></text>
 							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell height="33" rowSpan="1">
+						</jr:columnHeader>
+						<jr:detailCell height="54" rowSpan="1">
 							<subreport>
-								<reportElement x="0" y="0" width="96" height="33" uuid="5c91dda8-92be-4926-840f-ee038758cdfe"/>
+								<reportElement x="0" y="0" width="101" height="27" uuid="bd39ad76-8db1-4b22-81fe-5c308d0e756e"/>
 								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
 								<subreportExpression><![CDATA["journalcaisse_subreport1.jasper"]]></subreportExpression>
 							</subreport>
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement positionType="FixRelativeToBottom" x="0" y="27" width="101" height="27" uuid="a296d4ee-71d3-4c22-839c-861142c44780"/>
+								<box>
+									<bottomPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
+							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="77" uuid="fe2e6aeb-d1ae-46cd-9231-f7ba8013441b">
-						<jr:tableHeader height="30" rowSpan="1">
-							<box>
-								<pen lineStyle="Double"/>
-								<topPen lineStyle="Double"/>
-								<leftPen lineStyle="Double"/>
-								<bottomPen lineWidth="1.0" lineStyle="Double"/>
-								<rightPen lineStyle="Double"/>
-							</box>
+					<jr:column width="109" uuid="8935f880-9f5a-4837-8a68-4c1918214cf9">
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="77" height="30" uuid="e507c421-7894-485d-aef1-8043a31cb28e"/>
+								<reportElement x="0" y="0" width="109" height="30" uuid="3fba8d12-f583-4f7c-b2b2-057e39938cb1"/>
+								<box>
+									<bottomPen lineWidth="0.5"/>
+								</box>
 								<textElement textAlignment="Center"/>
 								<text><![CDATA[Montant]]></text>
 							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell height="33" rowSpan="1"/>
+						</jr:columnHeader>
+						<jr:detailCell height="54" rowSpan="1">
+							<subreport>
+								<reportElement x="0" y="0" width="109" height="27" uuid="e9de6779-d974-4f1e-9b39-aa2f7ad858bb"/>
+								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
+								<subreportExpression><![CDATA["journalcaisse_subreport2.jasper"]]></subreportExpression>
+							</subreport>
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement positionType="FixRelativeToBottom" x="0" y="27" width="109" height="27" uuid="de32a1e5-6243-47d6-876f-8c95904a4a83"/>
+								<box>
+									<bottomPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<paragraph rightIndent="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{reste}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
@@ -178,7 +208,7 @@
 	<summary>
 		<band height="56">
 			<staticText>
-				<reportElement x="122" y="0" width="81" height="20" uuid="20fa1538-d372-4ad8-b1bf-c6992b280bea"/>
+				<reportElement x="50" y="0" width="81" height="20" uuid="20fa1538-d372-4ad8-b1bf-c6992b280bea"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -191,6 +221,34 @@
 				</textElement>
 				<text><![CDATA[Arretée à la somme de]]></text>
 			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="146" y="0" width="116" height="20" uuid="b2e2f078-dca8-44e0-84dd-aa01be8e6f37"/>
+				<textElement verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalmontant}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="296" y="0" width="100" height="20" uuid="cf578b90-262f-43f6-86e0-5e800c7db7fa"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalcredit}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="433" y="0" width="100" height="20" uuid="5c967209-2f32-4e8e-9fa9-bf7758e72e8d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalfinale}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="131" y="34" width="424" height="20" uuid="204092d6-f215-474e-bcd0-625b8351f7b0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lettre}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
