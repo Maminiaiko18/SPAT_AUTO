@@ -470,7 +470,6 @@ public class FactureFournisseur extends FactureClient {
         String code = "";
         code += Utilitaire.genererAnnee(daty);
         code += Utilitaire.genererMois(daty);
-        code += Utilitaire.getJour(daty);
         code += UtilitaireFacture.genererSequence( c, "NUMEROCOMPTA", 4, daty);
         return code;
     }
