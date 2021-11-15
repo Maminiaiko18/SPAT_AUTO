@@ -27,7 +27,7 @@
     try {
         UserEJB u = (user.UserEJB) session.getValue("u");
         FactureFournisseur e = new FactureFournisseur();
-        e.setNomTable("FACTFOURN_MSUM_LIB_ODRE");
+        e.setNomTable("factfourn_msum_lib");
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE FOURNISSEUR");
 
@@ -45,8 +45,11 @@
         pc.getChampByName("escale").setVisible(false);
         pc.getChampByName("idprevision").setVisible(false);
         pc.getChampByName("idProvision").setVisible(false);
+        pc.getChampByName("nature").setVisible(false);
         pc.getChampByName("code_etablissement").setVisible(false);
         pc.getChampByName("tierslib").setLibelle("Tiers");
+        pc.getChampByName("naturelib").setLibelle("Nature");
+        pc.getChampByName("numeroop").setLibelle("N° facture");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("montant").setLibelle("Montant HT");
         pc.getChampByName("montanttva").setLibelle("Montant TVA");
@@ -59,7 +62,7 @@
         pc.getChampByName("typelib").setLibelle("Type");
         pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoir");
         pc.getChampByName("projetlib").setLibelle("Projet");
-        pc.getChampByName("numeroop").setVisible(false);
+//        pc.getChampByName("numeroop").setVisible(false);
         pc.getChampByName("code_etablissementlib").setLibelle("Code direction");
         //pc.getChampByName("escale").setLibelle("Escale");
         pc.getChampByName("codeProvision").setLibelle("Provision");

@@ -23,7 +23,16 @@ import utilitaire.Utilitaire;
  * @author rijan
  */
 public class FactureFournisseur extends FactureClient {
-   private String numeroop,projet,code_etablissement,projetlib,code_etablissementlib,nature;
+   private String numeroop,projet,code_etablissement,projetlib,code_etablissementlib,nature,naturelib;
+
+    public String getNaturelib() {
+        return naturelib;
+    }
+
+    public void setNaturelib(String naturelib) {
+        this.naturelib = naturelib;
+    }
+   
     public String getNumeroop() {
         return numeroop;
     }
