@@ -24,7 +24,7 @@
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
-        affichage.Liste[] listeM = new affichage.Liste[3];
+        affichage.Liste[] listeM = new affichage.Liste[4];
         TypeObjet oM = new TypeObjet();
         oM.setNomTable("TYPEFC");
         listeM[0] = new Liste("type", oM, "VAL", "id");
@@ -41,6 +41,11 @@
         TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
         listeM[2] = new Liste("deviseMere", devise, "VAL", "id");
+        
+        TypeObjet nature = new TypeObjet();
+        nature.setNomTable("nature");
+        listeM[3] = new Liste("nature", nature, "val", "id");
+        
         
         pi.getFormu().changerEnChamp(listeM);
 
@@ -98,7 +103,7 @@
         
         pi.getFormu().getChamp("projetlib").setVisible(false);    
         pi.getFormu().getChamp("code_etablissementlib").setVisible(false);
-        pi.getFormu().getChamp("numeroop").setVisible(false);
+        pi.getFormu().getChamp("numeroop").setLibelle("N° facture");
         pi.getFormu().getChamp("code").setLibelle("Numéro Compta");
         pi.getFormu().getChamp("code_etablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp", "code_etablissement;code_etablissementlibelle");
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp", "projet;projetlibelle"); 
