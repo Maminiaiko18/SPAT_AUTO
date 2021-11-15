@@ -139,7 +139,7 @@
 								<box>
 									<bottomPen lineWidth="0.5"/>
 								</box>
-								<text><![CDATA[Total Par prise de recette]]></text>
+								<text><![CDATA[Total par piece]]></text>
 							</staticText>
 						</jr:detailCell>
 					</jr:column>
