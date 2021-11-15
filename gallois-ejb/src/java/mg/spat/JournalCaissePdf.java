@@ -11,6 +11,28 @@ import java.util.ArrayList;
 public class JournalCaissePdf {
     private String numpiece, client, motif; 
     private ArrayList<JournalCaisse> jcaisse;
+    private double montant;
+    private double reste;
+
+    public double getReste() {
+        return reste;
+    }
+
+    public void setReste(double reste) {
+        this.reste = reste;
+    }
+    
+    
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+    
+    
    
     
     

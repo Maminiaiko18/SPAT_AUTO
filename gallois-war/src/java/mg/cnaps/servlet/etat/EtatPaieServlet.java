@@ -1268,12 +1268,14 @@ public class EtatPaieServlet extends HttpServlet {
         JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, sql);
         
         ArrayList<JournalCaissePdf> ls = new ArrayList<JournalCaissePdf>();
-        
+        double totalmontant =0;
+        double totalcredit = 0;
         int i =0;
             while(i<details.length){
                 PayementFacture[] p = details[i].getPayementFactureTous(null);
                 JournalCaissePdf temp = new  JournalCaissePdf();
-                
+                double montant = 0;
+               
                 temp.setClient(details[i].getTiersLib());
                 temp.setMotif(details[i].getLibelle());
                 temp.setNumpiece(details[i].getNumPiece());
@@ -1282,28 +1284,52 @@ public class EtatPaieServlet extends HttpServlet {
                 int a = 0;
                 System.out.println("len"+p.length);
                 ArrayList<JournalCaisse> j = new ArrayList<JournalCaisse>();
-                while(a<p.length){
-                    JournalCaisse caissetemp = new JournalCaisse();
-                    //caissetemp.setMontant(1000.0);
-                    //caissetemp.setNumPiece("code");
-                    caissetemp.setNumPiece(p[a].getCode());
-                    caissetemp.setMontant(p[a].getMontant());
-                    //numfact.add(p[a].getCode());
-                    //montant.add(p[a].getMontant());
-                    System.out.println("codddeeeee="+p[a].getCode());
-                    j.add(caissetemp);
-                    //j.add(caissetemp);
-                    //temp.setJcaisse(j);//(caissetemp);
-                    //temp.getJcaisse().add(caissetemp);
-                    a = a+1;
+                
+                if(a<p.length){
+                    while(a<p.length){
+                        JournalCaisse caissetemp = new JournalCaisse();
+                        if(a==0){
+                            caissetemp.setCaisse(details[i].getLibelle());
+                        }
+                        
+                        caissetemp.setNumPiece(p[a].getCode());
+                        caissetemp.setMontant(p[a].getMontant());
+                        montant = montant + p[a].getMontant();
+
+                        
+                        System.out.println("codddeeeee="+p[a].getCode());
+                        j.add(caissetemp);
+                        
+                        a = a+1;
+                    }
                 }
+                else{
+                    JournalCaisse caissetemp = new JournalCaisse();
+                    caissetemp.setCaisse(details[i].getLibelle());
+                    j.add(caissetemp);
+                }
+                //temp.setMotif(details[i].getLibelle());
+                temp.setMontant(montant);
+                temp.setReste(details[i].getCredit()-montant);
+                totalmontant = totalmontant+montant;
+                totalcredit = totalcredit+(details[i].getCredit()-montant);
+                
+                
+                
                 temp.setJcaisse(j);
                 //temp.setMontant(montant);
                 //temp.setNumfacture(numfact);
                 ls.add(temp);
                 i = i+1;
-            }
+                }
+            double totalfinale = totalmontant+totalcredit;
+            
+            
         param.put("list_table",ls);                        
+        param.put("totalmontant",totalmontant);                        
+        param.put("totalcredit",totalcredit);                        
+        param.put("totalfinale",totalfinale);                        
+        param.put("lettre",ChiffreLettre.convertRealToString(totalfinale));                        
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("journalcaisse");
         UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, ls, getReportPath(), rt);

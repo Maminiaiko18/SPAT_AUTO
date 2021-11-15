@@ -8,19 +8,11 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="39">
+		<band height="36">
 			<textField>
 				<reportElement x="0" y="0" width="257" height="36" uuid="86bd8f1b-e4f9-4949-b1db-20bec3e3b906"/>
 				<textFieldExpression><![CDATA[$F{numPiece}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="31">
-			<staticText>
-				<reportElement x="6" y="0" width="100" height="20" uuid="4b522c58-5b24-419b-aa3a-7b4aff835536"/>
-				<text><![CDATA[Total par pièce]]></text>
-			</staticText>
-		</band>
-	</columnFooter>
 </jasperReport>
