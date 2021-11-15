@@ -862,7 +862,7 @@ public class EtatPaieServlet extends HttpServlet {
                  param.put("date_arrivee",pre[0].getDate_arrivee());
                  //param.put("pavillon",pre[0].getPavillon);
                  param.put("date_depart",pre[0].getDate_depart());
-                 param.put("destination",pre[0].getDestination());
+                 param.put("destination",pre[0].getValquaisdestination());
                  param.put("lhtnavire",pre[0].getLhtnavire());
                  param.put("jntnavire",pre[0].getJntnavire());
                  param.put("lmnavire",pre[0].getLmnavire());
