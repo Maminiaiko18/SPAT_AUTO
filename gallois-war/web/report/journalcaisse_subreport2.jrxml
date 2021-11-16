@@ -8,9 +8,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="36">
+		<band height="20">
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="100" height="36" uuid="66eb389e-27a6-4c41-986f-7382e2ae0c4a"/>
+				<reportElement x="0" y="0" width="100" height="20" uuid="66eb389e-27a6-4c41-986f-7382e2ae0c4a"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
 			</textField>
