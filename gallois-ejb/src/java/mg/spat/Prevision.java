@@ -122,7 +122,8 @@ public class Prevision extends ClassEtat {
                 if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0) activites=prevision.genererActiviteViseesBP(user, c);
                 else activites= prevision.genererActiviteVisees(user, c);
 
-                adminActivite.findactivite(getIdsFromTab(activites), c);
+//                adminActivite.findactivite(getIdsFromTab(activites), c);
+                adminActivite.findactivite(this.getId(), c);
                 adminActivite.setPrevision(this);
                 facture = adminActivite.facturer(user, c);
 //                facture.setIdprevision(this.getId());
