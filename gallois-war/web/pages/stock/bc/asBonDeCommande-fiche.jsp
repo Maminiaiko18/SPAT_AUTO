@@ -54,6 +54,7 @@
     Map<String, String> map = new HashMap<String, String>();
     map.put("details-bc", "");
     map.put("bondelivraison-liste", "");
+    map.put("facture-fournisseur", "");
     String id = request.getParameter("id");
     tab = request.getParameter("tab");
     if (tab == null) {
@@ -116,6 +117,7 @@
                 <ul class="nav nav-tabs">
                     <li class="<%= map.get("details-bc")%>"><a href="globalnegoce.jsp?but=stock/bc/asBonDeCommande-fiche.jsp&id=<%=request.getParameter("id")%>&tab=details-bc&tva=<%=bondecommande.getTva()%>">Details BC</a></li>
                     <li class="<%= map.get("bondelivraison-liste")%>"><a href="globalnegoce.jsp?but=stock/bc/asBonDeCommande-fiche.jsp&id=<%=request.getParameter("id")%>&tab=bondelivraison-liste&id_bc=<%=bondecommande.getId()%>">Bon de livraison</a></li>
+                    <li class="<%= map.get("facture-fournisseur")%>"><a href="globalnegoce.jsp?but=stock/bc/asBonDeCommande-fiche.jsp&id=<%=request.getParameter("id")%>&tab=facture-fournisseur&idbc=<%=bondecommande.getId()%>">Facture fournisseur</a></li>
                 </ul>
 
                 <div class="tab-content">       
