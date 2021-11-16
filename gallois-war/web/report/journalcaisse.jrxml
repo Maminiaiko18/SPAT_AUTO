@@ -70,9 +70,9 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="178" splitType="Stretch">
+		<band height="110" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table" x="0" y="68" width="553" height="110" uuid="f72f121e-49ff-447c-9ad2-414115e3e919"/>
+				<reportElement key="table" x="0" y="0" width="553" height="110" uuid="f72f121e-49ff-447c-9ad2-414115e3e919"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 2" uuid="94256fe2-ea37-4ad1-998f-3e076a7da039">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
