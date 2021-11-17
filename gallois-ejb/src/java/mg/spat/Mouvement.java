@@ -7,6 +7,7 @@ package mg.spat;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import fin.Coursdevise;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -53,6 +54,16 @@ public class Mouvement extends ClassEtat {
     public void setNoVoyage(String noVoyage) {
         this.noVoyage = noVoyage;
     }
+    
+    public double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
+        String awhere = " and daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + Constante.deviseEuro + "' "
+                + " order by daty desc";
+        Coursdevise cours = new Coursdevise();
+        cours.setNomTable(nomTable);
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(cours, null, null, c, awhere);
+
+        return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
+    }
 
     @Override
     public void viser(UserEJBBean u, Connection c) throws Exception {
@@ -70,7 +81,8 @@ public class Mouvement extends ClassEtat {
                 prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
             }
             
-            //creerActivite(u, c);
+            Activite stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
+            u.createObject(stationnement, c);
         }
         if (this.estTouchee(c) && this.getEscale() == null) {
             this.creerPrevision(u, c);
@@ -661,4 +673,28 @@ public class Mouvement extends ClassEtat {
             }
         }
     }
+    
+     public Activite creerActiviteStationnement(String u, Connection c) throws Exception{
+        Mouvement[] mvts = getMouvementMemeEscalePrec(c);
+        Mouvement mvtPrec = null;
+        if(mvts != null && mvts.length > 0) mvtPrec = mvts[0];
+        Prevision prev = this.getPrevision(c);
+        
+        Activite a = new Activite();
+        a.setRubrique(Constante.idStationnement);
+        a.setDesignation("Stationnement");
+        a.setClient(prev.getConsignataire());
+        a.setMois(Utilitaire.getMois(mvtPrec.getDatearrivee()));
+        a.setAnnee(Utilitaire.getAnnee(mvtPrec.getDatearrivee()));
+        a.setDaty(Utilitaire.dateDuJourSql());
+        a.setBateau(prev.getId());
+        a.setDatedebut(mvtPrec.getDatearrivee());
+        a.setHeuredebut(mvtPrec.getHeure());
+        a.setDatefin(this.getDate_depart());
+        a.setHeurefin(this.getHeure_depart());
+        a.setTaux(getValeurTaux(c, "coursdeviseNonMICTSL",this.getDate_depart()));
+        
+        return a;
+    }
+    
 }
