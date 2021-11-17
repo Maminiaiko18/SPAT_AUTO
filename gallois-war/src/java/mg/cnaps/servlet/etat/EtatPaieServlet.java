@@ -1332,7 +1332,8 @@ public class EtatPaieServlet extends HttpServlet {
         param.put("lettre",ChiffreLettre.convertRealToString(totalfinale));                        
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("journalcaisse");
-        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, ls, getReportPath(), rt);
+        
+        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, null, getReportPath(), rt);
         }catch(Exception e){
             e.printStackTrace();
         }finally {
