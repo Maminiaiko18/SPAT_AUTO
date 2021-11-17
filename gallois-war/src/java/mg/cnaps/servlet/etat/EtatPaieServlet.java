@@ -1272,7 +1272,7 @@ public class EtatPaieServlet extends HttpServlet {
         double totalcredit = 0;
         int i =0;
             while(i<details.length){
-                PayementFacture[] p = details[i].getPayementFactureTous(null);
+                PayementFacture[] p = details[i].getPayementFactureTous(c);
                 JournalCaissePdf temp = new  JournalCaissePdf();
                 double montant = 0;
                
@@ -1294,6 +1294,7 @@ public class EtatPaieServlet extends HttpServlet {
                         
                         caissetemp.setNumPiece(p[a].getCode());
                         caissetemp.setMontant(p[a].getMontant());
+                        caissetemp.setRemarque(utilitaire.Utilitaire.formaterAr(p[a].getMontant()));
                         montant = montant + p[a].getMontant();
 
                         
