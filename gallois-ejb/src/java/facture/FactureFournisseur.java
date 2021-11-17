@@ -23,7 +23,7 @@ import utilitaire.Utilitaire;
  * @author rijan
  */
 public class FactureFournisseur extends FactureClient {
-   private String numeroop,projet,code_etablissement,projetlib,code_etablissementlib,nature,naturelib;
+   private String numeroop,projet,code_etablissement,projetlib,code_etablissementlib,nature,naturelib,idbc;
 
     public String getNaturelib() {
         return naturelib;
@@ -79,6 +79,14 @@ public class FactureFournisseur extends FactureClient {
 
     public void setCode_etablissementlib(String code_etablissementlib) {
         this.code_etablissementlib = code_etablissementlib;
+    }
+
+    public String getIdbc() {
+        return idbc;
+    }
+
+    public void setIdbc(String idbc) {
+        this.idbc = idbc;
     }
    
 

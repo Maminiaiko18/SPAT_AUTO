@@ -70,9 +70,9 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="178" splitType="Stretch">
+		<band height="110" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table" x="0" y="68" width="553" height="110" uuid="f72f121e-49ff-447c-9ad2-414115e3e919"/>
+				<reportElement key="table" x="0" y="0" width="553" height="110" uuid="f72f121e-49ff-447c-9ad2-414115e3e919"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 2" uuid="94256fe2-ea37-4ad1-998f-3e076a7da039">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
@@ -85,9 +85,9 @@
 								<text><![CDATA[N° P.C]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="54" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="87" height="54" uuid="95237dcc-d32e-4362-a8c0-d6bf7c788dd2"/>
+								<reportElement x="0" y="0" width="87" height="30" uuid="95237dcc-d32e-4362-a8c0-d6bf7c788dd2"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
@@ -105,9 +105,9 @@
 								<text><![CDATA[Client]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="54" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="126" height="54" uuid="d53f42a3-a6cd-4993-ae02-9285b6bf763e"/>
+								<reportElement x="0" y="0" width="126" height="30" uuid="d53f42a3-a6cd-4993-ae02-9285b6bf763e"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
@@ -128,14 +128,14 @@
 								<text><![CDATA[Motif]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="54" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<subreport>
-								<reportElement x="0" y="0" width="151" height="27" uuid="54c44c39-3472-4378-87e9-e5b3869fc1c0"/>
+								<reportElement x="0" y="0" width="151" height="15" uuid="54c44c39-3472-4378-87e9-e5b3869fc1c0"/>
 								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
 								<subreportExpression><![CDATA["journalcaisse_subreport3.jasper"]]></subreportExpression>
 							</subreport>
 							<staticText>
-								<reportElement positionType="FixRelativeToBottom" x="0" y="27" width="151" height="27" uuid="f1389b70-96a6-42b2-8593-f1ff84877c80"/>
+								<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="151" height="15" uuid="f1389b70-96a6-42b2-8593-f1ff84877c80"/>
 								<box>
 									<bottomPen lineWidth="0.5"/>
 								</box>
@@ -154,14 +154,14 @@
 								<text><![CDATA[N° Facture]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="54" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<subreport>
-								<reportElement x="0" y="0" width="101" height="27" uuid="bd39ad76-8db1-4b22-81fe-5c308d0e756e"/>
+								<reportElement x="0" y="0" width="101" height="15" uuid="bd39ad76-8db1-4b22-81fe-5c308d0e756e"/>
 								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
 								<subreportExpression><![CDATA["journalcaisse_subreport1.jasper"]]></subreportExpression>
 							</subreport>
 							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement positionType="FixRelativeToBottom" x="0" y="27" width="101" height="27" uuid="a296d4ee-71d3-4c22-839c-861142c44780"/>
+								<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="101" height="15" uuid="a296d4ee-71d3-4c22-839c-861142c44780"/>
 								<box>
 									<bottomPen lineWidth="0.5"/>
 								</box>
@@ -183,14 +183,14 @@
 								<text><![CDATA[Montant]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="54" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<subreport>
-								<reportElement x="0" y="0" width="109" height="27" uuid="e9de6779-d974-4f1e-9b39-aa2f7ad858bb"/>
+								<reportElement x="0" y="0" width="109" height="15" uuid="e9de6779-d974-4f1e-9b39-aa2f7ad858bb"/>
 								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
 								<subreportExpression><![CDATA["journalcaisse_subreport2.jasper"]]></subreportExpression>
 							</subreport>
 							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement positionType="FixRelativeToBottom" x="0" y="27" width="109" height="27" uuid="de32a1e5-6243-47d6-876f-8c95904a4a83"/>
+								<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="109" height="15" uuid="de32a1e5-6243-47d6-876f-8c95904a4a83"/>
 								<box>
 									<bottomPen lineWidth="0.5"/>
 								</box>
