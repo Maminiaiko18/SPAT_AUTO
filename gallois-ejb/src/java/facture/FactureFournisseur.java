@@ -498,6 +498,34 @@ public class FactureFournisseur extends FactureClient {
         code += UtilitaireFacture.genererSequence( c, "NUMEROCOMPTA", 4, daty);
         return code;
     }
+    
+     public FactureFournisseur modifierEntete(String refUser, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            this.updateToTableWithHisto(refUser, c);
+//            this.updateToTable(c);
+
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return this;
+    }
                         
     
 }
