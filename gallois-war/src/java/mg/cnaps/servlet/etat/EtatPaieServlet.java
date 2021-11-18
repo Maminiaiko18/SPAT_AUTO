@@ -1263,6 +1263,7 @@ public class EtatPaieServlet extends HttpServlet {
             sql = sql + " and UPPER(descecaisse) like UPPER('%"+descecaisse+"%') ";
         }
         
+        //System.out.println(sql);
         JournalCaisse journalCaisse = new JournalCaisse();
         journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
         JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, sql);
@@ -1282,7 +1283,7 @@ public class EtatPaieServlet extends HttpServlet {
                 
                 
                 int a = 0;
-                System.out.println("len"+p.length);
+                //System.out.println("len"+p.length);
                 ArrayList<JournalCaisse> j = new ArrayList<JournalCaisse>();
                 
                 if(a<p.length){
@@ -1298,7 +1299,7 @@ public class EtatPaieServlet extends HttpServlet {
                         montant = montant + p[a].getMontant();
 
                         
-                        System.out.println("codddeeeee="+p[a].getCode());
+                        //System.out.println("codddeeeee="+p[a].getCode());
                         j.add(caissetemp);
                         
                         a = a+1;
