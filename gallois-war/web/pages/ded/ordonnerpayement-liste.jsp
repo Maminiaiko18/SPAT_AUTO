@@ -82,11 +82,20 @@
                 String libEnteteAffiche[] = {"id","Numéro OP","Date", "Tiers", "Facture","Motif de paiement","Montant","Mode de paiement", "Etat"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("ajouterOP");
-                out.println(pr.getTableau().getHtmlWithCheckbox());
+                out.println(pr.getTableau().getHtmlWithCheckbox());%>
+                <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
+                <%
                 out.println(pr.getBasPage());
             %>
         </form>
     </section>
 </div>
+        <script>
+            function decaisser(){
+                $('#form_op').attr('action', '<%= pr.getLien() %>?but=ded/apresOrdonner.jsp');
+                $('#acte').val('decaisser');
+                document.getElementById("form_op").submit();
+            }            
+            </script>
         <% }catch(Exception e) {e.printStackTrace();}%>
 
