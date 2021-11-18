@@ -9,6 +9,7 @@ import factureclient.PaiementFactureRemise;
 import facturefournisseur.EtatFactureMontantDaty;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.ArrayList;
 import mg.allosakafo.produits.LiaisonIntraTable;
 import mg.spat.JournalCaisse;
 import utilitaire.Constante;
@@ -648,5 +649,18 @@ public class OrdonnerPayement extends ClassEtat {
          return numero;
      }
     
-    
+    public static ArrayList<FactureFournisseur> controlerDecaissementMultiple(Connection c,String[] ids) throws Exception{
+        ArrayList<FactureFournisseur> result = new ArrayList<>();
+        OrdonnerPayement base = new OrdonnerPayement();
+        base.setNomTable("OrdonnerPayement");
+        String where = String.format(" and id in (%s) ", Utilitaire.tabToString(ids, "'", ","));
+        OrdonnerPayement[] tabOp = (OrdonnerPayement[])CGenUtil.rechercher(base, null, null, c, where);
+        for(OrdonnerPayement op: tabOp){
+            if(op.getEtat() < 11) throw new Exception("OP non visé");
+            FactureFournisseur[] tabFactOp = op.getFactures(c);
+            for(FactureFournisseur factOp: tabFactOp) 
+                result.add(factOp);
+        }
+        return result;
+    }
 }
