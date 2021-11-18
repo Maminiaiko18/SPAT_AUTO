@@ -663,4 +663,17 @@ public class OrdonnerPayement extends ClassEtat {
         }
         return result;
     }
+    
+    public static String[] getFacturesOPs(Connection c, String[] idOPs) throws Exception {
+        java.util.List<FactureFournisseur> factures = controlerDecaissementMultiple(c, idOPs);
+        String[] idFactures = new String[factures.size()];
+        
+        if(factures.size() > 0) {
+            for(int i=0; i < factures.size(); i++) {
+                idFactures[i] = factures.get(i).getId();
+            }
+        }
+        
+        return idFactures;
+    }
 }
