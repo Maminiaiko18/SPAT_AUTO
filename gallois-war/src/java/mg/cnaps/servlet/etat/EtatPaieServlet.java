@@ -1230,6 +1230,7 @@ public class EtatPaieServlet extends HttpServlet {
         String idtypecheque=request.getParameter("idtypecheque");
         String idplacement=request.getParameter("idplacement");
         String descecaisse=request.getParameter("descecaisse");
+        String daty="";
         
         String sql = "";
         if(id!=null && id.compareToIgnoreCase("null")!=0 && id.length()!=0){
@@ -1249,9 +1250,11 @@ public class EtatPaieServlet extends HttpServlet {
         }
         if(dateEffet1!=null && dateEffet1.compareToIgnoreCase("null")!=0 && dateEffet1.length()!=0){
             sql = sql + " and dateEffet >= '+"+dateEffet1+"'";
+            daty += "du "+dateEffet1;
         }
         if(dateEffet2!=null && dateEffet2.compareToIgnoreCase("null")!=0 && dateEffet2.length()!=0){
             sql = sql + " and dateEffet <= '+"+dateEffet2+"'";
+            daty +=" au " + dateEffet2;
         }
         if(idtypecheque!=null && idtypecheque.compareToIgnoreCase("null")!=0 && idtypecheque.length()!=0){
             sql = sql + " and UPPER(idtypecheque) like UPPER('%"+idtypecheque+"%') ";
@@ -1326,7 +1329,7 @@ public class EtatPaieServlet extends HttpServlet {
                 }
             double totalfinale = totalmontant+totalcredit;
             
-            
+        param.put("daty",daty);    
         param.put("list_table",ls);                        
         param.put("totalmontant",totalmontant);                        
         param.put("totalcredit",totalcredit);                        
