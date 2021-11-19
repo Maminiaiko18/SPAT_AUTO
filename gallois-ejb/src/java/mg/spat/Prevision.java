@@ -41,6 +41,16 @@ public class Prevision extends ClassEtat {
     private String destination, escale;
     private String couleur = "#1E90FF";
     private String noVoyage, armateur,armateurlib,type;
+    private double tonnage;
+
+    public double getTonnage() {
+        return tonnage;
+    }
+
+    public void setTonnage(double tonnage) {
+        this.tonnage = tonnage;
+    }
+    
 
     public String getType() {
         return type;
