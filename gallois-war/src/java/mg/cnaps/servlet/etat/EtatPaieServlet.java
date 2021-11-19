@@ -1,5 +1,6 @@
 package mg.cnaps.servlet.etat;
 
+import affichage.PageRechercheGroupe;
 import avoir.AvoirFC;
 import avoir.AvoirFCFille;
 import java.io.FileNotFoundException;
@@ -13,6 +14,7 @@ import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.TypeObjet;
+import bean.ValeurEtiquette;
 import bordereau.BordereauFilleLibComplet;
 import bordereau.BordereauLibComplet;
 import ded.OrdonnerPayementPDF;
@@ -81,10 +83,17 @@ import facture.FactureFournisseurFilleData;
 import factureclient.PayementFacture;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import mg.spat.CargaisonAnalyse;
 import mg.spat.JournalCaissePdf;
 import mg.spat.OccupationMaterielNaval;
 import mg.spat.PrevisionLibComplet;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
 
+import org.apache.poi.ss.usermodel.Sheet;
 /**
  *
  * @author Manda
@@ -148,7 +157,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             else if(action.equalsIgnoreCase("listeJournalCaisse")){
                 listeJournalCaisse(request, response);
-            }  
+            }else if(action.equalsIgnoreCase("excel")){
+                excel(request, response);
+            }    
 
             
         } catch(Exception ex){
@@ -1345,6 +1356,78 @@ public class EtatPaieServlet extends HttpServlet {
             if (c != null) {
                 c.close();
             }
+        }
+    }
+    public void excel(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            user.UserEJB user =(user.UserEJB)request.getSession().getValue("u") ;
+            
+            response.setContentType("application/ms-excel");
+            response.setHeader("Content-Disposition", "attachment; filename=excel.xls");
+            HSSFWorkbook wb = new HSSFWorkbook();
+            Sheet sheet = wb.createSheet("new sheet");
+
+            HSSFCellStyle style = wb.createCellStyle();
+            style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+            style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            
+            HSSFCellStyle nombrestyle = wb.createCellStyle();
+            nombrestyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setAlignment(CellStyle.ALIGN_RIGHT);
+            nombrestyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            UserEJB u = (user.UserEJB) request.getSession().getValue("u");
+            CargaisonAnalyse recap = new CargaisonAnalyse();
+            String listeCrt[] = {"mois","cargaisonlib"};
+            String listeInt[] = {"mois"};
+
+            String[] pourcentage = {};
+            String somDefaut[] = {"tonnage"}; //sum
+            String colGrCol[] = {"moislib"}; //ligne
+            String[] colDefaut = {"cargaisonlib"}; // colonnes
+
+            PageRechercheGroupe pr = new PageRechercheGroupe(recap, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, 4, 0);
+             pr.setUtilisateur(u);
+             
+            pr.setLien((String) request.getSession().getValue("lien"));
+            pr.creerObjetPageCroise(colDefaut, pr.getLien() + "?but=capitainerie/quais/marchandise-analyse.jsp" );
+            ValeurEtiquette[][] table =pr.getTableau().getValeurEtiquette();
+            
+            
+            int i = 0;
+            while(i<table.length){
+                Row row = sheet.createRow(i);
+                int a = 0;
+                while(a<table[i].length){
+                    Cell x = row.createCell(a);
+                    x.setCellValue(table[i][a].getValeur());
+                
+                    a=a+1;
+                }
+            
+                i=i+1;
+            }
+            
+            
+            i=0;
+            for (int x = 0; x < 14; x++) {
+                    sheet.autoSizeColumn(x);
+                }
+            
+            ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            wb.write(outByteStream);
+            byte[] outArray = outByteStream.toByteArray();
+            OutputStream outStream = response.getOutputStream();
+            outStream.write(outArray);
+            outStream.flush();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     

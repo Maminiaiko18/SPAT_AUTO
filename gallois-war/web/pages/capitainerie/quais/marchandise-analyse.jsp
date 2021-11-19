@@ -51,6 +51,8 @@
             out.println(pr.getTableau().getHtml());
         %>
     </section>
+    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=excel&mois1=<%=request.getParameter("mois1") %>&mois2=<%=request.getParameter("mois2")%>&cargaisonlib=<%=request.getParameter("cargaisonlib")%>" style="margin-right: 10px">Imprimer</a>
+
     <% //out.println(pr.getBasPage()); %>
 </div>
 <%
