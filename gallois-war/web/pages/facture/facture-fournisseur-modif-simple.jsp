@@ -13,10 +13,10 @@
     try{
         String 
                 acte = "modifierEntete",
-                but = "apresFacture.jsp",
+                but = "apresFactureF.jsp",
                 table = "FACTURE_FOURNISSEUR_MERE",
                 classe = "facture.FactureFournisseur",
-                bute = "facture/factureclient-fiche-vaovao.jsp",
+                bute = "facture/facture-fournisseur-fiche-vaovao.jsp",
                 titre = "Modification entête facture fournisseur"
         ;
         FactureFournisseur o = new FactureFournisseur();

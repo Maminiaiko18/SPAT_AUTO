@@ -1263,6 +1263,7 @@ public class EtatPaieServlet extends HttpServlet {
             sql = sql + " and UPPER(descecaisse) like UPPER('%"+descecaisse+"%') ";
         }
         
+        //System.out.println(sql);
         JournalCaisse journalCaisse = new JournalCaisse();
         journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
         JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, sql);
@@ -1272,7 +1273,7 @@ public class EtatPaieServlet extends HttpServlet {
         double totalcredit = 0;
         int i =0;
             while(i<details.length){
-                PayementFacture[] p = details[i].getPayementFactureTous(null);
+                PayementFacture[] p = details[i].getPayementFactureTous(c);
                 JournalCaissePdf temp = new  JournalCaissePdf();
                 double montant = 0;
                
@@ -1282,7 +1283,7 @@ public class EtatPaieServlet extends HttpServlet {
                 
                 
                 int a = 0;
-                System.out.println("len"+p.length);
+                //System.out.println("len"+p.length);
                 ArrayList<JournalCaisse> j = new ArrayList<JournalCaisse>();
                 
                 if(a<p.length){
@@ -1294,10 +1295,11 @@ public class EtatPaieServlet extends HttpServlet {
                         
                         caissetemp.setNumPiece(p[a].getCode());
                         caissetemp.setMontant(p[a].getMontant());
+                        caissetemp.setRemarque(utilitaire.Utilitaire.formaterAr(p[a].getMontant()));
                         montant = montant + p[a].getMontant();
 
                         
-                        System.out.println("codddeeeee="+p[a].getCode());
+                        //System.out.println("codddeeeee="+p[a].getCode());
                         j.add(caissetemp);
                         
                         a = a+1;
@@ -1332,7 +1334,8 @@ public class EtatPaieServlet extends HttpServlet {
         param.put("lettre",ChiffreLettre.convertRealToString(totalfinale));                        
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("journalcaisse");
-        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, ls, getReportPath(), rt);
+        
+        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, null, getReportPath(), rt);
         }catch(Exception e){
             e.printStackTrace();
         }finally {
