@@ -15,6 +15,7 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.TypeObjet;
 import bean.ValeurEtiquette;
+import mg.spat.AnalyseMarchandisePDF;
 import bordereau.BordereauFilleLibComplet;
 import bordereau.BordereauLibComplet;
 import ded.OrdonnerPayementPDF;
@@ -159,7 +160,9 @@ public class EtatPaieServlet extends HttpServlet {
                 listeJournalCaisse(request, response);
             }else if(action.equalsIgnoreCase("excel")){
                 excel(request, response);
-            }    
+            } else if(action.equalsIgnoreCase("analyseMarchandise")){
+                analyseMarchandise(request, response);
+            }   
 
             
         } catch(Exception ex){
@@ -1363,7 +1366,7 @@ public class EtatPaieServlet extends HttpServlet {
             user.UserEJB user =(user.UserEJB)request.getSession().getValue("u") ;
             
             response.setContentType("application/ms-excel");
-            response.setHeader("Content-Disposition", "attachment; filename=excel.xls");
+            response.setHeader("Content-Disposition", "attachment; filename=analyse_marchandise.xls");
             HSSFWorkbook wb = new HSSFWorkbook();
             Sheet sheet = wb.createSheet("new sheet");
 
@@ -1397,8 +1400,8 @@ public class EtatPaieServlet extends HttpServlet {
             pr.setLien((String) request.getSession().getValue("lien"));
             pr.creerObjetPageCroise(colDefaut, pr.getLien() + "?but=capitainerie/quais/marchandise-analyse.jsp" );
             ValeurEtiquette[][] table =pr.getTableau().getValeurEtiquette();
-            
-            
+            System.out.println("ligne="+table.length);
+            System.out.println(table[0][1].getValeur());
             int i = 0;
             while(i<table.length){
                 Row row = sheet.createRow(i);
@@ -1430,5 +1433,67 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-    
+    public void analyseMarchandise(HttpServletRequest request, HttpServletResponse response){
+            try {
+            
+            UserEJB u = (user.UserEJB) request.getSession().getValue("u");
+            CargaisonAnalyse recap = new CargaisonAnalyse();
+            String listeCrt[] = {"mois","cargaisonlib"};
+            String listeInt[] = {"mois"};
+
+            String[] pourcentage = {};
+            String somDefaut[] = {"tonnage"}; //sum
+            String colGrCol[] = {"moislib"}; //ligne
+            String[] colDefaut = {"cargaisonlib"}; // colonnes
+
+            PageRechercheGroupe pr = new PageRechercheGroupe(recap, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, 4, 0);
+             pr.setUtilisateur(u);
+             
+            pr.setLien((String) request.getSession().getValue("lien"));
+            pr.creerObjetPageCroise(colDefaut, pr.getLien() + "?but=capitainerie/quais/marchandise-analyse.jsp" );
+            ValeurEtiquette[][] table =pr.getTableau().getValeurEtiquette();
+            ArrayList<AnalyseMarchandisePDF> ls = new ArrayList<AnalyseMarchandisePDF>();
+            System.out.println("ligne"+table.length);
+            //System.out.println("ligne"+table.length);
+            
+            int i =0;
+            
+            while(i<table.length){
+                int a=0;
+                AnalyseMarchandisePDF r = new AnalyseMarchandisePDF();
+                ArrayList<CargaisonAnalyse> temp= new ArrayList<CargaisonAnalyse>();
+                while(a<table[i].length){
+                    CargaisonAnalyse x = new CargaisonAnalyse();
+                    x.setMoislib(table[i][a].getValeur());
+                    temp.add(x);
+                    a=a+1;
+                }
+                System.out.println("colonne="+table[i].length);
+                //System.out.println(temp.size());
+                r.setParam1(temp);
+                ls.add(r);
+                i=i+1;
+            }
+            System.out.println(ls.size());
+            
+            Map param = new HashMap();
+            
+            
+            
+            
+            
+        
+            
+            
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("analyseMarchandise");
+        
+        UtilitaireImpression.imprimer(request, response, "analyse marchandise", param, ls, getReportPath(), rt);
+            
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -14,7 +14,7 @@
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="35" isPrintWhenDetailOverflows="true" uuid="bd222295-ccfa-471f-a39f-7861105d6745"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{param1})]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "analyseMarchandise_subreport1.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[ "analyseMarchandise_subreport1.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
