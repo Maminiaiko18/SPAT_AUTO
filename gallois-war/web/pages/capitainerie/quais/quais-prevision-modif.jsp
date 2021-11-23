@@ -7,6 +7,7 @@
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     PrevisionLibComplet prevision=new PrevisionLibComplet();
+    prevision.setNomTable("PREVISIONLIBCOMPLET_ORDRE");
     PageUpdate pi = new PageUpdate(prevision, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
@@ -95,7 +96,8 @@
     pi.getFormu().getChamp("valconsignataire").setVisible(false);
     pi.getFormu().getChamp("desceconsignataire").setVisible(false);
     pi.getFormu().getChamp("valcargaison").setVisible(false);
-    
+    pi.getFormu().getChamp("tonnage").setLibelle("Tonnage deb. prev.");
+
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">

@@ -26,6 +26,7 @@
 	<parameter name="totalcredit" class="java.lang.Double"/>
 	<parameter name="totalmontant" class="java.lang.Double"/>
 	<parameter name="lettre" class="java.lang.String"/>
+	<parameter name="daty" class="java.lang.String"/>
 	<field name="numpiece" class="java.lang.String"/>
 	<field name="client" class="java.lang.String"/>
 	<field name="motif" class="java.lang.String"/>
@@ -37,13 +38,6 @@
 	</background>
 	<pageHeader>
 		<band height="70" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="39" width="555" height="20" uuid="185b49b0-f353-4d3a-81e3-c86f3207ff89"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[JOURNAL DE CAISSE DU]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="433" y="19" width="37" height="20" uuid="d4c635d9-7e5f-4e25-827e-8b34c0ebe897"/>
 				<text><![CDATA[Editée]]></text>
@@ -59,13 +53,20 @@
 			<staticText>
 				<reportElement x="50" y="2" width="163" height="37" uuid="a2326ddd-181e-4102-aee3-58b06a3e0dad"/>
 				<textElement>
-					<font size="12"/>
+					<font size="10"/>
 				</textElement>
 				<text><![CDATA[DEPARTEMENT FINANCIER SERVICE TRESORERIE]]></text>
 			</staticText>
 			<textField evaluationTime="Report" isBlankWhenNull="true">
 				<reportElement x="529" y="39" width="26" height="20" uuid="e07dd3e5-dc5e-402d-ba3b-18b0147471ed"/>
 				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="39" width="433" height="20" uuid="69570a66-8fce-4c8d-9a1e-ce5d4114b2c2"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["JOURNAL CAISSE DU "+$P{daty}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -206,7 +207,7 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="56">
+		<band height="71">
 			<staticText>
 				<reportElement x="50" y="0" width="81" height="20" uuid="20fa1538-d372-4ad8-b1bf-c6992b280bea"/>
 				<textElement>
@@ -242,8 +243,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalfinale}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="131" y="34" width="424" height="20" uuid="204092d6-f215-474e-bcd0-625b8351f7b0"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="131" y="34" width="424" height="37" uuid="204092d6-f215-474e-bcd0-625b8351f7b0"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
