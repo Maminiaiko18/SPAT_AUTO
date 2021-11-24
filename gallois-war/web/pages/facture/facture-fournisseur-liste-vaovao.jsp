@@ -121,7 +121,7 @@
             out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
         <div style="display: flex; justify-content: flex-end; align-items: center;">
-        <input name="reg" type="button" id="btnRegularisation" class="btn btn-info" value="Régulariser BP" />
+        <!--<input name="reg" type="hidden" id="btnRegularisation" class="btn btn-info" value="Régulariser BP" />-->
         <input type="button" class="btn btn-info" onclick="editerBED()" style="margin:10px" value="Editer BED"/>
         <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
         </div>
@@ -136,12 +136,12 @@
         document.getElementById("form_arif").submit();
     }
     
-    document.getElementById("btnRegularisation").onclick = function(){
-        console.log(document.getElementById("acte"));
-        console.log(document.getElementById("form_arif"));
-        document.getElementById("acte").value =  "regularisation";
-        document.getElementById("form_arif").submit();
-    }
+//    document.getElementById("btnRegularisation").onclick = function(){
+//        console.log(document.getElementById("acte"));
+//        console.log(document.getElementById("form_arif"));
+//        document.getElementById("acte").value =  "regularisation";
+//        document.getElementById("form_arif").submit();
+//    }
     function regularisation (){
         document.getElementById("acte").value =  "regularisation";
         document.getElementById("form_arif").submit();
