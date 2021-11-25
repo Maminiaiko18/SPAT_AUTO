@@ -162,7 +162,9 @@ public class EtatPaieServlet extends HttpServlet {
                 excel(request, response);
             } else if(action.equalsIgnoreCase("analyseMarchandise")){
                 analyseMarchandise(request, response);
-            }   
+            } else if(action.equalsIgnoreCase("listefactureVaovao")){
+                listefactureClient(request, response);
+            } 
 
             
         } catch(Exception ex){
@@ -1496,4 +1498,29 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    
+    public void listefactureClient(HttpServletRequest request, HttpServletResponse response){
+        try{
+        String sql = "";
+        FactureClient ff = new FactureClient();
+        ff.setNomTable("factureClientValide");
+        /*FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(ff, null, null, null, sql);
+        int i =0;
+        while(i<details.length){
+            details[i].getFille();
+            i=i+1;
+        }
+        ArrayList< FactureClient> ls = new ArrayList< FactureClient>();*/
+            
+        Map param = new HashMap();
+        
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("liste_factureclient_vaovao");    
+        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    
+    }
+
 }

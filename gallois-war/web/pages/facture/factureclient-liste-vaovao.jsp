@@ -103,7 +103,12 @@
             pr.getTableau().setNameBoutton("Encaisser");
             pr.getTableau().setNameActe("encaisserMultiple");
             out.println(pr.getTableau().getHtmlWithCheckbox());
-        %>
+            
+            %>
+            
+            
+        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listefactureVaovao&id=<%=request.getParameter("id")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&tierslib=<%=request.getParameter("tierslib")%>&designation=<%=request.getParameter("designation")%>&date_echeance1=<%=request.getParameter("date_echeance1")%>&date_echeance2=<%=request.getParameter("date_echeance2")%>&escale=<%=request.getParameter("escale")%>&categorielib=<%=request.getParameter("categorielib")%>&code=<%=request.getParameter("code")%>" style="margin-right: 10px">Imprimer</a>
+
         <input type="hidden" name="acte" value="encaisserMultiple"/>
         </form>
         <% out.println(pr.getBasPage());%>
