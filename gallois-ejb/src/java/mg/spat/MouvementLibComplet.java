@@ -21,6 +21,15 @@ public class MouvementLibComplet extends Mouvement{
             quaiprovenance,interneprovenance,paysprovenance,valquaisprovenance,descequaisprovenance,typequaisprovenance,valpaysprovenance,descepaysprovenance,
             quaisdestination,internedestination,paysdestination,valquaisdestination,descequaisdestination,typequaisdestianantion,valpaysdestination,descepaysdestination,
             referencenavire,nomnavire,pavillonnavire,remarquenavire,valconsignataire,desceconsignataire,valtypequaisprovenance,descetypequaisprovenance,valtypequaisdestination,descetypequaisdestination,noVoyage;
+    private Date date_depart_prev;
+
+    public Date getDate_depart_prev() {
+        return date_depart_prev;
+    }
+
+    public void setDate_depart_prev(Date date_depart_prev) {
+        this.date_depart_prev = date_depart_prev;
+    }
 
     @Override
     public String getValColLibelle(){
