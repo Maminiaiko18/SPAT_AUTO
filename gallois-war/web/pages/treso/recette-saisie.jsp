@@ -80,6 +80,7 @@
         pi.getFormu().changerEnChamp(liste);
         pi.getFormu().getChamp("caisse").setLibelle("Banque");
         pi.getFormu().getChamp("iddevise").setLibelle("Devise");
+        pi.getFormu().getChamp("iddevise").setDefaut("Ar");
         pi.getFormu().getChamp("idmode").setLibelle("mode de paiement");
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();
