@@ -26,13 +26,20 @@
     pi.getFormu().getChamp("daty").setLibelle("Date");
     
     pi.setLien((String) session.getValue("lien"));
+    
+    String[] ordre = {"daty","caisse","montant","devise","id","etat"};    
+    pi.getFormu().setOrdre(ordre);
+    
     pi.preparerDataFormu();
+    
+    
 %>
 <div class="content-wrapper">
     <h1>Saisie Report</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="report" id="report" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
+  
             out.println(pi.getFormu().getHtmlInsert());
         %>
     <input name="acte" type="hidden" id="nature" value="insert">
