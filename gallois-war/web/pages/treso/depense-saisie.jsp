@@ -75,6 +75,7 @@
     mode.setNomTable(modeP);
     liste[2] = new Liste("idmode", mode, "desce", "id");    
     pi.getFormu().changerEnChamp(liste);
+    
     if(typeCaisse!=null && typeCaisse.compareTo("")!=0 && typeCaisse.compareTo("2")==0) pi.getFormu().getChamp("Typemvt").setDefaut("pay1");
     
     pi.getFormu().getChamp("caisse").setLibelle("Banque");
@@ -91,6 +92,7 @@
     pi.getFormu().getChamp("Idordre").setLibelle("Ordre");
     pi.getFormu().getChamp("Iddevise").setLibelle("devise");
     pi.getFormu().getChamp("idmode").setLibelle("Mode de paiement");
+    pi.getFormu().getChamp("iddevise").setDefaut("Ar");
     
     if (request.getParameter("id") != null) {
         if (request.getParameter("id")!= null && request.getParameter("id").compareTo("") != 0){

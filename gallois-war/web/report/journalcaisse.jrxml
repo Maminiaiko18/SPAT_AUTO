@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="journalcaisse" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f46c8fbc-90ce-48c5-a818-3d9c6173bd02">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<subDataset name="Table Dataset 1" uuid="f81935bc-6065-4834-928e-74fec05e823e">
@@ -211,42 +211,42 @@
 			<staticText>
 				<reportElement x="50" y="0" width="81" height="20" uuid="20fa1538-d372-4ad8-b1bf-c6992b280bea"/>
 				<textElement>
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Général]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="34" width="131" height="20" uuid="721c5886-5baf-4712-84d8-b170e944f8d3"/>
 				<textElement>
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Arretée à la somme de]]></text>
 			</staticText>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="146" y="0" width="116" height="20" uuid="b2e2f078-dca8-44e0-84dd-aa01be8e6f37"/>
 				<textElement verticalAlignment="Top">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalmontant}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="296" y="0" width="100" height="20" uuid="cf578b90-262f-43f6-86e0-5e800c7db7fa"/>
 				<textElement>
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalcredit}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="433" y="0" width="100" height="20" uuid="5c967209-2f32-4e8e-9fa9-bf7758e72e8d"/>
 				<textElement>
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalfinale}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="131" y="34" width="424" height="37" uuid="204092d6-f215-474e-bcd0-625b8351f7b0"/>
 				<textElement>
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{lettre}]]></textFieldExpression>
 			</textField>

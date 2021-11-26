@@ -44,10 +44,15 @@ public class ImportExcel {
             
             Row rowAnnee = sheet.getRow(5);
             Cell years2 = rowAnnee.getCell(0);
+            
             String entete = years2.getStringCellValue();
             String[] entetesplit = entete.split(" ");
+            
             int place =  entetesplit.length-1;
             String annee = entetesplit[place];
+            
+            Row rowtype = sheet.getRow(9);// ligne anle type
+            Row rowcategorie = sheet.getRow(7);
             while (row != null) {
                 //System.out.println(indice);
                     Cell clause = row.getCell(0);
@@ -56,9 +61,13 @@ public class ImportExcel {
                     }
                     //System.out.println(clause);
                 int cellNumber = row.getPhysicalNumberOfCells();
+                    String nomnavire = row.getCell(2).getStringCellValue();//col 3
+                    String numerovoyage=row.getCell(3).getStringCellValue(); //col 4
+                    
                     for (int co = 0; co < cellNumber; co++) {
-                        System.out.println(co);
+                        //System.out.println(co);
                         Cell c = row.getCell(co);
+                        
                         String idConteneur = act.genererRubrique(co);
                         if(idConteneur==null){
                             //System.out.println(co);
@@ -73,11 +82,17 @@ public class ImportExcel {
                             java.sql.Date datefin =utilitaire.Utilitaire.stringDate(date);
                             
                             double qte = c.getNumericCellValue();
+                            
+                            String type =rowtype.getCell(co).getStringCellValue()+" ";//"co" //ligne ery amn entete
+                            int indicecat = genererCategorieMensuel(co);
+                            String categorie=rowcategorie.getCell(indicecat).getStringCellValue();// mbola mila condition kely
+                            String designation=numerovoyage + nomnavire+ type +categorie;
                             Activite temp = new Activite(datefin, Constante.idMICTSL, idConteneur, qte, mois, utilitaire.Utilitaire.stringToInt(annee), datefin,datefin, heuredeb, heurefin);
                             temp.setBateau(idescale);
+                            temp.setDesignation(designation);
+                            //System.out.println(designation);
                             ls.add(temp);
-                            
-                            
+                                                        
                         }
                        
                     }
@@ -94,6 +109,24 @@ public class ImportExcel {
             throw new Exception("Erreur lors de l'import du fichier Excel");
         }
         
+    }
+    
+    public static int genererCategorieMensuel(int indiceX){
+    
+        int val =0;
+        if(indiceX>= 5 && indiceX<=8){
+            val = 5;
+        }
+        if(indiceX>=10 && indiceX<=13){
+            val = 10;
+        }
+        if(indiceX>=17 && indiceX<=20){
+            val = 17;
+        }
+        if(indiceX>=22 && indiceX<=25){
+            val=22;
+        }                      
+    return val;
     }
     
     public ArrayList<Activite> importJournalier(InputStream fileUrl, String idescale) throws Exception{
@@ -124,8 +157,10 @@ public class ImportExcel {
             String heurefin = heuredeb;
             
             ArrayList<Activite> ls = new ArrayList();
-            //System.out.println("etoooooooo");
+            String numerovoyage =sheet.getRow(10).getCell(8).getStringCellValue();//ligne 11 et colonne I = 9
+            String nomnavire =sheet.getRow(8).getCell(8).getStringCellValue();//ligne 9 et colonne I = 9
             
+            Row lignecategorie = sheet.getRow(18);
             while (1<2) {
                 
                     //System.out.println(indice);
@@ -140,6 +175,7 @@ public class ImportExcel {
                     }
                     
                     int compteCol = 0;
+                    String type = rubrique;
                     while(compteCol < colIlaina.length){
                         
                         Cell cellValeur = row.getCell(colIlaina[compteCol]);
@@ -161,44 +197,68 @@ public class ImportExcel {
                             if(rubrique.compareToIgnoreCase("20  Full")==0){
                                 //System.out.println("20 Full");
                                 String idConteneur = act.Rubrique20Full(colIlaina[compteCol]);
+                                String categorie = lignecategorie.getCell(colIlaina[compteCol]).getStringCellValue();
+                                String designation=numerovoyage+" " + nomnavire+" "+ type +" "+categorie;
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
                                 temp.setBateau(idescale);
+                                temp.setDesignation(designation);
+                                //System.out.print(designation);
                                 ls.add(temp);
                             
                             }
                             if(rubrique.compareToIgnoreCase("20  Empty")==0){
                                 ////System.out.println("20 E");
                                 String idConteneur = act.Rubrique20Empty(colIlaina[compteCol]);
+                                String categorie = lignecategorie.getCell(colIlaina[compteCol]).getStringCellValue();
+                                String designation=numerovoyage+" " + nomnavire+" "+ type +" "+categorie;
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
                                 temp.setBateau(idescale);
+                                temp.setDesignation(designation);
+                                //System.out.print(designation);
                                 ls.add(temp);
                             }
                             if(rubrique.compareToIgnoreCase("40  Full")==0){
                                 //System.out.println("40 Full");
                                 String idConteneur = act.Rubrique40Full(colIlaina[compteCol]);
+                                 String categorie = lignecategorie.getCell(colIlaina[compteCol]).getStringCellValue();
+                                String designation=numerovoyage+" " + nomnavire+" "+ type +" "+categorie;
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
                                 temp.setBateau(idescale);
+                                temp.setDesignation(designation);
+                                //System.out.print(designation);
                                 ls.add(temp);
                             }
                             if(rubrique.compareToIgnoreCase("40  Empty")==0){
                                 //System.out.println("40 E");
                                 String idConteneur = act.Rubrique40Empty(colIlaina[compteCol]);
+                                 String categorie = lignecategorie.getCell(colIlaina[compteCol]).getStringCellValue();
+                                String designation=numerovoyage+" " + nomnavire+" "+ type +" "+categorie;
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
                                 temp.setBateau(idescale);
+                                temp.setDesignation(designation);
+                                //System.out.print(designation);
                                 ls.add(temp);
                             }
                             if(rubrique.compareToIgnoreCase("45  Full")==0){
                                 //System.out.println("45 Full");
                                 String idConteneur = act.Rubrique45Full(colIlaina[compteCol]);
+                                 String categorie = lignecategorie.getCell(colIlaina[compteCol]).getStringCellValue();
+                                String designation=numerovoyage+" " + nomnavire+" "+ type +" "+categorie;
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
                                 temp.setBateau(idescale);
+                                temp.setDesignation(designation);
+                                //System.out.print(designation);
                                 ls.add(temp);
                             }
                             if(rubrique.compareToIgnoreCase("45  Empty")==0){
                                 //System.out.println("45 E");
                                 String idConteneur = act.Rubrique45Empty(colIlaina[compteCol]);
+                                 String categorie = lignecategorie.getCell(colIlaina[compteCol]).getStringCellValue();
+                                String designation=numerovoyage+" " + nomnavire+" "+ type +" "+categorie;
                                 Activite temp = new Activite(daty, Constante.idMICTSL, idConteneur, val, mois, annee, daty,daty, heuredeb, heurefin);
                                 temp.setBateau(idescale);
+                                temp.setDesignation(designation);
+                                //System.out.print(designation);
                                 ls.add(temp);
                             }
                         }

@@ -84,8 +84,8 @@
                                         <td><%=Utilitaire.champNull("" + listeOccupation[i].getValquaisdestination())%></td>
                                         <td><%=Utilitaire.champNull("" + listeOccupation[i].getNomnavire())%></td>
                                         <td><%=Utilitaire.formatterDaty("" + listeOccupation[i].getDatearrivee())%></td>
-                                        <td></td>
-                                        <td><%=Utilitaire.formatterDaty("" + listeOccupation[i].getDate_depart())%></td> 
+                                        <td><%=Utilitaire.champNull(listeOccupation[i].getValcargaison())%></td>
+                                        <td><%=Utilitaire.formatterDaty("" + listeOccupation[i].getDate_depart_prev())%></td> 
                                         <td><%=Utilitaire.champNull("" + listeOccupation[i].getDesceconsignataire())%></td>
 
                                     </tr>

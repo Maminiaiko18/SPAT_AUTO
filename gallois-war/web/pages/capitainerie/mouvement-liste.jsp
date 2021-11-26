@@ -112,7 +112,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"id","escale","navire", "consignataire","Destination", "cargaison", "date arrivée", "Heure d'arrivée","localistation", "date départ","heure départ","durée","No voyage"};
+            String libEnteteAffiche[] = {"id","escale","navire", "consignataire","Destination", "cargaison", "date arrivée", "Heure d'arrivée","localistation", "date départ","heure départ","Durée (en h)","No voyage"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             //pr.getTableau().construire_libelle(champ, libelle_comp);
             out.println(pr.getTableau().getHtml());
