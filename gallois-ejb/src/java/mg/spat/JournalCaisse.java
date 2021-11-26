@@ -938,7 +938,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     
     public FactureFournisseur[] findFactureFournisseur(Connection c) throws Exception{
         FactureFournisseur ff = new FactureFournisseur();
-        ff.setNomTable("FACTUREFOURNVALIDE_V");
+        //ff.setNomTable("FACTUREFOURNVALIDE_V");
+        ff.setNomTable("FACTFOURN_MSUM_LIBV");
         String ids = this.getIdplacement().contains(";") ? this.getIdplacement().replace(";", "','") : this.getIdplacement();
         String where = " and id in ('" +ids+"')";
         FactureFournisseur[] result = (FactureFournisseur[])CGenUtil.rechercher(ff, null, null, c, where);
