@@ -15,14 +15,17 @@
 
 <%
     Report cloture = new Report();
-    cloture.setNomTable("reportlib");
+    cloture.setNomTable("reportlib_ordre");
     PageConsulte pc = new PageConsulte(cloture, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
+    pc.getChampByName("daty").setLibelle("Date");
     pc.setTitre("Fiche report");
+
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
     String dossier="report";
     Report base = (Report) pc.getBase();
+
 %>
 
 <div class="content-wrapper">
