@@ -83,6 +83,7 @@ public class Mouvement extends ClassEtat {
             
             Activite stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
             u.createObject(stationnement, c);
+            u.validerObject(stationnement, c);
         }
         if (this.estTouchee(c) && this.getEscale() == null) {
             this.creerPrevision(u, c);
