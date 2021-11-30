@@ -11,9 +11,11 @@ import bean.ClassMAPTable;
 import bean.SituationCaisse;
 import fin.Coursdevise;
 import java.sql.Connection;
+import java.sql.Date;
 import utilitaire.UtilDB;
 import mg.amadia.stock.EtatdeStockDate;
 import mg.spat.EtatCaisseBP;
+import utilitaire.Constante;
 
 /**
  *
@@ -373,6 +375,14 @@ public class SituationComptesData {
         EtatCaisseBP[] ls = (EtatCaisseBP[]) CGenUtil.rechercher(new EtatCaisseBP(), null, null, c, "");
         return ls[0].getMontant();
     }
+    
+    public double getBonProvisoire(Connection c, Date daty1, Date daty2) throws Exception{
+        EtatCaisseBP ec = new EtatCaisseBP();
+        ec.setNomTable("factfourn_msum_libv");
+        String where = String.format(" and idcategorie = '%s' and daty>='%s' and daty<='%s'", Constante.idBonProvisoire, daty1, daty2);
+        EtatCaisseBP[] ls = (EtatCaisseBP[]) CGenUtil.rechercher(ec, null, null, c, where);
+        return ls[0].getMontant();
+    }    
 
 //    public SituationCaisse[] getSituationDevise(Connection c, String nomTable, String devise) throws Exception {
 //        int verif = 0;

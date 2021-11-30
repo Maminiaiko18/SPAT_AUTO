@@ -146,6 +146,7 @@ public class Constante {
     
     public static final String modePaiementEspece = "pay1";
     public static final String typeChequeAuComptant = "TCHQ00001";
+    public static final String idBonProvisoire = "CATGFF002";
 
     public static String getNavireBornageEtPeche() {
         return navireBornageEtPeche;
