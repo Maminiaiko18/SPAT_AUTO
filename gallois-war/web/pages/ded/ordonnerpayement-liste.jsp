@@ -12,7 +12,7 @@
     
 //    String libEntete[] = {"id", "ded_Id","remarque","numcheque","daty","folio","numeroop","montant"};
     String libEntete[] = {"id","numeroop","daty", "tiers", "ded_Id","remarque","montant", "modepaiementlib", "etatlib"};
-    String listeCrt[] = {"id","ded_Id", "daty","numeroop","modepaiementlib"};
+    String listeCrt[] = {"id","ded_Id", "daty", "tiers","numeroop","modepaiementlib"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(op, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -21,6 +21,7 @@
     pr.getFormu().getChamp("ded_Id").setLibelle("facture");
     pr.getFormu().getChamp("daty1").setLibelle("date de début");
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
+    pr.getFormu().getChamp("tiers").setLibelle("Tiers");
     pr.getFormu().getChamp("numeroop").setLibelle("Numero Op");
     pr.getFormu().getChamp("modepaiementlib").setLibelle("Mode de paiement");
     String[] colSomme ={"montant"};
