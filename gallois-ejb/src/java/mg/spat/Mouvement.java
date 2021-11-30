@@ -694,7 +694,7 @@ public class Mouvement extends ClassEtat {
         a.setDatefin(this.getDate_depart());
         a.setHeurefin(this.getHeure_depart());
         a.setTaux(getValeurTaux(c, "coursdeviseNonMICTSL",this.getDate_depart()));
-        a.setTypeSource(this.getDestination());
+        a.setTypeSource(this.getProvenance());
         
         return a;
     }
