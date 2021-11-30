@@ -60,6 +60,7 @@ public class Report extends ClassEtat{
     public void controler(Connection c) throws Exception{
 //        Report report = this.getReportFarany(this.getDaty(),this.getCaisse(),c);
 //        this.montant=report.getMontant()+JournalService.getSoldeJournal(report.getDaty() , Utilitaire.getDateAvant(this.getDaty(), 1), this.getCaisse(), c);
+        checkDoublon(c);    
     }
     
     public Report() {
