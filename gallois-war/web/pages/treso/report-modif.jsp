@@ -26,12 +26,13 @@
     
     pi.getFormu().changerEnChamp(liste);
     
-    
+    pi.getFormu().getChamp("id").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     
     pi.setLien((String) session.getValue("lien"));
+    pi.getFormu().setOrdre(new String[]{"daty", "caisse", "montant", "devise", "etat", "id"});
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">

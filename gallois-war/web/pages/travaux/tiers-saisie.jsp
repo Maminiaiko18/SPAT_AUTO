@@ -25,6 +25,8 @@
     
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
+    
+    String bute = request.getParameter("param") != null && request.getParameter("param").compareToIgnoreCase("1") == 0 ? "travaux/tiers-fiche.jsp&param=1" : "travaux/tiers-fiche.jsp";
 %>
 <div class="content-wrapper">
     <h1>Saisie d'un tiers</h1>
@@ -34,7 +36,7 @@
             out.println(pi.getFormu().getHtmlInsert());
         %>
         <input name="acte" type="hidden" id="nature" value="insert">
-        <input name="bute" type="hidden" id="bute" value="travaux/tiers-fiche.jsp">
+        <input name="bute" type="hidden" id="bute" value="<%=bute%>">
         <input name="classe" type="hidden" id="classe" value="mg.spat.Tiers">
     </form>
 </div>
