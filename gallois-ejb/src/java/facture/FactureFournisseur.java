@@ -137,8 +137,10 @@ public class FactureFournisseur extends FactureClient {
             FactureFournisseur cc = new FactureFournisseur();
             cc.setNomTable("factureclientgroupvide");
             String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,3)) as montant  "
-                    + " from FACTUREFOURNVALIDE_V "
-                    + " where id in('"+ids.replace(";", "','")+"') group by tiers,tierslib";
+                    + " from FACTFOURN_MSUM_LIB "
+                    + " where id in('"+ids.replace(";", "','")+"') "
+                    + " and etat >= " + ConstanteEtat.getEtatValider()
+                    + " group by tiers,tierslib";
             FactureFournisseur[] result = (FactureFournisseur[]) CGenUtil.rechercher(cc, requete, c);
             if (result != null && result.length > 0) {
                 return result;
