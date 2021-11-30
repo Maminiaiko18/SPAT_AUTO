@@ -111,4 +111,11 @@ public class Report extends ClassEtat{
         }
     }
     
+    public boolean checkDoublon(Connection c) throws Exception{
+        Report base = new Report();
+        base.setNomTable("reportlibv");
+        String sqlWhere = String.format(" and daty = to_date('%s', 'YYYY-MM-DD') and caisse = '%s' ", getDaty(), getCaisse());
+        Report[] result = (Report[])CGenUtil.rechercher(base, null, null, c, sqlWhere);
+        return result.length > 0;
+    }
 }
