@@ -707,9 +707,4 @@ public class Mouvement extends ClassEtat {
         
         return a;
     }
-
-    private Navire getNavireObjet(Connection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
