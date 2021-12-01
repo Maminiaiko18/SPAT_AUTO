@@ -24,7 +24,9 @@
 
         String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","nature", "numeroop", "code", "projetlib"};
         String listeInt[] = {"daty","date_echeance"};
+
         String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste"};
+
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -52,7 +54,8 @@
         lastDate.setDate(31);
         lastDate.setMonth(11);
         
-        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+//        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+        String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());
         String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
         
         if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
@@ -113,7 +116,9 @@
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
+
             String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero compta", "Projet", "Code direction", "Nature","Note explicative", "date echeance", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer"};
+
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);
