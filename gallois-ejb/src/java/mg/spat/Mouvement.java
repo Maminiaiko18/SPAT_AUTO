@@ -80,10 +80,13 @@ public class Mouvement extends ClassEtat {
                 
                 prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
             }
+            Navire navireObj = getNavireObjet(c);
+            if(!navireObj.getType().equals(Constante.getNavireBornageEtPeche())){
+                Activite stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
+                u.createObject(stationnement, c);
+                u.validerObject(stationnement, c);
+            }
             
-            Activite stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
-            u.createObject(stationnement, c);
-            u.validerObject(stationnement, c);
         }
         if (this.estTouchee(c) && this.getEscale() == null) {
             this.creerPrevision(u, c);
@@ -697,6 +700,10 @@ public class Mouvement extends ClassEtat {
         a.setTypeSource(this.getProvenance());
         
         return a;
+    }
+
+    private Navire getNavireObjet(Connection c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
