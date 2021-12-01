@@ -29,7 +29,7 @@
       pr.setUtilisateur(u);
       pr.setLien((String) session.getValue("lien"));
       //pr.setAWhere(" and etat != "+ConstanteEtat.getEtatValider()+" and etatnavire!="+ConstanteEtat.getEtatAnnuler());
-      pr.setAWhere(" order by date_arrivee asc");
+      pr.setAWhere(" order by date_arrivee desc");
       pr.getFormu().getChamp("Date_arrivee1").setLibelle("Date d'arrivée Min");
       pr.getFormu().getChamp("Date_arrivee2").setLibelle("Date d'arrivée Max");
       pr.getFormu().getChamp("Date_depart1").setLibelle("date de départ Min");
@@ -53,8 +53,9 @@
     Prevision prev = u.getPrevision();
     if(prev != null) { 
         pr.getFormu().getChamp("id").setDefaut(prev.getId());
-        pr.setAWhere(" and id = '" + prev.getId() + "'"); 
+        pr.setAWhere(pr.getAWhere()+" and id = '" + prev.getId() + "'"); 
     }
+    
     
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme); 
