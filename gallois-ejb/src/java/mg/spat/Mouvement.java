@@ -286,6 +286,12 @@ public class Mouvement extends ClassEtat {
         }
 
     }
+    
+     public Navire getNavireObjet(Connection c) throws Exception{
+        Navire navire = new Navire();
+        Navire[] ls = (Navire[]) CGenUtil.rechercher(navire, null, null, c, " and id='"+this.getNavire()+"'");
+        return ls.length > 0 ? ls[0] : null;
+    }
 
     public Mouvement() {
         super.setNomTable("mouvement");
