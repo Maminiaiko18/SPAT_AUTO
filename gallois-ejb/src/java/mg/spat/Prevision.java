@@ -108,7 +108,24 @@ public class Prevision extends ClassEtat {
 
         return ids;
     }
-
+    public FactureClient[] findFacturesValide(Connection c) throws Exception{
+        FactureClient fc = new FactureClient();
+        fc.setNomTable("FACTURECLIENTMSUM_LIBV");
+        FactureClient [] liste = (FactureClient []) CGenUtil.rechercher(fc, null, null, c, " and idprevision='" +this.getId()+"'");
+        if(liste.length > 0){
+            return liste;
+        }
+        return null;
+    }
+    public Activite[] findActivitesNonFacturees(Connection c) throws Exception{
+        Activite fc = new Activite();
+        fc.setNomTable("ACTIVITESNONFACTUREES");
+        Activite [] liste = (Activite []) CGenUtil.rechercher(fc, null, null, c, " and bateau='" +this.getId()+"'");
+        if(liste.length > 0){
+            return liste;
+        }
+        return null;
+    }
     public FactureClient facturer(String user, Connection c) throws Exception {
         FactureClient facture = null;
         int verif = 0;
@@ -124,13 +141,16 @@ public class Prevision extends ClassEtat {
             prevision = (Prevision) prevision.getById(this.getId(), prevision.getNomTable(), c);
             if(prevision.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception("Prevision non visee");
             
+            FactureClient[] listeFactValide=this.findFacturesValide(c);
             
             AdminActivite adminActivite = new AdminActivite();
-            Activite[] activites=null;
+            Activite[] activites=findActivitesNonFacturees(c);
             Navire nav=prevision.findNavire(c);
             if(nav!=null){
-                if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0) activites=prevision.genererActiviteViseesBP(user, c);
-                else activites= prevision.genererActiviteVisees(user, c);
+                if(activites==null || activites.length==0){
+                    if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0) activites=prevision.genererActiviteViseesBP(user, c);
+                    else activites= prevision.genererActiviteVisees(user, c);
+                }
 
 //                adminActivite.findactivite(getIdsFromTab(activites), c);
                 adminActivite.findactivite(this.getId(), c);
