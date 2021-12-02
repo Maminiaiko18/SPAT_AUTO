@@ -635,7 +635,7 @@ public class OrdonnerPayement extends ClassEtat {
         }
         return retour;
     }
-     public String genererNumeroOP(Connection c){
+     public String genererNumeroOP(Connection c) throws Exception{
         String numero = ""; 
         try{   
             numero += UtilitaireFacture.genererSequence(c, "NUMEROOP", 4, utilitaire.Utilitaire.datetostring(this.getDaty()));
@@ -646,6 +646,7 @@ public class OrdonnerPayement extends ClassEtat {
          }catch(Exception e){
              e.printStackTrace();
          }
+        controleDoublonNumeroOP(c);
          return numero;
      }
     
