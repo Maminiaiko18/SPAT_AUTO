@@ -10,7 +10,9 @@
         CargaisonAnalyse recap = new CargaisonAnalyse();
         String listeCrt[] = {"mois","cargaisonlib"};
         String listeInt[] = {"mois"};
-
+        String m1="";
+        String m2="";
+        String cargaison="";
         String[] pourcentage = {};
         String somDefaut[] = {"tonnage"}; //sum
         String colGrCol[] = {"moislib"}; //ligne
@@ -51,8 +53,19 @@
             out.println(pr.getTableau().getHtml());
         %>
     </section>
-    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=excel&mois1=<%=request.getParameter("mois1") %>&mois2=<%=request.getParameter("mois2")%>&cargaisonlib=<%=request.getParameter("cargaisonlib")%>" style="margin-right: 10px">EXCEL</a>
-    <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/Paie?action=analyseMarchandise&mois1=<%=request.getParameter("mois1") %>&mois2=<%=request.getParameter("mois2")%>&cargaisonlib=<%=request.getParameter("cargaisonlib")%>" style="margin-right: 10px">PDF</a>
+    <%
+        if(request.getParameter("mois1")!=null ){
+            m1=request.getParameter("mois1");
+        }
+        if(request.getParameter("mois2")!=null ){
+            m2=request.getParameter("mois2");
+        }
+        if(request.getParameter("cargaisonlib")!=null ){
+            cargaison=request.getParameter("cargaisonlib");
+        }
+    %>
+    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=excel&mois1=<%= m1 %>&mois2=<%= m2%>&cargaisonlib=<%= cargaison%>" style="margin-right: 10px">EXCEL</a>
+    <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/Paie?action=analyseMarchandise&mois1=<%= m1 %>&mois2=<%= m2%>&cargaisonlib=<%= cargaison%>" style="margin-right: 10px">PDF</a>
 
     <% //out.println(pr.getBasPage()); %>
 </div>

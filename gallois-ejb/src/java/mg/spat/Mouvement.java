@@ -80,10 +80,13 @@ public class Mouvement extends ClassEtat {
                 
                 prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
             }
+            Navire navireObj = getNavireObjet(c);
+            if(!navireObj.getType().equals(Constante.getNavireBornageEtPeche())){
+                Activite stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
+                u.createObject(stationnement, c);
+                u.validerObject(stationnement, c);
+            }
             
-            Activite stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
-            u.createObject(stationnement, c);
-            u.validerObject(stationnement, c);
         }
         if (this.estTouchee(c) && this.getEscale() == null) {
             this.creerPrevision(u, c);
@@ -282,6 +285,12 @@ public class Mouvement extends ClassEtat {
             throw e;
         }
 
+    }
+    
+     public Navire getNavireObjet(Connection c) throws Exception{
+        Navire navire = new Navire();
+        Navire[] ls = (Navire[]) CGenUtil.rechercher(navire, null, null, c, " and id='"+this.getNavire()+"'");
+        return ls.length > 0 ? ls[0] : null;
     }
 
     public Mouvement() {
@@ -698,5 +707,4 @@ public class Mouvement extends ClassEtat {
         
         return a;
     }
-    
 }

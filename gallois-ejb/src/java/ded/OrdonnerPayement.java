@@ -635,7 +635,7 @@ public class OrdonnerPayement extends ClassEtat {
         }
         return retour;
     }
-     public String genererNumeroOP(Connection c){
+     public String genererNumeroOP(Connection c) throws Exception{
         String numero = ""; 
         try{   
             numero += UtilitaireFacture.genererSequence(c, "NUMEROOP", 4, utilitaire.Utilitaire.datetostring(this.getDaty()));
@@ -646,6 +646,7 @@ public class OrdonnerPayement extends ClassEtat {
          }catch(Exception e){
              e.printStackTrace();
          }
+        controleDoublonNumeroOP(c);
          return numero;
      }
     
@@ -675,5 +676,10 @@ public class OrdonnerPayement extends ClassEtat {
         }
         
         return idFactures;
+    }
+    
+    public void controleDoublonNumeroOP(Connection c) throws Exception{
+        OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and numeroop='"+this.getNumeroop()+"'");
+        if(op.length > 0) throw new Exception("Numero OP existant");
     }
 }
