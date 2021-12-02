@@ -15,6 +15,7 @@ public class ChiffreAffaire extends ClassMAPTable{
     private String idrubrique,rubriquelib,categorie,categorielib,designation,type,typelib,code_prest;
     private double montant;
     private int mois,annee;
+    private String montantstring, creditstring; 
 
     public ChiffreAffaire() {
         super.setNomTable("rubrique_activite_CA");
@@ -33,9 +34,26 @@ public class ChiffreAffaire extends ClassMAPTable{
         this.mois = mois;
         this.annee = annee;
     }
+
+    public String getMontantstring() {
+        return montantstring;
+    }
+
+    public void setMontantstring(String montantstring) {
+        this.montantstring = montantstring;
+    }
+
+    public String getCreditstring() {
+        return creditstring;
+    }
+
+    public void setCreditstring(String creditString) {
+        this.creditstring = creditString;
+    }
     
     
 
+    
     public String getIdrubrique() {
         return idrubrique;
     }

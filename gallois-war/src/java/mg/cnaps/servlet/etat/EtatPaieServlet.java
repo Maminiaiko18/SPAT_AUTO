@@ -48,6 +48,7 @@ import mg.spat.stock.*;
 import utilitaire.ChiffreLettre;
 import ded.BonEngagementPDF;
 import caisse.SituationComptesData;
+import facture.ChiffreAffaire;
 import facture.EtatProvision;
 import java.util.Collection;
 import mg.amadia.stock.EtatdeStockDate;
@@ -145,6 +146,9 @@ public class EtatPaieServlet extends HttpServlet {
             else if(action.equalsIgnoreCase("imprimerFactureFournisseur")){
                 imprimerFactureFournisseur(request, response);
             }
+             else if(action.equalsIgnoreCase("listefactureVaovao")){
+                listefactureClient(request, response);
+            } 
 
             
         } catch(Exception ex){
@@ -1209,6 +1213,40 @@ public class EtatPaieServlet extends HttpServlet {
                 c.close();
             }
         }
+    }
+    public void listefactureClient(HttpServletRequest request, HttpServletResponse response){
+        try{
+        String sql = "";
+        if(request.getParameter("mois")!=null && request.getParameter("mois").compareToIgnoreCase("null")!=0 && request.getParameter("mois").length()!=0){
+            sql = sql+" and mois= "+request.getParameter("mois")+" ";
+        }
+        if(request.getParameter("annee")!=null && request.getParameter("annee").compareToIgnoreCase("null")!=0 && request.getParameter("annee").length()!=0){
+            sql = sql+" and annee= "+request.getParameter("annee")+" ";
+        }
+        sql += " order by code_prest";
+        ChiffreAffaire ff = new ChiffreAffaire();
+        ff.setNomTable("rubrique_activite_CA");
+        ChiffreAffaire [] details = (ChiffreAffaire []) CGenUtil.rechercher(ff, null, null, null, sql); 
+        System.out.println(details.length);
+        double total = 0;
+        for(int i =0; i<details.length; i++){
+            if(details[i].getType().compareToIgnoreCase("TFC002")==0){
+                details[i].setMontantstring(utilitaire.Utilitaire.formaterAr(details[i].getMontant()));
+            }else{
+                details[i].setCreditstring(utilitaire.Utilitaire.formaterAr(details[i].getMontant()));
+            }
+            total = total + details[i].getMontant();
+        }
+        List datasource = Arrays.asList(details);           
+        Map param = new HashMap();
+        param.put("total",total);
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("liste_factureclient_vaovao");    
+        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, datasource, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    
     }
     
 }
