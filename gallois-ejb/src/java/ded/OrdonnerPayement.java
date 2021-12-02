@@ -676,4 +676,9 @@ public class OrdonnerPayement extends ClassEtat {
         
         return idFactures;
     }
+    
+    public void controleDoublonNumeroOP(Connection c) throws Exception{
+        OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and numeroop='"+this.getNumeroop()+"'");
+        if(op.length > 0) throw new Exception("Numero OP existant");
+    }
 }
