@@ -1240,9 +1240,10 @@ public class EtatPaieServlet extends HttpServlet {
         List datasource = Arrays.asList(details);           
         Map param = new HashMap();
         param.put("total",total);
+        param.put("list_table",datasource);
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("liste_factureclient_vaovao");    
-        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, datasource, getReportPath(), rt);
+        UtilitaireImpression.imprimer(request, response, "chiffres d affaire", param, null, getReportPath(), rt);
         }catch(Exception e){
             e.printStackTrace();
         }

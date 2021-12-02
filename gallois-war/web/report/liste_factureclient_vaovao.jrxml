@@ -3,8 +3,15 @@
 	<property name="ireport.zoom" value="1.9487171000000014"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<subDataset name="Table Dataset 1" uuid="5d8f68c4-21cb-4873-991d-9a895af049cd">
+		<field name="designation" class="java.lang.String"/>
+		<field name="montantstring" class="java.lang.String"/>
+		<field name="creditstring" class="java.lang.String"/>
+		<field name="montant" class="java.lang.Double"/>
+	</subDataset>
 	<parameter name="total" class="java.lang.Double"/>
 	<parameter name="nbr" class="java.lang.Integer"/>
+	<parameter name="list_table" class="java.util.List"/>
 	<field name="designation" class="java.lang.String"/>
 	<field name="montantstring" class="java.lang.String"/>
 	<field name="creditstring" class="java.lang.String"/>
@@ -177,32 +184,84 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
-			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="100" height="20" uuid="8e6b3be0-2254-4186-8aac-26703476b669"/>
-				<textElement>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="475" y="0" width="75" height="20" uuid="df5c7753-d348-4e4a-919e-399b41e4bc29"/>
-				<textElement textAlignment="Right">
-					<paragraph rightIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{montantstring}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="550" y="0" width="75" height="20" uuid="60500c45-4dcb-467d-acf9-cf1412c4ed28"/>
-				<textElement textAlignment="Right">
-					<paragraph rightIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{creditstring}]]></textFieldExpression>
-			</textField>
+		<band height="28" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" x="0" y="0" width="802" height="26" uuid="c0bb7446-13f0-4ac4-87a1-5e8e2550b6d3"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="0e2c89e9-5cce-4e8c-af00-0ca2fe7b85fa">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="100" uuid="cd051ca6-5f26-4a9e-9f5a-a0072159695b">
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="30" uuid="89a0af4a-6b45-4c0d-a829-e973330a1297"/>
+								<textElement verticalAlignment="Middle">
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="75" uuid="4ebefafe-1650-48f9-be1e-f4f4046fd1e5">
+						<jr:detailCell height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="75" uuid="31d02f4a-1147-4bc6-9029-4077d18e891a">
+						<jr:detailCell height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="75" uuid="fb4cf02f-d065-4de2-85c9-d638b348ca1b">
+						<jr:detailCell height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="75" uuid="43514ab9-c86d-4f80-9222-fe97997460ee">
+						<jr:detailCell height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="75" uuid="391a7349-99b8-49c9-ad3b-a72dece14b5e">
+						<jr:detailCell height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="75" uuid="e298c2ed-b9dd-4531-85e5-974edd5d4de0">
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="75" height="30" uuid="fbbc85cd-72cd-4c5c-b4db-51a0157e366a"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{montantstring}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="75" uuid="5c412d6e-0da7-4b05-a44d-7dae18519e32">
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="75" height="30" uuid="9a0a4e5a-cb5f-4850-9415-af320b828285"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{creditstring}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="75" uuid="c12d42cd-731d-4d0a-bf54-1ab946984f68">
+						<jr:detailCell height="30" rowSpan="1">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="75" height="30" uuid="c59a89eb-50c3-42cb-af3b-96bc4527865a"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="102" uuid="629c9bdf-7b94-47e3-aa1f-15c198fb1da7">
+						<jr:detailCell height="30" rowSpan="1"/>
+					</jr:column>
+				</jr:table>
+			</componentElement>
 		</band>
 	</detail>
 	<summary>
-		<band height="88">
+		<band height="146">
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="100" y="26" width="120" height="20" uuid="8091d575-f310-4255-a868-0c5ace4d46fd"/>
 				<textElement textAlignment="Right"/>
