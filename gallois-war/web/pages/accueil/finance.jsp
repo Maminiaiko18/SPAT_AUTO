@@ -47,17 +47,17 @@
         <div class="content-accueil">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                   <a href="<%=(String) session.getValue("lien") + "?but=facturation/analyse-globale.jsp&colGroupe1=categorie_facture" %>"><button class=" menubtn btncolor">Recettes</button></a>
+                   <a href="<%=(String) session.getValue("lien") + "?but=accueil/facturation.jsp&colGroupe1=categorie_facture" %>"><button class=" menubtn btncolor">Facturation</button></a>
                 </div>
             </div>
                         </br>
 
             <div class="row">
                 <div class="col-md-4 col-md-offset-0">
-                    <a href="<%=(String) session.getValue("lien") + "?but=treso/analyse-banque.jsp&type=debit&colGroupe1=caisse" %>"><button class=" menubtn btncolor">Dépenses</button></a>
+                    <a href="<%=(String) session.getValue("lien") + "?but= accueil/budget.jsp&type=debit&colGroupe1=caisse" %>"><button class=" menubtn btncolor">Budget</button></a>
                 </div>
                 <div class="col-md-4 col-md-offset-4">
-                  <a href="<%=(String) session.getValue("lien") + "?but=caisse/situation-comptes.jsp" %>"><button class=" menubtn btncolor">Trésorerie</button></a>
+                  <a href="<%=(String) session.getValue("lien") + "?but=accueil/tresorerie.jsp" %>"><button class=" menubtn btncolor">Trésorerie</button></a>
                 </div>
             </div> 
            
