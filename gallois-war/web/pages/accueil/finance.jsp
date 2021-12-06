@@ -54,7 +54,7 @@
 
             <div class="row">
                 <div class="col-md-4 col-md-offset-0">
-                    <a href="<%=(String) session.getValue("lien") + "?but= accueil/budget.jsp&type=debit&colGroupe1=caisse" %>"><button class=" menubtn btncolor">Budget</button></a>
+                    <a href="<%=(String) session.getValue("lien") + "?but=accueil/budget.jsp&type=debit&colGroupe1=caisse" %>"><button class=" menubtn btncolor">Budget</button></a>
                 </div>
                 <div class="col-md-4 col-md-offset-4">
                   <a href="<%=(String) session.getValue("lien") + "?but=accueil/tresorerie.jsp" %>"><button class=" menubtn btncolor">Trésorerie</button></a>
