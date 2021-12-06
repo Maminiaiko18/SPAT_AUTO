@@ -28,7 +28,7 @@
         PageRechercheGroupe pr = new PageRechercheGroupe(mvt, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, 14, 2);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        //pr.setAWhere(" order by depart, arrivee");
+        pr.setOrdre(" order by datefin desc");
         pr.getFormu().getChamp("daty1").setLibelle("Date mouvement min");
         pr.getFormu().getChamp("daty2").setLibelle("Date mouvement max");
 //
@@ -51,7 +51,7 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Analyse occupation materiel naval</h1>
+        <h1>Analyse prestation</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>" method="get" name="analyse" id="analyse">
