@@ -569,12 +569,12 @@
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="150" width="100" height="20" uuid="ecef4b6f-ab0c-4dd7-867f-0e4b3bbc8a8e"/>
-				<text><![CDATA[Le Contrôleur]]></text>
+				<text><![CDATA[Préparé Par]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="427" y="150" width="127" height="20" uuid="b37067de-7721-4f46-858e-3781361ce5e8"/>
 				<textElement textAlignment="Right"/>
-				<text><![CDATA[Le Chef de Département]]></text>
+				<text><![CDATA[Le Responsable]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="3" y="22" width="78" height="20" uuid="e1f3fa91-5947-4191-8fd0-fc2401b1cd6a"/>
