@@ -23,17 +23,13 @@
         pr.setUtilisateur(u);
         pr.setLien((String) session.getValue("lien"));
 
-
+        pr.getFormu().getChamp("mois1").setLibelle("Mois Min");
+        pr.getFormu().getChamp("mois2").setLibelle("Mois Max");
+        pr.getFormu().getChamp("cargaisonlib").setLibelle("Cargaison");
+        
         pr.setApres("capitainerie/quais/marchandise-analyse.jsp");
-
-        // Problème : paginé foana ilay résultat (limit 25)
-        // Solution : natao par rapport am count
-//        Parametre.setNbParPage(OrdonnanceData.getCount(null, ord, awhere));
-
-//        String apresLien = "&daty1=" + daty1 + "&daty2=" + daty2;
-
+        
         pr.creerObjetPageCroise(colDefaut, pr.getLien() + "?but=capitainerie/quais/marchandise-analyse.jsp" );
-        //Parametre.setNbParPage(25);
 
 
 %>

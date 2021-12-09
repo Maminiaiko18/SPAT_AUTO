@@ -20,7 +20,7 @@
         FactureClientDetails fille = new FactureClientDetails();
         fille.setNomTable("FACTURE_CLIENT_FILLE_LIBELLE");
         fille.setIdmere(request.getParameter("id"));
-        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, " order by daty, rang");
+        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, " order by id");
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
@@ -45,6 +45,7 @@
         TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
         listeM[3] = new Liste("deviseMere", devise, "VAL", "id");
+        
         
         pi.getFormu().changerEnChamp(listeM);
 
@@ -157,7 +158,7 @@
 
         mere = (FactureClient) pi.getBase();
         pi.preparerDataFormu();
-
+        
         
 
 %>
