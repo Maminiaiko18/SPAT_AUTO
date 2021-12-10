@@ -324,10 +324,7 @@
                                 </tr>-->
             </thead>
             <tbody>
-                <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="border-top: solid; border-bottom: solid">
-                    <td align="right" class="th-center"><h3>Total sans Bon Provisoire</h3></td>
-                    <td align="left" class="th-center"><h3><%=Utilitaire.formaterAr(montantBP)%></h3></td>
-                </tr>
+                
                 <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="border-top: solid; border-bottom: solid">
                     <td align="right" class="th-center"><h3>TOTAL</h3></td>
                     <td align="left" class="th-center"><h3><%=Utilitaire.formaterAr(total)%></h3></td>
