@@ -274,7 +274,8 @@ public class Mouvement extends ClassEtat {
         try {
             if (getMode().compareToIgnoreCase("modif") == 0) {
                 if (heure_depart != null && heure_depart.trim().compareTo("") != 0 && this.getDatearrivee() != null) {
-                    Utilitaire.testHeureValide(heure_depart);
+                    //Utilitaire.testHeureValide(heure_depart);
+                    if(heure_depart != null && !heure_depart.trim().isEmpty()) { heure_depart = Utilitaire.checkHeureFormat(heure_depart); }
                     if (this.getTypeMvt().compareTo(Constante.idtypeMvtDepart) != 0 && Utilitaire.compareDaty(this.getDate_depart(), this.getDatearrivee()) == 0 && Utilitaire.comparerHeure(this.getHeure(), heure_depart) == -1) {
                         throw new Exception("Heure de départ invalide par rapport à l heure d arrivee");
                     }
@@ -441,7 +442,8 @@ public class Mouvement extends ClassEtat {
     public void setHeure(String heure) throws Exception {
         try {
             if (heure != null && heure.trim().compareTo("") != 0) {
-                Utilitaire.testHeureValide(heure);
+                //Utilitaire.testHeureValide(heure);
+                heure = Utilitaire.checkHeureFormat(heure);
             }
             this.heure = heure;
         } catch (Exception e) {

@@ -48,17 +48,17 @@
         <div class="content-accueil">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                   <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/recap-mouvement-quais.jsp" %>"><button class=" menubtn btncolor">Gestion des Quais </button></a>
+                    
                 </div>
             </div>
                      
 
             <div class="row">
                 <div class="col-md-4 col-md-offset-0">
-                    <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/tableau-affichage.jsp" %>"><button class=" menubtn btncolor">Tableau d'Affichage</button></a>
+                    <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/tableau-affichage-synthetise.jsp" %>"><button class=" menubtn btncolor">Tableau d'Affichage</button></a>
                 </div>
                 <div class="col-md-4 col-md-offset-4">
-                  <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/analyse-occupationmaterielnaval.jsp&colGroupe1=idmateriel_naval" %>"><button class=" menubtn btncolor">Gestion de Mat&eacute;riel Naval</button></a>
+                    <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/quais/marchandise-analyse.jsp" %>"><button class=" menubtn btncolor">Tonnage marchandise</button></a>
                 </div>
             </div> 
            
@@ -66,10 +66,10 @@
                    </br>
             <div class="row">
                 <div class="col-md-4">
-                    <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/analyse-mouvement.jsp&colGroupe1=typenavire" %>"><button class=" menubtn btncolor"><p>Statistiques/Pr&eacute;visions </p><p>(Touch&eacute;es de navire)</p></button></a>
+                    <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/analyse-mouvement.jsp&colGroupe1=typenavire" %>"><button class=" menubtn btncolor"><p>Touch&eacute;es de navire</p></button></a>
                 </div>
                 <div class="col-md-4 col-md-offset-4">
-                    <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/analyse-occupationmaterielnaval.jsp&colGroupe1=idnatureoperation" %>"><button class=" menubtn btncolor"><p>Analyse Prestation</p></button></a>
+                   
                 </div>
             </div>
                

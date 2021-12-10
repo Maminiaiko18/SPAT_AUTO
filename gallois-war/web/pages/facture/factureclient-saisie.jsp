@@ -147,7 +147,8 @@
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("codePrestation").setVisible(false);
     pi.getFormu().getChamp("code").setVisible(false);
-
+    String[] ordreFille = {"rubrique","designation","quantite","taux","id","idmere","pu","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction"};
+    pi.getFormufle().setColOrdre(ordreFille);
     pi.preparerDataFormu();
        
 %>
