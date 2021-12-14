@@ -54,9 +54,8 @@
         <h1>Analyse prestation</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>" method="get" name="analyse" id="analyse">
-            <input type="hidden" name="but" value="capitainerie/analyse-occupationmaterielnaval.jsp" />
-            <%out.println(pr.getFormu().getHtmlEnsemble());%>
+         <form action='<%= pr.getLien() + "?but="+pr.getApres() %>' method="post" name="analyse" id="analyse">
+            <% out.println(pr.getFormu().getHtmlEnsemble()); %>
             <div class="row col-md-12">  
                 <div class="col-md-4"></div>
             </div>
