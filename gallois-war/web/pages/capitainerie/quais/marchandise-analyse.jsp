@@ -1,4 +1,5 @@
 
+<%@page import="affichage.Liste"%>
 <%@page import="mg.spat.CargaisonAnalyse"%>
 <%@page import="utilitaire.Parametre"%>
 <%@page import="utilitaire.Utilitaire"%>
@@ -23,6 +24,32 @@
         pr.setUtilisateur(u);
         pr.setLien((String) session.getValue("lien"));
 
+        
+        
+    
+        
+        Liste[] listes = new Liste[2];
+        listes[0] = new Liste("mois1");
+        listes[1] = new Liste("mois2");
+        
+        listes[0].makeListeMois();
+        
+        Object[] affiche = listes[0].getValeurBrute();
+        Object[] afficheV = new Object[affiche.length+1];
+        afficheV[0] = "--";
+        System.arraycopy(affiche, 0, afficheV, 1, affiche.length);
+        listes[0].setValeurBrute(afficheV);
+        listes[1].setValeurBrute(afficheV);
+
+        String[] valeur = listes[0].getColValeurBrute();
+        String[] valeurV = new String[valeur.length+1];
+        valeurV[0] = "";
+        System.arraycopy(valeur, 0, valeurV, 1, affiche.length);
+        listes[0].setColValeurBrute(valeurV);
+        listes[1].setColValeurBrute(valeurV);
+        
+        pr.getFormu().changerEnChamp(listes);
+        
         pr.getFormu().getChamp("mois1").setLibelle("Mois Min");
         pr.getFormu().getChamp("mois2").setLibelle("Mois Max");
         pr.getFormu().getChamp("cargaisonlib").setLibelle("Cargaison");
