@@ -181,7 +181,7 @@ public class OccupationMaterielNaval extends ClassEtat {
             OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallibcpl", c);
             rep = new Activite();
             Prevision prevision = this.getPrevision(c);
-            System.out.println("Idclienttt dans prestation==" + prevision.getConsignataire());
+            //System.out.println("Idclienttt dans prestation==" + prevision.getConsignataire());
             Rubrique rubrique = occupation.getRubriqueCalcule(c);
             String previsionId = "", idrubrique = "";
 
@@ -219,7 +219,7 @@ public class OccupationMaterielNaval extends ClassEtat {
         
         return rep;
     }
-
+    
     public Activite genererActivite(Connection c) throws Exception {
         int verif = 0;
         Activite activite = null;
@@ -231,7 +231,7 @@ public class OccupationMaterielNaval extends ClassEtat {
             }
             OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallibcpl", c);
             String nomRubrique = this.genererNomRubrique(c);
-            System.out.println("Nom rubrique====" + nomRubrique);
+            //System.out.println("Nom rubrique====" + nomRubrique);
             Rubrique rubrique = this.findRubrique(c, nomRubrique);
             /*if(rubrique==null){
                 throw new Exception("Rubrique introuvable pour cette prestation");
@@ -666,6 +666,40 @@ public class OccupationMaterielNaval extends ClassEtat {
             long diffEnMillies = hfin.getTime() - hdebut.getTime();
             duree = TimeUnit.MINUTES.convert(diffEnMillies, TimeUnit.MILLISECONDS);
         }
+    }
+    
+    public boolean possedeActivite(Connection c) throws Exception {
+        Activite activite = new Activite();
+        activite.setNomTable("activitelibcomplet_v");
+        
+        String awhere = String.format("and refobjet = '%s'", this.getId());
+        
+        return CGenUtil.rechercher(activite, null, null, c, awhere).length > 0;
+    }
+    
+    public  static boolean possedeActivite(OccupationMaterielNaval[] tOccup, Connection c) throws Exception {
+        boolean ouvert = false;
+        
+        if(tOccup.length == 0) return false;
+        
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                ouvert = true;
+            }
+            
+            for(OccupationMaterielNaval occup: tOccup) {
+                if(!occup.possedeActivite(c)) return false;
+            }
+        }
+        catch(Exception ex) {
+            throw ex;
+        }
+        finally {
+            if(c != null && ouvert) c.close();
+        }
+        
+        return true;
     }
 
     public void verifPrevision(Connection c) throws Exception {
