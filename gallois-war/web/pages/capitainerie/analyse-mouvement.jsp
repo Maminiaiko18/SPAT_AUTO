@@ -52,7 +52,7 @@
 
         //pr.getFormu().getChamp("daty1").setDefaut(fin[0]);
       //  pr.getFormu().getChamp("daty2").setDefaut(fin[1]);
-     
+        pr.setOrdre(" order by dateArrivee desc, heure desc ");
         pr.setApres("capitainerie/analyse-mouvement.jsp");
         pr.creerObjetPage();
 %>
