@@ -1,5 +1,6 @@
 package mg.cnaps.servlet.etat;
 
+import affichage.PageRechercheGroupe;
 import avoir.AvoirFC;
 import avoir.AvoirFCFille;
 import java.io.FileNotFoundException;
@@ -13,6 +14,8 @@ import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.TypeObjet;
+import bean.ValeurEtiquette;
+import mg.spat.AnalyseMarchandisePDF;
 import bordereau.BordereauFilleLibComplet;
 import bordereau.BordereauLibComplet;
 import ded.OrdonnerPayementPDF;
@@ -82,9 +85,17 @@ import facture.FactureFournisseurFilleData;
 import factureclient.PayementFacture;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import mg.spat.CargaisonAnalyse;
+import mg.spat.JournalCaissePdf;
 import mg.spat.OccupationMaterielNaval;
 import mg.spat.PrevisionLibComplet;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
 
+import org.apache.poi.ss.usermodel.Sheet;
 /**
  *
  * @author Manda
@@ -146,7 +157,13 @@ public class EtatPaieServlet extends HttpServlet {
             else if(action.equalsIgnoreCase("imprimerFactureFournisseur")){
                 imprimerFactureFournisseur(request, response);
             }
-             else if(action.equalsIgnoreCase("listefactureVaovao")){
+            else if(action.equalsIgnoreCase("listeJournalCaisse")){
+                listeJournalCaisse(request, response);
+            }else if(action.equalsIgnoreCase("excel")){
+                excel(request, response);
+            } else if(action.equalsIgnoreCase("analyseMarchandise")){
+                analyseMarchandise(request, response);
+            } else if(action.equalsIgnoreCase("listefactureVaovao")){
                 listefactureClient(request, response);
             } 
 
@@ -323,7 +340,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("DEVISE",op.getDevise());
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            setNomJasper("ORDRE_PAYER");
+            setNomJasper("ORDRE_PAYER - Copie");
             UtilitaireImpression.imprimer(request, response, "ORDRE_PAYER", param, new ArrayList(), getReportPath(), rt);
         } catch (Exception e) {
             e.printStackTrace();
@@ -862,7 +879,7 @@ public class EtatPaieServlet extends HttpServlet {
                  param.put("date_arrivee",pre[0].getDate_arrivee());
                  //param.put("pavillon",pre[0].getPavillon);
                  param.put("date_depart",pre[0].getDate_depart());
-                 param.put("destination",pre[0].getDestination());
+                 param.put("destination",pre[0].getValquaisdestination());
                  param.put("lhtnavire",pre[0].getLhtnavire());
                  param.put("jntnavire",pre[0].getJntnavire());
                  param.put("lmnavire",pre[0].getLmnavire());
@@ -1250,4 +1267,296 @@ public class EtatPaieServlet extends HttpServlet {
     
     }
     
+    public void listeJournalCaisse(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+        Connection c = null;
+        try{
+        c = (new UtilDB()).GetConn();
+        Map param = new HashMap();
+        String id=request.getParameter("id");
+        String folio=request.getParameter("folio");
+        String valcaisse=request.getParameter("valcaisse");
+        String libelle=request.getParameter("libelle");
+        String remarque=request.getParameter("remarque");
+        String dateEffet1=request.getParameter("dateEffet1");
+        String dateEffet2=request.getParameter("dateEffet2");
+        String idtypecheque=request.getParameter("idtypecheque");
+        String idplacement=request.getParameter("idplacement");
+        String descecaisse=request.getParameter("descecaisse");
+        String daty="";
+        
+        String sql = "";
+        if(id!=null && id.compareToIgnoreCase("null")!=0 && id.length()!=0){
+            sql = sql + " and UPPER(id) like UPPER('%"+id+"%') ";
+        }
+        if(folio!=null && folio.compareToIgnoreCase("null")!=0 && folio.length()!=0){
+            sql = sql + " and UPPER(folio) like UPPER('%"+folio+"%')";
+        }
+        if(valcaisse!=null && valcaisse.compareToIgnoreCase("null")!=0 && valcaisse.length()!=0){
+            sql = sql + " and UPPER(valcaisse) like UPPER('%"+valcaisse+"%') ";
+        }
+        if(libelle!=null && libelle.compareToIgnoreCase("null")!=0 && libelle.length()!=0){
+            sql = sql + " and UPPER(libelle) like UPPER('%"+libelle+"%') ";
+        }
+        if(remarque!=null && remarque.compareToIgnoreCase("null")!=0 && remarque.length()!=0){
+            sql = sql + " and UPPER(remarque) like UPPER('%"+remarque+"%') ";
+        }
+        if(dateEffet1!=null && dateEffet1.compareToIgnoreCase("null")!=0 && dateEffet1.length()!=0){
+            sql = sql + " and dateEffet >= '+"+dateEffet1+"'";
+            daty += "du "+dateEffet1;
+        }
+        if(dateEffet2!=null && dateEffet2.compareToIgnoreCase("null")!=0 && dateEffet2.length()!=0){
+            sql = sql + " and dateEffet <= '+"+dateEffet2+"'";
+            daty +=" au " + dateEffet2;
+        }
+        if(idtypecheque!=null && idtypecheque.compareToIgnoreCase("null")!=0 && idtypecheque.length()!=0){
+            sql = sql + " and UPPER(idtypecheque) like UPPER('%"+idtypecheque+"%') ";
+        }
+        if(idplacement!=null && idplacement.compareToIgnoreCase("null")!=0 && idplacement.length()!=0){
+            sql = sql + " and UPPER(idplacement) like UPPER('%"+idplacement+"%') ";
+        }
+        if(descecaisse!=null && descecaisse.compareToIgnoreCase("null")!=0 && descecaisse.length()!=0){
+            sql = sql + " and UPPER(descecaisse) like UPPER('%"+descecaisse+"%') ";
+        }
+        
+        //System.out.println(sql);
+        JournalCaisse journalCaisse = new JournalCaisse();
+        journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
+        JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, sql);
+        
+        ArrayList<JournalCaissePdf> ls = new ArrayList<JournalCaissePdf>();
+        double totalmontant =0;
+        double totalcredit = 0;
+        int i =0;
+            while(i<details.length){
+                PayementFacture[] p = details[i].getPayementFactureTous(c);
+                JournalCaissePdf temp = new  JournalCaissePdf();
+                double montant = 0;
+               
+                temp.setClient(details[i].getTiersLib());
+                temp.setMotif(details[i].getLibelle());
+                temp.setNumpiece(details[i].getNumPiece());
+                
+                
+                int a = 0;
+                //System.out.println("len"+p.length);
+                ArrayList<JournalCaisse> j = new ArrayList<JournalCaisse>();
+                
+                if(a<p.length){
+                    while(a<p.length){
+                        JournalCaisse caissetemp = new JournalCaisse();
+                        if(a==0){
+                            caissetemp.setCaisse(details[i].getLibelle());
+                        }
+                        
+                        caissetemp.setNumPiece(p[a].getCode());
+                        caissetemp.setMontant(p[a].getMontant());
+                        caissetemp.setRemarque(utilitaire.Utilitaire.formaterAr(p[a].getMontant()));
+                        montant = montant + p[a].getMontant();
+
+                        
+                        //System.out.println("codddeeeee="+p[a].getCode());
+                        j.add(caissetemp);
+                        
+                        a = a+1;
+                    }
+                }
+                else{
+                    JournalCaisse caissetemp = new JournalCaisse();
+                    caissetemp.setCaisse(details[i].getLibelle());
+                    j.add(caissetemp);
+                }
+                //temp.setMotif(details[i].getLibelle());
+                temp.setMontant(montant);
+                temp.setReste(details[i].getCredit()-montant);
+                totalmontant = totalmontant+montant;
+                totalcredit = totalcredit+(details[i].getCredit()-montant);
+                
+                
+                
+                temp.setJcaisse(j);
+                //temp.setMontant(montant);
+                //temp.setNumfacture(numfact);
+                ls.add(temp);
+                i = i+1;
+                }
+            double totalfinale = totalmontant+totalcredit;
+            
+        param.put("daty",daty);    
+        param.put("list_table",ls);                        
+        param.put("totalmontant",totalmontant);                        
+        param.put("totalcredit",totalcredit);                        
+        param.put("totalfinale",totalfinale);                        
+        param.put("lettre",ChiffreLettre.convertRealToString(totalfinale));                        
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("journalcaisse");
+        
+        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+    public void excel(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            user.UserEJB user =(user.UserEJB)request.getSession().getValue("u") ;
+            
+            response.setContentType("application/ms-excel");
+            response.setHeader("Content-Disposition", "attachment; filename=analyse_marchandise.xls");
+            HSSFWorkbook wb = new HSSFWorkbook();
+            Sheet sheet = wb.createSheet("new sheet");
+
+            HSSFCellStyle style = wb.createCellStyle();
+            style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+            style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            
+            HSSFCellStyle nombrestyle = wb.createCellStyle();
+            nombrestyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setAlignment(CellStyle.ALIGN_RIGHT);
+            nombrestyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            UserEJB u = (user.UserEJB) request.getSession().getValue("u");
+            CargaisonAnalyse recap = new CargaisonAnalyse();
+            String listeCrt[] = {"mois","cargaisonlib"};
+            String listeInt[] = {"mois"};
+
+            String[] pourcentage = {};
+            String somDefaut[] = {"tonnage"}; //sum
+            String colGrCol[] = {"moislib"}; //ligne
+            String[] colDefaut = {"cargaisonlib"}; // colonnes
+
+            PageRechercheGroupe pr = new PageRechercheGroupe(recap, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, 4, 0);
+             pr.setUtilisateur(u);
+             
+            pr.setLien((String) request.getSession().getValue("lien"));
+            pr.creerObjetPageCroise(colDefaut, pr.getLien() + "?but=capitainerie/quais/marchandise-analyse.jsp" );
+            ValeurEtiquette[][] table =pr.getTableau().getValeurEtiquette();
+            System.out.println("ligne="+table.length);
+            System.out.println(table[0][1].getValeur());
+            int i = 0;
+            while(i<table.length){
+                Row row = sheet.createRow(i);
+                int a = 0;
+                while(a<table[i].length){
+                    Cell x = row.createCell(a);
+                    x.setCellValue(table[i][a].getValeur());
+                
+                    a=a+1;
+                }
+            
+                i=i+1;
+            }
+            
+            
+            i=0;
+            for (int x = 0; x < 14; x++) {
+                    sheet.autoSizeColumn(x);
+                }
+            
+            ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            wb.write(outByteStream);
+            byte[] outArray = outByteStream.toByteArray();
+            OutputStream outStream = response.getOutputStream();
+            outStream.write(outArray);
+            outStream.flush();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void analyseMarchandise(HttpServletRequest request, HttpServletResponse response){
+            try {
+            
+            UserEJB u = (user.UserEJB) request.getSession().getValue("u");
+            CargaisonAnalyse recap = new CargaisonAnalyse();
+            String listeCrt[] = {"mois","cargaisonlib"};
+            String listeInt[] = {"mois"};
+
+            String[] pourcentage = {};
+            String somDefaut[] = {"tonnage"}; //sum
+            String colGrCol[] = {"moislib"}; //ligne
+            String[] colDefaut = {"cargaisonlib"}; // colonnes
+
+            PageRechercheGroupe pr = new PageRechercheGroupe(recap, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, 4, 0);
+             pr.setUtilisateur(u);
+             
+            pr.setLien((String) request.getSession().getValue("lien"));
+            pr.creerObjetPageCroise(colDefaut, pr.getLien() + "?but=capitainerie/quais/marchandise-analyse.jsp" );
+            ValeurEtiquette[][] table =pr.getTableau().getValeurEtiquette();
+            ArrayList<AnalyseMarchandisePDF> ls = new ArrayList<AnalyseMarchandisePDF>();
+            System.out.println("ligne"+table.length);
+            //System.out.println("ligne"+table.length);
+            
+            int i =0;
+            
+            while(i<table.length){
+                int a=0;
+                AnalyseMarchandisePDF r = new AnalyseMarchandisePDF();
+                ArrayList<CargaisonAnalyse> temp= new ArrayList<CargaisonAnalyse>();
+                while(a<table[i].length){
+                    CargaisonAnalyse x = new CargaisonAnalyse();
+                    x.setMoislib(table[i][a].getValeur());
+                    temp.add(x);
+                    a=a+1;
+                }
+                System.out.println("colonne="+table[i].length);
+                //System.out.println(temp.size());
+                r.setParam1(temp);
+                ls.add(r);
+                i=i+1;
+            }
+            System.out.println(ls.size());
+            
+            Map param = new HashMap();
+            
+            
+            
+            
+            
+        
+            
+            
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("analyseMarchandise");
+        
+        UtilitaireImpression.imprimer(request, response, "analyse marchandise", param, ls, getReportPath(), rt);
+            
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void listefactureClient(HttpServletRequest request, HttpServletResponse response){
+        try{
+        String sql = "";
+        FactureClient ff = new FactureClient();
+        ff.setNomTable("factureClientValide");
+        /*FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(ff, null, null, null, sql);
+        int i =0;
+        while(i<details.length){
+            details[i].getFille();
+            i=i+1;
+        }
+        ArrayList< FactureClient> ls = new ArrayList< FactureClient>();*/
+            
+        Map param = new HashMap();
+        
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("liste_factureclient_vaovao");    
+        UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    
+    }
+
 }

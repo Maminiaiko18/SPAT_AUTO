@@ -12,7 +12,7 @@
     
 //    String libEntete[] = {"id", "ded_Id","remarque","numcheque","daty","folio","numeroop","montant"};
     String libEntete[] = {"id","numeroop","daty", "tiers", "ded_Id","remarque","montant", "modepaiementlib", "etatlib"};
-    String listeCrt[] = {"id","ded_Id", "daty","numeroop","modepaiementlib"};
+    String listeCrt[] = {"id","ded_Id", "daty", "tiers","numeroop","modepaiementlib"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(op, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -21,6 +21,7 @@
     pr.getFormu().getChamp("ded_Id").setLibelle("facture");
     pr.getFormu().getChamp("daty1").setLibelle("date de début");
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
+    pr.getFormu().getChamp("tiers").setLibelle("Tiers");
     pr.getFormu().getChamp("numeroop").setLibelle("Numero Op");
     pr.getFormu().getChamp("modepaiementlib").setLibelle("Mode de paiement");
     String[] colSomme ={"montant"};
@@ -82,11 +83,20 @@
                 String libEnteteAffiche[] = {"id","Numéro OP","Date", "Tiers", "Facture","Motif de paiement","Montant","Mode de paiement", "Etat"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("ajouterOP");
-                out.println(pr.getTableau().getHtmlWithCheckbox());
+                out.println(pr.getTableau().getHtmlWithCheckbox());%>
+                <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
+                <%
                 out.println(pr.getBasPage());
             %>
         </form>
     </section>
 </div>
+        <script>
+            function decaisser(){
+                $('#form_op').attr('action', '<%= pr.getLien() %>?but=ded/apresOrdonner.jsp');
+                $('#acte').val('decaisser');
+                document.getElementById("form_op").submit();
+            }            
+            </script>
         <% }catch(Exception e) {e.printStackTrace();}%>
 

@@ -39,8 +39,8 @@ public class UtilisateurUtil extends GenUtil implements java.io.Serializable, ja
             //temp=(MapUtilisateur [])CGenUtil.rechercher(rech, null,null, c, "");
             MapUtilisateurServiceDirection rech = new MapUtilisateurServiceDirection();
             //rech.setNomTable("UtilisateurValide");
-            rech.setLoginuser(user);
-            temp = (MapUtilisateurServiceDirection[]) CGenUtil.rechercher(rech, null, null, c, "");
+            //rech.setLoginuser(user);
+            temp = (MapUtilisateurServiceDirection[]) CGenUtil.rechercher(rech, null, null, c, String.format(" and loginuser like '%s'", user));
             if (temp.length > 0) {
 
                 //if(temp[0].getLoginuser().compareToIgnoreCase("dg")==0)return temp[0];
@@ -59,7 +59,7 @@ public class UtilisateurUtil extends GenUtil implements java.io.Serializable, ja
                 String passCrypt = Utilitaire.cryptWord(passe, pc[0].getNiveau(), pc[0].getCroissante());
 
                 int u = temp[0].getPwduser().compareTo(passCrypt);
-                //System.out.println("mot decrypte = " + passCrypt + "temp 0=" + temp[0].getPwduser() + " et u===" + u);
+                System.out.println("mot decrypte = " + passCrypt + "temp 0=" + temp[0].getPwduser() + " et u===" + u);
                 if (u == 0) {
                     if (interim != null && interim.compareToIgnoreCase("1") == 0) {
                         

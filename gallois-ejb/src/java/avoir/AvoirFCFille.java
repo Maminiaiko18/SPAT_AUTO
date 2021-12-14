@@ -13,7 +13,9 @@ import java.sql.Connection;
 import utilitaire.ConstanteEtat;
 import facture.FactureClientDetails;
 import factureclient.FactureClientDetail;
+import java.text.DecimalFormat;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -157,7 +159,7 @@ public class AvoirFCFille extends ClassFille {
             
             FactureClientDetails fc = getFactureClientDetail(null);
             if (fc != null && this.getRemise() > 0) {
-                montant = (fc.getMontantTTC() * this.getRemise()) / 100;
+                montant = Utilitaire.stringToDouble((new DecimalFormat("###.###")).format((fc.getMontantTTC() * this.getRemise()) / 100));
             }
         }
         this.montant = montant;

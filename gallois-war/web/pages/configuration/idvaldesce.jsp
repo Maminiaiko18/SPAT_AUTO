@@ -61,7 +61,72 @@
     titre.put("motifAvoirFC","Motif avoir facture client");
     
     titre.put("categorieAvoirFC","Categorie avoir facture client");
+    titre.put("nature", "Nature");
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     TypeObjet act = new TypeObjet();
     act.setNomTable(cible);
     PageInsert pi = new PageInsert(act, request, (user.UserEJB) session.getValue("u"));

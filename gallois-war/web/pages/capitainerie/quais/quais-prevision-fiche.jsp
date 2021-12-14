@@ -36,7 +36,7 @@
         tab = "inc/" + tab + ".jsp";
         
         PrevisionLibComplet prevision = new PrevisionLibComplet();
-        prevision.setNomTable("previsionfiche");
+        prevision.setNomTable("previsionfiche_ordre");
         PageConsulte pc = pc = new PageConsulte(prevision, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
         pc.getChampByName("heure_arrivee").setLibelle("Heure d'arrivée");
@@ -57,6 +57,7 @@
         pc.getChampByName("valpaysdestination").setLibelle("Pays de destination");
         pc.getChampByName("type").setLibelle("type navire");
         pc.getChampByName("noVoyage").setLibelle("No voyage");
+        pc.getChampByName("tonnage").setLibelle("Tonnage deb. prev.");
 
         pc.setTitre("Fiche prevision");
 

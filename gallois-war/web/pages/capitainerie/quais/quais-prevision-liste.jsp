@@ -22,37 +22,40 @@
         }
       
       
-      String listeCtrl[]={"id","paysprovenance","quaiprovenance","escale","nomnavire","valconsignataire","valcargaison","valpilote","date_arrivee","heure_arrivee","date_depart","heure_depart","paysdestination","armateurlib"};
-      String listeInt[]={"date_arrivee","date_depart"};
-      String libEntete[]={"id","valpaysprovenance", "valquaisprovenance","escale","nomnavire","valconsignataire","valcargaison","date_arrivee","heure_arrivee","date_depart","heure_depart","valpaysdestination","valquaisdestination","valpilote","noVoyage","armateurlib"};
+      String listeCtrl[]={"id","paysprovenance","quaiprovenance","escale","nomnavire","valconsignataire","valcargaison","date_arrivee", "tonnage","heure_arrivee","date_depart","heure_depart","paysdestination","armateurlib"};
+      String listeInt[]={"date_arrivee","date_depart", "tonnage"};
+      String libEntete[]={"id","valpaysprovenance", "valquaisprovenance","escale","nomnavire","valconsignataire","valcargaison","date_arrivee","heure_arrivee","date_depart","heure_depart","valpaysdestination","valquaisdestination","armateurlib"};
       PageRecherche pr=new PageRecherche(prevision,request,listeCtrl,listeInt,3,libEntete,libEntete.length);
       pr.setUtilisateur(u);
       pr.setLien((String) session.getValue("lien"));
       //pr.setAWhere(" and etat != "+ConstanteEtat.getEtatValider()+" and etatnavire!="+ConstanteEtat.getEtatAnnuler());
-      pr.setAWhere(" order by date_arrivee asc");
+      pr.setAWhere(" order by date_arrivee desc");
       pr.getFormu().getChamp("Date_arrivee1").setLibelle("Date d'arrivée Min");
       pr.getFormu().getChamp("Date_arrivee2").setLibelle("Date d'arrivée Max");
       pr.getFormu().getChamp("Date_depart1").setLibelle("date de départ Min");
       pr.getFormu().getChamp("Date_depart2").setLibelle("date de départ Max");
+      pr.getFormu().getChamp("tonnage1").setLibelle("Tonnage Min");
+      pr.getFormu().getChamp("tonnage2").setLibelle("Tonnage Max");      
       pr.getFormu().getChamp("heure_arrivee").setLibelle("Heure d'arrivée");
       pr.getFormu().getChamp("heure_depart").setLibelle("Heure du depart");
       pr.getFormu().getChamp("paysprovenance").setLibelle("Provenance");
       pr.getFormu().getChamp("nomnavire").setLibelle("Navire");
-      pr.getFormu().getChamp("valpilote").setLibelle("Commandant");
       pr.getFormu().getChamp("quaiprovenance").setLibelle("Quais");
+      //pr.getFormu().getChamp("tonnage").setLibelle("Tonnage deb. prev.");
       
       pr.getFormu().getChamp("paysdestination").setLibelle("Destination");
       pr.getFormu().getChamp("valcargaison").setLibelle("Cargaison");
       pr.getFormu().getChamp("valconsignataire").setLibelle("Consignataire");
-      pr.getFormu().getChamp("armateurlib").setLibelle("Armateur lib");
+      pr.getFormu().getChamp("armateurlib").setLibelle("Armateur");
       //pr.getFormu().getChamp("noVoyage").setLibelle("Numero voyage");
     pr.setApres("capitainerie/quais/quais-prevision-liste.jsp");
     
     Prevision prev = u.getPrevision();
     if(prev != null) { 
         pr.getFormu().getChamp("id").setDefaut(prev.getId());
-        pr.setAWhere(" and id = '" + prev.getId() + "'"); 
+        pr.setAWhere(pr.getAWhere()+" and id = '" + prev.getId() + "'"); 
     }
+    
     
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme); 
@@ -90,7 +93,7 @@
         <br />
         
         <%
-            String libEnteteAffiche[] = {"id","Pays Provenance","Quai de provenance","Escale" ," Nom Navire","Consignataire","Cargaison","date d'arrivée","heure d' arrivée","date de depart","heure du depart","destination","Quai de destination","Commandant","Numero voyage","Armateur lib"};
+            String libEnteteAffiche[] = {"id","Pays Provenance","Quai de provenance","Escale" ," Nom Navire","Consignataire","Cargaison","date d'arrivée","heure d' arrivée","date de depart","heure du depart","destination","Quai de destination","Armateur"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             //pr.getTableau().construire_libelle(champ, libelle_comp);
             out.println(pr.getTableau().getHtml());

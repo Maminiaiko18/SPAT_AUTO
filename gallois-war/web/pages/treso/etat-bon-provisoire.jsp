@@ -20,7 +20,7 @@
         PageRechercheGroupe pr = new PageRechercheGroupe(tiers, request, listeCrt, listeInt, 3, colGr, sommGr, colGr.length+1, sommGr.length+1);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.setApres("facture/etat-bon-provisoire.jsp");
+        pr.setApres("treso/etat-bon-provisoire.jsp");
 
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");

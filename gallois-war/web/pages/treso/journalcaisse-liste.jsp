@@ -12,6 +12,7 @@
 <%@page import="bean.TypeObjet"%>
 <%
     try {
+        String typecheque = request.getParameter("idtypecheque");
         JournalCaisse journalCaisse = new JournalCaisse();
         journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
 
@@ -52,7 +53,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste de journal caisses</h1>
+        <h1>Journal de caisse</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=treso/journalcaisse-liste.jsp" method="post" name="incident" id="incident">
@@ -106,6 +107,12 @@
 
                 out.println(pr.getTableau().getHtmlWithCheckbox());
             %>
+            <%
+                if(typecheque!= null && typecheque.compareToIgnoreCase("%")==0){
+                    typecheque = "";
+                }
+            %>
+            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listeJournalCaisse&id=<%=request.getParameter("id")%>&folio=<%=request.getParameter("folio")%>&valcaisse=<%=request.getParameter("valcaisse")%>&libelle=<%=request.getParameter("libelle")%>&remarque=<%=request.getParameter("remarque")%>&dateEffet1=<%=request.getParameter("dateEffet1")%>&dateEffet2=<%=request.getParameter("dateEffet2")%>&idtypecheque=<%= typecheque%>&descecaisse=<%=request.getParameter("descecaisse") %>&idplacement=<%= request.getParameter("idplacement") %>" style="margin-right: 10px">Imprimer</a>
         </form>
         <% out.println(pr.getBasPage());%>
     </section>

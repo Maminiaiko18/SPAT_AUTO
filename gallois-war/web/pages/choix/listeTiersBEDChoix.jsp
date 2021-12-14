@@ -30,6 +30,7 @@
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
 %>
+ 
 <html>
     <head>
         <meta charset="UTF-8">
@@ -59,6 +60,11 @@
             </section>
         </div>
         <jsp:include page='../elements/js.jsp'/>
+         
+    <script>
+        document.getElementById('btnSave').insertAdjacentHTML('afterend', '<a href="../<%=pr.getLien()%>?but=travaux/tiers-saisie.jsp&param=1" class="btn btn-primary" id="new" data-toggle="modal" tabindex="27" style="margin-left: 50%">Nouveau</a>')        
+    </script>
+   
     </body>
 </html>
 

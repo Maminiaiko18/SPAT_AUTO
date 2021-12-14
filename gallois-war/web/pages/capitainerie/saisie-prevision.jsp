@@ -24,6 +24,7 @@
     pi.getFormu().getChamp("cargaison").setPageAppel("choix/listeCargaisonChoix.jsp");
     pi.getFormu().getChamp("cargaison").setAutre("readonly");
 //    pi.getFormu().getChamp("pilote").setPageAppel("choix/piloteChoix.jsp");
+    pi.getFormu().getChamp("tonnage").setLibelle("Tonnage deb. prev.");
     pi.getFormu().getChamp("consignataire").setPageAppel("choix/listeClientChoix.jsp");
     pi.getFormu().getChamp("consignataire").setAutre("readonly");    
     pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
@@ -45,6 +46,8 @@
     pi.getFormu().getChamp("armateur").setPageAppel("choix/listeClientChoix.jsp");
     
     pi.setLien((String) session.getValue("lien"));
+    String[] ordre = {"id","date_rade","provenance","navire","consignataire","cargaison","tonnage","pilote","date_arrivee","heure_arrivee","date_depart","heure_depart","destination","etat","escale","noVoyage","armateur"};
+    pi.getFormu().setOrdre(ordre);
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">

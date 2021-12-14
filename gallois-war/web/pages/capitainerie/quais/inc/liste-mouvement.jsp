@@ -40,7 +40,7 @@ String listeCrt[] = {"desceconsignataire","escale"};
         %>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "Escale", "Navire", "Consignataire", "Cargaison", "Quai provenance", "Pays provenance", "Quai destination", "Pays destination", "Date d'arrivée", "Heure d'arrivée", "Date de départ", "Heure de départ", "Dur&eacute;e (en j)", "Type mouvement","Etat"};
+            String libEnteteAffiche[] = {"id", "Escale", "Navire", "Consignataire", "Cargaison", "Quai provenance", "Pays provenance", "Quai destination", "Pays destination", "Date d'arrivée", "Heure d'arrivée", "Date de départ", "Heure de départ", "Dur&eacute;e (en h)", "Type mouvement","Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             //pr.getTableau().construire_libelle(champ, libelle_comp);
             out.println(pr.getTableau().getHtml());

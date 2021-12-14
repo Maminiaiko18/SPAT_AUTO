@@ -80,10 +80,13 @@ public class Mouvement extends ClassEtat {
                 
                 prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
             }
+            Navire navireObj = getNavireObjet(c);
+            if(!navireObj.getType().equals(Constante.getNavireBornageEtPeche())){
+                Activite stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
+                u.createObject(stationnement, c);
+                u.validerObject(stationnement, c);
+            }
             
-            Activite stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
-            u.createObject(stationnement, c);
-            u.validerObject(stationnement, c);
         }
         if (this.estTouchee(c) && this.getEscale() == null) {
             this.creerPrevision(u, c);
@@ -271,7 +274,8 @@ public class Mouvement extends ClassEtat {
         try {
             if (getMode().compareToIgnoreCase("modif") == 0) {
                 if (heure_depart != null && heure_depart.trim().compareTo("") != 0 && this.getDatearrivee() != null) {
-                    Utilitaire.testHeureValide(heure_depart);
+                    //Utilitaire.testHeureValide(heure_depart);
+                    if(heure_depart != null && !heure_depart.trim().isEmpty()) { heure_depart = Utilitaire.checkHeureFormat(heure_depart); }
                     if (this.getTypeMvt().compareTo(Constante.idtypeMvtDepart) != 0 && Utilitaire.compareDaty(this.getDate_depart(), this.getDatearrivee()) == 0 && Utilitaire.comparerHeure(this.getHeure(), heure_depart) == -1) {
                         throw new Exception("Heure de départ invalide par rapport à l heure d arrivee");
                     }
@@ -282,6 +286,12 @@ public class Mouvement extends ClassEtat {
             throw e;
         }
 
+    }
+    
+     public Navire getNavireObjet(Connection c) throws Exception{
+        Navire navire = new Navire();
+        Navire[] ls = (Navire[]) CGenUtil.rechercher(navire, null, null, c, " and id='"+this.getNavire()+"'");
+        return ls.length > 0 ? ls[0] : null;
     }
 
     public Mouvement() {
@@ -432,7 +442,8 @@ public class Mouvement extends ClassEtat {
     public void setHeure(String heure) throws Exception {
         try {
             if (heure != null && heure.trim().compareTo("") != 0) {
-                Utilitaire.testHeureValide(heure);
+                //Utilitaire.testHeureValide(heure);
+                heure = Utilitaire.checkHeureFormat(heure);
             }
             this.heure = heure;
         } catch (Exception e) {
@@ -694,9 +705,8 @@ public class Mouvement extends ClassEtat {
         a.setDatefin(this.getDate_depart());
         a.setHeurefin(this.getHeure_depart());
         a.setTaux(getValeurTaux(c, "coursdeviseNonMICTSL",this.getDate_depart()));
-        a.setTypeSource(this.getDestination());
+        a.setTypeSource(this.getProvenance());
         
         return a;
     }
-    
 }

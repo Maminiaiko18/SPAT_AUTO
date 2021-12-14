@@ -20,7 +20,7 @@
         FactureClientDetails fille = new FactureClientDetails();
         fille.setNomTable("FACTURE_CLIENT_FILLE_LIBELLE");
         fille.setIdmere(request.getParameter("id"));
-        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, " order by daty, rang");
+        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, " order by id");
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
@@ -45,6 +45,7 @@
         TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
         listeM[3] = new Liste("deviseMere", devise, "VAL", "id");
+        
         
         pi.getFormu().changerEnChamp(listeM);
 
@@ -128,7 +129,7 @@
         for (int i = 0; i < liste.length; i++) {
             pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 150px;\" ");
             affichage.Champ datefactChp = pi.getFormufle().getChamp("datefact_" + i);
-            datefactChp.setAutre("readonly");
+            //datefactChp.setAutre("readonly");
             if (datefactChp.getValeur() != null && !"".equals(datefactChp.getValeur())) {
                 String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
                 datefactChp.setValeur(dateF);
@@ -157,7 +158,7 @@
 
         mere = (FactureClient) pi.getBase();
         pi.preparerDataFormu();
-
+        
         
 
 %>

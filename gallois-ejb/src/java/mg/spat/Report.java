@@ -60,6 +60,7 @@ public class Report extends ClassEtat{
     public void controler(Connection c) throws Exception{
 //        Report report = this.getReportFarany(this.getDaty(),this.getCaisse(),c);
 //        this.montant=report.getMontant()+JournalService.getSoldeJournal(report.getDaty() , Utilitaire.getDateAvant(this.getDaty(), 1), this.getCaisse(), c);
+        checkDoublon(c);    
     }
     
     public Report() {
@@ -111,4 +112,11 @@ public class Report extends ClassEtat{
         }
     }
     
+    public boolean checkDoublon(Connection c) throws Exception{
+        Report base = new Report();
+        base.setNomTable("reportlibv");
+        String sqlWhere = String.format(" and daty = to_date('%s', 'YYYY-MM-DD') and caisse = '%s' ", getDaty(), getCaisse());
+        Report[] result = (Report[])CGenUtil.rechercher(base, null, null, c, sqlWhere);
+        return result.length > 0;
+    }
 }

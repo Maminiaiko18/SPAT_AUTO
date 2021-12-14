@@ -4,10 +4,12 @@ import avoir.AvoirFC;
 import bean.*;
 import facture.FactureFournisseur;
 import facture.PaiementFacture;
+import facture.UtilitaireFacture;
 import factureclient.PaiementFactureRemise;
 import facturefournisseur.EtatFactureMontantDaty;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.ArrayList;
 import mg.allosakafo.produits.LiaisonIntraTable;
 import mg.spat.JournalCaisse;
 import utilitaire.Constante;
@@ -361,6 +363,8 @@ public class OrdonnerPayement extends ClassEtat {
         if(factures.length>0){
             this.setMontant(AdminGen.calculSommeDouble(factures, "montantreste"));
         }
+        this.setNumeroop(genererNumeroOP(c));
+        
         return super.createObject(u, c);
     }
     
@@ -631,6 +635,51 @@ public class OrdonnerPayement extends ClassEtat {
         }
         return retour;
     }
+     public String genererNumeroOP(Connection c) throws Exception{
+        String numero = ""; 
+        try{   
+            numero += UtilitaireFacture.genererSequence(c, "NUMEROOP", 4, utilitaire.Utilitaire.datetostring(this.getDaty()));
+            numero+="/";
+            numero+=Utilitaire.genererMois(utilitaire.Utilitaire.datetostring(this.getDaty()));
+            numero+="/";
+            numero+=Utilitaire.genererAnnee(utilitaire.Utilitaire.datetostring(this.getDaty()));
+         }catch(Exception e){
+             e.printStackTrace();
+         }
+        controleDoublonNumeroOP(c);
+         return numero;
+     }
     
+    public static ArrayList<FactureFournisseur> controlerDecaissementMultiple(Connection c,String[] ids) throws Exception{
+        ArrayList<FactureFournisseur> result = new ArrayList<>();
+        OrdonnerPayement base = new OrdonnerPayement();
+        base.setNomTable("OrdonnerPayement");
+        String where = String.format(" and id in (%s) ", Utilitaire.tabToString(ids, "'", ","));
+        OrdonnerPayement[] tabOp = (OrdonnerPayement[])CGenUtil.rechercher(base, null, null, c, where);
+        for(OrdonnerPayement op: tabOp){
+            if(op.getEtat() < 11) throw new Exception("OP non visé");
+            FactureFournisseur[] tabFactOp = op.getFactures(c);
+            for(FactureFournisseur factOp: tabFactOp) 
+                result.add(factOp);
+        }
+        return result;
+    }
     
+    public static String[] getFacturesOPs(Connection c, String[] idOPs) throws Exception {
+        java.util.List<FactureFournisseur> factures = controlerDecaissementMultiple(c, idOPs);
+        String[] idFactures = new String[factures.size()];
+        
+        if(factures.size() > 0) {
+            for(int i=0; i < factures.size(); i++) {
+                idFactures[i] = factures.get(i).getId();
+            }
+        }
+        
+        return idFactures;
+    }
+    
+    public void controleDoublonNumeroOP(Connection c) throws Exception{
+        OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and numeroop='"+this.getNumeroop()+"'");
+        if(op.length > 0) throw new Exception("Numero OP existant");
+    }
 }

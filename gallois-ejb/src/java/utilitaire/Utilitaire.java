@@ -4055,5 +4055,37 @@ public class Utilitaire extends Parametre {
         return completerInt(2, mois);
     } 
     
+    private static void estValide(String format, String valeur) throws Exception {
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(format);
+        java.util.regex.Matcher m = p.matcher(valeur);
+        
+        if(!m.matches()) {
+            throw new Exception("Heure non valide");
+        }
+    }
     
+    public static String checkHeureFormat(String heure) throws  Exception {
+        String heureValide = heure;
+        
+        if(heure != null && !heure.trim().isEmpty()) {
+            String[] timeSplit = heure.split(":");
+            
+            String formatHeure = "([01]?[0-9]|2[0-3])",
+                    formatMinSec = "[0-5][0-9]";
+            
+            estValide(formatHeure, timeSplit[0]);
+            estValide(formatMinSec, timeSplit[1]);
+            
+            if(timeSplit.length > 2) { 
+                estValide(formatMinSec, timeSplit[2]); 
+            } 
+            else {
+                if(!heure.endsWith(":")) heureValide += ":";
+                
+                heureValide += "00";
+            }
+        }
+        
+        return heureValide;
+    }
 }

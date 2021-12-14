@@ -65,11 +65,11 @@ public class SituationCredit extends LigneCredit{
             "         l.ANNEE,\n" +
             "         l.MONTANT, l.etat";*/
 //                     + ", mf.DATY";
-            String req = "SELECT l.id          AS                        id,\n" +
+            String req = "SELECT \n" +
 "       l.DESIGNATION AS                        designation,\n" +
 "       substr(l.COMPTE, 1, "+niveau+")      AS                        compte,\n" +
 "       l.ANNEE       AS                        annee,\n" +
-"       sum(l.MONTANT)     AS                        montant,\n" +
+"         cast(sum(l.MONTANT) as number(30,3))   AS                        montant,\n" +
 "       l.etat,\n" +
 "       CAST(SUM(mf.MONTANTTTC) AS NUMBER(30, 3))\n" +
 "                     AS                        facture,\n" +
@@ -79,12 +79,14 @@ public class SituationCredit extends LigneCredit{
 "                   ON substr(mf.COMPTE, 1, "+niveau+") LIKE substr(l.COMPTE, 1, "+niveau+")\n" +
 "                       AND EXTRACT(YEAR FROM DATY) = l.ANNEE and mf.IDMERE not in\n" +
 "                                                                 (select id from ProvisionFactureDefinitive) %s \n" +
-"GROUP BY l.id,\n" +
+"GROUP BY \n" +
 "         l.DESIGNATION,\n" +
 "         substr(l.COMPTE, 1, "+niveau+"),\n" +
 "         l.ANNEE,\n" +
 "          l.etat";
+            
             req = String.format(req, where);
+            System.out.println("--- fa 0+"+req);
             SituationCredit stock = new SituationCredit();
             stock.setNomTable("situationLC_vide");
             ret = (SituationCredit[]) CGenUtil.rechercher(stock, req, c);

@@ -21,7 +21,25 @@ import utilitaire.Utilitaire;
 public class OrdonnerPayementData {
     private double montant = 0;
     private String idfacture;
+    private String tiers="";
+    private String tierslib="";
 
+    public String getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(String tiers) {
+        this.tiers = tiers;
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
+    
 
     public double getMontant() {
         return montant;
@@ -75,6 +93,8 @@ public class OrdonnerPayementData {
                             for(int i=0;i<efd.length;i++){
                                 this.montant+=efd[i].getMontantreste();
                             }
+                            this.tiers=efd[0].getTiers();
+                            this.tierslib=efd[0].getTierslib();
                         }
                     }
                    

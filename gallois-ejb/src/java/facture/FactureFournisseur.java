@@ -23,7 +23,16 @@ import utilitaire.Utilitaire;
  * @author rijan
  */
 public class FactureFournisseur extends FactureClient {
-   private String numeroop,projet,code_etablissement,projetlib,code_etablissementlib;
+   private String numeroop,projet,code_etablissement,projetlib,code_etablissementlib,nature,naturelib,idbc;
+
+    public String getNaturelib() {
+        return naturelib;
+    }
+
+    public void setNaturelib(String naturelib) {
+        this.naturelib = naturelib;
+    }
+   
     public String getNumeroop() {
         return numeroop;
     }
@@ -34,6 +43,14 @@ public class FactureFournisseur extends FactureClient {
 
     public String getProjet() {
         return projet;
+    }
+
+    public String getNature() {
+        return nature;
+    }
+
+    public void setNature(String nature) {
+        this.nature = nature;
     }
 
     public void setProjet(String projet) {
@@ -62,6 +79,14 @@ public class FactureFournisseur extends FactureClient {
 
     public void setCode_etablissementlib(String code_etablissementlib) {
         this.code_etablissementlib = code_etablissementlib;
+    }
+
+    public String getIdbc() {
+        return idbc;
+    }
+
+    public void setIdbc(String idbc) {
+        this.idbc = idbc;
     }
    
 
@@ -112,8 +137,10 @@ public class FactureFournisseur extends FactureClient {
             FactureFournisseur cc = new FactureFournisseur();
             cc.setNomTable("factureclientgroupvide");
             String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,3)) as montant  "
-                    + " from FACTUREFOURNVALIDE_V "
-                    + " where id in('"+ids.replace(";", "','")+"') group by tiers,tierslib";
+                    + " from FACTFOURN_MSUM_LIB "
+                    + " where id in('"+ids.replace(";", "','")+"') "
+                    + " and etat >= " + ConstanteEtat.getEtatValider()
+                    + " group by tiers,tierslib";
             FactureFournisseur[] result = (FactureFournisseur[]) CGenUtil.rechercher(cc, requete, c);
             if (result != null && result.length > 0) {
                 return result;
@@ -182,6 +209,7 @@ public class FactureFournisseur extends FactureClient {
         this.setNomClasseFille("facture.FactureFournisseurDetails");
         this.setIduser(iduser);
         this.setId(null);
+        this.setCode(calculerCodeSimple(cnctn));
         return super.createObject(iduser, cnctn);
     }
 
@@ -462,4 +490,44 @@ public class FactureFournisseur extends FactureClient {
 				}
 				return null;
 			}        
+
+    @Override
+    public String calculerCodeSimple(Connection c) throws Exception {
+        String daty = Utilitaire.datetostring(this.getDaty());
+        String code = "";
+        code += Utilitaire.genererAnnee(daty);
+        code += Utilitaire.genererMois(daty);
+        code += UtilitaireFacture.genererSequence( c, "NUMEROCOMPTA", 4, daty);
+        return code;
+    }
+    
+     public FactureFournisseur modifierEntete(String refUser, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            this.updateToTableWithHisto(refUser, c);
+//            this.updateToTable(c);
+
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return this;
+    }
+                        
+    
 }

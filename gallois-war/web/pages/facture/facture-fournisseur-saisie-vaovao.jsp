@@ -47,11 +47,13 @@
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
-    pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro Compta");
+    //pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro Compta");
+    pi.getFormu().getChamp("numeroop").setVisible(false);
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("idprevision").setVisible(false);
+    pi.getFormu().getChamp("nature").setVisible(false);
     pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("idBL").setAutre("readonly");
     pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");  
@@ -66,6 +68,15 @@
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
     pi.getFormu().getChamp("estMictsl").setVisible(false);
+    
+    if(request.getParameter("idBL") != null){
+        pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
+        pi.getFormu().getChamp("projetlibelle").setValeurLibelle(livraisons[0].getProjetlib());
+        pi.getFormu().getChamp("code_etablissement").setValeur(livraisons[0].getCode_etablissement());
+        pi.getFormu().getChamp("code_etablissementlibelle").setValeurLibelle(livraisons[0].getCode_etablissementlib());
+        pi.getFormu().getChamp("tiers").setValeur(livraisons[0].getIdtiers());
+        pi.getFormu().getChamp("tierslibelle").setValeurLibelle(livraisons[0].getNomtiers());
+    }
     
     
     pi.getFormu().getChamp("tiers").setAutre("readonly");

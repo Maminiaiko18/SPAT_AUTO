@@ -4,6 +4,8 @@
     Author     : Lenovo
 --%>
 
+<%@page import="affichage.Liste"%>
+<%@page import="bean.TypeObjet"%>
 <%@page import="facture.FactureFournisseur"%>
 <%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
@@ -20,9 +22,10 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib", "numeroop", "projetlib"};
+        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","nature", "numeroop", "code", "projetlib"};
         String listeInt[] = {"daty","date_echeance"};
-        String libEntete[] = {"id","daty","tierslib", "numeroop", "projetlib", "code_etablissementlib", "escale","designation","categorielib","tva","date_echeance", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+
+        String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -30,18 +33,29 @@
 //        pr.setOrdre(" order by daty desc");
         pr.setApres("facture/facture-fournisseur-liste-vaovao.jsp");
         
+        affichage.Champ[]liste = new affichage.Champ[1];
+        TypeObjet nature = new TypeObjet();
+        nature.setNomTable("nature");
+        liste[0] = new Liste("nature", nature, "val", "id");
+        
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
-        pr.getFormu().getChamp("tierslib").setLibelle("Client");
-        pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
+        pr.getFormu().getChamp("tierslib").setLibelle("Fournisseur");
+        pr.getFormu().getChamp("nature").setLibelle("Nature");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
-        pr.getFormu().getChamp("numeroop").setLibelle("Numero compta");
+        pr.getFormu().getChamp("numeroop").setLibelle("N° Facture");
+        pr.getFormu().getChamp("code").setLibelle("Numero compta");
         
+        pr.getFormu().changerEnChamp(liste);
         Date firstDate = Utilitaire.dateDuJourSql();   
-        firstDate.setDate(1);        
-        Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
+        firstDate.setDate(1);
+        firstDate.setMonth(0);
+        Date lastDate = Utilitaire.dateDuJourSql();
+        lastDate.setDate(31);
+        lastDate.setMonth(11);
         
-        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+//        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+        String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());
         String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
         
         if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
@@ -54,7 +68,7 @@
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
         
         
-        String[] colSomme = {"montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+        String[] colSomme = {"montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
@@ -95,14 +109,16 @@
             <input type="hidden" name="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
-            String colonneLien[] = {"id", "escale"};
-            String[] urlLienMultiple = {"id", "idprevision"};
-            String[] urlLienAffiche = {"id", "id"};
+            String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp"};
+            String colonneLien[] = {"id"};
+            String[] urlLienMultiple = {"id"};
+            String[] urlLienAffiche = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
-            String libEnteteAffiche[] = {"id","daty","Client","Numero compta", "Projet", "Code direction", "Escale","Note explicative","Catégorie", "tva", "date echeance", "montant TTC", "Net à payer", "montant Avoir","Montant payé","Reste à payer"};
+
+            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero compta", "Projet", "Code direction", "Nature","Note explicative", "date echeance", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer"};
+
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);
@@ -111,7 +127,7 @@
             out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
         <div style="display: flex; justify-content: flex-end; align-items: center;">
-        <input name="reg" type="button" id="btnRegularisation" class="btn btn-info" value="Régulariser BP" />
+        
         <input type="button" class="btn btn-info" onclick="editerBED()" style="margin:10px" value="Editer BED"/>
         <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
         </div>
@@ -126,12 +142,6 @@
         document.getElementById("form_arif").submit();
     }
     
-    document.getElementById("btnRegularisation").onclick = function(){
-        console.log(document.getElementById("acte"));
-        console.log(document.getElementById("form_arif"));
-        document.getElementById("acte").value =  "regularisation";
-        document.getElementById("form_arif").submit();
-    }
     function regularisation (){
         document.getElementById("acte").value =  "regularisation";
         document.getElementById("form_arif").submit();

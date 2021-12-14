@@ -28,6 +28,19 @@
     String dossier="travaux";
     
     Tiers tVise = (Tiers) pc.getBase();
+    
+    String but = "", buteVisa = "";
+    
+    if(request.getParameter("param") != null && request.getParameter("param").compareToIgnoreCase("1") == 0){
+        but = "apresTiers.jsp";
+        buteVisa = "choix/listeTiersBEDChoix.jsp&champReturn=tiers;tierslibelle&apresLienPageAppel=";
+    }
+    else{
+        buteVisa = "travaux/tiers-liste.jsp"; 
+        but = "apresTarif.jsp";
+    }
+    
+   
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -50,7 +63,7 @@
                             
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=travaux/tiers-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                             <%if (tVise.getEtat() != ConstanteEtat.getEtatValider()) {%>
-                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=travaux/tiers-liste.jsp&classe=mg.spat.Tiers" style="margin-right: 10px">Viser</a>
+                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but="+but+"&id=" + request.getParameter("id") + "&acte=valider&bute="+buteVisa%>&classe=mg.spat.Tiers" style="margin-right: 10px">Viser</a>
                             <%}%>
                         </div>
                         <br/>

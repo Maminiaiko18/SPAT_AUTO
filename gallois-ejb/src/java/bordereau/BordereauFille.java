@@ -8,6 +8,7 @@ package bordereau;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.ClassEtat;
+import ded.OrdonnerPayement;
 import java.sql.Connection;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -31,12 +32,15 @@ public class BordereauFille extends ClassMAPTable {
     @Override
     public void controler(Connection c) throws Exception {
         super.controler(c);
-
-        String nomTableDetails = this.getIdop().startsWith("ORP") ? "ordonnerPayement" : "facture_Fournisseur_Mere";  
+        String nomTable = "facture_Fournisseur_Mere";
+        ClassEtat obj = (ClassEtat) new facture.FactureFournisseur();
         
-        ClassEtat obj = (ClassEtat) new ded.OrdonnerPayement();
-//        obj.setNomTable(this.getNomTableDetails());
-        obj.setNomTable(nomTableDetails);
+        if(this.getIdop().startsWith((new OrdonnerPayement()).getINDICE_PK())) {
+            nomTable = "ordonnerPayement";
+            obj = (ClassEtat) new ded.OrdonnerPayement();
+        }
+        
+        obj.setNomTable(nomTable);
 
         ClassEtat[] tmp = (ClassEtat[]) CGenUtil.rechercher(obj, null, null, c, " and id = '" + this.getIdop() + "'");
 

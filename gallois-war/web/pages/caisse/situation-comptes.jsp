@@ -38,7 +38,8 @@
         EtatdeStockDate[] recapitulatifPlacement = datas.getRecapitulatifPlacement();
         double totalTresorerie = datas.getTotalTresorerie();
         double totalPlacement = datas.getTotalPlacement();
-        double total = datas.getTotal() - datas.getMontantBP();
+        double montantBP = datas.getTotal() - datas.getMontantBP();
+        double total = datas.getTotal();
         
         
 %>
@@ -232,6 +233,10 @@
                                         <td align="right"><%=Utilitaire.formaterAr(placementAr[i].getMontantStock())%></td>
                                     </tr>
                                     <% }%>
+                                     <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="">
+                                        <td align="right">Total sans Bon Provisoire</td>
+                                        <td align="right"><%=Utilitaire.formaterAr(totalPlacementAr)%></td>
+                                    </tr>
                                     <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="">
                                         <td align="right">TOTAL</td>
                                         <td align="right"><%=Utilitaire.formaterAr(totalPlacementAr)%></td>
@@ -319,14 +324,12 @@
                                 </tr>-->
             </thead>
             <tbody>
+                
                 <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="border-top: solid; border-bottom: solid">
                     <td align="right" class="th-center"><h3>TOTAL</h3></td>
                     <td align="left" class="th-center"><h3><%=Utilitaire.formaterAr(total)%></h3></td>
                 </tr>
-                <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="border-top: solid; border-bottom: solid">
-                    <td align="right" class="th-center"><h5>Dont bon provisoire</h5></td>
-                    <td align="left" class="th-center"><h5><%=Utilitaire.formaterAr(datas.getMontantBP())%></h5></td>
-                </tr>
+                
             </tbody>
         </table>
     </section>

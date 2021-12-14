@@ -140,11 +140,11 @@
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&idsOP=<%=ded_id%>");</script>
     <%
         } if (acte != null && acte.equalsIgnoreCase("modifierEntete")) { 
-            Page p = new Page(new FactureClient(), request);
-            FactureClient fc = (FactureClient)p.getObjectAvecValeur();
-            fc.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
+            Page p = new Page(new FactureFournisseur(), request);
+            FactureFournisseur ff = (FactureFournisseur)p.getObjectAvecValeur();
+            ff.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
         %>
-        <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= bute %>&id=<%= fc.getId() %>");</script>
+        <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= bute %>&id=<%= ff.getId() %>");</script>
     <% } %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= apresLien%>");</script>
     <%

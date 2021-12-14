@@ -32,7 +32,7 @@ try{
 //    pi.getFormu().getChamp("designationFacture").setVisible(false);
 //    pi.getFormu().getChamp("designationFacture").setVisible(false);
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
-    pi.getFormu().getChamp("code").setVisible(false);
+    //pi.getFormu().getChamp("code").setVisible(false);
 
     affichage.Champ[] listeMere = new affichage.Champ[3];
     TypeObjet categorie = new TypeObjet();
