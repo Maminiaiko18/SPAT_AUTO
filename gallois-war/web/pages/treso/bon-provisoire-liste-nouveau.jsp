@@ -104,16 +104,33 @@
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
+        <form action="<%=pr.getLien()%>?but=apresTarif.jsp" method="post" name="form_arif" id="form_arif">
+            <input type="hidden" name="bute" id="bute" value="ded/ordonnerpayement-saisie.jsp"/>
+            <input type="hidden" name="classe" value="facturefournisseur.FactureFournisseur"/>
+            <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
             String libEnteteAffiche[] = {"id","daty","Client","Code", "Escale","Note explicative","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);            
-            out.println(pr.getTableau().getHtml());
-            out.println(pr.getBasPage());
+            pr.getTableau().setNameActe("editerOP");
+            pr.getTableau().setNameBoutton("Editer OP");
+            out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
+        <div style="display: flex; justify-content: flex-end; align-items: center;">
+            <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
+        </div>
+        </form>
+         <% out.println(pr.getBasPage());%>
     </section>
 </div>
+    <script>
+        function decaisser(){
+        $('#form_arif').attr('action', '<%= pr.getLien() %>?but=apresFactureF.jsp');
+        $('#acte').val('decaisserMultiple');
+        document.getElementById("form_arif").submit();
+    }
+    </script>
     <%
     }catch(Exception e){
         e.printStackTrace();
