@@ -960,6 +960,28 @@ public class EtatPaieServlet extends HttpServlet {
             {
                 //details[i].setMontantHTEuro( details[i].getQuantite()*details[i].getPu());
                 total=total+details[i].getMontantHTEuro();
+                String heuredebut="";
+                String heurefin="";
+                if(details[i].getHeureDebut()!=null && details[i].getHeureDebut().length()==8 ){// manala anle seconde any amn farany
+                    //details[i].getHeureDebut().
+                    int len = 0;
+                    while(len<5){
+                        heuredebut +=details[i].getHeureDebut().charAt(len); 
+                        len = len+1;
+                    }
+                    details[i].setHeureDebut(heuredebut);
+                            
+                }
+                if(details[i].getHeureFin()!=null && details[i].getHeureFin().length()==8 ){// manala anle seconde any amn farany
+                    //details[i].getHeureDebut().
+                    int len = 0;
+                    while(len<5){
+                        heurefin +=details[i].getHeureFin().charAt(len); 
+                        len = len+1;
+                    }
+                    details[i].setHeureFin(heurefin);
+                            
+                }
                 arrList.add(details[i]);
                 reduction += details[i].getReduction();
                 
