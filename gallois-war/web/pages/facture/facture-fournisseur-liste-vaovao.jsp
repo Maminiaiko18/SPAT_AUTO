@@ -22,10 +22,10 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","nature", "numeroop", "code", "projetlib"};
+        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","nature", "numeroop", "code", "projetlib" , "numOP"};
         String listeInt[] = {"daty","date_echeance"};
 
-        String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste"};
+        String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -45,6 +45,7 @@
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("numeroop").setLibelle("N° Facture");
         pr.getFormu().getChamp("code").setLibelle("Numero compta");
+        pr.getFormu().getChamp("numOP").setLibelle("Numero opearateur");
         
         pr.getFormu().changerEnChamp(liste);
         Date firstDate = Utilitaire.dateDuJourSql();   
@@ -117,7 +118,7 @@
             pr.getTableau().setColonneLien(colonneLien);
 
 
-            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero compta", "Projet", "Code direction", "Nature","Note explicative", "date echeance", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer"};
+            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero compta", "Projet", "Code direction", "Nature","Note explicative", "date echeance", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Numero operateur"};
 
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
