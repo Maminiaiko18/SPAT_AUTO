@@ -85,7 +85,7 @@ public class ComptaService {
             cd.setNomTable("comptabilanproduit");
             String rqt="select \n" +
             "    idrubrique, rubrique, reference,\n" +
-            "    cast(sum(Credit)-sum(Debit) as number(32,3)) as ec_montant \n" +
+            "    cast(sum(nvl(Credit,0))-sum(nvl(Debit,0)) as number(32,3)) as ec_montant \n" +
             "from \n" +
             "    comptabilanproduit where 1<2  and \n" +
             "    ec_date>=to_date('"+d1+"','YYYY-MM-DD') and \n" +
