@@ -131,7 +131,7 @@
 	<title>
 		<band height="342" splitType="Stretch">
 			<rectangle>
-				<reportElement x="112" y="122" width="668" height="210" uuid="a1d35c5e-1853-4f25-a257-6ef756263499"/>
+				<reportElement x="0" y="122" width="780" height="210" uuid="a1d35c5e-1853-4f25-a257-6ef756263499"/>
 				<graphicElement>
 					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</graphicElement>
@@ -437,7 +437,7 @@
 	<detail>
 		<band height="36">
 			<componentElement>
-				<reportElement key="table 1" style="table" mode="Transparent" x="112" y="0" width="555" height="32" uuid="c7ba0eb2-5f1b-4313-9a74-3e3fe27f4753"/>
+				<reportElement key="table 1" style="table" mode="Transparent" x="62" y="0" width="718" height="32" uuid="c7ba0eb2-5f1b-4313-9a74-3e3fe27f4753"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="21bd54b8-5b89-4598-8d90-a2a334b4dffe">
 						<datasetParameter name="montant">
