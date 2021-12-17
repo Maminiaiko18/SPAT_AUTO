@@ -221,7 +221,7 @@
 					<jr:columnGroup width="790" uuid="38df97f6-b17b-4222-b816-91967c5417b0">
 						<jr:tableFooter height="246" rowSpan="1">
 							<staticText>
-								<reportElement x="635" y="24" width="30" height="15" uuid="8097e9c5-8a1b-4d33-9161-4f4902844243"/>
+								<reportElement x="680" y="24" width="30" height="15" uuid="8097e9c5-8a1b-4d33-9161-4f4902844243"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -235,7 +235,7 @@
 								<text><![CDATA[HT]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="635" y="39" width="30" height="15" uuid="4aacd93d-700c-42e1-beed-f2c5c59b6f8f"/>
+								<reportElement x="680" y="39" width="30" height="15" uuid="4aacd93d-700c-42e1-beed-f2c5c59b6f8f"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -250,7 +250,7 @@
 ]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="635" y="54" width="30" height="15" uuid="78e71733-1a0a-4dcd-9ba5-17af637153a9"/>
+								<reportElement x="680" y="54" width="30" height="15" uuid="78e71733-1a0a-4dcd-9ba5-17af637153a9"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -278,7 +278,7 @@
 								<textFieldExpression><![CDATA["Arrêtée la présente facture à la somme de: "+ $P{montantlettre}]]></textFieldExpression>
 							</textField>
 							<staticText>
-								<reportElement x="626" y="108" width="157" height="27" uuid="6787acf0-78d7-4aa9-a6d3-b90c76c912d4"/>
+								<reportElement x="632" y="108" width="157" height="27" uuid="6787acf0-78d7-4aa9-a6d3-b90c76c912d4"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -291,7 +291,7 @@
 								<text><![CDATA[Le Responsable Facturation]]></text>
 							</staticText>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="665" y="24" width="70" height="15" uuid="c664f795-b506-4248-b0c2-845df8d70e80"/>
+								<reportElement x="710" y="24" width="70" height="15" uuid="c664f795-b506-4248-b0c2-845df8d70e80"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -305,7 +305,7 @@
 								<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 							</textField>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="665" y="39" width="70" height="15" uuid="e255cee7-92fe-45ad-9b74-3f17cf807d75"/>
+								<reportElement x="710" y="39" width="70" height="15" uuid="e255cee7-92fe-45ad-9b74-3f17cf807d75"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -348,7 +348,7 @@
 								<text><![CDATA[]]></text>
 							</staticText>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="665" y="54" width="70" height="15" uuid="3057f06d-780d-4835-8487-514afbceeb82"/>
+								<reportElement x="710" y="54" width="70" height="15" uuid="3057f06d-780d-4835-8487-514afbceeb82"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -554,7 +554,7 @@
 								<text><![CDATA[Montant en Dollar]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="635" y="9" width="100" height="15" uuid="9cef102a-b6aa-40af-9075-103771899f54"/>
+								<reportElement x="680" y="9" width="100" height="15" uuid="9cef102a-b6aa-40af-9075-103771899f54"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -599,7 +599,7 @@
 								<text><![CDATA[Cours de change du:]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="622" y="7" width="124" height="65" uuid="35f197b1-f2fd-41b0-ad8c-1d63aff38ae3"/>
+								<reportElement x="666" y="7" width="124" height="65" uuid="35f197b1-f2fd-41b0-ad8c-1d63aff38ae3"/>
 								<box>
 									<pen lineWidth="0.5"/>
 									<topPen lineWidth="0.5"/>
