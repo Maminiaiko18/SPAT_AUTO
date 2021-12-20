@@ -85,14 +85,14 @@
                                             <tr>
                                                <td><%=details[i].getCpt_rubrique()%></td>
                                                  <td><%=details[i].getLibelle_cpt_rubrique()%></td>
-                                                <td align="right"><%=Utilitaire.formaterAr(details[i].getEc_montant())%></td>
+                                                <td align="right"><%=Utilitaire.formaterAr(-details[i].getEc_montant())%></td>
                                             </tr>
                                         <%}%>
                                     <%}%>
                                     
                                 <tr style="font-weight:bold">
                                     <td colspan="2" align="center" >TOTAL</td>
-                                    <td align="right"><%=Utilitaire.formaterAr(total)%></td>
+                                    <td align="right"><%=Utilitaire.formaterAr(-total)%></td>
                                 </tr>
                             </thead>
                         </table>
