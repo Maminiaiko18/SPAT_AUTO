@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="821" pageHeight="927" columnWidth="781" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="849" pageHeight="927" columnWidth="809" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.2100000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -171,7 +171,7 @@
 	<detail>
 		<band height="258">
 			<componentElement>
-				<reportElement key="table 1" style="table" mode="Transparent" x="0" y="224" width="780" height="32" uuid="c7ba0eb2-5f1b-4313-9a74-3e3fe27f4753"/>
+				<reportElement key="table 1" style="table" mode="Transparent" x="0" y="224" width="809" height="32" uuid="c7ba0eb2-5f1b-4313-9a74-3e3fe27f4753"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="21bd54b8-5b89-4598-8d90-a2a334b4dffe">
 						<datasetParameter name="montant">
@@ -218,10 +218,10 @@
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:columnGroup width="795" uuid="38df97f6-b17b-4222-b816-91967c5417b0">
+					<jr:columnGroup width="812" uuid="38df97f6-b17b-4222-b816-91967c5417b0">
 						<jr:tableFooter height="246" rowSpan="1">
 							<staticText>
-								<reportElement x="680" y="24" width="30" height="15" uuid="8097e9c5-8a1b-4d33-9161-4f4902844243"/>
+								<reportElement x="702" y="24" width="30" height="15" uuid="8097e9c5-8a1b-4d33-9161-4f4902844243"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -235,7 +235,7 @@
 								<text><![CDATA[HT]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="680" y="39" width="30" height="15" uuid="4aacd93d-700c-42e1-beed-f2c5c59b6f8f"/>
+								<reportElement x="702" y="39" width="30" height="15" uuid="4aacd93d-700c-42e1-beed-f2c5c59b6f8f"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -250,7 +250,7 @@
 ]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="680" y="54" width="30" height="15" uuid="78e71733-1a0a-4dcd-9ba5-17af637153a9"/>
+								<reportElement x="702" y="54" width="30" height="15" uuid="78e71733-1a0a-4dcd-9ba5-17af637153a9"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -278,7 +278,7 @@
 								<textFieldExpression><![CDATA["Arrêtée la présente facture à la somme de: "+ $P{montantlettre}]]></textFieldExpression>
 							</textField>
 							<staticText>
-								<reportElement x="632" y="108" width="157" height="27" uuid="6787acf0-78d7-4aa9-a6d3-b90c76c912d4"/>
+								<reportElement x="655" y="108" width="157" height="27" uuid="6787acf0-78d7-4aa9-a6d3-b90c76c912d4"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -291,7 +291,7 @@
 								<text><![CDATA[Le Responsable Facturation]]></text>
 							</staticText>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="710" y="24" width="70" height="15" uuid="c664f795-b506-4248-b0c2-845df8d70e80"/>
+								<reportElement x="732" y="24" width="70" height="15" uuid="c664f795-b506-4248-b0c2-845df8d70e80"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -305,7 +305,7 @@
 								<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 							</textField>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="710" y="39" width="70" height="15" uuid="e255cee7-92fe-45ad-9b74-3f17cf807d75"/>
+								<reportElement x="732" y="39" width="70" height="15" uuid="e255cee7-92fe-45ad-9b74-3f17cf807d75"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -348,7 +348,7 @@
 								<text><![CDATA[]]></text>
 							</staticText>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="710" y="54" width="70" height="15" uuid="3057f06d-780d-4835-8487-514afbceeb82"/>
+								<reportElement x="732" y="54" width="70" height="15" uuid="3057f06d-780d-4835-8487-514afbceeb82"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -554,7 +554,7 @@
 								<text><![CDATA[Montant en Dollar]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="680" y="9" width="100" height="15" uuid="9cef102a-b6aa-40af-9075-103771899f54"/>
+								<reportElement x="702" y="9" width="100" height="15" uuid="9cef102a-b6aa-40af-9075-103771899f54"/>
 								<box>
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.0"/>
@@ -599,7 +599,7 @@
 								<text><![CDATA[Cours de change du:]]></text>
 							</staticText>
 							<staticText>
-								<reportElement x="666" y="7" width="124" height="65" uuid="35f197b1-f2fd-41b0-ad8c-1d63aff38ae3"/>
+								<reportElement x="688" y="7" width="124" height="65" uuid="35f197b1-f2fd-41b0-ad8c-1d63aff38ae3"/>
 								<box>
 									<pen lineWidth="0.5"/>
 									<topPen lineWidth="0.5"/>
@@ -664,10 +664,10 @@
 								<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 							</textField>
 						</jr:tableFooter>
-						<jr:column width="55" uuid="7708f6c7-5a98-4507-a1ef-c858efe516b4">
+						<jr:column width="60" uuid="7708f6c7-5a98-4507-a1ef-c858efe516b4">
 							<jr:columnHeader height="23" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="55" height="23" uuid="175de0ba-4d69-407d-a515-7009c97b57b6"/>
+									<reportElement x="0" y="0" width="60" height="23" uuid="175de0ba-4d69-407d-a515-7009c97b57b6"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -683,7 +683,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="13" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="55" height="13" uuid="c9f908cd-eb66-4e33-9354-5a88f5212f21"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="60" height="13" uuid="c9f908cd-eb66-4e33-9354-5a88f5212f21"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -800,10 +800,10 @@
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="55" uuid="9173f711-1bcc-4b13-b087-059dd7fdf33e">
+						<jr:column width="60" uuid="9173f711-1bcc-4b13-b087-059dd7fdf33e">
 							<jr:columnHeader height="23" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="55" height="23" uuid="05d9a56c-6e26-4477-ac53-d3313924c6aa"/>
+									<reportElement x="0" y="0" width="60" height="23" uuid="05d9a56c-6e26-4477-ac53-d3313924c6aa"/>
 									<box>
 										<topPen lineWidth="0.25"/>
 										<leftPen lineWidth="0.25"/>
@@ -819,7 +819,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="13" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="55" height="13" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="60" height="13" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -918,7 +918,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="13" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
+								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="35" height="13" uuid="bfbd6226-2bf5-4abb-b8a4-df17fbb8e039"/>
 									<box>
 										<topPen lineWidth="0.5"/>
@@ -934,10 +934,10 @@
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="68" uuid="152bfdc2-10f1-4cc8-b96c-955d14eea13b">
+						<jr:column width="75" uuid="152bfdc2-10f1-4cc8-b96c-955d14eea13b">
 							<jr:columnHeader height="23" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="68" height="23" uuid="5e1994fd-0500-422e-b01b-efce0c24bfed"/>
+									<reportElement x="0" y="0" width="75" height="23" uuid="5e1994fd-0500-422e-b01b-efce0c24bfed"/>
 									<box>
 										<topPen lineWidth="0.25"/>
 										<leftPen lineWidth="0.25"/>
@@ -953,7 +953,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="13" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="68" height="13" uuid="01ef0a35-35ed-41fb-849d-f3d8d30efcbb"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="75" height="13" uuid="01ef0a35-35ed-41fb-849d-f3d8d30efcbb"/>
 									<box>
 										<topPen lineWidth="0.5"/>
 										<leftPen lineWidth="0.5"/>
@@ -1076,7 +1076,7 @@
 				</jr:table>
 			</componentElement>
 			<rectangle>
-				<reportElement x="0" y="0" width="780" height="210" uuid="a1d35c5e-1853-4f25-a257-6ef756263499"/>
+				<reportElement x="0" y="0" width="809" height="210" uuid="a1d35c5e-1853-4f25-a257-6ef756263499"/>
 				<graphicElement>
 					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</graphicElement>
