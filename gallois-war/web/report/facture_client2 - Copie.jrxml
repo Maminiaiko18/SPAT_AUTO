@@ -218,7 +218,7 @@
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:columnGroup width="790" uuid="38df97f6-b17b-4222-b816-91967c5417b0">
+					<jr:columnGroup width="795" uuid="38df97f6-b17b-4222-b816-91967c5417b0">
 						<jr:tableFooter height="246" rowSpan="1">
 							<staticText>
 								<reportElement x="680" y="24" width="30" height="15" uuid="8097e9c5-8a1b-4d33-9161-4f4902844243"/>
@@ -664,10 +664,10 @@
 								<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 							</textField>
 						</jr:tableFooter>
-						<jr:column width="50" uuid="7708f6c7-5a98-4507-a1ef-c858efe516b4">
+						<jr:column width="55" uuid="7708f6c7-5a98-4507-a1ef-c858efe516b4">
 							<jr:columnHeader height="23" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="50" height="23" uuid="175de0ba-4d69-407d-a515-7009c97b57b6"/>
+									<reportElement x="0" y="0" width="55" height="23" uuid="175de0ba-4d69-407d-a515-7009c97b57b6"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -683,7 +683,7 @@
 							</jr:columnHeader>
 							<jr:detailCell height="13" rowSpan="1">
 								<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="13" uuid="c9f908cd-eb66-4e33-9354-5a88f5212f21"/>
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="55" height="13" uuid="c9f908cd-eb66-4e33-9354-5a88f5212f21"/>
 									<box>
 										<pen lineWidth="0.5"/>
 										<topPen lineWidth="0.5"/>
@@ -692,7 +692,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 								</textField>
@@ -726,7 +726,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{heureDebut}]]></textFieldExpression>
 								</textField>
@@ -760,7 +760,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{heureFin}]]></textFieldExpression>
 								</textField>
@@ -793,7 +793,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement verticalAlignment="Middle" markup="none">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 										<paragraph leftIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{designation}.toUpperCase()]]></textFieldExpression>
@@ -827,7 +827,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{pu}]]></textFieldExpression>
@@ -860,7 +860,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{quantite}]]></textFieldExpression>
@@ -893,7 +893,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{devise}.toUpperCase()]]></textFieldExpression>
@@ -927,7 +927,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{tva}]]></textFieldExpression>
@@ -961,7 +961,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{montanttaux}]]></textFieldExpression>
@@ -996,7 +996,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Right" verticalAlignment="Middle">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 										<paragraph rightIndent="2"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{reduction}]]></textFieldExpression>
@@ -1031,7 +1031,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Right" verticalAlignment="Middle">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 										<paragraph rightIndent="2"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{majoration}]]></textFieldExpression>
@@ -1065,7 +1065,7 @@
 										<rightPen lineWidth="0.5"/>
 									</box>
 									<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-										<font size="9" isBold="true"/>
+										<font size="11" isBold="true"/>
 										<paragraph rightIndent="3"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{montantHTEuro}]]></textFieldExpression>
