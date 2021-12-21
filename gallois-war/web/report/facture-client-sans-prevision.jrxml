@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="891" pageHeight="927" columnWidth="851" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.3310000000000013"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="233"/>
 	<property name="ireport.y" value="174"/>
 	<style name="table">
 		<box>
@@ -338,14 +338,14 @@
 				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="654" y="40" width="142" height="20" uuid="925113be-1529-4815-8de5-a92f3f00a6d4"/>
+				<reportElement x="655" y="40" width="142" height="20" uuid="925113be-1529-4815-8de5-a92f3f00a6d4"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="587" y="40" width="71" height="20" uuid="c975cfb3-68dd-4263-8e32-e65dc19a2377"/>
+				<reportElement x="588" y="40" width="71" height="20" uuid="c975cfb3-68dd-4263-8e32-e65dc19a2377"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
