@@ -26,7 +26,7 @@
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-//        pr.setOrdre(" order by daty desc");
+        pr.setOrdre(" order by daty desc");
         pr.setApres("facture/factureclient-liste-vaovao.jsp");
         
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
