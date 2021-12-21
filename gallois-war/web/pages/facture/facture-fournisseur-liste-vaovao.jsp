@@ -70,6 +70,7 @@
         
         
         String[] colSomme = {"montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste"};
+        pr.setOrdre("order by daty desc");
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
