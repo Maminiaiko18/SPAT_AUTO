@@ -46,7 +46,6 @@
         nature.setNomTable("nature");
         listeM[3] = new Liste("nature", nature, "val", "id");
         
-        
         pi.getFormu().changerEnChamp(listeM);
 
         pi.getFormu().getChamp("estDDPMICTSL").setLibelle("Droit de Port MICTSL");
