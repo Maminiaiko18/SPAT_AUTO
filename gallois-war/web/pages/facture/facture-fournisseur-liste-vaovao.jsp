@@ -30,7 +30,7 @@
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-//        pr.setOrdre(" order by daty desc");
+        pr.setOrdre(" order by daty desc");
         pr.setApres("facture/facture-fournisseur-liste-vaovao.jsp");
         
         affichage.Champ[]liste = new affichage.Champ[1];
@@ -70,7 +70,6 @@
         
         
         String[] colSomme = {"montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste"};
-        pr.setOrdre("order by daty desc");
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
