@@ -47,7 +47,7 @@
     rqt+=" and etatNavire!='"+ConstanteEtat.getEtatAnnuler()+"'";
     pr.setApres("capitainerie/mouvement-liste.jsp");
     pr.setAWhere(rqt);
-    pr.setOrdre(" order by  escale desc,id desc");
+    pr.setOrdre(" order by  datearrivee desc");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
