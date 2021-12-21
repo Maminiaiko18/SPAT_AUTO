@@ -1,3 +1,4 @@
+<%@page import="mg.spat.exploitant.Activite"%>
 <%@page import="facture.FactureClientDetails"%>
 <%@page import="facture.FactureClient"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -159,9 +160,15 @@
         mere = (FactureClient) pi.getBase();
         pi.preparerDataFormu();
         
+        Activite act = liste.length > 0 ? liste[0].getActivite(null) : null;
         
-
+        
 %>
+<style>
+    .card{
+        border: 1px solid;
+    }
+</style>
 <div class="content-wrapper">
     <div class="box">
         <h1><%= titrePage%></h1>
@@ -171,6 +178,32 @@
                 pi.getFormufle().makeHtmlInsertTableauIndex();
                 out.println(pi.getFormu().getHtmlInsert());
             %>
+            <div class="col-md-6">
+                <div class="card">
+                    <table border="0" style="width: 100%">
+                        <tr>
+                            <td width="50%"><b>lht</b></td>
+                            <td width="50%"><%=act.getLongueur()%></td>
+                        </tr>
+                        <tr>
+                            <td><b>lm</b></td>
+                            <td><%=act.getLargeur()%></td>
+                        </tr>
+                         <tr>
+                            <td><b>te</b></td>
+                            <td><%=act.getTirant()%></td>
+                        </tr>
+                        <tr>
+                            <td><b>Volume</b></td>
+                            <td><%=act.getVolume()%></td>
+                        </tr>
+                        <tr>
+                            <td><b>Volume (en quantité)</b></td>
+                            <td><%=act.getVolumeArrondi()%></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
             <center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
             <div class="row">
                 <div class="col-md-12">
