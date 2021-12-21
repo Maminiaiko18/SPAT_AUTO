@@ -33,10 +33,9 @@ public class ComptaService {
             ComptaBilan cd=new ComptaBilan();
             ComptaBilan[] actif=(ComptaBilan[])CGenUtil.rechercher(cd, "select \n" +
             "    idrubrique, rubrique, reference,\n" +
-            "    sum(ec_montant) as ec_montant \n" +
+            "    cast(sum(nvl(Credit,0))-sum(nvl(Debit,0)) as number(32,3)) as ec_montant \n" +
             "from \n" +
             "    comptabilanactif where 1<2  and \n" +
-            "    type='Credit' and \n" +
             "    ec_date>=to_date('"+d1+"','YYYY-MM-DD') and \n" +
             "    ec_date<=to_date('"+d2+"','YYYY-MM-DD')\n" +
             "group by \n" +
@@ -44,10 +43,9 @@ public class ComptaService {
             cd.setNomTable("comptabilanpassif");
             ComptaBilan[] passif=(ComptaBilan[])CGenUtil.rechercher(cd, "select \n" +
             "    idrubrique, rubrique, reference,\n" +
-            "    sum(ec_montant) as ec_montant \n" +
+            "    cast(sum(nvl(Credit,0))-sum(nvl(Debit,0)) as number(32,3)) as ec_montant \n" +
             "from \n" +
             "    comptabilanpassif where 1<2  and \n" +
-            "    type='Debit' and \n" +
             "    ec_date>=to_date('"+d1+"','YYYY-MM-DD') and \n" +
             "    ec_date<=to_date('"+d2+"','YYYY-MM-DD')\n" +
             "group by \n" +
@@ -83,23 +81,23 @@ public class ComptaService {
             }
             ComptaBilan cd=new ComptaBilan();
             cd.setNomTable("comptabilanproduit");
-            ComptaBilan[] actif=(ComptaBilan[])CGenUtil.rechercher(cd, "select \n" +
+            String rqt="select \n" +
             "    idrubrique, rubrique, reference,\n" +
-            "    sum(ec_montant) as ec_montant \n" +
+            "    cast(sum(nvl(Credit,0))-sum(nvl(Debit,0)) as number(32,3)) as ec_montant \n" +
             "from \n" +
             "    comptabilanproduit where 1<2  and \n" +
-            "    type='Credit' and \n" +
             "    ec_date>=to_date('"+d1+"','YYYY-MM-DD') and \n" +
             "    ec_date<=to_date('"+d2+"','YYYY-MM-DD')\n" +
             "group by \n" +
-            "    idrubrique, rubrique, reference", c);
+            "    idrubrique, rubrique, reference";
+            System.out.println("rqte===="+rqt);
+            ComptaBilan[] actif=(ComptaBilan[])CGenUtil.rechercher(cd, rqt, c);
             cd.setNomTable("comptabilancharge");
             ComptaBilan[] passif=(ComptaBilan[])CGenUtil.rechercher(cd, "select \n" +
             "    idrubrique, rubrique, reference,\n" +
-            "    sum(ec_montant) as ec_montant \n" +
+            "    cast(sum(nvl(Credit,0))-sum(nvl(Debit,0)) as number(32,3)) as ec_montant \n" +
             "from \n" +
             "    comptabilancharge where 1<2  and \n" +
-            "    type='Debit' and \n" +
             "    ec_date>=to_date('"+d1+"','YYYY-MM-DD') and \n" +
             "    ec_date<=to_date('"+d2+"','YYYY-MM-DD')\n" +
             "group by \n" +

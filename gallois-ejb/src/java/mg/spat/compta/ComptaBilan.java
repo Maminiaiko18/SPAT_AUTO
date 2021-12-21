@@ -114,7 +114,7 @@ public class ComptaBilan extends ClassMAPTable{
             }
             
             String ids = Utilitaire.tabToString(numCompte, "'", ",");
-            String requete = "select rubrique, cpt_rubrique, sum(ec_montant) as ec_montant , LIBELLE_CPT_RUBRIQUE from comptabilan where cpt_rubrique in ("+ids+") and ec_date>=to_date('"+debut+"','YYYY-MM-DD') and ec_date<=to_date('"+fin+"','YYYY-MM-DD') and type='"+type+"' "+cpt_rubriqueWhere+" group by cpt_rubrique, rubrique,LIBELLE_CPT_RUBRIQUE";
+            String requete = "select rubrique, cpt_rubrique, cast(sum(nvl(Credit,0))-sum(nvl(Debit,0)) as number(32,3)) as ec_montant , LIBELLE_CPT_RUBRIQUE from comptabilan where cpt_rubrique in ("+ids+") and ec_date>=to_date('"+debut+"','YYYY-MM-DD') and ec_date<=to_date('"+fin+"','YYYY-MM-DD') "+cpt_rubriqueWhere+" group by cpt_rubrique, rubrique,LIBELLE_CPT_RUBRIQUE order by cpt_rubrique";
             
             System.out.println("requette  ----   "+requete);
             
