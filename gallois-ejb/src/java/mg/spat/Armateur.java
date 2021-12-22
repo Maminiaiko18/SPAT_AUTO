@@ -6,6 +6,7 @@
 package mg.spat;
 
 import bean.ClassMAPTable;
+import java.sql.Connection;
 
 /**
  *
@@ -124,5 +125,9 @@ public class Armateur extends ClassMAPTable{
         return "id";
     }
     
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("ARM", "get_seqarmateur");
+        this.setId(makePK(c));
+    }
     
 }
