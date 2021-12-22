@@ -871,7 +871,13 @@ public class EtatPaieServlet extends HttpServlet {
             
             
             
-            
+            param.put("responsable","Pr&eacute;par&eacute; Par");
+            param.put("chef","Le Responsable Facturation");
+            if(mere[0].getEstMictsl().compareToIgnoreCase("1")==0){
+                    
+                    param.put("chef","Le chef de D&eacute;partement");
+                    param.put("responsable","Le contr&ocirc;leur");
+                }
             if(pre.length!=0){
 
                  param.put("navire",pre[0].getNomnavire());
@@ -891,9 +897,9 @@ public class EtatPaieServlet extends HttpServlet {
                  param.put("armateur",pre[0].getArmateurlib());
                  param.put("tenavire",pre[0].getTenavire());
                  
-                 setNomJasper("facture_client2 - Copie");
+                 setNomJasper("facture_client2 - Copie");//facture_client2 - Copie //facture_convention //facture-client-sans-prevision
                  
-            }else{
+            }else{               
                 setNomJasper("facture-client-sans-prevision");
             }
             
