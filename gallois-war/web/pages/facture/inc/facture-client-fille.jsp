@@ -25,23 +25,20 @@
     PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    
+
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
     pr.setOrdre(" order by daty,rang");
-    pr.creerObjetPage(libEntete, colSomme); 
+    pr.creerObjetPage(libEntete, colSomme);
 
     FactureClientDetails[] liste = (FactureClientDetails[]) pr.getTableau().getData();
-    
+
     /*
     FactureClient fm=(FactureClient) liste[0].findMere(null,null);
     FactureClientDetails[] lcdf=(FactureClientDetails[])fm.getFille(null, null,"");
     FactureClient dfm=(FactureClient)fm.dupliquer(pr.getUtilisateur().getUser().getTuppleID(), null);
      */
     //if(liste == null) liste = new  FactureClientDetails[0]; 
-    
-    FactureClientFilleData dataF = new FactureClientFilleData(liste[0].getIdmere(), liste, null);
-    FactureClient facture = dataF.getFacture();
     pr.getTableau().transformerDataString();
 
     String libEnteteAffiche[] = {"id", "designation", "pu", "quantité", "devise", "compte", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "Activite", "Heure début", "Heure fin", "RED.%", "MAJ.%"};
@@ -51,7 +48,9 @@
 //    pr.getTableau().setColonneLien(colonneLien);
     pr.getTableau().setLibeEntete(libEnteteAffiche);
 
-    if (pr.getTableau().getHtml() != null) {
+    if (liste.length > 0 && pr.getTableau().getHtml() != null) {
+        FactureClientFilleData dataF = new FactureClientFilleData(liste[0].getIdmere(), liste, null);
+        FactureClient facture = dataF.getFacture();
 
         out.println(pr.getTableau().getHtml());
 //        double total=0;
@@ -60,15 +59,15 @@
         double hTEuro = facture.getMontantHTEuro();
         double tvaEuro = facture.getMontantTVAEuro();
         double ttcEuro = facture.getMontantHTEuro() + facture.getMontantTVAEuro();
-        
+
         double hTDollar = facture.getMontantHTVADollar();
         double tvaDollar = facture.getMontantTVADollar();
         double ttcDollar = facture.getMontantTTCDollar();
-        
+
         double ttcAr = facture.getMontantttc();
         double htAr = facture.getMontant();
         double tvaAr = facture.getMontanttva();
-        
+
         double deviseEur = facture.getDeviseEuro();
         double deviseDollar = facture.getDeviseDollar();
         String dateFacture = liste[0].getDatefact() != null ? Utilitaire.datetostring(liste[0].getDatefact()) : Utilitaire.datetostring(facture.getDaty());
@@ -77,7 +76,7 @@
     <div class="col-md-3">
         <table class="table table-striped table-bordered table-condensed table-responsive tree">
             <tr>
-                <th>Cours de change du : <%= dateFacture %></th>
+                <th>Cours de change du : <%= dateFacture%></th>
                 <th></th>
             </tr>
             <tr>

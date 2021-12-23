@@ -162,6 +162,16 @@
         
         Activite act = liste.length > 0 ? liste[0].getActivite(null) : null;
         
+        double longueur = 0, largeur = 0, tirant = 0, volume = 0, volumeArrondi = 0;
+        
+        if(act != null) {
+            longueur = act.getLongueur();
+            largeur = act.getLargeur();
+            tirant = act.getTirant();
+            volume = act.getVolume();
+            volumeArrondi = act.getVolumeArrondi();
+        }
+        
         
 %>
 <style>
@@ -183,23 +193,23 @@
                     <table border="0" style="width: 100%">
                         <tr>
                             <td width="50%"><b>lht</b></td>
-                            <td width="50%"><%=act.getLongueur()%></td>
+                            <td width="50%"><%=longueur%></td>
                         </tr>
                         <tr>
                             <td><b>lm</b></td>
-                            <td><%=act.getLargeur()%></td>
+                            <td><%=largeur%></td>
                         </tr>
                          <tr>
                             <td><b>te</b></td>
-                            <td><%=act.getTirant()%></td>
+                            <td><%=tirant%></td>
                         </tr>
                         <tr>
                             <td><b>Volume</b></td>
-                            <td><%=act.getVolume()%></td>
+                            <td><%=volume%></td>
                         </tr>
                         <tr>
                             <td><b>Volume (en quantité)</b></td>
-                            <td><%=act.getVolumeArrondi()%></td>
+                            <td><%=volumeArrondi%></td>
                         </tr>
                     </table>
                 </div>
