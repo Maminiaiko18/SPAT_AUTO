@@ -10,7 +10,7 @@
     try{
     String champReturn = request.getParameter("champReturn");
     Armateur quais = new Armateur(); 
-    quais.setNomTable("ACTIVITELIBCOMPLET");
+    quais.setNomTable("armateur");
 
     String listeCrt[] = {"id","nom", "adresse"};
     String listeInt[] = {};
