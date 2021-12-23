@@ -5,10 +5,115 @@
  */
 package mg.spat;
 
+import java.util.HashMap;
+
 /**
  *
  * @author Asus
  */
 public class EtatCA {
+
+    CA totalGeneral;
+    HashMap<String, CA[]> listeParRubrique;
+    HashMap<String, CA> sommePartiel;
+    int nbFactComptant;
+    int nbFactCredit;
+    double pourcAvoir;
+    double pourComptant;
+    double pourcCredit;
+    int mois;
+    int annee;
+
+    public CA getTotalGeneral() {
+        return totalGeneral;
+    }
+
+    public void setTotalGeneral(CA totalGeneral) {
+        this.totalGeneral = totalGeneral;
+    }
+
+    public HashMap<String, CA[]> getListeParRubrique() {
+        return listeParRubrique;
+    }
+
+    public void setListeParRubrique(HashMap<String, CA[]> listeParRubrique) {
+        this.listeParRubrique = listeParRubrique;
+    }
+
+    public HashMap<String, CA> getSommePartiel() {
+        return sommePartiel;
+    }
+
+    public void setSommePartiel(HashMap<String, CA> sommePartiel) {
+        this.sommePartiel = sommePartiel;
+    }
+
+    public int getNbFactComptant() {
+        return nbFactComptant;
+    }
+
+    public void setNbFactComptant(int nbFactComptant) {
+        this.nbFactComptant = nbFactComptant;
+    }
+
+    public int getNbFactCredit() {
+        return nbFactCredit;
+    }
+
+    public void setNbFactCredit(int nbFactCredit) {
+        this.nbFactCredit = nbFactCredit;
+    }
+
+    public double getPourcAvoir() {
+        return pourcAvoir;
+    }
+
+    public void setPourcAvoir(double pourcAvoir) {
+        this.pourcAvoir = pourcAvoir;
+    }
+
+    public double getPourComptant() {
+        return pourComptant;
+    }
+
+    public void setPourComptant(double pourComptant) {
+        this.pourComptant = pourComptant;
+    }
+
+    public double getPourcCredit() {
+        return pourcCredit;
+    }
+
+    public void setPourcCredit(double pourcCredit) {
+        this.pourcCredit = pourcCredit;
+    }
+
+    public int getMois() {
+        return mois;
+    }
+
+    public void setMois(int mois) {
+        this.mois = mois;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    public EtatCA() {
+    }
     
+    public EtatCA(CA[] tout, int mois, int annee,boolean estGroupeAncien){
+        
+    }
+    
+    public EtatCA(String mois, String annee,boolean estGroupeAncien) {
+        
+    }
+
+
 }
