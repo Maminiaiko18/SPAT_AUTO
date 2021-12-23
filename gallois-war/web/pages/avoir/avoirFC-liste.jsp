@@ -20,6 +20,7 @@
         String libelleAffiche[] = {"id", "date", "Code", "tiers", "facture", "Type", "montant","montant payé","Reste à payer"};
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+        pr.setOrdre(" order by daty desc");
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("avoir/avoirFC-liste.jsp");
         

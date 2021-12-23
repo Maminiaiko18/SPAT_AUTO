@@ -11,16 +11,22 @@
     PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
       
     affichage.Champ[] liste = new affichage.Champ[1];
-    Liste li = new Liste("type");
-    String [] val = {"partenaire", "prestataire"};
-    String [] aff = {"Partenaire", "Prestataire"};
-    li.ajouterValeur( val, aff );
-    liste[0]=li;
+     TypeObjet type = new TypeObjet();
+    type.setNomTable("typeclient");
+    
+    liste[0] = new Liste("type", type, "val", "id");
+//    Liste li = new Liste("type");
+//    String [] val = {"partenaire", "prestataire"};
+//    String [] aff = {"Partenaire", "Prestataire"};
+//    li.ajouterValeur( val, aff );
+//    liste[0]=li;
     pi.getFormu().changerEnChamp(liste);
     
     pi.getFormu().getChamp("type").setDefaut("prestataire"); 
     pi.getFormu().getChamp("compteAuxFournisseur").setLibelle("Compte fournisseur"); 
     pi.getFormu().getChamp("compteAuxClient").setLibelle("Compte client"); 
+    pi.getFormu().getChamp("cin").setLibelle("CIN"); 
+    pi.getFormu().getChamp("cp").setLibelle("CP"); 
     pi.getFormu().getChamp("etat").setVisible(false); 
     
     pi.setLien((String) session.getValue("lien"));

@@ -10,6 +10,7 @@
     String libEntete[] = {"cdclt","cdcat", "nomclt", "adrclt", "categorie"};
     
     ClientCategorie cons = new ClientCategorie();
+    cons.setNomTable("client_union");
     
     PageRechercheChoix pr = new PageRechercheChoix(cons, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     
