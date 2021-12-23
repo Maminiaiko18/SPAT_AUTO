@@ -10,16 +10,23 @@
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
     affichage.Champ[] liste = new affichage.Champ[1];
-    Liste li = new Liste("type");
+    TypeObjet type = new TypeObjet();
+    type.setNomTable("typeclient");
+    
+    liste[0] = new Liste("type", type, "val", "id");
+    
+    /*Liste li = new Liste("type");
     String [] val = {"partenaire", "prestataire"};
     String [] aff = {"Partenaire", "Prestataire"};
     li.ajouterValeur( val, aff );
-    liste[0]=li;
+    liste[0]=li;*/
+    
     pi.getFormu().changerEnChamp(liste);
     
     pi.getFormu().getChamp("etat").setVisible(false); 
     
     pi.getFormu().getChamp("compteAuxFournisseur").setLibelle("Compte Fournisseur"); 
+    pi.getFormu().getChamp("cp").setLibelle("Code Postal"); 
     pi.getFormu().getChamp("compteAuxClient").setLibelle("Compte Client");
     pi.preparerDataFormu();
 %>
