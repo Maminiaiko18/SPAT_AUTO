@@ -63,69 +63,7 @@
     titre.put("categorieAvoirFC","Categorie avoir facture client");
     titre.put("nature", "Nature");
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    titre.put("typeclient", "Type Client");
     
     TypeObjet act = new TypeObjet();
     act.setNomTable(cible);
