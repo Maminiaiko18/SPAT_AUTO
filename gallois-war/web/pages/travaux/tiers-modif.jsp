@@ -26,7 +26,8 @@
     pi.getFormu().getChamp("etat").setVisible(false); 
     
     pi.getFormu().getChamp("compteAuxFournisseur").setLibelle("Compte Fournisseur"); 
-    pi.getFormu().getChamp("cp").setLibelle("Code Postal"); 
+    pi.getFormu().getChamp("cp").setLibelle("CP"); 
+    pi.getFormu().getChamp("cin").setLibelle("CIN"); 
     pi.getFormu().getChamp("compteAuxClient").setLibelle("Compte Client");
     pi.preparerDataFormu();
 %>
