@@ -14,8 +14,8 @@ import java.sql.Connection;
  */
 public class Tiers extends ClassEtat {
 
-    private String id, nom, description, nif, stat, contact, responsable, adresse, type,compteAuxFournisseur,compteAuxClient;
-
+    private String id, nom, description, nif, stat, contact, responsable, adresse, type,compteAuxFournisseur,compteAuxClient,cin,cp;
+   
     public Tiers() {
         this.setNomTable("tiers");
     }
@@ -65,6 +65,27 @@ public class Tiers extends ClassEtat {
     public String getNif() {
         return nif;
     }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) throws Exception{
+         if(cin.length()>12)
+         {
+             throw new Exception("cin non valide");
+         }
+        this.cin = cin;
+    }
+
+    public String getCp() {
+        return cp;
+    }
+
+    public void setCp(String cp) {
+        this.cp = cp;
+    }
+    
 
     public void setNif(String nif) throws Exception {
         double nifnumber = 0;
