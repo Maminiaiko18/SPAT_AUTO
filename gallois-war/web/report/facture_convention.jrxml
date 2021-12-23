@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="103"/>
+	<property name="ireport.y" value="102"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -249,9 +249,9 @@
 	<summary>
 		<band height="178">
 			<staticText>
-				<reportElement x="0" y="112" width="207" height="18" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
+				<reportElement x="0" y="112" width="243" height="18" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
 				<textElement>
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Arrêtée la présente facture à la somme de :]]></text>
 			</staticText>
@@ -324,14 +324,14 @@
 				<text><![CDATA[Montant Total HTVA en Ar :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="570" y="54" width="176" height="17" uuid="838a30eb-0c39-417e-8ee9-48dd84b9396d"/>
+				<reportElement x="571" y="54" width="176" height="17" uuid="838a30eb-0c39-417e-8ee9-48dd84b9396d"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Net à payer en Total en Ar : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="209" y="112" width="698" height="42" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
+				<reportElement x="243" y="112" width="664" height="42" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
 				<textElement>
 					<font size="12" isItalic="true"/>
 				</textElement>
@@ -383,7 +383,7 @@
 				<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="573" y="37" width="157" height="17" uuid="a5747285-d8e8-4026-a07c-9032b58ed7eb"/>
+				<reportElement x="571" y="37" width="157" height="17" uuid="a5747285-d8e8-4026-a07c-9032b58ed7eb"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>

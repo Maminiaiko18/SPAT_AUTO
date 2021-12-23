@@ -298,14 +298,14 @@
 				<textFieldExpression><![CDATA[$P{reduction}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="149" y="234" width="329" height="16" uuid="87f52370-53cb-4fd7-bbcf-9b6b5351c41d"/>
+				<reportElement x="168" y="234" width="329" height="16" uuid="87f52370-53cb-4fd7-bbcf-9b6b5351c41d"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dateEcheance}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="234" width="129" height="16" uuid="e554f512-0dfe-42c2-81c8-09012ae26656"/>
+				<reportElement x="0" y="234" width="168" height="16" uuid="e554f512-0dfe-42c2-81c8-09012ae26656"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -534,7 +534,7 @@
 	<summary>
 		<band height="172">
 			<staticText>
-				<reportElement x="0" y="97" width="207" height="18" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
+				<reportElement x="0" y="97" width="248" height="18" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -673,7 +673,7 @@
 				<text><![CDATA[Net à payer en Ar : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="209" y="97" width="347" height="42" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
+				<reportElement x="248" y="97" width="347" height="42" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
 				<textElement>
 					<font size="12" isItalic="true"/>
 				</textElement>
