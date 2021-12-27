@@ -1215,7 +1215,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Facture en :]]></text>
+				<text><![CDATA[Facture en   :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="15" y="44" width="84" height="16" uuid="782dd403-aad1-4694-bce1-febf8b305400"/>
