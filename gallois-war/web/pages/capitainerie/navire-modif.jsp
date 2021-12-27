@@ -23,6 +23,8 @@
     pi.getFormu().changerEnChamp(liste);
      pi.getFormu().getChamp("pavillon").setPageAppel("choix/listePaysChoix.jsp");
     pi.getFormu().getChamp("pavillon").setAutre("readonly");
+     pi.getFormu().getChamp("armateur").setPageAppel("choix/listeArmateurChoix.jsp");
+    pi.getFormu().getChamp("armateur").setAutre("readonly");
     pi.getFormu().getChamp("reference").setLibelle("R&eacute;f&eacute;rence");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("volume").setVisible(false);
