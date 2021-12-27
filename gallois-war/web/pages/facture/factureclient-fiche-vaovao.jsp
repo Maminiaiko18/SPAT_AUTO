@@ -51,6 +51,8 @@
         pc.getChampByName("typelib").setLibelle("Type");
         pc.getChampByName("escale").setLibelle("Escale");
         pc.getChampByName("codeProvision").setLibelle("Provision");
+        pc.getChampByName("armateurlib").setLibelle("Armateur");
+        pc.getChampByName("exercice").setLibelle("Exercice");
 
         pc.getChampByName("code").setLibelle("Code");
         e = (FactureClient) pc.getBase();
