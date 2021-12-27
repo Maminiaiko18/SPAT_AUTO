@@ -7,24 +7,27 @@
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="mg.spat.Navire"%>
 <%@page import="affichage.PageRecherche"%>
-<% 
-    Navire navire = new Navire();
-    navire.setNomTable("navirelib");
-    
-    String[] champ = {"id", "reference", "nom", "pavillon", "remarque","jnt", "jbt", "plt", "lht", "lm", "te", "volume","type"};
-    String[] libelle_comp = {"id", "Référence", "Nom", "Pavillon", "Remarque","jnt", "jbt", "plt", "lht", "lm", "te", "Volume","type"};
-    
-    String listeCrt[] = {"id","reference", "nom", "pavillon","remarque","type"};
-    String listeInt[] = {""};
-    String libEntete[] = {"id","reference", "nom", "pavillon","jnt", "jbt", "plt", "lht", "lm", "te", "volume","remarque","type"};
-    PageRecherche pr = new PageRecherche(navire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-    pr.setUtilisateur((user.UserEJB) session.getValue("u"));
-    pr.getFormu().getChamp("reference").setLibelle("Référence");
-    pr.setLien((String) session.getValue("lien"));
-    pr.setAWhere(" and etat!="+ConstanteEtat.getEtatAnnuler()+" order by nom asc");
-    pr.setApres("capitainerie/navire-liste.jsp");
-    String[] colSomme = null;
-    pr.creerObjetPage(libEntete, colSomme);
+<%
+    try {
+
+        Navire navire = new Navire();
+        navire.setNomTable("navirelib");
+
+        String[] champ = {"id", "nom", "pavillon", "armateurlib", "remarque", "jnt", "jbt", "plt", "lht", "lm", "te", "volume", "type"};
+        String[] libelle_comp = {"id", "Nom", "Pavillon","Armateur", "Remarque", "jnt", "jbt", "plt", "lht", "lm", "te", "Volume", "type"};
+
+        String listeCrt[] = {"id", "nom", "pavillon","armateurlib", "remarque", "type"};
+        String listeInt[] = {""};
+        String libEntete[] = {"id", "nom", "pavillon","armateurlib", "jnt", "jbt", "plt", "lht", "lm", "te", "volume", "remarque", "type"};
+        PageRecherche pr = new PageRecherche(navire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+        pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+//        pr.getFormu().getChamp("reference").setLibelle("Référence");
+        pr.getFormu().getChamp("armateurlib").setLibelle("Armateur");
+        pr.setLien((String) session.getValue("lien"));
+        pr.setAWhere(" and etat!=" + ConstanteEtat.getEtatAnnuler() + " order by nom asc");
+        pr.setApres("capitainerie/navire-liste.jsp");
+        String[] colSomme = null;
+        pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
     function changerDesignation() {
@@ -43,7 +46,7 @@
         </form>
         <%
             String lienTableau[] = {pr.getLien() + "?but=capita"
-                    + "inerie/navire-fiche.jsp"};
+                + "inerie/navire-fiche.jsp"};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
@@ -58,3 +61,9 @@
         %>
     </section>
 </div>
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+
+    }
+%>
