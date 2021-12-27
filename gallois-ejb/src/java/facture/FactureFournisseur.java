@@ -24,7 +24,17 @@ import utilitaire.Utilitaire;
  */
 public class FactureFournisseur extends FactureClient {
    private String numeroop,projet,code_etablissement,projetlib,code_etablissementlib,nature,naturelib,idbc,numOP;
+   private int execrice ;
 
+    public int getExecrice() {
+        return execrice;
+    }
+
+    public void setExecrice(int execrice) {
+        this.execrice = execrice;
+    }
+   
+   
     public String getNumOP() {
         return numOP;
     }
