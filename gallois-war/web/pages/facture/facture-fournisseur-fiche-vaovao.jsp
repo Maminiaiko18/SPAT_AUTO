@@ -66,6 +66,7 @@
         pc.getChampByName("code_etablissementlib").setLibelle("Code direction");
         //pc.getChampByName("escale").setLibelle("Escale");
         pc.getChampByName("codeProvision").setLibelle("Provision");
+        pc.getChampByName("exercice").setLibelle("Exercice");        
 
         pc.getChampByName("code").setLibelle("Numero Compta");
         e = (FactureFournisseur) pc.getBase();
