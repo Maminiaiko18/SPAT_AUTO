@@ -149,7 +149,7 @@
 					<font size="12" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
-				<text><![CDATA[Toamasina le :]]></text>
+				<text><![CDATA[Toamasina le  :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="756" y="22" width="170" height="20" uuid="a71fc03f-5836-4ef3-901b-912ec1bc006b"/>
@@ -1123,7 +1123,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Navire........ :]]></text>
+				<text><![CDATA[Navire.........:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="214" width="349" height="16" uuid="f2a19491-be7d-479e-a23f-33a8c3dbef39"/>
@@ -1172,7 +1172,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Catégorie       :]]></text>
+				<text><![CDATA[Catégorie    :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="44" width="349" height="28" uuid="3ffc35ee-59eb-4256-a647-2773e7eff06a"/>
@@ -1250,7 +1250,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Adresse:
+				<text><![CDATA[Adresse   :
 ]]></text>
 			</staticText>
 			<staticText>
@@ -1266,7 +1266,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Pavillon ..... :]]></text>
+				<text><![CDATA[Pavillon   :]]></text>
 			</staticText>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="183" y="169" width="269" height="16" uuid="db38766d-e81f-4854-87bb-04da5c53a0b5"/>
