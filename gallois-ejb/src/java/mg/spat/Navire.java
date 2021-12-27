@@ -17,7 +17,7 @@ import utilitaire.UtilDB;
  * @author Notiavina
  */
 public class Navire extends ClassEtat{
-    private String id, reference, nom, pavillon, remarque,type;
+    private String id, reference, nom, pavillon, remarque,type,armateur;
     private double jnt, jbt, plt, lht, lm, te, volume;
 
     public Navire(String nom, String pavillon) throws Exception {
@@ -76,6 +76,14 @@ public class Navire extends ClassEtat{
     
     public Navire(){
         super.setNomTable("Navire");
+    }
+
+    public String getArmateur() {
+        return armateur;
+    }
+
+    public void setArmateur(String armateur) {
+        this.armateur = armateur;
     }
 
     public String getType() {
