@@ -32,6 +32,8 @@
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
+    pi.getFormu().getChamp("exercice").setLibelle("Exercice");
+    pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
