@@ -4,9 +4,9 @@
     String champReturn = request.getParameter("champReturn");
     FactureClient facture = new FactureClient();
     facture.setNomTable("factureclientMSum_lib");
-    String listeCrt[] = {"id","daty" ,"tierslib","designation", "code"};
-    String listeInt[] = {"daty"};
-    String libEntete[] = {"id","daty" ,"tierslib","designation","tva", "date_echeance", "montant", "montanttva", "montantttc"};
+    String listeCrt[] = {"id","daty" ,"tierslib","designation", "code", "exercice"};
+    String listeInt[] = {"daty", "exercice"};
+    String libEntete[] = {"id","daty" ,"tierslib","designation","tva", "date_echeance", "montant", "montanttva", "montantttc", "exercice"};
     PageRechercheChoix pr = new PageRechercheChoix(facture, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     //pr.setOrdre(" order by daty desc");
@@ -18,6 +18,8 @@
     pr.getFormu().getChamp("daty1").setLibelle("Date Min");
     pr.getFormu().getChamp("daty1").setLibelle("Date Min");
     pr.getFormu().getChamp("daty2").setLibelle("Date Max");
+    pr.getFormu().getChamp("exercice1").setLibelle("Exercice Min");
+    pr.getFormu().getChamp("exercice2").setLibelle("Exercice Max");
     pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
    
     pr.setChampReturn(champReturn);
@@ -47,7 +49,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <% 
-                       String libEnteteAff[] =  {"id","daty" ,"tiers","designation","tva", "Date Echéance","montant HT", "montant TVA", "montant TTC"};
+                       String libEnteteAff[] =  {"id","daty" ,"tiers","designation","tva", "Date Echéance","montant HT", "montant TVA", "montant TTC", "Exercice"};
                        pr.getTableau().setLibeEntete(libEnteteAff);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>
