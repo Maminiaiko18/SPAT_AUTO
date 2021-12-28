@@ -19,13 +19,12 @@
         }
         fa.setNomTable("situationLC_vide");
 
-        String listeCrt[] = {"id", "designation", "compte", "daty"};
-        String listeInt[] = {"daty"};
+        String listeCrt[] = {"id", "designation", "compte", "daty" , "annee"};
+        String listeInt[] = {"daty","annee"};
         String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-
         pr.setApres("ligneCredit/situation-ligneCreditDepense.jsp");
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
@@ -38,11 +37,26 @@
         if(date2 == null){
             date2 = "31/12/"+anneeEnCours;
         }
-        pr.getFormu().getChamp("daty1").setDefaut(date1);
-        pr.getFormu().getChamp("daty2").setDefaut(date2);
+        
+        String annee1 = request.getParameter("annee1"), annee2 = request.getParameter("annee2");
+        String anneeEnCour = Utilitaire.getAnneeEnCours();
+        if( annee1 == null){
+            annee1 = "01/01/"+anneeEnCour;
+        }
+        if(annee2 == null){
+            annee2 = "31/12/"+anneeEnCour;
+        }
+//        pr.getFormu().getChamp("daty1").setDefaut(date1);
+//        pr.getFormu().getChamp("daty2").setDefaut(date2);
         
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
+        
+        pr.getFormu().getChamp("annee1").setDefaut(annee1);
+        pr.getFormu().getChamp("annee2").setDefaut(annee2);
+        
+        pr.getFormu().getChamp("annee1").setLibelle("Exercice Debut");
+        pr.getFormu().getChamp("annee2").setLibelle("Exercice Fin");
         
         String reqniv = "2";
 
