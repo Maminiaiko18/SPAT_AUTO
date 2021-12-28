@@ -82,6 +82,7 @@
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-saisie.jsp&idAvoir=" + e.getId() %>" style="margin-right: 10px">Payer</a>        
                     <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=annulerVisa&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Annuler visa</a>
                     <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerAvoir&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
+                     <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresAvoirFC.jsp&id=" + e.getId() %>&acte=insertFactRempl" style="margin-right: 10px">Saisir facture de remplacement</a>
                 </div>
             </div>
         </div>
