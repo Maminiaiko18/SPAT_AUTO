@@ -17,7 +17,7 @@
         String nomTable = "situationLC_vide";
         fa.setNomTable(nomTable);
 
-        String listeCrt[] = {"id", "designation", "compte", "daty"};
+        String listeCrt[] = {"id", "designation", "compte", "daty","annee"};
         String listeInt[] = {"daty"};
         String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -26,6 +26,7 @@
         
         pr.getFormu().getChamp("daty1").setLibelle("Date Début");
         pr.getFormu().getChamp("daty2").setLibelle("Date Fin");
+        pr.getFormu().getChamp("annee").setLibelle("Exercice");
         
         pr.setApres("ligneCredit/situation-ligneCreditRecette.jsp");
         
@@ -33,8 +34,8 @@
         if(date1 == null || date1.trim().isEmpty()) date1 = "01/01/"+Utilitaire.getAnneeEnCours();
         if(date2 == null || date2.trim().isEmpty()) date2 = "31/12/"+Utilitaire.getAnneeEnCours();
         
-        pr.getFormu().getChamp("daty1").setDefaut(date1);
-        pr.getFormu().getChamp("daty2").setDefaut(date2);
+//        pr.getFormu().getChamp("daty1").setDefaut(date1);
+//        pr.getFormu().getChamp("daty2").setDefaut(date2);
         
         String reqniv = "2";
 
