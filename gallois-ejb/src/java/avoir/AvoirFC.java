@@ -13,6 +13,8 @@ import bean.ClassMAPTable;
 import bean.ClassMere;
 import bean.TypeObjet;
 import ded.OrdonnerPayement;
+import facture.FactureClientDetails;
+import factureclient.FactureClientDetail;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.UtilDB;
@@ -374,5 +376,18 @@ public class AvoirFC extends ClassMere {
         op.setRemarque("Paiement avoir "+this.getId());
         op.setDaty(Utilitaire.dateDuJourSql());
         return op;
+    }
+    
+    public FactureClient creerFactureRempl(Connection c, String user) throws Exception{
+        FactureClient factureLiee = getFactureLiee("factureclient", c);
+        factureLiee.setIdavoir(this.getId());
+        factureLiee.createObject(user, c);
+        FactureClientDetails[] details = (FactureClientDetails[])factureLiee.getFille();
+        if(details != null && details.length > 0){
+            for(int i=0; i<details.length; i++){
+                details[i].createObject(user, c);
+            }
+        }
+        return factureLiee;
     }
 }
