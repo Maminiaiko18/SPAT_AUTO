@@ -12,8 +12,8 @@
     String champReturn = request.getParameter("champReturn");
     FactureFournisseur ff = new FactureFournisseur();
     ff.setNomTable("FACTFOURN_MSUM_LIB");
-    String libEntete[] = {"id","daty","tierslib", "code", "escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
-    String listeCrt[] = {"id","daty"};
+    String libEntete[] = {"id","daty","tierslib", "code", "escale","designation","categorielib","tva","date_echeance","exercice","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+    String listeCrt[] = {"id","daty","exercice"};
     String listeInt[] = {"daty"};
     PageRechercheChoix pr = new PageRechercheChoix(ff, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -43,7 +43,7 @@
                 <% out.println(pr.getFormu().getHtmlEnsemble());%>
             </form>
             <%
-                String libelles[] = {"id","daty","Client","Code", "Escale","Note explicative","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer"};
+                String libelles[] = {"id","daty","Client","Code", "Escale","Note explicative","Catégorie", "tva", "date echeance","exercice","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer"};
            
                 //String libelles[] = {"id", "date", "Fournisseur", "date &eacute;mission", "d&eacute;signation", "numero facture", "date &eacute;ch&eacute;ance", "devise", "Montant TTC", "Montant pay&eacute;", "Reste &agrave; payer", "&Eacute;tat"};
                 pr.getTableau().setLibelleAffiche(libelles);
