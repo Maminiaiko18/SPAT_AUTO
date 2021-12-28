@@ -20,7 +20,7 @@
         fa.setNomTable("situationLC_vide");
 
         String listeCrt[] = {"id", "designation", "compte", "daty" , "annee"};
-        String listeInt[] = {"daty","annee"};
+        String listeInt[] = {"daty"};
         String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -29,34 +29,19 @@
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
         
-        String date1 = request.getParameter("daty1"), date2 = request.getParameter("daty2");
-        String anneeEnCours = Utilitaire.getAnneeEnCours();
-        if( date1 == null){
-            date1 = "01/01/"+anneeEnCours;
-        }
-        if(date2 == null){
-            date2 = "31/12/"+anneeEnCours;
-        }
+        String date1 = request.getParameter("daty1"), date2 = request.getParameter("daty2"), annee = request.getParameter("annee");
+        if(date1 == null || date1.trim().isEmpty()) date1 = "01/01/"+Utilitaire.getAnneeEnCours();
+        if(date2 == null || date2.trim().isEmpty()) date2 = "31/12/"+Utilitaire.getAnneeEnCours();
+        if(annee == null || annee.trim().isEmpty()) annee = Utilitaire.getAnneeEnCours();
         
-        String annee1 = request.getParameter("annee1"), annee2 = request.getParameter("annee2");
-        String anneeEnCour = Utilitaire.getAnneeEnCours();
-        if( annee1 == null){
-            annee1 = "01/01/"+anneeEnCour;
-        }
-        if(annee2 == null){
-            annee2 = "31/12/"+anneeEnCour;
-        }
 //        pr.getFormu().getChamp("daty1").setDefaut(date1);
 //        pr.getFormu().getChamp("daty2").setDefaut(date2);
+        pr.getFormu().getChamp("annee").setDefaut(annee);
         
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
-        
-        pr.getFormu().getChamp("annee1").setDefaut(annee1);
-        pr.getFormu().getChamp("annee2").setDefaut(annee2);
-        
-        pr.getFormu().getChamp("annee1").setLibelle("Exercice Debut");
-        pr.getFormu().getChamp("annee2").setLibelle("Exercice Fin");
+                
+        pr.getFormu().getChamp("annee").setLibelle("Exercice");
         
         String reqniv = "2";
 
@@ -64,7 +49,7 @@
             reqniv = request.getParameter("niveau");
         }           
         
-        LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, reqniv, null);
+        LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, reqniv, annee, null);
         pr.setTableau(new TableauRecherche(liste, libEntete));
 
         String[] libEtat = {"Tous", "Créés", "Visés"};
