@@ -10,6 +10,7 @@
 <%@page import="mg.spat.compta.ComptaBilan"%>
 <%@page import="utilitaire.*"%>
 <%
+    String lien = (String)session.getAttribute("lien");
     String reference = request.getParameter("reference");
     String dateString1 = request.getParameter("date1");
     String dateString2 = request.getParameter("date2");
@@ -85,7 +86,7 @@
                                             <tr>
                                                <td><%=details[i].getCpt_rubrique()%></td>
                                                  <td><%=details[i].getLibelle_cpt_rubrique()%></td>
-                                                <td align="right"><%=Utilitaire.formaterAr(-details[i].getEc_montant())%></td>
+                                                 <td align="right"><a href="<%= lien %>?but=facture/facture-client-fille-liste.jsp&compte=<%= details[i].getCpt_rubrique() %>"><%=Utilitaire.formaterAr(-details[i].getEc_montant())%></a></td>
                                             </tr>
                                         <%}%>
                                     <%}%>
