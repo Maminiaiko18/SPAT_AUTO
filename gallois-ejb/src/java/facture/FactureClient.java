@@ -56,6 +56,16 @@ public class FactureClient extends ClassMere {
     private double reduction;
     private double ecart;
     private int exercice;
+    private String idavoir;
+
+    public String getIdavoir() {
+        return idavoir;
+    }
+
+    public void setIdavoir(String idavoir) {
+        this.idavoir = idavoir;
+    }
+    
 
     public int getExercice() {
         return exercice;
