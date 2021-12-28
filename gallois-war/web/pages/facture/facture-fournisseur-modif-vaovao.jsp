@@ -53,7 +53,7 @@
         pi.getFormu().getChamp("idProvision").setAutre("readonly");
         pi.getFormu().getChamp("idProvision").setLibelle("Provision");
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
-
+        pi.getFormu().getChamp("exercice").setLibelle("Exercice");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
 
