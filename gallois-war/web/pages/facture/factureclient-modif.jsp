@@ -96,7 +96,11 @@
         pi.getFormu().getChamp("codePrestation").setVisible(false);
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
         pi.getFormu().getChamp("tva").setVisible(false);    
-
+        /*
+        pi.getFormu().getChamp("idavoir").setPageAppel("avoir/avoirFC-liste.jsp");
+        pi.getFormu().getChamp("idavoir").setAutre("readonly");
+        pi.getFormu().getChamp("idavoir").setLibelle("Avoir");*/
+                         
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
         //affichage.Champ.setAutre(pi.getFormufle().getChampFille("Taux"), "readonly");
@@ -172,7 +176,6 @@
             volumeArrondi = act.getVolumeArrondi();
         }
         
-        
 %>
 <style>
     .card{
@@ -188,7 +191,7 @@
                 pi.getFormufle().makeHtmlInsertTableauIndex();
                 out.println(pi.getFormu().getHtmlInsert());
             %>
-            <div class="col-md-6">
+            <div class="col-md-6" id="prevision">
                 <div class="card">
                     <table border="0" style="width: 100%">
                         <tr>
@@ -214,7 +217,8 @@
                     </table>
                 </div>
             </div>
-            <center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
+            <%--<center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
+--%>            
             <div class="row">
                 <div class="col-md-12">
                     <%
@@ -262,6 +266,14 @@
             textarea<%=i%>.value = designation<%=i%>.value;
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
     <%}%>
+        
+     //tableau prevision si idprevision != null
+    var prev = document.getElementById("idprevision").value;
+    if (prev != null) {
+        document.getElementById("prevision").style.display = "block";
+    }else {
+        document.getElementById("prevision").style.display = "none";
+    }
 </script>
 <%} catch (Exception ex) {
         ex.printStackTrace();
