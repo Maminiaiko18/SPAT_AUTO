@@ -86,7 +86,7 @@
                                             <tr>
                                                <td><%=details[i].getCpt_rubrique()%></td>
                                                  <td><%=details[i].getLibelle_cpt_rubrique()%></td>
-                                                 <td align="right"><a href="<%= lien %>?but=facture/facture-client-fille-liste.jsp&compte=<%= details[i].getCpt_rubrique() %>"><%=Utilitaire.formaterAr(-details[i].getEc_montant())%></a></td>
+                                                 <td align="right"><a href="<%= lien %>?but=facture/facture-client-fille-liste.jsp&compte=<%= details[i].getCpt_rubrique() %>&mois=<%= Utilitaire.getMois(dateString2) %>&annee=<%= Utilitaire.getAnnee(dateString2) %>"><%=Utilitaire.formaterAr(-details[i].getEc_montant())%></a></td>
                                             </tr>
                                         <%}%>
                                     <%}%>
