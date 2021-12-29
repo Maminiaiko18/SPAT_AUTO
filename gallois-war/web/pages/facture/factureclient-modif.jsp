@@ -96,10 +96,10 @@
         pi.getFormu().getChamp("codePrestation").setVisible(false);
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
         pi.getFormu().getChamp("tva").setVisible(false);    
-        /*
+        
         pi.getFormu().getChamp("idavoir").setPageAppel("avoir/avoirFC-liste.jsp");
         pi.getFormu().getChamp("idavoir").setAutre("readonly");
-        pi.getFormu().getChamp("idavoir").setLibelle("Avoir");*/
+        pi.getFormu().getChamp("idavoir").setLibelle("Avoir");
                          
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
@@ -267,7 +267,7 @@
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
     <%}%>
         
-     //tableau prevision si idprevision != null
+     //afficher ou cacher tableau prevision si idprevision != null
     var prev = document.getElementById("idprevision").value;
     if (prev != null) {
         document.getElementById("prevision").style.display = "block";
