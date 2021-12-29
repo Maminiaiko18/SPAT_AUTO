@@ -139,6 +139,16 @@
                 String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
                 datefactChp.setValeur(dateF);
             }
+            
+            if(liste[i].getRubrique() != null && liste[i].getRubrique().equalsIgnoreCase(Constante.idStationnement) && liste[i].getIdactivite() !=  null) {
+                Activite act = liste[i].getActivite(null);
+                
+                liste[i].setDuree(act.getNbHeure());
+                liste[i].setQuantite(liste[i].getQuantite() / act.getNbHeure());
+                
+                pi.getFormufle().getChamp("duree_"+i).setValeur(""+liste[i].getDuree());
+                pi.getFormufle().getChamp("quantite_"+i).setValeur(""+liste[i].getQuantite());
+            }
         }
         
         pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
@@ -153,6 +163,7 @@
         //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
         pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
         pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
+        pi.getFormufle().getChamp("duree_0").setLibelle("Durée");
         pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
         pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
         pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
@@ -165,7 +176,6 @@
         pi.preparerDataFormu();
         
         Activite act = liste.length > 0 ? liste[0].getActivite(null) : null;
-        
         double longueur = 0, largeur = 0, tirant = 0, volume = 0, volumeArrondi = 0;
         
         if(act != null) {
