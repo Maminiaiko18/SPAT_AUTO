@@ -42,6 +42,7 @@
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
+    pi.getFormu().getChamp("idavoir").setVisible(false);
     
     
     pi.getFormu().getChamp("tiers").setAutre("readonly");
@@ -103,6 +104,7 @@
     pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
+    pi.getFormufle().getChamp("duree_0").setLibelle("Durée");
     pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
@@ -149,7 +151,7 @@
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("codePrestation").setVisible(false);
     pi.getFormu().getChamp("code").setVisible(false);
-    String[] ordreFille = {"rubrique","designation","pu","quantite","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction"};
+    String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction"};
     pi.getFormufle().setColOrdre(ordreFille);
     pi.preparerDataFormu();
        
