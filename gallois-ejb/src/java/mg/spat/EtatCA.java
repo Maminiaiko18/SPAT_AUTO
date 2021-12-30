@@ -114,6 +114,44 @@ public class EtatCA {
     public EtatCA() {
     }
 
+        public HashMap<String, CA> getetatcagen (int mois, int annee,CA[] cas){
+        //ArrayList<CA> ca = new ArrayList<CA>();
+        HashMap<String, CA> cahmap=new HashMap<String, CA>();
+        
+        int taillecas = cas.length;
+        for(int i = 0;i< taillecas;i++){
+            if (cas[i].getMois()<mois && cas[i].getAnnee()== annee){
+                if(cahmap.get(cas[i].getCompte())!=null){
+                    CA temp = cahmap.get(cas[i].getCompte());
+                    temp.setAnciencumul(temp.getAnciencumul()+cas[i].getMontant());
+                    temp.setRegulEETP(temp.getAvoirEETP()+cas[i].getAvoir());
+                    cahmap.put(cas[i].getCompte(),temp);
+                }
+                if(cahmap.get(cas[i].getCompte())==null){
+                    CA temp = cas[i];
+                    cahmap.put(cas[i].getCompte(),temp);
+                }
+            }
+            
+            if (cas[i].getMois()==mois && cas[i].getAnnee()== annee){
+                if(cahmap.get(cas[i].getCompte())!=null){
+                    CA temp = cahmap.get(cas[i].getCompte());
+                    temp.setAvoirEETP(temp.getAvoirEETP()+cas[i].getAvoir());
+                    temp.setComptant(temp.getComptant()+cas[i].getComptant());
+                    temp.setCredit(temp.getCredit()+cas[i].getCredit());
+                    cahmap.put(cas[i].getCompte(),temp);
+                }
+                if(cahmap.get(cas[i].getCompte())==null){
+                    CA temp = cas[i];
+                    cahmap.put(cas[i].getCompte(),temp);
+                }
+            }
+            
+        }
+        return cahmap;
+        
+    }
+        
     public EtatCA(CA[] tout, int mois, int annee, boolean estGroupeAncien) {
         this.calculCATotal(tout);
         this.calculerTauxEtHashMap(tout);
