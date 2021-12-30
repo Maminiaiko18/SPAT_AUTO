@@ -57,10 +57,9 @@ public class FactureClient extends ClassMere {
     private double ecart;
     private int exercice;
     private String idavoir;
+    private String typeclientlib ; 
 
-    public String getIdavoir() {
-        return idavoir;
-    }
+    
 
     public void setIdavoir(String idavoir) {
         this.idavoir = idavoir;
@@ -103,7 +102,16 @@ public class FactureClient extends ClassMere {
     public String getCodeProvision() {
         return codeProvision;
     }
+    public String getTypeclientlib() {
+        return typeclientlib;
+    }
 
+    public void setTypeclientlib(String typeclientlib) {
+        this.typeclientlib = typeclientlib;
+    }
+    public String getIdavoir() {
+        return idavoir;
+    }
     public String validerFacture(UserEJB user, Connection c) throws Exception {
         String provisionString = "";
         int verif = 0;
