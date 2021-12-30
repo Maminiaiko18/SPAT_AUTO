@@ -14,7 +14,45 @@ import java.sql.Connection;
  */
 public class CA extends ClassMAPTable {
     String id, libelle; 
-    double anciencumul, regul, regulEETP, avoirEETP, comptant, credit, esttotal;
+    double anciencumul, regul, regulEETP, avoirEETP, comptant, credit, esttotal,taux;
+    int nbComptant,nbCredit;
+    public double getAvoirCumRegul()
+    {
+        return this.getAnciencumul() - this.getRegul() - this.getRegulEETP();
+    }
+    public double getTotal()
+    {
+        return this.getComptant() + this.getCredit();
+    }
+    public double getNCumul()
+    {
+        return this.getAvoirCumRegul() + this.getTotal();
+    }
+
+    public double getTaux() {
+        return taux;
+    }
+
+    public void setTaux(double taux) {
+        this.taux = taux;
+    }
+
+    public int getNbComptant() {
+        return nbComptant;
+    }
+
+    public void setNbComptant(int nbComptant) {
+        this.nbComptant = nbComptant;
+    }
+
+    public int getNbCredit() {
+        return nbCredit;
+    }
+
+    public void setNbCredit(int nbCredit) {
+        this.nbCredit = nbCredit;
+    }
+    
 
     public String getId() {
         return id;
