@@ -166,4 +166,14 @@ public class EtatCA {
             } 
         }   
     }
+    
+     public void calculerHashMapPartiel(){
+        for(String cle : listeParRubrique.keySet()){
+            String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "taux"};
+            double[] total = AdminGen.calculSommeDouble(listeParRubrique.get(cle), cols);
+            CA ca = new CA(null, cle, total[0], total[1], total[2], total[3], total[4], total[5], 0);
+            ca.setTaux(total[6]);
+            this.sommePartiel.put(cle, ca);
+        }
+    }
 }
