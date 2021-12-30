@@ -121,7 +121,7 @@ public class EtatCA {
     }
     
     public EtatCA(String mois, String annee, boolean estGroupeAncien) {
-       
+        
     }
 
     public void calculCATotal(CA[] tout) {
@@ -143,7 +143,6 @@ public class EtatCA {
         for(int i=0; i<tout.length; i++) {
             if(compteMere.equalsIgnoreCase(tout[i].getCompteMere())) {
                 tout[i].setTaux(tout[i].getTotal() / totalGeneral.getTotal() * 100);
-                totalGeneral.setTaux(totalGeneral.getTaux() + tout[i].getTaux());
                 caList.add(tout[i]);
             }
         }
@@ -176,12 +175,16 @@ public class EtatCA {
     
      public void calculerHashMapPartiel(){
          sommePartiel = new HashMap<String, CA>();
+         double totalTaux = 0;
         for(String cle : listeParRubrique.keySet()){
             String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "taux"};
             double[] total = AdminGen.calculSommeDouble(listeParRubrique.get(cle), cols);
             CA ca = new CA(null, cle, total[0], total[1], total[2], total[3], total[4], total[5], 0);
             ca.setTaux(total[6]);
+            totalTaux += ca.getTaux();
             this.sommePartiel.put(cle, ca);
         }
+        
+        totalGeneral.setTaux(totalTaux);
     }
 }

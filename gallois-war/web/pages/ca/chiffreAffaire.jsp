@@ -130,7 +130,7 @@
                             <td align="right"><%=Utilitaire.formaterAr(ca.getCredit())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getTotal())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getNCumul())%></td>
-                            <td align="right"><%=ca.getTaux()%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(ca.getTaux())%></td>
                         </tr>
                         <% } %>
                         <%
@@ -147,11 +147,11 @@
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getCredit())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getTotal())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getNCumul())%></td>
-                            <td align="right"><%=partiel.getTaux()%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(partiel.getTaux())%></td>
                         </tr>
                         <% }
                             } %>
-
+<!--
                         <tr class="category">
                             <th>ASSISTANCES AUX NAVIRES</th>
                         </tr>
@@ -542,8 +542,8 @@
                             <td align="right">57058423.80</td>
                             <td align="right">1271888523.05</td>
                             <td align="right">0.90</td>
-                        </tr>
-                        <tr class="category total general">
+                        </tr>-->
+                        <!--<tr class="category total general">
                             <td align="left">TOTAL GENERAL</td>
                             <td align="right">1214810099.25</td>
                             <td align="right"></td>
@@ -555,7 +555,7 @@
                             <td align="right">57058423.80</td>
                             <td align="right">1271888523.05</td>
                             <td align="right">0.90</td>
-                        </tr>
+                        </tr>-->
                         <% if(totalGeneral != null) { %>
                         <tr class="category total general">
                             <td align="left"><%=Utilitaire.champNull(totalGeneral.getLibelle().toUpperCase())%></td>
@@ -568,7 +568,7 @@
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getCredit())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getTotal())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getNCumul())%></td>
-                            <td align="right"><%=totalGeneral.getTaux()%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getTaux())%></td>
                         </tr>
                         <% } %>
                         <tr class="total general">
@@ -588,7 +588,7 @@
                 </table>
             </div>
             <div class="box-footer">
-                <a class="btn btn-primary" href="${pageContext.request.contextPath}/Paie?action=impressionCA" style="float:right">Imprimer</a>
+                <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionCA" style="float:right">Imprimer</a>
             </div>
         </div>
     </section>
