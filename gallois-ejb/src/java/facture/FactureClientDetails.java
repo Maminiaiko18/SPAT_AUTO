@@ -41,6 +41,15 @@ public class FactureClientDetails extends ClassFille {
     private String heureDebut, heureFin, moislib,anneelib;
     private double montantHTEuro,montantTVAEuro, montanttaxe,majoration,reduction,duree;
     private int rang;
+    private String idrubrique;
+
+    public String getIdrubrique() {
+        return idrubrique;
+    }
+
+    public void setIdrubrique(String idrubrique) {
+        this.idrubrique = idrubrique;
+    }
 
     public double getDuree() {
         return duree;

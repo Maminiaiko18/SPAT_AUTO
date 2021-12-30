@@ -140,7 +140,7 @@
                 datefactChp.setValeur(dateF);
             }
             
-            if(liste[i].getRubrique() != null && liste[i].getRubrique().equalsIgnoreCase(Constante.idStationnement) && liste[i].getIdactivite() !=  null) {
+            if(liste[i].getIdrubrique() != null && liste[i].getIdrubrique().equalsIgnoreCase(Constante.idStationnement) && liste[i].getIdactivite() !=  null) {
                 Activite act = liste[i].getActivite(null);
                 
                 liste[i].setDuree(act.getNbHeure());
