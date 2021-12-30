@@ -138,6 +138,7 @@ public class EtatCA {
         List<String> compteMereAlreadyExist = new ArrayList<String>();
         for(int i=0; i<tout.length; i++) {
             if(compteMere.equalsIgnoreCase(tout[i].getCompteMere())) {
+                tout[i].setTaux(tout[i].getTotal() / totalGeneral.getTotal() * 100);
                 caList.add(tout[i]);
             }
         }
@@ -160,7 +161,6 @@ public class EtatCA {
     public void calculerTauxEtHashMap(CA[] tout) {
         String[] compteMereAlreadyExist = null;
         for(int i=0; i<tout.length; i++) {
-            tout[i].setTaux(tout[i].getTotal() / totalGeneral.getTotal() * 100);
             if(!this.checkCompteMereAlreadyExist(tout[i].getCompteMere(), compteMereAlreadyExist)) {
                 compteMereAlreadyExist = this.addCAByCompteMere(tout[i].getCompteMere(), tout);
             } 
