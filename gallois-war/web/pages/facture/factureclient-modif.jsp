@@ -105,6 +105,7 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
         //affichage.Champ.setAutre(pi.getFormufle().getChampFille("Taux"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("activitelib"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("idrubrique"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("produit_lib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
@@ -157,6 +158,7 @@
         pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
         pi.getFormufle().getChamp("pu_0").setLibelle("pu");
         pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
+        pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
         pi.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
         pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
         pi.getFormufle().getChamp("tva_0").setLibelle("tva");
