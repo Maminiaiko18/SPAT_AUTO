@@ -202,8 +202,10 @@
                 pi.getFormu().makeHtmlInsertTabIndex();
                 pi.getFormufle().makeHtmlInsertTableauIndex();
                 out.println(pi.getFormu().getHtmlInsert());
+                
+                if(mere.getIdprevision() != null){
             %>
-            <div class="col-md-6" id="prevision">
+            <div class="col-md-6">
                 <div class="card">
                     <table border="0" style="width: 100%">
                         <tr>
@@ -229,6 +231,7 @@
                     </table>
                 </div>
             </div>
+            <%}%>
             <%--<center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
 --%>            
             <div class="row">
@@ -278,14 +281,7 @@
             textarea<%=i%>.value = designation<%=i%>.value;
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
     <%}%>
-        
-     //afficher ou cacher tableau prevision si idprevision != null
-    var prev = document.getElementById("idprevision").value;
-    if (prev != null) {
-        document.getElementById("prevision").style.display = "block";
-    }else {
-        document.getElementById("prevision").style.display = "none";
-    }
+
 </script>
 <%} catch (Exception ex) {
         ex.printStackTrace();
