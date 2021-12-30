@@ -26,6 +26,7 @@
         EtatCA etatCA = new EtatCA(mois, annee, true);
         Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
         Map<String, CA> sommePartiel = etatCA.getSommePartiel();
+        CA totalGeneral = etatCA.getTotalGeneral();
 %>
 <style>
     th {
@@ -38,6 +39,9 @@
     .category {
         border: 0;
         border-top: double #060606;
+    }
+    .general {
+        font-size: 17px;
     }
     .list {
         padding: 0 20px;
@@ -120,12 +124,12 @@
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAnciencumul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETP())%></td>
-                            <td align="right"></td>
+                            <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getComptant())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getCredit())%></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
+                            <td align="right"><%=Utilitaire.formaterAr(ca.getTotal())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(ca.getNCumul())%></td>
                             <td align="right"><%=ca.getTaux()%></td>
                         </tr>
                         <% } %>
@@ -137,12 +141,12 @@
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAnciencumul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getRegulEETP())%></td>
-                            <td align="right"></td>
+                            <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getComptant())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getCredit())%></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
+                            <td align="right"><%=Utilitaire.formaterAr(partiel.getTotal())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(partiel.getNCumul())%></td>
                             <td align="right"><%=partiel.getTaux()%></td>
                         </tr>
                         <% }
@@ -538,6 +542,47 @@
                             <td align="right">57058423.80</td>
                             <td align="right">1271888523.05</td>
                             <td align="right">0.90</td>
+                        </tr>
+                        <tr class="category total general">
+                            <td align="left">TOTAL GENERAL</td>
+                            <td align="right">1214810099.25</td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right">1214818099.25</td>
+                            <td align="right"></td>
+                            <td align="right">5983708.57</td>
+                            <td align="right">51074715.23</td>
+                            <td align="right">57058423.80</td>
+                            <td align="right">1271888523.05</td>
+                            <td align="right">0.90</td>
+                        </tr>
+                        <% if(totalGeneral != null) { %>
+                        <tr class="category total general">
+                            <td align="left"><%=Utilitaire.champNull(totalGeneral.getLibelle().toUpperCase())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAnciencumul())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegul())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegulEETP())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirCumRegul())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirEETP())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getComptant())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getCredit())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getTotal())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getNCumul())%></td>
+                            <td align="right"><%=totalGeneral.getTaux()%></td>
+                        </tr>
+                        <% } %>
+                        <tr class="total general">
+                            <td align="left">TAUX</td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcAvoir())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourComptant())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcCredit())%></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
                         </tr>
                     </tbody>
                 </table>
