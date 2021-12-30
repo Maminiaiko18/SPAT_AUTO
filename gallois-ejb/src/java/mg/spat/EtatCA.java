@@ -143,6 +143,7 @@ public class EtatCA {
         for(int i=0; i<tout.length; i++) {
             if(compteMere.equalsIgnoreCase(tout[i].getCompteMere())) {
                 tout[i].setTaux(tout[i].getTotal() / totalGeneral.getTotal() * 100);
+                totalGeneral.setTaux(totalGeneral.getTaux() + tout[i].getTaux());
                 caList.add(tout[i]);
             }
         }
@@ -165,6 +166,7 @@ public class EtatCA {
     public void calculerTauxEtHashMap(CA[] tout) {
         String[] compteMereAlreadyExist = null;
         this.listeParRubrique = new HashMap<String, CA[]>();
+        totalGeneral.setTaux(0);
         for(int i=0; i<tout.length; i++) {
             if(!this.checkCompteMereAlreadyExist(tout[i].getCompteMere(), compteMereAlreadyExist)) {
                 compteMereAlreadyExist = this.addCAByCompteMere(tout[i].getCompteMere(), tout);
