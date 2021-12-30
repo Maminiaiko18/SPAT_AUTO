@@ -6,7 +6,10 @@
 package mg.spat;
 
 import bean.AdminGen;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -128,5 +131,39 @@ public class EtatCA {
             pourComptant = (totalGeneral.getComptant() / totalGeneral.getTotal()) * 100;
             pourcCredit = (totalGeneral.getCredit() / totalGeneral.getTotal()) * 100;
         }
+    }
+
+    public String[] addCAByCompteMere(String compteMere, CA[] tout) {
+        List<CA> caList = new ArrayList<CA>();
+        List<String> compteMereAlreadyExist = new ArrayList<String>();
+        for(int i=0; i<tout.length; i++) {
+            if(compteMere.equalsIgnoreCase(tout[i].getCompteMere())) {
+                caList.add(tout[i]);
+            }
+        }
+        listeParRubrique.put(compteMere, caList.toArray(new CA[caList.size()]));
+        compteMereAlreadyExist.add(compteMere);
+        return compteMereAlreadyExist.toArray(new String[compteMereAlreadyExist.size()]);
+    }
+
+    public Boolean checkCompteMereAlreadyExist(String compteMere, String[] compteMereAlreadyExist) {
+        if(compteMereAlreadyExist != null) {
+            for(int i=0; i<compteMereAlreadyExist.length; i++) {
+                if(compteMere.equalsIgnoreCase(compteMereAlreadyExist[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void calculerTauxEtHashMap(CA[] tout) {
+        String[] compteMereAlreadyExist = null;
+        for(int i=0; i<tout.length; i++) {
+            tout[i].setTaux(tout[i].getTotal() / totalGeneral.getTotal() * 100);
+            if(!this.checkCompteMereAlreadyExist(tout[i].getCompteMere(), compteMereAlreadyExist)) {
+                compteMereAlreadyExist = this.addCAByCompteMere(tout[i].getCompteMere(), tout);
+            } 
+        }   
     }
 }
