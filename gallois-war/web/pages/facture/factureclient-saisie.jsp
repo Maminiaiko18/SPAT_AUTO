@@ -92,6 +92,7 @@
         //pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 200px;\" ");
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
+        pi.getFormufle().getChamp("duree_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
         pi.getFormufle().getChamp("duree_"+i).setDefaut("1");
@@ -179,12 +180,13 @@
 </div>
 <script  language="JavaScript">
     function calculerMontant(indice) {
-        var quantite, pu, montant;
+        var quantite, pu, montant, duree;
         quantite = parseFloat($('#quantite_' + indice).val());
+        duree = parseFloat($('#duree_' + indice).val());
 //        quantite = quantite / 1000;
         pu = parseFloat($('#pu_' + indice).val());
         if (!isNaN(quantite) && !isNaN(pu)) {
-            montant = quantite * pu;
+            montant = quantite * pu * duree;
             $('#montant_' + indice).val(montant.toFixed(2));
         } else {
             $('#montant_' + indice).val('');
