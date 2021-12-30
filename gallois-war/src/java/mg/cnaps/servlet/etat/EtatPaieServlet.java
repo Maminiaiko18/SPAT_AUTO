@@ -161,6 +161,8 @@ public class EtatPaieServlet extends HttpServlet {
                 analyseMarchandise(request, response);
             } else if (action.equalsIgnoreCase("listefactureVaovao")) {
                 listefactureClient(request, response);
+            }else if (action.equalsIgnoreCase("impressionCA")) {
+                impressionCA(request, response);
             }
 
         } catch (Exception ex) {
@@ -1568,4 +1570,16 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    public void impressionCA(HttpServletRequest request, HttpServletResponse response){
+        try{
+        Map param = new HashMap();
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("chiffre_affaire");
+        UtilitaireImpression.imprimer(request, response, "chiffre d'affaires", param, null, getReportPath(), rt);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
