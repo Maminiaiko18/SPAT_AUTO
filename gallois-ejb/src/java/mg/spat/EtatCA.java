@@ -162,6 +162,7 @@ public class EtatCA {
 
     public void calculerTauxEtHashMap(CA[] tout) {
         String[] compteMereAlreadyExist = null;
+        this.listeParRubrique = new HashMap<String, CA[]>();
         for(int i=0; i<tout.length; i++) {
             if(!this.checkCompteMereAlreadyExist(tout[i].getCompteMere(), compteMereAlreadyExist)) {
                 compteMereAlreadyExist = this.addCAByCompteMere(tout[i].getCompteMere(), tout);
