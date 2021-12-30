@@ -1955,7 +1955,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         /*if (testRestriction(u.getIdrole(), ConstanteUtilisateur.acteUpdate, o.getNomTable(), c) == 1) {
             throw new Exception("ERREUR DE DROIT");
         }*/
-        if (o.getClassName().compareToIgnoreCase("mg.cnaps.paie.EmployeComplet") != 0 && o.getClassName().compareToIgnoreCase("mg.spat.compta.ContratChantier") != 0) {
+        if (o.getClassName().compareToIgnoreCase("mg.spat.Tiers") != 0 && o.getClassName().compareToIgnoreCase("mg.cnaps.paie.EmployeComplet") != 0 && o.getClassName().compareToIgnoreCase("mg.spat.compta.ContratChantier") != 0) {
             testUpdate(o, c);
         }
 
