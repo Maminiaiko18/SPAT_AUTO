@@ -112,7 +112,9 @@ public class EtatCA {
     }
 
     public EtatCA(CA[] tout, int mois, int annee, boolean estGroupeAncien) {
-
+        this.calculCATotal(tout);
+        this.calculerTauxEtHashMap(tout);
+        this.calculerHashMapPartiel();
     }
 
     public EtatCA(String mois, String annee, boolean estGroupeAncien) {
