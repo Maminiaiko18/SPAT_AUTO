@@ -5,6 +5,7 @@
  */
 package mg.spat;
 
+import bean.AdminGen;
 import java.util.HashMap;
 
 /**
@@ -106,14 +107,26 @@ public class EtatCA {
 
     public EtatCA() {
     }
-    
-    public EtatCA(CA[] tout, int mois, int annee,boolean estGroupeAncien){
-        
-    }
-    
-    public EtatCA(String mois, String annee,boolean estGroupeAncien) {
-        
+
+    public EtatCA(CA[] tout, int mois, int annee, boolean estGroupeAncien) {
+
     }
 
+    public EtatCA(String mois, String annee, boolean estGroupeAncien) {
 
+    }
+
+    public void calculCATotal(CA[] tout) {
+        String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "taux"};
+        double[] total = AdminGen.calculSommeDouble(tout, cols);
+
+        if (total.length > 0) {
+            totalGeneral = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
+            totalGeneral.setTaux(total[6]);
+
+            pourcAvoir = (totalGeneral.getAvoirEETP() / totalGeneral.getTotal()) * 100;
+            pourComptant = (totalGeneral.getComptant() / totalGeneral.getTotal()) * 100;
+            pourcCredit = (totalGeneral.getCredit() / totalGeneral.getTotal()) * 100;
+        }
+    }
 }
