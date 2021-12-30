@@ -94,6 +94,7 @@
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
+        pi.getFormufle().getChamp("duree_"+i).setDefaut("1");
         pi.getFormufle().getChamp("idactivite_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
     }
