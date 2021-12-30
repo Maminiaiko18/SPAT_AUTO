@@ -6,10 +6,13 @@
 package mg.spat;
 
 import bean.AdminGen;
+import bean.CGenUtil;
+import java.sql.Connection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -116,18 +119,17 @@ public class EtatCA {
         this.calculerTauxEtHashMap(tout);
         this.calculerHashMapPartiel();
     }
-
+    
     public EtatCA(String mois, String annee, boolean estGroupeAncien) {
-
+       
     }
 
     public void calculCATotal(CA[] tout) {
-        String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "taux"};
+        String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit"};
         double[] total = AdminGen.calculSommeDouble(tout, cols);
 
         if (total.length > 0) {
             totalGeneral = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
-            totalGeneral.setTaux(total[6]);
 
             pourcAvoir = (totalGeneral.getAvoirEETP() / totalGeneral.getTotal()) * 100;
             pourComptant = (totalGeneral.getComptant() / totalGeneral.getTotal()) * 100;
@@ -171,6 +173,7 @@ public class EtatCA {
     }
     
      public void calculerHashMapPartiel(){
+         sommePartiel = new HashMap<String, CA>();
         for(String cle : listeParRubrique.keySet()){
             String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "taux"};
             double[] total = AdminGen.calculSommeDouble(listeParRubrique.get(cle), cols);
