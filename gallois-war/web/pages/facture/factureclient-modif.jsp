@@ -97,7 +97,7 @@
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
         pi.getFormu().getChamp("tva").setVisible(false);    
         
-        pi.getFormu().getChamp("idavoir").setPageAppel("avoir/avoirFC-liste.jsp");
+        pi.getFormu().getChamp("idavoir").setPageAppel("choix/listeAvoirFCChoix.jsp");
         pi.getFormu().getChamp("idavoir").setAutre("readonly");
         pi.getFormu().getChamp("idavoir").setLibelle("Avoir");
                          
