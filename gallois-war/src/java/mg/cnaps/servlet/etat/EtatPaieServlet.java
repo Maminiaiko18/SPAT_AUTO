@@ -1,5 +1,6 @@
 package mg.cnaps.servlet.etat;
 
+import affichage.Liste;
 import affichage.PageRechercheGroupe;
 import avoir.AvoirFC;
 import avoir.AvoirFCFille;
@@ -82,7 +83,10 @@ import facture.FactureFournisseurFilleData;
 import factureclient.PayementFacture;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import mg.spat.CA;
+import mg.spat.CaPDF;
 import mg.spat.CargaisonAnalyse;
+import mg.spat.EtatCA;
 import mg.spat.JournalCaissePdf;
 import mg.spat.OccupationMaterielNaval;
 import mg.spat.PrevisionLibComplet;
@@ -877,7 +881,7 @@ public class EtatPaieServlet extends HttpServlet {
                 FactureClientDetails cht = new FactureClientDetails();
                 cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
 
-                FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '" + id + "'");
+                FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '" + id + "'  order by rang, daty asc");
                 ArrayList<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
 
                 param.put("responsable", "Pr&eacute;par&eacute; Par");
@@ -1573,10 +1577,68 @@ public class EtatPaieServlet extends HttpServlet {
     }
     public void impressionCA(HttpServletRequest request, HttpServletResponse response){
         try{
+        String mois = request.getParameter("mois");
+        String annee = request.getParameter("annee");
+
+        if (mois == null || mois.trim().isEmpty()) {
+            mois = "" + Utilitaire.getMoisEnCoursReel();
+        }
+        if (annee == null || annee.trim().isEmpty()) {
+            annee = "" + Utilitaire.getAneeEnCours();
+        }
+
+        Liste moisL = new Liste("mois");
+        moisL.makeListeMois();
+        moisL.setDefaut("" + mois);
+
+        String moisEnLettre = (String) moisL.getValeurBrute()[Utilitaire.stringToInt(mois) - 1];
         Map param = new HashMap();
+        EtatCA etatCA = new EtatCA(Integer.parseInt(mois), Integer.parseInt(annee), false);
+        Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
+        Map<String, CA> sommePartiel = etatCA.getSommePartiel();
+        CA totalGeneral = etatCA.getTotalGeneral();
+        List result = new ArrayList();
+        if (listeParRubrique != null) {
+            /*Details*/
+            for (String rubrique : listeParRubrique.keySet()){
+                 CaPDF temp = new CaPDF();
+                 temp.setLibelle(Utilitaire.champNull(rubrique.toUpperCase()));
+                 result.add(temp);
+                 for (CA ca : listeParRubrique.get(rubrique)){
+                     result.add(new CaPDF(ca));
+                     
+                 }
+                 result.add( new CaPDF(sommePartiel.get(rubrique)));
+            }
+            /*Details*/
+            
+            /*total*/
+            param.put("anciencumul",Utilitaire.formaterAr(totalGeneral.getAnciencumul()));
+            param.put("regul",Utilitaire.formaterAr(totalGeneral.getRegul()));
+            param.put("regulEP",Utilitaire.formaterAr(totalGeneral.getRegulEETP()));
+            param.put("cumul",Utilitaire.formaterAr(totalGeneral.getAvoirCumRegul()));
+            param.put("avoir",Utilitaire.formaterAr(totalGeneral.getAvoirEETP()));
+            param.put("comptant",Utilitaire.formaterAr(totalGeneral.getComptant()));
+            param.put("credit",Utilitaire.formaterAr(totalGeneral.getCredit()));
+            param.put("total",Utilitaire.formaterAr(totalGeneral.getTotal()));
+            param.put("cumule",Utilitaire.formaterAr(totalGeneral.getNCumul()));
+            param.put("taux",Utilitaire.formaterAr(totalGeneral.getTaux()));
+            
+            
+            /*total*/
+            
+            /*taux*/
+            param.put("avoirtaux",Utilitaire.formaterAr(etatCA.getPourcAvoir()));
+            param.put("comptanttaux",Utilitaire.formaterAr(etatCA.getPourComptant()));
+            param.put("credittaux",Utilitaire.formaterAr(etatCA.getPourcCredit()));
+            /*taux*/
+        }
+         /*******************/   
+        
+        param.put("list_table",result);
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("chiffre_affaire");
-        UtilitaireImpression.imprimer(request, response, "chiffre d'affaires", param, null, getReportPath(), rt);
+        UtilitaireImpression.imprimer(request, response, "chiffre d'affaires", param, result, getReportPath(), rt);
 
         }catch(Exception e){
             e.printStackTrace();
