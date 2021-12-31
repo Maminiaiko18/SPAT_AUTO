@@ -152,7 +152,8 @@ public class EtatCA {
         
     }
         
-    public EtatCA(CA[] tout, int mois, int annee, boolean estGroupeAncien) {
+    public EtatCA(int mois, int annee, boolean estGroupeAncien) throws Exception {
+        CA[] tout = getCACpl(mois, annee);
         this.calculCATotal(tout);
         this.calculerTauxEtHashMap(tout);
         this.calculerHashMapPartiel();
@@ -225,4 +226,26 @@ public class EtatCA {
         
         totalGeneral.setTaux(totalTaux);
     }
+     
+    public CA[] getCACpl(int mois, int annee) throws Exception{
+        Connection c = null;
+        try{
+            c = new UtilDB().GetConn();
+            CA base = new CA();
+            base.setNomTable("CompteCAFactAvoir_grp");
+            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, "");
+            HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
+            CA[] tabCA = new CA[mapCA.size()];
+            int i = 0;
+            for(String key: mapCA.keySet()){
+                tabCA[i] = mapCA.get(key);
+                i++;
+            }
+            return tabCA;
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(c != null) c.close();
+        }
+    } 
 }

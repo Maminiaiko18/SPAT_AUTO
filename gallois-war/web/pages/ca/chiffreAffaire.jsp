@@ -23,7 +23,7 @@
 
         String moisEnLettre = (String) moisL.getValeurBrute()[Utilitaire.stringToInt(mois) - 1];
 
-        EtatCA etatCA = new EtatCA(mois, annee, true);
+        EtatCA etatCA = new EtatCA(Integer.parseInt(mois), Integer.parseInt(annee), false);
         Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
         Map<String, CA> sommePartiel = etatCA.getSommePartiel();
         CA totalGeneral = etatCA.getTotalGeneral();
