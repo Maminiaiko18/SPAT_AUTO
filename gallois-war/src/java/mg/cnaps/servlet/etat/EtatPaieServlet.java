@@ -90,6 +90,7 @@ import mg.spat.EtatCA;
 import mg.spat.JournalCaissePdf;
 import mg.spat.OccupationMaterielNaval;
 import mg.spat.PrevisionLibComplet;
+import mg.spat.Tarif;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -167,6 +168,8 @@ public class EtatPaieServlet extends HttpServlet {
                 listefactureClient(request, response);
             }else if (action.equalsIgnoreCase("impressionCA")) {
                 impressionCA(request, response);
+            }else if (action.equalsIgnoreCase("rubrique_activite")) {
+                rubrique_activite_pdf(request, response);
             }
 
         } catch (Exception ex) {
@@ -1651,5 +1654,43 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-
+    public void rubrique_activite_pdf(HttpServletRequest request, HttpServletResponse response){
+        try{
+            String id=request.getParameter("id");
+            String code=request.getParameter("code");
+            String compte=request.getParameter("compte");
+            String prestation=request.getParameter("prestation");
+            String tarif2=request.getParameter("tarif");
+            String unite=request.getParameter("unite");
+            String where = "";
+            if(id!=null && id.compareToIgnoreCase("null")!=0 && id.length()!=0){
+                where += " and upper(id) like upper('%"+id+"%') ";
+            }
+            if(code!=null && code.compareToIgnoreCase("null")!=0 && code.length()!=0){
+                where += " and upper(code) like upper('%"+code+"%') ";
+            }
+            if(compte!=null && compte.compareToIgnoreCase("null")!=0 && compte.length()!=0){
+                where += " and upper(compte) like upper('%"+compte+"%') ";
+            }
+            if(prestation!=null && prestation.compareToIgnoreCase("null")!=0 && prestation.length()!=0){
+                where += " and upper(prestation) like upper('%"+prestation+"%') ";
+            }
+            if(tarif2!=null && tarif2.compareToIgnoreCase("null")!=0 && tarif2.length()!=0){
+                where += " and upper(tarif) like upper('%"+tarif2+"%') ";
+            }
+            if(unite!=null && unite.compareToIgnoreCase("null")!=0 && unite.length()!=0){
+                where += " and upper(unite) like upper('%"+unite+"%') ";
+            }
+            
+        Map param = new HashMap();
+        param.put("daty", Utilitaire.datedujourlettre(Utilitaire.dateDuJour()));
+        Tarif tarif = new Tarif();
+        Tarif[] datatarif = (Tarif[])CGenUtil.rechercher(tarif, null, null, where);
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("rubrique-activite-pdf");
+        UtilitaireImpression.imprimer(request, response, "Rubrique d'activite", param, Arrays.asList(datatarif), getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

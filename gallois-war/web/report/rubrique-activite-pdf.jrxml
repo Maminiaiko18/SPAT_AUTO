@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rubrique-activite-pdf" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4bbcd710-8567-488b-9cdf-4c15d4c742d5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="daty" class="java.lang.String"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="compte" class="java.lang.String"/>
+	<field name="prestation" class="java.lang.String"/>
+	<field name="tarif" class="java.lang.String"/>
+	<field name="unite" class="java.lang.String"/>
+	<pageHeader>
+		<band height="93" splitType="Stretch">
+			<staticText>
+				<reportElement x="74" y="0" width="42" height="14" uuid="93c552f7-0a98-43e8-8ec1-d041b7e2af00"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[S P A T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="14" width="165" height="15" uuid="848b0b53-dca0-4990-8c85-754e42ed0095"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DIRECTION DE LA GESTION DU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="29" width="112" height="13" uuid="865bbccc-fa67-4a3d-99d3-f2f1e87db2f8"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DOMAINE PORTUAIRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="42" width="212" height="15" uuid="5e279dd5-fa93-41d9-8921-e2d5e0f707a0"/>
+				<text><![CDATA[DEPARTEMENT GESTIONDES CONTRATS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="57" width="112" height="14" uuid="4f514222-baea-402d-bcd4-a7650122ef1c"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ET FACTURATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="0" width="49" height="14" uuid="df08a920-43cd-4819-995b-78249df8a46b"/>
+				<text><![CDATA[Editée le ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="448" y="0" width="107" height="14" uuid="dc6eb099-395e-40c3-9cae-54d2ba4fb39a"/>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="41" width="54" height="20" uuid="1212abcb-7adc-4886-ade9-ce0c58b29606"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="41" width="51" height="20" uuid="217714a6-3c96-4ea2-8390-c306e42fbd06"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Compte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="41" width="245" height="20" uuid="e3bc9878-ca57-4f9e-81b4-9ce2c99024e9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prestation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="41" width="98" height="20" uuid="17eba1ed-0897-4fd3-a190-a8646bc78f85"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tauxtarif]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="41" width="107" height="20" uuid="c9c75395-6799-4d47-a31a-039913f733c4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unité]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="54" height="20" uuid="b42c3536-ed66-4ac9-a4e1-34be60dc4f4f"/>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="54" y="0" width="51" height="20" uuid="19bd8993-a026-4afb-a564-7bf39863057e"/>
+				<textFieldExpression><![CDATA[$F{compte}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="0" width="245" height="20" uuid="a98fe191-a963-4fd2-bf8c-3ca35cd3182c"/>
+				<textFieldExpression><![CDATA[$F{prestation}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="350" y="0" width="98" height="20" uuid="08510273-fd48-4513-a7b0-28cbda8188e0"/>
+				<textFieldExpression><![CDATA[$F{tarif}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="448" y="0" width="107" height="20" uuid="522245d0-46a2-4ed5-98ff-818507c78cfb"/>
+				<textFieldExpression><![CDATA[$F{unite}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
