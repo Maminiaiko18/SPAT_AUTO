@@ -164,16 +164,19 @@ public class EtatCA {
     }
 
     public void calculCATotal(CA[] tout) {
-        String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit"};
+        String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "nbComptant", "nbCredit"};
         double[] total = AdminGen.calculSommeDouble(tout, cols);
 
         if (total.length > 0) {
             totalGeneral = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
-
+            totalGeneral.setNbComptant((int)total[6]);
+            totalGeneral.setNbCredit((int)total[7]);
+            
             pourcAvoir = (totalGeneral.getAvoirEETP() / totalGeneral.getTotal()) * 100;
             pourComptant = (totalGeneral.getComptant() / totalGeneral.getTotal()) * 100;
             pourcCredit = (totalGeneral.getCredit() / totalGeneral.getTotal()) * 100;
         }
+        
     }
 
     public String[] addCAByCompteMere(String compteMere, CA[] tout) {

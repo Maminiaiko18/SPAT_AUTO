@@ -46,6 +46,10 @@
     .list {
         padding: 0 20px;
     }
+    
+    .tableca thead th{
+        border: #000 solid 2px;
+    }
 </style>
 <div class="content-wrapper">
     <section class="content-header">
@@ -92,7 +96,7 @@
         </div>
         <div class="row">
             <div class="box list">
-                <table class="table table-responsive table-hover" width="100%">
+                <table class="table table-responsive table-hover tableca" width="100%">
                     <thead>
                         <tr>
                             <th rowspan="2">Libelle</th>
@@ -584,6 +588,21 @@
                             <td align="right"></td>
                             <td align="right"></td>
                         </tr>
+                        <% if(totalGeneral != null) { %>
+                        <tr class="total general">
+                            <td align="left">Nombres des factures</td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbComptant()) %></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbCredit()) %></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbComptant()+totalGeneral.getNbCredit()) %></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                        </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
