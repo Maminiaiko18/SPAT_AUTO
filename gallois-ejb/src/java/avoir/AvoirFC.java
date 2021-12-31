@@ -403,4 +403,12 @@ public class AvoirFC extends ClassMere {
             }
         }
     }
+    
+    public FactureClient getFactureRemplacement(String nomtable, Connection c) throws Exception{
+        FactureClient base = new FactureClient();
+        base.setNomTable(nomtable);
+        FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(base, null, null, c, String.format(" and idavoir = '%s' ", this.getId()));
+        if(result.length > 0) return result[0];
+        return null;
+    }
 }
