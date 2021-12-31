@@ -225,3 +225,8 @@ select cca.*, ccavoir.montant as avoir
 from CompteCAFactureMoisAn cca
          left join CompteCAAvoirMoisAn ccavoir on cca.mois = ccavoir.mois and cca.annee = ccavoir.annee and
                                                   cca.compte=ccavoir.compte and    cca.mere=ccavoir.mere;
+
+
+update MENUDYNAMIQUE set rang=12 where id='MEN00505';
+INSERT INTO MENUDYNAMIQUE (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
+VALUES ('MEN0005066', 'Chiffres d''affaire', 'fa fa-money', '/spat/pages/globalnegoce.jsp?but=ca/chiffreAffaire.jsp', 11, 2, 'MEN0006');
