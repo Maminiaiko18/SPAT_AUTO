@@ -269,7 +269,7 @@
 				<text><![CDATA[Type de paiement :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="57" width="403" height="25" uuid="32c4f817-a76a-4c69-b7c3-1ea29b4990bb"/>
+				<reportElement x="0" y="47" width="403" height="25" uuid="32c4f817-a76a-4c69-b7c3-1ea29b4990bb"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 					<paragraph rightIndent="10"/>
@@ -277,7 +277,7 @@
 				<text><![CDATA[N°]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="403" y="57" width="106" height="25" uuid="4151228c-e6d7-4d3c-a32f-151ec79af43d"/>
+				<reportElement x="403" y="47" width="106" height="25" uuid="4151228c-e6d7-4d3c-a32f-151ec79af43d"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -291,14 +291,14 @@
 				<textFieldExpression><![CDATA[$P{code}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="21" y="87" width="142" height="20" uuid="bd398e8b-edee-4ae5-9baf-5926829111e7"/>
+				<reportElement x="21" y="72" width="142" height="20" uuid="bd398e8b-edee-4ae5-9baf-5926829111e7"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FACTURE ANNULEE N°]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="448" y="87" width="19" height="20" uuid="ac20cc72-2c85-407b-acad-7fb7381f5c44"/>
+				<reportElement x="509" y="72" width="19" height="20" uuid="ac20cc72-2c85-407b-acad-7fb7381f5c44"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -347,14 +347,14 @@
 				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="176" y="87" width="227" height="20" uuid="d22a1bd6-a588-4d19-aa7b-e7356416933c"/>
+				<reportElement x="249" y="72" width="227" height="20" uuid="d22a1bd6-a588-4d19-aa7b-e7356416933c"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{codefact}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="479" y="87" width="430" height="20" uuid="3098bd38-434e-4eed-b08d-eb64f0db1c34"/>
+				<reportElement x="554" y="72" width="355" height="20" uuid="3098bd38-434e-4eed-b08d-eb64f0db1c34"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -372,7 +372,7 @@
 				<textFieldExpression><![CDATA[$P{designationAvoir}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="3" y="22" width="906" height="35" uuid="2c343259-c36f-4113-9514-92be6557429b"/>
+				<reportElement x="3" y="12" width="906" height="35" uuid="2c343259-c36f-4113-9514-92be6557429b"/>
 				<textElement textAlignment="Center">
 					<font size="18" isBold="true"/>
 				</textElement>
@@ -391,6 +391,28 @@
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Toamasina, le]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="100" width="201" height="20" uuid="cacc6c47-be22-47b2-827d-47eee0d03936"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACTURE DE REMPLACEMENT N°]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="509" y="100" width="19" height="20" uuid="fb736dac-1470-48be-b88d-97994384da46"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[DU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="554" y="100" width="365" height="20" uuid="4f9de963-901d-445e-b19b-581597432328"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="100" width="225" height="20" uuid="cdecd5f4-6874-4e11-a18c-a8b99bd76e94"/>
+				<text><![CDATA[]]></text>
 			</staticText>
 		</band>
 		<band height="54">
