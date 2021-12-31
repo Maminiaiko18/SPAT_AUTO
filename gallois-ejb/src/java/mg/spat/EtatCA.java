@@ -180,7 +180,7 @@ public class EtatCA {
         List<CA> caList = new ArrayList<CA>();
         List<String> compteMereAlreadyExist = new ArrayList<String>();
         for(int i=0; i<tout.length; i++) {
-            if(compteMere.equalsIgnoreCase(tout[i].getCompteMere())) {
+            if(compteMere.equalsIgnoreCase(tout[i].getCompteMerelib())) {
                 tout[i].setTaux(tout[i].getTotal() / totalGeneral.getTotal() * 100);
                 caList.add(tout[i]);
             }
@@ -206,8 +206,8 @@ public class EtatCA {
         this.listeParRubrique = new HashMap<String, CA[]>();
         totalGeneral.setTaux(0);
         for(int i=0; i<tout.length; i++) {
-            if(!this.checkCompteMereAlreadyExist(tout[i].getCompteMere(), compteMereAlreadyExist)) {
-                compteMereAlreadyExist = this.addCAByCompteMere(tout[i].getCompteMere(), tout);
+            if(!this.checkCompteMereAlreadyExist(tout[i].getCompteMerelib(), compteMereAlreadyExist)) {
+                compteMereAlreadyExist = this.addCAByCompteMere(tout[i].getCompteMerelib(), tout);
             } 
         }   
     }
