@@ -700,6 +700,52 @@ CREATE OR REPLACE  VIEW "FACTURE_CLIENT_FILLE_PLUS"
     WHERE 1 > 2;
 	
 	
+alter table NAVIRE add armateur varchar2(100) constraint armateur_fknav references armateur;
+
+create or replace view NAVIRELIBCOMPLET as
+SELECT nav.ID,
+       nav.REFERENCE,
+       nav.NOM,
+       nav.PAVILLON,
+       nav.JNT,
+       nav.JBT,
+       nav.PLT,
+       nav.LHT,
+       nav.LM,
+       nav.TE,
+       nav.VOLUME,
+       nav.REMARQUE,
+       nav.ETAT,
+       nav.TYPE,
+       p.val   AS valpavillon,
+       p.DESCE AS descepavillon,
+       tn.val  AS typenavirelib,
+       nav.ARMATEUR,
+       a.NOM   as ARMATEURLIB
+FROM navire nav
+         left JOIN PAYS p ON p.id = nav.PAVILLON
+         LEFT JOIN typenavire tn ON tn.id = nav.TYPE
+         left join ARMATEUR a on a.ID = nav.ARMATEUR;
+	create view NAVIRELIB as
+SELECT id,
+          reference,
+          nom,
+          valpavillon AS pavillon,
+          JNT,
+          JBT,
+          PLT,
+          LHT,
+          LM,
+          TE,
+          lht*lm*te as volume,
+          REMARQUE,
+          etat,
+          typenavirelib AS TYPE
+     FROM navirelibcomplet
+/
+
+
+	
 	CREATE OR REPLACE VIEW FACTURECLIENTMSUM
             (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, IDPREVISION, MONTANT,
              MONTANTTVA, MONTANTAVOIR, MONTANTTTC, ESCALE, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION,
