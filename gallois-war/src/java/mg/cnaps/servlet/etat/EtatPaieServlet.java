@@ -984,6 +984,7 @@ public class EtatPaieServlet extends HttpServlet {
                 for (int i = 0; i < details.length; i++) {
                     //details[i].setMontantHTEuro( details[i].getQuantite()*details[i].getPu());
                     total = total + details[i].getMontantHTEuro();
+                    details[i].setMontantTTC(details[i].getMontanttaux()+details[i].getMontantTva());
                     String heuredebut = "";
                     String heurefin = "";
                     if (details[i].getHeureDebut() != null && details[i].getHeureDebut().length() == 8) {// manala anle seconde any amn farany
