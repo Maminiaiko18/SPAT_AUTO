@@ -40,7 +40,7 @@ public class FactureClient extends ClassMere {
 
     private String id;
     private Date daty, date_echeance;
-    private String tiers, designation, type, remarque, iduser, idprevision, escale, deviseMere,armateurlib;
+    private String tiers, designation, type, remarque, iduser, idprevision, escale, deviseMere,armateurlib,factureRemplacement;
     private double tva, montant, montanttva, montantttc, montantpaye, montantreste;
     private String tierslib;
     private double montantavoir;
@@ -57,7 +57,23 @@ public class FactureClient extends ClassMere {
     private double ecart;
     private int exercice;
     private String idavoir;
-    private String typeclientlib ; 
+    private String typeclientlib,factureLiee ; 
+
+    public String getFactureLiee() {
+        return factureLiee;
+    }
+
+    public void setFactureLiee(String factureLiee) {
+        this.factureLiee = factureLiee;
+    }
+
+    public String getFactureRemplacement() {
+        return factureRemplacement;
+    }
+
+    public void setFactureRemplacement(String factureRemplacement) {
+        this.factureRemplacement = factureRemplacement;
+    }
 
     
 

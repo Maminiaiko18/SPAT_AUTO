@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="0.8264462809917362"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -143,6 +143,8 @@
 	<parameter name="codefact" class="java.lang.String"/>
 	<parameter name="pdaty" class="java.util.Date"/>
 	<parameter name="typeavoir" class="java.lang.String"/>
+	<parameter name="codefact1" class="java.lang.String"/>
+	<parameter name="pdaty1" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -354,7 +356,7 @@
 				<textFieldExpression><![CDATA[$P{codefact}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="554" y="72" width="355" height="20" uuid="3098bd38-434e-4eed-b08d-eb64f0db1c34"/>
+				<reportElement x="562" y="72" width="347" height="20" uuid="3098bd38-434e-4eed-b08d-eb64f0db1c34"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -406,14 +408,14 @@
 				</textElement>
 				<text><![CDATA[DU]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="554" y="100" width="365" height="20" uuid="4f9de963-901d-445e-b19b-581597432328"/>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="249" y="100" width="225" height="20" uuid="cdecd5f4-6874-4e11-a18c-a8b99bd76e94"/>
-				<text><![CDATA[]]></text>
-			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="249" y="100" width="225" height="20" uuid="ddd45328-dfa9-4fc2-bff3-5033fa1f8b1c"/>
+				<textFieldExpression><![CDATA[$P{codefact1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="562" y="100" width="355" height="20" uuid="68b1f69b-66be-4d1b-a7d8-ad1fe762849f"/>
+				<textFieldExpression><![CDATA[$P{pdaty1}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="54">
 			<componentElement>

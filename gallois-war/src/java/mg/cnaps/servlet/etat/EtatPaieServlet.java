@@ -1065,9 +1065,12 @@ public class EtatPaieServlet extends HttpServlet {
 
             FactureClient fc = mere[0].getFactureLiee(null, null);
             fc.initDetails(null);
+            String daty="2021-03-05";
             double deviseEuro = fc.getDeviseEuro();
             double deviseDollar = fc.getDeviseDollar();
-            param.put("codefact", fc.getCode());
+            param.put("codefact", fc.getFactureLiee());
+            param.put("codefact1", fc.getFactureRemplacement());
+            //param.put("pdaty", daty);
             param.put("pdaty", fc.getDaty());
             param.put("client", fc.getTierslib());
             param.put("codeClient", fc.getTiers());
