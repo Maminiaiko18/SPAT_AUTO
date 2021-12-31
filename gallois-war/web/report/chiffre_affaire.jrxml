@@ -20,7 +20,9 @@
 	<parameter name="total" class="java.lang.String"/>
 	<parameter name="cumule" class="java.lang.String"/>
 	<parameter name="taux" class="java.lang.String"/>
-	<parameter name="parameter5" class="java.lang.String"/>
+	<parameter name="nbr" class="java.lang.String"/>
+	<parameter name="nbr2" class="java.lang.String"/>
+	<parameter name="nbr3" class="java.lang.String"/>
 	<field name="regul" class="java.lang.String"/>
 	<field name="regulEETP" class="java.lang.String"/>
 	<field name="avoirCumRegul" class="java.lang.String"/>
@@ -209,79 +211,79 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="32" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="247" y="0" width="100" height="20" uuid="743ca3ee-8bb4-4bf4-8ca7-2fb03c1d9946"/>
+				<reportElement x="247" y="0" width="100" height="32" uuid="743ca3ee-8bb4-4bf4-8ca7-2fb03c1d9946"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{regul}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="147" height="20" uuid="8f0e18b7-b9ba-48e2-9ab8-2220222b775f"/>
-				<textElement>
+				<reportElement x="0" y="0" width="147" height="32" uuid="8f0e18b7-b9ba-48e2-9ab8-2220222b775f"/>
+				<textElement markup="html">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{libelle}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="347" y="0" width="100" height="20" uuid="3236d9d9-9662-4115-9502-aa875fe3ffab"/>
+				<reportElement x="347" y="0" width="100" height="32" uuid="3236d9d9-9662-4115-9502-aa875fe3ffab"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{regulEETP}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="447" y="0" width="100" height="20" uuid="0ed4e4bf-8f04-4974-92a4-509a11afe82d"/>
+				<reportElement x="447" y="0" width="100" height="32" uuid="0ed4e4bf-8f04-4974-92a4-509a11afe82d"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{avoirCumRegul}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="547" y="0" width="100" height="20" uuid="0d39d2d1-1e84-443d-a6e0-fe0a331f6c18"/>
+				<reportElement x="547" y="0" width="100" height="32" uuid="0d39d2d1-1e84-443d-a6e0-fe0a331f6c18"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{avoirEETP}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="647" y="0" width="100" height="20" uuid="7ff9f4ea-30dc-4e9e-9caa-2ec69d05ab94"/>
+				<reportElement x="647" y="0" width="100" height="32" uuid="7ff9f4ea-30dc-4e9e-9caa-2ec69d05ab94"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{comptant}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="747" y="0" width="100" height="20" uuid="d2c0ea92-3015-447b-baf8-225490439a03"/>
+				<reportElement x="747" y="0" width="100" height="32" uuid="d2c0ea92-3015-447b-baf8-225490439a03"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{credit}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="848" y="0" width="100" height="20" uuid="46de0a7b-3e25-4af8-8fd8-507ede334efd"/>
+				<reportElement x="848" y="0" width="100" height="32" uuid="46de0a7b-3e25-4af8-8fd8-507ede334efd"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="1050" y="0" width="100" height="20" uuid="7e651785-efc1-4e55-8259-c1eea3847ce8"/>
+				<reportElement x="1050" y="0" width="100" height="32" uuid="7e651785-efc1-4e55-8259-c1eea3847ce8"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{taux}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="147" y="0" width="100" height="20" uuid="1bcadedb-1111-4efd-bfd8-a9f1d3bc53b3"/>
+				<reportElement x="147" y="0" width="100" height="32" uuid="1bcadedb-1111-4efd-bfd8-a9f1d3bc53b3"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{anciencumul}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="950" y="0" width="100" height="20" uuid="58284443-e05a-4fa5-b82d-87529a84e60f"/>
+				<reportElement x="950" y="0" width="100" height="32" uuid="58284443-e05a-4fa5-b82d-87529a84e60f"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
@@ -290,7 +292,7 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="40">
+		<band height="61">
 			<textField>
 				<reportElement x="547" y="20" width="100" height="20" uuid="17409648-bf54-4f02-a6b0-d90e875cfc76"/>
 				<textElement textAlignment="Right">
@@ -315,14 +317,14 @@
 			<staticText>
 				<reportElement x="0" y="20" width="147" height="20" uuid="b6ebc24c-a583-408c-ae18-2e95019bc3c0"/>
 				<textElement>
-					<font size="10"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Taux]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="0" width="147" height="20" uuid="eb3838f8-3b3a-47e0-b415-530109839bbf"/>
 				<textElement>
-					<font size="10"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Total"]]></textFieldExpression>
 			</textField>
@@ -395,6 +397,34 @@
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{taux}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="147" height="20" uuid="07ad95f5-a75f-48a2-a2c9-293f161b9697"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombres des factures]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="647" y="40" width="100" height="20" uuid="e3d91281-b12a-42b9-a95c-04d9026e6b8d"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nbr2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="547" y="40" width="100" height="20" uuid="36f625cc-068e-4939-b774-ede26e5732d2"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nbr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="748" y="40" width="100" height="20" uuid="856b0b4d-5c2f-4138-8a79-4b775ec27225"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nbr3}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

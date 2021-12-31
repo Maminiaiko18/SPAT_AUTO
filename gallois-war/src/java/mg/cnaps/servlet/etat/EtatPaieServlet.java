@@ -1580,10 +1580,10 @@ public class EtatPaieServlet extends HttpServlet {
         String mois = request.getParameter("mois");
         String annee = request.getParameter("annee");
 
-        if (mois == null || mois.trim().isEmpty()) {
+        if (mois == null || mois.trim().isEmpty() || mois.compareToIgnoreCase("null")==0 ) {
             mois = "" + Utilitaire.getMoisEnCoursReel();
         }
-        if (annee == null || annee.trim().isEmpty()) {
+        if (annee == null || annee.trim().isEmpty() || annee.compareToIgnoreCase("null")==0) {
             annee = "" + Utilitaire.getAneeEnCours();
         }
 
@@ -1602,12 +1602,13 @@ public class EtatPaieServlet extends HttpServlet {
             /*Details*/
             for (String rubrique : listeParRubrique.keySet()){
                  CaPDF temp = new CaPDF();
-                 temp.setLibelle(Utilitaire.champNull(rubrique.toUpperCase()));
+                 temp.setLibelle("<b>"+Utilitaire.champNull(rubrique.toUpperCase())+"</b>");
                  result.add(temp);
                  for (CA ca : listeParRubrique.get(rubrique)){
-                     result.add(new CaPDF(ca));
-                     
+                     result.add(new CaPDF(ca));                     
                  }
+                 CaPDF temp2 = new CaPDF(sommePartiel.get(rubrique));
+                 temp2.setLibelle("<center><b>"+temp2.getLibelle() +"</b></center>");
                  result.add( new CaPDF(sommePartiel.get(rubrique)));
             }
             /*Details*/
@@ -1632,6 +1633,9 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("comptanttaux",Utilitaire.formaterAr(etatCA.getPourComptant()));
             param.put("credittaux",Utilitaire.formaterAr(etatCA.getPourcCredit()));
             /*taux*/
+            param.put("nbr",Utilitaire.formaterAr(totalGeneral.getNbComptant()));
+            param.put("nbr2",Utilitaire.formaterAr(totalGeneral.getNbCredit()));
+            param.put("nbr3",Utilitaire.formaterAr(totalGeneral.getNbComptant()+totalGeneral.getNbCredit()));
         }
          /*******************/   
         

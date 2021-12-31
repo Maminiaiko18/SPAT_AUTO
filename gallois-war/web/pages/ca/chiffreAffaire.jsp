@@ -607,7 +607,7 @@
                 </table>
             </div>
             <div class="box-footer">
-                <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionCA" style="float:right">Imprimer</a>
+                <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionCA&mois=<%=request.getParameter("mois") %>&annee=<%=request.getParameter("annee") %>" style="float:right">Imprimer</a>
             </div>
         </div>
     </section>
