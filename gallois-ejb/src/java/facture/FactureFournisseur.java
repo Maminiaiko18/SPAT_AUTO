@@ -24,7 +24,15 @@ import utilitaire.Utilitaire;
  */
 public class FactureFournisseur extends FactureClient {
    private String numeroop,projet,code_etablissement,projetlib,code_etablissementlib,nature,naturelib,idbc,numOP;
- 
+   private int exercice ;
+
+    public int getExercice() {
+        return exercice;
+    }
+
+    public void setExercice(int exercice) {
+        this.exercice = exercice;
+    }
 
     public String getNumOP() {
         return numOP;
