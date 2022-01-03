@@ -1614,8 +1614,18 @@ public class EtatPaieServlet extends HttpServlet {
                      result.add(new CaPDF(ca));                     
                  }
                  CaPDF temp2 = new CaPDF(sommePartiel.get(rubrique));
-                 temp2.setLibelle("<center><b>"+temp2.getLibelle() +"</b></center>");
-                 result.add( new CaPDF(sommePartiel.get(rubrique)));
+                 temp2.setLibelle("<center><b>"+temp2.getLibelle().toUpperCase() +"</b></center>");
+                 temp2.setAnciencumul("<b>"+temp2.getAnciencumul() +"</b>");
+                 temp2.setRegul("<b>"+temp2.getRegul() +"</b>");
+                 temp2.setRegulEETP("<b>"+temp2.getRegulEETP() +"</b>");
+                 temp2.setAvoirCumRegul("<b>"+temp2.getAvoirCumRegul() +"</b>");
+                 temp2.setAvoirEETP("<b>"+temp2.getAvoirEETP() +"</b>");
+                 temp2.setComptant("<b>"+temp2.getComptant() +"</b>");
+                 temp2.setCredit("<b>"+temp2.getCredit() +"</b>");
+                 temp2.setTotal("<b>"+temp2.getTotal() +"</b>");
+                 temp2.setnCumul("<b>"+temp2.getnCumul()+"</b>");
+                 temp2.setTaux("<b>"+temp2.getTaux() +"</b>");
+                 result.add( temp2);
             }
             /*Details*/
             
