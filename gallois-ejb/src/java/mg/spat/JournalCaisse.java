@@ -402,19 +402,22 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 return;
             }
             if(this.getIdordre()==null){
-            
-                FactureClient[] listeFC = findFactureClient(c);
-                if(listeFC != null && listeFC.length > 0) {
-                    for(FactureClient fc : listeFC) {
-                        if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
-                        if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                
+                if(this.getIdplacement() != null) {
+                    FactureClient[] listeFC = findFactureClient(c);
+                    if(listeFC != null && listeFC.length > 0) {
+                        for(FactureClient fc : listeFC) {
+                            if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
+                            if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                        }
                     }
-                }
+                
 
-                AvoirFC avoir = findAvoirFC(c);
-                if(avoir != null) {
-                    if(avoir.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Avoir non visee");
-                    if(this.getDebit() > avoir.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                    AvoirFC avoir = findAvoirFC(c);
+                    if(avoir != null) {
+                        if(avoir.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Avoir non visee");
+                        if(this.getDebit() > avoir.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                    }
                 }
             }
         } catch (Exception e) {
@@ -588,6 +591,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("mouvement caissse deja valide");
             }
+
             if (this.getIdordre() != null) { 
                 OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir FC
                 if(op != null) {
@@ -608,12 +612,22 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                                 lpf[i].createObject(refuser,c);
                             }
                         }
+                                              
                     }
                 }
             }else{
                 if (this.getIdplacement() != null) {
                     if (!this.getIdplacement().startsWith("FC")) {
                         this.traitementPlacement(user, c);
+                        
+                        FactureFournisseur[] facturesF = findFactureFournisseur(c);
+                        if(facturesF.length > 0) {
+                            for(FactureFournisseur ff: facturesF) {
+                                if(ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())) {
+                                    insererDansBonProvisoire(refuser, c);
+                                }
+                            }
+                        }
                     }
                     
                     if(this.getIdplacement().startsWith("FC")){
@@ -946,6 +960,34 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         if (result != null && result.length > 0) 
             return result;
         return null;
+    }
+    
+    public void insererDansBonProvisoire(String u, Connection con) throws Exception {
+        boolean verif = false;
+        try{
+            if(con == null){
+                con = new UtilDB().GetConn();
+                con.setAutoCommit(false);
+                verif = true;
+            }
+            
+            Date dateDuJour = Utilitaire.dateDuJourSql();
+            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, dateDuJour, 0, this.getDebit());
+            transfert.setIddevise(this.getIddevise());
+            transfert.setIdmode(this.getIdmode());
+            transfert.setEtat(ConstanteEtat.getEtatValider());
+            
+            transfert.createObject(u, con);
+            
+            if(verif) con.commit();
+        }
+        catch(Exception ex) {
+            if(con != null && verif) con.rollback();
+            throw ex;
+        }
+        finally {
+            if(con != null && verif) con.close();
+        }
     }
 
     public String getDescecaisse() {

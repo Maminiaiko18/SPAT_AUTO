@@ -32,6 +32,8 @@
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
+    pi.getFormu().getChamp("exercice").setLibelle("Exercice");
+    pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
@@ -40,6 +42,7 @@
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
+    pi.getFormu().getChamp("idavoir").setVisible(false);
     
     
     pi.getFormu().getChamp("tiers").setAutre("readonly");
@@ -89,8 +92,10 @@
         //pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 200px;\" ");
         pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
+        pi.getFormufle().getChamp("duree_"+i).setAutre("onblur='calculerMontant("+i+")'");
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
+        pi.getFormufle().getChamp("duree_"+i).setDefaut("1");
         pi.getFormufle().getChamp("idactivite_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
     }
@@ -101,6 +106,7 @@
     pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
+    pi.getFormufle().getChamp("duree_0").setLibelle("Durée");
     pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
@@ -147,7 +153,7 @@
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("codePrestation").setVisible(false);
     pi.getFormu().getChamp("code").setVisible(false);
-    String[] ordreFille = {"rubrique","designation","pu","quantite","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction"};
+    String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction"};
     pi.getFormufle().setColOrdre(ordreFille);
     pi.preparerDataFormu();
        
@@ -174,12 +180,13 @@
 </div>
 <script  language="JavaScript">
     function calculerMontant(indice) {
-        var quantite, pu, montant;
+        var quantite, pu, montant, duree;
         quantite = parseFloat($('#quantite_' + indice).val());
+        duree = parseFloat($('#duree_' + indice).val());
 //        quantite = quantite / 1000;
         pu = parseFloat($('#pu_' + indice).val());
         if (!isNaN(quantite) && !isNaN(pu)) {
-            montant = quantite * pu;
+            montant = quantite * pu * duree;
             $('#montant_' + indice).val(montant.toFixed(2));
         } else {
             $('#montant_' + indice).val('');

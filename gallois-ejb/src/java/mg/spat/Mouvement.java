@@ -81,7 +81,7 @@ public class Mouvement extends ClassEtat {
                 prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
             }
             Navire navireObj = getNavireObjet(c);
-            if(!navireObj.getType().equals(Constante.getNavireBornageEtPeche())){
+            if(navireObj != null && navireObj.getType() != null && !navireObj.getType().equals(Constante.getNavireBornageEtPeche())){
                 Activite stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
                 u.createObject(stationnement, c);
                 u.validerObject(stationnement, c);

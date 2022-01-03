@@ -40,7 +40,7 @@ public class FactureClient extends ClassMere {
 
     private String id;
     private Date daty, date_echeance;
-    private String tiers, designation, type, remarque, iduser, idprevision, escale, deviseMere;
+    private String tiers, designation, type, remarque, iduser, idprevision, escale, deviseMere,armateurlib,factureRemplacement;
     private double tva, montant, montanttva, montantttc, montantpaye, montantreste;
     private String tierslib;
     private double montantavoir;
@@ -55,7 +55,49 @@ public class FactureClient extends ClassMere {
     private String estMictsl;
     private double reduction;
     private double ecart;
+    private int exercice;
+    private String idavoir;
+    private String typeclientlib,factureLiee ; 
 
+    public String getFactureLiee() {
+        return factureLiee;
+    }
+
+    public void setFactureLiee(String factureLiee) {
+        this.factureLiee = factureLiee;
+    }
+
+    public String getFactureRemplacement() {
+        return factureRemplacement;
+    }
+
+    public void setFactureRemplacement(String factureRemplacement) {
+        this.factureRemplacement = factureRemplacement;
+    }
+
+    
+
+    public void setIdavoir(String idavoir) {
+        this.idavoir = idavoir;
+    }
+    
+
+    public int getExercice() {
+        return exercice;
+    }
+
+    public void setExercice(int exercice) {
+        this.exercice = exercice;
+    }
+
+    public String getArmateurlib() {
+        return armateurlib;
+    }
+
+    public void setArmateurlib(String armateurlib) {
+        this.armateurlib = armateurlib;
+    }
+    
     public double getMontantttcvrai() {
         return montantttcvrai;
     }
@@ -76,7 +118,16 @@ public class FactureClient extends ClassMere {
     public String getCodeProvision() {
         return codeProvision;
     }
+    public String getTypeclientlib() {
+        return typeclientlib;
+    }
 
+    public void setTypeclientlib(String typeclientlib) {
+        this.typeclientlib = typeclientlib;
+    }
+    public String getIdavoir() {
+        return idavoir;
+    }
     public String validerFacture(UserEJB user, Connection c) throws Exception {
         String provisionString = "";
         int verif = 0;

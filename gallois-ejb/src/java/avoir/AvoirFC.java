@@ -13,6 +13,8 @@ import bean.ClassMAPTable;
 import bean.ClassMere;
 import bean.TypeObjet;
 import ded.OrdonnerPayement;
+import facture.FactureClientDetails;
+import factureclient.FactureClientDetail;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.UtilDB;
@@ -374,5 +376,39 @@ public class AvoirFC extends ClassMere {
         op.setRemarque("Paiement avoir "+this.getId());
         op.setDaty(Utilitaire.dateDuJourSql());
         return op;
+    }
+    
+    public FactureClient creerFactureRempl(Connection c, String user) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                    c = (new UtilDB()).GetConn();
+                    verif = 1;
+            }
+            FactureClient factureLiee = getFactureLiee("factureclient", c);
+            factureLiee.setIdavoir(this.getId());
+            factureLiee.createObject(user, c);
+            FactureClientDetails[] details = (FactureClientDetails[])factureLiee.getFille();
+            if(details != null && details.length > 0){
+                for(int i=0; i<details.length; i++){
+                    details[i].createObject(user, c);
+                }
+            }
+            return factureLiee;
+        } catch(Exception e){
+            throw e;
+        }finally {
+            if (c != null && verif == 1) {
+                    c.close();
+            }
+        }
+    }
+    
+    public FactureClient getFactureRemplacement(String nomtable, Connection c) throws Exception{
+        FactureClient base = new FactureClient();
+        base.setNomTable(nomtable);
+        FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(base, null, null, c, String.format(" and idavoir = '%s' ", this.getId()));
+        if(result.length > 0) return result[0];
+        return null;
     }
 }

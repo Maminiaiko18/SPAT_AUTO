@@ -25,7 +25,7 @@ public class SituationCredit extends LigneCredit{
         this.preparePk("SCRD", "get_seqligneCreditDepense");
         this.setId(makePK(c));
     }
-    public static SituationCredit[] findSituationCreditRecette(String id,String desingation,String compte,String date1,String date2,String etat, String niveau,Connection c) throws Exception {
+    public static SituationCredit[] findSituationCreditRecette(String id,String desingation,String compte,String date1,String date2,String etat, String niveau, String exercice, Connection c) throws Exception {
          SituationCredit[] ret = null; 
            boolean newCon = false;
            try{
@@ -40,6 +40,7 @@ public class SituationCredit extends LigneCredit{
              if(compte!=null   && !compte.equals("")) where+= " and upper(l.compte) like upper('%"+compte+"%')";
              if(date1!=null   && !date1.equals("")) where+= " and mf.daty >= '"+date1+"'";
              if(date2!=null   && !date2.equals("")) where+= " and mf.daty <= '"+date2+"'";
+             if(exercice!=null   && !exercice.equals("")) where+= " and mf.exercice = " + exercice;
              if(etat!=null   && !etat.equals("")) where+= " and l.etat = "+ etat;
              
              /*String req="SELECT l.id          AS                     id,\n" +
@@ -77,7 +78,9 @@ public class SituationCredit extends LigneCredit{
 "FROM LIGNECREDITRECETTE l\n" +
 "         LEFT JOIN FACTURE_CLIENT_MF_PAYE mf\n" +
 "                   ON substr(mf.COMPTE, 1, "+niveau+") LIKE substr(l.COMPTE, 1, "+niveau+")\n" +
-"                       AND EXTRACT(YEAR FROM DATY) = l.ANNEE and mf.IDMERE not in\n" +
+//"                       AND EXTRACT(YEAR FROM DATY) = l.ANNEE " +
+                    " and mf.exercice = l.annee \n" +
+                    " and mf.IDMERE not in\n" +
 "                                                                 (select id from ProvisionFactureDefinitive) %s \n" +
 "GROUP BY \n" +
 "         l.DESIGNATION,\n" +

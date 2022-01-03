@@ -9,25 +9,23 @@
         FactureClient base = new FactureClient();
         base.setNomTable("factureClientValide_v");
 
-
-        String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib"};
-        String listeInt[] = {"daty","date_echeance"};
-        String colDefaut[] = {"id","daty","tierslib","escale","designation","categorielib","tva","date_echeance"};
+        String listeCrt[] = {"id", "daty", "tierslib", "typeclientlib", "designation", "date_echeance", "escale", "categorielib"};
+        String listeInt[] = {"daty", "date_echeance"};
+        String colDefaut[] = {"id", "daty", "tierslib", "typeclientlib", "escale", "designation", "categorielib", "tva", "date_echeance"};
         String[] pourcentage = {};
-        String somDefaut[] = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
-        
-        
+        String somDefaut[] = {"montant", "montantTVA", "montantTTC", "montantAvoir", "montantpaye", "montantreste"};
         PageRechercheGroupe pr = new PageRechercheGroupe(base, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, 18, somDefaut.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("facture/factureclient-analyse.jsp");
-        
+
         pr.getFormu().getChamp("daty1").setLibelle("Date debut");
         pr.getFormu().getChamp("daty2").setLibelle("Date fin");
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("date_echeance1").setLibelle("Date ï¿½chï¿½ance min");
         pr.getFormu().getChamp("date_echeance2").setLibelle("Date ï¿½chï¿½ance max");
         pr.getFormu().getChamp("categorielib").setLibelle("Catï¿½gorie");
+        pr.getFormu().getChamp("typeclientlib").setLibelle("Type client");
         pr.creerObjetPage();
 %>
 <script>
@@ -40,7 +38,7 @@
         <h1>Analyse facture client</h1>
     </section>
     <section class="content">
-        <form action='<%= pr.getLien() + "?but="+pr.getApres() %>' method="post" name="analyse" id="analyse">
+        <form action='<%= pr.getLien() + "?but=" + pr.getApres()%>' method="post" name="analyse" id="analyse">
             <% out.println(pr.getFormu().getHtmlEnsemble()); %>
             <div class="row col-md-12">  
                 <div class="col-md-4"></div>
@@ -49,6 +47,8 @@
         <% out.println(pr.getTableauRecap().getHtml()); %>
         <br>
         <%
+//            String libEnteteAffiche[] = {"Id", "Daty", "Tiers", "Type client", "Escale", "Désignation", "Categorie", "Tva", "Date echeance", "Montant", "Montant TVA", "Montant TTC", "Montant Avoir", "Montant paye","Montant reste"};
+//            pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
         %>

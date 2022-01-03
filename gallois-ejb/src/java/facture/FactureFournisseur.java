@@ -23,7 +23,17 @@ import utilitaire.Utilitaire;
  * @author rijan
  */
 public class FactureFournisseur extends FactureClient {
-   private String numeroop,projet,code_etablissement,projetlib,code_etablissementlib,nature,naturelib,idbc,numOP;
+
+    private String numeroop, projet, code_etablissement, projetlib, code_etablissementlib, nature, naturelib, idbc, numOP;
+    private int exercice;
+
+    public int getExercice() {
+        return exercice;
+    }
+
+    public void setExercice(int exercice) {
+        this.exercice = exercice;
+    }
 
     public String getNumOP() {
         return numOP;
@@ -40,7 +50,7 @@ public class FactureFournisseur extends FactureClient {
     public void setNaturelib(String naturelib) {
         this.naturelib = naturelib;
     }
-   
+
     public String getNumeroop() {
         return numeroop;
     }
@@ -96,8 +106,6 @@ public class FactureFournisseur extends FactureClient {
     public void setIdbc(String idbc) {
         this.idbc = idbc;
     }
-   
-
 
     public FactureFournisseur() throws Exception {
         this.setNomTable("facture_Fournisseur_Mere");
@@ -107,10 +115,8 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public String getValColLibelle() {
-        return getDesignation()+";"+getId();
+        return getDesignation() + ";" + getId();
     }
-    
-    
 
     public FactureFournisseur(String id, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String idcategorie, double tva, Date daty, Date dateEcheance, int etat) throws Exception {
         this.setNomTable("facture_Fournisseur_Mere");
@@ -133,7 +139,7 @@ public class FactureFournisseur extends FactureClient {
         this.preparePk("FAF", "get_seq_factFournMere");
         this.setId(makePK(c));
     }
-    
+
     public static FactureFournisseur[] getFactures(String ids, Connection c) throws Exception {
         int verif = 0;
         try {
@@ -146,7 +152,7 @@ public class FactureFournisseur extends FactureClient {
             cc.setNomTable("factureclientgroupvide");
             String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,3)) as montant  "
                     + " from FACTFOURN_MSUM_LIB "
-                    + " where id in('"+ids.replace(";", "','")+"') "
+                    + " where id in('" + ids.replace(";", "','") + "') "
                     + " and etat >= " + ConstanteEtat.getEtatValider()
                     + " group by tiers,tierslib";
             FactureFournisseur[] result = (FactureFournisseur[]) CGenUtil.rechercher(cc, requete, c);
@@ -160,7 +166,7 @@ public class FactureFournisseur extends FactureClient {
             }
         }
     }
-    
+
     public void recurrent(UserEJB u, Connection c, String typefrequence, int nb) throws Exception {
         boolean ouvert = false;
 
@@ -282,14 +288,16 @@ public class FactureFournisseur extends FactureClient {
     public BonDeLivraisonFilleReste[] getBP(Connection c) throws Exception {
         boolean ouvert = false;
         BonDeLivraisonFilleReste[] livraisons = new BonDeLivraisonFilleReste[0];
-        if(this.getIdBL() == null || this.getIdBL().trim().equals("")) return livraisons;
-        
+        if (this.getIdBL() == null || this.getIdBL().trim().equals("")) {
+            return livraisons;
+        }
+
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
                 ouvert = true;
             }
-            
+
             BonDeLivraisonFilleReste bl = new BonDeLivraisonFilleReste();
             bl.setNomTable("AS_BONDELIVRAISON_FILLEQTE_RES");
             bl.setNumbl(this.getIdBL());
@@ -305,6 +313,7 @@ public class FactureFournisseur extends FactureClient {
 
         return livraisons;
     }
+
     public FactureFournisseur setIdProvision(FactureFournisseur fact2, int type, UserEJB u, Connection c) throws Exception {
         if (type == 1) {
             fact2.setIdProvision(this.getId());
@@ -317,6 +326,7 @@ public class FactureFournisseur extends FactureClient {
         }
         return fact2;
     }
+
     public void controlerDefinitive(Connection c) throws Exception {
         if (this.getEtat() < ConstanteEtat.getEtatValider()) {
             throw new Exception("Bon provisoire non visee");
@@ -325,6 +335,7 @@ public class FactureFournisseur extends FactureClient {
             throw new Exception("Cette facture n est pas une facture de provision!");
         }
     }
+
     public FactureFournisseur genererDefinitive(UserEJB u, int type, Connection c) throws Exception {
         int verif = 0;
         FactureFournisseur fact2 = null;
@@ -377,6 +388,7 @@ public class FactureFournisseur extends FactureClient {
 
         return fact2;
     }
+
     public double getMontantResteProvision(Connection c) throws Exception {
         double result = 0.;
         int verify = 0;
@@ -401,6 +413,7 @@ public class FactureFournisseur extends FactureClient {
         }
         return result;
     }
+
     public double genererMontantPaiement(Connection c) throws Exception {
         boolean verif = false;
         double montant = 0;
@@ -427,6 +440,7 @@ public class FactureFournisseur extends FactureClient {
 
         return montant;
     }
+
     public PaiementFacture[] findPaiementProvision(String idProvision, Connection c) throws Exception {
         boolean ouvert = false;
         PaiementFacture[] retour = null;
@@ -436,7 +450,7 @@ public class FactureFournisseur extends FactureClient {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            PaiementFacture pf=new PaiementFacture();
+            PaiementFacture pf = new PaiementFacture();
             pf.setNomTable("paiementfacturef");
             retour = (PaiementFacture[]) CGenUtil.rechercher(pf, null, null, c, " and idFact='" + idProvision + "'");
         } catch (Exception e) {
@@ -448,6 +462,7 @@ public class FactureFournisseur extends FactureClient {
         }
         return retour;
     }
+
     public void genererPaiementDefinitive(String u, String idProvision, Connection c) throws Exception {
         boolean ouvert = false;
         PaiementFacture[] retour = null;
@@ -480,6 +495,7 @@ public class FactureFournisseur extends FactureClient {
             }
         }
     }
+
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
@@ -488,16 +504,19 @@ public class FactureFournisseur extends FactureClient {
         super.validerObject(u, c);
         return this;
     }
-    
-			public static FactureFournisseur grouperFacture(String ids, Connection c) throws Exception{
-				FactureFournisseur[] factures = FactureFournisseur.getFactures(ids,c);
-				if(factures == null || factures.length == 0) throw new Exception("Factures introuvables ou non visees");
-				if(factures.length > 1) throw new Exception("Fournisseur differents!");
-				else if(factures.length == 1) { 
-					return factures[0];
-				}
-				return null;
-			}        
+
+    public static FactureFournisseur grouperFacture(String ids, Connection c) throws Exception {
+        FactureFournisseur[] factures = FactureFournisseur.getFactures(ids, c);
+        if (factures == null || factures.length == 0) {
+            throw new Exception("Factures introuvables ou non visees");
+        }
+        if (factures.length > 1) {
+            throw new Exception("Fournisseur differents!");
+        } else if (factures.length == 1) {
+            return factures[0];
+        }
+        return null;
+    }
 
     @Override
     public String calculerCodeSimple(Connection c) throws Exception {
@@ -505,11 +524,11 @@ public class FactureFournisseur extends FactureClient {
         String code = "";
         code += Utilitaire.genererAnnee(daty);
         code += Utilitaire.genererMois(daty);
-        code += UtilitaireFacture.genererSequence( c, "NUMEROCOMPTA", 4, daty);
+        code += UtilitaireFacture.genererSequence(c, "NUMEROCOMPTA", 4, daty);
         return code;
     }
-    
-     public FactureFournisseur modifierEntete(String refUser, Connection c) throws Exception {
+
+    public FactureFournisseur modifierEntete(String refUser, Connection c) throws Exception {
         int verif = 0;
         try {
             if (c == null) {
@@ -536,6 +555,5 @@ public class FactureFournisseur extends FactureClient {
         }
         return this;
     }
-                        
-    
+
 }

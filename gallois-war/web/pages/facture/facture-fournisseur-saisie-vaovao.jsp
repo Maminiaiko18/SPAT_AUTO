@@ -46,6 +46,8 @@
     String mere=request.getParameter("idmere");
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
+    pi.getFormu().getChamp("exercice").setLibelle("Exercice");
+    pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
     //pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro Compta");
     pi.getFormu().getChamp("numeroop").setVisible(false);

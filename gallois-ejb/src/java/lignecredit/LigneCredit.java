@@ -32,7 +32,7 @@ public class LigneCredit extends ClassEtat {
         this.daty = daty;
     }
     
-    public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2, String etat, String niveau, Connection c) throws Exception {
+    public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2, String etat, String niveau, String exercice, Connection c) throws Exception {
          LigneCredit[] ret = null; 
            boolean newCon = false;
            try{
@@ -46,6 +46,7 @@ public class LigneCredit extends ClassEtat {
              if(compte!=null   && !compte.equals("")) where+= " and upper(l.compte) like upper('%"+compte+"%')";
              if(date1!=null   && !date1.equals("")) where+= " and daty >= '"+date1+"'";
              if(date2!=null   && !date2.equals("")) where+= " and daty <= '"+date2+"'";
+             if(exercice!=null   && !exercice.equals("")) where+= " and mf.exercice = " + exercice;
              if(etat != null && !etat.equals("")) where += " and l.etat = " + etat;
              /*String req = "SELECT \n" +
                         "	   l.id          AS                                id,\n" +
@@ -79,7 +80,8 @@ public class LigneCredit extends ClassEtat {
 "FROM LIGNECREDITDEPENSE l\n" +
 "         LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n" +
 "                   ON substr(mf.COMPTE, 1, "+niveau+") LIKE substr(l.COMPTE, 1, "+niveau+")\n" +
-"                       AND EXTRACT(YEAR FROM daty) = l.ANNEE %s \n" +
+//"                       AND EXTRACT(YEAR FROM daty) = l.ANNEE  \n" +
+                     " and mf.exercice = l.annee %s \n" +
 "GROUP BY l.id,\n" +
 "         l.DESIGNATION,\n" +
 "         substr(l.COMPTE, 1, "+niveau+"),\n" +

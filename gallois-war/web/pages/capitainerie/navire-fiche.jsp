@@ -19,6 +19,8 @@
     PageConsulte pc = pc = new PageConsulte(navire, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
     pc.setTitre("Fiche navire");
+    pc.getChampByName("Reference").setVisible(false);
+    pc.getChampByName("armateurlib").setLibelle("armateur");
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");

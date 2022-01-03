@@ -21,7 +21,7 @@
         FactureClientDetails fille = new FactureClientDetails();
         fille.setNomTable("FACTURE_CLIENT_FILLE_LIBELLE");
         fille.setIdmere(request.getParameter("id"));
-        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, " order by id");
+        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, " order by rang, daty asc");
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
@@ -55,7 +55,7 @@
         pi.getFormu().getChamp("idProvision").setAutre("readonly");
         pi.getFormu().getChamp("idProvision").setLibelle("Provision");
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
-
+        pi.getFormu().getChamp("exercice").setLibelle("Exercice");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeClientChoix.jsp");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
 
@@ -96,11 +96,16 @@
         pi.getFormu().getChamp("codePrestation").setVisible(false);
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
         pi.getFormu().getChamp("tva").setVisible(false);    
-
+        
+        pi.getFormu().getChamp("idavoir").setPageAppel("choix/listeAvoirFCChoix.jsp");
+        pi.getFormu().getChamp("idavoir").setAutre("readonly");
+        pi.getFormu().getChamp("idavoir").setLibelle("Avoir");
+                         
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
         //affichage.Champ.setAutre(pi.getFormufle().getChampFille("Taux"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("activitelib"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("idrubrique"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("produit_lib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
@@ -135,6 +140,16 @@
                 String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
                 datefactChp.setValeur(dateF);
             }
+            
+            if(liste[i].getIdrubrique() != null && liste[i].getIdrubrique().equalsIgnoreCase(Constante.idStationnement) && liste[i].getIdactivite() !=  null) {
+                Activite act = liste[i].getActivite(null);
+                
+                liste[i].setDuree(act.getNbHeure());
+                liste[i].setQuantite(liste[i].getQuantite() / act.getNbHeure());
+                
+                pi.getFormufle().getChamp("duree_"+i).setValeur(""+liste[i].getDuree());
+                pi.getFormufle().getChamp("quantite_"+i).setValeur(""+liste[i].getQuantite());
+            }
         }
         
         pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
@@ -143,12 +158,14 @@
         pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
         pi.getFormufle().getChamp("pu_0").setLibelle("pu");
         pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
+        pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
         pi.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
         pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
         pi.getFormufle().getChamp("tva_0").setLibelle("tva");
         //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
         pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
         pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
+        pi.getFormufle().getChamp("duree_0").setLibelle("Durée");
         pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
         pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
         pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
@@ -161,7 +178,6 @@
         pi.preparerDataFormu();
         
         Activite act = liste.length > 0 ? liste[0].getActivite(null) : null;
-        
         double longueur = 0, largeur = 0, tirant = 0, volume = 0, volumeArrondi = 0;
         
         if(act != null) {
@@ -171,7 +187,6 @@
             volume = act.getVolume();
             volumeArrondi = act.getVolumeArrondi();
         }
-        
         
 %>
 <style>
@@ -187,6 +202,8 @@
                 pi.getFormu().makeHtmlInsertTabIndex();
                 pi.getFormufle().makeHtmlInsertTableauIndex();
                 out.println(pi.getFormu().getHtmlInsert());
+                
+                if(mere.getIdprevision() != null){
             %>
             <div class="col-md-6">
                 <div class="card">
@@ -214,7 +231,9 @@
                     </table>
                 </div>
             </div>
-            <center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
+            <%}%>
+            <%--<center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
+--%>            
             <div class="row">
                 <div class="col-md-12">
                     <%
@@ -262,6 +281,7 @@
             textarea<%=i%>.value = designation<%=i%>.value;
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
     <%}%>
+
 </script>
 <%} catch (Exception ex) {
         ex.printStackTrace();
