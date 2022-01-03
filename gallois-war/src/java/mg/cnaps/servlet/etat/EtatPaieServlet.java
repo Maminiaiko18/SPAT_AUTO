@@ -81,6 +81,8 @@ import facture.FactureClientDetailsGrouper;
 import facture.FactureFournisseurDetails;
 import facture.FactureFournisseurFilleData;
 import factureclient.PayementFacture;
+import fin.Coursdevise;
+import fin.CoursdevisePDF;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import mg.spat.CA;
@@ -170,6 +172,8 @@ public class EtatPaieServlet extends HttpServlet {
                 impressionCA(request, response);
             }else if (action.equalsIgnoreCase("rubrique_activite")) {
                 rubrique_activite_pdf(request, response);
+            }else if (action.equalsIgnoreCase("coursdevise")){
+                coursdevise_pdf(request, response);
             }
 
         } catch (Exception ex) {
@@ -1703,4 +1707,44 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    
+    public void coursdevise_pdf(HttpServletRequest request, HttpServletResponse response){
+        try{
+            String id=request.getParameter("id");
+            String iddevise=request.getParameter("iddevise");
+            String date1=request.getParameter("date1");
+            String date2=request.getParameter("date2");
+            String where = "";
+            if(id!=null && id.compareToIgnoreCase("null")!=0 && id.length()!=0){
+                where += " and upper(id) like upper('%"+id+"%') ";
+            }
+            if(iddevise!=null && iddevise.compareToIgnoreCase("null")!=0 && iddevise.length()!=0){
+                where += " and upper(iddevise) like upper('%"+iddevise+"%') ";
+            }
+            if(date1!=null && date1.compareToIgnoreCase("null")!=0 && date1.length()!=0){
+                where += " and  daty >= '"+date1+"'";
+            }
+            if(date2!=null && date2.compareToIgnoreCase("null")!=0 && date2.length()!=0){
+                where += " and  daty <= '"+date2+"'";
+            }
+            
+        Map param = new HashMap();
+        param.put("datyjour", Utilitaire.dateDuJour());
+        Coursdevise devise = new Coursdevise();
+        devise.setNomTable("COURSDEVISENONMICTSL_PDF");
+        Coursdevise[] datadevise = (Coursdevise[])CGenUtil.rechercher(devise, null, null, where);
+        List result = new ArrayList();
+        for (int i = 0; i < datadevise.length; i++) {
+            Coursdevise coursdevise = datadevise[i];
+            CoursdevisePDF pdf = new CoursdevisePDF(coursdevise.getDaty(),coursdevise.getIddevise(),coursdevise.getMontant());
+            result.add(pdf);
+        }
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("coursdevise-pdf");
+        UtilitaireImpression.imprimer(request, response, "Cours devise", param, result, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
 }
