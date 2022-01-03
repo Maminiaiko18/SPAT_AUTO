@@ -55,16 +55,7 @@ public class FactureClient extends ClassMere {
     private String estMictsl;
     private double reduction;
     private double ecart;
-    private int  exercice;
 
-    public int getExercice() {
-        return exercice;
-    }
-
-    public void setExercice(int exercice) {
-        this.exercice = exercice;
-    }
-    
     public double getMontantttcvrai() {
         return montantttcvrai;
     }
