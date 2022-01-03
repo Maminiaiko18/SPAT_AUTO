@@ -67,6 +67,9 @@
             out.println(pr.getBasPage());
         %>
     </section>
+    <div class="box-footer">
+        <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=coursdevise&id=<%=request.getParameter("id")%>&iddevise=<%=request.getParameter("iddevise")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>" style="float:right">Imprimer</a>
+    </div>
 </div>
 <% }catch(Exception e){
     e.printStackTrace();
