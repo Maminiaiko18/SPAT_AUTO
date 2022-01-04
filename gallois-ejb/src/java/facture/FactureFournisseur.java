@@ -462,6 +462,34 @@ public class FactureFournisseur extends FactureClient {
         }
         return retour;
     }
+    
+    private void regulDefinitive(String u, double montant, Connection con) throws Exception {
+        boolean verif = false;
+        try{
+            if(con == null){
+                con = new UtilDB().GetConn();
+                con.setAutoCommit(false);
+                verif = true;
+            }
+            
+            Date dateDuJour = Utilitaire.dateDuJourSql();
+            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, dateDuJour, montant, 0);
+            transfert.setIddevise(this.getDeviseMere());
+            transfert.setIdmode(Constante.modePaiementEspece);
+            transfert.setEtat(ConstanteEtat.getEtatValider());
+            
+            transfert.createObject(u, con);
+            
+            if(verif) con.commit();
+        }
+        catch(Exception ex) {
+            if(con != null && verif) con.rollback();
+            throw ex;
+        }
+        finally {
+            if(con != null && verif) con.close();
+        }
+    }
 
     public void genererPaiementDefinitive(String u, String idProvision, Connection c) throws Exception {
         boolean ouvert = false;
@@ -475,9 +503,11 @@ public class FactureFournisseur extends FactureClient {
 
             FactureFournisseur fc = new FactureFournisseur();
             fc = (FactureFournisseur) fc.getById(this.getId(), "FACTFOURN_MSUM_LIB", c);
-
+            
             double montant = fc.genererMontantPaiement(c);
-
+            
+            regulDefinitive(u, montant, c);
+            
             PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
             if (listeProvision != null && listeProvision.length > 0) {
                 for (int i = 0; i < listeProvision.length; i++) {
