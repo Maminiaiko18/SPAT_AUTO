@@ -21,7 +21,7 @@ public class LigneCredit extends ClassEtat {
     private String designation,compte;
     private double quantite,montant,facture,paye;
     private int annee, mois;
-    private double arecouvrir;
+    private double arecouvrir, restebudget;
 
     private Date daty;
 
@@ -57,7 +57,8 @@ public class LigneCredit extends ClassEtat {
 "        l.ANNEE,\n" +
 "        l.compte,\n" +
 "        cr.LIBELLE       as libelle,\n" +
-"        sum(l.montant)   as montant\n" +
+"        sum(l.montant)   as montant,\n" +
+"        sum(l.montant) - sum(montantttc) as restebudget\n" +
 " from (\n" +
 "          (SELECT\n" +
 "               sum(l.QUANTITE)        as QUANTITE,\n" +
@@ -217,6 +218,14 @@ where +
 
     public void setDesignation(String designation) {
         this.designation = designation;
+    }
+
+    public double getRestebudget() {
+        return restebudget;
+    }
+
+    public void setRestebudget(double restebudget) {
+        this.restebudget = restebudget;
     }
 
     public String getCompte() {
