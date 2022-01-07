@@ -3,6 +3,7 @@
     Created on : 14 Mars 2016, 10:26:05
     Author     : Do
 --%>
+<%@page import="affichage.Liste"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="affichage.TableauRecherche"%>
 <%@page import="lignecredit.LigneCredit"%>
@@ -19,19 +20,28 @@
         }
         fa.setNomTable("situationLC_vide");
 
-        String listeCrt[] = {"id", "designation", "compte", "daty" , "annee"};
+        String listeCrt[] = {"id", "designation", "compte", "daty", "mois" , "annee"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye"};
+        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye", "arecouvrir"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("ligneCredit/situation-ligneCreditDepense.jsp");
+        
+        String affiche[] = {"-","Janvier", "F\u00e9vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "D\u00e9cembre"};
+	String valeur[] = {"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        Liste[] listeD = new Liste[1];
+        listeD[0] = new Liste("mois");
+        listeD[0].setValeurBrute(affiche);
+        listeD[0].setColValeurBrute(valeur);
+        pr.getFormu().changerEnChamp(listeD);
+        
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
         
         String date1 = request.getParameter("daty1"), date2 = request.getParameter("daty2"), annee = request.getParameter("annee");
-        if(date1 == null || date1.trim().isEmpty()) date1 = "01/01/"+Utilitaire.getAnneeEnCours();
-        if(date2 == null || date2.trim().isEmpty()) date2 = "31/12/"+Utilitaire.getAnneeEnCours();
+        //if(date1 == null || date1.trim().isEmpty()) date1 = "01/01/"+Utilitaire.getAnneeEnCours();
+        //if(date2 == null || date2.trim().isEmpty()) date2 = "31/12/"+Utilitaire.getAnneeEnCours();
         if(annee == null || annee.trim().isEmpty()) annee = Utilitaire.getAnneeEnCours();
         
 //        pr.getFormu().getChamp("daty1").setDefaut(date1);
@@ -49,7 +59,7 @@
             reqniv = request.getParameter("niveau");
         }           
         
-        LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, reqniv, annee, null);
+        LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, reqniv, annee, request.getParameter("mois"), null);
         pr.setTableau(new TableauRecherche(liste, libEntete));
 
         String[] libEtat = {"Tous", "Créés", "Visés"};
@@ -108,8 +118,9 @@
         %>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye"};
-            pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+            String libEnteteAffiche[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye", "a recouvrir"};
+            //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+            pr.getTableau().setLibeEntete(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
 

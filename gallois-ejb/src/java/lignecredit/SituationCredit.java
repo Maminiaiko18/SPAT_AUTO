@@ -138,16 +138,14 @@ public class SituationCredit extends LigneCredit {
                 newCon = true;
             }
 
-            boolean checkMois = mois != null && !mois.equals("");
-            
-            String where = " where 1<2 ", whereDate = " ";
+            String where = " where 1<2 ";
             //if (id != null && !id.equals("")) where += " and upper(l.id) like upper('%" + id + "%')";
             if (designation != null && !designation.equals("")) where += "and upper(l.designation) like upper('%" + designation + "%')";
             if (compte != null && !compte.equals("")) where += " and upper(l.compte) like upper('%" + compte + "%')";
-            if (date1 != null && !date1.equals("")) whereDate += " and mf.daty >= '" + date1 + "'";
-            if (date2 != null && !date2.equals("")) whereDate += " and mf.daty <= '" + date2 + "'";
-            if (exercice != null && !exercice.equals("")) where += " and mf.annee = " + exercice;
-            if (checkMois) where += " and mf.mois = " + mois;
+            if (date1 != null && !date1.equals("")) where += " and mf.daty >= '" + date1 + "'";
+            if (date2 != null && !date2.equals("")) where += " and mf.daty <= '" + date2 + "'";
+            if (exercice != null && !exercice.equals("")) where += " and l.annee = " + exercice;
+            if (mois != null && !mois.equals("")) where += " and mf.mois = " + mois;
             //if (etat != null && !etat.equals("")) where += " and l.etat = " + etat;
 
             String req = "select sum(MONTANTPAYE) as PAYE,\n" +
@@ -172,20 +170,18 @@ public class SituationCredit extends LigneCredit {
 "                                sum(MONTANTPAYE)        as MONTANTPAYE,\n" +
 "                                substr(mf.COMPTE, 1, "+ niveau +") as compte,\n" +
 "                                mf.ANNEE,\n" +
-"                                mois                    as mois\n" +
+"                                mois,\n" +
+"                                daty\n" +
 "                         from FACTURE_CLIENT_MF_PAYE mf\n" +
 "                         WHERE  mf.IDMERE not in\n" +
 "                      (select id from ProvisionFactureDefinitive)\n" +
-                        whereDate +
-"                         group by substr(mf.COMPTE, 1, "+ niveau +"), ANNEE, mois) mf\n" +
+"                         group by substr(mf.COMPTE, 1, "+ niveau +"), ANNEE, mois, daty) mf\n" +
 "              ON l.compte = mf.compte\n" +
 "                  AND mf.annee = l.annee\n" +
 "                  )\n" +
 "          LEFT JOIN COMPTE_RUBRIQUE cr ON l.COMPTE = cr.COMPTE\n" +
 where
                     + "group by l.ANNEE, l.compte, cr.LIBELLE";
-//            (checkMois ? ", mf.mois" : "");
-            
 
             //req = String.format(req, where);
             //System.out.println("--- fa 0+" + req);
