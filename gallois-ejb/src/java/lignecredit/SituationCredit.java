@@ -16,34 +16,53 @@ import utilitaire.Utilitaire;
  *
  * @author
  */
-public class SituationCredit extends LigneCredit{
-    public SituationCredit(){
+public class SituationCredit extends LigneCredit {
+
+    public SituationCredit() {
         this.setNomTable("ligneCreditDepense");
     }
-    
+
     public void construirePK(Connection c) throws Exception {
         this.preparePk("SCRD", "get_seqligneCreditDepense");
         this.setId(makePK(c));
     }
-    public static SituationCredit[] findSituationCreditRecette(String id,String desingation,String compte,String date1,String date2,String etat, String niveau, String exercice, Connection c) throws Exception {
-         SituationCredit[] ret = null; 
-           boolean newCon = false;
-           try{
-             if(c==null) {
+/*
+    public static SituationCredit[] findSituationCreditRecette(String id, String desingation, String compte, String date1, String date2, String etat, String niveau, String exercice, String mois, Connection c) throws Exception {
+        SituationCredit[] ret = null;
+        boolean newCon = false;
+        try {
+            if (c == null) {
                 c = new UtilDB().GetConn();
-                newCon=true;
+                newCon = true;
             }
-             
-             String where =" where 1<2 ";
-             if(id!=null   && !id.equals("")) where+=" and upper(l.id) like upper('%"+id+"%')";
-             if(desingation!=null   && !desingation.equals("")) where+= "and upper(l.designation) like upper('%"+desingation+"%')";
-             if(compte!=null   && !compte.equals("")) where+= " and upper(l.compte) like upper('%"+compte+"%')";
-             if(date1!=null   && !date1.equals("")) where+= " and mf.daty >= '"+date1+"'";
-             if(date2!=null   && !date2.equals("")) where+= " and mf.daty <= '"+date2+"'";
-             if(exercice!=null   && !exercice.equals("")) where+= " and mf.exercice = " + exercice;
-             if(etat!=null   && !etat.equals("")) where+= " and l.etat = "+ etat;
-             
-             /*String req="SELECT l.id          AS                     id,\n" +
+
+            String where = " where 1<2 ";
+            if (id != null && !id.equals("")) {
+                where += " and upper(l.id) like upper('%" + id + "%')";
+            }
+            if (desingation != null && !desingation.equals("")) {
+                where += "and upper(l.designation) like upper('%" + desingation + "%')";
+            }
+            if (compte != null && !compte.equals("")) {
+                where += " and upper(l.compte) like upper('%" + compte + "%')";
+            }
+            if (date1 != null && !date1.equals("")) {
+                where += " and mf.daty >= '" + date1 + "'";
+            }
+            if (date2 != null && !date2.equals("")) {
+                where += " and mf.daty <= '" + date2 + "'";
+            }
+            if (exercice != null && !exercice.equals("")) {
+                where += " and mf.annee = " + exercice;
+            }
+            if (mois != null && !mois.equals("")) {
+                where += " and mf.mois = " + mois;
+            }
+            if (etat != null && !etat.equals("")) {
+                where += " and l.etat = " + etat;
+            }
+
+            /*String req="SELECT l.id          AS                     id,\n" +
             "       l.DESIGNATION AS                     designation,\n" +
             "       l.COMPTE      AS                     compte,\n" +
             "       l.ANNEE       AS                     annee,\n" +
@@ -64,48 +83,122 @@ public class SituationCredit extends LigneCredit{
             "         l.DESIGNATION,\n" +
             "         l.COMPTE,\n" +
             "         l.ANNEE,\n" +
-            "         l.MONTANT, l.etat";*/
+            "         l.MONTANT, l.etat";
 //                     + ", mf.DATY";
-            String req = "SELECT \n" +
-"       l.DESIGNATION AS                        designation,\n" +
-"       substr(l.COMPTE, 1, "+niveau+")      AS                        compte,\n" +
-"       l.ANNEE       AS                        annee,\n" +
-"         cast(sum(l.MONTANT) as number(30,3))   AS                        montant,\n" +
-"       l.etat,\n" +
-"       CAST(SUM(mf.MONTANTTTC) AS NUMBER(30, 3))\n" +
-"                     AS                        facture,\n" +
-"       CAST(SUM(montantpaye) AS NUMBER(30, 3)) paye\n" +
-"FROM LIGNECREDITRECETTE l\n" +
-"         LEFT JOIN FACTURE_CLIENT_MF_PAYE mf\n" +
-"                   ON substr(mf.COMPTE, 1, "+niveau+") LIKE substr(l.COMPTE, 1, "+niveau+")\n" +
-//"                       AND EXTRACT(YEAR FROM DATY) = l.ANNEE " +
-                    " and mf.exercice = l.annee \n" +
-                    " and mf.IDMERE not in\n" +
-"                                                                 (select id from ProvisionFactureDefinitive) %s \n" +
-"GROUP BY \n" +
-"         l.DESIGNATION,\n" +
-"         substr(l.COMPTE, 1, "+niveau+"),\n" +
-"         l.ANNEE,\n" +
-"          l.etat";
-            
-            req = String.format(req, where);
-            System.out.println("--- fa 0+"+req);
+            String req = "SELECT \n"
+                    + //"       l.DESIGNATION AS                        designation,\n" +
+                    "       cr.LIBELLE AS DESIGNATION,\n"
+                    + "       substr(l.COMPTE, 1, " + niveau + ")      AS                        compte,\n"
+                    + "       mf.mois, "
+                    + "       l.ANNEE       AS                        annee,\n"
+                    + "         cast(sum(l.MONTANT) as number(30,3))   AS                        montant,\n"
+                    + "       l.etat,\n"
+                    + "       CAST(SUM(mf.MONTANTTTC) AS NUMBER(30, 3))\n"
+                    + "                     AS                        facture,\n"
+                    + "       CAST(SUM(montantpaye) AS NUMBER(30, 3)) paye\n"
+                    + "FROM LIGNECREDITRECETTE l\n"
+                    + "         LEFT JOIN FACTURE_CLIENT_MF_PAYE mf\n"
+                    + "                   ON substr(mf.COMPTE, 1, " + niveau + ") LIKE substr(l.COMPTE, 1, " + niveau + ")||'%'\n"
+                    + //"                       AND EXTRACT(YEAR FROM DATY) = l.ANNEE " +
+                    " and mf.annee = l.annee \n"
+                    + " and mf.IDMERE not in\n"
+                    + "                                                                 (select id from ProvisionFactureDefinitive) "
+                    + " LEFT JOIN COMPTE_RUBRIQUE cr ON substr(l.COMPTE, 1, " + niveau + ") = cr.COMPTE "
+                    + where
+                    + " GROUP BY \n"
+                    + //"         l.DESIGNATION,\n" +
+                    "         cr.LIBELLE,  "
+                    + "         substr(l.COMPTE, 1, " + niveau + "),\n"
+                    + "         mf.mois, \n  "
+                    + "         l.ANNEE,\n"
+                    + "          l.etat";
+
+            //req = String.format(req, where);
+            System.out.println("--- fa 0+" + req);
             SituationCredit stock = new SituationCredit();
             stock.setNomTable("situationLC_vide");
             ret = (SituationCredit[]) CGenUtil.rechercher(stock, req, c);
-       }
-      catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
-        }
-        finally
-        {
-            if(newCon && c!=null)
-            {
+        } finally {
+            if (newCon && c != null) {
                 c.close();
             }
         }
         return ret;
-       }
+    }*/
+
+    public static SituationCredit[] findSituationCreditRecette(String id, String desingation, String compte, String date1, String date2, String etat, String niveau, String exercice, String mois, Connection c) throws Exception {
+        SituationCredit[] ret = null;
+        boolean newCon = false;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                newCon = true;
+            }
+
+            boolean checkMois = mois != null && !mois.equals("");
+            
+            String where = " where 1<2 ";
+            if (id != null && !id.equals("")) where += " and upper(l.id) like upper('%" + id + "%')";
+            if (desingation != null && !desingation.equals("")) where += "and upper(l.designation) like upper('%" + desingation + "%')";
+            if (compte != null && !compte.equals("")) where += " and upper(l.compte) like upper('%" + compte + "%')";
+            if (date1 != null && !date1.equals("")) where += " and mf.daty >= '" + date1 + "'";
+            if (date2 != null && !date2.equals("")) where += " and mf.daty <= '" + date2 + "'";
+            if (exercice != null && !exercice.equals("")) where += " and mf.annee = " + exercice;
+            if (checkMois) where += " and mf.mois = " + mois;
+            if (etat != null && !etat.equals("")) where += " and l.etat = " + etat;
+
+            String req = "select sum(MONTANTPAYE) as PAYE,\n" +
+"       sum(MONTANTTTC)  as facture,\n" +
+"       (sum(montantttc) - sum(montantpaye)) as arecouvrir,\n"  +
+"       l.ANNEE,\n" +
+        (checkMois ? "mf.mois as mois,\n" : "") +
+"       l.compte,\n" +
+"       cr.LIBELLE       as libelle,\n" +
+"       l.etat,\n" +
+"       l.montant   as montant\n" +
+"from (\n" +
+"         (SELECT\n" +
+"              sum(l.QUANTITE)        as QUANTITE,\n" +
+"              sum(l.MONTANT)         as montant,\n" +
+"              l.ANNEE,\n" +
+"              substr(l.COMPTE, 1, " + niveau + ") as compte,\n" +
+"              l.etat\n" +
+"          FROM LIGNECREDITRECETTE l\n" +
+"          group by l.ANNEE, substr(l.COMPTE, 1, " + niveau + "), l.etat) l\n" +
+"             LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n" +
+"                               sum(MONTANTPAYE)        as MONTANTPAYE,\n" +
+"                               substr(mf.COMPTE, 1, " + niveau + ") as compte,\n" +
+"                               mf.ANNEE,\n" +
+"                               mois                    as mois,\n" +
+"                               idmere\n" +
+"                        from FACTURE_CLIENT_MF_PAYE mf\n" +
+"                        group by substr(mf.COMPTE, 1, " + niveau + "), ANNEE, daty, idmere, mois) mf\n" +
+"             ON l.compte = mf.compte\n" +
+"                 AND mf.annee = l.annee\n" +
+"                 and mf.IDMERE not in\n" +
+"                     (select id from ProvisionFactureDefinitive))\n" +
+"         LEFT JOIN COMPTE_RUBRIQUE cr ON substr(l.COMPTE, 1, " + niveau + ") = cr.COMPTE\n" +
+                    where +
+"   group by l.ANNEE, l.compte, cr.LIBELLE, l.ETAT, l.montant" +
+            (checkMois ? ", mf.mois" : "");
+            
+
+            //req = String.format(req, where);
+            System.out.println("--- fa 0+" + req);
+            SituationCredit stock = new SituationCredit();
+            stock.setNomTable("situationLC_vide");
+            ret = (SituationCredit[]) CGenUtil.rechercher(stock, req, c);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (newCon && c != null) {
+                c.close();
+            }
+        }
+        return ret;
+    }
 }

@@ -20,7 +20,8 @@ public class LigneCredit extends ClassEtat {
     private String id;
     private String designation,compte;
     private double quantite,montant,facture,paye;
-    private int annee;
+    private int annee, mois;
+    private double arecouvrir;
 
     private Date daty;
 
@@ -166,6 +167,22 @@ public class LigneCredit extends ClassEtat {
 
     public void setMontant(double montant) {
         this.montant = montant;
+    }
+
+    public double getArecouvrir() {
+        return arecouvrir;
+    }
+
+    public void setArecouvrir(double arecouvrir) {
+        this.arecouvrir = arecouvrir;
+    }
+
+    public int getMois() {
+        return mois;
+    }
+
+    public void setMois(int mois) {
+        this.mois = mois;
     }
 
     public int getAnnee() {
