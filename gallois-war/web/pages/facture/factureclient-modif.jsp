@@ -141,14 +141,16 @@
                 datefactChp.setValeur(dateF);
             }
             
-            if(liste[i].getIdrubrique() != null && liste[i].getIdrubrique().equalsIgnoreCase(Constante.idStationnement) && liste[i].getIdactivite() !=  null) {
-                Activite act = liste[i].getActivite(null);
-                
-                liste[i].setDuree(act.getNbHeure());
-                liste[i].setQuantite(liste[i].getQuantite() / act.getNbHeure());
-                
-                pi.getFormufle().getChamp("duree_"+i).setValeur(""+liste[i].getDuree());
-                pi.getFormufle().getChamp("quantite_"+i).setValeur(""+liste[i].getQuantite());
+            if(request.getParameter("factprev") != null) {
+                if(liste[i].getIdrubrique() != null && liste[i].getIdrubrique().equalsIgnoreCase(Constante.idStationnement) && liste[i].getIdactivite() !=  null) {
+                    Activite act = liste[i].getActivite(null);
+
+                    liste[i].setDuree(act.getNbHeure());
+                    liste[i].setQuantite(liste[i].getQuantite() / act.getNbHeure());
+
+                    pi.getFormufle().getChamp("duree_"+i).setValeur(""+liste[i].getDuree());
+                    pi.getFormufle().getChamp("quantite_"+i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+",""));
+                }
             }
         }
         
