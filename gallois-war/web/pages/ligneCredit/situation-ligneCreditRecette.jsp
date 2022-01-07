@@ -117,7 +117,8 @@
         <br>
         <%
             String libEnteteAffiche[] = {"id", "designation", "compte", "annee", "montant", "facture", "paye", "a recouvrir"};
-            pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+            //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+            pr.getTableau().setLibeEntete(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
 

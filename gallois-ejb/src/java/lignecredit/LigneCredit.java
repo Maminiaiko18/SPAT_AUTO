@@ -33,7 +33,81 @@ public class LigneCredit extends ClassEtat {
         this.daty = daty;
     }
     
-    public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2, String etat, String niveau, String exercice, Connection c) throws Exception {
+    public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2, String etat, String niveau, String exercice, String mois, Connection c) throws Exception {
+         LigneCredit[] ret = null; 
+           boolean newCon = false;
+           try{
+             if(c==null) {
+                c = new UtilDB().GetConn();
+                newCon=true;
+            }
+             String where =" where 1<2 ";
+             //if(id!=null   && !id.equals("")) where+=" and upper(l.id) like upper('%"+id+"%')";
+             if(desingation!=null   && !desingation.equals("")) where+= "and upper(l.designation) like upper('%"+desingation+"%')";
+             if(compte!=null   && !compte.equals("")) where+= " and upper(l.compte) like upper('%"+compte+"%')";
+             if(date1!=null   && !date1.equals("")) where+= " and daty >= '"+date1+"'";
+             if(date2!=null   && !date2.equals("")) where+= " and daty <= '"+date2+"'";
+             if(exercice!=null   && !exercice.equals("")) where+= " and l.annee = " + exercice;
+             if (mois != null && !mois.equals("")) where += " and mf.mois = " + mois;
+             //if(etat != null && !etat.equals("")) where += " and l.etat = " + etat;
+             
+             String req = "select sum(MONTANTPAYE) as PAYE,\n" +
+"        sum(MONTANTTTC)  as facture,\n" +
+"        (sum(montantttc) - sum(montantpaye)) as arecouvrir,\n" +
+"        l.ANNEE,\n" +
+"        l.compte,\n" +
+"        cr.LIBELLE       as libelle,\n" +
+"        sum(l.montant)   as montant\n" +
+" from (\n" +
+"          (SELECT\n" +
+"               sum(l.QUANTITE)        as QUANTITE,\n" +
+"               sum(l.MONTANT)         as montant,\n" +
+"               l.ANNEE,\n" +
+"               substr(l.COMPTE, 1, " + niveau + ") as compte\n" +
+"               --l.etat\n" +
+"           FROM LIGNECREDITDEPENSE l\n" +
+"           group by l.ANNEE, substr(l.COMPTE, 1, " + niveau + ")\n" +
+"           --, l.etat\n" +
+"           ) l\n" +
+"              LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n" +
+"                                sum(MONTANTPAYE)        as MONTANTPAYE,\n" +
+"                                substr(mf.COMPTE, 1, " + niveau + ") as compte,\n" +
+"                                mf.ANNEE,\n" +
+"                                mois                    as mois,\n" +
+"                                mf.daty\n" +
+"                         from DETAILSFACTUREFOURNISSEUR_paye mf\n" +
+"                         WHERE  mf.IDMERE not in\n" +
+"                      (select id from ProvisionFactureDefinitive)\n" +
+"                         group by substr(mf.COMPTE, 1, " + niveau + "), ANNEE, mois, daty) mf\n" +
+"              ON l.compte = mf.compte\n" +
+"                  AND mf.annee = l.annee\n" +
+"                  )\n" +
+"          LEFT JOIN COMPTE_RUBRIQUE cr ON l.COMPTE = cr.COMPTE\n" +
+where +
+"  group by l.ANNEE, l.compte, cr.LIBELLE";
+             
+             //req = String.format(req, where);
+               //System.out.println("req=="+req);
+             LigneCredit stock = new LigneCredit();
+             stock.setNomTable("situationLC_vide");
+            ret = (LigneCredit[]) CGenUtil.rechercher(stock, req, c);
+       }
+      catch(Exception e)
+        {
+            e.printStackTrace();
+            throw e;
+        }
+        finally
+        {
+            if(newCon && c!=null)
+            {
+                c.close();
+            }
+        }
+        return ret;
+       }
+    
+    /*public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2, String etat, String niveau, String exercice, Connection c) throws Exception {
          LigneCredit[] ret = null; 
            boolean newCon = false;
            try{
@@ -68,7 +142,7 @@ public class LigneCredit extends ClassEtat {
                         "         l.DESIGNATION,\n" +
                         "         l.COMPTE,\n" +
                         "         l.ANNEE,\n" +
-                        "         l.MONTANT, l.etat";*/
+                        "         l.MONTANT, l.etat";
              String req = "SELECT l.id                   AS                       id,\n" +
 "       l.DESIGNATION          AS                       designation,\n" +
 "       substr(l.COMPTE, 1, "+niveau+") AS                       compte,\n" +
@@ -107,7 +181,7 @@ public class LigneCredit extends ClassEtat {
             }
         }
         return ret;
-       }
+       }*/
 
     
     public LigneCredit(){

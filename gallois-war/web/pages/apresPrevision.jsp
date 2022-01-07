@@ -94,7 +94,7 @@
                 prevision.setId(idprevision);
 
                 facture.FactureClient fc = prevision.facturer("" + u.getUser().getRefuser(), null);
-                bute = "facture/factureclient-modif.jsp";
+                bute = "facture/factureclient-modif.jsp&factprev=true";
                 id = fc.getId();
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>
