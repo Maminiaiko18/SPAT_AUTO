@@ -1,16 +1,19 @@
+<%@page import="affichage.Liste"%>
 <%@page import="facture.FactureClientDetails"%>
 <%@page import="affichage.PageRechercheGroupe"%>
+<%@page import="utilitaire.Utilitaire"%>
 <%
     try {
 
         FactureClientDetails lv = new FactureClientDetails();
         lv.setNomTable("facture_client_fille_lib");
-        String listeCrt[] = {"clientlib", "rubriquelib"};
+        String listeCrt[] = {"mois", "annee", "rubriquelib"};
         String listeInt[] = {};
-
+        
+        
         String[] pourcentage = {};
         String somDefaut[] ={"montanttaux"}; //sum
-        String colDefaut[] =  {"clientlib"}; // colonne
+        String colDefaut[] =  {"moislib"}; // colonne
         String[] colGrCol = {"rubriquelib"}; //ligne
         
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, colDefaut.length, 0);
@@ -18,7 +21,16 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
-        pr.getFormu().getChamp("clientlib").setLibelle("Client");
+        pr.getFormu().getChamp("annee").setDefaut(Utilitaire.getAnneeEnCours());
+        
+        Liste[] listes = new Liste[1];
+        listes[0] = new Liste("mois");
+        listes[0].makeListeMois();
+        listes[0].setDefaultSelected(String.valueOf(Utilitaire.getMoisEnCours()));
+        pr.getFormu().changerEnChamp(listes);
+        
+        pr.getFormu().getChamp("mois").setLibelle("Mois");
+        pr.getFormu().getChamp("annee").setLibelle("Année");
         pr.getFormu().getChamp("rubriquelib").setLibelle("Rubrique");
         
         pr.setApres("facture/analyse-facture-client-vaovao.jsp");
