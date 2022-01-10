@@ -34,7 +34,7 @@
     
     
   
-    String[] colSomme = null;
+    String[] colSomme = {"montantTTC"};
     pr.creerObjetPage(libEntete, colSomme);
 %>
 <div class="content-wrapper">
