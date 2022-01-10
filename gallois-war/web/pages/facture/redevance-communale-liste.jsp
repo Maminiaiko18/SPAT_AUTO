@@ -55,7 +55,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id","N° facture", "Date", "Client","Montant","Tva", "Total"};
+            String libEnteteAffiche[] = {"N° facture", "Date", "Client","Montant","Tva", "Total"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
