@@ -32,7 +32,10 @@
         text-align: end;
     }
 
-
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 4px;
+        border: 1px solid;
+    }
 </style>
 <div class="content-wrapper" style="min-height: 560px;background: #f9fafc;">
     <section class="content-header">
