@@ -14,6 +14,8 @@
 <%@ page import="affichage.*" %>
 <%
     try{
+        
+        out.print("*********************************************************************************");
         String autreparsley = "data-parsley-range='[8, 40]' required";
         UserEJB u = (user.UserEJB) session.getValue("u");
         Billetage billetage = new Billetage();
@@ -34,7 +36,11 @@
         
         pi.getFormu().getChamp("daty").setDefaut(""+new Utilitaire().dateDuJour());
         pi.getFormu().getChamp("montant").setVisible(false);
-        pi.getFormufle().getChamp("idmere").setVisible(false);
+        for(int i = 0 ; i < pi.getFormufle().getNbLigne() ; i ++ )
+        {
+             pi.getFormufle().getChamp("idmere_"+i).setVisible(false);
+        }
+       
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         
@@ -59,6 +65,7 @@
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
+                                        <th><input onclick="CocheToutCheckbox(this, 'id')" type="checkbox" tabindex="15"></th>
                                         <th style="background-color:#bed1dd">
                                             <label for="billet" tabindex="2">billet</label>
                                         </th>
@@ -72,12 +79,14 @@
                                 <%
                                     for(int i=0;i<size;i++){ %>
                                         <tr>
+                                            <td><input type="checkbox" value="<%= i %>" name="id" id="checkbox0"></td>
                                             <td><input name="billet_<%= i %>" type="textbox" class="form-control" id="billet_<%= i %>" value="<%= billets[i] %>" readonly></td>
                                             <td><input name="nombre_<%= i %>" type="textbox" class="form-control" id="nombre_<%= i %>" onchange="afficherMontant('billet_<%= i %>','nombre_<%= i %>','montant_<%= i %>')"></td>
                                             <td><input name="montant_<%= i %>" type="textbox" class="form-control" id="montant_<%= i %>" readonly></td>
                                         </tr>
                                 <%  }  %>
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td>TOTAL</td>
                                         <td ><input type="textbox" class="form-control" id="totalBillet" readonly></td>

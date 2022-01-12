@@ -15,6 +15,7 @@
         String lien = null;
         String bute;
         String nomtable;
+        String[] tId;
     %>
     <%
         try {
@@ -23,6 +24,7 @@
             u = (UserEJB) session.getAttribute("u");
             acte = request.getParameter("acte");
             bute = request.getParameter("bute");
+            tId = request.getParameterValues("id");
             Object temp = null;
             String classe = request.getParameter("classe");
             String classefille = request.getParameter("classefille");
@@ -39,7 +41,7 @@
                 mere = (ClassMAPTable) (Class.forName(classe).newInstance());
                 fille = (ClassMAPTable)(Class.forName(classefille).newInstance());
 
-                PageInsertMultiple p = new PageInsertMultiple(mere, fille, request, nbLine);
+                PageInsertMultiple p = new PageInsertMultiple(mere, fille, request, nbLine,tId);
                 ClassMAPTable cmere = p.getObjectAvecValeur();
                 ClassMAPTable[] cfille = p.getObjectFilleAvecValeur();
                 for(int i = 0;i<cfille.length;i++){
