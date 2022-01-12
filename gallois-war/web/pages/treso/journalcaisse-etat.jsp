@@ -118,50 +118,58 @@
                                     int t = jc.length;
                                     for (int i = 0; i < t; i++) {
                                 %>
-                                <p><%=jc[i].getNumPiece()%></p>
+                                <p><%=Utilitaire.champNull(jc[i].getNumPiece())%></p>
                                 <%
                                     }
                                 %>
                             </td>
                             <td>
-                                 <%
+                                <%
                                     for (int i = 0; i < t; i++) {
                                 %>
-                                <p><%=jc[i].getLibelle()%></p>
+                                <p><%=Utilitaire.champNull(jc[i].getLibelle())%></p>
                                 <%
                                     }
                                 %>
-                            </td>
-                            <td>
-                                <p>boucle des debits</p>                       
-                                <!--<p><%=Utilitaire.formaterAr(jc[i].getCredit())%></p>-->
-                            </td>
-                            <td style="/*! border-right-width: 2px; */">
-                                <p>boucle des credits</p>
-                                <!--<p><%=Utilitaire.formaterAr(jc[i].getDebit())%></p>-->
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
                                 <b>Recette de la caisse SPAT Journée du </b> <%= daty%>
                             </td>
-                            <td style="text-align: end">
-                                <%=Utilitaire.formaterAr(ejc.getTotalRecette())%>
+                            <td style="text-align:right">
+                                <%
+                                    double debit = 0;
+                                    for (int i = 0; i < t; i++) {
+                                %>
+                                <p><%=Utilitaire.formaterAr(jc[i].getCredit())%></p>
+                                <%
+                                        debit += jc[i].getCredit();
+                                    }
+                                    debit += ejc.getTotalRecette();
+                                %>
+                                <p><%=Utilitaire.formaterAr(ejc.getTotalRecette())%></p>
                             </td>
-                            <td style="text-align: end">
-
+                            <td style="text-align:right">
+                                <%
+                                    double credit = 0;
+                                    for (int i = 0; i < t; i++) {
+                                %>
+                                <p><%=Utilitaire.formaterAr(jc[i].getDebit())%></p>
+                                <%
+                                        credit += jc[i].getDebit();
+                                    }
+                                %>
+                                
                             </td>
                         </tr>
-                        <tr>
-                            <td style="border: none">
 
+                        <tr>
+                            <td>
+                                
                             </td>
                             <td style="text-align: end">
-                                <%=Utilitaire.formaterAr(ejc.getTotalRecette())%>
+                                
+                                <p><%=Utilitaire.formaterAr(debit)%></p> 
                             </td>
                             <td style="text-align: end">
-                                <%=Utilitaire.formaterAr(ejc.getTotalDepenses())%>
+                                <p><%=Utilitaire.formaterAr(credit)%></p> 
                             </td>
                         </tr>
                         <tr>
