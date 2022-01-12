@@ -131,7 +131,6 @@
                                 <%
                                     }
                                 %>
-                                <b>Recette de la caisse SPAT Journée du </b> <%= daty%>
                             </td>
                             <td style="text-align:right">
                                 <%
@@ -144,7 +143,6 @@
                                     }
                                     debit += ejc.getTotalRecette();
                                 %>
-                                <p><%=Utilitaire.formaterAr(ejc.getTotalRecette())%></p>
                             </td>
                             <td style="text-align:right">
                                 <%
@@ -156,16 +154,16 @@
                                         credit += jc[i].getDebit();
                                     }
                                 %>
-                                
+
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                
+                                <b>Recette de la caisse SPAT Journée du </b> <%= daty%>
                             </td>
                             <td style="text-align: end">
-                                
+
                                 <p><%=Utilitaire.formaterAr(debit)%></p> 
                             </td>
                             <td style="text-align: end">
