@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import mg.spat.EtatJournalCaisse;
 import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
@@ -174,6 +175,8 @@ public class EtatPaieServlet extends HttpServlet {
                 rubrique_activite_pdf(request, response);
             }else if (action.equalsIgnoreCase("coursdevise")){
                 coursdevise_pdf(request, response);
+            }else if (action.equalsIgnoreCase("journalCaisseEtat")){
+                journalCaisseEtat(request, response);
             }
 
         } catch (Exception ex) {
@@ -1746,5 +1749,51 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    
+    public void journalCaisseEtat(HttpServletRequest request, HttpServletResponse response){
+        try{
+        String daty=request.getParameter("date");
+        Date date = new java.sql.Date(Utilitaire.stringToDate("yyyy-mm-dd", daty).getTime());
+        EtatJournalCaisse ejc = new EtatJournalCaisse(date);
+        JournalCaisse[] jc = ejc.getListeDepenses();
+        Map param = new HashMap();
+        param.put("daty", date);
+        double credit = 0;
+        double debit = 0;
+        ArrayList<JournalCaisse> arrList = new ArrayList<JournalCaisse>();
+        for(int i = 0; i<jc.length; i++){
+            debit = debit + jc[i].getCredit();
+            credit = credit + jc[i].getDebit();
+            arrList.add(jc[i]);
+        }
+        debit = debit + ejc.getTotalRecette();
+        double soldeAnterieur = ejc.getSoldeAnterieur();
+        double soldeActuel = ejc.getSoldeActuel();
+        double totalCreditEtat = ejc.getTotalCreditEtat();
+        double totalDebitEtat = ejc.getTotalDebitEtat();
+        
+        JournalCaisse jcc = new JournalCaisse();
+        jcc.setLibelle("Recette de la caisse SPAT Journée du "+date.toString());
+        jcc.setCredit(debit);
+        arrList.add(jcc);
+        
+        param.put("list_table", arrList);
+        
+        param.put("credit", credit);
+        param.put("debit", debit);
+        param.put("soldeAnterieur", soldeAnterieur);
+        param.put("soldeActuel", soldeActuel);
+        param.put("totalCreditEtat",totalCreditEtat);
+        param.put("totalDebitEtat", totalDebitEtat);
+        
+        
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("journal_caisse_etat");
+        UtilitaireImpression.imprimer(request, response, "journal-caisse-etat", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }    
+    
     
 }

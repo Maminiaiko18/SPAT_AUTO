@@ -291,9 +291,9 @@
 
                 </div>
             </div>
-        </section>
-    </div>
-
+        </section>                
+    </div>                
+    <a class="btn btn-info pull-right" href="${pageContext.request.contextPath}/Paie?action=journalCaisseEtat&date=<%=date%>" style="margin-right: 10px">Imprimer</a>
 </div>
 <%} catch (Exception ex) {
         ex.printStackTrace();
