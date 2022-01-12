@@ -4,6 +4,9 @@
     Author     : User
 --%>
 
+<%@page import="mg.spat.JournalCaisse"%>
+<%@page import="mg.spat.EtatJournalCaisse"%>
+<%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="affichage.Liste"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -37,6 +40,12 @@
         border: 2px solid;
     }
 </style>
+<%
+    try{
+        Date date = new java.sql.Date(Utilitaire.stringToDate("dd/mm/yyyy", daty).getTime());
+        EtatJournalCaisse ejc = new EtatJournalCaisse(date);
+        JournalCaisse[] jc = ejc.getListeDepenses();
+%>
 <div class="content-wrapper" style="min-height: 560px;background: #f9fafc;">
     <section class="content-header">
         <h1>SOCIETE DU PORT A GESTION AUTONOME DE TOAMASINA</h1>
@@ -103,45 +112,38 @@
                             <th style="text-align: center">DEBIT</th>
                             <th style="text-align: center">CREDIT</th>
                         </tr>
+                        <%
+                            int t = jc.length;
+                            for(int i = 0; i < t; i++){
+                        %>
                         <tr>
                             <td rowspan="8" style="text-align: center">
-                                <p>00819</p>
-                                <p>00819</p>
-                                <p>00819</p>
-                                <p>00819</p>
-                                <p>00819</p>
-                                <p>00819</p>
-                                <p>00819</p>
-                                <p>00819</p>
+                                <p><%=jc[i].getNumPiece()%></p>
                             </td>
                             <td>
-                                <p>Remboursement frais de medicament Mr Razafinjahary aldin</p>          
-                                <p>Remboursement frais de medicament Mr Razafinjahary aldin</p>
-                                <p>Remboursement frais de medicament Mr Razafinjahary aldin</p>
-                                <p>Remboursement frais de medicament Mr Razafinjahary aldin</p>
-                                <p>Remboursement frais de medicament Mr Razafinjahary aldin</p>
-                                <p>Remboursement frais de medicament Mr Razafinjahary aldin</p>
-                                <p>Remboursement frais de medicament Mr Razafinjahary aldin</p>
-                                <p>Remboursement frais de medicament Mr Razafinjahary aldin</p>
+                                <p><%=jc[i].getLibelle()%></p> 
                             </td>
                             <td>
                                 <p>boucle des debits</p>                       
-                                <p>total debit</p>
+                                <p><%=Utilitaire.formaterAr(jc[i].getCredit())%></p>
                             </td>
                             <td style="/*! border-right-width: 2px; */">
                                 <p>boucle des credits</p>
-                                <p>total credit</p>
+                                <p><%=Utilitaire.formaterAr(jc[i].getDebit())%></p>
                             </td>
                         </tr>
+                        <%
+                            }
+                        %>
                         <tr>
                             <td>
                                 <b>Recette de la caisse SPAT Journée du </b> <%= daty%>
                             </td>
                             <td style="text-align: end">
-                                1 278 466
+                                <%=Utilitaire.formaterAr(ejc.getTotalRecette())%>
                             </td>
                             <td style="text-align: end">
-                                1 462 846
+                                
                             </td>
                         </tr>
                         <tr>
@@ -149,10 +151,10 @@
 
                             </td>
                             <td style="text-align: end">
-                                1 234 636
+                                <%=Utilitaire.formaterAr(ejc.getTotalRecette())%>
                             </td>
                             <td style="text-align: end">
-                                16 655 432
+                                <%=Utilitaire.formaterAr(ejc.getTotalDepenses())%>
                             </td>
                         </tr>
                         <tr>
@@ -176,7 +178,7 @@
                                 4 -SOLDE ANTERIEUR
                             </td>
                             <td style="text-align: end">
-                                4 536 473
+                                <%=Utilitaire.formaterAr(ejc.getSoldeAnterieur())%>
                             </td>
                             <td style="text-align: end">
                             </td>
@@ -187,17 +189,17 @@
                             <td style="text-align: end">
                             </td>
                             <td style="text-align: end">
-                                46 372 283
+                                <%=Utilitaire.formaterAr(ejc.getSoldeActuel())%>
                             </td>
                         </tr> <tr>
                             <td style="border-top: none">
 
                             </td>
                             <td style="text-align: end">
-                                527 323 231
+                                <%=Utilitaire.formaterAr(ejc.getTotalDebitEtat())%>
                             </td>
                             <td style="text-align: end">
-                                12 236 678
+                                <%=Utilitaire.formaterAr(ejc.getTotalCreditEtat())%>
                             </td>
                         </tr>
                     </tbody>
@@ -280,4 +282,7 @@
     </div>
 
 </div>
+<%} catch (Exception ex) {
+        ex.printStackTrace();
+    }%>
 
