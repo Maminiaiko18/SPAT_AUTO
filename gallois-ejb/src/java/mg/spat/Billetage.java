@@ -23,6 +23,17 @@ public class Billetage extends ClassEtat{
     private String id, caisse;
     private Date daty;
     private double montant;
+    private String idcaisse;
+
+    public String getIdcaisse() {
+        return idcaisse;
+    }
+
+    public void setIdcaisse(String idcaisse) {
+        this.idcaisse = idcaisse;
+    }
+    
+    
     
     public Billetage() {
         super.setNomTable("billetage");
@@ -95,5 +106,11 @@ public class Billetage extends ClassEtat{
         report.setDevise("Ar");
         report.createObject(user, c);
         report.validerObject(user, c);
+    }
+    
+    public Object validerObject(String u, Connection c) throws Exception
+    {
+        this.genererReportVise(c, u);
+        return super.validerObject(u, c);
     }
 }
