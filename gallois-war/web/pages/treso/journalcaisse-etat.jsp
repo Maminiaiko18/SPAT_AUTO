@@ -34,7 +34,7 @@
 
 
 </style>
-<div class="content-wrapper">
+<div class="content-wrapper" style="min-height: 560px;background: #f9fafc;">
     <section class="content-header">
         <h1>SOCIETE DU PORT A GESTION AUTONOME DE TOAMASINA</h1>
     </section>
@@ -201,7 +201,7 @@
                 </table>
             </div>
         </section>
-        <section class="content">
+        <section class="content" style="margin-bottom: 8%">
             <div class="col-xs-12">
                 <div class="col-xs-12 col-sm-8 col-md-8" style="text-align: center">
                     <p><b>Etabli par:</b>  </p>
