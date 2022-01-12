@@ -102,7 +102,7 @@ public class TableauRechercheGroupe extends TableauRecherche {
         {   
             double[] valeurCentre=new double[attrCentre.length];
             for(int iCentre=0;iCentre<attrCentre.length;iCentre++)
-                valeurCentre[iCentre]=Utilitaire.stringToDouble(CGenUtil.getValeurFieldByMethod(liste[i], attrCentre[iCentre]).toString());
+                valeurCentre[iCentre]=(double)CGenUtil.getValeurFieldByMethod(liste[i], attrCentre[iCentre]);
         
             String lig=transformer(liste[i], this.attrLig);
             String col=transformer(liste[i],this.attrColonne);
