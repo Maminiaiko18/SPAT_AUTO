@@ -127,6 +127,7 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"), false);
         
 
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte");
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
 
@@ -210,6 +211,9 @@
     </div>
 </div>
 <script>
+    
+    $('#ajout_multiple_ligne tr td:nth-child(7)').attr('style', '');
+    
     document.getElementById("projetlibelle").value = "<%= Utilitaire.champNull(mere.getProjetlib()) %>";
     document.getElementById("code_etablissementlibelle").value = "<%= Utilitaire.champNull(mere.getCode_etablissementlib()) %>";
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib()%>";
@@ -242,6 +246,7 @@
             textarea<%=i%>.value = designation<%=i%>.value;
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
     <%}%>
+        
 </script>
 <%} catch (Exception ex) {
     ex.printStackTrace();
