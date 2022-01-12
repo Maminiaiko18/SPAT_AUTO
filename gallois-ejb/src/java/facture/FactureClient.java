@@ -128,6 +128,9 @@ public class FactureClient extends ClassMere {
     public String getIdavoir() {
         return idavoir;
     }
+
+    
+    
     public String validerFacture(UserEJB user, Connection c) throws Exception {
         String provisionString = "";
         int verif = 0;
@@ -740,6 +743,17 @@ public class FactureClient extends ClassMere {
             }
         }
     }
+    public FactureClient(Date daty, String tiers, String designation, String type, String idcategorie) throws Exception {
+        setNomTable("Factureclient");
+        setLiaisonFille("idmere");
+        this.setNomClasseFille("facture.FactureClientDetails");
+        this.setDaty(daty);
+        this.setTiers(tiers);
+        this.setDesignation(designation);
+        this.setTiers(tiers);
+        this.setIdcategorie(idcategorie);
+    }
+    
 
     public FactureClient(Date daty, String tiers, String designation, double tva) throws Exception {
         setNomTable("Factureclient");
@@ -1771,7 +1785,10 @@ public class FactureClient extends ClassMere {
         return null;
     }
 
-    public FactureClient(Date daty, Date date_echeance, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String escale, String deviseMere, double tva, double montant, double montanttva, double montantttc, double montantpaye, double montantreste, String tierslib, double montantavoir, String contact, String adresse, String etatLib, String typelib, double deviseEuro, double deviseDollar, double coeff, double montantHTEuro, double montantTVAEuro, double montantHTVADollar, double montantTVADollar, double montantTTCDollar, double montantttcvrai, String idcategorie, String idProvision, String categorielib, String idProvisionlib, String iddefinitive, String estDDPMICTSL, String codePrestation, String codePrestationlib, String codeProvision, String code, String estMictsl, double reduction, double ecart) {
+    public FactureClient(Date daty, Date date_echeance, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String escale, String deviseMere, double tva, double montant, double montanttva, double montantttc, double montantpaye, double montantreste, String tierslib, double montantavoir, String contact, String adresse, String etatLib, String typelib, double deviseEuro, double deviseDollar, double coeff, double montantHTEuro, double montantTVAEuro, double montantHTVADollar, double montantTVADollar, double montantTTCDollar, double montantttcvrai, String idcategorie, String idProvision, String categorielib, String idProvisionlib, String iddefinitive, String estDDPMICTSL, String codePrestation, String codePrestationlib, String codeProvision, String code, String estMictsl, double reduction, double ecart) throws Exception {
+        setNomTable("Factureclient");
+        setLiaisonFille("idmere");
+        this.setNomClasseFille("facture.FactureClientDetails");
         this.daty = daty;
         this.date_echeance = date_echeance;
         this.tiers = tiers;

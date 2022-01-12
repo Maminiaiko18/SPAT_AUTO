@@ -13,6 +13,7 @@ import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import facture.EtatProvision;
 import facture.FactureClient;
+import facture.FactureClientDetails;
 import facture.FactureFournisseur;
 import facture.PaiementFacture;
 import facture.UtilitaireFacture;
@@ -40,7 +41,19 @@ public class JournalCaisse extends ClassEtat {
     private double sommeCredit, sortie, entree;
     private String banque;
     private String descecaisse;
-
+    
+    public FactureClient genererFactureClientAuto(Connection c,String user,String compte) throws Exception{
+        FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive);
+        FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(), compte, "Facture auto via", 1);
+        FactureClientDetails[] fille = {detail};
+        factureclient.setFille(fille);
+        
+        factureclient.createObject(user, c);
+        
+    
+        return factureclient;
+    }
+    
     public String getBanque() {
         return banque;
     }
