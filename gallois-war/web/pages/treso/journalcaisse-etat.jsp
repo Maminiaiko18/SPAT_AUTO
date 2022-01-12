@@ -4,8 +4,19 @@
     Author     : User
 --%>
 
+<%@page import="utilitaire.Utilitaire"%>
+<%@page import="affichage.Liste"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    String lien = (String) session.getValue("lien");
+
+    String daty = request.getParameter("date");
+    if (daty == null || daty.trim().isEmpty()) {
+        daty = "" + Utilitaire.dateDuJour();
+    }
+
+%>
 <style>
     .col1{
         font-weight: bold;
@@ -28,7 +39,41 @@
         <h1>SOCIETE DU PORT A GESTION AUTONOME DE TOAMASINA</h1>
     </section>
     <div class="row">
-
+        <section class="content" style="min-height: 0px;">
+            <div class="col-xs-12">
+                <form action="<%=lien%>?but=treso/journalcaisse-etat.jsp" method="post" >
+                    <div class="box box-solid collapsed">
+                        <div style="background:#103a8e; color:white;" class="box-header with-border">
+                            <h3 class="box-title" color="#103a8e"><span color="#103a8e">Recherche avancée</span></h3>
+                            <div class="box-tools pull-right"><button data-original-title="Collapse" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" tabindex="1"><i class="fa fa-plus"></i></button> </div>
+                        </div>
+                        <div class="box-body" id="pagerecherche">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Date" début="">Date</label>
+                                    <input name="date" type="text" class="form-control datepicker" id="date" value="<%=daty%>" onkeydown="return searchKeyPress(event)">
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="row"></div>
+                            <div class="row">
+                                <div class="col-xs-6" align="center">
+                                    <button type="reset" class="btn btn-default" tabindex="33">Réinitialiser</button>
+                                </div>
+                                <div class="col-xs-6" align="center">
+                                    <input name="afficher" value="Afficher" type="submit" class="btn" style="background:#103a8e; color:white" id="btnListe" tabindex="34">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
         <section class="content" style="min-height: 0px;">
             <div class="col-xs-12 head">
                 <div class="col-xs-12 col-sm-8 col-md-8 col1">
@@ -41,7 +86,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 col3">
                     <p>226/21</p>     
-                    <p>11/01/2022</p>
+                    <p><%= daty%></p>
                 </div>
             </div>
         </section>
@@ -87,7 +132,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <b>Recette de la caisse SPAT Journée du </b> 02/12/2021
+                                <b>Recette de la caisse SPAT Journée du </b> <%= daty%>
                             </td>
                             <td style="text-align: end">
                                 1 278 466
@@ -177,7 +222,7 @@
                     <p>JOURNEE DU</p>
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 col3">
-                    <p>226/21</p>     
+                    <p><%= daty%></p>     
                 </div>
             </div>
         </section>
@@ -216,7 +261,7 @@
                 </table>
             </div>
         </section>
-         <section class="content">
+        <section class="content">
             <div class="col-xs-12">
                 <div class="col-xs-12 col-sm-8 col-md-8" style="text-align: center">
                     <p><b>Etabli par:</b>  </p>
@@ -228,7 +273,7 @@
 
                 </div>
             </div>
-         </section>
+        </section>
     </div>
 
 </div>
