@@ -21,9 +21,24 @@ public class LigneCredit extends ClassEtat {
     private String designation,compte;
     private double quantite,montant,facture,paye;
     private int annee, mois;
-    private double arecouvrir, restebudget;
-
+    private double arecouvrir, restebudget,pourcEngage,pourcPaye;
     private Date daty;
+
+    public double getPourcEngage() {
+        return pourcEngage;
+    }
+
+    public void setPourcEngage(double pourcEngage) {
+        this.pourcEngage = pourcEngage;
+    }
+
+    public double getPourcPaye() {
+        return pourcPaye;
+    }
+
+    public void setPourcPaye(double pourcPaye) {
+        this.pourcPaye = pourcPaye;
+    }
 
     public Date getDaty() {
         return daty;
