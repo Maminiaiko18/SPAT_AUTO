@@ -5,6 +5,7 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
@@ -75,5 +76,10 @@ public class Billetage extends ClassEtat{
     @Override
     public String getAttributIDName() {
         return "id";
+    }
+    
+    public DetailsBilletage[] getDetails(Connection c) throws Exception{
+        DetailsBilletage[] result = (DetailsBilletage[]) CGenUtil.rechercher(new DetailsBilletage(), null, null, c, String.format(" and idmere = '%s' ", this.getId()));
+        return result;
     }
 }
