@@ -40,8 +40,7 @@
         border: 2px solid;
     }
 </style>
-<%
-    try{
+<%    try {
         Date date = new java.sql.Date(Utilitaire.stringToDate("dd/mm/yyyy", daty).getTime());
         EtatJournalCaisse ejc = new EtatJournalCaisse(date);
         JournalCaisse[] jc = ejc.getListeDepenses();
@@ -112,29 +111,37 @@
                             <th style="text-align: center">DEBIT</th>
                             <th style="text-align: center">CREDIT</th>
                         </tr>
-                        <%
-                            int t = jc.length;
-                            for(int i = 0; i < t; i++){
-                        %>
+
                         <tr>
                             <td rowspan="8" style="text-align: center">
+                                <%
+                                    int t = jc.length;
+                                    for (int i = 0; i < t; i++) {
+                                %>
                                 <p><%=jc[i].getNumPiece()%></p>
+                                <%
+                                    }
+                                %>
                             </td>
                             <td>
-                                <p><%=jc[i].getLibelle()%></p> 
+                                 <%
+                                    for (int i = 0; i < t; i++) {
+                                %>
+                                <p><%=jc[i].getLibelle()%></p>
+                                <%
+                                    }
+                                %>
                             </td>
                             <td>
                                 <p>boucle des debits</p>                       
-                                <p><%=Utilitaire.formaterAr(jc[i].getCredit())%></p>
+                                <!--<p><%=Utilitaire.formaterAr(jc[i].getCredit())%></p>-->
                             </td>
                             <td style="/*! border-right-width: 2px; */">
                                 <p>boucle des credits</p>
-                                <p><%=Utilitaire.formaterAr(jc[i].getDebit())%></p>
+                                <!--<p><%=Utilitaire.formaterAr(jc[i].getDebit())%></p>-->
                             </td>
                         </tr>
-                        <%
-                            }
-                        %>
+
                         <tr>
                             <td>
                                 <b>Recette de la caisse SPAT Journée du </b> <%= daty%>
@@ -143,7 +150,7 @@
                                 <%=Utilitaire.formaterAr(ejc.getTotalRecette())%>
                             </td>
                             <td style="text-align: end">
-                                
+
                             </td>
                         </tr>
                         <tr>
