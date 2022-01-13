@@ -37,7 +37,7 @@
 
     .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
         padding: 4px;
-        border: 2px solid;
+        border: 1.2px solid;
     }
 </style>
 <%    try {
@@ -163,11 +163,19 @@
                                 <b>Recette de la caisse SPAT Journée du </b> <%= daty%>
                             </td>
                             <td style="text-align: end">
-
-                                <p><%=Utilitaire.formaterAr(debit)%></p> 
+                                <%=Utilitaire.formaterAr(debit)%>
                             </td>
                             <td style="text-align: end">
-                                <p><%=Utilitaire.formaterAr(credit)%></p> 
+                                <%=Utilitaire.formaterAr(credit)%>
+                            </td>
+                        </tr
+                         <tr>
+                            <td style="border: none">
+                            </td>
+                            <td style="text-align: end">
+                                
+                            </td>
+                            <td style="text-align: end">
                             </td>
                         </tr>
                         <tr>
