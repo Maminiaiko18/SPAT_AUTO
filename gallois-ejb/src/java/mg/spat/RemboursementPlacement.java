@@ -106,7 +106,7 @@ public class RemboursementPlacement extends ClassEtat{
     }
     @Override
     public void construirePK(Connection c) throws Exception {
-        preparePk("CR","get_seqtremboursementPlacement");
+        preparePk("CR","GETSEQREMBOURSEMENTPLACEMENT");
         setId(makePK(c));
     }
     
