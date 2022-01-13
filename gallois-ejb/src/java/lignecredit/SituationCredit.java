@@ -17,9 +17,25 @@ import utilitaire.Utilitaire;
  * @author
  */
 public class SituationCredit extends LigneCredit {
-
+    private double pourcEngage,pourcPaye; 
     public SituationCredit() {
         this.setNomTable("ligneCreditDepense");
+    }
+
+    public double getPourcEngage() {
+        return pourcEngage;
+    }
+
+    public void setPourcEngage(double pourcEngage) {
+        this.pourcEngage = pourcEngage;
+    }
+
+    public double getPourcPaye() {
+        return pourcPaye;
+    }
+
+    public void setPourcPaye(double pourcPaye) {
+        this.pourcPaye = pourcPaye;
     }
 
     public void construirePK(Connection c) throws Exception {
