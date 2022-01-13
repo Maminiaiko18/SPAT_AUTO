@@ -53,6 +53,20 @@ public class JournalCaisse extends ClassEtat {
     
         return factureclient;
     }
+
+    public FactureClient findFactureClientAuto(Connection c) throws Exception {
+			FactureClient fc = new FactureClient();
+			String nomTable = "factureclientAuto";
+			fc.setNomTable(nomTable);
+			FactureClient[] rsFc = null;
+			try {
+				String query = " and id = "+this.getIdplacement();
+				rsFc = (FactureClient[]) CGenUtil.rechercher(fc, query, c);
+			} catch(Exception e) {
+				throw e;
+			}
+			return rsFc != null ? rsFc[0] : null;
+    }
     
     public String getBanque() {
         return banque;
