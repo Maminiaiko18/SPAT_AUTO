@@ -70,6 +70,7 @@
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
     pi.getFormu().getChamp("estMictsl").setVisible(false);
+    pi.getFormu().getChamp("estAuto").setVisible(false);
     
     if(request.getParameter("idBL") != null){
         pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
@@ -131,6 +132,7 @@
         pi.getFormufle().getChamp("mois_"+i).setDefaut(""+Utilitaire.getMoisEnCoursReel());
         pi.getFormufle().getChamp("annee_"+i).setDefaut(Utilitaire.getAnneeEnCours());
         pi.getFormufle().getChamp("idactivite_"+i).setVisible(false);
+        pi.getFormufle().getChamp("compte_"+i).setPageAppel("choix/listeCompteCAchoix.jsp", "compte_" + i+";compte_"+i+";comptelibelle_"+i  );
         
         if(i < livraisons.length) {
             pi.getFormufle().getChamp("idBLF_"+i).setDefaut(livraisons[i].getId());

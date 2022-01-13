@@ -21,6 +21,12 @@ public class CompteCA extends TypeObjet{
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
+
+    @Override
+    public String getValColLibelle() {
+        return this.getVal()+";"+this.getLibelle();
+    }
+    
     
     
 }
