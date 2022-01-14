@@ -81,7 +81,7 @@ public class JournalCaisse extends ClassEtat {
         } catch(Exception e) {
                 throw e;
         }
-        return rsFc != null ? rsFc[0] : null;
+        return rsFc != null && rsFc.length > 0 ? rsFc[0] : null;
     }
 
     public FactureFournisseur findFactureFournisseurAuto(Connection c) throws Exception {
@@ -95,7 +95,7 @@ public class JournalCaisse extends ClassEtat {
         } catch(Exception e) {
                 throw e;
         }
-        return rsFc != null ? rsFc[0] : null;
+        return rsFc != null && rsFc.length > 0 ? rsFc[0] : null;
     }
     
     public String getBanque() {
