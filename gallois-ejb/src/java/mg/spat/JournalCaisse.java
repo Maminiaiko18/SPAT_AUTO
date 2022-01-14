@@ -15,6 +15,7 @@ import facture.EtatProvision;
 import facture.FactureClient;
 import facture.FactureClientDetails;
 import facture.FactureFournisseur;
+import facture.FactureFournisseurDetails;
 import facture.PaiementFacture;
 import facture.UtilitaireFacture;
 import factureclient.PayementFacture;
@@ -43,7 +44,7 @@ public class JournalCaisse extends ClassEtat {
     private String descecaisse;
     
     public FactureClient genererFactureClientAuto(Connection c,String user,String compte) throws Exception{
-        FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive);
+        FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
         FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(), compte, "Facture auto via", 1);
         FactureClientDetails[] fille = {detail};
         factureclient.setFille(fille);
@@ -1029,5 +1030,18 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         if(this.getCredit()%100 != 0){
             this.setCredit(this.getCredit() + (100 - this.getCredit()%100));
         }
+    }
+    
+    public FactureFournisseur genererFactureFournisseurAuto(Connection c,String user,String compte) throws Exception{
+        
+        FactureFournisseur facturefrns = new FactureFournisseur(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptantFF, Constante.categorieFFdefault, 1);
+        FactureFournisseurDetails detail = new FactureFournisseurDetails(facturefrns.getId(), 1, this.getCredit(), compte, "Facture auto via", 1);
+        FactureFournisseurDetails[] fille = {detail};
+        facturefrns.setFille(fille);
+        
+        facturefrns.createObject(user,c);
+
+        return facturefrns;
+        
     }
 }

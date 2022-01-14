@@ -25,15 +25,7 @@ import utilitaire.Utilitaire;
 public class FactureFournisseur extends FactureClient {
 
     private String numeroop, projet, code_etablissement, projetlib, code_etablissementlib, nature, naturelib, idbc, numOP;
-    private int exercice,estAuto;
-
-    public int getEstAuto() {
-        return estAuto;
-    }
-
-    public void setEstAuto(int estAuto) {
-        this.estAuto = estAuto;
-    }
+    private int exercice;
 
     public int getExercice() {
         return exercice;
@@ -594,4 +586,15 @@ public class FactureFournisseur extends FactureClient {
         return this;
     }
 
+    public FactureFournisseur(Date daty, String tiers, String designation, String type, String idcategorie, int estAuto) throws Exception {
+        setNomTable("facture_Fournisseur_Mere");
+        setLiaisonFille("idmere");
+        this.setNomClasseFille("facture.FactureFournisseurDetails");
+        this.setDaty(daty);
+        this.setTiers(tiers);
+        this.setDesignation(designation);
+        this.setType(type);
+        this.setIdcategorie(idcategorie);
+        this.setEstAuto(estAuto);
+    }
 }

@@ -22,6 +22,8 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     
     public FactureFournisseurDetails() throws Exception{ 
         this.setNomTable("facture_fournisseur_fille");
+        this.setNomClasseMere("facture.FactureFournisseur");
+        this.setLiaisonMere("idmere");
     }
 
     public FactureFournisseurDetails(String id, String idmere, String designation, String compte, String idproduit, String devise, String idactivite, String rubrique, String heureDebut, String heureFin, double quantite, double pu, double taux, double tva, double reduction, double majoration, double test, Date datefact, int mois, int annee) throws Exception{
@@ -95,4 +97,15 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         this.idBLF = idBLF;
     }
 
+    public FactureFournisseurDetails(String idmere, double quantite, double pu, String compte, String designation, double duree) throws Exception {
+        setNomTable("facture_fournisseur_fille");
+        this.setNomClasseMere("facture.FactureFournisseur");
+        this.setLiaisonMere("idmere");
+        this.setIdmere(idmere);
+        this.setQuantite(quantite);
+        this.setPu(pu);
+        this.setCompte(compte);
+        this.setDesignation(designation);
+        this.setDuree(duree);
+    }
 }

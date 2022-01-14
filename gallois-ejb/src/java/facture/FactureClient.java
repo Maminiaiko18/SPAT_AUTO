@@ -58,6 +58,7 @@ public class FactureClient extends ClassMere {
     private int exercice;
     private String idavoir;
     private String typeclientlib,factureLiee ; 
+    private int estAuto;
 
     public String getFactureLiee() {
         return factureLiee;
@@ -743,15 +744,25 @@ public class FactureClient extends ClassMere {
             }
         }
     }
-    public FactureClient(Date daty, String tiers, String designation, String type, String idcategorie) throws Exception {
+
+    public int getEstAuto() {
+        return estAuto;
+    }
+
+    public void setEstAuto(int estAuto) {
+        this.estAuto = estAuto;
+    }
+    
+    public FactureClient(Date daty, String tiers, String designation, String type, String idcategorie, int estAuto) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");
         this.setNomClasseFille("facture.FactureClientDetails");
         this.setDaty(daty);
         this.setTiers(tiers);
         this.setDesignation(designation);
-        this.setTiers(tiers);
+        this.setType(type);
         this.setIdcategorie(idcategorie);
+        this.setEstAuto(estAuto);
     }
     
 
