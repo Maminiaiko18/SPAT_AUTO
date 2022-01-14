@@ -77,7 +77,7 @@ public class JournalCaisse extends ClassEtat {
         FactureClient[] rsFc = null;
         try {
                 String query = " and id = '"+this.getIdplacement()+"'";
-                rsFc = (FactureClient[]) CGenUtil.rechercher(fc, query, c);
+                rsFc = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, query);
         } catch(Exception e) {
                 throw e;
         }
@@ -91,7 +91,7 @@ public class JournalCaisse extends ClassEtat {
         FactureFournisseur[] rsFc = null;
         try {
                 String query = " and id = '"+this.getIdplacement()+"'";
-                rsFc = (FactureFournisseur[]) CGenUtil.rechercher(fc, query, c);
+                rsFc = (FactureFournisseur[]) CGenUtil.rechercher(fc, null, null, c, query);
         } catch(Exception e) {
                 throw e;
         }
