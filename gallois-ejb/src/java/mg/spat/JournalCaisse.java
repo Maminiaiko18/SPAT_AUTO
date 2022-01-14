@@ -60,7 +60,7 @@ public class JournalCaisse extends ClassEtat {
 			fc.setNomTable(nomTable);
 			FactureClient[] rsFc = null;
 			try {
-				String query = " and id = "+this.getIdplacement();
+				String query = " and id = '"+this.getIdplacement()+"'";
 				rsFc = (FactureClient[]) CGenUtil.rechercher(fc, query, c);
 			} catch(Exception e) {
 				throw e;
