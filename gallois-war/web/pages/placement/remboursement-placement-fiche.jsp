@@ -30,10 +30,10 @@
 
 //        pc.getChampByName("nomfournisseur").setLien("module.jsp?but=travaux/tiers-fiche.jsp&id=" + a.getIdFournisseur(), "nom=");
         pc.setTitre("Fiche remboursement de placement");
-        AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
+        AttacherFichier[] fichiers = UploadService.getUploadFile(id);
         configuration.CynthiaConf.load();
         String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
-        String dossier = "op";
+        String dossier = "placement";
 
 %>
 <style>
@@ -53,12 +53,12 @@
                 </div>
                 <div class="box-footer">
                     <div>
-                        <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=ded.OrdonnerPayement&bute=ded/ordonnerpayement-fiche.jsp&id=" + id%>"  style="margin-right: 10px">Viser</a>
+                        <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.RemboursementPlacement&bute=placement/remboursement-placement-fiche.jsp&id=" + id%>"  style="margin-right: 10px">Viser</a>
                         <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-modif.jsp&id=" + id%>"  style="margin-right: 10px">Modifier</a>
                     </div>
                   
                     <div>
-                        <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + id + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=ded/ordonnerpayement-fiche.jsp&id=" + id%>" style="margin-right: 10px">Attacher Fichier</a> 
+                        <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + id + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=placement/remboursement-placement-fiche.jsp&id=" + id%>" style="margin-right: 10px">Attacher Fichier</a> 
                     </div>
                 </div>
 
