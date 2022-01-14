@@ -692,6 +692,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                         this.setNumPiece(numeroPiece);
                     }
                     
+                    viserFacturesRattachees(refuser, c);
                     genererPaiement(c, refuser);
                 }
             }
