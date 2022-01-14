@@ -43,6 +43,21 @@ public class JournalCaisse extends ClassEtat {
     private String banque;
     private String descecaisse;
     
+    public void viserFacturesRattachees(String user,Connection c) throws Exception{
+        if(this.getCredit()>0){
+            FactureClient factureclient= findFactureClientAuto(c);
+            if(factureclient!=null){
+                factureclient.validerObject(user, c);
+            }
+        }
+        if(this.getDebit()>0){
+            FactureFournisseur factureFournisseur= findFactureFournisseurAuto(c);
+            if(factureFournisseur!=null){
+                factureFournisseur.validerObject(user, c);
+            }
+        }
+    }
+    
     public FactureClient genererFactureClientAuto(Connection c,String user,String compte) throws Exception{
         FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
         FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(), compte, "Facture auto via", 1);
@@ -56,31 +71,31 @@ public class JournalCaisse extends ClassEtat {
     }
 
     public FactureClient findFactureClientAuto(Connection c) throws Exception {
-			FactureClient fc = new FactureClient();
-			String nomTable = "factureclientAuto";
-			fc.setNomTable(nomTable);
-			FactureClient[] rsFc = null;
-			try {
-				String query = " and id = '"+this.getIdplacement()+"'";
-				rsFc = (FactureClient[]) CGenUtil.rechercher(fc, query, c);
-			} catch(Exception e) {
-				throw e;
-			}
-			return rsFc != null ? rsFc[0] : null;
+        FactureClient fc = new FactureClient();
+        String nomTable = "factureclientAuto";
+        fc.setNomTable(nomTable);
+        FactureClient[] rsFc = null;
+        try {
+                String query = " and id = '"+this.getIdplacement()+"'";
+                rsFc = (FactureClient[]) CGenUtil.rechercher(fc, query, c);
+        } catch(Exception e) {
+                throw e;
+        }
+        return rsFc != null ? rsFc[0] : null;
     }
 
-		public FactureClient findFactureFournisseurAuto(Connection c) throws Exception {
-			FactureClient fc = new FactureClient();
-			String nomTable = "facture_fournisseur_mereAuto";
-			fc.setNomTable(nomTable);
-			FactureClient[] rsFc = null;
-			try {
-				String query = " and id = '"+this.getIdplacement()+"'";
-				rsFc = (FactureClient[]) CGenUtil.rechercher(fc, query, c);
-			} catch(Exception e) {
-				throw e;
-			}
-			return rsFc != null ? rsFc[0] : null;
+    public FactureFournisseur findFactureFournisseurAuto(Connection c) throws Exception {
+        FactureFournisseur fc = new FactureFournisseur();
+        String nomTable = "facture_fournisseur_mereAuto";
+        fc.setNomTable(nomTable);
+        FactureFournisseur[] rsFc = null;
+        try {
+                String query = " and id = '"+this.getIdplacement()+"'";
+                rsFc = (FactureFournisseur[]) CGenUtil.rechercher(fc, query, c);
+        } catch(Exception e) {
+                throw e;
+        }
+        return rsFc != null ? rsFc[0] : null;
     }
     
     public String getBanque() {
