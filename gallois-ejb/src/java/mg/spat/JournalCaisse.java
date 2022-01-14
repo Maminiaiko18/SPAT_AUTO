@@ -68,6 +68,20 @@ public class JournalCaisse extends ClassEtat {
 			}
 			return rsFc != null ? rsFc[0] : null;
     }
+
+		public FactureClient findFactureFournisseurAuto(Connection c) throws Exception {
+			FactureClient fc = new FactureClient();
+			String nomTable = "facture_fournisseur_mereAuto";
+			fc.setNomTable(nomTable);
+			FactureClient[] rsFc = null;
+			try {
+				String query = " and id = '"+this.getIdplacement()+"'";
+				rsFc = (FactureClient[]) CGenUtil.rechercher(fc, query, c);
+			} catch(Exception e) {
+				throw e;
+			}
+			return rsFc != null ? rsFc[0] : null;
+    }
     
     public String getBanque() {
         return banque;
