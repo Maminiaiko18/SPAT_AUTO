@@ -168,7 +168,7 @@
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
     pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
     
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte;compte;comptelibelle");
+    //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte;compte;comptelibelle");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
    
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
@@ -256,9 +256,9 @@
         
         var td<%=i%> = document.getElementById('compte_<%=i%>').parentElement;
         var tdel<%=i%> = document.createElement("td");
-        td<%=i%>.after(tdel<%=i%>);
+        //td<%=i%>.after(tdel<%=i%>);
         
-        $('#starticle').find("label[for='compte_0']").parent().attr('colspan',2);
+        //$('#starticle').find("label[for='compte_0']").parent().attr('colspan',2);
         
     <%}%>
 </script>
