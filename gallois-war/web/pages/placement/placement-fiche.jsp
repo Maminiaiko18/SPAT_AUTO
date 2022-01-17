@@ -61,7 +61,7 @@
                             <p>
 
                                 <%if (bi.getEtat() < ConstanteEtat.getEtatValider()) {%>
-                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=placement/placement-liste.jsp&classe=mg.spat.placement.Placement">Viser</a> 
+                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=placement/placement-fiche.jsp&classe=mg.spat.placement.Placement">Viser</a> 
                                 <a href="<%=(String) session.getValue("lien") + "?but=placement/placement-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning">Modifier</button></a>
                                 <%}%>
                                 <%if (bi.getEtat() < ConstanteEtat.getEtatEchu()) {%>
