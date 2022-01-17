@@ -42,6 +42,20 @@ public class JournalCaisse extends ClassEtat {
     private double sommeCredit, sortie, entree;
     private String banque;
     private String descecaisse;
+
+		public Placement findPlacement(Connection c) throws Exception {
+			Placement pl = new Placement();
+			String nomTable = "placement";
+			pl.setNomTable(nomTable);
+			Placement[] rsPlacement = null;
+			try {
+				String query = " and id = '"+this.getIdplacement()+"'";
+				rsPlacement = (Placement[]) CGenUtil.rechercher(pl, null, null, c, query);
+			} catch(Exception e) {
+				throw e;
+			}
+			return rsPlacement != null && rsPlacement.length > 0 ? rsPlacement[0] : null;
+    }
     
     public void viserFacturesRattachees(String user,Connection c) throws Exception{
         if(this.getCredit()>0){
