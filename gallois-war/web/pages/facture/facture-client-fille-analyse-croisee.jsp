@@ -1,3 +1,5 @@
+<%@page import="utilitaire.Utilitaire"%>
+<%@page import="affichage.Liste"%>
 <%@page import="mg.spat.AnalyseDetails"%>
 <%@page import="affichage.PageRechercheGroupe"%>
 <%
@@ -5,12 +7,12 @@
 
         AnalyseDetails lv = new AnalyseDetails();
         lv.setNomTable("factureclientfille_libcompteCA");
-        String listeCrt[] = {"libelleCompte"};
-        String listeInt[] = {};
+        String listeCrt[] = {"libelleCompte","mois"};
+        String listeInt[] = {"mois"};
 
         String[] pourcentage = {};
         String somDefaut[] ={"montantttc"}; //sum
-        String colDefaut[] =  {"mois"}; // colonne
+        String colDefaut[] =  {"moislib"}; // colonne
         String[] colGrCol = {"libelleCompte"}; //ligne
         
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, colDefaut.length, 0);
@@ -18,8 +20,21 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
-//        pr.getFormu().getChamp("produit_lib").setLibelle("Produit");
-//        pr.getFormu().getChamp("rubriquelib").setLibelle("Rubrique");
+        pr.getFormu().getChamp("mois1").setVisible(false);
+        pr.getFormu().getChamp("mois1").setLibelle("Mois");
+         affichage.Champ [] list = new affichage.Champ[1];
+        int month = Utilitaire.getMoisEnCoursReel();
+        if (month == 0) month = 12;
+        
+        Liste mois = new Liste("mois2");
+        String affiche[] = {"-","Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"};
+	String valeur[] = {" ","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+	mois.setValeurBrute(affiche);
+	mois.setColValeurBrute(valeur);
+//        mois.makeListeMois();
+        list[0] = mois;
+        pr.getFormu().changerEnChamp(list);
+        pr.getFormu().getChamp("mois2").setDefaut(String.valueOf(month));
         
         pr.setApres("facture/facture-client-fille-analyse-croisee.jsp");
         pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+pr.getApres());
