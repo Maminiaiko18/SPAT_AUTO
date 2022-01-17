@@ -19,7 +19,16 @@ public class RemboursementPlacement extends ClassEtat{
     private String id,idplacement,caisse,entite,banque,caisselib;
     private double montantplace,interet;
     private Date daty;
-
+    
+    
+    public void checkDoublonRemboursement(Connection c) throws Exception{
+        RemboursementPlacement rembourcement =new RemboursementPlacement();
+        rembourcement.setNomTable("remboursementplacementV");
+        RemboursementPlacement[] liste = (RemboursementPlacement[]) CGenUtil.rechercher(rembourcement, null, null,c, " and idplacement='" + this.getIdplacement() + "'");
+        if(liste.length>0){
+            throw new Exception("Remboursement Placement deja enregistre");
+        }
+    }
     public RemboursementPlacement() {
         super.setNomTable("remboursementPlacement");
     }
@@ -122,6 +131,7 @@ public class RemboursementPlacement extends ClassEtat{
         }catch(Exception e){
             e.printStackTrace();
         }
+        return null;
     }
     
 }
