@@ -689,15 +689,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }else{
                 if (this.getIdplacement() != null) {
                     if (!this.getIdplacement().startsWith("FC")) {
-                        this.traitementPlacement(user, c);
-                        
-                        FactureFournisseur[] facturesF = findFactureFournisseur(c);
-                        if(facturesF.length > 0) {
-                            for(FactureFournisseur ff: facturesF) {
-                                if(ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())) {
-                                    insererDansBonProvisoire(refuser, c);
-                                }
-                            }
+                        Placement placement = this.findPlacement(c);
+                        if(placement.getEtat()<11){
+                            placement.validerObject(refuser, c);
                         }
                     }
                     
