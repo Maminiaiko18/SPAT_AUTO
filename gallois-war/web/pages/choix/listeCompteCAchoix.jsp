@@ -12,14 +12,13 @@
     CompteCA e = new CompteCA();
     e.setNomTable("compteCA");
     String champReturn = request.getParameter("champReturn");
-    String listeCrt[] = {"id","val","libelle"};
+    String listeCrt[] = {"val","libelle"};
     String listeInt[] ={};
-    String libEntete[] ={"id","val","libelle"};
+    String libEntete[] ={"val","libelle"};
     PageRechercheChoix pr = new PageRechercheChoix(e, request, listeCrt, listeInt, 2, libEntete, libEntete.length);
     
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.getFormu().getChamp("id").setLibelle("id");
     pr.getFormu().getChamp("val").setLibelle("Désignation");
     pr.getFormu().getChamp("libelle").setLibelle("Libelle");
     pr.setApres("choix/listeCompteCAchoix.jsp");
@@ -47,7 +46,7 @@
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
                 </form>
                 <%
-                    String libelles[] = {"ID","Désignation","Libellé"};
+                    String libelles[] = {"Désignation","Libellé"};
                     pr.getTableau().setLibelleAffiche(libelles);
                     out.println(pr.getTableauRecap().getHtml());
                 %>
