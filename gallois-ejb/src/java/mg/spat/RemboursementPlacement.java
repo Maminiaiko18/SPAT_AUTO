@@ -133,5 +133,17 @@ public class RemboursementPlacement extends ClassEtat{
         }
         return null;
     }
+
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        checkDoublonRemboursement(c);
+        echu(c);
+        return super.validerObject(u, c); 
+    }
+
+    private void echu(Connection c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
 }
