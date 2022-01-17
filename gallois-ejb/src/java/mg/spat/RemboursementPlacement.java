@@ -11,7 +11,10 @@ import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.placement.Placement;
 import mg.spat.placement.PlacementLibComplet;
+import user.UserEJBBean;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -136,15 +139,67 @@ public class RemboursementPlacement extends ClassEtat{
         return null;
     }
 
-    @Override
+    /*@Override
     public Object validerObject(String u, Connection c) throws Exception {
         checkDoublonRemboursement(c);
-        echu(c);
+        echu(c, u);
         return super.validerObject(u, c); 
-    }
+    }*/
 
-    private void echu(Connection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public void viser(UserEJBBean user, Connection c) throws Exception {
+        checkDoublonRemboursement(c);
+        echu(c, user);
+        super.viser(user, c);
+    }
+    
+    
+
+    public void echu(Connection c, UserEJBBean user) throws Exception {
+        boolean ouvert = false;
+        
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            
+            String refuser = ""+user.getUser().getRefuser();
+            PlacementLibComplet placementLibComplet = (PlacementLibComplet) (new PlacementLibComplet()).getById(this.getIdplacement(), "placementlibcomplet", c);
+            
+        //  Montant placé
+            String designation = String.format("Echéance placement %s/%s: montant placé", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
+            Date dateDuJour = Utilitaire.dateDuJourSql();
+            JournalCaisse j1 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, placementLibComplet.getMontant());
+            j1.setIdplacement(this.getIdplacement());
+            j1.createObject(refuser, c);
+            j1.viser(user, c);
+            
+        //  Intérêts
+            designation = String.format("Echéance placement %s/%s: montant intérêts", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
+            ConfigPlacement confP = getConfigPlacement(c, placementLibComplet);
+            String compte = confP != null ? confP.getCompte() : null;
+            
+            JournalCaisse j2 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, placementLibComplet.getInteret_net());
+            j2.setIdplacement(this.getIdplacement());
+            j2.createObject(refuser, c);
+            j2.viser(user, c);
+            j2.genererFactureClientAuto(c, refuser, compte);
+            
+        //  Etat échu 
+            Placement placement = findPlacement(c);
+            placement.setEtat(ConstanteEtat.getEtatEchu());
+            placement.updateToTableWithHisto(refuser, c);
+            
+            if(ouvert) c.commit();
+        } catch (Exception e) {
+            if(c != null && ouvert) c.rollback();
+            throw e;
+        }
+        finally {
+            if(c != null && ouvert) c.close();
+        }
     }
     
     public ConfigPlacement getConfigPlacement(Connection conn,PlacementLibComplet pl)throws Exception {
