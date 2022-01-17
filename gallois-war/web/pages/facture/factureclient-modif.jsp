@@ -285,8 +285,9 @@
             textarea<%=i%>.style.height = "100px";
             textarea<%=i%>.value = designation<%=i%>.value;
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
-    <%}%>
-    $('#idproduit_0').parent().attr('style', '');    
+        $('#idproduit_<%=i%>').parent().attr('style', '');    
+    <%}%>    
+    
 </script>
 <%} catch (Exception ex) {
         ex.printStackTrace();
