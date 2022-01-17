@@ -64,6 +64,7 @@
         pi.getFormu().getChamp("typelib").setVisible(false);
         pi.getFormu().getChamp("categorielib").setVisible(false);
         pi.getFormu().getChamp("idProvisionlib").setVisible(false);
+        //pi.getFormu().getChamp("estAuto").setVisible(false);
 
         pi.getFormu().getChamp("iduser").setAutre("readonly");
         pi.getFormu().getChamp("iduser").setLibelle("User");
@@ -127,7 +128,7 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"), false);
         
 
-        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte");
+        //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte");
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
 
@@ -212,7 +213,7 @@
 </div>
 <script>
     
-    $('#ajout_multiple_ligne tr td:nth-child(7)').attr('style', '');
+    //$('#ajout_multiple_ligne tr td:nth-child(7)').attr('style', '');
     
     document.getElementById("projetlibelle").value = "<%= Utilitaire.champNull(mere.getProjetlib()) %>";
     document.getElementById("code_etablissementlibelle").value = "<%= Utilitaire.champNull(mere.getCode_etablissementlib()) %>";
