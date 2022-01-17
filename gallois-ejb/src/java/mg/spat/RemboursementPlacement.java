@@ -10,6 +10,8 @@ import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.placement.Placement;
+import mg.spat.placement.PlacementLibComplet;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -145,5 +147,25 @@ public class RemboursementPlacement extends ClassEtat{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    public ConfigPlacement getConfigPlacement(Connection conn,PlacementLibComplet pl)throws Exception {
+        boolean verify = false;
+        try{
+            if(conn==null){
+                conn = new UtilDB().GetConn();
+                verify = true;
+            }
+        ConfigPlacement config = new ConfigPlacement();
+        config.setNature(pl.getIdentite());
+        config.setBanque(pl.getIdbanque());
+        ConfigPlacement[] listConf =(ConfigPlacement[]) CGenUtil.rechercher(config, null, null,conn,"");
+        if(listConf.length!=0)
+            return listConf[0];
+        return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(conn!=null && verify)conn.close();
+        }
+    }
 }
