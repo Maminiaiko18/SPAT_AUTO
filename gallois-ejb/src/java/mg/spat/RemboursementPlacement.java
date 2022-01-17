@@ -5,9 +5,11 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.placement.Placement;
 
 /**
  *
@@ -108,6 +110,18 @@ public class RemboursementPlacement extends ClassEtat{
     public void construirePK(Connection c) throws Exception {
         preparePk("CR","GETSEQREMBOURSEMENTPLACEMENT");
         setId(makePK(c));
+    }
+    public Placement findPlacement(Connection c) throws Exception{
+        try{
+        Placement p = new Placement();
+        Placement[] liste = (Placement[]) CGenUtil.rechercher(p, null, null,c, " and id='" + this.getIdplacement() + "'");
+        if(liste.length!=0){
+            return liste[0];
+        }
+        return null;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
 }
