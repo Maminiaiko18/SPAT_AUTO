@@ -13,8 +13,8 @@ import java.sql.Date;
  * @author Nouta
  */
 public class CaFcFilleComplet extends ClassEtat {
-    private String id,idmere,designation,idproduit,devise,devisemere,idactivite,moislib,rubrique,heuredebut,heurefin,rubriquecpl,idcategorie,type;
-    private double quantite,pu,compte,taux,tva,montanttva,montantttc,montant,reduction,majoration,test,rang,duree;
+    private String id,idmere,compte,designation,idproduit,devise,devisemere,idactivite,moislib,rubrique,heuredebut,heurefin,rubriquecpl,idcategorie,type;
+    private double quantite,pu,taux,tva,montanttva,montantttc,montant,reduction,majoration,test,rang,duree;
     private int mois,annee,montantav;
     private Date datefact;
 
@@ -198,13 +198,15 @@ public class CaFcFilleComplet extends ClassEtat {
         this.pu = pu;
     }
 
-    public double getCompte() {
+    public String getCompte() {
         return compte;
     }
 
-    public void setCompte(double compte) {
+    public void setCompte(String compte) {
         this.compte = compte;
     }
+
+    
 
     public double getTaux() {
         return taux;
