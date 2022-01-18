@@ -12,13 +12,13 @@ import java.sql.Date;
  *
  * @author Nouta
  */
-public class CaFcFilleCompletLib extends ClassEtat {
+public class CaFcFilleComplet extends ClassEtat {
     private String id,idmere,designation,idproduit,devise,devisemere,idactivite,moislib,rubrique,heuredebut,heurefin,rubriquecpl,idcategorie,type;
     private double quantite,pu,compte,taux,tva,montanttva,montantttc,montant,reduction,majoration,test,rang,duree;
     private int mois,annee,montantav;
     private Date datefact;
 
-    public CaFcFilleCompletLib() {
+    public CaFcFilleComplet() {
         super.setNomTable("CAFCFILLECOMPLET");
     }
 
