@@ -13,13 +13,109 @@ import java.sql.Date;
  * @author Nouta
  */
 public class CaFcFilleCompletLib extends ClassEtat {
-    private String id,idmere,designation,idproduit,devise,idactivite,moislib,rubrique;
-    private double quantite,pu,compte,taux,tva,montanttva,montantttc,montant;
-    private int mois,annee;
+    private String id,idmere,designation,idproduit,devise,devisemere,idactivite,moislib,rubrique,heuredebut,heurefin,rubriquecpl,idcategorie,type;
+    private double quantite,pu,compte,taux,tva,montanttva,montantttc,montant,reduction,majoration,test,rang,duree;
+    private int mois,annee,montantav;
     private Date datefact;
 
     public CaFcFilleCompletLib() {
         super.setNomTable("CAFCFILLECOMPLET");
+    }
+
+    public String getDevisemere() {
+        return devisemere;
+    }
+
+    public void setDevisemere(String devisemere) {
+        this.devisemere = devisemere;
+    }
+
+    public String getHeuredebut() {
+        return heuredebut;
+    }
+
+    public void setHeuredebut(String heuredebut) {
+        this.heuredebut = heuredebut;
+    }
+
+    public String getHeurefin() {
+        return heurefin;
+    }
+
+    public void setHeurefin(String heurefin) {
+        this.heurefin = heurefin;
+    }
+
+    public String getRubriquecpl() {
+        return rubriquecpl;
+    }
+
+    public void setRubriquecpl(String rubriquecpl) {
+        this.rubriquecpl = rubriquecpl;
+    }
+
+    public String getIdcategorie() {
+        return idcategorie;
+    }
+
+    public void setIdcategorie(String idcategorie) {
+        this.idcategorie = idcategorie;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public double getReduction() {
+        return reduction;
+    }
+
+    public void setReduction(double reduction) {
+        this.reduction = reduction;
+    }
+
+    public double getMajoration() {
+        return majoration;
+    }
+
+    public void setMajoration(double majoration) {
+        this.majoration = majoration;
+    }
+
+    public double getTest() {
+        return test;
+    }
+
+    public void setTest(double test) {
+        this.test = test;
+    }
+
+    public double getRang() {
+        return rang;
+    }
+
+    public void setRang(double rang) {
+        this.rang = rang;
+    }
+
+    public double getDuree() {
+        return duree;
+    }
+
+    public void setDuree(double duree) {
+        this.duree = duree;
+    }
+
+    public int getMontantav() {
+        return montantav;
+    }
+
+    public void setMontantav(int montantav) {
+        this.montantav = montantav;
     }
 
     public String getId() {
