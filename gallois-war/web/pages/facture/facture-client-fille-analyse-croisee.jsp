@@ -7,8 +7,8 @@
 
         AnalyseDetails lv = new AnalyseDetails();
         lv.setNomTable("factureclientfille_libcompteCA");
-        String listeCrt[] = {"libelleCompte","mois"};
-        String listeInt[] = {"mois"};
+        String listeCrt[] = {"libelleCompte","mois","annee"};
+        String listeInt[] = {"mois","annee"};
 
         String[] pourcentage = {};
         String somDefaut[] ={"montantttc"}; //sum
@@ -21,7 +21,9 @@
         pr.setLien((String) session.getValue("lien"));
 
         pr.getFormu().getChamp("mois1").setVisible(false);
-        pr.getFormu().getChamp("mois1").setLibelle("Mois");
+        pr.getFormu().getChamp("annee2").setVisible(false);
+        pr.getFormu().getChamp("annee1").setLibelle("Annee");
+        pr.getFormu().getChamp("libelleCompte").setLibelle("Libelle");
          affichage.Champ [] list = new affichage.Champ[1];
         int month = Utilitaire.getMoisEnCoursReel();
         if (month == 0) month = 12;
@@ -35,6 +37,9 @@
         list[0] = mois;
         pr.getFormu().changerEnChamp(list);
         pr.getFormu().getChamp("mois2").setDefaut(String.valueOf(month));
+        pr.getFormu().getChamp("annee1").setDefaut(Utilitaire.getAnneeEnCours());
+        
+        pr.getFormu().getChamp("mois2").setLibelle("Mois");
         
         pr.setApres("facture/facture-client-fille-analyse-croisee.jsp");
         pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+pr.getApres());
@@ -57,6 +62,10 @@
         %>
     </section>
 </div>
+        <script>
+            $('label[for="mois1"]').remove();
+            $('label[for="annee2"]').remove();
+         </script>
 <%
     } catch (Exception e) {
         e.printStackTrace();
