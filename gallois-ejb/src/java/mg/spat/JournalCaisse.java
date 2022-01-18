@@ -1086,4 +1086,13 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return facturefrns;
         
     }
+    
+    public void genererFacture(Connection c, String user, String compte, int annee, int mois, double tva ) throws Exception {
+        
+        if(this.getCredit()>0)
+            this.genererFactureClientAuto(c,user,compte,annee,mois,tva);
+        if(this.getDebit()>0)
+            this.genererFactureFournisseurAuto(c,user,compte,annee,mois,tva);
+
+    }
 }
