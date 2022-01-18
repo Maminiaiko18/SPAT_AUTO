@@ -9,24 +9,29 @@
 
         String mois = request.getParameter("mois");
         String annee = request.getParameter("annee");
-
+        
         if (mois == null || mois.trim().isEmpty()) {
             mois = "" + Utilitaire.getMoisEnCoursReel();
         }
         if (annee == null || annee.trim().isEmpty()) {
             annee = "" + Utilitaire.getAneeEnCours();
         }
+        
+        int moisAvant = Utilitaire.stringToInt(mois) - 1;
+        int anneeInt = Utilitaire.stringToInt(annee);
 
         Liste moisL = new Liste("mois");
         moisL.makeListeMois();
         moisL.setDefaut("" + mois);
-
-        String moisEnLettre = (String) moisL.getValeurBrute()[Utilitaire.stringToInt(mois) - 1];
-
+        
+        String moisEnLettre = (String) moisL.getValeurBrute()[moisAvant];
+        
         EtatCA etatCA = new EtatCA(Integer.parseInt(mois), Integer.parseInt(annee), false);
         Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
         Map<String, CA> sommePartiel = etatCA.getSommePartiel();
         CA totalGeneral = etatCA.getTotalGeneral();
+        
+        if(moisAvant == 1) { moisAvant = 12;  anneeInt -= 1; }
 %>
 <style>
     th {
@@ -46,7 +51,7 @@
     .list {
         padding: 0 20px;
     }
-    
+
     .tableca thead th{
         border: #000 solid 2px;
     }
@@ -125,13 +130,25 @@
                         <% for (CA ca : listeParRubrique.get(rubrique)) {%>
                         <tr>
                             <td><%=Utilitaire.champNull(ca.getLibelle())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(ca.getAnciencumul())%></td>
+                            <td align="right">
+                                <a href="<%= lien %>?but=facture/facture-client-fille-liste.jsp&mois2=<%=moisAvant%>&annee=<%=anneeInt%>&compte=<%=ca.getCompte()%>">
+                                    <%=Utilitaire.formaterAr(ca.getAnciencumul())%>
+                                </a>
+                            </td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirEETP())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(ca.getComptant())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(ca.getCredit())%></td>
+                            <td align="right">
+                                <a href="<%= lien %>?but=facture/facture-client-fille-liste.jsp&type=TFC002&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>">
+                                    <%=Utilitaire.formaterAr(ca.getComptant())%>
+                                </a>
+                            </td>
+                            <td align="right">
+                                <a href="<%= lien %>?but=facture/facture-client-fille-liste.jsp&type=TFC001&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>">
+                                    <%=Utilitaire.formaterAr(ca.getCredit())%>
+                                </a>
+                            </td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getTotal())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getNCumul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getTaux())%></td>
@@ -155,412 +172,7 @@
                         </tr>
                         <% }
                             } %>
-<!--
-                        <tr class="category">
-                            <th>ASSISTANCES AUX NAVIRES</th>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr class="total">
-                            <td align="center">ASSISTANCES AUX NAVIRES</td>
-                            <td align="right">1214810099.25</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">1214818099.25</td>
-                            <td align="right"></td>
-                            <td align="right">5983708.57</td>
-                            <td align="right">51074715.23</td>
-                            <td align="right">57058423.80</td>
-                            <td align="right">1271888523.05</td>
-                            <td align="right">0.90</td>
-                        </tr>
-
-                        <tr class="category">
-                            <th>ASSISTANCES AUX NAVIRES</th>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr class="total">
-                            <td align="center">ASSISTANCES AUX NAVIRES</td>
-                            <td align="right">1214810099.25</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">1214818099.25</td>
-                            <td align="right"></td>
-                            <td align="right">5983708.57</td>
-                            <td align="right">51074715.23</td>
-                            <td align="right">57058423.80</td>
-                            <td align="right">1271888523.05</td>
-                            <td align="right">0.90</td>
-                        </tr>
-
-                        <tr class="category">
-                            <th>ASSISTANCES AUX NAVIRES</th>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr class="total">
-                            <td align="center">ASSISTANCES AUX NAVIRES</td>
-                            <td align="right">1214810099.25</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">1214818099.25</td>
-                            <td align="right"></td>
-                            <td align="right">5983708.57</td>
-                            <td align="right">51074715.23</td>
-                            <td align="right">57058423.80</td>
-                            <td align="right">1271888523.05</td>
-                            <td align="right">0.90</td>
-                        </tr>
-
-                        <tr class="category">
-                            <th>ASSISTANCES AUX NAVIRES</th>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr class="total">
-                            <td align="center">ASSISTANCES AUX NAVIRES</td>
-                            <td align="right">1214810099.25</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">1214818099.25</td>
-                            <td align="right"></td>
-                            <td align="right">5983708.57</td>
-                            <td align="right">51074715.23</td>
-                            <td align="right">57058423.80</td>
-                            <td align="right">1271888523.05</td>
-                            <td align="right">0.90</td>
-                        </tr>
-
-                        <tr class="category">
-                            <th>ASSISTANCES AUX NAVIRES</th>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr class="total">
-                            <td align="center">ASSISTANCES AUX NAVIRES</td>
-                            <td align="right">1214810099.25</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">1214818099.25</td>
-                            <td align="right"></td>
-                            <td align="right">5983708.57</td>
-                            <td align="right">51074715.23</td>
-                            <td align="right">57058423.80</td>
-                            <td align="right">1271888523.05</td>
-                            <td align="right">0.90</td>
-                        </tr>
-
-                        <tr class="category">
-                            <th>ASSISTANCES AUX NAVIRES</th>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr class="total">
-                            <td align="center">ASSISTANCES AUX NAVIRES</td>
-                            <td align="right">1214810099.25</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">1214818099.25</td>
-                            <td align="right"></td>
-                            <td align="right">5983708.57</td>
-                            <td align="right">51074715.23</td>
-                            <td align="right">57058423.80</td>
-                            <td align="right">1271888523.05</td>
-                            <td align="right">0.90</td>
-                        </tr>
-
-                        <tr class="category">
-                            <th>ASSISTANCES AUX NAVIRES</th>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr>
-                            <td>AUTORISATION D'IMMOBILISATION</td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">320226559.99</td>
-                            <td align="right"></td>
-                            <td align="right">221754.40</td>
-                            <td align="right">23655672.07</td>
-                            <td align="right">23677626.47</td>
-                            <td align="right">344104195.45</td>
-                            <td align="right">0.38</td>
-                        </tr>
-                        <tr class="total">
-                            <td align="center">ASSISTANCES AUX NAVIRES</td>
-                            <td align="right">1214810099.25</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">1214818099.25</td>
-                            <td align="right"></td>
-                            <td align="right">5983708.57</td>
-                            <td align="right">51074715.23</td>
-                            <td align="right">57058423.80</td>
-                            <td align="right">1271888523.05</td>
-                            <td align="right">0.90</td>
-                        </tr>-->
-                        <!--<tr class="category total general">
-                            <td align="left">TOTAL GENERAL</td>
-                            <td align="right">1214810099.25</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right">1214818099.25</td>
-                            <td align="right"></td>
-                            <td align="right">5983708.57</td>
-                            <td align="right">51074715.23</td>
-                            <td align="right">57058423.80</td>
-                            <td align="right">1271888523.05</td>
-                            <td align="right">0.90</td>
-                        </tr>-->
-                        <% if(totalGeneral != null) { %>
+                        <% if (totalGeneral != null) {%>
                         <tr class="category total general">
                             <td align="left"><%=Utilitaire.champNull(totalGeneral.getLibelle().toUpperCase())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAnciencumul())%></td>
@@ -574,7 +186,7 @@
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getNCumul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getTaux())%></td>
                         </tr>
-                        <% } %>
+                        <% }%>
                         <tr class="total general">
                             <td align="left">TAUX</td>
                             <td align="right"></td>
@@ -588,7 +200,7 @@
                             <td align="right"></td>
                             <td align="right"></td>
                         </tr>
-                        <% if(totalGeneral != null) { %>
+                        <% if (totalGeneral != null) {%>
                         <tr class="total general">
                             <td align="left">Nombres des factures</td>
                             <td align="right"></td>
@@ -596,18 +208,18 @@
                             <td align="right"></td>
                             <td align="right"></td>
                             <td align="right"></td>
-                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbComptant()) %></td>
-                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbCredit()) %></td>
-                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbComptant()+totalGeneral.getNbCredit()) %></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbComptant())%></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbCredit())%></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbComptant() + totalGeneral.getNbCredit())%></td>
                             <td align="right"></td>
                             <td align="right"></td>
                         </tr>
-                        <% } %>
+                        <% }%>
                     </tbody>
                 </table>
             </div>
             <div class="box-footer">
-                <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionCA&mois=<%=request.getParameter("mois") %>&annee=<%=request.getParameter("annee") %>" style="float:right">Imprimer</a>
+                <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionCA&mois=<%=request.getParameter("mois")%>&annee=<%=request.getParameter("annee")%>" style="float:right">Imprimer</a>
             </div>
         </div>
     </section>
