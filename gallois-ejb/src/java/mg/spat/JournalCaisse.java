@@ -1074,10 +1074,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
     }
     
-    public FactureFournisseur genererFactureFournisseurAuto(Connection c,String user,String compte) throws Exception{
+    public FactureFournisseur genererFactureFournisseurAuto(Connection c,String user,String compte,int annee, int mois, double tva) throws Exception{
         
         FactureFournisseur facturefrns = new FactureFournisseur(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptantFF, Constante.categorieFFdefault, 1);
-        FactureFournisseurDetails detail = new FactureFournisseurDetails(facturefrns.getId(), 1, this.getCredit(), compte, "Facture auto via", 1);
+        FactureFournisseurDetails detail = new FactureFournisseurDetails(facturefrns.getId(), 1, this.getCredit(), compte, "Facture auto via", 1,annee, mois, tva);
         FactureFournisseurDetails[] fille = {detail};
         facturefrns.setFille(fille);
         
