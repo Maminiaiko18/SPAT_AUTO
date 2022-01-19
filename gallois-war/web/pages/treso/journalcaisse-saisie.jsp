@@ -205,10 +205,12 @@
 <%
     Liste moisL = new Liste("mois");
     moisL.makeListeMois();
+    
+    moisL.setDefaut("" + Utilitaire.getMoisEnCoursReel());
 %>
 <div class="content-wrapper" style="min-height: 1200px!important">
     <h1>Saisie d'un journal caisse</h1>
-    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
+    <form action="<%=pi.getLien()%>?but=apresJournalCaisse.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());
@@ -241,7 +243,21 @@
                                             <label for="annee">Ann&eacute;e</label>
                                         </th>
                                         <td>
-                                            <input name="annee" type="textbox" class="form-control" class="" id="annee" value="" data-parsley-id="4" tabindex="1">
+                                            <input name="annee" type="textbox" class="form-control" class="" id="annee" value="<%=Utilitaire.getAneeEnCours()%>" data-parsley-id="4" tabindex="1">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                            <label for="tva">TVA</label>
+                                        </th>
+                                        <td>
+                                            <input name="tva" type="textbox" class="form-control" class="" id="tva" value="20" data-parsley-id="4" tabindex="1">
                                         </td>
                                     </tr>
                                     <tr>

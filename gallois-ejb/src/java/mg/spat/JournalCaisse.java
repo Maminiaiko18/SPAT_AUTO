@@ -79,6 +79,7 @@ public class JournalCaisse extends ClassEtat {
         detail.setAnnee(annee);
         detail.setMois(mois);
         detail.setTva(tva);
+        detail.setDevise(this.getIddevise());
         FactureClientDetails[] fille = {detail};
         factureclient.setFille(fille);
         
@@ -1078,6 +1079,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         
         FactureFournisseur facturefrns = new FactureFournisseur(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptantFF, Constante.categorieFFdefault, 1);
         FactureFournisseurDetails detail = new FactureFournisseurDetails(facturefrns.getId(), 1, this.getCredit(), compte, "Facture auto via", 1,annee, mois, tva);
+        detail.setDevise(this.getIddevise());
         FactureFournisseurDetails[] fille = {detail};
         facturefrns.setFille(fille);
         
@@ -1088,11 +1090,28 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
     
     public void genererFacture(Connection c, String user, String compte, int annee, int mois, double tva ) throws Exception {
+        boolean ouvert = false;
         
-        if(this.getCredit()>0)
-            this.genererFactureClientAuto(c,user,compte,annee,mois,tva);
-        if(this.getDebit()>0)
-            this.genererFactureFournisseurAuto(c,user,compte,annee,mois,tva);
-
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            
+            if(this.getCredit()>0)
+                this.genererFactureClientAuto(c,user,compte,annee,mois,tva);
+            if(this.getDebit()>0)
+                this.genererFactureFournisseurAuto(c,user,compte,annee,mois,tva);
+            
+            if(ouvert) c.commit();
+        }
+        catch(Exception ex) {
+            if(c != null && ouvert) c.rollback();
+            throw ex;
+        }
+        finally {
+            if(c != null && ouvert) c.close();
+        }
     }
 }

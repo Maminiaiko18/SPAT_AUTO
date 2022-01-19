@@ -90,7 +90,7 @@
                 ClassMAPTable f = p.getObjectAvecValeur();
                 f.setNomTable(nomtable);
                 JournalCaisse o = (JournalCaisse) u.createObject(f);
-                o.genererFacture(null, u.getUser().getRefuser()+"", compte, annee, mois, tva);
+                if(request.getParameter("factureAuto") != null) o.genererFacture(null, u.getUser().getRefuser()+"", compte, annee, mois, tva);
                 temp = (Object) o;
                 if (o != null) {
                     id = o.getTuppleID();

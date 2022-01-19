@@ -1463,8 +1463,9 @@ public class FactureClient extends ClassMere {
 
             for (int i = 0; i < listeDetails.length; i++) {
                 double montantHT = listeDetails[i].getMontant(), montantTVA = listeDetails[i].getMontanttaxe();
-
-                if (listeDetails[i].getDevise().equalsIgnoreCase(Constante.deviseAr)) {
+                String devise = listeDetails[i].getDevise();
+                
+                if (devise != null && devise.equalsIgnoreCase(Constante.deviseAr)) {
                     montantHT = montantHT / this.getDeviseEuro();
                     montantTVA = montantTVA / this.getDeviseEuro();
                 }
