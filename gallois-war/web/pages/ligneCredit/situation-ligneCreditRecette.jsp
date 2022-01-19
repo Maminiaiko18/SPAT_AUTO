@@ -57,14 +57,14 @@
         
         String reqniv = request.getParameter("niveau");                  
         
-        if(reqniv == null) {
+        if(reqniv == null || reqniv.equals("")) {
             pr.getBase().setNomTable("SITUATIONLCRECETTEV");
         }
         
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
         
-        if(reqniv != null) {
+        if(reqniv != null && !reqniv.equals("")) {
             SituationCredit[] liste  = SituationCredit.findSituationCreditRecette(request.getParameter("id"),request.getParameter("designation"),request.getParameter("compte"),date1,date2, request.getParameter("etat"), reqniv, annee, mois, null);
             pr.setTableau(new TableauRecherche(liste, libEntete));
         }
