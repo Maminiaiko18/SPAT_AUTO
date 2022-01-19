@@ -1,3 +1,4 @@
+<%@page import="utilitaire.Constante"%>
 <%@page import="mg.spat.CA"%>
 <%@page import="java.util.Map"%>
 <%@page import="mg.spat.EtatCA"%>
@@ -9,29 +10,32 @@
 
         String mois = request.getParameter("mois");
         String annee = request.getParameter("annee");
-        
+
         if (mois == null || mois.trim().isEmpty()) {
             mois = "" + Utilitaire.getMoisEnCoursReel();
         }
         if (annee == null || annee.trim().isEmpty()) {
             annee = "" + Utilitaire.getAneeEnCours();
         }
-        
+
         int moisAvant = Utilitaire.stringToInt(mois) - 1;
         int anneeInt = Utilitaire.stringToInt(annee);
 
         Liste moisL = new Liste("mois");
         moisL.makeListeMois();
-        moisL.setDefaut("" + mois);
-        
+        moisL.setDefaut(mois);
+
         String moisEnLettre = (String) moisL.getValeurBrute()[moisAvant];
-        
+
         EtatCA etatCA = new EtatCA(Integer.parseInt(mois), Integer.parseInt(annee), false);
         Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
         Map<String, CA> sommePartiel = etatCA.getSommePartiel();
         CA totalGeneral = etatCA.getTotalGeneral();
-        
-        if(moisAvant == 1) { moisAvant = 12;  anneeInt -= 1; }
+
+        if (moisAvant == 1) {
+            moisAvant = 12;
+            anneeInt -= 1;
+        }
 %>
 <style>
     th {
@@ -131,7 +135,7 @@
                         <tr>
                             <td><%=Utilitaire.champNull(ca.getLibelle())%></td>
                             <td align="right">
-                                <a href="<%= lien %>?but=facture/facture-client-fille-liste.jsp&mois2=<%=moisAvant%>&annee=<%=anneeInt%>&compte=<%=ca.getCompte()%>">
+                                <a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&mois2=<%=moisAvant%>&annee=<%=anneeInt%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getAnciencumul())%>
                                 </a>
                             </td>
@@ -140,12 +144,12 @@
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirEETP())%></td>
                             <td align="right">
-                                <a href="<%= lien %>?but=facture/facture-client-fille-liste.jsp&type=TFC002&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>">
+                                <a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getComptant())%>
                                 </a>
                             </td>
                             <td align="right">
-                                <a href="<%= lien %>?but=facture/facture-client-fille-liste.jsp&type=TFC001&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>">
+                                <a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getCredit())%>
                                 </a>
                             </td>
@@ -164,8 +168,15 @@
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirEETP())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(partiel.getComptant())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(partiel.getCredit())%></td>
+                            <td align="right">
+                                <a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=moisAvant%>&mois2=<%=moisAvant%>&annee=<%=annee%>&recap=checked">
+                                    <%=Utilitaire.formaterAr(partiel.getComptant())%>
+                                </a>
+                            </td>
+                            <td align="right">
+                                <a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=moisAvant%>&mois2=<%=moisAvant%>&annee=<%=annee%>&recap=checked">
+                                <%=Utilitaire.formaterAr(partiel.getCredit())%></td>
+                            </a>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getTotal())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getNCumul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getTaux())%></td>
