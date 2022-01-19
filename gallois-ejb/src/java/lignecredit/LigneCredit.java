@@ -79,10 +79,10 @@ public class LigneCredit extends ClassEtat {
 "               sum(l.QUANTITE)        as QUANTITE,\n" +
 "               sum(l.MONTANT)         as montant,\n" +
 "               l.ANNEE,\n" +
-"               substr(l.COMPTE, 1, " + niveau + ") as compte\n" +
+"               substr(l.COMPTE, 7, " + niveau + ") as compte\n" +
 "               --l.etat\n" +
 "           FROM LIGNECREDITDEPENSE l\n" +
-"           group by l.ANNEE, substr(l.COMPTE, 1, " + niveau + ")\n" +
+"           group by l.ANNEE, substr(l.COMPTE, 7, " + niveau + ")\n" +
 "           --, l.etat\n" +
 "           ) l\n" +
 "              LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n" +
