@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gestion provision" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="256b12f1-e681-4953-8bf8-fd2209703c08">
-	<property name="ireport.zoom" value="1.3660269107301424"/>
+	<property name="ireport.zoom" value="0.9330147604194673"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="identification" class="java.lang.String"/>
-	<parameter name="date" class="java.lang.String"/>
+	<parameter name="date" class="java.util.Date"/>
 	<parameter name="client" class="java.lang.String"/>
 	<parameter name="navire" class="java.lang.String"/>
 	<parameter name="mode" class="java.lang.String"/>
 	<parameter name="banque" class="java.lang.String"/>
-	<parameter name="montantProv" class="java.lang.String"/>
+	<parameter name="montantProv" class="java.lang.Double"/>
 	<parameter name="num" class="java.lang.String"/>
 	<parameter name="datyprof" class="java.lang.String"/>
-	<parameter name="montant" class="java.lang.String"/>
+	<parameter name="montant" class="java.lang.Double"/>
 	<parameter name="datyedit" class="java.lang.String"/>
+	<parameter name="numfact" class="java.lang.String"/>
+	<parameter name="daty" class="java.util.Date"/>
+	<parameter name="montantttc" class="java.lang.Double"/>
+	<parameter name="parameter4" class="java.lang.String"/>
 	<pageHeader>
 		<band height="155" splitType="Stretch">
 			<textField isBlankWhenNull="true">
@@ -127,7 +131,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{identification}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="198" y="35" width="643" height="20" uuid="8ccd0eb1-7c3b-4319-89bf-11150e287bdc"/>
 				<textElement>
 					<font size="12"/>
@@ -162,7 +166,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{banque}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="198" y="135" width="643" height="20" uuid="986d4b35-6392-4e92-8a96-4ab730aeb43c"/>
 				<textElement>
 					<font size="12"/>
@@ -204,7 +208,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{datyprof}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="197" y="221" width="642" height="20" uuid="b7de14b9-962c-4838-8500-13eace1ca347"/>
 				<textElement>
 					<font size="12"/>
@@ -212,5 +216,90 @@
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
 		</band>
+		<band height="64">
+			<staticText>
+				<reportElement x="103" y="0" width="163" height="20" uuid="57c67a41-c64b-4474-b759-11b3db15845b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[N° Facture definitive]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="0" width="136" height="20" uuid="18e693e5-7580-49be-81a3-5d60bf30b853"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="633" y="0" width="100" height="20" uuid="6be040d3-7d6c-44e8-adbc-7a20457d211f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Montant]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="103" y="20" width="163" height="20" uuid="d58d0692-dcc7-449a-bc73-24d0e3c4fe6d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numfact}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="383" y="20" width="136" height="20" uuid="5de88773-3c3d-4276-a2ce-71ccdead2f80"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="633" y="20" width="100" height="20" uuid="3f7a8422-76e3-43ad-976d-b64272cdf93b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montantttc}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
+	<summary>
+		<band height="111">
+			<staticText>
+				<reportElement x="76" y="62" width="127" height="20" uuid="a2a1056d-033f-4537-871f-23cae3c429bf"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Chef de Service]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="723" y="62" width="118" height="37" uuid="9fc36502-efe7-422e-8785-33fa9efe5d88"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Chef de Depatement Facturation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="81" width="127" height="20" uuid="e6b3d382-fed9-4453-8ce5-140ddf3a037f"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gestion des Factures]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="1" width="100" height="20" uuid="ebee4234-7a3e-4ca5-98c6-f2f7cb5f425d"/>
+				<text><![CDATA[Montant Provision]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="30" width="100" height="20" uuid="68c9c932-80f2-4c64-8591-b1873d54e575"/>
+				<text><![CDATA[Montant Realisation]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="412" y="1" width="100" height="20" uuid="ae41c6cd-08ae-4250-a5e3-e1d92a684434"/>
+				<textFieldExpression><![CDATA[$P{montantProv}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="411" y="30" width="100" height="20" uuid="b7a67813-a715-406a-bb74-1f27f09db182"/>
+				<textFieldExpression><![CDATA[$P{montantttc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>

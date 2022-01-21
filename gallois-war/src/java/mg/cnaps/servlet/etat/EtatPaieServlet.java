@@ -1799,17 +1799,37 @@ public class EtatPaieServlet extends HttpServlet {
     public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response){
         try{
         String id = request.getParameter("id");
-        Map param = new HashMap();
-        param.put("identififcation", "");
-        param.put("date", "");
-        param.put("client", "");
-        param.put("navire", "");
-        param.put("mode", "");
-        param.put("banque", "");
-        param.put("montantProv", "");
-        param.put("num","");
-        param.put("datyprof","");
-        param.put("datyedit",Utilitaire.dateDuJour());
+        EtatProvision a = new EtatProvision();
+            a.setNomTable("etat_provisionlib");
+            Map param = new HashMap();
+            param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
+            EtatProvision[] mere = (EtatProvision[]) CGenUtil.rechercher(a, null, null, null, " and idfacture = '" + id + "'");
+            if (mere.length != 0) {
+                param.put("numprovision", mere[0].getNumProvision());               
+                param.put("identififcation", mere[0].getId());
+                param.put("date", mere[0].getDaty());
+                param.put("client", mere[0].getTierslib());
+                param.put("navire", mere[0].getIdnavirelib());
+                param.put("mode", mere[0].getIdmodelib());
+                param.put("banque", mere[0].getIdbanquelib());
+                //param.put("montantProv", mere[0].getMontantprovision());
+                param.put("num",mere[0].getNumProvision());
+                param.put("datyprof","");
+                param.put("datyedit",Utilitaire.dateDuJour());
+                //param.put("montant", mere[0].getMontantprovision());
+            }
+            FactureClient e = new FactureClient();
+            e.setNomTable("Provisionviseenonfacturee");
+            FactureClient[] ls = (FactureClient[]) CGenUtil.rechercher(e, null, null, null, " and id = '" + id + "'");
+            if(ls.length!=0){
+                param.put("monatntttc",ls[0].getMontantttc());
+                param.put("daty", ls[0].getDate_echeance());
+                param.put("numfact", ls[0].getId());
+                param.put("montantProv", ls[0].getMontant());
+                param.put("montant", ls[0].getMontant());
+            }
+        
+        
         
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("gestion provision");
