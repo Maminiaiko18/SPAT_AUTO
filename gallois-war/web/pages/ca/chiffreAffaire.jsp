@@ -169,14 +169,14 @@
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirEETP())%></td>
                             <td align="right">
-                                <a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=moisAvant%>&mois2=<%=moisAvant%>&annee=<%=annee%>&recap=checked">
+                                <!--<a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=moisAvant%>&mois2=<%=moisAvant%>&annee=<%=annee%>&recap=checked">-->
                                     <%=Utilitaire.formaterAr(partiel.getComptant())%>
-                                </a>
+                                <!--</a>-->
                             </td>
                             <td align="right">
-                                <a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=moisAvant%>&mois2=<%=moisAvant%>&annee=<%=annee%>&recap=checked">
+                                <!--<a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=moisAvant%>&mois2=<%=moisAvant%>&annee=<%=annee%>&recap=checked">-->
                                 <%=Utilitaire.formaterAr(partiel.getCredit())%></td>
-                            </a>
+                                <!--</a>-->
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getTotal())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getNCumul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getTaux())%></td>
@@ -191,8 +191,16 @@
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirEETP())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getComptant())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getCredit())%></td>
+                            <td align="right">
+                                <!--<a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&recap=checked">-->
+                                <%=Utilitaire.formaterAr(totalGeneral.getComptant())%>
+                                <!--</a>-->
+                            </td>
+                            <td align="right">
+                                <!--<a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&recap=checked">-->
+                                <%=Utilitaire.formaterAr(totalGeneral.getCredit())%>
+                                <!--</a>-->
+                            </td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getTotal())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getNCumul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getTaux())%></td>
