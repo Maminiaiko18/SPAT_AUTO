@@ -14,8 +14,8 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","tierslib","idfacture", "typelib"};
-        String listeInt[] = null;
+        String listeCrt[] = {"id","tierslib","idfacture", "typelib", "daty"};
+        String listeInt[] = {"daty"};
         String libEntete[] =  {"id","daty", "code", "tierslib","idfacture", "typelib","montant","montantpaye","montantreste"};
         String libelleAffiche[] = {"id", "date", "Code", "tiers", "facture", "Type", "montant","montant payé","Reste à payer"};
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -27,6 +27,13 @@
         pr.getFormu().getChamp("tierslib").setLibelle("tiers");
         pr.getFormu().getChamp("idfacture").setLibelle("facture");
         pr.getFormu().getChamp("typelib").setLibelle("Type");
+        pr.getFormu().getChamp("daty1").setLibelle("Date min");
+        pr.getFormu().getChamp("daty2").setLibelle("Date max");        
+        Date finmois = utilitaire.Utilitaire.getLastDayOfDateSQL(utilitaire.Utilitaire.dateDuJourSql());
+        pr.getFormu().getChamp("daty2").setDefaut(finmois.toString());
+        Date debutmois = finmois;
+        debutmois.setDate(1);
+        pr.getFormu().getChamp("daty1").setDefaut(debutmois.toString());
        
         
         
