@@ -1798,6 +1798,7 @@ public class EtatPaieServlet extends HttpServlet {
     }   
     public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response){
         try{
+        String id = request.getParameter("id");
         Map param = new HashMap();
         param.put("identififcation", "");
         param.put("date", "");
@@ -1809,9 +1810,10 @@ public class EtatPaieServlet extends HttpServlet {
         param.put("num","");
         param.put("datyprof","");
         param.put("datyedit",Utilitaire.dateDuJour());
+        
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("gestion provision");
-        UtilitaireImpression.imprimer(request, response, "journal-caisse-etat", param, null, getReportPath(), rt);
+        UtilitaireImpression.imprimer(request, response, "gestion de provision", param, null, getReportPath(), rt);
         }catch(Exception e){
             e.printStackTrace();
         }
