@@ -177,6 +177,8 @@ public class EtatPaieServlet extends HttpServlet {
                 coursdevise_pdf(request, response);
             }else if (action.equalsIgnoreCase("journalCaisseEtat")){
                 journalCaisseEtat(request, response);
+            }else if (action.equalsIgnoreCase("imprimerGestionProvision")){
+                imprimerGestionProvision(request, response);
             }
 
         } catch (Exception ex) {
@@ -1793,7 +1795,28 @@ public class EtatPaieServlet extends HttpServlet {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }    
+    }   
+    public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response){
+        try{
+        Map param = new HashMap();
+        param.put("identififcation", "");
+        param.put("date", "");
+        param.put("client", "");
+        param.put("navire", "");
+        param.put("mode", "");
+        param.put("banque", "");
+        param.put("montantProv", "");
+        param.put("num","");
+        param.put("datyprof","");
+        param.put("montant","");
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("gestion provision");
+        UtilitaireImpression.imprimer(request, response, "journal-caisse-etat", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    
+    }
     
     
 }
