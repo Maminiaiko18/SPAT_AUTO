@@ -1808,7 +1808,7 @@ public class EtatPaieServlet extends HttpServlet {
         param.put("montantProv", "");
         param.put("num","");
         param.put("datyprof","");
-        param.put("montant","");
+        param.put("datyedit",Utilitaire.dateDuJour());
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("gestion provision");
         UtilitaireImpression.imprimer(request, response, "journal-caisse-etat", param, null, getReportPath(), rt);
