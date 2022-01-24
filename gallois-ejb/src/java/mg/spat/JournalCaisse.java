@@ -80,6 +80,7 @@ public class JournalCaisse extends ClassEtat {
         detail.setMois(mois);
         detail.setTva(tva);
         detail.setDevise(this.getIddevise());
+        detail.setPu(this.getCredit()/(1+tva/100));
         FactureClientDetails[] fille = {detail};
         factureclient.setFille(fille);
         
