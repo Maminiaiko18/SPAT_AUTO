@@ -73,16 +73,18 @@ public class LigneCredit extends ClassEtat {
 "        l.compte,\n" +
 "        cr.LIBELLE       as libelle,\n" +
 "        sum(l.montant)   as montant,\n" +
-"        sum(l.montant) - sum(montantttc) as restebudget\n" +
+"        sum(l.montant) - sum(montantttc) as restebudget,\n" +
+"         cast(((nvl(sum(MONTANTTTC), 0)) / sum(l.MONTANT)) * 100 as NUMBER(30, 3))      as pourcEngage,\n" +
+"       cast(((nvl(sum(MONTANTPAYE), 0)) / sum(l.MONTANT)) * 100 as number(30, 3))       as pourcPaye \n"+                     
 " from (\n" +
 "          (SELECT\n" +
 "               sum(l.QUANTITE)        as QUANTITE,\n" +
 "               sum(l.MONTANT)         as montant,\n" +
 "               l.ANNEE,\n" +
-"               substr(l.COMPTE, 7, " + niveau + ") as compte\n" +
+"               substr(l.COMPTE, 1, " + niveau + ") as compte\n" +
 "               --l.etat\n" +
 "           FROM LIGNECREDITDEPENSE l\n" +
-"           group by l.ANNEE, substr(l.COMPTE, 7, " + niveau + ")\n" +
+"           group by l.ANNEE, substr(l.COMPTE, 1, " + niveau + ")\n" +
 "           --, l.etat\n" +
 "           ) l\n" +
 "              LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n" +
