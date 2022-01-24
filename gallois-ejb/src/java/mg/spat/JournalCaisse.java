@@ -693,12 +693,12 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 }
             }else{
                 if (this.getIdplacement() != null) {
-                    if (!this.getIdplacement().startsWith("FC")) {
+                    /*if (!this.getIdplacement().startsWith("FC")) {
                         Placement placement = this.findPlacement(c);
                         if(placement.getEtat()<11){
                             placement.validerObject(refuser, c);
                         }
-                    }
+                    }*/
                     
                     if(this.getIdplacement().startsWith("FC")){
                         String numeroPiece = calculerNumeroPiece(c);
@@ -1078,7 +1078,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public FactureFournisseur genererFactureFournisseurAuto(Connection c,String user,String compte,int annee, int mois, double tva) throws Exception{
         
         FactureFournisseur facturefrns = new FactureFournisseur(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptantFF, Constante.categorieFFdefault, 1);
-        FactureFournisseurDetails detail = new FactureFournisseurDetails(facturefrns.getId(), 1, this.getCredit(), compte, "Facture auto via", 1,annee, mois, tva);
+        FactureFournisseurDetails detail = new FactureFournisseurDetails(facturefrns.getId(), 1, this.getDebit(), compte, "Facture auto via", 1,annee, mois, tva);
         detail.setDevise(this.getIddevise());
         FactureFournisseurDetails[] fille = {detail};
         facturefrns.setFille(fille);
@@ -1091,7 +1091,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     
     public void genererFacture(Connection c, String user, String compte, int annee, int mois, double tva ) throws Exception {
         boolean ouvert = false;
-        
+        FactureClient fc=null;
         try {
             if(c == null) {
                 c = (new UtilDB()).GetConn();
@@ -1100,9 +1100,13 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             
             if(this.getCredit()>0)
-                this.genererFactureClientAuto(c,user,compte,annee,mois,tva);
+                fc=this.genererFactureClientAuto(c,user,compte,annee,mois,tva);
             if(this.getDebit()>0)
-                this.genererFactureFournisseurAuto(c,user,compte,annee,mois,tva);
+                fc=this.genererFactureFournisseurAuto(c,user,compte,annee,mois,tva);
+            if(fc!=null){
+               this.setIdplacement(fc.getId());
+               this.updateToTableWithHisto(user, c);
+            }
             
             if(ouvert) c.commit();
         }
