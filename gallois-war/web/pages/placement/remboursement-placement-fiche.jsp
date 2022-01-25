@@ -55,7 +55,7 @@
                 <div class="box-footer">
                     <div>
                         <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.RemboursementPlacement&bute=placement/remboursement-placement-fiche.jsp&id=" + id%>"  style="margin-right: 10px">Viser</a>
-                        <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-modif.jsp&id=" + id%>"  style="margin-right: 10px">Modifier</a>
+                        <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-modif.jsp&id=" + id%>"  style="margin-right: 10px">Modifier</a>
                     </div>
                   
                     <div>
