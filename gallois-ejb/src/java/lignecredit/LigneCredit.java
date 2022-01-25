@@ -98,14 +98,14 @@ public class LigneCredit extends ClassEtat {
 "           ) l\n" +
 "              LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n" +
 "                                sum(MONTANTPAYE)        as MONTANTPAYE,\n" +
-"                                substr(mf.COMPTE, 1, " + niveau + ") as compte,\n" +
+"                                substr(mf.COMPTECPL, 1, " + niveau + ") as compte,\n" +
 "                                mf.ANNEE,\n" +
 "                                mois                    as mois,\n" +
 "                                mf.daty\n" +
 "                         from DETAILSFACTUREFOURNISSEUR_paye mf\n" +
 "                         WHERE  mf.IDMERE not in\n" +
 "                      (select id from ProvisionFactureDefinitive)\n" +
-"                         group by substr(mf.COMPTE, 1, " + niveau + "), ANNEE, mois, daty) mf\n" +
+"                         group by substr(mf.COMPTECPL, 1, " + niveau + "), ANNEE, mois, daty) mf\n" +
 "              ON l.compte = mf.compte\n" +
 "                  AND mf.annee = l.annee\n" +
 "                  )\n" +
