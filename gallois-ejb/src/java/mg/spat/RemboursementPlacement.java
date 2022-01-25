@@ -185,7 +185,7 @@ public class RemboursementPlacement extends ClassEtat{
             j2.setIdplacement(this.getIdplacement());
             j2.createObject(refuser, c);
             j2.viser(user, c);
-            j2.genererFactureClientAuto(c, refuser, compte);
+            //j2.genererFactureClientAuto(c, refuser, compte);
             
         //  Etat échu 
             Placement placement = findPlacement(c);
