@@ -1,7 +1,7 @@
 package utilitaire;
 
 public class Constante {
-    
+    public static  final String  idmodeVirement="pay3";
     public static  final String  idCatDroitDePort="CATFC006";
     public static  final String  idCategorieFCDefinitive="CATFCO3";
     public static  final String  idCatRubConteneur="CATFC002";

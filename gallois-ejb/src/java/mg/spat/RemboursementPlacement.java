@@ -12,6 +12,7 @@ import java.sql.Date;
 import mg.spat.placement.Placement;
 import mg.spat.placement.PlacementLibComplet;
 import user.UserEJBBean;
+import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -169,26 +170,31 @@ public class RemboursementPlacement extends ClassEtat{
             PlacementLibComplet placementLibComplet = (PlacementLibComplet) (new PlacementLibComplet()).getById(this.getIdplacement(), "placementlibcomplet", c);
             
         //  Montant placé
-            String designation = String.format("Echéance placement %s/%s: montant placé", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
+            String designation = String.format("Echeance placement %s/%s: montant place", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
             Date dateDuJour = Utilitaire.dateDuJourSql();
             JournalCaisse j1 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, placementLibComplet.getMontant());
             j1.setIdplacement(this.getIdplacement());
+            j1.setMode(Constante.idmodeVirement);
+            j1.setIdTypeCheque(Constante.typeChequeAuComptant);
             j1.createObject(refuser, c);
             j1.viser(user, c);
             
+            Placement placement = findPlacement(c);
+            
         //  Intérêts
-            designation = String.format("Echéance placement %s/%s: montant intérêts", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
-            ConfigPlacement confP = getConfigPlacement(c, placementLibComplet);
+            designation = String.format("Echeance placement %s/%s: montant interets", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
+            ConfigPlacement confP = placementLibComplet.getConfigPlacement(c);
             String compte = confP != null ? confP.getCompte() : null;
             
             JournalCaisse j2 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, placementLibComplet.getInteret_net());
-            j2.setIdplacement(this.getIdplacement());
+            j2.setIddevise(placement.getIddevise());
+            j2.setMode(Constante.idmodeVirement);
+            j2.setIdTypeCheque(Constante.typeChequeAuComptant);
             j2.createObject(refuser, c);
+            j2.genererFacture( c, refuser, compte, Utilitaire.getAneeEnCours(), Utilitaire.getMoisEnCours(), 0 );
             j2.viser(user, c);
-            //j2.genererFactureClientAuto(c, refuser, compte);
             
         //  Etat échu 
-            Placement placement = findPlacement(c);
             placement.setEtat(ConstanteEtat.getEtatEchu());
             placement.updateToTableWithHisto(refuser, c);
             
@@ -202,25 +208,4 @@ public class RemboursementPlacement extends ClassEtat{
         }
     }
     
-    public ConfigPlacement getConfigPlacement(Connection conn,PlacementLibComplet pl)throws Exception {
-        boolean verify = false;
-        try{
-            if(conn==null){
-                conn = new UtilDB().GetConn();
-                verify = true;
-            }
-        ConfigPlacement config = new ConfigPlacement();
-        config.setNature(pl.getIdentite());
-        config.setBanque(pl.getIdbanque());
-        ConfigPlacement[] listConf =(ConfigPlacement[]) CGenUtil.rechercher(config, null, null,conn,"");
-        if(listConf.length!=0)
-            return listConf[0];
-        return null;
-        }catch(Exception e){
-            e.printStackTrace();
-            throw e;
-        }finally{
-            if(conn!=null && verify)conn.close();
-        }
-    }
 }

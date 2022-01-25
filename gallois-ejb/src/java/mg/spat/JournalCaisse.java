@@ -996,10 +996,14 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
     
     public String genererCodeModePaiement(){
-        if(this.getIdmode().compareToIgnoreCase("pay1") == 0){
-            return "E";
-        }else if(this.getIdmode().compareToIgnoreCase("pay2") == 0){
-            return "C";
+        if(this.getIdmode()!=null){
+            if(this.getIdmode().compareToIgnoreCase("pay1") == 0){
+                    return "E";
+            }else if(this.getIdmode().compareToIgnoreCase("pay2") == 0){
+                    return "C";
+            }else if(this.getIdmode().compareToIgnoreCase("pay3") == 0){
+                    return "V";
+            }
         }
         return null;
     }
