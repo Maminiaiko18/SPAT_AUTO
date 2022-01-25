@@ -18,12 +18,21 @@ import utilitaire.UtilDB;
 public class LigneCredit extends ClassEtat {
     
     private String id;
-    private String designation,compte;
+    private String designation,compte,compteCpl;
     private double quantite,montant,facture,paye;
     private int annee, mois;
     private double arecouvrir, restebudget,pourcEngage,pourcPaye;
     private Date daty;
 
+    public String getCompteCpl() {
+        return compteCpl;
+    }
+
+    public void setCompteCpl(String compteCpl) {
+        this.compteCpl = compteCpl;
+    }
+
+    
     public double getPourcEngage() {
         return pourcEngage;
     }
