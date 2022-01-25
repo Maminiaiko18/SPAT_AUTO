@@ -17,13 +17,14 @@
 
         pc.getChampByName("ID").setLibelle("Id");
         pc.getChampByName("idplacement").setLien((String) session.getValue("lien") + "?but=placement/placement-fiche.jsp", "id=");
-        pc.getChampByName("montantPlace").setLibelle("MontantPlace");
+        pc.getChampByName("montantPlace").setLibelle("Montant");
+        pc.getChampByName("idplacement").setLibelle("Placement");
         pc.getChampByName("caisse").setVisible(false);
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("banque").setLibelle("Banque");
-        pc.getChampByName("entite").setLibelle("Entite");
+        pc.getChampByName("entite").setLibelle("Nature");
         pc.getChampByName("interet").setLibelle("Interet");        
-        pc.getChampByName("caisselib").setLibelle("Caisselib");        
+        pc.getChampByName("caisselib").setLibelle("Caisse");     
         pc.getChampByName("etat").setLibelle("etat");
 
 
