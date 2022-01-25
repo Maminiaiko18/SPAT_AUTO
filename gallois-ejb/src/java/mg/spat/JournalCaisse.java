@@ -1079,7 +1079,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public FactureFournisseur genererFactureFournisseurAuto(Connection c,String user,String compte,int annee, int mois, double tva) throws Exception{
         
         FactureFournisseur facturefrns = new FactureFournisseur(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptantFF, Constante.categorieFFdefault, 1);
-        FactureFournisseurDetails detail = new FactureFournisseurDetails(facturefrns.getId(), 1, this.getDebit(), compte, "Facture auto via", 1,annee, mois, tva);
+        FactureFournisseurDetails detail = new FactureFournisseurDetails(facturefrns.getId(), 1, this.getDebit(), compte, this.getLibelle(), 1,annee, mois, tva);
         detail.setDevise(this.getIddevise());
         detail.setPu(this.getDebit() / (1+(tva/100)));
         FactureFournisseurDetails[] fille = {detail};
