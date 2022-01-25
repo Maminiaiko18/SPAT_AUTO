@@ -1120,4 +1120,37 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if(c != null && ouvert) c.close();
         }
     }
+    
+    public void updateFactureRattachee(Connection c) throws Exception{
+        if(this.getCredit() > 0){
+            FactureClient fc = this.findFactureClientAuto(c);
+            fc.setDaty(this.getDateEffet());
+            fc.setTiers(this.getTiers());
+            fc.setNomTable("Factureclient");
+            fc.updateToTable(c);
+            
+            FactureClientDetails[] fcf = (FactureClientDetails[])fc.getFille("", c, "");
+            if(fcf.length > 0){
+                fcf[0].setDesignation(this.getLibelle());
+                fcf[0].setPu(this.getCredit()/(1+fcf[0].getTva()/100));
+                fcf[0].updateToTable(c);
+            }
+            
+            
+            
+            FactureFournisseur ff = this.findFactureFournisseurAuto(c);
+            ff.setDaty(this.getDateEffet());
+            ff.setTiers(this.getTiers());
+            ff.setNomTable("facture_Fournisseur_Mere");
+            ff.updateToTable(c);
+            
+            FactureFournisseurDetails[] fff = (FactureFournisseurDetails[])ff.getFille("", c, "");
+            if(fff.length > 0){
+                fff[0].setDesignation(this.getLibelle());
+                fff[0].setPu(this.getCredit()/(1+fff[0].getTva()/100));
+                fff[0].updateToTable(c);
+            }
+            
+        }
+    }
 }
