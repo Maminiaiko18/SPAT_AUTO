@@ -1,4 +1,4 @@
-/*
+/*controlerUpdate 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -42,19 +42,24 @@ public class JournalCaisse extends ClassEtat {
     private double sommeCredit, sortie, entree;
     private String banque;
     private String descecaisse;
+    
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        updateFactureRattachee(c);
+    }
 
-		public Placement findPlacement(Connection c) throws Exception {
-			Placement pl = new Placement();
-			String nomTable = "placement";
-			pl.setNomTable(nomTable);
-			Placement[] rsPlacement = null;
-			try {
-				String query = " and id = '"+this.getIdplacement()+"'";
-				rsPlacement = (Placement[]) CGenUtil.rechercher(pl, null, null, c, query);
-			} catch(Exception e) {
-				throw e;
-			}
-			return rsPlacement != null && rsPlacement.length > 0 ? rsPlacement[0] : null;
+    public Placement findPlacement(Connection c) throws Exception {
+        Placement pl = new Placement();
+        String nomTable = "placement";
+        pl.setNomTable(nomTable);
+        Placement[] rsPlacement = null;
+        try {
+                String query = " and id = '"+this.getIdplacement()+"'";
+                rsPlacement = (Placement[]) CGenUtil.rechercher(pl, null, null, c, query);
+        } catch(Exception e) {
+                throw e;
+        }
+        return rsPlacement != null && rsPlacement.length > 0 ? rsPlacement[0] : null;
     }
     
     public void viserFacturesRattachees(String user,Connection c) throws Exception{
@@ -1136,8 +1141,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 fcf[0].updateToTable(c);
             }
             
-            
-            
+               
+        } 
+        if(this.getDebit()> 0){ 
             FactureFournisseur ff = this.findFactureFournisseurAuto(c);
             ff.setDaty(this.getDateEffet());
             ff.setTiers(this.getTiers());
@@ -1150,7 +1156,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 fff[0].setPu(this.getCredit()/(1+fff[0].getTva()/100));
                 fff[0].updateToTable(c);
             }
-            
         }
+        
     }
 }
