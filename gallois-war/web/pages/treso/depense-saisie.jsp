@@ -26,7 +26,7 @@
         if(liste2 != null && liste2.length >0){
             facture = liste2[0];
         }
-        pi.getFormu().getChamp("debit").setDefaut(""+facture.getMontantreste());
+        pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(""+facture.getMontantreste()));
         pi.getFormu().getChamp("tiers").setValeurLibelle(facture.getTierslib());
         pi.getFormu().getChamp("tiers").setDefaut(facture.getTiers());
         pi.getFormu().getChamp("idplacement").setDefaut(facture.getId());
