@@ -6,7 +6,7 @@
     try {
 
         FactureClientDetails lv = new FactureClientDetails();
-        lv.setNomTable("facture_client_fille_lib");
+        lv.setNomTable("facture_client_fille_libVM");
         String listeCrt[] = {"mois", "annee", "rubriquelib"};
         String listeInt[] = {};
         
@@ -22,7 +22,11 @@
         pr.setLien((String) session.getValue("lien"));
 
         pr.getFormu().getChamp("annee").setDefaut(Utilitaire.getAnneeEnCours());
-        
+        pr.getFormu().getChamp("annee").setValeur(Utilitaire.getAnneeEnCours());
+        if(request.getParameter("annee")==null || request.getParameter("annee").compareToIgnoreCase("")==0)
+            pr.setAWhere(" and annee like '"+Utilitaire.getAnneeEnCours()+"'");
+//        if(request.getParameter("mois")==null || request.getParameter("mois").compareToIgnoreCase("")==0)
+//            pr.setAWhere("' and mois like '"+String.valueOf(Utilitaire.getMoisEnCours())+"'");
         Liste[] listes = new Liste[1];
         listes[0] = new Liste("mois");
         listes[0].makeListeMois();

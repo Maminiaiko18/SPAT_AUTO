@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="mg.spat.JournalCaisseLibComplet"%>
 <%@page import="mg.spat.AttacherFichier"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="service.BilletageService"%>
@@ -21,20 +22,21 @@
     try{
 
     Billetage b = new Billetage();
-    b.setNomTable("billetagelib");
+    b.setNomTable("BILLETAGELIBCOMPLET");
     PageConsulte pc = new PageConsulte(b, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
     pc.setTitre("Fiche Billetage");
     Billetage bi = (Billetage)pc.getBase();
+    pc.getChampByName("idcaisse").setVisible(false);
     
-    JournalCaisse jc = new JournalCaisse();
-    jc.setNomTable("journalcaisselib");
+    JournalCaisseLibComplet jc = new JournalCaisseLibComplet();
+    jc.setNomTable("JOURNALCAISSELIBCOMPLET");
     String listeCrt[] = {};
     String listeInt[] = {};
-    String libEntete[] = {"id","folio","caisse","numPiece","libelle","remarque","dateSaisie","dateEffet","debit","credit"};
+    String libEntete[] = {"id","folio","valcaisse","numPiece","libelle","remarque","dateSaisie","dateEffet","debit","credit"};
     PageRecherche pr = new PageRecherche(jc, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.setAWhere(" and caisse like '%"+bi.getCaisse()+"%' and dateEffet = to_date('"+bi.getDaty()+"','YYYY-MM-DD')");
+    pr.setAWhere(" and caisse like '%"+bi.getIdcaisse()+"%' and dateEffet = to_date('"+bi.getDaty()+"','YYYY-MM-DD')");
     pr.setApres("treso/billetage-fiche.jsp");
   
     
@@ -52,6 +54,7 @@
 
 <div class="content-wrapper">
     <div class="row">
+        <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="box-fiche">
                 <div class="box">
@@ -68,7 +71,7 @@
                             <p>
                                 <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=treso/billetage-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
                                 <%if (bi.getEtat() != ConstanteEtat.getEtatValider()) {%>
-                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=treso/billetage-liste.jsp&classe=mg.spat.Billetage">Viser</a> 
+                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=treso/billetage-fiche.jsp&classe=mg.spat.Billetage">Viser</a> 
                                 <%} %>
                                 
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=treso/billetage-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
@@ -80,25 +83,30 @@
         </div>
     </div>
                                 
-    <div class="row">    
+    <div class="row">
+        <div class="col-md-12">
         
-        <% if(!(Boolean)test.get(0)){%>
-        <div class="alert alert-danger" role="alert">
-            Attention! Le montant du billetage n'est pas conforme à la somme dans le journal caisse. Montant billetage: <b><%=Utilitaire.formaterAr((Double)test.get(1))%>Ar</b> et Solde journal caisse: <b><%=Utilitaire.formaterAr((Double)test.get(2))%>Ar</b>
+            <% if(!(Boolean)test.get(0)){%>
+            <div class="alert alert-danger" role="alert">
+                Attention! Le montant du billetage n'est pas conforme à la somme dans le journal caisse. Montant billetage: <b><%=Utilitaire.formaterAr((Double)test.get(1))%>Ar</b> et Solde journal caisse: <b><%=Utilitaire.formaterAr((Double)test.get(2))%>Ar</b>
+            </div>
+            <% } %>
+            <section class="content-header">
+
+            </section>
+            <section class="content">
+
+                <%
+                    String libEnteteAffiche[] ={"Id","Folio","Caisse","Num Piece","Libelle","Remarque","Date Saisie","Date Effet","Debit","Credit"};
+                    pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+                    String html = pr.getTableau().getHtml();
+                    if(html!=null)
+                        out.println(html);
+                    else{%>
+                        <center><h4>Aucun details </h4></center>
+                <%      } %>
+            </section>  
         </div>
-    <% } %>
-    <section class="content-header">
-       
-    </section>
-    <section class="content">
-        
-        <%
-            String libEnteteAffiche[] ={"Id","Folio","Caisse","Num Piece","Libelle","Remarque","Date Saisie","Date Effet","Debit","Credit"};
-            pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            out.println(pr.getTableau().getHtml());
-        %>
-    </section>  
-    
     </div> 
     
      <div class="row">

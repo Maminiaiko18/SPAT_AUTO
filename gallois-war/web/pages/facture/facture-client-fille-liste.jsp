@@ -5,30 +5,59 @@
 --%>
 
 <%@page import="facture.FactureClientDetails"%>
+<%@page import="mg.spat.CaFcFilleComplet"%>
 <%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="affichage.PageRecherche"%>
+<%@ page import="bean.*" %>
+<%@page import="affichage.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
-        FactureClientDetails cht = new FactureClientDetails();
-        cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
-        String libEntete[] = {"id", "idmere", "designation", "pu", "quantite", "devise", "compte", "taux", "montanttaux", "tva", "montantTva", "montantHTEuro", "montantTVAEuro", "activitelib", "heureDebut", "heureFin", "reduction", "majoration"};
-        String listeCrt[] = {"idmere", "compte", "mois", "annee"};
-        String listeInt[] = {"mois", "annee"};
+        CaFcFilleComplet cht = new CaFcFilleComplet();
+        cht.setNomTable("CAFCFILLECOMPLET");
+        String libEntete[] = {"id", "idmere", "moislib", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
+        String listeCrt[] = {"compte", "mois", "annee", "type"};
+        String listeInt[] = {"mois"};
 
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("facture/facture-client-fille-liste.jsp");
 
-        pr.getFormu().getChamp("mois1").setLibelle("mois debut");
-        pr.getFormu().getChamp("mois2").setLibelle("mois fin");
+        pr.getFormu().getChamp("mois1").setLibelle("mois min");
+        pr.getFormu().getChamp("mois2").setLibelle("mois max");
+        pr.getFormu().getChamp("annee").setLibelle("Année");
+        pr.getFormu().getChamp("type").setLibelle("Type");
+        pr.getFormu().getChamp("compte").setLibelle("Compte");
         
-        pr.getFormu().getChamp("annee1").setLibelle("annee debut");
-        pr.getFormu().getChamp("annee2").setLibelle("annee fin");
+        pr.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
+        
+        affichage.Liste[] listes= new affichage.Liste[3];
+        
+        TypeObjet type = new TypeObjet();
+        type.setNomTable("typefc");
+        listes[0] = new Liste("type", type, "VAL", "id");
+        
+        listes[1] = new Liste("mois1");
+        listes[1].makeListeMois();
+        //listes[1].setDefaultSelected(utilitaire.Utilitaire.getMoisEnCours()+"");
 
-        String[] colSomme = {"montant"};
+        listes[2] = new Liste("mois2");
+        listes[2].makeListeMois();        
+        //listes[2].setDefaultSelected(utilitaire.Utilitaire.getMoisEnCours()+"");
+        
+        pr.getFormu().changerEnChamp(listes);
+        
+        pr.getFormu().getChamp("mois1").setDefaut(utilitaire.Utilitaire.getMoisEnCours()+"");
+        pr.getFormu().getChamp("mois2").setDefaut(utilitaire.Utilitaire.getMoisEnCours()+"");
+        pr.getFormu().getChamp("mois1").setLibelle("mois min");
+        pr.getFormu().getChamp("mois2").setLibelle("mois max");
+        pr.getFormu().getChamp("annee").setLibelle("Année");
+        pr.getFormu().getChamp("type").setLibelle("Type");
+        pr.getFormu().getChamp("compte").setLibelle("Compte");
+        
+        String[] colSomme = {"montant", "montanttva", "montantttc"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
@@ -54,7 +83,7 @@
                 out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "idmere", "designation", "pu", "quantité", "devise", "compte", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "Activite", "Heure début", "Heure fin", "RED.%", "MAJ.%"};
+            String libEnteteAffiche[] = {"ID", "IDmere", "Mois", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA", "Montant", "Montant TVA", "Montant TTC"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

@@ -5,8 +5,12 @@
  */
 package mg.spat.placement;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
+import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.ConfigPlacement;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -216,5 +220,25 @@ public class PlacementLibComplet extends ClassEtat{
     public void setInteret_net(double interet_net) {
         this.interet_net = interet_net;
     }
-    
+    public ConfigPlacement getConfigPlacement(Connection conn)throws Exception {
+        boolean verify = false;
+        try{
+            if(conn==null){
+                conn = new UtilDB().GetConn();
+                verify = true;
+            }
+        ConfigPlacement config = new ConfigPlacement();
+        config.setNature(this.getIdentite());
+        config.setBanque(this.getIdbanque());
+        ConfigPlacement[] listConf =(ConfigPlacement[]) CGenUtil.rechercher(config, null, null,conn,"");
+        if(listConf.length!=0)
+            return listConf[0];
+        return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(conn!=null && verify)conn.close();
+        }
+    }
 }

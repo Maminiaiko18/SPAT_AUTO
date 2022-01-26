@@ -43,6 +43,7 @@ public class FactureClientDetails extends ClassFille {
     private int rang;
     private String idrubrique;
 
+    
     public String getIdrubrique() {
         return idrubrique;
     }
@@ -405,6 +406,19 @@ public class FactureClientDetails extends ClassFille {
         setNomTable("facture_client_fille");
         this.setNomClasseMere("facture.FactureClient");
         this.setLiaisonMere("idmere");
+    }
+    
+    
+    public FactureClientDetails(String idmere, double quantite, double pu, String compte, String designation, double duree) throws Exception {
+        setNomTable("facture_client_fille");
+        this.setNomClasseMere("facture.FactureClient");
+        this.setLiaisonMere("idmere");
+        this.setIdmere(idmere);
+        this.setQuantite(quantite);
+        this.setPu(pu);
+        this.setCompte(compte);
+        this.setDesignation(designation);
+        this.setDuree(duree);
     }
     
     public FactureClientDetails(String id, String idmere, double quantite, double pu, double taux, String compte, String idproduit, String produit_lib, String devise, String designation, String idProduitLib, String idactivite, String categorieFacturelib, String categorieClientlib, String activitelib, String rubrique, FactureClient mere, double montant, double montanttaux, double montantavoirsanstaux, double montantavoiravectaux, double qtelivree, double restealivrer, double montantTTC, Date datefact, Date daty, String rubriquelib, String idprestation, String clientlib, int mois, int annee, String heureDebut, String heureFin, String moislib, String anneelib, double montantHTEuro, double montantTVAEuro, double montanttaxe, double majoration, double reduction, int rang, double tva) {

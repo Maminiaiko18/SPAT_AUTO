@@ -1,4 +1,4 @@
-/*
+/*controlerUpdate 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -13,7 +13,9 @@ import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import facture.EtatProvision;
 import facture.FactureClient;
+import facture.FactureClientDetails;
 import facture.FactureFournisseur;
+import facture.FactureFournisseurDetails;
 import facture.PaiementFacture;
 import facture.UtilitaireFacture;
 import factureclient.PayementFacture;
@@ -40,7 +42,87 @@ public class JournalCaisse extends ClassEtat {
     private double sommeCredit, sortie, entree;
     private String banque;
     private String descecaisse;
+    
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        updateFactureRattachee(c);
+    }
 
+    public Placement findPlacement(Connection c) throws Exception {
+        Placement pl = new Placement();
+        String nomTable = "placement";
+        pl.setNomTable(nomTable);
+        Placement[] rsPlacement = null;
+        try {
+                String query = " and id = '"+this.getIdplacement()+"'";
+                rsPlacement = (Placement[]) CGenUtil.rechercher(pl, null, null, c, query);
+        } catch(Exception e) {
+                throw e;
+        }
+        return rsPlacement != null && rsPlacement.length > 0 ? rsPlacement[0] : null;
+    }
+    
+    public void viserFacturesRattachees(String user,Connection c) throws Exception{
+        if(this.getCredit()>0){
+            FactureClient factureclient= findFactureClientAuto(c);
+            if(factureclient!=null){
+                factureclient.validerObject(user, c);
+            }
+        }
+        if(this.getDebit()>0){
+            FactureFournisseur factureFournisseur= findFactureFournisseurAuto(c);
+            if(factureFournisseur!=null){
+                factureFournisseur.validerObject(user, c);
+            }
+        }
+    }
+    
+    public FactureClient genererFactureClientAuto(Connection c,String user,String compte, int annee, int mois, double tva) throws Exception{
+        //FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
+        FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeAuComptant, Constante.idCategorieFCDefinitive, 1);
+        FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(), compte, "Facture auto via", 1);
+        detail.setAnnee(annee);
+        detail.setMois(mois);
+        detail.setTva(tva);
+        detail.setDevise(this.getIddevise());
+        detail.setPu(this.getCredit()/(1+tva/100));
+        FactureClientDetails[] fille = {detail};
+        factureclient.setFille(fille);
+        
+        factureclient.createObject(user, c);
+        
+    
+        return factureclient;
+    }
+
+    public FactureClient findFactureClientAuto(Connection c) throws Exception {
+        FactureClient fc = new FactureClient();
+        String nomTable = "factureclientAuto";
+        fc.setNomTable(nomTable);
+        FactureClient[] rsFc = null;
+        try {
+                String query = " and id = '"+this.getIdplacement()+"'";
+                rsFc = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, query);
+        } catch(Exception e) {
+                throw e;
+        }
+        return rsFc != null && rsFc.length > 0 ? rsFc[0] : null;
+    }
+
+    public FactureFournisseur findFactureFournisseurAuto(Connection c) throws Exception {
+        FactureFournisseur fc = new FactureFournisseur();
+        String nomTable = "facture_fournisseur_mereAuto";
+        fc.setNomTable(nomTable);
+        FactureFournisseur[] rsFc = null;
+        try {
+                String query = " and id = '"+this.getIdplacement()+"'";
+                rsFc = (FactureFournisseur[]) CGenUtil.rechercher(fc, null, null, c, query);
+        } catch(Exception e) {
+                throw e;
+        }
+        return rsFc != null && rsFc.length > 0 ? rsFc[0] : null;
+    }
+    
     public String getBanque() {
         return banque;
     }
@@ -617,24 +699,19 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 }
             }else{
                 if (this.getIdplacement() != null) {
-                    if (!this.getIdplacement().startsWith("FC")) {
-                        this.traitementPlacement(user, c);
-                        
-                        FactureFournisseur[] facturesF = findFactureFournisseur(c);
-                        if(facturesF.length > 0) {
-                            for(FactureFournisseur ff: facturesF) {
-                                if(ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())) {
-                                    insererDansBonProvisoire(refuser, c);
-                                }
-                            }
+                    /*if (!this.getIdplacement().startsWith("FC")) {
+                        Placement placement = this.findPlacement(c);
+                        if(placement.getEtat()<11){
+                            placement.validerObject(refuser, c);
                         }
-                    }
+                    }*/
                     
                     if(this.getIdplacement().startsWith("FC")){
                         String numeroPiece = calculerNumeroPiece(c);
                         this.setNumPiece(numeroPiece);
                     }
                     
+                    viserFacturesRattachees(refuser, c);
                     genererPaiement(c, refuser);
                 }
             }
@@ -919,10 +996,14 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
     
     public String genererCodeModePaiement(){
-        if(this.getIdmode().compareToIgnoreCase("pay1") == 0){
-            return "E";
-        }else if(this.getIdmode().compareToIgnoreCase("pay2") == 0){
-            return "C";
+        if(this.getIdmode()!=null){
+            if(this.getIdmode().compareToIgnoreCase("pay1") == 0){
+                    return "E";
+            }else if(this.getIdmode().compareToIgnoreCase("pay2") == 0){
+                    return "C";
+            }else if(this.getIdmode().compareToIgnoreCase("pay3") == 0){
+                    return "V";
+            }
         }
         return null;
     }
@@ -1002,5 +1083,87 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         if(this.getCredit()%100 != 0){
             this.setCredit(this.getCredit() + (100 - this.getCredit()%100));
         }
+    }
+    
+    public FactureFournisseur genererFactureFournisseurAuto(Connection c,String user,String compte,int annee, int mois, double tva) throws Exception{
+        
+        FactureFournisseur facturefrns = new FactureFournisseur(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptantFF, Constante.categorieFFdefault, 1);
+        FactureFournisseurDetails detail = new FactureFournisseurDetails(facturefrns.getId(), 1, this.getDebit(), compte, this.getLibelle(), 1,annee, mois, tva);
+        detail.setDevise(this.getIddevise());
+        detail.setPu(this.getDebit() / (1+(tva/100)));
+        FactureFournisseurDetails[] fille = {detail};
+        facturefrns.setFille(fille);
+        
+        facturefrns.createObject(user,c);
+
+        return facturefrns;
+        
+    }
+    
+    public void genererFacture(Connection c, String user, String compte, int annee, int mois, double tva ) throws Exception {
+        boolean ouvert = false;
+        FactureClient fc=null;
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            
+            if(this.getCredit()>0)
+                fc=this.genererFactureClientAuto(c,user,compte,annee,mois,tva);
+            if(this.getDebit()>0)
+                fc=this.genererFactureFournisseurAuto(c,user,compte,annee,mois,tva);
+            if(fc!=null){
+               this.setIdplacement(fc.getId());
+               this.updateToTableWithHisto(user, c);
+            }
+            
+            if(ouvert) c.commit();
+        }
+        catch(Exception ex) {
+            if(c != null && ouvert) c.rollback();
+            throw ex;
+        }
+        finally {
+            if(c != null && ouvert) c.close();
+        }
+    }
+    
+    public void updateFactureRattachee(Connection c) throws Exception{
+        if(this.getCredit() > 0){
+            FactureClient fc = this.findFactureClientAuto(c);
+            if(fc != null){
+                fc.setDaty(this.getDateEffet());
+                fc.setTiers(this.getTiers());
+                fc.setNomTable("Factureclient");
+                fc.updateToTable(c);
+
+                FactureClientDetails[] fcf = (FactureClientDetails[])fc.getFille("", c, "");
+                if(fcf.length > 0){
+                    fcf[0].setDesignation(this.getLibelle());
+                    fcf[0].setPu(this.getCredit()/(1+fcf[0].getTva()/100));
+                    fcf[0].updateToTable(c);
+                }
+            }
+               
+        } 
+        if(this.getDebit()> 0){ 
+            FactureFournisseur ff = this.findFactureFournisseurAuto(c);
+            if(ff != null){
+                ff.setDaty(this.getDateEffet());
+                ff.setTiers(this.getTiers());
+                ff.setNomTable("facture_Fournisseur_Mere");
+                ff.updateToTable(c);
+
+                FactureFournisseurDetails[] fff = (FactureFournisseurDetails[])ff.getFille("", c, "");
+                if(fff.length > 0){
+                    fff[0].setDesignation(this.getLibelle());
+                    fff[0].setPu(this.getCredit()/(1+fff[0].getTva()/100));
+                    fff[0].updateToTable(c);
+                }
+            }
+        }
+        
     }
 }

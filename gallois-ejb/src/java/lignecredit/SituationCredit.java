@@ -17,9 +17,25 @@ import utilitaire.Utilitaire;
  * @author
  */
 public class SituationCredit extends LigneCredit {
-
+    private double pourcEngage,pourcPaye; 
     public SituationCredit() {
         this.setNomTable("ligneCreditDepense");
+    }
+
+    public double getPourcEngage() {
+        return pourcEngage;
+    }
+
+    public void setPourcEngage(double pourcEngage) {
+        this.pourcEngage = pourcEngage;
+    }
+
+    public double getPourcPaye() {
+        return pourcPaye;
+    }
+
+    public void setPourcPaye(double pourcPaye) {
+        this.pourcPaye = pourcPaye;
     }
 
     public void construirePK(Connection c) throws Exception {
@@ -155,7 +171,9 @@ public class SituationCredit extends LigneCredit {
 "        l.compte,\n" +
 "        cr.LIBELLE       as libelle,\n" +
 "        sum(l.montant)   as montant,\n" +
-"        sum(l.montant) - sum(montantttc) as restebudget\n" +
+"        sum(l.montant) - sum(montantttc) as restebudget,\n" +
+"         cast(((nvl(sum(MONTANTTTC), 0)) / sum(l.MONTANT)) * 100 as NUMBER(30, 3))      as pourcEngage,\n" +
+"       cast(((nvl(sum(MONTANTPAYE), 0)) / sum(l.MONTANT)) * 100 as number(30, 3))       as pourcPaye \n"+  
 " from (\n" +
 "          (SELECT\n" +
 "               sum(l.QUANTITE)        as QUANTITE,\n" +

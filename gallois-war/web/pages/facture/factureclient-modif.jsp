@@ -120,7 +120,10 @@
 
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
-
+        
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte;comptelibelle");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("compte"), "readonly");
+        
         affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
@@ -282,8 +285,9 @@
             textarea<%=i%>.style.height = "100px";
             textarea<%=i%>.value = designation<%=i%>.value;
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
-    <%}%>
-
+        $('#idproduit_<%=i%>').parent().attr('style', '');    
+    <%}%>    
+    
 </script>
 <%} catch (Exception ex) {
         ex.printStackTrace();

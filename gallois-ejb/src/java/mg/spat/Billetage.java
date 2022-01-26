@@ -5,11 +5,15 @@
  */
 package mg.spat;
 
+import bean.AdminGen;
+import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
 import service.BilletageService;
 import service.ClotureService;
+import utilitaire.Constante;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -19,6 +23,17 @@ public class Billetage extends ClassEtat{
     private String id, caisse;
     private Date daty;
     private double montant;
+    private String idcaisse;
+
+    public String getIdcaisse() {
+        return idcaisse;
+    }
+
+    public void setIdcaisse(String idcaisse) {
+        this.idcaisse = idcaisse;
+    }
+    
+    
     
     public Billetage() {
         super.setNomTable("billetage");
@@ -75,5 +90,27 @@ public class Billetage extends ClassEtat{
     @Override
     public String getAttributIDName() {
         return "id";
+    }
+    
+    public DetailsBilletage[] getDetails(Connection c) throws Exception{
+        DetailsBilletage[] result = (DetailsBilletage[]) CGenUtil.rechercher(new DetailsBilletage(), null, null, c, String.format(" and idmere = '%s' ", this.getId()));
+        return result;
+    }
+    
+    public void genererReportVise(Connection c, String user) throws Exception{
+        Report report = new Report();
+        report.setDaty(Utilitaire.dateDuJourSql());
+        report.setCaisse(Constante.caisseCentrale);
+        double montant = AdminGen.calculSommeDouble(getDetails(c), "montant");
+        report.setMontant(montant);
+        report.setDevise("Ar");
+        report.createObject(user, c);
+        report.validerObject(user, c);
+    }
+    
+    public Object validerObject(String u, Connection c) throws Exception
+    {
+        this.genererReportVise(c, u);
+        return super.validerObject(u, c);
     }
 }

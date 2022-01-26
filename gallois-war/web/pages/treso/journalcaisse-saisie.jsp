@@ -21,22 +21,22 @@
         JournalCaisse pj = new JournalCaisse();
 
         PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
-        
+
         FactureAnalyse facture = new FactureAnalyse();
         String idfact = request.getParameter("idFacture");
         String idFactures = request.getParameter("idFactures");
         String idFacturesF = request.getParameter("idFacturesF");
         String idOP = request.getParameter("id");
         String idplacement = request.getParameter("idplacement");
-        
+
         JournalCaisseData datas = new JournalCaisseData(request);
         datas.init(null);
-        
+
         if (idfact != null) {
             facture = datas.getFactureAnalyse();
             double reste = facture.getReste();
             String client = facture.getClient();
-            
+
             pi.getFormu().getChamp("libelle").setDefaut(facture.getDesignation());
             pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + reste));
 
@@ -44,21 +44,21 @@
             pi.getFormu().getChamp("tiers").setDefaut(client);
             pi.getFormu().getChamp("idplacement").setDefaut(idfact);
         }
-        
-        if(idFactures != null) {
+
+        if (idFactures != null) {
             FactureClient fc = datas.getFacture();
             pi.getFormu().getChamp("idplacement").setDefaut(idFactures);
             pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
             pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(fc.getTiers()));
             pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(fc.getTierslib()));
-        }else if(idFacturesF != null) {
+        } else if (idFacturesF != null) {
             FactureClient fc = datas.getFacture();
             pi.getFormu().getChamp("idplacement").setDefaut(idFacturesF);
             pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
             pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(fc.getTiers()));
             pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(fc.getTierslib()));
         }
-        
+
         affichage.Liste[] liste = new affichage.Liste[5];
 
         TypeObjet esc = new TypeObjet();
@@ -78,11 +78,11 @@
         TypeObjet mode = new TypeObjet();
         mode.setNomTable("MODEPAIEMENT");
         liste[3] = new Liste("idmode", mode, "desce", "id");
-        
+
         TypeObjet banq = new TypeObjet();
         banq.setNomTable("BANQUE");
         liste[4] = new Liste("idbanque", banq, "VAL", "id");
-        
+
         pi.getFormu().changerEnChamp(liste);
 
         pi.getFormu().changerEnChamp(liste);
@@ -90,11 +90,12 @@
         pi.getFormu().getChamp("typemvt").setVisible(false);
 
         pi.getFormu().getChamp("idbanque").setLibelle("Banque");
+        pi.getFormu().getChamp("banque").setVisible(false);
         pi.getFormu().getChamp("idmode").setLibelle("Mode");
         pi.getFormu().getChamp("dateEffet").setLibelle("Date Effet");
         pi.getFormu().getChamp("numPiece").setLibelle("Numéro pièce");
         pi.getFormu().getChamp("libelle").setLibelle("Libellé");
-        
+
         pi.getFormu().getChamp("debit").setLibelle("Sortie");
         pi.getFormu().getChamp("credit").setLibelle("Entrée");
         pi.getFormu().getChamp("idtypecheque").setLibelle("Type");
@@ -105,14 +106,14 @@
         pi.getFormu().getChamp("designation").setVisible(false);
         pi.getFormu().getChamp("dateEffet").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("idTypeCheque").setDefaut(Constante.typeCheque);
-        
+
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp");
         pi.getFormu().getChamp("idordre").setAutre("readonly");
 
         pi.getFormu().getChamp("idplacement").setAutre("readonly");
-        
+
         pi.getFormu().getChamp("idplacement").setLibelle("Placement");
 
         if (idOP != null) {
@@ -120,8 +121,8 @@
             if (idOP != null && idOP.compareTo("") != 0) {
                 MvtcaisseOrdonnerpayementFacture preremplie = datas.getJcInfo();
                 pi.getFormu().getChamp("idordre").setDefaut(idOP);
-                
-                if(preremplie != null) {
+
+                if (preremplie != null) {
                     pi.getFormu().getChamp("idordre").setValeurLibelle(preremplie.getRemarque());
                     pi.getFormu().getChamp("tiers").setValeurLibelle(preremplie.getNomfournisseur());
                     pi.getFormu().getChamp("tiers").setDefaut(preremplie.getIdfournisseur());
@@ -129,9 +130,9 @@
                     pi.getFormu().getChamp("debit").setDefaut("" + Utilitaire.formaterAr("" + preremplie.getReste()));
                 }
             }
-            
+
             OrdonnerPayement ordP = datas.getOp();
-            
+
             if (ordP != null) {
                 pi.getFormu().getChamp("designation").setDefaut(ordP.getRemarque());
                 pi.getFormu().getChamp("libelle").setDefaut(ordP.getRemarque());
@@ -147,8 +148,8 @@
                 } else {
                     pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + ordP.getMontant()));
                 }
-                
-                if(ordP.getDed_Id()!=null && ordP.getDed_Id().startsWith("AVRFC")){
+
+                if (ordP.getDed_Id() != null && ordP.getDed_Id().startsWith("AVRFC")) {
                     AvoirFC av = datas.getAvoirFC();
                     pi.getFormu().getChamp("idplacement").setDefaut(av.getIdfacture());
                 }
@@ -157,7 +158,7 @@
         if (idplacement != null) {
             pi.getFormu().getChamp("idplacement").setDefaut(idplacement);
             pi.getFormu().getChamp("idplacement").setValeurLibelle(idplacement);
-            
+
             if (request.getParameter("param") != null && request.getParameter("param").equalsIgnoreCase("sortie")) {
                 Placement pl = datas.getPlacement();
                 pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + pl.getMontant()));
@@ -168,9 +169,9 @@
         }
 
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
-        
+
         String idAvoir = request.getParameter("idAvoir");
-        if(idAvoir!=null && !idAvoir.isEmpty()){
+        if (idAvoir != null && !idAvoir.isEmpty()) {
             AvoirFC avoir = datas.getAvoirFC();
             pi.getFormu().getChamp("libelle").setDefaut("Paiement avoir via facture client - " + idAvoir);
             pi.getFormu().getChamp("idplacement").setDefaut(idAvoir);
@@ -179,7 +180,7 @@
             pi.getFormu().getChamp("tiers").setDefaut(avoir.getTiers());
         }
         String idAvoirFF = request.getParameter("idAvoirFF");
-        if(idAvoirFF!=null && !idAvoirFF.isEmpty()){
+        if (idAvoirFF != null && !idAvoirFF.isEmpty()) {
             AvoirFF avoirFF = datas.getAvoirFF();
             pi.getFormu().getChamp("libelle").setDefaut("Paiement avoir via facture client - " + idAvoir);
             pi.getFormu().getChamp("idplacement").setDefaut(idAvoirFF);
@@ -194,9 +195,23 @@
         pi.preparerDataFormu();
 %>
 %>
-<div class="content-wrapper">
+
+<style>
+    .checkbox {
+        width: 15px;
+        height: 15px;
+        margin: 12px!important;
+    }
+</style>
+<%
+    Liste moisL = new Liste("mois");
+    moisL.makeListeMois();
+    
+    moisL.setDefaut("" + Utilitaire.getMoisEnCoursReel());
+%>
+<div class="content-wrapper" style="min-height: 1200px!important">
     <h1>Saisie d'un journal caisse</h1>
-    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
+    <form action="<%=pi.getLien()%>?but=apresJournalCaisse.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());
@@ -205,6 +220,65 @@
         <input name="bute" type="hidden" id="bute" value="treso/journalcaisse-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="mg.allosakafo.fin.MvtCaisse">
         <!--<input name="nomtable" type="hidden" id="nomtable" value="journalcaisse">-->
+        <div>
+            <div class="box">
+                <div class="box-body" style="display:flex; flex-direction: column;">
+                    <div style="display: flex; align-items: center;">
+                        <input type="checkbox" class="checkbox" name="factureAuto" id="factureAuto" />
+                        <label for="factureAuto">G&eacute;n&eacute;rer facture</label>
+                    </div>
+                    <div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                            <label for="compte">Compte</label>
+                                        </th>
+                                        <td>
+                                            <input name="compte" type="textbox" class="form-control" class="" id="compte" value="" data-parsley-id="4" tabindex="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="annee">Ann&eacute;e</label>
+                                        </th>
+                                        <td>
+                                            <input name="annee" type="textbox" class="form-control" class="" id="annee" value="<%=Utilitaire.getAneeEnCours()%>" data-parsley-id="4" tabindex="1">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                            <label for="tva">TVA</label>
+                                        </th>
+                                        <td>
+                                            <input name="tva" type="textbox" class="form-control" class="" id="tva" value="20" data-parsley-id="4" tabindex="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="mois">Mois</label>
+                                        </th>
+                                        <td>
+                                            <%
+                                                moisL.makeHtml();
+                                                out.print(moisL.getHtml());
+                                            %>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 

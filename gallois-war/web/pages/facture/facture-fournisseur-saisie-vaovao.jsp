@@ -70,6 +70,7 @@
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
     pi.getFormu().getChamp("estMictsl").setVisible(false);
+    pi.getFormu().getChamp("estAuto").setVisible(false);
     
     if(request.getParameter("idBL") != null){
         pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
@@ -131,6 +132,7 @@
         pi.getFormufle().getChamp("mois_"+i).setDefaut(""+Utilitaire.getMoisEnCoursReel());
         pi.getFormufle().getChamp("annee_"+i).setDefaut(Utilitaire.getAnneeEnCours());
         pi.getFormufle().getChamp("idactivite_"+i).setVisible(false);
+        //pi.getFormufle().getChamp("compte_"+i).setPageAppel("choix/listeCompteCAchoix.jsp", "compte_" + i+";compte_"+i+";comptelibelle_"+i  );
         
         if(i < livraisons.length) {
             pi.getFormufle().getChamp("idBLF_"+i).setDefaut(livraisons[i].getId());
@@ -166,6 +168,7 @@
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
     pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
     
+    //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte;compte;comptelibelle");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
    
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
@@ -241,6 +244,7 @@
     }
     
     <%for (int i = 0; i < pi.getNombreLigne(); i++) {%>
+        console.log('init');
         var designation<%=i%> = document.getElementById("designation_<%=i%>");
         var textarea<%=i%> = document.createElement("textarea");
             textarea<%=i%>.name = "designation_<%=i%>";
@@ -249,6 +253,13 @@
             textarea<%=i%>.style.height = "100px";
             textarea<%=i%>.value = designation<%=i%>.value;
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
+        
+        var td<%=i%> = document.getElementById('compte_<%=i%>').parentElement;
+        var tdel<%=i%> = document.createElement("td");
+        //td<%=i%>.after(tdel<%=i%>);
+        
+        //$('#starticle').find("label[for='compte_0']").parent().attr('colspan',2);
+        
     <%}%>
 </script>
 <%

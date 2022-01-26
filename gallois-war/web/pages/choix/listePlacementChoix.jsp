@@ -11,7 +11,7 @@
         String nomProjet = "SPAT",
                 nomVue = "placementlib",
                 titre = "Liste des placements",
-                nomPage = "choix/listePlacementChoix.jsp"
+                nomPage = "listePlacementChoix.jsp"
                 ;
        
         String listeCrt[] = {"id", "entite", "date_placement", "date_echeance"};

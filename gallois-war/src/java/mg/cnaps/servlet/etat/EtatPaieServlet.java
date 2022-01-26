@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import mg.spat.EtatJournalCaisse;
 import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
@@ -174,6 +175,10 @@ public class EtatPaieServlet extends HttpServlet {
                 rubrique_activite_pdf(request, response);
             }else if (action.equalsIgnoreCase("coursdevise")){
                 coursdevise_pdf(request, response);
+            }else if (action.equalsIgnoreCase("journalCaisseEtat")){
+                journalCaisseEtat(request, response);
+            }else if (action.equalsIgnoreCase("imprimerGestionProvision")){
+                imprimerGestionProvision(request, response);
             }
 
         } catch (Exception ex) {
@@ -1746,5 +1751,94 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    
+    public void journalCaisseEtat(HttpServletRequest request, HttpServletResponse response){
+        try{
+        String daty=request.getParameter("date");
+        Date date = new java.sql.Date(Utilitaire.stringToDate("yyyy-mm-dd", daty).getTime());
+        EtatJournalCaisse ejc = new EtatJournalCaisse(date);
+        JournalCaisse[] jc = ejc.getListeDepenses();
+        Map param = new HashMap();
+        param.put("daty", date);
+        double credit = 0;
+        double debit = 0;
+        ArrayList<JournalCaisse> arrList = new ArrayList<JournalCaisse>();
+        for(int i = 0; i<jc.length; i++){
+            debit = debit + jc[i].getCredit();
+            credit = credit + jc[i].getDebit();
+            arrList.add(jc[i]);
+        }
+        debit = debit + ejc.getTotalRecette();
+        double soldeAnterieur = ejc.getSoldeAnterieur();
+        double soldeActuel = ejc.getSoldeActuel();
+        double totalCreditEtat = ejc.getTotalCreditEtat();
+        double totalDebitEtat = ejc.getTotalDebitEtat();
+        
+        JournalCaisse jcc = new JournalCaisse();
+        jcc.setLibelle("Recette de la caisse SPAT Journée du "+date.toString());
+        jcc.setCredit(debit);
+        arrList.add(jcc);
+        
+        param.put("list_table", arrList);
+        
+        param.put("credit", credit);
+        param.put("debit", debit);
+        param.put("soldeAnterieur", soldeAnterieur);
+        param.put("soldeActuel", soldeActuel);
+        param.put("totalCreditEtat",totalCreditEtat);
+        param.put("totalDebitEtat", totalDebitEtat);
+        
+        
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("journal_caisse_etat");
+        UtilitaireImpression.imprimer(request, response, "journal-caisse-etat", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }   
+    public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response){
+        try{
+        String id = request.getParameter("id");
+        EtatProvision a = new EtatProvision();
+            a.setNomTable("etat_provisionlib");
+            Map param = new HashMap();
+            param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
+            EtatProvision[] mere = (EtatProvision[]) CGenUtil.rechercher(a, null, null, null, " and idfacture = '" + id + "'");
+            if (mere.length != 0) {
+                param.put("numprovision", mere[0].getNumProvision());               
+                param.put("identififcation", mere[0].getId());
+                param.put("date", mere[0].getDaty());
+                param.put("client", mere[0].getTierslib());
+                param.put("navire", mere[0].getIdnavirelib());
+                param.put("mode", mere[0].getIdmodelib());
+                param.put("banque", mere[0].getIdbanquelib());
+                //param.put("montantProv", mere[0].getMontantprovision());
+                param.put("num",mere[0].getNumProvision());
+                param.put("datyprof","");
+                param.put("datyedit",Utilitaire.dateDuJour());
+                //param.put("montant", mere[0].getMontantprovision());
+            }
+            FactureClient e = new FactureClient();
+            e.setNomTable("Provisionviseenonfacturee");
+            FactureClient[] ls = (FactureClient[]) CGenUtil.rechercher(e, null, null, null, " and id = '" + id + "'");
+            if(ls.length!=0){
+                param.put("monatntttc",ls[0].getMontantttc());
+                param.put("daty", ls[0].getDate_echeance());
+                param.put("numfact", ls[0].getId());
+                param.put("montantProv", ls[0].getMontant());
+                param.put("montant", ls[0].getMontant());
+            }
+        
+        
+        
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("gestion provision");
+        UtilitaireImpression.imprimer(request, response, "gestion de provision", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    
+    }
+    
     
 }

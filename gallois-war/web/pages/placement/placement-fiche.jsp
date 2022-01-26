@@ -61,11 +61,11 @@
                             <p>
 
                                 <%if (bi.getEtat() < ConstanteEtat.getEtatValider()) {%>
-                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=placement/placement-liste.jsp&classe=mg.spat.placement.Placement">Viser</a> 
+                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=placement/placement-fiche.jsp&classe=mg.spat.placement.Placement">Viser</a> 
                                 <a href="<%=(String) session.getValue("lien") + "?but=placement/placement-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning">Modifier</button></a>
                                 <%}%>
                                 <%if (bi.getEtat() < ConstanteEtat.getEtatEchu()) {%>
-                                <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idplacement=" + bi.getId()%>" style="margin-right: 5px"><button class="btn btn-danger" >Echu</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-saisie.jsp&idplacement=" + bi.getId()%>" style="margin-right: 5px"><button class="btn btn-danger" >Echu</button></a>
                                 <%}%>
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=placement/placement-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
 

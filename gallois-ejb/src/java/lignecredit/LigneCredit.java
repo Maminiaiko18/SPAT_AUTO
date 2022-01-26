@@ -18,12 +18,36 @@ import utilitaire.UtilDB;
 public class LigneCredit extends ClassEtat {
     
     private String id;
-    private String designation,compte;
+    private String designation,compte,compteCpl;
     private double quantite,montant,facture,paye;
     private int annee, mois;
-    private double arecouvrir, restebudget;
-
+    private double arecouvrir, restebudget,pourcEngage,pourcPaye;
     private Date daty;
+
+    public String getCompteCpl() {
+        return compteCpl;
+    }
+
+    public void setCompteCpl(String compteCpl) {
+        this.compteCpl = compteCpl;
+    }
+
+    
+    public double getPourcEngage() {
+        return pourcEngage;
+    }
+
+    public void setPourcEngage(double pourcEngage) {
+        this.pourcEngage = pourcEngage;
+    }
+
+    public double getPourcPaye() {
+        return pourcPaye;
+    }
+
+    public void setPourcPaye(double pourcPaye) {
+        this.pourcPaye = pourcPaye;
+    }
 
     public Date getDaty() {
         return daty;
@@ -58,7 +82,9 @@ public class LigneCredit extends ClassEtat {
 "        l.compte,\n" +
 "        cr.LIBELLE       as libelle,\n" +
 "        sum(l.montant)   as montant,\n" +
-"        sum(l.montant) - sum(montantttc) as restebudget\n" +
+"        sum(l.montant) - sum(montantttc) as restebudget,\n" +
+"         cast(((nvl(sum(MONTANTTTC), 0)) / sum(l.MONTANT)) * 100 as NUMBER(30, 3))      as pourcEngage,\n" +
+"       cast(((nvl(sum(MONTANTPAYE), 0)) / sum(l.MONTANT)) * 100 as number(30, 3))       as pourcPaye \n"+                     
 " from (\n" +
 "          (SELECT\n" +
 "               sum(l.QUANTITE)        as QUANTITE,\n" +
@@ -72,14 +98,14 @@ public class LigneCredit extends ClassEtat {
 "           ) l\n" +
 "              LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n" +
 "                                sum(MONTANTPAYE)        as MONTANTPAYE,\n" +
-"                                substr(mf.COMPTE, 1, " + niveau + ") as compte,\n" +
+"                                substr(mf.COMPTECPL, 1, " + niveau + ") as compte,\n" +
 "                                mf.ANNEE,\n" +
 "                                mois                    as mois,\n" +
 "                                mf.daty\n" +
 "                         from DETAILSFACTUREFOURNISSEUR_paye mf\n" +
 "                         WHERE  mf.IDMERE not in\n" +
 "                      (select id from ProvisionFactureDefinitive)\n" +
-"                         group by substr(mf.COMPTE, 1, " + niveau + "), ANNEE, mois, daty) mf\n" +
+"                         group by substr(mf.COMPTECPL, 1, " + niveau + "), ANNEE, mois, daty) mf\n" +
 "              ON l.compte = mf.compte\n" +
 "                  AND mf.annee = l.annee\n" +
 "                  )\n" +

@@ -70,20 +70,20 @@ public class EtatJournalCaisse {
         this.soldeAnterieur = soldeAnterieur;
     }
     
-    double getTotalDepenses()
+    public double getTotalDepenses()
     {
         return AdminGen.calculSommeDouble(listeDepenses, "debit");
     }
     
-    double getSoldeActuel(){
+    public double getSoldeActuel(){
         return this.getSoldeAnterieur()+this.getTotalRecette()-this.getTotalDepenses();
 
     }
-    double getTotalDebitEtat()
+    public double getTotalDebitEtat()
     {
         return this.getSoldeAnterieur()+this.getTotalRecette();
     }
-    double getTotalCreditEtat()
+    public double getTotalCreditEtat()
     {
         return this.getTotalDepenses()+this.getSoldeActuel();
     }

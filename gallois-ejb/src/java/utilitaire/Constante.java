@@ -1,7 +1,7 @@
 package utilitaire;
 
 public class Constante {
-    
+    public static  final String  idmodeVirement="pay3";
     public static  final String  idCatDroitDePort="CATFC006";
     public static  final String  idCategorieFCDefinitive="CATFCO3";
     public static  final String  idCatRubConteneur="CATFC002";
@@ -147,6 +147,8 @@ public class Constante {
     public static final String modePaiementEspece = "pay1";
     public static final String typeChequeAuComptant = "TCHQ00001";
     public static final String idBonProvisoire = "CATGFF002";
+    public static final String typeChequeAuComptantFF = "TFC002";
+    public static final String typeAuComptant = "TFC002";
 
     public static String getNavireBornageEtPeche() {
         return navireBornageEtPeche;

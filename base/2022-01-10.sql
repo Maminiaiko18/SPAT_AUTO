@@ -175,3 +175,19 @@ VALUES('CNP100120220', 'DIR00001', '1', '1', '1', 'CDG', '2030', '1050');
 INSERT INTO MENUDYNAMIQUE (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
 VALUES ('MEN0006812', 'Droit de region', 'fa fa-money',
         '/spat/pages/globalnegoce.jsp?but=facture/droit-de-region-liste.jsp', 11, 3, 'MEN00068');
+
+create or replace view JOURNALCAISSELIBDEPENSEV as
+select * from JOURNALCAISSELIBDEPENSE where etat>=11;
+
+create or replace view JOURNALCAISSELIBRECETTE_VISE as
+select *
+from JOURNALCAISSELIBRECETTE
+where etat = 11;
+
+
+create view ficheSuiviBudgetVide as
+select cast('-' as VARCHAR2(500)) as codeEtb,
+       cast('-' as VARCHAR2(500)) as codeProjet,
+       cast(sysdate as date) as daty,
+       cast(0 as number(10))annee,
+       cast('-' as VARCHAR2(500)) as numFacture  from dual;
