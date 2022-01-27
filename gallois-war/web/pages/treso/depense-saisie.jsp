@@ -26,7 +26,7 @@
         if(liste2 != null && liste2.length >0){
             facture = liste2[0];
         }
-        pi.getFormu().getChamp("debit").setDefaut(""+facture.getMontantreste());
+        pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(""+facture.getMontantreste()));
         pi.getFormu().getChamp("tiers").setValeurLibelle(facture.getTierslib());
         pi.getFormu().getChamp("tiers").setDefaut(facture.getTiers());
         pi.getFormu().getChamp("idplacement").setDefaut(facture.getId());
@@ -120,9 +120,15 @@
     
     pi.preparerDataFormu();
 %>
+<%
+    Liste moisL = new Liste("mois");
+    moisL.makeListeMois();
+    
+    moisL.setDefaut("" + Utilitaire.getMoisEnCoursReel());
+%>
 <div class="content-wrapper">
     <h1>Saisie d'une dépense</h1>
-    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
+    <form action="<%=pi.getLien()%>?but=apresJournalCaisse.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());
@@ -130,6 +136,66 @@
     <input name="acte" type="hidden" id="nature" value="insert">
     <input name="bute" type="hidden" id="bute" value="treso/journalcaisse-fiche.jsp">
     <input name="classe" type="hidden" id="classe" value="mg.spat.JournalCaisse">
+    
+    <div>
+            <div class="box">
+                <div class="box-body" style="display:flex; flex-direction: column;">
+                    <div style="display: flex; align-items: center;">
+                        <input type="checkbox" class="checkbox" name="factureAuto" id="factureAuto" />
+                        <label for="factureAuto">G&eacute;n&eacute;rer facture</label>
+                    </div>
+                    <div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                            <label for="compte">Compte</label>
+                                        </th>
+                                        <td>
+                                            <input name="compte" type="textbox" class="form-control" class="" id="compte" value="" data-parsley-id="4" tabindex="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="annee">Ann&eacute;e</label>
+                                        </th>
+                                        <td>
+                                            <input name="annee" type="textbox" class="form-control" class="" id="annee" value="<%=Utilitaire.getAneeEnCours()%>" data-parsley-id="4" tabindex="1">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                            <label for="tva">TVA</label>
+                                        </th>
+                                        <td>
+                                            <input name="tva" type="textbox" class="form-control" class="" id="tva" value="20" data-parsley-id="4" tabindex="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="mois">Mois</label>
+                                        </th>
+                                        <td>
+                                            <%
+                                                moisL.makeHtml();
+                                                out.print(moisL.getHtml());
+                                            %>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 <%}catch(Exception e){

@@ -857,14 +857,24 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             FactureFournisseur[] ffListe = this.findFactureFournisseur(c);
             if(ffListe != null && ffListe.length >0){
                 checkMontantFactureFournisseur(ffListe,c);
-                                
+                
+                double resteDebit = this.getDebit();
+                
                 for(FactureFournisseur ff : ffListe){
+                    
+                    double aPayer = ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP()) ? ff.getMontantResteProvision(c) : ff.getMontantreste();
+                    if(aPayer > resteDebit) aPayer = resteDebit;
+                    
                     PaiementFacture pf = new PaiementFacture();
                     pf.setNomTable("paiementfacturef");
                     pf.setIdMvt(this.getId());
                     pf.setIdFact(ff.getId());
-                    pf.setMontant(genererMontantPaiement(c,"etatbpvrai",ff.getId(),ff.getMontantreste()));//this.getCredit() izy taloha
+                    pf.setMontant(aPayer);//this.getCredit() izy taloha
                     pf.createObject(refuser, c);
+                    
+                    resteDebit -= aPayer;
+                    
+                    if(resteDebit <= 0) break;
                 }
             }
             if(verif) c.commit();

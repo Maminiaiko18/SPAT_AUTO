@@ -75,16 +75,16 @@ public class LigneCredit extends ClassEtat {
              if (mois != null && !mois.equals("")) where += " and mf.mois = " + mois;
              //if(etat != null && !etat.equals("")) where += " and l.etat = " + etat;
              
-             String req = "select sum(MONTANTPAYE) as PAYE,\n" +
-"        sum(MONTANTTTC)  as facture,\n" +
-"        (sum(montantttc) - sum(montantpaye)) as arecouvrir,\n" +
+             String req = "select nvl(sum(MONTANTPAYE), 0) as PAYE,\n" +
+"         nvl(sum(montantttc), 0)  as facture,\n" +
+"        ( nvl(sum(montantttc), 0) - nvl(sum(MONTANTPAYE), 0)) as arecouvrir,\n" +
 "        l.ANNEE,\n" +
 "        l.compte,\n" +
 "        cr.LIBELLE       as libelle,\n" +
 "        sum(l.montant)   as montant,\n" +
-"        sum(l.montant) - sum(montantttc) as restebudget,\n" +
-"         cast(((nvl(sum(MONTANTTTC), 0)) / sum(l.MONTANT)) * 100 as NUMBER(30, 3))      as pourcEngage,\n" +
-"       cast(((nvl(sum(MONTANTPAYE), 0)) / sum(l.MONTANT)) * 100 as number(30, 3))       as pourcPaye \n"+                     
+"        sum(l.montant) -  nvl(sum(montantttc), 0) as restebudget,\n" +
+"         (((nvl(sum(MONTANTTTC), 0)) / sum(l.MONTANT)) * 100)      as pourcEngage,\n" +
+"       (((nvl(sum(MONTANTPAYE), 0)) / sum(l.MONTANT)) * 100)       as pourcPaye \n"+                     
 " from (\n" +
 "          (SELECT\n" +
 "               sum(l.QUANTITE)        as QUANTITE,\n" +
@@ -116,7 +116,7 @@ where +
              //req = String.format(req, where);
                //System.out.println("req=="+req);
              LigneCredit stock = new LigneCredit();
-             stock.setNomTable("situationLC_vide");
+             stock.setNomTable("SITUATIONLC_VIDE");
             ret = (LigneCredit[]) CGenUtil.rechercher(stock, req, c);
        }
       catch(Exception e)

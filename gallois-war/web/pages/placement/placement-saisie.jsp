@@ -45,6 +45,7 @@
     liste[2] = new Liste("iddevise", op, "desce", "id");
 
     pi.getFormu().changerEnChamp(liste);
+    pi.getFormu().getChamp("idDevise").setDefaut(Constante.deviseAr) ; 
     
 //    pi.getFormu().getChamp("iddevise").setAutre("onblur=\"dependanteChampUneValeur(this.value, 'montantdevise', 'coursdevise', 'fin.Coursdevise', 'iddevise', 'iddevise', 'montant','daty','desc');\"");
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");

@@ -165,14 +165,14 @@ public class SituationCredit extends LigneCredit {
             //if (etat != null && !etat.equals("")) where += " and l.etat = " + etat;
 
             String req = "select sum(MONTANTPAYE) as PAYE,\n" +
-"        sum(MONTANTTTC)  as facture,\n" +
-"        (sum(montantttc) - sum(montantpaye)) as arecouvrir,\n" +
+"        sum(MONTANTHT)  as facture,\n" +
+"        (sum(MONTANTHT) - sum(montantpaye)) as arecouvrir,\n" +
 "        l.ANNEE,\n" +
 "        l.compte,\n" +
 "        cr.LIBELLE       as libelle,\n" +
 "        sum(l.montant)   as montant,\n" +
-"        sum(l.montant) - sum(montantttc) as restebudget,\n" +
-"         cast(((nvl(sum(MONTANTTTC), 0)) / sum(l.MONTANT)) * 100 as NUMBER(30, 3))      as pourcEngage,\n" +
+"        sum(l.montant) - sum(MONTANTHT) as restebudget,\n" +
+"         cast(((nvl(sum(MONTANTHT), 0)) / sum(l.MONTANT)) * 100 as NUMBER(30, 3))      as pourcEngage,\n" +
 "       cast(((nvl(sum(MONTANTPAYE), 0)) / sum(l.MONTANT)) * 100 as number(30, 3))       as pourcPaye \n"+  
 " from (\n" +
 "          (SELECT\n" +
@@ -185,8 +185,8 @@ public class SituationCredit extends LigneCredit {
 "           group by l.ANNEE, substr(l.COMPTE, 1, "+ niveau +")\n" +
 "           --, l.etat\n" +
 "           ) l\n" +
-"              LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n" +
-"                                sum(MONTANTPAYE)        as MONTANTPAYE,\n" +
+"              LEFT JOIN (select sum(mf.MONTANTHT)      as MONTANTHT,\n" +
+"                                sum(montantHTpaye)        as MONTANTPAYE,\n" +
 "                                substr(mf.COMPTE, 1, "+ niveau +") as compte,\n" +
 "                                mf.ANNEE,\n" +
 "                                mois,\n" +
@@ -194,6 +194,7 @@ public class SituationCredit extends LigneCredit {
 "                         from FACTURE_CLIENT_MF_PAYE mf\n" +
 "                         WHERE  mf.IDMERE not in\n" +
 "                      (select id from ProvisionFactureDefinitive)\n" +
+"                       and idcategorie!='CATFCO2' and etat>=11 \n" +
 "                         group by substr(mf.COMPTE, 1, "+ niveau +"), ANNEE, mois, daty) mf\n" +
 "              ON l.compte = mf.compte\n" +
 "                  AND mf.annee = l.annee\n" +
