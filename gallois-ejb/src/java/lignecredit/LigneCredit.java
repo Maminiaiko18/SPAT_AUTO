@@ -81,10 +81,10 @@ public class LigneCredit extends ClassEtat {
 "        l.ANNEE,\n" +
 "        l.compte,\n" +
 "        cr.LIBELLE       as libelle,\n" +
-"        sum(l.montant)   as montant,\n" +
-"        sum(l.montant) -  nvl(sum(montantttc), 0) as restebudget,\n" +
-"         (((nvl(sum(MONTANTTTC), 0)) / sum(l.MONTANT)) * 100)      as pourcEngage,\n" +
-"       (((nvl(sum(MONTANTPAYE), 0)) / sum(l.MONTANT)) * 100)       as pourcPaye \n"+                     
+"        l.montant   as montant,\n" +
+"        l.montant -  nvl(sum(montantttc), 0) as restebudget,\n" +
+"         (((nvl(sum(MONTANTTTC), 0)) / l.MONTANT) * 100)      as pourcEngage,\n" +
+"       (((nvl(sum(MONTANTPAYE), 0)) / l.MONTANT) * 100)       as pourcPaye \n"+                     
 " from (\n" +
 "          (SELECT\n" +
 "               sum(l.QUANTITE)        as QUANTITE,\n" +
@@ -111,7 +111,7 @@ public class LigneCredit extends ClassEtat {
 "                  )\n" +
 "          LEFT JOIN COMPTE_RUBRIQUE cr ON l.COMPTE = cr.COMPTE\n" +
 where +
-"  group by l.ANNEE, l.compte, cr.LIBELLE";
+"  group by l.ANNEE, l.compte, cr.LIBELLE, l.MONTANT";
              
              //req = String.format(req, where);
                //System.out.println("req=="+req);
