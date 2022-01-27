@@ -1143,7 +1143,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public void updateFactureRattachee(Connection c) throws Exception{
         if(this.getCredit() > 0){
             FactureClient fc = this.findFactureClientAuto(c);
-            if(fc != null){
+            if(fc != null && fc.getEtat() < ConstanteEtat.getEtatValider()){
                 fc.setDaty(this.getDateEffet());
                 fc.setTiers(this.getTiers());
                 fc.setNomTable("Factureclient");
@@ -1160,7 +1160,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         } 
         if(this.getDebit()> 0){ 
             FactureFournisseur ff = this.findFactureFournisseurAuto(c);
-            if(ff != null){
+            if(ff != null && ff.getEtat() < ConstanteEtat.getEtatValider()){
                 ff.setDaty(this.getDateEffet());
                 ff.setTiers(this.getTiers());
                 ff.setNomTable("facture_Fournisseur_Mere");
