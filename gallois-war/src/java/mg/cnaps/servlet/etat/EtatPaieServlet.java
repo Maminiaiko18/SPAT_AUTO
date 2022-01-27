@@ -903,6 +903,7 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("chef", "Le chef de D&eacute;partement");
                     param.put("responsable", "Le contr&ocirc;leur");
                 }
+                
                 if (pre.length != 0) {
 
                     param.put("navire", pre[0].getNomnavire());
@@ -923,6 +924,8 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("tenavire", pre[0].getTenavire());
 
                     setNomJasper("facture_client2 - Copie");//facture_client2 - Copie //facture_convention //facture-client-sans-prevision
+                }else if(mere[0].getEstMictsl().compareToIgnoreCase("1")==0){
+                    setNomJasper("facture-Mictsl");
                 } else {
                     setNomJasper("facture-client-sans-prevision");
                     if (mere[0].getCode().contains("09")) {
