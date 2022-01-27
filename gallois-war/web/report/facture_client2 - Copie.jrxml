@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
-	<property name="ireport.zoom" value="0.8264462809917363"/>
+	<property name="ireport.zoom" value="0.9090909090909105"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -130,7 +130,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="112">
+		<band height="198">
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="756" y="42" width="170" height="20" uuid="252807b0-1f7f-4756-b66d-63e105d8fde1"/>
 				<box>
@@ -140,7 +140,7 @@
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font size="12" isBold="false"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
@@ -155,7 +155,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="756" y="22" width="170" height="20" uuid="a71fc03f-5836-4ef3-901b-912ec1bc006b"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font size="14" isBold="true"/>
+					<font size="12" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{code}]]></textFieldExpression>
@@ -163,7 +163,7 @@
 			<staticText>
 				<reportElement x="657" y="22" width="99" height="20" uuid="8f0bd56c-422a-4c81-a933-f9fa9596eb18"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FACTURE N°:]]></text>
 			</staticText>
@@ -1094,7 +1094,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="626" y="153" width="292" height="35" uuid="f84bcbe0-a800-428c-bf5c-f9b381858714"/>
 				<textElement verticalAlignment="Top">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{destination}]]></textFieldExpression>
 			</textField>
@@ -1108,14 +1108,14 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="544" y="45" width="363" height="16" uuid="5273eb24-357e-441b-89ca-afd529c87115"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pavillonlib}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="626" y="99" width="292" height="16" uuid="9f5c87e2-2c03-4c39-bf98-6325922ab9da"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{heure_depart}]]></textFieldExpression>
 			</textField>
@@ -1129,14 +1129,14 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="214" width="349" height="16" uuid="f2a19491-be7d-479e-a23f-33a8c3dbef39"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{designation}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="103" y="152" width="119" height="16" uuid="ce0b42c5-6e1e-4be8-837e-62e233bdde55"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{date_arrivee}]]></textFieldExpression>
 			</textField>
@@ -1157,7 +1157,7 @@
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="626" y="134" width="292" height="16" uuid="8c4c8a7c-3527-4b97-8d01-101ebc156419"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tenavire}]]></textFieldExpression>
 			</textField>
@@ -1178,7 +1178,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="44" width="349" height="28" uuid="3ffc35ee-59eb-4256-a647-2773e7eff06a"/>
 				<textElement verticalAlignment="Top" markup="none">
-					<font size="12" isBold="false"/>
+					<font size="12" isBold="true"/>
 					<paragraph lineSpacing="1_1_2" leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{client}]]></textFieldExpression>
@@ -1186,7 +1186,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="73" width="349" height="28" uuid="691089ed-936e-4fe8-b354-8d34b301c12c"/>
 				<textElement>
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{armateur}]]></textFieldExpression>
 			</textField>
@@ -1200,7 +1200,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="199" width="349" height="16" uuid="bbbc06c2-51c2-474d-b132-b71e47c54154"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{provenance}]]></textFieldExpression>
 			</textField>
@@ -1228,7 +1228,7 @@
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="646" y="117" width="292" height="16" uuid="4227f6e3-a6be-4cea-82ca-e48117b77d6f"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{lmnavire}]]></textFieldExpression>
 			</textField>
@@ -1272,14 +1272,14 @@
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="183" y="169" width="269" height="16" uuid="db38766d-e81f-4854-87bb-04da5c53a0b5"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{lhtnavire}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="134" width="349" height="16" uuid="4dc9a21b-a513-4ed4-946c-d6fad287a994"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{escale}]]></textFieldExpression>
 			</textField>
@@ -1300,7 +1300,7 @@
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="525" y="99" width="89" height="16" uuid="563b477a-5bab-4892-8a8f-d6f068c961bd"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{date_depart}]]></textFieldExpression>
 			</textField>
@@ -1314,14 +1314,14 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="117" width="349" height="16" uuid="db6cc07d-d71b-4689-9956-94c295192a95"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{navire}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="99" width="349" height="16" uuid="c006bfa2-939e-404a-a8ee-0f1e533c62ac"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{deviseMere}]]></textFieldExpression>
 			</textField>
@@ -1335,35 +1335,35 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="28" width="349" height="16" uuid="7a9ea6d7-4ba4-4619-9fb3-e59333fc097c"/>
 				<textElement>
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cat}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="103" y="12" width="349" height="16" uuid="a759990f-4432-4ed6-8c6c-e50044a3987c"/>
 				<textElement>
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{type}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="238" y="152" width="214" height="16" uuid="bd10423f-c869-4da2-a542-905d7049b270"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{heure_arrivee}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="103" y="183" width="349" height="16" uuid="950f4b5b-264b-46ae-8144-5a76a9b43e4d"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{jntnavire}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="545" y="28" width="363" height="16" uuid="e7db8947-ed99-4bde-a43b-a683747d3e02"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font size="12" isBold="false"/>
+					<font size="12" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{phone}]]></textFieldExpression>
@@ -1371,7 +1371,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="545" y="12" width="363" height="16" uuid="1de2de5d-7905-4d25-a0c9-2ce6dacd3328"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font size="12" isBold="false"/>
+					<font size="12" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
