@@ -15,10 +15,6 @@
 	<parameter name="code" class="java.lang.String"/>
 	<title>
 		<band height="122" splitType="Stretch">
-			<image>
-				<reportElement x="214" y="0" width="134" height="122" uuid="d35d42fd-6803-41e0-a8cd-01e4fea7aade"/>
-				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="365" y="102" width="55" height="20" uuid="10ac29fe-c3a9-4430-9ebc-c3373ee1f446"/>
 				<textElement>
