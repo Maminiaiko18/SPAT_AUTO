@@ -8,6 +8,9 @@
 		<band height="20" splitType="Stretch">
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="143" height="20" uuid="77bf9471-6078-4bda-b0c1-70e105bee1c1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{caisse}]]></textFieldExpression>
 			</textField>
 		</band>

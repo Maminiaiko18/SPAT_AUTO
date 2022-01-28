@@ -3,14 +3,14 @@
     Created on : 12 mai 2021, 14:37:18
     Author     : nyamp
 --%>
+<%@page import="facture.FactureFournisseur"%>
 <%@page import="bean.AdminGen"%>
 <%@page import="affichage.TableauRecherche"%>
 <%@page import="affichage.PageRecherche"%>
-<%@page import="facture.FactureClient" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    FactureClient base = new FactureClient();
+    FactureFournisseur base = new FactureFournisseur();
     base.setNomTable("FACTFOURN_MSUM_LIB");
     
     String listeCrt[] = {"idProvision"};

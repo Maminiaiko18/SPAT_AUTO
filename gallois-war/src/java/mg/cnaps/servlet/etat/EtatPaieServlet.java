@@ -1449,6 +1449,7 @@ public class EtatPaieServlet extends HttpServlet {
             double totalfinale = totalmontant + totalcredit;
 
             param.put("daty", daty);
+            param.put("datyjour", utilitaire.Utilitaire.dateDuJourSql());
             param.put("list_table", ls);
             param.put("totalmontant", totalmontant);
             param.put("totalcredit", totalcredit);

@@ -1169,7 +1169,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 FactureFournisseurDetails[] fff = (FactureFournisseurDetails[])ff.getFille("", c, "");
                 if(fff.length > 0){
                     fff[0].setDesignation(this.getLibelle());
-                    fff[0].setPu(this.getCredit()/(1+fff[0].getTva()/100));
+                    fff[0].setPu(this.getDebit()/(1+fff[0].getTva()/100));
                     fff[0].updateToTable(c);
                 }
             }
