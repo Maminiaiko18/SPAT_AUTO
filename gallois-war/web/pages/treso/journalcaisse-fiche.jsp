@@ -44,11 +44,11 @@
     pc.getChampByName("idordre").setLibelle("OP");
     JournalCaisse jcaisse = (JournalCaisse)pc.getBase();
     if(jcaisse.getIdplacement()!=null){
-        if(jcaisse.getIdplacement().startsWith("PLC")){
-            pc.getChampByName("idplacement").setLien((String) session.getValue("lien") + "?but=placement/placement-fiche.jsp", "id=");
+        if(jcaisse.getIdplacement().startsWith("FCL")){
+            pc.getChampByName("idplacement").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp", "id=");
         }
-        else if(jcaisse.getIdplacement().startsWith("BP")){
-            pc.getChampByName("idplacement").setLien((String) session.getValue("lien") + "?but=treso/bon-provisoire-fiche.jsp", "id=");
+        else if(jcaisse.getIdplacement().startsWith("FAF")){
+            pc.getChampByName("idplacement").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
         }
     }
 
