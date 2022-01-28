@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1aeaf117-a05d-4327-8a4b-0e54fb8087cd">
 	<property name="ireport.zoom" value="1.4641000000000068"/>
-	<property name="ireport.x" value="1"/>
-	<property name="ireport.y" value="163"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="Table Dataset 1" uuid="2efaac0a-5632-43a0-b273-90bf56aa8145">
 		<field name="code" class="java.lang.String"/>
 		<field name="montant" class="java.lang.Double"/>
@@ -28,28 +28,28 @@
 			<staticText>
 				<reportElement x="0" y="0" width="205" height="20" uuid="f5c569f8-277a-4a58-a8bf-e443e71a2f7d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DEPARTEMENT FINANCIER]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="20" width="205" height="20" uuid="b6e49404-7c03-4e1c-ba61-b946944b6e6b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SERVICE TRESORERIE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="302" y="0" width="78" height="15" uuid="e8d18dfb-79d1-4726-b472-61507f9b2c38"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="false" isUnderline="true"/>
+					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Toamasina le]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
 				<reportElement x="380" y="0" width="175" height="15" uuid="9e3869a4-7096-41fa-93c0-4d842a241efb"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{datyJ}]]></textFieldExpression>
 			</textField>
@@ -70,7 +70,7 @@
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="289" y="60" width="253" height="20" uuid="6210e5b7-da2d-451e-a9b6-dad7f5eb2668"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{datyPiece}]]></textFieldExpression>
@@ -103,21 +103,21 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="247" y="20" width="308" height="20" uuid="ff3fe37a-ece6-4890-9dca-d96649c9918c"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{numPiece}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="247" y="40" width="308" height="20" uuid="9f011b93-afc2-41ff-90c3-d4163a0a7061"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{client}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="247" y="60" width="308" height="20" uuid="5f47c26d-a395-4991-b902-297abf0a1af1"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{operation}]]></textFieldExpression>
 			</textField>
@@ -145,7 +145,7 @@
 							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="173" height="29" uuid="feba1a5a-8b23-4a32-b609-c8b6e78a8278"/>
 								<textElement textAlignment="Center">
-									<font size="12"/>
+									<font size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 							</textField>
@@ -165,7 +165,7 @@
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="192" height="29" uuid="b3069454-04fe-4de5-931f-9ad248cc1e3a"/>
 								<textElement textAlignment="Center">
-									<font size="12"/>
+									<font size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
 							</textField>
@@ -185,7 +185,7 @@
 							<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="181" height="29" uuid="9528c0da-ab9c-491a-aaaa-7e98c0f77a7f"/>
 								<textElement textAlignment="Center">
-									<font size="12"/>
+									<font size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 							</textField>
@@ -225,7 +225,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
@@ -239,7 +239,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{arrondi}]]></textFieldExpression>
@@ -253,7 +253,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
@@ -284,12 +284,12 @@
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Arretée la présente pièce à la somme de :]]></text>
+				<text><![CDATA[Arrêtée la présente pièce à la somme de :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="247" y="73" width="308" height="44" uuid="9b1abdc7-ba32-4602-8844-1fc09e297e3a"/>
 				<textElement verticalAlignment="Top">
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantLettre}]]></textFieldExpression>
 			</textField>
