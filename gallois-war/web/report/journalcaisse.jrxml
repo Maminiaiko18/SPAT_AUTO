@@ -27,6 +27,7 @@
 	<parameter name="totalmontant" class="java.lang.Double"/>
 	<parameter name="lettre" class="java.lang.String"/>
 	<parameter name="daty" class="java.lang.String"/>
+	<parameter name="datyjour" class="java.util.Date"/>
 	<field name="numpiece" class="java.lang.String"/>
 	<field name="client" class="java.lang.String"/>
 	<field name="motif" class="java.lang.String"/>
@@ -39,34 +40,53 @@
 	<pageHeader>
 		<band height="70" splitType="Stretch">
 			<staticText>
-				<reportElement x="433" y="19" width="37" height="20" uuid="d4c635d9-7e5f-4e25-827e-8b34c0ebe897"/>
+				<reportElement x="435" y="19" width="37" height="20" uuid="d4c635d9-7e5f-4e25-827e-8b34c0ebe897"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Editée]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="433" y="39" width="37" height="20" uuid="06d508c4-1ef3-4cef-af8a-fdb015789b75"/>
+				<reportElement x="435" y="39" width="37" height="20" uuid="06d508c4-1ef3-4cef-af8a-fdb015789b75"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Page]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="476" y="39" width="53" height="20" uuid="1b100f62-e4a1-41ed-823f-25d36dbc8f57"/>
+				<reportElement x="472" y="39" width="63" height="20" uuid="1b100f62-e4a1-41ed-823f-25d36dbc8f57"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" sur "]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="50" y="2" width="163" height="37" uuid="a2326ddd-181e-4102-aee3-58b06a3e0dad"/>
 				<textElement>
-					<font size="10"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DEPARTEMENT FINANCIER SERVICE TRESORERIE]]></text>
 			</staticText>
-			<textField evaluationTime="Report" isBlankWhenNull="true">
-				<reportElement x="529" y="39" width="26" height="20" uuid="e07dd3e5-dc5e-402d-ba3b-18b0147471ed"/>
-				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			<textField evaluationTime="Auto" isBlankWhenNull="false">
+				<reportElement x="535" y="39" width="18" height="20" uuid="e07dd3e5-dc5e-402d-ba3b-18b0147471ed"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="39" width="433" height="20" uuid="69570a66-8fce-4c8d-9a1e-ce5d4114b2c2"/>
+				<reportElement x="0" y="39" width="396" height="20" uuid="69570a66-8fce-4c8d-9a1e-ce5d4114b2c2"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["JOURNAL CAISSE DU "+$P{daty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="477" y="19" width="78" height="20" uuid="04044644-40e8-4016-8670-79a7baf88706"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{datyjour}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -82,7 +102,9 @@
 						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="87" height="30" uuid="5c8244fd-27ad-4c39-8119-b1a783242f94"/>
-								<textElement textAlignment="Center"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
 								<text><![CDATA[N° P.C]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -94,6 +116,9 @@
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
 								</box>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{numpiece}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -102,7 +127,9 @@
 						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="126" height="30" uuid="8bbb516b-d850-4d30-b7cc-6e0d34999441"/>
-								<textElement textAlignment="Center"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
 								<text><![CDATA[Client]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -113,6 +140,9 @@
 									<topPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
 								</box>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{client}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -125,7 +155,9 @@
 									<topPen lineWidth="0.0"/>
 									<bottomPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
 								<text><![CDATA[Motif]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -140,6 +172,9 @@
 								<box>
 									<bottomPen lineWidth="0.5"/>
 								</box>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
 								<text><![CDATA[Total par piece]]></text>
 							</staticText>
 						</jr:detailCell>
@@ -151,7 +186,9 @@
 								<box>
 									<bottomPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
 								<text><![CDATA[N° Facture]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -167,6 +204,7 @@
 									<bottomPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Right">
+									<font isBold="true"/>
 									<paragraph rightIndent="3"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
@@ -180,7 +218,9 @@
 								<box>
 									<bottomPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
 								<text><![CDATA[Montant]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -196,6 +236,7 @@
 									<bottomPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Right">
+									<font isBold="true"/>
 									<paragraph rightIndent="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{reste}]]></textFieldExpression>
@@ -248,7 +289,7 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{lettre}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{lettre}+" Ariary"]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
