@@ -60,7 +60,7 @@
             pr.getBase().setNomTable("SITUATIONLCDEPENSEV");
         }
         
-        String[] colSomme = null;
+        String[] colSomme = {"montant", "restebudget"};
         pr.creerObjetPage(libEntete, colSomme);
         
         if(reqniv != null && !reqniv.equals("")) {

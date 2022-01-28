@@ -170,10 +170,10 @@ public class SituationCredit extends LigneCredit {
 "        l.ANNEE,\n" +
 "        l.compte,\n" +
 "        cr.LIBELLE       as libelle,\n" +
-"        sum(l.montant)   as montant,\n" +
-"        sum(l.montant) - sum(MONTANTHT) as restebudget,\n" +
-"         cast(((nvl(sum(MONTANTHT), 0)) / sum(l.MONTANT)) * 100 as NUMBER(30, 3))      as pourcEngage,\n" +
-"       cast(((nvl(sum(MONTANTPAYE), 0)) / sum(l.MONTANT)) * 100 as number(30, 3))       as pourcPaye \n"+  
+"        l.montant   as montant,\n" +
+"        l.montant - sum(MONTANTHT) as restebudget,\n" +
+"         cast(((nvl(sum(MONTANTHT), 0)) / l.MONTANT) * 100 as NUMBER(30, 3))      as pourcEngage,\n" +
+"       cast(((nvl(sum(MONTANTPAYE), 0)) / l.MONTANT) * 100 as number(30, 3))       as pourcPaye \n"+  
 " from (\n" +
 "          (SELECT\n" +
 "               sum(l.QUANTITE)        as QUANTITE,\n" +
@@ -201,7 +201,7 @@ public class SituationCredit extends LigneCredit {
 "                  )\n" +
 "          LEFT JOIN COMPTE_RUBRIQUE cr ON l.COMPTE = cr.COMPTE\n" +
 where
-                    + " group by l.ANNEE, l.compte, cr.LIBELLE";
+                    + " group by l.ANNEE, l.compte, cr.LIBELLE, l.montant";
 
             //req = String.format(req, where);
             //System.out.println("--- fa 0+" + req);

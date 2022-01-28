@@ -149,12 +149,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="85" splitType="Stretch">
-			<image>
-				<reportElement x="405" y="2" width="99" height="75" uuid="29508c3b-edbc-49fe-977b-143ef2d46e77"/>
-				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
-			</image>
-		</band>
+		<band height="85" splitType="Stretch"/>
 	</title>
 	<detail>
 		<band height="350">
@@ -424,40 +419,19 @@
 					<datasetRun subDataset="Table Dataset 2" uuid="87c4c166-65db-403d-8402-cd7f1d6d740f">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="74" uuid="c07e964d-76c4-4009-80a9-f2842eca4e21">
+					<jr:column width="432" uuid="1662ca25-15f7-460e-b9ed-716dd008c39c">
 						<jr:columnHeader style="table 2_CH" height="17" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="74" height="17" uuid="c3111df4-7578-4c75-b12f-399c4a8fc9c0"/>
-								<textElement textAlignment="Center">
-									<font size="11"/>
-								</textElement>
-								<text><![CDATA[R. recet.]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="74" height="21" uuid="38d410d0-19b5-438f-9427-cb74d9fa8c63"/>
-								<textElement>
-									<font size="12"/>
-									<paragraph leftIndent="2"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="361" uuid="1662ca25-15f7-460e-b9ed-716dd008c39c">
-						<jr:columnHeader style="table 2_CH" height="17" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="361" height="17" uuid="89063e7d-51d0-4ebe-ad79-eac4661bcb4d"/>
+								<reportElement x="0" y="0" width="432" height="17" uuid="89063e7d-51d0-4ebe-ad79-eac4661bcb4d"/>
 								<textElement textAlignment="Center">
 									<font size="11"/>
 								</textElement>
 								<text><![CDATA[Désignation préstation]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="361" height="21" uuid="f880f062-6403-492c-bf67-c3d142362d27"/>
+						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="432" height="13" uuid="f880f062-6403-492c-bf67-c3d142362d27"/>
 								<textElement>
 									<font size="12"/>
 									<paragraph leftIndent="2"/>
@@ -476,9 +450,9 @@
 								<text><![CDATA[PU]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="94" height="21" uuid="788b28a9-aa28-4bbb-a19f-9b1bcd4a46e7"/>
+						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="94" height="13" uuid="788b28a9-aa28-4bbb-a19f-9b1bcd4a46e7"/>
 								<textElement textAlignment="Right">
 									<font size="12"/>
 									<paragraph rightIndent="2"/>
@@ -497,9 +471,9 @@
 								<text><![CDATA[Quantité]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="72" height="21" uuid="b6927c9a-142c-4608-9c14-ae25f119b476"/>
+						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="72" height="13" uuid="b6927c9a-142c-4608-9c14-ae25f119b476"/>
 								<textElement textAlignment="Right">
 									<font size="12"/>
 									<paragraph leftIndent="2"/>
@@ -518,9 +492,9 @@
 								<text><![CDATA[Durée]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="21" uuid="16b0bdac-cbfa-4319-afca-87e98ca34636"/>
+						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="13" uuid="16b0bdac-cbfa-4319-afca-87e98ca34636"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -538,9 +512,9 @@
 								<text><![CDATA[MAJ]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="49" height="21" uuid="03dcffa5-7fbf-4099-97b5-f81f946400ac"/>
+						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="49" height="13" uuid="03dcffa5-7fbf-4099-97b5-f81f946400ac"/>
 								<textElement textAlignment="Right">
 									<font size="12"/>
 									<paragraph leftIndent="2"/>
@@ -559,9 +533,9 @@
 								<text><![CDATA[RED]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="52" height="21" uuid="389507d1-38ba-48fe-a5ef-6f28944e4c25"/>
+						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="52" height="13" uuid="389507d1-38ba-48fe-a5ef-6f28944e4c25"/>
 								<textElement textAlignment="Right">
 									<font size="12"/>
 									<paragraph leftIndent="2"/>
@@ -570,19 +544,19 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="142" uuid="a3582a54-144e-4eb8-8da7-be52c2e42363">
+					<jr:column width="137" uuid="a3582a54-144e-4eb8-8da7-be52c2e42363">
 						<jr:columnHeader style="table 2_CH" height="17" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="142" height="17" uuid="6d7a77a2-f725-4d97-a394-dcedb8ad285b"/>
+								<reportElement x="0" y="0" width="137" height="17" uuid="6d7a77a2-f725-4d97-a394-dcedb8ad285b"/>
 								<textElement textAlignment="Center">
 									<font size="11"/>
 								</textElement>
 								<text><![CDATA[Montant en euro]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="142" height="21" uuid="2e85386a-0263-4734-9f4c-1bed741ebaef"/>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="137" height="13" uuid="2e85386a-0263-4734-9f4c-1bed741ebaef"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" markup="none">
 									<font size="12" isBold="false"/>
 									<paragraph rightIndent="3"/>

@@ -29,11 +29,11 @@
         pr.getFormu().getChamp("typelib").setLibelle("Type");
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");        
-        Date finmois = utilitaire.Utilitaire.getLastDayOfDateSQL(utilitaire.Utilitaire.dateDuJourSql());
-        pr.getFormu().getChamp("daty2").setDefaut(finmois.toString());
+        Date finmois = utilitaire.Utilitaire.getLastDayOfDateSQL(utilitaire.Utilitaire.dateDuJourSql());      
+        pr.getFormu().getChamp("daty2").setDefaut(utilitaire.Utilitaire.datetostring(finmois));
         Date debutmois = finmois;
         debutmois.setDate(1);
-        pr.getFormu().getChamp("daty1").setDefaut(debutmois.toString());
+        pr.getFormu().getChamp("daty1").setDefaut(utilitaire.Utilitaire.datetostring(debutmois));
        
         
         

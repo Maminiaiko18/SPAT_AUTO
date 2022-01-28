@@ -51,7 +51,12 @@
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
         </form>
-        <%out.println(pr.getTableauRecap().getHtml());%>
+               <%
+            String lienTableau[] = {pr.getLien() + "?but=facture/etatprovision-fiche.jsp"};
+            String colonneLien[] = {"id"};
+            pr.getTableau().setLien(lienTableau);
+            pr.getTableau().setColonneLien(colonneLien);
+            out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <%
             String libelleAffiche[] = {"Id", "Facture", "Numéro pièce", "Numéro provision", "Opération",  "Client", "Navire", "Mode", "Banque"};
