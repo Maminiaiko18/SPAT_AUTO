@@ -274,12 +274,14 @@ public class Prevision extends ClassEtat {
         return rep;
     }
 
+    /*
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
-        //controlerDoublon(c);
+        controlerDoublon(c);
         super.createObject(u, c);
         return this;
     }
+    */
 
     private void controlerDoublon(Connection c) throws Exception {
         if (this.getEscale() != null && !this.getEscale().equalsIgnoreCase("")) {
