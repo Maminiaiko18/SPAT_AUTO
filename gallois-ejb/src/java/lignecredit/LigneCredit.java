@@ -365,4 +365,8 @@ where +
     public void setPaye(double paye) {
         this.paye = paye;
     }
+
+    public String getValColLibelle() {
+        return comptestr;
+    }
 }
