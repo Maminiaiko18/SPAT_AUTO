@@ -61,6 +61,11 @@
             pi.getFormu().getChamp("entite").setDefaut(placement.getEntite()) ;
             pi.getFormu().getChamp("date_placement").setValeur(Utilitaire.datetostring(placement.getDate_placement())) ;
             pi.getFormu().getChamp("date_echeance").setValeur(Utilitaire.datetostring(placement.getDate_echeance())) ;
+            pi.getFormu().getChamp("montant").setValeur(placement.getMontant()+"") ;
+            pi.getFormu().getChamp("taux").setValeur(placement.getTaux()+"") ;
+            pi.getFormu().getChamp("numero").setValeur(placement.getNumero()+"") ;
+            pi.getFormu().getChamp("banque").setValeur(placement.getBanque()+"") ;
+            pi.getFormu().getChamp("iddevise").setValeur(placement.getIddevise()+"") ;
         }
     }
     pi.preparerDataFormu();
