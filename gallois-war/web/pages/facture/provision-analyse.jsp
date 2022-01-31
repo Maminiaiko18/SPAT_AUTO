@@ -1,11 +1,10 @@
-
 <%@ page import="user.*" %>
-<%@ page import="bean.*" %>
-<%@ page import="utilitaire.*" %>
-<%@ page import="affichage.*" %>
-<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage="" %>
+    <%@ page import="bean.*" %>
+        <%@ page import="utilitaire.*" %>
+            <%@ page import="affichage.*" %>
+                <%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage="" %>
 
-<%
+                    <%
 try{
     facture.FactureClient p = new facture.FactureClient();
     
@@ -25,7 +24,7 @@ try{
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
-        pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
+        pr.getFormu().getChamp("categorielib").setLibelle("Catï¿½gorie");
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
         Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
@@ -36,33 +35,36 @@ try{
         if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
             pr.getFormu().getChamp("daty1").setDefaut(debutDate);
             pr.getFormu().getChamp("daty2").setDefaut(dateFin);
-            
+        }else if(request.getParameter("daty1") != null && request.getParameter("daty2") != null){
+            debutDate = request.getParameter("daty1");
+            dateFin = request.getParameter("daty2");
         }
+        pr.setAWhere(" and daty>='"+debutDate+"' and daty<='"+dateFin+"'");
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
                 
     pr.creerObjetPage();
 %>
-<script>
-    function changerDesignation() {
-        document.analyse.submit();
-    }
-</script>
-<div class="content-wrapper">
-	<section class="content-header">
-		<h1>Analyse</h1>
-	</section>
-	<section class="content">
-		<form action="<%=pr.getLien()%>?but=facture/provision-analyse.jsp" method="post" name="analyse" id="analyse">
-			<%out.println(pr.getFormu().getHtmlEnsemble());%>
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            </div>
-                        </div>
-                        <div class="col-md-4"></div>
-		</form>
-		<%
+                        <script>
+                            function changerDesignation() {
+                                document.analyse.submit();
+                            }
+                        </script>
+                        <div class="content-wrapper">
+                            <section class="content-header">
+                                <h1>Analyse</h1>
+                            </section>
+                            <section class="content">
+                                <form action="<%=pr.getLien()%>?but=facture/provision-analyse.jsp" method="post" name="analyse" id="analyse">
+                                    <%out.println(pr.getFormu().getHtmlEnsemble());%>
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                </form>
+                                <%
 		/*String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
                 String colonneLien[] = {"id", "escale"};
                 String varColonneLien[]={"id","id"};
@@ -70,13 +72,13 @@ try{
                 pr.getTableau().setVariableLien(varColonneLien);
                 pr.getTableau().setColonneLien(colonneLien);*/
 		out.println(pr.getTableauRecap().getHtml());%>
-		<br>
-		<%
+                                    <br>
+                                    <%
                     out.println(pr.getTableau().getHtml());
                     out.println(pr.getBasPage());
 		%>
-	</section>
-</div>
-<%}catch(Exception ex){
+                            </section>
+                        </div>
+                        <%}catch(Exception ex){
     ex.printStackTrace();
 }%>
