@@ -276,7 +276,7 @@ public class Prevision extends ClassEtat {
 
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
-        controlerDoublon(c);
+        //controlerDoublon(c);
         super.createObject(u, c);
         return this;
     }
