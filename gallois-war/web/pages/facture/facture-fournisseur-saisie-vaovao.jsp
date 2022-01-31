@@ -277,5 +277,3 @@
                                                 history.back();
                                             </script>
                                             <% }%>
-
-                                                var td = document.getElementById('compte_1').parentElement; var tdel= document.createElement("td"); td.after(tdel); $('#starticle').find("label[for='compte_0']").parent().attr('colspan', 2);
