@@ -13,7 +13,7 @@
     PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
     
     pi.getFormu().getChamp("date_placement").setLibelle("Date placement");
-    pi.getFormu().getChamp("date_placement").setDefaut(Utilitaire.dateDuJour());
+   // pi.getFormu().getChamp("date_placement").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("date_echeance").setLibelle("Date échéance");
 
     pi.getFormu().getChamp("banque").setLibelle("Banque");
@@ -53,6 +53,16 @@
     pi.getFormu().getChamp("montantdevise").setVisible(false);
     
     pi.setLien((String) session.getValue("lien"));
+    Placement placement=null;
+    if(request.getParameter("idplacement")!=null && request.getParameter("idplacement").length()>0){
+        placement = new Placement();
+        placement=(Placement)placement.getById(request.getParameter("idplacement"), "placement", null);
+        if(placement!=null){
+            pi.getFormu().getChamp("entite").setDefaut(placement.getEntite()) ;
+            pi.getFormu().getChamp("date_placement").setValeur(Utilitaire.datetostring(placement.getDate_placement())) ;
+            pi.getFormu().getChamp("date_echeance").setValeur(Utilitaire.datetostring(placement.getDate_echeance())) ;
+        }
+    }
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
@@ -67,6 +77,13 @@
     <input name="classe" type="hidden" id="classe" value="mg.spat.placement.Placement">
     </form>
 </div>
+    <%
+        if(placement!=null){%>
+        <script>
+            document.getElementById('date_placement').value='<%=Utilitaire.datetostring(placement.getDate_placement()) %>';
+            document.getElementById('date_echeance').value='<%=Utilitaire.datetostring(placement.getDate_echeance())%>';
+        </script>
+    <%}%>
 <%}catch(Exception e){
     e.printStackTrace();
 }%>
