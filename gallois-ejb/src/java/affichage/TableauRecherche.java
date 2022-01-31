@@ -1568,11 +1568,11 @@ public class TableauRecherche {
                         alignement = "right";
                     }
                 }
-                temp += "<td width=" + getPropEntet()[j] + "% align=" + alignement + " >" + lien + getDataDirecte()[i][j] + apresLien + " </td>";
+                temp += "<td width=" + getPropEntet()[j] + "% align=" + alignement + " >" + lien + Utilitaire.champNull(getDataDirecte()[i][j]) + apresLien + " </td>";
 
                 //temp += "<td width=" + getPropEntet()[j] + "%>" + lien + getDataDirecte()[i][j] + apresLien + "</td>";
-                tempcsv += Utilitaire.verifNumerique(getDataDirecte()[i][j]);
-                tempxml += "<" + getLibelleAffiche()[j] + ">" + Utilitaire.verifNumerique(getDataDirecte()[i][j]) + "</" + getLibelleAffiche()[j] + ">\r\n";
+                tempcsv += Utilitaire.verifNumerique(Utilitaire.champNull(getDataDirecte()[i][j]));
+                tempxml += "<" + getLibelleAffiche()[j] + ">" + Utilitaire.verifNumerique(Utilitaire.champNull(getDataDirecte()[i][j])) + "</" + getLibelleAffiche()[j] + ">\r\n";
                 if (j != nombreColonne - 1) {
                     tempcsv += ";";
                 }
