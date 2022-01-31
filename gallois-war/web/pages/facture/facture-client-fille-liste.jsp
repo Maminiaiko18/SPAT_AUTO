@@ -78,9 +78,13 @@
         <%
             String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
             String colonneLien[] = {"idmere"};
+            String[] urlLien = {"idmere"};
+            String[] urlLienAff = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
-                out.println(pr.getTableauRecap().getHtml());%>
+            pr.getTableau().setUrlLien(urlLien);
+            pr.getTableau().setUrlLienAffiche(urlLienAff);
+            out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
             String libEnteteAffiche[] = {"ID", "IDmere", "Mois", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA", "Montant", "Montant TVA", "Montant TTC"};
