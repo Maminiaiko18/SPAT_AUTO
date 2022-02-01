@@ -861,9 +861,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 double resteDebit = this.getDebit();
                 
                 for(FactureFournisseur ff : ffListe){
+                    double aPayer = ff.getMontantreste() < resteDebit ? ff.getMontantreste() : resteDebit;
                     
-                    double aPayer = ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP()) ? ff.getMontantResteProvision(c) : ff.getMontantreste();
-                    if(aPayer > resteDebit) aPayer = resteDebit;
+                    if(ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())) aPayer = genererMontantPaiement(c, "etatbpvrai", ff.getId(), aPayer);
                     
                     PaiementFacture pf = new PaiementFacture();
                     pf.setNomTable("paiementfacturef");
