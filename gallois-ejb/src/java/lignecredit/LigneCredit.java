@@ -115,7 +115,7 @@ public class LigneCredit extends ClassEtat {
             }
              String where =" where 1<2 ";
              //if(id!=null   && !id.equals("")) where+=" and upper(l.id) like upper('%"+id+"%')";
-             if(desingation!=null   && !desingation.equals("")) where+= "and upper(l.designation) like upper('%"+desingation+"%')";
+//             if(desingation!=null   && !desingation.equals("")) where+= "and upper(l.designation) like upper('%"+desingation+"%')";
              if(compte!=null   && !compte.equals("")) where+= " and upper(l.compte) like upper('%"+compte+"%')";
              if(date1!=null   && !date1.equals("")) where+= " and daty >= '"+date1+"'";
              if(date2!=null   && !date2.equals("")) where+= " and daty <= '"+date2+"'";
@@ -127,6 +127,7 @@ public class LigneCredit extends ClassEtat {
 "         nvl(sum(montantttc), 0)  as facture,\n" +
 "        ( nvl(sum(montantttc), 0) - nvl(sum(MONTANTPAYE), 0)) as arecouvrir,\n" +
 "        l.ANNEE,\n" +
+//"        l.designation,\n" +
 "        l.compte,\n" +
 "        cr.LIBELLE       as libelle,\n" +
 "        l.montant   as montant,\n" +
@@ -138,10 +139,12 @@ public class LigneCredit extends ClassEtat {
 "               sum(l.QUANTITE)        as QUANTITE,\n" +
 "               sum(l.MONTANT)         as montant,\n" +
 "               l.ANNEE,\n" +
+//"               l.designation,\n" +
 "               substr(l.COMPTE, 1, " + niveau + ") as compte\n" +
 "               --l.etat\n" +
 "           FROM LIGNECREDITDEPENSE l\n" +
 "           group by l.ANNEE, substr(l.COMPTE, 1, " + niveau + ")\n" +
+//"           group by l.ANNEE, l.designation, substr(l.COMPTE, 1, " + niveau + ")\n" +
 "           --, l.etat\n" +
 "           ) l\n" +
 "              LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n" +
@@ -160,6 +163,7 @@ public class LigneCredit extends ClassEtat {
 "          LEFT JOIN COMPTE_RUBRIQUE cr ON l.COMPTE = cr.COMPTE\n" +
 where +
 "  group by l.ANNEE, l.compte, cr.LIBELLE, l.MONTANT";
+//"  group by l.ANNEE, l.compte, cr.LIBELLE, l.designation, l.MONTANT";
              
              //req = String.format(req, where);
                //System.out.println("req=="+req);
@@ -367,6 +371,6 @@ where +
     }
 
     public String getValColLibelle() {
-        return comptestr;
+        return comptestr + ";" + comptestr;
     }
 }
