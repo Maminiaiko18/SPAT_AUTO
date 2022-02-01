@@ -381,7 +381,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
-							<textField pattern="#,##0.000" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="54" height="13" uuid="2ba1d4d3-2e40-4e46-bdf3-9a47f59b1018"/>
 								<textElement textAlignment="Right">
 									<font size="12" isBold="true"/>
@@ -402,7 +402,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
-							<textField pattern="#,##0.000" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="45" height="13" uuid="d48c5cca-af01-402c-94da-35ef3925efda"/>
 								<textElement textAlignment="Right">
 									<font size="12" isBold="true"/>
@@ -427,7 +427,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="13" rowSpan="1">
-							<textField pattern="#,##0.000" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="45" height="13" uuid="9b851d5f-da92-42e5-996a-01bef498d776"/>
 								<box>
 									<pen lineWidth="0.5"/>
@@ -455,7 +455,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
-							<textField pattern="#,##0.000" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="62" height="13" uuid="54bf9f8a-58fb-42d8-b722-ea5a70d82d79"/>
 								<textElement textAlignment="Right">
 									<font size="12" isBold="true"/>
@@ -476,7 +476,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
-							<textField pattern="#,##0.000" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="36" height="13" uuid="37c54c68-081c-4446-a2ef-f623a9ef5b0c"/>
 								<textElement textAlignment="Right">
 									<font size="12" isBold="true"/>
@@ -496,7 +496,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
-							<textField pattern="#,##0.000" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="13" uuid="3751442a-f033-4062-8586-1ef2e8e34ebf"/>
 								<textElement textAlignment="Right">
 									<font size="12" isBold="true"/>
@@ -516,7 +516,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
-							<textField pattern="#,##0.000" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="96" height="13" uuid="a663e888-c2e9-4d5d-b972-e81db77160d1"/>
 								<textElement textAlignment="Right">
 									<font size="12" isBold="true"/>
