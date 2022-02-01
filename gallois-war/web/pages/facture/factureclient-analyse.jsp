@@ -20,6 +20,7 @@
         pr.setApres("facture/factureclient-analyse.jsp");
 
         pr.getFormu().getChamp("daty1").setLibelle("Date debut");
+        pr.getFormu().getChamp("daty1").setDefaut(utilitaire.Utilitaire.getDebutAnnee(utilitaire.Utilitaire.getAnneeEnCours()));
         pr.getFormu().getChamp("daty2").setLibelle("Date fin");
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("date_echeance1").setLibelle("Date �ch�ance min");

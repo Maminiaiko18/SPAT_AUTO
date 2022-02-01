@@ -651,7 +651,7 @@ public class EtatPaieServlet extends HttpServlet {
             JournalCaisseMode jc = new JournalCaisseMode();
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
-            JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, " ");
+            JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, " order by NUMPIECE ASC  ");
 
             PayementFacture[] tabFact = null;
             String idFacture = request.getParameter("idFacture");

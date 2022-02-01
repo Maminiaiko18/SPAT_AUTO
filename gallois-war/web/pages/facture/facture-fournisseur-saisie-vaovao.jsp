@@ -1,15 +1,14 @@
-
 <%@page import="mg.spat.stock.BonDeLivraisonFilleReste"%>
-<%@page import="utilisateur.Utilisateur"%>
-<%@page import="affichage.Liste"%>
-<%@page import="user.*"%> 
-<%@page import="facture.FactureClient"%>
-<%@page import="facture.FactureClientDetails"%>
-<%@ page import="bean.*" %>
-<%@page import="affichage.*"%>
-<%@page import="utilitaire.*"%>
+    <%@page import="utilisateur.Utilisateur"%>
+        <%@page import="affichage.Liste"%>
+            <%@page import="user.*"%>
+                <%@page import="facture.FactureClient"%>
+                    <%@page import="facture.FactureClientDetails"%>
+                        <%@ page import="bean.*" %>
+                            <%@page import="affichage.*"%>
+                                <%@page import="utilitaire.*"%>
 
-<%
+                                    <%
     try{
     UserEJB u = null;
     String idUser= "";
@@ -132,7 +131,7 @@
         pi.getFormufle().getChamp("mois_"+i).setDefaut(""+Utilitaire.getMoisEnCoursReel());
         pi.getFormufle().getChamp("annee_"+i).setDefaut(Utilitaire.getAnneeEnCours());
         pi.getFormufle().getChamp("idactivite_"+i).setVisible(false);
-        //pi.getFormufle().getChamp("compte_"+i).setPageAppel("choix/listeCompteCAchoix.jsp", "compte_" + i+";compte_"+i+";comptelibelle_"+i  );
+        //pi.getFormufle().getChamp("compte_"+i).setPageAppel("choix/listeBudgetDepenseChoix.jsp", "compte_" + i+";comptelibelle_"+i  );
         
         if(i < livraisons.length) {
             pi.getFormufle().getChamp("idBLF_"+i).setDefaut(livraisons[i].getId());
@@ -168,9 +167,10 @@
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
     pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
     
-    //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte;compte;comptelibelle");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeBudgetDepenseChoix.jsp", "compte;comptelibelle");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
    
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("compte"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
     
@@ -182,93 +182,98 @@
     pi.getFormu().getChamp("codePrestation").setVisible(false);
     pi.getFormu().getChamp("code").setVisible(false);
 
+    String[] listeOrdre = {"designation","quantite","compte","pu"};
+    //pi.getFormufle().setOrdre(listeOrdre);
+
     pi.preparerDataFormu();
        
 %>
-<div class="content-wrapper">
-    <h1><%= titre %></h1>
-    <!--  -->
-    <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
-        <%
+                                        <div class="content-wrapper">
+                                            <h1>
+                                                <%= titre %>
+                                            </h1>
+                                            <!--  -->
+                                            <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
+                                                <%
             pi.getFormu().makeHtmlInsertTabIndex();
             pi.getFormufle().makeHtmlInsertTableauIndex();
             out.println(pi.getFormu().getHtmlInsert());
             out.println(pi.getFormufle().getHtmlTableauInsert());
         %>
 
-        <input name="acte" type="hidden" id="nature" value="insert">
-        <input name="bute" type="hidden" id="bute" value="facture/facture-fournisseur-fiche-vaovao.jsp">
-        <input name="classe" type="hidden" id="classe" value="facture.FactureFournisseur">
-        <input name="classefille" type="hidden" id="classefille" value="facture.FactureFournisseurDetails">
-        <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=taille%>">
-        <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
-    </form>
+                                                    <input name="acte" type="hidden" id="nature" value="insert">
+                                                    <input name="bute" type="hidden" id="bute" value="facture/facture-fournisseur-fiche-vaovao.jsp">
+                                                    <input name="classe" type="hidden" id="classe" value="facture.FactureFournisseur">
+                                                    <input name="classefille" type="hidden" id="classefille" value="facture.FactureFournisseurDetails">
+                                                    <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=taille%>">
+                                                    <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
+                                            </form>
 
-</div>
-<script  language="JavaScript">
-    function calculerMontant(indice) {
-        var quantite, pu, montant;
-        quantite = parseFloat($('#quantite_' + indice).val());
-//        quantite = quantite / 1000;
-        pu = parseFloat($('#pu_' + indice).val());
-        if (!isNaN(quantite) && !isNaN(pu)) {
-            montant = quantite * pu;
-            $('#montant_' + indice).val(montant.toFixed(2));
-        } else {
-            $('#montant_' + indice).val('');
-        }
-    }
-    $('#designation').each(function() {
-        var textbox = $(document.createElement('textarea')).val(this.value);
-        console.log(this.attributes);
-        $.each(this.attributes, function() {
-          if (this.specified) {
-            textbox.prop(this.name, this.value)
-          }
-        });
-        $(this).replaceWith(textbox);
-    });
-    var selectList = $('#test option');
-    function sortList(select){
-        var selectList = select.find("option");
-        selectList.sort(function(a,b){
-            a = a.value;
-            b = b.value;
+                                        </div>
+                                        <script language="JavaScript">
+                                            function calculerMontant(indice) {
+                                                var quantite, pu, montant;
+                                                quantite = parseFloat($('#quantite_' + indice).val());
+                                                //        quantite = quantite / 1000;
+                                                pu = parseFloat($('#pu_' + indice).val());
+                                                if (!isNaN(quantite) && !isNaN(pu)) {
+                                                    montant = quantite * pu;
+                                                    $('#montant_' + indice).val(montant.toFixed(2));
+                                                } else {
+                                                    $('#montant_' + indice).val('');
+                                                }
+                                            }
+                                            $('#designation').each(function() {
+                                                var textbox = $(document.createElement('textarea')).val(this.value);
+                                                console.log(this.attributes);
+                                                $.each(this.attributes, function() {
+                                                    if (this.specified) {
+                                                        textbox.prop(this.name, this.value)
+                                                    }
+                                                });
+                                                $(this).replaceWith(textbox);
+                                            });
+                                            var selectList = $('#test option');
 
-            return a-b;
-        });
-        select.html(selectList);
-    }
-    for(var iL=0; iL<<%=taille%>; iL++){
-        sortList($('#mois_'+iL));
-    }
-    
-    <%for (int i = 0; i < pi.getNombreLigne(); i++) {%>
-        console.log('init');
-        var designation<%=i%> = document.getElementById("designation_<%=i%>");
-        var textarea<%=i%> = document.createElement("textarea");
-            textarea<%=i%>.name = "designation_<%=i%>";
-            textarea<%=i%>.id = "designation_<%=i%>";
-            textarea<%=i%>.className = "form-control";
-            textarea<%=i%>.style.height = "100px";
-            textarea<%=i%>.value = designation<%=i%>.value;
-        designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
-        
-        var td<%=i%> = document.getElementById('compte_<%=i%>').parentElement;
-        var tdel<%=i%> = document.createElement("td");
-        //td<%=i%>.after(tdel<%=i%>);
-        
-        //$('#starticle').find("label[for='compte_0']").parent().attr('colspan',2);
-        
-    <%}%>
-</script>
-<%
+                                            function sortList(select) {
+                                                var selectList = select.find("option");
+                                                selectList.sort(function(a, b) {
+                                                    a = a.value;
+                                                    b = b.value;
+
+                                                    return a - b;
+                                                });
+                                                select.html(selectList);
+                                            }
+                                            for (var iL = 0; iL < <%= taille %>; iL++) {
+                                                sortList($('#mois_' + iL));
+                                            }
+                                            $('#starticle').find("label[for='compte_0']").parent().attr('colspan', 2);
+                                            <% for (int i = 0; i < pi.getNombreLigne(); i++) { %>
+                                            console.log('init');
+                                            var designation = document.getElementById("designation_<%=i%>");
+                                            var textarea = document.createElement("textarea");
+                                            textarea.name = "designation_<%=i%>";
+                                            textarea.id = "designation_<%=i%>";
+                                            textarea.className = "form-control";
+                                            textarea.style.height = "100px";
+                                            textarea.value = designation.value;
+                                            designation.parentNode.replaceChild(textarea, designation);
+
+
+
+                                            var td = document.getElementById('compte_<%=i%>').parentElement;
+                                            var tdel = document.createElement("td");
+                                            td.after(tdel);
+                                            <%}%>
+                                        </script>
+                                        <%
         } catch (Exception e) {
                 e.printStackTrace();
     
 %>
-<script language="JavaScript">
-    alert('<%=e.getMessage()%>');
-    history.back();
-</script>
-<% }%>
+                                            <script language="JavaScript">
+                                                alert('<%=e.getMessage()%>');
+                                                history.back();
+                                            </script>
+                                            <% }%>

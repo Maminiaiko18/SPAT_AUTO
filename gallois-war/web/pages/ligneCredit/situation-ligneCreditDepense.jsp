@@ -20,7 +20,7 @@
         }
         fa.setNomTable("situationLC_vide");
 
-        String listeCrt[] = {"id", "designation", "compte", "daty", "mois", "annee"};
+        String listeCrt[] = {"id", "designation", "compteInv", "compteSimple", "direction", "projet", "directionProjet", "daty", "annee"};
         String listeInt[] = {"daty", "mois"};
         String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -28,29 +28,39 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("ligneCredit/situation-ligneCreditDepense.jsp");
         
-        String affiche[] = {"-","Janvier", "F\u00e9vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "D\u00e9cembre"};
+        /*String affiche[] = {"-","Janvier", "F\u00e9vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "D\u00e9cembre"};
 	String valeur[] = {"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
         Liste[] listeD = new Liste[1];
         listeD[0] = new Liste("mois1");
         listeD[0].setValeurBrute(affiche);
         listeD[0].setColValeurBrute(valeur);
-        pr.getFormu().changerEnChamp(listeD);
+        pr.getFormu().changerEnChamp(listeD);*/
         
-        pr.getFormu().getChamp("mois1").setLibelle("Mois");
-        pr.getFormu().getChamp("mois2").setVisible(false);
-        pr.getFormu().getChamp("mois2").setLibelleAffiche(" ");
+//        pr.getFormu().getChamp("mois1").setLibelle("Mois");
+//        pr.getFormu().getChamp("mois2").setVisible(false);
+//        pr.getFormu().getChamp("mois2").setLibelleAffiche(" ");
         
         String date1 = request.getParameter("daty1"), date2 = request.getParameter("daty2"), annee = request.getParameter("annee");
-        //if(date1 == null || date1.trim().isEmpty()) date1 = "01/01/"+Utilitaire.getAnneeEnCours();
-        //if(date2 == null || date2.trim().isEmpty()) date2 = "31/12/"+Utilitaire.getAnneeEnCours();
-        if(annee == null || annee.trim().isEmpty()) annee = Utilitaire.getAnneeEnCours();
         
-//        pr.getFormu().getChamp("daty1").setDefaut(date1);
+        if(date1 == null || date1.trim().isEmpty()) { 
+            date1 = "01/01/"+Utilitaire.getAnneeEnCours(); 
+            pr.getFormu().getChamp("daty1").setDefaut(date1);
+        }
+        //if(date2 == null || date2.trim().isEmpty()) date2 = "31/12/"+Utilitaire.getAnneeEnCours();
+        if(annee == null || annee.trim().isEmpty()) { 
+            annee = Utilitaire.getAnneeEnCours(); 
+            pr.getFormu().getChamp("annee").setDefaut(annee);
+        }
+        
 //        pr.getFormu().getChamp("daty2").setDefaut(date2);
-        pr.getFormu().getChamp("annee").setDefaut(annee);
         
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
+        pr.getFormu().getChamp("compteInv").setLibelle("Compte inv");
+        pr.getFormu().getChamp("compteSimple").setLibelle("Compte compta");
+        pr.getFormu().getChamp("direction").setLibelle("Direction");
+        pr.getFormu().getChamp("projet").setLibelle("Code projet");
+        pr.getFormu().getChamp("directionProjet").setLibelle("Direction & Projet");
                 
         pr.getFormu().getChamp("annee").setLibelle("Exercice");
         
@@ -90,6 +100,11 @@
         //d.insertAdjacentHTML('beforeend', inputanneeniv);
         d.insertAdjacentHTML('beforeend', inputniv);
     }
+    
+    <%if(request.getParameter("recap") == null || request.getParameter("recap").equals("")) { %>
+        window.location.href = "<%=pr.getLien()%>?but=ligneCredit/situation-ligneCreditDepense.jsp&recap=checked";
+    <% } %>
+    
     window.onload = ajoutChampsNiveau;    
 </script>
 <div class="content-wrapper">
@@ -133,6 +148,9 @@
         %>
     </section>
 </div>
+        <script>
+            
+        </script>
 <%  } catch (Exception e) {
         e.printStackTrace();
     }

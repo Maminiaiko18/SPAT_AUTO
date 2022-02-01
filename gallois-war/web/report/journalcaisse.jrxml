@@ -109,8 +109,8 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="87" height="30" uuid="95237dcc-d32e-4362-a8c0-d6bf7c788dd2"/>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="87" height="30" uuid="95237dcc-d32e-4362-a8c0-d6bf7c788dd2"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
@@ -134,8 +134,8 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="126" height="30" uuid="d53f42a3-a6cd-4993-ae02-9285b6bf763e"/>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="126" height="30" uuid="d53f42a3-a6cd-4993-ae02-9285b6bf763e"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>

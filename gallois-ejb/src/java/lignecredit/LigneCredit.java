@@ -18,12 +18,60 @@ import utilitaire.UtilDB;
 public class LigneCredit extends ClassEtat {
     
     private String id;
-    private String designation,compte,compteCpl;
+    private String designation,compte,compteCpl,compteInv,compteSimple,directon,projet,directionProjet ,comptestr;
+
+    public String getComptestr() {
+        return comptestr;
+    }
+
+    public void setComptestr(String comptestr) {
+        this.comptestr = comptestr;
+    }
     private double quantite,montant,facture,paye;
     private int annee, mois;
     private double arecouvrir, restebudget,pourcEngage,pourcPaye;
     private Date daty;
 
+    public String getCompteInv() {
+        return compteInv;
+    }
+
+    public void setCompteInv(String compteInv) {
+        this.compteInv = compteInv;
+    }
+
+    public String getCompteSimple() {
+        return compteSimple;
+    }
+
+    public void setCompteSimple(String compteSimple) {
+        this.compteSimple = compteSimple;
+    }
+
+    public String getDirecton() {
+        return directon;
+    }
+
+    public void setDirecton(String directon) {
+        this.directon = directon;
+    }
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getDirectionProjet() {
+        return directionProjet;
+    }
+
+    public void setDirectionProjet(String directionProjet) {
+        this.directionProjet = directionProjet;
+    }
+    
     public String getCompteCpl() {
         return compteCpl;
     }
@@ -316,5 +364,9 @@ where +
 
     public void setPaye(double paye) {
         this.paye = paye;
+    }
+
+    public String getValColLibelle() {
+        return comptestr;
     }
 }
