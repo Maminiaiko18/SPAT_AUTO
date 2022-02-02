@@ -116,9 +116,9 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{client}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="247" y="100" width="308" height="20" uuid="5f47c26d-a395-4991-b902-297abf0a1af1"/>
-				<textElement verticalAlignment="Middle">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="247" y="100" width="308" height="35" uuid="5f47c26d-a395-4991-b902-297abf0a1af1"/>
+				<textElement verticalAlignment="Top">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{operation}]]></textFieldExpression>
