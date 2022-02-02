@@ -3,6 +3,8 @@
     Created on : 14 Mars 2016, 10:26:05
     Author     : Do
 --%>
+<%@page import="bean.ResultatEtSomme"%>
+<%@page import="bean.AdminGen"%>
 <%@page import="affichage.Liste"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="utilitaire.Utilitaire"%>
@@ -19,7 +21,7 @@
         fa.setNomTable(nomTable);
 
         String listeCrt[] = {"id", "designation", "compte", "daty", "annee"};
-        String listeInt[] = {"daty", "mois"};
+        String listeInt[] = {"daty"};
         String libEntete[] = {"id", "designation", "compte", "annee", "montant", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -62,16 +64,20 @@
         
         String reqniv = request.getParameter("niveau");                  
         
-        if(reqniv == null || reqniv.equals("")) {
+        boolean estFiltre = (reqniv == null || reqniv.equals("")) && (date1 == null || date1.equals("")) && (date2 == null || date2.equals(""));
+        
+        if(estFiltre) {
             pr.getBase().setNomTable("SITUATIONLCRECETTEV");
         }
         
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
         
-        if(reqniv != null && !reqniv.equals("")) {
-            SituationCredit[] liste  = SituationCredit.findSituationCreditRecette(request.getParameter("id"),request.getParameter("designation"),request.getParameter("compte"),date1,date2, request.getParameter("etat"), reqniv, annee, null, null);
-            pr.setTableau(new TableauRecherche(liste, libEntete));
+        if(!estFiltre) {
+            ResultatEtSomme rs  = SituationCredit.findSituationCreditRecette((SituationCredit) pr.getCritere(),date1,date2, reqniv, null, colSomme);
+            pr.setRs(rs);
+            pr.setTableau(new TableauRecherche((bean.ClassMAPTable[]) rs.getResultat(), libEntete));            
+            pr.makeTableauRecap();
         }
         
         String[] etatAff = {"Tous", "Créé", "Visé"};
