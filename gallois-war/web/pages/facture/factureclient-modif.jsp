@@ -147,12 +147,13 @@
             if(request.getParameter("factprev") != null) {
                 if(liste[i].getIdrubrique() != null && liste[i].getIdrubrique().equalsIgnoreCase(Constante.idStationnement) && liste[i].getIdactivite() !=  null) {
                     Activite act = liste[i].getActivite(null);
+                    if(act!=null && act.getEstPetrolier().compareToIgnoreCase("TRUE")!=0){
+                        liste[i].setDuree(act.getNbHeure());
+                        liste[i].setQuantite(liste[i].getQuantite() / act.getNbHeure());
 
-                    liste[i].setDuree(act.getNbHeure());
-                    liste[i].setQuantite(liste[i].getQuantite() / act.getNbHeure());
-
-                    pi.getFormufle().getChamp("duree_"+i).setValeur(""+liste[i].getDuree());
-                    pi.getFormufle().getChamp("quantite_"+i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+",""));
+                        pi.getFormufle().getChamp("duree_"+i).setValeur(""+liste[i].getDuree());
+                        pi.getFormufle().getChamp("quantite_"+i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+",""));
+                    }
                 }
             }
         }
