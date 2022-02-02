@@ -167,7 +167,7 @@
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
     pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
     
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeBudgetDepenseChoix.jsp", "compte;comptelibelle");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeBudgetDepenseChoix.jsp", "compte;compte;comptelibelle");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
    
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("compte"), "readonly");
