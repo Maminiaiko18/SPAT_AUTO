@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import mg.spat.EtatRedevance;
 import mg.spat.EtatJournalCaisse;
 import bean.AdminGen;
 import bean.CGenUtil;
@@ -179,6 +180,8 @@ public class EtatPaieServlet extends HttpServlet {
                 journalCaisseEtat(request, response);
             }else if (action.equalsIgnoreCase("imprimerGestionProvision")){
                 imprimerGestionProvision(request, response);
+            }else if (action.equalsIgnoreCase("imprimerRedevanceCommunale")){
+                redevanceCommunale(request, response);
             }
 
         } catch (Exception ex) {
@@ -1478,19 +1481,19 @@ public class EtatPaieServlet extends HttpServlet {
             Sheet sheet = wb.createSheet("new sheet");
 
             HSSFCellStyle style = wb.createCellStyle();
-            style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+         /*   style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
             style.setBorderTop(HSSFCellStyle.BORDER_THIN);
             style.setBorderRight(HSSFCellStyle.BORDER_THIN);
             style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);*/
 
             HSSFCellStyle nombrestyle = wb.createCellStyle();
-            nombrestyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            /*nombrestyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
             nombrestyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
             nombrestyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
             nombrestyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
             nombrestyle.setAlignment(CellStyle.ALIGN_RIGHT);
-            nombrestyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            nombrestyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);*/
             UserEJB u = (user.UserEJB) request.getSession().getValue("u");
             CargaisonAnalyse recap = new CargaisonAnalyse();
             String listeCrt[] = {"mois", "cargaisonlib"};
@@ -1721,8 +1724,8 @@ public class EtatPaieServlet extends HttpServlet {
         try{
             String id=request.getParameter("id");
             String iddevise=request.getParameter("iddevise");
-            String date1=request.getParameter("date1");
-            String date2=request.getParameter("date2");
+            String date1=request.getParameter("daty1");
+            String date2=request.getParameter("daty2");
             String where = "";
             if(id!=null && id.compareToIgnoreCase("null")!=0 && id.length()!=0){
                 where += " and upper(id) like upper('%"+id+"%') ";
@@ -1736,7 +1739,7 @@ public class EtatPaieServlet extends HttpServlet {
             if(date2!=null && date2.compareToIgnoreCase("null")!=0 && date2.length()!=0){
                 where += " and  daty <= '"+date2+"'";
             }
-            
+            where +=" and upper(iddevise) != upper('Ar')";
         Map param = new HashMap();
         param.put("datyjour", Utilitaire.dateDuJour());
         Coursdevise devise = new Coursdevise();
@@ -1843,6 +1846,57 @@ public class EtatPaieServlet extends HttpServlet {
         }
     
     }
+    
+    public void redevanceCommunale(HttpServletRequest request, HttpServletResponse response){
+        try{
+        String daty1=request.getParameter("daty1");
+        Date date1 = new java.sql.Date(Utilitaire.stringToDate("dd/mm/yyyy", daty1).getTime());        
+        String daty2=request.getParameter("daty2");
+        Date date2 = new java.sql.Date(Utilitaire.stringToDate("dd/mm/yyyy", daty2).getTime());                
+        String tierslib=request.getParameter("tierslib");
+        String typelib=request.getParameter("typelib");
+        String titre=request.getParameter("titre");
+        EtatRedevance redevance = new EtatRedevance();
+        redevance.setNomTable("redevanceCommunaleFacture");
+        String requete = "";
+        if(daty1 != null){
+            requete = requete + String.format(" and daty >= '%s'", daty1);
+            
+        }
+        if(daty2 != null){
+            requete = requete + String.format(" and daty <= '%s'", daty2);
+            
+        }        
+        requete = requete + " and upper(tierslib) like upper('%"+tierslib+"%') and upper(typelib) like upper('%"+typelib+"%') order by daty desc";
+        EtatRedevance[] list = (EtatRedevance[])CGenUtil.rechercher(redevance, null, null, null, requete);
+        Map param = new HashMap();
+        param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
+        double total = 0;
+        double totalTVA = 0;
+        ArrayList<EtatRedevance> arrList = new ArrayList<EtatRedevance>();
+        for(int i = 0; i<list.length; i++){
+            arrList.add(list[i]);
+            total = total + list[i].getMontantTTC();
+            totalTVA = totalTVA + list[i].getTva();
+        }
+        
+        param.put("titre", titre);
+        param.put("date_debut", date1);
+        param.put("date_fin", date2);
+        param.put("total", total);
+        param.put("totalTVA", totalTVA);
+        param.put("list_table", arrList);
+        
+        
+        
+        
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("redevance-communale");
+        UtilitaireImpression.imprimer(request, response, "redevance-communale", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }      
     
     
 }
