@@ -36,10 +36,11 @@
   
     String[] colSomme = {"montantTTC"};
     pr.creerObjetPage(libEntete, colSomme);
+    String titre = "Redevance communale facture "+utilitaire.Utilitaire.champNull(pr.getFormu().getChamp("typelib").getValeur());
 %>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Redevance communale facture <%=pr.getFormu().getChamp("typelib").getValeur()%></h1>
+        <h1><%=titre%></h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=facture/redevance-communale-liste.jsp" method="post" name="listepostedestinataire" id="listepostedestinataire">
@@ -60,6 +61,7 @@
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
         %>
+        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerRedevanceCommunale&titre=<%=titre%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&tierslib=<%=request.getParameter("tierslib")%>&typelib=<%=request.getParameter("typelib")%>" style="margin-right: 10px">Imprimer</a>
     </section>
 </div>
     <%
