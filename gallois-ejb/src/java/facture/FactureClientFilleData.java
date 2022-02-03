@@ -30,7 +30,7 @@ public class FactureClientFilleData {
             facture.setNomTable(nomTable);
             facture = (FactureClient) facture.getById(idFacture, null, c);
             if(facture != null){
-                facture.setListeDetails(liste);
+//                facture.setListeDetails(liste);
                 facture.initDetails(c);
             }
             
