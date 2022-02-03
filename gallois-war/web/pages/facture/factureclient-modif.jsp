@@ -160,7 +160,7 @@
         
         pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
         pi.getFormufle().getChamp("Id_0").setLibelle("Id");
-        pi.getFormufle().getChamp("designation_0").setLibelle("Note explicative");
+        pi.getFormufle().getChamp("designation_0").setLibelle("Désignation");
         pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
         pi.getFormufle().getChamp("pu_0").setLibelle("pu");
         pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
