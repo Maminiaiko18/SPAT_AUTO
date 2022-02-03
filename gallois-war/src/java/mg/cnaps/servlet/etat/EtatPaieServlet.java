@@ -1721,8 +1721,8 @@ public class EtatPaieServlet extends HttpServlet {
         try{
             String id=request.getParameter("id");
             String iddevise=request.getParameter("iddevise");
-            String date1=request.getParameter("date1");
-            String date2=request.getParameter("date2");
+            String date1=request.getParameter("daty1");
+            String date2=request.getParameter("daty2");
             String where = "";
             if(id!=null && id.compareToIgnoreCase("null")!=0 && id.length()!=0){
                 where += " and upper(id) like upper('%"+id+"%') ";
@@ -1736,7 +1736,7 @@ public class EtatPaieServlet extends HttpServlet {
             if(date2!=null && date2.compareToIgnoreCase("null")!=0 && date2.length()!=0){
                 where += " and  daty <= '"+date2+"'";
             }
-            
+            where +=" and upper(iddevise) != upper('Ar')";
         Map param = new HashMap();
         param.put("datyjour", Utilitaire.dateDuJour());
         Coursdevise devise = new Coursdevise();
