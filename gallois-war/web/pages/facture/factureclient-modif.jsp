@@ -181,6 +181,8 @@
         pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
 
         mere = (FactureClient) pi.getBase();
+        String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction"};
+        pi.getFormufle().setColOrdre(ordreFille);
         pi.preparerDataFormu();
         
         Activite act = liste.length > 0 ? liste[0].getActivite(null) : null;
