@@ -999,8 +999,9 @@ public class EtatPaieServlet extends HttpServlet {
                  */
                 
                 facture.setId(details[0].getIdmere());
-                facture.setListeDetails(details);
+                //facture.setListeDetails(details);
                 facture.initDetails(null);
+                details = facture.getListeDetails();
                 double total = 0;
                 double reduction = 0;
                 for (int i = 0; i < details.length; i++) {
