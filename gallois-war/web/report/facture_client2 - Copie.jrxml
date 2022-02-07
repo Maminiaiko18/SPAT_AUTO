@@ -373,7 +373,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="13" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="13" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
 									<box topPadding="5">
 										<topPen lineWidth="0.5"/>
