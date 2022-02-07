@@ -29,6 +29,7 @@
 		<field name="tierslib" class="java.lang.String"/>
 		<field name="montantTTC" class="java.lang.Double"/>
 		<field name="tva" class="java.lang.Double"/>
+		<field name="montantHT" class="java.lang.Double"/>
 	</subDataset>
 	<parameter name="date_debut" class="java.util.Date"/>
 	<parameter name="date_fin" class="java.util.Date"/>
@@ -37,6 +38,7 @@
 	<parameter name="total" class="java.lang.Double"/>
 	<parameter name="list_table" class="java.util.List"/>
 	<parameter name="totalTVA" class="java.lang.Double"/>
+	<parameter name="totalTTC" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -110,7 +112,7 @@
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" sur "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Auto">
-				<reportElement x="850" y="31" width="31" height="20" uuid="ee90c02f-0b45-4493-a504-8068d1610f8f"/>
+				<reportElement x="853" y="31" width="31" height="20" uuid="ee90c02f-0b45-4493-a504-8068d1610f8f"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -123,19 +125,19 @@
 					<datasetRun subDataset="Table Dataset 1" uuid="5add75ae-48c2-4eb5-b0d5-1b1d21a6940e">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="176" uuid="a733bffa-eb16-442b-a558-0aa5d26cde86">
+					<jr:column width="159" uuid="a733bffa-eb16-442b-a558-0aa5d26cde86">
 						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="176" height="14" uuid="eeb510b8-88cb-453d-b37d-3aed2e44bbab"/>
+								<reportElement x="0" y="0" width="159" height="14" uuid="eeb510b8-88cb-453d-b37d-3aed2e44bbab"/>
 								<textElement>
 									<font size="11" isBold="true"/>
 								</textElement>
 								<text><![CDATA[N° Facture]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="13" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="176" height="13" uuid="7acef150-5c31-425e-8a6b-f442b13c3a08"/>
+								<reportElement x="0" y="0" width="159" height="13" uuid="7acef150-5c31-425e-8a6b-f442b13c3a08"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -143,19 +145,19 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="e0050a30-b0de-4264-8652-ca5ab6b610b3">
+					<jr:column width="76" uuid="e0050a30-b0de-4264-8652-ca5ab6b610b3">
 						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="14" uuid="309a1ca2-1e7b-46cd-9c47-e1233bcd4bfb"/>
+								<reportElement x="0" y="0" width="76" height="14" uuid="309a1ca2-1e7b-46cd-9c47-e1233bcd4bfb"/>
 								<textElement>
 									<font size="11" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Date]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="13" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="90" height="13" uuid="22d60e61-be66-4e02-861e-2b18f15f260c"/>
+								<reportElement x="0" y="0" width="76" height="13" uuid="22d60e61-be66-4e02-861e-2b18f15f260c"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -163,19 +165,19 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="395" uuid="96d91b84-f612-492e-a672-2570b5cb7f69">
+					<jr:column width="293" uuid="96d91b84-f612-492e-a672-2570b5cb7f69">
 						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="395" height="14" uuid="a8caceaf-3c6c-42b4-932f-e4907aecc2dc"/>
+								<reportElement x="0" y="0" width="293" height="14" uuid="a8caceaf-3c6c-42b4-932f-e4907aecc2dc"/>
 								<textElement>
 									<font size="11" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Client]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="13" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="395" height="13" uuid="cb385a28-19db-4843-873d-18477937dd46"/>
+								<reportElement x="0" y="0" width="293" height="13" uuid="cb385a28-19db-4843-873d-18477937dd46"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -193,13 +195,13 @@
 								<text><![CDATA[Montant]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="13" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="159" height="13" uuid="11892bc4-bc53-4c63-9368-7690b9370ea3"/>
 								<textElement textAlignment="Right">
 									<font size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{montantTTC}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{montantHT}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -213,13 +215,33 @@
 								<text><![CDATA[Taxe]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="13" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="90" height="13" uuid="8e688309-aa5d-4d07-8888-3126d27a3883"/>
 								<textElement textAlignment="Right">
 									<font size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{tva}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="133" uuid="0b00abee-ca42-44f5-952b-a6c5292cf9c2">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="133" height="14" uuid="50a4119e-f40d-4977-8d34-2b95470bdd33"/>
+								<textElement textAlignment="Right">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="133" height="13" uuid="cb6e560c-e80c-4013-a041-e7138f7b37c8"/>
+								<textElement textAlignment="Right">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{montantTTC}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -230,25 +252,32 @@
 	<summary>
 		<band height="21">
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="720" y="0" width="100" height="20" uuid="53721a04-f63d-4271-8baa-3380a3969381"/>
+				<reportElement x="587" y="0" width="100" height="20" uuid="53721a04-f63d-4271-8baa-3380a3969381"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="674" y="0" width="47" height="20" uuid="f72d1507-464c-44b4-a118-24b426df82b3"/>
+				<reportElement x="541" y="0" width="47" height="20" uuid="f72d1507-464c-44b4-a118-24b426df82b3"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="823" y="1" width="87" height="20" uuid="92838cdc-f6d6-4714-978b-5d0f2502ed1b"/>
+				<reportElement x="690" y="1" width="87" height="20" uuid="92838cdc-f6d6-4714-978b-5d0f2502ed1b"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalTVA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="777" y="1" width="132" height="20" uuid="ff31bae5-ff8a-43c2-baa9-4b5dae18c0bc"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalTTC}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

@@ -1868,23 +1868,26 @@ public class EtatPaieServlet extends HttpServlet {
             requete = requete + String.format(" and daty <= '%s'", daty2);
             
         }        
-        requete = requete + " and upper(tierslib) like upper('%"+tierslib+"%') and upper(typelib) like upper('%"+typelib+"%') order by daty desc";
+        requete = requete + " and upper(tierslib) like upper('%"+tierslib+"%') and upper(typelib) like upper('%"+typelib+"%') order by daty asc";
         EtatRedevance[] list = (EtatRedevance[])CGenUtil.rechercher(redevance, null, null, null, requete);
         Map param = new HashMap();
         param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
         double total = 0;
         double totalTVA = 0;
+        double totalTTC = 0;
         ArrayList<EtatRedevance> arrList = new ArrayList<EtatRedevance>();
         for(int i = 0; i<list.length; i++){
             arrList.add(list[i]);
-            total = total + list[i].getMontantTTC();
+            total = total + list[i].getMontantHT();
             totalTVA = totalTVA + list[i].getTva();
+            totalTTC = totalTTC + list[i].getMontantTTC();
         }
         
         param.put("titre", titre);
         param.put("date_debut", date1);
         param.put("date_fin", date2);
         param.put("total", total);
+        param.put("totalTTC", totalTTC);
         param.put("totalTVA", totalTVA);
         param.put("list_table", arrList);
         
