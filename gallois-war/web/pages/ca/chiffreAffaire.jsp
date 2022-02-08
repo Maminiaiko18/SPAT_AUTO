@@ -212,9 +212,9 @@
                             <td align="right"></td>
                             <td align="right"></td>
                             <td align="right"></td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcAvoir())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourComptant())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcCredit())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcAvoir())%>%</td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourComptant())%>%</td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcCredit())%>%</td>
                             <td align="right"></td>
                             <td align="right"></td>
                             <td align="right"></td>
@@ -227,9 +227,9 @@
                             <td align="right"></td>
                             <td align="right"></td>
                             <td align="right"></td>
-                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbComptant())%></td>
-                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbCredit())%></td>
-                            <td align="right"><%= Utilitaire.formaterAr(totalGeneral.getNbComptant() + totalGeneral.getNbCredit())%></td>
+                            <td align="right"><%= Utilitaire.formaterAr(etatCA.getNbFactComptant()) %></td>
+                            <td align="right"><%= Utilitaire.formaterAr(etatCA.getNbFactCredit()) %></td>
+                            <td align="right"><%= Utilitaire.formaterAr(etatCA.getNbFactureTotal()) %></td>
                             <td align="right"></td>
                             <td align="right"></td>
                         </tr>
