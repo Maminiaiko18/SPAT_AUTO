@@ -240,7 +240,6 @@ public class EtatCA {
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
             base.setNomTable("factureClientMAGroupe");
             CA[] resultNombre = (CA[]) CGenUtil.rechercher(base, null, null, c, " and mois="+mois+" and annee="+annee);
-            System.out.println("taille "+resultNombre.length);
             if(resultNombre.length>0)
             {
                 this.setNbFactComptant(resultNombre[0].getNbComptant());

@@ -212,9 +212,9 @@
                             <td align="right"></td>
                             <td align="right"></td>
                             <td align="right"></td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcAvoir())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourComptant())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcCredit())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcAvoir())%>%</td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourComptant())%>%</td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcCredit())%>%</td>
                             <td align="right"></td>
                             <td align="right"></td>
                             <td align="right"></td>
