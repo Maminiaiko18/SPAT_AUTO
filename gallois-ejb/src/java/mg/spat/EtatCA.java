@@ -238,6 +238,15 @@ public class EtatCA {
             base.setNomTable("CompteCAFactAvoir_grp");
             CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, "");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
+            base.setNomTable("factureClientMAGroupe");
+            CA[] resultNombre = (CA[]) CGenUtil.rechercher(base, null, null, c, " and mois="+mois+" and annee="+annee);
+            System.out.println("taille "+resultNombre.length);
+            if(resultNombre.length>0)
+            {
+                this.setNbFactComptant(resultNombre[0].getNbComptant());
+                this.setNbFactCredit(resultNombre[0].getNbCredit());
+            }
+            
             CA[] tabCA = new CA[mapCA.size()];
             int i = 0;
             for(String key: mapCA.keySet()){
@@ -251,4 +260,8 @@ public class EtatCA {
             if(c != null) c.close();
         }
     } 
+    public int getNbFactureTotal()
+    {
+        return this.getNbFactComptant()+this.getNbFactCredit();
+    }
 }
