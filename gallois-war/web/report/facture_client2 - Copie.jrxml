@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.3310000000000024"/>
 	<property name="ireport.x" value="46"/>
-	<property name="ireport.y" value="330"/>
+	<property name="ireport.y" value="378"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -373,7 +373,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="13" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="13" uuid="3f654f91-7174-4ce5-9df9-d5fce542acd9"/>
 									<box topPadding="5">
 										<topPen lineWidth="0.5"/>
@@ -634,11 +634,11 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="15" y="183" width="84" height="16" uuid="ca445288-0fea-4f18-a1dd-2891a6d9a7a4"/>
+				<reportElement x="15" y="183" width="131" height="16" uuid="ca445288-0fea-4f18-a1dd-2891a6d9a7a4"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Jauge nette......  :]]></text>
+				<text><![CDATA[Jauge nette (JNT)  :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="15" y="169" width="168" height="16" uuid="ca2406e9-28cb-478f-af3a-34ba5f2b54af"/>
@@ -910,7 +910,7 @@
 				<textFieldExpression><![CDATA[$P{heure_arrivee}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="103" y="183" width="349" height="16" uuid="950f4b5b-264b-46ae-8144-5a76a9b43e4d"/>
+				<reportElement x="146" y="183" width="306" height="16" uuid="950f4b5b-264b-46ae-8144-5a76a9b43e4d"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
