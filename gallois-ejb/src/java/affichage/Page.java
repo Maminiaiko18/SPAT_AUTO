@@ -185,7 +185,7 @@ public class Page {
     public String getParamSansNull(String nomP) {
         String temp = getReq().getParameter(utilitaire.Utilitaire.remplacerUnderscore(nomP));
         if ((temp != null) && temp.compareToIgnoreCase("") != 0) {
-            temp = temp.replace("'", "''");
+            temp = temp.replace("'", "\'");
             return temp;
         }
         return "";
