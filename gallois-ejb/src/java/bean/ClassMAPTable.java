@@ -673,7 +673,8 @@ public abstract class ClassMAPTable implements Serializable {
 
                     case 10: // '\n'
                         stmt.setString(i + 1, (String) this.getValField(fld));
-                        valStr = "'" + Utilitaire.champNull(((String) this.getValField(fld))).replace("'", "''") + "'";
+                        //System.out.println("Niditra tatoooooo "+this.getNomTable()+this.getValField(fld));
+                        valStr = "'" + Utilitaire.champNull(((String) this.getValField(fld))).replace("'", "\'") + "'";
                         break;
 
                     case 21: // '\025'
