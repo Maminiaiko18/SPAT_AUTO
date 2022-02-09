@@ -1531,13 +1531,14 @@ public class FactureClient extends ClassMere {
     public String calculerCodeSimple(Connection c) throws Exception {
         String daty = Utilitaire.datetostring(this.getDaty());
         String code = "", codePrestation = genererCodePrestation(c);
-        code += Utilitaire.champNull(genererPremierCaractere(c));
+        String typecateg = genererPremierCaractere(c);
+        code += Utilitaire.champNull(typecateg);
         code += Utilitaire.genererAnnee(daty);
         code += Utilitaire.genererMois(daty);
         code += Utilitaire.champNull(codePrestation);
         code += "A";
 //        code += genererSequence(c, "numerofacturesimple", 3);
-        code += new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty, codePrestation);
+        code += new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty, codePrestation, typecateg);
         return code;
     }
 
