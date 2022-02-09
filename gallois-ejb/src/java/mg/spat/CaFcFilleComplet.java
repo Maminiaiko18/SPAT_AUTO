@@ -16,10 +16,27 @@ public class CaFcFilleComplet extends ClassEtat {
     private String id,idmere,compte,designation,idproduit,devise,devisemere,idactivite,moislib,rubrique,heuredebut,heurefin,rubriquecpl,idcategorie,type,nomnavire;
     private double quantite,pu,taux,tva,montanttva,montantttc,montant,reduction,majoration,test,rang,duree;
     private int mois,annee,montantav;
-    private Date datefact;
+    String client;
+    private Date datefact,daty;
+
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
 
     public CaFcFilleComplet() {
         super.setNomTable("CAFCFILLECOMPLET");
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
     }
 
     public String getNomnavire() {
