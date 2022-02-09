@@ -143,6 +143,7 @@ public class EtatCA {
                 }
                 if(cahmap.get(cas[i].getCompte())==null){
                     CA temp = cas[i];
+                    temp.setAvoirEETP(cas[i].getAvoir());
                     cahmap.put(cas[i].getCompte(),temp);
                 }
             }
