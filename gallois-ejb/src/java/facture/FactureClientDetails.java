@@ -35,13 +35,21 @@ public class FactureClientDetails extends ClassFille {
     private double montantavoirsanstaux;
     private double montantavoiravectaux;
     private double qtelivree, restealivrer,montantTTC; 
-    private Date datefact,daty;
+    private Date datefact,daty,datyActivite;
     private String rubriquelib, idprestation,clientlib;
     private int mois, annee;
     private String heureDebut, heureFin, moislib,anneelib;
     private double montantHTEuro,montantTVAEuro, montanttaxe,majoration,reduction,duree;
     private int rang;
     private String idrubrique;
+
+    public Date getDatyActivite() {
+        return datyActivite;
+    }
+
+    public void setDatyActivite(Date datyActivite) {
+        this.datyActivite = datyActivite;
+    }
 
     
     public String getIdrubrique() {
