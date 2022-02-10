@@ -114,23 +114,33 @@ public class EtatCA {
     public EtatCA() {
     }
 
-        public HashMap<String, CA> getetatcagen (int mois, int annee,CA[] cas){
+    public HashMap<String, CA> getetatcagen (int mois, int annee,CA[] cas){
         //ArrayList<CA> ca = new ArrayList<CA>();
         HashMap<String, CA> cahmap=new HashMap<String, CA>();
         
         int taillecas = cas.length;
+
         for(int i = 0;i< taillecas;i++){
             if (cas[i].getMois()<mois && cas[i].getAnnee()== annee){
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     temp.setAnciencumul(temp.getAnciencumul()+cas[i].getMontant());
                     temp.setRegulEETP(temp.getAvoirEETP()+cas[i].getAvoir());
+                    temp.setComptant(0);
+                    temp.setCredit(0);
+                    temp.setAvoir(0);
                     cahmap.put(cas[i].getCompte(),temp);
                 }
                 if(cahmap.get(cas[i].getCompte())==null){
                     CA temp = cas[i];
+                    temp.setAnciencumul(cas[i].getMontant());
+                    temp.setRegulEETP(cas[i].getAvoir());
+                    temp.setComptant(0);
+                    temp.setCredit(0);
+                    temp.setAvoir(0);
                     cahmap.put(cas[i].getCompte(),temp);
                 }
+                
             }
             
             if (cas[i].getMois()==mois && cas[i].getAnnee()== annee){
@@ -146,6 +156,7 @@ public class EtatCA {
                     temp.setAvoirEETP(cas[i].getAvoir());
                     cahmap.put(cas[i].getCompte(),temp);
                 }
+               
             }
             
         }
@@ -237,7 +248,7 @@ public class EtatCA {
             c = new UtilDB().GetConn();
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
-            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, "");
+            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " order by mois asc");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
             base.setNomTable("factureClientMAGroupe");
             CA[] resultNombre = (CA[]) CGenUtil.rechercher(base, null, null, c, " and mois="+mois+" and annee="+annee);

@@ -135,7 +135,7 @@
                         <tr>
                             <td><%=Utilitaire.champNull(ca.getLibelle())%></td>
                             <td align="right">
-                                <a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&mois2=<%=moisAvant%>&annee=<%=anneeInt%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&mois2=<%=moisAvant%>&annee=<%=anneeInt%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getAnciencumul())%>
                                 </a>
                             </td>
@@ -144,12 +144,12 @@
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirEETP())%></td>
                             <td align="right">
-                                <a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getComptant())%>
                                 </a>
                             </td>
                             <td align="right">
-                                <a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getCredit())%>
                                 </a>
                             </td>

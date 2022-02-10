@@ -12,7 +12,7 @@ import utilitaire.Utilitaire;
 
 public class UtilitaireFacture {
 
-    public static String genererSequence(Connection c, String nomtable, int longueur, String date, String code) throws Exception {
+    public static String genererSequence(Connection c, String nomtable, int longueur, String date, String code, String typecateg) throws Exception {
         //String daty = Utilitaire.datetostring(date);
 
         String sequence = "1";
@@ -20,9 +20,9 @@ public class UtilitaireFacture {
         NumeroFacture num = new NumeroFacture();
         num.setNomTable(nomtable);
         
-        String awhere = " and mois = %s and annee = %s and code like '%s'";
+        String awhere = " and mois = %s and annee = %s and code like '%s' and typecateg like '%s'";
         String mois = Utilitaire.genererMois(date), annee = Utilitaire.getAnnee(date);
-        awhere = String.format(awhere, mois, annee, code);
+        awhere = String.format(awhere, mois, annee, code, typecateg);
 
         NumeroFacture[] nums = (NumeroFacture[]) CGenUtil.rechercher(num, null, null, c, awhere);
 
