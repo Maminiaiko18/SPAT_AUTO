@@ -17,8 +17,8 @@
     pi.setLien(lien);
     pi.getFormu().getChamp("Etat").setVisible(false);
     pi.getFormu().getChamp("Quantite").setVisible(false);
-    pi.getFormu().getChamp("Annee").setLibelle("Année");
-    
+    pi.getFormu().getChamp("Annee").setLibelle("Annï¿½e");
+    pi.getFormu().getChamp("compteG").setVisible(false);    
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">

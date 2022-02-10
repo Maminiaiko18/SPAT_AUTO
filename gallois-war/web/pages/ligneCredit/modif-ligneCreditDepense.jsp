@@ -17,7 +17,8 @@
     pi.setLien(lien);
     pi.getFormu().getChamp("Etat").setVisible(false);
     pi.getFormu().getChamp("Quantite").setVisible(false);
-    pi.getFormu().getChamp("Annee").setLibelle("Année");
+    pi.getFormu().getChamp("Annee").setLibelle("Annï¿½e");
+    pi.getFormu().getChamp("compteG").setVisible(false);
     
     pi.preparerDataFormu();
 %>
@@ -25,7 +26,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="box">
-                <h1>Modification ligne credit dépense</h1>
+                <h1>Modification ligne credit dï¿½pense</h1>
                 <form action="<%=lien%>?but=apresTarif.jsp&id=<%=request.getParameter("id")%>" method="post" name="modif">
                     <%
                         out.println(pi.getFormu().getHtmlInsert());
