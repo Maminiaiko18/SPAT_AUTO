@@ -138,8 +138,8 @@ public class ImportExcel {
             AdminActivite act = new AdminActivite();
             int[] colIlaina = {4,11,15,21}; 
             
-            Row rowDate = sheet.getRow(1);
-            Cell cellDate =  rowDate.getCell(34);
+            Row rowDate = sheet.getRow(12);
+            Cell cellDate =  rowDate.getCell(8);
             String date = cellDate.getStringCellValue();
             System.out.println(date);
             String[] datesplit = date.split(" ");
@@ -148,11 +148,11 @@ public class ImportExcel {
             System.out.println(heure);
             String[] splitdate = dateString.split("/");
             
-            
-            
-            java.sql.Date daty = utilitaire.Utilitaire.stringDate(dateString);
-            int mois =utilitaire.Utilitaire.stringToInt(splitdate[1]);//utilitaire.Utilitaire.getMois(daty);
+            int mois =utilitaire.Utilitaire.stringToInt(splitdate[0]);//utilitaire.Utilitaire.getMois(daty);
             int annee =utilitaire.Utilitaire.stringToInt(splitdate[2]);// utilitaire.Utilitaire.getAnnee(daty);
+            
+            java.sql.Date daty = utilitaire.Utilitaire.stringDate(splitdate[1]+"/"+mois+"/"+annee);// satry mm/jj/aaaa ny format an daty anle excel
+            
             String heuredeb = heure.replace(".", ":")+":00";
             String heurefin = heuredeb;
             
