@@ -161,7 +161,7 @@ public class ImportExcel {
             String nomnavire =sheet.getRow(8).getCell(8).getStringCellValue();//ligne 9 et colonne I = 9
             
             Row lignecategorie = sheet.getRow(18);
-            while (1<2) {
+            while (row!=null) {
                 
                     //System.out.println(indice);
                     row = sheet.getRow(indice);
@@ -173,11 +173,11 @@ public class ImportExcel {
                     if(rubrique.length()==0 || rubrique.compareToIgnoreCase("TOTAL:")==0){
                         break;
                     }
-                    
+                    System.out.println("ligne="+indice);
                     int compteCol = 0;
                     String type = rubrique;
                     while(compteCol < colIlaina.length){
-                        
+                        System.out.println("col="+compteCol);
                         Cell cellValeur = row.getCell(colIlaina[compteCol]);
                         ////System.out.println("col"+colIlaina[compteCol]);
                         
@@ -266,6 +266,7 @@ public class ImportExcel {
                     }
                             
                 indice = indice+1;
+                row = sheet.getRow(indice);
             }
             
             return ls;
