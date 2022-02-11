@@ -3,6 +3,7 @@
     Created on : 14 Mars 2016, 10:26:05
     Author     : Do
 --%>
+<%@page import="java.lang.reflect.Field"%>
 <%@page import="bean.ResultatEtSomme"%>
 <%@page import="bean.AdminGen"%>
 <%@page import="affichage.Liste"%>
@@ -49,10 +50,13 @@
 
         String[] colSomme = new String[] {"montant", "facture", "paye", "arecouvrir", "restebudget"};
         pr.creerObjetPage(libEntete, colSomme);
+        
+        Field[] listF = pr.getTableau().getListeField();
 
         ResultatEtSomme rs = SituationCredit.findSituationCreditRecette((SituationCredit) pr.getCritere(), date1, date2, reqniv, null, colSomme);
         pr.setRs(rs);
         pr.setTableau(new TableauRecherche((bean.ClassMAPTable[]) rs.getResultat(), libEntete));
+        pr.getTableau().setListeField(listF);
         pr.makeTableauRecap();
 
         String[] etatAff = {"Tous", "Créé", "Visé"};
@@ -109,8 +113,10 @@
             <br/>
         </form>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=ligneCredit/fiche-ligneCreditRecette.jsp"};
-            String colonneLien[] = {"id"};
+            String lienTableau[] = {pr.getLien() + "?but=ligneCredit/fiche-ligneCreditRecette.jsp", pr.getLien() + "?but=facture/facture-client-fille-liste.jsp&compte=" + Utilitaire.champNull(request.getParameter("compte")) + "&recap=checked&daty1="+ Utilitaire.champNull(date1) + "&daty2=" + Utilitaire.champNull(date2)};
+            String colonneLien[] = {"id", "facture"};
+            String urlLien[] = {"id", "facture"};
+            String urlLienAffiche[] = {"id", "id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());
@@ -118,8 +124,10 @@
         <br>
         <%
             String libEnteteAffiche[] = {"id", "designation", "compte", "annee", "montant", "Engagé", "% engagé", "Encaissé", "% encaissé", "a recouvrir", "reste sur budget"};
-            //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            pr.getTableau().setLibeEntete(libEnteteAffiche);
+            pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+            pr.getTableau().setUrlLien(urlLien);
+            pr.getTableau().setUrlLienAffiche(urlLienAffiche);
+//            pr.getTableau().setLibeEntete(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
 
