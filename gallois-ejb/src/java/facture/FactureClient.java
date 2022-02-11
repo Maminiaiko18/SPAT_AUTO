@@ -1453,7 +1453,7 @@ public class FactureClient extends ClassMere {
             if (listeDetails == null) {
                 FactureClientDetails fcd = new FactureClientDetails();
                 fcd.setNomTable("facture_client_montanttc");
-                listeDetails = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, " and idmere = '" + this.getId() + "'");
+                listeDetails = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, " and idmere = '" + this.getId() + "' order by rang asc, datyactivite asc");
                 if (listeDetails == null) {
                     throw new Exception("Aucun details pour la facture " + this.getId());
                 }
