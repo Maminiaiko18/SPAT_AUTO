@@ -1670,6 +1670,8 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("nbr",Utilitaire.formaterAr(Utilitaire.formaterAr(etatCA.getNbFactComptant())));
             param.put("nbr2",Utilitaire.formaterAr(etatCA.getNbFactCredit()));
             param.put("nbr3",Utilitaire.formaterAr(etatCA.getNbFactureTotal()));
+            param.put("mois",mois+"");
+            param.put("daty",Utilitaire.dateDuJour());
         }
          /*******************/   
         
