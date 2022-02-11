@@ -3,6 +3,7 @@
     Created on : 14 Mars 2016, 10:26:05
     Author     : Do
 --%>
+<%@page import="bean.ResultatEtSomme"%>
 <%@page import="affichage.Liste"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="affichage.TableauRecherche"%>
@@ -27,18 +28,6 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("ligneCredit/situation-ligneCreditDepense.jsp");
-        
-        /*String affiche[] = {"-","Janvier", "F\u00e9vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "D\u00e9cembre"};
-	String valeur[] = {"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-        Liste[] listeD = new Liste[1];
-        listeD[0] = new Liste("mois1");
-        listeD[0].setValeurBrute(affiche);
-        listeD[0].setColValeurBrute(valeur);
-        pr.getFormu().changerEnChamp(listeD);*/
-        
-//        pr.getFormu().getChamp("mois1").setLibelle("Mois");
-//        pr.getFormu().getChamp("mois2").setVisible(false);
-//        pr.getFormu().getChamp("mois2").setLibelleAffiche(" ");
         
         String date1 = request.getParameter("daty1"), date2 = request.getParameter("daty2"), annee = request.getParameter("annee");
         
@@ -65,19 +54,15 @@
         pr.getFormu().getChamp("annee").setLibelle("Exercice");
         
         String reqniv = request.getParameter("niveau");
-        /*String reqniv ="9";
         
-        if(reqniv == null || reqniv.equals("")) {
-            pr.getBase().setNomTable("SITUATIONLCDEPENSEV");
-        }*/
-        
-        String[] colSomme = {"montant", "restebudget"};
+        String[] colSomme = {"montant", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
         pr.creerObjetPage(libEntete, colSomme);
         
-        //if(reqniv != null && !reqniv.equals("")) {
-            LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, reqniv, annee, request.getParameter("mois"), null);
-            pr.setTableau(new TableauRecherche(liste, libEntete));
-        //}
+//        LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, reqniv, annee, request.getParameter("mois"), null);
+        ResultatEtSomme rs = LigneCredit.findSituationCreditDepense((LigneCredit) pr.getCritere(), date1, date2, null, colSomme);
+        pr.setRs(rs);
+        pr.setTableau(new TableauRecherche((bean.ClassMAPTable[]) rs.getResultat(), libEntete));
+        pr.makeTableauRecap();
 
         String[] libEtat = {"Tous", "Créés", "Visés"};
         String[] etat = {"", "" + ConstanteEtat.getEtatCreer(), "" + ConstanteEtat.getEtatValider()};
@@ -106,7 +91,7 @@
         window.location.href = "<%=pr.getLien()%>?but=ligneCredit/situation-ligneCreditDepense.jsp&recap=checked";
     <% } %>
     
-    window.onload = ajoutChampsNiveau;    
+//    window.onload = ajoutChampsNiveau;    
 </script>
 <div class="content-wrapper">
     <section class="content-header">

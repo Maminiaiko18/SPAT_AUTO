@@ -41,9 +41,9 @@ public class UtilitaireFacture {
         NumeroFacture num = new NumeroFacture();
         num.setNomTable(nomtable);
 
-        String awhere = " and mois = %s and annee = %s";
-        String mois = Utilitaire.genererMois(date), annee = Utilitaire.getAnnee(date);
-        awhere = String.format(awhere, mois, annee);
+        String awhere = " and annee = %s";
+        String annee = Utilitaire.getAnnee(date);
+        awhere = String.format(awhere, annee);
 
         NumeroFacture[] nums = (NumeroFacture[]) CGenUtil.rechercher(num, null, null, c, awhere);
 

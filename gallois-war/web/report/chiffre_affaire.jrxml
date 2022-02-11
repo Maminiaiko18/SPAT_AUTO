@@ -23,6 +23,8 @@
 	<parameter name="nbr" class="java.lang.String"/>
 	<parameter name="nbr2" class="java.lang.String"/>
 	<parameter name="nbr3" class="java.lang.String"/>
+	<parameter name="mois" class="java.lang.String"/>
+	<parameter name="daty" class="java.lang.String"/>
 	<field name="regul" class="java.lang.String"/>
 	<field name="regulEETP" class="java.lang.String"/>
 	<field name="avoirCumRegul" class="java.lang.String"/>
@@ -35,7 +37,53 @@
 	<field name="anciencumul" class="java.lang.String"/>
 	<field name="nCumul" class="java.lang.String"/>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="201" y="1" width="661" height="34" uuid="0f6040d4-13a1-4c38-9712-ce760a482220"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CHIFFRE D'AFFAIRES SUR LES FACTURES EMISES MOIS DE "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1" width="170" height="16" uuid="70f9d16e-7da9-4dc8-9eff-ecfc2dd702d8"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SPAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="19" width="170" height="16" uuid="6cd3f6b6-0372-4554-85c3-d61b2fcf75e7"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEPARTEMENT FACTURATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="866" y="3" width="50" height="20" uuid="7b0b7a5c-10a2-42e0-9629-b859051702f1"/>
+				<text><![CDATA[Editée le:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="916" y="3" width="100" height="20" uuid="b091e81f-acce-43bf-a937-42c78384cd9f"/>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1067" y="4" width="29" height="18" uuid="c671081d-dde6-4df8-95c8-4da90e43d78d"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="1123" y="3" width="25" height="20" uuid="e1809fc9-df77-485d-8227-52be226dd565"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1034" y="3" width="33" height="20" uuid="666d8859-5b0f-4e83-8fda-c018e6c6cd4e"/>
+				<text><![CDATA[Page:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1097" y="3" width="26" height="20" uuid="a6e271a1-b661-489e-aad8-ac1e057f6b8c"/>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="40" splitType="Stretch">

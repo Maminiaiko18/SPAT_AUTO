@@ -1,4 +1,5 @@
 
+<%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureClient"%>
 <%@page import="affichage.PageRechercheGroupe"%>
@@ -19,15 +20,35 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("facture/factureclient-analyse.jsp");
 
+        Date firstDate = Utilitaire.dateDuJourSql();  
+        firstDate.setDate(1);        
+        Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
+        
+        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+        
         pr.getFormu().getChamp("daty1").setLibelle("Date debut");
-        pr.getFormu().getChamp("daty1").setDefaut(utilitaire.Utilitaire.getDebutAnnee(utilitaire.Utilitaire.getAnneeEnCours()));
+        pr.getFormu().getChamp("daty1").setDefaut(debutDate);
         pr.getFormu().getChamp("daty2").setLibelle("Date fin");
+        pr.getFormu().getChamp("daty2").setDefaut(dateFin);
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("date_echeance1").setLibelle("Date �ch�ance min");
         pr.getFormu().getChamp("date_echeance2").setLibelle("Date �ch�ance max");
         pr.getFormu().getChamp("categorielib").setLibelle("Cat�gorie");
         pr.getFormu().getChamp("typeclientlib").setLibelle("Type client");
+        
+        String date1 = request.getParameter("daty1");
+        String date2 = request.getParameter("daty2");
+        String awhere = "";
+        if(date1 == null || date1.trim().isEmpty()){
+            awhere += String.format(" and daty >=  '%s' ", debutDate);
+        }
+        if(date2 == null || date2.trim().isEmpty()){
+            awhere += String.format(" and daty <=  '%s' ", dateFin);
+        }
+        pr.setAWhere(awhere);
         pr.creerObjetPage();
+        
 %>
 <script>
     function changerDesignation() {

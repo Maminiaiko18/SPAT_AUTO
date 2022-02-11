@@ -7,8 +7,10 @@ package lignecredit;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ResultatEtSomme;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 
 /**
@@ -16,9 +18,9 @@ import utilitaire.UtilDB;
  * @author
  */
 public class LigneCredit extends ClassEtat {
-    
+
     private String id;
-    private String designation,compte,compteCpl,compteInv,compteSimple,directon,projet,directionProjet ,comptestr,compteG;
+    private String designation, compte, compteCpl, compteInv, compteSimple, directon, projet, directionProjet, comptestr, compteG;
 
     public String getCompteG() {
         return compteG;
@@ -35,9 +37,9 @@ public class LigneCredit extends ClassEtat {
     public void setComptestr(String comptestr) {
         this.comptestr = comptestr;
     }
-    private double quantite,montant,facture,paye;
+    private double quantite, montant, facture, paye;
     private int annee, mois;
-    private double arecouvrir, restebudget,pourcEngage,pourcPaye;
+    private double arecouvrir, restebudget, pourcEngage, pourcPaye;
     private Date daty;
 
     public String getCompteInv() {
@@ -79,7 +81,7 @@ public class LigneCredit extends ClassEtat {
     public void setDirectionProjet(String directionProjet) {
         this.directionProjet = directionProjet;
     }
-    
+
     public String getCompteCpl() {
         return compteCpl;
     }
@@ -88,7 +90,6 @@ public class LigneCredit extends ClassEtat {
         this.compteCpl = compteCpl;
     }
 
-    
     public double getPourcEngage() {
         return pourcEngage;
     }
@@ -112,88 +113,163 @@ public class LigneCredit extends ClassEtat {
     public void setDaty(Date daty) {
         this.daty = daty;
     }
-    
-    public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2, String etat, String niveau, String exercice, String mois, Connection c) throws Exception {
-         LigneCredit[] ret = null; 
-           boolean newCon = false;
-           try{
-             if(c==null) {
+
+    public static ResultatEtSomme findSituationCreditDepense(LigneCredit critere, String date1, String date2, Connection c, String[] colSomme) throws Exception {
+        boolean newCon = false;
+        try {
+            if (c == null) {
                 c = new UtilDB().GetConn();
-                newCon=true;
+                newCon = true;
             }
-             String where =" where 1<2 ";
-             //if(id!=null   && !id.equals("")) where+=" and upper(l.id) like upper('%"+id+"%')";
-//             if(desingation!=null   && !desingation.equals("")) where+= "and upper(l.designation) like upper('%"+desingation+"%')";
-             if(compte!=null   && !compte.equals("")) where+= " and upper(l.compte) like upper('%"+compte+"%')";
-             if(date1!=null   && !date1.equals("")) where+= " and daty >= '"+date1+"'";
-             if(date2!=null   && !date2.equals("")) where+= " and daty <= '"+date2+"'";
-             if(exercice!=null   && !exercice.equals("")) where+= " and l.annee = " + exercice;
-             if (mois != null && !mois.equals("")) where += " and mf.mois = " + mois;
-             //if(etat != null && !etat.equals("")) where += " and l.etat = " + etat;
-             
-             String req = "select nvl(sum(MONTANTPAYE), 0) as PAYE,\n" +
-"         nvl(sum(montantttc), 0)  as facture,\n" +
-"        ( nvl(sum(montantttc), 0) - nvl(sum(MONTANTPAYE), 0)) as arecouvrir,\n" +
-"        l.ANNEE,\n" +
-//"        l.designation,\n" +
-"        l.compte,\n" +
-"        cr.LIBELLE       as libelle,\n" +
-"        l.montant   as montant,\n" +
-"        l.montant -  nvl(sum(montantttc), 0) as restebudget,\n" +
-"         (((nvl(sum(MONTANTTTC), 0)) / l.MONTANT) * 100)      as pourcEngage,\n" +
-"       (((nvl(sum(MONTANTPAYE), 0)) / l.MONTANT) * 100)       as pourcPaye \n"+                     
-" from (\n" +
-"          (SELECT\n" +
-"               sum(l.QUANTITE)        as QUANTITE,\n" +
-"               sum(l.MONTANT)         as montant,\n" +
-"               l.ANNEE,\n" +
-//"               l.designation,\n" +
-"               substr(l.COMPTE, 1, " + niveau + ") as compte\n" +
-"               --l.etat\n" +
-"           FROM LIGNECREDITDEPENSE l\n" +
-"           group by l.ANNEE, substr(l.COMPTE, 1, " + niveau + ")\n" +
-//"           group by l.ANNEE, l.designation, substr(l.COMPTE, 1, " + niveau + ")\n" +
-"           --, l.etat\n" +
-"           ) l\n" +
-"              LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n" +
-"                                sum(MONTANTPAYE)        as MONTANTPAYE,\n" +
-"                                substr(mf.COMPTECPL, 1, " + niveau + ") as compte,\n" +
-"                                mf.ANNEE,\n" +
-"                                mois                    as mois,\n" +
-"                                mf.daty\n" +
-"                         from DETAILSFACTUREFOURNISSEUR_paye mf\n" +
-"                         WHERE  mf.IDMERE not in\n" +
-"                      (select id from ProvisionFactureDefinitive)\n" +
-"                         group by substr(mf.COMPTECPL, 1, " + niveau + "), ANNEE, mois, daty) mf\n" +
-"              ON l.compte = mf.compte\n" +
-"                  AND mf.annee = l.annee\n" +
-"                  )\n" +
-"          LEFT JOIN COMPTE_RUBRIQUE cr ON l.COMPTE = cr.COMPTE\n" +
-where +
-"  group by l.ANNEE, l.compte, cr.LIBELLE, l.MONTANT";
-//"  group by l.ANNEE, l.compte, cr.LIBELLE, l.designation, l.MONTANT";
-             
-             //req = String.format(req, where);
-               //System.out.println("req=="+req);
-             LigneCredit stock = new LigneCredit();
-             stock.setNomTable("SITUATIONLC_VIDE");
-            ret = (LigneCredit[]) CGenUtil.rechercher(stock, req, c);
-       }
-      catch(Exception e)
-        {
+
+            String where = " where " + CGenUtil.makeWhere(critere);
+
+            where = where.replaceAll("id", "l.id");
+            where = where.replaceAll("designation", "l.designation");
+            where = where.replaceAll("compte", "l.compte");
+            where = where.replaceAll("annee", "l.annee");
+            
+            String whereDaty = " and (";
+            
+            if (date1 != null && !date1.equals("")) {
+                whereDaty += " mf.daty >= '" + date1 + "'";
+            }
+            if (date2 != null && !date2.equals("")) {
+                whereDaty += " mf.daty <= '" + date2 + "'";
+            }
+            
+            whereDaty += " or mf.daty is null)";
+            
+            where += whereDaty;
+
+            String req = "select l.id,\n"
+                    + "       l.DESIGNATION,\n"
+                    + "       l.compte,\n"
+                    + "       l.ANNEE,\n"
+                    + "       l.montant                                                                   as montant,\n"
+                    + "       l.etat,\n"
+                    + "       comptestr,\n"
+                    + "       cast(nvl(sum(MONTANTTTC), 0) as NUMBER(30, 3))                              as facture,\n"
+                    + "       cast(nvl(sum(MONTANTPAYE), 0) as number(30, 3))                             as PAYE,\n"
+                    + "       cast((nvl(sum(montantttc), 0) - nvl(sum(montantpaye), 0)) as NUMBER(30, 3)) as arecouvrir,\n"
+                    + "       cast((l.montant) - nvl(sum(montantttc), 0) as NUMBER(30, 3))                as restebudget,\n"
+                    + "       cast(((nvl(sum(MONTANTTTC), 0)) / l.MONTANT) * 100 as NUMBER(30, 3))        as pourcEngage,\n"
+                    + "       cast(((nvl(sum(MONTANTPAYE), 0)) / l.MONTANT) * 100 as number(30, 3))       as pourcPaye,\n"
+                    + "       comptecpl,\n"
+                    + "        compteinv,\n"
+                    + "        comptesimple,\n"
+                    + "        directionProjet ,\n"
+                    + "        direction,\n"
+                    + "        projet\n"
+                    + "from SITUATIONLCDEPENSE_CPL l\n"
+                    + "         LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n"
+                    + "    -- on substr(l.compte, 7, length(l.compte)) = mf.compte AND mf.annee = l.annee\n"
+                    + "                   on l.compte = mf.comptecpl AND mf.annee = l.annee\n"
+                    + where + " and l.etat >= " + ConstanteEtat.getEtatValider() + "\n"
+                    + "      --and mf.comptecpl is not null\n"
+                    + "-- WHERE mf.IDMERE not in       (select id from ProvisionFactureDefinitive)\n"
+                    + "group by l.id, l.DESIGNATION, l.compte, l.ANNEE, l.montant, l.etat, substr(l.compte, 7, length(l.compte)), comptecpl";
+            
+            LigneCredit stock = new LigneCredit();
+            stock.setNomTable("situationLC_vide");
+            return CGenUtil.rechercher(stock, req, c, colSomme);
+
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
+        } finally {
+            if (newCon && c != null) {
+                c.close();
+            }
         }
-        finally
-        {
-            if(newCon && c!=null)
-            {
+    }
+
+    public static LigneCredit[] findSituationCreditDepense(String id, String desingation, String compte, String date1, String date2, String etat, String niveau, String exercice, String mois, Connection c) throws Exception {
+        LigneCredit[] ret = null;
+        boolean newCon = false;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                newCon = true;
+            }
+            String where = " where 1<2 ";
+            //if(id!=null   && !id.equals("")) where+=" and upper(l.id) like upper('%"+id+"%')";
+//             if(desingation!=null   && !desingation.equals("")) where+= "and upper(l.designation) like upper('%"+desingation+"%')";
+            if (compte != null && !compte.equals("")) {
+                where += " and upper(l.compte) like upper('%" + compte + "%')";
+            }
+            if (date1 != null && !date1.equals("")) {
+                where += " and daty >= '" + date1 + "'";
+            }
+            if (date2 != null && !date2.equals("")) {
+                where += " and daty <= '" + date2 + "'";
+            }
+            if (exercice != null && !exercice.equals("")) {
+                where += " and l.annee = " + exercice;
+            }
+            if (mois != null && !mois.equals("")) {
+                where += " and mf.mois = " + mois;
+            }
+            //if(etat != null && !etat.equals("")) where += " and l.etat = " + etat;
+
+            String req = "select nvl(sum(MONTANTPAYE), 0) as PAYE,\n"
+                    + "         nvl(sum(montantttc), 0)  as facture,\n"
+                    + "        ( nvl(sum(montantttc), 0) - nvl(sum(MONTANTPAYE), 0)) as arecouvrir,\n"
+                    + "        l.ANNEE,\n"
+                    + //"        l.designation,\n" +
+                    "        l.compte,\n"
+                    + "        cr.LIBELLE       as libelle,\n"
+                    + "        l.montant   as montant,\n"
+                    + "        l.montant -  nvl(sum(montantttc), 0) as restebudget,\n"
+                    + "         (((nvl(sum(MONTANTTTC), 0)) / l.MONTANT) * 100)      as pourcEngage,\n"
+                    + "       (((nvl(sum(MONTANTPAYE), 0)) / l.MONTANT) * 100)       as pourcPaye \n"
+                    + " from (\n"
+                    + "          (SELECT\n"
+                    + "               sum(l.QUANTITE)        as QUANTITE,\n"
+                    + "               sum(l.MONTANT)         as montant,\n"
+                    + "               l.ANNEE,\n"
+                    + //"               l.designation,\n" +
+                    "               substr(l.COMPTE, 1, " + niveau + ") as compte\n"
+                    + "               --l.etat\n"
+                    + "           FROM LIGNECREDITDEPENSE l\n"
+                    + "           group by l.ANNEE, substr(l.COMPTE, 1, " + niveau + ")\n"
+                    + //"           group by l.ANNEE, l.designation, substr(l.COMPTE, 1, " + niveau + ")\n" +
+                    "           --, l.etat\n"
+                    + "           ) l\n"
+                    + "              LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n"
+                    + "                                sum(MONTANTPAYE)        as MONTANTPAYE,\n"
+                    + "                                substr(mf.COMPTECPL, 1, " + niveau + ") as compte,\n"
+                    + "                                mf.ANNEE,\n"
+                    + "                                mois                    as mois,\n"
+                    + "                                mf.daty\n"
+                    + "                         from DETAILSFACTUREFOURNISSEUR_paye mf\n"
+                    + "                         WHERE  mf.IDMERE not in\n"
+                    + "                      (select id from ProvisionFactureDefinitive)\n"
+                    + "                         group by substr(mf.COMPTECPL, 1, " + niveau + "), ANNEE, mois, daty) mf\n"
+                    + "              ON l.compte = mf.compte\n"
+                    + "                  AND mf.annee = l.annee\n"
+                    + "                  )\n"
+                    + "          LEFT JOIN COMPTE_RUBRIQUE cr ON l.COMPTE = cr.COMPTE\n"
+                    + where
+                    + "  group by l.ANNEE, l.compte, cr.LIBELLE, l.MONTANT";
+//"  group by l.ANNEE, l.compte, cr.LIBELLE, l.designation, l.MONTANT";
+
+            //req = String.format(req, where);
+            //System.out.println("req=="+req);
+            LigneCredit stock = new LigneCredit();
+            stock.setNomTable("SITUATIONLC_VIDE");
+            ret = (LigneCredit[]) CGenUtil.rechercher(stock, req, c);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (newCon && c != null) {
                 c.close();
             }
         }
         return ret;
-       }
-    
+    }
+
     /*public static LigneCredit[] findSituationCreditDepense(String id,String desingation,String compte,String date1,String date2, String etat, String niveau, String exercice, Connection c) throws Exception {
          LigneCredit[] ret = null; 
            boolean newCon = false;
@@ -269,12 +345,10 @@ where +
         }
         return ret;
        }*/
-
-    
-    public LigneCredit(){
+    public LigneCredit() {
         this.setNomTable("ligneCreditRecette");
     }
-    
+
     public void construirePK(Connection c) throws Exception {
         this.preparePk("LCRD", "get_seqligneCreditRecette");
         this.setId(makePK(c));
@@ -289,7 +363,7 @@ where +
     public String getAttributIDName() {
         return "id";
     }
-    
+
     public String getId() {
         return id;
     }
@@ -297,7 +371,7 @@ where +
     public void setId(String id) {
         this.id = id;
     }
-    
+
     public String getDesignation() {
         return designation;
     }
@@ -361,7 +435,7 @@ where +
     public void setAnnee(int annee) {
         this.annee = annee;
     }
-    
+
     public double getFacture() {
         return facture;
     }

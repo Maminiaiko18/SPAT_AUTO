@@ -1616,6 +1616,7 @@ public class EtatPaieServlet extends HttpServlet {
 
         String moisEnLettre = (String) moisL.getValeurBrute()[Utilitaire.stringToInt(mois) - 1];
         Map param = new HashMap();
+        
         EtatCA etatCA = new EtatCA(Integer.parseInt(mois), Integer.parseInt(annee), false);
         Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
         Map<String, CA> sommePartiel = etatCA.getSommePartiel();
@@ -1666,9 +1667,11 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("comptanttaux",Utilitaire.formaterAr(etatCA.getPourComptant()));
             param.put("credittaux",Utilitaire.formaterAr(etatCA.getPourcCredit()));
             /*taux*/
-            param.put("nbr",Utilitaire.formaterAr(totalGeneral.getNbComptant()));
-            param.put("nbr2",Utilitaire.formaterAr(totalGeneral.getNbCredit()));
-            param.put("nbr3",Utilitaire.formaterAr(totalGeneral.getNbComptant()+totalGeneral.getNbCredit()));
+            param.put("nbr",Utilitaire.formaterAr(Utilitaire.formaterAr(etatCA.getNbFactComptant())));
+            param.put("nbr2",Utilitaire.formaterAr(etatCA.getNbFactCredit()));
+            param.put("nbr3",Utilitaire.formaterAr(etatCA.getNbFactureTotal()));
+            param.put("mois",mois+"");
+            param.put("daty",Utilitaire.dateDuJour());
         }
          /*******************/   
         
