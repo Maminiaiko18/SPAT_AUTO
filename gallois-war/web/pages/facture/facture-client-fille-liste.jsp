@@ -15,18 +15,16 @@
 <%
     try {
         CaFcFilleComplet cht = new CaFcFilleComplet();
-        cht.setNomTable("FCFILLECOMPLET");
+        cht.setNomTable("CAFCFILLECOMPLET");
         String libEntete[] = { "idmere","daty","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
-        String listeCrt[] = {"compte", "mois", "annee", "type","daty"};
-        String listeInt[] = {"mois","daty"};
+        String listeCrt[] = {"compte","annee", "type","daty"};
+        String listeInt[] = {"daty"};
 
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("facture/facture-client-fille-liste.jsp");
 
-        pr.getFormu().getChamp("mois1").setLibelle("mois min");
-        pr.getFormu().getChamp("mois2").setLibelle("mois max");
         pr.getFormu().getChamp("daty1").setLibelle("date min");
         pr.getFormu().getChamp("daty2").setLibelle("date max");
         pr.getFormu().getChamp("annee").setLibelle("Année");
@@ -51,10 +49,6 @@
         
         pr.getFormu().changerEnChamp(listes);
         
-        pr.getFormu().getChamp("mois1").setDefaut(utilitaire.Utilitaire.getMoisEnCours()+"");
-        pr.getFormu().getChamp("mois2").setDefaut(utilitaire.Utilitaire.getMoisEnCours()+"");
-        pr.getFormu().getChamp("mois1").setLibelle("mois min");
-        pr.getFormu().getChamp("mois2").setLibelle("mois max");
         pr.getFormu().getChamp("annee").setLibelle("Année");
         pr.getFormu().getChamp("type").setLibelle("Type");
         pr.getFormu().getChamp("compte").setLibelle("Compte");

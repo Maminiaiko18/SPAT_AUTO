@@ -593,6 +593,7 @@ public class FactureClient extends ClassMere {
             fcd.setMois(mois);
             fcd.setAnnee(annee);
             fcd.setTauxDonne(true);
+            fcd.setDuree(1);
 
             //Generer Facture
             /*FactureClient fc = new FactureClient(Utilitaire.dateDuJourSql(), Constante.idMICTSL, designation, 0);
@@ -648,6 +649,7 @@ public class FactureClient extends ClassMere {
         fcd.setRubrique(rubRedevance.getId());
         fcd.setPu(Utilitaire.stringToDouble(rubRedevance.getPu()));
         fcd.setDevise(rubRedevance.getDevise());
+        fcd.setDuree(1);
 
         double taux = getTauxFinDuMois(c, mois, annee, fcd.getDevise());
 
@@ -691,6 +693,7 @@ public class FactureClient extends ClassMere {
             ret[i].setTva(listeAct[i].getTva());
             ret[i].setTaux(tauxFinDuMois);
             ret[i].setTauxDonne(true);
+            ret[i].setDuree(1);
 
         }
         //mere.setEstDDPMICTSL("1");
