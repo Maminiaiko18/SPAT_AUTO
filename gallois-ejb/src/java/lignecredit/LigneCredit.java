@@ -128,14 +128,19 @@ public class LigneCredit extends ClassEtat {
             where = where.replaceAll("designation", "l.designation");
             where = where.replaceAll("compte", "l.compte");
             where = where.replaceAll("annee", "l.annee");
+            
+            String whereDaty = " and (";
+            
             if (date1 != null && !date1.equals("")) {
-                where += " and mf.daty >= '" + date1 + "'";
+                whereDaty += " mf.daty >= '" + date1 + "'";
             }
             if (date2 != null && !date2.equals("")) {
-                where += " and mf.daty <= '" + date2 + "'";
+                whereDaty += " mf.daty <= '" + date2 + "'";
             }
             
-            where += " or mf.daty is null ";
+            whereDaty += " or mf.daty is null)";
+            
+            where += whereDaty;
 
             String req = "select l.id,\n"
                     + "       l.DESIGNATION,\n"
