@@ -108,7 +108,7 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idrubrique"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("produit_lib"), false);
-        affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
+        //affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("daty"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
 
