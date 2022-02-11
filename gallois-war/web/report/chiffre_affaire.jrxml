@@ -43,7 +43,7 @@
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["CHIFFRE D'AFFAIRES SUR LES FACTURES EMISES MOIS DE "+$P{mois}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CHIFFRE D'AFFAIRES SUR LES FACTURES EMISES MOIS DE "]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="1" width="170" height="16" uuid="70f9d16e-7da9-4dc8-9eff-ecfc2dd702d8"/>
