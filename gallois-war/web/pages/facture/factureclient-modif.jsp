@@ -112,9 +112,11 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("daty"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
 
-        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
-        affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
+//        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
+//        affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
 
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("idProduit"), false);
+        
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
 
@@ -165,7 +167,7 @@
         pi.getFormufle().getChamp("pu_0").setLibelle("pu");
         pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
-        pi.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
+        //i.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
         pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
         pi.getFormufle().getChamp("tva_0").setLibelle("tva");
         //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
