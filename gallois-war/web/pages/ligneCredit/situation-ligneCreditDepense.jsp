@@ -55,7 +55,7 @@
         
         String reqniv = request.getParameter("niveau");
         
-        String[] colSomme = {"montant", "restebudget"};
+        String[] colSomme = {"montant", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
         pr.creerObjetPage(libEntete, colSomme);
         
 //        LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, reqniv, annee, request.getParameter("mois"), null);

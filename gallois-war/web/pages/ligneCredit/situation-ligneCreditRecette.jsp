@@ -148,9 +148,9 @@
                                     <th>Année</th>
                                     <th>Montant</th>
                                     <th>Facture</th>
-                                    <th>PourcEngage</th>
+                                    <th>% Engag&eacute;</th>
                                     <th>Paye</th>
-                                    <th>PourcPaye</th>
+                                    <th>% Pay&eacute;</th>
                                     <th>Arecouvrir</th>
                                     <th>Restebudget</th>
                                 </tr>
