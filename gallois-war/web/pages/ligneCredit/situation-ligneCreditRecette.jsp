@@ -114,7 +114,7 @@
         </form>
         <%
             String lienTableau[] = {pr.getLien() + "?but=ligneCredit/fiche-ligneCreditRecette.jsp", pr.getLien() + "?but=facture/facture-client-fille-liste.jsp&compte=" + Utilitaire.champNull(request.getParameter("compte")) + "&recap=checked&daty1="+ Utilitaire.champNull(date1) + "&daty2=" + Utilitaire.champNull(date2)};
-            String colonneLien[] = {"id", "facture"};
+            String colonneLien[] = {"id", "Engagé"};
             String urlLien[] = {"id", "facture"};
             String urlLienAffiche[] = {"id", "id"};
             pr.getTableau().setLien(lienTableau);
@@ -124,10 +124,10 @@
         <br>
         <%
             String libEnteteAffiche[] = {"id", "designation", "compte", "annee", "montant", "Engagé", "% engagé", "Encaissé", "% encaissé", "a recouvrir", "reste sur budget"};
-            pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+            //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLien(urlLien);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
-//            pr.getTableau().setLibeEntete(libEnteteAffiche);
+            pr.getTableau().setLibeEntete(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
 
