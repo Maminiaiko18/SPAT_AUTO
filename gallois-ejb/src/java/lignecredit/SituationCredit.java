@@ -10,6 +10,7 @@ import bean.ResultatEtSomme;
 import java.sql.Connection;
 import java.sql.Date;
 import utilisateur.Utilisateur;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -156,24 +157,35 @@ public class SituationCredit extends LigneCredit {
         if (date1 != null && !date1.equals("")) where += " and mf.daty >= '" + date1 + "'";
         if (date2 != null && !date2.equals("")) where += " and mf.daty <= '" + date2 + "'";
 
-        String req = "select l.id,\n" +
-"       l.DESIGNATION,\n" +
-"       l.compte,\n" +
-"       l.ANNEE,\n" +
-"       l.montant                                                                   as montant,\n" +
-"       l.etat,\n" +
-"       cast(nvl(sum(MONTANTTTC), 0) as NUMBER(30, 3))                              as facture,\n" +
-"       cast(nvl(sum(MONTANTPAYE), 0) as number(30, 3))                             as PAYE,\n" +
-"       cast((nvl(sum(montantttc), 0) - nvl(sum(montantpaye), 0)) as NUMBER(30, 3)) as arecouvrir,\n" +
-"       cast((l.montant) - nvl(sum(montantttc), 0) as NUMBER(30, 3))                as restebudget,\n" +
-"       cast((nvl(sum(MONTANTTTC), 0) / l.MONTANT) * 100 as NUMBER(30, 3))          as pourcEngage,\n" +
-"       cast(((nvl(sum(MONTANTPAYE), 0)) / l.MONTANT) * 100 as number(30, 3))       as pourcPaye,\n" +
-"       mf.MOIS\n" +
-" from LIGNECREDITRECETTE l\n" +
-"         LEFT JOIN FACTURE_CLIENT_MF_PAYE mf\n" +
-"                   on mf.compte like l.compte || '%' AND mf.annee = l.annee\n" +
-where + "\n" + 
-" group by l.id, l.DESIGNATION, l.compte, l.ANNEE, l.montant, l.etat,mois";
+        String req = "SELECT l.id,\n" +
+"            l.DESIGNATION,\n" +
+"            l.compte,\n" +
+"            l.ANNEE,\n" +
+"            l.montant AS montant,\n" +
+"            l.etat,\n" +
+"            CAST (NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 3)) AS facture,\n" +
+"            CAST (NVL (SUM (MONTANTPAYE), 0) AS NUMBER (30, 3)) AS PAYE,\n" +
+"            CAST (\n" +
+"               (NVL (SUM (MONTANTHT), 0) - NVL (SUM (montantpaye), 0)) AS NUMBER (30, 3))\n" +
+"               AS arecouvrir,\n" +
+"            CAST ( (l.montant) - NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 3))\n" +
+"               AS restebudget,\n" +
+"            CAST (\n" +
+"               (NVL (SUM (MONTANTHT), 0) / l.MONTANT) * 100 AS NUMBER (30, 3))\n" +
+"               AS pourcEngage,\n" +
+"            CAST (\n" +
+"               ( (NVL (SUM (MONTANTPAYE), 0)) / l.MONTANT) * 100 AS NUMBER (30, 3))\n" +
+"               AS pourcPaye\n" +
+"       FROM LIGNECREDITRECETTE l\n" +
+"            LEFT JOIN FACTURE_CLIENT_MF_PAYE_BDG mf\n" +
+"               ON mf.compte LIKE l.compte || '%' AND mf.annee = l.annee\n" +
+ where + " and l.etat >= " + ConstanteEtat.getEtatValider() + " \n" +
+"   GROUP BY l.id,\n" +
+"            l.DESIGNATION,\n" +
+"            l.compte,\n" +
+"            l.ANNEE,\n" +
+"            l.montant,\n" +
+"            l.etat";
 
         return req;
     }

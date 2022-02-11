@@ -25,7 +25,7 @@
     pi.getFormu().getChamp("annee").setLibelle("Année");
     pi.getFormu().getChamp("quantite").setLibelle("Quantité");
     pi.getFormu().getChamp("annee").setDefaut(Utilitaire.getAnneeEnCours());
-    
+    pi.getFormu().getChamp("compteg").setVisible(false); 
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("quantite").setVisible(false);
     

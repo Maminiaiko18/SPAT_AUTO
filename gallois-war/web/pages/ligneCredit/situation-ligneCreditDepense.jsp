@@ -65,18 +65,19 @@
         pr.getFormu().getChamp("annee").setLibelle("Exercice");
         
         String reqniv = request.getParameter("niveau");
+        /*String reqniv ="9";
         
         if(reqniv == null || reqniv.equals("")) {
             pr.getBase().setNomTable("SITUATIONLCDEPENSEV");
-        }
+        }*/
         
         String[] colSomme = {"montant", "restebudget"};
         pr.creerObjetPage(libEntete, colSomme);
         
-        if(reqniv != null && !reqniv.equals("")) {
+        //if(reqniv != null && !reqniv.equals("")) {
             LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, reqniv, annee, request.getParameter("mois"), null);
             pr.setTableau(new TableauRecherche(liste, libEntete));
-        }
+        //}
 
         String[] libEtat = {"Tous", "Créés", "Visés"};
         String[] etat = {"", "" + ConstanteEtat.getEtatCreer(), "" + ConstanteEtat.getEtatValider()};

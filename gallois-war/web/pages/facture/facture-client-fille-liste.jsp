@@ -17,8 +17,8 @@
         CaFcFilleComplet cht = new CaFcFilleComplet();
         cht.setNomTable("FCFILLECOMPLET");
         String libEntete[] = { "idmere","daty","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
-        String listeCrt[] = {"compte", "mois", "annee", "type"};
-        String listeInt[] = {"mois"};
+        String listeCrt[] = {"compte", "mois", "annee", "type","daty"};
+        String listeInt[] = {"mois","daty"};
 
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -27,6 +27,8 @@
 
         pr.getFormu().getChamp("mois1").setLibelle("mois min");
         pr.getFormu().getChamp("mois2").setLibelle("mois max");
+        pr.getFormu().getChamp("daty1").setLibelle("date min");
+        pr.getFormu().getChamp("daty2").setLibelle("date max");
         pr.getFormu().getChamp("annee").setLibelle("Année");
         pr.getFormu().getChamp("type").setLibelle("Type");
         pr.getFormu().getChamp("compte").setLibelle("Compte");

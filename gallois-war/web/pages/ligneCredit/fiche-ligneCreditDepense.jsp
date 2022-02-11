@@ -33,7 +33,7 @@
     String lien = (String) session.getValue("lien");
     
     pc.getChampByName("quantite").setVisible(false);
-    
+    pc.getChampByName("compteG").setVisible(false);
     AttacherFichier[] fichiers = UploadService.getUploadFile(id);
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
