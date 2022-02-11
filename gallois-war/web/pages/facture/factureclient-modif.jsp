@@ -179,9 +179,10 @@
         pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
         pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
         pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
+        pi.getFormufle().getChamp("rang_0").setLibelle("Rang");
 
         mere = (FactureClient) pi.getBase();
-        String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction"};
+        String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction","rang"};
         pi.getFormufle().setColOrdre(ordreFille);
         pi.preparerDataFormu();
         
