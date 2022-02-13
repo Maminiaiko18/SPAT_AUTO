@@ -233,10 +233,6 @@
                                         <td align="right"><%=Utilitaire.formaterAr(placementAr[i].getMontantStock())%></td>
                                     </tr>
                                     <% }%>
-                                     <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="">
-                                        <td align="right">Total sans Bon Provisoire</td>
-                                        <td align="right"><%=Utilitaire.formaterAr(totalPlacementAr)%></td>
-                                    </tr>
                                     <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="">
                                         <td align="right">TOTAL</td>
                                         <td align="right"><%=Utilitaire.formaterAr(totalPlacementAr)%></td>
