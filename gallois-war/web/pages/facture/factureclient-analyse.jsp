@@ -12,13 +12,14 @@
 
         String listeCrt[] = {"daty", "libellerubrique", "catclient"};
         String listeInt[] = {"daty"};
-        String colDefaut[] = {"libellerubrique", "catclient"};
+        String colDefaut[] = {"libellerubrique"};
         String[] pourcentage = {};
         String somDefaut[] = {"montantttc"};
         PageRechercheGroupe pr = new PageRechercheGroupe(base, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, 18, somDefaut.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("facture/factureclient-analyse.jsp");
+        
 
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
@@ -48,7 +49,8 @@
         if(date2 == null || date2.trim().isEmpty()){
             awhere += String.format(" and daty <=  '%s' ", dateFin);
         }*/
-//        pr.setAWhere(awhere);
+        //pr.setAWhere(" order by montantttc desc");
+        pr.setNpp(100);
         pr.creerObjetPage();
         
 %>
