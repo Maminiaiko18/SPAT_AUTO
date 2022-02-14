@@ -1,20 +1,20 @@
 
 <%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
-<%@page import="facture.FactureClient"%>
+<%@page import="facture.FactureClientDetails"%>
 <%@page import="affichage.PageRechercheGroupe"%>
 <%@ page contentType="text/html; charset=iso-8859-1" language="java" errorPage="" %>
 
 <%
     try {
-        FactureClient base = new FactureClient();
-        base.setNomTable("factureClientValide_v");
+        FactureClientDetails base = new FactureClientDetails();
+        base.setNomTable("FCFILLECOMPLET_ANALYSE");
 
-        String listeCrt[] = {"id", "daty", "tierslib", "typeclientlib", "designation", "date_echeance", "escale", "categorielib"};
-        String listeInt[] = {"daty", "date_echeance"};
-        String colDefaut[] = {"id", "daty", "tierslib", "typeclientlib", "escale", "designation", "categorielib", "tva", "date_echeance"};
+        String listeCrt[] = {"daty", "libellerubrique", "catclient"};
+        String listeInt[] = {"daty"};
+        String colDefaut[] = {"libellerubrique", "catclient"};
         String[] pourcentage = {};
-        String somDefaut[] = {"montant", "montantTVA", "montantTTC", "montantAvoir", "montantpaye", "montantreste"};
+        String somDefaut[] = {"montantttc"};
         PageRechercheGroupe pr = new PageRechercheGroupe(base, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, 18, somDefaut.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -28,16 +28,12 @@
         String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
         
         pr.getFormu().getChamp("daty1").setLibelle("Date debut");
-        pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+//        pr.getFormu().getChamp("daty1").setDefaut(debutDate);
         pr.getFormu().getChamp("daty2").setLibelle("Date fin");
-        pr.getFormu().getChamp("daty2").setDefaut(dateFin);
-        pr.getFormu().getChamp("tierslib").setLibelle("Client");
-        pr.getFormu().getChamp("date_echeance1").setLibelle("Date �ch�ance min");
-        pr.getFormu().getChamp("date_echeance2").setLibelle("Date �ch�ance max");
-        pr.getFormu().getChamp("categorielib").setLibelle("Cat�gorie");
-        pr.getFormu().getChamp("typeclientlib").setLibelle("Type client");
-        
-        String date1 = request.getParameter("daty1");
+        //pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+        pr.getFormu().getChamp("libellerubrique").setLibelle("Rubrique");
+
+        /*String date1 = request.getParameter("daty1");
         String date2 = request.getParameter("daty2");
         String awhere = "";
         if(date1 == null || date1.trim().isEmpty()){
@@ -45,8 +41,8 @@
         }
         if(date2 == null || date2.trim().isEmpty()){
             awhere += String.format(" and daty <=  '%s' ", dateFin);
-        }
-        pr.setAWhere(awhere);
+        }*/
+//        pr.setAWhere(awhere);
         pr.creerObjetPage();
         
 %>
