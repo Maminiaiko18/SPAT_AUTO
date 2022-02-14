@@ -20,12 +20,18 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("facture/factureclient-analyse.jsp");
 
-        Date firstDate = Utilitaire.dateDuJourSql();  
+        Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
         Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
         
         String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
         String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+        
+        if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+            pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+            pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+            pr.setAWhere(" and daty>='"+debutDate+"' and daty<='"+dateFin+"'");
+        }
         
         pr.getFormu().getChamp("daty1").setLibelle("Date debut");
 //        pr.getFormu().getChamp("daty1").setDefaut(debutDate);

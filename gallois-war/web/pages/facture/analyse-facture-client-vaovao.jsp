@@ -37,6 +37,7 @@
         if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
             pr.getFormu().getChamp("daty1").setDefaut(debutDate);
             pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+            pr.setAWhere(" and daty>='"+debutDate+"' and daty<='"+dateFin+"'");
         }
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
