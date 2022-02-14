@@ -30,16 +30,28 @@
         Liste[] listes = new Liste[1];
         listes[0] = new Liste("mois");
         listes[0].makeListeMois();
-        listes[0].setDefaultSelected(String.valueOf(Utilitaire.getMoisEnCours()));
-        pr.getFormu().changerEnChamp(listes);
         
+        listes[0].setDefaultSelected(String.valueOf(Utilitaire.getMoisEnCours()));
+        
+         Liste moisL = new Liste("mois");
+        moisL.makeListeMois();
+         System.out.println("Utilitaire.getMoisEnCoursReel()="+Utilitaire.getMoisEnCoursReel());
+        moisL.setDefaut("" + Utilitaire.getMoisEnCoursReel());
+        
+        pr.getFormu().changerEnChamp(listes);
+        String awhere="";
+        if(request.getParameter("mois")==null){
+            awhere=" and mois ="+Utilitaire.getMoisEnCoursReel();
+        }
+        pr.setAWhere(awhere);
+        pr.getFormu().getChamp("mois").setDefaut(Utilitaire.getMoisEnCoursReel()+"");
         pr.getFormu().getChamp("mois").setLibelle("Mois");
         pr.getFormu().getChamp("annee").setLibelle("Année");
         pr.getFormu().getChamp("rubriquelib").setLibelle("Rubrique");
-        
+         
         pr.setApres("facture/analyse-facture-client-vaovao.jsp");
         pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+pr.getApres());
-
+        
 %>
 
 <div class="content-wrapper">
