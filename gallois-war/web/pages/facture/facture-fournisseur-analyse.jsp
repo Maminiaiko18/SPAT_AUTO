@@ -1,4 +1,5 @@
 
+<%@page import="java.sql.Date"%>
 <%@page import="facture.FactureFournisseur"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="affichage.PageRechercheGroupe"%>
@@ -12,7 +13,7 @@
 
         String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib"};
         String listeInt[] = {"daty","date_echeance"};
-        String colDefaut[] = {"id","daty","tierslib","escale","designation","categorielib","tva","date_echeance"};
+        String colDefaut[] = {"id","daty","tierslib","designation","categorielib","tva","date_echeance"};
         String[] pourcentage = {};
         String somDefaut[] = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
         
@@ -24,6 +25,22 @@
         
         pr.getFormu().getChamp("daty1").setLibelle("Date debut");
         pr.getFormu().getChamp("daty2").setLibelle("Date fin");
+        Date finMois = utilitaire.Utilitaire.getLastDayOfDateSQL(utilitaire.Utilitaire.dateDuJourSql());
+        Date debutMois = utilitaire.Utilitaire.dateDuJourSql();
+        debutMois.setDate(1);
+        String awhere = "";
+        if(request.getParameter("daty1") == null || request.getParameter("daty1").isEmpty()){
+            pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.stringToDateJ("dd/MM/yyyy", debutMois));
+            awhere = awhere + String.format(" and daty>= '%s'", Utilitaire.stringToDateJ("dd/MM/yyyy", debutMois));
+            pr.setAWhere(awhere);
+        }
+        if(request.getParameter("daty2") == null || request.getParameter("daty2").isEmpty()){
+            pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.stringToDateJ("dd/MM/yyyy", finMois));
+            awhere = awhere + String.format(" and daty<= '%s'", Utilitaire.stringToDateJ("dd/MM/yyyy", finMois));
+            pr.setAWhere(awhere);
+        }                
+        
+        
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("date_echeance1").setLibelle("Date echeance min");
         pr.getFormu().getChamp("date_echeance2").setLibelle("Date echeance max");
@@ -37,7 +54,7 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Analyse facture client</h1>
+        <h1>Analyse Factures fournisseurs</h1>
     </section>
     <section class="content">
         <form action='<%= pr.getLien() + "?but="+pr.getApres() %>' method="post" name="analyse" id="analyse">
