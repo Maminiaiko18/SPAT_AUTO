@@ -26,7 +26,7 @@
         String colDefaut[] = {"id", "date_placement", "date_echeance", "valentite", "valbanque", "numero"};
         String somDefaut[] = {"duree", "interet_recevoir", "montant"};
         String lien[] = {"montant"};
-        PageRechercheGroupe pr = new PageRechercheGroupe(journal, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, 9, 2);
+        PageRechercheGroupe pr = new PageRechercheGroupe(journal, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, 2);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
@@ -63,10 +63,10 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Entite", "Banque", "Dur&eacute;e", "Interet recevoir", "Montant"};
+            String libEnteteAffiche[] = {"ID","Date placement","Date &eacute;ch&eacute;ance","Entite", "Banque","Num&eacute;ro" ,"Dur&eacute;e", "Interet recevoir", "Montant"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             String lienTableau[] = {
-                pr.getLien() + "?but=placement/details-analyse-placementMontant.jsp"};
+                pr.getLien() + "?but=placement/details-analyse-placementMontant.jsp&recap=checked"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(lien);
             out.println(pr.getTableau().getHtml());
