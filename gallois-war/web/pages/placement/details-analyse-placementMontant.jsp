@@ -27,7 +27,7 @@
         pr.setLien((String) session.getValue("lien"));
 
         pr.setApres("placement/analyse-placement.jsp");
-        String[] colSomme = null;
+        String[] colSomme = {"montant"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
