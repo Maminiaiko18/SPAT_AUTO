@@ -32,16 +32,28 @@
         pr.getFormu().getChamp("daty1").setLibelle("Date mouvement min");
         pr.getFormu().getChamp("daty2").setLibelle("Date mouvement max");
 //
-        pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
-        pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
-     
+        
         pr.getFormu().getChamp("idmateriel_naval").setLibelle("Mat&eacute;riel naval");
         pr.getFormu().getChamp("idnatureoperation").setLibelle("Nature de l'op&eacute;ration");
         pr.getFormu().getChamp("idmanoeuvrebord").setLibelle("Manoeuvre bord");
         pr.getFormu().getChamp("idnavire").setLibelle("Navire");
        
-        
         pr.setApres("capitainerie/analyse-occupationmaterielnaval.jsp");
+        
+        String daty1 = request.getParameter("daty1");
+        String daty2 = request.getParameter("daty2");
+        String awhere = "";
+        if(daty1 == null){
+            pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
+            awhere += String.format(" and daty >= '%s' ", Utilitaire.dateDuJour());
+        }
+        
+        if(daty2 == null){
+            pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
+            awhere += String.format(" and daty <= '%s' ", Utilitaire.dateDuJour());
+        }
+        pr.setAWhere(awhere);
+        
         pr.creerObjetPage();
 %>
 <script>
