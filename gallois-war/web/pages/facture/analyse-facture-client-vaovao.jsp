@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@page import="affichage.Liste"%>
 <%@page import="facture.FactureClientDetails"%>
 <%@page import="affichage.PageRechercheGroupe"%>
@@ -6,15 +7,15 @@
     try {
 
         FactureClientDetails lv = new FactureClientDetails();
-        lv.setNomTable("facture_client_fille_libVM");
-        String listeCrt[] = {"mois", "annee", "rubriquelib"};
-        String listeInt[] = {};
+        lv.setNomTable("FCFILLECOMPLET_ANALYSE");
+        String listeCrt[] = {"daty","annee", "libelleRubrique"};
+        String listeInt[] = {"daty"};
         
         
         String[] pourcentage = {};
-        String somDefaut[] ={"montanttaux"}; //sum
-        String colDefaut[] =  {"moislib"}; // colonne
-        String[] colGrCol = {"rubriquelib"}; //ligne
+        String somDefaut[] ={"montantttc"}; //sum
+        String colDefaut[] =  {"moislib","catClient"}; // colonne
+        String[] colGrCol = {"libelleRubrique"}; //ligne
         
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, colDefaut.length, 0);
         
@@ -25,9 +26,23 @@
         pr.getFormu().getChamp("annee").setValeur(Utilitaire.getAnneeEnCours());
         if(request.getParameter("annee")==null || request.getParameter("annee").compareToIgnoreCase("")==0)
             pr.setAWhere(" and annee like '"+Utilitaire.getAnneeEnCours()+"'");
+        
+        Date firstDate = Utilitaire.dateDuJourSql();   
+        firstDate.setDate(1);        
+        Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
+        
+        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+        
+        if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+            pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+            pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+        }
+        pr.getFormu().getChamp("daty1").setLibelle("Date min");
+        pr.getFormu().getChamp("daty2").setLibelle("Date max");
 //        if(request.getParameter("mois")==null || request.getParameter("mois").compareToIgnoreCase("")==0)
 //            pr.setAWhere("' and mois like '"+String.valueOf(Utilitaire.getMoisEnCours())+"'");
-        Liste[] listes = new Liste[1];
+        /*Liste[] listes = new Liste[1];
         listes[0] = new Liste("mois");
         listes[0].makeListeMois();
         
@@ -38,16 +53,16 @@
          System.out.println("Utilitaire.getMoisEnCoursReel()="+Utilitaire.getMoisEnCoursReel());
         moisL.setDefaut("" + Utilitaire.getMoisEnCoursReel());
         
-        pr.getFormu().changerEnChamp(listes);
-        String awhere="";
+        pr.getFormu().changerEnChamp(listes);*/
+        /*String awhere="";
         if(request.getParameter("mois")==null){
             awhere=" and mois ="+Utilitaire.getMoisEnCoursReel();
         }
         pr.setAWhere(awhere);
         pr.getFormu().getChamp("mois").setDefaut(Utilitaire.getMoisEnCoursReel()+"");
-        pr.getFormu().getChamp("mois").setLibelle("Mois");
+        pr.getFormu().getChamp("mois").setLibelle("Mois");*/
         pr.getFormu().getChamp("annee").setLibelle("Année");
-        pr.getFormu().getChamp("rubriquelib").setLibelle("Rubrique");
+        pr.getFormu().getChamp("libelleRubrique").setLibelle("Rubrique");
          
         pr.setApres("facture/analyse-facture-client-vaovao.jsp");
         pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+pr.getApres());
