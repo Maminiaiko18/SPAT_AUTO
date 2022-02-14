@@ -41,8 +41,24 @@ public class FactureClientDetails extends ClassFille {
     private String heureDebut, heureFin, moislib,anneelib;
     private double montantHTEuro,montantTVAEuro, montanttaxe,majoration,reduction,duree;
     private int rang;
-    private String idrubrique;
+    private String idrubrique,catClient,libelleRubrique;
 
+    public String getCatClient() {
+        return catClient;
+    }
+
+    public void setCatClient(String catClient) {
+        this.catClient = catClient;
+    }
+
+    public String getLibelleRubrique() {
+        return libelleRubrique;
+    }
+
+    public void setLibelleRubrique(String libelleRubrique) {
+        this.libelleRubrique = libelleRubrique;
+    }
+    
     public Date getDatyActivite() {
         return datyActivite;
     }

@@ -217,7 +217,9 @@
 <script>
     
     //$('#ajout_multiple_ligne tr td:nth-child(7)').attr('style', '');
-    
+    <% for(int i=0; i<pi.getNombreLigne(); i++){ %>
+    $('#idproduit_<%= i %>').parent().attr('style', '');    
+    <% } %>    
     document.getElementById("projetlibelle").value = "<%= Utilitaire.champNull(mere.getProjetlib()) %>";
     document.getElementById("code_etablissementlibelle").value = "<%= Utilitaire.champNull(mere.getCode_etablissementlib()) %>";
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib()%>";
@@ -249,6 +251,7 @@
             textarea<%=i%>.style.height = "100px";
             textarea<%=i%>.value = designation<%=i%>.value;
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
+        
     <%}%>
         
 </script>

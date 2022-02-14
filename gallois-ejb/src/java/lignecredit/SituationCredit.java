@@ -174,7 +174,7 @@ public class SituationCredit extends LigneCredit {
 "               (NVL (SUM (MONTANTHT), 0) / l.MONTANT) * 100 AS NUMBER (30, 3))\n" +
 "               AS pourcEngage,\n" +
 "            CAST (\n" +
-"               ( (NVL (SUM (MONTANTPAYE), 0)) / l.MONTANT) * 100 AS NUMBER (30, 3))\n" +
+"               ( (NVL (SUM (MONTANTPAYE), 0)) / NVL (SUM (MONTANTHT), 0)) * 100 AS NUMBER (30, 3))\n" +
 "               AS pourcPaye\n" +
 "       FROM LIGNECREDITRECETTE l\n" +
 "            LEFT JOIN FACTURE_CLIENT_MF_PAYE_BDG mf\n" +
