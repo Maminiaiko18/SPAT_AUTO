@@ -41,6 +41,13 @@
         pr.getFormu().getChamp("date_depart2").setLibelle("Date depart max");
         
         pr.getFormu().getChamp("dateArrivee1").setLibelle("Date arrive min");
+        Date debutAnnee = utilitaire.Utilitaire.dateDuJourSql();
+        debutAnnee.setDate(1);
+        debutAnnee.setMonth(0);
+        if(request.getParameter("dateArrivee1") == null || request.getParameter("dateArrivee1").isEmpty()){            
+            pr.getFormu().getChamp("dateArrivee1").setDefaut(Utilitaire.stringToDateJ("dd/MM/yyyy", debutAnnee));   
+            pr.setAWhere(" and dateArrivee>= '"+Utilitaire.stringToDateJ("dd/MM/yyyy", debutAnnee)+"'");
+        }        
         pr.getFormu().getChamp("dateArrivee2").setLibelle("Date arrive max");
         
         pr.getFormu().getChamp("desceconsignataire").setLibelle("Consignataire");
@@ -49,6 +56,7 @@
         pr.getFormu().getChamp("DESCEMVT").setLibelle("Mouvement");
         pr.getFormu().getChamp("VALQUAISDESTINATION").setLibelle("Quais Destination");
         pr.getFormu().getChamp("nomnavire").setLibelle("Navire");
+        pr.getFormu().getChamp("typenavire").setLibelle("Type navire");
 
         //pr.getFormu().getChamp("daty1").setDefaut(fin[0]);
       //  pr.getFormu().getChamp("daty2").setDefaut(fin[1]);
