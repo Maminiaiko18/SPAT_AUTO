@@ -43,7 +43,16 @@
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
         
-        
+        pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
+        String awhere="";
+        if(request.getParameter("daty1")==null){
+            awhere+=String.format(" and daty>='%s'", Utilitaire.dateDuJour());
+        }
+        if(request.getParameter("daty2")==null){
+            awhere+=String.format(" and daty<='%s'", Utilitaire.dateDuJour());
+        }
+        pr.setAWhere(awhere);
         pr.getFormu().getChamp("code_etab").setLibelle("Code etablissement");
         
         pr.getFormu().getChamp("numbc").setLibelle("Numero bon de commande");
