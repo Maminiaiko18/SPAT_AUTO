@@ -233,6 +233,19 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         this.setDebit(debit);
         this.setCredit(credit);
     }
+    public JournalCaisse(String folio, String caisse, String numPiece, String libelle, String remarque, Date dateSaisie, Date dateEffet, double debit, double credit,String source) throws Exception {
+        super.setNomTable("journalcaisse");
+        this.setFolio(folio);
+        this.setCaisse(caisse);
+        this.setNumPiece(numPiece);
+        this.setLibelle(libelle);
+        this.setRemarque(remarque);
+        this.setDateSaisie(dateSaisie);
+        this.setDateEffet(dateEffet);
+        this.setDebit(debit);
+        this.setCredit(credit);
+        this.setIdplacement(source);
+    }
 
     public JournalCaisse(String id, String folio, String caisse, String numPiece, String libelle, String remarque, String tiers, String idTypeCheque, String idplacement, String valCaisse, String valTypeCheque, String desceTypeCheque, String tiersLib, double sommeCredit, double sortie, double entree, String banque, String designation, String iddevise, String idmode, String numcheque, String typemvt, String idordre, double reste, Date dateSaisie, Date dateEffet, double debit, double credit, double montant) {
         this.id = id;
@@ -863,7 +876,11 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 for(FactureFournisseur ff : ffListe){
                     double aPayer = ff.getMontantreste() < resteDebit ? ff.getMontantreste() : resteDebit;
                     
-                    if(ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())) aPayer = genererMontantPaiement(c, "etatbpvrai", ff.getId(), aPayer);
+                    if(ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())){
+                        aPayer = genererMontantPaiement(c, "etatbpvrai", ff.getId(), aPayer);
+                        //Insérer dans bon provisoire
+                        insererDansBonProvisoire(refuser, c);
+                    }
                     
                     PaiementFacture pf = new PaiementFacture();
                     pf.setNomTable("paiementfacturef");
@@ -1063,7 +1080,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             
             Date dateDuJour = Utilitaire.dateDuJourSql();
-            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, dateDuJour, 0, this.getDebit());
+            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, this.getDateEffet(), 0, this.getDebit(),this.getIdplacement());
             transfert.setIddevise(this.getIddevise());
             transfert.setIdmode(this.getIdmode());
             transfert.setEtat(ConstanteEtat.getEtatValider());

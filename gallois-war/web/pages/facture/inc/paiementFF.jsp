@@ -20,7 +20,7 @@
     pr.setApres("facture/inc/paiementFF.jsp");
     String[] colSomme = {"credit","debit"};
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "Libelle", "Caisse","tiers","Date", "Entree","Sortie"};
+    String libEnteteAffiche[] = {"id", "Libelle", "Caisse","tiers","Date", "Sortie"};
     String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
