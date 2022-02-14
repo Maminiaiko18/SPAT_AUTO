@@ -28,10 +28,26 @@
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("ded/bordereauxFF-analyse.jsp");
     pr.getFormu().getChamp("daty1").setLibelle("date de début");
-    pr.getFormu().getChamp("daty2").setLibelle("date fin");
-    pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
-    pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
+    pr.getFormu().getChamp("daty2").setLibelle("date fin");     
+    String daty1 = request.getParameter("daty1");
+        String daty2 = request.getParameter("daty2");
+        String awhere = "";
+        if(daty1 == null){
+            pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
+            awhere += String.format(" and daty >= '%s' ", Utilitaire.dateDuJour());
+            
+        }
+        
+        if(daty2 == null){
+           
+            String[] datesplit = Utilitaire.dateDuJour().split("/");
+            String finmois=""+Utilitaire.getLastJourInMonth(Utilitaire.dateDuJourSql());
+            String datefindemois= finmois+"/"+datesplit[1]+"/"+datesplit[2];
+            pr.getFormu().getChamp("daty2").setDefaut(datefindemois);
+            awhere += String.format(" and daty <= '%s' ", datefindemois);
+        }
     String[] colSomme = {"montant"};
+    pr.setAWhere(awhere);
     pr.creerObjetPage();
 %>
 
