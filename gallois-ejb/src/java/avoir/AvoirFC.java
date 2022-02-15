@@ -244,7 +244,8 @@ public class AvoirFC extends ClassMere {
             sequence = seq[0].getVal();
         }
 
-        return Utilitaire.completerInt(longueur, sequence);
+        // return Utilitaire.completerInt(longueur, sequence);
+        return  sequence;
     } 
     
     @Override
