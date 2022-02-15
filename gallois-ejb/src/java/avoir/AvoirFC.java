@@ -394,13 +394,14 @@ public class AvoirFC extends ClassMere {
             }
             FactureClient factureLiee = getFactureLiee("factureclient", c);
             factureLiee.setIdavoir(this.getId());
-            factureLiee.createObject(user, c);
-            FactureClientDetails[] details = (FactureClientDetails[])factureLiee.getFille();
+            FactureClientDetails[] details = (FactureClientDetails[])factureLiee.getFille("facture_client_fille",c,"");
             if(details != null && details.length > 0){
                 for(int i=0; i<details.length; i++){
-                    details[i].createObject(user, c);
+                    details[i].setId(null);
                 }
             }
+            factureLiee.setFille(details);
+            factureLiee.createObject(user, c);
             return factureLiee;
         } catch(Exception e){
             throw e;
