@@ -261,8 +261,14 @@ public class AvoirFC extends ClassMere {
         String annee = Utilitaire.genererAnnee(daty);
         String mois = Utilitaire.genererMois(daty);
         String valCateg = "1".equals(this.getType()) ? "IS" : this.getCategorie(c).getVal();
+        
+        FactureClient fc = getFactureLiee(null, c);
+        if(fc != null && fc.getIdprevision() != null) valCateg += "S";
+        
+        String retour = annee+mois+valCateg;
+        
         String seq = this.genererSequence(c, "NUMEROAVOIRFC", 3);
-        return annee+mois+valCateg+seq;
+        return retour += Utilitaire.completerInt(9 - retour.length(), seq);
     }
     
     public TypeObjet getCategorie(Connection c) throws Exception {
