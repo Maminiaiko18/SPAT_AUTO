@@ -26,7 +26,16 @@ public class FactureFournisseur extends FactureClient {
 
     private String numeroop, projet, code_etablissement, projetlib, code_etablissementlib, nature, naturelib, idbc, numOP;
     private int exercice;
+    private String id2;
 
+    public String getId2() {
+        return id2;
+    }
+
+    public void setId2(String id2) {
+        this.id2 = id2;
+    }
+    
     public int getExercice() {
         return exercice;
     }

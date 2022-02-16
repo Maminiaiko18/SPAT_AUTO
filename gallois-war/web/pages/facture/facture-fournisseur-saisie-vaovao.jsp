@@ -73,11 +73,11 @@
     
     if(request.getParameter("idBL") != null){
         pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
-        pi.getFormu().getChamp("projetlibelle").setValeurLibelle(livraisons[0].getProjetlib());
+        pi.getFormu().getChamp("projet").setValeurLibelle(livraisons[0].getProjetlib());
         pi.getFormu().getChamp("code_etablissement").setValeur(livraisons[0].getCode_etablissement());
-        pi.getFormu().getChamp("code_etablissementlibelle").setValeurLibelle(livraisons[0].getCode_etablissementlib());
+        pi.getFormu().getChamp("code_etablissement").setValeurLibelle(livraisons[0].getCode_etablissementlib());
         pi.getFormu().getChamp("tiers").setValeur(livraisons[0].getIdtiers());
-        pi.getFormu().getChamp("tierslibelle").setValeurLibelle(livraisons[0].getNomtiers());
+        pi.getFormu().getChamp("tiers").setValeurLibelle(livraisons[0].getNomtiers());
     }
     
     
