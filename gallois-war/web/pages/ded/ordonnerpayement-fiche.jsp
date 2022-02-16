@@ -32,7 +32,16 @@
         configuration.CynthiaConf.load();
         String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
         String dossier = "op";
-
+        
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("factureFournisseur", "");
+        String tab = request.getParameter("tab");
+        if (tab == null) {
+            tab = "factureFournisseur";
+        }
+        map.put(tab, "active");
+        tab = "inc/" + tab + ".jsp";
+        String bute="ded/ordonnerpayement-fiche.jsp";
 %>
 <style>
     .col-md-center .box-fiche{
@@ -67,8 +76,27 @@
                         <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + id + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=ded/ordonnerpayement-fiche.jsp&id=" + id%>" style="margin-right: 10px">Attacher Fichier</a> 
                         <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=ordonnerpayement&id=<%=id%>" style="margin-right: 10px">Imprimer OP</a>
                     </div>
+                    
+                     <div class="tab-content">       
+
+                </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+                    
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 ">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("factureFournisseur")%>"><a href="module.jsp?but=<%=bute%>&id=<%=a.getId()%>&tab=factureFournisseur">Factures fournisseurs</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">       
+                <jsp:include page="<%=tab%>" >
+                    <jsp:param name="id2" value="<%=a.getId()%>" />
+                </jsp:include>
             </div>
         </div>
     </div>
