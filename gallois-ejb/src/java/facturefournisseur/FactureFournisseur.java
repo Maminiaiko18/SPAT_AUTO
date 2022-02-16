@@ -40,6 +40,9 @@ public class FactureFournisseur extends ClassEtat {
     private String numeroop;
     private String projet;
     private String code_etablissement;
+	private String projetlibelle;
+	private String code_etablissementlibelle;
+	private String tierslibelle;
 
     public FactureFournisseur(String numfact, Date daty, String idfournisseur, String nomfournisseur, String iddevise, double montantttc, String remarque, double idtva, String designation, Date dateemission, String resp, Date datyecheance, String idfacturefournisseur, String budget, double montantdevise, int exercice, String type, String numid) throws Exception {
         super.setNomTable("factureFournisseur");
@@ -641,5 +644,29 @@ public class FactureFournisseur extends ClassEtat {
 
     public void setCode_etablissement(String code_etablissement) {
         this.code_etablissement = code_etablissement;
+    }
+
+    public String getProjetlibelle() {
+        return projetlibelle;
+    }
+
+    public void setProjetlibelle(String projetlibelle) {
+        this.projetlibelle = projetlibelle;
+    }
+
+    public String getCode_etablissementlibelle() {
+        return code_etablissementlibelle;
+    }
+
+    public void setCode_etablissementlibelle(String code_etablissementlibelle) {
+        this.code_etablissementlibelle = code_etablissementlibelle;
+    }
+
+    public String getTierslibelle() {
+        return tierslibelle;
+    }
+
+    public void setTierslibelle(String tierslibelle) {
+        this.tierslibelle = tierslibelle;
     }
 }
