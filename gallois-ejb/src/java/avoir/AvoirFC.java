@@ -263,7 +263,7 @@ public class AvoirFC extends ClassMere {
         String valCateg = "1".equals(this.getType()) ? "IS" : this.getCategorie(c).getVal();
         
         FactureClient fc = getFactureLiee(null, c);
-        if(fc != null && fc.getIdprevision() != null) valCateg += "S";
+        if(this.getType()!=null && "2".equals(this.getType()) && fc != null && fc.getIdprevision() != null) valCateg += "S";
         
         String retour = annee+mois+valCateg;
         
