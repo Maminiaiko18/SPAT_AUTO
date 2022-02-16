@@ -17,6 +17,7 @@ import facture.FactureClientDetails;
 import factureclient.FactureClientDetail;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -394,6 +395,7 @@ public class AvoirFC extends ClassMere {
             }
             FactureClient factureLiee = getFactureLiee("factureclient", c);
             factureLiee.setIdavoir(this.getId());
+            factureLiee.setEtat(ConstanteEtat.getEtatCreer());
             FactureClientDetails[] details = (FactureClientDetails[])factureLiee.getFille("facture_client_fille",c,"");
             if(details != null && details.length > 0){
                 for(int i=0; i<details.length; i++){
