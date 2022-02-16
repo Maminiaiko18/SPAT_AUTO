@@ -244,7 +244,8 @@ public class AvoirFC extends ClassMere {
             sequence = seq[0].getVal();
         }
 
-        return Utilitaire.completerInt(longueur, sequence);
+        // return Utilitaire.completerInt(longueur, sequence);
+        return  sequence;
     } 
     
     @Override
@@ -260,8 +261,14 @@ public class AvoirFC extends ClassMere {
         String annee = Utilitaire.genererAnnee(daty);
         String mois = Utilitaire.genererMois(daty);
         String valCateg = "1".equals(this.getType()) ? "IS" : this.getCategorie(c).getVal();
+        
+        FactureClient fc = getFactureLiee(null, c);
+        if(fc != null && fc.getIdprevision() != null) valCateg += "S";
+        
+        String retour = annee+mois+valCateg;
+        
         String seq = this.genererSequence(c, "NUMEROAVOIRFC", 3);
-        return annee+mois+valCateg+seq;
+        return retour += Utilitaire.completerInt(9 - retour.length(), seq);
     }
     
     public TypeObjet getCategorie(Connection c) throws Exception {
@@ -387,13 +394,14 @@ public class AvoirFC extends ClassMere {
             }
             FactureClient factureLiee = getFactureLiee("factureclient", c);
             factureLiee.setIdavoir(this.getId());
-            factureLiee.createObject(user, c);
-            FactureClientDetails[] details = (FactureClientDetails[])factureLiee.getFille();
+            FactureClientDetails[] details = (FactureClientDetails[])factureLiee.getFille("facture_client_fille",c,"");
             if(details != null && details.length > 0){
                 for(int i=0; i<details.length; i++){
-                    details[i].createObject(user, c);
+                    details[i].setId(null);
                 }
             }
+            factureLiee.setFille(details);
+            factureLiee.createObject(user, c);
             return factureLiee;
         } catch(Exception e){
             throw e;

@@ -7,6 +7,7 @@ package mg.allosakafo.produits;
 
 import bean.CGenUtil;
 import bean.ClassMAPTable;
+import facture.FactureFournisseur;
 import factureclient.PaiementFactureRemise;
 import facturefournisseur.EtatFactureMontantDaty;
 import java.sql.Connection;
@@ -59,18 +60,16 @@ public class LiaisonIntraTable extends ClassMAPTable {
 
     public boolean checkfacturevisee(Connection c) throws Exception {
         int verif = 0;
-        EtatFactureMontantDaty[] tmp = null;
-        boolean verifier=true;
         try {
             if (c == null) {
                 c = new UtilDB().GetConn();
                 verif = 1;
             }
-            EtatFactureMontantDaty ff = new EtatFactureMontantDaty();
-            ff.setNomTable("ETATFACTUREMONTANTDATY");
-            tmp = (EtatFactureMontantDaty[]) CGenUtil.rechercher(ff, null, null, c, " and id = '" + this.getId1() + "'");
-            if(tmp!=null && tmp.length>0 && Utilitaire.stringToInt(tmp[0].getEtat())<ConstanteEtat.getEtatValider()) return false;            
             
+            FactureFournisseur ff = new FactureFournisseur();
+            ff.setNomTable("FACTUREFOURNVALIDE_V");
+            FactureFournisseur[] result = (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, String.format(" and id = '%s' ", this.getId1()));
+            return result.length > 0;
         } catch (Exception e) {
             throw e;
         } finally {
@@ -78,7 +77,6 @@ public class LiaisonIntraTable extends ClassMAPTable {
                 c.close();
             }
         }
-        return verifier;
         
     }
 

@@ -7,7 +7,7 @@
         FactureClientDetails cht = new FactureClientDetails();
 //    cht.setNomTable("facture_client_fille_lib_reste");
         cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
-        String libEntete[] = {"id", "daty", "heureDebut", "heureFin", "designation", "quantite", "devise", "compte", "pu", "taux", "montanttaux", "tva", "montantTva", "montantHTEuro", "montantTVAEuro", "activitelib", "reduction", "majoration"};
+        String libEntete[] = {"id", "daty", "heureDebut", "heureFin", "designation", "quantite", "duree","devise", "compte", "pu", "taux", "montanttaux", "tva", "montantTva", "montantHTEuro", "montantTVAEuro", "activitelib", "reduction", "majoration"};
         String listeCrt[] = {"id","idmere","designation","compte"};
         String listeInt[] = {};
         
@@ -41,7 +41,7 @@
         <%
             
 
-            String libEnteteAffiche[] = {"id", "date", "Heure début", "Heure fin", "designation", "quantité", "devise", "compte", "pu", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "Activite", "RED.%", "MAJ.%"};
+            String libEnteteAffiche[] = {"id", "date", "Heure début", "Heure fin", "designation", "quantité","duree", "devise", "compte", "pu", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "Activite", "RED.%", "MAJ.%"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 //            out.println(pr.getTableau().getHtml());
             pr.getTableau().setNameActe("scinder");
