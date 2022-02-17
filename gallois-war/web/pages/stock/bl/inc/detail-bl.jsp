@@ -24,6 +24,9 @@
                             <th align="center">ID</th>
                             <th align="center">Produit</th>
                             <th align="center">Quantit&eacute;</th>
+                            <th align="center">Montant HT</th>
+                            <th align="center">Montan TVA</th>
+                             <th align="center">Montan TTC</th>
                             <!--<th align="center"></th>-->
                         </tr>
 
@@ -33,6 +36,9 @@
                             <td align="left"><%=filles[i].getId()%></td>
                             <td align="left"><%=filles[i].getProduit()%></td>
                             <td align="right"><%=Utilitaire.formaterAr(filles[i].getQuantite())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(filles[i].getMontant())%></td>
+                             <td align="right"><%=Utilitaire.formaterAr(filles[i].getMontanttva())%></td>
+                              <td align="right"><%=Utilitaire.formaterAr(filles[i].getMontantttc())%></td>
                             <!--<td  align="right"> <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=delete&classe=mg.spat.stock.BonDeLivraisonFille&bute=stock/bl/bondelivraison-fiche.jsp&id=" + filles[i].getId()%>" style="margin-right: 10px">Supprimer</a>-->
                         </tr>
                         <% }%> 
