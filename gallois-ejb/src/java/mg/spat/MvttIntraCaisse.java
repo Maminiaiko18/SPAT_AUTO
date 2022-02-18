@@ -108,14 +108,14 @@ public class MvttIntraCaisse extends ClassEtat {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, "Mouvement " + this.getCaissedepart() + " - " + this.getCaissearrivee(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), this.getMontant(), 0);
+        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), this.getMontant(), 0);
         sortie.setIddevise(Constante.deviseAr);
         sortie.setIdmode(this.getModepaiement());
 
         sortie.createObject(u, c);
         sortie.validerObject(u, c);
         
-        JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, "Mouvement " + this.getCaissedepart() + " - " + this.getCaissearrivee(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, this.getMontant());
+        JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, this.getMontant());
         entree.setIddevise(Constante.deviseAr);
         entree.setIdmode(this.getModepaiement());
 
