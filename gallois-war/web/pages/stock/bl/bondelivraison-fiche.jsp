@@ -23,6 +23,9 @@
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("remarque").setLibelle("Numero BL");
         pc.getChampByName("numbc").setLibelle("Numero  BC");
+        pc.getChampByName("montant").setLibelle("Montant HT");
+        pc.getChampByName("montanttva").setLibelle("Montant TVA");
+        pc.getChampByName("montantttc").setLibelle("Montant TTC");
         pc.getChampByName("point").setVisible(false);
         pc.getChampByName("idbc").setVisible(false);
         pc.setTitre("Fiche bon de livraison");
