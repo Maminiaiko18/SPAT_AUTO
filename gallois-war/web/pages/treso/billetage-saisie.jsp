@@ -20,8 +20,9 @@
         UserEJB u = (user.UserEJB) session.getValue("u");
         Billetage billetage = new Billetage();
         DetailsBilletage billetageFille = new DetailsBilletage();
-        
-        PageInsertMultiple pi = new PageInsertMultiple(billetage, billetageFille, request, 1, u);
+        String[] billets = {"20000", "10000", "5000", "2000", "1000", "500", "200","100","50","20","10","5","2","1"};
+        int size = billets.length;
+        PageInsertMultiple pi = new PageInsertMultiple(billetage, billetageFille, request, size, u);
         pi.setLien((String) session.getValue("lien"));
         
         affichage.Champ[] liste = new affichage.Champ[1];
@@ -36,71 +37,40 @@
         
         pi.getFormu().getChamp("daty").setDefaut(""+new Utilitaire().dateDuJour());
         pi.getFormu().getChamp("montant").setVisible(false);
+        
         for(int i = 0 ; i < pi.getFormufle().getNbLigne() ; i ++ )
         {
-             pi.getFormufle().getChamp("idmere_"+i).setVisible(false);
+            pi.getFormufle().getChamp("idmere_"+i).setVisible(false);
+            pi.getFormufle().getChamp("id_"+i).setVisible(false);
+            pi.getFormufle().getChamp("billet_"+i).setDefaut(billets[i]);
+            pi.getFormufle().getChamp("billet_"+i).setAutre("readonly");
+            pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
+            pi.getFormufle().getChamp("nombre_"+i).setAutre("onchange=\"afficherMontant('billet_"+i+"','nombre_"+i+"','montant_"+i+"')\"");
         }
        
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
+        pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+        pi.getFormufle().getChamp("billet_0").setLibelle("Billet");
+        pi.getFormufle().getChamp("nombre_0").setLibelle("Nombre");
         
-        String[] billets = {"20000", "10000", "5000", "2000", "1000", "500", "200","100","50","20","10","5","2","1"};
-        int size = billets.length;
+        
+        
 %>
 <div class="content-wrapper">
     <h1>Saisie Billetage</h1>
-    <form action="<%=pi.getLien()%>?but=apresInsertMultiple.jsp" method="post" name="attInscription" id="attInscription" data-parsley-validate>
+    <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="attInscription" id="attInscription" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
-            //pi.getFormufle().makeHtmlInsertTableauIndex();
+            pi.getFormufle().makeHtmlInsertTableauIndex();
             //System.out.println(pi.getFormu().getHtmlTableauInsert());
             out.println(pi.getFormu().getHtmlInsert());
-            //out.println(pi.getFormufle().getHtmlTableauInsert());
+            out.println(pi.getFormufle().getHtmlTableauInsert());
         %>
-        <div class="row">
-            <div class="row col-md-12">
-                <div class="box">
-                    <div class="box box-primary">
-                        <div class="box-body" id="tableauLigne">
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <th><input onclick="CocheToutCheckbox(this, 'id')" type="checkbox" tabindex="15"></th>
-                                        <th style="background-color:#bed1dd">
-                                            <label for="billet" tabindex="2">billet</label>
-                                        </th>
-                                        <th style="background-color:#bed1dd">
-                                            <label for="nombre" tabindex="3">nombre</label>
-                                        </th>
-                                        <th style="background-color:#bed1dd">
-                                            <label for="montant" tabindex="4">montant</label>
-                                        </th>
-                                    </tr>
-                                <%
-                                    for(int i=0;i<size;i++){ %>
-                                        <tr>
-                                            <td><input type="checkbox" value="<%= i %>" name="id" id="checkbox0"></td>
-                                            <td><input name="billet_<%= i %>" type="textbox" class="form-control" id="billet_<%= i %>" value="<%= billets[i] %>" readonly></td>
-                                            <td><input name="nombre_<%= i %>" type="textbox" class="form-control" id="nombre_<%= i %>" onchange="afficherMontant('billet_<%= i %>','nombre_<%= i %>','montant_<%= i %>')"></td>
-                                            <td><input name="montant_<%= i %>" type="textbox" class="form-control" id="montant_<%= i %>" readonly></td>
-                                        </tr>
-                                <%  }  %>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>TOTAL</td>
-                                        <td ><input type="textbox" class="form-control" id="totalBillet" readonly></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>        
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <input name="size" type="hidden" id="size" value="<%=size%>">
         <input name="acte" type="hidden" id="nature" value="insert">
-        <input name="bute" type="hidden" id="bute" value="treso/billetage-saisie.jsp">
+        <input name="bute" type="hidden" id="bute" value="treso/billetage-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="mg.spat.Billetage">
         <input name="classefille" type="hidden" id="classefille" value="mg.spat.DetailsBilletage">
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%= size %>">
@@ -108,7 +78,10 @@
     </form>
 </div>
 <script>
-    
+var tfoot = document.createElement("tr");
+tfoot.setAttribute("id","totalfarany");
+document.getElementsByClassName("table-bordered")[1].appendChild(tfoot);
+document.getElementById("totalfarany").innerHTML='<tr><td></td><td></td><td>TOTAL</td><td ><input type="textbox" class="form-control" id="totalBillet" readonly></td></tr>';
 function afficherMontant(billet,quantite,montant) {
     var x = document.getElementById(billet).value;
     var y = document.getElementById(quantite).value;
