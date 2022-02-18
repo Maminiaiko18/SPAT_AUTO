@@ -34,9 +34,10 @@
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("daty").setLibelle("Date");
-    pi.getFormu().getChamp("caissedepart").setLibelle("Départ");
-    pi.getFormu().getChamp("caissearrivee").setLibelle("Arrivée");
+    pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
+    pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv&eacute;e");
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
+    pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     
     pi.preparerDataFormu();
 %>
