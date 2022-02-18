@@ -16,12 +16,20 @@ import utilitaire.Utilitaire;
  * @author Sanda
  */
 public class MvttIntraCaisse extends ClassEtat {
-    private String id,caissedepart,caissearrivee,modepaiement,remarque;
+    private String id,caissedepart,caissearrivee,modepaiement,remarque,designation;
     private Date daty;
     private double montant;
     
     public MvttIntraCaisse(){
         super.setNomTable("mvtintracaisse");
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     public String getId() {
