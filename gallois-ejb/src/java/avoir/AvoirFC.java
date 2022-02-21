@@ -367,7 +367,7 @@ public class AvoirFC extends ClassMere {
          
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        if(this.getType()!=null && (this.getType().equals("1") || (this.getType().equals("2") && (this.getCategorie().equalsIgnoreCase("CT001") || this.getCategorie().equalsIgnoreCase("CT005") || this.getCategorie().equalsIgnoreCase("CT003"))))){
+        if(this.getType()!=null && this.getType().equals("1")){
             this.getFactureLiee("factureclient",c).annuler(c);
         }
         return super.validerObject(u, c); 
