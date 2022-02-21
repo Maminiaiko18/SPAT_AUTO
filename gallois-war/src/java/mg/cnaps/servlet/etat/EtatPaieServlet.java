@@ -1074,8 +1074,10 @@ public class EtatPaieServlet extends HttpServlet {
             AvoirFC[] mere = (AvoirFC[]) CGenUtil.rechercher(facture, null, null, null, " and id = '" + id + "'");
 
             TypeObjet cat = mere[0].getCategorie(null);
-            if (cat != null) {
+            if (cat != null && cat.getVal().compareTo("-") != 0) {                
                 param.put("categorie", cat.getVal());
+            }else{
+                param.put("categorie", "");
             }
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
             param.put("code", mere[0].getCode());
@@ -1087,9 +1089,17 @@ public class EtatPaieServlet extends HttpServlet {
             fc.initDetails(null);
             String daty="2021-03-05";
             double deviseEuro = fc.getDeviseEuro();
-            double deviseDollar = fc.getDeviseDollar();
-            param.put("codefact", fc.getFactureLiee());
-            param.put("codefact1", fc.getFactureRemplacement());
+            double deviseDollar = fc.getDeviseDollar();            
+            param.put("codefact", fc.getCode());
+            
+            FactureClient fcavoir = new FactureClient();
+            fcavoir.setNomTable("facture_client_union");
+            String awhere = String.format(" and idavoir = '%s' ", id);
+            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, null, awhere);
+            if(result.length!=0){
+                param.put("codefact1", result[0].getCode());    
+            }
+                        
             //param.put("pdaty", daty);
             param.put("pdaty", fc.getDaty());
             param.put("client", fc.getTierslib());

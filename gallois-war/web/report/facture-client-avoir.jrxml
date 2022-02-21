@@ -266,23 +266,23 @@
 				<text><![CDATA[Type de paiement :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="47" width="403" height="25" uuid="32c4f817-a76a-4c69-b7c3-1ea29b4990bb"/>
+				<reportElement x="0" y="47" width="378" height="25" uuid="32c4f817-a76a-4c69-b7c3-1ea29b4990bb"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+					<font size="18" isBold="true"/>
 					<paragraph rightIndent="10"/>
 				</textElement>
 				<text><![CDATA[N°]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="403" y="47" width="106" height="25" uuid="4151228c-e6d7-4d3c-a32f-151ec79af43d"/>
+				<reportElement x="381" y="47" width="151" height="25" uuid="4151228c-e6d7-4d3c-a32f-151ec79af43d"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{code}]]></textFieldExpression>
@@ -344,7 +344,7 @@
 				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="249" y="72" width="227" height="20" uuid="d22a1bd6-a588-4d19-aa7b-e7356416933c"/>
+				<reportElement x="170" y="72" width="227" height="20" uuid="d22a1bd6-a588-4d19-aa7b-e7356416933c"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -404,11 +404,17 @@
 				<text><![CDATA[DU]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="249" y="100" width="225" height="20" uuid="ddd45328-dfa9-4fc2-bff3-5033fa1f8b1c"/>
+				<reportElement x="229" y="100" width="225" height="20" uuid="ddd45328-dfa9-4fc2-bff3-5033fa1f8b1c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{codefact1}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="562" y="100" width="355" height="20" uuid="68b1f69b-66be-4d1b-a7d8-ad1fe762849f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{pdaty1}]]></textFieldExpression>
 			</textField>
 		</band>
