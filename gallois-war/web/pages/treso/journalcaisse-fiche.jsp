@@ -18,6 +18,7 @@
 <%@ page import="affichage.*" %>
 
 <%
+    try {
     String id = request.getParameter("id");
     JournalCaisseLibComplet jc = new JournalCaisseLibComplet();
     jc.setNomTable("JOURNALCAISSELIBCOMPLET");
@@ -60,7 +61,7 @@
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
     String dossier = "journal";
-    Caisse[] caisse = (Caisse[])CGenUtil.rechercher(new Caisse(), null, null,null, " and val like '"+jcaisse.getValCaisse()+"'");
+//    Caisse[] caisse = (Caisse[])CGenUtil.rechercher(new Caisse(), null, null,null, " and val like '"+jcaisse.getValCaisse()+"'");
     
     String listeCrt[] = {};
     String listeInt[] = {};
@@ -121,7 +122,7 @@
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning">Modifier</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=treso/journalcaisse-liste.jsp&classe=mg.spat.JournalCaisse" style="margin-right: 5px"><button class="btn btn-danger" >Supprimer</button></a>
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=treso/journalcaisse-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>
-                            <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/cloture-saisie.jsp&caisse=" + caisse[0].getId()%>" style="margin-right: 10px">cloture</a> 
+                            <!--<a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/cloture-saisie.jsp&caisse="%>" style="margin-right: 10px">cloture</a>--> 
                         </p>
                     </div>
                 </div>
@@ -189,6 +190,8 @@
     </div>
                               
 </div> 
-        
+<% } catch(Exception ex) {
+        ex.printStackTrace();
+}%>
                             
 
