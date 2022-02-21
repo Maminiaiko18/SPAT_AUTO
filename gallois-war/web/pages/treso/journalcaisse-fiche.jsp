@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="mg.spat.JournalCaisseLibComplet"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="mg.spat.Caisse"%>
@@ -18,7 +19,7 @@
 
 <%
     String id = request.getParameter("id");
-    JournalCaisse jc = new JournalCaisse();
+    JournalCaisseLibComplet jc = new JournalCaisseLibComplet();
     jc.setNomTable("JOURNALCAISSELIBCOMPLET");
     PageConsulte pc = new PageConsulte(jc, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
     pc.setTitre("Fiche Journal de Caisse");
@@ -83,7 +84,7 @@
     map.put(tab, "active");
     tab = "inc/" + tab + ".jsp";
     String bute = "treso/journalcaisse-fiche.jsp";
-    JournalCaisse base = (JournalCaisse)pc.getBase();
+    JournalCaisseLibComplet base = (JournalCaisseLibComplet)pc.getBase();
 
 %>
 
