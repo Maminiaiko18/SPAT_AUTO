@@ -17,6 +17,7 @@
 <%
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
+    
     AvoirFC e = new AvoirFC();
     e.setNomTable("avoirFC_montant");
     PageConsulte pc = new PageConsulte(e, request, u);
@@ -53,6 +54,7 @@
     Map<String, String> map = new HashMap();
         map.put("avoirFC-details", "");
         map.put("paiements", "");
+        map.put("facture_emplacement", "");
     String tab = request.getParameter("tab");
     if (tab == null) {
         tab = "avoirFC-details";
@@ -94,10 +96,16 @@
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("avoirFC-details")%>"><a href="module.jsp?but=<%=bute%>&idAvoir=<%=e.getId()%>&tab=avoirFC-details">D&eacute;tails Avoir</a></li>
                     <li class="<%= map.get("paiements")%>"><a href="module.jsp?but=<%=bute%>&idplacement=<%=e.getId()%>&tab=paiements">Paiements</a></li>
+                    <li class="<%= map.get("facture_emplacement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture_emplacement"> Facture de remplacement</a></li>
+                
                 </ul>
                 <div class="tab-content">
                 <div class="tab-content">       
-                    <jsp:include page="<%=tab%>"></jsp:include>
+                    <jsp:include page="<%=tab%>">
+                        <jsp:param name='idavoir' value="<%=e.getId()%>"/> 
+                           
+                        
+                    </jsp:include>
                 </div>
             </div>
         </div>

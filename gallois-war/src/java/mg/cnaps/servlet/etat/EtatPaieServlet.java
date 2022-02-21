@@ -102,6 +102,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 
 import org.apache.poi.ss.usermodel.Sheet;
+import utilitaire.Constante;
 
 /**
  *
@@ -1670,7 +1671,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("nbr",Utilitaire.formaterAr(Utilitaire.formaterAr(etatCA.getNbFactComptant())));
             param.put("nbr2",Utilitaire.formaterAr(etatCA.getNbFactCredit()));
             param.put("nbr3",Utilitaire.formaterAr(etatCA.getNbFactureTotal()));
-            param.put("mois",mois+"");
+            param.put("mois",Constante.getMois()[Utilitaire.stringToInt(mois)-1]);
             param.put("daty",Utilitaire.dateDuJour());
         }
          /*******************/   

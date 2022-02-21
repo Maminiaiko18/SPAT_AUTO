@@ -4,7 +4,7 @@
     Author     : pro
 --%>
 
-<%@page import="mg.spat.JournalCaisse"%>
+<%@page import="mg.spat.JournalCaisseLibComplet"%>
 <%@page import="mg.spat.JournalCaisseMivadika"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRecherche"%>
@@ -13,7 +13,7 @@
 <%
     try {
         String typecheque = request.getParameter("idtypecheque");
-        JournalCaisse journalCaisse = new JournalCaisse();
+        JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
         journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
 
         if (request.getParameter("etatvue") != null) {

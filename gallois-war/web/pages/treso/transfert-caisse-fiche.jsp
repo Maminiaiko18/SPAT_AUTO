@@ -24,6 +24,7 @@
     pc.getChampByName("caissedepart").setLibelle("Caisse départ");
     pc.getChampByName("caissearrivee").setLibelle("Caisse arrivée");
     pc.getChampByName("modepaiement").setLibelle("Mode de paiement");
+    pc.getChampByName("designation").setLibelle("Désignation");
     jc = (MvttIntraCaisse)pc.getBase();
     id=jc.getId();
     AttacherFichier[] fichiers = UploadService.getUploadFile(id);
