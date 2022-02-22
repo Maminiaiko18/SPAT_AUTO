@@ -3,6 +3,8 @@
     Created on : 22 févr. 2022, 12:15:37
     Author     : rijan
 --%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="mg.spat.Engagement"%>
 <%@page import="affichage.PageConsulte"%>
 <%
@@ -24,6 +26,17 @@
     pc.getChampByName("idLC").setVisible(false);
     pc.getChampByName("idLClib").setLibelle("Budget");
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp", "id=");
+    
+    engagement = (Engagement) pc.getBase();
+    String bute="depense/engagement-fiche.jsp";
+    Map<String, String> map = new HashMap();
+        map.put("liste-bc", "");
+    String tab = request.getParameter("tab");
+    if (tab == null) {
+        tab = "liste-bc";
+    }
+    map.put(tab, "active");
+    tab = "inc/" + tab + ".jsp";
 %>
 
 
@@ -51,5 +64,24 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 ">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("liste-bc")%>"><a href="module.jsp?but=<%=bute%>&idengagement=<%=engagement.getId()%>&tab=liste-bc">Liste bon de commande</a></li>
+                
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-content">       
+                        <jsp:include page="<%=tab%>">
+                            <jsp:param name='idengagement' value="<%=engagement.getId()%>"/> 
+
+
+                        </jsp:include>
+                    </div>
+                </div>
+            </div>
+        </div>        
     </div>
 </div>
