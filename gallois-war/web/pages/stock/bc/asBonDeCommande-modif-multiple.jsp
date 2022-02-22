@@ -64,6 +64,11 @@ try{
     pi.getFormu().getChamp("delaipaiement").setLibelle("Délai de paiement (Jours)");
     pi.getFormu().getChamp("delailivraison").setLibelle("Délai de livraison");
     pi.getFormu().getChamp("typepaiement").setLibelle("Type paiement");
+    pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
+    pi.getFormu().getChamp("idengagement").setAutre("readonly");
+    pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp", "idengagement;idengagementlibelle");
+    pi.getFormu().getChamp("idengagement").setValeurLibelle(Utilitaire.champNull(mere.getIdengagementlib()));
+    pi.getFormu().getChamp("idengagementlib").setVisible(false);
     affichage.Champ[] listeUnit = new affichage.Champ[1];
     TypeObjet branche=new TypeObjet();
     branche.setNomTable("UNITECHANTIER");
