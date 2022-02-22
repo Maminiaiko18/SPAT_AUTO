@@ -25,7 +25,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste des Absences </h1>
+        <h1>Liste des Engagements </h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=depense/engagement-liste.jsp" method="post" name="engagement" id="engagement">
