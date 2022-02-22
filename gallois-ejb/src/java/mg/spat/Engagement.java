@@ -133,6 +133,11 @@ public class Engagement extends ClassMAPTable {
         setId(makePK(c));
     }
 
+    @Override
+    public String getValColLibelle() {
+        return this.getDesignation();
+    }
+
     
     
     
