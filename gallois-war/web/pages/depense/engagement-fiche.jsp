@@ -9,7 +9,7 @@
     Engagement engagement = new Engagement();
     engagement.setNomTable("engagementlib");
     PageConsulte pc = new PageConsulte( engagement , request, (user.UserEJB) session.getValue("u"));
-    pc.setTitre("Fiche type facture");
+    pc.setTitre("Fiche Engagement");
     pc.getChampByName("id").setLibelle("Id");
     pc.getChampByName("designation").setLibelle("Designation");
     pc.getChampByName("codeEtablissement").setVisible(false);
