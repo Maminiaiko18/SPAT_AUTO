@@ -1,0 +1,55 @@
+<%-- 
+    Document   : newjspengagement-fiche
+    Created on : 22 févr. 2022, 12:15:37
+    Author     : rijan
+--%>
+<%@page import="mg.spat.Engagement"%>
+<%@page import="affichage.PageConsulte"%>
+<%
+    Engagement engagement = new Engagement();
+    engagement.setNomTable("engagementlib");
+    PageConsulte pc = new PageConsulte( engagement , request, (user.UserEJB) session.getValue("u"));
+    pc.setTitre("Fiche type facture");
+    pc.getChampByName("id").setLibelle("Id");
+    pc.getChampByName("designation").setLibelle("Designation");
+    pc.getChampByName("codeEtablissement").setVisible(false);
+    pc.getChampByName("projet").setVisible(false);
+    pc.getChampByName("montant").setLibelle("Montant");
+    pc.getChampByName("disponible").setLibelle("Disponible");
+    pc.getChampByName("dispoAvant").setLibelle("DispoAvant");
+    pc.getChampByName("dispoApres").setLibelle("DispoApres");
+    pc.getChampByName("compte").setLibelle("Compte");
+    pc.getChampByName("codeEtablissementlib").setLibelle("Code Etablissement");
+    pc.getChampByName("projetlib").setLibelle("Projet");
+    pc.getChampByName("idLC").setVisible(false);
+    pc.getChampByName("idLClib").setLibelle("Budget");
+    pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp", "id=");
+%>
+
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box-fiche">
+                <div class="box">
+                    <div class="box-title with-border">
+                        <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=depense/engagement-fiche.jsp"><i class="fa fa-arrow-circle-left"></i></a> Fiche engagement</h1>
+                    </div>
+                    <div class="box-body">
+                        <%
+                            out.println(pc.getHtml());
+                        %>
+                        <br/>
+                        <div class="pull-right">
+                            <p>
+                                <a href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success">Saisie FF</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=stock/bc/bondecommande-multiple.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success">Saisie BC</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=depense/liberer-saisie.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-warning">Libérer </button></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
