@@ -70,6 +70,7 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("liste-bc")%>"><a href="module.jsp?but=<%=bute%>&idengagement=<%=engagement.getId()%>&tab=liste-bc">Liste bon de commande</a></li>
+                     <li class="<%= map.get("listeff")%>"><a href="module.jsp?but=<%=bute%>&idengagement=<%=engagement.getId()%>&tab=listeff">Liste Factute Fournisseur</a></li>
                 
                 </ul>
                 <div class="tab-content">
