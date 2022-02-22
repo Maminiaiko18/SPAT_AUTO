@@ -67,6 +67,7 @@
         pi.getFormu().getChamp("typelib").setVisible(false);
         pi.getFormu().getChamp("categorielib").setVisible(false);
         pi.getFormu().getChamp("idProvisionlib").setVisible(false);
+        pi.getFormu().getChamp("idengagementlib").setVisible(false);
         //pi.getFormu().getChamp("estAuto").setVisible(false);
 
         pi.getFormu().getChamp("iduser").setAutre("readonly");
