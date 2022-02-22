@@ -129,7 +129,7 @@ public class Engagement extends ClassMAPTable {
     }
     @Override
     public void construirePK(Connection c) throws Exception {
-        preparePk("CR","getseqengagement()");
+        preparePk("CR","getseqengagement");
         setId(makePK(c));
     }
 
