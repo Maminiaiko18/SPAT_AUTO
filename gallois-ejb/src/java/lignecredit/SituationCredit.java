@@ -154,8 +154,19 @@ public class SituationCredit extends LigneCredit {
         where = where.replaceAll("designation", "l.designation");
         where = where.replaceAll("compte", "l.compte");
         where = where.replaceAll("annee", "l.annee");
-        if (date1 != null && !date1.equals("")) where += " and mf.daty >= '" + date1 + "'";
-        if (date2 != null && !date2.equals("")) where += " and mf.daty <= '" + date2 + "'";
+        
+        String whereDaty = " and (";
+            
+        if (date1 != null && !date1.equals("")) {
+            whereDaty += " mf.daty >= '" + date1 + "'";
+        }
+        if (date2 != null && !date2.equals("")) {
+            whereDaty += " mf.daty <= '" + date2 + "'";
+        }
+
+        whereDaty += " or mf.daty is null)";
+
+        where += whereDaty;
 
         String req = "SELECT l.id,\n" +
 "            l.DESIGNATION,\n" +
@@ -174,7 +185,7 @@ public class SituationCredit extends LigneCredit {
 "               (NVL (SUM (MONTANTHT), 0) / l.MONTANT) * 100 AS NUMBER (30, 3))\n" +
 "               AS pourcEngage,\n" +
 "            CAST (\n" +
-"               ( (NVL (SUM (MONTANTPAYE), 0)) / NVL (SUM (MONTANTHT), 0)) * 100 AS NUMBER (30, 3))\n" +
+"               NVL(NVL (SUM (MONTANTPAYE), 0) / SUM (MONTANTHT), 0) * 100 AS NUMBER (30, 3))\n" +
 "               AS pourcPaye\n" +
 "       FROM LIGNECREDITRECETTE l\n" +
 "            LEFT JOIN FACTURE_CLIENT_MF_PAYE_BDG mf\n" +
