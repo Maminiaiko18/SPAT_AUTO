@@ -5,20 +5,36 @@
  */
 package mg.spat;
 
-import bean.ClassMAPTable;
+import bean.ClassEtat;
 import java.sql.Connection;
 
 /**
  *
  * @author Nouta
  */
-public class Engagement extends ClassMAPTable {
-    private String id,designation,codeEtablissement,projet,compte,etat;
+public class Engagement extends ClassEtat {
+    private String id,designation,codeEtablissement,projet,compte,idLC,idLClib;
     private String codeEtablissementlib,projetlib;
     private double montant,disponible,dispoAvant,dispoApres;
 
     public Engagement() {
         super.setNomTable("engagement");
+    }
+
+    public String getIdLC() {
+        return idLC;
+    }
+
+    public void setIdLC(String idLC) {
+        this.idLC = idLC;
+    }
+
+    public String getIdLClib() {
+        return idLClib;
+    }
+
+    public void setIdLClib(String idLClib) {
+        this.idLClib = idLClib;
     }
     
     
@@ -62,13 +78,7 @@ public class Engagement extends ClassMAPTable {
         this.compte = compte;
     }
 
-    public String getEtat() {
-        return etat;
-    }
-
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
+    
 
     public String getCodeEtablissementlib() {
         return codeEtablissementlib;

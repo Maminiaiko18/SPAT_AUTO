@@ -19,6 +19,14 @@ public class Liberer extends ClassEtat {
     public Liberer() {
         super.setNomTable("liberer");
     }
+
+    public String getIdengagementlib() {
+        return idengagementlib;
+    }
+
+    public void setIdengagementlib(String idengagementlib) {
+        this.idengagementlib = idengagementlib;
+    }
     
     public String getId() {
         return id;
@@ -36,14 +44,7 @@ public class Liberer extends ClassEtat {
         this.idengagement = idengagement;
     }
 
-    public String getEtat() {
-        return etat;
-    }
-
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
-
+   
     public double getMontant() {
         return montant;
     }
