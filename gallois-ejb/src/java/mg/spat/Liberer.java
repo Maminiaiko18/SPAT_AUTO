@@ -5,15 +5,15 @@
  */
 package mg.spat;
 
-import bean.ClassMAPTable;
+import bean.ClassEtat;
 import java.sql.Connection;
 
 /**
  *
  * @author Nouta
  */
-public class Liberer extends ClassMAPTable {
-    private String id,idengagement,etat,idengagementlib;
+public class Liberer extends ClassEtat {
+    private String id,idengagement,idengagementlib;
     private double montant;
 
     public Liberer() {
