@@ -453,6 +453,6 @@ public class LigneCredit extends ClassEtat {
     }
 
     public String getValColLibelle() {
-        return comptestr + ";" + comptestr;
+        return comptestr + ";" + comptestr +";"+designation;
     }
 }

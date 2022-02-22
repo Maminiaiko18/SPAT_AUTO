@@ -29,11 +29,14 @@
     pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
     pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
     pi.getFormu().getChamp("projet").setAutre("readonly");
+    pi.getFormu().getChamp("idLC").setPageAppel("choix/listeBudgetDepenseChoix.jsp","idLC;idLClibelle;idLClibelle;idLClibelle");
+    pi.getFormu().getChamp("idLC").setAutre("readonly");
 
     pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &Eacute;tablissement");
     pi.getFormu().getChamp("dispoAvant").setLibelle("Disponible Avant");
     pi.getFormu().getChamp("dispoApres").setLibelle("Disponible Apres");
+    pi.getFormu().getChamp("idLC").setLibelle("Budget");
     
     pi.preparerDataFormu();
 %>
