@@ -24,6 +24,8 @@
     
     
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("projet").setVisible(false);
+    pi.getFormu().getChamp("codeEtablissement").setVisible(false);
     
     pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
     pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
