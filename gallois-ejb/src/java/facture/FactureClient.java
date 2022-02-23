@@ -60,6 +60,15 @@ public class FactureClient extends ClassMere {
     private String idavoir;
     private String typeclientlib,factureLiee,idEngagement ; 
     private int estAuto;
+    private String typeEngagement;
+
+    public String getTypeEngagement() {
+        return typeEngagement;
+    }
+
+    public void setTypeEngagement(String typeEngagement) {
+        this.typeEngagement = typeEngagement;
+    }
 
     public String getFactureLiee() {
         return factureLiee;

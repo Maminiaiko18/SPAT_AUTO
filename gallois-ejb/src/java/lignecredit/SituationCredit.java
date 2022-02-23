@@ -19,7 +19,15 @@ import utilitaire.Utilitaire;
  * @author
  */
 public class SituationCredit extends LigneCredit {
-    private double pourcEngage,pourcPaye; 
+    private double pourcEngage,pourcPaye , engage ; 
+
+    public double getEngage() {
+        return engage;
+    }
+
+    public void setEngage(double engage) {
+        this.engage = engage;
+    }
     public SituationCredit() {
         this.setNomTable("ligneCreditDepense");
     }
