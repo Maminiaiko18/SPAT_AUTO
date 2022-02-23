@@ -21,18 +21,26 @@
     PageInsert pi = new PageInsert(obj, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     
-    pi.getFormu().getChamp("designation").setLibelle("Désignation");
-    pi.getFormu().getChamp("annee").setLibelle("Année");
-    pi.getFormu().getChamp("quantite").setLibelle("Quantité");
+    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    pi.getFormu().getChamp("projet").setAutre("readonly");
+    pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
+    pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
+    pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
+    pi.getFormu().getChamp("quantite").setLibelle("Quantit&eacute;");
+    pi.getFormu().getChamp("codeEtablissement").setLibelle(" Code direction");
     pi.getFormu().getChamp("annee").setDefaut(Utilitaire.getAnneeEnCours());
     pi.getFormu().getChamp("compteg").setVisible(false); 
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("quantite").setVisible(false);
+
+    
+
     
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-    <h1>Saisie ligne crédit dépenses</h1>
+    <h1>Saisie ligne cr&eacute;dit d&eacute;penses</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="lignecredit" id="lignecredit" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();

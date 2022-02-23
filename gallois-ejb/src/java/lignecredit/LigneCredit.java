@@ -20,10 +20,18 @@ import utilitaire.UtilDB;
 public class LigneCredit extends ClassEtat {
 
     private String id;
-    private String designation, compte, compteCpl, compteInv, compteSimple, directon, projet, directionProjet, comptestr, compteG;
+    private String designation, compte, compteCpl, compteInv, compteSimple, directon, projet, directionProjet, comptestr, compteG,codeEtablissement;
 
     public String getCompteG() {
         return compteG;
+    }
+
+    public String getCodeEtablissement() {
+        return codeEtablissement;
+    }
+
+    public void setCodeEtablissement(String codeEtablissement) {
+        this.codeEtablissement = codeEtablissement;
     }
 
     public void setCompteG(String compteG) {
