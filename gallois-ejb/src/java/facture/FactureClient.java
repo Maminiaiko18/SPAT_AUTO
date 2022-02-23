@@ -1868,6 +1868,15 @@ public class FactureClient extends ClassMere {
         this.ecart = ecart;
     }
 
+    @Override
+    public void controler(Connection c) throws Exception {
+        super.controler(c); 
+        if(this.getIdEngagement() != null){
+            Engagement eg = this.findEngagement(c);
+            if(eg == null) throw new Exception("Engagement non visé");
+        }
+    }
+
     
     
 }
