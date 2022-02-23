@@ -27,6 +27,7 @@ import bean.ValidationException;
 import fin.Coursdevise;
 import java.util.List;
 import mg.spat.ClientCategorie;
+import mg.spat.Engagement;
 import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.AdminActivite;
@@ -57,7 +58,7 @@ public class FactureClient extends ClassMere {
     private double ecart;
     private int exercice;
     private String idavoir;
-    private String typeclientlib,factureLiee ; 
+    private String typeclientlib,factureLiee,idEngagement ; 
     private int estAuto;
 
     public String getFactureLiee() {
@@ -105,6 +106,14 @@ public class FactureClient extends ClassMere {
 
     public void setMontantttcvrai(double montantttcvrai) {
         this.montantttcvrai = montantttcvrai;
+    }
+
+    public String getIdEngagement() {
+        return idEngagement;
+    }
+
+    public void setIdEngagement(String idEngagement) {
+        this.idEngagement = idEngagement;
     }
 
     
@@ -1798,6 +1807,14 @@ public class FactureClient extends ClassMere {
         else if(factures.length == 1) { 
             return factures[0];
         }
+        return null;
+    }
+    
+    public Engagement findEngagement(Connection c) throws Exception{
+        Engagement e = new Engagement();
+        e.setNomTable("engagementlibV");
+        Engagement[] ls = (Engagement[])CGenUtil.rechercher(e, null, null, c, " and id='"+this.getIdEngagement()+"'");
+        if(ls.length > 0 ) return ls[0];
         return null;
     }
 
