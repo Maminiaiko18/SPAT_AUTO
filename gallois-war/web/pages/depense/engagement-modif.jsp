@@ -35,6 +35,7 @@
     pi.getFormu().getChamp("dispoapres").setLibelle("Disponible après");
     pi.getFormu().getChamp("compte").setLibelle("Compte");
     pi.getFormu().getChamp("idLC").setLibelle("Budget");
+    pi.getFormu().getChamp("daty").setLibelle("Date");
     
     
     pi.getFormu().getChamp("projet").setAutre("readonly");

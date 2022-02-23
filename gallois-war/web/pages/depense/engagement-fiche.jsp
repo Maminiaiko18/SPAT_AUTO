@@ -25,6 +25,7 @@
     pc.getChampByName("projetlib").setLibelle("Projet");
     pc.getChampByName("idLC").setVisible(false);
     pc.getChampByName("idLClib").setLibelle("Budget");
+    pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp", "id=");
     
     engagement = (Engagement) pc.getBase();

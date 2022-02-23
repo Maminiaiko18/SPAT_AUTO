@@ -39,6 +39,7 @@
     pi.getFormu().getChamp("dispoAvant").setLibelle("Disponible Avant");
     pi.getFormu().getChamp("dispoApres").setLibelle("Disponible Apres");
     pi.getFormu().getChamp("idLC").setLibelle("Budget");
+    pi.getFormu().getChamp("daty").setLibelle("Date");
     
     pi.preparerDataFormu();
 %>
