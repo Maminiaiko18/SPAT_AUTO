@@ -5,9 +5,11 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
+import lignecredit.LigneCredit;
 
 /**
  *
@@ -158,7 +160,13 @@ public class Engagement extends ClassEtat {
         return this.getDesignation();
     }
 
-    
+     public LigneCredit findLigneCredit(Connection c) throws Exception{
+        LigneCredit lc = new LigneCredit();
+        lc.setNomTable("ligneCreditDepense");
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and id='"+this.getIdLC()+"'");
+        if(ligneCredits.length > 0) return ligneCredits[0];
+        return null;
+    }
     
     
 
