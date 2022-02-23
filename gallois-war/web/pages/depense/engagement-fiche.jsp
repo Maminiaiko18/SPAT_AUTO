@@ -43,11 +43,12 @@
 
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <div class="box-fiche">
                 <div class="box">
                     <div class="box-title with-border">
-                        <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=depense/engagement-fiche.jsp"><i class="fa fa-arrow-circle-left"></i></a> Fiche engagement</h1>
+                        <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=depense/engagement-liste.jsp"><i class="fa fa-arrow-circle-left"></i></a> Fiche engagement</h1>
                     </div>
                     <div class="box-body">
                         <%
@@ -59,6 +60,7 @@
                                 <a href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success">Saisie FF</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "?but=stock/bc/bondecommande-multiple.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success">Saisie BC</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "?but=depense/liberer-saisie.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-warning">Libérer </button></a>
+                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.Engagement&bute=depense/engagement-fiche.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Viser</a>
                             </p>
                         </div>
                     </div>

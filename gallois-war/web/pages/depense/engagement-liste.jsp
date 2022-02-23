@@ -32,7 +32,7 @@
             <% out.println(pr.getFormu().getHtmlEnsemble());%>
 
         </form>
-        <%  String lienTableau[] = {pr.getLien() + "?but=depense/engagement-liste.jsp"};
+        <%  String lienTableau[] = {pr.getLien() + "?but=depense/engagement-fiche.jsp"};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
