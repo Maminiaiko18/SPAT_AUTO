@@ -7,6 +7,7 @@ package mg.spat;
 
 import bean.ClassEtat;
 import java.sql.Connection;
+import java.sql.Date;
 
 /**
  *
@@ -16,6 +17,7 @@ public class Engagement extends ClassEtat {
     private String id,designation,codeEtablissement,projet,compte,idLC,idLClib;
     private String codeEtablissementlib,projetlib;
     private double montant,disponible,dispoAvant,dispoApres;
+    private Date daty;
 
     public Engagement() {
         super.setNomTable("engagement");
