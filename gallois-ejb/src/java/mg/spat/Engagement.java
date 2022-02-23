@@ -23,6 +23,14 @@ public class Engagement extends ClassEtat {
         super.setNomTable("engagement");
     }
 
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
+
     public String getIdLC() {
         return idLC;
     }
