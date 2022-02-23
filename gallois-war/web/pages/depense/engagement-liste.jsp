@@ -12,11 +12,14 @@
         eng.setNomTable("engagementlib");
 
         String listeCrt[] = {"id", "designation","projet", "montant", "disponible","dispoavant","dispoapres","compte","etat","codeetablissementlib","projetlib", "daty"};
-        String listeInt[] = {};
+        String listeInt[] = {"daty"};
         String libEntete[] = {"id", "designation", "projet", "montant", "disponible","dispoavant","dispoapres","compte","etat","codeetablissementlib","projetlib", "daty"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
+        
+        pr.getFormu().getChamp("daty1").setLibelle("Date Min");
+        pr.getFormu().getChamp("daty2").setLibelle("Date Max");
         
 
         pr.setApres("depense/engagement-liste.jsp");
