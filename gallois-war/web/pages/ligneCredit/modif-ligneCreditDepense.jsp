@@ -11,22 +11,34 @@
 %>
 <%
     a = new LigneCredit();
-    a.setNomTable("ligneCreditDepense");
+    a.setNomTable("LIGNECREDITDEPENSELIB");
     lien = (String) session.getValue("lien");
     PageUpdate pi = new PageUpdate(a, request, (user.UserEJB) session.getValue("u"));
     pi.setLien(lien);
     pi.getFormu().getChamp("Etat").setVisible(false);
     pi.getFormu().getChamp("Quantite").setVisible(false);
-    pi.getFormu().getChamp("Annee").setLibelle("Annï¿½e");
+    pi.getFormu().getChamp("Annee").setLibelle("Année");
     pi.getFormu().getChamp("compteG").setVisible(false);
     
+    pi.getFormu().getChamp("codeEtablissementlib").setVisible(false);
+    pi.getFormu().getChamp("codeEtablissement").setLibelle("Code direction");
+    pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
+    pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp", "codeEtablissement;codeEtablissementlibelle");
+    
+    pi.getFormu().getChamp("projetlib").setVisible(false);
+    pi.getFormu().getChamp("projet").setLibelle("Projet");
+    pi.getFormu().getChamp("projet").setAutre("readonly");
+    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp", "projet;projetlibelle");
+    
+    
     pi.preparerDataFormu();
+    a = (LigneCredit) pi.getBase();
 %>
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="box">
-                <h1>Modification ligne credit dï¿½pense</h1>
+                <h1>Modification ligne credit dépense</h1>
                 <form action="<%=lien%>?but=apresTarif.jsp&id=<%=request.getParameter("id")%>" method="post" name="modif">
                     <%
                         out.println(pi.getFormu().getHtmlInsert());
@@ -46,3 +58,7 @@
         </div>
     </div>
 </div>
+<script>
+    $('#codeEtablissementlibelle').val('<%= Utilitaire.champNull(a.getCodeEtablissementlib()) %>');
+    $('#projetlibelle').val('<%= Utilitaire.champNull(a.getProjetlib()) %>');
+</script>                  
