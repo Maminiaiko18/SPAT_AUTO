@@ -683,7 +683,14 @@ public class FactureClientDetails extends ClassFille {
         return compte;
     }
 
-    public void setCompte(String compte) {
+    public void setCompte(String compte) throws Exception {
+        if (this.getMode().compareTo("modif")==0)
+        {
+            if(Utilitaire.champNull("compte").compareTo("")==0)
+            {  
+                    throw new Exception("Compte obligatoire");
+            }
+        }
         this.compte = compte;
     }
 
