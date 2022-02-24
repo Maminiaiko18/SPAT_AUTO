@@ -1819,13 +1819,6 @@ public class FactureClient extends ClassMere {
         return null;
     }
     
-    public Engagement findEngagement(Connection c) throws Exception{
-        Engagement e = new Engagement();
-        e.setNomTable("engagementlibV");
-        Engagement[] ls = (Engagement[])CGenUtil.rechercher(e, null, null, c, " and id='"+this.getIdEngagement()+"'");
-        if(ls.length > 0 ) return ls[0];
-        return null;
-    }
 
     public FactureClient(Date daty, Date date_echeance, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String escale, String deviseMere, double tva, double montant, double montanttva, double montantttc, double montantpaye, double montantreste, String tierslib, double montantavoir, String contact, String adresse, String etatLib, String typelib, double deviseEuro, double deviseDollar, double coeff, double montantHTEuro, double montantTVAEuro, double montantHTVADollar, double montantTVADollar, double montantTTCDollar, double montantttcvrai, String idcategorie, String idProvision, String categorielib, String idProvisionlib, String iddefinitive, String estDDPMICTSL, String codePrestation, String codePrestationlib, String codeProvision, String code, String estMictsl, double reduction, double ecart) throws Exception {
         setNomTable("Factureclient");
@@ -1877,14 +1870,7 @@ public class FactureClient extends ClassMere {
         this.ecart = ecart;
     }
 
-    @Override
-    public void controler(Connection c) throws Exception {
-        super.controler(c); 
-        if(this.getIdEngagement() != null){
-            Engagement eg = this.findEngagement(c);
-            if(eg == null) throw new Exception("Engagement non visé");
-        }
-    }
+    
 
     
     
