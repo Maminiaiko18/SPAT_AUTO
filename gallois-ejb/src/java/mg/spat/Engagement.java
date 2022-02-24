@@ -161,10 +161,18 @@ public class Engagement extends ClassEtat {
         return this.getDesignation();
     }
 
-     public LigneCredit findLigneCredit(Connection c) throws Exception{
+    public LigneCredit findLigneCredit(Connection c) throws Exception{
         LigneCredit lc = new LigneCredit();
-        lc.setNomTable("ligneCreditDepense");
+        lc.setNomTable("ligneCreditDepenseLib");
         LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and id='"+this.getIdLC()+"'");
+        if(ligneCredits.length > 0) return ligneCredits[0];
+        return null;
+    }
+    
+    public LigneCredit findSituationCredit(Connection c) throws Exception{
+        LigneCredit lc = new LigneCredit();
+        lc.setNomTable("ligneCreditDepenseGrp");
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idodeEtablissement='"+this.getCodeEtablissement()+"' and idprojet='"+this.getProjet()+"'");
         if(ligneCredits.length > 0) return ligneCredits[0];
         return null;
     }
@@ -177,10 +185,6 @@ public class Engagement extends ClassEtat {
         return super.createObject(u, c); 
     }
 
-    private LigneCredit findSituationCredit(Connection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     
      
     
