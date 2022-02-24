@@ -87,9 +87,11 @@ import fin.Coursdevise;
 import fin.CoursdevisePDF;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import lignecredit.LigneCredit;
 import mg.spat.CA;
 import mg.spat.CaPDF;
 import mg.spat.CargaisonAnalyse;
+import mg.spat.Engagement;
 import mg.spat.EtatCA;
 import mg.spat.JournalCaissePdf;
 import mg.spat.OccupationMaterielNaval;
@@ -183,6 +185,8 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerGestionProvision(request, response);
             }else if (action.equalsIgnoreCase("imprimerRedevanceCommunale")){
                 redevanceCommunale(request, response);
+            }else if(action.equalsIgnoreCase("engagement")){
+                engagement(request, response);
             }
 
         } catch (Exception ex) {
@@ -1914,7 +1918,52 @@ public class EtatPaieServlet extends HttpServlet {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }      
+    }
+    
+    public void engagement(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+        Connection c = null;
+        try{
+        c = (new UtilDB()).GetConn();
+        String id = request.getParameter("id");
+        Engagement engagement = new Engagement();
+        engagement.setId(id);
+        engagement.setNomTable("engagementlib");
+        Engagement[] mere = (Engagement[]) CGenUtil.rechercher(engagement, null, null, c, "");
+        Map param = new HashMap();
+        if(mere.length!=0){
+            engagement = mere[0];
+            LigneCredit lc = engagement.findLigneCredit(c);
+            System.out.println( "code="+lc.getCodeEtablissementlib());
+            System.out.println("annee="+lc.getAnnee());
+            System.out.println("piece="+lc.getDesignation());
+            System.out.println("du="+engagement.getDaty());
+            System.out.println("montant="+engagement.getMontant());
+            System.out.println("codeprojet="+lc.getProjetlib());
+            System.out.println("prevision annuelle="+lc.getMontant());
+            System.out.println("dispo avant="+engagement.getDispoAvant());
+            System.out.println("dispo apres="+engagement.getDispoApres());    
+            param.put("",lc.getCodeEtablissementlib());
+            param.put("",lc.getAnnee());
+            param.put("",lc.getDesignation());
+            param.put("",engagement.getDaty());
+            param.put("",engagement.getMontant());
+            param.put("",lc.getProjetlib());
+            param.put("",lc.getMontant());
+            param.put("",engagement.getDispoAvant());
+            param.put("",lc.getCodeEtablissementlib());
+        }
+        
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("redevance-communale");
+        UtilitaireImpression.imprimer(request, response, "engagement", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
     
     
 }
