@@ -1920,7 +1920,7 @@ public class EtatPaieServlet extends HttpServlet {
         }
     }
     
-    public void engagement(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+public void engagement(HttpServletRequest request, HttpServletResponse response) throws SQLException{
         Connection c = null;
         try{
         c = (new UtilDB()).GetConn();
@@ -1933,7 +1933,7 @@ public class EtatPaieServlet extends HttpServlet {
         if(mere.length!=0){
             engagement = mere[0];
             LigneCredit lc = engagement.findLigneCredit(c);
-            System.out.println( "code="+lc.getCodeEtablissementlib());
+            /*System.out.println( "code="+lc.getCodeEtablissementlib());
             System.out.println("annee="+lc.getAnnee()+"");
             System.out.println("piece="+lc.getDesignation());
             System.out.println("du="+engagement.getDaty());
@@ -1941,8 +1941,8 @@ public class EtatPaieServlet extends HttpServlet {
             System.out.println("codeprojet="+lc.getProjetlib());
             System.out.println("prevision annuelle="+lc.getMontant());
             System.out.println("dispo avant="+engagement.getDispoAvant());
-            System.out.println("dispo apres="+engagement.getDispoApres());    
-            param.put("",lc.getCodeEtablissementlib());
+            System.out.println("dispo apres="+engagement.getDispoApres());  */  
+            param.put("code_etab",lc.getCodeEtablissementlib());
             param.put("annee",lc.getAnnee()+"");
             param.put("piece",lc.getDesignation());
             param.put("du",engagement.getDaty());
@@ -1963,6 +1963,7 @@ public class EtatPaieServlet extends HttpServlet {
                 c.close();
             }
         }
+    
     }
     
     

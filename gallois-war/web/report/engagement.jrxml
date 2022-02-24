@@ -109,7 +109,7 @@
 				<textElement textAlignment="Center"/>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="464" y="17" width="15" height="15" backcolor="#CCCCFF" uuid="0e4c3760-a44b-4fc1-ba02-b09462a05cef"/>
+				<reportElement mode="Opaque" x="464" y="17" width="15" height="15" backcolor="#CCCCCC" uuid="0e4c3760-a44b-4fc1-ba02-b09462a05cef"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -120,7 +120,7 @@
 				<textFieldExpression><![CDATA[$P{code_etab}.charAt( 1 )]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="449" y="17" width="15" height="15" backcolor="#CCCCFF" uuid="23f27507-d2a3-4866-bbf6-d5eb55b04379"/>
+				<reportElement mode="Opaque" x="449" y="17" width="15" height="15" backcolor="#CCCCCC" uuid="23f27507-d2a3-4866-bbf6-d5eb55b04379"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -131,7 +131,7 @@
 				<textFieldExpression><![CDATA[$P{code_etab}.charAt( 0 )]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="479" y="17" width="15" height="15" backcolor="#CCCCFF" uuid="feff6467-d519-4c3b-8814-02cbf8f6b964"/>
+				<reportElement mode="Opaque" x="479" y="17" width="15" height="15" backcolor="#CCCCCC" uuid="feff6467-d519-4c3b-8814-02cbf8f6b964"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -182,6 +182,9 @@
 			</textField>
 		</band>
 	</title>
+	<pageHeader>
+		<band height="50"/>
+	</pageHeader>
 	<detail>
 		<band height="442" splitType="Stretch">
 			<staticText>
@@ -262,7 +265,7 @@
 				<text><![CDATA[DISPONIBLE AVANT DEMANDE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="47" y="168" width="166" height="20" uuid="3172e3ec-4840-48eb-8edf-4fe9618ded7c"/>
+				<reportElement x="47" y="169" width="166" height="20" uuid="3172e3ec-4840-48eb-8edf-4fe9618ded7c"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -374,7 +377,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="241" y="96" width="100" height="20" uuid="53d44ee9-0e7f-4103-a5e9-db23b1c8e8dc"/>
+				<reportElement x="241" y="96" width="90" height="20" uuid="53d44ee9-0e7f-4103-a5e9-db23b1c8e8dc"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -385,7 +388,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="241" y="168" width="253" height="20" uuid="af702cfb-e112-471e-b6ce-ddf2b5c1a48f"/>
+				<reportElement x="241" y="169" width="253" height="20" uuid="af702cfb-e112-471e-b6ce-ddf2b5c1a48f"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -426,8 +429,41 @@
 				<textFieldExpression><![CDATA[$P{avant}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="241" y="169" width="253" height="20" uuid="dad42b9b-41f9-46f3-b892-9faa2aa19f23"/>
+				<reportElement x="242" y="169" width="253" height="20" uuid="dad42b9b-41f9-46f3-b892-9faa2aa19f23"/>
 				<textFieldExpression><![CDATA[$P{apres}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="241" y="96" width="30" height="20" backcolor="#CCCCCC" uuid="97db7679-6486-4c75-ae40-3ea78c51fa6d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{projet}.charAt( 0 )]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="271" y="96" width="30" height="20" backcolor="#CCCCCC" uuid="c201af69-1c45-4b0e-808d-9b2f0e237180"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{projet}.charAt( 1 )]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="301" y="96" width="30" height="20" backcolor="#CCCCCC" uuid="21724e95-c6e6-438a-a309-ae96f9c1fe8a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{projet}.charAt( 2 )]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
