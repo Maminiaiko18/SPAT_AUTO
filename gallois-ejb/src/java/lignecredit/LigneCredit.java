@@ -78,7 +78,7 @@ public class LigneCredit extends ClassEtat {
     public void setComptestr(String comptestr) {
         this.comptestr = comptestr;
     }
-    private double quantite, montant, facture, paye;
+    private double quantite, montant, engageer, facture, paye;
     private int annee, mois;
     private double arecouvrir, restebudget, pourcEngage, pourcPaye;
     private Date daty;
@@ -89,6 +89,14 @@ public class LigneCredit extends ClassEtat {
 
     public void setCompteInv(String compteInv) {
         this.compteInv = compteInv;
+    }
+
+    public double getEngageer() {
+        return engageer;
+    }
+
+    public void setEngageer(double engageer) {
+        this.engageer = engageer;
     }
 
     public String getCompteSimple() {
@@ -169,18 +177,18 @@ public class LigneCredit extends ClassEtat {
             where = where.replaceAll("designation", "l.designation");
             where = where.replaceAll("compte", "l.compte");
             where = where.replaceAll("annee", "l.annee");
-            
+
             String whereDaty = " and (";
-            
+
             if (date1 != null && !date1.equals("")) {
                 whereDaty += " mf.daty >= '" + date1 + "'";
             }
             if (date2 != null && !date2.equals("")) {
                 whereDaty += " mf.daty <= '" + date2 + "'";
             }
-            
+
             whereDaty += " or mf.daty is null)";
-            
+
             where += whereDaty;
 
             String req = "select l.id,\n"
@@ -190,6 +198,7 @@ public class LigneCredit extends ClassEtat {
                     + "       l.montant                                                                   as montant,\n"
                     + "       l.etat,\n"
                     + "       comptestr,\n"
+                    + "       cast(sum(nvl(n.montant,0)+nvl(nt.MONTANT,0)-nvl(gr.MONTANT,0)) as NUMBER(30, 3)) as engageer,\n"
                     + "       cast(nvl(sum(MONTANTTTC), 0) as NUMBER(30, 3))                              as facture,\n"
                     + "       cast(nvl(sum(MONTANTPAYE), 0) as number(30, 3))                             as PAYE,\n"
                     + "       cast((nvl(sum(montantttc), 0) - nvl(sum(montantpaye), 0)) as NUMBER(30, 3)) as arecouvrir,\n"
@@ -204,13 +213,15 @@ public class LigneCredit extends ClassEtat {
                     + "        projet\n"
                     + "from SITUATIONLCDEPENSE_CPL l\n"
                     + "         LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n"
-                    + "    -- on substr(l.compte, 7, length(l.compte)) = mf.compte AND mf.annee = l.annee\n"
                     + "                   on l.compte = mf.comptecpl AND mf.annee = l.annee\n"
+                    + "         left join FACTFOURN_MONTANT_ISNULL n on n.COMPTE=mf.COMPTE\n"
+                    + "         left join FACTFOURN_MONTANT_notNULL nt on nt.IDLC=l.id\n"
+                    + "         left join LIBERER_GRP gr on gr.IDLC=l.ID\n"
                     + where + " and l.etat >= " + ConstanteEtat.getEtatValider() + "\n"
                     + "      --and mf.comptecpl is not null\n"
                     + "-- WHERE mf.IDMERE not in       (select id from ProvisionFactureDefinitive)\n"
                     + "group by l.id, l.DESIGNATION, l.compte, l.ANNEE, l.montant, l.etat, substr(l.compte, 7, length(l.compte)), comptecpl";
-            
+
             LigneCredit stock = new LigneCredit();
             stock.setNomTable("situationLC_vide");
             return CGenUtil.rechercher(stock, req, c, colSomme);
