@@ -61,6 +61,37 @@ public class DetailsBcData {
         }
     }
 
+	public void setBCOrderByProduitAsc(String vue_mere,String vue_fille) throws Exception{
+        Connection c=null;
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }            
+            BonDeCommandeFille p = new BonDeCommandeFille();
+            p.setNomTable(vue_fille);
+            bcFille = (BonDeCommandeFille[]) CGenUtil.rechercher(p, null, null, " and idbc = '" + id+ "' order by produit asc");
+            bc = new BonDeCommande();
+            bc.setNomTable(vue_mere);
+            BonDeCommande[] liste2 = (BonDeCommande[]) CGenUtil.rechercher(bc, null, null, " and id = '" + id+ "'");
+            if(liste2!=null && liste2.length>0){
+               bc=liste2[0] ;
+            }
+            if(c!=null && verif==1) c.commit();
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
     public BonDeCommandeFille[] getBcFille() {
         return bcFille;
     }

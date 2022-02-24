@@ -11,7 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     DetailsBcData data=new DetailsBcData(request.getParameter("id"));                                 
-    data.setBC("AS_BONDECOMMANDE_LIBELLE_lib","BC_BL_LIVRE");
+    data.setBCOrderByProduitAsc("AS_BONDECOMMANDE_LIBELLE_lib","BC_BL_LIVRE");
     BonDeCommandeFille[] liste = data.getBcFille();
     double total = data.getBc().getMontantTTC();
     double tva=data.getBc().getMontanttva();
