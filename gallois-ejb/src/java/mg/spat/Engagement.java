@@ -7,6 +7,7 @@ package mg.spat;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
 import lignecredit.LigneCredit;
@@ -167,9 +168,21 @@ public class Engagement extends ClassEtat {
         if(ligneCredits.length > 0) return ligneCredits[0];
         return null;
     }
-    
-    
 
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        LigneCredit lc = this.findSituationCredit(c);
+        this.setDispoAvant(lc.getRestebudget());
+        this.setDispoApres(this.getDispoAvant() - this.getMontant());
+        return super.createObject(u, c); 
+    }
+
+    private LigneCredit findSituationCredit(Connection c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+     
     
     
 }
