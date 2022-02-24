@@ -58,6 +58,7 @@
                         <br/>
                         <div class="pull-right">
                             <p>
+                                <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + request.getParameter("id")%>"><button class="btn btn-primary">Imprimer</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success">Saisie FF</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "?but=stock/bc/bondecommande-multiple.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success">Saisie BC</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "?but=depense/liberer-saisie.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-warning">Libérer </button></a>
