@@ -21,7 +21,7 @@
     pr.setLien((String) session.getValue("lien"));
     pr.getFormu().getChamp("val").setLibelle("Désignation");
     pr.getFormu().getChamp("libelle").setLibelle("Libelle");
-    pr.setApres("choix/listeCompteCAchoix.jsp");
+    pr.setApres("listeCompteCAchoix.jsp");
     pr.setChampReturn(champReturn);
     
     
