@@ -846,6 +846,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 paiementFact.setIdFact(avoirFF.getIdfacture());
                 paiementFact.setMontant(-avoirFF.getMontant());
                 paiementFact.createObject(refuser, c);
+                facturefournisseur.FactureFournisseur ff = avoirFF.getFactureFournisseurLiee("BPvalide", c);
+                if(ff != null){
+                    this.insererDansBonProvisoire(refuser, c, this.getCredit(), 0);
+                }
             }
             FactureClient[] fcListe = findFactureClient(c);
             if(fcListe != null && fcListe.length > 0){
