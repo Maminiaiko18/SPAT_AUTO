@@ -656,7 +656,7 @@ public class EtatPaieServlet extends HttpServlet {
 
     private void pieceDeCaiseRecette(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            JournalCaisseMode jc = new JournalCaisseMode();
+            JournalCaisse jc = new JournalCaisse();
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
             JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, " order by NUMPIECE ASC  ");

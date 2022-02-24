@@ -10,7 +10,7 @@ package mg.spat;
  * @author nyamp
  */
 public class JournalCaisseLibComplet extends JournalCaisse{
-    private String tierslib,idcaisse,valcaisse, descecaisse, valtypecheque,descetypecheque,idfact;
+    private String tierslib,valcaisse, descecaisse, valtypecheque,descetypecheque,idfact;
     private double montant;
 
     public String getIdfact() {
@@ -39,14 +39,6 @@ public class JournalCaisseLibComplet extends JournalCaisse{
     
     public JournalCaisseLibComplet(){
         this.setNomTable("JOURNALCAISSELIBCOMPLET");
-    }
-
-    public String getIdcaisse() {
-        return idcaisse;
-    }
-
-    public void setIdcaisse(String idcaisse) {
-        this.idcaisse = idcaisse;
     }
 
     public String getValcaisse() {
