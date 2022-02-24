@@ -879,7 +879,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     if(ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())){
                         aPayer = genererMontantPaiement(c, "etatbpvrai", ff.getId(), aPayer);
                         //Insérer dans bon provisoire
-                        insererDansBonProvisoire(refuser, c);
+                        insererDansBonProvisoire(refuser, c, 0, this.getDebit());
                     }
                     
                     PaiementFacture pf = new PaiementFacture();
@@ -1070,7 +1070,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return null;
     }
     
-    public void insererDansBonProvisoire(String u, Connection con) throws Exception {
+    public void insererDansBonProvisoire(String u, Connection con, double sortie, double entree) throws Exception {
         boolean verif = false;
         try{
             if(con == null){
@@ -1080,7 +1080,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             
             Date dateDuJour = Utilitaire.dateDuJourSql();
-            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, this.getDateEffet(), 0, this.getDebit(),this.getIdplacement());
+            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, this.getDateEffet(), sortie, entree,this.getIdplacement());
             transfert.setIddevise(this.getIddevise());
             transfert.setIdmode(this.getIdmode());
             transfert.setEtat(ConstanteEtat.getEtatValider());
