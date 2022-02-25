@@ -53,4 +53,21 @@ public class UtilitaireFacture {
 
         return Utilitaire.completerInt(longueur, sequence);
     }
+
+    public static String genererSequence(Connection c, String nomtable, int longueur, String date,String awhere) throws Exception {
+        //String daty = Utilitaire.datetostring(date);
+
+        String sequence = "1";
+
+        NumeroFacture num = new NumeroFacture();
+        num.setNomTable(nomtable);
+
+        NumeroFacture[] nums = (NumeroFacture[]) CGenUtil.rechercher(num, null, null, c, awhere);
+
+        if (nums != null && nums.length > 0) {
+            sequence = "" + nums[0].getNumerosuivant();
+        }
+
+        return Utilitaire.completerInt(longueur, sequence);
+    }
 }

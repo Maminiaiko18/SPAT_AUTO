@@ -9,7 +9,9 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -112,6 +114,29 @@ public class EtatProvision extends ClassMAPTable {
     public void construirePK(Connection c) throws Exception {
         this.preparePk("ETPROV", "get_seq_etat_provision");
         this.setId(makePK(c));
+    }
+    
+    public String calculerCode(Connection c) throws  Exception{
+        String code=null;
+        boolean verif = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            FactureClient fc =this.getFacture(c, "Factureclient");
+            String  daty = Utilitaire.datetostring(fc.getDaty());
+            String awhere = " and annee = %s and mois = %s";
+            String annee = Utilitaire.getAnnee(daty);
+            awhere = String.format(awhere, Utilitaire.getAnnee(daty),Utilitaire.getMois(daty));
+            code= Utilitaire.genererAnnee(daty)+Utilitaire.genererMois(daty)+UtilitaireFacture.genererSequence(c, "NUMEROETATPROV", 3, daty,awhere);
+           
+        } finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+        return code;
     }
 
     public String getIdmode() {
