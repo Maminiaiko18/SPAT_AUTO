@@ -26,12 +26,22 @@ public class EtatProvision extends ClassMAPTable {
     private String numProvision;
     private String operation;
     private String idnavire, idnavirelib;
+
+ 
     private String idmode, idmodelib;
     private String idbanque, idbanquelib;
     private String idFacture, idFacturelib;
     private String idprovision;
     private String code ;
     
+    
+       public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
     public EtatProvision(){ 
         this.setNomTable("etat_provision");
     }
