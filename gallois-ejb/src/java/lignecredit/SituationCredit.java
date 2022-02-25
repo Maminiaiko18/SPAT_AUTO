@@ -19,7 +19,15 @@ import utilitaire.Utilitaire;
  * @author
  */
 public class SituationCredit extends LigneCredit {
-    private double pourcEngage,pourcPaye; 
+    private double pourcEngage,pourcPaye , engage ; 
+
+    public double getEngage() {
+        return engage;
+    }
+
+    public void setEngage(double engage) {
+        this.engage = engage;
+    }
     public SituationCredit() {
         this.setNomTable("ligneCreditDepense");
     }
@@ -154,8 +162,19 @@ public class SituationCredit extends LigneCredit {
         where = where.replaceAll("designation", "l.designation");
         where = where.replaceAll("compte", "l.compte");
         where = where.replaceAll("annee", "l.annee");
-        if (date1 != null && !date1.equals("")) where += " and mf.daty >= '" + date1 + "'";
-        if (date2 != null && !date2.equals("")) where += " and mf.daty <= '" + date2 + "'";
+        
+        String whereDaty = " and (";
+            
+        if (date1 != null && !date1.equals("")) {
+            whereDaty += " mf.daty >= '" + date1 + "'";
+        }
+        if (date2 != null && !date2.equals("")) {
+            whereDaty += " mf.daty <= '" + date2 + "'";
+        }
+
+        whereDaty += " or mf.daty is null)";
+
+        where += whereDaty;
 
         String req = "SELECT l.id,\n" +
 "            l.DESIGNATION,\n" +
@@ -174,7 +193,7 @@ public class SituationCredit extends LigneCredit {
 "               (NVL (SUM (MONTANTHT), 0) / l.MONTANT) * 100 AS NUMBER (30, 3))\n" +
 "               AS pourcEngage,\n" +
 "            CAST (\n" +
-"               ( (NVL (SUM (MONTANTPAYE), 0)) / NVL (SUM (MONTANTHT), 0)) * 100 AS NUMBER (30, 3))\n" +
+"               NVL(NVL (SUM (MONTANTPAYE), 0) / SUM (MONTANTHT), 0) * 100 AS NUMBER (30, 3))\n" +
 "               AS pourcPaye\n" +
 "       FROM LIGNECREDITRECETTE l\n" +
 "            LEFT JOIN FACTURE_CLIENT_MF_PAYE_BDG mf\n" +
@@ -200,16 +219,22 @@ public class SituationCredit extends LigneCredit {
             if (exercice > 0) where += " and l.annee = " + exercice;
             if (mois > 0) whereFact += " and mf.mois = " + mois;
             
-        String req = "select sum(MONTANTPAYE) as PAYE,\n" +
-"         sum(MONTANTTTC)  as facture,\n" +
-"         (sum(MONTANTTTC) - sum(montantpaye)) as arecouvrir,\n" +
+        String req = "select CAST (NVL (SUM (MONTANTPAYE), 0) AS NUMBER (30, 3)) as PAYE,\n" +
+"         CAST (NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 3))  as facture,\n" +
+"         CAST (\n" +
+"               (NVL (SUM (MONTANTHT), 0) - NVL (SUM (montantpaye), 0)) AS NUMBER (30, 3))\n" +
+"               AS arecouvrir,\n" +
 "         l.ANNEE,\n" +
 "         l.compte,\n" +
 "         cr.LIBELLE       as libelle,\n" +
 "         l.montant   as montant,\n" +
-"         l.montant - sum(MONTANTTTC) as restebudget,\n" +
-"          cast(((nvl(sum(MONTANTTTC), 0)) / l.MONTANT) * 100 as NUMBER(30, 3))      as pourcEngage,\n" +
-"        cast(((nvl(sum(MONTANTPAYE), 0)) / l.MONTANT) * 100 as number(30, 3))       as pourcPaye\n" +
+"         CAST ( (l.montant) - NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 3)) as restebudget,\n" +
+"          CAST (\n" +
+"               (NVL (SUM (MONTANTHT), 0) / l.MONTANT) * 100 AS NUMBER (30, 3))\n" +
+"               AS pourcEngage,\n" +
+"        CAST (\n" +
+"               NVL(NVL (SUM (MONTANTPAYE), 0) / SUM (MONTANTHT), 0) * 100 AS NUMBER (30, 3))\n" +
+"               AS pourcPaye\n" +
 "  from (\n" +
 "           (SELECT\n" +
 "                sum(l.QUANTITE)        as QUANTITE,\n" +
@@ -218,14 +243,14 @@ public class SituationCredit extends LigneCredit {
 " substr(COMPTE, 1, "+ niveau +")       as compte\n" +
 "                --l.etat\n" +
 "            FROM LIGNECREDITRECETTE l \n" +
-"            where montant > 0\n" +
+"            where montant > 0 and l.etat >= " + ConstanteEtat.getEtatValider() + "\n" +
 "            group by l.ANNEE, substr(COMPTE, 1, "+ niveau +")           --, l.etat\n" +
 "            ) l\n" +
-"               LEFT JOIN (select sum(mf.MONTANTTTC)      as MONTANTTTC,\n" +
+"               LEFT JOIN (select sum(mf.MONTANTHT)      as MONTANTHT,\n" +
 "                                 sum(montantpaye)        as MONTANTPAYE,\n" +
 " substr(COMPTE, 1, "+ niveau +")             as compte,\n" +
 "                                 mf.ANNEE\n" +
-"                          from FACTURE_CLIENT_MF_PAYE mf\n" +
+"                          from FACTURE_CLIENT_MF_PAYE_BDG mf\n" +
 "                          WHERE  mf.IDMERE not in\n" +
 "                       (select id from ProvisionFactureDefinitive)\n" +
 //"                        and idcategorie!='CATFCO2' and etat>=11\n" +

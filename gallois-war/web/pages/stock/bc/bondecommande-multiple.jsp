@@ -17,6 +17,7 @@
 
 <%
     try {
+        String idEngagement  = request.getParameter("idEngagement");
         String autreparsley = "data-parsley-range='[8, 40]' required";
         UserEJB u = u = (UserEJB) session.getValue("u");
         String classeMere = "mg.spat.stock.BonDeCommande",
@@ -70,7 +71,10 @@
         pi.getFormu().getChamp("delaipaiement").setLibelle("Délai de paiement (Jours)");
         pi.getFormu().getChamp("delailivraison").setLibelle("Délai de livraison");
         pi.getFormu().getChamp("typepaiement").setLibelle("Type paiement");
-       
+        pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
+        pi.getFormu().getChamp("idengagement").setAutre("readonly");
+        pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp", "idengagement;idengagementlibelle");
+        pi.getFormu().getChamp("idengagement").setDefaut(Utilitaire.champNull(idEngagement));
         
 //        pi.getFormu().setColOrdre(new String[] {"designation", "daty", "fournisseur", "modepaiement","remarque"});
         

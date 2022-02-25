@@ -60,25 +60,33 @@
                                         <tr>
                                             <th style="background-color:#bed1dd">ID Bon de commande</th>
                                             <th style="background-color:#bed1dd">Produit</th>
+                                            <th style="background-color:#bed1dd">PU</th>
                                             <th style="background-color:#bed1dd">Quantité</th>
+                                            <th style="background-color:#bed1dd">Montant</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
                                             BonDeCommandeFille p = new BonDeCommandeFille();
                                             p.setNomTable("BC_BL_LIVRE");
-                                            BonDeCommandeFille[] listef = (BonDeCommandeFille[]) CGenUtil.rechercher(p, null, null, " and idbc='" + idbc + "'");
+                                            BonDeCommandeFille[] listef = (BonDeCommandeFille[]) CGenUtil.rechercher(p, null, null, " and idbc='" + idbc + "' order by produit asc ");
                                             for (int i = 0; i < listef.length; i++) {
                                         %>
                                     <input type="hidden" class="form form-control" name="nb" id="nb" value="<%=listef.length%>">
                                     <tr>
                                         <td><input type="hidden" class="form form-control" name="id" id="id<%=i%>" value="<%=listef[i].getId()%>"><%=listef[i].getId()%></td>
                                         <td><input type="hidden" class="form form-control" name="produit" id="produit<%=i%>" value="<%=listef[i].getProduit()%>"><%=listef[i].getProduit()%></td>
-                                        <td><input type="text" class="form form-control" name="quantite" id="quantite<%=i%>" value="<%=listef[i].getQuantitereste()%>"></td>
+                                        <td><input type="text" class="form form-control" name="pu" id="pu<%=i%>" value="<%=listef[i].getPu()%>" onchange="calculMontant(<%= i %>)"></td>
+                                        <td><input type="text" class="form form-control" name="quantite" id="quantite<%=i%>" value="<%=listef[i].getQuantitereste()%>" onchange="calculMontant(<%= i %>)"></td>
+                                        <td align="right" id="montant<%= i %>"><%= Utilitaire.formaterAr(listef[i].getPu() * listef[i].getQuantitereste()) %></td>
                                     </tr>
                                     <%
                                         }
                                     %>
+                                    <tr>
+                                        <td colspan="4" align="right">Montant total</td>
+                                        <td align="right" id="montantTotal"></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -95,3 +103,31 @@
     </div>
     
 </div>
+<script>
+    var nbrFormatter = new Intl.NumberFormat('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    
+    function getMontant(i){
+        var valPu = $('#pu'+i).val().trim();
+        var valQte = $('#quantite'+i).val().trim();
+        var pu = valPu === '' ? 0 : parseFloat(valPu);
+        var qte = valQte === '' ? 0 : parseFloat(valQte);
+        var montant = pu * qte;
+        return montant;
+    }
+    
+    function calculMontant(i){
+        var montant = getMontant(i);
+        $('#montant'+i).html(nbrFormatter.format(montant));
+        calculerMontantTotal();
+    }
+    
+    function calculerMontantTotal(){
+        var total = 0;
+        for(var i=0; i<<%= listef.length %>; i++){
+            var montant = getMontant(i);
+            total += montant;
+        }
+        $('#montantTotal').html(nbrFormatter.format(total));
+    }
+    calculerMontantTotal();
+</script>

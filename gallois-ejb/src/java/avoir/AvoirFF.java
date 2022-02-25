@@ -31,6 +31,11 @@ public class AvoirFF extends AvoirFC {
         this.setId(null);
         return super.createObject(u, c);
     }
+
+    @Override
+    public String calculerCode(Connection c) throws Exception {
+        return ""; 
+    }
     
     @Override
     public void construirePK(Connection c) throws Exception {

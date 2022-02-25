@@ -27,6 +27,7 @@ import bean.ValidationException;
 import fin.Coursdevise;
 import java.util.List;
 import mg.spat.ClientCategorie;
+import mg.spat.Engagement;
 import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.AdminActivite;
@@ -57,8 +58,17 @@ public class FactureClient extends ClassMere {
     private double ecart;
     private int exercice;
     private String idavoir;
-    private String typeclientlib,factureLiee ; 
+    private String typeclientlib,factureLiee,idEngagement ; 
     private int estAuto;
+    private String typeEngagement;
+
+    public String getTypeEngagement() {
+        return typeEngagement;
+    }
+
+    public void setTypeEngagement(String typeEngagement) {
+        this.typeEngagement = typeEngagement;
+    }
 
     public String getFactureLiee() {
         return factureLiee;
@@ -105,6 +115,14 @@ public class FactureClient extends ClassMere {
 
     public void setMontantttcvrai(double montantttcvrai) {
         this.montantttcvrai = montantttcvrai;
+    }
+
+    public String getIdEngagement() {
+        return idEngagement;
+    }
+
+    public void setIdEngagement(String idEngagement) {
+        this.idEngagement = idEngagement;
     }
 
     
@@ -1800,6 +1818,7 @@ public class FactureClient extends ClassMere {
         }
         return null;
     }
+    
 
     public FactureClient(Date daty, Date date_echeance, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String escale, String deviseMere, double tva, double montant, double montanttva, double montantttc, double montantpaye, double montantreste, String tierslib, double montantavoir, String contact, String adresse, String etatLib, String typelib, double deviseEuro, double deviseDollar, double coeff, double montantHTEuro, double montantTVAEuro, double montantHTVADollar, double montantTVADollar, double montantTTCDollar, double montantttcvrai, String idcategorie, String idProvision, String categorielib, String idProvisionlib, String iddefinitive, String estDDPMICTSL, String codePrestation, String codePrestationlib, String codeProvision, String code, String estMictsl, double reduction, double ecart) throws Exception {
         setNomTable("Factureclient");
@@ -1850,6 +1869,8 @@ public class FactureClient extends ClassMere {
         this.reduction = reduction;
         this.ecart = ecart;
     }
+
+    
 
     
     

@@ -87,9 +87,11 @@ import fin.Coursdevise;
 import fin.CoursdevisePDF;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import lignecredit.LigneCredit;
 import mg.spat.CA;
 import mg.spat.CaPDF;
 import mg.spat.CargaisonAnalyse;
+import mg.spat.Engagement;
 import mg.spat.EtatCA;
 import mg.spat.JournalCaissePdf;
 import mg.spat.OccupationMaterielNaval;
@@ -183,6 +185,8 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerGestionProvision(request, response);
             }else if (action.equalsIgnoreCase("imprimerRedevanceCommunale")){
                 redevanceCommunale(request, response);
+            }else if(action.equalsIgnoreCase("engagement")){
+                engagement(request, response);
             }
 
         } catch (Exception ex) {
@@ -652,7 +656,7 @@ public class EtatPaieServlet extends HttpServlet {
 
     private void pieceDeCaiseRecette(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            JournalCaisseMode jc = new JournalCaisseMode();
+            JournalCaisse jc = new JournalCaisse();
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
             JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, " order by NUMPIECE ASC  ");
@@ -1074,8 +1078,10 @@ public class EtatPaieServlet extends HttpServlet {
             AvoirFC[] mere = (AvoirFC[]) CGenUtil.rechercher(facture, null, null, null, " and id = '" + id + "'");
 
             TypeObjet cat = mere[0].getCategorie(null);
-            if (cat != null) {
+            if (cat != null && cat.getVal().compareTo("-") != 0) {                
                 param.put("categorie", cat.getVal());
+            }else{
+                param.put("categorie", "");
             }
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
             param.put("code", mere[0].getCode());
@@ -1087,9 +1093,17 @@ public class EtatPaieServlet extends HttpServlet {
             fc.initDetails(null);
             String daty="2021-03-05";
             double deviseEuro = fc.getDeviseEuro();
-            double deviseDollar = fc.getDeviseDollar();
-            param.put("codefact", fc.getFactureLiee());
-            param.put("codefact1", fc.getFactureRemplacement());
+            double deviseDollar = fc.getDeviseDollar();            
+            param.put("codefact", fc.getCode());
+            
+            FactureClient fcavoir = new FactureClient();
+            fcavoir.setNomTable("facture_client_union");
+            String awhere = String.format(" and idavoir = '%s' ", id);
+            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, null, awhere);
+            if(result.length!=0){
+                param.put("codefact1", result[0].getCode());    
+            }
+                        
             //param.put("pdaty", daty);
             param.put("pdaty", fc.getDaty());
             param.put("client", fc.getTierslib());
@@ -1904,7 +1918,53 @@ public class EtatPaieServlet extends HttpServlet {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }      
+    }
+    
+public void engagement(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+        Connection c = null;
+        try{
+        c = (new UtilDB()).GetConn();
+        String id = request.getParameter("id");
+        Engagement engagement = new Engagement();
+        engagement.setId(id);
+        engagement.setNomTable("engagementlib");
+        Engagement[] mere = (Engagement[]) CGenUtil.rechercher(engagement, null, null, c, "");
+        Map param = new HashMap();
+        if(mere.length!=0){
+            engagement = mere[0];
+            LigneCredit lc = engagement.findLigneCredit(c);
+            /*System.out.println( "code="+lc.getCodeEtablissementlib());
+            System.out.println("annee="+lc.getAnnee()+"");
+            System.out.println("piece="+lc.getDesignation());
+            System.out.println("du="+engagement.getDaty());
+            System.out.println("montant="+engagement.getMontant());
+            System.out.println("codeprojet="+lc.getProjetlib());
+            System.out.println("prevision annuelle="+lc.getMontant());
+            System.out.println("dispo avant="+engagement.getDispoAvant());
+            System.out.println("dispo apres="+engagement.getDispoApres());  */  
+            param.put("code_etab",lc.getCodeEtablissementlib());
+            param.put("annee",lc.getAnnee()+"");
+            param.put("piece",lc.getDesignation());
+            param.put("du",engagement.getDaty());
+            param.put("montant",Utilitaire.formaterAr((engagement.getMontant())));
+            param.put("projet",lc.getProjetlib());
+            param.put("annuel",Utilitaire.formaterAr(lc.getMontant()));
+            param.put("avant",Utilitaire.formaterAr(engagement.getDispoAvant()));
+            param.put("apres",lc.getCodeEtablissementlib());
+        }
+        
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("engagement");
+        UtilitaireImpression.imprimer(request, response, "engagement", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if (c != null) {
+                c.close();
+            }
+        }
+    
+    }
     
     
 }

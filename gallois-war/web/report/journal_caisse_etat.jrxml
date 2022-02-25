@@ -29,7 +29,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="90" splitType="Stretch">
+		<band height="63" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="15" width="369" height="20" uuid="0fe890c7-0d5d-4a3e-8ad8-1aa36cae767b"/>
 				<textElement>
@@ -49,7 +49,7 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="468" splitType="Stretch">
+		<band height="99" splitType="Stretch">
 			<staticText>
 				<reportElement x="142" y="0" width="127" height="20" uuid="39a087d5-096a-4644-aa7d-91c1968c6647"/>
 				<textElement textAlignment="Center">
@@ -70,7 +70,7 @@
 				<text><![CDATA[JOURNEE DU]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement key="table" x="0" y="40" width="555" height="125" uuid="ddcb13a6-0717-44b3-9900-b32feb9a6cb6"/>
+				<reportElement key="table" x="0" y="40" width="555" height="48" uuid="ddcb13a6-0717-44b3-9900-b32feb9a6cb6"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="f0cf47ac-78da-40cc-8799-d01cdc2f55e2">
 						<datasetParameter name="debit">
@@ -130,6 +130,7 @@
 								<reportElement x="0" y="0" width="83" height="12" uuid="191dc4f0-4697-4d2a-9097-8bf52f7ec01e"/>
 								<textElement>
 									<font size="9"/>
+									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{numPiece}]]></textFieldExpression>
 							</textField>
@@ -217,6 +218,7 @@
 								<reportElement x="0" y="0" width="298" height="12" uuid="e79bb52a-ca06-4540-ba62-f1c780160238"/>
 								<textElement>
 									<font size="9"/>
+									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{libelle}]]></textFieldExpression>
 							</textField>
@@ -259,6 +261,7 @@
 								</box>
 								<textElement textAlignment="Right">
 									<font size="9"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{debit}]]></textFieldExpression>
 							</textField>
@@ -296,6 +299,7 @@
 								</box>
 								<textElement textAlignment="Right">
 									<font size="9"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{soldeAnterieur}]]></textFieldExpression>
 							</textField>
@@ -321,6 +325,7 @@
 								</box>
 								<textElement textAlignment="Right">
 									<font size="9"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{totalDebitEtat}]]></textFieldExpression>
 							</textField>
@@ -334,6 +339,7 @@
 								<reportElement x="0" y="0" width="84" height="12" uuid="129c1128-3971-4dc8-babd-51d94332519e"/>
 								<textElement textAlignment="Right">
 									<font size="9"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{credit}]]></textFieldExpression>
 							</textField>
@@ -377,6 +383,7 @@
 								</box>
 								<textElement textAlignment="Right">
 									<font size="9"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{credit}]]></textFieldExpression>
 							</textField>
@@ -426,6 +433,7 @@
 								</box>
 								<textElement textAlignment="Right">
 									<font size="9"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{soldeActuel}]]></textFieldExpression>
 							</textField>
@@ -439,6 +447,7 @@
 								</box>
 								<textElement textAlignment="Right">
 									<font size="9"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{totalCreditEtat}]]></textFieldExpression>
 							</textField>
@@ -452,6 +461,7 @@
 								<reportElement x="0" y="0" width="88" height="12" uuid="3e3b63b3-1dd7-4550-8b7d-969538eb09b1"/>
 								<textElement textAlignment="Right">
 									<font size="9"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{debit}]]></textFieldExpression>
 							</textField>
@@ -459,35 +469,46 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="415" y="0" width="100" height="20" uuid="38d3b519-3a9b-42e5-81c3-ba6660e49c68"/>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="199">
 			<staticText>
-				<reportElement x="169" y="176" width="57" height="20" uuid="aeaac17f-21b6-4ba1-91dd-1c4f015191b8"/>
-				<text><![CDATA[Etabli par:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="387" y="176" width="57" height="20" uuid="42b9c370-3446-42d1-a748-8bdec80bda3d"/>
-				<text><![CDATA[Vérifié par:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="142" y="217" width="127" height="20" uuid="8a31dd0b-2c64-4f44-a2a4-aeb47757098d"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[JOURNAL DE CAISSE]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="142" y="237" width="127" height="20" uuid="65ad1017-fea8-4c9b-9f4f-73228f81c3a0"/>
+				<reportElement x="143" y="61" width="127" height="20" uuid="65ad1017-fea8-4c9b-9f4f-73228f81c3a0"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[COFFRE BMOI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="330" y="217" width="75" height="20" uuid="12a03d60-df4a-456d-b6fe-b1048b7e6a40"/>
+				<reportElement x="388" y="178" width="57" height="20" uuid="705640ac-24d7-4c76-b672-5b7bcfa42f85"/>
+				<text><![CDATA[Vérifié par:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="178" width="57" height="20" uuid="01815ea5-90af-4d50-828d-876757e6188e"/>
+				<text><![CDATA[Etabli par:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="416" y="41" width="100" height="20" uuid="40983c38-7a1c-439a-b619-b55826849f64"/>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="331" y="41" width="75" height="20" uuid="12a03d60-df4a-456d-b6fe-b1048b7e6a40"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[JOURNEE DU]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="388" y="0" width="57" height="20" uuid="42b9c370-3446-42d1-a748-8bdec80bda3d"/>
+				<text><![CDATA[Vérifié par:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="0" width="57" height="20" uuid="aeaac17f-21b6-4ba1-91dd-1c4f015191b8"/>
+				<text><![CDATA[Etabli par:]]></text>
+			</staticText>
 			<componentElement>
-				<reportElement key="table" x="-1" y="258" width="555" height="100" uuid="3fb4e938-5d56-4685-a5ac-e3922420a5ba"/>
+				<reportElement key="table" x="0" y="82" width="555" height="96" uuid="3fb4e938-5d56-4685-a5ac-e3922420a5ba"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="02d1e90d-c8de-4236-a228-ab1ea2d56ab7">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
@@ -679,21 +700,12 @@
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement x="387" y="366" width="57" height="20" uuid="705640ac-24d7-4c76-b672-5b7bcfa42f85"/>
-				<text><![CDATA[Vérifié par:]]></text>
+				<reportElement x="143" y="41" width="127" height="20" uuid="8a31dd0b-2c64-4f44-a2a4-aeb47757098d"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[JOURNAL DE CAISSE]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="169" y="366" width="57" height="20" uuid="01815ea5-90af-4d50-828d-876757e6188e"/>
-				<text><![CDATA[Etabli par:]]></text>
-			</staticText>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="415" y="0" width="100" height="20" uuid="38d3b519-3a9b-42e5-81c3-ba6660e49c68"/>
-				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="415" y="217" width="100" height="20" uuid="40983c38-7a1c-439a-b619-b55826849f64"/>
-				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<columnFooter>

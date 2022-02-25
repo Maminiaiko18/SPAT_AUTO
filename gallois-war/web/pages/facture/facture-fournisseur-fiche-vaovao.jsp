@@ -87,8 +87,9 @@
         pc.getChampByName("deviseMere").setLibelle("Devise");
 
         pc.getChampByName("designation").setLibelle("Note explicative");
+        pc.getChampByName("idengagement").setVisible(false);
 
-//
+        //
 //Si categorieFC = proforma alors “Fiche Facture Proforma”
 //
 //Si categorieFC = provision alors “Fiche Facture de provision”

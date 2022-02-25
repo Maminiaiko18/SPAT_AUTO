@@ -10,6 +10,7 @@ import bean.ClassMAPTable;
 import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.Engagement;
 import mg.spat.JournalCaisse;
 import mg.spat.stock.BonDeLivraisonFilleReste;
 import user.UserEJB;
@@ -26,8 +27,25 @@ public class FactureFournisseur extends FactureClient {
 
     private String numeroop, projet, code_etablissement, projetlib, code_etablissementlib, nature, naturelib, idbc, numOP;
     private int exercice;
+    private String  idengagement , idengagementlib;
     private String id2;
 
+    public String getIdengagement() {
+        return idengagement;
+    }
+
+    public void setIdengagement(String idengagement) {
+        this.idengagement = idengagement;
+    }
+
+    public String getIdengagementlib() {
+        return idengagementlib;
+    }
+
+    public void setIdengagementlib(String idengagementlib) {
+        this.idengagementlib = idengagementlib;
+    }
+    
     public String getId2() {
         return id2;
     }
@@ -605,5 +623,22 @@ public class FactureFournisseur extends FactureClient {
         this.setType(type);
         this.setIdcategorie(idcategorie);
         this.setEstAuto(estAuto);
+    }
+    
+    public Engagement findEngagement(Connection c) throws Exception{
+        Engagement e = new Engagement();
+        e.setNomTable("engagementlibV");
+        Engagement[] ls = (Engagement[])CGenUtil.rechercher(e, null, null, c, " and id='"+this.getIdEngagement()+"'");
+        if(ls.length > 0 ) return ls[0];
+        return null;
+    }
+    
+    @Override
+    public void controler(Connection c) throws Exception {
+        super.controler(c); 
+        if(this.getIdEngagement() != null && this.getIdEngagement().compareTo("") != 0){
+            Engagement eg = this.findEngagement(c);
+            if(eg == null) throw new Exception("Engagement non visé");
+        }
     }
 }

@@ -41,7 +41,15 @@ public class JournalCaisse extends ClassEtat {
     private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib;
     private double sommeCredit, sortie, entree;
     private String banque;
-    private String descecaisse;
+    private String descecaisse, idcaisse;
+
+    public String getIdcaisse() {
+        return idcaisse;
+    }
+
+    public void setIdcaisse(String idcaisse) {
+        this.idcaisse = idcaisse;
+    }
     
     @Override
     public void controlerUpdate(Connection c) throws Exception {
@@ -846,6 +854,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 paiementFact.setIdFact(avoirFF.getIdfacture());
                 paiementFact.setMontant(-avoirFF.getMontant());
                 paiementFact.createObject(refuser, c);
+                facturefournisseur.FactureFournisseur ff = avoirFF.getFactureFournisseurLiee("BPvalide", c);
+                if(ff != null){
+                    this.insererDansBonProvisoire(refuser, c, this.getCredit(), 0);
+                }
             }
             FactureClient[] fcListe = findFactureClient(c);
             if(fcListe != null && fcListe.length > 0){
@@ -879,7 +891,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     if(ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())){
                         aPayer = genererMontantPaiement(c, "etatbpvrai", ff.getId(), aPayer);
                         //Insérer dans bon provisoire
-                        insererDansBonProvisoire(refuser, c);
+                        insererDansBonProvisoire(refuser, c, 0, this.getDebit());
                     }
                     
                     PaiementFacture pf = new PaiementFacture();
@@ -1070,7 +1082,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return null;
     }
     
-    public void insererDansBonProvisoire(String u, Connection con) throws Exception {
+    public void insererDansBonProvisoire(String u, Connection con, double sortie, double entree) throws Exception {
         boolean verif = false;
         try{
             if(con == null){
@@ -1080,7 +1092,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             
             Date dateDuJour = Utilitaire.dateDuJourSql();
-            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, this.getDateEffet(), 0, this.getDebit(),this.getIdplacement());
+            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, this.getDateEffet(), sortie, entree,this.getIdplacement());
             transfert.setIddevise(this.getIddevise());
             transfert.setIdmode(this.getIdmode());
             transfert.setEtat(ConstanteEtat.getEtatValider());

@@ -56,6 +56,9 @@
         pi.getFormu().getChamp("exercice").setLibelle("Exercice");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
+        pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
+        pi.getFormu().getChamp("idengagement").setAutre("readonly");
+        pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
 
         pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
         pi.getFormu().getChamp("idprevision").setAutre("readonly");
@@ -64,6 +67,7 @@
         pi.getFormu().getChamp("typelib").setVisible(false);
         pi.getFormu().getChamp("categorielib").setVisible(false);
         pi.getFormu().getChamp("idProvisionlib").setVisible(false);
+        pi.getFormu().getChamp("idengagementlib").setVisible(false);
         //pi.getFormu().getChamp("estAuto").setVisible(false);
 
         pi.getFormu().getChamp("iduser").setAutre("readonly");

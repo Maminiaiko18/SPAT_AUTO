@@ -21,7 +21,7 @@
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
     LigneCredit e = new LigneCredit();
-    e.setNomTable("ligneCreditDepense");
+    e.setNomTable("ligneCreditDepenseLib");
     PageConsulte pc = new PageConsulte(e, request, u);
     pc.setTitre("FICHE LIGNE CREDIT DEPENSE");
     e = (LigneCredit) pc.getBase();
@@ -32,8 +32,12 @@
     String table="ligneCreditDepense";
     String lien = (String) session.getValue("lien");
     
+    pc.getChampByName("codeEtablissement").setVisible(false);
+    pc.getChampByName("projet").setVisible(false);
     pc.getChampByName("quantite").setVisible(false);
     pc.getChampByName("compteG").setVisible(false);
+      pc.getChampByName("codeEtablissementlib").setLibelle("Etablissement");
+      pc.getChampByName("projetlib").setLibelle("projet");
     AttacherFichier[] fichiers = UploadService.getUploadFile(id);
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");

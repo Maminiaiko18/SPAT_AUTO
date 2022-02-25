@@ -1,3 +1,4 @@
+<%@page import="mg.spat.Engagement"%>
 <%@page import="mg.spat.stock.BonDeLivraisonFilleReste"%>
     <%@page import="utilisateur.Utilisateur"%>
         <%@page import="affichage.Liste"%>
@@ -23,7 +24,6 @@
     String idBL = request.getParameter("idBL");
     if(idBL != null) fc.setIdBL(idBL);
     BonDeLivraisonFilleReste[] livraisons = fc.getBP(null);
-    
 //------------------------------------
     
     String titre="Enregistrer facture fournisseur";
@@ -67,6 +67,8 @@
     pi.getFormu().getChamp("idBL").setDefaut(Utilitaire.champNull(request.getParameter("idBL")));
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+    pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
+    pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
     pi.getFormu().getChamp("tva").setVisible(false);
     pi.getFormu().getChamp("estMictsl").setVisible(false);
     pi.getFormu().getChamp("estAuto").setVisible(false);
@@ -83,7 +85,14 @@
     
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
+    pi.getFormu().getChamp("idengagement").setAutre("readonly");
     
+    Engagement engagement=new Engagement();
+    if(request.getParameter("idEngagement")!=null){
+        engagement=(Engagement)engagement.getById(request.getParameter("idEngagement"), "engagement", null);
+        pi.getFormu().getChamp("idengagement").setDefaut(engagement.getId());
+        pi.getFormu().getChamp("idengagement").setValeurLibelle(engagement.getDesignation());
+    }
     affichage.Liste[] listes= new affichage.Liste[3];
     
     TypeObjet type = new TypeObjet();
