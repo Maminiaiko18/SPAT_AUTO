@@ -35,7 +35,14 @@ public class EtatProvision extends ClassMAPTable {
     private String code ;
     
     
-       public String getCode() {
+    @Override
+	public ClassMAPTable createObject(String u, Connection c) throws Exception {
+		if(this.getIdFacture()!=null && this.getIdFacture().compareTo("")!=0)
+			setNumProvision(calculerCode(c));
+		return super.createObject(u, c);
+	}
+
+	public String getCode() {
         return code;
     }
 
