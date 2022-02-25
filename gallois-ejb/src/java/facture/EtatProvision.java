@@ -329,5 +329,11 @@ public class EtatProvision extends ClassMAPTable {
         }
     }
 
-    
+    public FactureClient getFacture(Connection c, String nomTable) throws Exception{
+        FactureClient f = new FactureClient();
+        f.setNomTable(nomTable);
+        FactureClient[] fc = (FactureClient[]) CGenUtil.rechercher(f, null, null, c, " and id='"+this.getIdFacture()+"'");
+        if(fc.length > 0) return fc[0];
+        return null;
+    }
 }
