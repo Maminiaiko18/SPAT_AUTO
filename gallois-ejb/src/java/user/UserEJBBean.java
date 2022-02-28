@@ -124,6 +124,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     public ValidationException validation;
     CodeEtablissement codeEtablissement;
 
+    @Override
     public CodeEtablissement getCodeEtablissement() {
         return codeEtablissement;
     }

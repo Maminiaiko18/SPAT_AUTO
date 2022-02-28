@@ -1,13 +1,14 @@
+<%@page import="mg.cnaps.formation.CodeEtablissement"%>
 <%@page import="mg.spat.Engagement"%>
 <%@page import="mg.spat.stock.BonDeLivraisonFilleReste"%>
-    <%@page import="utilisateur.Utilisateur"%>
-        <%@page import="affichage.Liste"%>
-            <%@page import="user.*"%>
-                <%@page import="facture.FactureClient"%>
-                    <%@page import="facture.FactureClientDetails"%>
-                        <%@ page import="bean.*" %>
-                            <%@page import="affichage.*"%>
-                                <%@page import="utilitaire.*"%>
+<%@page import="utilisateur.Utilisateur"%>
+<%@page import="affichage.Liste"%>
+<%@page import="user.*"%>
+<%@page import="facture.FactureClient"%>
+<%@page import="facture.FactureClientDetails"%>
+<%@ page import="bean.*" %>
+<%@page import="affichage.*"%>
+<%@page import="utilitaire.*"%>
 
                                     <%
     try{
@@ -41,7 +42,12 @@
     
     PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, taille, u);
     pi.setLien((String) session.getValue("lien"));
-    
+    System.out.println("u.getUser().getCodeEtablissement()=="+u.getUser().getCodeEtablissement());
+    if(u.getUser().getCodeEtablissement()!=null){
+        CodeEtablissement code= u.getCodeEtablissement();
+        pi.getFormu().getChamp("code_etablissement").setDefaut(u.getUser().getCodeEtablissement());
+        pi.getFormu().getChamp("code_etablissement").setValeurLibelle(code.getVal());
+    }
     String mere=request.getParameter("idmere");
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
