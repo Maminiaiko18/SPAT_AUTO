@@ -4,6 +4,7 @@
     Author     : andri
 --%>
 
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="lignecredit.LigneCredit"%>
 <%@page import="affichage.PageRechercheChoix"%>
 <%@page import="affichage.PageRecherche"%>
@@ -26,7 +27,12 @@
     pr.setApres("choix/listeBudgetDepenseChoix.jsp");
     
 //    pr.getFormu().getChamp("d").setLibelle("Code Client");
- 
+    
+    if(u.getCodeEtablissement() != null) { 
+        String idCodeEtablissement = u.getCodeEtablissement().getId();
+        pr.getFormu().getChamp("direction").setDefaut(Utilitaire.champNull(idCodeEtablissement)); 
+        pr.setAWhere(String.format(pr.getAWhere() + " and direction like '%s'", idCodeEtablissement));
+    }
     
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme); 
