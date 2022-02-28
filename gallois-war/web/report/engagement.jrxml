@@ -419,14 +419,23 @@
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="241" y="103" width="253" height="20" uuid="6f30559b-60ba-4ed5-a94a-4e7b5ae939bc"/>
+				<textElement>
+					<paragraph leftIndent="2"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{annuel}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="241" y="137" width="253" height="20" uuid="feff4bb3-e177-4b7e-8da8-79c361ffda6c"/>
+				<textElement>
+					<paragraph leftIndent="2"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{avant}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="242" y="156" width="253" height="20" uuid="dad42b9b-41f9-46f3-b892-9faa2aa19f23"/>
+				<textElement>
+					<paragraph leftIndent="2"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{apres}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
