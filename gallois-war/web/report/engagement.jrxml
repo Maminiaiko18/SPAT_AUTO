@@ -14,7 +14,7 @@
 	<parameter name="numero" class="java.lang.String"/>
 	<parameter name="piece" class="java.lang.String"/>
 	<parameter name="annee" class="java.lang.String"/>
-	<parameter name="du" class="java.lang.String"/>
+	<parameter name="du" class="java.util.Date"/>
 	<parameter name="montant" class="java.lang.String"/>
 	<parameter name="annuel" class="java.lang.String"/>
 	<parameter name="avant" class="java.lang.String"/>
@@ -222,7 +222,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{piece}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="232" y="53" width="100" height="20" uuid="32816345-6530-4204-a744-f7bae5fbce53"/>
 				<box>
 					<pen lineWidth="0.5"/>
