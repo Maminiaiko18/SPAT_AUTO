@@ -1950,7 +1950,7 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
             param.put("projet",lc.getProjetlib());
             param.put("annuel",Utilitaire.formaterAr(lc.getMontant()));
             param.put("avant",Utilitaire.formaterAr(engagement.getDispoAvant()));
-            param.put("apres",lc.getCodeEtablissementlib());
+            param.put("apres",Utilitaire.formaterAr(engagement.getDispoApres()));
         }
         
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
