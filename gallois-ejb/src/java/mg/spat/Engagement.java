@@ -113,7 +113,8 @@ public class Engagement extends ClassEtat {
         return montant;
     }
 
-    public void setMontant(double montant) {
+    public void setMontant(double montant)throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&&montant<=0) throw new Exception("montant invalide");
         this.montant = montant;
     }
 
@@ -172,8 +173,15 @@ public class Engagement extends ClassEtat {
     public LigneCredit findSituationCredit(Connection c) throws Exception{
         LigneCredit lc = new LigneCredit();
         lc.setNomTable("ligneCreditDepenseGrp");
-        LigneCredit ligne = findLigneCredit(c);
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+ligne.getCodeEtablissement() +"' and idprojet='"+ligne.getProjet()+"'");
+        String dir=this.getCodeEtablissement();
+        String prj=this.getProjet();
+        if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
+        {
+            LigneCredit ligne = findLigneCredit(c);
+            dir=ligne.getCodeEtablissement();
+            prj=ligne.getProjet();
+        }
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"'");
         if(ligneCredits.length > 0) return ligneCredits[0];
         return null;
     }
