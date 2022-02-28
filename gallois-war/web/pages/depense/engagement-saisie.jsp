@@ -36,8 +36,9 @@
 
     pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &Eacute;tablissement");
-    pi.getFormu().getChamp("dispoAvant").setLibelle("Disponible Avant");
-    pi.getFormu().getChamp("dispoApres").setLibelle("Disponible Apres");
+    pi.getFormu().getChamp("dispoAvant").setVisible(false);
+    pi.getFormu().getChamp("dispoApres").setVisible(false);
+    pi.getFormu().getChamp("disponible").setVisible(false);
     pi.getFormu().getChamp("idLC").setLibelle("Budget");
     pi.getFormu().getChamp("daty").setLibelle("Date");
     
