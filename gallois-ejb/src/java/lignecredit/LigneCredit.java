@@ -23,7 +23,6 @@ public class LigneCredit extends ClassEtat {
     private String designation, compte, compteCpl, compteInv, compteSimple, directon, projet, directionProjet, comptestr, compteG,codeEtablissement;
     private String codeEtablissementlib, projetlib;
     private String idprojet , idcodeEtablissement;
-    private String direction;
 
     public String getIdprojet() {
         return idprojet;
@@ -31,14 +30,6 @@ public class LigneCredit extends ClassEtat {
 
     public void setIdprojet(String idprojet) {
         this.idprojet = idprojet;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
     }
 
     public String getIdcodeEtablissement() {
