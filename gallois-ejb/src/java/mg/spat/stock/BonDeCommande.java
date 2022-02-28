@@ -6,6 +6,7 @@
 package mg.spat.stock;
 
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.Constante;
@@ -365,5 +366,13 @@ public class BonDeCommande extends ClassEtat {
             throw ex;
         }
     }
+
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        setIduser(u);
+        return super.createObject(u, c); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
 }
