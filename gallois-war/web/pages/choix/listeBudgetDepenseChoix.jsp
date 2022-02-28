@@ -28,7 +28,7 @@
     
 //    pr.getFormu().getChamp("d").setLibelle("Code Client");
     
-    if(u.getCodeEtablissement() != null) { 
+    if(u.getCodeEtablissement() != null && request.getParameter("direction") == null) { 
         String code = u.getCodeEtablissement().getVal();
         pr.getFormu().getChamp("direction").setDefaut(Utilitaire.champNull(code)); 
         pr.setAWhere(String.format(pr.getAWhere() + " and direction like '%s'", code));
