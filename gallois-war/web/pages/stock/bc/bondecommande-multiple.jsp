@@ -1,6 +1,6 @@
 <%-- 
     Document   : bondecommande-multiple
-    Created on : 4 févr. 2021, 16:45:08
+    Created on : 4 fï¿½vr. 2021, 16:45:08
     Author     : Sanda
 --%>
 
@@ -43,6 +43,7 @@
         
         pi.getFormu().getChamp("tva").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
+        pi.getFormu().getChamp("iduser").setVisible(false);
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
         affichage.Champ[] liste = new affichage.Champ[2];
         TypeObjet d = new TypeObjet();
@@ -61,15 +62,15 @@
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("modepaiement").setDefaut(Constante.modepaiementDefaut);
         pi.getFormu().getChamp("daty").setLibelle("Date");
-        pi.getFormu().getChamp("remarque").setLibelle("Référence");
+        pi.getFormu().getChamp("remarque").setLibelle("R&eacute;f&eacute;rence");
         pi.getFormu().getChamp("designation").setLibelle("Designation");
         pi.getFormu().getChamp("fournisseur").setLibelle("Fournisseur");
         pi.getFormu().getChamp("numbc").setLibelle("Numero bon de commande");
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
         pi.getFormu().getChamp("fournisseur").setPageAppel("choix/listeTiersChoix.jsp");
         pi.getFormu().getChamp("code_etab").setLibelle("Code etablissement");
-        pi.getFormu().getChamp("delaipaiement").setLibelle("Délai de paiement (Jours)");
-        pi.getFormu().getChamp("delailivraison").setLibelle("Délai de livraison");
+        pi.getFormu().getChamp("delaipaiement").setLibelle("D&eacute;lai de paiement (Jours)");
+        pi.getFormu().getChamp("delailivraison").setLibelle("D&eacute;lai de livraison");
         pi.getFormu().getChamp("typepaiement").setLibelle("Type paiement");
         pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
         pi.getFormu().getChamp("idengagement").setAutre("readonly");
@@ -93,11 +94,11 @@
         pi.getFormufle().changerEnChamp(listeUnit);
         
         pi.getFormufle().getChamp("Unite_0").setLibelle("Unite");
-        pi.getFormufle().getChamp("Remarque_0").setLibelle("Désignation");
+        pi.getFormufle().getChamp("Remarque_0").setLibelle("D&eacute;signation");
         pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
         pi.getFormufle().getChamp("produit_0").setLibelle("Produit");
         pi.getFormufle().getChamp("pu_0").setLibelle("Prix Unitaire");
-        pi.getFormufle().getChamp("quantite_0").setLibelle("Quantité");
+        pi.getFormufle().getChamp("quantite_0").setLibelle("Quantit&eacute;");
         pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
         pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("Quantiteparpack"), false);
