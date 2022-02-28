@@ -22,7 +22,9 @@
     pc.getChampByName("dispoApres").setLibelle("DispoApres");
     pc.getChampByName("compte").setLibelle("Compte");
     pc.getChampByName("codeEtablissementlib").setLibelle("Code Etablissement");
+    pc.getChampByName("codeEtablissementlib").setVisible(false);
     pc.getChampByName("projetlib").setLibelle("Projet");
+    pc.getChampByName("projetlib").setVisible(false);
     pc.getChampByName("idLC").setVisible(false);
     pc.getChampByName("idLClib").setLibelle("Budget");
     pc.getChampByName("daty").setLibelle("Date");

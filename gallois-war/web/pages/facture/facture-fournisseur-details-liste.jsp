@@ -22,7 +22,7 @@
     try{    
     FactureFournisseurDetails cht = new FactureFournisseurDetails();
     cht.setNomTable("FACTFOURN_FILL_LIB_REST_TAXE");
-    String libEntete[] = {"id", "designation", "quantite", "qtelivree", "restealivrer", "devise", "compte", "pu", "taux", "montanttaux", "tva", "montantTva", "montantHTEuro", "montantTVAEuro", "reduction", "majoration"};
+    String libEntete[] = {"id", "designation", "quantite", "qtelivree", "restealivrer", "devise", "compte", "pu", "taux", "montanttaux", "tva", "montanttaxe", "montantHTEuro", "montantTVAEuro", "reduction", "majoration","montantTTC"};
     String listeCrt[] = {"compte", "mois", "annee"};
     String listeInt[] = {"mois", "annee"};
 
@@ -68,12 +68,12 @@
     }
     
     pr.setApres("facture/facture-fournisseur-details-liste.jsp");
-    String[] colSomme = {"montant"};
+    String[] colSomme = {"montant","montanttaxe","montantTTC"};
     pr.setOrdre(" order by daty,rang");
     pr.setAWhere(awhere);
     pr.creerObjetPage(libEntete, colSomme); 
    
-    String libEnteteAffiche[] = {"id", "designation", "quantité", "quantité livrée", "reste à livrer", "devise", "compte", "pu", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "RED.%", "MAJ.%"};
+    String libEnteteAffiche[] = {"id", "designation", "quantité", "quantité livrée", "reste à livrer", "devise", "compte", "pu", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "RED.%", "MAJ.%","Montant TTC"};
     pr.getTableau().setLibeEntete(libEnteteAffiche);
 
  %>

@@ -95,6 +95,7 @@ import utilitaire.UtilitaireMetier;
 import ded.OrdonnerPayement;
 import facturefournisseur.EtatFactureMontantDaty;
 import facture.*;
+import mg.cnaps.formation.CodeEtablissement;
 import mg.spat.Prevision;
 
 @Stateful
@@ -121,6 +122,16 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     TypeObjet commandant = null;
     Prevision prevision;
     public ValidationException validation;
+    CodeEtablissement codeEtablissement;
+
+    @Override
+    public CodeEtablissement getCodeEtablissement() {
+        return codeEtablissement;
+    }
+
+    public void setCodeEtablissement(CodeEtablissement codeEtablissement) {
+        this.codeEtablissement = codeEtablissement;
+    }
 
     @Override
     public Prevision getPrevision() {
@@ -809,6 +820,11 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 }
                 this.cnapsUser = new CNAPSUser(cnp[0].getCode_dr(), cnp[0].getUser_init(), cnp[0].getAgent_mo(), cnp[0].getAgent_disponible(), cnp[0].getUsername(), ls[0].getCode_service(), u.getRefuser() + "");
             }
+            
+            String idCodeEtablissement = u.getCodeEtablissement();
+            if(idCodeEtablissement != null && !idCodeEtablissement.isEmpty()) {
+                this.codeEtablissement = (CodeEtablissement) CGenUtil.rechercher(new CodeEtablissement(), null, null, c, String.format(" and id like '%s'", idCodeEtablissement))[0];
+            }
 
             this.listeConfig = this.findConfiguration();
 
@@ -981,6 +997,12 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 if (utilEnCours.length > 0) {
                     if (utilEnCours[0].getRang() < Constante.getRangMahitaNyHafa()) {
                         retour += " and iduser='" + utilEnCours[0].getRefuser() + "' ";
+                    }
+                    if(utilEnCours[0].getRang() == Constante.getRangMahitaNyHafa()) {
+                        String codeEtablissement = this.getCodeEtablissement().getId();
+                        if(codeEtablissement != null && !codeEtablissement.isEmpty()) {
+                            retour += String.format(" and codeetablissement like '%s'", codeEtablissement);
+                        }
                     }
                 }
             }

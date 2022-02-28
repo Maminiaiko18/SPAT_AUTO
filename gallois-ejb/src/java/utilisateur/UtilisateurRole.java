@@ -16,6 +16,7 @@ public class UtilisateurRole extends ClassMAPTable{
     private String pwduser;
     private String direction;
     private String service;
+    private String codeEtablissement;
 
     public String getDirection() {
         return direction;
@@ -23,6 +24,14 @@ public class UtilisateurRole extends ClassMAPTable{
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+
+    public String getCodeEtablissement() {
+        return codeEtablissement;
+    }
+
+    public void setCodeEtablissement(String codeEtablissement) {
+        this.codeEtablissement = codeEtablissement;
     }
 
     public String getService() {

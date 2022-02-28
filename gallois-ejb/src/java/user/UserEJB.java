@@ -20,6 +20,7 @@ import javax.ejb.Local;
 import lc.Direction;
 import mg.allosakafo.fin.MvtCaisse;
 import mg.cnaps.configuration.Configuration;
+import mg.cnaps.formation.CodeEtablissement;
 import mg.cnaps.messagecommunication.Message;
 import mg.cnaps.messagecommunication.MessageLibelle;
 import mg.cnaps.messagecommunication.MessageNonLu;
@@ -44,6 +45,8 @@ public interface UserEJB {
     public Object updateObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille, Connection c) throws Exception;
     
     public Prevision getPrevision() ;
+    
+    public CodeEtablissement getCodeEtablissement();
     
     public void testLogin(String user, String pass, String interim, String service,String escale) throws Exception;
     

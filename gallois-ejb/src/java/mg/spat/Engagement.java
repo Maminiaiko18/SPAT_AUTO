@@ -172,7 +172,8 @@ public class Engagement extends ClassEtat {
     public LigneCredit findSituationCredit(Connection c) throws Exception{
         LigneCredit lc = new LigneCredit();
         lc.setNomTable("ligneCreditDepenseGrp");
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+this.getCodeEtablissement()+"' and idprojet='"+this.getProjet()+"'");
+        LigneCredit ligne = findLigneCredit(c);
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+ligne.getCodeEtablissement() +"' and idprojet='"+ligne.getProjet()+"'");
         if(ligneCredits.length > 0) return ligneCredits[0];
         return null;
     }
@@ -180,6 +181,7 @@ public class Engagement extends ClassEtat {
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         LigneCredit lc = this.findSituationCredit(c);
+        if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
         this.setDispoAvant(lc.getRestebudget());
         this.setDispoApres(this.getDispoAvant() - this.getMontant());
         return super.createObject(u, c); 

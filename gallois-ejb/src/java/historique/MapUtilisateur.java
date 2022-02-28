@@ -12,6 +12,16 @@ public class MapUtilisateur extends bean.ClassMAPTable implements java.io.Serial
     private String teluser;
     private int refuser;
     private int rang;
+    private String codeEtablissement;
+
+    public String getCodeEtablissement() {
+        return codeEtablissement;
+    }
+
+    public void setCodeEtablissement(String codeEtablissement) {
+        this.codeEtablissement = codeEtablissement;
+    }
+    
 
     public int getRang() {
         return rang;

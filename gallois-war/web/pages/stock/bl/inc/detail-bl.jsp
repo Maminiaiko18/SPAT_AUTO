@@ -10,7 +10,7 @@
         //fille.setNomTable("as_bondelivraison_fille_lib");
         fille.setNomTable("AS_BONDELIVRAISON_FILLE_LIB");
 
-        String idbl = " AND NUMBL = '" + request.getParameter("id").trim() + "'";
+        String idbl = " AND NUMBL = '" + request.getParameter("id").trim() + "' order by produit";
 
         BonDeLivraisonFille[] filles = (BonDeLivraisonFille[]) CGenUtil.rechercher(fille, null, null, idbl);
         double sommeHT = AdminGen.calculSommeDouble(filles, "montant");

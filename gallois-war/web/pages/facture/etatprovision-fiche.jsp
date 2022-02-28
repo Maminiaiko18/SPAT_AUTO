@@ -16,6 +16,7 @@
     pc.getChampByName("idnavire").setVisible(false);
     pc.getChampByName("idmode").setVisible(false);
     pc.getChampByName("idbanque").setVisible(false);
+    pc.getChampByName("idFacture").setVisible(false);
       pc.getChampByName("numpiece").setLibelle("Numero du piece");
     pc.getChampByName("numProvision").setLibelle("Numero du provision");
     pc.getChampByName("tierslib").setLibelle("Tiers");
@@ -27,6 +28,7 @@
     pc.setTitre("Fiche etat provision");
     a=(EtatProvision)pc.getBase();
     pc.getChampByName("idnavirelib").setLien((String) session.getValue("lien") + "?but=capitainerie/navire-fiche.jsp&id="+a.getIdnavire(), "id=");
+    pc.getChampByName("code").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp&id="+a.getIdFacture(), "code=");
     String id = a.getId();
 %>
 <div class="content-wrapper">

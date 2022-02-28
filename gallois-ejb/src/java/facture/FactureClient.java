@@ -1522,12 +1522,15 @@ public class FactureClient extends ClassMere {
 
     public String calculerCodeMictsl(Connection c) throws Exception {
         String daty = Utilitaire.datetostring(this.getDaty());
+        String awhere = " and annee = %s";
+        String annee = Utilitaire.getAnnee(daty);
+        awhere = String.format(awhere, annee);
         return genererPremierCaractere(c)
                 + Utilitaire.genererAnnee(daty)
                 + Utilitaire.genererMois(daty)
                 + genererLettreMictsl(c)
 //                + genererSequence(c, "NUMEROFACTUREMCTSL", 6);
-                + new UtilitaireFacture().genererSequence(c, "NUMEROFACTUREMCTSL_PARDATE", 6, daty);
+                + new UtilitaireFacture().genererSequence(c, "NUMEROFACTUREMCTSL_PARDATE", 6, daty,awhere);
     }
 /*
     public String genererSequence(Connection c, String nomtable, int longueur) throws Exception {

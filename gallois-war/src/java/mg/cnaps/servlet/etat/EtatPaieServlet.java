@@ -1933,24 +1933,18 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
         if(mere.length!=0){
             engagement = mere[0];
             LigneCredit lc = engagement.findLigneCredit(c);
-            /*System.out.println( "code="+lc.getCodeEtablissementlib());
-            System.out.println("annee="+lc.getAnnee()+"");
-            System.out.println("piece="+lc.getDesignation());
-            System.out.println("du="+engagement.getDaty());
-            System.out.println("montant="+engagement.getMontant());
-            System.out.println("codeprojet="+lc.getProjetlib());
-            System.out.println("prevision annuelle="+lc.getMontant());
-            System.out.println("dispo avant="+engagement.getDispoAvant());
-            System.out.println("dispo apres="+engagement.getDispoApres());  */  
             param.put("code_etab",lc.getCodeEtablissementlib());
             param.put("annee",lc.getAnnee()+"");
-            param.put("piece",lc.getDesignation());
+            param.put("piece",engagement.getDesignation());
             param.put("du",engagement.getDaty());
-            param.put("montant",Utilitaire.formaterAr((engagement.getMontant())));
             param.put("projet",lc.getProjetlib());
+            
+            lc = engagement.findSituationCredit(c);
+            param.put("montant",Utilitaire.formaterAr((engagement.getMontant())));
+           
             param.put("annuel",Utilitaire.formaterAr(lc.getMontant()));
             param.put("avant",Utilitaire.formaterAr(engagement.getDispoAvant()));
-            param.put("apres",lc.getCodeEtablissementlib());
+            param.put("apres",Utilitaire.formaterAr(engagement.getDispoApres()));
         }
         
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
