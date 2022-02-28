@@ -14,12 +14,15 @@
 <%@page import="affichage.PageInsertMultiple"%>
 <%@page import="mg.spat.stock.BonDeCommande"%>
 <%@page import="mg.spat.stock.BonDeCommandeFille"%>
+<%@page import="mg.cnaps.formation.CodeEtablissement"%>
 
 <%
     try {
         String idEngagement  = request.getParameter("idEngagement");
         String autreparsley = "data-parsley-range='[8, 40]' required";
         UserEJB u = u = (UserEJB) session.getValue("u");
+        
+
         String classeMere = "mg.spat.stock.BonDeCommande",
                classeFille = "mg.spat.stock.BonDeCommandeFille",
                titre = "Bon de commande saisie",
@@ -76,6 +79,13 @@
         pi.getFormu().getChamp("idengagement").setAutre("readonly");
         pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp", "idengagement;idengagementlibelle");
         pi.getFormu().getChamp("idengagement").setDefaut(Utilitaire.champNull(idEngagement));
+        
+        System.out.println("u.getUser().getCodeEtablissement()=="+u.getUser().getCodeEtablissement());
+        if(u.getUser().getCodeEtablissement()!=null){
+            CodeEtablissement code= u.getCodeEtablissement();
+            pi.getFormu().getChamp("code_etab").setDefaut(u.getUser().getCodeEtablissement());
+            pi.getFormu().getChamp("code_etab").setValeurLibelle(code.getVal());
+        }
         
 //        pi.getFormu().setColOrdre(new String[] {"designation", "daty", "fournisseur", "modepaiement","remarque"});
         
