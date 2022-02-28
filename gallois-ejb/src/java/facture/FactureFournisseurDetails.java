@@ -9,6 +9,8 @@ import bean.CGenUtil;
 import bean.ClassMere;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilitaire.ConstanteEtat;
 import utilitaire.Utilitaire;
 
@@ -17,6 +19,15 @@ import utilitaire.Utilitaire;
  * @author rijan
  */
 public class FactureFournisseurDetails extends FactureClientDetails{
+    private double montanttaxe;
+
+    public double getMontanttaxe() {
+        return montanttaxe;
+    }
+
+    public void setMontanttaxe(double montanttaxe) {
+        this.montanttaxe = montanttaxe;
+    }
     
    
     
@@ -122,5 +133,15 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         this.setAnnee(annee);
         this.setMois(mois);
         this.setTva(tva);
+    }
+    public void setCompte(String compte) throws Exception {
+        if (this.getMode().compareTo("modif")==0)
+        {
+            if(Utilitaire.champNull("compte").compareTo("")==0)
+            {  
+                    throw new Exception("Compte obligatoire");
+            }
+        }
+        super.setCompte( compte);
     }
 }
