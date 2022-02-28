@@ -172,7 +172,8 @@ public class Engagement extends ClassEtat {
     public LigneCredit findSituationCredit(Connection c) throws Exception{
         LigneCredit lc = new LigneCredit();
         lc.setNomTable("ligneCreditDepenseGrp");
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+lc.getCodeEtablissement() +"' and idprojet='"+lc.getIdprojet()+"'");
+        LigneCredit ligne = findLigneCredit(c);
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+ligne.getCodeEtablissement() +"' and idprojet='"+ligne.getIdprojet()+"'");
         if(ligneCredits.length > 0) return ligneCredits[0];
         return null;
     }
