@@ -54,6 +54,7 @@
         pr.getFormu().getChamp("annee").setLibelle("Exercice");
         
         String reqniv = request.getParameter("niveau");
+        String moisMin = date1 != null ? ""+Utilitaire.stringToInt(Utilitaire.getMois(date1)) : "", moisMax = date2 != null ? ""+Utilitaire.stringToInt(Utilitaire.getMois(date2)) : "";
         
         String[] colSomme = {"montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
         pr.creerObjetPage(libEntete, colSomme);
@@ -165,7 +166,7 @@
                                     <td><%= data[i].getAnnee() %></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getMontant())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getEngageer())%></td>
-                                    <td align="right"><a href="<%= pr.getLien() %>?but=facture/facture-fournisseur-details-liste.jsp&compte=<%= Utilitaire.champNull(data[i].getCompte()) %>&recap=checked&annee=<%= data[i].getAnnee() %>&mois=<%= Utilitaire.champNull(request.getParameter("mois")) %>"><%=Utilitaire.formaterAr(data[i].getFacture())%></a></td>
+                                    <td align="right"><a href="<%= pr.getLien() %>?but=facture/facture-fournisseur-details-liste.jsp&compte=<%= Utilitaire.champNull(data[i].getCompteSimple()) %>&recap=checked&annee=<%= data[i].getAnnee() %>&mois1=<%= Utilitaire.champNull(moisMin) %>&mois2=<%= Utilitaire.champNull(moisMax) %>"><%=Utilitaire.formaterAr(data[i].getFacture())%></a></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPourcEngage())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPaye())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPourcPaye())%></td>
