@@ -11,9 +11,9 @@
 <%
     try{
     UserEJB u = (UserEJB) session.getAttribute("u");
-    String listeCrt[] = {"id","designation", "compte", "comptestr", "montant"};
+    String listeCrt[] = {"id","designation", "compte", "comptestr", "montant","direction"};
     String listeInt[] = {};
-    String libEntete[] = {"id","designation", "compte", "comptestr", "montant"};
+    String libEntete[] = {"id","designation", "compte", "comptestr", "montant","direction"};
     
      LigneCredit cons = new LigneCredit();
     cons.setNomTable("SITUATIONLCDEPENSEV");
@@ -23,7 +23,7 @@
     pr.setChampReturn(request.getParameter("champReturn"));
     pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
-    pr.setApres("listeBudgetDepenseChoix.jsp");
+    pr.setApres("choix/listeBudgetDepenseChoix.jsp");
     
 //    pr.getFormu().getChamp("d").setLibelle("Code Client");
  
@@ -47,12 +47,12 @@
                 <h1>Liste Budget Depense</h1>
             </section>
             <section class="content">
-                <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="cc" id="cc">
+                <form action="?but=<%=pr.getApres()%>&&champReturn=<%=pr.getChampReturn()%>" method="post" name="cc" id="cc">
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
                 </form>
                 <%
 
-                    String libelles[] = {"id","designation", "compte", "comptestr", "montant"};
+                    String libelles[] = {"id","designation", "compte", "comptestr", "montant","direction"};
                     pr.getTableau().setLibelleAffiche(libelles);
                     out.println(pr.getTableauRecap().getHtml());
                 %>
