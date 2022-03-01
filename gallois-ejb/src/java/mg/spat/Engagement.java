@@ -226,7 +226,14 @@ public class Engagement extends ClassEtat {
         }
     }
     
-     
+    public EngagementFille[] getEngagementFilles(String nomtable,Connection c) throws Exception{
+        if(nomtable == null || nomtable.compareToIgnoreCase("") == 0) nomtable = "engagement_fille";
+        EngagementFille engagement = new EngagementFille();
+        engagement.setNomTable(nomtable);
+        EngagementFille[] ef = (EngagementFille[]) CGenUtil.rechercher(engagement, null, null, c, " and idmere = '"+this.getId()+"'");
+        if(ef.length > 0) return ef;
+        return null;
+    } 
     
     
 }
