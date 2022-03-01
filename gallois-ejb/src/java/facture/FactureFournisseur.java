@@ -568,14 +568,15 @@ public class FactureFournisseur extends FactureClient {
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
-        if(this.getIdengagement() != null && !this.getIdEngagement().isEmpty()){
+        if(this.getIdengagement() != null){
           Engagement eg = this.findEngagement(c);
           if(eg != null){
               double reste = eg.getResteAFacturer(c);
-              FactureFournisseur ff = (FactureFournisseur)this.getById(this.getId(), "factfourn_msum_lib", c);
-              if(reste < ff.getMontant()) throw new Exception("Le montant de la facture depasse le reste de l'engagement");
+              FactureFournisseur ff = (FactureFournisseur)new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+              if(ff!=null && reste < ff.getMontant()) throw new Exception("Le montant de la facture depasse le reste de l'engagement");
           }
         } 
+        this.setNomTable("facture_fournisseur_mere");
         super.validerObject(u, c);
         return this;
     }
@@ -646,7 +647,7 @@ public class FactureFournisseur extends FactureClient {
     public Engagement findEngagement(Connection c) throws Exception{
         Engagement e = new Engagement();
         e.setNomTable("engagementlibV");
-        Engagement[] ls = (Engagement[])CGenUtil.rechercher(e, null, null, c, " and id='"+this.getIdEngagement()+"'");
+        Engagement[] ls = (Engagement[])CGenUtil.rechercher(e, null, null, c, " and id='"+this.getIdengagement()+"'");
         if(ls.length > 0 ) return ls[0];
         return null;
     }
@@ -664,8 +665,8 @@ public class FactureFournisseur extends FactureClient {
         try{
             LigneCredit lncredit = new LigneCredit();
             lncredit.setNomTable(nomtable);
-            lncredit.setCodeEtablissement(this.getCode_etablissement());
-            lncredit.setProjet(this.getProjet());
+            lncredit.setIdcodeEtablissement(this.getCode_etablissement());
+            lncredit.setIdprojet(this.getProjet());
             LigneCredit[] res = (LigneCredit[]) CGenUtil.rechercher(lncredit, null, null, c, "");
             return res;
         }catch(Exception e){

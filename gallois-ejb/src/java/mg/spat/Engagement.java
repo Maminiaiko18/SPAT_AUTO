@@ -26,8 +26,8 @@ public class Engagement extends ClassEtat {
     
     public double getResteAFacturer(Connection c) throws Exception{
         FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_lib",c);
-        double montant = AdminGen.calculSommeDouble(factures, "montant");
-        return montant;
+        double totalFF = AdminGen.calculSommeDouble(factures, "montant");
+        return this.getMontant() - totalFF;
     }
     
     public Engagement() {
@@ -208,7 +208,7 @@ public class Engagement extends ClassEtat {
         try{
             FactureFournisseur fact = new FactureFournisseur();
             fact.setNomTable(nomtable);
-            fact.setIdEngagement(this.getId());
+            fact.setIdengagement(this.getId());
             FactureFournisseur[] res = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, "");
             return res;
         }catch(Exception e){
