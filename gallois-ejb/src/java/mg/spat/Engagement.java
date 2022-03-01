@@ -10,11 +10,13 @@ import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
 import facture.FactureFournisseur;
+import facture.FactureFournisseurDetails;
 import java.sql.Connection;
 import java.sql.Date;
 import lignecredit.LigneCredit;
 import utilitaire.Utilitaire;
 import utilitaire.Constante;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -257,5 +259,32 @@ public class Engagement extends ClassEtat {
         return null;
     } 
     
+    public FactureFournisseur genererFacture(String u, Connection c, EngagementFille[] filles) throws Exception{
+        boolean check = false;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                check = true;
+                c.setAutoCommit(false);
+            }
+            FactureFournisseur ff = this.genererFactureFournisseurMere();
+            if(filles != null){
+                FactureFournisseurDetails[] ffd = new FactureFournisseurDetails[filles.length];
+                for(int i=0; i<filles.length; i++){
+                    ffd[i] = filles[i].genererFactureFournisseurDetail();
+                }
+                ff.setFille(ffd);
+            }
+            ff.createObject(u, c);
+            ff.validerObject(u, c);
+            if(check) c.commit();
+        return ff;
+        } catch(Exception ex){
+            if(check && c != null) c.rollback();
+            throw ex;
+        } finally{
+            if(check && c != null) c.close();
+        }
+    }
     
 }
