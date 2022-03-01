@@ -664,4 +664,16 @@ public class FactureFournisseur extends FactureClient {
             throw e;
         }
     }
+    public FactureFournisseur[] getFacturesLiees(String nomtable, Connection c) throws Exception{
+        try{
+            FactureFournisseur fact = new FactureFournisseur();
+            fact.setNomTable(nomtable);
+            fact.setIdEngagement(this.getId());
+            FactureFournisseur[] res = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, "");
+            return res;
+        }catch(Exception e){
+            throw e;
+        }
+    }
+    
 }
