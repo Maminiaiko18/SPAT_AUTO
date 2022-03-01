@@ -6,11 +6,13 @@
 package facture;
 
 import bean.CGenUtil;
+import bean.ClassMAPTable;
 import bean.ClassMere;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lignecredit.LigneCredit;
 import utilitaire.ConstanteEtat;
 import utilitaire.Utilitaire;
 
@@ -143,5 +145,36 @@ public class FactureFournisseurDetails extends FactureClientDetails{
             }
         }
         super.setCompte( compte);
+    }
+    
+    public void checkCompte(Connection c) throws Exception{
+        
+        try{   
+            FactureFournisseur ff = this.findMere(c);
+            if(ff != null){
+                LigneCredit[] lc = ff.findLigneCredit("SITUATIONLCDEPENSEVSD", c);
+                int t = lc.length;
+                for(int i = 0; i < t; i++){
+                    if(this.getCompte() == lc[i].getComptestr()){
+                        return;
+                    }
+                }
+                throw new Exception("Compte introuvable dans les lignes de credit");
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+    
+    @Override
+    public ClassMAPTable createObject(String user, Connection c) throws Exception {
+        try{
+            this.checkCompte(c);
+        }
+        catch(Exception e){
+            throw e;
+        }
+        return super.createObject(user, c);
     }
 }
