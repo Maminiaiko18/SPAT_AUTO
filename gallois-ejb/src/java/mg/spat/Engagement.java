@@ -5,6 +5,7 @@
  */
 package mg.spat;
 
+import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
@@ -22,7 +23,13 @@ public class Engagement extends ClassEtat {
     private String codeEtablissementlib,projetlib;
     private double montant,disponible,dispoAvant,dispoApres;
     private Date daty;
-
+    
+    public double getResteAFacturer(Connection c) throws Exception{
+        FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_lib",c);
+        double montant = AdminGen.calculSommeDouble(factures, "montant");
+        return montant;
+    }
+    
     public Engagement() {
         super.setNomTable("engagement");
     }
