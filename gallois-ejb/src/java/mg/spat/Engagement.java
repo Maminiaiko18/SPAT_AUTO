@@ -8,6 +8,7 @@ package mg.spat;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import facture.FactureFournisseur;
 import java.sql.Connection;
 import java.sql.Date;
 import lignecredit.LigneCredit;
@@ -194,7 +195,18 @@ public class Engagement extends ClassEtat {
         this.setDispoApres(this.getDispoAvant() - this.getMontant());
         return super.createObject(u, c); 
     }
-
+    
+    public FactureFournisseur[] getFacturesLiees(String nomtable, Connection c) throws Exception{
+        try{
+            FactureFournisseur fact = new FactureFournisseur();
+            fact.setNomTable(nomtable);
+            fact.setIdEngagement(this.getId());
+            FactureFournisseur[] res = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, "");
+            return res;
+        }catch(Exception e){
+            throw e;
+        }
+    }
     
      
     
