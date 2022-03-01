@@ -232,6 +232,9 @@ public class Engagement extends ClassEtat {
         if(filles.length==0){
             throw new Exception ("Doit contenir au moins un détail engagement");
         }
+        if(avecFacture==0){
+             this.genererFacture(u, c, filles);
+        }
         this.setDispoAvant(lc.getRestebudget());
         this.setDispoApres(this.getDispoAvant() - this.getMontant());
         
