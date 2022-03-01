@@ -4,6 +4,9 @@
     Author     : Sanda
 --%>
 
+<%@page import="affichage.Liste"%>
+<%@page import="mg.spat.EngagementFille"%>
+<%@page import="affichage.PageInsertMultiple"%>
 <%@page import="avoir.Avoir"%>
 <%@page import="affichage.PageInsert"%> 
 <%@page import="user.UserEJB"%> 
@@ -13,15 +16,27 @@
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     UserEJB u = (user.UserEJB) session.getValue("u");
-    String  mapping = "mg.spat.Engagement",
+    String  mapping = Engagement.class.getName(),
             nomtable = "engagement",
+            mappingFille = EngagementFille.class.getName(),
+            colonneMere = "idmere",
             apres = "depense/engagement-fiche.jsp",
             titre = "Nouvel Engagement";
     
     Engagement  objet = new Engagement();
-    PageInsert pi = new PageInsert(objet, request, u);
-    pi.setLien((String) session.getValue("lien"));  
+    EngagementFille objetFille = new EngagementFille();
+    int nbLigne = 10;
     
+    PageInsertMultiple pi = new PageInsertMultiple(objet, objetFille, request, nbLigne, u);
+    pi.setLien((String) session.getValue("lien"));
+    
+    
+    Liste[] listes = new Liste[1];
+    String[] avecFactureAff = {"oui", "non"};
+    String[] avecFactureVal = {"1", "0"}; 
+    listes[0] = new Liste("avecFacture", avecFactureAff, avecFactureVal);
+    
+    pi.getFormu().changerEnChamp(listes);
     
     pi.getFormu().getChamp("etat").setVisible(false);
     
@@ -33,6 +48,7 @@
     pi.getFormu().getChamp("idLC").setAutre("readonly");
 
 	pi.getFormu().getChamp("compte").setVisible(false);
+    pi.getFormu().getChamp("avecFacture").setLibelle("Avec Facture");
     pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &Eacute;tablissement");
     pi.getFormu().getChamp("dispoAvant").setVisible(false);
@@ -40,6 +56,11 @@
     pi.getFormu().getChamp("disponible").setVisible(false);
     pi.getFormu().getChamp("idLC").setLibelle("Budget");
     pi.getFormu().getChamp("daty").setLibelle("Date");
+    
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false);
+    pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
+    pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
     
     if(u.getCodeEtablissement() != null){
         pi.getFormu().getChamp("codeEtablissement").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getId()));
@@ -49,15 +70,19 @@
 <div class="content-wrapper">
     <h1> <%=titre%></h1>
     
-    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
+    <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
+            pi.getFormufle().makeHtmlInsertTableauIndex();
             out.println(pi.getFormu().getHtmlInsert());
+            out.println(pi.getFormufle().getHtmlTableauInsert());
         %>
         <input name="acte" type="hidden" id="nature" value="insert">
         <input name="bute" type="hidden" id="bute" value="<%=apres%>">
         <input name="classe" type="hidden" id="classe" value="<%=mapping%>">
-        <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
+        <input name="classefille" type="hidden" id="classefille" value="<%= mappingFille %>">
+        <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%= nbLigne %>">
+        <input name="colonneMere" type="hidden" id="colonneMere" value="<%= colonneMere %>">
     </form>
 </div>
 <script>
