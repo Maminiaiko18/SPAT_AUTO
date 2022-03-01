@@ -17,7 +17,7 @@
     String libEntete[] = {"id","designation", "compte", "comptestr", "montant","direction"};
     
      LigneCredit cons = new LigneCredit();
-    cons.setNomTable("SITUATIONLCDEPENSEV");
+    cons.setNomTable("SITUATIONLCDEPENSEVSD");
     
     PageRechercheChoix pr = new PageRechercheChoix(cons, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     
