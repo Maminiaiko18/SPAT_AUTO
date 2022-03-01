@@ -6,7 +6,10 @@
 package mg.spat;
 
 import bean.ClassMAPTable;
+import facture.FactureFournisseurDetails;
 import java.sql.Connection;
+import utilitaire.Constante;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -75,4 +78,15 @@ public class EngagementFille extends ClassMAPTable{
         setId(makePK(c));
     }
     
+    public FactureFournisseurDetails genererFactureFournisseurDetail() throws Exception {
+        FactureFournisseurDetails ffd = new FactureFournisseurDetails();
+        ffd.setDesignation(this.getDesignation());
+        ffd.setQuantite(1);
+        ffd.setPu(this.getMontant());
+        ffd.setMois(Utilitaire.getMoisEnCoursReel());
+        ffd.setAnnee(Utilitaire.getAneeEnCours());
+        ffd.setDevise(Constante.deviseAr);
+        
+        return ffd;
+    }
 }
