@@ -11,7 +11,7 @@
 <%
     FactureFournisseur j = new FactureFournisseur();
         j.setNomTable("FACTUREFOURNVALIDE_TOUS");
-     String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP"};
+     String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP", "etatlib"};
     String listeCrt[] = {"idengagement"};
     String listeInt[] = {};
     
@@ -27,7 +27,7 @@
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     
-    pr.getTableau().setLibelleAffiche(new String[]{"id","Date","Fournisseur", "N° Facture","Numero compta", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Numero OP"});
+    pr.getTableau().setLibelleAffiche(new String[]{"id","Date","Fournisseur", "N° Facture","Numero compta", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Numero OP", "Etat"});
     pr.getTableau().setNameActe("valider");
     String html = pr.getTableau().getHtmlWithCheckbox();    
     if(html != null){ %>
