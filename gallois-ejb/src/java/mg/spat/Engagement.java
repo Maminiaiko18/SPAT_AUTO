@@ -195,12 +195,13 @@ public class Engagement extends ClassEtat {
     }
 
     @Override
-    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+    public Object validerObject(String u, Connection c) throws Exception {
         LigneCredit lc = this.findSituationCredit(c);
         if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
         this.setDispoAvant(lc.getRestebudget());
         this.setDispoApres(this.getDispoAvant() - this.getMontant());
-        return super.createObject(u, c); 
+        
+        return super.validerObject(u, c); 
     }
     
     public FactureFournisseur[] getFacturesLiees(String nomtable, Connection c) throws Exception{
