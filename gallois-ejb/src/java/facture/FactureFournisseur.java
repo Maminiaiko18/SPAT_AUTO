@@ -10,6 +10,7 @@ import bean.ClassMAPTable;
 import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
+import lignecredit.LigneCredit;
 import mg.spat.Engagement;
 import mg.spat.JournalCaisse;
 import mg.spat.stock.BonDeLivraisonFilleReste;
@@ -639,6 +640,19 @@ public class FactureFournisseur extends FactureClient {
         if(this.getIdEngagement() != null && this.getIdEngagement().compareTo("") != 0){
             Engagement eg = this.findEngagement(c);
             if(eg == null) throw new Exception("Engagement non visé");
+        }
+    }
+    
+    public LigneCredit[] findLigneCredit(String nomtable, Connection c) throws Exception{   
+        try{
+            LigneCredit lncredit = new LigneCredit();
+            lncredit.setNomTable(nomtable);
+            lncredit.setCodeEtablissement(this.getCode_etablissement());
+            lncredit.setProjet(this.getProjet());
+            LigneCredit[] res = (LigneCredit[]) CGenUtil.rechercher(lncredit, null, null, c, "");
+            return res;
+        }catch(Exception e){
+            throw e;
         }
     }
 }
