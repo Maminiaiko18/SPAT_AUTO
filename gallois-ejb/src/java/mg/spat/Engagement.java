@@ -208,6 +208,10 @@ public class Engagement extends ClassEtat {
     public Object validerObject(String u, Connection c) throws Exception {
         LigneCredit lc = this.findSituationCredit(c);
         if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
+        EngagementFille[] filles = this.getEngagementFilles(null, c);
+        if(filles.length==0){
+            throw new Exception ("Doit contenir au moins un détail engagement");
+        }
         this.setDispoAvant(lc.getRestebudget());
         this.setDispoApres(this.getDispoAvant() - this.getMontant());
         
