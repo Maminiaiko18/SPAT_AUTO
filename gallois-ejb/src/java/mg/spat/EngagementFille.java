@@ -44,10 +44,7 @@ public class EngagementFille extends ClassMAPTable{
     }
 
     public void setDesignation(String designation) throws Exception {
-        if(designation == null || designation.trim().isEmpty())
-        {
-            throw new Exception("Désignation obligatoire");
-        }
+        if(this.getMode().compareToIgnoreCase("modif")==0&&(designation==null || designation == "")) throw new Exception("Désignation obligatoire");
         this.designation = designation;
     }
 
@@ -56,10 +53,7 @@ public class EngagementFille extends ClassMAPTable{
     }
 
     public void setMontant(double montant) throws Exception {
-        if(montant < 0)
-        {
-            throw new Exception("montant négatif");
-        }
+       if(this.getMode().compareToIgnoreCase("modif")==0&&montant<=0) throw new Exception("montant invalide");
         this.montant = montant;
     }
 
