@@ -24,8 +24,6 @@
     
     
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("projet").setVisible(false);
-    pi.getFormu().getChamp("codeEtablissement").setVisible(false);
     
     pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
     pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
@@ -43,6 +41,9 @@
     pi.getFormu().getChamp("idLC").setLibelle("Budget");
     pi.getFormu().getChamp("daty").setLibelle("Date");
     
+    if(u.getUser().getCodeEtablissement() != null){
+        pi.getFormu().getChamp("codeEtablissement").setDefaut(u.getUser().getCodeEtablissement());
+    }
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
