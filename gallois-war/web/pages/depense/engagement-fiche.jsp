@@ -77,9 +77,9 @@
         <div class="col-md-10 col-md-offset-1 ">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
-                    <li class="<%= map.get("liste-bc")%>"><a href="module.jsp?but=<%=bute%>&idengagement=<%=engagement.getId()%>&tab=liste-bc">Liste bon de commande</a></li>
-                     <li class="<%= map.get("listeff")%>"><a href="module.jsp?but=<%=bute%>&idengagement=<%=engagement.getId()%>&tab=listeff">Liste Factute Fournisseur</a></li>
-                       <li class="<%= map.get("liste-liberation")%>"><a href="module.jsp?but=<%=bute%>&idengagement=<%=engagement.getId()%>&tab=liste-liberation">Liste libï¿½ration</a></li>
+                       <li class="<%= map.get("liste-bc")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-bc">Liste bon de commande</a></li>
+                     <li class="<%= map.get("listeff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=listeff">Liste Factute Fournisseur</a></li>
+                       <li class="<%= map.get("liste-liberation")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-liberation">Liste libération</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-content">       
