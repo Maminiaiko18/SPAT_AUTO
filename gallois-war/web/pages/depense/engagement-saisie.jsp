@@ -41,8 +41,8 @@
     pi.getFormu().getChamp("idLC").setLibelle("Budget");
     pi.getFormu().getChamp("daty").setLibelle("Date");
     
-    if(u.getUser().getCodeEtablissement() != null){
-        pi.getFormu().getChamp("codeEtablissement").setDefaut(u.getUser().getCodeEtablissement());
+    if(u.getCodeEtablissement() != null){
+        pi.getFormu().getChamp("codeEtablissement").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getId()));
     }
     pi.preparerDataFormu();
 %>
@@ -60,6 +60,11 @@
         <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
     </form>
 </div>
+<script>
+    <% if(u.getCodeEtablissement() != null){ %>
+        $("#codeEtablissementlibelle").val("<%= Utilitaire.champNull(u.getCodeEtablissement().getVal()) %>");
+    <% } %>
+</script>        
 <%
 } catch (Exception e) {
     e.printStackTrace();
