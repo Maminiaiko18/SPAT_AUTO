@@ -208,7 +208,7 @@ public class Engagement extends ClassEtat {
         try{
             FactureFournisseur fact = new FactureFournisseur();
             fact.setNomTable(nomtable);
-            fact.setIdEngagement(this.getId());
+            fact.setIdengagement(this.getId());
             FactureFournisseur[] res = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, "");
             return res;
         }catch(Exception e){
