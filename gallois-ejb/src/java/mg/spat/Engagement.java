@@ -5,9 +5,11 @@
  */
 package mg.spat;
 
+import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import facture.FactureFournisseur;
 import java.sql.Connection;
 import java.sql.Date;
 import lignecredit.LigneCredit;
@@ -21,7 +23,13 @@ public class Engagement extends ClassEtat {
     private String codeEtablissementlib,projetlib;
     private double montant,disponible,dispoAvant,dispoApres;
     private Date daty;
-
+    
+    public double getResteAFacturer(Connection c) throws Exception{
+        FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_lib",c);
+        double montant = AdminGen.calculSommeDouble(factures, "montant");
+        return montant;
+    }
+    
     public Engagement() {
         super.setNomTable("engagement");
     }
@@ -113,7 +121,8 @@ public class Engagement extends ClassEtat {
         return montant;
     }
 
-    public void setMontant(double montant) {
+    public void setMontant(double montant)throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&&montant<=0) throw new Exception("montant invalide");
         this.montant = montant;
     }
 
@@ -172,21 +181,40 @@ public class Engagement extends ClassEtat {
     public LigneCredit findSituationCredit(Connection c) throws Exception{
         LigneCredit lc = new LigneCredit();
         lc.setNomTable("ligneCreditDepenseGrp");
-        LigneCredit ligne = findLigneCredit(c);
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+ligne.getCodeEtablissement() +"' and idprojet='"+ligne.getProjet()+"'");
+        String dir=this.getCodeEtablissement();
+        String prj=this.getProjet();
+        if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
+        {
+            LigneCredit ligne = findLigneCredit(c);
+            dir=ligne.getCodeEtablissement();
+            prj=ligne.getProjet();
+        }
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"'");
         if(ligneCredits.length > 0) return ligneCredits[0];
         return null;
     }
 
     @Override
-    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+    public Object validerObject(String u, Connection c) throws Exception {
         LigneCredit lc = this.findSituationCredit(c);
         if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
         this.setDispoAvant(lc.getRestebudget());
         this.setDispoApres(this.getDispoAvant() - this.getMontant());
-        return super.createObject(u, c); 
+        
+        return super.validerObject(u, c); 
     }
-
+    
+    public FactureFournisseur[] getFacturesLiees(String nomtable, Connection c) throws Exception{
+        try{
+            FactureFournisseur fact = new FactureFournisseur();
+            fact.setNomTable(nomtable);
+            fact.setIdEngagement(this.getId());
+            FactureFournisseur[] res = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, "");
+            return res;
+        }catch(Exception e){
+            throw e;
+        }
+    }
     
      
     

@@ -24,8 +24,6 @@
     
     
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("projet").setVisible(false);
-    pi.getFormu().getChamp("codeEtablissement").setVisible(false);
     
     pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
     pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
@@ -34,6 +32,7 @@
     pi.getFormu().getChamp("idLC").setPageAppel("choix/listeBudgetDepenseChoix.jsp","idLC;idLClibelle;idLClibelle;idLClibelle");
     pi.getFormu().getChamp("idLC").setAutre("readonly");
 
+	pi.getFormu().getChamp("compte").setVisible(false);
     pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &Eacute;tablissement");
     pi.getFormu().getChamp("dispoAvant").setVisible(false);
@@ -42,6 +41,9 @@
     pi.getFormu().getChamp("idLC").setLibelle("Budget");
     pi.getFormu().getChamp("daty").setLibelle("Date");
     
+    if(u.getCodeEtablissement() != null){
+        pi.getFormu().getChamp("codeEtablissement").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getId()));
+    }
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
@@ -58,6 +60,11 @@
         <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
     </form>
 </div>
+<script>
+    <% if(u.getCodeEtablissement() != null){ %>
+        $("#codeEtablissementlibelle").val("<%= Utilitaire.champNull(u.getCodeEtablissement().getVal()) %>");
+    <% } %>
+</script>        
 <%
 } catch (Exception e) {
     e.printStackTrace();

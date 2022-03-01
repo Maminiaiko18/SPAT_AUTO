@@ -820,9 +820,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 }
                 this.cnapsUser = new CNAPSUser(cnp[0].getCode_dr(), cnp[0].getUser_init(), cnp[0].getAgent_mo(), cnp[0].getAgent_disponible(), cnp[0].getUsername(), ls[0].getCode_service(), u.getRefuser() + "");
             }
-            
+
             String idCodeEtablissement = u.getCodeEtablissement();
-            if(idCodeEtablissement != null && !idCodeEtablissement.isEmpty()) {
+            if (idCodeEtablissement != null && !idCodeEtablissement.isEmpty()) {
                 this.codeEtablissement = (CodeEtablissement) CGenUtil.rechercher(new CodeEtablissement(), null, null, c, String.format(" and id like '%s'", idCodeEtablissement))[0];
             }
 
@@ -997,11 +997,14 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 if (utilEnCours.length > 0) {
                     if (utilEnCours[0].getRang() < Constante.getRangMahitaNyHafa()) {
                         retour += " and iduser='" + utilEnCours[0].getRefuser() + "' ";
-                    }
-                    if(utilEnCours[0].getRang() == Constante.getRangMahitaNyHafa()) {
-                        String codeEtablissement = this.getCodeEtablissement().getId();
-                        if(codeEtablissement != null && !codeEtablissement.isEmpty()) {
-                            retour += String.format(" and codeetablissement like '%s'", codeEtablissement);
+
+                        if (this.getCodeEtablissement() != null) {
+                            if(CGenUtil.getField(e, "codeetablissement") != null) {
+                                String codeEtablissement = this.getCodeEtablissement().getId();
+                                if (codeEtablissement != null && !codeEtablissement.isEmpty()) {
+                                    retour += String.format(" and codeetablissement like '%s'", codeEtablissement);
+                                }
+                            }
                         }
                     }
                 }
@@ -3444,13 +3447,12 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             }
         }
     }
-    
-    
+
     public Object updateObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille, Connection c) throws Exception {
         boolean in = false;
         Object ret = null;
         try {
-            if(c == null ){
+            if (c == null) {
                 c = new UtilDB().GetConn();
                 c.setAutoCommit(false);
                 in = true;
@@ -3458,10 +3460,14 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             Object idmere = updateObject(mere, c);
             ret = updateObjectMultiple(fille, colonneMere, ((ClassMAPTable) idmere).getTuppleID(), c);
             ret = idmere;
-            if(in) c.commit();
+            if (in) {
+                c.commit();
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
-            if(in && c!=null) c.rollback();
+            if (in && c != null) {
+                c.rollback();
+            }
             throw ex;
         } finally {
             if (in && c != null) {
@@ -3470,7 +3476,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         }
         return ret;
     }
-    
+
     @Override
     public Object updateObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille) throws Exception {
         return updateObjectMultiple(mere, colonneMere, fille, null);
@@ -3499,16 +3505,16 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     public OrdonnerPayement creerOPViseFF(String idfacture, Connection c) throws Exception {
         OrdonnerPayement op = null;
         EtatFactureMontantDaty temp = new EtatFactureMontantDaty();
-            EtatFactureMontantDaty[] factures = temp.getByIds(new String[]{idfacture}, c);
-            if (factures.length > 0) {
-                EtatFactureMontantDaty facture = factures[0];
-                op = new OrdonnerPayement(facture.getId(), facture.getReste(), facture.getDaty(), this.getUser().getTuppleID(), "Paiement facture " + facture.getId() + "via caisse", ConstanteEtat.getEtatCreer());
-                op.createObject(this.getUser().getRefuser() + "", c);
-                op.validerObject(this.getUser().getRefuser() + "", c);
-            }
+        EtatFactureMontantDaty[] factures = temp.getByIds(new String[]{idfacture}, c);
+        if (factures.length > 0) {
+            EtatFactureMontantDaty facture = factures[0];
+            op = new OrdonnerPayement(facture.getId(), facture.getReste(), facture.getDaty(), this.getUser().getTuppleID(), "Paiement facture " + facture.getId() + "via caisse", ConstanteEtat.getEtatCreer());
+            op.createObject(this.getUser().getRefuser() + "", c);
+            op.validerObject(this.getUser().getRefuser() + "", c);
+        }
         return op;
     }
-    
+
     @Override
     public String creerOPviseCaisse(String idfacture, Connection c) throws Exception {
         OrdonnerPayement op = null;
@@ -3521,8 +3527,10 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                     verif = 1;
                 }
                 op = creerOPViseFF(idfacture, c);
-                if(op!=null) return op.getId();
-                op=creerOPViseAvoir(idfacture, c);
+                if (op != null) {
+                    return op.getId();
+                }
+                op = creerOPViseAvoir(idfacture, c);
                 if (c != null && verif == 1) {
                     c.commit();
                 }
@@ -3658,8 +3666,8 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             }
         }
     }
-    
-    public OrdonnerPayement creerOPViseAvoir(String idfacture, Connection c) throws Exception{
+
+    public OrdonnerPayement creerOPViseAvoir(String idfacture, Connection c) throws Exception {
         int verif = 0;
         try {
             if (c == null) {
@@ -3670,9 +3678,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             AvoirFC avoir = new AvoirFC();
             avoir.setNomTable("avoirFC_montant");
             String awhere = String.format(" and id = '%s' ", idfacture);
-            AvoirFC[] result = (AvoirFC[])CGenUtil.rechercher(avoir, null, null, c, awhere);
-            if(result == null || result.length == 0){
-                throw new Exception("Pas d'avoir pour la facture "+idfacture);
+            AvoirFC[] result = (AvoirFC[]) CGenUtil.rechercher(avoir, null, null, c, awhere);
+            if (result == null || result.length == 0) {
+                throw new Exception("Pas d'avoir pour la facture " + idfacture);
             }
             avoir = result[0];
             OrdonnerPayement op = new OrdonnerPayement();
@@ -3680,18 +3688,18 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             op.setMontant(avoir.getMontant());
             op.setDaty(avoir.getDaty());
             op.setIduser(String.valueOf(this.getUser().getRefuser()));
-            op.setRemarque("paiement avoir "+avoir.getCode());
+            op.setRemarque("paiement avoir " + avoir.getCode());
             op.setEtat(1);
-            
+
             this.createObject(op, c);
             this.validerObject(op, c);
-            
+
             if (verif == 1) {
                 c.commit();
             }
-            
+
             return op;
-            
+
         } catch (Exception e) {
             if (c != null && verif == 1) {
                 c.rollback();
@@ -3702,8 +3710,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 c.close();
             }
         }
-        
+
     }
+
     @Override
     public Object createObjectValidation(ClassMAPTable o) throws Exception {
         Connection c = null;

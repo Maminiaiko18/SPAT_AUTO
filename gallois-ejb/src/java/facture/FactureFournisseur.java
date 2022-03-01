@@ -10,6 +10,7 @@ import bean.ClassMAPTable;
 import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
+import lignecredit.LigneCredit;
 import mg.spat.Engagement;
 import mg.spat.JournalCaisse;
 import mg.spat.stock.BonDeLivraisonFilleReste;
@@ -29,6 +30,7 @@ public class FactureFournisseur extends FactureClient {
     private int exercice;
     private String  idengagement , idengagementlib;
     private String id2;
+    private String codeEtablissement;
 
     public String getIdengagement() {
         return idengagement;
@@ -36,6 +38,14 @@ public class FactureFournisseur extends FactureClient {
 
     public void setIdengagement(String idengagement) {
         this.idengagement = idengagement;
+    }
+
+    public String getCodeEtablissement() {
+        return codeEtablissement;
+    }
+
+    public void setCodeEtablissement(String codeEtablissement) {
+        this.codeEtablissement = codeEtablissement;
     }
 
     public String getIdengagementlib() {
@@ -558,6 +568,14 @@ public class FactureFournisseur extends FactureClient {
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
+        if(this.getIdengagement() != null && !this.getIdEngagement().isEmpty()){
+          Engagement eg = this.findEngagement(c);
+          if(eg != null){
+              double reste = eg.getResteAFacturer(c);
+              FactureFournisseur ff = (FactureFournisseur)this.getById(this.getId(), "factfourn_msum_lib", c);
+              if(reste < ff.getMontant()) throw new Exception("Le montant de la facture depasse le reste de l'engagement");
+          }
+        } 
         super.validerObject(u, c);
         return this;
     }
@@ -641,4 +659,19 @@ public class FactureFournisseur extends FactureClient {
             if(eg == null) throw new Exception("Engagement non visé");
         }
     }
+    
+    public LigneCredit[] findLigneCredit(String nomtable, Connection c) throws Exception{   
+        try{
+            LigneCredit lncredit = new LigneCredit();
+            lncredit.setNomTable(nomtable);
+            lncredit.setCodeEtablissement(this.getCode_etablissement());
+            lncredit.setProjet(this.getProjet());
+            LigneCredit[] res = (LigneCredit[]) CGenUtil.rechercher(lncredit, null, null, c, "");
+            return res;
+        }catch(Exception e){
+            throw e;
+        }
+    }
+    
+    
 }

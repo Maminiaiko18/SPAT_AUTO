@@ -8,11 +8,8 @@
 <%
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
-    String id = request.getParameter("id");
     Liberer mvt = new Liberer();
     mvt.setNomTable("libererlib");
-    PageConsulte pc = new PageConsulte(mvt, request, u);
-    mvt = (Liberer) pc.getBase();
     String listeCrt[] = {"idengagement"};
     String listeInt[] = {};
     String libEntete[] = {"id", "idengagementlib", "montant"};
