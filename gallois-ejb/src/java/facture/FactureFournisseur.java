@@ -664,8 +664,8 @@ public class FactureFournisseur extends FactureClient {
         try{
             LigneCredit lncredit = new LigneCredit();
             lncredit.setNomTable(nomtable);
-            lncredit.setCodeEtablissement(this.getCode_etablissement());
-            lncredit.setProjet(this.getProjet());
+            lncredit.setIdcodeEtablissement(this.getCode_etablissement());
+            lncredit.setIdprojet(this.getProjet());
             LigneCredit[] res = (LigneCredit[]) CGenUtil.rechercher(lncredit, null, null, c, "");
             return res;
         }catch(Exception e){
