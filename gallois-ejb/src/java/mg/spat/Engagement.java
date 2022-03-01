@@ -13,6 +13,8 @@ import facture.FactureFournisseur;
 import java.sql.Connection;
 import java.sql.Date;
 import lignecredit.LigneCredit;
+import utilitaire.Utilitaire;
+import utilitaire.Constante;
 
 /**
  *
@@ -186,6 +188,22 @@ public class Engagement extends ClassEtat {
         LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and id='"+this.getIdLC()+"'");
         if(ligneCredits.length > 0) return ligneCredits[0];
         return null;
+    }
+    
+    public FactureFournisseur genererFactureFournisseurMere() throws Exception {
+        FactureFournisseur ff = new FactureFournisseur();
+        ff.setDesignation(this.getDesignation());
+        ff.setTypeEngagement("ED");
+        ff.setCodeEtablissement(this.getCodeEtablissement());
+        ff.setDaty(Utilitaire.dateDuJourSql());
+        ff.setProjet(this.getProjet());
+        ff.setIdengagement(this.getId());
+        ff.setIdcategorie(Constante.categorieFFdefault);
+        ff.setType(Constante.getTypeFCAcredit());
+        ff.setExercice(Utilitaire.getAneeEnCours());
+        ff.setDeviseMere(Constante.deviseAr);
+        
+        return ff;
     }
     
     public LigneCredit findSituationCredit(Connection c) throws Exception{
