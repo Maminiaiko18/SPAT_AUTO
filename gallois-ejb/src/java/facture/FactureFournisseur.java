@@ -568,6 +568,14 @@ public class FactureFournisseur extends FactureClient {
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
+        if(this.getIdengagement() != null && !this.getIdEngagement().isEmpty()){
+          Engagement eg = this.findEngagement(c);
+          if(eg != null){
+              double reste = eg.getResteAFacturer(c);
+              FactureFournisseur ff = (FactureFournisseur)this.getById(this.getId(), "factfourn_msum_lib", c);
+              if(reste < ff.getMontant()) throw new Exception("Le montant de la facture depasse le reste de l'engagement");
+          }
+        } 
         super.validerObject(u, c);
         return this;
     }
