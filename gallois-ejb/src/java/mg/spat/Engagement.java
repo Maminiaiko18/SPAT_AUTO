@@ -23,13 +23,23 @@ public class Engagement extends ClassEtat {
     private String codeEtablissementlib,projetlib;
     private double montant,disponible,dispoAvant,dispoApres;
     private Date daty;
+    private int avecFacture;
+
     
     public double getResteAFacturer(Connection c) throws Exception{
         FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_lib",c);
         double totalFF = AdminGen.calculSommeDouble(factures, "montant");
         return this.getMontant() - totalFF;
     }
-    
+
+    public int getAvecFacture() {
+        return avecFacture;
+    }
+
+    public void setAvecFacture(int avecFacture) {
+        this.avecFacture = avecFacture;
+    }
+
     public Engagement() {
         super.setNomTable("engagement");
     }
