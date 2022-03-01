@@ -30,6 +30,7 @@ public class FactureFournisseur extends FactureClient {
     private int exercice;
     private String  idengagement , idengagementlib;
     private String id2;
+    private String codeEtablissement;
 
     public String getIdengagement() {
         return idengagement;
@@ -37,6 +38,14 @@ public class FactureFournisseur extends FactureClient {
 
     public void setIdengagement(String idengagement) {
         this.idengagement = idengagement;
+    }
+
+    public String getCodeEtablissement() {
+        return codeEtablissement;
+    }
+
+    public void setCodeEtablissement(String codeEtablissement) {
+        this.codeEtablissement = codeEtablissement;
     }
 
     public String getIdengagementlib() {
