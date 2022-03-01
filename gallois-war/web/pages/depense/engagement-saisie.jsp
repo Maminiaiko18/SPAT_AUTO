@@ -65,6 +65,18 @@
     if(u.getCodeEtablissement() != null){
         pi.getFormu().getChamp("codeEtablissement").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getId()));
     }
+     pi.getFormu().getChamp("designation").setAutre("onblur=\"setFilleValue('designation_0', this)\"");
+    pi.getFormu().getChamp("montant").setAutre("onblur=\"setFilleValue('montant_0', this)\"");
+    int taille = pi.getNombreLigne();
+    for( int i = 0 ; i < taille ; i++ ){
+        if(i== 0){
+            
+            
+            pi.getFormufle().getChamp("designation_"+i).setAutre("onblur=\"setOnblurInMere('designation_0', this)\"");
+            pi.getFormufle().getChamp("montant_"+i).setAutre("onblur=\"setOnblurInMere('montant_0', this)\"");
+        }
+        break;
+    }
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
@@ -89,6 +101,19 @@
     <% if(u.getCodeEtablissement() != null){ %>
         $("#codeEtablissementlibelle").val("<%= Utilitaire.champNull(u.getCodeEtablissement().getVal()) %>");
     <% } %>
+         function setFilleValue(idFille, elem){
+            var elemFille = document.getElementById(idFille);
+            if(elemFille){
+                elemFille.value = elem.value;
+            }
+        }
+        
+        function setOnblurInMere(idMere, elemFille){
+            var elemMere = document.getElementById(idMere);
+            if(elemMere && elemFille.value != ""){
+                elemMere.onblur = function (){};
+            }
+        }
 </script>        
 <%
 } catch (Exception e) {
