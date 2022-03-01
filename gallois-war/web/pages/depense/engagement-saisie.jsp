@@ -34,6 +34,7 @@
     pi.getFormu().getChamp("idLC").setPageAppel("choix/listeBudgetDepenseChoix.jsp","idLC;idLClibelle;idLClibelle;idLClibelle");
     pi.getFormu().getChamp("idLC").setAutre("readonly");
 
+	pi.getFormu().getChamp("compte").setVisible(false);
     pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &Eacute;tablissement");
     pi.getFormu().getChamp("dispoAvant").setVisible(false);
