@@ -78,6 +78,7 @@
     pi.getFormu().getChamp("tva").setVisible(false);
     pi.getFormu().getChamp("estMictsl").setVisible(false);
     pi.getFormu().getChamp("estAuto").setVisible(false);
+    pi.getFormu().getChamp("typeEngagement").setVisible(false);
     
     if(request.getParameter("idBL") != null){
         pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
