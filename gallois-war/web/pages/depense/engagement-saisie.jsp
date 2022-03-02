@@ -65,15 +65,13 @@
     if(u.getCodeEtablissement() != null){
         pi.getFormu().getChamp("codeEtablissement").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getId()));
     }
-     pi.getFormu().getChamp("designation").setAutre("onblur=\"setFilleValue('designation_0', this)\"");
-    pi.getFormu().getChamp("montant").setAutre("onblur=\"setFilleValue('montant_0', this)\"");
+     pi.getFormu().getChamp("designation").setAutre("onchange=\"setFilleValue('designation_0', this)\"");
+    pi.getFormu().getChamp("montant").setAutre("onchange=\"setFilleValue('montant_0', this)\"");
     int taille = pi.getNombreLigne();
     for( int i = 0 ; i < taille ; i++ ){
         if(i== 0){
-            
-            
-            pi.getFormufle().getChamp("designation_"+i).setAutre("onblur=\"setOnblurInMere('designation_0', this)\"");
-            pi.getFormufle().getChamp("montant_"+i).setAutre("onblur=\"setOnblurInMere('montant_0', this)\"");
+            pi.getFormufle().getChamp("designation_"+i).setAutre("onchange=\"setOnblurInMere('designation_0', this)\"");
+            pi.getFormufle().getChamp("montant_"+i).setAutre("onchange=\"setOnblurInMere('montant_0', this)\"");
         }
         break;
     }
