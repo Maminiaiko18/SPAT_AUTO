@@ -27,6 +27,8 @@
     pc.getChampByName("projetlib").setLibelle("Projet");
 //    pc.getChampByName("projetlib").setVisible(false);
     pc.getChampByName("idLC").setVisible(false);
+    pc.getChampByName("avecFacture").setVisible(false);
+    pc.getChampByName("avecFacturelib").setLibelle("Avec Facture");
     pc.getChampByName("idLClib").setLibelle("Budget");
     pc.getChampByName("daty").setLibelle("Date");
 
