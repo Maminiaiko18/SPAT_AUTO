@@ -16,9 +16,17 @@ import utilitaire.Utilitaire;
  * @author Nouta
  */
 public class EngagementFille extends ClassMAPTable{
-    private String id,idmere,designation;
+    private String id,idmere,designation,estPaye;
     private double montant;
 
+    public String getEstPaye() {
+        return estPaye;
+    }
+
+    public void setEstPaye(String estPaye) {
+        this.estPaye = estPaye;
+    }
+    
     public EngagementFille() {
         super.setNomTable("engagement_fille");
     }
