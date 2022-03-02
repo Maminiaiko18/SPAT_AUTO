@@ -191,9 +191,9 @@ public class FactureFournisseur extends FactureClient {
                 nomtable= "ordonnerpayement";
             }
             oo.setNomTable(nomtable);
-            OrdonnerPayement result  = (OrdonnerPayement) oo.getById(this.getId(), nomtable, c);
-            if (result != null) {
-                return result;
+            OrdonnerPayement[] results  =(OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%'");
+            if (results != null && results.length > 0) {
+                return results[0];
             }
         }catch(Exception e){
             throw e;
