@@ -68,7 +68,9 @@
                                 <a href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success">Saisie FF</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "?but=stock/bc/bondecommande-multiple.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success">Saisie BC</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "?but=depense/liberer-saisie.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-warning">Libï¿½rer </button></a>
-                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.Engagement&bute=depense/engagement-fiche.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Viser</a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=depense/liberer-saisie.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-warning" style="margin-right: 5px" >Libï¿½rer </button></a>
+                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.Engagement&bute=depense/engagement-fiche.jsp&id=" + request.getParameter("id")%>" style="margin-right: 5px">Viser</a>
+                                <a class="btn btn-success pull-right" href="<%=(String) session.getValue("lien") + "?but=depense/engagement-fille-liste.jsp&idmere=" + engagement.getId() %>" style="margin-right: 5px">Payer</a>
                             </p>
                         </div>
                     </div>
@@ -80,10 +82,10 @@
         <div class="col-md-10 col-md-offset-1 ">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
-                    <li class="<%= map.get("details-engagement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=details-engagement">Détails Engagement</a></li>
+                    <li class="<%= map.get("details-engagement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=details-engagement">Dï¿½tails Engagement</a></li>
                     <li class="<%= map.get("liste-bc")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-bc">Liste bon de commande</a></li>
                     <li class="<%= map.get("listeff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=listeff">Liste Facture Fournisseur</a></li>
-                    <li class="<%= map.get("liste-liberation")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-liberation">Liste libération</a></li>
+                    <li class="<%= map.get("liste-liberation")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-liberation">Liste libï¿½ration</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-content">       
