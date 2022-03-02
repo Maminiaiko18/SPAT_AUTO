@@ -237,6 +237,10 @@ public class Engagement extends ClassEtat {
         if(avecFacture==0){
              this.genererFacture(u, c, filles);
         }
+        
+        double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
+        if(montantTotal > this.getMontant()) throw new Exception("Montant details superieur au montant de l'engagement");
+                
         this.setDispoAvant(lc.getRestebudget());
         this.setDispoApres(this.getDispoAvant() - this.getMontant());
         
