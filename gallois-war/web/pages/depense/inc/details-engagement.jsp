@@ -14,11 +14,11 @@
     j.setNomTable("engagement_fillelib");
     j.setIdmere(request.getParameter("id"));
     String libEntete[] = {"designation", "montant", "estPaye"};
-    String listeCrt[] = {};
+    String listeCrt[] = {"idmere"};
     String listeInt[] = {};
 
     PageRecherche pr = new PageRecherche(j, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-
+    pr.setAWhere("and idmere='"+request.getParameter("id")+"'");
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
 
@@ -26,14 +26,11 @@
 
     pr.getTableau().setLibelleAffiche(new String[]{"Désignation", "Montant", "Est Payé"});
     pr.getTableau().setNameActe("valider");
-    String html = pr.getTableau().getHtmlWithCheckbox();
+    String html = pr.getTableau().getHtml();
     if (html != null) {%>
-<form action="<%=pr.getLien()%>?but=apresMultiple.jsp" method="post" name="id" id="id">
-    <input type="hidden" name="bute" value="depense/engagement-fiche.jsp&id=<%=request.getParameter("id")%>"/>
-    <input type="hidden" name="classe" value="facture.FactureFournisseur"/>
-    <input type="hidden" name="acte" value="valider"/>
+
     <% out.println(html); %>
-</form>
+</form
 <% } else {
 %><center><h4>Pas de résultat</h4></center><%
     }

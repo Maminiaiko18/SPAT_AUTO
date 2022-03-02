@@ -41,7 +41,7 @@
     
     String tab = request.getParameter("tab");
     if (tab == null) {
-        tab = "liste-bc";
+        tab = "details-engagement";
     }
     map.put(tab, "active");
     tab = "inc/" + tab + ".jsp";
