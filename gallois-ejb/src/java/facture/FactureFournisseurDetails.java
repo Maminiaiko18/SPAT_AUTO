@@ -155,7 +155,7 @@ public class FactureFournisseurDetails extends FactureClientDetails{
                 LigneCredit[] lc = ff.findLigneCredit("SITUATIONLCDEPENSEVSD", c);
                 int t = lc.length;
                 for(int i = 0; i < t; i++){
-                    if(this.getCompte().compareTo(lc[i].getComptestr())==0){
+                    if(lc[i].getCompte().contains(this.getCompte())){
                         return;
                     }
                 }
