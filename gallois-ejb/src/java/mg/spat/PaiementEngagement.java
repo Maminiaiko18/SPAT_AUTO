@@ -9,6 +9,7 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import java.sql.Connection;
+import utilitaire.ConstanteEtat;
 
 /**
  *
@@ -82,4 +83,17 @@ public class PaiementEngagement extends ClassMAPTable {
         if(result.length > 0) return result[0];
         return null;
     }
+
+    @Override
+    public void controler(Connection c) throws Exception {
+        if(this.getIdOP()==null){
+            OrdonnerPayement op=this.findOP(null, c);
+            if(op.getEtat()< ConstanteEtat.getEtatValider()){
+                throw new Exception ("OP non visé");
+            }
+        }      
+        super.controler(c); 
+    }
+    
+    
 }
