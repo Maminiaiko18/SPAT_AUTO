@@ -10,25 +10,24 @@
 
         Engagement eng = new Engagement();
         eng.setNomTable("engagementlib");
+        String nomTableEtat = request.getParameter("nomTableEtat");
+        if(nomTableEtat!=null && !nomTableEtat.isEmpty()){
+        eng.setNomTable(nomTableEtat);
+        }
 
-        String listeCrt[] = {"id", "designation","projet", "montant", "disponible","dispoavant","dispoapres","etat","codeetablissementlib","projetlib", "daty"};
+        String listeCrt[] = {"id", "designation","codeetablissementlib","projetlib", "daty"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "designation", "projet", "montant", "disponible","dispoavant","dispoapres","codeetablissementlib","projetlib", "daty"};
+        String libEntete[] = {"id", "designation", "montant", "disponible","dispoavant","dispoapres","codeetablissementlib","projetlib", "daty"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
-        pr.getFormu().getChamp("dispoavant").setLibelle("Disponibilité avant");
-        pr.getFormu().getChamp("dispoapres").setLibelle("Disponibilité  après");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("codeetablissementlib").setLibelle("Code établissemment");
         pr.getFormu().getChamp("designation").setLibelle("Désignation");
-        pr.getFormu().getChamp("montant").setLibelle("Montant");
-         pr.getFormu().getChamp("disponible").setLibelle("Disponibilité");
         pr.getFormu().getChamp("id").setLibelle("Id");
-
         pr.setApres("depense/engagement-liste.jsp");
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
@@ -71,7 +70,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "Désignation","Projet", "Montant", "Disponibilité","Disponibilité avant","Disponibilité après","Code établissement","Projet", "Date"};
+            String libEnteteAffiche[] ={"Id", "Désignation", "Montant", "Disponibilité","Disponibilité avant","Disponibilité après","Code établissement","Projet", "Date"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
