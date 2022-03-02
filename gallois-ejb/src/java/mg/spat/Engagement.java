@@ -288,7 +288,7 @@ public class Engagement extends ClassEtat {
             if(filles != null){
                 FactureFournisseurDetails[] ffd = new FactureFournisseurDetails[filles.length];
                 for(int i=0; i<filles.length; i++){
-                    ffd[i] = filles[i].genererFactureFournisseurDetail();
+                    ffd[i] = filles[i].genererFactureFournisseurDetail(c);
                 }
                 ff.setFille(ffd);
             }

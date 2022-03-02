@@ -81,7 +81,10 @@ public class EngagementFille extends ClassMAPTable{
         setId(makePK(c));
     }
     
-    public FactureFournisseurDetails genererFactureFournisseurDetail() throws Exception {
+    public FactureFournisseurDetails genererFactureFournisseurDetail(Connection c) throws Exception {
+        
+        Engagement eng = this.findEngagement("engagementlib",c);
+        
         FactureFournisseurDetails ffd = new FactureFournisseurDetails();
         ffd.setDesignation(this.getDesignation());
         ffd.setQuantite(1);
@@ -89,6 +92,7 @@ public class EngagementFille extends ClassMAPTable{
         ffd.setMois(Utilitaire.getMoisEnCoursReel());
         ffd.setAnnee(Utilitaire.getAneeEnCours());
         ffd.setDevise(Constante.deviseAr);
+        ffd.setCompte(eng.getCodeEtablissement()+eng.getProjetlib());
         
         return ffd;
     }
