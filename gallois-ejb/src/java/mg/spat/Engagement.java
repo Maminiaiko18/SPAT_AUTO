@@ -300,12 +300,14 @@ public class Engagement extends ClassEtat {
                 check = true;
                 c.setAutoCommit(false);
             }
+            Engagement eng = (Engagement)new Engagement().getById(this.getId(), null, c);
+            if(eng == null) throw new Exception("Engagement introuvable");
             
-            if(this.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Engagement non vise");
+            if(eng.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Engagement non vise");
             
             String[] ids = Utilitaire.stringToTab(idFilles, ";");
             
-            FactureFournisseur[] ff = getFacturesLiees(null, c);
+            FactureFournisseur[] ff = eng.getFacturesLiees(null, c);
             
             if(ff != null && ff.length > 0) {
                 OrdonnerPayement op = ff[0].findOP(null, c);

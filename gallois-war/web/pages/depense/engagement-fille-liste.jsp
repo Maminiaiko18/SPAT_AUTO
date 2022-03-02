@@ -1,3 +1,4 @@
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="mg.spat.EngagementFille"%>
 <%@page import="affichage.PageRecherche"%>
 <%
@@ -36,10 +37,13 @@
             String libEnteteAffiche[] = {"Id", "Designation", "Montant", "Est pay&eacute;"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setNameBoutton("Payer");
+            pr.getTableau().setNameActe("paiementFille");
             out.println(pr.getTableau().getHtmlWithCheckbox());
-            out.println(pr.getBasPage());
         %>
+        <input type="hidden" name="acte" id="acte" value="paiementFille">
+        <input type="hidden" name="idmere" id="idmere" value="<%= Utilitaire.champNull(request.getParameter("idmere")) %>" >
         </form>
+        <% out.println(pr.getBasPage()); %>
     </section>
 </div>
 <%  } catch (Exception e) {
