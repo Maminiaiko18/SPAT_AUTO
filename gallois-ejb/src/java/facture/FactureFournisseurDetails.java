@@ -151,7 +151,7 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         
         try{   
             FactureFournisseur ff = this.findMere(c);
-            if(ff != null){
+            if(ff != null && ff.getCode_etablissement()!=null && ff.getProjet()!=null){
                 LigneCredit[] lc = ff.findLigneCredit("SITUATIONLCDEPENSEVSD", c);
                 int t = lc.length;
                 for(int i = 0; i < t; i++){
