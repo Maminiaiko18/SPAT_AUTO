@@ -99,7 +99,7 @@ public class EngagementFille extends ClassMAPTable{
         }
         Engagement engagement = new Engagement();
         engagement.setNomTable(nomtable);
-        Engagement[] reponse = (Engagement[])CGenUtil.rechercher(engagement, null, null, c, " and id="+this.getIdmere());
+        Engagement[] reponse = (Engagement[])CGenUtil.rechercher(engagement, null, null, c, " and id='"+this.getIdmere()+"'");
         if(reponse.length>0){
             return reponse[0];
         }
