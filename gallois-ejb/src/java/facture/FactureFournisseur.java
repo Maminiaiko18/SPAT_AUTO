@@ -8,8 +8,10 @@ package facture;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.TypeObjet;
+import ded.OrdonnerPayement;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import lignecredit.LigneCredit;
 import mg.spat.Engagement;
 import mg.spat.JournalCaisse;
@@ -175,6 +177,32 @@ public class FactureFournisseur extends FactureClient {
     public void construirePK(Connection c) throws Exception {
         this.preparePk("FAF", "get_seq_factFournMere");
         this.setId(makePK(c));
+    }
+    
+    public OrdonnerPayement findOP(String nomtable, Connection c) throws SQLException, Exception{
+        int verif = 0;
+        try{
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                verif = 1;
+            }
+            OrdonnerPayement oo = new OrdonnerPayement();
+            if(nomtable == null){
+                nomtable= "ordonnerpayement";
+            }
+            oo.setNomTable(nomtable);
+            OrdonnerPayement result  = (OrdonnerPayement) oo.getById(this.getId(), nomtable, c);
+            if (result != null) {
+                return result;
+            }
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return null;
     }
 
     public static FactureFournisseur[] getFactures(String ids, Connection c) throws Exception {
