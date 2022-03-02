@@ -1932,16 +1932,25 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
         Map param = new HashMap();
         if(mere.length!=0){
             engagement = mere[0];
-            LigneCredit lc = engagement.findLigneCredit(c);
-            param.put("code_etab",lc.getCodeEtablissementlib());
-            param.put("annee",lc.getAnnee()+"");
+            param.put("code_etab",engagement.getCodeEtablissementlib());
+            param.put("annee",Utilitaire.getAnnee(engagement.getDaty())+"");
             param.put("piece",engagement.getDesignation());
             param.put("du",engagement.getDaty());
-            param.put("projet",lc.getProjetlib());
+            param.put("projet",engagement.getProjetlib());
+            
+            LigneCredit lc = engagement.findLigneCredit(c);
+            if(lc!=null ){
+                if(engagement.getCodeEtablissementlib()==null){
+                    param.put("code_etab",lc.getCodeEtablissementlib());
+                }
+                if(engagement.getProjetlib()==null){
+                    param.put("projet",lc.getProjetlib());
+                }
+            }
+            
             
             lc = engagement.findSituationCredit(c);
-            param.put("montant",Utilitaire.formaterAr((engagement.getMontant())));
-           
+            param.put("montant",Utilitaire.formaterAr((engagement.getMontant())));           
             param.put("annuel",Utilitaire.formaterAr(lc.getMontant()));
             param.put("avant",Utilitaire.formaterAr(engagement.getDispoAvant()));
             param.put("apres",Utilitaire.formaterAr(engagement.getDispoApres()));
