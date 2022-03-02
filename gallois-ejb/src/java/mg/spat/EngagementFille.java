@@ -5,6 +5,7 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
 import facture.FactureFournisseurDetails;
 import java.sql.Connection;
@@ -90,5 +91,18 @@ public class EngagementFille extends ClassMAPTable{
         ffd.setDevise(Constante.deviseAr);
         
         return ffd;
+    }
+    
+    public Engagement findEngagement(String nomtable,Connection c)throws Exception{
+        if(nomtable==null || nomtable.equals("")){
+            nomtable = "engagement";
+        }
+        Engagement engagement = new Engagement();
+        engagement.setNomTable(nomtable);
+        Engagement[] reponse = (Engagement[])CGenUtil.rechercher(engagement, null, null, c, " and id="+this.getIdmere());
+        if(reponse.length>0){
+            return reponse[0];
+        }
+        return null;
     }
 }
