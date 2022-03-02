@@ -1950,8 +1950,10 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
             
             
             lc = engagement.findSituationCredit(c);
+            if(lc!=null){
+                param.put("annuel",Utilitaire.formaterAr(lc.getMontant()));
+            }
             param.put("montant",Utilitaire.formaterAr((engagement.getMontant())));           
-            param.put("annuel",Utilitaire.formaterAr(lc.getMontant()));
             param.put("avant",Utilitaire.formaterAr(engagement.getDispoAvant()));
             param.put("apres",Utilitaire.formaterAr(engagement.getDispoApres()));
         }
