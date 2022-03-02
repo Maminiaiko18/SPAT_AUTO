@@ -5,7 +5,9 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
+import ded.OrdonnerPayement;
 import java.sql.Connection;
 
 /**
@@ -61,5 +63,23 @@ public class PaiementEngagement extends ClassMAPTable {
         setId(makePK(c));
     }
     
+    public OrdonnerPayement findOP(String nomtable, Connection c) throws Exception{
+        if(nomtable == null) nomtable = "OrdonnerPayement";
+        OrdonnerPayement op = new OrdonnerPayement();
+        op.setNomTable(nomtable);
+        op.setId(this.getIdOP());
+        OrdonnerPayement[] result = (OrdonnerPayement[])CGenUtil.rechercher(op, null, null, c, "");
+        if(result.length > 0) return result[0];
+        return null;
+    }
     
+    public EngagementFille findEngagementFille(String nomtable, Connection c) throws Exception{
+        if(nomtable == null) nomtable = "engagement_fille";
+        EngagementFille ef = new EngagementFille();
+        ef.setNomTable(nomtable);
+        ef.setId(this.getIdEngagement());
+        EngagementFille[] result = (EngagementFille[])CGenUtil.rechercher(ef, null, null, c, "");
+        if(result.length > 0) return result[0];
+        return null;
+    }
 }
