@@ -21,6 +21,11 @@ public class PaiementEngagement extends ClassMAPTable {
     public PaiementEngagement() {
         super.setNomTable("payementEngagement");
     }
+
+    public PaiementEngagement(String idEngagement, String idOP) throws Exception {
+        setIdEngagement(idEngagement);
+        setIdOP(idOP);
+    }
     
 
     public String getId() {

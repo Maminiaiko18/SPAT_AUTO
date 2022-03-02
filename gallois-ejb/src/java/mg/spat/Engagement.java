@@ -9,6 +9,7 @@ import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import ded.OrdonnerPayement;
 import facture.FactureFournisseur;
 import facture.FactureFournisseurDetails;
 import java.sql.Connection;
@@ -16,6 +17,7 @@ import java.sql.Date;
 import lignecredit.LigneCredit;
 import utilitaire.Utilitaire;
 import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 
 /**
@@ -290,4 +292,37 @@ public class Engagement extends ClassEtat {
         }
     }
     
+    public void payerEngagementFille(String idFilles, String u, Connection c) throws Exception {
+        boolean check = false;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                check = true;
+                c.setAutoCommit(false);
+            }
+            
+            if(this.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Engagement non vise");
+            
+            String[] ids = Utilitaire.stringToTab(idFilles, ";");
+            
+            FactureFournisseur[] ff = getFacturesLiees(null, c);
+            
+            if(ff != null && ff.length > 0) {
+                OrdonnerPayement op = ff[0].findOP(null, c);
+                if(op == null) throw new Exception("OP inexistant");
+                
+                for(int i=0; i < ids.length; i++) {
+                    PaiementEngagement engPaie = new PaiementEngagement(ids[i], op.getId());
+                    engPaie.createObject(u, c);
+                }
+            }
+            
+            if(check) c.commit();
+        } catch(Exception ex){
+            if(check && c != null) c.rollback();
+            throw ex;
+        } finally{
+            if(check && c != null) c.close();
+        }
+    }
 }
