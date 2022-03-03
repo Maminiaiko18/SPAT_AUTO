@@ -100,42 +100,23 @@ public class AvoirFCFille extends ClassFille {
                 throw new Exception("Facture non visée");
             }
         }
-
+        
         controlQte(c);
 
         super.controler(c);
     }
     
-    public FactureClientDetails findFCDetails(Connection c) throws Exception{
-        int verif = 0;
-        try {
-            if (c == null) {
-                c = new UtilDB().GetConn();
-                verif = 1;
-            }            
-            FactureClientDetails p = new FactureClientDetails();
-            p.setNomTable("facture_client_filleTTC");
-            FactureClientDetails[] fcdetails = (FactureClientDetails[]) CGenUtil.rechercher(p, null, null,c, String.format(" and id like '%s'", this.getIddetailfacture()));
-            if(fcdetails != null && fcdetails.length > 0) return fcdetails[0];
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (c != null && verif == 1) {
-                c.close();
-            }
-        }
-        
-        return null;
-    }
-
     public void controlQte(Connection c) throws Exception {
         if (this.getIddetailfacture() != null) {
-            FactureClientDetails detailsF = findFCDetails(c);
-            this.setNomClasseMere("avoir.AvoirFC");
-            if(detailsF == null) throw new Exception("Aucune facture details lies au details de l'avoir!" + this.getId());
-        
-            if (this.getMontant() > detailsF.getMontantTTC()) {
-                throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + detailsF.getMontantTTC() + ") ");
+            FactureClientDetails fcd = getFactureClientDetail(c);
+            if(fcd == null) throw new Exception("Aucune facture details lies au details de l'avoir!" + this.getId());
+    
+            if (this.getRemise() > 0) {
+                setMontant(Utilitaire.stringToDouble((new DecimalFormat("###.###")).format((fcd.getMontantTTC() * this.getRemise()) / 100)));
+            }
+    
+            if (this.getMontant() > fcd.getMontantTTC()) {
+                throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + fcd.getMontantTTC() + ") ");
             }
         }
     }
@@ -182,11 +163,6 @@ public class AvoirFCFille extends ClassFille {
     public void setMontant(double montant) throws Exception {
         if (this.getMode().equalsIgnoreCase("modif")) {
             if(montant < 0) throw new Exception("Montant negatif");
-            
-            FactureClientDetails fc = getFactureClientDetail(null);
-            if (fc != null && this.getRemise() > 0) {
-                montant = Utilitaire.stringToDouble((new DecimalFormat("###.###")).format((fc.getMontantTTC() * this.getRemise()) / 100));
-            }
         }
         this.montant = montant;
     }
@@ -232,18 +208,21 @@ public class AvoirFCFille extends ClassFille {
                 verif = 1;
             }
             FactureClientDetails fc = new FactureClientDetails();
-            fc.setNomTable("facture_client_filleTTC");
+            fc.setNomTable("FCFILLECOMPLET");
             String awhere = String.format(" and id = '%s' ", this.getIddetailfacture());
             FactureClientDetails[] result = (FactureClientDetails[]) CGenUtil.rechercher(fc, null, null, c, awhere);
+            this.setNomClasseMere("avoir.AvoirFC");
             if (result != null && result.length > 0) {
                 return result[0];
             }
-            return null;
+            
         } finally {
             if (c != null && verif == 1) {
                 c.close();
             }
         }
+        
+        return null;
     }
 
 }
