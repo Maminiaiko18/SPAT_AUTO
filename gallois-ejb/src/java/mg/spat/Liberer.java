@@ -63,10 +63,20 @@ public class Liberer extends ClassEtat {
     public String getAttributIDName() {
         return "id";
     }
+
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("CR","GETSEQ_LIBERER");
         setId(makePK(c));
+    }
+
+    @Override
+    public void controler(Connection c) throws Exception {
+			String nomTable = "engagementlib";
+			Engagement engagement = findEngagement(nomTable, c);
+			if(engagement == null) throw new Exception("engagement introuvable");
+			if(engagement.getDisponible() < this.getMontant()) throw new Exception("Reste \u00e0 engager inferieur au montant \u00e0 lib\u00e9rer");
+			super.controler(c);
     }
     
     
