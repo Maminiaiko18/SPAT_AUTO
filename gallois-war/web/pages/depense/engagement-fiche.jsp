@@ -17,6 +17,7 @@
     pc.getChampByName("codeEtablissement").setVisible(false);
     pc.getChampByName("projet").setVisible(false);
     pc.getChampByName("disponible").setVisible(false);
+    pc.getChampByName("compte").setVisible(false);
     pc.getChampByName("montant").setLibelle("Montant");
     pc.getChampByName("disponible").setLibelle("Disponible");
     pc.getChampByName("dispoAvant").setLibelle("DispoAvant");
@@ -86,10 +87,10 @@
         <div class="col-md-10 col-md-offset-1 ">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
-                    <li class="<%= map.get("details-engagement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=details-engagement">Dï¿½tails Engagement</a></li>
+                    <li class="<%= map.get("details-engagement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=details-engagement">Détails Engagement</a></li>
                     <li class="<%= map.get("liste-bc")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-bc">Liste bon de commande</a></li>
                     <li class="<%= map.get("listeff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=listeff">Liste Facture Fournisseur</a></li>
-                    <li class="<%= map.get("liste-liberation")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-liberation">Liste libï¿½ration</a></li>
+                    <li class="<%= map.get("liste-liberation")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-liberation">Liste libération</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-content">       
