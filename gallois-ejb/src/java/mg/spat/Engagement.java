@@ -33,7 +33,7 @@ public class Engagement extends ClassEtat {
 
     
     public double getResteAFacturer(Connection c) throws Exception{
-        FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_lib",c);
+        FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_libV",c);
         double totalFF = AdminGen.calculSommeDouble(factures, "montant");
         return this.getMontant() - totalFF;
     }
