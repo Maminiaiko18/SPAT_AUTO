@@ -22,10 +22,13 @@
     pr.creerObjetPage(libEntete, colSomme);
 
 %>
+
     <%
         String libEnteteAffiche[]= {"Id", "Engagement", "Montant"};
        pr.getTableau().setLibeEntete(libEnteteAffiche);
-        //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+       pr.getTableau().setLien(new String[]{pr.getLien()+"?but=depense/liberer-fiche.jsp"});
+	   pr.getTableau().setColonneLien(new String[]{"id"});
+	    //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
         out.println(pr.getTableau().getHtml());
     %>
     <%} catch(Exception e){e.printStackTrace();}%>
