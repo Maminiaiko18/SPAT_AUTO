@@ -13,14 +13,15 @@
 <%
     String champReturn = request.getParameter("champReturn");
     Projet projet = new Projet();
-    String listeCrt[] = {"id", "projet","designation","programme","activite","objectif"};
+    String listeCrt[] = {"id", "projet","designation"};
     String listeInt[] = {};
-    String libEntete[] = {"id","projet","compte", "montant_credit", "engage", "liquide", "paye", "designation", "programme","activite","objectif"};
+    String libEntete[] = {"id","projet", "designation"};
     PageRechercheChoix pr = new PageRechercheChoix(projet, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("listeProjetChoix.jsp");
-    pr.getFormu().getChamp("activite").setLibelle("Activité");
+    pr.getFormu().getChamp("designation").setLibelle("Code");
+    pr.getFormu().getChamp("projet").setLibelle("Désignation");
     
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
@@ -52,7 +53,7 @@
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     
                     <% 
-                        String libEnteteAffiche[] = {"id", "Projet","Compte", "Montant crédit", "Engagé", "Liquide", "Payé", "Designation", "Programme","Activité","Objectif"};
+                        String libEnteteAffiche[] = {"id", "Désignation", "Code"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>
