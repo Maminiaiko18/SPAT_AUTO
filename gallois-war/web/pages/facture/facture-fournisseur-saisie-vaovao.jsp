@@ -96,9 +96,13 @@
     
     Engagement engagement=new Engagement();
     if(request.getParameter("idEngagement")!=null){
-        engagement=(Engagement)engagement.getById(request.getParameter("idEngagement"), "engagement", null);
+        engagement=(Engagement)engagement.getById(request.getParameter("idEngagement"), "engagementlib", null);
         pi.getFormu().getChamp("idengagement").setDefaut(engagement.getId());
         pi.getFormu().getChamp("idengagement").setValeurLibelle(engagement.getDesignation());
+        pi.getFormu().getChamp("projet").setDefaut(engagement.getProjet());
+        pi.getFormu().getChamp("projet").setValeurLibelle(engagement.getProjetlib());
+        pi.getFormu().getChamp("code_etablissement").setDefaut(engagement.getCodeEtablissement());
+        pi.getFormu().getChamp("code_etablissement").setValeurLibelle(engagement.getCodeEtablissementlib());
     }
     affichage.Liste[] listes= new affichage.Liste[3];
     
