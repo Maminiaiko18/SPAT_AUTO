@@ -7,6 +7,7 @@
 <%@page import="mg.spat.Engagement"%>
 <%@page import="bean.TypeObjet"%>
 <%@page import="affichage.PageRechercheChoix"%>
+<%@ page pageEncoding="UTF-8" %>
 <%
    try { 
       Engagement e = new Engagement();
@@ -20,7 +21,7 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
         pr.getFormu().getChamp("id").setLibelle("ID");
-    pr.getFormu().getChamp("designation").setLibelle("Désignation");
+    pr.getFormu().getChamp("designation").setLibelle("DÃ©signation");
     pr.setApres("choix/listeEngagementChoix.jsp");
     pr.setChampReturn(champReturn);
     
@@ -42,11 +43,11 @@
                 <h1>Choix Engagement</h1>
             </section>
             <section class="content">
-                <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="rubrique" id="rubrique">
+                <form action="/spat/pages/globalnegoce.jsp?but=<%=pr.getApres()%>" method="post" name="rubrique" id="rubrique">
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
                 </form>
                 <%
-                    String libelles[] = {"Id","Désignation","Montant","dispo Avant","dispo Apres"};
+                    String libelles[] = {"Id","DÃ©signation","Montant","dispo Avant","dispo Apres"};
                     pr.getTableau().setLibelleAffiche(libelles);
                     out.println(pr.getTableauRecap().getHtml());
                 %>
