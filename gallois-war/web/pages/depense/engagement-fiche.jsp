@@ -65,17 +65,22 @@
                             out.println(pc.getHtml());
                         %>
                         <br/>
-                        <div class="pull-right">
+                         <div class="box-footer">
                             <p>
-                                <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + request.getParameter("id")%>"><button class="btn btn-primary">Imprimer</button></a>
-                                <a href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success">Saisie FF</button></a>
-                                <a href="<%=(String) session.getValue("lien") + "?but=stock/bc/bondecommande-multiple.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success">Saisie BC</button></a>
+                                      <a  href="<%=(String) session.getValue("lien") + "?but=depense/engagement-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning"  >Modifier </button></a>
+                                      <a class="btn btn-warning"   href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.Engagement&bute=depense/engagement-fiche.jsp&id=" + request.getParameter("id")%>" style="margin-right: 5px">Viser</a>
+                                             <a href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-success pull-right" >Saisie FF</button></a>
+                                <a class="btn btn-success pull-right" style="margin-right: 10px" href="<%=(String) session.getValue("lien") + "?but=stock/bc/bondecommande-multiple.jsp&idEngagement=" + request.getParameter("id")%>">Saisie BC</a></p>
+                              
+                                  <p>       
+                         
 
-                                <a href="<%=(String) session.getValue("lien") + "?but=depense/liberer-saisie.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-warning" style="margin-right: 5px" >Lib�rer </button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=depense/liberer-saisie.jsp&idEngagement=" + request.getParameter("id")%>"><button class="btn btn-info" style="margin-right: 5px" >Lib�rer </button></a>
 
-                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.Engagement&bute=depense/engagement-fiche.jsp&id=" + request.getParameter("id")%>" style="margin-right: 5px">Viser</a>
-                                <a class="btn btn-success pull-right" href="<%=(String) session.getValue("lien") + "?but=depense/engagement-fille-liste.jsp&idmere=" + engagement.getId() %>" style="margin-right: 5px">Payer</a>
-                                <a href="<%=(String) session.getValue("lien") + "?but=depense/engagement-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning">Modifier </button></a>
+                                
+                                <a class="btn btn-info " href="<%=(String) session.getValue("lien") + "?but=depense/engagement-fille-liste.jsp&idmere=" + engagement.getId() %>" style="margin-right: 5px">Payer</a>
+                                 <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + request.getParameter("id")%>"><button class="btn btn-primary pull-right">Imprimer</button></a>
+                          
                             </p>
                         </div>
                     </div>
