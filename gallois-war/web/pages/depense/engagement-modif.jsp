@@ -34,13 +34,23 @@
         pi.getFormu().getChamp("idLClib").setVisible(false);
         pi.getFormu().getChamp("compte").setVisible(false);
 
+        Liste[] listes = new Liste[1];
+        String[] avecFactureAff = {"oui", "non"};
+        String[] avecFactureVal = {"1", "0"}; 
+        listes[0] = new Liste("avecFacture", avecFactureAff, avecFactureVal);
+    
+        pi.getFormu().changerEnChamp(listes);
         pi.getFormu().getChamp("designation").setLibelle("Désignation");
         pi.getFormu().getChamp("codeetablissement").setLibelle("Code établissement");
         pi.getFormu().getChamp("projet").setLibelle("Projet");
         pi.getFormu().getChamp("montant").setLibelle("Montant");
+        pi.getFormu().getChamp("disponible").setVisible(false);
         pi.getFormu().getChamp("disponible").setLibelle("Disponible");
         pi.getFormu().getChamp("dispoavant").setLibelle("Disponible avant");
+        pi.getFormu().getChamp("dispoavant").setVisible(false);
         pi.getFormu().getChamp("dispoapres").setLibelle("Disponible après");
+        pi.getFormu().getChamp("dispoapres").setVisible(false);
+        pi.getFormu().getChamp("montantop").setVisible(false);
         pi.getFormu().getChamp("idLC").setLibelle("Budget");
         pi.getFormu().getChamp("daty").setLibelle("Date");
 
