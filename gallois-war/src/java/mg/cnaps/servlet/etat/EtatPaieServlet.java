@@ -1099,7 +1099,7 @@ public class EtatPaieServlet extends HttpServlet {
             FactureClient fcavoir = new FactureClient();
             fcavoir.setNomTable("facture_client_union");
             String awhere = String.format(" and idavoir = '%s' ", id);
-            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, null, awhere);
+            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fcavoir, null, null, null, awhere);
             if(result.length!=0){
                 param.put("codefact1", result[0].getCode());    
             }
