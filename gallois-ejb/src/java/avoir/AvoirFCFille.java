@@ -87,7 +87,7 @@ public class AvoirFCFille extends ClassFille {
 
     @Override
     public void controlerUpdate(Connection c) throws Exception {
-        controlQte();
+        controlQte(c);
         super.controlerUpdate(c);
     }
 
@@ -101,15 +101,41 @@ public class AvoirFCFille extends ClassFille {
             }
         }
 
-        controlQte();
+        controlQte(c);
 
         super.controler(c);
     }
+    
+    public FactureClientDetails findFCDetails(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }            
+            FactureClientDetails p = new FactureClientDetails();
+            p.setNomTable("facture_client_filleTTC");
+            FactureClientDetails[] fcdetails = (FactureClientDetails[]) CGenUtil.rechercher(p, null, null,c, String.format(" and id like '%s'", this.getIddetailfacture()));
+            if(fcdetails != null && fcdetails.length > 0) return fcdetails[0];
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        
+        return null;
+    }
 
-    public void controlQte() throws Exception {
+    public void controlQte(Connection c) throws Exception {
         if (this.getIddetailfacture() != null) {
-            if (this.getMontant() > this.getMontantdf()) {
-                throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + this.getMontantdf() + ") ");
+            FactureClientDetails detailsF = findFCDetails(c);
+            this.setNomClasseMere("avoir.AvoirFC");
+            if(detailsF == null) throw new Exception("Aucune facture details lies au details de l'avoir!" + this.getId());
+        
+            if (this.getMontant() > detailsF.getMontantTTC()) {
+                throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + detailsF.getMontantTTC() + ") ");
             }
         }
     }
