@@ -29,7 +29,7 @@
         pr.getFormu().getChamp("designation").setLibelle("Désignation");
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.setApres("depense/engagement-liste.jsp");
-        String[] colSomme ={"montants"};
+        String[] colSomme ={"montant"};
         pr.creerObjetPage(libEntete, colSomme);
         String[] etatVal = {"engagementlib", "engagementlibC", "engagementlibV"};
     String[] etatAff = {"Tous", "Créée", "Visée"};
