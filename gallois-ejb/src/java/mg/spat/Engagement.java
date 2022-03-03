@@ -43,7 +43,6 @@ public class Engagement extends ClassEtat {
     }
 
     public void setMontantOP(double montantOP) throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&&montantOP<=0) throw new Exception("montantOp invalide");
         this.montantOP = montantOP;
     }
 
