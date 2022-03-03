@@ -27,7 +27,7 @@ import utilitaire.UtilDB;
 public class Engagement extends ClassEtat {
     private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib;
     private String codeEtablissementlib,projetlib;
-    private double montant,disponible,dispoAvant,dispoApres;
+    private double montant,disponible,dispoAvant,dispoApres,montantOP;
     private Date daty;
     private int avecFacture;
 
@@ -36,6 +36,15 @@ public class Engagement extends ClassEtat {
         FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_lib",c);
         double totalFF = AdminGen.calculSommeDouble(factures, "montant");
         return this.getMontant() - totalFF;
+    }
+
+    public double getMontantOP() {
+        return montantOP;
+    }
+
+    public void setMontantOP(double montantOP) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&&montantOP<=0) throw new Exception("montantOp invalide");
+        this.montantOP = montantOP;
     }
 
     public String getAvecFacturelib() {
