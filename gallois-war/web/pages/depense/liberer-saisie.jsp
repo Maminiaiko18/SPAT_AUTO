@@ -4,6 +4,7 @@
     Author     : Sanda
 --%>
 
+<%@page import="mg.spat.Engagement"%>
 <%@page import="avoir.Avoir"%>
 <%@page import="affichage.PageInsert"%> 
 <%@page import="user.UserEJB"%> 
@@ -22,6 +23,14 @@
     PageInsert pi = new PageInsert(objet, request, u);
     pi.setLien((String) session.getValue("lien"));  
     
+    String idEngagement = request.getParameter("idEngagement");
+    if(idEngagement != null){
+        Engagement eng = (Engagement)new Engagement().getById(idEngagement, null, null);
+        if(eng != null){
+            pi.getFormu().getChamp("idengagement").setDefaut(eng.getId());
+            pi.getFormu().getChamp("idengagement").setValeurLibelle(eng.getDesignation());
+        }
+    }
     
     pi.getFormu().getChamp("etat").setVisible(false);
     
@@ -29,7 +38,7 @@
     pi.getFormu().getChamp("idengagement").setAutre("readonly");
    
     pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
-
+    
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
@@ -45,7 +54,7 @@
         <input name="classe" type="hidden" id="classe" value="<%=mapping%>">
         <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
     </form>
-</div>
+</div>      
 <%
 } catch (Exception e) {
     e.printStackTrace();
