@@ -5,6 +5,7 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 
@@ -69,6 +70,17 @@ public class Liberer extends ClassEtat {
     }
     
     
-    
+    public Engagement findEngagement(String nomtable,Connection c)throws Exception{
+        if(nomtable==null || nomtable.equals("")){
+            nomtable = "engagement";
+        }
+        Engagement engagement = new Engagement();
+        engagement.setNomTable(nomtable);
+        Engagement[] reponse = (Engagement[])CGenUtil.rechercher(engagement, null, null, c, " and id='"+this.getIdengagement()+"'");
+        if(reponse.length>0){
+            return reponse[0];
+        }
+        return null;
+    }
     
 }
