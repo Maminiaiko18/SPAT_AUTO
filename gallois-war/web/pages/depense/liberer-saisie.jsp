@@ -14,10 +14,10 @@
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     UserEJB u = (user.UserEJB) session.getValue("u");
-    String  mapping = "mg.spat.Engagement",
+    String  mapping = Liberer.class.getName(),
             nomtable = "liberer",
             apres = "depense/liberer-fiche.jsp",
-            titre = "Nouvel Liberer";
+            titre = "Saisie lib&eacute;ration d'engagement";
     
     Liberer  objet = new Liberer();
     PageInsert pi = new PageInsert(objet, request, u);
