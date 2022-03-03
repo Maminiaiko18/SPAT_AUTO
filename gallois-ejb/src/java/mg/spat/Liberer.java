@@ -72,9 +72,9 @@ public class Liberer extends ClassEtat {
 
     @Override
     public void controler(Connection c) throws Exception {
-			String nomTable = "engagementlib";
+			String nomTable = "engagementlibV";
 			Engagement engagement = findEngagement(nomTable, c);
-			if(engagement == null) throw new Exception("engagement introuvable");
+			if(engagement == null) throw new Exception("engagement introuvable ou non visé");
 			if(engagement.getDisponible() < this.getMontant()) throw new Exception("Reste \u00e0 engager inferieur au montant \u00e0 lib\u00e9rer");
 			super.controler(c);
     }
