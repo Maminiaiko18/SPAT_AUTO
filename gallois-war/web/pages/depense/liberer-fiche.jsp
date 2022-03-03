@@ -28,6 +28,7 @@
     pc.setTitre("FICHE LIBERER");
     e = (Liberer) pc.getBase();
     String id= e.getId();
+    String idengagement=e.getIdengagement();
     String bute="depense/liberer-fiche.jsp";
     String classe="mg.spat.Libere";
     String modifPage="depense/liberer-modif.jsp";
@@ -37,7 +38,8 @@
     
         pc.getChampByName("idengagementlib").setLibelle("Engagement");
 //    pc.getChampByName("quantite").setVisible(false);
-//    pc.getChampByName("compteG").setVisible(false);
+    pc.getChampByName("idengagement").setVisible(false);
+   pc.getChampByName("idengagementlib").setLien(lien + "?but=depense/engagement-fiche.jsp","id="+idengagement+"&id=");
 //    AttacherFichier[] fichiers = UploadService.getUploadFile(id);
 //    configuration.CynthiaConf.load();
 //    String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
@@ -61,7 +63,7 @@
                 </div>
                 <div class="box-footer">
                     <p>
-
+                         <a class="btn btn-warning"   href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.Liberer&bute=depense/liberer-fiche.jsp&id=" + request.getParameter("id")%>" style="margin-right: 5px">Viser</a>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + id %>&nomtable=<%=table%>" style="margin-right: 10px">Modifier</a>
 
                     </p>
