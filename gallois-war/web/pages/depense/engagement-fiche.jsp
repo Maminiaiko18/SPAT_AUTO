@@ -16,10 +16,10 @@
     pc.getChampByName("designation").setLibelle("Designation");
     pc.getChampByName("codeEtablissement").setVisible(false);
     pc.getChampByName("projet").setVisible(false);
-    pc.getChampByName("disponible").setVisible(false);
+//    pc.getChampByName("disponible").setVisible(false);
     pc.getChampByName("compte").setVisible(false);
     pc.getChampByName("montant").setLibelle("Montant");
-    pc.getChampByName("disponible").setLibelle("Disponible");
+    pc.getChampByName("disponible").setLibelle("Disponible à facturer");
     pc.getChampByName("dispoAvant").setLibelle("DispoAvant");
     pc.getChampByName("dispoApres").setLibelle("DispoApres");
     pc.getChampByName("compte").setLibelle("Compte");
