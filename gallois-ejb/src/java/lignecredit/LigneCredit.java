@@ -185,6 +185,8 @@ public class LigneCredit extends ClassEtat {
             where = where.replaceAll("designation", "l.designation");
             where = where.replaceAll("compte", "l.compte");
             where = where.replaceAll("annee", "l.annee");
+            where = where.replaceAll("direction", "l.direction");
+            where = where.replaceAll("projet", "l.projet");
 
             String whereDaty = "";
 
@@ -234,7 +236,7 @@ public class LigneCredit extends ClassEtat {
                     + "                           l.idprojet,\n"
                     + "                           l.iddirection\n"
                     + "                    FROM SITUATIONLCDEPENSE_CPL l\n"
-                    + "                             LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n"
+                    + "                             JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n"
                     + "                                  on l.compte = mf.comptecpl AND mf.annee = l.annee\n"
                     + "                                      and (" + whereDaty.replaceAll("daty", "mf.daty") + " or mf.daty is null)\n"
                     + "                                      and l.etat >= 11\n"
