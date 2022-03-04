@@ -23,7 +23,7 @@
     //String listeCrt[] = {"id","escale","nomnavire", "valconsignataire", "valcargaison", "valquaisdestination","datearrivee", "date_depart","quaisdestination"};
     String listeCrt[] = {"id", "direction", "projet", "designation","compte","annee"};
     String listeInt[] = {"annee"};
-    String libEntete[] = {"id", "direction", "projet", "designation","compte","annee","montant"};
+    String libEntete[] = {"id", "direction", "projet", "designation","compte","annee","montant","facture","pourcEngage","paye","pourcPaye","arecouvrir","restebudget"};
     PageRecherche pr = new PageRecherche(ligncredit, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
@@ -83,7 +83,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "Direction", "Projet", "D&eacute;signation","Compte","Ann&eacute;e","Montant"};
+            String libEnteteAffiche[] = {"id", "Direction", "Projet", "D&eacute;signation","Compte","Ann&eacute;e","Montant","Factur&eacute;","% factur&eacute;","Pay&eacute;","% pay&eacute;"," A recouvrir","reste sur budget"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
