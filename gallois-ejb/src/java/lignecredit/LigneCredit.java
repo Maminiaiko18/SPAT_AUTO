@@ -20,7 +20,7 @@ import utilitaire.UtilDB;
 public class LigneCredit extends ClassEtat {
 
     private String id;
-    private String designation, compte, compteCpl, compteInv, compteSimple, directon, projet, directionProjet, comptestr, compteG, codeEtablissement,direction;
+    private String designation, compte, compteCpl, compteInv, compteSimple, directon, projet, directionProjet, comptestr, compteG, codeEtablissement, direction;
     private String codeEtablissementlib, projetlib;
     private String idprojet, idcodeEtablissement;
 
@@ -182,67 +182,92 @@ public class LigneCredit extends ClassEtat {
 
             String where = " where " + CGenUtil.makeWhere(critere);
 
-            where = where.replaceAll("id", "l.id");
             where = where.replaceAll("designation", "l.designation");
             where = where.replaceAll("compte", "l.compte");
             where = where.replaceAll("annee", "l.annee");
-            
-            where += " and (";
-            
+
             String whereDaty = "";
-            
+
             boolean estInterval = date1 != null && !date1.isEmpty() && date2 != null && !date2.isEmpty();
-            
+
             if (date1 != null && !date1.isEmpty()) {
                 whereDaty += " daty >= '" + date1 + "'";
-                
             }
-            if(estInterval) whereDaty += " and ";
+            if (estInterval) {
+                whereDaty += " and ";
+            }
             if (date2 != null && !date2.isEmpty()) {
                 whereDaty += " daty <= '" + date2 + "'";
             }
-            
-            where += whereDaty.replaceAll("daty", "mf.daty") + " or mf.daty is null)";
-            
-            if(!whereDaty.isEmpty()) whereDaty = " and " + whereDaty;
-            
-//            where += whereDaty;
 
-            String req = "select l.id,\n"
-                    + "       l.DESIGNATION,\n"
-                    + "       l.compte,\n"
-                    + "       l.ANNEE,\n"
-                    + "       l.montant                                                                   as montant,\n"
-                    + "       l.etat,\n"
-                    + "       comptestr,\n"
-                    + "       cast(nvl(n.montant,0)+nvl(nt.MONTANT,0)-nvl(gr.MONTANT,0) as NUMBER(30, 3)) as engageer,\n"
-                    + "       cast(nvl(sum(MONTANTTTC), 0) as NUMBER(30, 3))                              as facture,\n"
-                    + "       cast(nvl(sum(MONTANTPAYE), 0) as number(30, 3))                             as PAYE,\n"
-                    + "       cast((nvl(sum(montantttc), 0) - nvl(sum(montantpaye), 0)) as NUMBER(30, 3)) as arecouvrir,\n"
-                    + "       cast((l.montant) - nvl(sum(montantttc), 0) as NUMBER(30, 3))                as restebudget,\n"
-                    + "       cast(((nvl(sum(MONTANTTTC), 0)) / l.MONTANT) * 100 as NUMBER(30, 3))        as pourcEngage,\n"
-                    + "       cast(((nvl(sum(MONTANTPAYE), 0)) / l.MONTANT) * 100 as number(30, 3))       as pourcPaye,\n"
-                    + "       comptecpl,\n"
-                    + "        compteinv,\n"
-                    + "        comptesimple,\n"
-                    + "        directionProjet ,\n"
-                    + "        direction,\n"
-                    + "        projet\n"
+            String req = "select l.direction,\n"
+                    + "       l.projet,\n"
+                    + "       sum(l.montant)                                                                     as montant,\n"
+                    + "       cast(nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0) as NUMBER(30, 3)) as engageer,\n"
+                    + "       cast(nvl(fd.facture, 0) as NUMBER(30, 3))                                          as facture,\n"
+                    + "       cast(nvl(fd.PAYE, 0) as number(30, 3))                                             as PAYE,\n"
+                    + "       cast(nvl(fd.facture, 0) - nvl(fd.PAYE, 0) as NUMBER(30, 3))                        as arecouvrir,\n"
+                    + "       cast(sum(l.montant) - nvl(fd.facture, 0) as NUMBER(30, 3))                         as restebudget,\n"
+                    + "       cast(nvl(fd.facture, 0) / sum(l.MONTANT) * 100 as NUMBER(30, 3))                   as pourcEngage,\n"
+                    + "       cast(nvl(fd.PAYE, 0) / sum(l.MONTANT) * 100 as number(30, 3))                      as pourcPaye\n"
                     + "from SITUATIONLCDEPENSE_CPL l\n"
-                    + "         LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n"
-                    + "                   on l.compte = mf.comptecpl AND mf.annee = l.annee\n"
+                    + "         LEFT JOIN (SELECT l.id,\n"
+                    + "                           l.DESIGNATION,\n"
+                    + "                           l.compte,\n"
+                    + "                           l.ANNEE,\n"
+                    + "                           l.montant                                                                   as montant,\n"
+                    + "                           l.etat,\n"
+                    + "                           comptestr,\n"
+                    + "                           cast(0 as NUMBER(30, 3))                                                    as engageer,\n"
+                    + "                           cast(nvl(sum(MONTANTTTC), 0) as NUMBER(30, 3))                              as facture,\n"
+                    + "                           cast(nvl(sum(MONTANTPAYE), 0) as number(30, 3))                             as PAYE,\n"
+                    + "                           cast((nvl(sum(montantttc), 0) - nvl(sum(montantpaye), 0)) as NUMBER(30, 3)) as arecouvrir,\n"
+                    + "                           cast((l.montant) - nvl(sum(montantttc), 0) as NUMBER(30, 3))                as restebudget,\n"
+                    + "                           cast(((nvl(sum(MONTANTTTC), 0)) / l.MONTANT) * 100 as NUMBER(30, 3))        as pourcEngage,\n"
+                    + "                           cast(((nvl(sum(MONTANTPAYE), 0)) / l.MONTANT) * 100 as number(30, 3))       as pourcPaye,\n"
+                    + "                           comptecpl,\n"
+                    + "                           compteinv,\n"
+                    + "                           comptesimple,\n"
+                    + "                           directionProjet,\n"
+                    + "                           direction,\n"
+                    + "                           l.projet,\n"
+                    + "                           l.idprojet,\n"
+                    + "                           l.iddirection\n"
+                    + "                    FROM SITUATIONLCDEPENSE_CPL l\n"
+                    + "                             LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n"
+                    + "                                  on l.compte = mf.comptecpl AND mf.annee = l.annee\n"
+                    + "                                      and (" + whereDaty.replaceAll("daty", "mf.daty") + " or mf.daty is null)\n"
+                    + "                                      and l.etat >= 11\n"
+                    + "                    group by l.id, l.DESIGNATION, l.compte, l.ANNEE, l.montant, l.etat,\n"
+                    + "                             substr(l.compte, 7, length(l.compte)), comptecpl,\n"
+                    + "                             compteinv,\n"
+                    + "                             comptesimple,\n"
+                    + "                             directionProjet,\n"
+                    + "                             direction,\n"
+                    + "                             l.projet,\n"
+                    + "                             l.idprojet,\n"
+                    + "                             l.iddirection) fd\n"
+                    + "                   ON fd.idprojet = l.idprojet AND fd.iddirection = l.iddirection\n"
                     + "         left join (select COMPTECPL as compte, sum(MONTANTTTC) as montant, annee\n"
                     + "                    from DETAILSFACTUREFOURNISSEUR_paye\n"
                     + "                    where IDENGAGEMENT is null\n"
-                    + whereDaty
+                    + "                      and " + whereDaty
                     + "                    group by COMPTECPL, annee) n on n.compte = l.COMPTE\n"
-                    + "         left join FACTFOURN_MONTANT_notNULL nt on nt.IDLC = l.id\n"
-                    + "         left join LIBERER_GRP gr on gr.IDLC = l.ID\n"
-                    + where + " and l.etat >= " + ConstanteEtat.getEtatValider() + "\n"
-                    + "      --and mf.comptecpl is not null\n"
-                    + "-- WHERE mf.IDMERE not in       (select id from ProvisionFactureDefinitive)\n"
-                    + "group by l.id, l.DESIGNATION, l.compte, l.ANNEE, l.montant, l.etat, substr(l.compte, 7, length(l.compte)), comptecpl,"
-                    + " n.montant, nt.MONTANT, gr.MONTANT";
+                    + "         left join (SELECT sum(montant) AS montant, PROJET, codeetablissement, projetlib, codeetablissementlib\n"
+                    + "                    FROM engagementlibv ev\n"
+                    + "                    WHERE " + whereDaty
+                    + "                    GROUP BY PROJET, codeetablissement, projetlib, codeetablissementlib) nt\n"
+                    + "                   on nt.projet = l.idprojet AND nt.codeetablissement = l.iddirection\n"
+                    + "         left join (select en.ID, sum(li.MONTANT) as MONTANT, DATY as DATYENGAGEMENT, PROJET, codeetablissement\n"
+                    + "                    from LIBERER li\n"
+                    + "                             left join ENGAGEMENT en on en.ID = li.IDENGAGEMENT\n"
+                    + "                    where en.ETAT >= 11\n"
+                    + "                      and " + whereDaty
+                    + "                    group by en.ID, DATY, PROJET, codeetablissement) gr\n"
+                    + "                   on nt.PROJET = gr.PROJET and nt.CODEETABLISSEMENT = gr.CODEETABLISSEMENT\n"
+                    + where
+                    + " GROUP BY l.DIRECTION, l.projet, n.montant, nt.MONTANT, gr.MONTANT, fd.facture, fd.PAYE,\n"
+                    + "         fd.montant";
 
             LigneCredit stock = new LigneCredit();
             stock.setNomTable("situationLC_vide");
@@ -258,6 +283,91 @@ public class LigneCredit extends ClassEtat {
         }
     }
 
+//    public static ResultatEtSomme findSituationCreditDepense(LigneCredit critere, String date1, String date2, Connection c, String[] colSomme) throws Exception {
+//        boolean newCon = false;
+//        try {
+//            if (c == null) {
+//                c = new UtilDB().GetConn();
+//                newCon = true;
+//            }
+//
+//            String where = " where " + CGenUtil.makeWhere(critere);
+//
+//            where = where.replaceAll("id", "l.id");
+//            where = where.replaceAll("designation", "l.designation");
+//            where = where.replaceAll("compte", "l.compte");
+//            where = where.replaceAll("annee", "l.annee");
+//            
+//            where += " and (";
+//            
+//            String whereDaty = "";
+//            
+//            boolean estInterval = date1 != null && !date1.isEmpty() && date2 != null && !date2.isEmpty();
+//            
+//            if (date1 != null && !date1.isEmpty()) {
+//                whereDaty += " daty >= '" + date1 + "'";
+//                
+//            }
+//            if(estInterval) whereDaty += " and ";
+//            if (date2 != null && !date2.isEmpty()) {
+//                whereDaty += " daty <= '" + date2 + "'";
+//            }
+//            
+//            where += whereDaty.replaceAll("daty", "mf.daty") + " or mf.daty is null)";
+//            
+//            if(!whereDaty.isEmpty()) whereDaty = " and " + whereDaty;
+//            
+////            where += whereDaty;
+//
+//            String req = "select l.id,\n"
+//                    + "       l.DESIGNATION,\n"
+//                    + "       l.compte,\n"
+//                    + "       l.ANNEE,\n"
+//                    + "       l.montant                                                                   as montant,\n"
+//                    + "       l.etat,\n"
+//                    + "       comptestr,\n"
+//                    + "       cast(nvl(n.montant,0)+nvl(nt.MONTANT,0)-nvl(gr.MONTANT,0) as NUMBER(30, 3)) as engageer,\n"
+//                    + "       cast(nvl(sum(MONTANTTTC), 0) as NUMBER(30, 3))                              as facture,\n"
+//                    + "       cast(nvl(sum(MONTANTPAYE), 0) as number(30, 3))                             as PAYE,\n"
+//                    + "       cast((nvl(sum(montantttc), 0) - nvl(sum(montantpaye), 0)) as NUMBER(30, 3)) as arecouvrir,\n"
+//                    + "       cast((l.montant) - nvl(sum(montantttc), 0) as NUMBER(30, 3))                as restebudget,\n"
+//                    + "       cast(((nvl(sum(MONTANTTTC), 0)) / l.MONTANT) * 100 as NUMBER(30, 3))        as pourcEngage,\n"
+//                    + "       cast(((nvl(sum(MONTANTPAYE), 0)) / l.MONTANT) * 100 as number(30, 3))       as pourcPaye,\n"
+//                    + "       comptecpl,\n"
+//                    + "        compteinv,\n"
+//                    + "        comptesimple,\n"
+//                    + "        directionProjet ,\n"
+//                    + "        direction,\n"
+//                    + "        projet\n"
+//                    + "from SITUATIONLCDEPENSE_CPL l\n"
+//                    + "         LEFT JOIN DETAILSFACTUREFOURNISSEUR_paye mf\n"
+//                    + "                   on l.compte = mf.comptecpl AND mf.annee = l.annee\n"
+//                    + "         left join (select COMPTECPL as compte, sum(MONTANTTTC) as montant, annee\n"
+//                    + "                    from DETAILSFACTUREFOURNISSEUR_paye\n"
+//                    + "                    where IDENGAGEMENT is null\n"
+//                    + whereDaty
+//                    + "                    group by COMPTECPL, annee) n on n.compte = l.COMPTE\n"
+//                    + "         left join FACTFOURN_MONTANT_notNULL nt on nt.IDLC = l.id\n"
+//                    + "         left join LIBERER_GRP gr on gr.IDLC = l.ID\n"
+//                    + where + " and l.etat >= " + ConstanteEtat.getEtatValider() + "\n"
+//                    + "      --and mf.comptecpl is not null\n"
+//                    + "-- WHERE mf.IDMERE not in       (select id from ProvisionFactureDefinitive)\n"
+//                    + "group by l.id, l.DESIGNATION, l.compte, l.ANNEE, l.montant, l.etat, substr(l.compte, 7, length(l.compte)), comptecpl,"
+//                    + " n.montant, nt.MONTANT, gr.MONTANT";
+//
+//            LigneCredit stock = new LigneCredit();
+//            stock.setNomTable("situationLC_vide");
+//            return CGenUtil.rechercher(stock, req, c, colSomme);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw e;
+//        } finally {
+//            if (newCon && c != null) {
+//                c.close();
+//            }
+//        }
+//    }
     public static LigneCredit[] findSituationCreditDepense(String id, String desingation, String compte, String date1, String date2, String etat, String niveau, String exercice, String mois, Connection c) throws Exception {
         LigneCredit[] ret = null;
         boolean newCon = false;

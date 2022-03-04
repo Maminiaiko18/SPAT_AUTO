@@ -21,9 +21,10 @@
         }
         fa.setNomTable("situationLC_vide");
 
-        String listeCrt[] = {"id", "designation", "compteInv", "compteSimple", "direction", "projet", "directionProjet", "daty", "annee"};
+        String listeCrt[] = {"compteInv", "compteSimple", "direction", "projet", "directionProjet", "daty", "annee"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
+//        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
+        String libEntete[] = {"direction", "projet", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -130,7 +131,7 @@
         %>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "designation", "compte", "annee", "montant", "Engagé", "Facturé", "% engagé", "décaissé", "% payé", "a recouvrir", "reste sur budget"};
+            String libEnteteAffiche[] = {"direction", "projet", "montant", "Engagé", "Facturé", "% engagé", "décaissé", "% payé", "a recouvrir", "reste sur budget"};
             //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setLibeEntete(libEnteteAffiche);
 //            out.println(pr.getTableau().getHtml());
@@ -145,10 +146,8 @@
                         <table width="100%" border="0" align="center" cellpadding="3" cellspacing="3" class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Designation</th>
-                                    <th>Compte</th>
-                                    <th>Année</th>
+                                    <th>Direction</th>
+                                    <th>Projet</th>
                                     <th>Montant</th>
                                     <th>Engag&eacute;</th>
                                     <th>Facture</th>
@@ -162,10 +161,8 @@
                             <tbody>
                                 <%  for (int i = 0; i < data.length; i++) {%>
                                 <tr>
-                                    <td><a href="<%= pr.getLien() %>?but=ligneCredit/fiche-ligneCreditRecette.jsp&id=<%= data[i].getId() %>"><%=Utilitaire.champNull(data[i].getId())%></a></td>
-                                    <td><%=Utilitaire.champNull(data[i].getDesignation())%></td>
-                                    <td><%=Utilitaire.champNull(data[i].getCompte())%></td>
-                                    <td><%= data[i].getAnnee() %></td>
+                                    <td><%=Utilitaire.champNull(data[i].getDirection())%></td>
+                                    <td><%=Utilitaire.champNull(data[i].getProjet())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getMontant())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getEngageer())%></td>
                                     <td align="right"><a href="<%= pr.getLien() %>?but=facture/facture-fournisseur-details-liste.jsp&compte=<%= Utilitaire.champNull(data[i].getCompteSimple()) %>&recap=checked&annee=<%= data[i].getAnnee() %>&mois1=<%= Utilitaire.champNull(moisMin) %>&mois2=<%= Utilitaire.champNull(moisMax) %>"><%=Utilitaire.formaterAr(data[i].getFacture())%></a></td>
