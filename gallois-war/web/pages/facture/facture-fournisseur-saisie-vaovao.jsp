@@ -186,7 +186,7 @@
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeBudgetDepenseChoix.jsp", "compte;compte;comptelibelle");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
    
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("compte"), "readonly");
+    //affichage.Champ.setAutre(pi.getFormufle().getChampFille("compte"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
     
