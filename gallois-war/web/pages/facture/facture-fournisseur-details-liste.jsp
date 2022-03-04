@@ -23,7 +23,7 @@
     FactureFournisseurDetails cht = new FactureFournisseurDetails();
     cht.setNomTable("FACTFOURN_FILL_LIB_REST_TAXE");
     String libEntete[] = {"id", "designation", "quantite", "qtelivree", "restealivrer", "devise", "compte", "pu", "taux", "montanttaux", "tva", "montanttaxe", "montantHTEuro", "montantTVAEuro", "reduction", "majoration","montantTTC"};
-    String listeCrt[] = {"compte", "mois", "annee"};
+    String listeCrt[] = {"comptestr", "mois", "annee"};
     String listeInt[] = {"mois", "annee"};
 
     PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -37,7 +37,7 @@
     listes[1] = new Liste("mois2", moisStr, moisInt);
     pr.getFormu().changerEnChamp(listes);
     
-    pr.getFormu().getChamp("compte").setLibelle("Compte");
+    pr.getFormu().getChamp("comptestr").setLibelle("Compte");
     pr.getFormu().getChamp("mois1").setLibelle("Mois min");
     pr.getFormu().getChamp("mois2").setLibelle("Mois max");
     

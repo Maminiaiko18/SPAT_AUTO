@@ -22,6 +22,15 @@ import utilitaire.Utilitaire;
  */
 public class FactureFournisseurDetails extends FactureClientDetails{
     private double montanttaxe;
+    private String comptestr;
+
+    public String getComptestr() {
+        return comptestr;
+    }
+
+    public void setComptestr(String comptestr) {
+        this.comptestr = comptestr;
+    }
 
     public double getMontanttaxe() {
         return montanttaxe;
