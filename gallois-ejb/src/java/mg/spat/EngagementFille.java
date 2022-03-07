@@ -92,7 +92,7 @@ public class EngagementFille extends ClassMAPTable{
         ffd.setMois(Utilitaire.getMoisEnCoursReel());
         ffd.setAnnee(Utilitaire.getAneeEnCours());
         ffd.setDevise(Constante.deviseAr);
-        ffd.setCompte(eng.getCodeEtablissement()+eng.getProjetlib());
+        ffd.setCompte(eng.getCodeEtablissementlib()+eng.getProjetlib());
         
         return ffd;
     }
