@@ -32,8 +32,8 @@
             <input type="hidden" name="acte" value="viser"/>
             <input type="hidden" name="table" id="table" value="OrdonnerPayement"/>
             <% 
-                pr.getTableau().setNameActe("valider");
-                pr.getTableau().setNameBoutton("Valider");
+                pr.getTableau().setNameActe("viser");
+                pr.getTableau().setNameBoutton("viser");
                 out.println(pr.getTableau().getHtmlWithCheckbox());
             %>  
     </form>
