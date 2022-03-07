@@ -25,10 +25,18 @@
     pr.getTableau().setColonneLien(colonneLien);
     String libEnteteAffiche[] = {"id","Numéro OP","Date", "Tiers", "Facture","Motif de paiement","Montant","Mode de paiement", "Etat"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-    String html = pr.getTableau().getHtml();    
-    if(html != null){ %>
-    
-            <% out.println(html); %>
+    if(pr.getTableau().getData() != null && pr.getTableau().getData().length > 0){ %>
+    <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post">
+            <input type="hidden" name="bute" value="depense/engagement-fiche.jsp&id=<%=request.getParameter("id")%>"/>
+            <input type="hidden" name="classe" value="ded.OrdonnerPayement"/>
+            <input type="hidden" name="acte" value="viser"/>
+            <input type="hidden" name="table" id="table" value="OrdonnerPayement"/>
+            <% 
+                pr.getTableau().setNameActe("valider");
+                pr.getTableau().setNameBoutton("Valider");
+                out.println(pr.getTableau().getHtmlWithCheckbox());
+            %>  
+    </form>
     <% }else{
         %><center><h4>Pas de résultat</h4></center><%
     }
