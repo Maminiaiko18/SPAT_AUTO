@@ -57,8 +57,9 @@ public class OrdonnerPayement extends ClassEtat {
         return idengagement;
     }
 
-    public void setIdengagement(String idengagement) {
-        this.idengagement = idengagement;
+    public void setIdengagement(String idengagement) throws Exception{
+         if(this.getMode().compareToIgnoreCase("modif")==0&&(idengagement==null || idengagement == "")) throw new Exception("Désignation obligatoire");
+              this.idengagement = idengagement;
     }
 
     public void setTierslib(String tierslib) {
