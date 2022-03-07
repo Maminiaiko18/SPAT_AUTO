@@ -55,8 +55,6 @@
         pr.getFormu().getChamp("annee").setLibelle("Exercice");
         
         String reqniv = request.getParameter("niveau");
-        System.out.println("date1 " + date1);
-        System.out.println("date2 " + date2);
         String moisMin = date1 != null && !date1.isEmpty() ? ""+Utilitaire.stringToInt(Utilitaire.getMois(date1)) : "", moisMax = date2 != null && !date2.isEmpty() ? ""+Utilitaire.stringToInt(Utilitaire.getMois(date2)) : "";
         
         String[] colSomme = {"montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
