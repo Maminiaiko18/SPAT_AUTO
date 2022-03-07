@@ -117,7 +117,7 @@
         pi.getFormu().getChamp("code_etablissement").setLibelle("Code direction");
         pi.getFormu().getChamp("projet").setLibelle("Projet");
 
-        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeBudgetDepenseChoix.jsp", "compte;compte;comptelibelle");
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeBudgetDepenseChoix.jsp", "compte;compte;compte;compte;compte;comptelibelle");
         
         
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
