@@ -41,6 +41,7 @@
     map.put("details-engagement","");
     map.put("liste-bc", "");
     map.put("liste-liberation", "");
+    map.put("liste-op", "");
     
     String tab = request.getParameter("tab");
     if (tab == null) {
@@ -96,6 +97,7 @@
                     <li class="<%= map.get("liste-bc")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-bc">Liste bon de commande</a></li>
                     <li class="<%= map.get("listeff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=listeff">Liste Facture Fournisseur</a></li>
                     <li class="<%= map.get("liste-liberation")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-liberation">Liste libération</a></li>
+                    <li class="<%= map.get("liste-op")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-op">Liste OP</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-content">       
