@@ -229,7 +229,7 @@ public class LigneCredit extends ClassEtat {
                     + "         left join (select en.ID, sum(li.MONTANT) as MONTANT, DATY as DATYENGAGEMENT, PROJET, codeetablissement\n"
                     + "                    from LIBERER li\n"
                     + "                             left join ENGAGEMENT en on en.ID = li.IDENGAGEMENT\n"
-                    + "                    where en.ETAT >= 11 \n"
+                    + "                    where li.ETAT >= 11 \n"
                     + whereDaty.replaceAll("daty", "en.daty")
                     + "                    group by en.ID, DATY, PROJET, codeetablissement) gr\n"
                     + "                   on nt.PROJET = gr.PROJET and nt.CODEETABLISSEMENT = gr.CODEETABLISSEMENT\n"
