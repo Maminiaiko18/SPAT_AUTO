@@ -47,10 +47,18 @@ public class OrdonnerPayement extends ClassEtat {
     private String folio, numcheque, numfact;
   private double montantpaye,reste;
   private String modepaiementlib, tierslib;
-    private String idfacture,type;
+    private String idfacture,type,idengagement;
 
     public String getTierslib() {
         return tierslib;
+    }
+
+    public String getIdengagement() {
+        return idengagement;
+    }
+
+    public void setIdengagement(String idengagement) {
+        this.idengagement = idengagement;
     }
 
     public void setTierslib(String tierslib) {
