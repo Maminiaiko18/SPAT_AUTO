@@ -42,7 +42,7 @@ public class PaiementEngagement extends ClassMAPTable {
     }
 
     public void setIdEngagement(String idEngagement) throws Exception{
-        if(this.getMode().compareToIgnoreCase("modif")==0&&(idEngagement == null || idEngagement == " " )) throw new Exception("idEngagement invalide");
+        if(this.getMode().compareToIgnoreCase("modif")==0&&(idEngagement == null || idEngagement == "" )) throw new Exception("idEngagement invalide");
         this.idEngagement = idEngagement;
     }
 
@@ -51,7 +51,7 @@ public class PaiementEngagement extends ClassMAPTable {
     }
 
     public void setIdOP(String idOP) throws Exception{
-        if(this.getMode().compareToIgnoreCase("modif")==0&&(idOP == null || idEngagement == " ")) throw new Exception("idOP invalide");
+        if(this.getMode().compareToIgnoreCase("modif")==0&&(idOP == null || idEngagement == "")) throw new Exception("idOP invalide");
         this.idOP = idOP;
     }
 
@@ -89,15 +89,25 @@ public class PaiementEngagement extends ClassMAPTable {
         if(result.length > 0) return result[0];
         return null;
     }
+    
+    public void checkDoublon(Connection c) throws Exception{
+        try{
+            PaiementEngagement pe = new PaiementEngagement();
+            pe.setIdEngagement(this.getIdEngagement());
+            PaiementEngagement[] lpe=(PaiementEngagement[])CGenUtil.rechercher(pe, null, null, c, "");
+            if(lpe.length>0)throw new Exception("Détails engagement déjà payé");
+        }catch(Exception e){ throw e;}
+    }
 
     @Override
     public void controler(Connection c) throws Exception {
-        if(this.getIdOP()==null){
+        /*if(this.getIdOP()==null){
             OrdonnerPayement op=this.findOP(null, c);
             if(op.getEtat()< ConstanteEtat.getEtatValider()){
                 throw new Exception ("OP non visé");
             }
-        }      
+        } */   
+        this.checkDoublon(c);
         super.controler(c); 
     }
     

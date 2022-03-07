@@ -156,19 +156,18 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         super.setCompte( compte);
     }
     
-    public void checkCompte(Connection c) throws Exception{
-        
+    public void checkCompte(String nomtable,Connection c) throws Exception{       
         try{   
             FactureFournisseur ff = this.findMere(c);
             if(ff != null && ff.getCode_etablissement()!=null && ff.getProjet()!=null){
-                LigneCredit[] lc = ff.findLigneCredit("SITUATIONLCDEPENSEVSD", c);
+                LigneCredit[] lc = ff.findLigneCredit(nomtable, c,this.getCompte());
                 int t = lc.length;
                 for(int i = 0; i < t; i++){
-                    if(lc[i].getCompte().contains(this.getCompte())){
+                    if(lc[i].getCompte().contains(this.getCompte()) && lc[i].getRestebudget()>(this.getPu()*this.getQuantite()*this.getDuree())){
                         return;
                     }
                 }
-                throw new Exception("Compte introuvable dans les lignes de credit");
+                throw new Exception("Compte introuvable dans les lignes de credit ou Reste sur budget insuffisant");
             }
         }
         catch(Exception e){
@@ -176,10 +175,13 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         }
     }
     
+    
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
         try{
-            this.checkCompte(c);
+            String nomtable="situationLCDepenseGRP"; //budget groupé par direction et projet
+            if(this.getCompte()!=null&&this.getCompte().compareTo("")!=0&&this.getCompte().length()==11) nomtable="SITUATIONLCDEPENSEVSD"; //budgetindividuel
+            this.checkCompte(nomtable,c);
         }
         catch(Exception e){
             throw e;

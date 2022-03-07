@@ -689,12 +689,13 @@ public class FactureFournisseur extends FactureClient {
         }
     }
     
-    public LigneCredit[] findLigneCredit(String nomtable, Connection c) throws Exception{   
+    public LigneCredit[] findLigneCredit(String nomtable, Connection c, String compte) throws Exception{   
         try{
             LigneCredit lncredit = new LigneCredit();
             lncredit.setNomTable(nomtable);
             lncredit.setIdcodeEtablissement(this.getCode_etablissement());
             lncredit.setIdprojet(this.getProjet());
+            if(compte!=null&&compte.compareTo("")!=0) lncredit.setCompte(compte);
             LigneCredit[] res = (LigneCredit[]) CGenUtil.rechercher(lncredit, null, null, c, "");
             return res;
         }catch(Exception e){

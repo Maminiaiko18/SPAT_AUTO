@@ -191,6 +191,16 @@ public class OrdonnerPayement extends ClassEtat {
         this.setRemarque(remarque);
         this.setEtat(etat);
     }
+    public OrdonnerPayement (String ded_id,double montant,Date daty,String iduser,String remarque,int etat,String tiers){
+        this.setNomTable("OrdonnerPayement");
+        this.setDed_Id(ded_id);
+        this.setMontant(montant);
+        this.setDaty(daty);
+        this.setIduser(iduser);
+        this.setRemarque(remarque);
+        this.setEtat(etat);
+        this.setTiers(tiers);
+    }
     public OrdonnerPayement(String id, String ded, String ligne, String dt, String mont, String rem, String eta) {
         this.setNomTable("OrdonnerPayement");
         this.setId(id);

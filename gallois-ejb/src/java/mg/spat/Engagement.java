@@ -324,20 +324,25 @@ public class Engagement extends ClassEtat {
             if(eng == null) throw new Exception("Engagement introuvable");
             
             if(eng.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Engagement non vise");
+            if(eng.getAvecFacture()==1) throw new Exception("Paiement détail impossible pour un engagement avec facture");
             
             String[] ids = Utilitaire.stringToTab(idFilles, ";");
+            String idFillesIn = Utilitaire.tabToString(ids, "'", ",");
             
             FactureFournisseur[] ff = eng.getFacturesLiees(null, c);
+            if(ff == null || ff.length == 0) throw new Exception("Facture introuvable pour cet engagement");
             
-            if(ff != null && ff.length > 0) {
-                OrdonnerPayement op = ff[0].findOP(null, c);
-                if(op == null) throw new Exception("OP inexistant");
-                
-                for(int i=0; i < ids.length; i++) {
-                    PaiementEngagement engPaie = new PaiementEngagement(ids[i], op.getId());
-                    engPaie.createObject(u, c);
-                }
+            EngagementFille[] filles=(EngagementFille[])CGenUtil.rechercher(new EngagementFille(), null, null, c, " and id in ("+idFillesIn+")");
+            if(filles == null || filles.length==0) throw new Exception("Aucun détail engement trouvé");
+            
+            for(int i=0; i < filles.length; i++) {
+                OrdonnerPayement op=new OrdonnerPayement(ff[0].getId(),filles[i].getMontant(),Utilitaire.dateDuJourSql(),u,"OP auto - "+filles[i].getDesignation(),ConstanteEtat.getEtatCreer(),ff[0].getTiers());
+                op.createObject(u, c);
+
+                PaiementEngagement engPaie = new PaiementEngagement(filles[i].getId(), op.getId());
+                engPaie.createObject(u, c);
             }
+            
             
             if(check) c.commit();
         } catch(Exception ex){
