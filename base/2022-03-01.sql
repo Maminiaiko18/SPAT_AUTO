@@ -144,3 +144,34 @@ BEGIN
   SELECT seqpayementEngagement.nextval INTO retour FROM dual;
   return retour;
 END;;
+
+create or replace view DETAILSFACTUREFOURNISSEUR_PAYE as
+select dff.ID,
+       cast('-' as varchar2(100))                                  IDINGREDIENT,
+       dff.QUANTITE                                             as QTE,
+       dff.PU,
+       dff.IDMERE,
+       dff.COMPTE,
+       dff.PUDEVISE,
+       dff.IDDQE,
+       dff.MARGE,
+       dff.TVA,
+       ff.DATY,
+       dff1.MONTANTTAUX + MONTANTTAUXTVA - MONTANTAVOIRAVECTAUX as MONTANTTTC,
+       ((ff.MONTANTPAYE) / nvl(nullif(ff.MONTANTTTC, 0), 1))    as montantpayepourc,
+       (dff1.MONTANTTAUX + MONTANTTAUXTVA - MONTANTAVOIRAVECTAUX) *
+       ((ff.MONTANTPAYE) / nvl(nullif(ff.MONTANTTTC, 0), 1))    as montantpaye,
+       ff.EXERCICE,
+       dff.ANNEE,
+       dff.MOIS,
+       case
+           when dff.compte is null then null
+           else
+               ff.code_etablissementlib || '' || ff.projetlib || '' || dff.compte
+           end as  COMPTECPL,
+       dff1.IDENGAGEMENT,
+       dff1.IDLC
+from factfourn_msum_lib ff
+         right join FACTURE_FOURNISSEUR_FILLE dff on dff.IDMERE = ff.id
+         right join FACTFOURN_MONTANT dff1 on dff1.id = dff.id
+where ff.ETAT >= 11;
