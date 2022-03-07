@@ -214,7 +214,7 @@ public class Engagement extends ClassEtat {
         FactureFournisseur ff = new FactureFournisseur();
         ff.setDesignation(this.getDesignation());
         ff.setTypeEngagement("ED");
-        ff.setCodeEtablissement(this.getCodeEtablissement());
+        ff.setCode_etablissement(this.getCodeEtablissement()); 
         ff.setDaty(Utilitaire.dateDuJourSql());
         ff.setProjet(this.getProjet());
         ff.setIdengagement(this.getId());
