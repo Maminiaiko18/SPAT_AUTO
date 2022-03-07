@@ -67,7 +67,8 @@ public class LiaisonIntraTable extends ClassMAPTable {
             }
             
             FactureFournisseur ff = new FactureFournisseur();
-            ff.setNomTable("FACTUREFOURNVALIDE_V");
+            //ff.setNomTable("FACTUREFOURNVALIDE_V");
+            ff.setNomTable("FACTFOURN_MSUM_LIBV");
             FactureFournisseur[] result = (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, String.format(" and id = '%s' ", this.getId1()));
             return result.length > 0;
         } catch (Exception e) {

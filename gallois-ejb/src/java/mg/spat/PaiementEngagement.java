@@ -42,7 +42,7 @@ public class PaiementEngagement extends ClassMAPTable {
     }
 
     public void setIdEngagement(String idEngagement) throws Exception{
-        if(this.getMode().compareToIgnoreCase("modif")==0&&(idEngagement == null || idEngagement == "" )) throw new Exception("idEngagement invalide");
+        if(this.getMode().compareToIgnoreCase("modif")==0&&(idEngagement == null || idEngagement.compareTo("")==0 )) throw new Exception("idEngagement invalide");
         this.idEngagement = idEngagement;
     }
 
@@ -51,7 +51,7 @@ public class PaiementEngagement extends ClassMAPTable {
     }
 
     public void setIdOP(String idOP) throws Exception{
-        if(this.getMode().compareToIgnoreCase("modif")==0&&(idOP == null || idEngagement == "")) throw new Exception("idOP invalide");
+        if(this.getMode().compareToIgnoreCase("modif")==0&&(idOP == null || idOP.compareTo("")==0)) throw new Exception("idOP invalide");
         this.idOP = idOP;
     }
 

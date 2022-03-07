@@ -378,10 +378,10 @@ public class OrdonnerPayement extends ClassEtat {
         this.setIduser(u);
         String[] idFact = this.getDed_Id().split(";");
 
-        FactureFournisseur[] factures = this.getFactures(c);
+        /*FactureFournisseur[] factures = this.getFactures(c);
         if(factures.length>0){
             this.setMontant(AdminGen.calculSommeDouble(factures, "montantreste"));
-        }
+        }*/
         this.setNumeroop(genererNumeroOP(c));
         
         return super.createObject(u, c);

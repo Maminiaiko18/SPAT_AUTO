@@ -338,7 +338,6 @@ public class Engagement extends ClassEtat {
             for(int i=0; i < filles.length; i++) {
                 OrdonnerPayement op=new OrdonnerPayement(ff[0].getId(),filles[i].getMontant(),Utilitaire.dateDuJourSql(),u,"OP auto - "+filles[i].getDesignation(),ConstanteEtat.getEtatCreer(),ff[0].getTiers());
                 op.createObject(u, c);
-
                 PaiementEngagement engPaie = new PaiementEngagement(filles[i].getId(), op.getId());
                 engPaie.createObject(u, c);
             }
