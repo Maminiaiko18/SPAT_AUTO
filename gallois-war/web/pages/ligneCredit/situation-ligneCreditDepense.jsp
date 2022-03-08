@@ -24,7 +24,7 @@
         String listeCrt[] = {"compteInv", "compteSimple", "direction", "projet", "directionProjet", "daty", "annee"};
         String listeInt[] = {"daty"};
 //        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
-        String libEntete[] = {"direction", "projet", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
+        String libEntete[] = {"direction", "projet", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget", "resteApresEngmt"};
         PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -57,7 +57,7 @@
         String reqniv = request.getParameter("niveau");
         String moisMin = date1 != null && !date1.isEmpty() ? ""+Utilitaire.stringToInt(Utilitaire.getMois(date1)) : "", moisMax = date2 != null && !date2.isEmpty() ? ""+Utilitaire.stringToInt(Utilitaire.getMois(date2)) : "";
         
-        String[] colSomme = {"montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
+        String[] colSomme = {"montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget", "resteApresEngmt"};
         pr.creerObjetPage(libEntete, colSomme);
         
 //        LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, reqniv, annee, request.getParameter("mois"), null);
@@ -154,6 +154,7 @@
                                     <th>% D&eacute;caiss&eacute;</th>
                                     <th>A recouvrir</th>
                                     <th>Reste sur budget</th>
+                                    <th>Reste apr&egrave;s engagement</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -169,6 +170,7 @@
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPourcPaye())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getArecouvrir())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getRestebudget())%></td>
+                                    <td align="right"><%=Utilitaire.formaterAr(data[i].getResteApresEngmt())%></td>
                                 </tr>
                                 <% }%>
                             </tbody>
