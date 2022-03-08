@@ -231,9 +231,9 @@ public class AvoirFC extends ClassMere {
         this.idfacture = idfacture;
     }
     
-    public String genererSequence(Connection c, String nomtable, int longueur) throws Exception {
-        String requete = "SELECT  * FROM %s";
-        requete = String.format(requete, nomtable);
+    public String genererSequence(Connection c, String nomtable, int longueur, String awhere) throws Exception {
+        String requete = "SELECT  * FROM %s where 1 < 2 %s";
+        requete = String.format(requete, nomtable, awhere);
 
 //        System.out.println("requete " + requete);
         TypeObjet obj = new TypeObjet();
@@ -244,9 +244,10 @@ public class AvoirFC extends ClassMere {
         if (seq != null && seq.length > 0) {
             sequence = seq[0].getVal();
         }
-
-        // return Utilitaire.completerInt(longueur, sequence);
-        return  sequence;
+        
+        if(sequence == null || sequence.isEmpty() || sequence.equals("0")) sequence = "1";
+        
+        return Utilitaire.completerInt(longueur, sequence);
     } 
     
     @Override
@@ -268,8 +269,10 @@ public class AvoirFC extends ClassMere {
         
         String retour = annee+mois+valCateg;
         
-        String seq = this.genererSequence(c, "NUMEROAVOIRFC", 3);
-        return retour += Utilitaire.completerInt(9 - retour.length(), seq);
+        String awhere = String.format(" and id like '%s' and desce = '%s'", this.getCategorie(), "01/" + mois + "/" + Utilitaire.getAnnee(daty));
+        
+        String seq = this.genererSequence(c, "NUMEROAVOIRFC", 4, awhere);
+        return retour += seq;
     }
     
     public TypeObjet getCategorie(Connection c) throws Exception {
