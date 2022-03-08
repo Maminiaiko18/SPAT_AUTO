@@ -15,7 +15,7 @@
     String dateString2 = request.getParameter("date2");    
     String cpt_rubrique = Utilitaire.champNull(request.getParameter("cpt_rubrique"));
     
-    DetailsRubrique[] details = ComptaBilan.getSolde(reference, "comptabilanpassif", "Debit", dateString1, dateString2,cpt_rubrique);
+    DetailsRubrique[] details = ComptaBilan.getSolde(reference, "comptabilanpassif", "Credit", dateString1, dateString2,cpt_rubrique);
     double total=AdminGen.calculSommeDouble(details, "ec_montant");
 
 %>
