@@ -683,7 +683,7 @@ public class FactureFournisseur extends FactureClient {
     @Override
     public void controler(Connection c) throws Exception {
         super.controler(c); 
-        if(this.getIdEngagement() != null && this.getIdEngagement().compareTo("") != 0){
+        if(this.getIdengagement() != null && this.getIdengagement().compareTo("") != 0){
             Engagement eg = this.findEngagement(c);
             if(eg == null) throw new Exception("Engagement non visé");
         }

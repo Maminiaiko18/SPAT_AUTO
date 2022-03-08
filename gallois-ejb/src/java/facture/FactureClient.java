@@ -58,7 +58,7 @@ public class FactureClient extends ClassMere {
     private double ecart;
     private int exercice;
     private String idavoir;
-    private String typeclientlib,factureLiee,idEngagement ; 
+    private String typeclientlib,factureLiee;//,idEngagement ; 
     private int estAuto;
     private String typeEngagement;
 
@@ -117,13 +117,13 @@ public class FactureClient extends ClassMere {
         this.montantttcvrai = montantttcvrai;
     }
 
-    public String getIdEngagement() {
+    /*public String getIdEngagement() {
         return idEngagement;
     }
 
     public void setIdEngagement(String idEngagement) {
         this.idEngagement = idEngagement;
-    }
+    }*/
 
     
     public double getEcart() {
