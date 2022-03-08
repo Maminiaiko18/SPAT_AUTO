@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lignecredit.LigneCredit;
+import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.Utilitaire;
 
@@ -180,8 +181,10 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
         try{
             String nomtable="situationLCDepenseGRP"; //budget groupé par direction et projet
-            if(this.getCompte()!=null&&this.getCompte().compareTo("")!=0&&this.getCompte().length()==11) nomtable="SITUATIONLCDEPENSEVSD"; //budgetindividuel
-            this.checkCompte(nomtable,c);
+            if(this.getCompte()!=null && this.getCompte().compareTo("")!=0) {
+                if(this.getCompte().length()==11) nomtable="SITUATIONLCDEPENSEVSD"; //budgetindividuel
+                if(!this.getCompte().equalsIgnoreCase(Constante.cptNonBudgetise)) this.checkCompte(nomtable,c);
+            }
         }
         catch(Exception e){
             throw e;
