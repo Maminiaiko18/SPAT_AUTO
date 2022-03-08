@@ -21,7 +21,9 @@ public class Constante {
     public static String compteTransbordement="70627";
     public static String idPilotageCalcule="RB0000000021170445";
     public static String idRemorquageCalcule="RB0000000021170446";
-    
+    public static String cptNonBudgetise = "00000000000";
+
+
     public static String idLamanageCalcule="RB0000000021170447";
     public static String idPavillonMada="PAYS000057";
     public static String idCargaisonPetrole="CGM00001";
