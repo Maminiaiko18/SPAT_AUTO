@@ -99,7 +99,7 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste des Credits Depenses </h1>
+        <h1>FCC d&eacute;pense</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=ligneCredit/situation-ligneCreditDepense.jsp" method="post" name="absence" id="absence">
