@@ -23,6 +23,15 @@ public class LigneCredit extends ClassEtat {
     private String designation, compte, compteCpl, compteInv, compteSimple, directon, projet, directionProjet, comptestr, compteG, codeEtablissement, direction;
     private String codeEtablissementlib, projetlib;
     private String idprojet, idcodeEtablissement;
+    private double resteApresEngmt;
+
+    public double getResteApresEngmt() {
+        return resteApresEngmt;
+    }
+
+    public void setResteApresEngmt(double resteApresEngmt) {
+        this.resteApresEngmt = resteApresEngmt;
+    }
 
     public String getDirection() {
         return direction;
