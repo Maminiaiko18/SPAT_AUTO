@@ -10,290 +10,305 @@
 <%@page import="affichage.*"%>
 <%@page import="utilitaire.*"%>
 
-                                    <%
-    try{
-    UserEJB u = null;
-    String idUser= "";
-    u = (UserEJB) session.getValue("u");
-    idUser = ""+u.getUser().getTuppleID();
+<%
+    try {
+        UserEJB u = null;
+        String idUser = "";
+        u = (UserEJB) session.getValue("u");
+        idUser = "" + u.getUser().getTuppleID();
 
-    String autreparsley = "data-parsley-range='[8, 40]' required";
-    facture.FactureFournisseur  fc = new facture.FactureFournisseur();
-    fc.setNomTable("facture_Fournisseur_Mere");
-    
+        String autreparsley = "data-parsley-range='[8, 40]' required";
+        facture.FactureFournisseur fc = new facture.FactureFournisseur();
+        fc.setNomTable("facture_Fournisseur_Mere");
+
 // Data BL
-    String idBL = request.getParameter("idBL");
-    if(idBL != null) fc.setIdBL(idBL);
-    BonDeLivraisonFilleReste[] livraisons = fc.getBP(null);
+        String idBL = request.getParameter("idBL");
+        if (idBL != null) {
+            fc.setIdBL(idBL);
+        }
+        BonDeLivraisonFilleReste[] livraisons = fc.getBP(null);
 //------------------------------------
-    
-    String titre="Enregistrer facture fournisseur";
-    String categorie=Constante.categorieFFdefault;
-    String mode=request.getParameter("mode");
-    if((mode!=null) && (mode.compareToIgnoreCase("1")==0)){
-        titre="Enregistrer Bon provisoire";
-        categorie=Constante.getCategorieFFBP();
-    }
-    facture.FactureFournisseurDetails fcfille = new facture.FactureFournisseurDetails();
-    fcfille.setNomTable("FACTFOURN_FILLE_PLUS");
-    
-    int taille = 10;
-    if(livraisons.length > taille) taille = livraisons.length;
-    
-    PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, taille, u);
-    pi.setLien((String) session.getValue("lien"));
-    System.out.println("u.getUser().getCodeEtablissement()=="+u.getUser().getCodeEtablissement());
-    if(u.getUser().getCodeEtablissement()!=null){
-        CodeEtablissement code= u.getCodeEtablissement();
-        pi.getFormu().getChamp("code_etablissement").setDefaut(u.getUser().getCodeEtablissement());
-        pi.getFormu().getChamp("code_etablissement").setValeurLibelle(code.getVal());
-    }
-    String mere=request.getParameter("idmere");
-    if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
-    
-    pi.getFormu().getChamp("exercice").setLibelle("Exercice");
-    pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
-    pi.getFormu().getChamp("designation").setLibelle("Note explicative");
-    //pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro Compta");
-    pi.getFormu().getChamp("numeroop").setVisible(false);
-    pi.getFormu().getChamp("daty").setLibelle("Date");
-    pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
-    pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
-    pi.getFormu().getChamp("idprevision").setVisible(false);
-    pi.getFormu().getChamp("nature").setVisible(false);
-    pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
-    pi.getFormu().getChamp("idBL").setAutre("readonly");
-    pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");  
-    pi.getFormu().getChamp("code_etablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp", "code_etablissement;code_etablissementlibelle");
-    pi.getFormu().getChamp("code_etablissement").setAutre("readonly");
-    pi.getFormu().getChamp("code_etablissement").setLibelle("Code direction");  
-    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp", "projet;projetlibelle"); 
-    pi.getFormu().getChamp("projet").setAutre("readonly");
-    pi.getFormu().getChamp("projet").setLibelle("Projet");  
-    pi.getFormu().getChamp("idBL").setDefaut(Utilitaire.champNull(request.getParameter("idBL")));
-    pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
-    pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
-    pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
-    pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
-    pi.getFormu().getChamp("tva").setVisible(false);
-    pi.getFormu().getChamp("estMictsl").setVisible(false);
-    pi.getFormu().getChamp("estAuto").setVisible(false);
-    pi.getFormu().getChamp("typeEngagement").setVisible(false);
-    
-    if(request.getParameter("idBL") != null){
-        pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
-        pi.getFormu().getChamp("projet").setValeurLibelle(livraisons[0].getProjetlib());
-        pi.getFormu().getChamp("code_etablissement").setValeur(livraisons[0].getCode_etablissement());
-        pi.getFormu().getChamp("code_etablissement").setValeurLibelle(livraisons[0].getCode_etablissementlib());
-        pi.getFormu().getChamp("tiers").setValeur(livraisons[0].getIdtiers());
-        pi.getFormu().getChamp("tiers").setValeurLibelle(livraisons[0].getNomtiers());
-    }
-    
-    
-    pi.getFormu().getChamp("tiers").setAutre("readonly");
-    pi.getFormu().getChamp("iduser").setAutre("readonly");
-    pi.getFormu().getChamp("idengagement").setAutre("readonly");
-    
-    Engagement engagement=new Engagement();
-    if(request.getParameter("idEngagement")!=null){
-        engagement=(Engagement)engagement.getById(request.getParameter("idEngagement"), "engagementlib", null);
-        pi.getFormu().getChamp("idengagement").setDefaut(engagement.getId());
-        pi.getFormu().getChamp("idengagement").setValeurLibelle(engagement.getDesignation());
-        pi.getFormu().getChamp("projet").setDefaut(engagement.getProjet());
-        pi.getFormu().getChamp("projet").setValeurLibelle(engagement.getProjetlib());
-        pi.getFormu().getChamp("code_etablissement").setDefaut(engagement.getCodeEtablissement());
-        pi.getFormu().getChamp("code_etablissement").setValeurLibelle(engagement.getCodeEtablissementlib());
-    }
-    affichage.Liste[] listes= new affichage.Liste[3];
-    
-    TypeObjet type = new TypeObjet();
+
+        String titre = "Enregistrer facture fournisseur";
+        String categorie = Constante.categorieFFdefault;
+        String mode = request.getParameter("mode");
+        if ((mode != null) && (mode.compareToIgnoreCase("1") == 0)) {
+            titre = "Enregistrer Bon provisoire";
+            categorie = Constante.getCategorieFFBP();
+        }
+        facture.FactureFournisseurDetails fcfille = new facture.FactureFournisseurDetails();
+        fcfille.setNomTable("FACTFOURN_FILLE_PLUS");
+
+        int taille = 10;
+        if (livraisons.length > taille) {
+            taille = livraisons.length;
+        }
+
+        PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, taille, u);
+        pi.setLien((String) session.getValue("lien"));
+        System.out.println("u.getUser().getCodeEtablissement()==" + u.getUser().getCodeEtablissement());
+        if (u.getUser().getCodeEtablissement() != null) {
+            CodeEtablissement code = u.getCodeEtablissement();
+            pi.getFormu().getChamp("code_etablissement").setDefaut(u.getUser().getCodeEtablissement());
+            pi.getFormu().getChamp("code_etablissement").setValeurLibelle(code.getVal());
+        }
+        String mere = request.getParameter("idmere");
+        if (mere != null && mere.compareToIgnoreCase("") != 0) {
+            pi.getFormu().getChamp("idmere").setDefaut(mere);
+        }
+
+        pi.getFormu().getChamp("exercice").setLibelle("Exercice");
+        pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
+        pi.getFormu().getChamp("designation").setLibelle("Note explicative");
+        //pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro Compta");
+        pi.getFormu().getChamp("numeroop").setVisible(false);
+        pi.getFormu().getChamp("daty").setLibelle("Date");
+        pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
+        pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
+        pi.getFormu().getChamp("idprevision").setVisible(false);
+        pi.getFormu().getChamp("nature").setVisible(false);
+        pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
+        pi.getFormu().getChamp("idBL").setAutre("readonly");
+        pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");
+        pi.getFormu().getChamp("code_etablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp", "code_etablissement;code_etablissementlibelle");
+        pi.getFormu().getChamp("code_etablissement").setAutre("readonly");
+        pi.getFormu().getChamp("code_etablissement").setLibelle("Code direction");
+        pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp", "projet;projetlibelle");
+        pi.getFormu().getChamp("projet").setAutre("readonly");
+        pi.getFormu().getChamp("projet").setLibelle("Projet");
+        pi.getFormu().getChamp("idBL").setDefaut(Utilitaire.champNull(request.getParameter("idBL")));
+        pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+        pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+        pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
+        pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
+        pi.getFormu().getChamp("tva").setVisible(false);
+        pi.getFormu().getChamp("estMictsl").setVisible(false);
+        pi.getFormu().getChamp("estAuto").setVisible(false);
+        pi.getFormu().getChamp("typeEngagement").setVisible(false);
+
+        if (request.getParameter("idBL") != null) {
+            pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
+            pi.getFormu().getChamp("projet").setValeurLibelle(livraisons[0].getProjetlib());
+            pi.getFormu().getChamp("code_etablissement").setValeur(livraisons[0].getCode_etablissement());
+            pi.getFormu().getChamp("code_etablissement").setValeurLibelle(livraisons[0].getCode_etablissementlib());
+            pi.getFormu().getChamp("tiers").setValeur(livraisons[0].getIdtiers());
+            pi.getFormu().getChamp("tiers").setValeurLibelle(livraisons[0].getNomtiers());
+        }
+
+        pi.getFormu().getChamp("tiers").setAutre("readonly");
+        pi.getFormu().getChamp("iduser").setAutre("readonly");
+        pi.getFormu().getChamp("idengagement").setAutre("readonly");
+
+        Engagement engagement = new Engagement();
+        if (request.getParameter("idEngagement") != null) {
+            engagement = (Engagement) engagement.getById(request.getParameter("idEngagement"), "engagementlib", null);
+            pi.getFormu().getChamp("idengagement").setDefaut(engagement.getId());
+            pi.getFormu().getChamp("idengagement").setValeurLibelle(engagement.getDesignation());
+            pi.getFormu().getChamp("projet").setDefaut(engagement.getProjet());
+            pi.getFormu().getChamp("projet").setValeurLibelle(engagement.getProjetlib());
+            pi.getFormu().getChamp("code_etablissement").setDefaut(engagement.getCodeEtablissement());
+            pi.getFormu().getChamp("code_etablissement").setValeurLibelle(engagement.getCodeEtablissementlib());
+        }
+        affichage.Liste[] listes = new affichage.Liste[3];
+
+        TypeObjet type = new TypeObjet();
         type.setNomTable("typefc");
         listes[0] = new Liste("type", type, "VAL", "id");
-        
-     TypeObjet categ = new TypeObjet();
+
+        TypeObjet categ = new TypeObjet();
         categ.setNomTable("categorieFF");
         listes[1] = new Liste("idcategorie", categ, "VAL", "id");
         listes[1].setDefaultSelected(categorie);
-    
-    TypeObjet devise = new TypeObjet();
+
+        TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
         listes[2] = new Liste("deviseMere", devise, "VAL", "id");
         listes[2].setDefaultSelected(Constante.deviseAr);
-    
-    pi.getFormu().changerEnChamp(listes);
-    
-    pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
-    pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
-    pi.getFormu().getChamp("idProvision").setAutre("readonly");
-    pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
-    pi.getFormu().getChamp("idProvision").setLibelle("Bon provisoire");
-    
-    affichage.Liste[] listed = new affichage.Liste[2];
+
+        pi.getFormu().changerEnChamp(listes);
+
+        pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
+        pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
+        pi.getFormu().getChamp("idProvision").setAutre("readonly");
+        pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");
+        pi.getFormu().getChamp("idProvision").setLibelle("Bon provisoire");
+
+        affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
         listed[0] = new Liste("devise", o, "VAL", "id");
-        
+
         TypeObjet mois = new TypeObjet();
         mois.setNomTable("mois");
         listed[1] = new Liste("mois", mois, "val", "id");
         listed[1].setApresW("order by id asc");
         pi.getFormufle().changerEnChamp(listed);
-        if(livraisons.length>0){
-           pi.getFormu().getChamp("tiers").setDefaut(livraisons[0].getIdtiers());
+        if (livraisons.length > 0) {
+            pi.getFormu().getChamp("tiers").setDefaut(livraisons[0].getIdtiers());
         }
-    for( int i = 0 ; i < taille ; i++ ){
-        pi.getFormufle().getChamp("idBLF_"+i).setAutre("readonly");
-        pi.getFormufle().getChamp("quantite_"+i).setAutre("onblur='calculerMontant("+i+")'");
-        pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
-        pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
-        pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
-        pi.getFormufle().getChamp("taux_"+i).setDefaut("1");
-        pi.getFormufle().getChamp("mois_"+i).setDefaut(""+Utilitaire.getMoisEnCoursReel());
-        pi.getFormufle().getChamp("annee_"+i).setDefaut(Utilitaire.getAnneeEnCours());
-        pi.getFormufle().getChamp("idactivite_"+i).setVisible(false);
-        //pi.getFormufle().getChamp("compte_"+i).setPageAppel("choix/listeBudgetDepenseChoix.jsp", "compte_" + i+";comptelibelle_"+i  );
-        
-        if(i < livraisons.length) {
-            pi.getFormufle().getChamp("idBLF_"+i).setDefaut(livraisons[i].getId());
-            pi.getFormufle().getChamp("pu_"+i).setDefaut(Utilitaire.formaterAr(livraisons[i].getPu()));
-            pi.getFormufle().getChamp("quantite_"+i).setDefaut(Utilitaire.formaterAr(livraisons[i].getQuantiteReste()));
-            pi.getFormufle().getChamp("tva_"+i).setDefaut(Utilitaire.formaterAr(livraisons[i].getTva()));
-            pi.getFormufle().getChamp("designation_"+i).setDefaut(Utilitaire.champNull(livraisons[i].getProduit()));
+
+        String jsScript = "<script>\n";
+        for (int i = 0; i < taille; i++) {
+            jsScript += "$('#comptelibelle_" + i + "').change(function() { changerValeur(" + i + ") });\n";
+            pi.getFormufle().getChamp("idBLF_" + i).setAutre("readonly");
+            pi.getFormufle().getChamp("quantite_" + i).setAutre("onblur='calculerMontant(" + i + ")'");
+            pi.getFormufle().getChamp("pu_" + i).setAutre("onblur='calculerMontant(" + i + ")'");
+            pi.getFormufle().getChamp("montant_" + i).setAutre("readonly");
+            pi.getFormufle().getChamp("devise_" + i).setDefaut(Constante.deviseAr);
+            pi.getFormufle().getChamp("taux_" + i).setDefaut("1");
+            pi.getFormufle().getChamp("mois_" + i).setDefaut("" + Utilitaire.getMoisEnCoursReel());
+            pi.getFormufle().getChamp("annee_" + i).setDefaut(Utilitaire.getAnneeEnCours());
+            pi.getFormufle().getChamp("idactivite_" + i).setVisible(false);
+            //pi.getFormufle().getChamp("compte_"+i).setPageAppel("choix/listeBudgetDepenseChoix.jsp", "compte_" + i+";comptelibelle_"+i  );
+
+            if (i < livraisons.length) {
+                pi.getFormufle().getChamp("idBLF_" + i).setDefaut(livraisons[i].getId());
+                pi.getFormufle().getChamp("pu_" + i).setDefaut(Utilitaire.formaterAr(livraisons[i].getPu()));
+                pi.getFormufle().getChamp("quantite_" + i).setDefaut(Utilitaire.formaterAr(livraisons[i].getQuantiteReste()));
+                pi.getFormufle().getChamp("tva_" + i).setDefaut(Utilitaire.formaterAr(livraisons[i].getTva()));
+                pi.getFormufle().getChamp("designation_" + i).setDefaut(Utilitaire.champNull(livraisons[i].getProduit()));
+            }
         }
-    }
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false);
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("idactivite"),false);
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubrique"),false);
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureDebut"),false);
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"),false);
-    
-    affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
-    pi.getFormufle().getChamp("idBLF_0").setLibelle("BL d&eacute;tail");
-    pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
-    pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
-    pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
-    pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
-    pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
-    pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
-    pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
-    pi.getFormufle().getChamp("tva_0").setLibelle("tva");
-    pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
-    pi.getFormufle().getChamp("rubrique_0").setVisible(false);
-    pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
-    
-    pi.getFormufle().getChamp("annee_0").setLibelle("Ann&eacute;e");
-    pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
-    pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
-    
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeBudgetDepenseChoix.jsp", "compte;compte;compte;compte;compte;comptelibelle");
-    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
-   
-    //affichage.Champ.setAutre(pi.getFormufle().getChampFille("compte"), "readonly");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
-    affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
-    
-    affichage.Champ.setDefaut(pi.getFormufle().getChampFille("annee"),Utilitaire.getAnneeEnCours());
-    affichage.Champ.setDefaut(pi.getFormufle().getChampFille("mois"),new Integer (Utilitaire.getMoisEnCours() + 1).toString());
-   
-    pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
-    pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("codePrestation").setVisible(false);
-    pi.getFormu().getChamp("code").setVisible(false);
+        jsScript += "</script>";
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("idactivite"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubrique"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureDebut"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"), false);
 
-    String[] listeOrdre = {"designation","quantite","compte","pu"};
-    //pi.getFormufle().setOrdre(listeOrdre);
+        affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
+        pi.getFormufle().getChamp("idBLF_0").setLibelle("BL d&eacute;tail");
+        pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
+        pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
+        pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
+        pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
+        pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
+        pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
+        pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+        pi.getFormufle().getChamp("tva_0").setLibelle("tva");
+        pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
+        pi.getFormufle().getChamp("rubrique_0").setVisible(false);
+        pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
 
-    pi.preparerDataFormu();
-       
+        pi.getFormufle().getChamp("annee_0").setLibelle("Ann&eacute;e");
+        pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
+        pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
+
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeBudgetDepenseChoix.jsp", "compte;compte;compte;compte;compte;comptelibelle");
+
+        //affichage.Champ.setAutre(pi.getFormufle().getChampFille("compte"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
+
+        affichage.Champ.setDefaut(pi.getFormufle().getChampFille("annee"), Utilitaire.getAnneeEnCours());
+        affichage.Champ.setDefaut(pi.getFormufle().getChampFille("mois"), new Integer(Utilitaire.getMoisEnCours() + 1).toString());
+
+        pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
+        pi.getFormu().getChamp("etat").setVisible(false);
+        pi.getFormu().getChamp("codePrestation").setVisible(false);
+        pi.getFormu().getChamp("code").setVisible(false);
+
+        String[] listeOrdre = {"designation", "quantite", "compte", "pu"};
+        //pi.getFormufle().setOrdre(listeOrdre);
+
+        pi.preparerDataFormu();
+
 %>
-                                        <div class="content-wrapper">
-                                            <h1>
-                                                <%= titre %>
-                                            </h1>
-                                            <!--  -->
-                                            <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
-                                                <%
+<div class="content-wrapper">
+    <h1>
+        <%= titre%>
+    </h1>
+    <!--  -->
+    <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
+        <%
             pi.getFormu().makeHtmlInsertTabIndex();
             pi.getFormufle().makeHtmlInsertTableauIndex();
             out.println(pi.getFormu().getHtmlInsert());
             out.println(pi.getFormufle().getHtmlTableauInsert());
         %>
 
-                                                    <input name="acte" type="hidden" id="nature" value="insert">
-                                                    <input name="bute" type="hidden" id="bute" value="facture/facture-fournisseur-fiche-vaovao.jsp">
-                                                    <input name="classe" type="hidden" id="classe" value="facture.FactureFournisseur">
-                                                    <input name="classefille" type="hidden" id="classefille" value="facture.FactureFournisseurDetails">
-                                                    <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=taille%>">
-                                                    <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
-                                            </form>
+        <input name="acte" type="hidden" id="nature" value="insert">
+        <input name="bute" type="hidden" id="bute" value="facture/facture-fournisseur-fiche-vaovao.jsp">
+        <input name="classe" type="hidden" id="classe" value="facture.FactureFournisseur">
+        <input name="classefille" type="hidden" id="classefille" value="facture.FactureFournisseurDetails">
+        <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=taille%>">
+        <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
+    </form>
 
-                                        </div>
-                                        <script language="JavaScript">
-                                            function calculerMontant(indice) {
-                                                var quantite, pu, montant;
-                                                quantite = parseFloat($('#quantite_' + indice).val());
-                                                //        quantite = quantite / 1000;
-                                                pu = parseFloat($('#pu_' + indice).val());
-                                                if (!isNaN(quantite) && !isNaN(pu)) {
-                                                    montant = quantite * pu;
-                                                    $('#montant_' + indice).val(montant.toFixed(2));
-                                                } else {
-                                                    $('#montant_' + indice).val('');
-                                                }
-                                            }
-                                            $('#designation').each(function() {
-                                                var textbox = $(document.createElement('textarea')).val(this.value);
-                                                console.log(this.attributes);
-                                                $.each(this.attributes, function() {
-                                                    if (this.specified) {
-                                                        textbox.prop(this.name, this.value)
-                                                    }
-                                                });
-                                                $(this).replaceWith(textbox);
-                                            });
-                                            var selectList = $('#test option');
+</div>
+<script language="JavaScript">
+    function changerValeur(indice) {
+        console.log('changer valeur');
+        const currentVal = $('#comptelibelle_'+indice).val();
+        if(currentVal) $('#compte_' + indice).val(currentVal);
+    }
+    function calculerMontant(indice) {
+        var quantite, pu, montant;
+        quantite = parseFloat($('#quantite_' + indice).val());
+        //        quantite = quantite / 1000;
+        pu = parseFloat($('#pu_' + indice).val());
+        if (!isNaN(quantite) && !isNaN(pu)) {
+            montant = quantite * pu;
+            $('#montant_' + indice).val(montant.toFixed(2));
+        } else {
+            $('#montant_' + indice).val('');
+        }
+    }
+    $('#designation').each(function () {
+        var textbox = $(document.createElement('textarea')).val(this.value);
+        console.log(this.attributes);
+        $.each(this.attributes, function () {
+            if (this.specified) {
+                textbox.prop(this.name, this.value)
+            }
+        });
+        $(this).replaceWith(textbox);
+    });
+    var selectList = $('#test option');
 
-                                            function sortList(select) {
-                                                var selectList = select.find("option");
-                                                selectList.sort(function(a, b) {
-                                                    a = a.value;
-                                                    b = b.value;
+    function sortList(select) {
+        var selectList = select.find("option");
+        selectList.sort(function (a, b) {
+            a = a.value;
+            b = b.value;
 
-                                                    return a - b;
-                                                });
-                                                select.html(selectList);
-                                            }
-                                            for (var iL = 0; iL < <%= taille %>; iL++) {
-                                                sortList($('#mois_' + iL));
-                                            }
-                                            $('#starticle').find("label[for='compte_0']").parent().attr('colspan', 2);
-                                            <% for (int i = 0; i < pi.getNombreLigne(); i++) { %>
-                                            console.log('init');
-                                            var designation = document.getElementById("designation_<%=i%>");
-                                            var textarea = document.createElement("textarea");
-                                            textarea.name = "designation_<%=i%>";
-                                            textarea.id = "designation_<%=i%>";
-                                            textarea.className = "form-control";
-                                            textarea.style.height = "100px";
-                                            textarea.value = designation.value;
-                                            designation.parentNode.replaceChild(textarea, designation);
+            return a - b;
+        });
+        select.html(selectList);
+    }
+    for (var iL = 0; iL < <%= taille%>; iL++) {
+        sortList($('#mois_' + iL));
+    }
+    $('#starticle').find("label[for='compte_0']").parent().attr('colspan', 2);
+    <% for (int i = 0; i < pi.getNombreLigne(); i++) {%>
+    console.log('init');
+    var designation = document.getElementById("designation_<%=i%>");
+    var textarea = document.createElement("textarea");
+    textarea.name = "designation_<%=i%>";
+    textarea.id = "designation_<%=i%>";
+    textarea.className = "form-control";
+    textarea.style.height = "100px";
+    textarea.value = designation.value;
+    designation.parentNode.replaceChild(textarea, designation);
 
 
 
-                                            var td = document.getElementById('compte_<%=i%>').parentElement;
-                                            var tdel = document.createElement("td");
-                                            td.after(tdel);
-                                            <%}%>
-                                        </script>
-                                        <%
-        } catch (Exception e) {
-                e.printStackTrace();
-    
+    var td = document.getElementById('compte_<%=i%>').parentElement;
+    var tdel = document.createElement("td");
+    td.after(tdel);
+    <%}%>
+</script>
+<%
+    out.println(jsScript);
+} catch (Exception e) {
+    e.printStackTrace();
+
 %>
-                                            <script language="JavaScript">
-                                                alert('<%=e.getMessage()%>');
-                                                history.back();
-                                            </script>
-                                            <% }%>
+<script language="JavaScript">
+    alert('<%=e.getMessage()%>');
+    history.back();
+</script>
+<% }%>
