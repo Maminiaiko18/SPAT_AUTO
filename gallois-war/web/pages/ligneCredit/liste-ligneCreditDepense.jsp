@@ -31,7 +31,7 @@
     pr.getFormu().getChamp("annee2").setLibelle("Ann&eacute;e max");
     pr.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     
-    String[] colSomme = null;
+    String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
