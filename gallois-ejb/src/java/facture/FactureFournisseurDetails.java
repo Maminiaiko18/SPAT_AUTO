@@ -164,7 +164,7 @@ public class FactureFournisseurDetails extends FactureClientDetails{
                 LigneCredit[] lc = ff.findLigneCredit(nomtable, c,this.getCompte());
                 int t = lc.length;
                 for(int i = 0; i < t; i++){
-                    if(lc[i].getCompte().contains(this.getCompte()) && lc[i].getRestebudget()>(this.getPu()*this.getQuantite()*this.getDuree())){
+                    if(lc[i].getCompte().contains(this.getCompte()) && lc[i].getRestebudget()>(this.getPu()*this.getQuantite())){
                         return;
                     }
                 }
