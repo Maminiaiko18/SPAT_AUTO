@@ -255,9 +255,10 @@ public class Engagement extends ClassEtat {
         }
         
         double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
-        if(montantTotal > this.getMontant()) throw new Exception("Montant details superieur au montant de l'engagement");
-                
-        this.setDispoAvant(lc.getRestebudget());
+        if(montantTotal > this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
+        if(this.getMontant() > lc.getResteApresEngmt()) throw new Exception("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getResteApresEngmt())+")");
+        //this.setDispoAvant(lc.getRestebudget());
+        this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(this.getDispoAvant() - this.getMontant());
         
         return super.validerObject(u, c); 
