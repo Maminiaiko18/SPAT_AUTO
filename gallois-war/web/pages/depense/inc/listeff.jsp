@@ -31,14 +31,26 @@
     pr.getTableau().setNameActe("valider");
     String html = pr.getTableau().getHtmlWithCheckbox();    
     if(html != null){ %>
-     <form action="<%=pr.getLien()%>?but=apresMultiple.jsp" method="post" name="id" id="id">
-         <input type="hidden" name="bute" value="depense/engagement-fiche.jsp&id=<%=request.getParameter("idengagement")%>"/>
+    <form action="<%=pr.getLien()%>?but=apresMultiple.jsp" method="post" name="formff" id="formff">
+         <input type="hidden" id="bute" name="bute" value="depense/engagement-fiche.jsp&id=<%=request.getParameter("idengagement")%>"/>
             <input type="hidden" name="classe" value="facture.FactureFournisseur"/>
-            <input type="hidden" name="acte" value="valider"/>
+            <input type="hidden" id="acte" name="acte" value="valider"/>
             <% out.println(html); %>
-     </form>
+            <div style="display: flex; justify-content: flex-end; align-items: center;">
+                <input type="button" class="btn btn-info" onclick="editerBED()" style="margin:10px" value="Editer BED"/>
+            </div>
+    </form>
+    <script>
+        function editerBED() {
+            document.getElementById("acte").value =  "editerBED";
+            document.getElementById("bute").value =  "ded/bordereauxFF-saisie.jsp";
+            document.getElementById("formff").action = '<%=pr.getLien()%>?but=apresFacture.jsp';
+            document.getElementById("formff").submit();
+        }
+    </script>        
     <% }else{
         %><center><h4>Pas de résultat</h4></center><%
     }
 %>
+        
   
