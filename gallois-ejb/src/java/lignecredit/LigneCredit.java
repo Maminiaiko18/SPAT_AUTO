@@ -210,14 +210,14 @@ public class LigneCredit extends ClassEtat {
                     + "       l.projet,\n"
                     + "       l.COMPTEFULL                                                                         as compte,\n"
                     + "       sum(l.montant)                                                                     as montant,\n"
-                    + "       cast(nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0) as NUMBER(30, 3)) as engageer,\n"
+                    + "       cast(nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0) + nvl(bc.montant, 0) as NUMBER(30, 3)) as engageer,\n"
                     + "       cast(nvl(fd.facture, 0) as NUMBER(30, 3))                                          as facture,\n"
                     + "       cast(nvl(fd.PAYE, 0) as number(30, 3))                                             as PAYE,\n"
                     + "       cast(nvl(fd.facture, 0) - nvl(fd.PAYE, 0) as NUMBER(30, 3))                        as arecouvrir,\n"
                     + "       cast(sum(l.montant) - nvl(fd.facture, 0) as NUMBER(30, 3))                         as restebudget,\n"
                     + "       cast(nvl(fd.facture, 0) / sum(l.MONTANT) * 100 as NUMBER(30, 3))                   as pourcEngage,\n"
                     + "       cast(nvl(fd.PAYE, 0) / sum(l.MONTANT) * 100 as number(30, 3))                      as pourcPaye,\n"
-                    + "       cast(sum(l.montant) - (nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0)) as NUMBER(30, 3)) as resteApresEngmt\n"
+                    + "       cast(sum(l.montant) - (nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0)) + nvl(bc.montant, 0) as NUMBER(30, 3)) as resteApresEngmt\n"
                     + " from SITUATIONLCDEPENSE_FULL l\n"
                     + "         LEFT JOIN (SELECT cast(nvl(sum(MONTANTTTC), 0) as NUMBER(30, 3))  as facture,\n"
                     + "                           cast(nvl(sum(MONTANTPAYE), 0) as number(30, 3)) as PAYE,\n"
@@ -243,9 +243,12 @@ public class LigneCredit extends ClassEtat {
                     + whereDaty.replaceAll("daty", "en.daty")
                     + "                    group by en.ID, DATY, PROJET, codeetablissement) gr\n"
                     + "                   on nt.PROJET = gr.PROJET and nt.CODEETABLISSEMENT = gr.CODEETABLISSEMENT\n"
+                    + "         left join (select comptebdg, sum(montant) as montant\n"
+                    + "                    from AS_BONDECOMMANDE_SANSFACT_ENG bc\n"
+                    + "                    group by comptebdg) bc on bc.comptebdg = l.comptefull\n"
                     + where
                     + " GROUP BY l.DIRECTION, l.projet, n.montant, nt.MONTANT, gr.MONTANT, fd.facture, fd.PAYE,\n"
-                    + "         l.direction, l.projet, l.COMPTEFULL";
+                    + "         l.direction, l.projet, l.COMPTEFULL, l.idprojet, l.iddirection, bc.montant";
 
             LigneCredit stock = new LigneCredit();
             stock.setNomTable("situationLC_vide");
