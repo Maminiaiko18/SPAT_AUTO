@@ -228,7 +228,8 @@ public class Engagement extends ClassEtat {
     
     public LigneCredit findSituationCredit(Connection c) throws Exception{
         LigneCredit lc = new LigneCredit();
-        lc.setNomTable("ligneCreditDepenseGrp");
+        //lc.setNomTable("ligneCreditDepenseGrp");
+        lc.setNomTable("SITUATIONLCDEPENSEGRP");
         String dir=this.getCodeEtablissement();
         String prj=this.getProjet();
         if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
