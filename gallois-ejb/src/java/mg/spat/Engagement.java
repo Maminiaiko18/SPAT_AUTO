@@ -234,6 +234,7 @@ public class Engagement extends ClassEtat {
         String prj=this.getProjet();
         if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
         {
+            if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Ligne de crédit invalide");
             LigneCredit ligne = findLigneCredit(c);
             dir=ligne.getCodeEtablissement();
             prj=ligne.getProjet();
