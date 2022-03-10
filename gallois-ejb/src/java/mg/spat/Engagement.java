@@ -252,9 +252,7 @@ public class Engagement extends ClassEtat {
         if(filles.length==0){
             throw new Exception ("Doit contenir au moins un détail engagement");
         }
-        if(avecFacture==0){
-             this.genererFacture(u, c, filles);
-        }
+        
         
         double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
         if(montantTotal > this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
@@ -262,8 +260,11 @@ public class Engagement extends ClassEtat {
         //this.setDispoAvant(lc.getRestebudget());
         this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(this.getDispoAvant() - this.getMontant());
-        
-        return super.validerObject(u, c); 
+        super.validerObject(u, c);
+        if(avecFacture==0){
+             this.genererFacture(u, c, filles);
+        }
+        return this; 
     }
     
     public FactureFournisseur[] getFacturesLiees(String nomtable, Connection c) throws Exception{
