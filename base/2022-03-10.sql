@@ -96,6 +96,13 @@ from AS_BONDECOMMANDE_LIBELLE bc
 /
 
 
+create or replace view AS_BONDECOMMANDE_SANSFACT_ENG as
+select *from AS_BONDECOMMANDE_LIBELLE_LIB where ID not in(
+select ID_BC
+from AS_BONDELIVRAISON bl
+where bl.id in (select ff.IDBL from FACTURE_FOURNISSEUR_MERE ff where IDBL=bl.ID));
+
+
 
 create or replace view SITUATIONLCDEPENSEGRP as
 select l.direction,
@@ -149,11 +156,6 @@ GROUP BY l.DIRECTION, l.projet, n.montant, nt.MONTANT, gr.MONTANT, fd.facture, f
 
 
 
-create or replace view AS_BONDECOMMANDE_SANSFACT_ENG as
-select *from AS_BONDECOMMANDE_LIBELLE_LIB where ID not in(
-select ID_BC
-from AS_BONDELIVRAISON bl
-where bl.id in (select ff.IDBL from FACTURE_FOURNISSEUR_MERE ff where IDBL=bl.ID));
 
 
 
