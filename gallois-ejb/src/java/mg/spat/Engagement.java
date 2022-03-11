@@ -210,13 +210,18 @@ public class Engagement extends ClassEtat {
         return null;
     }
     
-    public FactureFournisseur genererFactureFournisseurMere() throws Exception {
+    public FactureFournisseur genererFactureFournisseurMere(LigneCredit lc) throws Exception {
         FactureFournisseur ff = new FactureFournisseur();
         ff.setDesignation(this.getDesignation());
         ff.setTypeEngagement("ED");
-        ff.setCode_etablissement(this.getCodeEtablissement()); 
+        if(this.getIdLC()!=null && this.getIdLC().compareTo("")!=0){
+            ff.setCode_etablissement(lc.getIdcodeEtablissement()); 
+            ff.setProjet(lc.getIdprojet());
+        }else{
+            ff.setCode_etablissement(this.getCodeEtablissement()); 
+            ff.setProjet(this.getProjet());
+        }
         ff.setDaty(Utilitaire.dateDuJourSql());
-        ff.setProjet(this.getProjet());
         ff.setIdengagement(this.getId());
         ff.setIdcategorie(Constante.categorieFFdefault);
         ff.setType(Constante.getTypeFCAcredit());
@@ -262,7 +267,7 @@ public class Engagement extends ClassEtat {
         this.setDispoApres(this.getDispoAvant() - this.getMontant());
         super.validerObject(u, c);
         if(avecFacture==0){
-             this.genererFacture(u, c, filles);
+             this.genererFacture(u, c, filles,lc);
         }
         return this; 
     }
@@ -288,7 +293,7 @@ public class Engagement extends ClassEtat {
         return null;
     } 
     
-    public FactureFournisseur genererFacture(String u, Connection c, EngagementFille[] filles) throws Exception{
+    public FactureFournisseur genererFacture(String u, Connection c, EngagementFille[] filles,LigneCredit lc) throws Exception{
         boolean check = false;
         try{
             if(c == null){
@@ -296,7 +301,7 @@ public class Engagement extends ClassEtat {
                 check = true;
                 c.setAutoCommit(false);
             }
-            FactureFournisseur ff = this.genererFactureFournisseurMere();
+            FactureFournisseur ff = this.genererFactureFournisseurMere(lc);
             if(filles != null){
                 FactureFournisseurDetails[] ffd = new FactureFournisseurDetails[filles.length];
                 for(int i=0; i<filles.length; i++){
