@@ -50,9 +50,9 @@ public class AvoirFFFille extends AvoirFCFille {
             }
         }
 
-        controlQte();
+        //controlQte(c);
 
-        super.controler(c);
+        //super.controler(c);
     }
     
     public Detailsffbonlivraison getFactureFournisseurDetail(Connection c) throws Exception {
