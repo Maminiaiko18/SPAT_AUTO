@@ -217,14 +217,15 @@ public class LigneCredit extends ClassEtat {
                     + "       cast(sum(l.montant) - nvl(fd.facture, 0) as NUMBER(30, 3))                         as restebudget,\n"
                     + "       cast(nvl(fd.facture, 0) / sum(l.MONTANT) * 100 as NUMBER(30, 3))                   as pourcEngage,\n"
                     + "       cast(nvl(fd.PAYE, 0) / sum(l.MONTANT) * 100 as number(30, 3))                      as pourcPaye,\n"
-                    + "       cast(sum(l.montant) - (nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0)) + nvl(bc.montant, 0) as NUMBER(30, 3)) as resteApresEngmt\n"
+                    + "       cast(sum(l.montant) - (nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0) + nvl(bc.montant, 0)) as NUMBER(30, 3)) as resteApresEngmt\n"
                     + " from SITUATIONLCDEPENSE_FULL l\n"
                     + "         LEFT JOIN (SELECT cast(nvl(sum(MONTANTTTC), 0) as NUMBER(30, 3))  as facture,\n"
                     + "                           cast(nvl(sum(MONTANTPAYE), 0) as number(30, 3)) as PAYE,\n"
                     + "                           substr(mf.COMPTE, 1, 6)                         as comptefull,\n"
                     + "                           mf.ANNEE\n"
                     + "\n"
-                    + "                    FROM DETAILSFACTUREFOURNISSEUR_paye mf\n"
+                    + "                    FROM DETAILSFACTUREFOURNISSEUR_paye mf\n"  
+                    + "                    WHERE 1 < 2 " + whereDaty.replaceAll("daty", "mf.daty")
                     + "                    group by substr(mf.COMPTE, 1, 6), mf.ANNEE) fd on l.COMPTEFULL = fd.comptefull\n"
                     + "         left join (select substr(COMPTECPL, 1,6) as compte, sum(MONTANTTTC) as montant, annee\n"
                     + "                    from DETAILSFACTUREFOURNISSEUR_paye\n"
@@ -245,6 +246,7 @@ public class LigneCredit extends ClassEtat {
                     + "                   on nt.PROJET = gr.PROJET and nt.CODEETABLISSEMENT = gr.CODEETABLISSEMENT\n"
                     + "         left join (select comptebdg, sum(montant) as montant\n"
                     + "                    from AS_BONDECOMMANDE_SANSFACT_ENG bc\n"
+                    + "                    WHERE 1 < 2 " + whereDaty.replaceAll("daty", "bc.daty")
                     + "                    group by comptebdg) bc on bc.comptebdg = l.comptefull\n"
                     + where
                     + " GROUP BY l.DIRECTION, l.projet, n.montant, nt.MONTANT, gr.MONTANT, fd.facture, fd.PAYE,\n"
