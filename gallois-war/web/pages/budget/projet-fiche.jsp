@@ -26,6 +26,17 @@
     pc.setTitre("FICHE PROJET");
     pc.getChampByName("section_budget").setVisible(false);
     pc.getChampByName("montant_credit").setLibelle("Montant Budget");
+    pc.getChampByName("designation").setLibelle("Code");
+    pc.getChampByName("id").setVisible(false);
+    pc.getChampByName("montant_credit").setVisible(false);
+    pc.getChampByName("compte").setVisible(false);
+     pc.getChampByName("engage").setVisible(false);
+     pc.getChampByName("liquide").setVisible(false);
+     pc.getChampByName("paye").setVisible(false);
+     pc.getChampByName("exercice").setVisible(false);
+     pc.getChampByName("programme").setVisible(false);
+     pc.getChampByName("activite").setVisible(false);
+     pc.getChampByName("objectif").setVisible(false);
     e = (Projet) pc.getBase();
     
 
