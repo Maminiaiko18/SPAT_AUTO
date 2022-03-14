@@ -10,14 +10,14 @@
 <% try{ 
     Projet menu = new Projet();
     menu.setNomTable("Projet");
-    String listeCrt[] = {"id", "projet", "section_budget", "designation", "programme", "activite", "objectif"};
+    String listeCrt[] = {"projet","designation"};
 
     String listeInt[] = {""};
-    String libEntete[] = {"id", "projet", "section_budget", "compte", "engage", "liquide", "designation", "programme", "activite", "objectif","montant_credit", "paye"};
+    String libEntete[] = {"projet","designation"};
     PageRecherche pr = new PageRecherche(menu, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-
+    pr.getFormu().getChamp("designation").setLibelle("Code");
     pr.setApres("budget/projet-liste.jsp");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
@@ -45,7 +45,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "projet", "séction budget", "compte", "en gage", "liquide", "libellé", "programme", "activité", "objectif","montant crédit", "payé"};
+            String libEnteteAffiche[] = {"projet","Code"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
