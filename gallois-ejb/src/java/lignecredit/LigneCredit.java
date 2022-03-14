@@ -210,7 +210,7 @@ public class LigneCredit extends ClassEtat {
                     + "       l.projet,\n"
                     + "       l.COMPTEFULL                                                                         as compte,\n"
                     + "       sum(l.montant)                                                                     as montant,\n"
-                    + "       cast(nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0) + nvl(bc.montant, 0) as NUMBER(30, 3)) as engageer,\n"
+                    + "       cast(nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0) + nvl(bc.montant, 0)+nvl(bp.montant,0) as NUMBER(30, 3)) as engageer,\n"
                     + "       cast(nvl(fd.facture, 0) as NUMBER(30, 3))                                          as facture,\n"
                     + "       cast(nvl(fd.PAYE, 0) as number(30, 3))                                             as PAYE,\n"
                     + "       cast(nvl(fd.facture, 0) - nvl(fd.PAYE, 0) as NUMBER(30, 3))                        as arecouvrir,\n"
@@ -227,11 +227,11 @@ public class LigneCredit extends ClassEtat {
                     + "                    FROM DETAILSFACTUREFOURNISSEUR_paye mf\n"  
                     + "                    WHERE 1 < 2 " + whereDaty.replaceAll("daty", "mf.daty")
                     + "                    group by substr(mf.COMPTE, 1, 6), mf.ANNEE) fd on l.COMPTEFULL = fd.comptefull\n"
-                    + "         left join (select substr(COMPTECPL, 1,6) as compte, sum(MONTANTTTC) as montant, annee\n"
+                    + "         left join (select substr(COMPTE, 1,6) as compte, sum(MONTANTTTC) as montant, annee\n"
                     + "                    from DETAILSFACTUREFOURNISSEUR_paye\n"
                     + "                    where IDENGAGEMENT is null \n"
                     + whereDaty
-                    + "                    group by substr(COMPTECPL, 1,6), annee) n on n.compte = l.COMPTE\n"
+                    + "                    group by substr(COMPTE, 1,6), annee) n on n.compte = l.COMPTEfull\n"
                     + "         left join (SELECT sum(montant) AS montant, PROJET, codeetablissement, projetlib, codeetablissementlib\n"
                     + "                    FROM engagementlibv ev\n"
                     + "                    WHERE 1 < 2 " + whereDaty.replaceAll("daty", "ev.daty")
@@ -248,10 +248,15 @@ public class LigneCredit extends ClassEtat {
                     + "                    from AS_BONDECOMMANDE_SANSFACT_ENG bc\n"
                     + "                    WHERE 1 < 2 " + whereDaty.replaceAll("daty", "bc.daty")
                     + "                    group by comptebdg) bc on bc.comptebdg = l.comptefull\n"
+                    + "         left join (select sum(MONTANT)  as montant, CODE_ETABLISSEMENTLIB || PROJETLIB as compte\n" +
+                      "               from BPNonRegul bp\n" +
+                      "                      WHERE 1<2 \n" 
+                      + whereDaty.replaceAll("daty", "bp.daty") +
+                      "                      group by  CODE_ETABLISSEMENTLIB || PROJETLIB ) bp on bp.compte=l.COMPTEFULL"
                     + where
-                    + " GROUP BY l.DIRECTION, l.projet, n.montant, nt.MONTANT, gr.MONTANT, fd.facture, fd.PAYE,\n"
-                    + "         l.direction, l.projet, l.COMPTEFULL, l.idprojet, l.iddirection, bc.montant";
-
+                    + " GROUP BY l.DIRECTION, l.projet, n.montant, nt.MONTANT, gr.MONTANT, fd.facture, fd.PAYE,\n" +
+                    "         l.direction, l.projet, l.COMPTEFULL, l.idprojet, l.iddirection, bc.montant,bp.montant";
+            System.out.println("rqt===="+req);
             LigneCredit stock = new LigneCredit();
             stock.setNomTable("situationLC_vide");
             return CGenUtil.rechercher(stock, req, c, colSomme);
