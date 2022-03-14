@@ -188,6 +188,9 @@ public class EtatPaieServlet extends HttpServlet {
             }else if(action.equalsIgnoreCase("engagement")){
                 engagement(request, response);
             }
+            else if(action.equalsIgnoreCase("lgc")){
+                ligneCreditDepense(request, response);
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -1972,4 +1975,16 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
     }
     
     
+    public void ligneCreditDepense(HttpServletRequest request, HttpServletResponse response){
+        try{
+            Map param = new HashMap();
+            
+            
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("lgc");
+        UtilitaireImpression.imprimer(request, response, "redevance-communale", param, null, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
