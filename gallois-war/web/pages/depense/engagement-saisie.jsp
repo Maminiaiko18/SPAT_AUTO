@@ -42,6 +42,8 @@
     
     pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
     pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
+    pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+    pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
     pi.getFormu().getChamp("projet").setAutre("readonly");
     pi.getFormu().getChamp("idLC").setPageAppel("choix/listeBudgetDepenseChoix.jsp","idLC;idLClibelle;idLClibelle;idLClibelle");
