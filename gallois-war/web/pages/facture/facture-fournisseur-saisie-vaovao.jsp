@@ -108,6 +108,8 @@
             pi.getFormu().getChamp("projet").setValeurLibelle(engagement.getProjetlib());
             pi.getFormu().getChamp("code_etablissement").setDefaut(engagement.getCodeEtablissement());
             pi.getFormu().getChamp("code_etablissement").setValeurLibelle(engagement.getCodeEtablissementlib());
+            pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(engagement.getTiers()));
+            pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(engagement.getTierslib()));
         }
         affichage.Liste[] listes = new affichage.Liste[3];
 
