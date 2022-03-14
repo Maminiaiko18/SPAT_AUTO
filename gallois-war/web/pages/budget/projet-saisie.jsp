@@ -1,6 +1,6 @@
 <%-- 
     Document   : projet-saisie
-    Created on : 29 déc. 2020, 08:56:33
+    Created on : 29 dï¿½c. 2020, 08:56:33
     Author     : Sanda
 --%>
 
@@ -25,8 +25,17 @@
 //    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
 //    pi.getFormu().getChamp("projet").setAutre("readonly");
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("compte").setVisible(false);
+    pi.getFormu().getChamp("montant_credit").setVisible(false);
+    pi.getFormu().getChamp("engage").setVisible(false);
+    pi.getFormu().getChamp("liquide").setVisible(false);
+    pi.getFormu().getChamp("paye").setVisible(false);
+    pi.getFormu().getChamp("exercice").setVisible(false);
+    pi.getFormu().getChamp("programme").setVisible(false);
+    pi.getFormu().getChamp("activite").setVisible(false);
+    pi.getFormu().getChamp("objectif").setVisible(false);
     pi.getFormu().getChamp("section_budget").setVisible(false);
-    pi.getFormu().getChamp("montant_credit").setLibelle("montant credit");
+    pi.getFormu().getChamp("designation").setLibelle("Code");
             
     pi.preparerDataFormu();
 %>
