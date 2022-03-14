@@ -63,6 +63,10 @@
         pi.getFormu().getChamp("idLC").setAutre("readonly");
         pi.getFormu().getChamp("idLC").setPageAppel("choix/listeBudgetDepenseChoix.jsp", "idLC;idLClibelle;idLClibelle;idLClibelle");
 
+        pi.getFormu().getChamp("tiers").setAutre("readonly");
+        pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp", "id;libelle");
+
+        
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("estpaye"), false);
