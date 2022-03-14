@@ -18,6 +18,16 @@
     pi.getFormu().getChamp("section_budget").setLibelle("section budget");
     pi.getFormu().getChamp("section_budget").setVisible(false);
     pi.getFormu().getChamp("montant_credit").setLibelle("montant credit");
+    pi.getFormu().getChamp("compte").setVisible(false);
+    pi.getFormu().getChamp("montant_credit").setVisible(false);
+    pi.getFormu().getChamp("engage").setVisible(false);
+    pi.getFormu().getChamp("liquide").setVisible(false);
+    pi.getFormu().getChamp("paye").setVisible(false);
+    pi.getFormu().getChamp("exercice").setVisible(false);
+    pi.getFormu().getChamp("programme").setVisible(false);
+    pi.getFormu().getChamp("activite").setVisible(false);
+    pi.getFormu().getChamp("objectif").setVisible(false);
+    pi.getFormu().getChamp("designation").setLibelle("Code");
             
     
     pi.preparerDataFormu();
@@ -47,4 +57,6 @@
         </div>
     </div>
 </div>
-
+<script>
+    $('label[for="id"]').remove();
+</script>
