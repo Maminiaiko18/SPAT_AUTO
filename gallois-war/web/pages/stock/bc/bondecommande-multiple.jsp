@@ -4,6 +4,8 @@
     Author     : Sanda
 --%>
 
+<%@page import="data.BonDeCommandeData"%>
+<%@page import="mg.spat.Engagement"%>
 <%@page import="affichage.PageUpdateMultiple"%>
 <%@ page import="user.UserEJB" %>
 <%@ page import="bean.TypeObjet" %>
@@ -21,7 +23,8 @@
         String idEngagement  = request.getParameter("idEngagement");
         String autreparsley = "data-parsley-range='[8, 40]' required";
         UserEJB u = u = (UserEJB) session.getValue("u");
-        
+        BonDeCommandeData data =new BonDeCommandeData(idEngagement);
+        Engagement engagement=data.getEngagement();
 
         String classeMere = "mg.spat.stock.BonDeCommande",
                classeFille = "mg.spat.stock.BonDeCommandeFille",
@@ -78,7 +81,16 @@
         pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
         pi.getFormu().getChamp("idengagement").setAutre("readonly");
         pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp", "idengagement;idengagementlibelle");
-        pi.getFormu().getChamp("idengagement").setDefaut(Utilitaire.champNull(idEngagement));
+        pi.getFormu().getChamp("idengagement").setDefaut(Utilitaire.champNull(engagement.getId()));
+        pi.getFormu().getChamp("idengagement").setValeurLibelle(Utilitaire.champNull(engagement.getDesignation()));
+        pi.getFormu().getChamp("projet").setDefaut(Utilitaire.champNull(engagement.getProjet()));
+        pi.getFormu().getChamp("projet").setValeurLibelle(Utilitaire.champNull(engagement.getProjetlib()));
+        pi.getFormu().getChamp("code_etab").setDefaut(Utilitaire.champNull(engagement.getCodeEtablissement()));
+        pi.getFormu().getChamp("code_etab").setValeurLibelle(Utilitaire.champNull(engagement.getCodeEtablissementlib()));
+        pi.getFormu().getChamp("fournisseur").setDefaut(Utilitaire.champNull(engagement.getTiers()));
+        pi.getFormu().getChamp("fournisseur").setValeurLibelle(Utilitaire.champNull(engagement.getTierslib()));
+        
+        
         
         System.out.println("u.getUser().getCodeEtablissement()=="+u.getUser().getCodeEtablissement());
         if(u.getUser().getCodeEtablissement()!=null){
