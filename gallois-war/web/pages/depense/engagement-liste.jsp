@@ -15,9 +15,9 @@
         eng.setNomTable(nomTableEtat);
         }
 
-        String listeCrt[] = {"id", "designation","codeetablissementlib","projetlib", "daty"};
+        String listeCrt[] = {"id", "designation","codeetablissementlib","projetlib", "daty", "tierslib"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "designation", "montant","montantOP", "disponible","dispoavant","dispoapres","codeetablissementlib","projetlib", "daty"};
+        String libEntete[] = {"id", "designation", "montant","montantOP", "disponible","dispoavant","dispoapres","codeetablissementlib","projetlib", "tierslib", "daty"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -27,6 +27,7 @@
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("codeetablissementlib").setLibelle("Code établissemment");
         pr.getFormu().getChamp("designation").setLibelle("Désignation");
+        pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.setApres("depense/engagement-liste.jsp");
         String[] colSomme ={"montant"};
@@ -70,7 +71,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "Désignation", "Montant", "Montant d'ordre payment","Disponibilité","Disponibilité avant","Disponibilité après","Code établissement","Projet", "Date"};
+            String libEnteteAffiche[] ={"Id", "Désignation", "Montant", "Montant d'ordre payment","Disponibilité","Disponibilité avant","Disponibilité après","Code établissement","Projet", "Tiers", "Date"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
