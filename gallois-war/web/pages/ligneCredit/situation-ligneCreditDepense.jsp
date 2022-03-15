@@ -179,7 +179,48 @@
                 </div>
             </div>
         </div>
-        <a class="btn btn-primary pull-left" href="<%=(String) session.getValue("lien") + "/../../Paie?action=lgc&compteInv="+request.getParameter("compteInv")+"&etat="+request.getParameter("etat")+"&compteSimple="+request.getParameter("compteSimple")+"&direction="+request.getParameter("direction")+"&projet="+request.getParameter("projet")+"&directionProjet="+request.getParameter("directionProjet")+"&daty1="+request.getParameter("daty1")+"&daty2="+request.getParameter("daty2")+"&annee="+request.getParameter("annee")%>">Imprimer</a>
+        <%
+
+            String compteInv = request.getParameter("compteInv");
+            String compteSimple = request.getParameter("compteSimple");
+            String direction = request.getParameter("direction");
+            String projet = request.getParameter("projet");
+            String directionProjet = request.getParameter("directionProjet");
+            String daty1 = request.getParameter("daty1");
+            String daty2 = request.getParameter("daty2");
+
+            String params="";
+            if(compteInv!= null && compteInv.compareToIgnoreCase("null")!=0){
+                params=params+"&compteInv="+compteInv;
+            }
+            if(compteSimple!= null && compteSimple.compareToIgnoreCase("null")!=0){
+                
+                params=params+"&compteSimple="+compteSimple;
+            }
+            if(direction!= null && direction.compareToIgnoreCase("null")!=0){
+                params=params+"&compteSimple="+compteSimple;
+            }
+
+            if(projet!= null && projet.compareToIgnoreCase("null")!=0){
+                params=params+"&direction="+direction;
+            }
+            if(directionProjet!= null && directionProjet.compareToIgnoreCase("null")!=0){
+                params=params+"&directionProjet="+directionProjet;
+            }
+            if(daty1!= null && daty1.compareToIgnoreCase("null")!=0){
+                params=params+"&daty1="+daty1;
+            }
+            if(daty2!= null && daty2.compareToIgnoreCase("null")!=0){
+                params=params+"&daty2="+daty2;
+            }
+
+            if(annee!= null && annee.compareToIgnoreCase("null")!=0){
+                params=params+"&annee="+annee;
+            }
+
+            
+        %>          
+         <a class="btn btn-primary pull-left" href="<%=(String) session.getValue("lien") + "/../../Paie?action=lgc"+params %>" >Imprimer</a>
         <%
             out.println(pr.getBasPage());
 
