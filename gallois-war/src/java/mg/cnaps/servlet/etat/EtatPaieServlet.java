@@ -1,7 +1,9 @@
 package mg.cnaps.servlet.etat;
 
 import affichage.Liste;
+import affichage.PageRecherche;
 import affichage.PageRechercheGroupe;
+import affichage.TableauRecherche;
 import avoir.AvoirFC;
 import avoir.AvoirFCFille;
 import java.io.FileNotFoundException;
@@ -13,6 +15,7 @@ import mg.spat.EtatJournalCaisse;
 import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
+import bean.ResultatEtSomme;
 import bean.TypeObjet;
 import bean.ValeurEtiquette;
 import mg.spat.AnalyseMarchandisePDF;
@@ -2024,12 +2027,63 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
     
     public void ligneCreditDepense(HttpServletRequest request, HttpServletResponse response){
         try{
+            user.UserEJB user = (user.UserEJB) request.getSession().getValue("u");
+            String daty1 = request.getParameter("daty1");
+            String daty2 = request.getParameter("daty2");
+            /*
+            String compteInv = request.getParameter("compteInv");
+            String compteSimple = request.getParameter("compteSimple");
+            String direction = request.getParameter("direction");
+            String projet = request.getParameter("projet");
+            String directionProjet = request.getParameter("directionProjet");
+            String annee = request.getParameter("annee");
+            String etat = request.getParameter("etat");
+            */
+            LigneCredit fa = new LigneCredit();
+            fa.setNomTable("situationLC_vide");
+            String listeCrt[] = {"compteInv", "compteSimple", "direction", "projet", "directionProjet", "daty", "annee"};
+            String listeInt[] = {"daty"};
+//        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
+            String libEntete[] = {"direction", "projet", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget", "resteApresEngmt"};
+             
+            PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+            pr.setUtilisateur((user.UserEJB) user);
+            String reqniv = request.getParameter("niveau");
+            String moisMin = daty1 != null && daty1.compareToIgnoreCase("null")!=0 && !daty1.isEmpty() ? ""+Utilitaire.stringToInt(Utilitaire.getMois(daty1)) : "", moisMax = daty2 != null && daty2.compareToIgnoreCase("null")!=0 && !daty2.isEmpty() ? ""+Utilitaire.stringToInt(Utilitaire.getMois(daty2)) : "";
+
+            String[] colSomme = {"montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget", "resteApresEngmt"};
+            pr.creerObjetPage(libEntete, colSomme);
+            
+            ResultatEtSomme rs = LigneCredit.findSituationCreditDepense((LigneCredit) pr.getCritere(), daty1, daty2, null, colSomme);
+            pr.setRs(rs);
+            pr.setTableau(new TableauRecherche((bean.ClassMAPTable[]) rs.getResultat(), libEntete));
+            pr.makeTableauRecap();       
+            LigneCredit[] data = (LigneCredit[])pr.getTableau().getData();
             Map param = new HashMap();
+            if(data.length!=0){
+                param.put("annee",data[0].getAnnee()+"");
+                System.out.println("annee"+data[0].getAnnee()+"");
+                param.put("annuel",Utilitaire.formaterAr(data[0].getMontant()));
+                 System.out.println("annuel"+Utilitaire.formaterAr(data[0].getMontant()));
+                param.put("dispo",data[0].getResteApresEngmt());
+                System.out.println("dispo"+data[0].getResteApresEngmt());
+                param.put("projet",data[0].getProjet());
+                System.out.println("projet"+data[0].getProjetlib());
+                param.put("code_etab",data[0].getDirection());
+                System.out.println("code_etab"+data[0].getCodeEtablissementlib());
+            }
+            
+            
+            
+            
+            
+            
+            
             
             
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("lgc");
-        UtilitaireImpression.imprimer(request, response, "redevance-communale", param, null, getReportPath(), rt);
+        UtilitaireImpression.imprimer(request, response, "ligne Credit depense", param, null, getReportPath(), rt);
         }catch(Exception e){
             e.printStackTrace();
         }
