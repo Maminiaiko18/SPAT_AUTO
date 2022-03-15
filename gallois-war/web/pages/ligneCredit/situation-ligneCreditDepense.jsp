@@ -129,7 +129,7 @@
         %>
         <br>
         <%
-            String libEnteteAffiche[] = {"direction", "projet", "montant", "Engagé", "Facturé", "% engagé", "décaissé", "% payé", "a recouvrir", "reste sur budget"};
+            String libEnteteAffiche[] = {"direction", "projet", "montant", "Engagé", "Facturé", "% engagé", "décaissé", "% payé", "a recouvrir", "reste sur budget", "reste après engagement"};
             //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setLibeEntete(libEnteteAffiche);
 //            out.println(pr.getTableau().getHtml());
