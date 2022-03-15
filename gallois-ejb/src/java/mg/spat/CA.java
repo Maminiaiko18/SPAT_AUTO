@@ -79,7 +79,7 @@ public class CA extends ClassMAPTable {
     }
     public double getTotal()
     {
-        return this.getComptant() + this.getCredit();
+        return this.getComptant() + this.getCredit() - this.getAvoirEETP();
     }
     public double getNCumul()
     {
