@@ -83,7 +83,7 @@
                                 
                                 <a class="btn btn-info " href="<%=(String) session.getValue("lien") + "?but=depense/engagement-fille-liste.jsp&idmere=" + engagement.getId() %>" style="margin-right: 5px">Payer</a>
                                  <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + request.getParameter("id")%>"><button class="btn btn-primary pull-right">Imprimer</button></a>
-                          
+                                <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=dse&id=" + request.getParameter("id")%>"><button class="btn btn-primary pull-right">Imprimer DSE</button></a>
                             </p>
                         </div>
                     </div>

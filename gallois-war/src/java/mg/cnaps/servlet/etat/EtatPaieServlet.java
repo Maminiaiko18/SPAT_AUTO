@@ -92,6 +92,7 @@ import mg.spat.CA;
 import mg.spat.CaPDF;
 import mg.spat.CargaisonAnalyse;
 import mg.spat.Engagement;
+import mg.spat.EngagementFille;
 import mg.spat.EtatCA;
 import mg.spat.JournalCaissePdf;
 import mg.spat.OccupationMaterielNaval;
@@ -187,6 +188,8 @@ public class EtatPaieServlet extends HttpServlet {
                 redevanceCommunale(request, response);
             }else if(action.equalsIgnoreCase("engagement")){
                 engagement(request, response);
+            }else if(action.equalsIgnoreCase("dse")){
+                dse(request, response);
             }
             else if(action.equalsIgnoreCase("lgc")){
                 ligneCreditDepense(request, response);
@@ -1974,6 +1977,50 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
     
     }
     
+    public void dse(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+        Connection c = null;
+        try{
+        c = (new UtilDB()).GetConn();
+        String id = request.getParameter("id");
+        Engagement engagement = new Engagement();
+        engagement.setId(id);
+        engagement.setNomTable("engagementlib");
+        Engagement[] mere = (Engagement[]) CGenUtil.rechercher(engagement, null, null, c, "");
+        Map param = new HashMap();
+        List<EngagementFille> datafille = new ArrayList<EngagementFille>();
+        double total = 0;
+        if(mere.length!=0){
+            engagement = mere[0];
+            param.put("codeetablissementlib",engagement.getCodeEtablissementlib());
+            param.put("daty",Utilitaire.datetostring(engagement.getDaty())+"");
+            param.put("projetlib",engagement.getProjetlib());
+            param.put("designation",engagement.getDesignation());
+            param.put("tierslib",engagement.getTierslib());
+            
+            EngagementFille fi = new EngagementFille();
+            fi.setNomTable("engagement_fillelib");
+            fi.setIdmere(engagement.getId());
+            EngagementFille[] fille = (EngagementFille[]) CGenUtil.rechercher(fi, null, null, c, "");
+            for (int i = 0; i < fille.length; i++) {
+                if(i==0) fille[i].setEstPaye(engagement.getTierslib());
+                else fille[i].setEstPaye(null);
+                datafille.add(fille[i]);
+                total += fille[i].getMontant();
+            }
+            param.put("total",total);
+        }
+        ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+        setNomJasper("dse-pdf");
+        UtilitaireImpression.imprimer(request, response, "dse-pdf", param, datafille, getReportPath(), rt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if (c != null) {
+                c.close();
+            }
+        }
+    
+    }
     
     public void ligneCreditDepense(HttpServletRequest request, HttpServletResponse response){
         try{
