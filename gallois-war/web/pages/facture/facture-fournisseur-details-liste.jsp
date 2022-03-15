@@ -21,7 +21,7 @@
 <%
     try{    
     FactureFournisseurDetails cht = new FactureFournisseurDetails();
-    cht.setNomTable("FACTFOURN_FILL_LIB_REST_TAXE");
+    cht.setNomTable("FACTFOURN_FILL_LIB_RESTTAXESBP");
     String libEntete[] = {"id", "designation", "quantite", "qtelivree", "restealivrer", "devise", "compte", "pu", "taux", "montanttaux", "tva", "montanttaxe", "montantHTEuro", "montantTVAEuro", "reduction", "majoration","montantTTC"};
     String listeCrt[] = {"comptestr", "mois", "annee"};
     String listeInt[] = {"mois", "annee"};
