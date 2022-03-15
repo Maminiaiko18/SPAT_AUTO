@@ -179,6 +179,7 @@
                 </div>
             </div>
         </div>
+        <a class="btn btn-primary pull-left" href="<%=(String) session.getValue("lien") + "/../../Paie?action=lgc&compteInv="+request.getParameter("compteInv")+"&etat="+request.getParameter("etat")+"&compteSimple="+request.getParameter("compteSimple")+"&direction="+request.getParameter("direction")+"&projet="+request.getParameter("projet")+"&directionProjet="+request.getParameter("directionProjet")+"&daty1="+request.getParameter("daty1")+"&daty2="+request.getParameter("daty2")+"&annee="+request.getParameter("annee")%>">Imprimer</a>
         <%
             out.println(pr.getBasPage());
 
