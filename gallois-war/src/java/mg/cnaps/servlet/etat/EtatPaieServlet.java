@@ -2065,22 +2065,13 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
                 System.out.println("annee"+data[0].getAnnee()+"");
                 param.put("annuel",Utilitaire.formaterAr(data[0].getMontant()));
                  System.out.println("annuel"+Utilitaire.formaterAr(data[0].getMontant()));
-                param.put("dispo",data[0].getResteApresEngmt());
-                System.out.println("dispo"+data[0].getResteApresEngmt());
+                param.put("avant",Utilitaire.formaterAr(data[0].getResteApresEngmt()));
+                System.out.println("avant"+Utilitaire.formaterAr(data[0].getResteApresEngmt()));
                 param.put("projet",data[0].getProjet());
                 System.out.println("projet"+data[0].getProjetlib());
                 param.put("code_etab",data[0].getDirection());
                 System.out.println("code_etab"+data[0].getCodeEtablissementlib());
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            }       
         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
         setNomJasper("lgc");
         UtilitaireImpression.imprimer(request, response, "ligne Credit depense", param, null, getReportPath(), rt);
