@@ -904,7 +904,7 @@ public class EtatPaieServlet extends HttpServlet {
             String designation = facture.getDesignation();
             if (mere.length != 0) {
                 mg.spat.PrevisionLibComplet p = new mg.spat.PrevisionLibComplet();
-                p.setNomTable("PREVISIONLIBCOMPLET");
+                p.setNomTable("PREVISIONLIBCOMPLETPDF");
                 mg.spat.PrevisionLibComplet[] pre = (mg.spat.PrevisionLibComplet[]) CGenUtil.rechercher(p, null, null, c, " and id = '" + mere[0].getIdprevision() + "'");
                 int convention = 0;
                 FactureClientDetails cht = new FactureClientDetails();
@@ -939,6 +939,7 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("heure_arrivee", pre[0].getHeure_arrivee());
                     param.put("armateur", pre[0].getArmateurlib());
                     param.put("tenavire", pre[0].getTenavire());
+                    param.put("pourcomptelib", mere[0].getPourCompteLib());
 
                     setNomJasper("facture_client2 - Copie");//facture_client2 - Copie //facture_convention //facture-client-sans-prevision
                 }else if(mere[0].getEstMictsl().compareToIgnoreCase("1")==0){
