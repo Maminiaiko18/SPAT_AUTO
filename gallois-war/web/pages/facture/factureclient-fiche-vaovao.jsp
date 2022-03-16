@@ -30,6 +30,7 @@
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE CLIENT");
 
+        pc.getChampByName("pourCompte").setVisible(false);
         pc.getChampByName("iduser").setVisible(false);
         pc.getChampByName("type").setVisible(false);
         pc.getChampByName("tiers").setVisible(false);
