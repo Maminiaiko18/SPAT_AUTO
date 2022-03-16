@@ -76,7 +76,7 @@
         pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
         pi.getFormu().getChamp("code").setLibelle("Code");
         pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
-
+        pi.getFormu().getChamp("armateurlib").setVisible(false) ;     
         pi.getFormu().getChamp("etat").setAutre("readonly");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
@@ -96,7 +96,8 @@
         pi.getFormu().getChamp("codePrestation").setVisible(false);
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
         pi.getFormu().getChamp("tva").setVisible(false);    
-        
+        pi.getFormu().getChamp("pourcompte").setPageAppel("choix/clientCategorieChoix.jsp");
+        pi.getFormu().getChamp("pourcompte").setAutre("readonly");
         pi.getFormu().getChamp("idavoir").setPageAppel("choix/listeAvoirFCChoix.jsp");
         pi.getFormu().getChamp("idavoir").setAutre("readonly");
         pi.getFormu().getChamp("idavoir").setLibelle("Avoir");
@@ -111,10 +112,10 @@
         //affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("daty"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
-
+        
 //        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
 //        affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
-
+        
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idProduit"), false);
         
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
