@@ -88,7 +88,7 @@
 			</textField>
 			<image>
 				<reportElement x="201" y="3" width="112" height="83" uuid="18351f4f-abe5-402c-8291-28fd4fe80725"/>
-				<imageExpression><![CDATA["F:\\jese\\spat-capitainerie\\gallois-war\\web\\report\\cnaps_logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>
