@@ -31,6 +31,8 @@
     String mere=request.getParameter("idmere");
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
+    pi.getFormu().getChamp("typeEngagement").setVisible(false);
+    pi.getFormu().getChamp("estAncienne").setVisible(false);
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
     pi.getFormu().getChamp("exercice").setLibelle("Exercice");
     pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
@@ -43,8 +45,8 @@
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
     pi.getFormu().getChamp("idavoir").setVisible(false);
-    
-    
+    pi.getFormu().getChamp("pourCompte").setPageAppel("choix/clientCategorieChoix.jsp");
+    pi.getFormu().getChamp("pourCompte").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
