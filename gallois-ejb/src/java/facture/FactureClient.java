@@ -59,9 +59,33 @@ public class FactureClient extends ClassMere {
     private int exercice;
     private String idavoir;
     private String typeclientlib,factureLiee;//,idEngagement ; 
-    private int estAuto;
-    private String typeEngagement;
+    private int estAuto,estAncienne;
+    private String typeEngagement,pourCompte,pourCompteLib;
 
+    public int getEstAncienne() {
+        return estAncienne;
+    }
+
+    public void setEstAncienne(int estAncienne) {
+        this.estAncienne = estAncienne;
+    }
+
+    public String getPourCompte() {
+        return pourCompte;
+    }
+
+    public void setPourCompte(String pourCompte) {
+        this.pourCompte = pourCompte;
+    }
+
+    public String getPourCompteLib() {
+        return pourCompteLib;
+    }
+
+    public void setPourCompteLib(String pourCompteLib) {
+        this.pourCompteLib = pourCompteLib;
+    }
+    
     public String getTypeEngagement() {
         return typeEngagement;
     }
