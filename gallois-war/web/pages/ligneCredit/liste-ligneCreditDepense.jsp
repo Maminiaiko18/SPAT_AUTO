@@ -21,15 +21,16 @@
     ligncredit.setNomTable(nomTable);
     
     //String listeCrt[] = {"id","escale","nomnavire", "valconsignataire", "valcargaison", "valquaisdestination","datearrivee", "date_depart","quaisdestination"};
-    String listeCrt[] = {"id", "direction", "projet", "designation","compte","annee"};
+    String listeCrt[] = {"id", "direction", "projet", "designation","compte","annee","comptestr"};
     String listeInt[] = {"annee"};
-    String libEntete[] = {"id", "direction", "projet", "designation","compte","annee","montant","facture","pourcEngage","paye","pourcPaye","arecouvrir","restebudget"};
+    String libEntete[] = {"id", "direction", "projet", "designation","compte","annee","montant","facture","pourcEngage","paye","pourcPaye","arecouvrir","restebudget","comptestr"};
     PageRecherche pr = new PageRecherche(ligncredit, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
     pr.getFormu().getChamp("annee1").setLibelle("Ann&eacute;e min");
     pr.getFormu().getChamp("annee2").setLibelle("Ann&eacute;e max");
     pr.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
+    pr.getFormu().getChamp("comptestr").setLibelle("Compte Pur");
     
     String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
@@ -83,7 +84,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "Direction", "Projet", "D&eacute;signation","Compte","Ann&eacute;e","Montant","Factur&eacute;","% factur&eacute;","Pay&eacute;","% pay&eacute;"," A recouvrir","reste sur budget"};
+            String libEnteteAffiche[] = {"id", "Direction", "Projet", "D&eacute;signation","Compte","Ann&eacute;e","Montant","Factur&eacute;","% factur&eacute;","Pay&eacute;","% pay&eacute;"," A recouvrir","reste sur budget","Compte Pur"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
