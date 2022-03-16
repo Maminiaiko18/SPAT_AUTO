@@ -49,6 +49,13 @@ public class OrdonnerPayement extends ClassEtat {
   private String modepaiementlib, tierslib;
     private String idfacture,type,idengagement;
 
+    public void checkDoublonNumeroOP(Connection c) throws Exception {
+			this.setNomTable("ordonnerpayement");
+			String query = " and numeroop='"+this.getNumeroop()+"'";
+			OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(this, null, null, c, query);
+			if(op.length > 0) throw new Exception("Numero OP existant");
+    }
+
     public String getTierslib() {
         return tierslib;
     }
