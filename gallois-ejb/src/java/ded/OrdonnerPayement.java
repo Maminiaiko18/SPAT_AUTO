@@ -389,7 +389,7 @@ public class OrdonnerPayement extends ClassEtat {
             this.setMontant(AdminGen.calculSommeDouble(factures, "montantreste"));
         }*/
         this.setNumeroop(genererNumeroOP(c));
-        
+        this.checkDoublonNumeroOP(c);
         return super.createObject(u, c);
     }
     
