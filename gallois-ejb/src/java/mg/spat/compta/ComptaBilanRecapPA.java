@@ -19,6 +19,7 @@ public class ComptaBilanRecapPA {
     private ComptaBilan[] listeActif;
     private double mtPassif;
     private double mtActif;
+    private double resultat;
 
     public ComptaBilanRecapPA() {
     }
@@ -52,6 +53,8 @@ public class ComptaBilanRecapPA {
             mttA += listeActif[i].getEc_montant();
         }
         this.setMtActif(mttA);
+        this.resultat = this.mtActif - this.mtPassif;
+        this.setMtPassif(this.getMtPassif() + this.resultat);
     }
 
     public double getMtPassif() {
@@ -69,6 +72,16 @@ public class ComptaBilanRecapPA {
     public void setMtActif(double mtActif) {
         this.mtActif = mtActif;
     }
+
+    public double getResultat() {
+        return resultat;
+    }
+
+    public void setResultat(double resultat) {
+        this.resultat = resultat;
+    }
+    
+    
     
     public static String[] getNumCompte(String reference,Connection c)throws Exception{
         int verif=0;
