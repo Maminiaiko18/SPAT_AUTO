@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.3310000000000024"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="150"/>
+	<property name="ireport.y" value="116"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -127,6 +127,7 @@
 	<parameter name="deviseMere" class="java.lang.String"/>
 	<parameter name="total" class="java.lang.Double"/>
 	<parameter name="pourcomptelib" class="java.lang.String"/>
+	<parameter name="designation+" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -172,9 +173,9 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="298">
+		<band height="317">
 			<componentElement>
-				<reportElement key="table 1" style="table" mode="Transparent" x="-1" y="265" width="927" height="32" uuid="c7ba0eb2-5f1b-4313-9a74-3e3fe27f4753"/>
+				<reportElement key="table 1" style="table" mode="Transparent" x="-1" y="284" width="927" height="32" uuid="c7ba0eb2-5f1b-4313-9a74-3e3fe27f4753"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="21bd54b8-5b89-4598-8d90-a2a334b4dffe">
 						<datasetParameter name="montant">
@@ -629,7 +630,7 @@
 				</jr:table>
 			</componentElement>
 			<rectangle>
-				<reportElement x="0" y="1" width="927" height="263" uuid="a1d35c5e-1853-4f25-a257-6ef756263499"/>
+				<reportElement x="0" y="1" width="927" height="282" uuid="a1d35c5e-1853-4f25-a257-6ef756263499"/>
 				<graphicElement>
 					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</graphicElement>
@@ -684,7 +685,7 @@
 				<text><![CDATA[Navire.........:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="146" y="240" width="306" height="19" uuid="f2a19491-be7d-479e-a23f-33a8c3dbef39"/>
+				<reportElement x="146" y="240" width="306" height="38" uuid="f2a19491-be7d-479e-a23f-33a8c3dbef39"/>
 				<textElement verticalAlignment="Top">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -812,7 +813,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="469" y="22" width="75" height="18" uuid="2c4e04ed-153c-4c16-aa31-5f12e608aa84"/>
+				<reportElement x="469" y="22" width="86" height="18" uuid="2c4e04ed-153c-4c16-aa31-5f12e608aa84"/>
 				<textElement verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -918,7 +919,7 @@
 				<textFieldExpression><![CDATA[$P{jntnavire}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="545" y="22" width="363" height="18" uuid="e7db8947-ed99-4bde-a43b-a683747d3e02"/>
+				<reportElement x="555" y="22" width="353" height="18" uuid="e7db8947-ed99-4bde-a43b-a683747d3e02"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font size="14" isBold="true"/>
 					<paragraph leftIndent="3"/>
@@ -941,11 +942,18 @@
 				<text><![CDATA[Pour compte:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="125" y="94" width="325" height="18" uuid="ad62aabf-741a-4100-9cbd-33d1d20f9897"/>
+				<reportElement x="125" y="94" width="327" height="18" uuid="ad62aabf-741a-4100-9cbd-33d1d20f9897"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pourcomptelib}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="451" y="258" width="466" height="20" uuid="cfa90b35-47c1-43e5-9a12-a056b6a143b5"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{designation+}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

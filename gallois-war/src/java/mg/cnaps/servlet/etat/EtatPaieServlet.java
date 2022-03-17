@@ -921,6 +921,7 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("responsable", "Le contr&ocirc;leur");
                 }
                 
+				
                 if (pre.length != 0) {
 
                     param.put("navire", pre[0].getNomnavire());
@@ -940,7 +941,6 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("armateur", pre[0].getArmateurlib());
                     param.put("tenavire", pre[0].getTenavire());
                     param.put("pourcomptelib", mere[0].getPourCompteLib());
-
                     setNomJasper("facture_client2 - Copie");//facture_client2 - Copie //facture_convention //facture-client-sans-prevision
                 }else if(mere[0].getEstMictsl().compareToIgnoreCase("1")==0){
                     setNomJasper("facture-Mictsl");
@@ -1007,7 +1007,15 @@ public class EtatPaieServlet extends HttpServlet {
 
                 param.put("valdollar", deviseDollar);
                 param.put("cat", cat);
-                param.put("designation", designation);
+
+				if((designation.length()>66) && (pre.length != 0)){
+						param.put("designation", designation.substring(0, 66));
+						param.put("designation+", designation.substring(66, designation.length()));
+				}else{
+					param.put("designation", designation);
+				}
+				
+                
 
                 /**
                  * *********************************************************************************************
