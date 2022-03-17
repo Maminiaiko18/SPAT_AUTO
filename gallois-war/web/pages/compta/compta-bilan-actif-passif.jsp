@@ -116,6 +116,10 @@
                                                 <td align="right"><a href="<%= session.getValue("lien") %>?but=compta/details-ecriture-rubrique-debit.jsp&reference=<%= passif[i].getReference() %>&date1=<%=dateString1%>&date2=<%=dateString2%>"><%=Utilitaire.formaterAr(passif[i].getEc_montant())%></a></td>
                                             </tr>
                                         <%}%>
+                                            <tr>
+                                                <td>Résultat de la période</td>
+                                                <td align="right"><%= Utilitaire.formaterAr(cbrpa.getResultat()) %></td>
+                                            </tr>
                                         <tr style="border-bottom: 0px solid #ccc;">
                                             <td colspan=1 align="center"><b>TOTAL PASSIF</b></td>
                                             <td colspan=1 align="right"><b><%=Utilitaire.formaterAr(cbrpa.getMtPassif())%></b></td>
