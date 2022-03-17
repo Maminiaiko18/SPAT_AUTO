@@ -21,7 +21,7 @@
     ligncredit.setNomTable(nomTable);
     
     //String listeCrt[] = {"id","escale","nomnavire", "valconsignataire", "valcargaison", "valquaisdestination","datearrivee", "date_depart","quaisdestination"};
-    String listeCrt[] = {"id", "direction", "projet", "designation","compte","annee","comptestr"};
+    String listeCrt[] = {"id", "direction", "projet", "designation","compte","annee","comptestr","niveau1", "niveau2", "niveau3", "niveau4"};
     String listeInt[] = {"annee"};
     String libEntete[] = {"id", "direction", "projet", "designation","compte","annee","montant","facture","pourcEngage","paye","pourcPaye","arecouvrir","restebudget"};
     PageRecherche pr = new PageRecherche(ligncredit, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -33,6 +33,7 @@
     pr.getFormu().getChamp("comptestr").setLibelle("Compte Pur");
     String[] colSomme = {"montant","facture","paye","arecouvrir","restebudget"};
     pr.creerObjetPage(libEntete, colSomme);
+	pr.getTableauRecap().setLibeEntete(new String[]{"", "Nombre", "Somme De Montant","Somme De Factur&eacute;","Somme De Pay&eacute;","Somme De A Recouvrir","Somme De Reste Sur Budget"});
 %>
 <script>
     function changerDesignation() {
