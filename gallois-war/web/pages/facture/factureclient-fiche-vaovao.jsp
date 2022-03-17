@@ -30,6 +30,7 @@
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE CLIENT");
 
+        
         pc.getChampByName("pourCompte").setVisible(false);
         pc.getChampByName("iduser").setVisible(false);
         pc.getChampByName("type").setVisible(false);
@@ -54,6 +55,7 @@
         pc.getChampByName("codeProvision").setLibelle("Provision");
         pc.getChampByName("armateurlib").setLibelle("Armateur");
         pc.getChampByName("exercice").setLibelle("Exercice");
+        pc.getChampByName("pourCompteLib").setLibelle("Pour compte");
 
         pc.getChampByName("code").setLibelle("Code");
         e = (FactureClient) pc.getBase();
