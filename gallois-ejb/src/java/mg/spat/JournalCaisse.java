@@ -1092,6 +1092,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             
             Date dateDuJour = Utilitaire.dateDuJourSql();
+            if(sortie > 0){
+                dateDuJour = Utilitaire.ajoutJourDate(dateDuJour, -1);
+            }
             JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, this.getDateEffet(), sortie, entree,this.getIdplacement());
             transfert.setIddevise(this.getIddevise());
             transfert.setIdmode(this.getIdmode());
