@@ -24,7 +24,40 @@ public class LigneCredit extends ClassEtat {
     private String codeEtablissementlib, projetlib;
     private String idprojet, idcodeEtablissement;
     private double resteApresEngmt;
+    private String niveau1,niveau2,niveau3,niveau4;
 
+    public String getNiveau1() {
+        return niveau1;
+    }
+
+    public void setNiveau1(String niveau1) {
+        this.niveau1 = niveau1;
+    }
+
+    public String getNiveau2() {
+        return niveau2;
+    }
+
+    public void setNiveau2(String niveau2) {
+        this.niveau2 = niveau2;
+    }
+
+    public String getNiveau3() {
+        return niveau3;
+    }
+
+    public void setNiveau3(String niveau3) {
+        this.niveau3 = niveau3;
+    }
+
+    public String getNiveau4() {
+        return niveau4;
+    }
+
+    public void setNiveau4(String niveau4) {
+        this.niveau4 = niveau4;
+    }
+    
     public double getResteApresEngmt() {
         return resteApresEngmt;
     }
