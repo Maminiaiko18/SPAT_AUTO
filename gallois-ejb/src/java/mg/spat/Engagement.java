@@ -26,7 +26,7 @@ import utilitaire.UtilDB;
  */
 public class Engagement extends ClassEtat {
     private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib;
-    private String codeEtablissementlib,projetlib,tiers ,tierslib;
+    private String codeEtablissementlib,projetlib,tiers ,tierslib,num;
     private double montant,disponible,dispoAvant,dispoApres,montantOP;
     private Date daty;
     private int avecFacture;
@@ -38,6 +38,14 @@ public class Engagement extends ClassEtat {
         return this.getMontant() - totalFF;
     }
 
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
+    }
+    
     public String getTiers() {
         return tiers;
     }
