@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5a2a4c-d9f3-419e-bdaf-7d68b4b0a8e6">
-	<property name="ireport.zoom" value="1.1000000000000287"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="1431"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
@@ -62,7 +62,7 @@
 				<text><![CDATA[Année]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="494" y="17" width="15" height="15" uuid="6c383675-79ff-4448-8009-b816668b4492"/>
+				<reportElement x="494" y="17" width="60" height="15" uuid="6c383675-79ff-4448-8009-b816668b4492"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -70,36 +70,14 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$P{numero}.charAt( 0 )]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="509" y="17" width="15" height="15" uuid="3abd7e56-957b-41d8-ae39-f9a862bc992d"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$P{numero}.charAt( 1 )]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="524" y="17" width="15" height="15" uuid="34f27020-bc3d-47be-83b8-1951778ad1d9"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$P{numero}.charAt( 2 )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{numero}]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="1" y="-2" width="71" height="61" uuid="6f1458ac-c619-42fe-bacc-2347db6eba49"/>
 				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
 			</image>
 			<textField isBlankWhenNull="true">
-				<reportElement x="449" y="32" width="46" height="15" uuid="786328f1-6eb5-4427-b038-138f754a7ab7"/>
+				<reportElement x="449" y="32" width="45" height="15" uuid="786328f1-6eb5-4427-b038-138f754a7ab7"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -162,19 +140,8 @@
 				</textElement>
 				<text><![CDATA[N°]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="539" y="17" width="15" height="15" uuid="33d2fd40-133b-4bfb-b42f-070a95cc3f75"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$P{numero}.charAt( 3 )]]></textFieldExpression>
-			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="449" y="32" width="46" height="15" uuid="c1d8f6a0-e117-45f3-bf1d-4f9306164efb"/>
+				<reportElement x="449" y="32" width="45" height="15" uuid="c1d8f6a0-e117-45f3-bf1d-4f9306164efb"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<paragraph rightIndent="3"/>
 				</textElement>
