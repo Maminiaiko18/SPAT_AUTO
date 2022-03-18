@@ -141,7 +141,7 @@ public class Prevision extends ClassEtat {
             prevision = (Prevision) prevision.getById(this.getId(), prevision.getNomTable(), c);
             if(prevision.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception("Prevision non visee");
             
-            FactureClient[] listeFactValide=this.findFacturesValide(c);
+            //FactureClient[] listeFactValide=this.findFacturesValide(c);
             
             AdminActivite adminActivite = new AdminActivite();
             //Activite[] activites=findActivitesNonFacturees(c);
@@ -149,7 +149,10 @@ public class Prevision extends ClassEtat {
             if(nav!=null){
                 if(OccupationMaterielNaval.possedeActivite(prevision.getPrestationsVisees(c), c) == false) {
                 //if(activites==null || activites.length==0){
-                    if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0) prevision.genererActiviteViseesBP(user, c);
+                    if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0){
+                        prevision.genererActiviteViseesBP(user, c);
+                        adminActivite.setEstBornage(1);
+                    }
                     else prevision.genererActiviteVisees(user, c);
                 }
 
