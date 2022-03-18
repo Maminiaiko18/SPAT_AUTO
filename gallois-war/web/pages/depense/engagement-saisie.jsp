@@ -49,6 +49,7 @@
         pi.getFormu().getChamp("idLC").setAutre("readonly");
 
         pi.getFormu().getChamp("compte").setVisible(false);
+        pi.getFormu().getChamp("num").setVisible(false);
         pi.getFormu().getChamp("avecFacture").setLibelle("Avec Facture");
         pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
         pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &Eacute;tablissement");
