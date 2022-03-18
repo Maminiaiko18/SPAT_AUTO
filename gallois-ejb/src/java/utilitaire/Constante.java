@@ -151,7 +151,12 @@ public class Constante {
     public static final String idBonProvisoire = "CATGFF002";
     public static final String typeChequeAuComptantFF = "TFC002";
     public static final String typeAuComptant = "TFC002";
+    public static final String typeFCAuComptant  = "TFC002";
 
+    public static String getTypeFCAuComptant() {
+        return typeFCAuComptant;
+    }
+    
     public static String getNavireBornageEtPeche() {
         return navireBornageEtPeche;
     }
