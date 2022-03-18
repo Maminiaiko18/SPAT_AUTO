@@ -225,6 +225,14 @@ public class Engagement extends ClassEtat {
     public String getValColLibelle() {
         return this.getDesignation();
     }
+    
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        System.out.println("mg.spat.Engagement.createObject()=====> makanesa ato");
+        preparePk("NCR","getseqNumeroEngagement");
+        this.setNum(makePK(c));
+        return super.createObject(u, c); 
+    }
 
     public LigneCredit findLigneCredit(Connection c) throws Exception{
         LigneCredit lc = new LigneCredit();
@@ -383,5 +391,6 @@ public class Engagement extends ClassEtat {
         } finally{
             if(check && c != null) c.close();
         }
-    }
+    }    
+    
 }
