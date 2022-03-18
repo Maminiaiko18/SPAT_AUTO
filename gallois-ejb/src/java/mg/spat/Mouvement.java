@@ -698,7 +698,8 @@ public class Mouvement extends ClassEtat {
         a.setClient(prev.getConsignataire());
         a.setMois(Utilitaire.getMois(mvtPrec.getDatearrivee()));
         a.setAnnee(Utilitaire.getAnnee(mvtPrec.getDatearrivee()));
-        a.setDaty(Utilitaire.dateDuJourSql());
+        //a.setDaty(Utilitaire.dateDuJourSql());
+        a.setDaty(this.getDate_depart());
         a.setBateau(prev.getId());
         a.setDatedebut(mvtPrec.getDatearrivee());
         a.setHeuredebut(mvtPrec.getHeure());
