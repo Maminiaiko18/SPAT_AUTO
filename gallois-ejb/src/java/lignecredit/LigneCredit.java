@@ -281,7 +281,7 @@ public class LigneCredit extends ClassEtat {
 "                    from SITUATION_BC_SANSENG bc\n" +
 "                    WHERE 1 < 2 " +whereDaty.replaceAll("daty", "bc.daty")+
 "                    group by comptebdg) bc on bc.comptebdg = l.comptefull\n"
-                    + "         left join (select sum(ECART) as montant, COMPTEFULL as compte\n" +
+                    + "         left join (select sum(montantreste) as montant, COMPTEFULL as compte\n" +
 "                    from ETATBPVRAI bp\n" +
 "                    WHERE 1 < 2 " +whereDaty.replaceAll("daty", "bp.daty")+
 "                    group by COMPTEFULL) bp on bp.compte=l.COMPTEFULL"
