@@ -29,7 +29,7 @@ public class Engagement extends ClassEtat {
     private String codeEtablissementlib,projetlib,tiers ,tierslib,num;
     private double montant,disponible,dispoAvant,dispoApres,montantOP;
     private Date daty;
-    private int avecFacture;
+    private int avecFacture,annee;
 
     
     public double getResteAFacturer(Connection c) throws Exception{
@@ -38,6 +38,14 @@ public class Engagement extends ClassEtat {
         return this.getMontant() - totalFF;
     }
 
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+    
     public String getNum() {
         return num;
     }
