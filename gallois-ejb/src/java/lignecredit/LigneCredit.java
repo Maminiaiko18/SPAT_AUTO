@@ -277,19 +277,18 @@ public class LigneCredit extends ClassEtat {
                     + whereDaty.replaceAll("daty", "en.daty")
                     + "                    group by en.ID, DATY, PROJET, codeetablissement) gr\n"
                     + "                   on nt.PROJET = gr.PROJET and nt.CODEETABLISSEMENT = gr.CODEETABLISSEMENT\n"
-                    + "         left join (select comptebdg, sum(montant) as montant\n"
-                    + "                    from AS_BONDECOMMANDE_SANSFACT_ENG bc\n"
-                    + "                    WHERE 1 < 2 " + whereDaty.replaceAll("daty", "bc.daty")
-                    + "                    group by comptebdg) bc on bc.comptebdg = l.comptefull\n"
-                    + "         left join (select sum(MONTANT)  as montant, CODE_ETABLISSEMENTLIB || PROJETLIB as compte\n" +
-                      "               from BPNonRegul bp\n" +
-                      "                      WHERE 1<2 \n" 
-                      + whereDaty.replaceAll("daty", "bp.daty") +
-                      "                      group by  CODE_ETABLISSEMENTLIB || PROJETLIB ) bp on bp.compte=l.COMPTEFULL"
+                    + "         left join (select comptebdg, sum(MONTANTNONFACTURE) as montant\n" +
+"                    from SITUATION_BC_SANSENG bc\n" +
+"                    WHERE 1 < 2 " +whereDaty.replaceAll("daty", "bc.daty")+
+"                    group by comptebdg) bc on bc.comptebdg = l.comptefull\n"
+                    + "         left join (select sum(ECART) as montant, COMPTEFULL as compte\n" +
+"                    from ETATBPVRAI bp\n" +
+"                    WHERE 1 < 2 " +whereDaty.replaceAll("daty", "bp.daty")+
+"                    group by COMPTEFULL) bp on bp.compte=l.COMPTEFULL"
                     + where
                     + " GROUP BY l.DIRECTION, l.projet, n.montant, nt.MONTANT, gr.MONTANT, fd.facture, fd.PAYE,\n" +
                     "         l.direction, l.projet, l.COMPTEFULL, l.idprojet, l.iddirection, bc.montant,bp.montant";
-            System.out.println("rqt===="+req);
+            //System.out.println("rqt===="+req);
             LigneCredit stock = new LigneCredit();
             stock.setNomTable("situationLC_vide");
             return CGenUtil.rechercher(stock, req, c, colSomme);
