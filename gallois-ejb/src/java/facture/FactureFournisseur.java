@@ -545,8 +545,9 @@ public class FactureFournisseur extends FactureClient {
                 con.setAutoCommit(false);
                 verif = true;
             }
+            if(this.getDateRegul() == null) throw new Exception("Date de regul vide");
             
-            Date dateDuJour = Utilitaire.ajoutJourDate(Utilitaire.dateDuJourSql(), -1);
+            Date dateDuJour = this.getDateRegul();
             JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, dateDuJour, montant, 0,this.getId());
             transfert.setIddevise(this.getDeviseMere());
             transfert.setIdmode(Constante.modePaiementEspece);
