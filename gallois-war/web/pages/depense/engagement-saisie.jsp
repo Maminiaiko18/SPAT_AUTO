@@ -58,6 +58,10 @@
         pi.getFormu().getChamp("disponible").setVisible(false);
         pi.getFormu().getChamp("idLC").setLibelle("Budget");
         pi.getFormu().getChamp("daty").setLibelle("Date");
+        pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
+        pi.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
+        
+        
 
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
