@@ -60,8 +60,10 @@
         pc.getChampByName("montantpaye").setLibelle("Montant payé");
         pc.getChampByName("montantreste").setLibelle("Reste à payer");
         pc.getChampByName("typelib").setLibelle("Type");
-        pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoir");
+        pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoire");
         pc.getChampByName("projetlib").setLibelle("Projet");
+        pc.getChampByName("idEngagementlib").setLibelle("Engagement");
+        pc.getChampByName("dateRegul").setLibelle("Date de régul");
 //        pc.getChampByName("numeroop").setVisible(false);
         pc.getChampByName("code_etablissementlib").setLibelle("Code direction");
         //pc.getChampByName("escale").setLibelle("Escale");
