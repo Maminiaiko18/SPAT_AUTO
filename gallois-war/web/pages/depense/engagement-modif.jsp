@@ -33,13 +33,15 @@
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idLClib").setVisible(false);
         pi.getFormu().getChamp("compte").setVisible(false);
-
+        
         Liste[] listes = new Liste[1];
         String[] avecFactureAff = {"oui", "non"};
         String[] avecFactureVal = {"1", "0"}; 
         listes[0] = new Liste("avecFacture", avecFactureAff, avecFactureVal);
     
         pi.getFormu().changerEnChamp(listes);
+        
+        pi.getFormu().getChamp("annee").setLibelle("Année") ; 
         pi.getFormu().getChamp("designation").setLibelle("Désignation");
         pi.getFormu().getChamp("codeetablissement").setLibelle("Code établissement");
         pi.getFormu().getChamp("projet").setLibelle("Projet");
