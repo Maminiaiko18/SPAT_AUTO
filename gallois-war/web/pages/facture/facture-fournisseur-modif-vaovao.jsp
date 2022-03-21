@@ -59,6 +59,7 @@
         pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
         pi.getFormu().getChamp("idengagement").setAutre("readonly");
         pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
+        pi.getFormu().getChamp("dateRegul").setLibelle("Date de régul");
 
         pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
         pi.getFormu().getChamp("idprevision").setAutre("readonly");
