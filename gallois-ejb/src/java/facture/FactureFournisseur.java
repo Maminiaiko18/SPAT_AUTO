@@ -33,6 +33,15 @@ public class FactureFournisseur extends FactureClient {
     private String  idengagement , idengagementlib;
     private String id2;
     private String codeEtablissement;
+    private Date dateRegul;
+
+    public Date getDateRegul() {
+        return dateRegul;
+    }
+
+    public void setDateRegul(Date dateRegul) {
+        this.dateRegul = dateRegul;
+    }
 
     public String getIdengagement() {
         return idengagement;
