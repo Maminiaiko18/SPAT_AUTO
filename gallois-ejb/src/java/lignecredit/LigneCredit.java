@@ -258,7 +258,9 @@ public class LigneCredit extends ClassEtat {
                     + "                           mf.ANNEE\n"
                     + "\n"
                     + "                    FROM DETAILSFACTUREFOURNISSEUR_paye mf\n"  
-                    + "                    WHERE 1 < 2 " + whereDaty.replaceAll("daty", "mf.daty")
+                    + "                    WHERE 1 < 2 " 
+                    + "                     and (mf.typeengagement!='ED' or TYPEENGAGEMENT is null) "
+                    + whereDaty.replaceAll("daty", "mf.daty")
                     + "                    group by substr(mf.COMPTE, 1, 6), mf.ANNEE) fd on l.COMPTEFULL = fd.comptefull\n"
                     + "         left join (select substr(COMPTE, 1,6) as compte, sum(MONTANT) as montant, annee\n"
                     + "                    from DETAILSFACTUREFOURNISSEUR_paye\n"
