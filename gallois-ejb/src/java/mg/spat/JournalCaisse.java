@@ -856,7 +856,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 paiementFact.createObject(refuser, c);
                 facturefournisseur.FactureFournisseur ff = avoirFF.getFactureFournisseurLiee("BPvalide", c);
                 if(ff != null){
-                    this.insererDansBonProvisoire(refuser, c, this.getCredit(), 0);
+                    this.insererDansBonProvisoire(refuser, c, this.getCredit(), 0, avoirFF.getDaty());
                 }
             }
             FactureClient[] fcListe = findFactureClient(c);
@@ -891,7 +891,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     if(ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())){
                         aPayer = genererMontantPaiement(c, "etatbpvrai", ff.getId(), aPayer);
                         //Insérer dans bon provisoire
-                        insererDansBonProvisoire(refuser, c, 0, this.getDebit());
+                        insererDansBonProvisoire(refuser, c, 0, this.getDebit(), Utilitaire.dateDuJourSql());
                     }
                     
                     PaiementFacture pf = new PaiementFacture();
@@ -1082,7 +1082,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return null;
     }
     
-    public void insererDansBonProvisoire(String u, Connection con, double sortie, double entree) throws Exception {
+    public void insererDansBonProvisoire(String u, Connection con, double sortie, double entree, Date dateRegul) throws Exception {
         boolean verif = false;
         try{
             if(con == null){
@@ -1091,11 +1091,11 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 verif = true;
             }
             
-            Date dateDuJour = Utilitaire.dateDuJourSql();
-            if(sortie > 0){
-                dateDuJour = Utilitaire.ajoutJourDate(dateDuJour, -1);
-            }
-            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, this.getDateEffet(), sortie, entree,this.getIdplacement());
+//            Date dateDuJour = Utilitaire.dateDuJourSql();
+//            if(sortie > 0){
+//                dateDuJour = Utilitaire.ajoutJourDate(dateDuJour, -1);
+//            }
+            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateRegul, this.getDateEffet(), sortie, entree,this.getIdplacement());
             transfert.setIddevise(this.getIddevise());
             transfert.setIdmode(this.getIdmode());
             transfert.setEtat(ConstanteEtat.getEtatValider());
