@@ -62,6 +62,7 @@
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
         //pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro Compta");
         pi.getFormu().getChamp("numeroop").setVisible(false);
+        pi.getFormu().getChamp("dateRegul").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
