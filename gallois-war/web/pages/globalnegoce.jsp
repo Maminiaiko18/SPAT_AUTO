@@ -84,6 +84,7 @@
         <script src="${pageContext.request.contextPath}/apjplugins/champcalcul.js" defer></script>      
         <script src="${pageContext.request.contextPath}/apjplugins/champdate.js" defer></script>      
         <script src="${pageContext.request.contextPath}/apjplugins/champautocomplete.js" defer></script>      
+        <script src="${pageContext.request.contextPath}/apjplugins/addLine.js" defer></script>  
     </body>
     <script>
     </script>

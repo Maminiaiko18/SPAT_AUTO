@@ -232,18 +232,7 @@
         designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
         $('#compte_<%=i%>').parent().attr('style', ''); 
     <%}%>
-    
-    var elementDefaut = $("#ajout_multiple_ligne tr")[$("#ajout_multiple_ligne tr").length-1].innerHTML;
-    var indiceDefaut = $("#ajout_multiple_ligne tr").length-1;
-    
-    function add_line_tab(champ){
-        var indiceNew = $("#ajout_multiple_ligne tr").length;
-        const regex = /_(\d)/g;
-        var newElem = elementDefaut.replaceAll(regex, "_"+indiceNew);
-        newElem = newElem.replaceAll(indiceDefaut, indiceNew);
-        $("#ajout_multiple_ligne").append("<tr id='ligne-multiple-"+indiceNew+"'>"+newElem+"</tr>");
-    }
-    
+        
 </script>
 <%
         } catch (Exception e) {
