@@ -1955,6 +1955,7 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
             param.put("piece",engagement.getDesignation());
             param.put("du",engagement.getDaty());
             param.put("projet",engagement.getProjetlib());
+            param.put("numero",engagement.getNum());
             
             LigneCredit lc = engagement.findLigneCredit(c);
             if(lc!=null ){
