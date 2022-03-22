@@ -235,10 +235,8 @@ public class Engagement extends ClassEtat {
     }
     
     @Override
-    public ClassMAPTable createObject(String u, Connection c) throws Exception {
-        System.out.println("mg.spat.Engagement.createObject()=====> makanesa ato");
-        preparePk("NCR","getseqNumeroEngagement");
-        this.setNum(makePK(c));
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {        
+        this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqNumeroEngagement",c)));
         return super.createObject(u, c); 
     }
 
