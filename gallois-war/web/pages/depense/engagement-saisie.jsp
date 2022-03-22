@@ -128,11 +128,27 @@
 
         parentNode.insertBefore(total, lastFooter);
     }
+    
+    function getValeurMontant(numLigne) {
+        const valeur = Number($('#montant_' + numLigne).val());
+        return !isNaN(valeur) ? valeur : 0;
+    }
+
+    function calculTotal() {
+        let total = 0;
+        const ligneTab = document.getElementById('ajout_multiple_ligne').children;
+        
+        for(let i=0; i < ligneTab.length; i++) {
+            total += getValeurMontant(i);
+        }
+
+        const nouvelValeur = Intl.NumberFormat('fr-FR').format(total);
+        $('#totalAmount').text(nouvelValeur);
+    }
 
     $(document).ready(function () {
         initTotalSection();
         calculTotal();
-
     });
 </script>
 <script>
@@ -146,22 +162,9 @@
         }
     }
 
-    function getValeurMontant(numLigne) {
-        const valeur = Number($('#montant_' + numLigne).val());
-        return !isNaN(valeur) ? valeur : 0;
-    }
-
-    function calculTotal() {
-        let total = 0;
-    <% for (int i = 0; i < pi.getNombreLigne(); i++) { %>
-        total += getValeurMontant(<%=i%>);
-    <%}%>
-
-        const nouvelValeur = Intl.NumberFormat('fr-FR').format(total);
-        $('#totalAmount').text(nouvelValeur);
-    }
-
     function setOnblurInMere(idMere, elemFille) {
+        console.log('calcul total');
+        calculTotal();
         var elemMere = document.getElementById(idMere);
         if (elemMere && elemFille.value != "") {
             elemMere.onblur = calculTotal();
