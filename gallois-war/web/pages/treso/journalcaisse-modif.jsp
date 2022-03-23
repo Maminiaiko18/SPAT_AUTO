@@ -27,7 +27,7 @@
     affichage.Champ[] liste = new affichage.Champ[5];
     TypeObjet typeObjet = new TypeObjet();
     TypeObjet esc = new TypeObjet();
-        esc.setNomTable("CAISSE_LIB");
+        esc.setNomTable("caisse");
         liste[0] = new Liste("caisse", esc, "VAL", "id");
         TypeObjet cheque = new TypeObjet();
         cheque.setNomTable("TYPECHEQUE");
