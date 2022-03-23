@@ -5,6 +5,7 @@
  */
 package projet;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
 import java.sql.Connection;
@@ -146,8 +147,9 @@ public class Projet extends ClassEtat{
         return designation;
     }
     
-    public void checkDoublonCode(Connection c){
-        
+    public void checkDoublonCode(Connection c) throws Exception{
+        Projet[] projet = (Projet[]) CGenUtil.rechercher(new Projet(), null, null, c, " and upper(designation) like upper('"+this.getDesignation()+"')");
+        if(projet.length > 0) throw new Exception("Projet existant");
     }
 
     @Override
