@@ -6,6 +6,7 @@
 package projet;
 
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import java.sql.Connection;
 
 /**
@@ -144,4 +145,16 @@ public class Projet extends ClassEtat{
     public String getValColLibelle(){
         return designation;
     }
+    
+    public void checkDoublonCode(Connection c){
+        
+    }
+
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        this.checkDoublonCode(c);
+        return super.createObject(u, c); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }
