@@ -382,7 +382,7 @@ public class OrdonnerPayement extends ClassEtat {
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
 
         this.setIduser(u);
-        String[] idFact = this.getDed_Id().split(";");
+//        String[] idFact = this.getDed_Id().split(";");
 
         /*FactureFournisseur[] factures = this.getFactures(c);
         if(factures.length>0){

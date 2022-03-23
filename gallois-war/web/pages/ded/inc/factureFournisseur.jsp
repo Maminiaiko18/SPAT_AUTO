@@ -4,6 +4,7 @@
     Author     : nyamp
 --%>
 
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureFournisseur"%>
 <%@page import="bean.AdminGen"%>
 <%@page import="affichage.TableauRecherche"%>
@@ -12,17 +13,30 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    int etatOP = Utilitaire.stringToInt(request.getParameter("etatOP"));
+    String ded_id = request.getParameter("ded_id");
+    
     FactureFournisseur act = new FactureFournisseur();
     act.setNomTable("liaisonOPFF");
     String listeCrt[] = {"id2"};
     String listeInt[] = {};
         String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP"};
-
+    
+    String awhere = "";
+    
+    if(etatOP < ConstanteEtat.getEtatValider()) {
+        act.setNomTable("FACTUREFOURNVALIDE_TOUS");
+        listeCrt = new String[] {};
+        awhere += String.format(" and id in (%s)", Utilitaire.tabToString(Utilitaire.stringToTab(ded_id, ";"), "'", ","));
+    }
+        
     PageRecherche pr = new PageRecherche(act, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
 
     String[] colSomme = null;
+    
+    pr.setAWhere(pr.getAWhere() + " " + awhere);
     
     pr.creerObjetPage(libEntete, colSomme);
     

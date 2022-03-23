@@ -65,7 +65,7 @@
                         <a class="btn btn-success pull-left"  href="${pageContext.request.contextPath}/Paie?action=imprimerBed2&id=<%=id%>" style="margin-right: 10px">Editer BED</a>
                     </div>
                     <div>
-                         <% if(a.getDed_Id().startsWith("FC")){%>
+                         <% if(a.getDed_Id() != null && a.getDed_Id().startsWith("FC")){%>
                             <a class="btn btn-success pull-primary"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&id=" + id +"&entree=1" %>"  style="margin-right: 10px">Entre caisse</a>
                         <%} else{%>
                             <a class="btn btn-primary pull-primary"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&id=" + id%>"  style="margin-right: 10px">sortie caisse</a>
@@ -96,6 +96,8 @@
             <div class="tab-content">       
                 <jsp:include page="<%=tab%>" >
                     <jsp:param name="id2" value="<%=a.getId()%>" />
+                    <jsp:param name="etatOP" value="<%=a.getEtat()%>" />
+                    <jsp:param name="ded_id" value="<%=a.getDed_Id()%>" />
                 </jsp:include>
             </div>
         </div>

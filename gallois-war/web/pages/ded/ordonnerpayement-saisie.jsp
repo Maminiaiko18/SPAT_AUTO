@@ -46,7 +46,7 @@
     pi.getFormu().changerEnChamp(liste);
     OrdonnerPayementData opd = new OrdonnerPayementData(request.getParameter("id"),request.getParameter("ded_id"));
     if (request.getParameter("ded_id") != null && request.getParameter("ded_id").compareTo("") != 0) {
-        pi.getFormu().getChamp("ded_id").setDefaut(request.getParameter("ded_id"));
+        pi.getFormu().getChamp("ded_Id").setDefaut(request.getParameter("ded_id"));
         pi.getFormu().getChamp("remarque").setDefaut("Paiement facture(s) " + request.getParameter("ded_id"));
         pi.getFormu().getChamp("tiers").setDefaut(opd.getTiers());
 
