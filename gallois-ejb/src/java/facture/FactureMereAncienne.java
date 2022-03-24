@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -24,6 +25,7 @@ public class FactureMereAncienne extends ClassMAPTable{
     public FactureMereAncienne() {
         super.setNomTable("facture");
     }
+
     public FactureClient genererFacture(Connection c, String u) throws Exception {
         FactureClient facture=null;
         boolean estOuvert=false;
@@ -60,7 +62,40 @@ public class FactureMereAncienne extends ClassMAPTable{
             if(c!=null&&estOuvert==true)c.close();
         }
     }
-
+    
+    public static FactureClient[] genererFactureMultiple(Connection con, String ids, String user) throws Exception {
+        boolean checkCon = false;
+        
+        try {
+            if(con == null) {
+                con = (new UtilDB()).GetConn();
+                con.setAutoCommit(false);
+                checkCon = true;
+            }
+            
+            String awhereId = Utilitaire.tabToString(Utilitaire.stringToTab(ids, ";"), "'", ",");
+            
+            String awhere = String.format(" and nmfact in (%s)", awhereId);
+            FactureMereAncienne[] mere = (FactureMereAncienne[]) CGenUtil.rechercher(new FactureMereAncienne(), null, null, con, awhere);
+            if(mere == null || mere.length == 0) throw new Exception("Facture introuvable");
+            
+            FactureClient[] mereRetour = new FactureClient[mere.length];
+            for(int i=0; i < mere.length; i++) {
+                mereRetour[i] = mere[i].genererFacture(con, user);
+            }
+            
+            if(checkCon) con.commit();
+            
+            return mereRetour;
+        } catch (Exception exp) {
+            if(checkCon && con != null) con.rollback();
+            throw exp;
+        }
+        finally {
+            if(checkCon && con != null) con.close();
+        }
+    }
+ 
     public String getNmfact() {
         return nmfact;
     }
