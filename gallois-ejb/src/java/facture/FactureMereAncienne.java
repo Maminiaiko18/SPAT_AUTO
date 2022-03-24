@@ -166,5 +166,17 @@ public class FactureMereAncienne extends ClassMAPTable{
         setNmfact(makePK(c));
     }
     
-    
+    public FactureClient genererFactureMere(String u) throws Exception{
+        FactureClient fc = new FactureClient();
+        fc.setCode(this.getNmfact());
+        fc.setTiers(this.getCddosclt());
+        fc.setDaty(this.getDtfact());
+        fc.setDesignation(this.getNoteexpl());
+        fc.setIduser(u);
+        fc.setEstMictsl("0");
+        fc.setTypeEngagement("normal");
+        fc.setEstAncienne(1);
+        fc.setEtat(11);
+        return fc;
+    }
 }
