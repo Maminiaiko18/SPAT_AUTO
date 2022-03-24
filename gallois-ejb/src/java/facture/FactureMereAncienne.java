@@ -38,7 +38,7 @@ public class FactureMereAncienne extends ClassMAPTable{
             }
             facture = this.genererFactureMere(u);
             FactureFilleAncienne filleTemporaire= new FactureFilleAncienne();
-            filleTemporaire.setNomTable("FACTPRTMAT" );
+            filleTemporaire.setNomTable("factprtmat" );
             FactureFilleAncienne[] fille= (FactureFilleAncienne[]) CGenUtil.rechercher(filleTemporaire, null, null, c, " and NMFACT ='"+this.getNmfact()+"'");
             if(fille.length==0){
                 throw new Exception("Details introuvable");
