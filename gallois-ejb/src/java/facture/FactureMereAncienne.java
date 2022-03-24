@@ -10,6 +10,7 @@ import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import utilitaire.Constante;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -252,6 +253,7 @@ public class FactureMereAncienne extends ClassMAPTable{
         fc.setTypeEngagement("normal");
         fc.setEstAncienne(1);
         fc.setEtat(11);
+        fc.setIdcategorie(Constante.idCategorieFCDefinitive);
         return fc;
     }
 }
