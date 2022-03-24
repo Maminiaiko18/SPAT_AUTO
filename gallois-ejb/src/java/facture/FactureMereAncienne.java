@@ -5,9 +5,12 @@
  */
 package facture;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -21,7 +24,42 @@ public class FactureMereAncienne extends ClassMAPTable{
     public FactureMereAncienne() {
         super.setNomTable("facture");
     }
-    
+    public FactureClient genererFacture(Connection c, String u) throws Exception {
+        FactureClient facture=null;
+        boolean estOuvert=false;
+        try
+        {
+            if(c==null)
+            {
+                c=new UtilDB().GetConn();
+                estOuvert=true;
+            }
+            facture = this.genererFactureMere(u);
+            FactureFilleAncienne filleTemporaire= new FactureFilleAncienne();
+            filleTemporaire.setNomTable("FACTPRTMAT" );
+            FactureFilleAncienne[] fille= (FactureFilleAncienne[]) CGenUtil.rechercher(filleTemporaire, null, null, c, " and NMFACT ='"+this.getNmfact()+"'");
+            if(fille.length==0){
+                throw new Exception("Details introuvable");
+            }
+            FactureClientDetails[] factureDetail=new FactureClientDetails[fille.length];
+            for(int i=0;i<fille.length;i++){
+                factureDetail[i]=fille[i].genererFactureFille();
+            }
+            facture.setFille(factureDetail);
+            facture=(FactureClient)facture.createObject(u,c);
+            return facture;
+
+        }
+        catch(Exception e)
+        {
+            if(c!=null&&estOuvert==true)c.rollback();
+            throw e;
+        }
+        finally
+        {
+            if(c!=null&&estOuvert==true)c.close();
+        }
+    }
 
     public String getNmfact() {
         return nmfact;
