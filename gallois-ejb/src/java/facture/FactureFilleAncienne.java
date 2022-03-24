@@ -176,5 +176,17 @@ public class FactureFilleAncienne extends ClassMAPTable{
         setNmfact(makePK(c));
     }
     
+    public FactureClientDetails genererFactureFille() throws Exception {
+        FactureClientDetails fcd = new FactureClientDetails();
+        fcd.setDesignation(this.getLibprt());
+        fcd.setQuantite(this.getQtenb());
+        fcd.setDuree(this.getDuree() == 0 ? 1 : this.getDuree());
+        fcd.setMajoration(this.getMaj());
+        fcd.setReduction(this.getRed());
+        fcd.setHeureDebut(this.getHrdebprt() == null ? null : this.getHrdebprt()+"");
+        fcd.setHeureFin(this.getHrfinprt() == null ? null : this.getHrfinprt()+"");
+        fcd.setPu(this.getMttligar()/this.getQtenb());
+        return fcd;
+    }
     
 }
