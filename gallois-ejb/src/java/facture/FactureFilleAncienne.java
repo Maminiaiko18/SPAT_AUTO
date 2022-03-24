@@ -16,7 +16,7 @@ import java.sql.Date;
 public class FactureFilleAncienne extends ClassMAPTable{
     private String nmfact,cdtarif,libprt;
     private int id;
-    private double qtenb,duree,maj,red,mttligne,mttligar,mtttax,tauctarif;
+    private double qtenb,duree,maj,red,mttligne,mttligar,mtttax,tauxtarif;
     private Date dtprvprt,dtprt,hrprvprt,hrdebprt,hrfinprt;
 
     public FactureFilleAncienne() {
@@ -112,14 +112,15 @@ public class FactureFilleAncienne extends ClassMAPTable{
         this.mtttax = mtttax;
     }
 
-    public double getTauctarif() {
-        return tauctarif;
+    public double getTauxtarif() {
+        return tauxtarif;
     }
 
-    public void setTauctarif(double tauctarif) {
-        this.tauctarif = tauctarif;
+    public void setTauxtarif(double tauxtarif) {
+        this.tauxtarif = tauxtarif;
     }
 
+    
     public Date getDtprvprt() {
         return dtprvprt;
     }
