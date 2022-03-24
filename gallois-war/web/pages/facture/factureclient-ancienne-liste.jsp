@@ -26,18 +26,9 @@
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("tiers").setLibelle("Client");
-       Date firstDate = Utilitaire.dateDuJourSql();   
-        firstDate.setDate(1);        
-        Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
-        
-        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
-        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
-        
-        if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
-            pr.getFormu().getChamp("daty1").setDefaut(debutDate);
-            pr.getFormu().getChamp("daty2").setDefaut(dateFin);
-            
-        }
+       
+
+       
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
@@ -79,25 +70,31 @@
                 pr.getTableau().setUrlLienAffiche(urlLienAffiche);
                 pr.getTableau().setUrlLien(urlLienMultiple);
                 pr.getTableau().setNameBoutton("Encaisser");
-               
+
                 pr.getTableau().setNameActe("encaisserMultiple");
 
                 out.println(pr.getTableau().getHtmlWithCheckbox());
 
             %>
-
-            <button type="submit" name="Submit2" class="btn btn-success pull-right" style="margin-right: 33px;" onclick="integrer()" value='integrer'>Intégrer</button>
-
             <input type="hidden" id="acte" name="acte" value="encaisserMultiple"/>
         </form>
         <% out.println(pr.getBasPage());%>
     </section>
 </div>
-        <script>
-            funtion integrer(){
-                document.getElementById("acte").value = "integrer";
-            }
-        </script>
+<script>
+    function integrer(){
+        document.getElementById("acte").value = "integrer";
+    }
+    
+    const btnf = document.getElementsByClassName("box-footer");
+    let btn = document.createElement("button");
+    btn.innerHTML = "integrer";
+    btn.type = "submit";
+    btn.onclick = integrer();
+    btn.className = "btn btn-success pull-left"
+    btnf[1].appendChild(btn);
+    console.log("");
+</script>
 <% } catch (Exception e) {
         e.printStackTrace();
     }%>
