@@ -76,7 +76,9 @@ public class FactureMereAncienne extends ClassMAPTable{
             String awhereId = Utilitaire.tabToString(Utilitaire.stringToTab(ids, ";"), "'", ",");
             
             String awhere = String.format(" and nmfact in (%s)", awhereId);
-            FactureMereAncienne[] mere = (FactureMereAncienne[]) CGenUtil.rechercher(new FactureMereAncienne(), null, null, con, awhere);
+            FactureMereAncienne anc = new FactureMereAncienne();
+            anc.setNomTable("mat_facture");
+            FactureMereAncienne[] mere = (FactureMereAncienne[]) CGenUtil.rechercher(anc, null, null, con, awhere);
             if(mere == null || mere.length == 0) throw new Exception("Facture introuvable");
             
             FactureClient[] mereRetour = new FactureClient[mere.length];
