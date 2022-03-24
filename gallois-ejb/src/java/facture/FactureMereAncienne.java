@@ -16,7 +16,7 @@ import java.sql.Date;
 public class FactureMereAncienne extends ClassMAPTable{
     private String nmfact,cdmonn,cddosclt,nmfact_rem,nmfact_pro,noteexpl,annulee,editee,nmcptgen;
     private Date dtfact,dtcours;
-    private Double mtthtva,taxe,mtttva,mttdevise,rstapayer;
+    private double mtthtva,taxe,mtttva,mttdevise,rstapayer;
 
     public FactureMereAncienne() {
         super.setNomTable("facture");
