@@ -948,6 +948,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pourcomptelib}]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="451" y="251" width="466" height="20" uuid="cfa90b35-47c1-43e5-9a12-a056b6a143b5"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{designation+}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<summary>

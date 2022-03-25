@@ -992,7 +992,7 @@ public class EtatPaieServlet extends HttpServlet {
 
                 if (mere[0].getDeviseMere() != null) {
                     if (mere[0].getDeviseMere().compareToIgnoreCase("Dollars") == 0) {
-                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar)) + " Dollars ";
+                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar),mere[0].getDeviseMere()) + " Dollars ";
                     }
                 }
 
