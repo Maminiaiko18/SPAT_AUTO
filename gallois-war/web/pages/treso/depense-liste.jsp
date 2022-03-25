@@ -6,9 +6,9 @@
     try {
         JournalCaisse journalCaisse = new JournalCaisse();
         journalCaisse.setNomTable("journalcaisselibdepense");
-        String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement"};
+        String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement","numeroOP"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] = {"id", "folio", "valcaisse","idtypecheque", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
+        String libEntete[] = {"id", "folio", "valcaisse","idtypecheque", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement","numeroOP"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -22,6 +22,7 @@
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
+        pr.getFormu().getChamp("numeroOP").setLibelle("Numero operateur");
         String[] colSomme = {"debit"};
         pr.creerObjetPage(libEntete, colSomme);
 
@@ -47,7 +48,7 @@
         <br/>
 
         <%
-            String libEnteteAffiche[] = {"Id", "Folio", "Caisse","Type", "Num Piece", "num cheque", "Libellé", "Date Saisie", "Date Effet", "Entrée", "Sortie","Source"};
+            String libEnteteAffiche[] = {"Id", "Folio", "Caisse","Type", "Num Piece", "num cheque", "Libellé", "Date Saisie", "Date Effet", "Entrée", "Sortie","Source","Numero operateur"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             //pr.getTableau().construire_libelle(champ, libelle_comp);
             out.println(pr.getTableau().getHtml());
