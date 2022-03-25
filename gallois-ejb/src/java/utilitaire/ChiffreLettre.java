@@ -325,6 +325,13 @@ public class ChiffreLettre
             result = String.valueOf(String.valueOf((new StringBuffer(String.valueOf(String.valueOf(convertIntToString(valeurAvantVirgule))))).append(", zero ").append(convertIntToString(apres))));
         return result;
     }
+    
+    public static String convertRealToString(double montant, String devise) {
+        String montantLettre = convertRealToString(montant);
+        System.out.println("montant lettre " + montantLettre);
+        
+        return montantLettre.replace(",", devise);
+    }
 
     public static String[] convertRealToStringSepare(double intToString)
     {
