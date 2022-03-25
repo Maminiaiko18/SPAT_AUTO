@@ -208,14 +208,14 @@
 				<textFieldExpression><![CDATA[$P{client}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="15" y="29" width="34" height="18" uuid="ffa5ea55-5d6f-4e5b-8776-582798e37c78"/>
+				<reportElement x="15" y="29" width="51" height="18" uuid="ffa5ea55-5d6f-4e5b-8776-582798e37c78"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Stat :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="52" y="29" width="331" height="18" uuid="7a9ea6d7-4ba4-4619-9fb3-e59333fc097c"/>
+				<reportElement x="66" y="29" width="317" height="18" uuid="7a9ea6d7-4ba4-4619-9fb3-e59333fc097c"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -633,7 +633,7 @@
 					<textFieldExpression><![CDATA[$P{valdollar}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="3" y="23" width="63" height="20" uuid="0707959e-ccaf-4e7a-a5f0-a8c29a4c01a7"/>
+					<reportElement x="3" y="23" width="75" height="20" uuid="0707959e-ccaf-4e7a-a5f0-a8c29a4c01a7"/>
 					<textElement>
 						<font size="14" isBold="true"/>
 					</textElement>
@@ -698,14 +698,14 @@
 				<textFieldExpression><![CDATA[$P{montantAvoir}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="579" y="37" width="151" height="18" uuid="6f9a7517-dd2f-4284-9996-69c1c3648477"/>
+				<reportElement x="569" y="37" width="161" height="18" uuid="6f9a7517-dd2f-4284-9996-69c1c3648477"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant TVA 20% en Ar:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="579" y="54" width="151" height="18" uuid="9b899fac-f35d-47ab-9a91-aa86a416c67a"/>
+				<reportElement x="569" y="54" width="161" height="18" uuid="9b899fac-f35d-47ab-9a91-aa86a416c67a"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -719,14 +719,14 @@
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="579" y="20" width="151" height="18" uuid="26211b88-40f1-4e1b-9a39-2f242da5f71e"/>
+				<reportElement x="569" y="20" width="161" height="18" uuid="26211b88-40f1-4e1b-9a39-2f242da5f71e"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant sans réduction :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="579" y="71" width="151" height="18" uuid="838a30eb-0c39-417e-8ee9-48dd84b9396d"/>
+				<reportElement x="569" y="71" width="161" height="18" uuid="838a30eb-0c39-417e-8ee9-48dd84b9396d"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
