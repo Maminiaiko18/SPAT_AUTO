@@ -87,11 +87,10 @@
 <script>
     console.log("mande");
     var footer = document.getElementsByClassName('box-footer');
-    var tot = document.createElement('input');
+    var tot = document.createElement('p');
     tot.readOnly = true;
     tot.type = "text";
     tot.id = "total";
-    tot.style.border = 0;
     tot.style.fontSize = "21px";
     tot.style.color = "blue";
     tot.style.position = "relative";
@@ -116,7 +115,7 @@
         var montant = montantstr === '' ? 0 : parseFloat(montantstr);
         total += montant;
     <% } %>
-        $('#total').val("Total: "+total);
+        $('#total').text("Total: "+ new Intl.NumberFormat('fr-FR').format(total));
     }
 
     <% for (int i = 0; i < pi.getNombreLigne(); i++) {%>
