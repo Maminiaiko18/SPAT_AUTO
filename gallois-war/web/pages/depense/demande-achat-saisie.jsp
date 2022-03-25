@@ -13,10 +13,15 @@
     String idUser= "";
     u = (UserEJB) session.getValue("u");
     idUser = ""+u.getUser().getTuppleID();
-
+    String classeMere = DemandeAchatMere.class.getName(),
+               classeFille = DemandeAchatFille.class.getName(),
+                colonneMereDansFille = "idmere";
+    String js = "";
+    String id = request.getParameter("id");
     String autreparsley = "data-parsley-range='[8, 40]' required";
     DemandeAchatMere  dam = new DemandeAchatMere();
     DemandeAchatFille dafille = new DemandeAchatFille();
+    dafille.setIdmere(id);
     dafille.setNomTable("DEM_ACHAT_FILLELIB");
     PageInsertMultiple pi = new PageInsertMultiple(dam, dafille, request, 10, u);
     pi.setLien((String) session.getValue("lien"));
@@ -32,7 +37,6 @@
     pi.getFormu().getChamp("num").setVisible(false);
     pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
     pi.getFormufle().getChamp("id_0").setLibelle("Id");
-    pi.getFormufle().getChamp("idmere_0").setLibelle("Id mere");
     pi.getFormufle().getChamp("produit_0").setLibelle("Produit"); 
     pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
     pi.getFormufle().getChamp("qte_0").setLibelle("Qte");
@@ -47,6 +51,8 @@
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("unitelib"), false);
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("produit"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("unitelib"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
     String mere=request.getParameter("idmere");
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     int taille = pi.getNombreLigne();
@@ -67,10 +73,12 @@
         
         <input name="acte" type="hidden" id="nature" value="insert">
         <input name="bute" type="hidden" id="bute" value="depense/demande-achat-fiche.jsp">
-        <input name="classe" type="hidden" id="classe" value="mg.spat.DemandeAchatMere">
-        <input name="classefille" type="hidden" id="classefille" value="mg.spat.DemandeAchatFille">
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="10">
         <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
+        <input name="classe" type="hidden" id="classe" value="<%= classeMere %>">
+        <input name="classefille" type="hidden" id="classefille" value="<%= classeFille%>">
+        <input name="colonneMere" type="hidden" id="colonneMere" value="<%= colonneMereDansFille%>">
+                    
     </form>
  
 </div>
