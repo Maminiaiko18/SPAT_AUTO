@@ -17,9 +17,9 @@ import utilitaire.Utilitaire;
  */
 public class BonDeCommande extends ClassEtat {
 
-    private String id, designation, modepaiement, fournisseur;
+    private String id, designation, modepaiement, fournisseur,idDa,idDalib;
     private Date daty;
-    private int tva, delaipaiement;
+    private int tva, delaipaiement ;
     String remarque;
     private String nomfournisseur,numbc;
     private double montant, montanttva, montantTTC, montant_A_payer, montant_paye_reel, restepayergeneral, resteapayerreel,montantfacture;
@@ -28,6 +28,22 @@ public class BonDeCommande extends ClassEtat {
     private String adresse;
     private double remise,montantRemise;
     private String idengagement ,idengagementlib;
+
+    public String getIdDa() {
+        return this.idDa;
+    }
+
+    public void setIdDa(String idDa) {
+        this.idDa = idDa;
+    }
+
+    public String getIdDalib() {
+        return this.idDalib;
+    }
+
+    public void setIdDalib(String idDalib) {
+        this.idDalib = idDalib;
+    }
 
     public String getIdengagement() {
         return idengagement;
