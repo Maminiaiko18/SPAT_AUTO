@@ -106,6 +106,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
+import mg.spat.DemandeAchatMere;
+import mg.spat.DemandeAchatFille;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import utilitaire.Constante;
@@ -197,6 +199,9 @@ public class EtatPaieServlet extends HttpServlet {
             else if(action.equalsIgnoreCase("lgc")){
                 ligneCreditDepense(request, response);
             }
+            else if(action.equalsIgnoreCase("imprimerDemandeAchat")){
+                demandeAchat(request, response);
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -260,6 +265,40 @@ public class EtatPaieServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void demandeAchat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            DemandeAchatMere jc = new DemandeAchatMere();
+            jc.setId(request.getParameter("id"));
+            jc.setNomTable("dem_achat_merelib");
+            DemandeAchatMere[] tabJournal = (DemandeAchatMere[]) CGenUtil.rechercher(jc, null, null, " and id = '"+jc.getId()+"'");
+            if(tabJournal.length>0){
+                jc = tabJournal[0];
+            }
+            DemandeAchatFille j = new DemandeAchatFille();
+            j.setNomTable("dem_achat_fillelib");       
+            DemandeAchatFille[] tabJournalFille = (DemandeAchatFille[]) CGenUtil.rechercher(j, null, null, " and idmere = '"+jc.getId()+"'");
+            
+            Map param = new HashMap();
+            param.put("codeEtb", jc.getCodeetablissementlib());
+            param.put("numero", jc.getNum());
+            param.put("daty", jc.getDaty());
+            param.put("codePrj", jc.getProjetlib());
+            param.put("designation", jc.getDesignation());
+            
+            ArrayList<DemandeAchatFille> arrList = new ArrayList<DemandeAchatFille>();
+            for(int i = 0; i<tabJournalFille.length; i++){
+                arrList.add(tabJournalFille[i]);
+            }
+
+            param.put("list_table", arrList);
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("demande-achat");
+            UtilitaireImpression.imprimer(request, response, "demande-achat", param, new ArrayList(), getReportPath(), rt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void fact(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
