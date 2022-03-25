@@ -954,7 +954,7 @@ public class EtatPaieServlet extends HttpServlet {
 
                 param.put("responsable", "Pr&eacute;par&eacute; Par");
                 param.put("chef", "Le Responsable Facturation");
-                if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
+                if (mere[0].getEstMictsl()!=null && mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
 
                     param.put("chef", "Le chef de D&eacute;partement");
                     param.put("responsable", "Le contr&ocirc;leur");
@@ -1027,12 +1027,13 @@ public class EtatPaieServlet extends HttpServlet {
 
                 param.put("deviseMere", mere[0].getDeviseMere());
                 param.put("code", code);
-                String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc())) + " Ariary ";
+                
+                String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()))+" Ariary";
 
                 if (mere[0].getDeviseMere() != null) {
-                    if (mere[0].getDeviseMere().compareToIgnoreCase("Dollars") == 0) {
-                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar),mere[0].getDeviseMere()) + " Dollars ";
-                    }
+                    
+                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar),mere[0].getDeviseMere()) ;
+                    
                 }
 
                 param.put("montantlettre", montantlettre);
