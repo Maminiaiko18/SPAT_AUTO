@@ -38,16 +38,14 @@
         String ajoutAffiche[] = {"Non", "Oui"};
         listeM[2] = new Liste("estMictsl");
         listeM[2].ajouterValeur(ajoutValeur, ajoutAffiche);
-        
+
 //        TypeObjet typeObjCodePrestation = new TypeObjet();
 //        typeObjCodePrestation.setNomTable("code_prestation");
 //        listeM[3] = new Liste("codePrestation", typeObjCodePrestation, "VAL", "id");
-        
         TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
         listeM[3] = new Liste("deviseMere", devise, "VAL", "id");
-        
-        
+
         pi.getFormu().changerEnChamp(listeM);
 
         pi.getFormu().getChamp("estDDPMICTSL").setLibelle("Droit de Port MICTSL");
@@ -76,7 +74,7 @@
         pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
         pi.getFormu().getChamp("code").setLibelle("Code");
         pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
-        pi.getFormu().getChamp("armateurlib").setVisible(false) ;     
+        pi.getFormu().getChamp("armateurlib").setVisible(false);
         pi.getFormu().getChamp("etat").setAutre("readonly");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
@@ -94,14 +92,14 @@
         pi.getFormu().getChamp("Adresse").setVisible(false);
         pi.getFormu().getChamp("codePrestationlib").setVisible(false);
         pi.getFormu().getChamp("codePrestation").setVisible(false);
-        pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
-        pi.getFormu().getChamp("tva").setVisible(false);    
+        pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);
+        pi.getFormu().getChamp("tva").setVisible(false);
         pi.getFormu().getChamp("pourcompte").setPageAppel("choix/clientCategorieChoix.jsp");
         pi.getFormu().getChamp("pourcompte").setAutre("readonly");
         pi.getFormu().getChamp("idavoir").setPageAppel("choix/listeAvoirFCChoix.jsp");
         pi.getFormu().getChamp("idavoir").setAutre("readonly");
         pi.getFormu().getChamp("idavoir").setLibelle("Avoir");
-                         
+
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
         //affichage.Champ.setAutre(pi.getFormufle().getChampFille("Taux"), "readonly");
@@ -112,102 +110,109 @@
         //affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("daty"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
-        
+
 //        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
 //        affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
-        
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idProduit"), false);
-        
+
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("idactivite"), "readonly");
 
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
-        
+
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte;comptelibelle");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("compte"), "readonly");
-        
+
         affichage.Liste[] listed = new affichage.Liste[2];
         TypeObjet o = new TypeObjet();
         o.setNomTable("devise");
         listed[0] = new Liste("devise", o, "VAL", "id");
-        
+
         TypeObjet o1 = new TypeObjet();
         o1.setNomTable("mois");
         listed[1] = new Liste("mois", o1, "VAL", "id");
-        
+
         pi.getFormufle().changerEnChamp(listed);
-        
+
         for (int i = 0; i < liste.length; i++) {
-            pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 150px;\" ");
+            pi.getFormufle().getChamp("designation_" + i).setAutre(" style=\"width: 150px;\" ");
             affichage.Champ datefactChp = pi.getFormufle().getChamp("datefact_" + i);
             //datefactChp.setAutre("readonly");
             if (datefactChp.getValeur() != null && !"".equals(datefactChp.getValeur())) {
                 String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
                 datefactChp.setValeur(dateF);
             }
-            
-            if(request.getParameter("factprev") != null) {
-                if(liste[i].getIdrubrique() != null && liste[i].getIdrubrique().equalsIgnoreCase(Constante.idStationnement) && liste[i].getIdactivite() !=  null) {
+
+            if (request.getParameter("factprev") != null) {
+                if (liste[i].getIdrubrique() != null && liste[i].getIdactivite() != null) {
                     Activite act = liste[i].getActivite(null);
-                    if(act!=null && act.getEstPetrolier().compareToIgnoreCase("TRUE")!=0){
-                        liste[i].setDuree(act.getNbHeure());
-                        liste[i].setQuantite(liste[i].getQuantite() / act.getNbHeure());
 
-                        pi.getFormufle().getChamp("duree_"+i).setValeur(""+liste[i].getDuree());
-                        pi.getFormufle().getChamp("quantite_"+i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+",""));
-                    }
-                    if(act!=null && act.getEstPetrolier().compareToIgnoreCase("TRUE")==0){
-                        liste[i].setDuree(act.getNbJour());
-                        liste[i].setQuantite(liste[i].getQuantite() / act.getNbJour());
-                        
+                    if (act != null) {
+                        if (liste[i].getIdrubrique().equalsIgnoreCase(Constante.idStationnement)) {
+                            if (act.getEstPetrolier().compareToIgnoreCase("TRUE") != 0) {
+                                liste[i].setDuree(act.getNbHeure());
+                                if(act.getNbHeure() != 0) liste[i].setQuantite(liste[i].getQuantite() / act.getNbHeure());
 
-                        pi.getFormufle().getChamp("duree_"+i).setValeur(""+liste[i].getDuree());
-                        pi.getFormufle().getChamp("quantite_"+i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+",""));
+                                pi.getFormufle().getChamp("duree_" + i).setValeur("" + liste[i].getDuree());
+                                pi.getFormufle().getChamp("quantite_" + i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+", ""));
+                            }
+                            if (act.getEstPetrolier().compareToIgnoreCase("TRUE") == 0) {
+                                liste[i].setDuree(act.getNbJour());
+                                liste[i].setQuantite(liste[i].getQuantite() / act.getNbJour());
+
+                                pi.getFormufle().getChamp("duree_" + i).setValeur("" + liste[i].getDuree());
+                                pi.getFormufle().getChamp("quantite_" + i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+", ""));
+                            }
+                        }
+                        if (liste[i].getIdrubrique().equalsIgnoreCase(Constante.getStationnementBP())) {
+                            liste[i].setDuree(act.getLongueur());
+                            if(act.getLongueur() != 0) liste[i].setQuantite(liste[i].getQuantite() / act.getLongueur());
+
+                            pi.getFormufle().getChamp("duree_" + i).setValeur("" + liste[i].getDuree());
+                            pi.getFormufle().getChamp("quantite_" + i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+", ""));
+                        }
                     }
                 }
             }
-        }
-        
-        pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
-        pi.getFormufle().getChamp("Id_0").setLibelle("Id");
-        pi.getFormufle().getChamp("designation_0").setLibelle("Désignation");
-        pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
-        pi.getFormufle().getChamp("pu_0").setLibelle("pu");
-        pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
-        pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
-        //i.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
-        pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
-        pi.getFormufle().getChamp("tva_0").setLibelle("tva");
-        //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
-        pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
-        pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
-        pi.getFormufle().getChamp("duree_0").setLibelle("Durée");
-        pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
-        pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
-        pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
-        pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
-        pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
-        pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
-        pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
-        pi.getFormufle().getChamp("rang_0").setLibelle("Rang");
 
-        mere = (FactureClient) pi.getBase();
-        String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction","rang"};
-        pi.getFormufle().setColOrdre(ordreFille);
-        pi.preparerDataFormu();
-        
-        Activite act = liste.length > 0 ? liste[0].getActivite(null) : null;
-        double longueur = 0, largeur = 0, tirant = 0, volume = 0, volumeArrondi = 0;
-        
-        if(act != null) {
-            longueur = act.getLongueur();
-            largeur = act.getLargeur();
-            tirant = act.getTirant();
-            volume = act.getVolume();
-            volumeArrondi = act.getVolumeArrondi();
-        }
-        
+            pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
+            pi.getFormufle().getChamp("Id_0").setLibelle("Id");
+            pi.getFormufle().getChamp("designation_0").setLibelle("Désignation");
+            pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
+            pi.getFormufle().getChamp("pu_0").setLibelle("pu");
+            pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
+            pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+            //i.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
+            pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
+            pi.getFormufle().getChamp("tva_0").setLibelle("tva");
+            //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
+            pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
+            pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
+            pi.getFormufle().getChamp("duree_0").setLibelle("Durée");
+            pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
+            pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
+            pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
+            pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
+            pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
+            pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
+            pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
+            pi.getFormufle().getChamp("rang_0").setLibelle("Rang");
+
+            mere = (FactureClient) pi.getBase();
+            String[] ordreFille = {"rubrique", "designation", "pu", "quantite", "duree", "taux", "id", "idmere", "compte", "idproduit", "devise", "montant", "tva", "idactivite", "datefact", "mois", "annee", "heureDebut", "heureFin", "majoration", "reduction", "rang"};
+            pi.getFormufle().setColOrdre(ordreFille);
+            pi.preparerDataFormu();
+
+            Activite act = liste.length > 0 ? liste[0].getActivite(null) : null;
+            double longueur = 0, largeur = 0, tirant = 0, volume = 0, volumeArrondi = 0;
+
+            if (act != null) {
+                longueur = act.getLongueur();
+                largeur = act.getLarg
+                eur();
+                tirant = act.getTirant();
+                volume = act.getVolume(volumeArrondi = act.getVolumeArrondi(
 %>
 <style>
     .card{
@@ -222,8 +227,8 @@
                 pi.getFormu().makeHtmlInsertTabIndex();
                 pi.getFormufle().makeHtmlInsertTableauIndex();
                 out.println(pi.getFormu().getHtmlInsert());
-                
-                if(mere.getIdprevision() != null){
+
+                if (mere.getIdprevision() != null) {
             %>
             <div class="col-md-6">
                 <div class="card">
@@ -236,7 +241,7 @@
                             <td><b>lm</b></td>
                             <td><%=largeur%></td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td><b>te</b></td>
                             <td><%=tirant%></td>
                         </tr>
@@ -253,7 +258,7 @@
             </div>
             <%}%>
             <%--<center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
---%>            
+            --%>            
             <div class="row">
                 <div class="col-md-12">
                     <%
@@ -290,20 +295,20 @@
     textarea.style.height = "100px";
     textarea.value = designation.value;
     designation.parentNode.replaceChild(textarea, designation);
-    
+
     <%for (int i = 0; i < pi.getNombreLigne(); i++) {%>
-        var designation<%=i%> = document.getElementById("designation_<%=i%>");
-        var textarea<%=i%> = document.createElement("textarea");
-            textarea<%=i%>.name = "designation_<%=i%>";
-            textarea<%=i%>.id = "designation_<%=i%>";
-            textarea<%=i%>.className = "form-control";
-            textarea<%=i%>.style.height = "100px";
-            textarea<%=i%>.value = designation<%=i%>.value;
-        designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
-        $('#idproduit_<%=i%>').parent().attr('style', '');    
-    <%}%>    
-    
+    var designation<%=i%> = document.getElementById("designation_<%=i%>");
+    var textarea<%=i%> = document.createElement("textarea");
+    textarea<%=i%>.name = "designation_<%=i%>";
+    textarea<%=i%>.id = "designation_<%=i%>";
+    textarea<%=i%>.className = "form-control";
+    textarea<%=i%>.style.height = "100px";
+    textarea<%=i%>.value = designation<%=i%>.value;
+    designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
+    $('#idproduit_<%=i%>').parent().attr('style', '');
+    <%}%>
+
 </script>
-<%} catch (Exception ex) {
+<%}catch (Exception ex) {
         ex.printStackTrace();
     }%>
