@@ -17,6 +17,7 @@
         FactureFournisseur ff = new FactureFournisseur();
         String[] etatVal = {"FACTUREFOURNVALIDE_TOUS", "FACTUREFOURNVALIDE_C", "FACTUREFOURNVALIDE_V", "FACTUREFOURNVALIDE_EP", "FACTUREFOURNVALIDE_P"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "En attente de paiement", "Payéé(s)"};
+    
         ff.setNomTable(etatVal[0]);
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             ff.setNomTable(request.getParameter("etat"));
@@ -37,7 +38,7 @@
         TypeObjet nature = new TypeObjet();
         nature.setNomTable("nature");
         liste[0] = new Liste("nature", nature, "val", "id");
-        
+        pr.setNpp(100);
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("exercice1").setLibelle("debut exercice");
