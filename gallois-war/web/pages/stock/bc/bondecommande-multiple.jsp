@@ -23,9 +23,8 @@
         String idEngagement  = request.getParameter("idEngagement");
         String autreparsley = "data-parsley-range='[8, 40]' required";
         UserEJB u = u = (UserEJB) session.getValue("u");
-        BonDeCommandeData data =new BonDeCommandeData(idEngagement);
+        BonDeCommandeData data =new BonDeCommandeData(idEngagement,request.getParameter("idDa"));
         Engagement engagement=data.getEngagement();
-
         String classeMere = "mg.spat.stock.BonDeCommande",
                classeFille = "mg.spat.stock.BonDeCommandeFille",
                titre = "Bon de commande saisie",
@@ -33,7 +32,9 @@
 			   colonneMere = "idbc",
                nomSaisie = "bondecommande";
         int taille = 10;
-        
+        if(data.getDemandeAchatfilles().length>taille){
+            taille=data.getDemandeAchatfilles().length;
+        }
         BonDeCommande mere = new BonDeCommande();
         BonDeCommandeFille fille = new BonDeCommandeFille();
         
@@ -109,6 +110,21 @@
             pi.getFormufle().getChamp("produit_"+i).setAutre("readonly");
             pi.getFormufle().getChamp("produit_"+i).setPageAppel("choix/produitChoix.jsp","produit;produitlibelle;pu;pu");
         }
+        // rehefa mandray paramètre idDa
+        pi.getFormu().getChamp("projet").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getProjet()));
+        pi.getFormu().getChamp("projet").setValeurLibelle(Utilitaire.champNull( data.getDemandeAchatMere().getProjetlib()));
+        pi.getFormu().getChamp("code_etab").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getCodeetablissement()));
+        pi.getFormu().getChamp("code_etab").setValeurLibelle(Utilitaire.champNull( data.getDemandeAchatMere().getCodeetablissementlib()));
+
+        for(int i=0;i<data.getDemandeAchatfilles().length;i++){
+            pi.getFormufle().getChamp("produit_"+i).setDefaut(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getProduit()));
+            pi.getFormufle().getChamp("Remarque_"+i).setDefaut(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getDesignation()));
+            pi.getFormufle().getChamp("produit_"+i).setValeurLibelle(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getProduitlib()));
+            pi.getFormufle().getChamp("quantite_"+i).setDefaut(Utilitaire.formaterAr( data.getDemandeAchatfilles()[i].getQte()));
+            pi.getFormufle().getChamp("pu_"+i).setDefaut(Utilitaire.formaterSansVirgule(data.getDemandeAchatfilles()[i].getPu()));
+            pi.getFormufle().getChamp("Unite_"+i).setDefaut(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getUnite()));
+        }
+        
         affichage.Champ[] listeUnit = new affichage.Champ[1];
         TypeObjet branche=new TypeObjet();
         branche.setNomTable("UNITECHANTIER");
