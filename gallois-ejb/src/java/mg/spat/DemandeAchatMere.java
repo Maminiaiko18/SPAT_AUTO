@@ -69,7 +69,6 @@ public class DemandeAchatMere extends ClassMAPTable{
     }
 
     public void setNum(String num) throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&&(num==null || num.compareTo("")==0 )) throw new Exception("designation obligatoire");
         this.num = num;
     }
     public Date getDaty() {
