@@ -161,9 +161,9 @@ public class AvoirFCFille extends ClassFille {
     }
 
     public void setMontant(double montant) throws Exception {
-        if (this.getMode().equalsIgnoreCase("modif")) {
-            if(montant < 0) throw new Exception("Montant negatif");
-        }
+//        if (this.getMode().equalsIgnoreCase("modif")) {
+//            if(montant < 0) throw new Exception("Montant negatif");
+//        }
         this.montant = montant;
     }
 
