@@ -41,8 +41,17 @@ public class JournalCaisse extends ClassEtat {
     private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib;
     private double sommeCredit, sortie, entree;
     private String banque;
-    private String descecaisse, idcaisse;
+    private String descecaisse, idcaisse,numeroOP;
 
+    public String getNumeroOP() {
+        return numeroOP;
+    }
+
+    public void setNumeroOP(String numeroOP) {
+        this.numeroOP = numeroOP;
+    }
+    
+            
     public String getIdcaisse() {
         return idcaisse;
     }
