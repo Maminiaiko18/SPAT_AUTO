@@ -8,6 +8,7 @@ package mg.spat;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -118,6 +119,12 @@ public class DemandeAchatMere extends ClassMAPTable{
     public void construirePK(Connection c) throws Exception {
         preparePk("AM","GETSEQ_DEM_ACHAT_MERE");
         setId(makePK(c));
+    }
+
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqnumda",c)));
+        return super.createObject(u, c); //To change body of generated methods, choose Tools | Templates.
     }
 
     
