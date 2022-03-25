@@ -68,19 +68,12 @@
         pi.getFormufle().getChamp("unite_0").setLibelle("Unité");
         pi.getFormufle().getChamp("qte_0").setLibelle("Qté");
         pi.getFormufle().getChamp("pu_0").setLibelle("PU");
+        pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
         
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("produit"), "choix/produitChoix.jsp", "produit;produitlibelle;produitlibelle;produitlibelle;produitlibelle;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("produit"), "readonly");
-        /*
-        int taille = pi.getNombreLigne();
-        for( int i = 0 ; i < taille ; i++ ){       
-            pi.getFormufle().getChamp("produit_"+i).setAutre("readonly");
-            pi.getFormufle().getChamp("produit_"+i).setPageAppel("choix/produitChoix.jsp", "produit_"+i+";produitlibelle_"+i+";produitlibelle_"+i+";produitlibelle_"+i+";produitlibelle_"+i+";designation_"+i);
-            if(i < liste.length){
-                js += "$('#produitlibelle_"+i+"').val('"+Utilitaire.champNull(liste[i].getProduitlib())+"')";
-            }
-        }
-        */
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("montant"), "readonly");
+       
         pi.preparerDataFormu();
         mere = (DemandeAchatMere) pi.getBase();
 %>      
@@ -117,13 +110,30 @@
     </div>
 </div>                    
 <script>
+    function getMontant(i){
+        var qteStr = $('#qte_'+i).val().trim();
+        var puStr = $('#pu_'+i).val().trim();
+        var qte = qteStr === '' ? 0 : parseFloat(qteStr);
+        var pu = puStr === '' ? 0 : parseFloat(puStr);
+        return qte * pu;
+    }
+    
+    function calculerMontant(i){
+        $('#montant_'+i).val(getMontant(i));
+    }
+    
     $('#codeetablissementlibelle').val('<%= Utilitaire.champNull(mere.getCodeetablissementlib()) %>');
     $('#projetlibelle').val('<%= Utilitaire.champNull(mere.getProjetlib()) %>');
     $('#idengagementlibelle').val('<%= Utilitaire.champNull(mere.getIdengagementlib()) %>');
-    <% for( int i = 0 ; i < liste.length ; i++ ){  %>     
-        $('#produitlibelle_<%= i %>').val('<%= Utilitaire.champNull(liste[i].getProduitlib()) %>');
+    <% for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){    
+        if(i < liste.length){ %> 
+           $('#produitlibelle_<%= i %>').val('<%= Utilitaire.champNull(liste[i].getProduitlib()) %>');
+        <% } %> 
+        $('#qte_<%= i %>, #pu_<%= i %>').attr('onblur', 'calculerMontant(<%= i %>)');    
     <% } %>
     $('label[for="id"]').html('');
+    
+    
 </script>
 <% } catch (Exception ex) {
         ex.printStackTrace();
