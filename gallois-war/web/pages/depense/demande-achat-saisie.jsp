@@ -3,6 +3,7 @@
 <%@page import="user.*"%> 
 <%@page import="mg.spat.DemandeAchatMere"%>
 <%@page import="mg.spat.DemandeAchatFille"%>
+<%@page import="data.*"%>
 <%@ page import="bean.*" %>
 <%@page import="affichage.*"%>
 <%@page import="utilitaire.*"%>
@@ -59,6 +60,24 @@
         }
         int taille = pi.getNombreLigne();
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("produit"), "choix/produitChoix.jsp", "produit;produitlibelle;produitlibelle;produitlibelle;produitlibelle;designation");
+        
+        String idEngagement = request.getParameter("idEngagement");
+        DemandeAchatData dmdAchData = new DemandeAchatData();
+        if(idEngagement != null && idEngagement.compareToIgnoreCase("") != 0) {
+            dmdAchData.getDemandeAchatByEngagement(idEngagement);
+            if(dmdAchData.getDemandeAchatMere() != null) {
+                pi.getFormu().getChamp("codeEtablissement").setDefaut(Utilitaire.champNull(dmdAchData.getDemandeAchatMere().getCodeetablissement()));
+                pi.getFormu().getChamp("projet").setDefaut(Utilitaire.champNull(dmdAchData.getDemandeAchatMere().getProjet()));
+            }
+            if(dmdAchData.getDemandeAchatFille() != null) {
+                for(int i=0; i<10; i++) {
+                    pi.getFormufle().getChamp("designation_"+i).setValeur(Utilitaire.champNull(dmdAchData.getDemandeAchatFille().getDesignation()));
+                    pi.getFormufle().getChamp("pu_"+i).setValeur(Utilitaire.champNull(""+dmdAchData.getDemandeAchatFille().getMontant()));
+                    pi.getFormufle().getChamp("qte_"+i).setValeur("1");
+                }
+            }
+        }
+        
         pi.preparerDataFormu();
 
 %>
@@ -84,6 +103,12 @@
     </form>
 
 </div>
+<script>
+    <% if (idEngagement != null) {%>
+    $("#codeetablissementlibelle").val("<%= Utilitaire.champNull(dmdAchData.getDemandeAchatMere().getCodeetablissementlib())%>");
+    $("#projetlibelle").val("<%= Utilitaire.champNull(dmdAchData.getDemandeAchatMere().getProjetlib())%>");
+    <% } %>
+</script>
 <script>
     console.log("mande");
     var footer = document.getElementsByClassName('box-footer');
