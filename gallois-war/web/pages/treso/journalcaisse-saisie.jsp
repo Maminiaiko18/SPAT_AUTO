@@ -62,7 +62,7 @@
         affichage.Liste[] liste = new affichage.Liste[5];
 
         TypeObjet esc = new TypeObjet();
-        esc.setNomTable("CAISSE_LIB");
+        esc.setNomTable("CAISSE");
         liste[0] = new Liste("caisse", esc, "VAL", "id");
         liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
         TypeObjet cheque = new TypeObjet();
