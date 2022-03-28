@@ -152,7 +152,9 @@
                         if (liste[i].getIdrubrique().equalsIgnoreCase(Constante.idStationnement)) {
                             if (act.getEstPetrolier().compareToIgnoreCase("TRUE") != 0) {
                                 liste[i].setDuree(act.getNbHeure());
-                                if(act.getNbHeure() != 0) liste[i].setQuantite(liste[i].getQuantite() / act.getNbHeure());
+                                if (act.getNbHeure() != 0) {
+                                    liste[i].setQuantite(liste[i].getQuantite() / act.getNbHeure());
+                                }
 
                                 pi.getFormufle().getChamp("duree_" + i).setValeur("" + liste[i].getDuree());
                                 pi.getFormufle().getChamp("quantite_" + i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+", ""));
@@ -166,7 +168,9 @@
                             }
                         }
                         if (liste[i].getIdrubrique().equalsIgnoreCase(Constante.getStationnementBP())) {
-                            if(act.getLongueur() != 0) liste[i].setDuree(liste[i].getQuantite() / act.getLongueur());
+                            if (act.getLongueur() != 0) {
+                                liste[i].setDuree(liste[i].getQuantite() / act.getLongueur());
+                            }
                             liste[i].setQuantite(act.getLongueur());
 
                             pi.getFormufle().getChamp("duree_" + i).setValeur("" + liste[i].getDuree());
@@ -175,46 +179,47 @@
                     }
                 }
             }
+        }
 
-            pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
-            pi.getFormufle().getChamp("Id_0").setLibelle("Id");
-            pi.getFormufle().getChamp("designation_0").setLibelle("Désignation");
-            pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
-            pi.getFormufle().getChamp("pu_0").setLibelle("pu");
-            pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
-            pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
-            //i.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
-            pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
-            pi.getFormufle().getChamp("tva_0").setLibelle("tva");
-            //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
-            pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
-            pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
-            pi.getFormufle().getChamp("duree_0").setLibelle("Durée");
-            pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
-            pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
-            pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
-            pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
-            pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
-            pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
-            pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
-            pi.getFormufle().getChamp("rang_0").setLibelle("Rang");
+        pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
+        pi.getFormufle().getChamp("Id_0").setLibelle("Id");
+        pi.getFormufle().getChamp("designation_0").setLibelle("Désignation");
+        pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
+        pi.getFormufle().getChamp("pu_0").setLibelle("pu");
+        pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
+        pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+        //i.getFormufle().getChamp("idProduit_0").setLibelle("Produit");
+        pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
+        pi.getFormufle().getChamp("tva_0").setLibelle("tva");
+        //pi.getFormufle().getChamp("Idactivite_0").setLibelle("Activité");
+        pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
+        pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
+        pi.getFormufle().getChamp("duree_0").setLibelle("Durée");
+        pi.getFormufle().getChamp("Mois_0").setLibelle("Mois");
+        pi.getFormufle().getChamp("Annee_0").setLibelle("Année");
+        pi.getFormufle().getChamp("HeureDebut_0").setLibelle("Heure Début");
+        pi.getFormufle().getChamp("HeureFin_0").setLibelle("Heure Fin");
+        pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
+        pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
+        pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
+        pi.getFormufle().getChamp("rang_0").setLibelle("Rang");
 
-            mere = (FactureClient) pi.getBase();
-            String[] ordreFille = {"rubrique", "designation", "pu", "quantite", "duree", "taux", "id", "idmere", "compte", "idproduit", "devise", "montant", "tva", "idactivite", "datefact", "mois", "annee", "heureDebut", "heureFin", "majoration", "reduction", "rang"};
-            pi.getFormufle().setColOrdre(ordreFille);
-            pi.preparerDataFormu();
+        mere = (FactureClient) pi.getBase();
+        String[] ordreFille = {"rubrique", "designation", "pu", "quantite", "duree", "taux", "id", "idmere", "compte", "idproduit", "devise", "montant", "tva", "idactivite", "datefact", "mois", "annee", "heureDebut", "heureFin", "majoration", "reduction", "rang"};
+        pi.getFormufle().setColOrdre(ordreFille);
+        pi.preparerDataFormu();
 
-            Activite act = liste.length > 0 ? liste[0].getActivite(null) : null;
-            double longueur = 0, largeur = 0, tirant = 0, volume = 0, volumeArrondi = 0;
+        Activite act = liste.length > 0 ? liste[0].getActivite(null) : null;
+        double longueur = 0, largeur = 0, tirant = 0, volume = 0, volumeArrondi = 0;
 
-            if (act != null) {
-                longueur = act.getLongueur();
-                largeur = act.getLargeur();
-                tirant = act.getTirant();
-                volume = act.getVolume();
-                volumeArrondi = act.getVolumeArrondi();
-            }
-        
+        if (act != null) {
+            longueur = act.getLongueur();
+            largeur = act.getLargeur();
+            tirant = act.getTirant();
+            volume = act.getVolume();
+            volumeArrondi = act.getVolumeArrondi();
+        }
+
 %>
 <style>
     .card{
@@ -258,7 +263,7 @@
                     </table>
                 </div>
             </div>
-            <%}}%>
+            <%}%>
             <%--<center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
             --%>            
             <div class="row">
@@ -281,7 +286,7 @@
 </div>
 <script>
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib()%>";
-    <% for (int i = 0; i < liste.length; i++) { %>
+    <% for (int i = 0; i < liste.length; i++) {%>
     document.getElementById("idactivitelibelle_<%=i%>").value = "<%=liste[i].getActivitelib() != null ? liste[i].getActivitelib() : Utilitaire.champNull(liste[i].getIdactivite())%>";
     document.getElementById("rubriquelibelle_<%=i%>").value = "<%=liste[i].getRubriquelib() != null ? liste[i].getRubriquelib() : Utilitaire.champNull(liste[i].getRubrique())%>";
     document.getElementById("idproduitlibelle_<%=i%>").value = "<%=liste[i].getProduit_lib() != null ? liste[i].getProduit_lib() : Utilitaire.champNull(liste[i].getIdproduit())%>";
@@ -311,6 +316,6 @@
     <%}%>
 
 </script>
-<%}catch (Exception ex) {
+<%} catch (Exception ex) {
         ex.printStackTrace();
     }%>
