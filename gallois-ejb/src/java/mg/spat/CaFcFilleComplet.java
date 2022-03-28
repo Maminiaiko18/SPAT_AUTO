@@ -15,7 +15,8 @@ import java.sql.Date;
 public class CaFcFilleComplet extends ClassEtat {
     private String id,idmere,compte,designation,idproduit,devise,devisemere,idactivite,moislib,rubrique,heuredebut,heurefin,rubriquecpl,idcategorie,type,nomnavire;
     private double quantite,pu,taux,tva,montanttva,montantttc,montant,reduction,majoration,test,rang,duree;
-    private int mois,annee,montantav;
+    private int mois,annee;
+    private double montantav;
     String client;
     private Date datefact,daty;
 
@@ -135,11 +136,11 @@ public class CaFcFilleComplet extends ClassEtat {
         this.duree = duree;
     }
 
-    public int getMontantav() {
+    public double getMontantav() {
         return montantav;
     }
 
-    public void setMontantav(int montantav) {
+    public void setMontantav(double montantav) {
         this.montantav = montantav;
     }
 
