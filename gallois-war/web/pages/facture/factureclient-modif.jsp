@@ -166,8 +166,8 @@
                             }
                         }
                         if (liste[i].getIdrubrique().equalsIgnoreCase(Constante.getStationnementBP())) {
-                            liste[i].setDuree(act.getLongueur());
-                            if(act.getLongueur() != 0) liste[i].setQuantite(liste[i].getQuantite() / act.getLongueur());
+                            if(act.getLongueur() != 0) liste[i].setDuree(liste[i].getQuantite() / act.getLongueur());
+                            liste[i].setQuantite(act.getLongueur());
 
                             pi.getFormufle().getChamp("duree_" + i).setValeur("" + liste[i].getDuree());
                             pi.getFormufle().getChamp("quantite_" + i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+", ""));
