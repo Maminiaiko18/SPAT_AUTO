@@ -5,6 +5,7 @@
  */
 package facture;
 
+import bean.CGenUtil;
 import java.sql.Connection;
 
 /**
@@ -13,7 +14,7 @@ import java.sql.Connection;
  */
 public class ProformaFille extends FactureClientDetails{
 
-    public ProformaFille() {
+    public ProformaFille() throws Exception{
         super.setNomTable("proforma_fille");
     }
     @Override
@@ -22,6 +23,22 @@ public class ProformaFille extends FactureClientDetails{
         setId(makePK(c));
     }
     
+    @Override
+    public FactureClient findMere(Connection c) throws Exception {
+        if(this.getMere() == null) {
+            ProformaMere pm = new ProformaMere();
+            pm.setId(this.getIdmere());
+            pm.setEstDDPMICTSL(null);
+            ProformaMere[] tmp = (ProformaMere[]) CGenUtil.rechercher(pm, null, null, c, "");
+            
+            if(tmp != null && tmp.length > 0) { 
+                this.setMere(tmp[0]);
+                return tmp[0];
+            }
+        }
+        
+        return this.getMere();
+    }
     
     
 }

@@ -15,7 +15,7 @@ import java.sql.Date;
 public class ProformaMere extends FactureClient{
     private Date dateDepart,dateArrivee;
     private  String heureDepart,heureArrivee,bateau;
-    public ProformaMere() {
+    public ProformaMere() throws Exception{
         super.setNomTable("proforma_mere");
     }
 
