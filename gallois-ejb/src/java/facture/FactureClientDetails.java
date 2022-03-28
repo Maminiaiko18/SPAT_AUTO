@@ -556,7 +556,7 @@ public class FactureClientDetails extends ClassFille {
     }
     
     public double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
-        String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= '" + Utilitaire.datetostring(date) + "' and iddevise = '" + this.getDevise() + "') "
+        String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= to_date('" + Utilitaire.datetostring(date) + "', 'dd/mm/yyyy') and iddevise = '" + this.getDevise() + "') "
                 + " and iddevise = '" + this.getDevise() + "'";
         Coursdevise cours = new Coursdevise();
         cours.setNomTable(nomTable);
