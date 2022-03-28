@@ -209,10 +209,12 @@
 
             if (act != null) {
                 longueur = act.getLongueur();
-                largeur = act.getLarg
-                eur();
+                largeur = act.getLargeur();
                 tirant = act.getTirant();
-                volume = act.getVolume(volumeArrondi = act.getVolumeArrondi(
+                volume = act.getVolume();
+                volumeArrondi = act.getVolumeArrondi();
+            }
+        
 %>
 <style>
     .card{
@@ -256,7 +258,7 @@
                     </table>
                 </div>
             </div>
-            <%}%>
+            <%}}%>
             <%--<center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=<%= buteApresVisa%>&classe=<%= classeMere%>">Viser</a> </center>
             --%>            
             <div class="row">
@@ -279,7 +281,7 @@
 </div>
 <script>
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib()%>";
-    <%for (int i = 0; i < liste.length; i++) {%>
+    <% for (int i = 0; i < liste.length; i++) { %>
     document.getElementById("idactivitelibelle_<%=i%>").value = "<%=liste[i].getActivitelib() != null ? liste[i].getActivitelib() : Utilitaire.champNull(liste[i].getIdactivite())%>";
     document.getElementById("rubriquelibelle_<%=i%>").value = "<%=liste[i].getRubriquelib() != null ? liste[i].getRubriquelib() : Utilitaire.champNull(liste[i].getRubrique())%>";
     document.getElementById("idproduitlibelle_<%=i%>").value = "<%=liste[i].getProduit_lib() != null ? liste[i].getProduit_lib() : Utilitaire.champNull(liste[i].getIdproduit())%>";
