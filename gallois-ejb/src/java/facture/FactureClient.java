@@ -60,7 +60,49 @@ public class FactureClient extends ClassMere {
     private String idavoir;
     private String typeclientlib,factureLiee;//,idEngagement ; 
     private int estAuto,estAncienne;
-    private String typeEngagement,pourCompte,pourCompteLib;
+    private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
+    private Date dateDepart,datearrivee;
+
+    public String getHeureDepart() {
+        return heureDepart;
+    }
+
+    public void setHeureDepart(String heureDepart) {
+        this.heureDepart = heureDepart;
+    }
+
+    public String getHeureArrivee() {
+        return heureArrivee;
+    }
+
+    public void setHeureArrivee(String heureArrivee) {
+        this.heureArrivee = heureArrivee;
+    }
+
+    public String getBateau() {
+        return bateau;
+    }
+
+    public void setBateau(String bateau) {
+        this.bateau = bateau;
+    }
+
+    public Date getDateDepart() {
+        return dateDepart;
+    }
+
+    public void setDateDepart(Date dateDepart) {
+        this.dateDepart = dateDepart;
+    }
+
+    public Date getDatearrivee() {
+        return datearrivee;
+    }
+
+    public void setDatearrivee(Date datearrivee) {
+        this.datearrivee = datearrivee;
+    }
+    
 
     public int getEstAncienne() {
         return estAncienne;
