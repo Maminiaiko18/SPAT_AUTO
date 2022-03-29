@@ -76,7 +76,24 @@ public class Prevision extends ClassEtat {
     public void setArmateurlib(String armateurlib) {
         this.armateurlib = armateurlib;
     }
-
+    
+    public Mouvement[] getMouvementLiee(String nomtable, Connection c) throws Exception {
+        Mouvement mvt = new Mouvement();
+        if(nomtable != null && !nomtable.isEmpty()) mvt.setNomTable(nomtable);
+        
+        String where = String.format("and escale = '%s'", this.getId());
+        return (Mouvement[]) CGenUtil.rechercher(mvt, null, null, c, where);
+    }
+    
+    @Override   
+    public Object annulerValidation(String u, Connection c) throws Exception {
+        FactureClient[] fcValides = findFacturesValide(c);
+        if(fcValides != null && fcValides.length > 0) throw new Exception("Escale deja facturee");
+        if(getPrestationsVisees(c).length > 0) throw new Exception("Prestation(s) existante(s)");
+        if(getMouvementLiee("MOUVEMENTLIBCOMPLET_VISE", c).length > 0) throw new Exception("Mouvement(s) existante(s)");
+        return super.annulerValidation(u, c);
+    }
+    
     public OccupationMaterielNaval[] getPrestationsVisees(Connection c) throws Exception {
         OccupationMaterielNaval occupation = new OccupationMaterielNaval();
 //       occupation.setNomTable("occupationmaterielnaval");
