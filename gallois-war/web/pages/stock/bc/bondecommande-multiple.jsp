@@ -51,6 +51,7 @@
         pi.getFormu().getChamp("tva").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("iduser").setVisible(false);
+        pi.getFormu().getChamp("idDa").setVisible(false);
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
         affichage.Champ[] liste = new affichage.Champ[2];
         TypeObjet d = new TypeObjet();
@@ -138,6 +139,7 @@
         pi.getFormufle().getChamp("pu_0").setLibelle("Prix Unitaire");
         pi.getFormufle().getChamp("quantite_0").setLibelle("Quantit&eacute;");
         pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
+        pi.getFormufle().getChamp("observation_0").setLibelle("Observation");
         pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("Quantiteparpack"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
