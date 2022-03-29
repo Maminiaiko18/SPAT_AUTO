@@ -61,6 +61,7 @@
                 </div>
                 <div class="box-footer">
                     <p>
+                        <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=depense/demande-achat-modif.jsp&id=" + id %>" style="margin-right:10px">Modifier</a>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=stock/bc/bondecommande-multiple.jsp&idDa=" + id %>" style="margin-right: 10px">Saisir BC</a>
                         <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDemandeAchat&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
                     </p>
