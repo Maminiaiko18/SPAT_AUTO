@@ -21,6 +21,15 @@ public class BonDeCommandeFille extends ClassMAPTable {
     private String produitlib;
     private double montantht,montanttva,montantttc,remise;
     private double montantremise;
+    private String observation;
+
+    public String getObservetion() {
+        return observation;
+    }
+
+    public void setObservetion(String observetion) {
+        this.observation = observetion;
+    }
 
     public double getMontantremise() {
         return montantremise;
