@@ -108,7 +108,6 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("produit_lib"), false);
         //affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
-        affichage.Champ.setVisible(pi.getFormufle().getChampFille("daty"),true);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
 
 //        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
@@ -203,9 +202,10 @@
         pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
         pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
         pi.getFormufle().getChamp("rang_0").setLibelle("Rang");
+        pi.getFormufle().getChamp("daty_0").setLibelle("Date");
 
         mere = (FactureClient) pi.getBase();
-        String[] ordreFille = {"rubrique", "designation", "pu", "quantite", "duree", "taux", "id", "idmere", "compte", "idproduit", "devise", "montant", "tva", "idactivite", "datefact", "mois", "annee", "heureDebut", "heureFin", "majoration", "reduction", "rang"};
+        String[] ordreFille = {"rubrique", "designation", "pu", "quantite", "duree", "taux", "id", "idmere", "compte", "idproduit", "devise", "montant", "tva", "idactivite", "datefact", "mois", "annee", "daty","heureDebut", "heureFin", "majoration", "reduction", "rang"};
         pi.getFormufle().setColOrdre(ordreFille);
         pi.preparerDataFormu();
 
