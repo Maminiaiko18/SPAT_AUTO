@@ -76,7 +76,7 @@ public class DemandeAchatFille extends ClassMAPTable {
     }
 
     public void setPu(double pu) throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&&pu<=0) throw new Exception("Pu invalide");
+        if(this.getMode().compareToIgnoreCase("modif")==0&&pu<0) throw new Exception("Pu invalide");
         this.pu = pu;
     }
 
