@@ -23,7 +23,7 @@ try{
     BonDeCommande mere = new BonDeCommande();
     mere.setNomTable("AS_BONDECOMMANDE_LIBCOMPLET");
     BonDeCommandeFille fille = new BonDeCommandeFille();
-    fille.setNomTable("AS_BONDECOMMANDE_FILLE_PRD");
+    fille.setNomTable("AS_BONDECOMMANDE_FILLE");
     fille.setIdbc(request.getParameter("id"));
     BonDeCommandeFille[] liste = (BonDeCommandeFille[])CGenUtil.rechercher(fille, null, null, "");
     PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
@@ -85,6 +85,7 @@ try{
     pi.getFormufle().getChamp("idbc_0").setLibelle("Bon de commande");
     pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
     pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
+    pi.getFormufle().getChamp("observation_0").setLibelle("Observation");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("Quantiteparpack"), false);
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idbc"), "readonly");
@@ -93,7 +94,7 @@ try{
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("quantite"), " onchange='calculMontant(this)' " );
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("pu"), " onchange='calculMontant(this)' " );
 //    affichage.Champ.setAutre(pi.getFormufle().getChampFille("montant"), " onchange='calculMontant(this)' ");
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("produitlib"), false);
+    //affichage.Champ.setVisible(pi.getFormufle().getChampFille("produitlib"), false);
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("produit"), "choix/produitChoix.jsp", "produit;produitlibelle");
     for(int i = 0 ; i < liste.length;i++)
     pi.getFormufle().getChamp("produit_"+i).setValeurLibelle(liste[i].getProduitlib());

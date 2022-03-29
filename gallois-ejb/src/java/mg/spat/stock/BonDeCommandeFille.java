@@ -23,11 +23,11 @@ public class BonDeCommandeFille extends ClassMAPTable {
     private double montantremise;
     private String observation;
 
-    public String getObservetion() {
+    public String getObservation() {
         return observation;
     }
 
-    public void setObservetion(String observetion) {
+    public void setObservation(String observetion) {
         this.observation = observetion;
     }
 
