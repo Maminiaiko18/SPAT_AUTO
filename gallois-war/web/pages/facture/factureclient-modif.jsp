@@ -1,4 +1,5 @@
 <%@page import="mg.spat.exploitant.Activite"%>
+%@page import="java.sql.Date"%>
 <%@page import="facture.FactureClientDetails"%>
 <%@page import="facture.FactureClient"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -136,12 +137,18 @@
 
         for (int i = 0; i < liste.length; i++) {
             pi.getFormufle().getChamp("designation_" + i).setAutre(" style=\"width: 150px;\" ");
-            affichage.Champ datefactChp = pi.getFormufle().getChamp("datefact_" + i);
-            //datefactChp.setAutre("readonly");
+            affichage.Champ datefactChp =  pi.getFormufle().getChamp("datefact_" + i);
             if (datefactChp.getValeur() != null && !"".equals(datefactChp.getValeur())) {
                 String dateF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", datefactChp.getValeur()));
                 datefactChp.setValeur(dateF);
             }
+            
+            affichage.Champ dateChp =  pi.getFormufle().getChamp("daty_" + i);
+            if (dateChp.getValeur() != null && !"".equals(dateChp.getValeur())) {
+                String datyF = Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd", dateChp.getValeur()));
+                dateChp.setValeur(datyF);
+            }
+            
 
             if (request.getParameter("factprev") != null) {
                 if (liste[i].getIdrubrique() != null && liste[i].getIdactivite() != null) {
@@ -211,6 +218,7 @@
 
         Activite act = liste.length > 0 ? liste[0].getActivite(null) : null;
         double longueur = 0, largeur = 0, tirant = 0, volume = 0, volumeArrondi = 0;
+        String depart=null, arrivee=null;
 
         if (act != null) {
             longueur = act.getLongueur();
@@ -218,6 +226,10 @@
             tirant = act.getTirant();
             volume = act.getVolume();
             volumeArrondi = act.getVolumeArrondi();
+            java.sql.Date dateDepart = act.getDepart();
+            if(dateDepart!=null) depart=Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd",dateDepart.toString()));
+            java.sql.Date dateArrivee = act.getArrive();
+            if(dateArrivee!=null) arrivee=Utilitaire.datetostring(Utilitaire.stringToDate("yyyy-MM-dd",dateArrivee.toString()));
         }
 
 %>
@@ -260,6 +272,15 @@
                             <td><b>Volume (en quantité)</b></td>
                             <td><%=volumeArrondi%></td>
                         </tr>
+                        <tr>
+                            <td><b>Date d'arrivée</b></td>
+                            <td><%=arrivee%></td>
+                        </tr>
+                        <tr>
+                            <td><b>Date de départ</b></td>
+                            <td><%=depart%></td>
+                        </tr>
+                        
                     </table>
                 </div>
             </div>
