@@ -8,6 +8,7 @@ package facture;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.Constante;
 import utilitaire.Utilitaire;
 
 /**
@@ -187,6 +188,7 @@ public class FactureFilleAncienne extends ClassMAPTable{
         fcd.setHeureDebut(this.getHrdebprt() == null ? null : Utilitaire.datetostring(this.getHrdebprt()));
         fcd.setHeureFin(this.getHrfinprt() == null ? null : Utilitaire.datetostring(this.getHrfinprt()));
         fcd.setPu(this.getMttligar()/this.getQtenb());
+        fcd.setDevise(Constante.deviseAr);
         return fcd;
     }
     

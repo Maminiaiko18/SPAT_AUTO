@@ -1106,7 +1106,7 @@ public class FactureClient extends ClassMere {
         this.setNomClasseFille("facture.FactureClientDetails");
         this.setIduser(iduser);
         this.setId(null);
-        this.setCode(calculerCode(cnctn));
+        if(this.getEstAncienne()!=1)this.setCode(calculerCode(cnctn));
         return super.createObject(iduser, cnctn);
     }
 

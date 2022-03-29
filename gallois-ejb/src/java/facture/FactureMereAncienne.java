@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -39,7 +40,7 @@ public class FactureMereAncienne extends ClassMAPTable{
             }
             facture = this.genererFactureMere(u);
             FactureFilleAncienne filleTemporaire= new FactureFilleAncienne();
-            filleTemporaire.setNomTable("factprtmat" );
+            filleTemporaire.setNomTable("mat_factprt" );
             FactureFilleAncienne[] fille= (FactureFilleAncienne[]) CGenUtil.rechercher(filleTemporaire, null, null, c, " and NMFACT ='"+this.getNmfact()+"'");
             if(fille.length==0){
                 throw new Exception("Details introuvable");
@@ -50,6 +51,7 @@ public class FactureMereAncienne extends ClassMAPTable{
             }
             facture.setFille(factureDetail);
             facture=(FactureClient)facture.createObject(u,c);
+            System.out.println("Facture.id="+facture.getId());
             return facture;
 
         }
@@ -252,7 +254,7 @@ public class FactureMereAncienne extends ClassMAPTable{
         fc.setEstMictsl("0");
         fc.setTypeEngagement("normal");
         fc.setEstAncienne(1);
-        fc.setEtat(11);
+        fc.setEtat(ConstanteEtat.getEtatValider());
         fc.setIdcategorie(Constante.idCategorieFCDefinitive);
         return fc;
     }
