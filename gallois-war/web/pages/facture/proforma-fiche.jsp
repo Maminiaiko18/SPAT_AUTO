@@ -191,7 +191,9 @@
                     <hr>
                     <p>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=" + modifPage + "&id=" + e.getId()%>" style="margin-right: 10px">Modifier</a>
+                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=proforma&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
                     </p>
+                    
                    
 
                     <hr>

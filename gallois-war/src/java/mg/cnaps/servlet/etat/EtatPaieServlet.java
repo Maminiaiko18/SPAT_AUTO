@@ -85,6 +85,8 @@ import facture.FactureClientDetails;
 import facture.FactureClientDetailsGrouper;
 import facture.FactureFournisseurDetails;
 import facture.FactureFournisseurFilleData;
+import facture.ProformaFille;
+import facture.ProformaMere;
 import factureclient.PayementFacture;
 import fin.Coursdevise;
 import fin.CoursdevisePDF;
@@ -201,6 +203,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             else if(action.equalsIgnoreCase("imprimerDemandeAchat")){
                 demandeAchat(request, response);
+            }
+            else if(action.equalsIgnoreCase("proforma")){
+                imprimerProforma(request, response);
             }
 
         } catch (Exception ex) {
@@ -2127,6 +2132,133 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
         UtilitaireImpression.imprimer(request, response, "ligne Credit depense", param, null, getReportPath(), rt);
         }catch(Exception e){
             e.printStackTrace();
+        }
+    }
+    public void imprimerProforma(HttpServletRequest request, HttpServletResponse response) throws SQLException{
+    Connection c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+            Map param = new HashMap();
+            String id = request.getParameter("id");
+            ProformaMere facture = new ProformaMere();
+            facture.setEstDDPMICTSL(null);
+            facture.setNomTable("proforma_mere_msum_lib");
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+
+            ProformaMere[] mere = (ProformaMere[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "' order by daty");
+            String code = mere[0].getCode();
+
+
+            facture = mere[0];
+            facture.setId(id);
+            facture.initDetails(c);
+            double hTEuro = facture.getMontantHTEuro();
+            double tvaEuro = facture.getMontantTVAEuro();
+            double ttcEuro = hTEuro + tvaEuro;
+            double hTDollar = facture.getMontantHTVADollar();
+            double tvaDollar = facture.getMontantTVADollar();
+            double ttcDollar = facture.getMontantTTCDollar();
+            double deviseEuro = facture.getDeviseEuro();
+            double deviseDollar = facture.getDeviseDollar();
+            String cat = facture.getCategorielib();
+            String designation = facture.getDesignation();
+            if (mere.length != 0) {
+                mg.spat.PrevisionLibComplet p = new mg.spat.PrevisionLibComplet();
+                p.setNomTable("ESCALEPROFORMAPDF");
+                                ProformaFille cht = new ProformaFille();
+                //cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
+
+                ProformaFille[] details = (ProformaFille[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '" + id + "' ");
+                ArrayList<ProformaFille> arrList = new ArrayList<ProformaFille>();
+
+                param.put("responsable", "Pr&eacute;par&eacute; Par");
+                param.put("chef", "Le Responsable Facturation");
+                if (mere[0].getEstMictsl()!=null && mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
+
+                    param.put("chef", "Le chef de D&eacute;partement");
+                    param.put("responsable", "Le contr&ocirc;leur");
+                }
+                
+
+                param.put("daty", mere[0].getDaty());
+                param.put("id", mere[0].getId());
+                param.put("type", mere[0].getTypelib());
+                cat = mere[0].getCategorielib();
+                param.put("cat", cat);
+                designation = mere[0].getDesignation();
+                param.put("designation", designation);
+                param.put("reduction", mere[0].getReduction());
+                param.put("client", mere[0].getTierslib());
+                param.put("adresse", mere[0].getAdresse());
+                param.put("phone", mere[0].getContact());
+                param.put("montant", mere[0].getMontant());
+                param.put("montantTVA", mere[0].getMontanttva());
+                param.put("montantTTC", mere[0].getMontantttc());
+                param.put("montantAvoir", mere[0].getMontantavoir());
+                param.put("tva", mere[0].getTva());
+
+                if (mere[0].getTypelib() != null) {
+                    if (mere[0].getTypelib().compareToIgnoreCase("au comptant") != 0) {
+                        param.put("dateEcheanceLib", "Date limite de paiement :");
+                        param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
+                    }
+                }
+
+                param.put("deviseMere", mere[0].getDeviseMere());
+                param.put("code", code);
+                
+                String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()))+" Ariary";
+
+                if (mere[0].getDeviseMere() != null) {
+                    
+                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar),mere[0].getDeviseMere()) ;
+                    
+                }
+
+                param.put("montantlettre", montantlettre);
+                param.put("htdollar", hTDollar);
+                param.put("dollartva", tvaDollar);
+                param.put("dollarttc", ttcDollar);
+                param.put("hteuro", hTEuro);
+                param.put("tvaeuro", tvaEuro);
+                param.put("ttcEuro", ttcEuro);
+                param.put("valeuro", deviseEuro);
+
+                param.put("valdollar", deviseDollar);
+                param.put("cat", cat);
+
+				
+                param.put("designation", designation);
+				
+				
+                
+
+                /**
+                 * *********************************************************************************************
+                 */
+                
+               // facture.setId(details[0].getIdmere());
+                //facture.setListeDetails(details);
+                //facture.initDetails(null);
+                //details = facture.getListeDetails();
+                double total = 0;
+                double reduction = 0;
+
+            param.put("total", total);
+            param.put("montantsns", hTEuro);
+            param.put("reduction", reduction);
+            param.put("list_table", arrList);
+            }
+            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("proforma");
+            UtilitaireImpression.imprimer(request, response, "facture-client", param, null, getReportPath(), rt);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
         }
     }
 }
