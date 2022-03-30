@@ -2170,6 +2170,9 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
 
                 ProformaFille[] details = (ProformaFille[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '" + id + "' ");
                 ArrayList<ProformaFille> arrList = new ArrayList<ProformaFille>();
+                for(int i=0; i<details.length; i++){
+                    arrList.add(details[i]);
+                }
 
                 param.put("responsable", "Pr&eacute;par&eacute; Par");
                 param.put("chef", "Le Responsable Facturation");
@@ -2227,9 +2230,12 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
                 param.put("valdollar", deviseDollar);
                 param.put("cat", cat);
 
-				
-                param.put("designation", designation);
-				
+				if((designation.length()>66) && (pre.length != 0)){
+						param.put("designation", designation.substring(0, 66));
+						param.put("designation+", designation.substring(66, designation.length()));
+				}else{
+					param.put("designation", designation);
+				}
 				
                 
 
@@ -2243,7 +2249,7 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
                 //details = facture.getListeDetails();
                 double total = 0;
                 double reduction = 0;
-
+               
             param.put("total", total);
             param.put("montantsns", hTEuro);
             param.put("reduction", reduction);
