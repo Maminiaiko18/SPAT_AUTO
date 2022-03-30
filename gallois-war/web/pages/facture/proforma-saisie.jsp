@@ -58,6 +58,10 @@
     pi.getFormu().getChamp("bateau").setLibelle("Navire");
     pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("bateau").setAutre("readonly");
+    pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
+    pi.getFormu().getChamp("provenance").setAutre("readonly");
+    pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
+    pi.getFormu().getChamp("destination").setAutre("readonly");
     
     affichage.Liste[] listes= new affichage.Liste[3];
     
