@@ -18,11 +18,11 @@ import utilitaire.Utilitaire;
 public class FactureFilleAncienne extends ClassMAPTable{
     private String nmfact,cdtarif,libprt;
     private int id;
-    private double qtenb,duree,maj,red,mttligne,mttligar,mtttax,tauxtarif;
+    private double qtenb,duree,maj,red,mttligne,mttligar,mtttaxe,tauxtarif;
     private Date dtprvprt,dtprt,hrprvprt,hrdebprt,hrfinprt;
 
     public FactureFilleAncienne() {
-        super.setNomTable(" FACTPRTMAT");
+        super.setNomTable("FACTPRTMAT");
     }
     
 
@@ -106,12 +106,12 @@ public class FactureFilleAncienne extends ClassMAPTable{
         this.mttligar = mttligar;
     }
 
-    public double getMtttax() {
-        return mtttax;
+    public double getMtttaxe() {
+        return mtttaxe;
     }
 
-    public void setMtttax(double mtttax) {
-        this.mtttax = mtttax;
+    public void setMtttaxe(double mtttax) {
+        this.mtttaxe = mtttax;
     }
 
     public double getTauxtarif() {
@@ -187,7 +187,9 @@ public class FactureFilleAncienne extends ClassMAPTable{
         fcd.setReduction(this.getRed());
         fcd.setHeureDebut(this.getHrdebprt() == null ? null : Utilitaire.datetostring(this.getHrdebprt()));
         fcd.setHeureFin(this.getHrfinprt() == null ? null : Utilitaire.datetostring(this.getHrfinprt()));
-        fcd.setPu(this.getMttligar()/this.getQtenb());
+        double div=fcd.getDuree()*fcd.getQuantite()*(100+this.getMaj()-this.getRed());
+        if(div!=0) fcd.setPu(100*this.getMttligar()/div);
+        if(this.getMttligar()!=0)fcd.setTva((this.getMtttaxe()*100)/this.getMttligar());
         fcd.setDevise(Constante.deviseAr);
         return fcd;
     }
