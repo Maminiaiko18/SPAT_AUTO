@@ -2165,7 +2165,7 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
             if (mere.length != 0) {
                 mg.spat.PrevisionLibComplet p = new mg.spat.PrevisionLibComplet();
                 p.setNomTable("ESCALEPROFORMAPDF");
-                                ProformaFille cht = new ProformaFille();
+                ProformaFille cht = new ProformaFille();
                 //cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
 
                 ProformaFille[] details = (ProformaFille[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '" + id + "' ");
@@ -2173,14 +2173,12 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
                 for(int i=0; i<details.length; i++){
                     arrList.add(details[i]);
                 }
-
                 param.put("responsable", "Pr&eacute;par&eacute; Par");
                 param.put("chef", "Le Responsable Facturation");
-                if (mere[0].getEstMictsl()!=null && mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
 
                     param.put("chef", "Le chef de D&eacute;partement");
                     param.put("responsable", "Le contr&ocirc;leur");
-                }
+                
                 
 
                 param.put("daty", mere[0].getDaty());
@@ -2200,12 +2198,10 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
                 param.put("montantAvoir", mere[0].getMontantavoir());
                 param.put("tva", mere[0].getTva());
 
-                if (mere[0].getTypelib() != null) {
-                    if (mere[0].getTypelib().compareToIgnoreCase("au comptant") != 0) {
-                        param.put("dateEcheanceLib", "Date limite de paiement :");
-                        param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
-                    }
-                }
+                
+                param.put("dateEcheanceLib", "Date limite de paiement :");
+                param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
+                
 
                 param.put("deviseMere", mere[0].getDeviseMere());
                 param.put("code", code);
@@ -2230,14 +2226,7 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
                 param.put("valdollar", deviseDollar);
                 param.put("cat", cat);
 
-				if((designation.length()>66) && (pre.length != 0)){
-						param.put("designation", designation.substring(0, 66));
-						param.put("designation+", designation.substring(66, designation.length()));
-				}else{
-					param.put("designation", designation);
-				}
-				
-                
+		
 
                 /**
                  * *********************************************************************************************
