@@ -2145,7 +2145,7 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
             facture.setNomTable("ESCALEPROFORMAPDF");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
 
-            ProformaMere[] mere = (ProformaMere[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "' order by daty");
+            ProformaMere[] mere = (ProformaMere[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             String code = mere[0].getCode();
 
 
