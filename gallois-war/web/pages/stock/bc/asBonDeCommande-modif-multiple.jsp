@@ -23,7 +23,7 @@ try{
     BonDeCommande mere = new BonDeCommande();
     mere.setNomTable("AS_BONDECOMMANDE_LIBCOMPLET");
     BonDeCommandeFille fille = new BonDeCommandeFille();
-    fille.setNomTable("AS_BONDECOMMANDE_FILLE");
+    fille.setNomTable("AS_BONDECOMMANDE_FILLE_PRD");
     fille.setIdbc(request.getParameter("id"));
     BonDeCommandeFille[] liste = (BonDeCommandeFille[])CGenUtil.rechercher(fille, null, null, "");
     PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
@@ -94,7 +94,7 @@ try{
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("quantite"), " onchange='calculMontant(this)' " );
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("pu"), " onchange='calculMontant(this)' " );
 //    affichage.Champ.setAutre(pi.getFormufle().getChampFille("montant"), " onchange='calculMontant(this)' ");
-    //affichage.Champ.setVisible(pi.getFormufle().getChampFille("produitlib"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("produitlib"), false);
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("produit"), "choix/produitChoix.jsp", "produit;produitlibelle");
     for(int i = 0 ; i < liste.length;i++)
     pi.getFormufle().getChamp("produit_"+i).setValeurLibelle(liste[i].getProduitlib());
