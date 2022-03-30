@@ -2142,7 +2142,7 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
             String id = request.getParameter("id");
             ProformaMere facture = new ProformaMere();
             facture.setEstDDPMICTSL(null);
-            facture.setNomTable("proforma_mere_msum_lib");
+            facture.setNomTable("ESCALEPROFORMAPDF");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
 
             ProformaMere[] mere = (ProformaMere[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "' order by daty");
@@ -2163,8 +2163,7 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
             String cat = facture.getCategorielib();
             String designation = facture.getDesignation();
             if (mere.length != 0) {
-                mg.spat.PrevisionLibComplet p = new mg.spat.PrevisionLibComplet();
-                p.setNomTable("ESCALEPROFORMAPDF");
+
                 ProformaFille cht = new ProformaFille();
                 //cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
 
