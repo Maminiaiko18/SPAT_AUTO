@@ -14,11 +14,44 @@ import java.sql.Date;
  */
 public class ProformaMere extends FactureClient{
     private Date dateDepart,dateArrivee;
-    private  String heureDepart,heureArrivee,bateau;
+    private  String heureDepart,heureArrivee,bateau,provenance,provenancelib,destination,destinationlib;
+    
     public ProformaMere() throws Exception{
         super.setNomTable("proforma_mere");
     }
 
+    public String getProvenance() {
+        return provenance;
+    }
+
+    public void setProvenance(String provenance) {
+        this.provenance = provenance;
+    }
+
+    public String getProvenancelib() {
+        return provenancelib;
+    }
+
+    public void setProvenancelib(String provenancelib) {
+        this.provenancelib = provenancelib;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getDestinationlib() {
+        return destinationlib;
+    }
+
+    public void setDestinationlib(String destinationlib) {
+        this.destinationlib = destinationlib;
+    }
+    
     public Date getDateDepart() {
         return dateDepart;
     }
