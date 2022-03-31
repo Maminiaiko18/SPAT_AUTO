@@ -2142,7 +2142,7 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
             String id = request.getParameter("id");
             ProformaMere facture = new ProformaMere();
             facture.setEstDDPMICTSL(null);
-            facture.setNomTable("proforma_mere_msum_lib");
+            facture.setNomTable("ESCALEPROFORMAPDF");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
 
             ProformaMere[] mere = (ProformaMere[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
