@@ -1035,11 +1035,22 @@ public class EtatPaieServlet extends HttpServlet {
                 
                 String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()))+" Ariary";
 
+               
+
                 if (mere[0].getDeviseMere() != null) {
-                    
-                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar),mere[0].getDeviseMere()) ;
+                        if(mere[0].getDeviseMere().compareToIgnoreCase("Dollars")==0){
+                            montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar),mere[0].getDeviseMere()) ;
+                        }
+                        if(mere[0].getDeviseMere().compareToIgnoreCase("Ariary")==0){
+                            montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()),mere[0].getDeviseMere()) ;
+                        }
+                        if(mere[0].getDeviseMere().compareToIgnoreCase("euro")==0){
+                            montantlettre = ChiffreLettre.convertRealToString(new Double(ttcEuro),mere[0].getDeviseMere()) ;
+                        }
                     
                 }
+                    
+                
 
                 param.put("montantlettre", montantlettre);
                 param.put("htdollar", hTDollar);
