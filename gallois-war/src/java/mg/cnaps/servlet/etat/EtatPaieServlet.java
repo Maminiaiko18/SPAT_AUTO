@@ -2153,7 +2153,8 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
             String id = request.getParameter("id");
             ProformaMere facture = new ProformaMere();
             facture.setEstDDPMICTSL(null);
-            facture.setNomTable("ESCALEPROFORMAPDF");
+//            facture.setNomTable("ESCALEPROFORMAPDF");
+            facture.setNomTable("proforma_mere_msum_lib");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
 
             ProformaMere[] mere = (ProformaMere[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
@@ -2174,9 +2175,11 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
             String cat = facture.getCategorielib();
             String designation = facture.getDesignation();
             if (mere.length != 0) {
-
+                mg.spat.PrevisionLibComplet p = new mg.spat.PrevisionLibComplet();
+                p.setNomTable("ESCALEPROFORMAPDF");
+                mg.spat.PrevisionLibComplet[] pre = (mg.spat.PrevisionLibComplet[]) CGenUtil.rechercher(p, null, null, c, " and id = '" + id + "'");
                 ProformaFille cht = new ProformaFille();
-                
+                cht.setNomTable("proforma_fille_lib");
                 //cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
 
                 ProformaFille[] details = (ProformaFille[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '" + id + "' ");
@@ -2190,7 +2193,27 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
                     param.put("chef", "Le chef de D&eacute;partement");
                     param.put("responsable", "Le contr&ocirc;leur");
                 
-                
+                if (pre.length != 0) {
+
+                    param.put("navire", pre[0].getNomnavire());
+                    // param.put("escale",pre[0].getEscale());
+                    param.put("date_arrivee", pre[0].getDate_arrivee());
+                    //param.put("pavillon",pre[0].getPavillon);
+                    param.put("date_depart", pre[0].getDate_depart());
+                    param.put("destination", pre[0].getValquaisdestination());
+                    param.put("lhtnavire", pre[0].getLhtnavire());
+                    param.put("jntnavire", pre[0].getJntnavire());
+                    param.put("lmnavire", pre[0].getLmnavire());
+                    param.put("provenance", pre[0].getValquaisprovenance());
+                    param.put("escale", pre[0].getEscale());
+                    param.put("pavillonlib", pre[0].getPavillonlib());
+                    param.put("heure_depart", pre[0].getHeure_depart());
+                    param.put("heure_arrivee", pre[0].getHeure_arrivee());
+                    param.put("armateur", pre[0].getArmateurlib());
+                    param.put("tenavire", pre[0].getTenavire());
+                    param.put("pourcomptelib", mere[0].getPourCompteLib());
+                    setNomJasper("facture_client2 - Copie");//facture_client2 - Copie //facture_convention //facture-client-sans-prevision
+                }
 
                 param.put("daty", mere[0].getDaty());
                 param.put("id", mere[0].getId());
