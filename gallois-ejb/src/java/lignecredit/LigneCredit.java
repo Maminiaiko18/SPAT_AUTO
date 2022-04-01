@@ -250,7 +250,7 @@ public class LigneCredit extends ClassEtat {
                     + "       cast(sum(l.montant) - nvl(fd.facture, 0) as NUMBER(30, 3))                         as restebudget,\n"
                     + "       cast(nvl(fd.facture, 0) / sum(l.MONTANT) * 100 as NUMBER(30, 3))                   as pourcEngage,\n"
                     + "       cast(nvl(fd.PAYE, 0) / sum(l.MONTANT) * 100 as number(30, 3))                      as pourcPaye,\n"
-                    + "       cast(sum(l.montant) - (nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0) + nvl(bc.montant, 0)) as NUMBER(30, 3)) as resteApresEngmt\n"
+                    + "       cast(sum(l.montant) - (nvl(n.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0) + nvl(bc.montant, 0)+nvl(bp.montant,0)) as NUMBER(30, 3)) as resteApresEngmt\n"
                     + " from SITUATIONLCDEPENSE_FULL l\n"
                     + "         LEFT JOIN (SELECT cast(nvl(sum(MONTANT), 0) as NUMBER(30, 3))  as facture,\n"
                     + "                           cast(nvl(sum(MONTANTPAYE), 0) as number(30, 3)) as PAYE,\n"
