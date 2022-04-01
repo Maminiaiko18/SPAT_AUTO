@@ -112,7 +112,8 @@ public class AvoirFCFille extends ClassFille {
             if(fcd == null) throw new Exception("Aucune facture details lies au details de l'avoir!" + this.getId());
     
             if (this.getRemise() > 0) {
-                setMontant(Utilitaire.stringToDouble((new DecimalFormat("###.###")).format((fcd.getMontantTTC() * this.getRemise()) / 100)));
+                if(fcd.getTaux()==0) throw new Exception("Taux=0");
+                setMontant(Utilitaire.stringToDouble((new DecimalFormat("###.###")).format(((fcd.getMontantTTC()/fcd.getTaux()) * this.getRemise()) / 100)));
             }
     
             if (this.getMontant() > fcd.getMontantTTC()) {
