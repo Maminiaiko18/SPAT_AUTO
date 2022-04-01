@@ -182,7 +182,7 @@
                 </div>
                 <div class="box-footer">
                     <p>
-                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur" style="margin-right: 10px">Viser</a>
+                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/proforma-fiche.jsp&classe=facture.ProformaMere" style="margin-right: 10px">Viser</a>
                     <hr>
                     
                     <p>
