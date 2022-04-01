@@ -2187,8 +2187,15 @@ public void engagement(HttpServletRequest request, HttpServletResponse response)
 
                 ProformaFille[] details = (ProformaFille[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '" + id + "' ");
                 ArrayList<ProformaFille> arrList = new ArrayList<ProformaFille>();
-                for(int i=0; i<details.length; i++){
-                    arrList.add(details[i]);
+                FactureClientDetails[] __details = facture.getListeDetails();
+                for(int i=0; i<details.length; i++){                   
+                    for(int j = 0; j<__details.length; j++){
+                        if(__details[j].getId().compareTo(details[i].getId()) == 0){
+                            details[i].setMontantHTEuro(__details[j].getMontantHTEuro());
+                            arrList.add(details[i]);                            
+                        }
+                    }
+
                 }
                 param.put("responsable", "Pr&eacute;par&eacute; Par");
                 param.put("chef", "Le Responsable Facturation");
