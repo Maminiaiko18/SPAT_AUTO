@@ -328,8 +328,9 @@ public class ChiffreLettre
     
     public static String convertRealToString(double montant, String devise) {
         String montantLettre = convertRealToString(montant);
-        
-        return montantLettre.replace(",", devise);
+        if(montantLettre.contains(","))montantLettre=montantLettre.replace(",", devise);
+        else montantLettre=montantLettre+" "+devise;
+        return montantLettre;
     }
 
     public static String[] convertRealToStringSepare(double intToString)
