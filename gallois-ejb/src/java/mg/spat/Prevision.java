@@ -89,8 +89,8 @@ public class Prevision extends ClassEtat {
     public Object annulerValidation(String u, Connection c) throws Exception {
         FactureClient[] fcValides = findFacturesValide(c);
         if(fcValides != null && fcValides.length > 0) throw new Exception("Escale deja facturee");
-        if(getPrestationsVisees(c).length > 0) throw new Exception("Prestation(s) existante(s)");
-        if(getMouvementLiee("MOUVEMENTLIBCOMPLET_VISE", c).length > 0) throw new Exception("Mouvement(s) existante(s)");
+        //if(getPrestationsVisees(c).length > 0) throw new Exception("Prestation(s) existante(s)");
+        //if(getMouvementLiee("MOUVEMENTLIBCOMPLET_VISE", c).length > 0) throw new Exception("Mouvement(s) existante(s)");
         return super.annulerValidation(u, c);
     }
     
