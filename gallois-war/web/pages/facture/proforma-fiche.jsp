@@ -29,9 +29,10 @@
         ProformaMere e = new ProformaMere();
         e.setNomTable("proforma_mere_msum_lib");
         PageConsulte pc = new PageConsulte(e, request, u);
-        pc.setTitre("FICHE PROFORMA");
+        pc.setTitre("FICHE DEMANDE DE PRIX");
 
         pc.getChampByName("pourCompte").setVisible(false);
+        pc.getChampByName("id").setVisible(false);
         pc.getChampByName("iduser").setVisible(false);
         pc.getChampByName("type").setVisible(false);
         pc.getChampByName("tiers").setVisible(false);
