@@ -393,8 +393,9 @@ public class AvoirFC extends ClassMere {
         int verif = 0;
         try {
             if (c == null) {
-                    c = (new UtilDB()).GetConn();
-                    verif = 1;
+                c = (new UtilDB()).GetConn();
+                verif = 1;
+                c.setAutoCommit(false);
             }
             FactureClient factureLiee = getFactureLiee("factureclient", c);
             factureLiee.setIdavoir(this.getId());
@@ -407,8 +408,10 @@ public class AvoirFC extends ClassMere {
             }
             factureLiee.setFille(details);
             factureLiee.createObject(user, c);
+            if(verif==1)c.commit();
             return factureLiee;
         } catch(Exception e){
+            if(c!=null)c.rollback();
             throw e;
         }finally {
             if (c != null && verif == 1) {
