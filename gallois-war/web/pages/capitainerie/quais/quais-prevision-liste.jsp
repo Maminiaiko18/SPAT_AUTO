@@ -11,8 +11,8 @@
     try{
         user.UserEJB u = (user.UserEJB) session.getValue("u");
         
-        String[] vuesEtat = new String[]{"previsionLibComplet","previsionlibcompletc", "previsionlibcompletv", "previsionfacturee", "previsionNonFacturee", "previsionlibcompleta"};
-        String[] libsEtat = new String[]{"TOUS","CREE", "VALIDE", "FACTUREE", "NON FACTUREE", "ANNULEE"};
+        String[] vuesEtat = new String[]{"previsionLibComplet","previsionlibcompletc", "previsionlibcompletv", "previsionfacturee", "previsionNonFacturee", "previsionlibcompleta", "previsionfictive"};
+        String[] libsEtat = new String[]{"TOUS","CREE", "VALIDE", "FACTUREE", "NON FACTUREE", "ANNULEE", "FICTIVE"};
         String selectedEtat = request.getParameter("etat");
         PrevisionLibComplet prevision=new PrevisionLibComplet();
         if(selectedEtat!= null && !selectedEtat.equals("")){
