@@ -1071,11 +1071,17 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     
     public String calculerNumeroPiece(Connection c) throws Exception{
         String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
-        return Utilitaire.genererAnnee(dateEffetStr) + 
-                Utilitaire.genererMois(dateEffetStr) + "-" + 
+        String annee = Utilitaire.getAnnee(dateEffetStr), mois = Utilitaire.getMois(dateEffetStr);
+        
+        String awhere = " and annee=%s and mois=%s and modepaiement like '%s' and type='%s' ";
+        awhere = String.format(awhere, annee, mois, this.getIdmode(), this.getIdTypeCheque());
+        
+        return annee + 
+                mois + "-" + 
                 genererCodeModePaiement() + "-" + 
                 genererCodeType() + "-" + 
-                UtilitaireFacture.genererSequence(c, "numeropiece",7,dateEffetStr);
+//                UtilitaireFacture.genererSequence(c, "numeropiece",7,dateEffetStr);
+                UtilitaireFacture.genererSequence(c, "numeropiece", 7, null, awhere);
 
     }
     
