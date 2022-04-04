@@ -20,6 +20,8 @@ public class PrevisionLibComplet extends Prevision {
             internedestination,paysdestination,valpaysprovenance,descepaysprovenance,valpaysdestination,descepaysdestination,valtypequaisprovenance,descetypequaisprovenance,
             valtypequaisdestination,descetypequaisdestination,valquaisprovenance,descequaisprovenance,valquaisdestination,descequaisdestination,typequaisprovenance,typequaisdestination,type;
     private String pavillonlib;
+    private int estFictive ;
+    
     
     @Override
     public String getValColLibelle(){
@@ -28,6 +30,14 @@ public class PrevisionLibComplet extends Prevision {
         return this.getEscale()+";"+datArr+";"+this.getHeure_arrivee()+";"+datDep+";"+this.getHeure_depart()+";"+this.getConsignataire()+";"+this.getValconsignataire();
     }
 
+    public int getEstFictive() {
+        return estFictive;
+    }
+
+    public void setEstFictive(int estFictive) {
+        this.estFictive = estFictive;
+    }
+    
     public String getPavillonlib() {
         return pavillonlib;
     }
