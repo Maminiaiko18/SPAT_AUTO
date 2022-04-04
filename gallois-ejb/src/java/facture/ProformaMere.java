@@ -17,12 +17,20 @@ import utilitaire.UtilDB;
  */
 public class ProformaMere extends FactureClient{
     private Date dateDepart,dateArrivee;
-    private  String heureDepart,heureArrivee,bateau,provenance,provenancelib,destination,destinationlib;
+    private  String heureDepart,heureArrivee,bateau,provenance,provenancelib,destination,destinationlib,bateaulib;
     
     public ProformaMere() throws Exception{
         super.setNomTable("proforma_mere");
     }
 
+    public String getBateaulib() {
+        return bateaulib;
+    }
+
+    public void setBateaulib(String bateaulib) {
+        this.bateaulib = bateaulib;
+    }
+    
     public String getProvenance() {
         return provenance;
     }
