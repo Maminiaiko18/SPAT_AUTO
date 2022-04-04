@@ -1021,9 +1021,23 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("montantTVA", mere[0].getMontanttva());
                 param.put("montantTTC", mere[0].getMontantttc());
                 param.put("montantAvoir", mere[0].getMontantavoir());
-                param.put("montantdevise", hTDollar);
-                param.put("montantTVAdevise", tvaDollar);
-                param.put("montantTTCdevise", ttcDollar);
+                if(mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars)==0){
+                       param.put("montantdevise", hTDollar);
+                       param.put("montantTVAdevise", tvaDollar);
+                       param.put("montantTTCdevise", ttcDollar);
+                }
+                if(mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr)==0){
+                      param.put("montantdevise", mere[0].getMontant());
+                      param.put("montantTVAdevise", mere[0].getMontanttva());
+                      param.put("montantTTCdevise", mere[0].getMontantttc());
+                }
+                if(mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro)==0){
+                      param.put("montantdevise", hTEuro);
+                      param.put("montantTVAdevise", tvaEuro);
+                      param.put("montantTTCdevise", ttcEuro);
+                    
+                }               
+                
                 param.put("tva", mere[0].getTva());
 
                 if (mere[0].getTypelib() != null) {
