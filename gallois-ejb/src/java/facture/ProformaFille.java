@@ -46,6 +46,16 @@ public class ProformaFille extends FactureClientDetails{
         
         return this.getMere();
     }
-    
-    
+
+    @Override
+    public double getTauxRecentNormal(Connection c) throws Exception {
+        ProformaMere mere = (ProformaMere) this.findMere(c);
+        
+        Date date = mere.getDaty();
+        if(mere.getDateDepart() != null) {
+            date = mere.getDateDepart();
+        }
+        
+        return getValeurTaux(c, "coursdeviseNonMICTSL", date);
+    }
 }
