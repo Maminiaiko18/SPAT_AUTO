@@ -40,8 +40,26 @@ public class Prevision extends ClassEtat {
     private String heure_depart;
     private String destination, escale;
     private String couleur = "#1E90FF";
-    private String noVoyage, armateur,armateurlib,type;
+    private String noVoyage, armateur,armateurlib,type,estFictivelib;
     private double tonnage;
+    private int estFictive ;
+
+    public String getEstFictivelib() {
+        return estFictivelib;
+    }
+
+    public void setEstFictivelib(String estFictivelib) {
+        this.estFictivelib = estFictivelib;
+    }
+
+    public int getEstFictive() {
+        return estFictive;
+    }
+
+    public void setEstFictive(int estFictive) {
+        this.estFictive = estFictive;
+    }
+    
 
     public double getTonnage() {
         return tonnage;
