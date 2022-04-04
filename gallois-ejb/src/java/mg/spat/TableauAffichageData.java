@@ -29,7 +29,7 @@ public class TableauAffichageData {
                 estOuvert=true;
             }
             MouvementLibComplet complet = new MouvementLibComplet();
-            complet.setNomTable("mouvementLibComplet");
+            complet.setNomTable("mouvementLibCompletTA");
 //            System.out.println(" and datearrivee>=to_date('"+debut+"','yyyy-mm-dd') and datearrivee<=to_date('"+fin+"','yyyy-mm-dd') and date_depart is null order by datearrivee desc,heure desc");
 //            listeOccupation=(MouvementLibComplet[])CGenUtil.rechercher(complet, null, null,c, "and etat=11 and datearrivee>=to_date('"+debut+"','yyyy-mm-dd') and datearrivee<=to_date('"+fin+"','yyyy-mm-dd') and date_depart is null order by datearrivee desc,heure desc");
             listeOccupation=(MouvementLibComplet[])CGenUtil.rechercher(complet, null, null,c, "and etat=11 and date_depart is null order by datearrivee desc,heure desc");
