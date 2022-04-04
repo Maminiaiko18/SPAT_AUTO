@@ -45,6 +45,7 @@
         pc.getChampByName("armateurlib").setLibelle("Armateur");
         pc.getChampByName("idnavire").setVisible(false);
         pc.getChampByName("armateur").setVisible(false);
+        pc.getChampByName("estFictive").setVisible(false);
         pc.getChampByName("nomnavire").setLien(lien+"?but=capitainerie/navire-fiche.jsp", "id="+((PrevisionLibComplet)pc.getBase()).getIdnavire()+"&nom=");
         pc.getChampByName("valconsignataire").setLibelle("Consignataire");
         pc.getChampByName("valcargaison").setLibelle("Cargaison");
@@ -58,6 +59,7 @@
         pc.getChampByName("type").setLibelle("type navire");
         pc.getChampByName("noVoyage").setLibelle("No voyage");
         pc.getChampByName("tonnage").setLibelle("Tonnage deb. prev.");
+        pc.getChampByName("estFictiveLib").setLibelle("est fictive");
 
         pc.setTitre("Fiche prevision");
 
