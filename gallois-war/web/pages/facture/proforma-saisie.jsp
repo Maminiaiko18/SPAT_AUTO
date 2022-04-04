@@ -23,6 +23,7 @@
 
     String autreparsley = "data-parsley-range='[8, 40]' required";
     ProformaMere  pm = new ProformaMere();
+    pm.setNomTable("proforma_mere_ordre");
     ProformaFille pf = new ProformaFille();
     pf.setNomTable("PROFORMA_FILLE_PLUS");
     PageInsertMultiple pi = new PageInsertMultiple(pm, pf, request, 10, u);
@@ -63,6 +64,8 @@
     pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
     pi.getFormu().getChamp("destination").setAutre("readonly");
     
+    
+    
     affichage.Liste[] listes= new affichage.Liste[3];
     
     TypeObjet type = new TypeObjet();
@@ -101,6 +104,8 @@
         listed[1].setApresW("order by id asc");
     pi.getFormufle().changerEnChamp(listed);
     
+    
+    
     int taille = pi.getNombreLigne();
     for( int i = 0 ; i < taille ; i++ ){       
         //pi.getFormufle().getChamp("designation_"+i).setAutre(" style=\"width: 200px;\" ");
@@ -129,6 +134,7 @@
     pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
     pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
     pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
+    pi.getFormufle().getChamp("daty_0").setLibelle("Date");
     
     pi.getFormufle().getChamp("annee_0").setLibelle("Année");
     pi.getFormufle().getChamp("heureDebut_0").setLibelle("Heure debut");
@@ -169,13 +175,15 @@
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("codePrestation").setVisible(false);
     pi.getFormu().getChamp("code").setVisible(false);
-    String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction"};
+    
+    
+    String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","daty","heureDebut","heureFin","majoration","reduction"};
     pi.getFormufle().setColOrdre(ordreFille);
     pi.preparerDataFormu();
        
 %>
 <div class="content-wrapper">
-    <h1>Enregistrer un proforma</h1>
+    <h1> Enregistrement d`une demande de prix </h1>
     <!--  -->
     <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
         <%
