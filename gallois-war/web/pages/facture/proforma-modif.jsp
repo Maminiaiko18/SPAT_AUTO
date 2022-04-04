@@ -46,6 +46,10 @@ try {
     pi.getFormu().getChamp("pourCompte").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
+    pi.getFormu().getChamp("provenance").setAutre("readonly");
+    pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
+    pi.getFormu().getChamp("destination").setAutre("readonly");
+    pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     pi.getFormu().getChamp("dateDepart").setLibelle("Date de départ");
     pi.getFormu().getChamp("dateArrivee").setLibelle("Date d'arrivée");
