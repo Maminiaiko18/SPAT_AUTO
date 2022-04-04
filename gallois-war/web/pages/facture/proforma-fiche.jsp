@@ -36,12 +36,22 @@
         pc.getChampByName("iduser").setVisible(false);
         pc.getChampByName("type").setVisible(false);
         pc.getChampByName("tiers").setVisible(false);
-//        pc.getChampByName("etatlib").setVisible(false);
         pc.getChampByName("Idcategorie").setVisible(false);
         pc.getChampByName("IdProvision").setVisible(true);
         pc.getChampByName("idProvisionlib").setVisible(false);
-//        pc.getChampByName("montanttva").setVisible(false);
-        pc.getChampByName("tierslib").setLibelle("Tiers");
+        
+        pc.getChampByName("Provenance").setVisible(false);
+        pc.getChampByName("Provenancelib").setLibelle("Provenance");
+        pc.getChampByName("Destination").setVisible(false);
+        pc.getChampByName("Destinationlib").setLibelle("Destination");
+        pc.getChampByName("Bateau").setVisible(false);
+        pc.getChampByName("Bateaulib").setLibelle("Bateau");
+        
+        pc.getChampByName("DateDepart").setLibelle("Date depart");
+        pc.getChampByName("DateArrivee").setLibelle("Date drrivee");
+        pc.getChampByName("HeureDepart").setLibelle("Heure depart");
+        pc.getChampByName("HeureArrivee").setLibelle("Heure arrivee");
+        
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("montant").setLibelle("Montant HT");
         pc.getChampByName("montanttva").setLibelle("Montant TVA");
