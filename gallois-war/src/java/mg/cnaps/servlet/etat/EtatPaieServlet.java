@@ -932,7 +932,7 @@ public class EtatPaieServlet extends HttpServlet {
             String code = mere[0].getCode();
             facture.setNomTable("factureClientValide");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
-
+            param.put("pourcomptelib", mere[0].getPourCompteLib());
             facture = mere[0];
             facture.setId(id);
             facture.initDetails(c);
@@ -984,7 +984,8 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("heure_arrivee", pre[0].getHeure_arrivee());
                     param.put("armateur", pre[0].getArmateurlib());
                     param.put("tenavire", pre[0].getTenavire());
-                    param.put("pourcomptelib", mere[0].getPourCompteLib());
+                    
+                    
                     setNomJasper("facture_client2 - Copie");//facture_client2 - Copie //facture_convention //facture-client-sans-prevision
                 }else if(mere[0].getEstMictsl().compareToIgnoreCase("1")==0){
                     setNomJasper("facture-Mictsl");
@@ -1021,22 +1022,24 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("montantTVA", mere[0].getMontanttva());
                 param.put("montantTTC", mere[0].getMontantttc());
                 param.put("montantAvoir", mere[0].getMontantavoir());
-                if(mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars)==0){
-                       param.put("montantdevise", hTDollar);
-                       param.put("montantTVAdevise", tvaDollar);
-                       param.put("montantTTCdevise", ttcDollar);
+                if(mere[0].getDeviseMere()!=null){
+                    if(mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars)==0){
+                           param.put("montantdevise", hTDollar);
+                           param.put("montantTVAdevise", tvaDollar);
+                           param.put("montantTTCdevise", ttcDollar);
+                    }
+                    if(mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr)==0){
+                          param.put("montantdevise", mere[0].getMontant());
+                          param.put("montantTVAdevise", mere[0].getMontanttva());
+                          param.put("montantTTCdevise", mere[0].getMontantttc());
+                    }
+                    if(mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro)==0){
+                          param.put("montantdevise", hTEuro);
+                          param.put("montantTVAdevise", tvaEuro);
+                          param.put("montantTTCdevise", ttcEuro);
+
+                    }   
                 }
-                if(mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr)==0){
-                      param.put("montantdevise", mere[0].getMontant());
-                      param.put("montantTVAdevise", mere[0].getMontanttva());
-                      param.put("montantTTCdevise", mere[0].getMontantttc());
-                }
-                if(mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro)==0){
-                      param.put("montantdevise", hTEuro);
-                      param.put("montantTVAdevise", tvaEuro);
-                      param.put("montantTTCdevise", ttcEuro);
-                    
-                }               
                 
                 param.put("tva", mere[0].getTva());
 
