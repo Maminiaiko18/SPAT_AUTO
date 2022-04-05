@@ -58,30 +58,48 @@ public class ListeColonneTable {
     }
 
     public static void ajouterAlaListe(ClassMAPTable e, Connection c) throws Exception {
-        String nomTable = e.getNomTable();
-        boolean testDedans = listeColPTable.containsKey(nomTable);
-        if (testDedans == false) {
-            Vector r = getChampFromTable(nomTable, c);          
-            Field fieldlist[] = getFieldListeHeritage(e);
-            if (e.getNomTable().compareToIgnoreCase("LOG_DEMANDE_DEPL_INFO")==0)System.out.println("Taille du r "+fieldlist.length+" vector="+r.size());
-            Champ[] retour = new Champ[r.size()];
-            Vector intersect = new Vector();
-            for (int i = 0; i < r.size(); i++) {
-                retour[i] = (Champ) r.get(i);
-                for (int k = 0; k < fieldlist.length; k++) {
-                    if (retour[i].getNomColonne().compareToIgnoreCase(fieldlist[k].getName()) == 0) {
-                        intersect.add(new Champ(fieldlist[k], retour[i].getPrecision()));
-                        break;
+        boolean estOuvert=false;
+        try
+        {
+            String nomTable = e.getNomTable();
+            boolean testDedans = listeColPTable.containsKey(nomTable);
+            if (testDedans == false) {
+                if(c==null)
+                {
+                    c=new UtilDB().GetConn();
+                    estOuvert=true;
+                }
+                Vector r = getChampFromTable(nomTable, c);          
+                Field fieldlist[] = getFieldListeHeritage(e);
+                if (e.getNomTable().compareToIgnoreCase("LOG_DEMANDE_DEPL_INFO")==0)System.out.println("Taille du r "+fieldlist.length+" vector="+r.size());
+                Champ[] retour = new Champ[r.size()];
+                Vector intersect = new Vector();
+                for (int i = 0; i < r.size(); i++) {
+                    retour[i] = (Champ) r.get(i);
+                    for (int k = 0; k < fieldlist.length; k++) {
+                        if (retour[i].getNomColonne().compareToIgnoreCase(fieldlist[k].getName()) == 0) {
+                            intersect.add(new Champ(fieldlist[k], retour[i].getPrecision()));
+                            break;
+                        }
                     }
                 }
+                Champ[] valiny = new Champ[intersect.size()];
+                intersect.copyInto(valiny);
+                //Champ[] =Champ.getChampFromTable(nomTable,c);
+                //for(int i=0;i<valiny.length;i++) System.out.println("liste champ=="+valiny[i].getNomColonne());
+                if (valiny.length > 0) {
+                    listeColPTable.put(nomTable, valiny);
+                }
             }
-            Champ[] valiny = new Champ[intersect.size()];
-            intersect.copyInto(valiny);
-            //Champ[] =Champ.getChampFromTable(nomTable,c);
-            //for(int i=0;i<valiny.length;i++) System.out.println("liste champ=="+valiny[i].getNomColonne());
-            if (valiny.length > 0) {
-                listeColPTable.put(nomTable, valiny);
-            }
+        }
+        catch(Exception ex)
+        {
+            if(c!=null)c.rollback();
+            throw ex;
+        }
+        finally
+        {
+            if(estOuvert==true&&c!=null)c.close();
         }
     }
 
@@ -112,24 +130,9 @@ public class ListeColonneTable {
     }
 
     public static Champ[] getFromListe(ClassMAPTable e, Connection c) throws Exception {
-        Connection cnx = null;
         String nomTable = e.getNomTable();
-        try {
-            if (c == null) {
-                cnx = new UtilDB().GetConn();
-                ajouterAlaListe(e, cnx);
-            } else {
-                ajouterAlaListe(e, c);
-            }
-            return (Champ[]) listeColPTable.get(nomTable);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw ex;
-        } finally {
-            if (cnx != null) {
-                cnx.close();
-            }
-        }
+        ajouterAlaListe(e, c);
+        return (Champ[]) listeColPTable.get(nomTable);
     }
     public static Champ getChamp(ClassMAPTable e, String col, Connection cnx) throws Exception {
         try {

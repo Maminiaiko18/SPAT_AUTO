@@ -852,7 +852,7 @@ public abstract class ClassMAPTable implements Serializable {
                 String[] g = Utilitaire.split(refUser, "/");
                 refUser = g[0];
             }
-            MapHistorique histo = new MapHistorique(this.getNomTable(), "Modification par " + temps, refUser, this.getTuppleID());
+            MapHistorique histo = new MapHistorique(this.getNomTable(), "Modification par " + temps, refUser, this.getTuppleID(), c);
             histo.setObjet(this.getClassName());
             ClassMAPTable obj = (ClassMAPTable) (Class.forName(this.getClassName()).newInstance());
             if (obj != null) {
