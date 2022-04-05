@@ -10,7 +10,7 @@
 <%@ page import="utilitaire.*" %>
 <%
 try {
-    String titrePage = "Modification proforma" ,
+    String titrePage = "Modification d'une demande de prix" ,
             classeMere = "facture.ProformaMere" ,
             classeFille = "facture.ProformaFille",
             buteLien = "facture/proforma-modif.jsp" ,
@@ -18,7 +18,7 @@ try {
             buteApresVisa = "facture/proforma-fiche.jsp";
     
     ProformaMere  mere = new ProformaMere();
-    
+    mere.setNomTable("proforma_mere_ordre");
     ProformaFille fille = new ProformaFille();
     fille.setNomTable("PROFORMA_FILLE_LIB");
     fille.setIdmere(request.getParameter("id"));
@@ -133,7 +133,7 @@ try {
     pi.getFormufle().getChamp("heureFin_0").setLibelle("Heure fin");
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
     pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
-    
+        pi.getFormufle().getChamp("daty_0").setLibelle("Date");
     pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
@@ -161,7 +161,7 @@ try {
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("codePrestation").setVisible(false);
     pi.getFormu().getChamp("code").setVisible(false);
-    String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction"};
+    String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee", "daty" , "heureDebut","heureFin","majoration","reduction"};
     pi.getFormufle().setColOrdre(ordreFille);
     
     
