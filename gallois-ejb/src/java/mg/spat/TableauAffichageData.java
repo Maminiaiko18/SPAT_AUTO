@@ -33,7 +33,9 @@ public class TableauAffichageData {
 //            System.out.println(" and datearrivee>=to_date('"+debut+"','yyyy-mm-dd') and datearrivee<=to_date('"+fin+"','yyyy-mm-dd') and date_depart is null order by datearrivee desc,heure desc");
 //            listeOccupation=(MouvementLibComplet[])CGenUtil.rechercher(complet, null, null,c, "and etat=11 and datearrivee>=to_date('"+debut+"','yyyy-mm-dd') and datearrivee<=to_date('"+fin+"','yyyy-mm-dd') and date_depart is null order by datearrivee desc,heure desc");
             listeOccupation=(MouvementLibComplet[])CGenUtil.rechercher(complet, null, null,c, "and etat=11 and date_depart is null order by datearrivee desc,heure desc");
-            listePrevision=(PrevisionLibComplet[])CGenUtil.rechercher(new PrevisionLibComplet(), null, null,c, "and etat=11 and date_arrivee>=to_date('"+debut+"','yyyy-mm-dd') and date_arrivee<=to_date('"+fin+"','yyyy-mm-dd') order by date_arrivee desc,heure_arrivee desc");
+            PrevisionLibComplet p=new PrevisionLibComplet();
+            p.setNomTable("PREVISIONLIBCOMPLETTA");
+            listePrevision=(PrevisionLibComplet[])CGenUtil.rechercher(p, null, null,c, "and etat=11 and date_arrivee>=to_date('"+debut+"','yyyy-mm-dd') and date_arrivee<=to_date('"+fin+"','yyyy-mm-dd') order by date_arrivee desc,heure_arrivee desc");
         }catch(Exception e){
             throw e;
         }finally{
