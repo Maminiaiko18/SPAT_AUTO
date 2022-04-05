@@ -83,6 +83,8 @@ import facture.FactureProformaDetails;
 import facture.FactureClient;
 import facture.FactureClientDetails;
 import facture.FactureClientDetailsGrouper;
+import facture.FactureClientDetailsPDF;
+import facture.FactureClientDetailsPDFMere;
 import facture.FactureFournisseurDetails;
 import facture.FactureFournisseurFilleData;
 import facture.ProformaFille;
@@ -922,11 +924,13 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             c = (new UtilDB()).GetConn();
             Map param = new HashMap();
+			List dataSource = null;
             String id = request.getParameter("id");
             FactureClient facture = new FactureClient();
             facture.setEstDDPMICTSL(null);
             facture.setNomTable("factureClient");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+			int separer_convention = 1;
 
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
@@ -991,7 +995,10 @@ public class EtatPaieServlet extends HttpServlet {
                     setNomJasper("facture-Mictsl");
                 } else {
                     setNomJasper("facture-client-sans-prevision");
-                    if (mere[0].getCode().contains("09")) {
+                    if(mere[0].getCode().contains("09A")){
+                        separer_convention = 0;
+                    }					
+                    /*if (mere[0].getCode().contains("09")) {
                         if (mere[0].getCode().charAt(5) == '0' && mere[0].getCode().charAt(6) == '9') {
                             int i=0;    
                             while(i<details.length){
@@ -1003,7 +1010,7 @@ public class EtatPaieServlet extends HttpServlet {
                             }
                             
                         };
-                    } 
+                    } */
                     //setNomJasper("facture-client-sans-prevision");
                 }
 
@@ -1097,9 +1104,9 @@ public class EtatPaieServlet extends HttpServlet {
                  * *********************************************************************************************
                  */
                 
-                facture.setId(details[0].getIdmere());
+                /*facture.setId(details[0].getIdmere());
                 //facture.setListeDetails(details);
-                facture.initDetails(null);
+                facture.initDetails(null);*/
                 details = facture.getListeDetails();
                 double total = 0;
                 double reduction = 0;
@@ -1143,10 +1150,49 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("montantsns", hTEuro);
             param.put("reduction", reduction);
             param.put("list_table", arrList);
+			
+            if(getNomJasper().compareTo("facture-client-sans-prevision") == 0){
+                List<FactureClientDetailsPDF> detailsPDF = new ArrayList<FactureClientDetailsPDF>();                     
+                    FactureClientDetailsPDF details1 = new FactureClientDetailsPDF();
+                    FactureClientDetailsPDF details2 = new FactureClientDetailsPDF();  
+                    details1.setDetails(new ArrayList<FactureClientDetails>());
+                    details2.setDetails(new ArrayList<FactureClientDetails>());
+                    int conventionExist = 1;
+                    for(int k = 0; k<arrList.size(); k++){                
+                        if((separer_convention == 0) && (arrList.get(k).getRubrique() != null) && (arrList.get(k).getRubrique().compareTo("RB0000000144093258") == 0 || arrList.get(k).getRubrique().compareTo("RB0000000143093146") == 0 || arrList.get(k).getRubrique().compareTo("RB0000000060112257") == 0 || arrList.get(k).getRubrique().compareTo("RB0000000066111845") == 0)){
+                            conventionExist = 0;
+                            details2.getDetails().add(arrList.get(k));
+                            details2.setTotal(details2.getTotal() + arrList.get(k).getMontantHTEuro());
+                            details2.setMontantdevise(details2.getMontantdevise() + arrList.get(k).getMontanttaux());
+                            details2.setMontantTVAdevise(details2.getMontantTVAdevise() + arrList.get(k).getTva());
+                            details2.setMontantTTCdevise(details2.getMontantdevise() + details2.getMontantTVAdevise());                    
+                        }else{
+                            details1.getDetails().add(arrList.get(k));
+                            details1.setTotal(details1.getTotal() + arrList.get(k).getMontantHTEuro());
+                            details1.setMontantdevise(details1.getMontantdevise() + arrList.get(k).getMontanttaux());
+                            details1.setMontantTVAdevise(details1.getMontantTVAdevise() + arrList.get(k).getTva());
+                            details1.setMontantTTCdevise(details1.getMontantdevise() + details1.getMontantTVAdevise());                                       
+                        }
+                    }
+
+
+                    detailsPDF.add(details1);   
+                    if(conventionExist == 0){
+                        detailsPDF.add(details2); 
+                    }
+
+                FactureClientDetailsPDFMere fiche = new FactureClientDetailsPDFMere();
+                fiche.setList_table(detailsPDF);
+
+                List<FactureClientDetailsPDFMere> ficheMultiple = new ArrayList<FactureClientDetailsPDFMere>();  
+                ficheMultiple.add(fiche);
+                dataSource = new ArrayList(ficheMultiple);                    
+            }
+			
             }
             //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             //setNomJasper("facture_client2 - Copie");
-            UtilitaireImpression.imprimer(request, response, "facture-client", param, null, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "facture-client", param, dataSource, getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();
