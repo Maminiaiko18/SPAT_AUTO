@@ -256,6 +256,7 @@ public class FactureMereAncienne extends ClassMAPTable{
         fc.setEstAncienne(1);
         fc.setEtat(ConstanteEtat.getEtatValider());
         fc.setIdcategorie(Constante.idCategorieFCDefinitive);
+        fc.setDeviseMere(this.getCdmonn());
         return fc;
     }
 }
