@@ -663,14 +663,21 @@ public class OrdonnerPayement extends ClassEtat {
      public String genererNumeroOP(Connection c) throws Exception{
         String numero = ""; 
         try{   
-            numero += UtilitaireFacture.genererSequence(c, "NUMEROOP", 4, utilitaire.Utilitaire.datetostring(this.getDaty()));
+            String awhere = " and annee=%s and mois=%s";
+            awhere = String.format(awhere, Utilitaire.getAnnee(this.getDaty()), Utilitaire.getMois(this.getDaty()));
+            
+//            numero += UtilitaireFacture.genererSequence(c, "NUMEROOP", 4, utilitaire.Utilitaire.datetostring(this.getDaty()));
+            numero += UtilitaireFacture.genererSequence(c, "NUMEROOP", 4, Utilitaire.datetostring(this.getDaty()), awhere);
             numero+="/";
             numero+=Utilitaire.genererMois(utilitaire.Utilitaire.datetostring(this.getDaty()));
             numero+="/";
             numero+=Utilitaire.genererAnnee(utilitaire.Utilitaire.datetostring(this.getDaty()));
+            
+            this.setNumeroop(numero);
          }catch(Exception e){
              e.printStackTrace();
          }
+        
         controleDoublonNumeroOP(c);
          return numero;
      }
