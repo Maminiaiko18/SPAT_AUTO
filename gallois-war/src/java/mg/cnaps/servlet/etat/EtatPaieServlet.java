@@ -1216,6 +1216,9 @@ public class EtatPaieServlet extends HttpServlet {
             } else {
                 param.put("categorie", "");
             }
+            String signature = "";
+            System.out.println("categorie==="+cat.getVal());
+            
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
             param.put("code", mere[0].getCode());
             param.put("designationAvoir", mere[0].getDesignation());
@@ -1280,7 +1283,21 @@ public class EtatPaieServlet extends HttpServlet {
 
             param.put("montantlettre", montantlettre);
             param.put("list_table", arrList);
+            
+            System.out.println("categorie==="+cat.getVal());
+            
+                if(mere[0].getTypelib().compareTo("interne")==0)
+                {
+                    signature = "Le Chef du Service Traitement et Reclamations";
+                    param.put("signature", signature);
+                }
+                else
+                {
+                    signature = "Le Capitaine du Port";
+                    param.put("signature", signature);
+                }   
             setNomJasper("facture-client-avoir");
+            
             //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             //setNomJasper("facture_client2 - Copie");
             UtilitaireImpression.imprimer(request, response, "facture-clien-avoirt", param, null, getReportPath(), rt);
