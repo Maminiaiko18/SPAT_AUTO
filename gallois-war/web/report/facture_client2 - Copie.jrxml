@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000002"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="232"/>
+	<property name="ireport.x" value="325"/>
+	<property name="ireport.y" value="93"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -813,7 +813,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="469" y="22" width="86" height="19" uuid="2c4e04ed-153c-4c16-aa31-5f12e608aa84"/>
+				<reportElement x="469" y="41" width="86" height="19" uuid="2c4e04ed-153c-4c16-aa31-5f12e608aa84"/>
 				<textElement verticalAlignment="Middle">
 					<font size="15" isBold="true"/>
 				</textElement>
@@ -919,7 +919,7 @@
 				<textFieldExpression><![CDATA[$P{jntnavire}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="555" y="22" width="353" height="19" uuid="e7db8947-ed99-4bde-a43b-a683747d3e02"/>
+				<reportElement x="555" y="41" width="353" height="19" uuid="e7db8947-ed99-4bde-a43b-a683747d3e02"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font size="15" isBold="true"/>
 					<paragraph leftIndent="3"/>
@@ -927,8 +927,8 @@
 				<textFieldExpression><![CDATA[$P{phone}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="545" y="3" width="363" height="19" uuid="1de2de5d-7905-4d25-a0c9-2ce6dacd3328"/>
-				<textElement verticalAlignment="Middle" markup="none">
+				<reportElement x="545" y="3" width="363" height="38" uuid="1de2de5d-7905-4d25-a0c9-2ce6dacd3328"/>
+				<textElement verticalAlignment="Top" markup="none">
 					<font size="15" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
