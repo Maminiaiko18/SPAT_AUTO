@@ -4,7 +4,7 @@
     Author     : Tin
 --%>
 
-<%@page import="mg.spat.Client"%>
+<%@page import="mg.spat.ClientCategorie"%>
 <%@ page import="user.*" %>
 <%@page import="mg.spat.Navire"%>
 <%@ page import="bean.*" %>
@@ -13,7 +13,8 @@
 
 <%
     String champReturn = request.getParameter("champReturn");
-    Client navire = new Client();
+    ClientCategorie navire = new ClientCategorie();
+    navire.setNomTable("client_union");
 
     String listeCrt[] = {"cdclt", "cdcat", "nomclt", "adrclt", "nmsttclt", "telclt", "faxclt", "nmcin", "nif", "rc"};
     String listeInt[] = {};
