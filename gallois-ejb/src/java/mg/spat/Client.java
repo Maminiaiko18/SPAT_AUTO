@@ -6,6 +6,7 @@
 package mg.spat;
 
 import bean.ClassMAPTable;
+import java.sql.Date;
 
 /**
  *
@@ -14,9 +15,43 @@ import bean.ClassMAPTable;
 public class Client extends ClassMAPTable{
 
     private String cdclt,cdcat,nomclt,adrclt,nmsttclt,telclt,faxclt,nmcin,nif,rc;
+    private Date dttp, dtquit;
+    private String tp, quit;
 
     public Client() {
         super.setNomTable("clientmat");
+    }
+
+    public Date getDttp() {
+        return dttp;
+    }
+
+    public void setDttp(Date dttp) {
+        this.dttp = dttp;
+    }
+
+    public Date getDtquit() {
+        return dtquit;
+    }
+
+    public void setDtquit(Date dtquit) {
+        this.dtquit = dtquit;
+    }
+
+    public String getTp() {
+        return tp;
+    }
+
+    public void setTp(String tp) {
+        this.tp = tp;
+    }
+
+    public String getQuit() {
+        return quit;
+    }
+
+    public void setQuit(String quit) {
+        this.quit = quit;
     }
 
     public String getValColLibelle() {
