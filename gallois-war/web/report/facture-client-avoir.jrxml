@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="0.8264462809917362"/>
-	<property name="ireport.x" value="17"/>
-	<property name="ireport.y" value="77"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="19"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -146,8 +146,8 @@
 	<parameter name="codefact1" class="java.lang.String"/>
 	<parameter name="pdaty1" class="java.lang.String"/>
 	<parameter name="signature" class="java.lang.String"/>
-	<parameter name="pdaty2" class="java.lang.String"/>
-	<parameter name="pdaty3" class="java.lang.String"/>
+	<parameter name="pdaty2" class="java.util.Date"/>
+	<parameter name="pdaty3" class="java.util.Date"/>
 	<parameter name="tp" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
