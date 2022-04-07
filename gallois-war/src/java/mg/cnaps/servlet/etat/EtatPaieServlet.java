@@ -1271,13 +1271,14 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("montantTVA", 0);
             param.put("montantTTC", mere[0].getMontant());
             param.put("total", montanttotal);
-
-            String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant())) + " Ariary ";
-
+            
+            String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()) , " Ariary ");
+            System.out.println("devise=="+fc.getDeviseMere());
             if (fc.getDeviseMere() != null) {
                 if (fc.getDeviseMere().compareToIgnoreCase("Dollars") == 0) {
                     double montantDollar = mere[0].getMontant() / deviseDollar;
-                    montantlettre = ChiffreLettre.convertRealToString(new Double(montantDollar)) + " Dollars ";
+                    montantlettre = ChiffreLettre.convertRealToString(new Double(montantDollar) , " Dollars ");
+                    
                 }
             }
 
