@@ -64,7 +64,7 @@
 //    TypeObjet prestation = new TypeObjet();
 //        prestation.setNomTable("code_prestation");
 //        listes[2] = new Liste("codePrestation", prestation, "VAL", "id");
-    
+
     TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
         listes[2] = new Liste("deviseMere", devise, "VAL", "id");
@@ -151,6 +151,11 @@
     lst[0].ajouterValeur(valeurChampEstMICTSL, afficheChampEstMICTSL); 
     
     pi.getFormu().changerEnChamp(lst);
+    
+//    System.out.println("date echeance " + Utilitaire.ajoutJourDate(Utilitaire.dateDuJour(), 30));
+//    pi.getFormu().getChamp("date_echeance").setDefaut(""+Utilitaire.ajoutJourDate(Utilitaire.dateDuJour(), 30));
+//    pi.getFormu().getChamp("date_echeance").setValeur(""+Utilitaire.ajoutJourDate(Utilitaire.dateDuJour(), 30));
+    
 //    pi.getFormu().getChamp("EstDDPMICTSL").setDefaut("0");
 //    pi.getFormu().getChamp("EstDDPMICTSL").setLibelle("Droit de Port MICTSL");
     pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
@@ -183,6 +188,7 @@
 
 </div>
 <script  language="JavaScript">    
+    $('#date_echeance').val('<%=Utilitaire.formatterDaty(Utilitaire.ajoutJourDate(Utilitaire.dateDuJour(), 30))%>');
     function calculerMontant(indice) {
         var quantite, pu, montant, duree;
         quantite = parseFloat($('#quantite_' + indice).val());
