@@ -1219,14 +1219,16 @@ public class EtatPaieServlet extends HttpServlet {
      * *****************************************************************************************************************************************************************************************
      */
     private void imprimerAvoir(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Connection c=null;
         try {
+            c = (new UtilDB()).GetConn();
             Map param = new HashMap();
             String id = request.getParameter("id");
             AvoirFC facture = new AvoirFC();
             facture.setNomTable("avoirFC_montant");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
 
-            AvoirFC[] mere = (AvoirFC[]) CGenUtil.rechercher(facture, null, null, null, " and id = '" + id + "'");
+            AvoirFC[] mere = (AvoirFC[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
 
             TypeObjet cat = mere[0].getCategorie(null);
             if (cat != null && cat.getVal().compareTo("-") != 0) {
@@ -1253,7 +1255,7 @@ public class EtatPaieServlet extends HttpServlet {
             FactureClient fcavoir = new FactureClient();
             fcavoir.setNomTable("facture_client_union");
             String awhere = String.format(" and idavoir = '%s' ", id);
-            FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(fcavoir, null, null, null, awhere);
+            FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(fcavoir, null, null, c, awhere);
             if (result.length != 0) {
                 param.put("codefact1", result[0].getCode());
             }
@@ -1317,7 +1319,7 @@ public class EtatPaieServlet extends HttpServlet {
                 } 
             ClientCategorie clg = new ClientCategorie();
             clg.setNomTable("V_CLIENT_CATEGORIE");
-            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, null, " and cdclt = '" + mere[0].getTiers() + "'");
+            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
             param.put("stat", clientcat[0].getNmsttclt());
             param.put("nif", clientcat[0].getNif());
             param.put("rc", clientcat[0].getRc());
@@ -1333,6 +1335,8 @@ public class EtatPaieServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(c!=null)c.close();
         }
     }
 
