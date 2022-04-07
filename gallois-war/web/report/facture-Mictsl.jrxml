@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="0.9090909090909105"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="40"/>
+	<property name="ireport.y" value="391"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -159,14 +159,14 @@
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="766" y="187" width="142" height="20" uuid="925113be-1529-4815-8de5-a92f3f00a6d4"/>
 				<textElement>
-					<font size="11"/>
+					<font size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="699" y="187" width="71" height="20" uuid="c975cfb3-68dd-4263-8e32-e65dc19a2377"/>
+				<reportElement x="662" y="187" width="108" height="20" uuid="c975cfb3-68dd-4263-8e32-e65dc19a2377"/>
 				<textElement>
-					<font size="11"/>
+					<font size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Toamasina - "]]></textFieldExpression>
 			</textField>
@@ -335,14 +335,14 @@
 				<textFieldExpression><![CDATA[$P{reduction}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="183" y="221" width="329" height="19" uuid="87f52370-53cb-4fd7-bbcf-9b6b5351c41d"/>
+				<reportElement x="206" y="221" width="681" height="19" uuid="87f52370-53cb-4fd7-bbcf-9b6b5351c41d"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dateEcheance}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="15" y="221" width="168" height="19" uuid="e554f512-0dfe-42c2-81c8-09012ae26656"/>
+				<reportElement x="15" y="221" width="191" height="19" uuid="e554f512-0dfe-42c2-81c8-09012ae26656"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="15" isBold="true"/>
 				</textElement>
@@ -605,7 +605,7 @@
 	<summary>
 		<band height="189">
 			<staticText>
-				<reportElement x="0" y="97" width="294" height="19" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
+				<reportElement x="0" y="97" width="348" height="19" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
@@ -637,7 +637,7 @@
 					<textFieldExpression><![CDATA[$P{valeuro}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.000" isBlankWhenNull="true">
-					<reportElement x="81" y="44" width="125" height="20" uuid="fb145635-d8b9-4d2f-95c8-77b70c6b46a6"/>
+					<reportElement x="93" y="44" width="113" height="20" uuid="fb145635-d8b9-4d2f-95c8-77b70c6b46a6"/>
 					<textElement textAlignment="Right">
 						<font size="15" isBold="true"/>
 					</textElement>
@@ -651,7 +651,7 @@
 					<textFieldExpression><![CDATA["1 Euro ="]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="2" y="42" width="79" height="18" uuid="e8140c2b-20f1-4aa6-8b55-74c2577e88d7"/>
+					<reportElement x="2" y="42" width="91" height="18" uuid="e8140c2b-20f1-4aa6-8b55-74c2577e88d7"/>
 					<textElement verticalAlignment="Bottom">
 						<font size="14" isBold="true"/>
 					</textElement>
@@ -744,7 +744,7 @@
 				<text><![CDATA[Net à payer:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="294" y="97" width="613" height="42" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
+				<reportElement x="348" y="97" width="559" height="42" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
 				<textElement>
 					<font size="15" isBold="true" isItalic="true"/>
 				</textElement>
@@ -779,7 +779,7 @@
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Mode de paiement : Chèque certifié au guichet de la S.P.A.T`]]></text>
+				<text><![CDATA[Mode de paiement : Chèque certifié au guichet de la S.P.A.T]]></text>
 			</staticText>
 		</band>
 	</summary>
