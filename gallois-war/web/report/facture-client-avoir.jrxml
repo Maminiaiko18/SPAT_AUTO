@@ -455,7 +455,7 @@
 		</band>
 		<band height="54">
 			<componentElement>
-				<reportElement key="table 2" x="0" y="2" width="909" height="50" uuid="6bbf3e87-2aa8-4d0a-b99f-5446e7f5d83b"/>
+				<reportElement key="table 2" x="35" y="0" width="909" height="50" uuid="6bbf3e87-2aa8-4d0a-b99f-5446e7f5d83b"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 2" uuid="87c4c166-65db-403d-8402-cd7f1d6d740f">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
