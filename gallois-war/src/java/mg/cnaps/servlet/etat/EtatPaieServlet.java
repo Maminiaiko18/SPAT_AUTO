@@ -944,6 +944,14 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("rc", clientcat[0].getRc());
             param.put("quittance", clientcat[0].getQuit());
             param.put("tp", clientcat[0].getTp());
+            
+            
+            param.put("stat1", clientcat[0].getNmsttclt());
+            param.put("nif1", clientcat[0].getNif());
+            param.put("rc1", clientcat[0].getRc());
+            param.put("quittance1", clientcat[0].getQuit());
+            param.put("tp1", clientcat[0].getTp());
+            
             facture = mere[0];
             facture.setId(id);
             facture.initDetails(c);
