@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="0.8264462809917362"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="380"/>
+	<property name="ireport.x" value="17"/>
+	<property name="ireport.y" value="77"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -146,6 +146,9 @@
 	<parameter name="codefact1" class="java.lang.String"/>
 	<parameter name="pdaty1" class="java.lang.String"/>
 	<parameter name="signature" class="java.lang.String"/>
+	<parameter name="pdaty2" class="java.lang.String"/>
+	<parameter name="pdaty3" class="java.lang.String"/>
+	<parameter name="tp" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -173,49 +176,49 @@
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[STAT]]></text>
+				<text><![CDATA[STAT :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="71" y="160" width="303" height="20" uuid="7a9ea6d7-4ba4-4619-9fb3-e59333fc097c"/>
+				<reportElement x="71" y="160" width="324" height="20" uuid="7a9ea6d7-4ba4-4619-9fb3-e59333fc097c"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{stat}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="448" y="160" width="28" height="20" uuid="f9dad9f9-ce10-4942-95e5-40be0191ae0e"/>
+				<reportElement x="448" y="160" width="39" height="20" uuid="f9dad9f9-ce10-4942-95e5-40be0191ae0e"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NIF]]></text>
+				<text><![CDATA[NIF :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="476" y="160" width="197" height="20" uuid="81710f0b-f824-42e7-883d-60e4a04c35ae"/>
+				<reportElement x="487" y="160" width="188" height="20" uuid="81710f0b-f824-42e7-883d-60e4a04c35ae"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nif}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="675" y="160" width="28" height="20" uuid="cb94b191-05e4-4690-b20a-82e3a73d7f89"/>
+				<reportElement x="675" y="160" width="42" height="20" uuid="cb94b191-05e4-4690-b20a-82e3a73d7f89"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RC : ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="703" y="160" width="204" height="20" uuid="ae5400e1-389a-4bb6-a50c-c1824b3452fe"/>
+				<reportElement x="728" y="160" width="204" height="20" uuid="ae5400e1-389a-4bb6-a50c-c1824b3452fe"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{rc}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="15" y="180" width="141" height="20" uuid="db2799e4-8a53-43a7-ba6f-15b4d8fc2d20"/>
+				<reportElement x="15" y="180" width="46" height="20" uuid="db2799e4-8a53-43a7-ba6f-15b4d8fc2d20"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TP ]]></text>
+				<text><![CDATA[TP :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="15" y="240" width="93" height="20" uuid="1b7ed1f9-5039-4f40-a6d5-8c5c5bc686a5"/>
@@ -321,7 +324,7 @@
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[QUIT]]></text>
+				<text><![CDATA[QUIT :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="675" y="180" width="30" height="20" uuid="59e30717-c169-4230-b0b7-82705e2ef65a"/>
@@ -420,6 +423,34 @@
 					<font size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pdaty1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="256" y="180" width="139" height="20" uuid="a0abc086-bda9-4e5b-84fb-eb04694771aa"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pdaty2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="728" y="180" width="125" height="20" uuid="541b923d-8004-4337-874d-ed2fed6fc222"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pdaty3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="499" y="180" width="100" height="20" uuid="8ccd915a-3715-433c-85f5-f0cb53de2436"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{quittance}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="61" y="180" width="133" height="20" uuid="c208e63c-aa79-4675-be05-212242aa7f6c"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tp}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="54">

@@ -1314,7 +1314,17 @@ public class EtatPaieServlet extends HttpServlet {
                 {
                     signature = "Le Capitaine du Port";
                     param.put("signature", signature);
-                }   
+                } 
+            ClientCategorie clg = new ClientCategorie();
+            clg.setNomTable("V_CLIENT_CATEGORIE");
+            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, null, " and cdclt = '" + mere[0].getTiers() + "'");
+            param.put("stat", clientcat[0].getNmsttclt());
+            param.put("nif", clientcat[0].getNif());
+            param.put("rc", clientcat[0].getRc());
+            param.put("quittance", clientcat[0].getQuit());
+            param.put("tp", clientcat[0].getTp());
+            param.put("pdaty2", clientcat[0].getTp());
+            param.put("pdaty3", clientcat[0].getDttp());
             setNomJasper("facture-client-avoir");
             
             //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
