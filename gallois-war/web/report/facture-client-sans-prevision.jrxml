@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="101"/>
+	<property name="ireport.y" value="534"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -378,9 +378,9 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="167">
+		<band height="172">
 			<staticText>
-				<reportElement x="-1" y="97" width="292" height="26" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
+				<reportElement x="-1" y="97" width="358" height="22" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -476,7 +476,7 @@
 				<text><![CDATA[Net à payer en Ar : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="293" y="97" width="615" height="50" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
+				<reportElement x="357" y="97" width="551" height="50" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
 				<textElement>
 					<font size="16" isBold="true" isItalic="true"/>
 				</textElement>
@@ -493,14 +493,14 @@
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="-1" y="147" width="384" height="20" uuid="1d210a04-534f-4717-9e77-9ce9a5c4e5d6"/>
+				<reportElement x="4" y="147" width="384" height="20" uuid="1d210a04-534f-4717-9e77-9ce9a5c4e5d6"/>
 				<textElement markup="html">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="557" y="147" width="351" height="20" uuid="694bfee4-504f-4ca5-98ca-857faf5fbb5a"/>
+				<reportElement x="554" y="147" width="351" height="20" uuid="694bfee4-504f-4ca5-98ca-857faf5fbb5a"/>
 				<textElement textAlignment="Right" markup="html">
 					<font size="14" isBold="true"/>
 				</textElement>
