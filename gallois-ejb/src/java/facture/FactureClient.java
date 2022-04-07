@@ -792,6 +792,7 @@ public class FactureClient extends ClassMere {
                 ouvert = true;
             }
             this.setDaty(d);
+            this.setDate_echeance(Utilitaire.ajoutJourDate(d, 30));
             this.setRemarque(noteExplicative);
             this.setTiers(Constante.idMICTSL);
             this.setIdcategorie(Constante.idCategorieFCDefinitive);
