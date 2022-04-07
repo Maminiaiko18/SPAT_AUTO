@@ -98,6 +98,7 @@ import lignecredit.LigneCredit;
 import mg.spat.CA;
 import mg.spat.CaPDF;
 import mg.spat.CargaisonAnalyse;
+import mg.spat.ClientCategorie;
 import mg.spat.Engagement;
 import mg.spat.EngagementFille;
 import mg.spat.EtatCA;
@@ -934,6 +935,15 @@ public class EtatPaieServlet extends HttpServlet {
             facture.setNomTable("factureClientValide");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
+            
+            ClientCategorie clg = new ClientCategorie();
+            clg.setNomTable("V_CLIENT_CATEGORIE");
+            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
+            param.put("stat", clientcat[0].getNmsttclt());
+            param.put("nif", clientcat[0].getNif());
+            param.put("rc", clientcat[0].getRc());
+            param.put("quittance", clientcat[0].getQuit());
+            param.put("tp", clientcat[0].getTp());
             facture = mere[0];
             facture.setId(id);
             facture.initDetails(c);
