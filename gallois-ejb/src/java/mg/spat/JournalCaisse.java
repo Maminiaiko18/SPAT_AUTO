@@ -16,6 +16,7 @@ import facture.FactureClient;
 import facture.FactureClientDetails;
 import facture.FactureFournisseur;
 import facture.FactureFournisseurDetails;
+import facture.NumeroFacture;
 import facture.PaiementFacture;
 import facture.UtilitaireFacture;
 import factureclient.PayementFacture;
@@ -1072,16 +1073,15 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public String calculerNumeroPiece(Connection c) throws Exception{
         String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
         String annee = Utilitaire.getAnnee(dateEffetStr), mois = Utilitaire.getMois(dateEffetStr);
-        
-        String awhere = " and annee=%s and mois=%s and modepaiement like '%s' and type='%s' ";
-        awhere = String.format(awhere, annee, mois, this.getIdmode(), this.getIdTypeCheque());
-        
+        String seq="";
+        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_vaovao where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type='"+this.getIdTypeCheque()+"'";
+        NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+        if(result.length>0) seq=Utilitaire.completerInt(7, result[0].getNumerosuivant());
         return Utilitaire.genererAnnee(dateEffetStr) + 
                 mois + "-" + 
                 genererCodeModePaiement() + "-" + 
                 genererCodeType() + "-" + 
-//                UtilitaireFacture.genererSequence(c, "numeropiece",7,dateEffetStr);
-                UtilitaireFacture.genererSequence(c, "numeropiece", 7, null, awhere);
+                seq;
 
     }
     

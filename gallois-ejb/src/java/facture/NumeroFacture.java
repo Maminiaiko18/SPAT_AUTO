@@ -18,6 +18,10 @@ public class NumeroFacture extends ClassMAPTable {
     private int numeroactuelle, numerosuivant;
     private int mois, annee;
 
+    public NumeroFacture() {
+        this.setNomTable("numeropiece");
+    }
+
     public Date getDaty() {
         return daty;
     }
