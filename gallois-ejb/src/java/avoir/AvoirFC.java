@@ -40,6 +40,24 @@ public class AvoirFC extends ClassMere {
     private String motiflib;
     private String type;
     private String typelib;
+    private double montanttva, montantttc;
+
+    public double getMontanttva() {
+        return montanttva;
+    }
+
+    public void setMontanttva(double montanttva) {
+        this.montanttva = montanttva;
+    }
+
+    public double getMontantttc() {
+        return montantttc;
+    }
+
+    public void setMontantttc(double montantttc) {
+        this.montantttc = montantttc;
+    }
+    
 
     public String getTypelib() {
         return typelib;
