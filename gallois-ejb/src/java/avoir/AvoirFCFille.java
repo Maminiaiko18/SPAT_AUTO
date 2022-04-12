@@ -121,11 +121,12 @@ public class AvoirFCFille extends ClassFille {
     
             if (this.getRemise() > 0) {
                 if(fcd.getTaux()==0) throw new Exception("Taux=0");
-                setMontant(Utilitaire.stringToDouble((new DecimalFormat("###.###")).format(((fcd.getMontantTTC()/fcd.getTaux()) * this.getRemise()) / 100)));
+                setMontant(Utilitaire.stringToDouble((new DecimalFormat("###.###")).format(((fcd.getMontant()/fcd.getTaux()) * this.getRemise()) / 100)));
+                setTva(fcd.getTva());
             }
     
-            if (this.getMontant() > fcd.getMontantTTC()) {
-                throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + fcd.getMontantTTC() + ") ");
+            if (this.getMontant() > fcd.getMontant()) {
+                throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + fcd.getMontant() + ") ");
             }
         }
     }
