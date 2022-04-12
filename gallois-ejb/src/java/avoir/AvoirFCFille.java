@@ -26,7 +26,7 @@ public class AvoirFCFille extends ClassFille {
     private String id;
     private String idmere, compte, iddetailfacture, devise, designation;
     private double remise;
-    private double montant, montantdf, montantDFTaux;
+    private double montant, montantdf, montantDFTaux,tva;
 
     public FactureClient getFacture(Connection c) throws Exception {
         FactureClient fc = new FactureClient();
@@ -53,6 +53,14 @@ public class AvoirFCFille extends ClassFille {
         this.remise = remise;
     }
 
+    public double getTva() {
+        return tva;
+    }
+
+    public void setTva(double tva) {
+        this.tva = tva;
+    }
+    
     public double getRemise() {
         return remise;
     }
