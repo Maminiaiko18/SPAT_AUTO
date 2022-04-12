@@ -11,11 +11,28 @@ package avoir;
  */
 public class AvoirFCFilleLib extends AvoirFCFille{
     private String devise, designation;
+    private double tvaDf, tvaAv;
     
     public AvoirFCFilleLib() throws Exception{
         setNomTable("AvoirFCFille_plus");
     }
 
+    public double getTvaDf() {
+        return tvaDf;
+    }
+
+    public void setTvaDf(double tvaDf) {
+        this.tvaDf = tvaDf;
+    }
+
+    public double getTvaAv() {
+        return tvaAv;
+    }
+
+    public void setTvaAv(double tvaAv) {
+        this.tvaAv = tvaAv;
+    }
+    
     public String getDevise() {
         return devise;
     }
