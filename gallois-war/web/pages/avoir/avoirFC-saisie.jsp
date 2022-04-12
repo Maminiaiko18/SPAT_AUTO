@@ -53,7 +53,8 @@
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("devise"), "readonly");
         for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){;
             pi.getFormufle().getChamp("iddetailfacture_"+i).setDefaut(data[i].getId());
-            pi.getFormufle().getChamp("montantdf_"+i).setDefaut(""+data[i].getMontantTTC());
+            pi.getFormufle().getChamp("montantdf_"+i).setDefaut(""+data[i].getMontantnet());
+            pi.getFormufle().getChamp("tvaDf_"+i).setDefaut(""+data[i].getTva());
             pi.getFormufle().getChamp("devise_"+i).setDefaut(data[i].getDevise());
             pi.getFormufle().getChamp("designation_"+i).setDefaut(data[i].getDesignation());
             pi.getFormufle().getChamp("remise_"+i).setDefaut("100");
@@ -118,9 +119,11 @@
     pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
     pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("Montantdf_0").setLibelle("Montant detail facture");
+    pi.getFormufle().getChamp("tvaDf_0").setLibelle("TVA detail facture");
     pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("Designation_0").setLibelle("Designation");
     pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
+    pi.getFormufle().getChamp("tvaAv_0").setLibelle("TVA Avoir");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
@@ -128,6 +131,7 @@
     
     String[] ordre = {"id","daty","idfacture","etat","designation","code","type","categorie","motif"};
     pi.getFormu().setOrdre(ordre);
+
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
