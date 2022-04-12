@@ -32,6 +32,8 @@
     pc.getChampByName("typelib").setLibelle("Type");
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("montant").setLibelle("Montant");
+    pc.getChampByName("Montanttva").setLibelle("Montant TVA");
+    pc.getChampByName("Montantttc").setLibelle("Montant TTC");
     pc.getChampByName("montantpaye").setLibelle("Montant payé");
     pc.getChampByName("montantreste").setLibelle("RAP");
     pc.getChampByName("motiflib").setLibelle("Motif");
