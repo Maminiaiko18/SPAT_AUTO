@@ -123,11 +123,12 @@
     pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("Designation_0").setLibelle("Designation");
     pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
-    pi.getFormufle().getChamp("tvaAv_0").setLibelle("TVA Avoir");
+    pi.getFormufle().getChamp("tva_0").setLibelle("TVA Avoir");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("tvaAv"), false);
     
     String[] ordre = {"id","daty","idfacture","etat","designation","code","type","categorie","motif"};
     pi.getFormu().setOrdre(ordre);
