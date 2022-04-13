@@ -105,6 +105,7 @@
                 <div class="tab-content">       
                     <jsp:include page="<%=tab%>">
                         <jsp:param name='idavoir' value="<%=e.getId()%>"/> 
+                        <jsp:param name='id' value="<%=e.getId()%>"/> 
                            
                         
                     </jsp:include>
