@@ -132,7 +132,7 @@
     
     String[] ordre = {"id","daty","idfacture","etat","designation","code","type","categorie","motif"};
     pi.getFormu().setOrdre(ordre);
-    String[] ordreFille ={"iddetailfacture","designation","compte","devise","montant","tvaav","montantdf","tvadf","remise"};
+    String[] ordreFille ={"iddetailfacture","designation","compte","devise","montant","tva","montantdf","tvadf","remise"};
     pi.getFormufle().setColOrdre(ordreFille);
     pi.preparerDataFormu();
 %>
