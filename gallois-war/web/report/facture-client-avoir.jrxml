@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="0.8264462809917362"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="19"/>
+	<property name="ireport.x" value="88"/>
+	<property name="ireport.y" value="378"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -639,7 +639,7 @@
 				<textFieldExpression><![CDATA["1 Dollar ="]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="448" y="61" width="165" height="20" uuid="8cae0e4a-f680-459a-ac04-003da275ef22"/>
+				<reportElement x="448" y="41" width="165" height="20" uuid="8cae0e4a-f680-459a-ac04-003da275ef22"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
@@ -653,7 +653,7 @@
 				<text><![CDATA[Net à payer en Ar : ]]></text>
 			</staticText>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="613" y="61" width="275" height="20" uuid="bbe60157-d0d6-4a5a-ab8e-5b453ef314dd"/>
+				<reportElement x="613" y="41" width="275" height="20" uuid="bbe60157-d0d6-4a5a-ab8e-5b453ef314dd"/>
 				<textElement textAlignment="Right">
 					<font size="15" isBold="true"/>
 				</textElement>
@@ -721,6 +721,20 @@
 					<font size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{signature}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="448" y="59" width="165" height="20" uuid="a9e6b2b8-040f-4e06-9394-ceed7b4b44c1"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant en Ar tva:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="613" y="59" width="275" height="20" uuid="0d997f1d-e86e-4cfb-bee8-398067ef948d"/>
+				<textElement textAlignment="Right">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

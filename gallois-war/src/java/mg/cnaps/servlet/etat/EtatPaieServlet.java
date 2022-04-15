@@ -1298,8 +1298,8 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             param.put("montant", mere[0].getMontant());
-            param.put("montantTVA", 0);
-            param.put("montantTTC", mere[0].getMontant());
+            param.put("montantTVA", mere[0].getMontanttva());
+            param.put("montantTTC", mere[0].getMontantttc());
             param.put("total", montanttotal);
             
             String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()) , " Ariary ");
