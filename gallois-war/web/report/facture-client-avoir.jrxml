@@ -729,7 +729,7 @@
 				</textElement>
 				<text><![CDATA[Montant en Ar tva:]]></text>
 			</staticText>
-			<textField pattern="#,##0.00">
+			<textField pattern="#,##0.000">
 				<reportElement x="613" y="59" width="275" height="20" uuid="0d997f1d-e86e-4cfb-bee8-398067ef948d"/>
 				<textElement textAlignment="Right">
 					<font size="15" isBold="true"/>
