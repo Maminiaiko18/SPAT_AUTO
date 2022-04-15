@@ -1292,6 +1292,7 @@ public class EtatPaieServlet extends HttpServlet {
             double montanttotal = 0;
             List<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
             for (int i = 0; i < details.length; i++) {
+                details[i].setMontant(details[i].getMontantHTEuro());
                 montanttotal = montanttotal + details[i].getMontantHTEuro();
                 arrList.add(details[i]);
             }
