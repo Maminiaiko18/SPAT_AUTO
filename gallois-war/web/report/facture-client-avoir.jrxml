@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="0.8264462809917362"/>
-	<property name="ireport.x" value="88"/>
-	<property name="ireport.y" value="378"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="166"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -492,7 +492,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="94" height="13" uuid="788b28a9-aa28-4bbb-a19f-9b1bcd4a46e7"/>
 								<textElement textAlignment="Right">
 									<font size="15" isBold="true"/>
@@ -513,7 +513,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="72" height="13" uuid="b6927c9a-142c-4608-9c14-ae25f119b476"/>
 								<textElement textAlignment="Right">
 									<font size="15" isBold="true"/>
