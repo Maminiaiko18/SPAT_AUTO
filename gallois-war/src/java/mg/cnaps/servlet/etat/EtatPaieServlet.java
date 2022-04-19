@@ -1292,13 +1292,14 @@ public class EtatPaieServlet extends HttpServlet {
             double montanttotal = 0;
             List<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
             for (int i = 0; i < details.length; i++) {
+                details[i].setMontant(details[i].getMontantHTEuro());
                 montanttotal = montanttotal + details[i].getMontantHTEuro();
                 arrList.add(details[i]);
             }
 
             param.put("montant", mere[0].getMontant());
-            param.put("montantTVA", 0);
-            param.put("montantTTC", mere[0].getMontant());
+            param.put("montantTVA", mere[0].getMontanttva());
+            param.put("montantTTC", mere[0].getMontantttc());
             param.put("total", montanttotal);
             
             String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()) , " Ariary ");
