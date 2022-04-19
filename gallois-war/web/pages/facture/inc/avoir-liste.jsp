@@ -10,7 +10,7 @@
 <%
     AvoirFCLibComplet cht = new AvoirFCLibComplet();
     cht.setNomTable("AVOIRFC_MONTANTLIBETAT");
-    String libEntete[] = {"id", "code", "daty", "tierslib", "montant", "montantpaye", "montantreste", "etatlib"};
+    String libEntete[] = {"id", "code", "daty", "tierslib", "montantttc", "montantpaye", "montantreste", "etatlib"};
     String listeCrt[] = {"idfacture"};
     String listeInt[] = {};
 
@@ -24,7 +24,7 @@
         pr.setAWhere(" and idfacture = '"+request.getParameter("idfacture")+"' ");
     }
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "Code", "Date", "Client","Montant", "Montant paye", "Montant reste", "Etat"};
+    String libEnteteAffiche[] = {"id", "Code", "Date", "Client","Montant TTC", "Montant paye", "Montant reste", "Etat"};
     String lienTableau[] = {pr.getLien() + "?but=avoir/avoirFC-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
@@ -34,7 +34,7 @@
     if(pr.getTableau().getHtml() != null){
         out.println(pr.getTableau().getHtml());
         double total=0;
-        total=AdminGen.calculSommeDouble(liste,"montant");
+        total=AdminGen.calculSommeDouble(liste,"montantttc");
 
 %>
         
