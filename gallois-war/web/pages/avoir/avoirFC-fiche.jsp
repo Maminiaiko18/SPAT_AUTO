@@ -96,8 +96,8 @@
         <div class="col-md-10 col-md-offset-1 ">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
-                    <li class="<%= map.get("avoirFC-details")%>"><a href="module.jsp?but=<%=bute%>&idAvoir=<%=e.getId()%>&tab=avoirFC-details">D&eacute;tails Avoir</a></li>
-                    <li class="<%= map.get("paiements")%>"><a href="module.jsp?but=<%=bute%>&idplacement=<%=e.getId()%>&tab=paiements">Paiements</a></li>
+                    <li class="<%= map.get("avoirFC-details")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idAvoir=<%=e.getId()%>&tab=avoirFC-details">D&eacute;tails Avoir</a></li>
+                    <li class="<%= map.get("paiements")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idplacement=<%=e.getId()%>&tab=paiements">Paiements</a></li>
                     <li class="<%= map.get("facture_emplacement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture_emplacement"> Facture de remplacement</a></li>
                 
                 </ul>
