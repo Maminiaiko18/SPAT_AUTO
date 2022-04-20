@@ -182,7 +182,7 @@ try {
 %>
 <div class="content-wrapper">
     <h1><%=titrePage%></h1>
-    <form action="<%=(String) session.getValue("lien")%>?but=apresTarif.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
+    <form action="<%=(String) session.getValue("lien")%>?but=apresMultiple.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
         <%
                     pi.getFormu().makeHtmlInsertTabIndex();
                     pi.getFormufle().makeHtmlInsertTableauIndex();

@@ -17,6 +17,8 @@ public class ProformaFille extends FactureClientDetails{
 
     public ProformaFille() throws Exception{
         super.setNomTable("proforma_fille");
+        this.setNomClasseMere("facture.ProformaMere");
+        this.setLiaisonMere("idmere");
     }
 
     public ProformaFille(String id, String idmere, double quantite, double pu, double taux, String compte, String idproduit, String produit_lib, String devise, String designation, String idProduitLib, String idactivite, String categorieFacturelib, String categorieClientlib, String activitelib, String rubrique, FactureClient mere, double montant, double montanttaux, double montantavoirsanstaux, double montantavoiravectaux, double qtelivree, double restealivrer, Date datefact, String rubriquelib, String idprestation, String clientlib, int mois, int annee, String heureDebut, String heureFin, String moislib, String anneelib, double montantHTEuro, double montantTVAEuro, double montanttaxe, double majoration, double reduction, double tva) {
