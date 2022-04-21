@@ -15,11 +15,11 @@
     titre.put("typemesure", "Type mesure");
     titre.put("typemarchandise", "Type marchandise");
     titre.put("typemanipulation", "Type manipulation");
-    titre.put("nomsociete", "Société");
+    titre.put("nomsociete", "Sociï¿½tï¿½");
     titre.put("typeactionconteneur", "Type Action Conteneur");
     titre.put("unitechantier", "Unite");
     titre.put("banque", "Banque");
-    titre.put("entite", "Entité");
+    titre.put("entite", "Entitï¿½");
     titre.put("consignataire", "Consignataire");
     titre.put("pays", "Pays");
     titre.put("typequais", "Type quais");
@@ -36,9 +36,9 @@
     titre.put("cargaison", "Cargaison");
     titre.put("pilote", "Capitaine");
     titre.put("typenavire", "type navire");
-    titre.put("categoriefacturation", "Catégorie");
+    titre.put("categoriefacturation", "Catï¿½gorie");
     titre.put("redevance", "Redevance");
-    titre.put("unite_activite", "Unité");
+    titre.put("unite_activite", "Unitï¿½");
 
     titre.put("Marque_Materiel", "Marque mat&eacute;riel");
 
@@ -46,9 +46,9 @@
     
     titre.put("CodeEtablissement", "code etablissement");
     
-    titre.put("consignatairetab", "Consignataire Société");
+    titre.put("consignatairetab", "Consignataire Sociï¿½tï¿½");
     
-    titre.put("consignatairetab", "Consignataire Société");
+    titre.put("consignatairetab", "Consignataire Sociï¿½tï¿½");
     
     titre.put("destination", "destination");
     
@@ -66,7 +66,7 @@
     titre.put("typeclient", "Type Client");
     
     TypeObjet act = new TypeObjet();
-    act.setNomTable(cible);
+    act.setNomTable("armateur_tbd");
     PageInsert pi = new PageInsert(act, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     
@@ -111,7 +111,7 @@
             TypeObjet e = new TypeObjet();
             e = act;
 
-            e.setNomTable(cible);
+            e.setNomTable("armateur_tbd");
             
             String[] champ = {"id", "val", "desce"};
             String[] libelle_comp = {"id", "Valeur", "Description"};
