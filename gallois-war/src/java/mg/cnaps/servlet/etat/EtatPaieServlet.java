@@ -1009,7 +1009,6 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("pavillonlib", pre[0].getPavillonlib());
                     param.put("heure_depart", pre[0].getHeure_depart());
                     param.put("heure_arrivee", pre[0].getHeure_arrivee());
-                    param.put("armateur", pre[0].getArmateurlib());
                     param.put("tenavire", pre[0].getTenavire());
 
                     setNomJasper("facture_client2 - Copie");//facture_client2 - Copie //facture_convention //facture-client-sans-prevision
@@ -1052,6 +1051,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("montantTTC", mere[0].getMontantttc());
                 param.put("montantAvoir", mere[0].getMontantavoir());
                 param.put("codeclient", mere[0].getTiers());
+                param.put("armateur", mere[0].getArmateurlib());
 
                 param.put("tva", mere[0].getTva());
 
