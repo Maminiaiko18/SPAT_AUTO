@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000002"/>
-	<property name="ireport.x" value="14"/>
-	<property name="ireport.y" value="188"/>
+	<property name="ireport.x" value="58"/>
+	<property name="ireport.y" value="471"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -1090,7 +1090,7 @@
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="300" y="22" width="150" height="74" uuid="a3a614d6-9b1c-48ed-8821-fc12f0a451e6"/>
+				<reportElement x="302" y="24" width="150" height="74" uuid="a3a614d6-9b1c-48ed-8821-fc12f0a451e6"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1369,7 +1369,7 @@
 				<text><![CDATA[TTC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="779" y="22" width="147" height="74" uuid="7a513a45-50a5-4ac4-8346-27278dde7ccb"/>
+				<reportElement x="743" y="22" width="183" height="74" uuid="7a513a45-50a5-4ac4-8346-27278dde7ccb"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1383,7 +1383,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="785" y="75" width="33" height="19" uuid="acdfac55-a088-4237-a1c9-ec599eaa34ed"/>
+				<reportElement x="743" y="75" width="33" height="19" uuid="acdfac55-a088-4237-a1c9-ec599eaa34ed"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -1397,7 +1397,7 @@
 				<text><![CDATA[TTC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="785" y="24" width="135" height="19" uuid="a5fab933-9f1e-42a7-8678-3c0782921b69"/>
+				<reportElement x="743" y="24" width="182" height="19" uuid="a5fab933-9f1e-42a7-8678-3c0782921b69"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -1411,7 +1411,7 @@
 				<text><![CDATA[Montant en Ariary]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="785" y="59" width="33" height="19" uuid="07c13a83-2541-4d3d-af56-ff01eac710d7"/>
+				<reportElement x="743" y="59" width="33" height="19" uuid="07c13a83-2541-4d3d-af56-ff01eac710d7"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -1426,7 +1426,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="785" y="41" width="33" height="19" uuid="dbae9105-f463-449a-81f9-885aa5aabddd"/>
+				<reportElement x="743" y="41" width="33" height="19" uuid="dbae9105-f463-449a-81f9-885aa5aabddd"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -1440,7 +1440,7 @@
 				<text><![CDATA[HT]]></text>
 			</staticText>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="818" y="75" width="102" height="19" uuid="04d047b9-b94a-4567-a433-5615d0a32e8b"/>
+				<reportElement x="776" y="75" width="144" height="19" uuid="04d047b9-b94a-4567-a433-5615d0a32e8b"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -1454,7 +1454,7 @@
 				<textFieldExpression><![CDATA[$P{montantTTC}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="818" y="41" width="102" height="19" uuid="eb46e2ff-a87e-46d4-8217-795dc9dde425"/>
+				<reportElement x="776" y="43" width="149" height="19" uuid="eb46e2ff-a87e-46d4-8217-795dc9dde425"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -1468,7 +1468,7 @@
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="818" y="59" width="102" height="19" uuid="8136174a-a568-4ee5-a289-fc59e7974b33"/>
+				<reportElement x="776" y="59" width="149" height="19" uuid="8136174a-a568-4ee5-a289-fc59e7974b33"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
