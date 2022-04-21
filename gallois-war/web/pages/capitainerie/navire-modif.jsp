@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="mg.spat.Navire"%>
+<%@page import="mg.spat.Armateur"%>
 <%@ page import="user.*"%>
 <%@ page import="bean.*"%>
 <%@ page import="utilitaire.*"%>
@@ -23,13 +24,16 @@
     pi.getFormu().changerEnChamp(liste);
      pi.getFormu().getChamp("pavillon").setPageAppel("choix/listePaysChoix.jsp");
     pi.getFormu().getChamp("pavillon").setAutre("readonly");
-     pi.getFormu().getChamp("armateur").setPageAppel("choix/listeArmateurChoix.jsp");
+     pi.getFormu().getChamp("armateur").setPageAppel("choix/listeArmateurTBDChoix.jsp","armateur;armateurlibelle");
     pi.getFormu().getChamp("armateur").setAutre("readonly");
     pi.getFormu().getChamp("reference").setLibelle("R&eacute;f&eacute;rence");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("volume").setVisible(false);
     pi.preparerDataFormu();
-%>
+		Navire tempNav = (Navire) pi.getBase();
+		TypeObjet armateur = new TypeObjet();
+		armateur = (TypeObjet) armateur.getById(pi.getFormu().getChamp("armateur").getValeur(),"armateur_TBD",null);
+		%>
 <div class="content-wrapper">
     <div class="row">
         <a href="../apresTarifMultiple.jsp"></a>
@@ -58,3 +62,6 @@
         </div>
     </div>
 </div>
+<script>
+	//$("#armateurlibelle").val("<%=Utilitaire.champNull(armateur.getVal())%>");
+</script>
