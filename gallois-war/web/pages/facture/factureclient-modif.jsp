@@ -76,6 +76,8 @@
         pi.getFormu().getChamp("code").setLibelle("Code");
         pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
         pi.getFormu().getChamp("armateurlib").setVisible(false);
+        pi.getFormu().getChamp("armateur").setPageAppel("choix/listeArmateurTBDChoix.jsp");
+        pi.getFormu().getChamp("armateur").setAutre("readonly");
         pi.getFormu().getChamp("etat").setAutre("readonly");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
