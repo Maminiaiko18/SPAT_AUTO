@@ -2312,6 +2312,18 @@ public class EtatPaieServlet extends HttpServlet {
                     }
 
                 }
+            ClientCategorie clg = new ClientCategorie();
+            clg.setNomTable("V_CLIENT_CATEGORIE");
+            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
+            
+             param.put("stat", clientcat[0].getNmsttclt());
+            param.put("nif", clientcat[0].getNif());
+            param.put("RC", clientcat[0].getRc());
+            param.put("quittance", clientcat[0].getQuit());
+            param.put("tp", clientcat[0].getTp());
+            param.put("daty1", clientcat[0].getDtquit());
+            param.put("daty2", clientcat[0].getDttp());
+            
                 param.put("responsable", "Pr&eacute;par&eacute; Par");
                 param.put("chef", "Le Responsable Facturation");
 
