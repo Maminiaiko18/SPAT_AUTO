@@ -167,19 +167,19 @@ public class ListeColonneTable {
         try {
             Champ[] liste = null;
             
-            System.out.println("AVANT EEE TABLE "+e.getNomTable() );
+            //System.out.println("AVANT EEE TABLE "+e.getNomTable() );
             if (listeColPTable.containsKey(e.getNomTable()) == false) 
             {
-                System.out.println("INTERIEUR PAS DE TABLE:"+e.getNomTable());
+                //System.out.println("INTERIEUR PAS DE TABLE:"+e.getNomTable());
                 cnx = new UtilDB().GetConn();
                 liste = getFromListe(e, cnx);
-                System.out.println("TAILLE DE LA LISTE TABLE "+liste.length);
+                //System.out.println("TAILLE DE LA LISTE TABLE "+liste.length);
             } else {
-                System.out.println("INTERIEUR ELSE PAS DE TABLE=="+e.getNomTable());
+                //System.out.println("INTERIEUR ELSE PAS DE TABLE=="+e.getNomTable());
                 liste = (Champ[]) listeColPTable.get(e.getNomTable());
             }
             for (int i = 0; i < liste.length; i++) {
-	        System.out.println("liste["+i+"]======="+liste[i].getNomColonne());
+	        //System.out.println("liste["+i+"]======="+liste[i].getNomColonne());
                 if (liste[i].getNomColonne().compareToIgnoreCase(col) == 0) {
                     return liste[i];
                 }
