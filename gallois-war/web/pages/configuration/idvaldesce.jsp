@@ -36,9 +36,9 @@
     titre.put("cargaison", "Cargaison");
     titre.put("pilote", "Capitaine");
     titre.put("typenavire", "type navire");
-    titre.put("categoriefacturation", "Catï¿½gorie");
+    titre.put("categoriefacturation", "Catégorie");
     titre.put("redevance", "Redevance");
-    titre.put("unite_activite", "Unitï¿½");
+    titre.put("unite_activite", "Unité");
 
     titre.put("Marque_Materiel", "Marque mat&eacute;riel");
 
@@ -46,9 +46,9 @@
     
     titre.put("CodeEtablissement", "code etablissement");
     
-    titre.put("consignatairetab", "Consignataire Sociï¿½tï¿½");
+    titre.put("consignatairetab", "Consignataire Société");
     
-    titre.put("consignatairetab", "Consignataire Sociï¿½tï¿½");
+    titre.put("consignatairetab", "Consignataire Société");
     
     titre.put("destination", "destination");
     
@@ -64,9 +64,10 @@
     titre.put("nature", "Nature");
 
     titre.put("typeclient", "Type Client");
+    titre.put("armateur_tbd", "Armateur");
     
     TypeObjet act = new TypeObjet();
-    act.setNomTable("armateur_tbd");
+    act.setNomTable(cible);
     PageInsert pi = new PageInsert(act, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     
@@ -111,7 +112,7 @@
             TypeObjet e = new TypeObjet();
             e = act;
 
-            e.setNomTable("armateur_tbd");
+            e.setNomTable(cible);
             
             String[] champ = {"id", "val", "desce"};
             String[] libelle_comp = {"id", "Valeur", "Description"};
