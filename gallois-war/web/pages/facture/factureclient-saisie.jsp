@@ -50,6 +50,8 @@
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("iduser").setAutre("readonly");
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
+    pi.getFormu().getChamp("armateur").setPageAppel("choix/listeArmateurTBDChoix.jsp");
+    pi.getFormu().getChamp("armateur").setAutre("readonly");
     
     affichage.Liste[] listes= new affichage.Liste[3];
     
