@@ -39,7 +39,7 @@ try {
     pi.getFormu().getChamp("idprevision").setLibelle("escale");
     pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
-    pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+    //pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
     pi.getFormu().getChamp("idavoir").setVisible(false);
     pi.getFormu().getChamp("pourCompte").setPageAppel("choix/clientCategorieChoix.jsp");
@@ -83,9 +83,10 @@ try {
     
     pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
     pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
-    pi.getFormu().getChamp("idProvision").setAutre("readonly");
+    //pi.getFormu().getChamp("idProvision").setAutre("readonly");
     pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");    
-    pi.getFormu().getChamp("idProvision").setLibelle("Provision");
+    //pi.getFormu().getChamp("idProvision").setLibelle("Provision");
+    pi.getFormu().getChamp("idProvision").setVisible(false);
     
      affichage.Liste[] listed = new affichage.Liste[2];
     TypeObjet o = new TypeObjet();
@@ -172,7 +173,7 @@ try {
     
     pi.getFormu().getChamp("tiers").setValeurLibelle(mere.getTierslib());
     pi.getFormu().getChamp("idprevision").setValeurLibelle(mere.getEscale());
-    pi.getFormu().getChamp("idProvision").setValeurLibelle(mere.getIdProvisionlib());
+    //pi.getFormu().getChamp("idProvision").setValeurLibelle(mere.getIdProvisionlib());
     pi.getFormu().getChamp("provenance").setValeurLibelle(mere.getProvenancelib());
     pi.getFormu().getChamp("destination").setValeurLibelle(mere.getDestinationlib());
     pi.getFormu().getChamp("pourCompte").setValeurLibelle(mere.getPourCompteLib());
