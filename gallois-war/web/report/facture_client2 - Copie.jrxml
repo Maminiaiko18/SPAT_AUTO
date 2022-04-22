@@ -777,13 +777,6 @@
 				<text><![CDATA[Tirant d' Eau d' Eté (TEE):]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="15" y="186" width="88" height="19" uuid="dfcf0787-a311-4846-89cf-fb0b3c06868c"/>
-				<textElement verticalAlignment="Middle">
-					<font size="15" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Montant en:]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="15" y="40" width="113" height="19" uuid="782dd403-aad1-4694-bce1-febf8b305400"/>
 				<textElement verticalAlignment="Middle">
 					<font size="15" isBold="true"/>
@@ -884,7 +877,7 @@
 				<textFieldExpression><![CDATA[$P{navire}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="103" y="186" width="349" height="19" uuid="c006bfa2-939e-404a-a8ee-0f1e533c62ac"/>
+				<reportElement x="115" y="186" width="337" height="19" uuid="c006bfa2-939e-404a-a8ee-0f1e533c62ac"/>
 				<textElement verticalAlignment="Middle">
 					<font size="15" isBold="true"/>
 				</textElement>
@@ -1060,6 +1053,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pdaty5}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="15" y="185" width="99" height="20" uuid="1d686270-2768-465d-b4f3-bf71c026a09d"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant en :]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<summary>
