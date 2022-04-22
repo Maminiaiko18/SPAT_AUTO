@@ -675,9 +675,9 @@ public class FactureClientDetails extends ClassFille {
         }
         facture.setNomTable(nomtable);
         facture.setIdmere(this.getIdmere());
-        String where = " and rang > " + this.getRang() + " order by rang asc";
+        String where = " and rang >= " + this.getRang() + " and id != '" + this.getId() + "' order by rang asc";
         if(inferieur){
-            where = " and rang < " + this.getRang() + " order by rang desc";
+            where = " and rang <= " + this.getRang() + " and id != '" + this.getId() + "' order by rang desc";
         }
         FactureClientDetails[] reponse  = (FactureClientDetails[])new CGenUtil().rechercher(facture, null, null, c, where);
         return reponse;
@@ -716,8 +716,15 @@ public class FactureClientDetails extends ClassFille {
         int valeur = monter == 1 ? -1 : 1;
         
         if (soeurs != null && soeurs.length > 0) {
+            if(this.getRang() != soeurs[0].getRang()) valeur = 0;
+            int rang = this.getRang();
             this.setRang(soeurs[0].getRang() + valeur);
             this.updateToTableWithHisto(user, c);
+            
+            if(valeur == 0) {
+                soeurs[0].setRang(rang);
+                soeurs[0].updateToTableWithHisto(user, c);
+            }
         }
     }
     
