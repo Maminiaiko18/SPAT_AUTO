@@ -648,6 +648,9 @@ public class FactureClientDetails extends ClassFille {
     
     public FactureClientDetails[] getFillesSoeurs(boolean inferieur,Connection c,String nomtable) throws Exception{
         FactureClientDetails facture = new FactureClientDetails(); 
+        if(nomtable == null){
+            nomtable = "facture_client_fille";
+        }
         facture.setNomTable(nomtable);
         facture.setIdmere(this.getIdmere());
         String where = " and rang > " + this.getRang() + " order by rang asc";
