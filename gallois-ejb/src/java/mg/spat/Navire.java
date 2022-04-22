@@ -98,7 +98,10 @@ public class Navire extends ClassEtat{
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(String type) throws Exception {
+        if(this.getMode().compareTo("modif")==0){
+            if(type==null || type.compareTo("")==0) throw new Exception("Type obligatoire");
+        }
         this.type = type;
     }
 
@@ -106,7 +109,7 @@ public class Navire extends ClassEtat{
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(String id){
         this.id = id;
     }
 
@@ -134,7 +137,9 @@ public class Navire extends ClassEtat{
     }
 
     public void setPavillon(String pavillon) throws Exception {
-        
+        if(this.getMode().compareTo("modif")==0){
+            if(pavillon==null || pavillon.compareTo("")==0) throw new Exception("Pavillon obligatoire");
+        }
         this.pavillon = pavillon;
     }
 
