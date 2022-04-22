@@ -1,0 +1,83 @@
+INSERT INTO ROLES
+(IDROLE, DESCROLE, RANG)
+VALUES('ROL0000001281103937', 'recouvrement', 0);
+
+INSERT INTO USERMENU
+(ID, REFUSER, IDMENU, IDROLE, CODESERVICE, CODEDIR, INTERDIT)
+VALUES('UM00000030', NULL, 'MEN000682', 'ROL0000001281103937', NULL, NULL, 0);
+
+INSERT INTO USERMENU
+(ID, REFUSER, IDMENU, IDROLE, CODESERVICE, CODEDIR, INTERDIT)
+VALUES('UM00000031', NULL, 'MDO000009', 'ROL0000001281103937', NULL, NULL, 0);
+
+INSERT INTO USERMENU
+(ID, REFUSER, IDMENU, IDROLE, CODESERVICE, CODEDIR, INTERDIT)
+VALUES('UM00000032', NULL, 'MEN000683', 'ROL0000001281103937', NULL, NULL, 0);
+
+INSERT INTO UTILISATEUR
+(REFUSER, LOGINUSER, PWDUSER, NOMUSER, ADRUSER, TELUSER, IDROLE, CODEETABLISSEMENT)
+VALUES(1482, 'recouvrement', 'i53fl2021', 'recouvrement', 'DIR0000000092092549', '1002067', 'ROL0000001281103937', NULL);
+
+INSERT INTO PARAMCRYPT
+(ID, NIVEAU, CROISSANTE, IDUTILISATEUR)
+VALUES('CRY0000000390110937', 9, 1, '1482');
+
+INSERT INTO CNAPS_USER
+(ID, CODE_DR, USER_INIT, AGENT_MO, AGENT_DISPONIBLE, USERNAME, CODE_SERVICE, ID_UTILISATEUR)
+VALUES('CNP0000000480110937', 'DIR00001', '1', '1', '1', 'recouvrement', '2030', '1482');
+
+create or replace view PREVISIONTYPEBORNAGE as
+SELECT p.ID,
+          p.DATE_RADE,
+          p.PROVENANCE,
+          p.NAVIRE,
+          p.CONSIGNATAIRE,
+          p.CARGAISON,
+          p.PILOTE,
+          p.DATE_ARRIVEE,
+          p.HEURE_ARRIVEE,
+          p.DATE_DEPART,
+          p.HEURE_DEPART,
+          p.DESTINATION,
+          p.ETAT,
+          p.ESCALE,
+          p.NOVOYAGE,
+          p.ARMATEUR,
+          n.TYPE
+     FROM prevision p JOIN navire n ON p.navire = n.id;
+
+create or replace view PREVISIONTYPEBORNAGE as
+SELECT p.ID,
+          p.DATE_RADE,
+          p.PROVENANCE,
+          p.NAVIRE,
+          p.CONSIGNATAIRE,
+          p.CARGAISON,
+          p.PILOTE,
+          p.DATE_ARRIVEE,
+          p.HEURE_ARRIVEE,
+          p.DATE_DEPART,
+          p.HEURE_DEPART,
+          p.DESTINATION,
+          p.ETAT,
+          p.ESCALE,
+          p.NOVOYAGE,
+          p.ARMATEUR,
+          n.TYPE
+     FROM prevision p JOIN navire n ON p.navire = n.id;
+
+
+create or replace view ECARTAVOIRFCPARFILLE as
+select id,
+       idactivite,
+       montantavoiravectsaux
+                                               montantttc,
+       (MONTANT - montantavoiravectsaux) as ecart,
+       etat
+from FCFILLECOMPLET;
+
+
+
+
+
+
