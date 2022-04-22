@@ -99,5 +99,8 @@ delete from detformufact where id in ('DFF0000000023170474','DFF0000000023170475
 update detformufact set condition='[estNational]==''National''&&[volume]<3000' where id='DFF0000000023170472';
 update detformufact set condition='[estNational]==''International''&&[volume]<3000' where id='DFF0000000023170473';
 
+UPDATE ETAT_PROVISION SET numprovision='2204003' WHERE id='ETPROV0000000223155615';
+UPDATE ETAT_PROVISION SET numprovision='2204002' WHERE id='ETPROV0000000222154054';
+
 
 
