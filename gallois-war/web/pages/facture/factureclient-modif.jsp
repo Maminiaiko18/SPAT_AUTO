@@ -155,6 +155,7 @@
             if (request.getParameter("factprev") != null) {
                 if (liste[i].getIdrubrique() != null && liste[i].getIdactivite() != null) {
                     Activite act = liste[i].getActivite(null);
+                    pi.getFormufle().getChamp("rang_"+i).setValeur((liste[i].getRang() * 10)+"");
 
                     if (act != null) {
                         if (liste[i].getIdrubrique().equalsIgnoreCase(Constante.idStationnement)) {
