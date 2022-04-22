@@ -63,5 +63,5 @@
     </div>
 </div>
 <script>
-	//$("#armateurlibelle").val("<%=Utilitaire.champNull(armateur.getVal())%>");
+	$("#armateurlibelle").val("<%=Utilitaire.champNull(armateur.getVal())%>");
 </script>
