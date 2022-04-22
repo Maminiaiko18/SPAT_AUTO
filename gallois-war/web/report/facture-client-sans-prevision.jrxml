@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="534"/>
+	<property name="ireport.y" value="70"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -187,7 +187,7 @@
 				<text><![CDATA[Doit : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-1" y="125" width="94" height="18" uuid="a32fba96-ef42-408b-a903-816ac49b04c4"/>
+				<reportElement x="-1" y="125" width="95" height="18" uuid="a32fba96-ef42-408b-a903-816ac49b04c4"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -264,13 +264,6 @@
 				<text><![CDATA[TP : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-1" y="143" width="94" height="18" uuid="b849218f-8bc1-44fb-bfe8-baea3a383145"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Facturer en :]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="0" y="233" width="94" height="18" uuid="458220f8-e8db-40a8-b31d-7ae227d2059c"/>
 				<textElement>
 					<font size="14" isBold="true"/>
@@ -285,7 +278,7 @@
 				<text><![CDATA[Note explicative :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="93" y="143" width="813" height="18" uuid="56bffbe4-afdd-4007-94b9-d704fefc38ab"/>
+				<reportElement x="93" y="145" width="813" height="18" uuid="56bffbe4-afdd-4007-94b9-d704fefc38ab"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
@@ -368,6 +361,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tp}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="1" y="143" width="100" height="20" uuid="fa3d9efc-95d6-44d0-95ef-99bafa3e384d"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant en:]]></text>
+			</staticText>
 		</band>
 		<band height="143">
 			<subreport>
