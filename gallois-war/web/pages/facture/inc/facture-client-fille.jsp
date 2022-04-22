@@ -32,7 +32,7 @@
     pr.setOrdre(" order by rang asc, daty asc");
     pr.creerObjetPage(libEntete, colSomme);
 
-    FactureClientDetails[] liste = (FactureClientDetails[]) pr.getTableau().getData();
+//    FactureClientDetails[] liste = (FactureClientDetails[]) pr.getTableau().getData();
 
     /*
     FactureClient fm=(FactureClient) liste[0].findMere(null,null);
@@ -50,9 +50,10 @@
 //    pr.getTableau().setColonneLien(colonneLien);
     pr.getTableau().setLibeEntete(libEnteteAffiche);
 
-    if (liste.length > 0 && pr.getTableau().getHtml() != null) {
-        FactureClientFilleData dataF = new FactureClientFilleData(liste[0].getIdmere(), liste, null);
+    if (pr.getTableau().getHtml() != null) {
+        FactureClientFilleData dataF = new FactureClientFilleData(id, null, null);
         FactureClient facture = dataF.getFacture();
+        FactureClientDetails[] liste = facture.getListeDetails();
 
 //        out.println(pr.getTableau().getHtml());
 //        double total=0;

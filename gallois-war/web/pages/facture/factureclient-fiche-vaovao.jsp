@@ -25,11 +25,19 @@
 <%
     try {
         UserEJB u = (user.UserEJB) session.getValue("u");
+        
+        String idFille = request.getParameter("idFille"), sens = request.getParameter("sens");
+        if(idFille != null && sens != null) {
+            FactureClientDetails fcd = (new FactureClientDetails());
+            fcd.setId(idFille);
+            fcd.monter(idFille, Utilitaire.stringToInt(sens), null, ""+u.getUser().getRefuser());
+        }
+        
         FactureClient e = new FactureClient();
         e.setNomTable("facture_client_union_ordre");
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE CLIENT");
-
+        
         
         pc.getChampByName("pourCompte").setVisible(false);
         pc.getChampByName("iduser").setVisible(false);
