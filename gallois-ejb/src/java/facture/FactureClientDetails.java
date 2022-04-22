@@ -626,7 +626,7 @@ public class FactureClientDetails extends ClassFille {
         return this.getMere();
     }
     
-    public double getTauxRecentNormal(Connection c) throws Exception {
+    /*public double getTauxRecentNormal(Connection c) throws Exception {
         this.findMere(c);
         Date date = this.getMere().getDaty();
         if(this.getMere().getIdprevision()!=null){
@@ -634,6 +634,19 @@ public class FactureClientDetails extends ClassFille {
             if(prev==null){ // cas escale
                 if (this.getIdactivite() != null && this.getDatefact() != null) {
                     date =this.getDatefact();
+                }
+            }
+        }
+        return getValeurTaux(c, "coursdeviseNonMICTSL", date);
+    }*/
+    public double getTauxRecentNormal(Connection c) throws Exception {
+        this.findMere(c);
+        Date date = this.getMere().getDaty();
+        if(this.getMere().getIdprevision()!=null){
+            Prevision prev=this.getMere().findPrevision("previsiontypeTous",c);
+            if(prev.getType().compareToIgnoreCase("TYPES0001") !=0){ // cas escale
+                if (prev.getDate_depart()!= null) {
+                    date =prev.getDate_depart();
                 }
             }
         }
