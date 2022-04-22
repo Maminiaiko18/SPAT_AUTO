@@ -646,6 +646,18 @@ public class FactureClientDetails extends ClassFille {
         return getValeurTaux(c, "coursdeviseMICTSL", date);
     }
     
+    public FactureClientDetails[] getFillesSoeurs(boolean inferieur,Connection c,String nomtable) throws Exception{
+        FactureClientDetails facture = new FactureClientDetails(); 
+        facture.setNomTable(nomtable);
+        facture.setIdmere(this.getIdmere());
+        String where = " and rang > " + this.getRang() + " order by rang asc";
+        if(inferieur){
+            where = " and rang < " + this.getRang() + " order by rang desc";
+        }
+        FactureClientDetails[] reponse  = (FactureClientDetails[])new CGenUtil().rechercher(facture, null, null, c, where);
+        return reponse;
+    }
+    
 
     @Override
     public String getTuppleID() {
