@@ -8,7 +8,7 @@
 <%
         BonDeLivraisonFille fille = new BonDeLivraisonFille();
         //fille.setNomTable("as_bondelivraison_fille_lib");
-        fille.setNomTable("AS_BONDELIVRAISON_FILLE_LIB");
+        fille.setNomTable("AS_BONDELIVRAISON_FILLE_MTT");
 
         String idbl = " AND NUMBL = '" + request.getParameter("id").trim() + "' order by produit";
 
