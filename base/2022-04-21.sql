@@ -135,7 +135,7 @@ select bl."ID",
 from AS_BONDELIVRAISON_FILLe bl
          left join AS_BONDECOMMANDE_FILLE bc on bc.ID = bl.IDBONDECOMMANDE;
 
-
+/*ARIRY*/
 ALTER TABLE navire DROP CONSTRAINT FK_ARMATEUR ; 
 
 ALTER TABLE navire ADD CONSTRAINT navire_armateur_id_fk FOREIGN KEY (armateur) REFERENCES armateur_tbd(id) ; 
@@ -428,6 +428,174 @@ FROM factureclientMSum m
           LEFT JOIN TYPEQUAIS T2 ON T2.ID = Q1.TYPEQUAIS
           LEFT JOIN TYPENAVIRE tn ON tn.id = na.TYPE
           LEFT JOIN armateur_TBD a ON a.id = pre.ARMATEUR ;  
+         
+         
+         
+         
+CREATE OR REPLACE  VIEW FACTURE_CLIENT_UNION (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC,
+MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, 
+DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, IDAVOIR, POURCOMPTE, POURCOMPTELIB , armateur) AS 
+  SELECT ID,
+       DATY,
+       TIERS,
+       DESIGNATION,
+       TYPE,
+       CAST(TVA AS NUMBER(20, 3)) AS tva,
+       REMARQUE,
+       IDUSER,
+       DATE_ECHEANCE,
+       CAST(ETAT AS NUMBER(10))   AS etat,
+       CAST(MONTANT AS NUMBER(32, 3)),
+       CAST(MONTANTTVA AS NUMBER(32, 3)),
+       CAST(MONTANTAVOIR AS NUMBER(32, 3)),
+       CAST(MONTANTTTC AS NUMBER(32, 3)),
+       CAST(MONTANTPAYE AS NUMBER(32, 3)),
+       CAST(MONTANTRESTE AS NUMBER(32, 3)),
+       TIERSLIB,
+       CONTACT,
+       ADRESSE,
+       IDPREVISION,
+       ESCALE,
+       CASE WHEN ETAT = 1 THEN 'CREE(E)' WHEN ETAT = 11 THEN 'VISE(E)' END
+                                  AS ETATLIB,
+       TYPELIB,
+       IDCATEGORIE,
+       CATEGORIELIB,
+       IDPROVISION,
+       IDPROVISIONLIB,
+       DEVISEMERE,
+       codePrestation,
+       codePrestationlib,
+       code,
+       ESTMICTSL,
+       CODEPROVISION,
+       CAST(MONTANTTTCVRAI AS NUMBER(32, 3)),
+       ARMATEURLIB,
+       EXERCICE,
+       idavoir,pourcompte,pourcomptelib , armateur
+FROM (SELECT ID,
+             DATY,
+             TIERS,
+             DESIGNATION,
+             TYPE,
+             CAST(TVA AS NUMBER(20, 3))          AS TVA,
+             REMARQUE,
+             IDUSER,
+             DATE_ECHEANCE,
+             CAST(ETAT AS NUMBER(10))            AS etat,
+             CAST(MONTANT AS NUMBER(32, 3))      AS MONTANT,
+             CAST(MONTANTTVA AS NUMBER(32, 3))   AS MONTANTTVA,
+             CAST(MONTANTAVOIR AS NUMBER(32, 3)) AS MONTANTAVOIR,
+             CAST(MONTANTTTC AS NUMBER(32, 3))   AS MONTANTTTC,
+             CAST(MONTANTPAYE AS NUMBER(32, 3))  AS MONTANTPAYE,
+             CAST(MONTANTRESTE AS NUMBER(32, 3)) AS MONTANTRESTE,
+             TIERSLIB,
+             CONTACT,
+             ADRESSE,
+             IDPREVISION,
+             ESCALE,
+             TYPELIB,
+             IDCATEGORIE,
+             CATEGORIELIB,
+             IDPROVISION,
+             IDPROVISIONLIB,
+             DEVISEMERE,
+             codePrestation,
+             codePrestationlib,
+             code,
+             ESTMICTSL,
+             CODEPROVISION,
+             MONTANTTTCVRAI,
+             ARMATEURLIB,
+             EXERCICE,
+             IDAVOIR,pourcompte,pourcomptelib ,
+             armateur
+      FROM FACTURECLIENTMSUM_LIB
+      WHERE DATY >= TO_DATE('2021-10-01', 'YYYY-MM-DD')
+         OR ESTANCIENNE=1
+      UNION ALL
+      SELECT ID,
+             DATY,
+             TIERS,
+             DESIGNATION,
+             TYPE,
+             CAST(TVA AS NUMBER(20, 3))          AS TVA,
+             REMARQUE,
+             IDUSER,
+             DATE_ECHEANCE,
+             CAST(ETAT AS NUMBER(10))            AS etat,
+             CAST(MONTANT AS NUMBER(32, 3))      AS MONTANT,
+             CAST(MONTANTTVA AS NUMBER(32, 3))   AS MONTANTTVA,
+             CAST(MONTANTAVOIR AS NUMBER(32, 3)) AS MONTANTAVOIR,
+             CAST(MONTANTTTC AS NUMBER(32, 3))   AS MONTANTTTC,
+             CAST(MONTANTPAYE AS NUMBER(32, 3))  AS MONTANTPAYE,
+             CAST(MONTANTRESTE AS NUMBER(32, 3)) AS MONTANTRESTE,
+             TIERSLIB,
+             CONTACT,
+             ADRESSE,
+             '-'                                 AS PREVISION,
+             '-'                                 AS ESCALE,
+             TYPE                                AS typelib,
+             '-'                                 AS IDCATEGORIE,
+             '-'                                 AS CATEGORIELIB,
+             '-'                                 AS IDPROVISION,
+             '-'                                 AS IDPROVISIONLIB,
+             '-'                                 AS DEVISEMERE,
+             ''                                  AS codePrestation,
+             ''                                  AS codePrestationlib,
+             ''                                  AS code,
+             ''                                  AS ESTMICTSL,
+             ''                                  AS CODEPROVISION,
+             MONTANTTTC - MONTANTAVOIR           AS MONTANTTTCVRAI,
+             CAST('-' AS VARCHAR2(500))             ARMATEURLIB,
+             CAST(0 AS NUMBER(10))                  EXERCICE,
+             '-'                                    idavoir,
+             '-'                                    pourcompte,
+             '-'                                    pourcomptelib , 
+             '-'                                  as  armateur 
+
+      FROM analyseglobaleantsika);
+
+         
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     CREATE OR REPLACE  VIEW FACTURECLIENT_LIBCOMPLET (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, IDPREVISION, 
+     IDCATEGORIE, IDPROVISION, DEVISEMERE, ESTDDPMICTSL, CODEPRESTATION, CODE, ESTMICTSL, TIERSLIB, CATEGORIELIB, TYPELIB , armateur , armateurlib) AS 
+  select fc.ID,
+       fc.DATY,
+       fc.TIERS,
+       fc.DESIGNATION,
+       fc.TYPE,
+       fc.TVA,
+       fc.REMARQUE,
+       fc.IDUSER,
+       fc.DATE_ECHEANCE,
+       fc.ETAT,
+       fc.IDPREVISION,
+       fc.IDCATEGORIE,
+       fc.IDPROVISION,
+       fc.DEVISEMERE,
+       fc.ESTDDPMICTSL,
+       fc.CODEPRESTATION,
+       fc.CODE,
+       fc.ESTMICTSL,
+       fup.NOM as tierslib,
+       cat.VAL as categorielib,
+       tf.VAL  as typelib , 
+       fc.armateur , 
+       armateur_TBD.val
+from FACTURECLIENT fc
+         left join FOURNISSEUR_UNION_PERSONNEL fup on fup.ID = fc.TIERS
+         left join CATEGORIEFC cat on cat.ID = fc.IDCATEGORIE
+         left join TYPEFC tf on tf.ID = fc.TYPE 
+         LEFT JOIN armateur_TBD ON armateur_TBD.id = fc.ARMATEUR;
 
 
 
