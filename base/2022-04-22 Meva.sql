@@ -58,3 +58,43 @@ where 1 < 2
 GROUP BY l.DIRECTION, l.projet, n.montant, nt.MONTANT, gr.MONTANT, fd.facture, fd.PAYE,
          l.direction, l.projet, l.COMPTEFULL, l.idprojet, l.iddirection, bc.montant, bp.montant, l.idprojet,
          l.iddirection, l.ANNEE;
+
+
+
+CREATE OR REPLACE FORCE VIEW "FACTURECLIENT_LIBCOMPLET" ("ID", "DATY", "TIERS", "DESIGNATION", "TYPE", "TVA", "REMARQUE", "IDUSER", "DATE_ECHEANCE", "ETAT", "IDPREVISION", "IDCATEGORIE", "IDPROVISION", "DEVISEMERE", "ESTDDPMICTSL", "CODEPRESTATION", "CODE", "ESTMICTSL", "TIERSLIB", "CATEGORIELIB", "TYPELIB","ARMATEUR","ARMATEURLIB") AS 
+  select fc."ID",
+       fc."DATY",
+       fc."TIERS",
+       fc."DESIGNATION",
+       fc."TYPE",
+       fc."TVA",
+       fc."REMARQUE",
+       fc."IDUSER",
+       fc."DATE_ECHEANCE",
+       fc."ETAT",
+       fc."IDPREVISION",
+       fc."IDCATEGORIE",
+       fc."IDPROVISION",
+       fc."DEVISEMERE",
+       fc."ESTDDPMICTSL",
+       fc."CODEPRESTATION",
+       fc."CODE",
+       fc."ESTMICTSL",
+       fup.NOM as tierslib,
+       cat.VAL as categorielib,
+       tf.VAL  as typelib,
+       fc.armateur as armateur, 
+       a.val as armateurlib
+from FACTURECLIENT fc
+         left join FOURNISSEUR_UNION_PERSONNEL fup on fup.ID = fc.TIERS
+         left join CATEGORIEFC cat on cat.ID = fc.IDCATEGORIE
+         left join TYPEFC tf on tf.ID = fc.TYPE
+         left join armateur_TBD a on a.id=fc.armateur; 
+
+
+
+
+
+
+
+
