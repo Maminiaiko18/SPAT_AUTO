@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000002"/>
-	<property name="ireport.x" value="33"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="215"/>
 	<style name="table">
 		<box>
@@ -777,11 +777,11 @@
 				<text><![CDATA[Tirant d' Eau d' Eté (TEE):]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="15" y="174" width="84" height="19" uuid="dfcf0787-a311-4846-89cf-fb0b3c06868c"/>
+				<reportElement x="15" y="174" width="113" height="19" uuid="dfcf0787-a311-4846-89cf-fb0b3c06868c"/>
 				<textElement verticalAlignment="Middle">
 					<font size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Facture en:]]></text>
+				<text><![CDATA[Montant en:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="15" y="40" width="113" height="19" uuid="782dd403-aad1-4694-bce1-febf8b305400"/>
@@ -884,7 +884,7 @@
 				<textFieldExpression><![CDATA[$P{navire}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="99" y="174" width="349" height="19" uuid="c006bfa2-939e-404a-a8ee-0f1e533c62ac"/>
+				<reportElement x="128" y="174" width="320" height="19" uuid="c006bfa2-939e-404a-a8ee-0f1e533c62ac"/>
 				<textElement verticalAlignment="Middle">
 					<font size="15" isBold="true"/>
 				</textElement>
