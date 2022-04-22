@@ -582,8 +582,8 @@ public class FactureClientDetails extends ClassFille {
         return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
     public static double getValeurTaux(Connection c, String nomTable, Date date,String idDevise) throws Exception {
-        String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= to_date('" + Utilitaire.datetostring(date) + "', 'dd/mm/yyyy') and iddevise = '" + getDevise() + "') "
-                + " and iddevise = '" + getDevise() + "'";
+        String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= to_date('" + Utilitaire.datetostring(date) + "', 'dd/mm/yyyy') and iddevise = '" + idDevise + "') "
+                + " and iddevise = '" + idDevise + "'";
         Coursdevise cours = new Coursdevise();
         cours.setNomTable(nomTable);
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(cours, null, null, c, awhere);
