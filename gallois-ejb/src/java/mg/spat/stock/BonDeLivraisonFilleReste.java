@@ -10,7 +10,7 @@ package mg.spat.stock;
  * @author rasol
  */
 public class BonDeLivraisonFilleReste extends BonDeLivraisonFille{
-    private double pu, quantiteReste,tva,montantHT,montantTva;
+    private double pu, quantiteReste,tva,montantHT,montantTva,remise;
     private String nomtiers,idtiers;
     private String projet,projetlib, code_etablissement,code_etablissementlib;
 
@@ -18,6 +18,14 @@ public class BonDeLivraisonFilleReste extends BonDeLivraisonFille{
         this.setNomTable("BonDeLivraisonFilleReste");
     }
 
+    public double getRemise() {
+        return remise;
+    }
+
+    public void setRemise(double remise) {
+        this.remise = remise;
+    }
+    
     public String getProjet() {
         return projet;
     }
