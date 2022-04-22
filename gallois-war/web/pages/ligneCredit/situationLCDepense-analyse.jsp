@@ -13,11 +13,11 @@
         String listeCrt[] = {"projet","direction","annee"};
         String listeInt[] = {};
         String[] pourcentage = {};
-        String colDefaut[] = {"direction"}; //sum
-        String[] somDefaut = {"MONTANT","ENGAGEER","FACTURE","POURCENGAGE","PAYE","POURCPAYE","ARECOUVRIR","RESTEBUDGET","RESTEAPRESENGMT"}; // colonnes
+        String colDefaut[] =  {"direction"};//colonne
+        String[] somDefaut =  {"MONTANT","ENGAGEER","FACTURE","POURCENGAGE","PAYE","POURCPAYE","ARECOUVRIR","RESTEBUDGET","RESTEAPRESENGMT"};// sum
 
-        PageRechercheGroupe pr = new PageRechercheGroupe(recap, request, listeCrt, listeInt, 3, somDefaut, pourcentage, 4, 0);
-
+        PageRechercheGroupe pr = new PageRechercheGroupe(recap, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, 18, somDefaut.length);
+        
         pr.setUtilisateur(u);
         pr.setLien((String) session.getValue("lien"));
         /*
@@ -48,6 +48,7 @@
         pr.getFormu().getChamp("cargaisonlib").setLibelle("Cargaison");
         */
         pr.setApres("ligneCredit/situationLCDepense-analyse.jsp");
+        pr.setNpp(100);
         pr.creerObjetPage();
 
 
@@ -66,6 +67,10 @@
         <br>
         <%
             out.println(pr.getTableau().getHtml());
+        %>
+        <br>
+        <%
+            out.println(pr.getBasPage());
         %>
     </section>
 
