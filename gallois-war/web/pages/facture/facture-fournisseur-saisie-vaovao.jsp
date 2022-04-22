@@ -170,6 +170,9 @@
                 pi.getFormufle().getChamp("quantite_" + i).setDefaut(Utilitaire.formaterAr(livraisons[i].getQuantiteReste()));
                 pi.getFormufle().getChamp("tva_" + i).setDefaut(Utilitaire.formaterAr(livraisons[i].getTva()));
                 pi.getFormufle().getChamp("designation_" + i).setDefaut(Utilitaire.champNull(livraisons[i].getProduit()));
+                if( idBL!=null){
+                    pi.getFormufle().getChamp("reduction_" + i).setDefaut(String.valueOf(livraisons[i].getRemise()));
+                }
             }
         }
         jsScript += "</script>";
