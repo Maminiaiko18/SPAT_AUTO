@@ -661,7 +661,44 @@ public class FactureClientDetails extends ClassFille {
         return reponse;
     }
     
+    public void monter(String id, int monter, Connection c, String user) throws Exception {
+        boolean ouvert = false;
 
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            
+            FactureClientDetails fcd = (FactureClientDetails) CGenUtil. rechercher(new FactureClientDetails(), null, null, c, String.format("and id='%s'", id))[0];
+            fcd.monter(monter, c, user);
+            
+            if (ouvert) {
+                c.commit();
+            }
+        } catch (Exception ex) {
+            if (c != null && ouvert) {
+                c.rollback();
+            }
+            throw ex;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
+    }
+
+    public void monter(int monter, Connection c, String user) throws Exception {
+        FactureClientDetails[] soeurs = getFillesSoeurs(monter == 1, c, null);
+        int valeur = monter == 1 ? -1 : 1;
+        
+        if (soeurs != null && soeurs.length > 0) {
+            this.setRang(soeurs[0].getRang() + valeur);
+            this.updateToTableWithHisto(user, c);
+        }
+    }
+    
     @Override
     public String getTuppleID() {
         return id;
