@@ -29,7 +29,11 @@
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
         
         pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp", "tiers;tierslibelle");
+       
         pi.getFormu().getChamp("tiers").setAutre("readonly");
+        
+        pi.getFormu().getChamp("armateur").setPageAppel("choix/listeArmateurTBDChoix.jsp");
+         pi.getFormu().getChamp("armateur").setAutre("readonly");
         
         pi.getFormu().getChamp("type").setVisible(false);
         pi.getFormu().getChamp("tva").setVisible(false);
@@ -47,6 +51,7 @@
         pi.getFormu().getChamp("tierslib").setVisible(false);
         pi.getFormu().getChamp("categorielib").setVisible(false);
         pi.getFormu().getChamp("typelib").setVisible(false);
+        pi.getFormu().getChamp("armateurlib").setVisible(false);
         
         pi.preparerDataFormu();
 %>
