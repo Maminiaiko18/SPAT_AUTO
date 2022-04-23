@@ -19,8 +19,16 @@ public class PrevisionLibComplet extends Prevision {
             referencenavire,nomnavire,pavillonnavire,remarquenavire,valconsignataire,desceconsignataire,valcargaison,descecargaison,valpilote,descepilote,quaidestination,
             internedestination,paysdestination,valpaysprovenance,descepaysprovenance,valpaysdestination,descepaysdestination,valtypequaisprovenance,descetypequaisprovenance,
             valtypequaisdestination,descetypequaisdestination,valquaisprovenance,descequaisprovenance,valquaisdestination,descequaisdestination,typequaisprovenance,typequaisdestination,type;
-    private String pavillonlib, estFictiveLib;
+    private String pavillonlib, estFictiveLib,typenavire;
     private int estFictive ;
+
+    public String getTypenavire() {
+        return typenavire;
+    }
+
+    public void setTypenavire(String typenavire) {
+        this.typenavire = typenavire;
+    }
     
     
     @Override
