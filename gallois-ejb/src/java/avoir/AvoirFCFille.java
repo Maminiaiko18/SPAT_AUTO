@@ -129,7 +129,7 @@ public class AvoirFCFille extends ClassFille {
                 throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + fcd.getMontant() + ") ");
             }
             
-            if(fcd.getTva() != this.getTva()) throw new Exception("Tva invalide pour l`avoir");
+            if(fcd.getTva() < this.getTva()) throw new Exception("Tva invalide pour l`avoir");
         }
     }
 

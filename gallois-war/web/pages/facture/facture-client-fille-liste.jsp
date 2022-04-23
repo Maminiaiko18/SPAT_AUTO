@@ -15,7 +15,7 @@
 <%
     try {
         CaFcFilleComplet cht = new CaFcFilleComplet();
-        cht.setNomTable("CAFCFILLECOMPLET");
+        cht.setNomTable("CAFCFILLECOMPLET_AVOIR");
         String libEntete[] = { "idmere","daty","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
         String listeCrt[] = {"compte","annee", "type","daty"};
         String listeInt[] = {"daty"};
