@@ -345,3 +345,22 @@ from FCFILLECOMPLET fc
          left join RUBRIQUE_ACTIVITE ra on fc.RUBRIQUECPL = ra.id
          left join CLIENT_UNION cu on cu.CDCLT = fc.TIERS
 where fc.etat >= 11;
+
+
+--refresh colonnes 
+CREATE OR REPLACE VIEW "JOURNALCAISSELIBCOMPLET_CREE" as
+select * from JOURNALCAISSELIBCOMPLET
+WHERE etat = 1;
+
+CREATE OR REPLACE VIEW "JOURNALCAISSELIBCOMPLET_VISE" as 
+select * from JOURNALCAISSELIBCOMPLET
+WHERE etat >= 11;
+
+CREATE OR REPLACE VIEW "JOURNALCAISSELIBRECETTE" AS 
+  select * from  journalcaisselibcomplet
+where credit>0 ;
+
+CREATE OR REPLACE VIEW "JOURNALCAISSELIBDEPENSE"  AS 
+  select * from journalcaisselibcomplet
+where debit > 0;
+
