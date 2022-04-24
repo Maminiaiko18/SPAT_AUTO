@@ -39,3 +39,14 @@ CREATE OR REPLACE VIEW "ORDONNERPAYEMENT_PAYE_LIB" ("ID", "DED_ID", "IDLIGNE", "
      FROM ORDONNERPAYEMENT_LIBETAT op
           JOIN JOURNALCAISSEVISE_GRP_OP jc ON jc.IDORDRE = op.id
     WHERE op.ETAT >= 11;
+
+
+--refresh colonnes
+CREATE OR REPLACE VIEW "ENGAGEMENTLIBC" AS 
+  select *
+from engagementlib where etat=1;
+
+CREATE OR REPLACE VIEW "ENGAGEMENTLIBV"  AS 
+  select *
+from engagementlib
+where etat >= 11;
