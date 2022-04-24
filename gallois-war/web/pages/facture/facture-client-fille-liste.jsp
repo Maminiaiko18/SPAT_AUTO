@@ -4,6 +4,7 @@
     Author     : Lenovo
 --%>
 
+<%@page import="mg.spat.CompteCA"%>
 <%@page import="facture.FactureClientDetails"%>
 <%@page import="mg.spat.CaFcFilleComplet"%>
 <%@page import="java.sql.Date"%>
@@ -17,7 +18,7 @@
         CaFcFilleComplet cht = new CaFcFilleComplet();
         cht.setNomTable("CAFCFILLECOMPLET_AVOIR");
         String libEntete[] = { "idmere","daty","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
-        String listeCrt[] = {"compte","annee", "type","daty"};
+        String listeCrt[] = {"compte","annee", "type","daty","mereca"};
         String listeInt[] = {"daty"};
 
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -31,9 +32,10 @@
         pr.getFormu().getChamp("type").setLibelle("Type");
         pr.getFormu().getChamp("compte").setLibelle("Compte");
         
+        
         pr.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
         
-        affichage.Liste[] listes= new affichage.Liste[3];
+        affichage.Liste[] listes= new affichage.Liste[5];
         
         TypeObjet type = new TypeObjet();
         type.setNomTable("typefc");
@@ -47,11 +49,20 @@
         listes[2].makeListeMois();        
         //listes[2].setDefaultSelected(utilitaire.Utilitaire.getMoisEnCours()+"");
         
+        CompteCA type2 = new CompteCA();
+        type2.setNomTable("compteCA");
+        listes[3] = new Liste("compte", type2, "libelle", "val");
+        
+        TypeObjet type3 = new TypeObjet();
+        type3.setNomTable("mereca");
+        listes[4] = new Liste("mereca", type3, "desce", "id");
+        
         pr.getFormu().changerEnChamp(listes);
         
         pr.getFormu().getChamp("annee").setLibelle("Année");
         pr.getFormu().getChamp("type").setLibelle("Type");
         pr.getFormu().getChamp("compte").setLibelle("Compte");
+        pr.getFormu().getChamp("mereca").setLibelle("Grande rubrique");
         
         String[] colSomme = {"montant", "montanttva", "montantttc"};
         pr.creerObjetPage(libEntete, colSomme);

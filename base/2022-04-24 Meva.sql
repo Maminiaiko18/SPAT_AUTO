@@ -50,3 +50,52 @@ CREATE OR REPLACE VIEW "ENGAGEMENTLIBV"  AS
   select *
 from engagementlib
 where etat >= 11;
+
+
+CREATE OR REPLACE  VIEW "CAFCFILLECOMPLET_AVOIR" ("ID", "IDMERE", "DESIGNATION", "QUANTITE", "PU", "COMPTE", "IDPRODUIT", "DEVISE", "TAUX", "IDACTIVITE", "TVA", "DATEFACT", "RUBRIQUE", "MOIS", "ANNEE", "HEUREDEBUT", "HEUREFIN", "REDUCTION", "MAJORATION", "TEST", "RANG", "DUREE", "MONTANTAV", "RUBRIQUECPL", "DATY", "TIERS", "IDCATEGORIE", "TYPE", "DEVISEMERE", "EXERCICE", "IDAVOIR", "ETAT", "MTAVOIR", "MONTANTREDUCTION", "MONTANTMAJORATION", "MONTANT", "MONTANTTVA", "MONTANTTTC", "MOISLIB", "MONTANTHTSIMPLE", "CLIENT","MERECA") AS 
+  SELECT ff.ID,
+          IDMERE,
+          DESIGNATION,
+          QUANTITE,
+          PU,
+          COMPTE,
+          IDPRODUIT,
+          DEVISE,
+          TAUX,
+          IDACTIVITE,
+          TVA,
+          DATEFACT,
+          RUBRIQUE,
+         cast(MOIS as NUMBER(10)),
+         cast(ANNEE as NUMBER(10)),
+          HEUREDEBUT,
+          HEUREFIN,
+          REDUCTION,
+          MAJORATION,
+          TEST,
+          RANG,
+          DUREE,
+         cast(MONTANTAV as NUMBER(30,3)),
+          RUBRIQUECPL,
+          DATY,
+          TIERS,
+          IDCATEGORIE,
+          ff.TYPE,
+          DEVISEMERE,
+          EXERCICE,
+          IDAVOIR,
+          ff.ETAT,
+         cast(MTAVOIR as NUMBER(30,2)),
+         cast(MONTANTREDUCTION as NUMBER(30,2)),
+         cast(MONTANTMAJORATION as NUMBER(30,2)),
+         cast(MONTANT-nvl(ff.MONTANTAVOIRAVECTSAUX,0)  as NUMBER(30,2)),
+         cast(ff.MONTANTTVA-nvl(ff.montantavTVAavecTaux,0) as NUMBER(30,2)),
+         cast(ff.MONTANTTTC-nvl(ff.MONTANTAVTTCAVECTAUX,0) as number(30,2)),
+          moislib,
+         cast(ff.MONTANTHTSIMPLE-nvl(ff.MONTANTAVOIRAVECTSAUX,0) as NUMBER(30,2)),
+          ff.client,
+          cptM.id
+     FROM fcfillecomplet ff
+     LEFT JOIN compteCA cptCA ON cptCA.val=ff.COMPTE
+     LEFT join mereCA cptM ON cptM.id=cptCA.desce
+     WHERE FF.IDCATEGORIE <> 'CATFCO2' AND FF.IDCATEGORIE <> 'CATFCO1'  and etat>=11;
