@@ -508,11 +508,11 @@ public class OrdonnerPayement extends ClassEtat {
     public void gererFF(String u,Connection c)throws Exception{
         FactureFournisseur[] factures=this.getFactures(c);
         if(factures.length>0){
-            double montantTTc=AdminGen.calculSommeDouble(factures, "montantTTC");
-            double reste=AdminGen.calculSommeDouble(factures, "montantreste");
-            this.controlerMontant(montantTTc,reste, c);
+            //double montantTTc=AdminGen.calculSommeDouble(factures, "montantTTC");
+            //double reste=AdminGen.calculSommeDouble(factures, "montantreste");
+            //this.controlerMontant(montantTTc,reste, c);
             for (int i = 0; i < factures.length; i++) {
-                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getMontantreste());
+                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getMontantttc());
                 liaison.createObject(u, c);
             }
         }
@@ -638,13 +638,15 @@ public class OrdonnerPayement extends ClassEtat {
             LiaisonIntraTable[] listeLiaison=this.getLiaisonIntratable(c);
             if(listeLiaison.length>0){
                 retour=new PaiementFacture[listeLiaison.length];
+                double valeurPource=(100*jc.getDebit())/this.getMontant();
                 for(int i=0;i<listeLiaison.length;i++){
                     PaiementFacture pf=new PaiementFacture();
                     pf.setNomTable("paiementfactureF");
                     pf.setIdMvt(jc.getId());
                     pf.setIdFact(listeLiaison[i].getId1());
-                    double valeurPource=(100*listeLiaison[i].getMontant())/jc.getDebit();
-                    pf.setMontant((jc.getDebit()*valeurPource)/100);
+                    //double valeurPource=(100*listeLiaison[i].getMontant())/jc.getDebit();
+                    //pf.setMontant((jc.getDebit()*valeurPource)/100);
+                    pf.setMontant((listeLiaison[i].getMontant()*valeurPource)/100);
                     retour[i]=pf;
                 }
             }

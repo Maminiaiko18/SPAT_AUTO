@@ -615,7 +615,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public OrdonnerPayement traitementOP(UserEJBBean user, Connection c) throws Exception {
         OrdonnerPayement ordonnerPayement = new OrdonnerPayement(this.getIdordre());
         ordonnerPayement = (OrdonnerPayement) ordonnerPayement.getById(this.getIdordre(), ordonnerPayement.getNomTable(), c);
-        ordonnerPayement.setMontant(Math.abs(this.getDebit() - this.getCredit()));
+        //ordonnerPayement.setMontant(Math.abs(this.getDebit() - this.getCredit()));
 
         if (ordonnerPayement.getEtat() < ConstanteEtat.getEtatValider()) {
             throw new Exception("OP non visé");
