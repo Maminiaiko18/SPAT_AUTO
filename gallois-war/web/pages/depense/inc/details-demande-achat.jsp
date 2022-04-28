@@ -12,6 +12,7 @@
     pr.setAWhere("and idmere='"+request.getParameter("id")+"'");
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
+    pr.setOrdre(" order by designation asc");
 
     pr.creerObjetPage(libEntete, null);
 
