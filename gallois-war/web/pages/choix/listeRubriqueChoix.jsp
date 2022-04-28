@@ -16,7 +16,7 @@
     objet.setNomTable("RUBRIQUE_ACTIVITELIB");
     String listeCrt[] = {"id","designation","categorie","compte","direction","code"};
     String listeInt[] = {};
-    String libEntete[] = {"id","designation","code","categorie","redevance","pu","devise", "compte", "unite","objet","tva","direction","condition"};
+    String libEntete[] = {"id","designation","code","categorie","pu","devise", "compte", "unite","objet","tva","direction","condition"};
 
     PageRechercheChoix pr = new PageRechercheChoix(objet, request, listeCrt, listeInt, 3, libEntete,libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -49,7 +49,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <%
-                        String libEnteteAffiche[] =  {"id","designation","code","categorie","redevance","pu","devise", "compte", "unite","objet","tva","direction","condition"};
+                        String libEnteteAffiche[] =  {"id","designation","code","categorie","pu","devise", "compte", "unite","objet","tva","direction","condition"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); 
                     %>
