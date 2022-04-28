@@ -14,7 +14,7 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","tierslib","idfacture", "typelib", "daty"};
+        String listeCrt[] = {"id","tierslib","idfacture", "typelib", "daty", "code"};
         String listeInt[] = {"daty"};
         String libEntete[] =  {"id","daty", "code", "tierslib","idfacture", "typelib","montant","montanttva", "montantttc" ,"montantpaye","montantreste"};
         String libelleAffiche[] = {"id", "date", "Code", "tiers", "facture", "Type","montant","montant TVA", "montant TTC", "montant payé","Reste à payer"};
@@ -28,7 +28,8 @@
         pr.getFormu().getChamp("idfacture").setLibelle("facture");
         pr.getFormu().getChamp("typelib").setLibelle("Type");
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
-        pr.getFormu().getChamp("daty2").setLibelle("Date max");        
+        pr.getFormu().getChamp("daty2").setLibelle("Date max");    
+		pr.getFormu().getChamp("code").setLibelle("Code");    		
         Date finmois = utilitaire.Utilitaire.getLastDayOfDateSQL(utilitaire.Utilitaire.dateDuJourSql());      
         pr.getFormu().getChamp("daty2").setDefaut(utilitaire.Utilitaire.datetostring(finmois));
         Date debutmois = finmois;
