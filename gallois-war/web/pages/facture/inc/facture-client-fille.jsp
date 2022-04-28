@@ -108,13 +108,16 @@
                             </thead>
                             <tbody>
                                     <% for(int i=0;i<liste.length;i++){%>
-                                    <tr onmouseover="this.style.backgroundColor='#EAEAEA'" onmouseout="this.style.backgroundColor=''" style="">
-                                        <td width="15%" align="center">
+                                    <tr onmouseover="this.style.backgroundColor='#EAEAEA'" onmouseout="this.style.backgroundColor=''" >
+                                        <td width="15%" align="center" style="vertical-align: middle;">
                                             <a href="<%=pr.getLien()%>?but=facture/factureclient-fiche-vaovao.jsp&id=<%=id%>&idFille=<%=Utilitaire.champNull(liste[i].getId())%>&sens=1">
-                                                <i class="fa fa-arrow-circle-up"></i>
+                                                <i class="fa fa-arrow-circle-up" style="font-size: 20px;"></i>
                                             </a>
                                             <a href="<%=pr.getLien()%>?but=facture/factureclient-fiche-vaovao.jsp&id=<%=id%>&idFille=<%=Utilitaire.champNull(liste[i].getId())%>&sens=0">
-                                                <i class="fa fa-arrow-circle-down"></i>
+                                                <i class="fa fa-arrow-circle-down" style="font-size: 20px;"></i>
+                                            </a>
+                                            <a href="<%=pr.getLien()%>?but=facture/factureclient-fiche-vaovao.jsp&id=<%=id%>&idFille=<%=Utilitaire.champNull(liste[i].getId())%>&action=remove">
+                                                <i class="fa fa-trash" style="color:#d73925;font-size: 20px;"></i>
                                             </a>
                                         </td>
                                         <td width="5%" align="left"><%=Utilitaire.champNull(liste[i].getId())%>  </td>
