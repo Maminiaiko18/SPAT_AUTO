@@ -103,6 +103,11 @@ public class DemandeAchatMere extends ClassMAPTable{
     public void setIdengagementlib(String idengagementlib) {
         this.idengagementlib = idengagementlib;
     }
+
+    @Override
+    public String getValColLibelle() {
+        return  this.getNum();
+    }
     
 
     @Override

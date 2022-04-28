@@ -109,7 +109,9 @@
             pi.getFormufle().getChamp("pu_"+i).setAutre("onblur='calculerMontant("+i+")'");
             pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
             pi.getFormufle().getChamp("produit_"+i).setAutre("readonly");
+            pi.getFormufle().getChamp("observation_"+i).setAutre("readonly");
             pi.getFormufle().getChamp("produit_"+i).setPageAppel("choix/produitChoix.jsp","produit;produitlibelle;pu;pu");
+            pi.getFormufle().getChamp("observation_"+i).setPageAppel("choix/listeDAchoix.jsp","observation;observationlibelle");
         }
         // rehefa mandray paramètre idDa
         pi.getFormu().getChamp("projet").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getProjet()));
