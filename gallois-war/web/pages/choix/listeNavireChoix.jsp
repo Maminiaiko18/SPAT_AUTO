@@ -16,7 +16,7 @@
     navire.setNomTable("navirelibValide");
     String listeCrt[] = {"id", "nom","type", "pavillon"};
     String listeInt[] = {};
-    String libEntete[] = {"id","nom","type", "pavillon","jnt", "jbt", "plt", "lht", "lm", "te", "volume"};
+    String libEntete[] = {"id","nom","type", "pavillon","jnt", "jbt", "plt", "lht", "lm", "te", "volume","volume100"};
     PageRechercheChoix pr = new PageRechercheChoix(navire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -51,7 +51,7 @@
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     
                     <% 
-                        String libEnteteAffiche[] = {"id", "Nom","type navire", "Pavillon","Jnt", "Jbt", "Plt", "Lht", "Lm", "Te", "Volume"};
+                        String libEnteteAffiche[] = {"id", "Nom","type navire", "Pavillon","Jnt", "Jbt", "Plt", "Lht", "Lm", "Te", "Volume","Volume 100"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>

@@ -36,7 +36,7 @@ public class Navire extends ClassEtat{
     }
 
     public String getValColLibelle() {
-        return nom;
+        return nom+";"+volume100;
     }
     
     public boolean estEtranger(Connection c){

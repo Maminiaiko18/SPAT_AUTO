@@ -63,6 +63,9 @@
     pi.getFormu().getChamp("provenance").setAutre("readonly");
     pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
     pi.getFormu().getChamp("destination").setAutre("readonly");
+    pi.getFormu().getChamp("volume100").setLibelle("Volume 100");
+    pi.getFormu().getChamp("volume100").setPageAppel("choix/listeNavireChoix.jsp","volume100;volume100libelle;volume100libelle");
+    pi.getFormu().getChamp("volume100").setAutre("readonly");
     
     
     
