@@ -25,12 +25,15 @@
 <%
     try {
         UserEJB u = (user.UserEJB) session.getValue("u");
-        
-        String idFille = request.getParameter("idFille"), sens = request.getParameter("sens");
+        String user = ""+u.getUser().getRefuser();
+        String idFille = request.getParameter("idFille"), sens = request.getParameter("sens"), action = request.getParameter("action");
         if(idFille != null && sens != null) {
             FactureClientDetails fcd = (new FactureClientDetails());
             fcd.setId(idFille);
-            fcd.monter(idFille, Utilitaire.stringToInt(sens), null, ""+u.getUser().getRefuser());
+            fcd.monter(idFille, Utilitaire.stringToInt(sens), null, user);
+        }
+        if(idFille != null && action != null && action.equalsIgnoreCase("remove")) {
+            (new FactureClientDetails()).remove(idFille, user);
         }
         
         FactureClient e = new FactureClient();

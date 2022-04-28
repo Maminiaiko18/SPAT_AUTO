@@ -12,6 +12,8 @@ import bean.TypeObjet;
 import fin.Coursdevise;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import mg.spat.OccupationMaterielNaval;
 import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
@@ -570,6 +572,25 @@ public class FactureClientDetails extends ClassFille {
             if(c!=null && estOuvert) c.close();
         }
         return retour;
+    }
+    
+    public void remove(String id, String user) throws Exception {        
+        Connection c = null;
+        
+        try {
+            c = (new UtilDB()).GetConn();
+            c.setAutoCommit(false);
+            FactureClientDetails[] factureFArray = (FactureClientDetails[]) CGenUtil.rechercher(new FactureClientDetails(), null, null, c, String.format(" and id = '%s' ", id));
+            if(factureFArray == null || factureFArray.length == 0) throw new Exception("Facture details inexistant");
+            
+            factureFArray[0].deleteToTableWithHisto(user, c);
+            
+            c.commit();
+        } catch (Exception e) {
+            if(c != null) c.rollback();
+        } finally {
+          if(c != null) c.close();  
+        }
     }
     
     public double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
