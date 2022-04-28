@@ -19,7 +19,16 @@ import utilitaire.UtilDB;
 public class Navire extends ClassEtat{
     private String id, reference, nom, pavillon, remarque,type,armateur,armateurlib;
     private double jnt, jbt, plt, lht, lm, te, volume;
+    private double volume100 ;
 
+    public double getVolume100() {
+        return volume100;
+    }
+
+    public void setVolume100(double volume100) {
+        this.volume100 = volume100;
+    }
+    
     public Navire(String nom, String pavillon) throws Exception {
         super.setNomTable("Navire");
         this.setNom(nom);
