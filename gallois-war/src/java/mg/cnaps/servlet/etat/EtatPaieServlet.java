@@ -2451,7 +2451,10 @@ public class EtatPaieServlet extends HttpServlet {
         String code=request.getParameter("code");
         String etat=request.getParameter("etat");
         String codeFiltre =request.getParameter("codeFiltre");
-        
+         if(codeFiltre != null && !codeFiltre.trim().isEmpty() && codeFiltre.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND codeFiltre='"+codeFiltre+"'";
+        }
          if(id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0)
         {
             awhere+=" AND id='"+id+"'";
