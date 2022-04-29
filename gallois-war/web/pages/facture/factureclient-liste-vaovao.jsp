@@ -4,6 +4,8 @@
     Author     : Lenovo
 --%>
 
+<%@page import="affichage.Liste"%>
+<%@page import="bean.TypeObjet"%>
 <%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureClient"%>
@@ -19,7 +21,7 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","armateurlib","exercice","date_echeance","escale","categorielib", "code"};
+        String listeCrt[] = {"id","daty","tierslib","designation","armateurlib","exercice","date_echeance","escale","categorielib", "code","codeFiltre"};
         String listeInt[] = {"daty","date_echeance","exercice"};
         String libEntete[] = {"id","daty","tierslib", "code", "escale","designation","armateurlib","exercice","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
 
@@ -53,6 +55,13 @@
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
         
+        Liste[] listes= new Liste[1];
+        TypeObjet type = new TypeObjet();
+        type.setNomTable("rubrique_fact_emises");
+        listes[0] = new Liste("codeFiltre", type, "desce", "val");
+        pr.getFormu().changerEnChamp(listes);
+        
+        pr.getFormu().getChamp("codeFiltre").setLibelle("Rubriques");
         
         String[] colSomme = {"montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
         pr.creerObjetPage(libEntete, colSomme);
