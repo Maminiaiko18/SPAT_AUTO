@@ -99,7 +99,7 @@ try{
     for(int i = 0 ; i < liste.length;i++){
         pi.getFormufle().getChamp("produit_"+i).setValeurLibelle(liste[i].getProduitlib());
         pi.getFormufle().getChamp("observation_"+i).setAutre("readonly");
-        pi.getFormufle().getChamp("observation_"+i).setPageAppel("choix/listeDAchoix.jsp","observation;observationlibelle");
+        pi.getFormufle().getChamp("observation_"+i).setPageAppel("choix/listeDAchoix.jsp","observation;observation;observationlibelle");
     }
 
 
