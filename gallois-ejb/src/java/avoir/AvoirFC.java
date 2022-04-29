@@ -39,9 +39,17 @@ public class AvoirFC extends ClassMere {
     private String categorielib;
     private String motiflib;
     private String type;
-    private String typelib;
+    private String typelib,codeFacture;
     private double montanttva, montantttc;
 
+    public String getCodeFacture() {
+        return codeFacture;
+    }
+
+    public void setCodeFacture(String codeFacture) {
+        this.codeFacture = codeFacture;
+    }
+    
     public double getMontanttva() {
         return montanttva;
     }
