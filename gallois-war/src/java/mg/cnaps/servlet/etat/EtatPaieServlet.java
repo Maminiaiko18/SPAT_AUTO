@@ -207,6 +207,9 @@ public class EtatPaieServlet extends HttpServlet {
             } else if (action.equalsIgnoreCase("proforma")) {
                 imprimerProforma(request, response);
             }
+            else if (action.equalsIgnoreCase("listesFactEmises")) {
+                listesFactEmises(request, response);
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -2429,4 +2432,128 @@ public class EtatPaieServlet extends HttpServlet {
             }
         }
     }
+    private void listesFactEmises(HttpServletRequest request, HttpServletResponse response)throws Exception{
+        try{
+        FactureClient f = new FactureClient();
+        f.setNomTable("factureClientValide"); 
+        String awhere="";
+        String id=request.getParameter("id");
+        String daty1=request.getParameter("daty1");
+        String daty2=request.getParameter("daty2");
+        String tierslib=request.getParameter("tierslib");
+        String designation=request.getParameter("designation");
+        String armateurlib=request.getParameter("armateurlib");
+        String exercice=request.getParameter("exercice");
+        String date_echeance1=request.getParameter("date_echeance1");
+        String date_echeance2=request.getParameter("date_echeance2");
+        String escale=request.getParameter("escale");
+        String categorielib=request.getParameter("categorielib");
+        String code=request.getParameter("code");
+        String etat=request.getParameter("etat");
+        String codeFiltre =request.getParameter("codeFiltre");
+        
+         if(id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND id='"+id+"'";
+        }
+        if(daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND daty >= '"+daty1+"'";
+        }
+        if(daty2 != null && !daty2.trim().isEmpty() && daty2.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND daty <= '"+daty2+"'";
+        }
+        if(tierslib != null && !tierslib.trim().isEmpty() && tierslib.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND tierslib='"+tierslib+"'";
+        }
+        if(designation != null && !designation.trim().isEmpty() && designation.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND designation='"+designation+"'";
+        }
+        if(armateurlib != null && !armateurlib.trim().isEmpty() && armateurlib.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND armateurlib='"+armateurlib+"'";
+        }
+        if(exercice != null && !exercice.trim().isEmpty() && exercice.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND exercice='"+exercice+"'";
+        }
+        if(date_echeance1 != null && !date_echeance1.trim().isEmpty() && date_echeance1.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND date_echeance >= '"+date_echeance1+"'";
+        }
+        if(date_echeance2 != null && !date_echeance2.trim().isEmpty() && date_echeance2.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND date_echeance <= '"+date_echeance2+"'";
+        }
+        if(escale != null && !escale.trim().isEmpty() && escale.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND escale='"+escale+"'";
+        }
+         if(categorielib != null && !categorielib.trim().isEmpty() && categorielib.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND categorielib='"+categorielib+"'";
+        }
+          if(code != null && !code.trim().isEmpty() && code.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND code='"+code+"'";
+        } 
+          System.out.println("etat==="+etat);
+          Map param = new HashMap();
+        if(etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0)
+        {
+            
+            if(etat.compareToIgnoreCase("factureclientAuComptant") == 0)
+            {
+                f.setNomTable("factureclientAuComptant");
+                param.put("naturedepaiement","COMPTANT");
+            }
+             if(etat.compareToIgnoreCase("factureclientACredit") == 0)
+            {
+                f.setNomTable("factureclientACredit");
+                param.put("naturedepaiement","CREDIT");
+            }
+             
+        }
+            TypeObjet jc = new TypeObjet();
+            jc.setNomTable("rubrique_fact_emises");
+            String req =" and val='"+codeFiltre+"'";
+            System.out.println("req==="+req);
+            TypeObjet[] tab = (TypeObjet[]) CGenUtil.rechercher(jc, null, null,req);
+             System.out.println("length==="+tab.length);
+            param.put("prestation",tab[0].getDesce());
+        System.out.println("sql="+awhere);
+        
+        FactureClient[] mere =(FactureClient []) CGenUtil.rechercher( f , null, null, awhere);
+        double totaltva = 0;
+        double totaltaxe = 0;
+        double totalttc = 0;
+        for(int i= 0;i<mere.length;i++)
+        {
+            totaltva = totaltva + mere[i].getMontanttva();
+            totaltaxe = totaltaxe + mere[i].getMontant();
+            totalttc = totalttc + mere[i].getMontantttc();
+        }
+            
+            
+        List dataSource = new ArrayList();
+        dataSource.addAll(Arrays.asList(mere));
+        
+        param.put("daty1",daty1);
+        param.put("daty2",daty2);
+         param.put("daty3",utilitaire.Utilitaire.dateDuJour());
+        param.put("totaltva",totaltva);
+        param.put("totaltaxe",totaltaxe);
+        param.put("totalttc",totalttc);
+        setNomJasper("listesdesfacturesEmises");
+        UtilitaireImpression.imprimer(request, response, "listesdesfactureEmises", param, dataSource, getReportPath());
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+   
+
 }

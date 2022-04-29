@@ -4,8 +4,8 @@
     Author     : Lenovo
 --%>
 
-<%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
+<%@page import="affichage.Liste"%>
 <%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureClient"%>
@@ -17,9 +17,12 @@
         String[] etatVal = {"factureClientValide", "facture_client_unionC", "FACTURE_CLIENT_UNIONV", "factureclientApayer", "factureclientAuComptant", "factureclientACredit","FACTURE_CLIENT_UNIONA"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "A payer", "Au comptant", "A crédit","Annulé"};
         ff.setNomTable(etatVal[0]);
+       // String etat = request.getParameter("etat");
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             ff.setNomTable(request.getParameter("etat"));
+            System.out.println("etatA=="+request.getParameter("etat"));
         }
+       
 
         String listeCrt[] = {"id","daty","tierslib","designation","armateurlib","exercice","date_echeance","escale","categorielib", "code","codeFiltre"};
         String listeInt[] = {"daty","date_echeance","exercice"};
@@ -29,7 +32,7 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setOrdre(" order by daty desc");
-        pr.setApres("facture/factureclient-liste-vaovao.jsp");
+        pr.setApres("facture/factureclient-liste-vaovao.jsp&etat="+request.getParameter("etat"));
         pr.setNpp(50);
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
@@ -55,12 +58,11 @@
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
         
-        Liste[] listes= new Liste[1];
+          Liste[] listes= new Liste[1];
         TypeObjet type = new TypeObjet();
         type.setNomTable("rubrique_fact_emises");
         listes[0] = new Liste("codeFiltre", type, "desce", "val");
         pr.getFormu().changerEnChamp(listes);
-        
         pr.getFormu().getChamp("codeFiltre").setLibelle("Rubriques");
         
         String[] colSomme = {"montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
@@ -89,11 +91,20 @@
                     <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
                         <%for(int i=0; i<etatVal.length; i++){
                             String selected = etatVal[i].equalsIgnoreCase(ff.getNomTable()) ? "selected" : "";
+                            
                         %>
                         <option value="<%=etatVal[i]%>" <%=selected%>><%=etatAff[i]%></option>
                         <%}%>
                     </select>
+                    <% if(request.getParameter("etat")!= null && ( request.getParameter("etat").compareToIgnoreCase("factureclientAuComptant") == 0 || request.getParameter("etat").compareToIgnoreCase("factureclientACredit") == 0))
+                 { %>
+                    <div class="box-footer">
+                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listesFactEmises&id=<%=request.getParameter("id") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>&tierslib=<%=request.getParameter("tierslib") %>&designation=<%=request.getParameter("designation") %>&armateurlib=<%=request.getParameter("armateurlib")%>&exercice=<%=request.getParameter("exercice")%>&date_echeance1=<%=request.getParameter("date_echeance1")%>&date_echeance2=<%=request.getParameter("date_echeance2")%>&escale=<%=request.getParameter("escale")%>&categorielib=<%=request.getParameter("categorielib")%>&code=<%=request.getParameter("code")%>&etat=<%=request.getParameter("etat")%>&codeFiltre=<%=request.getParameter("codeFiltre")%>" style="margin-right: 10px">Imprimer</a>                            <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=facturegallois/client/facture-client-saisie.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Dupliquer modele</a>-->
+                                    <!----<a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listesFactEmises&id=<%=request.getParameter("id") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>&etat=<%=request.getParameter("etat")%>" style="margin-right: 10px">Imprimer</a>                            <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=facturegallois/client/facture-client-saisie.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Dupliquer modele</a>-->
+                   </div>
+            <% } %>
                 </div>
+                    
                 <div class="col-md-4"></div>
             </div>
         </form>
@@ -117,11 +128,10 @@
             out.println(pr.getTableau().getHtmlWithCheckbox());
             
             %>
-            
-           
 
         <input type="hidden" name="acte" value="encaisserMultiple"/>
         </form>
+         
         <% out.println(pr.getBasPage());%>
     </section>
 </div>
