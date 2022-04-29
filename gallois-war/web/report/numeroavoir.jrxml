@@ -9,7 +9,7 @@
 	<parameter name="totaltva" class="java.lang.Double"/>
 	<parameter name="totalHtva" class="java.lang.Double"/>
 	<parameter name="totalttc" class="java.lang.Double"/>
-	<field name="id" class="java.lang.String"/>
+	<field name="code" class="java.lang.String"/>
 	<field name="daty" class="java.util.Date"/>
 	<field name="idfacture" class="java.lang.String"/>
 	<field name="montant" class="java.lang.Double"/>
@@ -109,21 +109,21 @@
 			</staticText>
 			<staticText>
 				<reportElement x="251" y="30" width="124" height="20" uuid="6415f7e4-4cae-4418-8bab-cd821b4447b0"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant HTVA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="375" y="30" width="90" height="20" uuid="6021ed54-2208-49d7-8f00-01704da9d97a"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[TVA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="475" y="30" width="80" height="20" uuid="f4b1c222-b904-461a-928e-0ad98d3bddc2"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant TTC]]></text>
@@ -137,7 +137,7 @@
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="90" y="0" width="55" height="20" uuid="dd450e3b-040f-4a5a-802f-4a49aed6b59e"/>
