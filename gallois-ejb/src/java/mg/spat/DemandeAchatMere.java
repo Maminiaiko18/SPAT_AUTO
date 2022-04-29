@@ -106,7 +106,7 @@ public class DemandeAchatMere extends ClassMAPTable{
 
     @Override
     public String getValColLibelle() {
-        return  this.getNum();
+        return  this.getNum()+";"+this.getNum();
     }
     
 
