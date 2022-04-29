@@ -210,6 +210,9 @@ public class EtatPaieServlet extends HttpServlet {
             else if (action.equalsIgnoreCase("listesFactEmises")) {
                 listesFactEmises(request, response);
             }
+            else if (action.equalsIgnoreCase("listesavoir")) {
+                listesavoir(request, response);
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -2557,6 +2560,94 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    private void listesavoir(HttpServletRequest request, HttpServletResponse response)throws Exception{
+        try{
+        AvoirFC f = new AvoirFC();
+        f.setNomTable("avoirFC_montant"); 
+        String awhere="";
+        String id=request.getParameter("id");
+        String daty1=request.getParameter("daty1");
+        String daty2=request.getParameter("daty2");
+        String tierslib=request.getParameter("tierslib");
+        String typelib=request.getParameter("typelib");
+        String code=request.getParameter("code");
+        String etat=request.getParameter("etat");
+        System.out.println("tierslib=="+tierslib);
+        System.out.println("typelib=="+typelib);
+        
+         if(id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND id='"+id+"'";
+        }
+        if(daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND daty >= '"+daty1+"'";
+        }
+        if(daty2 != null && !daty2.trim().isEmpty() && daty2.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND daty <= '"+daty2+"'";
+        }
+        if(tierslib != null && !tierslib.trim().isEmpty() && tierslib.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND tierslib='"+tierslib+"'";
+        }
+        if(typelib != null && !typelib.trim().isEmpty() && typelib.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND typelib='"+typelib+"'";
+        }
+        if(code != null && !code.trim().isEmpty() && code.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND code='"+code+"'";
+        }
+          System.out.println("awhere==="+awhere);
+          Map param = new HashMap();
+        if(etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0)
+        {
+            
+            if(etat.compareToIgnoreCase("avoirFC_montant_C") == 0)
+            {
+                f.setNomTable("avoirFC_montant_C");
+              
+            }
+             if(etat.compareToIgnoreCase("avoirFC_montant_V") == 0)
+            {
+                f.setNomTable("avoirFC_montant_V");
+            }
+        }
+            
+            
+        System.out.println("sql="+awhere);
+        
+        AvoirFC[] mere =(AvoirFC []) CGenUtil.rechercher( f , null, null, awhere);
+        double totalHtva = 0;
+        double totaltva = 0;
+        double totalttc = 0;
+        for(int i= 0;i<mere.length;i++)
+        {
+            totaltva = totaltva + mere[i].getMontanttva();
+            totalHtva = totalHtva + mere[i].getMontant();
+            totalttc = totalttc + mere[i].getMontantttc();
+        }
+            
+            
+        List dataSource = new ArrayList();
+        dataSource.addAll(Arrays.asList(mere));
+        
+        param.put("daty1",daty1);
+        param.put("daty2",daty2);
+         param.put("daty3",utilitaire.Utilitaire.dateDuJour());
+        param.put("totaltva",totaltva);
+        param.put("totalHtva",totalHtva);
+        param.put("totalttc",totalttc);
+        setNomJasper("numeroavoir");
+        UtilitaireImpression.imprimer(request, response, "numeroavoir", param, dataSource, getReportPath());
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+   
+
    
 
 }

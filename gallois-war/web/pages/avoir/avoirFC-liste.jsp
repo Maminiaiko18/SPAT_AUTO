@@ -91,6 +91,10 @@
         %>
     </section>
 </div>
+        <div class="box-footer">
+            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listesavoir&id=<%=request.getParameter("id") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>&tierslib=<%=request.getParameter("tierslib") %>&idfacture=<%=request.getParameter("idfacture") %>&typelib=<%=request.getParameter("typelib")%>&code=<%=request.getParameter("code")%>&etat=<%=request.getParameter("etat")%>" style="margin-right: 10px">Imprimer</a>                            <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=facturegallois/client/facture-client-saisie.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Dupliquer modele</a>-->
+                                    <!----<a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listesFactEmises&id=<%=request.getParameter("id") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>&etat=<%=request.getParameter("etat")%>" style="margin-right: 10px">Imprimer</a>                            <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=facturegallois/client/facture-client-saisie.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Dupliquer modele</a>-->
+        </div>
 <% } catch (Exception e) {
         e.printStackTrace();
     }%>
