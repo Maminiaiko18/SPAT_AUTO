@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gestion provision" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="256b12f1-e681-4953-8bf8-fd2209703c08">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="119"/>
+	<property name="ireport.x" value="81"/>
+	<property name="ireport.y" value="123"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -23,7 +23,11 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="Table Dataset 1" uuid="97d2b53a-9517-4c6e-a803-87ed91db5a14"/>
+	<subDataset name="Table Dataset 1" uuid="97d2b53a-9517-4c6e-a803-87ed91db5a14">
+		<field name="code" class="java.lang.String"/>
+		<field name="daty" class="java.util.Date"/>
+		<field name="montantttc" class="java.lang.Double"/>
+	</subDataset>
 	<parameter name="identification" class="java.lang.String"/>
 	<parameter name="date" class="java.util.Date"/>
 	<parameter name="client" class="java.lang.String"/>
@@ -32,13 +36,15 @@
 	<parameter name="banque" class="java.lang.String"/>
 	<parameter name="montantProv" class="java.lang.Double"/>
 	<parameter name="num" class="java.lang.String"/>
-	<parameter name="datyprof" class="java.lang.String"/>
+	<parameter name="datyprof" class="java.util.Date"/>
 	<parameter name="montant" class="java.lang.Double"/>
 	<parameter name="datyedit" class="java.lang.String"/>
 	<parameter name="numfact" class="java.lang.String"/>
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="montantttc" class="java.lang.Double"/>
 	<parameter name="parameter4" class="java.lang.String"/>
+	<parameter name="factDef" class="java.util.List"/>
+	<parameter name="reliquat" class="java.lang.String"/>
 	<pageHeader>
 		<band height="155" splitType="Stretch">
 			<textField isBlankWhenNull="true">
@@ -119,13 +125,19 @@
 					<rightPen lineWidth="1.0" lineStyle="Dotted"/>
 				</box>
 				<componentElement>
-					<reportElement key="table" style="table" x="77" y="87" width="421" height="29" uuid="2b941c4d-b069-4361-8678-bcd7dd3e3c9b"/>
+					<reportElement key="table" x="77" y="87" width="421" height="29" uuid="2b941c4d-b069-4361-8678-bcd7dd3e3c9b"/>
 					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-						<datasetRun subDataset="Table Dataset 1" uuid="127e858f-9d38-4780-ad8d-eff696c6f397">
-							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
+						<datasetRun subDataset="Table Dataset 1" uuid="537d3210-1be5-4f17-84fe-b926ca467b6f">
+							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{factDef})]]></dataSourceExpression>
 						</datasetRun>
 						<jr:column width="137" uuid="8c48bf65-0893-4add-8997-bd609298a7cd">
-							<jr:tableHeader style="table_TH" height="16" rowSpan="1">
+							<jr:tableHeader height="16" rowSpan="1">
+								<box>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
 								<staticText>
 									<reportElement x="0" y="0" width="137" height="16" uuid="d31f109b-ebfe-4427-a69b-7a8f04e98539"/>
 									<textElement>
@@ -134,10 +146,27 @@
 									<text><![CDATA[N° Facture definitive]]></text>
 								</staticText>
 							</jr:tableHeader>
-							<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<box>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textField isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="137" height="20" uuid="2a7d8a68-0aef-4d75-9e8a-8f63f763a3dc"/>
+									<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
 						</jr:column>
 						<jr:column width="90" uuid="0cae5b05-3c48-486a-90fb-1140f01d88d8">
-							<jr:tableHeader style="table_TH" height="16" rowSpan="1">
+							<jr:tableHeader height="16" rowSpan="1">
+								<box>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
 								<staticText>
 									<reportElement x="0" y="0" width="90" height="16" uuid="296fce4a-dd6d-48ad-b90a-034829b7b7a0"/>
 									<textElement>
@@ -146,10 +175,27 @@
 									<text><![CDATA[Date]]></text>
 								</staticText>
 							</jr:tableHeader>
-							<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<box>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="90" height="20" uuid="02613c9b-fa2b-4794-89df-3845b203122f"/>
+									<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
 						</jr:column>
 						<jr:column width="192" uuid="8835105d-40fe-46b2-9900-091e29daf33a">
-							<jr:tableHeader style="table_TH" height="16" rowSpan="1">
+							<jr:tableHeader height="16" rowSpan="1">
+								<box>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
 								<staticText>
 									<reportElement x="0" y="0" width="192" height="16" uuid="6bd5b450-bbc8-48b6-813d-486f9b566fb0"/>
 									<textElement textAlignment="Right">
@@ -158,7 +204,19 @@
 									<text><![CDATA[Montant]]></text>
 								</staticText>
 							</jr:tableHeader>
-							<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<box>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textField pattern="#,##0.00" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="192" height="20" uuid="5d0e8eae-8389-4e0a-85e2-a0383e180ceb"/>
+									<textElement textAlignment="Right"/>
+									<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
 						</jr:column>
 					</jr:table>
 				</componentElement>
@@ -289,7 +347,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{num}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="445" y="201" width="256" height="20" uuid="ecce1aaa-7dcd-4a91-a723-15626e7437d7"/>
 				<textElement>
 					<font size="12" isBold="true" isItalic="true"/>
@@ -305,7 +363,7 @@
 			</textField>
 			<staticText>
 				<reportElement x="412" y="297" width="117" height="20" uuid="f2563b40-4111-48dd-aaf3-e2a7c0ea7556"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total facture reel:]]></text>
@@ -347,46 +405,46 @@
 	<summary>
 		<band height="83">
 			<staticText>
-				<reportElement x="364" y="1" width="113" height="20" uuid="ebee4234-7a3e-4ca5-98c6-f2f7cb5f425d"/>
+				<reportElement x="416" y="1" width="113" height="20" uuid="ebee4234-7a3e-4ca5-98c6-f2f7cb5f425d"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant Provision]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="345" y="29" width="132" height="20" uuid="68c9c932-80f2-4c64-8591-b1873d54e575"/>
+				<reportElement x="397" y="29" width="132" height="20" uuid="68c9c932-80f2-4c64-8591-b1873d54e575"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant Realisation]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="494" y="1" width="130" height="20" uuid="ae41c6cd-08ae-4250-a5e3-e1d92a684434"/>
+				<reportElement x="533" y="1" width="130" height="20" uuid="ae41c6cd-08ae-4250-a5e3-e1d92a684434"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantProv}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="493" y="29" width="130" height="20" uuid="b7a67813-a715-406a-bb74-1f27f09db182"/>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="533" y="29" width="130" height="20" uuid="b7a67813-a715-406a-bb74-1f27f09db182"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantttc}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="297" y="58" width="180" height="20" uuid="f120ecc4-d74c-4213-a4bb-b15182f8eca7"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Reliquat en faveur du client]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="493" y="58" width="130" height="20" uuid="ee39891a-318c-4836-8f44-501f5efdf01b"/>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="533" y="58" width="130" height="20" uuid="ee39891a-318c-4836-8f44-501f5efdf01b"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantttc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="349" y="58" width="180" height="20" uuid="05511b7d-7c8c-4651-85b4-1952445d9c69"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{reliquat}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

@@ -2023,7 +2023,84 @@ public class EtatPaieServlet extends HttpServlet {
         }
     }
 
-    public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response) {
+public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        Connection c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+            EtatProvision ep = new EtatProvision();
+            EtatProvision epv = new EtatProvision();
+            FactureClient prov = new FactureClient();
+            String id = request.getParameter("id");
+            EtatProvision etaProv = new EtatProvision();
+            etaProv.setNomTable("etat_provisionlib");
+            EtatProvision[] result1 = (EtatProvision[]) CGenUtil.rechercher(etaProv, null, null, c, " and idfacture = '" + id + "'");
+            if(result1.length != 0){
+                ep = result1[0];
+            }
+            
+            EtatProvision etaProvV = new EtatProvision();
+            etaProvV.setNomTable("etatprovisionvrai");
+            EtatProvision[] result2 = (EtatProvision[]) CGenUtil.rechercher(etaProvV, null, null, c, " and id = '" + id + "'");
+            if(result2.length != 0){
+                epv = result2[0];
+            }
+            
+            FactureClient fc = new FactureClient();
+            fc.setNomTable("facture_client_union");
+            FactureClient[] factDef = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and idprovision = '" + id + "'");
+                                   
+            FactureClient[] result3 = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and id = '" + id + "'");
+            if(result3.length != 0){
+                prov = result3[0];
+            }            
+            
+            Map param = new HashMap();
+            param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
+            
+            param.put("identification", ep.getNumpiece());
+            if(factDef.length != 0){
+                param.put("date", factDef[0].getDaty());
+            }                                    
+            param.put("client", ep.getTierslib());
+            param.put("navire", ep.getIdnavirelib());
+            param.put("mode", ep.getIdmodelib());
+            param.put("banque", ep.getIdbanquelib());
+            param.put("montantProv", prov.getMontantttc());
+            
+            param.put("num", prov.getCode());
+            param.put("datyprof", prov.getDaty());
+            param.put("montant", prov.getMontant()); 
+            
+            
+            ArrayList<FactureClient> factDefList = new ArrayList<FactureClient>();
+            for(int i = 0; i<factDef.length; i++){
+                factDefList.add(factDef[i]);
+            }
+            param.put("factDef", factDefList); 
+            double total = AdminGen.calculSommeDouble(factDef, "montantttc");
+            param.put("montantttc", total); 
+            
+            double reste = epv.getMontantreste();
+            String reliquat = "Reliquat en faveur du client";
+            if(reste<=0){
+                reliquat = "Reliquat en faveur de la SPAT";
+            }
+            param.put("reste", Math.abs(reste)); 
+            param.put("reliquat", reliquat); 
+
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("gestion provision");
+            UtilitaireImpression.imprimer(request, response, "gestion de provision", param, null, getReportPath(), rt);
+        } catch (Exception e) {
+            if(c!= null){
+                c.close();
+            }
+            e.printStackTrace();
+        }
+
+    }    
+    
+    /*public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response) {
         try {
             String id = request.getParameter("id");
             EtatProvision a = new EtatProvision();
@@ -2063,7 +2140,7 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
     public void redevanceCommunale(HttpServletRequest request, HttpServletResponse response) {
         try {
