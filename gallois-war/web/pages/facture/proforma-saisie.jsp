@@ -57,14 +57,13 @@
     pi.getFormu().getChamp("heureDepart").setLibelle("Heure de départ");
     pi.getFormu().getChamp("heureArrivee").setLibelle("Heure d'arrivée");
     pi.getFormu().getChamp("bateau").setLibelle("Navire");
-    pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp");
+    pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp","bateau;bateaulibelle;volume100");
     pi.getFormu().getChamp("bateau").setAutre("readonly");
     pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
     pi.getFormu().getChamp("provenance").setAutre("readonly");
     pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
     pi.getFormu().getChamp("destination").setAutre("readonly");
     pi.getFormu().getChamp("volume100").setLibelle("Volume 100");
-    pi.getFormu().getChamp("volume100").setPageAppel("choix/listeNavireChoix.jsp","volume100;volume100libelle;volume100libelle");
     pi.getFormu().getChamp("volume100").setAutre("readonly");
     
     
