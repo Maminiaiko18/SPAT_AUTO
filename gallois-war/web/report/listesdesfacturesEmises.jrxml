@@ -12,7 +12,7 @@
 	<parameter name="totalttc" class="java.lang.Double"/>
 	<parameter name="naturedepaiement" class="java.lang.String"/>
 	<parameter name="prestation" class="java.lang.String"/>
-	<field name="id" class="java.lang.String"/>
+	<field name="code" class="java.lang.String"/>
 	<field name="daty" class="java.util.Date"/>
 	<field name="tierslib" class="java.lang.String"/>
 	<field name="montant" class="java.lang.Double"/>
@@ -170,7 +170,7 @@
 		<band height="32" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="10" width="100" height="20" uuid="d691d65f-76df-475a-a57f-18995ce5c3a6"/>
-				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="108" y="10" width="74" height="20" uuid="8b0fe06a-2485-43df-9181-959e65e5de53"/>
