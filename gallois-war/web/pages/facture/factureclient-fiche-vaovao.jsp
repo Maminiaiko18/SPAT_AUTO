@@ -34,6 +34,7 @@
         }
         if(idFille != null && action != null && action.equalsIgnoreCase("remove")) {
             (new FactureClientDetails()).remove(idFille, user);
+%> <script> location.search = location.search.substring(0, location.search.indexOf("&action")) </script> <%
         }
         
         FactureClient e = new FactureClient();

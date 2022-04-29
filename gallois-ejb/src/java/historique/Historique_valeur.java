@@ -22,7 +22,8 @@ public class Historique_valeur extends ClassMAPTable {
     private String refhisto;
     private String nom_table;
     private String nom_classe;
-    private String val1, val2, val3, val4, val5, val6, val7, val8, val9, val10, val11, val12, val13, val14, val15, val16, val17, val18, val19, val20, val21, val22, val23, val24, val25, val26, val27, val28, val29, val30, val31, val32, val33, val34, val35, val36, val37, val38, val39, val40;
+    private String val1, val2, val3, val4, val5, val6, val7, val8, val9, val10, val11, val12, val13, val14, val15, val16, val17, val18, val19, val20, val21, val22, val23, val24, val25, val26, val27, val28, val29, val30, val31, val32, val33, val34, val35, val36, val37, val38, val39, val40,
+                    val41, val42, val43, val44, val45, val46, val47, val48, val49, val50, val51, val52;
     private String ipuser;
 
     @Override
@@ -728,6 +729,102 @@ public class Historique_valeur extends ClassMAPTable {
      */
     public void setVal40(String val40) {
 	this.val40 = val40;
+    }
+
+    public String getVal41() {
+        return val41;
+    }
+
+    public void setVal41(String val41) {
+        this.val41 = val41;
+    }
+
+    public String getVal42() {
+        return val42;
+    }
+
+    public void setVal42(String val42) {
+        this.val42 = val42;
+    }
+
+    public String getVal43() {
+        return val43;
+    }
+
+    public void setVal43(String val43) {
+        this.val43 = val43;
+    }
+
+    public String getVal44() {
+        return val44;
+    }
+
+    public void setVal44(String val44) {
+        this.val44 = val44;
+    }
+
+    public String getVal45() {
+        return val45;
+    }
+
+    public void setVal45(String val45) {
+        this.val45 = val45;
+    }
+
+    public String getVal46() {
+        return val46;
+    }
+
+    public void setVal46(String val46) {
+        this.val46 = val46;
+    }
+
+    public String getVal47() {
+        return val47;
+    }
+
+    public void setVal47(String val47) {
+        this.val47 = val47;
+    }
+
+    public String getVal48() {
+        return val48;
+    }
+
+    public void setVal48(String val48) {
+        this.val48 = val48;
+    }
+
+    public String getVal49() {
+        return val49;
+    }
+
+    public void setVal49(String val49) {
+        this.val49 = val49;
+    }
+
+    public String getVal50() {
+        return val50;
+    }
+
+    public void setVal50(String val50) {
+        this.val50 = val50;
+    }
+
+    public String getVal51() {
+        return val51;
+    }
+
+    public void setVal51(String val51) {
+        this.val51 = val51;
+    }
+
+    public String getVal52() {
+        return val52;
+    }
+
+    public void setVal52(String val52) {
+        this.val52 = val52;
     }
 
     public String getIpuser() {
