@@ -62,8 +62,16 @@ public class FactureClient extends ClassMere {
     private int estAuto,estAncienne;
     private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
     private Date dateDepart,datearrivee;
-    private String armateur;
+    private String armateur,codeFiltre;
 
+    public String getCodeFiltre() {
+        return codeFiltre;
+    }
+
+    public void setCodeFiltre(String codeFiltre) {
+        this.codeFiltre = codeFiltre;
+    }
+    
     public String getArmateur() {
         return armateur;
     }
