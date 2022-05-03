@@ -2069,7 +2069,8 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             
             param.put("num", prov.getCode());
             param.put("datyprof", prov.getDaty());
-            param.put("montant", prov.getMontant()); 
+            param.put("montant", prov.getMontantttc()); 
+           param.put("datyedit", utilitaire.Utilitaire.dateDuJour()); 
             
             
             ArrayList<FactureClient> factDefList = new ArrayList<FactureClient>();
@@ -2078,7 +2079,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             }
             param.put("factDef", factDefList); 
             double total = AdminGen.calculSommeDouble(factDef, "montantttc");
-            param.put("montantttc", total); 
+            param.put("montantttc", epv.getMontantreste()); 
             
             double reste = epv.getMontantreste();
             String reliquat = "Reliquat en faveur du client";

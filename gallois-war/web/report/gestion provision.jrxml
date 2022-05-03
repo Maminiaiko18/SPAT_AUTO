@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gestion provision" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="256b12f1-e681-4953-8bf8-fd2209703c08">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="81"/>
-	<property name="ireport.y" value="123"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -106,7 +106,7 @@
 				<text><![CDATA[S . P . A . T .]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="110" y="40" width="187" height="20" uuid="cea67dd6-391f-4764-bacd-68e73238c61e"/>
+				<reportElement x="110" y="40" width="188" height="20" uuid="cea67dd6-391f-4764-bacd-68e73238c61e"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 					<paragraph leftIndent="3"/>
@@ -380,21 +380,21 @@
 	<pageFooter>
 		<band height="120">
 			<staticText>
-				<reportElement x="205" y="37" width="127" height="20" uuid="a2a1056d-033f-4537-871f-23cae3c429bf"/>
+				<reportElement x="205" y="17" width="127" height="20" uuid="a2a1056d-033f-4537-871f-23cae3c429bf"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Chef de bureau]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="601" y="37" width="118" height="37" uuid="9fc36502-efe7-422e-8785-33fa9efe5d88"/>
+				<reportElement x="601" y="17" width="118" height="37" uuid="9fc36502-efe7-422e-8785-33fa9efe5d88"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Chef de Depatement Facturation]]></text>
+				<text><![CDATA[Chef de Departement Facturation]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="205" y="57" width="127" height="20" uuid="e6b3d382-fed9-4453-8ce5-140ddf3a037f"/>
+				<reportElement x="205" y="37" width="127" height="20" uuid="e6b3d382-fed9-4453-8ce5-140ddf3a037f"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="false"/>
 				</textElement>
