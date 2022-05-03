@@ -108,7 +108,10 @@
 				<textFieldExpression><![CDATA[$P{naturedepaiement}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="110" y="150" width="100" height="20" uuid="b3fe1fb9-676f-4470-aa9f-50c152029ed4"/>
+				<reportElement x="110" y="150" width="283" height="20" uuid="b3fe1fb9-676f-4470-aa9f-50c152029ed4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{prestation}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -176,7 +179,7 @@
 				<reportElement x="108" y="10" width="74" height="20" uuid="8b0fe06a-2485-43df-9181-959e65e5de53"/>
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="185" y="10" width="121" height="20" uuid="c09415d5-2c91-4927-88a6-f4b5232f398a"/>
 				<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
 			</textField>

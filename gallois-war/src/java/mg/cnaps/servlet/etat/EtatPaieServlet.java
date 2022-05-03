@@ -2514,6 +2514,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         }
     }
     private void listesFactEmises(HttpServletRequest request, HttpServletResponse response)throws Exception{
+        System.out.println("miditra atooooo");
         try{
         FactureClient f = new FactureClient();
         f.setNomTable("factureClientValide"); 
@@ -2524,7 +2525,6 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         String tierslib=request.getParameter("tierslib");
         String designation=request.getParameter("designation");
         String armateurlib=request.getParameter("armateurlib");
-        String exercice=request.getParameter("exercice");
         String date_echeance1=request.getParameter("date_echeance1");
         String date_echeance2=request.getParameter("date_echeance2");
         String escale=request.getParameter("escale");
@@ -2532,11 +2532,8 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         String code=request.getParameter("code");
         String etat=request.getParameter("etat");
         String codeFiltre =request.getParameter("codeFiltre");
-         if(codeFiltre != null && !codeFiltre.trim().isEmpty() && codeFiltre.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND codeFiltre='"+codeFiltre+"'";
-        }
-         if(id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0)
+        System.out.println("codeFiltre=="+codeFiltre);
+        if(id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0)
         {
             awhere+=" AND id='"+id+"'";
         }
@@ -2560,10 +2557,6 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         {
             awhere+=" AND armateurlib='"+armateurlib+"'";
         }
-        if(exercice != null && !exercice.trim().isEmpty() && exercice.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND exercice='"+exercice+"'";
-        }
         if(date_echeance1 != null && !date_echeance1.trim().isEmpty() && date_echeance1.compareToIgnoreCase("null") != 0)
         {
             awhere+=" AND date_echeance >= '"+date_echeance1+"'";
@@ -2584,6 +2577,10 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         {
             awhere+=" AND code='"+code+"'";
         } 
+        if(codeFiltre != null && !codeFiltre.trim().isEmpty() && codeFiltre.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND codeFiltre like'%"+codeFiltre+"%'";
+        }
           System.out.println("etat==="+etat);
           Map param = new HashMap();
         if(etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0)
