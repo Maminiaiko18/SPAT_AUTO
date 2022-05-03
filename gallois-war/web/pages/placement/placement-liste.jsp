@@ -72,6 +72,18 @@
                         <option value="placementlib_echu"> Echu </option>
                         <% } %>
                         
+                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("placementlib_renouvelle") == 0) {%>
+                        <option value="placementlib_renouvelle" selected> Renouvelés </option>
+                        <% } else { %>
+                        <option value="placementlib_renouvelle"> Renouvelés </option>
+                        <% } %>
+                        
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("placementlib_nouveau") == 0) {%>
+                        <option value="placementlib_nouveau" selected> Nouveaux </option>
+                        <% } else { %>
+                        <option value="placementlib_nouveau"> Nouveaux </option>
+                        <% } %>
+                        
                     </select>
                 </div>
             </div>
