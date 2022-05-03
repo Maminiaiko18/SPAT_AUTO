@@ -20,7 +20,7 @@
     pi.getFormu().getChamp("numero").setLibelle("Référence");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("duree").setVisible(false);
-    
+       pi.getFormu().getChamp("ancienPlacement").setLibelle("rectif");
     affichage.Champ[] liste = new affichage.Champ[3];
     
     TypeObjet mvt = new TypeObjet();
@@ -67,6 +67,7 @@
             pi.getFormu().getChamp("banque").setValeur(placement.getBanque()+"") ;
             pi.getFormu().getChamp("iddevise").setValeur(placement.getIddevise()+"") ;
         }
+           pi.getFormu().getChamp("ancienPlacement").setDefaut(placement.getAncienPlacement());
     }
     pi.preparerDataFormu();
 %>
