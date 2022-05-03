@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gestion provision" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="256b12f1-e681-4953-8bf8-fd2209703c08">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="253"/>
-	<property name="ireport.y" value="421"/>
+	<property name="ireport.x" value="139"/>
+	<property name="ireport.y" value="238"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -45,6 +45,8 @@
 	<parameter name="parameter4" class="java.lang.String"/>
 	<parameter name="factDef" class="java.util.List"/>
 	<parameter name="reliquat" class="java.lang.String"/>
+	<parameter name="totalfactreel" class="java.lang.Double"/>
+	<parameter name="totalrealisation" class="java.lang.Double"/>
 	<pageHeader>
 		<band height="155" splitType="Stretch">
 			<textField isBlankWhenNull="true">
@@ -246,7 +248,7 @@
 					<textElement textAlignment="Right">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{montantttc}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{totalrealisation}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement x="128" y="187" width="180" height="20" uuid="05511b7d-7c8c-4651-85b4-1952445d9c69"/>
@@ -415,7 +417,7 @@
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{montantttc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{totalfactreel}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="601" y="438" width="118" height="37" uuid="9fc36502-efe7-422e-8785-33fa9efe5d88"/>

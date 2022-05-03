@@ -2072,11 +2072,14 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             param.put("montant", prov.getMontantttc()); 
            param.put("datyedit", utilitaire.Utilitaire.dateDuJour()); 
             
-            
+            double totalmontantttc = 0;
             ArrayList<FactureClient> factDefList = new ArrayList<FactureClient>();
             for(int i = 0; i<factDef.length; i++){
+                totalmontantttc = totalmontantttc + factDef[i].getMontantttc();
                 factDefList.add(factDef[i]);
             }
+            param.put("totalfactreel",totalmontantttc);
+            param.put("totalrealisation",totalmontantttc);
             param.put("factDef", factDefList); 
             double total = AdminGen.calculSommeDouble(factDef, "montantttc");
             param.put("montantttc", epv.getMontantreste()); 
