@@ -35,6 +35,11 @@
     pi.getFormu().getChamp("iddevise").setAutre("onblur=\"dependanteChampUneValeur(this.value, 'montantdevise', 'coursdevise', 'fin.Coursdevise', 'iddevise', 'iddevise', 'montant','daty','desc');\"");
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
     pi.getFormu().getChamp("montantdevise").setLibelle("Montant devise");
+    
+    pi.getFormu().getChamp("ancienPlacement").setLibelle("Placement");
+    pi.getFormu().getChamp("ancienPlacement").setAutre("readonly");
+    pi.getFormu().getChamp("ancienPlacement").setPageAppel("choix/listePlacementChoix.jsp");
+    
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
     pi.getFormu().getChamp("etat").setVisible(false);
