@@ -35,6 +35,7 @@ public class Placement extends ClassEtat {
     private double montant_terme;
     private double interet_recevoir;
     private double interetNet;
+    private String ancienPlacement;
 
     public Placement() {
          super.setNomTable("placement");
@@ -218,6 +219,16 @@ public class Placement extends ClassEtat {
     public void setInteretNet(double interetNet) {
         this.interetNet = interetNet;
     }
+
+    
+    public String getAncienPlacement() {
+        return ancienPlacement;
+    }
+
+    public void setAncienPlacement(String ancienPlacement) {
+        this.ancienPlacement = ancienPlacement;
+    }
+
     
     public void controlerEntite(Connection c) throws Exception{
         int verif = 0;
