@@ -17,7 +17,7 @@ import utilitaire.UtilDB;
  * @author pro
  */
 public class PlacementLibComplet extends ClassEtat{
-    private String id,entite,identite,idbanque,valentite,desceentite,valbanque,descebanque,numero,iddetails,idmeredetails,mois,banque,iddevise;
+    private String id,entite,identite,idbanque,valentite,desceentite,valbanque,descebanque,numero,iddetails,idmeredetails,mois,banque,iddevise,ancienPlacement;
     private Date date_placement, date_echeance;
     private double duree, montant, taux, montant_mere, interet_recevoir, interet_net,montantdevise;
 
@@ -45,7 +45,13 @@ public class PlacementLibComplet extends ClassEtat{
         this.banque = banque;
     }
     
-    
+    public String getAncienPlacement() {
+        return ancienPlacement;
+    }
+
+    public void setAncienPlacment(String ancienPlacement) {
+        this.ancienPlacement = ancienPlacement;
+    }
     
     public PlacementLibComplet() {
          super.setNomTable("PLACEMENTLIBCOMPLET");
