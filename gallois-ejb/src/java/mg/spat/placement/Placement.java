@@ -29,6 +29,12 @@ public class Placement extends ClassEtat {
     private double taux;
     private double montantdevise;
     private String banque;
+    private int moisPlacement;
+    private int moisRemboursement;
+    private int anneePlacement;
+    private double montant_terme;
+    private double interet_recevoir;
+    private double interetNet;
 
     public Placement() {
          super.setNomTable("placement");
@@ -163,6 +169,54 @@ public class Placement extends ClassEtat {
 
     public void setBanque(String banque) {
         this.banque = banque;
+    }
+
+    public int getMoisPlacement() {
+        return moisPlacement;
+    }
+
+    public void setMoisPlacement(int moisPlacement) {
+        this.moisPlacement = moisPlacement;
+    }
+
+    public int getMoisRemboursement() {
+        return moisRemboursement;
+    }
+
+    public void setMoisRemboursement(int moisRemboursement) {
+        this.moisRemboursement = moisRemboursement;
+    }
+
+    public int getAnneePlacement() {
+        return anneePlacement;
+    }
+
+    public void setAnneePlacement(int anneePlacement) {
+        this.anneePlacement = anneePlacement;
+    }
+
+    public double getMontant_terme() {
+        return montant_terme;
+    }
+
+    public void setMontant_terme(double montant_terme) {
+        this.montant_terme = montant_terme;
+    }
+
+    public double getInteret_recevoir() {
+        return interet_recevoir;
+    }
+
+    public void setInteret_recevoir(double interet_recevoir) {
+        this.interet_recevoir = interet_recevoir;
+    }
+
+    public double getInteretNet() {
+        return interetNet;
+    }
+
+    public void setInteretNet(double interetNet) {
+        this.interetNet = interetNet;
     }
     
     public void controlerEntite(Connection c) throws Exception{
