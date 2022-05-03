@@ -204,17 +204,23 @@
 		<band height="42" splitType="Stretch">
 			<textField pattern="#,##0.00">
 				<reportElement x="316" y="15" width="90" height="20" uuid="92103184-736c-4b9a-a0b3-edfbd462a50d"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{totaltva}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement x="409" y="15" width="70" height="20" uuid="4c82f192-ba2d-4ff6-b3b6-e748c6f9860c"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{totaltaxe}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement x="492" y="15" width="63" height="20" uuid="bc4caaf2-04c9-4ddb-b4ff-50e69caa54b9"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{totalttc}]]></textFieldExpression>
 			</textField>
 		</band>
