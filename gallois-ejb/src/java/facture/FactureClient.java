@@ -63,7 +63,16 @@ public class FactureClient extends ClassMere {
     private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
     private Date dateDepart,datearrivee;
     private String armateur,codeFiltre;
-
+    
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        FactureClient factureClient =(FactureClient)(new FactureClient()).getById(this.getId(), "Factureclient", c);
+        
+        if(this.getType().equals(factureClient.getType())==false && this.getEstAncienne()!=1){
+            this.setCode(this.calculerCode(c));
+        }
+    }
+    
     public String getCodeFiltre() {
         return codeFiltre;
     }
@@ -579,7 +588,6 @@ public class FactureClient extends ClassMere {
 
             montant = getMontantResteProvision(c);
 
-            System.out.println(" montant ttc " + this.getMontantttc());
             if (montant >= this.getMontantttc()) {
                 montant = this.getMontantttc();
             }
@@ -969,7 +977,6 @@ public class FactureClient extends ClassMere {
     }
 
     public void payer(String caisse, String mode, String numcheque, String typeCheque, String iddevise, UserEJBBean user, Connection c) throws Exception {
-        System.out.println("-----------------FactureClienteeeeeeeeeeeeeeeeeeee.paye");
         JournalCaisse journal = new JournalCaisse();
 
         journal.setIdplacement(this.getId());
