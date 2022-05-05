@@ -2698,7 +2698,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             
             
         System.out.println("sql="+awhere);
-        
+        awhere+=" order by daty ASC";
         AvoirFC[] mere =(AvoirFC []) CGenUtil.rechercher( f , null, null, awhere);
         double totalHtva = 0;
         double totaltva = 0;
@@ -2720,6 +2720,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         param.put("totaltva",totaltva);
         param.put("totalHtva",totalHtva);
         param.put("totalttc",totalttc);
+        param.put("TYPE",typelib.toUpperCase());
         setNomJasper("numeroavoir");
         UtilitaireImpression.imprimer(request, response, "numeroavoir", param, dataSource, getReportPath());
         
