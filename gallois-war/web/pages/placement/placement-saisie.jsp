@@ -69,7 +69,7 @@
             pi.getFormu().getChamp("numero").setValeur(placement.getNumero()+"") ;
             pi.getFormu().getChamp("banque").setValeur(placement.getBanque()+"") ;
             pi.getFormu().getChamp("iddevise").setValeur(placement.getIddevise()+"") ;
-             pi.getFormu().getChamp("ancienPlacement").setDefaut(placement.getAncienPlacement());
+             pi.getFormu().getChamp("ancienPlacement").setDefaut(request.getParameter("idplacement"));
         }
           
     }

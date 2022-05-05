@@ -2097,12 +2097,14 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             setNomJasper("gestion provision");
             UtilitaireImpression.imprimer(request, response, "gestion de provision", param, null, getReportPath(), rt);
         } catch (Exception e) {
-            if(c!= null){
-                c.close();
-            }
+         
             e.printStackTrace();
         }
-
+        finally{
+              if(c!= null){
+                c.close();
+            } 
+        }
     }    
     
     /*public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response) {
