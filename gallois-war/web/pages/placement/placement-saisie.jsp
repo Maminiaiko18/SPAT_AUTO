@@ -60,6 +60,7 @@
         placement = new Placement();
         placement=(Placement)placement.getById(request.getParameter("idplacement"), "placement", null);
         if(placement!=null){
+            
             pi.getFormu().getChamp("entite").setDefaut(placement.getEntite()) ;
             pi.getFormu().getChamp("date_placement").setValeur(Utilitaire.datetostring(placement.getDate_placement())) ;
             pi.getFormu().getChamp("date_echeance").setValeur(Utilitaire.datetostring(placement.getDate_echeance())) ;
@@ -68,8 +69,9 @@
             pi.getFormu().getChamp("numero").setValeur(placement.getNumero()+"") ;
             pi.getFormu().getChamp("banque").setValeur(placement.getBanque()+"") ;
             pi.getFormu().getChamp("iddevise").setValeur(placement.getIddevise()+"") ;
+             pi.getFormu().getChamp("ancienPlacement").setDefaut(placement.getAncienPlacement());
         }
-           pi.getFormu().getChamp("ancienPlacement").setDefaut(placement.getAncienPlacement());
+          
     }
     pi.preparerDataFormu();
 %>
