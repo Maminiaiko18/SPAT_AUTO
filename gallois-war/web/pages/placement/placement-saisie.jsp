@@ -20,7 +20,9 @@
     pi.getFormu().getChamp("numero").setLibelle("Référence");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("duree").setVisible(false);
-       pi.getFormu().getChamp("ancienPlacement").setLibelle("rectif");
+       pi.getFormu().getChamp("ancienPlacement").setLibelle("Ancien placement");
+       pi.getFormu().getChamp("ancienPlacement").setAutre("readonly");
+        pi.getFormu().getChamp("ancienPlacement").setPageAppel("choix/listePlacementChoix.jsp");
     affichage.Champ[] liste = new affichage.Champ[3];
     
     TypeObjet mvt = new TypeObjet();
