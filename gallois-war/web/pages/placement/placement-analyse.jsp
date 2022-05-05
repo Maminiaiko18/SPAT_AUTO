@@ -25,8 +25,8 @@
             journal.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"entite", "banque", "moisplacementlib", "anneePlacement"};
-        String listeInt[] = {"moisplacementlib", "anneeplacement"};
+        String listeCrt[] = {"entite", "banque", "moisplacement", "anneePlacement"};
+        String listeInt[] = {"moisplacement", "anneeplacement"};
 
         String[] pourcentage = {};
         String somDefaut[] = {"montant", "montant_terme", "interet_recevoir","interetNet"};
@@ -38,8 +38,6 @@
 
         pr.getFormu().getChamp("entite").setLibelle("Entite");
         pr.getFormu().getChamp("banque").setLibelle("Banque");
-        pr.getFormu().getChamp("moisplacementlib1").setLibelle("Mois de Placement min");
-        pr.getFormu().getChamp("moisplacementlib2").setLibelle("Mois de Placement max");
 
         pr.getFormu().getChamp("anneePlacement1").setLibelle("Annee de Placement min");
         pr.getFormu().getChamp("anneePlacement2").setLibelle("Annee de Placement max");
@@ -50,10 +48,13 @@
         affichage.Champ[] liste = new affichage.Champ[2];
         TypeObjet mois = new TypeObjet();
         mois.setNomTable("mois");
-        liste[0] = new Liste("moisplacementlib2", mois, "desce", "desce");
-        liste[1] = new Liste("moisplacementlib1", mois, "desce", "desce");
+        liste[0] = new Liste("moisplacement1", mois, "desce", "id");
+        liste[1] = new Liste("moisplacement2", mois, "desce", "id");
         pr.getFormu().changerEnChamp(liste);
 
+        pr.getFormu().getChamp("moisplacement1").setLibelle("Mois de Placement min");
+        pr.getFormu().getChamp("moisplacement2").setLibelle("Mois de Placement max");
+        
         pr.setApres("placement/placement-analyse.jsp");
         pr.creerObjetPagePourc();
 
