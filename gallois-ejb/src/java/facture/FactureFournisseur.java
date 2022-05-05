@@ -358,7 +358,9 @@ public class FactureFournisseur extends FactureClient {
     public void setIdBL(String idBL) {
         this.idBL = idBL;
     }
+    public void controlerUpdate(Connection c) throws Exception {
 
+    }
     public BonDeLivraisonFilleReste[] getBP(Connection c) throws Exception {
         boolean ouvert = false;
         BonDeLivraisonFilleReste[] livraisons = new BonDeLivraisonFilleReste[0];
