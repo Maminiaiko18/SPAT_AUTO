@@ -1,0 +1,161 @@
+INSERT INTO USERMENU
+(ID, REFUSER, IDMENU, IDROLE, CODESERVICE, CODEDIR, INTERDIT)
+VALUES('UM10000020', NULL, 'MEN0008', 'ROL0000001241150817', NULL, NULL, 0);
+
+create or replace view ETATPROVISIONVRAI
+            (ID, MONTANTFACTURE, MONTANTPROVISION, MONTANTPAYE, ECART, TIERS, TIERSLIB, DATY, TIERSPROVISION,
+             TIERSLIBPROVISION, MONTANTRESTE, IDPROVISION,idcategorie)
+as
+SELECT fu.id,
+       cast(SUM(NVL(FCUV.MONTANTTTC, 0)) as NUMBER(30,3)) AS montantfacture,
+       cast(SUM(fu.MONTANTTTC) as NUMBER(30,3)) AS montantprovision,
+       cast(SUM(fu.MONTANTPAYE) as NUMBER(30,3)) AS MONTANTPAYE,
+       cast(SUM(fu.MONTANTPAYE) - SUM(NVL(FCUV.MONTANTTTC, 0)) as NUMBER(30,3)) AS ecart, --RAP
+            fu.TIERS,
+            fu.TIERSLIB,
+            fu.DATY,
+            '-' AS tiersprovision,
+            '-' AS tierslibprovision,
+       cast(SUM(fu.MONTANTTTC) - NVL(SUM(FCUV.MONTANTTTC), 0) as NUMBER(30,3))
+               AS MONTANTRESTE,
+            '',
+       fu.idcategorie
+       FROM FACTURECLIENTMSUM_LIB  fu
+            --left JOIN FACTURE_CLIENT_UNION fac ON fa.id = fac.IDPROVISION
+            LEFT JOIN FACTURE_CLIENT_UNION_VISE FCUV
+               ON fu.id = FCUV.IDPROVISION
+   GROUP BY fu.id,
+            fu.DATY,
+            fu.tiers,
+            fu.tierslib,
+            fu.idcategorie;
+
+
+
+CREATE OR REPLACE VIEW FACTUREFOURNVALIDE_P
+            (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, IDPREVISION, MONTANT,
+             MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, ESCALE,
+             TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, ESTDDPMICTSL, DEVISEMERE, CODEPRESTATION,
+             CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ETATLIB, IDBL, NUMEROOP, PROJET,
+             CODE_ETABLISSEMENT, PROJETLIB, CODE_ETABLISSEMENTLIB, NATURE, NATURELIB, IDBC, NUMOP, EXERCICE,
+             IDENGAGEMENT, IDENGAGEMENTLIB, CODEETABLISSEMENT)
+AS
+select ff.ID,
+       ff.DATY,
+       ff.TIERS,
+       DESIGNATION,
+       TYPE,
+       TVA,
+       ff.REMARQUE,
+       ff.IDUSER,
+       DATE_ECHEANCE,
+       ff.ETAT,
+       IDPREVISION,
+       ff.MONTANT,
+       MONTANTTVA,
+       MONTANTAVOIR,
+       MONTANTTTC,
+       MONTANTPAYE,
+       MONTANTRESTE,
+       TIERSLIB,
+       CONTACT,
+       ADRESSE,
+       ESCALE,
+       TYPELIB,
+       IDCATEGORIE,
+       CATEGORIELIB,
+       IDPROVISION,
+       IDPROVISIONLIB,
+       ESTDDPMICTSL,
+       DEVISEMERE,
+       CODEPRESTATION,
+       CODEPRESTATIONLIB,
+       CODE,
+       ESTMICTSL,
+       CODEPROVISION,
+       MONTANTTTCVRAI,
+       'PAYE'       as ETATLIB,
+       ff.IDBL,
+       ff.NUMEROOP,
+       projet,
+       code_etablissement,
+       projetlib,
+       code_etablissementlib,
+       NATURE,
+       NATURELIB,
+       IDBC,
+       ord.NUMEROOP as numop,
+       ff.exercice,
+       IDENGAGEMENT,
+       IDENGAGEMENTLIB,
+       CODE_ETABLISSEMENT
+from FACTUREFOURNVALIDE ff
+         join LIAISONINTRATABLE_OP_JOURNAL li on li.ID1 = ff.ID
+         left join ORDONNERPAYEMENT ord on li.ID2 = ord.id
+         left join PAIEMENTFACTUREF_GRP gr on gr.IDFACT = ff.id
+where li.IDJOURNAL is not null
+  and li.ETATJC = 11
+and gr.MONTANT = ff.MONTANTTTC ;
+
+
+  CREATE OR REPLACE  VIEW FACTUREFOURNVALIDE_EP (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, IDPREVISION, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, ESCALE, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, ESTDDPMICTSL, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ETATLIB, IDBL, NUMEROOP, PROJET, CODE_ETABLISSEMENT, PROJETLIB, CODE_ETABLISSEMENTLIB, NATURE, NATURELIB, IDBC, NUMOP, EXERCICE, IDENGAGEMENT, IDENGAGEMENTLIB, CODEETABLISSEMENT) AS 
+  select ff.ID,
+       ff.DATY,
+       ff.TIERS,
+       DESIGNATION,
+       TYPE,
+       TVA,
+       ff.REMARQUE,
+       ff.IDUSER,
+       DATE_ECHEANCE,
+       ff.ETAT,
+       IDPREVISION,
+       ff.MONTANT,
+       MONTANTTVA,
+       MONTANTAVOIR,
+       MONTANTTTC,
+       MONTANTPAYE,
+       MONTANTRESTE,
+       TIERSLIB,
+       CONTACT,
+       ADRESSE,
+       ESCALE,
+       TYPELIB,
+       IDCATEGORIE,
+       CATEGORIELIB,
+       IDPROVISION,
+       IDPROVISIONLIB,
+       ESTDDPMICTSL,
+       DEVISEMERE,
+       CODEPRESTATION,
+       CODEPRESTATIONLIB,
+       CODE,
+       ESTMICTSL,
+       CODEPROVISION,
+       MONTANTTTCVRAI,
+       'ATTENTE DE PAIEMENT' as ETATLIB,
+       ff.IDBL,
+       ff.NUMEROOP,
+       projet,
+       code_etablissement,
+       projetlib,
+       code_etablissementlib,
+       NATURE,
+       NATURELIB,
+       IDBC,
+       ord.NUMEROOP          as numop,
+       ff.exercice,
+       IDENGAGEMENT,
+       IDENGAGEMENTLIB,
+       CODE_ETABLISSEMENT
+from FACTUREFOURNVALIDE ff
+         join LIAISONINTRATABLE_OP_JOURNAL li on li.ID1 = ff.ID
+         left join ORDONNERPAYEMENT ord on li.ID2 = ord.id
+where (li.IDJOURNAL is not null
+    and li.ETATJC = 1 and gr.MONTANT < ff.MONTANTTTC)
+   or (li.IDJOURNAL is null and gr.MONTANT < ff.MONTANTTTC);
+
+
+ 
+
+
