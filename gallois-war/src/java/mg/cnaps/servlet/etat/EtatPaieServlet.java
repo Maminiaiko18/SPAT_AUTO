@@ -9,7 +9,7 @@ import avoir.AvoirFCFille;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.lang.Math;
 import mg.spat.EtatRedevance;
 import mg.spat.EtatJournalCaisse;
 import bean.AdminGen;
@@ -2082,7 +2082,8 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             param.put("totalrealisation",totalmontantttc);
             param.put("factDef", factDefList); 
             double total = AdminGen.calculSommeDouble(factDef, "montantttc");
-            param.put("montantttc", epv.getMontantreste()); 
+            double montantreste = Math.abs(epv.getMontantreste());
+            param.put("montantttc", montantreste); 
             
             double reste = epv.getMontantreste();
             String reliquat = "Reliquat en faveur du client";

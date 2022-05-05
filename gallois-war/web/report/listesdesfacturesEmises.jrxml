@@ -119,50 +119,50 @@
 	<columnHeader>
 		<band height="50">
 			<staticText>
-				<reportElement x="0" y="30" width="100" height="20" uuid="aba9b525-4f8d-47c3-9ca1-1b0553eb1c85"/>
+				<reportElement x="0" y="30" width="65" height="20" uuid="aba9b525-4f8d-47c3-9ca1-1b0553eb1c85"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[N° Facture]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="108" y="30" width="77" height="20" uuid="dae95c97-c92c-404f-be2c-123bb784db2e"/>
+				<reportElement x="67" y="30" width="63" height="20" uuid="dae95c97-c92c-404f-be2c-123bb784db2e"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="185" y="28" width="121" height="22" uuid="41768a97-397d-47db-8175-347af2cd5e86"/>
+				<reportElement x="132" y="28" width="90" height="22" uuid="41768a97-397d-47db-8175-347af2cd5e86"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Client]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="316" y="8" width="90" height="22" uuid="a42a69da-2ea6-4b8e-af47-4d976d760fa4"/>
+				<reportElement x="275" y="8" width="105" height="22" uuid="a42a69da-2ea6-4b8e-af47-4d976d760fa4"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="409" y="30" width="70" height="20" uuid="6ac622e5-a881-4f6a-8a89-2e972110a49c"/>
-				<textElement textAlignment="Right">
+				<reportElement x="340" y="30" width="110" height="20" uuid="6ac622e5-a881-4f6a-8a89-2e972110a49c"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Taxe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="316" y="30" width="90" height="20" uuid="42816577-eacf-48e8-98ea-b3fe7d48f3f2"/>
-				<textElement textAlignment="Right">
+				<reportElement x="223" y="30" width="116" height="20" uuid="42816577-eacf-48e8-98ea-b3fe7d48f3f2"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[HTVA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="489" y="30" width="66" height="20" uuid="30acab97-2525-4890-89cf-24416c45b852"/>
-				<textElement>
+				<reportElement x="451" y="30" width="104" height="20" uuid="30acab97-2525-4890-89cf-24416c45b852"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant TTC]]></text>
@@ -172,52 +172,52 @@
 	<detail>
 		<band height="32" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="10" width="100" height="20" uuid="d691d65f-76df-475a-a57f-18995ce5c3a6"/>
+				<reportElement x="0" y="10" width="65" height="20" uuid="d691d65f-76df-475a-a57f-18995ce5c3a6"/>
 				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="108" y="10" width="74" height="20" uuid="8b0fe06a-2485-43df-9181-959e65e5de53"/>
+				<reportElement x="67" y="12" width="63" height="20" uuid="8b0fe06a-2485-43df-9181-959e65e5de53"/>
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="185" y="10" width="121" height="20" uuid="c09415d5-2c91-4927-88a6-f4b5232f398a"/>
+				<reportElement x="132" y="10" width="90" height="20" uuid="c09415d5-2c91-4927-88a6-f4b5232f398a"/>
 				<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="316" y="10" width="90" height="20" uuid="87edf6a2-f87e-4c41-85bb-b42dbb935c2b"/>
+				<reportElement x="223" y="10" width="116" height="20" uuid="87edf6a2-f87e-4c41-85bb-b42dbb935c2b"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{montanttva}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="409" y="10" width="70" height="20" uuid="4811b5b4-9eb4-4e4a-98ee-32bca55ff3bd"/>
+				<reportElement x="341" y="12" width="110" height="20" uuid="4811b5b4-9eb4-4e4a-98ee-32bca55ff3bd"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="492" y="8" width="63" height="20" uuid="cb95ec77-39dc-4432-a873-25ddb56ca9fb"/>
+				<reportElement x="451" y="12" width="104" height="20" uuid="cb95ec77-39dc-4432-a873-25ddb56ca9fb"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<summary>
-		<band height="42" splitType="Stretch">
+		<band height="43" splitType="Stretch">
 			<textField pattern="#,##0.00">
-				<reportElement x="316" y="15" width="90" height="20" uuid="92103184-736c-4b9a-a0b3-edfbd462a50d"/>
+				<reportElement x="223" y="15" width="116" height="20" uuid="92103184-736c-4b9a-a0b3-edfbd462a50d"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totaltva}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="409" y="15" width="70" height="20" uuid="4c82f192-ba2d-4ff6-b3b6-e748c6f9860c"/>
+				<reportElement x="340" y="15" width="110" height="20" uuid="4c82f192-ba2d-4ff6-b3b6-e748c6f9860c"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totaltaxe}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="492" y="15" width="63" height="20" uuid="bc4caaf2-04c9-4ddb-b4ff-50e69caa54b9"/>
+				<reportElement x="451" y="15" width="104" height="20" uuid="bc4caaf2-04c9-4ddb-b4ff-50e69caa54b9"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
