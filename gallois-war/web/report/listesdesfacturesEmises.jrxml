@@ -140,8 +140,8 @@
 				<text><![CDATA[Client]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="275" y="8" width="105" height="22" uuid="a42a69da-2ea6-4b8e-af47-4d976d760fa4"/>
-				<textElement textAlignment="Right">
+				<reportElement x="223" y="6" width="116" height="22" uuid="a42a69da-2ea6-4b8e-af47-4d976d760fa4"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant ]]></text>
