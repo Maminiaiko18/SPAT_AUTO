@@ -22,7 +22,7 @@
         String listeInt[] = {"moisPlacement", "anneeplacement"};
 
         String[] pourcentage = {};
-        String somDefaut[] = {"montant", "montant_terme", "interet_recevoir"};
+        String somDefaut[] = {"montant", "montant_terme", "interet_recevoir","interetNet"};
         String colDefaut[] = {"entite", "banque", "moisPlacement", "anneePlacement"};
 
         PageRechercheGroupe pr = new PageRechercheGroupe(journal, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, 3);
