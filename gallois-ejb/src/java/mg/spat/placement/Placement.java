@@ -36,6 +36,24 @@ public class Placement extends ClassEtat {
     private double interet_recevoir;
     private double interetNet;
     private String ancienPlacement;
+    private String moisPlacementlib,moisRembousementlib;
+
+    public String getMoisPlacementlib() {
+        return moisPlacementlib;
+    }
+
+    public void setMoisPlacementlib(String moisPlacementlib) {
+        this.moisPlacementlib = moisPlacementlib;
+    }
+
+    public String getMoisRembousementlib() {
+        return moisRembousementlib;
+    }
+
+    public void setMoisRembousementlib(String moisRembousementlib) {
+        this.moisRembousementlib = moisRembousementlib;
+    }
+    
 
     public Placement() {
          super.setNomTable("placement");
