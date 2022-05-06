@@ -14,16 +14,16 @@
         EtatProvision base = new EtatProvision();
         base.setNomTable("etat_provisionlib");
 
-        String listeCrt[] = {"id","idFacture", "numpiece", "numProvision", "operation", "tierslib","idnavirelib","idmodelib","idbanquelib"};
+        String listeCrt[] = {"id","code", "numpiece", "numProvision", "operation", "tierslib","idnavirelib","idmodelib","idbanquelib"};
         String listeInt[] = {};
-        String libEntete[] = {"id","idFacture", "numpiece", "numProvision", "operation", "tierslib","idnavirelib","idmodelib","idbanquelib"};
+        String libEntete[] = {"id","code", "numpiece", "numProvision", "operation", "tierslib","idnavirelib","idmodelib","idbanquelib"};
 
         PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         
         pr.getFormu().getChamp("id").setLibelle("Id");
-        pr.getFormu().getChamp("idFacture").setLibelle("Facture");
+        pr.getFormu().getChamp("code").setLibelle("Facture");
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("idnavirelib").setLibelle("Navire");
         pr.getFormu().getChamp("idmodelib").setLibelle("Mode");
