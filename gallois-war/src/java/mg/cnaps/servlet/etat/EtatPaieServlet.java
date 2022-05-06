@@ -2587,6 +2587,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         {
             awhere+=" AND codeFiltre like'%"+codeFiltre+"%'";
         }
+        
           System.out.println("etat==="+etat);
           Map param = new HashMap();
         if(etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0)
@@ -2608,11 +2609,12 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             jc.setNomTable("rubrique_fact_emises");
             String req =" and val='"+codeFiltre+"'";
             System.out.println("req==="+req);
+            
             TypeObjet[] tab = (TypeObjet[]) CGenUtil.rechercher(jc, null, null,req);
              System.out.println("length==="+tab.length);
             param.put("prestation",tab[0].getDesce());
         System.out.println("sql="+awhere);
-        
+        awhere+=" order by daty ASC";
         FactureClient[] mere =(FactureClient []) CGenUtil.rechercher( f , null, null, awhere);
         double totaltva = 0;
         double totaltaxe = 0;
