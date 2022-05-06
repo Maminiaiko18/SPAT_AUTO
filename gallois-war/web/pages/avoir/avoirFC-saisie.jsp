@@ -63,6 +63,9 @@
             pi.getFormufle().getChamp("montant_"+i).setDefaut(data[i].getMontantnet()+"");
             pi.getFormufle().getChamp("tva_"+i).setDefaut(data[i].getTva()+"");
             pi.getFormufle().getChamp("qte_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("red_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("pu_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("maj_"+i).setAutre("oninput='calcMontant(" + i + ")'");
              pi.getFormufle().getChamp("maj_"+i).setDefaut(data[i].getMajoration()+"");
             pi.getFormufle().getChamp("red_"+i).setDefaut(data[i].getReduction()+"");
         }
@@ -169,12 +172,21 @@
  
 </div>
 <script>
+    function parseNumberOrDefault(value, defaultValue = 0) {
+        value = parseFloat(value);
+        if(isNaN(value)) return defaultValue;
+        return value;
+    }
     function calcMontant(index) {
-        const qte = document.getElementById('qte_'+index).value
-        const pu = document.getElementById('pu_'+index).value
+        const qte = parseFloat(document.getElementById('qte_'+index).value);
+        const pu = parseFloat(document.getElementById('pu_'+index).value);
+        const maj = document.getElementById('maj_'+index).value;
+        const red = document.getElementById('red_'+index).value;
         
         if(!isNaN(qte) && !isNaN(pu)) {
-            document.getElementById('montant_'+index).value = (parseFloat(qte) * parseFloat(pu)).toFixed(3)
+            let montant = qte * pu;
+            montant = montant * (1 + (parseNumberOrDefault(maj)/100) - (parseNumberOrDefault(red)/100));
+            document.getElementById('montant_'+index).value = montant.toFixed(3);
         }
     }
 </script>
