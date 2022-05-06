@@ -62,6 +62,7 @@
             pi.getFormufle().getChamp("pu_"+i).setDefaut(data[i].getPu()+"");
             pi.getFormufle().getChamp("montant_"+i).setDefaut(data[i].getMontantnet()+"");
             pi.getFormufle().getChamp("tva_"+i).setDefaut(data[i].getTva()+"");
+            pi.getFormufle().getChamp("qte_"+i).setAutre("oninput='calcMontant(" + i + ")'");
         }
     }
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
@@ -163,7 +164,16 @@
     </form>
  
 </div>
-
+<script>
+    function calcMontant(index) {
+        const qte = document.getElementById('qte_'+index).value
+        const pu = document.getElementById('pu_'+index).value
+        
+        if(!isNaN(qte) && !isNaN(pu)) {
+            document.getElementById('montant_'+index).value = (parseFloat(qte) * parseFloat(pu)).toFixed(3)
+        }
+    }
+</script>
 <%
 	} catch (Exception e) {
 		e.printStackTrace();
