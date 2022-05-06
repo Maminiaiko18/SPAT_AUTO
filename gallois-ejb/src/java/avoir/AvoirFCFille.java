@@ -27,6 +27,24 @@ public class AvoirFCFille extends ClassFille {
     private String idmere, compte, iddetailfacture, devise, designation;
     private double remise;
     private double montant, montantdf, montantDFTaux,tva;
+    private double qte ,pu;
+
+    public double getQte() {
+        return qte;
+    }
+
+    public void setQte(double qte) {
+        this.qte = qte;
+    }
+
+    public double getPu() {
+        return pu;
+    }
+
+    public void setPu(double pu) {
+        this.pu = pu;
+    }
+    
 
     public FactureClient getFacture(Connection c) throws Exception {
         FactureClient fc = new FactureClient();
