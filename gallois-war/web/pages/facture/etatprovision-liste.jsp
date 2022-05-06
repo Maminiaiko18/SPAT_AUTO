@@ -21,7 +21,6 @@
         PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.setApres("facture/etatprovision-liste.jsp");
         
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.getFormu().getChamp("idFacture").setLibelle("Facture");
@@ -32,6 +31,8 @@
         pr.getFormu().getChamp("numpiece").setLibelle("Numéro pièce");
         pr.getFormu().getChamp("numProvision").setLibelle("Numéro provision");
         pr.getFormu().getChamp("operation").setLibelle("Opération");
+        
+        pr.setApres("facture/etatprovision-liste.jsp");
         
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
@@ -46,7 +47,7 @@
         <h1>Etat de provision</h1>
     </section>
     <section class="content">
-        <form action='<%=pr.getLien() + "?but=" + pr.getLien() %>' method="post" name="liste" id="liste">
+        <form action='<%=pr.getLien() + "?but=facture/etatprovision-liste.jsp" %>' method="post" name="liste" id="liste">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
