@@ -73,9 +73,16 @@ try{
     pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
     pi.getFormufle().getChamp("Id_0").setLibelle("Id");
     pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
-    pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
+    pi.getFormufle().getChamp("Compte_0").setVisible(false);
 //    pi.getFormufle().getChamp("montantdftaux_0").setLibelle("Montant FD Taux");
-    pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
+    pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");    
+    
+    pi.getFormufle().getChamp("qte_0").setLibelle("qte");
+    pi.getFormufle().getChamp("pu_0").setLibelle("pu");
+    pi.getFormufle().getChamp("duree_0").setLibelle("duree");
+    pi.getFormufle().getChamp("maj_0").setLibelle("maj");
+    pi.getFormufle().getChamp("red_0").setLibelle("red");
+
     pi.getFormufle().getChamp("tvaAv_0").setLibelle("TVA Avoir");
     pi.getFormufle().getChamp("tvaDf_0").setLibelle("TVA detail facture");
     
@@ -84,19 +91,14 @@ try{
     pi.getFormufle().getChamp("Designation_0").setLibelle("Designation");
     pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
     
-    pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
-    pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
-    pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
+   
     pi.getFormufle().getChamp("Montantdf_0").setLibelle("Montant detail facture");
-    pi.getFormufle().getChamp("Devise_0").setLibelle("Devise");
-    pi.getFormufle().getChamp("Designation_0").setLibelle("Designation");
-    pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     
     
-    String[] ordreFille ={"iddetailfacture","designation","compte","devise","montant","tvaav","montantdf","tvadf","remise"};
+    String[] ordreFille ={"iddetailfacture","designation","devise","qte","pu","duree","maj","red","montant","tvaav","montantdf","tvadf","remise"};
     pi.getFormufle().setColOrdre(ordreFille);
     
     mere = (AvoirFC) pi.getBase();
