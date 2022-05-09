@@ -19,7 +19,6 @@
                             <th style="background-color:#bed1dd;">Detail Facture</th>
                             <th style="background-color:#bed1dd;">D&eacute;signation</th>
                             <th style="background-color:#bed1dd;">Montant</th>
-                            <th style="background-color:#bed1dd;">Compte</th>
                             <th style="background-color:#bed1dd;">Devise</th>
                         </tr>
                        </thead>
@@ -35,7 +34,6 @@
                                <td><%=Utilitaire.champNull(item.getIddetailfacture())%></td>
                                <td><%=Utilitaire.champNull(item.getDesignation())%></td>
                                <td><%=Utilitaire.formaterAr(item.getMontant())%></td>
-                               <td><%=Utilitaire.champNull(item.getCompte())%></td>
                                <td><%=Utilitaire.champNull(item.getDevise())%></td>
                            </tr>
                            <%}}%>
