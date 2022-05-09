@@ -25,9 +25,18 @@ public class AvoirFCFille extends ClassFille {
 
     private String id;
     private String idmere, compte, iddetailfacture, devise, designation;
+
+    public double getDuree() {
+        return duree;
+    }
+
+    public void setDuree(double duree) {
+        this.duree = duree;
+    }
     private double remise;
     private double montant, montantdf, montantDFTaux,tva;
-    private double qte ,pu;
+    private double qte ,pu,duree;
+    
 
     public double getQte() {
         return qte;
