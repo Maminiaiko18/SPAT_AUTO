@@ -68,6 +68,7 @@
             pi.getFormufle().getChamp("maj_"+i).setAutre("oninput='calcMontant(" + i + ")'");
              pi.getFormufle().getChamp("maj_"+i).setDefaut(data[i].getMajoration()+"");
             pi.getFormufle().getChamp("red_"+i).setDefaut(data[i].getReduction()+"");
+           pi.getFormufle().getChamp("duree_"+i).setDefaut(data[i].getDuree()+"");
         }
     }
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
@@ -127,6 +128,7 @@
 
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("iddetailfacture"), "choix/listeFactureClientDetailsChoix.jsp", "iddetailfacture;iddetailfacturelibelle");
     pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
+    pi.getFormufle().getChamp("duree_0").setLibelle("Durée");
     pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
     pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("Montantdf_0").setLibelle("Montant detail facture");
@@ -147,7 +149,7 @@
     
     String[] ordre = {"id","daty","idfacture","etat","designation","code","type","categorie","motif"};
     pi.getFormu().setOrdre(ordre);
-    String[] ordreFille ={"iddetailfacture","designation","devise","qte","pu","maj","red","montant","tva","montantdf","tvadf","remise"};
+    String[] ordreFille ={"iddetailfacture","designation","devise","qte","pu","duree","maj","red","montant","tva","montantdf","tvadf","remise"};
     pi.getFormufle().setColOrdre(ordreFille);
     pi.preparerDataFormu();
 %>
