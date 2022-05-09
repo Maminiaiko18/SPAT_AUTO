@@ -157,6 +157,9 @@ public class AvoirFCFille extends ClassFille {
             }
             
             if(fcd.getTva() < this.getTva()) throw new Exception("Tva invalide pour l`avoir");
+            
+            if (this.getPu()!=fcd.getPu())
+                throw new Exception("PU invalide");
         }
     }
 
