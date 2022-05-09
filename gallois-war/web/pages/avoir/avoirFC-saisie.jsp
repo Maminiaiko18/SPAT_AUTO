@@ -66,6 +66,7 @@
             pi.getFormufle().getChamp("red_"+i).setAutre("oninput='calcMontant(" + i + ")'");
             pi.getFormufle().getChamp("pu_"+i).setAutre("oninput='calcMontant(" + i + ")'");
             pi.getFormufle().getChamp("maj_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("duree_"+i).setAutre("oninput='calcMontant(" + i + ")'");
              pi.getFormufle().getChamp("maj_"+i).setDefaut(data[i].getMajoration()+"");
             pi.getFormufle().getChamp("red_"+i).setDefaut(data[i].getReduction()+"");
            pi.getFormufle().getChamp("duree_"+i).setDefaut(data[i].getDuree()+"");
@@ -183,10 +184,11 @@
         const qte = parseFloat(document.getElementById('qte_'+index).value);
         const pu = parseFloat(document.getElementById('pu_'+index).value);
         const maj = document.getElementById('maj_'+index).value;
+        const duree = document.getElementById('duree_'+index).value;
         const red = document.getElementById('red_'+index).value;
         
         if(!isNaN(qte) && !isNaN(pu)) {
-            let montant = qte * pu;
+            let montant = qte * pu * parseNumberOrDefault(duree, 1);
             montant = montant * (1 + (parseNumberOrDefault(maj)/100) - (parseNumberOrDefault(red)/100));
             document.getElementById('montant_'+index).value = montant.toFixed(3);
         }

@@ -70,6 +70,15 @@ try{
 //    affichage.Champ.setVisible(pi.getFormufle().getChampFille("montantdf"), false);
 //    affichage.Champ.setVisible(pi.getFormufle().getChampFille("designation"), false);
     
+        for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){
+            pi.getFormufle().getChamp("qte_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("red_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("pu_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("maj_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("duree_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+        }
+
+
     pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Id Détail Facture");
     pi.getFormufle().getChamp("Id_0").setLibelle("Id");
     pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
@@ -135,7 +144,26 @@ try{
         </div>
     </div>
 </div>
-      
+<script>
+    function parseNumberOrDefault(value, defaultValue = 0) {
+        value = parseFloat(value);
+        if(isNaN(value)) return defaultValue;
+        return value;
+    }
+    function calcMontant(index) {
+        const qte = parseFloat(document.getElementById('qte_'+index).value);
+        const pu = parseFloat(document.getElementById('pu_'+index).value);
+        const maj = document.getElementById('maj_'+index).value;
+        const duree = document.getElementById('duree_'+index).value;
+        const red = document.getElementById('red_'+index).value;
+        
+        if(!isNaN(qte) && !isNaN(pu)) {
+            let montant = qte * pu * parseNumberOrDefault(duree, 1);
+            montant = montant * (1 + (parseNumberOrDefault(maj)/100) - (parseNumberOrDefault(red)/100));
+            document.getElementById('montant_'+index).value = montant.toFixed(3);
+        }
+    }
+</script>
 <script>
     <%  for(int i=0; liste!=null && i<liste.length; i++){%>
         document.getElementById("iddetailfacturelibelle_<%=i%>").value = "<%=liste[i].getDesignation() %>";
