@@ -22,6 +22,15 @@ public class BonDeCommandeFille extends ClassMAPTable {
     private double montantht,montanttva,montantttc,remise;
     private double montantremise;
     private String observation;
+    private int numeroLigne;
+
+    public int getNumeroLigne() {
+        return numeroLigne;
+    }
+
+    public void setNumeroLigne(int numeroLigne) {
+        this.numeroLigne = numeroLigne;
+    }
 
     public String getObservation() {
         return observation;
