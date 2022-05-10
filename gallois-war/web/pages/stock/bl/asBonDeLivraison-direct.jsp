@@ -61,6 +61,8 @@
                                             <th style="background-color:#bed1dd">ID Bon de commande</th>
                                             <th style="background-color:#bed1dd">Produit</th>
                                             <th style="background-color:#bed1dd">PU</th>
+                                            <th style="background-color:#bed1dd">Remise</th>
+                                            <th style="background-color:#bed1dd">TVA</th>
                                             <th style="background-color:#bed1dd">Quantité</th>
                                             <th style="background-color:#bed1dd">Montant</th>
                                         </tr>
@@ -77,6 +79,8 @@
                                         <td><input type="hidden" class="form form-control" name="id" id="id<%=i%>" value="<%=listef[i].getId()%>"><%=listef[i].getId()%></td>
                                         <td><input type="hidden" class="form form-control" name="produit" id="produit<%=i%>" value="<%=listef[i].getProduit()%>"><%=listef[i].getProduit()%></td>
                                         <td><input type="text" class="form form-control" name="pu" id="pu<%=i%>" value="<%=listef[i].getPu()%>" onchange="calculMontant(<%= i %>)"></td>
+                                        <td><input type="text" class="form form-control" name="remise" id="remise<%=i%>" value="<%=listef[i].getRemise()%>" readonly></td>
+                                        <td><input type="text" class="form form-control" name="tva" id="tva<%=i%>" value="<%=listef[i].getTva()%>" readonly></td>
                                         <td><input type="text" class="form form-control" name="quantite" id="quantite<%=i%>" value="<%=listef[i].getQuantitereste()%>" onchange="calculMontant(<%= i %>)"></td>
                                         <td align="right" id="montant<%= i %>"><%= Utilitaire.formaterAr(listef[i].getPu() * listef[i].getQuantitereste()) %></td>
                                     </tr>
