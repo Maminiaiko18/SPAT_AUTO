@@ -88,7 +88,8 @@
                             <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annuler&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin-right: 10px">Annuler</a>
                             <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bc/asBonDeCommande-modif-multiple.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin-right: 10px">Viser</a>
-                            <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bc/bonDeCommandeFille-saisie.jsp&idbc=" + request.getParameter("id")%>" style="margin-right: 10px">Ajouter détails BC</a>
+                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/DetailsBCExcel?action=detailsBcExcel&id=<%=bondecommande.getId()%>" style="margin-right: 10px">Exporter Excel</a>
+                            <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bc/bonDeCommandeFille-saisie.jsp&idbc=" + request.getParameter("id")%>" style="margin-right: 10px">Ajouter détails BC</a>
                             <% }%>
                             <% if (bondecommande.getEtat() == ConstanteEtat.getEtatValider()) {%>
                             <a class="btn btn-default pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/asBonDeLivraison-direct.jsp&id_bc=" + request.getParameter("id")%>" style="margin-right: 10px">Reception</a>
@@ -105,6 +106,7 @@
                             <% } %>
                             <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=boncommande&id=<%=bondecommande.getId()%>" style="margin-right: 10px">Imprimer</a>
                             <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") %>?but=facture/facture-fournisseur-saisie-multiple.jsp&idBC=<%=bondecommande.getId()%>" style="margin-right: 10px">Facturer</a>
+                            
                         </div>
                     </div>
                 </div>
