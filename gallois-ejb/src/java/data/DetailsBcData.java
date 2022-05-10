@@ -61,7 +61,7 @@ public class DetailsBcData {
         }
     }
 
-	public void setBCOrderByProduitAsc(String vue_mere,String vue_fille) throws Exception{
+    public void setBCOrderByProduitAsc(String vue_mere,String vue_fille) throws Exception{
         Connection c=null;
         int verif = 0;
         try {
@@ -89,6 +89,12 @@ public class DetailsBcData {
             if (c != null && verif == 1) {
                 c.close();
             }
+        }
+    }
+    
+    public void attribuerLigne(){
+        for (int i = 0; i < this.bcFille.length; i++) {
+            bcFille[i].setNumeroLigne(i+1);
         }
     }
 

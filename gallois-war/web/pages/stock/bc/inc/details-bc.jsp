@@ -13,6 +13,7 @@
     DetailsBcData data=new DetailsBcData(request.getParameter("id"));                                 
     data.setBCOrderByProduitAsc("AS_BONDECOMMANDE_LIBELLE_lib","BC_BL_LIVRE");
     BonDeCommandeFille[] liste = data.getBcFille();
+    data.attribuerLigne();
     double total = data.getBc().getMontantTTC();
     double tva=data.getBc().getMontanttva();
     double remise=data.getBc().getMontantRemise();
@@ -24,6 +25,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <th>N°</th>
                                 <th>Produit</th>
                                 <th>Quantit&eacute; command&eacute;e</th>
                                 <th>Quantit&eacute; livr&eacute;e</th>
@@ -45,6 +47,7 @@
                                     double montant = liste[i].getQuantite() * liste[i].getPu();
                             %>
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
+                                <td  align="center"><%=liste[i].getNumeroLigne()%> </td>
                                 <td  align="center"><%=liste[i].getProduit()%> </td>
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantite())%></td>
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantitelivre())%></td>
