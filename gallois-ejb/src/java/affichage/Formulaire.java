@@ -1728,6 +1728,7 @@ public class Formulaire {
         temp += "<button type='reset' name='Submit2' class='btn btn-default pull-right' style='margin-right: 15px;' tabIndex='" + getListeChamp().length + 2 + "'>R&eacute;initialiser</button>";
         
         temp += "<button type='button' class='btn btn-default pull-right' onclick='add_line_tab(JSON.stringify("+json+"))' style='margin-right: 15px;'>Ajouter une ligne</button>";
+        temp += "<button type='button' class='btn btn-default pull-right' onclick='add_line_tabs(JSON.stringify("+json+"))' style='margin-right: 15px;'>Ajouter dix lignes</button>";
         //temp += "<button type='button' class='btn btn-default pull-right' onclick='add_line()' style='margin-right: 15px;'>Ajouter une ligne</button>";
         //temp += "<button type='reset' name='Submit2' class='btn btn-default pull-right' style='margin-right: 15px;' tabIndex='" + getListeChamp().length + 2 + "'>R&eacute;initialiser</button>";
         temp += "</div>";
