@@ -69,12 +69,12 @@
                                 <td  align="right"><%=Utilitaire.formaterAr(data.getBc().getMontant())%></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
-                                <th  align="right">Montant TVA</th>
-                                <td  align="right"><%=Utilitaire.formaterAr(tva)%></td>
-                            </tr>
-                            <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
                                 <th  align="right">Montant Remise</th>
                                 <td  align="right"><%=Utilitaire.formaterAr(remise)%></td>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
+                                <th  align="right">Montant TVA</th>
+                                <td  align="right"><%=Utilitaire.formaterAr(tva)%></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
                                 <th  align="right">Montant TTC</th>
