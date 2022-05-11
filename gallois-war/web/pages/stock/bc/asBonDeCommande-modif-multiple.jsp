@@ -177,7 +177,6 @@ try{
         var btn = this;
         btn.disabled = true;
         var query = $("form[name='medhospi']").serialize();
-        console.log(query);
         $.get("apresMultipleAjax.jsp?&id=<%=request.getParameter("id")%>&"+query, function(data, status){
             var temp = data.trim().split("_");
             if(temp[0] === 'error'){
