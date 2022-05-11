@@ -20,13 +20,21 @@ public class BonDeCommandeFille extends ClassMAPTable {
     private double pu, montant, quantitelivre, quantitereste, tva;
     private String produitlib;
     private String fournisseur;
-    private double montantht,montanttva,montantttc,remise;
+    private double montantht,montanttva,montantttc,remise,montantHTSansRemise;
     private double montantremise;
     private String observation;
     private String code,projet;
     private int numeroLigne;
     private Date daty;
 
+    public double getMontantHTSansRemise() {
+        return montantHTSansRemise;
+    }
+
+    public void setMontantHTSansRemise(double montantHTSansRemise) {
+        this.montantHTSansRemise = montantHTSansRemise;
+    }
+    
     public String getProjet() {
         return projet;
     }
