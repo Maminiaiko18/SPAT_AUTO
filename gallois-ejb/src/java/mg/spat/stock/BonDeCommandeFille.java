@@ -19,10 +19,37 @@ public class BonDeCommandeFille extends ClassMAPTable {
     private double quantiteparpack, quantite,montantbl,montantblreste ;
     private double pu, montant, quantitelivre, quantitereste, tva;
     private String produitlib;
+    private String fournisseur;
     private double montantht,montanttva,montantttc,remise;
     private double montantremise;
     private String observation;
+    private String code,projet;
     private int numeroLigne;
+    private Date daty;
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+    
+     public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+    
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date date) {
+        this.daty = date;
+    }
 
     public int getNumeroLigne() {
         return numeroLigne;
@@ -36,6 +63,14 @@ public class BonDeCommandeFille extends ClassMAPTable {
         return observation;
     }
 
+     public String getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(String fournisseur) {
+        this.fournisseur = fournisseur;
+    }
+    
     public void setObservation(String observetion) {
         this.observation = observetion;
     }
