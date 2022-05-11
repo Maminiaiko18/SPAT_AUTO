@@ -43,18 +43,16 @@
                         <tbody>
                             <%   
                                     
-                                for (int i = 0; i < liste.length; i++) {
-                                    double montant = liste[i].getQuantite() * liste[i].getPu();
-                            %>
+                                for (int i = 0; i < liste.length; i++) {                            %>
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
                                 <td  align="center"><%=liste[i].getNumeroLigne()%> </td>
-                                <td  align="center"><%=liste[i].getProduit()%> </td>
+                                <td  align="center"><%=Utilitaire.champNull(liste[i].getProduit())%> </td>
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantite())%></td>
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantitelivre())%></td>
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantitereste())%></td>
-                                <td  align="center"><%=liste[i].getUnite()%></td>
+                                <td  align="center"><%=Utilitaire.champNull(liste[i].getUnite())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getPu())%></td>
-                                <td  align="right"><%=Utilitaire.formaterAr(montant)%></td>
+                                <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantHTSansRemise())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantremise())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getTva())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantbl())%></td>
@@ -69,7 +67,7 @@
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
                                 <td  colspan="5" rowspan="4"></td>
                                 <th  align="right">Montant HT</th>
-                                <td  align="right"><%=Utilitaire.formaterAr(data.getBc().getMontant())%></td>
+                                <td  align="right"><%=Utilitaire.formaterAr(data.getBc().getMontantHTSansRemise())%></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
                                 <th  align="right">Montant Remise</th>
