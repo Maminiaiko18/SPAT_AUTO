@@ -37,6 +37,7 @@
                                 <th>TVA</th>
                                 <th>Montant BL</th>
                                 <th>Montant BL reste</th>
+                                <th>Observation</th>
                             </tr>
                         </thead>
 
@@ -57,6 +58,7 @@
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getTva())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantbl())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantblreste())%></td>
+                                <td  align="right"><%=liste[i].getObservation()%></td>
                             </tr>
                             <%
                                      
