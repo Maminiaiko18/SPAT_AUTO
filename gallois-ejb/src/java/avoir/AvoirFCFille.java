@@ -26,6 +26,26 @@ public class AvoirFCFille extends ClassFille {
     private String id;
     private String idmere, compte, iddetailfacture, devise, designation;
     private double taux,montantHTDevise;
+    private double maj,red;
+
+    public double getMaj() {
+        return maj;
+    }
+
+    public void setMaj(double maj) {
+        this.maj = maj;
+    }
+
+    
+
+    public double getRed() {
+        return red;
+    }
+
+    public void setRed(double red) {
+        this.red = red;
+    }
+    
 
     public double getTaux() {
         return taux;

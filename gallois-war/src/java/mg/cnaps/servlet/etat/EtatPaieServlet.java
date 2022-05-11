@@ -1285,8 +1285,8 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("valeuro", deviseEuro);
             param.put("valdollar", deviseDollar);
 
-            AvoirFCFille[] avoirFille = mere[0].getAvoirFilles(null, null);
-            FactureClientDetails[] details = new FactureClientDetails[avoirFille.length];
+            AvoirFCFille[] avoirFille = mere[0].getAvoirFilles("avoirfcfille_PDF", null);
+            /*FactureClientDetails[] details = new FactureClientDetails[avoirFille.length];
             for (int i = 0; i < avoirFille.length; i++) {
                 details[i] = avoirFille[i].getFactureClientDetail(null);
                 details[i].setMontant(avoirFille[i].getMontant());
@@ -1301,11 +1301,16 @@ public class EtatPaieServlet extends HttpServlet {
                 details[i].setMontant(details[i].getMontantHTEuro());
                 montanttotal = montanttotal + details[i].getMontantHTEuro();
                 arrList.add(details[i]);
+            }*/
+            List<AvoirFCFille> arrList = new ArrayList<AvoirFCFille>();
+            for (int i = 0; i < avoirFille.length; i++) {
+                arrList.add(avoirFille[i]);
             }
 
             param.put("montant", mere[0].getMontant());
             param.put("montantTVA", mere[0].getMontanttva());
             param.put("montantTTC", mere[0].getMontantttc());
+            double montanttotal = AdminGen.calculSommeDouble(avoirFille, "montantHTDevise");
             param.put("total", montanttotal);
             
             String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()) , " Ariary ");
