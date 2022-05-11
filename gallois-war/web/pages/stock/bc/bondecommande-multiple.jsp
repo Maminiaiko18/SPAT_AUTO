@@ -113,7 +113,7 @@
             pi.getFormufle().getChamp("produit_"+i).setPageAppel("choix/produitChoix.jsp","produit;produitlibelle;pu;pu");
             pi.getFormufle().getChamp("observation_"+i).setPageAppel("choix/listeDAchoix.jsp","observation;observation;observationlibelle");
         }
-        // rehefa mandray paramètre idDa
+        // rehefa mandray paramï¿½tre idDa
         pi.getFormu().getChamp("projet").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getProjet()));
         pi.getFormu().getChamp("projet").setValeurLibelle(Utilitaire.champNull( data.getDemandeAchatMere().getProjetlib()));
         pi.getFormu().getChamp("code_etab").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getCodeetablissement()));
@@ -179,6 +179,34 @@
         } else {
             $('#montant_' + indice).val('');
         }
+    }
+
+    window.onload = () =>{
+        var submitBtns = document.querySelectorAll("button[name='Submit2'][type='submit']");
+        for(var i=0; i < submitBtns.length; i++){
+            modifySubmitBtn(submitBtns[i]);    
+        }
+    }
+    
+    function modifySubmitBtn(btn){
+        btn.setAttribute("type","button");
+        btn.onclick = save;
+    }
+    
+    function save() {
+        var btn = this;
+        btn.disabled = true;
+        var query = $('#bondecommande').serialize();
+        $.get("apresMultipleAjax.jsp?"+query, function(data, status){
+            var temp = data.trim().split("_");
+            if(temp[0] === 'error'){
+                btn.disabled = false;
+                alert(temp[1]);
+            }
+            else{
+                window.location.href = "<%=pi.getLien()%>?but=stock/bc/asBonDeCommande-fiche.jsp&id="+temp[1];
+            }
+        });
     }
 </script>
 <%

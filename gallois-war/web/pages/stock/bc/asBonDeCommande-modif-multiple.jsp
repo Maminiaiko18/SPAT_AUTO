@@ -160,6 +160,35 @@ try{
         pu = document.getElementById("pu_"+indice).value;
         document.getElementById("montant_"+indice).value = pu * quantite;
     }
+
+    window.onload = () =>{
+        var submitBtns = document.querySelectorAll("button[name='Submit2'][type='submit']");
+        for(var i=0; i < submitBtns.length; i++){
+            modifySubmitBtn(submitBtns[i]);    
+        }
+    }
+    
+    function modifySubmitBtn(btn){
+        btn.setAttribute("type","button");
+        btn.onclick = save;
+    }
+    
+    function save() {
+        var btn = this;
+        btn.disabled = true;
+        var query = $("form[name='medhospi']").serialize();
+        console.log(query);
+        $.get("apresMultipleAjax.jsp?&id=<%=request.getParameter("id")%>&"+query, function(data, status){
+            var temp = data.trim().split("_");
+            if(temp[0] === 'error'){
+                btn.disabled = false;
+                alert(temp[1]);
+            }
+            else{
+                window.location.href = "<%=pi.getLien()%>?but=stock/bc/asBonDeCommande-fiche.jsp&id="+temp[1];
+            }
+        });
+    }
 </script>
 <%}catch(Exception ex){
     ex.printStackTrace();
