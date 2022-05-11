@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="0.8264462809917362"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="240"/>
+	<property name="ireport.y" value="208"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -98,6 +98,7 @@
 		<field name="qte" class="java.lang.Double"/>
 		<field name="maj" class="java.lang.Double"/>
 		<field name="red" class="java.lang.Double"/>
+		<field name="duree" class="java.lang.Double"/>
 	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["H:\\win-Project\\cemedi\\cemedi\\cemedi-war\\web\\report\\"]]></defaultValueExpression>
@@ -467,7 +468,7 @@
 								<textElement textAlignment="Center">
 									<font size="13" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Désignation préstation]]></text>
+								<text><![CDATA[Désignation prestation]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
@@ -534,12 +535,12 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="13" uuid="16b0bdac-cbfa-4319-afca-87e98ca34636"/>
-								<textElement>
+							<textField>
+								<reportElement x="0" y="0" width="50" height="13" uuid="5a643d59-2181-4263-8a53-11ec22ac02ee"/>
+								<textElement textAlignment="Right">
 									<font size="15" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[""]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{duree}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
