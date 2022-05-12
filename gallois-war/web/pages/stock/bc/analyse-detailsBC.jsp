@@ -44,7 +44,7 @@
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>" method="get" name="analyse" id="analyse">
-            <input type="hidden" name="but" value="placement/analyse-placement.jsp" />
+            <input type="hidden" name="but" value="stock/bc/analyse-detailsBC.jsp" />
             <%out.println(pr.getFormu().getHtmlEnsemble());%>
         </form>
         <%
