@@ -95,11 +95,14 @@ try{
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("pu"), " onchange='calculMontant(this)' " );
 //    affichage.Champ.setAutre(pi.getFormufle().getChampFille("montant"), " onchange='calculMontant(this)' ");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("produitlib"), false);
+    affichage.Champ.setAutre(pi.getFormufle().getChampFille("observation"), "readonly");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("produit"), "choix/produitChoix.jsp", "produit;produitlibelle");
+    affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("observation"), "choix/listeDAchoix.jsp", "observation;observation;observationlibelle");
+    //pi.getFormufle().getChamp("observation").setAutre("readonly");
+    //pi.getFormufle().getChamp("observation").setPageAppel("choix/listeDAchoix.jsp","observation;observation;observationlibelle");
     for(int i = 0 ; i < liste.length;i++){
         pi.getFormufle().getChamp("produit_"+i).setValeurLibelle(liste[i].getProduitlib());
-        pi.getFormufle().getChamp("observation_"+i).setAutre("readonly");
-        pi.getFormufle().getChamp("observation_"+i).setPageAppel("choix/listeDAchoix.jsp","observation;observation;observationlibelle");
+        
     }
 
 
