@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="0.9090909090909105"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="391"/>
+	<property name="ireport.y" value="182"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -144,6 +144,7 @@
 	<parameter name="responsable" class="java.lang.String"/>
 	<parameter name="chef" class="java.lang.String"/>
 	<parameter name="tp1" class="java.lang.String"/>
+	<parameter name="payement" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -311,7 +312,7 @@
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{deviseMere}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{payement}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="170" y="134" width="576" height="19" uuid="d2ab241c-d1c8-438f-ad82-97d9c977735c"/>
