@@ -178,7 +178,7 @@ public class DetailsBCExcel extends HttpServlet {
               Cell celltit = row7.createCell(1);  
                 celltit.setCellValue("CONTRATS  ET FACTURATION");
                 
-            String[] headers = {"Produit", "Quantite Commandee", "Quantite Livre","Reste a Livrer","Unite","P.U","Montant","Montant Remise","TVA","Montant BL","Montant BL Reste"};
+            String[] headers = {"Produit", "Quantite Commandee", "Quantite Livre","Reste a Livrer","Unite","P.U","Montant","Montant Remise","TVA","Montant BL","Montant BL Reste","Observation"};
             
             Row row = sheet.createRow(5);
             for(int i=0; i<headers.length; i++){
@@ -194,7 +194,7 @@ public class DetailsBCExcel extends HttpServlet {
             int cmp = 0;
             for (int i = 0; i < liste.length; i++) {
                 double montant = liste[i].getQuantite() * liste[i].getPu();
-                row = sheet.createRow(i+6);
+                row = sheet.createRow(i+7);
                 Cell cell0 = row.createCell(0);
                 cell0.setCellValue(liste[i].getProduit());
                  cell0.setCellStyle(nombrestyle);
@@ -230,6 +230,9 @@ public class DetailsBCExcel extends HttpServlet {
                 Cell Montantblreste = row.createCell(10);
                     Montantblreste.setCellValue(Utilitaire.formaterAr(liste[i].getMontantblreste()));
                     Montantblreste.setCellStyle(nombrestyle);
+                 Cell observation = row.createCell(11);
+                    observation.setCellValue(liste[i].getObservation());
+                    observation.setCellStyle(nombrestyle);
                 
                 }
             int size = liste.length + 6;
