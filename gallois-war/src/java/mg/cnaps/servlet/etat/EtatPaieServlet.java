@@ -54,6 +54,7 @@ import mg.spat.stock.*;
 import utilitaire.ChiffreLettre;
 import ded.BonEngagementPDF;
 import caisse.SituationComptesData;
+import data.DetailsBcData;
 import facture.ChiffreAffaire;
 import facture.EtatProvision;
 import java.util.Collection;
@@ -457,10 +458,22 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("TOTAL_TTC_LETTRE", (ChiffreLettre.convertIntToString(montantLong)).toUpperCase() + " ARIARY ");
             }
 
-            BonDeCommandeFille f = new BonDeCommandeFille();
+            /*BonDeCommandeFille f = new BonDeCommandeFille();
             f.setNomTable("AS_BONDECOMMANDE_FILLE_LIB");
-            BonDeCommandeFille[] liste = (BonDeCommandeFille[]) CGenUtil.rechercher(f, null, null, " and IDBC = '" + id + "'");
-
+            BonDeCommandeFille[] liste = (BonDeCommandeFille[]) CGenUtil.rechercher(f, null, null, " and IDBC = '" + id + "' order by produit ASC");*/
+            DetailsBcData data=new DetailsBcData(request.getParameter("id"));                                 
+            data.setBCOrderByProduitAsc("AS_BONDECOMMANDE_LIBELLE_lib","BC_BL_LIVRE");
+             BonDeCommandeFille[] liste = data.getBcFille();
+            data.attribuerLigne();
+           double total = data.getBc().getMontantTTC();
+           double tva=data.getBc().getMontanttva();
+           double remise=data.getBc().getMontantRemise();
+          double nbrligne=0;
+             for (int i = 0; i < liste.length; i++) {
+                  nbrligne = nbrligne + 1;
+             }
+             System.out.println("----"+nbrligne);
+             param.put("nbrligne",nbrligne);
             List dataSources = new ArrayList();
             int i = 0;
             double totalremise = 0;
@@ -1069,6 +1082,7 @@ public class EtatPaieServlet extends HttpServlet {
                 }
 
                 param.put("deviseMere", mere[0].getDeviseMere());
+                param.put("payement", mere[0].getPaiementlib());
                 param.put("code", code);
 
                 String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
@@ -1306,7 +1320,7 @@ public class EtatPaieServlet extends HttpServlet {
             for (int i = 0; i < avoirFille.length; i++) {
                 arrList.add(avoirFille[i]);
             }
-
+            System.out.println("duree===="+arrList.get(0).getDuree());
             param.put("montant", mere[0].getMontant());
             param.put("montantTVA", mere[0].getMontanttva());
             param.put("montantTTC", mere[0].getMontantttc());
