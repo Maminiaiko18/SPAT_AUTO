@@ -68,7 +68,8 @@
         pc.getChampByName("armateurlib").setLibelle("Armateur");
         pc.getChampByName("exercice").setLibelle("Exercice");
         pc.getChampByName("pourCompteLib").setLibelle("Pour compte");
-
+        pc.getChampByName("paiement").setVisible(false);
+        pc.getChampByName("paiementlib").setLibelle("paiement");
         pc.getChampByName("code").setLibelle("Code");
         e = (FactureClient) pc.getBase();
         pc.getChampByName("IdProvision").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
