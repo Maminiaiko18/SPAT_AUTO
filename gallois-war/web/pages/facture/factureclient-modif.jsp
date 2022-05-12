@@ -26,7 +26,7 @@
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
-        affichage.Liste[] listeM = new affichage.Liste[4];
+        affichage.Liste[] listeM = new affichage.Liste[5];
         TypeObjet oM = new TypeObjet();
         oM.setNomTable("TYPEFC");
         listeM[0] = new Liste("type", oM, "VAL", "id");
@@ -46,6 +46,7 @@
         TypeObjet devise = new TypeObjet();
         devise.setNomTable("devise");
         listeM[3] = new Liste("deviseMere", devise, "VAL", "id");
+        listeM[4] = new Liste("paiement", devise, "VAL", "id");
 
         pi.getFormu().changerEnChamp(listeM);
 
@@ -97,6 +98,8 @@
         pi.getFormu().getChamp("codePrestation").setVisible(false);
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);
         pi.getFormu().getChamp("tva").setVisible(false);
+        pi.getFormu().getChamp("paiementlib").setVisible(false);
+        pi.getFormu().getChamp("paiement").setDefaut("Ar");
         pi.getFormu().getChamp("pourcompte").setPageAppel("choix/clientCategorieChoix.jsp");
         pi.getFormu().getChamp("pourcompte").setAutre("readonly");
         pi.getFormu().getChamp("idavoir").setPageAppel("choix/listeAvoirFCChoix.jsp");
@@ -134,9 +137,11 @@
         TypeObjet o1 = new TypeObjet();
         o1.setNomTable("mois");
         listed[1] = new Liste("mois", o1, "VAL", "id");
+        
 
         pi.getFormufle().changerEnChamp(listed);
-
+        
+        
         for (int i = 0; i < liste.length; i++) {
             pi.getFormufle().getChamp("designation_" + i).setAutre(" style=\"width: 150px;\" ");
             affichage.Champ datefactChp =  pi.getFormufle().getChamp("datefact_" + i);
