@@ -163,6 +163,7 @@ public class DetailsBCExcel extends HttpServlet {
     DetailsBcData data=new DetailsBcData(request.getParameter("id"));                                 
     data.setBCOrderByProduitAsc("AS_BONDECOMMANDE_LIBELLE_lib","BC_BL_LIVRE");
     BonDeCommandeFille[] liste = data.getBcFille();
+    data.attribuerLigne();
     double total = data.getBc().getMontantTTC();
     double tva=data.getBc().getMontanttva();
     double remise=data.getBc().getMontantRemise();
@@ -178,7 +179,7 @@ public class DetailsBCExcel extends HttpServlet {
               Cell celltit = row7.createCell(1);  
                 celltit.setCellValue("CONTRATS  ET FACTURATION");
                 
-            String[] headers = {"Produit", "Quantite Commandee", "Quantite Livre","Reste a Livrer","Unite","P.U","Montant","Montant Remise","TVA","Montant BL","Montant BL Reste","Observation"};
+            String[] headers = {"Numero","Produit", "Quantite Commandee", "Quantite Livre","Reste a Livrer","Unite","P.U","Montant","Montant Remise","TVA","Montant BL","Montant BL Reste","Observation"};
             
             Row row = sheet.createRow(5);
             for(int i=0; i<headers.length; i++){
@@ -192,45 +193,51 @@ public class DetailsBCExcel extends HttpServlet {
             //int indice[] = {0, 1, 2, 3, 4, 5, 11, 17};
             //short[] width = {65, 63, 61, 61, 61, 59, 59, 53 };
             int cmp = 0;
+            double nbrligne = 0;
             for (int i = 0; i < liste.length; i++) {
+                nbrligne = nbrligne + 1;
                 double montant = liste[i].getQuantite() * liste[i].getPu();
-                row = sheet.createRow(i+7);
-                Cell cell0 = row.createCell(0);
+                row = sheet.createRow(i+6);
+                Cell cellnum = row.createCell(0);
+                cellnum.setCellValue(liste[i].getNumeroLigne());
+                 cellnum.setCellStyle(nombrestyle);
+                
+                Cell cell0 = row.createCell(1);
                 cell0.setCellValue(liste[i].getProduit());
                  cell0.setCellStyle(nombrestyle);
                 //sheet.setColumnWidth(indice[cmp], width[cmp] * 100);
                 //if(attestations[i].getIdmedicament()!= null)
-                    Cell celling = row.createCell(1);
+                    Cell celling = row.createCell(2);
                 celling.setCellValue(Utilitaire.formaterAr(liste[i].getQuantite()));
                 celling.setCellStyle(nombrestyle);
-                    Cell cellgetQuantitelivre = row.createCell(2);
+                    Cell cellgetQuantitelivre = row.createCell(3);
                 cellgetQuantitelivre.setCellValue(Utilitaire.formaterAr(liste[i].getQuantitelivre()));
                 cellgetQuantitelivre.setCellStyle(nombrestyle);
-                Cell cell1 = row.createCell(3);
+                Cell cell1 = row.createCell(4);
                     cell1.setCellValue(Utilitaire.formaterAr(liste[i].getQuantitereste()));
                     cell1.setCellStyle(nombrestyle);
-                Cell cellunit = row.createCell(4);
+                Cell cellunit = row.createCell(5);
                     cellunit.setCellValue(liste[i].getUnite());
                     cellunit.setCellStyle(nombrestyle);
-                Cell getPu = row.createCell(5);
+                Cell getPu = row.createCell(6);
                     getPu.setCellValue(Utilitaire.formaterAr(liste[i].getPu()));
                     getPu.setCellStyle(nombrestyle);
-                Cell montant1 = row.createCell(6);
+                Cell montant1 = row.createCell(7);
                     montant1.setCellValue(Utilitaire.formaterAr(montant));
                     montant1.setCellStyle(nombrestyle);
-                Cell Montantremise = row.createCell(7);
+                Cell Montantremise = row.createCell(8);
                     Montantremise.setCellValue(Utilitaire.formaterAr(liste[i].getMontantremise()));
                     Montantremise.setCellStyle(nombrestyle);
-                Cell Tva = row.createCell(8);
+                Cell Tva = row.createCell(9);
                     Tva.setCellValue(Utilitaire.formaterAr(liste[i].getTva()));
                     Tva.setCellStyle(nombrestyle);
-                Cell Montantbl = row.createCell(9);
+                Cell Montantbl = row.createCell(10);
                     Montantbl.setCellValue(Utilitaire.formaterAr(liste[i].getMontantbl()));
                     Montantbl.setCellStyle(nombrestyle);
-                Cell Montantblreste = row.createCell(10);
+                Cell Montantblreste = row.createCell(11);
                     Montantblreste.setCellValue(Utilitaire.formaterAr(liste[i].getMontantblreste()));
                     Montantblreste.setCellStyle(nombrestyle);
-                 Cell observation = row.createCell(11);
+                 Cell observation = row.createCell(12);
                     observation.setCellValue(liste[i].getObservation());
                     observation.setCellStyle(nombrestyle);
                 
@@ -244,6 +251,13 @@ public class DetailsBCExcel extends HttpServlet {
             Cell cellrowMontantHT  = rowMontantHT.createCell(6);
             cellrowMontantHT.setCellValue(Utilitaire.formaterAr(data.getBc().getMontant()));
             cellrowMontantHT.setCellStyle(nombrestyle);
+            
+            Cell cellNbligne  = rowMontantHT.createCell(0);
+            cellNbligne.setCellValue("Nombre de ligne :");
+            Cell cellNbligne1  = rowMontantHT.createCell(1);
+            cellNbligne1.setCellValue(nbrligne);
+            
+            
             
             Row rowMontantTVA = sheet.createRow(size+ 1);
             Cell cellrowMontantTVA  = rowMontantTVA.createCell(5);
