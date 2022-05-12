@@ -62,7 +62,24 @@ public class FactureClient extends ClassMere {
     private int estAuto,estAncienne;
     private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
     private Date dateDepart,datearrivee;
-    private String armateur,codeFiltre;
+    private String armateur,codeFiltre,paiement,paiementlib;
+
+    public String getPaiement() {
+        return paiement;
+    }
+
+    public void setPaiement(String paiement) {
+        this.paiement = paiement;
+    }
+
+    public String getPaiementlib() {
+        return paiementlib;
+    }
+
+    public void setPaiementlib(String paiementlib) {
+        this.paiementlib = paiementlib;
+    }
+    
     
     @Override
     public void controlerUpdate(Connection c) throws Exception {
