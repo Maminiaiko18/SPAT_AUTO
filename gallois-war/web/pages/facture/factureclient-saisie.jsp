@@ -53,7 +53,7 @@
     pi.getFormu().getChamp("armateur").setPageAppel("choix/listeArmateurTBDChoix.jsp");
     pi.getFormu().getChamp("armateur").setAutre("readonly");
     
-    affichage.Liste[] listes= new affichage.Liste[3];
+    affichage.Liste[] listes= new affichage.Liste[4];
     
     TypeObjet type = new TypeObjet();
         type.setNomTable("typefc");
@@ -71,9 +71,15 @@
         devise.setNomTable("devise");
         listes[2] = new Liste("deviseMere", devise, "VAL", "id");
         listes[2].setDefaultSelected("Ar");
+        
+    TypeObjet paiement = new TypeObjet();
+        paiement.setNomTable("devise");
+        listes[3] = new Liste("paiement", paiement, "VAL", "id");
+        listes[3].setDefaultSelected("Ar");
     
     pi.getFormu().changerEnChamp(listes);
     
+    pi.getFormu().getChamp("paiement").setLibelle("Paiement");
     pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
     pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
     pi.getFormu().getChamp("idProvision").setAutre("readonly");
