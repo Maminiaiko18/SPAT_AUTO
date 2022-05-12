@@ -118,7 +118,14 @@ public class ProformaMere extends FactureClient{
         preparePk("CR","GETSEQ_PROFORMA_MERE");
         setId(makePK(c));
     }
-
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        ProformaMere factureClient =(ProformaMere)(new ProformaMere()).getById(this.getId(), "proforma_mere", c);
+        
+        if(this.getType().equals(factureClient.getType())==false && this.getEstAncienne()!=1){
+            this.setCode(this.calculerCode(c));
+        }
+    }
     
     public void initDetails(Connection c) throws Exception {
         int verif = 0;
