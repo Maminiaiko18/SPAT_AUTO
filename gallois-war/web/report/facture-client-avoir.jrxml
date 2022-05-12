@@ -535,10 +535,11 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="13" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="50" height="13" uuid="5a643d59-2181-4263-8a53-11ec22ac02ee"/>
+							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="13" uuid="7439d05b-0c0b-4802-bf06-4d18d509aa35"/>
 								<textElement textAlignment="Right">
 									<font size="15" isBold="true"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{duree}]]></textFieldExpression>
 							</textField>
