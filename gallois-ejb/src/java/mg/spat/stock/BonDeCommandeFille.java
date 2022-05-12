@@ -177,7 +177,7 @@ public class BonDeCommandeFille extends ClassMAPTable {
                 verif = 1;
             }
             if(estProduit(this.getProduit(), c)){
-                LiaisonDetailsBCProduit liaison = new LiaisonDetailsBCProduit(this.getId(), this.getProduit());
+                LiaisonDetailsBCProduit liaison = new LiaisonDetailsBCProduit(this.getIdbc(), this.getProduit());
                 liaison.createObject(u, c);
             }
             super.createObject(u, c);

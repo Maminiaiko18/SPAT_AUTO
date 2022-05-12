@@ -346,6 +346,11 @@
 //                }else{%>
     <%//  }
         }
+        if (acte.compareToIgnoreCase("annulerremplacer") == 0) {
+            t = (ClassMAPTable) (Class.forName(classe).newInstance());
+            t = t.getById(request.getParameter("id"), nomtable, null);
+            id = ((mg.spat.stock.BonDeCommande)t).annulerRemplacer(u.getUser().getTuppleID());
+        }
         if (acte.compareToIgnoreCase("update") == 0) {
             t = (ClassMAPTable) (Class.forName(classe).newInstance());
             Page p = new Page(t, request);

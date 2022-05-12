@@ -5,11 +5,14 @@
  */
 package mg.spat.stock;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
+import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 /**
  *
@@ -398,6 +401,62 @@ public class BonDeCommande extends ClassEtat {
         return super.createObject(u, c); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    public boolean canBeCanceled(Connection c) throws Exception {
+        boolean check = false, value = true;
+        try {
+            if(c == null){
+                c = new UtilDB().GetConn();
+                check = true;
+            }
+            BonDeLivraison bl = new BonDeLivraison();
+            bl.setId_bc(this.id);
+            Object[] values = CGenUtil.rechercher(bl, null, null, c, "");
+            value = values.length == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        finally{
+            if(check && c!=null) c.close();
+        }
+        return value;
+    }    
+
+    public String annulerRemplacer(String user) throws Exception {
+        Connection c = null;
+        BonDeCommande value = null;
+        try{
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            
+            if(!this.canBeCanceled(c)) throw new Exception("Ce bon de commande ne peut être annulé");
+
+            this.annuler(c);
+            this.setEtat(ConstanteEtat.getEtatCreer());
+
+            value = (BonDeCommande) this.dupliquer(user, c);
+            value = (BonDeCommande) value.createObject(user, c);
+
+            BonDeCommandeFille bcFille = new BonDeCommandeFille();
+            bcFille.setIdbc(this.id);
+            ClassMAPTable[] filles = (ClassMAPTable[]) CGenUtil.rechercher(bcFille, null, null, c, "");
+            BonDeCommandeFille[] fillesClone = new BonDeCommandeFille[filles.length];
+            
+            for(int i = 0; i<filles.length; i++){
+                fillesClone[i] = (BonDeCommandeFille) filles[i].dupliquer(user, c);
+                fillesClone[i].setIdbc(value.getId());
+                fillesClone[i].createObject(user, c);
+            }
+        }
+        catch(Exception ex){
+            if(c != null) c.rollback();
+            ex.printStackTrace();
+            throw ex;
+        }
+        finally {
+            if (c != null) c.close();
+        }
+        return value.getId();
+    }
     
 }
