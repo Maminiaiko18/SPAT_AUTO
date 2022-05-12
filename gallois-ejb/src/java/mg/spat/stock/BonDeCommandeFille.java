@@ -19,14 +19,38 @@ public class BonDeCommandeFille extends ClassMAPTable {
     private double quantiteparpack, quantite,montantbl,montantblreste ;
     private double pu, montant, quantitelivre, quantitereste, tva;
     private String produitlib;
-    private String fournisseur;
+    private String fournisseur, fournisseurlib;
     private double montantht,montanttva,montantttc,remise,montantHTSansRemise;
     private double montantremise;
     private String observation;
-    private String code,projet;
+    private String code,codelib,projet,projetlib;
+
+    public String getCodelib() {
+        return codelib;
+    }
+
+    public void setCodelib(String codelib) {
+        this.codelib = codelib;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
     private int numeroLigne;
     private Date daty;
 
+     public String getFournisseurlib() {
+        return fournisseurlib;
+    }
+
+    public void setFournisseurlib(String fournisseurlib) {
+        this.fournisseurlib = fournisseurlib;
+    }
+    
     public double getMontantHTSansRemise() {
         return montantHTSansRemise;
     }

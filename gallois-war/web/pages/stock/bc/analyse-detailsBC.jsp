@@ -17,11 +17,11 @@
         BonDeCommandeFille journal = new BonDeCommandeFille();
         journal.setNomTable("AS_BC_ANALYSEFILLE_LIB");
 
-        String listeCrt[] = {"idbc", "daty", "code", "projet", "produit", "fournisseur"};
+        String listeCrt[] = {"idbc", "daty", "codelib", "projetlib", "produit", "fournisseurlib"};
         String listeInt[] = {"daty"};
         String[] pourcentage = {};
-        String colDefaut[] = {"idbc" , "daty", "code", "projet", "produit", "unite", "pu","fournisseur"};
-        String somDefaut[] = {"quantite","montantht"};
+        String colDefaut[] = {"idbc" , "daty", "codelib", "projetlib", "produit", "quantite", "unite", "pu", "montantht", "fournisseurlib"};
+        String somDefaut[] = {};
         String lien[] = {"idbc"};
         PageRechercheGroupe pr = new PageRechercheGroupe(journal, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, somDefaut.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -30,6 +30,9 @@
         pr.getFormu().getChamp("idbc").setLibelle("IDBC");
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
+		pr.getFormu().getChamp("codelib").setLibelle("Code");
+		pr.getFormu().getChamp("projetlib").setLibelle("Projet");
+		pr.getFormu().getChamp("fournisseurlib").setLibelle("Fournisseur");
         pr.setApres("stock/bc/analyse-detailsBC.jsp");
         pr.creerObjetPage();
 %>
