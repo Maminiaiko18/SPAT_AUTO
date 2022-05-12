@@ -43,8 +43,10 @@
 
                         <tbody>
                             <%   
-                                    
-                                for (int i = 0; i < liste.length; i++) {                            %>
+                                double nbrligne=0;
+                                for (int i = 0; i < liste.length; i++) {
+                                    nbrligne = nbrligne + 1;
+                            %>
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
                                 <td  align="center"><%=liste[i].getNumeroLigne()%> </td>
                                 <td  align="center"><%=Utilitaire.champNull(liste[i].getProduit())%> </td>
@@ -83,6 +85,11 @@
                                 <th  align="right">Montant TTC</th>
                                 <td  align="right"><%=Utilitaire.formaterAr(total)%></td>
                             </tr>
+                            <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
+                                <th  align="right">Nombre de ligne</th>
+                                <td  align="right"><%=nbrligne%></td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>
