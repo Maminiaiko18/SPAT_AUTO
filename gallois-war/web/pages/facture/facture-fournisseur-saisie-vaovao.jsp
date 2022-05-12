@@ -26,7 +26,7 @@
         if (idBL != null) {
             fc.setIdBL(idBL);
         }
-        BonDeLivraisonFilleReste[] livraisons = fc.getBP(null);
+        BonDeLivraisonFilleReste[] livraisons = fc.getBP(request.getParameter("idBC"),null);
 //------------------------------------
 
         String titre = "Enregistrer facture fournisseur";

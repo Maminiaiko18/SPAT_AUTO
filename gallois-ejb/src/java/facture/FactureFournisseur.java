@@ -34,6 +34,7 @@ public class FactureFournisseur extends FactureClient {
     private String id2;
     private String codeEtablissement;
     private Date dateRegul;
+    
 
     public Date getDateRegul() {
         return dateRegul;
@@ -361,10 +362,15 @@ public class FactureFournisseur extends FactureClient {
     public void controlerUpdate(Connection c) throws Exception {
 
     }
-    public BonDeLivraisonFilleReste[] getBP(Connection c) throws Exception {
+      public BonDeLivraisonFilleReste[] getBP(Connection c) throws Exception {
+          return getBP(null,c);
+      }
+    
+    
+    public BonDeLivraisonFilleReste[] getBP(String BC ,Connection c) throws Exception {
         boolean ouvert = false;
         BonDeLivraisonFilleReste[] livraisons = new BonDeLivraisonFilleReste[0];
-        if (this.getIdBL() == null || this.getIdBL().trim().equals("")) {
+        if ((this.getIdBL() == null || this.getIdBL().trim().equals(""))&& (BC == null || BC.trim().equals(""))) {
             return livraisons;
         }
 
@@ -377,6 +383,7 @@ public class FactureFournisseur extends FactureClient {
             BonDeLivraisonFilleReste bl = new BonDeLivraisonFilleReste();
             bl.setNomTable("AS_BONDELIVRAISON_FILLEQTE_RES");
             bl.setNumbl(this.getIdBL());
+            bl.setIdbondecommandemere(BC);
             livraisons = (BonDeLivraisonFilleReste[]) CGenUtil.rechercher(bl, null, null, c, "");
 
         } catch (Exception ex) {

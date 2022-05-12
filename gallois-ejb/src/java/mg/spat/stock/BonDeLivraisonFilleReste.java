@@ -13,6 +13,16 @@ public class BonDeLivraisonFilleReste extends BonDeLivraisonFille{
     private double pu, quantiteReste,tva,montantHT,montantTva,remise;
     private String nomtiers,idtiers;
     private String projet,projetlib, code_etablissement,code_etablissementlib;
+    private String idbondecommandemere;
+
+    public String getIdbondecommandemere() {
+        return idbondecommandemere;
+    }
+
+    public void setIdbondecommandemere(String idbondecommandemere) {
+        this.idbondecommandemere = idbondecommandemere;
+    }
+    
 
     public BonDeLivraisonFilleReste() {
         this.setNomTable("BonDeLivraisonFilleReste");
