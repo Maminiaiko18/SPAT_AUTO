@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_de_commande" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="85" uuid="5de4b302-b873-4cc5-ac86-c7d51ce58f1b">
 	<property name="ireport.zoom" value="1.6105100000000314"/>
-	<property name="ireport.x" value="274"/>
-	<property name="ireport.y" value="122"/>
+	<property name="ireport.x" value="46"/>
+	<property name="ireport.y" value="110"/>
 	<parameter name="DATY" class="java.util.Date"/>
 	<parameter name="NOMFOURNISSEUR" class="java.lang.String"/>
 	<parameter name="ADRESSE" class="java.lang.String"/>
@@ -20,6 +20,8 @@
 	<parameter name="TYPE_PAIEMENT" class="java.lang.String"/>
 	<parameter name="DELAILIVRAISON" class="java.lang.String"/>
 	<parameter name="nbrligne" class="java.lang.Double"/>
+	<parameter name="DESIGNATION" class="java.lang.String"/>
+	<parameter name="CODE_ETATLIB" class="java.lang.String"/>
 	<field name="produit" class="java.lang.String"/>
 	<field name="pu" class="java.lang.Double"/>
 	<field name="quantite" class="java.lang.Double"/>
@@ -32,7 +34,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="182" splitType="Stretch">
+		<band height="210" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="336" y="66" width="219" height="15" uuid="3e062978-e0e3-4f25-8391-7884852d54b3"/>
 				<textElement verticalAlignment="Middle" markup="none"/>
@@ -89,7 +91,7 @@
 				<textFieldExpression><![CDATA[$P{REMARQUE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="39" y="142" width="516" height="20" uuid="bfb44d79-0cdd-414a-af14-2d0564e71703"/>
+				<reportElement x="39" y="142" width="157" height="20" uuid="bfb44d79-0cdd-414a-af14-2d0564e71703"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{CODE_ETAB}]]></textFieldExpression>
 			</textField>
@@ -97,6 +99,21 @@
 				<reportElement x="39" y="162" width="516" height="20" uuid="54b9c77d-0d77-48db-ae73-254738c12f7c"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{LB}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="182" width="71" height="20" uuid="29b4cec4-f3f1-424a-bf17-f10618a2a155"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Désignation :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="71" y="182" width="100" height="20" uuid="70f9c5b8-887b-4c02-a11b-f3aa94baa89c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{DESIGNATION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="208" y="142" width="346" height="20" uuid="479ccd03-e61a-417d-b267-a0948ba8a69c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{CODE_ETATLIB}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

@@ -439,6 +439,8 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("NOMFOURNISSEUR", bc.getNomfournisseur());
                 param.put("ADRESSE", bc.getAdresse());
                 param.put("REMARQUE", bc.getRemarque());
+                param.put("DESIGNATION", bc.getDesignation());
+                param.put("CODE_ETATLIB", bc.getCode_etablib());
                 param.put("CODE_ETAB", bc.getCode_etab());
                 param.put("DELAI", bc.getDelaipaiement());
                 param.put("TOTAL_HT", bc.getMontant());
@@ -1266,7 +1268,6 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("categorie", "");
             }
             String signature = "";
-            System.out.println("categorie==="+cat.getVal());
             
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
             param.put("code", mere[0].getCode());
@@ -1300,6 +1301,8 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("valdollar", deviseDollar);
 
             AvoirFCFille[] avoirFille = mere[0].getAvoirFilles("avoirfcfille_PDF", null);
+           System.out.println("montantHTDevise==="+avoirFille[0].getMontantHTDevise());
+             System.out.println("pu==="+avoirFille[0].getPu());
             /*FactureClientDetails[] details = new FactureClientDetails[avoirFille.length];
             for (int i = 0; i < avoirFille.length; i++) {
                 details[i] = avoirFille[i].getFactureClientDetail(null);
@@ -1320,7 +1323,7 @@ public class EtatPaieServlet extends HttpServlet {
             for (int i = 0; i < avoirFille.length; i++) {
                 arrList.add(avoirFille[i]);
             }
-            System.out.println("duree===="+arrList.get(0).getDuree());
+            
             param.put("montant", mere[0].getMontant());
             param.put("montantTVA", mere[0].getMontanttva());
             param.put("montantTTC", mere[0].getMontantttc());
