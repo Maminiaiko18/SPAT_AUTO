@@ -16,34 +16,32 @@
 %>
 <%
     dma = new BonDeCommande();
-    dma.setNomTable("AS_BONDECOMMANDE_LIBELLE_lib");
+    dma.setNomTable("AS_BONDECOMMANDE_LIB_fiche");
     PageConsulte pc = new PageConsulte(dma, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
     BonDeCommande base = (BonDeCommande)pc.getBase();
     pc.getChampByName("daty").setLibelle("Date");
 //    pc.getChampByName("adresse").setVisible(false);
 //    pc.getChampByName("remise").setVisible(false);
     pc.getChampByName("tva").setVisible(false);
-    pc.getChampByName("etat").setVisible(false);
+    pc.getChampByName("etatlib").setVisible(false);
+    pc.getChampByName("idengagement").setVisible(false);
     pc.getChampByName("montantfacture").setVisible(false);
     //pc.getChampByName("nomfournisseur").setLien((String) session.getValue("lien") + "?but=travaux/tiers-fiche.jsp&id="+base.getFournisseur(), "nom=");
     //pc.getChampByName("nomfournisseur").setLibelle("Fournisseur");
     pc.getChampByName("montantremise").setLibelle("Montant remise");
-    pc.getChampByName("etatlib").setLibelle("Etat");
+    //pc.getChampByName("etatlib").setLibelle("Etat");
     pc.getChampByName("modepaiement").setLibelle("Mode de paiement");
     pc.getChampByName("montant").setLibelle("montant HT");
-    pc.getChampByName("montant_paye_reel").setLibelle("Montant payï¿½ rï¿½el");
+    pc.getChampByName("montant_paye_reel").setLibelle("Montant payé réel");
     pc.getChampByName("montant_A_payer").setLibelle("Montant BL TTC");
-    pc.getChampByName("restepayergeneral").setLibelle("Reste ï¿½ livrer");
-    pc.getChampByName("resteapayerreel").setLibelle("Reste ï¿½ payer rï¿½el");
+    pc.getChampByName("restepayergeneral").setLibelle("Reste à livrer");
+    pc.getChampByName("resteapayerreel").setLibelle("Reste à payer réel");
     pc.getChampByName("montantTTC").setLibelle("Montant TTC");
     pc.getChampByName("montanttva").setLibelle("Montant TVA");
     pc.getChampByName("numbc").setLibelle("Numero Bon De Commande");
     pc.getChampByName("remarque").setLibelle("Reference");
     pc.getChampByName("code_etab").setLibelle("Code etablissement");
-    //pc.getChampByName("delaipaiement").setLibelle("Dï¿½lai de paiement");
-    //pc.getChampByName("delailivraison").setLibelle("Dï¿½lai de livraison");
-    //pc.getChampByName("typepaiement").setLibelle("Type paiement");
-
+    
     
     pc.setTitre("Fiche Bon de commande");
 
