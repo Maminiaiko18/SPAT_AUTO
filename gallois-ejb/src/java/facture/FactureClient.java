@@ -1876,6 +1876,7 @@ public class FactureClient extends ClassMere {
                 FactureClient fc = new FactureClient( daty, date_echeance,  tiers,  designation,  type,  remarque,  iduser,  idprevision,  escale,  deviseMere,  tva,  montant, montanttva,  montantttc,  montantpaye,  montantreste,  tierslib,  montantavoir, contact,  adresse,  etatLib,  typelib,  deviseEuro, deviseDollar, coeff, montantHTEuro, montantTVAEuro, montantHTVADollar, montantTVADollar, montantTTCDollar, montantttcvrai, idcategorie, idProvision, categorielib, idProvisionlib, iddefinitive,  estDDPMICTSL, codePrestation, codePrestationlib, codeProvision, code,  estMictsl,  reduction, ecart);
                 fc.setNomTable("factureclient");
                 fc.construirePK(c);
+                fc.setCode(calculerCode(c));
                 fc.insertToTableWithHisto(iduser,c);
                 FactureClientDetails[] filles =   getFilles(idfille,  c); 
                 for(int i=0; i<filles.length; i++ )
