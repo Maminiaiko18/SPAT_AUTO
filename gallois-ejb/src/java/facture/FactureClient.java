@@ -63,6 +63,24 @@ public class FactureClient extends ClassMere {
     private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
     private Date dateDepart,datearrivee;
     private String armateur,codeFiltre,paiement,paiementlib;
+    private String val,desce;
+
+    public String getVal() {
+        return val;
+    }
+
+    public void setVal(String val) {
+        this.val = val;
+    }
+
+    public String getDesce() {
+        return desce;
+    }
+
+    public void setDesce(String desce) {
+        this.desce = desce;
+    }
+    
 
     public String getPaiement() {
         return paiement;
