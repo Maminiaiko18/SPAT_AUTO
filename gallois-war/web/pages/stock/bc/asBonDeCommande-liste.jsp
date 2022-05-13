@@ -1,6 +1,6 @@
 <%-- 
     Document   : as-commande-liste
-    Created on : 1 déc. 2016, 09:52:16
+    Created on : 1 dï¿½c. 2016, 09:52:16
     Author     : Joe
 --%>
 <%@page import="java.sql.Date"%>
@@ -90,25 +90,32 @@
                         <option value="AS_BONDECOMMANDE_LIBELLE_lib">tous</option>
                         <% } %>
 
-                        <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_CREE") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_CREE" selected>Créé</option>
+                        <% if (etat == null || etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_AN") == 0) {%>
+                            <option value="AS_BONDECOMMANDE_LIBELLE_AN" selected>ANNULE</option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_CREE">Créé</option>
+                            <option value="AS_BONDECOMMANDE_LIBELLE_AN">ANNULE</option>
+                        <% } %>
+
+
+                        <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_CREE") == 0) {%>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_CREE" selected>Crï¿½ï¿½</option>
+                        <% } else { %>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_CREE">Crï¿½ï¿½</option>
                         <% } %>
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_VISE") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_VISE" selected>Visé</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_VISE" selected>Visï¿½</option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_VISE">Visé</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_VISE">Visï¿½</option>
                         <% } %>
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_LIVRE") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_LIVRE" selected>Livré </option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_LIVRE" selected>Livrï¿½ </option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_LIVRE">Livré </option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_LIVRE">Livrï¿½ </option>
                         <% } %>
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_FACT") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_FACT" selected>Facturé</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_FACT" selected>Facturï¿½</option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_FACT">Facturé</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_FACT">Facturï¿½</option>
                         <% } %>
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIB_ATTPAY") == 0) {%>
                         <option value="AS_BONDECOMMANDE_LIB_ATTPAY" selected>En attente de paiement</option>
@@ -116,9 +123,9 @@
                         <option value="AS_BONDECOMMANDE_LIB_ATTPAY">En attente de paiement</option>
                         <% } %>
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_PAYE") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_PAYE" selected>Payé</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_PAYE" selected>Payï¿½</option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_PAYE">Payé</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_PAYE">Payï¿½</option>
                         <% } %>
 
 
@@ -134,7 +141,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Date","Code","Projet", "Fournisseur", "Designation", "Mode de paiement", "Remarque","numero BC","Montant HT","Montant Remise","Montant TVA","Montant TTC","Montant BL TTC","Reste à livrer","Montant factur&eacute;","Montant payé réèl","Reste à payer réel", "Etat"};
+            String libEnteteAffiche[] = {"Id", "Date","Code","Projet", "Fournisseur", "Designation", "Mode de paiement", "Remarque","numero BC","Montant HT","Montant Remise","Montant TVA","Montant TTC","Montant BL TTC","Reste ï¿½ livrer","Montant factur&eacute;","Montant payï¿½ rï¿½ï¿½l","Reste ï¿½ payer rï¿½el", "Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 			  
 				out.println(pr.getTableau().getHtml());
