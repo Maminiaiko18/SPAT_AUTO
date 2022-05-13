@@ -197,6 +197,8 @@ public class AvoirFCFille extends ClassFille {
             
             if (this.getPu()!=fcd.getPu())
                 throw new Exception("PU invalide");
+            if(this.getQte()>fcd.getQuantite()) throw new Exception("Quantité invalide");
+            if(this.getDuree()>fcd.getDuree()) throw new Exception("Duree invalide");
         }
     }
 
