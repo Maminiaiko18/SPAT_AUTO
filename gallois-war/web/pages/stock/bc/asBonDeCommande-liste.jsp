@@ -91,31 +91,31 @@
                         <% } %>
 
                         <% if (etat == null || etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_AN") == 0) {%>
-                            <option value="AS_BONDECOMMANDE_LIBELLE_AN" selected>ANNULE</option>
+                            <option value="AS_BONDECOMMANDE_LIBELLE_AN" selected>Annul&eacute;</option>
                         <% } else { %>
-                            <option value="AS_BONDECOMMANDE_LIBELLE_AN">ANNULE</option>
+                            <option value="AS_BONDECOMMANDE_LIBELLE_AN">Annul&eacute;</option>
                         <% } %>
 
 
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_CREE") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_CREE" selected>Cr��</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_CREE" selected>Cr&eacute;&eacute;</option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_CREE">Cr��</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_CREE">Cr&eacute;&eacute;</option>
                         <% } %>
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_VISE") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_VISE" selected>Vis�</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_VISE" selected>Vis&eacute;</option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_VISE">Vis�</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_VISE">Vis&eacute;</option>
                         <% } %>
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_LIVRE") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_LIVRE" selected>Livr� </option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_LIVRE" selected>Livr&eacute; </option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_LIVRE">Livr� </option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_LIVRE">Livr&eacute; </option>
                         <% } %>
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_FACT") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_FACT" selected>Factur�</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_FACT" selected>Factur&eacute;</option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_FACT">Factur�</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_FACT">Factur&eacute;</option>
                         <% } %>
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIB_ATTPAY") == 0) {%>
                         <option value="AS_BONDECOMMANDE_LIB_ATTPAY" selected>En attente de paiement</option>
@@ -123,9 +123,9 @@
                         <option value="AS_BONDECOMMANDE_LIB_ATTPAY">En attente de paiement</option>
                         <% } %>
                         <% if (etat != null && etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_PAYE") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_PAYE" selected>Pay�</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_PAYE" selected>Pay&eacute;</option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_PAYE">Pay�</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_PAYE">Pay&eacute;</option>
                         <% } %>
 
 
