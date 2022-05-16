@@ -439,7 +439,9 @@ public class BonDeCommande extends ClassEtat {
             
             if(!this.canBeCanceled(c)) throw new Exception("Ce bon de commande ne peut être annulé");
 
-            this.annuler(c);
+            setMode("modif");
+            this.setEtat(ConstanteEtat.getEtatAnnuler());
+            this.updateToTableWithHisto(user, c);
             this.setEtat(ConstanteEtat.getEtatCreer());
 
             value = (BonDeCommande) this.dupliquer(user, c);
