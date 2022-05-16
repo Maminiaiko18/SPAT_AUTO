@@ -416,6 +416,9 @@ public class BonDeCommande extends ClassEtat {
                 c = new UtilDB().GetConn();
                 check = true;
             }
+            if(this.getEtat() == ConstanteEtat.getEtatAnnuler()){
+                value = false;
+            }
             BonDeLivraison bl = new BonDeLivraison();
             bl.setId_bc(this.id);
             Object[] values = CGenUtil.rechercher(bl, null, null, c, "");
