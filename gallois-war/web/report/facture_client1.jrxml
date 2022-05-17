@@ -3,6 +3,9 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="daty" class="java.lang.String"/>
+	<parameter name="daty1" class="java.lang.String"/>
+	<parameter name="daty2" class="java.lang.String"/>
 	<field name="code" class="java.lang.String"/>
 	<field name="daty" class="java.util.Date"/>
 	<field name="tierslib" class="java.lang.String"/>
@@ -37,34 +40,37 @@
 		</groupHeader>
 		<groupFooter>
 			<band height="20">
-				<textField pattern="#,##0.00">
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement x="455" y="0" width="100" height="20" uuid="cd8954a9-31e4-43b7-b722-ae8411cd06bc"/>
 					<box>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
 					</box>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$V{montantttc_2}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement x="355" y="0" width="100" height="20" uuid="1ae6cd48-ec8b-407f-9e8d-7b54fbf79a46"/>
 					<box>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
 					</box>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$V{montanttva_2}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement x="255" y="0" width="100" height="20" uuid="f45bc04a-e272-42f2-b3c1-5519754db48b"/>
 					<box>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
 					</box>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$V{montant_2}]]></textFieldExpression>
 				</textField>
 			</band>
@@ -73,60 +79,93 @@
 	<group name="val" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{val}]]></groupExpression>
 		<groupHeader>
-			<band height="40">
-				<textField>
+			<band height="67">
+				<textField isBlankWhenNull="true">
 					<reportElement x="0" y="0" width="555" height="20" uuid="83855982-e128-4448-b499-0e6c47519cfe"/>
 					<textElement>
 						<font isUnderline="true" isStrikeThrough="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{typelib}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement x="0" y="20" width="555" height="20" uuid="641bf0a4-3ccb-42da-bce8-4df2c2daa6ae"/>
 					<textElement>
 						<font isUnderline="true" isStrikeThrough="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{desce}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="0" y="47" width="89" height="20" uuid="a1dc7533-988c-4eac-b557-2f0b94243ae2"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[N° Facture]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="89" y="47" width="66" height="20" uuid="66f19efd-380e-42e4-ae61-50d6f548861d"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="155" y="47" width="100" height="20" uuid="af7f3951-1e15-4e8a-bd24-a29a677e2f8e"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Client]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="255" y="47" width="100" height="20" uuid="47a5bd37-e658-4ec3-b4cf-c0e34519dfcd"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Montant HTVA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="355" y="47" width="100" height="20" uuid="8918bded-de5e-46a4-9737-d20dfea7aba7"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Taxe]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="455" y="47" width="100" height="20" uuid="b9e5717b-6a33-4fa8-b00a-9a9eca709275"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Montant TTC]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="20">
-				<textField pattern="#,##0.00">
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement x="455" y="0" width="100" height="20" uuid="6c61f4a2-282b-410e-9c00-0be8720b32d9"/>
 					<box>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
 					</box>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$V{montantttc_1}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement x="355" y="0" width="100" height="20" uuid="52613da2-1a1b-4036-b402-d10b1e7929ea"/>
 					<box>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
 					</box>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$V{montanttva_1}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement x="255" y="0" width="100" height="20" uuid="d54c8ad2-a52e-4a4d-9b3f-e0e6b240d4e8"/>
 					<box>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
 					</box>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$V{montant_1}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="89" height="20" uuid="dc6f3b4f-2f60-453c-9331-300c3436ff08"/>
 					<text><![CDATA[Total]]></text>
 				</staticText>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement x="89" y="0" width="66" height="20" uuid="8ea0f80b-ebd4-4d2d-b867-a2a1dc07a5eb"/>
 					<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 				</textField>
@@ -140,7 +179,7 @@
 		<band height="49" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="80" splitType="Stretch">
+		<band height="115" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="155" height="20" uuid="01116ee4-8eab-46d9-86a2-5a2a8adf7249"/>
 				<textElement textAlignment="Center"/>
@@ -157,76 +196,98 @@
 				<text><![CDATA[CONTRATS ET FACTURATION]]></text>
 			</staticText>
 			<textField evaluationTime="Page">
-				<reportElement x="317" y="20" width="138" height="20" uuid="5c4de282-0fd8-42fb-b1e1-d9a1d3fc4a17"/>
+				<reportElement x="403" y="20" width="57" height="20" uuid="5c4de282-0fd8-42fb-b1e1-d9a1d3fc4a17"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" sur "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" sur "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="455" y="20" width="100" height="20" uuid="2e666afb-7826-4126-91bd-c858053feec6"/>
+				<reportElement x="460" y="20" width="95" height="20" uuid="2e666afb-7826-4126-91bd-c858053feec6"/>
 				<textFieldExpression><![CDATA[ $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="155" y="76" width="212" height="20" uuid="9cda2fb8-5400-4129-a0d3-89db54dee886"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[LISTE DES FACTURES EMISES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="0" width="138" height="20" uuid="60afec81-bc46-497d-9577-dd591fb472b3"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Editée le ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="123" y="95" width="290" height="20" uuid="be9ad51c-415a-4a3c-9923-8ff1a0931bad"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Periode de " +$P{daty1}+ " au "+$P{daty2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="92ccad89-873c-43ec-9b56-37a348241f50"/>
+				<textFieldExpression><![CDATA[ $P{daty}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="89" height="20" uuid="50ebcb8b-634e-4f92-99e6-b03439002ff2"/>
 				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="89" y="0" width="66" height="20" uuid="9612afb7-60a9-4ff6-b8be-1e7e1290a19f"/>
 				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="155" y="0" width="100" height="20" uuid="460b0c6a-840f-41cb-8770-d3b24ae68cfd"/>
 				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="255" y="0" width="100" height="20" uuid="3b00b553-53c1-4f88-9dda-5bdee4b6def4"/>
 				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="355" y="0" width="100" height="20" uuid="4ada336a-0913-4fc4-bf1f-be5d2138f89e"/>
 				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{montanttva}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="0" width="100" height="20" uuid="e0ce0623-37c5-4c9c-9a67-e95e35fdcd71"/>
 				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
 			</textField>
 		</band>

@@ -95,6 +95,7 @@ import fin.Coursdevise;
 import fin.CoursdevisePDF;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.util.Calendar;
 import lignecredit.LigneCredit;
 import mg.spat.CA;
 import mg.spat.CaPDF;
@@ -167,7 +168,9 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerFacture(request, response);
             } else if (action.equalsIgnoreCase("imprimerFactureClient")) {
                 imprimerFactureClient(request, response);
-            } else if (action.equalsIgnoreCase("fichePrestation")) {
+            }else if (action.equalsIgnoreCase("imprimerFactureClient1")) {
+                imprimerFactureClient1(request, response);
+            }else if (action.equalsIgnoreCase("fichePrestation")) {
                 fichePrestation(request, response);
             } else if (action.equalsIgnoreCase("fact")) {
                 fact(request, response);
@@ -937,7 +940,45 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-
+    private void imprimerFactureClient1(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Connection c = null;
+        try {
+            c = new UtilDB().GetConn();
+            Map param = new HashMap();
+            param.put("daty", String.valueOf(utilitaire.Utilitaire.dateDuJourSql()));
+            String daty1 = String.valueOf(utilitaire.Utilitaire.dateDuJourSql());
+            String daty2 = daty1;
+            if(request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0 && request.getParameter("daty2").length() != 0){
+                 daty2 = request.getParameter("daty2");
+            }
+            if(request.getParameter("daty1") != null && request.getParameter("daty1").compareToIgnoreCase("null") != 0 && request.getParameter("daty1").length() != 0){
+                daty1 = request.getParameter("daty1");
+            }
+            param.put("daty1", daty1);
+            param.put("daty2", daty2);
+            FactureClient facture = new FactureClient();
+            String mois = (Calendar.getInstance().get(Calendar.MONTH)+1)+"";
+            if(request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0 && request.getParameter("daty2").length() != 0){
+                mois = request.getParameter("daty2").split("/")[1];
+            }
+            facture.setNomTable("factureclient_emise");
+            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " AND to_char(trunc(daty,'MM'),'MM')= '"+mois+"' order by val,typelib");
+            ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
+            for (int i = 0; i < details.length; i++) {
+                arrList.add(details[i]);
+            }
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("facture_client1");
+            UtilitaireImpression.imprimer(request, response, "facture_client1", param, arrList, getReportPath(), rt);
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
     private void imprimerFactureClient(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Connection c = null;
         try {
