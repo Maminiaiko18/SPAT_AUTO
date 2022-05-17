@@ -10,7 +10,7 @@ try{
     String titrePage = "Modification Avoir FC" ,
             classeMere = "avoir.AvoirFC" ,
             classeFille = "avoir.AvoirFCFille",
-            buteLien = "avoir/avoirFC-modif.jsp" ,
+            buteLien = "avoir/avoirFC-fiche.jsp" ,
             colonneMereDansFille = "idmere",
             buteApresVisa = "avoir/avoirFC-fiche.jsp";
     String autreparsley = "data-parsley-range='[8, 40]' required";
