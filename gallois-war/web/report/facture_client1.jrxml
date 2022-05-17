@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce1f3f99-b941-4998-8da0-3d76101166df">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="daty" class="java.util.Date"/>
+	<field name="tierslib" class="java.lang.String"/>
+	<field name="montant" class="java.lang.Double"/>
+	<field name="montanttva" class="java.lang.Double"/>
+	<field name="montantttc" class="java.lang.Double"/>
+	<field name="desce" class="java.lang.String"/>
+	<field name="typelib" class="java.lang.String"/>
+	<variable name="montantttc_1" class="java.lang.Double" resetType="Group" resetGroup="desce" calculation="Sum">
+		<variableExpression><![CDATA[$F{montantttc}]]></variableExpression>
+	</variable>
+	<variable name="montanttva_1" class="java.lang.Double" resetType="Group" resetGroup="desce" calculation="Sum">
+		<variableExpression><![CDATA[$F{montanttva}]]></variableExpression>
+	</variable>
+	<variable name="montant_1" class="java.lang.Double" resetType="Group" resetGroup="desce" calculation="Sum">
+		<variableExpression><![CDATA[$F{montant}]]></variableExpression>
+	</variable>
+	<variable name="tierslib_1" class="java.lang.Integer" resetType="Group" resetGroup="desce" calculation="Count">
+		<variableExpression><![CDATA[$F{tierslib}]]></variableExpression>
+	</variable>
+	<variable name="daty_1" class="java.lang.Integer" resetType="Group" resetGroup="desce" calculation="Count">
+		<variableExpression><![CDATA[$F{daty}]]></variableExpression>
+	</variable>
+	<variable name="montantttc_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
+		<variableExpression><![CDATA[$F{montantttc}]]></variableExpression>
+	</variable>
+	<variable name="montanttva_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
+		<variableExpression><![CDATA[$F{montanttva}]]></variableExpression>
+	</variable>
+	<variable name="montant_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
+		<variableExpression><![CDATA[$F{montant}]]></variableExpression>
+	</variable>
+	<group name="type" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{typelib}]]></groupExpression>
+		<groupHeader>
+			<band height="41">
+				<textField>
+					<reportElement x="0" y="0" width="355" height="20" uuid="32cb9375-ffe6-46b4-94f1-7e079f0151c2"/>
+					<textFieldExpression><![CDATA[$F{typelib}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="20" width="355" height="20" uuid="5513d0c5-15f5-43d1-ac3a-bacf1f907203"/>
+					<textFieldExpression><![CDATA[$F{desce}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="40">
+				<textField pattern="#,##0.00">
+					<reportElement x="455" y="0" width="100" height="20" uuid="70250b80-b662-4f4f-962e-30d5734f9a9a"/>
+					<textFieldExpression><![CDATA[$V{montantttc_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="355" y="0" width="100" height="20" uuid="f2e19421-4f10-4c53-88bc-793d7b234b9d"/>
+					<textFieldExpression><![CDATA[$V{montanttva_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="255" y="0" width="100" height="20" uuid="0d977a76-2007-4b7f-b3f0-0029b0505f81"/>
+					<textFieldExpression><![CDATA[$V{montant_2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="89" height="20" uuid="bb7348d2-9464-4231-8ce2-c4038ec54d34"/>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="type">
+					<reportElement x="89" y="0" width="66" height="20" uuid="e48366c6-482c-4967-8fd7-d9ea61cffe18"/>
+					<textFieldExpression><![CDATA[$V{type_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="desce">
+		<groupExpression><![CDATA[$F{desce}]]></groupExpression>
+		<groupFooter>
+			<band height="30">
+				<textField pattern="#,##0.00">
+					<reportElement x="455" y="0" width="100" height="20" uuid="02abf51a-7f62-473b-9a3a-9e2cd71f0a78"/>
+					<textFieldExpression><![CDATA[$V{montantttc_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="355" y="0" width="100" height="20" uuid="5d6f7938-48d1-4f39-b732-28625b56be03"/>
+					<textFieldExpression><![CDATA[$V{montanttva_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="255" y="0" width="100" height="20" uuid="58e8caa7-6e6a-4596-825c-e3436fee55a2"/>
+					<textFieldExpression><![CDATA[$V{montant_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="89" height="20" uuid="988de382-211c-4751-b85b-a19064a61ead"/>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="type">
+					<reportElement x="89" y="0" width="66" height="20" uuid="7c69d78a-6e18-45ed-9fa9-16be77b9c9c8"/>
+					<textFieldExpression><![CDATA[$V{desce_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="49" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="155" height="20" uuid="01116ee4-8eab-46d9-86a2-5a2a8adf7249"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[S P A T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="155" height="20" uuid="a293169d-3b0c-4106-afab-d8f984eaeea0"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DEPARTEMENT GESTION DES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="155" height="20" uuid="d114d7be-e5dd-4e7f-a55d-b76503e8512b"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CONTRATS ET FACTURATION]]></text>
+			</staticText>
+			<textField evaluationTime="Page">
+				<reportElement x="317" y="20" width="138" height="20" uuid="5c4de282-0fd8-42fb-b1e1-d9a1d3fc4a17"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" sur "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="455" y="20" width="100" height="20" uuid="2e666afb-7826-4126-91bd-c858053feec6"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="89" height="20" uuid="50ebcb8b-634e-4f92-99e6-b03439002ff2"/>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="0" width="66" height="20" uuid="9612afb7-60a9-4ff6-b8be-1e7e1290a19f"/>
+				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="155" y="0" width="100" height="20" uuid="460b0c6a-840f-41cb-8770-d3b24ae68cfd"/>
+				<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="255" y="0" width="100" height="20" uuid="3b00b553-53c1-4f88-9dda-5bdee4b6def4"/>
+				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="355" y="0" width="100" height="20" uuid="4ada336a-0913-4fc4-bf1f-be5d2138f89e"/>
+				<textFieldExpression><![CDATA[$F{montanttva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="455" y="0" width="100" height="20" uuid="e0ce0623-37c5-4c9c-9a67-e95e35fdcd71"/>
+				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
