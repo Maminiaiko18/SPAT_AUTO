@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_de_commande" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="85" uuid="5de4b302-b873-4cc5-ac86-c7d51ce58f1b">
 	<property name="ireport.zoom" value="1.6105100000000314"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="110"/>
+	<property name="ireport.x" value="236"/>
+	<property name="ireport.y" value="290"/>
 	<parameter name="DATY" class="java.util.Date"/>
 	<parameter name="NOMFOURNISSEUR" class="java.lang.String"/>
 	<parameter name="ADRESSE" class="java.lang.String"/>
@@ -27,7 +27,7 @@
 	<field name="quantite" class="java.lang.Double"/>
 	<field name="unite" class="java.lang.String"/>
 	<field name="tva" class="java.lang.Double"/>
-	<field name="montanttva" class="java.lang.Double"/>
+	<field name="montantHTSansRemise" class="java.lang.Double"/>
 	<field name="montantremise" class="java.lang.Double"/>
 	<field name="numeroLigne" class="java.lang.Integer"/>
 	<background>
@@ -120,7 +120,7 @@
 	<columnHeader>
 		<band height="32" splitType="Stretch">
 			<staticText>
-				<reportElement x="316" y="12" width="80" height="20" uuid="e8f06907-3c7e-45d1-9d8b-ecaca178ac2b"/>
+				<reportElement x="316" y="12" width="89" height="20" uuid="e8f06907-3c7e-45d1-9d8b-ecaca178ac2b"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -175,20 +175,6 @@
 				<text><![CDATA[P.U HT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="496" y="12" width="59" height="20" uuid="5b30b469-546d-485f-aa8e-28222011449e"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-					<paragraph leftIndent="3"/>
-				</textElement>
-				<text><![CDATA[MONTANT TVA]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="232" y="12" width="36" height="20" uuid="fe904a31-bf62-4863-9af7-34d8ae35ce6f"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -209,7 +195,7 @@
 				<text><![CDATA[Montant exprimés en Ariary]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="455" y="12" width="42" height="20" uuid="76e898ce-e149-4cca-9217-1620b0a132fe"/>
+				<reportElement x="405" y="12" width="73" height="20" uuid="76e898ce-e149-4cca-9217-1620b0a132fe"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -223,7 +209,7 @@
 				<text><![CDATA[TAUX TVA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="396" y="12" width="59" height="20" uuid="e5dadffe-1937-4161-a15a-cf0701471b60"/>
+				<reportElement x="478" y="12" width="76" height="20" uuid="e5dadffe-1937-4161-a15a-cf0701471b60"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -299,7 +285,7 @@
 				<textFieldExpression><![CDATA[$F{unite}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="316" y="0" width="80" height="34" uuid="47202ada-808c-4407-a712-5e403eb9d59c"/>
+				<reportElement x="316" y="0" width="89" height="34" uuid="47202ada-808c-4407-a712-5e403eb9d59c"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -307,23 +293,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<paragraph rightIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{pu}*$F{quantite}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montantHTSansRemise}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="496" y="0" width="59" height="34" uuid="25a5586c-565e-4714-b96a-e61f5ea59b95"/>
-				<box>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<paragraph rightIndent="3"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{montanttva}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="0" width="42" height="34" uuid="4bb45a9c-de33-4132-8772-6627b20cab0c"/>
+				<reportElement x="405" y="0" width="73" height="34" uuid="4bb45a9c-de33-4132-8772-6627b20cab0c"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.5"/>
@@ -336,7 +309,7 @@
 				<textFieldExpression><![CDATA[$F{tva}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="396" y="0" width="59" height="34" uuid="720a153a-9624-467f-b9c8-3441644def5f"/>
+				<reportElement x="478" y="0" width="76" height="34" uuid="720a153a-9624-467f-b9c8-3441644def5f"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.5"/>
