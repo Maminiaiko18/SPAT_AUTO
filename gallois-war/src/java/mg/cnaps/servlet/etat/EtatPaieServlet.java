@@ -118,6 +118,7 @@ import mg.spat.DemandeAchatFille;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import utilitaire.Constante;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -947,14 +948,15 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             c = new UtilDB().GetConn();
             Map param = new HashMap();
-            param.put("daty", String.valueOf(utilitaire.Utilitaire.dateDuJourSql()));
-            String daty1 = String.valueOf(utilitaire.Utilitaire.dateDuJourSql());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            param.put("daty",sdf.format(utilitaire.Utilitaire.dateDuJourSql()));
+            String daty1 = sdf.format(utilitaire.Utilitaire.dateDuJourSql());
             String daty2 = daty1;
             if(request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0 && request.getParameter("daty2").length() != 0){
-                 daty2 = request.getParameter("daty2");
+                daty2 = sdf.format(sdf.parse(request.getParameter("daty2")));
             }
             if(request.getParameter("daty1") != null && request.getParameter("daty1").compareToIgnoreCase("null") != 0 && request.getParameter("daty1").length() != 0){
-                daty1 = request.getParameter("daty1");
+                daty1 =  sdf.format(sdf.parse(request.getParameter("daty1")));
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
@@ -964,7 +966,7 @@ public class EtatPaieServlet extends HttpServlet {
                 mois = request.getParameter("daty2").split("/")[1];
             }
             facture.setNomTable("factureclient_emise");
-            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " AND to_char(trunc(daty,'MM'),'MM')= '"+mois+"' order by typelib,val");
+            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " AND daty>= '"+daty1+"' AND daty<= '"+daty2+"' AND to_char(trunc(daty,'MM'),'MM')= '"+mois+"' order by typelib,val");
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
             for (int i = 0; i < details.length; i++) {
                 arrList.add(details[i]);

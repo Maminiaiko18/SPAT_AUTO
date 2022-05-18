@@ -237,13 +237,13 @@
 				<text><![CDATA[DEPARTEMENT FACTURATION]]></text>
 			</staticText>
 			<textField evaluationTime="Page">
-				<reportElement x="258" y="20" width="202" height="20" uuid="5c4de282-0fd8-42fb-b1e1-d9a1d3fc4a17"/>
+				<reportElement x="272" y="20" width="202" height="20" uuid="5c4de282-0fd8-42fb-b1e1-d9a1d3fc4a17"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" sur "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="460" y="20" width="95" height="20" uuid="2e666afb-7826-4126-91bd-c858053feec6"/>
-				<textFieldExpression><![CDATA[ $V{PAGE_NUMBER}]]></textFieldExpression>
+				<reportElement x="474" y="20" width="81" height="20" uuid="2e666afb-7826-4126-91bd-c858053feec6"/>
+				<textFieldExpression><![CDATA[" "+$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="155" y="76" width="212" height="20" uuid="9cda2fb8-5400-4129-a0d3-89db54dee886"/>
@@ -265,7 +265,7 @@
 				<textFieldExpression><![CDATA["Periode du " +$P{daty1}+ " au "+$P{daty2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="0" width="100" height="20" uuid="92ccad89-873c-43ec-9b56-37a348241f50"/>
+				<reportElement x="460" y="0" width="95" height="20" uuid="92ccad89-873c-43ec-9b56-37a348241f50"/>
 				<textFieldExpression><![CDATA[ $P{daty}]]></textFieldExpression>
 			</textField>
 		</band>
