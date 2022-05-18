@@ -92,7 +92,7 @@ try{
     pi.getFormufle().getChamp("maj_0").setLibelle("maj");
     pi.getFormufle().getChamp("red_0").setLibelle("red");
 
-    pi.getFormufle().getChamp("tvaAv_0").setLibelle("TVA Avoir");
+    pi.getFormufle().getChamp("tva_0").setLibelle("TVA Avoir");
     pi.getFormufle().getChamp("tvaDf_0").setLibelle("TVA detail facture");
     
     
@@ -104,10 +104,11 @@ try{
     pi.getFormufle().getChamp("Montantdf_0").setLibelle("Montant detail facture");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("tvaAv"), false);
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     
     
-    String[] ordreFille ={"iddetailfacture","designation","devise","qte","pu","duree","maj","red","montant","tvaav","montantdf","tvadf","remise"};
+    String[] ordreFille ={"iddetailfacture","designation","devise","qte","pu","duree","maj","red","montant","tva","montantdf","tvadf","remise"};
     pi.getFormufle().setColOrdre(ordreFille);
     
     mere = (AvoirFC) pi.getBase();
