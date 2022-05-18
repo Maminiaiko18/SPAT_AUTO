@@ -966,7 +966,7 @@ public class EtatPaieServlet extends HttpServlet {
                 mois = request.getParameter("daty2").split("/")[1];
             }
             facture.setNomTable("factureclient_emise");
-            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " AND daty>= '"+daty1+"' AND daty<= '"+daty2+"' AND to_char(trunc(daty,'MM'),'MM')= '"+mois+"' order by typelib,val");
+            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " AND daty>= '"+daty1+"' AND daty<= '"+daty2+"' order by typelib,val,daty");
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
             for (int i = 0; i < details.length; i++) {
                 arrList.add(details[i]);
