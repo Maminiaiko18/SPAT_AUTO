@@ -446,7 +446,9 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("CODE_ETATLIB", bc.getCode_etablib());
                 param.put("CODE_ETAB", bc.getCode_etab());
                 param.put("DELAI", bc.getDelaipaiement());
-                param.put("TOTAL_HT", bc.getMontant());
+                param.put("TOTAL_HT", bc.getMontantHTSansRemise());
+                param.put("totalHtRemise", bc.getMontant());
+                
                 //param.put("REMISE",bc.getRemise());
                 param.put("TOTAL_TVA", bc.getMontanttva());
                 param.put("TOTAL_TTC", bc.getMontantTTC());
