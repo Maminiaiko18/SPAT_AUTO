@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce1f3f99-b941-4998-8da0-3d76101166df">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="19"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="daty1" class="java.lang.String"/>
 	<parameter name="daty2" class="java.lang.String"/>
@@ -48,7 +48,9 @@
 						<bottomPen lineWidth="0.0"/>
 						<rightPen lineWidth="0.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{montantttc_2}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
@@ -59,7 +61,9 @@
 						<bottomPen lineWidth="0.0"/>
 						<rightPen lineWidth="0.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{montanttva_2}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
@@ -70,8 +74,21 @@
 						<bottomPen lineWidth="0.0"/>
 						<rightPen lineWidth="0.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{montant_2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="89" height="20" uuid="dc6f3b4f-2f60-453c-9331-300c3436ff08"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Décompte :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="89" y="0" width="66" height="20" uuid="d9ec2dcc-a437-4398-a0c0-721a0d3468bb"/>
+					<textFieldExpression><![CDATA[$V{type_COUNT}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -83,58 +100,70 @@
 				<textField isBlankWhenNull="true">
 					<reportElement x="137" y="0" width="418" height="20" uuid="83855982-e128-4448-b499-0e6c47519cfe"/>
 					<textElement>
-						<font isUnderline="false" isStrikeThrough="false"/>
+						<font isBold="true" isUnderline="false" isStrikeThrough="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{typelib}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement x="137" y="20" width="418" height="20" uuid="641bf0a4-3ccb-42da-bce8-4df2c2daa6ae"/>
 					<textElement>
-						<font isUnderline="false" isStrikeThrough="false"/>
+						<font isBold="true" isUnderline="false" isStrikeThrough="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{desce}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="47" width="89" height="20" uuid="a1dc7533-988c-4eac-b557-2f0b94243ae2"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[N° Facture]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="89" y="47" width="66" height="20" uuid="66f19efd-380e-42e4-ae61-50d6f548861d"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[Date]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="155" y="47" width="100" height="20" uuid="af7f3951-1e15-4e8a-bd24-a29a677e2f8e"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[Client]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="255" y="47" width="100" height="20" uuid="47a5bd37-e658-4ec3-b4cf-c0e34519dfcd"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[Montant HTVA]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="355" y="47" width="100" height="20" uuid="8918bded-de5e-46a4-9737-d20dfea7aba7"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[Taxe]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="455" y="47" width="100" height="20" uuid="b9e5717b-6a33-4fa8-b00a-9a9eca709275"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[Montant TTC]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="0" y="0" width="137" height="20" uuid="af4c6529-a644-41bd-97e5-427f2c171a0b"/>
 					<textElement>
-						<font isUnderline="true"/>
+						<font isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Nature de paiement]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="0" y="20" width="137" height="20" uuid="b921d601-f111-4172-bf9b-44f267a7e2be"/>
 					<textElement>
-						<font isUnderline="true"/>
+						<font isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Nature de prestation]]></text>
 				</staticText>
@@ -176,12 +205,15 @@
 					<textFieldExpression><![CDATA[$V{montant_1}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="89" height="20" uuid="dc6f3b4f-2f60-453c-9331-300c3436ff08"/>
-					<text><![CDATA[Total]]></text>
+					<reportElement x="0" y="0" width="89" height="20" uuid="afeb265b-9b45-4249-a673-eb106c036ca5"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total :]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement x="89" y="0" width="66" height="20" uuid="8ea0f80b-ebd4-4d2d-b867-a2a1dc07a5eb"/>
-					<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				<textField>
+					<reportElement x="89" y="0" width="66" height="20" uuid="b3a201cf-3976-4c75-80f5-cb2bdb263474"/>
+					<textFieldExpression><![CDATA[$V{val_COUNT}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -202,12 +234,7 @@
 			<staticText>
 				<reportElement x="0" y="20" width="155" height="20" uuid="a293169d-3b0c-4106-afab-d8f984eaeea0"/>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[DEPARTEMENT GESTION DES]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="40" width="155" height="20" uuid="d114d7be-e5dd-4e7f-a55d-b76503e8512b"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[CONTRATS ET FACTURATION]]></text>
+				<text><![CDATA[DEPARTEMENT FACTURATION]]></text>
 			</staticText>
 			<textField evaluationTime="Page">
 				<reportElement x="258" y="20" width="202" height="20" uuid="5c4de282-0fd8-42fb-b1e1-d9a1d3fc4a17"/>
@@ -216,11 +243,13 @@
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="460" y="20" width="95" height="20" uuid="2e666afb-7826-4126-91bd-c858053feec6"/>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[ $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="155" y="76" width="212" height="20" uuid="9cda2fb8-5400-4129-a0d3-89db54dee886"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[LISTE DES FACTURES EMISES]]></text>
 			</staticText>
 			<staticText>
@@ -230,12 +259,14 @@
 			</staticText>
 			<textField>
 				<reportElement x="123" y="95" width="290" height="20" uuid="be9ad51c-415a-4a3c-9923-8ff1a0931bad"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Periode du " +$P{daty1}+ " au "+$P{daty2}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="0" width="100" height="20" uuid="92ccad89-873c-43ec-9b56-37a348241f50"/>
-				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[ $P{daty}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
