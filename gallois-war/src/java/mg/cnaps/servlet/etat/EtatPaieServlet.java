@@ -973,7 +973,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("facture_client1");
-            UtilitaireImpression.imprimer(request, response, "facture_client1", param, arrList, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "facture_client", param, arrList, getReportPath(), rt);
  
         } catch (Exception e) {
             e.printStackTrace();
