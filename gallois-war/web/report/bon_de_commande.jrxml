@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_de_commande" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="85" uuid="5de4b302-b873-4cc5-ac86-c7d51ce58f1b">
 	<property name="ireport.zoom" value="1.6105100000000314"/>
-	<property name="ireport.x" value="254"/>
+	<property name="ireport.x" value="148"/>
 	<property name="ireport.y" value="337"/>
 	<parameter name="DATY" class="java.util.Date"/>
 	<parameter name="NOMFOURNISSEUR" class="java.lang.String"/>
@@ -366,7 +366,7 @@
 MATIERES ET APPROVISIONNEMENTS]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="385" y="31" width="70" height="15" uuid="1ca4255f-a5a0-47f4-9488-3534ae18444a"/>
+				<reportElement x="347" y="31" width="193" height="15" uuid="1ca4255f-a5a0-47f4-9488-3534ae18444a"/>
 				<textElement textAlignment="Right">
 					<paragraph rightIndent="3"/>
 				</textElement>
@@ -378,14 +378,14 @@ MATIERES ET APPROVISIONNEMENTS]]></text>
 				<text><![CDATA[TOTAL TVA]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="385" y="60" width="70" height="14" uuid="8f9947aa-936d-4e9f-9c3e-a8c0b3c0937e"/>
+				<reportElement x="347" y="60" width="193" height="14" uuid="8f9947aa-936d-4e9f-9c3e-a8c0b3c0937e"/>
 				<textElement textAlignment="Right">
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{TOTAL_TVA}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="385" y="75" width="70" height="13" uuid="3ea23688-326a-4704-a7fd-d881b9242cef"/>
+				<reportElement x="347" y="75" width="193" height="13" uuid="3ea23688-326a-4704-a7fd-d881b9242cef"/>
 				<textElement textAlignment="Right">
 					<paragraph rightIndent="3"/>
 				</textElement>
@@ -406,7 +406,7 @@ MATIERES ET APPROVISIONNEMENTS]]></text>
 				<textFieldExpression><![CDATA["Condition de règlement : Règlement: "+$P{DELAI}+" jours après livraison"]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="384" y="10" width="70" height="15" uuid="baae014c-3218-43cb-bd7e-c9b9fb496521"/>
+				<reportElement x="347" y="10" width="193" height="15" uuid="baae014c-3218-43cb-bd7e-c9b9fb496521"/>
 				<textElement textAlignment="Right">
 					<paragraph rightIndent="3"/>
 				</textElement>
@@ -473,13 +473,14 @@ MATIERES ET APPROVISIONNEMENTS]]></text>
 				<textFieldExpression><![CDATA[$P{nbrligne}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="232" y="46" width="100" height="14" uuid="e2ac7f7c-8555-420a-ae4a-743f115b8626"/>
+				<reportElement x="232" y="46" width="99" height="14" uuid="e2ac7f7c-8555-420a-ae4a-743f115b8626"/>
+				<textElement textAlignment="Right"/>
 				<text><![CDATA[TOTAL HT REMISE]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="384" y="45" width="71" height="15" uuid="fa2405d0-9e9f-4cab-a275-0465b9e9908d"/>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="347" y="45" width="193" height="15" uuid="fa2405d0-9e9f-4cab-a275-0465b9e9908d"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$P{totalHtRemise}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{totalHtRemise} ]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
