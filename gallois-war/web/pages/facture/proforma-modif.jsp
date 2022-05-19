@@ -161,7 +161,7 @@ try {
     pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("codePrestation").setVisible(false);
-    pi.getFormu().getChamp("code").setVisible(false);
+    //pi.getFormu().getChamp("code").setVisible(false);
     String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee", "daty" , "heureDebut","heureFin","majoration","reduction"};
     pi.getFormufle().setColOrdre(ordreFille);
     
