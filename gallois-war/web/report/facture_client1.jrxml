@@ -304,8 +304,8 @@
 				</box>
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="155" y="0" width="129" height="20" uuid="460b0c6a-840f-41cb-8770-d3b24ae68cfd"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="155" y="0" width="129" height="20" uuid="460b0c6a-840f-41cb-8770-d3b24ae68cfd"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
