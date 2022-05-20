@@ -22,7 +22,7 @@
         String[] pourcentage = {};
         String colDefaut[] = {"idbc" , "daty", "codelib", "projetlib", "produit", "quantite", "unite", "pu", "montantht", "fournisseurlib"};
         String somDefaut[] = {};
-        String lien[] = {"idbc"};
+        String lien[] = {"id"};
         PageRechercheGroupe pr = new PageRechercheGroupe(journal, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, somDefaut.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -57,7 +57,7 @@
             String libEnteteAffiche[] = {"IDBC" , "date", "code", "projet", "produit", "quantite", "unite", "pu", "montant HT", "fournisseur"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             String lienTableau[] = {
-            pr.getLien() + "?stock/bc/asBonDeCommande-fiche.jsp"};
+            pr.getLien() + "&but=stock/bc/asBonDeCommande-fiche.jsp"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(lien);
             out.println(pr.getTableau().getHtml());
