@@ -64,7 +64,40 @@ public class FactureClient extends ClassMere {
     private Date dateDepart,datearrivee;
     private String armateur,codeFiltre,paiement,paiementlib;
     private String val,desce;
+    private double lht,lm,te,jnt;
 
+    public double getLht() {
+        return lht;
+    }
+
+    public void setLht(double lht) {
+        this.lht = lht;
+    }
+
+    public double getLm() {
+        return lm;
+    }
+
+    public void setLm(double lm) {
+        this.lm = lm;
+    }
+
+    public double getTe() {
+        return te;
+    }
+
+    public void setTe(double te) {
+        this.te = te;
+    }
+
+    public double getJnt() {
+        return jnt;
+    }
+
+    public void setJnt(double jnt) {
+        this.jnt = jnt;
+    }
+    
     public String getVal() {
         return val;
     }
