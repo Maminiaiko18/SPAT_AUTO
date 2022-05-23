@@ -169,17 +169,18 @@ public class RemboursementPlacement extends ClassEtat{
             String refuser = ""+user.getUser().getRefuser();
             PlacementLibComplet placementLibComplet = (PlacementLibComplet) (new PlacementLibComplet()).getById(this.getIdplacement(), "placementlibcomplet", c);
             
+            Placement placement = findPlacement(c);
+            
         //  Montant placé
             String designation = String.format("Echeance placement %s/%s: montant place", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
             Date dateDuJour = Utilitaire.dateDuJourSql();
             JournalCaisse j1 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, placementLibComplet.getMontant());
+            j1.setIddevise(placement.getIddevise());
             j1.setIdplacement(this.getIdplacement());
             j1.setMode(Constante.idmodeVirement);
             j1.setIdTypeCheque(Constante.typeChequeAuComptant);
             j1.createObject(refuser, c);
-            j1.viser(user, c);
-            
-            Placement placement = findPlacement(c);
+            j1.viser(user, c); 
             
         //  Intérêts
             designation = String.format("Echeance placement %s/%s: montant interets", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
