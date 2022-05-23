@@ -172,7 +172,7 @@ try {
     mere = pf[0];
     
     pi.getFormu().getChamp("tiers").setValeurLibelle(mere.getTierslib());
-    pi.getFormu().getChamp("idprevision").setValeurLibelle(mere.getEscale());
+    pi.getFormu().getChamp("idprevision").setValeurLibelle(mere.getIdprevision());
     //pi.getFormu().getChamp("idProvision").setValeurLibelle(mere.getIdProvisionlib());
     pi.getFormu().getChamp("provenance").setValeurLibelle(mere.getProvenancelib());
     pi.getFormu().getChamp("destination").setValeurLibelle(mere.getDestinationlib());
