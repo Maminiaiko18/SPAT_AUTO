@@ -105,7 +105,7 @@
             <% } %>
                 </div>           
                 <div class="col-md-4">                 
-                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient1&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>" style="margin-right: 10px">Imprimer facture</a>                 
+                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient1&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>" style="margin-right: 10px">Imprimer factures</a>                 
                 </div>
             </div>
         </form>

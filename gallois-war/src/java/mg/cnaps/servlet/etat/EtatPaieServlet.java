@@ -2587,7 +2587,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         }
     }
     private void listesFactEmises(HttpServletRequest request, HttpServletResponse response)throws Exception{
-        System.out.println("miditra atooooo");
+        
         try{
         FactureClient f = new FactureClient();
         f.setNomTable("factureClientValide"); 
@@ -2605,7 +2605,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         String code=request.getParameter("code");
         String etat=request.getParameter("etat");
         String codeFiltre =request.getParameter("codeFiltre");
-        System.out.println("codeFiltre=="+codeFiltre);
+        
         if(id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0)
         {
             awhere+=" AND id='"+id+"'";
@@ -2655,7 +2655,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             awhere+=" AND codeFiltre like'%"+codeFiltre+"%'";
         }
         
-          System.out.println("etat==="+etat);
+          
           Map param = new HashMap();
         if(etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0)
         {
@@ -2675,13 +2675,13 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             TypeObjet jc = new TypeObjet();
             jc.setNomTable("rubrique_fact_emises");
             String req =" and val='"+codeFiltre+"'";
-            System.out.println("req==="+req);
+            
             
             TypeObjet[] tab = (TypeObjet[]) CGenUtil.rechercher(jc, null, null,req);
-             System.out.println("length==="+tab.length);
+             
             param.put("prestation",tab[0].getDesce());
-        System.out.println("sql="+awhere);
-        awhere+=" order by daty ASC";
+       
+        awhere+=" order by code ASC";
         FactureClient[] mere =(FactureClient []) CGenUtil.rechercher( f , null, null, awhere);
         double totaltva = 0;
         double totaltaxe = 0;
