@@ -15,7 +15,7 @@
     pr.getFormu().getChamp("anneeRembousement2").setLibelle("Annee Remboursement max");
     pr.getFormu().getChamp("moisRembousement1").setLibelle("Mois Remboursement min");
     pr.getFormu().getChamp("moisRembousement2").setLibelle("Mois Remboursement max");
-    String[] colSomme = null;
+    String[] colSomme = {"montant","interetNet","interet_recevoir"};
     pr.creerObjetPage(libEntete, colSomme);
 %>
 
