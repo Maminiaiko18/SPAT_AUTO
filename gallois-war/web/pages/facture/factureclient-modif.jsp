@@ -106,6 +106,11 @@
         pi.getFormu().getChamp("idavoir").setAutre("readonly");
         pi.getFormu().getChamp("idavoir").setLibelle("Avoir");
 
+        pi.getFormu().getChamp("lht").setVisible(false);
+        pi.getFormu().getChamp("lm").setVisible(false);
+        pi.getFormu().getChamp("te").setVisible(false);
+        pi.getFormu().getChamp("jnt").setVisible(false);
+
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
         //affichage.Champ.setAutre(pi.getFormufle().getChampFille("Taux"), "readonly");
