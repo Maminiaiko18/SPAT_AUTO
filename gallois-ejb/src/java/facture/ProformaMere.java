@@ -18,7 +18,16 @@ import utilitaire.UtilDB;
 public class ProformaMere extends FactureClient{
     private Date dateDepart,dateArrivee;
     private  String heureDepart,heureArrivee,bateau,provenance,provenancelib,destination,destinationlib,bateaulib;
-    private double volume100 ;
+    private double volume100,volume;
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+    
 
     public double getVolume100() {
         return volume100;
