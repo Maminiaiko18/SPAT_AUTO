@@ -45,6 +45,10 @@
     pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
     pi.getFormu().getChamp("tva").setVisible(false);
     pi.getFormu().getChamp("idavoir").setVisible(false);
+    pi.getFormu().getChamp("lht").setVisible(false);
+    pi.getFormu().getChamp("lm").setVisible(false);
+    pi.getFormu().getChamp("te").setVisible(false);
+    pi.getFormu().getChamp("jnt").setVisible(false);
     pi.getFormu().getChamp("pourCompte").setPageAppel("choix/clientCategorieChoix.jsp");
     pi.getFormu().getChamp("pourCompte").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
