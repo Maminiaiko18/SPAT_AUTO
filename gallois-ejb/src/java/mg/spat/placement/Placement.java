@@ -30,13 +30,21 @@ public class Placement extends ClassEtat {
     private double montantdevise;
     private String banque;
     private int moisPlacement;
-    private int moisRemboursement;
-    private int anneePlacement;
+    private int moisRembousement;
+    private int anneePlacement,anneeRembousement;
     private double montant_terme;
     private double interet_recevoir;
     private double interetNet;
     private String ancienPlacement;
     private String moisPlacementlib,moisRembousementlib;
+
+    public int getAnneeRembousement() {
+        return anneeRembousement;
+    }
+
+    public void setAnneeRembousement(int anneeRembousement) {
+        this.anneeRembousement = anneeRembousement;
+    }
 
     public String getMoisPlacementlib() {
         return moisPlacementlib;
@@ -198,12 +206,12 @@ public class Placement extends ClassEtat {
         this.moisPlacement = moisPlacement;
     }
 
-    public int getMoisRemboursement() {
-        return moisRemboursement;
+    public int getMoisRembousement() {
+        return moisRembousement;
     }
 
-    public void setMoisRemboursement(int moisRemboursement) {
-        this.moisRemboursement = moisRemboursement;
+    public void setMoisRembousement(int moisRemboursement) {
+        this.moisRembousement = moisRemboursement;
     }
 
     public int getAnneePlacement() {

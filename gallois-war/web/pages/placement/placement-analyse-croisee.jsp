@@ -8,13 +8,13 @@
 
         Placement lv = new Placement();
         lv.setNomTable("PLACEMENT_ANALYSE");
-        String listeCrt[] = {"entite","banque","anneePlacement","moisplacement"};
-        String listeInt[] = {"moisplacement","anneePlacement"};
+        String listeCrt[] = {"entite","banque","anneerembousement","moisrembousement"};
+        String listeInt[] = {"moisrembousement","anneerembousement"};
 
         String[] pourcentage = {};
-        String somDefaut[] ={"montant"}; //sum
-        String colDefaut[] =  {"banque", "interet_recevoir", "interetnet"}; // colonne
-        String[] colGrCol = {"moisplacementlib"}; //ligne
+        String somDefaut[] ={"interet_recevoir", "interetnet"}; //sum
+        String colDefaut[] =  {"banque"}; // colonne
+        String[] colGrCol = {"moisrembousementlib"}; //ligne
         
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, colDefaut.length, 0);
         
@@ -23,34 +23,38 @@
 
 //        pr.getFormu().getChamp("mois1").setVisible(false);
 //        pr.getFormu().getChamp("anneePlacement2").setVisible(false);
-        pr.getFormu().getChamp("anneePlacement1").setLibelle("Annee Placement Min");
-        pr.getFormu().getChamp("anneePlacement2").setLibelle("Annee Placement Max");
+        pr.getFormu().getChamp("anneerembousement1").setLibelle("Annee Min");
+        pr.getFormu().getChamp("anneerembousement2").setLibelle("Annee Max");
 //        pr.getFormu().getChamp("moisplacement").setLibelle("Mois Placement");
          affichage.Champ [] list = new affichage.Champ[2];
         int month = Utilitaire.getMoisEnCoursReel();
         if (month == 0) month = 12;
         
-        Liste mois = new Liste("moisplacement1");
+        Liste mois = new Liste("moisrembousement1");
         String affiche[] = {"-","Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"};
 	String valeur[] = {" ","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
 	mois.setValeurBrute(affiche);
 	mois.setColValeurBrute(valeur);
         mois.makeListeMois();
         list[0] = mois;
-        Liste mois2 = new Liste("moisplacement2");
+        Liste mois2 = new Liste("moisrembousement2");
 	mois2.setValeurBrute(affiche);
 	mois2.setColValeurBrute(valeur);
         mois2.makeListeMois();
         list[1] = mois2;
         pr.getFormu().changerEnChamp(list);
-        pr.getFormu().getChamp("moisplacement1").setDefaut(String.valueOf(month));
-        pr.getFormu().getChamp("moisplacement2").setDefaut(String.valueOf(month));
+        pr.getFormu().getChamp("moisrembousement1").setDefaut(String.valueOf(1));
+        pr.getFormu().getChamp("moisrembousement2").setDefaut(String.valueOf(12));
         
-        pr.getFormu().getChamp("moisplacement1").setLibelle("Mois Placement Min");
-        pr.getFormu().getChamp("moisplacement2").setLibelle("Mois Placement Max");
+        pr.getFormu().getChamp("anneerembousement1").setDefaut(Utilitaire.getAnneeEnCours());
+        pr.getFormu().getChamp("anneerembousement2").setDefaut(Utilitaire.getAnneeEnCours());
+        
+        pr.getFormu().getChamp("moisrembousement1").setLibelle("Mois Min");
+        pr.getFormu().getChamp("moisrembousement2").setLibelle("Mois Max");
         
         pr.setApres("placement/placement-analyse-croisee.jsp");
-        pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+pr.getApres());
+        //pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+pr.getApres());
+        pr.creerObjetPageCroise(colDefaut, "wawa");
 
 %>
 
