@@ -50,8 +50,15 @@
         pr.getFormu().getChamp("moisrembousement1").setLibelle("Mois Min");
         pr.getFormu().getChamp("moisrembousement2").setLibelle("Mois Max");
         
+        String url = "placement/placement-analyse-croisee-details.jsp";
+        if(request.getParameter("anneeRembousement1")!=null){
+            url += "&anneeRembousement1="+request.getParameter("anneeRembousement1");
+        }
+        if(request.getParameter("anneeRembousement2")!=null){
+            url += "&anneeRembousement2="+request.getParameter("anneeRembousement2");
+        }
         pr.setApres("placement/placement-analyse-croisee.jsp");
-        pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+pr.getApres());
+        pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+url);
 
 %>
 
