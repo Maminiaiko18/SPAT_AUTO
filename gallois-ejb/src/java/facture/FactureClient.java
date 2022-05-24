@@ -28,6 +28,7 @@ import fin.Coursdevise;
 import java.util.List;
 import mg.spat.ClientCategorie;
 import mg.spat.Engagement;
+import mg.spat.Navire;
 import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.AdminActivite;
@@ -731,6 +732,14 @@ public class FactureClient extends ClassMere {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        Prevision prev = findPrevision(null, c);
+        Navire nav = prev.findNavire(c);
+        
+        setLht(nav.getLht());
+        setLm(nav.getLm());
+        setTe(nav.getTe());
+        setJnt(nav.getJnt());
+        
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
