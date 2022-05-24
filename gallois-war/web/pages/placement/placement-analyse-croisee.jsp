@@ -21,11 +21,9 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
-//        pr.getFormu().getChamp("mois1").setVisible(false);
-//        pr.getFormu().getChamp("anneePlacement2").setVisible(false);
         pr.getFormu().getChamp("anneerembousement1").setLibelle("Annee Min");
         pr.getFormu().getChamp("anneerembousement2").setLibelle("Annee Max");
-//        pr.getFormu().getChamp("moisplacement").setLibelle("Mois Placement");
+        
          affichage.Champ [] list = new affichage.Champ[2];
         int month = Utilitaire.getMoisEnCoursReel();
         if (month == 0) month = 12;
@@ -53,8 +51,7 @@
         pr.getFormu().getChamp("moisrembousement2").setLibelle("Mois Max");
         
         pr.setApres("placement/placement-analyse-croisee.jsp");
-        //pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+pr.getApres());
-        pr.creerObjetPageCroise(colDefaut, "wawa");
+        pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+pr.getApres());
 
 %>
 
