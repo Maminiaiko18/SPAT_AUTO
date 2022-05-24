@@ -1067,15 +1067,15 @@ public class EtatPaieServlet extends HttpServlet {
                     //param.put("pavillon",pre[0].getPavillon);
                     param.put("date_depart", pre[0].getDate_depart());
                     param.put("destination", pre[0].getValquaisdestination());
-                    param.put("lhtnavire", pre[0].getLhtnavire());
-                    param.put("jntnavire", pre[0].getJntnavire());
-                    param.put("lmnavire", pre[0].getLmnavire());
+                    param.put("lhtnavire", facture.getLht());
+                    param.put("jntnavire", facture.getJnt());
+                    param.put("lmnavire", facture.getLm());
                     param.put("provenance", pre[0].getValquaisprovenance());
                     param.put("escale", pre[0].getEscale());
                     param.put("pavillonlib", pre[0].getPavillonlib());
                     param.put("heure_depart", pre[0].getHeure_depart());
                     param.put("heure_arrivee", pre[0].getHeure_arrivee());
-                    param.put("tenavire", pre[0].getTenavire());
+                    param.put("tenavire", facture.getTe());
 
                     setNomJasper("facture_client2 - Copie");//facture_client2 - Copie //facture_convention //facture-client-sans-prevision
                 } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
