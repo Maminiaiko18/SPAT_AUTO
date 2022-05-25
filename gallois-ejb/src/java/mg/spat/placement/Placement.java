@@ -36,8 +36,16 @@ public class Placement extends ClassEtat {
     private double interet_recevoir;
     private double interetNet;
     private String ancienPlacement;
-    private String moisPlacementlib,moisRembousementlib;
+    private String moisPlacementlib,moisRembousementlib,type;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    
     public int getAnneeRembousement() {
         return anneeRembousement;
     }
