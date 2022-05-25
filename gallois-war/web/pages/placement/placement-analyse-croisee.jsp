@@ -46,6 +46,15 @@
         
         pr.getFormu().getChamp("anneerembousement1").setDefaut(Utilitaire.getAnneeEnCours());
         pr.getFormu().getChamp("anneerembousement2").setDefaut(Utilitaire.getAnneeEnCours());
+        String awhere="";
+        
+        if(request.getParameter("anneerembousement1")==null && request.getParameter("anneerembousement2")==null && request.getParameter("anneerembousement2")==null && request.getParameter("anneerembousement1")==null  ){
+            awhere=String.format("and moisrembousement>=%s && moisrembousement<= %s",1,12);
+            
+            awhere=String.format("and anneerembousement=%s",Utilitaire.getAnneeEnCours());
+            
+            pr.setAWhere(awhere);
+        }
         
         pr.getFormu().getChamp("moisrembousement1").setLibelle("Mois Min");
         pr.getFormu().getChamp("moisrembousement2").setLibelle("Mois Max");
