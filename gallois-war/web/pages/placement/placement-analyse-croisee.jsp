@@ -61,7 +61,7 @@
         }
         url += urla1 + urla2;
         pr.setApres("placement/placement-analyse-croisee.jsp");
-        pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+url);
+        pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+url+"&recap=checked");
 
 %>
 
