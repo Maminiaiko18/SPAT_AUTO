@@ -722,5 +722,8 @@ public class FactureFournisseur extends FactureClient {
         }
     }
     
+    @Override
+    public void checkCode(Connection c){}
+    
     
 }
