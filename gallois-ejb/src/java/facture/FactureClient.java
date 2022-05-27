@@ -140,6 +140,7 @@ public class FactureClient extends ClassMere {
         if(this.getType().equals(factureClient.getType())==false && this.getEstAncienne()!=1){
             this.setCode(this.calculerCode(c));
         }
+        this.checkCode(c);
     }
     
     public String getCodeFiltre() {
@@ -1997,7 +1998,7 @@ public class FactureClient extends ClassMere {
         return null;
     }
     
-    public void ckeckCode(Connection c) throws Exception{
+    public void checkCode(Connection c) throws Exception{
         TypeObjet code = new TypeObjet();
         code.setNomTable("CODEFCPREMIERCARACTERE");
         TypeObjet[] ls = (TypeObjet[]) CGenUtil.rechercher(code, null, null, c, " and val ='"+this.getType()+"'");
