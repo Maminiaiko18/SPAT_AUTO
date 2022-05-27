@@ -742,11 +742,14 @@ public class FactureClient extends ClassMere {
                 setTe(nav.getTe());
                 setJnt(nav.getJnt());
             }
+           
         }
-        
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
+        if(this.getEstAncienne()!=1) {
+               this.setCode(calculerCode(c));
+           }
         super.validerObject(u, c);
         return this;
     }
