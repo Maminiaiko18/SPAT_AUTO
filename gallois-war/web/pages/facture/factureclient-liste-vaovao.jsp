@@ -41,7 +41,8 @@
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("armateurlib").setLibelle("Armateur");
         pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
-        
+        pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
         Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
@@ -49,11 +50,11 @@
         String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
         String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
         
-        if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+        /*if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
             pr.getFormu().getChamp("daty1").setDefaut(debutDate);
             pr.getFormu().getChamp("daty2").setDefaut(dateFin);
             
-        }
+        }*/
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
