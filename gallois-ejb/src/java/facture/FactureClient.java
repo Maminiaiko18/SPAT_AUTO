@@ -1997,6 +1997,14 @@ public class FactureClient extends ClassMere {
         return null;
     }
     
+    public void ckeckCode(Connection c) throws Exception{
+        TypeObjet code = new TypeObjet();
+        code.setNomTable("CODEFCPREMIERCARACTERE");
+        TypeObjet[] ls = (TypeObjet[]) CGenUtil.rechercher(code, null, null, c, " and val ='"+this.getType()+"'");
+        code = ls[0];
+        if(this.getCode().startsWith(code.getDesce()) == false) throw new Exception("Début du code invalide");
+    }
+    
 
     public FactureClient(Date daty, Date date_echeance, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String escale, String deviseMere, double tva, double montant, double montanttva, double montantttc, double montantpaye, double montantreste, String tierslib, double montantavoir, String contact, String adresse, String etatLib, String typelib, double deviseEuro, double deviseDollar, double coeff, double montantHTEuro, double montantTVAEuro, double montantHTVADollar, double montantTVADollar, double montantTTCDollar, double montantttcvrai, String idcategorie, String idProvision, String categorielib, String idProvisionlib, String iddefinitive, String estDDPMICTSL, String codePrestation, String codePrestationlib, String codeProvision, String code, String estMictsl, double reduction, double ecart) throws Exception {
         setNomTable("Factureclient");
