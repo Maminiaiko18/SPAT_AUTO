@@ -56,10 +56,10 @@
         <%
             String libEnteteAffiche[] = {"IDBC" , "date", "code", "projet", "produit", "quantite", "unite", "pu", "montant HT", "fournisseur"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            String lienTableau[] = {
-            pr.getLien() + "&but=stock/bc/asBonDeCommande-fiche.jsp"};
+            String colonneLien[] = {"IDBC"};
+            String lienTableau[] = {pr.getLien() + "?but=stock/bc/asBonDeCommande-fiche.jsp"};
             pr.getTableau().setLien(lienTableau);
-            pr.getTableau().setColonneLien(lien);
+            pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
             out.println(pr.getInsertLienModal());
