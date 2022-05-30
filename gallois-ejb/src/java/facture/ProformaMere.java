@@ -124,11 +124,13 @@ public class ProformaMere extends FactureClient{
 
     @Override
     public void checkCode(Connection c) throws Exception {
+        if(this.getIdcategorie()==null || this.getIdcategorie().compareTo("")==0) throw new Exception("Catégorie invalide");
         TypeObjet code = new TypeObjet();
         code.setNomTable("CODEFCPREMIERCARACTERE");
         TypeObjet[] ls = (TypeObjet[]) CGenUtil.rechercher(code, null, null, c, " and val ='"+this.getIdcategorie()+"'");
-        code = ls[0];
-        if(this.getCode().startsWith(code.getDesce()) == false) throw new Exception("Début du code invalide");
+        if(ls.length>0){
+            if(this.getCode().startsWith(ls[0].getDesce()) == false) throw new Exception("Début du code invalide");
+        }
     }
     
     @Override
@@ -137,13 +139,7 @@ public class ProformaMere extends FactureClient{
         setId(makePK(c));
     }
     @Override
-    public void controlerUpdate(Connection c) throws Exception{
-        ProformaMere factureClient =(ProformaMere)(new ProformaMere()).getById(this.getId(), "proforma_mere", c);
-        
-        if(this.getType().equals(factureClient.getType())==false && this.getEstAncienne()!=1){
-            this.setCode(this.calculerCode(c));
-        }
-        
+    public void controlerUpdate(Connection c) throws Exception{        
         checkCode(c);
     }
     

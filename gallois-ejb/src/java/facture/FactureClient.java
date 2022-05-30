@@ -2004,9 +2004,22 @@ public class FactureClient extends ClassMere {
     public void checkCode(Connection c) throws Exception{
         TypeObjet code = new TypeObjet();
         code.setNomTable("CODEFCPREMIERCARACTERE");
-        TypeObjet[] ls = (TypeObjet[]) CGenUtil.rechercher(code, null, null, c, " and val ='"+this.getType()+"'");
-        code = ls[0];
-        if(this.getCode().startsWith(code.getDesce()) == false) throw new Exception("Début du code invalide");
+        TypeObjet[] ls =null;
+        if(this.getIdcategorie()==null || this.getIdcategorie().compareTo("")==0) throw new Exception("Categorie invalide");
+        if(this.getIdcategorie().compareTo(Constante.idCategorieFCDefinitive)==0){
+            // test debut type
+            if(this.getType()==null || this.getType().compareTo("")==0) throw new Exception("Type invalide");
+            ls= (TypeObjet[]) CGenUtil.rechercher(code, null, null, c, " and val ='"+this.getType()+"'");
+            if(ls.length>0){
+                if(this.getCode().startsWith(ls[0].getDesce()) == false) throw new Exception("Début du code invalide");
+            }
+        }else{
+            // test debut categorie
+            ls = (TypeObjet[]) CGenUtil.rechercher(code, null, null, c, " and val ='"+this.getIdcategorie()+"'");
+            if(ls.length>0){
+                if(this.getCode().startsWith(ls[0].getDesce()) == false) throw new Exception("Début du code invalide");
+            }
+        }
     }
     
 
