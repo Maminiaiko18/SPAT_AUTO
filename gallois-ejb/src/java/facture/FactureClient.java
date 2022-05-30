@@ -747,9 +747,6 @@ public class FactureClient extends ClassMere {
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
-        if(this.getEstAncienne()!=1) {
-               this.setCode(calculerCode(c));
-           }
         super.validerObject(u, c);
         return this;
     }
@@ -1572,7 +1569,7 @@ public class FactureClient extends ClassMere {
             fact2 = fc.setIdProvision(fact2, type, u, c);
             fact2.setIdcategorie(categorie);
             fact2.setDaty(Utilitaire.dateDuJourSql());
-            fact2.calculerCode(c);
+            fact2.setCode(fact2.calculerCode(c));
             u.updateObjectMultiple(fact2, "idmere", fact2.getFille(), c);
             if (verif == 1) {
                 c.commit();
