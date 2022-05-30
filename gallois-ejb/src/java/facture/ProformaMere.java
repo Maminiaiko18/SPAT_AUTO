@@ -6,6 +6,7 @@
 package facture;
 
 import bean.CGenUtil;
+import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.Constante;
@@ -120,8 +121,16 @@ public class ProformaMere extends FactureClient{
     public void setBateau(String bateau) {
         this.bateau = bateau;
     }
-    
 
+    @Override
+    public void checkCode(Connection c) throws Exception {
+        TypeObjet code = new TypeObjet();
+        code.setNomTable("CODEFCPREMIERCARACTERE");
+        TypeObjet[] ls = (TypeObjet[]) CGenUtil.rechercher(code, null, null, c, " and val ='"+this.getIdcategorie()+"'");
+        code = ls[0];
+        if(this.getCode().startsWith(code.getDesce()) == false) throw new Exception("Début du code invalide");
+    }
+    
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("CR","GETSEQ_PROFORMA_MERE");
@@ -134,6 +143,8 @@ public class ProformaMere extends FactureClient{
         if(this.getType().equals(factureClient.getType())==false && this.getEstAncienne()!=1){
             this.setCode(this.calculerCode(c));
         }
+        
+        checkCode(c);
     }
     
     public void initDetails(Connection c) throws Exception {
