@@ -47,7 +47,7 @@ public class OrdonnerPayement extends ClassEtat {
     private String folio, numcheque, numfact;
   private double montantpaye,reste;
   private String modepaiementlib, tierslib;
-    private String idfacture,type,idengagement;
+    private String idfacture,type,idengagement,numeroCompta;
 
     public void checkDoublonNumeroOP(Connection c) throws Exception {
 			this.setNomTable("ordonnerpayement");
@@ -56,6 +56,14 @@ public class OrdonnerPayement extends ClassEtat {
 			if(op.length > 0) throw new Exception("Numero OP existant");
     }
 
+    public String getNumeroCompta() {
+        return numeroCompta;
+    }
+
+    public void setNumeroCompta(String numeroCompta) {
+        this.numeroCompta = numeroCompta;
+    }
+    
     public String getTierslib() {
         return tierslib;
     }
