@@ -111,7 +111,7 @@
 </script>
 <script>
     console.log("mande");
-    var footer = document.getElementsByClassName('box-footer');
+    var footer = document.getElementsByClassName('box-footer')[1].querySelector("div");
     var tot = document.createElement('p');
     tot.readOnly = true;
     tot.type = "text";
@@ -119,8 +119,8 @@
     tot.style.fontSize = "21px";
     tot.style.color = "blue";
     tot.style.position = "relative";
-    tot.style.top = "-38px";
-    footer[1].appendChild(tot);
+//    tot.style.top = "-38px";
+    footer.appendChild(tot);
     function getMontant(i) {
         var qteStr = $('#qte_' + i).val().trim();
         var puStr = $('#pu_' + i).val().trim();
