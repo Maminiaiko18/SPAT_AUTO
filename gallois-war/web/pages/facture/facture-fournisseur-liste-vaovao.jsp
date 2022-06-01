@@ -23,7 +23,7 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature", "numeroop", "code", "projetlib" , "numOP"};
+        String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature", "numeroop", "code", "projetlib"};
         String listeInt[] = {"daty","date_echeance","exercice"};
 
         String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP"};
@@ -48,7 +48,6 @@
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("numeroop").setLibelle("N° Facture");
         pr.getFormu().getChamp("code").setLibelle("Numero compta");
-        pr.getFormu().getChamp("numOP").setLibelle("Numero OP");
         
         pr.getFormu().changerEnChamp(liste);
         Date firstDate = Utilitaire.dateDuJourSql();   
