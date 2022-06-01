@@ -118,7 +118,7 @@
     tot.id = "total";
     tot.style.fontSize = "21px";
     tot.style.color = "blue";
-    tot.style.position = "relative";
+    tot.classList= ["pull-left"];
 //    tot.style.top = "-38px";
     footer.appendChild(tot);
     function getMontant(i) {
