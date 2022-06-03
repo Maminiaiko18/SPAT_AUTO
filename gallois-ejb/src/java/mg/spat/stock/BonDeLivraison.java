@@ -21,8 +21,26 @@ public class BonDeLivraison extends ClassEtat {
 
     private String id, idbc, point, id_bc, remarque,numbc;
     private double montant, montanttva, montantttc, montantfactttc, montantpaye, rap, reste_a_facturer;
+    private double montantHT,montanttc;
     private String etatlib;
 
+    public double getMontantHT() {
+        return montantHT;
+    }
+
+    public void setMontantHT(double montantHT) {
+        this.montantHT = montantHT;
+    }
+
+    public double getMontanttc() {
+        return montanttc;
+    }
+
+    public void setMontanttc(double montanttc) {
+        this.montanttc = montanttc;
+    }
+
+    
     public String getEtatlib() {
         return etatlib;
     }
