@@ -1,4 +1,3 @@
-
 <%@page import="mg.spat.placement.PlacementLibComplet"%>
 <%@page import="mg.spat.RemboursementPlacement"%>
 <%@page import="mg.spat.Caisse"%>
@@ -23,15 +22,18 @@
         pi.getFormu().getChamp("idplacement").setDefaut(request.getParameter("idplacement"));
         pi.getFormu().getChamp("montantplace").setDefaut(Utilitaire.formaterAr(data[0].getMontant()));
         pi.getFormu().getChamp("interet").setDefaut(Utilitaire.formaterAr(data[0].getInteret_net()));
+        pi.getFormu().getChamp("interetBrut").setDefaut(Utilitaire.formaterAr(data[0].getInteret_recevoir()));
+        pi.getFormu().getChamp("IRCM").setDefaut(Utilitaire.formaterAr(data[0].getIRCM()));
     }
     
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("idplacement").setLibelle("Placement");
     pi.getFormu().getChamp("montantplace").setLibelle("Montant plac&eacute;");
-    pi.getFormu().getChamp("interet").setLibelle("Int&eacute;r&egrave;t");
+    pi.getFormu().getChamp("interet").setLibelle("Int&eacute;r&ecirc;t net");
+    pi.getFormu().getChamp("interetBrut").setLibelle("Int&eacute;r&ecirc;t brut");
+    //pi.getFormu().getChamp("ircm").setLibelle("IRCM");
     pi.getFormu().getChamp("etat").setVisible(false);
-    
-    
+       
     affichage.Champ[] liste = new affichage.Champ[1];
     
     TypeObjet mvt = new TypeObjet();
@@ -39,9 +41,7 @@
     liste[0] = new Liste("caisse", mvt, "VAL", "id");
    
     pi.getFormu().changerEnChamp(liste);
-    
-   
-    
+  
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>
