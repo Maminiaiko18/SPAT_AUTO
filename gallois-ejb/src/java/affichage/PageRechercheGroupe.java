@@ -825,7 +825,7 @@ public class PageRechercheGroupe extends Page {
         return listeColonneMoyenne;
     }
 
-    public String getDownloadForm() {
+   public String getDownloadForm() {
         String tab = "";
         String[] somDefaut = this.getSommeGroupe();
         String[] colDefaut = this.getColGroupe();
@@ -836,6 +836,14 @@ public class PageRechercheGroupe extends Page {
         String cD = "";
         if (colDefaut != null) {
             cD = colDefaut[0];
+        }
+        String cI = "";
+        if (colInt != null) {
+            cI = colInt[0];
+        }
+        String vI = "";
+        if (valInt != null) {
+            vI = valInt[0];
         }
         try {
 
@@ -851,6 +859,16 @@ public class PageRechercheGroupe extends Page {
                     cD = cD + "," + colDefaut[j];
                 }
             }
+            if (colInt != null) {
+                for (int j = 1; j < colInt.length; j++) {
+                    cI = cI + "," + colInt[j];
+                }
+            }
+            if (valInt != null) {
+                for (int j = 1; j < valInt.length; j++) {
+                    vI = vI + "," + valInt[j];
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -858,7 +876,7 @@ public class PageRechercheGroupe extends Page {
         temp += "<div class='row'>";
         temp += "<div class='row col-md-12'>";
         temp += "<div class='box box-primary box-solid collapsed-box'>";
-        temp += "<div class='box-header with-border'>";
+        temp += "<div style='background:#0E6D36; color:white;'class='box-header with-border'>";
         temp += "<h3 class='box-title'>Exporter</h3>";
         temp += "<div class='box-tools pull-right'><button data-original-title='Collapse' class='btn btn-box-tool' data-widget='collapse' data-toggle='tooltip' title=''><i class='fa fa-plus'></i></button> </div>";
         temp += "</div>";
@@ -900,9 +918,11 @@ public class PageRechercheGroupe extends Page {
             temp += "<input type=\"hidden\" name=\"xml\" value=\"" + this.getTableau().getExpxml().replace('"', '*') + "\" />";
             temp += "<input type=\"hidden\" name=\"csv\" value=\"" + this.getTableau().getExpcsv().replace('"', '*') + "\" />";
             temp += "<input type=\"hidden\" name=\"awhere\" value=\"" + this.getAWhere().replace('"', '\'') + "\" />";
-            temp += "<input type=\"hidden\" name=\"table\" value=\"" + tab.replace('"', '*').replace("\u0027", " ").replace("\"", " ") + "\" />";
+            temp += "<input type=\"hidden\" name=\"table\" value=\"" + tab.replace('"', '*') + "\" />";
             temp += "<input type=\"hidden\" name=\"colDefaut\" value=\"" + cD + "\" />";
             temp += "<input type=\"hidden\" name=\"somDefaut\" value=\"" + sD + "\" />";
+            temp += "<input type=\"hidden\" name=\"colInt\" value=\"" + cI + "\" />";
+            temp += "<input type=\"hidden\" name=\"valInt\" value=\"" + vI + "\" />";
             temp += "<input type=\"hidden\" name=\"ordre\" value=\"" + this.getOrdre() + "\" />";
             temp += "<input type=\"hidden\" name=\"entete\" value=\"" + Utilitaire.tabToString(this.getTableau().getLibeEntete(), "", ";") + "\" />";
             temp += "<input type=\"hidden\" name=\"entetelibelle\" value=\"" + Utilitaire.tabToString(this.getTableau().getLibelleAffiche(), "", ";") + "\" />";
