@@ -8,7 +8,8 @@
     try{
     String cible = request.getParameter("ciblename");
     Map<String, String> titre = new ConcurrentHashMap<String, String>();
-    titre.put("typeFC", "Type facture client");
+    titre.put("typeFC", "Type facture client");   
+    titre.put("placement_banque_caisse", "Config caisse");
     titre.put("codeetablissement", "Code etablissement");
     titre.put("typeavoir", "Type avoir");
     titre.put("typeadditif", "Type additif");
