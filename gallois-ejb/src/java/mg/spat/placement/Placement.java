@@ -7,9 +7,13 @@ package mg.spat.placement;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.TypeObjet;
+import mg.spat.JournalCaisse;
+
 import java.sql.Connection;
 import java.sql.Date;
 import user.UserEJBBean;
+import utilitaire.Constante;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -311,5 +315,56 @@ public class Placement extends ClassEtat {
     }
     public static void viserEtRendreEffectif(Connection c,String u, String id){
         
+    }
+
+    public static void viserEtRendre(Connection c, UserEJBBean u, String id) throws Exception {
+        boolean check = false;
+        try {
+            if(c == null){
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                check = false;
+            }
+            Placement p = new Placement();
+            p.setId(id);
+            Object[] ps = CGenUtil.rechercher(p, null, null, c, "");
+            if(ps == null || ps.length == 0) throw new Exception("Aucun placement trouvé");
+            p = (Placement) ps[0];
+            p.validerObject(String.valueOf(u.getUser().getRefuser()), c);
+
+            TypeObjet pb = new TypeObjet();
+            pb.setNomTable("placement_banque");
+            pb.setVal(p.getBanque());
+            Object[] pbs = CGenUtil.rechercher(pb, null, null, c, "");
+            if(pbs == null || pbs.length == 0) throw new Exception("Aucun placement banque trouvé");
+            pb = (TypeObjet) pbs[0];
+
+            PlacementLibComplet pc = new PlacementLibComplet();
+            pc.setId(id);
+            Object[] pcs = CGenUtil.rechercher(pc, null, null, c, "");
+            if(pcs == null || pcs.length == 0) throw new Exception("Aucun placement lib trouvé");
+            pc = (PlacementLibComplet) pcs[0];
+            
+            JournalCaisse jc = new JournalCaisse();
+            jc.setCaisse(pb.getDesce());
+            jc.setLibelle(String.format("Débit placement %s - %s du %s", pc.getValentite(), pc.getValbanque(), p.getDate_placement()));
+            jc.setDateEffet(Utilitaire.dateDuJourSql());
+            jc.setSortie(p.getMontant());
+            jc.setIdTypeCheque(Constante.typeChequeAuComptant);
+            jc.setIddevise(Constante.deviseAr);
+            jc.setIdmode(Constante.idmodeVirement);
+            jc.setIdplacement(p.getId());
+            
+            jc.createObject(String.valueOf(u.getUser().getRefuser()), c);
+            jc.viser(u, c);
+            c.commit();
+        }
+        catch(Exception ex){
+            c.rollback();
+            throw ex;
+        }
+        finally {
+            if(check) c.close();
+        }
     }
 }
