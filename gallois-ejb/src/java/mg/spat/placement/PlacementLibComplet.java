@@ -19,9 +19,18 @@ import utilitaire.UtilDB;
 public class PlacementLibComplet extends ClassEtat{
     private String id,entite,identite,idbanque,valentite,desceentite,valbanque,descebanque,numero,iddetails,idmeredetails,mois,banque,iddevise;
     private Date date_placement, date_echeance;
-    private double duree, montant, taux, montant_mere, interet_recevoir, interet_net,montantdevise;
+    private double duree,ircm, montant, taux, montant_mere, interet_recevoir, interet_net,montantdevise;
     private String ancienplacement;
 
+    public double getIrcm() {
+        return ircm;
+    }
+
+    public void setIrcm(double ircm) {
+        this.ircm = ircm;
+    }
+
+    
     public String getAncienplacement() {
         return ancienplacement;
     }
