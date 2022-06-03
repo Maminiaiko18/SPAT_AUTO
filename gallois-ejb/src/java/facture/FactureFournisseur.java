@@ -34,8 +34,16 @@ public class FactureFournisseur extends FactureClient {
     private String id2;
     private String codeEtablissement;
     private Date dateRegul;
-    
+    private double montantHTSansRemise;
 
+    public double getMontantHTSansRemise() {
+        return montantHTSansRemise;
+    }
+
+    public void setMontantHTSansRemise(double montantHTSansRemise) {
+        this.montantHTSansRemise = montantHTSansRemise;
+    }
+    
     public Date getDateRegul() {
         return dateRegul;
     }
