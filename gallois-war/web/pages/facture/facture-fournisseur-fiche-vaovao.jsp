@@ -51,6 +51,8 @@
         pc.getChampByName("naturelib").setLibelle("Nature");
         pc.getChampByName("numeroop").setLibelle("N° facture");
         pc.getChampByName("daty").setLibelle("Date");
+        pc.getChampByName("montantHTSansRemise").setLibelle("Montant HT Sans Remise");
+
         pc.getChampByName("montant").setLibelle("Montant HT");
         pc.getChampByName("montanttva").setLibelle("Montant TVA");
         pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
@@ -68,7 +70,10 @@
         pc.getChampByName("code_etablissementlib").setLibelle("Code direction");
         //pc.getChampByName("escale").setLibelle("Escale");
         pc.getChampByName("codeProvision").setLibelle("Provision");
-        pc.getChampByName("exercice").setLibelle("Exercice");        
+        pc.getChampByName("exercice").setLibelle("Exercice");
+
+        String[] attribus = {"iduser","type","tiers","etatlib","Idcategorie","IdProvision","projet","estMictsl","estDDPMICTSL","escale","idprevision","idProvision","nature","code_etablissement","tierslib","naturelib","numeroop","daty","montantHTSansRemise","montant","montanttva","montantavoir","montantttcvrai","montantttc","date_echeance","montantpaye","montantreste","typelib","idProvisionlib","dateRegul","code_etablissementlib","escale","codeProvision","exercice"};
+        pc.setOrdre(attribus);
 
         pc.getChampByName("code").setLibelle("Numero Compta");
         e = (FactureFournisseur) pc.getBase();
