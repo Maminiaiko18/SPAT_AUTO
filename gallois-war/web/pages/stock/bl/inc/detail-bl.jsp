@@ -13,9 +13,9 @@
         String idbl = " AND NUMBL = '" + request.getParameter("id").trim() + "' order by produit";
 
         BonDeLivraisonFille[] filles = (BonDeLivraisonFille[]) CGenUtil.rechercher(fille, null, null, idbl);
-        double sommeHT = AdminGen.calculSommeDouble(filles, "montant");
+        double sommeHT = AdminGen.calculSommeDouble(filles, "montantHT");
         double sommeTVA = AdminGen.calculSommeDouble(filles, "montanttva");
-        double sommeTTC = AdminGen.calculSommeDouble(filles, "montantttc");
+        double sommeTTC = AdminGen.calculSommeDouble(filles, "montanttc");
 %>
             <div class="box">
                 <div class="box-title with-border">
@@ -39,9 +39,9 @@
                             <td align="left"><%=filles[i].getId()%></td>
                             <td align="left"><%=filles[i].getProduit()%></td>
                             <td align="right"><%=Utilitaire.formaterAr(filles[i].getQuantite())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(filles[i].getMontant())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(filles[i].getMontantHT())%></td>
                              <td align="right"><%=Utilitaire.formaterAr(filles[i].getMontanttva())%></td>
-                              <td align="right"><%=Utilitaire.formaterAr(filles[i].getMontantttc())%></td>
+                              <td align="right"><%=Utilitaire.formaterAr(filles[i].getMontanttc())%></td>
                             <!--<td  align="right"> <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=delete&classe=mg.spat.stock.BonDeLivraisonFille&bute=stock/bl/bondelivraison-fiche.jsp&id=" + filles[i].getId()%>" style="margin-right: 10px">Supprimer</a>-->
                         </tr>
                         <% }%> 

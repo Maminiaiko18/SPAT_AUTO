@@ -17,8 +17,7 @@ public class BonDeLivraisonFille extends ClassMAPTable {
 
     private String id, produit, numbl, iddetailsfacturefournisseur, idbondecommande, pdt;
     private double quantite, quantiteparpack;
-    private double pu,montant,montanttva,montantttc;
-    
+    private double pu,montant,montanttva,montantttc,montantHT, montanttc;
 
     public void controlQuantite(BonDeCommandeFilleReste[] bcF) throws Exception {
         String[] atts = {"id"};
@@ -34,6 +33,22 @@ public class BonDeLivraisonFille extends ClassMAPTable {
         }
     }
 
+      public double getMontantHT() {
+        return montantHT;
+    }
+
+    public void setMontantHT(double montantHT) {
+        this.montantHT = montantHT;
+    }
+
+    public double getMontanttc() {
+        return montanttc;
+    }
+
+    public void setMontanttc(double montanttc) {
+        this.montanttc = montanttc;
+    }
+    
     public double getPu() {
         return pu;
     }
