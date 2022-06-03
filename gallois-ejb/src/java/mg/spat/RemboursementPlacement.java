@@ -23,7 +23,7 @@ import utilitaire.Utilitaire;
  */
 public class RemboursementPlacement extends ClassEtat{
     private String id,idplacement,caisse,entite,banque,caisselib;
-    private double montantplace,interet;
+    private double montantplace,interet,interetBrut,IRCM;
     private Date daty;
     
     
@@ -37,6 +37,22 @@ public class RemboursementPlacement extends ClassEtat{
     }
     public RemboursementPlacement() {
         super.setNomTable("remboursementPlacement");
+    }
+
+    public double getInteretBrut() {
+        return interetBrut;
+    }
+
+    public void setInteretBrut(double interetBrut) {
+        this.interetBrut = interetBrut;
+    }
+
+    public double getIRCM() {
+        return IRCM;
+    }
+
+    public void setIRCM(double IRCM) {
+        this.IRCM = IRCM;
     }
 
     public String getEntite() {
