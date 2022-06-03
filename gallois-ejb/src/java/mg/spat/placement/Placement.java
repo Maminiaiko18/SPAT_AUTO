@@ -9,6 +9,7 @@ import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
+import user.UserEJBBean;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -307,5 +308,8 @@ public class Placement extends ClassEtat {
             dp = dps[0];
         }
         return dp;
+    }
+    public static void viserEtRendreEffectif(Connection c,String u, String id){
+        
     }
 }
