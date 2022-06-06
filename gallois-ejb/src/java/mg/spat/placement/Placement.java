@@ -323,13 +323,14 @@ public class Placement extends ClassEtat {
             if(c == null){
                 c = new UtilDB().GetConn();
                 c.setAutoCommit(false);
-                check = false;
+                check = true;
             }
             Placement p = new Placement();
             p.setId(id);
             Object[] ps = CGenUtil.rechercher(p, null, null, c, "");
             if(ps == null || ps.length == 0) throw new Exception("Aucun placement trouvé");
             p = (Placement) ps[0];
+            p.setMode("modif");
             p.validerObject(String.valueOf(u.getUser().getRefuser()), c);
 
             TypeObjet pb = new TypeObjet();
