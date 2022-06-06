@@ -330,7 +330,6 @@ public class Placement extends ClassEtat {
             Object[] ps = CGenUtil.rechercher(p, null, null, c, "");
             if(ps == null || ps.length == 0) throw new Exception("Aucun placement trouvé");
             p = (Placement) ps[0];
-            p.setMode("modif");
             p.validerObject(String.valueOf(u.getUser().getRefuser()), c);
 
             TypeObjet pb = new TypeObjet();
