@@ -367,4 +367,23 @@ public class Placement extends ClassEtat {
             if(check) c.close();
         }
     }
+    
+    public static Placement[] findPlacementsPrecedants(Connection c,String idDernier ) throws Exception{
+         boolean check = false;
+         Placement[] result = null;
+        try {
+            if(c == null){
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                check = true;
+            }
+            result = (Placement[]) CGenUtil.rechercher(new Placement(), "select * from placement CONNECT BY PRIOR ANCIENPLACEMENT = id START WITH id ='"+idDernier+"'");
+        }catch(Exception e){
+            c.rollback();
+            throw e;
+        }finally {
+            if(check) c.close();
+        }
+        return result;
+    }
 }
