@@ -313,11 +313,7 @@ public class Placement extends ClassEtat {
         }
         return dp;
     }
-    public static void viserEtRendreEffectif(Connection c,String u, String id){
-        
-    }
-
-    public static void viserEtRendre(Connection c, UserEJBBean u, String id) throws Exception {
+    public static void viserEtRendreEffectif(Connection c, UserEJBBean u, String id) throws Exception {
         boolean check = false;
         try {
             if(c == null){
@@ -349,7 +345,7 @@ public class Placement extends ClassEtat {
             jc.setCaisse(pb.getDesce());
             jc.setLibelle(String.format("Débit placement %s - %s du %s", pc.getValentite(), pc.getValbanque(), p.getDate_placement()));
             jc.setDateEffet(Utilitaire.dateDuJourSql());
-            jc.setSortie(p.getMontant());
+            jc.setDebit(p.getMontant());
             jc.setIdTypeCheque(Constante.typeChequeAuComptant);
             jc.setIddevise(Constante.deviseAr);
             jc.setIdmode(Constante.idmodeVirement);
