@@ -250,8 +250,11 @@ public class RemboursementPlacement extends ClassEtat{
             }
             
         //  Etat échu 
-            placement.setEtat(ConstanteEtat.getEtatEchu());
-            placement.updateToTableWithHisto(refuser, c);
+            Placement[] lp = placement.findPlacementsPrecedants(c,this.getIdplacement());
+            for(int i=0;i<lp.length;i++){
+                lp[i].setEtat(ConstanteEtat.getEtatEchu());
+                lp[i].updateToTableWithHisto(refuser, c);
+            }
             
             if(ouvert) c.commit();
         } catch (Exception e) {
