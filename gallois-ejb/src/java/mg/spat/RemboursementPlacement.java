@@ -212,7 +212,9 @@ public class RemboursementPlacement extends ClassEtat{
                 
                 
                 //Création FC pour intérêt net
+                designation = String.format("Echeance placement %s/%s: montant interet", placementLibComplet.getValentite(), placementLibComplet.getValbanque());    
                 
+
             }else{
             //  Entrée Intérêts
                 designation = String.format("Echeance placement %s/%s: montant interets", placementLibComplet.getValentite(), placementLibComplet.getValbanque());                
