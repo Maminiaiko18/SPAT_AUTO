@@ -23,7 +23,7 @@
         pi.getFormu().getChamp("montantplace").setDefaut(Utilitaire.formaterAr(data[0].getMontant()));
         pi.getFormu().getChamp("interet").setDefaut(Utilitaire.formaterAr(data[0].getInteret_net()));
         pi.getFormu().getChamp("interetBrut").setDefaut(Utilitaire.formaterAr(data[0].getInteret_recevoir()));
-        pi.getFormu().getChamp("IRCM").setDefaut(Utilitaire.formaterAr(data[0].getIRCM()));
+        pi.getFormu().getChamp("IRCM").setDefaut(Utilitaire.formaterAr(data[0].getIrcm()));
     }
     
     pi.getFormu().getChamp("daty").setLibelle("Date");
