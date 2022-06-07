@@ -239,6 +239,22 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         super.setNomTable("journalcaisse");
     }
 
+    public JournalCaisse(String folio, String caisse, String numPiece, String libelle, String remarque, Date dateSaisie, Date dateEffet, double debit, double credit, String idDevise, String idMode, String idTypeCheque) throws Exception {
+        super.setNomTable("journalcaisse");
+        this.setFolio(folio);
+        this.setCaisse(caisse);
+        this.setNumPiece(numPiece);
+        this.setLibelle(libelle);
+        this.setRemarque(remarque);
+        this.setDateSaisie(dateSaisie);
+        this.setDateEffet(dateEffet);
+        this.setDebit(debit);
+        this.setCredit(credit);
+        this.setIddevise(idDevise);
+        this.setMode(idMode);
+        this.setIdTypeCheque(idTypeCheque);
+    }
+
     public JournalCaisse(String folio, String caisse, String numPiece, String libelle, String remarque, Date dateSaisie, Date dateEffet, double debit, double credit) throws Exception {
         super.setNomTable("journalcaisse");
         this.setFolio(folio);
@@ -359,6 +375,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         this.credit = credit;
         this.montant = montant;
     }
+
 
     public void construirePK(Connection c) throws Exception {
         this.preparePk("CAS", "getseqjcaisse");

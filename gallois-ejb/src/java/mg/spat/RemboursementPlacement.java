@@ -7,6 +7,9 @@ package mg.spat;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import facture.FactureClient;
+import facture.FactureClientDetails;
+
 import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.placement.Placement;
@@ -203,17 +206,35 @@ public class RemboursementPlacement extends ClassEtat{
             
             if(this.getInteretBrut()>0){
                 //Entrée intérêt brut
-                designation = String.format("Echeance placement %s/%s: montant interet brut", placementLibComplet.getValentite(), placementLibComplet.getValbanque());                
+                designation = String.format("Echeance placement %s/%s: montant interet brut", placementLibComplet.getValentite(), placementLibComplet.getValbanque()); 
+
+                JournalCaisse brut = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, this.getInteretBrut(), placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant);
                 
+                brut.createObject(refuser, c);
+                brut.viser(user, c);
                 
-                
+
                 //Sortie IRCM
-                designation = String.format("Echeance placement %s/%s: montant IRCM", placementLibComplet.getValentite(), placementLibComplet.getValbanque());                
+                designation = String.format("Echeance placement %s/%s: montant IRCM", placementLibComplet.getValentite(), placementLibComplet.getValbanque());     
+                
+                JournalCaisse ircm = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, this.getIRCM(), 0, placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant);
+
+                ircm.createObject(refuser, c);
+                ircm.viser(user, c);
                 
                 
                 //Création FC pour intérêt net
-                designation = String.format("Echeance placement %s/%s: montant interet", placementLibComplet.getValentite(), placementLibComplet.getValbanque());    
+                designation = String.format("Echeance placement %s/%s: montant interet", placementLibComplet.getValentite(), placementLibComplet.getValbanque());  
                 
+                FactureClient fc = new FactureClient(dateDuJour, null, designation, Constante.typeFCAuComptant, Constante.idCategorieFCDefinitive, 1);
+
+                FactureClientDetails fcDetails = new FactureClientDetails(fc.getId(), 1, this.getInteret(), compte, designation, 1, Integer.parseInt(Utilitaire.getAnneeEnCours()), Utilitaire.getMoisEnCours(), "Ar"); 
+
+                FactureClientDetails[] fille = {fcDetails};
+                fc.setFille(fille);
+
+                fc.createObject(refuser, c);
+                fc.viser(user,c);
 
             }else{
             //  Entrée Intérêts
