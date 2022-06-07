@@ -223,12 +223,12 @@ public class RemboursementPlacement extends ClassEtat{
                 ircm.viser(user, c);
                 
                 
-                //Création FC pour intérêt net
+                //Création FC pour Produit financier : HT=interet net et tva = IRCM calculé en %
                 designation = String.format("Echeance placement %s/%s: montant interet", placementLibComplet.getValentite(), placementLibComplet.getValbanque());  
                 
                 FactureClient fc = new FactureClient(dateDuJour, null, designation, Constante.typeFCAuComptant, Constante.idCategorieFCDefinitive, 1);
 
-                FactureClientDetails fcDetails = new FactureClientDetails(fc.getId(), 1, this.getInteret(), compte, designation, 1, Integer.parseInt(Utilitaire.getAnneeEnCours()), Utilitaire.getMoisEnCours(), "Ar"); 
+                FactureClientDetails fcDetails = new FactureClientDetails(fc.getId(), 1, this.getInteret(), compte, designation, 1, Integer.parseInt(Utilitaire.getAnneeEnCours()), Utilitaire.getMoisEnCours(), "Ar",(100*this.getIRCM())/this.getInteretBrut()); 
 
                 FactureClientDetails[] fille = {fcDetails};
                 fc.setFille(fille);
