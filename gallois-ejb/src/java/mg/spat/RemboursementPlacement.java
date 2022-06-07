@@ -187,7 +187,7 @@ public class RemboursementPlacement extends ClassEtat{
             
             Placement placement = findPlacement(c);
             
-        //  Montant placé
+        //  Entrée Montant placé
             String designation = String.format("Echeance placement %s/%s: montant place", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
             Date dateDuJour = Utilitaire.dateDuJourSql();
             JournalCaisse j1 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, placementLibComplet.getMontant());
@@ -198,18 +198,33 @@ public class RemboursementPlacement extends ClassEtat{
             j1.createObject(refuser, c);
             j1.viser(user, c); 
             
-        //  Intérêts
-            designation = String.format("Echeance placement %s/%s: montant interets", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
             ConfigPlacement confP = placementLibComplet.getConfigPlacement(c);
             String compte = confP != null ? confP.getCompte() : null;
             
-            JournalCaisse j2 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, placementLibComplet.getInteret_net());
-            j2.setIddevise(placement.getIddevise());
-            j2.setMode(Constante.idmodeVirement);
-            j2.setIdTypeCheque(Constante.typeChequeAuComptant);
-            j2.createObject(refuser, c);
-            j2.genererFacture( c, refuser, compte, Utilitaire.getAneeEnCours(), Utilitaire.getMoisEnCours(), 0 );
-            j2.viser(user, c);
+            if(this.getInteretBrut()>0){
+                //Entrée intérêt brut
+                designation = String.format("Echeance placement %s/%s: montant interet brut", placementLibComplet.getValentite(), placementLibComplet.getValbanque());                
+                
+                
+                
+                //Sortie IRCM
+                designation = String.format("Echeance placement %s/%s: montant IRCM", placementLibComplet.getValentite(), placementLibComplet.getValbanque());                
+                
+                
+                //Création FC pour intérêt net
+                
+            }else{
+            //  Entrée Intérêts
+                designation = String.format("Echeance placement %s/%s: montant interets", placementLibComplet.getValentite(), placementLibComplet.getValbanque());                
+
+                JournalCaisse j2 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, placementLibComplet.getInteret_net());
+                j2.setIddevise(placement.getIddevise());
+                j2.setMode(Constante.idmodeVirement);
+                j2.setIdTypeCheque(Constante.typeChequeAuComptant);
+                j2.createObject(refuser, c);
+                j2.genererFacture( c, refuser, compte, Utilitaire.getAneeEnCours(), Utilitaire.getMoisEnCours(), 0 );
+                j2.viser(user, c);
+            }
             
         //  Etat échu 
             placement.setEtat(ConstanteEtat.getEtatEchu());
