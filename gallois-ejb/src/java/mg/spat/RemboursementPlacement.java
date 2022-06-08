@@ -206,11 +206,11 @@ public class RemboursementPlacement extends ClassEtat{
             
             if(this.getInteretBrut()>0){
                 //Création FC pour Produit financier : HT=interet net et tva = IRCM calculé en %
-                designation = String.format("Echeance placement %s/%s: montant interet", placementLibComplet.getValentite(), placementLibComplet.getValbanque());  
+                designation = String.format("Echeance placement %s/%s: montant interet brut", placementLibComplet.getValentite(), placementLibComplet.getValbanque());  
                 
                 FactureClient fc = new FactureClient(dateDuJour, null, designation, Constante.typeFCAuComptant, Constante.idCategorieFCDefinitive, 1);
 
-                FactureClientDetails fcDetails = new FactureClientDetails(fc.getId(), 1, this.getInteret(), compte, designation, 1, Integer.parseInt(Utilitaire.getAnneeEnCours()), Utilitaire.getMoisEnCours(), "Ar",(100*this.getIRCM())/this.getInteretBrut()); 
+                FactureClientDetails fcDetails = new FactureClientDetails(fc.getId(), 1, this.getInteretBrut(), compte, designation, 1, Integer.parseInt(Utilitaire.getAnneeEnCours()), Utilitaire.getMoisEnCours(), "Ar",0); 
 
                 FactureClientDetails[] fille = {fcDetails};
                 fc.setFille(fille);
@@ -230,7 +230,7 @@ public class RemboursementPlacement extends ClassEtat{
                 //Sortie IRCM
                 designation = String.format("Echeance placement %s/%s: montant IRCM", placementLibComplet.getValentite(), placementLibComplet.getValbanque());     
                 
-                JournalCaisse ircm = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, this.getIRCM(), 0, placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant);
+                JournalCaisse ircm = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, this.getIRCM(), 0, placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant,fc.getId());
 
                 ircm.createObject(refuser, c);
                 ircm.viser(user, c);
