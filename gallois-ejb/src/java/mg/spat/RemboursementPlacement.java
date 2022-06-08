@@ -205,10 +205,23 @@ public class RemboursementPlacement extends ClassEtat{
             String compte = confP != null ? confP.getCompte() : null;
             
             if(this.getInteretBrut()>0){
+                //Création FC pour Produit financier : HT=interet net et tva = IRCM calculé en %
+                designation = String.format("Echeance placement %s/%s: montant interet", placementLibComplet.getValentite(), placementLibComplet.getValbanque());  
+                
+                FactureClient fc = new FactureClient(dateDuJour, null, designation, Constante.typeFCAuComptant, Constante.idCategorieFCDefinitive, 1);
+
+                FactureClientDetails fcDetails = new FactureClientDetails(fc.getId(), 1, this.getInteret(), compte, designation, 1, Integer.parseInt(Utilitaire.getAnneeEnCours()), Utilitaire.getMoisEnCours(), "Ar",(100*this.getIRCM())/this.getInteretBrut()); 
+
+                FactureClientDetails[] fille = {fcDetails};
+                fc.setFille(fille);
+
+                fc.createObject(refuser, c);
+                fc.viser(user,c);
+
                 //Entrée intérêt brut
                 designation = String.format("Echeance placement %s/%s: montant interet brut", placementLibComplet.getValentite(), placementLibComplet.getValbanque()); 
 
-                JournalCaisse brut = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, this.getInteretBrut(), placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant);
+                JournalCaisse brut = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, this.getInteretBrut(), placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant,fc.getId());
                 
                 brut.createObject(refuser, c);
                 brut.viser(user, c);
@@ -223,18 +236,7 @@ public class RemboursementPlacement extends ClassEtat{
                 ircm.viser(user, c);
                 
                 
-                //Création FC pour Produit financier : HT=interet net et tva = IRCM calculé en %
-                designation = String.format("Echeance placement %s/%s: montant interet", placementLibComplet.getValentite(), placementLibComplet.getValbanque());  
                 
-                FactureClient fc = new FactureClient(dateDuJour, null, designation, Constante.typeFCAuComptant, Constante.idCategorieFCDefinitive, 1);
-
-                FactureClientDetails fcDetails = new FactureClientDetails(fc.getId(), 1, this.getInteret(), compte, designation, 1, Integer.parseInt(Utilitaire.getAnneeEnCours()), Utilitaire.getMoisEnCours(), "Ar",(100*this.getIRCM())/this.getInteretBrut()); 
-
-                FactureClientDetails[] fille = {fcDetails};
-                fc.setFille(fille);
-
-                fc.createObject(refuser, c);
-                fc.viser(user,c);
 
             }else{
             //  Entrée Intérêts
