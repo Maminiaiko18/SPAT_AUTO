@@ -373,7 +373,7 @@ public class Placement extends ClassEtat {
                 c.setAutoCommit(false);
                 check = true;
             }
-            result = (Placement[]) CGenUtil.rechercher(new Placement(), "select * from placement CONNECT BY PRIOR ANCIENPLACEMENT = id START WITH id ='"+idDernier+"'");
+            result = (Placement[]) CGenUtil.rechercher(new Placement(), "select * from placement WHERE etat>=11 CONNECT BY PRIOR ANCIENPLACEMENT = id START WITH id ='"+idDernier+"'");
         }catch(Exception e){
             c.rollback();
             throw e;

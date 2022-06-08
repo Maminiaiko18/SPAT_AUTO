@@ -42,7 +42,15 @@ public class JournalCaisse extends ClassEtat {
     private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib;
     private double sommeCredit, sortie, entree;
     private String banque;
-    private String descecaisse, idcaisse,numeroOP;
+    private String descecaisse, idcaisse,numeroOP,idplacementvrai;
+
+    public String getIdplacementvrai() {
+        return idplacementvrai;
+    }
+
+    public void setIdplacementvrai(String idplacementvrai) {
+        this.idplacementvrai = idplacementvrai;
+    }
 
     public String getNumeroOP() {
         return numeroOP;
@@ -94,7 +102,26 @@ public class JournalCaisse extends ClassEtat {
             }
         }
     }
+    public FactureClient genererFactureClientAuto(Connection c,String user,String compte, int annee, int mois, double tva,double pu) throws Exception{
+        //FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
+        System.out.println("Niditra aaaaaato----");
+        FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeAuComptant, Constante.idCategorieFCDefinitive, 1);
+        FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(), compte, "Facture auto via", 1);
+        detail.setAnnee(annee);
+        detail.setMois(mois);
+        detail.setTva(tva);
+        detail.setDevise(this.getIddevise());
+        detail.setPu(pu);
+        System.out.println("PU="+detail.getPu());
+        System.out.println("tva="+detail.getTva());
+        FactureClientDetails[] fille = {detail};
+        factureclient.setFille(fille);
+        
+        factureclient.createObject(user, c);
+        
     
+        return factureclient;
+    }
     public FactureClient genererFactureClientAuto(Connection c,String user,String compte, int annee, int mois, double tva) throws Exception{
         //FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
         FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeAuComptant, Constante.idCategorieFCDefinitive, 1);
@@ -1189,7 +1216,21 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         return facturefrns;
         
     }
-    
+    public FactureFournisseur genererFactureFournisseurAuto(Connection c,String user,String compte,int annee, int mois, double tva,double pu) throws Exception{
+        
+        FactureFournisseur facturefrns = new FactureFournisseur(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptantFF, Constante.categorieFFdefault, 1);
+        FactureFournisseurDetails detail = new FactureFournisseurDetails(facturefrns.getId(), 1, this.getDebit(), compte, this.getLibelle(), 1,annee, mois, tva);
+        detail.setDevise(this.getIddevise());
+        detail.setPu(pu);
+        FactureFournisseurDetails[] fille = {detail};
+        facturefrns.setFille(fille);
+        
+        facturefrns.createObject(user,c);
+
+        return facturefrns;
+        
+    }
+    //tsy manome montant pu
     public void genererFacture(Connection c, String user, String compte, int annee, int mois, double tva ) throws Exception {
         boolean ouvert = false;
         FactureClient fc=null;
@@ -1204,6 +1245,37 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 fc=this.genererFactureClientAuto(c,user,compte,annee,mois,tva);
             if(this.getDebit()>0)
                 fc=this.genererFactureFournisseurAuto(c,user,compte,annee,mois,tva);
+            if(fc!=null){
+               this.setIdplacement(fc.getId());
+               this.updateToTableWithHisto(user, c);
+            }
+            
+            if(ouvert) c.commit();
+        }
+        catch(Exception ex) {
+            if(c != null && ouvert) c.rollback();
+            throw ex;
+        }
+        finally {
+            if(c != null && ouvert) c.close();
+        }
+    }
+    
+    //manome montant pu
+    public void genererFacture(Connection c, String user, String compte, int annee, int mois, double tva, double pu ) throws Exception {
+        boolean ouvert = false;
+        FactureClient fc=null;
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            
+            if(this.getCredit()>0)
+                fc=this.genererFactureClientAuto(c,user,compte,annee,mois,tva,pu);
+            if(this.getDebit()>0)
+                fc=this.genererFactureFournisseurAuto(c,user,compte,annee,mois,tva,pu);
             if(fc!=null){
                this.setIdplacement(fc.getId());
                this.updateToTableWithHisto(user, c);
