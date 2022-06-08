@@ -279,6 +279,10 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             throw ex;
         }
     }
+    
+    public UserEJBBean getUserEJBBeanInstance() {
+        return this;
+    }
 
     @Override
     public String createTypeObjet(String nomTable, String proc, String pref, String typ, String desc) throws Exception {

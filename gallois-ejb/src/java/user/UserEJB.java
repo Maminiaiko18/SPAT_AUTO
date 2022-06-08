@@ -37,6 +37,7 @@ import mg.spat.relationhumaine.InfoProfessionnel;
 import mg.spat.relationhumaine.InfoSalaire;
 import mg.spat.stock.BonDeCommande;
 import mg.spat.stock.BonDeLivraison;
+import user.UserEJBBean;
 import mg.spat.Prevision;
 
 @Local
@@ -321,6 +322,8 @@ public interface UserEJB {
     public String checkPageSelonUtilisateur(String idfacture, Connection c) throws Exception;
     public HashMap<String, String> getMapAutoComplete();
     public void setMapAutoComplete(HashMap<String, String> mapAutoComplete);
+    
+    public UserEJBBean getUserEJBBeanInstance();
     
     public Object[] annulerObjectMultiple(ClassEtat o, String[] listeIdObjet, Connection c) throws Exception;
     public Object[] annulerObjectMultiple(ClassEtat o, String[] listeIdObjet) throws Exception;

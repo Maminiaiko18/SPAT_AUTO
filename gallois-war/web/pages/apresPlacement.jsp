@@ -19,7 +19,7 @@
         
         
         if (acte.compareToIgnoreCase("viserEtRendreEffectif") == 0) {
-           Placement.viserEtRendreEffectif(null, u.getUser().getTuppleID(), id);
+           Placement.viserEtRendreEffectif(null, u.getUserEJBBeanInstance(), id);
            
         %>
         <script language="JavaScript"> document.location.replace("<%=lien%>?but=placement/placement-fiche.jsp&id=<%=id%>");</script>

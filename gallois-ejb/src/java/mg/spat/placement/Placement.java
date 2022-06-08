@@ -329,7 +329,7 @@ public class Placement extends ClassEtat {
             p.validerObject(String.valueOf(u.getUser().getRefuser()), c);
 
             TypeObjet pb = new TypeObjet();
-            pb.setNomTable("placement_banque");
+            pb.setNomTable("placement_banque_caisse");
             pb.setVal(p.getBanque());
             Object[] pbs = CGenUtil.rechercher(pb, null, null, c, "");
             if(pbs == null || pbs.length == 0) throw new Exception("Aucun placement banque trouvé");
