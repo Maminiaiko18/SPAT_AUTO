@@ -20,7 +20,23 @@ public class PlacementLibComplet extends ClassEtat{
     private String id,entite,identite,idbanque,valentite,desceentite,valbanque,descebanque,numero,iddetails,idmeredetails,mois,banque,iddevise;
     private Date date_placement, date_echeance;
     private double duree,ircm, montant, taux, montant_mere, interet_recevoir, interet_net,montantdevise;
-    private String ancienplacement;
+    private String ancienplacement,idcaisse,descecaisse;
+
+    public String getIdcaisse() {
+        return idcaisse;
+    }
+
+    public void setIdcaisse(String idcaisse) {
+        this.idcaisse = idcaisse;
+    }
+
+    public String getDescecaisse() {
+        return descecaisse;
+    }
+
+    public void setDescecaisse(String descecaisse) {
+        this.descecaisse = descecaisse;
+    }
 
     public double getIrcm() {
         return ircm;

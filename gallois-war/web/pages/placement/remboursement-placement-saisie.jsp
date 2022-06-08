@@ -15,17 +15,6 @@
     
     pi.getFormu().getChamp("idplacement").setPageAppel("choix/listePlacementChoix.jsp");
     pi.getFormu().getChamp("idplacement").setAutre("readonly");
-    
-   
-    if(request.getParameter("idplacement") != null){
-        PlacementLibComplet[] data = (PlacementLibComplet[]) CGenUtil.rechercher(new PlacementLibComplet(), null, null, " and id='"+request.getParameter("idplacement")+"'");
-        pi.getFormu().getChamp("idplacement").setDefaut(request.getParameter("idplacement"));
-        pi.getFormu().getChamp("montantplace").setDefaut(Utilitaire.formaterAr(data[0].getMontant()));
-        pi.getFormu().getChamp("interet").setDefaut(Utilitaire.formaterAr(data[0].getInteret_net()));
-        pi.getFormu().getChamp("interetBrut").setDefaut(Utilitaire.formaterAr(data[0].getInteret_recevoir()));
-        pi.getFormu().getChamp("IRCM").setDefaut(Utilitaire.formaterAr(data[0].getIrcm()));
-    }
-    
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("idplacement").setLibelle("Placement");
     pi.getFormu().getChamp("montantplace").setLibelle("Montant plac&eacute;");
@@ -42,6 +31,16 @@
    
     pi.getFormu().changerEnChamp(liste);
   
+    if(request.getParameter("idplacement") != null){
+        PlacementLibComplet[] data = (PlacementLibComplet[]) CGenUtil.rechercher(new PlacementLibComplet(), null, null, " and id='"+request.getParameter("idplacement")+"'");
+        pi.getFormu().getChamp("idplacement").setDefaut(request.getParameter("idplacement"));
+        pi.getFormu().getChamp("montantplace").setDefaut(Utilitaire.formaterAr(data[0].getMontant()));
+        pi.getFormu().getChamp("interet").setDefaut(Utilitaire.formaterAr(data[0].getInteret_net()));
+        pi.getFormu().getChamp("interetBrut").setDefaut(Utilitaire.formaterAr(data[0].getInteret_recevoir()));
+        pi.getFormu().getChamp("IRCM").setDefaut(Utilitaire.formaterAr(data[0].getIrcm()));
+        pi.getFormu().getChamp("caisse").setDefaut(data[0].getIdcaisse());
+    }
+    
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>
