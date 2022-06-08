@@ -17,22 +17,22 @@
         BonDeCommandeFille journal = new BonDeCommandeFille();
         journal.setNomTable("AS_BC_ANALYSEFILLE_LIB");
 
-        String listeCrt[] = {"idbc", "daty", "codelib", "projetlib", "produit", "fournisseurlib"};
+        String listeCrt[] = {"idbc","numbc","daty", "codelib", "projetlib", "produit", "fournisseurlib"};
         String listeInt[] = {"daty"};
         String[] pourcentage = {};
-        String colDefaut[] = {"idbc" , "daty", "codelib", "projetlib", "produit", "quantite", "unite", "pu", "montantht", "fournisseurlib"};
+        String colDefaut[] = {"idbc","numbc", "daty", "codelib", "projetlib", "produit", "quantite", "unite", "pu", "montantht", "fournisseurlib"};
         String somDefaut[] = {};
         String lien[] = {"id"};
-        PageRechercheGroupe pr = new PageRechercheGroupe(journal, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, somDefaut.length);
+        PageRechercheGroupe pr = new PageRechercheGroupe(journal, request, listeCrt, listeInt, 5, colDefaut, somDefaut, pourcentage, colDefaut.length, somDefaut.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
         pr.getFormu().getChamp("idbc").setLibelle("IDBC");
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
-		pr.getFormu().getChamp("codelib").setLibelle("Code");
-		pr.getFormu().getChamp("projetlib").setLibelle("Projet");
-		pr.getFormu().getChamp("fournisseurlib").setLibelle("Fournisseur");
+        pr.getFormu().getChamp("codelib").setLibelle("Code");
+        pr.getFormu().getChamp("projetlib").setLibelle("Projet");
+        pr.getFormu().getChamp("fournisseurlib").setLibelle("Fournisseur");
         pr.setApres("stock/bc/analyse-detailsBC.jsp");
         pr.creerObjetPage();
 %>
@@ -54,7 +54,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"IDBC" , "date", "code", "projet", "produit", "quantite", "unite", "pu", "montant HT", "fournisseur"};
+            String libEnteteAffiche[] = {"IDBC","NUMBC", "date", "code", "projet", "produit", "quantite", "unite", "pu", "montant HT", "fournisseur"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             String colonneLien[] = {"idbc"};
             String valcolonnelien[] = {"id"};

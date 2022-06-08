@@ -15,7 +15,7 @@ import utilitaire.UtilDB;
  */
 public class BonDeCommandeFille extends ClassMAPTable {
 
-    private String id, produit, idbc, remarque,unite;
+    private String id, produit, idbc, numbc, remarque,unite;
     private double quantiteparpack, quantite,montantbl,montantblreste ;
     private double pu, montant, quantitelivre, quantitereste, tva;
     private String produitlib;
@@ -27,6 +27,14 @@ public class BonDeCommandeFille extends ClassMAPTable {
 
     public double getMontantTVA() {
         return montantTVA;
+    }
+
+    public String getNumbc() {
+        return numbc;
+    }
+
+    public void setNumbc(String numbc) {
+        this.numbc = numbc;
     }
 
     public void setMontantTVA(double montantTVA) {
