@@ -15,7 +15,7 @@ try{
     p.setNomTable(nomTable);
     String listeCrt[] = {"idbc","numbc","daty", "codelib", "projetlib", "produit", "fournisseurlib"};
     String listeInt[] = {"daty"};
-    String[] pourcentage = {"nombrepargroupe"};
+    String[] pourcentage = {};
     String colDefaut[] = {"idbc","numbc", "daty", "codelib", "projetlib", "produit", "quantite", "unite", "pu", "montantht", "fournisseurlib"};
     String somDefaut[] = {};
         //PageRechercheGroupe pr=new PageRechercheGroupe(p,request,listeCrt,listeInt,3,colDefaut,somDefaut,pourcentage,listeCrt.length,colDefaut.length);
@@ -54,6 +54,8 @@ try{
                         </div>
                         <div class="col-md-4"></div>
 		</form>
+               
+
 		<%
                 String lienTableau[] = {pr.getLien() + "?but=stock/bc/asBonDeCommande-fiche.jsp"};
                 String colonneLien[] = {"idbc"};
@@ -65,7 +67,13 @@ try{
 		out.println(pr.getTableauRecap().getHtml());
                 
                 %>
-		<br>
+                <br>
+                 <div class="box-footer">
+                    
+        <a class="btn btn-success pull-right"  href="${pageContext.request.contextPath}/AnalyseDetailBCsExcel?action=AnalyseDetailBC&idbc=<%=request.getParameter("idbc") %>&numbc=<%=request.getParameter("numbc") %>&codelib=<%=request.getParameter("codelib") %>&projetlib=<%=request.getParameter("projetlib") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>&produit=<%=request.getParameter("produit") %>&fournisseurlib=<%=request.getParameter("fournisseurlib") %>" style="margin-right: 10px">Export excel</a>                            <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=facturegallois/client/facture-client-saisie.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Dupliquer modele</a>-->
+       
+</div>
+		
 		<%
                     String libEnteteAffiche[] = {"IDBC","NUMBC", "date", "code", "projet", "produit", "quantite", "unite", "pu", "montant HT", "fournisseur"};
                     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
