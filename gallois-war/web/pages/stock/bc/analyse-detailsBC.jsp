@@ -64,8 +64,9 @@
             pr.getTableau().setUrlLien(colonneLien);
             pr.getTableau().setUrlLienAffiche(valcolonnelien);
             out.println(pr.getTableau().getHtml());
-            out.println(pr.getBasPage());
             out.println(pr.getInsertLienModal());
+            out.println(pr.getBasPage());
+            
         %>
     </section>
 </div>
