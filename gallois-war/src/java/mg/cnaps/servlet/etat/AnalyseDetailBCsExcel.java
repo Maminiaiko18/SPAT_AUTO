@@ -228,25 +228,25 @@ public class AnalyseDetailBCsExcel extends HttpServlet {
             }*/
             
            
-             /*Row row5 = sheet.createRow(0);
+             Row row5 = sheet.createRow(0);
               Cell cellt = row5.createCell(1);
-                cellt.setCellValue("WWW.KETRIKA.COM");
+                cellt.setCellValue("SPAT");
                 
              Row row6 = sheet.createRow(1);
               Cell cellti = row6.createCell(1);   
-                cellti.setCellValue("BENEFICE");
+                cellti.setCellValue("DEPARTEMENT GESTION DES");
                 
               Row row7 = sheet.createRow(2);
               Cell celltit = row7.createCell(1);  
-                celltit.setCellValue("CE.ME.DI");
+                celltit.setCellValue("CONTRATS ET FACTURATIONS");
                 
-             Row row1 = sheet.createRow(3);
+             /*Row row1 = sheet.createRow(3);
               Cell celltitre = row1.createCell(1);
                 celltitre.setCellValue("date "+attestations[0].getDaty());
                 
                 Row row2 = sheet.createRow(4);
-              Cell celldaty = row2.createCell(1);
-                //celldaty.setCellValue("Demande de prix n°: "+id);*/
+              Cell celldaty = row2.createCell(1);*/
+                //celldaty.setCellValue("Demande de prix n°: "+id);
                 
             String[] headers = {"IDBC","NUMBC", "date", "code", "projet", "produit", "quantite", "unite", "pu", "montant HT", "fournisseur"};
             Row row = sheet.createRow(12);
@@ -271,8 +271,9 @@ public class AnalyseDetailBCsExcel extends HttpServlet {
                     Cell celling = row.createCell(1);
                 celling.setCellValue(attestations[i].getNumbc());
                 
-                    Cell cellDaty = row.createCell(2);
-                cellDaty.setCellValue(attestations[i].getDaty());
+                  Cell cellDaty = row.createCell(2);
+                cellDaty.setCellValue(Utilitaire.formatterDaty( attestations[i].getDaty()));
+                
                 
                 Cell cell1 = row.createCell(3);
                     cell1.setCellValue(attestations[i].getCodelib());
