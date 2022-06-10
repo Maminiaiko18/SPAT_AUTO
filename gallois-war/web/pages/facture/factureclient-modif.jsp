@@ -105,6 +105,18 @@
         pi.getFormu().getChamp("idavoir").setPageAppel("choix/listeAvoirFCChoix.jsp");
         pi.getFormu().getChamp("idavoir").setAutre("readonly");
         pi.getFormu().getChamp("idavoir").setLibelle("Avoir");
+        pi.getFormu().getChamp("dateDepart").setLibelle("Date depart");
+        pi.getFormu().getChamp("heureDepart").setLibelle("Heure Depart");
+        pi.getFormu().getChamp("datearrivee").setLibelle("Date Arrivee");
+        pi.getFormu().getChamp("heureArrivee").setLibelle("Heure Arrivee");
+        pi.getFormu().getChamp("provenance").setAutre("readonly");
+        pi.getFormu().getChamp("destination").setAutre("readonly");
+        pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
+        pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
+         pi.getFormu().getChamp("bateau").setAutre("readonly");
+        pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp");
+        pi.getFormu().getChamp("bateau").setLibelle("Navire");
+        
 
         pi.getFormu().getChamp("lht").setVisible(false);
         pi.getFormu().getChamp("lm").setVisible(false);
