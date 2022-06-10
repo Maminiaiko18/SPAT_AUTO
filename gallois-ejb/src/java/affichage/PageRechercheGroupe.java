@@ -678,7 +678,7 @@ public class PageRechercheGroupe extends Page {
         return nbColSomme;
     }
 
-    public String getBasPage() {
+    /*public String getBasPage() {
         String retour = "";
         retour += "<table border=0 cellpadding=0 cellspacing=0 align=center width='100%'>";
         retour += "<tr><td height=25><b>Nombre de r&eacute;sultat :</b> " + utilitaire.Utilitaire.formaterAr(String.valueOf(rs.getSommeEtNombre()[getNombreColonneSomme()])) + "</td><td align='right'><strong>page</strong> " + getNumPage() + " <b>sur</b>" + getNombrePage() + "</td>";
@@ -698,6 +698,27 @@ public class PageRechercheGroupe extends Page {
         retour += "<td width=50% align=right>";
         if (getNumPage() < getNombrePage()) {
             retour += "<a href=" + avantLien + getApres() + premierParam + formu.getListeCritereString() + "&premier=" + getPremier() + "&numPag=" + String.valueOf(getNumPage() + 1) + getApresLienPage() + ">Page suivante&gt;&gt;</a>";
+        }
+        retour += "</td>";
+        retour += "</tr>";
+        retour += "</table>";
+        retour += getDownloadForm();
+        return retour;
+    }*/
+    public String getBasPage() throws Exception {
+        String retour = "";
+        retour += "<table border=0 cellpadding=0 cellspacing=0 align=center width='100%'>";
+        retour += "<tr><td height=25><b>Nombre de r&eacute;sultat :</b> " + utilitaire.Utilitaire.formaterAr(String.valueOf(rs.getSommeEtNombre()[getNombreColonneSomme()])) + "</td><td align='right'><strong>page</strong> " + getNumPage() + " <b>sur</b>" + getNombrePage() + "</td>";
+        retour += "</tr>";
+        retour += "<tr>";
+        retour += "<td width=50% valign='top' height=25>";
+        if (getNumPage() > 1) {
+            retour += "<a href=" + getLien() + "?but=" + getApres() + "&premier="+ getPremier() +"&numPag=" + String.valueOf(getNumPage() - 1) + getApresLienPage() + formu.getListeCritereString() + ">&lt;&lt;Page pr&eacute;c&eacute;dente</a>";
+        }
+        retour += "</td>";
+        retour += "<td width=50% align=right>";
+        if (getNumPage() < getNombrePage()) {
+            retour += "<a href=" + getLien() + "?but=" + getApres() + "&premier="+ getPremier()+"&numPag=" + String.valueOf(getNumPage() + 1) + getApresLienPage() + formu.getListeCritereString() + ">Page suivante&gt;&gt;</a>";
         }
         retour += "</td>";
         retour += "</tr>";
