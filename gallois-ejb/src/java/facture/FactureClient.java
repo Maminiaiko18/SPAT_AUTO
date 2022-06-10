@@ -63,7 +63,15 @@ public class FactureClient extends ClassMere {
     private int estAuto,estAncienne;
     private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
     private Date dateDepart,datearrivee;
-    private String armateur,codeFiltre,paiement,paiementlib;
+    private String provenance,destination,armateur,codeFiltre,paiement,paiementlib;
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
     private String val,desce;
     private double lht,lm,te,jnt;
 
@@ -89,6 +97,14 @@ public class FactureClient extends ClassMere {
 
     public void setTe(double te) {
         this.te = te;
+    }
+
+    public String getProvenance() {
+        return provenance;
+    }
+
+    public void setProvenance(String provenance) {
+        this.provenance = provenance;
     }
 
     public double getJnt() {

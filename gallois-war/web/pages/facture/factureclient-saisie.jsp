@@ -35,6 +35,17 @@
     pi.getFormu().getChamp("estAncienne").setVisible(false);
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
     pi.getFormu().getChamp("exercice").setLibelle("Exercice");
+    pi.getFormu().getChamp("dateDepart").setLibelle("Date de d&eacute;part");
+    pi.getFormu().getChamp("heureDepart").setLibelle("Heure de d&eacute;part");
+    pi.getFormu().getChamp("datearrivee").setLibelle("Date d' arriv&eacute;e");
+    pi.getFormu().getChamp("heureArrivee").setLibelle("Heure d' arriv&eacute;e");
+    pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp");
+    pi.getFormu().getChamp("bateau").setAutre("readonly");
+    pi.getFormu().getChamp("bateau").setLibelle("Navire");
+    pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
+    pi.getFormu().getChamp("provenance").setAutre("readonly");
+    pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
+    pi.getFormu().getChamp("destination").setAutre("readonly");
     pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
