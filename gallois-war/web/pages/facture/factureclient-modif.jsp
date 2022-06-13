@@ -99,6 +99,10 @@
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);
         pi.getFormu().getChamp("tva").setVisible(false);
         pi.getFormu().getChamp("paiementlib").setVisible(false);
+        pi.getFormu().getChamp("provenancelib").setVisible(false);
+        pi.getFormu().getChamp("destinationlib").setVisible(false);
+        pi.getFormu().getChamp("bateaulib").setVisible(false);
+        
         pi.getFormu().getChamp("paiement").setDefaut("Ar");
         pi.getFormu().getChamp("pourcompte").setPageAppel("choix/clientCategorieChoix.jsp");
         pi.getFormu().getChamp("pourcompte").setAutre("readonly");
