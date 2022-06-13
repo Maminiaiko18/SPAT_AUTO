@@ -1059,7 +1059,7 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("responsable", "Le contr&ocirc;leur");
                 }
 
-                if (pre.length != 0) {
+                if (facture.getBateaulib()!=null ||  pre.length >= 1) {
 
                     param.put("navire", facture.getBateaulib());
                     // param.put("escale",pre[0].getEscale());
