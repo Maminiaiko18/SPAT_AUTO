@@ -350,6 +350,7 @@ public class Placement extends ClassEtat {
             jc.setIddevise(Constante.deviseAr);
             jc.setIdmode(Constante.idmodeVirement);
             jc.setIdplacement(p.getId());
+            jc.setIdplacementvrai(p.getId());
             
             jc.createObject(String.valueOf(u.getUser().getRefuser()), c);
             jc.viser(u, c);

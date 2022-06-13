@@ -198,6 +198,7 @@ public class RemboursementPlacement extends ClassEtat{
             j1.setIdplacement(this.getIdplacement());
             j1.setMode(Constante.idmodeVirement);
             j1.setIdTypeCheque(Constante.typeChequeAuComptant);
+            j1.setIdplacementvrai(this.getIdplacement());
             j1.createObject(refuser, c);
             j1.viser(user, c); 
             
