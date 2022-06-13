@@ -53,7 +53,7 @@
     lst[0].ajouterValeur(valeurChampEstMICTSL, afficheChampEstMICTSL); 
     
     pi.getFormu().changerEnChamp(lst);
-    
+    pi.getFormu().getChamp("estFictive").setVisible(false);
     pi.setLien((String) session.getValue("lien"));
     String[] ordre = {"id","date_rade","provenance","navire","consignataire","cargaison","tonnage","pilote","date_arrivee","heure_arrivee","date_depart","heure_depart","destination","etat","escale","noVoyage","armateur","estFictive"};
     pi.getFormu().setOrdre(ordre);
