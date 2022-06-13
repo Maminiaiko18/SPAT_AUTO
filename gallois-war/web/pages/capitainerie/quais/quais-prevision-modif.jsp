@@ -105,6 +105,7 @@
     pi.getFormu().getChamp("valconsignataire").setVisible(false);
     pi.getFormu().getChamp("desceconsignataire").setVisible(false);
     pi.getFormu().getChamp("valcargaison").setVisible(false);
+    pi.getFormu().getChamp("estFictive").setVisible(false);
     pi.getFormu().getChamp("tonnage").setLibelle("Tonnage deb. prev.");
 
     pi.preparerDataFormu();
