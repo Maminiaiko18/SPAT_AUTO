@@ -40,7 +40,15 @@ public class Placement extends ClassEtat {
     private double montant_terme;
     private double interet_recevoir;
     private double interetNet;
-    private String ancienPlacement;
+    private String ancienPlacement,designation;
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
     private String moisPlacementlib,moisRembousementlib,type;
 
     public String getType() {
