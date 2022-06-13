@@ -1,0 +1,2 @@
+udpate detformufact set condition='[estNational]==''National''&&([typequais]==''TYPE000003''||[typequais]==''TQ002'')' where id='DFF0000000023170543';
+udpate detformufact set condition='[estNational]==''International''&&([typequais]==''TYPE000003''||[typequais]==''TQ002'')' where id='DFF0000000023170544';
