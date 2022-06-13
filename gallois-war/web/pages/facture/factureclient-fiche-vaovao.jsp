@@ -41,8 +41,9 @@
         e.setNomTable("facture_client_union_ordre");
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE CLIENT");
-        
-        
+        FactureClient fc=(FactureClient)pc.getBase();
+        String lien = (String)session.getValue("lien");
+
         pc.getChampByName("pourCompte").setVisible(false);
         pc.getChampByName("iduser").setVisible(false);
         pc.getChampByName("type").setVisible(false);
@@ -71,6 +72,22 @@
         pc.getChampByName("paiement").setVisible(false);
         pc.getChampByName("paiementlib").setLibelle("paiement");
         pc.getChampByName("code").setLibelle("Code");
+        pc.getChampByName("datedepart").setLibelle("Date depart");
+        pc.getChampByName("heuredepart").setLibelle("Heure depart");
+        pc.getChampByName("datearrivee").setLibelle("Date arrivee");
+        pc.getChampByName("heurearrivee").setLibelle("Heure arrivee");
+        pc.getChampByName("heurearrivee").setLibelle("Heure arrivee");
+        pc.getChampByName("provenancelib").setLibelle("Provenance");
+        pc.getChampByName("destinationlib").setLibelle("Destination");
+        pc.getChampByName("pavillonlib").setLibelle("Pavillon");
+        pc.getChampByName("bateau").setVisible(false);
+        pc.getChampByName("provenance").setVisible(false);
+        pc.getChampByName("destination").setVisible(false);
+        pc.getChampByName("destination").setVisible(false);
+        pc.getChampByName("pavillon").setVisible(false);
+        pc.getChampByName("bateaulib").setLibelle("Bateau");
+        pc.getChampByName("bateaulib").setLien(lien+"?but=capitainerie/navire-fiche.jsp", "id="+fc.getBateau());
+
         e = (FactureClient) pc.getBase();
         pc.getChampByName("IdProvision").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
         String categorie = "";
@@ -102,7 +119,7 @@
         String classefille = "facture.FactureClientDetails";
         String modifPage = "facture/factureclient-modif.jsp";
 
-        String lien = (String) session.getValue("lien");
+  //      String lien = (String) session.getValue("lien");
         String redirect = lien + "?but=" + modifPage + "&id=" + request.getParameter("id");
         //if(e.getEtat() < ConstanteEtat.getEtatValider()) out.println("<script language='JavaScript'> document.location.replace('"+redirect+"'); </script>");
 
