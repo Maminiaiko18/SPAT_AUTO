@@ -1243,7 +1243,7 @@ public class EtatPaieServlet extends HttpServlet {
                     double montantDevise=mere[0].getMontant(), montantTVADevise=mere[0].getMontanttva(), montantTTCDevise=mere[0].getMontantttc();
                     String codeFacture = mere[0].getCode();
                     
-                    if (mere[0].getDeviseMere() != null) {
+                    /*if (mere[0].getDeviseMere() != null) {
                         if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseAr)) {
                             if (codeFacture.contains("09A") || codeFacture.contains("01A")) {
                                 montantDevise = hTEuro;
@@ -1262,7 +1262,7 @@ public class EtatPaieServlet extends HttpServlet {
                         details1.setMontantdevise(montantDevise);
                         details1.setMontantTVAdevise(montantTVADevise);
                         details1.setMontantTTCdevise(montantTTCDevise);
-                    }
+                    }*/
 
                     detailsPDF.add(details1);
                     if (conventionExist == 0) {
