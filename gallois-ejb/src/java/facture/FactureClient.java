@@ -58,7 +58,24 @@ public class FactureClient extends ClassMere {
     private double reduction;
     private double ecart;
     private int exercice;
-    private String idavoir,provenancelib,destinationlib,bateaulib;
+    private String idavoir,provenancelib,destinationlib,bateaulib,pavillon,pavillonlib;
+
+    public String getPavillon() {
+        return pavillon;
+    }
+
+    public void setPavillon(String pavillon) {
+        this.pavillon = pavillon;
+    }
+
+    public String getPavillonlib() {
+        return pavillonlib;
+    }
+
+    public void setPavillonlib(String pavillonlib) {
+        this.pavillonlib = pavillonlib;
+    }
+    
 
     public String getProvenancelib() {
         return provenancelib;
