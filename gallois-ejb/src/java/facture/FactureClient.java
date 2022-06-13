@@ -58,7 +58,31 @@ public class FactureClient extends ClassMere {
     private double reduction;
     private double ecart;
     private int exercice;
-    private String idavoir;
+    private String idavoir,provenancelib,destinationlib,bateaulib;
+
+    public String getProvenancelib() {
+        return provenancelib;
+    }
+
+    public void setProvenancelib(String provenancelib) {
+        this.provenancelib = provenancelib;
+    }
+
+    public String getDestinationlib() {
+        return destinationlib;
+    }
+
+    public void setDestinationlib(String destinationlib) {
+        this.destinationlib = destinationlib;
+    }
+
+    public String getBateaulib() {
+        return bateaulib;
+    }
+
+    public void setBateaulib(String bateaulib) {
+        this.bateaulib = bateaulib;
+    }
     private String typeclientlib,factureLiee;//,idEngagement ; 
     private int estAuto,estAncienne;
     private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
