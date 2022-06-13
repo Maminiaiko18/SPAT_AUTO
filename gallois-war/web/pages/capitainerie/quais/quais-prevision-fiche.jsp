@@ -39,27 +39,27 @@
         prevision.setNomTable("previsionfiche_ordre");
         PageConsulte pc = pc = new PageConsulte(prevision, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
-        pc.getChampByName("heure_arrivee").setLibelle("Heure d'arrivée");
-        pc.getChampByName("heure_depart").setLibelle("Heure de départ");
+        pc.getChampByName("heure_arrivee").setLibelle("Heure d'arrivï¿½e");
+        pc.getChampByName("heure_depart").setLibelle("Heure de dï¿½part");
         pc.getChampByName("nomnavire").setLibelle("Navire");
         pc.getChampByName("armateurlib").setLibelle("Armateur");
         pc.getChampByName("idnavire").setVisible(false);
         pc.getChampByName("armateur").setVisible(false);
         pc.getChampByName("estFictive").setVisible(false);
+        pc.getChampByName("estFictiveLib").setVisible(false);
         pc.getChampByName("nomnavire").setLien(lien+"?but=capitainerie/navire-fiche.jsp", "id="+((PrevisionLibComplet)pc.getBase()).getIdnavire()+"&nom=");
         pc.getChampByName("valconsignataire").setLibelle("Consignataire");
         pc.getChampByName("valcargaison").setLibelle("Cargaison");
         pc.getChampByName("valpilote").setLibelle("Commandant");
         pc.getChampByName("valquaisprovenance").setLibelle("Quai de provenance");
         pc.getChampByName("valquaisdestination").setLibelle("Quai de destination");
-        pc.getChampByName("date_arrivee").setLibelle("Date d'arrivée");
-        pc.getChampByName("date_depart").setLibelle("Date de départ");
+        pc.getChampByName("date_arrivee").setLibelle("Date d'arrivï¿½e");
+        pc.getChampByName("date_depart").setLibelle("Date de dï¿½part");
         pc.getChampByName("valpaysprovenance").setLibelle("Pays de provenance");
         pc.getChampByName("valpaysdestination").setLibelle("Pays de destination");
         pc.getChampByName("type").setLibelle("type navire");
         pc.getChampByName("noVoyage").setLibelle("No voyage");
         pc.getChampByName("tonnage").setLibelle("Tonnage deb. prev.");
-        pc.getChampByName("estFictiveLib").setLibelle("est fictive");
 
         pc.setTitre("Fiche prevision");
 
