@@ -6,9 +6,9 @@
  
         Placement placement = new Placement();
         placement.setNomTable("PLACEMENT_ANALYSE_DAT");
-        String listeCrt[] = {"id", "designation", "banque", "anneePlacement"};
+        String listeCrt[] = {"designation", "banque", "anneePlacement"};
         String listeInt[] = {""};
-        String libEntete[] = {"id", "designation", "banque", "anneePlacement", "montant","interet_recevoir","interet_net"};
+        String libEntete[] = {"designation", "banque", "anneePlacement", "montant","interet_recevoir","interetNet"};
         PageRecherche pr = new PageRecherche(placement, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -16,7 +16,7 @@
         
     
         pr.setApres("placement/placement-analyse-croisee-details-DAT.jsp");
-        String[] colSomme = {"montant","interet_recevoir","interet_net"};
+        String[] colSomme = {"montant","interet_recevoir","interetNet"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <div class="content-wrapper">
@@ -40,7 +40,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Designation", "Banque", "Ann&eacute;e placement", "Montant","Interet recevoir","Interet net"};
+            String libEnteteAffiche[] = {"Designation", "Banque", "Ann&eacute;e placement", "Montant","Interet recevoir","Interet net"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
