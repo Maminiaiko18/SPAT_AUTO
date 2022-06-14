@@ -59,6 +59,24 @@ public class FactureClient extends ClassMere {
     private double ecart;
     private int exercice;
     private String idavoir,provenancelib,destinationlib,bateaulib,pavillon,pavillonlib;
+    private double volume,volume100;
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+
+    public double getVolume100() {
+        return volume100;
+    }
+
+    public void setVolume100(double volume100) {
+        this.volume100 = volume100;
+    }
+    
 
     public String getPavillon() {
         return pavillon;
