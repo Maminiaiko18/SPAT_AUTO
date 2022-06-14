@@ -44,15 +44,6 @@
     pi.getFormu().getChamp("noVoyage").setLibelle("N° voyage");
     
     pi.getFormu().getChamp("armateur").setPageAppel("choix/listeClientChoix.jsp");
-    
-    String[]valeurChampEstMICTSL = {"0", "1"};
-    String[]afficheChampEstMICTSL = {"non", "oui"};
-    
-    affichage.Liste[] lst= new affichage.Liste[1];
-    lst[0] = new Liste("estFictive");
-    lst[0].ajouterValeur(valeurChampEstMICTSL, afficheChampEstMICTSL); 
-    
-    pi.getFormu().changerEnChamp(lst);
     pi.getFormu().getChamp("estFictive").setVisible(false);
     pi.setLien((String) session.getValue("lien"));
     String[] ordre = {"id","date_rade","provenance","navire","consignataire","cargaison","tonnage","pilote","date_arrivee","heure_arrivee","date_depart","heure_depart","destination","etat","escale","noVoyage","armateur","estFictive"};
