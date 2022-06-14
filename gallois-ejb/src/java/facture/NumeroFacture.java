@@ -17,6 +17,17 @@ public class NumeroFacture extends ClassMAPTable {
     private Date daty;
     private int numeroactuelle, numerosuivant;
     private int mois, annee;
+    private String dateString;
+
+    public String getDateString() {
+        return dateString;
+    }
+
+    public void setDateString(String dateString) {
+        this.dateString = dateString;
+    }
+    
+    
 
     public NumeroFacture() {
         this.setNomTable("numeropiece");

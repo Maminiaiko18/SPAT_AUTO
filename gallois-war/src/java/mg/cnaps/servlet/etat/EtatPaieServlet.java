@@ -1159,7 +1159,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("valdollar", deviseDollar);
                 param.put("cat", cat);
 
-                if ((designation.length() > 66) && (pre.length != 0)) {
+                if (designation!=null && (designation.length() > 66) && (pre.length != 0)) {
                     param.put("designation", designation.substring(0, 66));
                     param.put("designation+", designation.substring(66, designation.length()));
                 } else {
