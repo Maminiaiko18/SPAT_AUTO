@@ -7,12 +7,13 @@
         Placement placement = new Placement();
         placement.setNomTable("PLACEMENT_ANALYSE_DAT");
         String listeCrt[] = {"designation", "banque", "anneePlacement"};
-        String listeInt[] = {""};
+        String listeInt[] = {"anneePlacement"};
         String libEntete[] = {"designation", "banque", "anneePlacement", "montant","interet_recevoir","interetNet"};
         PageRecherche pr = new PageRecherche(placement, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.getFormu().getChamp("anneePlacement").setLibelle("Ann&eacute;e placement");
+        pr.getFormu().getChamp("anneePlacement1").setLibelle("Ann&eacute;e Min");
+        pr.getFormu().getChamp("anneePlacement2").setLibelle("Ann&eacute;e Max");
         
     
         pr.setApres("placement/placement-analyse-croisee-details-DAT.jsp");

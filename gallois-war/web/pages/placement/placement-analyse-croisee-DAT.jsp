@@ -37,16 +37,16 @@
 //            pr.setAWhere(awhere);
 //        }
         
-        String url = "placement/placement-analyse-croisee-DAT.jsp";
-//        String urla1 = "&anneeRembousement1=" +Utilitaire.getAnneeEnCours();
-//        if(request.getParameter("anneeRembousement1")!=null){
-//            urla1 = "&anneeRembousement1="+request.getParameter("anneeRembousement1");
-//        }
-//        String urla2 = "&anneeRembousement2=" +Utilitaire.getAnneeEnCours();
-//        if(request.getParameter("anneeRembousement2")!=null){
-//            urla2 = "&anneeRembousement2="+request.getParameter("anneeRembousement2");
-//        }
-//        url += urla1 + urla2;
+        String url = "placement/placement-analyse-croisee-details-DAT.jsp";
+        String urla1 = "&anneePlacement1=" +Utilitaire.getAnneeEnCours();
+        if(request.getParameter("anneeplacement1")!=null){
+            urla1 = "&anneePlacement1="+request.getParameter("anneeplacement1");
+        }
+        String urla2 = "&anneePlacement2=" +Utilitaire.getAnneeEnCours();
+        if(request.getParameter("anneeplacement2")!=null){
+            urla2 = "&anneePlacement2="+request.getParameter("anneeplacement2");
+        }
+        url += urla1 + urla2;
         pr.setApres("placement/placement-analyse-croisee-DAT.jsp");
         pr.creerObjetPageCroise(colDefaut, pr.getLien()+"?but="+url+"&recap=checked");
 
