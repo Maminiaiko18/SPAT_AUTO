@@ -53,11 +53,11 @@
     String[]valeurChampEstFictive = {"0", "1"};
     String[]afficheChampEstFictive = {"non", "oui"};
     
-    affichage.Liste[] lst= new affichage.Liste[1];
-    lst[0] = new Liste("estFictive");
-    lst[0].ajouterValeur(valeurChampEstFictive, afficheChampEstFictive); 
+//    affichage.Liste[] lst= new affichage.Liste[1];
+//    lst[0] = new Liste("estFictive");
+//    lst[0].ajouterValeur(valeurChampEstFictive, afficheChampEstFictive); 
     
-    pi.getFormu().changerEnChamp(lst);
+//    pi.getFormu().changerEnChamp(lst);
     
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("Armateurlib").setVisible(false);
