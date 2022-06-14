@@ -701,14 +701,17 @@ public class FactureClientDetails extends ClassFille {
     }*/
     public double getTauxRecentNormal(Connection c) throws Exception {
         this.findMere(c);
-        Date date = this.getMere().getDaty();
-        if(this.getMere().getIdprevision()!=null){
-            Prevision prev=this.getMere().findPrevision("PREVISIONTYPEBORNAGE",c);
+        FactureClient mere=this.getMere();
+        Date date = mere.getDaty();
+        if(mere.getIdprevision()!=null){
+            Prevision prev=mere.findPrevision("PREVISIONTYPEBORNAGE",c);
             if(prev.getType().compareToIgnoreCase("TYPES0001") !=0){ // cas escale
                 if (prev.getDate_depart()!= null) {
                     date =prev.getDate_depart();
                 }
             }
+        }else{
+            if(mere.getBateau()!=null && mere.getDateDepart()!=null && mere.getIdcategorie().compareTo(Constante.idCategorieFCProvision)==0)date=mere.getDateDepart();
         }
         return getValeurTaux(c, "coursdeviseNonMICTSL", date);
     }
