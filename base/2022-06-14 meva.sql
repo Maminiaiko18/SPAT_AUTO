@@ -138,4 +138,63 @@ FROM factureclientMSum m
          left join postedestinatairelibcomplet p2 on p2.id=m.destination;
 
 
-
+CREATE OR REPLACE VIEW "FACTURECLIENTVALIDE" ("ID", "DATY", "TIERS", "DESIGNATION", "TYPE", "TVA", "REMARQUE", "IDUSER", "DATE_ECHEANCE", "ETAT", "MONTANT", "MONTANTTVA", "MONTANTAVOIR", "MONTANTTTC", "MONTANTPAYE", "MONTANTRESTE", "TIERSLIB", "CONTACT", "ADRESSE", "IDPREVISION", "ESCALE", "ETATLIB", "TYPELIB", "IDCATEGORIE", "CATEGORIELIB", "IDPROVISION", "IDPROVISIONLIB", "DEVISEMERE", "CODEPRESTATION", "CODEPRESTATIONLIB", "CODE", "ESTMICTSL", "MONTANTTTCVRAI", "ARMATEURLIB", "EXERCICE", "TYPECLIENTLIB", "POURCOMPTE", "POURCOMPTELIB", "CODEFILTRE", "PAIEMENT", "PAIEMENTLIB", "LHT", "LM", "TE", "JNT", "DATEDEPART", "HEUREDEPART", "DATEARRIVEE", "HEUREARRIVEE", "BATEAU", "BATEAULIB", "PROVENANCE", "PROVENANCELIB", "DESTINATION", "DESTINATIONLIB","PAVILLON","PAVILLONLIB") AS 
+  SELECT fc.ID,
+       fc.DATY,
+       fc.TIERS,
+       fc.DESIGNATION,
+       fc.TYPE,
+       cast(fc.TVA as number(30, 3))            as TVA,
+       fc.REMARQUE,
+       fc.IDUSER,
+       fc.DATE_ECHEANCE,
+       fc.ETAT,
+       cast(fc.MONTANT as NUMBER(30, 3))        as MONTANT,
+       cast(fc.MONTANTTVA as NUMBER(30, 3))     as MONTANTTVA,
+       cast(fc.MONTANTAVOIR as NUMBER(30, 3))   as MONTANTAVOIR,
+       cast(fc.MONTANTTTC as NUMBER(30, 3))     as MONTANTTTC,
+       cast(fc.MONTANTPAYE as NUMBER(30, 3))    as MONTANTPAYE,
+       cast(fc.MONTANTRESTE as NUMBER(30, 3))   as MONTANTRESTE,
+       fc.TIERSLIB,
+       fc.CONTACT,
+       fc.ADRESSE,
+       fc.IDPREVISION,
+       fc.ESCALE,
+       fc.ETATLIB,
+       fc.TYPELIB,
+       fc.IDCATEGORIE,
+       fc.CATEGORIELIB,
+       fc.IDPROVISION,
+       fc.IDPROVISIONLIB,
+       fc.DEVISEMERE,
+       fc.CODEPRESTATION,
+       fc.CODEPRESTATIONLIB,
+       fc.CODE,
+       ESTMICTSL,
+       CAST(fc.MONTANTTTCVRAI AS NUMBER(35, 3)) AS MONTANTTTCVRAI,
+       ARMATEURLIB,
+       EXERCICE,
+       nvl(typelib,'-')                                  as typeclientlib,
+       pourcompte,
+       pourcomptelib , 
+       fc.code as codeFiltre , 
+       paiement , 
+       paiementlib,
+       fc.LHT ,
+       fc.LM,
+       fc.TE ,
+       fc.JNT , 
+       datedepart 
+,heuredepart
+,datearrivee
+,heurearrivee
+,bateau
+,bateaulib
+,provenance
+,provenancelib
+,destination
+,destinationlib,
+pavillon,
+pavillonlib
+FROM facture_client_union fc
+WHERE id NOT IN (SELECT id FROM ProvisionFactureDefinitive)
