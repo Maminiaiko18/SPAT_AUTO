@@ -1114,7 +1114,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("phone", mere[0].getContact());
                 param.put("montant", mere[0].getMontant());
                 param.put("montantTVA", mere[0].getMontanttva());
-                param.put("montantTTC", mere[0].getMontantttc());
+                param.put("montantTTC", mere[0].getMontantttcvrai());
                 param.put("montantAvoir", mere[0].getMontantavoir());
                 param.put("codeclient", mere[0].getTiers());
                 param.put("armateur", mere[0].getArmateurlib());
