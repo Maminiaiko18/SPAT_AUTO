@@ -39,7 +39,7 @@
     pi.getFormu().getChamp("heureDepart").setLibelle("Heure de d&eacute;part");
     pi.getFormu().getChamp("datearrivee").setLibelle("Date d' arriv&eacute;e");
     pi.getFormu().getChamp("heureArrivee").setLibelle("Heure d' arriv&eacute;e");
-    pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp");
+    pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp","bateau;bateaulibelle;volume100;volume");
     pi.getFormu().getChamp("bateau").setAutre("readonly");
     pi.getFormu().getChamp("bateau").setLibelle("Navire");
     pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
@@ -67,6 +67,10 @@
     pi.getFormu().getChamp("idprevision").setAutre("readonly");
     pi.getFormu().getChamp("armateur").setPageAppel("choix/listeArmateurTBDChoix.jsp");
     pi.getFormu().getChamp("armateur").setAutre("readonly");
+    pi.getFormu().getChamp("volume").setAutre("readonly");
+    pi.getFormu().getChamp("volume100").setLibelle("Volume 100");
+    pi.getFormu().getChamp("volume100").setAutre("readonly");
+    
     
     affichage.Liste[] listes= new affichage.Liste[4];
     
