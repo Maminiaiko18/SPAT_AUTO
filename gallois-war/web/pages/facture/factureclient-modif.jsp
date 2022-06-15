@@ -118,7 +118,7 @@
         pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
         pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
          pi.getFormu().getChamp("bateau").setAutre("readonly");
-        pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp");
+        pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp","bateau;bateaulibelle;volume100;volume");
         pi.getFormu().getChamp("bateau").setLibelle("Navire");
         
 
