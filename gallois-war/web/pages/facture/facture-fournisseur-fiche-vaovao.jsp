@@ -27,53 +27,53 @@
     try {
         UserEJB u = (user.UserEJB) session.getValue("u");
         FactureFournisseur e = new FactureFournisseur();
-        e.setNomTable("factfourn_msum_lib");
+        e.setNomTable("factfourn_msum_lib_fiche");
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE FOURNISSEUR");
 
-        pc.getChampByName("iduser").setVisible(false);
-        pc.getChampByName("type").setVisible(false);
-        pc.getChampByName("tiers").setVisible(false);
-        pc.getChampByName("etatlib").setVisible(false);
+        //pc.getChampByName("iduser").setVisible(false);
+        //pc.getChampByName("type").setVisible(false);
+//        pc.getChampByName("tiers").setVisible(false);
+//        pc.getChampByName("etatlib").setVisible(false);
         pc.getChampByName("Idcategorie").setVisible(false);
         pc.getChampByName("IdProvision").setVisible(true);
-        pc.getChampByName("projet").setVisible(false);
+        //pc.getChampByName("projet").setVisible(false);
 //        pc.getChampByName("idProvisionlib").setVisible(false);
 //        pc.getChampByName("montanttva").setVisible(false);
-        pc.getChampByName("estMictsl").setVisible(false);
-        pc.getChampByName("estDDPMICTSL").setVisible(false);
-        pc.getChampByName("escale").setVisible(false);
-        pc.getChampByName("idprevision").setVisible(false);
+      //  pc.getChampByName("estMictsl").setVisible(false);
+//        pc.getChampByName("estDDPMICTSL").setVisible(false);
+//        pc.getChampByName("escale").setVisible(false);
+//        pc.getChampByName("idprevision").setVisible(false);
         pc.getChampByName("idProvision").setVisible(false);
-        pc.getChampByName("nature").setVisible(false);
-        pc.getChampByName("code_etablissement").setVisible(false);
+//        pc.getChampByName("nature").setVisible(false);
+//        pc.getChampByName("code_etablissement").setVisible(false);
         pc.getChampByName("tierslib").setLibelle("Tiers");
-        pc.getChampByName("naturelib").setLibelle("Nature");
-        pc.getChampByName("numeroop").setLibelle("N° facture");
+        //pc.getChampByName("naturelib").setLibelle("Nature");
+//        pc.getChampByName("numeroop").setLibelle("N° facture");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("montantHTSansRemise").setLibelle("Montant HT Sans Remise");
 
         pc.getChampByName("montant").setLibelle("Montant HT");
         pc.getChampByName("montanttva").setLibelle("Montant TVA");
         pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
-        pc.getChampByName("montantttcvrai").setLibelle("Montant TTC");
+//        pc.getChampByName("montantttcvrai").setLibelle("Montant TTC");
         pc.getChampByName("montantttc").setLibelle("Net à payer");
         pc.getChampByName("date_echeance").setLibelle("Date echeance");
         pc.getChampByName("montantpaye").setLibelle("Montant payé");
         pc.getChampByName("montantreste").setLibelle("Reste à payer");
         pc.getChampByName("typelib").setLibelle("Type");
-        pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoire");
+       pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoire");
         pc.getChampByName("projetlib").setLibelle("Projet");
         pc.getChampByName("idEngagementlib").setLibelle("Engagement");
         pc.getChampByName("dateRegul").setLibelle("Date de régul");
 //        pc.getChampByName("numeroop").setVisible(false);
         pc.getChampByName("code_etablissementlib").setLibelle("Code direction");
         //pc.getChampByName("escale").setLibelle("Escale");
-        pc.getChampByName("codeProvision").setLibelle("Provision");
+        //pc.getChampByName("codeProvision").setLibelle("Provision");
         pc.getChampByName("exercice").setLibelle("Exercice");
 
         String[] attribus = {"iduser","type","tiers","etatlib","Idcategorie","IdProvision","projet","estMictsl","estDDPMICTSL","escale","idprevision","idProvision","nature","code_etablissement","tierslib","naturelib","numeroop","daty","montantHTSansRemise","montant","montanttva","montantavoir","montantttcvrai","montantttc","date_echeance","montantpaye","montantreste","typelib","idProvisionlib","dateRegul","code_etablissementlib","escale","codeProvision","exercice"};
-        pc.setOrdre(attribus);
+       // pc.setOrdre(attribus);
 
         pc.getChampByName("code").setLibelle("Numero Compta");
         e = (FactureFournisseur) pc.getBase();
@@ -88,19 +88,19 @@
             pc.setTitre("Fiche Facture Fournisseur");
         } 
         pc.getChampByName("categorielib").setLibelle("Categorie");
-        pc.getChampByName("codePrestation").setVisible(false);
-        pc.getChampByName("codePrestationlib").setLibelle("Code Prestation");
-        pc.getChampByName("codePrestationlib").setVisible(false);
-        pc.getChampByName("deviseMere").setLibelle("Devise");
+        //pc.getChampByName("codePrestation").setVisible(false);
+        //pc.getChampByName("codePrestationlib").setLibelle("Code Prestation");
+        //pc.getChampByName("codePrestationlib").setVisible(false);
+        //pc.getChampByName("deviseMere").setLibelle("Devise");
 
         pc.getChampByName("designation").setLibelle("Note explicative");
-        pc.getChampByName("idengagement").setVisible(false);
+        //pc.getChampByName("idengagement").setVisible(false);
 
         //
 //Si categorieFC = proforma alors “Fiche Facture Proforma”
 //
 //Si categorieFC = provision alors “Fiche Facture de provision”
-        pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-fiche.jsp&id=" + e.getIdprevision(), "escale=");
+//        pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-fiche.jsp&id=" + e.getIdprevision(), "escale=");
         String bute = "facture/facture-fournisseur-fiche-vaovao.jsp";
         String classe = "facture.FactureFournisseur";
         String classefille = "facture.FactureFournisseurDetails";
