@@ -71,6 +71,7 @@
         //pc.getChampByName("escale").setLibelle("Escale");
         //pc.getChampByName("codeProvision").setLibelle("Provision");
         pc.getChampByName("exercice").setLibelle("Exercice");
+        pc.getChampByName("numeroop").setLibelle("N° facture");
 
         String[] attribus = {"iduser","type","tiers","etatlib","Idcategorie","IdProvision","projet","estMictsl","estDDPMICTSL","escale","idprevision","idProvision","nature","code_etablissement","tierslib","naturelib","numeroop","daty","montantHTSansRemise","montant","montanttva","montantavoir","montantttcvrai","montantttc","date_echeance","montantpaye","montantreste","typelib","idProvisionlib","dateRegul","code_etablissementlib","escale","codeProvision","exercice"};
        // pc.setOrdre(attribus);
