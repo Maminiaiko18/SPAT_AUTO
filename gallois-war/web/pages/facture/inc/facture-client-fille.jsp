@@ -67,7 +67,7 @@
         double tvaDollar = facture.getMontantTVADollar();
         double ttcDollar = facture.getMontantTTCDollar();
 
-        double ttcAr = facture.getMontantttc();
+        double ttcAr = facture.getMontantttcvrai();
         double htAr = facture.getMontant();
         double tvaAr = facture.getMontanttva();
 
