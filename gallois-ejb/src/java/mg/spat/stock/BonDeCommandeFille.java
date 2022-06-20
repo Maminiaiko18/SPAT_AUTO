@@ -420,4 +420,10 @@ public class BonDeCommandeFille extends ClassMAPTable {
 
         return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
+     
+     public double getTauxRecent(Connection c) throws Exception {
+        BonDeCommande mere = this.getMere(c);
+        if(mere == null) throw new Exception("BC mere introuvable");
+        return getValeurTaux(c, "coursdeviseNonMICTSL", mere.getDaty());
+    }
 }
