@@ -1172,7 +1172,7 @@ public class EtatPaieServlet extends HttpServlet {
                 /*facture.setId(details[0].getIdmere());
                 //facture.setListeDetails(details);
                 facture.initDetails(null);*/
-                //details = facture.getListeDetails();
+                if(facture.getEstMictsl()==null || facture.getEstMictsl().compareTo("1")!=0)details = facture.getListeDetails();
                 double total = 0;
                 double reduction = 0;
                 for (int i = 0; i < details.length; i++) {
