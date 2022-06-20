@@ -32,6 +32,8 @@
                                 <th>Reste à livrer</th>
                                 <th>Unit&eacute;</th>
                                 <th>P.U</th>
+                                <th>Devise</th>
+                                <th>Taux</th>
                                 <th>Montant</th>
                                 <th>Montant Remise</th>
                                 <th>TVA</th>
@@ -55,12 +57,14 @@
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantitereste())%></td>
                                 <td  align="center"><%=Utilitaire.champNull(liste[i].getUnite())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getPu())%></td>
+                                <td  align="right"><%=Utilitaire.champNull(liste[i].getDevise())%></td>
+                                <td  align="right"><%=liste[i].getTaux()%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantHTSansRemise())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantremise())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getTva())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantbl())%></td>
                                 <td  align="right"><%=Utilitaire.formaterAr(liste[i].getMontantblreste())%></td>
-                                <td  align="right"><%=liste[i].getObservation()%></td>
+                                <td  align="right"><%=Utilitaire.champNull(liste[i].getObservation())%></td>
                             </tr>
                             <%
                                      
