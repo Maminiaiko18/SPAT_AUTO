@@ -2,12 +2,14 @@ package mg.spat.stock;
 
 import bean.CGenUtil;
 import bean.ClassMAPTable;
+import fin.Coursdevise;
 import java.sql.Connection;
 import java.sql.Date;
 import mg.allosakafo.produits.LiaisonDetailsBCProduit;
 import mg.allosakafo.produits.Produits;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -408,5 +410,14 @@ public class BonDeCommandeFille extends ClassMAPTable {
         }catch(Exception e){
             throw e;
         }
+    }
+     public double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
+        String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= to_date('" + Utilitaire.datetostring(date) + "', 'dd/mm/yyyy') and iddevise = '" + this.getDevise() + "') "
+                + " and iddevise = '" + this.getDevise() + "'";
+        Coursdevise cours = new Coursdevise();
+        cours.setNomTable(nomTable);
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(cours, null, null, c, awhere);
+
+        return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
 }
