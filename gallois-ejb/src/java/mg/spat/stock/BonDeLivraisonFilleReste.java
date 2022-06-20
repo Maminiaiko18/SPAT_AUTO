@@ -10,10 +10,26 @@ package mg.spat.stock;
  * @author rasol
  */
 public class BonDeLivraisonFilleReste extends BonDeLivraisonFille{
-    private double pu, quantiteReste,tva,montantHT,montantTva,remise;
+    private double pu, quantiteReste,tva,montantHT,montantTva,remise,taux ;
+
+    public double getTaux() {
+        return taux;
+    }
+
+    public void setTaux(double taux) {
+        this.taux = taux;
+    }
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
+    }
     private String nomtiers,idtiers;
     private String projet,projetlib, code_etablissement,code_etablissementlib;
-    private String idbondecommandemere;
+    private String idbondecommandemere,devise;
 
     public String getIdbondecommandemere() {
         return idbondecommandemere;
