@@ -173,6 +173,7 @@
                 if( idBL!=null){
                     pi.getFormufle().getChamp("reduction_" + i).setDefaut(String.valueOf(livraisons[i].getRemise()));
                 }
+                pi.getFormufle().getChamp("devise_" + i).setDefaut(Utilitaire.champNull(livraisons[i].getDevise()));
             }
         }
         jsScript += "</script>";
