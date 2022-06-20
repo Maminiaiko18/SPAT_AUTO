@@ -239,6 +239,7 @@ public class BonDeCommandeFille extends ClassMAPTable {
                 LiaisonDetailsBCProduit liaison = new LiaisonDetailsBCProduit(this.getIdbc(), this.getProduit());
                 liaison.createObject(u, c);
             }
+            this.setTaux(this.getTauxRecent(c));
             super.createObject(u, c);
             if (verif == 1 && c != null) {
                 c.commit();
