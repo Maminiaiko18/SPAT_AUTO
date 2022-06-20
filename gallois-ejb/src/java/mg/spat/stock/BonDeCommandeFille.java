@@ -21,9 +21,26 @@ public class BonDeCommandeFille extends ClassMAPTable {
     private String produitlib;
     private String fournisseur, fournisseurlib;
     private double montantht,montanttva,montantttc,remise,montantHTSansRemise;
-    private double montantremise,montantTVA;
+    private double montantremise,montantTVA,taux ;
     private String observation;
-    private String code,codelib,projet,projetlib;
+    private String code,codelib,projet,projetlib,devise;
+
+    public double getTaux() {
+        return taux;
+    }
+
+    public void setTaux(double taux) {
+        this.taux = taux;
+    }
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
+    }
+    
 
     public double getMontantTVA() {
         return montantTVA;
