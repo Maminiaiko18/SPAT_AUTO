@@ -407,6 +407,7 @@ public class BonDeCommandeFille extends ClassMAPTable {
         try{
             BonDeCommande mere=this.getMere(c);
             if(mere.getEtat()>=ConstanteEtat.getEtatValider()) throw new Exception("Modification impossible, BC déjà visé");
+            this.setTaux(this.getTauxRecent(c));
         }catch(Exception e){
             throw e;
         }
