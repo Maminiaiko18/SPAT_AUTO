@@ -128,10 +128,13 @@
             pi.getFormufle().getChamp("Unite_"+i).setDefaut(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getUnite()));
         }
         
-        affichage.Champ[] listeUnit = new affichage.Champ[1];
+        affichage.Champ[] listeUnit = new affichage.Champ[2];
         TypeObjet branche=new TypeObjet();
         branche.setNomTable("UNITECHANTIER");
         listeUnit[0]=new Liste("unite",branche,"val","id");
+        TypeObjet devise=new TypeObjet();
+        devise.setNomTable("DEVISE");
+        listeUnit[1]=new Liste("devise",devise,"val","id");
         pi.getFormufle().changerEnChamp(listeUnit);
         
         pi.getFormufle().getChamp("Unite_0").setLibelle("Unite");
@@ -143,9 +146,11 @@
         pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
         pi.getFormufle().getChamp("observation_0").setLibelle("Observation");
         pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
+        pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("Quantiteparpack"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idbc"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"), false);
         
         pi.preparerDataFormu();
 %>
