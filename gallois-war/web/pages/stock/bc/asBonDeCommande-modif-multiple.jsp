@@ -85,6 +85,8 @@ try{
     pi.getFormufle().getChamp("pu_0").setLibelle("Prix Unitaire");
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantité");
     pi.getFormufle().getChamp("id_0").setLibelle("ID");
+    pi.getFormufle().getChamp("taux_0").setLibelle("Taux");
+    pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("idbc_0").setLibelle("Bon de commande");
     pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
     pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
