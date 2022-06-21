@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import mg.spat.placement.DetailsPlacements;
 import mg.spat.placement.Placement;
 import utilitaire.Constante;
+import bean.TypeObjet;
 
 /**
  *
@@ -33,11 +34,21 @@ public class JournalCaisseData {
     AvoirFF avoirFF;
     Placement placement;
     DetailsPlacements detailsPlacement;
+    TypeObjet pbc;
 
     public JournalCaisseData(HttpServletRequest request) {
         this.request = request;
     }
-
+    
+    public void initPlacementBanqueCaisse(Connection c) throws Exception{
+        pbc=new TypeObjet();
+        pbc.setNomTable("placement_banque_caisse");
+        TypeObjet[] liste = (TypeObjet[])  CGenUtil.rechercher(pbc, null, null, c, " and val ='"+this.placement.getBanque()+"'");
+        if(liste.length>0){
+            pbc=liste[0];
+        }
+    }
+    
     private void initFactureAnalyse(Connection c, String idFact) throws Exception {
         boolean checkFact = idFact.startsWith(Constante.fcPrefix);
         FactureAnalyse temporaire = new FactureAnalyse();
@@ -138,6 +149,7 @@ public class JournalCaisseData {
             }
             if ((idplacement != null) && !(idplacement.trim().isEmpty())) {
                 initPlacement(c, idplacement);
+                initPlacementBanqueCaisse(c);
             }
             if ((idAvoirFC != null) && !(idAvoirFC.trim().isEmpty())) {
                 initAvoirFC(c, idAvoirFC);
@@ -145,6 +157,7 @@ public class JournalCaisseData {
             if ((idAvoirFF != null) && !(idAvoirFF.trim().isEmpty())) {
                 initAvoirFF(c, idAvoirFF);
             }
+            
         } catch (Exception e) {
             throw e;
         } finally {
@@ -217,4 +230,14 @@ public class JournalCaisseData {
     public void setFacture(FactureClient facture) {
         this.facture = facture;
     }
+
+    public TypeObjet getPbc() {
+        return pbc;
+    }
+
+    public void setPbc(TypeObjet pbc) {
+        this.pbc = pbc;
+    }
+    
+    
 }

@@ -166,6 +166,9 @@
                 DetailsPlacements dp = datas.getDetailsPlacement();
                 pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + dp.getMontant_terme()));
             }
+            if(request.getParameter("auto") != null && !request.getParameter("auto").equals("") && request.getParameter("auto").equals("1")){
+               pi.getFormu().getChamp("caisse").setDefaut(datas.getPbc().getDesce());
+            }
         }
 
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
