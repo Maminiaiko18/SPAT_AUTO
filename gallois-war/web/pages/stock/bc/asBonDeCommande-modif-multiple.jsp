@@ -69,10 +69,13 @@ try{
     pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp", "idengagement;idengagementlibelle");
     pi.getFormu().getChamp("idengagement").setValeurLibelle(Utilitaire.champNull(mere.getIdengagementlib()));
     pi.getFormu().getChamp("idengagementlib").setVisible(false);
-    affichage.Champ[] listeUnit = new affichage.Champ[1];
+    affichage.Champ[] listeUnit = new affichage.Champ[2];
     TypeObjet branche=new TypeObjet();
     branche.setNomTable("UNITECHANTIER");
     listeUnit[0]=new Liste("unite",branche,"val","id");
+    TypeObjet devise=new TypeObjet();
+    devise.setNomTable("DEVISE");
+    listeUnit[1]=new Liste("devise",devise,"val","id");
     pi.getFormufle().changerEnChamp(listeUnit);
 
     pi.getFormufle().getChamp("Unite_0").setLibelle("Unite");
