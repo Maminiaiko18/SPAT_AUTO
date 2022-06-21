@@ -151,6 +151,7 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idbc"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"), false);
+        affichage.Champ.setDefaut(pi.getFormufle().getChampFille("devise"), "Ar");
         
         pi.preparerDataFormu();
 %>
