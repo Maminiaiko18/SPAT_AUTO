@@ -25,3 +25,22 @@ FROM union_bcf_spat_cemedi BCF
                    ON BFG.IDBONDECOMMANDE = BCF.ID
          LEFT JOIN union_produit_tbd_cemedi ap ON BCF.produit = ap.id
          LEFT JOIN union_unite_tbd_cemedi u ON bcf.UNITE = u.id;
+
+
+CREATE OR REPLACE VIEW "AS_BONDELIVRAISON_FILLE_MTT" ("ID", "PRODUIT", "NUMBL", "QUANTITE", "QUANTITEPARPACK", "IDDETAILSFACTUREFOURNISSEUR", "IDBONDECOMMANDE", "PU", "TVA", "MONTANTHT", "MONTANTTVA", "MONTANTTC") AS 
+  select bl."ID",
+       bl."PRODUIT",
+       bl."NUMBL",
+       bl."QUANTITE",
+       bl."QUANTITEPARPACK",
+       bl."IDDETAILSFACTUREFOURNISSEUR",
+       bl."IDBONDECOMMANDE",
+       cast(bc.pu as NUMBER(30, 3))                                                            as pu,
+       bc.TVA,
+       cast((bl.QUANTITE * bc.pu * nvl(bc.taux,1)) * (1 - nvl(remise, 0) / 100) as NUMBER(30, 2))               as montantht,
+       --cast(bl.QUANTITE * bc.pu as NUMBER(30, 2))                                        as montantht,
+       cast((bl.QUANTITE * bc.pu * nvl(bc.taux,1)) * (1 - nvl(remise, 0) / 100) * (tva / 100) as NUMBER(30, 2)) as montanttva,
+       cast((bl.QUANTITE * bc.pu * nvl(bc.taux,1)) * (1 - nvl(remise, 0) / 100) * (tva / 100) as NUMBER(30, 2)) +
+       cast((bl.QUANTITE * bc.pu * nvl(bc.taux,1)) * (1 - nvl(remise, 0) / 100) as NUMBER(30, 2))               as montanttc
+from AS_BONDELIVRAISON_FILLe bl
+         left join AS_BONDECOMMANDE_FILLE bc on bc.ID = bl.IDBONDECOMMANDE;
