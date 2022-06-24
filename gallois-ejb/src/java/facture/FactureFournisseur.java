@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import lignecredit.LigneCredit;
+import mg.allosakafo.produits.LiaisonIntraTable;
 import mg.spat.Engagement;
 import mg.spat.JournalCaisse;
 import mg.spat.stock.BonDeLivraisonFilleReste;
@@ -750,6 +751,44 @@ public class FactureFournisseur extends FactureClient {
             throw ex;
         } finally {
             if (c != null && check) c.close();
+        }
+    }
+    
+    public LiaisonIntraTable[] findLiaisonIntratable(Connection c) throws Exception {
+        boolean check = false;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                check = true;
+            }
+            LiaisonIntraTable lit = new LiaisonIntraTable();
+            LiaisonIntraTable[] liaisonIntraTable = (LiaisonIntraTable[]) CGenUtil.rechercher(lit, null, null, c, " and id1='"+this.getId()+"'");
+            return liaisonIntraTable;
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (c != null && check) c.close();
+        }
+    }
+    
+    @Override
+    public void controleAnnulerVisa() throws Exception {
+        Connection c = null;
+        
+        try {
+            c = (new UtilDB()).GetConn();
+            OrdonnerPayement op = findOP(null, c);
+            if(op != null) throw new Exception("Impossible, OP existant");
+            
+            LiaisonIntraTable[] liaisons = findLiaisonIntratable(c);
+            if(liaisons != null && liaisons.length > 0) throw new Exception("Impossible, OP existant");
+            
+            PaiementFacture[] paiements = getPaiementFacture(c);
+            if(paiements != null && paiements.length > 0) throw new Exception("Impossible, paiements existants");
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if(c != null) c.close();
         }
     }
 }
