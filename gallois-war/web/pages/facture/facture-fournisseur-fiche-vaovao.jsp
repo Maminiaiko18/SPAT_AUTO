@@ -216,11 +216,12 @@
                 <div class="box-footer">
                     <p>
                         <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur" style="margin-right: 10px">Viser</a>
+                        <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur" style="margin-right: 10px">Annuler Visa</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId()%>&acte=dupliquer&bute=<%=bute%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrentFF.jsp&id=" + e.getId()%>" style="margin-right: 10px">Récurrent</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=1"%>" style="margin-right: 10px">Sortie banque</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=2"%>" style="margin-right: 10px">Sortie caisse</a>
-                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-saisie.jsp&ded_id=" + id%>" style="margin-right: 10px">Editer OP</a>
+                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnervaliderpayement-saisie.jsp&ded_id=" + id%>" style="margin-right: 10px">Editer OP</a>
                     <hr>
                     
                     <p>
