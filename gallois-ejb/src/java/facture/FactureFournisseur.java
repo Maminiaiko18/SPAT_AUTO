@@ -733,5 +733,23 @@ public class FactureFournisseur extends FactureClient {
     @Override
     public void checkCode(Connection c){}
     
-    
+    @Override
+    public PaiementFacture[] getPaiementFacture(Connection c) throws Exception {
+        boolean check = false;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                check = true;
+            }
+            PaiementFacture pF = new PaiementFacture();
+            pF.setNomTable("paiementfactureF");
+            pF.setIdFact(this.getId());
+            PaiementFacture[] paiement = (PaiementFacture[]) CGenUtil.rechercher(pF, null, null, c, " ORDER BY id DESC");
+            return paiement;
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (c != null && check) c.close();
+        }
+    }
 }
