@@ -221,7 +221,7 @@
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrentFF.jsp&id=" + e.getId()%>" style="margin-right: 10px">Récurrent</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=1"%>" style="margin-right: 10px">Sortie banque</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=2"%>" style="margin-right: 10px">Sortie caisse</a>
-                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnervaliderpayement-saisie.jsp&ded_id=" + id%>" style="margin-right: 10px">Editer OP</a>
+                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-saisie.jsp&ded_id=" + id%>" style="margin-right: 10px">Editer OP</a>
                     <hr>
                     
                     <p>
