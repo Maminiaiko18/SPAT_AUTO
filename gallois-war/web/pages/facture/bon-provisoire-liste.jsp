@@ -5,7 +5,7 @@
 <%
     try {
 
-        Engagement eng = new Engagement();
+        BonProvisoire eng = new BonProvisoire();
         eng.setNomTable("bon_provisoire_final_lib");
         String nomTableEtat = request.getParameter("nomTableEtat");
         if(nomTableEtat!=null && !nomTableEtat.isEmpty()){
@@ -14,7 +14,7 @@
 
         String listeCrt[] = {"id","tiers","daty"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "tiers", "daty","montant", "remaque","etat","tierslib","caisselib","projetlib"};
+        String libEntete[] = {"id", "tiers", "daty","montant", "remarque","etat","tierslib","caisselib","caisse"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -23,8 +23,8 @@
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
 
        // pr.setApres("facture/bon-provisoire-liste.jsp);
-     //   String[] colSomme ={"montant"};
-     //   pr.creerObjetPage(libEntete, colSomme);
+        String[] colSomme ={"montant"};
+        pr.creerObjetPage(libEntete, colSomme);
         String[] etatVal = {"bon_provisoire_final_lib", "bon_provisoire_final_lib_cree", "bon_provisoire_final_lib_vise"};
         String[] etatAff = {"Tous", "Cr&eacute;es", "Vis&eacute;e"};
 
@@ -64,7 +64,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Tiers", "Daty","Montant", "Remarque","Etat","Tierslib","Caisse","Projet"};
+            String libEnteteAffiche[] = {"Id", "Tiers", "Daty","Montant", "Remarque","Etat","Tierslib","Caisslib","Caisse"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
