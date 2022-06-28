@@ -20,10 +20,19 @@ public class BonProvisoire extends ClassMAPTable{
     String tiers;
     Date daty;
     double montant;
-    String remaque;
+    String remarque;
     int etat;
     String tierslib;
-    String caisselib;
+    String caisselib,caisse;
+
+    public String getCaisse() {
+        return caisse;
+    }
+
+    public void setCaisse(String caisse) {
+        this.caisse = caisse;
+    }
+    
 
     public String getId() {
         return id;
@@ -60,12 +69,12 @@ public class BonProvisoire extends ClassMAPTable{
         this.montant = montant;
     }
 
-    public String getRemaque() {
-        return remaque;
+    public String getRemarque() {
+        return remarque;
     }
 
-    public void setRemaque(String remaque) {
-        this.remaque = remaque;
+    public void setRemarque(String remaque) {
+        this.remarque = remarque;
     }
 
     public int getEtat() {
@@ -98,7 +107,7 @@ public class BonProvisoire extends ClassMAPTable{
         this.tiers = tiers;
         this.daty = daty;
         this.setMontant(montant);
-        this.remaque = remaque;
+        this.remarque = remarque;
         this.etat = etat;
         this.tierslib = tierslib;
         this.caisselib = caisselib;
