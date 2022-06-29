@@ -152,6 +152,12 @@ public class Constante {
     public static final String typeChequeAuComptantFF = "TFC002";
     public static final String typeAuComptant = "TFC002";
     public static final String typeFCAuComptant  = "TFC002";
+    public static final String dirAppuiAdm="CODE000023";
+    public static final String projMissionHebergement="PR000115";
+    public static final String compteHorsCircuit="00000000000";
+    public static final String compteBP="121MHI62512";
+    
+
 
     public static String getTypeFCAuComptant() {
         return typeFCAuComptant;
