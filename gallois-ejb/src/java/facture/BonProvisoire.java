@@ -1,6 +1,7 @@
 package facture;
 
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
@@ -208,5 +209,30 @@ public class BonProvisoire extends ClassEtat{
                 c.close();
             }
         }
+    }
+    
+    public FactureFournisseur findFactureDeProvision(Connection c, String nomtable) throws Exception{
+        FactureFournisseur model = new FactureFournisseur();
+        boolean test = false;
+        Connection con = null;
+        if(c==null){
+            con = new UtilDB().GetConn();
+            test = true;
+        }else{
+            con = c;
+        }
+        if(nomtable==null){
+            nomtable = "FACTURE_FOURNISSEUR_MERE";
+        }
+        model.setNomTable(nomtable);
+        String where = " and bonprovisoire='"+this.getId()+"'";
+        FactureFournisseur[] response = (FactureFournisseur[])CGenUtil.rechercher(model, null, null, con, where);
+        if(test){
+            con.close();
+        }
+        if(response.length>0){
+            return response[0];
+        }
+        return null;
     }
 }
