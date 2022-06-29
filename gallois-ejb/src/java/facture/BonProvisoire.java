@@ -185,7 +185,28 @@ public class BonProvisoire extends ClassEtat{
         return super.validerObject(u, c);
     }
     
-    public static void payer(Connection c, String id){
-        
+    public static void payer(Connection c,String id) throws Exception {
+        int verif = 0;
+        try{
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+                c.setAutoCommit(false);
+            }
+           
+            BonProvisoire[] bp = (BonProvisoire[]) CGenUtil.rechercher(new BonProvisoire(), null, null, c, String.format(" and id = '%s'", id));
+            if(bp == null || bp.length == 0) throw new Exception("bon provisoire introuvable");
+            
+            bp[0].payer(c, id);
+            
+            if(verif == 1) c.commit();
+        } catch (Exception e) {
+            if(c != null) c.rollback();
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
     }
 }
