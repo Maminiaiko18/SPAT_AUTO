@@ -36,6 +36,15 @@ public class FactureFournisseur extends FactureClient {
     private String codeEtablissement;
     private Date dateRegul;
     private double montantHTSansRemise;
+    private String bonprovisoire;
+
+    public String getBonprovisoire() {
+        return bonprovisoire;
+    }
+
+    public void setBonprovisoire(String bonprovisoire) {
+        this.bonprovisoire = bonprovisoire;
+    }
 
     public double getMontantHTSansRemise() {
         return montantHTSansRemise;

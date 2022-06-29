@@ -4,6 +4,8 @@ package facture;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.Constante;
+import utilitaire.UtilDB;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,6 +27,15 @@ public class BonProvisoire extends ClassEtat{
     String tierslib;
     String caisselib,caisse,bonprovisoire;
     int estOM;
+    String designation;
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
 
     public String getBonprovisoire() {
         return bonprovisoire;
@@ -129,4 +140,42 @@ public class BonProvisoire extends ClassEtat{
         this.setId(makePK(c));
     }   
     
+    public void genererFF(Connection c, String iduser) throws Exception {
+        int verif = 0;
+        try{
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+                c.setAutoCommit(false);
+            }
+            
+            FactureFournisseur ff = new FactureFournisseur(null, this.getTiers(), this.getDesignation(), Constante.typeFCAuComptant, this.getRemarque(), iduser, null, Constante.idBonProvisoire, 0, this.getDaty(), null, 0);
+            ff.setDeviseMere(Constante.deviseAr);
+            ff.setExercice(utilitaire.Utilitaire.getAneeEnCours());
+            ff.setBonprovisoire(this.getId());
+            
+            if(this.getEstOM() != 0) {
+                ff.setCode_etablissement(Constante.dirAppuiAdm);
+                ff.setProjet(Constante.projMissionHebergement);
+            }
+            
+            FactureClientDetails fcd = new FactureClientDetails(null, 1, this.getMontant(), Constante.compteBP, this.getDesignation(), 0, utilitaire.Utilitaire.getAneeEnCours(), utilitaire.Utilitaire.getMoisEnCoursReel(), Constante.deviseAr, 0);
+            if(this.getEstOM() == 0) {
+                fcd.setCompte(Constante.compteHorsCircuit);
+            }
+            
+            ff.setFille(new FactureClientDetails[] { fcd } );
+            ff.createObject(iduser, c);
+            ff.validerObject(iduser, c);
+            
+            if(verif == 1) c.commit();
+        } catch (Exception e) {
+            if(c != null && verif == 1)c.rollback();
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
 }
