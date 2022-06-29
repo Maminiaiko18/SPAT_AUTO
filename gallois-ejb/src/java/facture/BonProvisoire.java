@@ -1,7 +1,8 @@
 package facture;
 
 
-import bean.ClassMAPTable;
+import bean.ClassEtat;
+import java.sql.Connection;
 import java.sql.Date;
 
 /*
@@ -14,14 +15,13 @@ import java.sql.Date;
  *
  * @author MADALITSO
  */
-public class BonProvisoire extends ClassMAPTable{
+public class BonProvisoire extends ClassEtat{
 
     String id;
     String tiers;
     Date daty;
     double montant;
     String remarque;
-    int etat;
     String tierslib;
     String caisselib,caisse;
 
@@ -77,14 +77,6 @@ public class BonProvisoire extends ClassMAPTable{
         this.remarque = remarque;
     }
 
-    public int getEtat() {
-        return etat;
-    }
-
-    public void setEtat(int etat) {
-        this.etat = etat;
-    }
-
     public String getTierslib() {
         return tierslib;
     }
@@ -101,16 +93,15 @@ public class BonProvisoire extends ClassMAPTable{
         this.caisselib = caisselib;
     }
 
-    public BonProvisoire(String id, String tiers, Date daty, double montant, String remaque, int etat, String tierslib, String caisselib) throws Exception {
-        this.setNomTable("bon_provisoire_final");
+    public BonProvisoire(String id, String tiers, Date daty, double montant, String remarque, String tierslib, String caisselib, String caisse) throws Exception {
         this.id = id;
         this.tiers = tiers;
         this.daty = daty;
         this.setMontant(montant);
         this.remarque = remarque;
-        this.etat = etat;
         this.tierslib = tierslib;
         this.caisselib = caisselib;
+        this.caisse = caisse;
     }
     
     public BonProvisoire() {
@@ -126,5 +117,11 @@ public class BonProvisoire extends ClassMAPTable{
     public String getAttributIDName() {
         return "id"; //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("BPV", "getseqbon_provisoire_final");
+        this.setId(makePK(c));
+    }   
     
 }
