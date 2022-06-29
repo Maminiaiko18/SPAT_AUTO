@@ -23,6 +23,7 @@
    
     pi.getFormu().getChamp("caisse").setLibelle("Caisse de retrait");
     pi.getFormu().getChamp("daty").setLibelle("Date");
+    pi.getFormu().getChamp("estOM").setLibelle("Avec ordre de mission");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     
     pi.getFormu().getChamp("etat").setVisible(false);
