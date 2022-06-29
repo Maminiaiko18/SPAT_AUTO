@@ -184,4 +184,8 @@ public class BonProvisoire extends ClassEtat{
         genererFF(c, u);
         return super.validerObject(u, c);
     }
+    
+    public static void payer(Connection c, String id){
+        
+    }
 }
