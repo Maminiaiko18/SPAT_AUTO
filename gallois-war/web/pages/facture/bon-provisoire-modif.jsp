@@ -9,7 +9,7 @@
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     UserEJB u = (user.UserEJB) session.getValue("u");
-    String  mapping = "facture.BonProvisoire.java",
+    String  mapping = "facture.BonProvisoire",
             nomtable = "bon_provisoire_final",
             apres = "facture/bon-provisoire-fiche.jsp",
             titre = "Modifier bon povisoire";
