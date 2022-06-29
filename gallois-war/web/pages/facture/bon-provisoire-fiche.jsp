@@ -50,6 +50,7 @@
 		
         Map<String, String> map = new HashMap<String, String>();
         map.put("factureProvision", "");
+        map.put("Paiements", "");
         String tab = request.getParameter("tab");
         if (tab == null) {
             tab = "factureProvision";
@@ -153,7 +154,9 @@
 							<div class="nav-tabs-custom">
 								<ul class="nav nav-tabs nav-center">
 									<li class="<%= map.get("factureProvision")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=factureProvision">Factures de provisions</a></li>
-								</ul>
+                                                                        <li class="<%= map.get("Paiements")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=Paiements">Paiement</a></li>
+                    
+                                                                </ul>
 							</div>
 							<div class="tab-content">       
 								<jsp:include page="<%=tab%>" >
