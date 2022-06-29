@@ -25,9 +25,10 @@
     Caisse esc = new Caisse();
     esc.setNomTable("Caisse");
     liste[0] = new Liste("caisse", esc, "val", "id");
-
+    
     pi.getFormu().changerEnChamp(liste);
     pi.getFormu().getChamp("caisse").setLibelle("Caisse de retrait");
+    pi.getFormu().getChamp("caisse").setDefaut("CAIS000015");
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>
