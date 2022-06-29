@@ -24,6 +24,16 @@ public class BonProvisoire extends ClassEtat{
     String remarque;
     String tierslib;
     String caisselib,caisse;
+    int estOM;
+
+    public int getEstOM() {
+        return estOM;
+    }
+
+    public void setEstOM(int estOM) {
+        this.estOM = estOM;
+    }
+    
 
     public String getCaisse() {
         return caisse;
