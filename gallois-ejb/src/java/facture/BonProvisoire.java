@@ -63,9 +63,7 @@ public class BonProvisoire extends ClassEtat{
     }
 
     public void setMontant(double montant) throws Exception {
-        if(montant<0){
-            throw new Exception("On ne peut pas ajouter une montant negative");
-        }
+        if(this.getMode().compareToIgnoreCase("modif")==0&&montant<=0) throw new Exception("montant invalide");
         this.montant = montant;
     }
 
@@ -91,17 +89,6 @@ public class BonProvisoire extends ClassEtat{
 
     public void setCaisselib(String caisselib) {
         this.caisselib = caisselib;
-    }
-
-    public BonProvisoire(String id, String tiers, Date daty, double montant, String remarque, String tierslib, String caisselib, String caisse) throws Exception {
-        this.id = id;
-        this.tiers = tiers;
-        this.daty = daty;
-        this.setMontant(montant);
-        this.remarque = remarque;
-        this.tierslib = tierslib;
-        this.caisselib = caisselib;
-        this.caisse = caisse;
     }
     
     public BonProvisoire() {
