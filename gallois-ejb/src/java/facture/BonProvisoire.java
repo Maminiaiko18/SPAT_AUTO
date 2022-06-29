@@ -23,9 +23,17 @@ public class BonProvisoire extends ClassEtat{
     double montant;
     String remarque;
     String tierslib;
-    String caisselib,caisse;
+    String caisselib,caisse,bonprovisoire;
     int estOM;
 
+    public String getBonprovisoire() {
+        return bonprovisoire;
+    }
+
+    public void setBonprovisoire(String bonprovisoire) {
+        this.bonprovisoire = bonprovisoire;
+    }
+    
     public int getEstOM() {
         return estOM;
     }
