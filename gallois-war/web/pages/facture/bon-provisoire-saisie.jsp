@@ -21,10 +21,14 @@
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("daty").setLibelle("date"); 
     
-    affichage.Champ[] liste = new affichage.Champ[1];
+    affichage.Champ[] liste = new affichage.Champ[2];
     Caisse esc = new Caisse();
     esc.setNomTable("Caisse");
     liste[0] = new Liste("caisse", esc, "val", "id");
+    
+    String[] afficher = {"OUI","NON"};
+    String[] valeur = {"1","0"};
+    liste[1] = new Liste("estOM", afficher, valeur);
     
     pi.getFormu().changerEnChamp(liste);
     pi.getFormu().getChamp("caisse").setLibelle("Caisse de retrait");
