@@ -18,8 +18,8 @@
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("montant").setLibelle("montant");   
     pi.getFormu().getChamp("remarque").setLibelle("remarque");
-  
-    
+    pi.getFormu().getChamp("tiers").setAutre("readonly");
+    pi.getFormu().getChamp("daty").setLibelle("date"); 
     
     affichage.Champ[] liste = new affichage.Champ[1];
     Caisse esc = new Caisse();
@@ -39,8 +39,8 @@
             out.println(pi.getFormu().getHtmlInsert());
         %>
     <input name="acte" type="hidden" id="nature" value="insert">
-    <input name="bute" type="hidden" id="bute" value="facture/bon-provisoire-saisie.jsp">
-    <input name="classe" type="hidden" id="classe" value="mg.spat.BonProvisoire">
+    <input name="bute" type="hidden" id="bute" value="facture/bon-provisoire-fiche.jsp">
+    <input name="classe" type="hidden" id="classe" value="facture.BonProvisoire">
     </form>
 </div>
 <%}catch(Exception e){
