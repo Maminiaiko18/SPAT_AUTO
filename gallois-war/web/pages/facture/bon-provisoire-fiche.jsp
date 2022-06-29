@@ -3,7 +3,8 @@
     Created on : 12 mai 2021, 13:56:24
     Author     : nyamp
 --%>
-
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="facture.BonProvisoire"%>
 <%@page import="data.FactureData"%>
 <%@page import="utilitaire.Constante"%>
@@ -46,6 +47,15 @@
         String dossier = "facture";
         String id = e.getId();
         String vue = e.getRemarque() != null && e.getRemarque().startsWith("--") ? "ANALYSEGLOBALEFACTURE_VAOVAO" : "ANALYSEGLOBALEANTSIKA";
+		
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("factureProvision", "");
+        String tab = request.getParameter("tab");
+        if (tab == null) {
+            tab = "factureProvision";
+        }
+        map.put(tab, "active");
+        tab = "inc/" + tab + ".jsp";
 %>
 
 <style type="text/css">
@@ -95,7 +105,11 @@
         elmnt.style.display = "block";
     }
 </script>
-
+<style>
+    .col-md-center .box-fiche{
+        min-width:100%;
+    }
+</style>
 <div class="content-wrapper">
     
     <div class="row">
@@ -111,7 +125,8 @@
                     <%
                         out.println(pc.getHtml());
                     %>
-                </div>
+				
+                </div>				
                 <div class="box-footer">
                     <p>
                         <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/bon-provisoire-fiche.jsp&classe=facture.BonProvisoire" style="margin-right: 10px">Viser</a>
@@ -129,11 +144,24 @@
                     </p>
                     <hr>
                     <hr>
-                </div>
+                </div>				
             </div>
         </div>
     </div>
-
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1 ">
+							<div class="nav-tabs-custom">
+								<ul class="nav nav-tabs nav-center">
+									<li class="<%= map.get("factureProvision")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=factureProvision">Factures de provisions</a></li>
+								</ul>
+							</div>
+							<div class="tab-content">       
+								<jsp:include page="<%=tab%>" >
+									<jsp:param name="bonprovisoire" value="<%=e.getId()%>" />
+								</jsp:include>
+							</div>
+						</div>
+					</div>	
 
     <div class="row">
 
@@ -177,6 +205,9 @@
             </div>
         </div>
     </div>
+<script>
+    $('#fiche .row .col-md-6').removeClass('col-md-6').removeClass('col-md-center').addClass('col-md-8').addClass('col-md-offset-2');
+</script>	
 <%
     } catch (Exception e) {
     e.printStackTrace();
