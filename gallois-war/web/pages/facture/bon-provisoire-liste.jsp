@@ -1,6 +1,7 @@
 <%@page import="mg.spat.Engagement"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="facture.BonProvisoire"%>
+<%@page import="utilitaire.Utilitaire"%>
 
 <%
     try {
@@ -12,15 +13,19 @@
         eng.setNomTable(nomTableEtat);
         }
 
-        String listeCrt[] = {"id","tiers","daty"};
+        String listeCrt[] = {"id","daty","tierslib","caisselib","remarque"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "tiers", "daty","montant", "remarque","etat","tierslib","caisselib","caisse"};
+        String libEntete[] = {"id", "daty","montant", "remarque","tierslib","caisselib"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
+        pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
+        pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+        pr.getFormu().getChamp("caisselib").setLibelle("Caisse");
 
        // pr.setApres("facture/bon-provisoire-liste.jsp);
         String[] colSomme ={"montant"};
@@ -64,7 +69,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Tiers", "Daty","Montant", "Remarque","Etat","Tierslib","Caisslib","Caisse"};
+            String libEnteteAffiche[] = {"Id", "Daty","Montant", "Remarque","Tiers","Caisse"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
