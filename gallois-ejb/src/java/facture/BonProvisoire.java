@@ -178,4 +178,10 @@ public class BonProvisoire extends ClassEtat{
             }
         }
     }
+
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        genererFF(c, u);
+        return super.validerObject(u, c);
+    }
 }
