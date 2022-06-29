@@ -42,8 +42,16 @@ public class JournalCaisse extends ClassEtat {
     private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib;
     private double sommeCredit, sortie, entree;
     private String banque;
-    private String descecaisse, idcaisse,numeroOP,idplacementvrai;
+    private String descecaisse, idcaisse,numeroOP,idplacementvrai,bonprovisoire;
 
+    public String getBonprovisoire() {
+        return bonprovisoire;
+    }
+
+    public void setBonprovisoire(String bonprovisoire) {
+        this.bonprovisoire = bonprovisoire;
+    }
+    
     public String getIdplacementvrai() {
         return idplacementvrai;
     }
