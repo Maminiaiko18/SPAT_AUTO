@@ -231,12 +231,13 @@ public class BonProvisoire extends ClassEtat{
                 ff.setProjet(Constante.projMissionHebergement);
             }
             
-            FactureClientDetails fcd = new FactureClientDetails(null, 1, this.getMontant(), Constante.compteBP, this.getDesignation(), 0, utilitaire.Utilitaire.getAneeEnCours(), utilitaire.Utilitaire.getMoisEnCoursReel(), Constante.deviseAr, 0);
+            FactureFournisseurDetails fcd = new FactureFournisseurDetails(null, 1, this.getMontant(), Constante.compteBP, this.getDesignation(), 0, utilitaire.Utilitaire.getAneeEnCours(), utilitaire.Utilitaire.getMoisEnCoursReel(), 0);
+            fcd.setDevise(Constante.deviseAr);
             if(this.getEstOM() == 0) {
                 fcd.setCompte(Constante.compteHorsCircuit);
             }
             
-            ff.setFille(new FactureClientDetails[] { fcd } );
+            ff.setFille(new FactureFournisseurDetails[] { fcd } );
             ff.createObject(iduser, c);
             ff.validerObject(iduser, c);
             
