@@ -3,10 +3,13 @@ package facture;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import mg.spat.JournalCaisse;
+
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.Constante;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -139,7 +142,75 @@ public class BonProvisoire extends ClassEtat{
     public void construirePK(Connection c) throws Exception {
         this.preparePk("BPV", "getseqbon_provisoire_final");
         this.setId(makePK(c));
-    }   
+    } 
+
+		public FactureFournisseur findFactureDeProvision(Connection c, String nomtable) throws Exception{
+			FactureFournisseur model = new FactureFournisseur();
+			boolean test = false;
+			Connection con = null;
+			if(c==null){
+					con = new UtilDB().GetConn();
+					test = true;
+			}else{
+					con = c;
+			}
+			if(nomtable==null){
+					nomtable = "FACTURE_FOURNISSEUR_MERE";
+			}
+			model.setNomTable(nomtable);
+			String where = " and bonprovisoire='"+this.getId()+"'";
+			FactureFournisseur[] response = (FactureFournisseur[])CGenUtil.rechercher(model, null, null, con, where);
+			if(test){
+					con.close();
+			}
+			if(response.length>0){
+					return response[0];
+			}
+			return null;
+		}
+    
+		public void payer(Connection c, String iduser) throws Exception {
+			boolean openConnection = false;
+			try {
+				if (c == null) {
+					c = new UtilDB().GetConn();
+					openConnection = true;
+					c.setAutoCommit(false);
+				}
+
+				if(this.getEtat() < 11) throw new Exception("Bon provisoire non valide");
+
+				FactureFournisseur ff = findFactureDeProvision(c, null);
+				if(ff == null) throw new Exception("Facture de provision introuvable");
+
+				JournalCaisse jc = new JournalCaisse();
+				Date currentDate = Utilitaire.string_date("YYYY-MM-dd", Utilitaire.dateDuJour());
+				jc.setDateSaisie(currentDate);
+				jc.setDateEffet(currentDate);
+				jc.setCaisse(this.getCaisse());
+				jc.setDesignation(this.getDesignation());
+				jc.setDebit(this.getMontant());
+				jc.setTiers(this.getTiers());
+				jc.setIddevise(Constante.deviseAr);
+				jc.setIdmode(Constante.modePaiementEspece);
+				jc.setIdplacement(ff.getId());
+				jc.setBonprovisoire(this.getId());
+
+				jc.createObject(iduser, c);
+				jc.validerObject(iduser, c);
+
+				if(openConnection) c.commit();
+
+			} catch(Exception e) {
+				if(c != null && openConnection)c.rollback();
+            throw e;
+			} finally {
+				if (c != null && openConnection) {
+						c.close();
+				}
+			}
+    }
+    
     
     public void genererFF(Connection c, String iduser) throws Exception {
         int verif = 0;
@@ -186,7 +257,7 @@ public class BonProvisoire extends ClassEtat{
         return super.validerObject(u, c);
     }
     
-    public static void payer(Connection c,String id) throws Exception {
+    /*public static void payer(Connection c, String id) throws Exception {
         int verif = 0;
         try{
             if (c == null) {
@@ -209,30 +280,5 @@ public class BonProvisoire extends ClassEtat{
                 c.close();
             }
         }
-    }
-    
-    public FactureFournisseur findFactureDeProvision(Connection c, String nomtable) throws Exception{
-        FactureFournisseur model = new FactureFournisseur();
-        boolean test = false;
-        Connection con = null;
-        if(c==null){
-            con = new UtilDB().GetConn();
-            test = true;
-        }else{
-            con = c;
-        }
-        if(nomtable==null){
-            nomtable = "FACTURE_FOURNISSEUR_MERE";
-        }
-        model.setNomTable(nomtable);
-        String where = " and bonprovisoire='"+this.getId()+"'";
-        FactureFournisseur[] response = (FactureFournisseur[])CGenUtil.rechercher(model, null, null, con, where);
-        if(test){
-            con.close();
-        }
-        if(response.length>0){
-            return response[0];
-        }
-        return null;
-    }
+    }*/
 }
