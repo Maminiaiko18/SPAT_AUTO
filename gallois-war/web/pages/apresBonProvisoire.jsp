@@ -14,7 +14,9 @@
             String id = request.getParameter("id");
        
             if (acte.compareToIgnoreCase("payer") == 0) {    
-            BonProvisoire.payer(null, id);
+                BonProvisoire bonProvisoire = new BonProvisoire();
+                bonProvisoire.setId(id);
+                bonProvisoire.payer(u.getUser().getTuppleID());
     %>
       <script language="JavaScript"> document.location.replace("<%=lien%>?but=facture/bon-provisoire-fiche.jsp&id=<%=id%>");</script>
     <% 

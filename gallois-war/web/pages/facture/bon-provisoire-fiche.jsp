@@ -34,6 +34,7 @@
         pc.getChampByName("caisselib").setLibelle("Caisse");
         pc.getChampByName("montant").setLibelle("Montant");
         pc.getChampByName("etat").setLibelle("Etat");
+        pc.getChampByName("EstOM").setLibelle("Avec Ordre De Mission");
         pc.getChampByName("caisse").setVisible(false);
         pc.getChampByName("tiers").setVisible(false);
        
@@ -131,6 +132,7 @@
                 <div class="box-footer">
                     <p>
                         <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/bon-provisoire-fiche.jsp&classe=facture.BonProvisoire" style="margin-right: 10px">Viser</a>
+                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresBonProvisoire.jsp&acte=payer&id=" + request.getParameter("id")%>&bute=facture/bon-provisoire-fiche.jsp&classe=facture.BonProvisoire" style="margin-right: 10px">Payer</a>
             
                     <hr>
                     <hr>

@@ -7,6 +7,7 @@ import mg.spat.JournalCaisse;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import utilitaire.Constante;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -144,71 +145,96 @@ public class BonProvisoire extends ClassEtat{
         this.setId(makePK(c));
     } 
 
-		public FactureFournisseur findFactureDeProvision(Connection c, String nomtable) throws Exception{
-			FactureFournisseur model = new FactureFournisseur();
-			boolean test = false;
-			Connection con = null;
-			if(c==null){
-					con = new UtilDB().GetConn();
-					test = true;
-			}else{
-					con = c;
-			}
-			if(nomtable==null){
-					nomtable = "FACTURE_FOURNISSEUR_MERE";
-			}
-			model.setNomTable(nomtable);
-			String where = " and bonprovisoire='"+this.getId()+"'";
-			FactureFournisseur[] response = (FactureFournisseur[])CGenUtil.rechercher(model, null, null, con, where);
-			if(test){
-					con.close();
-			}
-			if(response.length>0){
-					return response[0];
-			}
-			return null;
-		}
+    public FactureFournisseur findFactureDeProvision(Connection c, String nomtable) throws Exception{
+            FactureFournisseur model = new FactureFournisseur();
+            boolean test = false;
+            Connection con = null;
+            if(c==null){
+                            con = new UtilDB().GetConn();
+                            test = true;
+            }else{
+                            con = c;
+            }
+            if(nomtable==null){
+                            nomtable = "FACTURE_FOURNISSEUR_MERE";
+            }
+            model.setNomTable(nomtable);
+            String where = " and bonprovisoire='"+this.getId()+"'";
+            FactureFournisseur[] response = (FactureFournisseur[])CGenUtil.rechercher(model, null, null, con, where);
+            if(test){
+                            con.close();
+            }
+            if(response.length>0){
+                            return response[0];
+            }
+            return null;
+    }
     
-		public void payer(Connection c, String iduser) throws Exception {
-			boolean openConnection = false;
-			try {
-				if (c == null) {
-					c = new UtilDB().GetConn();
-					openConnection = true;
-					c.setAutoCommit(false);
-				}
+    public void payer (String iduser) throws Exception{
+        boolean openConnection = false;
+        Connection c=null;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                openConnection = true;
+                c.setAutoCommit(false);
+            } 
+            BonProvisoire bonProvisoire= (BonProvisoire) this.getById( this.getId(),"bon_provisoire_final", c);
+            bonProvisoire.payer(c, iduser);
+            
+            if(openConnection) c.commit();
 
-				if(this.getEtat() < 11) throw new Exception("Bon provisoire non valide");
-
-				FactureFournisseur ff = findFactureDeProvision(c, null);
-				if(ff == null) throw new Exception("Facture de provision introuvable");
-
-				JournalCaisse jc = new JournalCaisse();
-				Date currentDate = Utilitaire.string_date("YYYY-MM-dd", Utilitaire.dateDuJour());
-				jc.setDateSaisie(currentDate);
-				jc.setDateEffet(currentDate);
-				jc.setCaisse(this.getCaisse());
-				jc.setDesignation(this.getDesignation());
-				jc.setDebit(this.getMontant());
-				jc.setTiers(this.getTiers());
-				jc.setIddevise(Constante.deviseAr);
-				jc.setIdmode(Constante.modePaiementEspece);
-				jc.setIdplacement(ff.getId());
-				jc.setBonprovisoire(this.getId());
-
-				jc.createObject(iduser, c);
-				jc.validerObject(iduser, c);
-
-				if(openConnection) c.commit();
-
-			} catch(Exception e) {
-				if(c != null && openConnection)c.rollback();
+        } catch(Exception e) {
+            if(c != null && openConnection)c.rollback();
             throw e;
-			} finally {
-				if (c != null && openConnection) {
-						c.close();
-				}
-			}
+        } finally {
+                if (c != null && openConnection) {
+                    c.close();
+                }
+        }
+
+    }
+    
+    public void payer(Connection c, String iduser) throws Exception {
+        boolean openConnection = false;
+        try {
+            if (c == null) {
+                    c = new UtilDB().GetConn();
+                    openConnection = true;
+                    c.setAutoCommit(false);
+            }
+
+            if(this.getEtat() < 11) throw new Exception("Bon provisoire non valide");
+
+            FactureFournisseur ff = findFactureDeProvision(c, null);
+            if(ff == null) throw new Exception("Facture de provision introuvable");
+
+            JournalCaisse jc = new JournalCaisse();
+            Date currentDate = Utilitaire.string_date("YYYY-MM-dd", Utilitaire.dateDuJour());
+            jc.setDateSaisie(currentDate);
+            jc.setDateEffet(currentDate);
+            jc.setCaisse(this.getCaisse());
+            jc.setDesignation(this.getDesignation());
+            jc.setDebit(this.getMontant());
+            jc.setTiers(this.getTiers());
+            jc.setIddevise(Constante.deviseAr);
+            jc.setIdmode(Constante.modePaiementEspece);
+            jc.setIdplacement(ff.getId());
+            jc.setBonprovisoire(this.getId());
+
+            jc.createObject(iduser, c);
+            jc.validerObject(iduser, c);
+
+            if(openConnection) c.commit();
+
+        } catch(Exception e) {
+                if(c != null && openConnection)c.rollback();
+                throw e;
+        } finally {
+                if (c != null && openConnection) {
+                                c.close();
+                }
+        }
     }
     
     
