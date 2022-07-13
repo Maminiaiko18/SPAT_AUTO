@@ -1,6 +1,6 @@
 <%-- 
     Document   : bondecommande-multiple
-    Created on : 4 f�vr. 2021, 16:45:08
+    Created on : 4 fï¿½vr. 2021, 16:45:08
     Author     : Sanda
 --%>
 
@@ -17,7 +17,7 @@
 <%@page import="mg.spat.stock.BonDeCommande"%>
 <%@page import="mg.spat.stock.BonDeCommandeFille"%>
 <%@page import="mg.cnaps.formation.CodeEtablissement"%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
         String idEngagement  = request.getParameter("idEngagement");
@@ -78,7 +78,9 @@
         pi.getFormu().getChamp("fournisseur").setPageAppel("choix/listeTiersChoix.jsp");
         pi.getFormu().getChamp("code_etab").setLibelle("Code etablissement");
         pi.getFormu().getChamp("delaipaiement").setLibelle("D&eacute;lai de paiement (Jours)");
+        pi.getFormu().getChamp("delaipaiement").setDefaut("30");
         pi.getFormu().getChamp("delailivraison").setLibelle("D&eacute;lai de livraison");
+        pi.getFormu().getChamp("delailivraison").setDefaut("Dès réception de commande");
         pi.getFormu().getChamp("typepaiement").setLibelle("Type paiement");
         pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
         pi.getFormu().getChamp("idengagement").setAutre("readonly");
@@ -113,7 +115,7 @@
             pi.getFormufle().getChamp("produit_"+i).setPageAppel("choix/produitChoix.jsp","produit;produitlibelle;pu;pu");
             pi.getFormufle().getChamp("observation_"+i).setPageAppel("choix/listeDAchoix.jsp","observation;observation;observationlibelle");
         }
-        // rehefa mandray param�tre idDa
+        // rehefa mandray paramï¿½tre idDa
         pi.getFormu().getChamp("projet").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getProjet()));
         pi.getFormu().getChamp("projet").setValeurLibelle(Utilitaire.champNull( data.getDemandeAchatMere().getProjetlib()));
         pi.getFormu().getChamp("code_etab").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getCodeetablissement()));
