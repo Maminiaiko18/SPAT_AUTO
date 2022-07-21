@@ -86,8 +86,7 @@
         pc.getChampByName("destination").setVisible(false);
         pc.getChampByName("pavillon").setVisible(false);
         pc.getChampByName("bateaulib").setLibelle("Bateau");
-        pc.getChampByName("bateaulib").setLien(lien+"?but=capitainerie/navire-fiche.jsp", "id="+fc.getBateau());
-
+        pc.getChampByName("bateaulib").setLien(lien+"?but=capitainerie/navire-fiche.jsp", "id="+fc.getBateau()+"&libelle=");
         e = (FactureClient) pc.getBase();
         pc.getChampByName("IdProvision").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
         String categorie = "";
