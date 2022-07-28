@@ -32,7 +32,8 @@
     if(mere!=null && mere.compareToIgnoreCase("")!=0)pi.getFormu().getChamp("idmere").setDefaut(mere);
     
     pi.getFormu().getChamp("typeEngagement").setVisible(false);
-    pi.getFormu().getChamp("estAncienne").setVisible(false);
+    pi.getFormu().getChamp("estAuto").setVisible(false);
+   // pi.getFormu().getChamp("estAncienne").setLibelle("Est ancienne");
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
     pi.getFormu().getChamp("exercice").setLibelle("Exercice");
     pi.getFormu().getChamp("dateDepart").setLibelle("Date de d&eacute;part");
@@ -173,11 +174,20 @@
     String[]valeurChampEstMICTSL = {"0", "1"};
     String[]afficheChampEstMICTSL = {"non", "oui"};
     
-    affichage.Liste[] lst= new affichage.Liste[1];
+    affichage.Liste[] lst= new affichage.Liste[2];
     lst[0] = new Liste("estMictsl");
     lst[0].ajouterValeur(valeurChampEstMICTSL, afficheChampEstMICTSL); 
     
+    String[]valeurestAncienne = {"0", "1"};
+    String[]afficheestAncienne = {"non", "oui"};
+    
+    
+    lst[1] = new Liste("estAncienne");
+    lst[1].ajouterValeur(valeurestAncienne, afficheestAncienne); 
+      
     pi.getFormu().changerEnChamp(lst);
+    pi.getFormu().getChamp("estAncienne").setLibelle("Est ancienne");
+    
     
 //    System.out.println("date echeance " + Utilitaire.ajoutJourDate(Utilitaire.dateDuJour(), 30));
 //    pi.getFormu().getChamp("date_echeance").setDefaut(""+Utilitaire.ajoutJourDate(Utilitaire.dateDuJour(), 30));
