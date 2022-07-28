@@ -26,7 +26,7 @@
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
-        affichage.Liste[] listeM = new affichage.Liste[5];
+        affichage.Liste[] listeM = new affichage.Liste[6];
         TypeObjet oM = new TypeObjet();
         oM.setNomTable("TYPEFC");
         listeM[0] = new Liste("type", oM, "VAL", "id");
@@ -47,7 +47,9 @@
         devise.setNomTable("devise");
         listeM[3] = new Liste("deviseMere", devise, "VAL", "id");
         listeM[4] = new Liste("paiement", devise, "VAL", "id");
-
+        
+        listeM[5] = new Liste("estAncienne");
+        listeM[5].ajouterValeur(ajoutValeur, ajoutAffiche);
         pi.getFormu().changerEnChamp(listeM);
 
         pi.getFormu().getChamp("estDDPMICTSL").setLibelle("Droit de Port MICTSL");
@@ -102,6 +104,8 @@
         pi.getFormu().getChamp("provenancelib").setVisible(false);
         pi.getFormu().getChamp("destinationlib").setVisible(false);
         pi.getFormu().getChamp("bateaulib").setVisible(false);
+        pi.getFormu().getChamp("PourCompteLib").setVisible(false);
+        pi.getFormu().getChamp("Pavillonlib").setVisible(false);
         
         pi.getFormu().getChamp("paiement").setDefaut("Ar");
         pi.getFormu().getChamp("pourcompte").setPageAppel("choix/clientCategorieChoix.jsp");
