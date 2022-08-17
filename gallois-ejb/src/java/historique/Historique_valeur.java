@@ -23,8 +23,16 @@ public class Historique_valeur extends ClassMAPTable {
     private String nom_table;
     private String nom_classe;
     private String val1, val2, val3, val4, val5, val6, val7, val8, val9, val10, val11, val12, val13, val14, val15, val16, val17, val18, val19, val20, val21, val22, val23, val24, val25, val26, val27, val28, val29, val30, val31, val32, val33, val34, val35, val36, val37, val38, val39, val40,
-                    val41, val42, val43, val44, val45, val46, val47, val48, val49, val50, val51, val52;
+                    val41, val42, val43, val44, val45, val46, val47, val48, val49, val50, val51, val52, val53;
     private String ipuser;
+
+    public String getVal53() {
+        return val53;
+    }
+
+    public void setVal53(String val53) {
+        this.val53 = val53;
+    }
 
     @Override
     public String getTuppleID() {
