@@ -11,18 +11,22 @@
 <%@page import="bean.TypeObjet"%> 
 <%@page import="user.UserEJB"%> 
 <%@page import="utilitaire.Utilitaire"%> 
+<%@page import="mg.spat.MvtIntraCaisseFille"%>
+<%@page import="affichage.PageInsertMultiple"%>
 <%
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     UserEJB u = (user.UserEJB) session.getValue("u");
-    String  mapping = "mg.spat.MvttIntraCaisse",
-            nomtable = "mvtintracaisse",
-            apres = "treso/transfert-caisse-fiche.jsp",
+    String  mapping = "mg.spat.MvttIntraCaisse",classeFille = "mg.spat.MvtIntraCaisseFille",
+            nomtable = "mvtintracaisse",nomTableFille = "mvtintracaisse_fille", 
+            apres = "treso/transfert-caisse-fiche.jsp",colonneMere = "idmere",
             titre = "Transfert Caisse";
-    
+    int taille = 10;
     MvttIntraCaisse  objet = new MvttIntraCaisse();
     objet.setNomTable(nomtable);
-    PageInsert pi = new PageInsert(objet, request, u);
+    MvtIntraCaisseFille fille = new MvtIntraCaisseFille();
+    fille.setNomTable(nomTableFille);
+    PageInsertMultiple pi = new PageInsertMultiple(objet, fille, request, taille, u);
     pi.setLien((String) session.getValue("lien"));  
     
     affichage.Champ[] liste = new affichage.Champ[3];
@@ -42,21 +46,28 @@
     pi.getFormu().getChamp("caissedepart").setLibelle("Départ");
     pi.getFormu().getChamp("caissearrivee").setLibelle("Arrivée");
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
-            
+    pi.getFormufle().getChamp("Reference_0").setLibelle("R&eacute;ference");
+    pi.getFormufle().getChamp("Remarque_0").setLibelle("Remarque");
+    pi.getFormufle().getChamp("Idmere_0").setVisible(false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
     <h1> <%=titre%></h1>
-    
-    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
+    <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
+            pi.getFormufle().makeHtmlInsertTableauIndex();
             out.println(pi.getFormu().getHtmlInsert());
+            out.println(pi.getFormufle().getHtmlTableauInsert());
         %>
         <input name="acte" type="hidden" id="nature" value="insert">
         <input name="bute" type="hidden" id="bute" value="<%=apres%>">
         <input name="classe" type="hidden" id="classe" value="<%=mapping%>">
-        <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
+        <input name="classefille" type="hidden" id="classefille" value="<%=classeFille%>">
+        <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=pi.getNombreLigne()%>">
+        <input name="colonneMere" type="hidden" id="colonneMere" value="<%=colonneMere%>">
     </form>
 </div>
 <%
