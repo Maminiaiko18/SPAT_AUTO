@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="mg.spat.Caisse"%>
 <%@page import="service.UploadService"%>
 <%@page import="mg.spat.AttacherFichier"%>
@@ -31,6 +33,19 @@
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
     String dossier = "mvttIntraCaisse";
+        /*Onglets*/
+        String tab = null;
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("details-transfert", "");
+        
+        tab = request.getParameter("tab");
+        if (tab == null) {
+            tab = "details-transfert";
+        }
+        map.put(tab, "active");
+        tab = "inc/" + tab + ".jsp";
+    
+    MvttIntraCaisse base = (MvttIntraCaisse) pc.getBase();
     
 %>
 
@@ -56,6 +71,22 @@
                 </div>
             </div>
         </div>
+        <div class="row" style="margin:0;">
+        <div class="col-md-12">       
+
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="<%= map.get("details-transfert")%>"><a href="globalnegoce.jsp?but=treso/transfert-caisse-fiche.jsp&id=<%=request.getParameter("id")%>&tab=details-transfert">Détails transfert</a></li>
+                </ul>
+                <div class="tab-content">       
+                    <jsp:include page="<%=tab%>">
+                        <jsp:param name="id" value="<%=base.getId()%>" />
+                    </jsp:include>
+                </div>
+            </div>           
+
+        </div>  
+    </div>      
         <div class="col-md-12">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
