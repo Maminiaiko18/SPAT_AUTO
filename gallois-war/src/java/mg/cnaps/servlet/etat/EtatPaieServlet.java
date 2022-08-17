@@ -1133,8 +1133,21 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("code", code);
 
                 String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
+                if(mere[0].getEstMictsl().compareToIgnoreCase("1")==0)
+                {
+                    if (mere[0].getPaiement().compareToIgnoreCase(Constante.deviseDollars) == 0) {
+                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar), " Dollars");
+                    }
+                    if (mere[0].getPaiement().compareToIgnoreCase(Constante.deviseAr) == 0) {
+                        montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
+                    }
+                    if (mere[0].getPaiement().compareToIgnoreCase(Constante.deviseEuro) == 0) {
+                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcEuro), " Euros");
+                    }
+                    
+                }
 
-                if (mere[0].getDeviseMere() != null) {
+                if (mere[0].getDeviseMere() != null &&  mere[0].getEstMictsl().compareToIgnoreCase("1")!=0) {
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars) == 0) {
                         montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar), " Dollars");
                     }
