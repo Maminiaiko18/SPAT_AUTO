@@ -6,6 +6,7 @@
 package mg.spat;
 
 import bean.ClassMAPTable;
+import java.sql.Connection;
 
 /**
  *
@@ -25,6 +26,12 @@ public class MvtIntraCaisseFille extends ClassMAPTable{
     @Override
     public String getAttributIDName() {
         return "id";  
+    }
+    
+    @Override
+    public void construirePK(Connection c) throws Exception {
+        super.preparePk("MICF", "GET_MVTINTRACAISSE_FILLE");
+        this.setId(makePK(c));
     }
 
     public String getId() {
