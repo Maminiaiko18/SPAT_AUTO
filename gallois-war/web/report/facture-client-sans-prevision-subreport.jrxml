@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
-	<property name="ireport.zoom" value="1.100000000000001"/>
+	<property name="ireport.zoom" value="0.5644739300537779"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -117,7 +117,7 @@
 	<detail>
 		<band height="20">
 			<componentElement>
-				<reportElement key="table 2" x="-17" y="-9" width="909" height="29" uuid="6bbf3e87-2aa8-4d0a-b99f-5446e7f5d83b"/>
+				<reportElement key="table 2" x="-22" y="-9" width="887" height="29" uuid="6bbf3e87-2aa8-4d0a-b99f-5446e7f5d83b"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 2" uuid="90b13c8c-450c-4b44-89db-d5f7b275efd6">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{details})]]></dataSourceExpression>
@@ -325,21 +325,21 @@
 		</band>
 		<band height="95">
 			<textField pattern="#,##0.000">
-				<reportElement x="731" y="56" width="159" height="20" uuid="d3a48887-1e18-4b8b-9952-10c96a73787a"/>
+				<reportElement x="706" y="56" width="176" height="20" uuid="d3a48887-1e18-4b8b-9952-10c96a73787a"/>
 				<textElement textAlignment="Right">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantTTCdevise}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000">
-				<reportElement x="697" y="38" width="193" height="20" uuid="bd8f13f5-f625-428c-9d62-04223b2cbacf"/>
+				<reportElement x="672" y="36" width="210" height="20" uuid="bd8f13f5-f625-428c-9d62-04223b2cbacf"/>
 				<textElement textAlignment="Right">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantTVAdevise}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="729" y="0" width="162" height="18" uuid="b5253d2b-b432-47c7-b9d5-df69cfb96278"/>
+				<reportElement x="703" y="0" width="179" height="18" uuid="b5253d2b-b432-47c7-b9d5-df69cfb96278"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -354,7 +354,7 @@
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="575" y="0" width="154" height="18" uuid="7cfe4123-28ba-4071-95e6-a323da85e993"/>
+				<reportElement x="549" y="0" width="154" height="18" uuid="7cfe4123-28ba-4071-95e6-a323da85e993"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -369,7 +369,7 @@
 				<text><![CDATA[Total :]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="575" y="18" width="316" height="60" uuid="908937ee-bd14-4e61-aeda-d3dabb77ee3b"/>
+				<reportElement x="549" y="18" width="333" height="60" uuid="908937ee-bd14-4e61-aeda-d3dabb77ee3b"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -378,28 +378,28 @@
 				</box>
 			</frame>
 			<textField pattern="#,##0.000">
-				<reportElement x="749" y="18" width="141" height="20" uuid="5fb3de42-bece-45fd-a52e-e9bb41848dc9"/>
+				<reportElement x="724" y="18" width="158" height="20" uuid="5fb3de42-bece-45fd-a52e-e9bb41848dc9"/>
 				<textElement textAlignment="Right">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantdevise}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="577" y="18" width="173" height="20" uuid="78fb92eb-70d7-40fb-8f53-dcb054537a7c"/>
+				<reportElement x="549" y="18" width="173" height="20" uuid="78fb92eb-70d7-40fb-8f53-dcb054537a7c"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant en devise HTVA :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="577" y="38" width="123" height="20" uuid="a78cc2aa-1d1f-484a-832a-1b74e8c3aa1e"/>
+				<reportElement x="547" y="38" width="123" height="20" uuid="a78cc2aa-1d1f-484a-832a-1b74e8c3aa1e"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TVA en devise :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="577" y="56" width="156" height="20" uuid="5ffeed69-9e23-4dec-867d-ab809c169126"/>
+				<reportElement x="547" y="56" width="156" height="20" uuid="5ffeed69-9e23-4dec-867d-ab809c169126"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>

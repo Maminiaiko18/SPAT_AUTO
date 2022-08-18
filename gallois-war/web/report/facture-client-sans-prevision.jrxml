@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000001"/>
-	<property name="ireport.x" value="273"/>
-	<property name="ireport.y" value="384"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="342"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -175,15 +175,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA["Toamasina - "]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="10" y="87" width="880" height="68" uuid="aff38e88-1992-46ea-a9f6-f7473a47e26b"/>
-				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="0" y="75" width="900" height="80" uuid="7e9f4fa9-d138-47eb-8a8f-33bea202ae15"/>
 				<box>
@@ -387,15 +378,6 @@
 				<text><![CDATA[Code Client :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="0" width="880" height="277" uuid="62128fc9-75e8-4ddf-9205-66d926f973c3"/>
-				<box>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="0" y="0" width="900" height="286" uuid="4a5d6373-bc4a-40ca-ac64-5b0e3239ae77"/>
 				<box>
 					<leftPen lineWidth="0.25"/>
@@ -407,7 +389,7 @@
 		</band>
 		<band height="143">
 			<subreport>
-				<reportElement x="4" y="18" width="896" height="125" uuid="92eac6e9-1f93-4bcb-95de-820f04e329e5"/>
+				<reportElement x="0" y="0" width="900" height="143" uuid="92eac6e9-1f93-4bcb-95de-820f04e329e5"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{list_table})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["facture-client-sans-prevision-subreport.jasper"]]></subreportExpression>
 			</subreport>
