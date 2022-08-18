@@ -3,24 +3,31 @@
     Created on : 16 janv. 2021, 01:09:34
     Author     : andya
 --%>
-<%@page import="mg.spat.Caisse"%>
 <%@page import="mg.spat.MvttIntraCaisse"%>
-<%@ page import="user.*" %>
-<%@ page import="bean.*" %>
-<%@ page import="utilitaire.*" %>
-<%@ page import="affichage.*" %>
+<%@page import="mg.spat.Caisse"%>
+<%@page import="affichage.PageInsert"%>
+<%@page import="affichage.Liste"%>
+<%@page import="bean.TypeObjet"%>
+<%@page import="user.UserEJB"%>
+<%@page import="utilitaire.Utilitaire"%>
+<%@page import="mg.spat.MvtIntraCaisseFille"%>
+<%@page import="affichage.PageInsertMultiple"%>
 <%
-    UserEJB u;
-    MvttIntraCaisse a;
-    
-%>
-<%
-   String autreparsley = "data-parsley-range='[8, 40]' required";
-    a = new MvttIntraCaisse();
-    
-    PageUpdate pi = new PageUpdate(a, request, (user.UserEJB) session.getValue("u"));
+    try{
+    String autreparsley = "data-parsley-range='[8, 40]' required";
+    UserEJB u = (user.UserEJB) session.getValue("u");
+    String  mapping = "mg.spat.MvttIntraCaisse",classeFille = "mg.spat.MvtIntraCaisseFille",
+            nomtable = "mvtintracaisse",nomTableFille = "mvtintracaisse_fille",
+            apres = "treso/transfert-caisse-fiche.jsp",colonneMere = "idmere",
+            titre = "Transfert Caisse";
+    int taille = 10;
+    MvttIntraCaisse  objet = new MvttIntraCaisse();
+    objet.setNomTable(nomtable);
+    MvtIntraCaisseFille fille = new MvtIntraCaisseFille();
+    fille.setNomTable(nomTableFille);
+    PageInsertMultiple pi = new PageInsertMultiple(objet, fille, request, taille, u);
     pi.setLien((String) session.getValue("lien"));
-    
+
     affichage.Champ[] liste = new affichage.Champ[3];
     Caisse liste1 = new Caisse();
     liste1.setNomTable("caisse");
@@ -28,45 +35,47 @@
     liste[1] = new Liste("caissearrivee", liste1, "val", "id");
     TypeObjet liste2 = new TypeObjet();
     liste2.setNomTable("MODEPAIEMENT");
-    liste[2] = new Liste("modepaiement", liste2, "val", "id");     
+    liste[2] = new Liste("modepaiement", liste2, "val", "id");
     pi.getFormu().changerEnChamp(liste);
 
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("daty").setLibelle("Date");
-    pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
-    pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv&eacute;e");
+    pi.getFormu().getChamp("remarque").setLibelle("Num�ro ch�que");
+    pi.getFormu().getChamp("caissedepart").setLibelle("D�part");
+    pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv�e");
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
-    pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
-    
+    pi.getFormufle().getChamp("Reference_0").setLibelle("R&eacute;ference");
+    pi.getFormufle().getChamp("Remarque_0").setLibelle("Remarque");
+    pi.getFormufle().getChamp("Idmere_0").setVisible(false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <!--<div class="box-fiche">-->
-                <div class="box">
-                    <h1>Modification mouvement caisse</h1>
-                    <form action="<%=(String) session.getValue("lien")%>?but=apresTarif.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
-                        <%
-                            out.println(pi.getFormu().getHtmlInsert());
-                        %>
-                        <div class="row">
-                            <div class="col-md-11">
-                                <button class="btn btn-warning pull-right" name="Submit2" type="submit">Enregistrer les modifications</button>
-                            </div>
-                            <br><br> 
-                        </div>
-                        <input name="acte" type="hidden" id="acte" value="update">
-                        <input name="bute" type="hidden" id="bute" value="treso/transfert-caisse-fiche.jsp?id=<%=request.getParameter("id") %>">
-                        <input name="classe" type="hidden" id="classe" value="mg.spat.MvttIntraCaisse">
-                        <input name="nomtable" type="hidden" id="nomtable" value="mvtintracaisse">
-                    </form>
-                </div>
-            <!--</div>-->
-        </div>
-    </div>
+    <h1> <%=titre%></h1>
+    <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
+        <%
+            pi.getFormu().makeHtmlInsertTabIndex();
+            pi.getFormufle().makeHtmlInsertTableauIndex();
+            out.println(pi.getFormu().getHtmlInsert());
+            out.println(pi.getFormufle().getHtmlTableauInsert());
+        %>
+        <input name="acte" type="hidden" id="nature" value="insert">
+        <input name="bute" type="hidden" id="bute" value="<%=apres%>">
+        <input name="classe" type="hidden" id="classe" value="<%=mapping%>">
+        <input name="classefille" type="hidden" id="classefille" value="<%=classeFille%>">
+        <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=pi.getNombreLigne()%>">
+        <input name="colonneMere" type="hidden" id="colonneMere" value="<%=colonneMere%>">
+    </form>
 </div>
+<%
+} catch (Exception e) {
+    e.printStackTrace();
+%>
+<script language="JavaScript">
+	alert('<%=e.getMessage()%>');
+    history.back();</script>
+<% }%>
 
 
