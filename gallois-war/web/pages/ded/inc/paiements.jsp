@@ -32,7 +32,7 @@
     
     pr.creerObjetPage(libEntete, colSomme);
     
-            String libEnteteAffiche[] = {"Id","Caisse","N° pièce", "N° chèque", "Libellé", "Montant"};
+            String libEnteteAffiche[] = {"id","Caisse","N° pièce", "N° chèque", "Libellé", "Montant"};
     String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
