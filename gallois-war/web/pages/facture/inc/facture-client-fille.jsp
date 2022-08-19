@@ -19,7 +19,7 @@
 //    cht.setNomTable("facture_client_fille_lib_reste");
     cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
     //String libEntete[] = {"id", "designation", "pu", "quantite","duree", "devise", "compte", "taux", "montanttaux", "tva", "montantTva", "montantHTEuro", "montantTVAEuro", "activitelib", "heureDebut", "heureFin", "reduction", "majoration"};
-    String libEntete[] = {"id", "designation", "pu", "quantite","duree", "devise", "compte", "taux", "montanttaux", "tva", "montantTva", "activitelib","daty", "heureDebut", "heureFin", "reduction", "majoration"};
+    String libEntete[] = {"id", "designation", "pu", "quantite","duree", "devise", "compte", "taux", "montanttaux", "tva", "montantTva", "activitelib","datyactivite", "heureDebut", "heureFin", "reduction", "majoration"};
     String listeCrt[] = {"idmere"};
     String listeInt[] = {};
     String id= request.getParameter("idmere");
@@ -132,7 +132,7 @@
                                         <td width="5%" align="right"><%=Utilitaire.formaterAr(liste[i].getTva())%>  </td>
                                         <td width="5%" align="right"><%=Utilitaire.formaterAr(liste[i].getMontantTva())%>   </td>
                                         <td width="5%" align="left"><%=Utilitaire.champNull(liste[i].getActivitelib())%>   </td>
-                                        <td width="5%" align="left"><%=liste[i].getDaty()%></td>
+                                        <td width="5%" align="left"><%=Utilitaire.champNull(""+liste[i].getDatyActivite())%></td>
                                         <td width="5%" align="left"><%=Utilitaire.champNull(liste[i].getHeureDebut())%>   </td>
                                         <td width="5%" align="left"><%=Utilitaire.champNull(liste[i].getHeureFin())%>   </td>
                                         <td width="5%" align="left"><%=Utilitaire.formaterAr(liste[i].getReduction())%>   </td>
