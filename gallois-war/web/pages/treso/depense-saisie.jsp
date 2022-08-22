@@ -39,16 +39,17 @@
         pi.getFormu().getChamp("idordre").setLibelle("Ordre");
         pi.getFormu().getChamp("iddevise").setLibelle("Devise");
         pi.getFormu().getChamp("idmode").setLibelle("Mode");
-        pi.getFormu().getChamp("numcheque").setLibelle("Numero chèque");
+        pi.getFormu().getChamp("numcheque").setLibelle("Numero chï¿½que");
         pi.getFormu().getChamp("typemvt").setLibelle("Type mouvement");
         pi.getFormu().getChamp("datesaisie").setVisible(false);
         pi.getFormu().getChamp("dateeffet").setDefaut(Utilitaire.dateDuJour());
-        pi.getFormu().getChamp("numpiece").setLibelle("Numero pièce");
+        pi.getFormu().getChamp("numpiece").setLibelle("Numero piï¿½ce");
         pi.getFormu().getChamp("credit").setVisible(false);
         pi.getFormu().getChamp("debit").setLibelle("Montant");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("designation").setVisible(false);
         pi.getFormu().getChamp("idbanque").setVisible(false);
+        pi.getFormu().getChamp("banque").setVisible(false);
         pi.getFormu().getChamp("dateeffet").setLibelle("Date effet");
         pi.getFormu().getChamp("idplacement").setAutre("readonly");
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
@@ -138,7 +139,7 @@
     }
 </style>
 <div class="content-wrapper">
-    <h1>Saisie d'une dépense</h1>
+    <h1>Saisie d'une dï¿½pense</h1>
     <form action="<%=pi.getLien()%>?but=apresJournalCaisse.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
