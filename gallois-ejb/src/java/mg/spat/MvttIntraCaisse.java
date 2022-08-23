@@ -5,11 +5,13 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.Constante;
 import utilitaire.Utilitaire;
+import utilitaire.ConstanteEtat;
 
 /**
  *
@@ -132,5 +134,29 @@ public class MvttIntraCaisse extends ClassEtat {
                 throw new Exception("Caisse de départ et d' arrivée identiques");
             }
         }
+    }
+    
+    public static double calculerSomme(String idMvts) throws Exception{
+        double somme=0;
+        String[] tableau = Utilitaire.split(idMvts, ";");
+        String idMvtsNew = Utilitaire.tabToString(tableau, "'", ",");
+        JournalCaisse[]journalCaisses =(JournalCaisse[]) CGenUtil.rechercher(new JournalCaisse(), null, null, null, " & id in ("+idMvtsNew+")");
+        int taille= journalCaisses.length;
+        String caisse=null;
+        for(int i=0;i<taille;i++){
+            if(caisse==null){
+                caisse=journalCaisses[i].getCaisse();
+            }
+            else{
+                if(!caisse.equals(journalCaisses[i].getCaisse())){
+                    throw new Exception("Caisses différentes");
+                }
+            }
+            if(journalCaisses[i].getEtat()<ConstanteEtat.getEtatValider()){
+                throw new Exception("Mouvement non valide");
+            }
+            somme+=journalCaisses[i].getCredit();
+        }
+        return somme;
     }
 }
