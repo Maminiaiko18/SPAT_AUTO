@@ -96,7 +96,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br/>
 
-        <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="id" id="id">
+        <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="id" id="journal-caisse-liste">
             <input type="hidden" name="bute" value="treso/journalcaisse-liste.jsp"/>
             <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
             <input type="hidden" name="acte" value="viser"/>
@@ -118,6 +118,19 @@
         <% out.println(pr.getBasPage());%>
     </section>
 </div>
+<script>
+    const form = document.getElementById('journal-caisse-liste');
+    const footer = form.getElementsByClassName('box-footer')[0];
+    const button = footer.getElementsByTagName('button')[0].cloneNode();
+    button.innerHTML = 'Transferer';
+    button.onclick = function(e) {
+//        e.preventDefault();
+        form.action = '<%=pr.getLien()%>?but=apresFacture.jsp';
+        form.querySelector('[name="acte"]').value = 'transfert';
+        form.querySelector('[name="bute"]').value = ' treso/transfert-caisse.jsp';
+    }
+    footer.append(button);
+</script>
 <% } catch (Exception e) {
         e.printStackTrace();
         

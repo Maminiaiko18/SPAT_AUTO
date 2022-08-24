@@ -39,7 +39,7 @@
 							System.out.println("===================================== transfert ====================================="); 
 							String[] listeFacture = request.getParameterValues("id");
 							if(listeFacture == null) throw new Exception("Vous devez cocher!");
-							String idsJournal = Utilitaire.tabToString(listeFacture, "'", ",");
+							String idsJournal = Utilitaire.tabToString(listeFacture, "", ";");
 							apresLien = "treso/transfert-caisse.jsp&ids=" + idsJournal;
             }
             

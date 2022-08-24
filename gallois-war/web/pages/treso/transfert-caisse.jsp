@@ -31,10 +31,10 @@
     
     if(request.getParameter("ids") != null){
         double somme = objet.calculerSomme(request.getParameter("ids"));
-        pi.getFormu().getChamp("montant").setDefaut(somme+"");
+        pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(somme));
         if(objet.getListeJournal() != null){
             for(int i=0; i<(objet.getListeJournal()).length; i++){
-                pi.getFormufle().getChamp("remarque_"+i).setDefaut((objet.getListeJournal())[i].getNumcheque());
+                pi.getFormufle().getChamp("reference_"+i).setDefaut((objet.getListeJournal())[i].getNumcheque());
             }
         }
     }

@@ -149,7 +149,7 @@ public class MvttIntraCaisse extends ClassEtat {
         double somme=0;
         String[] tableau = Utilitaire.split(idMvts, ";");
         String idMvtsNew = Utilitaire.tabToString(tableau, "'", ",");
-        JournalCaisse[]journalCaisses =(JournalCaisse[]) CGenUtil.rechercher(new JournalCaisse(), null, null, null, " & id in ("+idMvtsNew+")");
+        JournalCaisse[]journalCaisses =(JournalCaisse[]) CGenUtil.rechercher(new JournalCaisse(), null, null, null, " and id in ("+idMvtsNew+")");
         if(this.listeJournal==null){
             this.listeJournal = journalCaisses;
         }
