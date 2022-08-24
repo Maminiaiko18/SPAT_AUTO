@@ -29,6 +29,16 @@
     PageInsertMultiple pi = new PageInsertMultiple(objet, fille, request, taille, u);
     pi.setLien((String) session.getValue("lien"));  
     
+    if(request.getParameter("ids") != null){
+        double somme = objet.calculerSomme(request.getParameter("ids"));
+        pi.getFormu().getChamp("montant").setDefaut(somme+"");
+        if(objet.getListeJournal() != null){
+            for(int i=0; i<(objet.getListeJournal()).length; i++){
+                pi.getFormufle().getChamp("remarque_"+i).setDefaut((objet.getListeJournal())[i].getNumcheque());
+            }
+        }
+    }
+    
     affichage.Champ[] liste = new affichage.Champ[3];
     Caisse liste1 = new Caisse();
     liste1.setNomTable("caisse");
@@ -42,7 +52,7 @@
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("daty").setLibelle("Date");
-    pi.getFormu().getChamp("remarque").setLibelle("Numéro chèque");
+    pi.getFormu().getChamp("remarque").setVisible(false);
     pi.getFormu().getChamp("caissedepart").setLibelle("Départ");
     pi.getFormu().getChamp("caissearrivee").setLibelle("Arrivée");
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
