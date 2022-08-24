@@ -34,6 +34,14 @@
             u = (UserEJB) session.getAttribute("u");
             lien = (String) session.getValue("lien");
             apresLien = bute;
+
+            if (acte != null && acte.compareToIgnoreCase("transfert") == 0) {
+							System.out.println("===================================== transfert ====================================="); 
+							String[] listeFacture = request.getParameterValues("id");
+							if(listeFacture == null) throw new Exception("Vous devez cocher!");
+							String idsJournal = Utilitaire.tabToString(listeFacture, "'", ",");
+							apresLien = "treso/transfert-caisse.jsp&ids=" + idsJournal;
+            }
             
             if (acte != null && acte.compareToIgnoreCase("fusionner") == 0) {
                 System.out.println("===================================== fusionner =====================================");
