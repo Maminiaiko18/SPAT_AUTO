@@ -21,6 +21,15 @@ public class MvttIntraCaisse extends ClassEtat {
     private String id,caissedepart,caissearrivee,modepaiement,remarque,designation;
     private Date daty;
     private double montant;
+    private  JournalCaisse[] listeJournal;
+
+    public JournalCaisse[] getListeJournal() {
+        return listeJournal;
+    }
+
+    public void setListeJournal(JournalCaisse[] listeJournal) {
+        this.listeJournal = listeJournal;
+    }
     
     public MvttIntraCaisse(){
         super.setNomTable("mvtintracaisse");
@@ -136,11 +145,15 @@ public class MvttIntraCaisse extends ClassEtat {
         }
     }
     
-    public static double calculerSomme(String idMvts) throws Exception{
+    public double calculerSomme(String idMvts) throws Exception{
         double somme=0;
         String[] tableau = Utilitaire.split(idMvts, ";");
         String idMvtsNew = Utilitaire.tabToString(tableau, "'", ",");
         JournalCaisse[]journalCaisses =(JournalCaisse[]) CGenUtil.rechercher(new JournalCaisse(), null, null, null, " & id in ("+idMvtsNew+")");
+        if(this.listeJournal==null){
+            this.listeJournal = journalCaisses;
+        }
+       
         int taille= journalCaisses.length;
         String caisse=null;
         for(int i=0;i<taille;i++){
