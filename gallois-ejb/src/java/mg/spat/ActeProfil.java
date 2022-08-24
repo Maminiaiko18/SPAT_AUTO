@@ -63,7 +63,7 @@ public class ActeProfil extends ClassMAPTable{
     }
     @Override
     public void construirePK(Connection c) throws Exception {
-        preparePk("ACTP","GET_SEQ_ACTEPROFIL");
+        preparePk("ACTP","get_seq_acteProfil");
         setId(makePK(c));
     }
 
