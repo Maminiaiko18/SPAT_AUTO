@@ -34,6 +34,7 @@
         pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(somme));
         if(objet.getListeJournal() != null){
             for(int i=0; i<(objet.getListeJournal()).length; i++){
+                pi.getFormufle().getChamp("caissedepart_"+i).setDefaut((objet.getListeJournal())[i].getCaisse());
                 pi.getFormufle().getChamp("reference_"+i).setDefaut((objet.getListeJournal())[i].getNumcheque());
             }
         }
