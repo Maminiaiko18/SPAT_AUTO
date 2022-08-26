@@ -24,8 +24,8 @@ public class GestionProfil {
         if(liste!=null){
             for(int i=0; i<liste.length; i++){
                 if(liste[i].getNomTable().compareTo(nomTable)==0 &&
-                    liste[i].getAction().compareTo(action)==0 || 
-                    liste[i].getAction().compareTo("*")==0 ) {
+                    (liste[i].getAction().compareTo(action)==0 || 
+                    liste[i].getAction().compareTo("*")==0) ) {
                     return true;
                 }
             }
