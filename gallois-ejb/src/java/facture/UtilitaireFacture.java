@@ -8,6 +8,8 @@ package facture;
 import bean.CGenUtil;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 import utilitaire.Utilitaire;
 
 public class UtilitaireFacture {
@@ -69,5 +71,16 @@ public class UtilitaireFacture {
         }
 
         return Utilitaire.completerInt(longueur, sequence);
+    }
+    
+    public static String remplacerCharacteres(String texte) {
+        Map<String, String> interpretations = new HashMap<String, String>();
+        interpretations.put("&#8217;", "'");
+        
+        for(String charactere: interpretations.keySet()) {
+            texte = texte.replaceAll(charactere, interpretations.get(charactere));
+        }
+        
+        return texte;
     }
 }

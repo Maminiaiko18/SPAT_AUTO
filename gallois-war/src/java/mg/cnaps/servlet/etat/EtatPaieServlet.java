@@ -90,6 +90,7 @@ import facture.FactureFournisseurDetails;
 import facture.FactureFournisseurFilleData;
 import facture.ProformaFille;
 import facture.ProformaMere;
+import facture.UtilitaireFacture;
 import factureclient.PayementFacture;
 import fin.Coursdevise;
 import fin.CoursdevisePDF;
@@ -1106,7 +1107,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("type", mere[0].getTypelib());
                 cat = mere[0].getCategorielib();
                 param.put("cat", cat);
-                designation = mere[0].getDesignation();
+                designation = UtilitaireFacture.remplacerCharacteres(mere[0].getDesignation());
                 param.put("designation", designation);
                 param.put("reduction", mere[0].getReduction());
                 param.put("client", mere[0].getTierslib());
