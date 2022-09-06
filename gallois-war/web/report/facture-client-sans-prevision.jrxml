@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000001"/>
-	<property name="ireport.x" value="273"/>
-	<property name="ireport.y" value="504"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="196"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -187,7 +187,7 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="286">
+		<band height="324">
 			<staticText>
 				<reportElement x="16" y="0" width="37" height="18" uuid="634f294b-f6d6-4148-9084-8991690c46f6"/>
 				<textElement>
@@ -273,7 +273,7 @@
 				<text><![CDATA[TP : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="18" y="233" width="94" height="18" uuid="458220f8-e8db-40a8-b31d-7ae227d2059c"/>
+				<reportElement x="17" y="251" width="94" height="18" uuid="458220f8-e8db-40a8-b31d-7ae227d2059c"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -301,21 +301,21 @@
 				<textFieldExpression><![CDATA[$P{type}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="141" y="179" width="746" height="54" uuid="15baee1b-c3a2-4e7d-b254-7d3a7dfb66a6"/>
+				<reportElement x="141" y="179" width="746" height="72" uuid="15baee1b-c3a2-4e7d-b254-7d3a7dfb66a6"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{designation}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="112" y="233" width="637" height="18" uuid="ef6e84e0-c850-4e1a-a0d2-8948a5c4b8aa"/>
+				<reportElement x="111" y="251" width="637" height="18" uuid="ef6e84e0-c850-4e1a-a0d2-8948a5c4b8aa"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reduction}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="17" y="251" width="182" height="18" uuid="e554f512-0dfe-42c2-81c8-09012ae26656"/>
+				<reportElement x="17" y="269" width="180" height="18" uuid="e554f512-0dfe-42c2-81c8-09012ae26656"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -343,7 +343,7 @@
 				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="251" width="329" height="18" uuid="87f52370-53cb-4fd7-bbcf-9b6b5351c41d"/>
+				<reportElement x="197" y="269" width="408" height="18" uuid="87f52370-53cb-4fd7-bbcf-9b6b5351c41d"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="14"/>
 				</textElement>
@@ -378,7 +378,7 @@
 				<text><![CDATA[Code Client :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-18" y="0" width="905" height="286" uuid="4a5d6373-bc4a-40ca-ac64-5b0e3239ae77"/>
+				<reportElement x="-18" y="0" width="905" height="308" uuid="4a5d6373-bc4a-40ca-ac64-5b0e3239ae77"/>
 				<box>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>

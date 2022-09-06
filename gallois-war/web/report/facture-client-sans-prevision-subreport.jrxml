@@ -122,10 +122,10 @@
 					<datasetRun subDataset="Table Dataset 2" uuid="90b13c8c-450c-4b44-89db-d5f7b275efd6">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{details})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="380" uuid="1662ca25-15f7-460e-b9ed-716dd008c39c">
+					<jr:column width="327" uuid="1662ca25-15f7-460e-b9ed-716dd008c39c">
 						<jr:columnHeader style="table 2_TD" height="21" rowSpan="1">
 							<staticText>
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="380" height="14" uuid="89063e7d-51d0-4ebe-ad79-eac4661bcb4d"/>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="327" height="21" uuid="89063e7d-51d0-4ebe-ad79-eac4661bcb4d"/>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -134,7 +134,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="380" height="21" uuid="f880f062-6403-492c-bf67-c3d142362d27"/>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="327" height="21" uuid="f880f062-6403-492c-bf67-c3d142362d27"/>
 								<textElement verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 									<paragraph leftIndent="2"/>
@@ -143,10 +143,10 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="64" uuid="5b2dbaea-d4d5-4057-8961-16e59106b19a">
+					<jr:column width="114" uuid="5b2dbaea-d4d5-4057-8961-16e59106b19a">
 						<jr:columnHeader style="table 2_TD" height="21" rowSpan="1">
 							<staticText>
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="64" height="21" uuid="9019a5c4-5571-43a2-b64b-e098d51419f4"/>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="114" height="21" uuid="9019a5c4-5571-43a2-b64b-e098d51419f4"/>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -155,7 +155,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="64" height="21" uuid="2ba1d4d3-2e40-4e46-bdf3-9a47f59b1018"/>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="114" height="21" uuid="2ba1d4d3-2e40-4e46-bdf3-9a47f59b1018"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 									<paragraph rightIndent="2"/>
