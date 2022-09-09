@@ -31,8 +31,8 @@
 		<field name="tva" class="java.lang.Double"/>
 		<field name="montantHT" class="java.lang.Double"/>
 	</subDataset>
-	<parameter name="date_debut" class="java.util.Date"/>
-	<parameter name="date_fin" class="java.util.Date"/>
+	<parameter name="date_debut" class="java.lang.String"/>
+	<parameter name="date_fin" class="java.lang.String"/>
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="titre" class="java.lang.String"/>
 	<parameter name="total" class="java.lang.Double"/>

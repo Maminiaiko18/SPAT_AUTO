@@ -2269,8 +2269,8 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             }
 
             param.put("titre", titre);
-            param.put("date_debut", date1);
-            param.put("date_fin", date2);
+            param.put("date_debut", daty1);
+            param.put("date_fin", daty2);
             param.put("total", total);
             param.put("totalTTC", totalTTC);
             param.put("totalTVA", totalTVA);
