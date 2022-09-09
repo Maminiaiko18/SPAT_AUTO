@@ -547,9 +547,9 @@ public class FactureClient extends ClassMere {
 
             Rubrique rubrique = ((FactureClientDetails) filles[0]).getRubrique(c);
 
-            // Prestations diverses
+            // Factures automatiques
             if (rubrique == null) {
-                return "07";
+                return "10";
             }
 
             TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '" + rubrique.getCategorie() + "' ");
