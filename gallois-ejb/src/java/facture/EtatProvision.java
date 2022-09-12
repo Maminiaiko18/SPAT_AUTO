@@ -144,8 +144,7 @@ public class EtatProvision extends ClassMAPTable {
             FactureClient fc =this.getFacture(c, "Factureclient");
             String  daty = Utilitaire.datetostring(fc.getDaty());
             String awhere = " and annee = %s and mois = %s";
-            String annee = Utilitaire.getAnnee(daty);
-            awhere = String.format(awhere, Utilitaire.getAnnee(daty),Utilitaire.getMois(daty));
+            awhere = String.format(awhere, Utilitaire.getAneeEnCours(),Utilitaire.getMoisEnCoursReel());
             code= Utilitaire.genererAnnee(daty)+Utilitaire.genererMois(daty)+UtilitaireFacture.genererSequence(c, "NUMEROETATPROV", 3, daty,awhere);
            
         } finally{
