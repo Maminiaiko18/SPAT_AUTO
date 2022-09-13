@@ -19,7 +19,7 @@
 	<title>
 		<band height="369" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="505" y="45" width="73" height="16" uuid="43fc8f71-56f9-4908-99e5-e8ae3fe79b86"/>
+				<reportElement x="535" y="45" width="73" height="16" uuid="43fc8f71-56f9-4908-99e5-e8ae3fe79b86"/>
 				<textElement verticalAlignment="Middle">
 					<font size="7" isBold="true" isUnderline="true"/>
 				</textElement>
@@ -89,7 +89,7 @@
 				<textFieldExpression><![CDATA[$P{FACTURE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="533" y="117" width="45" height="20" uuid="7c52cd79-ea59-49ec-9e5b-766bc5663f93"/>
+				<reportElement x="533" y="115" width="45" height="20" uuid="7c52cd79-ea59-49ec-9e5b-766bc5663f93"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font size="7" isBold="true"/>
 				</textElement>
