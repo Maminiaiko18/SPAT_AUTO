@@ -44,7 +44,7 @@
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="404" y="118" width="119" height="20" uuid="0a82b684-a182-49d9-811c-7f91e23420a6"/>
 				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
+					<font size="10" isBold="true"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{MONTANT}]]></textFieldExpression>
