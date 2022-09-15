@@ -1656,6 +1656,7 @@ public class EtatPaieServlet extends HttpServlet {
             String idtypecheque = request.getParameter("idtypecheque");
             String idplacement = request.getParameter("idplacement");
             String descecaisse = request.getParameter("descecaisse");
+            String etat = request.getParameter("etat");
             String daty = "";
 
             String sql = "";
@@ -1695,8 +1696,24 @@ public class EtatPaieServlet extends HttpServlet {
             //System.out.println(sql);
             JournalCaisse journalCaisse = new JournalCaisse();
             journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
+            if(etat.compareTo("JOURNALCAISSELIBCOMPLET_CREE")==0)
+            {
+                journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET_CREE");
+            }
+            if(etat.compareTo("JOURNALCAISSELIBCOMPLET_VISE")==0)
+            {
+                journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET_VISE");
+            }
+            if(etat.compareTo("journalcaisselibrecette")==0)
+            {
+                journalCaisse.setNomTable("journalcaisselibrecette");
+            }
+             if(etat.compareTo("journalcaisselibdepense")==0)
+            {
+                journalCaisse.setNomTable("journalcaisselibdepense");
+            }
+            
             JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, sql);
-
             ArrayList<JournalCaissePdf> ls = new ArrayList<JournalCaissePdf>();
             double totalmontant = 0;
             double totalcredit = 0;
