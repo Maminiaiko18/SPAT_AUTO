@@ -42,7 +42,7 @@
         <h1>Droit de région <%=pr.getFormu().getChamp("typelib").getValeur()%></h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=facture/redevance-communale-liste.jsp" method="post" name="listepostedestinataire" id="listepostedestinataire">
+        <form action="<%=pr.getLien()%>?but=facture/droit-de-region-liste.jsp" method="post" name="listepostedestinataire" id="listepostedestinataire">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
