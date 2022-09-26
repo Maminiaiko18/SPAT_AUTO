@@ -202,7 +202,10 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerGestionProvision(request, response);
             } else if (action.equalsIgnoreCase("imprimerRedevanceCommunale")) {
                 redevanceCommunale(request, response);
-            } else if (action.equalsIgnoreCase("engagement")) {
+            } else if (action.equalsIgnoreCase("imprimerRedevanceRegionale")) {
+                redevanceRegionale(request, response);
+            }
+            else if (action.equalsIgnoreCase("engagement")) {
                 engagement(request, response);
             } else if (action.equalsIgnoreCase("dse")) {
                 dse(request, response);
@@ -2296,6 +2299,39 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("redevance-communale");
             UtilitaireImpression.imprimer(request, response, "redevance-communale", param, null, getReportPath(), rt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void redevanceRegionale(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String daty1 = request.getParameter("daty1");
+            Date date1 = new java.sql.Date(Utilitaire.stringToDate("dd/mm/yyyy", daty1).getTime());
+            String daty2 = request.getParameter("daty2");
+            Date date2 = new java.sql.Date(Utilitaire.stringToDate("dd/mm/yyyy", daty2).getTime());
+            String tierslib = utilitaire.Utilitaire.champNull(request.getParameter("tierslib"));
+            String typelib = utilitaire.Utilitaire.champNull(request.getParameter("typelib"));
+            String titre = request.getParameter("titre");
+            EtatRedevance redevance = new EtatRedevance();
+            redevance.setNomTable("droitDeRegion");
+            String requete = "";
+            if (daty1 != null) {
+                requete = requete + String.format(" and daty >= TO_DATE('%s','DD/MM/YYYY')", daty1);
+            }
+            if (daty2 != null) {
+                requete = requete + String.format(" and daty <= TO_DATE('%s','DD/MM/YYYY')", daty2);
+            }
+            requete = requete + " and upper(tierslib) like upper('%" + tierslib + "%') and upper(typelib) like upper('%" + typelib + "%') order by daty asc";
+            EtatRedevance[] list = (EtatRedevance[]) CGenUtil.rechercher(redevance, null, null, null, requete);
+            Map param = new HashMap();
+            param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
+            param.put("titre", titre);
+            param.put("date_debut", daty1);
+            param.put("date_fin", daty2);
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("redevance-regionale");
+            UtilitaireImpression.imprimer(request, response, "redevance-regionale", param, Arrays.asList(list), getReportPath(), rt);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -31,11 +31,9 @@
     pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.datetostring(jour));
     Date date2 = Utilitaire.getLastDayOfDateSQL(jour);
     pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.datetostring(date2));
-    
-    
-  
     String[] colSomme = {"montantTTC"};
     pr.creerObjetPage(libEntete, colSomme);
+    String titre = "Redevance regionale facture "+utilitaire.Utilitaire.champNull(pr.getFormu().getChamp("typelib").getValeur());
 %>
 <div class="content-wrapper">
     <section class="content-header">
@@ -60,6 +58,7 @@
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
         %>
+        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerRedevanceRegionale&titre=<%=titre%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&tierslib=<%=request.getParameter("tierslib")%>&typelib=<%=request.getParameter("typelib")%>" style="margin-right: 10px">Imprimer</a>
     </section>
 </div>
     <%
