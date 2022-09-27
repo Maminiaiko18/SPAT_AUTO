@@ -43,7 +43,7 @@
                         <br/>
                         <div class="box-footer">
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/navire-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
-                            <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=capitainerie/navire-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Navire" style="margin-right: 10px">Viser</a>
+                            <!---<a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=capitainerie/navire-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Navire" style="margin-right: 10px">Viser</a>--->
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=capitainerie/navire-liste.jsp&classe=mg.spat.Navire"><button class="btn btn-danger">Supprimer</button></a>
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/navire-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                         </div>
