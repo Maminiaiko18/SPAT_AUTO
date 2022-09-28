@@ -74,11 +74,10 @@ public class ServletDownload extends HttpServlet {
                     double montant = Utilitaire.stringToDouble(arg0.getParameter("recap"));
                     htmlStringBasPage = UtilitaireFormat.generateBasPage(nombre, montant);
                 }
-
-                else if (ext.compareTo("xls") == 0) {
+                if (ext.compareTo("xls") == 0) {
                     arg1.setContentType("application/vnd.ms-excel");
                     String htmlStringEntete = UtilitaireFormat.generateEntete(arg0.getParameter("titre"), logo_min);
-                    os.write((htmlStringEntete + "" + arg0.getParameter("table").replace('*', '"') + "" + htmlStringBasPage).getBytes());
+                    os.write((htmlStringEntete + "" + arg0.getParameter("table").replace('*', '"').replaceAll("\u00A0", " ") + "" + htmlStringBasPage).getBytes());
                 }
                 else if (ext.compareTo("pdf") == 0) {
                     int estPaysage = 0;
@@ -133,7 +132,7 @@ public class ServletDownload extends HttpServlet {
                 } else {
                     String donnee = arg0.getParameter(ext);
                     //System.out.println(donnee);
-                    os.write((donnee).replace('*', '"').getBytes());
+                    os.write((donnee).replace('*', '"').replaceAll("\u00A0", " ").getBytes());
                     
                 }
                 os.flush();

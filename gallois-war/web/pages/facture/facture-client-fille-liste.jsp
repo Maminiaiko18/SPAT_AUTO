@@ -65,6 +65,7 @@
         pr.getFormu().getChamp("mereca").setLibelle("Grande rubrique");
         
         String[] colSomme = {"montant", "montanttva", "montantttc"};
+        pr.setTitre("Liste facture client details");
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
