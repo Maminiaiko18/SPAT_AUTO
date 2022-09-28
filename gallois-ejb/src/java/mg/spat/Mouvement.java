@@ -76,6 +76,7 @@ public class Mouvement extends ClassEtat {
     @Override
     public void viser(UserEJBBean u, Connection c) throws Exception {
         this.updateMouvementPrecedent(u, c);
+        Activite stationnement=null;
         if (this.getTypeMvt().equals(Constante.idtypeMvtDepart)) {
             Postedestinataire destination = new Postedestinataire();
             destination = (Postedestinataire) destination.getById(this.getDestination(), destination.getNomTable(), c);
@@ -90,9 +91,10 @@ public class Mouvement extends ClassEtat {
             }
             Navire navireObj = getNavireObjet(c);
             if(navireObj != null && navireObj.getType() != null && !navireObj.getType().equals(Constante.getNavireBornageEtPeche())){
-                Activite stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
+                stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
                 u.createObject(stationnement, c);
                 u.validerObject(stationnement, c);
+                stationnement.updateDernierStationnement(c,u.getUser().getTuppleID());
             }
             
         }
@@ -715,7 +717,6 @@ public class Mouvement extends ClassEtat {
         a.setHeurefin(this.getHeure_depart());
         a.setTaux(getValeurTaux(c, "coursdeviseNonMICTSL",this.getDate_depart()));
         a.setTypeSource(this.getProvenance());
-        
         return a;
     }
 }
