@@ -17,12 +17,20 @@ import utilitaire.Utilitaire;
  * @author Maharo R.
  */
 public class MouvementLibComplet extends Mouvement{
-    private String valmvt,descemvt,valcargaison,descecargaison,
+    private String valmvt,descemvt,valcargaison,descecargaison,numero,
             quaiprovenance,interneprovenance,paysprovenance,valquaisprovenance,descequaisprovenance,typequaisprovenance,valpaysprovenance,descepaysprovenance,
             quaisdestination,internedestination,paysdestination,valquaisdestination,descequaisdestination,typequaisdestianantion,valpaysdestination,descepaysdestination,
             referencenavire,nomnavire,pavillonnavire,remarquenavire,valconsignataire,desceconsignataire,valtypequaisprovenance,descetypequaisprovenance,valtypequaisdestination,descetypequaisdestination,noVoyage;
     private Date date_depart_prev;
 
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+    
     public Date getDate_depart_prev() {
         return date_depart_prev;
     }

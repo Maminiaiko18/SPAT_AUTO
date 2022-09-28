@@ -16,7 +16,7 @@
 //    String listeCrt[] = {"desceconsignataire","idprevision"};
 String listeCrt[] = {"desceconsignataire","escale"};
     String listeInt[] = {"date_depart","datearrivee"};
-    String libEntete[] = {"id", "escale", "nomnavire", "desceconsignataire", "valcargaison", "valquaisprovenance", "valpaysprovenance", "valquaisdestination", "valpaysdestination", "datearrivee", "heure", "date_depart", "heure_depart", "duree", "descemvt","etatlib"};
+    String libEntete[] = {"numero","id", "escale", "nomnavire", "desceconsignataire", "valcargaison", "valquaisprovenance", "valpaysprovenance", "valquaisdestination", "valpaysdestination", "datearrivee", "heure", "date_depart", "heure_depart", "duree", "descemvt","etatlib"};
     PageRecherche pr = new PageRecherche(mouvement, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -40,7 +40,7 @@ String listeCrt[] = {"desceconsignataire","escale"};
         %>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "Escale", "Navire", "Consignataire", "Cargaison", "Quai provenance", "Pays provenance", "Quai destination", "Pays destination", "Date d'arrivée", "Heure d'arrivée", "Date de départ", "Heure de départ", "Dur&eacute;e (en h)", "Type mouvement","Etat"};
+            String libEnteteAffiche[] = {"Numero","id", "Escale", "Navire", "Consignataire", "Cargaison", "Quai provenance", "Pays provenance", "Quai destination", "Pays destination", "Date d'arrivée", "Heure d'arrivée", "Date de départ", "Heure de départ", "Dur&eacute;e (en h)", "Type mouvement","Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             //pr.getTableau().construire_libelle(champ, libelle_comp);
             out.println(pr.getTableau().getHtml());
