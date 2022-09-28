@@ -222,6 +222,9 @@ public class EtatPaieServlet extends HttpServlet {
             else if (action.equalsIgnoreCase("listesavoir")) {
                 listesavoir(request, response);
             }
+            else if (action.equalsIgnoreCase("bondelivraison")) {
+                bondelivraison(request, response);
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -2867,6 +2870,48 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             e.printStackTrace();
         }
     }
+    private void bondelivraison(HttpServletRequest request, HttpServletResponse response)throws Exception{
+        try{
+        String id=request.getParameter("id");
+        BonDeLivraison blMere = new BonDeLivraison();   
+        blMere.setNomTable("AS_BONDELIVRAISON_BC");
+        BonDeLivraison[] mere =(BonDeLivraison []) CGenUtil.rechercher( blMere , null, null, " and id='"+id+"'");
+        Map param = new HashMap();
+        param.put("numBL",mere[0].getRemarque());
+        param.put("daty",mere[0].getDaty());
+        param.put("numBC",mere[0].getNumbc());
+        
+        BonDeLivraisonFille blFille = new BonDeLivraisonFille();
+        blFille.setNomTable("AS_BONDELIVRAISON_FILLE_MTT");
+        String awhere = " AND NUMBL = '" + request.getParameter("id").trim() + "' order by produit";
+        BonDeLivraisonFille[] fille =(BonDeLivraisonFille []) CGenUtil.rechercher( blFille , null, null, awhere);
+        List dataSource = new ArrayList();
+        dataSource.addAll(Arrays.asList(fille));
+        double totalPu = 0;
+        double totalMontantHT = 0;
+        double totalmontanttva = 0;
+        double totalMontantttc = 0;
+        
+        for(int i=0 ;i<fille.length;i++)
+        {
+            totalPu = totalPu + fille[0].getPu();
+            totalMontantHT = totalMontantHT + fille[0].getMontantHT();
+            totalmontanttva = totalmontanttva + fille[0].getMontanttva();
+            totalMontantttc = totalMontantttc + fille[0].getMontanttc();
+        }
+        param.put("totalPu" ,totalPu);
+        param.put("totalMontantHT" ,totalMontantHT);
+        param.put("totalmontanttva" ,totalmontanttva);
+        param.put("totalMontantttc" ,totalMontantttc);
+        
+        setNomJasper("bondelivraison");
+        UtilitaireImpression.imprimer(request, response, "bon_de_livraison", param, dataSource, getReportPath());
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+   
    
 
    
