@@ -36,7 +36,7 @@ public class Mouvement extends ClassEtat {
     private Date date_depart;
     private String cargaison;
     private String heure_depart, noVoyage;
-    private String escalelib;
+    private String escalelib,numero ;
     private String couleur = "#ffb401";
 
     public Prevision getPrevision(Connection c) throws Exception {
@@ -45,6 +45,14 @@ public class Mouvement extends ClassEtat {
             throw new Exception("Prevision non trouvee !");
         }
         return prev[0];
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
     
     public String getNoVoyage() {
