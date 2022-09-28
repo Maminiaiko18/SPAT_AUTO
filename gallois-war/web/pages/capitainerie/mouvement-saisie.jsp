@@ -119,6 +119,7 @@
         pi.getFormu().getChamp("DESTINATION").setLibelle("Quai");
         pi.getFormu().getChamp("CONSIGNATAIRE").setLibelle("Consignataire");
         pi.getFormu().getChamp("typeMvt").setLibelle("Type mouvement");
+        pi.getFormu().getChamp("numero").setLibelle("Numero");
 
         pi.preparerDataFormu();
 %>
