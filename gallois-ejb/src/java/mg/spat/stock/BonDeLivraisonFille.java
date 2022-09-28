@@ -15,8 +15,8 @@ import java.sql.Connection;
  */
 public class BonDeLivraisonFille extends ClassMAPTable {
 
-    private String id, produit, numbl, iddetailsfacturefournisseur, idbondecommande, pdt;
-    private double quantite, quantiteparpack;
+    private String id, produit, numbl, iddetailsfacturefournisseur, idbondecommande, pdt,observation;
+    private double quantite, quantiteparpack,remise;
     private double pu,montant,montanttva,montantttc,montantHT, montanttc;
 
     public void controlQuantite(BonDeCommandeFilleReste[] bcF) throws Exception {
@@ -31,6 +31,22 @@ public class BonDeLivraisonFille extends ClassMAPTable {
                 throw new Exception("Quantité supérieure au reste à livrer!");
             }
         }
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
+    public double getRemise() {
+        return remise;
+    }
+
+    public void setRemise(double remise) {
+        this.remise = remise;
     }
 
       public double getMontantHT() {
