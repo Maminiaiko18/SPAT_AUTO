@@ -56,13 +56,18 @@ try {
     pi.getFormu().getChamp("heureDepart").setLibelle("Heure de départ");
     pi.getFormu().getChamp("heureArrivee").setLibelle("Heure d'arrivée");
     pi.getFormu().getChamp("bateau").setLibelle("Navire");
-    pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp","bateau;bateaulibelle;volume100;volume");
+    pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp","bateau;bateaulibelle;volume100;volume;lht;lm;te;jnt");
     pi.getFormu().getChamp("bateau").setAutre("readonly");
     pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
     pi.getFormu().getChamp("provenance").setAutre("readonly");
     pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireExterneChoix.jsp");
     pi.getFormu().getChamp("destination").setAutre("readonly");
     pi.getFormu().getChamp("volume").setAutre("readonly");
+    
+    pi.getFormu().getChamp("lht").setAutre("readonly");
+    pi.getFormu().getChamp("lm").setAutre("readonly");
+    pi.getFormu().getChamp("te").setAutre("readonly");
+    pi.getFormu().getChamp("jnt").setAutre("readonly");
     
     affichage.Liste[] listes= new affichage.Liste[3];
     
