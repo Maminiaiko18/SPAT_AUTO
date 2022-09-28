@@ -34,7 +34,7 @@
     pi.getFormu().getChamp("consignataire").setPageAppel("choix/listeClientChoix.jsp");
     pi.getFormu().getChamp("consignataire").setAutre("readonly");
     
-    pi.getFormu().getChamp("armateur").setPageAppel("choix/listeClientChoix.jsp");
+    pi.getFormu().getChamp("armateur").setPageAppel("choix/listeArmateurTBDChoix.jsp");
     pi.getFormu().getChamp("armateur").setAutre("readonly");
     
     pi.getFormu().getChamp("pilote").setValeurLibelle(copie.getValpilote());
