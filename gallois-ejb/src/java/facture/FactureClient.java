@@ -11,6 +11,8 @@ import bean.ClassMere;
 import bean.TypeObjet;
 import java.sql.Connection;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.ArrayList;
 import user.UserEJB;
 import utilitaire.ConstanteEtat;
@@ -975,7 +977,8 @@ public class FactureClient extends ClassMere {
                 c = new UtilDB().GetConn();
                 ouvert = true;
             }
-            this.setDaty(d);
+            LocalDate lastDayOfMonth = LocalDate.of(annee, mois, LocalDate.of(annee, mois, 1).getMonth().length(Year.of(annee).isLeap()));
+            this.setDaty(Date.valueOf(lastDayOfMonth));
             this.setDate_echeance(Utilitaire.ajoutJourDate(d, 30));
             this.setRemarque(noteExplicative);
             this.setTiers(Constante.idMICTSL);
