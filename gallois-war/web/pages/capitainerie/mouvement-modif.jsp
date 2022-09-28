@@ -103,6 +103,7 @@
     pi.getFormu().getChamp("PROVENANCE").setLibelle("Provenance");
     pi.getFormu().getChamp("DESTINATION").setLibelle("Quai");
     pi.getFormu().getChamp("CONSIGNATAIRE").setLibelle("Consignataire");
+    pi.getFormu().getChamp("numero").setLibelle("Numero");
     
     pi.preparerDataFormu();
 %>
