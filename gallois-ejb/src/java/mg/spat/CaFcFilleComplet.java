@@ -17,9 +17,17 @@ public class CaFcFilleComplet extends ClassEtat {
     private double quantite,pu,taux,tva,montanttva,montantttc,montant,reduction,majoration,test,rang,duree;
     private int mois,annee;
     private double montantav;
-    String client,mereca;
+    String client,mereca,code ;
     private Date datefact,daty;
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+    
     public String getMereca() {
         return mereca;
     }
