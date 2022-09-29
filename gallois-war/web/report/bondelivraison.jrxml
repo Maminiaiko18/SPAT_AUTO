@@ -280,7 +280,7 @@
 				<text><![CDATA[Total :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="303" y="0" width="73" height="25" uuid="cb91b382-2712-4238-8e69-47853037ffd1"/>
+				<reportElement x="303" y="0" width="72" height="25" uuid="cb91b382-2712-4238-8e69-47853037ffd1"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
