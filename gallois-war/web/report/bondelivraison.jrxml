@@ -27,7 +27,7 @@
 			<staticText>
 				<reportElement x="0" y="0" width="620" height="20" uuid="3db317a1-a42a-4e66-bad8-b9beb08f8e5c"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
+					<font size="15" isBold="true"/>
 				</textElement>
 				<text><![CDATA[BON DE RECEPTION]]></text>
 			</staticText>
