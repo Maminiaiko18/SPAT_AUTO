@@ -2877,7 +2877,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         blMere.setNomTable("AS_BONDELIVRAISON_BC");
         BonDeLivraison[] mere =(BonDeLivraison []) CGenUtil.rechercher( blMere , null, null, " and id='"+id+"'");
         Map param = new HashMap();
-        param.put("numBL",mere[0].getRemarque());
+        param.put("numBL",utilitaire.Utilitaire.champNull(mere[0].getRemarque()));
         param.put("daty",mere[0].getDaty());
         param.put("numBC",mere[0].getNumbc());
         
