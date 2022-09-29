@@ -102,7 +102,7 @@
 				<text><![CDATA[Montant HT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="375" y="0" width="77" height="25" uuid="3acd61b1-9fa0-4c86-82bd-ec068b55c33d"/>
+				<reportElement x="375" y="0" width="64" height="25" uuid="3acd61b1-9fa0-4c86-82bd-ec068b55c33d"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -122,7 +122,7 @@
 				<text><![CDATA[PU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="452" y="0" width="35" height="25" uuid="57216d34-7e9c-4bd3-afa9-b5dcc7824878"/>
+				<reportElement x="439" y="0" width="35" height="25" uuid="57216d34-7e9c-4bd3-afa9-b5dcc7824878"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -132,7 +132,7 @@
 				<text><![CDATA[Remise]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="550" y="0" width="70" height="25" uuid="71b50f83-3219-4d98-8164-7588cda26d86"/>
+				<reportElement x="537" y="0" width="83" height="25" uuid="71b50f83-3219-4d98-8164-7588cda26d86"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -142,7 +142,7 @@
 				<text><![CDATA[Observation "DA"]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="487" y="0" width="63" height="25" uuid="0df88cd2-948b-470b-a2a1-3653f36921e9"/>
+				<reportElement x="474" y="0" width="63" height="25" uuid="0df88cd2-948b-470b-a2a1-3653f36921e9"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -192,7 +192,7 @@
 				<textFieldExpression><![CDATA[$F{montantHT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="375" y="0" width="77" height="25" uuid="0ec8bbc3-4ef3-4498-a80c-accbcedf179b"/>
+				<reportElement x="375" y="0" width="64" height="25" uuid="0ec8bbc3-4ef3-4498-a80c-accbcedf179b"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
@@ -201,7 +201,7 @@
 				<textFieldExpression><![CDATA[$F{montanttva}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="452" y="0" width="35" height="25" uuid="bb80d407-4104-4ec5-80c7-05080d0a4be4"/>
+				<reportElement x="439" y="0" width="35" height="25" uuid="bb80d407-4104-4ec5-80c7-05080d0a4be4"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
@@ -210,7 +210,7 @@
 				<textFieldExpression><![CDATA[$F{remise}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="487" y="0" width="63" height="25" uuid="bb62b9fc-3966-4ef9-acab-bc414cdb98f1"/>
+				<reportElement x="474" y="0" width="63" height="25" uuid="bb62b9fc-3966-4ef9-acab-bc414cdb98f1"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
@@ -219,7 +219,7 @@
 				<textFieldExpression><![CDATA[$F{montanttc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="550" y="0" width="70" height="25" uuid="cb52a590-345c-4112-b18c-6feace681083"/>
+				<reportElement x="537" y="0" width="83" height="25" uuid="cb52a590-345c-4112-b18c-6feace681083"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
@@ -276,7 +276,7 @@
 				<textFieldExpression><![CDATA[$P{totalMontantHT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="376" y="0" width="76" height="25" uuid="33fb9f43-5c3a-4c11-bce1-fe6606f4dbe8"/>
+				<reportElement x="376" y="0" width="63" height="25" uuid="33fb9f43-5c3a-4c11-bce1-fe6606f4dbe8"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
@@ -287,7 +287,7 @@
 				<textFieldExpression><![CDATA[$P{totalmontanttva}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="487" y="0" width="63" height="25" uuid="3d75331a-457f-4c25-81ea-fcab5f4fb07a"/>
+				<reportElement x="474" y="0" width="63" height="25" uuid="3d75331a-457f-4c25-81ea-fcab5f4fb07a"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
