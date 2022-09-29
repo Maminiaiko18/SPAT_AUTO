@@ -268,7 +268,7 @@
 	<summary>
 		<band height="50">
 			<staticText>
-				<reportElement x="257" y="0" width="46" height="25" uuid="cd1efb4e-d57e-4b69-9f17-1c74626d4365"/>
+				<reportElement x="233" y="0" width="70" height="25" uuid="cd1efb4e-d57e-4b69-9f17-1c74626d4365"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
