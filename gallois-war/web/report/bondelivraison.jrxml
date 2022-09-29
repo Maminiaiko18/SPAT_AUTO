@@ -6,7 +6,6 @@
 	<parameter name="numBL" class="java.lang.String"/>
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="numBC" class="java.lang.String"/>
-	<parameter name="totalPu" class="java.lang.Double"/>
 	<parameter name="totalMontantHT" class="java.lang.Double"/>
 	<parameter name="totalmontanttva" class="java.lang.Double"/>
 	<parameter name="totalMontantttc" class="java.lang.Double"/>
@@ -269,28 +268,17 @@
 	<summary>
 		<band height="50">
 			<staticText>
-				<reportElement x="187" y="0" width="46" height="25" uuid="cd1efb4e-d57e-4b69-9f17-1c74626d4365"/>
+				<reportElement x="257" y="0" width="46" height="25" uuid="cd1efb4e-d57e-4b69-9f17-1c74626d4365"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total :]]></text>
 			</staticText>
-			<textField pattern="#,##0.00">
-				<reportElement x="233" y="0" width="70" height="25" uuid="70dcd53b-a18a-4925-8f75-2584acdbc84d"/>
-				<box>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{totalPu}]]></textFieldExpression>
-			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement x="303" y="0" width="73" height="25" uuid="cb91b382-2712-4238-8e69-47853037ffd1"/>
 				<box>

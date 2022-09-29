@@ -2887,19 +2887,10 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         BonDeLivraisonFille[] fille =(BonDeLivraisonFille []) CGenUtil.rechercher( blFille , null, null, awhere);
         List dataSource = new ArrayList();
         dataSource.addAll(Arrays.asList(fille));
-        double totalPu = 0;
-        double totalMontantHT = 0;
-        double totalmontanttva = 0;
-        double totalMontantttc = 0;
+        double totalMontantHT = AdminGen.calculSommeDouble(fille, "montantHT");
+        double totalmontanttva = AdminGen.calculSommeDouble(fille, "montanttva");
+        double totalMontantttc = AdminGen.calculSommeDouble(fille, "montanttc");
         
-        for(int i=0 ;i<fille.length;i++)
-        {
-            totalPu = totalPu + fille[0].getPu();
-            totalMontantHT = totalMontantHT + fille[0].getMontantHT();
-            totalmontanttva = totalmontanttva + fille[0].getMontanttva();
-            totalMontantttc = totalMontantttc + fille[0].getMontanttc();
-        }
-        param.put("totalPu" ,totalPu);
         param.put("totalMontantHT" ,totalMontantHT);
         param.put("totalmontanttva" ,totalmontanttva);
         param.put("totalMontantttc" ,totalMontantttc);
