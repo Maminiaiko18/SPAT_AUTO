@@ -20,7 +20,7 @@
     MouvementLibComplet[] mouvements = mvt.getMouvementMemeEscale(null);
     String listeCrt[] = {"id", "nomnavire", "escale", "consignataire"};
     String listeInt[] = {"date_depart", "datearrivee"};
-    String libEntete[] = {"id", "escale", "nomnavire", "desceconsignataire", "valcargaison", "valquaisprovenance", "valpaysprovenance", "valquaisdestination", "valpaysdestination", "datearrivee", "heure", "date_depart", "heure_depart", "duree", "descemvt","etatlib"};
+    String libEntete[] = {"numero","id", "escale", "nomnavire", "desceconsignataire", "valcargaison", "valquaisprovenance", "valpaysprovenance", "valquaisdestination", "valpaysdestination", "datearrivee", "heure", "date_depart", "heure_depart", "duree", "descemvt","etatlib"};
 
     PageRecherche pr = new PageRecherche(mvt, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur(u);
@@ -49,7 +49,7 @@
         pr.getTableau().setLien(lienTableau);
         pr.getTableau().setColonneLien(colonneLien);
         
-        String libEnteteAffiche[]= {"id", "Escale", "Navire", "Consignataire", "Cargaison", "Quai provenance", "Pays provenance", "Quai destination", "Pays destination", "Date d'arriv&eacute;e", "Heure d'arriv&eacute;e", "Date de d&eacute;part", "Heure de d&eacute;part", "Dur&eacute;e (en j)", "Type mouvement","Etat"};
+        String libEnteteAffiche[]= {"Numero","id", "Escale", "Navire", "Consignataire", "Cargaison", "Quai provenance", "Pays provenance", "Quai destination", "Pays destination", "Date d'arriv&eacute;e", "Heure d'arriv&eacute;e", "Date de d&eacute;part", "Heure de d&eacute;part", "Dur&eacute;e (en j)", "Type mouvement","Etat"};
        pr.getTableau().setLibeEntete(libEnteteAffiche);
         //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
         out.println(pr.getTableau().getHtml());
