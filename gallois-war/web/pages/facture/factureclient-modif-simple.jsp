@@ -33,7 +33,11 @@
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         
         pi.getFormu().getChamp("armateur").setPageAppel("choix/listeArmateurTBDChoix.jsp");
-         pi.getFormu().getChamp("armateur").setAutre("readonly");
+        pi.getFormu().getChamp("armateur").setAutre("readonly");
+         
+        pi.getFormu().getChamp("pourCompte").setPageAppel("choix/clientCategorieChoix.jsp");
+        pi.getFormu().getChamp("pourCompte").setAutre("readonly"); 
+        pi.getFormu().getChamp("pourCompte").setLibelle("Pour Compte");
         
         pi.getFormu().getChamp("type").setVisible(false);
         pi.getFormu().getChamp("tva").setVisible(false);
