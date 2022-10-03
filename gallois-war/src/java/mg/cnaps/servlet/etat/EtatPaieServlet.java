@@ -1075,6 +1075,9 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("date_depart", facture.getDateDepart());
                     param.put("destination", facture.getDestinationlib());
                     param.put("lhtnavire", facture.getLht());
+                    System.out.println("nomtable" + facture.getNomTable());
+                           
+                    System.out.println("navire==="+facture.getLht());
                     param.put("jntnavire", facture.getJnt());
                     param.put("lmnavire", facture.getLm());
                     param.put("provenance", facture.getProvenancelib());
@@ -1272,6 +1275,16 @@ public class EtatPaieServlet extends HttpServlet {
                                 montantTVADevise = tvaEuro;
                                 montantTTCDevise = ttcEuro;
                             }
+                        }
+                        if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseDollars)) {
+                                montantDevise = hTDollar;
+                                montantTVADevise = tvaDollar;
+                                montantTTCDevise = ttcDollar;
+                        }
+                        if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseEuro)) {
+                                montantDevise = hTEuro;
+                                montantTVADevise = tvaEuro;
+                                montantTTCDevise = ttcEuro;
                         }
                         /*
                         if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseDollars)) {
