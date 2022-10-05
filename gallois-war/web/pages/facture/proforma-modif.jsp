@@ -35,7 +35,7 @@ try {
     pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
-    pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
+    //pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("idprevision").setLibelle("escale");
     pi.getFormu().getChamp("idprevision").setPageAppel("choix/listePrevisionChoix.jsp");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
