@@ -125,11 +125,10 @@
         pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireChoix.jsp","bateau;bateaulibelle;volume100;volume");
         pi.getFormu().getChamp("bateau").setLibelle("Navire");
         
-
-        pi.getFormu().getChamp("lht").setHtml("");
-        pi.getFormu().getChamp("lm").setHtml("");
-        pi.getFormu().getChamp("te").setHtml("");
-        pi.getFormu().getChamp("jnt").setHtml("");
+        pi.getFormu().getChamp("lht").setVisible(false);
+        pi.getFormu().getChamp("lm").setVisible(false);
+        pi.getFormu().getChamp("te").setVisible(false);
+        pi.getFormu().getChamp("jnt").setVisible(false);
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
@@ -341,8 +340,10 @@
     </div>
 </div>
 <script>
-    
-    
+    document.getElementById('lht').remove();
+    document.getElementById('lm').remove();
+    document.getElementById('te').remove();
+    document.getElementById('jnt').remove();
     
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib()%>";
     <% for (int i = 0; i < liste.length; i++) {%>
