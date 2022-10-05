@@ -126,10 +126,10 @@
         pi.getFormu().getChamp("bateau").setLibelle("Navire");
         
 
-        pi.getFormu().getChamp("lht").setVisible(false);
-        pi.getFormu().getChamp("lm").setVisible(false);
-        pi.getFormu().getChamp("te").setVisible(false);
-        pi.getFormu().getChamp("jnt").setVisible(false);
+        pi.getFormu().getChamp("lht").setHtml("");
+        pi.getFormu().getChamp("lm").setHtml("");
+        pi.getFormu().getChamp("te").setHtml("");
+        pi.getFormu().getChamp("jnt").setHtml("");
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
@@ -341,6 +341,9 @@
     </div>
 </div>
 <script>
+    
+    
+    
     document.getElementById("tierslibelle").value = "<%= mere.getTierslib()%>";
     <% for (int i = 0; i < liste.length; i++) {%>
     document.getElementById("idactivitelibelle_<%=i%>").value = "<%=liste[i].getActivitelib() != null ? liste[i].getActivitelib() : Utilitaire.champNull(liste[i].getIdactivite())%>";
@@ -370,7 +373,7 @@
     designation<%=i%>.parentNode.replaceChild(textarea<%=i%>, designation<%=i%>);
     $('#idproduit_<%=i%>').parent().attr('style', '');
     <%}%>
-
+        
 </script>
 <%} catch (Exception ex) {
         ex.printStackTrace();
