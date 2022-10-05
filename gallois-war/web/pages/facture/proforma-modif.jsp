@@ -13,7 +13,7 @@ try {
     String titrePage = "Modification d'une demande de prix" ,
             classeMere = "facture.ProformaMere" ,
             classeFille = "facture.ProformaFille",
-            buteLien = "facture/proforma-modif.jsp" ,
+            buteLien = "facture/proforma-fiche.jsp" ,
             colonneMereDansFille = "idmere",
             buteApresVisa = "facture/proforma-fiche.jsp";
     
