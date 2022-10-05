@@ -116,6 +116,10 @@ try {
         pi.getFormufle().getChamp("duree_"+i).setDefaut("1");
         pi.getFormufle().getChamp("idactivite_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
+        
+        if(i < liste.length) { 
+            pi.getFormufle().getChamp("daty_"+i).setValeur(Utilitaire.datetostring(liste[i].getDaty()));
+        }
     }
     
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
