@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse_banque" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1aeaf117-a05d-4327-8a4b-0e54fb8087cd">
 	<property name="ireport.zoom" value="1.1000000000000048"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="236"/>
 	<subDataset name="Table Dataset 1" uuid="f5114710-a40e-4c61-a38a-bf5e8cc51b05">
 		<field name="code" class="java.lang.String"/>
 		<field name="montant" class="java.lang.Double"/>
@@ -171,9 +171,9 @@
 								<text><![CDATA[N° Facture(s)]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell height="33" rowSpan="1">
+						<jr:detailCell height="17" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="174" height="33" uuid="d8842d7b-2175-432c-ae8f-fc05e1b09019"/>
+								<reportElement x="0" y="0" width="174" height="16" uuid="d8842d7b-2175-432c-ae8f-fc05e1b09019"/>
 								<textElement textAlignment="Center">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -191,9 +191,9 @@
 								<text><![CDATA[Montant Facture(s)]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell height="33" rowSpan="1">
+						<jr:detailCell height="17" rowSpan="1">
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="174" height="33" uuid="933bff53-2ecb-4aac-978c-a863c8e159d4"/>
+								<reportElement x="0" y="0" width="174" height="16" uuid="933bff53-2ecb-4aac-978c-a863c8e159d4"/>
 								<textElement textAlignment="Center">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -211,9 +211,9 @@
 								<text><![CDATA[Date Facture(s)]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell height="33" rowSpan="1">
+						<jr:detailCell height="17" rowSpan="1">
 							<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="204" height="33" uuid="577393d1-a52a-4a30-89c3-e743287b3d14"/>
+								<reportElement x="0" y="0" width="204" height="16" uuid="577393d1-a52a-4a30-89c3-e743287b3d14"/>
 								<textElement textAlignment="Center">
 									<font size="12" isBold="true"/>
 								</textElement>
