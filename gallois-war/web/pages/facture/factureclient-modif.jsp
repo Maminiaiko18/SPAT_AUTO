@@ -198,7 +198,7 @@
                                 pi.getFormufle().getChamp("duree_" + i).setValeur("" + liste[i].getDuree());
                                 pi.getFormufle().getChamp("quantite_" + i).setValeur(Utilitaire.formaterAr(liste[i].getQuantite()).replaceAll("\\s+", ""));
                             }
-                            if (act.getCargaison()!=null && act.getCargaison().compareToIgnoreCase(Constante.idCargaisonPetrole) == 0) {
+                            if (act.getCargaison()!=null && act.getCargaison().compareToIgnoreCase(Constante.idCargaisonPetrole) == 0 && !liste[i].getDesignation().contains("VEILLE DE ")) {
                             //if (act.getEstPetrolier().compareToIgnoreCase("TRUE") == 0) {
                                 liste[i].setDuree(act.getNbJour());
                                 liste[i].setQuantite(liste[i].getQuantite() / act.getNbJour());
