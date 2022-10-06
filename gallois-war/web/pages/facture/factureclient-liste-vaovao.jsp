@@ -33,7 +33,7 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setOrdre(" order by daty desc");
         pr.setApres("facture/factureclient-liste-vaovao.jsp&etat="+request.getParameter("etat"));
-        pr.setNpp(50);
+        pr.setNpp(300);
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("exercice1").setLibelle("debut exercice");
