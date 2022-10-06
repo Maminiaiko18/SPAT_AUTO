@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1aeaf117-a05d-4327-8a4b-0e54fb8087cd">
 	<property name="ireport.zoom" value="1.4641000000000068"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="275"/>
+	<property name="ireport.y" value="219"/>
 	<subDataset name="Table Dataset 1" uuid="2efaac0a-5632-43a0-b273-90bf56aa8145">
 		<field name="code" class="java.lang.String"/>
 		<field name="montant" class="java.lang.Double"/>
@@ -20,6 +20,7 @@
 	<parameter name="arrondi" class="java.lang.Double"/>
 	<parameter name="total" class="java.lang.Double"/>
 	<parameter name="list_table" class="java.util.List"/>
+	<parameter name="titre" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -54,13 +55,6 @@
 				<textFieldExpression><![CDATA[$P{datyJ}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="40" width="555" height="20" uuid="4edb12d4-9bfe-46b1-9a23-766bf4493962"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[PIECE DE CAISSE]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="224" y="60" width="65" height="20" uuid="33ad2e35-d558-4f91-a6b6-7180696ece3d"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="true"/>
@@ -74,6 +68,13 @@
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{datyPiece}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="40" width="555" height="17" uuid="c9570aef-aceb-4203-89b0-b97f879f0c1d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titre}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -155,7 +156,7 @@
 						<jr:tableHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="192" height="30" uuid="b5e87975-6d8c-40dc-93bd-4a3b7f5fc303"/>
-								<textElement textAlignment="Center">
+								<textElement textAlignment="Right">
 									<font size="12" isBold="true" isUnderline="true"/>
 								</textElement>
 								<text><![CDATA[Montant Facture(s)]]></text>
@@ -164,7 +165,7 @@
 						<jr:detailCell height="16" rowSpan="1">
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="192" height="16" uuid="b3069454-04fe-4de5-931f-9ad248cc1e3a"/>
-								<textElement textAlignment="Center">
+								<textElement textAlignment="Right">
 									<font size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
