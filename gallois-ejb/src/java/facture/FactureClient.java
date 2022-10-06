@@ -978,7 +978,7 @@ public class FactureClient extends ClassMere {
                 ouvert = true;
             }
             LocalDate lastDayOfMonth = LocalDate.of(annee, mois, LocalDate.of(annee, mois, 1).getMonth().length(Year.of(annee).isLeap()));
-            this.setDaty(Date.valueOf(lastDayOfMonth));
+            this.setDaty(d);
             this.setDate_echeance(Utilitaire.ajoutJourDate(d, 30));
             this.setRemarque(noteExplicative);
             this.setTiers(Constante.idMICTSL);
