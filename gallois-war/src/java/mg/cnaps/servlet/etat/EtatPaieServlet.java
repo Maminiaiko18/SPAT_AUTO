@@ -810,13 +810,12 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("banque", tabJournal[0].getIdbanquelib());
                 param.put("numCheque", tabJournal[0].getNumcheque());
             }
-            String titre = "PROVISION CONSTITUEE" ;
-            String titre1 = "PIECE DE CAISSE" ;
+            String titre = "PIECE DE CAISSE" ;
             if (tabJournal[0].getType()!= null && tabJournal[0].getType().compareTo(Constante.idprovision)== 0)
                 {
-                    param.put("titre" ,titre );    
+                    titre = "PROVISION CONSTITUEE" ; 
                 }
-            param.put("titre" , titre1);
+            param.put("titre" , titre);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper(nomJasper);
             UtilitaireImpression.imprimer(request, response, "piece_de_caisse", param, new ArrayList(), getReportPath(), rt);
