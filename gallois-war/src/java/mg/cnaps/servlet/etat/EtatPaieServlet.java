@@ -811,7 +811,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("numCheque", tabJournal[0].getNumcheque());
             }
             String titre = "PIECE DE CAISSE" ;
-            if (tabJournal[0].getType()!= null && tabJournal[0].getType().compareTo(Constante.idprovision)== 0)
+            if (tabJournal[0].getType()!= null && tabJournal[0].getType().compareTo(Constante.idCategorieFCProvision)== 0)
                 {
                     titre = "PROVISION CONSTITUEE" ; 
                 }
