@@ -724,9 +724,9 @@ public class EtatPaieServlet extends HttpServlet {
                 if (tabJournal.length > 0) {
                     param.put("daty", tabJournal[0].getDateEffet());
                     param.put("montant", tabJournal[0].getDebit());
-//                    String montantString = String.valueOf((long) tabJournal[0].getDebit());
-//                    long montantLong = Long.valueOf(montantString);
-                    param.put("montant_lettre", (ChiffreLettre.convertRealToString(tabJournal[0].getDebit(), "Ar")).toUpperCase());
+                    String montantString = String.valueOf((long) tabJournal[0].getDebit());
+                    long montantLong = Long.valueOf(montantString);
+                    param.put("montant_lettre", (ChiffreLettre.convertIntToString(montantLong) + " ARIARY ").toUpperCase());
 
                     param.put("facture_montant", tabJournal[0].getDebit());
                     param.put("tiers", tabJournal[0].getTiersLib());
@@ -771,10 +771,10 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("arrondi", arrondi);
             param.put("total", totalGeneral);
 
-//            String montantString = String.valueOf((long) totalGeneral);
-//            long montantLong = Long.valueOf(montantString);
+            String montantString = String.valueOf((long) totalGeneral);
+            long montantLong = Long.valueOf(montantString);
 
-            param.put("montantLettre", ChiffreLettre.convertRealToString(totalGeneral, "Ar"));
+            param.put("montantLettre", ChiffreLettre.convertIntToString(montantLong) + " Ariary ");
 
             param.put("list_table", arrList);
             /*if(tabFact.length > 0){
