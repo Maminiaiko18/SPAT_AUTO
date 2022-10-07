@@ -1757,6 +1757,8 @@ public class EtatPaieServlet extends HttpServlet {
                 temp.setClient(details[i].getTiersLib());
                 temp.setMotif(details[i].getLibelle());
                 temp.setNumpiece(details[i].getNumPiece());
+                temp.setNumcheque(details[i].getNumcheque());
+                temp.setIdbanquelib(details[i].getIdbanquelib());
 
                 int a = 0;
                 //System.out.println("len"+p.length);
@@ -1806,7 +1808,12 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("totalfinale", totalfinale);
             param.put("lettre", ChiffreLettre.convertRealToString(totalfinale));
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            setNomJasper("journalcaisse");
+            String nomjasper = "journalcaisse";
+            if(valcaisse.compareTo("cheque") == 0)
+            {
+                nomjasper = "journalcaisse_cheque";
+            }
+            setNomJasper(nomjasper);
 
             UtilitaireImpression.imprimer(request, response, "Journal de caisse", param, null, getReportPath(), rt);
         } catch (Exception e) {

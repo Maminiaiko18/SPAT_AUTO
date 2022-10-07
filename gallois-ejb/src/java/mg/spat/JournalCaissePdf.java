@@ -9,11 +9,28 @@ import java.util.ArrayList;
 
 
 public class JournalCaissePdf {
-    private String numpiece, client, motif; 
+    private String numpiece, client, motif,numcheque,idbanquelib; 
     private ArrayList<JournalCaisse> jcaisse;
     private double montant;
     private double reste;
 
+    public String getNumcheque() {
+        return numcheque;
+    }
+
+    public void setNumcheque(String numcheque) {
+        this.numcheque = numcheque;
+    }
+
+    public String getIdbanquelib() {
+        return idbanquelib;
+    }
+
+    public void setIdbanquelib(String idbanquelib) {
+        this.idbanquelib = idbanquelib;
+    }
+    
+    
     public double getReste() {
         return reste;
     }
