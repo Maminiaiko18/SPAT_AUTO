@@ -21,7 +21,7 @@ import bean.ValeurEtiquette;
 import mg.spat.AnalyseMarchandisePDF;
 import bordereau.BordereauFilleLibComplet;
 import bordereau.BordereauLibComplet;
-import ded.OrdonnerPayementPDF;
+import ded.OrdonnerPayement;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -683,10 +683,10 @@ public class EtatPaieServlet extends HttpServlet {
         try {
 
             String idop = request.getParameter("idop");
-            OrdonnerPayementPDF op = new OrdonnerPayementPDF();
+            OrdonnerPayement op = new OrdonnerPayement();
             op.setNomTable("OrdonnerPayement_LIB");
             op.setId(idop);
-            OrdonnerPayementPDF[] tabOp = (OrdonnerPayementPDF[]) CGenUtil.rechercher(op, null, null, "  ");
+            OrdonnerPayement[] tabOp = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, "  ");
             Map param = new HashMap();
             JournalCaisse jc = new JournalCaisse();
             jc.setId(request.getParameter("id"));

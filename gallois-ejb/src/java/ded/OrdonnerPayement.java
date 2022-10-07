@@ -48,6 +48,7 @@ public class OrdonnerPayement extends ClassEtat {
   private double montantpaye,reste;
   private String modepaiementlib, tierslib;
     private String idfacture,type,idengagement,numeroCompta;
+    private String adresse, montant_lettre,devise,beneficiaire, destinationlib;
 
     public void checkDoublonNumeroOP(Connection c) throws Exception {
 			this.setNomTable("ordonnerpayement");
@@ -62,6 +63,46 @@ public class OrdonnerPayement extends ClassEtat {
 
     public void setNumeroCompta(String numeroCompta) {
         this.numeroCompta = numeroCompta;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getMontant_lettre() {
+        return montant_lettre;
+    }
+
+    public void setMontant_lettre(String montant_lettre) {
+        this.montant_lettre = montant_lettre;
+    }
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
+    }
+
+    public String getBeneficiaire() {
+        return beneficiaire;
+    }
+
+    public void setBeneficiaire(String beneficiaire) {
+        this.beneficiaire = beneficiaire;
+    }
+
+    public String getDestinationlib() {
+        return destinationlib;
+    }
+
+    public void setDestinationlib(String destinationlib) {
+        this.destinationlib = destinationlib;
     }
     
     public String getTierslib() {
