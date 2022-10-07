@@ -773,8 +773,13 @@ public class EtatPaieServlet extends HttpServlet {
 
             String montantString = String.valueOf((long) totalGeneral);
             long montantLong = Long.valueOf(montantString);
-
-            param.put("montantLettre", ChiffreLettre.convertIntToString(montantLong) + " Ariary ");
+            String montantLettre=ChiffreLettre.convertRealToString(totalGeneral);
+            if(tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant)==0 && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece)==0)
+            {
+                montantLettre=ChiffreLettre.convertIntToString(montantLong);
+                System.out.println(totalGeneral);
+            }
+            param.put("montantLettre", montantLettre);
 
             param.put("list_table", arrList);
             /*if(tabFact.length > 0){
