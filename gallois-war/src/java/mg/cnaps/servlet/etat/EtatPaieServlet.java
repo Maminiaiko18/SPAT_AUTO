@@ -821,6 +821,8 @@ public class EtatPaieServlet extends HttpServlet {
                     titre = "PROVISION CONSTITUEE" ; 
                 }
             param.put("titre" , titre);
+            String heure = Utilitaire.heureCouranteHMS();
+            param.put("heure" , heure);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper(nomJasper);
             UtilitaireImpression.imprimer(request, response, "piece_de_caisse", param, new ArrayList(), getReportPath(), rt);
