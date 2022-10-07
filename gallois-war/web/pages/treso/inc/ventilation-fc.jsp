@@ -9,8 +9,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     PaiementFacture cht = new PaiementFacture();
-    cht.setNomTable("paiementfacture");
-    String libEntete[] = {"id", "idFact", "montant"};
+    cht.setNomTable("paiementfacturelib");
+    String libEntete[] = {"id", "idFact","code", "montant"};
     String listeCrt[] = {"idmvt"};
     String listeInt[] = {};
 
@@ -21,7 +21,7 @@
     pr.setApres("treso/inc/ventilation-fc.jsp");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"Id", "Facture", "Montant"};
+    String libEnteteAffiche[] = {"Id", "Facture","Code", "Montant"};
     String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
     String colonneLien[] = {"idFact"};
     String urlLien[] = {"idFact"};
