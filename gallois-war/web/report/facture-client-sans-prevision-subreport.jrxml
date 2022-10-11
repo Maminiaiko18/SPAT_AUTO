@@ -323,23 +323,9 @@
 				</jr:table>
 			</componentElement>
 		</band>
-		<band height="95">
-			<textField pattern="#,##0.000">
-				<reportElement x="706" y="56" width="176" height="20" uuid="d3a48887-1e18-4b8b-9952-10c96a73787a"/>
-				<textElement textAlignment="Right">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{montantTTCdevise}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.000">
-				<reportElement x="672" y="36" width="210" height="20" uuid="bd8f13f5-f625-428c-9d62-04223b2cbacf"/>
-				<textElement textAlignment="Right">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{montantTVAdevise}]]></textFieldExpression>
-			</textField>
+		<band height="25">
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="706" y="0" width="179" height="18" uuid="b5253d2b-b432-47c7-b9d5-df69cfb96278"/>
+				<reportElement x="703" y="0" width="182" height="18" uuid="b5253d2b-b432-47c7-b9d5-df69cfb96278"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -367,43 +353,6 @@
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Total :]]></text>
-			</staticText>
-			<frame>
-				<reportElement x="547" y="18" width="338" height="60" uuid="908937ee-bd14-4e61-aeda-d3dabb77ee3b"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</frame>
-			<textField pattern="#,##0.000">
-				<reportElement x="724" y="18" width="158" height="20" uuid="5fb3de42-bece-45fd-a52e-e9bb41848dc9"/>
-				<textElement textAlignment="Right">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{montantdevise}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="549" y="18" width="173" height="20" uuid="78fb92eb-70d7-40fb-8f53-dcb054537a7c"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Montant en devise HTVA :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="547" y="38" width="123" height="20" uuid="a78cc2aa-1d1f-484a-832a-1b74e8c3aa1e"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[TVA en devise :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="547" y="56" width="156" height="20" uuid="5ffeed69-9e23-4dec-867d-ab809c169126"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Net à payer en devise : ]]></text>
 			</staticText>
 		</band>
 	</detail>
