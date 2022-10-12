@@ -779,7 +779,9 @@ public class EtatPaieServlet extends HttpServlet {
                 montantFacture = Utilitaire.arrondir(montantFacture, 2);
                 totalGeneral = Utilitaire.arrondir(totalGeneral, 2);
                 String[] montantTexte = ChiffreLettre.convertRealToStringSepare(totalGeneral);
-                montantLettre= montantTexte[0] + ", " + montantTexte[1] +" Ariary";
+                montantLettre= montantTexte[0];
+                if(montantTexte[1].compareToIgnoreCase("") != 0) montantLettre += ", " + montantTexte[1];
+                montantLettre += " Ariary";
             }
             param.put("montant", montantFacture);
             param.put("arrondi", arrondi);
