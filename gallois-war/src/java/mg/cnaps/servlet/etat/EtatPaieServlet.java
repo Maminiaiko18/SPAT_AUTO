@@ -767,19 +767,22 @@ public class EtatPaieServlet extends HttpServlet {
             //tabJournal[0].arrondir();
             arrondi = tabJournal[0].getCredit() - montantFacture;
             totalGeneral = tabJournal[0].getCredit();
-            param.put("montant", montantFacture);
-            param.put("arrondi", arrondi);
-            param.put("total", totalGeneral);
-
             String montantString = String.valueOf((long) totalGeneral);
             long montantLong = Long.valueOf(montantString);
             String montantLettre=ChiffreLettre.convertRealToString(totalGeneral,"Ariary");
             if(tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant)==0 && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece)==0)
             {
                 montantLettre=ChiffreLettre.convertIntToString(montantLong)+" Ariary";
+                
+            }else{
+                montantFacture = Utilitaire.arrondir(montantFacture, 2);
+                totalGeneral = Utilitaire.arrondir(totalGeneral, 2);
+                montantLettre=ChiffreLettre.convertRealToString(totalGeneral)+" Ariary";
             }
+            param.put("montant", montantFacture);
+            param.put("arrondi", arrondi);
+            param.put("total", totalGeneral);
             param.put("montantLettre", montantLettre);
-
             param.put("list_table", arrList);
             /*if(tabFact.length > 0){
                 param.put("nmFact",tabFact[0].getCode());
