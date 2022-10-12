@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse_banque" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1aeaf117-a05d-4327-8a4b-0e54fb8087cd">
 	<property name="ireport.zoom" value="1.1000000000000048"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="243"/>
 	<subDataset name="Table Dataset 1" uuid="f5114710-a40e-4c61-a38a-bf5e8cc51b05">
 		<field name="code" class="java.lang.String"/>
 		<field name="montant" class="java.lang.Double"/>
@@ -248,7 +248,7 @@
 				</textElement>
 				<text><![CDATA[Total Général]]></text>
 			</staticText>
-			<textField pattern="#,##0.000" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="249" y="4" width="148" height="20" uuid="a22f3231-b274-49b4-ac3a-3bf42a4b0e41"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -262,7 +262,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.000" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="249" y="24" width="148" height="20" uuid="640dc340-987d-4c5c-944e-5d6e089fc677"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -276,7 +276,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{arrondi}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.000" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="249" y="44" width="148" height="20" uuid="2bb3d06b-7313-4c12-8a22-d111cb7a2f4d"/>
 				<box>
 					<topPen lineWidth="0.5"/>
