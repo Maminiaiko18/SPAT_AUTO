@@ -770,6 +770,7 @@ public class EtatPaieServlet extends HttpServlet {
             String montantString = String.valueOf((long) totalGeneral);
             long montantLong = Long.valueOf(montantString);
             String montantLettre=ChiffreLettre.convertRealToString(totalGeneral,"Ariary");
+            
             if(tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant)==0 && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece)==0)
             {
                 montantLettre=ChiffreLettre.convertIntToString(montantLong)+" Ariary";
@@ -777,7 +778,8 @@ public class EtatPaieServlet extends HttpServlet {
             }else{
                 montantFacture = Utilitaire.arrondir(montantFacture, 2);
                 totalGeneral = Utilitaire.arrondir(totalGeneral, 2);
-                montantLettre=ChiffreLettre.convertRealToString(totalGeneral)+" Ariary";
+                String[] montantTexte = ChiffreLettre.convertRealToStringSepare(totalGeneral);
+                montantLettre= montantTexte[0] + ", " + montantTexte[1] +" Ariary";
             }
             param.put("montant", montantFacture);
             param.put("arrondi", arrondi);
