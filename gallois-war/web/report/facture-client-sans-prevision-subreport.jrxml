@@ -117,7 +117,7 @@
 	<detail>
 		<band height="20">
 			<componentElement>
-				<reportElement key="table 2" x="-19" y="-9" width="916" height="29" uuid="6bbf3e87-2aa8-4d0a-b99f-5446e7f5d83b"/>
+				<reportElement key="table 2" x="-19" y="0" width="916" height="20" uuid="6bbf3e87-2aa8-4d0a-b99f-5446e7f5d83b"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 2" uuid="90b13c8c-450c-4b44-89db-d5f7b275efd6">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{details})]]></dataSourceExpression>
@@ -323,7 +323,7 @@
 				</jr:table>
 			</componentElement>
 		</band>
-		<band height="25">
+		<band height="20">
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="703" y="0" width="182" height="18" uuid="b5253d2b-b432-47c7-b9d5-df69cfb96278"/>
 				<box>

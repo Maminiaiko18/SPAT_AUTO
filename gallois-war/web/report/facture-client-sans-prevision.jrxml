@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000001"/>
-	<property name="ireport.x" value="389"/>
-	<property name="ireport.y" value="455"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="436"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -388,9 +388,9 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 		</band>
-		<band height="143">
+		<band height="58">
 			<subreport>
-				<reportElement x="-18" y="0" width="926" height="143" uuid="92eac6e9-1f93-4bcb-95de-820f04e329e5"/>
+				<reportElement x="-18" y="0" width="926" height="58" uuid="92eac6e9-1f93-4bcb-95de-820f04e329e5"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{list_table})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["facture-client-sans-prevision-subreport.jasper"]]></subreportExpression>
 			</subreport>
@@ -406,7 +406,7 @@
 				<text><![CDATA[Arrêtée la présente facture à la somme de :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="-1" y="33" width="80" height="20" uuid="e1f3fa91-5947-4191-8fd0-fc2401b1cd6a"/>
+				<reportElement x="-1" y="0" width="80" height="20" uuid="e1f3fa91-5947-4191-8fd0-fc2401b1cd6a"/>
 				<box>
 					<bottomPen lineWidth="0.0"/>
 				</box>
@@ -423,7 +423,7 @@
 				<textFieldExpression><![CDATA[$P{montantlettre}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="79" y="33" width="145" height="20" uuid="e044c309-4355-4143-882b-bfd0ced55849"/>
+				<reportElement x="80" y="0" width="145" height="20" uuid="e044c309-4355-4143-882b-bfd0ced55849"/>
 				<box>
 					<bottomPen lineWidth="0.0"/>
 				</box>
@@ -447,28 +447,28 @@
 				<textFieldExpression><![CDATA[$P{chef}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="79" y="53" width="142" height="20" uuid="868349b1-e646-474f-8089-c7466d6013a4"/>
+				<reportElement x="74" y="20" width="142" height="20" uuid="868349b1-e646-474f-8089-c7466d6013a4"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{valeuro}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="79" y="73" width="142" height="18" uuid="fb145635-d8b9-4d2f-95c8-77b70c6b46a6"/>
+				<reportElement x="82" y="40" width="142" height="18" uuid="fb145635-d8b9-4d2f-95c8-77b70c6b46a6"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{valdollar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="53" width="75" height="20" uuid="0707959e-ccaf-4e7a-a5f0-a8c29a4c01a7"/>
+				<reportElement x="-1" y="20" width="75" height="20" uuid="0707959e-ccaf-4e7a-a5f0-a8c29a4c01a7"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["1 Euro ="]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1" y="73" width="79" height="18" uuid="e8140c2b-20f1-4aa6-8b55-74c2577e88d7"/>
+				<reportElement x="1" y="40" width="79" height="18" uuid="e8140c2b-20f1-4aa6-8b55-74c2577e88d7"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="14" isBold="true"/>
 				</textElement>
