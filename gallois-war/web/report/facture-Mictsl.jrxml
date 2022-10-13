@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.0000000000000075"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="88"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -292,7 +292,7 @@
 				<text><![CDATA[Paiement en :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="15" y="202" width="94" height="19" uuid="458220f8-e8db-40a8-b31d-7ae227d2059c"/>
+				<reportElement x="15" y="207" width="94" height="19" uuid="458220f8-e8db-40a8-b31d-7ae227d2059c"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -326,29 +326,29 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{type}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="15" y="172" width="637" height="30" uuid="15baee1b-c3a2-4e7d-b254-7d3a7dfb66a6"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="15" y="172" width="872" height="35" uuid="15baee1b-c3a2-4e7d-b254-7d3a7dfb66a6"/>
 				<textElement>
 					<font size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{designation}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="109" y="202" width="637" height="19" uuid="ef6e84e0-c850-4e1a-a0d2-8948a5c4b8aa"/>
+				<reportElement x="109" y="207" width="637" height="19" uuid="ef6e84e0-c850-4e1a-a0d2-8948a5c4b8aa"/>
 				<textElement>
 					<font size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reduction}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="206" y="221" width="681" height="19" uuid="87f52370-53cb-4fd7-bbcf-9b6b5351c41d"/>
+				<reportElement x="206" y="225" width="681" height="19" uuid="87f52370-53cb-4fd7-bbcf-9b6b5351c41d"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dateEcheance}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="15" y="221" width="191" height="19" uuid="e554f512-0dfe-42c2-81c8-09012ae26656"/>
+				<reportElement x="15" y="225" width="191" height="19" uuid="e554f512-0dfe-42c2-81c8-09012ae26656"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -767,7 +767,7 @@
 				</textElement>
 				<text><![CDATA[Net à payer:]]></text>
 			</staticText>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="287" y="133" width="539" height="42" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
 				<textElement>
 					<font size="14" isBold="false" isItalic="true"/>
