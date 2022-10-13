@@ -96,6 +96,7 @@ import fin.Coursdevise;
 import fin.CoursdevisePDF;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.math.RoundingMode;
 import java.util.Calendar;
 import lignecredit.LigneCredit;
 import mg.spat.CA;
@@ -776,8 +777,9 @@ public class EtatPaieServlet extends HttpServlet {
                 montantLettre=ChiffreLettre.convertIntToString(montantLong)+" Ariary";
                 
             }else{
-                montantFacture = Utilitaire.arrondir(montantFacture, 2);
-                totalGeneral = Utilitaire.arrondir(totalGeneral, 2);
+                //montantFacture = Utilitaire.arrondir(montantFacture, 2); mandiso io fonction io
+                montantFacture =Utilitaire.arrondirDecimalWithMode(montantFacture, "#.##", RoundingMode.HALF_UP);
+                totalGeneral = Utilitaire.arrondirDecimalWithMode(totalGeneral, "#.##", RoundingMode.HALF_UP);
                 String[] montantTexte = ChiffreLettre.convertRealToStringSepare(totalGeneral);
                 montantLettre= montantTexte[0];
                 if(montantTexte[1].compareToIgnoreCase("") != 0) montantLettre += ", " + montantTexte[1];
