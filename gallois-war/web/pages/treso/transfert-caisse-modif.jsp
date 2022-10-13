@@ -17,7 +17,7 @@
         String titrePage = "Modification transfert caisse",
                 classeMere = "mg.spat.MvttIntraCaisse",
                 classeFille = "mg.spat.MvtIntraCaisseFille",
-                buteLien = "treso/ transfert-caisse-fiche.jsp",
+                buteLien = "treso/transfert-caisse-fiche.jsp",
                 colonneMereDansFille = "idmere",
                 buteApresVisa = "treso/transfert-caisse-fiche.jsp";
         String autreparsley = "data-parsley-range='[8, 40]' required";
