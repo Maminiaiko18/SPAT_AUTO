@@ -51,7 +51,7 @@
         //listes[2].setDefaultSelected(utilitaire.Utilitaire.getMoisEnCours()+"");
         
         CompteCA type2 = new CompteCA();
-        type2.setNomTable("compteCA");
+        type2.setNomTable("compteCADetails");
         listes[3] = new Liste("compte", type2, "libelle", "val");
         
         TypeObjet type3 = new TypeObjet();
