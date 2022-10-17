@@ -782,8 +782,8 @@ public class EtatPaieServlet extends HttpServlet {
                 totalGeneral = Utilitaire.arrondirDecimalWithMode(totalGeneral, "#.##", RoundingMode.HALF_UP);
                 String[] montantTexte = ChiffreLettre.convertRealToStringSepare(totalGeneral);
                 montantLettre= montantTexte[0];
-                if(montantTexte[1].compareToIgnoreCase("") != 0) montantLettre += ", " + montantTexte[1];
-                montantLettre += " Ariary";
+                if(montantTexte[1].compareToIgnoreCase("") != 0) montantLettre += " Ariary " + montantTexte[1];
+                else montantLettre += " Ariary";
             }
             param.put("montant", montantFacture);
             param.put("arrondi", arrondi);
@@ -1815,7 +1815,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("totalmontant", totalmontant);
             param.put("totalcredit", totalcredit);
             param.put("totalfinale", totalfinale);
-            param.put("lettre", ChiffreLettre.convertRealToString(totalfinale));
+            param.put("lettre", ChiffreLettre.convertRealToString(totalfinale, "Ariary"));
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             String nomjasper = "journalcaisse";
             if(valcaisse.compareTo("cheque") == 0)
