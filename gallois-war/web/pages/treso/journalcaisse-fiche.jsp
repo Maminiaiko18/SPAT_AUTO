@@ -28,6 +28,7 @@
     pc.getChampByName("idbanque").setVisible(false); 
     pc.getChampByName("idbanque").setVisible(false);
     pc.getChampByName("caisse").setVisible(false);
+    pc.getChampByName("idcaisse").setVisible(false);
     pc.getChampByName("idmode").setVisible(false);
     pc.getChampByName("idTypeCheque").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);
