@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000002"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="389"/>
 	<property name="ireport.y" value="467"/>
 	<style name="table">
 		<box>
@@ -1439,7 +1439,7 @@
 				</textElement>
 				<text><![CDATA[HT]]></text>
 			</staticText>
-			<textField pattern="#,##0.000" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="818" y="75" width="102" height="19" uuid="04d047b9-b94a-4567-a433-5615d0a32e8b"/>
 				<box>
 					<topPen lineWidth="0.0"/>
@@ -1453,7 +1453,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantTTC}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.000" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="818" y="41" width="102" height="19" uuid="eb46e2ff-a87e-46d4-8217-795dc9dde425"/>
 				<box>
 					<topPen lineWidth="0.0"/>
@@ -1467,7 +1467,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.000" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="818" y="59" width="102" height="19" uuid="8136174a-a568-4ee5-a289-fc59e7974b33"/>
 				<box>
 					<topPen lineWidth="0.0"/>
