@@ -693,6 +693,10 @@ public class FactureClient extends ClassMere {
         if (!this.getIdcategorie().equals(Constante.idCategorieFCProvision)) {
             throw new Exception("Cette facture n est pas une facture de provision!");
         }
+        JournalCaisse[]journalCaisses= this.getPaiement(c);
+        if(journalCaisses.length==0){
+            throw new Exception("Provision non payée");
+        }
     }
 
     public void updatePaiement(String u, Connection c) throws Exception {
