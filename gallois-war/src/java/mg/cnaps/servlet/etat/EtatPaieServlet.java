@@ -1171,7 +1171,10 @@ public class EtatPaieServlet extends HttpServlet {
                     }
                     if (mere[0].getPaiement().compareToIgnoreCase(Constante.deviseAr) == 0) {
                         //montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
-                        montantlettre = ChiffreLettre.convertRealToString(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttc(), "#.##", RoundingMode.HALF_UP),"Ariary");
+                        String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+                        montantlettre= montantTexte[0];
+                        if(montantTexte[1].compareToIgnoreCase("") != 0) montantlettre += " Ariary " + montantTexte[1];
+                        else montantlettre += " Ariary";
                     }
                     if (mere[0].getPaiement().compareToIgnoreCase(Constante.deviseEuro) == 0) {
                         montantlettre = ChiffreLettre.convertRealToString(new Double(ttcEuro), " Euros");
@@ -1185,7 +1188,10 @@ public class EtatPaieServlet extends HttpServlet {
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0) {
                         //montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
-                        montantlettre = ChiffreLettre.convertRealToString(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttc(), "#.##", RoundingMode.HALF_UP),"Ariary");
+                        String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+                        montantlettre= montantTexte[0];
+                        if(montantTexte[1].compareToIgnoreCase("") != 0) montantlettre += " Ariary " + montantTexte[1];
+                        else montantlettre += " Ariary";
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro) == 0) {
                         montantlettre = ChiffreLettre.convertRealToString(new Double(ttcEuro), " Euros");
