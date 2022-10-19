@@ -2692,10 +2692,9 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
                 //facture.setListeDetails(details);
                 //facture.initDetails(null);
                 //details = facture.getListeDetails();
-                double total = 0;
                 double reduction = 0;
 
-                param.put("total", total);
+                param.put("total", ttcEuro);
                 param.put("montantsns", hTEuro);
                 param.put("reduction", reduction);
                 param.put("list_table", arrList);
