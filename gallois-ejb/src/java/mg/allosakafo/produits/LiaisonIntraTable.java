@@ -13,6 +13,7 @@ import facturefournisseur.EtatFactureMontantDaty;
 import java.sql.Connection;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
+import avoir.AvoirFF;
 import utilitaire.Utilitaire;
 
 /**
@@ -53,8 +54,17 @@ public class LiaisonIntraTable extends ClassMAPTable {
 
     @Override
     public void controler(Connection c) throws Exception {
-        if(!checkfacturevisee(c)) {
-            throw new Exception("Veuillez viser la facture avant");
+        FactureFournisseur factureFournisseur = isFactureFournisseur(c);
+        if(factureFournisseur!=null) {
+            if(factureFournisseur.getEtat()< ConstanteEtat.getEtatValider()){
+                throw new Exception("Facture fournisseur non visee");
+            }
+        }
+        AvoirFF avoir = isAvoirFF(c);
+        if(avoir!=null){
+            if(avoir.getEtat()<ConstanteEtat.getEtatValider()){
+                throw new Exception("Avoir non visee");
+            }
         }
     }
 
@@ -111,5 +121,29 @@ public class LiaisonIntraTable extends ClassMAPTable {
 
     public void setMontant(double montant) {
         this.montant = montant;
+    }
+    
+    public FactureFournisseur isFactureFournisseur(Connection c) throws Exception{
+        FactureFournisseur ff = new FactureFournisseur();
+        FactureFournisseur[] result = (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, String.format(" and id = '%s' ", this.getId1())); 
+        if(result.length>0){
+            ff=result[0];
+        }
+        else{
+           ff=null;
+        }
+        return ff;
+    }
+    
+    public AvoirFF isAvoirFF(Connection c) throws Exception{
+        AvoirFF avoir = new AvoirFF();
+        AvoirFF[] result = (AvoirFF[]) CGenUtil.rechercher(avoir, null, null, c, String.format(" and id = '%s' ", this.getId1())); 
+        if(result.length>0){
+            avoir=result[0];
+        }
+        else{
+           avoir=null;
+        }
+        return avoir;
     }
 }
