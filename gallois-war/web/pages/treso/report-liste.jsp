@@ -53,14 +53,14 @@
                     <option value="reportlib" >Tous</option>
                     <% } %>
                     <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("report_cree") == 0) {%>    
-                    <option value="report_cree" selected>Créé</option>
+                    <option value="REPORTLIBC" selected>Créé</option>
                     <% } else { %>
-                    <option value="report_cree" >Créé</option>
+                    <option value="REPORTLIBC" >Créé</option>
                     <% } %>
                     <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("report_vise") == 0) {%>    
-                    <option value="report_vise" selected>Visé</option>
+                    <option value="REPORTLIBV" selected>Visé</option>
                     <% } else { %>
-                    <option value="report_vise" >Visé</option>
+                    <option value="REPORTLIBV" >Visé</option>
                     <% } %>
 
                 </select>
