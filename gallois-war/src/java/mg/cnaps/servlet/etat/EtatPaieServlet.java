@@ -1031,7 +1031,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("pourcomptelib", mere[0].getPourCompteLib());
             
             ClientCategorie clg = new ClientCategorie();
-            clg.setNomTable("V_CLIENT_CATEGORIE");
+            clg.setNomTable("CLIENT_UNION");
             ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
             param.put("stat", clientcat[0].getNmsttclt());
             param.put("nif", clientcat[0].getNif());
@@ -1466,7 +1466,7 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("signature", signature);
                 } 
             ClientCategorie clg = new ClientCategorie();
-            clg.setNomTable("V_CLIENT_CATEGORIE");
+            clg.setNomTable("CLIENT_UNION");
             ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
             param.put("stat", clientcat[0].getNmsttclt());
             param.put("nif", clientcat[0].getNif());
@@ -2592,7 +2592,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
 
                 }
             ClientCategorie clg = new ClientCategorie();
-            clg.setNomTable("V_CLIENT_CATEGORIE");
+            clg.setNomTable("CLIENT_UNION");
             ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
             
              param.put("stat", clientcat[0].getNmsttclt());
