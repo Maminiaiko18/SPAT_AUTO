@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW CLIENT_UNION (CDCLT, CDCAT, NOMCLT, ADRCLT, NMSTTCLT, TELCLT, FAXCLT, NMCIN, NIF, RC, CATEGORIE,DTTP,
+       TP,
+       DTQUIT,
+       QUIT) AS 
+  select CDCLT,
+       CDCAT,
+       NOMCLT,
+       ADRCLT,
+       NMSTTCLT,
+       TELCLT,
+       FAXCLT,
+       NMCIN,
+       NIF,
+       RC,
+       CATEGORIE,
+       DTTP,
+       TP,
+       DTQUIT,
+       QUIT
+from V_CLIENT_CATEGORIE
+union
+select ID ,
+       '000' as  CDCAT,
+       nom,
+       adresse,
+       '' NMSTTCLT,
+       CONTACT,
+       stat,
+       cin,
+       nif,
+       cp,
+       type as categorie,
+       null AS DTTP,
+       CAST('' AS varchar(500)) AS TP,
+       null AS DTQUIT,
+       CAST('' AS varchar(500)) AS QUIT
+from tiers_lib;
