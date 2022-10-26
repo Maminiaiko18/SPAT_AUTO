@@ -389,14 +389,14 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="377" y="107" width="30" height="20" uuid="c19b23a5-ac05-4be6-a1af-1a877b23df91"/>
+				<reportElement x="373" y="107" width="30" height="20" uuid="c19b23a5-ac05-4be6-a1af-1a877b23df91"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DU :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="407" y="107" width="170" height="20" uuid="caefe481-5c53-4fc8-9f37-a16ee46d9e66"/>
+				<reportElement x="403" y="107" width="170" height="20" uuid="caefe481-5c53-4fc8-9f37-a16ee46d9e66"/>
 				<textElement>
 					<font size="14" isBold="false"/>
 				</textElement>
