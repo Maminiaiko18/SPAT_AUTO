@@ -149,7 +149,7 @@
 	<parameter name="codeclient" class="java.lang.String"/>
 	<parameter name="tp" class="java.lang.String"/>
 	<parameter name="ttcEuro" class="java.lang.Double"/>
-	<parameter name="Dttp" class="java.lang.String"/>
+	<parameter name="Dttp" class="java.util.Date"/>
 	<field name="list_table" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
