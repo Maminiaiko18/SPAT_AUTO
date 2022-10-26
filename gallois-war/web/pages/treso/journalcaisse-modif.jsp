@@ -81,7 +81,7 @@
                         <br><br> 
                     </div>
                     <input name="acte" type="hidden" id="acte" value="update">
-                    <input name="bute" type="hidden" id="bute" value="treso/recette-fiche.jsp">
+                    <input name="bute" type="hidden" id="bute" value="treso/journalcaisse-fiche.jsp">
                     <input name="classe" type="hidden" id="classe" value="mg.spat.JournalCaisse">
                     <input name="rajoutLien" type="hidden" id="rajoutLien" value="id-<%out.print(request.getParameter("id"));%>" >
                     <input name="nomtable" type="hidden" id="nomtable" value="journalcaisse">
