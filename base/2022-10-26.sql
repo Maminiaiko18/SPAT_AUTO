@@ -1,0 +1,48 @@
+CREATE OR REPLACE VIEW "COMPTECAFACTURE" ("ID", "VAL", "DESCE", "IDMERE", "DESIGNATION", "QUANTITE", "PU", "IDPRODUIT", "DEVISE", "TAUX", "QTELIVREE", "RESTEALIVRER", "MONTANTTAUX", "MONTANT", "MONTANTAVOIRSANSTAUX", "MONTANTAVOIRAVECTAUX", "TVA", "IDACTIVITE", "ACTIVITELIB", "HEUREDEBUT", "HEUREFIN", "MOISLIB", "TAUXEURO", "MONTANTHTEURO", "MONTANTTVAEURO", "MONTANTTAXE", "MAJORATION", "REDUCTION", "DATEFACT", "RUBRIQUE", "RANG", "DATY", "VALMERECA", "DESCEMERECA", "MOIS", "ANNEE", "COMPTE", "TYPE", "MERECA") AS 
+  select ID,
+       VAL,
+       DESCE,
+       IDMERE,
+       DESIGNATION,
+       QUANTITE,
+       PU,
+       IDPRODUIT,
+       DEVISE,
+       TAUX,
+       QTELIVREE,
+       RESTEALIVRER,
+       MONTANTTAUX,
+       MONTANT,
+       MONTANTAVOIRSANSTAUX,
+       MONTANTAVOIRAVECTAUX,
+       TVA,
+       IDACTIVITE,
+       ACTIVITELIB,
+       HEUREDEBUT,
+       HEUREFIN,
+       MOISLIB,
+       TAUXEURO,
+       MONTANTHTEURO,
+       MONTANTTVAEURO,
+       MONTANTTAXE,
+       MAJORATION,
+       REDUCTION,
+       DATEFACT,
+       RUBRIQUE,
+       RANG,
+       DATY,
+       valMereCA,
+       desceMereCA,
+       CASE WHEN (ccf.tiers='0120037' OR ccf.tiers='clt1') AND ccf.compte!='70631' THEN ccf.moisM1 
+       ELSE ccf.mois END AS mois,
+       CASE WHEN (ccf.tiers='0120037' OR ccf.tiers='clt1') AND ccf.compte!='70631' AND ccf.moisM1=12 THEN ccf.anneeM1 
+       ELSE annee END AS annee,
+       compte,
+       TYPE,
+       mereca
+from COMPTECAFACTUREM1 ccf;
+
+
+UPDATE journalcaisse SET IDTYPECHEQUE ='TCHQ00002' WHERE id IN ('CAS0000012936110154','CAS0000012935105536','CAS0000012933105224');
+
+UPDATE typecheque SET val='A credit', desce='A credit' WHERE id='TCHQ00002';

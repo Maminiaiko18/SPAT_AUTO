@@ -117,7 +117,7 @@ try {
         pi.getFormufle().getChamp("idactivite_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
         
-        if(i < liste.length) { 
+        if(i < liste.length && liste[i].getDaty()!=null) { 
             pi.getFormufle().getChamp("daty_"+i).setValeur(Utilitaire.datetostring(liste[i].getDaty()));
         }
     }
