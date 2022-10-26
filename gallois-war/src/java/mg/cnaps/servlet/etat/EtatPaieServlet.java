@@ -1038,6 +1038,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("rc", clientcat[0].getRc());
             param.put("quittance", clientcat[0].getQuit());
             param.put("tp", clientcat[0].getTp());
+            param.put("Dttp", clientcat[0].getDttp());
             
             
             param.put("stat1", clientcat[0].getNmsttclt());
