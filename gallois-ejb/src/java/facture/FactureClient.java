@@ -910,6 +910,21 @@ public class FactureClient extends ClassMere {
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
+        
+        ClientCategorie cl = this.findClient(null, c);
+        if(cl!=null){
+            this. nomclt=cl.getNomclt();
+            this. adrclt=cl.getAdrclt();
+            this. nmsttclt=cl.getNmsttclt();
+            this. telclt=cl.getTelclt();
+            this. nif=cl.getNif();
+            this.rc=cl.getRc();
+            this.dttp=cl.getDttp();
+            this.tp=cl.getTp();
+            this.dtquit=cl.getDtquit();
+            this.quit=cl.getQuit();
+        }
+
         super.validerObject(u, c);
         return this;
     }
