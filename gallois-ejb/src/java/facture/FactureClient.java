@@ -62,6 +62,88 @@ public class FactureClient extends ClassMere {
     private int exercice;
     private String idavoir,provenancelib,destinationlib,bateaulib,pavillon,pavillonlib;
     private double volume,volume100;
+    private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit ;
+    private Date dttp ,dtquit;
+
+    public String getNomclt() {
+        return nomclt;
+    }
+
+    public void setNomclt(String nomclt) {
+        this.nomclt = nomclt;
+    }
+
+    public String getAdrclt() {
+        return adrclt;
+    }
+
+    public void setAdrclt(String adrclt) {
+        this.adrclt = adrclt;
+    }
+
+    public String getNmsttclt() {
+        return nmsttclt;
+    }
+
+    public void setNmsttclt(String nmsttclt) {
+        this.nmsttclt = nmsttclt;
+    }
+
+    public String getTelclt() {
+        return telclt;
+    }
+
+    public void setTelclt(String telclt) {
+        this.telclt = telclt;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public String getRc() {
+        return rc;
+    }
+
+    public void setRc(String rc) {
+        this.rc = rc;
+    }
+
+    public String getTp() {
+        return tp;
+    }
+
+    public void setTp(String tp) {
+        this.tp = tp;
+    }
+
+    public String getQuit() {
+        return quit;
+    }
+
+    public void setQuit(String quit) {
+        this.quit = quit;
+    }
+
+    public Date getDttp() {
+        return dttp;
+    }
+
+    public void setDttp(Date dttp) {
+        this.dttp = dttp;
+    }
+
+    public Date getDtquit() {
+        return dtquit;
+    }
+
+    public void setDtquit(Date dtquit) {
+        this.dtquit = dtquit;
+    }
 
     public double getVolume() {
         return volume;
