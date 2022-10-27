@@ -1030,31 +1030,16 @@ public class EtatPaieServlet extends HttpServlet {
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
             
-            ClientCategorie clg = new ClientCategorie();
+            /*ClientCategorie clg = new ClientCategorie();
             clg.setNomTable("CLIENT_UNION");
-            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
-            param.put("stat", clientcat[0].getNmsttclt());
-            param.put("nif", clientcat[0].getNif());
-            param.put("rc", clientcat[0].getRc());
-            param.put("quittance", clientcat[0].getQuit());
-            param.put("tp", clientcat[0].getTp());
-            param.put("Dttp", clientcat[0].getDttp());
-            
-            
-            param.put("stat1", clientcat[0].getNmsttclt());
-            param.put("nif1", clientcat[0].getNif());
-            param.put("rc1", clientcat[0].getRc());
-            param.put("quittance1", clientcat[0].getQuit());
-            param.put("tp1", clientcat[0].getTp());
-            
-            param.put("Stat2", clientcat[0].getNmsttclt());
-            param.put("nif2", clientcat[0].getNif());
-            param.put("rc2", clientcat[0].getRc());
-            param.put("quittance2", clientcat[0].getQuit());
-            param.put("tp2", clientcat[0].getTp());
-            param.put("pdaty4", clientcat[0].getDtquit());
-            param.put("pdaty5", clientcat[0].getDttp());
-            
+            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");*/
+            param.put("stat", mere[0].getNmsttclt());
+            param.put("nif", mere[0].getNif());
+            param.put("rc", mere[0].getRc());
+            param.put("quittance", mere[0].getQuit());
+            param.put("tp", mere[0].getTp());
+            param.put("Dttp", mere[0].getDttp());
+            param.put("pdaty", mere[0].getDtquit());
             
             facture = mere[0];
             facture.setId(id);
@@ -1141,8 +1126,8 @@ public class EtatPaieServlet extends HttpServlet {
                 designation = UtilitaireFacture.remplacerCharacteres(mere[0].getDesignation());
                 param.put("designation", designation);
                 param.put("reduction", mere[0].getReduction());
-                param.put("client", mere[0].getTierslib());
-                param.put("adresse", mere[0].getAdresse());
+                param.put("client", mere[0].getNomclt());
+                param.put("adresse", mere[0].getAdrclt());
                 param.put("phone", mere[0].getContact());
                 param.put("montant", Utilitaire.arrondirDecimalWithMode(mere[0].getMontant(), "#.##", RoundingMode.HALF_UP));
                 param.put("montantTVA", Utilitaire.arrondirDecimalWithMode(mere[0].getMontanttva(), "#.##", RoundingMode.HALF_UP));

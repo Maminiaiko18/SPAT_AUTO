@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000002"/>
-	<property name="ireport.x" value="389"/>
-	<property name="ireport.y" value="512"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="231"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -128,13 +128,13 @@
 	<parameter name="total" class="java.lang.Double"/>
 	<parameter name="pourcomptelib" class="java.lang.String"/>
 	<parameter name="designation+" class="java.lang.String"/>
-	<parameter name="Stat2" class="java.lang.String"/>
-	<parameter name="quittance2" class="java.lang.String"/>
-	<parameter name="rc2" class="java.lang.String"/>
-	<parameter name="pdaty5" class="java.util.Date"/>
-	<parameter name="pdaty4" class="java.util.Date"/>
-	<parameter name="tp2" class="java.lang.String"/>
-	<parameter name="nif2" class="java.lang.String"/>
+	<parameter name="stat" class="java.lang.String"/>
+	<parameter name="quittance" class="java.lang.String"/>
+	<parameter name="rc" class="java.lang.String"/>
+	<parameter name="Dttp" class="java.util.Date"/>
+	<parameter name="pdaty" class="java.util.Date"/>
+	<parameter name="tp" class="java.lang.String"/>
+	<parameter name="nif" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -981,21 +981,21 @@
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{Stat2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{stat}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="85" y="80" width="210" height="20" uuid="19269237-6ae5-4ac0-bc4a-206533920abb"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{quittance2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{quittance}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="85" y="100" width="210" height="20" uuid="d8eaae04-fd2f-45e8-8500-03f296459fd0"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{tp2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tp}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="443" y="65" width="46" height="25" uuid="d6b0f0d6-8c64-4865-b110-81b690eb6ab5"/>
@@ -1009,7 +1009,7 @@
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{nif2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{nif}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="698" y="65" width="49" height="25" uuid="5730ad9e-144c-4d11-8d6c-f50ef9de7209"/>
@@ -1023,7 +1023,7 @@
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rc2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rc}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="299" y="80" width="28" height="20" uuid="dc630479-736b-40ed-a7cb-997f1e0b1642"/>
@@ -1044,14 +1044,14 @@
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{pdaty4}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{pdaty}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="334" y="100" width="89" height="20" uuid="e3451a5d-20e4-4762-9009-cd3efee3296b"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{pdaty5}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Dttp}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="-14" y="185" width="99" height="20" uuid="1d686270-2768-465d-b4f3-bf71c026a09d"/>
