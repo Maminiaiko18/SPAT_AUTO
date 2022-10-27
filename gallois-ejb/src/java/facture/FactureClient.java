@@ -2183,7 +2183,15 @@ public class FactureClient extends ClassMere {
         }
     }
     
-
+    public ClientCategorie findClient(String nomtable,Connection c) throws Exception{
+        if (nomtable == null || nomtable.compareToIgnoreCase("") == 0) nomtable = "client_union";
+        ClientCategorie cl = new ClientCategorie();
+        cl.setNomTable(nomtable);
+        ClientCategorie[] clients = (ClientCategorie[]) CGenUtil.rechercher(cl, null, null, c, " and cdclt = '"+this.getTiers()+"'");
+        if(clients.length > 0) return clients[0];
+        return null;
+    }
+    
     public FactureClient(Date daty, Date date_echeance, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String escale, String deviseMere, double tva, double montant, double montanttva, double montantttc, double montantpaye, double montantreste, String tierslib, double montantavoir, String contact, String adresse, String etatLib, String typelib, double deviseEuro, double deviseDollar, double coeff, double montantHTEuro, double montantTVAEuro, double montantHTVADollar, double montantTVADollar, double montantTTCDollar, double montantttcvrai, String idcategorie, String idProvision, String categorielib, String idProvisionlib, String iddefinitive, String estDDPMICTSL, String codePrestation, String codePrestationlib, String codeProvision, String code, String estMictsl, double reduction, double ecart) throws Exception {
         setNomTable("Factureclient");
         setLiaisonFille("idmere");
