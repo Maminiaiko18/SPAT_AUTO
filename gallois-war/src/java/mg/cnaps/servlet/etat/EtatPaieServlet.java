@@ -1039,7 +1039,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("quittance", mere[0].getQuit());
             param.put("tp", mere[0].getTp());
             param.put("Dttp", mere[0].getDttp());
-            param.put("pdaty", mere[0].getDtquit());
+            param.put("dtquit", mere[0].getDtquit());
             
             facture = mere[0];
             facture.setId(id);

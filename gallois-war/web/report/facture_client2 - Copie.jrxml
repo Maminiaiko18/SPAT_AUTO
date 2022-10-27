@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="231"/>
+	<property name="ireport.y" value="81"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -132,7 +132,7 @@
 	<parameter name="quittance" class="java.lang.String"/>
 	<parameter name="rc" class="java.lang.String"/>
 	<parameter name="Dttp" class="java.util.Date"/>
-	<parameter name="pdaty" class="java.util.Date"/>
+	<parameter name="dtquit" class="java.util.Date"/>
 	<parameter name="tp" class="java.lang.String"/>
 	<parameter name="nif" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String"/>
@@ -1044,7 +1044,7 @@
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{pdaty}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{dtquit}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="334" y="100" width="89" height="20" uuid="e3451a5d-20e4-4762-9009-cd3efee3296b"/>
