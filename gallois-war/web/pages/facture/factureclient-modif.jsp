@@ -107,6 +107,17 @@
         pi.getFormu().getChamp("PourCompteLib").setVisible(false);
         pi.getFormu().getChamp("Pavillonlib").setVisible(false);
         
+        pi.getFormu().getChamp("nomclt").setVisible(false);
+        pi.getFormu().getChamp("adrclt").setVisible(false);
+        pi.getFormu().getChamp("nmsttclt").setVisible(false);
+        pi.getFormu().getChamp("telclt").setVisible(false);
+        pi.getFormu().getChamp("nif").setVisible(false);
+        pi.getFormu().getChamp("rc").setVisible(false);
+        pi.getFormu().getChamp("dttp").setVisible(false);
+        pi.getFormu().getChamp("tp").setVisible(false);
+        pi.getFormu().getChamp("dtquit").setVisible(false);
+        pi.getFormu().getChamp("quit").setVisible(false);
+        
         pi.getFormu().getChamp("paiement").setDefaut("Ar");
         pi.getFormu().getChamp("pourcompte").setPageAppel("choix/clientCategorieChoix.jsp");
         pi.getFormu().getChamp("pourcompte").setAutre("readonly");
