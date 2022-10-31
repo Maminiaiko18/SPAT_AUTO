@@ -29,7 +29,7 @@
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
         
-//        pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp", "tiers;tierslibelle");
+        pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp", "tiers;tierslibelle");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         
         pi.getFormu().getChamp("type").setVisible(false);
