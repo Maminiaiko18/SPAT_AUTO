@@ -38,7 +38,7 @@
                         <br/>
                         </div>
                         <div class="box-footer" style="margin-left:30%">
-                            <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien")%>?but=facture/client-modif.jsp&id=<%=id%>" style="margin-right: 10px">Modifier</a>
+                            <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien")%>?but=facture/client-modif.jsp&cdclt=<%=id%>" style="margin-right: 10px">Modifier</a>
                         </div>                    
                 </div>
             </div>
