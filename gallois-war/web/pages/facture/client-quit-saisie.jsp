@@ -24,7 +24,7 @@
     pi.getFormu().getChamp("dtquit").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("quit").setLibelle("Quittance");
     pi.getFormu().getChamp("valide").setVisible(false);
-    //pi.getFormu().getChamp("nomclt").setVisible(false);
+    pi.getFormu().getChamp("nomclt").setVisible(false);
      pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
