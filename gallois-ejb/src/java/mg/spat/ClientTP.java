@@ -11,7 +11,7 @@ import java.sql.Date;
 
 
 public class ClientTP extends ClassMAPTable {
-    private String cdclt,tp,valide;
+    private String cdclt,tp,valide,nomclt;
     private Date dttp;
 
     public ClientTP() {
@@ -48,6 +48,14 @@ public class ClientTP extends ClassMAPTable {
 
     public void setDttp(Date dttp) {
         this.dttp = dttp;
+    }
+
+    public String getNomclt() {
+        return nomclt;
+    }
+
+    public void setNomclt(String nomclt) {
+        this.nomclt = nomclt;
     }
 
     @Override
