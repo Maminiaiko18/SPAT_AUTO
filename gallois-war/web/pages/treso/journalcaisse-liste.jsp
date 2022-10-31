@@ -81,6 +81,12 @@
                         <option value="journalcaisselibdepense" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("journalcaisselibdepense") == 0) {
                                 out.print("selected");
                             }%>>D&eacute;penses</option>
+                        <option value="JOURNALCAISSELIB_PROVISION" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_PROVISION") == 0) {
+                                out.print("selected");
+                            }%>>Provisions</option>
+                        <option value="JOURNALCAISSELIB_SANSPROV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSPROV") == 0) {
+                                out.print("selected");
+                            }%>>Recettes sans provisions</option>
 
                         
                     </select>
