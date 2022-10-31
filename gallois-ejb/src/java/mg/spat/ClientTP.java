@@ -61,7 +61,7 @@ public class ClientTP extends ClassMAPTable {
     }
     @Override
     public void construirePK(Connection c) throws Exception {
-        preparePk("CQ", "get_seq_clientTP");
+        preparePk("CTP", "get_seq_clientTP");
         setCdclt(makePK(c));
     }
     
