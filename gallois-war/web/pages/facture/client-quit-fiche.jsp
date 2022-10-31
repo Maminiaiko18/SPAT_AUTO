@@ -32,7 +32,7 @@
                         <br/>
                         </div>
                         <div class="box-footer" style="margin-left:30%">
-                            <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien")%>?but=facture/client-quit-modif.jsp&id=<%=id%>" style="margin-right: 10px">Modifier</a>
+                            <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien")%>?but=facture/client-quit-modif.jsp&cdclt=<%=id%>" style="margin-right: 10px">Modifier</a>
                             <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien")%>?but=apresTarif.jsp&acte=delete&nomtable=client_quit&classe=mg.spat.ClientQuit&bute=facture/client-quit-liste.jsp&id=<%=id%>" style="margin-right: 10px">Supprimer</a>
                         </div>                    
                 </div>

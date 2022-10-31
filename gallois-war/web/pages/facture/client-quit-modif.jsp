@@ -17,7 +17,7 @@
                 table = "client_quit",
                 classe = "mg.spat.ClientQuit",
                 bute = "facture/client-quit-fiche.jsp",
-                titre = "Modification client",
+                titre = "Modification Quittance",
                 cdclt = request.getParameter("cdclt")
         ;
         ClientQuit o = new ClientQuit();
