@@ -1746,6 +1746,14 @@ public class EtatPaieServlet extends HttpServlet {
             {
                 journalCaisse.setNomTable("journalcaisselibdepense");
             }
+            if(etat.compareTo("JOURNALCAISSELIB_PROVISION")==0)
+            {
+                journalCaisse.setNomTable("JOURNALCAISSELIB_PROVISION");
+            }
+            if(etat.compareTo("JOURNALCAISSELIB_SANSPROV")==0)
+            {
+                journalCaisse.setNomTable("JOURNALCAISSELIB_SANSPROV");
+            }
             
             JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, sql);
             ArrayList<JournalCaissePdf> ls = new ArrayList<JournalCaissePdf>();
