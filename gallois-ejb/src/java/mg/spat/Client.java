@@ -6,6 +6,7 @@
 package mg.spat;
 
 import bean.ClassMAPTable;
+import java.sql.Connection;
 import java.sql.Date;
 
 /**
@@ -150,6 +151,11 @@ public class Client extends ClassMAPTable{
     @Override
     public String getAttributIDName() {
         return "cdclt";
+    }
+    @Override
+    public void construirePK(Connection c) throws Exception {
+        preparePk("CL","GET_SEQ_CLIENT");
+        setCdclt(makePK(c));
     }
     
 }
