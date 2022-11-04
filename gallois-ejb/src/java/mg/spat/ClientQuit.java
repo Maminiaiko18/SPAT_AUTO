@@ -11,7 +11,7 @@ import java.sql.Date;
 
 
 public class ClientQuit extends ClassMAPTable {
-    private String cdclt,quit,valide;
+    private String id,cdclt,quit,valide;
     private Date dtquit;
     //private String nomclt;
 
@@ -19,6 +19,14 @@ public class ClientQuit extends ClassMAPTable {
         super.setNomTable("client_quit");
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public String getCdclt() {
         return cdclt;
     }
@@ -61,12 +69,12 @@ public class ClientQuit extends ClassMAPTable {
     
     @Override
     public String getTuppleID() {
-        return cdclt;
+        return id;
     }
 
     @Override
     public String getAttributIDName() {
-        return "cdclt";
+        return "id";
     }
     
     @Override
