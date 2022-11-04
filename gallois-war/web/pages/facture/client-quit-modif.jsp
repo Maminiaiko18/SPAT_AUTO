@@ -21,13 +21,15 @@
                 cdclt = request.getParameter("cdclt")
         ;
         ClientQuit o = new ClientQuit();
-        o.setNomTable("client_quit");
+        o.setNomTable("client_quitlib");
         PageUpdate pi = new PageUpdate(o, request, (user.UserEJB) session.getValue("u"));
         pi.setLien((String) session.getValue("lien"));
         
         o =(ClientQuit)pi.getBase();
         
-        pi.getFormu().getChamp("cdclt").setLibelle("Id");
+        pi.getFormu().getChamp("cdclt").setLibelle("Client");
+        pi.getFormu().getChamp("cdclt").setValeurLibelle(o.getNomclt());
+        pi.getFormu().getChamp("cdclt").setAutre("readonly");
         pi.getFormu().getChamp("cdclt").setPageAppel("choix/listeClientDBspatChoix.jsp","cdclt;cdcltlibelle");
        
         pi.getFormu().getChamp("dtquit").setLibelle("Date");
@@ -36,6 +38,7 @@
         pi.getFormu().getChamp("quit").setLibelle("Quittance");
 
         
+        pi.getFormu().getChamp("nomclt").setVisible(false);
         pi.getFormu().getChamp("valide").setVisible(false);
         
         pi.preparerDataFormu();
@@ -65,8 +68,8 @@
     </div>
 </div>
 
-    <%
+<%
     }catch(Exception e){
-e.printStackTrace();
-}
-    %>
+        e.printStackTrace();
+    }
+%>
