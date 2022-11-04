@@ -13,9 +13,11 @@
     a.setNomTable("client_tplib");
     PageConsulte pc = new PageConsulte(a, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
     pc.getChampByName("valide").setVisible(false);
+    pc.getChampByName("cdclt").setVisible(false);
+    pc.getChampByName("dttp").setLibelle("Date");
     pc.setTitre("Fiche Client TP");
     a=(ClientTP)pc.getBase();
-    String id = a.getCdclt();
+    String id = a.getId();
 %>
 <div class="content-wrapper">
     <div class="row">

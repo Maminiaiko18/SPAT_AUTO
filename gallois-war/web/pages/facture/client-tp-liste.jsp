@@ -14,15 +14,14 @@
         ClientTP base = new ClientTP();
         base.setNomTable("client_tplib");
 
-        String listeCrt[] = {"cdclt", "tp", "dttp"};
+        String listeCrt[] = {"id", "tp", "dttp"};
         String listeInt[] = {"dttp"};
-        String libEntete[] = {"cdclt", "nomclt", "tp", "dttp"};
+        String libEntete[] = {"id", "nomclt", "tp", "dttp"};
 
         PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         
-        pr.getFormu().getChamp("cdclt").setLibelle("ID");
         pr.getFormu().getChamp("tp").setLibelle("TP");
         pr.getFormu().getChamp("dttp1").setLibelle("Date Min");
         pr.getFormu().getChamp("dttp2").setLibelle("Date Max");
@@ -49,7 +48,7 @@
         </form>
                <%
             String lienTableau[] = {pr.getLien() + "?but=facture/client-tp-fiche.jsp"};
-            String colonneLien[] = {"cdclt"};
+            String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
