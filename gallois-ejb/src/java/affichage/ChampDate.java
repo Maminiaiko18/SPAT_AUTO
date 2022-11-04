@@ -23,7 +23,6 @@ public class ChampDate extends Champ{
     public void makeHtml() throws Exception{
         String temp = "";
         String val = getValeur();
-        System.out.println("mode " + mode);
         if(mode.compareToIgnoreCase(MODEUPDATE) == 0){
             val = Utilitaire.convertDatyFormtoRealDatyFormat(getValeur());
         }else{
