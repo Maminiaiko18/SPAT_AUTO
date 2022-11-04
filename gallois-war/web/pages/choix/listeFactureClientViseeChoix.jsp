@@ -3,10 +3,10 @@
 <%
     String champReturn = request.getParameter("champReturn");
     FactureClient facture = new FactureClient();
-    facture.setNomTable("FACTURECLIENTMSUMV");
-    String listeCrt[] = {"id","daty" ,"tierslib","designation"};
+    facture.setNomTable("FACTURE_CLIENT_UNIONV");
+    String listeCrt[] = {"id","daty" ,"code","tierslib","designation"};
     String listeInt[] = {"daty"};
-    String libEntete[] = {"id","daty" ,"tierslib","designation","tva", "date_echeance", "montant", "montanttva", "montantttc"};
+    String libEntete[] = {"id","daty" ,"tierslib","designation","tva", "date_echeance", "montant", "montanttva", "montantttc","montantreste"};
     PageRechercheChoix pr = new PageRechercheChoix(facture, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     //pr.setOrdre(" order by daty desc");
@@ -45,7 +45,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <% 
-                       String libEnteteAff[] =  {"id","daty" ,"tiers","designation","tva", "Date Echéance","montant HT", "montant TVA", "montant TTC"};
+                       String libEnteteAff[] =  {"id","daty" ,"tiers","designation","tva", "Date Echéance","montant HT", "montant TVA", "montant TTC", "RAP"};
                        pr.getTableau().setLibeEntete(libEnteteAff);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>
