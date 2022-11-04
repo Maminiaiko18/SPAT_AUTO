@@ -361,6 +361,7 @@
             }
 
             u.updateObject(f);
+            id = f.getTuppleID();
         }
         if (acte.compareToIgnoreCase("ouvrir") == 0) {
             t = (ClassMAPTable) (Class.forName(classe).newInstance());
@@ -430,10 +431,11 @@
             temp = t;
             u.finaliser(t);
         }
-
-
+        
+        String idAttributeName = "id";
+        if(t != null && t.getAttributIDName() != null && !t.getAttributIDName().trim().isEmpty()) idAttributeName = t.getAttributIDName();
     %>
-    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>
+    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&<%=idAttributeName%>=<%=Utilitaire.champNull(id)%>");</script>
     <%
 
     } catch (Exception e) {
