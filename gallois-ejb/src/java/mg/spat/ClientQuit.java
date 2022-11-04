@@ -13,7 +13,7 @@ import java.sql.Date;
 public class ClientQuit extends ClassMAPTable {
     private String id,cdclt,quit,valide;
     private Date dtquit;
-    //private String nomclt;
+    private String nomclt;
 
     public ClientQuit() {
         super.setNomTable("client_quit");
@@ -59,13 +59,13 @@ public class ClientQuit extends ClassMAPTable {
         this.dtquit = dtquit;
     }
 
-    /*public String getNomclt() {
+    public String getNomclt() {
         return nomclt;
     }
 
     public void setNomclt(String nomclt) {
         this.nomclt = nomclt;
-    }*/
+    }
     
     @Override
     public String getTuppleID() {
