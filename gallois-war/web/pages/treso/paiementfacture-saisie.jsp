@@ -31,7 +31,7 @@
         %>
 
     <input name="acte" type="hidden" id="nature" value="insert">
-    <input name="bute" type="hidden" id="bute" value="treso/journalcaisse-fiche.jsp">
+    <input name="bute" type="hidden" id="bute" value="treso/paiementfacture-fiche.jsp">
     <input name="classe" type="hidden" id="classe" value="facture.PaiementFacture">
     </form>
 </div>

@@ -902,17 +902,17 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
     }
     
-    public PayementFacture[] getPayementFacture(Connection c) throws Exception{
+    public PaiementFacture[] getPayementFacture(Connection c) throws Exception{
         int verif = 0;
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
                 verif = 1;
             }
-            PayementFacture pf = new PayementFacture();
+            PaiementFacture pf = new PaiementFacture();
             pf.setNomTable("paiementfactureHorsProvision");
             String awhere = String.format(" and idmvt = '%s' ", this.getId());
-            PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
+            PaiementFacture[] result = (PaiementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;
         } catch(Exception ex) {
             throw ex;
