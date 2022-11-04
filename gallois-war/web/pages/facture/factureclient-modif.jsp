@@ -351,6 +351,10 @@
     </div>
 </div>
 <script>
+    $(document).ready(function() {
+       $('#dttp').val('');
+       $('#dtquit').val('');
+    });
     document.getElementById('lht').remove();
     document.getElementById('lm').remove();
     document.getElementById('te').remove();

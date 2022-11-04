@@ -10,7 +10,8 @@
     PageUpdate pi = new PageUpdate(client, request, (user.UserEJB) session.getValue("u"));
 
     pi.getFormu().getChamp("valide").setVisible(false);
-    pi.getFormu().getChamp("cdclt").setLibelle("ID");
+//    pi.getFormu().getChamp("cdclt").setLibelle("ID");
+    pi.getFormu().getChamp("cdclt").setPageAppel("choix/listeClientDBspatChoix.jsp");
     pi.getFormu().getChamp("cdclt").setAutre("readonly");
     pi.getFormu().getChamp("dttp").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("dttp").setLibelle("Date");
@@ -19,6 +20,8 @@
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
     pi.preparerDataFormu();
+    client = (ClientTP)pi.getBase();
+    pi.getFormu().getChamp("cdclt").setValeurLibelle(client.getCdclt());
 %> 
 
 <div class="content-wrapper">

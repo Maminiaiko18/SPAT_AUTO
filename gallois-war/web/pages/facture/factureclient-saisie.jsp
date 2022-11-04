@@ -43,6 +43,7 @@
     pi.getFormu().getChamp("tp").setVisible(false);
     pi.getFormu().getChamp("dtquit").setVisible(false);
     pi.getFormu().getChamp("quit").setVisible(false);
+    
    // pi.getFormu().getChamp("estAncienne").setLibelle("Est ancienne");
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
     pi.getFormu().getChamp("exercice").setLibelle("Exercice");
@@ -235,6 +236,10 @@
 
 </div>
 <script  language="JavaScript">    
+    $(document).ready(function() {
+       $('#dttp').val('');
+       $('#dtquit').val('');
+    });
     $('#date_echeance').val('<%=Utilitaire.formatterDaty(Utilitaire.ajoutJourDate(Utilitaire.dateDuJour(), 30))%>');
     function calculerMontant(indice) {
         var quantite, pu, montant, duree;
