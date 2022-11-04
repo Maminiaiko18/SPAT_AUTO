@@ -11,13 +11,21 @@ import java.sql.Date;
 
 
 public class ClientTP extends ClassMAPTable {
-    private String cdclt,tp,valide,nomclt;
+    private String cdclt,tp,valide,nomclt,id;
     private Date dttp;
 
     public ClientTP() {
         super.setNomTable("client_tp");
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public String getCdclt() {
         return cdclt;
     }
@@ -60,12 +68,12 @@ public class ClientTP extends ClassMAPTable {
 
     @Override
     public String getTuppleID() {
-        return cdclt;
+        return id;
     }
 
     @Override
     public String getAttributIDName() {
-        return "cdclt";
+        return "id";
     }
     @Override
     public void construirePK(Connection c) throws Exception {
