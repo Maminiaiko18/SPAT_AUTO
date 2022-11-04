@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000001"/>
-	<property name="ireport.x" value="390"/>
+	<property name="ireport.x" value="389"/>
 	<property name="ireport.y" value="154"/>
 	<style name="table">
 		<box>
@@ -150,7 +150,7 @@
 	<parameter name="tp" class="java.lang.String"/>
 	<parameter name="ttcEuro" class="java.lang.Double"/>
 	<parameter name="Dttp" class="java.util.Date"/>
-	<parameter name="dtquit" class="java.lang.String"/>
+	<parameter name="dtquit" class="java.util.Date"/>
 	<field name="list_table" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
