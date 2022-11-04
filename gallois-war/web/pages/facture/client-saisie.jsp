@@ -13,6 +13,7 @@
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     Client client = new Client();
+    client.setNomTable("client");
     PageInsert pi = new PageInsert(client, request, (user.UserEJB) session.getValue("u"));
     pi.getFormu().getChamp("cdcat").setDefaut("000");
     pi.getFormu().getChamp("cdcat").setAutre("readonly");
@@ -35,7 +36,7 @@
             out.println(pi.getFormu().getHtmlInsert());
         %>
     <input name="acte" type="hidden" id="nature" value="insert">
-    <input name="bute" type="hidden" id="bute" value="facture/client-liste.jsp">
+    <input name="bute" type="hidden" id="bute" value="facture/client-fiche.jsp">
     <input name="classe" type="hidden" id="classe" value="mg.spat.Client">
     </form>
 </div>
