@@ -1730,31 +1730,10 @@ public class EtatPaieServlet extends HttpServlet {
             //System.out.println(sql);
             JournalCaisse journalCaisse = new JournalCaisse();
             journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
-            if(etat.compareTo("JOURNALCAISSELIBCOMPLET_CREE")==0)
-            {
-                journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET_CREE");
-            }
-            if(etat.compareTo("JOURNALCAISSELIBCOMPLET_VISE")==0)
-            {
-                journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET_VISE");
-            }
-            if(etat.compareTo("journalcaisselibrecette")==0)
-            {
-                journalCaisse.setNomTable("journalcaisselibrecette");
-            }
-             if(etat.compareTo("journalcaisselibdepense")==0)
-            {
-                journalCaisse.setNomTable("journalcaisselibdepense");
-            }
-            if(etat.compareTo("JOURNALCAISSELIB_PROVISION")==0)
-            {
-                journalCaisse.setNomTable("JOURNALCAISSELIB_PROVISION");
-            }
-            if(etat.compareTo("JOURNALCAISSELIB_SANSPROV")==0)
-            {
-                journalCaisse.setNomTable("JOURNALCAISSELIB_SANSPROV");
-            }
-            
+             if(etat!=null && etat!="")
+              {
+                 journalCaisse.setNomTable(etat);
+              }
             JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, sql);
             ArrayList<JournalCaissePdf> ls = new ArrayList<JournalCaissePdf>();
             double totalmontant = 0;
