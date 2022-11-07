@@ -17,9 +17,9 @@
     ClientQuit cq = new ClientQuit();
     PageInsert pi = new PageInsert(cq, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
-    //pi.getFormu().getChamp("cdclt").setAutre("readonly");
-    //pi.getFormu().getChamp("cdclt").setPageAppel("choix/listeClientDBspatChoix.jsp");
-    //pi.getFormu().getChamp("cdclt").setLibelle("Id");
+    pi.getFormu().getChamp("cdclt").setAutre("readonly");
+    pi.getFormu().getChamp("cdclt").setPageAppel("choix/listeClientDBspatChoix.jsp");
+    pi.getFormu().getChamp("cdclt").setLibelle("Client");
     pi.getFormu().getChamp("dtquit").setLibelle("Date");
     pi.getFormu().getChamp("dtquit").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("quit").setLibelle("Quittance");

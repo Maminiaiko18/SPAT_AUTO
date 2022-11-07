@@ -80,7 +80,7 @@ public class ClientQuit extends ClassMAPTable {
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("CQ", "get_seq_client_quit");
-        setCdclt(makePK(c));
+        setId(makePK(c));
     }
     
 }

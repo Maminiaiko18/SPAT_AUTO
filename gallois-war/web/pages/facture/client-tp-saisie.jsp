@@ -18,9 +18,9 @@
     PageInsert pi = new PageInsert(clt, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
 
-//    pi.getFormu().getChamp("cdclt").setLibelle("ID");
-//    pi.getFormu().getChamp("cdclt").setAutre("readonly");
-//    pi.getFormu().getChamp("cdclt").setPageAppel("choix/listeClientDBspatChoix.jsp","cdclt;cdcltlibelle");
+    pi.getFormu().getChamp("cdclt").setLibelle("Client");
+    pi.getFormu().getChamp("cdclt").setAutre("readonly");
+    pi.getFormu().getChamp("cdclt").setPageAppel("choix/listeClientDBspatChoix.jsp","cdclt;cdcltlibelle");
     pi.getFormu().getChamp("dttp").setLibelle("Date");   
     pi.getFormu().getChamp("dttp").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("tp").setLibelle("TP");
