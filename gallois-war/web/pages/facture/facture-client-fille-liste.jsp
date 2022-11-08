@@ -67,6 +67,7 @@
         
         String[] colSomme = {"montant", "montanttva", "montantttc"};
         pr.setTitre("Liste facture client details");
+        pr.setNpp(300);
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
