@@ -913,16 +913,16 @@ public class FactureClient extends ClassMere {
         
         ClientCategorie cl = this.findClient(null, c);
         if(cl!=null){
-            this. nomclt=cl.getNomclt();
-            this. adrclt=cl.getAdrclt();
-            this. nmsttclt=cl.getNmsttclt();
-            this. telclt=cl.getTelclt();
-            this. nif=cl.getNif();
-            this.rc=cl.getRc();
-            this.dttp=cl.getDttp();
-            this.tp=cl.getTp();
-            this.dtquit=cl.getDtquit();
-            this.quit=cl.getQuit();
+            this.setNomclt(cl.getNomclt());
+            this.setAdrclt(cl.getAdrclt());
+            this.setNmsttclt(cl.getNmsttclt());
+            this.setTelclt(cl.getTelclt());
+            this.setNif(cl.getNif());
+            this.setRc(cl.getRc());
+            this.setDttp(cl.getDttp());
+            this.setTp(cl.getTp());
+            this.setDtquit(cl.getDtquit());
+            this.setQuit(cl.getQuit());
         }
 
         super.validerObject(u, c);
