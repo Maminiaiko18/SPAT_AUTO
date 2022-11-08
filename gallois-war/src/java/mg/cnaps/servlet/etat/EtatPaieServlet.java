@@ -1117,7 +1117,12 @@ public class EtatPaieServlet extends HttpServlet {
                     } */
                     //setNomJasper("facture-client-sans-prevision");
                 }
-
+                Date daty = mere[0].getDaty();
+                if(details[0].getDatefact() != null)
+                {   
+                    daty = details[0].getDatefact();
+                }
+                param.put("datyfact", daty); 
                 param.put("daty", mere[0].getDaty());
                 param.put("id", mere[0].getId());
                 param.put("type", mere[0].getTypelib());

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="81"/>
+	<property name="ireport.y" value="512"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -135,6 +135,7 @@
 	<parameter name="dtquit" class="java.util.Date"/>
 	<parameter name="tp" class="java.lang.String"/>
 	<parameter name="nif" class="java.lang.String"/>
+	<parameter name="datyfact" class="java.util.Date"/>
 	<field name="designation" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -1087,7 +1088,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{datyfact}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="275" y="24" width="150" height="74" uuid="a3a614d6-9b1c-48ed-8821-fc12f0a451e6"/>
