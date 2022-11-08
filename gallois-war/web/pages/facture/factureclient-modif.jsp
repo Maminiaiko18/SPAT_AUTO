@@ -108,15 +108,25 @@
         pi.getFormu().getChamp("Pavillonlib").setVisible(false);
         
         pi.getFormu().getChamp("nomclt").setVisible(false);
+        pi.getFormu().getChamp("nomclt").setValeur(null);
         pi.getFormu().getChamp("adrclt").setVisible(false);
+        pi.getFormu().getChamp("adrclt").setValeur(null);
         pi.getFormu().getChamp("nmsttclt").setVisible(false);
+        pi.getFormu().getChamp("nmsttclt").setValeur(null);
         pi.getFormu().getChamp("telclt").setVisible(false);
+        pi.getFormu().getChamp("telclt").setValeur(null);
         pi.getFormu().getChamp("nif").setVisible(false);
+        pi.getFormu().getChamp("nif").setValeur(null);
         pi.getFormu().getChamp("rc").setVisible(false);
+        pi.getFormu().getChamp("rc").setValeur(null);
         pi.getFormu().getChamp("dttp").setVisible(false);
+        pi.getFormu().getChamp("dttp").setValeur(null);
         pi.getFormu().getChamp("tp").setVisible(false);
+        pi.getFormu().getChamp("tp").setValeur(null);
         pi.getFormu().getChamp("dtquit").setVisible(false);
+        pi.getFormu().getChamp("dtquit").setValeur(null);
         pi.getFormu().getChamp("quit").setVisible(false);
+        pi.getFormu().getChamp("quit").setValeur(null);
         
         pi.getFormu().getChamp("paiement").setDefaut("Ar");
         pi.getFormu().getChamp("pourcompte").setPageAppel("choix/clientCategorieChoix.jsp");
