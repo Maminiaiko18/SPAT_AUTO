@@ -1,3 +1,4 @@
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureClient"%>
 <%@page import="affichage.PageRechercheChoix"%>
 <%
@@ -6,7 +7,7 @@
     facture.setNomTable("FACTURE_CLIENT_UNIONV");
     String listeCrt[] = {"id","daty" ,"code","tierslib","designation"};
     String listeInt[] = {"daty"};
-    String libEntete[] = {"id","daty" ,"tierslib","designation","tva", "date_echeance", "montant", "montanttva", "montantttc","montantreste"};
+    String libEntete[] = {"id","daty","code" ,"tierslib","designation","tva", "date_echeance", "montant", "montanttva", "montantttc","montantreste"};
     PageRechercheChoix pr = new PageRechercheChoix(facture, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     //pr.setOrdre(" order by daty desc");
@@ -16,6 +17,12 @@
     
     pr.getFormu().getChamp("daty1").setLibelle("Date Min");
     pr.getFormu().getChamp("daty2").setLibelle("Date Max");
+    
+    pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
+    if(request.getParameter("daty1")==null || request.getParameter("daty1").equals("")){
+        pr.setAWhere(" and daty>= '"+Utilitaire.dateDuJour()+"'");
+    }
+    
     pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
    
     pr.setChampReturn(champReturn);
@@ -45,7 +52,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <% 
-                       String libEnteteAff[] =  {"id","daty" ,"tiers","designation","tva", "Date Echéance","montant HT", "montant TVA", "montant TTC", "RAP"};
+                       String libEnteteAff[] =  {"ID","Date" ,"Code","Tiers","Designation","TVA", "Date Echéance","Montant HT", "Montant TVA", "Lontant TTC", "RAP"};
                        pr.getTableau().setLibeEntete(libEnteteAff);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>
