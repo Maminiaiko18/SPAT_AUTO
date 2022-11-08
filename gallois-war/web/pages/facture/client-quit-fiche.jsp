@@ -9,7 +9,7 @@
     a.setNomTable("client_quitlib");
     PageConsulte pc = new PageConsulte(a, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
     pc.getChampByName("valide").setVisible(false);
-    pc.getChampByName("cdclt").setLibelle("ID");
+    pc.getChampByName("cdclt").setVisible(false);
     pc.getChampByName("nomclt").setLibelle("Nom");
     pc.getChampByName("dtquit").setLibelle("Date");
     pc.setTitre("Fiche quittance");
