@@ -14,15 +14,15 @@
         ClientQuit base = new ClientQuit();
         base.setNomTable("client_quitlib");
 
-        String listeCrt[] = {"cdclt", "quit", "dtquit"};
+        String listeCrt[] = {"id", "quit", "dtquit"};
         String listeInt[] = {"dtquit"};
-        String libEntete[] = {"cdclt", "nomclt", "quit", "dtquit"};
+        String libEntete[] = {"id", "nomclt", "quit", "dtquit"};
 
         PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         
-        pr.getFormu().getChamp("cdclt").setLibelle("ID");
+        pr.getFormu().getChamp("id").setLibelle("ID");
         pr.getFormu().getChamp("quit").setLibelle("Quit");
         pr.getFormu().getChamp("dtquit1").setLibelle("Date Min");
         pr.getFormu().getChamp("dtquit2").setLibelle("Date Max");
@@ -49,7 +49,7 @@
         </form>
                <%
             String lienTableau[] = {pr.getLien() + "?but=facture/client-quit-fiche.jsp"};
-            String colonneLien[] = {"cdclt"};
+            String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
