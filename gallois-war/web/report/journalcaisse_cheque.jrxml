@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="journalcaisse" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f46c8fbc-90ce-48c5-a818-3d9c6173bd02">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="84"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="Table Dataset 1" uuid="f81935bc-6065-4834-928e-74fec05e823e">
 		<field name="numpiece" class="java.lang.String"/>
 		<field name="client" class="java.lang.String"/>
@@ -205,10 +205,10 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="58" uuid="635148c0-47c5-4b21-9a4d-e896ac8a1528">
+					<jr:column width="85" uuid="635148c0-47c5-4b21-9a4d-e896ac8a1528">
 						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="58" height="30" uuid="5499e775-e2ed-47b7-898f-0d9d7e522736"/>
+								<reportElement x="0" y="0" width="85" height="30" uuid="5499e775-e2ed-47b7-898f-0d9d7e522736"/>
 								<textElement textAlignment="Center">
 									<font isBold="true"/>
 								</textElement>
@@ -217,7 +217,7 @@
 						</jr:columnHeader>
 						<jr:detailCell height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="58" height="30" uuid="386eeaba-1f0f-4b80-baa3-ed314c3e75d5"/>
+								<reportElement x="0" y="0" width="85" height="30" uuid="386eeaba-1f0f-4b80-baa3-ed314c3e75d5"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
@@ -229,10 +229,10 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="101" uuid="248244dd-a92d-4fbc-b6c1-f74803d22b31">
+					<jr:column width="75" uuid="248244dd-a92d-4fbc-b6c1-f74803d22b31">
 						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="101" height="30" uuid="14118781-bb42-4fe6-b796-26f28f94971d"/>
+								<reportElement x="0" y="0" width="75" height="30" uuid="14118781-bb42-4fe6-b796-26f28f94971d"/>
 								<box>
 									<bottomPen lineWidth="0.5"/>
 								</box>
@@ -244,12 +244,12 @@
 						</jr:columnHeader>
 						<jr:detailCell height="30" rowSpan="1">
 							<subreport>
-								<reportElement x="0" y="0" width="101" height="15" uuid="bd39ad76-8db1-4b22-81fe-5c308d0e756e"/>
+								<reportElement x="0" y="0" width="75" height="15" uuid="bd39ad76-8db1-4b22-81fe-5c308d0e756e"/>
 								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
 								<subreportExpression><![CDATA["journalcaisse_subreport1.jasper"]]></subreportExpression>
 							</subreport>
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="101" height="15" uuid="a296d4ee-71d3-4c22-839c-861142c44780"/>
+								<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="75" height="15" uuid="a296d4ee-71d3-4c22-839c-861142c44780"/>
 								<box>
 									<bottomPen lineWidth="0.5"/>
 								</box>
