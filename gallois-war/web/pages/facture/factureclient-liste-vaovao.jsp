@@ -14,8 +14,8 @@
 <%
     try {
         FactureClient ff = new FactureClient();
-        String[] etatVal = {"factureClientValide", "facture_client_unionC", "FACTURE_CLIENT_UNIONV", "factureclientApayer", "factureclientAuComptant", "factureclientACredit","FACTURE_CLIENT_UNIONA"};
-        String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "A payer", "Au comptant", "A crédit","Annulé"};
+        String[] etatVal = {"factureClientValide", "facture_client_unionC", "FACTURE_CLIENT_UNIONV", "factureclientApayer", "factureclientAuComptant", "factureclientACredit","FACTURE_CLIENT_UNIONA","FACTURECLIENTENRETARD","FACTURECLIENTENALERTE"};
+        String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "A payer", "Au comptant", "A crédit","Annulé","En retard","En alerte"};
         ff.setNomTable(etatVal[0]);
        // String etat = request.getParameter("etat");
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
