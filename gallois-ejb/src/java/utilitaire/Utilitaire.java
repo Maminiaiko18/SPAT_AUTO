@@ -1283,7 +1283,7 @@ public class Utilitaire extends Parametre {
             retour = handleSplit(lettre, sep, 100);
 
         } catch (IndexOutOfBoundsException i) {
-            retour = handleSplit(lettre, sep, 500);
+            retour = handleSplit(lettre, sep, 1000);
         }
         return retour;
     }
