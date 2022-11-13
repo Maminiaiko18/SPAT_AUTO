@@ -597,7 +597,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     if(listeFC != null && listeFC.length > 0) {
                         for(FactureClient fc : listeFC) {
                             if(fc.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception ("Facture Client non visee");
-                            if(this.getCredit() > fc.getMontantreste()) throw new Exception("Montant superieur au reste a payer");
+                            if(this.getCredit() - fc.getMontantreste() > 50) throw new Exception("Montant superieur au reste a payer");
                         }
                     }
                 
