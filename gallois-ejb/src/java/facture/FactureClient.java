@@ -55,7 +55,7 @@ public class FactureClient extends ClassMere {
     private String idcategorie, idProvision, categorielib, idProvisionlib, iddefinitive;
     private String estDDPMICTSL;
     private String codePrestation, codePrestationlib, codeProvision;
-    private String code;
+    private String code, numpiece;
     private String estMictsl;
     private double reduction;
     private double ecart;
@@ -64,6 +64,14 @@ public class FactureClient extends ClassMere {
     private double volume,volume100;
     private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit ;
     private Date dttp ,dtquit;
+	
+	public String getNumpiece(){
+		return numpiece;
+	}
+	
+	public  void setNumpiece(String numpiece){
+		this.numpiece = numpiece;
+	}
 
     public String getNomclt() {
         return nomclt;
