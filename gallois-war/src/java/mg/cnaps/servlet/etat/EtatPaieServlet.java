@@ -772,7 +772,7 @@ public class EtatPaieServlet extends HttpServlet {
             long montantLong = Long.valueOf(montantString);
             String montantLettre=ChiffreLettre.convertRealToString(totalGeneral,"Ariary");
             
-            if(tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant)==0 && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece)==0)
+            if(tabJournal[0].getIdTypeCheque()!=null && tabJournal[0].getIdmode()!=null && tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant)==0 && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece)==0)
             {
                 montantLettre=ChiffreLettre.convertIntToString(montantLong)+" Ariary";
                 
