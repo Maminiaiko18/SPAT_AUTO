@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ORDRE_PAYER" pageWidth="421" pageHeight="595" columnWidth="381" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="482ea57c-6d82-4138-ae48-165f25e19e79">
-	<property name="ireport.zoom" value="1.6105100000000074"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="28"/>
+	<property name="ireport.zoom" value="2.593742460100013"/>
+	<property name="ireport.x" value="38"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="NUM_OP" class="java.lang.String"/>
 	<parameter name="DESTINATION" class="java.lang.String"/>
 	<parameter name="PAIEMENT" class="java.lang.String"/>
@@ -68,7 +68,7 @@
 				<text><![CDATA[VEUILLEZ PAYER PAR :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="83" width="73" height="20" uuid="f3c03176-733d-49d7-bd04-75b5a1d72ba2"/>
+				<reportElement x="0" y="85" width="73" height="20" uuid="f3c03176-733d-49d7-bd04-75b5a1d72ba2"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="6" isBold="true"/>
 				</textElement>
