@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW LIAISONINTRATABLE_OP_PARFACT_F2 (ID2, DED_ID, MONTANT, MONTANTOP, NUMFACT) AS 
+CREATE OR REPLACE VIEW LIAISONTABLE_OP_PARFACT_F2 (ID2, DED_ID, MONTANT, MONTANTOP, NUMFACT) AS 
   select op.ID2,
        op.DED_ID,
        sum(OP.MONTANT)                                       as montant,
@@ -26,7 +26,7 @@ CREATE OR REPLACE VIEW ORDONNERPAYEMENT_PDF (ID, DED_ID, IDLIGNE, DATY, MONTANT,
        f.NUMFACT,
         de.VAL as DESTINATIONlib
 from ordonnerpayement_lib op
-         left join LIAISONINTRATABLE_OP_PARFACT_f2 f on f.DED_ID = op.DED_ID
+         left join LIAISONTABLE_OP_PARFACT_F2 f on f.DED_ID = op.DED_ID
          left join etatfacturemontantdaty ff on ff.id = op.DED_ID
          left join DESTINATION de on de.id = op.DESTINATION
 where op.ETAT >= 1
