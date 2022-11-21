@@ -282,7 +282,7 @@ public class Engagement extends ClassEtat {
             dir=ligne.getCodeEtablissement();
             prj=ligne.getProjet();
         }
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+this.getAnnee());
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
         if(ligneCredits.length > 0) return ligneCredits[0];
         return null;
     }
