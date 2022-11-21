@@ -1699,6 +1699,10 @@ public class EtatPaieServlet extends HttpServlet {
             String daty = "";
 
             String sql = "";
+            System.out.println("ETAT====="+etat);
+            if (etat != null && !etat.trim().isEmpty() && etat.equalsIgnoreCase("JOURNALCAISSELIB_PROVISION")){
+                daty += "SUR PROVISION ";
+            }
             if (id != null && id.compareToIgnoreCase("null") != 0 && id.length() != 0) {
                 sql = sql + " and UPPER(id) like UPPER('%" + id + "%') ";
             }
