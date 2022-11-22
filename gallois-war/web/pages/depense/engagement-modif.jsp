@@ -41,7 +41,7 @@
     
         pi.getFormu().changerEnChamp(listes);
         
-//        pi.getFormu().getChamp("annee").setLibelle("Année") ; 
+        pi.getFormu().getChamp("annee").setLibelle("Année") ; 
         pi.getFormu().getChamp("designation").setLibelle("Désignation");
         pi.getFormu().getChamp("codeetablissement").setLibelle("Code établissement");
         pi.getFormu().getChamp("projet").setLibelle("Projet");
@@ -53,7 +53,6 @@
         pi.getFormu().getChamp("dispoapres").setLibelle("Disponible après");
         pi.getFormu().getChamp("dispoapres").setVisible(false);
         pi.getFormu().getChamp("montantop").setVisible(false);
-        pi.getFormu().getChamp("tierslib").setVisible(false);
         pi.getFormu().getChamp("idLC").setLibelle("Budget");
         pi.getFormu().getChamp("daty").setLibelle("Date");
 
@@ -67,7 +66,7 @@
         pi.getFormu().getChamp("idLC").setPageAppel("choix/listeBudgetDepenseChoix.jsp", "idLC;idLClibelle;idLClibelle;idLClibelle");
 
         pi.getFormu().getChamp("tiers").setAutre("readonly");
-        pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersChoix.jsp", "tiers;tierslibelle");
+        pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp", "id;libelle");
 
         
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
@@ -116,8 +115,7 @@
 <script>
     $('#projetlibelle').val('<%= Utilitaire.champNull(mere.getProjetlib())%>');
     $('#codeEtablissementlibelle').val('<%= Utilitaire.champNull(mere.getCodeEtablissementlib())%>');
-    $('#idLClibelle').val('<%= Utilitaire.champNull(mere.getIdLClib())%>');
-    $('#tierslibelle').val('<%= Utilitaire.champNull(mere.getTierslib())%>');
+    $('#idLC').val('<%= Utilitaire.champNull(mere.getIdLClib())%>');
     $('label[for="id"]').html('');
 </script>
 <% } catch (Exception ex) {
