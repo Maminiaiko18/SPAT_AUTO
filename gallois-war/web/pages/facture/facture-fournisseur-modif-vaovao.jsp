@@ -15,7 +15,8 @@
                 buteApresVisa = "facture/facture-fournisseur-fiche-vaovao.jsp";
         
         FactureFournisseur mere = new FactureFournisseur();
-        mere.setNomTable("FACTFOURN_MSUM_LIB");
+        
+        mere.setNomTable("FACTFOURN_MSUM_LIB_MODIF_ORDRE");
         mere.setEstDDPMICTSL(null);
         FactureFournisseurDetails fille = new FactureFournisseurDetails();
         fille.setNomTable("FACTFOURN_FILLE_LIBELLE");

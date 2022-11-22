@@ -430,7 +430,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("DEVISE", op.getDevise());
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            setNomJasper("ORDRE_PAYER - Copie");
+            setNomJasper("ORDRE_PAYER");
             UtilitaireImpression.imprimer(request, response, "ORDRE_PAYER", param, new ArrayList(), getReportPath(), rt);
         } catch (Exception e) {
             e.printStackTrace();
@@ -772,7 +772,7 @@ public class EtatPaieServlet extends HttpServlet {
             long montantLong = Long.valueOf(montantString);
             String montantLettre=ChiffreLettre.convertRealToString(totalGeneral,"Ariary");
             
-            if(tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant)==0 && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece)==0)
+            if(tabJournal[0].getIdTypeCheque()!=null && tabJournal[0].getIdmode()!=null && tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant)==0 && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece)==0)
             {
                 montantLettre=ChiffreLettre.convertIntToString(montantLong)+" Ariary";
                 
@@ -1699,6 +1699,10 @@ public class EtatPaieServlet extends HttpServlet {
             String daty = "";
 
             String sql = "";
+            System.out.println("ETAT====="+etat);
+            if (etat != null && !etat.trim().isEmpty() && etat.equalsIgnoreCase("JOURNALCAISSELIB_PROVISION")){
+                daty += "SUR PROVISION ";
+            }
             if (id != null && id.compareToIgnoreCase("null") != 0 && id.length() != 0) {
                 sql = sql + " and UPPER(id) like UPPER('%" + id + "%') ";
             }

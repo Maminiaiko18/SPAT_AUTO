@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="0.8264462809917362"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="208"/>
+	<property name="ireport.x" value="25"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -384,14 +384,14 @@
 				<textFieldExpression><![CDATA["AVOIR "+$P{typeavoir}+" "+$P{categorie}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="830" y="2" width="75" height="20" uuid="1d021d28-b419-49ec-8b6d-2bedd260609f"/>
+				<reportElement x="810" y="2" width="95" height="20" uuid="1d021d28-b419-49ec-8b6d-2bedd260609f"/>
 				<textElement textAlignment="Right">
 					<font size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="741" y="2" width="93" height="20" uuid="c2a9fa77-ed58-4a1b-b34c-e7cb8893218a"/>
+				<reportElement x="717" y="0" width="93" height="20" uuid="c2a9fa77-ed58-4a1b-b34c-e7cb8893218a"/>
 				<textElement>
 					<font size="15" isBold="true"/>
 				</textElement>
@@ -738,6 +738,16 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="446" y="41" width="442" height="60" uuid="50080475-9c77-4e88-9ac2-85c00e7f975e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>

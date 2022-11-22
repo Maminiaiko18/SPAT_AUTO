@@ -55,7 +55,7 @@ public class FactureClient extends ClassMere {
     private String idcategorie, idProvision, categorielib, idProvisionlib, iddefinitive;
     private String estDDPMICTSL;
     private String codePrestation, codePrestationlib, codeProvision;
-    private String code;
+    private String code, numpiece;
     private String estMictsl;
     private double reduction;
     private double ecart;
@@ -64,6 +64,14 @@ public class FactureClient extends ClassMere {
     private double volume,volume100;
     private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit ;
     private Date dttp ,dtquit;
+	
+	public String getNumpiece(){
+		return numpiece;
+	}
+	
+	public  void setNumpiece(String numpiece){
+		this.numpiece = numpiece;
+	}
 
     public String getNomclt() {
         return nomclt;
@@ -968,7 +976,7 @@ public class FactureClient extends ClassMere {
             fcd.setTauxDonne(true);
             fcd.setDuree(1);
             fcd.setCompte(rubRedevance.getCompte());
-
+            fcd.setDatefact(FactureClientDetails.getFinMois(mois, annee));
             //Generer Facture
             /*FactureClient fc = new FactureClient(Utilitaire.dateDuJourSql(), Constante.idMICTSL, designation, 0);
             fc.setIdcategorie(Constante.idCategorieFCDefinitive);
@@ -1025,7 +1033,6 @@ public class FactureClient extends ClassMere {
         fcd.setDevise(rubRedevance.getDevise());
         fcd.setDuree(1);
         fcd.setCompte(rubRedevance.getCompte());
-
         double taux = getTauxFinDuMois(c, mois, annee, fcd.getDevise());
 
         fcd.setTaux(taux);
@@ -1033,6 +1040,7 @@ public class FactureClient extends ClassMere {
         fcd.setAnnee(annee);
         fcd.setTauxDonne(true);
 
+        fcd.setDatefact(FactureClientDetails.getFinMois(mois, annee));
         ret[0] = fcd;
         return ret;
     }
