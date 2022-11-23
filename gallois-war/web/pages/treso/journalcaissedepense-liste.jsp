@@ -8,7 +8,7 @@
     try {
         String typecheque = request.getParameter("idtypecheque");
         JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
-        journalCaisse.setNomTable("journalcaisselibdepense");
+        journalCaisse.setNomTable("etatjournalcaisselibdepense");
 
 		String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement", "descecaisse","numeroOP","tierslib"};
         String listeInt[] = {"dateEffet"};
