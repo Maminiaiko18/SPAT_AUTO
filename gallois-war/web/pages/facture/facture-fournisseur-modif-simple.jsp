@@ -47,6 +47,10 @@
         pi.getFormu().getChamp("idbl").setVisible(false);
         pi.getFormu().getChamp("projet").setVisible(false);
         pi.getFormu().getChamp("code_etablissement").setVisible(false);
+        pi.getFormu().getChamp("estAuto").setVisible(false);
+        pi.getFormu().getChamp("idengagement").setVisible(false);
+        pi.getFormu().getChamp("typeEngagement").setVisible(false);
+
 
         Liste[] listes = new Liste[1];
         TypeObjet nature = new TypeObjet();

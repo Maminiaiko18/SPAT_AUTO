@@ -78,6 +78,7 @@
         String dateFacture = liste[0].getDatefact() != null ? Utilitaire.datetostring(liste[0].getDatefact()) : Utilitaire.datetostring(facture.getDaty());
 %>
 <div class="row">
+    <% if(facture.getDeviseMere()!=null && !facture.getDeviseMere().equalsIgnoreCase("Ar")){ %>
     <div class="col-md-3">
         <table class="table table-striped table-bordered table-condensed table-responsive tree">
             <tr>
@@ -134,6 +135,7 @@
             </tr>
         </table>
     </div>
+    <% }; %>
     <div class="col-md-3">
         <table class="table table-striped table-bordered table-condensed table-responsive tree">
             <tr>

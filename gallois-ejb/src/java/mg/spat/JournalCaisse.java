@@ -817,6 +817,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                         String numeroPiece = calculerNumeroPiece(c);
                         this.setNumPiece(numeroPiece);
                     }
+                    if(this.getDebit()>0){
+                        String numeroPiece = calculerNumeroPieceDepense(c);
+                        this.setNumPiece(numeroPiece);
+                    }
                     
                     viserFacturesRattachees(refuser, c);
                     genererPaiement(c, refuser);
@@ -1141,7 +1145,17 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
         if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00002")==0)
         {
-            result = "3";
+            result = "P";
+        }
+        return result;
+    }
+    
+    public String StringNullInRequete(String where){
+        String result = "";
+        if(where==null){
+            result+=" is null";
+        }else{
+            result+=" = '"+where+"'";
         }
         return result;
     }
@@ -1150,7 +1164,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
         String annee = Utilitaire.getAnnee(dateEffetStr), mois = Utilitaire.getMois(dateEffetStr);
         String seq="";
-        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_vaovao where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type='"+this.getIdTypeCheque()+"'";
+        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_vaovao where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque());
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(7, result[0].getNumerosuivant());
         return Utilitaire.genererAnnee(dateEffetStr) + 
@@ -1158,6 +1172,17 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 genererCodeModePaiement() + "-" + 
                 genererCodeType() + "-" + 
                 seq;
+
+    }
+    
+    public String calculerNumeroPieceDepense(Connection c) throws Exception{
+        String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
+        String annee = Utilitaire.getAnnee(dateEffetStr), mois = Utilitaire.getMois(dateEffetStr);
+        String seq="";
+        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM SEQJOURNALVAOVAODEP where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque());
+        NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+        if(result.length>0) seq=Utilitaire.completerInt(7, result[0].getNumerosuivant());
+        return Utilitaire.genererAnnee(dateEffetStr) + "/" + mois + "/" + seq;
 
     }
     
