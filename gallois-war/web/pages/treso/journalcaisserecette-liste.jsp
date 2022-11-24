@@ -45,7 +45,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Journal de caisse</h1>
+        <h1>Journal de caisse RECETTE</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=treso/journalcaisserecette-liste.jsp" method="post" name="incident" id="incident">
