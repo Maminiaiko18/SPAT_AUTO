@@ -41,7 +41,7 @@
     
         pi.getFormu().changerEnChamp(listes);
         
-        pi.getFormu().getChamp("annee").setLibelle("Année") ; 
+//        pi.getFormu().getChamp("annee").setLibelle("Année") ; 
         pi.getFormu().getChamp("designation").setLibelle("Désignation");
         pi.getFormu().getChamp("codeetablissement").setLibelle("Code établissement");
         pi.getFormu().getChamp("projet").setLibelle("Projet");
@@ -53,6 +53,7 @@
         pi.getFormu().getChamp("dispoapres").setLibelle("Disponible après");
         pi.getFormu().getChamp("dispoapres").setVisible(false);
         pi.getFormu().getChamp("montantop").setVisible(false);
+        pi.getFormu().getChamp("tierslib").setVisible(false);
         pi.getFormu().getChamp("idLC").setLibelle("Budget");
         pi.getFormu().getChamp("daty").setLibelle("Date");
 
