@@ -430,7 +430,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("DEVISE", op.getDevise());
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            setNomJasper("ORDRE_PAYER");
+            setNomJasper("ORDRE_PAYER - Copie");
             UtilitaireImpression.imprimer(request, response, "ORDRE_PAYER", param, new ArrayList(), getReportPath(), rt);
         } catch (Exception e) {
             e.printStackTrace();
