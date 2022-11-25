@@ -67,7 +67,7 @@
         pi.getFormu().getChamp("idLC").setPageAppel("choix/listeBudgetDepenseChoix.jsp", "idLC;idLClibelle;idLClibelle;idLClibelle");
 
         pi.getFormu().getChamp("tiers").setAutre("readonly");
-        pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp", "id;libelle");
+        pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp", "tiers;tierslibelle");
 
         
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
@@ -116,7 +116,8 @@
 <script>
     $('#projetlibelle').val('<%= Utilitaire.champNull(mere.getProjetlib())%>');
     $('#codeEtablissementlibelle').val('<%= Utilitaire.champNull(mere.getCodeEtablissementlib())%>');
-    $('#idLC').val('<%= Utilitaire.champNull(mere.getIdLClib())%>');
+    $('#idLClibelle').val('<%= Utilitaire.champNull(mere.getIdLClib())%>');
+    $('#tierslibelle').val('<%= Utilitaire.champNull(mere.getTierslib())%>');
     $('label[for="id"]').html('');
 </script>
 <% } catch (Exception ex) {
