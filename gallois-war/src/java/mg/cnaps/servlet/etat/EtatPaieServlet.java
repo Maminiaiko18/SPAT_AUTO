@@ -1719,11 +1719,11 @@ public class EtatPaieServlet extends HttpServlet {
                 sql = sql + " and UPPER(remarque) like UPPER('%" + remarque + "%') ";
             }
             if (dateEffet1 != null && dateEffet1.compareToIgnoreCase("null") != 0 && dateEffet1.length() != 0) {
-                sql = sql + " and dateEffet >= '+" + dateEffet1 + "'";
+                sql = sql + " and dateEffet >= '" + dateEffet1 + "'";
                 daty += "du " + dateEffet1;
             }
             if (dateEffet2 != null && dateEffet2.compareToIgnoreCase("null") != 0 && dateEffet2.length() != 0) {
-                sql = sql + " and dateEffet <= '+" + dateEffet2 + "'";
+                sql = sql + " and dateEffet <= '" + dateEffet2 + "'";
                 daty += " au " + dateEffet2;
             }
             if (idtypecheque != null && idtypecheque.compareToIgnoreCase("null") != 0 && idtypecheque.length() != 0) {
@@ -1739,7 +1739,7 @@ public class EtatPaieServlet extends HttpServlet {
             //System.out.println(sql);
             JournalCaisse journalCaisse = new JournalCaisse();
             journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
-             if(etat!=null && etat!="")
+             if(etat!=null && etat!="" && !etat.equalsIgnoreCase("null"))
               {
                  journalCaisse.setNomTable(etat);
               }
