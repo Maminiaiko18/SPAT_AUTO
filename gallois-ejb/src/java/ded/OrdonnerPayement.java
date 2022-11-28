@@ -9,6 +9,7 @@ import factureclient.PaiementFactureRemise;
 import facturefournisseur.EtatFactureMontantDaty;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import mg.allosakafo.produits.LiaisonIntraTable;
 import mg.spat.JournalCaisse;
@@ -764,5 +765,34 @@ public class OrdonnerPayement extends ClassEtat {
     public void controleDoublonNumeroOP(Connection c) throws Exception{
         OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and numeroop='"+this.getNumeroop()+"'");
         if(op.length > 0) throw new Exception("Numero OP existant");
+    }
+    
+    public JournalCaisse[] getPaiement(Connection c) throws Exception{
+        boolean verif = false;
+        try{
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = true;
+            }
+            JournalCaisse jc = new JournalCaisse();
+            jc.setIdordre(this.getId());
+            JournalCaisse[] listeJc = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, c, "");
+            return listeJc;
+        } catch (Exception e) {
+            if (c != null && verif == true) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == true) {
+                c.close();
+            }
+        }
+    }
+
+    @Override
+    public void controleAnnulerVisa() throws Exception {
+        if(this.getPaiement(null).length!=0)throw new Exception("Annuler visa non permis, les lignes de paiement existant pour cet OP");
     }
 }
