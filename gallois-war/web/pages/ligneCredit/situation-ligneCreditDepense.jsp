@@ -163,7 +163,7 @@
                                     <td><%=Utilitaire.champNull(data[i].getDirection())%></td>
                                     <td><%=Utilitaire.champNull(data[i].getProjet())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getMontant())%></td>
-                                    <td align="right"><%=Utilitaire.formaterAr(data[i].getEngageer())%></td>
+                                    <td align="right"><a href="<%= pr.getLien() %>?but=depense/engagement-liste.jsp&direction=<%= data[i].getDirection()%>&projet=<%= data[i].getProjet() %>"><%=Utilitaire.formaterAr(data[i].getEngageer())%></a></td>
                                     <td align="right"><a href="<%= pr.getLien() %>?but=facture/facture-fournisseur-details-liste.jsp&comptestr=<%= data[i].getDirection() + data[i].getProjet() %>&recap=checked&annee=<%= data[i].getAnnee() %>&mois1=<%= Utilitaire.champNull(moisMin) %>&mois2=<%= Utilitaire.champNull(moisMax) %>"><%=Utilitaire.formaterAr(data[i].getFacture())%></a></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPourcEngage())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPaye())%></td>
