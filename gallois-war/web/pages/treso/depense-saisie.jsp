@@ -29,7 +29,12 @@
             pi.getFormu().getChamp("tiers").setValeurLibelle(facture.getTierslib());
             pi.getFormu().getChamp("tiers").setDefaut(facture.getTiers());
             pi.getFormu().getChamp("idplacement").setDefaut(facture.getId());
-            pi.getFormu().getChamp("libelle").setDefaut("Paiement Fact. Fournisseur " + facture.getCode());
+            String code = "Paiement Fact. Fournisseur " + facture.getCode();
+            if(facture.getDesignation() != null)
+            {
+                code = facture.getDesignation();
+            }
+            pi.getFormu().getChamp("libelle").setDefaut(code);
             pi.getFormu().getChamp("iddevise").setDefaut("Ar");
         }
 
