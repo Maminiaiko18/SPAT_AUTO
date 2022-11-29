@@ -66,7 +66,7 @@
         pr.setTableau(new TableauRecherche((bean.ClassMAPTable[]) rs.getResultat(), libEntete));
         pr.makeTableauRecap();
 
-        String[] libEtat = {"Tous", "Créés", "Visés"};
+        String[] libEtat = {"Tous", "Crï¿½ï¿½s", "Visï¿½s"};
         String[] etat = {"", "" + ConstanteEtat.getEtatCreer(), "" + ConstanteEtat.getEtatValider()};
         
         LigneCredit[] data = (LigneCredit[])pr.getTableau().getData();
@@ -79,7 +79,7 @@
     function ajoutChampsNiveau(){
         var d = document.getElementById("pagerecherche");
         var inputanneeniv = "<div class='col-md-4'>\n\
-        <label for='anneestr'> Année </label>\n\
+        <label for='anneestr'> Annï¿½e </label>\n\
         <input id='anneestr' class='form-control' name='anneestr' type='textbox' value='' onkeydown='return searchKeyPress(event)'>\n\
         </div>";
         
@@ -129,7 +129,7 @@
         %>
         <br>
         <%
-            String libEnteteAffiche[] = {"direction", "projet", "montant", "Engagé", "Facturé", "% engagé", "décaissé", "% payé", "a recouvrir", "reste sur budget", "reste après engagement"};
+            String libEnteteAffiche[] = {"direction", "projet", "montant", "Engagï¿½", "Facturï¿½", "% engagï¿½", "dï¿½caissï¿½", "% payï¿½", "a recouvrir", "reste sur budget", "reste aprï¿½s engagement"};
             //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setLibeEntete(libEnteteAffiche);
 //            out.println(pr.getTableau().getHtml());
@@ -163,7 +163,7 @@
                                     <td><%=Utilitaire.champNull(data[i].getDirection())%></td>
                                     <td><%=Utilitaire.champNull(data[i].getProjet())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getMontant())%></td>
-                                    <td align="right"><a href="<%= pr.getLien() %>?but=depense/engagement-liste.jsp&direction=<%= data[i].getDirection()%>&projet=<%= data[i].getProjet() %>"><%=Utilitaire.formaterAr(data[i].getEngageer())%></a></td>
+                                    <td align="right"><a href="<%= pr.getLien() %>?but=depense/engagement-liste.jsp&codeetablissementlib=<%= data[i].getDirection()%>&projetlib=<%= data[i].getProjet() %>"><%=Utilitaire.formaterAr(data[i].getEngageer())%></a></td>
                                     <td align="right"><a href="<%= pr.getLien() %>?but=facture/facture-fournisseur-details-liste.jsp&comptestr=<%= data[i].getDirection() + data[i].getProjet() %>&recap=checked&annee=<%= data[i].getAnnee() %>&mois1=<%= Utilitaire.champNull(moisMin) %>&mois2=<%= Utilitaire.champNull(moisMax) %>"><%=Utilitaire.formaterAr(data[i].getFacture())%></a></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPourcEngage())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPaye())%></td>
