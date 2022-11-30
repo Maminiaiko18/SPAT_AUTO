@@ -22,7 +22,7 @@
     String autreparsley = "data-parsley-range='[8, 40]' required";
     FactureClient  fc = new FactureClient();
     FactureClientDetails fcfille = new FactureClientDetails();
-    fcfille.setNomTable("facture_client_fille_plus");
+    fcfille.setNomTable("FACTURE_CLIENT_FILLE_LIBELLE");
     
     PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, 10, u);
     pi.setLien((String) session.getValue("lien"));
@@ -137,6 +137,7 @@
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
         pi.getFormufle().getChamp("duree_"+i).setDefaut("1");
+        pi.getFormufle().getChamp("daty_"+i).setDefaut(Utilitaire.dateDuJour());
         pi.getFormufle().getChamp("idactivite_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
     }
@@ -162,6 +163,8 @@
     pi.getFormufle().getChamp("heureFin_0").setLibelle("Heure fin");
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
     pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
+    pi.getFormufle().getChamp("rang_0").setLibelle("Rang");
+    pi.getFormufle().getChamp("daty_0").setLibelle("Date");
     
     pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
@@ -210,7 +213,7 @@
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("codePrestation").setVisible(false);
     pi.getFormu().getChamp("code").setVisible(false);
-    String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","heureDebut","heureFin","majoration","reduction"};
+    String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee","daty","heureDebut","heureFin","majoration","reduction","rang"};
     pi.getFormufle().setColOrdre(ordreFille);
     pi.preparerDataFormu();
        

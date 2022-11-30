@@ -22,29 +22,37 @@ import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
+
 /**
  *
  * @author
  */
 public class FactureClientDetails extends ClassFille {
 
-    
-    private String id,idmere;
-    private double quantite,pu,taux;
-    private String compte,idproduit, produit_lib,devise,designation, idProduitLib,idactivite,categorieFacturelib,categorieClientlib,activitelib,rubrique;
+    private String id, idmere;
+    private double quantite, pu, taux;
+    private String compte, idproduit, produit_lib, devise, designation, idProduitLib, idactivite, categorieFacturelib, categorieClientlib, activitelib, rubrique;
     private double montant;
     private double montanttaux;
     private double montantavoirsanstaux;
     private double montantavoiravectaux;
-    private double qtelivree, restealivrer,montantTTC; 
-    private Date datefact,daty,datyActivite;
-    private String rubriquelib, idprestation,clientlib;
+    private double qtelivree, restealivrer, montantTTC;
+    private Date datefact, daty, datyActivite;
+    private String rubriquelib, idprestation, clientlib, client;
     private int mois, annee;
-    private String heureDebut, heureFin, moislib,anneelib;
-    private double montantHTEuro,montantTVAEuro, montanttaxe,majoration,reduction,duree, montantnet, tvaDf;
+    private String heureDebut, heureFin, moislib, anneelib;
+    private double montantHTEuro, montantTVAEuro, montanttaxe, majoration, reduction, duree, montantnet, tvaDf;
     private int rang;
-    private String idrubrique,catClient,libelleRubrique,unite;
+    private String idrubrique, catClient, libelleRubrique, unite;
+    
+    public String getClient() {
+        return client;
+    }
 
+    public void setClient(String client) {
+        this.client = client;
+    }
+    
     public String getUnite() {
         return unite;
     }
@@ -68,7 +76,7 @@ public class FactureClientDetails extends ClassFille {
     public void setLibelleRubrique(String libelleRubrique) {
         this.libelleRubrique = libelleRubrique;
     }
-    
+
     public Date getDatyActivite() {
         return datyActivite;
     }
@@ -77,7 +85,6 @@ public class FactureClientDetails extends ClassFille {
         this.datyActivite = datyActivite;
     }
 
-    
     public String getIdrubrique() {
         return idrubrique;
     }
@@ -109,8 +116,6 @@ public class FactureClientDetails extends ClassFille {
     public void setTvaDf(double tvaDf) {
         this.tvaDf = tvaDf;
     }
-    
-    
 
     public double getMontantTTC() {
         return montantTTC;
@@ -162,9 +167,7 @@ public class FactureClientDetails extends ClassFille {
         this.reduction = reduction;
         this.tva = tva;
     }
-    
-    
-    
+
     public double getMajoration() {
         return majoration;
     }
@@ -180,7 +183,7 @@ public class FactureClientDetails extends ClassFille {
     public void setReduction(double reduction) {
         this.reduction = reduction;
     }
-    boolean tauxDonne=false;
+    boolean tauxDonne = false;
 
     public boolean getTauxDonne() {
         return tauxDonne;
@@ -189,7 +192,7 @@ public class FactureClientDetails extends ClassFille {
     public void setTauxDonne(boolean tauxDonne) {
         this.tauxDonne = tauxDonne;
     }
-    
+
     public Date getDaty() {
         return daty;
     }
@@ -205,29 +208,29 @@ public class FactureClientDetails extends ClassFille {
     public void setRang(int rang) {
         this.rang = rang;
     }
-    
+
     public static Date getFinMois(int mois, int annee) {
-        String moisS = mois < 10 ? "0" + mois : "" + mois; 
+        String moisS = mois < 10 ? "0" + mois : "" + mois;
         Date date = Utilitaire.stringDate("01/" + moisS + "/" + annee);
-        
+
         return Utilitaire.getLastDayOfDateSQL(date);
     }
-    
+
     public double getTauxFinDuMois(Connection c, int mois, int annee, String iddevise) throws Exception {
         Date finDuMois = getFinMois(mois, annee);
         String awhere = " and daty = (SELECT max(daty) FROM COURSDEVISE WHERE  daty <= '" + Utilitaire.datetostring(finDuMois) + "' and iddevise = '" + iddevise + "') "
                 + " and iddevise = '" + iddevise + "'";
         //System.out.println("apres where "+awhere );
         Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, awhere);
-        
+
         return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
-    public void setTauxFinDuMois(Connection c,int mois,int annee,String iddevise) throws Exception
-    {
-        double tauxFm=getTauxFinDuMois(c,mois,annee,iddevise);
+
+    public void setTauxFinDuMois(Connection c, int mois, int annee, String iddevise) throws Exception {
+        double tauxFm = getTauxFinDuMois(c, mois, annee, iddevise);
         this.setTaux(tauxFm);
     }
-    
+
     public double getMontanttaxe() {
         return montanttaxe;
     }
@@ -251,15 +254,15 @@ public class FactureClientDetails extends ClassFille {
     public void setClientlib(String clientlib) {
         this.clientlib = clientlib;
     }
-    
+
     public double getMontantMaj(double montant) {
         return montant * this.getMajoration() / 100;
     }
-    
+
     public double getMontantReduction(double montant) {
         return montant * this.getReduction() / 100;
     }
-    
+
     public double getMontantAvecMajRed(double montant) {
         return montant - this.getMontantReduction(montant) + this.getMontantMaj(montant);
     }
@@ -279,18 +282,16 @@ public class FactureClientDetails extends ClassFille {
     public void setMontantTVAEuro(double montantTVAEuro) {
         this.montantTVAEuro = montantTVAEuro;
     }
-    
-    
+
     public OccupationMaterielNaval getPrestation(Connection c) throws Exception {
-        OccupationMaterielNaval prestation=new OccupationMaterielNaval();
+        OccupationMaterielNaval prestation = new OccupationMaterielNaval();
         prestation.setNomTable("occupationmaterielnavalfacture");
         prestation.setIdfacturelfille(this.getId());
-        OccupationMaterielNaval[] prestations =(OccupationMaterielNaval[]) CGenUtil.rechercher(prestation, null, null, c, "");
-        if(prestations.length>0){
+        OccupationMaterielNaval[] prestations = (OccupationMaterielNaval[]) CGenUtil.rechercher(prestation, null, null, c, "");
+        if (prestations.length > 0) {
             prestation = prestations[0];
-        }
-        else{
-           prestation=null; 
+        } else {
+            prestation = null;
         }
         return prestation;
     }
@@ -310,8 +311,7 @@ public class FactureClientDetails extends ClassFille {
     public void setAnneelib(String anneelib) {
         this.anneelib = anneelib;
     }
-    
-    
+
     public String getRubriquelib() {
         return rubriquelib;
     }
@@ -359,10 +359,7 @@ public class FactureClientDetails extends ClassFille {
     public void setHeureFin(String heureFin) {
         this.heureFin = heureFin;
     }
-    
-    
 
-    
     public Date getDatefact() {
         return datefact;
     }
@@ -370,8 +367,9 @@ public class FactureClientDetails extends ClassFille {
     public void setDatefact(Date datefact) {
         this.datefact = datefact;
     }
-    
+
     double tva;
+
     //double montantTva;
     public String getActivitelib() {
         return activitelib;
@@ -380,7 +378,7 @@ public class FactureClientDetails extends ClassFille {
     public void setActivitelib(String activitelib) {
         this.activitelib = activitelib;
     }
-    
+
     public double getTva() {
         return tva;
     }
@@ -388,21 +386,20 @@ public class FactureClientDetails extends ClassFille {
     public void setTva(double tva) {
         this.tva = tva;
     }
-    public double getMontantTva() throws Exception
-    {
-        return this.getMontanttaux() *this.getTva()/100;
+
+    public double getMontantTva() throws Exception {
+        return this.getMontanttaux() * this.getTva() / 100;
     }
-    
-    
+
     @Override
     public String getValColLibelle() {
-        return getLibDesignation()+";"+Utilitaire.formaterAr(montanttaux)+";"+Utilitaire.formaterAr(montanttaux)+";"+devise;
+        return getLibDesignation() + ";" + Utilitaire.formaterAr(montanttaux) + ";" + Utilitaire.formaterAr(montanttaux) + ";" + devise;
     }
-    
-    public String getLibDesignation(){
-        return designation==null || designation.equals("") ? id : designation;
+
+    public String getLibDesignation() {
+        return designation == null || designation.equals("") ? id : designation;
     }
-    
+
     public String getIdProduitLib() {
         return idProduitLib;
     }
@@ -442,7 +439,6 @@ public class FactureClientDetails extends ClassFille {
     public void setMontantavoiravectaux(double montantavoiravectaux) {
         this.montantavoiravectaux = montantavoiravectaux;
     }
-   
 
     public double getMontanttaux() {
         return montanttaux;
@@ -451,9 +447,8 @@ public class FactureClientDetails extends ClassFille {
     public void setMontanttaux(double montanttaux) {
         this.montanttaux = montanttaux;
     }
-    
-    
-    public FactureClientDetails() throws Exception{
+
+    public FactureClientDetails() throws Exception {
         setNomTable("facture_client_fille");
         this.setNomClasseMere("facture.FactureClient");
         this.setLiaisonMere("idmere");
@@ -473,7 +468,8 @@ public class FactureClientDetails extends ClassFille {
         this.setMois(mois);
         this.setDevise(devise);
     }
-    public FactureClientDetails(String idmere, double quantite, double pu, String compte, String designation, double duree, int annee, int mois, String devise,double tva) throws Exception {
+
+    public FactureClientDetails(String idmere, double quantite, double pu, String compte, String designation, double duree, int annee, int mois, String devise, double tva) throws Exception {
         setNomTable("facture_client_fille");
         this.setNomClasseMere("facture.FactureClient");
         this.setLiaisonMere("idmere");
@@ -488,8 +484,7 @@ public class FactureClientDetails extends ClassFille {
         this.setDevise(devise);
         this.setTva(tva);
     }
-    
-    
+
     public FactureClientDetails(String idmere, double quantite, double pu, String compte, String designation, double duree) throws Exception {
         setNomTable("facture_client_fille");
         this.setNomClasseMere("facture.FactureClient");
@@ -501,7 +496,7 @@ public class FactureClientDetails extends ClassFille {
         this.setDesignation(designation);
         this.setDuree(duree);
     }
-    
+
     public FactureClientDetails(String id, String idmere, double quantite, double pu, double taux, String compte, String idproduit, String produit_lib, String devise, String designation, String idProduitLib, String idactivite, String categorieFacturelib, String categorieClientlib, String activitelib, String rubrique, FactureClient mere, double montant, double montanttaux, double montantavoirsanstaux, double montantavoiravectaux, double qtelivree, double restealivrer, double montantTTC, Date datefact, Date daty, String rubriquelib, String idprestation, String clientlib, int mois, int annee, String heureDebut, String heureFin, String moislib, String anneelib, double montantHTEuro, double montantTVAEuro, double montanttaxe, double majoration, double reduction, int rang, double tva) {
         this.id = id;
         this.idmere = idmere;
@@ -546,7 +541,7 @@ public class FactureClientDetails extends ClassFille {
         this.rang = rang;
         this.tva = tva;
     }
-    
+
     @Override
     public void construirePK(Connection c) throws Exception {
         preparePk("FCF", "get_seq_facture_client_fille");
@@ -560,77 +555,92 @@ public class FactureClientDetails extends ClassFille {
 
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
-        if(getTauxDonne()==false)setTaux(getTauxRecent(c));
+        if (getTauxDonne() == false) {
+            setTaux(getTauxRecent(c));
+        }
         return super.createObject(user, c);
     }
 
-    public void verifActivite(Connection c) throws Exception{
+    public void verifActivite(Connection c) throws Exception {
         Activite act = getActivite(c);
-        if(act!=null && act.getEtat() < ConstanteEtat.getEtatValider()){
+        if (act != null && act.getEtat() < ConstanteEtat.getEtatValider()) {
             throw new Exception("Activite non visee !");
         }
     }
-    
+
     @Override
     public void controlerUpdate(Connection c) throws Exception {
         verifActivite(c);
         setTaux(getTauxRecent(c));
         super.controlerUpdate(c);
     }
-    
+
     public Rubrique getRubrique(Connection c) throws Exception {
         String awhere = " and id = '%s'";
         String idRubrique = null;
-        
-        if(this.getRubrique() != null) idRubrique = this.getRubrique();
-        else if(this.getIdactivite() != null) idRubrique = this.getActivite(c).getRubrique();
-        
+
+        if (this.getRubrique() != null) {
+            idRubrique = this.getRubrique();
+        } else if (this.getIdactivite() != null) {
+            idRubrique = this.getActivite(c).getRubrique();
+        }
+
         awhere = String.format(awhere, idRubrique);
         Rubrique[] rub = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, awhere);
-        
+
         return rub != null && rub.length > 0 ? rub[0] : null;
     }
-    
-    public Activite getActivite(Connection c) throws Exception{
-        Activite retour=null;
-        Boolean estOuvert=false;
-        try{
-            if(c==null){
-                c=new UtilDB().GetConn();
+
+    public Activite getActivite(Connection c) throws Exception {
+        Activite retour = null;
+        Boolean estOuvert = false;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
                 c.setAutoCommit(false);
-                estOuvert=true;
+                estOuvert = true;
             }
-            Activite ac=new Activite();
+            Activite ac = new Activite();
             ac.setNomTable("ACTIVITELIBCOMPLET");
-            Activite[] liste=(Activite[])CGenUtil.rechercher(ac, null, null, c, " and id='"+this.getIdactivite()+"'");
-            if(liste.length>0) retour=liste[0];
-        }catch(Exception e){
+            Activite[] liste = (Activite[]) CGenUtil.rechercher(ac, null, null, c, " and id='" + this.getIdactivite() + "'");
+            if (liste.length > 0) {
+                retour = liste[0];
+            }
+        } catch (Exception e) {
             throw e;
-        }finally{
-            if(c!=null && estOuvert) c.close();
+        } finally {
+            if (c != null && estOuvert) {
+                c.close();
+            }
         }
         return retour;
     }
-    
-    public void remove(String id, String user) throws Exception {        
+
+    public void remove(String id, String user) throws Exception {
         Connection c = null;
-        
+
         try {
             c = (new UtilDB()).GetConn();
             c.setAutoCommit(false);
             FactureClientDetails[] factureFArray = (FactureClientDetails[]) CGenUtil.rechercher(new FactureClientDetails(), null, null, c, String.format(" and id = '%s' ", id));
-            if(factureFArray == null || factureFArray.length == 0) throw new Exception("Facture details inexistant");
-            
+            if (factureFArray == null || factureFArray.length == 0) {
+                throw new Exception("Facture details inexistant");
+            }
+
             factureFArray[0].deleteToTableWithHisto(user, c);
-            
+
             c.commit();
         } catch (Exception e) {
-            if(c != null) c.rollback();
+            if (c != null) {
+                c.rollback();
+            }
         } finally {
-          if(c != null) c.close();  
+            if (c != null) {
+                c.close();
+            }
         }
     }
-    
+
     public double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
         String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= to_date('" + Utilitaire.datetostring(date) + "', 'dd/mm/yyyy') and iddevise = '" + this.getDevise() + "') "
                 + " and iddevise = '" + this.getDevise() + "'";
@@ -640,7 +650,8 @@ public class FactureClientDetails extends ClassFille {
 
         return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
-    public static double getValeurTaux(Connection c, String nomTable, Date date,String idDevise) throws Exception {
+
+    public static double getValeurTaux(Connection c, String nomTable, Date date, String idDevise) throws Exception {
         String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= to_date('" + Utilitaire.datetostring(date) + "', 'dd/mm/yyyy') and iddevise = '" + idDevise + "') "
                 + " and iddevise = '" + idDevise + "'";
         Coursdevise cours = new Coursdevise();
@@ -650,50 +661,52 @@ public class FactureClientDetails extends ClassFille {
         return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
     }
 
-    public boolean verifTauxRecentMICTSL(Connection c) throws Exception  {
+    public boolean verifTauxRecentMICTSL(Connection c) throws Exception {
         String getEstMictsl = this.getMere().getEstMictsl();
-        
-        if(getEstMictsl != null && getEstMictsl.equals(Constante.estMictsl) && this.getRubrique()!=null){
-            Rubrique[] rubs = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, " and CATEGORIE = '"+Constante.idCatRubConteneur+"'");
-            
+
+        if (getEstMictsl != null && getEstMictsl.equals(Constante.estMictsl) && this.getRubrique() != null) {
+            Rubrique[] rubs = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, " and CATEGORIE = '" + Constante.idCatRubConteneur + "'");
+
             for (int i = 0; i < rubs.length; i++) {
-                if(this.getRubrique().equals(rubs[i].getId())){
+                if (this.getRubrique().equals(rubs[i].getId())) {
                     return true;
                 }
             }
         }
         return false;
     }
-    
+
     public double getTauxRecent(Connection c) throws Exception {
         this.findMere(c);
-        if(this.getMere() == null) throw new Exception("Facture mere introuvable");
-        if(this.getRubrique()!=null && this.getRubrique().compareTo(Constante.idRedevanceVariable)==0){
-            return getTauxFinDuMois(c,this.getMois(),this.getAnnee(),this.getDevise());
+        if (this.getMere() == null) {
+            throw new Exception("Facture mere introuvable");
         }
-        if(verifTauxRecentMICTSL(c)){
+        if (this.getRubrique() != null && this.getRubrique().compareTo(Constante.idRedevanceVariable) == 0) {
+            return getTauxFinDuMois(c, this.getMois(), this.getAnnee(), this.getDevise());
+        }
+        if (verifTauxRecentMICTSL(c)) {
             return getTauxRecentMICTSL(c);
         }
-        
+
         return getTauxRecentNormal(c);
     }
-    
+
     public FactureClient findMere(Connection c) throws Exception {
-        if(this.getMere() == null) {
+        if (this.getMere() == null) {
             FactureClient fc = new FactureClient();
             fc.setId(this.getIdmere());
             fc.setEstDDPMICTSL(null);
             FactureClient[] tmp = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, "");
-            
-            if(tmp != null && tmp.length > 0) { 
+
+            if (tmp != null && tmp.length > 0) {
                 this.setMere(tmp[0]);
                 return tmp[0];
             }
         }
-        
+
         return this.getMere();
     }
-    
+
     /*public double getTauxRecentNormal(Connection c) throws Exception {
         this.findMere(c);
         Date date = this.getMere().getDaty();
@@ -709,42 +722,44 @@ public class FactureClientDetails extends ClassFille {
     }*/
     public double getTauxRecentNormal(Connection c) throws Exception {
         this.findMere(c);
-        FactureClient mere=this.getMere();
+        FactureClient mere = this.getMere();
         Date date = mere.getDaty();
-        if(mere.getIdprevision()!=null){
-            Prevision prev=mere.findPrevision("PREVISIONTYPEBORNAGE",c);
-            if(prev.getType().compareToIgnoreCase("TYPES0001") !=0){ // cas escale
-                if (prev.getDate_depart()!= null) {
-                    date =prev.getDate_depart();
+        if (mere.getIdprevision() != null) {
+            Prevision prev = mere.findPrevision("PREVISIONTYPEBORNAGE", c);
+            if (prev.getType().compareToIgnoreCase("TYPES0001") != 0) { // cas escale
+                if (prev.getDate_depart() != null) {
+                    date = prev.getDate_depart();
                 }
             }
-        }else{
-            if(mere.getBateau()!=null && mere.getDateDepart()!=null && mere.getIdcategorie().compareTo(Constante.idCategorieFCProvision)==0)date=mere.getDateDepart();
+        } else {
+            if (mere.getBateau() != null && mere.getDateDepart() != null && mere.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0) {
+                date = mere.getDateDepart();
+            }
         }
         return getValeurTaux(c, "coursdeviseNonMICTSL", date);
     }
-    
-    public double getTauxRecentMICTSL (Connection c) throws Exception {
+
+    public double getTauxRecentMICTSL(Connection c) throws Exception {
         this.findMere(c);
         Date date = this.getMere().getDaty();
         return getValeurTaux(c, "coursdeviseMICTSL", date);
     }
-    
-    public FactureClientDetails[] getFillesSoeurs(boolean inferieur,Connection c,String nomtable) throws Exception{
-        FactureClientDetails facture = new FactureClientDetails(); 
-        if(nomtable == null){
+
+    public FactureClientDetails[] getFillesSoeurs(boolean inferieur, Connection c, String nomtable) throws Exception {
+        FactureClientDetails facture = new FactureClientDetails();
+        if (nomtable == null) {
             nomtable = "facture_client_fille";
         }
         facture.setNomTable(nomtable);
         facture.setIdmere(this.getIdmere());
         String where = " and rang >= " + this.getRang() + " and id != '" + this.getId() + "' order by rang asc";
-        if(inferieur){
+        if (inferieur) {
             where = " and rang <= " + this.getRang() + " and id != '" + this.getId() + "' order by rang desc";
         }
-        FactureClientDetails[] reponse  = (FactureClientDetails[])new CGenUtil().rechercher(facture, null, null, c, where);
+        FactureClientDetails[] reponse = (FactureClientDetails[]) new CGenUtil().rechercher(facture, null, null, c, where);
         return reponse;
     }
-    
+
     public void monter(String id, int monter, Connection c, String user) throws Exception {
         boolean ouvert = false;
 
@@ -754,10 +769,10 @@ public class FactureClientDetails extends ClassFille {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            
-            FactureClientDetails fcd = (FactureClientDetails) CGenUtil. rechercher(new FactureClientDetails(), null, null, c, String.format("and id='%s'", id))[0];
+
+            FactureClientDetails fcd = (FactureClientDetails) CGenUtil.rechercher(new FactureClientDetails(), null, null, c, String.format("and id='%s'", id))[0];
             fcd.monter(monter, c, user);
-            
+
             if (ouvert) {
                 c.commit();
             }
@@ -776,20 +791,22 @@ public class FactureClientDetails extends ClassFille {
     public void monter(int monter, Connection c, String user) throws Exception {
         FactureClientDetails[] soeurs = getFillesSoeurs(monter == 1, c, null);
         int valeur = monter == 1 ? -1 : 1;
-        
+
         if (soeurs != null && soeurs.length > 0) {
-            if(this.getRang() != soeurs[0].getRang()) valeur = 0;
+            if (this.getRang() != soeurs[0].getRang()) {
+                valeur = 0;
+            }
             int rang = this.getRang();
             this.setRang(soeurs[0].getRang() + valeur);
             this.updateToTableWithHisto(user, c);
-            
-            if(valeur == 0) {
+
+            if (valeur == 0) {
                 soeurs[0].setRang(rang);
                 soeurs[0].updateToTableWithHisto(user, c);
             }
         }
     }
-    
+
     @Override
     public String getTuppleID() {
         return id;
@@ -799,7 +816,7 @@ public class FactureClientDetails extends ClassFille {
     public String getAttributIDName() {
         return "id";
     }
-    
+
     public String getId() {
         return id;
     }
@@ -807,6 +824,7 @@ public class FactureClientDetails extends ClassFille {
     public void setId(String id) {
         this.id = id;
     }
+
     public String getIdmere() {
         return idmere;
     }
@@ -844,11 +862,9 @@ public class FactureClientDetails extends ClassFille {
     }
 
     public void setCompte(String compte) throws Exception {
-        if (this.getMode().compareTo("modif")==0)
-        {
-            if(compte == null || compte.compareTo("") == 0)
-            {  
-                    throw new Exception("Compte obligatoire");
+        if (this.getMode().compareTo("modif") == 0) {
+            if (compte == null || compte.compareTo("") == 0) {
+                throw new Exception("Compte obligatoire");
             }
         }
         this.compte = compte;
@@ -869,6 +885,7 @@ public class FactureClientDetails extends ClassFille {
     public void setDevise(String devise) {
         this.devise = devise;
     }
+
     public String getDesignation() {
         return designation;
     }
@@ -889,6 +906,7 @@ public class FactureClientDetails extends ClassFille {
     public void setMontant(double montant) {
         this.montant = montant;
     }
+
     public String getIdactivite() {
         return idactivite;
     }
@@ -896,7 +914,7 @@ public class FactureClientDetails extends ClassFille {
     public void setIdactivite(String idactivite) {
         this.idactivite = idactivite;
     }
-    
+
     public String getCategorieFacturelib() {
         return categorieFacturelib;
     }
@@ -904,7 +922,7 @@ public class FactureClientDetails extends ClassFille {
     public void setCategorieFacturelib(String categorieFacturelib) {
         this.categorieFacturelib = categorieFacturelib;
     }
-    
+
     public String getCategorieClientlib() {
         return categorieClientlib;
     }
@@ -912,7 +930,7 @@ public class FactureClientDetails extends ClassFille {
     public void setCategorieClientlib(String categorieClientlib) {
         this.categorieClientlib = categorieClientlib;
     }
-    
+
     public String getRubrique() {
         return rubrique;
     }
@@ -920,18 +938,19 @@ public class FactureClientDetails extends ClassFille {
     public void setRubrique(String rubrique) {
         this.rubrique = rubrique;
     }
-    
-    public void checkActivite(Connection c) throws Exception{
-        if(this.getIdactivite()!=null && this.getIdactivite().compareTo("")!=0){
-            Activite act=new Activite();
+
+    public void checkActivite(Connection c) throws Exception {
+        if (this.getIdactivite() != null && this.getIdactivite().compareTo("") != 0) {
+            Activite act = new Activite();
             act.setNomTable("ACTIVITESNONFACTUREES");
-            Activite[] activites = (Activite[]) CGenUtil.rechercher(act, null, null, c, " and id ='" +this.getIdactivite()+ "'");
-        
-            if(activites.length == 0) {
+            Activite[] activites = (Activite[]) CGenUtil.rechercher(act, null, null, c, " and id ='" + this.getIdactivite() + "'");
+
+            if (activites.length == 0) {
                 throw new Exception("Cette activite a deja ete facturee ou n est pas encore visee");
             }
         }
     }
+
     public void controler(Connection c) throws Exception {
         verifActivite(c);
         this.checkActivite(c);
