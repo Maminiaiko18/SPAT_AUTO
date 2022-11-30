@@ -62,9 +62,17 @@ public class FactureClient extends ClassMere {
     private int exercice;
     private String idavoir,provenancelib,destinationlib,bateaulib,pavillon,pavillonlib;
     private double volume,volume100;
-    private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit ;
+    private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt;
+    public String getCdclt() {
+        return cdclt;
+    }
+
+    public void setCdclt(String cdclt) {
+        this.cdclt = cdclt;
+    }
     private Date dttp ,dtquit;
 	
+    
 	public String getNumpiece(){
 		return numpiece;
 	}
@@ -2283,8 +2291,4 @@ public class FactureClient extends ClassMere {
         this.ecart = ecart;
     }
 
-    
-
-    
-    
 }
