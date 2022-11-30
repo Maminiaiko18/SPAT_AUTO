@@ -986,70 +986,6 @@ public class EtatPaieServlet extends HttpServlet {
             if(request.getParameter("daty1") != null && request.getParameter("daty1").compareToIgnoreCase("null") != 0 && request.getParameter("daty1").length() != 0){
                 daty1 =  sdf.format(sdf.parse(request.getParameter("daty1")));
             }
-            String awhere="";
-        String id=request.getParameter("id");
-        String tierslib=request.getParameter("tierslib");
-        String designation=request.getParameter("designation");
-        String armateurlib=request.getParameter("armateurlib");
-        String date_echeance1=request.getParameter("date_echeance1");
-        String date_echeance2=request.getParameter("date_echeance2");
-        String escale=request.getParameter("escale");
-        String categorielib=request.getParameter("categorielib");
-        String code=request.getParameter("code");
-        String etat=request.getParameter("etat");
-        String codeFiltre =request.getParameter("codeFiltre");
-        
-        if(id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND id='"+id+"'";
-        }
-        
-        if(tierslib != null && !tierslib.trim().isEmpty() && tierslib.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND tierslib='"+tierslib+"'";
-        }
-        if(designation != null && !designation.trim().isEmpty() && designation.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND designation='"+designation+"'";
-        }
-        if(armateurlib != null && !armateurlib.trim().isEmpty() && armateurlib.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND armateurlib='"+armateurlib+"'";
-        }
-        if(date_echeance1 != null && !date_echeance1.trim().isEmpty() && date_echeance1.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND date_echeance >= '"+date_echeance1+"'";
-        }
-        if(date_echeance2 != null && !date_echeance2.trim().isEmpty() && date_echeance2.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND date_echeance <= '"+date_echeance2+"'";
-        }
-        if(escale != null && !escale.trim().isEmpty() && escale.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND escale='"+escale+"'";
-        }
-         if(categorielib != null && !categorielib.trim().isEmpty() && categorielib.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND categorielib='"+categorielib+"'";
-        }
-          if(code != null && !code.trim().isEmpty() && code.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND code='"+code+"'";
-        } 
-        if(codeFiltre != null && !codeFiltre.trim().isEmpty() && codeFiltre.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND codeFiltre like'%"+codeFiltre+"%'";
-        }
-        
-          
-         
-        if(etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0)
-        {
-            
-            
-             
-        }
-        
             param.put("daty1", daty1);
             param.put("daty2", daty2);
             FactureClient facture = new FactureClient();
@@ -1058,14 +994,7 @@ public class EtatPaieServlet extends HttpServlet {
                 mois = request.getParameter("daty2").split("/")[1];
             }
             facture.setNomTable("factureclient_emise");
-            if(etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0)
-            {
-                    facture.setNomTable(etat);
-            }
-            awhere+=" AND daty>= '"+daty1+"' AND daty<= '"+daty2+"' order by typelib,val,code";
-            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c,awhere );
-            System.out.println("awhere==="+awhere);
-            System.out.println("hahahhaha");
+            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " AND daty>= '"+daty1+"' AND daty<= '"+daty2+"' order by typelib,val,code");
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
             for (int i = 0; i < details.length; i++) {
                 arrList.add(details[i]);
