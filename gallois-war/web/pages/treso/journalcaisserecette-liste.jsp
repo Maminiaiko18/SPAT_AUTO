@@ -9,8 +9,12 @@
         String typecheque = request.getParameter("idtypecheque");
         JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
         journalCaisse.setNomTable("etatjournalcaisselibrecette");
+        
+        if (request.getParameter("etatvue") != null) {
+            journalCaisse.setNomTable(request.getParameter("etatvue"));
+        }
 
-		String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement", "descecaisse","numeroOP","tierslib"};
+	String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement", "descecaisse","numeroOP","tierslib"};
         String listeInt[] = {"dateEffet"};
         String libEntete[] = {"id", "folio", "valcaisse","descetypecheque", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement","numeroOP","tierslib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -52,6 +56,22 @@
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Etat : </label>
+                    <select name="etatvue" class="champ form-control" id="etatvue" onchange="changerDesignation()" style="display: inline-block; width: 250px;">
+                        
+                        <option value="JOURNALCAISSELIB_PROVISION" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_PROVISION") == 0) {
+                                out.print("selected");
+                            }%>>Provisions</option>
+                        <option value="JOURNALCAISSELIB_SANSPROV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSPROV") == 0) {
+                                out.print("selected");
+                            }%>>Recettes sans provisions</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
         </form>
 
         <%  String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
