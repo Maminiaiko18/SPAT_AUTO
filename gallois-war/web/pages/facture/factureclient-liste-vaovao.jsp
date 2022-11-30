@@ -17,16 +17,16 @@
         String[] etatVal = {"factureClientValide", "facture_client_unionC", "FACTURE_CLIENT_UNIONV", "factureclientApayer", "factureclientAuComptant", "factureclientACredit","FACTURE_CLIENT_UNIONA","FACTURECLIENTENRETARD","FACTURECLIENTENALERTE","FACTURECLIENTPAYEES"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "A payer", "Au comptant", "A crédit","Annulé","En retard","En alerte","Payée(s)"};
         ff.setNomTable(etatVal[0]);
-       // String etat = request.getParameter("etat");
+       // String etat = request.getParametefactureClientValider("etat");
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             ff.setNomTable(request.getParameter("etat"));
             System.out.println("etatA=="+request.getParameter("etat"));
         }
        
 
-        String listeCrt[] = {"id","daty","tierslib","designation","armateurlib","exercice","date_echeance","escale","categorielib", "code","codeFiltre","typelib","numpiece"};
+        String listeCrt[] = {"id","daty","tierslib", "cdclt", "designation","armateurlib","exercice","date_echeance","escale","categorielib", "code","codeFiltre","typelib","numpiece"};
         String listeInt[] = {"daty","date_echeance","exercice"};
-        String libEntete[] = {"id","daty","tierslib", "code", "numpiece", "escale","designation","armateurlib","exercice","categorielib","tva","date_echeance","typelib","montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+        String libEntete[] = {"id","daty","tierslib", "code", "numpiece", "escale","designation","armateurlib","exercice","categorielib","tva","date_echeance","typelib","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -67,7 +67,7 @@
         pr.getFormu().changerEnChamp(listes);
         pr.getFormu().getChamp("codeFiltre").setLibelle("Rubriques");
         
-        String[] colSomme = {"montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+        String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
@@ -122,7 +122,7 @@
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
-            String libEnteteAffiche[] = {"id","daty","Client","Code", "Numero piece", "Escale","Note explicative","armateur","exercice","Catégorie", "tva", "date echeance", "Type","montant HT", "montant TVA", "Montant TTC", "Net à payer", "montant Avoir","Montant payé","Reste à payer"};
+            String libEnteteAffiche[] = {"id","daty","Client", "Code Clt", "Code", "Numero piece", "Escale","Note explicative","armateur","exercice","Catégorie", "tva", "date echeance", "Type","montant HT", "montant TVA", "Montant TTC", "Net à payer", "montant Avoir","Montant payé","Reste à payer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);

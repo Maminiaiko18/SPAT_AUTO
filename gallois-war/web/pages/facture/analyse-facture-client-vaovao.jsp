@@ -8,7 +8,7 @@
 
         FactureClientDetails lv = new FactureClientDetails();
         lv.setNomTable("FCFILLECOMPLET_ANALYSE");
-        String listeCrt[] = {"daty","annee", "libelleRubrique"};
+        String listeCrt[] = {"daty","annee", "libelleRubrique","client"};
         String listeInt[] = {"daty"};
         
         
