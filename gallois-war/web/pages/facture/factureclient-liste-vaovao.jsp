@@ -17,7 +17,7 @@
         String[] etatVal = {"factureClientValide", "facture_client_unionC", "FACTURE_CLIENT_UNIONV", "factureclientApayer", "factureclientAuComptant", "factureclientACredit","FACTURE_CLIENT_UNIONA","FACTURECLIENTENRETARD","FACTURECLIENTENALERTE","FACTURECLIENTPAYEES"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "A payer", "Au comptant", "A crédit","Annulé","En retard","En alerte","Payée(s)"};
         ff.setNomTable(etatVal[0]);
-       // String etat = request.getParameter("etat");
+       // String etat = request.getParametefactureClientValider("etat");
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             ff.setNomTable(request.getParameter("etat"));
             System.out.println("etatA=="+request.getParameter("etat"));
@@ -26,7 +26,7 @@
 
         String listeCrt[] = {"id","daty","tierslib","designation","armateurlib","exercice","date_echeance","escale","categorielib", "code","codeFiltre","typelib","numpiece"};
         String listeInt[] = {"daty","date_echeance","exercice"};
-        String libEntete[] = {"id","daty","tierslib", "code", "numpiece", "escale","designation","armateurlib","exercice","categorielib","tva","date_echeance","typelib","montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+        String libEntete[] = {"id","daty","tierslib", "code", "numpiece", "escale","designation","armateurlib","exercice","categorielib","tva","date_echeance","typelib","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -67,7 +67,7 @@
         pr.getFormu().changerEnChamp(listes);
         pr.getFormu().getChamp("codeFiltre").setLibelle("Rubriques");
         
-        String[] colSomme = {"montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+        String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
@@ -107,7 +107,7 @@
             <% } %>
                 </div>           
                 <div class="col-md-4">                 
-                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient1&id=<%=request.getParameter("id") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>&tierslib=<%=request.getParameter("tierslib") %>&designation=<%=request.getParameter("designation") %>&armateurlib=<%=request.getParameter("armateurlib")%>&date_echeance1=<%=request.getParameter("date_echeance1")%>&date_echeance2=<%=request.getParameter("date_echeance2")%>&escale=<%=request.getParameter("escale")%>&categorielib=<%=request.getParameter("categorielib")%>&code=<%=request.getParameter("code")%>&etat=<%=request.getParameter("etat")%>&codeFiltre=<%=request.getParameter("codeFiltre")%>" style="margin-right: 10px">Imprimer factures</a>
+                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimer1&id=<%=request.getParameter("id") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>&tierslib=<%=request.getParameter("tierslib") %>&designation=<%=request.getParameter("designation") %>&armateurlib=<%=request.getParameter("armateurlib")%>&date_echeance1=<%=request.getParameter("date_echeance1")%>&date_echeance2=<%=request.getParameter("date_echeance2")%>&escale=<%=request.getParameter("escale")%>&categorielib=<%=request.getParameter("categorielib")%>&code=<%=request.getParameter("code")%>&etat=<%=request.getParameter("etat")%>&codeFiltre=<%=request.getParameter("codeFiltre")%>" style="margin-right: 10px">Imprimer factures</a>
                 </div>
             </div>
         </form>
