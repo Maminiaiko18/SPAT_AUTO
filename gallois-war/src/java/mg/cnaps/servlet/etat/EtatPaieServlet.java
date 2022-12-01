@@ -731,6 +731,7 @@ public class EtatPaieServlet extends HttpServlet {
 
                     param.put("facture_montant", tabJournal[0].getDebit());
                     param.put("tiers", tabJournal[0].getTiersLib());
+                    param.put("num_piece", tabJournal[0].getNumPiece());
                 }
 
             }

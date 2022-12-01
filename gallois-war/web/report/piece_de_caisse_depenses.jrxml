@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse_depenses" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48507b75-f3ed-4992-8bc5-60c122b5167c">
 	<property name="ireport.zoom" value="1.6528925619834758"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="libelle" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
 	<parameter name="daty" class="java.util.Date"/>
@@ -13,6 +13,7 @@
 	<parameter name="departement" class="java.lang.String"/>
 	<parameter name="service" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
+	<parameter name="num_piece" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -95,6 +96,20 @@
 				</textElement>
 				<text><![CDATA[Montant Ar ]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="403" y="49" width="57" height="15" uuid="2131f185-5014-4c3e-8b7f-af042b71039b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Num pièce: ]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="460" y="49" width="95" height="15" uuid="3ee35fba-4195-43ee-b833-10c75b4f0ed8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{num_piece}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
