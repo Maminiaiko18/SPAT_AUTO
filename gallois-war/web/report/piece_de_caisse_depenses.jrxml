@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse_depenses" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48507b75-f3ed-4992-8bc5-60c122b5167c">
 	<property name="ireport.zoom" value="1.6528925619834758"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="libelle" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
 	<parameter name="daty" class="java.util.Date"/>
@@ -1317,6 +1317,13 @@
 					</staticText>
 				</frame>
 			</frame>
+			<staticText>
+				<reportElement x="0" y="64" width="78" height="15" uuid="7f18b748-c875-4d83-b25b-b9ba42a1f46d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant en lettres :]]></text>
+			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="180" y="45" width="161" height="15" uuid="44775187-29b1-4b81-88ec-20b5c7c7cbb3"/>
 				<textElement textAlignment="Right" verticalAlignment="Top" markup="none">
@@ -1324,8 +1331,28 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="78" y="66" width="263" height="35" uuid="fadf7f08-ada5-444f-8497-1b2137f3fbc4"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font size="9" isBold="true" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montant_lettre}]]></textFieldExpression>
+			</textField>
 			<line>
 				<reportElement x="181" y="59" width="143" height="1" uuid="7a7d2241-b2d9-4f7b-9082-acd1f9a8db52"/>
+				<graphicElement>
+					<pen lineWidth="1.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="78" y="79" width="246" height="1" uuid="d7a7bdfd-1a8e-4303-9787-d05ee0cee49b"/>
+				<graphicElement>
+					<pen lineWidth="1.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="93" width="324" height="1" uuid="f7cdd6ea-4d39-449d-a0ab-556e3ab40780"/>
 				<graphicElement>
 					<pen lineWidth="1.5" lineStyle="Dotted"/>
 				</graphicElement>
