@@ -29,14 +29,18 @@
         pr.setApres("treso/journalcaisse-liste.jsp");
         
         
-        Liste[] listes = new Liste[2];
+        Liste[] listes = new Liste[3];
         listes[0] = new Liste("descecaisse", new String[]{"Tous", "Caisse", "Banque"}, new String[]{"", "Caisse", "Banque"});
         
         TypeObjet typeCheque = new TypeObjet();
         typeCheque.setNomTable("typecheque");
         listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
         
+        TypeObjet caisse = new TypeObjet();
+        caisse.setNomTable("caisse");
+        listes[2] = new Liste("valcaisse", caisse, "val", "id");
         
+    
         pr.getFormu().changerEnChamp(listes);
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
         pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
