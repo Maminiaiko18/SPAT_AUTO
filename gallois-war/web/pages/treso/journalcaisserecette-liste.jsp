@@ -61,6 +61,9 @@
                 <div class="form-group">
                     <label>Etat : </label>
                     <select name="etatvue" class="champ form-control" id="etatvue" onchange="changerDesignation()" style="display: inline-block; width: 250px;">
+                             <option value="JOURNALCAISSELIB_TOUS" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_TOUS") == 0) {
+                                out.print("selected");
+                            }%>>Tous</option>
                         
                         <option value="JOURNALCAISSELIB_PROVISION" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_PROVISION") == 0) {
                                 out.print("selected");
