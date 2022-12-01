@@ -1145,7 +1145,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         }
         if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00002")==0)
         {
-            result = "P";
+            result = "3";
         }
         return result;
     }

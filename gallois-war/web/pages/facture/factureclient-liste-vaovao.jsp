@@ -107,7 +107,7 @@
             <% } %>
                 </div>           
                 <div class="col-md-4">                 
-                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient1&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>" style="margin-right: 10px">Imprimer factures</a>                 
+                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient1&etat=<%=request.getParameter("etat")%>&code=<%=request.getParameter("code")%>&categorielib=<%=request.getParameter("categorielib")%>&armateurlib=<%=request.getParameter("armateurlib") %>&designation=<%=request.getParameter("designation") %>&tierslib=<%=request.getParameter("tierslib") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>&date_echeance1=<%=request.getParameter("date_echeance1") %>&date_echeance2=<%=request.getParameter("date_echeance2") %>" style="margin-right: 10px">Imprimer factures</a>                 
                 </div>
             </div>
         </form>

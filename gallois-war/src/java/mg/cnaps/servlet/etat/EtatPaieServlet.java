@@ -731,6 +731,7 @@ public class EtatPaieServlet extends HttpServlet {
 
                     param.put("facture_montant", tabJournal[0].getDebit());
                     param.put("tiers", tabJournal[0].getTiersLib());
+                    param.put("num_piece", tabJournal[0].getNumPiece());
                 }
 
             }
@@ -986,6 +987,35 @@ public class EtatPaieServlet extends HttpServlet {
             if(request.getParameter("daty1") != null && request.getParameter("daty1").compareToIgnoreCase("null") != 0 && request.getParameter("daty1").length() != 0){
                 daty1 =  sdf.format(sdf.parse(request.getParameter("daty1")));
             }
+            String awhere = "";
+            if(request.getParameter("tierslib")!= null && request.getParameter("tierslib").compareToIgnoreCase("null") != 0 && request.getParameter("tierslib").length() != 0)
+            {
+                awhere+=" AND tierslib='"+request.getParameter("tierslib")+"'";
+            }
+            if(request.getParameter("designation")!= null && request.getParameter("designation").compareToIgnoreCase("null") != 0 && request.getParameter("designation").length() != 0)
+            {
+                awhere+=" AND designation='"+request.getParameter("designation")+"'";
+            }
+            if(request.getParameter("categorielib")!= null && request.getParameter("categorielib").compareToIgnoreCase("null") != 0 && request.getParameter("categorielib").length() != 0)
+            {
+                awhere+=" AND categorielib='"+request.getParameter("categorielib")+"'";
+            }
+            if(request.getParameter("armateurlib")!= null && request.getParameter("armateurlib").compareToIgnoreCase("null") != 0 && request.getParameter("armateurlib").length() != 0)
+            {
+                awhere+=" AND armateurlib='"+request.getParameter("armateurlib")+"'";
+            }
+            if(request.getParameter("code")!= null && request.getParameter("code").compareToIgnoreCase("null") != 0 && request.getParameter("code").length() != 0)
+            {
+                awhere+=" AND code='"+request.getParameter("code")+"'";
+            }
+             if(request.getParameter("date_echeance1")!= null && request.getParameter("date_echeance1").compareToIgnoreCase("null") != 0 && request.getParameter("date_echeance1").length() != 0)
+            {
+                awhere+=" AND date_echeance >= '"+request.getParameter("date_echeance1")+"'";
+            }
+            if(request.getParameter("date_echeance2")!= null && request.getParameter("date_echeance2").compareToIgnoreCase("null") != 0 && request.getParameter("date_echeance2").length() != 0)
+            {
+                awhere+=" AND date_echeance >= '"+request.getParameter("date_echeance2")+"'";
+            }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
             FactureClient facture = new FactureClient();
@@ -994,7 +1024,12 @@ public class EtatPaieServlet extends HttpServlet {
                 mois = request.getParameter("daty2").split("/")[1];
             }
             facture.setNomTable("factureclient_emise");
-            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " AND daty>= '"+daty1+"' AND daty<= '"+daty2+"' order by typelib,val,code");
+            if(request.getParameter("etat")!= null && request.getParameter("etat").compareToIgnoreCase("null") != 0 && request.getParameter("etat").length() != 0)
+            {
+               facture.setNomTable(request.getParameter("etat"));
+            }
+            awhere+=" AND daty>= '"+daty1+"' AND daty<= '"+daty2+"' order by typelib,code";
+            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c,awhere );
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
             for (int i = 0; i < details.length; i++) {
                 arrList.add(details[i]);
