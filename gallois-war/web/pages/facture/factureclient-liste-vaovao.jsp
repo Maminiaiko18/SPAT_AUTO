@@ -42,6 +42,7 @@
         pr.getFormu().getChamp("typelib").setLibelle("Type");
         pr.getFormu().getChamp("armateurlib").setLibelle("Armateur");
         pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
+        pr.getFormu().getChamp("cdclt").setLibelle("Code Client");
         pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
         Date firstDate = Utilitaire.dateDuJourSql();   
