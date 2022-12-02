@@ -9,7 +9,8 @@
 <%
     try {
         FactureFournisseur ff = new FactureFournisseur();
-        ff.setNomTable("FACTUREFOURNVALIDE_P");
+        //ff.setNomTable("FACTUREFOURNVALIDE_P");
+        ff.setNomTable("FACTUREFOURNVALIDE_PNP");
 
         String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib"};
         String listeInt[] = {"daty","date_echeance","exercice"};
