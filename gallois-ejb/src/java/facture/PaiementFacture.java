@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.JournalCaisse;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 public class PaiementFacture extends ClassMAPTable{
     private String id;
@@ -170,11 +171,13 @@ public class PaiementFacture extends ClassMAPTable{
                 verif = 1;
             }
             FactureClient fc = this.getFacture(c);
-            if(fc!=null && fc.getMontantreste()<this.getMontant()) throw new Exception("RAP facture inferieur au montant saisi");
+            if(fc!=null && fc.getMontantreste()<this.getMontant()) throw new Exception(" au montant saisi");
         
             JournalCaisse jc=this.getpayement(c); 
             double montantFactures=this.getMontantFactures(jc,c);
-            if(this.getNomTable().equalsIgnoreCase("paiementfacture") && montantFactures+this.getMontant()>jc.getCredit()) throw new Exception("Le montant depasse. Montant factures ="+montantFactures+", montant inséré="+this.getMontant()+", montant journal="+jc.getCredit()); //tsy maintsy micomparer nomtable satria ity classe ity ihany no ampiasain'ny fournisseur donc diso ilay getCredit
+            if(this.getNomTable().equalsIgnoreCase("paiementfacture") && Double.valueOf(Utilitaire.enleverExponentielleDouble(montantFactures+this.getMontant()))>Double.valueOf(Utilitaire.enleverExponentielleDouble(jc.getCredit()))) {
+                throw new Exception("Le montant depasse. Montant factures ="+montantFactures+", montant inséré="+this.getMontant()+", montant journal="+jc.getCredit()); //tsy maintsy micomparer nomtable satria ity classe ity ihany no ampiasain'ny fournisseur donc diso ilay getCredit
+            }
         } finally {
             if (c != null && verif == 1) {
                 c.close();
