@@ -15,7 +15,7 @@
         String[] pourcentage = {};
         String somDefaut[] ={"montantttc"}; //sum
         String colDefaut[] =  {"moislib","catClient"}; // colonne
-        String[] colGrCol = {"libelleRubrique"}; //ligne
+        String[] colGrCol = {"client"}; //ligne
         
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, colDefaut.length, 0);
         
