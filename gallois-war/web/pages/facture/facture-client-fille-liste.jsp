@@ -17,6 +17,9 @@
     try {
         CaFcFilleComplet cht = new CaFcFilleComplet();
         cht.setNomTable("CAFCFILLECOMPLET_AVOIR");
+        if (request.getParameter("etatvue") != null) {
+            cht.setNomTable(request.getParameter("etatvue"));
+        }
         String libEntete[] = { "idmere","daty","code","client", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
         String listeCrt[] = {"compte","annee", "type","daty","mereca","code"};
         String listeInt[] = {"daty"};
@@ -84,6 +87,24 @@
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Etat : </label>
+                    <select name="etatvue" class="champ form-control" id="etatvue" onchange="changerDesignation()" style="display: inline-block; width: 250px;">
+                             <option value="CAFCFILLECOMPLET_AVOIR" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIR") == 0) {
+                                out.print("selected");
+                            }%>>Tous</option>
+                        
+                        <option value="CAFCFILLECOMPLET_AVOIRC" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIRC") == 0) {
+                                out.print("selected");
+                            }%>>Créé</option>
+                        <option value="CAFCFILLECOMPLET_AVOIRV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIRV") == 0) {
+                                out.print("selected");
+                            }%>>Visé</option>
+                    </select>
+                </div>
+            </div>
         </form>
         <%
             String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
