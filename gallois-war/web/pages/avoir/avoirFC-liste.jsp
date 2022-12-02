@@ -1,4 +1,5 @@
 
+<%@page import="affichage.Liste"%>
 <%@page import="avoir.AvoirFC"%>
 <%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
@@ -24,12 +25,23 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("avoir/avoirFC-liste.jsp");
         
+        affichage.Champ[] liste = new affichage.Champ[1];
+        
+        String[] affiche = {"Tous", "Interne", "Externe"};
+        String[] value = {"%", "interne", "externe"};
+        Liste lst = new Liste();
+        lst.ajouterValeur(value, affiche);
+        liste[0] = lst;
+        liste[0].setNom("typelib");
+    
+        pr.getFormu().changerEnChamp(liste);
+        
         pr.getFormu().getChamp("tierslib").setLibelle("tiers");
         pr.getFormu().getChamp("idfacture").setLibelle("facture");
         pr.getFormu().getChamp("typelib").setLibelle("Type");
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");    
-		pr.getFormu().getChamp("code").setLibelle("Code");    		
+	pr.getFormu().getChamp("code").setLibelle("Code");    		
         Date finmois = utilitaire.Utilitaire.getLastDayOfDateSQL(utilitaire.Utilitaire.dateDuJourSql());      
         pr.getFormu().getChamp("daty2").setDefaut(utilitaire.Utilitaire.datetostring(finmois));
         Date debutmois = finmois;
