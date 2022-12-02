@@ -24,7 +24,7 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setOrdre(" order by daty desc");
-        pr.setApres("facture/factureclient-liste-vaovao.jsp&etat="+request.getParameter("etat"));
+        pr.setApres("facture/factureclient-liste-numpiece.jsp");
         pr.setNpp(300);
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
@@ -72,7 +72,7 @@
         <h1>Liste facture client avec numpiece</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=facture/factureclient-liste-vaovao.jsp" method="post" name="incident" id="incident">
+        <form action="<%=pr.getLien()%>?but=facture/factureclient-liste-numpiece.jsp" method="post" name="incident" id="incident">
             <%
                 String libelleAffiche[] = {};
                 pr.getTableau().setLibelleAffiche(libelleAffiche);
