@@ -230,6 +230,7 @@ public class RegulFCProvision extends ClassEtat {
                 fille.setMontantdf(details[i].getMontantTTC());
                 fille.setIddetailfacture(details[i].getId());
                 fille.setMontant(montant);
+                fille.setPu(details[i].getPu());
 
                 fille.createObject(user, c);
             }
