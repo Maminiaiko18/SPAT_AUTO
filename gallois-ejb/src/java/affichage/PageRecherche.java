@@ -4,6 +4,7 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.lang.reflect.Field;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -661,7 +662,8 @@ public class PageRecherche extends Page {
         if (sommeId > -1) {
             temp += "<input type=\"hidden\" name=\"nombreEncours\" value=\"" + Utilitaire.formaterSansVirgule(rs.getSommeEtNombre()[getColSomme().length]) + "\" />";
             double test = rs.getSommeEtNombre()[sommeId];
-            temp += "<input type=\"hidden\" name=\"recap\" value=\"" + test + "\" />";
+            String testEnString = Utilitaire.enleverExponentielleDouble(test);
+            temp += "<input type=\"hidden\" name=\"recap\" value=\"" + testEnString + "\" />";
         }
 
         temp += "<input type='submit' value='" + RB.getString("exporter") + "' class='btn btn-default' />";
