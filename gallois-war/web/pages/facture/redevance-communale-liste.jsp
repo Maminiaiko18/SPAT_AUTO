@@ -13,7 +13,7 @@
 <% 
     try{
     EtatRedevance etat = new EtatRedevance();
-    etat.setNomTable("redevanceCommunaleFacture");
+    etat.setNomTable("redevanceCommunaleFactureMD");
     String listeCrt[] = {"daty","tierslib","typelib"};
     String listeInt[] = {"daty"};
     String libEntete[] =  {"code","daty","tierslib","montantHT","tva","montantTTC"};
