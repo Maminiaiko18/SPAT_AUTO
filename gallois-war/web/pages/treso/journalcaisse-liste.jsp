@@ -28,7 +28,7 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("treso/journalcaisse-liste.jsp");
         
-        
+        System.out.println("CAISSSEE "+ request.getParameter("valcaisse"));
         Liste[] listes = new Liste[3];
         listes[0] = new Liste("descecaisse", new String[]{"Tous", "Caisse", "Banque"}, new String[]{"", "Caisse", "Banque"});
         
@@ -38,7 +38,7 @@
         
         TypeObjet caisse = new TypeObjet();
         caisse.setNomTable("caisse");
-        listes[2] = new Liste("valcaisse", caisse, "val", "id");
+        listes[2] = new Liste("valcaisse", caisse, "val", "val");
         
     
         pr.getFormu().changerEnChamp(listes);
