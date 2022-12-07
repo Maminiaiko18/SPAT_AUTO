@@ -2885,7 +2885,9 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         }
         if(typelib != null && !typelib.trim().isEmpty() && typelib.compareToIgnoreCase("null") != 0)
         {
-            awhere+=" AND typelib='"+typelib+"'";
+            awhere+=" AND typelib like '"+typelib+"'";
+        }else{
+            awhere+=" AND typelib like '%'";
         }
         if(code != null && !code.trim().isEmpty() && code.compareToIgnoreCase("null") != 0)
         {
