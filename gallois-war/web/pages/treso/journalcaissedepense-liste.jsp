@@ -33,6 +33,7 @@
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
         pr.getFormu().getChamp("valcaisse").setLibelle("Caisse");
+        pr.getFormu().getChamp("valcaisse").setDefaut("DEPENSES");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pr.getFormu().getChamp("numeroOP").setLibelle("Num&eacute;ro OP");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
