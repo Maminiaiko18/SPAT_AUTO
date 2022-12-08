@@ -25,7 +25,7 @@ import utilitaire.UtilDB;
  * @author Nouta
  */
 public class Engagement extends ClassEtat {
-    private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib;
+    private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib,observation;
     private String codeEtablissementlib,projetlib,tiers ,tierslib,num;
     private double montant,disponible,dispoAvant,dispoApres,montantOP;
     private Date daty;
@@ -38,6 +38,14 @@ public class Engagement extends ClassEtat {
         return this.getMontant() - totalFF;
     }
 
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+    
     public int getAnnee() {
         return annee;
     }
