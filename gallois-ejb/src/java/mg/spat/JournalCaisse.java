@@ -1167,9 +1167,14 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_vaovao where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque());
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(7, result[0].getNumerosuivant());
+        String prov = "";
+        if(Utilitaire.champNull(this.getIdplacement()).compareTo("")!=0){
+            prov = "P-";
+        }
         return Utilitaire.genererAnnee(dateEffetStr) + 
                 mois + "-" + 
                 genererCodeModePaiement() + "-" + 
+                prov +
                 genererCodeType() + "-" + 
                 seq;
 

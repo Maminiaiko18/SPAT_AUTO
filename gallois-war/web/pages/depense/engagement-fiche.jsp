@@ -34,6 +34,7 @@
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("observation").setLibelle("Observation");
 
     engagement = (Engagement) pc.getBase();
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp","id="+engagement.getIdLC()+"&id=");

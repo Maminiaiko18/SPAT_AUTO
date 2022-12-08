@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5a2a4c-d9f3-419e-bdaf-7d68b4b0a8e6">
-	<property name="ireport.zoom" value="4.0"/>
-	<property name="ireport.x" value="1431"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="1.0533250172243196"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="128"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
 	<parameter name="code_etab" class="java.lang.String"/>
@@ -19,6 +19,7 @@
 	<parameter name="annuel" class="java.lang.String"/>
 	<parameter name="avant" class="java.lang.String"/>
 	<parameter name="apres" class="java.lang.String"/>
+	<parameter name="observation" class="java.lang.String"/>
 	<field name="id" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String"/>
 	<field name="montanttva" class="java.lang.Double"/>
@@ -323,14 +324,7 @@
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="16" y="317" width="158" height="20" uuid="54eda925-6b77-4c75-9f77-46769e006f33"/>
-				<textElement>
-					<font isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Observations Controle de gestion]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="12" y="317" width="542" height="56" uuid="ff33574a-0a15-4e2f-8d1b-a8b12142e915"/>
+				<reportElement x="12" y="311" width="542" height="56" uuid="ff33574a-0a15-4e2f-8d1b-a8b12142e915"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -437,6 +431,13 @@
 				</box>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{projet}.charAt( 2 )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="12" y="311" width="531" height="40" uuid="6d4ef01e-a007-4d91-b3ba-de2ae737ca56"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Observations Controle de "+ $P{observation}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
