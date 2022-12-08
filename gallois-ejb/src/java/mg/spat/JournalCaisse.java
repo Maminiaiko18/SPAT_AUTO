@@ -1139,6 +1139,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public String genererCodeType()
     {
         String result="";
+        if(Utilitaire.champNull(this.getIdplacement()).compareTo("")!=0){
+            result = "P";
+        }
         if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00001")==0)
         {
             result = "1";
