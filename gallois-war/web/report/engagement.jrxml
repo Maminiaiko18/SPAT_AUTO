@@ -437,7 +437,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Observations Controle de"+ $P{observation}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Observations Controle de "+ $P{observation}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
