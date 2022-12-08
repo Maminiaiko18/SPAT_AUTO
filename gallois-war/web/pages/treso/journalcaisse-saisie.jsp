@@ -62,7 +62,12 @@
         affichage.Liste[] liste = new affichage.Liste[5];
 
         TypeObjet esc = new TypeObjet();
-        esc.setNomTable("CAISSE");
+        if (request.getParameter("caisse") != null) {
+            esc.setNomTable(request.getParameter("caisse"));
+        } else {
+            esc.setNomTable("CAISSE");
+        }
+
         liste[0] = new Liste("caisse", esc, "VAL", "id");
         liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
         TypeObjet cheque = new TypeObjet();
@@ -166,8 +171,8 @@
                 DetailsPlacements dp = datas.getDetailsPlacement();
                 pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + dp.getMontant_terme()));
             }
-            if(request.getParameter("auto") != null && !request.getParameter("auto").equals("") && request.getParameter("auto").equals("1")){
-               pi.getFormu().getChamp("caisse").setDefaut(datas.getPbc().getDesce());
+            if (request.getParameter("auto") != null && !request.getParameter("auto").equals("") && request.getParameter("auto").equals("1")) {
+                pi.getFormu().getChamp("caisse").setDefaut(datas.getPbc().getDesce());
             }
         }
 
@@ -209,7 +214,7 @@
 <%
     Liste moisL = new Liste("mois");
     moisL.makeListeMois();
-    
+
     moisL.setDefaut("" + Utilitaire.getMoisEnCoursReel());
 %>
 <div class="content-wrapper" style="min-height: 1200px!important">

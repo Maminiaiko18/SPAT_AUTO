@@ -457,17 +457,20 @@ public class FactureFournisseur extends FactureClient {
 
             String categorie = fc.getIdcategorie();
 
+            System.out.println("TYPE ========== " + type);
             if (type == 1) {
                 fc.controlerDefinitive(c);
                 categorie = Constante.categorieFFdefault;
-            } else {
+            }
+            //else {
+             
                 JournalCaisse[] jc = this.getPaiement(c);
                 if (jc.length == 0) {
                     throw new Exception("Pas de paiement pour ce bon provisoire");
                 }
                 fc.controlerProvision(c);
                 categorie = Constante.getCategorieFFBP();
-            }
+            //}
 
             fact2 = (FactureFournisseur) fc.dupliquer(u.getUser().getTuppleID(), c);
             fact2 = (FactureFournisseur) fc.setIdProvision(fact2, type, u, c);
