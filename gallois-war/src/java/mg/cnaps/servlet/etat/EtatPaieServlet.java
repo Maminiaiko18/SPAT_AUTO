@@ -2332,7 +2332,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             String typelib = request.getParameter("typelib");
             String titre = request.getParameter("titre");
             EtatRedevance redevance = new EtatRedevance();
-            redevance.setNomTable("redevanceCommunaleFacture");
+            redevance.setNomTable("redevanceCommunaleFactureMD");
             String requete = "";
             if (daty1 != null) {
                 requete = requete + String.format(" and daty >= '%s'", daty1);
