@@ -104,7 +104,7 @@
             pr.getTableau().setUrlLien(urlLienMultiple);
             pr.getTableau().setNameActe("editerOP");
             pr.getTableau().setNameBoutton("Editer OP");
-            out.println(pr.getTableau().getHtmlWithCheckbox());
+            out.println(pr.getTableau().getHtml());
         %>
         <div style="display: flex; justify-content: flex-end; align-items: center;">
         
