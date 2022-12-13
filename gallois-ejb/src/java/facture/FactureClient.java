@@ -566,7 +566,7 @@ public class FactureClient extends ClassMere {
             throw new Exception("Facture non visée !");
         }
 
-        if (this.getIdcategorie() == null || !this.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {
+        if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {
             throw new Exception("Seule une facture de type definitive peut generer une facture de provision !");
         }
         FactureClient fc = new FactureClient();
