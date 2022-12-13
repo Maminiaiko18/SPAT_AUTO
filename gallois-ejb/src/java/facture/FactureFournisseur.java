@@ -439,6 +439,12 @@ public class FactureFournisseur extends FactureClient {
         }
     }
 
+    public void controlerProvision(Connection c) throws Exception {
+        if (this.getEtat() < ConstanteEtat.getEtatValider()) {
+            throw new Exception("Facture non visée !");
+        }
+    }    
+
     public FactureFournisseur genererDefinitive(UserEJB u, int type, Connection c) throws Exception {
         int verif = 0;
         FactureFournisseur fact2 = null;
