@@ -1061,6 +1061,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
+            FactureClientDetails[] liste = mere[0].getListeDetails();
             facture.setNomTable("factureClientValide");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
@@ -1157,8 +1158,8 @@ public class EtatPaieServlet extends HttpServlet {
                 {   
                     daty = details[0].getDatefact();
                 }
-                param.put("datyfact", daty); 
-                param.put("daty", mere[0].getDaty());
+                param.put("datyfact", mere[0].getDaty()); 
+                param.put("daty", daty);
                 param.put("id", mere[0].getId());
                 param.put("type", mere[0].getTypelib());
                 cat = mere[0].getCategorielib();
