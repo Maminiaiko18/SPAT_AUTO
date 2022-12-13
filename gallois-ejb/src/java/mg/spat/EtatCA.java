@@ -248,7 +248,7 @@ public class EtatCA {
             c = new UtilDB().GetConn();
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
-            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " order by mois asc");
+            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " order by mois asc, compte asc");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
             base.setNomTable("factureClientMAGroupe");
             CA[] resultNombre = (CA[]) CGenUtil.rechercher(base, null, null, c, " and mois="+mois+" and annee="+annee);
