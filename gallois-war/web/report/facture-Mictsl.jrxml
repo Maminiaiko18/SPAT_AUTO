@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.0000000000000075"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="322"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
@@ -147,6 +147,7 @@
 	<parameter name="chef" class="java.lang.String"/>
 	<parameter name="tp" class="java.lang.String"/>
 	<parameter name="payement" class="java.lang.String"/>
+	<parameter name="datyfact" class="java.util.Date"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -164,7 +165,7 @@
 				<textElement>
 					<font size="14" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{datyfact}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="639" y="11" width="108" height="20" uuid="c975cfb3-68dd-4263-8e32-e65dc19a2377"/>

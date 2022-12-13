@@ -1061,6 +1061,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
+            FactureClientDetails[] liste = mere[0].getListeDetails();
             facture.setNomTable("factureClientValide");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
@@ -1157,8 +1158,9 @@ public class EtatPaieServlet extends HttpServlet {
                 {   
                     daty = details[0].getDatefact();
                 }
-                param.put("datyfact", daty); 
-                param.put("daty", mere[0].getDaty());
+                param.put("datyfact", mere[0].getDaty()); 
+                System.out.println("datyfact===="+mere[0].getDaty());
+                param.put("daty", daty);
                 param.put("id", mere[0].getId());
                 param.put("type", mere[0].getTypelib());
                 cat = mere[0].getCategorielib();
@@ -1191,18 +1193,18 @@ public class EtatPaieServlet extends HttpServlet {
 
                 String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
                 if(mere[0].getEstMictsl().compareToIgnoreCase("1")==0)
-                {
-                    if (mere[0].getPaiement().compareToIgnoreCase(Constante.deviseDollars) == 0) {
+                {   
+                    if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars) == 0) {
                         montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar), " Dollars");
                     }
-                    if (mere[0].getPaiement().compareToIgnoreCase(Constante.deviseAr) == 0) {
+                    if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0) {
                         //montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
                         String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
                         montantlettre= montantTexte[0];
                         if(montantTexte[1].compareToIgnoreCase("") != 0) montantlettre += " Ariary " + montantTexte[1];
                         else montantlettre += " Ariary";
                     }
-                    if (mere[0].getPaiement().compareToIgnoreCase(Constante.deviseEuro) == 0) {
+                    if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro) == 0) {
                         montantlettre = ChiffreLettre.convertRealToString(new Double(ttcEuro), " Euros");
                     }
                     
