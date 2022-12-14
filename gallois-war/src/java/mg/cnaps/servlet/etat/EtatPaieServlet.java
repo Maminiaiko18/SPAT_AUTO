@@ -1237,6 +1237,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("valeuro", deviseEuro);
 
                 param.put("valdollar", deviseDollar);
+                param.put("datyecheance", mere[0].getDate_echeance());
                 param.put("cat", cat);
 
                 if (designation!=null && (designation.length() > 66) && (pre.length != 0)) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000002"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="512"/>
+	<property name="ireport.x" value="50"/>
+	<property name="ireport.y" value="493"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -136,6 +136,7 @@
 	<parameter name="tp" class="java.lang.String"/>
 	<parameter name="nif" class="java.lang.String"/>
 	<parameter name="datyfact" class="java.util.Date"/>
+	<parameter name="datyecheance" class="java.util.Date"/>
 	<field name="designation" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -1520,6 +1521,20 @@
 					<font size="13" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-14" y="77" width="113" height="20" uuid="b7b21057-ff71-49f7-8faf-7fb1a5980a72"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[date échéance]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="99" y="78" width="113" height="20" uuid="17b990a5-7ad3-4bdf-b664-b7276e0e76aa"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{datyecheance}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
