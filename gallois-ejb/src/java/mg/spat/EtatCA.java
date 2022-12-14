@@ -252,6 +252,7 @@ public class EtatCA {
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
             CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " order by mois asc, compte asc");
+            String[] listeCompte=AdminGen.getDistinct(result, "compte");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
             base.setNomTable("factureClientMAGroupe");
             CA[] resultNombre = (CA[]) CGenUtil.rechercher(base, null, null, c, " and mois="+mois+" and annee="+annee);
@@ -263,12 +264,8 @@ public class EtatCA {
             
             CA[] tabCA = new CA[mapCA.size()];
             int i = 0;
-            for(String key: mapCA.keySet()){
+            for(String key: listeCompte){
                 tabCA[i] = mapCA.get(key);
-                //if(tabCA[i].getLibelle().compareToIgnoreCase("SLIPWAY")==0)
-                {
-                  //  System.out.println("Cumul avoir "+tabCA[i].getAvoirCumRegul()+" Credit "+tabCA[i].getCredit()+" Avoir en cours =="+tabCA[i].getAvoirEETP());
-                }
                 i++;
             }
             return tabCA;
