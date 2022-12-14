@@ -12,10 +12,10 @@
         //ff.setNomTable("FACTUREFOURNVALIDE_P");
         ff.setNomTable("FACTUREFOURNVALIDE_PNP");
 
-        String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib"};
+        String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature", "numeroop", "numpiece", "code", "projetlib","montantTTC","code_etablissementlib"};
         String listeInt[] = {"daty","date_echeance","exercice"};
 
-        String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP"};
+        String libEntete[] = {"id","daty","tierslib", "numeroop", "numpiece", "code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -31,6 +31,7 @@
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("exercice1").setLibelle("debut exercice");
+        pr.getFormu().getChamp("numpiece").setLibelle("N° piece");
         pr.getFormu().getChamp("exercice2").setLibelle("fin exercice");
         pr.getFormu().getChamp("tierslib").setLibelle("Fournisseur");
         pr.getFormu().getChamp("nature").setLibelle("Nature");
@@ -97,7 +98,7 @@
             pr.getTableau().setColonneLien(colonneLien);
 
 
-            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero compta", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Numero OP"};
+            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture", "N° piece", "Numero compta", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Numero OP"};
 
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
