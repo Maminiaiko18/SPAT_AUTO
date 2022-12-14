@@ -5,12 +5,24 @@
 package bean;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 // Referenced classes of package bean:
 //            ClassMAPTableException, ClassMAPTable
 public class AdminGen {
 
+    public static String[] getDistinct(ClassMAPTable[] liste,String attr)throws Exception
+    {
+        List<String> ls=new ArrayList<String>();
+        for(ClassMAPTable c:liste)
+        {
+            String valeur=(String)CGenUtil.getValeurFieldByMethod(c, attr);
+            if(ls.contains(valeur)==false)ls.add(valeur);
+        }
+        return ls.toArray(new String[ls.size()]);
+    }
     public static ClassMAPTable[] copier(ClassMAPTable[] aCopier) throws Exception {
         ClassMAPTable[] retour = new ClassMAPTable[aCopier.length];
         for (int i = 0; i < aCopier.length; i++) {
