@@ -121,14 +121,17 @@ public class EtatCA {
         int taillecas = cas.length;
 
         for(int i = 0;i< taillecas;i++){
-            if (cas[i].getMois()<mois && cas[i].getAnnee()== annee){
+            
+            if ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee()))){
+                
+
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     temp.setAnciencumul(temp.getAnciencumul()+cas[i].getMontant());
-                    temp.setRegulEETP(temp.getAvoirEETP()+cas[i].getAvoir());
-                    temp.setComptant(0);
-                    temp.setCredit(0);
-                    temp.setAvoir(0);
+                    temp.setRegulEETP(temp.getRegulEETP()+cas[i].getAvoir());
+                    //temp.setComptant(0);
+                    //temp.setCredit(0);
+                    //temp.setAvoir(0);
                     cahmap.put(cas[i].getCompte(),temp);
                 }
                 if(cahmap.get(cas[i].getCompte())==null){
@@ -143,7 +146,7 @@ public class EtatCA {
                 
             }
             
-            if (cas[i].getMois()==mois && cas[i].getAnnee()== annee){
+            else if (cas[i].getMois()==mois && cas[i].getAnnee()== annee&&cas[i].getMoisFact()==cas[i].getMois()&&cas[i].getAnneeFact()==annee){
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     temp.setAvoirEETP(temp.getAvoirEETP()+cas[i].getAvoir());
@@ -262,6 +265,10 @@ public class EtatCA {
             int i = 0;
             for(String key: mapCA.keySet()){
                 tabCA[i] = mapCA.get(key);
+                //if(tabCA[i].getLibelle().compareToIgnoreCase("SLIPWAY")==0)
+                {
+                  //  System.out.println("Cumul avoir "+tabCA[i].getAvoirCumRegul()+" Credit "+tabCA[i].getCredit()+" Avoir en cours =="+tabCA[i].getAvoirEETP());
+                }
                 i++;
             }
             return tabCA;

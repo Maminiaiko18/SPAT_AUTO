@@ -146,6 +146,7 @@ try {
     pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
         pi.getFormufle().getChamp("daty_0").setLibelle("Date");
     pi.getFormufle().getChamp("idactivite_0").setLibelle("Activité");
+    pi.getFormufle().getChamp("rang_0").setLibelle("Rang");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise;comptelibelle");
@@ -172,7 +173,7 @@ try {
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("codePrestation").setVisible(false);
     //pi.getFormu().getChamp("code").setVisible(false);
-    String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee", "daty" , "heureDebut","heureFin","majoration","reduction"};
+    String[] ordreFille = {"rubrique","designation","pu","quantite", "duree","taux","id","idmere","compte","idproduit","devise","montant","tva","idactivite","datefact","mois","annee", "daty" , "heureDebut","heureFin","majoration","reduction","rang"};
     pi.getFormufle().setColOrdre(ordreFille);
     
     
