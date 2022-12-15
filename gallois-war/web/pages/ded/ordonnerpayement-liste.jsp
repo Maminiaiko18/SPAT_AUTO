@@ -11,7 +11,7 @@
     }
     
 //    String libEntete[] = {"id", "ded_Id","remarque","numcheque","daty","folio","numeroop","montant"};
-    String libEntete[] = {"id", "etatlib", "numeroop", "numeroCompta", "daty", "tiers", "montant", "ded_Id" ,"remarque", "modepaiementlib" };   
+    String libEntete[] = {"id", "etatlib", "numeroop", "numeroCompta", "daty", "tiers", "montant","remarque", "modepaiementlib","ded_Id"};   
     String listeCrt[] = {"id","ded_Id", "daty", "tiers","numeroop","modepaiementlib","montant"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(op, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -80,7 +80,7 @@
             %>
             <br>
             <%
-                String libEnteteAffiche[] = {"id", "Etat", "Numéro OP", "Numéro compta", "Date", "Tiers", "Montant", "Facture", "Motif de paiement", "Mode de paiement" };
+                String libEnteteAffiche[] = {"id", "Etat", "Numéro OP", "Numéro compta", "Date", "Tiers", "Montant", "Motif de paiement", "Mode de paiement","Facture"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("ajouterOP");
                 out.println(pr.getTableau().getHtmlWithCheckbox());%>
