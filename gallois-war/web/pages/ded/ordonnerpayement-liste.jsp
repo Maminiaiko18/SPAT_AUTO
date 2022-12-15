@@ -85,10 +85,9 @@
                 pr.getTableau().setNameActe("ajouterOP");
                 out.println(pr.getTableau().getHtmlWithCheckbox());%>
                 <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
-                <%
-                out.println(pr.getBasPage());
-            %>
+                
         </form>
+        <%out.println(pr.getBasPage());%>
     </section>
 </div>
         <script>
