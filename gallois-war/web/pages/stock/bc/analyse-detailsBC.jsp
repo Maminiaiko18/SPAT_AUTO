@@ -26,7 +26,9 @@ try{
     
         pr.getFormu().getChamp("idbc").setLibelle("IDBC");
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
+        pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
+        pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("codelib").setLibelle("Code");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("fournisseurlib").setLibelle("Fournisseur");
