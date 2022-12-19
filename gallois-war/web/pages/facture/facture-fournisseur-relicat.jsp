@@ -23,7 +23,7 @@
 %>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste des clients TP</h1>
+        <h1>Liste Relicat FF</h1>
     </section>
     <section class="content">
         <form action='<%=pr.getLien() + "?but=facture/client-tp-liste.jsp" %>' method="post" name="liste" id="liste">
@@ -39,7 +39,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <%
-            String libelleAffiche[] = {"id", "idpr", "tierslib", "contact","numeroop","numeroopr","montantpr", "montant", "diff", "datypr"};
+            String libelleAffiche[] = {"ID", "id Pr&eacute;vision", "tiers", "Contact","Num&eacute;ro Op","Num&eacute;ro OP pr&eacute;vision","Montant pr&eacute;vision", "Montant", "Diff&eacute;rence", "Date pr&eacute;vision"};
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
