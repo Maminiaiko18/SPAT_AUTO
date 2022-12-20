@@ -1159,8 +1159,11 @@ public class EtatPaieServlet extends HttpServlet {
                     daty = details[0].getDatefact();
                 }
                 param.put("datyfact", mere[0].getDaty()); 
-                System.out.println("datyfact===="+mere[0].getDaty());
                 param.put("daty", daty);
+                if(Utilitaire.champNull(mere[0].getEscale()).compareTo("")!=0){
+                    param.put("datyfact", daty); 
+                    param.put("daty", mere[0].getDaty());
+                }
                 param.put("id", mere[0].getId());
                 param.put("type", mere[0].getTypelib());
                 cat = mere[0].getCategorielib();
