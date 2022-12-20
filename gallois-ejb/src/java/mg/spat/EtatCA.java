@@ -127,8 +127,16 @@ public class EtatCA {
 
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
-                    temp.setAnciencumul(temp.getAnciencumul()+cas[i].getMontant());
-                    temp.setRegulEETP(temp.getRegulEETP()+cas[i].getAvoir());
+                    if(cas[i].getMois()<mois)
+                    {
+                        temp.setAnciencumul(temp.getAnciencumul()+cas[i].getMontant()-cas[i].getAvoir());
+                        //temp.setRegulEETP(temp.getRegulEETP()+cas[i].getAvoir());
+                    }
+                    else
+                    {
+                        temp.setAnciencumul(temp.getAnciencumul()+cas[i].getMontant());
+                        temp.setRegulEETP(temp.getRegulEETP()+cas[i].getAvoir());
+                    }
                     //temp.setComptant(0);
                     //temp.setCredit(0);
                     //temp.setAvoir(0);
@@ -136,8 +144,16 @@ public class EtatCA {
                 }
                 if(cahmap.get(cas[i].getCompte())==null){
                     CA temp = cas[i];
-                    temp.setAnciencumul(cas[i].getMontant());
-                    temp.setRegulEETP(cas[i].getAvoir());
+                    if(cas[i].getMois()<mois)
+                    {
+                        temp.setAnciencumul(cas[i].getMontant()-cas[i].getAvoir());
+                        //temp.setRegulEETP(cas[i].getAvoir());
+                    }
+                    else
+                    {
+                        temp.setAnciencumul(cas[i].getMontant());
+                        temp.setRegulEETP(cas[i].getAvoir());
+                    }
                     temp.setComptant(0);
                     temp.setCredit(0);
                     temp.setAvoir(0);
