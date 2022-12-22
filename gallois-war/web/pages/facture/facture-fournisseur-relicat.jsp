@@ -6,8 +6,8 @@
     try {
         RelicatFF ff = new RelicatFF();
         
-        String listeCrt[] = {"id"};
-        String listeInt[] = {"id"};
+        String listeCrt[] = {"datypr"};
+        String listeInt[] = {"datypr"};
         String libEntete[] = {"id", "idpr", "tierslib", "contact","numeroop","numeroopr","montantpr", "montant", "diff", "datypr"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
@@ -15,8 +15,7 @@
         pr.setLien((String) session.getValue("lien"));
         
         
-        
-        pr.setApres("facture/client-tp-liste.jsp");
+        pr.setApres("facture/facture-fournisseur-relicat.jsp");
         
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
@@ -26,13 +25,13 @@
         <h1>Liste Relicat FF</h1>
     </section>
     <section class="content">
-        <form action='<%=pr.getLien() + "?but=facture/client-tp-liste.jsp" %>' method="post" name="liste" id="liste">
+        <form action='<%=pr.getLien() + "?but=facture/facture-fournisseur-relicat.jsp" %>' method="post" name="liste" id="liste">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
         </form>
                <%
-            String lienTableau[] = {pr.getLien() + "?but=facture/client-tp-fiche.jsp"};
+            String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-relicat.jsp"};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
