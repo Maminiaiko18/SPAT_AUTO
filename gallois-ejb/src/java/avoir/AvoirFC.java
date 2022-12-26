@@ -29,7 +29,7 @@ import utilitaire.Utilitaire;
 public class AvoirFC extends ClassMere {
     
     private String id;
-    private Date daty;
+    private Date daty,datefacture;
     private String idfacture, designationFacture,tiers,tierslib;
     private double montant, montantpaye,montantreste;    
     private String designation;
@@ -41,6 +41,14 @@ public class AvoirFC extends ClassMere {
     private String type;
     private String typelib,codeFacture;
     private double montanttva, montantttc;
+
+    public Date getDatefacture() {
+        return datefacture;
+    }
+
+    public void setDatefacture(Date datefacture) {
+        this.datefacture = datefacture;
+    }
 
     public String getCodeFacture() {
         return codeFacture;
