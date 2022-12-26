@@ -12,7 +12,7 @@
 	<parameter name="TYPE" class="java.lang.String"/>
 	<field name="code" class="java.lang.String"/>
 	<field name="daty" class="java.util.Date"/>
-	<field name="idfacture" class="java.lang.String"/>
+	<field name="codeFacture" class="java.lang.String"/>
 	<field name="montant" class="java.lang.Double"/>
 	<field name="montanttva" class="java.lang.Double"/>
 	<field name="montantttc" class="java.lang.Double"/>
@@ -157,13 +157,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="138" y="0" width="83" height="20" uuid="2976d0b9-4e6e-499a-899d-e1120766db02"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{idfacture}]]></textFieldExpression>
-			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement x="285" y="0" width="87" height="20" uuid="7a9186c8-c9a4-4327-9240-3a9e2bd1905d"/>
 				<textElement textAlignment="Right">
@@ -188,6 +181,10 @@
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="223" y="0" width="58" height="20" uuid="5f06df7b-016c-4e8e-abe2-336a0b4f2c22"/>
 				<textFieldExpression><![CDATA[$F{datefacture}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="0" width="83" height="20" uuid="0dfd66b1-dcdf-40b2-8e39-6b3fc7033ede"/>
+				<textFieldExpression><![CDATA[$F{codeFacture}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
