@@ -33,7 +33,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="40" width="275" height="20" uuid="e5ea04b2-367e-4dde-bf9d-30933cde90a9"/>
-				<text><![CDATA[TRAITEMENT DE RECLAMATION]]></text>
+				<text><![CDATA[SERVICE TRAITEMENT DE RECLAMATION]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="390" y="0" width="100" height="20" uuid="4767d2b3-44fa-43aa-bbdf-e59d29c5dfbd"/>
