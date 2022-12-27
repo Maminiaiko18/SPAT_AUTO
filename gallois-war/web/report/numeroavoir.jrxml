@@ -87,14 +87,14 @@
 	<columnHeader>
 		<band height="50">
 			<staticText>
-				<reportElement x="-1" y="30" width="55" height="20" uuid="28c6a82f-5e07-45c4-afd8-d9e0c6c58adc"/>
+				<reportElement x="0" y="30" width="74" height="20" uuid="28c6a82f-5e07-45c4-afd8-d9e0c6c58adc"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[N° AVOIR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="55" y="30" width="51" height="20" uuid="1c450c54-2f73-4ea7-a7fb-0b7be082d64f"/>
+				<reportElement x="76" y="30" width="51" height="20" uuid="1c450c54-2f73-4ea7-a7fb-0b7be082d64f"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -129,7 +129,7 @@
 				<text><![CDATA[date facture]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="107" y="30" width="89" height="20" uuid="f60d8bb0-0aca-4e60-be66-103873c42ce6"/>
+				<reportElement x="129" y="30" width="67" height="20" uuid="f60d8bb0-0aca-4e60-be66-103873c42ce6"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -140,14 +140,14 @@
 	<detail>
 		<band height="24" splitType="Stretch">
 			<textField>
-				<reportElement x="-1" y="0" width="55" height="20" uuid="e51347b5-8eb3-4d5b-8290-608d11aae0bd"/>
+				<reportElement x="0" y="0" width="74" height="20" uuid="e51347b5-8eb3-4d5b-8290-608d11aae0bd"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement x="55" y="0" width="51" height="20" uuid="dd450e3b-040f-4a5a-802f-4a49aed6b59e"/>
+				<reportElement x="76" y="0" width="51" height="20" uuid="dd450e3b-040f-4a5a-802f-4a49aed6b59e"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
@@ -168,7 +168,7 @@
 				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="107" y="0" width="89" height="20" uuid="140311ad-3b4c-4091-9861-6e113afc6b29"/>
+				<reportElement x="129" y="0" width="67" height="20" uuid="140311ad-3b4c-4091-9861-6e113afc6b29"/>
 				<textFieldExpression><![CDATA[$F{codeFacture}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
