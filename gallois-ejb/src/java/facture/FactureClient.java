@@ -530,6 +530,96 @@ public class FactureClient extends ClassMere {
         return provisionString;
     }
 
+    public FactureClient[] getDefinitive(Connection c)throws Exception{
+        FactureClient[] fc = null;
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureClient pr = new FactureClient();
+            pr.setIdProvision(this.getId());
+            fc = (FactureClient[])CGenUtil.rechercher(pr, null, null, c, "");
+        } catch (Exception exception) {
+            throw exception;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return fc;
+    }
+
+    PaiementFacture[] getPaiementFacture(Connection c, String[] idFact)throws Exception{
+        PaiementFacture[] paiement = null;
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            PaiementFacture pf = new PaiementFacture();
+            paiement = (PaiementFacture[])CGenUtil.rechercher(pf, null, null, c, "id fact in ("+Utilitaire.tabToString(idFact, "'", ",")+")");
+        } catch (Exception exception) {
+            throw exception;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return paiement;
+    }
+
+    public void verifResteProv(Connection c)throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureClient[] fd = this.getDefinitive(c);
+            int fdl = fd.length;
+            String[] idFact = new String[fdl];
+            for(int i=0; i<fdl; i++){
+                idFact[i] = fd[i].getId();
+            }
+            PaiementFacture[] pf = getPaiementFacture(c, idFact);
+            double montantP = AdminGen.calculSommeDouble(pf, "montant");
+            double reste = this.getMontantttc() - montantP;
+            if(reste == 0) throw new Exception ("Reste sur provisoire = 0");
+        } catch (Exception exception) {
+            throw exception;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
+    public void verifClient(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            FactureClient pr = (FactureClient)this.getById(this.getIdProvision(), this.getNomTable(), c);
+            FactureClient fd = (FactureClient)this.getById(this.getId(), this.getNomTable(), c);
+            if(pr.getTiers().compareToIgnoreCase(fd.getTiers())!=0) throw new Exception ("Tiers different pour la facture provisoire et definitive");
+        } catch (Exception exception) {
+            throw exception;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
     public void setCodeProvision(String codeProvision) {
         this.codeProvision = codeProvision;
     }
@@ -883,7 +973,6 @@ public class FactureClient extends ClassMere {
 
     public void genererPaiementDefinitive(String u, String idProvision, Connection c) throws Exception {
         boolean ouvert = false;
-        PaiementFacture[] retour = null;
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
@@ -928,6 +1017,10 @@ public class FactureClient extends ClassMere {
            
         }
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive) && this.getIdProvision() != null) {
+            //vérification reste sur provision
+            this.verifResteProv(c);
+            //vérification si même client
+            this.verifClient(c);
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
         
