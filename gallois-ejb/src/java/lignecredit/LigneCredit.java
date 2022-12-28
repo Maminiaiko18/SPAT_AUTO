@@ -233,10 +233,10 @@ public class LigneCredit extends ClassEtat {
             String whereDaty = "";
 
             if (date1 != null && !date1.isEmpty()) {
-                whereDaty += " and daty >= '" + date1 + "'";
+                whereDaty += " and daty >= to_date('" + date1 + "','dd/mm/yyyy')";
             }
             if (date2 != null && !date2.isEmpty()) {
-                whereDaty += " and daty <= '" + date2 + "'";
+                whereDaty += " and daty <= to_date('" + date2 + "','dd/mm/yyyy')";
             }
 
             String req = "select l.direction,\n"
