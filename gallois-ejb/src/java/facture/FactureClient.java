@@ -587,10 +587,12 @@ public class FactureClient extends ClassMere {
             for(int i=0; i<fdl; i++){
                 idFact[i] = fd[i].getId();
             }
-            PaiementFacture[] pf = getPaiementFacture(c, idFact);
-            double montantP = AdminGen.calculSommeDouble(pf, "montant");
-            double reste = this.getMontantttc() - montantP;
-            if(reste == 0) throw new Exception ("Reste sur provisoire = 0");
+            if(fdl!=0){
+                PaiementFacture[] pf = getPaiementFacture(c, idFact);
+                double montantD = AdminGen.calculSommeDouble(pf, "montant");
+                double reste = this.getMontantttc() - montantD;
+                if(reste == 0) throw new Exception ("Reste sur provisoire = 0");
+            }
         } catch (Exception exception) {
             throw exception;
         } finally {
@@ -608,8 +610,12 @@ public class FactureClient extends ClassMere {
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            FactureClient pr = (FactureClient)this.getById(this.getIdProvision(), this.getNomTable(), c);
-            FactureClient fd = (FactureClient)this.getById(this.getId(), this.getNomTable(), c);
+            FactureClient fc = new FactureClient();
+            FactureClient fd = (FactureClient)fc.getById(this.getId(), this.getNomTable(), c);
+            if(fd==null)System.out.println("Fact def ====== null");
+            System.out.println("ID Fact ==== " + fd.getId());
+            FactureClient pr = (FactureClient)fc.getById(fd.getIdProvision(), this.getNomTable(), c);
+            System.out.println("PR ====== " + pr.getTiers() + " FD ======== " + fd.getTiers());
             if(pr.getTiers().compareToIgnoreCase(fd.getTiers())!=0) throw new Exception ("Tiers different pour la facture provisoire et definitive");
         } catch (Exception exception) {
             throw exception;
@@ -982,7 +988,6 @@ public class FactureClient extends ClassMere {
 
             FactureClient fc = new FactureClient();
             fc = (FactureClient) fc.getById(this.getId(), "facture_client_union", c);
-
             double montant = fc.genererMontantPaiement(c);
 
             PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
@@ -1018,9 +1023,10 @@ public class FactureClient extends ClassMere {
         }
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.idCategorieFCDefinitive) && this.getIdProvision() != null) {
             //vérification reste sur provision
-            this.verifResteProv(c);
+            //this.verifResteProv(c);
             //vérification si même client
             this.verifClient(c);
+            //transfert paiement
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
         
