@@ -14,7 +14,7 @@
           user.UserEJB u = (user.UserEJB) session.getValue("u");
     LigneCredit ligncredit = new LigneCredit();
      
-    String nomTable = "SITUATIONLCDEPENSE";    
+    String nomTable = "SITUATIONLCDEPENSE2";    
     if(request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("") != 0){
         nomTable = request.getParameter("table");
     }
@@ -54,22 +54,22 @@
                 <div class="col-md-4">
                     Etat : 
                     <select name="table" class="champ" id="table" onchange="changerDesignation()" >
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("SITUATIONLCDEPENSE") == 0) {%>    
-                        <option value="SITUATIONLCDEPENSE" selected>Tous</option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("SITUATIONLCDEPENSE2") == 0) {%>    
+                        <option value="SITUATIONLCDEPENSE2" selected>Tous</option>
                         <% } else { %>
-                        <option value="SITUATIONLCDEPENSE" >Tous</option>
+                        <option value="SITUATIONLCDEPENSE2" >Tous</option>
                         <% } %>
                  
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("SITUATIONLCDEPENSEC") == 0) {%>
-                        <option value="SITUATIONLCDEPENSEC" selected> Cr&eacute;e  </option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("SITUATIONLCDEPENSEC2") == 0) {%>
+                        <option value="SITUATIONLCDEPENSEC2" selected> Cr&eacute;e  </option>
                         <% } else { %>
-                        <option value="SITUATIONLCDEPENSEC"> Cr&eacute;e  </option>
+                        <option value="SITUATIONLCDEPENSEC2"> Cr&eacute;e  </option>
                         <% } %>
                         
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("SITUATIONLCDEPENSEVSD") == 0) {%>
-                        <option value="SITUATIONLCDEPENSEVSD" selected> Vis&eacute;  </option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("SITUATIONLCDEPENSEVSD2") == 0) {%>
+                        <option value="SITUATIONLCDEPENSEVSD2" selected> Vis&eacute;  </option>
                         <% } else { %>
-                        <option value="SITUATIONLCDEPENSEVSD"> Vis&eacute;  </option>
+                        <option value="SITUATIONLCDEPENSEVSD2"> Vis&eacute;  </option>
                         <% } %>
                         
                     </select>
