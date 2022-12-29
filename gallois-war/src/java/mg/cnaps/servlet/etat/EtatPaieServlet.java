@@ -2139,6 +2139,8 @@ public class EtatPaieServlet extends HttpServlet {
                 where += " and  daty <= '" + date2 + "'";
             }
             where += " and upper(iddevise) != upper('Ar')";
+            where += " order by daty ASC,iddevise desc";
+            
             Map param = new HashMap();
             param.put("datyjour", Utilitaire.dateDuJour());
             Coursdevise devise = new Coursdevise();
