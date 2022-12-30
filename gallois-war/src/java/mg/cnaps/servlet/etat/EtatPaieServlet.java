@@ -1465,6 +1465,7 @@ public class EtatPaieServlet extends HttpServlet {
             }*/
             List<AvoirFCFille> arrList = new ArrayList<AvoirFCFille>();
             for (int i = 0; i < avoirFille.length; i++) {
+                avoirFille[i].setMontantHTDevise(avoirFille[i].getMontantHTDevise()*avoirFille[i].getTaux()/deviseEuro);
                 arrList.add(avoirFille[i]);
             }
             
