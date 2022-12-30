@@ -1029,9 +1029,11 @@ public class EtatPaieServlet extends HttpServlet {
                facture.setNomTable(request.getParameter("etat"));
             }
             awhere+=" AND daty>= '"+daty1+"' AND daty<= '"+daty2+"' order by typelib,code";
+            
             FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c,awhere );
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
             for (int i = 0; i < details.length; i++) {
+                
                 arrList.add(details[i]);
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
@@ -1463,6 +1465,7 @@ public class EtatPaieServlet extends HttpServlet {
             }*/
             List<AvoirFCFille> arrList = new ArrayList<AvoirFCFille>();
             for (int i = 0; i < avoirFille.length; i++) {
+                avoirFille[i].setMontantHTDevise(avoirFille[i].getMontantHTDevise()*avoirFille[i].getTaux()/deviseEuro);
                 arrList.add(avoirFille[i]);
             }
             
@@ -1472,7 +1475,7 @@ public class EtatPaieServlet extends HttpServlet {
             double montanttotal = AdminGen.calculSommeDouble(avoirFille, "montantHTDevise");
             param.put("total", montanttotal);
             
-            String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()) , " Ariary ");
+            String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()) , " Ariary ");
             System.out.println("devise=="+fc.getDeviseMere());
             if (fc.getDeviseMere() != null) {
                 if (fc.getDeviseMere().compareToIgnoreCase("Dollars") == 0) {
@@ -1572,12 +1575,13 @@ public class EtatPaieServlet extends HttpServlet {
 
             facture.FactureFournisseur[] mere = (facture.FactureFournisseur[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
+            
             facture.setNomTable("FACTFOURN_VALIDE");
             mere = (facture.FactureFournisseur[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
 
             if (mere.length != 0) {
 
-                setNomJasper("facture-client-sans-prevision");
+                
                 FactureFournisseurDetails cht = new FactureFournisseurDetails();
                 cht.setNomTable("FACTFOURN_FILL_LIB_REST_TAXE");
 
@@ -1667,6 +1671,16 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("valdollar", deviseDollar);
                 param.put("cat", cat);
                 param.put("designation", designation);
+            }
+            if(mere[0].getDesignation().startsWith("provision ")==true)
+            {   
+                param.put("montant", mere[0].getMontant());
+                String montantlettrePro = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant())) + " Ariary ";
+                param.put("montantlettrePro", montantlettrePro);
+                setNomJasper("bon_provisoir");
+            }
+            else{
+                setNomJasper("facture-client-sans-prevision");
             }
             /**
              * *********************************************************************************************
@@ -2139,6 +2153,8 @@ public class EtatPaieServlet extends HttpServlet {
                 where += " and  daty <= '" + date2 + "'";
             }
             where += " and upper(iddevise) != upper('Ar')";
+            where += " order by daty ASC,iddevise desc";
+            
             Map param = new HashMap();
             param.put("datyjour", Utilitaire.dateDuJour());
             Coursdevise devise = new Coursdevise();
@@ -2900,7 +2916,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
         {
             awhere+=" AND code='"+code+"'";
         }
-          System.out.println("awhere==="+awhere);
+          
           Map param = new HashMap();
         if(etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0)
         {
