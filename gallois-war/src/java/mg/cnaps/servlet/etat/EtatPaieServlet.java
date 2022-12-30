@@ -1474,7 +1474,7 @@ public class EtatPaieServlet extends HttpServlet {
             double montanttotal = AdminGen.calculSommeDouble(avoirFille, "montantHTDevise");
             param.put("total", montanttotal);
             
-            String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()) , " Ariary ");
+            String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()) , " Ariary ");
             System.out.println("devise=="+fc.getDeviseMere());
             if (fc.getDeviseMere() != null) {
                 if (fc.getDeviseMere().compareToIgnoreCase("Dollars") == 0) {

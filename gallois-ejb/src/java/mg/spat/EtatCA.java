@@ -198,7 +198,7 @@ public class EtatCA {
         String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "nbComptant", "nbCredit"};
         double[] total = AdminGen.calculSommeDouble(tout, cols);
 
-        if (total.length > 0) {
+        if (total!=null&&total.length > 0) {
             totalGeneral = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
             totalGeneral.setNbComptant((int)total[6]);
             totalGeneral.setNbCredit((int)total[7]);
@@ -236,6 +236,7 @@ public class EtatCA {
     }
 
     public void calculerTauxEtHashMap(CA[] tout) {
+        if(totalGeneral==null)return;
         String[] compteMereAlreadyExist = null;
         this.listeParRubrique = new HashMap<String, CA[]>();
         totalGeneral.setTaux(0);
@@ -247,6 +248,7 @@ public class EtatCA {
     }
     
      public void calculerHashMapPartiel(){
+         if (listeParRubrique==null) return;
          sommePartiel = new HashMap<String, CA>();
          double totalTaux = 0;
         for(String cle : listeParRubrique.keySet()){
@@ -280,6 +282,7 @@ public class EtatCA {
             
             CA[] tabCA = new CA[mapCA.size()];
             int i = 0;
+            if(tabCA==null||tabCA.length==0)return null;
             for(String key: listeCompte){
                 tabCA[i] = mapCA.get(key);
                 i++;
