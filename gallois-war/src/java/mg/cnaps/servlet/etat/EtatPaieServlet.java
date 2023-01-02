@@ -126,7 +126,7 @@ import utilitaire.Utilitaire;
  *
  * @author Manda
  */
-@WebServlet(name = "EtatPaieServlet", urlPatterns = {"/Paie"})
+@WebServlet(name = "EtatPaieServlet", urlPatterns = { "/Paie" })
 public class EtatPaieServlet extends HttpServlet {
 
     String nomJasper = "";
@@ -171,9 +171,9 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerFacture(request, response);
             } else if (action.equalsIgnoreCase("imprimerFactureClient")) {
                 imprimerFactureClient(request, response);
-            }else if (action.equalsIgnoreCase("imprimerFactureClient1")) {
+            } else if (action.equalsIgnoreCase("imprimerFactureClient1")) {
                 imprimerFactureClient1(request, response);
-            }else if (action.equalsIgnoreCase("fichePrestation")) {
+            } else if (action.equalsIgnoreCase("fichePrestation")) {
                 fichePrestation(request, response);
             } else if (action.equalsIgnoreCase("fact")) {
                 fact(request, response);
@@ -205,8 +205,7 @@ public class EtatPaieServlet extends HttpServlet {
                 redevanceCommunale(request, response);
             } else if (action.equalsIgnoreCase("imprimerRedevanceRegionale")) {
                 redevanceRegionale(request, response);
-            }
-            else if (action.equalsIgnoreCase("engagement")) {
+            } else if (action.equalsIgnoreCase("engagement")) {
                 engagement(request, response);
             } else if (action.equalsIgnoreCase("dse")) {
                 dse(request, response);
@@ -216,21 +215,18 @@ public class EtatPaieServlet extends HttpServlet {
                 demandeAchat(request, response);
             } else if (action.equalsIgnoreCase("proforma")) {
                 imprimerProforma(request, response);
-            }
-            else if (action.equalsIgnoreCase("listesFactEmises")) {
+            } else if (action.equalsIgnoreCase("listesFactEmises")) {
                 listesFactEmises(request, response);
-            }
-            else if (action.equalsIgnoreCase("listesavoir")) {
+            } else if (action.equalsIgnoreCase("listesavoir")) {
                 listesavoir(request, response);
-            }
-            else if (action.equalsIgnoreCase("bondelivraison")) {
+            } else if (action.equalsIgnoreCase("bondelivraison")) {
                 bondelivraison(request, response);
             }
 
         } catch (Exception ex) {
             ex.printStackTrace();
             response.setContentType("text/html");
-            //response.setBufferSize(8192);
+            // response.setBufferSize(8192);
             PrintWriter out = response.getWriter();
             out.println("<html>");
             out.println("<head>");
@@ -243,14 +239,15 @@ public class EtatPaieServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+    // + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -265,10 +262,10 @@ public class EtatPaieServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -295,13 +292,15 @@ public class EtatPaieServlet extends HttpServlet {
             DemandeAchatMere jc = new DemandeAchatMere();
             jc.setId(request.getParameter("id"));
             jc.setNomTable("dem_achat_merelib");
-            DemandeAchatMere[] tabJournal = (DemandeAchatMere[]) CGenUtil.rechercher(jc, null, null, " and id = '" + jc.getId() + "'");
+            DemandeAchatMere[] tabJournal = (DemandeAchatMere[]) CGenUtil.rechercher(jc, null, null,
+                    " and id = '" + jc.getId() + "'");
             if (tabJournal.length > 0) {
                 jc = tabJournal[0];
             }
             DemandeAchatFille j = new DemandeAchatFille();
             j.setNomTable("dem_achat_fillelib");
-            DemandeAchatFille[] tabJournalFille = (DemandeAchatFille[]) CGenUtil.rechercher(j, null, null, " and idmere = '" + jc.getId() + "'");
+            DemandeAchatFille[] tabJournalFille = (DemandeAchatFille[]) CGenUtil.rechercher(j, null, null,
+                    " and idmere = '" + jc.getId() + "'");
 
             Map param = new HashMap();
             param.put("codeEtb", jc.getCodeetablissementlib());
@@ -318,7 +317,8 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("list_table", arrList);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("demande-achat");
-            UtilitaireImpression.imprimer(request, response, "demande-achat", param, new ArrayList(), getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "demande-achat", param, new ArrayList(), getReportPath(),
+                    rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -330,7 +330,8 @@ public class EtatPaieServlet extends HttpServlet {
             String id = request.getParameter("id");
             FactureClientDetailsGrouper f = new FactureClientDetailsGrouper();
             f.setNomTable("facture_client_fille_gp");
-            FactureClientDetailsGrouper[] liste = (FactureClientDetailsGrouper[]) CGenUtil.rechercher(f, null, null, " and idmere='" + id + "'");
+            FactureClientDetailsGrouper[] liste = (FactureClientDetailsGrouper[]) CGenUtil.rechercher(f, null, null,
+                    " and idmere='" + id + "'");
             int i = 0;
             List<FactureClientDetailsGrouper> res = new ArrayList<FactureClientDetailsGrouper>();
             while (i < liste.length) {
@@ -341,7 +342,8 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("list_table", res);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("fact");
-            UtilitaireImpression.imprimer(request, response, "fiche prestation", param, new ArrayList(), getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "fiche prestation", param, new ArrayList(),
+                    getReportPath(), rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -353,11 +355,13 @@ public class EtatPaieServlet extends HttpServlet {
             PrevisionLibComplet prevision = new PrevisionLibComplet();
             prevision.setNomTable("PREVISIONFICHE_II");
             String id = request.getParameter("id");
-            PrevisionLibComplet[] liste = (PrevisionLibComplet[]) CGenUtil.rechercher(prevision, null, null, " and id ='" + id + "'");
+            PrevisionLibComplet[] liste = (PrevisionLibComplet[]) CGenUtil.rechercher(prevision, null, null,
+                    " and id ='" + id + "'");
 
             OccupationMaterielNaval oprevision = new OccupationMaterielNaval();
             oprevision.setNomTable("OCCUPMATERIELNAVALLIBCOMPLET");
-            OccupationMaterielNaval[] ls = (OccupationMaterielNaval[]) CGenUtil.rechercher(oprevision, null, null, " and idprevision ='" + id + "' and etat =11 ");
+            OccupationMaterielNaval[] ls = (OccupationMaterielNaval[]) CGenUtil.rechercher(oprevision, null, null,
+                    " and idprevision ='" + id + "' and etat =11 ");
             System.out.println("ls =" + ls.length);
             Map param = new HashMap();
             if (liste.length != 0) {
@@ -399,7 +403,8 @@ public class EtatPaieServlet extends HttpServlet {
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("fiche_prestation_compet");
-            UtilitaireImpression.imprimer(request, response, "fiche prestation", param, new ArrayList(), getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "fiche prestation", param, new ArrayList(),
+                    getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -431,7 +436,8 @@ public class EtatPaieServlet extends HttpServlet {
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("ORDRE_PAYER - Copie");
-            UtilitaireImpression.imprimer(request, response, "ORDRE_PAYER", param, new ArrayList(), getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "ORDRE_PAYER", param, new ArrayList(), getReportPath(),
+                    rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -457,8 +463,8 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("DELAI", bc.getDelaipaiement());
                 param.put("TOTAL_HT", bc.getMontantHTSansRemise());
                 param.put("totalHtRemise", bc.getMontant());
-                
-                //param.put("REMISE",bc.getRemise());
+
+                // param.put("REMISE",bc.getRemise());
                 param.put("TOTAL_TVA", bc.getMontanttva());
                 param.put("TOTAL_TTC", bc.getMontantTTC());
 
@@ -471,25 +477,29 @@ public class EtatPaieServlet extends HttpServlet {
 
                 String montantString = String.valueOf((int) bc.getMontantTTC());
                 long montantLong = Long.valueOf(montantString);
-                param.put("TOTAL_TTC_LETTRE", (ChiffreLettre.convertIntToString(montantLong)).toUpperCase() + " ARIARY ");
+                param.put("TOTAL_TTC_LETTRE",
+                        (ChiffreLettre.convertIntToString(montantLong)).toUpperCase() + " ARIARY ");
             }
 
-            /*BonDeCommandeFille f = new BonDeCommandeFille();
-            f.setNomTable("AS_BONDECOMMANDE_FILLE_LIB");
-            BonDeCommandeFille[] liste = (BonDeCommandeFille[]) CGenUtil.rechercher(f, null, null, " and IDBC = '" + id + "' order by produit ASC");*/
-            DetailsBcData data=new DetailsBcData(request.getParameter("id"));                                 
-            data.setBCOrderByProduitAsc("AS_BONDECOMMANDE_LIBELLE_lib","BC_BL_LIVRE");
-             BonDeCommandeFille[] liste = data.getBcFille();
+            /*
+             * BonDeCommandeFille f = new BonDeCommandeFille();
+             * f.setNomTable("AS_BONDECOMMANDE_FILLE_LIB");
+             * BonDeCommandeFille[] liste = (BonDeCommandeFille[]) CGenUtil.rechercher(f,
+             * null, null, " and IDBC = '" + id + "' order by produit ASC");
+             */
+            DetailsBcData data = new DetailsBcData(request.getParameter("id"));
+            data.setBCOrderByProduitAsc("AS_BONDECOMMANDE_LIBELLE_lib", "BC_BL_LIVRE");
+            BonDeCommandeFille[] liste = data.getBcFille();
             data.attribuerLigne();
-           double total = data.getBc().getMontantTTC();
-           double tva=data.getBc().getMontanttva();
-           double remise=data.getBc().getMontantRemise();
-          double nbrligne=0;
-             for (int i = 0; i < liste.length; i++) {
-                  nbrligne = nbrligne + 1;
-             }
-             System.out.println("----"+nbrligne);
-             param.put("nbrligne",nbrligne);
+            double total = data.getBc().getMontantTTC();
+            double tva = data.getBc().getMontanttva();
+            double remise = data.getBc().getMontantRemise();
+            double nbrligne = 0;
+            for (int i = 0; i < liste.length; i++) {
+                nbrligne = nbrligne + 1;
+            }
+            System.out.println("----" + nbrligne);
+            param.put("nbrligne", nbrligne);
             List dataSources = new ArrayList();
             int i = 0;
             double totalremise = 0;
@@ -504,7 +514,8 @@ public class EtatPaieServlet extends HttpServlet {
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("bon_de_commande");
-            UtilitaireImpression.imprimer(request, response, "bon_de_commande", param, dataSources, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "bon_de_commande", param, dataSources, getReportPath(),
+                    rt);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -528,7 +539,8 @@ public class EtatPaieServlet extends HttpServlet {
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("suivi-budgetaire");
-            UtilitaireImpression.imprimer(request, response, "suivi-budgetaire", param, dataSources, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "suivi-budgetaire", param, dataSources, getReportPath(),
+                    rt);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -578,12 +590,15 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("total", total);
 
             List dataSources = new ArrayList();
-            RecapitulatifComptesSubReport sub = new RecapitulatifComptesSubReport(Arrays.asList(recapitulatifComptes), Arrays.asList(recapitulatifPlacement), tabCaisse, tabBanqueDevise, Arrays.asList(placementAr), Arrays.asList(placementDevise));
+            RecapitulatifComptesSubReport sub = new RecapitulatifComptesSubReport(Arrays.asList(recapitulatifComptes),
+                    Arrays.asList(recapitulatifPlacement), tabCaisse, tabBanqueDevise, Arrays.asList(placementAr),
+                    Arrays.asList(placementDevise));
             dataSources.add(sub);
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("recapitulatifCompteCourant");
-            UtilitaireImpression.imprimer(request, response, "recapitulatifCompteCourant", param, dataSources, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "recapitulatifCompteCourant", param, dataSources,
+                    getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -593,54 +608,63 @@ public class EtatPaieServlet extends HttpServlet {
     private void imprimerBed2(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String id = request.getParameter("id");
-//            BonEngagementPDF be = new BonEngagementPDF();
-//            be.setNomTable("BED_PDF_II");
-//            be.setId(id);
-//            BonEngagementPDF[] tabBe = (BonEngagementPDF[]) CGenUtil.rechercher( be , null, null, " ") ;
-//            Map param = new HashMap();
-//            if(tabBe.length > 0){
-//                param.put("id",tabBe[0].getNumeroop());
-//                param.put("tiers",tabBe[0].getPrestataire());
-//                param.put("code_etab",tabBe[0].getCode_etablissement());
-//                param.put("projet",tabBe[0].getProjet());
-//            }
-//            
-//            List dataSources = new ArrayList();
-//            dataSources.addAll(Arrays.asList(tabBe));
-//            
-//            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-//            setNomJasper("bed");
-//            UtilitaireImpression.imprimer(request, response, "bed", param, dataSources, getReportPath(), rt);
+            // BonEngagementPDF be = new BonEngagementPDF();
+            // be.setNomTable("BED_PDF_II");
+            // be.setId(id);
+            // BonEngagementPDF[] tabBe = (BonEngagementPDF[]) CGenUtil.rechercher( be ,
+            // null, null, " ") ;
+            // Map param = new HashMap();
+            // if(tabBe.length > 0){
+            // param.put("id",tabBe[0].getNumeroop());
+            // param.put("tiers",tabBe[0].getPrestataire());
+            // param.put("code_etab",tabBe[0].getCode_etablissement());
+            // param.put("projet",tabBe[0].getProjet());
+            // }
+            //
+            // List dataSources = new ArrayList();
+            // dataSources.addAll(Arrays.asList(tabBe));
+            //
+            // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            // setNomJasper("bed");
+            // UtilitaireImpression.imprimer(request, response, "bed", param, dataSources,
+            // getReportPath(), rt);
 
             BordereauLibComplet res = new BordereauLibComplet();
             res.setNomTable("bordereauFF_libcomplet");
-            BordereauLibComplet[] blc = (BordereauLibComplet[]) CGenUtil.rechercher(res, null, null, String.format(" and id = '%s'", id));
+            BordereauLibComplet[] blc = (BordereauLibComplet[]) CGenUtil.rechercher(res, null, null,
+                    String.format(" and id = '%s'", id));
             if (blc.length > 0) {
                 res = blc[0];
             }
-            //res = (BordereauLibComplet)res.getById(id, null, null); 
+            // res = (BordereauLibComplet)res.getById(id, null, null);
             if (res != null) {
                 Map param = new HashMap();
                 param.put("numero", res.getNumero());
                 BordereauFilleLibComplet fille = new BordereauFilleLibComplet();
                 fille.setIdbordereau(id);
                 fille.setNomTable("liaisonbordereauFF_libcomplet");
-                BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
-                EtatFactureMontantDaty[] etatfmd = (EtatFactureMontantDaty[]) CGenUtil.rechercher(new EtatFactureMontantDaty(), "select * from factfourn_msum_lib where id in (select idop from liaisonbordereauFF where idbordereau = '" + id + "')");
+                BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null,
+                        "");
+                EtatFactureMontantDaty[] etatfmd = (EtatFactureMontantDaty[]) CGenUtil.rechercher(
+                        new EtatFactureMontantDaty(),
+                        "select * from factfourn_msum_lib where id in (select idop from liaisonbordereauFF where idbordereau = '"
+                                + id + "')");
 
                 if (etatfmd.length > 0) {
                     facture.FactureFournisseur factf = new facture.FactureFournisseur();
-                    //factf.setId(etatfmd[0].getId());
-                    //factf = (facture.FactureFournisseur)factf.getById(factf.getId(), null, null);
-                    facture.FactureFournisseur[] ff = (facture.FactureFournisseur[]) CGenUtil.rechercher(factf, null, null, String.format(" and id = '%s'", etatfmd[0].getId()));
+                    // factf.setId(etatfmd[0].getId());
+                    // factf = (facture.FactureFournisseur)factf.getById(factf.getId(), null, null);
+                    facture.FactureFournisseur[] ff = (facture.FactureFournisseur[]) CGenUtil.rechercher(factf, null,
+                            null, String.format(" and id = '%s'", etatfmd[0].getId()));
                     if (ff.length > 0) {
                         factf = ff[0];
 
                         CodeEtablissement ce = new CodeEtablissement();
                         ce.setNomTable("codeetablissement_libcomplet");
-                        //ce.setId(factf.getCode_etablissement());
-                        //ce = (CodeEtablissement)ce.getById(ce.getId(), null, null);
-                        CodeEtablissement[] cde = (CodeEtablissement[]) CGenUtil.rechercher(ce, null, null, String.format(" and id = '%s'", factf.getCode_etablissement()));
+                        // ce.setId(factf.getCode_etablissement());
+                        // ce = (CodeEtablissement)ce.getById(ce.getId(), null, null);
+                        CodeEtablissement[] cde = (CodeEtablissement[]) CGenUtil.rechercher(ce, null, null,
+                                String.format(" and id = '%s'", factf.getCode_etablissement()));
                         if (cde.length > 0) {
                             ce = cde[0];
 
@@ -653,9 +677,10 @@ public class EtatPaieServlet extends HttpServlet {
 
                         Projet prj = new Projet();
                         prj.setNomTable("projet");
-                        //prj.setId(factf.getProjet());
-                        //prj = (Projet)prj.getById(prj.getId(), null, null);
-                        Projet[] pr = (Projet[]) CGenUtil.rechercher(prj, null, null, String.format(" and id = '%s'", factf.getProjet()));
+                        // prj.setId(factf.getProjet());
+                        // prj = (Projet)prj.getById(prj.getId(), null, null);
+                        Projet[] pr = (Projet[]) CGenUtil.rechercher(prj, null, null,
+                                String.format(" and id = '%s'", factf.getProjet()));
                         if (pr.length > 0) {
                             prj = pr[0];
                             param.put("projet", prj.getDesignation());
@@ -707,7 +732,7 @@ public class EtatPaieServlet extends HttpServlet {
                 a.setId(tabOp[0].getDed_Id());
                 EtatFactureDepService[] tabFact = (EtatFactureDepService[]) CGenUtil.rechercher(a, null, null, "  ");
                 if (tabFact.length > 0) {
-                    //param.put("facture_lib",tabFact[0].getDesignation());
+                    // param.put("facture_lib",tabFact[0].getDesignation());
 
                     param.put("direction", tabFact[0].getDirection());
                     param.put("departement", tabFact[0].getDepartement());
@@ -716,7 +741,8 @@ public class EtatPaieServlet extends HttpServlet {
                 }
                 LiaisonIntraTable liaison = new LiaisonIntraTable();
                 liaison.setNomTable("LIAISONINTRATABLE");
-                LiaisonIntraTable[] tabLiaison = (LiaisonIntraTable[]) CGenUtil.rechercher(liaison, null, null, " and id2 = '" + idop + "'");
+                LiaisonIntraTable[] tabLiaison = (LiaisonIntraTable[]) CGenUtil.rechercher(liaison, null, null,
+                        " and id2 = '" + idop + "'");
                 if (tabLiaison.length > 0) {
                     param.put("facture_montant", tabLiaison[0].getMontant());
                 }
@@ -727,7 +753,8 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("montant", tabJournal[0].getDebit());
                     String montantString = String.valueOf((long) tabJournal[0].getDebit());
                     long montantLong = Long.valueOf(montantString);
-                    param.put("montant_lettre", (ChiffreLettre.convertIntToString(montantLong) + " ARIARY ").toUpperCase());
+                    param.put("montant_lettre",
+                            (ChiffreLettre.convertIntToString(montantLong) + " ARIARY ").toUpperCase());
 
                     param.put("facture_montant", tabJournal[0].getDebit());
                     param.put("tiers", tabJournal[0].getTiersLib());
@@ -737,7 +764,8 @@ public class EtatPaieServlet extends HttpServlet {
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("piece_de_caisse_depenses");
-            UtilitaireImpression.imprimer(request, response, "piece_de_caisse_depenses", param, new ArrayList(), getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "piece_de_caisse_depenses", param, new ArrayList(),
+                    getReportPath(), rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -748,12 +776,14 @@ public class EtatPaieServlet extends HttpServlet {
             JournalCaisse jc = new JournalCaisse();
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
-            JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, " order by NUMPIECE ASC  ");
+            JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null,
+                    " order by NUMPIECE ASC  ");
 
             PayementFacture[] tabFact = null;
             String idFacture = request.getParameter("idFacture");
             if (tabJournal.length > 0) {
-//                requete = "select * from factureclientmsum_lib where id in ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
+                // requete = "select * from factureclientmsum_lib where id in
+                // ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
                 tabFact = jc.getPayementFactureTous(null);
             }
             Map param = new HashMap();
@@ -766,51 +796,59 @@ public class EtatPaieServlet extends HttpServlet {
                 montantFacture = montantFacture + tabFact[i].getMontant();
                 arrList.add(tabFact[i]);
             }
-            //tabJournal[0].arrondir();
+            // tabJournal[0].arrondir();
             arrondi = tabJournal[0].getCredit() - montantFacture;
             totalGeneral = tabJournal[0].getCredit();
             String montantString = String.valueOf((long) totalGeneral);
             long montantLong = Long.valueOf(montantString);
-            String montantLettre=ChiffreLettre.convertRealToString(totalGeneral,"Ariary");
-            
-            if(tabJournal[0].getIdTypeCheque()!=null && tabJournal[0].getIdmode()!=null && tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant)==0 && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece)==0)
-            {
-                montantLettre=ChiffreLettre.convertIntToString(montantLong)+" Ariary";
-                
-            }else{
-                //montantFacture = Utilitaire.arrondir(montantFacture, 2); mandiso io fonction io
-                montantFacture =Utilitaire.arrondirDecimalWithMode(montantFacture, "#.##", RoundingMode.HALF_UP);
+            String montantLettre = ChiffreLettre.convertRealToString(totalGeneral, "Ariary");
+
+            if (tabJournal[0].getIdTypeCheque() != null && tabJournal[0].getIdmode() != null
+                    && tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant) == 0
+                    && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece) == 0) {
+                montantLettre = ChiffreLettre.convertIntToString(montantLong) + " Ariary";
+
+            } else {
+                // montantFacture = Utilitaire.arrondir(montantFacture, 2); mandiso io fonction
+                // io
+                montantFacture = Utilitaire.arrondirDecimalWithMode(montantFacture, "#.##", RoundingMode.HALF_UP);
                 totalGeneral = Utilitaire.arrondirDecimalWithMode(totalGeneral, "#.##", RoundingMode.HALF_UP);
                 String[] montantTexte = ChiffreLettre.convertRealToStringSepare(totalGeneral);
-                montantLettre= montantTexte[0];
-                if(montantTexte[1].compareToIgnoreCase("") != 0) montantLettre += " Ariary " + montantTexte[1];
-                else montantLettre += " Ariary";
+                montantLettre = montantTexte[0];
+                if (montantTexte[1].compareToIgnoreCase("") != 0)
+                    montantLettre += " Ariary " + montantTexte[1];
+                else
+                    montantLettre += " Ariary";
             }
             param.put("montant", montantFacture);
             param.put("arrondi", arrondi);
             param.put("total", totalGeneral);
             param.put("montantLettre", montantLettre);
             param.put("list_table", arrList);
-            /*if(tabFact.length > 0){
-                param.put("nmFact",tabFact[0].getCode());
-                param.put("montant",tabFact[0].getMontantttcvrai());
-                param.put("datyFact",tabFact[0].getDaty());
-                
-                String montantString = String.valueOf((long)tabFact[0].getMontantttcvrai());
-                long montantLong = Long.valueOf(montantString);
-
-                param.put("montantLettre",ChiffreLettre.convertIntToString(montantLong)+" Ariary ");
-
-            }
-            else{
-                if(tabJournal.length > 0){
-                    param.put("montant",tabJournal[0].getDebit());
-                    param.put("datyFact",tabJournal[0].getDateEffet());
-                    String montantString = String.valueOf((long)tabJournal[0].getDebit());
-                    long montantLong = Long.valueOf(montantString);
-                    param.put("montantLettre",ChiffreLettre.convertIntToString(montantLong)+" Ariary ");
-                }
-            }*/
+            /*
+             * if(tabFact.length > 0){
+             * param.put("nmFact",tabFact[0].getCode());
+             * param.put("montant",tabFact[0].getMontantttcvrai());
+             * param.put("datyFact",tabFact[0].getDaty());
+             * 
+             * String montantString = String.valueOf((long)tabFact[0].getMontantttcvrai());
+             * long montantLong = Long.valueOf(montantString);
+             * 
+             * param.put("montantLettre",ChiffreLettre.convertIntToString(montantLong)
+             * +" Ariary ");
+             * 
+             * }
+             * else{
+             * if(tabJournal.length > 0){
+             * param.put("montant",tabJournal[0].getDebit());
+             * param.put("datyFact",tabJournal[0].getDateEffet());
+             * String montantString = String.valueOf((long)tabJournal[0].getDebit());
+             * long montantLong = Long.valueOf(montantString);
+             * param.put("montantLettre",ChiffreLettre.convertIntToString(montantLong)
+             * +" Ariary ");
+             * }
+             * }
+             */
             if (tabJournal.length > 0) {
                 param.put("numPiece", tabJournal[0].getNumPiece());
                 param.put("client", tabJournal[0].getTiersLib());
@@ -824,17 +862,18 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("banque", tabJournal[0].getIdbanquelib());
                 param.put("numCheque", tabJournal[0].getNumcheque());
             }
-            String titre = "PIECE DE CAISSE" ;
-            if (tabJournal[0].getType()!= null && tabJournal[0].getType().compareTo(Constante.idCategorieFCProvision)== 0)
-                {
-                    titre = "PROVISION CONSTITUEE" ; 
-                }
-            param.put("titre" , titre);
+            String titre = "PIECE DE CAISSE";
+            if (tabJournal[0].getType() != null
+                    && tabJournal[0].getType().compareTo(Constante.idCategorieFCProvision) == 0) {
+                titre = "PROVISION CONSTITUEE";
+            }
+            param.put("titre", titre);
             String heure = Utilitaire.heureCouranteHMS();
-            param.put("heure" , heure);
+            param.put("heure", heure);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper(nomJasper);
-            UtilitaireImpression.imprimer(request, response, "piece_de_caisse", param, new ArrayList(), getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "piece_de_caisse", param, new ArrayList(), getReportPath(),
+                    rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -863,7 +902,8 @@ public class EtatPaieServlet extends HttpServlet {
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("bon_provisoire");
-            UtilitaireImpression.imprimer(request, response, "bon_provisoire", param, new ArrayList(), getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "bon_provisoire", param, new ArrayList(), getReportPath(),
+                    rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -881,10 +921,11 @@ public class EtatPaieServlet extends HttpServlet {
             c = new UtilDB().GetConn();
             pay = FactureService.imprimerFacture(id, c);
             dataSource.add(pay);
-            //param.put("MONTANTTOTAL", pay);
+            // param.put("MONTANTTOTAL", pay);
             String montantlettre = ChiffreLettre.convertRealToString(pay.getMontantTotal()) + " Ariary ";
             param.put("montantlettre", montantlettre);
-            UtilitaireImpression.imprimer(request, response, "Facture_client" + id, param, dataSource, getReportPath(), ReportingUtils.ReportType.PDF);
+            UtilitaireImpression.imprimer(request, response, "Facture_client" + id, param, dataSource, getReportPath(),
+                    ReportingUtils.ReportType.PDF);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -925,7 +966,8 @@ public class EtatPaieServlet extends HttpServlet {
             dataSources.add(journalCaisseSub);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("journal-caisse-depense");
-            UtilitaireImpression.imprimer(request, response, "journal-caisse-depense", param, dataSources, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "journal-caisse-depense", param, dataSources,
+                    getReportPath(), rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -937,7 +979,8 @@ public class EtatPaieServlet extends HttpServlet {
             String id = request.getParameter("id");
             FactureProforma e = new FactureProforma();
             e.setNomTable("factureprofMSum_lib");
-            FactureProforma[] mere = (FactureProforma[]) CGenUtil.rechercher(e, null, null, null, " and id = '" + id + "'");
+            FactureProforma[] mere = (FactureProforma[]) CGenUtil.rechercher(e, null, null, null,
+                    " and id = '" + id + "'");
             param.put("daty", Utilitaire.formatterDatySql(mere[0].getDaty()));
             param.put("id", mere[0].getId());
             param.put("client", mere[0].getTierslib());
@@ -952,94 +995,106 @@ public class EtatPaieServlet extends HttpServlet {
 
             FactureProformaDetails cht = new FactureProformaDetails();
             cht.setNomTable("FACTURE_CLIENT_PROFMONTANT");
-            FactureProformaDetails[] details = (FactureProformaDetails[]) CGenUtil.rechercher(cht, null, null, null, " and idmere = '" + id + "'");
+            FactureProformaDetails[] details = (FactureProformaDetails[]) CGenUtil.rechercher(cht, null, null, null,
+                    " and idmere = '" + id + "'");
             ArrayList<FactureProformaDetails> arrList = new ArrayList<FactureProformaDetails>();
             for (int i = 0; i < details.length; i++) {
                 arrList.add(details[i]);
             }
-            //mere[0].setListeDetails(arrList);
+            // mere[0].setListeDetails(arrList);
 
             List dataSources = new ArrayList();
-            //dataSources.addAll(mere[0].getListeDetails());
+            // dataSources.addAll(mere[0].getListeDetails());
 
             param.put("list_table", dataSources);
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("facture_client2");
-            UtilitaireImpression.imprimer(request, response, "facture-proforma", param, dataSources, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "facture-proforma", param, dataSources, getReportPath(),
+                    rt);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     private void imprimerFactureClient1(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Connection c = null;
         try {
             c = new UtilDB().GetConn();
             Map param = new HashMap();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            param.put("daty",sdf.format(utilitaire.Utilitaire.dateDuJourSql()));
+            param.put("daty", sdf.format(utilitaire.Utilitaire.dateDuJourSql()));
             String daty1 = sdf.format(utilitaire.Utilitaire.dateDuJourSql());
             String daty2 = daty1;
-            if(request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0 && request.getParameter("daty2").length() != 0){
+            if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
+                    && request.getParameter("daty2").length() != 0) {
                 daty2 = sdf.format(sdf.parse(request.getParameter("daty2")));
             }
-            if(request.getParameter("daty1") != null && request.getParameter("daty1").compareToIgnoreCase("null") != 0 && request.getParameter("daty1").length() != 0){
-                daty1 =  sdf.format(sdf.parse(request.getParameter("daty1")));
+            if (request.getParameter("daty1") != null && request.getParameter("daty1").compareToIgnoreCase("null") != 0
+                    && request.getParameter("daty1").length() != 0) {
+                daty1 = sdf.format(sdf.parse(request.getParameter("daty1")));
             }
             String awhere = "";
-            if(request.getParameter("tierslib")!= null && request.getParameter("tierslib").compareToIgnoreCase("null") != 0 && request.getParameter("tierslib").length() != 0)
-            {
-                awhere+=" AND tierslib='"+request.getParameter("tierslib")+"'";
+            if (request.getParameter("tierslib") != null
+                    && request.getParameter("tierslib").compareToIgnoreCase("null") != 0
+                    && request.getParameter("tierslib").length() != 0) {
+                awhere += " AND tierslib='" + request.getParameter("tierslib") + "'";
             }
-            if(request.getParameter("designation")!= null && request.getParameter("designation").compareToIgnoreCase("null") != 0 && request.getParameter("designation").length() != 0)
-            {
-                awhere+=" AND designation='"+request.getParameter("designation")+"'";
+            if (request.getParameter("designation") != null
+                    && request.getParameter("designation").compareToIgnoreCase("null") != 0
+                    && request.getParameter("designation").length() != 0) {
+                awhere += " AND designation='" + request.getParameter("designation") + "'";
             }
-            if(request.getParameter("categorielib")!= null && request.getParameter("categorielib").compareToIgnoreCase("null") != 0 && request.getParameter("categorielib").length() != 0)
-            {
-                awhere+=" AND categorielib='"+request.getParameter("categorielib")+"'";
+            if (request.getParameter("categorielib") != null
+                    && request.getParameter("categorielib").compareToIgnoreCase("null") != 0
+                    && request.getParameter("categorielib").length() != 0) {
+                awhere += " AND categorielib='" + request.getParameter("categorielib") + "'";
             }
-            if(request.getParameter("armateurlib")!= null && request.getParameter("armateurlib").compareToIgnoreCase("null") != 0 && request.getParameter("armateurlib").length() != 0)
-            {
-                awhere+=" AND armateurlib='"+request.getParameter("armateurlib")+"'";
+            if (request.getParameter("armateurlib") != null
+                    && request.getParameter("armateurlib").compareToIgnoreCase("null") != 0
+                    && request.getParameter("armateurlib").length() != 0) {
+                awhere += " AND armateurlib='" + request.getParameter("armateurlib") + "'";
             }
-            if(request.getParameter("code")!= null && request.getParameter("code").compareToIgnoreCase("null") != 0 && request.getParameter("code").length() != 0)
-            {
-                awhere+=" AND code='"+request.getParameter("code")+"'";
+            if (request.getParameter("code") != null && request.getParameter("code").compareToIgnoreCase("null") != 0
+                    && request.getParameter("code").length() != 0) {
+                awhere += " AND code='" + request.getParameter("code") + "'";
             }
-             if(request.getParameter("date_echeance1")!= null && request.getParameter("date_echeance1").compareToIgnoreCase("null") != 0 && request.getParameter("date_echeance1").length() != 0)
-            {
-                awhere+=" AND date_echeance >= '"+request.getParameter("date_echeance1")+"'";
+            if (request.getParameter("date_echeance1") != null
+                    && request.getParameter("date_echeance1").compareToIgnoreCase("null") != 0
+                    && request.getParameter("date_echeance1").length() != 0) {
+                awhere += " AND date_echeance >= '" + request.getParameter("date_echeance1") + "'";
             }
-            if(request.getParameter("date_echeance2")!= null && request.getParameter("date_echeance2").compareToIgnoreCase("null") != 0 && request.getParameter("date_echeance2").length() != 0)
-            {
-                awhere+=" AND date_echeance >= '"+request.getParameter("date_echeance2")+"'";
+            if (request.getParameter("date_echeance2") != null
+                    && request.getParameter("date_echeance2").compareToIgnoreCase("null") != 0
+                    && request.getParameter("date_echeance2").length() != 0) {
+                awhere += " AND date_echeance >= '" + request.getParameter("date_echeance2") + "'";
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
             FactureClient facture = new FactureClient();
-            String mois = (Calendar.getInstance().get(Calendar.MONTH)+1)+"";
-            if(request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0 && request.getParameter("daty2").length() != 0){
+            String mois = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "";
+            if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
+                    && request.getParameter("daty2").length() != 0) {
                 mois = request.getParameter("daty2").split("/")[1];
             }
             facture.setNomTable("factureclient_emise");
-            if(request.getParameter("etat")!= null && request.getParameter("etat").compareToIgnoreCase("null") != 0 && request.getParameter("etat").length() != 0)
-            {
-               facture.setNomTable(request.getParameter("etat"));
+            if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("null") != 0
+                    && request.getParameter("etat").length() != 0) {
+                facture.setNomTable(request.getParameter("etat"));
             }
-            awhere+=" AND daty>= '"+daty1+"' AND daty<= '"+daty2+"' order by typelib,code";
-            
-            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c,awhere );
+            awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by typelib,code";
+
+            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, awhere);
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
             for (int i = 0; i < details.length; i++) {
-                
+
                 arrList.add(details[i]);
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("facture_client1");
             UtilitaireImpression.imprimer(request, response, "facture_client", param, arrList, getReportPath(), rt);
- 
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -1048,6 +1103,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
         }
     }
+
     private void imprimerFactureClient(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Connection c = null;
         try {
@@ -1061,16 +1117,20 @@ public class EtatPaieServlet extends HttpServlet {
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             int separer_convention = 1;
 
-            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "' order by daty");
+            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c,
+                    " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
             FactureClientDetails[] liste = mere[0].getListeDetails();
             facture.setNomTable("factureClientValide");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
-            
-            /*ClientCategorie clg = new ClientCategorie();
-            clg.setNomTable("CLIENT_UNION");
-            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");*/
+
+            /*
+             * ClientCategorie clg = new ClientCategorie();
+             * clg.setNomTable("CLIENT_UNION");
+             * ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg,
+             * null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
+             */
             param.put("stat", mere[0].getNmsttclt());
             param.put("nif", mere[0].getNif());
             param.put("rc", mere[0].getRc());
@@ -1078,7 +1138,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("tp", mere[0].getTp());
             param.put("Dttp", mere[0].getDttp());
             param.put("dtquit", mere[0].getDtquit());
-            
+
             facture = mere[0];
             facture.setId(id);
             facture.initDetails(c);
@@ -1095,12 +1155,14 @@ public class EtatPaieServlet extends HttpServlet {
             if (mere.length != 0) {
                 mg.spat.PrevisionLibComplet p = new mg.spat.PrevisionLibComplet();
                 p.setNomTable("PREVISIONLIBCOMPLETPDF");
-                mg.spat.PrevisionLibComplet[] pre = (mg.spat.PrevisionLibComplet[]) CGenUtil.rechercher(p, null, null, c, " and id = '" + mere[0].getIdprevision() + "'");
+                mg.spat.PrevisionLibComplet[] pre = (mg.spat.PrevisionLibComplet[]) CGenUtil.rechercher(p, null, null,
+                        c, " and id = '" + mere[0].getIdprevision() + "'");
                 int convention = 0;
                 FactureClientDetails cht = new FactureClientDetails();
                 cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
 
-                FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '" + id + "'  order by rang, daty asc");
+                FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, c,
+                        " and idmere = '" + id + "'  order by rang, daty asc");
                 ArrayList<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
 
                 param.put("responsable", "Pr&eacute;par&eacute; Par");
@@ -1111,18 +1173,18 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("responsable", "Le contr&ocirc;leur");
                 }
 
-                if (facture.getBateaulib()!=null ||  pre.length >= 1) {
+                if (facture.getBateaulib() != null || pre.length >= 1) {
 
                     param.put("navire", facture.getBateaulib());
                     // param.put("escale",pre[0].getEscale());
                     param.put("date_arrivee", facture.getDatearrivee());
-                    //param.put("pavillon",pre[0].getPavillon);
+                    // param.put("pavillon",pre[0].getPavillon);
                     param.put("date_depart", facture.getDateDepart());
                     param.put("destination", facture.getDestinationlib());
                     param.put("lhtnavire", facture.getLht());
                     System.out.println("nomtable" + facture.getNomTable());
-                           
-                    System.out.println("navire==="+facture.getLht());
+
+                    System.out.println("navire===" + facture.getLht());
                     param.put("jntnavire", facture.getJnt());
                     param.put("lmnavire", facture.getLm());
                     param.put("provenance", facture.getProvenancelib());
@@ -1132,7 +1194,8 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("heure_arrivee", facture.getHeureArrivee());
                     param.put("tenavire", facture.getTe());
 
-                    setNomJasper("facture_client2 - Copie");//facture_client2 - Copie //facture_convention //facture-client-sans-prevision
+                    setNomJasper("facture_client2 - Copie");// facture_client2 - Copie //facture_convention
+                                                            // //facture-client-sans-prevision
                 } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
                     setNomJasper("facture-Mictsl");
                 } else {
@@ -1140,30 +1203,32 @@ public class EtatPaieServlet extends HttpServlet {
                     if (mere[0].getCode().contains("09A")) {
                         separer_convention = 0;
                     }
-                    /*if (mere[0].getCode().contains("09")) {
-                        if (mere[0].getCode().charAt(5) == '0' && mere[0].getCode().charAt(6) == '9') {
-                            int i=0;    
-                            while(i<details.length){
-                                if(details[i].getDesignation().toLowerCase().contains("redevance commun")){
-                                    setNomJasper("facture_convention");
-                                    break;
-                                }
-                                i=+1;
-                            }
-                            
-                        };
-                    } */
-                    //setNomJasper("facture-client-sans-prevision");
+                    /*
+                     * if (mere[0].getCode().contains("09")) {
+                     * if (mere[0].getCode().charAt(5) == '0' && mere[0].getCode().charAt(6) == '9')
+                     * {
+                     * int i=0;
+                     * while(i<details.length){
+                     * if(details[i].getDesignation().toLowerCase().contains("redevance commun")){
+                     * setNomJasper("facture_convention");
+                     * break;
+                     * }
+                     * i=+1;
+                     * }
+                     * 
+                     * };
+                     * }
+                     */
+                    // setNomJasper("facture-client-sans-prevision");
                 }
                 Date daty = mere[0].getDaty();
-                if(details[0].getDatefact() != null)
-                {   
+                if (details[0].getDatefact() != null) {
                     daty = details[0].getDatefact();
                 }
-                param.put("datyfact", mere[0].getDaty()); 
+                param.put("datyfact", mere[0].getDaty());
                 param.put("daty", daty);
-                if(Utilitaire.champNull(mere[0].getEscale()).compareTo("")!=0){
-                    param.put("datyfact", daty); 
+                if (Utilitaire.champNull(mere[0].getEscale()).compareTo("") != 0) {
+                    param.put("datyfact", daty);
                     param.put("daty", mere[0].getDaty());
                 }
                 param.put("id", mere[0].getId());
@@ -1176,9 +1241,12 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("client", mere[0].getNomclt());
                 param.put("adresse", mere[0].getAdrclt());
                 param.put("phone", mere[0].getContact());
-                param.put("montant", Utilitaire.arrondirDecimalWithMode(mere[0].getMontant(), "#.##", RoundingMode.HALF_UP));
-                param.put("montantTVA", Utilitaire.arrondirDecimalWithMode(mere[0].getMontanttva(), "#.##", RoundingMode.HALF_UP));
-                param.put("montantTTC", Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttcvrai(), "#.##", RoundingMode.HALF_UP));
+                param.put("montant",
+                        Utilitaire.arrondirDecimalWithMode(mere[0].getMontant(), "#.##", RoundingMode.HALF_UP));
+                param.put("montantTVA",
+                        Utilitaire.arrondirDecimalWithMode(mere[0].getMontanttva(), "#.##", RoundingMode.HALF_UP));
+                param.put("montantTTC",
+                        Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttcvrai(), "#.##", RoundingMode.HALF_UP));
                 param.put("montantAvoir", mere[0].getMontantavoir());
                 param.put("codeclient", mere[0].getTiers());
                 param.put("armateur", mere[0].getArmateurlib());
@@ -1196,38 +1264,64 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("payement", mere[0].getPaiementlib());
                 param.put("code", code);
 
-                String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
-                if(mere[0].getEstMictsl().compareToIgnoreCase("1")==0)
-                {   
+                String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()),
+                        " Ariary");
+                if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars) == 0) {
-                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar), " Dollars");
+                        String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+                        montantlettre = montantTexte[0];
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
+                            montantlettre += " Ariary " + montantTexte[1];
+                        else
+                            montantlettre += " Ariary";
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0) {
-                        //montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
+                        // montantlettre = ChiffreLettre.convertRealToString(new
+                        // Double(mere[0].getMontantttc()), " Ariary");
                         String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
-                        montantlettre= montantTexte[0];
-                        if(montantTexte[1].compareToIgnoreCase("") != 0) montantlettre += " Ariary " + montantTexte[1];
-                        else montantlettre += " Ariary";
+                        montantlettre = montantTexte[0];
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
+                            montantlettre += " Ariary " + montantTexte[1];
+                        else
+                            montantlettre += " Ariary";
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro) == 0) {
-                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcEuro), " Euros");
+                        String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+                        montantlettre = montantTexte[0];
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
+                            montantlettre += " Ariary " + montantTexte[1];
+                        else
+                            montantlettre += " Ariary";
                     }
-                    
+
                 }
 
-                if (mere[0].getDeviseMere() != null &&  mere[0].getEstMictsl().compareToIgnoreCase("1")!=0) {
+                if (mere[0].getDeviseMere() != null && mere[0].getEstMictsl().compareToIgnoreCase("1") != 0) {
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars) == 0) {
-                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar), " Dollars");
+                        String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+                        montantlettre = montantTexte[0];
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
+                            montantlettre += " Ariary " + montantTexte[1];
+                        else
+                            montantlettre += " Ariary";
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0) {
-                        //montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
+                        // montantlettre = ChiffreLettre.convertRealToString(new
+                        // Double(mere[0].getMontantttc()), " Ariary");
                         String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
-                        montantlettre= montantTexte[0];
-                        if(montantTexte[1].compareToIgnoreCase("") != 0) montantlettre += " Ariary " + montantTexte[1];
-                        else montantlettre += " Ariary";
+                        montantlettre = montantTexte[0];
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
+                            montantlettre += " Ariary " + montantTexte[1];
+                        else
+                            montantlettre += " Ariary";
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro) == 0) {
-                        montantlettre = ChiffreLettre.convertRealToString(new Double(ttcEuro), " Euros");
+                        String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+                        montantlettre = montantTexte[0];
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
+                            montantlettre += " Ariary " + montantTexte[1];
+                        else
+                            montantlettre += " Ariary";
                     }
 
                 }
@@ -1245,7 +1339,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("datyecheance", mere[0].getDate_echeance());
                 param.put("cat", cat);
 
-                if (designation!=null && (designation.length() > 66) && (pre.length != 0)) {
+                if (designation != null && (designation.length() > 66) && (pre.length != 0)) {
                     param.put("designation", designation.substring(0, 66));
                     param.put("designation+", designation.substring(66, designation.length()));
                 } else {
@@ -1255,21 +1349,26 @@ public class EtatPaieServlet extends HttpServlet {
                 /**
                  * *********************************************************************************************
                  */
-                /*facture.setId(details[0].getIdmere());
-                //facture.setListeDetails(details);
-                facture.initDetails(null);*/
-                //if(facture.getEstMictsl()==null || facture.getEstMictsl().compareTo("1")!=0)details = facture.getListeDetails();
+                /*
+                 * facture.setId(details[0].getIdmere());
+                 * //facture.setListeDetails(details);
+                 * facture.initDetails(null);
+                 */
+                // if(facture.getEstMictsl()==null ||
+                // facture.getEstMictsl().compareTo("1")!=0)details = facture.getListeDetails();
                 details = facture.getListeDetails();
                 double total = 0;
                 double reduction = 0;
                 for (int i = 0; i < details.length; i++) {
-                    //details[i].setMontantHTEuro( details[i].getQuantite()*details[i].getPu());
+                    // details[i].setMontantHTEuro( details[i].getQuantite()*details[i].getPu());
                     total = total + details[i].getMontantHTEuro();
                     details[i].setMontantTTC(details[i].getMontanttaux() + details[i].getMontantTva());
                     String heuredebut = "";
                     String heurefin = "";
-                    if (details[i].getHeureDebut() != null && details[i].getHeureDebut().length() == 8) {// manala anle seconde any amn farany
-                        //details[i].getHeureDebut().
+                    if (details[i].getHeureDebut() != null && details[i].getHeureDebut().length() == 8) {// manala anle
+                                                                                                         // seconde any
+                                                                                                         // amn farany
+                        // details[i].getHeureDebut().
                         int len = 0;
                         while (len < 5) {
                             heuredebut += details[i].getHeureDebut().charAt(len);
@@ -1278,8 +1377,10 @@ public class EtatPaieServlet extends HttpServlet {
                         details[i].setHeureDebut(heuredebut);
 
                     }
-                    if (details[i].getHeureFin() != null && details[i].getHeureFin().length() == 8) {// manala anle seconde any amn farany
-                        //details[i].getHeureDebut().
+                    if (details[i].getHeureFin() != null && details[i].getHeureFin().length() == 8) {// manala anle
+                                                                                                     // seconde any amn
+                                                                                                     // farany
+                        // details[i].getHeureDebut().
                         int len = 0;
                         while (len < 5) {
                             heurefin += details[i].getHeureFin().charAt(len);
@@ -1291,13 +1392,15 @@ public class EtatPaieServlet extends HttpServlet {
                     arrList.add(details[i]);
                     reduction += details[i].getReduction();
 
-                    //total=
+                    // total=
                 }
 
-                //mere[0].setArrayDetails(arrList);
-                //List<FactureClientDetails> res = new ArrayList<FactureClientDetails>();
-                /*List dataSources = new ArrayList();
-            dataSources.addAll(mere[0].getArrayDetails());*/
+                // mere[0].setArrayDetails(arrList);
+                // List<FactureClientDetails> res = new ArrayList<FactureClientDetails>();
+                /*
+                 * List dataSources = new ArrayList();
+                 * dataSources.addAll(mere[0].getArrayDetails());
+                 */
                 param.put("total", total);
                 param.put("montantsns", hTEuro);
                 param.put("reduction", reduction);
@@ -1311,7 +1414,11 @@ public class EtatPaieServlet extends HttpServlet {
                     details2.setDetails(new ArrayList<FactureClientDetails>());
                     int conventionExist = 1;
                     for (int k = 0; k < arrList.size(); k++) {
-                        if ((separer_convention == 0) && (arrList.get(k).getRubrique() != null) && (arrList.get(k).getRubrique().compareTo("RB0000000144093258") == 0 || arrList.get(k).getRubrique().compareTo("RB0000000143093146") == 0 || arrList.get(k).getRubrique().compareTo("RB0000000060112257") == 0 || arrList.get(k).getRubrique().compareTo("RB0000000066111845") == 0)) {
+                        if ((separer_convention == 0) && (arrList.get(k).getRubrique() != null)
+                                && (arrList.get(k).getRubrique().compareTo("RB0000000144093258") == 0
+                                        || arrList.get(k).getRubrique().compareTo("RB0000000143093146") == 0
+                                        || arrList.get(k).getRubrique().compareTo("RB0000000060112257") == 0
+                                        || arrList.get(k).getRubrique().compareTo("RB0000000066111845") == 0)) {
                             conventionExist = 0;
                             details2.getDetails().add(arrList.get(k));
                             details2.setTotal(details2.getTotal() + arrList.get(k).getMontantHTEuro());
@@ -1326,38 +1433,40 @@ public class EtatPaieServlet extends HttpServlet {
                             details1.setMontantTTCdevise(details1.getMontantdevise() + details1.getMontantTVAdevise());
                         }
                     }
-                    
-                    double montantDevise=mere[0].getMontant(), montantTVADevise=mere[0].getMontanttva(), montantTTCDevise=mere[0].getMontantttc();
+
+                    double montantDevise = mere[0].getMontant(), montantTVADevise = mere[0].getMontanttva(),
+                            montantTTCDevise = mere[0].getMontantttc();
                     String codeFacture = mere[0].getCode();
-                    
+
                     if (mere[0].getDeviseMere() != null) {
                         if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseAr)) {
-                            //if (codeFacture.contains("09A") || codeFacture.contains("01A")) {
-                            if (codeFacture.contains("09A") ) {
+                            // if (codeFacture.contains("09A") || codeFacture.contains("01A")) {
+                            if (codeFacture.contains("09A")) {
                                 montantDevise = hTEuro;
                                 montantTVADevise = tvaEuro;
                                 montantTTCDevise = ttcEuro;
                             }
                         }
                         if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseDollars)) {
-                                montantDevise = hTDollar;
-                                montantTVADevise = tvaDollar;
-                                montantTTCDevise = ttcDollar;
+                            montantDevise = hTDollar;
+                            montantTVADevise = tvaDollar;
+                            montantTTCDevise = ttcDollar;
                         }
                         if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseEuro)) {
-                                montantDevise = hTEuro;
-                                montantTVADevise = tvaEuro;
-                                montantTTCDevise = ttcEuro;
+                            montantDevise = hTEuro;
+                            montantTVADevise = tvaEuro;
+                            montantTTCDevise = ttcEuro;
                         }
                         /*
-                        if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseDollars)) {
-                            if (codeFacture.contains("01A") || codeFacture.contains("08A")) {
-                                montantDevise = hTDollar;
-                                montantTVADevise = tvaDollar;
-                                montantTTCDevise = ttcDollar;
-                            }
-                        }*/
-                        
+                         * if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseDollars)) {
+                         * if (codeFacture.contains("01A") || codeFacture.contains("08A")) {
+                         * montantDevise = hTDollar;
+                         * montantTVADevise = tvaDollar;
+                         * montantTTCDevise = ttcDollar;
+                         * }
+                         * }
+                         */
+
                         details1.setMontantdevise(montantDevise);
                         details1.setMontantTVAdevise(montantTVADevise);
                         details1.setMontantTTCdevise(montantTTCDevise);
@@ -1377,8 +1486,8 @@ public class EtatPaieServlet extends HttpServlet {
                 }
 
             }
-            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            //setNomJasper("facture_client2 - Copie");
+            // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            // setNomJasper("facture_client2 - Copie");
             UtilitaireImpression.imprimer(request, response, "facture-client", param, dataSource, getReportPath(), rt);
 
         } catch (Exception e) {
@@ -1394,7 +1503,7 @@ public class EtatPaieServlet extends HttpServlet {
      * *****************************************************************************************************************************************************************************************
      */
     private void imprimerAvoir(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Connection c=null;
+        Connection c = null;
         try {
             c = (new UtilDB()).GetConn();
             Map param = new HashMap();
@@ -1412,7 +1521,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("categorie", "");
             }
             String signature = "";
-            
+
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
             param.put("code", mere[0].getCode());
             param.put("designationAvoir", mere[0].getDesignation());
@@ -1434,7 +1543,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("codefact1", result[0].getCode());
             }
 
-            //param.put("pdaty", daty);
+            // param.put("pdaty", daty);
             param.put("pdaty", fc.getDaty());
             param.put("client", fc.getTierslib());
             param.put("codeClient", fc.getTiers());
@@ -1445,64 +1554,65 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("valdollar", deviseDollar);
 
             AvoirFCFille[] avoirFille = mere[0].getAvoirFilles("avoirfcfille_PDF", null);
-           System.out.println("montantHTDevise==="+avoirFille[0].getMontantHTDevise());
-             System.out.println("pu==="+avoirFille[0].getPu());
-            /*FactureClientDetails[] details = new FactureClientDetails[avoirFille.length];
-            for (int i = 0; i < avoirFille.length; i++) {
-                details[i] = avoirFille[i].getFactureClientDetail(null);
-                details[i].setMontant(avoirFille[i].getMontant());
-                details[i].setId(avoirFille[i].getId());
-            }
-            fc.setListeDetails(details);
-            fc.initDetails(null);
-
-            double montanttotal = 0;
-            List<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
-            for (int i = 0; i < details.length; i++) {
-                details[i].setMontant(details[i].getMontantHTEuro());
-                montanttotal = montanttotal + details[i].getMontantHTEuro();
-                arrList.add(details[i]);
-            }*/
+            System.out.println("montantHTDevise===" + avoirFille[0].getMontantHTDevise());
+            System.out.println("pu===" + avoirFille[0].getPu());
+            /*
+             * FactureClientDetails[] details = new FactureClientDetails[avoirFille.length];
+             * for (int i = 0; i < avoirFille.length; i++) {
+             * details[i] = avoirFille[i].getFactureClientDetail(null);
+             * details[i].setMontant(avoirFille[i].getMontant());
+             * details[i].setId(avoirFille[i].getId());
+             * }
+             * fc.setListeDetails(details);
+             * fc.initDetails(null);
+             * 
+             * double montanttotal = 0;
+             * List<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
+             * for (int i = 0; i < details.length; i++) {
+             * details[i].setMontant(details[i].getMontantHTEuro());
+             * montanttotal = montanttotal + details[i].getMontantHTEuro();
+             * arrList.add(details[i]);
+             * }
+             */
             List<AvoirFCFille> arrList = new ArrayList<AvoirFCFille>();
             for (int i = 0; i < avoirFille.length; i++) {
-                avoirFille[i].setMontantHTDevise(avoirFille[i].getMontantHTDevise()*avoirFille[i].getTaux()/deviseEuro);
+                avoirFille[i]
+                        .setMontantHTDevise(avoirFille[i].getMontantHTDevise() * avoirFille[i].getTaux() / deviseEuro);
                 arrList.add(avoirFille[i]);
             }
-            
+
             param.put("montant", mere[0].getMontant());
             param.put("montantTVA", mere[0].getMontanttva());
             param.put("montantTTC", mere[0].getMontantttc());
             double montanttotal = AdminGen.calculSommeDouble(avoirFille, "montantHTDevise");
             param.put("total", montanttotal);
-            
-            String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()) , " Ariary ");
-            System.out.println("devise=="+fc.getDeviseMere());
+
+            String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary ");
+            System.out.println("devise==" + fc.getDeviseMere());
             if (fc.getDeviseMere() != null) {
                 if (fc.getDeviseMere().compareToIgnoreCase("Dollars") == 0) {
                     double montantDollar = mere[0].getMontant() / deviseDollar;
-                    montantlettre = ChiffreLettre.convertRealToString(new Double(montantDollar) , " Dollars ");
-                    
+                    montantlettre = ChiffreLettre.convertRealToString(new Double(montantDollar), " Dollars ");
+
                 }
             }
 
             param.put("montantlettre", montantlettre);
             param.put("list_table", arrList);
-            
-            System.out.println("categorie==="+cat.getVal());
-            
-                if(mere[0].getTypelib().compareTo("interne")==0)
-                {
-                    signature = "Le Chef du Service Traitement et Reclamations";
-                    param.put("signature", signature);
-                }
-                else
-                {
-                    signature = "Le Capitaine du Port";
-                    param.put("signature", signature);
-                } 
+
+            System.out.println("categorie===" + cat.getVal());
+
+            if (mere[0].getTypelib().compareTo("interne") == 0) {
+                signature = "Le Chef du Service Traitement et Reclamations";
+                param.put("signature", signature);
+            } else {
+                signature = "Le Capitaine du Port";
+                param.put("signature", signature);
+            }
             ClientCategorie clg = new ClientCategorie();
             clg.setNomTable("CLIENT_UNION");
-            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
+            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c,
+                    " and cdclt = '" + mere[0].getTiers() + "'");
             param.put("stat", clientcat[0].getNmsttclt());
             param.put("nif", clientcat[0].getNif());
             param.put("rc", clientcat[0].getRc());
@@ -1511,15 +1621,16 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("pdaty3", clientcat[0].getDtquit());
             param.put("pdaty2", clientcat[0].getDttp());
             setNomJasper("facture-client-avoir");
-            
-            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            //setNomJasper("facture_client2 - Copie");
+
+            // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            // setNomJasper("facture_client2 - Copie");
             UtilitaireImpression.imprimer(request, response, "facture-clien-avoirt", param, null, getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(c!=null)c.close();
+        } finally {
+            if (c != null)
+                c.close();
         }
     }
 
@@ -1545,7 +1656,8 @@ public class EtatPaieServlet extends HttpServlet {
 
             FactureClient fc = new FactureClient();
             fc.setNomTable("facture_client_union");
-            FactureClient[] fclt = (FactureClient[]) CGenUtil.rechercher(fc, null, null, null, " and id = '" + idfc + "'");
+            FactureClient[] fclt = (FactureClient[]) CGenUtil.rechercher(fc, null, null, null,
+                    " and id = '" + idfc + "'");
             if (fclt.length != 0) {
                 param.put("montantttc", fclt[0].getMontantttc());
                 param.put("code", fclt[0].getCode());
@@ -1553,8 +1665,8 @@ public class EtatPaieServlet extends HttpServlet {
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("EtatProvision");
-            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            //setNomJasper("facture_client2 - Copie");
+            // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            // setNomJasper("facture_client2 - Copie");
             UtilitaireImpression.imprimer(request, response, "etat-provision", param, null, getReportPath(), rt);
 
         } catch (Exception e) {
@@ -1573,26 +1685,27 @@ public class EtatPaieServlet extends HttpServlet {
             facture.setNomTable("FACTFOURN_MSUM_LIB");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
 
-            facture.FactureFournisseur[] mere = (facture.FactureFournisseur[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "' order by daty");
+            facture.FactureFournisseur[] mere = (facture.FactureFournisseur[]) CGenUtil.rechercher(facture, null, null,
+                    c, " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
-            
+
             facture.setNomTable("FACTFOURN_VALIDE");
             mere = (facture.FactureFournisseur[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
 
             if (mere.length != 0) {
 
-                
                 FactureFournisseurDetails cht = new FactureFournisseurDetails();
                 cht.setNomTable("FACTFOURN_FILL_LIB_REST_TAXE");
 
-                FactureFournisseurDetails[] details = (FactureFournisseurDetails[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '" + id + "'");
+                FactureFournisseurDetails[] details = (FactureFournisseurDetails[]) CGenUtil.rechercher(cht, null, null,
+                        c, " and idmere = '" + id + "'");
                 ArrayList<FactureFournisseurDetails> arrList = new ArrayList<FactureFournisseurDetails>();
 
                 FactureFournisseurFilleData dataF = new FactureFournisseurFilleData(id, details, null);
                 facture.FactureFournisseur fact = dataF.getFacture();
                 facture.setId(id);
                 facture = mere[0];
-                //facture.initDetails(c);
+                // facture.initDetails(c);
                 double hTEuro = fact.getMontantHTEuro();
                 double tvaEuro = fact.getMontantTVAEuro();
                 double ttcEuro = hTEuro + tvaEuro;
@@ -1609,17 +1722,19 @@ public class EtatPaieServlet extends HttpServlet {
                 double total = 0;
                 double reduction = 0;
                 for (int i = 0; i < details.length; i++) {
-                    //details[i].setMontantHTEuro( details[i].getQuantite()*details[i].getPu());
+                    // details[i].setMontantHTEuro( details[i].getQuantite()*details[i].getPu());
                     total = total + details[i].getMontantHTEuro();
                     arrList.add(details[i]);
                     reduction += details[i].getReduction();
 
-                    //total=
+                    // total=
                 }
-                //mere[0].setArrayDetails(arrList);
+                // mere[0].setArrayDetails(arrList);
                 List<FactureFournisseurDetails> res = new ArrayList<FactureFournisseurDetails>();
-                /*List dataSources = new ArrayList();
-            dataSources.addAll(mere[0].getArrayDetails());*/
+                /*
+                 * List dataSources = new ArrayList();
+                 * dataSources.addAll(mere[0].getArrayDetails());
+                 */
                 param.put("total", total);
                 param.put("montantsns", hTEuro);
                 param.put("reduction", reduction);
@@ -1651,7 +1766,8 @@ public class EtatPaieServlet extends HttpServlet {
 
                 param.put("deviseMere", mere[0].getDeviseMere());
                 param.put("code", code);
-                String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc())) + " Ariary ";
+                String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()))
+                        + " Ariary ";
 
                 if (mere[0].getDeviseMere() != null) {
                     if (mere[0].getDeviseMere().compareToIgnoreCase("Dollars") == 0) {
@@ -1672,22 +1788,21 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("cat", cat);
                 param.put("designation", designation);
             }
-            if(mere[0].getDesignation().startsWith("provision ")==true)
-            {   
+            if (mere[0].getDesignation().startsWith("provision ") == true) {
                 param.put("montant", mere[0].getMontant());
-                String montantlettrePro = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant())) + " Ariary ";
+                String montantlettrePro = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()))
+                        + " Ariary ";
                 param.put("montantlettrePro", montantlettrePro);
                 setNomJasper("bon_provisoir");
-            }
-            else{
+            } else {
                 setNomJasper("facture-client-sans-prevision");
             }
             /**
              * *********************************************************************************************
              */
 
-            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            //setNomJasper("facture_client2 - Copie");
+            // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            // setNomJasper("facture_client2 - Copie");
             UtilitaireImpression.imprimer(request, response, "facture-fournisseur", param, null, getReportPath(), rt);
 
         } catch (Exception e) {
@@ -1702,10 +1817,12 @@ public class EtatPaieServlet extends HttpServlet {
     public void listefactureClient(HttpServletRequest request, HttpServletResponse response) {
         try {
             String sql = "";
-            if (request.getParameter("mois") != null && request.getParameter("mois").compareToIgnoreCase("null") != 0 && request.getParameter("mois").length() != 0) {
+            if (request.getParameter("mois") != null && request.getParameter("mois").compareToIgnoreCase("null") != 0
+                    && request.getParameter("mois").length() != 0) {
                 sql = sql + " and mois= " + request.getParameter("mois") + " ";
             }
-            if (request.getParameter("annee") != null && request.getParameter("annee").compareToIgnoreCase("null") != 0 && request.getParameter("annee").length() != 0) {
+            if (request.getParameter("annee") != null && request.getParameter("annee").compareToIgnoreCase("null") != 0
+                    && request.getParameter("annee").length() != 0) {
                 sql = sql + " and annee= " + request.getParameter("annee") + " ";
             }
             sql += " order by code_prest";
@@ -1754,8 +1871,8 @@ public class EtatPaieServlet extends HttpServlet {
             String daty = "";
 
             String sql = "";
-            System.out.println("ETAT====="+etat);
-            if (etat != null && !etat.trim().isEmpty() && etat.equalsIgnoreCase("JOURNALCAISSELIB_PROVISION")){
+            System.out.println("ETAT=====" + etat);
+            if (etat != null && !etat.trim().isEmpty() && etat.equalsIgnoreCase("JOURNALCAISSELIB_PROVISION")) {
                 daty += "SUR PROVISION ";
             }
             if (id != null && id.compareToIgnoreCase("null") != 0 && id.length() != 0) {
@@ -1791,13 +1908,12 @@ public class EtatPaieServlet extends HttpServlet {
                 sql = sql + " and UPPER(descecaisse) like UPPER('%" + descecaisse + "%') ";
             }
 
-            //System.out.println(sql);
+            // System.out.println(sql);
             JournalCaisse journalCaisse = new JournalCaisse();
             journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
-             if(etat!=null && etat!="" && !etat.equalsIgnoreCase("null"))
-              {
-                 journalCaisse.setNomTable(etat);
-              }
+            if (etat != null && etat != "" && !etat.equalsIgnoreCase("null")) {
+                journalCaisse.setNomTable(etat);
+            }
             JournalCaisse[] details = (JournalCaisse[]) CGenUtil.rechercher(journalCaisse, null, null, c, sql);
             ArrayList<JournalCaissePdf> ls = new ArrayList<JournalCaissePdf>();
             double totalmontant = 0;
@@ -1815,7 +1931,7 @@ public class EtatPaieServlet extends HttpServlet {
                 temp.setIdbanquelib(details[i].getIdbanquelib());
 
                 int a = 0;
-                //System.out.println("len"+p.length);
+                // System.out.println("len"+p.length);
                 ArrayList<JournalCaisse> j = new ArrayList<JournalCaisse>();
 
                 if (a < p.length) {
@@ -1830,7 +1946,7 @@ public class EtatPaieServlet extends HttpServlet {
                         caissetemp.setRemarque(utilitaire.Utilitaire.formaterAr(p[a].getMontant()));
                         montant = montant + p[a].getMontant();
 
-                        //System.out.println("codddeeeee="+p[a].getCode());
+                        // System.out.println("codddeeeee="+p[a].getCode());
                         j.add(caissetemp);
 
                         a = a + 1;
@@ -1840,15 +1956,15 @@ public class EtatPaieServlet extends HttpServlet {
                     caissetemp.setCaisse(details[i].getLibelle());
                     j.add(caissetemp);
                 }
-                //temp.setMotif(details[i].getLibelle());
+                // temp.setMotif(details[i].getLibelle());
                 temp.setMontant(montant);
                 temp.setReste(details[i].getCredit() - montant);
                 totalmontant = totalmontant + montant;
                 totalcredit = totalcredit + (details[i].getCredit() - montant);
 
                 temp.setJcaisse(j);
-                //temp.setMontant(montant);
-                //temp.setNumfacture(numfact);
+                // temp.setMontant(montant);
+                // temp.setNumfacture(numfact);
                 ls.add(temp);
                 i = i + 1;
             }
@@ -1863,8 +1979,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("lettre", ChiffreLettre.convertRealToString(totalfinale, "Ariary"));
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             String nomjasper = "journalcaisse";
-            if(valcaisse.compareTo("cheque") == 0)
-            {
+            if (valcaisse.compareTo("cheque") == 0) {
                 nomjasper = "journalcaisse_cheque";
             }
             setNomJasper(nomjasper);
@@ -1889,30 +2004,35 @@ public class EtatPaieServlet extends HttpServlet {
             Sheet sheet = wb.createSheet("new sheet");
 
             HSSFCellStyle style = wb.createCellStyle();
-            /*   style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            style.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            style.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);*/
+            /*
+             * style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+             * style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+             * style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+             * style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+             * style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+             */
 
             HSSFCellStyle nombrestyle = wb.createCellStyle();
-            /*nombrestyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            nombrestyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            nombrestyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            nombrestyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            nombrestyle.setAlignment(CellStyle.ALIGN_RIGHT);
-            nombrestyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);*/
+            /*
+             * nombrestyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+             * nombrestyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+             * nombrestyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+             * nombrestyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+             * nombrestyle.setAlignment(CellStyle.ALIGN_RIGHT);
+             * nombrestyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+             */
             UserEJB u = (user.UserEJB) request.getSession().getValue("u");
             CargaisonAnalyse recap = new CargaisonAnalyse();
-            String listeCrt[] = {"mois", "cargaisonlib"};
-            String listeInt[] = {"mois"};
+            String listeCrt[] = { "mois", "cargaisonlib" };
+            String listeInt[] = { "mois" };
 
             String[] pourcentage = {};
-            String somDefaut[] = {"tonnage"}; //sum
-            String colGrCol[] = {"moislib"}; //ligne
-            String[] colDefaut = {"cargaisonlib"}; // colonnes
+            String somDefaut[] = { "tonnage" }; // sum
+            String colGrCol[] = { "moislib" }; // ligne
+            String[] colDefaut = { "cargaisonlib" }; // colonnes
 
-            PageRechercheGroupe pr = new PageRechercheGroupe(recap, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, 4, 0);
+            PageRechercheGroupe pr = new PageRechercheGroupe(recap, request, listeCrt, listeInt, 3, colGrCol, somDefaut,
+                    pourcentage, 4, 0);
             pr.setUtilisateur(u);
 
             pr.setLien((String) request.getSession().getValue("lien"));
@@ -1956,15 +2076,16 @@ public class EtatPaieServlet extends HttpServlet {
 
             UserEJB u = (user.UserEJB) request.getSession().getValue("u");
             CargaisonAnalyse recap = new CargaisonAnalyse();
-            String listeCrt[] = {"mois", "cargaisonlib"};
-            String listeInt[] = {"mois"};
+            String listeCrt[] = { "mois", "cargaisonlib" };
+            String listeInt[] = { "mois" };
 
             String[] pourcentage = {};
-            String somDefaut[] = {"tonnage"}; //sum
-            String colGrCol[] = {"moislib"}; //ligne
-            String[] colDefaut = {"cargaisonlib"}; // colonnes
+            String somDefaut[] = { "tonnage" }; // sum
+            String colGrCol[] = { "moislib" }; // ligne
+            String[] colDefaut = { "cargaisonlib" }; // colonnes
 
-            PageRechercheGroupe pr = new PageRechercheGroupe(recap, request, listeCrt, listeInt, 3, colGrCol, somDefaut, pourcentage, 4, 0);
+            PageRechercheGroupe pr = new PageRechercheGroupe(recap, request, listeCrt, listeInt, 3, colGrCol, somDefaut,
+                    pourcentage, 4, 0);
             pr.setUtilisateur(u);
 
             pr.setLien((String) request.getSession().getValue("lien"));
@@ -1972,7 +2093,7 @@ public class EtatPaieServlet extends HttpServlet {
             ValeurEtiquette[][] table = pr.getTableau().getValeurEtiquette();
             ArrayList<AnalyseMarchandisePDF> ls = new ArrayList<AnalyseMarchandisePDF>();
             System.out.println("ligne" + table.length);
-            //System.out.println("ligne"+table.length);
+            // System.out.println("ligne"+table.length);
 
             int i = 0;
 
@@ -1987,7 +2108,7 @@ public class EtatPaieServlet extends HttpServlet {
                     a = a + 1;
                 }
                 System.out.println("colonne=" + table[i].length);
-                //System.out.println(temp.size());
+                // System.out.println(temp.size());
                 r.setParam1(temp);
                 ls.add(r);
                 i = i + 1;
@@ -2031,7 +2152,7 @@ public class EtatPaieServlet extends HttpServlet {
             CA totalGeneral = etatCA.getTotalGeneral();
             List result = new ArrayList();
             if (listeParRubrique != null) {
-                /*Details*/
+                /* Details */
                 for (String rubrique : listeParRubrique.keySet()) {
                     CaPDF temp = new CaPDF();
                     temp.setLibelle("<b>" + Utilitaire.champNull(rubrique.toUpperCase()) + "</b>");
@@ -2053,9 +2174,9 @@ public class EtatPaieServlet extends HttpServlet {
                     temp2.setTaux("<b>" + temp2.getTaux() + "</b>");
                     result.add(temp2);
                 }
-                /*Details*/
+                /* Details */
 
- /*total*/
+                /* total */
                 param.put("anciencumul", Utilitaire.formaterAr(totalGeneral.getAnciencumul()));
                 param.put("regul", Utilitaire.formaterAr(totalGeneral.getRegul()));
                 param.put("regulEP", Utilitaire.formaterAr(totalGeneral.getRegulEETP()));
@@ -2067,12 +2188,12 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("cumule", Utilitaire.formaterAr(totalGeneral.getNCumul()));
                 param.put("taux", Utilitaire.formaterAr(totalGeneral.getTaux()));
 
-                /*total*/
- /*taux*/
+                /* total */
+                /* taux */
                 param.put("avoirtaux", Utilitaire.formaterAr(etatCA.getPourcAvoir()));
                 param.put("comptanttaux", Utilitaire.formaterAr(etatCA.getPourComptant()));
                 param.put("credittaux", Utilitaire.formaterAr(etatCA.getPourcCredit()));
-                /*taux*/
+                /* taux */
                 param.put("nbr", Utilitaire.formaterAr(Utilitaire.formaterAr(etatCA.getNbFactComptant())));
                 param.put("nbr2", Utilitaire.formaterAr(etatCA.getNbFactCredit()));
                 param.put("nbr3", Utilitaire.formaterAr(etatCA.getNbFactureTotal()));
@@ -2127,7 +2248,8 @@ public class EtatPaieServlet extends HttpServlet {
             Tarif[] datatarif = (Tarif[]) CGenUtil.rechercher(tarif, null, null, where);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("rubrique-activite-pdf");
-            UtilitaireImpression.imprimer(request, response, "Rubrique d'activite", param, Arrays.asList(datatarif), getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "Rubrique d'activite", param, Arrays.asList(datatarif),
+                    getReportPath(), rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -2154,7 +2276,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
             where += " and upper(iddevise) != upper('Ar')";
             where += " order by daty ASC,iddevise desc";
-            
+
             Map param = new HashMap();
             param.put("datyjour", Utilitaire.dateDuJour());
             Coursdevise devise = new Coursdevise();
@@ -2163,7 +2285,8 @@ public class EtatPaieServlet extends HttpServlet {
             List result = new ArrayList();
             for (int i = 0; i < datadevise.length; i++) {
                 Coursdevise coursdevise = datadevise[i];
-                CoursdevisePDF pdf = new CoursdevisePDF(coursdevise.getDaty(), coursdevise.getIddevise(), coursdevise.getMontant());
+                CoursdevisePDF pdf = new CoursdevisePDF(coursdevise.getDaty(), coursdevise.getIddevise(),
+                        coursdevise.getMontant());
                 result.add(pdf);
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
@@ -2218,7 +2341,7 @@ public class EtatPaieServlet extends HttpServlet {
         }
     }
 
-public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Connection c = null;
         try {
             c = (new UtilDB()).GetConn();
@@ -2228,121 +2351,130 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             String id = request.getParameter("id");
             EtatProvision etaProv = new EtatProvision();
             etaProv.setNomTable("etat_provisionlib");
-            EtatProvision[] result1 = (EtatProvision[]) CGenUtil.rechercher(etaProv, null, null, c, " and idfacture = '" + id + "'");
-            if(result1.length != 0){
+            EtatProvision[] result1 = (EtatProvision[]) CGenUtil.rechercher(etaProv, null, null, c,
+                    " and idfacture = '" + id + "'");
+            if (result1.length != 0) {
                 ep = result1[0];
             }
-            
+
             EtatProvision etaProvV = new EtatProvision();
             etaProvV.setNomTable("etatprovisionvrai");
-            EtatProvision[] result2 = (EtatProvision[]) CGenUtil.rechercher(etaProvV, null, null, c, " and id = '" + id + "'");
-            if(result2.length != 0){
+            EtatProvision[] result2 = (EtatProvision[]) CGenUtil.rechercher(etaProvV, null, null, c,
+                    " and id = '" + id + "'");
+            if (result2.length != 0) {
                 epv = result2[0];
             }
-            
+
             FactureClient fc = new FactureClient();
             fc.setNomTable("facture_client_union");
-            FactureClient[] factDef = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and idprovision = '" + id + "'");
-                                   
-            FactureClient[] result3 = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, " and id = '" + id + "'");
-            if(result3.length != 0){
+            FactureClient[] factDef = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c,
+                    " and idprovision = '" + id + "'");
+
+            FactureClient[] result3 = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c,
+                    " and id = '" + id + "'");
+            if (result3.length != 0) {
                 prov = result3[0];
-            }            
-            
+            }
+
             Map param = new HashMap();
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
-            
+
             param.put("identification", ep.getNumpiece());
-            if(factDef.length != 0){
+            if (factDef.length != 0) {
                 param.put("date", factDef[0].getDaty());
-            }                                    
+            }
             param.put("client", ep.getTierslib());
             param.put("navire", ep.getIdnavirelib());
             param.put("mode", ep.getIdmodelib());
             param.put("banque", ep.getIdbanquelib());
             param.put("montantProv", prov.getMontantttc());
-            
+
             param.put("num", prov.getCode());
             param.put("datyprof", prov.getDaty());
-            param.put("montant", prov.getMontantttc()); 
-           param.put("datyedit", utilitaire.Utilitaire.dateDuJour()); 
-            
+            param.put("montant", prov.getMontantttc());
+            param.put("datyedit", utilitaire.Utilitaire.dateDuJour());
+
             double totalmontantttc = 0;
             ArrayList<FactureClient> factDefList = new ArrayList<FactureClient>();
-            for(int i = 0; i<factDef.length; i++){
+            for (int i = 0; i < factDef.length; i++) {
                 totalmontantttc = totalmontantttc + factDef[i].getMontantttc();
                 factDefList.add(factDef[i]);
             }
-            param.put("totalfactreel",totalmontantttc);
-            param.put("totalrealisation",totalmontantttc);
-            param.put("factDef", factDefList); 
+            param.put("totalfactreel", totalmontantttc);
+            param.put("totalrealisation", totalmontantttc);
+            param.put("factDef", factDefList);
             double total = AdminGen.calculSommeDouble(factDef, "montantttc");
             double montantreste = Math.abs(epv.getMontantreste());
-            param.put("montantttc", montantreste); 
-            
+            param.put("montantttc", montantreste);
+
             double reste = epv.getMontantreste();
             String reliquat = "Reliquat en faveur du client";
-            if(reste<=0){
+            if (reste <= 0) {
                 reliquat = "Reliquat en faveur de la SPAT";
             }
-            param.put("reste", Math.abs(reste)); 
-            param.put("reliquat", reliquat); 
+            param.put("reste", Math.abs(reste));
+            param.put("reliquat", reliquat);
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("gestion provision");
             UtilitaireImpression.imprimer(request, response, "gestion de provision", param, null, getReportPath(), rt);
         } catch (Exception e) {
-         
+
             e.printStackTrace();
-        }
-        finally{
-              if(c!= null){
+        } finally {
+            if (c != null) {
                 c.close();
-            } 
-        }
-    }    
-    
-    /*public void imprimerGestionProvision(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            String id = request.getParameter("id");
-            EtatProvision a = new EtatProvision();
-            a.setNomTable("etat_provisionlib");
-            Map param = new HashMap();
-            param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
-            EtatProvision[] mere = (EtatProvision[]) CGenUtil.rechercher(a, null, null, null, " and idfacture = '" + id + "'");
-            if (mere.length != 0) {
-                param.put("numprovision", mere[0].getNumProvision());
-                param.put("identififcation", mere[0].getId());
-                param.put("date", mere[0].getDaty());
-                param.put("client", mere[0].getTierslib());
-                param.put("navire", mere[0].getIdnavirelib());
-                param.put("mode", mere[0].getIdmodelib());
-                param.put("banque", mere[0].getIdbanquelib());
-                //param.put("montantProv", mere[0].getMontantprovision());
-                param.put("num", mere[0].getNumProvision());
-                param.put("datyprof", "");
-                param.put("datyedit", Utilitaire.dateDuJour());
-                //param.put("montant", mere[0].getMontantprovision());
             }
-            FactureClient e = new FactureClient();
-            e.setNomTable("Provisionviseenonfacturee");
-            FactureClient[] ls = (FactureClient[]) CGenUtil.rechercher(e, null, null, null, " and id = '" + id + "'");
-            if (ls.length != 0) {
-                param.put("monatntttc", ls[0].getMontantttc());
-                param.put("daty", ls[0].getDate_echeance());
-                param.put("numfact", ls[0].getId());
-                param.put("montantProv", ls[0].getMontant());
-                param.put("montant", ls[0].getMontant());
-            }
-
-            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            setNomJasper("gestion provision");
-            UtilitaireImpression.imprimer(request, response, "gestion de provision", param, null, getReportPath(), rt);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+    }
 
-    }*/
+    /*
+     * public void imprimerGestionProvision(HttpServletRequest request,
+     * HttpServletResponse response) {
+     * try {
+     * String id = request.getParameter("id");
+     * EtatProvision a = new EtatProvision();
+     * a.setNomTable("etat_provisionlib");
+     * Map param = new HashMap();
+     * param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
+     * EtatProvision[] mere = (EtatProvision[]) CGenUtil.rechercher(a, null, null,
+     * null, " and idfacture = '" + id + "'");
+     * if (mere.length != 0) {
+     * param.put("numprovision", mere[0].getNumProvision());
+     * param.put("identififcation", mere[0].getId());
+     * param.put("date", mere[0].getDaty());
+     * param.put("client", mere[0].getTierslib());
+     * param.put("navire", mere[0].getIdnavirelib());
+     * param.put("mode", mere[0].getIdmodelib());
+     * param.put("banque", mere[0].getIdbanquelib());
+     * //param.put("montantProv", mere[0].getMontantprovision());
+     * param.put("num", mere[0].getNumProvision());
+     * param.put("datyprof", "");
+     * param.put("datyedit", Utilitaire.dateDuJour());
+     * //param.put("montant", mere[0].getMontantprovision());
+     * }
+     * FactureClient e = new FactureClient();
+     * e.setNomTable("Provisionviseenonfacturee");
+     * FactureClient[] ls = (FactureClient[]) CGenUtil.rechercher(e, null, null,
+     * null, " and id = '" + id + "'");
+     * if (ls.length != 0) {
+     * param.put("monatntttc", ls[0].getMontantttc());
+     * param.put("daty", ls[0].getDate_echeance());
+     * param.put("numfact", ls[0].getId());
+     * param.put("montantProv", ls[0].getMontant());
+     * param.put("montant", ls[0].getMontant());
+     * }
+     * 
+     * ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+     * setNomJasper("gestion provision");
+     * UtilitaireImpression.imprimer(request, response, "gestion de provision",
+     * param, null, getReportPath(), rt);
+     * } catch (Exception e) {
+     * e.printStackTrace();
+     * }
+     * 
+     * }
+     */
 
     public void redevanceCommunale(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -2364,7 +2496,8 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
                 requete = requete + String.format(" and daty <= '%s'", daty2);
 
             }
-            requete = requete + " and upper(tierslib) like upper('%" + tierslib + "%') and upper(typelib) like upper('%" + typelib + "%') order by daty asc";
+            requete = requete + " and upper(tierslib) like upper('%" + tierslib + "%') and upper(typelib) like upper('%"
+                    + typelib + "%') order by daty asc";
             EtatRedevance[] list = (EtatRedevance[]) CGenUtil.rechercher(redevance, null, null, null, requete);
             Map param = new HashMap();
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
@@ -2394,7 +2527,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             e.printStackTrace();
         }
     }
-    
+
     public void redevanceRegionale(HttpServletRequest request, HttpServletResponse response) {
         try {
             String daty1 = request.getParameter("daty1");
@@ -2413,7 +2546,8 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             if (daty2 != null) {
                 requete = requete + String.format(" and daty <= TO_DATE('%s','DD/MM/YYYY')", daty2);
             }
-            requete = requete + " and upper(tierslib) like upper('%" + tierslib + "%') and upper(typelib) like upper('%" + typelib + "%') order by daty asc";
+            requete = requete + " and upper(tierslib) like upper('%" + tierslib + "%') and upper(typelib) like upper('%"
+                    + typelib + "%') order by daty asc";
             EtatRedevance[] list = (EtatRedevance[]) CGenUtil.rechercher(redevance, null, null, null, requete);
             Map param = new HashMap();
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
@@ -2422,7 +2556,8 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             param.put("date_fin", daty2);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("redevance-regionale");
-            UtilitaireImpression.imprimer(request, response, "redevance-regionale", param, Arrays.asList(list), getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "redevance-regionale", param, Arrays.asList(list),
+                    getReportPath(), rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -2464,7 +2599,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
                 param.put("montant", Utilitaire.formaterAr((engagement.getMontant())));
                 param.put("avant", Utilitaire.formaterAr(engagement.getDispoAvant()));
                 param.put("apres", Utilitaire.formaterAr(engagement.getDispoApres()));
-                param.put("observation",engagement.getObservation());
+                param.put("observation", engagement.getObservation());
             }
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
@@ -2534,30 +2669,41 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             String daty1 = request.getParameter("daty1");
             String daty2 = request.getParameter("daty2");
             /*
-            String compteInv = request.getParameter("compteInv");
-            String compteSimple = request.getParameter("compteSimple");
-            String direction = request.getParameter("direction");
-            String projet = request.getParameter("projet");
-            String directionProjet = request.getParameter("directionProjet");
-            String annee = request.getParameter("annee");
-            String etat = request.getParameter("etat");
+             * String compteInv = request.getParameter("compteInv");
+             * String compteSimple = request.getParameter("compteSimple");
+             * String direction = request.getParameter("direction");
+             * String projet = request.getParameter("projet");
+             * String directionProjet = request.getParameter("directionProjet");
+             * String annee = request.getParameter("annee");
+             * String etat = request.getParameter("etat");
              */
             LigneCredit fa = new LigneCredit();
             fa.setNomTable("situationLC_vide");
-            String listeCrt[] = {"compteInv", "compteSimple", "direction", "projet", "directionProjet", "daty", "annee"};
-            String listeInt[] = {"daty"};
-//        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
-            String libEntete[] = {"direction", "projet", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget", "resteApresEngmt"};
+            String listeCrt[] = { "compteInv", "compteSimple", "direction", "projet", "directionProjet", "daty",
+                    "annee" };
+            String listeInt[] = { "daty" };
+            // String libEntete[] = {"id", "designation", "compte", "annee", "montant",
+            // "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir",
+            // "restebudget"};
+            String libEntete[] = { "direction", "projet", "montant", "engageer", "facture", "pourcEngage", "paye",
+                    "pourcPaye", "arecouvrir", "restebudget", "resteApresEngmt" };
 
             PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
             pr.setUtilisateur((user.UserEJB) user);
             String reqniv = request.getParameter("niveau");
-            String moisMin = daty1 != null && daty1.compareToIgnoreCase("null") != 0 && !daty1.isEmpty() ? "" + Utilitaire.stringToInt(Utilitaire.getMois(daty1)) : "", moisMax = daty2 != null && daty2.compareToIgnoreCase("null") != 0 && !daty2.isEmpty() ? "" + Utilitaire.stringToInt(Utilitaire.getMois(daty2)) : "";
+            String moisMin = daty1 != null && daty1.compareToIgnoreCase("null") != 0 && !daty1.isEmpty()
+                    ? "" + Utilitaire.stringToInt(Utilitaire.getMois(daty1))
+                    : "",
+                    moisMax = daty2 != null && daty2.compareToIgnoreCase("null") != 0 && !daty2.isEmpty()
+                            ? "" + Utilitaire.stringToInt(Utilitaire.getMois(daty2))
+                            : "";
 
-            String[] colSomme = {"montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget", "resteApresEngmt"};
+            String[] colSomme = { "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir",
+                    "restebudget", "resteApresEngmt" };
             pr.creerObjetPage(libEntete, colSomme);
 
-            ResultatEtSomme rs = LigneCredit.findSituationCreditDepense((LigneCredit) pr.getCritere(), daty1, daty2, null, colSomme);
+            ResultatEtSomme rs = LigneCredit.findSituationCreditDepense((LigneCredit) pr.getCritere(), daty1, daty2,
+                    null, colSomme);
             pr.setRs(rs);
             pr.setTableau(new TableauRecherche((bean.ClassMAPTable[]) rs.getResultat(), libEntete));
             pr.makeTableauRecap();
@@ -2591,11 +2737,12 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             String id = request.getParameter("id");
             ProformaMere facture = new ProformaMere();
             facture.setEstDDPMICTSL(null);
-//            facture.setNomTable("ESCALEPROFORMAPDF");
+            // facture.setNomTable("ESCALEPROFORMAPDF");
             facture.setNomTable("proforma_mere_msum_lib");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
 
-            ProformaMere[] mere = (ProformaMere[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
+            ProformaMere[] mere = (ProformaMere[]) CGenUtil.rechercher(facture, null, null, c,
+                    " and id = '" + id + "'");
             String code = mere[0].getCode();
 
             facture = mere[0];
@@ -2614,12 +2761,14 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             if (mere.length != 0) {
                 mg.spat.PrevisionLibComplet p = new mg.spat.PrevisionLibComplet();
                 p.setNomTable("ESCALEPROFORMAPDF");
-                mg.spat.PrevisionLibComplet[] pre = (mg.spat.PrevisionLibComplet[]) CGenUtil.rechercher(p, null, null, c, " and id = '" + id + "'");
+                mg.spat.PrevisionLibComplet[] pre = (mg.spat.PrevisionLibComplet[]) CGenUtil.rechercher(p, null, null,
+                        c, " and id = '" + id + "'");
                 ProformaFille cht = new ProformaFille();
                 cht.setNomTable("proforma_fille_lib");
-                //cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
+                // cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
 
-                ProformaFille[] details = (ProformaFille[]) CGenUtil.rechercher(cht, null, null, c, " and idmere = '" + id + "' ");
+                ProformaFille[] details = (ProformaFille[]) CGenUtil.rechercher(cht, null, null, c,
+                        " and idmere = '" + id + "' ");
                 ArrayList<ProformaFille> arrList = new ArrayList<ProformaFille>();
                 FactureClientDetails[] __details = facture.getListeDetails();
                 for (int i = 0; i < details.length; i++) {
@@ -2631,18 +2780,19 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
                     }
 
                 }
-            ClientCategorie clg = new ClientCategorie();
-            clg.setNomTable("CLIENT_UNION");
-            ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
-            
-             param.put("stat", clientcat[0].getNmsttclt());
-            param.put("nif", clientcat[0].getNif());
-            param.put("RC", clientcat[0].getRc());
-            param.put("quittance", clientcat[0].getQuit());
-            param.put("tp", clientcat[0].getTp());
-            param.put("daty1", clientcat[0].getDtquit());
-            param.put("daty2", clientcat[0].getDttp());
-            
+                ClientCategorie clg = new ClientCategorie();
+                clg.setNomTable("CLIENT_UNION");
+                ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg, null, null, c,
+                        " and cdclt = '" + mere[0].getTiers() + "'");
+
+                param.put("stat", clientcat[0].getNmsttclt());
+                param.put("nif", clientcat[0].getNif());
+                param.put("RC", clientcat[0].getRc());
+                param.put("quittance", clientcat[0].getQuit());
+                param.put("tp", clientcat[0].getTp());
+                param.put("daty1", clientcat[0].getDtquit());
+                param.put("daty2", clientcat[0].getDttp());
+
                 param.put("responsable", "Pr&eacute;par&eacute; Par");
                 param.put("chef", "Le Responsable Facturation");
 
@@ -2654,7 +2804,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
                     param.put("navire", pre[0].getNomnavire());
                     // param.put("escale",pre[0].getEscale());
                     param.put("date_arrivee", pre[0].getDate_arrivee());
-                    //param.put("pavillon",pre[0].getPavillon);
+                    // param.put("pavillon",pre[0].getPavillon);
                     param.put("date_depart", pre[0].getDate_depart());
                     param.put("destination", pre[0].getValquaisdestination());
                     param.put("lhtnavire", pre[0].getLhtnavire());
@@ -2668,7 +2818,8 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
                     param.put("armateur", pre[0].getArmateurlib());
                     param.put("tenavire", pre[0].getTenavire());
                     param.put("pourcomptelib", mere[0].getPourCompteLib());
-                    setNomJasper("facture_client2 - Copie");//facture_client2 - Copie //facture_convention //facture-client-sans-prevision
+                    setNomJasper("facture_client2 - Copie");// facture_client2 - Copie //facture_convention
+                                                            // //facture-client-sans-prevision
                 }
 
                 param.put("daty", mere[0].getDaty());
@@ -2682,9 +2833,12 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
                 param.put("client", mere[0].getTierslib());
                 param.put("adresse", mere[0].getAdresse());
                 param.put("phone", mere[0].getContact());
-                param.put("montant", Utilitaire.arrondirDecimalWithMode(mere[0].getMontant(), "#.##", RoundingMode.HALF_UP));
-                param.put("montantTVA", Utilitaire.arrondirDecimalWithMode(mere[0].getMontanttva(), "#.##", RoundingMode.HALF_UP));
-                param.put("montantTTC", Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttc(), "#.##", RoundingMode.HALF_UP));
+                param.put("montant",
+                        Utilitaire.arrondirDecimalWithMode(mere[0].getMontant(), "#.##", RoundingMode.HALF_UP));
+                param.put("montantTVA",
+                        Utilitaire.arrondirDecimalWithMode(mere[0].getMontanttva(), "#.##", RoundingMode.HALF_UP));
+                param.put("montantTTC",
+                        Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttc(), "#.##", RoundingMode.HALF_UP));
                 param.put("montantAvoir", mere[0].getMontantavoir());
                 param.put("tva", mere[0].getTva());
 
@@ -2694,18 +2848,22 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
                 param.put("deviseMere", mere[0].getDeviseMere());
                 param.put("code", code);
 
-                String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
+                String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()),
+                        " Ariary");
 
                 if (mere[0].getDeviseMere() != null) {
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars) == 0) {
                         montantlettre = ChiffreLettre.convertRealToString(new Double(ttcDollar), " Dollars");
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0) {
-                        //montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()), " Ariary");
+                        // montantlettre = ChiffreLettre.convertRealToString(new
+                        // Double(mere[0].getMontantttc()), " Ariary");
                         String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
-                        montantlettre= montantTexte[0];
-                        if(montantTexte[1].compareToIgnoreCase("") != 0) montantlettre += " Ariary " + montantTexte[1];
-                        else montantlettre += " Ariary";
+                        montantlettre = montantTexte[0];
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
+                            montantlettre += " Ariary " + montantTexte[1];
+                        else
+                            montantlettre += " Ariary";
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro) == 0) {
                         montantlettre = ChiffreLettre.convertRealToString(new Double(ttcEuro), " Euros");
@@ -2729,9 +2887,9 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
                  * *********************************************************************************************
                  */
                 // facture.setId(details[0].getIdmere());
-                //facture.setListeDetails(details);
-                //facture.initDetails(null);
-                //details = facture.getListeDetails();
+                // facture.setListeDetails(details);
+                // facture.initDetails(null);
+                // details = facture.getListeDetails();
                 double reduction = 0;
 
                 param.put("total", ttcEuro);
@@ -2739,7 +2897,7 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
                 param.put("reduction", reduction);
                 param.put("list_table", arrList);
             }
-            //ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("proforma");
             UtilitaireImpression.imprimer(request, response, "facture-client", param, null, getReportPath(), rt);
 
@@ -2751,254 +2909,226 @@ public void imprimerGestionProvision(HttpServletRequest request, HttpServletResp
             }
         }
     }
-    private void listesFactEmises(HttpServletRequest request, HttpServletResponse response)throws Exception{
-        
-        try{
-        FactureClient f = new FactureClient();
-        f.setNomTable("factureClientValide"); 
-        String awhere="";
-        String id=request.getParameter("id");
-        String daty1=request.getParameter("daty1");
-        String daty2=request.getParameter("daty2");
-        String tierslib=request.getParameter("tierslib");
-        String designation=request.getParameter("designation");
-        String armateurlib=request.getParameter("armateurlib");
-        String date_echeance1=request.getParameter("date_echeance1");
-        String date_echeance2=request.getParameter("date_echeance2");
-        String escale=request.getParameter("escale");
-        String categorielib=request.getParameter("categorielib");
-        String code=request.getParameter("code");
-        String etat=request.getParameter("etat");
-        String codeFiltre =request.getParameter("codeFiltre");
-        
-        if(id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND id='"+id+"'";
-        }
-        if(daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND daty >= '"+daty1+"'";
-        }
-        if(daty2 != null && !daty2.trim().isEmpty() && daty2.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND daty <= '"+daty2+"'";
-        }
-        if(tierslib != null && !tierslib.trim().isEmpty() && tierslib.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND tierslib='"+tierslib+"'";
-        }
-        if(designation != null && !designation.trim().isEmpty() && designation.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND designation='"+designation+"'";
-        }
-        if(armateurlib != null && !armateurlib.trim().isEmpty() && armateurlib.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND armateurlib='"+armateurlib+"'";
-        }
-        if(date_echeance1 != null && !date_echeance1.trim().isEmpty() && date_echeance1.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND date_echeance >= '"+date_echeance1+"'";
-        }
-        if(date_echeance2 != null && !date_echeance2.trim().isEmpty() && date_echeance2.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND date_echeance <= '"+date_echeance2+"'";
-        }
-        if(escale != null && !escale.trim().isEmpty() && escale.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND escale='"+escale+"'";
-        }
-         if(categorielib != null && !categorielib.trim().isEmpty() && categorielib.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND categorielib='"+categorielib+"'";
-        }
-          if(code != null && !code.trim().isEmpty() && code.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND code='"+code+"'";
-        } 
-        if(codeFiltre != null && !codeFiltre.trim().isEmpty() && codeFiltre.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND codeFiltre like'%"+codeFiltre+"%'";
-        }
-        
-          
-          Map param = new HashMap();
-        if(etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0)
-        {
-            
-            if(etat.compareToIgnoreCase("factureclientAuComptant") == 0)
-            {
-                f.setNomTable("factureclientAuComptant");
-                param.put("naturedepaiement","COMPTANT");
+
+    private void listesFactEmises(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        try {
+            FactureClient f = new FactureClient();
+            f.setNomTable("factureClientValide");
+            String awhere = "";
+            String id = request.getParameter("id");
+            String daty1 = request.getParameter("daty1");
+            String daty2 = request.getParameter("daty2");
+            String tierslib = request.getParameter("tierslib");
+            String designation = request.getParameter("designation");
+            String armateurlib = request.getParameter("armateurlib");
+            String date_echeance1 = request.getParameter("date_echeance1");
+            String date_echeance2 = request.getParameter("date_echeance2");
+            String escale = request.getParameter("escale");
+            String categorielib = request.getParameter("categorielib");
+            String code = request.getParameter("code");
+            String etat = request.getParameter("etat");
+            String codeFiltre = request.getParameter("codeFiltre");
+
+            if (id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0) {
+                awhere += " AND id='" + id + "'";
             }
-             if(etat.compareToIgnoreCase("factureclientACredit") == 0)
-            {
-                f.setNomTable("factureclientACredit");
-                param.put("naturedepaiement","CREDIT");
+            if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
+                awhere += " AND daty >= '" + daty1 + "'";
             }
-             
-        }
+            if (daty2 != null && !daty2.trim().isEmpty() && daty2.compareToIgnoreCase("null") != 0) {
+                awhere += " AND daty <= '" + daty2 + "'";
+            }
+            if (tierslib != null && !tierslib.trim().isEmpty() && tierslib.compareToIgnoreCase("null") != 0) {
+                awhere += " AND tierslib='" + tierslib + "'";
+            }
+            if (designation != null && !designation.trim().isEmpty() && designation.compareToIgnoreCase("null") != 0) {
+                awhere += " AND designation='" + designation + "'";
+            }
+            if (armateurlib != null && !armateurlib.trim().isEmpty() && armateurlib.compareToIgnoreCase("null") != 0) {
+                awhere += " AND armateurlib='" + armateurlib + "'";
+            }
+            if (date_echeance1 != null && !date_echeance1.trim().isEmpty()
+                    && date_echeance1.compareToIgnoreCase("null") != 0) {
+                awhere += " AND date_echeance >= '" + date_echeance1 + "'";
+            }
+            if (date_echeance2 != null && !date_echeance2.trim().isEmpty()
+                    && date_echeance2.compareToIgnoreCase("null") != 0) {
+                awhere += " AND date_echeance <= '" + date_echeance2 + "'";
+            }
+            if (escale != null && !escale.trim().isEmpty() && escale.compareToIgnoreCase("null") != 0) {
+                awhere += " AND escale='" + escale + "'";
+            }
+            if (categorielib != null && !categorielib.trim().isEmpty()
+                    && categorielib.compareToIgnoreCase("null") != 0) {
+                awhere += " AND categorielib='" + categorielib + "'";
+            }
+            if (code != null && !code.trim().isEmpty() && code.compareToIgnoreCase("null") != 0) {
+                awhere += " AND code='" + code + "'";
+            }
+            if (codeFiltre != null && !codeFiltre.trim().isEmpty() && codeFiltre.compareToIgnoreCase("null") != 0) {
+                awhere += " AND codeFiltre like'%" + codeFiltre + "%'";
+            }
+
+            Map param = new HashMap();
+            if (etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0) {
+
+                if (etat.compareToIgnoreCase("factureclientAuComptant") == 0) {
+                    f.setNomTable("factureclientAuComptant");
+                    param.put("naturedepaiement", "COMPTANT");
+                }
+                if (etat.compareToIgnoreCase("factureclientACredit") == 0) {
+                    f.setNomTable("factureclientACredit");
+                    param.put("naturedepaiement", "CREDIT");
+                }
+
+            }
             TypeObjet jc = new TypeObjet();
             jc.setNomTable("rubrique_fact_emises");
-            String req =" and val='"+codeFiltre+"'";
-            
-            
-            TypeObjet[] tab = (TypeObjet[]) CGenUtil.rechercher(jc, null, null,req);
-             
-            param.put("prestation",tab[0].getDesce());
-       
-        awhere+=" order by code ASC";
-        FactureClient[] mere =(FactureClient []) CGenUtil.rechercher( f , null, null, awhere);
-        double totaltva = 0;
-        double totaltaxe = 0;
-        double totalttc = 0;
-        for(int i= 0;i<mere.length;i++)
-        {
-            totaltva = totaltva + mere[i].getMontanttva();
-            totaltaxe = totaltaxe + mere[i].getMontant();
-            totalttc = totalttc + mere[i].getMontantttc();
-        }
-            
-            
-        List dataSource = new ArrayList();
-        dataSource.addAll(Arrays.asList(mere));
-        
-        param.put("daty1",daty1);
-        param.put("daty2",daty2);
-         param.put("daty3",utilitaire.Utilitaire.dateDuJour());
-        param.put("totaltva",totaltva);
-        param.put("totaltaxe",totaltaxe);
-        param.put("totalttc",totalttc);
-        setNomJasper("listesdesfacturesEmises");
-        UtilitaireImpression.imprimer(request, response, "listesdesfactureEmises", param, dataSource, getReportPath());
-        
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    private void listesavoir(HttpServletRequest request, HttpServletResponse response)throws Exception{
-        try{
-        AvoirFC f = new AvoirFC();
-        f.setNomTable("avoirFC_montant"); 
-        String awhere="";
-        String id=request.getParameter("id");
-        String daty1=request.getParameter("daty1");
-        String daty2=request.getParameter("daty2");
-        String tierslib=request.getParameter("tierslib");
-        String typelib=request.getParameter("typelib");
-        String code=request.getParameter("code");
-        String etat=request.getParameter("etat");
-        System.out.println("tierslib=="+tierslib);
-        System.out.println("typelib=="+typelib);
-        
-         if(id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND id='"+id+"'";
-        }
-        if(daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND daty >= '"+daty1+"'";
-        }
-        if(daty2 != null && !daty2.trim().isEmpty() && daty2.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND daty <= '"+daty2+"'";
-        }
-        if(tierslib != null && !tierslib.trim().isEmpty() && tierslib.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND tierslib='"+tierslib+"'";
-        }
-        if(typelib != null && !typelib.trim().isEmpty() && typelib.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND typelib like '"+typelib+"'";
-        }else{
-            awhere+=" AND typelib like '%'";
-        }
-        if(code != null && !code.trim().isEmpty() && code.compareToIgnoreCase("null") != 0)
-        {
-            awhere+=" AND code='"+code+"'";
-        }
-          
-          Map param = new HashMap();
-        if(etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0)
-        {
-            
-            if(etat.compareToIgnoreCase("avoirFC_montant_C") == 0)
-            {
-                f.setNomTable("avoirFC_montant_C");
-              
-            }
-             if(etat.compareToIgnoreCase("avoirFC_montant_V") == 0)
-            {
-                f.setNomTable("avoirFC_montant_V");
-            }
-        }
-            
-            
-        System.out.println("sql="+awhere);
-        awhere+=" order by daty ASC";
-        AvoirFC[] mere =(AvoirFC []) CGenUtil.rechercher( f , null, null, awhere);
-        double totalHtva = 0;
-        double totaltva = 0;
-        double totalttc = 0;
-        for(int i= 0;i<mere.length;i++)
-        {
-            totaltva = totaltva + mere[i].getMontanttva();
-            totalHtva = totalHtva + mere[i].getMontant();
-            totalttc = totalttc + mere[i].getMontantttc();
-        }
-            
-            
-        List dataSource = new ArrayList();
-        dataSource.addAll(Arrays.asList(mere));
-        
-        param.put("daty1",daty1);
-        param.put("daty2",daty2);
-         param.put("daty3",utilitaire.Utilitaire.dateDuJour());
-        param.put("totaltva",totaltva);
-        param.put("totalHtva",totalHtva);
-        param.put("totalttc",totalttc);
-        param.put("TYPE",typelib.toUpperCase());
-        setNomJasper("numeroavoir");
-        UtilitaireImpression.imprimer(request, response, "numeroavoir", param, dataSource, getReportPath());
-        
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    private void bondelivraison(HttpServletRequest request, HttpServletResponse response)throws Exception{
-        try{
-        String id=request.getParameter("id");
-        BonDeLivraison blMere = new BonDeLivraison();   
-        blMere.setNomTable("AS_BONDELIVRAISON_BC");
-        BonDeLivraison[] mere =(BonDeLivraison []) CGenUtil.rechercher( blMere , null, null, " and id='"+id+"'");
-        Map param = new HashMap();
-        param.put("numBL",utilitaire.Utilitaire.champNull(mere[0].getRemarque()));
-        param.put("daty",mere[0].getDaty());
-        param.put("numBC",mere[0].getNumbc());
-        
-        BonDeLivraisonFille blFille = new BonDeLivraisonFille();
-        blFille.setNomTable("AS_BONDELIVRAISON_FILLE_MTT");
-        String awhere = " AND NUMBL = '" + request.getParameter("id").trim() + "' order by produit";
-        BonDeLivraisonFille[] fille =(BonDeLivraisonFille []) CGenUtil.rechercher( blFille , null, null, awhere);
-        List dataSource = new ArrayList();
-        dataSource.addAll(Arrays.asList(fille));
-        double totalMontantHT = AdminGen.calculSommeDouble(fille, "montantHT");
-        double totalmontanttva = AdminGen.calculSommeDouble(fille, "montanttva");
-        double totalMontantttc = AdminGen.calculSommeDouble(fille, "montanttc");
-        
-        param.put("totalMontantHT" ,totalMontantHT);
-        param.put("totalmontanttva" ,totalmontanttva);
-        param.put("totalMontantttc" ,totalMontantttc);
-        
-        setNomJasper("bondelivraison");
-        UtilitaireImpression.imprimer(request, response, "bon_de_livraison", param, dataSource, getReportPath());
-        
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-   
-   
+            String req = " and val='" + codeFiltre + "'";
 
-   
+            TypeObjet[] tab = (TypeObjet[]) CGenUtil.rechercher(jc, null, null, req);
+
+            param.put("prestation", tab[0].getDesce());
+
+            awhere += " order by code ASC";
+            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(f, null, null, awhere);
+            double totaltva = 0;
+            double totaltaxe = 0;
+            double totalttc = 0;
+            for (int i = 0; i < mere.length; i++) {
+                totaltva = totaltva + mere[i].getMontanttva();
+                totaltaxe = totaltaxe + mere[i].getMontant();
+                totalttc = totalttc + mere[i].getMontantttc();
+            }
+
+            List dataSource = new ArrayList();
+            dataSource.addAll(Arrays.asList(mere));
+
+            param.put("daty1", daty1);
+            param.put("daty2", daty2);
+            param.put("daty3", utilitaire.Utilitaire.dateDuJour());
+            param.put("totaltva", totaltva);
+            param.put("totaltaxe", totaltaxe);
+            param.put("totalttc", totalttc);
+            setNomJasper("listesdesfacturesEmises");
+            UtilitaireImpression.imprimer(request, response, "listesdesfactureEmises", param, dataSource,
+                    getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void listesavoir(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            AvoirFC f = new AvoirFC();
+            f.setNomTable("avoirFC_montant");
+            String awhere = "";
+            String id = request.getParameter("id");
+            String daty1 = request.getParameter("daty1");
+            String daty2 = request.getParameter("daty2");
+            String tierslib = request.getParameter("tierslib");
+            String typelib = request.getParameter("typelib");
+            String code = request.getParameter("code");
+            String etat = request.getParameter("etat");
+            System.out.println("tierslib==" + tierslib);
+            System.out.println("typelib==" + typelib);
+
+            if (id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0) {
+                awhere += " AND id='" + id + "'";
+            }
+            if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
+                awhere += " AND daty >= '" + daty1 + "'";
+            }
+            if (daty2 != null && !daty2.trim().isEmpty() && daty2.compareToIgnoreCase("null") != 0) {
+                awhere += " AND daty <= '" + daty2 + "'";
+            }
+            if (tierslib != null && !tierslib.trim().isEmpty() && tierslib.compareToIgnoreCase("null") != 0) {
+                awhere += " AND tierslib='" + tierslib + "'";
+            }
+            if (typelib != null && !typelib.trim().isEmpty() && typelib.compareToIgnoreCase("null") != 0) {
+                awhere += " AND typelib like '" + typelib + "'";
+            } else {
+                awhere += " AND typelib like '%'";
+            }
+            if (code != null && !code.trim().isEmpty() && code.compareToIgnoreCase("null") != 0) {
+                awhere += " AND code='" + code + "'";
+            }
+
+            Map param = new HashMap();
+            if (etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0) {
+
+                if (etat.compareToIgnoreCase("avoirFC_montant_C") == 0) {
+                    f.setNomTable("avoirFC_montant_C");
+
+                }
+                if (etat.compareToIgnoreCase("avoirFC_montant_V") == 0) {
+                    f.setNomTable("avoirFC_montant_V");
+                }
+            }
+
+            System.out.println("sql=" + awhere);
+            awhere += " order by daty ASC";
+            AvoirFC[] mere = (AvoirFC[]) CGenUtil.rechercher(f, null, null, awhere);
+            double totalHtva = 0;
+            double totaltva = 0;
+            double totalttc = 0;
+            for (int i = 0; i < mere.length; i++) {
+                totaltva = totaltva + mere[i].getMontanttva();
+                totalHtva = totalHtva + mere[i].getMontant();
+                totalttc = totalttc + mere[i].getMontantttc();
+            }
+
+            List dataSource = new ArrayList();
+            dataSource.addAll(Arrays.asList(mere));
+
+            param.put("daty1", daty1);
+            param.put("daty2", daty2);
+            param.put("daty3", utilitaire.Utilitaire.dateDuJour());
+            param.put("totaltva", totaltva);
+            param.put("totalHtva", totalHtva);
+            param.put("totalttc", totalttc);
+            param.put("TYPE", typelib.toUpperCase());
+            setNomJasper("numeroavoir");
+            UtilitaireImpression.imprimer(request, response, "numeroavoir", param, dataSource, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void bondelivraison(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String id = request.getParameter("id");
+            BonDeLivraison blMere = new BonDeLivraison();
+            blMere.setNomTable("AS_BONDELIVRAISON_BC");
+            BonDeLivraison[] mere = (BonDeLivraison[]) CGenUtil.rechercher(blMere, null, null, " and id='" + id + "'");
+            Map param = new HashMap();
+            param.put("numBL", utilitaire.Utilitaire.champNull(mere[0].getRemarque()));
+            param.put("daty", mere[0].getDaty());
+            param.put("numBC", mere[0].getNumbc());
+
+            BonDeLivraisonFille blFille = new BonDeLivraisonFille();
+            blFille.setNomTable("AS_BONDELIVRAISON_FILLE_MTT");
+            String awhere = " AND NUMBL = '" + request.getParameter("id").trim() + "' order by produit";
+            BonDeLivraisonFille[] fille = (BonDeLivraisonFille[]) CGenUtil.rechercher(blFille, null, null, awhere);
+            List dataSource = new ArrayList();
+            dataSource.addAll(Arrays.asList(fille));
+            double totalMontantHT = AdminGen.calculSommeDouble(fille, "montantHT");
+            double totalmontanttva = AdminGen.calculSommeDouble(fille, "montanttva");
+            double totalMontantttc = AdminGen.calculSommeDouble(fille, "montanttc");
+
+            param.put("totalMontantHT", totalMontantHT);
+            param.put("totalmontanttva", totalmontanttva);
+            param.put("totalMontantttc", totalMontantttc);
+
+            setNomJasper("bondelivraison");
+            UtilitaireImpression.imprimer(request, response, "bon_de_livraison", param, dataSource, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
