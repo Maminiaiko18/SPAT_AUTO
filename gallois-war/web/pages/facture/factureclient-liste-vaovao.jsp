@@ -14,7 +14,8 @@
 <%
     try {
         FactureClient ff = new FactureClient();
-        String[] etatVal = {"factureClientValide", "FACTURE_CLIENT_UNIONC0112", "FACTURE_CLIENT_UNIONV", "factureclientApayer", "factureclientAuComptant", "factureclientACredit","FACTURE_CLIENT_UNIONA","FACTURECLIENTENRETARD","FACTURECLIENTENALERTE","FACTURECLIENTPAYEES"};
+        String[] etatVal = {"factureClientValide2", "FACTURE_CLIENT_UNIONC0112_2", "FACTURE_CLIENT_UNIONV2", "factureclientApayer2", "factureclientAuComptant2", "factureclientACredit2","FACTURE_CLIENT_UNIONA2","FACTURECLIENTENRETARD2","FACTURECLIENTENALERTE2","FACTURECLIENTPAYEES2"};
+//        String[] etatVal = {"factureClientValide", "FACTURE_CLIENT_UNIONC0112", "FACTURE_CLIENT_UNIONV", "factureclientApayer", "factureclientAuComptant", "factureclientACredit","FACTURE_CLIENT_UNIONA","FACTURECLIENTENRETARD","FACTURECLIENTENALERTE","FACTURECLIENTPAYEES"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "A payer", "Au comptant", "A crédit","Annulé","En retard","En alerte","Payée(s)"};
         ff.setNomTable(etatVal[0]);
        // String etat = request.getParametefactureClientValider("etat");
@@ -26,7 +27,7 @@
 
         String listeCrt[] = {"id","daty","tierslib", "cdclt", "designation","armateurlib","exercice","date_echeance","escale","categorielib", "code","codeFiltre","typelib"};
         String listeInt[] = {"daty","date_echeance","exercice"};
-        String libEntete[] = {"id","daty","tierslib","cdclt",  "code", "escale","designation","armateurlib","exercice","categorielib","tva","date_echeance","typelib","montant", "montantTVA", "montantTTC", "montantTTCvrai", "montantAvoir","montantpaye","montantreste", "etatlib"};
+        String libEntete[] = {"id","daty","tierslib","cdclt",  "code", "escale","designation","armateurlib","exercice","categorielib","tva","date_echeance","typelib","montant", "montantTVA", "montantTTC", "montantTTCvrai", "montantAvoir","montantpaye","montantreste", "etatlib","numpiece"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -123,7 +124,7 @@
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
-            String libEnteteAffiche[] = {"id","daty","Client", "Code Clt", "Code", "Escale","Note explicative","armateur","exercice","Catégorie", "tva", "date echeance", "Type","montant HT", "montant TVA", "Montant TTC", "Net à payer", "montant Avoir","Montant payé","Reste à payer", "Etat"};
+            String libEnteteAffiche[] = {"id","daty","Client", "Code Clt", "Code", "Escale","Note explicative","armateur","exercice","Catégorie", "tva", "date echeance", "Type","montant HT", "montant TVA", "Montant TTC", "Net à payer", "montant Avoir","Montant payé","Reste à payer", "Etat","Num Piece"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);
