@@ -209,7 +209,7 @@ public class Liste extends Champ {
 	}
 	//else
 //        System.out.println("__________________"+this.getBase().length);
-        System.out.println("nom de champ "+this.getNom()+" valeur : "+ this.getValeur());
+        //System.out.println("nom de champ "+this.getNom()+" valeur : "+ this.getValeur());
 	if (this.getBase() != null && this.getBase().length > 0) {
 
 	    for (int i = 0; i < this.getBase().length; i++) {

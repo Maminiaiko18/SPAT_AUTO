@@ -31,6 +31,18 @@ public class Coursdevise extends ClassMAPTable {
             throw new Exception("Il existe deja un cours pour cette date");
         }
     }
+    public static Coursdevise[] getCours(Connection c, String dat) throws Exception
+    {
+        String apresW = "  and daty='%s' ";
+        apresW = String.format(apresW,  dat);
+        return (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, apresW);
+    }
+    public static Coursdevise[] getCours(Connection c, String dat,String estMicT) throws Exception
+    {
+        String apresW = "  and daty='%s'  and estMICTSL='%s' ";
+        apresW = String.format(apresW,  dat,estMicT);
+        return (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, apresW);
+    }
     
     @Override
     public void controler(Connection c) throws Exception {

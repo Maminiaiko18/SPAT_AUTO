@@ -66,6 +66,12 @@ public class FactureClient extends ClassMere {
     public String getCdclt() {
         return cdclt;
     }
+    public int estMICTSLData()throws Exception
+    {
+        if (this.getTiers()==null)return 0;
+        if(this.getTiers().compareToIgnoreCase("0120037")==0||this.getTiers().compareToIgnoreCase("clt1")==0)return 1;
+        return 0;
+    }
 
     public void setCdclt(String cdclt) {
         this.cdclt = cdclt;
@@ -1931,22 +1937,70 @@ public class FactureClient extends ClassMere {
         fd.setMere(this);
         return fd;
     }
+    public FactureClientDetails getFirstFille(String devise) throws Exception {
+        if (listeDetails != null && listeDetails.length > 0) {
+            for(int i=0;i<listeDetails.length;i++)
+            {
+                if(listeDetails[i].getDevise().compareToIgnoreCase(devise)==0)
+                    return listeDetails[i];
+            }
+        }
+        return null;
+     }
 
     public void setDeviseEuro(Connection c) throws Exception {
-        FactureClientDetails fd = getFirstFille();
-        fd.setDevise(Constante.deviseEuro);
-        setDeviseEuro(fd.getTauxRecent(c));
+        FactureClientDetails fd = getFirstFille(Constante.deviseEuro);
+        if(fd==null)
+        {
+             fd=getFirstFille();
+             fd.setDevise(Constante.deviseEuro);
+            setDeviseEuro(fd.getTauxRecent(c));
+            return;
+        }
+        if(fd.getTaux()>0)setDeviseEuro(fd.getTaux());
+        else setDeviseEuro(fd.getTauxRecent(c));
     }
 
     public void setDeviseDollar(Connection c) throws Exception {
-        FactureClientDetails fd = getFirstFille();
-        fd.setDevise(Constante.deviseDollars);
-        setDeviseDollar(fd.getTauxRecent(c));
+        //FactureClientDetails fd = getFirstFille();
+        //fd.setDevise(Constante.deviseDollars);
+        //setDeviseDollar(fd.getTauxRecent(c));
+        FactureClientDetails fd = getFirstFille(Constante.deviseDollars);
+        if(fd==null) 
+        {
+            fd=getFirstFille();
+            fd.setDevise(Constante.deviseDollars);
+            setDeviseDollar(fd.getTauxRecent(c));
+            return;
+        }
+        if(fd.getTaux()>0)setDeviseDollar(fd.getTaux());
+        else setDeviseDollar(fd.getTauxRecent(c));
+    }
+    public Date getDateChange()throws Exception
+    {
+        FactureClientDetails fdeur = getFirstFille(Constante.deviseEuro);
+        FactureClientDetails fddol = getFirstFille(Constante.deviseDollars);
+        if(fdeur!=null&&fdeur.getDatefact()!=null) return fdeur.getDatefact();
+        if(fddol!=null&&fddol.getDatefact()!=null) return fdeur.getDatefact();
+        return this.getDaty();
     }
 
     public void setDevises(Connection c) throws Exception {
         this.setDeviseEuro(c);
         this.setDeviseDollar(c);
+        if(this.getDateChange()!=this.getDaty())
+        {
+           Coursdevise []cd=Coursdevise.getCours(c, Utilitaire.formatterDaty(this.getDateChange()) , ""+this.estMICTSLData());
+           affecterDevise(cd);
+        }
+    }
+    public void affecterDevise(Coursdevise[] liste) throws Exception
+    {
+        for(Coursdevise cd:liste)
+        {
+            if(cd.getIddevise().compareToIgnoreCase(Constante.deviseDollars)==0)this.setDeviseDollar(cd.getMontant());
+            if(cd.getIddevise().compareToIgnoreCase(Constante.deviseEuro)==0)this.setDeviseEuro(cd.getMontant());           
+        }
     }
 
     public void initDetails(Connection c) throws Exception {
