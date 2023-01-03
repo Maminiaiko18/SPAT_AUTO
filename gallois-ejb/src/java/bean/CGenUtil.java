@@ -424,7 +424,7 @@ public class CGenUtil {
             }
             String comandeInterne = "select * from " + e.getNomTableSelect();
             comandeInterne = comandeInterne + " where " + makeWhere(e, c) + makeWhereIntervalle(colInt, valInt) + " " + apresWhere;
-
+            //if(e.getNomTable().compareToIgnoreCase("coursdevise")==0) System.out.println("Requete "+comandeInterne);
             cmd = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dr = cmd.executeQuery(comandeInterne);
             Object[] ret= transformeDataReader(dr, e, c);
