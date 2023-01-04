@@ -8,6 +8,8 @@ package mg.spat.stock;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import facture.FactureFournisseur;
+
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.Constante;
@@ -471,5 +473,47 @@ public class BonDeCommande extends ClassEtat {
         }
         return value.getId();
     }
-    
+
+    public BonDeLivraison[] getBLRattaches(Connection c, String nomTable)throws Exception{
+        int verif = 0;
+        BonDeLivraison[] result = null;
+        try{
+            if(c==null){
+                verif = 1;
+                c = new UtilDB().GetConn();
+            }
+            BonDeLivraison bl = new BonDeLivraison();
+            bl.setNomTable(nomTable);
+            bl.setId_bc(this.getId());
+            result = (BonDeLivraison[])CGenUtil.rechercher(bl, null, null, c, "");
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(verif==1 && c!=null){
+                c.close();
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public void controleAnnulerVisa(Connection c) throws Exception
+    {
+        int verif = 0;
+        try{
+            if(c==null){
+                verif = 1;
+                c = new UtilDB().GetConn();
+            }
+            BonDeLivraison bl = new BonDeLivraison();
+            BonDeLivraison[] blRattache = getBLRattaches(c, bl.getNomTable());
+            if(blRattache.length!=0) throw new Exception ("Annulation VISA non permise, BL rattaché existant");
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(verif==1 && c!=null){
+                c.close();
+            }
+        }
+    }
 }
