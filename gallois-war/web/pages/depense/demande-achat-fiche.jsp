@@ -17,7 +17,7 @@
     DemandeAchatMere e = new DemandeAchatMere();
     e.setNomTable("dem_achat_merelib");
     PageConsulte pc = new PageConsulte(e, request, u);
-    pc.setTitre("FICHE DEMANDE ACHAT");
+    pc.setTitre("FICHE DASE");
     e = (DemandeAchatMere) pc.getBase();
     String id= e.getId();
     String idengagement=e.getIdengagement();
@@ -63,7 +63,7 @@
                     <p>
                         <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=depense/demande-achat-modif.jsp&id=" + id %>" style="margin-right:10px">Modifier</a>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=stock/bc/bondecommande-multiple.jsp&idDa=" + id %>" style="margin-right: 10px">Saisir BC</a>
-                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDemandeAchat&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
+                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDemandeAchat&id=<%=id%>" style="margin-right: 10px">Imprimer DASE</a>
                     </p>
                     <hr>
                 </div>
@@ -74,7 +74,7 @@
         <div class="col-md-10 col-md-offset-1 ">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
-                    <li class="<%= map.get("details-demande-achat")%>"><a href="module.jsp?but=depense/demande-achat-fiche.jsp&id=<%=e.getId()%>&tab=details-demande-achat">Détails demande achat</a></li>
+                    <li class="<%= map.get("details-demande-achat")%>"><a href="module.jsp?but=depense/demande-achat-fiche.jsp&id=<%=e.getId()%>&tab=details-demande-achat">Détails DASE</a></li>
                     
                 </ul>
                 <div class="tab-content">

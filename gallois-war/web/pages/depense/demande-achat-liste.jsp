@@ -36,7 +36,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste des Achats </h1>
+        <h1>Liste des DASE</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=depense/demande-achat-liste.jsp" method="post" name="achat" id="engagement">
