@@ -82,7 +82,7 @@
 
 %>
 <div class="content-wrapper">
-    <h1>Demande d'achat</h1>
+    <h1>Saisie DASE</h1>
     <!--  -->
     <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="demandeAchat" id="demandeAchat">
         <%

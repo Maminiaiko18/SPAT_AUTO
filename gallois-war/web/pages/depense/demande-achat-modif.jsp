@@ -82,7 +82,7 @@
     <div class="row"> 
         <div class="col-md-8 col-md-offset-2">
             <div class="box">
-                <h1>Modification d'une demande d'achat</h1>
+                <h1>Modification d'une DASE</h1>
                 <form action="<%=pi.getLien()%>?but=apresMultiple.jsp&id=<%= id %>" method="post" name="demandeAchat" id="demandeAchat" data-parsley-validate>
                     <%
                         pi.getFormu().makeHtmlInsertTabIndex();
