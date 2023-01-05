@@ -42,11 +42,11 @@
 	<title>
 		<band height="165" splitType="Stretch">
 			<staticText>
-				<reportElement x="146" y="0" width="146" height="20" uuid="0d73bdd2-aa0c-4bce-b091-b0bd752189f0"/>
+				<reportElement x="146" y="0" width="300" height="20" uuid="0d73bdd2-aa0c-4bce-b091-b0bd752189f0"/>
 				<textElement>
 					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[DEMANDE D'ACHAT]]></text>
+				<text><![CDATA[DEMANDE D'ACHAT ET SERVICE EXTÉRIEUR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="324" y="20" width="87" height="20" uuid="90328b86-4ffe-4cce-b491-01e38621e2a2"/>
