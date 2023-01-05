@@ -32,10 +32,10 @@
     //pc.getChampByName("etatlib").setLibelle("Etat");
     pc.getChampByName("modepaiement").setLibelle("Mode de paiement");
     pc.getChampByName("montant").setLibelle("montant HT");
-    pc.getChampByName("montant_paye_reel").setLibelle("Montant payé réel");
+    pc.getChampByName("montant_paye_reel").setLibelle("Montant payï¿½ rï¿½el");
     pc.getChampByName("montant_A_payer").setLibelle("Montant BL TTC");
-    pc.getChampByName("restepayergeneral").setLibelle("Reste à livrer");
-    pc.getChampByName("resteapayerreel").setLibelle("Reste à payer réel");
+    pc.getChampByName("restepayergeneral").setLibelle("Reste ï¿½ livrer");
+    pc.getChampByName("resteapayerreel").setLibelle("Reste ï¿½ payer rï¿½el");
     pc.getChampByName("montantTTC").setLibelle("Montant TTC");
     pc.getChampByName("montanttva").setLibelle("Montant TVA");
     pc.getChampByName("numbc").setLibelle("Numero Bon De Commande");
@@ -91,6 +91,8 @@
                             <% }%>
 
                             <% if (bondecommande.getEtat() == ConstanteEtat.getEtatValider()) {%>
+                                
+                                <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin-right: 10px">Annuler VISA</a>
                                 <a class="btn btn-default pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/asBonDeLivraison-direct.jsp&id_bc=" + request.getParameter("id")%>" style="margin-right: 10px">Reception</a>
                             <% } %>
                             <%

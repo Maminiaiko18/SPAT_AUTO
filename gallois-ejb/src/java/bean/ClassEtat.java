@@ -69,7 +69,7 @@ public abstract class ClassEtat extends ClassUser{
     {
         if(getEtat()>=ConstanteEtat.getEtatValider()) throw new Exception("Impossible à annuler, deja valide");
     }
-    public void controleAnnulerVisa() throws Exception
+    public void controleAnnulerVisa(Connection c) throws Exception
     {
         if(getEtat()>ConstanteEtat.getEtatValider()) throw new Exception("Impossible d annuler le Visa, superieur valide");
     }
@@ -89,7 +89,7 @@ public abstract class ClassEtat extends ClassUser{
     }
     public int annulerVisa(String user,Connection c) throws Exception
     {
-        controleAnnulerVisa();
+        controleAnnulerVisa(c);
         setMode("modif");
         this.setEtat(ConstanteEtat.getEtatCreer());
         return this.updateToTableWithHisto(user,c);

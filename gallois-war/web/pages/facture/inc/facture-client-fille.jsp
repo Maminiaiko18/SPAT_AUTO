@@ -19,7 +19,7 @@
 //    cht.setNomTable("facture_client_fille_lib_reste");
     cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
     //String libEntete[] = {"id", "designation", "pu", "quantite","duree", "devise", "compte", "taux", "montanttaux", "tva", "montantTva", "montantHTEuro", "montantTVAEuro", "activitelib", "heureDebut", "heureFin", "reduction", "majoration"};
-    String libEntete[] = {"id", "designation", "pu", "quantite","duree", "devise", "compte", "taux", "montanttaux", "tva", "montantTva", "activitelib","datyactivite", "heureDebut", "heureFin", "reduction", "majoration"};
+    String libEntete[] = {"id", "designation", "pu", "quantite","duree", "devise", "compte", "taux", "montanttaux", "tva", "montantTva", "activitelib","datyactivite", "heureDebut", "heureFin", "reduction", "majoration","unite"};
     String listeCrt[] = {"idmere"};
     String listeInt[] = {};
     String id= request.getParameter("idmere");
@@ -43,7 +43,7 @@
     pr.getTableau().transformerDataString();
 
     //String libEnteteAffiche[] = {"id", "designation", "pu", "quantité","duree", "devise", "compte", "taux", "montant", "tva", "montant Tva", "HT Euro", "TVA Euro", "Activite", "Heure début", "Heure fin", "RED.%", "MAJ.%"};
-    String libEnteteAffiche[] = {"id", "designation", "pu", "quantité","duree", "devise", "compte", "taux", "montant", "tva", "montant Tva", "Activite","Date", "Heure début", "Heure fin", "RED.%", "MAJ.%"};
+    String libEnteteAffiche[] = {"id", "designation", "pu", "quantité","duree", "devise", "compte", "taux", "montant", "tva", "montant Tva", "Activite","Date", "Heure début", "Heure fin", "RED.%", "MAJ.%","unite"};
 //    String lienTableau[] = {pr.getLien() + "?but=avoir/avoir-fiche.jsp"};
 //    String colonneLien[] = {"id"};
 //    pr.getTableau().setLien(lienTableau);
@@ -104,6 +104,7 @@
                                             <th width="5%" align="center" valign="top" style="background-color:#103a8e">Heure fin</th>
                                             <th width="5%" align="center" valign="top" style="background-color:#103a8e">RED.%</th>
                                             <th width="5%" align="center" valign="top" style="background-color:#103a8e">MAJ.%</th>
+                                             <th width="5%" align="center" valign="top" style="background-color:#103a8e">Unite</th>
                                     </tr>
                             </thead>
                             <tbody>
@@ -137,6 +138,7 @@
                                         <td width="5%" align="left"><%=Utilitaire.champNull(liste[i].getHeureFin())%>   </td>
                                         <td width="5%" align="left"><%=Utilitaire.formaterAr(liste[i].getReduction())%>   </td>
                                         <td width="5%" align="left"><%=Utilitaire.formaterAr(liste[i].getMajoration())%>    </td>
+                                         <td width="5%" align="left"><%=Utilitaire.champNull(liste[i].getUnite())%>    </td>
                                     </tr>
                                     <%}%>
                             </tbody>
