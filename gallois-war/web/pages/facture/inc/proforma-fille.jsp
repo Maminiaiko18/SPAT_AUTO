@@ -29,7 +29,7 @@
 
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
-    pr.setOrdre(" order by rang asc, daty asc");
+    pr.setOrdre(" order by id asc");
     pr.creerObjetPage(libEntete, colSomme);
 
     ProformaFille[] liste = (ProformaFille[]) pr.getTableau().getData();
