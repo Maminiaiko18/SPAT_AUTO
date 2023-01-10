@@ -1,3 +1,4 @@
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="ded.OrdonnerPayement"%>
 <%@page import="ded.OrdonnerPayement"%>
 <%@page import="mg.spat.ChantierLibComplet"%>
@@ -19,8 +20,10 @@
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("ded/ordonnerpayement-liste.jsp");
     pr.getFormu().getChamp("ded_Id").setLibelle("facture");
-    pr.getFormu().getChamp("daty1").setLibelle("date de d?but");
+    pr.getFormu().getChamp("daty1").setLibelle("date de d&eacute;but");
+    pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
+    pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("tiers").setLibelle("Tiers");
     pr.getFormu().getChamp("numeroop").setLibelle("Numero Op");
     pr.getFormu().getChamp("modepaiementlib").setLibelle("Mode de paiement");
