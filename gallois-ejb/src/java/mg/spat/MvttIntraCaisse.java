@@ -18,7 +18,7 @@ import utilitaire.ConstanteEtat;
  * @author Sanda
  */
 public class MvttIntraCaisse extends ClassEtat {
-    private String id,caissedepart,caissearrivee,modepaiement,remarque,designation;
+    private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite;
     private Date daty;
     private double montant;
     private  JournalCaisse[] listeJournal;
@@ -33,6 +33,14 @@ public class MvttIntraCaisse extends ClassEtat {
     
     public MvttIntraCaisse(){
         super.setNomTable("mvtintracaisse");
+    }
+
+    public String getIdTraite() {
+        return idTraite;
+    }
+
+    public void setIdTraite(String idTraite) {
+        this.idTraite = idTraite;
     }
 
     public String getDesignation() {
