@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ORDRE_PAYER" pageWidth="620" pageHeight="842" columnWidth="620" leftMargin="0" rightMargin="0" topMargin="10" bottomMargin="10" uuid="482ea57c-6d82-4138-ae48-165f25e19e79">
 	<property name="ireport.zoom" value="1.331000000000006"/>
-	<property name="ireport.x" value="74"/>
+	<property name="ireport.x" value="6"/>
 	<property name="ireport.y" value="48"/>
 	<parameter name="NUM_OP" class="java.lang.String"/>
 	<parameter name="DESTINATION" class="java.lang.String"/>
@@ -82,7 +82,7 @@
 				<textFieldExpression><![CDATA[$P{MOTIF}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="108" y="245" width="297" height="20" uuid="cada7ed8-0c54-4ff2-92c9-8688d55ea177"/>
+				<reportElement x="108" y="265" width="297" height="20" uuid="cada7ed8-0c54-4ff2-92c9-8688d55ea177"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
