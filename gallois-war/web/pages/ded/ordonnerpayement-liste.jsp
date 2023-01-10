@@ -19,7 +19,7 @@
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("ded/ordonnerpayement-liste.jsp");
     pr.getFormu().getChamp("ded_Id").setLibelle("facture");
-    pr.getFormu().getChamp("daty1").setLibelle("date de début");
+    pr.getFormu().getChamp("daty1").setLibelle("date de d?but");
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
     pr.getFormu().getChamp("tiers").setLibelle("Tiers");
     pr.getFormu().getChamp("numeroop").setLibelle("Numero Op");
@@ -79,12 +79,16 @@
                 out.println(pr.getTableauRecap().getHtml());
             %>
             <br>
+            <div class="box-footer">
+                <a class="btn btn-success pull-right"  href="${pageContext.request.contextPath}/OrdonnerPayementExcel?action=OrdonnerPayementExcel&etat=<%=request.getParameter("etatvue") %>&id=<%=request.getParameter("id") %>&ded_Id=<%=request.getParameter("ded_Id") %>&tiers=<%=request.getParameter("tiers") %>&numeroop=<%=request.getParameter("numeroop") %>&modepaiementlib=<%=request.getParameter("modepaiementlib") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>" style="margin-right: 10px">Export excel</a>                            
+            </div>
+
             <%
-                String libEnteteAffiche[] = {"id", "Etat", "Numéro OP", "Numéro compta", "Date", "Tiers", "Montant", "Motif de paiement", "Mode de paiement","Facture"};
+                String libEnteteAffiche[] = {"id", "Etat", "Num?ro OP", "Num?ro compta", "Date", "Tiers", "Montant", "Motif de paiement", "Mode de paiement","Facture"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("ajouterOP");
                 out.println(pr.getTableau().getHtmlWithCheckbox());%>
-                <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
+                <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="D?caisser"/>
                 
         </form>
         <%out.println(pr.getBasPage());%>
