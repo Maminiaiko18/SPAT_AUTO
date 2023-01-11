@@ -102,7 +102,7 @@ public class Billetage extends ClassEtat{
         b = (Billetage)this.getById(this.getId(), "BILLETAGE", c);
         Report report = new Report();
         report.setDaty(Utilitaire.dateDuJourSql());
-        report.setCaisse(b.getCaisse());
+        report.setCaisse(Constante.caisseCentraleEspece);
         double montant = AdminGen.calculSommeDouble(getDetails(c), "montant");
         report.setMontant(montant);
         report.setDevise("Ar");
