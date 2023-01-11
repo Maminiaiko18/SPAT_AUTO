@@ -98,9 +98,11 @@ public class Billetage extends ClassEtat{
     }
     
     public void genererReportVise(Connection c, String user) throws Exception{
+        Billetage b = new Billetage();
+        b = (Billetage)this.getById(this.getId(), "BILLETAGE", c);
         Report report = new Report();
-        report.setDaty(Utilitaire.dateDuJourSql());
-        report.setCaisse(Constante.caisseCentraleEspece);
+        report.setDaty(b.getDaty());
+        report.setCaisse(b.getCaisse());
         double montant = AdminGen.calculSommeDouble(getDetails(c), "montant");
         report.setMontant(montant);
         report.setDevise("Ar");

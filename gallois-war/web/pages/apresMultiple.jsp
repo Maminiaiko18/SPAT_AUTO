@@ -84,6 +84,24 @@
                 }%>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=idmere%>");</script>
     <% }
+        if (acte != null && acte.compareToIgnoreCase("insertFille") == 0) {
+                
+                mere = (ClassMAPTable) (Class.forName(classe).newInstance());
+                fille = (ClassMAPTable) (Class.forName(classefille).newInstance());
+                PageInsertMultiple p = new PageInsertMultiple(mere, fille, request, nbLine, tId);
+                ClassMAPTable[] cfille = p.getObjectFilleAvecValeur();
+                for (int i = 0; i < cfille.length; i++) {
+                    cfille[i].setNomTable(nomtable);
+                }
+                String idMere=request.getParameter("idMere");
+                if(idMere==null||idMere.isEmpty()){
+                    throw new Exception("Id mere not provided");
+                }
+                u.createObjectFilleMultiple(idMere, colonneMere, cfille);
+        %>
+                
+    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>");</script>
+    <% }
 
         if (acte.compareToIgnoreCase("fusionnerdetails") == 0) {
             t = (ClassMAPTable) (Class.forName(classe).newInstance());
