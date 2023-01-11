@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import mg.allosakafo.produits.LiaisonDetailsBCProduit;
 import mg.allosakafo.produits.Produits;
+import mg.spat.EngagementFille;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -427,5 +428,9 @@ public class BonDeCommandeFille extends ClassMAPTable {
         BonDeCommande mere = this.getMere(c);
         if(mere == null) throw new Exception("BC mere introuvable");
         return getValeurTaux(c, "coursdeviseNonMICTSL", mere.getDaty());
+    }
+     
+    public EngagementFille createEngagementFille(String idEngagement)throws Exception{
+        return new EngagementFille(idEngagement,this.getRemarque(),this.getQuantite()*this.getPu());
     }
 }
