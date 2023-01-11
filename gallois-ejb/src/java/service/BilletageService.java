@@ -34,7 +34,7 @@ public class BilletageService {
         try{
             double val=0;
             for(int i=0;i<liste.length;i++){
-                val+=(liste[i].getDebit()-liste[i].getCredit());
+                val+=(liste[i].getCredit()-liste[i].getDebit());
             }
             if(val==billetage.getMontant()) test=true;
             valiny.add(test);
