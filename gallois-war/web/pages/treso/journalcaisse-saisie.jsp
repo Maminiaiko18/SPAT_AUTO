@@ -29,6 +29,8 @@
         String idOP = request.getParameter("id");
         String idplacement = request.getParameter("idplacement");
 
+        if(request.getParameter("credit")!=null)pi.getFormu().getChamp("credit").setDefaut(request.getParameter("credit"));
+
         JournalCaisseData datas = new JournalCaisseData(request);
         datas.init(null);
 
@@ -82,6 +84,9 @@
 
         TypeObjet mode = new TypeObjet();
         mode.setNomTable("MODEPAIEMENT");
+        if(request.getParameter("idmode")!=null){
+            mode.setNomTable(request.getParameter("idmode"));
+        }
         liste[3] = new Liste("idmode", mode, "desce", "id");
 
         TypeObjet banq = new TypeObjet();
@@ -98,14 +103,14 @@
         pi.getFormu().getChamp("banque").setVisible(false);
         pi.getFormu().getChamp("idmode").setLibelle("Mode");
         pi.getFormu().getChamp("dateEffet").setLibelle("Date Effet");
-        pi.getFormu().getChamp("numPiece").setLibelle("Numéro pièce");
-        pi.getFormu().getChamp("libelle").setLibelle("Libellé");
+        pi.getFormu().getChamp("numPiece").setLibelle("Num&eacute;ro pi&egrave;ce");
+        pi.getFormu().getChamp("libelle").setLibelle("Libell&eacute;");
 
         pi.getFormu().getChamp("debit").setLibelle("Sortie");
-        pi.getFormu().getChamp("credit").setLibelle("Entrée");
+        pi.getFormu().getChamp("credit").setLibelle("Entr&eacute;e");
         pi.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pi.getFormu().getChamp("iddevise").setLibelle("Devise");
-        pi.getFormu().getChamp("numcheque").setLibelle("Numero chèque");
+        pi.getFormu().getChamp("numcheque").setLibelle("Numero ch&egrave;que");
         pi.getFormu().getChamp("idordre").setLibelle("Ordre");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("designation").setVisible(false);

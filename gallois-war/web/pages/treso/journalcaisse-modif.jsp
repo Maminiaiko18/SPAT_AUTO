@@ -60,8 +60,8 @@
     pi.getFormu().getChamp("idplacement").setAutre("readonly");
     pi.getFormu().getChamp("idplacement").setLibelle("Source");
     
-    pi.getFormu().getChamp("debit").setLibelle("Entrée");
-    pi.getFormu().getChamp("credit").setLibelle("Sortie");
+    pi.getFormu().getChamp("credit").setLibelle("Entrée");
+    pi.getFormu().getChamp("debit").setLibelle("Sorti");
     
     pi.preparerDataFormu();
 %>

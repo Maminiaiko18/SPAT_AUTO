@@ -2848,6 +2848,26 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 
     }
 
+    @Override
+    public void createObjectFilleMultiple(String idMere, String colonneMere, ClassMAPTable[] fille) throws Exception {
+        Connection c = null;
+        try {
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            
+            createObjectMultiple(fille, colonneMere, idMere, c);
+            
+            c.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            c.rollback();
+        } finally {
+            if(c!=null){
+                c.close();
+            }
+        }
+    }
+
     public Object createObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille) throws Exception {
         Connection c = null;
         Object ret = null;
