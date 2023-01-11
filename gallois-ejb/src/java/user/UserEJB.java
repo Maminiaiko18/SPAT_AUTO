@@ -286,6 +286,8 @@ public interface UserEJB {
     public void annulerVisa(ClassMAPTable o, Connection c) throws Exception;
 
     public Object createObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille) throws Exception;
+    
+    public void createObjectFilleMultiple(String idMere, String colonneMere, ClassMAPTable[] fille) throws Exception;
 
     public void createUploadedPjService(String iddossier, HashMap<String, String> listeVal, Iterator it, String nomtable, String nomprocedure, String mere) throws Exception;
 

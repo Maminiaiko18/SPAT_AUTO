@@ -62,7 +62,7 @@ public class FactureClient extends ClassMere {
     private int exercice;
     private String idavoir,provenancelib,destinationlib,bateaulib,pavillon,pavillonlib;
     private double volume,volume100;
-    private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt;
+    private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt,idtraite,idfc,factureclientlib;
     public String getCdclt() {
         return cdclt;
     }
@@ -490,6 +490,30 @@ public class FactureClient extends ClassMere {
     }
     public String getIdavoir() {
         return idavoir;
+    }
+
+    public String getIdtraite() {
+        return idtraite;
+    }
+
+    public void setIdtraite(String idtraite) {
+        this.idtraite = idtraite;
+    }
+
+    public String getIdfc() {
+        return idfc;
+    }
+
+    public void setIdfc(String idfc) {
+        this.idfc = idfc;
+    }
+
+    public String getFactureclientlib() {
+        return factureclientlib;
+    }
+
+    public void setFactureclientlib(String factureclientlib) {
+        this.factureclientlib = factureclientlib;
     }
 
     
