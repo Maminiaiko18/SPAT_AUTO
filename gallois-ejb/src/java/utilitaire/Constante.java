@@ -156,7 +156,7 @@ public class Constante {
     public static final String projMissionHebergement="PR000115";
     public static final String compteHorsCircuit="00000000000";
     public static final String compteBP="121MHI62512";
-    
+    private static String traite = "pay6";
 
 
     public static String getTypeFCAuComptant() {
@@ -387,6 +387,14 @@ public class Constante {
 
     public static String getVisaOr() {
         return visaOr;
+    }
+
+    public static String getTraite() {
+        return traite;
+    }
+
+    public static void setTraite(String traite) {
+        Constante.traite = traite;
     }
 
 }

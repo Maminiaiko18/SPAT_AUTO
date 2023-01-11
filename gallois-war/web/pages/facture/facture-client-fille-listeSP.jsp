@@ -17,7 +17,7 @@
         CaFcFilleComplet cht = new CaFcFilleComplet();
         cht.setNomTable("CAFCFILLECOMPLET");
         String libEntete[] = { "idmere","daty","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
-        String listeCrt[] = {"compte", "mois", "annee", "type"};
+        String listeCrt[] = {"compte", "mois", "annee", "type", "designation", "client"};
         String listeInt[] = {"mois"};
 
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
