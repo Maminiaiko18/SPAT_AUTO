@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import lignecredit.LigneCredit;
 import mg.allosakafo.produits.LiaisonIntraTable;
 import mg.spat.Engagement;
+import mg.spat.EngagementFille;
 import mg.spat.JournalCaisse;
 import mg.spat.stock.BonDeLivraisonFilleReste;
 import user.UserEJB;
@@ -649,6 +650,10 @@ public class FactureFournisseur extends FactureClient {
               FactureFournisseur ff = (FactureFournisseur)new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
               if(ff!=null && reste < ff.getMontant()) throw new Exception("Le montant de la facture depasse le reste de l'engagement");
           }
+        }else{
+            FactureFournisseur ff = (FactureFournisseur)new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+            this.setMontant(ff.getMontant());
+            this.insertEngagement(u,c);
         } 
         this.setNomTable("facture_fournisseur_mere");
         super.validerObject(u, c);
@@ -789,7 +794,6 @@ public class FactureFournisseur extends FactureClient {
         }
     }
     
-    @Override
     public void controleAnnulerVisa() throws Exception {
         Connection c = null;
         
@@ -809,4 +813,42 @@ public class FactureFournisseur extends FactureClient {
             if(c != null) c.close();
         }
     }
+
+    public Engagement getEngagement()throws Exception{
+        Engagement retour=new Engagement(this.getDesignation(),this.getCodeEtablissement(),this.getProjet(),this.getMontant(),0.0,0.0,0.0,null,null,this.getDaty());
+        retour.setEtat(ConstanteEtat.getEtatValider());
+        return retour;
+    }
+
+    public void insertEngagement(String u,Connection c)throws Exception{
+        int verif=0;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif=1;
+            }
+
+            Engagement engagement=this.getEngagement();
+            engagement.construirePK(c);
+            engagement.insertToTableWithHisto(u, c);
+            
+            FactureFournisseurDetails[] filles=(FactureFournisseurDetails[])this.getFille("facture_fournisseur_fille", c, "");
+            for(int i=0;i<filles.length;i++){
+                EngagementFille engFille=filles[i].createEngagementFille(engagement.getTuppleID());
+                engFille.construirePK(c);
+                engFille.insertToTableWithHisto(u, c);
+            }
+            this.setIdengagement(engagement.getTuppleID());
+            
+            if(c!=null && verif==1)c.commit();
+        }catch(Exception e){
+            if(c!=null && verif==1)c.rollback();
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+    }
+
 }

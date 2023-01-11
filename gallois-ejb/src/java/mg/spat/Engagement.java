@@ -31,6 +31,19 @@ public class Engagement extends ClassEtat {
     private Date daty;
     private int avecFacture,annee;
 
+    public Engagement(String designation,String codeEtablissement,String projet,double montant,double disponible,double dispoAvant,double dispoApres,String compte,String idLC,Date daty)throws Exception{
+        this.setNomTable("ENGAGEMENT");
+        this.setDesignation(designation);
+        this.setCodeEtablissement(codeEtablissement);
+        this.setProjet(projet);
+        this.setMontant(montant);
+        this.setDisponible(disponible);
+        this.setDispoAvant(dispoAvant);
+        this.setDispoApres(dispoApres);
+        this.setCompte(compte);
+        this.setIdLC(idLC);
+        this.setDaty(daty);
+    }
     
     public double getResteAFacturer(Connection c) throws Exception{
         FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_libV",c);
