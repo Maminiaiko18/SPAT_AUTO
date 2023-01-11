@@ -100,7 +100,7 @@ public class Billetage extends ClassEtat{
     public void genererReportVise(Connection c, String user) throws Exception{
         Report report = new Report();
         report.setDaty(Utilitaire.dateDuJourSql());
-        report.setCaisse(Constante.caisseCentrale);
+        report.setCaisse(Constante.caisseCentraleEspece);
         double montant = AdminGen.calculSommeDouble(getDetails(c), "montant");
         report.setMontant(montant);
         report.setDevise("Ar");
