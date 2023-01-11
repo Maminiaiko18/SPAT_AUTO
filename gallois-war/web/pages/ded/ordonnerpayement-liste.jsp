@@ -13,7 +13,7 @@
     
 //    String libEntete[] = {"id", "ded_Id","remarque","numcheque","daty","folio","numeroop","montant"};
     String libEntete[] = {"id", "etatlib", "numeroop", "numeroCompta", "daty", "tiers", "montant","remarque", "modepaiementlib","ded_Id"};   
-    String listeCrt[] = {"id","ded_Id", "daty", "tiers","numeroop","modepaiementlib","montant"};
+    String listeCrt[] = {"id","ded_Id", "daty", "tiers","numeroop","modepaiementlib","montant","remarque"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(op, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -27,6 +27,7 @@
     pr.getFormu().getChamp("tiers").setLibelle("Tiers");
     pr.getFormu().getChamp("numeroop").setLibelle("Numero Op");
     pr.getFormu().getChamp("modepaiementlib").setLibelle("Mode de paiement");
+    pr.getFormu().getChamp("remarque").setLibelle("Motif de paiement");
     String[] colSomme ={"montant"};
     pr.creerObjetPage(libEntete, colSomme);
     pr.getTableau().setNameBoutton("Editer bordereau");
