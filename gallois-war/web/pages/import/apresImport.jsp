@@ -28,6 +28,7 @@
                 
                 String idescale = null;
                 String mois = null;
+                String annee = null;
                 
                 DiskFileItemFactory factory = new DiskFileItemFactory();
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -48,6 +49,9 @@
                         }
                         if(name.equalsIgnoreCase("mois")){
                             mois = value;
+                        }
+                        if(name.equalsIgnoreCase("annee")){
+                            annee = value;
                         }
                     }
                 }

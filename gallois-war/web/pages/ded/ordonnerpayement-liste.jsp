@@ -1,3 +1,4 @@
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="ded.OrdonnerPayement"%>
 <%@page import="ded.OrdonnerPayement"%>
 <%@page import="mg.spat.ChantierLibComplet"%>
@@ -12,18 +13,21 @@
     
 //    String libEntete[] = {"id", "ded_Id","remarque","numcheque","daty","folio","numeroop","montant"};
     String libEntete[] = {"id", "etatlib", "numeroop", "numeroCompta", "daty", "tiers", "montant","remarque", "modepaiementlib","ded_Id"};   
-    String listeCrt[] = {"id","ded_Id", "daty", "tiers","numeroop","modepaiementlib","montant"};
+    String listeCrt[] = {"id","ded_Id", "daty", "tiers","numeroop","modepaiementlib","montant","remarque"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(op, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("ded/ordonnerpayement-liste.jsp");
     pr.getFormu().getChamp("ded_Id").setLibelle("facture");
-    pr.getFormu().getChamp("daty1").setLibelle("date de début");
+    pr.getFormu().getChamp("daty1").setLibelle("date de d&eacute;but");
+    pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
+    pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("tiers").setLibelle("Tiers");
     pr.getFormu().getChamp("numeroop").setLibelle("Numero Op");
     pr.getFormu().getChamp("modepaiementlib").setLibelle("Mode de paiement");
+    pr.getFormu().getChamp("remarque").setLibelle("Motif de paiement");
     String[] colSomme ={"montant"};
     pr.creerObjetPage(libEntete, colSomme);
     pr.getTableau().setNameBoutton("Editer bordereau");
@@ -79,12 +83,16 @@
                 out.println(pr.getTableauRecap().getHtml());
             %>
             <br>
+            <div class="box-footer">
+                <a class="btn btn-success pull-right"  href="${pageContext.request.contextPath}/OrdonnerPayementExcel?action=OrdonnerPayementExcel&etat=<%=request.getParameter("etatvue") %>&id=<%=request.getParameter("id") %>&ded_Id=<%=request.getParameter("ded_Id") %>&tiers=<%=request.getParameter("tiers") %>&numeroop=<%=request.getParameter("numeroop") %>&modepaiementlib=<%=request.getParameter("modepaiementlib") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>" style="margin-right: 10px">Export excel</a>                            
+            </div>
+
             <%
-                String libEnteteAffiche[] = {"id", "Etat", "Numéro OP", "Numéro compta", "Date", "Tiers", "Montant", "Motif de paiement", "Mode de paiement","Facture"};
+                String libEnteteAffiche[] = {"id", "Etat", "Num?ro OP", "Num?ro compta", "Date", "Tiers", "Montant", "Motif de paiement", "Mode de paiement","Facture"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("ajouterOP");
                 out.println(pr.getTableau().getHtmlWithCheckbox());%>
-                <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
+                <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="D?caisser"/>
                 
         </form>
         <%out.println(pr.getBasPage());%>

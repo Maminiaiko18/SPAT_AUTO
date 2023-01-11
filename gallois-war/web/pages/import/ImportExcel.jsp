@@ -40,6 +40,13 @@
                             </div>
                             <div class="col-md-1"></div>
                         </div>
+                        <div class="row" style=" margin-top: 15px;padding-left: 50px;">
+                            <div class="col-md-3"><label for="escale" onchange="modifierPage()">Annee  :</label></div>
+                            <div class="col-md-8">
+                                <input type="text" name="annee" class="form-control">
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
                         <div class="box-footer" style="text-align: center;">
                             <button class="btn btn-primary" type="submit">importer</button>
                         </div>
