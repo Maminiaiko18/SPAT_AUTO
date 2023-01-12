@@ -19,6 +19,35 @@
                         <i class="fa fa-arrow-circle-left"></i>
                     </a> Import Trafic TC
                 </h1>
+                <div class="box-body table-responsive no-padding">
+                            <table class="table table-striped table-hover table-bordered" width="100%" cellspacing="3" cellpadding="3" border="0" align="center">
+                                <thead>
+                                    <tr class="head">
+                                        <th style="background-color:#bed1dd" width="9%" valign="top" align="center">A</th>
+                                        <th style="background-color:#bed1dd" width="9%" valign="top" align="center">B</th>
+                                        <th style="background-color:#bed1dd" width="9%" valign="top" align="center">C</th>
+                                        <th style="background-color:#bed1dd" width="9%" valign="top" align="center">D</th>
+                                        <th style="background-color:#bed1dd" width="9%" valign="top" align="center">E</th>
+                                        <th style="background-color:#bed1dd" width="9%" valign="top" align="center">F</th>
+                                        <th style="background-color:#bed1dd" width="9%" valign="top" align="center">G</th>
+                                        <th style="background-color:#bed1dd" width="9%" valign="top" align="center">H</th>
+                                                 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr onmouseover="this.style.backgroundColor='#EAEAEA'" onmouseout="this.style.backgroundColor=''" style="">
+                                        <td width="9%" align="left">POSTE QUAI</td>
+                                        <td width="9%" align="left">NOM DU NAVIRE</td>
+                                        <td width="9%" align="left">N° VOYAGE</td>
+                                        <td width="9%" align="right">DATE D' ARRIVEE</td>
+                                        <td width="9%" align="left">DISCHARGING</td>
+                                        <td width="9%" align="left">LOADING</td>
+                                        <td width="9%" align="left">IMP/EXP</td>
+                                        <td width="9%" align="right">DISCHARGING TRANSHIP</td>
+                                    </tr>
+                                </tbody>
+                            </table>                                 
+                </div>
                 <form action="<%=(String) session.getValue("lien")%>?but=import/apresImport.jsp?acte=import" method="post" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="row" style=" padding: 22px;">
