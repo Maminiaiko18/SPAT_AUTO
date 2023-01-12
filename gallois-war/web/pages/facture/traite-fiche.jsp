@@ -12,14 +12,16 @@
     String lien = (String) session.getValue("lien"),
            titre = "Traite Fiche",
            mapping = "facture.tr.Traite",
-           apres = "facture/traite-fiche.jsp";
+           apres = "facture/traite-fiche.jsp",
+           nomTable = "TRAITE_LIB";
     try {
         Traite traite = new Traite();
+        traite.setNomTable(nomTable);
         PageConsulte pc = new PageConsulte(traite, request, (user.UserEJB) session.getValue("u"));
         pc.getChampByName("id").setVisible(false);
         pc.getChampByName("tiers").setLibelle("Tiers");
         pc.getChampByName("banque").setLibelle("Banque");
-        pc.getChampByName("reference").setLibelle("R&eacute;f&eacute;rence");
+        //pc.getChampByName("reference").setLibelle("R&eacute;f&eacute;rence");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("dateEcheance").setLibelle("Date echeance");
         pc.getChampByName("montant").setLibelle("Montant");
