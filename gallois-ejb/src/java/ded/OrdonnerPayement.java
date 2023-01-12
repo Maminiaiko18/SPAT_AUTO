@@ -792,7 +792,7 @@ public class OrdonnerPayement extends ClassEtat {
     }
 
     @Override
-    public void controleAnnulerVisa() throws Exception {
+    public void controleAnnulerVisa(Connection c) throws Exception {
         if(this.getPaiement(null).length!=0)throw new Exception("Annuler visa non permis, les lignes de paiement existant pour cet OP");
     }
 }
