@@ -23,14 +23,11 @@
                 titre = "Transfert Caisse";
         int taille = 10;
         MvttIntraCaisse objet = new MvttIntraCaisse();
-        
         objet.setNomTable(nomtable);
-        
         MvtIntraCaisseFille fille = new MvtIntraCaisseFille();
         fille.setNomTable(nomTableFille);
         PageInsertMultiple pi = new PageInsertMultiple(objet, fille, request, taille, u);
         pi.setLien((String) session.getValue("lien"));        
-        
         if (request.getParameter("ids") != null) {
             double somme = objet.calculerSomme(request.getParameter("ids"));
             pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(somme));
@@ -67,10 +64,12 @@
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("remarque").setVisible(false);
-        pi.getFormu().getChamp("caissedepart").setLibelle("Départ");
-        pi.getFormu().getChamp("caissearrivee").setLibelle("Arrivée");
+        pi.getFormu().getChamp("caissedepart").setLibelle("Dï¿½part");
+        pi.getFormu().getChamp("caissearrivee").setLibelle("Arrivï¿½e");
+        pi.getFormu().getChamp("caissearrivee").setDefaut(request.getParameter("banque"));
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
-        pi.getFormu().getChamp("idTraite").setLibelle("Traite rattachée");
+        pi.getFormu().getChamp("idTraite").setLibelle("Traite rattachï¿½e");
+        pi.getFormu().getChamp("idTraite").setDefaut(request.getParameter("id"));
         pi.getFormu().getChamp("idTraite").setAutre("readonly");
         
         pi.getFormufle().getChamp("Reference_0").setLibelle("R&eacute;ference");
