@@ -17,7 +17,7 @@
 
         String listeCrt[] = {"idTraite"};
         String listeInt[] = {};
-        String libEntete[] = {"id", "idtraite", "idfc", "factureclientlib", "tiers", "daty", "montant", "etat"};
+        String libEntete[] = {"idfc", "factureclientlib", "tiers", "daty", "montant", "etat"};
 
         PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -40,7 +40,11 @@
     </section>
     <section class="content">
         <%
-            String libelleAffiche[] = {"Id", "Traite", "Id Facture", "Facture client", "Tiers", "Date", "Montant", "Etat"};
+            String libelleAffiche[] = {"Id Facture", "Facture client", "Tiers", "Date", "Montant", "Etat"};
+            String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
+            String colonneLien[] = {"idfc"};
+            pr.getTableau().setLien(lienTableau);
+            pr.getTableau().setColonneLien(colonneLien);
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             out.println(pr.getTableau().getHtml());
         %>
