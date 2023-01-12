@@ -12,14 +12,16 @@
     String lien = (String) session.getValue("lien"),
            titre = "Traite Fiche",
            mapping = "facture.tr.Traite",
-           apres = "facture/traite-fiche.jsp";
+           apres = "facture/traite-fiche.jsp",
+           nomTable = "TRAITE_LIB";
     try {
         Traite traite = new Traite();
+        traite.setNomTable(nomTable);
         PageConsulte pc = new PageConsulte(traite, request, (user.UserEJB) session.getValue("u"));
         pc.getChampByName("id").setVisible(false);
         pc.getChampByName("tiers").setLibelle("Tiers");
         pc.getChampByName("banque").setLibelle("Banque");
-        pc.getChampByName("reference").setLibelle("R&eacute;f&eacute;rence");
+        //pc.getChampByName("reference").setLibelle("R&eacute;f&eacute;rence");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("dateEcheance").setLibelle("Date echeance");
         pc.getChampByName("montant").setLibelle("Montant");
@@ -59,7 +61,7 @@
                     <a class="btn btn-success"  href="<%=lien + "?but=apresTarif.jsp&acte=valider&classe="+mapping+"&bute="+apres+"&id=" + traite.getId() %>"  style="margin-right: 10px">Viser</a>
                     <!---<a class="btn btn-primary"  href="<%=lien + "?but=treso/journalcaisse-saisie.jsp&credit="+traite.getMontant()+"&idmode=modetraite&caisse=caissetraite"%>"  style="margin-right: 10px">Encaisser</a>--->
                     <a class="btn btn-primary"  href="<%=lien + "?but=facture/escompte-saisie.jsp&idTraite="+traite.getId()%>"  style="margin-right: 10px">Escompter</a>
-                    <a class="btn btn-primary"  href="<%=lien + "?but=treso/transfert-caisse.jsp&montant="+traite.getMontant()+"&caissedepart=caissetraite"%>"  style="margin-right: 10px">Verser</a>
+                    <a class="btn btn-primary"  href="<%=lien + "?but=treso/transfert-caisse.jsp&montant="+traite.getMontant()+"&caissedepart=caissetraite&id=" + traite.getId()+"&banque="+traite.getBanque()%>"  style="margin-right: 10px">Verser</a>
                 </div>
                 
             </div>
