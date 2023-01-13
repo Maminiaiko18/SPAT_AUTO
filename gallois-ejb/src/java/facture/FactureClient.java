@@ -1513,7 +1513,7 @@ public class FactureClient extends ClassMere {
 
     @Override
     public String getValColLibelle() {
-        return designation;
+        return Utilitaire.formaterAr(montantreste);
     }
 
     public double getMontantavoir() {
