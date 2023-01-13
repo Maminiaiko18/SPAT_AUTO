@@ -1167,11 +1167,6 @@ public class EtatPaieServlet extends HttpServlet {
 
                 param.put("responsable", "Pr&eacute;par&eacute; Par");
                 param.put("chef", "Le Responsable Facturation");
-                if (mere[0].getEstMictsl() != null && mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
-
-                    param.put("chef", "Le chef de D&eacute;partement");
-                    param.put("responsable", "Le contr&ocirc;leur");
-                }
 
                 if (facture.getBateaulib() != null || pre.length >= 1) {
 
@@ -1197,6 +1192,8 @@ public class EtatPaieServlet extends HttpServlet {
                     setNomJasper("facture_client2 - Copie");// facture_client2 - Copie //facture_convention
                                                             // //facture-client-sans-prevision
                 } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
+                    param.put("chef", "Le chef de D&eacute;partement");
+                    param.put("responsable", "Le contr&ocirc;leur");
                     setNomJasper("facture-Mictsl");
                 } else {
                     setNomJasper("facture-client-sans-prevision");

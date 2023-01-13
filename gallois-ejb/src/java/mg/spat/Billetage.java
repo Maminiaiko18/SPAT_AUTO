@@ -20,6 +20,12 @@ import utilitaire.Utilitaire;
  * @author john
  */
 public class Billetage extends ClassEtat{
+    @Override
+    public String toString() {
+        return "Billetage [id=" + id + ", caisse=" + caisse + ", daty=" + daty + ", montant=" + montant + ", idcaisse="
+                + idcaisse + "]";
+    }
+
     private String id, caisse;
     private Date daty;
     private double montant;
@@ -98,11 +104,9 @@ public class Billetage extends ClassEtat{
     }
     
     public void genererReportVise(Connection c, String user) throws Exception{
-        Billetage b = new Billetage();
-        b = (Billetage)this.getById(this.getId(), "BILLETAGE", c);
         Report report = new Report();
-        report.setDaty(Utilitaire.dateDuJourSql());
-        report.setCaisse(Constante.caisseCentraleEspece);
+        report.setDaty(this.getDaty());
+        report.setCaisse(this.getCaisse());
         double montant = AdminGen.calculSommeDouble(getDetails(c), "montant");
         report.setMontant(montant);
         report.setDevise("Ar");

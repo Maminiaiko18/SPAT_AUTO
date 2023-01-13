@@ -794,8 +794,9 @@ public class FactureFournisseur extends FactureClient {
         }
     }
     
-    public void controleAnnulerVisa() throws Exception {
-        Connection c = null;
+    @Override
+    public void controleAnnulerVisa(Connection c) throws Exception {
+        c = null;
         
         try {
             c = (new UtilDB()).GetConn();
