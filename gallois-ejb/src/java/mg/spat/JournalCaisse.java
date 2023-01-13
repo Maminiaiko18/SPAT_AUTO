@@ -781,6 +781,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 throw new Exception("mouvement caissse deja valide");
             }
 
+            if((this.getType().equals(Constante.getTraite()) && this.getIdcaisse().equals(Constante.getCaisseTraite())==false) || (this.getType().equals(Constante.getTraite())==false && this.getIdcaisse().equals(Constante.getCaisseTraite()))) {
+                throw new Exception("Veuillez choisir caisse traite et type de paiement Traite");
+            }
+
             if (this.getIdordre() != null) { 
                 OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir FC
                 if(op != null) {

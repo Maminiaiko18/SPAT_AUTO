@@ -7,32 +7,38 @@ package mg.spat.stock;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ClassFille;
 import bean.ClassMAPTable;
+import static bean.ClassMere.getNomClasseFille;
 import facture.FactureFournisseur;
+import facture.FactureFournisseurDetails;
 
 import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.Engagement;
+import mg.spat.EngagementFille;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
+
 /**
  *
  * @author BICI
  */
 public class BonDeCommande extends ClassEtat {
 
-    private String id, designation, modepaiement, fournisseur,idDa,idDalib;
+    private String id, designation, modepaiement, fournisseur, idDa, idDalib;
     private Date daty;
-    private int tva, delaipaiement ;
+    private int tva, delaipaiement;
     String remarque;
-    private String nomfournisseur,numbc;
-    private double montant, montanttva, montantTTC, montant_A_payer, montant_paye_reel, restepayergeneral, resteapayerreel,montantfacture;
+    private String nomfournisseur, numbc;
+    private double montant, montanttva, montantTTC, montant_A_payer, montant_paye_reel, restepayergeneral, resteapayerreel, montantfacture;
     private String projet, code_etab, etatlib;
     private String projet_lib, code_etab_lib, fournisseur_lib, modepaiement_lib;
     private String adresse;
-    private double remise,montantRemise,montantHTSansRemise;
-    private String idengagement ,idengagementlib,code_etablib;
+    private double remise, montantRemise, montantHTSansRemise;
+    private String idengagement, idengagementlib, code_etablib;
 
     public String getCode_etablib() {
         return code_etablib;
@@ -41,7 +47,7 @@ public class BonDeCommande extends ClassEtat {
     public void setCode_etablib(String code_etablib) {
         this.code_etablib = code_etablib;
     }
-    
+
     public double getMontantHTSansRemise() {
         return montantHTSansRemise;
     }
@@ -49,8 +55,7 @@ public class BonDeCommande extends ClassEtat {
     public void setMontantHTSansRemise(double montantHTSansRemise) {
         this.montantHTSansRemise = montantHTSansRemise;
     }
-    
-    
+
     public String getIdDa() {
         return this.idDa;
     }
@@ -82,7 +87,7 @@ public class BonDeCommande extends ClassEtat {
     public void setIdengagementlib(String idengagementlib) {
         this.idengagementlib = idengagementlib;
     }
-            
+
     public double getMontantRemise() {
         return montantRemise;
     }
@@ -92,7 +97,7 @@ public class BonDeCommande extends ClassEtat {
     }
     private String delailivraison;
     private String typepaiement;
-    private String fournisseurlibelle,projetlibelle,code_etablibelle;
+    private String fournisseurlibelle, projetlibelle, code_etablibelle;
 
     public String getFournisseurlibelle() {
         return fournisseurlibelle;
@@ -117,8 +122,7 @@ public class BonDeCommande extends ClassEtat {
     public void setCode_etablibelle(String code_etablibelle) {
         this.code_etablibelle = code_etablibelle;
     }
-    
-    
+
     public String getDelailivraison() {
         return delailivraison;
     }
@@ -150,8 +154,7 @@ public class BonDeCommande extends ClassEtat {
     public void setRemise(double remise) {
         this.remise = remise;
     }
-    
-    
+
     public int getDelaipaiement() {
         return delaipaiement;
     }
@@ -159,8 +162,7 @@ public class BonDeCommande extends ClassEtat {
     public void setDelaipaiement(int delaipaiement) {
         this.delaipaiement = delaipaiement;
     }
-               
-               
+
     public String getNomfournisseur() {
         return nomfournisseur;
     }
@@ -284,9 +286,10 @@ public class BonDeCommande extends ClassEtat {
         return "id";
     }
 
-    public void setMontantTTC(double a){
+    public void setMontantTTC(double a) {
         this.montantTTC = a;
     }
+
     public double getMontantTTC() {
         return montantTTC;
     }
@@ -366,7 +369,7 @@ public class BonDeCommande extends ClassEtat {
     public void setCode_etab(String code_etab) {
         this.code_etab = code_etab;
     }
-    
+
     public double getMontantfacture() {
         return montantfacture;
     }
@@ -374,7 +377,7 @@ public class BonDeCommande extends ClassEtat {
     public void setMontantfacture(double montantfacture) {
         this.montantfacture = montantfacture;
     }
-    
+
     public String getEtatlib() {
         return etatlib;
     }
@@ -382,24 +385,24 @@ public class BonDeCommande extends ClassEtat {
     public void setEtatlib(String etatlib) {
         this.etatlib = etatlib;
     }
-    public static String getSequence() throws Exception{
-        try{
+
+    public static String getSequence() throws Exception {
+        try {
             return String.valueOf(Utilitaire.getMaxSeq("get_seqbccommande"));
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
         }
     }
-    public static String getNumBCDefaut() throws Exception{
-        try{
+
+    public static String getNumBCDefaut() throws Exception {
+        try {
             String temporaire = "";
             temporaire += String.valueOf(Utilitaire.getMaxSeq("get_seqbccommande"));
             temporaire += Constante.bc;
             temporaire += Utilitaire.getAnneeEnCours();
             return temporaire;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
         }
@@ -410,15 +413,15 @@ public class BonDeCommande extends ClassEtat {
         setIduser(u);
         return super.createObject(u, c); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public boolean canBeCanceled(Connection c) throws Exception {
         boolean check = false, value = true;
         try {
-            if(c == null){
+            if (c == null) {
                 c = new UtilDB().GetConn();
                 check = true;
             }
-            if(this.getEtat() == ConstanteEtat.getEtatAnnuler()){
+            if (this.getEtat() == ConstanteEtat.getEtatAnnuler()) {
                 value = false;
             }
             BonDeLivraison bl = new BonDeLivraison();
@@ -428,21 +431,24 @@ public class BonDeCommande extends ClassEtat {
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
-        }
-        finally{
-            if(check && c!=null) c.close();
+        } finally {
+            if (check && c != null) {
+                c.close();
+            }
         }
         return value;
-    }    
+    }
 
     public String annulerRemplacer(String user) throws Exception {
         Connection c = null;
         BonDeCommande value = null;
-        try{
+        try {
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
-            
-            if(!this.canBeCanceled(c)) throw new Exception("Ce bon de commande ne peut être annulé");
+
+            if (!this.canBeCanceled(c)) {
+                throw new Exception("Ce bon de commande ne peut être annulé");
+            }
 
             setMode("modif");
             this.setEtat(ConstanteEtat.getEtatAnnuler());
@@ -456,40 +462,42 @@ public class BonDeCommande extends ClassEtat {
             bcFille.setIdbc(this.id);
             ClassMAPTable[] filles = (ClassMAPTable[]) CGenUtil.rechercher(bcFille, null, null, c, "");
             BonDeCommandeFille[] fillesClone = new BonDeCommandeFille[filles.length];
-            
-            for(int i = 0; i<filles.length; i++){
+
+            for (int i = 0; i < filles.length; i++) {
                 fillesClone[i] = (BonDeCommandeFille) filles[i].dupliquer(user, c);
                 fillesClone[i].setIdbc(value.getId());
                 fillesClone[i].createObject(user, c);
             }
-        }
-        catch(Exception ex){
-            if(c != null) c.rollback();
+        } catch (Exception ex) {
+            if (c != null) {
+                c.rollback();
+            }
             ex.printStackTrace();
             throw ex;
-        }
-        finally {
-            if (c != null) c.close();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
         }
         return value.getId();
     }
 
-    public BonDeLivraison[] getBLRattaches(Connection c, String nomTable)throws Exception{
+    public BonDeLivraison[] getBLRattaches(Connection c, String nomTable) throws Exception {
         int verif = 0;
         BonDeLivraison[] result = null;
-        try{
-            if(c==null){
+        try {
+            if (c == null) {
                 verif = 1;
                 c = new UtilDB().GetConn();
             }
             BonDeLivraison bl = new BonDeLivraison();
             bl.setNomTable(nomTable);
             bl.setId_bc(this.getId());
-            result = (BonDeLivraison[])CGenUtil.rechercher(bl, null, null, c, "");
-        }catch(Exception ex){
+            result = (BonDeLivraison[]) CGenUtil.rechercher(bl, null, null, c, "");
+        } catch (Exception ex) {
             throw ex;
-        }finally{
-            if(verif==1 && c!=null){
+        } finally {
+            if (verif == 1 && c != null) {
                 c.close();
             }
         }
@@ -497,21 +505,79 @@ public class BonDeCommande extends ClassEtat {
     }
 
     @Override
-    public void controleAnnulerVisa(Connection c) throws Exception
-    {
+    public void controleAnnulerVisa(Connection c) throws Exception {
         int verif = 0;
-        try{
-            if(c==null){
+        try {
+            if (c == null) {
                 verif = 1;
                 c = new UtilDB().GetConn();
             }
             BonDeLivraison bl = new BonDeLivraison();
             BonDeLivraison[] blRattache = getBLRattaches(c, bl.getNomTable());
-            if(blRattache.length!=0) throw new Exception ("Annulation VISA non permise, BL rattaché existant");
-        }catch(Exception ex){
+            if (blRattache.length != 0) {
+                throw new Exception("Annulation VISA non permise, BL rattaché existant");
+            }
+        } catch (Exception ex) {
             throw ex;
-        }finally{
-            if(verif==1 && c!=null){
+        } finally {
+            if (verif == 1 && c != null) {
+                c.close();
+            }
+        }
+    }
+     
+    public Engagement getEngagement() throws Exception {
+        Engagement retour = new Engagement(this.getNumbc(), null , this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, this.getDaty());
+        retour.setEtat(ConstanteEtat.getEtatValider());
+        return retour;
+    }
+    
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
+            BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
+            this.setMontant(bc.getMontant());
+            this.insertEngagement(u,c);
+           }this.setNomTable("as_bondecommande");
+        super.validerObject(u, c);
+        return this;
+    }
+    
+    public void insertEngagement(String u, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            Engagement engagement = this.getEngagement();
+            engagement.construirePK(c);
+            engagement.insertToTableWithHisto(u, c);
+            
+            BonDeCommandeFille bcFille = new BonDeCommandeFille();
+            bcFille.setIdbc(this.id);
+            BonDeCommandeFille[] filles = (BonDeCommandeFille[]) CGenUtil.rechercher(bcFille, null, null, c, "");
+            
+            for (int i = 0; i < filles.length; i++) {
+                EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());
+                engFille.construirePK(c);
+                engFille.insertToTableWithHisto(u, c);
+            }
+            this.setIdengagement(engagement.getTuppleID());
+
+            if (c != null && verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
                 c.close();
             }
         }
