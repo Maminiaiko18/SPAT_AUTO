@@ -32,6 +32,7 @@
         Map<String, String> map = new HashMap<String, String>();
         map.put("escompte-liste", "");
         map.put("fftraite-liste", "");
+        map.put("jc-liste", "");
         if(tab == null) {
             tab = "escompte-liste";
         }
@@ -73,6 +74,7 @@
                 <ul class="nav nav-tabs">
                     <li class="<%= map.get("escompte-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=escompte-liste">Escomptes</a></li>
                     <li class="<%= map.get("fftraite-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=fftraite-liste">Facture rattachees</a></li>
+                    <li class="<%= map.get("jc-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=jc-liste">Journal caisse</a></li>
                 </ul>
                 <div class="tab-content">       
                    <jsp:include page="<%=tab%>" >  
