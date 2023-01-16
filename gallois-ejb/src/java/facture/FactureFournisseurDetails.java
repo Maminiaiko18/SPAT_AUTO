@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lignecredit.LigneCredit;
+import mg.spat.EngagementFille;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.Utilitaire;
@@ -190,5 +191,9 @@ public class FactureFournisseurDetails extends FactureClientDetails{
             throw e;
         }
         return super.createObject(user, c);
+    }
+
+    public EngagementFille createEngagementFille(String idEngagement)throws Exception{
+        return new EngagementFille(idEngagement,this.getDesignation(),this.getQuantite()*this.getPu());
     }
 }

@@ -7,6 +7,7 @@ package facture.tr;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import facture.PaiementFacture;
 import mg.spat.JournalCaisse;
 import utilitaire.Constante;
@@ -178,6 +179,10 @@ public class FCTraite  extends ClassEtat{
         }
     }
 
+    public void controler(Connection c) throws Exception {
+        verifSoldeTraite(c);
+    }
+
     public Object validerObject(String u, Connection c) throws Exception{
         Object retour=this;
         int verif=0;
@@ -189,13 +194,13 @@ public class FCTraite  extends ClassEtat{
             }
             verifSoldeTraite(c);
 
-            JournalCaisse jc=this.getJC(c);
+            /*JournalCaisse jc=this.getJC(c);
             if(jc!=null){
                 jc.createObject(u, c);
                 PaiementFacture pf=new PaiementFacture(jc.getTuppleID(), this.getIdFC(), this.getMontant());
                 pf.createObject(u, c);
             }
-
+            */
             retour=super.validerObject(u, c);
             
             if(c!=null && verif==1)c.commit();

@@ -85,7 +85,7 @@ public class Liste extends Champ {
     }
 
     public void makeListeMois() {
-	String affiche[] = {"Janvier", "F�vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "D�cembre"};
+	String affiche[] = {"Janvier", "F&eacute;vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "D&eacute;cembre"};
 	String valeur[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
 	setValeurBrute(affiche);
 	setColValeurBrute(valeur);

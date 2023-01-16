@@ -157,6 +157,11 @@ public class Constante {
     public static final String compteHorsCircuit="00000000000";
     public static final String compteBP="121MHI62512";
     private static String traite = "pay6";
+    private static String caisseTraite = "CAIS00000T00016";
+
+    public static String getCaisseTraite(){
+        return caisseTraite;
+    }
 
 
     public static String getTypeFCAuComptant() {

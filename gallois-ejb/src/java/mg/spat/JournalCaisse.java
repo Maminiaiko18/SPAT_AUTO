@@ -19,6 +19,7 @@ import facture.FactureFournisseurDetails;
 import facture.NumeroFacture;
 import facture.PaiementFacture;
 import facture.UtilitaireFacture;
+import facture.tr.Traite;
 import factureclient.PayementFacture;
 import facturefournisseur.RegulFacture;
 import java.sql.Connection;
@@ -781,6 +782,12 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 throw new Exception("mouvement caissse deja valide");
             }
 
+            if(this.getIdmode()!=null && Utilitaire.champNull(this.getIdcaisse()).compareToIgnoreCase(Constante.getCaisseTraite())==0 ) {
+                if((this.getIdmode().equals(Constante.getTraite()) && this.getIdcaisse().equals(Constante.getCaisseTraite())==false) || (this.getIdmode().equals(Constante.getTraite())==false && this.getIdcaisse().equals(Constante.getCaisseTraite()))) {
+                    throw new Exception("Veuillez choisir caisse traite et type de paiement Traite");
+                }
+            }
+
             if (this.getIdordre() != null) { 
                 OrdonnerPayement op = getOP("ordonnerpayementAvoirFC", c); // ho an'ny avoir FC
                 if(op != null) {
@@ -1179,6 +1186,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
     
     public String calculerNumeroPieceDepense(Connection c) throws Exception{
+        if(this.getCaisse().equalsIgnoreCase(Constante.getCaisseTraite())){
+            Traite traite=this.getTraite(c);
+            if(traite!=null)return traite.getReference();
+        }
         String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
         String annee = Utilitaire.getAnnee(dateEffetStr), mois = Utilitaire.getMois(dateEffetStr);
         String seq="";
@@ -1371,5 +1382,27 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
         }
         
+    }
+
+    public Traite getTraite(Connection c)throws Exception{
+        Traite retour=null;
+        int verif=0;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
+            Traite traite=new Traite();
+            traite.setNomTable("FCTRAITE_TR");
+            String req="SELECT idTraite as id,datytraite as daty,tiers,banque,dateecheance,reference,etattraite as etat,montanttraite as montant FROM FCTRAITE_TR WHERE idJC='"+this.getTuppleID()+"'";
+            Traite[] listeTraite=(Traite[])CGenUtil.rechercher(traite, req, c);
+            if(listeTraite.length>0)retour=listeTraite[0];
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+        return retour;
     }
 }
