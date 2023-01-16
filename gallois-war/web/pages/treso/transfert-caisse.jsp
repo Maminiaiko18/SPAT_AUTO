@@ -68,9 +68,6 @@
         pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv�e");
         pi.getFormu().getChamp("caissearrivee").setDefaut(request.getParameter("banque"));
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
-        pi.getFormu().getChamp("idTraite").setLibelle("Traite rattach�e");
-        pi.getFormu().getChamp("idTraite").setDefaut(request.getParameter("id"));
-        pi.getFormu().getChamp("idTraite").setAutre("readonly");
         
         pi.getFormufle().getChamp("Reference_0").setLibelle("R&eacute;ference");
         pi.getFormufle().getChamp("Remarque_0").setLibelle("Remarque");
