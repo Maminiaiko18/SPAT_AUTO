@@ -31,6 +31,13 @@ public class EngagementFille extends ClassMAPTable{
     public EngagementFille() {
         super.setNomTable("engagement_fille");
     }
+
+    public EngagementFille(String idMere,String designation,double montant)throws Exception{
+        this.setNomTable("engagement_fille");
+        this.setIdmere(idMere);
+        this.setDesignation(designation);
+        this.setMontant(montant);
+    }
     
     public String getId() {
         return id;
