@@ -27,6 +27,14 @@ public class BonDeCommandeFille extends ClassMAPTable {
     private double montantremise,montantTVA,taux ;
     private String observation;
     private String code,codelib,projet,projetlib,devise;
+    private String designation;
+
+    public void setDesignation(String designation){
+        this.designation=designation;
+    }
+    public String getDesignation(){
+        return this.designation;
+    }
 
     public double getTaux() {
         return taux;
@@ -431,6 +439,6 @@ public class BonDeCommandeFille extends ClassMAPTable {
     }
      
     public EngagementFille createEngagementFille(String idEngagement)throws Exception{
-        return new EngagementFille(idEngagement,this.getRemarque(),this.getQuantite()*this.getPu());
+        return new EngagementFille(idEngagement,this.getDesignation(),this.getQuantite()*this.getPu());
     }
 }

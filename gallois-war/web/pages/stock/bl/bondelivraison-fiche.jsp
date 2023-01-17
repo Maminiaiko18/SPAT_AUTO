@@ -64,7 +64,6 @@
                             <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/bondelivraison-modif.jsp&id=" + livraison.getId()%>" style="margin-right:10px">Modifier</a>
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.stock.BonDeLivraison&bute=stock/bl/bondelivraison-fiche.jsp&id=" + livraison.getId()%>" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idBL=" + livraison.getId()%>" style="margin-right:10px">Facturer</a>
-                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idBL=" + livraison.getId()%>" style="margin-right:10px">Facturer</a>
                             <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=bondelivraison&id=<%=livraison.getId()%>" style="margin-right: 10px">Imprimer</a>         
                         </div>
                     </div>
