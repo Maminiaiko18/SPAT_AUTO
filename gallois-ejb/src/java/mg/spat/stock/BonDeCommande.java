@@ -527,8 +527,7 @@ public class BonDeCommande extends ClassEtat {
     }
      
     public Engagement getEngagement() throws Exception {
-        Engagement retour = new Engagement(this.getNumbc(), null , this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, this.getDaty());
-        retour.setEtat(ConstanteEtat.getEtatValider());
+        Engagement retour = new Engagement(this.getNumbc(), this.getCode_etab() , this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, this.getDaty());
         return retour;
     }
     
@@ -537,7 +536,7 @@ public class BonDeCommande extends ClassEtat {
         if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
             BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
             this.setMontant(bc.getMontant());
-            //this.insertEngagement(u,c);
+            this.insertEngagement(u,c);
             this.updateToTableWithHisto(u, c);
            }this.setNomTable("as_bondecommande");
         super.validerObject(u, c);
@@ -566,6 +565,9 @@ public class BonDeCommande extends ClassEtat {
                 engFille.construirePK(c);
                 engFille.insertToTableWithHisto(u, c);
             }
+
+            engagement.validerObject(u, c);
+
             this.setIdengagement(engagement.getTuppleID());
 
             if (c != null && verif == 1) {

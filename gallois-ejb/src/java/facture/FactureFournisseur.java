@@ -653,7 +653,7 @@ public class FactureFournisseur extends FactureClient {
         }else{
             FactureFournisseur ff = (FactureFournisseur)new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
             this.setMontant(ff.getMontant());
-            //this.insertEngagement(u,c);
+            this.insertEngagement(u,c);
         } 
         this.setNomTable("facture_fournisseur_mere");
         super.validerObject(u, c);
@@ -816,8 +816,7 @@ public class FactureFournisseur extends FactureClient {
     }
 
     public Engagement getEngagement()throws Exception{
-        Engagement retour=new Engagement(this.getDesignation(),this.getCodeEtablissement(),this.getProjet(),this.getMontant(),0.0,0.0,0.0,null,null,this.getDaty());
-        retour.setEtat(ConstanteEtat.getEtatValider());
+        Engagement retour=new Engagement(this.getDesignation(),this.getCode_etablissement(),this.getProjet(),this.getMontant(),0.0,0.0,0.0,null,null,this.getDaty());
         return retour;
     }
 
@@ -840,6 +839,9 @@ public class FactureFournisseur extends FactureClient {
                 engFille.construirePK(c);
                 engFille.insertToTableWithHisto(u, c);
             }
+
+            engagement.validerObject(u, c);
+
             this.setIdengagement(engagement.getTuppleID());
             
             if(c!=null && verif==1)c.commit();
