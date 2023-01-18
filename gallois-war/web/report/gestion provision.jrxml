@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gestion provision" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="256b12f1-e681-4953-8bf8-fd2209703c08">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="159"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="278"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -428,25 +428,18 @@
 				<textFieldExpression><![CDATA[$P{montantttc}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="567" y="106" width="118" height="51" uuid="9fc36502-efe7-422e-8785-33fa9efe5d88"/>
+				<reportElement x="518" y="106" width="252" height="51" uuid="9fc36502-efe7-422e-8785-33fa9efe5d88"/>
 				<textElement textAlignment="Center">
 					<font size="16" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Chef de Departement Facturation]]></text>
+				<text><![CDATA[Chef de département de facturation ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="221" y="134" width="127" height="23" uuid="e6b3d382-fed9-4453-8ce5-140ddf3a037f"/>
+				<reportElement x="127" y="106" width="252" height="28" uuid="a2a1056d-033f-4537-871f-23cae3c429bf"/>
 				<textElement textAlignment="Center">
 					<font size="16" isBold="false"/>
 				</textElement>
-				<text><![CDATA[contrat FIOS]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="204" y="106" width="144" height="28" uuid="a2a1056d-033f-4537-871f-23cae3c429bf"/>
-				<textElement textAlignment="Center">
-					<font size="16" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Chef de bureau]]></text>
+				<text><![CDATA[chef de service gestion de facture]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="518" y="2" width="201" height="20" uuid="04381622-7423-4c2e-8714-11adf4023891"/>
