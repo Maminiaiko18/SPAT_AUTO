@@ -640,6 +640,9 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        LigneCredit lc=this.getBudget(c);
+        if(lc==null)throw new Exception("Budget non trouvé");
+
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
@@ -852,6 +855,29 @@ public class FactureFournisseur extends FactureClient {
         }finally{
             if(c!=null && verif==1)c.close();
         }
+    }
+
+    public LigneCredit getBudget(Connection c)throws Exception{
+        int verif=0;
+        LigneCredit retour=null;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
+            LigneCredit lc=new LigneCredit();
+            lc.setNomTable("SITUATIONLCDEPENSEGRP");
+            lc.setIdcodeEtablissement(this.getCode_etablissement());
+            lc.setIdprojet(this.getProjet());
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee="+Utilitaire.getAnnee(this.getDaty()));
+            if(ligneCredits.length>0)retour=ligneCredits[0];   
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+        return retour;
     }
 
 }
