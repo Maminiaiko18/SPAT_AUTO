@@ -13,6 +13,7 @@ import java.sql.Date;
 import service.BilletageService;
 import service.ClotureService;
 import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
 import utilitaire.Utilitaire;
 
 /**
@@ -102,12 +103,29 @@ public class Billetage extends ClassEtat{
         DetailsBilletage[] result = (DetailsBilletage[]) CGenUtil.rechercher(new DetailsBilletage(), null, null, c, String.format(" and idmere = '%s' ", this.getId()));
         return result;
     }
-    
+
+    public JournalCaisse[] getJournal(Connection c) throws Exception{
+        JournalCaisse filtre = new JournalCaisse();
+        filtre.setCaisse(this.getCaisse());
+        filtre.setEtat(ConstanteEtat.getEtatValider());
+        JournalCaisse[] result = (JournalCaisse[]) CGenUtil.rechercher(filtre, null, null, c,String.format(" AND dateeffet = to_date('%s','YYYY-MM-DD')", this.getDaty().toString()));
+        return result;
+    }
+
+    public Report getLastReport(Connection c) throws Exception{
+        Report filtre = new Report();
+        filtre.setCaisse(this.getCaisse());
+        Report[] result = (Report[]) CGenUtil.rechercher(filtre, null, null, c, String.format(" AND daty < to_date('%s','YYYY-MM-DD') ORDER BY daty desc", this.getDaty().toString()));
+        return result[0];
+    }
+
     public void genererReportVise(Connection c, String user) throws Exception{
         Report report = new Report();
         report.setDaty(this.getDaty());
         report.setCaisse(this.getCaisse());
-        double montant = AdminGen.calculSommeDouble(getDetails(c), "montant");
+        double lastReport = this.getLastReport(c).getMontant();
+        double sortie = AdminGen.calculSommeDouble(getJournal(c), "debit");
+        double montant = (lastReport + this.getMontant()) - sortie ;
         report.setMontant(montant);
         report.setDevise("Ar");
         report.createObject(user, c);
