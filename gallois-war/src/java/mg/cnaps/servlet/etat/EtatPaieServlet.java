@@ -418,7 +418,7 @@ public class EtatPaieServlet extends HttpServlet {
             String id = request.getParameter("id");
             OrdonnerPayementPDF op = new OrdonnerPayementPDF();
             op.setId(id);
-            op.setNomTable("ordonnerpayement_pdf");
+            op.setNomTable("OrdonnerPayement_LIB");
             OrdonnerPayementPDF[] tabOp = (OrdonnerPayementPDF[]) CGenUtil.rechercher(op, null, null, "  ");
             Map param = new HashMap();
             if (tabOp.length > 0) {
