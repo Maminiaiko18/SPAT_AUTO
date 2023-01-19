@@ -119,7 +119,7 @@ public class Billetage extends ClassEtat{
         return result[0];
     }
 
-    public void genererReportVise(Connection c, String user) throws Exception{
+    public void genererReportCreer(Connection c, String user) throws Exception{
         Report report = new Report();
         report.setDaty(this.getDaty());
         report.setCaisse(this.getCaisse());
@@ -129,12 +129,11 @@ public class Billetage extends ClassEtat{
         report.setMontant(montant);
         report.setDevise("Ar");
         report.createObject(user, c);
-        report.validerObject(user, c);
     }
     
     public Object validerObject(String u, Connection c) throws Exception
     {
-        this.genererReportVise(c, u);
+        this.genererReportCreer(c, u);
         return super.validerObject(u, c);
     }
 }
