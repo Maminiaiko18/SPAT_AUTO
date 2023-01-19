@@ -13,7 +13,7 @@
            titre = "Traite Fiche",
            mapping = "facture.tr.Traite",
            apres = "facture/traite-fiche.jsp",
-           nomTable = "TRAITE_LIB";
+           nomTable = "TRAITE_LIBMTT";
     try {
         Traite traite = new Traite();
         traite.setNomTable(nomTable);
@@ -25,6 +25,8 @@
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("dateEcheance").setLibelle("Date echeance");
         pc.getChampByName("montant").setLibelle("Montant");
+         pc.getChampByName("escompte").setLibelle("Escompte");
+        pc.getChampByName("total").setLibelle("Total");
         pc.setTitre(titre);
         traite = (Traite) pc.getBase();
 
@@ -62,7 +64,7 @@
                     <a class="btn btn-success"  href="<%=lien + "?but=apresTarif.jsp&acte=valider&classe="+mapping+"&bute="+apres+"&id=" + traite.getId() %>"  style="margin-right: 10px">Viser</a>
                     <!---<a class="btn btn-primary"  href="<%=lien + "?but=treso/journalcaisse-saisie.jsp&credit="+traite.getMontant()+"&idmode=modetraite&caisse=caissetraite"%>"  style="margin-right: 10px">Encaisser</a>--->
                     <a class="btn btn-primary"  href="<%=lien + "?but=facture/escompte-saisie.jsp&idTraite="+traite.getId()%>"  style="margin-right: 10px">Escompter</a>
-                    <a class="btn btn-primary"  href="<%=lien + "?but=treso/transfert-caisse.jsp&montant="+traite.getMontant()+"&caissedepart=caissetraite&idTraite=" + traite.getId()+"&banque="+traite.getBanque()%>"  style="margin-right: 10px">Verser</a>
+                    <a class="btn btn-primary"  href="<%=lien + "?but=treso/transfert-caisse.jsp&montant="+traite.getTotal()+"&caissedepart=caissetraite&idTraite=" + traite.getId()+"&banque="+traite.getBanque()%>"  style="margin-right: 10px">Verser</a>
                     <!--<a class="btn btn-primary"  href="#"  style="margin-right: 10px">Retourner</a>-->
                 </div>
                 
