@@ -60,8 +60,8 @@
         pi.getFormu().getChamp("exercice").setLibelle("Exercice");
         pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
-        //pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro Compta");
-        pi.getFormu().getChamp("numeroop").setVisible(false);
+        pi.getFormu().getChamp("numeroop").setLibelle("N° Facture");
+        pi.getFormu().getChamp("numeroop").setVisible(true);
         pi.getFormu().getChamp("dateRegul").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
