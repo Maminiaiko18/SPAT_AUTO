@@ -41,6 +41,9 @@
         if(request.getParameter("montant")!=null){
              pi.getFormu().getChamp("montant").setDefaut(request.getParameter("montant"));
         }
+        if(request.getParameter("idTraite")!=null){
+             pi.getFormu().getChamp("idTraite").setDefaut(request.getParameter("idTraite"));
+        }
         affichage.Champ[] liste = new affichage.Champ[3];
         Caisse listedepart = new Caisse();
         listedepart.setNomTable("caisse");
@@ -61,6 +64,8 @@
         pi.getFormu().changerEnChamp(liste);
         
         pi.getFormu().getChamp("etat").setVisible(false);
+        pi.getFormu().getChamp("idTraite").setLibelle("Traite");
+        pi.getFormu().getChamp("idTraite").setAutre("readonly");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("remarque").setVisible(false);

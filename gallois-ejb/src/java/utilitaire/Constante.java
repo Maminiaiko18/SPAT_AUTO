@@ -157,7 +157,29 @@ public class Constante {
     public static final String compteHorsCircuit="00000000000";
     public static final String compteBP="121MHI62512";
     private static String traite = "pay6";
-    private static String caisseTraite = "CAIS00000T00016";
+    private static String caisseTraite = "CAIS00000T00016"; 
+    private static String caisseDepense = "CAI0000000015200311"; 
+    private static String typeCaissePhysique = "2"; 
+
+    public static String getTypeCaissePhysique() {
+        return typeCaissePhysique;
+    }
+
+
+    public static void setTypeCaissePhysique(String typeCaissePhysique) {
+        Constante.typeCaissePhysique = typeCaissePhysique;
+    }
+
+
+    public static String getCaisseDepense() {
+        return caisseDepense;
+    }
+
+
+    public static void setCaisseDepense(String caisseDepense) {
+        Constante.caisseDepense = caisseDepense;
+    }
+
 
     public static String getCaisseTraite(){
         return caisseTraite;

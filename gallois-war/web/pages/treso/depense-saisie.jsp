@@ -11,6 +11,7 @@
 <%
     try {
         String autreparsley = "data-parsley-range='[8, 40]' required";
+        String libCaisse = "banque";
         JournalCaisse pj = new JournalCaisse();
 
         PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
@@ -63,9 +64,11 @@
         String vueCaisse = "caisse_banque";
         String modeP = "MODEPAIEMENTCV";
         if (typeCaisse != null && typeCaisse.compareTo("") != 0) {
-            if (typeCaisse.compareTo("2") == 0) {
+            if (typeCaisse.compareTo(Constante.getTypeCaissePhysique()) == 0) {
+                pi.getFormu().getChamp("caisse").setDefaut(Constante.getCaisseDepense());
                 vueCaisse = "caisse_physique";
                 modeP = "modepaiement";
+                libCaisse = "caisse";
             }
         }
 
@@ -85,7 +88,7 @@
             pi.getFormu().getChamp("Typemvt").setDefaut("pay1");
         }
 
-        pi.getFormu().getChamp("caisse").setLibelle("Banque");
+        pi.getFormu().getChamp("caisse").setLibelle(libCaisse);
         pi.setLien((String) session.getValue("lien"));
 
         pi.getFormu().getChamp("Typemvt").setVisible(false);

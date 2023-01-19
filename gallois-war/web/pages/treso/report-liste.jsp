@@ -22,8 +22,10 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
-       /* pr.getFormu().getChamp("daty1").setLibelle("Date min");
-        pr.getFormu().getChamp("daty2").setLibelle("Date max");*/
+        pr.getFormu().getChamp("daty1").setLibelle("Date min");
+        pr.getFormu().getChamp("daty2").setLibelle("Date max");
+
+        pr.setOrdre(" order by daty desc");
 
         pr.setApres("treso/report-liste.jsp");
         String[] colSomme = {"montant"};
@@ -53,14 +55,14 @@
                     <option value="reportlib" >Tous</option>
                     <% } %>
                     <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("report_cree") == 0) {%>    
-                    <option value="REPORTLIBC" selected>Créé</option>
+                    <option value="REPORTLIBC" selected>Crï¿½ï¿½</option>
                     <% } else { %>
-                    <option value="REPORTLIBC" >Créé</option>
+                    <option value="REPORTLIBC" >Crï¿½ï¿½</option>
                     <% } %>
                     <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("report_vise") == 0) {%>    
-                    <option value="REPORTLIBV" selected>Visé</option>
+                    <option value="REPORTLIBV" selected>Visï¿½</option>
                     <% } else { %>
-                    <option value="REPORTLIBV" >Visé</option>
+                    <option value="REPORTLIBV" >Visï¿½</option>
                     <% } %>
 
                 </select>

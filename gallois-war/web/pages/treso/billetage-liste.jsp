@@ -10,6 +10,7 @@
     try{
         Billetage billetage = new Billetage();
         billetage.setNomTable("billetagelib");
+        if (request.getParameter("table") != null) billetage.setNomTable(request.getParameter("table"));
         String listeCrt[] = {"id", "caisse", "daty"};
         String listeInt[] = {"daty"};
         String libEntete[] = {"id", "caisse", "daty", "montant"};
@@ -24,6 +25,12 @@
         String[] colSomme = {"montant"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
+<script>
+    function changerDesignation() {
+        document.listebilletage.submit();
+    }
+</script>
+
 <div class="content-wrapper">
     <section class="content-header">
         <h1>Liste des billetages</h1>
@@ -33,6 +40,32 @@
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
+            <div class="row col-md-12">  
+                <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                    Etat : 
+                    <select name="table" class="champ" id="table" onchange="changerDesignation()" >
+                        
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BILLETAGELIB") == 0) {%>    
+                        <option value="BILLETAGELIB" selected>Tous</option>
+                        <% } else { %>
+                        <option value="BILLETAGELIB" >Tous</option>
+                        <% } %>
+                        
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BILLETAGELIB_CREE") == 0) {%>    
+                        <option value="BILLETAGELIB_CREE" selected>Cr&eacute;&eacute;</option>
+                        <% } else { %>
+                        <option value="BILLETAGELIB_CREE" >Cr&eacute;&eacute;</option>
+                        <% } %>
+
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BILLETAGELIB_VISER") == 0) {%>    
+                        <option value="BILLETAGELIB_VISER" selected>Valid&eacute;</option>
+                        <% } else { %>
+                        <option value="BILLETAGELIB_VISER" >Valid&eacute;</option>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
         </form>
         <%
             String lienTableau[] = {pr.getLien() + "?but=treso/billetage-fiche.jsp"};

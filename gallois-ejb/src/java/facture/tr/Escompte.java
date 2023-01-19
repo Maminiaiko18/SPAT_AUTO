@@ -5,9 +5,13 @@
  */
 package facture.tr;
 
+import bean.AdminGen;
 import bean.ClassEtat;
+import utilitaire.UtilDB;
+
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 
 /**
  *
@@ -17,6 +21,50 @@ public class Escompte extends Traite {
     String id, idTraite;
     double frais;
     Date daty;
+
+    @Override
+    public void controler(Connection c) throws Exception{
+        boolean verif = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = true;
+            }
+            Escompte[] esc = this.getTraite(c).getEscompte(c);
+            if (AdminGen.calculSommeDouble (esc, "frais" ) >= this.getFrais())  throw new Exception("Les frais d`escompte dépassent le montant de la traite");
+        } catch(Exception ex){ 
+            if(c != null && verif){
+                c.rollback();
+            }
+            throw ex;
+        }finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+    }
+
+    public Traite getTraite(Connection c) throws Exception{
+        boolean verif = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = true;
+            }
+            return (Traite) new Traite().getById(this.getIdTraite(), "traite", c);
+        } catch(Exception ex){ 
+            if(c != null && verif){
+                c.rollback();
+            }
+            throw ex;
+        }finally{
+            if(c != null && verif){
+                c.close();
+            }
+        }
+    }
 
     public String getId() {
         return id;
