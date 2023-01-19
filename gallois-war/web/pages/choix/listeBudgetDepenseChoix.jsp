@@ -9,6 +9,8 @@
 <%@page import="affichage.PageRechercheChoix"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="user.UserEJB"%>
+<%@page import="utilitaire.Utilitaire"%>
+
 <%
     try{
     UserEJB u = (UserEJB) session.getAttribute("u");
@@ -26,7 +28,7 @@
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("choix/listeBudgetDepenseChoix.jsp");
     
-//    pr.getFormu().getChamp("d").setLibelle("Code Client");
+    pr.getFormu().getChamp("annee").setDefaut(Utilitaire.getAnneeEnCours());
     
     if(u.getCodeEtablissement() != null && request.getParameter("direction") == null) { 
         String code = u.getCodeEtablissement().getVal();
