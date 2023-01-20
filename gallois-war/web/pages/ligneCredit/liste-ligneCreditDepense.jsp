@@ -4,6 +4,7 @@
     Author     : john
 --%>
 
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="lignecredit.LigneCredit"%>
 <%@page import="mg.spat.Prevision"%>
 <%@page import="utilitaire.ConstanteEtat"%>
@@ -28,7 +29,9 @@
     pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
     pr.getFormu().getChamp("annee1").setLibelle("Ann&eacute;e min");
+    pr.getFormu().getChamp("annee1").setDefaut(Utilitaire.getAnneeEnCours());
     pr.getFormu().getChamp("annee2").setLibelle("Ann&eacute;e max");
+    pr.getFormu().getChamp("annee2").setDefaut(Utilitaire.getAnneeEnCours());
     pr.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     pr.getFormu().getChamp("comptestr").setLibelle("Compte Pur");
     String[] colSomme = {"montant","facture","paye","arecouvrir","restebudget"};
