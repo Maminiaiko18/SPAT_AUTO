@@ -530,7 +530,6 @@ public class BonDeCommande extends ClassEtat {
      
     public Engagement getEngagement() throws Exception {
         Engagement retour = new Engagement(this.getNumbc(), this.getCode_etab() , this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, this.getDaty());
-        retour.setDesignation(this.getDesignation());
         return retour;
     }
     
