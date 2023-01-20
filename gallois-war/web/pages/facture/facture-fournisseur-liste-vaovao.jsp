@@ -15,7 +15,8 @@
 <%
     try {
         FactureFournisseur ff = new FactureFournisseur();
-        String[] etatVal = {"FACTUREFOURNVALIDE_TOUS", "FACTUREFOURNVALIDE_C", "FACTUREFOURNVALIDE_V", "FACTUREFOURNVALIDE_EP", "FACTUREFOURNVALIDE_P"};
+        //FACTUREFOURNVALIDE_TOUS
+        String[] etatVal = {"factfourn_msum_lib_fiche", "FACTUREFOURNVALIDE_C", "FACTUREFOURNVALIDE_V", "FACTUREFOURNVALIDE_EP", "FACTUREFOURNVALIDE_P"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "En attente de paiement", "Payéé(s)"};
     
         ff.setNomTable(etatVal[0]);
