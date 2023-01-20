@@ -439,7 +439,7 @@ public class BonDeCommandeFille extends ClassMAPTable {
     }
      
     public EngagementFille createEngagementFille(String idEngagement)throws Exception{
-        String designation = Utilitaire.champNull(this.getDesignation());
+        String designation = Utilitaire.champNull(this.getRemarque());
         if(designation=="") designation = "-";
         return new EngagementFille(idEngagement, designation,this.getQuantite()*this.getPu());
     }

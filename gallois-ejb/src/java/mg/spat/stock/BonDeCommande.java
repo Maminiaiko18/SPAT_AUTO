@@ -5,6 +5,7 @@
  */
 package mg.spat.stock;
 
+import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassFille;
@@ -559,17 +560,17 @@ public class BonDeCommande extends ClassEtat {
 
             Engagement engagement = this.getEngagement();
             engagement.construirePK(c);
-            engagement.insertToTableWithHisto(u, c);
             
             BonDeCommandeFille bcFille = new BonDeCommandeFille();
             bcFille.setIdbc(this.id);
+            bcFille.setNomTable("AS_BONDECOMMANDE_FILLEMTT");
             BonDeCommandeFille[] filles = (BonDeCommandeFille[]) CGenUtil.rechercher(bcFille, null, null, c, "");
             
+            double mtt = AdminGen.calculSommeDouble(filles, "montantht");
+            engagement.setMontant(mtt);
+            engagement.insertToTableWithHisto(u, c);
             for (int i = 0; i < filles.length; i++) {
                 EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());
-                String designation = Utilitaire.champNull(filles[i].getDesignation());
-                if(designation == "")designation ="-";
-                engFille.setDesignation(designation);
                 engFille.construirePK(c);
                 engFille.insertToTableWithHisto(u, c);
             }
