@@ -567,7 +567,9 @@ public class BonDeCommande extends ClassEtat {
             
             for (int i = 0; i < filles.length; i++) {
                 EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());
-                engFille.setDesignation(filles[i].getDesignation());
+                String designation = Utilitaire.champNull(filles[i].getDesignation());
+                if(designation == "")designation ="-";
+                engFille.setDesignation(designation);
                 engFille.construirePK(c);
                 engFille.insertToTableWithHisto(u, c);
             }
