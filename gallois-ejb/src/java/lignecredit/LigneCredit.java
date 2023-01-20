@@ -337,6 +337,7 @@ public class LigneCredit extends ClassEtat {
 
             String req = "select l.direction,\n"
                     + "       l.projet,\n"
+                    + "       l.directionprojet,\n"
                     + "       l.COMPTEFULL                                                                         as compte,\n"
                     + "       sum(l.montant)                                                                     as montant,\n"
                     + "       cast(nvl(n.montant, 0) - nvl(non.montant, 0) + nvl(nt.MONTANT, 0) - nvl(gr.MONTANT, 0) + nvl(bc.montant, 0)+nvl(bp.montant,0) as NUMBER(30, 3)) as engageer,\n"
