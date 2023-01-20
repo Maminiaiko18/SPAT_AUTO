@@ -439,6 +439,8 @@ public class BonDeCommandeFille extends ClassMAPTable {
     }
      
     public EngagementFille createEngagementFille(String idEngagement)throws Exception{
-        return new EngagementFille(idEngagement,this.getDesignation(),this.getQuantite()*this.getPu());
+        String designation = Utilitaire.champNull(this.getRemarque());
+        if(designation=="") designation = "-";
+        return new EngagementFille(idEngagement, designation,this.getQuantite()*this.getPu());
     }
 }

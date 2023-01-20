@@ -5,6 +5,7 @@
  */
 package mg.spat.stock;
 
+import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassFille;
@@ -12,6 +13,7 @@ import bean.ClassMAPTable;
 import static bean.ClassMere.getNomClasseFille;
 import facture.FactureFournisseur;
 import facture.FactureFournisseurDetails;
+import lignecredit.LigneCredit;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -533,6 +535,9 @@ public class BonDeCommande extends ClassEtat {
     
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        LigneCredit lc=this.getBudget(c);
+        if(lc==null)throw new Exception("Budget non trouvé");
+
         if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
             BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
             this.setMontant(bc.getMontant());
@@ -554,12 +559,15 @@ public class BonDeCommande extends ClassEtat {
 
             Engagement engagement = this.getEngagement();
             engagement.construirePK(c);
-            engagement.insertToTableWithHisto(u, c);
             
             BonDeCommandeFille bcFille = new BonDeCommandeFille();
             bcFille.setIdbc(this.id);
+            bcFille.setNomTable("AS_BONDECOMMANDE_FILLEMTT");
             BonDeCommandeFille[] filles = (BonDeCommandeFille[]) CGenUtil.rechercher(bcFille, null, null, c, "");
             
+            double mtt = AdminGen.calculSommeDouble(filles, "montantht");
+            engagement.setMontant(mtt);
+            engagement.insertToTableWithHisto(u, c);
             for (int i = 0; i < filles.length; i++) {
                 EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());
                 engFille.construirePK(c);
@@ -584,5 +592,28 @@ public class BonDeCommande extends ClassEtat {
                 c.close();
             }
         }
+    }
+    
+    public LigneCredit getBudget(Connection c)throws Exception{
+        int verif=0;
+        LigneCredit retour=null;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
+            LigneCredit lc=new LigneCredit();
+            lc.setNomTable("SITUATIONLCDEPENSEGRP");
+            lc.setIdcodeEtablissement(this.getCode_etab());
+            lc.setIdprojet(this.getProjet());
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee="+Utilitaire.getAnnee(this.getDaty()));
+            if(ligneCredits.length>0)retour=ligneCredits[0];   
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+        return retour;
     }
 }
