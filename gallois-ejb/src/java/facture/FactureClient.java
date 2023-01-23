@@ -63,6 +63,15 @@ public class FactureClient extends ClassMere {
     private String idavoir,provenancelib,destinationlib,bateaulib,pavillon,pavillonlib;
     private double volume,volume100;
     private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt,idtraite,idfc,factureclientlib;
+    private double nbJours;
+
+    public void setNbJours(double nbJours){
+        this.nbJours=nbJours;
+    }
+    public double getNbJours(){
+        return this.nbJours;
+    }
+
     public String getCdclt() {
         return cdclt;
     }
