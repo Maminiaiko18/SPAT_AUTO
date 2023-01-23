@@ -654,9 +654,11 @@ public class FactureFournisseur extends FactureClient {
               if(ff!=null && reste < ff.getMontant()) throw new Exception("Le montant de la facture depasse le reste de l'engagement");
           }
         }else{
-            FactureFournisseur ff = (FactureFournisseur)new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-            this.setMontant(ff.getMontant());
-            this.insertEngagement(u,c);
+            if(this.getIdbc()==null){
+                FactureFournisseur ff = (FactureFournisseur)new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+                this.setMontant(ff.getMontant());
+                this.insertEngagement(u,c);
+            }
         } 
         this.setNomTable("facture_fournisseur_mere");
         super.validerObject(u, c);
