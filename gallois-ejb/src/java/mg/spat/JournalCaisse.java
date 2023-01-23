@@ -1141,7 +1141,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     return "C";
             }else if(this.getIdmode().compareToIgnoreCase("pay3") == 0){
                     return "V";
-            }
+            }else if(this.getIdmode().compareToIgnoreCase("pay6") == 0){
+                return "T";
+        }
         }
         return null;
     }
