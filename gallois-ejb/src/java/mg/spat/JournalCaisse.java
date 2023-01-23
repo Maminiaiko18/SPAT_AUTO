@@ -777,7 +777,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             
             String refuser = "" + user.getUser().getRefuser();
-            
+            Caisse caisse = new Caisse();
+            caisse.setId(this.getCaisse());
+
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("mouvement caissse deja valide");
             }
@@ -801,6 +803,11 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     paiementFact.createObject(refuser, c);
                 }else{
                     OrdonnerPayement opTsotra=this.traitementOP(user, c);
+                    if(!caisse.isBanque(c)){
+                        //caisse ihany mila num piece
+                        String numeroPiece = calculerNumeroPieceDepense(c);
+                        this.setNumPiece(numeroPiece);
+                    }
                     if(opTsotra!=null){
                         PaiementFacture[] lpf=opTsotra.genererPaiementFacture(c,this);
                         if(lpf.length>0){
@@ -832,8 +839,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                         viserFacturesRattachees(refuser, c);
                         genererPaiement(c, refuser);
                     } else {
-                        Caisse caisse = new Caisse();
-                        caisse.setId(this.getCaisse());
+                        
                         if(caisse.isBanque(c) &&  this.getCredit() > 0 ){
                             this.setIdTypeCheque("TCHQ00002");
                             String numeroPiece = calculerNumeroPiece(c);
