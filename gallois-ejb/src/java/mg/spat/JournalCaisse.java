@@ -812,7 +812,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     }
                 }
             }else{
-                if (this.getIdplacement() != null) {
+                    if (this.getIdplacement() != null) {
                     /*if (!this.getIdplacement().startsWith("FC")) {
                         Placement placement = this.findPlacement(c);
                         if(placement.getEtat()<11){
@@ -820,18 +820,26 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                         }
                     }*/
                     
-                    if(this.getIdplacement().startsWith("FC")){
-                        String numeroPiece = calculerNumeroPiece(c);
-                        this.setNumPiece(numeroPiece);
+                        if(this.getIdplacement().startsWith("FC")){
+                            String numeroPiece = calculerNumeroPiece(c);
+                            this.setNumPiece(numeroPiece);
+                        }
+                        if(this.getDebit()>0){
+                            String numeroPiece = calculerNumeroPieceDepense(c);
+                            this.setNumPiece(numeroPiece);
+                        }
+
+                        viserFacturesRattachees(refuser, c);
+                        genererPaiement(c, refuser);
+                    } else {
+                        Caisse caisse = new Caisse();
+                        caisse.setId(this.getCaisse());
+                        if(caisse.isBanque(c) &&  this.getCredit() > 0 ){
+                            this.setIdTypeCheque("TCHQ00002");
+                            String numeroPiece = calculerNumeroPiece(c);
+                            this.setNumPiece(numeroPiece);
+                        }
                     }
-                    if(this.getDebit()>0){
-                        String numeroPiece = calculerNumeroPieceDepense(c);
-                        this.setNumPiece(numeroPiece);
-                    }
-                    
-                    viserFacturesRattachees(refuser, c);
-                    genererPaiement(c, refuser);
-                }
             }
            
             if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece) && 
