@@ -584,9 +584,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public void controler(Connection c) throws Exception {
         try {
             ClotureService.testDateCloture(this.dateEffet, this.caisse, c);
-            Report filtre = new Report();
-            filtre.setEtat(ConstanteEtat.getEtatValider());
-            Report[] report = (Report[]) CGenUtil.rechercher(filtre, null, null, c, " and daty >= to_date('" + Utilitaire.dateDuJourSql() + "','yyyy-mm-dd hh24:mi:ss') and caisse='" + this.caisse + "'");
+            Report[] report = (Report[]) CGenUtil.rechercher(new Report(), null, null, c, " and daty >= to_date('" + Utilitaire.dateDuJourSql() + "','yyyy-mm-dd') and caisse='" + this.caisse + "' and etat=11");
             if (report.length > 0) {
                 throw new Exception("Caisse deja reportee");
             }
