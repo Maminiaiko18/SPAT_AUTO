@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="32"/>
 	<subDataset name="Table Dataset 1" uuid="2efaac0a-5632-43a0-b273-90bf56aa8145">
-		<field name="id" class="java.lang.String"/>
+		<field name="code" class="java.lang.String"/>
 		<field name="montant" class="java.lang.Double"/>
 		<field name="daty" class="java.util.Date"/>
 	</subDataset>
