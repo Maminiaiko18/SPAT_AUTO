@@ -178,7 +178,7 @@ public class PaiementFacture extends ClassMAPTable{
                 verif = 1;
             }
             FactureClient fc = this.getFacture(c);
-            if(fc!=null && fc.getMontantreste()<this.getMontant()) throw new Exception("RAP facture inferieur au montant saisi");
+            if(fc!=null && (float)fc.getMontantreste()< (float)this.getMontant() ) throw new Exception("Reste a payer facture inferieur au montant saisi");
         
             JournalCaisse jc=this.getpayement(c); 
             double montantFactures=this.getMontantFactures(jc,c);
