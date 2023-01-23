@@ -870,10 +870,13 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("numCheque", tabJournal[0].getNumcheque());
             }
             String titre = "PIECE DE CAISSE";
+            String soustitre = "";
             if (tabJournal[0].getType() != null
                     && tabJournal[0].getType().compareTo(Constante.idCategorieFCProvision) == 0) {
+                soustitre = "PIECE DE CAISSE";
                 titre = "PROVISION CONSTITUEE";
             }
+            param.put("soustitre", soustitre);
             param.put("titre", titre);
             String heure = Utilitaire.heureCouranteHMS();
             param.put("heure", heure);

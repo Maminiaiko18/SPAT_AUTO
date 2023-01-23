@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1aeaf117-a05d-4327-8a4b-0e54fb8087cd">
 	<property name="ireport.zoom" value="1.4641000000000068"/>
-	<property name="ireport.x" value="217"/>
-	<property name="ireport.y" value="203"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="32"/>
 	<subDataset name="Table Dataset 1" uuid="2efaac0a-5632-43a0-b273-90bf56aa8145">
-		<field name="code" class="java.lang.String"/>
+		<field name="id" class="java.lang.String"/>
 		<field name="montant" class="java.lang.Double"/>
 		<field name="daty" class="java.util.Date"/>
 	</subDataset>
@@ -22,6 +22,7 @@
 	<parameter name="list_table" class="java.util.List"/>
 	<parameter name="titre" class="java.lang.String"/>
 	<parameter name="heure" class="java.lang.String"/>
+	<parameter name="soustitre" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -56,14 +57,14 @@
 				<textFieldExpression><![CDATA[$P{datyJ}+" n "+ $P{heure}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="224" y="60" width="65" height="20" uuid="33ad2e35-d558-4f91-a6b6-7180696ece3d"/>
+				<reportElement x="224" y="70" width="65" height="20" uuid="33ad2e35-d558-4f91-a6b6-7180696ece3d"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Journée du ]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="289" y="60" width="253" height="20" uuid="6210e5b7-da2d-451e-a9b6-dad7f5eb2668"/>
+				<reportElement x="289" y="70" width="253" height="20" uuid="6210e5b7-da2d-451e-a9b6-dad7f5eb2668"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 					<paragraph leftIndent="3"/>
@@ -71,11 +72,18 @@
 				<textFieldExpression><![CDATA[$P{datyPiece}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="40" width="555" height="17" uuid="c9570aef-aceb-4203-89b0-b97f879f0c1d"/>
+				<reportElement x="0" y="53" width="555" height="17" uuid="c9570aef-aceb-4203-89b0-b97f879f0c1d"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{titre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="40" width="555" height="13" uuid="7c561354-e180-448e-becc-391f65e52686"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{soustitre}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
