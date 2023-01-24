@@ -293,9 +293,9 @@ public class Engagement extends ClassEtat {
     public LigneCredit findSituationCredit(Connection c) throws Exception{
         LigneCredit lc = new LigneCredit();
         //lc.setNomTable("ligneCreditDepenseGrp");
-        lc.setNomTable("SITUATIONLCDEPENSEGRP");
-        String dir=this.getCodeEtablissement();
-        String prj=this.getProjet();
+        /*lc.setNomTable("SITUATIONLCDEPENSEGRP");*/
+        String dir= Utilitaire.champNull(this.getCodeEtablissement());
+        String prj= Utilitaire.champNull(this.getProjet());
         if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
         {
             if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Ligne de crédit invalide");
@@ -303,8 +303,10 @@ public class Engagement extends ClassEtat {
             dir=ligne.getCodeEtablissement();
             prj=ligne.getProjet();
         }
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
-        if(ligneCredits.length > 0) return ligneCredits[0];
+        /*LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
+        if(ligneCredits.length > 0) return ligneCredits[0];*/
+
+        //LigneCredit.findSituationCreditDepense(String id, String desingation, String compte, String date1, String date2, String etat, String niveau, String exercice, String mois, Connection c) 
         return null;
     }
 
