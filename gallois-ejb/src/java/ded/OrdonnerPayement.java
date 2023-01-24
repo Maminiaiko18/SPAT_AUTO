@@ -795,4 +795,17 @@ public class OrdonnerPayement extends ClassEtat {
     public void controleAnnulerVisa(Connection c) throws Exception {
         if(this.getPaiement(null).length!=0)throw new Exception("Annuler visa non permis, les lignes de paiement existant pour cet OP");
     }
+
+    public void controlerMotantFF(Connection c)throws Exception{
+        FactureFournisseur[] listeFF=this.getFactures(c);
+        if(listeFF!=null){
+            for(int i=0;i<listeFF.length;i++){
+                if(listeFF[i].getMontantreste()<this.getMontant())throw new Exception("Montant superieur au reste à payer");
+            }
+        }
+    }
+
+    public void controler(Connection c) throws Exception {
+        this.controlerMotantFF(c);
+    }
 }
