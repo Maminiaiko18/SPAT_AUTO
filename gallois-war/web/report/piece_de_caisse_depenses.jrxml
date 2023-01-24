@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse_depenses" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48507b75-f3ed-4992-8bc5-60c122b5167c">
 	<property name="ireport.zoom" value="1.6528925619834758"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="libelle" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
 	<parameter name="daty" class="java.util.Date"/>
@@ -1326,7 +1326,7 @@
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="78" y="66" width="263" height="35" uuid="fadf7f08-ada5-444f-8497-1b2137f3fbc4"/>
+				<reportElement x="87" y="66" width="238" height="35" uuid="fadf7f08-ada5-444f-8497-1b2137f3fbc4"/>
 				<textElement verticalAlignment="Top" markup="none">
 					<font size="9" isBold="true" isUnderline="false"/>
 					<paragraph lineSpacing="1_1_2"/>
