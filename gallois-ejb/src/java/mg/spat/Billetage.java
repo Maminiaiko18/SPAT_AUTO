@@ -131,7 +131,7 @@ public class Billetage extends ClassEtat{
     
     public Object validerObject(String u, Connection c) throws Exception
     {
-        // this.genererReportVise(c, u);
+        this.genererReportVise(c, u);
         return super.validerObject(u, c);
     }
 }
