@@ -306,7 +306,7 @@ public class Engagement extends ClassEtat {
         /*LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
         if(ligneCredits.length > 0) return ligneCredits[0];*/
 
-        //LigneCredit.findSituationCreditDepense(String id, String desingation, String compte, String date1, String date2, String etat, String niveau, String exercice, String mois, Connection c) 
+        //LigneCredit.findSituationCreditDepense(String id, String desingation, String compte, 01/01/+ annee anaty engagement String date1, String date2 date engagement, String etat 11, String niveau "", String exercice (annee anaty date engagement), String mois (""), Connection c) 
         return null;
     }
 
