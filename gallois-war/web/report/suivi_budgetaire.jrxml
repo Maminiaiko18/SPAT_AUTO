@@ -276,6 +276,10 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{numero}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="-2" width="72" height="82" uuid="bc426998-7bf0-4249-948a-c780968c2e30"/>
+				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 </jasperReport>
