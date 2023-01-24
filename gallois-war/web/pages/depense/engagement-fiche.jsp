@@ -86,6 +86,7 @@
                                 <a class="btn btn-info " href="<%=(String) session.getValue("lien") + "?but=depense/engagement-fille-liste.jsp&idmere=" + engagement.getId() %>" style="margin-right: 5px">Payer</a>
                                  <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=dse&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer DSE</button></a>
+                                <a href="<%=(String) session.getValue("lien")%>?but=depense/engagement-modif-simple.jsp"><button class="btn btn-primary pull-right">Modifier Obs</button></a>
                             </p>
                         </div>
                     </div>

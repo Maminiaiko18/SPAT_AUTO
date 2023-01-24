@@ -718,6 +718,7 @@ public class EtatPaieServlet extends HttpServlet {
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
             JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, " ");
+            
             param.put("facture_lib", tabJournal[0].getLibelle());
 
             if (tabOp.length > 0) {
@@ -725,7 +726,12 @@ public class EtatPaieServlet extends HttpServlet {
 
                 param.put("daty", Utilitaire.dateDuJourSql());
                 param.put("montant", tabOp[0].getMontant());
-                param.put("montant_lettre", tabOp[0].getMontant_lettre());
+//                param.put("montant_lettre", tabOp[0].getMontant_lettre());
+                String montantString = String.valueOf((long) tabOp[0].getMontant());
+                long montantLong = Long.valueOf(montantString);
+                    param.put("montant_lettre",
+                            (ChiffreLettre.convertIntToString(montantLong) + " ARIARY ").toUpperCase());
+                
 
                 EtatFactureDepService a = new EtatFactureDepService();
                 a.setNomTable("ETATFACTUREMONTANTDATY_LIB");
@@ -749,6 +755,7 @@ public class EtatPaieServlet extends HttpServlet {
             } else {
 
                 if (tabJournal.length > 0) {
+                    
                     param.put("daty", tabJournal[0].getDateEffet());
                     param.put("montant", tabJournal[0].getDebit());
                     String montantString = String.valueOf((long) tabJournal[0].getDebit());
@@ -863,10 +870,13 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("numCheque", tabJournal[0].getNumcheque());
             }
             String titre = "PIECE DE CAISSE";
+            String soustitre = "";
             if (tabJournal[0].getType() != null
                     && tabJournal[0].getType().compareTo(Constante.idCategorieFCProvision) == 0) {
+                soustitre = "PIECE DE CAISSE";
                 titre = "PROVISION CONSTITUEE";
             }
+            param.put("soustitre", soustitre);
             param.put("titre", titre);
             String heure = Utilitaire.heureCouranteHMS();
             param.put("heure", heure);
