@@ -725,7 +725,6 @@ public class EtatPaieServlet extends HttpServlet {
 
             if (tabOp.length > 0) {
                 tabOp[0].setDevise(" ARIARY");
-
                 param.put("daty", Utilitaire.dateDuJourSql());
                 param.put("montant", tabOp[0].getMontant());
 //                param.put("montant_lettre", tabOp[0].getMontant_lettre());
@@ -736,12 +735,16 @@ public class EtatPaieServlet extends HttpServlet {
                 
 
                 EtatFactureDepService a = new EtatFactureDepService();
-                a.setNomTable("ETATFACTUREMONTANTDATY_LIB");
-                a.setId(tabOp[0].getDed_Id());
-                EtatFactureDepService[] tabFact = (EtatFactureDepService[]) CGenUtil.rechercher(a, null, null, "  ");
+                a.setNomTable("ETATFACTUREMONTANTDATY_LIB2"); 
+                //a.setId(tabOp[0].getDed_Id());
+                String[] spl = tabOp[0].getDed_Id().split(";");
+                if(spl.length==0) {
+                    spl = new String[1];
+                    spl[0] = tabOp[0].getDed_Id();
+                }
+                EtatFactureDepService[] tabFact = (EtatFactureDepService[]) CGenUtil.rechercher(a, null, null, " and id in ("+ Utilitaire.tabToString(spl, "'", ",")+")");
                 if (tabFact.length > 0) {
                     // param.put("facture_lib",tabFact[0].getDesignation());
-
                     param.put("direction", tabFact[0].getDirection());
                     param.put("departement", tabFact[0].getDepartement());
                     param.put("service", tabFact[0].getService());
@@ -756,6 +759,7 @@ public class EtatPaieServlet extends HttpServlet {
                 }
             } else {
 
+//                System.out.println("=================================   3 ======================================");
                 if (tabJournal.length > 0) {
                     
                     param.put("daty", tabJournal[0].getDateEffet());
