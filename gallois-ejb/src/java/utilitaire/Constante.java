@@ -158,7 +158,7 @@ public class Constante {
     public static final String compteBP="121MHI62512";
     private static String traite = "pay6";
     private static String caisseTraite = "CAIS00000T00016"; 
-    private static String caisseDepense = "CAI0000000015200311"; 
+    public static String caisseDepense = "CAI0000000015200311"; 
     private static String typeCaissePhysique = "2"; 
 
     public static String getTypeCaissePhysique() {

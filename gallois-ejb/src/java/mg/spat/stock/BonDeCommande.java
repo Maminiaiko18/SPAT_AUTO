@@ -530,6 +530,7 @@ public class BonDeCommande extends ClassEtat {
      
     public Engagement getEngagement() throws Exception {
         Engagement retour = new Engagement(this.getNumbc(), this.getCode_etab() , this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, this.getDaty());
+        retour.setTiers(this.getFournisseur());
         return retour;
     }
     
@@ -567,7 +568,7 @@ public class BonDeCommande extends ClassEtat {
             
             double mtt = AdminGen.calculSommeDouble(filles, "montantht");
             engagement.setMontant(mtt);
-            engagement.insertToTableWithHisto(u, c);
+            engagement.createObject(u, c);
             for (int i = 0; i < filles.length; i++) {
                 EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());
                 engFille.construirePK(c);

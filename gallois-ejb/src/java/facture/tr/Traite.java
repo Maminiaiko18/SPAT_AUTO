@@ -198,4 +198,8 @@ public class Traite extends ClassEtat {
             }
         }
     }
+    
+    public String getValColLibelle(){
+        return id+";"+montant;
+    }
 }
