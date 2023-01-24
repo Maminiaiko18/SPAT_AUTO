@@ -221,6 +221,8 @@ public class EtatPaieServlet extends HttpServlet {
                 listesavoir(request, response);
             } else if (action.equalsIgnoreCase("bondelivraison")) {
                 bondelivraison(request, response);
+            }else if (action.equalsIgnoreCase("imprimerSuiviBudgetaire")) {
+                imprimerSuiviBudgetaire(request, response);
             }
 
         } catch (Exception ex) {
@@ -723,7 +725,6 @@ public class EtatPaieServlet extends HttpServlet {
 
             if (tabOp.length > 0) {
                 tabOp[0].setDevise(" ARIARY");
-
                 param.put("daty", Utilitaire.dateDuJourSql());
                 param.put("montant", tabOp[0].getMontant());
 //                param.put("montant_lettre", tabOp[0].getMontant_lettre());
@@ -734,12 +735,16 @@ public class EtatPaieServlet extends HttpServlet {
                 
 
                 EtatFactureDepService a = new EtatFactureDepService();
-                a.setNomTable("ETATFACTUREMONTANTDATY_LIB");
-                a.setId(tabOp[0].getDed_Id());
-                EtatFactureDepService[] tabFact = (EtatFactureDepService[]) CGenUtil.rechercher(a, null, null, "  ");
+                a.setNomTable("ETATFACTUREMONTANTDATY_LIB2"); 
+                //a.setId(tabOp[0].getDed_Id());
+                String[] spl = tabOp[0].getDed_Id().split(";");
+                if(spl.length==0) {
+                    spl = new String[1];
+                    spl[0] = tabOp[0].getDed_Id();
+                }
+                EtatFactureDepService[] tabFact = (EtatFactureDepService[]) CGenUtil.rechercher(a, null, null, " and id in ("+ Utilitaire.tabToString(spl, "'", ",")+")");
                 if (tabFact.length > 0) {
                     // param.put("facture_lib",tabFact[0].getDesignation());
-
                     param.put("direction", tabFact[0].getDirection());
                     param.put("departement", tabFact[0].getDepartement());
                     param.put("service", tabFact[0].getService());
@@ -754,6 +759,7 @@ public class EtatPaieServlet extends HttpServlet {
                 }
             } else {
 
+//                System.out.println("=================================   3 ======================================");
                 if (tabJournal.length > 0) {
                     
                     param.put("daty", tabJournal[0].getDateEffet());
@@ -3137,5 +3143,31 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String id = request.getParameter("id");
+            BordereauLibComplet bordereau = new BordereauLibComplet();
+            bordereau.setNomTable("bordereauFF_libcomplet");
+            BordereauLibComplet[] mere = (BordereauLibComplet[]) CGenUtil.rechercher(bordereau, null, null, " and id='" + id + "'");
+            Map param = new HashMap();
+            param.put("designation", utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
+            param.put("daty", mere[0].getDaty());
+            param.put("numero", mere[0].getNumero());
+            
+            BordereauFilleLibComplet fille=new BordereauFilleLibComplet();
+            fille.setIdbordereau(id);
+            fille.setNomTable("liaisonbordereauFF_libcomplet");
+            BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
+            double total=AdminGen.calculSommeDouble(liste, "montant");
+            param.put("montant", total);
+            param.put("code", utilitaire.Utilitaire.champNull(liste[0].getCode_etablissement()));
+            setNomJasper("suivi_budgetaire");
+            UtilitaireImpression.imprimer(request, response, "suivi_budgetaire", param, null, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 
 }
