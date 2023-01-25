@@ -835,6 +835,10 @@ public class FactureFournisseur extends FactureClient {
             }
 
             Engagement engagement=this.getEngagement();
+
+            LigneCredit lc=this.getBudget(c);
+            if(lc!=null)engagement.setIdLC(lc.getTuppleID());
+            engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
             engagement.construirePK(c);
             engagement.insertToTableWithHisto(u, c);
             
@@ -868,9 +872,9 @@ public class FactureFournisseur extends FactureClient {
                 verif=1;
             }
             LigneCredit lc=new LigneCredit();
-            lc.setNomTable("SITUATIONLCDEPENSEGRP");
-            lc.setIdcodeEtablissement(this.getCode_etablissement());
-            lc.setIdprojet(this.getProjet());
+            lc.setNomTable("LIGNECREDITDEPENSE");
+            lc.setCodeEtablissement(this.getCode_etablissement());
+            lc.setProjet(this.getProjet());
             LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee="+Utilitaire.getAnnee(this.getDaty()));
             if(ligneCredits.length>0)retour=ligneCredits[0];   
         }catch(Exception e){
