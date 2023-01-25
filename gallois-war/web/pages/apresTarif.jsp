@@ -363,6 +363,18 @@
             u.updateObject(f);
             id = f.getTuppleID();
         }
+        if (acte.compareToIgnoreCase("updateSimple") == 0) {
+            t = (ClassMAPTable) (Class.forName(classe).newInstance());
+            Page p = new Page(t, request);
+            ClassMAPTable f = p.getObjectAvecValeur();
+            temp = f;
+            if (nomtable != null) {
+                f.setNomTable(nomtable);
+            }
+
+            u.updateObject(f);
+            id = f.getTuppleID();
+        }
         if (acte.compareToIgnoreCase("ouvrir") == 0) {
             t = (ClassMAPTable) (Class.forName(classe).newInstance());
             t = (ClassMAPTable) (Class.forName(classe).newInstance());

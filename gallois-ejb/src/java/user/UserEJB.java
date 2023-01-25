@@ -172,6 +172,8 @@ public interface UserEJB {
     public Object createObject(ClassMAPTable o, Connection c) throws Exception;
 
     public Object updateObject(ClassMAPTable o) throws Exception;
+    
+    public Object updateObjectSimple(ClassMAPTable o) throws Exception;
 
     public Object validerObject(ClassMAPTable o) throws Exception;
 
