@@ -87,9 +87,25 @@
         <input name="classe" type="hidden" id="classe" value="ded.OrdonnerPayement">
     </form>
 </div>
-        <script>
-            $('#tierslibelle').val('<%= opd.getTierslib()%>');
-        </script>
+<script>
+    $('#tierslibelle').val('<%= opd.getTierslib()%>');
+    
+    document.addEventListener('DOMContentLoaded', function (){
+        function mapDestination(){
+            let mappin ={};
+            mappin['DEST00001'] = 'pay2';
+            mappin['DEST000000'] = 'pay1';
+
+            let destination = $("#destination option:selected").val();
+            if(mappin[destination]){
+                $("#modepaiement").val(mappin[destination]);
+            }
+        }
+        mapDestination();
+        $("#destination").change(mapDestination);
+        
+    });
+</script>
 <%}catch(Exception e){
     e.printStackTrace();
 }%>
