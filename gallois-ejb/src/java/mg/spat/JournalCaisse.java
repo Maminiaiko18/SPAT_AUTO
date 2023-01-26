@@ -584,9 +584,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public void controler(Connection c) throws Exception {
         try {
             ClotureService.testDateCloture(this.dateEffet, this.caisse, c);
-            Report filtre = new Report();
-            filtre.setEtat(ConstanteEtat.getEtatValider());
-            Report[] report = (Report[]) CGenUtil.rechercher(filtre, null, null, c, " and daty >= to_date('" + Utilitaire.dateDuJourSql() + "','yyyy-mm-dd hh24:mi:ss') and caisse='" + this.caisse + "'");
+            Report[] report = (Report[]) CGenUtil.rechercher(new Report(), null, null, c, " and daty >= to_date('" + Utilitaire.dateDuJourSql() + "','yyyy-mm-dd') and caisse='" + this.caisse + "' and etat=11");
             if (report.length > 0) {
                 throw new Exception("Caisse deja reportee");
             }
@@ -777,9 +775,15 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            
+
+            if(this.getMode().equalsIgnoreCase("modif") && this.getCaisse().equals(Constante.getCaisseTraite()) && this.getIdTypeCheque().equals(Constante.getTypeACredit())==false){
+                throw new Exception("Le type pour la caisse traite devrait être à crédit");
+            }
+
             String refuser = "" + user.getUser().getRefuser();
-            
+            Caisse caisse = new Caisse();
+            caisse.setId(this.getCaisse());
+
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("mouvement caissse deja valide");
             }
@@ -803,6 +807,11 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     paiementFact.createObject(refuser, c);
                 }else{
                     OrdonnerPayement opTsotra=this.traitementOP(user, c);
+                    if(!caisse.isBanque(c)){
+                        //caisse ihany mila num piece
+                        String numeroPiece = calculerNumeroPieceDepense(c);
+                        this.setNumPiece(numeroPiece);
+                    }
                     if(opTsotra!=null){
                         PaiementFacture[] lpf=opTsotra.genererPaiementFacture(c,this);
                         if(lpf.length>0){
@@ -814,7 +823,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     }
                 }
             }else{
-                if (this.getIdplacement() != null) {
+                    if (this.getIdplacement() != null) {
                     /*if (!this.getIdplacement().startsWith("FC")) {
                         Placement placement = this.findPlacement(c);
                         if(placement.getEtat()<11){
@@ -822,18 +831,25 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                         }
                     }*/
                     
-                    if(this.getIdplacement().startsWith("FC")){
-                        String numeroPiece = calculerNumeroPiece(c);
-                        this.setNumPiece(numeroPiece);
+                        if(this.getIdplacement().startsWith("FC")){
+                            String numeroPiece = calculerNumeroPiece(c);
+                            this.setNumPiece(numeroPiece);
+                        }
+                        if(this.getDebit()>0){
+                            String numeroPiece = calculerNumeroPieceDepense(c);
+                            this.setNumPiece(numeroPiece);
+                        }
+
+                        viserFacturesRattachees(refuser, c);
+                        genererPaiement(c, refuser);
+                    } else {
+                        
+                        if(caisse.isBanque(c) &&  this.getCredit() > 0 ){
+                            this.setIdTypeCheque("TCHQ00002");
+                            String numeroPiece = calculerNumeroPiece(c);
+                            this.setNumPiece(numeroPiece);
+                        }
                     }
-                    if(this.getDebit()>0){
-                        String numeroPiece = calculerNumeroPieceDepense(c);
-                        this.setNumPiece(numeroPiece);
-                    }
-                    
-                    viserFacturesRattachees(refuser, c);
-                    genererPaiement(c, refuser);
-                }
             }
            
             if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece) && 
@@ -1141,7 +1157,9 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     return "C";
             }else if(this.getIdmode().compareToIgnoreCase("pay3") == 0){
                     return "V";
-            }
+            }else if(this.getIdmode().compareToIgnoreCase("pay6") == 0){
+                return "T";
+        }
         }
         return null;
     }

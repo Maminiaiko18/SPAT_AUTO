@@ -561,10 +561,11 @@ public class LigneCredit extends ClassEtat {
 //"  group by l.ANNEE, l.compte, cr.LIBELLE, l.designation, l.MONTANT";
 
             //req = String.format(req, where);
-            //System.out.println("req=="+req);
+            // System.out.println("req=="+req);
             LigneCredit stock = new LigneCredit();
             stock.setNomTable("SITUATIONLC_VIDE");
             ret = (LigneCredit[]) CGenUtil.rechercher(stock, req, c);
+            if(ret.length ==0 ) throw new Exception("Ligne de crédit invalide");
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

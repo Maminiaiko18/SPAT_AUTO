@@ -14,7 +14,7 @@
 
 <%
     Tiers t = new Tiers();
-    t.setNomTable("union_client_fournisseur");
+    t.setNomTable("FOURNISSEUR_UNION_PERSONNEL");
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
     pc.setTitre("Fiche Tiers");

@@ -40,12 +40,15 @@
         pi.getFormu().getChamp("montant").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
         
-        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idTraite"), "choix/traiteChoix.jsp", "idTraite;idTraitelibelle");
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idTraite"), "choix/traiteChoix.jsp", "idTraite;idTraitelibelle;montant");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idFC"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idJc"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("etat"), false);
-        pi.getFormufle().getChamp("daty_0").setLibelle("Date");
+        for(int i = 0 ; i<nbLigne ; i++ ){
+            pi.getFormufle().getChamp("daty_" + i).setVisible(false);
+        }
+        
         pi.getFormufle().getChamp("idTraite_0").setLibelle("Traite");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
         

@@ -117,12 +117,17 @@
                 pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + preremplie.getReste()));
                 pi.getFormu().getChamp("iddevise").setDefaut("Ar");
             }
-            OrdonnerPayement[] ord = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, null, " and id = '" + request.getParameter("id") + "'");
+            OrdonnerPayement temp = new OrdonnerPayement();
+            temp.setNomTable("OrdonnerPayement_LIB");
+            OrdonnerPayement[] ord = (OrdonnerPayement[]) CGenUtil.rechercher(temp, null, null, null, " and id = '" + request.getParameter("id") + "'");
             if (ord.length > 0) {
                 pi.getFormu().getChamp("libelle").setDefaut(ord[0].getRemarque());
                 pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + ord[0].getMontant()));
                 pi.getFormu().getChamp("idordre").setDefaut(ord[0].getId());
                 pi.getFormu().getChamp("idordre").setValeurLibelle(ord[0].getRemarque());
+                pi.getFormu().getChamp("idmode").setDefaut(ord[0].getModepaiement());
+                pi.getFormu().getChamp("tiers").setValeurLibelle(ord[0].getTiers());
+                pi.getFormu().getChamp("tiers").setDefaut(ord[0].getBeneficiaire());
                 pi.getFormu().getChamp("idmode").setDefaut(ord[0].getModepaiement());
             }
         }

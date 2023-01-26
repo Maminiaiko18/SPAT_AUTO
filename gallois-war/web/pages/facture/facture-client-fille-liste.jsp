@@ -20,8 +20,8 @@
         if (request.getParameter("etatvue") != null) {
             cht.setNomTable(request.getParameter("etatvue"));
         }
-        String libEntete[] = { "idmere","numpiece","daty","code","client", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
-        String listeCrt[] = {"compte","numpiece","annee", "type","daty","mereca","code"};
+        String libEntete[] = { "idmere","numpiece","daty","code","client", "designation", "compte", "pu", "quantite", "duree", "tva","devise", "montant", "montantTva", "montantttc"};
+        String listeCrt[] = {"compte","numpiece","annee", "type","daty","mereca","code","devise"};
         String listeInt[] = {"daty"};
 
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -118,7 +118,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Num Facture","numpiece","date","Code","client", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA", "Montant", "Montant TVA", "Montant TTC"};
+            String libEnteteAffiche[] = {"Num Facture","numpiece","date","Code","client", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA","Devise", "Montant", "Montant TVA", "Montant TTC"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

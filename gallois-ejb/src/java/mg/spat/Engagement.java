@@ -291,21 +291,22 @@ public class Engagement extends ClassEtat {
     }
     
     public LigneCredit findSituationCredit(Connection c) throws Exception{
-        LigneCredit lc = new LigneCredit();
+        LigneCredit ligne = new LigneCredit();
         //lc.setNomTable("ligneCreditDepenseGrp");
-        lc.setNomTable("SITUATIONLCDEPENSEGRP");
-        String dir=this.getCodeEtablissement();
-        String prj=this.getProjet();
+        /*lc.setNomTable("SITUATIONLCDEPENSEGRP");*/
+        String dir= Utilitaire.champNull(this.getCodeEtablissement());
+        String prj= Utilitaire.champNull(this.getProjet());
         if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
         {
-            if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Ligne de crédit invalide");
-            LigneCredit ligne = findLigneCredit(c);
-            dir=ligne.getCodeEtablissement();
-            prj=ligne.getProjet();
+            // if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Ligne de crédit invalide");
+            ligne = findLigneCredit(c);
+            // dir=ligne.getCodeEtablissement();
+            // prj=ligne.getProjet();
         }
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
-        if(ligneCredits.length > 0) return ligneCredits[0];
-        return null;
+        /*LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
+        if(ligneCredits.length > 0) return ligneCredits[0];*/
+
+        return LigneCredit.findSituationCreditDepense(ligne.getId() , null, Utilitaire.champNull(ligne.getCompte()) ,null, null,String.valueOf(ConstanteEtat.getEtatValider()), null, String.valueOf(this.getAnnee()) , null,  c)[0];
     }
 
     @Override
@@ -317,13 +318,11 @@ public class Engagement extends ClassEtat {
             throw new Exception ("Doit contenir au moins un détail engagement");
         }
         
-        
         double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
         if(montantTotal > this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
-        if(this.getMontant() > lc.getResteApresEngmt()) throw new Exception("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getResteApresEngmt())+")");
-        //this.setDispoAvant(lc.getRestebudget());
-        this.setDispoAvant(lc.getResteApresEngmt());
-        this.setDispoApres(this.getDispoAvant() - this.getMontant());
+        if((float)this.getMontant() > (float)lc.getRestebudget()) throw new Exception("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getRestebudget())+")");
+        this.setDispoAvant(lc.getRestebudget());
+        this.setDispoApres(lc.getRestebudget() - this.getMontant());
         super.validerObject(u, c);
         if(avecFacture==0){
              this.genererFacture(u, c, filles,lc);

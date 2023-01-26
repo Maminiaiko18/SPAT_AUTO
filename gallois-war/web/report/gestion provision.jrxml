@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gestion provision" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="256b12f1-e681-4953-8bf8-fd2209703c08">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="278"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -47,6 +47,7 @@
 	<parameter name="reliquat" class="java.lang.String"/>
 	<parameter name="totalfactreel" class="java.lang.Double"/>
 	<parameter name="totalrealisation" class="java.lang.Double"/>
+	<parameter name="titre" class="java.lang.String"/>
 	<pageHeader>
 		<band height="155" splitType="Stretch">
 			<textField isBlankWhenNull="true">
@@ -71,13 +72,6 @@
 					<font size="15" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Editée le:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="132" width="908" height="23" uuid="9c961834-9582-4825-8c34-86505c7ca685"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[GESTION DE PROVISION]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="618" y="40" width="26" height="20" uuid="98155adc-bb62-4ef7-bc0e-259570c996e3"/>
@@ -115,6 +109,13 @@
 				</textElement>
 				<text><![CDATA[DEPARTEMENT FACTURATION]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="133" width="908" height="22" uuid="dde55c40-53b8-48bc-a60f-2c84e6b0304a"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titre}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
