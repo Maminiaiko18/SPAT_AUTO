@@ -12,6 +12,7 @@ import facture.FactureClient;
 import mg.spat.JournalCaisse;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -46,7 +47,10 @@ public class Traite extends ClassEtat {
         return banque;
     }
 
-    public void setBanque(String banque) {
+    public void setBanque(String banque)throws Exception {
+        if(this.getMode().equals("modif") && Utilitaire.champNull(banque).isEmpty()){
+            throw new Exception("Banque obligatoire");
+        }
         this.banque = banque;
     }
 
