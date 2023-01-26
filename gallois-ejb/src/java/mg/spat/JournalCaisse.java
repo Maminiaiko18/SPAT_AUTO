@@ -775,7 +775,11 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            
+
+            if(this.getMode().equalsIgnoreCase("modif") && this.getCaisse().equals(Constante.getCaisseTraite()) && this.getIdTypeCheque().equals(Constante.getTypeACredit())==false){
+                throw new Exception("Le type pour la caisse traite devrait être à crédit");
+            }
+
             String refuser = "" + user.getUser().getRefuser();
             Caisse caisse = new Caisse();
             caisse.setId(this.getCaisse());
