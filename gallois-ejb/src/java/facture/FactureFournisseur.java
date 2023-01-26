@@ -747,7 +747,6 @@ public class FactureFournisseur extends FactureClient {
             Engagement eg = this.findEngagement(c);
             if(eg == null) throw new Exception("Engagement non visé");
         }
-        if(this.getTiers()==null) throw new Exception("Tiers obligatoire.");
     }
     
     public LigneCredit[] findLigneCredit(String nomtable, Connection c, String compte) throws Exception{   
