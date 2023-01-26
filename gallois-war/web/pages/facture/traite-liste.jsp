@@ -12,7 +12,7 @@
 <%
     try {
         Traite base = new Traite();
-        base.setNomTable("TRAITE_LIB");
+        base.setNomTable("TRAITE_LIBMTT");
 		
 		if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             base.setNomTable(request.getParameter("etat"));
@@ -58,9 +58,9 @@
                     Etat : 
                     <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("TRAITE_LIB") == 0) {%>    
-                        <option value="TRAITE_LIB" selected>Tous</option>
+                        <option value="TRAITE_LIBMTT" selected>Tous</option>
                         <% } else { %>
-                        <option value="TRAITE_LIB" >Tous</option>
+                        <option value="TRAITE_LIBMTT" >Tous</option>
                         <% } %>
 						
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("TRAITE_LIBC") == 0) {%>

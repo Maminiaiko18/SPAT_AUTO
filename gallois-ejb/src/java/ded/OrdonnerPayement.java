@@ -798,13 +798,16 @@ public class OrdonnerPayement extends ClassEtat {
 
     public void controlerMotantFF(Connection c)throws Exception{
         FactureFournisseur[] listeFF=this.getFactures(c);
+        double rap = 0;
         if(listeFF!=null){
             for(int i=0;i<listeFF.length;i++){
-                if(listeFF[i].getMontantreste()<this.getMontant())throw new Exception("Montant superieur au reste à payer");
+                rap += listeFF[i].getMontantreste();
             }
+            if((float)rap<(float)this.getMontant())throw new Exception("Montant superieur au reste à payer");
         }
     }
 
+    @Override
     public void controler(Connection c) throws Exception {
         this.controlerMotantFF(c);
     }

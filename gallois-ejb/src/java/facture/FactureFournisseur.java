@@ -449,7 +449,7 @@ public class FactureFournisseur extends FactureClient {
     public FactureFournisseur genererDefinitive(UserEJB u, int type, Connection c) throws Exception {
         int verif = 0;
         FactureFournisseur fact2 = null;
-
+ 
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
@@ -464,6 +464,10 @@ public class FactureFournisseur extends FactureClient {
 
             String categorie = fc.getIdcategorie();
             if (type == 1) {
+                JournalCaisse[] jc = this.getPaiement(null);
+                if (jc.length == 0) {
+                    throw new Exception("Bon provisoire non sortie caisse. Impossible de générer facture définitive");
+                }
                 fc.controlerDefinitive(c);
                 categorie = Constante.categorieFFdefault;
             }
@@ -657,7 +661,7 @@ public class FactureFournisseur extends FactureClient {
             if(this.getIdbc()==null){
                 FactureFournisseur ff = (FactureFournisseur)new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
                 this.setMontant(ff.getMontant());
-                this.insertEngagement(u,c);
+                //this.insertEngagement(u,c);
             }
         } 
         this.setNomTable("facture_fournisseur_mere");
@@ -835,6 +839,10 @@ public class FactureFournisseur extends FactureClient {
             }
 
             Engagement engagement=this.getEngagement();
+
+            LigneCredit lc=this.getBudget(c);
+            if(lc!=null)engagement.setIdLC(lc.getTuppleID());
+            engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
             engagement.construirePK(c);
             engagement.insertToTableWithHisto(u, c);
             
@@ -868,9 +876,9 @@ public class FactureFournisseur extends FactureClient {
                 verif=1;
             }
             LigneCredit lc=new LigneCredit();
-            lc.setNomTable("SITUATIONLCDEPENSEGRP");
-            lc.setIdcodeEtablissement(this.getCode_etablissement());
-            lc.setIdprojet(this.getProjet());
+            lc.setNomTable("LIGNECREDITDEPENSE");
+            lc.setCodeEtablissement(this.getCode_etablissement());
+            lc.setProjet(this.getProjet());
             LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee="+Utilitaire.getAnnee(this.getDaty()));
             if(ligneCredits.length>0)retour=ligneCredits[0];   
         }catch(Exception e){
