@@ -4,6 +4,7 @@
     Author     : Sanda
 --%>
 
+<%@page import="utilitaire.Constante"%>
 <%@page import="mg.spat.MvttIntraCaisse"%>
 <%@page import="mg.spat.Caisse"%>
 <%@page import="affichage.PageInsert"%> 
@@ -27,7 +28,7 @@
         MvtIntraCaisseFille fille = new MvtIntraCaisseFille();
         fille.setNomTable(nomTableFille);
         PageInsertMultiple pi = new PageInsertMultiple(objet, fille, request, taille, u);
-        pi.setLien((String) session.getValue("lien"));        
+        pi.setLien((String) session.getValue("lien"));
         if (request.getParameter("ids") != null) {
             double somme = objet.calculerSomme(request.getParameter("ids"));
             pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(somme));
@@ -38,47 +39,52 @@
                 }
             }
         }
-        if(request.getParameter("montant")!=null){
-             pi.getFormu().getChamp("montant").setDefaut(request.getParameter("montant"));
+        if (request.getParameter("montant") != null) {
+            pi.getFormu().getChamp("montant").setDefaut(request.getParameter("montant"));
         }
-        if(request.getParameter("idTraite")!=null){
-             pi.getFormu().getChamp("idTraite").setDefaut(request.getParameter("idTraite"));
+        if (request.getParameter("idTraite") != null) {
+            pi.getFormu().getChamp("idTraite").setDefaut(request.getParameter("idTraite"));
         }
         affichage.Champ[] liste = new affichage.Champ[3];
         Caisse listedepart = new Caisse();
         listedepart.setNomTable("caisse");
-        
+
         Caisse listearriver = new Caisse();
         listearriver.setNomTable("caisse");
-        
+
         if (request.getParameter("caissedepart") != null) {
             listedepart.setNomTable(request.getParameter("caissedepart"));
         }
-        
+
         liste[0] = new Liste("caissedepart", listedepart, "val", "id");
         liste[1] = new Liste("caissearrivee", listearriver, "val", "id");
-        
+
         TypeObjet liste2 = new TypeObjet();
         liste2.setNomTable("MODEPAIEMENT");
-        liste[2] = new Liste("modepaiement", liste2, "val", "id");        
+        liste[2] = new Liste("modepaiement", liste2, "val", "id");
         pi.getFormu().changerEnChamp(liste);
-        
+
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idTraite").setLibelle("Traite");
         pi.getFormu().getChamp("idTraite").setAutre("readonly");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("remarque").setVisible(false);
-        pi.getFormu().getChamp("caissedepart").setLibelle("D�part");
-        pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv�e");
-        pi.getFormu().getChamp("caissearrivee").setDefaut(request.getParameter("banque"));
+        pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
+        pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv&eacute;e");
+
+        if (request.getParameter("idTraite") != null) {
+            liste[1].setDefaut(Constante.caisseCentraleEspece);
+        } else {
+            pi.getFormu().getChamp("caissearrivee").setDefaut(request.getParameter("banque"));
+        }
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
-        
         pi.getFormufle().getChamp("Reference_0").setLibelle("R&eacute;ference");
         pi.getFormufle().getChamp("Remarque_0").setLibelle("Remarque");
         pi.getFormufle().getChamp("Idmere_0").setVisible(false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
+
         pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
@@ -102,7 +108,7 @@
 } catch (Exception e) {
     e.printStackTrace();
 %>
-<script language="JavaScript"> 
+<script language="JavaScript">
     alert('<%=e.getMessage()%>');
     history.back();</script>
     <% }%>
