@@ -2391,8 +2391,13 @@ public class EtatPaieServlet extends HttpServlet {
 
             Map param = new HashMap();
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
-
+            String titre ="PIECE DE CAISSE PROVISION CONSTITUEE";
+            if (result3[0].getIdcategorie()!= null
+                    && result3[0].getIdcategorie().compareTo(Constante.idCategorieFCDefinitive) == 0) {
+                titre = "PIECE DE CAISSE";
+            }
             param.put("identification", ep.getNumpiece());
+            param.put("titre", titre);
             if (factDef.length != 0) {
                 param.put("date", factDef[0].getDaty());
             }

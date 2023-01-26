@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="demande-achat" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1a39488f-7d87-40a2-bfc1-4eb65e953b59">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.357947691000002"/>
+	<property name="ireport.x" value="50"/>
+	<property name="ireport.y" value="32"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -148,7 +148,7 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="56" uuid="9d6ff8a4-3458-45cd-b0b7-6d04cd8631dc">
+					<jr:column width="141" uuid="9d6ff8a4-3458-45cd-b0b7-6d04cd8631dc">
 						<jr:tableHeader style="table_TH" height="21" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="56" height="20" uuid="1a8b84b2-d4c9-40af-b984-8fe80da85e43"/>
@@ -168,7 +168,7 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="74" uuid="5494acbf-ad4d-4ed3-9c60-b6abdda59c5f">
+					<jr:column width="195" uuid="5494acbf-ad4d-4ed3-9c60-b6abdda59c5f">
 						<jr:tableHeader style="table_TH" height="21" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="74" height="20" uuid="c7f9097a-6647-4c72-80d4-8f1184e71768"/>
@@ -185,46 +185,6 @@
 									<font size="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{qte}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="86" uuid="82bdc708-cdc2-4a81-8364-88f601ff98f3">
-						<jr:tableHeader style="table_TH" height="21" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="86" height="20" uuid="dca32c25-ddad-4e60-8e75-781d8116de8c"/>
-								<textElement textAlignment="Center">
-									<font size="10"/>
-								</textElement>
-								<text><![CDATA[PU]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell style="table_TD" height="21" rowSpan="1">
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="86" height="21" uuid="9d623092-aeae-4a55-bf0a-605305cca26e"/>
-								<textElement textAlignment="Right">
-									<font size="10"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{pu}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="108" uuid="9093180a-668b-4355-ae9c-d26bd6098796">
-						<jr:tableHeader style="table_TH" height="21" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="108" height="21" uuid="472f7bf4-907b-4601-8a18-7b1644acec42"/>
-								<textElement textAlignment="Center">
-									<font size="10"/>
-								</textElement>
-								<text><![CDATA[MONTANT]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell style="table_TD" height="21" rowSpan="1">
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="108" height="21" uuid="2d8d0d6a-3820-463b-a69a-22a383094626"/>
-								<textElement textAlignment="Right">
-									<font size="10"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
