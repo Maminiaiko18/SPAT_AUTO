@@ -449,7 +449,7 @@ public class FactureFournisseur extends FactureClient {
     public FactureFournisseur genererDefinitive(UserEJB u, int type, Connection c) throws Exception {
         int verif = 0;
         FactureFournisseur fact2 = null;
-
+ 
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
@@ -464,6 +464,10 @@ public class FactureFournisseur extends FactureClient {
 
             String categorie = fc.getIdcategorie();
             if (type == 1) {
+                JournalCaisse[] jc = this.getPaiement(null);
+                if (jc.length == 0) {
+                    throw new Exception("Bon provisoire non sortie caisse. Impossible de générer facture définitive");
+                }
                 fc.controlerDefinitive(c);
                 categorie = Constante.categorieFFdefault;
             }
