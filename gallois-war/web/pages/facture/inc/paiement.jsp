@@ -14,7 +14,7 @@
 <%
     JournalCaisseLibComplet cht = new JournalCaisseLibComplet();
     cht.setNomTable("paiementFC");
-    String libEntete[] = {"id", "libelle", "caisse","tierslib","dateeffet", "montant"};
+    String libEntete[] = {"id", "libelle", "caisse","tierslib","numPiece","dateeffet", "montant"};
     String listeCrt[] = {"idfact"};
     String listeInt[] = {};
 
@@ -25,7 +25,7 @@
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"credit","debit"};
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "Libelle", "Caisse","tiers","Date", "Entree","Sortie"};
+    String libEnteteAffiche[] = {"id", "Libelle", "Caisse","tiers","Num piece","Date", "Entree","Sortie"};
     String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);

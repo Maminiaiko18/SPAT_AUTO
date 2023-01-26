@@ -1956,6 +1956,26 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             }
         }
     }
+    
+    public Object updateObjectSimple(ClassMAPTable o) throws Exception {
+        Connection c = null;
+
+        try {
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            updateObjectSimple(o, c);
+            c.commit();
+            return o;
+        } catch (Exception ex) {
+            c.rollback();
+            ex.printStackTrace();
+            throw ex;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
 
     public void testUpdate(ClassMAPTable o, Connection c) throws Exception {
         try {
@@ -1996,6 +2016,15 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             throw ex;
         }
 
+    }
+    public Object updateObjectSimple(ClassMAPTable o, Connection c) throws Exception {
+        try {
+            return UpdateObject.updateObject(o, c, u, this);
+        } catch (Exception ex) {
+            c.rollback();
+            ex.printStackTrace();
+            throw ex;
+        }
     }
 
     public void testDelete(ClassMAPTable o, Connection c) throws Exception {

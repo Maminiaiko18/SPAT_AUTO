@@ -92,5 +92,14 @@ public class Liberer extends ClassEtat {
         }
         return null;
     }
+
+    public Object validerObject(String u, Connection c) throws Exception{
+        Engagement engagement=findEngagement(null, c);
+        if(engagement!=null){
+            engagement.setDispoApres(engagement.getDispoApres()-this.getMontant());
+            engagement.updateToTableWithHisto(u, c);
+        }  
+        return super.validerObject(u, c);
+    }
     
 }

@@ -119,21 +119,19 @@ public class Billetage extends ClassEtat{
         return result[0];
     }
 
-    public void genererReportCreer(Connection c, String user) throws Exception{
+    public void genererReportVise(Connection c, String user) throws Exception{
         Report report = new Report();
         report.setDaty(this.getDaty());
         report.setCaisse(this.getCaisse());
-        double lastReport = this.getLastReport(c).getMontant();
-        double sortie = AdminGen.calculSommeDouble(getJournal(c), "debit");
-        double montant = (lastReport + this.getMontant()) - sortie ;
-        report.setMontant(montant);
+        report.setMontant(this.getMontant());
         report.setDevise("Ar");
         report.createObject(user, c);
+        report.validerObject(user, c);
     }
     
     public Object validerObject(String u, Connection c) throws Exception
     {
-        this.genererReportCreer(c, u);
+        this.genererReportVise(c, u);
         return super.validerObject(u, c);
     }
 }

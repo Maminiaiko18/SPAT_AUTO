@@ -11,7 +11,7 @@
 <% try{ 
     Tiers t = new Tiers();  
    
-    String nomTable = "tiers";    
+    String nomTable = "FOURNISSEUR_UNION_PERSONNEL";    
     if(request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("") != 0){
          nomTable=request.getParameter("table");
     }

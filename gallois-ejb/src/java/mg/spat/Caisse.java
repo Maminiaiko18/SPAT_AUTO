@@ -17,11 +17,10 @@ public class Caisse extends TypeObjet{
     
     private String numero;
 
+
     public Caisse() {
         super.setNomTable("Caisse");
     }
-    
-    
 
     public Caisse(String id, String val, String desce, String numero) {
         super.setNomTable("Caisse");
@@ -55,5 +54,14 @@ public class Caisse extends TypeObjet{
         this.preparePk("CAI", "getseqcaisse");
         this.setId(makePK(c));
 
+    }
+
+    public boolean isBanque(Connection c) throws Exception {
+        Caisse caisse = new Caisse();
+        caisse.setId(this.getId());
+        caisse.setNomTable(this.getNomTable());
+        caisse =  (Caisse) caisse.getById(caisse.getId(), caisse.getNomTable(), c);
+        if(caisse.getDesce().compareToIgnoreCase("banque")==0) return true;
+        return false;
     }
 }
