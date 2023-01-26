@@ -160,6 +160,15 @@ public class Constante {
     private static String caisseTraite = "CAIS00000T00016"; 
     public static String caisseDepense = "CAI0000000015200311"; 
     private static String typeCaissePhysique = "2"; 
+    public static String EFFETSARECEVOIRREMISALENCAISSEMENT="CAIS000017";
+
+    public static String getEFFETSARECEVOIRREMISALENCAISSEMENT() {
+        return EFFETSARECEVOIRREMISALENCAISSEMENT;
+    }
+
+    public static void setEFFETSARECEVOIRREMISALENCAISSEMENT(String EFFETSARECEVOIRREMISALENCAISSEMENT) {
+        Constante.EFFETSARECEVOIRREMISALENCAISSEMENT = EFFETSARECEVOIRREMISALENCAISSEMENT;
+    }
 
     public static String getTypeCaissePhysique() {
         return typeCaissePhysique;

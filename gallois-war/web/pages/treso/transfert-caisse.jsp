@@ -74,7 +74,7 @@
         pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv&eacute;e");
 
         if (request.getParameter("idTraite") != null) {
-            liste[1].setDefaut(Constante.caisseCentraleEspece);
+            liste[1].setDefaut(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT);
         } else {
             pi.getFormu().getChamp("caissearrivee").setDefaut(request.getParameter("banque"));
         }
