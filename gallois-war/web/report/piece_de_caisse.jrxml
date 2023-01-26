@@ -168,7 +168,7 @@
 								<textElement textAlignment="Right">
 									<font size="12" isBold="true" isUnderline="true"/>
 								</textElement>
-								<text><![CDATA[Montant Facture(s)]]></text>
+								<text><![CDATA[Montant]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell height="16" rowSpan="1">
