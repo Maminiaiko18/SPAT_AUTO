@@ -164,11 +164,7 @@
                                     <td><%=Utilitaire.champNull(data[i].getProjet())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getMontant())%></td>
                                     <td align="right"><a href="<%= pr.getLien() %>?but=depense/engagement-listefcc.jsp&codeetablissementlib=<%= data[i].getDirection()%>&projetlib=<%= data[i].getProjet() %>"><%=Utilitaire.formaterAr(data[i].getEngageer())%></a></td>
-<<<<<<< HEAD
-                                    <td align="right"><a href="<%= pr.getLien() %>?but=facture/facture-fournisseur-liste-vaovao.jsp&comptestr=<%= data[i].getDirection() + data[i].getProjet() %>&recap=checked&annee=<%= data[i].getAnnee() %>&mois1=<%= Utilitaire.champNull(moisMin) %>&mois2=<%= Utilitaire.champNull(moisMax) %>"><%=Utilitaire.formaterAr(data[i].getFacture())%></a></td>
-=======
                                     <td align="right"><a href="<%= pr.getLien() %>?but=facture/facture-fournisseur-liste-vaovao.jsp&code_etablissementlib=<%= data[i].getDirection()%>&projetlib=<%= data[i].getProjet() %>&exercice=<%= data[i].getAnnee() %>&mois1=<%= Utilitaire.champNull(moisMin) %>&mois2=<%= Utilitaire.champNull(moisMax) %>"><%=Utilitaire.formaterAr(data[i].getFacture())%></a></td>
->>>>>>> develop-safe
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPourcEngage())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPaye())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(data[i].getPourcPaye())%></td>
