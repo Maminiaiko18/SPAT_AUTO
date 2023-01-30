@@ -2,11 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse_banque" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1aeaf117-a05d-4327-8a4b-0e54fb8087cd">
 	<property name="ireport.zoom" value="1.1000000000000048"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="191"/>
+	<property name="ireport.y" value="98"/>
 	<subDataset name="Table Dataset 1" uuid="f5114710-a40e-4c61-a38a-bf5e8cc51b05">
 		<field name="code" class="java.lang.String"/>
 		<field name="montant" class="java.lang.Double"/>
 		<field name="daty" class="java.util.Date"/>
+		<field name="typefacture" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="datyJ" class="java.util.Date"/>
 	<parameter name="numPiece" class="java.lang.String"/>
@@ -171,19 +172,39 @@
 					<datasetRun subDataset="Table Dataset 1" uuid="3d008830-3598-490e-bde8-94bbdad4f2d5">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="174" uuid="db1c0489-b011-4521-9bb5-feff00b1e9fe">
+					<jr:column width="138" uuid="59809540-89b9-4f29-87b8-21a6c064d04a">
 						<jr:tableHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="174" height="30" uuid="d1a8932a-d63d-4d21-b04d-ca57a1d134f7"/>
+								<reportElement x="0" y="0" width="138" height="30" uuid="cbdd8ea5-27e8-4d53-9d05-0acf04aaf55a"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true" isUnderline="true"/>
+								</textElement>
+								<text><![CDATA[Type]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="138" height="16" uuid="4456db39-bf58-456b-b4af-4784dd9c8f90"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{typefacture}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="138" uuid="db1c0489-b011-4521-9bb5-feff00b1e9fe">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="138" height="30" uuid="d1a8932a-d63d-4d21-b04d-ca57a1d134f7"/>
 								<textElement textAlignment="Center">
 									<font size="12" isBold="true" isUnderline="true"/>
 								</textElement>
 								<text><![CDATA[N° Facture(s)]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell height="17" rowSpan="1">
+						<jr:detailCell height="16" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="174" height="16" uuid="d8842d7b-2175-432c-ae8f-fc05e1b09019"/>
+								<reportElement x="0" y="0" width="138" height="16" uuid="d8842d7b-2175-432c-ae8f-fc05e1b09019"/>
 								<textElement textAlignment="Center">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -191,19 +212,19 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="174" uuid="183e13b5-a2b6-4225-b81e-8c1c8261856b">
+					<jr:column width="138" uuid="183e13b5-a2b6-4225-b81e-8c1c8261856b">
 						<jr:tableHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="174" height="30" uuid="b7e146b0-c13e-4642-b916-140da291dabc"/>
+								<reportElement x="0" y="0" width="138" height="30" uuid="b7e146b0-c13e-4642-b916-140da291dabc"/>
 								<textElement textAlignment="Right">
 									<font size="12" isBold="true" isUnderline="true"/>
 								</textElement>
 								<text><![CDATA[Montant ]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell height="17" rowSpan="1">
+						<jr:detailCell height="16" rowSpan="1">
 							<textField pattern="#,##0.000" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="174" height="16" uuid="933bff53-2ecb-4aac-978c-a863c8e159d4"/>
+								<reportElement x="0" y="0" width="138" height="16" uuid="933bff53-2ecb-4aac-978c-a863c8e159d4"/>
 								<textElement textAlignment="Right">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -211,19 +232,19 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="204" uuid="2565fed4-34c0-4149-b891-a5300ddf852b">
+					<jr:column width="138" uuid="2565fed4-34c0-4149-b891-a5300ddf852b">
 						<jr:tableHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="204" height="30" uuid="df1d4f37-a5bd-491a-96d5-2d0d5e625bbd"/>
+								<reportElement x="0" y="0" width="138" height="30" uuid="df1d4f37-a5bd-491a-96d5-2d0d5e625bbd"/>
 								<textElement textAlignment="Center">
 									<font size="12" isBold="true" isUnderline="true"/>
 								</textElement>
 								<text><![CDATA[Date Facture(s)]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell height="17" rowSpan="1">
+						<jr:detailCell height="16" rowSpan="1">
 							<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="204" height="16" uuid="577393d1-a52a-4a30-89c3-e743287b3d14"/>
+								<reportElement x="0" y="0" width="138" height="16" uuid="577393d1-a52a-4a30-89c3-e743287b3d14"/>
 								<textElement textAlignment="Center">
 									<font size="12" isBold="true"/>
 								</textElement>
