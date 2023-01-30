@@ -13,7 +13,7 @@ try{
     String id1Lib = null;
     String  mapping = "mg.spat.FcDefPr",
             nomtable = "FCDEFPR",
-            apres = "facture/regul-fc-fiche.jsp",
+            apres = "facture/liaison-fc-prov-fiche.jsp",
             titre = "Saisie Liaison FD et prévision";
     
             FcDefPr objet = new FcDefPr();
@@ -24,6 +24,7 @@ try{
     pi.setLien((String) session.getValue("lien"));  
     pi.getFormu().getChamp("id1").setLibelle("Facture client");
     pi.getFormu().getChamp("id2").setLibelle("Provision");
+    pi.getFormu().getChamp("etat").setVisible(false);
 
     pi.getFormu().getChamp("id2").setPageAppel("choix/listeFactureClientChoix.jsp");
     pi.getFormu().getChamp("id1").setPageAppel("choix/listeFactureClientChoix.jsp");

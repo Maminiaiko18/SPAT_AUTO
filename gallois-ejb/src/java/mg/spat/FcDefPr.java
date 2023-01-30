@@ -3,11 +3,13 @@ package mg.spat;
 import java.sql.Connection;
 
 import bean.CGenUtil;
-import bean.ClassMAPTable;
+import bean.ClassEtat;
+import data.FactureData;
 import facture.FactureClient;
+import facture.PaiementFacture;
 import utilitaire.UtilDB;
 
-public class FcDefPr extends ClassMAPTable {
+public class FcDefPr extends ClassEtat {
     String id, id1, id2;
 
     public String getId() {
@@ -79,4 +81,68 @@ public class FcDefPr extends ClassMAPTable {
         }
     }
 
+    public PaiementFacture getPaiementProv(Connection c)throws Exception{
+        int verif = 0;
+        PaiementFacture pf = new PaiementFacture();
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            pf.setIdFact(this.getId1());
+            PaiementFacture[] tmp = (PaiementFacture[])CGenUtil.rechercher(pf, null, null, c, "");
+            if(tmp.length!=0){
+                pf = tmp[0];
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return pf;
+    }
+    
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception
+    {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            PaiementFacture pf = this.getPaiementProv(c);
+            FactureClient def = (FactureClient)new FactureClient().getById(this.getId1(), "facture_client_union_ordre", c);
+            FactureClient prov = (FactureClient)new FactureClient().getById(this.getId2(), "facture_client_union_ordre", c);
+            
+            double montant = def.getMontantreste();
+            FactureData factData = new FactureData();
+            factData.initData(prov.getId());
+            double tp = factData.getMontantTP();
+            
+            //min entre reste à payer FD sy ny solde dispo an'ny Prov no alaina
+            System.out.println("TROP PERCU ====== " + tp + " && ID2 ========== " + montant);
+            if(tp>0 && tp < montant){
+                montant = tp; 
+            }
+
+            if(pf.getIdMvt()!=null){
+                PaiementFacture ins = new PaiementFacture(pf.getIdMvt(), this.getId2(), montant);
+                ins.createObject(u, c);
+            }else{
+                throw new Exception("Pas de paiement pour la facture de provision");
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return super.validerObject(u, c);
+    }
 }
