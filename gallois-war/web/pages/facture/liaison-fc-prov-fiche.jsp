@@ -20,7 +20,9 @@
     pc.setTitre("FICHE LIAISON PROV FACTURE DEF");
     pc.getChampByName("id").setLibelle("Id");
     pc.getChampByName("id1").setLibelle("Facture définitive");
+    pc.getChampByName("id1").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp", "id =");
     pc.getChampByName("id2").setLibelle("Facture de provision");
+    pc.getChampByName("id2").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao.jsp", "id =");
     pc.getChampByName("etat").setVisible(false);
     
     facture=(FcDefPr)pc.getBase();
