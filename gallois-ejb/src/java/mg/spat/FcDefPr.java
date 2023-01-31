@@ -8,6 +8,7 @@ import data.FactureData;
 import facture.FactureClient;
 import facture.PaiementFacture;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 public class FcDefPr extends ClassEtat {
     String id, id1, id2;
@@ -105,7 +106,7 @@ public class FcDefPr extends ClassEtat {
         return pf;
     }
     
-    public JournalCaisse createJC(Connection c, String idJournal, double montant)throws Exception{
+    public JournalCaisse createJC(Connection c, String idJournal, double montant,String src)throws Exception{
         JournalCaisse jc = new JournalCaisse();
         int verif = 0;
         try {
@@ -115,7 +116,11 @@ public class FcDefPr extends ClassEtat {
                 verif = 1;
             }
             JournalCaisse caissePv = (JournalCaisse)jc.getById(idJournal, jc.getNomTable(), c);
-            caissePv.setMontant(montant);
+            caissePv.setId(null);
+            caissePv.setDateEffet(null);
+            caissePv.setCredit(montant);
+            caissePv.setIdplacement(src);
+            caissePv.setDateSaisie(Utilitaire.dateDuJourSql());
             jc = caissePv;
         } catch (Exception ex) {
             throw ex;
@@ -151,12 +156,13 @@ public class FcDefPr extends ClassEtat {
                 montant = tp; 
             }
 
-            JournalCaisse jc = this.createJC(c, pf.getIdMvt(), montant);
+            JournalCaisse jc = this.createJC(c, pf.getIdMvt(), montant,def.getId());
             //eto manampy idSource
             jc.createObject(u, c);
+            jc.validerObject(u, c);
             //min entre reste à payer FD sy ny solde dispo an'ny Prov no alaina
             if(pf.getIdMvt()!=null){
-                PaiementFacture ins = new PaiementFacture(jc.getTuppleID(), this.getId2(), montant);
+                PaiementFacture ins = new PaiementFacture(jc.getTuppleID(), this.getId1(), montant);
                 ins.createObject(u, c);
             }else{
                 throw new Exception("Pas de paiement pour la facture de provision");
