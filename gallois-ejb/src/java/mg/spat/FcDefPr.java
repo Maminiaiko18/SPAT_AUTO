@@ -146,14 +146,15 @@ public class FcDefPr extends ClassEtat {
             FactureData factData = new FactureData();
             factData.initData(prov.getId());
             double tp = factData.getMontantTP();
-            JournalCaisse jc = this.createJC(c, pf.getIdMvt(), montant);
-            jc.createObject(u, c);
-            //min entre reste à payer FD sy ny solde dispo an'ny Prov no alaina
             System.out.println("TROP PERCU ====== " + tp + " && ID2 ========== " + montant);
             if(tp>0 && tp < montant){
                 montant = tp; 
             }
 
+            JournalCaisse jc = this.createJC(c, pf.getIdMvt(), montant);
+            //eto manampy idSource
+            jc.createObject(u, c);
+            //min entre reste à payer FD sy ny solde dispo an'ny Prov no alaina
             if(pf.getIdMvt()!=null){
                 PaiementFacture ins = new PaiementFacture(jc.getTuppleID(), this.getId2(), montant);
                 ins.createObject(u, c);
