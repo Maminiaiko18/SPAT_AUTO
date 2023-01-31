@@ -12,6 +12,15 @@ import utilitaire.Utilitaire;
 
 public class FcDefPr extends ClassEtat {
     String id, id1, id2;
+    double montant;
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
 
     public String getId() {
         return id;
@@ -147,22 +156,22 @@ public class FcDefPr extends ClassEtat {
             FactureClient def = (FactureClient)new FactureClient().getById(this.getId1(), "facture_client_union_ordre", c);
             FactureClient prov = (FactureClient)new FactureClient().getById(this.getId2(), "facture_client_union_ordre", c);
             
-            double montant = def.getMontantreste();
+            // double montant = def.getMontantreste();
             FactureData factData = new FactureData();
             factData.initData(prov.getId());
             double tp = factData.getMontantTP();
-            System.out.println("TROP PERCU ====== " + tp + " && ID2 ========== " + montant);
-            if(tp>0 && tp < montant){
-                montant = tp; 
-            }
+            System.out.println("TROP PERCU ====== " + tp + " && ID2 ========== " + this.getMontant());
+            // if(tp>0 && tp < montant){
+            //     montant = tp; 
+            // }
 
-            JournalCaisse jc = this.createJC(c, pf.getIdMvt(), montant,def.getId());
+            JournalCaisse jc = this.createJC(c, pf.getIdMvt(), this.getMontant(),def.getId());
             //eto manampy idSource
             jc.createObject(u, c);
             jc.validerObject(u, c);
             //min entre reste à payer FD sy ny solde dispo an'ny Prov no alaina
             if(pf.getIdMvt()!=null){
-                PaiementFacture ins = new PaiementFacture(jc.getTuppleID(), this.getId1(), montant);
+                PaiementFacture ins = new PaiementFacture(jc.getTuppleID(), this.getId1(), this.getMontant());
                 ins.createObject(u, c);
             }else{
                 throw new Exception("Pas de paiement pour la facture de provision");
