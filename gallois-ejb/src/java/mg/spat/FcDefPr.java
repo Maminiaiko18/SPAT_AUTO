@@ -164,6 +164,7 @@ public class FcDefPr extends ClassEtat {
             // if(tp>0 && tp < montant){
             //     montant = tp; 
             // }
+            if(tp < this.getMontant()) throw new Exception("Trop percu inferieur au reste a payer de la facture");
 
             JournalCaisse jc = this.createJC(c, pf.getIdMvt(), this.getMontant(),def.getId());
             //eto manampy idSource
