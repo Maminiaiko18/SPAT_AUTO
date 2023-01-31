@@ -105,6 +105,29 @@ public class FcDefPr extends ClassEtat {
         return pf;
     }
     
+    public JournalCaisse createJC(Connection c, String idJournal, double montant)throws Exception{
+        JournalCaisse jc = new JournalCaisse();
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            JournalCaisse caissePv = (JournalCaisse)jc.getById(idJournal, jc.getNomTable(), c);
+            caissePv.setMontant(montant);
+            jc = caissePv;
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        
+        return jc;
+    }
+
     @Override
     public Object validerObject(String u, Connection c) throws Exception
     {
@@ -123,7 +146,8 @@ public class FcDefPr extends ClassEtat {
             FactureData factData = new FactureData();
             factData.initData(prov.getId());
             double tp = factData.getMontantTP();
-            
+            JournalCaisse jc = this.createJC(c, pf.getIdMvt(), montant);
+            jc.createObject(u, c);
             //min entre reste à payer FD sy ny solde dispo an'ny Prov no alaina
             System.out.println("TROP PERCU ====== " + tp + " && ID2 ========== " + montant);
             if(tp>0 && tp < montant){
@@ -131,7 +155,7 @@ public class FcDefPr extends ClassEtat {
             }
 
             if(pf.getIdMvt()!=null){
-                PaiementFacture ins = new PaiementFacture(pf.getIdMvt(), this.getId2(), montant);
+                PaiementFacture ins = new PaiementFacture(jc.getTuppleID(), this.getId2(), montant);
                 ins.createObject(u, c);
             }else{
                 throw new Exception("Pas de paiement pour la facture de provision");
