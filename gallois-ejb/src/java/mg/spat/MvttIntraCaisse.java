@@ -12,6 +12,7 @@ import java.sql.Date;
 import utilitaire.Constante;
 import utilitaire.Utilitaire;
 import utilitaire.ConstanteEtat;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -22,6 +23,26 @@ public class MvttIntraCaisse extends ClassEtat {
     private Date daty;
     private double montant;
     private  JournalCaisse[] listeJournal;
+    int etatversement;
+    String idfinaledestination ;
+
+    public int getEtatversement() {
+        return etatversement;
+    }
+
+    public void setEtatversement(int etatversement) {
+        this.etatversement = etatversement;
+    }
+
+    public String getIdfinaledestination() {
+        return idfinaledestination;
+    }
+
+    public void setIdfinaledestination(String idfinaledestination) {
+        this.idfinaledestination = idfinaledestination;
+    }
+    
+    
 
     public String getIdTraite() {
         return idTraite;
@@ -179,5 +200,22 @@ public class MvttIntraCaisse extends ClassEtat {
             somme+=journalCaisses[i].getCredit();
         }
         return somme;
+    }
+    
+    public void verserTraite(String refUser)throws Exception{
+        Connection c=null;
+        try{
+            c=new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            
+            this.setEtatversement(ConstanteEtat.getEtatValider());
+            this.validerObject(refUser, c);
+            c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+            e.printStackTrace();
+        }finally{
+            if(c!=null)c.close();
+        }
     }
 }

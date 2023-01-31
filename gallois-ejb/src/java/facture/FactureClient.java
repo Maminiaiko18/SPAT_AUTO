@@ -9,6 +9,8 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.ClassMere;
 import bean.TypeObjet;
+
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -1861,7 +1863,7 @@ public class FactureClient extends ClassMere {
     }
 
     public double getMontantreste() {
-        return montantreste;
+        return Utilitaire.arrondirDecimalWithMode(montantreste,"#.##", RoundingMode.HALF_UP);
     }
 
     public void setMontantreste(double montantreste) {
