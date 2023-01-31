@@ -559,11 +559,6 @@ public class BonDeCommande extends ClassEtat {
             }
 
             Engagement engagement = this.getEngagement();
-
-            LigneCredit lc=this.getBudget(c);
-            if(lc!=null)engagement.setIdLC(lc.getTuppleID());
-            engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
-
             engagement.construirePK(c);
             
             BonDeCommandeFille bcFille = new BonDeCommandeFille();
@@ -609,9 +604,9 @@ public class BonDeCommande extends ClassEtat {
                 verif=1;
             }
             LigneCredit lc=new LigneCredit();
-            lc.setNomTable("LIGNECREDITDEPENSE");
-            lc.setCodeEtablissement(this.getCode_etab());
-            lc.setProjet(this.getProjet());
+            lc.setNomTable("SITUATIONLCDEPENSEGRP");
+            lc.setIdcodeEtablissement(this.getCode_etab());
+            lc.setIdprojet(this.getProjet());
             LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee="+Utilitaire.getAnnee(this.getDaty()));
             if(ligneCredits.length>0)retour=ligneCredits[0];   
         }catch(Exception e){
