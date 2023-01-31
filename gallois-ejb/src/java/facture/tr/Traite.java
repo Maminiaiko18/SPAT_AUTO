@@ -26,6 +26,16 @@ public class Traite extends ClassEtat {
     String id, tiers, banque, reference;
     Date daty, dateEcheance;
     double montant,escompte,total;
+    String idtypepiece;
+
+    public String getIdtypepiece() {
+        return idtypepiece;
+    }
+
+    public void setIdtypepiece(String idtypepiece) {
+        this.idtypepiece = idtypepiece;
+    }
+    
 
     public String getId() {
         return id;

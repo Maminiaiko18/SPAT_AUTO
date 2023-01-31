@@ -22,6 +22,26 @@ public class MvttIntraCaisse extends ClassEtat {
     private Date daty;
     private double montant;
     private  JournalCaisse[] listeJournal;
+    int etatversement;
+    String idfinaledestination ;
+
+    public int getEtatversement() {
+        return etatversement;
+    }
+
+    public void setEtatversement(int etatversement) {
+        this.etatversement = etatversement;
+    }
+
+    public String getIdfinaledestination() {
+        return idfinaledestination;
+    }
+
+    public void setIdfinaledestination(String idfinaledestination) {
+        this.idfinaledestination = idfinaledestination;
+    }
+    
+    
 
     public String getIdTraite() {
         return idTraite;

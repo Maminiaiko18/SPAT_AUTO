@@ -44,6 +44,38 @@ public class JournalCaisse extends ClassEtat {
     private double sommeCredit, sortie, entree;
     private String banque,type;
     private String descecaisse, idcaisse,numeroOP,idplacementvrai,bonprovisoire;
+    
+    String idtraite;
+    int etatversement;
+    String idfinaledestination;
+
+    public String getIdtraite() {
+        return idtraite;
+    }
+
+    public void setIdtraite(String idtraite) {
+        this.idtraite = idtraite;
+    }
+
+    public int getEtatversement() {
+        return etatversement;
+    }
+
+    public void setEtatversement(int etatversement) {
+        this.etatversement = etatversement;
+    }
+
+    public String getIdfinaledestination() {
+        return idfinaledestination;
+    }
+
+    public void setIdfinaledestination(String idfinaledestination) {
+        this.idfinaledestination = idfinaledestination;
+    }
+    
+    
+    
+    
 
     public String getType() {
         return type;
