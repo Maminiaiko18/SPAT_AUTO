@@ -12,6 +12,7 @@ import java.sql.Date;
 import utilitaire.Constante;
 import utilitaire.Utilitaire;
 import utilitaire.ConstanteEtat;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -199,5 +200,22 @@ public class MvttIntraCaisse extends ClassEtat {
             somme+=journalCaisses[i].getCredit();
         }
         return somme;
+    }
+    
+    public void verserTraite(String refUser)throws Exception{
+        Connection c=null;
+        try{
+            c=new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            
+            this.setEtatversement(ConstanteEtat.getEtatValider());
+            this.validerObject(refUser, c);
+            c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+            e.printStackTrace();
+        }finally{
+            if(c!=null)c.close();
+        }
     }
 }
