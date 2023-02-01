@@ -100,7 +100,7 @@ public class FcDefPr extends ClassEtat {
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            pf.setIdFact(this.getId1());
+            pf.setIdFact(this.getId2());
             PaiementFacture[] tmp = (PaiementFacture[])CGenUtil.rechercher(pf, null, null, c, "");
             if(tmp.length!=0){
                 pf = tmp[0];
@@ -166,6 +166,8 @@ public class FcDefPr extends ClassEtat {
             // }
             if(tp < this.getMontant()) throw new Exception("Trop percu inferieur au reste a payer de la facture");
 
+            if(def.getMontantreste() < this.getMontant()) throw new Exception("Reste a payer inferieur au reste a payer de la facture");
+            
             JournalCaisse jc = this.createJC(c, pf.getIdMvt(), this.getMontant(),def.getId());
             //eto manampy idSource
             jc.createObject(u, c);
