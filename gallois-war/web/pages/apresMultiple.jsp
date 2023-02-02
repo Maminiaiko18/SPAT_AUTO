@@ -3,6 +3,7 @@
     Created on : Oct 19, 2018, 2:55:36 PM
     Author     : Jerry
 --%>
+<%@page import="facture.tr.Traite"%>
 <%@page import="factureclient.FactureClientDetail"%>
 <%@ page import="user.*" %>
 <%@ page import="utilitaire.*" %>
@@ -288,6 +289,17 @@
             t = (ClassMAPTable) (Class.forName(classe).newInstance());
             t.setValChamp(t.getAttributIDName(), request.getParameter("id"));
             u.cloturerObject(t);
+        }
+        if(acte.equals("viserTraite")){
+            Traite traite=new Traite();
+            String aWhere = " AND id in ("+Utilitaire.tabToString(tId, "'", ",")+")";
+            Traite[] listeTraite = (Traite[])CGenUtil.rechercher(traite, null, null, aWhere);
+            for(int i=0;i<listeTraite.length;i++){
+                listeTraite[i].setIdfinaledestination(request.getParameter("idcaisse"));
+                u.updateObject(listeTraite[i]);
+                u.validerObject(listeTraite[i]);
+            }
+            
         }
         if (rajoutLien != null) {
 
