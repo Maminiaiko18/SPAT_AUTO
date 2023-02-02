@@ -13,7 +13,7 @@
         if (request.getParameter("table") != null) journal.setNomTable(request.getParameter("table"));
           String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] =  {"id", "folio", "valcaisse","idtypecheque", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
+        String libEntete[] =  {"id", "folio", "valcaisse","DESCETYPECHEQUE", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
         PageRecherche pr = new PageRecherche(journal, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -79,7 +79,8 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            pr.getTableau().setLibelleAffiche(libEntete);
+            String entete[] =  {"id", "folio", "banque","type cheque", "num piece", "num cheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
+            pr.getTableau().setLibelleAffiche(entete);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
         %>
