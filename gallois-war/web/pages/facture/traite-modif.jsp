@@ -43,7 +43,7 @@
                             <br><br> 
                         </div>
                         <input name="acte" type="hidden" id="acte" value="update">
-                        <input name="bute" type="hidden" id="bute" value="facture/traite-modif.jsp">
+                        <input name="bute" type="hidden" id="bute" value="facture/traite-fiche.jsp">
                         <input name="classe" type="hidden" id="classe" value="facture.tr.Traite">
                         <input name="nomtable" type="hidden" id="nomtable" value="traite">
                     </form>
