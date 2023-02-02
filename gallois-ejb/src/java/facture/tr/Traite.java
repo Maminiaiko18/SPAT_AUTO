@@ -16,6 +16,8 @@ import utilitaire.Utilitaire;
 
 import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.MvttIntraCaisse;
+import utilitaire.Constante;
 
 /**
  *
@@ -27,6 +29,15 @@ public class Traite extends ClassEtat {
     Date daty, dateEcheance;
     double montant,escompte,total;
     String idtypepiece;
+    String idfinaledestination;
+
+    public String getIdfinaledestination() {
+        return idfinaledestination;
+    }
+
+    public void setIdfinaledestination(String idfinaledestination) {
+        this.idfinaledestination = idfinaledestination;
+    }
 
     public String getIdtypepiece() {
         return idtypepiece;
@@ -215,5 +226,17 @@ public class Traite extends ClassEtat {
     
     public String getValColLibelle(){
         return id+";"+montant;
+    }
+    
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        String caisseDep = Constante.getCaisseTraite();
+        if(this.getIdtypepiece()!=null && this.getIdtypepiece().equals(Constante.getTypePieceCheque()))caisseDep = Constante.caisseDepense;
+        MvttIntraCaisse mvt = new MvttIntraCaisse(caisseDep,Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,null,null,
+                                    null,this.getTuppleID(),this.getDaty(),this.getMontant());
+        mvt.setIdfinaledestination(this.getIdfinaledestination());
+        mvt.createObject(u, c);
+        mvt.validerObject(u, c);
+        return super.validerObject(u, c);
     }
 }
