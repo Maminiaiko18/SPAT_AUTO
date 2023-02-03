@@ -881,6 +881,12 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                             String numeroPiece = calculerNumeroPiece(c);
                             this.setNumPiece(numeroPiece);
                         }
+
+                        //num piece pour depense simple dans la caisse depenses
+                        if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0 &&  this.getDebit() > 0 ){
+                            String numeroPiece = calculerNumeroPieceDepense(c);
+                            this.setNumPiece(numeroPiece);
+                        }
                     }
             }
            
