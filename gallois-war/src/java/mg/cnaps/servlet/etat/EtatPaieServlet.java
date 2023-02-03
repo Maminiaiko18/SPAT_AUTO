@@ -2528,7 +2528,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             }
             requete = requete + " and upper(tierslib) like upper('%" + tierslib + "%') and upper(typelib) like upper('%"
-                    + typelib + "%') order by daty asc";
+                    + typelib + "%') order by daty,code asc";
             EtatRedevance[] list = (EtatRedevance[]) CGenUtil.rechercher(redevance, null, null, null, requete);
             Map param = new HashMap();
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
