@@ -1,3 +1,4 @@
+<%@page import="facture.tr.Traite"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="mg.spat.JournalCaisse"%>
 <%@page import="utilitaire.Constante"%>
@@ -23,6 +24,14 @@
             MvttIntraCaisse[] listeMvt=(MvttIntraCaisse[])CGenUtil.rechercher(mvtcaisse,null,null," and id in ("+Utilitaire.tabToString(tabId, "'", ",")+")");
             for(int i=0;i<listeMvt.length;i++){
                 listeMvt[i].verserTraite(refUser);
+            }
+        }else if(acte.equals("encaissementTraite")){
+            MvttIntraCaisse mvtcaisse=new MvttIntraCaisse();
+            mvtcaisse.setNomTable("mvtintracaisse");
+
+            MvttIntraCaisse[] listeMvt=(MvttIntraCaisse[])CGenUtil.rechercher(mvtcaisse,null,null," and id in ("+Utilitaire.tabToString(tabId, "'", ",")+")");
+            for(int i=0;i<listeMvt.length;i++){
+                listeMvt[i].encaisserTraite(refUser);
             }
         }
 %>
