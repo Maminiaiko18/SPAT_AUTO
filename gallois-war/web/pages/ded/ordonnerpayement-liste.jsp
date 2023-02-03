@@ -12,14 +12,13 @@
     }
     
 //    String libEntete[] = {"id", "ded_Id","remarque","numcheque","daty","folio","numeroop","montant"};
-    String libEntete[] = {"id", "etatlib", "numeroop", "numeroCompta", "daty", "tiers", "montant","remarque", "modepaiementlib","ded_Id"};   
-    String listeCrt[] = {"id","ded_Id", "daty", "tiers","numeroop","modepaiementlib","montant","remarque"};
+    String libEntete[] = {"id", "etatlib", "numeroop", "daty", "tiers", "montant","remarque", "modepaiementlib"};   
+    String listeCrt[] = {"id", "daty", "tiers","numeroop","modepaiementlib","montant","remarque"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(op, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("ded/ordonnerpayement-liste.jsp");
-    pr.getFormu().getChamp("ded_Id").setLibelle("facture");
     pr.getFormu().getChamp("daty1").setLibelle("date de d&eacute;but");
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
     pr.getFormu().getChamp("tiers").setLibelle("Tiers");
@@ -88,7 +87,7 @@
             </div>
 
             <%
-                String libEnteteAffiche[] = {"id", "Etat", "Num?ro OP", "Num?ro compta", "Date", "Tiers", "Montant", "Motif de paiement", "Mode de paiement","Facture"};
+                String libEnteteAffiche[] = {"id", "Etat", "Num&eacute;ro OP", "Date", "Tiers", "Montant", "Motif de paiement", "Mode de paiement"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("ajouterOP");
                 out.println(pr.getTableau().getHtmlWithCheckbox());%>
