@@ -1,62 +1,91 @@
+<%-- 
+    Document   : journal-liste
+    Created on : 6 nov. 2019, 14:24:39
+    Author     : john
+--%>
+
 <%@page import="mg.spat.JournalCaisse"%>
-<%@page import="mg.spat.JournalCaisseMivadika"%>
-<%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRecherche"%>
-<%
-    try {
-        JournalCaisse journalCaisse = new JournalCaisse();
-        journalCaisse.setNomTable("journalcaisselibdepense");
-        String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement","numeroOP"};
+<% 
+    try{
+        JournalCaisse journal = new JournalCaisse();
+        journal.setNomTable("journalcaisselibdepenseBanqueT");
+        if (request.getParameter("table") != null) journal.setNomTable(request.getParameter("table"));
+          String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] = {"id", "folio", "valcaisse","idtypecheque", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement","numeroOP"};
-        PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+        String libEntete[] =  {"id", "valcaisse","DESCETYPECHEQUE", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
+        PageRecherche pr = new PageRecherche(journal, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.setApres("treso/depense-liste.jsp");
-        if(request.getParameter("dateEffet1") == null || request.getParameter("dateEffet2") == null){
-            pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
-            pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
-            
-        }
+
+         pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
-        pr.getFormu().getChamp("libelle").setLibelle("Libellé");
+        pr.getFormu().getChamp("libelle").setLibelle("Libellï¿½");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
-        pr.getFormu().getChamp("numeroOP").setLibelle("Numero operateur");
+        pr.getFormu().getChamp("valcaisse").setLibelle("Banque");
+
         String[] colSomme = {"debit"};
         pr.creerObjetPage(libEntete, colSomme);
-
 %>
+<script>
+    function changerDesignation() {
+        document.recettebq.submit();
+    }
+</script>
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Journal de d&eacute;penses</h1>
+        <h1>Depenses Banques</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=treso/depense-liste.jsp" method="post" name="incident" id="incident">
+        <form action="<%=pr.getLien()%>?but=treso/depense-liste.jsp" method="post" name="recettebq" id="recettebq">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
-            
-        </form>
+            <div class="row col-md-12">  
+                <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                    Etat : 
+                    <select name="table" class="champ" id="table" onchange="changerDesignation()" >
+                        
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("journalcaisselibdepenseBanqueT") == 0) {%>    
+                        <option value="journalcaisselibdepenseBanqueT" selected>Tous</option>
+                        <% } else { %>
+                        <option value="journalcaisselibdepenseBanqueT" >Tous</option>
+                        <% } %>
+                        
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("journalcaisselibdepenseBanqueC") == 0) {%>    
+                        <option value="journalcaisselibdepenseBanqueC" selected>Cr&eacute;&eacute;</option>
+                        <% } else { %>
+                        <option value="journalcaisselibdepenseBanqueC" >Cr&eacute;&eacute;</option>
+                        <% } %>
 
-        <%  String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("journalcaisselibdepenseBanqueV") == 0) {%>    
+                        <option value="journalcaisselibdepenseBanqueV" selected>Valid&eacute;</option>
+                        <% } else { %>
+                        <option value="journalcaisselibdepenseBanqueV" >Valid&eacute;</option>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <%
+             String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
-        <br/>
-
+        <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Folio", "Caisse","Type", "Num Piece", "num cheque", "Libellé", "Date Saisie", "Date Effet", "Entrée", "Sortie","Source","Numero operateur"};
-            pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            //pr.getTableau().construire_libelle(champ, libelle_comp);
+            String entete[] =  {"id", "banque","type cheque", "numPiece", "Numero cheque","libelle", "date de saisie", "date d'effet", "credit", "debit","idplacement"};
+            pr.getTableau().setLibelleAffiche(entete);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
         %>
-        <% out.println(pr.getBasPage());%>
     </section>
 </div>
-<% } catch (Exception e) {
-        e.printStackTrace();
-    }%>
+<% }catch(Exception e){
+    e.printStackTrace();
+}%>

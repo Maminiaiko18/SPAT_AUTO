@@ -866,7 +866,9 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("numPiece", tabJournal[0].getNumPiece());
                 param.put("client", tabJournal[0].getTiersLib());
                 param.put("operation", tabJournal[0].getLibelle());
-                param.put("datyPiece", tabJournal[0].getDateEffet());
+                //pour les pieces lier provision
+                if(tabJournal[0].getDateEffet()==null) param.put("datyPiece", tabJournal[0].getDateSaisie());
+                else  param.put("datyPiece", tabJournal[0].getDateEffet());
             }
             String nomJasper = "piece_de_caisse";
             if (tabJournal[0].getIdmode().equalsIgnoreCase("pay1") == false) {

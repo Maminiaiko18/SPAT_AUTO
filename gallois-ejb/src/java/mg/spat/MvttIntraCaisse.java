@@ -44,6 +44,18 @@ public class MvttIntraCaisse extends ClassEtat {
     
     
 
+    public MvttIntraCaisse(String caissedepart,String caissearrivee,String modepaiement,String remarque,String description,String idTraite,Date daty,double montant)throws Exception{
+        this.setNomTable("MvtIntracaisse");
+        this.setCaissearrivee(caissearrivee);
+        this.setCaissedepart(caissedepart);
+        this.setModepaiement(modepaiement);
+        this.setRemarque(remarque);
+        this.setDesignation(designation);
+        this.setIdTraite(idTraite);
+        this.setDaty(daty);
+        this.setMontant(montant);
+    }
+
     public String getIdTraite() {
         return idTraite;
     }
@@ -161,6 +173,8 @@ public class MvttIntraCaisse extends ClassEtat {
 
         entree.createObject(u, c);
         entree.validerObject(u, c);
+        
+        this.setEtatversement(ConstanteEtat.getEtatValider());
         
         return super.validerObject(u, c); //To change body of generated methods, choose Tools | Templates.
     }
