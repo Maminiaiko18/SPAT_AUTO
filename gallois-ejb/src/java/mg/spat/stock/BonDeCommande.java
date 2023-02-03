@@ -542,7 +542,7 @@ public class BonDeCommande extends ClassEtat {
         if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
             BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
             this.setMontant(bc.getMontant());
-            //this.insertEngagement(u,c);
+            this.insertEngagement(u,c);
             this.updateToTableWithHisto(u, c);
            }this.setNomTable("as_bondecommande");
         super.validerObject(u, c);
