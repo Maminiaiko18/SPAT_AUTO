@@ -53,19 +53,20 @@
         
         pi.getFormu().getChamp("idplacement").setAutre("readonly");
         pi.getFormu().getChamp("idplacement").setLibelle("Source");
-        pi.getFormu().getChamp("credit").setLibelle("Montant du chèque");
+        pi.getFormu().getChamp("credit").setLibelle("Montant du chï¿½que");
         
         pi.getFormu().getChamp("debit").setVisible(false);
         pi.getFormu().getChamp("remarque").setDefaut(" ");
-        // pi.getFormu().getChamp("tiers").setLibelle("Client émetteur");
+        // pi.getFormu().getChamp("tiers").setLibelle("Client ï¿½metteur");
         pi.getFormu().getChamp("idordre").setVisible(false);
         pi.getFormu().getChamp("tiers").setLibelle("Client emetteur");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("dateeffet").setLibelle("Date effet");
+        pi.getFormu().getChamp("idbanque").setLibelle("Banque");
         pi.getFormu().getChamp("typemvt").setVisible(false);
         
 
-        affichage.Champ[] liste = new affichage.Champ[3];
+        affichage.Champ[] liste = new affichage.Champ[4];
         Caisse esc = new Caisse();
         esc.setNomTable("caisse_banque");
         liste[0] = new Liste("caisse", esc, "VAL", "id");
@@ -77,11 +78,20 @@
         mode.setNomTable("modepaiement");
         liste[2] = new Liste("idmode", mode, "desce", "id");
 
+        TypeObjet banq = new TypeObjet();
+        banq.setNomTable("BANQUE");
+        liste[3] = new Liste("idbanque", banq, "VAL", "id");
+
         pi.getFormu().changerEnChamp(liste);
         pi.getFormu().getChamp("caisse").setLibelle("Banque");
         pi.getFormu().getChamp("iddevise").setLibelle("Devise");
         pi.getFormu().getChamp("iddevise").setDefaut("Ar");
         pi.getFormu().getChamp("idmode").setLibelle("mode de paiement");
+        pi.getFormu().getChamp("idplacement").setVisible(false);
+        pi.getFormu().getChamp("banque").setVisible(false);
+        pi.getFormu().getChamp("idplacementvrai").setVisible(false);
+
+
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();
         Liste moisL = new Liste("mois");

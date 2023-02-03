@@ -27,7 +27,6 @@ try{
     pi.getFormu().getChamp("etat").setVisible(false);
 
     pi.getFormu().getChamp("id2").setPageAppel("choix/listeFactureClientChoix.jsp");
-    pi.getFormu().getChamp("id1").setPageAppel("choix/listeFactureClientChoix.jsp");
     
     pi.getFormu().getChamp("id1").setAutre("readonly");
     pi.getFormu().getChamp("id2").setAutre("readonly");
@@ -35,6 +34,7 @@ try{
     if(id1!=null && !id1.isEmpty()){
         pi.getFormu().getChamp("id1").setDefaut(id1);
         FactureClient pr = objet.getFacture(null, id1);
+        pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(pr.getMontantreste()));
         id1Lib = pr!=null ? pr.getCode() : "";
     }
     
