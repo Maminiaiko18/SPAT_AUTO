@@ -3189,7 +3189,7 @@ public class EtatPaieServlet extends HttpServlet {
     }
     
 
-    private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    /*private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String id = request.getParameter("id");
             BordereauLibComplet bordereau = new BordereauLibComplet();
@@ -3213,6 +3213,6 @@ public class EtatPaieServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 }
