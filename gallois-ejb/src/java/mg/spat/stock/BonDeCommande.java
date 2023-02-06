@@ -559,6 +559,13 @@ public class BonDeCommande extends ClassEtat {
             }
 
             Engagement engagement = this.getEngagement();
+
+            LigneCredit lc=this.getBudget(c);
+            if(lc!=null){
+                engagement.setCompte(lc.getCompte());
+            }
+            engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+
             engagement.construirePK(c);
             
             BonDeCommandeFille bcFille = new BonDeCommandeFille();

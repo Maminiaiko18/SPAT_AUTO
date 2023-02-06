@@ -17,8 +17,8 @@
 
         String listeCrt[] = {"id","tierslib","idfacture", "typelib", "daty", "code"};
         String listeInt[] = {"daty"};
-        String libEntete[] =  {"id","daty", "code", "tierslib","idfacture", "codefacture", "typelib","montant","montanttva", "montantttc" ,"montantpaye","montantreste"};
-        String libelleAffiche[] = {"id", "date", "Code", "tiers", "facture", "N° facture", "Type","montant","montant TVA", "montant TTC", "montant payé","Reste à payer"};
+        String libEntete[] =  {"id","daty", "code", "tierslib","idfacture", "codefacture", "typelib","montant","montanttva", "montantttc" ,"montantpaye","montantreste","cdclt"};
+        String libelleAffiche[] = {"id", "date", "Code", "tiers", "facture", "N° facture", "Type","montant","montant TVA", "montant TTC", "montant payé","Reste à payer","Code tiers"};
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setOrdre(" order by daty desc");

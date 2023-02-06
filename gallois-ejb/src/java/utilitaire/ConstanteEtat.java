@@ -252,6 +252,12 @@ public class ConstanteEtat {
     private static final int etatMissionTermine = 21;
     private static final int etatMissionApprouve = 9;
     private static final int etatLivraison = 20;
+    
+    private static final int etatEncaissee = -2;
+    
+    public static int getEtatEncaissee(){
+        return etatEncaissee;
+    }
 
     public static int getEtatCourrierRetourner() {
         return etatCourrierRetourner;

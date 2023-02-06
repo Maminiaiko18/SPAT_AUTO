@@ -430,7 +430,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("PAIEMENT", op.getModepaiement().toUpperCase());
                 param.put("MONTANT", op.getMontant());
                 param.put("MONTANT_LETTRE", op.getMontant_lettre());
-                param.put("BENEFICIAIRE", op.getBeneficiaire());
+                param.put("BENEFICIAIRE", op.getTiers());
                 param.put("ADRESSE", op.getAdresse());
                 param.put("MOTIF", op.getRemarque());
                 param.put("FACTURE", op.getNumfact());

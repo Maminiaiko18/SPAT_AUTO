@@ -1919,11 +1919,19 @@ public class FactureClient extends ClassMere {
             }
 
             fact2 = (FactureClient) fc.dupliquer(u.getUser().getTuppleID(), c);
+            System.out.println("length fact fille " + fact2.getFille().length);
+            ClassFille[] clFille = fact2.getFille();
+            int length = clFille.length;
+            FactureClientDetails[] filles = new FactureClientDetails[length];
+            for(int i =0; i<length; i++){
+                filles[i] = (FactureClientDetails)clFille[i];
+                filles[i].setTaux(0);
+            }
             fact2 = fc.setIdProvision(fact2, type, u, c);
             fact2.setIdcategorie(categorie);
             fact2.setDaty(Utilitaire.dateDuJourSql());
             fact2.setCode(fact2.calculerCode(c));
-            u.updateObjectMultiple(fact2, "idmere", fact2.getFille(), c);
+            u.updateObjectMultiple(fact2, "idmere", filles, c);
             if (verif == 1) {
                 c.commit();
             }
