@@ -3,6 +3,8 @@
     Created on : 14 Mars 2016, 10:26:05
     Author     : Do
 --%>
+<%@page import="java.sql.Date"%>
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="mg.spat.Engagement"%>
 <%@page import="affichage.PageRecherche"%>
 <%
@@ -21,7 +23,20 @@
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        
+        pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
+        Date firstDate = Utilitaire.dateDuJourSql();   
+        firstDate.setDate(1);        
+        Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
+
+        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+
+        if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+            pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+            pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+
+        }
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
