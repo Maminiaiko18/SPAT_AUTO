@@ -143,6 +143,22 @@ public class Traite extends ClassEtat {
         this.setId(makePK(c));
     }
 
+    /*
+      Fonction pour voir le montant de traite disponibles
+    */
+    public double getMontantDispo(Connection c) throws Exception{
+        double toReturn = 0;
+       if(this.getId()!=null){
+           FCTraite fcTraiteCritere = new FCTraite();
+           fcTraiteCritere.setIdTraite(this.getId());
+           FCTraite[] fcTraites = (FCTraite[]) CGenUtil.rechercher(fcTraiteCritere,null,null,c,"");
+           for(FCTraite fcTraite: fcTraites){
+               toReturn += fcTraite.getMontant();
+           }
+       }
+       return this.getMontant() - toReturn;
+    }
+    
     public Escompte[] getEscompte(Connection c) throws Exception {
         int verif = 0;
         try {
@@ -224,6 +240,7 @@ public class Traite extends ClassEtat {
         }
     }
     
+   
     public String getValColLibelle(){
         return id+";"+montant;
     }

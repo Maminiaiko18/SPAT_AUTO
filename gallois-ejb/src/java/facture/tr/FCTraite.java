@@ -8,6 +8,7 @@ package facture.tr;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import facture.FactureClient;
 import facture.PaiementFacture;
 import mg.spat.JournalCaisse;
 import utilitaire.Constante;
@@ -122,6 +123,52 @@ public class FCTraite  extends ClassEtat{
         this.setId(makePK(c));
     }
 
+    /*
+     Fonction pour verifier la validité 
+    */
+   public double montantDispoFacture() throws Exception{
+       Connection con = null;
+        try{
+            con = new UtilDB().GetConn();
+            return montantDispoFacture(con);
+        }
+        catch(Exception exception){
+            if(con!=null){
+                con.rollback();
+            }
+            throw exception;
+        }
+        finally{
+            if(con!=null){
+                con.close();
+            }
+        }
+   }
+   public double montantDispoFacture(Connection conn) throws Exception{
+       double toReturn = 0;
+       if(this.getIdFC()!=null){
+           FactureClient factureDefinitif = (FactureClient)new FactureClient().getById(this.getIdFC(), "factureClientValide2", conn);
+           if(factureDefinitif!=null){
+               toReturn = factureDefinitif.getMontantreste();
+           }
+       }
+       return toReturn;
+   }
+   /*
+     Fonction pour vérifier si le montant de facture de traite est valide
+   */
+   public void siMontantTraiteDispo(Traite traite,Connection conn) throws Exception{
+      double montantDisponibleTraite = traite.getMontantDispo(conn);
+       if(montantDisponibleTraite - this.getMontant() < 0){
+           throw new Exception("Solde traite insuffisant");
+       }
+       double montantDisponibleFacture = this.montantDispoFacture(conn);
+       if(montantDisponibleFacture - this.getMontant() <  0){
+           throw new Exception("Veuillez vérifier le montant entré car il est supérieur au reste à payer de la facture.");
+       }
+       
+   }
+
     public Traite getTraite(Connection c)throws Exception{
         Traite retour=null;
         int verif=0;
@@ -153,7 +200,6 @@ public class FCTraite  extends ClassEtat{
                 c=new UtilDB().GetConn();
                 verif=1;
             }
-
             FCTraite fctraite=(FCTraite)new FCTraite().getById(this.getId(), "FCTRAITE_CPLT", c);
             if(fctraite!=null){
                 this.setIdTraite(fctraite.getIdTraite());
@@ -172,15 +218,10 @@ public class FCTraite  extends ClassEtat{
         }
     }
 
-    public void verifSoldeTraite(Connection c)throws Exception{
-        Traite traite=this.getTraite(c);
-        if(traite!=null && this.getTraite(c).getSolde(c)<this.getMontant()){
-            throw new Exception("Solde insuffisant");
-        }
-    }
-
     public void controler(Connection c) throws Exception {
-        verifSoldeTraite(c);
+        Traite traite = getTraite(c);
+        
+        siMontantTraiteDispo(traite,c);
     }
 
     public Object validerObject(String u, Connection c) throws Exception{
@@ -192,8 +233,6 @@ public class FCTraite  extends ClassEtat{
                 c.setAutoCommit(false);
                 verif=1;
             }
-            verifSoldeTraite(c);
-
             /*JournalCaisse jc=this.getJC(c);
             if(jc!=null){
                 jc.createObject(u, c);
