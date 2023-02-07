@@ -27,7 +27,7 @@ public class Traite extends ClassEtat {
 
     String id, tiers, banque, reference;
     Date daty, dateEcheance;
-    double montant,escompte,total;
+    double montant,escompte,total,montantreste;
     String idtypepiece;
     String idfinaledestination;
 
@@ -122,6 +122,16 @@ public class Traite extends ClassEtat {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    public double getMontantreste() {
+        return montantreste;
+    }
+
+    public void setMontantreste(double montantreste) {
+        this.montantreste = montantreste;
+    }
+    
+    
     
     @Override
     public String getTuppleID() {

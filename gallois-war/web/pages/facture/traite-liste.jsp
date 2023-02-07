@@ -12,15 +12,15 @@
 <%
     try {
         Traite base = new Traite();
-        base.setNomTable("TRAITE_LIBMTT");
+        base.setNomTable("TRAITEMTTRESTE");
 		
 		if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             base.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","tiers", "banque", "daty", "dateEcheance","montant"};
+        String listeCrt[] = {"id","tiers", "banque", "daty", "dateEcheance"};
         String listeInt[] = {};
-        String libEntete[] = {"id","tiers", "banque", "daty", "dateEcheance","montant"};
+        String libEntete[] = {"id","tiers", "banque", "daty", "dateEcheance","montant","montantreste"};
 
         PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -31,7 +31,6 @@
         pr.getFormu().getChamp("banque").setLibelle("Banque");
         pr.getFormu().getChamp("daty").setLibelle("Date");
         pr.getFormu().getChamp("dateEcheance").setLibelle("Date echeance");
-        pr.getFormu().getChamp("montant").setLibelle("Montant");
         
         pr.setApres("facture/traite-liste.jsp");
         
@@ -112,7 +111,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <%
-            String libelleAffiche[] = {"Id","Tiers", "Banque", "Date", "Date &eacute;cheance","Montant"};
+            String libelleAffiche[] = {"Id","Tiers", "Banque", "Date", "Date &eacute;cheance","Montant", "Montant Reste"};
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
