@@ -1823,8 +1823,23 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("cat", cat);
                 param.put("designation", designation);
             }
-            if (mere[0].getDesignation().startsWith("provision ") == true) {
-                param.put("montant", mere[0].getMontant());
+            facture.FactureFournisseur fact = new facture.FactureFournisseur();
+            fact.setNomTable("FACTFOURN_MSUM_LIB");
+            facture.FactureFournisseur[] detailsfact = (facture.FactureFournisseur[]) CGenUtil.rechercher(fact, null, null,
+                    c, " and idprovision = '" + id + "' ");
+            if (mere[0].getIdcategorie().compareTo(Constante.idBonProvisoire)== 0) {
+                if(detailsfact.length != 0){
+                        param.put("montantfact", detailsfact[0].getMontant());
+                        double montantApayerRetoruner ;
+                        if(detailsfact[0].getMontant() > mere[0].getMontant()){
+                            montantApayerRetoruner = detailsfact[0].getMontant() - mere[0].getMontant();
+                            param.put("montantApayer", montantApayerRetoruner);
+                        }
+                        else{
+                            montantApayerRetoruner = mere[0].getMontant() - detailsfact[0].getMontant();
+                            param.put("montantRetourner", montantApayerRetoruner);
+                        }
+                }
                 String montantlettrePro = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()))
                         + " Ariary ";
                 param.put("montantlettrePro", montantlettrePro);
