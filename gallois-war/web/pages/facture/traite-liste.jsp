@@ -111,7 +111,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <%
-            String libelleAffiche[] = {"Id","Tiers", "Banque", "Date", "Date &eacute;cheance","Montant", "Montant Reste"};
+            String libelleAffiche[] = {"Id","Tiers", "Banque", "Date", "Date &eacute;cheance","Montant", "Montant Disponible"};
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
