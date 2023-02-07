@@ -807,7 +807,7 @@ public class EtatPaieServlet extends HttpServlet {
             for (int i = 0; i < tabFact.length; i++) {
                 //montantFacture = montantFacture + tabFact[i].getMontant();
                 double montantPro = tabFact[i].getMontant();
-                if(tabFact[i].getTypefacture().compareToIgnoreCase("PROVISION")==0){
+                if(tabFact[i].getTypefacture().contains("PROV")){
                     montantPro = montantPro*-1;
                 }
                 montantFacture = montantFacture + montantPro;
