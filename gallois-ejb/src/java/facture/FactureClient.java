@@ -1919,7 +1919,7 @@ public class FactureClient extends ClassMere {
             }
 
             fact2 = (FactureClient) fc.dupliquer(u.getUser().getTuppleID(), c);
-            System.out.println("length fact fille " + fact2.getFille().length);
+            //System.out.println("length fact fille " + fact2.getFille().length);
             ClassFille[] clFille = fact2.getFille();
             int length = clFille.length;
             FactureClientDetails[] filles = new FactureClientDetails[length];
