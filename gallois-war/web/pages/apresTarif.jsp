@@ -1,7 +1,7 @@
+<%@page import="facture.FactureFournisseur"%>
 <%@page import="mg.spat.OccupationMaterielNaval"%>
 <%@page import="mg.amadia.facture.FactureService"%>
 <%@page import="bordereau.Bordereau"%>
-<%@page import="facturefournisseur.FactureFournisseur"%>
 <%@page import="mg.spat.StatistiqueMICTSL"%>
 <%@page import="mg.spat.StatistiquePTP"%>
 <%@page import="mg.spat.StatistiqueSMMC"%>
@@ -210,7 +210,7 @@
     <%
         }
 
-        if (acte.compareToIgnoreCase("fusionner") == 0) {
+        /*if (acte.compareToIgnoreCase("fusionner") == 0) {
             String[] listeFacture = request.getParameterValues("id");
             FactureFournisseur f = new FactureFournisseur();
             f = f.fusionnerFacture(listeFacture, null, u);
@@ -218,7 +218,7 @@
             if (f != null) {
                 id = f.getId();
             }
-        }
+        }*/
 
         if (acte.compareToIgnoreCase("fusionnerFactureClient") == 0) {
             System.out.println("--------------------tonga tao ");
@@ -443,6 +443,12 @@
             temp = t;
             u.finaliser(t);
         }
+        if(acte.compareToIgnoreCase("validerFF") == 0){
+            facture.FactureFournisseur ff=new facture.FactureFournisseur();
+            ff.setId(request.getParameter("id"));
+            ff = (facture.FactureFournisseur)ff.getById(request.getParameter("id"), nomtable, null);
+            if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID());
+        }
         
         String idAttributeName = "id";
         if(t != null && t.getAttributIDName() != null && !t.getAttributIDName().trim().isEmpty()) idAttributeName = t.getAttributIDName();
@@ -450,7 +456,18 @@
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&<%=idAttributeName%>=<%=Utilitaire.champNull(id)%>");</script>
     <%
 
-    } catch (Exception e) {
+    } catch(ValidationException validation){
+%>
+    <script language="JavaScript">
+        var result=confirm("<%= validation.getMessageavalider()%>");
+        if (result) {
+            document.location.replace("<%=lien%>?but=apresTarif.jsp&id=<%=Utilitaire.champNull(request.getParameter("id"))%>&bute=<%=bute%>&acte=validerFF&classe=facture.FactureFournisseur");
+        } else {
+            history.back();
+        }
+    </script>
+    <%
+    }catch (Exception e) {
         e.printStackTrace();
     %>
 

@@ -41,13 +41,22 @@ public class AvoirFC extends ClassMere {
     private String type;
     private String typelib,codeFacture;
     private double montanttva, montantttc;
+    private String cdclt;
 
     public Date getDatefacture() {
         return datefacture;
     }
 
+    public String getCdclt() {
+        return this.cdclt;
+    }
+
     public void setDatefacture(Date datefacture) {
         this.datefacture = datefacture;
+    }
+
+    public void setCdclt(String cdclt) {
+        this.cdclt = cdclt;
     }
 
     public String getCodeFacture() {

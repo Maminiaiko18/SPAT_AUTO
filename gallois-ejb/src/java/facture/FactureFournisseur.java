@@ -8,6 +8,7 @@ package facture;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.TypeObjet;
+import bean.ValidationException;
 import ded.OrdonnerPayement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -655,7 +656,7 @@ public class FactureFournisseur extends FactureClient {
           if(eg != null){
               double reste = eg.getResteAFacturer(c);
               FactureFournisseur ff = (FactureFournisseur)new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-              if(ff!=null && reste < ff.getMontant()) throw new Exception("Le montant de la facture depasse le reste de l'engagement");
+              if(ff!=null && reste < ff.getMontant())throw new ValidationException("Le montant de la facture depasse le reste de l'engagement");
           }
         }else{
             if(this.getIdbc()==null){
@@ -666,6 +667,30 @@ public class FactureFournisseur extends FactureClient {
         } 
         this.setNomTable("facture_fournisseur_mere");
         super.validerObject(u, c);
+        return this;
+    }
+    
+    public Object validerSansControleResteEngagement(String u) throws Exception {
+        Connection c=null;
+        try{
+            c=new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            LigneCredit lc=this.getBudget(c);
+            if(lc==null)throw new Exception("Budget non trouvé");
+
+            if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
+                this.genererPaiementDefinitive(u, this.getIdProvision(), c);
+            } 
+            this.setNomTable("facture_fournisseur_mere");
+            super.validerObject(u, c);
+            c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null)c.close();
+        }
         return this;
     }
 
