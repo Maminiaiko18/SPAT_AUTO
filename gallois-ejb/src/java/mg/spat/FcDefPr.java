@@ -125,8 +125,6 @@ public class FcDefPr extends ClassEtat {
                 verif = 1;
             }
             JournalCaisse caissePv = (JournalCaisse)jc.getById(idJournal, jc.getNomTable(), c);
-            caissePv.setId(null);
-            caissePv.setDateEffet(null);
             caissePv.setCredit(montant);
             caissePv.setIdplacement(src);
             caissePv.setDateSaisie(Utilitaire.dateDuJourSql());
@@ -170,8 +168,8 @@ public class FcDefPr extends ClassEtat {
             
             JournalCaisse jc = this.createJC(c, pf.getIdMvt(), this.getMontant(),def.getId());
             //eto manampy idSource
-            jc.createObject(u, c);
-            jc.validerObject(u, c);
+            // jc.createObject(u, c);
+            // jc.validerObject(u, c);
             //min entre reste à payer FD sy ny solde dispo an'ny Prov no alaina
             if(pf.getIdMvt()!=null){
                 PaiementFacture ins = new PaiementFacture(jc.getTuppleID(), this.getId1(), this.getMontant());
