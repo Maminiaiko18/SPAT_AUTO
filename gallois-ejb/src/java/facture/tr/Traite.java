@@ -249,8 +249,36 @@ public class Traite extends ClassEtat {
             }
         }
     }
-    
-   
+    public void lierJournalCaisse(String[] ids) throws Exception{
+        Connection c = null;
+        try{
+            c=new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            lierJournalCaisse(ids,c);
+            c.commit();
+        }
+        catch(Exception ex){
+            if(c!=null)c.rollback();
+            ex.printStackTrace();
+            throw ex;
+        }
+        finally{
+            if(c!=null)c.close();
+        }
+    }
+    public void lierJournalCaisse(String[] ids, Connection c) throws Exception{
+        JournalCaisse critere = new JournalCaisse();
+        critere.setNomTable("journalcaisse");
+       JournalCaisse[] journaux =  (JournalCaisse[])CGenUtil.rechercher(critere,null,null,c," and id in ("+Utilitaire.tabToString(ids, "'", ",")+")");
+       double sommeCredit = AdminGen.calculSommeDouble(journaux, "credit");
+       if(sommeCredit > this.montantreste){
+           throw new Exception("Montant traite insuffisant");
+       }
+       for(int i=0;i<journaux.length;i++){
+           journaux[i].setIdtraite(this.id);
+           journaux[i].updateToTable(c);
+       }
+    }
     public String getValColLibelle(){
         return id+";"+montant;
     }
