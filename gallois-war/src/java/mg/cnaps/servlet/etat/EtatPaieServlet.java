@@ -805,12 +805,20 @@ public class EtatPaieServlet extends HttpServlet {
             double arrondi = 0;
             double totalGeneral = 0;
             for (int i = 0; i < tabFact.length; i++) {
-                montantFacture = montantFacture + tabFact[i].getMontant();
+                //montantFacture = montantFacture + tabFact[i].getMontant();
+                double montantPro = tabFact[i].getMontant();
+                if(tabFact[i].getTypefacture().compareToIgnoreCase("PROVISION")==0){
+                    montantPro = montantPro*-1;
+                }
+                montantFacture = montantFacture + montantPro;
                 arrList.add(tabFact[i]);
             }
             // tabJournal[0].arrondir();
-            arrondi = tabJournal[0].getCredit() - montantFacture;
-            totalGeneral = tabJournal[0].getCredit();
+//            arrondi = tabJournal[0].getCredit() - montantFacture;
+//            totalGeneral = tabJournal[0].getCredit();
+//            arrondi = tabJournal[0].getCredit() - montantFacture;
+//            totalGeneral = tabJournal[0].getCredit();
+            totalGeneral = montantFacture + arrondi;
             String montantString = String.valueOf((long) totalGeneral);
             long montantLong = Long.valueOf(montantString);
             String montantLettre = ChiffreLettre.convertRealToString(totalGeneral, "Ariary");
