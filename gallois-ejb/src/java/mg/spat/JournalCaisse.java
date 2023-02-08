@@ -957,7 +957,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             PayementFacture pf = new PayementFacture();
             pf.setNomTable("paiementfacturecp");
-            String awhere = String.format(" and idmvt = '%s' ", this.getId());
+            String awhere = String.format(" and idmvt = '%s' order by typefacture desc", this.getId());
             PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;
         }  catch(Exception ex) {
