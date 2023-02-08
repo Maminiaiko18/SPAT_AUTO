@@ -7,7 +7,7 @@
     paiementFactureLib.setNomTable("paiementfacturelibjc");
     String[] listCrt = {};
     String[] listInt = {};
-    String libEntete[] = {"idmvt", "montant"};
+    String libEntete[] = {"idmvt", "montant","dateeffet","remarque","caisse","modepaiement","tiers"};
     String[] colSomme = null;
     PageRecherche paiements = new PageRecherche(paiementFactureLib, request, listCrt, listInt, 2, libEntete, libEntete.length);
     paiements.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -35,7 +35,7 @@
                 
             </div>
             <%
-                String libEntetePaiement[] = {"id", "Montant"};
+                String libEntetePaiement[] = {"id", "Montant","Date Effet","Remarque","Caisse","Mode de paiement","Tiers"};
                 paiements.getTableau().setLibelleAffiche(libEntetePaiement);
                 paiements.getTableau().setNameActe("attacher");
                 paiements.getTableau().setNameBoutton("Attacher");
