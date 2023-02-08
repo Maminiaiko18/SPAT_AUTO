@@ -14,7 +14,7 @@ try{
     String  mapping = "mg.spat.FcDefPr",
             nomtable = "FCDEFPR",
             apres = "facture/liaison-fc-prov-fiche.jsp",
-            titre = "Saisie Liaison FD et prévision";
+            titre = "Saisie Liaison FD et Provision";
     
             FcDefPr objet = new FcDefPr();
      

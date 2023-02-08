@@ -35,7 +35,7 @@
         <div class="col-md-6">
             <div class="box">
                 <div class="box-title with-border">
-                    <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=treso/journalcaisse-liste.jsp"><i class="fa fa-arrow-circle-left"></i></a>FICHE REGULARISATION FACTURE</h1>
+                    <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=treso/journalcaisse-liste.jsp"><i class="fa fa-arrow-circle-left"></i></a>FICHE Liaison FD et Provision</h1>
                 </div>
                 <div class="box-body">
                     <%
