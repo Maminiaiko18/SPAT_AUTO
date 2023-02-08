@@ -4088,4 +4088,10 @@ public class Utilitaire extends Parametre {
         
         return heureValide;
     }
+    
+    public static String getDateMoins6Mois(){
+        Date actuelle = dateDuJourSql();
+        actuelle.setMonth(actuelle.getMonth()-6);
+        return datetostring(actuelle);
+    }
 }
