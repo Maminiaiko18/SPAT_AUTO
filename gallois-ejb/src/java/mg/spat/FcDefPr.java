@@ -167,9 +167,6 @@ public class FcDefPr extends ClassEtat {
 
             if(def.getMontantreste() < this.getMontant()) throw new Exception("Reste a payer inferieur au reste a payer de la facture");
             
-            JournalCaisse jc = this.createJC(c, pf.getIdMvt(), this.getMontant(),def.getId());
-            //eto manampy idSource
-
             FcDefPr fc = new FcDefPr();
             fc.setId2(def.getIdProvision());
             fc.setMontant(-1*this.getMontant());
@@ -179,7 +176,7 @@ public class FcDefPr extends ClassEtat {
             // jc.validerObject(u, c);
             //min entre reste à payer FD sy ny solde dispo an'ny Prov no alaina
             if(pf.getIdMvt()!=null){
-                PaiementFacture ins = new PaiementFacture(jc.getTuppleID(), this.getId1(), this.getMontant());
+                PaiementFacture ins = new PaiementFacture(pf.getIdMvt(), this.getId1(), this.getMontant());
                 ins.createObject(u, c);
             }else{
                 throw new Exception("Pas de paiement pour la facture de provision");
