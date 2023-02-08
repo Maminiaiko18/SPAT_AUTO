@@ -19,6 +19,7 @@
 
         pc.getChampByName("Ded_Id").setLibelle("Facture");
         pc.getChampByName("Ded_Id").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
+        if(a.getDed_Id()!=null && a.getDed_Id().startsWith("AVRFC"))pc.getChampByName("Ded_Id").setLien((String) session.getValue("lien") + "?but=avoir/avoirFC-fiche.jsp", "id=");
         pc.getChampByName("numeroop").setLibelle("Numero OP");
         pc.getChampByName("destination").setVisible(false);
         pc.getChampByName("modepaiement").setLibelle("Mode de paiement");
@@ -110,14 +111,14 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <div class="">
-                <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
+                <h2 class="box-title" style="margin-left: 10px;">Les fichiers attach&eacute;s</h2>
             </div>
             <div class="box-body">
                 <table class="table table-striped table-bordered table-condensed table-responsive tree">
                     <thead>
                         <tr>
                             <th style="background-color:#bed1dd;"></th>
-                            <th style="background-color:#bed1dd;">Libellé</th>
+                            <th style="background-color:#bed1dd;">Libell&eacute;</th>
                             <th style="background-color:#bed1dd;">Fichier</th>
                             <th style="background-color:#bed1dd;">Voir</th>
                             <th style="background-color:#bed1dd;">#</th>
