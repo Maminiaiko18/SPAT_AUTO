@@ -117,6 +117,8 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import mg.spat.DemandeAchatMere;
 import mg.spat.DemandeAchatFille;
+import mg.spat.MvtIntraCaisseFille;
+import mg.spat.MvttIntraCaisse;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import utilitaire.Constante;
@@ -223,6 +225,8 @@ public class EtatPaieServlet extends HttpServlet {
                 bondelivraison(request, response);
             } else if (action.equalsIgnoreCase("imprimerSuiviBudgetaire")) {
                 imprimerSuiviBudgetaire(request, response);
+            }else if (action.equalsIgnoreCase("imprimerTransfertCaisse")) {
+                imprimerTransfertCaisse(request, response);
             }
 
         } catch (Exception ex) {
@@ -814,8 +818,8 @@ public class EtatPaieServlet extends HttpServlet {
                 arrList.add(tabFact[i]);
             }
             // tabJournal[0].arrondir();
-//            arrondi = tabJournal[0].getCredit() - montantFacture;
-//            totalGeneral = tabJournal[0].getCredit();
+           arrondi = tabJournal[0].getCredit() - montantFacture;
+           totalGeneral = tabJournal[0].getCredit();
 //            arrondi = tabJournal[0].getCredit() - montantFacture;
 //            totalGeneral = tabJournal[0].getCredit();
             totalGeneral = montantFacture + arrondi;
@@ -3206,6 +3210,31 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("code", utilitaire.Utilitaire.champNull(liste[0].getCode_etablissement()));
             setNomJasper("suivi_budgetaire");
             UtilitaireImpression.imprimer(request, response, "suivi_budgetaire", param, null, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+     private void imprimerTransfertCaisse(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String id = request.getParameter("id");
+            MvttIntraCaisse mc = new MvttIntraCaisse();
+            mc.setNomTable("mvtintracaisse_lib");
+            MvttIntraCaisse[] mere = (MvttIntraCaisse[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "'");
+            Map param = new HashMap();
+            param.put("designation", utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
+            param.put("daty", mere[0].getDaty());
+            param.put("caissedepart", mere[0].getCaissedepart());
+            param.put("caissearrivee", mere[0].getCaissearrivee());
+            param.put("modepaiement", mere[0].getModepaiement());
+            param.put("montant", mere[0].getMontant());
+            MvtIntraCaisseFille details = new MvtIntraCaisseFille();       
+            details.setNomTable("mvtintracaisse_fille");
+            MvtIntraCaisseFille[] listeDetails = (MvtIntraCaisseFille[]) CGenUtil.rechercher(details, null, null, " and idmere='" + id + "'");
+            List dataSource = new ArrayList();
+            dataSource.addAll(Arrays.asList(listeDetails));
+            setNomJasper("transfert_caisse");
+            UtilitaireImpression.imprimer(request, response, "transfert_caisse", param, dataSource, getReportPath());
 
         } catch (Exception e) {
             e.printStackTrace();

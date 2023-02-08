@@ -29,21 +29,19 @@
     pi.getFormu().getChamp("idtraite").setAutre("readonly");
     pi.getFormu().getChamp("idJc").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("montant").setVisible(false);
 
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
     <h1>Attacher Traite Facture</h1>
-    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
+    <form action="<%=pi.getLien() + "?but=facture/liste-paiementfacture-multiple.jsp"%>" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());
         %>
-    <input name="acte" type="hidden" id="nature" value="insert">
-    <input name="bute" type="hidden" id="bute" value="facture/fctraite-liste.jsp">
-    <input name="classe" type="hidden" id="classe" value="facture.tr.FCTraite">
-    <input name="nomtable" type="hidden" id="classe" value="FCTraite">
+    
     </form>
 </div>
 <%}catch(Exception e){

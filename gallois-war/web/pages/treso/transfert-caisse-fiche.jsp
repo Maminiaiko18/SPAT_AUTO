@@ -67,6 +67,7 @@
                             <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=treso/transfert-caisse-fiche.jsp&classe=mg.spat.MvttIntraCaisse">Viser</a>
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/transfert-caisse-modif.jsp&id=" + id%>"><button class="btn btn-warning ">Modifier</button></a>
                             <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + id + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=treso/transfert-caisse-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>
+                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerTransfertCaisse&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
                     </div>
                 </div>
             </div>

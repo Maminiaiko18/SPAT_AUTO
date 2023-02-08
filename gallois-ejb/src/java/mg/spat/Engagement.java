@@ -296,17 +296,21 @@ public class Engagement extends ClassEtat {
         /*lc.setNomTable("SITUATIONLCDEPENSEGRP");*/
         String dir= Utilitaire.champNull(this.getCodeEtablissement());
         String prj= Utilitaire.champNull(this.getProjet());
+        String compte=Utilitaire.champNull(this.getCompte());
+        int annee=this.getAnnee();
+        if(annee==0)annee=Utilitaire.getAnnee(this.getDaty());
         if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
         {
             // if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Ligne de crédit invalide");
             ligne = findLigneCredit(c);
+            compte=Utilitaire.champNull(ligne.getCompte());
             // dir=ligne.getCodeEtablissement();
             // prj=ligne.getProjet();
         }
         /*LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
         if(ligneCredits.length > 0) return ligneCredits[0];*/
 
-        return LigneCredit.findSituationCreditDepense(ligne.getId() , null, Utilitaire.champNull(ligne.getCompte()) ,null, null,String.valueOf(ConstanteEtat.getEtatValider()), null, String.valueOf(this.getAnnee()) , null,  c)[0];
+        return LigneCredit.findSituationCreditDepense(ligne.getId() , null, compte ,null, null,String.valueOf(ConstanteEtat.getEtatValider()), "11", String.valueOf(annee) , null,  c)[0];
     }
 
     @Override
