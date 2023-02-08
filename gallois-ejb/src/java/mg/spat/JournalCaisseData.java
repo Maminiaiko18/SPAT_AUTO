@@ -79,7 +79,6 @@ public class JournalCaisseData {
     private void initOP(Connection c, String idOrdre) throws Exception {
         OrdonnerPayement ordP = new OrdonnerPayement();
         op = (OrdonnerPayement) ordP.getById(idOrdre, "ORDONNERPAYEMENT_TIERSLIB", c);
-        
         if(op.getDed_Id()!=null && op.getDed_Id().startsWith("AVRFC")){
            AvoirFC av = new AvoirFC();
            avoirFC = (AvoirFC) av.getById(op.getDed_Id(), av.getNomTable(), c);
