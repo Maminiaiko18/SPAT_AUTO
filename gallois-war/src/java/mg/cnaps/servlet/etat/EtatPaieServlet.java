@@ -888,6 +888,7 @@ public class EtatPaieServlet extends HttpServlet {
             String titre = "PIECE DE CAISSE";
             String soustitre = "";
             String findP = tabJournal[0].getNumPiece();
+            if(findP == null) findP ="";
             int p = findP.indexOf("P");
             if (p >= 0) {
                 soustitre = "PIECE DE CAISSE";
