@@ -220,6 +220,13 @@
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById("daty").onchange = function() {
+        document.getElementById("dateRegul").value = this.value;
+    };
+</script>
+
 <script>
     
     //$('#ajout_multiple_ligne tr td:nth-child(7)').attr('style', '');
