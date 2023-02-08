@@ -6,7 +6,7 @@
 package facture;
 
 import bean.ClassMAPTable;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -21,14 +21,20 @@ public class PaiementFactureLibJc extends ClassMAPTable {
         this.setNomTable("paiementfacturelibjc");
     }
 
-    public PaiementFactureLibJc(String id, String idmvt, String idfact, String idmode, String idtraite, double montant) {
+    public PaiementFactureLibJc(String id, String idmvt, String idfact, String idmode, String idtraite, String remarque, String caisse, String modepaiement, String tiers, double montant, Date dateeffet) {
         this.id = id;
         this.idmvt = idmvt;
         this.idfact = idfact;
         this.idmode = idmode;
         this.idtraite = idtraite;
+        this.remarque = remarque;
+        this.caisse = caisse;
+        this.modepaiement = modepaiement;
+        this.tiers = tiers;
         this.montant = montant;
+        this.dateeffet = dateeffet;
     }
+
 
     public String getId() {
         return id;
