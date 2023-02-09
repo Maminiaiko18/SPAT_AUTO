@@ -174,6 +174,7 @@ public class FcDefPr extends ClassEtat {
             //min entre reste à payer FD sy ny solde dispo an'ny Prov no alaina
             if(pf.getIdMvt()!=null){
                 PaiementFacture ins = new PaiementFacture(pf.getIdMvt(), this.getId1(), this.getMontant());
+                ins.setFacture(def);
                 ins.createObject(u, c);
             }else{
                 throw new Exception("Pas de paiement pour la facture de provision");
