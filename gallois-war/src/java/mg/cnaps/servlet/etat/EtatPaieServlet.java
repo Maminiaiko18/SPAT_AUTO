@@ -790,6 +790,7 @@ public class EtatPaieServlet extends HttpServlet {
     private void pieceDeCaiseRecette(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             JournalCaisse jc = new JournalCaisse();
+            Boolean prov = false;
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
             JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null,
@@ -812,14 +813,16 @@ public class EtatPaieServlet extends HttpServlet {
                 //montantFacture = montantFacture + tabFact[i].getMontant();
                 double montantPro = tabFact[i].getMontant();
                 if(tabFact[i].getTypefacture().contains("PROV")){
+                    prov = true;
                     montantPro = montantPro*-1;
                 }
                 montantFacture = montantFacture + montantPro;
                 arrList.add(tabFact[i]);
             }
             // tabJournal[0].arrondir();
-           arrondi = tabJournal[0].getCredit() - montantFacture;
-           totalGeneral = tabJournal[0].getCredit();
+            if(prov) arrondi = 0;
+            else arrondi = tabJournal[0].getCredit() - montantFacture;
+            totalGeneral = tabJournal[0].getCredit();
 //            arrondi = tabJournal[0].getCredit() - montantFacture;
 //            totalGeneral = tabJournal[0].getCredit();
             totalGeneral = montantFacture + arrondi;
