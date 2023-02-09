@@ -726,8 +726,8 @@ public class FactureFournisseur extends FactureClient {
                 verif = 1;
             }
 
-            this.updateToTableWithHisto(refUser, c);
-//            this.updateToTable(c);
+            //this.updateToTableWithHisto(refUser, c);
+            this.updateToTable(c);
 
             if (verif == 1) {
                 c.commit();

@@ -64,7 +64,7 @@ public class FactureClient extends ClassMere {
     private int exercice;
     private String idavoir,provenancelib,destinationlib,bateaulib,pavillon,pavillonlib;
     private double volume,volume100;
-    private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt,idtraite,idfc,factureclientlib;
+    private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt,idtraite,idfc,factureclientlib, idfact;
     private double nbJours;
 
     public void setNbJours(double nbJours){
@@ -2382,7 +2382,7 @@ public class FactureClient extends ClassMere {
             }
             FactureClient cc = new FactureClient();
             cc.setNomTable("factureclientgroupvide");
-            String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,3)) as montant  "
+            String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,2)) as montant  "
                     + " from FACTURECLIENTMSUM_LIBV "
                     + " where id in('"+ids.replace(";", "','")+"') group by tiers,tierslib";
             FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(cc, requete, c);
@@ -2485,6 +2485,12 @@ public class FactureClient extends ClassMere {
         this.estMictsl = estMictsl;
         this.reduction = reduction;
         this.ecart = ecart;
+    }
+    public String getIdfact() {
+        return idfact;
+    }
+    public void setIdfact(String idfact) {
+        this.idfact = idfact;
     }
 
 }

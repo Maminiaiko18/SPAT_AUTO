@@ -543,7 +543,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
 
     public void setDateSaisie(Date dateSaisie) {
-        if (this.getMode().equals("modif")) {
+        if (this.getMode().equals("modif")&&dateSaisie==null) {
             dateSaisie = Utilitaire.string_date("YYYY-MM-dd", Utilitaire.dateDuJour());
         }
         this.dateSaisie = dateSaisie;
@@ -1197,24 +1197,29 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     return "V";
             }else if(this.getIdmode().compareToIgnoreCase("pay6") == 0){
                 return "T";
-        }
+            }else if(this.getIdmode().compareToIgnoreCase("pay7") == 0){
+                if (this.getCaisse().compareToIgnoreCase(Constante.caisseCentraleEspece)==0) return "E";
+                else return "C";
+            }
         }
         return null;
     }
     public String genererCodeType()
     {
         String result="";
-        if(Utilitaire.champNull(this.getIdplacement()).compareTo("")!=0){
-            result = "P";
+        if(this.getIdmode().compareToIgnoreCase("pay7") == 0){
+            return "P";
         }
-        if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00001")==0)
+
+        else if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00001")==0)
         {
             result = "1";
         }
-        if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00002")==0)
+        else if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00002")==0)
         {
             result = "3";
         }
+        
         return result;
     }
     

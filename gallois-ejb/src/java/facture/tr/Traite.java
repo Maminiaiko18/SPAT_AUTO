@@ -25,7 +25,7 @@ import utilitaire.Constante;
  */
 public class Traite extends ClassEtat {
 
-    String id, tiers, banque, reference;
+    String id, tiers, banque, reference,cdclt;
     Date daty, dateEcheance;
     double montant,escompte,total,montantreste;
     String idtypepiece;
@@ -129,6 +129,14 @@ public class Traite extends ClassEtat {
 
     public void setMontantreste(double montantreste) {
         this.montantreste = montantreste;
+    }
+
+    public String getCdclt() {
+        return cdclt;
+    }
+
+    public void setCdclt(String cdclt) {
+        this.cdclt = cdclt;
     }
     
     
@@ -275,6 +283,10 @@ public class Traite extends ClassEtat {
            throw new Exception("Montant traite insuffisant");
        }
        for(int i=0;i<journaux.length;i++){
+           if(!this.getCdclt().equalsIgnoreCase(journaux[i].getTiers()))
+               throw new Exception("Tiers differents");
+           if(journaux[i].getIdtraite()!=null)
+               throw new Exception("Traite deja existant");
            journaux[i].setIdtraite(this.id);
            journaux[i].updateToTable(c);
        }

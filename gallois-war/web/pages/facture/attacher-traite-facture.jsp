@@ -3,6 +3,7 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@ page import="facture.tr.Traite" %>
 <%  
     
     try{
@@ -13,6 +14,9 @@
     pi.getFormu().getChamp("idtraite").setLibelle("Traite");
     pi.getFormu().getChamp("idfc").setLibelle("Facture Client");
     pi.getFormu().getChamp("idtraite").setLibelle("Traite");
+    String tiers = "";
+    String[] col = {"idtiers"};
+    String[] val = {tiers};
 
     if(request.getParameter("idTraite")!=null){
         pi.getFormu().getChamp("idtraite").setDefaut(request.getParameter("idTraite"));
@@ -22,28 +26,34 @@
 
     if(request.getParameter("idfc")!=null){
         pi.getFormu().getChamp("idfc").setDefaut(request.getParameter("idfc"));
+        
     }else{
-        pi.getFormu().getChamp("idfc").setPageAppel("choix/listeFactureClientViseeChoix.jsp");
+        if(request.getParameter("idTraite")!=null){
+            Traite traite = new Traite();
+            traite = (Traite) traite.getById(request.getParameter("idTraite"), traite.getNomTable(), null);
+            tiers = traite.getTiers();
+            val[0] = tiers;
+        }
+        pi.getFormu().getChamp("idfc").setPageAppelAvecFiltre("choix/listeFactureClientViseeChoix.jsp", "idFC;idFClibelle", col, val);
+        //pi.getFormu().getChamp("idfc").setPageAppel("choix/listeFactureClientViseeChoix.jsp");
     }
     pi.getFormu().getChamp("idfc").setAutre("readonly");
     pi.getFormu().getChamp("idtraite").setAutre("readonly");
     pi.getFormu().getChamp("idJc").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("montant").setVisible(false);
 
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
     <h1>Attacher Traite Facture</h1>
-    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
+    <form action="<%=pi.getLien() + "?but=facture/liste-paiementfacture-multiple.jsp"%>" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());
         %>
-    <input name="acte" type="hidden" id="nature" value="insert">
-    <input name="bute" type="hidden" id="bute" value="facture/fctraite-liste.jsp">
-    <input name="classe" type="hidden" id="classe" value="facture.tr.FCTraite">
-    <input name="nomtable" type="hidden" id="classe" value="FCTraite">
+    
     </form>
 </div>
 <%}catch(Exception e){

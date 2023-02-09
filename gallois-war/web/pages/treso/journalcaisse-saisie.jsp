@@ -96,9 +96,9 @@
         pi.getFormu().changerEnChamp(liste);
 
         pi.getFormu().changerEnChamp(liste);
-        pi.getFormu().getChamp("dateSaisie").setVisible(false);
+        //pi.getFormu().getChamp("dateSaisie").setVisible(false);
         pi.getFormu().getChamp("typemvt").setVisible(false);
-
+        pi.getFormu().getChamp("dateSaisie").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("idbanque").setLibelle("Banque");
         pi.getFormu().getChamp("banque").setVisible(false);
         pi.getFormu().getChamp("idmode").setLibelle("Mode");

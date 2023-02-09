@@ -43,7 +43,8 @@
         String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
         
         if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
-            pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+            //pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+            pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.getDateMoins6Mois());
             pr.getFormu().getChamp("daty2").setDefaut(dateFin);
             
         }
