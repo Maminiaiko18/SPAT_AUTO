@@ -24,6 +24,9 @@
     }
     
     pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+
+    if(request.getParameter("idtiers") != null)
+        pr.setAWhere(" and tiers = '" + request.getParameter("idtiers") + "'");
    
     pr.setChampReturn(champReturn);
     String[] colSomme = null;

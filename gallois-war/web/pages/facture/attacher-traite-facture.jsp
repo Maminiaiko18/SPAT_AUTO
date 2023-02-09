@@ -3,6 +3,7 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@ page import="facture.tr.Traite" %>
 <%  
     
     try{
@@ -13,6 +14,9 @@
     pi.getFormu().getChamp("idtraite").setLibelle("Traite");
     pi.getFormu().getChamp("idfc").setLibelle("Facture Client");
     pi.getFormu().getChamp("idtraite").setLibelle("Traite");
+    String tiers = "";
+    String[] col = {"idtiers"};
+    String[] val = {tiers};
 
     if(request.getParameter("idTraite")!=null){
         pi.getFormu().getChamp("idtraite").setDefaut(request.getParameter("idTraite"));
@@ -22,8 +26,16 @@
 
     if(request.getParameter("idfc")!=null){
         pi.getFormu().getChamp("idfc").setDefaut(request.getParameter("idfc"));
+        
     }else{
-        pi.getFormu().getChamp("idfc").setPageAppel("choix/listeFactureClientViseeChoix.jsp");
+        if(request.getParameter("idTraite")!=null){
+            Traite traite = new Traite();
+            traite = (Traite) traite.getById(request.getParameter("idTraite"), traite.getNomTable(), null);
+            tiers = traite.getTiers();
+            val[0] = tiers;
+        }
+        pi.getFormu().getChamp("idfc").setPageAppelAvecFiltre("choix/listeFactureClientViseeChoix.jsp", "idFC;idFClibelle", col, val);
+        //pi.getFormu().getChamp("idfc").setPageAppel("choix/listeFactureClientViseeChoix.jsp");
     }
     pi.getFormu().getChamp("idfc").setAutre("readonly");
     pi.getFormu().getChamp("idtraite").setAutre("readonly");
