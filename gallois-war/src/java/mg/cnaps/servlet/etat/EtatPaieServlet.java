@@ -812,8 +812,11 @@ public class EtatPaieServlet extends HttpServlet {
             double totalGeneral = 0;
             int cptDef = 0;
             for (int i = 0; i < tabFact.length; i++) {
-                double montantPro = tabFact[i].getMontant();
                 if(tabFact[i].getTypefacture().contains("FF")) cptDef += 1;
+            }
+            
+            for (int i = 0; i < tabFact.length; i++) {
+                double montantPro = tabFact[i].getMontant();
 
                 if(tabFact[i].getTypefacture().contains("PROV")){
                     prov = true;
