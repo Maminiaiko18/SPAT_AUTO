@@ -1,7 +1,9 @@
 <%@page import="facture.PaiementFactureLibJc"%>
 <%@page import="affichage.PageRecherche"%>
 <%
-    String idfacture = request.getParameter("idfacture");
+    String idfacture = request.getParameter("idFC");
+    String idtraite = request.getParameter("idTraite");
+
 
     PaiementFactureLibJc paiementFactureLib = new PaiementFactureLibJc();
     paiementFactureLib.setNomTable("paiementfacturelibjc");
@@ -27,7 +29,7 @@
             <div class="form-group row">
                 <div class="col-md-3">
                     <label for="idTraite">Traite</label>
-                    <input name="idTraitelibelle" type="textbox" class="form-control" id="idTraitelibelle" value="" readonly="" data-parsley-id="4">
+                    <input name="idTraitelibelle" type="textbox" class="form-control" id="idTraitelibelle" value="<%=idtraite%>" readonly="" data-parsley-id="4">
                     <input type="hidden" value="" name="idTraite" id="idTraite">
                     <input name="choix" type="button" class="submit" onclick="pagePopUp('choix/traiteChoix.jsp?champReturn=idTraite;idTraitelibelle&amp;apresLienPageAppel=')" value="..." tabindex="1">
                 </div>

@@ -2382,7 +2382,7 @@ public class FactureClient extends ClassMere {
             }
             FactureClient cc = new FactureClient();
             cc.setNomTable("factureclientgroupvide");
-            String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,3)) as montant  "
+            String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,2)) as montant  "
                     + " from FACTURECLIENTMSUM_LIBV "
                     + " where id in('"+ids.replace(";", "','")+"') group by tiers,tierslib";
             FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(cc, requete, c);

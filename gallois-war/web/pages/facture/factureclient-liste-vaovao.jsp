@@ -44,7 +44,7 @@
         pr.getFormu().getChamp("armateurlib").setLibelle("Armateur");
         pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
         pr.getFormu().getChamp("cdclt").setLibelle("Code Client");
-        pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.getDateMoins6Mois());
         pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("nbJours1").setLibelle("Jours d'echeance min");
         pr.getFormu().getChamp("nbJours2").setLibelle("Jours d'echeance max");
