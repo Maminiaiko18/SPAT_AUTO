@@ -159,27 +159,22 @@ public class FcDefPr extends ClassEtat {
             FactureData factData = new FactureData();
             factData.initData(prov.getId());
             double tp = factData.getMontantTP();
-            System.out.println("TROP PERCU ====== " + tp + " && ID2 ========== " + this.getMontant());
             // if(tp>0 && tp < montant){
             //     montant = tp; 
             // }
-            if(tp < this.getMontant()) throw new Exception("Trop percu inferieur au montant saisie");
+            if(tp < this.getMontant()) throw new Exception("Solde de la facture de provision est insuffisante");
 
             if(def.getMontantreste() < this.getMontant()) throw new Exception("Reste a payer inferieur au reste a payer de la facture");
             
-            JournalCaisse jc = this.createJC(c, pf.getIdMvt(), this.getMontant(),def.getId());
-            //eto manampy idSource
-
             FcDefPr fc = new FcDefPr();
             fc.setId2(def.getIdProvision());
             fc.setMontant(-1*this.getMontant());
             fc.setEtat(ConstanteEtat.getEtatValider());
             fc.createObject(u, c);
-            // jc.createObject(u, c);
-            // jc.validerObject(u, c);
             //min entre reste à payer FD sy ny solde dispo an'ny Prov no alaina
             if(pf.getIdMvt()!=null){
-                PaiementFacture ins = new PaiementFacture(jc.getTuppleID(), this.getId1(), this.getMontant());
+                PaiementFacture ins = new PaiementFacture(pf.getIdMvt(), this.getId1(), this.getMontant());
+                ins.setFacture(def);
                 ins.createObject(u, c);
             }else{
                 throw new Exception("Pas de paiement pour la facture de provision");
