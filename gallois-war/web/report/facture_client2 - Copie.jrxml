@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="396"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -930,7 +930,7 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="516" y="3" width="363" height="38" uuid="1de2de5d-7905-4d25-a0c9-2ce6dacd3328"/>
-				<textElement verticalAlignment="Top" markup="none">
+				<textElement verticalAlignment="Top" markup="html">
 					<font size="15" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
