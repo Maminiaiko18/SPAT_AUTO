@@ -248,7 +248,7 @@
                     <hr>
                     <p>
                         <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
-                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerEtatProvision&id=<%=id%>" style="margin-right: 10px">Imprimer Etat de provision</a>
+                        <!--<a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerEtatProvision&id=<%=id%>" style="margin-right: 10px">Imprimer Etat de provision</a>-->
                         <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerGestionProvision&id=<%=id%>" style="margin-right: 10px">Imprimer Gestion de provision</a>
                     </p>
                     </hr>
@@ -261,7 +261,7 @@
                         if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCProvision)) {%>
                     <p>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererDefinitive&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
-                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/etatprovision-saisie.jsp&idFacture=" + e.getId()%>" style="margin-right: 10px">Saisir Etat de provision</a>
+                        <!--<a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/etatprovision-saisie.jsp&idFacture=" + e.getId()%>" style="margin-right: 10px">Saisir Etat de provision</a>-->
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regul-fc-provision.jsp&idProvision=" + e.getId()%>" style="margin-right: 10px">Regulariser</a>
                     </p><hr>
                     <%}
