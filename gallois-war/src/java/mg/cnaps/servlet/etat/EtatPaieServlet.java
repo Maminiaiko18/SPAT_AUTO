@@ -2431,10 +2431,11 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             FactureClient fc = new FactureClient();
-            fc.setNomTable("facture_client_union");
+            fc.setNomTable("PMENTFACTHORSPROVAVPROVCPLT");
             FactureClient[] factDef = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c,
                     " and idprovision = '" + id + "'");
 
+            fc.setNomTable("facture_client_union");
             FactureClient[] result3 = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c,
                     " and id = '" + id + "'");
             if (result3.length != 0) {
