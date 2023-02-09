@@ -3,6 +3,7 @@
     Created on : Oct 19, 2018, 2:55:36 PM
     Author     : Jerry
 --%>
+<%@page import="facture.PaiementFacture"%>
 <%@page import="facture.tr.Traite"%>
 <%@page import="factureclient.FactureClientDetail"%>
 <%@ page import="user.*" %>
@@ -300,6 +301,13 @@
                 u.validerObject(listeTraite[i]);
             }
             
+        }
+        if(acte.compareToIgnoreCase("insertPaiementFacture") == 0){
+            mere = (ClassMAPTable) (Class.forName(classe).newInstance());
+            fille = (ClassMAPTable) (Class.forName(classe).newInstance());
+            PageInsertMultiple p = new PageInsertMultiple(mere, fille, request, nbLine, tId);
+            ClassMAPTable[] cfille = p.getObjectFilleAvecValeur();
+            PaiementFacture.genererPaiementFacture((PaiementFacture[])cfille,u.getUser().getTuppleID());
         }
         if (rajoutLien != null) {
 
