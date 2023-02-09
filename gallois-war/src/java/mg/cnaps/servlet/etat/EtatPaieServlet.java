@@ -798,6 +798,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             PayementFacture[] tabFact = null;
             String idFacture = request.getParameter("idFacture");
+            
             if (tabJournal.length > 0) {
                 // requete = "select * from factureclientmsum_lib where id in
                 // ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
@@ -809,14 +810,17 @@ public class EtatPaieServlet extends HttpServlet {
             double montantFacture = 0;
             double arrondi = 0;
             double totalGeneral = 0;
+            int cptDef = 0;
             for (int i = 0; i < tabFact.length; i++) {
-                //montantFacture = montantFacture + tabFact[i].getMontant();
                 double montantPro = tabFact[i].getMontant();
+                if(tabFact[i].getTypefacture().contains("FF")) cptDef += 1;
+
                 if(tabFact[i].getTypefacture().contains("PROV")){
                     prov = true;
-                    montantPro = montantPro*-1;
+                    if(cptDef > 0) montantPro = montantPro*-1;
                 }
                 montantFacture = montantFacture + montantPro;
+                System.out.println("tayyy"+montantFacture);
                 arrList.add(tabFact[i]);
             }
             // tabJournal[0].arrondir();
@@ -896,8 +900,8 @@ public class EtatPaieServlet extends HttpServlet {
             String soustitre = "";
             String findP = tabJournal[0].getNumPiece();
             if(findP == null) findP ="";
-            int p = findP.indexOf("P");
-            if (p >= 0) {
+            // int p = findP.indexOf("P");
+            if (prov && cptDef == 0) {
                 soustitre = "PIECE DE CAISSE";
                 titre = "PROVISION CONSTITUEE";
             }
