@@ -1,5 +1,7 @@
 <%@page import="facture.PaiementFactureLibJc"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="facture.FactureClient"%>
+<%@page import="utilitaire.Utilitaire"%>
 <%
     String idfacture = request.getParameter("idFC");
     String idtraite = request.getParameter("idTraite");
@@ -17,6 +19,10 @@
     paiements.setApres("facture/liste-paiementfacture-multiple.jsp");
     paiements.setAWhere(" AND idmode in ('pay6')  AND idfact = '" + idfacture + "' AND idtraite is null");
     paiements.creerObjetPage(libEntete, colSomme);
+    FactureClient e = new FactureClient();
+    e = (FactureClient) e.getById(request.getParameter("idFC"), "facture_client_union_ordre", null);
+    String tiers = e.getTiers();
+    String popupLink = "choix/traiteChoix.jsp?idtiers="+ tiers + "&champReturn=idTraite;idTraitelibelle&amp;apresLienPageAppel=";
 %>
 
 <div class="content-wrapper">
@@ -31,7 +37,7 @@
                     <label for="idTraite">Traite</label>
                     <input name="idTraitelibelle" type="textbox" class="form-control" id="idTraitelibelle" value="<%=idtraite%>" readonly="" data-parsley-id="4">
                     <input type="hidden" value="" name="idTraite" id="idTraite">
-                    <input name="choix" type="button" class="submit" onclick="pagePopUp('choix/traiteChoix.jsp?champReturn=idTraite;idTraitelibelle&amp;apresLienPageAppel=')" value="..." tabindex="1">
+                    <input name="choix" type="button" class="submit" onclick="pagePopUp('<%= popupLink %>')" value="..." tabindex="1">
                 </div>
                 
                 

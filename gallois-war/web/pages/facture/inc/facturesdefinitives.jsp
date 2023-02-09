@@ -11,11 +11,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     FactureClient base = new FactureClient();
-    base.setNomTable("factureClientValide");
+    base.setNomTable("PMENTFACTHORSPROVAVPROVCPLT");
     
     String listeCrt[] = {"idProvision"};
     String listeInt[] = {};
-    String libEntete[] = {"id","daty","tierslib","escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+    String libEntete[] = {"idfact","daty","tierslib","escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
 
 
     PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
@@ -30,7 +30,7 @@
     
     
     String[] lien = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
-    String[] colLien = {"id"};
+    String[] colLien = {"idfact"};
     //String[] urlLien = {"id"};
     //String[] urlLienAff ={"id"};
     pr.getTableau().setLien(lien);

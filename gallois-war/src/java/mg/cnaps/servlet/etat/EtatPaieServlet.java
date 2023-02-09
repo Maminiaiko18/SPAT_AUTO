@@ -790,6 +790,7 @@ public class EtatPaieServlet extends HttpServlet {
     private void pieceDeCaiseRecette(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             JournalCaisse jc = new JournalCaisse();
+            boolean prov = false;
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
             JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null,
@@ -797,6 +798,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             PayementFacture[] tabFact = null;
             String idFacture = request.getParameter("idFacture");
+            
             if (tabJournal.length > 0) {
                 // requete = "select * from factureclientmsum_lib where id in
                 // ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
@@ -808,18 +810,26 @@ public class EtatPaieServlet extends HttpServlet {
             double montantFacture = 0;
             double arrondi = 0;
             double totalGeneral = 0;
+            int cptDef = 0;
             for (int i = 0; i < tabFact.length; i++) {
-                //montantFacture = montantFacture + tabFact[i].getMontant();
+                if(tabFact[i].getTypefacture().contains("FF")) cptDef += 1;
+            }
+            
+            for (int i = 0; i < tabFact.length; i++) {
                 double montantPro = tabFact[i].getMontant();
+
                 if(tabFact[i].getTypefacture().contains("PROV")){
-                    montantPro = montantPro*-1;
+                    prov = true;
+                    if(cptDef > 0) montantPro = montantPro*-1;
                 }
                 montantFacture = montantFacture + montantPro;
+                System.out.println("tayyy"+montantFacture);
                 arrList.add(tabFact[i]);
             }
             // tabJournal[0].arrondir();
-           arrondi = tabJournal[0].getCredit() - montantFacture;
-           totalGeneral = tabJournal[0].getCredit();
+            if(prov) arrondi = 0;
+            else arrondi = tabJournal[0].getCredit() - montantFacture;
+            totalGeneral = tabJournal[0].getCredit();
 //            arrondi = tabJournal[0].getCredit() - montantFacture;
 //            totalGeneral = tabJournal[0].getCredit();
             totalGeneral = montantFacture + arrondi;
@@ -893,8 +903,8 @@ public class EtatPaieServlet extends HttpServlet {
             String soustitre = "";
             String findP = tabJournal[0].getNumPiece();
             if(findP == null) findP ="";
-            int p = findP.indexOf("P");
-            if (p >= 0) {
+            // int p = findP.indexOf("P");
+            if (prov && cptDef == 0) {
                 soustitre = "PIECE DE CAISSE";
                 titre = "PROVISION CONSTITUEE";
             }
@@ -2421,10 +2431,11 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             FactureClient fc = new FactureClient();
-            fc.setNomTable("facture_client_union");
+            fc.setNomTable("PMENTFACTHORSPROVAVPROVCPLT");
             FactureClient[] factDef = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c,
                     " and idprovision = '" + id + "'");
 
+            fc.setNomTable("facture_client_union");
             FactureClient[] result3 = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c,
                     " and id = '" + id + "'");
             if (result3.length != 0) {

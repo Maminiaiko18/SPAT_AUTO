@@ -64,7 +64,7 @@ public class FactureClient extends ClassMere {
     private int exercice;
     private String idavoir,provenancelib,destinationlib,bateaulib,pavillon,pavillonlib;
     private double volume,volume100;
-    private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt,idtraite,idfc,factureclientlib;
+    private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt,idtraite,idfc,factureclientlib, idfact;
     private double nbJours;
 
     public void setNbJours(double nbJours){
@@ -2485,6 +2485,12 @@ public class FactureClient extends ClassMere {
         this.estMictsl = estMictsl;
         this.reduction = reduction;
         this.ecart = ecart;
+    }
+    public String getIdfact() {
+        return idfact;
+    }
+    public void setIdfact(String idfact) {
+        this.idfact = idfact;
     }
 
 }

@@ -19,7 +19,7 @@
         }
 
         String listeCrt[] = {"id","tiers", "banque", "daty", "dateEcheance"};
-        String listeInt[] = {};
+        String listeInt[] = {"daty"};
         String libEntete[] = {"id","tiers", "banque", "daty", "dateEcheance","montant","montantreste"};
 
         PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -29,7 +29,9 @@
         pr.getFormu().getChamp("id").setLibelle("ID");
         pr.getFormu().getChamp("tiers").setLibelle("Tiers");
         pr.getFormu().getChamp("banque").setLibelle("Banque");
-        pr.getFormu().getChamp("daty").setLibelle("Date");
+        pr.getFormu().getChamp("daty1").setLibelle("Date min");
+        pr.getFormu().getChamp("daty2").setLibelle("Date max");
+
         pr.getFormu().getChamp("dateEcheance").setLibelle("Date echeance");
         
         pr.setApres("facture/traite-liste.jsp");
@@ -111,7 +113,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <%
-            String libelleAffiche[] = {"Id","Tiers", "Banque", "Date", "Date &eacute;cheance","Montant", "Montant Disponible"};
+            String libelleAffiche[] = {"Id","Tiers", "Banque", "daty","Date &eacute;cheance","Montant", "Montant Disponible"};
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

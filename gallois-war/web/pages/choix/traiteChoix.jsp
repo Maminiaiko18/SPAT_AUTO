@@ -15,6 +15,9 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("traiteChoix.jsp");
+
+    if(request.getParameter("idtiers") != null)
+        pr.setAWhere(" and cdclt = '" + request.getParameter("idtiers") + "'");
     
     pr.setChampReturn(champReturn);
     String[] colSomme = null;

@@ -11,9 +11,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     FactureClient base = new FactureClient();
-    base.setNomTable("provisionfacturedefinitivetous");
+    base.setNomTable("PMENTFACTHORSPROVAVPROVCPLT");
     
-    String listeCrt[] = {"iddefinitive"};
+    String listeCrt[] = {"idFact"};
     String listeInt[] = {};
     String libEntete[] = {"id","daty","tierslib","escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste", "etatLib"};
 
