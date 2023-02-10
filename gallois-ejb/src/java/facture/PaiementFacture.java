@@ -10,7 +10,6 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
-import java.util.HashMap;
 import mg.spat.JournalCaisse;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -212,14 +211,14 @@ public class PaiementFacture extends ClassMAPTable{
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
             
-            HashMap<String,String> map = new HashMap<String,String>();
             for(int i=0;i<listePaiement.length;i++){
-                String controle=(String)map.get(listePaiement[i].getIdFact());
-                if(controle!=null)throw new Exception("Facture dupliquee");
-                
+                for(int j=0;j<i;j++){
+                    if(listePaiement[j].getIdFact().equals(listePaiement[i].getIdFact())){
+                        throw new Exception("Facture dupliquee");
+                    }
+                }
                 listePaiement[i].setNomTable("PaiementFacture");
                 listePaiement[i].createObject(refUser,c);
-                map.put(listePaiement[i].getIdFact(), listePaiement[i].getIdFact());
             }
             c.commit();
         }catch(Exception e){
