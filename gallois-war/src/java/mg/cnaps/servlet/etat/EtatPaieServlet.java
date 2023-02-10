@@ -812,7 +812,14 @@ public class EtatPaieServlet extends HttpServlet {
             double totalGeneral = 0;
             int cptDef = 0;
             for (int i = 0; i < tabFact.length; i++) {
-                if(tabFact[i].getTypefacture().contains("FF")) cptDef += 1;
+                if(tabFact[i].getTypefacture().contains("FF")) {
+                    cptDef += 1;
+                    //check si motantdef > montant payer
+                    FactureClient fc= (FactureClient) new FactureClient().getById(tabFact[i].getIdfact(), "facture_client_union_ordre", null);
+                    if(tabFact[i].getMontant()< fc.getMontantttcvrai()) {
+                        tabFact[i].setMontant(fc.getMontantttcvrai());
+                    }
+                }
             }
             
             for (int i = 0; i < tabFact.length; i++) {
@@ -823,7 +830,6 @@ public class EtatPaieServlet extends HttpServlet {
                     if(cptDef > 0) montantPro = montantPro*-1;
                 }
                 montantFacture = montantFacture + montantPro;
-                System.out.println("tayyy"+montantFacture);
                 arrList.add(tabFact[i]);
             }
             // tabJournal[0].arrondir();

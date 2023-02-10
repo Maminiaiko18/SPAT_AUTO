@@ -26,7 +26,7 @@
     pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
 
     if(request.getParameter("idtiers") != null)
-        pr.setAWhere(" and tiers = '" + request.getParameter("idtiers") + "'");
+        pr.setAWhere(" and tiers = '" + request.getParameter("idtiers") + "' and montantreste > 0");
    
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
