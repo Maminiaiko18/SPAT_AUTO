@@ -295,6 +295,10 @@ public class Traite extends ClassEtat {
     
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        Traite traite = new Traite();
+        traite = (Traite) traite.getById(this.getId(), "TRAITEMTTRESTE", c);
+        if(traite.getMontantreste()>0)
+            throw new Exception("Le montant disponible ne doit pas etre superieur a zero.");
         String caisseDep = Constante.getCaisseTraite();
         if(this.getIdtypepiece()!=null && this.getIdtypepiece().equals(Constante.getTypePieceCheque()))caisseDep = Constante.caisseDepense;
         MvttIntraCaisse mvt = new MvttIntraCaisse(caisseDep,Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,null,null,
