@@ -204,8 +204,16 @@ public class PayementFacture extends ClassEtat {
     public void setTypefacture(String typefacture) {
         this.typefacture = typefacture;
     }
+
+    public String getIdfact() {
+        return idfact;
+    }
+
+    public void setIdfact(String idfact) {
+        this.idfact = idfact;
+    }
     
-    private String id,tiers,patient,designation,typee,devise,compte,remarque,idjournal,idtiers, matricule, code, typefacture;
+    private String id,tiers,patient,designation,typee,devise,compte,remarque,idjournal,idtiers, matricule, code, typefacture, idfact;
     private Date daty,date_echeance;
     private double montant,tva,montanttva,coursdevise,montantpayer,resteapayer, montanttotal,avoir;
 }
