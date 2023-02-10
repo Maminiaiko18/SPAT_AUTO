@@ -27,6 +27,7 @@
         pc.getChampByName("montant").setLibelle("Montant");
          pc.getChampByName("escompte").setLibelle("Escompte");
         pc.getChampByName("total").setLibelle("Total");
+        pc.getChampByName("cdclt").setVisible(false);
         pc.setTitre(titre);
         traite = (Traite) pc.getBase();
 

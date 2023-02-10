@@ -61,7 +61,7 @@
         <%
             String libEnteteAffiche[] = {"id", "designation","Traite","Date", "Caisse Depart", "Caisse Arrivee","Mode Paiement","Montant","Remarque","Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            pr.getTableau().setNameBoutton("Enregistrer");
+            pr.getTableau().setNameBoutton("Encaisser");
             pr.getTableau().setNameActe("encaissementTraite");
             out.println(pr.getTableau().getHtmlWithCheckbox());
         %>

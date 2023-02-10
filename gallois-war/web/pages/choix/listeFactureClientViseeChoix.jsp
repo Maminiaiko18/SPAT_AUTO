@@ -26,7 +26,9 @@
     pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
 
     if(request.getParameter("idtiers") != null)
-        pr.setAWhere(" and tiers = '" + request.getParameter("idtiers") + "' and montantreste > 0");
+        pr.setAWhere(" and tiers = '" + request.getParameter("idtiers") + "' ");
+    if(request.getParameter("traite") != null)
+        pr.setAWhere(" and montantreste > 0");
    
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
@@ -55,7 +57,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <% 
-                       String libEnteteAff[] =  {"ID","Date" ,"Code","Tiers","Designation","TVA", "Date Ech&eacute;ance","Montant HT", "Montant TVA", "Lontant TTC", "RAP"};
+                       String libEnteteAff[] =  {"ID","Date" ,"Code","Tiers","Designation","TVA", "Date Ech&eacute;ance","Montant HT", "Montant TVA", "Montant TTC", "RAP"};
                        pr.getTableau().setLibeEntete(libEnteteAff);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>

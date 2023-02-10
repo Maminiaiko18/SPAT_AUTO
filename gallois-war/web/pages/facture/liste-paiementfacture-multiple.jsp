@@ -19,10 +19,7 @@
     paiements.setApres("facture/liste-paiementfacture-multiple.jsp");
     paiements.setAWhere(" AND idmode in ('pay6')  AND idfact = '" + idfacture + "' AND idtraite is null");
     paiements.creerObjetPage(libEntete, colSomme);
-    FactureClient e = new FactureClient();
-    e = (FactureClient) e.getById(request.getParameter("idFC"), "facture_client_union_ordre", null);
-    String tiers = e.getTiers();
-    String popupLink = "choix/traiteChoix.jsp?idtiers="+ tiers + "&champReturn=idTraite;idTraitelibelle&amp;apresLienPageAppel=";
+    String popupLink = "choix/traiteChoix.jsp?traite=true&champReturn=idTraite;idTraitelibelle&amp;apresLienPageAppel=";
 %>
 
 <div class="content-wrapper">
