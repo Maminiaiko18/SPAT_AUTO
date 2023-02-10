@@ -195,7 +195,7 @@ public class PaiementFacture extends ClassMAPTable{
             
                 JournalCaisse jc=this.getpayement(c); 
                 double montantFactures=this.getMontantFactures(jc,c);
-                if(Double.valueOf(Utilitaire.enleverExponentielleDouble(montantFactures+this.getMontant()))>Double.valueOf(Utilitaire.enleverExponentielleDouble(jc.getCredit()))) {
+                 if(this.getNomTable().equalsIgnoreCase("paiementfacture") && (montantFactures+this.getMontant())>jc.getCredit()) {
                     throw new Exception("Le montant depasse. Montant factures ="+montantFactures+", montant inséré="+this.getMontant()+", montant journal="+jc.getCredit()); //tsy maintsy micomparer nomtable satria ity classe ity ihany no ampiasain'ny fournisseur donc diso ilay getCredit
                 }
             }
