@@ -571,7 +571,7 @@ public class FactureClientDetails extends ClassFille {
     @Override
     public void controlerUpdate(Connection c) throws Exception {
         verifActivite(c);
-        if(this.getTaux()<=0) setTaux(getTauxRecent(c));
+        setTaux(getTauxRecent(c));
         super.controlerUpdate(c);
     }
 
