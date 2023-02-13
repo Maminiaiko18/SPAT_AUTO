@@ -1,6 +1,6 @@
 <%-- 
     Document   : casierarticle-saisie
-    Created on : 29 déc. 2022, 09:23:57
+    Created on : 29 dï¿½c. 2022, 09:23:57
     Author     : Rado
 --%>
 
@@ -17,19 +17,23 @@
         a.setNomTable("traite");
         PageInsert pi = new PageInsert(a, request, (user.UserEJB) session.getValue("u"));
         pi.setLien((String) session.getValue("lien"));
-        affichage.Champ[] liste = new affichage.Champ[1];
+        affichage.Champ[] liste = new affichage.Champ[2];
 
         TypeObjet o = new TypeObjet();
         o.setNomTable("banque");
         liste[0] = new Liste("banque", o, "VAL", "id");
-
+        System.out.println(" coucouzrer");
+        TypeObjet obj = new TypeObjet();
+        obj.setNomTable("type_piece");
+        liste[1] = new Liste("idtypepiece",obj,"desce","id");
         pi.getFormu().changerEnChamp(liste);
         pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("daty").setLibelle("Date");
+        pi.getFormu().getChamp("idtypepiece").setLibelle("Type");
         pi.getFormu().getChamp("dateEcheance").setLibelle("Date d'echeance");
         pi.getFormu().getChamp("etat").setVisible(false);
-
+        pi.getFormu().getChamp("idfinaledestination").setVisible(false);
         pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
