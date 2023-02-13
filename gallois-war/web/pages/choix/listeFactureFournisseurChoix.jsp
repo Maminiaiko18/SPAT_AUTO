@@ -13,7 +13,7 @@
     FactureFournisseur ff = new FactureFournisseur();
     ff.setNomTable("FACTFOURN_MSUM_LIB");
     String libEntete[] = {"id","daty","tierslib", "code", "escale","designation","categorielib","tva","date_echeance","exercice","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
-    String listeCrt[] = {"id","daty","exercice"};
+    String listeCrt[] = {"id","daty","exercice","tierslib"};
     String listeInt[] = {"daty"};
     PageRechercheChoix pr = new PageRechercheChoix(ff, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));

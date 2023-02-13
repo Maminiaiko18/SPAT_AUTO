@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ORDRE_PAYER" pageWidth="620" pageHeight="842" columnWidth="620" leftMargin="0" rightMargin="0" topMargin="10" bottomMargin="10" uuid="482ea57c-6d82-4138-ae48-165f25e19e79">
-	<property name="ireport.zoom" value="1.331000000000006"/>
+	<property name="ireport.zoom" value="1.7715610000000084"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="NUM_OP" class="java.lang.String"/>
@@ -19,7 +19,7 @@
 	<title>
 		<band height="369" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="541" y="42" width="73" height="16" uuid="43fc8f71-56f9-4908-99e5-e8ae3fe79b86"/>
+				<reportElement x="541" y="40" width="73" height="16" uuid="43fc8f71-56f9-4908-99e5-e8ae3fe79b86"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
@@ -42,7 +42,7 @@
 				<textFieldExpression><![CDATA[$P{PAIEMENT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="402" y="113" width="119" height="20" uuid="0a82b684-a182-49d9-811c-7f91e23420a6"/>
+				<reportElement x="402" y="110" width="119" height="20" uuid="0a82b684-a182-49d9-811c-7f91e23420a6"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 					<paragraph leftIndent="10"/>
@@ -82,7 +82,7 @@
 				<textFieldExpression><![CDATA[$P{MOTIF}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="108" y="267" width="481" height="34" uuid="cada7ed8-0c54-4ff2-92c9-8688d55ea177"/>
+				<reportElement x="108" y="273" width="481" height="34" uuid="cada7ed8-0c54-4ff2-92c9-8688d55ea177"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
@@ -90,7 +90,7 @@
 				<textFieldExpression><![CDATA[$P{FACTURE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="521" y="113" width="45" height="20" uuid="7c52cd79-ea59-49ec-9e5b-766bc5663f93"/>
+				<reportElement x="521" y="110" width="45" height="20" uuid="7c52cd79-ea59-49ec-9e5b-766bc5663f93"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font size="7" isBold="true"/>
 				</textElement>

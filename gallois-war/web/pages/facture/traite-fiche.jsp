@@ -13,7 +13,7 @@
            titre = "Traite Fiche",
            mapping = "facture.tr.Traite",
            apres = "facture/traite-fiche.jsp",
-           nomTable = "TRAITE_LIBMTT";
+           nomTable = "TRAITEMTTRESTE";
     try {
         Traite traite = new Traite();
         traite.setNomTable(nomTable);
@@ -27,6 +27,8 @@
         pc.getChampByName("montant").setLibelle("Montant");
          pc.getChampByName("escompte").setLibelle("Escompte");
         pc.getChampByName("total").setLibelle("Total");
+        pc.getChampByName("cdclt").setVisible(false);
+        pc.getChampByName("montantreste").setLibelle("Montant disponible");
         pc.setTitre(titre);
         traite = (Traite) pc.getBase();
 

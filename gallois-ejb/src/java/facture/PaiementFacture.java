@@ -10,7 +10,6 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
-import java.util.HashMap;
 import mg.spat.JournalCaisse;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -188,17 +187,18 @@ public class PaiementFacture extends ClassMAPTable{
                 c = (new UtilDB()).GetConn();
                 verif = 1;
             }
-            FactureClient fc = this.getFacture();
-            if(fc==null)fc = this.getFacture(c);
-            if(fc!=null && (float)fc.getMontantreste()< (float)this.getMontant() ) throw new Exception("Reste a payer facture inferieur au montant saisi");
-        
-            JournalCaisse jc=this.getpayement(c); 
-            double montantFactures=this.getMontantFactures(jc,c);
-            if(this.getNomTable().equalsIgnoreCase("paiementfacture") && Double.valueOf(Utilitaire.enleverExponentielleDouble(montantFactures+this.getMontant()))>Double.valueOf(Utilitaire.enleverExponentielleDouble(jc.getCredit()))) {
-                throw new Exception("Le montant depasse. Montant factures ="+montantFactures+", montant inséré="+this.getMontant()+", montant journal="+jc.getCredit()); //tsy maintsy micomparer nomtable satria ity classe ity ihany no ampiasain'ny fournisseur donc diso ilay getCredit
+            if(this.getNomTable().compareToIgnoreCase("paiementfacture")==0){
+                FactureClient fc = this.getFacture();
+                if(fc==null)fc = this.getFacture(c);
+                if(fc!=null && (float)fc.getMontantreste()< (float)this.getMontant() ) throw new Exception("Reste a payer facture inferieur au montant saisi");
+            
+                JournalCaisse jc=this.getpayement(c); 
+                double montantFactures=this.getMontantFactures(jc,c);
+                 if(this.getNomTable().equalsIgnoreCase("paiementfacture") && (montantFactures+this.getMontant())>jc.getCredit()) {
+                    throw new Exception("Le montant depasse. Montant factures ="+montantFactures+", montant inséré="+this.getMontant()+", montant journal="+jc.getCredit()); //tsy maintsy micomparer nomtable satria ity classe ity ihany no ampiasain'ny fournisseur donc diso ilay getCredit
+                }
             }
-
-            if(!jc.getTiers().equals(fc.getTiers()))throw new Exception("Tiers differents pour le journal caisse et la facture");
+            //if(!jc.getTiers().equals(fc.getTiers()))throw new Exception("Tiers differents pour le journal caisse et la facture");
         } finally {
             if (c != null && verif == 1) {
                 c.close();
@@ -212,14 +212,14 @@ public class PaiementFacture extends ClassMAPTable{
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
             
-            HashMap<String,String> map = new HashMap<String,String>();
             for(int i=0;i<listePaiement.length;i++){
-                String controle=(String)map.get(listePaiement[i].getIdFact());
-                if(controle!=null)throw new Exception("Facture dupliquee");
-                
+                for(int j=0;j<i;j++){
+                    if(listePaiement[j].getIdFact().equals(listePaiement[i].getIdFact())){
+                        throw new Exception("Facture dupliquee");
+                    }
+                }
                 listePaiement[i].setNomTable("PaiementFacture");
                 listePaiement[i].createObject(refUser,c);
-                map.put(listePaiement[i].getIdFact(), listePaiement[i].getIdFact());
             }
             c.commit();
         }catch(Exception e){

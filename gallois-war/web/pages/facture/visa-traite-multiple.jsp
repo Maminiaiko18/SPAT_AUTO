@@ -8,7 +8,7 @@
     try {
 
         Traite eng = new Traite();
-        eng.setNomTable("Traite");
+        eng.setNomTable("TRAITEMTTRESTE");
 
         String listeCrt[] = {"id","daty", "tiers", "banque","dateEcheance","reference","montant"};
         String listeInt[] = {"daty","montant","dateEcheance"};
@@ -24,7 +24,7 @@
         pr.getFormu().getChamp("dateEcheance1").setLibelle("Date echeance min");
         pr.getFormu().getChamp("dateEcheance2").setLibelle("Date echeance max");
        
-        pr.setAWhere(" AND etat="+ConstanteEtat.getEtatCreer());
+        pr.setAWhere(" AND etat="+ConstanteEtat.getEtatCreer()+" and montantreste <= 0");
         pr.setApres("facture/visa-traite-multiple.jsp");
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);

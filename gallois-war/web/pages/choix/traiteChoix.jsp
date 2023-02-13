@@ -7,9 +7,9 @@
 <%
     String champReturn = request.getParameter("champReturn");
     Traite navire = new Traite();
-    navire.setNomTable("TRAITE_LIB");
-    String libEntete[] = {"id","tiers", "banque", "daty", "dateEcheance","montant","reference"};
-    String listeCrt[] = {"id","tiers", "banque", "daty", "dateEcheance","montant","reference"};
+    navire.setNomTable("TRAITEMTTRESTE");
+    String libEntete[] = {"id", "tiers", "banque", "daty", "dateEcheance", "montant", "montantreste", "reference"};
+    String listeCrt[] = {"id", "tiers", "banque", "daty", "dateEcheance", "montant", "reference"};
     String listeInt[] = {""};
     PageRechercheChoix pr = new PageRechercheChoix(navire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -18,6 +18,8 @@
 
     if(request.getParameter("idtiers") != null)
         pr.setAWhere(" and cdclt = '" + request.getParameter("idtiers") + "'");
+    if(request.getParameter("traite") != null)
+        pr.setAWhere(" and montantreste > 0");
     
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
@@ -47,7 +49,7 @@
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     
                     <% 
-                         String libEnteteAffiche[] = {"Id","Tiers", "Banque", "Date", "Date Echeance","Montant","Reference"};
+                         String libEnteteAffiche[] = {"Id", "Tiers", "Banque", "Date", "Date Echeance", "Montant",  "Montant Disponible", "Reference"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>
