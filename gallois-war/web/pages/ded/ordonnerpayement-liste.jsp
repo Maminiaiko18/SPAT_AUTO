@@ -18,7 +18,7 @@
     PageRecherche pr = new PageRecherche(op, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.setApres("ded/ordonnerpayement-liste.jsp");
+    pr.setApres("ded/ordonnerpayement-liste.jsp&etatvue="+ request.getParameter("etatvue"));
     pr.getFormu().getChamp("daty1").setLibelle("date de d&eacute;but");
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
     pr.getFormu().getChamp("tiers").setLibelle("Tiers");
