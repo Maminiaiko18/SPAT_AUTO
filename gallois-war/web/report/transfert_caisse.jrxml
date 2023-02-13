@@ -9,6 +9,8 @@
 	<parameter name="designation" class="java.lang.String"/>
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="montant" class="java.lang.Double"/>
+	<parameter name="remarque" class="java.lang.String"/>
+	<parameter name="montantlettre" class="java.lang.String"/>
 	<field name="id" class="java.lang.String"/>
 	<field name="reference" class="java.lang.String"/>
 	<field name="remarque" class="java.lang.String"/>
@@ -16,7 +18,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="201" splitType="Stretch">
+		<band height="251" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="-3" width="72" height="82" uuid="3b49bc2e-5f92-4d3b-9494-e4601a9e3b6b"/>
 				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
@@ -92,14 +94,14 @@
 				<textFieldExpression><![CDATA[$P{designation}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="166" width="100" height="20" uuid="69a20d2f-602b-424b-8ab3-de7a7c541973"/>
+				<reportElement x="0" y="186" width="100" height="20" uuid="69a20d2f-602b-424b-8ab3-de7a7c541973"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Montant :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="100" y="166" width="455" height="20" uuid="44a4a536-2c59-417b-956b-4c8b3e130263"/>
+				<reportElement x="100" y="186" width="455" height="20" uuid="44a4a536-2c59-417b-956b-4c8b3e130263"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -112,6 +114,27 @@
 				</textElement>
 				<text><![CDATA[MOUVEMENT INTRA CAISSE]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="0" y="166" width="100" height="20" uuid="7c5769bf-20c6-4bd5-a6ec-8b525b122da8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remarque :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="166" width="455" height="20" uuid="bfc4f433-2cff-4276-aec6-c98f04b9b603"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{remarque}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="206" width="455" height="40" uuid="b170b367-d448-4ac8-ad05-eb4aea94b5f3"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montantlettre}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>

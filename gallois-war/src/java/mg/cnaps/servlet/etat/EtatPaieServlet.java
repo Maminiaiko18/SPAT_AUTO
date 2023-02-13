@@ -3247,6 +3247,9 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("caissearrivee", mere[0].getCaissearrivee());
             param.put("modepaiement", mere[0].getModepaiement());
             param.put("montant", mere[0].getMontant());
+            param.put("remarque", mere[0].getRemarque());
+            String montantLettre = ChiffreLettre.convertRealToString(mere[0].getMontant(), "Ariary");
+            param.put("montantlettre", montantLettre);
             MvtIntraCaisseFille details = new MvtIntraCaisseFille();       
             details.setNomTable("mvtintracaisse_fille");
             MvtIntraCaisseFille[] listeDetails = (MvtIntraCaisseFille[]) CGenUtil.rechercher(details, null, null, " and idmere='" + id + "'");
