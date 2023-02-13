@@ -2890,6 +2890,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         } catch (Exception e) {
             e.printStackTrace();
             c.rollback();
+            throw e;
         } finally {
             if(c!=null){
                 c.close();
