@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package mg.spat;
 import mg.spat.MvttIntraCaisse;
 import java.sql.Connection;
 import bean.CGenUtil;
@@ -16,23 +16,23 @@ import java.sql.Date;
  */
 public class MvtIntraCaisseTraite extends MvttIntraCaisse{
     private Date datetraite; 
-    private Date echeance;
+    private Date dateecheance;
     private double montanttraite;
 
     public void setDatetraite (Date datetraite){
         this.datetraite = datetraite;
     }
 
-    public void setEcheance (Date echeance){
-        this.echeance = echeance;
+    public void setDateecheance (Date echeance){
+        this.dateecheance = echeance;
     }
 
     public void setMontanttraite (double montanttraite){
         this.montanttraite = montanttraite;
     }
 
-    public Date getEcheance (){
-        return this.echeance;
+    public Date getDateecheance (){
+        return this.dateecheance;
     }
 
     public Date getDatetraite (){
