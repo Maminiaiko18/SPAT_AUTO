@@ -291,27 +291,23 @@ public class Engagement extends ClassEtat {
     }
     
     public LigneCredit findSituationCredit(Connection c) throws Exception{
-        LigneCredit ligne = new LigneCredit();
+
+        LigneCredit lc = new LigneCredit();
         //lc.setNomTable("ligneCreditDepenseGrp");
-        /*lc.setNomTable("SITUATIONLCDEPENSEGRP");*/
-        String dir= Utilitaire.champNull(this.getCodeEtablissement());
-        String prj= Utilitaire.champNull(this.getProjet());
-        String compte=Utilitaire.champNull(this.getCompte());
-        int annee=this.getAnnee();
-        if(annee==0)annee=Utilitaire.getAnnee(this.getDaty());
+        lc.setNomTable("SITUATIONLCDEPENSEGRP");
+        String dir=this.getCodeEtablissement();
+        String prj=this.getProjet();
         if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
         {
-            // if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Ligne de crédit invalide");
-            ligne = findLigneCredit(c);
-            compte=Utilitaire.champNull(ligne.getCompte());
-            // dir=ligne.getCodeEtablissement();
-            // prj=ligne.getProjet();
+            if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Ligne de crédit invalide");
+            LigneCredit ligne = findLigneCredit(c);
+            dir=ligne.getCodeEtablissement();
+            prj=ligne.getProjet();
         }
-        /*LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
-        if(ligneCredits.length > 0) return ligneCredits[0];*/
-
-        return LigneCredit.findSituationCreditDepense(ligne.getId() , null, compte ,null, null,String.valueOf(ConstanteEtat.getEtatValider()), "11", String.valueOf(annee) , null,  c)[0];
-    }
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
+        if(ligneCredits.length > 0) return ligneCredits[0];
+        return null;
+        }
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
