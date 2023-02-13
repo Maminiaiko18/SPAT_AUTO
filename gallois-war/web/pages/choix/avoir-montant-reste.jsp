@@ -14,7 +14,7 @@
 
     String listeCrt[] = {"id","DATY","CATEGORIELIB","MOTIFLIB","CODE" ,"TYPELIB","DESIGNATION","MONTANT","MONTANTPAYE","MONTANTRESTE","CDCLT"};
     String listeInt[] = {"daty"};
-    String libEntete[] = {"id","DATY","TIERSLIB","CATEGORIELIB","MOTIFLIB","CODE" ,"TYPELIB","DESIGNATION","MONTANT","MONTANTPAYE","MONTANTRESTE","CDCLT"};
+    String libEntete[] = {"id","Daty","Ters lib","Categorie Lib","Motif Lib","code" ,"Type Lib","Designation","Montant","Montant Payé","Montant Reste","Cdclt"};
    
     PageRechercheChoix pr = new PageRechercheChoix(avoirFc, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
