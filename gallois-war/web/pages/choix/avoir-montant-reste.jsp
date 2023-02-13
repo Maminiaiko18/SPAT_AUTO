@@ -9,46 +9,34 @@
     String criteria = "";
     String champReturn = request.getParameter("champReturn");
     AvoirFC avoirFc = new AvoirFC();
-    
-    
-  
-    
-      
     avoirFc.setNomTable("AVOIRFC_MONTANT");
-
-
+    String tiers = "";
 
     String listeCrt[] = {"id","DATY","CATEGORIELIB","MOTIFLIB","CODE" ,"TYPELIB","DESIGNATION","MONTANT","MONTANTPAYE","MONTANTRESTE","CDCLT"};
     String listeInt[] = {"daty"};
     String libEntete[] = {"id","DATY","TIERSLIB","CATEGORIELIB","MOTIFLIB","CODE" ,"TYPELIB","DESIGNATION","MONTANT","MONTANTPAYE","MONTANTRESTE","CDCLT"};
    
-
     PageRechercheChoix pr = new PageRechercheChoix(avoirFc, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     //pr.setOrdre(" order by daty desc");
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("avoir-montant-reste.jsp");
    
-    
     pr.getFormu().getChamp("daty1").setLibelle("Date Min");
     pr.getFormu().getChamp("daty2").setLibelle("Date Max");
     
-
     pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
    
     if(request.getParameter("daty1")==null || request.getParameter("daty1").equals("")){
         criteria += " and daty>= '"+Utilitaire.dateDuJour()+"'";
     }
     
-//    pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
-//      pr.setAWhere(" and daty>= '"+Utilitaire.dateDuJour()+"'");
-      
-      
-      
-    if(request.getParameter("idtiers") != null)
-       criteria +=" and tiers = '" + request.getParameter("idtiers") + "' ";
-    if(request.getParameter("traite") != null)
-        criteria += " and montantreste > 0";
+    if(request.getParameter("idtiers") != null){
+        tiers = request.getParameter("idtiers");
+       criteria +=" and tiers = '" + tiers + "' ";
+    }
+    
+    criteria += " and montantreste > 0";
     
     pr.setAWhere(criteria);
     pr.setChampReturn(champReturn);
@@ -72,12 +60,12 @@
             <section class="content">
                 <form action="<%=pr.getApres()%>?champReturn=<%=champReturn%>" method="post" name="fcdetailsliste" id="fcdetailsliste">
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
-                    <% if(request.getParameter("traite") != null){ %><input type="hidden" name="traite" value="true"><%}%>
+                    <% if(request.getParameter("idtiers") != null){ %><input type="hidden" name="idtiers" value=<%=tiers%>"><%}%>
                 </form>
                 <%
                     out.println(pr.getTableauRecap().getHtml());
                 %>
-                <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
+                <form action="../<%=pr.getLien()%>?but=choixMultiple/apresChoixMultiple.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <% 
                         String libEnteteAff[] =   {"id","Date","Tiers","Catégorie","Motif","code" ,"type","Designation","Montant","Montant payé","Montant reste","Code Client"};
