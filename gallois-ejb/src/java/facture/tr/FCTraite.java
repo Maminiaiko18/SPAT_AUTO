@@ -220,8 +220,10 @@ public class FCTraite  extends ClassEtat{
 
     public void controler(Connection c) throws Exception {
         Traite traite = getTraite(c);
-        
         siMontantTraiteDispo(traite,c);
+        JournalCaisse jc=this.getJC(c);
+        jc.setIdtraite(this.getIdTraite());
+        jc.updateToTable(c);
     }
 
     public Object validerObject(String u, Connection c) throws Exception{
