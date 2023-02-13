@@ -14,7 +14,7 @@
             journalCaisse.setNomTable(request.getParameter("etatvue"));
         }
 
-        String listeCrt[] = {"id", "folio", "valcaisse", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "numeroOP", "tierslib","idbanquelib"};
+        String listeCrt[] = {"id", "folio", "valcaisse", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "numeroOP", "tierslib","idbanquelib","numPiece"};
         String listeInt[] = {"dateEffet"};
         String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "debit", "idplacement", "numeroOP", "tierslib","idbanquelib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
