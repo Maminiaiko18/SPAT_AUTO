@@ -15,7 +15,7 @@
     try{
     JournalCaisseLibComplet cht = new JournalCaisseLibComplet();
     cht.setNomTable("paiementFC_tous");
-    String libEntete[] = {"id", "libelle", "caisse","tierslib","numPiece","dateeffet", "montant","sortie","etatlib"};
+    String libEntete[] = {"id", "libelle", "valcaisse","tierslib","numPiece","dateeffet", "montant","sortie","etatlib"};
     String listeCrt[] = {"idfact","etat"};
     String listeInt[] = {};
 
