@@ -23,7 +23,7 @@
                 nomtable = "engagement",
                 mappingFille = FCTraite.class.getName(),
                 colonneMere = request.getParameter("colonneMere"),
-                apres = "facture/fctraite-liste.jsp",
+                apres = "treso/journalcaisse-fiche.jsp",
                 titre = "Saisie des traites de facture client";
 
         FCTraite objet = new FCTraite();
@@ -39,8 +39,11 @@
         pi.getFormu().getChamp("daty").setVisible(false);
         pi.getFormu().getChamp("montant").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
+        String[] col = {"traite"};
+        String[] val = {"true"};
         
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idTraite"), "choix/traiteChoix.jsp", "idTraite;idTraitelibelle;montant");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("idTraite"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idFC"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idJc"), false);

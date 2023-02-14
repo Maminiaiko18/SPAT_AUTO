@@ -82,7 +82,7 @@
 				<textFieldExpression><![CDATA[$P{MOTIF}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="108" y="273" width="481" height="34" uuid="cada7ed8-0c54-4ff2-92c9-8688d55ea177"/>
+				<reportElement x="108" y="271" width="481" height="34" uuid="cada7ed8-0c54-4ff2-92c9-8688d55ea177"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>

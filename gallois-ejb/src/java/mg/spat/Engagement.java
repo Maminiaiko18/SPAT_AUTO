@@ -14,11 +14,13 @@ import facture.FactureFournisseur;
 import facture.FactureFournisseurDetails;
 import java.sql.Connection;
 import java.sql.Date;
+//import javax.validation.executable.ValidateOnExecution;
 import lignecredit.LigneCredit;
 import utilitaire.Utilitaire;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
+import bean.ValidationException;
 
 /**
  *
@@ -320,7 +322,7 @@ public class Engagement extends ClassEtat {
         
         double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
         if(montantTotal > this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
-        if((float)this.getMontant() > (float)lc.getRestebudget()) throw new Exception("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getRestebudget())+")");
+        if((float)this.getMontant() > (float)lc.getRestebudget()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getRestebudget())+")");
         this.setDispoAvant(lc.getRestebudget());
         this.setDispoApres(lc.getRestebudget() - this.getMontant());
         super.validerObject(u, c);
