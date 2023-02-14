@@ -31,7 +31,9 @@
     pc.getChampByName("idcaisse").setVisible(false);
     pc.getChampByName("idmode").setVisible(false);
     pc.getChampByName("idTypeCheque").setVisible(false);
-    pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("tiers").setVisible(false);   
+    pc.getChampByName("type").setVisible(false);
+
     
     pc.getChampByName("credit").setLibelle("Entree");
     pc.getChampByName("debit").setLibelle("Sortie");
@@ -46,6 +48,7 @@
     pc.getChampByName("valCaisse").setLibelle("caisse");
     pc.getChampByName("DESCETYPECHEQUE").setLibelle("mode de paiement");
     pc.getChampByName("idordre").setLibelle("OP");
+   
     pc.getChampByName("typelib").setLibelle("Type"); 
     
     JournalCaisse jcaisse = (JournalCaisse)pc.getBase();
