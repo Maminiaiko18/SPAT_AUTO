@@ -325,7 +325,7 @@ public class EtatdeStockDate extends ClassMAPTable {
     }
 
     public static mg.amadia.stock.EtatdeStockDate[] getSolde(String datySup, String ingr, String idIngredient, Connection c, String colonne, String valorder, String datyInf) throws Exception {
-        String req = "select inv.idingredient as ingredients,inv.quantiter as report "
+        String req = "select inv.idingredient as ingredients,(inv.QUANTITER-nvl(mvt.sortie,0)+nvl(mvt.entree,0)) as reste "
                 + " from reportdetailscaisse inv,(select sum(mvt.entree) as entree,sum(mvt.sortie) as sortie,mvt.idingredients,mvt.unite, mvt.ingredients"
                 + " from mvtcaissedetailslib mvt  where "
                 + "mvt.daty>(select max(inv.daty) from reportdetailscaisse inv where inv.iding=mvt.idingredients and inv.daty<'" + datyInf + "' ) and mvt.daty<='" + datySup + "'"
