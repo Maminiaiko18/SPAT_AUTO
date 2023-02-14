@@ -10,6 +10,7 @@
     try{
         JournalCaisse journal = new JournalCaisse();
         journal.setNomTable("journalcaisselibdepenseBanqueT");
+        if (request.getParameter("mode") != null)  journal.setNomTable("JOURNALCAISSELIBDEPENSE");
         if (request.getParameter("table") != null) journal.setNomTable(request.getParameter("table"));
           String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque"};
         String listeInt[] = {"dateEffet"};
