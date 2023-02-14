@@ -799,7 +799,7 @@ public class OrdonnerPayement extends ClassEtat {
     public void controlerMotantFF(Connection c)throws Exception{
         FactureFournisseur[] listeFF=this.getFactures(c);
         double rap = 0;
-        if(listeFF!=null){
+        if(listeFF!=null&&listeFF.length>0){
             for(int i=0;i<listeFF.length;i++){
                 rap += listeFF[i].getMontantreste();
             }
