@@ -14,7 +14,7 @@
 
     String listeCrt[] = {"id","DATY","CATEGORIELIB","MOTIFLIB","CODE" ,"TYPELIB","DESIGNATION","MONTANT","MONTANTPAYE","MONTANTRESTE","CDCLT"};
     String listeInt[] = {"daty"};
-    String libEntete[] = {"id","Daty","Ters lib","Categorie Lib","Motif Lib","code" ,"Type Lib","Designation","Montant","Montant Payé","Montant Reste","Cdclt"};
+    String libEntete[] = {"id","daty","tierslib","categorielib","motiflib","code" ,"typelib","designation","montant","montantpaye","montantreste","cdclt"};
    
     PageRechercheChoix pr = new PageRechercheChoix(avoirFc, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -26,8 +26,8 @@
     pr.getFormu().getChamp("daty2").setLibelle("Date Max");
     
     pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
-   
-    if(request.getParameter("daty1")==null || request.getParameter("daty1").equals("")){
+    
+    if(request.getParameter("DATY1")==null || request.getParameter("DATY1").equals("")){
         criteria += " and daty>= '"+Utilitaire.dateDuJour()+"'";
     }
     
@@ -60,7 +60,7 @@
             <section class="content">
                 <form action="<%=pr.getApres()%>?champReturn=<%=champReturn%>" method="post" name="fcdetailsliste" id="fcdetailsliste">
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
-                    <% if(request.getParameter("idtiers") != null){ %><input type="hidden" name="idtiers" value=<%=tiers%>"><%}%>
+                    <% if(request.getParameter("idtiers") != null){ %><input type="hidden" name="idtiers" value=<%=tiers%>><%}%>
                 </form>
                 <%
                     out.println(pr.getTableauRecap().getHtml());

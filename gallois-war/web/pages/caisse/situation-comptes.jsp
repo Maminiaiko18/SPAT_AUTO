@@ -60,7 +60,7 @@
                 <div class="box box-solid collapsed">
                     <div style="background-color:#103a8e; color:white;" class="box-header with-border">
                         <h3 class="box-title" color="#edb031">
-                            <span color="#edb031">Recherche avancée</span>
+                            <span color="#edb031">Recherche avancï¿½e</span>
                         </h3>
                         <div class="box-tools pull-right">
                             <button data-original-title="Collapse" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="">
@@ -84,7 +84,7 @@
                     <div class="box-footer" style="display: block;">
                         <div class="row">
                             <div class="col-xs-4" align="center">
-                                <button type="reset" class="btn btn-default">Réinitialiser</button>
+                                <button type="reset" class="btn btn-default">Rï¿½initialiser</button>
                                     <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=recapitulatifCompteCourant&daty2=<%=daty2%>&daty1=<%=daty1%>&ingredient=<%=request.getParameter("ingredients")%>&colonne=<%=colonne%>&ordre=<%=ordre%>" style="margin-right: 10px">Imprimer</a>
                             </div>
                             <div class="col-xs-4" align="center">
@@ -138,8 +138,8 @@
                                 <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="">
                                     <td align="left"><%=Utilitaire.champNull(caisse.getIngredients())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(caisse.getReport())%></td>
-                                    <td align="right"><a href="<%=lien%>?but=treso/recette-liste.jsp&valcaisse=<%=Utilitaire.champNull(caisse.getIngredients())%>&etat=<%=ConstanteEtat.getEtatValider()%>&dateEffet1=<%=dateMin%>&dateEffet2=<%=daty2%>&type=debit"><%=Utilitaire.formaterAr(caisse.getEntree())%></a></td>
-                                    <td align="right"><a href="<%=lien%>?but=treso/depense-liste.jsp&valcaisse=<%=Utilitaire.champNull(caisse.getIngredients())%>&etat=<%=ConstanteEtat.getEtatValider()%>&dateEffet1=<%=dateMin%>&dateEffet2=<%=daty2%>"><%=Utilitaire.formaterAr(caisse.getSortie())%></a></td>
+                                    <td align="right"><a href="<%=lien%>?but=treso/recette-liste.jsp&mode&valcaisse=<%=Utilitaire.champNull(caisse.getIngredients())%>&etat=<%=ConstanteEtat.getEtatValider()%>&dateEffet1=<%=dateMin%>&dateEffet2=<%=daty2%>&type=debit"><%=Utilitaire.formaterAr(caisse.getEntree())%></a></td>
+                                    <td align="right"><a href="<%=lien%>?but=treso/depense-liste.jsp&mode&valcaisse=<%=Utilitaire.champNull(caisse.getIngredients())%>&etat=<%=ConstanteEtat.getEtatValider()%>&dateEffet1=<%=dateMin%>&dateEffet2=<%=daty2%>"><%=Utilitaire.formaterAr(caisse.getSortie())%></a></td>
                                     <td align="right"><%=Utilitaire.formaterAr(caisse.getReste())%></td>
                                 </tr>
                                 <% }%>

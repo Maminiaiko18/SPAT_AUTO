@@ -31,20 +31,26 @@
     pc.getChampByName("idcaisse").setVisible(false);
     pc.getChampByName("idmode").setVisible(false);
     pc.getChampByName("idTypeCheque").setVisible(false);
-    pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("tiers").setVisible(false);   
+    pc.getChampByName("type").setVisible(false);
+
+    
     pc.getChampByName("credit").setLibelle("Entree");
     pc.getChampByName("debit").setLibelle("Sortie");
     pc.getChampByName("dateEffet").setLibelle("Date D'effet");
     pc.getChampByName("numPiece").setLibelle("Num&eacute;ro pi&egrave;ce");
     pc.getChampByName("idTypeCheque").setLibelle("Type ch&egrave;que");
     pc.getChampByName("idplacement").setLibelle("Source");
-    pc.getChampByName("idbanquelib").setLibelle("Banque"); 
+    pc.getChampByName("idbanquelib").setLibelle("Banque");
      pc.getChampByName("valTypeCheque").setLibelle("Type chèque");
      pc.getChampByName("tierslib").setLibelle("tiers");
     pc.getChampByName("idDevise").setLibelle("devise");
     pc.getChampByName("valCaisse").setLibelle("caisse");
     pc.getChampByName("DESCETYPECHEQUE").setLibelle("mode de paiement");
     pc.getChampByName("idordre").setLibelle("OP");
+   
+    pc.getChampByName("typelib").setLibelle("Type"); 
+    
     JournalCaisse jcaisse = (JournalCaisse)pc.getBase();
     if(jcaisse.getIdplacement()!=null){
         if(jcaisse.getIdplacement().startsWith("FCL")){
