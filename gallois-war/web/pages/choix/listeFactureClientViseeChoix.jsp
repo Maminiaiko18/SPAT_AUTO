@@ -5,7 +5,7 @@
     String champReturn = request.getParameter("champReturn");
     FactureClient facture = new FactureClient();
     facture.setNomTable("FACTURE_CLIENT_UNIONV");
-    String listeCrt[] = {"id","daty" ,"code","tierslib","designation","tiers"};
+    String listeCrt[] = {"id","daty" ,"code","tierslib","designation"};
     String listeInt[] = {"daty"};
     String libEntete[] = {"id","daty","code" ,"tierslib","designation","tva", "date_echeance", "montant", "montanttva", "montantttc","montantreste"};
     PageRechercheChoix pr = new PageRechercheChoix(facture, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
