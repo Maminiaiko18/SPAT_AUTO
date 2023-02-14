@@ -763,8 +763,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 if(fc[i].getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Facture "+fc[i].getId()+" non visee");
                 sommeReste += fc[i].getMontantreste();
             }
-
-            if(Utilitaire.stringToDouble((new DecimalFormat("###.##")).format(sommeReste)) < Utilitaire.stringToDouble((new DecimalFormat("###.##")).format(this.getCredit()) )) throw new Exception("Montant supérieur au reste à payer");
+            if(Math.abs(Utilitaire.stringToDouble((new DecimalFormat("###.##")).format(sommeReste))-Utilitaire.stringToDouble((new DecimalFormat("###.##")).format(this.getCredit()) )) > 1.0) throw new Exception("Montant supérieur au reste à payer");
         }
     }
     
