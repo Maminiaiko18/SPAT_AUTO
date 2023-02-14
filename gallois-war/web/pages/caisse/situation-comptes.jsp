@@ -71,8 +71,8 @@
                     <div class="box-body" id="pagerecherche" style="display: block;">
                         <div class="form-group">
                             <div class="col-md-4">
-                                <label for="Date" debut="">Date debut</label>
-                                <input name="daty1" type="text" class="form-control datepicker" id="daty1" value="<%=daty1%>" onkeydown="return searchKeyPress(event)">
+                                <!--<label for="Date" debut="">Date debut</label>
+                                <input name="daty1" type="text" class="form-control datepicker" id="daty1" value="<%//=daty1%>" onkeydown="return searchKeyPress(event)">-->
                             </div>
                             <div class="col-md-4">
                                 <label for="Date" debut="">Date fin</label>
@@ -138,8 +138,8 @@
                                 <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="">
                                     <td align="left"><%=Utilitaire.champNull(caisse.getIngredients())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(caisse.getReport())%></td>
-                                    <td align="right"><a href="<%=lien%>?but=treso/recette-liste.jsp&mode&valcaisse=<%=Utilitaire.champNull(caisse.getIngredients())%>&etat=<%=ConstanteEtat.getEtatValider()%>&dateEffet1=<%=dateMin%>&dateEffet2=<%=daty2%>&type=debit"><%=Utilitaire.formaterAr(caisse.getEntree())%></a></td>
-                                    <td align="right"><a href="<%=lien%>?but=treso/depense-liste.jsp&mode&valcaisse=<%=Utilitaire.champNull(caisse.getIngredients())%>&etat=<%=ConstanteEtat.getEtatValider()%>&dateEffet1=<%=dateMin%>&dateEffet2=<%=daty2%>"><%=Utilitaire.formaterAr(caisse.getSortie())%></a></td>
+                                    <td align="right"><a href="<%=lien%>?but=treso/recette-liste.jsp&mode&valcaisse=<%=Utilitaire.champNull(caisse.getIngredients())%>&etat=<%=ConstanteEtat.getEtatValider()%>&dateEffet1=<%=daty2%>&dateEffet2=<%=daty2%>&type=debit"><%=Utilitaire.formaterAr(caisse.getEntree())%></a></td>
+                                    <td align="right"><a href="<%=lien%>?but=treso/depense-liste.jsp&mode&valcaisse=<%=Utilitaire.champNull(caisse.getIngredients())%>&etat=<%=ConstanteEtat.getEtatValider()%>&dateEffet1=<%=daty2%>&dateEffet2=<%=daty2%>"><%=Utilitaire.formaterAr(caisse.getSortie())%></a></td>
                                     <td align="right"><%=Utilitaire.formaterAr(caisse.getReste())%></td>
                                 </tr>
                                 <% }%>
