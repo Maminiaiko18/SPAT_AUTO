@@ -42,14 +42,14 @@
     pc.getChampByName("idTypeCheque").setLibelle("Type ch&egrave;que");
     pc.getChampByName("idplacement").setLibelle("Source");
     pc.getChampByName("idbanquelib").setLibelle("Banque");
-     pc.getChampByName("valTypeCheque").setLibelle("Type chèque");
+     pc.getChampByName("valTypeCheque").setLibelle("Type chï¿½que");
      pc.getChampByName("tierslib").setLibelle("tiers");
     pc.getChampByName("idDevise").setLibelle("devise");
     pc.getChampByName("valCaisse").setLibelle("caisse");
     pc.getChampByName("DESCETYPECHEQUE").setLibelle("mode de paiement");
     pc.getChampByName("idordre").setLibelle("OP");
    
-    pc.getChampByName("typelib").setLibelle("Type"); 
+    //pc.getChampByName("typelib").setLibelle("Type"); 
     
     JournalCaisse jcaisse = (JournalCaisse)pc.getBase();
     if(jcaisse.getIdplacement()!=null){
@@ -117,12 +117,12 @@
                             <%                                
                             if(jcaisse.getCredit()!=0){
                             %>
-                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseRecette&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pièce de caisse</a>
+                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseRecette&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer piï¿½ce de caisse</a>
                             <%
                             }
                             else if(jcaisse.getDebit()!=0){
                             %>
-                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseDepense&idop=<%=jcaisse.getIdordre()%>&id=<%=id%>" style="margin-right: 10px">imprimer pièce de caisse</a>
+                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseDepense&idop=<%=jcaisse.getIdordre()%>&id=<%=id%>" style="margin-right: 10px">imprimer piï¿½ce de caisse</a>
                             <%
                             }
                             %>
@@ -161,14 +161,14 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <div class="box-title with-border">
-                        <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
+                        <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachï¿½s</h2>
                     </div>
                     <div class="box-body">
                         <table class="table table-striped table-bordered table-condensed table-responsive tree">
                             <thead>
                                 <tr>
                                     <th style="background-color:#bed1dd;"></th>
-                                    <th style="background-color:#bed1dd;">Libellé</th>
+                                    <th style="background-color:#bed1dd;">Libellï¿½</th>
                                     <th style="background-color:#bed1dd;">Fichier</th>
                                     <th style="background-color:#bed1dd;">Voir</th>
                                     <th style="background-color:#bed1dd;">#</th>
