@@ -9,7 +9,6 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.TypeObjet;
 import bean.ValidationException;
-import com.sun.corba.se.impl.orbutil.closure.Constant;
 import ded.OrdonnerPayement;
 import java.sql.Connection;
 import java.sql.Date;
