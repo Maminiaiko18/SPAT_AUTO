@@ -812,23 +812,15 @@ public class EtatPaieServlet extends HttpServlet {
             double totalGeneral = 0;
             int cptDef = 0;
 
-            if(tabFact!=null && tabFact[0].getTypefacture().contains("PROV")) prov = true; // prov mandeha aloha satria order by type
-
             for (int i = 0; i < tabFact.length; i++) {
-                if(tabFact[i].getTypefacture().contains("FF")) {
-                    cptDef += 1;
-                    //check si motantdef > montant payer
-                    FactureClient fc= (FactureClient) new FactureClient().getById(tabFact[i].getIdfact(), "facture_client_union_ordre", null);
-                    if(tabFact[i].getMontant()< fc.getMontantttcvrai() && prov) { //mbola ampina condition hoe : and facture tsy payer via lier prov
-                        tabFact[i].setMontant(fc.getMontantttcvrai());
-                    }
-                }
+                if(tabFact[i].getTypefacture().contains("FF")) cptDef += 1;
             }
             
             for (int i = 0; i < tabFact.length; i++) {
                 double montantPro = tabFact[i].getMontant();
 
                 if(tabFact[i].getTypefacture().contains("PROV")){
+                    prov = true;
                     if(cptDef > 0) montantPro = montantPro*-1;
                 }
                 montantFacture = montantFacture + montantPro;
@@ -3247,6 +3239,9 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("caissearrivee", mere[0].getCaissearrivee());
             param.put("modepaiement", mere[0].getModepaiement());
             param.put("montant", mere[0].getMontant());
+            param.put("remarque", mere[0].getRemarque());
+            String montantLettre = ChiffreLettre.convertRealToString(mere[0].getMontant(), "Ariary");
+            param.put("montantlettre", montantLettre);
             MvtIntraCaisseFille details = new MvtIntraCaisseFille();       
             details.setNomTable("mvtintracaisse_fille");
             MvtIntraCaisseFille[] listeDetails = (MvtIntraCaisseFille[]) CGenUtil.rechercher(details, null, null, " and idmere='" + id + "'");

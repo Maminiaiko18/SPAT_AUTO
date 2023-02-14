@@ -623,6 +623,11 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if (this.getTypemvt() != null && this.getTypemvt().compareToIgnoreCase(Constante.financeTypeAnnulation) == 0) {
                 return;
             }
+            
+            if((this.getIdmode().compareToIgnoreCase(Constante.getTraite()) == 0 && this.getCaisse().compareToIgnoreCase(Constante.getCaisseTraite())!=0)||(this.getIdmode().compareToIgnoreCase(Constante.getTraite()) != 0 && this.getCaisse().compareToIgnoreCase(Constante.getCaisseTraite())==0)){
+
+                throw new Exception("Paiement avec mode de paiement traite - caisse traite");
+            }
             if(this.getIdordre()==null){
                 
                 if(this.getIdplacement() != null) {
@@ -807,7 +812,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 c.setAutoCommit(false);
                 verif = 1;
             }
-
+            this.controlerAttacheTraite();
+            
             if(this.getMode().equalsIgnoreCase("modif") && this.getCaisse().equals(Constante.getCaisseTraite()) && this.getIdTypeCheque().equals(Constante.getTypeACredit())==false){
                 throw new Exception("Le type pour la caisse traite devrait être à crédit");
             }
@@ -1467,5 +1473,16 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if(c!=null && verif==1)c.close();
         }
         return retour;
+    }
+    
+    public void controlerAttacheTraite() throws Exception {
+        try{
+            if(this.getIdmode().compareToIgnoreCase(Constante.getTraite()) == 0 && this.getIdtraite() == null)
+                throw new Exception("Paiement avec mode de paiement Traite doit être attaché à un traite");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }
     }
 }

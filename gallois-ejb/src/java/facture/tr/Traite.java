@@ -308,4 +308,11 @@ public class Traite extends ClassEtat {
         mvt.validerObject(u, c);
         return super.validerObject(u, c);
     }
+    
+    @Override
+    public void controler(Connection c) throws Exception{
+        if(this.getMontant() <= 0){
+            throw new Exception("Le montant ne doit pas etre 0 ou negatif");
+        }
+    }
 }

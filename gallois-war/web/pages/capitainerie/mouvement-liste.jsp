@@ -4,6 +4,7 @@
     Author     : john
 --%>
 
+<%@page import="utilitaire.Utilitaire"%>
 <%@page import="mg.spat.Prevision"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="mg.spat.MouvementLibComplet"%>
@@ -27,9 +28,13 @@
     pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
     pr.getFormu().getChamp("date_depart1").setLibelle("date depart min");
+    pr.getFormu().getChamp("date_depart1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("date_depart2").setLibelle("date depart max");
+    pr.getFormu().getChamp("date_depart2").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("datearrivee1").setLibelle("date arrivée min");
+    pr.getFormu().getChamp("datearrivee1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("datearrivee2").setLibelle("date arrivée max");
+    pr.getFormu().getChamp("datearrivee2").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("escalelib").setLibelle("Escale");
     
     String rqt="";

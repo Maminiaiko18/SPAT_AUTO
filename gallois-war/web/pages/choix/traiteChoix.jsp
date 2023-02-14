@@ -40,6 +40,7 @@
             </section>
             <section class="content">
                 <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="personneliste" id="personneliste">
+                    <% if(request.getParameter("traite") != null){ %><input type="hidden" name="traite" value="true"><%}%>
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
                 </form>
                 <%
