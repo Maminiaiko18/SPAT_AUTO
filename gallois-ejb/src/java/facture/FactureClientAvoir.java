@@ -80,7 +80,7 @@ public class FactureClientAvoir extends ClassMAPTable{
     public AvoirFC[] getAvoirsOrderByDate(Connection con) throws Exception{
         AvoirFC avoirFC = new AvoirFC();
         avoirFC.setNomTable("AVOIRFC_MONTANT");
-        AvoirFC[] avoirFCs = (AvoirFC[]) CGenUtil.rechercher(avoirFC, null, null, con, " AND id in ('"+idavoir+"') ORDER by daty ASC");
+        AvoirFC[] avoirFCs = (AvoirFC[]) CGenUtil.rechercher(avoirFC, null, null, con, " AND id in ("+Utilitaire.tabToString(this.idavoir.split(";"), "'", ",")+") ORDER by daty ASC");
        return avoirFCs;
     }
    
@@ -92,35 +92,18 @@ public class FactureClientAvoir extends ClassMAPTable{
         if(resultats.length > 0) return resultats[0];
         throw new Exception("Facture à payer non existante !");
     }
-
-    private void transfererPaiement(AvoirFC avoirFC, double montant, String u, Connection con) throws Exception{
-        OrdonnerPayement op = new OrdonnerPayement();
-        op.setDed_Id(avoirFC.getId());
-        op.setMontant(montant);
-        op.createObject(u, con);
-        op.validerObject(u, con);
-        JournalCaisse critere = new JournalCaisse();
-        critere.setIdordre(op.getId());
-        JournalCaisse[] caisseMouvement = (JournalCaisse[])CGenUtil.rechercher(critere, null, null, con,"");
-        if(caisseMouvement.length > 0){
-            PaiementFacture contrePaiement = new PaiementFacture(caisseMouvement[0].getId(),avoirFC.getIdfacture(),-1*montant);
-            contrePaiement.createObject(u, con);
-        }
-        JournalCaisse journalCaisse =  new JournalCaisse(null, Constante.caisseCentraleBP, null, "", null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, montant);
-        journalCaisse.createObject(u, con);
-        PaiementFacture paiementFacture = new PaiementFacture(journalCaisse.getId(),this.idfc,montant);
-    }
     
     public void payerAvoirFacture(String u) throws Exception{
         Connection con = null;
         try{
             con = new UtilDB().GetConn();
+            con.setAutoCommit(false);
             payerAvoirFacture(u, con);
             con.commit();
         }
         catch(Exception e){
             if(con!=null) con.rollback();
-            throw e;
+            throw e; 
         }
         finally{
             if(con!=null) con.close();
@@ -130,15 +113,7 @@ public class FactureClientAvoir extends ClassMAPTable{
     public void payerAvoirFacture(String u,Connection con) throws Exception{
         AvoirFC[] avoirFCs = getAvoirsOrderByDate(con);
         FactureClient aPayer = getFactureAPayer(con);
-        double montantReste = this.montant;
-        for(AvoirFC avoirFC : avoirFCs){
-            montantReste = montantReste - avoirFC.getMontantreste();
-            double montantAPayer = montantReste > 0 ? avoirFC.getMontantreste() : avoirFC.getMontantreste() + montantReste;
-            transfererPaiement(avoirFC,montantAPayer,u,con);
-            if(montantReste <= 0){
-                break;
-            }
-        }
+        aPayer.payerAPartirAvoirs(avoirFCs, this.montant, u, con);
     }
    
 }

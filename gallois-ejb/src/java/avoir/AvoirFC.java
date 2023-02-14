@@ -14,9 +14,12 @@ import bean.ClassMere;
 import bean.TypeObjet;
 import ded.OrdonnerPayement;
 import facture.FactureClientDetails;
+import facture.PaiementFacture;
 import factureclient.FactureClientDetail;
 import java.sql.Connection;
 import java.sql.Date;
+import mg.spat.JournalCaisse;
+import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -469,5 +472,25 @@ public class AvoirFC extends ClassMere {
         FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(base, null, null, c, String.format(" and idavoir = '%s' ", this.getId()));
         if(result.length > 0) return result[0];
         return null;
+    }
+    
+    public void libererPaiement(double montant, String u, Connection con) throws Exception{
+        if(montant > this.montantreste){
+            throw new Exception("Montant à libérer supérieur au montant disponible");
+        }
+        OrdonnerPayement op = new OrdonnerPayement();
+        op.setDed_Id(this.getId());
+        op.setMontant(montant);
+        op.setDaty(Utilitaire.dateDuJourSql());
+        op.setTiers(this.getTiers());
+        op.createObject(u, con);
+        op.validerObject(u, con);
+        JournalCaisse jc =  new JournalCaisse(null, Constante.caisseCentraleBP,null , "Régularisation à partir de l'avoir "+this.getId(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), montant, 0);
+        jc.setTiers(this.getTiers());
+        jc.setIdordre(op.getId());
+        jc.createObject(u, con);
+        jc.validerObject(u, con);
+        PaiementFacture contrePaiement = new PaiementFacture(jc.getId(),this.getIdfacture(),-1*montant);
+        contrePaiement.createObject(u, con);
     }
 }

@@ -28,6 +28,7 @@ import avoir.AvoirFC;
 import bean.AdminGen;
 import bean.ClassFille;
 import bean.ValidationException;
+import ded.OrdonnerPayement;
 import fin.Coursdevise;
 import java.util.List;
 import mg.spat.ClientCategorie;
@@ -2493,4 +2494,30 @@ public class FactureClient extends ClassMere {
         this.idfact = idfact;
     }
 
+
+    public void payerAPartirAvoirs(AvoirFC[] avoirFCs,double montant,String u,Connection con) throws Exception{
+        
+        double montantReste = montant;
+        for(AvoirFC avoirFC : avoirFCs){
+            montantReste = montantReste - avoirFC.getMontantreste();
+            double montantAPayer = montantReste > 0 ? avoirFC.getMontantreste() : avoirFC.getMontantreste() + montantReste;
+            this.payerAPartirAvoir(avoirFC,montantAPayer,u,con);
+            if(montantReste <= 0){
+                break;
+            }
+        }
+    }
+        
+    public void payerAPartirAvoir(AvoirFC avoirFC, double montant, String u,Connection con) throws Exception{
+        avoirFC.libererPaiement(montant, u, con);
+        System.out.println("Date androany"+Utilitaire.dateDuJourSql());
+        JournalCaisse journalCaisse =  new JournalCaisse(null, Constante.caisseCentraleBP,null , "Régularisation facture "+this.getId(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, montant);
+        System.out.println(journalCaisse.getDateEffet());
+        journalCaisse.setTiers(this.getTiers());
+        journalCaisse.createObject(u, con);
+        PaiementFacture paiementFacture = new PaiementFacture(journalCaisse.getId(),this.id,montant);
+        paiementFacture.createObject(u, con);
+        PaiementFCAvoir paiementFCAvoir = new PaiementFCAvoir(paiementFacture.getId(),avoirFC.getId());
+        paiementFCAvoir.createObject(u,con);
+    }
 }
