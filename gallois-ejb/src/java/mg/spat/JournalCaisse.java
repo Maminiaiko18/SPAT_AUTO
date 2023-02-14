@@ -40,7 +40,7 @@ import utilitaire.Utilitaire;
  */
 public class JournalCaisse extends ClassEtat {
 
-    private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib;
+    private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib,codetiers;
     private double sommeCredit, sortie, entree;
     private String banque,type;
     private String descecaisse, idcaisse,numeroOP,idplacementvrai,bonprovisoire;
@@ -48,6 +48,14 @@ public class JournalCaisse extends ClassEtat {
     String idtraite;
     int etatversement;
     String idfinaledestination;
+
+    public String getCodetiers() {
+        return codetiers;
+    }
+
+    public void setCodetiers(String codetiers) {
+        this.codetiers = codetiers;
+    }
 
     public String getIdtraite() {
         return idtraite;
