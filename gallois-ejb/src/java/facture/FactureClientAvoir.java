@@ -21,12 +21,12 @@ import utilitaire.Utilitaire;
 public class FactureClientAvoir extends ClassMAPTable{
     String id;
     String idfc;
-    String idavoirs;
+    String idavoir;
     double montant;
 
-    public FactureClientAvoir(String idfc, String idavoirs, double montant) {
+    public FactureClientAvoir(String idfc, String idavoir, double montant) {
         this.idfc = idfc;
-        this.idavoirs = idavoirs;
+        this.idavoir = idavoir;
         this.montant = montant;
         this.setNomTable("FactureClientAvoir");
     }
@@ -51,12 +51,12 @@ public class FactureClientAvoir extends ClassMAPTable{
         this.idfc = idfc;
     }
 
-    public String getIdavoirs() {
-        return idavoirs;
+    public String getIdavoir() {
+        return idavoir;
     }
 
-    public void setIdavoirs(String idavoir) {
-        this.idavoirs = idavoir;
+    public void setIdavoir(String idavoir) {
+        this.idavoir = idavoir;
     }
 
     public double getMontant() {
@@ -80,7 +80,7 @@ public class FactureClientAvoir extends ClassMAPTable{
     public AvoirFC[] getAvoirsOrderByDate(Connection con) throws Exception{
         AvoirFC avoirFC = new AvoirFC();
         avoirFC.setNomTable("AVOIRFC_MONTANT");
-        AvoirFC[] avoirFCs = (AvoirFC[]) CGenUtil.rechercher(avoirFC, null, null, con, " AND id in ('"+idavoirs+"') ORDER by daty ASC");
+        AvoirFC[] avoirFCs = (AvoirFC[]) CGenUtil.rechercher(avoirFC, null, null, con, " AND id in ('"+idavoir+"') ORDER by daty ASC");
        return avoirFCs;
     }
    
@@ -115,7 +115,7 @@ public class FactureClientAvoir extends ClassMAPTable{
         Connection con = null;
         try{
             con = new UtilDB().GetConn();
-            payerAvoirFacture(u);
+            payerAvoirFacture(u, con);
             con.commit();
         }
         catch(Exception e){

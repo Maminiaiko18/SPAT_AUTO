@@ -1973,6 +1973,8 @@ public class EtatPaieServlet extends HttpServlet {
                 sql = sql + " and UPPER(descecaisse) like UPPER('%" + descecaisse + "%') ";
             }
 
+            sql += " ORDER BY NUMPIECE ASC";
+
             // System.out.println(sql);
             JournalCaisse journalCaisse = new JournalCaisse();
             journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");

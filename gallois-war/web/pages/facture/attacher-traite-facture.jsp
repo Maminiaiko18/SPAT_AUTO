@@ -12,7 +12,7 @@
     PageInsert pi = new PageInsert(fctraite, request, (user.UserEJB) session.getValue("u"));
 
     pi.getFormu().getChamp("idtraite").setLibelle("Traite");
-    pi.getFormu().getChamp("idfc").setLibelle("Facture Client");
+    pi.getFormu().getChamp("idfc").setLibelle("Facture Client RAP");
     pi.getFormu().getChamp("idtraite").setLibelle("Traite");
     String tiers = "";
     String[] col = {"traite"};
