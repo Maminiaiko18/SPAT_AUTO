@@ -271,7 +271,7 @@
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererProvision&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer Provision</a>
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liaison-fc-provision.jsp&id1=" + e.getId()%>&acte=lierProv&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Lier Provision</a>
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liste-paiementfacture-multiple.jsp&idFC=" + e.getId()%>" style="margin-right: 10px">Attacher traite</a>
-                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/regulariser-avoir.jsp&idFC=" + e.getId() + "&montant=" + e.getMontantreste() + "&tiers=" + e.getTiers()%>" style="margin-right: 10px">Régulariser Avoir</a>
+                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/regulariser-avoir.jsp&idFC=" + e.getId() %>" style="margin-right: 10px">Régulariser Avoir</a>
                     <%}
                     %>
 

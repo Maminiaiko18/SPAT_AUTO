@@ -3,6 +3,7 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@page import="facture.FactureClient"%>
 <%  
     
     try{
@@ -13,18 +14,16 @@
     String[] col = {"idtiers"};
     String tiers = "";
     String[] val = null;
+    FactureClient e = new FactureClient();
+    e = (FactureClient) new FactureClient().getById(id, "facture_client_union_ordre", null);
+    if(e != null){
+        pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(e.getMontantreste()));
+        val = new String[1];
+        val[0] = e.getTiers();
+    }
     
     if(id!=null)
         pi.getFormu().getChamp("idfc").setDefaut(id);
-    
-    if(request.getParameter("montant")!=null)
-        pi.getFormu().getChamp("montant").setDefaut(request.getParameter("montant"));
-    
-    if(request.getParameter("tiers")!=null){
-        tiers = request.getParameter("tiers");
-        val = new String[1];
-        val[0] = tiers;
-    }
     
     pi.getFormu().getChamp("idfc").setAutre("readonly");
     pi.getFormu().getChamp("idfc").setLibelle("Facture client");

@@ -25,7 +25,6 @@
         if (acte != null && acte.compareToIgnoreCase("regulariser") == 0) {
             String idavoirs = request.getParameter("idavoir").replace(';', ',');
             double m = Utilitaire.stringToDouble(request.getParameter("montant"));
-            System.out.println("montant = " + idavoirs);
             (new FactureClientAvoir(id, idavoirs, m)).payerAvoirFacture(u.getUser().getTuppleID());
 %>
 <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=id%>&tab=facture-client-fille");</script>
