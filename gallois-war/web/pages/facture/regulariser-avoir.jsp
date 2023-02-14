@@ -17,7 +17,7 @@
     FactureClient e = new FactureClient();
     e = (FactureClient) new FactureClient().getById(id, "facture_client_union_ordre", null);
     if(e != null){
-        pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(e.getMontantreste()));
+        pi.getFormu().getChamp("montant").setDefaut(Utilitaire.enleverExponentielleDouble(e.getMontantreste()));
         val = new String[1];
         val[0] = e.getTiers();
     }

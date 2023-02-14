@@ -33,12 +33,20 @@ public class FactureFournisseur extends FactureClient {
 
     private String numeroop, projet, code_etablissement, projetlib, code_etablissementlib, nature, naturelib, idbc, numOP;
     private int exercice;
-    private String  idengagement , idengagementlib;
+    private String idengagement, idengagementlib;
     private String id2;
     private String codeEtablissement;
     private Date dateRegul;
     private double montantHTSansRemise;
-    private String bonprovisoire;
+    private String bonprovisoire, num;
+
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
+    }
 
     public String getBonprovisoire() {
         return bonprovisoire;
@@ -55,7 +63,7 @@ public class FactureFournisseur extends FactureClient {
     public void setMontantHTSansRemise(double montantHTSansRemise) {
         this.montantHTSansRemise = montantHTSansRemise;
     }
-    
+
     public Date getDateRegul() {
         return dateRegul;
     }
@@ -87,7 +95,7 @@ public class FactureFournisseur extends FactureClient {
     public void setIdengagementlib(String idengagementlib) {
         this.idengagementlib = idengagementlib;
     }
-    
+
     public String getId2() {
         return id2;
     }
@@ -95,7 +103,7 @@ public class FactureFournisseur extends FactureClient {
     public void setId2(String id2) {
         this.id2 = id2;
     }
-    
+
     public int getExercice() {
         return exercice;
     }
@@ -208,26 +216,26 @@ public class FactureFournisseur extends FactureClient {
         this.preparePk("FAF", "get_seq_factFournMere");
         this.setId(makePK(c));
     }
-    
-    public OrdonnerPayement findOP(String nomtable, Connection c) throws SQLException, Exception{
+
+    public OrdonnerPayement findOP(String nomtable, Connection c) throws SQLException, Exception {
         int verif = 0;
-        try{
+        try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
                 verif = 1;
             }
             OrdonnerPayement oo = new OrdonnerPayement();
-            if(nomtable == null){
-                nomtable= "ordonnerpayement";
+            if (nomtable == null) {
+                nomtable = "ordonnerpayement";
             }
             oo.setNomTable(nomtable);
-            OrdonnerPayement[] results  =(OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%'");
+            OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%'");
             if (results != null && results.length > 0) {
                 return results[0];
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             throw e;
-        }finally{
+        } finally {
             if (c != null && verif == 1) {
                 c.close();
             }
@@ -318,8 +326,13 @@ public class FactureFournisseur extends FactureClient {
         this.setNomClasseFille("facture.FactureFournisseurDetails");
         this.setIduser(iduser);
         this.setId(null);
-        if( this.getIdcategorie()!=null && !this.getIdcategorie().equals(Constante.idBonProvisoire) ){
+        if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
             this.setCode(calculerCodeSimple(cnctn));
+        }
+        if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
+            System.out.println("ity ilay izy");
+            this.setNum(Utilitaire.getMaxSeq("SEQNUMBONPROV.nextval", cnctn) + "/" + Utilitaire.getMillenismeAnnee(Utilitaire.getAnneeEnCours()));
+//            this.setNum("1" + "/" + Utilitaire.getMillenismeAnnee(Utilitaire.getAnneeEnCours()));
         }
         return super.createObject(iduser, cnctn);
     }
@@ -381,18 +394,19 @@ public class FactureFournisseur extends FactureClient {
     public void setIdBL(String idBL) {
         this.idBL = idBL;
     }
+
     public void controlerUpdate(Connection c) throws Exception {
 
     }
-      public BonDeLivraisonFilleReste[] getBP(Connection c) throws Exception {
-          return getBP(null,c);
-      }
-    
-    
-    public BonDeLivraisonFilleReste[] getBP(String BC ,Connection c) throws Exception {
+
+    public BonDeLivraisonFilleReste[] getBP(Connection c) throws Exception {
+        return getBP(null, c);
+    }
+
+    public BonDeLivraisonFilleReste[] getBP(String BC, Connection c) throws Exception {
         boolean ouvert = false;
         BonDeLivraisonFilleReste[] livraisons = new BonDeLivraisonFilleReste[0];
-        if ((this.getIdBL() == null || this.getIdBL().trim().equals(""))&& (BC == null || BC.trim().equals(""))) {
+        if ((this.getIdBL() == null || this.getIdBL().trim().equals("")) && (BC == null || BC.trim().equals(""))) {
             return livraisons;
         }
 
@@ -445,12 +459,12 @@ public class FactureFournisseur extends FactureClient {
         if (this.getEtat() < ConstanteEtat.getEtatValider()) {
             throw new Exception("Facture non visée !");
         }
-    }    
+    }
 
     public FactureFournisseur genererDefinitive(UserEJB u, int type, Connection c) throws Exception {
         int verif = 0;
         FactureFournisseur fact2 = null;
- 
+
         try {
             if (c == null) {
                 c = (new UtilDB()).GetConn();
@@ -471,9 +485,8 @@ public class FactureFournisseur extends FactureClient {
                 }
                 fc.controlerDefinitive(c);
                 categorie = Constante.categorieFFdefault;
-            }
-            else {
-             
+            } else {
+
                 JournalCaisse[] jc = this.getPaiement(c);
                 if (jc.length == 0) {
                     throw new Exception("Pas de paiement pour ce bon provisoire");
@@ -578,33 +591,39 @@ public class FactureFournisseur extends FactureClient {
         }
         return retour;
     }
-    
+
     private void regulDefinitive(String u, double montant, Connection con) throws Exception {
         boolean verif = false;
-        try{
-            if(con == null){
+        try {
+            if (con == null) {
                 con = new UtilDB().GetConn();
                 con.setAutoCommit(false);
                 verif = true;
             }
-            if(this.getDateRegul() == null || this.getDateRegul().equals("")) throw new Exception("Date de regul vide");
-            
+            if (this.getDateRegul() == null || this.getDateRegul().equals("")) {
+                throw new Exception("Date de regul vide");
+            }
+
             Date dateDuJour = this.getDateRegul();
-            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, dateDuJour, montant, 0,this.getId());
+            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, dateDuJour, montant, 0, this.getId());
             transfert.setIddevise(this.getDeviseMere());
             transfert.setIdmode(Constante.modePaiementEspece);
             transfert.setEtat(ConstanteEtat.getEtatValider());
-            
+
             transfert.createObject(u, con);
-            
-            if(verif) con.commit();
-        }
-        catch(Exception ex) {
-            if(con != null && verif) con.rollback();
+
+            if (verif) {
+                con.commit();
+            }
+        } catch (Exception ex) {
+            if (con != null && verif) {
+                con.rollback();
+            }
             throw ex;
-        }
-        finally {
-            if(con != null && verif) con.close();
+        } finally {
+            if (con != null && verif) {
+                con.close();
+            }
         }
     }
 
@@ -620,11 +639,11 @@ public class FactureFournisseur extends FactureClient {
 
             FactureFournisseur fc = new FactureFournisseur();
             fc = (FactureFournisseur) fc.getById(this.getId(), "FACTFOURN_MSUM_LIB", c);
-            
+
             double montant = fc.genererMontantPaiement(c);
-            
+
             regulDefinitive(u, montant, c);
-            
+
             PaiementFacture[] listeProvision = this.findPaiementProvision(idProvision, c);
             if (listeProvision != null && listeProvision.length > 0) {
                 for (int i = 0; i < listeProvision.length; i++) {
@@ -645,51 +664,61 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        LigneCredit lc=this.getBudget(c);
-        if(lc==null)throw new Exception("Budget non trouvé");
+        LigneCredit lc = this.getBudget(c);
+        if (lc == null) {
+            throw new Exception("Budget non trouvé");
+        }
 
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
-        if(this.getIdengagement() != null){
-          Engagement eg = this.findEngagement(c);
-          if(eg != null){
-              double reste = eg.getResteAFacturer(c);
-              FactureFournisseur ff = (FactureFournisseur)new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-              if(ff!=null && reste < ff.getMontant())throw new ValidationException("Le montant de la facture depasse le reste de l'engagement");
-          }
-        }else{
-            if(this.getIdbc()==null){
-                FactureFournisseur ff = (FactureFournisseur)new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-                this.setMontant(ff.getMontant());
-                this.insertEngagement(u,c);
+        if (this.getIdengagement() != null) {
+            Engagement eg = this.findEngagement(c);
+            if (eg != null) {
+                double reste = eg.getResteAFacturer(c);
+                FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+                if (ff != null && reste < ff.getMontant()) {
+                    throw new ValidationException("Le montant de la facture depasse le reste de l'engagement");
+                }
             }
-        } 
+        } else {
+            if (this.getIdbc() == null) {
+                FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+                this.setMontant(ff.getMontant());
+                this.insertEngagement(u, c);
+            }
+        }
         this.setNomTable("facture_fournisseur_mere");
         super.validerObject(u, c);
         return this;
     }
-    
+
     public Object validerSansControleResteEngagement(String u) throws Exception {
-        Connection c=null;
-        try{
-            c=new UtilDB().GetConn();
+        Connection c = null;
+        try {
+            c = new UtilDB().GetConn();
             c.setAutoCommit(false);
-            LigneCredit lc=this.getBudget(c);
-            if(lc==null)throw new Exception("Budget non trouvé");
+            LigneCredit lc = this.getBudget(c);
+            if (lc == null) {
+                throw new Exception("Budget non trouvé");
+            }
 
             if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
                 this.genererPaiementDefinitive(u, this.getIdProvision(), c);
-            } 
+            }
             this.setNomTable("facture_fournisseur_mere");
             super.validerObject(u, c);
             c.commit();
-        }catch(Exception e){
-            if(c!=null)c.rollback();
+        } catch (Exception e) {
+            if (c != null) {
+                c.rollback();
+            }
             e.printStackTrace();
             throw e;
-        }finally{
-            if(c!=null)c.close();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
         }
         return this;
     }
@@ -756,41 +785,48 @@ public class FactureFournisseur extends FactureClient {
         this.setIdcategorie(idcategorie);
         this.setEstAuto(estAuto);
     }
-    
-    public Engagement findEngagement(Connection c) throws Exception{
+
+    public Engagement findEngagement(Connection c) throws Exception {
         Engagement e = new Engagement();
         e.setNomTable("engagementlibV");
-        Engagement[] ls = (Engagement[])CGenUtil.rechercher(e, null, null, c, " and id='"+this.getIdengagement()+"'");
-        if(ls.length > 0 ) return ls[0];
+        Engagement[] ls = (Engagement[]) CGenUtil.rechercher(e, null, null, c, " and id='" + this.getIdengagement() + "'");
+        if (ls.length > 0) {
+            return ls[0];
+        }
         return null;
     }
-    
+
     @Override
     public void controler(Connection c) throws Exception {
-        super.controler(c); 
-        if(this.getIdengagement() != null && this.getIdengagement().compareTo("") != 0){
+        super.controler(c);
+        if (this.getIdengagement() != null && this.getIdengagement().compareTo("") != 0) {
             Engagement eg = this.findEngagement(c);
-            if(eg == null) throw new Exception("Engagement non visé");
+            if (eg == null) {
+                throw new Exception("Engagement non visé");
+            }
         }
     }
-    
-    public LigneCredit[] findLigneCredit(String nomtable, Connection c, String compte) throws Exception{   
-        try{
+
+    public LigneCredit[] findLigneCredit(String nomtable, Connection c, String compte) throws Exception {
+        try {
             LigneCredit lncredit = new LigneCredit();
             lncredit.setNomTable(nomtable);
             lncredit.setIdcodeEtablissement(this.getCode_etablissement());
             lncredit.setIdprojet(this.getProjet());
-            if(compte!=null&&compte.compareTo("")!=0) lncredit.setCompte(compte);
+            if (compte != null && compte.compareTo("") != 0) {
+                lncredit.setCompte(compte);
+            }
             LigneCredit[] res = (LigneCredit[]) CGenUtil.rechercher(lncredit, null, null, c, "");
             return res;
-        }catch(Exception e){
+        } catch (Exception e) {
             throw e;
         }
     }
-    
+
     @Override
-    public void checkCode(Connection c){}
-    
+    public void checkCode(Connection c) {
+    }
+
     @Override
     public PaiementFacture[] getPaiementFacture(Connection c) throws Exception {
         boolean check = false;
@@ -807,10 +843,12 @@ public class FactureFournisseur extends FactureClient {
         } catch (Exception ex) {
             throw ex;
         } finally {
-            if (c != null && check) c.close();
+            if (c != null && check) {
+                c.close();
+            }
         }
     }
-    
+
     public LiaisonIntraTable[] findLiaisonIntratable(Connection c) throws Exception {
         boolean check = false;
         try {
@@ -819,61 +857,73 @@ public class FactureFournisseur extends FactureClient {
                 check = true;
             }
             LiaisonIntraTable lit = new LiaisonIntraTable();
-            LiaisonIntraTable[] liaisonIntraTable = (LiaisonIntraTable[]) CGenUtil.rechercher(lit, null, null, c, " and id1='"+this.getId()+"'");
+            LiaisonIntraTable[] liaisonIntraTable = (LiaisonIntraTable[]) CGenUtil.rechercher(lit, null, null, c, " and id1='" + this.getId() + "'");
             return liaisonIntraTable;
         } catch (Exception ex) {
             throw ex;
         } finally {
-            if (c != null && check) c.close();
+            if (c != null && check) {
+                c.close();
+            }
         }
     }
-    
+
     @Override
     public void controleAnnulerVisa(Connection c) throws Exception {
         c = null;
-        
+
         try {
             c = (new UtilDB()).GetConn();
             OrdonnerPayement op = findOP(null, c);
-            if(op != null) throw new Exception("Impossible, OP existant");
-            
+            if (op != null) {
+                throw new Exception("Impossible, OP existant");
+            }
+
             LiaisonIntraTable[] liaisons = findLiaisonIntratable(c);
-            if(liaisons != null && liaisons.length > 0) throw new Exception("Impossible, OP existant");
-            
+            if (liaisons != null && liaisons.length > 0) {
+                throw new Exception("Impossible, OP existant");
+            }
+
             PaiementFacture[] paiements = getPaiementFacture(c);
-            if(paiements != null && paiements.length > 0) throw new Exception("Impossible, paiements existants");
+            if (paiements != null && paiements.length > 0) {
+                throw new Exception("Impossible, paiements existants");
+            }
         } catch (Exception e) {
             throw e;
         } finally {
-            if(c != null) c.close();
+            if (c != null) {
+                c.close();
+            }
         }
     }
 
-    public Engagement getEngagement()throws Exception{
-        Engagement retour=new Engagement(this.getDesignation(),this.getCode_etablissement(),this.getProjet(),this.getMontant(),0.0,0.0,0.0,null,null,this.getDaty());
+    public Engagement getEngagement() throws Exception {
+        Engagement retour = new Engagement(this.getDesignation(), this.getCode_etablissement(), this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, this.getDaty());
         return retour;
     }
 
-    public void insertEngagement(String u,Connection c)throws Exception{
-        int verif=0;
-        try{
-            if(c==null){
-                c=new UtilDB().GetConn();
+    public void insertEngagement(String u, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
                 c.setAutoCommit(false);
-                verif=1;
+                verif = 1;
             }
 
-            Engagement engagement=this.getEngagement();
+            Engagement engagement = this.getEngagement();
 
-            LigneCredit lc=this.getBudget(c);
-            if(lc!=null)engagement.setIdLC(lc.getTuppleID());
+            LigneCredit lc = this.getBudget(c);
+            if (lc != null) {
+                engagement.setIdLC(lc.getTuppleID());
+            }
             engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
             engagement.construirePK(c);
             engagement.insertToTableWithHisto(u, c);
-            
-            FactureFournisseurDetails[] filles=(FactureFournisseurDetails[])this.getFille("facture_fournisseur_fille", c, "");
-            for(int i=0;i<filles.length;i++){
-                EngagementFille engFille=filles[i].createEngagementFille(engagement.getTuppleID());
+
+            FactureFournisseurDetails[] filles = (FactureFournisseurDetails[]) this.getFille("facture_fournisseur_fille", c, "");
+            for (int i = 0; i < filles.length; i++) {
+                EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());
                 engFille.construirePK(c);
                 engFille.insertToTableWithHisto(u, c);
             }
@@ -881,36 +931,46 @@ public class FactureFournisseur extends FactureClient {
             engagement.validerObject(u, c);
 
             this.setIdengagement(engagement.getTuppleID());
-            
-            if(c!=null && verif==1)c.commit();
-        }catch(Exception e){
-            if(c!=null && verif==1)c.rollback();
+
+            if (c != null && verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
             e.printStackTrace();
             throw e;
-        }finally{
-            if(c!=null && verif==1)c.close();
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
         }
     }
 
-    public LigneCredit getBudget(Connection c)throws Exception{
-        int verif=0;
-        LigneCredit retour=null;
-        try{
-            if(c==null){
-                c=new UtilDB().GetConn();
-                verif=1;
+    public LigneCredit getBudget(Connection c) throws Exception {
+        int verif = 0;
+        LigneCredit retour = null;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
             }
-            LigneCredit lc=new LigneCredit();
+            LigneCredit lc = new LigneCredit();
             lc.setNomTable("LIGNECREDITDEPENSE");
             lc.setCodeEtablissement(this.getCode_etablissement());
             lc.setProjet(this.getProjet());
-            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee="+Utilitaire.getAnnee(this.getDaty()));
-            if(ligneCredits.length>0)retour=ligneCredits[0];   
-        }catch(Exception e){
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee=" + Utilitaire.getAnnee(this.getDaty()));
+            if (ligneCredits.length > 0) {
+                retour = ligneCredits[0];
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
-        }finally{
-            if(c!=null && verif==1)c.close();
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
         }
         return retour;
     }
