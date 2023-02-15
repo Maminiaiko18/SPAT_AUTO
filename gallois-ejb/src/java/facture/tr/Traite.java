@@ -30,6 +30,16 @@ public class Traite extends ClassEtat {
     double montant,escompte,total,montantreste;
     String idtypepiece;
     String idfinaledestination;
+    String idbanque;
+
+
+    public String getIdbanque() {
+        return idbanque;
+    }
+
+    public void setIdbanque(String idbanque) {
+        this.idbanque = idbanque;
+    }
 
     public String getIdfinaledestination() {
         return idfinaledestination;

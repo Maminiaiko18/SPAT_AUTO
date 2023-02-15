@@ -28,6 +28,7 @@
          pc.getChampByName("escompte").setLibelle("Escompte");
         pc.getChampByName("total").setLibelle("Total");
         pc.getChampByName("cdclt").setVisible(false);
+        pc.getChampByName("idbanque").setVisible(false);
         pc.getChampByName("montantreste").setLibelle("Montant disponible");
         pc.setTitre(titre);
         traite = (Traite) pc.getBase();
@@ -61,7 +62,7 @@
                 </div>
                 
                 <div class="box-footer">
-                        <a class="btn btn-primary"  href="<%=lien%>?but=facture/traite-modif.jsp&id=<%=request.getParameter("id")%>"  style="margin-right: 10px">Modifier</a>
+                        <a class="btn btn-primary"  href="<%=lien%>?but=facture/traite-modif.jsp&id=<%=request.getParameter("id")%>&tiers=<%=traite.getTiers()%>&banque=<%=traite.getIdbanque()%>"  style="margin-right: 10px">Modifier</a>
                         <a class="btn btn-success"  href="<%=lien + "?but=apresTarif.jsp&acte=valider&classe="+mapping+"&bute="+apres+"&id=" + traite.getId() %>"  style="margin-right: 10px">Viser</a>
                         <!---<a class="btn btn-primary"  href="<%=lien + "?but=treso/journalcaisse-saisie.jsp&credit="+traite.getMontant()+"&idmode=modetraite&caisse=caissetraite"%>"  style="margin-right: 10px">Encaisser</a>--->
                         <a class="btn btn-primary"  href="<%=lien + "?but=facture/escompte-saisie.jsp&idTraite="+traite.getId()%>"  style="margin-right: 10px">Escompter</a>

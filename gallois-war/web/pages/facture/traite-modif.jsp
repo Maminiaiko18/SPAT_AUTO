@@ -8,13 +8,13 @@
     Traite base = new Traite();
     base.setNomTable("TRAITE_LIB");
     PageUpdate pi = new PageUpdate(base, request, (user.UserEJB) session.getValue("u"));
-
     affichage.Liste[] listed = new affichage.Liste[1];
     TypeObjet o = new TypeObjet();
     o.setNomTable("banque");
     listed[0] = new Liste("banque", o, "VAL", "id");
-
+    listed[0].setDefaut(request.getParameter("banque"));
     pi.getFormu().changerEnChamp(listed);
+    pi.getFormu().getChamp("tiers").setDefaut(request.getParameter("tiers"));
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("daty").setLibelle("Date");
