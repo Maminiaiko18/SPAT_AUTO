@@ -323,7 +323,7 @@ public class EtatdeStockDate extends ClassMAPTable {
                 + " from reportdetailscaisse inv,(select sum(mvt.entree) as entree,sum(mvt.sortie) as sortie,mvt.idingredients,mvt.unite, mvt.ingredients"
                 + " from mvtcaissedetailslib mvt  where "
                 + "mvt.daty>(select max(inv.daty) from reportdetailscaisse inv where inv.iding=mvt.idingredients and inv.daty<'" + datySup + "' ) and mvt.daty<='" + datySup + "'"
-                + " group by mvt.idingredients,mvt.unite, mvt.ingredients) mvt "
+                + " and mvt.daty>='"+datyInf+"' group by mvt.idingredients,mvt.unite, mvt.ingredients) mvt "
                 + "  where inv.daty=(select max(inv2.daty) "
                 + " from  reportdetailscaisse inv2 where inv2.IDING=inv.idIng and inv2.daty<'" + datySup + "')"
                 + " and inv.IDING=mvt.IDINGREDIENTS(+)";
