@@ -20,6 +20,7 @@
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("dateEcheance").setLibelle("Date d'echeance");
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("idbanque").setVisible(false);
 
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
