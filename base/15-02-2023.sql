@@ -41,8 +41,7 @@ from ORDONNERPAYEMENT op
 		 LEFT JOIN devise d ON d.id =f.DEVISEMERE;
   
   
- 
-  CREATE OR REPLACE VIEW TRAITE_LIB (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, REFERENCE, CDCLT, IDBANQUE) AS 
+		  CREATE OR REPLACE VIEW TRAITE_LIB (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, REFERENCE, CDCLT, IDBANQUE,idtypepiece,typepiece) AS 
   select
 	tr.id,
 	tr.daty,
@@ -53,29 +52,37 @@ from ORDONNERPAYEMENT op
 	tr.montant,
 	tr.REFERENCE,
 	ti.CDCLT,
-	ba.ID AS idbanque
+	ba.ID AS idbanque,
+	IDTYPEPIECE ,
+	tp.val AS typepiece
 	from traite tr
 	left join client_union ti on tr.tiers = ti.CDCLT 
-	left join banque ba on tr.banque = ba.id;
+	left join banque ba on tr.banque = ba.id
+	LEFT JOIN type_piece tp ON tp.id=tr.IDTYPEPIECE;
+	
 
-CREATE OR REPLACE VIEW TRAITE_LIBMTT (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ESCOMPTE, TOTAL, REFERENCE, CDCLT, IDBANQUE) AS 
+CREATE OR REPLACE VIEW TRAITE_LIBMTT (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ESCOMPTE, TOTAL, REFERENCE, CDCLT, IDBANQUE,idtypepiece,typepiece) AS 
   select t.ID,t.DATY,t.TIERS,t.BANQUE,t.DATEECHEANCE,t.ETAT,t.MONTANT,
 sum(nvl(e.FRAIS,0)) AS escompte,
 montant - sum(nvl(e.FRAIS, 0)) AS total, t.reference,
 t.CDCLT,
-t.idbanque
+t.idbanque,
+t.idtypepiece,
+t.typepiece
 from traite_lib t
 LEFT JOIN ESCOMPTE_LIBV e ON e.IDTRAITE = t.id
-GROUP BY t.id, t.DATY ,t.TIERS ,t.BANQUE ,t.DATEECHEANCE ,t.ETAT ,t.MONTANT,t.REFERENCE, t.CDCLT, t.idbanque ;
+GROUP BY t.id, t.DATY ,t.TIERS ,t.BANQUE ,t.DATEECHEANCE ,t.ETAT ,t.MONTANT,t.REFERENCE, t.CDCLT, t.idbanque,t.idtypepiece,
+t.typepiece ;
 
 
-CREATE OR REPLACE VIEW TRAITEMTTRESTE (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ESCOMPTE, TOTAL, REFERENCE, MONTANTRESTE, CDCLT, IDBANQUE) AS 
+CREATE OR REPLACE VIEW TRAITEMTTRESTE (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ESCOMPTE, TOTAL, REFERENCE, MONTANTRESTE, CDCLT, IDBANQUE,idtypepiece,typepiece) AS 
   SELECT t.ID,t.DATY,t.TIERS,t.BANQUE,t.DATEECHEANCE,t.ETAT,t.MONTANT,t.ESCOMPTE,t.TOTAL,t.REFERENCE,
- (t.total-tf. montantenlevetraite) AS montantreste, t.cdclt, t.idbanque
+ (t.total-tf. montantenlevetraite) AS montantreste, t.cdclt, t.idbanque,t.idtypepiece,
+t.typepiece
  FROM TRAITE_LIBMTT t 
  LEFT JOIN traitemttfc tf ON tf.id=t.id;
  
- 
+	
  
  
  
@@ -121,4 +128,76 @@ LEFT JOIN MODEPAIEMENT m ON m.id = jc.IDMODE
 LEFT JOIN CAISSE c ON c.id = jc.CAISSE 
 LEFT JOIN FACTURECLIENT f ON f.id = JC.IDPLACEMENT 
 LEFT JOIN TIERS fcu ON fcu.ID = f.TIERS ;
+
+
+
+CREATE OR REPLACE VIEW TRAITEMTTRESTE_NONVERSEE (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ESCOMPTE, TOTAL, REFERENCE, MONTANTRESTE, CDCLT, IDBANQUE) AS 
+SELECT * FROM (
+	SELECT t.ID,t.DATY,t.TIERS,t.BANQUE,t.DATEECHEANCE,t.ETAT,t.MONTANT,t.ESCOMPTE,t.TOTAL,t.REFERENCE,
+ (t.total-tf. montantenlevetraite) AS montantreste, t.cdclt, t.idbanque
+ FROM TRAITE_LIBMTT t 
+ LEFT JOIN traitemttfc tf ON tf.id=t.id
+) tmttrst WHERE id NOT IN (SELECT idtraite FROM MVTINTRACAISSE m WHERE m.idtraite IS NOT NULL AND m.ETATVERSEMENT = 11)
+;
+
+CREATE OR REPLACE  VIEW ORDONNERPAYEMENTGROUPEFACT (ID, DED_ID, DATY, MONTANT, REMARQUE, ETAT) AS 
+  SELECT '-'             AS id,
+       op.ded_id,
+       max(op.daty)    AS daty,
+       CAST(sum(op.montant) AS NUMBER(30,2)) AS montant,
+       '-'             AS remarque,
+       op.etat
+FROM ordonnerpayement op
+WHERE op.etat >= 11
+GROUP BY op.ded_id, op.etat;
+
+
+
+CREATE OR REPLACE  VIEW PAIEMENTFC (ID, DATEEFFET, CAISSE, TIERSLIB, LIBELLE, MONTANT, IDFACT, ETAT, ETATLIB, VALCAISSE) AS 
+  select
+    jc.id,
+    JC.DATEEFFET,
+    jc.caisse,
+    jc.tierslib,
+    jc.libelle,
+    pf.montant,
+    pf.idfact,
+    jc.etat,
+    CASE 
+    	WHEN jc.etat = 1
+    		THEN 'Créé'
+        WHEN jc.ETAT >= 11
+        	THEN 'visée'
+        WHEN jc.ETAT =0
+        	THEN 'Annulée'
+    END AS etatlib,
+    jc.desceCAISSE 
+    from
+   journalcaisselib_vise jc
+   left join paiementfacture pf
+   on pf.idmvt=jc.id;
+
+   
+   
+   
+   
+   
+   --------create
+   CREATE view mvtintracaissetraitenonversee AS SELECT
+mic.*,
+t.DATEECHEANCE 
+from mvtintracaisse mic
+JOIN traite t on t.id = mic.idtraite;
+
+
+
+------create
+
+CREATE view mvtintracaissetraiteVcaisse as
+select
+mic.*,
+t.DATEECHEANCE 
+FROM mvtintracaisse mic
+JOIN traite t on t.id = mic.idtraite
+where mic.etatversement in (11, -2);
 
