@@ -18,6 +18,11 @@
     paiements.setLien((String) session.getValue("lien"));
     paiements.setApres("facture/liste-paiementfacture-multiple.jsp");
     paiements.setAWhere(" AND idmode in ('pay6')  AND idfact = '" + idfacture + "' AND idtraite is null");
+    String bute = "facture/factureclient-fiche-vaovao.jsp&id="+idfacture+"&id="+idfacture;
+    if(request.getParameter("idjc")!=null){
+        paiements.setAWhere(" AND idmvt = '" + request.getParameter("idjc") + "'");
+        bute = "treso/journalcaisse-fiche.jsp&id="+request.getParameter("idjc");
+    }
     paiements.creerObjetPage(libEntete, colSomme);
     String popupLink = "choix/traiteChoix.jsp?traite=true&champReturn=idTraite;idTraitelibelle&amp;apresLienPageAppel=";
 %>
@@ -27,7 +32,7 @@
         <h1>Attacher paiement traite à la facture</h1>
     </section>
          <form action="<%=paiements.getLien()%>?but=apresPaiementFactureTraite.jsp" method="post" name="paiementfacture" id="paiementfacture">
-            <input type="hidden" name="bute" value="facture/factureclient-fiche-vaovao.jsp&id=<%=idfacture%>&id=<%=idfacture%>"/>
+            <input type="hidden" name="bute" value="<%=bute%>"/>
             <input type="hidden" name="acte" value="attacher"/>
             <div class="form-group row">
                 <div class="col-md-3">

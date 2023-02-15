@@ -130,7 +130,7 @@
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/paiementfacture-saisie.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-success">Attacher FC</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=treso/journalcaisse-liste.jsp&classe=mg.spat.JournalCaisse" style="margin-right: 5px"><button class="btn btn-danger" >Supprimer</button></a>
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=treso/journalcaisse-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>
-                            <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/fctraite-multiple.jsp&id=" + id+"&colonneMere=idJc&bute=treso/journalcaisse-fiche.jsp" %>" style="margin-right: 10px">Attacher Traite</a>
+                            <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liste-paiementfacture-multiple.jsp&idjc=" + id %>" style="margin-right: 10px">Attacher Traite</a>
                             <!--<a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/cloture-saisie.jsp&caisse="%>" style="margin-right: 10px">cloture</a>--> 
                         </p>
                     </div>
