@@ -303,7 +303,7 @@ public class Traite extends ClassEtat {
         return id+";"+montant;
     }
     
-    @Override
+    /*@Override
     public Object validerObject(String u, Connection c) throws Exception {
         Traite traite = new Traite();
         traite = (Traite) traite.getById(this.getId(), "TRAITEMTTRESTE", c);
@@ -317,12 +317,62 @@ public class Traite extends ClassEtat {
         mvt.createObject(u, c);
         mvt.validerObject(u, c);
         return super.validerObject(u, c);
+    }*/
+    
+    public void verser(String u, Connection c) throws Exception {
+        
+        Traite traite = new Traite();
+        traite = (Traite) traite.getById(this.getId(), "TRAITEMTTRESTE", c);
+        if(traite.getMontantreste()>0)
+            throw new Exception("Le montant disponible ne doit pas etre superieur a zero.");
+        String caisseDep = Constante.getCaisseTraite();
+        if(this.getIdtypepiece()!=null && this.getIdtypepiece().equals(Constante.getTypePieceCheque()))caisseDep = Constante.caisseDepense;
+        MvttIntraCaisse mvt = new MvttIntraCaisse(caisseDep,Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,Constante.getTraite(),null,
+                                    null,this.getTuppleID(),this.getDaty(),this.getMontant());
+        mvt.setIdfinaledestination(this.getIdfinaledestination());
+        mvt.createObject(u, c);
+        mvt.validerObject(u, c);
+        c.commit();
+        
     }
     
     @Override
     public void controler(Connection c) throws Exception{
         if(this.getMontant() <= 0){
             throw new Exception("Le montant ne doit pas etre 0 ou negatif");
+        }
+    }
+    
+    public void avantVerser(String[] tId, String u, String finaldestination, Connection c) throws Exception {
+        try{
+            if(c == null){
+                c=new UtilDB().GetConn();
+                c.setAutoCommit(false);
+            }
+            MvttIntraCaisse mvt = new MvttIntraCaisse();
+            mvt.setNomTable("mvtintracaissetraiteVcaisse");
+            MvttIntraCaisse[] mvts = (MvttIntraCaisse[])CGenUtil.rechercher(mvt, null, null, c, " and idtraite='"+this.getId()+"'");
+            if(mvts.length > 0){
+                if(mvts[0].getEtatversement() == ConstanteEtat.getEtatValider())
+                    throw new Exception("Traite déjà versée.");
+                if(mvts[0].getEtatversement() == ConstanteEtat.getEtatEncaissee())
+                    throw new Exception("Traite déjà encaissée.");
+            }
+            Traite traite=new Traite();
+            String aWhere = " AND id in ("+Utilitaire.tabToString(tId, "'", ",")+")";
+            Traite[] listeTraite = (Traite[])CGenUtil.rechercher(traite, null, null, c, aWhere);
+            for(int i=0;i<listeTraite.length;i++){
+                listeTraite[i].setIdfinaledestination(finaldestination);
+                listeTraite[i].verser(u, c);
+            }
+        }
+        catch(Exception ex){
+            if(c!=null)c.rollback();
+            ex.printStackTrace();
+            throw ex;
+        }
+        finally{
+            if(c!=null)c.close();
         }
     }
 }

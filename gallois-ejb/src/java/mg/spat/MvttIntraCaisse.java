@@ -20,7 +20,7 @@ import utilitaire.UtilDB;
  */
 public class MvttIntraCaisse extends ClassEtat {
     private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite;
-    private Date daty;
+    private Date daty, dateecheance;
     private double montant;
     private  JournalCaisse[] listeJournal;
     int etatversement;
@@ -239,6 +239,14 @@ public class MvttIntraCaisse extends ClassEtat {
             c=new UtilDB().GetConn();
             c.setAutoCommit(false);
             
+            MvttIntraCaisse mvt = new MvttIntraCaisse();
+            mvt.setNomTable("mvtintracaissetraiteVcaisse");
+            MvttIntraCaisse[] mvts = (MvttIntraCaisse[])CGenUtil.rechercher(mvt, null, null, c, " and idtraite='"+this.getId()+"'");
+            if(mvts.length > 0){
+                if(mvts[0].getEtatversement() == ConstanteEtat.getEtatEncaissee())
+                    throw new Exception("Traite déjà encaissée.");
+            }
+            
             MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,this.getIdfinaledestination(),this.getModepaiement(),
                         this.getRemarque(),this.getDesignation(),this.getIdTraite(),this.getDaty(),this.getMontant());
             nouvMvt.createObject(u,c);
@@ -255,4 +263,14 @@ public class MvttIntraCaisse extends ClassEtat {
             if(c!=null)c.close();
         }
     }
+
+    public Date getDateecheance() {
+        return dateecheance;
+    }
+
+    public void setDateecheance(Date dateecheance) {
+        this.dateecheance = dateecheance;
+    }
+    
+    
 }

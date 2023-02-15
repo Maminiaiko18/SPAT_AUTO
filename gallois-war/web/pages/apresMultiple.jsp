@@ -293,14 +293,15 @@
         }
         if(acte.equals("viserTraite")){
             Traite traite=new Traite();
-            String aWhere = " AND id in ("+Utilitaire.tabToString(tId, "'", ",")+")";
-            Traite[] listeTraite = (Traite[])CGenUtil.rechercher(traite, null, null, aWhere);
-            for(int i=0;i<listeTraite.length;i++){
-                listeTraite[i].setIdfinaledestination(request.getParameter("idcaisse"));
-                u.updateObject(listeTraite[i]);
-                u.validerObject(listeTraite[i]);
-            }
-            
+            traite.avantVerser(tId, u.getUser().getTuppleID(), request.getParameter("idcaisse"), null);
+        }
+        if(acte.equals("viserTraiteSimple")){
+            System.out.println("viserTraiteSimple");
+            Traite traite=new Traite();
+            System.out.println("ID TRAITE = " + id);
+            traite.setId(id);
+            String[] value = {request.getParameter("idTraite")};
+            traite.avantVerser(value, u.getUser().getTuppleID(), request.getParameter("idfinaledestination"), null);
         }
         if(acte.compareToIgnoreCase("insertPaiementFacture") == 0){
             mere = (ClassMAPTable) (Class.forName(classe).newInstance());
