@@ -228,6 +228,14 @@
 </script>
 
 <script>
+  const input1 = document.getElementById("daty");
+  const input2 = document.getElementById("dateRegul");
+
+  const initialInput1Value = input1.value;
+  input2.value = initialInput1Value;
+</script>
+
+<script>
     
     //$('#ajout_multiple_ligne tr td:nth-child(7)').attr('style', '');
     <% for(int i=0; i<pi.getNombreLigne(); i++){ %>
