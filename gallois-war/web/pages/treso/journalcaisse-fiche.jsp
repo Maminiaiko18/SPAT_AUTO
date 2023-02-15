@@ -49,7 +49,7 @@
     pc.getChampByName("DESCETYPECHEQUE").setLibelle("mode de paiement");
     pc.getChampByName("idordre").setLibelle("OP");
    
-    //pc.getChampByName("typelib").setLibelle("Type"); 
+    pc.getChampByName("typelib").setLibelle("Type"); 
     
     JournalCaisse jcaisse = (JournalCaisse)pc.getBase();
     if(jcaisse.getIdplacement()!=null){
