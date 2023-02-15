@@ -24,10 +24,10 @@ public class FactureClientAvoir extends ClassMAPTable{
     String idavoir;
     double montant;
 
-    public FactureClientAvoir(String idfc, String idavoir, double montant) {
+    public FactureClientAvoir(String idfc, String idavoir, double montant) throws Exception {
         this.idfc = idfc;
         this.idavoir = idavoir;
-        this.montant = montant;
+        this.setMontant(montant);
         this.setNomTable("FactureClientAvoir");
     }
 
@@ -63,7 +63,10 @@ public class FactureClientAvoir extends ClassMAPTable{
         return montant;
     }
 
-    public void setMontant(double montant) {
+    public void setMontant(double montant) throws Exception {
+        if(montant <= 0){
+            throw new Exception("Le montant de regularisation ne peut pas être negatif ou nul");
+        }
         this.montant = montant;
     }
     
@@ -79,8 +82,8 @@ public class FactureClientAvoir extends ClassMAPTable{
     
     public AvoirFC[] getAvoirsOrderByDate(Connection con) throws Exception{
         AvoirFC avoirFC = new AvoirFC();
-        avoirFC.setNomTable("avoirfc_montant_regroup");
-        AvoirFC[] avoirFCs = (AvoirFC[]) CGenUtil.rechercher(avoirFC, null, null, con, " AND id in ("+Utilitaire.tabToString(this.idavoir.split(";"), "'", ",")+") ORDER by daty ASC");
+        avoirFC.setNomTable("AVOIRFC_MONTANT_REGROUP");
+        AvoirFC[] avoirFCs = (AvoirFC[]) CGenUtil.rechercher(avoirFC, null, null, con, " AND montantreste > 0 AND id in ("+Utilitaire.tabToString(this.idavoir.split(";"), "'", ",")+") ORDER by daty ASC");
        return avoirFCs;
     }
    
@@ -109,10 +112,15 @@ public class FactureClientAvoir extends ClassMAPTable{
             if(con!=null) con.close();
         }
     }
-    
+    public void controlerPayerFacture(FactureClient aPayer, AvoirFC[] avoirFCs) throws Exception{
+        if(aPayer.getMontantreste() < this.montant){
+            throw new Exception("Il n'est pas possible de regulariser un montant supérieur au montant à Payer");
+        }
+    } 
     public void payerAvoirFacture(String u,Connection con) throws Exception{
-        AvoirFC[] avoirFCs = getAvoirsOrderByDate(con);
         FactureClient aPayer = getFactureAPayer(con);
+        AvoirFC[] avoirFCs = getAvoirsOrderByDate(con);
+        this.controlerPayerFacture(aPayer, avoirFCs);
         aPayer.payerAPartirAvoirs(avoirFCs, this.montant, u, con);
     }
    
