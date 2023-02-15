@@ -79,7 +79,7 @@ public class FactureClientAvoir extends ClassMAPTable{
     
     public AvoirFC[] getAvoirsOrderByDate(Connection con) throws Exception{
         AvoirFC avoirFC = new AvoirFC();
-        avoirFC.setNomTable("AVOIRFC_MONTANT");
+        avoirFC.setNomTable("avoirfc_montant_regroup");
         AvoirFC[] avoirFCs = (AvoirFC[]) CGenUtil.rechercher(avoirFC, null, null, con, " AND id in ("+Utilitaire.tabToString(this.idavoir.split(";"), "'", ",")+") ORDER by daty ASC");
        return avoirFCs;
     }
