@@ -33,7 +33,6 @@
         pi.getFormu().getChamp("idtypepiece").setLibelle("Type");
         pi.getFormu().getChamp("dateEcheance").setLibelle("Date d'echeance");
         pi.getFormu().getChamp("etat").setVisible(false);
-        pi.getFormu().getChamp("banque").setVisible(false);
         pi.getFormu().getChamp("idfinaledestination").setVisible(false);
         pi.preparerDataFormu();
 %>
