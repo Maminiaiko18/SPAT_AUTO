@@ -123,6 +123,7 @@
         map.put("bondelivraisonFF", "");
         map.put("paiementFF", "");
         map.put("regularisationFF", "");
+        map.put("etatprovision", "");
 //        map.put("activite", "");
 //        map.put("facturesdefinitives", "");
 //        map.put("provision-facturesdefinitives", "");
@@ -303,6 +304,7 @@
                     <% if (e.getIdcategorie().equals(Constante.getCategorieFFBP())) {%>
                     <li class="<%= map.get("facturesfdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesfdefinitives">Factures d&eacute;finitives</a></li>
                     <li class="<%= map.get("regularisationFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=regularisationFF&idProvision=<%=e.getId()%>">Régularisation</a></li>
+                    <li class="<%= map.get("etatprovision")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=etatprovision">Etat de provision</a></li>
                     <% } %>
                 </ul>
                 <div class="tab-content">       
@@ -315,6 +317,7 @@
                             <jsp:param name="idfacture" value="<%=e.getId()%>" />
                             <jsp:param name="idProvision" value="<%=e.getId()%>" />
                             <jsp:param name="iddefinitive" value="<%=e.getId()%>" />
+                            <jsp:param name="idfact" value="<%=e.getId()%>" />
                         </jsp:include>
                     </div>
                 </div>

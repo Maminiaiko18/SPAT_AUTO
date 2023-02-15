@@ -22,6 +22,22 @@ public class PaiementFacture extends ClassMAPTable{
     private String code;
     private Date daty;
     private FactureClient facture;
+    private String designation;
+    private String numFact;
+
+    public void setNumFact(String numFact){
+        this.numFact=numFact;
+    }
+    public String getNumFact(){
+        return this.numFact;
+    }
+
+    public void setDesignation(String designation){
+        this.designation=designation;
+    }
+    public String getDesignation(){
+        return this.designation;
+    }
 
     
     public FactureClient getFacture() {
