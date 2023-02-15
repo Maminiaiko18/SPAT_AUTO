@@ -10,7 +10,7 @@
         String lien = (String) session.getValue("lien"),
                 apres = "caisse/situation-comptes.jsp";
         String daty1, daty2;
-        daty1 = request.getParameter("daty1");
+        daty1 = request.getParameter("daty2");
         daty2 = request.getParameter("daty2");
         if (daty1 == null || daty1.compareToIgnoreCase("") == 0) {
             daty1 = Utilitaire.dateDuJour();
@@ -75,7 +75,7 @@
                                 <input name="daty1" type="text" class="form-control datepicker" id="daty1" value="<%//=daty1%>" onkeydown="return searchKeyPress(event)">-->
                             </div>
                             <div class="col-md-4">
-                                <label for="Date" debut="">Date fin</label>
+                                <label for="Date" debut="">Date</label>
                                 <input name="daty2" type="text" class="form-control datepicker" id="daty1" value="<%=daty2%>" onkeydown="return searchKeyPress(event)">
                             </div>
                         </div>

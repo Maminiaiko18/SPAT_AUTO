@@ -2,6 +2,7 @@ package mg.amadia.stock;
 
 import affichage.PageRecherche;
 import affichage.PageRechercheGroupe;
+import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
@@ -301,12 +302,18 @@ public class EtatdeStockDate extends ClassMAPTable {
     public static mg.amadia.stock.EtatdeStockDate[] calculEtatCaisse(String datySup, String ingr, String idIngredient, Connection c, String colonne, String valorder, String datyInf) throws Exception {
         EtatdeStockDate[] etatCaisse = calculEtatCaisseAncien(datySup, ingr, idIngredient, c, colonne, valorder, datyInf);
         EtatdeStockDate[] listeSolde = getSolde(Utilitaire.ajoutJourDateString(Utilitaire.stringDate(datySup), -1), ingr, idIngredient, c, colonne, valorder, datyInf);
-        HashMap solde = new HashMap();
-        for(int j=0;j<listeSolde.length;j++){
-            solde.put(listeSolde[j].getIngredients(),listeSolde[j].getReste());
-        }
+        //HashMap solde = new HashMap();
+        //for(int j=0;j<listeSolde.length;j++){
+          //  solde.put(listeSolde[j].getIngredients(),listeSolde[j].getReste());
+        //}
         for(int i=0;i<etatCaisse.length;i++){
-            etatCaisse[i].setReste((double)solde.get(etatCaisse[i].getIngredients()));
+            String[]filtre={"ingredients"};
+            String[]valFiltre={etatCaisse[i].getIngredients()};
+            ClassMAPTable[]etatReste=AdminGen.find(listeSolde,filtre, valFiltre);
+            double reste=0;
+            if(etatReste!=null)reste=((EtatdeStockDate)etatReste[0]).getReste();
+            etatCaisse[i].setReste(reste);
+            //etatCaisse[i].setReste((double)solde.get(etatCaisse[i].getIngredients()));
         }
         return etatCaisse;
     }
