@@ -68,7 +68,7 @@
          //BonDeCommande[] tabBc = (BonDeCommande[]) CGenUtil.rechercher( bc , null, null, " ") ;
         if(ls.length!=0){
             pi.getFormu().getChamp("ded_Id").setDefaut(ls[0].getId());
-            pi.getFormu().getChamp("montant").setDefaut(Utilitaire.enleverExponentielleDouble(ls[0].getMontantreste())+"");
+            pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(ls[0].getMontantreste())+"");
             pi.getFormu().getChamp("daty").setDefaut(utilitaire.Utilitaire.dateDuJour());
             pi.getFormu().getChamp("remarque").setDefaut("Paiement Avoir "+ls[0].getCode());
             
