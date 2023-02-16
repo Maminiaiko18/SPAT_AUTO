@@ -27,6 +27,7 @@
                 pr.getFormu().getChamp("caissedepart").setLibelle("caisse depart");
         pr.getFormu().getChamp("caissearrivee").setLibelle("caisse arrivee");
         pr.getFormu().getChamp("modepaiement").setLibelle("mode de paiement");
+        pr.setOrdre(" order by daty desc");
 
         pr.creerObjetPage(libEntete);
         
@@ -56,15 +57,15 @@
                         <option value="mvtintracaisse_lib" >Tous</option>
                         <% } %>
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("mvtintracaisse_lib_cree") == 0) {%>
-                        <option value="mvtintracaisse_lib_cree" selected>Crée</option>
+                        <option value="mvtintracaisse_lib_cree" selected>Crï¿½e</option>
                         <% } else { %>
-                        <option value="mvtintracaisse_lib_cree">Crée</option>
+                        <option value="mvtintracaisse_lib_cree">Crï¿½e</option>
                         <% } %>
 
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("mvtintracaisse_lib_visee") == 0) {%>
-                        <option value="mvtintracaisse_lib_visee" selected>Visé</option>
+                        <option value="mvtintracaisse_lib_visee" selected>Visï¿½</option>
                         <% } else { %>
-                        <option value="mvtintracaisse_lib_visee">Visé</option>
+                        <option value="mvtintracaisse_lib_visee">Visï¿½</option>
                         <% } %>
                     </select>
                 </div>
