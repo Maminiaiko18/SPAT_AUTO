@@ -46,25 +46,30 @@
         if (request.getParameter("idTraite") != null) {
             pi.getFormu().getChamp("idTraite").setDefaut(request.getParameter("idTraite"));
         }
-        affichage.Champ[] liste = new affichage.Champ[3];
+        affichage.Champ[] liste = new affichage.Champ[4]; ///////
         Caisse listedepart = new Caisse();
         listedepart.setNomTable("caisse");
 
         Caisse listearriver = new Caisse();
         listearriver.setNomTable("caisse");
 
+       
+        
         if (request.getParameter("caissedepart") != null) {
             listedepart.setNomTable(request.getParameter("caissedepart"));
         }
 
         liste[0] = new Liste("caissedepart", listedepart, "val", "id");
+        liste[0].setDefaut("CAIS00000T00016");
         liste[1] = new Liste("caissearrivee", listearriver, "val", "id");
-
+        liste[1].setDefaut("CAIS000017");
         TypeObjet liste2 = new TypeObjet();
         liste2.setNomTable("MODEPAIEMENT");
         liste[2] = new Liste("modepaiement", liste2, "val", "id");
+        TypeObjet liste3 = new TypeObjet();
+        liste3.setNomTable("caisse");
+        liste[3] = new Liste("idfinaledestination", liste3, "val", "id");
         pi.getFormu().changerEnChamp(liste);
-
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idTraite").setLibelle("Traite");
         pi.getFormu().getChamp("idTraite").setAutre("readonly");
@@ -72,6 +77,13 @@
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("remarque").setVisible(false);
         pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
+       ///////////
+        pi.getFormu().getChamp("etatversement").setVisible(false);
+        pi.getFormu().getChamp("idfinaledestination").setLibelle(" Caisse");
+
+        pi.getFormu().getChamp("caissedepart").setAutre("readonly");
+        pi.getFormu().getChamp("caissearrivee").setAutre("readonly");
+        ////////////
         pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv&eacute;e");
 
         if (request.getParameter("idTraite") != null) {

@@ -21,8 +21,8 @@ import utilitaire.UtilDB;
 public class MvttIntraCaisse extends ClassEtat {
 
     private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite,caissedepartlib,caissearriveelib,modepaiementlib;
-    private Date daty, dateEcheance;
-
+    private Date daty, dateecheance;
+    
     private double montant;
     private  JournalCaisse[] listeJournal;
     int etatversement;
@@ -53,11 +53,11 @@ public class MvttIntraCaisse extends ClassEtat {
     }
 
     public Date getDateEcheance() {
-        return dateEcheance;
+        return dateecheance;
     }
 
     public void setDateEcheance(Date dateEcheance) {
-        this.dateEcheance = dateEcheance;
+        this.dateecheance = dateEcheance;
     }
 
     public int getEtatversement() {
