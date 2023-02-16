@@ -54,7 +54,7 @@ public class OrdonnerPayement extends ClassEtat {
     public void checkDoublonNumeroOP(Connection c) throws Exception {
 			this.setNomTable("ordonnerpayement");
 			String query = " and numeroop='"+this.getNumeroop()+"'";
-			OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(this, null, null, c, query);
+			OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, query);
 			if(op.length > 0) throw new Exception("Numero OP existant");
     }
 
@@ -545,9 +545,9 @@ public class OrdonnerPayement extends ClassEtat {
         op.setNomTable("ordonnerpayementgroupefact");
         OrdonnerPayement[] listeOP = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, "and ded_id = '" + this.getDed_Id() + "'");
         double montantTTc=AdminGen.calculSommeDouble(avoirListe, "montant");
-        double reste=AdminGen.calculSommeDouble(avoirListe, "montantreste");
         if(listeOP.length>0){
-            if(listeOP[0].getMontant()==montantTTc){
+             double reste=avoirListe[0].getMontantttc() - AdminGen.calculSommeDouble(avoirListe, "montantpaye");
+            if(listeOP[0].getMontant() >= avoirListe[0].getMontantttc()){
                 throw new Exception("Facture(s) déjà payée(s) ou en attente de paiement");
             }
             if(reste<this.getMontant()){
