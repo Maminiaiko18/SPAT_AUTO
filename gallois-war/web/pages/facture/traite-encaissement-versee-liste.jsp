@@ -12,7 +12,7 @@
 
         String listeCrt[] = {"id", "designation","idTraite","daty", "caissedepart", "caissearrivee","modepaiement","montant","dateecheance"};
         String listeInt[] = {"daty","montant","dateecheance"};
-        String libEntete[] = {"id", "designation","idTraite","daty", "caissedepartlib", "caissearriveelib","modepaiementlib","montant","remarque","etat"};
+        String libEntete[] = {"id", "designation","idTraite","daty", "caissedepartlib", "caissearriveelib","modepaiementlib","montant","remarque","etatlib"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));

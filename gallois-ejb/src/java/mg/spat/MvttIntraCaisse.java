@@ -20,7 +20,7 @@ import utilitaire.UtilDB;
  */
 public class MvttIntraCaisse extends ClassEtat {
 
-    private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite,caissedepartlib,caissearriveelib,modepaiementlib;
+    private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite,caissedepartlib,caissearriveelib,modepaiementlib,etatlib;
     private Date daty, dateecheance;
     
     private double montant;
@@ -187,6 +187,14 @@ public class MvttIntraCaisse extends ClassEtat {
 
     public void setMontant(double montant) {
         this.montant = montant;
+    }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
     }
     
     
