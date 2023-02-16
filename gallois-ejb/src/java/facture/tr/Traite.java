@@ -287,17 +287,19 @@ public class Traite extends ClassEtat {
     public void lierJournalCaisse(String[] ids, Connection c) throws Exception{
         JournalCaisse critere = new JournalCaisse();
         critere.setNomTable("journalcaisse");
-       JournalCaisse[] journaux =  (JournalCaisse[])CGenUtil.rechercher(critere,null,null,c," and id in ("+Utilitaire.tabToString(ids, "'", ",")+")");
-       double sommeCredit = AdminGen.calculSommeDouble(journaux, "credit");
-       if(sommeCredit > this.montantreste){
-           throw new Exception("Montant traite insuffisant");
-       }
-       for(int i=0;i<journaux.length;i++){
-           if(journaux[i].getIdtraite()!=null)
-               throw new Exception("Traite deja existant");
-           journaux[i].setIdtraite(this.id);
-           journaux[i].updateToTable(c);
-       }
+        JournalCaisse[] journaux =  (JournalCaisse[])CGenUtil.rechercher(critere,null,null,c," and id in ("+Utilitaire.tabToString(ids, "'", ",")+")");
+        double sommeCredit = AdminGen.calculSommeDouble(journaux, "credit");
+        if(sommeCredit > this.montantreste){
+            throw new Exception("Montant traite insuffisant");
+        }
+        for(int i=0;i<journaux.length;i++){
+            if(journaux[i].getIdtraite()!=null)
+                throw new Exception("Traite deja existant");
+            if(journaux[i].getIdmode().compareToIgnoreCase(Constante.getTraite()) != 0)
+                throw new Exception("Mode de paiement doit etre de type traite");
+            journaux[i].setIdtraite(this.id);
+            journaux[i].updateToTable(c);
+        }
     }
     public String getValColLibelle(){
         return id+";"+montant;

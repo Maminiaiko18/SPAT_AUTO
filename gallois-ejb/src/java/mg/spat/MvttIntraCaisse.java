@@ -290,10 +290,13 @@ public class MvttIntraCaisse extends ClassEtat {
             
             MvttIntraCaisse mvt = new MvttIntraCaisse();
             mvt.setNomTable("mvtintracaissetraiteVcaisse");
-            MvttIntraCaisse[] mvts = (MvttIntraCaisse[])CGenUtil.rechercher(mvt, null, null, c, " and idtraite='"+this.getId()+"'");
-            if(mvts.length > 0){
-                if(mvts[0].getEtatversement() == ConstanteEtat.getEtatEncaissee())
-                    throw new Exception("Traite déjà encaissée.");
+            MvttIntraCaisse[] mvts = (MvttIntraCaisse[])CGenUtil.rechercher(mvt, null, null, c, " and idtraite='"+this.getIdTraite()+"'");
+            int t = mvts.length;
+            if(t > 0){
+                for(int i = 0; i < t; i++){
+                    if(mvts[i].getEtatversement() == ConstanteEtat.getEtatEncaissee())
+                        throw new Exception("Traite déjà encaissée.");
+                }
             }
             
             MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,this.getIdfinaledestination(),this.getModepaiement(),
