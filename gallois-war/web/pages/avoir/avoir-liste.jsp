@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AvoirLibComplet cht = new AvoirLibComplet();
-    cht.setNomTable("avoir_lib_val");
+    cht.setNomTable("AVOIRFC_MONTANT_REGROUP");
     String libEntete[] = {"id", "designation", "typeavoir_desce","remarque", "daty", "montant","tva"};
     String listeCrt[] = {"id","designation","typeavoir_desce","remarque"};
     String listeInt[] = {};
