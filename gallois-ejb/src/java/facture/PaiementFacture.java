@@ -205,8 +205,14 @@ public class PaiementFacture extends ClassMAPTable{
             }
             FactureClient fc = this.getFacture();
             if(fc==null)fc = this.getFacture(c);
-            if(fc!=null && (float)fc.getMontantreste()< (float)this.getMontant() ) throw new Exception("Reste a payer facture inferieur au montant saisi");
-        
+            if(fc!=null){
+                if(fc.getMontantreste() * this.getMontant() < 0){
+                    throw new Exception("Opération non autorisée");
+                }
+                if(Math.abs((float)fc.getMontantreste()) < Math.abs((float)this.getMontant())){
+                    throw new Exception("Reste a payer facture inferieur au montant saisi");
+                }
+            }
             JournalCaisse jc=this.getpayement(c); 
             double montantFactures=this.getMontantFactures(jc,c);
             if(this.getNomTable().equalsIgnoreCase("paiementfacture") && Double.valueOf(Utilitaire.enleverExponentielleDouble(montantFactures+this.getMontant()))>Double.valueOf(Utilitaire.enleverExponentielleDouble(jc.getCredit()))) {
