@@ -15,7 +15,7 @@
     try{
     JournalCaisseLibComplet cht = new JournalCaisseLibComplet();
     cht.setNomTable("paiementFC");
-    String libEntete[] = {"id", "libelle", "caisse","tierslib","numPiece","dateeffet", "montant"};
+    String libEntete[] = {"id","idTraite", "libelle", "caisse","tierslib","numPiece","dateeffet", "montant"};
     String listeCrt[] = {"idfact"};
     String listeInt[] = {};
 
@@ -26,10 +26,14 @@
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"credit","debit"};
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id", "Libelle", "Caisse","tiers","Num piece","Date", "Entree","Sortie"};
-    String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
-    String colonneLien[] = {"id"};
+    String libEnteteAffiche[] = {"id","Traite", "Libelle", "Caisse","tiers","Num piece","Date", "Entree","Sortie"};
+    String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp",pr.getLien() + "?but=facture/traite-fiche.jsp"};
+    String colonneLien[] = {"id","Traite"};
+    String[] urlLienAffiche = {"id", "id"};
+    String[] urlLienMultiple = {"id", "idTraite"};
+    pr.getTableau().setUrlLienAffiche(urlLienAffiche);
     pr.getTableau().setLien(lienTableau);
+    pr.getTableau().setUrlLien(urlLienMultiple);
     pr.getTableau().setColonneLien(colonneLien);
     pr.getTableau().setLibeEntete(libEnteteAffiche); 
     
