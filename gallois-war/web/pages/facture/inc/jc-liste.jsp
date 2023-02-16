@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     JournalCaisse cht = new JournalCaisse();
-    cht.setNomTable("fctraite_jc");
+    cht.setNomTable("TRAITE_JC");
     String libEntete[] = {"libelle", "debit", "credit", "iddevise", "montant","datesaisie"};
     String listeCrt[] = {};
     String listeInt[] = {};
