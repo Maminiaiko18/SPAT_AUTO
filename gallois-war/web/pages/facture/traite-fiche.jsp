@@ -4,10 +4,12 @@
     Author     : Mucas
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@ page import="affichage.PageConsulte" %>
 <%@ page import="facture.tr.Traite" %>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
+<%@ page import="java.net.URLEncoder" %>
 <%
     String lien = (String) session.getValue("lien"),
            titre = "Traite Fiche",
@@ -44,6 +46,7 @@
         }
         map.put(tab, "active");
         tab = "inc/" + tab + ".jsp";
+        String montant = java.net.URLEncoder.encode(new DecimalFormat("###.##").format(traite.getTotal()), "UTF-8");
 %>
 
 <style>
@@ -67,7 +70,7 @@
                         <a class="btn btn-success"  href="<%=lien + "?but=apresTarif.jsp&acte=valider&classe="+mapping+"&bute="+apres+"&id=" + traite.getId() %>"  style="margin-right: 10px">Viser</a>
                         <!---<a class="btn btn-primary"  href="<%=lien + "?but=treso/journalcaisse-saisie.jsp&credit="+traite.getMontant()+"&idmode=modetraite&caisse=caissetraite"%>"  style="margin-right: 10px">Encaisser</a>--->
                         <a class="btn btn-primary"  href="<%=lien + "?but=facture/escompte-saisie.jsp&idTraite="+traite.getId()%>"  style="margin-right: 10px">Escompter</a>
-                        <a class="btn btn-primary"  href="<%=lien + "?but=treso/transfert-caisse.jsp&montant="+traite.getTotal()+"&caissedepart=caissetraite&idTraite=" + traite.getId()+"&banque="+traite.getBanque()%>"  style="margin-right: 10px">Verser</a>
+                        <a class="btn btn-primary"  href="<%=lien + "?but=facture/verser-traite.jsp&montant="+montant+"&caissedepart=caissetraite&idTraite=" + traite.getId()+"&banque="+traite.getBanque()%>"  style="margin-right: 10px">Verser</a>
                         <!--<a class="btn btn-primary"  href="#"  style="margin-right: 10px">Retourner</a>-->
                         <a style="float:right" class="btn btn-primary"  href="<%=lien + "?but=facture/attacher-traite-facture.jsp&idTraite="+traite.getId()%>"  style="margin-right: 10px">Attacher Facture</a>
                 </div>

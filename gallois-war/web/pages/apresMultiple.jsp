@@ -298,7 +298,6 @@
         if(acte.equals("viserTraiteSimple")){
             System.out.println("viserTraiteSimple");
             Traite traite=new Traite();
-            System.out.println("ID TRAITE = " + id);
             traite.setId(id);
             String[] value = {request.getParameter("idTraite")};
             traite.avantVerser(value, u.getUser().getTuppleID(), request.getParameter("idfinaledestination"), null);

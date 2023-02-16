@@ -27,8 +27,7 @@
         objet.setNomTable(nomtable);
         MvtIntraCaisseFille fille = new MvtIntraCaisseFille();
         fille.setNomTable(nomTableFille);
-        //PageInsertMultiple pi = new PageInsertMultiple(objet, fille, request, taille, u);
-        PageInsert pi = new PageInsert(objet, request, (user.UserEJB) session.getValue("u"));
+        PageInsertMultiple pi = new PageInsertMultiple(objet, fille, request, taille, u);
         pi.setLien((String) session.getValue("lien"));
         if (request.getParameter("ids") != null) {
             double somme = objet.calculerSomme(request.getParameter("ids"));
@@ -36,7 +35,7 @@
             if (objet.getListeJournal() != null) {
                 pi.getFormu().getChamp("caissedepart").setDefaut((objet.getListeJournal())[0].getCaisse());
                 for (int i = 0; i < (objet.getListeJournal()).length; i++) {
-                    //pi.getFormufle().getChamp("reference_" + i).setDefaut((objet.getListeJournal())[i].getNumcheque());
+                    pi.getFormufle().getChamp("reference_" + i).setDefaut((objet.getListeJournal())[i].getNumcheque());
                 }
             }
         }
@@ -46,7 +45,7 @@
         if (request.getParameter("idTraite") != null) {
             pi.getFormu().getChamp("idTraite").setDefaut(request.getParameter("idTraite"));
         }
-        affichage.Champ[] liste = new affichage.Champ[4]; ///////
+        affichage.Champ[] liste = new affichage.Champ[3]; ///////
         Caisse listedepart = new Caisse();
         listedepart.setNomTable("caisse");
 
@@ -60,15 +59,11 @@
         }
 
         liste[0] = new Liste("caissedepart", listedepart, "val", "id");
-        liste[0].setDefaut("CAIS00000T00016");
         liste[1] = new Liste("caissearrivee", listearriver, "val", "id");
-        liste[1].setDefaut("CAIS000017");
         TypeObjet liste2 = new TypeObjet();
         liste2.setNomTable("MODEPAIEMENT");
         liste[2] = new Liste("modepaiement", liste2, "val", "id");
-        TypeObjet liste3 = new TypeObjet();
-        liste3.setNomTable("caisse");
-        liste[3] = new Liste("idfinaledestination", liste3, "val", "id");
+        
         pi.getFormu().changerEnChamp(liste);
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idTraite").setLibelle("Traite");
@@ -77,13 +72,7 @@
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("remarque").setVisible(false);
         pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
-       ///////////
-        pi.getFormu().getChamp("etatversement").setVisible(false);
-        pi.getFormu().getChamp("idfinaledestination").setLibelle(" Caisse");
-
-        pi.getFormu().getChamp("caissedepart").setAutre("readonly");
-        pi.getFormu().getChamp("caissearrivee").setAutre("readonly");
-        ////////////
+        
         pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv&eacute;e");
 
         if (request.getParameter("idTraite") != null) {
@@ -92,11 +81,11 @@
             pi.getFormu().getChamp("caissearrivee").setDefaut(request.getParameter("banque"));
         }
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
-        /*pi.getFormufle().getChamp("Reference_0").setLibelle("R&eacute;ference");
+        pi.getFormufle().getChamp("Reference_0").setLibelle("R&eacute;ference");
         pi.getFormufle().getChamp("Remarque_0").setLibelle("Remarque");
         pi.getFormufle().getChamp("Idmere_0").setVisible(false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
-        affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);*/
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
 
         pi.preparerDataFormu();
 %>
@@ -105,17 +94,16 @@
     <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="<%=nomtable%>" id="<%=nomtable%>">
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
-            //pi.getFormufle().makeHtmlInsertTableauIndex();
+            pi.getFormufle().makeHtmlInsertTableauIndex();
             out.println(pi.getFormu().getHtmlInsert());
-            //out.println(pi.getFormufle().getHtmlTableauInsert());
+            out.println(pi.getFormufle().getHtmlTableauInsert());
         %>
-        <input name="acte" type="hidden" id="nature" value="viserTraiteSimple">
+        <input name="acte" type="hidden" id="nature" value="insert">
         <input name="bute" type="hidden" id="bute" value="<%=apres%>">
         <input name="classe" type="hidden" id="classe" value="<%=mapping%>">
         <input name="classefille" type="hidden" id="classefille" value="<%=classeFille%>">
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=pi.getNombreLigne()%>">
         <input name="colonneMere" type="hidden" id="colonneMere" value="<%=colonneMere%>">
-        <input name="id" type="hidden" id="nature" value="<%=request.getParameter("idTraite")%>">
     </form>
 </div>
 <%
