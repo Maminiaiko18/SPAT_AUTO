@@ -24,6 +24,14 @@ public class PaiementFacture extends ClassMAPTable{
     private FactureClient facture;
     private String designation;
     private String numFact;
+    private String idProvision;
+
+    public void setIdProvision(String idProvision){
+        this.idProvision=idProvision;
+    }
+    public String getIdProvision(){
+        return this.idProvision;
+    }
 
     public void setNumFact(String numFact){
         this.numFact=numFact;

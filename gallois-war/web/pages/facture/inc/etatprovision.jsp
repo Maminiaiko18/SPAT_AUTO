@@ -8,9 +8,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     PaiementFacture cht = new PaiementFacture();
-    cht.setNomTable("PAIEMENTFACTUREBPCPL");
-    String libEntete[] = {"id","idmvt","daty","designation","montant","numfact"};
-    String listeCrt[] = {"idfact"};
+    cht.setNomTable("PAIEMENTFACTHORSBPAVECBP");
+    String libEntete[] = {"id","idmvt","idFact","daty","designation","montant","numfact"};
+    String listeCrt[] = {"idProvision"};
     String listeInt[] = {};
 
     PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -19,9 +19,9 @@
     
     pr.setApres("facture/inc/etatprovision.jsp");
     String[] colSomme = {};
-    pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id","MOUVEMENT","DATE","DESIGNATION","MONTANT","NUMFACT"};
-    pr.getTableau().setLibeEntete(libEnteteAffiche);    
+    pr.creerObjetPage(libEntete, colSomme);  
+    String libEnteteAffiche[] = {"id","MOUVEMENT","FACTURE","DATE","DESIGNATION","MONTANT","NUMFACT"};
+    pr.getTableau().setLibeEntete(libEnteteAffiche);
     if(pr.getTableau().getHtml() != null)
     {
         out.println(pr.getTableau().getHtml());
