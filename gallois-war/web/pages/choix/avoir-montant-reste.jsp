@@ -9,7 +9,7 @@
     String criteria = "";
     String champReturn = request.getParameter("champReturn");
     AvoirFC avoirFc = new AvoirFC();
-    avoirFc.setNomTable("avoirfc_montant_regroup");
+    avoirFc.setNomTable("avoirfc_montant_regroup_v");
     String tiers = "";
 
     String listeCrt[] = {"id","DATY","CATEGORIELIB","MOTIFLIB","CODE" ,"TYPELIB","DESIGNATION","MONTANT","MONTANTPAYE","MONTANTRESTE","CDCLT"};
