@@ -315,14 +315,4 @@ public class MvttIntraCaisse extends ClassEtat {
             if(c!=null)c.close();
         }
     }
-
-    public Date getDateecheance() {
-        return dateecheance;
-    }
-
-    public void setDateecheance(Date dateecheance) {
-        this.dateecheance = dateecheance;
-    }
-    
-    
 }
