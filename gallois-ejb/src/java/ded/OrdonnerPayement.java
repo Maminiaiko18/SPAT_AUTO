@@ -532,7 +532,7 @@ public class OrdonnerPayement extends ClassEtat {
         op.setNomTable("ordonnerpayementgroupefact");
         OrdonnerPayement[] listeOP = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, "and ded_id = '" + this.getDed_Id() + "'");
         if(listeOP.length>0){
-            if(listeOP[0].getMontant()==montantTTc){
+            if(listeOP[0].getMontant() >= montantTTc){
                 throw new Exception("Déjà payé en total ou en attente de paiement");
             }
             if(reste<this.getMontant()){
@@ -592,8 +592,8 @@ public class OrdonnerPayement extends ClassEtat {
     public void gererAvoirFC(String u,Connection c)throws Exception{
         AvoirFC[] avoirList=this.getAvoirFC(c);
         if(avoirList.length>0){
-            double montantTTc=AdminGen.calculSommeDouble(avoirList, "montant");
-            double reste=AdminGen.calculSommeDouble(avoirList, "montantreste");
+            double montantTTc=avoirList[0].getMontantttc();
+            double reste=avoirList[0].getMontantttc() - AdminGen.calculSommeDouble(avoirList, "montantpaye");
             this.controlerMontant(montantTTc,reste, c);
             for (int i = 0; i < avoirList.length; i++) {
                 LiaisonIntraTable liaison = new LiaisonIntraTable(avoirList[i].getId(), this.getTuppleID(), avoirList[i].getMontantreste());
