@@ -19,12 +19,46 @@ import utilitaire.UtilDB;
  * @author Sanda
  */
 public class MvttIntraCaisse extends ClassEtat {
-    private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite;
-    private Date daty, dateecheance;
+
+    private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite,caissedepartlib,caissearriveelib,modepaiementlib;
+    private Date daty, dateEcheance;
+
     private double montant;
     private  JournalCaisse[] listeJournal;
     int etatversement;
     String idfinaledestination ;
+
+    public String getCaissedepartlib() {
+        return caissedepartlib;
+    }
+
+    public void setCaissedepartlib(String caissedepartlib) {
+        this.caissedepartlib = caissedepartlib;
+    }
+
+    public String getCaissearriveelib() {
+        return caissearriveelib;
+    }
+
+    public void setCaissearriveelib(String caissearriveelib) {
+        this.caissearriveelib = caissearriveelib;
+    }
+
+    public String getModepaiementlib() {
+        return modepaiementlib;
+    }
+
+    public void setModepaiementlib(String modepaiementlib) {
+        this.modepaiementlib = modepaiementlib;
+    }
+
+    public Date getDateEcheance() {
+        return dateEcheance;
+    }
+
+    public void setDateEcheance(Date dateEcheance) {
+        this.dateEcheance = dateEcheance;
+    }
 
     public int getEtatversement() {
         return etatversement;
@@ -43,6 +77,21 @@ public class MvttIntraCaisse extends ClassEtat {
     }
     
     
+    public MvttIntraCaisse(String modepaiementlib,String caissearriveelib,String caissedepartlib,Date dateEcheance,String caissedepart,String caissearrivee,String modepaiement,String remarque,String description,String idTraite,Date daty,double montant)throws Exception{
+        this.setNomTable("MvtIntracaisse");
+        this.setCaissearrivee(caissearrivee);
+        this.setCaissedepart(caissedepart);
+        this.setModepaiement(modepaiement);
+        this.setRemarque(remarque);
+        this.setDesignation(designation);
+        this.setIdTraite(idTraite);
+        this.setDaty(daty);
+        this.setMontant(montant);
+        this.setDateEcheance(dateEcheance);
+        this.setCaissedepartlib(caissedepartlib);
+        this.setCaissearriveelib(caissearriveelib);
+        this.setModepaiementlib(modepaiementlib);
+    }
 
     public MvttIntraCaisse(String caissedepart,String caissearrivee,String modepaiement,String remarque,String description,String idTraite,Date daty,double montant)throws Exception{
         this.setNomTable("MvtIntracaisse");
