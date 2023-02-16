@@ -30,7 +30,7 @@ public class Traite extends ClassEtat {
     double montant,escompte,total,montantreste;
     String idtypepiece;
     String idfinaledestination;
-    String idbanque;
+    String idbanque, typepiece;
 
 
     public String getIdbanque() {
@@ -376,5 +376,13 @@ public class Traite extends ClassEtat {
         finally{
             if(c!=null)c.close();
         }
+    }
+
+    public String getTypepiece() {
+        return typepiece;
+    }
+
+    public void setTypepiece(String typepiece) {
+        this.typepiece = typepiece;
     }
 }

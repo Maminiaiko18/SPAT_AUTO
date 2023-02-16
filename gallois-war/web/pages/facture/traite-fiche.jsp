@@ -30,6 +30,8 @@
         pc.getChampByName("cdclt").setVisible(false);
         pc.getChampByName("idbanque").setVisible(false);
         pc.getChampByName("montantreste").setLibelle("Montant disponible");
+        pc.getChampByName("idtypepiece").setVisible(false);
+        pc.getChampByName("typepiece").setLibelle("Type pièce");
         pc.setTitre(titre);
         traite = (Traite) pc.getBase();
         String tab = request.getParameter("tab");
