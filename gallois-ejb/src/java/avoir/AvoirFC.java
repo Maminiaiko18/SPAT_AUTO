@@ -477,7 +477,7 @@ public class AvoirFC extends ClassMere {
         PaiementFacture contrePaiement = new PaiementFacture(jc.getId(),this.getIdfacture(),-1*jc.getDebit());
         contrePaiement.createObject(u, con);
     }    
-    public void libererPaiement(double montant, String u, Connection con) throws Exception{
+    public void libererPaiement(double montant,String remarque, String u, Connection con) throws Exception{
         if(montant > this.montantreste){
             throw new Exception("Montant à libérer supérieur au montant disponible");
         }
@@ -486,10 +486,10 @@ public class AvoirFC extends ClassMere {
         op.setMontant(montant);
         op.setDaty(Utilitaire.dateDuJourSql());
         op.setTiers(this.getTiers());
-        op.setRemarque("Régularisation à partir de l'avoir "+this.getId());
+        op.setRemarque(remarque);
         op.createObject(u, con);
         op.validerObject(u, con);
-        JournalCaisse jc =  new JournalCaisse(null, Constante.caisseCentraleBP,null , "Régularisation à partir de l'avoir "+this.getId(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), montant, 0);
+        JournalCaisse jc =  new JournalCaisse(null, Constante.caisseCentraleBP,null , remarque, null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), montant, 0);
         jc.setTiers(this.getTiers());
         jc.setIdordre(op.getId());
         jc.createObject(u, con);

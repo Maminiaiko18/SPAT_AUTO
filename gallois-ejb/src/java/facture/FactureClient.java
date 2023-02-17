@@ -2509,10 +2509,12 @@ public class FactureClient extends ClassMere {
     }
         
     public void payerAPartirAvoir(AvoirFC avoirFC, double montant, String u,Connection con) throws Exception{
-        avoirFC.libererPaiement(montant, u, con);
-        JournalCaisse journalCaisse =  new JournalCaisse(null, Constante.caisseCentraleBP,null , "Régularisation facture "+this.getId(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, montant);
+        avoirFC.libererPaiement(montant,"Régularisation de l'avoir "+avoirFC.getId()+" pour facture "+this.getId(), u, con);
+        JournalCaisse journalCaisse =  new JournalCaisse(null, Constante.caisseCentraleBP,null , "Régularisation facture à partir avoir "+avoirFC.getId(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, montant);
+        journalCaisse.setIdplacement(this.getId());
         journalCaisse.setTiers(this.getTiers());
         journalCaisse.createObject(u, con);
+        journalCaisse.validerObject(u, con);
         PaiementFacture paiementFacture = new PaiementFacture(journalCaisse.getId(),this.id,montant);
         paiementFacture.createObject(u, con);
         PaiementFCAvoir paiementFCAvoir = new PaiementFCAvoir(paiementFacture.getId(),avoirFC.getId());
