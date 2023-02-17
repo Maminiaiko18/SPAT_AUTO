@@ -150,7 +150,7 @@
                         <tr>
                             <td><%=Utilitaire.champNull(ca.getLibelle())%></td>
                             <td align="right">
-                                <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&mois2=<%=moisAvant%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&mois2=<%=moisAvant%>&annee=<%=anneeInt%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getAnciencumul())%>
                                 </a>
                             </td>
