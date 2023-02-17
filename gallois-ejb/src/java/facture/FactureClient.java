@@ -66,7 +66,7 @@ public class FactureClient extends ClassMere {
     private String idavoir,provenancelib,destinationlib,bateaulib,pavillon,pavillonlib;
     private double volume,volume100;
     private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt,idtraite,idfc,factureclientlib, idfact;
-    private double nbJours;
+    private double nbJours, montantfacture;
 
     public void setNbJours(double nbJours){
         this.nbJours=nbJours;
@@ -2519,5 +2519,13 @@ public class FactureClient extends ClassMere {
         paiementFacture.createObject(u, con);
         PaiementFCAvoir paiementFCAvoir = new PaiementFCAvoir(paiementFacture.getId(),avoirFC.getId());
         paiementFCAvoir.createObject(u,con);
+    }
+
+    public double getMontantfacture() {
+        return montantfacture;
+    }
+
+    public void setMontantfacture(double montantfacture) {
+        this.montantfacture = montantfacture;
     }
 }
