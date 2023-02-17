@@ -93,6 +93,8 @@
     tab = "inc/" + tab + ".jsp";
     String bute = "treso/journalcaisse-fiche.jsp";
     JournalCaisseLibComplet base = (JournalCaisseLibComplet)pc.getBase();
+    pc.getChampByName("idTraite").setLibelle("Traite");
+    pc.getChampByName("idTraite").setLien((String) session.getValue("lien") + "?but=facture/traite-fiche.jsp", "id=");
 
 %>
 
