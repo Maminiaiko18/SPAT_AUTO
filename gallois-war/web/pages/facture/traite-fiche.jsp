@@ -47,6 +47,8 @@
         map.put(tab, "active");
         tab = "inc/" + tab + ".jsp";
         String montant = java.net.URLEncoder.encode(new DecimalFormat("###.##").format(traite.getTotal()), "UTF-8");
+        pc.getChampByName("etatversementlib").setLibelle("Etat versement");
+        pc.getChampByName("etatversement").setVisible(false);
 %>
 
 <style>

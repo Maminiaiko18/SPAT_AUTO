@@ -31,6 +31,8 @@ public class Traite extends ClassEtat {
     String idtypepiece;
     String idfinaledestination;
     String idbanque, typepiece, etatlib;
+    int etatversement;
+    String etatversementlib;
 
 
     public String getIdbanque() {
@@ -392,5 +394,21 @@ public class Traite extends ClassEtat {
 
     public void setEtatlib(String etatlib) {
         this.etatlib = etatlib;
+    }
+
+    public int getEtatversement() {
+        return etatversement;
+    }
+
+    public void setEtatversement(int etatversement) {
+        this.etatversement = etatversement;
+    }
+
+    public String getEtatversementlib() {
+        return etatversementlib;
+    }
+
+    public void setEtatversementlib(String etatversementlib) {
+        this.etatversementlib = etatversementlib;
     }
 }
