@@ -7,6 +7,7 @@ package mg.spat;
 
 import bean.AdminGen;
 import bean.CGenUtil;
+import fin.Coursdevise;
 import java.sql.Connection;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -192,6 +194,13 @@ public class EtatCA {
         this.calculerHashMapPartiel();
     }
     
+    public EtatCA(int mois, int annee, boolean estGroupeAncien,String devise) throws Exception {
+        CA[] tout = getCACpl(mois, annee, devise);
+        this.calculCATotal(tout);
+        this.calculerTauxEtHashMap(tout);
+        this.calculerHashMapPartiel();
+    }
+    
     public EtatCA(String mois, String annee, boolean estGroupeAncien) {
         
     }
@@ -300,7 +309,52 @@ public class EtatCA {
         } finally{
             if(c != null) c.close();
         }
-    } 
+    }
+    
+    public Coursdevise getCoursDevise(String devise, Connection c)throws Exception{
+        if(devise!=null && devise.isEmpty()==false){
+            String awhere = " and iddevise = '%s' and daty <= '%s' order by daty desc";
+            Coursdevise[] coursc = (Coursdevise[]) CGenUtil.rechercher(new Coursdevise(), null, null, c, String.format(awhere, devise, Utilitaire.dateDuJour()));
+            if(coursc.length>0)return coursc[0];
+        }
+        return null;
+    }
+    
+    public CA[] getCACpl(int mois, int annee,String devise) throws Exception{
+        Connection c = null;
+        try{
+            c = new UtilDB().GetConn();
+            CA base = new CA();
+            base.setNomTable("CompteCAFactAvoir_grp");
+            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " and mois<="+mois+" order by mois asc, compte asc");
+            Coursdevise coursDevise=this.getCoursDevise(devise, c);
+            for(int i=0;i<result.length;i++){
+                result[i].convertirDevise(coursDevise);
+            }
+            String[] listeCompte=AdminGen.getDistinct(result, "compte");
+            HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
+            base.setNomTable("factureClientMAGroupe");
+            CA[] resultNombre = (CA[]) CGenUtil.rechercher(base, null, null, c, " and mois="+mois+" and annee="+annee);
+            if(resultNombre.length>0)
+            {
+                this.setNbFactComptant(resultNombre[0].getNbComptant());
+                this.setNbFactCredit(resultNombre[ 0].getNbCredit());
+            }
+            
+            CA[] tabCA = new CA[mapCA.size()];
+            int i = 0;
+            if(tabCA==null||tabCA.length==0)return null;
+            for(String key: listeCompte){
+                tabCA[i] = mapCA.get(key);
+                i++;
+            }
+            return tabCA;
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(c != null) c.close();
+        }
+    }
     public int getNbFactureTotal()
     {
         return this.getNbFactComptant()+this.getNbFactCredit();

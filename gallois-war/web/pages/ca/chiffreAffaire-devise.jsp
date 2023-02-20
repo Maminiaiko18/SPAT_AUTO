@@ -11,6 +11,7 @@
 
         String mois = request.getParameter("mois");
         String annee = request.getParameter("annee");
+        String idDevise = request.getParameter("devise");
 
         if (mois == null || mois.trim().isEmpty()) {
             mois = "" + Utilitaire.getMoisEnCoursReel();
@@ -34,7 +35,7 @@
 
         String moisEnLettre = (String) moisL.getValeurBrute()[moisAvant];
 
-        EtatCA etatCA = new EtatCA(Integer.parseInt(mois), Integer.parseInt(annee), false);
+        EtatCA etatCA = new EtatCA(Integer.parseInt(mois), Integer.parseInt(annee), false, idDevise);
         Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
         Map<String, CA> sommePartiel = etatCA.getSommePartiel();
         CA totalGeneral = etatCA.getTotalGeneral();
@@ -94,10 +95,10 @@
                                     <input name="annee" type="textbox" class="form-control" id="annee" value="<%=annee%>" onkeydown="return searchKeyPress(event)" tabindex="3">
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="mois">Mois</label>
-                                    <select class="form-control" >
+                                    <label for="devise">Devise</label>
+                                    <select class="form-control" name="devise">
                                         <% for(int i = 0 ; i<listeDevise.length ; i++) { %>
-                                        <option value="<%= listeDevise[i].id %>"><%= listeDevise[i].val %></option>
+                                        <option value="<%= listeDevise[i].id %>" <%if(request.getParameter("devise")!=null && listeDevise[i].getId().equals(request.getParameter("devise"))){out.print("selected");}%>><%= listeDevise[i].val %></option>
                                         <% } %>
                                     </select>
                                 </div>
@@ -107,7 +108,7 @@
                             <div class="row"></div>
                             <div class="row">
                                 <div class="col-xs-4" align="center">
-                                    <button type="reset" class="btn btn-default" tabindex="33">R�initialiser</button>
+                                    <button type="reset" class="btn btn-default" tabindex="33">R&eacute;initialiser</button>
                                 </div>
                                 <div class="col-xs-4" align="center">
                                     <input name="afficher" value="Afficher" type="submit" class="btn" style="background:#103a8e; color:white" id="btnListe" tabindex="34">

@@ -5,8 +5,11 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
+import fin.Coursdevise;
 import java.sql.Connection;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -230,5 +233,16 @@ public class CA extends ClassMAPTable {
     public String getAttributIDName() {
         return "";
     }
+    
+    public void convertirDevise(Coursdevise devise){
+        if(devise!=null){
+            this.setComptant(this.getComptant()/devise.getMontant());
+            this.setCredit(this.getCredit()/devise.getMontant());
+            this.setAvoir(this.getAvoir()/devise.getMontant());
+            this.setMontant(this.getMontant()/devise.getMontant());
+        }
+    }
+    
+    
     
 }
