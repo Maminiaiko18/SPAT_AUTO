@@ -2686,7 +2686,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("montant", Utilitaire.formaterAr((engagement.getMontant())));
                 param.put("avant", Utilitaire.formaterAr(engagement.getDispoAvant()));
                 param.put("apres", Utilitaire.formaterAr(engagement.getDispoApres()));
-                param.put("observation", engagement.getObservation());
+                param.put("observation", Utilitaire.champNull(engagement.getObservation()));
             }
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
