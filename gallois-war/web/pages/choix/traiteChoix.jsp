@@ -19,7 +19,7 @@
     if(request.getParameter("idtiers") != null)
         pr.setAWhere(" and cdclt = '" + request.getParameter("idtiers") + "'");
     if(request.getParameter("traite") != null)
-        pr.setAWhere(" and montantreste > 0");
+        pr.setAWhere(" and montantreste > 0 and etat = 11");
     
     pr.setChampReturn(champReturn);
     String[] colSomme = null;

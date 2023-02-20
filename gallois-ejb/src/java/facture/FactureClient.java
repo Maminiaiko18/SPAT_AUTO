@@ -28,6 +28,7 @@ import avoir.AvoirFC;
 import bean.AdminGen;
 import bean.ClassFille;
 import bean.ValidationException;
+import ded.OrdonnerPayement;
 import fin.Coursdevise;
 import java.util.List;
 import mg.spat.ClientCategorie;
@@ -65,7 +66,7 @@ public class FactureClient extends ClassMere {
     private String idavoir,provenancelib,destinationlib,bateaulib,pavillon,pavillonlib;
     private double volume,volume100;
     private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt,idtraite,idfc,factureclientlib, idfact;
-    private double nbJours;
+    private double nbJours, montantfacture;
 
     public void setNbJours(double nbJours){
         this.nbJours=nbJours;
@@ -2493,4 +2494,38 @@ public class FactureClient extends ClassMere {
         this.idfact = idfact;
     }
 
+
+    public void payerAPartirAvoirs(AvoirFC[] avoirFCs,double montant,String u,Connection con) throws Exception{
+        
+        double montantReste = montant;
+        for(AvoirFC avoirFC : avoirFCs){
+            montantReste = montantReste - avoirFC.getMontantreste();
+            double montantAPayer = montantReste > 0 ? avoirFC.getMontantreste() : avoirFC.getMontantreste() + montantReste;
+            this.payerAPartirAvoir(avoirFC,montantAPayer,u,con);
+            if(montantReste <= 0){
+                break;
+            }
+        }
+    }
+        
+    public void payerAPartirAvoir(AvoirFC avoirFC, double montant, String u,Connection con) throws Exception{
+        avoirFC.libererPaiement(montant,"Régularisation de l'avoir "+avoirFC.getId()+" pour facture "+this.getId(), u, con);
+        JournalCaisse journalCaisse =  new JournalCaisse(null, Constante.caisseCentraleBP,null , "Régularisation facture à partir avoir "+avoirFC.getId(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, montant);
+        journalCaisse.setIdplacement(this.getId());
+        journalCaisse.setTiers(this.getTiers());
+        journalCaisse.createObject(u, con);
+        journalCaisse.validerObject(u, con);
+        PaiementFacture paiementFacture = new PaiementFacture(journalCaisse.getId(),this.id,montant);
+        paiementFacture.createObject(u, con);
+        PaiementFCAvoir paiementFCAvoir = new PaiementFCAvoir(paiementFacture.getId(),avoirFC.getId());
+        paiementFCAvoir.createObject(u,con);
+    }
+
+    public double getMontantfacture() {
+        return montantfacture;
+    }
+
+    public void setMontantfacture(double montantfacture) {
+        this.montantfacture = montantfacture;
+    }
 }

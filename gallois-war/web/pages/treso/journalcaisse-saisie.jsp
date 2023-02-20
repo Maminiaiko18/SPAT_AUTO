@@ -205,6 +205,9 @@
             pi.getFormu().getChamp("idplacement").setDefaut(null);
         }*/
         pi.setLien((String) session.getValue("lien"));
+        pi.getFormu().getChamp("idtraite").setVisible(false);
+        pi.getFormu().getChamp("etatversement").setVisible(false);
+        pi.getFormu().getChamp("idfinaledestination").setVisible(false);
         pi.preparerDataFormu();
 %>
 %>

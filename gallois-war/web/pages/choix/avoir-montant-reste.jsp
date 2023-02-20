@@ -9,12 +9,12 @@
     String criteria = "";
     String champReturn = request.getParameter("champReturn");
     AvoirFC avoirFc = new AvoirFC();
-    avoirFc.setNomTable("AVOIRFC_MONTANT");
+    avoirFc.setNomTable("avoirfc_montant_regroup_v");
     String tiers = "";
 
-    String listeCrt[] = {"id","DATY","CATEGORIELIB","MOTIFLIB","CODE" ,"TYPELIB","DESIGNATION","MONTANT","MONTANTPAYE","MONTANTRESTE","CDCLT"};
+    String listeCrt[] = {"id","DATY","CATEGORIELIB","MOTIFLIB","code" ,"TYPELIB","designation"};
     String listeInt[] = {"daty"};
-    String libEntete[] = {"id","daty","tierslib","categorielib","motiflib","code" ,"typelib","designation","montant","montantpaye","montantreste","cdclt"};
+    String libEntete[] = {"id","daty","tierslib","categorielib","motiflib","code" ,"typelib","designation","montant","montantpaye","montantreste","tierslib"};
    
     PageRechercheChoix pr = new PageRechercheChoix(avoirFc, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -37,6 +37,9 @@
     }
     
     criteria += " and montantreste > 0";
+    pr.getFormu().getChamp("CATEGORIELIB").setLibelle("Categorie");
+    pr.getFormu().getChamp("MOTIFLIB").setLibelle("Motif");
+    pr.getFormu().getChamp("TYPELIB").setLibelle("Type");
     
     pr.setAWhere(criteria);
     pr.setChampReturn(champReturn);
@@ -68,7 +71,7 @@
                 <form action="../<%=pr.getLien()%>?but=choixMultiple/apresChoixMultiple.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <% 
-                        String libEnteteAff[] =   {"id","Date","Tiers","Catégorie","Motif","code" ,"type","Designation","Montant","Montant payé","Montant reste","Code Client"};
+                        String libEnteteAff[] =   {"id","Date","Tiers","Catégorie","Motif","code" ,"type","Designation","Montant","Montant payé","Montant reste","Tiers"};
                         pr.getTableau().setLibeEntete(libEnteteAff);
                         out.println(pr.getTableau().getHtmlWithMultipleCheckbox()); %>
                 </form>

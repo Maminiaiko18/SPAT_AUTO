@@ -8,7 +8,7 @@
 <%
     try {
         AvoirFC ff = new AvoirFC();
-        String[] etatVal = {"avoirFC_montant", "avoirFC_montant_C", "avoirFC_montant_V"};
+        String[] etatVal = {"AVOIRFC_MONTANT_REGROUP", "AVOIRFC_MONTANT_REGROUP_C", "AVOIRFC_MONTANT_REGROUP_V"};
         String[] etatAff = {"Tous", "Créé", "Visé"};
         ff.setNomTable(etatVal[0]);
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {

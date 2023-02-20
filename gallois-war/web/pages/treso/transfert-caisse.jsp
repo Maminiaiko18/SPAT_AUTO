@@ -45,25 +45,26 @@
         if (request.getParameter("idTraite") != null) {
             pi.getFormu().getChamp("idTraite").setDefaut(request.getParameter("idTraite"));
         }
-        affichage.Champ[] liste = new affichage.Champ[3];
+        affichage.Champ[] liste = new affichage.Champ[3]; ///////
         Caisse listedepart = new Caisse();
         listedepart.setNomTable("caisse");
 
         Caisse listearriver = new Caisse();
         listearriver.setNomTable("caisse");
 
+       
+        
         if (request.getParameter("caissedepart") != null) {
             listedepart.setNomTable(request.getParameter("caissedepart"));
         }
 
         liste[0] = new Liste("caissedepart", listedepart, "val", "id");
         liste[1] = new Liste("caissearrivee", listearriver, "val", "id");
-
         TypeObjet liste2 = new TypeObjet();
         liste2.setNomTable("MODEPAIEMENT");
         liste[2] = new Liste("modepaiement", liste2, "val", "id");
+        
         pi.getFormu().changerEnChamp(liste);
-
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idTraite").setLibelle("Traite");
         pi.getFormu().getChamp("idTraite").setAutre("readonly");
@@ -71,6 +72,7 @@
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("remarque").setVisible(false);
         pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
+        
         pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv&eacute;e");
 
         if (request.getParameter("idTraite") != null) {

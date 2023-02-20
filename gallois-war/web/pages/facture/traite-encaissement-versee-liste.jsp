@@ -8,11 +8,11 @@
     try {
 
         MvttIntraCaisse eng = new MvttIntraCaisse();
-        eng.setNomTable("MvtIntraCaisse");
+        eng.setNomTable("MVTINTRACAISSETRAITEV");
 
-        String listeCrt[] = {"id", "designation","idTraite","daty", "caissedepart", "caissearrivee","modepaiement","montant"};
-        String listeInt[] = {"daty","montant"};
-        String libEntete[] = {"id", "designation","idTraite","daty", "caissedepart", "caissearrivee","modepaiement","montant","remarque","etat"};
+        String listeCrt[] = {"id", "designation","idTraite","daty", "caissedepart", "caissearrivee","modepaiement","montant","dateecheance"};
+        String listeInt[] = {"daty","montant","dateecheance"};
+        String libEntete[] = {"id", "designation","idTraite","daty", "caissedepartlib", "caissearriveelib","modepaiementlib","montant","remarque","etatlib"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -21,6 +21,8 @@
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
         pr.getFormu().getChamp("montant1").setLibelle("Montant Min");
         pr.getFormu().getChamp("montant2").setLibelle("Montant Max");
+        pr.getFormu().getChamp("dateecheance1").setLibelle("Date &Eacute;ch&eacute;ance Min");
+        pr.getFormu().getChamp("dateecheance2").setLibelle("Date &Eacute;ch&eacute;ance Max");
         pr.getFormu().getChamp("caissedepart").setLibelle("Caisse Depart");
         pr.getFormu().getChamp("caissearrivee").setLibelle("Caisse Arrivee");
         pr.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");

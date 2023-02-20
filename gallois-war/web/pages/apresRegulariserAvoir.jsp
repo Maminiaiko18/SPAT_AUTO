@@ -23,7 +23,8 @@
         id = request.getParameter("id");
 
         if (acte != null && acte.compareToIgnoreCase("regulariser") == 0) {
-            String idavoirs = request.getParameter("idavoir").replace(';', ',');
+            String idavoirs = request.getParameter("idavoir");
+            idavoirs = idavoirs.substring(0,idavoirs.length()-1);
             double m = Utilitaire.stringToDouble(request.getParameter("montant"));
             (new FactureClientAvoir(id, idavoirs, m)).payerAvoirFacture(u.getUser().getTuppleID());
 %>

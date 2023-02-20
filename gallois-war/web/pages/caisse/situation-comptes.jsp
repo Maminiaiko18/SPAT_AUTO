@@ -111,7 +111,7 @@
                                         <a href="#" style="color:white;">NOM BANQUE</a>
                                     </th>
                                     <th align="center" valign="top" style="background-color:#103a8e" rowspan="2" class="th-center">
-                                        <a href="#" style="color:white;">SOLDE INITIAL</a>
+                                        <a href="#" style="color:white;">SOLDE DU <%=Utilitaire.ajoutJourDateString(Utilitaire.stringDate(daty2), -1)%></a>
                                     </th>
                                     <th align="center" valign="top" style="background-color:#103a8e" colspan="2" class="th-center">
                                         <a href="#" style="color:white;">MOUVEMENTS</a>

@@ -640,11 +640,6 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if (this.getTypemvt() != null && this.getTypemvt().compareToIgnoreCase(Constante.financeTypeAnnulation) == 0) {
                 return;
             }
-            
-            if((this.getIdmode().compareToIgnoreCase(Constante.getTraite()) == 0 && this.getCaisse().compareToIgnoreCase(Constante.getCaisseTraite())!=0)||(this.getIdmode().compareToIgnoreCase(Constante.getTraite()) != 0 && this.getCaisse().compareToIgnoreCase(Constante.getCaisseTraite())==0)){
-
-                throw new Exception("Paiement avec mode de paiement traite - caisse traite");
-            }
             if(this.getIdordre()==null){
                 
                 if(this.getIdplacement() != null) {

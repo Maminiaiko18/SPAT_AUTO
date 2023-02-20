@@ -19,7 +19,7 @@
     UserEJB u = (user.UserEJB) session.getValue("u");
     
     AvoirFC e = new AvoirFC();
-    e.setNomTable("avoirFC_montant");
+    e.setNomTable("AVOIRFC_MONTANT_REGROUP");
     PageConsulte pc = new PageConsulte(e, request, u);
     pc.setTitre("FICHE AVOIR FACTURE CLIENT");
     
