@@ -560,7 +560,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
 
     public void setDateSaisie(Date dateSaisie) {
-        if (this.getMode().equals("modif")) {
+        if (this.getMode().equals("modif")&&dateSaisie==null) {
             dateSaisie = Utilitaire.string_date("YYYY-MM-dd", Utilitaire.dateDuJour());
         }
         this.dateSaisie = dateSaisie;

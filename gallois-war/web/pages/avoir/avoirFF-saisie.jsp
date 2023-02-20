@@ -57,7 +57,7 @@
                 pi.getFormufle().getChamp("montantdf_" + i).setDefaut("" + data[i].getMontantTTC());
                 pi.getFormufle().getChamp("devise_"+i).setDefaut(data[i].getDevise());
                 pi.getFormufle().getChamp("designation_" + i).setDefaut(data[i].getDesignation());
-                pi.getFormufle().getChamp("remise_" + i).setDefaut("100");
+                //pi.getFormufle().getChamp("remise_" + i).setDefaut("100");
             }
         }
 
@@ -75,7 +75,7 @@
 
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
         pi.getFormu().getChamp("motif").setVisible(false);;
-        pi.getFormu().getChamp("categorie").setLibelle("Catégorie");
+        pi.getFormu().getChamp("categorie").setLibelle("Catï¿½gorie");
         pi.getFormu().getChamp("code").setVisible(false);
 
         affichage.Liste[] liste = new affichage.Liste[2];
@@ -121,7 +121,7 @@
             pi.getFormufle().getChamp("iddetailfacture_" + i).setPageAppel("choix/listeFactureFournisseurDetails.jsp", "iddetailfacture_"+i+";iddetailfacturelibelle_"+i+";designation_"+i+";devise_"+i);            
         }
         
-        pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Détail Facture");
+        pi.getFormufle().getChamp("iddetailfacture_0").setLibelle("Dï¿½tail Facture");
         pi.getFormufle().getChamp("idmere_0").setLibelle("Mere");
         pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
         pi.getFormufle().getChamp("Compte_0").setLibelle("Compte");

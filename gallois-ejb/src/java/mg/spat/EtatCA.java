@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import utilitaire.UtilDB;
 
 /**
@@ -121,9 +122,9 @@ public class EtatCA {
         int taillecas = cas.length;
 
         for(int i = 0;i< taillecas;i++){
-            
+            //System.out.println("numero du compte "+cas[i].getCompte());
             if ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee()))){
-                
+              //  System.out.println("Niditra IFFF");
 
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
@@ -163,6 +164,7 @@ public class EtatCA {
             }
             
             else if (cas[i].getMois()==mois && cas[i].getAnnee()== annee&&cas[i].getMoisFact()==cas[i].getMois()&&cas[i].getAnneeFact()==annee){
+                //System.out.println("NIditra Else IFFF");
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     temp.setAvoirEETP(temp.getAvoirEETP()+cas[i].getAvoir());
@@ -269,7 +271,7 @@ public class EtatCA {
             c = new UtilDB().GetConn();
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
-            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " order by mois asc, compte asc");
+            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " and mois<="+mois+" order by mois asc, compte asc");
             String[] listeCompte=AdminGen.getDistinct(result, "compte");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
             base.setNomTable("factureClientMAGroupe");
@@ -283,7 +285,12 @@ public class EtatCA {
             CA[] tabCA = new CA[mapCA.size()];
             int i = 0;
             if(tabCA==null||tabCA.length==0)return null;
+            /*for(Map.Entry map:mapCA.entrySet())
+            {
+                System.out.println("Anaty MAP "+map.getKey());
+            }*/
             for(String key: listeCompte){
+                //System.out.println("i= "+i+" cleee  "+key);
                 tabCA[i] = mapCA.get(key);
                 i++;
             }
