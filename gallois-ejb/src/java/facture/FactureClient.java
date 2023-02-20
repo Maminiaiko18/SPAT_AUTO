@@ -1655,6 +1655,30 @@ public class FactureClient extends ClassMere {
         }
     }
 
+    public boolean checkPaiement(Connection c) throws Exception {
+        boolean isOpen = false;
+        boolean retour = false;
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                isOpen = true;
+            }
+            PaiementFacture pf = new PaiementFacture();
+            pf.setNomTable("paiementfacturef");
+            String awhere = String.format(" and IDFACT = '%s' ", this.getId());
+            PaiementFacture[] result = (PaiementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
+            if(result.length > 0 ) retour = true;
+            return retour;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && isOpen) {
+                c.close();
+            }
+        }
+    }
+
     public BonDeLivraisonClient[] getBonDeLivraison(Connection c) throws Exception {
 
         boolean isOpen = false;
