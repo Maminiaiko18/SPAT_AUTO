@@ -713,7 +713,7 @@ public class EtatPaieServlet extends HttpServlet {
 
     private void pieceDeCaiseDepense(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-
+            
             String idop = request.getParameter("idop");
             OrdonnerPayement op = new OrdonnerPayement();
             op.setNomTable("OrdonnerPayement_LIB");
@@ -724,6 +724,8 @@ public class EtatPaieServlet extends HttpServlet {
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
             JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, " ");
+            
+            System.out.println("here is what you deserve = " + tabJournal.length);
 
             param.put("facture_lib", tabJournal[0].getLibelle());
 
@@ -760,11 +762,11 @@ public class EtatPaieServlet extends HttpServlet {
                 if (tabLiaison.length > 0) {
                     param.put("facture_montant", tabLiaison[0].getMontant());
                 }
-            } else {
+            } 
+//            else {
 
 //                System.out.println("=================================   3 ======================================");
                 if (tabJournal.length > 0) {
-
                     param.put("daty", tabJournal[0].getDateEffet());
                     param.put("montant", tabJournal[0].getDebit());
                     String montantString = String.valueOf((long) tabJournal[0].getDebit());
@@ -777,7 +779,7 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("num_piece", tabJournal[0].getNumPiece());
                 }
 
-            }
+//            }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("piece_de_caisse_depenses");
             UtilitaireImpression.imprimer(request, response, "piece_de_caisse_depenses", param, new ArrayList(),
