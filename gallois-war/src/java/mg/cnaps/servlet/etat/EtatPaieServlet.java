@@ -228,6 +228,9 @@ public class EtatPaieServlet extends HttpServlet {
             } else if (action.equalsIgnoreCase("imprimerTransfertCaisse")) {
                 imprimerTransfertCaisse(request, response);
             }
+            else if (action.equalsIgnoreCase("impressionAC")) {
+                imprimerAClient(request, response);
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -3271,10 +3274,40 @@ public class EtatPaieServlet extends HttpServlet {
             UtilitaireImpression.imprimer(request, response, "transfert_caisse", param, dataSource, getReportPath());
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         }
     }
 
+    public void imprimerAClient(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String tiers = request.getParameter("tierslib");
+            String daty1=request.getParameter("date1");
+            String daty2=request.getParameter("date2");
+            
+            String requete="";
+            if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
+                requete = requete + String.format(" and daty >= TO_DATE('%s','DD/MM/YYYY')", daty1);
+            }
+            if (daty2 != null && !daty2.trim().isEmpty() && daty2.compareToIgnoreCase("null") != 0) {
+                requete = requete + String.format(" and daty <= TO_DATE('%s','DD/MM/YYYY')", daty2);
+            }
+            if (tiers != null && !tiers.trim().isEmpty() && tiers.compareToIgnoreCase("null") != 0) {
+                requete += " and upper(tierslib) like upper('%" + tiers + "%')";
+            }
+            //System.out.println("requete :"+requete);
+            FactureClient mc = new FactureClient();
+            mc.setNomTable("FACTURE_CLIENT_UNIONV");
+            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(mc, null, null, requete);
+            Map param = new HashMap();
+            List dataSource = new ArrayList();
+            dataSource.addAll(Arrays.asList(mere));
+            setNomJasper("Analyse_Client");
+            UtilitaireImpression.imprimer(request, response, "Facture_Client", param, dataSource, getReportPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /*private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
