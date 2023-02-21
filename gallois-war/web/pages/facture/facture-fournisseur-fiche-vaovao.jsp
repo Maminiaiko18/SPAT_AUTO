@@ -124,6 +124,7 @@
         map.put("paiementFF", "");
         map.put("regularisationFF", "");
         map.put("etatprovision", "");
+        map.put("additif-liste", "");
 //        map.put("activite", "");
 //        map.put("facturesdefinitives", "");
 //        map.put("provision-facturesdefinitives", "");
@@ -300,6 +301,7 @@
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("facture-fournisseur-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-fournisseur-fille&idmere=<%=e.getId()%>">D&eacute;tails facture client</a></li>
                     <li class="<%= map.get("avoirFF-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=avoirFF-liste">Facture avoir</a></li>
+                    <li class="<%= map.get("additif-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=additif-liste">Additif</a></li>
                     
                     <li class="<%= map.get("paiementFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfact=<%=e.getId()%>&tab=paiementFF">Paiement</a></li>
                     <% if (e.getIdcategorie().equals(Constante.getCategorieFFBP())) {%>
