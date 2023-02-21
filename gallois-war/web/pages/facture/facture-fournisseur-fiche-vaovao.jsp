@@ -228,6 +228,7 @@
                     <p>
 
                         <a class="btn"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFF-saisie.jsp&idfacture=" + e.getId()%>&type=2" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir</a>
+                        <a class="btn btn-success pull-right" href="<%=(String) session.getValue("lien") + "?but=additif/additif-saisie.jsp&idfacture="+ e.getId()%>" >Additif</a>
                     </p>
                     <hr>
                     <p>
