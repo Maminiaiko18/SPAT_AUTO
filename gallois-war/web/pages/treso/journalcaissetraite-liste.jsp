@@ -20,7 +20,7 @@
         }
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
-        pr.getFormu().getChamp("libelle").setLibelle("Libellé");
+        pr.getFormu().getChamp("libelle").setLibelle("Libellï¿½");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         String[] colSomme = {"debit"};
         pr.creerObjetPage(libEntete, colSomme);
@@ -32,24 +32,23 @@
         <h1>Journal Traite</h1>
     </section>
     <section class="content">
+        <%  
+            String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
+            String colonneLien[] = {"id"};
+            pr.getTableau().setLien(lienTableau);
+            pr.getTableau().setColonneLien(colonneLien);
+        %>
+        <br/>
         <form action="<%=pr.getLien()%>?but=treso/journalcaissetraite-liste.jsp" method="post" name="incident" id="incident">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
+                out.println(pr.getTableauRecap().getHtml());
             %>
             
         </form>
 
-        <%  
-            /*String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
-            String colonneLien[] = {"id"};
-            pr.getTableau().setLien(lienTableau);
-            pr.getTableau().setColonneLien(colonneLien);
-            out.println(pr.getTableauRecap().getHtml());*/
-        %>
-        <br/>
-
         <%
-            String libEnteteAffiche[] = {"Id", "Folio","Type", "Num Piece", "num cheque", "Libellé", "Date Saisie", "Date Effet", "Entrée", "Sortie","Source"};
+            String libEnteteAffiche[] = {"Id", "Folio","Type", "Num Piece", "num cheque", "Libellï¿½", "Date Saisie", "Date Effet", "Entrï¿½e", "Sortie","Source"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             //pr.getTableau().construire_libelle(champ, libelle_comp);
             out.println(pr.getTableau().getHtml());
