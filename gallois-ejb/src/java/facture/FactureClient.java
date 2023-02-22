@@ -332,7 +332,7 @@ public class FactureClient extends ClassMere {
         if(this.getType().equals(factureClient.getType())==false && this.getEstAncienne()!=1){
             this.setCode(this.calculerCode(c));
         }
-        //if(this.getEstAncienne()!=1)this.checkCode(c);
+        if(this.getEstAncienne()!=1)this.checkCode(c);
     }
     
     public String getCodeFiltre() {
@@ -1568,7 +1568,7 @@ public class FactureClient extends ClassMere {
         this.setNomClasseFille("facture.FactureClientDetails");
         this.setIduser(iduser);
         this.setId(null);
-        //if(this.getEstAncienne()!=1)this.setCode(calculerCode(cnctn));
+        if(this.getEstAncienne()!=1)this.setCode(calculerCode(cnctn));
         return super.createObject(iduser, cnctn);
     }
 
