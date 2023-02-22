@@ -6,6 +6,8 @@
 package mg.spat;
 
 import bean.ClassMAPTable;
+import utilitaire.Utilitaire;
+
 import java.sql.Connection;
 
 /**
@@ -59,6 +61,7 @@ public class MvtIntraCaisseFille extends ClassMAPTable{
     }
 
     public String getRemarque() {
+        if(remarque!=null) return Utilitaire.formaterAr(remarque);
         return remarque;
     }
 
