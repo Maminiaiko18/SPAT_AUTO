@@ -195,6 +195,8 @@ public class EtatPaieServlet extends HttpServlet {
                 listefactureClient(request, response);
             } else if (action.equalsIgnoreCase("impressionCA")) {
                 impressionCA1(request, response);
+            } else if (action.equalsIgnoreCase("impressionCA_devise")) {
+                impressionCA_devise(request, response);
             } else if (action.equalsIgnoreCase("rubrique_activite")) {
                 rubrique_activite_pdf(request, response);
             } else if (action.equalsIgnoreCase("coursdevise")) {
@@ -2208,6 +2210,63 @@ public class EtatPaieServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+     public void impressionCA_devise(HttpServletRequest request, HttpServletResponse response) {
+         try {
+            String mois = request.getParameter("mois");
+            String annee = request.getParameter("annee");
+            String devise = request.getParameter("devise");
+            if (mois == null || mois.trim().isEmpty() || mois.compareToIgnoreCase("null") == 0) {
+                mois = "" + Utilitaire.getMoisEnCoursReel();
+            }
+            if (annee == null || annee.trim().isEmpty() || annee.compareToIgnoreCase("null") == 0) {
+                annee = "" + Utilitaire.getAneeEnCours();
+            }
+            if (devise == null || devise.trim().isEmpty() || devise.compareToIgnoreCase("null") == 0) {
+                devise = "Dollars";
+            }
+
+            Liste moisL = new Liste("mois");
+            moisL.makeListeMois();
+            moisL.setDefaut("" + mois);
+            EtatCA etatCA = new EtatCA(Integer.parseInt(mois), Integer.parseInt(annee), false, devise);
+             List dataSource = new ArrayList();
+            //CA[] tout = etatCA.getCACpl(Integer.parseInt(mois), Integer.parseInt(annee));
+            Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
+            Map<String, CA> sommePartiel = etatCA.getSommePartiel();
+            CA totalGeneral = etatCA.getTotalGeneral();
+            List result = new ArrayList();
+            if (listeParRubrique != null) {
+                /* Details */
+                for (String rubrique : listeParRubrique.keySet()) {
+                    CaPDF ca1 =null;
+                    for (CA ca : listeParRubrique.get(rubrique)) {
+                        ca1 = new CaPDF(ca);
+                        ca1.setCompteMerelib(rubrique);
+                        result.add(ca1);
+                    }
+                    //result.add(temp2);
+                }
+            }
+            
+             Map param = new HashMap();
+                param.put("avoirtaux", Utilitaire.formaterAr(etatCA.getPourcAvoir()));
+                param.put("comptanttaux", Utilitaire.formaterAr(etatCA.getPourComptant()));
+                param.put("credittaux", Utilitaire.formaterAr(etatCA.getPourcCredit()));
+                /* taux */
+                param.put("nbr", Utilitaire.formaterAr(Utilitaire.formaterAr(etatCA.getNbFactComptant())));
+                param.put("nbr2", Utilitaire.formaterAr(etatCA.getNbFactCredit()));
+                param.put("nbr3", Utilitaire.formaterAr(etatCA.getNbFactureTotal()));
+                param.put("mois", Constante.getMois()[Utilitaire.stringToInt(mois) - 1]);
+                param.put("annee", annee);
+                param.put("daty", Utilitaire.dateDuJour());
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("chiffre_affaire1");
+            UtilitaireImpression.imprimer(request, response, "chiffre d'affaires", param, result, getReportPath(), rt);
+            } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
     public void impressionCA1(HttpServletRequest request, HttpServletResponse response) {
          try {
