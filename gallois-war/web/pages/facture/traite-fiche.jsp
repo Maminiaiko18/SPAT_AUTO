@@ -41,6 +41,7 @@
         map.put("escompte-liste", "");
         map.put("fftraite-liste", "");
         map.put("jc-liste", "");
+        map.put("versement", "");
         if(tab == null) {
             tab = "fftraite-liste";
         }
@@ -87,6 +88,7 @@
                     <li class="<%= map.get("fftraite-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=fftraite-liste">Factures rattachées</a></li>
                     <li class="<%= map.get("jc-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=jc-liste">Journal caisse</a></li>
                     <li class="<%= map.get("escompte-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=escompte-liste">Escomptes</a></li>
+                    <li class="<%= map.get("versement")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=versement">Versement</a></li>
                 </ul>
                 <div class="tab-content">       
                    <jsp:include page="<%=tab%>" >  

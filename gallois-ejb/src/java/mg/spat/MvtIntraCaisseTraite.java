@@ -18,6 +18,7 @@ public class MvtIntraCaisseTraite extends MvttIntraCaisse{
     private Date datetraite; 
     private Date dateecheance;
     private double montanttraite;
+    private String finaledestinationlib;
 
     public void setDatetraite (Date datetraite){
         this.datetraite = datetraite;
@@ -45,6 +46,14 @@ public class MvtIntraCaisseTraite extends MvttIntraCaisse{
 
     public MvtIntraCaisseTraite(){
         super.setNomTable("mvtintracaissetraite");
+    }
+
+    public String getFinaledestinationlib() {
+        return finaledestinationlib;
+    }
+
+    public void setFinaledestinationlib(String finaledestinationlib) {
+        this.finaledestinationlib = finaledestinationlib;
     }
 
 }
