@@ -599,7 +599,8 @@ public class FactureFournisseur extends FactureClient {
             }
 
             Date dateDuJour = this.getDateRegul();
-            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateDuJour, dateDuJour, montant, 0, this.getId());
+            FactureFournisseur bp = (FactureFournisseur)(new FactureFournisseur()).getById(this.getIdProvision(), "factfourn_msum_lib_fiche", con);
+            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, bp.getDesignation() , null, dateDuJour, dateDuJour, montant, 0, this.getId());
             transfert.setIddevise(this.getDeviseMere());
             transfert.setIdmode(Constante.modePaiementEspece);
             transfert.setEtat(ConstanteEtat.getEtatValider());
