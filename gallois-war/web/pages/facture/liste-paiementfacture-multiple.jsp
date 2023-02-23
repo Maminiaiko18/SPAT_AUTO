@@ -29,9 +29,10 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Attacher paiement traite à la facture</h1>
+        <h1>Attacher paiement traite &agrave; la facture</h1>
     </section>
-         <form action="<%=paiements.getLien()%>?but=apresPaiementFactureTraite.jsp" method="post" name="paiementfacture" id="paiementfacture">
+    <section class="content">
+        <form action="<%=paiements.getLien()%>?but=apresPaiementFactureTraite.jsp" method="post" name="paiementfacture" id="paiementfacture">
             <input type="hidden" name="bute" value="<%=bute%>"/>
             <input type="hidden" name="acte" value="attacher"/>
             <div class="form-group row">
@@ -49,7 +50,13 @@
                 paiements.getTableau().setLibelleAffiche(libEntetePaiement);
                 paiements.getTableau().setNameActe("attacher");
                 paiements.getTableau().setNameBoutton("Attacher");
-                out.println(paiements.getTableau().getHtmlWithCheckbox());
+                if(paiements.getTableau().getHtmlWithCheckbox()==null && idtraite!=null){
+                    out.println("<center>Aucun paiement de type traite pour la facture.</center>");
+                }else{
+                    out.println(paiements.getTableau().getHtmlWithCheckbox());
+                }
             %>
          </form>
+    </section>
+         
 </div>
