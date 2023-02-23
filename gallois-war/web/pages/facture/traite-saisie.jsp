@@ -31,6 +31,7 @@
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("idtypepiece").setLibelle("Type");
+        pi.getFormu().getChamp("idtypepiece").setDefaut(Constante.getTypePieceTraite());
         pi.getFormu().getChamp("dateEcheance").setLibelle("Date d'echeance");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idfinaledestination").setVisible(false);
