@@ -2,6 +2,7 @@
 <%@page import="affichage.PageRecherche"%>
 <%@page import="facture.FactureClient"%>
 <%@page import="utilitaire.Utilitaire"%>
+<%@page import="bean.*"%>
 <%
     String idfacture = request.getParameter("idFC");
     String idtraite = request.getParameter("idTraite");
@@ -24,7 +25,9 @@
         bute = "treso/journalcaisse-fiche.jsp&id="+request.getParameter("idjc");
     }
     paiements.creerObjetPage(libEntete, colSomme);
-    String popupLink = "choix/traiteChoix.jsp?traite=true&champReturn=idTraite;idTraitelibelle&amp;apresLienPageAppel=";
+    PaiementFactureLibJc[] liste=(PaiementFactureLibJc[])paiements.getTableau().getData();
+    double sommeTotaleJc=AdminGen.calculSommeDouble(liste,"montant");
+    String popupLink = "choix/traiteChoix.jsp?traite=true&montanttotaljc="+sommeTotaleJc+"&champReturn=idTraite;idTraitelibelle&amp;apresLienPageAppel=";
 %>
 
 <div class="content-wrapper">
