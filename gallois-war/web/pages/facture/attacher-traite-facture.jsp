@@ -4,6 +4,7 @@
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
 <%@ page import="facture.tr.Traite" %>
+<%@ page import="java.net.URLDecoder" %>
 <%  
     
     try{
@@ -38,10 +39,16 @@
 
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
+    String montant = "";
+    if (request.getParameter("montant") != null) {
+        montant = java.net.URLDecoder.decode(request.getParameter("montant"), "UTF-8");
+        pi.getFormu().getChamp("montant").setDefaut(montant);
+    }
 %>
 <div class="content-wrapper">
     <h1>Attacher Traite Facture</h1>
     <form action="<%=pi.getLien() + "?but=facture/liste-paiementfacture-multiple.jsp"%>" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
+        <input type="hidden" name="montant" value="<%=montant%>"/>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());

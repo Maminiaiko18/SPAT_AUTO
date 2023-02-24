@@ -15,11 +15,11 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("traiteChoix.jsp");
+    double montantTotalJc = 0.0;
 
     if(request.getParameter("idtiers") != null)
         pr.setAWhere(" and cdclt = '" + request.getParameter("idtiers") + "'");
     if(request.getParameter("traite") != null){
-        double montantTotalJc = 0.0;
         if(request.getParameter("montanttotaljc")!=null)montantTotalJc=Double.valueOf(request.getParameter("montanttotaljc"));
         pr.setAWhere(" and montantreste > 0 and etat = 11 and montantreste>="+montantTotalJc);
     }
@@ -43,7 +43,10 @@
             </section>
             <section class="content">
                 <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="personneliste" id="personneliste">
-                    <% if(request.getParameter("traite") != null){ %><input type="hidden" name="traite" value="true"><%}%>
+                    <% if(request.getParameter("traite") != null){ %>
+                        <input type="hidden" name="traite" value="true">
+                        <input type="hidden" name="montanttotaljc" value="<%=montantTotalJc%>">
+                    <%}%>
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
                 </form>
                 <%

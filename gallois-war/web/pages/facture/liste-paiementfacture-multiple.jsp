@@ -18,7 +18,11 @@
     paiements.setUtilisateur((user.UserEJB) session.getValue("u"));
     paiements.setLien((String) session.getValue("lien"));
     paiements.setApres("facture/liste-paiementfacture-multiple.jsp");
-    paiements.setAWhere(" AND idmode in ('pay6')  AND idfact = '" + idfacture + "' AND idtraite is null");
+    String awhere = " AND idmode in ('pay6')  AND idfact = '" + idfacture + "' AND idtraite is null";
+    if(request.getParameter("montant") != null){
+        awhere += " and montant <= " + request.getParameter("montant");
+    }
+    paiements.setAWhere(awhere);
     String bute = "facture/factureclient-fiche-vaovao.jsp&id="+idfacture+"&id="+idfacture;
     if(request.getParameter("idjc")!=null){
         paiements.setAWhere(" AND idmvt = '" + request.getParameter("idjc") + "'");

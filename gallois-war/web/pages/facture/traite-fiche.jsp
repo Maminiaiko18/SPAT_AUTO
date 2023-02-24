@@ -75,7 +75,7 @@
                         <a class="btn btn-primary"  href="<%=lien + "?but=facture/escompte-saisie.jsp&idTraite="+traite.getId()%>"  style="margin-right: 10px">Escompter</a>
                         <a class="btn btn-primary"  href="<%=lien + "?but=facture/verser-traite.jsp&montant="+montant+"&caissedepart=caissetraite&idTraite=" + traite.getId()+"&banque="+traite.getBanque()%>"  style="margin-right: 10px">Verser</a>
                         <!--<a class="btn btn-primary"  href="#"  style="margin-right: 10px">Retourner</a>-->
-                        <a style="float:right" class="btn btn-primary"  href="<%=lien + "?but=facture/attacher-traite-facture.jsp&idTraite="+traite.getId()%>"  style="margin-right: 10px">Attacher Facture</a>
+                        <a style="float:right" class="btn btn-primary"  href="<%=lien + "?but=facture/attacher-traite-facture.jsp&idTraite="+traite.getId()+"&montant="+montant%>"  style="margin-right: 10px">Attacher Facture</a>
                 </div>
                 
             </div>
