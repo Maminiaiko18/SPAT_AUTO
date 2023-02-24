@@ -30,7 +30,10 @@
     pi.getFormu().getChamp("idavoir").setLibelle("Avoirs");
     pi.getFormu().getChamp("montant").setAutre("readonly");
     pi.getFormu().getChamp("idavoir").setAutre("readonly");
-    pi.getFormu().getChamp("idavoir").setPageAppelAvecFiltre("choix/avoir-montant-reste.jsp", "idavoir;idavoirlibelle", col, val);
+    pi.getFormu().getChamp("idavoir").setPageAppelAvecFiltre("choix/avoir-montant-reste.jsp", "idavoir;idavoirlibelle;montantavoir", col, val);
+    pi.getFormu().getChamp("montant").setLibelle("Montant RAP Facture");
+    pi.getFormu().getChamp("montantavoir").setLibelle("Montant Avoir");
+    pi.getFormu().getChamp("montantavoir").setAutre("readonly");
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>

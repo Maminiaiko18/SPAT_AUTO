@@ -68,7 +68,7 @@
                 <%
                     out.println(pr.getTableauRecap().getHtml());
                 %>
-                <form action="../<%=pr.getLien()%>?but=choixMultiple/apresChoixMultiple.jsp" method="post" name="frmchx" id="frmchx">
+                <form action="../<%=pr.getLien()%>?but=choix/apresChoixAvoir.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <% 
                         String libEnteteAff[] =   {"id","Date","Tiers","Catégorie","Motif","code" ,"type","Designation","Montant","Montant payé","Montant reste","Tiers"};
