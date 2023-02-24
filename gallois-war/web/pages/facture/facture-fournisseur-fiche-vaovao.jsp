@@ -85,8 +85,12 @@
         }
         if (categorie.equals(Constante.getCategorieFFBP())) {
             pc.setTitre("Fiche Bon provisoire");
+            pc.getChampByName("num").setVisible(true);
+            pc.getChampByName("num").setLibelle("Numero BP");
+
         } else {
             pc.setTitre("Fiche Facture Fournisseur");
+            pc.getChampByName("num").setVisible(false);
         } 
         pc.getChampByName("categorielib").setLibelle("Categorie");
         //pc.getChampByName("codePrestation").setVisible(false);

@@ -21,9 +21,9 @@
     }
     bonProvisoire.setNomTable(nomTable);
     
-    String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","escale","categorielib", "code"};
+    String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","num","categorielib", "code"};
     String listeInt[] = {"daty","date_echeance"};
-    String libEntete[] = {"id","daty","tierslib", "code", "escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+    String libEntete[] = {"id","daty","tierslib", "code", "num","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     PageRecherche pr = new PageRecherche(bonProvisoire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -31,7 +31,8 @@
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
-        pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
+        pr.getFormu().getChamp("categorielib").setLibelle("Catï¿½gorie");
+        pr.getFormu().getChamp("num").setLibelle("Numero BP");
         
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
@@ -109,7 +110,7 @@
             <input type="hidden" name="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
-            String libEnteteAffiche[] = {"id","daty","Client","Code", "Escale","Note explicative","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer"};
+            String libEnteteAffiche[] = {"id","daty","Client","Code", "Numero BP","Note explicative","Catï¿½gorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payï¿½","Reste ï¿½ payer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);            
@@ -118,7 +119,7 @@
             out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
         <div style="display: flex; justify-content: flex-end; align-items: center;">
-            <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
+            <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Dï¿½caisser"/>
         </div>
         </form>
          <% out.println(pr.getBasPage());%>

@@ -43,6 +43,15 @@ public class FactureFournisseur extends ClassEtat {
 	private String projetlibelle;
 	private String code_etablissementlibelle;
 	private String tierslibelle;
+    private String num;
+
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
+    }
 
     public FactureFournisseur(String numfact, Date daty, String idfournisseur, String nomfournisseur, String iddevise, double montantttc, String remarque, double idtva, String designation, Date dateemission, String resp, Date datyecheance, String idfacturefournisseur, String budget, double montantdevise, int exercice, String type, String numid) throws Exception {
         super.setNomTable("factureFournisseur");
