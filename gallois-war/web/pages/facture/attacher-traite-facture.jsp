@@ -48,7 +48,7 @@
 <div class="content-wrapper">
     <h1>Attacher Traite Facture</h1>
     <form action="<%=pi.getLien() + "?but=facture/liste-paiementfacture-multiple.jsp"%>" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
-        <input type="hidden" name="montant" value="<%=montant%>"/>
+        <% if (request.getParameter("montant") != null) { %><input type="hidden" name="montant" value="<%=montant%>"/><% } %>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());
