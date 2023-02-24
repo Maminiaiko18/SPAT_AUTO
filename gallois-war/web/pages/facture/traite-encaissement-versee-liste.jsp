@@ -1,5 +1,5 @@
 <%@page import="utilitaire.Utilitaire"%>
-<%@page import="mg.spat.MvttIntraCaisse"%>
+<%@page import="mg.spat.MvtIntraCaisseTraite"%>
 <%@page import="mg.spat.Caisse"%>
 <%@page import="bean.*"%>
 <%@page import="utilitaire.*"%>
@@ -7,7 +7,7 @@
 <%
     try {
 
-        MvttIntraCaisse eng = new MvttIntraCaisse();
+        MvtIntraCaisseTraite eng = new MvtIntraCaisseTraite();
         eng.setNomTable("MVTINTRACAISSETRAITEV");
 
         String listeCrt[] = {"id", "designation","idTraite","daty", "caissedepart", "caissearrivee","modepaiement","montant","dateecheance"};
