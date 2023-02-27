@@ -55,7 +55,7 @@
                             <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-details-saisie.jsp&idbordereau="+id%>" style="margin-right: 10px">Ajouter facture</a> 
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-modif.jsp&id=" + id %>" style="margin-right: 10px">Modifier</a>
-                             <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerSuiviBudgetaire&id=<%=id%>" style="margin-right: 10px">Imprimer SB</a>
+                             <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerSuiviBudgetaire&id=<%=id%>" style="margin-right: 10px">Imprimer FSB</a>
                            
                         </div>
                     </div>
