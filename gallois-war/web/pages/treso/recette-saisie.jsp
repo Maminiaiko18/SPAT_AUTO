@@ -4,7 +4,7 @@
 <%@ page import="user.UserEJB" %>
 <%@ page import="bean.TypeObjet" %>
 <%@ page import="bean.CGenUtil" %>
-<%@ page import="utilitaire.Utilitaire" %>
+<%@ page import="utilitaire.*" %>
 <%@ page import="affichage.PageInsert" %>
 <%@ page import="affichage.Liste" %>
 <%@page import="mg.spat.FactureAnalyse"%>
@@ -77,6 +77,7 @@
         TypeObjet mode = new TypeObjet();
         mode.setNomTable("modepaiement");
         liste[2] = new Liste("idmode", mode, "desce", "id");
+        liste[2].setDefaut(Constante.idmodeVirement);
 
         TypeObjet banq = new TypeObjet();
         banq.setNomTable("BANQUE");
@@ -85,11 +86,15 @@
         pi.getFormu().changerEnChamp(liste);
         pi.getFormu().getChamp("caisse").setLibelle("Banque");
         pi.getFormu().getChamp("iddevise").setLibelle("Devise");
+        pi.getFormu().getChamp("idbanque").setLibelle("Banque");
         pi.getFormu().getChamp("iddevise").setDefaut("Ar");
         pi.getFormu().getChamp("idmode").setLibelle("mode de paiement");
         pi.getFormu().getChamp("idplacement").setVisible(false);
         pi.getFormu().getChamp("banque").setVisible(false);
         pi.getFormu().getChamp("idplacementvrai").setVisible(false);
+        pi.getFormu().getChamp("Etatversement").setVisible(false);
+        pi.getFormu().getChamp("Idtraite").setVisible(false);
+        pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
 
 
         pi.setLien((String) session.getValue("lien"));
