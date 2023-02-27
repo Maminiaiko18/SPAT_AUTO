@@ -27,6 +27,22 @@ public class MvttIntraCaisse extends ClassEtat {
     private  JournalCaisse[] listeJournal;
     int etatversement;
     String idfinaledestination ;
+    String finaledestinationlib;
+    String etatVersementLib;
+
+    public void setEtatVersementLib(String etatVersementLib){
+        this.etatVersementLib=etatVersementLib;
+    }
+    public String getEtatVersementLib(){
+        return this.etatVersementLib;
+    }
+
+    public void setFinaledestinationlib(String finaledestinationlib){
+        this.finaledestinationlib=finaledestinationlib;
+    }
+    public String getFinaledestinationlib(){
+        return this.finaledestinationlib;
+    }
 
     public String getCaissedepartlib() {
         return caissedepartlib;
