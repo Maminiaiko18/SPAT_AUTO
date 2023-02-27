@@ -39,7 +39,7 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste de journal caisses</h1>
+        <h1>Liste de transfert</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=treso/transfert-caisse-liste.jsp" method="post" name="incident" id="incident">

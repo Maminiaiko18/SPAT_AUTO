@@ -13,7 +13,7 @@
         
         
         String[] pourcentage = {};        
-        String somDefaut[] = {"montantreste"};
+        String somDefaut[] = {"montantreste","montantttc","montantpaye"};
         String colDefaut[] = {"tierslib"};
 
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, 0);
@@ -42,6 +42,9 @@
         <%
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
+        <div class="box-footer">
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/Paie?action=impressionAC&tierslib=<%=request.getParameter("tierslib")%>&date1=<%=request.getParameter("daty1")%>&date2=<%=request.getParameter("daty2")%>" style="float:right">Imprimer</a>
+        </div>
         <%
            
             String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-liste-vaovao.jsp"};
@@ -49,7 +52,7 @@
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             
-            String libelleAffiche[] = {"Tiers","Montant reste",""};
+            String libelleAffiche[] = {"Tiers","Montant reste","Montant TTC","Montant Paye",""};
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             out.println(pr.getTableau().getHtml());
         %>

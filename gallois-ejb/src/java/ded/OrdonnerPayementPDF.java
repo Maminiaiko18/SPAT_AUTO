@@ -12,7 +12,16 @@ import utilitaire.ChiffreLettre;
  * @author Lenovo
  */
 public class OrdonnerPayementPDF extends OrdonnerPayement {
-    String adresse, montant_lettre,devise,beneficiaire,numfact, destinationlib;
+
+    String adresse, montant_lettre, devise, beneficiaire, numfact, destinationlib, deviselib;
+
+    public String getDeviselib() {
+        return deviselib;
+    }
+
+    public void setDeviselib(String deviselib) {
+        this.deviselib = deviselib;
+    }
 
     public String getDestinationlib() {
         return destinationlib;
@@ -41,7 +50,6 @@ public class OrdonnerPayementPDF extends OrdonnerPayement {
     public OrdonnerPayementPDF() {
         this.setNomTable("OrdonnerPayement");
     }
-    
 
     public OrdonnerPayementPDF(String adresse, String montant_lettre, String devise) {
         this.setNomTable("OrdonnerPayement");
@@ -59,9 +67,20 @@ public class OrdonnerPayementPDF extends OrdonnerPayement {
     }
 
     public String getMontant_lettre() {
-        String montantString = String.valueOf((int)this.getMontant());
+        String montantString = String.valueOf((int) this.getMontant());
         long montantLong = Long.valueOf(montantString);
-        this.setMontant_lettre((ChiffreLettre.convertIntToString(montantLong)+" "+this.getDevise()).toUpperCase());
+//        System.out.println("ity "+this.getDeviselib());
+//        this.setMontant_lettre((ChiffreLettre.convertIntToString(montantLong) + " " + this.getDeviselib()).toUpperCase());
+    if( this.getDevise().compareTo("Ar") == 0){
+        
+        this.setMontant_lettre((ChiffreLettre.convertIntToString(montantLong) + " ariary").toUpperCase());
+    }if( this.getDevise().compareTo("Eur") == 0){
+        
+        this.setMontant_lettre((ChiffreLettre.convertIntToString(montantLong) + " euro").toUpperCase());
+    }if( this.getDevise().compareTo("Dollars") == 0){
+        
+        this.setMontant_lettre((ChiffreLettre.convertIntToString(montantLong) + " Dollars").toUpperCase()); 
+    }
         return montant_lettre;
     }
 

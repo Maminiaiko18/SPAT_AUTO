@@ -85,8 +85,12 @@
         }
         if (categorie.equals(Constante.getCategorieFFBP())) {
             pc.setTitre("Fiche Bon provisoire");
+            pc.getChampByName("num").setVisible(true);
+            pc.getChampByName("num").setLibelle("Numero BP");
+
         } else {
             pc.setTitre("Fiche Facture Fournisseur");
+            pc.getChampByName("num").setVisible(false);
         } 
         pc.getChampByName("categorielib").setLibelle("Categorie");
         //pc.getChampByName("codePrestation").setVisible(false);
@@ -124,6 +128,7 @@
         map.put("paiementFF", "");
         map.put("regularisationFF", "");
         map.put("etatprovision", "");
+        map.put("additif-liste", "");
 //        map.put("activite", "");
 //        map.put("facturesdefinitives", "");
 //        map.put("provision-facturesdefinitives", "");
@@ -228,6 +233,7 @@
                     <p>
 
                         <a class="btn"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFF-saisie.jsp&idfacture=" + e.getId()%>&type=2" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir</a>
+                        <a class="btn btn-success pull-right" href="<%=(String) session.getValue("lien") + "?but=additif/additif-saisie.jsp&idfacture="+ e.getId()%>" >Additif</a>
                     </p>
                     <hr>
                     <p>
@@ -299,6 +305,7 @@
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("facture-fournisseur-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-fournisseur-fille&idmere=<%=e.getId()%>">D&eacute;tails facture client</a></li>
                     <li class="<%= map.get("avoirFF-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=avoirFF-liste">Facture avoir</a></li>
+                    <li class="<%= map.get("additif-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=additif-liste">Additif</a></li>
                     
                     <li class="<%= map.get("paiementFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfact=<%=e.getId()%>&tab=paiementFF">Paiement</a></li>
                     <% if (e.getIdcategorie().equals(Constante.getCategorieFFBP())) {%>

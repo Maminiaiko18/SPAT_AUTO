@@ -82,7 +82,7 @@
         }
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
         pi.getFormufle().getChamp("Reference_0").setLibelle("R&eacute;ference");
-        pi.getFormufle().getChamp("Remarque_0").setLibelle("Remarque");
+        pi.getFormufle().getChamp("Remarque_0").setLibelle("Montant");
         pi.getFormufle().getChamp("Idmere_0").setVisible(false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);

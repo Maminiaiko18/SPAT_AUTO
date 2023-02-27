@@ -25,7 +25,7 @@
         String colonneLien[] = {"id"};
         pr.getTableau().setLien(lienTableau);
         pr.getTableau().setColonneLien(colonneLien);
-        String libEnteteAffiche[] = {"ID","Reference", "Remarque"};
+        String libEnteteAffiche[] = {"ID","Reference", "Montant"};
         pr.getTableau().setLibelleAffiche(libEnteteAffiche);  
         if(pr.getTableau().getHtml() != null){
             out.println(pr.getTableau().getHtml());   

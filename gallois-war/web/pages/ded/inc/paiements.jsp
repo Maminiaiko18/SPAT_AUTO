@@ -17,10 +17,10 @@
     //String ded_id = request.getParameter("ded_id");
     
     JournalCaisse act = new JournalCaisse();
-    act.setNomTable("JournalCaisse");
+    act.setNomTable("JOURNALCAISSELIBCOMPLET");
     String listeCrt[] = {"idordre"};
     String listeInt[] = {};
-        String libEntete[] = {"id","valcaisse","numpiece", "numcheque", "libelle", "debit"};
+        String libEntete[] = {"id","valcaisse","numpiece", "DATEEFFET","numcheque", "libelle", "debit"};
     
     String awhere = "";
         
@@ -32,7 +32,7 @@
     
     pr.creerObjetPage(libEntete, colSomme);
     
-            String libEnteteAffiche[] = {"id","Caisse","N° pièce", "N° chèque", "Libellé", "Montant"};
+            String libEnteteAffiche[] = {"id","Caisse","N° pièce", "Date Effet","N° chèque", "Libellé", "Sortie"};
     String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
