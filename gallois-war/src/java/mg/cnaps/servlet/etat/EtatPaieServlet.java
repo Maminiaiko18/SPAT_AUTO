@@ -828,9 +828,9 @@ public class EtatPaieServlet extends HttpServlet {
             for (int i = 0; i < tabFact.length; i++) {
                 if (tabFact[i].getIdfact().compareToIgnoreCase(idFacture)==0) {
                     arrList.add(tabFact[i]);
-                    arrondi = 0;
                 }
             }
+            arrondi = 0;
             montantFacture = tabJournal[0].getCredit();
             totalGeneral = montantFacture;
             String montantString = String.valueOf((long) totalGeneral);
@@ -873,12 +873,6 @@ public class EtatPaieServlet extends HttpServlet {
                 }
             }
             String nomJasper = "piece_de_caisse";
-            if (tabJournal[0].getIdmode().equalsIgnoreCase("pay1") == false) {
-
-                nomJasper = "piece_de_caisse_banque";
-                param.put("banque", tabJournal[0].getIdbanquelib());
-                param.put("numCheque", tabJournal[0].getNumcheque());
-            }
             String titre = "PROVISION CONSTITUEE";
             String soustitre = "PIECE DE CAISSE";
             String findP = tabJournal[0].getNumPiece();
@@ -943,7 +937,8 @@ public class EtatPaieServlet extends HttpServlet {
                 arrList.add(tabFact[i]);
             }
             // tabJournal[0].arrondir();
-            if (prov) {
+            System.out.println("type"+tabJournal[0].getIdTypeCheque());
+            if (prov || (tabJournal[0].getIdTypeCheque().compareToIgnoreCase(Constante.getTypeACredit())==0)) {
                 arrondi = 0;
             } else {
                 arrondi = tabJournal[0].getCredit() - montantFacture;
@@ -951,7 +946,7 @@ public class EtatPaieServlet extends HttpServlet {
             totalGeneral = tabJournal[0].getCredit();
 //            arrondi = tabJournal[0].getCredit() - montantFacture;
 //            totalGeneral = tabJournal[0].getCredit();
-            totalGeneral = montantFacture + arrondi;
+//           totalGeneral = montantFacture + arrondi;
             String montantString = String.valueOf((long) totalGeneral);
             long montantLong = Long.valueOf(montantString);
             String montantLettre = ChiffreLettre.convertRealToString(totalGeneral, "Ariary");
