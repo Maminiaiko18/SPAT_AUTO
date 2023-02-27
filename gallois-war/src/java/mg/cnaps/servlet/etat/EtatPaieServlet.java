@@ -3283,7 +3283,9 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("designation", utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
             param.put("daty", mere[0].getDaty());
             param.put("numero", mere[0].getNumero());
-
+            param.put("prevision", mere[0].getMontantbudget());
+            param.put("montantAvant", mere[0].getMontantav());
+            param.put("montantApres", mere[0].getMontantap());
             BordereauFilleLibComplet fille = new BordereauFilleLibComplet();
             fille.setIdbordereau(id);
             fille.setNomTable("liaisonbordereauFF_libcomplet");

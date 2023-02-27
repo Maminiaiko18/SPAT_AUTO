@@ -7,7 +7,7 @@
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="code" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
-	<parameter name="prevision" class="java.lang.String"/>
+	<parameter name="prevision" class="java.lang.Double"/>
 	<parameter name="montantAvant" class="java.lang.Double"/>
 	<parameter name="montantApres" class="java.lang.Double"/>
 	<parameter name="numero" class="java.lang.String"/>
@@ -129,7 +129,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{code}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="195" y="183" width="360" height="20" uuid="1ce827d3-19de-4364-8538-95531aa8400d"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -149,7 +149,7 @@
 				</textElement>
 				<text><![CDATA[DISPONIBLE AVANT DEMANDE]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="195" y="220" width="360" height="20" uuid="7a85acd5-874e-448b-b8d6-e75a61a8dab5"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -169,7 +169,7 @@
 				</textElement>
 				<text><![CDATA[DISPONIBLE APRES DEMANDE]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="195" y="240" width="360" height="20" uuid="00ce1019-0e3f-47ab-a1bb-b7010f1fee87"/>
 				<box>
 					<topPen lineWidth="1.0"/>
