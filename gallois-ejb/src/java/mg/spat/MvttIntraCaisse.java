@@ -354,4 +354,40 @@ public class MvttIntraCaisse extends ClassEtat {
         super.validerObject(u, c);
     }
 
+    public void encaisserTraite(String u, JournalCaisse journal)throws Exception{
+        Connection c=null;
+
+        if(this.getMontant()!=journal.getCredit())throw new Exception("Le montant saisie doit être identique à celui du Traite à encaisser");
+
+        try{
+            c=new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            
+            MvttIntraCaisse mvt = new MvttIntraCaisse();
+            mvt.setNomTable("mvtintracaissetraiteVcaisse");
+            MvttIntraCaisse[] mvts = (MvttIntraCaisse[])CGenUtil.rechercher(mvt, null, null, c, " and idtraite='"+this.getIdTraite()+"'");
+            int t = mvts.length;
+            if(t > 0){
+                for(int i = 0; i < t; i++){
+                    if(mvts[i].getEtatversement() == ConstanteEtat.getEtatEncaissee())
+                        throw new Exception("Traite déjà encaissée.");
+                }
+            }
+            
+            MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,this.getIdfinaledestination(),this.getModepaiement(),
+                        this.getRemarque(),this.getDesignation(),this.getIdTraite(),this.getDaty(),this.getMontant());
+            nouvMvt.createObject(u,c);
+            nouvMvt.validerObjectEncaisserTraite(u, c, journal);
+            
+            this.setEtatversement(ConstanteEtat.getEtatEncaissee());
+            this.updateToTable(c);
+            c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null)c.close();
+        }
+    }
 }
