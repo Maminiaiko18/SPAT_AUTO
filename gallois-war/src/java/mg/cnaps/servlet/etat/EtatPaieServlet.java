@@ -161,6 +161,9 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerBed2(request, response);
             } else if (action.equalsIgnoreCase("pieceDeCaiseDepense")) {
                 pieceDeCaiseDepense(request, response);
+
+            } else if (action.equalsIgnoreCase("pieceDeCaiseProvision")) {
+                pieceDeCaiseProvOnly(request, response);
             } else if (action.equalsIgnoreCase("pieceDeCaiseRecette")) {
                 pieceDeCaiseRecette(request, response);
             } else if (action.equalsIgnoreCase("imprimerBon")) {
@@ -782,6 +785,107 @@ public class EtatPaieServlet extends HttpServlet {
             setNomJasper("piece_de_caisse_depenses");
             UtilitaireImpression.imprimer(request, response, "piece_de_caisse_depenses", param, new ArrayList(),
                     getReportPath(), rt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void pieceDeCaiseProvOnly(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            JournalCaisse jc = new JournalCaisse();
+            boolean prov = false;
+            jc.setId(request.getParameter("id"));
+            jc.setNomTable("JOURNALCAISSELIBCOMPLET");
+            JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null,
+                    " order by NUMPIECE ASC  ");
+
+            PayementFacture[] tabFact = null;
+            String idFacture = request.getParameter("idFacture");
+
+            if (tabJournal.length > 0) {
+                // requete = "select * from factureclientmsum_lib where id in
+                // ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
+                tabFact = jc.getPayementFactureTous(null);
+            }
+            Map param = new HashMap();
+            param.put("datyJ", Utilitaire.dateDuJourSql());
+            ArrayList<PayementFacture> arrList = new ArrayList<PayementFacture>();
+            double montantFacture = 0;
+            double arrondi = 0;
+            double totalGeneral = 0;
+            int cptDef = 0;
+
+
+            for (int i = 0; i < tabFact.length; i++) {
+                if (tabFact[i].getIdfact().compareToIgnoreCase(idFacture)==0) {
+                    arrList.add(tabFact[i]);
+                    arrondi = 0;
+                }
+            }
+            montantFacture = tabJournal[0].getCredit();
+            totalGeneral = montantFacture;
+            String montantString = String.valueOf((long) totalGeneral);
+            long montantLong = Long.valueOf(montantString);
+            String montantLettre = ChiffreLettre.convertRealToString(totalGeneral, "Ariary");
+
+            if (tabJournal[0].getIdTypeCheque() != null && tabJournal[0].getIdmode() != null
+                    && tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant) == 0
+                    && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece) == 0) {
+                montantLettre = ChiffreLettre.convertIntToString(montantLong) + " Ariary";
+
+            } else {
+                // montantFacture = Utilitaire.arrondir(montantFacture, 2); mandiso io fonction
+                // io
+                montantFacture = Utilitaire.arrondirDecimalWithMode(montantFacture, "#.##", RoundingMode.HALF_UP);
+                totalGeneral = Utilitaire.arrondirDecimalWithMode(totalGeneral, "#.##", RoundingMode.HALF_UP);
+                String[] montantTexte = ChiffreLettre.convertRealToStringSepare(totalGeneral);
+                montantLettre = montantTexte[0];
+                if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                    montantLettre += " Ariary " + montantTexte[1];
+                } else {
+                    montantLettre += " Ariary";
+                }
+            }
+            param.put("montant", montantFacture);
+            param.put("arrondi", arrondi);
+            param.put("total", totalGeneral);
+            param.put("montantLettre", montantLettre);
+            param.put("list_table", arrList);
+
+            if (tabJournal.length > 0) {
+                param.put("numPiece", tabJournal[0].getNumPiece());
+                param.put("client", tabJournal[0].getTiersLib());
+                param.put("operation", tabJournal[0].getLibelle());
+                //pour les pieces lier provision
+                if (tabJournal[0].getDateEffet() == null) {
+                    param.put("datyPiece", tabJournal[0].getDateSaisie());
+                } else {
+                    param.put("datyPiece", tabJournal[0].getDateEffet());
+                }
+            }
+            String nomJasper = "piece_de_caisse";
+            if (tabJournal[0].getIdmode().equalsIgnoreCase("pay1") == false) {
+
+                nomJasper = "piece_de_caisse_banque";
+                param.put("banque", tabJournal[0].getIdbanquelib());
+                param.put("numCheque", tabJournal[0].getNumcheque());
+            }
+            String titre = "PROVISION CONSTITUEE";
+            String soustitre = "PIECE DE CAISSE";
+            String findP = tabJournal[0].getNumPiece();
+            param.put("soustitre", Utilitaire.champNull(soustitre));
+
+            String chaine = request.getParameter("numPiece");
+            System.out.println("numero piece = " + chaine);
+
+            param.put("titre", Utilitaire.champNull(titre));
+            String heure = Utilitaire.heureCouranteHMS();
+            param.put("heure", heure);
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper(nomJasper);
+            UtilitaireImpression.imprimer(request, response, "piece_de_caisse", param, new ArrayList(), getReportPath(),
+                    rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
