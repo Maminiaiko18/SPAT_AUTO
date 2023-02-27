@@ -47,7 +47,12 @@
 
         </form>
         <%  
-            out.println(pr.getTableauRecap().getHtml());%>
+            String lienTableau[] = {pr.getLien() + "?but=facture/traite-encaissement-versee-fiche.jsp"};
+            String colonneLien[] = {"id"};
+            pr.getTableau().setLien(lienTableau);
+            pr.getTableau().setColonneLien(colonneLien);
+            out.println(pr.getTableauRecap().getHtml());
+        %>
         <br>
         <form action="<%=pr.getLien()%>?but=apresVerserTraite.jsp" method="post">
          
