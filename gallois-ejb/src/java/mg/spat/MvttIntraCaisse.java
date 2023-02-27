@@ -339,4 +339,19 @@ public class MvttIntraCaisse extends ClassEtat {
             if(c!=null)c.close();
         }
     }
+
+    public void validerObjectEncaisserTraite(String u, Connection c, JournalCaisse credit)throws Exception{
+        JournalCaisse debit = new JournalCaisse(credit.getFolio(),Constante.getEFFETSARECEVOIRREMISALENCAISSEMENT(),credit.getNumPiece(),credit.getLibelle(),credit.getRemarque(),
+                                credit.getDateSaisie(),credit.getDateEffet(),credit.getCredit(),0.0);
+        credit.createObject(u, c);
+        credit.validerObject(u, c);
+
+        debit.createObject(u, c);
+        debit.validerObject(u, c);
+        
+        this.setEtatversement(ConstanteEtat.getEtatValider());
+        
+        super.validerObject(u, c);
+    }
+
 }
