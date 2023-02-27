@@ -5,6 +5,16 @@
  */
 package bordereau;
 
+import java.sql.Connection;
+
+import bean.AdminGen;
+import bean.CGenUtil;
+import bean.ResultatEtSomme;
+import facture.FactureFournisseur;
+import lignecredit.LigneCredit;
+import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
+
 /**
  *
  * @author Audace
@@ -43,5 +53,51 @@ public class BordereauFF extends Bordereau{
         this.setNomTable("BORDEREAUFF");
         this.setNomTableFille("liaisonbordereauFF");
         this.setNomFonctionSequence("get_seqnumerobordereauFF");
+    }
+
+    public BordereauFilleLibComplet[] getFille(Connection c)throws Exception{
+        BordereauFilleLibComplet retour[] = null;
+        int verif=0;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
+            BordereauFilleLibComplet fille = new BordereauFilleLibComplet();
+            fille.setNomTable("liaisonbordereauFF_libcomplet");
+            fille.setIdbordereau(this.getId());
+            retour = (BordereauFilleLibComplet[])CGenUtil.rechercher(fille, null, null, c, "");
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+        return retour;
+    }
+
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        BordereauFilleLibComplet[] listeFille=this.getFille(c);
+        if(listeFille!=null && listeFille.length>0){
+            FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
+            if(ff!=null){
+                LigneCredit critere=new LigneCredit();
+                critere.setNomTable("situationLC_vide");
+                critere.setProjet(ff.getProjetlib());
+                critere.setDirection(ff.getCode_etablissementlib());
+                String[] colSomme = {};
+                ResultatEtSomme lc = LigneCredit.findSituationCreditDepense(critere, null, null, String.valueOf(Utilitaire.getAnnee(ff.getDaty())),c, colSomme);
+                if(lc.getResultat().length>0){
+                    double montantBudget=AdminGen.calculSommeDouble(listeFille, "montant");
+                    LigneCredit ligneCredit=(LigneCredit)lc.getResultat()[0];
+                    this.setMontantbudget(ligneCredit.getMontant());
+                    this.setMontantav(ligneCredit.getResteApresEngmt()-montantBudget);
+                    this.setMontantap(ligneCredit.getResteApresEngmt());
+                }
+                
+            }
+        }
+        return super.validerObject(u, c);
     }
 }
