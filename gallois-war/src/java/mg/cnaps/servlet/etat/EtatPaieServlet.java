@@ -929,7 +929,8 @@ public class EtatPaieServlet extends HttpServlet {
                 arrList.add(tabFact[i]);
             }
             // tabJournal[0].arrondir();
-            if (prov) {
+            System.out.println("type"+tabJournal[0].getIdTypeCheque());
+            if (prov || (tabJournal[0].getIdTypeCheque().compareToIgnoreCase(Constante.getTypeACredit())==0)) {
                 arrondi = 0;
             } else {
                 arrondi = tabJournal[0].getCredit() - montantFacture;
@@ -937,7 +938,7 @@ public class EtatPaieServlet extends HttpServlet {
             totalGeneral = tabJournal[0].getCredit();
 //            arrondi = tabJournal[0].getCredit() - montantFacture;
 //            totalGeneral = tabJournal[0].getCredit();
-            totalGeneral = montantFacture + arrondi;
+//           totalGeneral = montantFacture + arrondi;
             String montantString = String.valueOf((long) totalGeneral);
             long montantLong = Long.valueOf(montantString);
             String montantLettre = ChiffreLettre.convertRealToString(totalGeneral, "Ariary");
