@@ -227,7 +227,8 @@ public class PaiementFacture extends ClassMAPTable{
                 throw new Exception("Le montant depasse. Montant factures ="+montantFactures+", montant inséré="+this.getMontant()+", montant journal="+jc.getCredit()); //tsy maintsy micomparer nomtable satria ity classe ity ihany no ampiasain'ny fournisseur donc diso ilay getCredit
             }
 
-            if(jc!=null && fc!=null && !jc.getTiers().equals(fc.getTiers()))throw new Exception("Tiers differents pour le journal caisse et la facture");
+            if(fc==null) throw new Exception("Veuillez choisir une facture");
+            //if(jc!=null && fc!=null && !jc.getTiers().equals(fc.getTiers()))throw new Exception("Tiers differents pour le journal caisse et la facture");
         } finally {
             if (c != null && verif == 1) {
                 c.close();
