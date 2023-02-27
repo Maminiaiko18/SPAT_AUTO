@@ -5,19 +5,20 @@
 --%>
 
 <%@page import="bordereau.Bordereau"%>
+<%@page import="bordereau.BordereauFF"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="utilitaire.Utilitaire"%>
 
 <% 
-    Bordereau bordereaux = new Bordereau();
+    BordereauFF bordereaux = new BordereauFF();
     bordereaux.setNomTable("BORDEREAUFF_LIB_MONTANT");
     
     if(request.getParameter("etatvue")!=null && request.getParameter("etatvue").length()>0){
         bordereaux.setNomTable(request.getParameter("etatvue"));
     }
     
-    String libEntete[] = {"id", "daty","numero","designation","tiers","montant"};
+    String libEntete[] = {"id", "daty","numero","designation","tiers","montant","montantbudget","montantav","montantap"};
     String listeCrt[] = {"id","designation", "daty","tiers"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(bordereaux, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -75,7 +76,7 @@
             %>
             <br>
             <%
-                String libEnteteAffiche[] = {"id", "Date","num&eacute;ro","Désignation","Tiers","Montant"};
+                String libEnteteAffiche[] = {"id", "Date","num&eacute;ro","Désignation","Tiers","Montant","Montant Budget","Montant dispo avant","Montant dispo apres"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 out.println(pr.getTableau().getHtml());
                 out.println(pr.getBasPage());

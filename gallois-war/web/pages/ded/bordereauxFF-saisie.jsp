@@ -52,6 +52,9 @@
 
         pi.getFormu().getChamp("Etat").setVisible(false);
         pi.getFormu().getChamp("numero").setVisible(false);
+        pi.getFormu().getChamp("montantbudget").setVisible(false);
+        pi.getFormu().getChamp("montantav").setVisible(false);
+        pi.getFormu().getChamp("montantap").setVisible(false);
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());

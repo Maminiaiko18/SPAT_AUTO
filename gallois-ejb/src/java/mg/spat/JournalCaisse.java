@@ -737,6 +737,34 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public String getAttributIDName() {
         return "id";
     }
+
+
+    public JournalCaisse modifierEntete(String refUser, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            this.updateToTableWithHisto(refUser, c);
+
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return this;
+    }
     
     public OrdonnerPayement traitementOP(UserEJBBean user, Connection c) throws Exception {
         OrdonnerPayement ordonnerPayement = new OrdonnerPayement(this.getIdordre());
@@ -780,8 +808,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 if(fc[i].getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Facture "+fc[i].getId()+" non visee");
                 sommeReste += fc[i].getMontantreste();
             }
-            
-            if(Utilitaire.stringToDouble((new DecimalFormat("###.###")).format(sommeReste)) < this.getCredit()) throw new Exception("Montant supérieur au reste à payer");
+            if(Utilitaire.stringToDouble((new DecimalFormat("###.###")).format(sommeReste))-Utilitaire.stringToDouble((new DecimalFormat("###.###")).format(this.getCredit()) ) < -0.5) throw new Exception("Montant supérieur au reste à payer");
         }
     }
     

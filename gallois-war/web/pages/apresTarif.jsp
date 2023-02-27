@@ -6,6 +6,7 @@
 <%@page import="mg.spat.StatistiquePTP"%>
 <%@page import="mg.spat.StatistiqueSMMC"%>
 <%@page import="mg.spat.placement.Placement"%>
+<%@page import="mg.spat.JournalCaisse"%>
 <%@page import="historique.MapUtilisateur"%>
 <%@page import="mg.spat.relationhumaine.InfoPersonnel"%>
 <%@page import="mg.spat.relationhumaine.InfoProfessionnel"%>
@@ -194,21 +195,33 @@
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&idsOP=<%=idsOP%>");</script>
     <%
         }
+            if (acte.compareToIgnoreCase("regularisation") == 0) {
+                    String[] listeFacture = request.getParameterValues("id");
+                    String ded_id = Utilitaire.tabToString(listeFacture, "", ";");
+                %>
+                    <script language="JavaScript"> document.location.replace("<%=lien%>?but=facture/regularisation.jsp&idfacture=<%=ded_id%>");</script>
+                <%
+            }
 
-        if (acte.compareToIgnoreCase("regularisation") == 0) {
-            String[] listeFacture = request.getParameterValues("id");
-            String ded_id = Utilitaire.tabToString(listeFacture, "", ";");
-    %>
-    <script language="JavaScript"> document.location.replace("<%=lien%>?but=facture/regularisation.jsp&idfacture=<%=ded_id%>");</script>
-    <%
-        }
-        if (acte.compareToIgnoreCase("bed") == 0) {
-            String[] listeFacture = request.getParameterValues("id");
-            String ded_id = Utilitaire.tabToString(listeFacture, "", ";");
-    %>
-    <script language="JavaScript"> document.location.replace("<%=lien%>?but=ded/bed-saisie.jsp&ded_id=<%=ded_id%>");</script>
-    <%
-        }
+            if (acte.compareToIgnoreCase("bed") == 0) {
+                String[] listeFacture = request.getParameterValues("id");
+                String ded_id = Utilitaire.tabToString(listeFacture, "", ";");
+                %>
+                    <script language="JavaScript"> document.location.replace("<%=lien%>?but=ded/bed-saisie.jsp&ded_id=<%=ded_id%>");</script>
+                <%
+            }
+
+
+            if (acte.compareToIgnoreCase("enteteJournal") == 0) {
+                    Page p = new Page(new JournalCaisse(), request);
+                    JournalCaisse journal = (JournalCaisse)p.getObjectAvecValeur();
+                    journal.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
+                %>
+                    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= bute %>&id=<%= journal.getId() %>");</script>
+                <%
+            }
+
+
 
         /*if (acte.compareToIgnoreCase("fusionner") == 0) {
             String[] listeFacture = request.getParameterValues("id");

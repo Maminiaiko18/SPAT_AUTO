@@ -119,7 +119,7 @@
                             <%                                
                             if(jcaisse.getCredit()!=0){
                             %>
-                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseRecette&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de caisse</a>
+                                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseRecette&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de caisse</a>
                             <%
                             }
                             else if(jcaisse.getDebit()!=0){
@@ -128,6 +128,9 @@
                             <%
                             }
                             %>
+
+                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseProvision&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer piece de provision</a>
+                            <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-modif-simple.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-info">Modifier Entete</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning">Modifier</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/paiementfacture-saisie.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-success">Attacher FC</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=treso/journalcaisse-liste.jsp&classe=mg.spat.JournalCaisse" style="margin-right: 5px"><button class="btn btn-danger" >Supprimer</button></a>
