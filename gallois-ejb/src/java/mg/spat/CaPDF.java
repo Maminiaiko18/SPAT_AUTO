@@ -10,57 +10,10 @@ import utilitaire.Utilitaire;
 
 public class CaPDF {
     String id, libelle,compteMere,compteMerelib,compte; 
-    String anciencumul, regul, regulEETP, avoirEETP, comptant, credit, esttotal,taux,avoir,montant,AvoirCumRegul;
+    double anciencumul, regul, regulEETP, avoirEETP, comptant, credit, esttotal,taux,avoir,montant,AvoirCumRegul;
     String nbComptant,nbCredit,mois,annee;
-    String total, nCumul;
+    double  total, nCumul;
 
-    public String getnCumul() {
-        return nCumul;
-    }
-
-    public void setnCumul(String nCumul) {
-        this.nCumul = nCumul;
-    }
-
-    public CaPDF() {
-    }
-    
-    public CaPDF(CA ca) {
-        this.setLibelle(ca.getLibelle());
-        this.setAnciencumul(Utilitaire.formaterAr(ca.getAnciencumul()));
-        this.setRegul(Utilitaire.formaterAr(ca.getRegul()));
-        this.setRegulEETP(Utilitaire.formaterAr(ca.getRegulEETP()));
-        this.setAvoirCumRegul(Utilitaire.formaterAr(ca.getAvoirCumRegul()));
-        this.setAvoirEETP( Utilitaire.formaterAr(ca.getAvoirEETP()));
-        this.setComptant( Utilitaire.formaterAr(ca.getComptant()));
-        this.setCredit(Utilitaire.formaterAr(ca.getCredit()));
-        this.setTotal( Utilitaire.formaterAr(ca.getTotal()));
-        this.setnCumul(Utilitaire.formaterAr(ca.getNCumul()));
-        this.setTaux( Utilitaire.formaterAr(ca.getTaux()));
-    }
-
-    
-    public String getTotal() {
-        return total;
-    }
-
-    public void setTotal(String total) {
-        this.total = total;
-    }
-
-    
-    
-    public String getAvoirCumRegul() {
-        return AvoirCumRegul;
-    }
-
-    public void setAvoirCumRegul(String AvoirCumRegul) {
-        this.AvoirCumRegul = AvoirCumRegul;
-    }
-
-    
-    
-    
     public String getId() {
         return id;
     }
@@ -101,84 +54,92 @@ public class CaPDF {
         this.compte = compte;
     }
 
-    public String getAnciencumul() {
+    public double getAnciencumul() {
         return anciencumul;
     }
 
-    public void setAnciencumul(String anciencumul) {
+    public void setAnciencumul(double anciencumul) {
         this.anciencumul = anciencumul;
     }
 
-    public String getRegul() {
+    public double getRegul() {
         return regul;
     }
 
-    public void setRegul(String regul) {
+    public void setRegul(double regul) {
         this.regul = regul;
     }
 
-    public String getRegulEETP() {
+    public double getRegulEETP() {
         return regulEETP;
     }
 
-    public void setRegulEETP(String regulEETP) {
+    public void setRegulEETP(double regulEETP) {
         this.regulEETP = regulEETP;
     }
 
-    public String getAvoirEETP() {
+    public double getAvoirEETP() {
         return avoirEETP;
     }
 
-    public void setAvoirEETP(String avoirEETP) {
+    public void setAvoirEETP(double avoirEETP) {
         this.avoirEETP = avoirEETP;
     }
 
-    public String getComptant() {
+    public double getComptant() {
         return comptant;
     }
 
-    public void setComptant(String comptant) {
+    public void setComptant(double comptant) {
         this.comptant = comptant;
     }
 
-    public String getCredit() {
+    public double getCredit() {
         return credit;
     }
 
-    public void setCredit(String credit) {
+    public void setCredit(double credit) {
         this.credit = credit;
     }
 
-    public String getEsttotal() {
+    public double getEsttotal() {
         return esttotal;
     }
 
-    public void setEsttotal(String esttotal) {
+    public void setEsttotal(double esttotal) {
         this.esttotal = esttotal;
     }
 
-    public String getTaux() {
+    public double getTaux() {
         return taux;
     }
 
-    public void setTaux(String taux) {
+    public void setTaux(double taux) {
         this.taux = taux;
     }
 
-    public String getAvoir() {
+    public double getAvoir() {
         return avoir;
     }
 
-    public void setAvoir(String avoir) {
+    public void setAvoir(double avoir) {
         this.avoir = avoir;
     }
 
-    public String getMontant() {
+    public double getMontant() {
         return montant;
     }
 
-    public void setMontant(String montant) {
+    public void setMontant(double montant) {
         this.montant = montant;
+    }
+
+    public double getAvoirCumRegul() {
+        return AvoirCumRegul;
+    }
+
+    public void setAvoirCumRegul(double AvoirCumRegul) {
+        this.AvoirCumRegul = AvoirCumRegul;
     }
 
     public String getNbComptant() {
@@ -212,6 +173,41 @@ public class CaPDF {
     public void setAnnee(String annee) {
         this.annee = annee;
     }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public double getnCumul() {
+        return nCumul;
+    }
+
+    public void setnCumul(double nCumul) {
+        this.nCumul = nCumul;
+    }
     
     
+    public CaPDF() {
+    }
+    
+    public CaPDF(CA ca) {
+        this.setLibelle(ca.getLibelle());
+        this.setAnciencumul(ca.getAnciencumul());
+        this.setRegul(ca.getRegul());
+        this.setRegulEETP(ca.getRegulEETP());
+        this.setAvoirCumRegul(ca.getAvoirCumRegul());
+        this.setAvoirEETP(ca.getAvoirEETP());
+        this.setComptant( ca.getComptant());
+        this.setCredit(ca.getCredit());
+        this.setTotal( ca.getTotal());
+        this.setnCumul(ca.getNCumul());
+        this.setTaux( ca.getTaux());
+    }
 }
+
+    
+    
