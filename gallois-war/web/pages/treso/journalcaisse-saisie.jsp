@@ -1,4 +1,5 @@
 <%@page import="facture.FactureClient"%>
+<%@page import="facture.tr.Traite"%>
 <%@page import="mg.spat.JournalCaisseData"%>
 <%@page import="avoir.AvoirFF"%>
 <%@page import="avoir.AvoirFC"%>
@@ -28,6 +29,7 @@
         String idFacturesF = request.getParameter("idFacturesF");
         String idOP = request.getParameter("id");
         String idplacement = request.getParameter("idplacement");
+        String idmvtcaisse = request.getParameter("idmvtcaisse");
 
         if(request.getParameter("credit")!=null)pi.getFormu().getChamp("credit").setDefaut(request.getParameter("credit"));
 
@@ -207,7 +209,17 @@
         pi.setLien((String) session.getValue("lien"));
         pi.getFormu().getChamp("idtraite").setVisible(false);
         pi.getFormu().getChamp("etatversement").setVisible(false);
-        pi.getFormu().getChamp("idfinaledestination").setVisible(false);
+        if(idmvtcaisse!=null){
+            pi.getFormu().getChamp("idfinaledestination").setDefaut(request.getParameter("idfinaledestination"));
+            pi.getFormu().getChamp("idfinaledestination").setAutre("readonly");
+            pi.getFormu().getChamp("idmode").setDefaut(Constante.getTraite());
+            pi.getFormu().getChamp("credit").setDefaut(request.getParameter("montant"));
+
+            Traite traite = (Traite)new Traite().getById(request.getParameter("idTraite"),"TRAITE",null);
+            if(traite!=null)pi.getFormu().getChamp("tiers").setDefaut(traite.getTiers());
+        }else{
+            pi.getFormu().getChamp("idfinaledestination").setVisible(false);
+        }
         pi.preparerDataFormu();
 %>
 %>
@@ -235,6 +247,9 @@
         <input name="acte" type="hidden" id="nature" value="insert">
         <input name="bute" type="hidden" id="bute" value="treso/journalcaisse-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="mg.allosakafo.fin.MvtCaisse">
+        <%if(idmvtcaisse!=null){%>
+            <input name="idmvtcaisse" type="hidden" id="idmvtcaisse" value="<%=idmvtcaisse%>">
+        <%}%>
         <!--<input name="nomtable" type="hidden" id="nomtable" value="journalcaisse">-->
         <div>
             <div class="box">
