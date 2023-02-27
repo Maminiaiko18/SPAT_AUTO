@@ -767,10 +767,7 @@ public class EtatPaieServlet extends HttpServlet {
                 if (tabLiaison.length > 0) {
                     param.put("facture_montant", tabLiaison[0].getMontant());
                 }
-            } else {
-
-//                System.out.println("=================================   3 ======================================");
-            if (tabJournal.length > 0) {
+            } else if (tabJournal.length > 0) {
 
                 param.put("daty", tabJournal[0].getDateEffet());
                 param.put("montant", tabJournal[0].getDebit());
@@ -781,17 +778,17 @@ public class EtatPaieServlet extends HttpServlet {
                 if (tabJournal.length > 0) {
                     param.put("daty", tabJournal[0].getDateEffet());
                     param.put("montant", tabJournal[0].getDebit());
-                    String montantString = String.valueOf((long) tabJournal[0].getDebit());
-                    long montantLong = Long.valueOf(montantString);
+                    String montantStr = String.valueOf((long) tabJournal[0].getDebit());
+                    montantLong = Long.valueOf(montantStr);
                     param.put("montant_lettre",
                             (ChiffreLettre.convertIntToString(montantLong) + " ARIARY ").toUpperCase());
 
                 param.put("facture_montant", tabJournal[0].getDebit());
                 param.put("tiers", tabJournal[0].getTiersLib());
                 param.put("num_piece", tabJournal[0].getNumPiece());
-            }
+                }
 
-//            }
+            }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("piece_de_caisse_depenses");
             UtilitaireImpression.imprimer(request, response, "piece_de_caisse_depenses", param, new ArrayList(),
