@@ -28,6 +28,9 @@
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("montantbudget").setLibelle("Montant budget");
+    pc.getChampByName("montantav").setLibelle("Montant avant");
+    pc.getChampByName("montantap").setLibelle("Montant apres");
     pc.setTitre("Fiche bordereau facture fournisseur");
     String id=res.getId();
     BordereauFilleLibComplet fille=new BordereauFilleLibComplet();
