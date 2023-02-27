@@ -820,9 +820,9 @@ public class EtatPaieServlet extends HttpServlet {
             for (int i = 0; i < tabFact.length; i++) {
                 if (tabFact[i].getIdfact().compareToIgnoreCase(idFacture)==0) {
                     arrList.add(tabFact[i]);
-                    arrondi = 0;
                 }
             }
+            arrondi = 0;
             montantFacture = tabJournal[0].getCredit();
             totalGeneral = montantFacture;
             String montantString = String.valueOf((long) totalGeneral);
@@ -865,12 +865,6 @@ public class EtatPaieServlet extends HttpServlet {
                 }
             }
             String nomJasper = "piece_de_caisse";
-            if (tabJournal[0].getIdmode().equalsIgnoreCase("pay1") == false) {
-
-                nomJasper = "piece_de_caisse_banque";
-                param.put("banque", tabJournal[0].getIdbanquelib());
-                param.put("numCheque", tabJournal[0].getNumcheque());
-            }
             String titre = "PROVISION CONSTITUEE";
             String soustitre = "PIECE DE CAISSE";
             String findP = tabJournal[0].getNumPiece();
