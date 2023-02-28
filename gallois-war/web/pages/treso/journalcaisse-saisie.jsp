@@ -209,16 +209,14 @@
         pi.setLien((String) session.getValue("lien"));
         pi.getFormu().getChamp("idtraite").setVisible(false);
         pi.getFormu().getChamp("etatversement").setVisible(false);
+        pi.getFormu().getChamp("idfinaledestination").setVisible(false);
         if(idmvtcaisse!=null){
-            pi.getFormu().getChamp("idfinaledestination").setDefaut(request.getParameter("idfinaledestination"));
-            pi.getFormu().getChamp("idfinaledestination").setAutre("readonly");
+            pi.getFormu().getChamp("caisse").setDefaut(request.getParameter("idfinaledestination"));
             pi.getFormu().getChamp("idmode").setDefaut(Constante.getTraite());
             pi.getFormu().getChamp("credit").setDefaut(request.getParameter("montant"));
 
             Traite traite = (Traite)new Traite().getById(request.getParameter("idTraite"),"TRAITE",null);
             if(traite!=null)pi.getFormu().getChamp("tiers").setDefaut(traite.getTiers());
-        }else{
-            pi.getFormu().getChamp("idfinaledestination").setVisible(false);
         }
         pi.preparerDataFormu();
 %>
