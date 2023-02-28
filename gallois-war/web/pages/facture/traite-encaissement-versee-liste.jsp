@@ -32,9 +32,9 @@
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
         
-        /*Caisse caisse=new Caisse();
+        Caisse caisse=new Caisse();
         caisse.setDesce("Banque");
-        Caisse[] listeCaisse=(Caisse[])CGenUtil.rechercher(caisse,null,null,"");*/
+        Caisse[] listeCaisse=(Caisse[])CGenUtil.rechercher(caisse,null,null,"");
 %>
 
 <div class="content-wrapper">
@@ -56,14 +56,19 @@
         <br>
         <form action="<%=pr.getLien()%>?but=apresVerserTraite.jsp" method="post">
          
-        <%-- <div>
+        <div>
             <label for="idcaisse">Caisse:</label>
             <select name="idcaisse">
                 <%for(int i=0;i<listeCaisse.length;i++){%>
                 <option value="<%=listeCaisse[i].getId()%>"><%=listeCaisse[i].getVal()%></option>
                 <%}%>
             </select>
-        </div> --%>
+            
+        </div>
+        <div>
+            <label for="date">Date:</label>
+            <input type="text" class="form-control datepicker" onkeydown="return searchKeyPress(event)" name="date" id="date" value="<%=Utilitaire.dateDuJour()%>">
+        </div>
         
         <%
             String libEnteteAffiche[] = {"id", "designation","Traite","Date", "Caisse Depart", "Caisse Arrivee","Mode Paiement","Montant","Remarque","Etat"};

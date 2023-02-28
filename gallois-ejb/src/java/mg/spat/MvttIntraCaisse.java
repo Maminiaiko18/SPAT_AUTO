@@ -340,6 +340,41 @@ public class MvttIntraCaisse extends ClassEtat {
         }
     }
 
+    public void encaisserTraite(String idcaisse,String date,String u)throws Exception{
+        Connection c=null;
+        try{
+            c=new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            
+            MvttIntraCaisse mvt = new MvttIntraCaisse();
+            mvt.setNomTable("mvtintracaissetraiteVcaisse");
+            MvttIntraCaisse[] mvts = (MvttIntraCaisse[])CGenUtil.rechercher(mvt, null, null, c, " and idtraite='"+this.getIdTraite()+"'");
+            int t = mvts.length;
+            if(t > 0){
+                for(int i = 0; i < t; i++){
+                    if(mvts[i].getEtatversement() == ConstanteEtat.getEtatEncaissee())
+                        throw new Exception("Traite déjà encaissée.");
+                }
+            }
+            
+            Date daty = Utilitaire.stringDate(date);
+            MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,idcaisse,this.getModepaiement(),
+                        this.getRemarque(),this.getDesignation(),this.getIdTraite(),daty,this.getMontant());
+            nouvMvt.createObject(u,c);
+            nouvMvt.validerObject(u, c);
+            
+            this.setEtatversement(ConstanteEtat.getEtatEncaissee());
+            this.updateToTable(c);
+            c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null)c.close();
+        }
+    }
+
     public String validerObjectEncaisserTraite(String u, Connection c, JournalCaisse credit)throws Exception{
         JournalCaisse debit = new JournalCaisse(credit.getFolio(),Constante.getEFFETSARECEVOIRREMISALENCAISSEMENT(),credit.getNumPiece(),credit.getLibelle(),credit.getRemarque(),
                                 credit.getDateSaisie(),credit.getDateEffet(),credit.getCredit(),0.0);
