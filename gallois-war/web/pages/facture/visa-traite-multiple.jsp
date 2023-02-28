@@ -48,14 +48,14 @@
         <br>
         <form action="<%=pr.getLien()%>?but=apresMultiple.jsp" method="post">
         
-        <div>
+<!--        <div>
             <label>Caisse:</label>
             <select name="idcaisse" id="idcaisse">
                 <%for(int i=0;i<listeCaisse.length;i++){%>
                 <option value="<%=listeCaisse[i].getId()%>"><%=listeCaisse[i].getVal()%></option>
                 <%}%>
             </select>
-        </div>
+        </div>-->
         
         <%
             String libEnteteAffiche[] = {"ID","Date", "Tiers", "banque","Date Echeance","Reference","Montant","Etat"};
