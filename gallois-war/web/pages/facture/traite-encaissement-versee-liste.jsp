@@ -1,5 +1,5 @@
 <%@page import="utilitaire.Utilitaire"%>
-<%@page import="mg.spat.MvttIntraCaisse"%>
+<%@page import="mg.spat.MvtIntraCaisseTraite"%>
 <%@page import="mg.spat.Caisse"%>
 <%@page import="bean.*"%>
 <%@page import="utilitaire.*"%>
@@ -7,7 +7,7 @@
 <%
     try {
 
-        MvttIntraCaisse eng = new MvttIntraCaisse();
+        MvtIntraCaisseTraite eng = new MvtIntraCaisseTraite();
         eng.setNomTable("MVTINTRACAISSETRAITEV");
 
         String listeCrt[] = {"id", "designation","idTraite","daty", "caissedepart", "caissearrivee","modepaiement","montant","dateecheance"};
@@ -47,7 +47,12 @@
 
         </form>
         <%  
-            out.println(pr.getTableauRecap().getHtml());%>
+            String lienTableau[] = {pr.getLien() + "?but=facture/traite-encaissement-versee-fiche.jsp"};
+            String colonneLien[] = {"id"};
+            pr.getTableau().setLien(lienTableau);
+            pr.getTableau().setColonneLien(colonneLien);
+            out.println(pr.getTableauRecap().getHtml());
+        %>
         <br>
         <form action="<%=pr.getLien()%>?but=apresVerserTraite.jsp" method="post">
          
@@ -63,9 +68,7 @@
         <%
             String libEnteteAffiche[] = {"id", "designation","Traite","Date", "Caisse Depart", "Caisse Arrivee","Mode Paiement","Montant","Remarque","Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            pr.getTableau().setNameBoutton("Encaisser");
-            pr.getTableau().setNameActe("encaissementTraite");
-            out.println(pr.getTableau().getHtmlWithCheckbox());
+            out.println(pr.getTableau().getHtml());
         %>
         <input type="hidden" name="acte" id="acte" value="encaissementTraite">
         <input type="hidden" name="bute" id="bute" value="facture/traite-encaissement-versee-liste.jsp">

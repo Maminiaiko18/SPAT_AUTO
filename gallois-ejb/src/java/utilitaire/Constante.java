@@ -163,6 +163,11 @@ public class Constante {
     public static String EFFETSARECEVOIRREMISALENCAISSEMENT="CAIS000017";
     private static String typeACredit = "TCHQ00002";
     private static String typePieceCheque = "TP02";
+    private static String typePieceTraite = "TP01";
+
+    public static String getTypePieceTraite(){
+        return typePieceTraite;
+    }
 
     public static String getTypePieceCheque(){
         return typePieceCheque;

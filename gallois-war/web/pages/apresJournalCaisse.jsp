@@ -12,6 +12,7 @@
 <%@page import="mg.spat.relationhumaine.InfoProfessionnel"%>
 <%@page import="mg.spat.Cloture"%>
 <%@page import="java.util.List"%>
+<%@page import="mg.spat.MvttIntraCaisse"%>
 
 <%@ page import="user.*" %>
 <%@ page import="utilitaire.*" %>
@@ -88,13 +89,22 @@
                 t = (ClassMAPTable) (Class.forName(classe).newInstance());
                 PageInsert p = new PageInsert(t, request);
                 ClassMAPTable f = p.getObjectAvecValeur();
-                f.setNomTable(nomtable);
-                JournalCaisse o = (JournalCaisse) u.createObject(f);
-                if(request.getParameter("factureAuto") != null) o.genererFacture(null, u.getUser().getRefuser()+"", compte, annee, mois, tva);
-                temp = (Object) o;
-                if (o != null) {
-                    id = o.getTuppleID();
+                String idmvtCaisse = request.getParameter("idmvtcaisse") ;
+                if(idmvtCaisse != null ){
+                    MvttIntraCaisse mvtcaisse= new MvttIntraCaisse();
+                    mvtcaisse = (MvttIntraCaisse)mvtcaisse.getById(idmvtCaisse, "mvtintracaisse", null);
+                    id =mvtcaisse.encaisserTraite(u.getUser().getRefuser()+"",(JournalCaisse)p.getObjectAvecValeur());
+                }else{
+                    f.setNomTable(nomtable);
+                    JournalCaisse o = (JournalCaisse) u.createObject(f);
+
+                    if(request.getParameter("factureAuto") != null) o.genererFacture(null, u.getUser().getRefuser()+"", compte, annee, mois, tva);
+                    temp = (Object) o;
+                    if (o != null) {
+                        id = o.getTuppleID();
+                    }
                 }
+                
             }
             
 

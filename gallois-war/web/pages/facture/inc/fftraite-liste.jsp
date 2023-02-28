@@ -13,11 +13,11 @@
 <%
     try {
         FactureClient base = new FactureClient();
-        base.setNomTable("traite_fc");
+        base.setNomTable("TRAITE_FCsum");
 
         String listeCrt[] = {"idTraite"};
         String listeInt[] = {};
-        String libEntete[] = {"id", "factureclientlib", "tierslib", "daty", "montantfacture", "etatLib"};
+        String libEntete[] = {"id", "factureclientlib", "tierslib", "daty", "montantfacture","montanttraite", "etatLib"};
 
         PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -29,7 +29,7 @@
 
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
-        String libEnteteAffiche[] = {"id", "Note Explicative", "Tiers", "Date", "Montant", "Etat"};
+        String libEnteteAffiche[] = {"id", "Note Explicative", "Tiers", "Date", "Montant","Montant Traite", "Etat"};
         String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
         String colonneLien[] = {"id"};
         pr.getTableau().setLien(lienTableau);

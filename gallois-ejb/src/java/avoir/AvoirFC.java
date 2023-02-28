@@ -496,4 +496,9 @@ public class AvoirFC extends ClassMere {
         jc.validerObject(u, con);
         lierJournalCaisse(jc,u,con);
     }
+    
+    @Override
+    public String getValColLibelle() {
+        return getId()+";"+getMontantreste();
+    }
 }

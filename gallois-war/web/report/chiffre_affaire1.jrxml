@@ -78,15 +78,6 @@
 	<variable name="avoirCumRegul_2" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{avoirCumRegul}]]></variableExpression>
 	</variable>
-	<variable name="avoirEETP_2" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{avoirEETP}]]></variableExpression>
-	</variable>
-	<variable name="comptant_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{comptant}]]></variableExpression>
-	</variable>
-	<variable name="credit_2" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{credit}]]></variableExpression>
-	</variable>
 	<variable name="total_2" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{total}]]></variableExpression>
 	</variable>
@@ -98,6 +89,15 @@
 	</variable>
 	<variable name="nCumul_2" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{nCumul}]]></variableExpression>
+	</variable>
+	<variable name="avoirEETP_2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{avoirEETP}]]></variableExpression>
+	</variable>
+	<variable name="comptant_2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{comptant}]]></variableExpression>
+	</variable>
+	<variable name="credit_2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{credit}]]></variableExpression>
 	</variable>
 	<group name="id" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{id}]]></groupExpression>
@@ -618,27 +618,6 @@
 				<textFieldExpression><![CDATA[$V{avoirCumRegul_2}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="689" y="0" width="117" height="20" uuid="a4b5a8d8-ef95-4d3d-b4d3-3724bc999c7a"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{avoirEETP_2}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="806" y="0" width="110" height="20" uuid="6960b5f6-0de4-4f76-90c4-d485c893c002"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{comptant_2}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="917" y="0" width="130" height="20" uuid="ef4bcaed-5408-41fc-a511-1db6c65db362"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{credit_2}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
 				<reportElement x="1047" y="1" width="119" height="20" uuid="cb1bbf80-3223-48de-a4d5-c59acf4f4507"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
@@ -658,6 +637,27 @@
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{nCumul_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="689" y="0" width="117" height="20" uuid="4440d215-f282-4d49-81ea-bfcb5c7b0e64"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{avoirEETP_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="807" y="1" width="110" height="20" uuid="5b46661c-7d09-4e72-a6e9-05101a5ea6d4"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{comptant_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="917" y="1" width="130" height="20" uuid="c624015b-71e8-4fad-98b8-1c67879760d1"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{credit_2}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

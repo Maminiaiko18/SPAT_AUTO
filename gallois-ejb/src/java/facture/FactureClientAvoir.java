@@ -22,7 +22,7 @@ public class FactureClientAvoir extends ClassMAPTable{
     String id;
     String idfc;
     String idavoir;
-    double montant;
+    double montant, montantavoir;
 
     public FactureClientAvoir(String idfc, String idavoir, double montant) throws Exception {
         this.idfc = idfc;
@@ -122,6 +122,14 @@ public class FactureClientAvoir extends ClassMAPTable{
         AvoirFC[] avoirFCs = getAvoirsOrderByDate(con);
         this.controlerPayerFacture(aPayer, avoirFCs);
         aPayer.payerAPartirAvoirs(avoirFCs, this.montant, u, con);
+    }
+
+    public double getMontantavoir() {
+        return montantavoir;
+    }
+
+    public void setMontantavoir(double montantavoir) {
+        this.montantavoir = montantavoir;
     }
    
 }
