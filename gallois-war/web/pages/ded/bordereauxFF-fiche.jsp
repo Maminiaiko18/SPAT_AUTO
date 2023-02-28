@@ -101,7 +101,7 @@
                                             <%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>
                                         </a>
                                     </td>
-                                    <td align="right"><%=utilitaire.Utilitaire.champNull(detail.getCode_etablissement())%></td>
+                                    <td align="right"><%=utilitaire.Utilitaire.champNull(detail.getCode_etablissementlib())%></td>
                                     <td align="right"><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
                                     <td>
                                     <form action="<%=(String) session.getValue("lien")+"?but=apresTarif.jsp&id=" + detail.getId()%>" method="post">
