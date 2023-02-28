@@ -1,6 +1,6 @@
 <%-- 
     Document   : additif-saisie
-    Created on : 18 déc. 2020, 09:27:13
+    Created on : 18 dï¿½c. 2020, 09:27:13
     Author     : Sanda
 --%>
 
@@ -35,7 +35,7 @@
 
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("idfacture").setDefaut(request.getParameter("idfacture"));
-    pi.getFormu().getChamp("idfacture").setPageAppel("choix/factureClientChoix.jsp");
+    pi.getFormu().getChamp("idfacture").setPageAppel("choix/listeFactureFournisseurChoix.jsp");
     pi.getFormu().getChamp("idfacture").setAutre("readonly");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("idfacture").setLibelle("facture");

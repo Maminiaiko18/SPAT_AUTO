@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AvoirFCLibComplet cht = new AvoirFCLibComplet();
-    cht.setNomTable("AVOIRFC_MONTANTLIBETAT");
+    cht.setNomTable("AVOIRFC_MONTANTREGROUPLIBETAT");
     String libEntete[] = {"id", "code", "daty", "tierslib", "montantttc", "montantpaye", "montantreste", "etatlib"};
     String listeCrt[] = {"idfacture"};
     String listeInt[] = {};

@@ -28,6 +28,9 @@
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("montantbudget").setLibelle("Montant budget");
+    pc.getChampByName("montantav").setLibelle("Montant avant");
+    pc.getChampByName("montantap").setLibelle("Montant apres");
     pc.setTitre("Fiche bordereau facture fournisseur");
     String id=res.getId();
     BordereauFilleLibComplet fille=new BordereauFilleLibComplet();
@@ -55,7 +58,7 @@
                             <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-details-saisie.jsp&idbordereau="+id%>" style="margin-right: 10px">Ajouter facture</a> 
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-modif.jsp&id=" + id %>" style="margin-right: 10px">Modifier</a>
-                             <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerSuiviBudgetaire&id=<%=id%>" style="margin-right: 10px">Imprimer SB</a>
+                             <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerSuiviBudgetaire&id=<%=id%>" style="margin-right: 10px">Imprimer FSB</a>
                            
                         </div>
                     </div>
@@ -98,7 +101,7 @@
                                             <%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>
                                         </a>
                                     </td>
-                                    <td align="right"><%=utilitaire.Utilitaire.champNull(detail.getCode_etablissement())%></td>
+                                    <td align="right"><%=utilitaire.Utilitaire.champNull(detail.getCode_etablissementlib())%></td>
                                     <td align="right"><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
                                     <td>
                                     <form action="<%=(String) session.getValue("lien")+"?but=apresTarif.jsp&id=" + detail.getId()%>" method="post">

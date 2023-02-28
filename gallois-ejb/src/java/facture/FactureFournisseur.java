@@ -479,18 +479,12 @@ public class FactureFournisseur extends FactureClient {
 
             String categorie = fc.getIdcategorie();
             if (type == 1) {
-                JournalCaisse[] jc = this.getPaiement(null);
-                if (jc.length == 0) {
-                    throw new Exception("Bon provisoire non sortie caisse. Impossible de générer facture définitive");
+                if (!this.checkPaiement(c)) {
+                    throw new Exception("Bon provisoire non payer. Impossible de générer facture définitive");
                 }
                 fc.controlerDefinitive(c);
                 categorie = Constante.categorieFFdefault;
             } else {
-
-                JournalCaisse[] jc = this.getPaiement(c);
-                if (jc.length == 0) {
-                    throw new Exception("Pas de paiement pour ce bon provisoire");
-                }
                 fc.controlerProvision(c);
                 categorie = Constante.getCategorieFFBP();
             }
@@ -686,7 +680,8 @@ public class FactureFournisseur extends FactureClient {
             if (this.getIdbc() == null) {
                 FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
                 this.setMontant(ff.getMontant());
-                this.insertEngagement(u, c);
+                //si provision dia tsy engagena
+                if(this.getIdcategorie()!=Constante.idBonProvisoire) this.insertEngagement(u, c);
             }
         }
         this.setNomTable("facture_fournisseur_mere");

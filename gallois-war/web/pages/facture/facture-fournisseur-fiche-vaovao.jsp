@@ -127,6 +127,8 @@
         map.put("bondelivraisonFF", "");
         map.put("paiementFF", "");
         map.put("regularisationFF", "");
+        map.put("etatprovision", "");
+        map.put("additif-liste", "");
 //        map.put("activite", "");
 //        map.put("facturesdefinitives", "");
 //        map.put("provision-facturesdefinitives", "");
@@ -231,6 +233,7 @@
                     <p>
 
                         <a class="btn"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFF-saisie.jsp&idfacture=" + e.getId()%>&type=2" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir</a>
+                        <a class="btn btn-success pull-right" href="<%=(String) session.getValue("lien") + "?but=additif/additif-saisie.jsp&idfacture="+ e.getId()%>" >Additif</a>
                     </p>
                     <hr>
                     <p>
@@ -302,11 +305,13 @@
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("facture-fournisseur-fille")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-fournisseur-fille&idmere=<%=e.getId()%>">D&eacute;tails facture client</a></li>
                     <li class="<%= map.get("avoirFF-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=avoirFF-liste">Facture avoir</a></li>
+                    <li class="<%= map.get("additif-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=additif-liste">Additif</a></li>
                     
                     <li class="<%= map.get("paiementFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfact=<%=e.getId()%>&tab=paiementFF">Paiement</a></li>
                     <% if (e.getIdcategorie().equals(Constante.getCategorieFFBP())) {%>
                     <li class="<%= map.get("facturesfdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesfdefinitives">Factures d&eacute;finitives</a></li>
                     <li class="<%= map.get("regularisationFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=regularisationFF&idProvision=<%=e.getId()%>">Régularisation</a></li>
+                    <li class="<%= map.get("etatprovision")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=etatprovision">Etat de provision</a></li>
                     <% } %>
                 </ul>
                 <div class="tab-content">       
@@ -319,6 +324,7 @@
                             <jsp:param name="idfacture" value="<%=e.getId()%>" />
                             <jsp:param name="idProvision" value="<%=e.getId()%>" />
                             <jsp:param name="iddefinitive" value="<%=e.getId()%>" />
+                            <jsp:param name="idfact" value="<%=e.getId()%>" />
                         </jsp:include>
                     </div>
                 </div>

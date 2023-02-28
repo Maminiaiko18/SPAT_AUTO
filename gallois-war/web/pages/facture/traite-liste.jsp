@@ -20,7 +20,7 @@
 
         String listeCrt[] = {"id","tiers", "banque", "daty", "dateEcheance"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id","tiers", "banque", "daty", "dateEcheance","montant","montantreste"};
+        String libEntete[] = {"id","tiers", "banque", "daty", "dateEcheance","montant","montantreste","etatversementlib"};
 
         PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -31,7 +31,6 @@
         pr.getFormu().getChamp("banque").setLibelle("Banque");
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
-
         pr.getFormu().getChamp("dateEcheance").setLibelle("Date echeance");
         
         pr.setApres("facture/traite-liste.jsp");
@@ -59,9 +58,9 @@
                     Etat : 
                     <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("TRAITE_LIB") == 0) {%>    
-                        <option value="TRAITE_LIBMTT" selected>Tous</option>
+                        <option value="TRAITEMTTRESTE" selected>Tous</option>
                         <% } else { %>
-                        <option value="TRAITE_LIBMTT" >Tous</option>
+                        <option value="TRAITEMTTRESTE" >Tous</option>
                         <% } %>
 						
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("TRAITE_LIBC") == 0) {%>
@@ -113,7 +112,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <%
-            String libelleAffiche[] = {"Id","Tiers", "Banque", "daty","Date &eacute;cheance","Montant", "Montant Disponible"};
+            String libelleAffiche[] = {"Id","Tiers", "Banque", "daty","Date &eacute;cheance","Montant", "Montant Disponible","Etat versement"};
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

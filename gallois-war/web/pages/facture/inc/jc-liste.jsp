@@ -9,8 +9,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     JournalCaisse cht = new JournalCaisse();
-    cht.setNomTable("fctraite_jc");
-    String libEntete[] = {"libelle", "debit", "credit", "iddevise", "montant","datesaisie"};
+    cht.setNomTable("TRAITE_JC");
+    String libEntete[] = {"id","libelle", "debit", "credit", "iddevise", "montant","datesaisie"};
     String listeCrt[] = {};
     String listeInt[] = {};
 
@@ -24,8 +24,8 @@
         pr.setAWhere(" and idtraite = '"+request.getParameter("id")+"' ");
     }
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"Libelle", "Debit", "Credit", "Devise", "Montant","Date de saisie"};
-    String lienTableau[] = {pr.getLien() + "?but=facture/traite-fiche.jsp"};
+    String libEnteteAffiche[] = {"id","Libelle", "Debit", "Credit", "Devise", "Montant","Date de saisie"};
+    String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);

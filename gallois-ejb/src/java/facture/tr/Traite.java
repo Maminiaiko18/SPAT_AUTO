@@ -30,6 +30,18 @@ public class Traite extends ClassEtat {
     double montant,escompte,total,montantreste;
     String idtypepiece;
     String idfinaledestination;
+    String idbanque, typepiece, etatlib;
+    int etatversement;
+    String etatversementlib;
+
+
+    public String getIdbanque() {
+        return idbanque;
+    }
+
+    public void setIdbanque(String idbanque) {
+        this.idbanque = idbanque;
+    }
 
     public String getIdfinaledestination() {
         return idfinaledestination;
@@ -277,23 +289,25 @@ public class Traite extends ClassEtat {
     public void lierJournalCaisse(String[] ids, Connection c) throws Exception{
         JournalCaisse critere = new JournalCaisse();
         critere.setNomTable("journalcaisse");
-       JournalCaisse[] journaux =  (JournalCaisse[])CGenUtil.rechercher(critere,null,null,c," and id in ("+Utilitaire.tabToString(ids, "'", ",")+")");
-       double sommeCredit = AdminGen.calculSommeDouble(journaux, "credit");
-       if(sommeCredit > this.montantreste){
-           throw new Exception("Montant traite insuffisant");
-       }
-       for(int i=0;i<journaux.length;i++){
-           if(journaux[i].getIdtraite()!=null)
-               throw new Exception("Traite deja existant");
-           journaux[i].setIdtraite(this.id);
-           journaux[i].updateToTable(c);
-       }
+        JournalCaisse[] journaux =  (JournalCaisse[])CGenUtil.rechercher(critere,null,null,c," and id in ("+Utilitaire.tabToString(ids, "'", ",")+")");
+        double sommeCredit = AdminGen.calculSommeDouble(journaux, "credit");
+        if(sommeCredit > this.montantreste){
+            throw new Exception("Montant traite insuffisant");
+        }
+        for(int i=0;i<journaux.length;i++){
+            if(journaux[i].getIdtraite()!=null)
+                throw new Exception("Traite deja existant");
+            if(journaux[i].getIdmode().compareToIgnoreCase(Constante.getTraite()) != 0)
+                throw new Exception("Mode de paiement doit etre de type traite");
+            journaux[i].setIdtraite(this.id);
+            journaux[i].updateToTable(c);
+        }
     }
     public String getValColLibelle(){
         return id+";"+montant;
     }
     
-    @Override
+    /*@Override
     public Object validerObject(String u, Connection c) throws Exception {
         Traite traite = new Traite();
         traite = (Traite) traite.getById(this.getId(), "TRAITEMTTRESTE", c);
@@ -307,6 +321,23 @@ public class Traite extends ClassEtat {
         mvt.createObject(u, c);
         mvt.validerObject(u, c);
         return super.validerObject(u, c);
+    }*/
+    
+    public void verser(String u, Connection c) throws Exception {
+        
+        Traite traite = new Traite();
+        traite = (Traite) traite.getById(this.getId(), "TRAITEMTTRESTE", c);
+        if(traite.getMontantreste()>0)
+            throw new Exception("Le montant disponible ne doit pas etre superieur a zero.");
+        String caisseDep = Constante.getCaisseTraite();
+        if(this.getIdtypepiece()!=null && this.getIdtypepiece().equals(Constante.getTypePieceCheque()))caisseDep = Constante.caisseDepense;
+        MvttIntraCaisse mvt = new MvttIntraCaisse(caisseDep,Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,Constante.getTraite(),null,
+                                    null,this.getTuppleID(),this.getDaty(),this.getMontant());
+        mvt.setIdfinaledestination(this.getIdfinaledestination());
+        mvt.createObject(u, c);
+        mvt.validerObject(u, c);
+        c.commit();
+        
     }
     
     @Override
@@ -314,5 +345,70 @@ public class Traite extends ClassEtat {
         if(this.getMontant() <= 0){
             throw new Exception("Le montant ne doit pas etre 0 ou negatif");
         }
+    }
+    
+    public void avantVerser(String[] tId, String u, String finaldestination, Connection c) throws Exception {
+        try{
+            if(c == null){
+                c=new UtilDB().GetConn();
+                c.setAutoCommit(false);
+            }
+            MvttIntraCaisse mvt = new MvttIntraCaisse();
+            mvt.setNomTable("mvtintracaissetraiteVcaisse");
+            MvttIntraCaisse[] mvts = (MvttIntraCaisse[])CGenUtil.rechercher(mvt, null, null, c, " and idtraite='"+this.getId()+"'");
+            if(mvts.length > 0){
+                if(mvts[0].getEtatversement() == ConstanteEtat.getEtatValider())
+                    throw new Exception("Traite déjà versée.");
+                if(mvts[0].getEtatversement() == ConstanteEtat.getEtatEncaissee())
+                    throw new Exception("Traite déjà encaissée.");
+            }
+            Traite traite=new Traite();
+            String aWhere = " AND id in ("+Utilitaire.tabToString(tId, "'", ",")+")";
+            Traite[] listeTraite = (Traite[])CGenUtil.rechercher(traite, null, null, c, aWhere);
+            for(int i=0;i<listeTraite.length;i++){
+                listeTraite[i].setIdfinaledestination(finaldestination);
+                listeTraite[i].verser(u, c);
+            }
+        }
+        catch(Exception ex){
+            if(c!=null)c.rollback();
+            ex.printStackTrace();
+            throw ex;
+        }
+        finally{
+            if(c!=null)c.close();
+        }
+    }
+
+    public String getTypepiece() {
+        return typepiece;
+    }
+
+    public void setTypepiece(String typepiece) {
+        this.typepiece = typepiece;
+    }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
+    }
+
+    public int getEtatversement() {
+        return etatversement;
+    }
+
+    public void setEtatversement(int etatversement) {
+        this.etatversement = etatversement;
+    }
+
+    public String getEtatversementlib() {
+        return etatversementlib;
+    }
+
+    public void setEtatversementlib(String etatversementlib) {
+        this.etatversementlib = etatversementlib;
     }
 }

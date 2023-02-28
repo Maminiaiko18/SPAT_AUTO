@@ -2,6 +2,7 @@
 <%@page import="affichage.PageRecherche"%>
 <%@page import="facture.FactureClient"%>
 <%@page import="utilitaire.Utilitaire"%>
+<%@page import="bean.*"%>
 <%
     String idfacture = request.getParameter("idFC");
     String idtraite = request.getParameter("idTraite");
@@ -17,17 +18,29 @@
     paiements.setUtilisateur((user.UserEJB) session.getValue("u"));
     paiements.setLien((String) session.getValue("lien"));
     paiements.setApres("facture/liste-paiementfacture-multiple.jsp");
-    paiements.setAWhere(" AND idmode in ('pay6')  AND idfact = '" + idfacture + "' AND idtraite is null");
+    String awhere = " AND idmode in ('pay6')  AND idfact = '" + idfacture + "' AND idtraite is null";
+    if(request.getParameter("montant") != null){
+        awhere += " and montant <= " + request.getParameter("montant");
+    }
+    paiements.setAWhere(awhere);
+    String bute = "facture/factureclient-fiche-vaovao.jsp&id="+idfacture+"&id="+idfacture;
+    if(request.getParameter("idjc")!=null){
+        paiements.setAWhere(" AND idmvt = '" + request.getParameter("idjc") + "'");
+        bute = "treso/journalcaisse-fiche.jsp&id="+request.getParameter("idjc");
+    }
     paiements.creerObjetPage(libEntete, colSomme);
-    String popupLink = "choix/traiteChoix.jsp?traite=true&champReturn=idTraite;idTraitelibelle&amp;apresLienPageAppel=";
+    PaiementFactureLibJc[] liste=(PaiementFactureLibJc[])paiements.getTableau().getData();
+    double sommeTotaleJc=AdminGen.calculSommeDouble(liste,"montant");
+    String popupLink = "choix/traiteChoix.jsp?traite=true&montanttotaljc="+sommeTotaleJc+"&champReturn=idTraite;idTraitelibelle&amp;apresLienPageAppel=";
 %>
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Attacher paiement traite à la facture</h1>
+        <h1>Attacher paiement traite &agrave; la facture</h1>
     </section>
-         <form action="<%=paiements.getLien()%>?but=apresPaiementFactureTraite.jsp" method="post" name="paiementfacture" id="paiementfacture">
-            <input type="hidden" name="bute" value="facture/factureclient-fiche-vaovao.jsp&id=<%=idfacture%>&id=<%=idfacture%>"/>
+    <section class="content">
+        <form action="<%=paiements.getLien()%>?but=apresPaiementFactureTraite.jsp" method="post" name="paiementfacture" id="paiementfacture">
+            <input type="hidden" name="bute" value="<%=bute%>"/>
             <input type="hidden" name="acte" value="attacher"/>
             <div class="form-group row">
                 <div class="col-md-3">
@@ -44,7 +57,13 @@
                 paiements.getTableau().setLibelleAffiche(libEntetePaiement);
                 paiements.getTableau().setNameActe("attacher");
                 paiements.getTableau().setNameBoutton("Attacher");
-                out.println(paiements.getTableau().getHtmlWithCheckbox());
+                if(paiements.getTableau().getHtmlWithCheckbox()==null && idtraite!=null){
+                    out.println("<center>Aucun paiement de type traite pour la facture.</center>");
+                }else{
+                    out.println(paiements.getTableau().getHtmlWithCheckbox());
+                }
             %>
          </form>
+    </section>
+         
 </div>

@@ -640,11 +640,6 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if (this.getTypemvt() != null && this.getTypemvt().compareToIgnoreCase(Constante.financeTypeAnnulation) == 0) {
                 return;
             }
-            
-            if((this.getIdmode().compareToIgnoreCase(Constante.getTraite()) == 0 && this.getCaisse().compareToIgnoreCase(Constante.getCaisseTraite())!=0)||(this.getIdmode().compareToIgnoreCase(Constante.getTraite()) != 0 && this.getCaisse().compareToIgnoreCase(Constante.getCaisseTraite())==0)){
-
-                throw new Exception("Paiement avec mode de paiement traite - caisse traite");
-            }
             if(this.getIdordre()==null){
                 
                 if(this.getIdplacement() != null) {
@@ -741,6 +736,34 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     @Override
     public String getAttributIDName() {
         return "id";
+    }
+
+
+    public JournalCaisse modifierEntete(String refUser, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            this.updateToTableWithHisto(refUser, c);
+
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return this;
     }
     
     public OrdonnerPayement traitementOP(UserEJBBean user, Connection c) throws Exception {

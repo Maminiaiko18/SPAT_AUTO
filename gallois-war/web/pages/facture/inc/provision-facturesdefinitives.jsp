@@ -13,9 +13,9 @@
     FactureClient base = new FactureClient();
     base.setNomTable("PMENTFACTHORSPROVAVPROVCPLT");
     
-    String listeCrt[] = {"idFact"};
+    String listeCrt[] = {"idfact"};
     String listeInt[] = {};
-    String libEntete[] = {"id","daty","tierslib","escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste", "etatLib"};
+    String libEntete[] = {"id","idfact","daty","tierslib","escale","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste", "etatLib"};
 
 
     PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
@@ -25,11 +25,11 @@
     String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     pr.creerObjetPage(libEntete, colSomme);
         
-    String[] libelleAffiche = {"id","daty","Client","Escale","designation","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer", "Etat"};
+    String[] libelleAffiche = {"id","Facture","daty","Client","Escale","designation","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer", "Etat"};
     pr.getTableau().setLibelleAffiche(libelleAffiche);
 
             String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
-            String colonneLien[] = {"id"};
+            String colonneLien[] = {"idfact"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);    
     

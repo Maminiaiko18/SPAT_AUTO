@@ -161,6 +161,9 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerBed2(request, response);
             } else if (action.equalsIgnoreCase("pieceDeCaiseDepense")) {
                 pieceDeCaiseDepense(request, response);
+
+            } else if (action.equalsIgnoreCase("pieceDeCaiseProvision")) {
+                pieceDeCaiseProvOnly(request, response);
             } else if (action.equalsIgnoreCase("pieceDeCaiseRecette")) {
                 pieceDeCaiseRecette(request, response);
             } else if (action.equalsIgnoreCase("imprimerBon")) {
@@ -195,6 +198,8 @@ public class EtatPaieServlet extends HttpServlet {
                 listefactureClient(request, response);
             } else if (action.equalsIgnoreCase("impressionCA")) {
                 impressionCA1(request, response);
+            } else if (action.equalsIgnoreCase("impressionCA_devise")) {
+                impressionCA_devise(request, response);
             } else if (action.equalsIgnoreCase("rubrique_activite")) {
                 rubrique_activite_pdf(request, response);
             } else if (action.equalsIgnoreCase("coursdevise")) {
@@ -227,6 +232,8 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerSuiviBudgetaire(request, response);
             } else if (action.equalsIgnoreCase("imprimerTransfertCaisse")) {
                 imprimerTransfertCaisse(request, response);
+            } else if (action.equalsIgnoreCase("impressionAC")) {
+                imprimerAClient(request, response);
             }
 
         } catch (Exception ex) {
@@ -713,7 +720,7 @@ public class EtatPaieServlet extends HttpServlet {
 
     private void pieceDeCaiseDepense(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-
+            
             String idop = request.getParameter("idop");
             OrdonnerPayement op = new OrdonnerPayement();
             op.setNomTable("OrdonnerPayement_LIB");
@@ -724,6 +731,8 @@ public class EtatPaieServlet extends HttpServlet {
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
             JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, " ");
+            
+            System.out.println("here is what you deserve = " + tabJournal.length);
 
             param.put("facture_lib", tabJournal[0].getLibelle());
 
@@ -760,28 +769,121 @@ public class EtatPaieServlet extends HttpServlet {
                 if (tabLiaison.length > 0) {
                     param.put("facture_montant", tabLiaison[0].getMontant());
                 }
-            } else {
+            } 
+            if (tabJournal.length > 0) {
 
-//                System.out.println("=================================   3 ======================================");
-                if (tabJournal.length > 0) {
+                param.put("daty", tabJournal[0].getDateEffet());
+                param.put("montant", tabJournal[0].getDebit());
+                String montantString = String.valueOf((long) tabJournal[0].getDebit());
+                long montantLong = Long.valueOf(montantString);
+                param.put("montant_lettre",
+                        (ChiffreLettre.convertIntToString(montantLong) + " ARIARY ").toUpperCase());
+                
 
-                    param.put("daty", tabJournal[0].getDateEffet());
-                    param.put("montant", tabJournal[0].getDebit());
-                    String montantString = String.valueOf((long) tabJournal[0].getDebit());
-                    long montantLong = Long.valueOf(montantString);
-                    param.put("montant_lettre",
-                            (ChiffreLettre.convertIntToString(montantLong) + " ARIARY ").toUpperCase());
-
-                    param.put("facture_montant", tabJournal[0].getDebit());
-                    param.put("tiers", tabJournal[0].getTiersLib());
-                    param.put("num_piece", tabJournal[0].getNumPiece());
-                }
+                param.put("facture_montant", tabJournal[0].getDebit());
+                param.put("tiers", tabJournal[0].getTiersLib());
+                param.put("num_piece", tabJournal[0].getNumPiece());
 
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("piece_de_caisse_depenses");
             UtilitaireImpression.imprimer(request, response, "piece_de_caisse_depenses", param, new ArrayList(),
                     getReportPath(), rt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void pieceDeCaiseProvOnly(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            JournalCaisse jc = new JournalCaisse();
+            boolean prov = false;
+            jc.setId(request.getParameter("id"));
+            jc.setNomTable("JOURNALCAISSELIBCOMPLET");
+            JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null,
+                    " order by NUMPIECE ASC  ");
+
+            PayementFacture[] tabFact = null;
+            String idFacture = request.getParameter("idFacture");
+
+            if (tabJournal.length > 0) {
+                // requete = "select * from factureclientmsum_lib where id in
+                // ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
+                tabFact = jc.getPayementFactureTous(null);
+            }
+            Map param = new HashMap();
+            param.put("datyJ", Utilitaire.dateDuJourSql());
+            ArrayList<PayementFacture> arrList = new ArrayList<PayementFacture>();
+            double montantFacture = 0;
+            double arrondi = 0;
+            double totalGeneral = 0;
+            int cptDef = 0;
+
+
+            for (int i = 0; i < tabFact.length; i++) {
+                if (tabFact[i].getIdfact().compareToIgnoreCase(idFacture)==0) {
+                    arrList.add(tabFact[i]);
+                }
+            }
+            arrondi = 0;
+            montantFacture = tabJournal[0].getCredit();
+            totalGeneral = montantFacture;
+            String montantString = String.valueOf((long) totalGeneral);
+            long montantLong = Long.valueOf(montantString);
+            String montantLettre = ChiffreLettre.convertRealToString(totalGeneral, "Ariary");
+
+            if (tabJournal[0].getIdTypeCheque() != null && tabJournal[0].getIdmode() != null
+                    && tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant) == 0
+                    && tabJournal[0].getIdmode().compareTo(Constante.modePaiementEspece) == 0) {
+                montantLettre = ChiffreLettre.convertIntToString(montantLong) + " Ariary";
+
+            } else {
+                // montantFacture = Utilitaire.arrondir(montantFacture, 2); mandiso io fonction
+                // io
+                montantFacture = Utilitaire.arrondirDecimalWithMode(montantFacture, "#.##", RoundingMode.HALF_UP);
+                totalGeneral = Utilitaire.arrondirDecimalWithMode(totalGeneral, "#.##", RoundingMode.HALF_UP);
+                String[] montantTexte = ChiffreLettre.convertRealToStringSepare(totalGeneral);
+                montantLettre = montantTexte[0];
+                if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                    montantLettre += " Ariary " + montantTexte[1];
+                } else {
+                    montantLettre += " Ariary";
+                }
+            }
+            param.put("montant", montantFacture);
+            param.put("arrondi", arrondi);
+            param.put("total", totalGeneral);
+            param.put("montantLettre", montantLettre);
+            param.put("list_table", arrList);
+
+            if (tabJournal.length > 0) {
+                param.put("numPiece", tabJournal[0].getNumPiece());
+                param.put("client", tabJournal[0].getTiersLib());
+                param.put("operation", tabJournal[0].getLibelle());
+                //pour les pieces lier provision
+                if (tabJournal[0].getDateEffet() == null) {
+                    param.put("datyPiece", tabJournal[0].getDateSaisie());
+                } else {
+                    param.put("datyPiece", tabJournal[0].getDateEffet());
+                }
+            }
+            String nomJasper = "piece_de_caisse";
+            String titre = "PROVISION CONSTITUEE";
+            String soustitre = "PIECE DE CAISSE";
+            String findP = tabJournal[0].getNumPiece();
+            param.put("soustitre", Utilitaire.champNull(soustitre));
+
+            String chaine = request.getParameter("numPiece");
+            System.out.println("numero piece = " + chaine);
+
+            param.put("titre", Utilitaire.champNull(titre));
+            String heure = Utilitaire.heureCouranteHMS();
+            param.put("heure", heure);
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper(nomJasper);
+            UtilitaireImpression.imprimer(request, response, "piece_de_caisse", param, new ArrayList(), getReportPath(),
+                    rt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -831,7 +933,8 @@ public class EtatPaieServlet extends HttpServlet {
                 arrList.add(tabFact[i]);
             }
             // tabJournal[0].arrondir();
-            if (prov) {
+            System.out.println("type"+tabJournal[0].getIdTypeCheque());
+            if (prov || (tabJournal[0].getIdTypeCheque().compareToIgnoreCase(Constante.getTypeACredit())==0)) {
                 arrondi = 0;
             } else {
                 arrondi = tabJournal[0].getCredit() - montantFacture;
@@ -839,7 +942,7 @@ public class EtatPaieServlet extends HttpServlet {
             totalGeneral = tabJournal[0].getCredit();
 //            arrondi = tabJournal[0].getCredit() - montantFacture;
 //            totalGeneral = tabJournal[0].getCredit();
-            totalGeneral = montantFacture + arrondi;
+//           totalGeneral = montantFacture + arrondi;
             String montantString = String.valueOf((long) totalGeneral);
             long montantLong = Long.valueOf(montantString);
             String montantLettre = ChiffreLettre.convertRealToString(totalGeneral, "Ariary");
@@ -2207,6 +2310,63 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+     public void impressionCA_devise(HttpServletRequest request, HttpServletResponse response) {
+         try {
+            String mois = request.getParameter("mois");
+            String annee = request.getParameter("annee");
+            String devise = request.getParameter("devise");
+            if (mois == null || mois.trim().isEmpty() || mois.compareToIgnoreCase("null") == 0) {
+                mois = "" + Utilitaire.getMoisEnCoursReel();
+            }
+            if (annee == null || annee.trim().isEmpty() || annee.compareToIgnoreCase("null") == 0) {
+                annee = "" + Utilitaire.getAneeEnCours();
+            }
+            if (devise == null || devise.trim().isEmpty() || devise.compareToIgnoreCase("null") == 0) {
+                devise = "Dollars";
+            }
+
+            Liste moisL = new Liste("mois");
+            moisL.makeListeMois();
+            moisL.setDefaut("" + mois);
+            EtatCA etatCA = new EtatCA(Integer.parseInt(mois), Integer.parseInt(annee), false, devise);
+             List dataSource = new ArrayList();
+            //CA[] tout = etatCA.getCACpl(Integer.parseInt(mois), Integer.parseInt(annee));
+            Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
+            Map<String, CA> sommePartiel = etatCA.getSommePartiel();
+            CA totalGeneral = etatCA.getTotalGeneral();
+            List result = new ArrayList();
+            if (listeParRubrique != null) {
+                /* Details */
+                for (String rubrique : listeParRubrique.keySet()) {
+                    CaPDF ca1 =null;
+                    for (CA ca : listeParRubrique.get(rubrique)) {
+                        ca1 = new CaPDF(ca);
+                        ca1.setCompteMerelib(rubrique);
+                        result.add(ca1);
+                    }
+                    //result.add(temp2);
+                }
+            }
+            
+             Map param = new HashMap();
+                param.put("avoirtaux", Utilitaire.formaterAr(etatCA.getPourcAvoir()));
+                param.put("comptanttaux", Utilitaire.formaterAr(etatCA.getPourComptant()));
+                param.put("credittaux", Utilitaire.formaterAr(etatCA.getPourcCredit()));
+                /* taux */
+                param.put("nbr", Utilitaire.formaterAr(Utilitaire.formaterAr(etatCA.getNbFactComptant())));
+                param.put("nbr2", Utilitaire.formaterAr(etatCA.getNbFactCredit()));
+                param.put("nbr3", Utilitaire.formaterAr(etatCA.getNbFactureTotal()));
+                param.put("mois", Constante.getMois()[Utilitaire.stringToInt(mois) - 1]);
+                param.put("annee", annee);
+                param.put("daty", Utilitaire.dateDuJour());
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("chiffre_affaire1");
+            UtilitaireImpression.imprimer(request, response, "chiffre d'affaires", param, result, getReportPath(), rt);
+            } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
     public void impressionCA1(HttpServletRequest request, HttpServletResponse response) {
          try {
             String mois = request.getParameter("mois");
@@ -2740,7 +2900,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("montant", Utilitaire.formaterAr((engagement.getMontant())));
                 param.put("avant", Utilitaire.formaterAr(engagement.getDispoAvant()));
                 param.put("apres", Utilitaire.formaterAr(engagement.getDispoApres()));
-                param.put("observation", engagement.getObservation());
+                param.put("observation", Utilitaire.champNull(engagement.getObservation()));
             }
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
@@ -3188,6 +3348,8 @@ public class EtatPaieServlet extends HttpServlet {
             }
             if (tierslib != null && !tierslib.trim().isEmpty() && tierslib.compareToIgnoreCase("null") != 0) {
                 awhere += " AND tierslib='" + tierslib + "'";
+            } else {
+                awhere += " AND tierslib like '%'";
             }
             if (typelib != null && !typelib.trim().isEmpty() && typelib.compareToIgnoreCase("null") != 0) {
                 awhere += " AND typelib like '" + typelib + "'";
@@ -3211,7 +3373,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             System.out.println("sql=" + awhere);
-            awhere += " order by daty ASC";
+            awhere += " order by daty ASC,code,tierslib";
             AvoirFC[] mere = (AvoirFC[]) CGenUtil.rechercher(f, null, null, awhere);
             double totalHtva = 0;
             double totaltva = 0;
@@ -3225,13 +3387,13 @@ public class EtatPaieServlet extends HttpServlet {
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(mere));
 
-            param.put("daty1", daty1);
-            param.put("daty2", daty2);
+            param.put("daty1", Utilitaire.champNull(daty1));
+            param.put("daty2", Utilitaire.champNull(daty2));
             param.put("daty3", utilitaire.Utilitaire.dateDuJour());
             param.put("totaltva", totaltva);
             param.put("totalHtva", totalHtva);
             param.put("totalttc", totalttc);
-            param.put("TYPE", typelib.toUpperCase());
+            param.put("TYPE", Utilitaire.champNull(typelib.toUpperCase()));
             setNomJasper("numeroavoir");
             UtilitaireImpression.imprimer(request, response, "numeroavoir", param, dataSource, getReportPath());
 
@@ -3283,7 +3445,9 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("designation", utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
             param.put("daty", mere[0].getDaty());
             param.put("numero", mere[0].getNumero());
-
+            param.put("prevision", mere[0].getMontantbudget());
+            param.put("montantAvant", mere[0].getMontantav());
+            param.put("montantApres", mere[0].getMontantap());
             BordereauFilleLibComplet fille = new BordereauFilleLibComplet();
             fille.setIdbordereau(id);
             fille.setNomTable("liaisonbordereauFF_libcomplet");
@@ -3328,6 +3492,36 @@ public class EtatPaieServlet extends HttpServlet {
         }
     }
 
+    public void imprimerAClient(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String tiers = request.getParameter("tierslib");
+            String daty1 = request.getParameter("date1");
+            String daty2 = request.getParameter("date2");
+
+            String requete = "";
+            if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
+                requete = requete + String.format(" and daty >= TO_DATE('%s','DD/MM/YYYY')", daty1);
+            }
+            if (daty2 != null && !daty2.trim().isEmpty() && daty2.compareToIgnoreCase("null") != 0) {
+                requete = requete + String.format(" and daty <= TO_DATE('%s','DD/MM/YYYY')", daty2);
+            }
+            if (tiers != null && !tiers.trim().isEmpty() && tiers.compareToIgnoreCase("null") != 0) {
+                requete += " and upper(tierslib) like upper('%" + tiers + "%')";
+            }
+            //System.out.println("requete :"+requete);
+            FactureClient mc = new FactureClient();
+            mc.setNomTable("FACTURE_CLIENT_UNIONV");
+            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(mc, null, null, requete);
+            Map param = new HashMap();
+            List dataSource = new ArrayList();
+            dataSource.addAll(Arrays.asList(mere));
+            setNomJasper("Analyse_Client");
+            UtilitaireImpression.imprimer(request, response, "Facture_Client", param, dataSource, getReportPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /*private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {

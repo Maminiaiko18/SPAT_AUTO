@@ -17,14 +17,14 @@
     pi.setLien((String) session.getValue("lien"));
     
 
-    pi.getFormu().getChamp("ded_Id").setLibelle("N° facture");
+    pi.getFormu().getChamp("ded_Id").setLibelle("N&deg; facture");
     pi.getFormu().getChamp("ded_Id").setAutre("readonly");
 //    pi.getFormu().getChamp("destination").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
 
     pi.getFormu().getChamp("daty").setLibelle("Date");
-    pi.getFormu().getChamp("numeroop").setLibelle("Numéro OP");
+    pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro OP");
     pi.getFormu().getChamp("remarque").setLibelle("Motif de paiement");
 //    pi.getFormu().getChamp("montant").setLibelle("Montant");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
@@ -60,12 +60,15 @@
     if(idavoir!= null){
         avoir.AvoirFC avoir = new AvoirFC();
 //        avoir.setNomTable("avoirFC_montant");
-        avoir.setNomTable("union_AVOIRFF_MONTANT");
+        avoir.setNomTable("UNION_AVOIRFF_MONTANT_REGROUP");
+       
+
+
         AvoirFC ls [] = (AvoirFC[]) CGenUtil.rechercher( avoir , null, null, " and id='"+idavoir+"'") ;
          //BonDeCommande[] tabBc = (BonDeCommande[]) CGenUtil.rechercher( bc , null, null, " ") ;
         if(ls.length!=0){
             pi.getFormu().getChamp("ded_Id").setDefaut(ls[0].getId());
-            pi.getFormu().getChamp("montant").setDefaut(ls[0].getMontant()+"");
+            pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(ls[0].getMontantreste())+"");
             pi.getFormu().getChamp("daty").setDefaut(utilitaire.Utilitaire.dateDuJour());
             pi.getFormu().getChamp("remarque").setDefaut("Paiement Avoir "+ls[0].getCode());
             

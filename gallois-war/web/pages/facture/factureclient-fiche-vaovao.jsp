@@ -270,7 +270,7 @@
                         if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {%>
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererProvision&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer Provision</a>
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liaison-fc-provision.jsp&id1=" + e.getId()%>&acte=lierProv&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Lier Provision</a>
-                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liste-paiementfacture-multiple.jsp&idFC=" + e.getId()%>" style="margin-right: 10px">Attacher traite</a>
+                    <!--<a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liste-paiementfacture-multiple.jsp&idFC=" + e.getId()%>" style="margin-right: 10px">Attacher traite</a>-->
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/regulariser-avoir.jsp&idFC=" + e.getId() %>" style="margin-right: 10px">Régulariser Avoir</a>
                     <%}
                     %>
@@ -330,7 +330,7 @@
                     <li class="<%= map.get("etat-provision")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=etat-provision&idProvision=<%=e.getId()%>">Etat de provision</a></li>
                         <% } %>
                         <% if (e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {%>
-                    <li class="<%= map.get("provision-facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=provision-facturesdefinitives">Provisions</a></li>
+                    <li class="<%= map.get("provision-facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&idfact=<%=e.getId()%>&tab=provision-facturesdefinitives">Provisions</a></li>
                         <% }%> 
                 </ul>
                 <div class="tab-content">       

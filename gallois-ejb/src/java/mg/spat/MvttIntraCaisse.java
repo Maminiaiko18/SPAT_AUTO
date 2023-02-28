@@ -19,12 +19,62 @@ import utilitaire.UtilDB;
  * @author Sanda
  */
 public class MvttIntraCaisse extends ClassEtat {
-    private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite;
-    private Date daty;
+
+    private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite,caissedepartlib,caissearriveelib,modepaiementlib,etatlib;
+    private Date daty, dateecheance;
+    
     private double montant;
     private  JournalCaisse[] listeJournal;
     int etatversement;
     String idfinaledestination ;
+    String finaledestinationlib;
+    String etatVersementLib;
+
+    public void setEtatVersementLib(String etatVersementLib){
+        this.etatVersementLib=etatVersementLib;
+    }
+    public String getEtatVersementLib(){
+        return this.etatVersementLib;
+    }
+
+    public void setFinaledestinationlib(String finaledestinationlib){
+        this.finaledestinationlib=finaledestinationlib;
+    }
+    public String getFinaledestinationlib(){
+        return this.finaledestinationlib;
+    }
+
+    public String getCaissedepartlib() {
+        return caissedepartlib;
+    }
+
+    public void setCaissedepartlib(String caissedepartlib) {
+        this.caissedepartlib = caissedepartlib;
+    }
+
+    public String getCaissearriveelib() {
+        return caissearriveelib;
+    }
+
+    public void setCaissearriveelib(String caissearriveelib) {
+        this.caissearriveelib = caissearriveelib;
+    }
+
+    public String getModepaiementlib() {
+        return modepaiementlib;
+    }
+
+    public void setModepaiementlib(String modepaiementlib) {
+        this.modepaiementlib = modepaiementlib;
+    }
+
+    public Date getDateEcheance() {
+        return dateecheance;
+    }
+
+    public void setDateEcheance(Date dateEcheance) {
+        this.dateecheance = dateEcheance;
+    }
 
     public int getEtatversement() {
         return etatversement;
@@ -43,6 +93,21 @@ public class MvttIntraCaisse extends ClassEtat {
     }
     
     
+    public MvttIntraCaisse(String modepaiementlib,String caissearriveelib,String caissedepartlib,Date dateEcheance,String caissedepart,String caissearrivee,String modepaiement,String remarque,String description,String idTraite,Date daty,double montant)throws Exception{
+        this.setNomTable("MvtIntracaisse");
+        this.setCaissearrivee(caissearrivee);
+        this.setCaissedepart(caissedepart);
+        this.setModepaiement(modepaiement);
+        this.setRemarque(remarque);
+        this.setDesignation(designation);
+        this.setIdTraite(idTraite);
+        this.setDaty(daty);
+        this.setMontant(montant);
+        this.setDateEcheance(dateEcheance);
+        this.setCaissedepartlib(caissedepartlib);
+        this.setCaissearriveelib(caissearriveelib);
+        this.setModepaiementlib(modepaiementlib);
+    }
 
     public MvttIntraCaisse(String caissedepart,String caissearrivee,String modepaiement,String remarque,String description,String idTraite,Date daty,double montant)throws Exception{
         this.setNomTable("MvtIntracaisse");
@@ -138,6 +203,14 @@ public class MvttIntraCaisse extends ClassEtat {
 
     public void setMontant(double montant) {
         this.montant = montant;
+    }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
     }
     
     
@@ -239,6 +312,17 @@ public class MvttIntraCaisse extends ClassEtat {
             c=new UtilDB().GetConn();
             c.setAutoCommit(false);
             
+            MvttIntraCaisse mvt = new MvttIntraCaisse();
+            mvt.setNomTable("mvtintracaissetraiteVcaisse");
+            MvttIntraCaisse[] mvts = (MvttIntraCaisse[])CGenUtil.rechercher(mvt, null, null, c, " and idtraite='"+this.getIdTraite()+"'");
+            int t = mvts.length;
+            if(t > 0){
+                for(int i = 0; i < t; i++){
+                    if(mvts[i].getEtatversement() == ConstanteEtat.getEtatEncaissee())
+                        throw new Exception("Traite déjà encaissée.");
+                }
+            }
+            
             MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,this.getIdfinaledestination(),this.getModepaiement(),
                         this.getRemarque(),this.getDesignation(),this.getIdTraite(),this.getDaty(),this.getMontant());
             nouvMvt.createObject(u,c);
@@ -254,5 +338,60 @@ public class MvttIntraCaisse extends ClassEtat {
         }finally{
             if(c!=null)c.close();
         }
+    }
+
+    public String validerObjectEncaisserTraite(String u, Connection c, JournalCaisse credit)throws Exception{
+        JournalCaisse debit = new JournalCaisse(credit.getFolio(),Constante.getEFFETSARECEVOIRREMISALENCAISSEMENT(),credit.getNumPiece(),credit.getLibelle(),credit.getRemarque(),
+                                credit.getDateSaisie(),credit.getDateEffet(),credit.getCredit(),0.0);
+        credit.createObject(u, c);
+        credit.validerObject(u, c);
+
+        debit.createObject(u, c);
+        debit.validerObject(u, c);
+        
+        this.setEtatversement(ConstanteEtat.getEtatValider());
+        
+        super.validerObject(u, c);
+
+        return credit.getTuppleID();
+    }
+
+    public String encaisserTraite(String u, JournalCaisse journal)throws Exception{
+        Connection c=null;
+        String retour = null;
+
+        if(this.getMontant()!=journal.getCredit())throw new Exception("Le montant saisie doit être identique à celui du Traite à encaisser");
+
+        try{
+            c=new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            
+            MvttIntraCaisse mvt = new MvttIntraCaisse();
+            mvt.setNomTable("mvtintracaissetraiteVcaisse");
+            MvttIntraCaisse[] mvts = (MvttIntraCaisse[])CGenUtil.rechercher(mvt, null, null, c, " and idtraite='"+this.getIdTraite()+"'");
+            int t = mvts.length;
+            if(t > 0){
+                for(int i = 0; i < t; i++){
+                    if(mvts[i].getEtatversement() == ConstanteEtat.getEtatEncaissee())
+                        throw new Exception("Traite déjà encaissée.");
+                }
+            }
+            
+            MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,this.getIdfinaledestination(),this.getModepaiement(),
+                        this.getRemarque(),this.getDesignation(),this.getIdTraite(),this.getDaty(),this.getMontant());
+            nouvMvt.createObject(u,c);
+            retour = nouvMvt.validerObjectEncaisserTraite(u, c, journal);
+            
+            this.setEtatversement(ConstanteEtat.getEtatEncaissee());
+            this.updateToTable(c);
+            c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null)c.close();
+        }
+        return retour;
     }
 }
