@@ -10,7 +10,7 @@ package bordereau;
  * @author nyamp
  */
 public class BordereauFilleLibComplet extends BordereauFille{
-    private String remarque,idfacture,idbordereaulib,code_etablissement ;
+    private String remarque,idfacture,idbordereaulib,code_etablissement,code_etablissementlib ;
 
     
     public BordereauFilleLibComplet(){
@@ -57,5 +57,13 @@ public class BordereauFilleLibComplet extends BordereauFille{
         this.code_etablissement = code_etablissement;
     }
     private double montant;
+
+    public String getCode_etablissementlib() {
+        return code_etablissementlib;
+    }
+
+    public void setCode_etablissementlib(String code_etablissementlib) {
+        this.code_etablissementlib = code_etablissementlib;
+    }
     
 }

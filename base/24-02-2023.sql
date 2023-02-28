@@ -3,7 +3,7 @@ CREATE OR REPLACE VIEW montant_traite_fc
   AS select
 	ID,IDTRAITE,
 	sum(montantjc) AS montanttraite
-	from TRAITE_FC WHERE idtraite='TR0000000605113348'
+	from TRAITE_FC 
 	GROUP BY ID,IDTRAITE ;
 	
 	
