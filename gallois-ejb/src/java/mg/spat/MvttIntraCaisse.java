@@ -236,16 +236,20 @@ public class MvttIntraCaisse extends ClassEtat {
         JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
         sortie.setIddevise(Constante.deviseAr);
         sortie.setIdmode(this.getModepaiement());
+        sortie.setIdtraite(this.getIdTraite());
+        sortie.setEtatversement(this.getEtatversement());
 
         sortie.createObject(u, c);
-        sortie.validerObject(u, c);
+//        sortie.validerObject(u, c);
         
         JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), 0, this.getMontant());
         entree.setIddevise(Constante.deviseAr);
         entree.setIdmode(this.getModepaiement());
+        entree.setIdtraite(this.getIdTraite());
+        entree.setEtatversement(this.getEtatversement());
 
         entree.createObject(u, c);
-        entree.validerObject(u, c);
+//        entree.validerObject(u, c);
         
         this.setEtatversement(ConstanteEtat.getEtatValider());
         
@@ -325,6 +329,7 @@ public class MvttIntraCaisse extends ClassEtat {
             
             MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,this.getIdfinaledestination(),this.getModepaiement(),
                         this.getRemarque(),this.getDesignation(),this.getIdTraite(),this.getDaty(),this.getMontant());
+            nouvMvt.setEtatversement(ConstanteEtat.getEtatEncaissee());
             nouvMvt.createObject(u,c);
             nouvMvt.validerObject(u, c);
             
@@ -378,11 +383,15 @@ public class MvttIntraCaisse extends ClassEtat {
     public String validerObjectEncaisserTraite(String u, Connection c, JournalCaisse credit)throws Exception{
         JournalCaisse debit = new JournalCaisse(credit.getFolio(),Constante.getEFFETSARECEVOIRREMISALENCAISSEMENT(),credit.getNumPiece(),credit.getLibelle(),credit.getRemarque(),
                                 credit.getDateSaisie(),credit.getDateEffet(),credit.getCredit(),0.0);
+        credit.setIdtraite(this.getIdTraite());
+        credit.setEtatversement(ConstanteEtat.getEtatEncaissee());
         credit.createObject(u, c);
-        credit.validerObject(u, c);
+//        credit.validerObject(u, c);
 
+        debit.setEtatversement(ConstanteEtat.getEtatEncaissee());
+        debit.setIdtraite(this.getIdTraite());
         debit.createObject(u, c);
-        debit.validerObject(u, c);
+//        debit.validerObject(u, c);
         
         this.setEtatversement(ConstanteEtat.getEtatValider());
         

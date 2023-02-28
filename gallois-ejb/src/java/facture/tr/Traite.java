@@ -335,6 +335,7 @@ public class Traite extends ClassEtat {
                                     null,this.getTuppleID(),this.getDaty(),this.getMontant());
         mvt.setIdfinaledestination(this.getIdfinaledestination());
         mvt.createObject(u, c);
+        mvt.setEtatversement(ConstanteEtat.getEtatValider());
         mvt.validerObject(u, c);
         c.commit();
         

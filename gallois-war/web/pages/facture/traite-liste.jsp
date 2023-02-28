@@ -58,7 +58,7 @@
                 <div class="col-md-4">
                     Etat : 
                     <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("TRAITE_LIB") == 0) {%>    
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("TRAITEMTTRESTE") == 0) {%>    
                         <option value="TRAITEMTTRESTE" selected>Tous</option>
                         <% } else { %>
                         <option value="TRAITEMTTRESTE" >Tous</option>
