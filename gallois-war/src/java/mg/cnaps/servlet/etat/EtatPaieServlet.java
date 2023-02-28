@@ -769,7 +769,8 @@ public class EtatPaieServlet extends HttpServlet {
                 if (tabLiaison.length > 0) {
                     param.put("facture_montant", tabLiaison[0].getMontant());
                 }
-            } else if (tabJournal.length > 0) {
+            } 
+            if (tabJournal.length > 0) {
 
                 param.put("daty", tabJournal[0].getDateEffet());
                 param.put("montant", tabJournal[0].getDebit());
@@ -777,18 +778,11 @@ public class EtatPaieServlet extends HttpServlet {
                 long montantLong = Long.valueOf(montantString);
                 param.put("montant_lettre",
                         (ChiffreLettre.convertIntToString(montantLong) + " ARIARY ").toUpperCase());
-                if (tabJournal.length > 0) {
-                    param.put("daty", tabJournal[0].getDateEffet());
-                    param.put("montant", tabJournal[0].getDebit());
-                    String montantStr = String.valueOf((long) tabJournal[0].getDebit());
-                    montantLong = Long.valueOf(montantStr);
-                    param.put("montant_lettre",
-                            (ChiffreLettre.convertIntToString(montantLong) + " ARIARY ").toUpperCase());
+                
 
                 param.put("facture_montant", tabJournal[0].getDebit());
                 param.put("tiers", tabJournal[0].getTiersLib());
                 param.put("num_piece", tabJournal[0].getNumPiece());
-                }
 
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
