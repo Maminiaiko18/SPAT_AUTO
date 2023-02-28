@@ -340,7 +340,7 @@ public class MvttIntraCaisse extends ClassEtat {
         }
     }
 
-    public void validerObjectEncaisserTraite(String u, Connection c, JournalCaisse credit)throws Exception{
+    public String validerObjectEncaisserTraite(String u, Connection c, JournalCaisse credit)throws Exception{
         JournalCaisse debit = new JournalCaisse(credit.getFolio(),Constante.getEFFETSARECEVOIRREMISALENCAISSEMENT(),credit.getNumPiece(),credit.getLibelle(),credit.getRemarque(),
                                 credit.getDateSaisie(),credit.getDateEffet(),credit.getCredit(),0.0);
         credit.createObject(u, c);
@@ -352,10 +352,13 @@ public class MvttIntraCaisse extends ClassEtat {
         this.setEtatversement(ConstanteEtat.getEtatValider());
         
         super.validerObject(u, c);
+
+        return credit.getTuppleID();
     }
 
-    public void encaisserTraite(String u, JournalCaisse journal)throws Exception{
+    public String encaisserTraite(String u, JournalCaisse journal)throws Exception{
         Connection c=null;
+        String retour = null;
 
         if(this.getMontant()!=journal.getCredit())throw new Exception("Le montant saisie doit être identique à celui du Traite à encaisser");
 
@@ -377,7 +380,7 @@ public class MvttIntraCaisse extends ClassEtat {
             MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,this.getIdfinaledestination(),this.getModepaiement(),
                         this.getRemarque(),this.getDesignation(),this.getIdTraite(),this.getDaty(),this.getMontant());
             nouvMvt.createObject(u,c);
-            nouvMvt.validerObjectEncaisserTraite(u, c, journal);
+            retour = nouvMvt.validerObjectEncaisserTraite(u, c, journal);
             
             this.setEtatversement(ConstanteEtat.getEtatEncaissee());
             this.updateToTable(c);
@@ -389,5 +392,6 @@ public class MvttIntraCaisse extends ClassEtat {
         }finally{
             if(c!=null)c.close();
         }
+        return retour;
     }
 }
