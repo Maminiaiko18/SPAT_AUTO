@@ -1394,7 +1394,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Top" markup="none">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{facture_montant}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="213" y="151" width="112" height="1" uuid="78fc5a49-7849-434a-b457-3f8434b1734d"/>
@@ -1491,7 +1491,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Top" markup="none">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{facture_montant}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
