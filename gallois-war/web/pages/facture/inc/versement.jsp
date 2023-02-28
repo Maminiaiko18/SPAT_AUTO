@@ -4,7 +4,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     MvtIntraCaisseTraite mvt = new MvtIntraCaisseTraite();
-    mvt.setNomTable("MVTINTRACAISSETRAITEV");
+    mvt.setNomTable("traiteversee");
     String libEntete[] = {"id","daty", "finaledestinationlib", "montant"};
     String listeCrt[] = {};
     String listeInt[] = {};
@@ -19,7 +19,7 @@
         pr.setAWhere(" and idtraite = '"+request.getParameter("id")+"' ");
     }
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"Id","Date", "Caisse", "Montant"};
+    String libEnteteAffiche[] = {"Id","Date", "Caisse Finale", "Montant"};
     
     pr.getTableau().setLibeEntete(libEnteteAffiche);
     if(pr.getTableau().getHtml() != null){

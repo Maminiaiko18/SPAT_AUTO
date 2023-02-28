@@ -68,9 +68,7 @@
         <%
             String libEnteteAffiche[] = {"id", "designation","Traite","Date", "Caisse Depart", "Caisse Arrivee","Mode Paiement","Montant","Remarque","Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            pr.getTableau().setNameBoutton("Encaisser");
-            pr.getTableau().setNameActe("encaissementTraite");
-            out.println(pr.getTableau().getHtmlWithCheckbox());
+            out.println(pr.getTableau().getHtml());
         %>
         <input type="hidden" name="acte" id="acte" value="encaissementTraite">
         <input type="hidden" name="bute" id="bute" value="facture/traite-encaissement-versee-liste.jsp">

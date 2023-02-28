@@ -59,9 +59,9 @@
                     Etat : 
                     <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("TRAITE_LIB") == 0) {%>    
-                        <option value="TRAITE_LIBMTT" selected>Tous</option>
+                        <option value="TRAITEMTTRESTE" selected>Tous</option>
                         <% } else { %>
-                        <option value="TRAITE_LIBMTT" >Tous</option>
+                        <option value="TRAITEMTTRESTE" >Tous</option>
                         <% } %>
 						
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("TRAITE_LIBC") == 0) {%>
