@@ -76,6 +76,29 @@ public class BordereauFF extends Bordereau{
         return retour;
     }
 
+    public void controlerFF(Connection c)throws Exception{
+        int verif=0;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
+            FactureFournisseur facture = new FactureFournisseur();
+            String requete = "SELECT projet,code_etablissement from FACTURE_FOURNISSEUR_MERE WHERE id IN (select idop from liaisonbordereauFF where idbordereau='"+this.getId()+"') group by projet,code_etablissement";
+            FactureFournisseur[] retour= (FactureFournisseur[])CGenUtil.rechercher(facture, requete, c);
+            if(retour.length>1)throw new Exception("Les codes projet et direction doivent etre identiques pour les factures.");
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+    }
+    @Override
+    public void controler(Connection c) throws Exception {
+        this.controlerFF(c);
+    }
+
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
         BordereauFilleLibComplet[] listeFille=this.getFille(c);
