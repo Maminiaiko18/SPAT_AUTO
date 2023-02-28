@@ -780,7 +780,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("num_piece", tabJournal[0].getNumPiece());
             }
 
-//            }
+//            } 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("piece_de_caisse_depenses");
             UtilitaireImpression.imprimer(request, response, "piece_de_caisse_depenses", param, new ArrayList(),
