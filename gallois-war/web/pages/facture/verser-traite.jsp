@@ -22,7 +22,7 @@
         String mapping = "mg.spat.MvttIntraCaisse", classeFille = "mg.spat.MvtIntraCaisseFille",
                 nomtable = "mvtintracaisse", nomTableFille = "mvtintracaisse_fille",
                 apres = "facture/traite-fiche.jsp", colonneMere = "idmere",
-                titre = "Versement traite";
+                titre = "Transfert traite";
         int taille = 10;
         MvttIntraCaisse objet = new MvttIntraCaisse();
         objet.setNomTable(nomtable);

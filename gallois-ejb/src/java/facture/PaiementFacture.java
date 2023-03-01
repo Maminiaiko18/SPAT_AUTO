@@ -217,7 +217,7 @@ public class PaiementFacture extends ClassMAPTable{
                 if(fc.getMontantreste() * this.getMontant() < 0){
                     throw new Exception("Opération non autorisée");
                 }
-                if(Math.abs((float)fc.getMontantreste()) < Math.abs((float)this.getMontant())){
+                if(Math.abs((float)fc.getMontantreste()) - Math.abs((float)this.getMontant()) < -0.000001){
                     throw new Exception("Reste a payer facture inferieur au montant saisi");
                 }
             }
@@ -248,6 +248,33 @@ public class PaiementFacture extends ClassMAPTable{
                         throw new Exception("Facture dupliquee");
                     }
                 }
+                listePaiement[i].setNomTable("PaiementFacture");
+                listePaiement[i].createObject(refUser,c);
+            }
+            c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null)c.close();
+        }
+    }
+    
+    public static void genererPaiementFacture(PaiementFacture[] listePaiement,String refUser, String idmvt)throws Exception{
+        Connection c = null;
+        try{
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            
+            for(int i=0;i<listePaiement.length;i++){
+                for(int j=0;j<i;j++){
+                    if(listePaiement[j].getIdFact().equals(listePaiement[i].getIdFact())){
+                        throw new Exception("Facture dupliquee");
+                    }
+                }
+                
+                listePaiement[i].setIdMvt(idmvt);
                 listePaiement[i].setNomTable("PaiementFacture");
                 listePaiement[i].createObject(refUser,c);
             }

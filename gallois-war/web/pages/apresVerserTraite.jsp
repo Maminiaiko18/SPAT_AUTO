@@ -15,6 +15,9 @@
         String[] tabId = request.getParameterValues("id");
         UserEJB u = (user.UserEJB) session.getValue("u");
         String refUser = u.getUser().getRefuser()+"";
+        String caisse=request.getParameter("idcaisse");
+        String date=request.getParameter("date");
+        String remarque=request.getParameter("remarque");
 
         
         if (acte.equals("versementTraite")) {
@@ -31,7 +34,8 @@
 
             MvttIntraCaisse[] listeMvt=(MvttIntraCaisse[])CGenUtil.rechercher(mvtcaisse,null,null," and id in ("+Utilitaire.tabToString(tabId, "'", ",")+")");
             for(int i=0;i<listeMvt.length;i++){
-                listeMvt[i].encaisserTraite(refUser);
+                listeMvt[i].setRemarque(remarque);
+                listeMvt[i].encaisserTraite(caisse,date,refUser);
             }
         }
 %>

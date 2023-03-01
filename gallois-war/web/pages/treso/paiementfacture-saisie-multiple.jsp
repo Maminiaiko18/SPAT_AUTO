@@ -24,12 +24,13 @@
     String[] val={tiers};
     
     for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){
-        pi.getFormufle().getChamp("idMvt_"+i).setAutre( " readonly " );
-        pi.getFormufle().getChamp("idMvt_"+i).setDefaut(idmvt);
+//        pi.getFormufle().getChamp("idMvt_"+i).setAutre( " readonly " );
+//        pi.getFormufle().getChamp("idMvt_"+i).setDefaut(idmvt);
         pi.getFormufle().getChamp("idFact_"+i).setPageAppelAvecFiltre("choix/listeFactureClientViseeChoix.jsp", "idFact_"+i+";idFactlibelle_"+i, col, val);
         pi.getFormufle().getChamp("idFact_"+i).setAutre("readonly");
+        pi.getFormufle().getChamp("idMvt_"+i).setVisible(false);
     }
-    pi.getFormufle().getChamp("idMvt_0").setLibelle("Mouvement");     
+//    pi.getFormufle().getChamp("idMvt_0").setLibelle("Mouvement");     
     pi.getFormufle().getChamp("montant_0").setLibelle("Montant");     
     pi.getFormufle().getChamp("idFact_0").setLibelle("Facture"); 
         
@@ -41,13 +42,20 @@
 <div class="content-wrapper">
     <h1>Enregistrer Paiement Facture</h1>
     <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label for="idTraite">Mouvement</label>
+                <input name="idmvt" type="text" id="idmvt" value="<%=idmvt%>" readonly>
+            </div>
+
+        </div>
         <%
             pi.getFormufle().makeHtmlInsertTableauIndex();
             out.println(pi.getFormufle().getHtmlTableauInsert());
         %>
         
         <input name="acte" type="hidden" id="nature" value="insertPaiementFacture">
-        <input name="bute" type="hidden" id="bute" value="treso/paiementfacture-saisie-multiple.jsp&idmvt=<%=idmvt%>&tiers=<%=tiers%>">
+        <input name="bute" type="hidden" id="bute" value="treso/journalcaisse-fiche.jsp&id=<%=idmvt%>&tiers=<%=tiers%>">
         <input name="classe" type="hidden" id="classe" value="facture.PaiementFacture">
         <input name="classefille" type="hidden" id="classefille" value="facture.PaiementFacture">
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="10">

@@ -32,7 +32,23 @@ public class Traite extends ClassEtat {
     String idfinaledestination;
     String idbanque, typepiece, etatlib;
     int etatversement;
-    String etatversementlib;
+    String etatversementlib,numcheque,numpiece;
+
+    public String getNumcheque() {
+        return numcheque;
+    }
+
+    public void setNumcheque(String numcheque) {
+        this.numcheque = numcheque;
+    }
+
+    public String getNumpiece() {
+        return numpiece;
+    }
+
+    public void setNumpiece(String numpiece) {
+        this.numpiece = numpiece;
+    }
 
 
     public String getIdbanque() {
@@ -333,8 +349,9 @@ public class Traite extends ClassEtat {
         if(this.getIdtypepiece()!=null && this.getIdtypepiece().equals(Constante.getTypePieceCheque()))caisseDep = Constante.caisseDepense;
         MvttIntraCaisse mvt = new MvttIntraCaisse(caisseDep,Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,Constante.getTraite(),null,
                                     null,this.getTuppleID(),this.getDaty(),this.getMontant());
-        mvt.setIdfinaledestination(this.getIdfinaledestination());
+//        mvt.setIdfinaledestination(this.getIdfinaledestination());
         mvt.createObject(u, c);
+        mvt.setEtatversement(ConstanteEtat.getEtatValider());
         mvt.validerObject(u, c);
         c.commit();
         
@@ -366,7 +383,7 @@ public class Traite extends ClassEtat {
             String aWhere = " AND id in ("+Utilitaire.tabToString(tId, "'", ",")+")";
             Traite[] listeTraite = (Traite[])CGenUtil.rechercher(traite, null, null, c, aWhere);
             for(int i=0;i<listeTraite.length;i++){
-                listeTraite[i].setIdfinaledestination(finaldestination);
+//                listeTraite[i].setIdfinaledestination(finaldestination);
                 listeTraite[i].verser(u, c);
             }
         }

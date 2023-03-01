@@ -307,7 +307,7 @@
             fille = (ClassMAPTable) (Class.forName(classe).newInstance());
             PageInsertMultiple p = new PageInsertMultiple(mere, fille, request, nbLine, tId);
             ClassMAPTable[] cfille = p.getObjectFilleAvecValeur();
-            PaiementFacture.genererPaiementFacture((PaiementFacture[])cfille,u.getUser().getTuppleID());
+            PaiementFacture.genererPaiementFacture((PaiementFacture[])cfille,u.getUser().getTuppleID(),request.getParameter("idmvt"));
         }
         if (rajoutLien != null) {
 
