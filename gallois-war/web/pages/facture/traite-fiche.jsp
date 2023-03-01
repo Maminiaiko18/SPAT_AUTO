@@ -73,7 +73,7 @@
                         <a class="btn btn-success"  href="<%=lien + "?but=apresTarif.jsp&acte=valider&classe="+mapping+"&bute="+apres+"&id=" + traite.getId() %>"  style="margin-right: 10px">Viser</a>
                         <!---<a class="btn btn-primary"  href="<%=lien + "?but=treso/journalcaisse-saisie.jsp&credit="+traite.getMontant()+"&idmode=modetraite&caisse=caissetraite"%>"  style="margin-right: 10px">Encaisser</a>--->
                         <a class="btn btn-primary"  href="<%=lien + "?but=facture/escompte-saisie.jsp&idTraite="+traite.getId()%>"  style="margin-right: 10px">Escompter</a>
-                        <a class="btn btn-primary"  href="<%=lien + "?but=facture/verser-traite.jsp&montant="+montant+"&caissedepart=caissetraite&idTraite=" + traite.getId()+"&banque="+traite.getBanque()%>"  style="margin-right: 10px">Verser</a>
+                        <a class="btn btn-primary"  href="<%=lien + "?but=facture/verser-traite.jsp&montant="+montant+"&caissedepart=caissetraite&idTraite=" + traite.getId()+"&banque="+traite.getBanque()%>"  style="margin-right: 10px">Transferer</a>
                         <!--<a class="btn btn-primary"  href="#"  style="margin-right: 10px">Retourner</a>-->
                         <a style="float:right" class="btn btn-primary"  href="<%=lien + "?but=facture/attacher-traite-facture.jsp&idTraite="+traite.getId()+"&montant="+montant%>"  style="margin-right: 10px">Attacher Facture</a>
                 </div>
@@ -88,7 +88,7 @@
                     <li class="<%= map.get("fftraite-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=fftraite-liste">Factures rattachées</a></li>
                     <li class="<%= map.get("jc-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=jc-liste">Journal caisse</a></li>
                     <li class="<%= map.get("escompte-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=escompte-liste">Escomptes</a></li>
-                    <li class="<%= map.get("versement")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=versement">Versement</a></li>
+                    <li class="<%= map.get("versement")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=versement">Transfert</a></li>
                 </ul>
                 <div class="tab-content">       
                    <jsp:include page="<%=tab%>" >  

@@ -60,7 +60,7 @@
         <%
             String libEnteteAffiche[] = {"ID","Date", "Tiers", "banque","Date Echeance","Reference","Montant","Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            pr.getTableau().setNameBoutton("Verser");
+            pr.getTableau().setNameBoutton("Transferer");
             pr.getTableau().setNameActe("viserTraite");
             out.println(pr.getTableau().getHtmlWithCheckbox());
         %>

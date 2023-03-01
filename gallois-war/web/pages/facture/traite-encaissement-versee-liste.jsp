@@ -39,7 +39,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste des traites versees</h1>
+        <h1>Liste des traites à verser</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=facture/traite-encaissement-versee-liste.jsp" method="post" name="engagement" id="engagement">
@@ -75,7 +75,7 @@
         <%
             String libEnteteAffiche[] = {"id", "designation","Traite","Date", "Caisse Depart", "Caisse Arrivee","Mode Paiement","Montant","Remarque","Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            pr.getTableau().setNameBoutton("Encaisser");
+            pr.getTableau().setNameBoutton("Verser");
             pr.getTableau().setNameActe("encaissementTraite");
             out.println(pr.getTableau().getHtmlWithCheckbox());
         %>

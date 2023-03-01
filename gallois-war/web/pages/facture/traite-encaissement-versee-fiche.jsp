@@ -47,7 +47,7 @@
                 
                 <div class="box-footer">
                     <a class="btn btn-success"  href="<%=lien + "?but=apresTarif.jsp&acte=valider&classe="+mapping+"&bute="+apres+"&id=" + mvttIntraCaisse.getId() %>"  style="margin-right: 10px">Viser</a>
-                    <a class="btn btn-primary"  href="<%=lien + "?but=treso/journalcaisse-saisie.jsp&idmvtcaisse=" + mvttIntraCaisse.getId()+"&idfinaledestination="+ mvttIntraCaisse.getIdfinaledestination()+"&montant="+mvttIntraCaisse.getMontant()+"&idTraite="+mvttIntraCaisse.getIdTraite()%>"  style="margin-right: 10px">Encaisser</a>
+                    <a class="btn btn-primary"  href="<%=lien + "?but=treso/journalcaisse-saisie.jsp&idmvtcaisse=" + mvttIntraCaisse.getId()+"&idfinaledestination="+ mvttIntraCaisse.getIdfinaledestination()+"&montant="+mvttIntraCaisse.getMontant()+"&idTraite="+mvttIntraCaisse.getIdTraite()%>"  style="margin-right: 10px">Verser</a>
                 </div>
                 
             </div>
