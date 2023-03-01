@@ -22,7 +22,6 @@
         TypeObjet o = new TypeObjet();
         o.setNomTable("banque");
         liste[0] = new Liste("banque", o, "VAL", "id");
-        System.out.println(" coucouzrer");
         TypeObjet obj = new TypeObjet();
         obj.setNomTable("type_piece");
         liste[1] = new Liste("idtypepiece",obj,"desce","id");
@@ -35,6 +34,8 @@
         pi.getFormu().getChamp("dateEcheance").setLibelle("Date d'echeance");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idfinaledestination").setVisible(false);
+        pi.getFormu().getChamp("numcheque").setLibelle("Numero cheque");
+        pi.getFormu().getChamp("numpiece").setLibelle("Numero Piece");
         pi.preparerDataFormu();
 %>
 <div class="content-wrapper">

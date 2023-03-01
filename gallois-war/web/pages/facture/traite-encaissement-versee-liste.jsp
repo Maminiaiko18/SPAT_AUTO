@@ -57,6 +57,9 @@
         <form action="<%=pr.getLien()%>?but=apresVerserTraite.jsp" method="post">
          
         <div>
+            <label for="remarque">Remarque:</label>
+            <input type="text" name="remarque" id="remarque">
+            
             <label for="idcaisse">Caisse:</label>
             <select name="idcaisse">
                 <%for(int i=0;i<listeCaisse.length;i++){%>
@@ -66,6 +69,7 @@
             
             <label for="date">Date:</label>
             <input type="text" class="datepicker" onkeydown="return searchKeyPress(event)" name="date" id="date" value="<%=Utilitaire.dateDuJour()%>">
+            
         </div>
         
         <%
