@@ -229,7 +229,7 @@ public class FactureFournisseur extends FactureClient {
                 nomtable = "ordonnerpayement";
             }
             oo.setNomTable(nomtable);
-            OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%'");
+            OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%' and etat >= " + ConstanteEtat.getEtatValider());
             if (results != null && results.length > 0) {
                 return results[0];
             }
@@ -854,6 +854,7 @@ public class FactureFournisseur extends FactureClient {
                 check = true;
             }
             LiaisonIntraTable lit = new LiaisonIntraTable();
+            //add etat liaisonintratable
             LiaisonIntraTable[] liaisonIntraTable = (LiaisonIntraTable[]) CGenUtil.rechercher(lit, null, null, c, " and id1='" + this.getId() + "'");
             return liaisonIntraTable;
         } catch (Exception ex) {
