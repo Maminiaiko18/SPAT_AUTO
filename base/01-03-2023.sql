@@ -1,0 +1,10 @@
+ALTER TABLE traite
+ADD numcheque (varchar 100);
+
+ALTER TABLE traite
+ADD numpiece varchar(100);
+
+UPDATE MENUDYNAMIQUE SET LIBELLE='Transfert Multiple' WHERE ID='MENTRA001';
+UPDATE MENUDYNAMIQUE SET LIBELLE='Versement Traite' WHERE ID='MENTRA002';
+
+
