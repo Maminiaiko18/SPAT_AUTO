@@ -32,7 +32,23 @@ public class Traite extends ClassEtat {
     String idfinaledestination;
     String idbanque, typepiece, etatlib;
     int etatversement;
-    String etatversementlib;
+    String etatversementlib,numcheque,numpiece;
+
+    public String getNumcheque() {
+        return numcheque;
+    }
+
+    public void setNumcheque(String numcheque) {
+        this.numcheque = numcheque;
+    }
+
+    public String getNumpiece() {
+        return numpiece;
+    }
+
+    public void setNumpiece(String numpiece) {
+        this.numpiece = numpiece;
+    }
 
 
     public String getIdbanque() {
