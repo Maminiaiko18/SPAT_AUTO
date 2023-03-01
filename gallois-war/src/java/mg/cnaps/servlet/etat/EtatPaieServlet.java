@@ -230,6 +230,8 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerSuiviBudgetaire(request, response);
             } else if (action.equalsIgnoreCase("imprimerTransfertCaisse")) {
                 imprimerTransfertCaisse(request, response);
+            }else if (action.equalsIgnoreCase("ImprimerFactureClient1ParClient")) {
+                factureParClient(request, response);
             }
 
         } catch (Exception ex) {
@@ -929,8 +931,7 @@ public class EtatPaieServlet extends HttpServlet {
                 arrList.add(tabFact[i]);
             }
             // tabJournal[0].arrondir();
-            System.out.println("type"+tabJournal[0].getIdTypeCheque());
-            if (prov || (tabJournal[0].getIdTypeCheque().compareToIgnoreCase(Constante.getTypeACredit())==0)) {
+            if (prov) {
                 arrondi = 0;
             } else {
                 arrondi = tabJournal[0].getCredit() - montantFacture;
@@ -938,7 +939,7 @@ public class EtatPaieServlet extends HttpServlet {
             totalGeneral = tabJournal[0].getCredit();
 //            arrondi = tabJournal[0].getCredit() - montantFacture;
 //            totalGeneral = tabJournal[0].getCredit();
-//           totalGeneral = montantFacture + arrondi;
+            totalGeneral = montantFacture + arrondi;
             String montantString = String.valueOf((long) totalGeneral);
             long montantLong = Long.valueOf(montantString);
             String montantLettre = ChiffreLettre.convertRealToString(totalGeneral, "Ariary");
@@ -1238,6 +1239,95 @@ public class EtatPaieServlet extends HttpServlet {
             facture.setNomTable("factureclient_emise");
             if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("null") != 0
                     && request.getParameter("etat").length() != 0) {
+                System.out.println("état : "+request.getParameter("etat"));
+                facture.setNomTable(request.getParameter("etat"));
+            }
+            awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by val,TIERSLIB,code asc";
+
+            FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, awhere);
+            ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
+            for (int i = 0; i < details.length; i++) {
+
+                arrList.add(details[i]);
+            }
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("facture_client1");
+            UtilitaireImpression.imprimer(request, response, "facture_client", param, arrList, getReportPath(), rt);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+    /* Imprimer PDF Facturation Client par Client */
+    private void factureParClient(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Connection c = null;
+        try {
+            c = new UtilDB().GetConn();
+            Map param = new HashMap();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            param.put("daty", sdf.format(utilitaire.Utilitaire.dateDuJourSql()));
+            String daty1 = sdf.format(utilitaire.Utilitaire.dateDuJourSql());
+            String daty2 = daty1;
+            if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
+                    && request.getParameter("daty2").length() != 0) {
+                daty2 = sdf.format(sdf.parse(request.getParameter("daty2")));
+            }
+            if (request.getParameter("daty1") != null && request.getParameter("daty1").compareToIgnoreCase("null") != 0
+                    && request.getParameter("daty1").length() != 0) {
+                daty1 = sdf.format(sdf.parse(request.getParameter("daty1")));
+            }
+            String awhere = "";
+            if (request.getParameter("tierslib") != null
+                    && request.getParameter("tierslib").compareToIgnoreCase("null") != 0
+                    && request.getParameter("tierslib").length() != 0) {
+                awhere += " AND tierslib='" + request.getParameter("tierslib") + "'";
+            }
+            if (request.getParameter("designation") != null
+                    && request.getParameter("designation").compareToIgnoreCase("null") != 0
+                    && request.getParameter("designation").length() != 0) {
+                awhere += " AND designation='" + request.getParameter("designation") + "'";
+            }
+            if (request.getParameter("categorielib") != null
+                    && request.getParameter("categorielib").compareToIgnoreCase("null") != 0
+                    && request.getParameter("categorielib").length() != 0) {
+                awhere += " AND categorielib='" + request.getParameter("categorielib") + "'";
+            }
+            if (request.getParameter("armateurlib") != null
+                    && request.getParameter("armateurlib").compareToIgnoreCase("null") != 0
+                    && request.getParameter("armateurlib").length() != 0) {
+                awhere += " AND armateurlib='" + request.getParameter("armateurlib") + "'";
+            }
+            if (request.getParameter("code") != null && request.getParameter("code").compareToIgnoreCase("null") != 0
+                    && request.getParameter("code").length() != 0) {
+                awhere += " AND code='" + request.getParameter("code") + "'";
+            }
+            if (request.getParameter("date_echeance1") != null
+                    && request.getParameter("date_echeance1").compareToIgnoreCase("null") != 0
+                    && request.getParameter("date_echeance1").length() != 0) {
+                awhere += " AND date_echeance >= '" + request.getParameter("date_echeance1") + "'";
+            }
+            if (request.getParameter("date_echeance2") != null
+                    && request.getParameter("date_echeance2").compareToIgnoreCase("null") != 0
+                    && request.getParameter("date_echeance2").length() != 0) {
+                awhere += " AND date_echeance >= '" + request.getParameter("date_echeance2") + "'";
+            }
+            param.put("daty1", daty1);
+            param.put("daty2", daty2);
+            FactureClient facture = new FactureClient();
+            String mois = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "";
+            if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
+                    && request.getParameter("daty2").length() != 0) {
+                mois = request.getParameter("daty2").split("/")[1];
+            }
+            facture.setNomTable("factureclient_emise");
+            if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("null") != 0
+                    && request.getParameter("etat").length() != 0) {
+                System.out.println("état : "+request.getParameter("etat"));
                 facture.setNomTable(request.getParameter("etat"));
             }
             awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by TIERSLIB,code";
@@ -1249,7 +1339,7 @@ public class EtatPaieServlet extends HttpServlet {
                 arrList.add(details[i]);
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            setNomJasper("facture_client1");
+            setNomJasper("FactureClient1ParClient");
             UtilitaireImpression.imprimer(request, response, "facture_client", param, arrList, getReportPath(), rt);
 
         } catch (Exception e) {
