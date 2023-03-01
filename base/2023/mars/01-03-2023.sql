@@ -254,3 +254,21 @@ CREATE OR REPLACE  view FACTURECLIENT_EMISE_PAYEES AS
 select FC.*
 from FACTURECLIENT_EMISE_TOUS FC
 where  fc.montantreste=0;
+
+
+
+
+
+CREATE OR REPLACE  VIEW MVTCAISSEDETAILSLIB (ID, IDINGREDIENTS, SORTIE, ENTREE, DATY, UNITE, INGREDIENTS, DEPOT) AS 
+  SELECT fille.id,
+          ca.ID AS idingredients,
+          cast(fille.DEBIT as number(30,2)) AS sortie,
+          cast(fille.CREDIT as number(30,2))AS entree,
+          fille.DATeeffet AS daty,
+         NVL(fille.IDDEVISE,'Ar') AS unite,
+          ca.val AS INGREDIENTs,
+          ca.ID AS depot
+     FROM journalcaisse fille JOIN caisse ca ON ca.ID = fille.CAISSE
+    WHERE fille.etat >= 11
+    and (idplacementvrai IS NULL OR (idplacementvrai not in (select id from PLACEMENTLIB_RENOUVELLE)) OR (idplacementvrai in (select id from PLACEMENTLIB_NOUVEAU) and debit!=0) OR (idplacementvrai in (select id from PLACEMENT_ANNULATION) and credit!=0));
+
