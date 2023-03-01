@@ -47,7 +47,7 @@ public class JournalCaisse extends ClassEtat {
     
     String idtraite;
     int etatversement;
-    String idfinaledestination;
+    String idfinaledestination, etatlib, etatversementlib;
 
     public String getTypelib() {
         return typelib;
@@ -1524,4 +1524,22 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             throw e;
         }
     }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
+    }
+
+    public String getEtatversementlib() {
+        return etatversementlib;
+    }
+
+    public void setEtatversementlib(String etatversementlib) {
+        this.etatversementlib = etatversementlib;
+    }
+    
+    
 }

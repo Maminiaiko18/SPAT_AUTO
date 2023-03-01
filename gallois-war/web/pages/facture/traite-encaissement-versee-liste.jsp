@@ -32,14 +32,14 @@
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
         
-        /*Caisse caisse=new Caisse();
+        Caisse caisse=new Caisse();
         caisse.setDesce("Banque");
-        Caisse[] listeCaisse=(Caisse[])CGenUtil.rechercher(caisse,null,null,"");*/
+        Caisse[] listeCaisse=(Caisse[])CGenUtil.rechercher(caisse,null,null,"");
 %>
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste des traites versees</h1>
+        <h1>Liste des traites à verser</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=facture/traite-encaissement-versee-liste.jsp" method="post" name="engagement" id="engagement">
@@ -56,19 +56,28 @@
         <br>
         <form action="<%=pr.getLien()%>?but=apresVerserTraite.jsp" method="post">
          
-        <%-- <div>
+        <div>
+            <label for="remarque">Remarque:</label>
+            <input type="text" name="remarque" id="remarque">
+            
             <label for="idcaisse">Caisse:</label>
             <select name="idcaisse">
                 <%for(int i=0;i<listeCaisse.length;i++){%>
                 <option value="<%=listeCaisse[i].getId()%>"><%=listeCaisse[i].getVal()%></option>
                 <%}%>
             </select>
-        </div> --%>
+            
+            <label for="date">Date:</label>
+            <input type="text" class="datepicker" onkeydown="return searchKeyPress(event)" name="date" id="date" value="<%=Utilitaire.dateDuJour()%>">
+            
+        </div>
         
         <%
             String libEnteteAffiche[] = {"id", "designation","Traite","Date", "Caisse Depart", "Caisse Arrivee","Mode Paiement","Montant","Remarque","Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            out.println(pr.getTableau().getHtml());
+            pr.getTableau().setNameBoutton("Verser");
+            pr.getTableau().setNameActe("encaissementTraite");
+            out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
         <input type="hidden" name="acte" id="acte" value="encaissementTraite">
         <input type="hidden" name="bute" id="bute" value="facture/traite-encaissement-versee-liste.jsp">

@@ -46,7 +46,7 @@
                 <div class="col-md-3">
                     <label for="idTraite">Traite</label>
                     <input name="idTraitelibelle" type="textbox" class="form-control" id="idTraitelibelle" value="<%=idtraite%>" readonly="" data-parsley-id="4">
-                    <input type="hidden" value="" name="idTraite" id="idTraite">
+                    <input type="hidden" value="<%=idtraite%>" name="idTraite" id="idTraite">
                     <input name="choix" type="button" class="submit" onclick="pagePopUp('<%= popupLink %>')" value="..." tabindex="1">
                 </div>
                 

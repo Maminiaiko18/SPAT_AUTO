@@ -236,16 +236,72 @@ public class MvttIntraCaisse extends ClassEtat {
         JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
         sortie.setIddevise(Constante.deviseAr);
         sortie.setIdmode(this.getModepaiement());
+        sortie.setIdtraite(this.getIdTraite());
+        sortie.setEtatversement(this.getEtatversement());
 
         sortie.createObject(u, c);
-        sortie.validerObject(u, c);
+//        sortie.validerObject(u, c);
         
         JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), 0, this.getMontant());
         entree.setIddevise(Constante.deviseAr);
         entree.setIdmode(this.getModepaiement());
+        entree.setIdtraite(this.getIdTraite());
+        entree.setEtatversement(this.getEtatversement());
 
         entree.createObject(u, c);
-        entree.validerObject(u, c);
+//        entree.validerObject(u, c);
+        
+        this.setEtatversement(ConstanteEtat.getEtatValider());
+        
+        return super.validerObject(u, c); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Object validerObjectVersement(String u, Connection c) throws Exception {
+        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, "Transfert Caisse Traite vers Caisse Effet à recevoir", null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
+        sortie.setIddevise(Constante.deviseAr);
+        sortie.setIdmode(this.getModepaiement());
+        sortie.setIdtraite(this.getIdTraite());
+        sortie.setEtatversement(this.getEtatversement());
+
+        sortie.createObject(u, c);
+//        sortie.validerObject(u, c);
+        
+        JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, "Reception Caisse Effet à recevoir", null, Utilitaire.dateDuJourSql(), this.getDaty(), 0, this.getMontant());
+        entree.setIddevise(Constante.deviseAr);
+        entree.setIdmode(this.getModepaiement());
+        entree.setIdtraite(this.getIdTraite());
+        entree.setEtatversement(this.getEtatversement());
+
+        entree.createObject(u, c);
+//        entree.validerObject(u, c);
+        
+        this.setEtatversement(ConstanteEtat.getEtatValider());
+        
+        return super.validerObject(u, c); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Object validerObjectEncaissement(String u, Connection c) throws Exception {
+        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, "Transefert Caisse Effet à recevoir vers Caisse Banque", null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
+        sortie.setIddevise(Constante.deviseAr);
+        sortie.setIdmode(this.getModepaiement());
+        sortie.setIdtraite(this.getIdTraite());
+        sortie.setEtatversement(this.getEtatversement());
+        sortie.setEtatversement(ConstanteEtat.getEtatEncaissee());
+        sortie.setRemarque(this.getRemarque());
+
+        sortie.createObject(u, c);
+//        sortie.validerObject(u, c);
+        
+        JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, "Encaissement De la traite N°"+this.getIdTraite(), null, Utilitaire.dateDuJourSql(), this.getDaty(), 0, this.getMontant());
+        entree.setIddevise(Constante.deviseAr);
+        entree.setIdmode(this.getModepaiement());
+        entree.setIdtraite(this.getIdTraite());
+        entree.setEtatversement(this.getEtatversement());
+        entree.setEtatversement(ConstanteEtat.getEtatEncaissee());
+        entree.setRemarque(this.getRemarque());
+
+        entree.createObject(u, c);
+//        entree.validerObject(u, c);
         
         this.setEtatversement(ConstanteEtat.getEtatValider());
         
@@ -296,7 +352,7 @@ public class MvttIntraCaisse extends ClassEtat {
             c.setAutoCommit(false);
             
             this.setEtatversement(ConstanteEtat.getEtatValider());
-            this.validerObject(refUser, c);
+            this.validerObjectVersement(refUser, c);
             c.commit();
         }catch(Exception e){
             if(c!=null)c.rollback();
@@ -325,8 +381,44 @@ public class MvttIntraCaisse extends ClassEtat {
             
             MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,this.getIdfinaledestination(),this.getModepaiement(),
                         this.getRemarque(),this.getDesignation(),this.getIdTraite(),this.getDaty(),this.getMontant());
+            nouvMvt.setEtatversement(ConstanteEtat.getEtatEncaissee());
             nouvMvt.createObject(u,c);
-            nouvMvt.validerObject(u, c);
+            nouvMvt.validerObjectEncaissement(u, c);
+            
+            this.setEtatversement(ConstanteEtat.getEtatEncaissee());
+            this.updateToTable(c);
+            c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null)c.close();
+        }
+    }
+
+    public void encaisserTraite(String idcaisse,String date,String u)throws Exception{
+        Connection c=null;
+        try{
+            c=new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            
+            MvttIntraCaisse mvt = new MvttIntraCaisse();
+            mvt.setNomTable("mvtintracaissetraiteVcaisse");
+            MvttIntraCaisse[] mvts = (MvttIntraCaisse[])CGenUtil.rechercher(mvt, null, null, c, " and idtraite='"+this.getIdTraite()+"'");
+            int t = mvts.length;
+            if(t > 0){
+                for(int i = 0; i < t; i++){
+                    if(mvts[i].getEtatversement() == ConstanteEtat.getEtatEncaissee())
+                        throw new Exception("Traite déjà encaissée.");
+                }
+            }
+            
+            Date daty = Utilitaire.stringDate(date);
+            MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,idcaisse,this.getModepaiement(),
+                        this.getRemarque(),this.getDesignation(),this.getIdTraite(),daty,this.getMontant());
+            nouvMvt.createObject(u,c);
+            nouvMvt.validerObjectEncaissement(u, c);
             
             this.setEtatversement(ConstanteEtat.getEtatEncaissee());
             this.updateToTable(c);
@@ -343,11 +435,15 @@ public class MvttIntraCaisse extends ClassEtat {
     public String validerObjectEncaisserTraite(String u, Connection c, JournalCaisse credit)throws Exception{
         JournalCaisse debit = new JournalCaisse(credit.getFolio(),Constante.getEFFETSARECEVOIRREMISALENCAISSEMENT(),credit.getNumPiece(),credit.getLibelle(),credit.getRemarque(),
                                 credit.getDateSaisie(),credit.getDateEffet(),credit.getCredit(),0.0);
+        credit.setIdtraite(this.getIdTraite());
+        credit.setEtatversement(ConstanteEtat.getEtatEncaissee());
         credit.createObject(u, c);
-        credit.validerObject(u, c);
+//        credit.validerObject(u, c);
 
+        debit.setEtatversement(ConstanteEtat.getEtatEncaissee());
+        debit.setIdtraite(this.getIdTraite());
         debit.createObject(u, c);
-        debit.validerObject(u, c);
+//        debit.validerObject(u, c);
         
         this.setEtatversement(ConstanteEtat.getEtatValider());
         
