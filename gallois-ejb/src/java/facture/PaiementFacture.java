@@ -260,4 +260,31 @@ public class PaiementFacture extends ClassMAPTable{
         }
     }
     
+    public static void genererPaiementFacture(PaiementFacture[] listePaiement,String refUser, String idmvt)throws Exception{
+        Connection c = null;
+        try{
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            
+            for(int i=0;i<listePaiement.length;i++){
+                for(int j=0;j<i;j++){
+                    if(listePaiement[j].getIdFact().equals(listePaiement[i].getIdFact())){
+                        throw new Exception("Facture dupliquee");
+                    }
+                }
+                
+                listePaiement[i].setIdMvt(idmvt);
+                listePaiement[i].setNomTable("PaiementFacture");
+                listePaiement[i].createObject(refUser,c);
+            }
+            c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null)c.close();
+        }
+    }
+    
 }
