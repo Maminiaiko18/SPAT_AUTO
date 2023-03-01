@@ -636,7 +636,7 @@ public class OrdonnerPayement extends ClassEtat {
             }
             FactureFournisseur ff=new FactureFournisseur();
             ff.setNomTable("factfourn_msum_lib");
-            if(this.getDed_Id()!=null) return (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, "and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
+            if(this.getDed_Id()!=null) return (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, "and etat >= "+ConstanteEtat.getEtatValider()+" and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
             return null;
         } catch (Exception e) {
             if (c != null && verif == 1) {
