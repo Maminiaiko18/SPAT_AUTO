@@ -1,0 +1,3144 @@
+
+
+
+CREATE OR REPLACE VIEW JOURNALCAISSE_TR AS
+select j.* FROM
+journalcaisse j
+JOIN caisse c on j.caisse = c.id;
+
+CREATE OR REPLACE VIEW JOURNALCAISSE_TR AS
+select j.* FROM
+journalcaisse j
+JOIN caisse c on j.caisse = c.id;
+
+INSERT INTO USERMENU
+(ID, REFUSER, IDMENU, IDROLE, CODESERVICE, CODEDIR, INTERDIT)
+VALUES('MENA00040102', NULL, 'MEN000001211', 'ROL0000001342174504', NULL, NULL, 0);
+
+INSERT INTO USERMENU
+(ID, REFUSER, IDMENU, IDROLE, CODESERVICE, CODEDIR, INTERDIT)
+VALUES('MENA00040103', NULL, 'MEN000001212', 'ROL0000001342174504', NULL, NULL, 0);
+
+INSERT INTO MENUDYNAMIQUE
+(ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
+VALUES('MEN00501', 'Etat Journal Traite', 'fa fa-list', '/spat/pages/globalnegoce.jsp?but=treso/journalcaissetraite-liste.jsp', 8, 5, 'MEN0031');
+
+
+
+CREATE VIEW FCTRAITE_TR as 
+select 
+fc.*,
+t.daty AS datytraite,
+t.tiers,
+t.banque,
+t.dateecheance,
+t.reference,
+t.etat AS etattraite,
+t.montant AS montanttraite
+from fctraite fc
+left join traite t on t.id = fc.idtraite;
+
+
+CREATE VIEW fctraite_jc as 
+select 
+fc.*,
+jc.DATESAISIE,
+jc.DATEEFFET,
+jc.FOLIO,
+jc.CAISSE,
+jc.NUMPIECE,
+jc.LIBELLE ,
+jc.DEBIT,
+jc.CREDIT,
+jc.REMARQUE,
+jc.ETAT AS etatjc,
+jc.TIERS,
+jc.IDTYPECHEQUE,
+jc.DESIGNATION,
+jc.IDORDRE,
+jc.IDDEVISE,
+jc.IDMODE,
+jc.NUMCHEQUE,
+jc.TYPEMVT,
+jc.IDPLACEMENT,
+jc.IDBANQUE,
+jc.IDPLACEMENTVRAI 
+from fctraite fc 
+left join journalcaisse jc on fc.idjc = jc.id;
+
+
+   CREATE OR REPLACE  VIEW TRAITE_LIB (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT) AS 
+  select 
+	tr.id,
+	tr.daty,
+	ti.nomclt as tiers,
+	ba.val as banque,
+	tr.dateEcheance,
+	tr.etat,
+	tr.montant
+	
+	from traite tr
+	left join client_union ti on tr.tiers = ti.CDCLT 
+	left join banque ba on tr.banque = ba.id ;
+
+
+
+    
+CREATE OR REPLACE  VIEW JOURNALCAISSELIBCOMPLET AS 
+  SELECT j.ID,
+       j.DATESAISIE,
+       j.DATEEFFET,
+       j.FOLIO,
+       j.CAISSE,
+       j.NUMPIECE,
+       j.LIBELLE,
+       j.DEBIT,
+       j.CREDIT,
+       j.REMARQUE,
+       j.ETAT,
+       j.TIERS,
+       j.IDTYPECHEQUE,
+       j.DESIGNATION,
+       j.IDDEVISE,
+       j.IDMODE,
+       j.NUMCHEQUE,
+       j.TYPEMVT,
+       j.IDORDRE,
+       j.IDPLACEMENT,
+       c.ID    AS idcaisse,
+       c.val   AS valcaisse,
+       c.desce AS descecaisse,
+       tc.val  AS valtypecheque,
+       m.val   AS descetypecheque,
+       ti.NOM  AS tierslib,
+       ti.CDCLT AS codetiers,
+       j.IDBANQUE,
+       b.val as idbanquelib,
+        op.NUMEROOP,
+        fc.idcategorie AS type
+FROM Journalcaisse j
+         JOIN CAISSE C
+              ON j.CAISSE = C.ID
+         LEFT JOIN TYPECHEQUE tc ON tc.id = j.idtypecheque
+         LEFT JOIN FOURNISSEUR_UNION_PERSONNEL ti ON ti.id = j.TIERS
+         LEFT JOIN MODEPAIEMENT m on j.idmode = m.id
+         LEFT JOIN BANQUE b on j.idbanque = b.ID
+         left join ORDONNERPAYEMENT op on op.id=j.IDORDRE
+         left join factureclient fc on fc.id=j.idplacement
+;
+
+CREATE OR REPLACE  VIEW JOURNALCAISSELIBRECETTE  AS 
+  select ID,DATESAISIE,DATEEFFET,FOLIO,CAISSE,NUMPIECE,LIBELLE,DEBIT,CREDIT,REMARQUE,ETAT,TIERS,IDTYPECHEQUE,DESIGNATION,IDDEVISE,IDMODE,NUMCHEQUE,TYPEMVT,IDORDRE,IDPLACEMENT,IDCAISSE,VALCAISSE,DESCECAISSE,VALTYPECHEQUE,DESCETYPECHEQUE,TIERSLIB,CODETIERS,IDBANQUE,IDBANQUELIB,NUMEROOP from  journalcaisselibcomplet
+where credit>0;
+
+CREATE OR REPLACE  VIEW ETATJOURNALCAISSELIBRECETTE AS 
+  select ID,DATESAISIE,DATEEFFET,FOLIO,CAISSE,NUMPIECE,LIBELLE,DEBIT,CREDIT,REMARQUE,ETAT,TIERS,IDTYPECHEQUE,DESIGNATION,IDDEVISE,IDMODE,NUMCHEQUE,TYPEMVT,IDORDRE,IDPLACEMENT,IDCAISSE,VALCAISSE,DESCECAISSE,VALTYPECHEQUE,DESCETYPECHEQUE,TIERSLIB,CODETIERS,IDBANQUE,IDBANQUELIB,NUMEROOP from journalcaisselibrecette where idcaisse in ('CAI0000000010174129', 'CAIS000014', 'CAIS000015');
+
+CREATE OR REPLACE  VIEW JOURNALCAISSELIB_SANSPROV AS
+  select jc.ID,jc.DATESAISIE,jc.DATEEFFET,jc.FOLIO,jc.CAISSE,jc.NUMPIECE,jc.LIBELLE,jc.DEBIT,jc.CREDIT,jc.REMARQUE,jc.ETAT,jc.TIERS
+  ,jc.IDTYPECHEQUE,jc.DESIGNATION,jc.IDDEVISE,jc.IDMODE,jc.NUMCHEQUE,jc.TYPEMVT,jc.IDORDRE,jc.IDPLACEMENT,jc.IDCAISSE
+  ,jc.VALCAISSE,jc.DESCECAISSE,jc.VALTYPECHEQUE,jc.DESCETYPECHEQUE,jc.TIERSLIB,jc.CODETIERS,jc.IDBANQUE,jc.IDBANQUELIB,jc.NUMEROOP from journalcaisselibrecette jc left outer join PROVISIONFACTURETOUS pr on pr.id=jc.idplacement
+where pr.id is NULL;
+
+CREATE OR REPLACE  VIEW JOURNALCAISSELIB_TOUS AS 
+  select ID,DATESAISIE,DATEEFFET,FOLIO,CAISSE,NUMPIECE,
+  LIBELLE,DEBIT,CREDIT,REMARQUE,ETAT,TIERS,IDTYPECHEQUE,DESIGNATION,IDDEVISE,
+  IDMODE,NUMCHEQUE,TYPEMVT,IDORDRE,IDPLACEMENT,IDCAISSE,VALCAISSE,DESCECAISSE,VALTYPECHEQUE,DESCETYPECHEQUE,TIERSLIB,CODETIERS,
+  IDBANQUE,IDBANQUELIB,NUMEROOP from JOURNALCAISSELIB_PROVISION union all  SELECT ID,DATESAISIE,DATEEFFET,FOLIO,CAISSE,NUMPIECE,LIBELLE,DEBIT,CREDIT,REMARQUE,ETAT,TIERS,IDTYPECHEQUE,DESIGNATION,IDDEVISE,IDMODE,NUMCHEQUE,TYPEMVT,IDORDRE,IDPLACEMENT,IDCAISSE,VALCAISSE,DESCECAISSE,VALTYPECHEQUE,DESCETYPECHEQUE,TIERSLIB,CODETIERS,IDBANQUE,IDBANQUELIB,NUMEROOP FROM JOURNALCAISSELIB_SANSPROV;
+
+
+  
+create table FactureClientAvoir(
+id varchar(100) CONSTRAINT FactureClientAvoir_pk PRIMARY KEY,
+idfc varchar(100) CONSTRAINT FactureClientAvoir_FC_FK references FactureClient(id),
+idavoir varchar(100) CONSTRAINT FactureClientAvoir_avoirfc_fk references AvoirFC(id),
+montant number(30,2)
+);
+  
+
+
+	CREATE SEQUENCE  SEQ_FactureClientAvoir  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;
+   
+   create or replace FUNCTION getseqFactureClientAvoir
+	  RETURN NUMBER IS
+	  retour NUMBER;
+	BEGIN
+	  SELECT SEQ_FactureClientAvoir.nextval INTO retour FROM dual;
+	  return retour;
+	END;
+	
+
+
+CREATE OR REPLACE  VIEW PAIEMENTFC_tous (ID, DATEEFFET, CAISSE, TIERSLIB, LIBELLE, MONTANT, IDFACT,etat,etatlib) AS 
+  select
+    jc.id,
+    JC.DATEEFFET,
+    jc.caisse,
+    jc.tierslib,
+    jc.libelle,
+    pf.montant,
+    pf.idfact,
+    jc.etat,
+    CASE 
+    	WHEN jc.etat = 1
+    		THEN 'Créé'
+        WHEN jc.ETAT >= 11
+        	THEN 'visée'
+        WHEN jc.ETAT =0
+        	THEN 'Annulée'
+    END AS etatlib
+    from
+   JOURNALCAISSELIBCOMPLET jc
+   left join paiementfacture pf
+   on pf.idmvt=jc.id;
+  
+
+
+
+
+CREATE OR REPLACE  VIEW JOURNALCAISSELIBCOMPLET (ID, DATESAISIE, DATEEFFET, FOLIO, CAISSE, NUMPIECE, LIBELLE, DEBIT, CREDIT, REMARQUE, ETAT, TIERS, IDTYPECHEQUE, DESIGNATION, IDDEVISE, IDMODE, NUMCHEQUE, TYPEMVT, IDORDRE, IDPLACEMENT, IDCAISSE, VALCAISSE, DESCECAISSE, VALTYPECHEQUE, DESCETYPECHEQUE, TIERSLIB, IDBANQUE, IDBANQUELIB, NUMEROOP, TYPE, TYPELIB,idtraite) AS 
+  SELECT j.ID,
+       j.DATESAISIE,
+       j.DATEEFFET,
+       j.FOLIO,
+       j.CAISSE,
+       j.NUMPIECE,
+       j.LIBELLE,
+       cast(j.DEBIT as number(30,2)),
+       cast(j.CREDIT as number(30,2)),
+       j.REMARQUE,
+       j.ETAT,
+       j.TIERS,
+       j.IDTYPECHEQUE,
+       j.DESIGNATION,
+       j.IDDEVISE,
+       j.IDMODE,
+       j.NUMCHEQUE,
+       j.TYPEMVT,
+       j.IDORDRE,
+       j.IDPLACEMENT,
+       c.ID    AS idcaisse,
+       c.val   AS valcaisse,
+       c.desce AS descecaisse,
+       tc.val  AS valtypecheque,
+       m.val   AS descetypecheque,
+       ti.NOM  AS tierslib,
+       j.IDBANQUE,
+       b.val as idbanquelib,
+        op.NUMEROOP,
+        fc.idcategorie AS TYPE,
+       categ.VAL AS typelib,
+       j.IDTRAITE 
+FROM Journalcaisse j
+         JOIN CAISSE C
+              ON j.CAISSE = C.ID
+         LEFT JOIN TYPECHEQUE tc ON tc.id = j.idtypecheque
+         LEFT JOIN FOURNISSEUR_UNION_PERSONNEL ti ON ti.id = j.TIERS
+         LEFT JOIN MODEPAIEMENT m on j.idmode = m.id
+         LEFT JOIN BANQUE b on j.idbanque = b.ID
+         left join ORDONNERPAYEMENT op on op.id=j.IDORDRE
+         left join factureclient fc on fc.id=j.idplacement
+         LEFT JOIN CATEGORIEFC categ ON categ.ID = fc.idcategorie;
+
+
+        
+    CREATE OR REPLACE  VIEW JOURNALCAISSELIB (ID, DATESAISIE, DATEEFFET, FOLIO, CAISSE, NUMPIECE, LIBELLE, DEBIT, CREDIT, REMARQUE, ETAT, TIERS, IDTYPECHEQUE, IDPLACEMENT, IDORDRE, DESCECAISSE,idtraite) AS 
+  SELECT id,
+          datesaisie,
+          dateeffet,
+          folio,
+          valcaisse AS caisse,
+          numpiece,
+          libelle,
+          debit,
+          credit,
+          remarque,
+          etat,
+          tiers,
+          valtypecheque AS idtypecheque,
+          idplacement,
+		  idordre,
+		  descecaisse,
+		  idtraite
+     FROM journalcaisselibcomplet;
+
+
+    
+    CREATE OR REPLACE  VIEW JOURNALCAISSELIB_VISE (ID, DATESAISIE, DATEEFFET, FOLIO, CAISSE, NUMPIECE, LIBELLE, DEBIT, CREDIT, REMARQUE, ETAT, TIERS, IDTYPECHEQUE, IDPLACEMENT, TIERSLIB, IDORDRE, DESCECAISSE,idtraite) AS 
+  SELECT jc.ID,
+          jc.DATESAISIE,
+          jc.DATEEFFET,
+          jc.FOLIO,
+          jc.CAISSE,
+          jc.NUMPIECE,
+          jc.LIBELLE,
+          jc.DEBIT,
+          jc.CREDIT,
+          jc.REMARQUE,
+          jc.ETAT,
+          jc.TIERS,
+          jc.IDTYPECHEQUE,
+          jc.IDPLACEMENT,
+          fup.NOM AS tierslib,
+          jc.idordre,
+          jc.descecaisse,
+          idtraite
+     FROM journalcaisselib jc
+          LEFT JOIN FOURNISSEUR_UNION_PERSONNEL fup ON fup.ID = jc.TIERS
+          left join ordonnerpayement op on op.id=jc.idordre
+    WHERE jc.etat >= 11;
+
+
+
+
+CREATE OR REPLACE  VIEW PAIEMENTFC (ID, DATEEFFET, CAISSE, TIERSLIB, LIBELLE, MONTANT, IDFACT, ETAT, ETATLIB, VALCAISSE,idtraite) AS 
+  select
+    jc.id,
+    JC.DATEEFFET,
+    jc.caisse,
+    jc.tierslib,
+    jc.libelle,
+    pf.montant,
+    pf.idfact,
+    jc.etat,
+    CASE 
+    	WHEN jc.etat = 1
+    		THEN 'Créé'
+        WHEN jc.ETAT >= 11
+        	THEN 'visée'
+        WHEN jc.ETAT =0
+        	THEN 'Annulée'
+    END AS etatlib,
+    jc.desceCAISSE,
+    jc.idtraite
+    from
+   journalcaisselib_vise jc
+   left join paiementfacture pf
+   on pf.idmvt=jc.id
+;
+
+
+-----------itokiana
+CREATE OR REPLACE VIEW TRAITEMTTRESTE (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ESCOMPTE, TOTAL, REFERENCE, MONTANTRESTE, CDCLT, IDBANQUE, IDTYPEPIECE, TYPEPIECE) AS 
+  SELECT t.ID,t.DATY,t.TIERS,t.BANQUE,t.DATEECHEANCE,t.ETAT,t.MONTANT,t.ESCOMPTE,t.TOTAL,t.REFERENCE,
+ (t.total-tf. montantenlevetraite) AS montantreste, t.cdclt, t.idbanque,t.idtypepiece,
+t.typepiece
+ FROM TRAITE_LIBMTT t 
+ LEFT JOIN traitemttfc tf ON tf.id=t.id;
+ 
+
+
+-----------------add column etatlib
+
+
+CREATE OR REPLACE  VIEW TRAITEMTTRESTE_NONVERSEE (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ESCOMPTE, TOTAL, REFERENCE, MONTANTRESTE, CDCLT, IDBANQUE,etatlib) AS 
+  SELECT ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT,ESCOMPTE,TOTAL,REFERENCE,MONTANTRESTE,CDCLT,IDBANQUE,etatlib FROM (
+	SELECT t.ID,t.DATY,t.TIERS,t.BANQUE,t.DATEECHEANCE,t.ETAT,t.MONTANT,t.ESCOMPTE,t.TOTAL,t.REFERENCE,
+ (t.total-tf. montantenlevetraite) AS montantreste, t.cdclt, t.idbanque, 
+ CASE 
+    	WHEN t.etat = 1
+    		THEN 'Créé'
+        WHEN t.etat = 11
+        	THEN 'visée'
+  END 
+  AS etatlib
+ FROM TRAITE_LIBMTT t 
+ LEFT JOIN traitemttfc tf ON tf.id=t.id
+) tmttrst WHERE id NOT IN (SELECT idtraite FROM MVTINTRACAISSE m WHERE m.idtraite IS NOT NULL AND m.ETATVERSEMENT = 11)
+;
+
+-------add column etatlib and etatversementlib
+CREATE OR REPLACE VIEW mvtintracaissetraiteV AS select
+mic.*,
+t.Dateecheance,
+c1.val AS caissedepartlib,
+c2.val AS caissearriveelib,
+m.Desce as modepaiementlib,
+ case
+           when mic.etat = 1 then 'CREE'
+           when mic.etat >= 11 then 'VISE'
+           else '' end                           as etatlib,
+ case
+           when mic.etatversement = -2 then 'versée'
+           when mic.etatversement = 11 then 'encaissée'
+           else '' end                           as etatversementlib
+from mvtintracaisse mic
+JOIN traite t on t.id = mic.idtraite
+LEFT JOIN CAISSE C1 on C1.id = mic.caissedepart
+LEFT JOIN CAISSE C2 on C2.id = mic.caissearrivee
+LEFT JOIN MODEPAIEMENT m on m.id = mic.modepaiement
+ where mic.etatversement = 11;
+ 
+ 
+ 
+ 
+ 
+ 
+ CREATE OR REPLACE  VIEW TRAITEMTTRESTE (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ESCOMPTE, TOTAL, REFERENCE, MONTANTRESTE, CDCLT, IDBANQUE, IDTYPEPIECE, TYPEPIECE) AS 
+  SELECT t.ID,t.DATY,t.TIERS,t.BANQUE,t.DATEECHEANCE,t.ETAT,CAST (t.MONTANT AS NUMBER(30,2)) AS montant,t.ESCOMPTE,CAST(t.TOTAL AS NUMBER(30,2)) AS total,t.REFERENCE,
+ CAST((t.total-tf. montantenlevetraite) AS NUMBER(30,2)) AS montantreste, t.cdclt, t.idbanque,t.idtypepiece,
+t.typepiece
+ FROM TRAITE_LIBMTT t 
+ LEFT JOIN traitemttfc tf ON tf.id=t.id;
+
+
+
+
+CREATE OR REPLACE  VIEW TRAITE_FC (ID, IDTRAITE, IDFC, MONTANTFACTURE, MONTANTJC, MONTANT, DATY, ETAT, TIERS, BANQUE, FACTURECLIENTLIB,tierslib,etatlib) AS 
+  select
+	fc.ID,tl.id AS IDTRAITE,fc.id AS IDFC, FC.MONTANT as MONTANTFACTURE, j.CREDIT as MONTANTJC, pf.MONTANT,fc.DATY,fc.ETAT,
+	tl.tiers,
+	tl.banque,
+	fc.designation as factureclientlib,
+      fc.TIERSLIB,
+      CASE 
+    	WHEN j.etat = 1
+    		THEN 'Créé'
+        WHEN j.ETAT >= 11
+        	THEN 'visée'
+        WHEN j.ETAT =0
+        	THEN 'Annulée'
+    END AS etatlib
+	from Paiementfacture pf
+	LEFT JOIN JOURNALCAISSE j ON j.ID  = pf.IDMVT
+    JOIN traite tl on tl.id = j.idtraite
+	left join FACTURE_CLIENT_UNION2 fc on pf.IDFACT  = fc.id;
+
+
+
+-----------insert in usermenu
+INSERT INTO USERMENU (ID, REFUSER, IDMENU, IDROLE, CODESERVICE, CODEDIR, INTERDIT) VALUES('UMENCA001', '*', 'MENFAC00010', '*', NULL, NULL, 1);
+------modification condition
+-- Modification condition
+CREATE OR REPLACE VIEW MVTINTRACAISSETRAITEV (ID, DATY, CAISSEDEPART, CAISSEARRIVEE, MONTANT, MODEPAIEMENT, REMARQUE, ETAT, DESIGNATION, IDTRAITE, ETATVERSEMENT, IDFINALEDESTINATION, DATEECHEANCE, CAISSEDEPARTLIB, CAISSEARRIVEELIB, MODEPAIEMENTLIB, ETATLIB, ETATVERSEMENTLIB) AS 
+  select
+mic.ID,mic.DATY,mic.CAISSEDEPART,mic.CAISSEARRIVEE,mic.MONTANT,mic.MODEPAIEMENT,mic.REMARQUE,mic.ETAT,mic.DESIGNATION,mic.IDTRAITE,mic.ETATVERSEMENT,mic.IDFINALEDESTINATION,
+t.Dateecheance,
+c1.val AS caissedepartlib,
+c2.val AS caissearriveelib,
+m.Desce as modepaiementlib,
+ case
+           when mic.etat = 1 then 'CREE'
+           when mic.etat >= 11 then 'VISE'
+           else '' end                           as etatlib,
+ case
+           when mic.etatversement = -2 then 'encaissée'
+           when mic.etatversement = 11 then 'versée'
+           else '' end                           as etatversementlib
+from mvtintracaisse mic
+JOIN traite t on t.id = mic.idtraite
+LEFT JOIN CAISSE C1 on C1.id = mic.caissedepart
+LEFT JOIN CAISSE C2 on C2.id = mic.caissearrivee
+LEFT JOIN MODEPAIEMENT m on m.id = mic.modepaiement
+ where mic.etatversement = 11 AND mic.IDTRAITE NOT IN (SELECT IDTRAITE FROM mvtintracaisse WHERE ETATVERSEMENT  = -2)
+;
+
+CREATE OR REPLACE  VIEW AVOIRFC_MONTANT_REGROUP (ID, DATY, IDFACTURE, ETAT, TIERS, TIERSLIB, CATEGORIE, CATEGORIELIB, MOTIF, MOTIFLIB, CODE, TYPE, TYPELIB, DESIGNATION, MONTANT, MONTANTTVA, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, CODEFACTURE, DATEFACTURE, CDCLT) AS 
+  SELECT ID
+	, DATY
+	, IDFACTURE
+	, ETAT
+	, TIERS
+	, TIERSLIB
+	, CATEGORIE
+	, CATEGORIELIB
+	, MOTIF
+	, MOTIFLIB
+	, CODE
+	, TYPE
+	, TYPELIB
+	, DESIGNATION
+	, CAST(MONTANT AS NUMBER (30, 3)) AS MONTANT
+	,  CAST(MONTANTTVA AS NUMBER (30, 3)) AS MONTANTTVA
+	,  CAST(MONTANTTTC AS NUMBER (30, 3)) AS MONTANTTTC
+	,  CAST(SUM(MONTANTPAYE) AS NUMBER (30, 3)) AS MONTANTPAYE
+	, CAST((MONTANTTTC-SUM(MONTANTPAYE)) AS NUMBER (30, 3)) AS MONTANTRESTE
+	, CODEFACTURE
+	, DATEFACTURE
+	, CDCLT
+FROM AVOIRFC_MONTANT
+GROUP BY ID, DATY, IDFACTURE, ETAT, TIERS, TIERSLIB, CATEGORIE, CATEGORIELIB, MOTIF, MOTIFLIB, CODE, TYPE, TYPELIB, DESIGNATION, MONTANT, MONTANTTVA, MONTANTTTC, CODEFACTURE, DATEFACTURE, CDCLT
+;
+
+
+CREATE OR REPLACE  VIEW AVOIRFC_MONTANTREGROUPLIBETAT (ID, CODE, DATY, IDFACTURE, ETAT, MONTANT, TIERS, TIERSLIB, MONTANTPAYE, MONTANTRESTE, ETATLIB) AS 
+  SELECT op.ID,
+		  op.CODE,
+          op.DATY,
+          op.IDFACTURE,
+          op.ETAT,
+          cast(op.MONTANT as number(30,3)) as MONTANT,
+          op.TIERS,
+          op.TIERSLIB,
+          cast(op.MONTANTPAYE as number(30,3)) as MONTANTPAYE,
+          cast(op.MONTANTRESTE as number(30,3)) as MONTANTRESTE,
+          CASE
+             WHEN op.etat = 0 THEN 'annule'
+             WHEN op.etat = 1 THEN 'cree'
+             WHEN op.etat = 11 THEN 'vise'
+          END
+             AS etatlib
+     FROM AVOIRFC_MONTANT_REGROUP op;
+
+
+CREATE OR REPLACE  VIEW UNION_AVOIRFF_MONTANT_REGROUP (ID, DATY, IDFACTURE, ETAT, MONTANT, TIERS, TIERSLIB, MONTANTPAYE, MONTANTRESTE, CATEGORIE, CATEGORIELIB, MOTIF, MOTIFLIB, CODE, TYPE, TYPELIB, DESIGNATION) AS 
+  SELECT ID,DATY,IDFACTURE,ETAT,CAST(MONTANT AS NUMBER(30,3)) AS MONTANT,TIERS,TIERSLIB,CAST(MONTANTPAYE AS NUMBER(30,3)) AS MONTANTPAYE,CAST(MONTANTRESTE AS NUMBER(30,3)) AS MONTANTRESTE,CATEGORIE,CATEGORIELIB,MOTIF,MOTIFLIB,CODE,TYPE,TYPELIB,DESIGNATION
+FROM 
+(select ID,DATY,IDFACTURE,ETAT,CAST(MONTANT AS NUMBER(30,3)) AS MONTANT,TIERS,TIERSLIB,CAST(MONTANTPAYE AS NUMBER(30,3)) AS MONTANTPAYE,CAST(MONTANTRESTE AS NUMBER(30,3)) AS MONTANTRESTE,CATEGORIE,CATEGORIELIB,MOTIF,MOTIFLIB,CODE,TYPE,TYPELIB,DESIGNATION 
+  from AVOIRFF_MONTANT
+    union
+select ID,DATY,IDFACTURE,ETAT,CAST(montantttc AS NUMBER(30,3)) AS MONTANT,TIERS,TIERSLIB,CAST(MONTANTPAYE AS NUMBER(30,3)) AS MONTANTPAYE,CAST(MONTANTRESTE AS NUMBER(30,3)) AS MONTANTRESTE,CATEGORIE,CATEGORIELIB,MOTIF,MOTIFLIB,CODE,TYPE,TYPELIB,DESIGNATION from 
+AVOIRFC_MONTANT_REGROUP);
+
+
+
+
+
+
+CREATE OR REPLACE VIEW TRAITE_FC AS
+  select
+	fc.ID,tl.id AS IDTRAITE,fc.id AS IDFC, FC.MONTANT as MONTANTFACTURE, j.CREDIT as MONTANTJC, pf.MONTANT,fc.DATY,fc.ETAT,
+	tl.tiers,
+	tl.banque,
+	fc.designation as factureclientlib
+
+	from Paiementfacture pf
+	LEFT JOIN JOURNALCAISSE j ON j.ID  = pf.IDMVT
+    JOIN traite tl on tl.id = j.idtraite
+	left join FACTURE_CLIENT_UNION2 fc on pf.IDFACT  = fc.id;
+
+
+create or replace view traiteetatversement as
+select IDTRAITE, cast(-2 as number) as etatversement
+from MVTINTRACAISSE
+where IDTRAITE is not null
+  and ETATVERSEMENT = -2
+group by IDTRAITE
+UNION ALL
+select idtraite, cast(11 as number) as etatversement
+from MVTINTRACAISSE
+where idtraite is not null
+  and ETATVERSEMENT = 11
+  and IDTRAITE not in
+      (select IDTRAITE from MVTINTRACAISSE where IDTRAITE is not null and ETATVERSEMENT = -2 group by IDTRAITE)
+group by idtraite
+;
+
+create or replace view TRAITEMTTRESTE as
+SELECT t.ID,
+       t.DATY,
+       t.TIERS,
+       t.BANQUE,
+       t.DATEECHEANCE,
+       t.ETAT,
+       CAST(t.MONTANT AS NUMBER(30, 2))                          AS montant,
+       t.ESCOMPTE,
+       CAST(t.TOTAL AS NUMBER(30, 2))                            AS total,
+       t.REFERENCE,
+       CAST((t.total - tf.montantenlevetraite) AS NUMBER(30, 2)) AS montantreste,
+       t.cdclt,
+       t.idbanque,
+       t.idtypepiece,
+       t.typepiece,
+       nvl(te.etatversement, 1)                                  as etatversement,
+       case
+           when te.etatversement = -2 then 'Encaissée'
+           when te.etatversement = 11 then 'Versée'
+           else
+               'Non Versée' end                                  as etatversementlib
+FROM TRAITE_LIBMTT t
+         LEFT JOIN traitemttfc tf ON tf.id = t.id
+         LEFT JOIN traiteetatversement te on te.IDTRAITE = t.ID;
+
+         --créé TRAITE_LIBC
+create or replace view TRAITE_LIBC as
+SELECT ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib  from TRAITEMTTRESTE where etat = 1;
+
+--visé TRAITE_LIBV
+create or replace view TRAITE_LIBV as
+select ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib from TRAITEMTTRESTE where etat = 11;
+
+--escompté TRAITE_LIBESC
+create or replace view TRAITE_LIBESC as
+select ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib from TRAITEMTTRESTE where id in (select idtraite from escompte where etat = 11);
+
+--versé TRAITE_LIBVER
+create or replace view TRAITE_LIBVER as
+select ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib from TRAITEMTTRESTE where etatversement= 11
+    --id in (select idtraite from mvtintracaisse)
+;
+
+--non encaissé TRAITE_LIBNONENC
+create or replace view TRAITE_LIBNONENC as
+select ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib from TRAITEMTTRESTE where etatversement= 11;
+
+--encaissé TRAITE_LIBENC
+create or replace view TRAITE_LIBENC as
+select ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib from TRAITEMTTRESTE where etatversement = -2;
+
+
+
+CREATE OR REPLACE VIEW TRAITE_JC (ID, IDTRAITE, IDFC, MONTANT, DATY, ETAT, IDJC, DATESAISIE, DATEEFFET, FOLIO, CAISSE, NUMPIECE, LIBELLE, DEBIT, CREDIT, REMARQUE, ETATJC, TIERS, IDTYPECHEQUE, DESIGNATION, IDORDRE, IDDEVISE, IDMODE, NUMCHEQUE, TYPEMVT, IDPLACEMENT, IDBANQUE, IDPLACEMENTVRAI) AS 
+  select 
+jc.id,fc.ID AS idtraite,jc.IDPLACEMENT AS IDFC,fc.MONTANT,fc.DATY,fc.ETAT,jc.id AS IDJC,
+jc.DATESAISIE,
+jc.DATEEFFET,
+jc.FOLIO,
+jc.CAISSE,
+jc.NUMPIECE,
+jc.LIBELLE ,
+jc.DEBIT,
+jc.CREDIT,
+jc.REMARQUE,
+jc.ETAT AS etatjc,
+jc.TIERS,
+jc.IDTYPECHEQUE,
+jc.DESIGNATION,
+jc.IDORDRE,
+jc.IDDEVISE,
+jc.IDMODE,
+jc.NUMCHEQUE,
+jc.TYPEMVT,
+jc.IDPLACEMENT,
+jc.IDBANQUE,
+jc.IDPLACEMENTVRAI 
+from traite fc 
+left join journalcaisse jc on fc.id = jc.IDTRAITE ;
+
+
+
+CREATE OR REPLACE VIEW TRAITEMTTRESTE_NONVERSEE (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ESCOMPTE, TOTAL, REFERENCE, MONTANTRESTE, CDCLT, IDBANQUE) AS 
+SELECT * FROM (
+	SELECT t.ID,t.DATY,t.TIERS,t.BANQUE,t.DATEECHEANCE,t.ETAT,t.MONTANT,t.ESCOMPTE,t.TOTAL,t.REFERENCE,
+ (t.total-tf. montantenlevetraite) AS montantreste, t.cdclt, t.idbanque
+ FROM TRAITE_LIBMTT t 
+ LEFT JOIN traitemttfc tf ON tf.id=t.id
+) tmttrst WHERE id NOT IN (SELECT idtraite FROM MVTINTRACAISSE m WHERE m.idtraite IS NOT NULL AND m.ETATVERSEMENT = 11)
+;
+
+
+----------Flavien
+CREATE OR REPLACE VIEW AS_BONDECOMMANDE_FILLEMTT (ID,
+PRODUIT,
+IDBC,
+QUANTITE,
+PU,
+QUANTITEPARPACK,
+MONTANT,
+REMARQUE,
+UNITE,
+TVA,
+DESIGNATION,
+REMISE,
+OBSERVATION,
+DEVISE,
+TAUX,
+MONTANTHT) AS
+SELECT
+	bcf.ID,
+	bcf.PRODUIT,
+	bcf.IDBC,
+	bcf.QUANTITE,
+	bcf.PU,
+	bcf.QUANTITEPARPACK,
+	bcf.MONTANT,
+	bcf.REMARQUE,
+	bcf.UNITE,
+	bcf.TVA,
+	bcf.DESIGNATION,
+	bcf.REMISE,
+	bcf.OBSERVATION,
+	bcf.DEVISE,
+	bcf.TAUX,
+	((QUANTITE*pu) - (QUANTITE*pu)*REMISE /100) AS montantht
+FROM
+	AS_BONDECOMMANDE_FILLE bcf
+;
+
+
+ALTER TABLE ADDITIF 
+ADD CONSTRAINT additif_ff_fk FOREIGN key(idfacture) REFERENCES facture_fournisseur_mere(id);
+
+CREATE OR REPLACE  VIEW FACTFOURN_MSUM_LIB_FICHE (ID, DATY, DESIGNATION, TIERSLIB, CONTACT, ADRESSE, TYPELIB, CATEGORIELIB, DATE_ECHEANCE, CODE_ETABLISSEMENTLIB, PROJETLIB, EXERCICE, CODE, NUMEROOP, IDBL, IDBC, IDENGAGEMENTLIB, MONTANTHTSANSREMISE, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, DATEREGUL, IDPROVISION, IDCATEGORIE, IDPROVISIONLIB, ETAT) AS 
+  select
+f.id,
+f.daty,
+f.designation,
+f.tierslib,
+f.contact,
+f.adresse,
+f.typelib,
+f.categorielib,
+f.date_echeance,
+f.code_etablissementlib,
+f.projetlib,
+f.exercice,
+f.code,
+f.numeroop ,
+f.idbl,
+f.idbc,
+f.idengagementlib,
+CAST(f.montanthtsansremise AS NUMBER(32,2)),
+CAST(f.montant AS NUMBER(32,2)),
+CAST(f.montanttva AS NUMBER(32,2)),
+CAST(f.montantavoir AS NUMBER(32,2)),
+CAST((nvl(f.montantttc,0) + NVL(a.montant,0))AS NUMBER(32,2)),
+CAST(f.montantpaye AS NUMBER(32,2)),
+CAST((nvl(f.montantreste,0)+ NVL(a.montant,0)) AS NUMBER(32,2)),
+f.dateregul,
+f.idprovision ,
+f.Idcategorie ,
+f.idProvisionlib ,
+f.etat
+from factfourn_msum_lib f
+LEFT JOIN ADDITIF a ON f.id=a.IDFACTURE ;
+
+
+--------------------script Spat--------------------
+
+------------------------------------------- 23-01-2023
+-------------------- Nouta
+
+CREATE OR REPLACE  VIEW PAIEMENTFC (ID, DATEEFFET, CAISSE, TIERSLIB, LIBELLE, MONTANT, IDFACT,NUMPIECE) AS 
+  select
+    jc.id,
+    JC.DATEEFFET,
+    jc.caisse,
+    jc.tierslib,
+    jc.libelle,
+    pf.montant,
+    pf.idfact,
+    jc.numpiece
+    from
+   journalcaisselib_vise jc
+   left join paiementfacture pf
+   on pf.idmvt=jc.id;
+   
+----------------------- Tiavina
+
+create table Action (
+    id varchar(100) constraint action_pk primary key,
+    val varchar(250),
+    desce varchar(250)
+);
+
+
+create sequence seqaction
+      minvalue 1
+      maxvalue 999999999999
+      start with 1
+      increment by 1
+      cache 20;
+      
+      
+
+CREATE OR REPLACE FUNCTION getseqaction
+   RETURN NUMBER
+IS
+   retour   NUMBER;
+BEGIN
+   SELECT seqaction.NEXTVAL INTO retour FROM DUAL;
+
+   RETURN retour;
+END;
+
+INSERT INTO ACTION
+(ID, VAL, DESCE)
+VALUES('ACT0001', 'insert', 'insert');
+INSERT INTO ACTION
+(ID, VAL, DESCE)
+VALUES('ACT0002', 'update', 'update');
+INSERT INTO ACTION
+(ID, VAL, DESCE)
+VALUES('ACT0003', 'delete', 'delete');
+INSERT INTO ACTION
+(ID, VAL, DESCE)
+VALUES('ACT0004', 'visa', 'visa');
+INSERT INTO ACTION
+(ID, VAL, DESCE)
+VALUES('ACT0005', 'select', 'select');
+
+
+-- SPAT0501.FACTURECLIENTVALIDE2 source
+
+CREATE OR REPLACE  VIEW FACTURECLIENTVALIDE2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, TYPECLIENTLIB, POURCOMPTE, POURCOMPTELIB, CODEFILTRE, PAIEMENT, PAIEMENTLIB, LHT, LM, TE, JNT, DATEDEPART, HEUREDEPART, DATEARRIVEE, HEUREARRIVEE, BATEAU, BATEAULIB, PROVENANCE, PROVENANCELIB, DESTINATION, DESTINATIONLIB, PAVILLON, PAVILLONLIB, NOMCLT, ADRCLT, NMSTTCLT, TELCLT, NIF, RC, DTTP, TP, DTQUIT, QUIT, CDCLT, NUMPIECE,nbjours) AS 
+  SELECT
+	fc.ID,
+	fc.DATY,
+	fc.TIERS,
+	fc.DESIGNATION,
+	fc.TYPE,
+	CAST(fc.TVA AS NUMBER(30,
+	2)) AS TVA,
+	fc.REMARQUE,
+	fc.IDUSER,
+	fc.DATE_ECHEANCE,
+	fc.ETAT,
+	CAST(fc.MONTANT AS NUMBER(30,
+	2)) AS MONTANT,
+	CAST(fc.MONTANTTVA AS NUMBER(30,
+	2)) AS MONTANTTVA,
+	CAST(fc.MONTANTAVOIR AS NUMBER(30,
+	2)) AS MONTANTAVOIR,
+	CAST(fc.MONTANTTTC AS NUMBER(30,
+	2)) AS MONTANTTTC,
+	CAST(fc.MONTANTPAYE AS NUMBER(30,
+	2)) AS MONTANTPAYE,
+	CAST(fc.MONTANTRESTE AS NUMBER(30,
+	2)) AS MONTANTRESTE,
+	fc.TIERSLIB,
+	fc.CONTACT,
+	fc.ADRESSE,
+	fc.IDPREVISION,
+	fc.ESCALE,
+	fc.ETATLIB,
+	fc.TYPELIB,
+	fc.IDCATEGORIE,
+	fc.CATEGORIELIB,
+	fc.IDPROVISION,
+	fc.IDPROVISIONLIB,
+	fc.DEVISEMERE,
+	fc.CODEPRESTATION,
+	fc.CODEPRESTATIONLIB,
+	fc.CODE,
+	ESTMICTSL,
+	CAST(fc.MONTANTTTCVRAI AS NUMBER(35,
+	2)) AS MONTANTTTCVRAI,
+	fc.ARMATEURLIB,
+	EXERCICE,
+	nvl(fc.typelib, '-') AS typeclientlib,
+	fc.pourcompte,
+	fc.pourcomptelib,
+	fc.code AS codeFiltre,
+	fc.paiement,
+	fc.paiementlib,
+	CAST(fc.LHT AS NUMBER(30,
+	2)) AS LHT,
+	CAST(fc.LM AS NUMBER(30,
+	2)) AS LM,
+	CAST(fc.TE AS NUMBER(30,
+	3)) AS TE,
+	CAST(fc.JNT AS NUMBER(30,
+	2)) AS JNT,
+	fc.datedepart,
+	fc.heuredepart,
+	fc.datearrivee,
+	fc.heurearrivee,
+	fc.bateau,
+	fc.bateaulib,
+	fc.provenance,
+	fc.provenancelib,
+	fc.destination,
+	fc.destinationlib,
+	fc.pavillon,
+	fc.pavillonlib,
+	fc.nomclt,
+	fc.adrclt,
+	fc.nmsttclt,
+	fc.telclt,
+	fc.nif,
+	fc.rc,
+	fc.dttp,
+	fc.tp,
+	fc.dtquit,
+	fc.quit,
+	fc.cdclt,
+	fc.NUMPIECE,
+	CASE
+		WHEN (fc.DATE_ECHEANCE - (SELECT sysdate FROM dual))>0
+		THEN CAST((fc.DATE_ECHEANCE - (SELECT sysdate FROM dual)) AS integer)
+	ELSE  0
+	END AS nbjours
+FROM
+	FACTURE_CLIENT_UNION2 fc
+WHERE
+	fc.id NOT IN (
+	SELECT
+		id
+	FROM
+		ProvisionFactureDefinitive);
+		
+	
+	
+	-- SPAT0501.FACTURE_CLIENT_UNIONC0112_2 source
+
+CREATE OR REPLACE  VIEW FACTURE_CLIENT_UNIONC0112_2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, CODEFILTRE, IDAVOIR, POURCOMPTE, POURCOMPTELIB, ARMATEUR, PAIEMENT, PAIEMENTLIB, LHT, LM, TE, JNT, DATEDEPART, HEUREDEPART, DATEARRIVEE, HEUREARRIVEE, BATEAU, BATEAULIB, PROVENANCE, PROVENANCELIB, DESTINATION, DESTINATIONLIB, PAVILLON, PAVILLONLIB, NOMCLT, ADRCLT, NMSTTCLT, TELCLT, NIF, RC, DTTP, TP, DTQUIT, QUIT, CDCLT, NUMPIECE,nbjours) AS 
+  SELECT
+	fc.ID,
+	fc.DATY,
+	fc.TIERS,
+	fc.DESIGNATION,
+	TYPE,
+	fc.TVA,
+	fc.REMARQUE,
+	fc.IDUSER,
+	fc.DATE_ECHEANCE,
+	fc.ETAT,
+	CAST(fc.MONTANT AS NUMBER(35,
+	2)) AS MONTANT,
+	CAST(fc.MONTANTTVA AS NUMBER(35,
+	2)) AS MONTANTTVA,
+	CAST(fc.MONTANTAVOIR AS NUMBER(35,
+	2)) AS MONTANTAVOIR,
+	CAST(fc.MONTANTTTC AS NUMBER(35,
+	2)) AS MONTANTTTC,
+	CAST(fc.MONTANTPAYE AS NUMBER(35,
+	2)) AS MONTANTPAYE,
+	CAST(fc.MONTANTRESTE AS NUMBER(35,
+	2)) AS MONTANTRESTE,
+	TIERSLIB,
+	CONTACT,
+	ADRESSE,
+	IDPREVISION,
+	ESCALE,
+	ETATLIB,
+	TYPELIB,
+	IDCATEGORIE,
+	CATEGORIELIB,
+	IDPROVISION,
+	IDPROVISIONLIB,
+	DEVISEMERE,
+	CODEPRESTATION,
+	CODEPRESTATIONLIB,
+	fc.CODE,
+	ESTMICTSL,
+	CODEPROVISION,
+	CAST(fc.MONTANTTTCVRAI AS NUMBER(35,
+	2)) AS MONTANTTTCVRAI,
+	fc.ARMATEURLIB,
+	fc.EXERCICE ,
+	fc.code AS codeFiltre,
+	fc.IDAVOIR,
+	fc.POURCOMPTE,
+	fc.POURCOMPTELIB,
+	fc.ARMATEUR,
+	fc.PAIEMENT,
+	fc.PAIEMENTLIB,
+	fc.LHT,
+	fc.LM ,
+	fc.TE,
+	fc.JNT,
+	fc.DATEDEPART,
+	fc.HEUREDEPART,
+	fc.DATEARRIVEE,
+	fc.HEUREARRIVEE,
+	fc.BATEAU,
+	fc.BATEAULIB,
+	fc.PROVENANCE,
+	fc.PROVENANCELIB,
+	fc.DESTINATION,
+	fc.DESTINATIONLIB,
+	fc.PAVILLON,
+	fc.PAVILLONLIB,
+	fc.NOMCLT,
+	fc.ADRCLT,
+	fc.NMSTTCLT,
+	fc.TELCLT,
+	fc.NIF,
+	fc.rc,
+	fc.DTTP,
+	fc.tp,
+	fc.DTQUIT,
+	fc.QUIT,
+	fc.cdclt,
+	NUMPIECE,
+	CASE
+		WHEN (fc.DATE_ECHEANCE - (SELECT sysdate FROM dual))>0
+		THEN CAST((fc.DATE_ECHEANCE - (SELECT sysdate FROM dual)) AS integer)
+	ELSE  0
+	END AS nbjours
+FROM
+	facture_client_union2 fc
+WHERE
+	fc.etat = 1 
+;
+
+
+
+
+
+
+-- SPAT0501.FACTURE_CLIENT_UNIONV2 source
+
+CREATE OR REPLACE  VIEW FACTURE_CLIENT_UNIONV2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, CODEFILTRE, IDAVOIR, POURCOMPTE, POURCOMPTELIB, ARMATEUR, PAIEMENT, PAIEMENTLIB, LHT, LM, TE, JNT, DATEDEPART, HEUREDEPART, DATEARRIVEE, HEUREARRIVEE, BATEAU, BATEAULIB, PROVENANCE, PROVENANCELIB, DESTINATION, DESTINATIONLIB, PAVILLON, PAVILLONLIB, NOMCLT, ADRCLT, NMSTTCLT, TELCLT, NIF, RC, DTTP, TP, DTQUIT, QUIT, CDCLT, NUMPIECE,nbjours) AS 
+  SELECT
+	fc.ID,
+	fc.DATY,
+	fc.TIERS,
+	fc.DESIGNATION,
+	TYPE,
+	fc.TVA,
+	fc.REMARQUE,
+	fc.IDUSER,
+	fc.DATE_ECHEANCE,
+	fc.ETAT,
+	CAST(fc.MONTANT AS NUMBER(35,
+	2)) AS MONTANT,
+	CAST(fc.MONTANTTVA AS NUMBER(35,
+	2)) AS MONTANTTVA,
+	CAST(fc.MONTANTAVOIR AS NUMBER(35,
+	2)) AS MONTANTAVOIR,
+	CAST(fc.MONTANTTTC AS NUMBER(35,
+	2)) AS MONTANTTTC,
+	CAST(fc.MONTANTPAYE AS NUMBER(35,
+	2)) AS MONTANTPAYE,
+	CAST(fc.MONTANTRESTE AS NUMBER(35,
+	2)) AS MONTANTRESTE,
+	TIERSLIB,
+	CONTACT,
+	ADRESSE,
+	IDPREVISION,
+	ESCALE,
+	ETATLIB,
+	TYPELIB,
+	IDCATEGORIE,
+	CATEGORIELIB,
+	IDPROVISION,
+	IDPROVISIONLIB,
+	DEVISEMERE,
+	CODEPRESTATION,
+	CODEPRESTATIONLIB,
+	fc.CODE,
+	ESTMICTSL,
+	CODEPROVISION,
+	CAST(fc.MONTANTTTCVRAI AS NUMBER(35,
+	2)) AS MONTANTTTCVRAI,
+	fc.ARMATEURLIB,
+	fc.EXERCICE ,
+	fc.code AS codeFiltre,
+	fc.IDAVOIR,
+	fc.POURCOMPTE,
+	fc.POURCOMPTELIB,
+	fc.ARMATEUR,
+	fc.PAIEMENT,
+	fc.PAIEMENTLIB,
+	fc.LHT,
+	fc.LM ,
+	fc.TE,
+	fc.JNT,
+	fc.DATEDEPART,
+	fc.HEUREDEPART,
+	fc.DATEARRIVEE,
+	fc.HEUREARRIVEE,
+	fc.BATEAU,
+	fc.BATEAULIB,
+	fc.PROVENANCE,
+	fc.PROVENANCELIB,
+	fc.DESTINATION,
+	fc.DESTINATIONLIB,
+	fc.PAVILLON,
+	fc.PAVILLONLIB,
+	fc.NOMCLT,
+	fc.ADRCLT,
+	fc.NMSTTCLT,
+	fc.TELCLT,
+	fc.NIF,
+	fc.rc,
+	fc.DTTP,
+	fc.tp,
+	fc.DTQUIT,
+	fc.QUIT,
+	fc.cdclt,
+	NUMPIECE,
+		CASE
+		WHEN (fc.DATE_ECHEANCE - (SELECT sysdate FROM dual))>0
+		THEN CAST((fc.DATE_ECHEANCE - (SELECT sysdate FROM dual)) AS integer)
+	ELSE  0
+	END AS nbjours
+FROM
+	facture_client_union2 fc
+WHERE
+	fc.etat >= 11 
+
+;
+
+
+-- SPAT0501.FACTURECLIENTAPAYER2 source
+
+CREATE OR REPLACE  VIEW FACTURECLIENTAPAYER2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, CODEFILTRE, CDCLT, NUMPIECE,nbjours) AS 
+  SELECT fc.ID,
+       fc.DATY,
+       fc.TIERS,
+       fc.DESIGNATION,
+       fc.TYPE,
+       fc.TVA,
+       fc.REMARQUE,
+       fc.IDUSER,
+       fc.DATE_ECHEANCE,
+       fc.ETAT,
+       CAST(fc.MONTANT AS NUMBER(35, 2))        AS MONTANT,
+       CAST(fc.MONTANTTVA AS NUMBER(35, 2))     AS MONTANTTVA,
+       CAST(fc.MONTANTAVOIR AS NUMBER(35, 2))   AS MONTANTAVOIR,
+       CAST(fc.MONTANTTTC AS NUMBER(35, 2))     AS MONTANTTTC,
+       CAST(fc.MONTANTPAYE AS NUMBER(35, 2))    AS MONTANTPAYE,
+       CAST(fc.MONTANTRESTE AS NUMBER(35, 2))   AS MONTANTRESTE,
+       fc.TIERSLIB,
+       fc.CONTACT,
+       fc.ADRESSE,
+       fc.IDPREVISION,
+       fc.ESCALE,
+       fc.ETATLIB,
+       fc.TYPELIB,
+       fc.IDCATEGORIE,
+       fc.CATEGORIELIB,
+       fc.IDPROVISION,
+       fc.IDPROVISIONLIB,
+       fc.DEVISEMERE,
+       fc.CODEPRESTATION,
+       fc.CODEPRESTATIONLIB,
+       fc.CODE,
+       fc.ESTMICTSL,
+       fc.CODEPROVISION,
+       CAST(fc.MONTANTTTCVRAI AS NUMBER(35, 2)) AS MONTANTTTCVRAI,
+       fc.ARMATEURLIB,
+       fc.EXERCICE ,
+       fc.code as codeFiltre,
+		fc.cdclt,
+		NUMPIECE,
+		CASE
+		WHEN (fc.DATE_ECHEANCE - (SELECT sysdate FROM dual))>0
+		THEN CAST((fc.DATE_ECHEANCE - (SELECT sysdate FROM dual)) AS integer)
+	ELSE  0
+	END AS nbjours
+from facture_client_union2 fc
+where MONTANTRESTE > 0 AND  fc.etat >= 11
+;
+
+
+
+-- SPAT0501.FACTURECLIENTAUCOMPTANT2 source
+
+CREATE OR REPLACE  VIEW FACTURECLIENTAUCOMPTANT2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, CODEFILTRE, CDCLT, NUMPIECE,nbjours) AS 
+  select fc.ID,
+       fc.DATY,
+       fc.TIERS,
+       fc.DESIGNATION,
+       fc.TYPE,
+       fc.TVA,
+       fc.REMARQUE,
+       fc.IDUSER,
+       fc.DATE_ECHEANCE,
+       fc.ETAT,
+       CAST(fc.MONTANT AS NUMBER(35, 2))        AS MONTANT,
+       CAST(fc.MONTANTTVA AS NUMBER(35, 2))     AS MONTANTTVA,
+       CAST(fc.MONTANTAVOIR AS NUMBER(35, 2))   AS MONTANTAVOIR,
+       CAST(fc.MONTANTTTC AS NUMBER(35, 2))     AS MONTANTTTC,
+       CAST(fc.MONTANTPAYE AS NUMBER(35, 2))    AS MONTANTPAYE,
+       CAST(fc.MONTANTRESTE AS NUMBER(35, 2))   AS MONTANTRESTE,
+       fc.TIERSLIB,
+       fc.CONTACT,
+       fc.ADRESSE,
+       fc.IDPREVISION,
+       fc.ESCALE,
+       fc.ETATLIB,
+       fc.TYPELIB,
+       fc.IDCATEGORIE,
+       fc.CATEGORIELIB,
+       fc.IDPROVISION,
+       fc.IDPROVISIONLIB,
+       fc.DEVISEMERE,
+       fc.CODEPRESTATION,
+       fc.CODEPRESTATIONLIB,
+       fc.CODE,
+       fc.ESTMICTSL,
+       fc.CODEPROVISION,
+       CAST(fc.MONTANTTTCVRAI AS NUMBER(35, 2)) AS MONTANTTTCVRAI,
+       fc.ARMATEURLIB,
+       fc.EXERCICE ,
+       fc.code as codeFiltre,
+	   fc.cdclt
+	   ,NUMPIECE,
+	   CASE
+		WHEN (fc.DATE_ECHEANCE - (SELECT sysdate FROM dual))>0
+		THEN CAST((fc.DATE_ECHEANCE - (SELECT sysdate FROM dual)) AS integer)
+	ELSE  0
+	END AS nbjours
+from facture_client_union2 fc
+where type = 'TFC002'
+  and fc.etat >= 11
+ 
+;
+
+
+
+-- SPAT0501.FACTURECLIENTACREDIT2 source
+
+CREATE OR REPLACE  VIEW FACTURECLIENTACREDIT2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, CODEFILTRE, CDCLT, NUMPIECE,nbjours) AS 
+  select fc.ID,
+       fc.DATY,
+       fc.TIERS,
+       fc.DESIGNATION,
+       fc.TYPE,
+       fc.TVA,
+       fc.REMARQUE,
+       fc.IDUSER,
+       fc.DATE_ECHEANCE,
+       fc.ETAT,
+       CAST(fc.MONTANT AS NUMBER(32,2)) AS MONTANT ,
+       CAST(fc.MONTANTTVA AS NUMBER(32,2)) AS MONTANTTVA,
+       CAST(fc.MONTANTAVOIR AS NUMBER(32,2)) AS MONTANTAVOIR ,
+       CAST(fc.MONTANTTTC AS NUMBER(32,2)) AS MONTANTTTC ,
+       CAST(fc.MONTANTPAYE AS NUMBER(32,2)) AS MONTANTPAYE ,
+       CAST(fc.MONTANTRESTE AS NUMBER(32,2)) AS MONTANTRESTE ,
+       fc.TIERSLIB,
+       fc.CONTACT,
+       fc.ADRESSE,
+       fc.IDPREVISION,
+       fc.ESCALE,
+       fc.ETATLIB,
+       fc.TYPELIB,
+       fc.IDCATEGORIE,
+       fc.CATEGORIELIB,
+       fc.IDPROVISION,
+       fc.IDPROVISIONLIB,
+       fc.DEVISEMERE,
+       fc.CODEPRESTATION,
+       fc.CODEPRESTATIONLIB,
+       fc.CODE,
+       fc.ESTMICTSL,
+       fc.CODEPROVISION,
+       fc.MONTANTTTCVRAI,
+       fc.ARMATEURLIB,
+       fc.EXERCICE ,
+       fc.code as codeFiltre,
+       fc.cdclt,NUMPIECE,
+       CASE
+		WHEN (fc.DATE_ECHEANCE - (SELECT sysdate FROM dual))>0
+		THEN CAST((fc.DATE_ECHEANCE - (SELECT sysdate FROM dual)) AS integer)
+	ELSE  0
+	END AS nbjours
+from facture_client_union2 fc
+where type = 'TFC001'
+  and fc.etat >= 11
+;
+
+
+-- SPAT0501.FACTURE_CLIENT_UNIONA2 source
+
+CREATE OR REPLACE  VIEW FACTURE_CLIENT_UNIONA2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, CODEFILTRE, CDCLT, NUMPIECE,nbjours) AS 
+  select 
+  fc.ID,
+  fc.DATY,
+  fc.TIERS,
+  fc.DESIGNATION,
+  fc.TYPE,
+  cast(fc.TVA as number(20,2)),
+  fc.REMARQUE,
+  fc.IDUSER,
+  fc.DATE_ECHEANCE,
+  fc.ETAT,
+  cast(fc.MONTANT as number(32,2)),
+  cast(fc.MONTANTTVA as number(32,2)),
+  cast(fc.MONTANTAVOIR as number(32,2)),
+  cast(fc.MONTANTTTC  as number(32,2)),
+  cast(fc.MONTANTPAYE as number(32,2)),
+  cast(fc.MONTANTRESTE  as number(32,2)),
+ fc.TIERSLIB,
+ fc.CONTACT,
+ fc.ADRESSE,
+ fc.IDPREVISION,
+ fc.ESCALE,
+ fc.ETATLIB,
+ fc.TYPELIB,
+ fc.IDCATEGORIE,
+ fc.CATEGORIELIB,
+ fc.IDPROVISION,
+ fc.IDPROVISIONLIB,
+ fc.DEVISEMERE,
+fc.CODEPRESTATION,
+fc.CODEPRESTATIONLIB,
+fc.CODE,
+fc.ESTMICTSL,
+cast(fc.CODEPROVISION  as number(32,2)),
+fc.MONTANTTTCVRAI,
+fc.ARMATEURLIB,
+fc.EXERCICE , 
+fc.code as codeFiltre,
+fc.cdclt,NUMPIECE,
+CASE
+		WHEN (fc.DATE_ECHEANCE - (SELECT sysdate FROM dual))>0
+		THEN CAST((fc.DATE_ECHEANCE - (SELECT sysdate FROM dual)) AS integer)
+	ELSE  0
+	END AS nbjours
+from facture_client_union2 fc
+where fc.etat=0 
+;
+
+
+
+-- SPAT0501.FACTURECLIENTENRETARD2 source
+
+CREATE OR REPLACE  VIEW FACTURECLIENTENRETARD2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, CODEFILTRE, IDAVOIR, POURCOMPTE, POURCOMPTELIB, ARMATEUR, PAIEMENT, PAIEMENTLIB, LHT, LM, TE, JNT, DATEDEPART, HEUREDEPART, DATEARRIVEE, HEUREARRIVEE, BATEAU, BATEAULIB, PROVENANCE, PROVENANCELIB, DESTINATION, DESTINATIONLIB, PAVILLON, PAVILLONLIB, NOMCLT, ADRCLT, NMSTTCLT, TELCLT, NIF, RC, DTTP, TP, DTQUIT, QUIT, CDCLT, NUMPIECE,nbjours) AS 
+  SELECT
+	fc.ID,
+	fc.DATY,
+	fc.TIERS,
+	fc.DESIGNATION,
+	fc.TYPE,
+	fc.TVA,
+	fc.REMARQUE,
+	fc.IDUSER,
+	fc.DATE_ECHEANCE,
+	fc.ETAT,
+	fc.MONTANT,
+	fc.MONTANTTVA,
+	fc.MONTANTAVOIR,
+	fc.MONTANTTTC,
+	fc.MONTANTPAYE,
+	fc.MONTANTRESTE,
+	fc.TIERSLIB,
+	fc.CONTACT,
+	fc.ADRESSE,
+	fc.IDPREVISION,
+	fc.ESCALE,
+	fc.ETATLIB,
+	fc.TYPELIB,
+	fc.IDCATEGORIE,
+	fc.CATEGORIELIB,
+	fc.IDPROVISION,
+	fc.IDPROVISIONLIB,
+	fc.DEVISEMERE,
+	fc.CODEPRESTATION,
+	fc.CODEPRESTATIONLIB,
+	fc.CODE,
+	fc.ESTMICTSL,
+	fc.CODEPROVISION,
+	fc.MONTANTTTCVRAI,
+	fc.ARMATEURLIB,
+	fc.EXERCICE,
+	fc.CODEFILTRE,
+	fc.IDAVOIR,
+	fc.POURCOMPTE,
+	fc.POURCOMPTELIB,
+	fc.ARMATEUR,
+	fc.PAIEMENT,
+	fc.PAIEMENTLIB,
+	fc.LHT,
+	fc.LM,
+	fc.TE,
+	fc.JNT,
+	fc.DATEDEPART,fc.HEUREDEPART,fc.DATEARRIVEE,fc.HEUREARRIVEE,fc.BATEAU,fc.BATEAULIB,fc.PROVENANCE,fc.PROVENANCELIB,fc.DESTINATION,fc.DESTINATIONLIB,fc.PAVILLON,fc.PAVILLONLIB,fc.NOMCLT,fc.ADRCLT,fc.NMSTTCLT,fc.TELCLT,fc.NIF,fc.RC,fc.DTTP,fc.TP,fc.DTQUIT,fc.QUIT,
+	fc.cdclt,NUMPIECE,
+	CASE
+		WHEN (fc.DATE_ECHEANCE - (SELECT sysdate FROM dual))>0
+		THEN CAST((fc.DATE_ECHEANCE - (SELECT sysdate FROM dual)) AS integer)
+	ELSE  0
+	END AS nbjours
+from FACTURE_CLIENT_UNIONV2 fc
+WHERE
+	DATE_ECHEANCE< to_date(CURRENT_DATE) AND MONTANTRESTE>0
+
+;
+
+
+-- SPAT0501.FACTURECLIENTENALERTE2 source
+
+CREATE OR REPLACE  VIEW FACTURECLIENTENALERTE2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, CODEFILTRE, IDAVOIR, POURCOMPTE, POURCOMPTELIB, ARMATEUR, PAIEMENT, PAIEMENTLIB, LHT, LM, TE, JNT, DATEDEPART, HEUREDEPART, DATEARRIVEE, HEUREARRIVEE, BATEAU, BATEAULIB, PROVENANCE, PROVENANCELIB, DESTINATION, DESTINATIONLIB, PAVILLON, PAVILLONLIB, NOMCLT, ADRCLT, NMSTTCLT, TELCLT, NIF, RC, DTTP, TP, DTQUIT, QUIT, CDCLT, NUMPIECE,nbjours) AS 
+  SELECT
+	fc.ID,
+	fc.DATY,
+	fc.TIERS,
+	fc.DESIGNATION,
+	fc.TYPE,
+	fc.TVA,
+	fc.REMARQUE,
+	fc.IDUSER,
+	fc.DATE_ECHEANCE,
+	fc.ETAT,
+	fc.MONTANT,
+	fc.MONTANTTVA,
+	fc.MONTANTAVOIR,
+	fc.MONTANTTTC,
+	fc.MONTANTPAYE,
+	fc.MONTANTRESTE,
+	fc.TIERSLIB,
+	fc.CONTACT,
+	fc.ADRESSE,
+	fc.IDPREVISION,
+	fc.ESCALE,
+	fc.ETATLIB,
+	fc.TYPELIB,
+	fc.IDCATEGORIE,
+	fc.CATEGORIELIB,
+	fc.IDPROVISION,
+	fc.IDPROVISIONLIB,
+	fc.DEVISEMERE,
+	fc.CODEPRESTATION,
+	fc.CODEPRESTATIONLIB,
+	fc.CODE,
+	fc.ESTMICTSL,
+	fc.CODEPROVISION,
+	fc.MONTANTTTCVRAI,
+	fc.ARMATEURLIB,
+	fc.EXERCICE,
+	fc.CODEFILTRE,
+	fc.IDAVOIR,
+	fc.POURCOMPTE,
+	fc.POURCOMPTELIB,
+	fc.ARMATEUR,
+	fc.PAIEMENT,
+	fc.PAIEMENTLIB,
+	fc.LHT,
+	fc.LM,
+	fc.TE,
+	fc.JNT,
+	fc.DATEDEPART,
+	fc.HEUREDEPART,
+	fc.DATEARRIVEE,
+	fc.HEUREARRIVEE,
+	fc.BATEAU,
+	fc.BATEAULIB,
+	fc.PROVENANCE,
+	fc.PROVENANCELIB,
+	fc.DESTINATION,
+	fc.DESTINATIONLIB,
+	fc.PAVILLON,
+	fc.PAVILLONLIB,
+	fc.NOMCLT,
+	fc.ADRCLT,
+	fc.NMSTTCLT,
+	fc.TELCLT,
+	fc.NIF,
+	fc.RC,
+	fc.DTTP,
+	fc.TP,
+	fc.DTQUIT,
+	fc.QUIT,
+	fc.cdclt,NUMPIECE,
+	CASE
+		WHEN (fc.DATE_ECHEANCE - (SELECT sysdate FROM dual))>0
+		THEN CAST((fc.DATE_ECHEANCE - (SELECT sysdate FROM dual)) AS integer)
+	ELSE  0
+	END AS nbjours
+FROM
+	FACTURE_CLIENT_UNIONV2 fc
+where (CAST((fc.DATE_ECHEANCE-to_date(CURRENT_DATE)) AS integer))<=10 AND (CAST((fc.DATE_ECHEANCE-to_date(CURRENT_DATE)) AS integer)) >=0 AND MONTANTRESTE>0
+
+;
+
+-- SPAT0501.FACTURECLIENTPAYEES2 source
+
+CREATE OR REPLACE  VIEW FACTURECLIENTPAYEES2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, CODEFILTRE, IDAVOIR, POURCOMPTE, POURCOMPTELIB, ARMATEUR, PAIEMENT, PAIEMENTLIB, LHT, LM, TE, JNT, DATEDEPART, HEUREDEPART, DATEARRIVEE, HEUREARRIVEE, BATEAU, BATEAULIB, PROVENANCE, PROVENANCELIB, DESTINATION, DESTINATIONLIB, PAVILLON, PAVILLONLIB, NOMCLT, ADRCLT, NMSTTCLT, TELCLT, NIF, RC, DTTP, TP, DTQUIT, QUIT, CDCLT, NUMPIECE,nbjours) AS 
+  SELECT
+	fc.ID,
+	fc.DATY,
+	fc.TIERS,
+	fc.DESIGNATION,
+	fc.TYPE,
+	fc.TVA,
+	fc.REMARQUE,
+	fc.IDUSER,
+	fc.DATE_ECHEANCE,
+	fc.ETAT,
+	fc.MONTANT,
+	fc.MONTANTTVA,
+	fc.MONTANTAVOIR,
+	fc.MONTANTTTC,
+	fc.MONTANTPAYE,
+	fc.MONTANTRESTE,
+	fc.TIERSLIB,
+	fc.CONTACT,
+	fc.ADRESSE,
+	fc.IDPREVISION,
+	fc.ESCALE,
+	fc.ETATLIB,
+	fc.TYPELIB,
+	fc.IDCATEGORIE,
+	fc.CATEGORIELIB,
+	fc.IDPROVISION,
+	fc.IDPROVISIONLIB,
+	fc.DEVISEMERE,
+	fc.CODEPRESTATION,
+	fc.CODEPRESTATIONLIB,
+	fc.CODE,
+	fc.ESTMICTSL,
+	fc.CODEPROVISION,
+	fc.MONTANTTTCVRAI,
+	fc.ARMATEURLIB,
+	fc.EXERCICE,
+	fc.CODEFILTRE,
+	fc.IDAVOIR,
+	fc.POURCOMPTE,
+	fc.POURCOMPTELIB,
+	fc.ARMATEUR,
+	fc.PAIEMENT,
+	fc.PAIEMENTLIB,
+	fc.LHT,
+	fc.LM,
+	fc.TE,
+	fc.JNT,
+	fc.DATEDEPART,
+	fc.HEUREDEPART,
+	fc.DATEARRIVEE,
+	fc.HEUREARRIVEE,
+	fc.BATEAU,
+	fc.BATEAULIB,
+	fc.PROVENANCE,
+	fc.PROVENANCELIB,
+	fc.DESTINATION,
+	fc.DESTINATIONLIB,
+	fc.PAVILLON,
+	fc.PAVILLONLIB,
+	fc.NOMCLT,
+	fc.ADRCLT,
+	fc.NMSTTCLT,
+	fc.TELCLT,
+	fc.NIF,
+	fc.RC,
+	fc.DTTP,
+	fc.TP,
+	fc.DTQUIT,
+	fc.QUIT,
+	fc.cdclt,NUMPIECE,
+	CASE
+		WHEN (fc.DATE_ECHEANCE - (SELECT sysdate FROM dual))>0
+		THEN CAST((fc.DATE_ECHEANCE - (SELECT sysdate FROM dual)) AS integer)
+	ELSE  0
+	END AS nbjours
+FROM
+	FACTURE_CLIENT_UNIONV2 fc
+where fc.montantreste=0 
+;
+
+
+
+CREATE OR REPLACE VIEW ORDONNERPAYEMENT_LIB (ID, DED_ID, IDLIGNE, DESTINATION, DATY, MONTANT, REMARQUE, ETAT, NUMEROOP, MODEPAIEMENT, TIERS, ADRESSE, NUMFACT, destinationlib, beneficiaire) AS 
+  select op.ID,
+       op.DED_ID,
+       IDLIGNE,
+       DESTINATION,
+       DATY,
+       MONTANT,
+       REMARQUE,
+       op.ETAT,
+       NUMEROOP,
+       mp.VAL  as MODEPAIEMENT,
+       fup.NOM as TIERS,
+       fup.ADRESSE,
+       op1.numfact,
+       de.val as destinationlib,
+       op.tiers as beneficiaire
+from ORDONNERPAYEMENT op
+         left join MODEPAIEMENT mp on mp.id = op.MODEPAIEMENT
+         left join FOURNISSEUR_UNION_PERSONNEL fup on fup.id = op.TIERS
+         left join concat_numfact_ff op1 on op.id=op1.id2
+         left join DESTINATION de on de.id = op.DESTINATION;
+		 
+		 
+		 
+CREATE OR REPLACE VIEW FACTUREFOURNISSEUR_SUMMTT2 (ID, IDFOURNISSEUR, IDTVA, DATEEMISSION, DATYECHEANCE, EXERCICE, TYPE, REMARQUE, MONTANT, ETAT) AS 
+  select
+    ff.id,
+    ff.idfournisseur,
+    ff.idtva,
+    ff.dateemission,
+    ff.datyecheance,
+    ff.exercice,
+    ff.type,
+    ff.remarque,
+    sum(dff.qte*dff.pu) as montant,
+	ff.etat
+from facture_fournisseur_mere ff
+join facture_fournisseur_fille dff on dff.idmere=ff.id 
+group by ff.id,
+    ff.idfournisseur,
+    ff.idtva,
+    ff.dateemission,
+    ff.datyecheance,
+    ff.exercice,
+    ff.type,ff.remarque,ff.etat;
+	
+	
+
+
+-------------- Fy
+
+CREATE OR REPLACE VIEW LIAISONINTRATABLE_OP_TOUS AS
+  select lt.ID,
+       lt.ID1,
+       lt.ID2,
+       lt.MONTANT,
+       op.DED_ID,
+       op.MONTANT AS MONTANTOP,
+       op.etat,
+       ff.NUMEROOP AS NUMFACT 
+from LIAISONINTRATABLE lt
+         join ordonnerpayement op on op.id = lt.ID2
+         left join FACTURE_FOURNISSEUR_MERE ff on ff.id = lt.id1;
+         
+------------------- Nouta
+CREATE OR REPLACE  VIEW ORDONNERPAYEMENT_LIB (ID, DED_ID, IDLIGNE, DESTINATION, DATY, MONTANT, REMARQUE, ETAT, NUMEROOP, MODEPAIEMENT, TIERS, ADRESSE, NUMFACT,destinationlib,beneficiaire) AS 
+  select op.ID,
+       op.DED_ID,
+       IDLIGNE,
+       DESTINATION,
+       DATY,
+       MONTANT,
+       REMARQUE,
+       op.ETAT,
+       NUMEROOP,
+       mp.VAL  as MODEPAIEMENT,
+       fup.NOM as TIERS,
+       fup.ADRESSE,
+       op1.numfact,
+       de.val as destinationlib,
+       op.tiers as beneficiaire
+from ORDONNERPAYEMENT op
+         left join MODEPAIEMENT mp on mp.id = op.MODEPAIEMENT
+         left join FOURNISSEUR_UNION_PERSONNEL fup on fup.id = op.TIERS
+         left join concat_numfact_ff op1 on op.id=op1.id2
+         left join DESTINATION de on de.id = op.DESTINATION;
+
+
+ 
+ 
+ 
+ -------------------traite-------------------
+
+CREATE OR REPLACE  VIEW TRAITE_LIB (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT,reference) AS 
+  select 
+	tr.id,
+	tr.daty,
+	ti.nomclt as tiers,
+	ba.val as banque,
+	tr.dateEcheance,
+	tr.etat,
+	tr.montant,
+	tr.REFERENCE 
+	from traite tr
+	left join client_union ti on tr.tiers = ti.CDCLT 
+	left join banque ba on tr.banque = ba.id ;
+
+;
+
+create or replace view caissetraite as 
+select * from caisse where id = 'CAIS00000T00016';
+
+create or replace view modetraite as
+select * from modepaiement where id='pay6';
+
+alter table mvtintracaisse 
+add idtraite varchar(100) constraint mvtintracaisse_traite_fk references Traite(id);
+
+
+
+----create (view anaovana sum montantjc par idfact sy idtraite)
+CREATE OR REPLACE VIEW montant_traite_fc
+  AS select
+	ID,IDTRAITE,
+	sum(montantjc) AS montanttraite
+	from TRAITE_FC 
+	GROUP BY ID,IDTRAITE ;
+	
+	
+	
+-------create (view otran'ny traite_fc fa sum ny montant)
+CREATE OR replace VIEW TRAITE_FCsum AS 
+SELECT
+t.id, 
+t.factureclientlib,
+t.tierslib,
+t.daty,
+t.montantfacture,
+t.etatLib,
+t.idTraite,
+m.montanttraite
+FROM TRAITE_FC t
+LEFT JOIN montant_traite_fc m ON m.id=t.id AND m.idtraite=t.IDTRAITE 
+;
+
+
+
+-----add column finaledestinationlib
+CREATE OR REPLACE  VIEW MVTINTRACAISSETRAITEV (ID, DATY, CAISSEDEPART, CAISSEARRIVEE, MONTANT, MODEPAIEMENT, REMARQUE, ETAT, DESIGNATION, IDTRAITE, ETATVERSEMENT, IDFINALEDESTINATION, DATEECHEANCE, CAISSEDEPARTLIB, CAISSEARRIVEELIB, MODEPAIEMENTLIB, ETATLIB, ETATVERSEMENTLIB,finaledestinationlib) AS 
+  select
+mic.ID,mic.DATY,mic.CAISSEDEPART,mic.CAISSEARRIVEE,mic.MONTANT,mic.MODEPAIEMENT,mic.REMARQUE,mic.ETAT,mic.DESIGNATION,mic.IDTRAITE,mic.ETATVERSEMENT,mic.IDFINALEDESTINATION,
+t.Dateecheance,
+c1.val AS caissedepartlib,
+c2.val AS caissearriveelib,
+m.Desce as modepaiementlib,
+ case
+           when mic.etat = 1 then 'CREE'
+           when mic.etat >= 11 then 'VISE'
+           else '' end                           as etatlib,
+ case
+           when mic.etatversement = -2 then 'encaissée'
+           when mic.etatversement = 11 then 'versée'
+           else '' end                           as etatversementlib,
+           c3.val AS finaledestinationlib
+from mvtintracaisse mic
+JOIN traite t on t.id = mic.idtraite
+LEFT JOIN CAISSE C1 on C1.id = mic.caissedepart
+LEFT JOIN CAISSE C2 on C2.id = mic.caissearrivee
+LEFT JOIN caisse C3 ON c3.id= mic.IDFINALEDESTINATION 
+LEFT JOIN MODEPAIEMENT m on m.id = mic.modepaiement
+ where mic.etatversement = 11 AND mic.IDTRAITE NOT IN (SELECT IDTRAITE FROM mvtintracaisse WHERE ETATVERSEMENT  = -2)
+;
+
+
+------add column montantavoir
+ALTER TABLE FactureClientAvoir 
+ADD montantavoir number(30,3);
+
+
+
+----------------------add column num ( view 4)
+---BPVALIDE
+CREATE OR REPLACE  VIEW BPVALIDE (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, IDPREVISION, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, ESCALE, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, ESTDDPMICTSL, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, ETATLIB, MONTANTTTCVRAI, IDBL, CODE_ETABLISSEMENT, CODE_ETABLISSEMENTLIB, NUMEROOP, PROJET, PROJETLIB, NUMFACT, NATURE, NATURELIB, IDBC, EXERCICE, IDENGAGEMENT, IDENGAGEMENTLIB, DATEREGUL, MONTANTHTSANSREMISE,NUM) AS 
+  select ID,
+       DATY,
+       TIERS,
+       DESIGNATION,
+       TYPE,
+       TVA,
+       REMARQUE,
+       IDUSER,
+       DATE_ECHEANCE,
+       ETAT,
+       IDPREVISION,
+       cast(MONTANT as NUMBER(30,2)),
+       cast(MONTANTTVA as NUMBER(30,2)),
+       cast(MONTANTAVOIR as number(30,2)),
+       cast(MONTANTTTC as NUMBER(30,2)),
+       cast(MONTANTPAYE as NUMBER(30,2)),
+       cast(MONTANTRESTE as NUMBER(30,2)),
+       TIERSLIB,
+       CONTACT,
+       ADRESSE,
+       ESCALE,
+       TYPELIB,
+       IDCATEGORIE,
+       CATEGORIELIB,
+       IDPROVISION,
+       IDPROVISIONLIB,
+       ESTDDPMICTSL,
+       DEVISEMERE,
+       CODEPRESTATION,
+       CODEPRESTATIONLIB,
+       CODE,
+       ESTMICTSL,
+       CODEPROVISION,
+       ETATLIB,
+       cast(MONTANTTTCVRAI as NUMBER(30,3)),
+       IDBL,
+       CODE_ETABLISSEMENT,
+       CODE_ETABLISSEMENTLIB,
+       NUMEROOP,
+       PROJET,
+       PROJETLIB,
+       NUMFACT,
+       NATURE,
+       NATURELIB,
+       IDBC,
+       EXERCICE,
+       IDENGAGEMENT,
+       IDENGAGEMENTLIB,
+       DATEREGUL,
+       cast(MONTANTHTSANSREMISE as number(30,3)),
+       NUM 
+from factfourn_msum_lib
+where IDCATEGORIE = 'CATGFF002';
+
+
+-- .BPVALIDE_C 
+
+CREATE OR REPLACE
+ VIEW BPVALIDE_C (ID,
+DATY,
+TIERS,
+DESIGNATION,
+TYPE,
+TVA,
+REMARQUE,
+IDUSER,
+DATE_ECHEANCE,
+ETAT,
+IDPREVISION,
+MONTANT,
+MONTANTTVA,
+MONTANTAVOIR,
+MONTANTTTC,
+MONTANTPAYE,
+MONTANTRESTE,
+TIERSLIB,
+CONTACT,
+ADRESSE,
+ESCALE,
+TYPELIB,
+IDCATEGORIE,
+CATEGORIELIB,
+IDPROVISION,
+IDPROVISIONLIB,
+ESTDDPMICTSL,
+DEVISEMERE,
+CODEPRESTATION,
+CODEPRESTATIONLIB,
+CODE,
+ESTMICTSL,
+CODEPROVISION,
+ETATLIB,
+NUM) AS
+SELECT
+	ID,
+	DATY,
+	TIERS,
+	DESIGNATION,
+	TYPE,
+	TVA,
+	REMARQUE,
+	IDUSER,
+	DATE_ECHEANCE,
+	ETAT,
+	IDPREVISION,
+	MONTANT,
+	MONTANTTVA,
+	MONTANTAVOIR,
+	MONTANTTTC,
+	MONTANTPAYE,
+	MONTANTRESTE,
+	TIERSLIB,
+	CONTACT,
+	ADRESSE,
+	ESCALE,
+	TYPELIB,
+	IDCATEGORIE,
+	CATEGORIELIB,
+	IDPROVISION,
+	IDPROVISIONLIB,
+	ESTDDPMICTSL,
+	DEVISEMERE,
+	CODEPRESTATION,
+	CODEPRESTATIONLIB,
+	CODE,
+	ESTMICTSL,
+	CODEPROVISION,
+	ETATLIB,
+	NUM
+FROM
+	BPvalide
+WHERE
+	etat = 1
+;
+
+
+
+-- .BPVALIDE_V 
+
+CREATE OR REPLACE
+ VIEW BPVALIDE_V (ID,
+DATY,
+TIERS,
+DESIGNATION,
+TYPE,
+TVA,
+REMARQUE,
+IDUSER,
+DATE_ECHEANCE,
+ETAT,
+IDPREVISION,
+MONTANT,
+MONTANTTVA,
+MONTANTAVOIR,
+MONTANTTTC,
+MONTANTPAYE,
+MONTANTRESTE,
+TIERSLIB,
+CONTACT,
+ADRESSE,
+ESCALE,
+TYPELIB,
+IDCATEGORIE,
+CATEGORIELIB,
+IDPROVISION,
+IDPROVISIONLIB,
+ESTDDPMICTSL,
+DEVISEMERE,
+CODEPRESTATION,
+CODEPRESTATIONLIB,
+CODE,
+ESTMICTSL,
+CODEPROVISION,
+ETATLIB,
+NUM) AS
+SELECT
+	ID,
+	DATY,
+	TIERS,
+	DESIGNATION,
+	TYPE,
+	TVA,
+	REMARQUE,
+	IDUSER,
+	DATE_ECHEANCE,
+	ETAT,
+	IDPREVISION,
+	MONTANT,
+	MONTANTTVA,
+	MONTANTAVOIR,
+	MONTANTTTC,
+	MONTANTPAYE,
+	MONTANTRESTE,
+	TIERSLIB,
+	CONTACT,
+	ADRESSE,
+	ESCALE,
+	TYPELIB,
+	IDCATEGORIE,
+	CATEGORIELIB,
+	IDPROVISION,
+	IDPROVISIONLIB,
+	ESTDDPMICTSL,
+	DEVISEMERE,
+	CODEPRESTATION,
+	CODEPRESTATIONLIB,
+	CODE,
+	ESTMICTSL,
+	CODEPROVISION,
+	ETATLIB,
+	NUM
+FROM
+	BPvalide
+WHERE
+	etat >= 11
+;
+
+
+
+
+---FACTFOURN_MSUM_LIB_FICHE
+CREATE OR REPLACE  VIEW FACTFOURN_MSUM_LIB_FICHE (ID, DATY, DESIGNATION, TIERSLIB, CONTACT, ADRESSE, TYPELIB, CATEGORIELIB, DATE_ECHEANCE, CODE_ETABLISSEMENTLIB, PROJETLIB, EXERCICE, CODE, NUMEROOP, IDBL, IDBC, IDENGAGEMENTLIB, MONTANTHTSANSREMISE, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, DATEREGUL, IDPROVISION, IDCATEGORIE, IDPROVISIONLIB, ETAT,NUM) AS 
+  select
+id,
+daty,
+designation,
+tierslib,
+contact,
+adresse,
+typelib,
+categorielib,
+date_echeance,
+code_etablissementlib,
+projetlib,
+exercice,
+code,
+numeroop ,
+idbl,
+idbc,
+idengagementlib,
+CAST(montanthtsansremise AS NUMBER(32,2)),
+CAST(montant AS NUMBER(32,2)),
+CAST(montanttva AS NUMBER(32,2)),
+CAST(montantavoir AS NUMBER(32,2)),
+CAST(montantttc AS NUMBER(32,2)),
+CAST(montantpaye AS NUMBER(32,2)),
+CAST(montantreste AS NUMBER(32,2)),
+dateregul,
+idprovision ,
+Idcategorie ,
+idProvisionlib ,
+etat,
+num
+from factfourn_msum_lib
+;
+
+
+-----------add column (montantbudget, montantav, montantap)
+ALTER TABLE BORDEREAUFF 
+ADD (montantbudget number(30,2),
+montantav number(30,2),
+montantap number(30,2));
+
+
+------------add column(montantbudget, montantav, montantap)
+CREATE OR REPLACE  VIEW BORDEREAUFF_LIBCOMPLET (ID, DATY, NUMERO, DESIGNATION, ETAT, TIERS, TIERSLIB,montantbudget, montantav, montantap) AS 
+  select br.ID,br.DATY,br.NUMERO,br.DESIGNATION,br.ETAT,br.TIERS,
+           fup.NOM as tierslib,montantbudget, montantav, montantap
+        from bordereauFF br
+        left join FOURNISSEUR_UNION_PERSONNEL fup on fup.id=br.TIERS;
+
+
+
+------------add column(montantbudget, montantav, montantap)
+CREATE OR REPLACE  VIEW BORDEREAUFF_LIB_MONTANT (ID, DATY, NUMERO, DESIGNATION, ETAT, TIERS, MONTANT,montantbudget, montantav, montantap) AS 
+  SELECT bf.ID,
+       bf.DATY,
+       bf.NUMERO,
+       bf.DESIGNATION,
+       bf.ETAT,
+       bf.TIERSLIB  as TIERS,
+       NVL(MO.MONTANT, 0) as montant,
+       montantbudget,
+       montantav,
+       montantap
+FROM BORDEREAUFF_LIBCOMPLET BF
+         LEFT JOIN LIAISONBORDEREAUFF_SUM_MONTANT MO ON MO.IDBORDEREAU = BF.ID;
+
+        
+
+----------create
+CREATE VIEW FACTURECLIENT_EMISE_comptant
+AS SELECT * FROM FACTURECLIENT_EMISE
+WHERE TYPE='TFC002';
+
+
+----------create
+CREATE VIEW FACTURECLIENT_EMISE_credit
+AS SELECT * FROM FACTURECLIENT_EMISE
+WHERE TYPE='TFC001';
+
+
+---------add column CODE_ETABLISSEMENTlib
+CREATE OR REPLACE  VIEW LIAISONBORDEREAUFF_LIBCOMPLET (ID, IDBORDEREAU, IDOP, REMARQUE, IDFACTURE, IDBORDEREAULIB, MONTANT, CODE_ETABLISSEMENT,CODE_ETABLISSEMENTlib) AS 
+  select li.ID,
+       li.IDBORDEREAU,
+       li.IDOP,
+       op.DESIGNATION,
+       op.id          as idfacture,
+       b2.designation as idbordereaulib,
+       op.MONTANTTTC  as montant,
+       op.CODE_ETABLISSEMENT,
+       ce.desce AS CODE_ETABLISSEMENTlib
+from liaisonbordereauff li
+         left join bordereauFF_libcomplet b2 on li.idBordereau = b2.id
+         left join FACTFOURN_MSUM_LIB op on op.id = li.idOP
+         LEFT JOIN codeetablissement ce ON ce.ID =op.CODE_ETABLISSEMENT ;
+
+
+        
+------add column  MONTANTRESTE
+ CREATE OR REPLACE  VIEW TRAITE_LIBV (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ETATVERSEMENT, ETATVERSEMENTLIB,montantreste) AS 
+  select ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib,MONTANTRESTE from TRAITEMTTRESTE where etat = 11;
+
+  
+------add column  MONTANTRESTE
+CREATE OR REPLACE  VIEW TRAITE_LIBESC (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ETATVERSEMENT, ETATVERSEMENTLIB,montantreste) AS 
+  select ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib,MONTANTRESTE from TRAITEMTTRESTE where id in (select idtraite from escompte where etat = 11);
+
+
+------add column  MONTANTRESTE
+CREATE OR REPLACE  VIEW TRAITE_LIBVER (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ETATVERSEMENT, ETATVERSEMENTLIB,montantreste) AS 
+  select ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib,MONTANTRESTE from TRAITEMTTRESTE where etatversement= 11;
+
+
+------add column  MONTANTRESTE
+CREATE OR REPLACE  VIEW TRAITE_LIBNONENC (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ETATVERSEMENT, ETATVERSEMENTLIB) AS 
+  select ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib from TRAITEMTTRESTE where etatversement= 11;
+
+
+
+------add column  MONTANTRESTE
+CREATE OR REPLACE  VIEW TRAITE_LIBC (ID, DATY, TIERS, BANQUE, DATEECHEANCE, ETAT, MONTANT, ETATVERSEMENT, ETATVERSEMENTLIB,MONTANTRESTE) AS 
+  SELECT ID,DATY,TIERS,BANQUE,DATEECHEANCE,ETAT,MONTANT, etatversement, etatversementlib,MONTANTRESTE  from TRAITEMTTRESTE where etat = 1;
+
+
+
+-----------create (itokiana)
+CREATE OR REPLACE VIEW traiteversee as
+select
+mic.ID,mic.DATY,mic.CAISSEDEPART,mic.CAISSEARRIVEE,mic.MONTANT,mic.MODEPAIEMENT,mic.REMARQUE,mic.ETAT,mic.DESIGNATION,mic.IDTRAITE,mic.ETATVERSEMENT,mic.IDFINALEDESTINATION,
+t.Dateecheance,
+c1.val AS caissedepartlib,
+c2.val AS caissearriveelib,
+m.Desce as modepaiementlib,
+ case
+           when mic.etat = 1 then 'CREE'
+           when mic.etat >= 11 then 'VISE'
+           else '' end                           as etatlib,
+ case
+           when mic.etatversement = -2 then 'encaissée'
+           when mic.etatversement = 11 then 'versée'
+           else '' end                           as etatversementlib,
+           c3.val AS finaledestinationlib
+from mvtintracaisse mic
+JOIN traite t on t.id = mic.idtraite
+LEFT JOIN CAISSE C1 on C1.id = mic.caissedepart
+LEFT JOIN CAISSE C2 on C2.id = mic.caissearrivee
+LEFT JOIN caisse C3 ON c3.id= mic.IDFINALEDESTINATION 
+LEFT JOIN MODEPAIEMENT m on m.id = mic.modepaiement
+ where mic.etatversement = 11;
+
+
+ALTER TABLE FCDEFPR ADD etat INT;
+
+
+
+CREATE OR REPLACE VIEW PAIEMENTFACTURECP (ID, IDMVT, IDFACT, MONTANT, CODE, DATY, TYPEFACTURE) AS 
+  select pf.ID,
+       pf.IDMVT,
+       pf.IDFACT,
+       pf.MONTANT,
+       fc.CODE,
+       fc.DATY,
+       case when fc.idcategorie like 'CATFCO1' then 'PROF'
+       when fc.idcategorie like 'CATFCO2' then 'PROV'
+       else 'FF' end as typefacture
+from paiementfacture pf
+    left join FACTURECLIENT fc on fc.id=pf.IDFACT;
+
+CREATE OR REPLACE VIEW DETAILSFF_CPL_SUM2 (ID, IDINGREDIENT, QTE, PU, IDMERE, COMPTE, PUDEVISE, IDDQE, MARGE, TVA, MONTANTTVA, MONTANTHT, MONTANTTTC) AS 
+  SELECT facture_fournisseur_fille.ID,0 AS IDINGREDIENT,facture_fournisseur_fille.QUANTITE as QTE,facture_fournisseur_fille.PU,facture_fournisseur_fille.IDMERE,facture_fournisseur_fille.COMPTE,facture_fournisseur_fille.PUDEVISE,facture_fournisseur_fille.IDDQE,facture_fournisseur_fille.MARGE,facture_fournisseur_fille.TVA,
+      0 as montanttva,
+       0                   as montantht,
+      0           as montantttc
+FROM facture_fournisseur_fille;
+
+CREATE OR REPLACE VIEW DETAILS_FF_SUM2 (IDMERE, TVA, MONTANTHT, MONTANTTVA, MONTANTTTC) AS 
+  select idmere, sum(TVA)as tva, sum(montantht) as montantht, sum(montanttva) as montanttva, sum(montantttc) as montantttc
+from detailsff_cpl_sum2
+group by idmere;
+
+CREATE OR REPLACE VIEW FACTUREFOURNISSEURMONTANT2 (ID, DATY, IDFOURNISSEUR, IDTVA, MONTANTTVA, MONTANTHT, MONTANTTTC, REMARQUE, DATEEMISSION, DESIGNATION, IDDEVISE, NUMFACT, RESP, DATYECHEANCE, ETAT, IDFACTUREFOURNISSEUR, BUDGET, TVADETAILS, MONTANTAVOIRHT, MONTANTAVOIRTVA, MONTANTAVOIRTTC, MONTANTADDITIFHT, MONTANTADDITIFTVA, MONTANTADDITIFTTC) AS 
+  SELECT 
+		  ff.id,
+		  ff.daty,
+		  ff.TIERS AS idfournisseur,
+		  0 AS idtva,
+		  de.montanttva,
+		  de.montantHt,
+		  de.montantttc,
+		  ff.remarque,
+		  ff.dateemission,
+		  ff.designation,
+		  0 AS iddevise,
+		  ff.numfact,
+		  0 AS resp,
+		  0 AS datyecheance,
+		  ff.etat,
+		  0 AS idfacturefournisseur,
+		  0 AS budget,
+		  0 AS tvadetails,
+		  av.MONTANTAVOIRHT,
+		  av.MONTANTAVOIRTVA,
+		  av.MONTANTAVOIRTTC,
+			ad.montantadditifht,
+			ad.montantadditiftva,
+			ad.montantadditifttc
+     FROM facture_fournisseur_mere ff
+          JOIN DETAILS_FF_SUM2 de ON de.idmere = ff.id
+          LEFT JOIN AVOIR_VISESM_GROUPER av ON av.idfacture = ff.id
+          LEFT JOIN ADDITIF_VISESM_GROUPER ad ON ad.idfacture = ff.id;
+		  
+		  
+CREATE OR REPLACE VIEW FACTUREFOURNISSEURLETTREMTT2 (ID, DATY, IDFOURNISSEUR, IDTVA, MONTANTHT, MONTANTTVA, MONTANTTTC, REMARQUE, DATEEMISSION, DESIGNATION, IDDEVISE, NUMFACT, DATYECHEANCE, ENTITE, ETAT, BUDGET) AS 
+  SELECT ff.id,
+          ff.daty,
+          ff.idfournisseur AS idfournisseur,
+          '' AS idtva,
+          ff.montantHt,
+          '' AS montanttva,
+          ff.montantttc-nvl(ff.MONTANTAVOIRTTC,0)+nvl(ff.montantadditifttc,0) as montantttc,
+          ff.remarque,
+          ff.dateemission,
+          ff.designation,
+          ff.iddevise,
+          ff.numfact,
+          ff.datyecheance,
+          '' AS entite,
+          CASE
+             WHEN ff.etat = 1 THEN 'CREE(E)'
+             WHEN ff.etat = 11 THEN 'VALIDE(E)'
+             ELSE 'AUTRE'
+          END
+             AS etat,
+          ff.budget
+     FROM facturefournisseurmontant2 ff
+          LEFT JOIN TIERS c ON c.id = ff.idfournisseur;
+		  
+		  
+CREATE OR REPLACE VIEW ETATFACTUREMONTANT2 (ID, DATY, IDFOURNISSEUR, IDTVA, MONTANTHT, MONTANTTVA, MONTANTTTC, REMARQUE, DATEEMISSION, DESIGNATION, IDDEVISE, NUMFACT, DATYECHEANCE, ETAT, MONTANTPAYE, RESTE, ENTITE, NOMFOURNISSEUR, MONTANTAVOIRHT, MONTANTAVOIRTTC, TET) AS 
+  SELECT f.id,
+       f.daty,
+       f.idfournisseur,
+       f.idtva,
+       f.montantHt,
+       f.montanttva,
+       f.montantttc,
+       f.remarque,
+       f.dateemission,
+       f.designation,
+       f.iddevise,
+       f.numfact,
+       f.datyecheance,
+       f.etat,
+       case when op.DED_ID like '%;%' then
+       sum(COALESCE(op.montant, 0))
+           else sum(COALESCE (op.MONTANTOP, 0)) end  AS montantpaye,
+       f.montantttc -  case when op.DED_ID like '%;%' then
+       sum(COALESCE(op.montant, 0))
+           else sum(COALESCE(op.MONTANTOP, 0)) end AS reste,
+       f.entite,
+       f.designation                          AS nomfournisseur,
+       0                         AS MONTANTAVOIRHT,
+       0                         as montantavoirttc,
+       ''                         as tet
+FROM facturefournisseurlettremtt2 f
+         LEFT JOIN LIAISONINTRATABLE_OP_PARFACT op ON f.id = op.ID1
+         left join avoir_visesm av on av.idfacture = f.id
+         left join additif_visesm ad on ad.idfacture = f.id
+    group by op.DED_ID,f.id, f.daty, f.idfournisseur, f.idtva, f.montantHt, f.montanttva, f.montantttc, f.remarque, f.dateemission, f.designation, f.iddevise, f.numfact, f.datyecheance, f.etat, COALESCE(op.montant, 0), f.montantttc - COALESCE(op.montant, 0), f.entite, f.designation;
+	
+	
+CREATE OR REPLACE VIEW ETATFACTUREMONTANTDATYRETENU2 (ID, DATY, IDFOURNISSEUR, NOMFOURNISSEUR, IDTVA, REMARQUE, DATEEMISSION, DESIGNATION, IDDEVISE, NUMFACT, DATYECHEANCE, ETAT, NUMID, MONTANTPAYE, RESTE, ENTITE, MONTANTTTDEVISE, BUDGET, RETENUE, MONTANT, MONTANTAVOIR, MONTANTADDITIF, MONTANTNET, MONTANTHT, MONTANTTVA, MONTANTTTC, MONTANTAVOIRHT, MONTANTAVOIRTVA, MONTANTAVOIRTTC, MONTANTADDITIFHT, MONTANTADDITIFTVA, MONTANTADDITIFTTC, CODE_ETABLISSEMENT, PROJET) AS 
+  SELECT DISTINCT efm.id,
+                efm.daty,
+                efm.idfournisseur,
+                t.nom                                                  AS nomfournisseur,
+                efm.idtva,
+                --efm.montantttc,
+                efm.remarque                                           AS remarque,
+                nvl(dff.dateemission, SYSDATE ) AS DATEEMISSION,
+                efm.designation,
+                efm.iddevise,
+                efm.numfact,
+                efm.datyecheance,
+                efm.etat,
+                dff.NUMID,
+                COALESCE(efm.montantpaye, 0)                           AS montantpaye,
+                COALESCE(efm.reste, 0)                                 AS reste,
+                ''                                                     AS entite,
+                ''                                         AS montantttdevise,
+                ''                                                     AS budget,
+                0                                                      AS retenue,
+                ''                                             AS montant,
+                0 as montantavoir,
+                0 as montantadditif,
+                0 as montantnet,
+                0 as montantht,
+                0 as montanttva,
+                0 as montantttc,
+                0 as montantavoirht,
+                0 as montantavoirtva,
+                0 as montantavoirttc,
+                0 as montantadditifht,
+                0 as montantadditifttc,
+                0 as montantadditiftva,
+                dff.CODE_ETABLISSEMENT,
+                dff.PROJET
+                -- cast((ff.MONTANT - nvl(av.MONTANT, 0) + nvl(ad.montant, 0)) *(efm.IDTVA / 100) as number(25, 2))                                                          as montanttva
+FROM etatfacturemontant2 efm
+         JOIN FACTURE_FOURNISSEUR_MERE dff ON dff.id = efm.id
+         LEFT JOIN tiers t ON dff.TIERS  = t.id
+         join facturefournisseur_SumMtt2 ff on ff.id = efm.id
+         left join AVOIR_VISESM_grouper av on av.idfacture = ff.id
+         left join additif_VISESM_grouper ad on ad.idfacture = ff.id;
+		 
+		 
+CREATE OR REPLACE VIEW ETATFACTUREMONTANTDATY_LIB2 (ID, DATY, IDFOURNISSEUR, NOMFOURNISSEUR, IDTVA, REMARQUE, DATEEMISSION, DESIGNATION, IDDEVISE, NUMFACT, DATYECHEANCE, ETAT, MONTANTPAYE, RESTE, ENTITE, MONTANTTTDEVISE, BUDGET, RETENUE, NUMID, TIERSLIB, TVA, MONTANT, MONTANTAVOIR, MONTANTADDITIF, MONTANTNET, MONTANTTVA, MONTANTTTC, MONTANTTOTALAPAYER, TYPE, CODE_ETABLISSEMENT, PROJET, DIRECTION, SERVICE, DEPARTEMENT) AS 
+  SELECT ff.id,
+       et.daty,
+       et.idfournisseur,
+       et.nomfournisseur,
+       et.idtva,
+       et.remarque,
+       et.dateemission,
+       et.designation,
+       et.iddevise,
+       et.numfact,
+       nvl(ff.datyecheance,SYSDATE) AS DATYECHEANCE, 
+       CASE
+           WHEN et.etat = 'VALIDE(E)' THEN '11'
+           WHEN et.etat = 'CREE(E)' THEN '1'
+           ELSE '0'
+           END
+                                                              AS etat,
+       NVL(et.montantpaye, 0)                                 AS montantpaye,
+       RESTE                                                  AS reste,
+       et.entite,
+       et.montantttdevise,
+       et.budget,
+       et.retenue,
+       et.NUMID,
+       t.NOM                                                  AS tierslib,
+       et.IDTVA                                               AS tva,
+       et.montantht + et.montantadditifht - et.montantavoirht AS montant,
+       (et.montantavoir),
+       (et.montantadditif),
+       (et.montantnet),
+       et.montanttva + et.montantadditiftva - et.montantavoirtva
+                                                              AS montanttva,
+       et.montantttc,
+       reste                                                  AS montantTotalApayer,
+       ff.TYPE,
+       co.val                                                 as CODE_ETABLISSEMENT,
+       pr.DESIGNATION                                         as PROJET,
+       co.VAL                                           as direction,
+       co.servicelib                                          as service,
+       co.departementlib                                      as departement
+FROM etatfacturemontantdatyretenu2 et
+         JOIN facturefournisseur_SumMtt2 ff ON ff.idfournisseur = et.idfournisseur
+         LEFT JOIN TIERS t ON t.id = et.idfournisseur
+         left join projet pr on pr.id = et.PROJET
+         left join CODEETABLISSEMENT_LIBCOMPLET co on co.id = et.CODE_ETABLISSEMENT;
+
+CREATE table type_piece (
+id varchar (100) CONSTRAINT type_piece_pk PRIMARY key,
+val varchar(100),
+desce varchar(100)
+);
+
+
+CREATE SEQUENCE   seqtype_piece
+ 	INCREMENT  BY  1 
+    MINVALUE 1 
+    MAXVALUE 999999999999999
+    START  WITH  1  
+    CACHE 20  ;
+    
+   
+CREATE OR REPLACE FUNCTION getseqtype_piece    		
+  RETURN NUMBER IS
+  retour NUMBER;
+BEGIN
+  SELECT seqtype_piece.nextval INTO retour FROM dual;
+  return retour;	
+END;  
+
+INSERT INTO TYPE_PIECE
+(ID, VAL, DESCE)
+VALUES('TP01', 'Traite', 'Traite');
+
+
+INSERT INTO TYPE_PIECE
+(ID, VAL, DESCE)
+VALUES('TP02', 'Chèque', 'Chèque');
+
+
+
+
+ALTER TABLE TRAITE DROP CONSTRAINT TRAITE_CLIENT_FK;
+
+ALTER TABLE traite add
+idtypepiece varchar(100) CONSTRAINT traite_typepiece_fk  references type_piece(id);
+
+
+ALTER TABLE JOURNALCAISSE ADD 
+idtraite varchar(100) CONSTRAINT jc_traite_fk  references traite(id);
+
+ALTER TABLE JOURNALCAISSE ADD 
+etatversement integer;
+
+ALTER TABLE JOURNALCAISSE ADD 
+idfinaledestination varchar(100) CONSTRAINT jc_caisse_fk references caisse(id)
+
+
+ALTER TABLE mvtintracaisse add
+etatversement integer;
+
+ALTER TABLE mvtintracaisse add
+idfinaledestionation varchar(100)  CONSTRAINT mvtintracaisse_caisse_fk references caisse(id);
+
+
+CREATE OR REPLACE VIEW FACTURE_CLIENT_MERE_FILLE as
+SELECT fi.ID,
+       fi.IDMERE,
+       fi.DESIGNATION,
+       fi.QUANTITE,
+       fi.PU,
+       fi.COMPTE,
+       fi.IDPRODUIT,
+       fi.DEVISE,
+       fi.TAUX,
+       fc.daty,
+       fc.tiers,
+       fc.designation              AS designationmere,
+       fc.TYPE,
+       DECODE(fi.tva, NULL, fc.tva, fi.tva) AS tva,
+       fc.remarque,
+       fc.iduser,
+       fc.date_echeance,
+       fc.etat,
+       fc.IDCATEGORIE,
+       fc.IDPROVISION,
+       fc.IDPREVISION,
+       NVL(fi.REDUCTION, 0)        AS REDUCTION,
+       NVL(fi.MAJORATION, 0)       AS MAJORATION,
+       fi.IDACTIVITE,
+       fi.DATEFACT,
+       fi.RUBRIQUE,
+       IDAVOIR,
+       DUREE,
+       fi.MOIS,
+       fi.ANNEE,
+       EXTRACT(MONTH FROM fc.daty) AS moisM,
+       EXTRACT(YEAR FROM fc.daty)  AS anneeM,
+       fi.RANG,
+       fi.HEUREDEBUT,
+       fi.HEUREFIN,
+       fi.DATY as datyactivite,  
+       ua.val AS unite
+FROM facture_client_fille fi
+         LEFT JOIN FACTURECLIENT fc ON fi.idmere = fc.id
+        LEFT JOIN RUBRIQUE_ACTIVITE ra ON fi.RUBRIQUE = ra.ID 
+       LEFT JOIN UNITE_ACTIVITE ua ON ua.ID = ra.UNITE;
+
+
+CREATE OR REPLACE VIEW FACTURE_CLIENT_MONTANT AS SELECT fm.ID,
+       fm.IDMERE,
+       fm.DESIGNATION,
+       fm.QUANTITE,
+       fm.PU,
+       fm.COMPTE,
+       fm.IDPRODUIT,
+       fm.DEVISE,
+       fm.TAUX,
+       fm.DATY,
+       fm.TIERS,
+       fm.DESIGNATIONMERE,
+       fm.TYPE,
+       fm.TVA,
+       fm.REMARQUE,
+       fm.IDUSER,
+       fm.DATE_ECHEANCE,
+       fm.ETAT,
+       IDPREVISION,
+       IDPROVISION,
+       IDCATEGORIE,
+       CAST(fm.pu * fm.quantite * NVL(duree, 1) AS NUMBER(30, 3))
+                               AS Montant,
+       CAST(
+                       ((fm.pu * fm.quantite) * fm.taux)
+                       - NVL(
+                                       ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                                       * fm.REDUCTION
+                                   / 100,
+                                       0)
+                   + NVL(
+                                       ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                                       * fm.MAJORATION
+                                   / 100,
+                                       0) AS NUMBER(30, 3))
+                               AS montanttaux,
+       NVL(montantsanstaux, 0) AS montantavoirsanstaux,
+       CAST(NVL((montantsanstaux * fm.TAUX), 0) AS NUMBER(30, 3))
+                               AS montantavoiravectaux,
+       NVL(fm.MAJORATION, 0)   AS MAJORATION,
+       NVL(fm.REDUCTION, 0)    AS REDUCTION,
+       CAST(
+               NVL(
+                               ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                               * fm.MAJORATION
+                           / 100,
+                               0) AS NUMBER(30, 3))
+                               AS montantMajoration,
+       CAST(
+               NVL(
+                               ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                               * fm.REDUCTION
+                           / 100,
+                               0) AS NUMBER(30, 3))
+                               AS montantReduction,
+       fm.IDACTIVITE,
+       fm.DATEFACT,
+       fm.RUBRIQUE,
+       IDAVOIR,
+       CAST(
+                       ((fm.pu * fm.quantite) * fm.taux)
+                       - NVL(
+                                       ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                                       * fm.REDUCTION
+                                   / 100,
+                                       0)
+                   + NVL(
+                                       ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                                       * fm.MAJORATION
+                                   / 100,
+                                       0) AS NUMBER(30, 3))
+           * fm.tva
+           / 100
+                               AS montanttauxtva,
+       fm.RANG,
+       fm.mois,
+       fm.annee,
+       fm.duree,
+       fm.HEUREDEBUT,
+       fm.HEUREFIN,
+       fm.datyactivite,
+       fm.unite
+FROM facture_client_Mere_fille fm
+         LEFT JOIN avoirfcavectaux_grp grp ON grp.IDDETAILFACTURE = fm.ID;
+
+CREATE OR REPLACE VIEW FACTURE_CLIENT_MONTANT AS SELECT fm.ID,
+       fm.IDMERE,
+       fm.DESIGNATION,
+       fm.QUANTITE,
+       fm.PU,
+       fm.COMPTE,
+       fm.IDPRODUIT,
+       fm.DEVISE,
+       fm.TAUX,
+       fm.DATY,
+       fm.TIERS,
+       fm.DESIGNATIONMERE,
+       fm.TYPE,
+       fm.TVA,
+       fm.REMARQUE,
+       fm.IDUSER,
+       fm.DATE_ECHEANCE,
+       fm.ETAT,
+       IDPREVISION,
+       IDPROVISION,
+       IDCATEGORIE,
+       CAST(fm.pu * fm.quantite * NVL(duree, 1) AS NUMBER(30, 3))
+                               AS Montant,
+       CAST(
+                       ((fm.pu * fm.quantite) * fm.taux)
+                       - NVL(
+                                       ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                                       * fm.REDUCTION
+                                   / 100,
+                                       0)
+                   + NVL(
+                                       ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                                       * fm.MAJORATION
+                                   / 100,
+                                       0) AS NUMBER(30, 3))
+                               AS montanttaux,
+       NVL(montantsanstaux, 0) AS montantavoirsanstaux,
+       CAST(NVL((montantsanstaux * fm.TAUX), 0) AS NUMBER(30, 3))
+                               AS montantavoiravectaux,
+       NVL(fm.MAJORATION, 0)   AS MAJORATION,
+       NVL(fm.REDUCTION, 0)    AS REDUCTION,
+       CAST(
+               NVL(
+                               ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                               * fm.MAJORATION
+                           / 100,
+                               0) AS NUMBER(30, 3))
+                               AS montantMajoration,
+       CAST(
+               NVL(
+                               ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                               * fm.REDUCTION
+                           / 100,
+                               0) AS NUMBER(30, 3))
+                               AS montantReduction,
+       fm.IDACTIVITE,
+       fm.DATEFACT,
+       fm.RUBRIQUE,
+       IDAVOIR,
+       CAST(
+                       ((fm.pu * fm.quantite) * fm.taux)
+                       - NVL(
+                                       ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                                       * fm.REDUCTION
+                                   / 100,
+                                       0)
+                   + NVL(
+                                       ((fm.pu * fm.quantite * NVL(duree, 1)) * fm.taux)
+                                       * fm.MAJORATION
+                                   / 100,
+                                       0) AS NUMBER(30, 3))
+           * fm.tva
+           / 100
+                               AS montanttauxtva,
+       fm.RANG,
+       fm.mois,
+       fm.annee,
+       fm.duree,
+       fm.HEUREDEBUT,
+       fm.HEUREFIN,
+       fm.datyactivite,
+       fm.unite
+FROM facture_client_Mere_fille fm
+         LEFT JOIN avoirfcavectaux_grp grp ON grp.IDDETAILFACTURE = fm.ID;
+
+         CREATE OR REPLACE VIEW FACTURE_CLIENT_MONTANTTC (ID, IDMERE, DESIGNATION, QUANTITE, PU, COMPTE, IDPRODUIT, DEVISE, TAUX, DATY, TIERS, DESIGNATIONMERE, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTAUX, MONTANTAVOIRSANSTAUX, MONTANTAVOIRAVECTAUX, MONTANTTVA, MONTANTTAXE, MONTANTTC, IDACTIVITE, DATEFACT, RUBRIQUE, DATYACTIVITE, HEUREDEBUT, HEUREFIN, MOIS, ANNEE, RANG, DUREE, MAJORATION, REDUCTION, UNITE) AS 
+  SELECT fc.ID,
+          fc.IDMERE,
+          fc.DESIGNATION,
+          fc.QUANTITE,
+          fc.PU,
+          fc.COMPTE,
+          fc.IDPRODUIT,
+          fc.DEVISE,
+          fc.TAUX,
+          fc.DATY,
+          fc.TIERS,
+          fc.DESIGNATIONMERE,
+          fc.TYPE,
+          fc.TVA,
+          fc.REMARQUE,
+          fc.IDUSER,
+          fc.DATE_ECHEANCE,
+          fc.ETAT,
+          CAST (fc.MONTANT AS NUMBER (32, 3)) AS MONTANT,
+          CAST (fc.MONTANTTAUX AS NUMBER (32, 3)) AS MONTANTTAUX,
+          CAST (fc.MONTANTAVOIRSANSTAUX AS NUMBER (32, 3))
+             AS MONTANTAVOIRSANSTAUX,
+          CAST (fc.MONTANTAVOIRAVECTAUX AS NUMBER (32, 3))
+             AS MONTANTAVOIRAVECTAUX,
+          CAST ( (fc.pu * QUANTITE * fc.TVA*nvl(FC.DUREE,1)) / 100 AS NUMBER (20, 3))
+             AS montanttva,
+          CAST ( (fc.pu * QUANTITE * fc.TVA*nvl(FC.DUREE,1)) / 100 AS NUMBER (20, 3))
+             AS montanttaxe,
+          CAST (
+             (fc.pu * QUANTITE) + (fc.pu * QUANTITE * fc.TVA) / 100 AS NUMBER (20, 3))
+             AS montanttc,
+          fc.IDACTIVITE,
+          fc.DATEFACT,
+          fc.RUBRIQUE,
+          fc.DATYACTIVITE AS datyactivite,
+          fc.HEUREDEBUT,
+          fc.HEUREFIN,
+          fc.mois,
+          fc.annee,
+          fc.rang,
+          fc.duree,
+          CAST (fc.MAJORATION AS NUMBER (30, 3)) AS MAJORATION,
+          CAST (fc.REDUCTION AS NUMBER (30, 3)) AS REDUCTION,
+          fc.unite
+     FROM facture_client_montant fc
+          LEFT JOIN ACTIVITE ac ON ac.ID = fc.IDACTIVITE;
+
+
+INSERT INTO USERMENU
+(ID, REFUSER, IDMENU, IDROLE, CODESERVICE, CODEDIR, INTERDIT)
+VALUES('MENA00040100', NULL, 'MEN00N101', 'ROL0000001342174504', NULL, NULL, 0);
+
+INSERT INTO USERMENU
+(ID, REFUSER, IDMENU, IDROLE, CODESERVICE, CODEDIR, INTERDIT)
+VALUES('MENA00040101', NULL, 'MEN000682', 'ROL0000001342174504', NULL, NULL, 0);
+
+
+CREATE OR REPLACE VIEW FACTUREFOURNVALIDE_VI AS  select ff.ID,
+       ff.DATY,
+       ff.TIERS,
+       ff.DESIGNATION,
+       ff.TYPE,
+       ff.TVA,
+       ff.REMARQUE,
+       ff.IDUSER,
+       ff.DATE_ECHEANCE,
+       ff.ETAT,
+       ff.IDPREVISION,
+       ff.MONTANT,
+       ff.MONTANTTVA,
+       ff.MONTANTAVOIR,
+       ff.MONTANTTTC,
+       ff.MONTANTPAYE,
+       ff.MONTANTRESTE,
+       ff.TIERSLIB,
+       ff.CONTACT,
+       ff.ADRESSE,
+       ff.ESCALE,
+       ff.TYPELIB,
+       ff.IDCATEGORIE,
+       ff.CATEGORIELIB,
+       ff.IDPROVISION,
+       ff.IDPROVISIONLIB,
+       ff.ESTDDPMICTSL,
+       ff.DEVISEMERE,
+       ff.CODEPRESTATION,
+       ff.CODEPRESTATIONLIB,
+       ff.CODE,
+       ff.ESTMICTSL,
+       ff.CODEPROVISION,
+       ff.ETATLIB,
+       ff.MONTANTTTCVRAI,
+       ff.IDBL,
+       ff.PROJET,
+       ff.NUMEROOP,
+       ff.CODE_ETABLISSEMENT,
+       ff.PROJETLIB,
+       ff.CODE_ETABLISSEMENTLIB,
+       ff.NATURE,
+       ff.NATURELIB,
+       ff.IDBC,
+       ord.NUMEROOP as numop,
+       ff.exercice,
+       idengagement,
+       idengagementlib,
+       CODE_ETABLISSEMENT as CODEETABLISSEMENT
+from FACTUREFOURNVALIDE ff
+         left join LIAISONINTRATABLE op on op.ID1 = ff.id
+         left join ORDONNERPAYEMENT ord on op.ID2 = ord.id
+where ff.etat >= 11;
+
+
+CREATE OR REPLACE  VIEW FACTUREFOURNVALIDE_TOUS (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, IDPREVISION, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, ESCALE, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, ESTDDPMICTSL, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ETATLIB, IDBL, NUMEROOP, PROJET, CODE_ETABLISSEMENT, PROJETLIB, CODE_ETABLISSEMENTLIB, NATURE, NATURELIB, IDBC, NUMOP, EXERCICE, IDENGAGEMENT, IDENGAGEMENTLIB, CODEETABLISSEMENT) AS 
+  select ID,
+       DATY,
+       TIERS,
+       DESIGNATION,
+       TYPE,
+       TVA,
+       REMARQUE,
+       IDUSER,
+       DATE_ECHEANCE,
+       ETAT,
+       IDPREVISION,
+       cast(MONTANT as number(30, 2)),
+       cast(MONTANTTVA as number(30, 2)),
+       cast(MONTANTAVOIR as NUMBER(30, 2)),
+       cast(MONTANTTTC as number(30, 2)),
+       cast(MONTANTPAYE as number(30, 2)),
+       cast(MONTANTRESTE as number(30, 2)),
+       TIERSLIB,
+       CONTACT,
+       ADRESSE,
+       ESCALE,
+       TYPELIB,
+       IDCATEGORIE,
+       CATEGORIELIB,
+       IDPROVISION,
+       IDPROVISIONLIB,
+       ESTDDPMICTSL,
+       DEVISEMERE,
+       CODEPRESTATION,
+       CODEPRESTATIONLIB,
+       CODE,
+       ESTMICTSL,
+       CODEPROVISION,
+       cast(MONTANTTTCVRAI as number(30, 3)),
+       ETATLIB,
+       IDBL,
+       NUMEROOP,
+       PROJET,
+       CODE_ETABLISSEMENT,
+       PROJETLIB,
+       CODE_ETABLISSEMENTLIB,
+       NATURE,
+       NATURELIB,
+       IDBC,
+       numop,
+       exercice,
+       IDENGAGEMENT,
+       IDENGAGEMENTLIB,
+       codeetablissement
+from (
+         select ID,
+                DATY,
+                TIERS,
+                DESIGNATION,
+                TYPE,
+                TVA,
+                REMARQUE,
+                IDUSER,
+                DATE_ECHEANCE,
+                ETAT,
+                IDPREVISION,
+                MONTANT,
+                MONTANTTVA,
+                MONTANTAVOIR,
+                MONTANTTTC,
+                MONTANTPAYE,
+                MONTANTRESTE,
+                TIERSLIB,
+                CONTACT,
+                ADRESSE,
+                ESCALE,
+                TYPELIB,
+                IDCATEGORIE,
+                CATEGORIELIB,
+                IDPROVISION,
+                IDPROVISIONLIB,
+                ESTDDPMICTSL,
+                DEVISEMERE,
+                CODEPRESTATION,
+                CODEPRESTATIONLIB,
+                CODE,
+                ESTMICTSL,
+                CODEPROVISION,
+                MONTANTTTCVRAI,
+                'CREE'             as ETATLIB,
+                IDBL,
+                NUMEROOP,
+                projet,
+                code_etablissement,
+                projetlib,
+                code_etablissementlib,
+                NATURE,
+                NATURELIB,
+                IDBC,
+                numop,
+                exercice,
+                IDENGAGEMENT,
+                IDENGAGEMENTLIB,
+                CODE_ETABLISSEMENT as codeetablissement
+         from FACTUREFOURNVALIDE_C
+         union
+         select ID,
+                DATY,
+                TIERS,
+                DESIGNATION,
+                TYPE,
+                TVA,
+                REMARQUE,
+                IDUSER,
+                DATE_ECHEANCE,
+                ETAT,
+                IDPREVISION,
+                MONTANT,
+                MONTANTTVA,
+                MONTANTAVOIR,
+                MONTANTTTC,
+                MONTANTPAYE,
+                MONTANTRESTE,
+                TIERSLIB,
+                CONTACT,
+                ADRESSE,
+                ESCALE,
+                TYPELIB,
+                IDCATEGORIE,
+                CATEGORIELIB,
+                IDPROVISION,
+                IDPROVISIONLIB,
+                ESTDDPMICTSL,
+                DEVISEMERE,
+                CODEPRESTATION,
+                CODEPRESTATIONLIB,
+                CODE,
+                ESTMICTSL,
+                CODEPROVISION,
+                MONTANTTTCVRAI,
+                'VISE'             as ETATLIB,
+                IDBL,
+                NUMEROOP,
+                projet,
+                code_etablissement,
+                projetlib,
+                code_etablissementlib,
+                NATURE,
+                NATURELIB,
+                IDBC,
+                numop,
+                exercice,
+                IDENGAGEMENT,
+                IDENGAGEMENTLIB,
+                CODE_ETABLISSEMENT as codeetablissement
+         from FACTUREFOURNVALIDE_VI
+         union
+         select ID,
+                DATY,
+                TIERS,
+                DESIGNATION,
+                TYPE,
+                TVA,
+                REMARQUE,
+                IDUSER,
+                DATE_ECHEANCE,
+                ETAT,
+                IDPREVISION,
+                MONTANT,
+                MONTANTTVA,
+                MONTANTAVOIR,
+                MONTANTTTC,
+                MONTANTPAYE,
+                MONTANTRESTE,
+                TIERSLIB,
+                CONTACT,
+                ADRESSE,
+                ESCALE,
+                TYPELIB,
+                IDCATEGORIE,
+                CATEGORIELIB,
+                IDPROVISION,
+                IDPROVISIONLIB,
+                ESTDDPMICTSL,
+                DEVISEMERE,
+                CODEPRESTATION,
+                CODEPRESTATIONLIB,
+                CODE,
+                ESTMICTSL,
+                CODEPROVISION,
+                MONTANTTTCVRAI,
+                'EN ATTENTE DE PAYEMENT'             as ETATLIB,
+                IDBL,
+                NUMEROOP,
+                projet,
+                code_etablissement,
+                projetlib,
+                code_etablissementlib,
+                NATURE,
+                NATURELIB,
+                IDBC,
+                numop,
+                exercice,
+                IDENGAGEMENT,
+                IDENGAGEMENTLIB,
+                CODE_ETABLISSEMENT as codeetablissement
+         from FACTUREFOURNVALIDE_ep
+         union
+         select ID,
+                DATY,
+                TIERS,
+                DESIGNATION,
+                TYPE,
+                TVA,
+                REMARQUE,
+                IDUSER,
+                DATE_ECHEANCE,
+                ETAT,
+                IDPREVISION,
+                MONTANT,
+                MONTANTTVA,
+                MONTANTAVOIR,
+                MONTANTTTC,
+                MONTANTPAYE,
+                MONTANTRESTE,
+                TIERSLIB,
+                CONTACT,
+                ADRESSE,
+                ESCALE,
+                TYPELIB,
+                IDCATEGORIE,
+                CATEGORIELIB,
+                IDPROVISION,
+                IDPROVISIONLIB,
+                ESTDDPMICTSL,
+                DEVISEMERE,
+                CODEPRESTATION,
+                CODEPRESTATIONLIB,
+                CODE,
+                ESTMICTSL,
+                CODEPROVISION,
+                MONTANTTTCVRAI,
+                'PAYE'             as ETATLIB,
+                IDBL,
+                NUMEROOP,
+                projet,
+                code_etablissement,
+                projetlib,
+                code_etablissementlib,
+                NATURE,
+                NATURELIB,
+                IDBC,
+                numop,
+                exercice,
+                IDENGAGEMENT,
+                IDENGAGEMENTLIB,
+                CODE_ETABLISSEMENT as codeetablissement
+         from FACTUREFOURNVALIDE_p);
+
+CREATE OR REPLACE VIEW AS_BONDECOMMANDE_FILLEMTT AS SELECT bcf.*, QUANTITE *pu AS montantht FROM AS_BONDECOMMANDE_FILLE bcf;
+
+
+CREATE OR REPLACE VIEW PMTPROVDEFVISER AS SELECT ID, ID1, ID2, ETAT, MONTANT
+FROM FCDEFPR
+WHERE ETAT = 11;
+
+
+               ALTER TABLE FCDEFPR 
+ADD (montant DECIMAL(20,2) DEFAULT 0);
+
+CREATE OR REPLACE VIEW ETATPROVISIONVRAI (ID, MONTANTFACTURE, MONTANTPROVISION, MONTANTPAYE, ECART, TIERS, TIERSLIB, DATY, TIERSPROVISION, TIERSLIBPROVISION, MONTANTRESTE, IDPROVISION, IDCATEGORIE) AS 
+  SELECT fu.id,
+       cast(SUM(NVL(FCUV.MONTANTTTC, 0)) as NUMBER(30,3)) AS montantfacture,
+       cast(SUM(fu.MONTANTTTC) as NUMBER(30,3)) AS montantprovision,
+       cast(SUM(fu.MONTANTPAYE) as NUMBER(30,3)) AS MONTANTPAYE,
+       cast(SUM(fu.MONTANTPAYE) -  SUM(NVL(PMT.montant, 0)) - SUM(NVL(FCUV.MONTANTTTC, 0)) as NUMBER(30,3)) AS ecart, --RAP
+            fu.TIERS,
+            fu.TIERSLIB,
+            fu.DATY,
+            '-' AS tiersprovision,
+            '-' AS tierslibprovision,
+       cast(SUM(fu.MONTANTTTC) - SUM(NVL(PMT.montant, 0)) - NVL(SUM(FCUV.MONTANTTTC), 0) as NUMBER(30,3))
+               AS MONTANTRESTE,
+            '',
+       fu.idcategorie
+       --FROM FACTURECLIENTMSUM_LIB  fu
+       FROM FACTURE_CLIENT_UNION  fu
+            LEFT JOIN FACTURE_CLIENT_UNION_VISE FCUV
+               ON fu.id = FCUV.IDPROVISION
+              LEFT JOIN PMTPROVDEFVISER pmt ON pmt.ID2 = fu.id
+   GROUP BY fu.id,
+            fu.DATY,
+            fu.tiers,
+            fu.tierslib,
+            fu.idcategorie ;
+
+---------------------------- 10-02-2023
+--------- Tiavina
+
+create or replace view MvtIntraCaisseTraite as 
+select 
+mit.*,
+t.daty as datetraite,
+t.dateecheance,
+t.montant as montanttraite
+from MvtIntraCaisse mit 
+left join Traite t on t.id = mit.idtraite;
+
+---------------------
+------sedra
+CREATE OR REPLACE  VIEW FACTURE_CLIENT_UNION2 (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, IDAVOIR, POURCOMPTE, POURCOMPTELIB, ARMATEUR, PAIEMENT, PAIEMENTLIB, LHT, LM, TE, JNT, DATEDEPART, HEUREDEPART, DATEARRIVEE, HEUREARRIVEE, BATEAU, BATEAULIB, PROVENANCE, PROVENANCELIB, DESTINATION, DESTINATIONLIB, PAVILLON, PAVILLONLIB, NOMCLT, ADRCLT, NMSTTCLT, TELCLT, NIF, RC, DTTP, TP, DTQUIT, QUIT, CDCLT, NUMPIECE,numfact) AS 
+  SELECT
+    ID,
+    DATY,
+    TIERS,
+    DESIGNATION,
+    TYPE,
+    CAST(TVA AS NUMBER(20,
+    3)) AS tva,
+    REMARQUE,
+    IDUSER,
+    DATE_ECHEANCE,
+    CAST(ETAT AS NUMBER(10)) AS etat,
+    CAST(MONTANT AS NUMBER(32,
+    3)),
+    CAST(MONTANTTVA AS NUMBER(32,
+    3)),
+    CAST(MONTANTAVOIR AS NUMBER(32,
+    3)),
+    CAST(MONTANTTTC AS NUMBER(32,
+    3)),
+    CAST(MONTANTPAYE AS NUMBER(32,
+    3)),
+    CAST(MONTANTRESTE AS NUMBER(32,
+    3)),
+    TIERSLIB,
+    CONTACT,
+    ADRESSE,
+    IDPREVISION,
+    ESCALE,
+    CASE
+        WHEN ETAT = 1 THEN 'CREE(E)'
+        WHEN ETAT = 11 THEN 'VISE(E)'
+    END AS ETATLIB,
+    TYPELIB,
+    IDCATEGORIE,
+    CATEGORIELIB,
+    IDPROVISION,
+    IDPROVISIONLIB,
+    DEVISEMERE,
+    codePrestation,
+    codePrestationlib,
+    code,
+    ESTMICTSL,
+    CODEPROVISION,
+    CAST(MONTANTTTCVRAI AS NUMBER(32,
+    3)),
+    ARMATEURLIB,
+    EXERCICE,
+    idavoir,
+    pourcompte,
+    pourcomptelib,
+    armateur,
+    paiement,
+    paiementlib,
+    CAST(lht AS NUMBER(10, 2)),
+    CAST(lm AS NUMBER(10, 2)),
+    CAST(te AS NUMBER(10, 2)),
+    CAST(jnt AS NUMBER(10,2)) ,
+	datedepart ,
+	heuredepart ,
+	datearrivee ,
+	heurearrivee ,
+	bateau , bateaulib  , provenance , provenancelib  , destination  , destinationlib , pavillon , pavillonlib,
+ nomclt,adrclt,nmsttclt,telclt,nif,rc,dttp,tp,dtquit,quit, cdclt,NUMPIECE,numfact
+ 
+FROM
+    (
+    SELECT
+        fc.ID,
+        fc.DATY,
+        fc.TIERS,
+        fc.DESIGNATION,
+        fc.TYPE,
+        CAST(fc.TVA AS NUMBER(20,3)) AS TVA,
+        fc.REMARQUE,
+        fc.IDUSER,
+        fc.DATE_ECHEANCE,
+        CAST(fc.ETAT AS NUMBER(10)) AS etat,
+        CAST(fc.MONTANT AS NUMBER(32,3)) AS MONTANT,
+        CAST(fc.MONTANTTVA AS NUMBER(32,3)) AS MONTANTTVA,
+        CAST(fc.MONTANTAVOIR AS NUMBER(32,3)) AS MONTANTAVOIR,
+		CASE 
+        	WHEN abs(fc.montantreste)<50 AND fc.montantreste!=0 THEN CAST(fc.MONTANTPAYE AS NUMBER(32,3))
+        	ELSE CAST(fc.MONTANTTTC AS NUMBER(32,3)) 
+		END AS MONTANTTTC,		
+        CAST(fc.MONTANTPAYE AS NUMBER(32,3)) AS MONTANTPAYE,
+		CASE 
+        	WHEN abs(fc.montantreste)<50 AND fc.montantreste!=0 THEN CAST(fc.MONTANTPAYE-MONTANTPAYE AS NUMBER(32,3)) 
+        	ELSE CAST(fc.montantreste AS NUMBER(32,3)) 
+    	END AS montantreste,
+        fc.TIERSLIB,
+        fc.CONTACT,
+        fc.ADRESSE,
+        fc.IDPREVISION,
+        fc.ESCALE,
+        fc.TYPELIB,
+        fc.IDCATEGORIE,
+        fc.CATEGORIELIB,
+        fc.IDPROVISION,
+        fc.IDPROVISIONLIB,
+        fc.DEVISEMERE,
+        fc.codePrestation,
+        fc.codePrestationlib,
+        fc.code,
+        fc.ESTMICTSL,
+        fc.CODEPROVISION,
+        fc.MONTANTTTCVRAI,
+        fc.ARMATEURLIB,
+        fc.EXERCICE,
+        fc.IDAVOIR,
+        fc.pourcompte,
+        fc.pourcomptelib,
+        fc.armateur,
+        fc.paiement,
+        fc.paiementlib,
+        CAST (fc.lht AS NUMBER(10,2)) AS lht,
+        CAST (fc.lm AS NUMBER(10,2)) AS lm,
+        CAST (fc.te AS NUMBER(10,2)) AS te,
+        CAST (fc.jnt AS NUMBER(10,2)) AS jnt , 
+		fc.datedepart , 
+		fc.heuredepart ,
+		fc.datearrivee ,
+		fc.heurearrivee ,
+		fc.bateau , 
+		fc.bateaulib  , 
+		fc.provenance , 
+		fc.provenancelib  , 
+		fc.destination  , 
+		fc.destinationlib , 
+		fc.pavillon , 
+		fc.pavillonlib,
+		fc.nomclt,
+		fc.adrclt,
+		fc.nmsttclt,
+		fc.telclt,
+		fc.nif,
+		fc.rc,
+		fc.dttp,
+		fc.tp,
+		fc.dtquit,
+		fc.quit, 
+		fc.cdclt,
+		fcnp.numpiece,
+		fcnp.numpiece AS numfact
+    FROM
+        FACTURECLIENTMSUM_LIB fc
+		LEFT JOIN facture_client_np fcnp ON fcnp.id= fc.id
+    WHERE
+        DATY >= TO_DATE('2021-10-01', 'YYYY-MM-DD')
+        OR ESTANCIENNE = 1
+);
+
+
+CREATE OR REPLACE  VIEW PMENTFACTHORSPROVAVPROVCPLT (ID, IDMVT, IDFACT, MONTANT, IDPROVISION, DATY, TIERS, TIERSLIB, DESIGNATION, TYPE, REMARQUE, DATE_ECHEANCE, ETATLIB, ETAT, CONTACT, ADRESSE, DEVISEMERE, MONTANTTVA, MONTANTAVOIR, MONTANTPAYE, MONTANTRESTE, CATEGORIELIB) AS 
+  SELECT prov.ID,prov.IDMVT,prov.IDFACT,prov.MONTANT,prov.IDPROVISION, 
+fcu.daty,
+ fcu.TIERS,
+ fcu.TIERSLIB,
+ fcu.DESIGNATION , 
+ fcu.TYPE, 
+ fcu.REMARQUE,
+ fcu.DATE_ECHEANCE,
+fcu.ETATLIB,
+ fcu.ETAT, 
+ fcu.CONTACT,
+ fcu.ADRESSE, 
+ fcu.DEVISEMERE,
+ cast(fcu.MONTANTTVA as number(25,2)) as MONTANTTVA, 
+ cast(fcu.MONTANTAVOIR as number(25,2)) as MONTANTAVOIR, 
+ cast(fcu.MONTANTPAYE as number(25,2)) AS MONTANTPAYE ,
+cast(fcu.MONTANTRESTE as number(25,2)) AS MONTANTRESTE, 
+fcu.CATEGORIELIB,
+fcu.numfact
+FROM PAIEMENTFACTHORSPROVAVECPROV prov LEFT join FACTURE_CLIENT_UNION2 fcu on prov.idfact = fcu.ID;
+
+------------------ 24-02-2023
+----------------- Nouta
+------- update menu
+UPDATE MENUDYNAMIQUE SET LIBELLE ='Versement Multiple' WHERE id='MENTRA001';
+

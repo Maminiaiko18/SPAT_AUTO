@@ -14,7 +14,8 @@
 <%
     try {
         FactureClient ff = new FactureClient();
-        String[] etatVal = {"factureClientValide2", "FACTURE_CLIENT_UNIONC0112_2", "FACTURE_CLIENT_UNIONV2", "factureclientApayer2", "factureclientAuComptant2", "factureclientACredit2", "FACTURE_CLIENT_UNIONA2", "FACTURECLIENTENRETARD2", "FACTURECLIENTENALERTE2", "FACTURECLIENTPAYEES2"};
+        String[] etatVal = {"FACTURECLIENT_EMISE_VALIDE", "FACTURECLIENT_EMISE_CREE", "FACTURECLIENT_EMISE_VISE", "FACTURECLIENT_EMISE_Apayer", "FACTURECLIENT_EMISE_AuComptant", "FACTURECLIENT_EMISE_ACredit", "FACTURECLIENT_EMISE_ANNULER", "FACTURECLIENT_EMISE_ENRETARD", "FACTURECLIENT_EMISE_ENALERTE", "FACTURECLIENT_EMISE_PAYEES"};
+        //String[] etatVal = {"factureClientValide2", "FACTURE_CLIENT_UNIONC0112_2", "FACTURE_CLIENT_UNIONV2", "factureclientApayer2", "factureclientAuComptant2", "factureclientACredit2", "FACTURE_CLIENT_UNIONA2", "FACTURECLIENTENRETARD2", "FACTURECLIENTENALERTE2", "FACTURECLIENTPAYEES2"};
 //        String[] etatVal = {"factureClientValide", "FACTURE_CLIENT_UNIONC0112", "FACTURE_CLIENT_UNIONV", "factureclientApayer", "factureclientAuComptant", "factureclientACredit","FACTURE_CLIENT_UNIONA","FACTURECLIENTENRETARD","FACTURECLIENTENALERTE","FACTURECLIENTPAYEES"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "A payer", "Au comptant", "A crédit", "Annulé", "En retard", "En alerte", "Payée(s)"};
         ff.setNomTable(etatVal[0]);
@@ -24,9 +25,9 @@
             System.out.println("etatA==" + request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id", "daty", "tierslib", "cdclt", "designation", "armateurlib", "exercice", "date_echeance", "escale", "categorielib", "code", "codeFiltre", "typelib", "nbJours"};
+        String listeCrt[] = {"id", "daty", "tierslib", "tiers", "designation", "armateurlib", "exercice", "date_echeance", "escale", "categorielib", "code", "codeFiltre", "typelib", "nbJours"};
         String listeInt[] = {"daty", "date_echeance", "exercice", "nbJours"};
-        String libEntete[] = {"id", "daty", "tierslib", "cdclt", "code", "escale", "designation", "armateurlib", "exercice", "categorielib", "tva", "date_echeance", "typelib", "montant", "montantTVA", "montantTTC", "montantTTCvrai", "montantAvoir", "montantpaye", "montantreste", "etatlib", "numpiece", "nbJours"};
+        String libEntete[] = {"id", "daty", "tierslib", "tiers", "code", "escale", "designation", "armateurlib", "exercice", "categorielib", "tva", "date_echeance", "typelib", "montant", "montantTVA", "montantTTC", "montantTTCvrai", "montantAvoir", "montantpaye", "montantreste", "etatlib", "numpiece", "nbJours"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -41,7 +42,7 @@
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("armateurlib").setLibelle("Armateur");
         pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
-        pr.getFormu().getChamp("cdclt").setLibelle("Code Client");
+        pr.getFormu().getChamp("tiers").setLibelle("Code Client");
         pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.getDateMoins6Mois());
         pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("nbJours1").setLibelle("Jours d'echeance min");
