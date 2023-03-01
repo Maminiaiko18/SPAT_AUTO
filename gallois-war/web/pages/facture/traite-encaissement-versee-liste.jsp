@@ -64,10 +64,8 @@
                 <%}%>
             </select>
             
-        </div>
-        <div>
             <label for="date">Date:</label>
-            <input type="text" class="form-control datepicker" onkeydown="return searchKeyPress(event)" name="date" id="date" value="<%=Utilitaire.dateDuJour()%>">
+            <input type="text" class="datepicker" onkeydown="return searchKeyPress(event)" name="date" id="date" value="<%=Utilitaire.dateDuJour()%>">
         </div>
         
         <%

@@ -256,6 +256,32 @@ public class MvttIntraCaisse extends ClassEtat {
         return super.validerObject(u, c); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public Object validerObjectEncaissement(String u, Connection c) throws Exception {
+        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
+        sortie.setIddevise(Constante.deviseAr);
+        sortie.setIdmode(this.getModepaiement());
+        sortie.setIdtraite(this.getIdTraite());
+        sortie.setEtatversement(this.getEtatversement());
+        sortie.setEtatversement(ConstanteEtat.getEtatEncaissee());
+
+        sortie.createObject(u, c);
+//        sortie.validerObject(u, c);
+        
+        JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), 0, this.getMontant());
+        entree.setIddevise(Constante.deviseAr);
+        entree.setIdmode(this.getModepaiement());
+        entree.setIdtraite(this.getIdTraite());
+        entree.setEtatversement(this.getEtatversement());
+        entree.setEtatversement(ConstanteEtat.getEtatEncaissee());
+
+        entree.createObject(u, c);
+//        entree.validerObject(u, c);
+        
+        this.setEtatversement(ConstanteEtat.getEtatValider());
+        
+        return super.validerObject(u, c); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     @Override
     public void controler(Connection c) throws Exception{
         if(this.getCaissedepart() != null && this.getCaissearrivee() != null){
@@ -331,7 +357,7 @@ public class MvttIntraCaisse extends ClassEtat {
                         this.getRemarque(),this.getDesignation(),this.getIdTraite(),this.getDaty(),this.getMontant());
             nouvMvt.setEtatversement(ConstanteEtat.getEtatEncaissee());
             nouvMvt.createObject(u,c);
-            nouvMvt.validerObject(u, c);
+            nouvMvt.validerObjectEncaissement(u, c);
             
             this.setEtatversement(ConstanteEtat.getEtatEncaissee());
             this.updateToTable(c);
@@ -366,7 +392,7 @@ public class MvttIntraCaisse extends ClassEtat {
             MvttIntraCaisse nouvMvt = new MvttIntraCaisse(Constante.EFFETSARECEVOIRREMISALENCAISSEMENT,idcaisse,this.getModepaiement(),
                         this.getRemarque(),this.getDesignation(),this.getIdTraite(),daty,this.getMontant());
             nouvMvt.createObject(u,c);
-            nouvMvt.validerObject(u, c);
+            nouvMvt.validerObjectEncaissement(u, c);
             
             this.setEtatversement(ConstanteEtat.getEtatEncaissee());
             this.updateToTable(c);
