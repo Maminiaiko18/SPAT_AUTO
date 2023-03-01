@@ -229,7 +229,7 @@ public class FactureFournisseur extends FactureClient {
                 nomtable = "ordonnerpayement";
             }
             oo.setNomTable(nomtable);
-            OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%'");
+            OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%' and etat >= " + ConstanteEtat.getEtatValider());
             if (results != null && results.length > 0) {
                 return results[0];
             }
@@ -479,18 +479,12 @@ public class FactureFournisseur extends FactureClient {
 
             String categorie = fc.getIdcategorie();
             if (type == 1) {
-                JournalCaisse[] jc = this.getPaiement(null);
-                if (jc.length == 0) {
-                    throw new Exception("Bon provisoire non sortie caisse. Impossible de générer facture définitive");
+                if (!this.checkPaiement(c)) {
+                    throw new Exception("Bon provisoire non payer. Impossible de générer facture définitive");
                 }
                 fc.controlerDefinitive(c);
                 categorie = Constante.categorieFFdefault;
             } else {
-
-                JournalCaisse[] jc = this.getPaiement(c);
-                if (jc.length == 0) {
-                    throw new Exception("Pas de paiement pour ce bon provisoire");
-                }
                 fc.controlerProvision(c);
                 categorie = Constante.getCategorieFFBP();
             }
@@ -686,7 +680,9 @@ public class FactureFournisseur extends FactureClient {
             if (this.getIdbc() == null) {
                 FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
                 this.setMontant(ff.getMontant());
-                this.insertEngagement(u, c);
+                //si provision dia tsy engagena
+                System.out.println("ityy "+ this.getIdcategorie()+" and "+Constante.idBonProvisoire);
+                if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0) this.insertEngagement(u, c);
             }
         }
         this.setNomTable("facture_fournisseur_mere");
@@ -858,6 +854,7 @@ public class FactureFournisseur extends FactureClient {
                 check = true;
             }
             LiaisonIntraTable lit = new LiaisonIntraTable();
+            //add etat liaisonintratable
             LiaisonIntraTable[] liaisonIntraTable = (LiaisonIntraTable[]) CGenUtil.rechercher(lit, null, null, c, " and id1='" + this.getId() + "'");
             return liaisonIntraTable;
         } catch (Exception ex) {
