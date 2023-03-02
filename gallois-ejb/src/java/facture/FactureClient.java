@@ -48,7 +48,7 @@ public class FactureClient extends ClassMere {
     private String id;
     private Date daty, date_echeance;
     private String tiers, designation, type, remarque, iduser, idprevision, escale, deviseMere,armateurlib,factureRemplacement;
-    private double tva, montant, montanttva, montantttc, montantpaye, montantreste;
+    private double tva, montant, montanttva, montantttc, montantpaye, montantreste, montantprov;
     private String tierslib;
     private double montantavoir;
     private ArrayList<FactureClientDetails> arrayDetails;
@@ -285,6 +285,14 @@ public class FactureClient extends ClassMere {
 
     public String getProvenance() {
         return provenance;
+    }
+
+    public double getMontantprov() {
+        return montantprov;
+    }
+
+    public void setMontantprov(double montantprov) {
+        this.montantprov = montantprov;
     }
 
     public void setProvenance(String provenance) {
