@@ -98,7 +98,7 @@ public class EtatFacture extends ClassMAPTable {
         this.factures = factures;
     }
     
-    public HashMap<String, EtatFacture> getListeFactureEmise(String tiers, String etat, Connection c)throws Exception{
+    public HashMap<String, EtatFacture> getListeFactureEmise(String tiers, String etat, String dateMin, String dateMax,Connection c)throws Exception{
         tiers = tiers==null ? "%" : tiers;
         HashMap<String, EtatFacture> resp = new HashMap<>();
         boolean estOuvert = false;
@@ -110,7 +110,8 @@ public class EtatFacture extends ClassMAPTable {
         fc.setNomTable(etat);
         fc.setTiers(tiers);
         try{
-            FactureClient[] factures = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, "");
+            String aWhere = " AND daty>=TO_DATE('"+dateMin+"','DD/MM/YYYY') AND daty<=TO_DATE('"+dateMax+"','DD/MM/YYYY')";
+            FactureClient[] factures = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, aWhere);
             if(factures.length>0){
                 EtatFacture etatFacture = new EtatFacture(factures[0].getTiers(), factures[0].getTierslib(), factures[0].getType(), factures[0].getTypelib());
                 resp.put(factures[0].getTiers(), etatFacture);
