@@ -121,10 +121,9 @@
         <div class="col-md-4">                 
             <a class="btn btn-info"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient1&etat=<%=request.getParameter("etat")%>&code=<%=request.getParameter("code")%>&categorielib=<%=request.getParameter("categorielib")%>&armateurlib=<%=request.getParameter("armateurlib")%>&designation=<%=request.getParameter("designation")%>&tierslib=<%=request.getParameter("tierslib")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&date_echeance1=<%=request.getParameter("date_echeance1")%>&date_echeance2=<%=request.getParameter("date_echeance2")%>" style="float:right">Imprimer factures</a>                 
         </div>
-        {/*<div class="col-md-4">                 
+        <div class="col-md-4">                 
             <a class="btn btn-danger"  href="${pageContext.request.contextPath}/Paie?action=ImprimerFactureClient1ParClient&etat=<%=request.getParameter("etat")%>&code=<%=request.getParameter("code")%>&categorielib=<%=request.getParameter("categorielib")%>&armateurlib=<%=request.getParameter("armateurlib")%>&designation=<%=request.getParameter("designation")%>&tierslib=<%=request.getParameter("tierslib")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&date_echeance1=<%=request.getParameter("date_echeance1")%>&date_echeance2=<%=request.getParameter("date_echeance2")%>" style="float:right">Imprimer factures par client</a>                 
         </div>
-        */}
         <form action="<%=pr.getLien()%>?but=apresFacture.jsp" method="post" name="incidents" id="incidents">
             <%
                 String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
