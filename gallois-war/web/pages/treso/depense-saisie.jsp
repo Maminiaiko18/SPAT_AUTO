@@ -72,7 +72,7 @@
             }
         }
 
-        affichage.Champ[] liste = new affichage.Champ[3];
+        affichage.Champ[] liste = new affichage.Champ[4];
         Caisse esc = new Caisse();
         esc.setNomTable(vueCaisse);
         liste[0] = new Liste("caisse", esc, "VAL", "id");
@@ -82,7 +82,14 @@
         TypeObjet mode = new TypeObjet();
         mode.setNomTable(modeP);
         liste[2] = new Liste("idmode", mode, "desce", "id");
+
+        TypeObjet cheque = new TypeObjet();
+        cheque.setNomTable("TYPECHEQUE");
+        liste[3] = new Liste("idTypeCheque", cheque, "VAL", "id");
+        liste[3].setDefaut(Constante.typeChequeAuComptant);
         pi.getFormu().changerEnChamp(liste);
+
+        pi.getFormu().getChamp("idTypeCheque").setLibelle("Type");
 
         if (typeCaisse != null && typeCaisse.compareTo("") != 0 && typeCaisse.compareTo("2") == 0) {
             pi.getFormu().getChamp("Typemvt").setDefaut("pay1");
@@ -93,7 +100,6 @@
 
         pi.getFormu().getChamp("Typemvt").setVisible(false);
         pi.getFormu().getChamp("numPiece").setVisible(false);
-        pi.getFormu().getChamp("idtypecheque").setVisible(false);
 //    pi.getFormu().getChamp("Idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp");
         pi.getFormu().getChamp("Idordre").setPageAppel("choix/listeOrdonnerPayementChoix.jsp", "idordre;idordrelibelle;libelle;remarque;debit;idordrelibelle");
         pi.getFormu().getChamp("Idordre").setAutre("readonly");
