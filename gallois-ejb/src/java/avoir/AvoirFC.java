@@ -416,8 +416,19 @@ public class AvoirFC extends ClassMere {
          
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        FactureClient factliee = this.getFactureLiee("facture_client_union_ordre",c);
+        
+        AvoirFC avoir  = new AvoirFC();
+        avoir.setNomTable("AVOIRFC_MONTANT_REGROUP");
+        avoir = (AvoirFC)avoir.getById(id, null, c);
+        
+        if(factliee.getMontantreste() - avoir.getMontantttc() < 0){
+            if(((factliee.getMontantreste() - avoir.getMontantttc())* (-1)) - factliee.getMontantpaye() > 0.0001)
+                throw new Exception("Impossible à viser.Total de l'avoir excedant le montant total de la facture.");
+        }
         if(this.getType()!=null && this.getType().equals("1")){
-            this.getFactureLiee("factureclient",c).annuler(c);
+            factliee.setNomTable("factureclient");
+            factliee.annuler(c);
         }
         return super.validerObject(u, c); 
     }

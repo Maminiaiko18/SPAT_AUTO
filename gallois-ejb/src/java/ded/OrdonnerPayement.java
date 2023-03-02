@@ -2,6 +2,7 @@ package ded;
 
 import avoir.AvoirFC;
 import bean.*;
+import facture.FactureClient;
 import facture.FactureFournisseur;
 import facture.PaiementFacture;
 import facture.UtilitaireFacture;
@@ -603,6 +604,9 @@ public class OrdonnerPayement extends ClassEtat {
             
             
             this.controlerMontant(montantTTc,reste, c);
+            FactureClient factliee = avoirList[0].getFactureLiee("facture_client_union_ordre",c);
+            if(factliee.getMontantreste()>=0)
+                throw new Exception("Impossible de régulariser une facture qui ne demande aucun remboursement.");
             for (int i = 0; i < avoirList.length; i++) {
                 LiaisonIntraTable liaison = new LiaisonIntraTable(avoirList[i].getId(), this.getTuppleID(), avoirList[i].getMontantreste());
                 liaison.createObject(u, c);
