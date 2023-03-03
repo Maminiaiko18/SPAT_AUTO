@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.Math;
 import mg.spat.EtatRedevance;
+import facture.EtatFacture;
 import mg.spat.EtatJournalCaisse;
 import bean.AdminGen;
 import bean.CGenUtil;
@@ -229,6 +230,8 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerSuiviBudgetaire(request, response);
             } else if (action.equalsIgnoreCase("imprimerTransfertCaisse")) {
                 imprimerTransfertCaisse(request, response);
+            } else if (action.equalsIgnoreCase("impressionEtat_facture")) {
+                impressionEtat_facture(request, response);
             }
 
         } catch (Exception ex) {
@@ -3389,6 +3392,38 @@ public class EtatPaieServlet extends HttpServlet {
         }
     }
 
+     public void impressionEtat_facture(HttpServletRequest request, HttpServletResponse response) throws Exception {
+         try {
+                String daty1 = request.getParameter("daty1");
+                String daty2 = request.getParameter("daty2");
+                String tiers = request.getParameter("tiers");
+                String etat = request.getParameter("etat");
+                System.out.println("etat=="+etat);
+                System.out.println("tiers=="+tiers);
+                if (daty1 == null || daty1.trim().isEmpty() || daty1.compareToIgnoreCase("null") == 0) {
+                    daty1 = "" + Utilitaire.dateDuJour();
+                }
+                if (daty2 == null || daty2.trim().isEmpty() || daty2.compareToIgnoreCase("null") == 0) {
+                    daty2 = "" + Utilitaire.dateDuJour();
+                }
+                 facture.EtatFacture etatfacture = new facture.EtatFacture();
+                 HashMap<String, EtatFacture> listeFacture = etatfacture.getListeFactureEmise(tiers, etat, daty1, daty2,null);
+                 List<FactureClient> factures= new ArrayList<FactureClient>();
+                 if(listeFacture!=null){
+                    for(String tier : listeFacture.keySet()){
+                       EtatFacture etatFact = listeFacture.get(tier);
+                       factures.addAll(etatFact.getFactures()) ;
+                     }
+                 }
+                 
+                ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+                setNomJasper("etat_facture");
+                UtilitaireImpression.imprimer(request, response, "etat facture", null, factures, getReportPath(), rt);
+            } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
 
     /*private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {

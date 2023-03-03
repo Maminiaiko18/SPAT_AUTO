@@ -161,7 +161,7 @@
                 </table>
             </div>
             <div class="box-footer">
-                <a class="btn btn-default" href="${pageContext.request.contextPath}/" style="float:right">Imprimer</a>
+                <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionEtat_facture&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&tiers=<%=request.getParameter("tiers")%>&etat=<%=request.getParameter("etat")%>" style="float:right">Imprimer</a>
             </div>
         </div>
     </section>
