@@ -6,29 +6,32 @@
 <%
     String autreparsley = "data-parsley-range='[8, 40]' required";
     Traite base = new Traite();
-    base.setNomTable("TRAITE_LIB");
+    base.setNomTable("TRAITE_LIB_cpl");
     PageUpdate pi = new PageUpdate(base, request, (user.UserEJB) session.getValue("u"));
-    affichage.Liste[] listed = new affichage.Liste[2];
+    affichage.Liste[] listed = new affichage.Liste[1];
     TypeObjet o = new TypeObjet();
     o.setNomTable("banque");
     listed[0] = new Liste("banque", o, "VAL", "id");
     listed[0].setDefaut(request.getParameter("banque"));
 
-    TypeObjet obj = new TypeObjet();
-    obj.setNomTable("type_piece");
-    listed[1] = new Liste("idtypepiece",obj,"desce","id");
-    listed[1].setDefaut(request.getParameter("piece"));
+//    TypeObjet obj = new TypeObjet();
+//    obj.setNomTable("type_piece");
+//    listed[1] = new Liste("idtypepiece",obj,"desce","id");
+//    listed[1].setDefaut(request.getParameter("piece"));
     pi.getFormu().changerEnChamp(listed);
 
-    pi.getFormu().getChamp("tiers").setDefaut(request.getParameter("tiers"));
+//    pi.getFormu().getChamp("tiers").setDefaut(request.getParameter("tiers"));
     pi.getFormu().getChamp("tiers").setPageAppel("choix/clientCategorieChoix.jsp");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("dateEcheance").setLibelle("Date d'echeance");
-    pi.getFormu().getChamp("idtypepiece").setLibelle("Type");
+    pi.getFormu().getChamp("idtypepiece").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("idbanque").setVisible(false);
     pi.getFormu().getChamp("Cdclt").setVisible(false);
+    pi.getFormu().getChamp("idtypepiece").setDefaut(Constante.getTypePieceTraite());
+    pi.getFormu().getChamp("typepiece").setVisible(false);
+    pi.getFormu().getChamp("tierslib").setVisible(false);
 
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
@@ -61,3 +64,6 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("tierslibelle").value = "<%= request.getParameter("tiers")%>";
+</script>
