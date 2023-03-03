@@ -10,7 +10,7 @@
         String lien = (String) session.getValue("lien");
         
         String[] etatVal = {"factureClientValide2", "FACTURE_CLIENT_UNIONC0112_2", "FACTURE_CLIENT_UNIONV2", "factureclientApayer2", "factureclientAuComptant2", "factureclientACredit2", "FACTURE_CLIENT_UNIONA2", "FACTURECLIENTENRETARD2", "FACTURECLIENTENALERTE2", "FACTURECLIENTPAYEES2"};
-        String[] etatAff = {"Tous", "Creee(s)", "Visee(s)", "A payer", "Au comptant", "A crédit", "Annulé", "En retard", "En alerte", "Payee(s)"};
+        String[] etatAff = {"Tous", "Creee(s)", "Visee(s)", "A payer", "Au comptant", "A credit", "Annulee", "En retard", "En alerte", "Payee(s)"};
 
         String daty1 = request.getParameter("daty1");
         String daty2 = request.getParameter("daty2");
@@ -69,7 +69,9 @@
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <label for="annee">Tiers</label>
-                                    <input name="tiers" type="textbox" class="form-control" id="annee" value="<%=Utilitaire.champNull(tiers)%>" onkeydown="return searchKeyPress(event)" tabindex="2">
+                                    <input name="tierslibelle" type="textbox" class="form-control" id="tierslibelle" value="" readonly="">
+                                    <input type="hidden" value="" name="tiers" id="tiers">
+                                    <input name="choix" type="button" class="submit" onclick="pagePopUp('choix/listeTiersChoix.jsp?champReturn=tiers;tierslibelle&amp;apresLienPageAppel=')" value="..." tabindex="2">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="annee">Date Debut</label>
