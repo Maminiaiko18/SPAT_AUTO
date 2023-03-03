@@ -45,6 +45,7 @@ public class AvoirFC extends ClassMere {
     private String typelib,codeFacture;
     private double montanttva, montantttc;
     private String cdclt;
+    private double montantrestefc;
 
     public Date getDatefacture() {
         return datefacture;
@@ -511,5 +512,13 @@ public class AvoirFC extends ClassMere {
     @Override
     public String getValColLibelle() {
         return getId()+";"+getMontantreste();
+    }
+
+    public double getMontantrestefc() {
+        return montantrestefc;
+    }
+
+    public void setMontantrestefc(double montantrestefc) {
+        this.montantrestefc = montantrestefc;
     }
 }

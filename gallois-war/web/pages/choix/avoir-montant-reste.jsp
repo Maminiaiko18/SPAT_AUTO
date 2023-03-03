@@ -36,7 +36,7 @@
        criteria +=" and tiers = '" + tiers + "' ";
     }
     
-    criteria += " and montantreste > 0";
+    criteria += " and montantreste > 0 and montantrestefc < 0";
     pr.getFormu().getChamp("CATEGORIELIB").setLibelle("Categorie");
     pr.getFormu().getChamp("MOTIFLIB").setLibelle("Motif");
     pr.getFormu().getChamp("TYPELIB").setLibelle("Type");
