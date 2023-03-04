@@ -3397,24 +3397,23 @@ public class EtatPaieServlet extends HttpServlet {
                 String daty1 = request.getParameter("daty1");
                 String daty2 = request.getParameter("daty2");
                 String tiers = request.getParameter("tiers");
+                String tierslib = request.getParameter("tierslib");
                 String etat = request.getParameter("etat");
-                System.out.println("etat=="+etat);
-                System.out.println("tiers=="+tiers);
+                
                 if (daty1 == null || daty1.trim().isEmpty() || daty1.compareToIgnoreCase("null") == 0) {
                     daty1 = "" + Utilitaire.dateDuJour();
                 }
                 if (daty2 == null || daty2.trim().isEmpty() || daty2.compareToIgnoreCase("null") == 0) {
                     daty2 = "" + Utilitaire.dateDuJour();
                 }
-                 facture.EtatFacture etatfacture = new facture.EtatFacture();
-                 HashMap<String, EtatFacture> listeFacture = etatfacture.getListeFactureEmise(tiers, etat, daty1, daty2,null);
-                 List<FactureClient> factures= new ArrayList<FactureClient>();
-                 if(listeFacture!=null){
-                    for(String tier : listeFacture.keySet()){
-                       EtatFacture etatFact = listeFacture.get(tier);
-                       factures.addAll(etatFact.getFactures()) ;
-                     }
-                 }
+                HashMap<String, EtatFacture> listeFacture = EtatFacture.getListeFactureEmise(tiers, tierslib, etat, daty1, daty2,null);
+                List<FactureClient> factures= new ArrayList<FactureClient>();
+                if(listeFacture!=null){
+                   for(String tier : listeFacture.keySet()){
+                      EtatFacture etatFact = listeFacture.get(tier);
+                      factures.addAll(etatFact.getFactures()) ;
+                    }
+                }
                  
                 ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
                 setNomJasper("etat_facture");

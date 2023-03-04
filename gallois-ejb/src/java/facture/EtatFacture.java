@@ -8,6 +8,7 @@ import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ import utilitaire.UtilDB;
 public class EtatFacture extends ClassMAPTable {
     
     private String tiers, type, tierslib, typelib;
-    private List<FactureClient> factures;
+    private List<FactureClient> factures= new ArrayList<>();
 
     public EtatFacture() {
     }
@@ -98,9 +99,10 @@ public class EtatFacture extends ClassMAPTable {
         this.factures = factures;
     }
     
-    public HashMap<String, EtatFacture> getListeFactureEmise(String tiers, String etat, String dateMin, String dateMax,Connection c)throws Exception{
+    public static HashMap<String, EtatFacture> getListeFactureEmise(String tiers, String tierslib, String etat, String dateMin, String dateMax,Connection c)throws Exception{
         
-        tiers = tiers==null ? "%" : tiers;
+        tiers = tiers==null || tiers.compareToIgnoreCase("null")==0 || tiers.compareToIgnoreCase("")==0 ? "%" : tiers;
+        tierslib = tierslib==null || tierslib.compareToIgnoreCase("null")==0 || tierslib.compareToIgnoreCase("")==0 || tiers != null ? "%" : tierslib;
         HashMap<String, EtatFacture> resp = new HashMap<>();
         boolean estOuvert = false;
         if(c==null){
@@ -109,9 +111,8 @@ public class EtatFacture extends ClassMAPTable {
         }
         FactureClient fc = new FactureClient();
         fc.setNomTable(etat);
-        fc.setTiers(tiers);
         try{
-            String aWhere = " AND daty>=TO_DATE('"+dateMin+"','DD/MM/YYYY') AND daty<=TO_DATE('"+dateMax+"','DD/MM/YYYY' AND TIERS = '"+tiers+"')";
+            String aWhere = " AND daty>=TO_DATE('"+dateMin+"','DD/MM/YYYY') AND daty<=TO_DATE('"+dateMax+"','DD/MM/YYYY') AND TIERS like '"+tiers+"' and tierslib like '"+tierslib+"'";
             FactureClient[] factures = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, aWhere);
             if(factures.length>0){
                 EtatFacture etatFacture = new EtatFacture(factures[0].getTiers(), factures[0].getTierslib(), factures[0].getType(), factures[0].getTypelib());

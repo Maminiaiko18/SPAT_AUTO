@@ -9,13 +9,14 @@
     try {
         String lien = (String) session.getValue("lien");
         
-        String[] etatVal = {"factureClientValide2", "FACTURE_CLIENT_UNIONC0112_2", "FACTURE_CLIENT_UNIONV2", "factureclientApayer2", "factureclientAuComptant2", "factureclientACredit2", "FACTURE_CLIENT_UNIONA2", "FACTURECLIENTENRETARD2", "FACTURECLIENTENALERTE2", "FACTURECLIENTPAYEES2"};
+        String[] etatVal = {"FACTURECLIENT_EMISE_VALIDE", "FACTURECLIENT_EMISE_CREE", "FACTURECLIENT_EMISE_VISE", "FACTURECLIENT_EMISE_Apayer", "FACTURECLIENT_EMISE_AuComptant", "FACTURECLIENT_EMISE_ACredit", "FACTURECLIENT_EMISE_ANNULER", "FACTURECLIENT_EMISE_ENRETARD", "FACTURECLIENT_EMISE_ENALERTE", "FACTURECLIENT_EMISE_PAYEES"};
         String[] etatAff = {"Tous", "Creee(s)", "Visee(s)", "A payer", "Au comptant", "A credit", "Annulee", "En retard", "En alerte", "Payee(s)"};
 
         String daty1 = request.getParameter("daty1");
         String daty2 = request.getParameter("daty2");
         String tiers = request.getParameter("tiers");
-        String etat = request.getParameter("etat");
+        String tierslib = request.getParameter("tierslib");
+        String etat = request.getParameter("etat") == null ? etatVal[0] : request.getParameter("etat");
         
         if (daty1 == null || daty1.trim().isEmpty()) {
             daty1 = "" + Utilitaire.dateDuJour();
@@ -26,7 +27,7 @@
         }
 
         EtatFacture etatFacture = new EtatFacture();
-        HashMap<String, EtatFacture> listeFacture = etatFacture.getListeFactureEmise(tiers, etat, daty1, daty2,null);
+        HashMap<String, EtatFacture> listeFacture = etatFacture.getListeFactureEmise(tiers, tierslib, etat, daty1, daty2,null);
 
 %>
 <style>
@@ -68,10 +69,15 @@
                         <div class="box-body" id="pagerecherche">
                             <div class="form-group">
                                 <div class="col-md-4">
-                                    <label for="annee">Tiers</label>
-                                    <input name="tierslibelle" type="textbox" class="form-control" id="tierslibelle" value="" readonly="">
-                                    <input type="hidden" value="" name="tiers" id="tiers">
-                                    <input name="choix" type="button" class="submit" onclick="pagePopUp('choix/listeTiersChoix.jsp?champReturn=tiers;tierslibelle&amp;apresLienPageAppel=')" value="..." tabindex="2">
+                                    <label for="annee">Client</label>
+                                    <input name="tierslib" type="textbox" class="form-control" id="annee" value="<%=Utilitaire.champNull(tierslib)%>" onkeydown="return searchKeyPress(event)" tabindex="2">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="annee">Code Client</label>
+                                    <input name="tiers" type="textbox" class="form-control" id="annee" value="<%=Utilitaire.champNull(tiers)%>" onkeydown="return searchKeyPress(event)" tabindex="2">
+                                    <!--<input name="tierslibelle" type="textbox" class="form-control" id="tierslibelle" value="" readonly="">-->
+                                    <!--<input type="hidden" value="" name="tiers" id="tiers">-->
+                                    <!--<input name="choix" type="button" class="submit" onclick="pagePopUp('choix/listeTiersChoix.jsp?champReturn=tiers;tierslibelle&amp;apresLienPageAppel=')" value="..." tabindex="2">-->
                                 </div>
                                 <div class="col-md-4">
                                     <label for="annee">Date Debut</label>
@@ -119,20 +125,21 @@
                             <th>Designation</th>
                             <th>Montant</th>
                             <th>Montant Pay&eacute;</th>
-                            <th>Montant Reste</th>
                             <th>Montant Provision</th>
                             <th>Montant Avoir</th>
+                            <th>Montant Reste</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%if(listeFacture!=null){
                             for(String tier : listeFacture.keySet()){
+                            
                                 EtatFacture etatFact = listeFacture.get(tier);
                                 List<FactureClient> factures = etatFact.getFactures();
-                            
+                                String tierlib = etatFact.getTierslib();
                         %>
                         <tr class="category">
-                            <th><%=Utilitaire.champNull(tier)%></th>
+                            <th><%=Utilitaire.champNull(tierlib)%></th>
                         </tr>
                         <%if(factures!=null){for(FactureClient fact : factures){%>
                             <tr>
@@ -140,9 +147,9 @@
                                 <td><%=Utilitaire.champNull(fact.getDesignation())%></td>
                                 <td align="right"><%=Utilitaire.formaterAr(fact.getMontant())%></td>
                                 <td align="right"><%=Utilitaire.formaterAr(fact.getMontantpaye())%></td>
-                                <td align="right"><%=Utilitaire.formaterAr(fact.getMontantreste())%></td>
                                 <td align="right"><%=Utilitaire.formaterAr(fact.getMontantprov())%></td>
                                 <td align="right"><%=Utilitaire.formaterAr(fact.getMontantavoir())%></td>
+                                <td align="right"><%=Utilitaire.formaterAr(fact.getMontantreste())%></td>
                             </tr>
                             
                         <%}}%>
@@ -151,9 +158,9 @@
                                 <td></td>
                                 <td align="right" style="font-weight: bold;"><%=Utilitaire.formaterAr(etatFact.getTotalmontant())%></td>
                                 <td align="right" style="font-weight: bold;"><%=Utilitaire.formaterAr(etatFact.getTotalmontantregl())%></td>
-                                <td align="right" style="font-weight: bold;"><%=Utilitaire.formaterAr(etatFact.getTotalmontnatrap())%></td>
                                 <td align="right" style="font-weight: bold;"><%=Utilitaire.formaterAr(etatFact.getTotalmontantprov())%></td>
                                 <td align="right" style="font-weight: bold;"><%=Utilitaire.formaterAr(etatFact.getTotalmontantavoir())%></td>
+                                <td align="right" style="font-weight: bold;"><%=Utilitaire.formaterAr(etatFact.getTotalmontnatrap())%></td>
                             </tr>
                         <%}%>
                         <%}%>
@@ -163,7 +170,7 @@
                 </table>
             </div>
             <div class="box-footer">
-                <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionEtat_facture&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&tiers=<%=request.getParameter("tiers")%>&etat=<%=request.getParameter("etat")%>" style="float:right">Imprimer</a>
+                <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionEtat_facture&daty1=<%=daty1%>&daty2=<%=daty2%>&tiers=<%=tiers%>&etat=<%=etat%>" style="float:right">Imprimer</a>
             </div>
         </div>
     </section>
