@@ -67,6 +67,8 @@
         AvoirFC ls [] = (AvoirFC[]) CGenUtil.rechercher( avoir , null, null, " and id='"+idavoir+"'") ;
          //BonDeCommande[] tabBc = (BonDeCommande[]) CGenUtil.rechercher( bc , null, null, " ") ;
         if(ls.length!=0){
+            if(ls[0].getEtat() == ConstanteEtat.getEtatCreer())
+                throw new Exception("Avoir Facture non visee");
             pi.getFormu().getChamp("ded_Id").setDefaut(ls[0].getId());
             pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(ls[0].getMontantreste())+"");
             pi.getFormu().getChamp("daty").setDefaut(utilitaire.Utilitaire.dateDuJour());
@@ -111,4 +113,10 @@
 </script>
 <%}catch(Exception e){
     e.printStackTrace();
-}%>
+%>
+<script language="JavaScript"> alert("<%=new String(e.getMessage().getBytes(), "UTF-8")%>");
+        history.back();</script>
+        <%
+                return;
+            }
+        %>

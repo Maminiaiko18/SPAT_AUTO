@@ -30,8 +30,8 @@
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     pr.getTableau().setLibeEntete(libEnteteAffiche);
-    JournalCaisse[] liste=(JournalCaisse[]) pr.getTableau().getData();
     if(pr.getTableau().getHtml() != null){
+        JournalCaisse[] liste=(JournalCaisse[]) pr.getTableau().getData();
         out.println(pr.getTableau().getHtml());
         double total=0;
         total=AdminGen.calculSommeDouble(liste,"montant");
@@ -46,6 +46,6 @@
             </tr>
         </table>
     <% }else{
-        %><center><h4>Aucun Avoir</h4></center><%
+        %><center><h4>Aucun Journal Caisse</h4></center><%
     }
 %>
