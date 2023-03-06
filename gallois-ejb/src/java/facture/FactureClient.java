@@ -1540,7 +1540,7 @@ public class FactureClient extends ClassMere {
 
     @Override
     public String getValColLibelle() {
-        return Utilitaire.formaterAr(montantreste);
+        return Utilitaire.formaterAr(montantreste)+";"+this.getId();
     }
 
     public double getMontantavoir() {
