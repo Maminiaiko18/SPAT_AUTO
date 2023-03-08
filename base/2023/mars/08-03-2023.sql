@@ -139,4 +139,13 @@ CREATE OR REPLACE VIEW JOURNALAVISCREDIT AS
 	SELECT *FROM JOURNALCAISSELIBCOMPLET j WHERE NUMPIECE IS NOT NULL
 		AND DESCECAISSE ='Banque' 
 			AND (SELECT count(id) FROM PAIEMENTFACTURE WHERE idmvt=j.id ) > 0 
-			 	AND IDCAISSE !='CAIS00000T00016' AND IDMODE !='pay6' -- caisse et MODE traite
+			 	AND IDCAISSE !='CAIS00000T00016' AND IDMODE !='pay6'; -- caisse et MODE traite
+				
+				
+				
+				
+-----menu
+
+INSERT INTO MENUDYNAMIQUE
+(ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
+VALUES('MENN001', 'Liste avis de crédit', 'fa fa-list', '/spat/pages/globalnegoce.jsp?but=treso/journalcaisseac-liste.jsp', 9, 5, 'MEN0031');
