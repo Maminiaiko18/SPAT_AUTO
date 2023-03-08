@@ -15,6 +15,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import utilitaire.Log;
 import utilitaire.UtilDB;
@@ -25,47 +29,48 @@ import utilitaire.Utilitaire;
 public abstract class ClassMAPTable implements Serializable {
 
     public static final boolean isMirroring = true;
-    
+
     public ClassMAPTable() {
         INDICE_PK = "EX";
         nomProcedureSequence = "GetSeqExecutions";
         longuerClePrimaire = 10;
         setNombreChamp();
     }
-    public ClassMAPTable getById(String id,String nTable,Connection c) throws Exception
-    {
-        boolean estOuvert=false;
-        try
-        {
-            if(nTable!=null)this.setNomTable(nTable);
-            if(c==null)
-            {
-                c=new UtilDB().GetConn();
-                estOuvert=true;
+
+    public ClassMAPTable getById(String id, String nTable, Connection c) throws Exception {
+        boolean estOuvert = false;
+        try {
+            if (nTable != null) {
+                this.setNomTable(nTable);
+            }
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                estOuvert = true;
             }
             this.setTuppleId(id);
-            ClassMAPTable[] valiny= (ClassMAPTable[]) CGenUtil.rechercher(this, null, null, c, "");
-            if(valiny.length>0)return valiny[0];
+            ClassMAPTable[] valiny = (ClassMAPTable[]) CGenUtil.rechercher(this, null, null, c, "");
+            if (valiny.length > 0) {
+                return valiny[0];
+            }
             return null;
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            if(c!=null&&estOuvert==true)c.rollback();
+            if (c != null && estOuvert == true) {
+                c.rollback();
+            }
             throw e;
+        } finally {
+            if (c != null && estOuvert == true) {
+                c.close();
+            }
         }
-        finally
-        {
-            if(c!=null&&estOuvert==true)c.close();
-        }
-        
+
     }
-    public void setTuppleId(String val)throws Exception
-    {
+
+    public void setTuppleId(String val) throws Exception {
         this.setValChamp(this.getAttributIDName(), val);
     }
-    
- 
+
     public String makePK(Connection c) throws Exception {
         int maxSeq = Utilitaire.getMaxSeq(nomProcedureSequence, c);
         String nombre = Utilitaire.completerInt(longuerClePrimaire, maxSeq);
@@ -87,59 +92,56 @@ public abstract class ClassMAPTable implements Serializable {
     public void controlerUpdate(Connection c) throws Exception {
 
     }
+
     public void controlerDelete(Connection c) throws Exception {
 
     }
-    public void remplacerChampFormule(ClassMAPTable[] listeConfig) throws Exception
-    {
-        Field[] lc=this.getFieldList();
-        for(Field f:lc)
-        {
-            String valIns=this.getValInsert(f.getName());
-            if(valIns!=null&&valIns.contains("[") &&valIns.contains("]"))
-            {
-                String valeur=UtilitaireFormule.remplacerRubriqueParChiffre(this, valIns, listeConfig);
-                if(valeur!=null) CGenUtil.setValChamp(this, f, valeur);
+
+    public void remplacerChampFormule(ClassMAPTable[] listeConfig) throws Exception {
+        Field[] lc = this.getFieldList();
+        for (Field f : lc) {
+            String valIns = this.getValInsert(f.getName());
+            if (valIns != null && valIns.contains("[") && valIns.contains("]")) {
+                String valeur = UtilitaireFormule.remplacerRubriqueParChiffre(this, valIns, listeConfig);
+                if (valeur != null) {
+                    CGenUtil.setValChamp(this, f, valeur);
+                }
             }
         }
     }
 
-    public ClassMAPTable dupliquer(String user,Connection c) throws Exception
-    {
-        boolean estOuvert=false;
-        try{
-            if(c==null)
-            {
-                estOuvert=true;
-                c=new UtilDB().GetConn();
+    public ClassMAPTable dupliquer(String user, Connection c) throws Exception {
+        boolean estOuvert = false;
+        try {
+            if (c == null) {
+                estOuvert = true;
+                c = new UtilDB().GetConn();
             }
-            ClassMAPTable retour=(ClassMAPTable)Class.forName(this.getClassName()).newInstance();
-            Field[] listeC=this.getFieldList();
-            for(Field f:listeC)
-            {
-                CGenUtil.setValChamp(retour, f, CGenUtil.getValeurFieldByMethod(this, f) );
+            ClassMAPTable retour = (ClassMAPTable) Class.forName(this.getClassName()).newInstance();
+            Field[] listeC = this.getFieldList();
+            for (Field f : listeC) {
+                CGenUtil.setValChamp(retour, f, CGenUtil.getValeurFieldByMethod(this, f));
             }
             retour.construirePK(c);
             return retour;
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             throw e;
+        } finally {
+            if (c != null && estOuvert == true) {
+                c.close();
+            }
         }
-        finally
-        {
-            if(c!=null && estOuvert==true)c.close();
-        }
-    }        
-    
-    public ClassMAPTable createObject(String u,Connection c)throws Exception
-    {
+    }
+
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
         controler(c);
-        if (getTuppleID()==null||getTuppleID().compareToIgnoreCase("")==0||getTuppleID().compareToIgnoreCase("0")==0)construirePK(c);
+        if (getTuppleID() == null || getTuppleID().compareToIgnoreCase("") == 0 || getTuppleID().compareToIgnoreCase("0") == 0) {
+            construirePK(c);
+        }
         insertToTableWithHisto(u, c);
         return this;
     }
-    
+
     public String makePK() {
         int maxSeq = Utilitaire.getMaxSeq(nomProcedureSequence);
         String nombre = Utilitaire.completerInt(longuerClePrimaire, maxSeq);
@@ -201,7 +203,7 @@ public abstract class ClassMAPTable implements Serializable {
     public abstract String getTuppleID();
 
     public abstract String getAttributIDName();
-    
+
     private String[] colDoublons;
 
     public String getClassName() {
@@ -334,7 +336,7 @@ public abstract class ClassMAPTable implements Serializable {
     }
 
     public int deleteToTableWithHisto(String refUser, Connection con) throws Exception {
-        int r=0;
+        int r = 0;
         try {
             String temps = refUser;
             if (refUser != null && refUser.contains("/")) {
@@ -345,7 +347,7 @@ public abstract class ClassMAPTable implements Serializable {
             //System.out.println(" ClassMapTable.deleteToTableWithHisto 211" );
             histo.setObjet(this.getClassName());
             histo.insertToTable(con);
-            
+
             ClassMAPTable obj = (ClassMAPTable) (Class.forName(this.getClassName()).newInstance());
             obj.setNomTable(this.getNomTable());
             if (obj != null) {
@@ -371,8 +373,8 @@ public abstract class ClassMAPTable implements Serializable {
             r = this.deleteToTable(con);
             //System.out.println(" ClassMapTable.deleteToTableWithHisto r="+r );
             //if (r >= 1) {
-                //histo.insertToTable(con);
-                //return r;
+            //histo.insertToTable(con);
+            //return r;
             //}
             //System.out.println(" Apres insert to table 214" );
         } catch (Exception ex) {
@@ -413,12 +415,12 @@ public abstract class ClassMAPTable implements Serializable {
         stmt = null;
         Field fld = null;
         sqlQry = "DELETE FROM " + tableName;
-        System.out.println("deeeeeeeeeeee="+sqlQry);
+        System.out.println("deeeeeeeeeeee=" + sqlQry);
         retoure = 0;
         try {
             //Field fieldlist[] = getFieldList();
             sqlQry = sqlQry + " WHERE " + getAttributIDName() + " = '" + getTuppleID() + "'";
-            System.out.println("deeeeeeeeeeee="+sqlQry);
+            System.out.println("deeeeeeeeeeee=" + sqlQry);
             stmt = cDb.prepareStatement(sqlQry);
             //stmt.setString(1, getTuppleID());
 //      System.out.println("sqlQry =========== "+sqlQry + getTuppleID());
@@ -856,7 +858,7 @@ public abstract class ClassMAPTable implements Serializable {
             histo.setObjet(this.getClassName());
             ClassMAPTable obj = (ClassMAPTable) (Class.forName(this.getClassName()).newInstance());
             if (obj != null) {
-                System.out.println("----select * from "+histo.getNomTable()+" where " + obj.getAttributIDName() + " = '" + histo.getRefObjet() + "' ");
+                System.out.println("----select * from " + histo.getNomTable() + " where " + obj.getAttributIDName() + " = '" + histo.getRefObjet() + "' ");
                 ClassMAPTable[] tabObj = (ClassMAPTable[]) CGenUtil.rechercher(obj, null, null, c, " and " + obj.getAttributIDName() + " = '" + histo.getRefObjet() + "'");
                 Historique_valeur valeur = new Historique_valeur();
                 if (tabObj.length != 0 && getEstHistorise()) {
@@ -952,7 +954,7 @@ public abstract class ClassMAPTable implements Serializable {
             throws Exception {
         UtilDB util = new UtilDB();
         try {
-            
+
             histo.insertToTable(c);
             return (updateToTable(c));
         } catch (Exception e) {
@@ -1290,7 +1292,7 @@ public abstract class ClassMAPTable implements Serializable {
     }
     //mifarana eto ny insert paie_edtion tsy misy reflexion
 
-    public int insertToTable(Connection cDb)throws Exception {
+    public int insertToTable(Connection cDb) throws Exception {
         String tableName = getNomTable();
         PreparedStatement stmt = null, insertHistoSync = null;
         Field fld = null;
@@ -1330,6 +1332,7 @@ public abstract class ClassMAPTable implements Serializable {
             sqlQry = sqlQry + sqlTmp + " ) ";
 
             stmt = cDb.prepareStatement(sqlQry);
+            List<Object> listeParams = new ArrayList<>();
             int indicePrepared = 0;
             for (int i = 0; i < fieldlist.length; i++, indicePrepared++) {
                 fld = fieldlist[i];
@@ -1407,13 +1410,17 @@ public abstract class ClassMAPTable implements Serializable {
                         break;
                 }
                 valStr = (valStr.compareToIgnoreCase("null") == 0) ? null : valStr;
+                listeParams.add(valStr);
                 if (i + 1 < fieldlist.length) {
                     enTete += valStr + ",";
                 } else {
                     enTete += valStr;
                 }
             }
-//            System.out.println(" requette : " + stmt.toString());
+
+            System.out.println(" requette : " + stmt.toString());
+            String sql = generateActualSql(sqlQry, listeParams);
+            System.out.println("sql = " + sql);
             int retour = stmt.executeUpdate();
             if (retour == 0) {
                 throw new Exception("Erreur insertion dans la table ");
@@ -1870,8 +1877,301 @@ public abstract class ClassMAPTable implements Serializable {
     public String[] getColDoublons() {
         return colDoublons;
     }
-    
+
     public void setColDoublons(String[] colDoublons) {
         this.colDoublons = colDoublons;
+    }
+
+    public String getSqlInsert(Connection cDb) throws Exception {
+        String sqlretour = "";
+        String tableName = getNomTable();
+        
+        //controler insert
+        controler(cDb);
+        PreparedStatement stmt = null, insertHistoSync = null;
+        Field fld = null;
+        String sqlQry = "INSERT INTO " + tableName + " ( ";
+        String sqlTmp = " ) VALUES ( ";
+        if (this instanceof ClassEtat) {
+            ClassEtat temp = (ClassEtat) this;
+            if (temp.getIduser() == null || temp.getIduser().compareTo("") == 0) {
+                temp.setIduser("0");
+            }
+        }
+        if (this instanceof ClassUser) {
+            ClassUser temp = (ClassUser) this;
+            if (temp.getIduser() == null || temp.getIduser().compareTo("") == 0) {
+                temp.setIduser("0");
+            }
+        }
+        try {
+
+            Field[] fieldlist = ListeColonneTable.getChampBase(this, cDb);
+            for (int i = 0; i < fieldlist.length; i++) {
+                fld = fieldlist[i];
+                sqlQry = sqlQry + fld.getName() + " ";
+                if ((fld.getName().compareToIgnoreCase(this.getAttributIDName()) == 0) && this.getNomSequenceDirecte() != null && this.getNomSequenceDirecte().compareToIgnoreCase("") != 0) {
+                    sqlTmp = sqlTmp + "'" + this.getINDICE_PK() + "'||" + getNomSequenceDirecte() + ".nextval";
+                } else {
+                    sqlTmp = sqlTmp + "? ";
+                }
+                if (i + 1 < fieldlist.length) {
+
+                    sqlQry = sqlQry + ", ";
+                    sqlTmp = sqlTmp + ", ";
+
+                }
+            }
+           
+            sqlQry = sqlQry + sqlTmp + " ) ";
+
+            stmt = cDb.prepareStatement(sqlQry);
+            List<Object> listeParams = new ArrayList<>();
+            int indicePrepared = 0;
+            for (int i = 0; i < fieldlist.length; i++, indicePrepared++) {
+                fld = fieldlist[i];
+                String valStr = "";
+                switch (getTypeMAPField(fld)) {
+                    case 0: // '\0'
+                        stmt.setBoolean(indicePrepared + 1, ((Boolean) this.getValField(fld)).booleanValue());
+                        valStr = "'" + ((Boolean) this.getValField(fld)).booleanValue() + "'";
+                        break;
+
+                    case 1: // '\001'
+                        stmt.setByte(indicePrepared + 1, ((Byte) this.getValField(fld)).byteValue());
+                        valStr = "'" + ((Byte) this.getValField(fld)).byteValue() + "'";
+                        break;
+
+                    case 2: // '\002'
+                        stmt.setShort(indicePrepared + 1, ((Short) this.getValField(fld)).shortValue());
+                        valStr = "" + ((Short) this.getValField(fld)).shortValue() + "";
+                        break;
+
+                    case 3: // '\003'
+                        Integer it = (Integer) this.getValField(fld);
+                        stmt.setInt(indicePrepared + 1, it.intValue());
+                        valStr = "" + it.intValue() + "";
+                        break;
+
+                    case 4: // '\004'
+                        Long lo = (Long) this.getValField(fld);
+                        stmt.setLong(indicePrepared + 1, lo.longValue());
+                        valStr = "" + lo.longValue() + "";
+                        break;
+
+                    case 5: // '\005'
+                        stmt.setFloat(indicePrepared + 1, ((Float) this.getValField(fld)).floatValue());
+                        valStr = "" + ((Float) this.getValField(fld)).floatValue() + "";
+                        break;
+
+                    case 6: // '\006'
+                        stmt.setDouble(indicePrepared + 1, ((Double) this.getValField(fld)).doubleValue());
+                        valStr = "" + ((Double) this.getValField(fld)).doubleValue() + "";
+                        break;
+
+                    case 10: // '\n'
+                        String val = (String) this.getValField(fld);
+                        if (val != null && val.compareTo("") != 0) {
+                            val = Utilitaire.champNull(val).replace("'", "''");
+                        }
+                        if ((fld.getName().compareToIgnoreCase(this.getAttributIDName()) != 0) || this.getNomSequenceDirecte() == null || this.getNomSequenceDirecte().compareToIgnoreCase("") == 0) {
+                            stmt.setString(indicePrepared + 1, (String) this.getValField(fld));
+                        } else {
+                            indicePrepared = indicePrepared - 1;
+                        }
+                        valStr = "'" + Utilitaire.champNull(val).replace("'", "''") + "'";
+                        break;
+
+                    case 21: // '\025'
+                        stmt.setDate(indicePrepared + 1, (Date) this.getValField(fld));
+                        if ((Date) this.getValField(fld) != null) {
+                            valStr = "'" + Utilitaire.formatterDatySql((Date) this.getValField(fld)) + "'";
+                        } else {
+                            valStr = "null";
+                        }
+                        break;
+
+                    case 33: // '!'
+                        stmt.setInt(indicePrepared + 1, ((Integer) this.getValField(fld)).intValue());
+                        valStr = "" + ((Integer) this.getValField(fld)).intValue() + "";
+                        break;
+
+                    case 34: // '!'
+                        stmt.setInt(indicePrepared + 1, ((Integer) this.getValField(fld)).intValue());
+                        break;
+                    case 35: // '!'
+                        stmt.setTimestamp(indicePrepared + 1, ((java.sql.Timestamp) this.getValField(fld)));
+                        break;
+                }
+                valStr = (valStr.compareToIgnoreCase("null") == 0) ? null : valStr;
+                listeParams.add(valStr);
+                
+            }
+
+            //System.out.println(" requette : " + stmt.toString());
+            sqlretour = generateActualSql(sqlQry, listeParams);
+            //System.out.println("sql = " + sql);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+           
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException se) {
+                Log.setLog(String.valueOf(String.valueOf(getClassName())).concat(" - probleme de fermeture d'1 Statement "));
+            }
+        }
+        return sqlretour;
+    }
+
+    public String getSqlUpdate(Connection cDb) throws Exception {
+        String sqlretour = "";
+        //controler update
+        controlerUpdate(cDb);
+        String tableName = getNomTable();
+        PreparedStatement stmt = null, insertHistoSync = null;
+        Field fld = null;
+        String sqlQry = String.valueOf(String.valueOf((new StringBuffer("UPDATE ")).append(tableName).append(" SET ")));
+        try {
+            Field fieldlist[] = ListeColonneTable.getChampBase(this, cDb);
+            //Field fieldlist[] = getFieldList();
+            for (int i = 0; i < fieldlist.length; i++) {
+                fld = fieldlist[i];
+                sqlQry = String.valueOf(String.valueOf((new StringBuffer(String.valueOf(String.valueOf(sqlQry)))).append(fld.getName()).append(" = ? ")));
+                if (i + 1 < fieldlist.length) {
+                    sqlQry = String.valueOf(String.valueOf(sqlQry)).concat(", ");
+                }
+            }
+
+            sqlQry = String.valueOf(String.valueOf((new StringBuffer(String.valueOf(String.valueOf(sqlQry)))).append(" WHERE ").append(getAttributIDName()).append(" = ? ")));
+//            System.out.println("requette == "+sqlQry);
+            stmt = cDb.prepareStatement(sqlQry);
+           List<Object> listeParams = new ArrayList<>();
+            for (int i = 0; i < fieldlist.length; i++) {
+                fld = fieldlist[i];
+                //System.out.println(" ===== " + this.getValField(fld));
+                String valStr = "";
+                switch (getTypeMAPField(fld)) {
+                    case 0: // '\0'
+                        stmt.setBoolean(i + 1, ((Boolean) this.getValField(fld)).booleanValue());
+                        valStr = "'" + ((Boolean) this.getValField(fld)).booleanValue() + "'";
+                        break;
+
+                    case 1: // '\001'
+                        stmt.setByte(i + 1, ((Byte) this.getValField(fld)).byteValue());
+                        valStr = "'" + ((Byte) this.getValField(fld)).byteValue() + "'";
+                        break;
+
+                    case 2: // '\002'
+                        stmt.setShort(i + 1, ((Short) this.getValField(fld)).shortValue());
+                        valStr = "" + ((Byte) this.getValField(fld)).byteValue() + "";
+                        break;
+
+                    case 3: // '\003'
+                        Integer it = (Integer) this.getValField(fld);
+                        stmt.setInt(i + 1, it.intValue());
+                        valStr = "" + it.intValue() + "";
+                        break;
+
+                    case 4: // '\004'
+                        Long lo = (Long) this.getValField(fld);
+                        stmt.setLong(i + 1, lo.longValue());
+                        valStr = "" + lo.longValue() + "";
+                        break;
+
+                    case 5: // '\005'
+                        stmt.setFloat(i + 1, ((Float) this.getValField(fld)).floatValue());
+                        valStr = "" + ((Float) this.getValField(fld)).floatValue() + "";
+                        break;
+
+                    case 6: // '\006'
+                        stmt.setDouble(i + 1, ((Double) this.getValField(fld)).doubleValue());
+                        valStr = "" + ((Double) this.getValField(fld)).doubleValue() + "";
+                        break;
+
+                    case 10: // '\n'
+                        stmt.setString(i + 1, (String) this.getValField(fld));
+                        //System.out.println("Niditra tatoooooo "+this.getNomTable()+this.getValField(fld));
+                        valStr = "'" + Utilitaire.champNull(((String) this.getValField(fld))).replace("'", "\'") + "'";
+                        break;
+
+                    case 21: // '\025'
+                        stmt.setDate(i + 1, (Date) this.getValField(fld));
+                        if ((Date) this.getValField(fld) != null) {
+                            valStr = "'" + Utilitaire.formatterDatySql((Date) this.getValField(fld)) + "'";
+                        } else {
+                            valStr = "null";
+                        }
+                        break;
+
+                    case 33: // '!'
+                        stmt.setInt(i + 1, ((Integer) this.getValField(fld)).intValue());
+                        break;
+                    case 35: // '!'
+                        stmt.setTimestamp(i + 1, ((java.sql.Timestamp) this.getValField(fld)));
+                        break;
+                }
+                valStr = (valStr.compareToIgnoreCase("null") == 0) ? null : valStr;
+                listeParams.add(valStr);
+            }
+
+            stmt.setString(fieldlist.length + 1, getTuppleID());
+            listeParams.add("'"+getTuppleID()+"'");
+             sqlretour = generateActualSql(sqlQry, listeParams);
+          
+        } catch (Exception e) {
+            e.printStackTrace();
+           
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException se) {
+                Log.setLog(String.valueOf(String.valueOf(getClassName())).concat(" - probleme de fermeture d'1 Statement "));
+            }
+        }
+        return sqlretour;
+    }
+
+    private String generateActualSql(String sqlQuery, List<Object> parameters) {
+        String[] parts = sqlQuery.split("\\?");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            String part = parts[i];
+            sb.append(part);
+            if (i < parameters.size()) {
+                sb.append((parameters.get(i)));
+            }
+        }
+
+        return sb.toString();
+    }
+
+    //insert sql in batch
+    public int insertToTable(Statement stmt,Connection c) throws Exception {
+        int a = 0;
+        try{
+            stmt.addBatch(getSqlInsert(c));
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+        return a;
+    }
+    
+    //update sql in batch
+    public int updateToTable(Statement stmt,Connection c) throws Exception {
+        int a = 0;
+        try{
+            stmt.addBatch(getSqlUpdate(c));
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+        return a;
     }
 }
