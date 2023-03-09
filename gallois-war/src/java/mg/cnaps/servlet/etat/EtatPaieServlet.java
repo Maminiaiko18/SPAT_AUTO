@@ -1344,7 +1344,7 @@ public class EtatPaieServlet extends HttpServlet {
                 System.out.println("état : "+request.getParameter("etat"));
                 facture.setNomTable(request.getParameter("etat"));
             }
-            awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by val,TIERSLIB,code asc";
+            awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by val,TIERSLIB,code,ordre asc";
 
             FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, awhere);
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
