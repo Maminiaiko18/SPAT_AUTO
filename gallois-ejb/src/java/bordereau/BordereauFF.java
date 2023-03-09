@@ -115,8 +115,8 @@ public class BordereauFF extends Bordereau{
                     double montantBudget=AdminGen.calculSommeDouble(listeFille, "montant");
                     LigneCredit ligneCredit=(LigneCredit)lc.getResultat()[0];
                     this.setMontantbudget(ligneCredit.getMontant());
-                    this.setMontantav(ligneCredit.getRestebudget()-montantBudget);
-                    this.setMontantap(ligneCredit.getRestebudget());
+                    this.setMontantav(ligneCredit.getResteApresEngmt()+montantBudget);
+                    this.setMontantap(ligneCredit.getResteApresEngmt());
                 }
                 
             }
