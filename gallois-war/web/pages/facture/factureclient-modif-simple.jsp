@@ -16,7 +16,7 @@
                 table = "Factureclient",
                 classe = "facture.FactureClient",
                 bute = "facture/factureclient-fiche-vaovao.jsp",
-                titre = "Modification entête facture client"
+                titre = "Modification ent&ecirc;te facture client"
         ;
         FactureClient o = new FactureClient();
         o.setNomTable("FACTURECLIENT_LIBCOMPLET");
@@ -94,6 +94,10 @@
     
     document.getElementById("tiers").value = "<%= Utilitaire.champNull(o.getTiers()) %>";
     document.getElementById("tierslibelle").value = "<%= Utilitaire.champNull(o.getTierslib()) %>";
+    document.getElementById("pourCompte").value = "<%= Utilitaire.champNull(o.getPourCompte()) %>";
+    document.getElementById("pourComptelibelle").value = "<%= Utilitaire.champNull(o.getPourCompte()) %>";
+    document.getElementById("armateur").value = "<%= Utilitaire.champNull(o.getArmateur()) %>";
+    document.getElementById("armateurlibelle").value = "<%= Utilitaire.champNull(o.getArmateurlib()) %>";
 
 </script>
     <%

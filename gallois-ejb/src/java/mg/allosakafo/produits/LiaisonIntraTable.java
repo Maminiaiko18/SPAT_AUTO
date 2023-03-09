@@ -57,7 +57,7 @@ public class LiaisonIntraTable extends ClassMAPTable {
         FactureFournisseur factureFournisseur = isFactureFournisseur(c);
         if(factureFournisseur!=null) {
             if(factureFournisseur.getEtat()< ConstanteEtat.getEtatValider()){
-                throw new Exception("Facture fournisseur non visee");
+                throw new Exception("Facture fournisseur avec ID ="+factureFournisseur.getId() +" non visee");
             }
         }
         AvoirFF avoir = isAvoirFF(c);
