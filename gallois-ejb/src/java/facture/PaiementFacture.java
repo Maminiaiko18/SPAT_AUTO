@@ -11,6 +11,8 @@ import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.JournalCaisse;
+import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -227,6 +229,11 @@ public class PaiementFacture extends ClassMAPTable{
                 throw new Exception("Le montant depasse. Montant factures ="+montantFactures+", montant inséré="+this.getMontant()+", montant journal="+jc.getCredit()); //tsy maintsy micomparer nomtable satria ity classe ity ihany no ampiasain'ny fournisseur donc diso ilay getCredit
             }
 
+            if(jc.getNumPiece()==null) {
+                jc.setNumPiece(jc.calculerNumeroPiece(c));
+                jc.updateToTable(c);
+            }
+
             //if(fc==null) throw new Exception("Veuillez choisir une facture");
             //if(jc!=null && fc!=null && !jc.getTiers().equals(fc.getTiers()))throw new Exception("Tiers differents pour le journal caisse et la facture");
         } finally {
@@ -266,7 +273,14 @@ public class PaiementFacture extends ClassMAPTable{
         try{
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
+            double montantFacture = AdminGen.calculSommeDouble(listePaiement, "montant");
+            JournalCaisse journal = new JournalCaisse();
+            journal.setId(idmvt);
+            JournalCaisse[] journals = (JournalCaisse[])CGenUtil.rechercher(journal, null, null, c, "");
+            if(journals.length<1) throw new Exception("Le Piece Caisse que vous avez choisi n'existe pas!");
             
+            if(journals[0].getEtat()<ConstanteEtat.getEtatValider()) throw new Exception("Piece de Caisse pas encore valider!");
+            if(journals[0].getCredit()!=montantFacture) throw new Exception("La somme du montant des Factures Choisies doit etre egale au montant du Piece de Caisse!");
             for(int i=0;i<listePaiement.length;i++){
                 for(int j=0;j<i;j++){
                     if(listePaiement[j].getIdFact().equals(listePaiement[i].getIdFact())){

@@ -25,6 +25,6 @@
     if(pr.getTableau().getHtml() != null){
         out.println(pr.getTableau().getHtml());
     }else{
-        %><center><h4>Traite non versée</h4></center><%
+        %><center><h4>Traite non transférée</h4></center><%
     }
 %>

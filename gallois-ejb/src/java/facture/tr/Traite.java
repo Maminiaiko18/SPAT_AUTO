@@ -32,7 +32,7 @@ public class Traite extends ClassEtat {
     String idfinaledestination;
     String idbanque, typepiece, etatlib;
     int etatversement;
-    String etatversementlib,numcheque,numpiece;
+    String etatversementlib,numcheque,numpiece,tierslib;
 
     public String getNumcheque() {
         return numcheque;
@@ -352,7 +352,7 @@ public class Traite extends ClassEtat {
 //        mvt.setIdfinaledestination(this.getIdfinaledestination());
         mvt.createObject(u, c);
         mvt.setEtatversement(ConstanteEtat.getEtatValider());
-        mvt.validerObject(u, c);
+        mvt.validerObjectVersement(u, c);
         c.commit();
         
     }
@@ -427,5 +427,13 @@ public class Traite extends ClassEtat {
 
     public void setEtatversementlib(String etatversementlib) {
         this.etatversementlib = etatversementlib;
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
     }
 }

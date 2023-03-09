@@ -2,6 +2,7 @@ package ded;
 
 import avoir.AvoirFC;
 import bean.*;
+import facture.FactureClient;
 import facture.FactureFournisseur;
 import facture.PaiementFacture;
 import facture.UtilitaireFacture;
@@ -570,7 +571,7 @@ public class OrdonnerPayement extends ClassEtat {
                 LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getMontantttc());
                 liaison.createObject(u, c);
             }
-        }
+        }else throw new Exception("Impossible de viser cet OP, aucune facture fournisseur rattacher");
     }
     public LiaisonIntraTable[] getLiaisonIntratable(Connection c) throws Exception{
         int verif = 0;
@@ -603,6 +604,9 @@ public class OrdonnerPayement extends ClassEtat {
             
             
             this.controlerMontant(montantTTc,reste, c);
+            FactureClient factliee = avoirList[0].getFactureLiee("facture_client_union_ordre",c);
+            if(factliee.getMontantreste()>=0)
+                throw new Exception("Impossible de régulariser une facture qui ne demande aucun remboursement.");
             for (int i = 0; i < avoirList.length; i++) {
                 LiaisonIntraTable liaison = new LiaisonIntraTable(avoirList[i].getId(), this.getTuppleID(), avoirList[i].getMontantreste());
                 liaison.createObject(u, c);
@@ -644,7 +648,7 @@ public class OrdonnerPayement extends ClassEtat {
             }
             FactureFournisseur ff=new FactureFournisseur();
             ff.setNomTable("factfourn_msum_lib");
-            if(this.getDed_Id()!=null) return (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, "and etat >= "+ConstanteEtat.getEtatValider()+" and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
+            if(this.getDed_Id()!=null) return (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, " and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
             return null;
         } catch (Exception e) {
             if (c != null && verif == 1) {

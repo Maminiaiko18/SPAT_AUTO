@@ -26,7 +26,7 @@
     for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){
 //        pi.getFormufle().getChamp("idMvt_"+i).setAutre( " readonly " );
 //        pi.getFormufle().getChamp("idMvt_"+i).setDefaut(idmvt);
-        pi.getFormufle().getChamp("idFact_"+i).setPageAppelAvecFiltre("choix/listeFactureClientViseeChoix.jsp", "idFact_"+i+";idFactlibelle_"+i, col, val);
+        pi.getFormufle().getChamp("idFact_"+i).setPageAppelAvecFiltre("choix/listeFactureClientViseeChoix.jsp", "idFact_"+i+";montant_"+i+";idFactlibelle_"+i, col, val);
         pi.getFormufle().getChamp("idFact_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("idMvt_"+i).setVisible(false);
     }
