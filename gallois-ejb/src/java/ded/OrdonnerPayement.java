@@ -571,7 +571,7 @@ public class OrdonnerPayement extends ClassEtat {
                 LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getMontantttc());
                 liaison.createObject(u, c);
             }
-        }
+        }else throw new Exception("Impossible de viser cet OP, aucune facture fournisseur rattacher");
     }
     public LiaisonIntraTable[] getLiaisonIntratable(Connection c) throws Exception{
         int verif = 0;
@@ -648,7 +648,7 @@ public class OrdonnerPayement extends ClassEtat {
             }
             FactureFournisseur ff=new FactureFournisseur();
             ff.setNomTable("factfourn_msum_lib");
-            if(this.getDed_Id()!=null) return (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, "and etat >= "+ConstanteEtat.getEtatValider()+" and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
+            if(this.getDed_Id()!=null) return (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, " and id in (" + Utilitaire.tabToString(this.getDed_Id().split(";"), "'", ",") + ")");
             return null;
         } catch (Exception e) {
             if (c != null && verif == 1) {
