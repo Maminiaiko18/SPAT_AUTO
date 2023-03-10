@@ -1433,17 +1433,14 @@ public class EtatPaieServlet extends HttpServlet {
                 facture.setNomTable(request.getParameter("etat"));
             }
             awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by TIERSLIB,code";
-
             FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, awhere);
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
             for (int i = 0; i < details.length; i++) {
-
                 arrList.add(details[i]);
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("FactureClient1ParClient");
             UtilitaireImpression.imprimer(request, response, "facture_client", param, arrList, getReportPath(), rt);
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

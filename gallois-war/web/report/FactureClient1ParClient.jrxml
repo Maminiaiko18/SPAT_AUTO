@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce1f3f99-b941-4998-8da0-3d76101166df">
 	<property name="ireport.zoom" value="2.1435888100000016"/>
-	<property name="ireport.x" value="195"/>
-	<property name="ireport.y" value="282"/>
+	<property name="ireport.x" value="148"/>
+	<property name="ireport.y" value="179"/>
 	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="daty1" class="java.lang.String"/>
 	<parameter name="daty2" class="java.lang.String"/>
@@ -42,23 +42,14 @@
 	<variable name="montantpaye_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
 		<variableExpression><![CDATA[$F{montantpaye}]]></variableExpression>
 	</variable>
-	<variable name="montantReste_1" class="java.lang.Double" resetType="Group" resetGroup="val" calculation="Sum">
+	<variable name="montantreste_1" class="java.lang.Double" resetType="Group" resetGroup="val" calculation="Sum">
 		<variableExpression><![CDATA[$F{montantreste}]]></variableExpression>
 	</variable>
-	<variable name="montantReste_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
-		<variableExpression><![CDATA[$F{montantreste}]]></variableExpression>
-	</variable>
-	<variable name="montantreste_1" class="java.lang.Integer" resetType="Group" resetGroup="val" calculation="Count">
-		<variableExpression><![CDATA[$F{montantreste}]]></variableExpression>
-	</variable>
-	<variable name="montantreste_2" class="java.lang.Integer" resetType="Group" resetGroup="type" calculation="Count">
+	<variable name="montantreste_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
 		<variableExpression><![CDATA[$F{montantreste}]]></variableExpression>
 	</variable>
 	<group name="type">
 		<groupExpression><![CDATA[$F{typelib}]]></groupExpression>
-		<groupHeader>
-			<band height="33"/>
-		</groupHeader>
 		<groupFooter>
 			<band height="20">
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
@@ -122,7 +113,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$V{montantpaye_2}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement x="493" y="0" width="62" height="20" uuid="b4f377c1-d059-4be4-99e3-136890d89876"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
@@ -133,7 +124,7 @@
 		</groupFooter>
 	</group>
 	<group name="val" isStartNewPage="true" isReprintHeaderOnEachPage="true">
-		<groupExpression><![CDATA[$F{val}]]></groupExpression>
+		<groupExpression><![CDATA[$F{tierslib}]]></groupExpression>
 		<groupHeader>
 			<band height="67">
 				<textField isBlankWhenNull="true">
