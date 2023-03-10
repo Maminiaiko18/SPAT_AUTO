@@ -571,7 +571,7 @@ public class OrdonnerPayement extends ClassEtat {
                 LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getMontantttc());
                 liaison.createObject(u, c);
             }
-        }else throw new Exception("Impossible de viser cet OP, aucune facture fournisseur rattacher");
+        }
     }
     public LiaisonIntraTable[] getLiaisonIntratable(Connection c) throws Exception{
         int verif = 0;
