@@ -31,8 +31,8 @@
 
         pr.getFormu().changerEnChamp(listes);
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
-        pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
-        pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.getFirstDayOfMonth());
+        pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.getLastDayOfMonth());
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");

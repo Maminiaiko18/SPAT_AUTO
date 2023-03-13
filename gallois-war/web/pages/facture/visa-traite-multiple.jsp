@@ -36,7 +36,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste des traites</h1>
+        <h1>Liste des traites a verser</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=facture/visa-traite-multiple.jsp" method="post" name="engagement" id="engagement">

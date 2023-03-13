@@ -282,10 +282,15 @@ public class PaiementFacture extends ClassMAPTable{
             JournalCaisse journal = new JournalCaisse();
             journal.setId(idmvt);
             JournalCaisse[] journals = (JournalCaisse[])CGenUtil.rechercher(journal, null, null, c, "");
-            if(journals.length<1) throw new Exception("Le Piece Caisse que vous avez choisi n'existe pas!");
+            if(journals.length<1) throw new Exception("Le journal de caisse que vous avez choisi n'existe pas!");
             
-            if(journals[0].getEtat()<ConstanteEtat.getEtatValider()) throw new Exception("Piece de Caisse pas encore valider!");
-            if(journals[0].getCredit()!=montantFacture) throw new Exception("La somme du montant des Factures Choisies doit etre egale au montant du Piece de Caisse!");
+            if(journals[0].getEtat()<ConstanteEtat.getEtatValider()) throw new Exception("Journal de caisse pas encore valider!");
+
+            float journalFloat = (float)journals[0].getCredit();
+            float montantFactFloat = (float)montantFacture; 
+
+            if(journalFloat - montantFactFloat > 5 ) throw new Exception("La somme du montant des factures Choisies ("+Utilitaire.formaterAr(montantFactFloat)+") doit etre egale au montant du journal de caisse ("+Utilitaire.formaterAr(journalFloat)+")");
+            
             for(int i=0;i<listePaiement.length;i++){
                 for(int j=0;j<i;j++){
                     if(listePaiement[j].getIdFact().equals(listePaiement[i].getIdFact())){
