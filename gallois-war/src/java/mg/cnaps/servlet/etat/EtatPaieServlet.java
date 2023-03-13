@@ -1299,7 +1299,8 @@ public class EtatPaieServlet extends HttpServlet {
             if (request.getParameter("tierslib") != null
                     && request.getParameter("tierslib").compareToIgnoreCase("null") != 0
                     && request.getParameter("tierslib").length() != 0) {
-                awhere += " AND tierslib='" + request.getParameter("tierslib") + "'";
+                //awhere += " AND tierslib='" + request.getParameter("tierslib") + "'";
+                awhere+= "AND UPPER(tierslib) like UPPER('%" + request.getParameter("tierslib") + "%')";
             }
             if (request.getParameter("designation") != null
                     && request.getParameter("designation").compareToIgnoreCase("null") != 0
@@ -1384,10 +1385,9 @@ public class EtatPaieServlet extends HttpServlet {
                 daty1 = sdf.format(sdf.parse(request.getParameter("daty1")));
             }
             String awhere = "";
-            if (request.getParameter("tierslib") != null
-                    && request.getParameter("tierslib").compareToIgnoreCase("null") != 0
-                    && request.getParameter("tierslib").length() != 0) {
-                awhere += " AND tierslib='" + request.getParameter("tierslib") + "'";
+            if (request.getParameter("tierslib") != null && request.getParameter("tierslib").compareToIgnoreCase("null") != 0 && request.getParameter("tierslib").length() != 0) {
+                //awhere += " AND tierslib='" + request.getParameter("tierslib") + "'";
+                awhere+= "AND UPPER(tierslib) like UPPER('%" + request.getParameter("tierslib") + "%')";
             }
             if (request.getParameter("designation") != null
                     && request.getParameter("designation").compareToIgnoreCase("null") != 0

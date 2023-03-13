@@ -64,7 +64,7 @@
         pi.getFormu().getChamp("dateeffet").setLibelle("Date effet");
         pi.getFormu().getChamp("idbanque").setLibelle("Banque");
         pi.getFormu().getChamp("typemvt").setVisible(false);
-        
+        pi.getFormu().getChamp("idTypeCheque").setDefaut(Constante.getTypeACredit());
 
         affichage.Champ[] liste = new affichage.Champ[4];
         Caisse esc = new Caisse();

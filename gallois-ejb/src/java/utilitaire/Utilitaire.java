@@ -3685,6 +3685,25 @@ public class Utilitaire extends Parametre {
         return wk;
     }
 
+    public static String getFirstDayOfMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, Integer.valueOf(getAnneeEnCours()));
+        calendar.set(Calendar.MONTH, getMoisEnCours());
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(calendar.getTime());
+    }
+
+    public static String getLastDayOfMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Integer.valueOf(getAnneeEnCours()), getMoisEnCours(), 1);
+        calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(calendar.getTime());
+    }
+
     public static TreeMap<Integer, List<java.sql.Date>> getListWeekWithDate(int mois, int annee) {
         TreeMap<Integer, List<java.sql.Date>> liste = new TreeMap<Integer, List<java.sql.Date>>();
         java.sql.Date dateDebut = Utilitaire.string_date("dd/MM/yyyy", "01/" + mois + "/" + annee);
