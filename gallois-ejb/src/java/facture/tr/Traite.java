@@ -385,6 +385,7 @@ public class Traite extends ClassEtat {
             Traite[] listeTraite = (Traite[])CGenUtil.rechercher(traite, null, null, c, aWhere);
             for(int i=0;i<listeTraite.length;i++){
 //                listeTraite[i].setIdfinaledestination(finaldestination);
+                listeTraite[i].setDaty(this.getDaty());
                 listeTraite[i].verser(u, c);
             }
         }

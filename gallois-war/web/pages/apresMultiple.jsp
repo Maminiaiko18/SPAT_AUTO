@@ -10,6 +10,7 @@
 <%@ page import="utilitaire.*" %>
 <%@ page import="bean.*" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="java.sql.Date" %>
 <%@ page import="affichage.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -298,6 +299,8 @@
         if(acte.equals("viserTraiteSimple")){
             System.out.println("viserTraiteSimple");
             Traite traite=new Traite();
+            Date daty = Utilitaire.stringDate(request.getParameter("daty"));
+            traite.setDaty(daty);
             traite.setId(id);
             String[] value = {request.getParameter("idTraite")};
             traite.avantVerser(value, u.getUser().getTuppleID(), request.getParameter("idfinaledestination"), null);
