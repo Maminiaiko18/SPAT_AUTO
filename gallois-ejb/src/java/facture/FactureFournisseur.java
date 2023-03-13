@@ -473,6 +473,14 @@ public class FactureFournisseur extends FactureClient {
             }
 
             String categorie = fc.getIdcategorie();
+
+            if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)==0){
+                FactureFournisseur ep = new FactureFournisseur();
+                ep.setIdProvision(this.getId());
+                FactureFournisseur[] def = (FactureFournisseur[]) CGenUtil.rechercher(ep, null, null, c, "");
+                if(def.length > 0 ) throw new Exception("Ce bon provisoire comporte déjà une facture définitive");
+            }
+
             if (type == 1) {
                 JournalCaisse[] jc = this.getPaiement(null);
                 if (jc.length == 0) {
