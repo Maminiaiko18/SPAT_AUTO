@@ -305,6 +305,7 @@ public class Traite extends ClassEtat {
     public void lierJournalCaisse(String[] ids, Connection c) throws Exception{
         JournalCaisse critere = new JournalCaisse();
         critere.setNomTable("journalcaisse");
+        if(ids==null ) throw new Exception("Veuillez cocher le journal correspondant");
         JournalCaisse[] journaux =  (JournalCaisse[])CGenUtil.rechercher(critere,null,null,c," and id in ("+Utilitaire.tabToString(ids, "'", ",")+")");
         double sommeCredit = AdminGen.calculSommeDouble(journaux, "credit");
         if(sommeCredit > this.montantreste){
