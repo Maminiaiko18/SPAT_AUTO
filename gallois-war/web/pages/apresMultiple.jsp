@@ -294,7 +294,7 @@
         }
         if(acte.equals("viserTraite")){
             Traite traite=new Traite();
-            traite.avantVerser(tId, u.getUser().getTuppleID(), request.getParameter("idcaisse"), null);
+            traite.avantVerser(tId, u.getUser().getTuppleID(), request.getParameter("idcaisse"),request.getParameter("date"), null);
         }
         if(acte.equals("viserTraiteSimple")){
             System.out.println("viserTraiteSimple");
