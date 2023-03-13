@@ -13,9 +13,10 @@
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     JournalCaisse jc = new JournalCaisse();
-    jc.setNomTable("journalcaisse");
+    jc.setNomTable("JOURNALCAISSELIBCOMPLET");
     PageUpdate pi = new PageUpdate(jc, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
+    jc =(JournalCaisse)pi.getBase();
     UserEJB u = (UserEJB) session.getAttribute("u");
 
     pi.getFormu().getChamp("numcheque").setLibelle("Numero ch�que");
@@ -58,13 +59,21 @@
     pi.getFormu().getChamp("idordre").setVisible(false);
     pi.getFormu().getChamp("iddevise").setVisible(false);
     pi.getFormu().getChamp("idMode").setVisible(false);
-    pi.getFormu().getChamp("banque").setVisible(false);
-    pi.getFormu().getChamp("idplacementvrai").setVisible(false);
+    pi.getFormu().getChamp("IDBANQUELIB").setVisible(false);
     pi.getFormu().getChamp("idtraite").setVisible(false);
-    pi.getFormu().getChamp("etatversement").setVisible(false);
-    pi.getFormu().getChamp("idfinaledestination").setVisible(false);
-    
+    pi.getFormu().getChamp("idcaisse").setVisible(false);
+    pi.getFormu().getChamp("valcaisse").setVisible(false);
+    pi.getFormu().getChamp("descecaisse").setVisible(false);
+    pi.getFormu().getChamp("valtypecheque").setVisible(false);
+    pi.getFormu().getChamp("descetypecheque").setVisible(false);
+    pi.getFormu().getChamp("tierslib").setVisible(false);
+    pi.getFormu().getChamp("codetiers").setVisible(false);
+    pi.getFormu().getChamp("type").setVisible(false);
+    pi.getFormu().getChamp("typelib").setVisible(false);
+    pi.getFormu().getChamp("numeroOP").setVisible(false);
+
     pi.preparerDataFormu();
+    
 %>
 <div class="content-wrapper">
     <div class="row"> 
@@ -96,8 +105,7 @@
 %>
 <script>
     document.getElementById("tiers").value = "<%= Utilitaire.champNull(jc.getTiers()) %>";
-    //document.getElementById("tierslibelle").value = "<%= Utilitaire.champNull(jc.getTiersLib()) %>";
-
+    document.getElementById("tierslibelle").value = "<%= Utilitaire.champNull(jc.getTiersLib()) %>";
 </script>
 <%
     }catch(Exception ex){
