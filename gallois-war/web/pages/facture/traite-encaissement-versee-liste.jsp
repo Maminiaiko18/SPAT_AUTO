@@ -39,7 +39,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste des traites à verser</h1>
+        <h1>Liste des traites en attente d'avis de credit</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=facture/traite-encaissement-versee-liste.jsp" method="post" name="engagement" id="engagement">
@@ -57,6 +57,7 @@
         <form action="<%=pr.getLien()%>?but=apresVerserTraite.jsp" method="post">
          
         <div>
+            <center>
             <label for="remarque">Remarque:</label>
             <input type="text" name="remarque" id="remarque">
             
@@ -69,8 +70,9 @@
             
             <label for="date">Date:</label>
             <input type="text" class="datepicker" onkeydown="return searchKeyPress(event)" name="date" id="date" value="<%=Utilitaire.dateDuJour()%>">
-            
+            </center>
         </div>
+        <br>
         
         <%
             String libEnteteAffiche[] = {"id", "designation","Traite","Date", "Caisse Depart", "Caisse Arrivee","Mode Paiement","Montant","Remarque","Etat"};
