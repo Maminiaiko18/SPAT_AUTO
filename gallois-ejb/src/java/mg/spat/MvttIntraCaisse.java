@@ -262,9 +262,8 @@ public class MvttIntraCaisse extends ClassEtat {
         sortie.setIdmode(this.getModepaiement());
         sortie.setIdtraite(this.getIdTraite());
         sortie.setEtatversement(this.getEtatversement());
-
         sortie.createObject(u, c);
-//        sortie.validerObject(u, c);
+        sortie.validerObject(u, c);
         
         JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, "Reception Caisse Effet à recevoir", null, Utilitaire.dateDuJourSql(), this.getDaty(), 0, this.getMontant());
         entree.setIddevise(Constante.deviseAr);
