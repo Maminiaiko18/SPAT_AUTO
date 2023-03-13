@@ -18,9 +18,9 @@
             base.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","tiers", "banque", "daty", "dateEcheance"};
+        String listeCrt[] = {"id","tiers", "banque", "daty", "dateEcheance","reference"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id","tiers", "banque", "daty", "dateEcheance","montant","montantreste","etatversementlib"};
+        String libEntete[] = {"id","tiers", "banque","reference", "daty", "dateEcheance","montant","montantreste","etatversementlib"};
 
         PageRecherche pr = new PageRecherche(base, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -112,7 +112,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <%
-            String libelleAffiche[] = {"Id","Tiers", "Banque", "daty","Date &eacute;cheance","Montant", "Montant Disponible","Etat versement"};
+            String libelleAffiche[] = {"Id","Tiers", "Banque","reference","daty","Date &eacute;cheance","Montant", "Montant Disponible","Etat versement"};
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
