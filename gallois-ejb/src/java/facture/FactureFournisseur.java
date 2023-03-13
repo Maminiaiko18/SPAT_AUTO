@@ -329,11 +329,6 @@ public class FactureFournisseur extends FactureClient {
         if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
             this.setCode(calculerCodeSimple(cnctn));
         }
-        if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
-            System.out.println("ity ilay izy");
-            this.setNum(Utilitaire.getMaxSeq("SEQNUMBONPROV.nextval", cnctn) + "/" + Utilitaire.getMillenismeAnnee(Utilitaire.getAnneeEnCours()));
-//            this.setNum("1" + "/" + Utilitaire.getMillenismeAnnee(Utilitaire.getAnneeEnCours()));
-        }
         return super.createObject(iduser, cnctn);
     }
 
@@ -478,6 +473,14 @@ public class FactureFournisseur extends FactureClient {
             }
 
             String categorie = fc.getIdcategorie();
+
+            if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)==0){
+                FactureFournisseur ep = new FactureFournisseur();
+                ep.setIdProvision(this.getId());
+                FactureFournisseur[] def = (FactureFournisseur[]) CGenUtil.rechercher(ep, null, null, c, "");
+                if(def.length > 0 ) throw new Exception("Ce bon provisoire comporte déjà une facture définitive");
+            }
+
             if (type == 1) {
                 JournalCaisse[] jc = this.getPaiement(null);
                 if (jc.length == 0) {
@@ -658,6 +661,16 @@ public class FactureFournisseur extends FactureClient {
         }
     }
 
+    public String calculerNumeroBP(Connection c) throws Exception{
+        String dateEffetStr = Utilitaire.datetostring(this.getDaty()) ;
+        String annee = Utilitaire.getAnnee(dateEffetStr);
+        String seq="";
+        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM SEQ_BONPROVISOIRE where annee="+annee;
+        NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+        if(result.length>0) seq=Utilitaire.completerInt(0, result[0].getNumerosuivant());
+        return seq+"/"+Utilitaire.genererAnnee(dateEffetStr);
+    }
+
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
         LigneCredit lc = this.getBudget(c);
@@ -668,6 +681,11 @@ public class FactureFournisseur extends FactureClient {
         if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
             this.genererPaiementDefinitive(u, this.getIdProvision(), c);
         }
+
+        if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
+            this.setNum(this.calculerNumeroBP(c));
+        }
+
         if (this.getIdengagement() != null) {
             Engagement eg = this.findEngagement(c);
             if (eg != null) {
