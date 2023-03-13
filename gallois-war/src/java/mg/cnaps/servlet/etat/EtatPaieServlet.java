@@ -123,6 +123,7 @@ import mg.spat.MvttIntraCaisse;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import utilitaire.Constante;
+import utilitaire.ConstanteEtat;
 import utilitaire.Utilitaire;
 
 /**
@@ -2144,7 +2145,7 @@ public class EtatPaieServlet extends HttpServlet {
             facture.FactureFournisseur fact = new facture.FactureFournisseur();
             fact.setNomTable("FACTFOURN_MSUM_LIB");
             facture.FactureFournisseur[] detailsfact = (facture.FactureFournisseur[]) CGenUtil.rechercher(fact, null, null,
-                    c, " and idprovision = '" + id + "' ");
+                    c, " and idprovision = '" + id + "' and etat >="+ConstanteEtat.getEtatValider());
             if (mere[0].getIdcategorie().compareTo(Constante.idBonProvisoire) == 0) {
                 if (detailsfact.length != 0) {
                     param.put("montantfact", detailsfact[0].getMontant());
