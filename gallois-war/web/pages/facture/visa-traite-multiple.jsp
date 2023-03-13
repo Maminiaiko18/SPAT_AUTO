@@ -57,6 +57,7 @@
             </select>
         </div>-->
         <div>
+            <center>
             <label for="date">Date:</label>
             <input type="text" class="datepicker" onkeydown="return searchKeyPress(event)" name="date" id="date" value="<%=Utilitaire.dateDuJour()%>">
             </center>
