@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000001"/>
-	<property name="ireport.x" value="389"/>
-	<property name="ireport.y" value="154"/>
+	<property name="ireport.x" value="45"/>
+	<property name="ireport.y" value="358"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -151,6 +151,8 @@
 	<parameter name="ttcEuro" class="java.lang.Double"/>
 	<parameter name="Dttp" class="java.util.Date"/>
 	<parameter name="dtquit" class="java.util.Date"/>
+	<parameter name="montanthtsimple" class="java.lang.Double"/>
+	<parameter name="montantapred" class="java.lang.Double"/>
 	<field name="list_table" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -427,9 +429,9 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="172">
+		<band height="351">
 			<staticText>
-				<reportElement x="-1" y="97" width="358" height="22" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
+				<reportElement x="-1" y="193" width="358" height="28" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -446,7 +448,7 @@
 				<textFieldExpression><![CDATA["Change du:"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="357" y="97" width="530" height="50" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
+				<reportElement x="357" y="193" width="530" height="80" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
 				<textElement>
 					<font size="16" isBold="true" isItalic="true"/>
 				</textElement>
@@ -463,14 +465,14 @@
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="147" width="384" height="20" uuid="1d210a04-534f-4717-9e77-9ce9a5c4e5d6"/>
+				<reportElement x="4" y="273" width="384" height="35" uuid="1d210a04-534f-4717-9e77-9ce9a5c4e5d6"/>
 				<textElement markup="html">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="554" y="147" width="333" height="20" uuid="694bfee4-504f-4ca5-98ca-857faf5fbb5a"/>
+				<reportElement x="554" y="273" width="333" height="35" uuid="694bfee4-504f-4ca5-98ca-857faf5fbb5a"/>
 				<textElement textAlignment="Right" markup="html">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -645,7 +647,7 @@
 				<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="746" y="59" width="137" height="20" uuid="c383058b-e9aa-40f5-84ef-dc9e9e58d0dc"/>
+				<reportElement x="746" y="59" width="137" height="18" uuid="c383058b-e9aa-40f5-84ef-dc9e9e58d0dc"/>
 				<textElement textAlignment="Right">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -672,7 +674,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="717" y="1" width="166" height="76" uuid="bd0fd60e-f42a-459f-a008-8036c4d584f7"/>
+				<reportElement x="717" y="0" width="166" height="170" uuid="bd0fd60e-f42a-459f-a008-8036c4d584f7"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -681,6 +683,34 @@
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="717" y="81" width="166" height="26" uuid="af97ef71-cac6-48b3-a763-95819d9eba1f"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Avec Réduction : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="717" y="107" width="166" height="20" uuid="8bb0d5c0-318d-4f2f-bc50-0e132458e1da"/>
+				<textElement textAlignment="Justified">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montantapred}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="717" y="127" width="166" height="21" uuid="d4803db3-1354-4b39-9e7a-3cce1f8068bf"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sans Réduction :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="717" y="148" width="166" height="22" uuid="9eb470c2-cbcb-4682-a201-48f8dafb54b2"/>
+				<textElement textAlignment="Justified">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montanthtsimple}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

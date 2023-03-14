@@ -1471,13 +1471,6 @@ public class EtatPaieServlet extends HttpServlet {
             facture.setNomTable("factureClientValide");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
-
-            /*
-             * ClientCategorie clg = new ClientCategorie();
-             * clg.setNomTable("CLIENT_UNION");
-             * ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg,
-             * null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
-             */
             param.put("stat", mere[0].getNmsttclt());
             param.put("nif", mere[0].getNif());
             param.put("rc", mere[0].getRc());
@@ -1485,7 +1478,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("tp", mere[0].getTp());
             param.put("Dttp", mere[0].getDttp());
             param.put("dtquit", mere[0].getDtquit());
-
+            System.out.println("------LISSSSSS : "+mere[0].getEstMictsl().compareToIgnoreCase("1"));
             facture = mere[0];
             facture.setId(id);
             facture.initDetails(c);
@@ -1570,7 +1563,7 @@ public class EtatPaieServlet extends HttpServlet {
                     daty = details[0].getDatefact();
                 }
                 param.put("datyfact", mere[0].getDaty());
-                param.put("daty", daty);
+                param.put("daty", daty);    
                 if (Utilitaire.champNull(mere[0].getEscale()).compareTo("") != 0) {
                     param.put("datyfact", daty);
                     param.put("daty", mere[0].getDaty());
@@ -1579,8 +1572,12 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("type", mere[0].getTypelib());
                 cat = mere[0].getCategorielib();
                 param.put("cat", cat);
-                designation = UtilitaireFacture.remplacerCharacteres(mere[0].getDesignation());
-                param.put("designation", designation);
+                if(mere[0].getDesignation()!=null){
+                    designation = UtilitaireFacture.remplacerCharacteres(mere[0].getDesignation());
+                    param.put("designation", designation);
+                }
+                /*designation = UtilitaireFacture.remplacerCharacteres(mere[0].getDesignation());
+                param.put("designation", designation);*/
                 param.put("reduction", mere[0].getReduction());
                 param.put("client", mere[0].getNomclt());
                 param.put("adresse", mere[0].getAdrclt());
@@ -1596,7 +1593,8 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("armateur", mere[0].getArmateurlib());
 
                 param.put("tva", mere[0].getTva());
-
+                param.put("montantapred",mere[0].getMontantApred());
+                param.put("montanthtsimple",mere[0].getMontantHTSimple());
                 if (mere[0].getTypelib() != null) {
                     if (mere[0].getTypelib().compareToIgnoreCase("au comptant") != 0) {
                         param.put("dateEcheanceLib", "Date limite de paiement :");
