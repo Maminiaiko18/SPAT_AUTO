@@ -67,6 +67,20 @@ public class FactureClient extends ClassMere {
     private double volume,volume100;
     private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt,idtraite,idfc,factureclientlib, idfact;
     private double nbJours, montantfacture, montanttraite;
+    private double montantapred,montanthtsimple;
+
+    public double getMontantApred(){
+        return this.montantapred;
+    }
+    public double getMontantHTSimple(){
+        return this.montanthtsimple;
+    }
+    public void setMontantApred(double montantApred){
+        this.montantapred=montantApred;
+    }
+    public void setMontantHTSimple(double montantHTSimple){
+        this.montanthtsimple=montantHTSimple;
+    }
 
     public void setMontanttraite(double montanttraite){
         this.montanttraite=montanttraite;
