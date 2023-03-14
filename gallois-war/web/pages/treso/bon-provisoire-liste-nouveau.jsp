@@ -92,6 +92,12 @@
                         <% } else { %>
                         <option value="BPvalide_v" >Valid&eacute;</option>
                         <% } %>
+
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BPNONREGULARISER") == 0) {%>    
+                        <option value="BPNONREGULARISER" selected>Non regulariser</option>
+                        <% } else { %>
+                        <option value="BPNONREGULARISER" >Non regulariser</option>
+                        <% } %>
                     </select>
                 </div>
             </div>
