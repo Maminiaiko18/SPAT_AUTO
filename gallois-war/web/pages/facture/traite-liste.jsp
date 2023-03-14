@@ -32,6 +32,8 @@
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
         pr.getFormu().getChamp("dateEcheance").setLibelle("Date echeance");
+        pr.setOrdre(" order by daty desc");
+
         
         pr.setApres("facture/traite-liste.jsp");
         
