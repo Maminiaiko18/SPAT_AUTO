@@ -674,7 +674,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="717" y="0" width="166" height="170" uuid="bd0fd60e-f42a-459f-a008-8036c4d584f7"/>
+				<reportElement x="717" y="0" width="166" height="156" uuid="bd0fd60e-f42a-459f-a008-8036c4d584f7"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -684,29 +684,29 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="717" y="81" width="166" height="26" uuid="af97ef71-cac6-48b3-a763-95819d9eba1f"/>
+				<reportElement x="717" y="79" width="166" height="18" uuid="af97ef71-cac6-48b3-a763-95819d9eba1f"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Avec Réduction : ]]></text>
+				<text><![CDATA[Montant réduction : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="717" y="107" width="166" height="20" uuid="8bb0d5c0-318d-4f2f-bc50-0e132458e1da"/>
-				<textElement textAlignment="Justified">
+				<reportElement x="717" y="97" width="166" height="20" uuid="8bb0d5c0-318d-4f2f-bc50-0e132458e1da"/>
+				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantapred}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="717" y="127" width="166" height="21" uuid="d4803db3-1354-4b39-9e7a-3cce1f8068bf"/>
+				<reportElement x="717" y="117" width="166" height="21" uuid="d4803db3-1354-4b39-9e7a-3cce1f8068bf"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Sans Réduction :]]></text>
+				<text><![CDATA[Montant avec réduction :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="717" y="148" width="166" height="22" uuid="9eb470c2-cbcb-4682-a201-48f8dafb54b2"/>
-				<textElement textAlignment="Justified">
+				<reportElement x="717" y="138" width="166" height="18" uuid="9eb470c2-cbcb-4682-a201-48f8dafb54b2"/>
+				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montanthtsimple}]]></textFieldExpression>
