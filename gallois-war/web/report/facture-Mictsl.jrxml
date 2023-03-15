@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.0000000000000075"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="177"/>
+	<property name="ireport.y" value="321"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -148,7 +148,7 @@
 	<parameter name="tp" class="java.lang.String"/>
 	<parameter name="payement" class="java.lang.String"/>
 	<parameter name="datyfact" class="java.util.Date"/>
-	<parameter name="montanthtsimple" class="java.lang.Double"/>
+	<parameter name="montantsansreduction" class="java.lang.Double"/>
 	<parameter name="montantapred" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -729,46 +729,46 @@
 				<text><![CDATA[Total :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="722" y="49" width="177" height="20" uuid="97a4418e-545b-4c8d-8670-242eced38f77"/>
+				<reportElement x="722" y="88" width="177" height="21" uuid="97a4418e-545b-4c8d-8670-242eced38f77"/>
 				<textElement textAlignment="Right">
 					<font size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantTVA}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="722" y="68" width="177" height="22" uuid="b04d43ba-222a-4c01-bf8f-742ff9d3603d"/>
+				<reportElement x="722" y="109" width="177" height="21" uuid="b04d43ba-222a-4c01-bf8f-742ff9d3603d"/>
 				<textElement textAlignment="Right">
 					<font size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantTTC}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="551" y="48" width="171" height="20" uuid="6f9a7517-dd2f-4284-9996-69c1c3648477"/>
+				<reportElement x="551" y="88" width="171" height="21" uuid="6f9a7517-dd2f-4284-9996-69c1c3648477"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Montant TVA 20% en Ar:]]></text>
+				<text><![CDATA[Montant TVA 20% en Ar :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="722" y="29" width="177" height="20" uuid="60cecfc9-ad17-4ac6-9ae3-9306c4ac7b89"/>
+				<reportElement x="721" y="67" width="177" height="21" uuid="60cecfc9-ad17-4ac6-9ae3-9306c4ac7b89"/>
 				<textElement textAlignment="Right">
 					<font size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="551" y="29" width="171" height="20" uuid="26211b88-40f1-4e1b-9a39-2f242da5f71e"/>
+				<reportElement x="551" y="67" width="171" height="21" uuid="26211b88-40f1-4e1b-9a39-2f242da5f71e"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Montant HTVA en AR:]]></text>
+				<text><![CDATA[Montant HTVA en AR :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="551" y="68" width="171" height="22" uuid="838a30eb-0c39-417e-8ee9-48dd84b9396d"/>
+				<reportElement x="551" y="109" width="171" height="21" uuid="838a30eb-0c39-417e-8ee9-48dd84b9396d"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Net à payer:]]></text>
+				<text><![CDATA[Net à payer :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="287" y="225" width="539" height="55" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
@@ -816,32 +816,32 @@
 				<text><![CDATA[Chèque certifié au guichet de la S.P.A.T]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="551" y="90" width="171" height="21" uuid="9bfa7f3e-9b8f-4021-ad89-cf702cc6634b"/>
+				<reportElement x="551" y="46" width="171" height="21" uuid="9bfa7f3e-9b8f-4021-ad89-cf702cc6634b"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Montant réduction : ]]></text>
+				<text><![CDATA[Réduction 20% : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="551" y="111" width="186" height="24" uuid="bb2cf1ca-81b5-4566-a43b-559a8b7672d5"/>
+				<reportElement x="551" y="25" width="186" height="21" uuid="bb2cf1ca-81b5-4566-a43b-559a8b7672d5"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Montant avec réduction :]]></text>
+				<text><![CDATA[Montant sans réduction :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="722" y="90" width="176" height="21" uuid="261b21bd-8877-4763-aa71-01e63a8ea869"/>
+				<reportElement x="722" y="46" width="176" height="21" uuid="261b21bd-8877-4763-aa71-01e63a8ea869"/>
 				<textElement textAlignment="Right">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantapred}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="737" y="111" width="161" height="24" uuid="d5235a53-d660-46db-aa2f-e173942bff07"/>
+				<reportElement x="737" y="25" width="161" height="21" uuid="d5235a53-d660-46db-aa2f-e173942bff07"/>
 				<textElement textAlignment="Right">
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{montanthtsimple}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{montantsansreduction}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
