@@ -1346,7 +1346,7 @@ public class EtatPaieServlet extends HttpServlet {
                 System.out.println("état : "+request.getParameter("etat"));
                 facture.setNomTable(request.getParameter("etat"));
             }
-            awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by ordre,val,TIERSLIB,code asc";
+            awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by ordre,code asc";
 
             FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, awhere);
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
@@ -1533,7 +1533,7 @@ public class EtatPaieServlet extends HttpServlet {
                     // //facture-client-sans-prevision
                 } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
                     param.put("montantapred",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP));
-                    param.put("montanthtsimple",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantHTSimple(), "#.##", RoundingMode.HALF_UP));
+                    param.put("montantsansreduction",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP));
                     param.put("chef", "Le chef de D&eacute;partement");
                     param.put("responsable", "Le contr&ocirc;leur");
                     setNomJasper("facture-Mictsl");

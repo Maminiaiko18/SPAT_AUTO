@@ -60,9 +60,11 @@
         pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
         pc.getChampByName("montantttc").setLibelle("Net à payer");
         pc.getChampByName("montantttcvrai").setLibelle("Montant TTC");
-        /*-----------------------------------------------------------*/
-        pc.getChampByName("montanthtsimple").setLibelle("Montant sans Réduction");
+        /*------------------------14/03/2023-----------------------------------*/
+        //pc.getChampByName("montanthtsimple").setLibelle("Montant sans Réduction");
         pc.getChampByName("montantapred").setLibelle("Montant avec Réduction");
+        /*------------------------15/03/2023-----------------------------------*/
+        pc.getChampByName("montantsansreduction").setLibelle("Montant sans Réduction");
         /*-----------------------------------------------------------*/
         pc.getChampByName("date_echeance").setLibelle("Date echeance");
         pc.getChampByName("montantpaye").setLibelle("Montant payé");
