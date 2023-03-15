@@ -1,4 +1,5 @@
 <%@page import="facture.FactureFournisseur"%>
+<%@page import="mg.spat.stock.BonDeCommande"%>
 <%@page import="mg.spat.OccupationMaterielNaval"%>
 <%@page import="mg.amadia.facture.FactureService"%>
 <%@page import="bordereau.Bordereau"%>
@@ -462,6 +463,12 @@
             ff = (facture.FactureFournisseur)ff.getById(request.getParameter("id"), nomtable, null);
             if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID());
         }
+        if(acte.compareToIgnoreCase("validerBC") == 0){
+            BonDeCommande bc=new BonDeCommande();
+            bc.setId(request.getParameter("id"));
+            bc = (BonDeCommande)bc.getById(request.getParameter("id"), "as_bondecommande", null);
+            if(bc!=null)bc.validerObjectSansControleMontant(u.getUser().getTuppleID());
+        }
         
         String idAttributeName = "id";
         if(t != null && t.getAttributIDName() != null && !t.getAttributIDName().trim().isEmpty()) idAttributeName = t.getAttributIDName();
@@ -470,11 +477,12 @@
     <%
 
     } catch(ValidationException validation){
+        String acte = validation.getActe();
 %>
     <script language="JavaScript">
         var result=confirm("<%= validation.getMessageavalider()%>");
         if (result) {
-            document.location.replace("<%=lien%>?but=apresTarif.jsp&id=<%=Utilitaire.champNull(request.getParameter("id"))%>&bute=<%=bute%>&acte=validerFF&classe=facture.FactureFournisseur");
+            document.location.replace("<%=lien%>?but=apresTarif.jsp&id=<%=Utilitaire.champNull(request.getParameter("id"))%>&bute=<%=bute%>&acte=<%=acte%>");
         } else {
             history.back();
         }
