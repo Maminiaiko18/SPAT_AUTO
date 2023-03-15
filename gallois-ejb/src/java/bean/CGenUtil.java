@@ -937,15 +937,16 @@ public class CGenUtil {
          Class[] paramT = {nomChamp.getType()};
         Object[] args = {valeur};
         try {
-            if (e.getMode().compareToIgnoreCase("modif")!=0 && valeur != null)
+            /*if (e.getMode().compareToIgnoreCase("modif")!=0 && valeur != null)
             {
                 Object o = e.getClass().getMethod(nomMethode, paramT).invoke(e, args);
-            }
-            if (e.getMode().compareToIgnoreCase("modif")==0)
-            {
-                Object o = e.getClass().getMethod(nomMethode, paramT).invoke(e, args);
-            }
+            }*/
+            //if (e.getMode().compareToIgnoreCase("modif")==0)
+            
+            Object o = e.getClass().getMethod(nomMethode, paramT).invoke(e, args);
+            
         } catch (NoSuchMethodException ex) {
+            
             Method[] list = e.getClass().getMethods();
             for (int i = 0; i < list.length; i++) {
 //                System.out.println("LIST : "+list[i].getName()+" === "+nomMethode);
@@ -1297,6 +1298,7 @@ public class CGenUtil {
             Object o = Class.forName(e.getClassName()).newInstance();
             ClassMAPTable ex = (ClassMAPTable) o;
             ex.setMode("select");
+            ex.setNomTable(e.getNomTable());
             for (int i = 0; i < listeChamp.length; i++) {
                 try {
                     int g = dr.findColumn(listeChamp[i].getNomColonne());
@@ -1310,7 +1312,6 @@ public class CGenUtil {
                 }
                 //if(((listeChamp[i].getTypeColonne().compareToIgnoreCase("NUMBER")==0)&&(listeChamp[i].getPrecision()>0))||(listeChamp[i].getTypeColonne().compareToIgnoreCase("FLOAT")==0))
                 if ((((listeChamp[i].getTypeColonne().compareToIgnoreCase("NUMBER") == 0) && (listeChamp[i].getPrecision() > 0)) || (listeChamp[i].getTypeColonne().compareToIgnoreCase("FLOAT") == 0)) && (listeChamp[i].getTypeJava().compareToIgnoreCase("java.lang.String") != 0)) {
-//                    System.out.println("listeChamp[i].getPrecision()=="+listeChamp[i].getPrecision()+"");
                     setValChamp(ex, listeChamp[i].getNomClasse(), new Double(dr.getDouble(listeChamp[i].getNomColonne())));
                 }
                 if ((listeChamp[i].getTypeColonne().compareToIgnoreCase("VARCHAR2") == 0) || (listeChamp[i].getTypeColonne().compareToIgnoreCase("CHAR") == 0)) {

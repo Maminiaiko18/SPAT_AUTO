@@ -358,7 +358,6 @@ public class SituationComptesData {
             String req = "select idCategorieIngredient,ingredients,iddevise as unite, nvl(sum(montant),0) as montantStock from (select  entite||'/'||banque as ingredients,banque as idCategorieIngredient, date_placement,iddevise, montant,etat from placementlib_visee p where date_placement<='" + dateInf + "' or date_placement<='" + dateSup + "'"
                     + "and date_echeance>='" + dateInf + "' or date_echeance>='" + dateSup + "'  and id not in (select idplacement from journalcaisse)) where iddevise='" + devise + "'  group by ingredients,idCategorieIngredient,iddevise";
 
-            System.out.println("----------------REQ--------------" + req);
             situations = (EtatdeStockDate[]) CGenUtil.rechercher(situation, req, c);
         } catch (Exception e) {
             throw e;

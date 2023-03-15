@@ -235,8 +235,12 @@ public class EtatdeStockDate extends ClassMAPTable {
         return this.getReport() - this.getSortie() + this.getEntree();
     }
 
-    public void setReste(double reste) {
-        this.reste = reste;
+    public void setReste(double rest) {
+        this.reste = rest;
+    }
+    public double getSoldeDebut()
+    {
+        return this.reste;
     }
 
     public double calculerDisponible() {
@@ -279,10 +283,11 @@ public class EtatdeStockDate extends ClassMAPTable {
              if(req.contains("besoinrecette")==true)req+=" order by facmax.nom asc";
              if(colonne!=null && valorder!=null && valorder.compareToIgnoreCase("-")!=0){
                    req="Select * from ("+req+") order by "+colonne+" "+valorder;
-               }
+             }
+             //System.out.println("SOLDE ==== "+req);
              EtatdeStockDate stock = new EtatdeStockDate();
              stock.setNomTable("AS_ETATSTOCKVIDE");
-            ret = (EtatdeStockDate[]) CGenUtil.rechercher(stock, req, c);
+             ret = (EtatdeStockDate[]) CGenUtil.rechercher(stock, req, c);
        }
       catch(Exception e)
         {
@@ -301,18 +306,24 @@ public class EtatdeStockDate extends ClassMAPTable {
 
     public static mg.amadia.stock.EtatdeStockDate[] calculEtatCaisse(String datySup, String ingr, String idIngredient, Connection c, String colonne, String valorder, String datyInf) throws Exception {
         EtatdeStockDate[] etatCaisse = calculEtatCaisseAncien(datySup, ingr, idIngredient, c, colonne, valorder, datyInf);
-        EtatdeStockDate[] listeSolde = getSolde(Utilitaire.ajoutJourDateString(Utilitaire.stringDate(datySup), -1), ingr, idIngredient, c, colonne, valorder, datyInf);
+        EtatdeStockDate[] listeSolde = getSolde(Utilitaire.ajoutJourDateString(Utilitaire.stringDate(datySup), -1), ingr, idIngredient, c, colonne, valorder, Utilitaire.ajoutJourDateString(Utilitaire.stringDate(datyInf), -1));
         //HashMap solde = new HashMap();
         //for(int j=0;j<listeSolde.length;j++){
           //  solde.put(listeSolde[j].getIngredients(),listeSolde[j].getReste());
         //}
+        
         for(int i=0;i<etatCaisse.length;i++){
             String[]filtre={"ingredients"};
             String[]valFiltre={etatCaisse[i].getIngredients()};
             ClassMAPTable[]etatReste=AdminGen.find(listeSolde,filtre, valFiltre);
             double reste=0;
-            if(etatReste!=null)reste=((EtatdeStockDate)etatReste[0]).getReste();
-            etatCaisse[i].setReste(reste);
+            
+            if(etatReste!=null)
+            {
+                reste=((EtatdeStockDate)etatReste[0]).getSoldeDebut();
+            }
+            
+            etatCaisse[i].setReport(reste);
             //etatCaisse[i].setReste((double)solde.get(etatCaisse[i].getIngredients()));
         }
         return etatCaisse;
@@ -327,12 +338,12 @@ public class EtatdeStockDate extends ClassMAPTable {
                 + "  where inv.daty=(select max(inv2.daty) "
                 + " from  reportdetailscaisse inv2 where inv2.IDING=inv.idIng and inv2.daty<'" + datySup + "')"
                 + " and inv.IDING=mvt.IDINGREDIENTS(+)";
-            //  System.out.println("**********************REQQQQQQQQQQQQ**************"+req);
+              //System.out.println("**********************REQQQQQQQQQQQQ**************"+req);
         return caculEtatStock(ingr, null, idIngredient, c, req, colonne, valorder);
     }
 
     public static mg.amadia.stock.EtatdeStockDate[] getSolde(String datySup, String ingr, String idIngredient, Connection c, String colonne, String valorder, String datyInf) throws Exception {
-        String req = "select inv.idingredient as ingredients,(inv.QUANTITER-nvl(mvt.sortie,0)+nvl(mvt.entree,0)) as reste "
+        String req = "select inv.idingredient as ingredients,cast((inv.QUANTITER - NVL (mvt.sortie, 0) + NVL (mvt.entree, 0)) as number(30,2)) AS reste "
                 + " from reportdetailscaisse inv,(select sum(mvt.entree) as entree,sum(mvt.sortie) as sortie,mvt.idingredients,mvt.unite, mvt.ingredients"
                 + " from mvtcaissedetailslib mvt  where "
                 + "mvt.daty>(select max(inv.daty) from reportdetailscaisse inv where inv.iding=mvt.idingredients and inv.daty<'" + datyInf + "' ) and mvt.daty<='" + datySup + "'"
@@ -340,7 +351,7 @@ public class EtatdeStockDate extends ClassMAPTable {
                 + "  where inv.daty=(select max(inv2.daty) "
                 + " from  reportdetailscaisse inv2 where inv2.IDING=inv.idIng and inv2.daty<'" + datyInf + "')"
                 + " and inv.IDING=mvt.IDINGREDIENTS(+)";
-            //  System.out.println("************************************"+req);
+              
         return caculEtatStock(ingr, null, idIngredient, c, req, colonne, valorder);
     }
 
