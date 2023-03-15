@@ -322,7 +322,27 @@ public class Engagement extends ClassEtat {
         
         double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
         if(montantTotal > this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
-        if((float)this.getMontant() > (float)lc.getRestebudget()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getRestebudget())+")");
+        if((float)this.getMontant() > (float)lc.getRestebudget()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getRestebudget())+")",null,"validerBC");
+        this.setDispoAvant(lc.getResteApresEngmt());
+        this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
+        super.validerObject(u, c);
+        if(avecFacture==0){
+             this.genererFacture(u, c, filles,lc);
+        }
+        return this; 
+    }
+
+    public Object validerObjectSansControleMontant(String u, Connection c) throws Exception {
+        LigneCredit lc = this.findSituationCredit(c);
+        if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
+        EngagementFille[] filles = this.getEngagementFilles(null, c);
+        if(filles.length==0){
+            throw new Exception ("Doit contenir au moins un détail engagement");
+        }
+        
+        double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
+        if(montantTotal > this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
+        //if((float)this.getMontant() > (float)lc.getRestebudget()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getRestebudget())+")");
         this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
         super.validerObject(u, c);

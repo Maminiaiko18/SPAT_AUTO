@@ -548,6 +548,32 @@ public class BonDeCommande extends ClassEtat {
         super.validerObject(u, c);
         return this;
     }
+
+    public Object validerObjectSansControleMontant(String u) throws Exception {
+        Connection c = null;
+        try{
+            c=new UtilDB().GetConn();
+            c.setAutoCommit(false);
+
+            LigneCredit lc=this.getBudget(c);
+            if(lc==null)throw new Exception("Budget non trouvé");
+
+            if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
+                BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
+                this.setMontant(bc.getMontant());
+                this.insertEngagementSansControleMontant(u,c);
+                this.updateToTableWithHisto(u, c);
+            }this.setNomTable("as_bondecommande");
+            super.validerObject(u, c);
+
+            c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+        }finally{
+            if(c!=null)c.close();
+        }
+        return this;
+    }
     
     public void insertEngagement(String u, Connection c) throws Exception {
         int verif = 0;
@@ -601,6 +627,59 @@ public class BonDeCommande extends ClassEtat {
             }
         }
     }
+
+    public void insertEngagementSansControleMontant(String u, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            Engagement engagement = this.getEngagement();
+
+            LigneCredit lc=this.getBudget(c);
+            if(lc!=null){
+                engagement.setCompte(lc.getCompte());
+            }
+            engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+
+            engagement.construirePK(c);
+            
+            BonDeCommandeFille bcFille = new BonDeCommandeFille();
+            bcFille.setIdbc(this.id);
+            bcFille.setNomTable("AS_BONDECOMMANDE_FILLEMTT");
+            BonDeCommandeFille[] filles = (BonDeCommandeFille[]) CGenUtil.rechercher(bcFille, null, null, c, "");
+            
+            double mtt = AdminGen.calculSommeDouble(filles, "montantht");
+            engagement.setMontant(mtt);
+            engagement.createObject(u, c);
+            for (int i = 0; i < filles.length; i++) {
+                EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());
+                engFille.construirePK(c);
+                engFille.insertToTableWithHisto(u, c);
+            }
+
+            engagement.validerObjectSansControleMontant(u, c);
+
+            this.setIdengagement(engagement.getTuppleID());
+
+            if (c != null && verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
     
     public LigneCredit getBudget(Connection c)throws Exception{
         int verif=0;
@@ -611,7 +690,7 @@ public class BonDeCommande extends ClassEtat {
                 verif=1;
             }
             LigneCredit lc=new LigneCredit();
-            lc.setNomTable("SITUATIONLCDEPENSEGRP");
+            lc.setNomTable("LIGNECREDITDEPENSE");
             lc.setIdcodeEtablissement(this.getCode_etab());
             lc.setIdprojet(this.getProjet());
             LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee="+Utilitaire.getAnnee(this.getDaty()));

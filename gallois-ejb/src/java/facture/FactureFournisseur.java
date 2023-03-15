@@ -692,7 +692,7 @@ public class FactureFournisseur extends FactureClient {
                 double reste = eg.getResteAFacturer(c);
                 FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
                 if (ff != null && reste < ff.getMontant()) {
-                    throw new ValidationException("Le montant de la facture depasse le reste de l'engagement");
+                    throw new ValidationException("Le montant de la facture depasse le reste de l'engagement",null,"validerFF");
                 }
             }
         } else {
