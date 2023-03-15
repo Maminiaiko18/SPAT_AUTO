@@ -15,7 +15,7 @@
         String daty1 = request.getParameter("daty1");
         String daty2 = request.getParameter("daty2");
         String tiers = request.getParameter("tiers");
-        String tierslib = request.getParameter("tierslib");
+        String tierslib = request.getParameter("tiersliblibelle");
         String etat = request.getParameter("etat") == null ? etatVal[0] : request.getParameter("etat");
         
         if (daty1 == null || daty1.trim().isEmpty()) {
@@ -70,7 +70,10 @@
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <label for="annee">Client</label>
-                                    <input name="tierslib" type="textbox" class="form-control" id="annee" value="<%=Utilitaire.champNull(tierslib)%>" onkeydown="return searchKeyPress(event)" tabindex="2">
+                                    <!--<input name="tierslib" type="textbox" class="form-control" id="annee" value="<%=Utilitaire.champNull(tierslib)%>" onkeydown="return searchKeyPress(event)" tabindex="2">-->
+                                    <input name="tiersliblibelle" type="textbox" class="form-control" id="tiersliblibelle" value="" readonly="" name="tiersliblibelle">
+                                    <input type="hidden" value="" name="tierslib" id="tierslib">
+                                    <input name="choix" type="button" class="submit" onclick="pagePopUp('choix/listeClientChoix.jsp?champReturn=tierslib;tiersliblibelle&amp;apresLienPageAppel=')" value="..." tabindex="2">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="annee">Code Client</label>
