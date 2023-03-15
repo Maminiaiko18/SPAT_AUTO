@@ -10,9 +10,9 @@
         MvtIntraCaisseTraite eng = new MvtIntraCaisseTraite();
         eng.setNomTable("MVTINTRACAISSETRAITEV");
 
-        String listeCrt[] = {"id", "designation","idTraite","daty", "caissedepart", "caissearrivee","modepaiement","montant","dateecheance"};
+        String listeCrt[] = {"id", "tiers","codeclient","facture","reference","idTraite","daty", "caissedepart", "caissearrivee","montant","dateecheance"};
         String listeInt[] = {"daty","montant","dateecheance"};
-        String libEntete[] = {"id", "designation","idTraite","daty", "caissedepartlib", "caissearriveelib","modepaiementlib","montant","remarque","etatlib"};
+        String libEntete[] = {"id","tiers","codeclient", "facture","reference","idTraite","daty","dateecheance", "caissedepartlib", "caissearriveelib","montant"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -25,10 +25,11 @@
         pr.getFormu().getChamp("dateecheance2").setLibelle("Date &Eacute;ch&eacute;ance Max");
         pr.getFormu().getChamp("caissedepart").setLibelle("Caisse Depart");
         pr.getFormu().getChamp("caissearrivee").setLibelle("Caisse Arrivee");
-        pr.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
        
         pr.setAWhere(" AND idTraite is not null AND etatversement = "+ConstanteEtat.getEtatValider());
         pr.setApres("facture/traite-encaissement-versee-liste.jsp");
+        pr.setOrdre(" order by dateEcheance asc");
+
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
         
@@ -47,8 +48,8 @@
 
         </form>
         <%  
-            String lienTableau[] = {pr.getLien() + "?but=facture/traite-encaissement-versee-fiche.jsp"};
-            String colonneLien[] = {"id"};
+            String lienTableau[] = {pr.getLien() + "?but=facture/traite-encaissement-versee-fiche.jsp",pr.getLien() + "?but=facture/traite-fiche.jsp"};
+            String colonneLien[] = {"id","idTraite"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());
@@ -75,7 +76,7 @@
         <br>
         
         <%
-            String libEnteteAffiche[] = {"id", "designation","Traite","Date", "Caisse Depart", "Caisse Arrivee","Mode Paiement","Montant","Remarque","Etat"};
+            String libEnteteAffiche[] = {"id","tiers","codeclient","facture", "reference","Traite","Date transfert","Date echeance", "Caisse Depart", "Caisse Arrivee","Montant"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setNameBoutton("Verser");
             pr.getTableau().setNameActe("encaissementTraite");
