@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.100000000000001"/>
-	<property name="ireport.x" value="45"/>
-	<property name="ireport.y" value="358"/>
+	<property name="ireport.x" value="43"/>
+	<property name="ireport.y" value="445"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -151,8 +151,6 @@
 	<parameter name="ttcEuro" class="java.lang.Double"/>
 	<parameter name="Dttp" class="java.util.Date"/>
 	<parameter name="dtquit" class="java.util.Date"/>
-	<parameter name="montanthtsimple" class="java.lang.Double"/>
-	<parameter name="montantapred" class="java.lang.Double"/>
 	<field name="list_table" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -674,7 +672,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="717" y="0" width="166" height="156" uuid="bd0fd60e-f42a-459f-a008-8036c4d584f7"/>
+				<reportElement x="717" y="0" width="166" height="77" uuid="bd0fd60e-f42a-459f-a008-8036c4d584f7"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -683,34 +681,6 @@
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="717" y="79" width="166" height="18" uuid="af97ef71-cac6-48b3-a763-95819d9eba1f"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Montant réduction : ]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="717" y="97" width="166" height="20" uuid="8bb0d5c0-318d-4f2f-bc50-0e132458e1da"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{montantapred}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="717" y="117" width="166" height="21" uuid="d4803db3-1354-4b39-9e7a-3cce1f8068bf"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Montant avec réduction :]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="717" y="138" width="166" height="18" uuid="9eb470c2-cbcb-4682-a201-48f8dafb54b2"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{montanthtsimple}]]></textFieldExpression>
-			</textField>
 		</band>
 	</summary>
 </jasperReport>
