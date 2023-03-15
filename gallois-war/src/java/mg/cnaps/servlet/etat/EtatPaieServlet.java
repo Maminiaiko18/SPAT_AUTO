@@ -1532,6 +1532,8 @@ public class EtatPaieServlet extends HttpServlet {
                     setNomJasper("facture_client2 - Copie");// facture_client2 - Copie //facture_convention
                     // //facture-client-sans-prevision
                 } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
+                    param.put("montantapred",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP));
+                    param.put("montanthtsimple",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantHTSimple(), "#.##", RoundingMode.HALF_UP));
                     param.put("chef", "Le chef de D&eacute;partement");
                     param.put("responsable", "Le contr&ocirc;leur");
                     setNomJasper("facture-Mictsl");
@@ -1593,8 +1595,6 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("armateur", mere[0].getArmateurlib());
 
                 param.put("tva", mere[0].getTva());
-                param.put("montantapred",mere[0].getMontantApred());
-                param.put("montanthtsimple",mere[0].getMontantHTSimple());
                 if (mere[0].getTypelib() != null) {
                     if (mere[0].getTypelib().compareToIgnoreCase("au comptant") != 0) {
                         param.put("dateEcheanceLib", "Date limite de paiement :");
