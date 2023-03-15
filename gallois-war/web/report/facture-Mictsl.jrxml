@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="909" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.0000000000000075"/>
-	<property name="ireport.x" value="322"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="177"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -148,6 +148,8 @@
 	<parameter name="tp" class="java.lang.String"/>
 	<parameter name="payement" class="java.lang.String"/>
 	<parameter name="datyfact" class="java.util.Date"/>
+	<parameter name="montanthtsimple" class="java.lang.Double"/>
+	<parameter name="montantapred" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -640,9 +642,9 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="244">
+		<band height="435">
 			<staticText>
-				<reportElement x="1" y="133" width="286" height="19" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
+				<reportElement x="1" y="225" width="286" height="55" uuid="bd3ed2b7-a076-456d-828b-1e20b1d0a7d7"/>
 				<textElement>
 					<font size="14" isBold="false"/>
 				</textElement>
@@ -769,7 +771,7 @@
 				<text><![CDATA[Net à payer:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="287" y="133" width="539" height="42" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
+				<reportElement x="287" y="225" width="539" height="55" uuid="fcde1f41-aaf8-4f7e-b257-609be70afeb1"/>
 				<textElement>
 					<font size="14" isBold="false" isItalic="true"/>
 				</textElement>
@@ -786,33 +788,61 @@
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="210" width="347" height="20" uuid="1d210a04-534f-4717-9e77-9ce9a5c4e5d6"/>
+				<reportElement x="2" y="308" width="347" height="26" uuid="1d210a04-534f-4717-9e77-9ce9a5c4e5d6"/>
 				<textElement markup="html">
 					<font size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="547" y="210" width="351" height="20" uuid="694bfee4-504f-4ca5-98ca-857faf5fbb5a"/>
+				<reportElement x="547" y="308" width="351" height="26" uuid="694bfee4-504f-4ca5-98ca-857faf5fbb5a"/>
 				<textElement textAlignment="Right" markup="html">
 					<font size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{chef}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="175" width="136" height="19" uuid="6a9d5964-4535-48c6-b447-4efd8c45f95a"/>
+				<reportElement x="1" y="280" width="136" height="28" uuid="6a9d5964-4535-48c6-b447-4efd8c45f95a"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mode de paiement : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="139" y="174" width="289" height="20" uuid="6f94c50f-d6ab-4e62-a217-332692196dfd"/>
+				<reportElement x="139" y="280" width="289" height="28" uuid="6f94c50f-d6ab-4e62-a217-332692196dfd"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Chèque certifié au guichet de la S.P.A.T]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="551" y="90" width="171" height="21" uuid="9bfa7f3e-9b8f-4021-ad89-cf702cc6634b"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant réduction : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="551" y="111" width="186" height="24" uuid="bb2cf1ca-81b5-4566-a43b-559a8b7672d5"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant avec réduction :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="722" y="90" width="176" height="21" uuid="261b21bd-8877-4763-aa71-01e63a8ea869"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montantapred}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="737" y="111" width="161" height="24" uuid="d5235a53-d660-46db-aa2f-e173942bff07"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montanthtsimple}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
