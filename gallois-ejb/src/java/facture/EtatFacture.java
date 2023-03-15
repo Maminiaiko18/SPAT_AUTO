@@ -76,7 +76,7 @@ public class EtatFacture extends ClassMAPTable {
     }
 
     public double getTotalmontnatrap() {
-        double totalmontnatrap = AdminGen.calculSommeDouble(this.getFactures().toArray(new FactureClient[0]), "montantreste");
+        double totalmontnatrap = this.getTotalmontant() - this.getTotalmontantregl() - this.getTotalmontantavoir() - this.getTotalmontantprov();
         return totalmontnatrap;
     }
 
@@ -102,33 +102,35 @@ public class EtatFacture extends ClassMAPTable {
     public static HashMap<String, EtatFacture> getListeFactureEmise(String tiers, String tierslib, String etat, String dateMin, String dateMax,Connection c)throws Exception{
         
         tiers = tiers==null || tiers.compareToIgnoreCase("null")==0 || tiers.compareToIgnoreCase("")==0 ? "%" : tiers;
-        tierslib = tierslib==null || tierslib.compareToIgnoreCase("null")==0 || tierslib.compareToIgnoreCase("")==0 || tiers != null ? "%" : tierslib;
+        tierslib = tierslib==null || tierslib.compareToIgnoreCase("null")==0 || tierslib.compareToIgnoreCase("")==0 || tiers != null || tiers.compareToIgnoreCase("")!=0 ? "%" : tierslib;
         HashMap<String, EtatFacture> resp = new HashMap<>();
         boolean estOuvert = false;
         if(c==null){
             c = new UtilDB().GetConn();
             estOuvert = true;
         }
+        etat = "etatfactureclienttiers";
         FactureClient fc = new FactureClient();
         fc.setNomTable(etat);
         try{
-            String aWhere = " AND daty>=TO_DATE('"+dateMin+"','DD/MM/YYYY') AND daty<=TO_DATE('"+dateMax+"','DD/MM/YYYY') AND TIERS like '"+tiers+"' and tierslib like '"+tierslib+"'";
+            String aWhere = " AND daty>=TO_DATE('"+dateMin+"','DD/MM/YYYY') AND daty<=TO_DATE('"+dateMax+"','DD/MM/YYYY') AND TIERS like '"+tiers+"' and tierslib like '"+tierslib+"' order by tiers, daty asc";
             FactureClient[] factures = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, aWhere);
             if(factures.length>0){
-                EtatFacture etatFacture = new EtatFacture(factures[0].getTiers(), factures[0].getTierslib(), factures[0].getType(), factures[0].getTypelib());
+                EtatFacture etatFacture = new EtatFacture(factures[0].getTiers(), factures[0].getType(), factures[0].getTierslib(), factures[0].getTypelib());
                 resp.put(factures[0].getTiers(), etatFacture);
-                for(FactureClient facture : factures){
+                for(int i =0; i<factures.length; i++){
                     int find = 0;
                     for(Map.Entry mapentry: resp.entrySet()){
-                        if(((String)mapentry.getKey()).compareTo(facture.getTiers())==0){
-                            ((EtatFacture)mapentry.getValue()).addEtatFacture(facture);
+                        if(((String)mapentry.getKey()).compareTo(factures[i].getTiers())==0){
+                            ((EtatFacture)mapentry.getValue()).addEtatFacture(factures[i]);
                             find = 1;
                             break;
                         }
                     }
                     if(find == 0){
-                        EtatFacture etatFactureManaraka = new EtatFacture(facture.getTiers(), facture.getTierslib(), facture.getType(), facture.getTypelib());
-                        resp.put(facture.getTiers(), etatFactureManaraka);
+                        EtatFacture etatFactureManaraka = new EtatFacture(factures[i].getTiers(), factures[i].getType(), factures[i].getTierslib(), factures[i].getTypelib());
+                        etatFactureManaraka.addEtatFacture(factures[i]);
+                        resp.put(factures[i].getTiers(), etatFactureManaraka);
                     }
                 }
             }

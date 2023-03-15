@@ -122,7 +122,7 @@
                     <thead>
                         <tr>
                             <th>Tiers</th>
-                            <th>Designation</th>
+                            <th>Date</th>
                             <th>Montant</th>
                             <th>Montant Pay&eacute;</th>
                             <th>Montant Provision</th>
@@ -137,14 +137,15 @@
                                 EtatFacture etatFact = listeFacture.get(tier);
                                 List<FactureClient> factures = etatFact.getFactures();
                                 String tierlib = etatFact.getTierslib();
+                                System.out.println(" TIER = "+tierlib+" :::::: Factures = "+factures.size());
                         %>
                         <tr class="category">
-                            <th><%=Utilitaire.champNull(tierlib)%></th>
+                            <th><%=Utilitaire.champNull(tier)%> : <%=Utilitaire.champNull(tierlib)%></th>
                         </tr>
                         <%if(factures!=null){for(FactureClient fact : factures){%>
                             <tr>
                                 <td><a href="<%=lien%>?but=facture/factureclient-fiche-vaovao.jsp&id=<%=Utilitaire.champNull(fact.getTuppleID())%>"><%=Utilitaire.champNull(fact.getTuppleID())%></a></td>
-                                <td><%=Utilitaire.champNull(fact.getDesignation())%></td>
+                                <td align="right"><%=fact.getDaty()%></td>
                                 <td align="right"><%=Utilitaire.formaterAr(fact.getMontant())%></td>
                                 <td align="right"><%=Utilitaire.formaterAr(fact.getMontantpaye())%></td>
                                 <td align="right"><%=Utilitaire.formaterAr(fact.getMontantprov())%></td>
@@ -155,7 +156,7 @@
                         <%}}%>
                             <tr>
                                 <td style="font-weight: bold;">Total</td>
-                                <td></td>
+                                <td align="right"></td>
                                 <td align="right" style="font-weight: bold;"><%=Utilitaire.formaterAr(etatFact.getTotalmontant())%></td>
                                 <td align="right" style="font-weight: bold;"><%=Utilitaire.formaterAr(etatFact.getTotalmontantregl())%></td>
                                 <td align="right" style="font-weight: bold;"><%=Utilitaire.formaterAr(etatFact.getTotalmontantprov())%></td>

@@ -30,14 +30,22 @@
     
     
     String[] lien = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
-    String[] colLien = {"idfact"};
-    //String[] urlLien = {"id"};
+    //String[] colLien = {"idfact"};
+//    String[] urlLien = {"id"};
     //String[] urlLienAff ={"id"};
-    pr.getTableau().setLien(lien);
-    pr.getTableau().setColonneLien(colLien);
-    //pr.getTableau().setUrlLien(urlLien);
+//    pr.getTableau().setLien(lien);
+//    pr.getTableau().setColonneLien(colLien);
+//    pr.getTableau().setUrlLien(urlLien);
     //pr.getTableau().setUrlLienAffiche(urlLienAff);
         
+    String colonneLien[] = {"idfact"};
+    String[] urlLienAffiche = {"id"};
+    String[] urlLienMultiple = {"idfact"};
+    pr.getTableau().setUrlLienAffiche(urlLienAffiche);
+    pr.getTableau().setLien(lien);
+    pr.getTableau().setUrlLien(urlLienMultiple);
+    pr.getTableau().setColonneLien(colonneLien);
+    
     if(pr.getTableau().getHtml() != null){
         
         out.println(pr.getTableau().getHtml());
