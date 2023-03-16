@@ -353,6 +353,7 @@ public class Traite extends ClassEtat {
 //        mvt.setIdfinaledestination(this.getIdfinaledestination());
         mvt.createObject(u, c);
         mvt.setEtatversement(ConstanteEtat.getEtatValider());
+        mvt.setTraite(this);
         mvt.validerObjectVersement(u, c);
         c.commit();
         
@@ -372,6 +373,7 @@ public class Traite extends ClassEtat {
 //        mvt.setIdfinaledestination(this.getIdfinaledestination());
         mvt.createObject(u, c);
         mvt.setEtatversement(ConstanteEtat.getEtatValider());
+        mvt.setTraite(this);
         mvt.validerObjectVersement(u, c);
         c.commit();
         
