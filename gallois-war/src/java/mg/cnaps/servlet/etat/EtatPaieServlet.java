@@ -1478,7 +1478,6 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("tp", mere[0].getTp());
             param.put("Dttp", mere[0].getDttp());
             param.put("dtquit", mere[0].getDtquit());
-            System.out.println("------LISSSSSS : "+mere[0].getEstMictsl().compareToIgnoreCase("1"));
             facture = mere[0];
             facture.setId(id);
             facture.initDetails(c);
@@ -1532,6 +1531,18 @@ public class EtatPaieServlet extends HttpServlet {
                     setNomJasper("facture_client2 - Copie");// facture_client2 - Copie //facture_convention
                     // //facture-client-sans-prevision
                 } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
+                    /*--------------------16/03/2023---------------------------*/
+                    double srE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+                    double redE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+                    double htvaE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontant(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+                    double tvaE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontanttva(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+                    double netE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttcvrai(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+                    param.put("srE",srE);
+                    param.put("redE",redE);
+                    param.put("htvaE",htvaE);
+                    param.put("tvaE",tvaE);
+                    param.put("netE",netE);
+                    /*-----------------------------------------------*/
                     param.put("montantapred",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP));
                     param.put("montantsansreduction",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP));
                     param.put("chef", "Le chef de D&eacute;partement");
