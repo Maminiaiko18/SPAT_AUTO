@@ -71,7 +71,7 @@ public class Tiers extends ClassEtat {
     }
 
     public void setCin(String cin) throws Exception{
-         if(cin.length()>12)
+         if(cin!=null&&cin.length()>12)
          {
              throw new Exception("cin non valide");
          }
