@@ -461,13 +461,19 @@
             facture.FactureFournisseur ff=new facture.FactureFournisseur();
             ff.setId(request.getParameter("id"));
             ff = (facture.FactureFournisseur)ff.getById(request.getParameter("id"), nomtable, null);
-            if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID());
+            if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID(),true);
         }
         if(acte.compareToIgnoreCase("validerBC") == 0){
             BonDeCommande bc=new BonDeCommande();
             bc.setId(request.getParameter("id"));
             bc = (BonDeCommande)bc.getById(request.getParameter("id"), "as_bondecommande", null);
             if(bc!=null)bc.validerObjectSansControleMontant(u.getUser().getTuppleID());
+            else{
+                facture.FactureFournisseur ff=new facture.FactureFournisseur();
+                ff.setId(request.getParameter("id"));
+                ff = (facture.FactureFournisseur)ff.getById(request.getParameter("id"), "facture_fournisseur_mere", null);
+                if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID(),false);
+            }
         }
         
         String idAttributeName = "id";
