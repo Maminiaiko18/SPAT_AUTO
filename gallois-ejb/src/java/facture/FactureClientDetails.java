@@ -454,6 +454,13 @@ public class FactureClientDetails extends ClassFille {
         this.setLiaisonMere("idmere");
     }
 
+    public FactureClientDetails(double Qte) throws Exception {
+        setNomTable("facture_client_fille");
+        this.setNomClasseMere("facture.FactureClient");
+        this.setLiaisonMere("idmere");
+        this.quantite = Qte;
+    }
+
     public FactureClientDetails(String idmere, double quantite, double pu, String compte, String designation, double duree, int annee, int mois, String devise) throws Exception {
         setNomTable("facture_client_fille");
         this.setNomClasseMere("facture.FactureClient");
