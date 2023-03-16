@@ -23,6 +23,8 @@
         pr.getFormu().getChamp("montant2").setLibelle("Montant Max");
         pr.getFormu().getChamp("dateEcheance1").setLibelle("Date echeance min");
         pr.getFormu().getChamp("dateEcheance2").setLibelle("Date echeance max");
+        pr.setOrdre(" order by dateEcheance asc");
+
        
         pr.setAWhere(" AND etat="+ConstanteEtat.getEtatValider()+" and montantreste <= 0");
         pr.setApres("facture/visa-traite-multiple.jsp");

@@ -837,7 +837,10 @@ public class FactureClientDetails extends ClassFille {
         return quantite;
     }
 
-    public void setQuantite(double quantite) {
+    public void setQuantite(double quantite)throws Exception {
+        if(this.getMode().equals("modif") && quantite<=0){
+            throw new Exception("quantite invalide");
+        }
         this.quantite = quantite;
     }
 
@@ -845,7 +848,10 @@ public class FactureClientDetails extends ClassFille {
         return pu;
     }
 
-    public void setPu(double pu) {
+    public void setPu(double pu)throws Exception {
+        if(this.getMode().equals("modif") && pu<=0){
+            throw new Exception("pu invalide");
+        }
         this.pu = pu;
     }
 
