@@ -19,6 +19,42 @@ public class MvtIntraCaisseTraite extends MvttIntraCaisse{
     private Date dateecheance;
     private double montanttraite;
     private String finaledestinationlib;
+    private String reference;
+    private String tiers;
+    private String codeclient;
+    private String facture;
+
+    public String getFacture() {
+        return facture;
+    }
+
+    public void setFacture(String facture) {
+        this.facture = facture;
+    }
+
+    public String getCodeclient() {
+        return codeclient;
+    }
+
+    public void setCodeclient(String codeclient) {
+        this.codeclient = codeclient;
+    }
+
+    public String getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(String tiers) {
+        this.tiers = tiers;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
 
     public void setDatetraite (Date datetraite){
         this.datetraite = datetraite;

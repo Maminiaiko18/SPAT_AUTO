@@ -23,6 +23,7 @@
         if(request.getParameter("montanttotaljc")!=null)montantTotalJc=Double.valueOf(request.getParameter("montanttotaljc"));
         pr.setAWhere(" and montantreste > 0 and etat = 11 and montantreste>="+montantTotalJc);
     }
+    pr.setOrdre(" order by dateEcheance asc");
         
     pr.setChampReturn(champReturn);
     String[] colSomme = null;

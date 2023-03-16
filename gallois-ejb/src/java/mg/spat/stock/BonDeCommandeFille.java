@@ -304,7 +304,7 @@ public class BonDeCommandeFille extends ClassMAPTable {
         this.setNomTable("AS_BONDECOMMANDE_FILLE");
     }
 
-    public BonDeCommandeFille(String produit, String idbc, String remarque, double prixu, double qtepack, double qte) {
+    public BonDeCommandeFille(String produit, String idbc, String remarque, double prixu, double qtepack, double qte)throws Exception {
         this.setNomTable("AS_BONDECOMMANDE_FILLE");
         this.setProduit(produit);
         this.setIdbc(idbc);
@@ -314,7 +314,7 @@ public class BonDeCommandeFille extends ClassMAPTable {
         this.setQuantite(qte);
         this.setMontant(pu * quantite);
     }
-    public BonDeCommandeFille(String produit, String idbc, String remarque, double prixu, double qtepack, double qte,String unite,double tva) {
+    public BonDeCommandeFille(String produit, String idbc, String remarque, double prixu, double qtepack, double qte,String unite,double tva)throws Exception {
         this.setNomTable("AS_BONDECOMMANDE_FILLE");
         this.setProduit(produit);
         this.setIdbc(idbc);
@@ -360,7 +360,10 @@ public class BonDeCommandeFille extends ClassMAPTable {
         return quantite;
     }
 
-    public void setQuantite(double quantite) {
+    public void setQuantite(double quantite)throws Exception {
+        if(this.getMode().equals("modif") && quantite<=0){
+            throw new Exception("quantite invalide");
+        }
         this.quantite = quantite;
     }
 
@@ -368,7 +371,10 @@ public class BonDeCommandeFille extends ClassMAPTable {
         return pu;
     }
 
-    public void setPu(double pu) {
+    public void setPu(double pu)throws Exception {
+        if(this.getMode().equals("modif") && pu<=0){
+            throw new Exception("pu invalide");
+        }
         this.pu = pu;
     }
 
