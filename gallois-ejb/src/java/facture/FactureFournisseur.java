@@ -701,7 +701,7 @@ public class FactureFournisseur extends FactureClient {
                 this.setMontant(ff.getMontant());
                 //si provision dia tsy engagena
                 System.out.println("ityy "+ this.getIdcategorie()+" and "+Constante.idBonProvisoire);
-                if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0) this.insertEngagement(u, c);
+                if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0) this.insertEngagement(u, true,c);
             }
         }
         this.setNomTable("facture_fournisseur_mere");
@@ -709,7 +709,7 @@ public class FactureFournisseur extends FactureClient {
         return this;
     }
 
-    public Object validerSansControleResteEngagement(String u) throws Exception {
+    public Object validerSansControleResteEngagement(String u,boolean controleMontant) throws Exception {
         Connection c = null;
         try {
             c = new UtilDB().GetConn();
@@ -722,6 +722,15 @@ public class FactureFournisseur extends FactureClient {
             if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
                 this.genererPaiementDefinitive(u, this.getIdProvision(), c);
             }
+
+            if (this.getIdengagement() == null && this.getIdbc() == null) {
+                FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+                this.setMontant(ff.getMontant());
+                //si provision dia tsy engagena
+                System.out.println("ityy "+ this.getIdcategorie()+" and "+Constante.idBonProvisoire);
+                if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0) this.insertEngagement(u, controleMontant,c);
+            }
+
             this.setNomTable("facture_fournisseur_mere");
             super.validerObject(u, c);
             c.commit();
@@ -919,7 +928,7 @@ public class FactureFournisseur extends FactureClient {
         return retour;
     }
 
-    public void insertEngagement(String u, Connection c) throws Exception {
+    public void insertEngagement(String u, boolean controleMontant,Connection c) throws Exception {
         int verif = 0;
         try {
             if (c == null) {
@@ -945,7 +954,8 @@ public class FactureFournisseur extends FactureClient {
                 engFille.insertToTableWithHisto(u, c);
             }
 
-            engagement.validerObject(u, c);
+            if(controleMontant)engagement.validerObject(u, c);
+            else engagement.validerObjectSansControleMontant(u, c);
 
             this.setIdengagement(engagement.getTuppleID());
 
