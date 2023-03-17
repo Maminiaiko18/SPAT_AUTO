@@ -906,7 +906,9 @@ public class EtatPaieServlet extends HttpServlet {
                     " order by NUMPIECE ASC  ");
 
             PayementFacture[] tabFact = null;
-            String idFacture = request.getParameter("idFacture");
+
+            String idFacture="";
+            if(request.getParameter("idFacture")!=null) idFacture = request.getParameter("idFacture").split(";")[0];
 
             if (tabJournal.length > 0) {
                 // requete = "select * from factureclientmsum_lib where id in
