@@ -1547,7 +1547,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 String id = Utilitaire.tabToString(listeIdObjet, "'", ",");
                 JournalCaisse[] tJournalCaisse = (JournalCaisse[]) CGenUtil.rechercher(new JournalCaisse(), null, null, c, " and id in (" + id + ")");
                 for (int i = 0; i < tJournalCaisse.length; i++) {
-                    if (tJournalCaisse[0].getDateEffet() != tJournalCaisse[i].getDateEffet()) {
+                    if (tJournalCaisse[0].getDateEffet().compareTo(tJournalCaisse[i].getDateEffet())!=0) {
                         throw new Exception("Impossible de viser sur des dates differentes");
                     }
                 }
