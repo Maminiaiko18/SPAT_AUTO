@@ -10,7 +10,11 @@
     try{
         JournalCaisse journal = new JournalCaisse();
         journal.setNomTable("journalcaisselibrecetteBanqueT");
-        if (request.getParameter("mode") != null)  journal.setNomTable("JOURNALCAISSELIBRECETTE");
+        String suiteReq = "";
+        if (request.getParameter("mode") != null)  {
+            suiteReq = " AND ETAT = 11";
+            journal.setNomTable("JOURNALCAISSELIBRECETTE");
+        }
         if (request.getParameter("table") != null) journal.setNomTable(request.getParameter("table"));
           String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement"};
         String listeInt[] = {"dateEffet"};
@@ -26,6 +30,7 @@
         pr.getFormu().getChamp("libelle").setLibelle("Libell�");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pr.getFormu().getChamp("valcaisse").setLibelle("Banque");
+        pr.setAWhere(suiteReq);
 
         String[] colSomme = {"credit"};
         pr.creerObjetPage(libEntete, colSomme);
