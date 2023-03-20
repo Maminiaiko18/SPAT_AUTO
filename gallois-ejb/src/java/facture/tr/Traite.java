@@ -245,6 +245,27 @@ public class Traite extends ClassEtat {
         }
     }
 
+    public FactureClient[] getFactureAttacher(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            FactureClient fact = new FactureClient();
+            fact.setNomTable("TRAITE_FCsum");
+            fact.setIdtraite(this.getId());
+            return (FactureClient[]) CGenUtil.rechercher(fact, null, null, c, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
     public FactureClient[] getFactureLiees(Connection c) throws Exception {
         int verif = 0;
         try {
@@ -405,6 +426,7 @@ public class Traite extends ClassEtat {
             String aWhere = " AND id in ("+Utilitaire.tabToString(tId, "'", ",")+")";
             Traite[] listeTraite = (Traite[])CGenUtil.rechercher(traite, null, null, c, aWhere);
             for(int i=0;i<listeTraite.length;i++){
+                if(listeTraite[i].getFactureAttacher(c).length == 0 ) throw new Exception("Impossible de verser, pas encore de facture attacher à ce traite ID("+listeTraite[i].getId()+")");
 //                listeTraite[i].setIdfinaledestination(finaldestination);
                 listeTraite[i].setDaty(this.getDaty());
                 listeTraite[i].verser(u, c);
@@ -440,6 +462,7 @@ public class Traite extends ClassEtat {
             Traite[] listeTraite = (Traite[])CGenUtil.rechercher(traite, null, null, c, aWhere);
             for(int i=0;i<listeTraite.length;i++){
 //                listeTraite[i].setIdfinaledestination(finaldestination);
+                if(listeTraite[i].getFactureAttacher(c).length == 0 ) throw new Exception("Impossible de verser, pas encore de facture attacher à ce traite ID("+listeTraite[i].getId()+")");
                 listeTraite[i].verser(u,date, c);
             }
         }
