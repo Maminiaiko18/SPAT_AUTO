@@ -54,12 +54,19 @@
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
         
-          Liste[] listes= new Liste[1];
+          Liste[] listes= new Liste[2];
         TypeObjet type = new TypeObjet();
         type.setNomTable("rubrique_fact_emises");
         listes[0] = new Liste("codeFiltre", type, "desce", "val");
+
+        TypeObjet cat = new TypeObjet();
+        cat.setNomTable("CATEGORIEFC");
+        listes[1] = new Liste("categorielib", cat, "desce", "val");
+
         pr.getFormu().changerEnChamp(listes);
         pr.getFormu().getChamp("codeFiltre").setLibelle("Rubriques");
+        pr.getFormu().getChamp("categorielib").setLibelle("Catégories");
+
         
         String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
         pr.creerObjetPage(libEntete, colSomme);
