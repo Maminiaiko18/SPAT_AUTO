@@ -7,6 +7,8 @@ package mg.spat;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import facture.tr.Traite;
+
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.Constante;
@@ -22,7 +24,15 @@ public class MvttIntraCaisse extends ClassEtat {
 
     private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite,caissedepartlib,caissearriveelib,modepaiementlib,etatlib;
     private Date daty, dateecheance;
+    private Traite traite;
     
+    public Traite getTraite() {
+        return traite;
+    }
+    public void setTraite(Traite traite) {
+        this.traite = traite;
+    }
+
     private double montant;
     private  JournalCaisse[] listeJournal;
     int etatversement;
@@ -265,14 +275,15 @@ public class MvttIntraCaisse extends ClassEtat {
         sortie.createObject(u, c);
         sortie.validerObject(u, c);
         
-        JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, "Reception Caisse Effet à recevoir", null, Utilitaire.dateDuJourSql(), this.getDaty(), 0, this.getMontant());
+        JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, "REF : '"+this.getTraite().getReference() +"' -- Reception Traite dans Effet à recevoir", null, Utilitaire.dateDuJourSql(), this.getDaty(), 0, this.getMontant());
+        entree.setTiers(this.getTraite().getTiers());
         entree.setIddevise(Constante.deviseAr);
         entree.setIdmode(this.getModepaiement());
         entree.setIdtraite(this.getIdTraite());
         entree.setEtatversement(this.getEtatversement());
 
         entree.createObject(u, c);
-//        entree.validerObject(u, c);
+        entree.validerObject(u, c);
         
         this.setEtatversement(ConstanteEtat.getEtatValider());
         
@@ -280,7 +291,7 @@ public class MvttIntraCaisse extends ClassEtat {
     }
     
     public Object validerObjectEncaissement(String u, Connection c) throws Exception {
-        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, "Transefert Caisse Effet à recevoir vers Caisse Banque", null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
+        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, "Transfert Caisse Effet à recevoir vers Caisse Banque", null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
         sortie.setIddevise(Constante.deviseAr);
         sortie.setIdmode(this.getModepaiement());
         sortie.setIdtraite(this.getIdTraite());
@@ -289,7 +300,7 @@ public class MvttIntraCaisse extends ClassEtat {
         sortie.setRemarque(this.getRemarque());
 
         sortie.createObject(u, c);
-//        sortie.validerObject(u, c);
+        sortie.validerObject(u, c);
         
         JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, "Encaissement De la traite N°"+this.getIdTraite(), null, Utilitaire.dateDuJourSql(), this.getDaty(), 0, this.getMontant());
         entree.setIddevise(Constante.deviseAr);
@@ -300,7 +311,7 @@ public class MvttIntraCaisse extends ClassEtat {
         entree.setRemarque(this.getRemarque());
 
         entree.createObject(u, c);
-//        entree.validerObject(u, c);
+        entree.validerObject(u, c);
         
         this.setEtatversement(ConstanteEtat.getEtatValider());
         

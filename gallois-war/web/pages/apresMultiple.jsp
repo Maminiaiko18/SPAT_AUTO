@@ -297,7 +297,6 @@
             traite.avantVerser(tId, u.getUser().getTuppleID(), request.getParameter("idcaisse"),request.getParameter("date"), null);
         }
         if(acte.equals("viserTraiteSimple")){
-            System.out.println("viserTraiteSimple");
             Traite traite=new Traite();
             Date daty = Utilitaire.stringDate(request.getParameter("daty"));
             traite.setDaty(daty);
