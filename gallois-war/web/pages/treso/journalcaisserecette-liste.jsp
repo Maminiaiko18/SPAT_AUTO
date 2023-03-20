@@ -14,9 +14,11 @@
             journalCaisse.setNomTable(request.getParameter("etatvue"));
         }
 
-        String listeCrt[] = {"id", "folio", "valcaisse", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "numeroOP", "tierslib","idbanquelib","numPiece"};
+        System.out.println("tablename"+journalCaisse.getNomTable());
+
+        String listeCrt[] = {"id", "folio", "valcaisse", "libelle", "remarque", "dateEffet", "idtypecheque", "codefacture", "descecaisse", "tierslib","idbanquelib","numPiece"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "debit", "idplacement", "numeroOP", "tierslib","codetiers","idbanquelib"};
+        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "codefacture", "tierslib","codetiers","idbanquelib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -39,10 +41,9 @@
         pr.getFormu().getChamp("valcaisse").setLibelle("Caisse");
         pr.getFormu().getChamp("valcaisse").setDefaut("RECETTES");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
-        pr.getFormu().getChamp("numeroOP").setLibelle("Num&eacute;ro OP");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("idbanquelib").setLibelle("Banque");
-        String[] colSomme = {"credit", "debit"};
+        String[] colSomme = {"credit"};
         pr.creerObjetPage(libEntete, colSomme);
 
 %>
@@ -67,7 +68,7 @@
                         <option value="JOURNALCAISSELIB_PROVISION" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_PROVISION") == 0) {
                                 out.print("selected");
                             }%>>Provisions</option>
-                        <option value="JOURNALCAISSELIB_TOUS" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_TOUS") == 0) {
+                        <option value="etatjournalcaisselibrecette" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("etatjournalcaisselibrecette") == 0) {
                                 out.print("selected");
                             }%>>Tous</option>
                     </select>
@@ -88,7 +89,7 @@
             <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
             <input type="hidden" name="acte" value="viser"/>
             <%
-                String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "num cheque", "Libellé", "Date Saisie", "Date Effet", "Entrée", "Sortie", "Source", "Num&eacute;ro OP", "Tiers","Codetiers","Banque"};
+                String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "num cheque", "Libellé", "Date Saisie", "Date Effet", "Entrée", "Facture", "Tiers","Codetiers","Banque","codefacture"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");

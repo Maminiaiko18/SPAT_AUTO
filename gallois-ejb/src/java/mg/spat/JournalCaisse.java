@@ -44,10 +44,19 @@ public class JournalCaisse extends ClassEtat {
     private double sommeCredit, sortie, entree;
     private String banque,type;
     private String descecaisse, idcaisse,numeroOP,idplacementvrai,bonprovisoire;
-    
+    public String codefacture;
+
     String idtraite;
     int etatversement;
     String idfinaledestination, etatlib, etatversementlib;
+    
+    public String getCodefacture() {
+        return codefacture;
+    }
+
+    public void setCodefacture(String codefacture) {
+        this.codefacture = codefacture;
+    }
 
     public String getTypelib() {
         return typelib;

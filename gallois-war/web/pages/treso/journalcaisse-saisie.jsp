@@ -66,14 +66,20 @@
         affichage.Liste[] liste = new affichage.Liste[5];
 
         TypeObjet esc = new TypeObjet();
+        boolean estCasisseDep = false;
         if (request.getParameter("caisse") != null) {
+            if(request.getParameter("caisse").compareToIgnoreCase("CAISSEDEPENSE")==0){
+                estCasisseDep = true;
+            }
             esc.setNomTable(request.getParameter("caisse"));
         } else {
             esc.setNomTable("CAISSE");
         }
 
         liste[0] = new Liste("caisse", esc, "VAL", "id");
-        liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
+            liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
+
+        
         TypeObjet cheque = new TypeObjet();
         cheque.setNomTable("TYPECHEQUE");
         liste[1] = new Liste("idTypeCheque", cheque, "VAL", "id");
@@ -90,6 +96,7 @@
             mode.setNomTable(request.getParameter("idmode"));
         }
         liste[3] = new Liste("idmode", mode, "desce", "id");
+        if(estCasisseDep)  liste[3].setDefaultSelected(Constante.modeRecetteCaisseDepense);
 
         TypeObjet banq = new TypeObjet();
         banq.setNomTable("BANQUE");
