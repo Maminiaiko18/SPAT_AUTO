@@ -2581,6 +2581,8 @@ public class FactureClient extends ClassMere {
         JournalCaisse journalCaisse =  new JournalCaisse(null, Constante.caisseCentraleBP,null , "Régularisation facture à partir avoir "+avoirFC.getId(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, montant);
         journalCaisse.setIdplacement(this.getId());
         journalCaisse.setTiers(this.getTiers());
+        journalCaisse.setIdmode(Constante.modePaiementEspece);
+        journalCaisse.setIdTypeCheque(Constante.getTypeACredit());
         journalCaisse.createObject(u, con);
         journalCaisse.validerObject(u, con);
         PaiementFacture paiementFacture = new PaiementFacture(journalCaisse.getId(),this.id,montant);

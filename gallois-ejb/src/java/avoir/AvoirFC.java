@@ -504,6 +504,8 @@ public class AvoirFC extends ClassMere {
         JournalCaisse jc =  new JournalCaisse(null, Constante.caisseCentraleBP,null , remarque, null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), montant, 0);
         jc.setTiers(this.getTiers());
         jc.setIdordre(op.getId());
+        jc.setIdmode(Constante.modePaiementEspece);
+        jc.setIdTypeCheque(Constante.getTypeACredit());
         jc.createObject(u, con);
         jc.validerObject(u, con);
         lierJournalCaisse(jc,u,con);
