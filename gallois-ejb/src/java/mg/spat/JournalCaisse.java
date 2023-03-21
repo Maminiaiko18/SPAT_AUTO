@@ -1360,7 +1360,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
 //            if(sortie > 0){
 //                dateDuJour = Utilitaire.ajoutJourDate(dateDuJour, -1);
 //            }
-            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, "Transfert bon provisoire", null, dateRegul, this.getDateEffet(), sortie, entree,this.getIdplacement());
+            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null,this.getLibelle(), null, dateRegul, this.getDateEffet(), sortie, entree,this.getIdplacement());
+            transfert.setTiers(this.getTiers());
             transfert.setIddevise(this.getIddevise());
             transfert.setIdmode(this.getIdmode());
             transfert.setEtat(ConstanteEtat.getEtatValider());
