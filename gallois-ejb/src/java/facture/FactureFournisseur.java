@@ -903,7 +903,7 @@ public class FactureFournisseur extends FactureClient {
             c = (new UtilDB()).GetConn();
             OrdonnerPayement op = findOP(null, c);
             if (op != null) {
-                throw new Exception("Impossible, OP existant");
+                throw new Exception("Impossible, OP existant et OP déjà visé");
             }
 
             LiaisonIntraTable[] liaisons = findLiaisonIntratable(c);
