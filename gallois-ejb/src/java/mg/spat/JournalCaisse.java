@@ -1585,7 +1585,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if(idOPs!=null && idOPs.length()>0){
                 String[]tabOps= idOPs.split(";");
                 String OpConditionRequeste= Utilitaire.tabToString(tabOps, "'", ",");
-                String query = String.format("and id in (%c)",OpConditionRequeste);
+                String query = String.format("and id in (%s)",OpConditionRequeste);
                 OrdonnerPayement[] ordonnerPayement = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, connection, query);
                 for(int i=0;i<ordonnerPayement.length;i++){
                     PaiementOP paiementOP = new PaiementOP(ordonnerPayement[i].getId(),this.getId(),ordonnerPayement[i].getMontant());

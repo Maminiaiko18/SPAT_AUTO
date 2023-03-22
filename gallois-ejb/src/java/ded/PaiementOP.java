@@ -18,6 +18,7 @@ public class PaiementOP extends ClassMAPTable{
     private double montant;
 
     public PaiementOP(String idop, String idmvt, double montant) {
+        this.setNomTable("PaiementOP");
         this.setIdop(idop);
         this.setIdmvt(idmvt);
         this.setMontant(montant);
@@ -66,7 +67,7 @@ public class PaiementOP extends ClassMAPTable{
     }
     
     public void construirePK(Connection c) throws Exception {
-        this.preparePk("POP", "getseqpaiemntop");
+        this.preparePk("POP", "getseqpaiementop");
         this.setId(makePK(c));
     }
     

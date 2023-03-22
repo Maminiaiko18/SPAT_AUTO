@@ -30,6 +30,7 @@
         String idOP = request.getParameter("id");
         String idplacement = request.getParameter("idplacement");
         String idmvtcaisse = request.getParameter("idmvtcaisse");
+        String idOPs = request.getParameter("idOPs");
 
         if(request.getParameter("credit")!=null)pi.getFormu().getChamp("credit").setDefaut(request.getParameter("credit"));
 
@@ -254,6 +255,9 @@
         <input name="classe" type="hidden" id="classe" value="mg.allosakafo.fin.MvtCaisse">
         <%if(idmvtcaisse!=null){%>
             <input name="idmvtcaisse" type="hidden" id="idmvtcaisse" value="<%=idmvtcaisse%>">
+        <%}%>
+        <%if(idOPs!=null){%>
+            <input name="idOPs" type="hidden" id="idOPs" value="<%=idOPs%>">
         <%}%>
         <!--<input name="nomtable" type="hidden" id="nomtable" value="journalcaisse">-->
         <div>

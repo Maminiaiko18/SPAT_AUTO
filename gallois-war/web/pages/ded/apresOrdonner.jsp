@@ -59,7 +59,7 @@
                     String[] ids = request.getParameterValues("id");
                     String[] idOps = OrdonnerPayement.getFacturesOPs(null, ids);
     %>
-    <script language="JavaScript"> document.location.replace("<%=lien%>?but=treso/journalcaisse-saisie.jsp&idFacturesF=<%=Utilitaire.tabToString(idOps, "", ";")%>");</script>
+    <script language="JavaScript"> document.location.replace("<%=lien%>?but=treso/journalcaisse-saisie.jsp&idFacturesF=<%=Utilitaire.tabToString(idOps, "", ";")%>&idOPs=<%=Utilitaire.tabToString(ids, "", ";")%>");</script>
     <% }
 
     int type = Utilitaire.stringToInt(typeBoutton);
