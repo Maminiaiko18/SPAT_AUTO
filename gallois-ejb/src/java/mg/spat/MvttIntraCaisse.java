@@ -250,7 +250,7 @@ public class MvttIntraCaisse extends ClassEtat {
         sortie.setEtatversement(this.getEtatversement());
 
         sortie.createObject(u, c);
-//        sortie.validerObject(u, c);
+        sortie.validerObject(u, c);
         
         JournalCaisse entree = new JournalCaisse(null, this.getCaissearrivee(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), 0, this.getMontant());
         entree.setIddevise(Constante.deviseAr);
@@ -259,7 +259,7 @@ public class MvttIntraCaisse extends ClassEtat {
         entree.setEtatversement(this.getEtatversement());
 
         entree.createObject(u, c);
-//        entree.validerObject(u, c);
+        entree.validerObject(u, c);
         
         this.setEtatversement(ConstanteEtat.getEtatValider());
         
