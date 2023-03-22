@@ -17,6 +17,12 @@ public class PaiementOP extends ClassMAPTable{
     private String id, idop, idmvt;
     private double montant;
 
+    public PaiementOP(String idop, String idmvt, double montant) {
+        this.setIdop(idop);
+        this.setIdmvt(idmvt);
+        this.setMontant(montant);
+    }
+    
     @Override
     public String getTuppleID() {
         return id;
