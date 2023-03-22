@@ -1,0 +1,1 @@
+ant -f build-exploded-application.xml
