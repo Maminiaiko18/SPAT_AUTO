@@ -1580,7 +1580,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 connection.setAutoCommit(false);
                 ouvert = true;
             }
-            
+            this.setEtat(ConstanteEtat.getEtatCreer());
             this.createObject(userId, connection);
             if(idOPs!=null && idOPs.length()>0){
                 String[]tabOps= idOPs.split(";");
