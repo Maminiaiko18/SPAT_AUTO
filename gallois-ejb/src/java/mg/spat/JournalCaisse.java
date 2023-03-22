@@ -1592,7 +1592,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     paiementOP.createObject(userId,connection);
                 }
             }
-            
+            connection.commit();
         }
         catch(SQLException exception){
             connection.rollback();
