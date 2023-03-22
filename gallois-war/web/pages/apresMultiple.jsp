@@ -3,6 +3,7 @@
     Created on : Oct 19, 2018, 2:55:36 PM
     Author     : Jerry
 --%>
+<%@page import="facture.FactureFournisseur"%>
 <%@page import="facture.PaiementFacture"%>
 <%@page import="facture.tr.Traite"%>
 <%@page import="factureclient.FactureClientDetail"%>
@@ -310,6 +311,21 @@
             PageInsertMultiple p = new PageInsertMultiple(mere, fille, request, nbLine, tId);
             ClassMAPTable[] cfille = p.getObjectFilleAvecValeur();
             PaiementFacture.genererPaiementFacture((PaiementFacture[])cfille,u.getUser().getTuppleID(),request.getParameter("idmvt"));
+        }
+        if (acte != null && acte.compareToIgnoreCase("updateInsertFactureFournisseur") == 0) {
+            mere = (ClassMAPTable) (Class.forName(classe).newInstance());
+            fille = (ClassMAPTable) (Class.forName(classefille).newInstance());
+            PageUpdateMultiple p = new PageUpdateMultiple(mere, fille, request, nbLine, tId);
+            ClassMAPTable cmere = p.getObjectAvecValeur();
+            ClassMAPTable[] cfille = p.getObjectFilleAvecValeur();
+            for (int i = 0; i < cfille.length; i++) {
+                cfille[i].setNomTable(nomtable);
+            }
+            FactureFournisseur ff = ((FactureFournisseur)mere).updateObjectMultiple(cmere, colonneMere, cfille, u);
+            if (ff != null) {
+                val = ff.toString();
+                idmere = ff.getTuppleID();
+            }
         }
         if (rajoutLien != null) {
 

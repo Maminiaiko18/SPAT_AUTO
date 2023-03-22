@@ -605,6 +605,7 @@ public class FactureFournisseur extends FactureClient {
             Date dateDuJour = this.getDateRegul();
             FactureFournisseur bp = (FactureFournisseur)(new FactureFournisseur()).getById(this.getIdProvision(), "factfourn_msum_lib_fiche", con);
             JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, bp.getDesignation() , null, dateDuJour, dateDuJour, montant, 0, this.getId());
+            transfert.setTiers(this.getTiers());
             transfert.setIddevise(this.getDeviseMere());
             transfert.setIdmode(Constante.modePaiementEspece);
             transfert.setEtat(ConstanteEtat.getEtatValider());
@@ -1002,4 +1003,40 @@ public class FactureFournisseur extends FactureClient {
         return retour;
     }
 
+        
+    public FactureFournisseur updateObjectMultiple(ClassMAPTable mere, String colonneMere, ClassMAPTable[] fille, UserEJB u) throws Exception {
+        FactureFournisseur ff = null;
+        Connection c = null;
+        int verif = 0;
+        
+        try{
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            verif = 1;
+            ff = (FactureFournisseur) u.updateObjectMultiple(mere, colonneMere, fille, c);
+            FactureFournisseur ffsum = (FactureFournisseur) (new FactureFournisseur()).getById(this.getId(), "factfourn_msum_lib_fiche", c);
+            OrdonnerPayement op = new OrdonnerPayement();
+            OrdonnerPayement[] ops = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, String.format(" and ded_id = '%s'", this.getId()));
+            if(ops.length > 0){
+                op = ops[0];
+                if(ffsum.getMontantttc() != op.getMontant()){
+                    op.setMontant(ffsum.getMontantttc());
+                    u.updateObject(op, c);
+                }
+            }
+            
+            c.commit();
+        }
+        catch(Exception e){
+            c.rollback();
+            throw e;
+        }
+        finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        
+        return ff;
+    }
 }

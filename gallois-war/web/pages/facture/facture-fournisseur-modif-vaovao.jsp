@@ -210,7 +210,7 @@
                 </div>
             </div>
 
-            <input name="acte" type="hidden" id="nature" value="updateInsert">
+            <input name="acte" type="hidden" id="nature" value="updateInsertFactureFournisseur">
             <input name="bute" type="hidden" id="bute" value="<%= buteLien%>?id=<%=request.getParameter("id")%>">
             <input name="classe" type="hidden" id="classe" value="<%= classeMere%>">
             <input name="classefille" type="hidden" id="classefille" value="<%= classeFille%>">
