@@ -4,6 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="comptes" class="java.lang.String"/>
+	<parameter name="daty" class="java.lang.String"/>
 	<field name="ingredients" class="java.lang.String"/>
 	<field name="report" class="java.lang.Double"/>
 	<field name="entree" class="java.lang.Double"/>
@@ -46,7 +47,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["SITUATION COMPTES "+$P{comptes}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["SITUATION COMPTES "+$P{comptes} + " "+$P{daty}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="375" y="35" width="90" height="15" uuid="9871d90e-3633-49d5-a20f-c1ccf1ce1520"/>
