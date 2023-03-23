@@ -825,4 +825,34 @@ public class OrdonnerPayement extends ClassEtat {
     public void controler(Connection c) throws Exception {
         this.controlerMotantFF(c);
     }
+    
+    public void annulerOP(String refUser, Connection c) throws Exception {
+        boolean verif = false;
+        try{
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = true;
+            }
+            OrdonnerPayement op = (OrdonnerPayement)(new OrdonnerPayement()).getById(this.getId(), "ordonnerpayement", c);
+            op.annuler(c);
+            LiaisonIntraTable[] lt = (LiaisonIntraTable[]) CGenUtil.rechercher(new LiaisonIntraTable(), null, null, c, " and id2='"+this.getId()+"'");
+            for(int i = 0; i<lt.length; i++){
+                lt[i].deleteToTableWithHisto(refUser, c);
+            }
+                
+            if(verif) c.commit();
+        }
+        catch(Exception e){
+            if (c != null && verif == true) {
+                c.rollback();
+            }
+            throw e;
+        }
+        finally {
+            if (c != null && verif == true) {
+                c.close();
+            }
+        }
+    }
 }

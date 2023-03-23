@@ -74,6 +74,7 @@
                             <a class="btn btn-primary pull-primary"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&id=" + id%>"  style="margin-right: 10px">sortie caisse</a>
                             <a class="btn btn-primary pull-primary"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&id=" + a.getId()%>" style="margin-right: 10px">Sortie banque</a>
                     <%}%>
+                        <a class="btn btn-danger pull-left"  href="<%=(String) session.getValue("lien") + "?but=ded/apresOrdonner.jsp&acte=annuler&classe=ded.OrdonnerPayement&bute=ded/ordonnerpayement-fiche.jsp&id=" + id%>"  style="margin-right: 10px">Annuler</a>
                     </div>
                     <div>
                         <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + id + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=ded/ordonnerpayement-fiche.jsp&id=" + id%>" style="margin-right: 10px">Attacher Fichier</a> 
