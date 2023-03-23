@@ -4,6 +4,7 @@ import java.sql.Connection;
 import modules.GestionMessage;
 import user.UserEJBBean;
 import utilitaire.UtilDB;
+import mg.spat.JournalCaisse;
 
 /**
  *
@@ -12,6 +13,12 @@ import utilitaire.UtilDB;
 public class Main {
     public static void main(String[] args)throws Exception{
         
-//        System.out.println("TAILLE : "+u.getMessageHeader().length);
+        try{
+            JournalCaisse journalcaisse = new JournalCaisse();
+            
+        }
+        catch(Exception exception){
+            throw exception;
+        }
     }
 }

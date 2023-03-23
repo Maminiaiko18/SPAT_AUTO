@@ -608,7 +608,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             Map param = new HashMap();
             param.put("total", total);
-
+            param.put("daty", daty1);
             List dataSources = new ArrayList();
             RecapitulatifComptesSubReport sub = new RecapitulatifComptesSubReport(Arrays.asList(recapitulatifComptes),
                     Arrays.asList(recapitulatifPlacement), tabCaisse, tabBanqueDevise, Arrays.asList(placementAr),

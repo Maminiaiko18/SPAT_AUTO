@@ -96,13 +96,16 @@
                     id =mvtcaisse.encaisserTraite(u.getUser().getRefuser()+"",(JournalCaisse)p.getObjectAvecValeur());
                 }else{
                     f.setNomTable(nomtable);
-                    JournalCaisse o = (JournalCaisse) u.createObject(f);
+                    String idOPs = request.getParameter("idOPs");
+                    JournalCaisse o = (JournalCaisse)f;
+                    o.createObjectWithOP(u.getUser().getTuppleID(), idOPs);
 
                     if(request.getParameter("factureAuto") != null) o.genererFacture(null, u.getUser().getRefuser()+"", compte, annee, mois, tva);
                     temp = (Object) o;
                     if (o != null) {
                         id = o.getTuppleID();
                     }
+                    
                 }
                 
             }

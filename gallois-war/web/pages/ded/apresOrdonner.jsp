@@ -59,7 +59,7 @@
                     String[] ids = request.getParameterValues("id");
                     String[] idOps = OrdonnerPayement.getFacturesOPs(null, ids);
     %>
-    <script language="JavaScript"> document.location.replace("<%=lien%>?but=treso/journalcaisse-saisie.jsp&idFacturesF=<%=Utilitaire.tabToString(idOps, "", ";")%>");</script>
+    <script language="JavaScript"> document.location.replace("<%=lien%>?but=treso/journalcaisse-saisie.jsp&idFacturesF=<%=Utilitaire.tabToString(idOps, "", ";")%>&idOPs=<%=Utilitaire.tabToString(ids, "", ";")%>");</script>
     <% }
 
     int type = Utilitaire.stringToInt(typeBoutton);
@@ -214,6 +214,13 @@
 /*            if (o != null) {
                 id = o.getTuppleID();
             }*/
+        }
+
+        if (acte.compareToIgnoreCase ("annuler") == 0) { 
+            t = (ClassMAPTable) (Class.forName(classe).newInstance());
+            t.setValChamp(t.getAttributIDName(), request.getParameter("id"));
+            OrdonnerPayement op = (OrdonnerPayement)t;
+            op.annulerOP(u.getUser().getTuppleID(), null);
         }
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>

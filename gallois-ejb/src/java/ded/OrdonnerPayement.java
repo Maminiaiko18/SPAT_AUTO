@@ -439,6 +439,8 @@ public class OrdonnerPayement extends ClassEtat {
         if(factures.length>0){
             this.setMontant(AdminGen.calculSommeDouble(factures, "montantreste"));
         }*/
+        this.construirePK(c);
+        this.gererFF( u, c);
         this.setNumeroop(genererNumeroOP(c));
         this.checkDoublonNumeroOP(c);
         return super.createObject(u, c);
@@ -624,7 +626,7 @@ public class OrdonnerPayement extends ClassEtat {
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("OP Deja valide");
             }
-            this.gererFF( u, c);
+            //this.gererFF( u, c);
             this.gererAvoirFC( u, c);
             
             super.validerObject(u, c);
@@ -822,5 +824,35 @@ public class OrdonnerPayement extends ClassEtat {
     @Override
     public void controler(Connection c) throws Exception {
         this.controlerMotantFF(c);
+    }
+    
+    public void annulerOP(String refUser, Connection c) throws Exception {
+        boolean verif = false;
+        try{
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = true;
+            }
+            OrdonnerPayement op = (OrdonnerPayement)(new OrdonnerPayement()).getById(this.getId(), "ordonnerpayement", c);
+            op.annuler(c);
+            LiaisonIntraTable[] lt = (LiaisonIntraTable[]) CGenUtil.rechercher(new LiaisonIntraTable(), null, null, c, " and id2='"+this.getId()+"'");
+            for(int i = 0; i<lt.length; i++){
+                lt[i].deleteToTableWithHisto(refUser, c);
+            }
+                
+            if(verif) c.commit();
+        }
+        catch(Exception e){
+            if (c != null && verif == true) {
+                c.rollback();
+            }
+            throw e;
+        }
+        finally {
+            if (c != null && verif == true) {
+                c.close();
+            }
+        }
     }
 }
