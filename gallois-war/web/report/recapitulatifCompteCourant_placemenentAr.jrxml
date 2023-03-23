@@ -14,24 +14,26 @@
 		<band splitType="Stretch"/>
 	</background>
 	<columnHeader>
-		<band height="15" splitType="Stretch">
+		<band height="13" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="555" height="15" uuid="81b0ef8d-aa9e-455a-b082-2deafd5d82b1"/>
+				<reportElement x="0" y="0" width="555" height="12" uuid="81b0ef8d-aa9e-455a-b082-2deafd5d82b1"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA["PLACEMENT EN "+$P{placement}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="15" splitType="Stretch">
+		<band height="12" splitType="Stretch">
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="280" height="15" uuid="58b924e1-856b-4eb4-9641-68e03315ed5e"/>
+				<reportElement x="0" y="0" width="280" height="12" uuid="58b924e1-856b-4eb4-9641-68e03315ed5e"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -39,12 +41,13 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement verticalAlignment="Middle" markup="none">
+					<font size="9"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ingredients}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="280" y="0" width="275" height="15" uuid="acbaf3e1-bac9-45ed-a948-6688f9f5ece7"/>
+				<reportElement x="280" y="0" width="275" height="12" uuid="acbaf3e1-bac9-45ed-a948-6688f9f5ece7"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -52,6 +55,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9"/>
 					<paragraph leftIndent="3" rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantStock}]]></textFieldExpression>
@@ -59,9 +63,9 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="15" splitType="Stretch">
+		<band height="13" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="280" height="15" uuid="f3ba1edd-31f4-4b0a-84ba-f61c71f0202f"/>
+				<reportElement x="0" y="0" width="280" height="13" uuid="f3ba1edd-31f4-4b0a-84ba-f61c71f0202f"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -69,12 +73,13 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA["TOTAL"+$P{devise}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="280" y="0" width="275" height="15" uuid="c57d6da6-9520-4985-8e65-1a541875b7fe"/>
+				<reportElement x="280" y="0" width="275" height="13" uuid="c57d6da6-9520-4985-8e65-1a541875b7fe"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -82,6 +87,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="true"/>
 					<paragraph leftIndent="3" rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{montant}]]></textFieldExpression>

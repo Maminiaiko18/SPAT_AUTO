@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="recapitulatifCompteCourant_courant" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ec9c6931-440a-4133-b0fb-a670503d2040">
 	<property name="ireport.zoom" value="1.948717100000005"/>
-	<property name="ireport.x" value="149"/>
+	<property name="ireport.x" value="350"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="type" class="java.lang.String"/>
 	<field name="ingredients" class="java.lang.String"/>
@@ -13,9 +13,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="15" splitType="Stretch">
+		<band height="12" splitType="Stretch">
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="370" height="15" uuid="a4ac40c0-57a2-4e36-a581-f7a953992e9d"/>
+				<reportElement x="0" y="0" width="370" height="12" uuid="a4ac40c0-57a2-4e36-a581-f7a953992e9d"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -23,12 +23,13 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement verticalAlignment="Middle" markup="none">
+					<font size="9"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ingredients}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="370" y="0" width="185" height="15" uuid="9b28a0c7-6a9d-4844-879f-1b3ee2918a63"/>
+				<reportElement x="370" y="0" width="185" height="12" uuid="9b28a0c7-6a9d-4844-879f-1b3ee2918a63"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -36,6 +37,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantStock}]]></textFieldExpression>
@@ -43,9 +45,9 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="15">
+		<band height="14">
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="370" y="0" width="185" height="15" uuid="05a9c1ef-4985-4999-bb35-15ce6f94a0d8"/>
+				<reportElement x="370" y="0" width="185" height="12" uuid="05a9c1ef-4985-4999-bb35-15ce6f94a0d8"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -53,12 +55,13 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="370" height="15" uuid="1d523e68-f4d6-4e20-b64b-07defb3ee38a"/>
+				<reportElement x="0" y="0" width="370" height="12" uuid="1d523e68-f4d6-4e20-b64b-07defb3ee38a"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -66,6 +69,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA["TOTAL "+$P{type}+" SPAT"]]></textFieldExpression>
