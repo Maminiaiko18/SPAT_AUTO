@@ -20,6 +20,8 @@
         }
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
+        pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.getFirstDayOfMonth());
+        pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.getLastDayOfMonth());
         pr.getFormu().getChamp("libelle").setLibelle("Libell�");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         String[] colSomme = {"debit"};
@@ -54,7 +56,6 @@
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
         %>
-        <% out.println(pr.getBasPage());%>
     </section>
 </div>
 <% } catch (Exception e) {

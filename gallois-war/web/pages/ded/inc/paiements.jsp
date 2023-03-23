@@ -17,7 +17,7 @@
     //String ded_id = request.getParameter("ded_id");
     
     JournalCaisse act = new JournalCaisse();
-    act.setNomTable("JOURNALCAISSELIBCOMPLET");
+    act.setNomTable("PaiementOPJCUnion");
     String listeCrt[] = {"idordre"};
     String listeInt[] = {};
         String libEntete[] = {"id","valcaisse","numpiece", "DATEEFFET","numcheque", "libelle", "debit"};

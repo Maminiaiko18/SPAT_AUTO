@@ -24,6 +24,7 @@ import factureclient.PayementFacture;
 import facturefournisseur.RegulFacture;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import mg.allosakafo.fin.EtatOP;
 import mg.spat.placement.Placement;
@@ -33,6 +34,7 @@ import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
+import ded.PaiementOP;
 
 /**
  *
@@ -1567,6 +1569,40 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
 
     public void setEtatversementlib(String etatversementlib) {
         this.etatversementlib = etatversementlib;
+    }
+    
+    public void createObjectWithOP(String userId,String idOPs) throws Exception{
+        Connection connection =null;
+        boolean ouvert = true;
+        try{
+            if(connection == null) {
+                connection = (new UtilDB()).GetConn();
+                connection.setAutoCommit(false);
+                ouvert = true;
+            }
+            this.setEtat(ConstanteEtat.getEtatCreer());
+            this.createObject(userId, connection);
+            if(idOPs!=null && idOPs.length()>0){
+                String[]tabOps= idOPs.split(";");
+                String OpConditionRequeste= Utilitaire.tabToString(tabOps, "'", ",");
+                String query = String.format("and id in (%s)",OpConditionRequeste);
+                OrdonnerPayement[] ordonnerPayement = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, connection, query);
+                for(int i=0;i<ordonnerPayement.length;i++){
+                    PaiementOP paiementOP = new PaiementOP(ordonnerPayement[i].getId(),this.getId(),ordonnerPayement[i].getMontant());
+                    paiementOP.createObject(userId,connection);
+                }
+            }
+            connection.commit();
+        }
+        catch(SQLException exception){
+            connection.rollback();
+            throw exception;
+        }
+        finally{
+            if(connection!=null && ouvert){
+                connection.close();
+            }
+        }
     }
     
     

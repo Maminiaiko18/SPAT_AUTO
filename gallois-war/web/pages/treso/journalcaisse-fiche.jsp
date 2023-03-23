@@ -84,6 +84,7 @@
     HashMap<String, String> map = new HashMap<String, String>();
     map.put("ventilation-ff", "");
     map.put("ventilation-fc", "");
+    map.put("ordonnerpaiement", "");
     
     String tab = request.getParameter("tab");
     if (tab == null) {
@@ -155,6 +156,7 @@
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("ventilation-fc")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-fc">Ventilation FC</a></li>
                     <li class="<%= map.get("ventilation-ff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-ff">Ventilation FF</a></li>
+                    <li class="<%= map.get("ordonnerpaiement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ordonnerpaiement">Ordonner Paiement</a></li>
                     
                 </ul>
                 <div class="tab-content">       
