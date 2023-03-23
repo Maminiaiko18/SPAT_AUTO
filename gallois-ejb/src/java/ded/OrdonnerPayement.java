@@ -439,6 +439,8 @@ public class OrdonnerPayement extends ClassEtat {
         if(factures.length>0){
             this.setMontant(AdminGen.calculSommeDouble(factures, "montantreste"));
         }*/
+        this.construirePK(c);
+        this.gererFF( u, c);
         this.setNumeroop(genererNumeroOP(c));
         this.checkDoublonNumeroOP(c);
         return super.createObject(u, c);
@@ -624,7 +626,7 @@ public class OrdonnerPayement extends ClassEtat {
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("OP Deja valide");
             }
-            this.gererFF( u, c);
+            //this.gererFF( u, c);
             this.gererAvoirFC( u, c);
             
             super.validerObject(u, c);
