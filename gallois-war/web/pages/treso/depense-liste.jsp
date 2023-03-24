@@ -16,7 +16,7 @@
             journal.setNomTable("JOURNALCAISSELIBDEPENSE");
         }
         if (request.getParameter("table") != null) journal.setNomTable(request.getParameter("table"));
-          String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque"};
+          String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","DESCETYPECHEQUE"};
         String listeInt[] = {"dateEffet"};
         String libEntete[] =  {"id", "valcaisse","DESCETYPECHEQUE", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
         PageRecherche pr = new PageRecherche(journal, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -28,7 +28,7 @@
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libell�");
-        pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
+        pr.getFormu().getChamp("DESCETYPECHEQUE").setLibelle("Type");
         pr.getFormu().getChamp("valcaisse").setLibelle("Banque");
         pr.setAWhere(suiteReq);
 

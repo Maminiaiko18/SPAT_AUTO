@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="20" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client2" pageWidth="949" pageHeight="1097" columnWidth="929" leftMargin="20" rightMargin="0" topMargin="70" bottomMargin="20" uuid="43167d6f-41a5-4311-908d-e23c6946a8ef">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="303"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -142,9 +142,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="156">
+		<band height="118">
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="756" y="42" width="170" height="20" uuid="252807b0-1f7f-4756-b66d-63e105d8fde1"/>
+				<reportElement x="756" y="7" width="170" height="20" uuid="252807b0-1f7f-4756-b66d-63e105d8fde1"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -157,7 +157,7 @@
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="657" y="42" width="99" height="20" uuid="f1c3b42e-7265-4ad0-8da5-36a9914af94d"/>
+				<reportElement x="657" y="7" width="99" height="20" uuid="f1c3b42e-7265-4ad0-8da5-36a9914af94d"/>
 				<textElement verticalAlignment="Middle">
 					<font size="13" isBold="true"/>
 					<paragraph leftIndent="3"/>
@@ -165,7 +165,7 @@
 				<text><![CDATA[Toamasina le  :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="441" y="131" width="412" height="24" uuid="a71fc03f-5836-4ef3-901b-912ec1bc006b"/>
+				<reportElement x="441" y="62" width="412" height="24" uuid="a71fc03f-5836-4ef3-901b-912ec1bc006b"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font size="17" isBold="true"/>
 					<paragraph leftIndent="3"/>
@@ -173,7 +173,7 @@
 				<textFieldExpression><![CDATA[$P{code}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="312" y="131" width="125" height="24" uuid="8f0bd56c-422a-4c81-a933-f9fa9596eb18"/>
+				<reportElement x="312" y="63" width="125" height="24" uuid="8f0bd56c-422a-4c81-a933-f9fa9596eb18"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="17" isBold="true"/>
 				</textElement>
@@ -1065,7 +1065,7 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="280">
+		<band height="291">
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="314" y="78" width="96" height="19" uuid="3f376779-2e73-422f-aabf-6517ceb172cb"/>
 				<box>
