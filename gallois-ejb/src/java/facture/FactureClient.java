@@ -1815,7 +1815,7 @@ public class FactureClient extends ClassMere {
     public void setTiers(String tiers) {
         if(this.getMode().compareToIgnoreCase("modif")==0)
         {
-            if(tiers.compareToIgnoreCase(Constante.idMICTSL)==0||tiers.compareToIgnoreCase(Constante.idMICTSL2)==0)
+            if(tiers!=null && (tiers.compareToIgnoreCase(Constante.idMICTSL)==0||tiers.compareToIgnoreCase(Constante.idMICTSL2)==0))
             {
                 this.setEstMictsl(Constante.estMictsl);
             }
