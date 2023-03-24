@@ -183,7 +183,7 @@ public class JournalCaisse extends ClassEtat {
         //FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
         System.out.println("Niditra aaaaaato----");
         FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeAuComptant, Constante.idCategorieFCDefinitive, 1);
-        FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(), compte, "Facture auto via", 1);
+        FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(),"Facture auto via", 1,compte);
         detail.setAnnee(annee);
         detail.setMois(mois);
         detail.setTva(tva);
@@ -1269,7 +1269,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public String genererCodeType()
     {
         String result="";
-        if(this.getIdmode().compareToIgnoreCase("pay7") == 0){
+        if(this.getIdmode()!=null && this.getIdmode().compareToIgnoreCase("pay7") == 0){
             return "P";
         }
 
@@ -1546,7 +1546,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     
     public void controlerAttacheTraite() throws Exception {
         try{
-            if(this.getIdmode().compareToIgnoreCase(Constante.getTraite()) == 0 && this.getIdtraite() == null)
+            if(this.getIdmode()!=null && this.getIdmode().compareToIgnoreCase(Constante.getTraite()) == 0 && this.getIdtraite() == null)
                 throw new Exception("Paiement avec mode de paiement Traite doit être attaché à un traite");
         }
         catch(Exception e){
