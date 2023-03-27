@@ -906,10 +906,10 @@ public class FactureFournisseur extends FactureClient {
                 throw new Exception("Impossible, OP existant et OP déjà visé");
             }
 
-            LiaisonIntraTable[] liaisons = findLiaisonIntratable(c);
-            if (liaisons != null && liaisons.length > 0) {
-                throw new Exception("Impossible, OP existant");
-            }
+            //LiaisonIntraTable[] liaisons = findLiaisonIntratable(c);
+            //if (liaisons != null && liaisons.length > 0) {
+            //    throw new Exception("Impossible, OP existant");
+            //}
 
             PaiementFacture[] paiements = getPaiementFacture(c);
             if (paiements != null && paiements.length > 0) {
