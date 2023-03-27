@@ -16,6 +16,7 @@ import java.sql.Connection;
 public class Caisse extends TypeObjet{
     
     private String numero;
+    private int rangsitcptcrt,placesitcptcrt;
 
 
     public Caisse() {
@@ -36,6 +37,22 @@ public class Caisse extends TypeObjet{
 
     public void setNumero(String numero) {
         this.numero = numero;
+    }
+
+    public int getRangsitcptcrt() {
+        return rangsitcptcrt;
+    }
+
+    public void setRangsitcptcrt(int rangsitcptcrt) {
+        this.rangsitcptcrt = rangsitcptcrt;
+    }
+
+    public int getPlacesitcptcrt() {
+        return placesitcptcrt;
+    }
+
+    public void setPlacesitcptcrt(int placesitcptcrt) {
+        this.placesitcptcrt = placesitcptcrt;
     }
     
     
