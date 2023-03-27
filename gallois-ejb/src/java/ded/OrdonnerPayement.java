@@ -626,7 +626,9 @@ public class OrdonnerPayement extends ClassEtat {
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("OP Deja valide");
             }
-            //this.gererFF( u, c);
+
+
+            if(getLiaison(c).length == 0) this.gererFF( u, c);
             this.gererAvoirFC( u, c);
             
             super.validerObject(u, c);
@@ -663,6 +665,30 @@ public class OrdonnerPayement extends ClassEtat {
             }
         }
     }
+    
+    public LiaisonIntraTable[] getLiaison(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            LiaisonIntraTable av=new LiaisonIntraTable();
+            av.setNomTable("LIAISONINTRATABLE");
+            return (LiaisonIntraTable[]) CGenUtil.rechercher(av, null, null, c, "and id2='" + this.getId()+"'");
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
     public AvoirFC[] getAvoirFC(Connection c) throws Exception {
         int verif = 0;
         try {
