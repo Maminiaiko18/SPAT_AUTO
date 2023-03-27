@@ -391,4 +391,46 @@ public class Placement extends ClassEtat {
         }
         return result;
     }
+
+    public JournalCaisse[] getSortie(Connection c)throws Exception{
+        JournalCaisse[] retour = null;
+        int verif=0;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
+            JournalCaisse jc = new JournalCaisse();
+            jc.setIdplacement(this.getTuppleID());
+            String aWhere = " AND debit!=0";
+            retour = (JournalCaisse[])CGenUtil.rechercher(jc,null,null,c,aWhere);
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+        return retour;
+    }
+
+    public JournalCaisse[] getEntree(Connection c)throws Exception{
+        JournalCaisse[] retour = null;
+        int verif=0;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
+            JournalCaisse jc = new JournalCaisse();
+            jc.setIdplacement(this.getTuppleID());
+            String aWhere = " AND credit!=0";
+            retour = (JournalCaisse[])CGenUtil.rechercher(jc,null,null,c,aWhere);
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+        return retour;
+    }
 }

@@ -189,6 +189,10 @@ public class RemboursementPlacement extends ClassEtat{
             PlacementLibComplet placementLibComplet = (PlacementLibComplet) (new PlacementLibComplet()).getById(this.getIdplacement(), "placementlibcomplet", c);
             
             Placement placement = findPlacement(c);
+
+            JournalCaisse[] listeSortie = placement.getSortie(c);
+            if(listeSortie==null || listeSortie.length==0)throw new Exception("Remboursement invalide. Décaissement non effectif");
+            if(this.getDaty().before(listeSortie[0].getDateEffet()))throw new Exception("Date anterieure à la date de decaissement");
             
         //  Entrée Montant placé
             String designation = String.format("Echeance placement %s/%s: montant place", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
