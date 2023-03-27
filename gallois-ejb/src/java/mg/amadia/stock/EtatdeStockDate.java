@@ -28,6 +28,31 @@ public class EtatdeStockDate extends ClassMAPTable {
     private double report, entree, sortie, reste, besoin, aacheter, reportSuiv;
     private String idmagasin, magasin, typemagasin;
     double pump, dernierprix;
+    private int rangsitcptcrt,placesitcptcrt;
+
+    public double getAacheter() {
+        return aacheter;
+    }
+
+    public void setAacheter(double aacheter) {
+        this.aacheter = aacheter;
+    }
+
+    public int getRangsitcptcrt() {
+        return rangsitcptcrt;
+    }
+
+    public void setRangsitcptcrt(int rangsitcptcrt) {
+        this.rangsitcptcrt = rangsitcptcrt;
+    }
+
+    public int getPlacesitcptcrt() {
+        return placesitcptcrt;
+    }
+
+    public void setPlacesitcptcrt(int placesitcptcrt) {
+        this.placesitcptcrt = placesitcptcrt;
+    }
 
     public double getPump() {
         return pump;
