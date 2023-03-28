@@ -596,10 +596,10 @@ public class BonDeCommande extends ClassEtat {
             
             BonDeCommandeFille bcFille = new BonDeCommandeFille();
             bcFille.setIdbc(this.id);
-            bcFille.setNomTable("AS_BONDECOMMANDE_FILLEMTT");
+            bcFille.setNomTable("BC_BL_LIVRE");
             BonDeCommandeFille[] filles = (BonDeCommandeFille[]) CGenUtil.rechercher(bcFille, null, null, c, "");
             
-            double mtt = AdminGen.calculSommeDouble(filles, "montantht");
+            double mtt = AdminGen.calculSommeDouble(filles, "montantbl");
             engagement.setMontant(mtt);
             engagement.createObject(u, c);
             for (int i = 0; i < filles.length; i++) {
