@@ -4,6 +4,9 @@
     Author     : Antsa
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="mg.spat.placement.PlacementLibComplet"%>
 <%@ page import="user.*" %>
 <%@page import="affichage.Liste"%>
@@ -44,6 +47,40 @@
         pr.getFormu().getChamp("valbanque").setLibelle("Entite");
         pr.setApres("placement/analyse-placement.jsp");
         pr.creerObjetPage();
+        HashMap<String,String> hash = new HashMap<String,String>();
+        hash.put("id","ID");
+        hash.put("entite","ID Entite");
+        hash.put("date_placement","Date placement");
+        hash.put("date_echeance","Date &eacute;ch&eacute;ance");
+        hash.put("duree","Dur&eacute;e");
+        hash.put("montant","Montant");
+        hash.put("taux","Taux");
+        hash.put("etat","Etat");
+        hash.put("numero","Num&eacute;ro");
+        hash.put("iddetails","Details");
+        hash.put("idmeredetails","Mere Details");
+        hash.put("mois","Mois");
+        hash.put("interet_recevoir","Interet Recevoir");
+        hash.put("interet_net","Interet net");
+        hash.put("identite","Identite");
+        hash.put("idbanque","ID Banque");
+        hash.put("valentite","Entite");
+        hash.put("desceentite","Entite");
+        hash.put("valbanque","Banque");
+        hash.put("descebanque","Banque");
+        List<String> strings = new ArrayList<String>();
+        if(pr.getColGroupe()!=null && pr.getColGroupe().length>0){
+            for(String col: pr.getColGroupe()){
+                strings.add(hash.get(col));
+            }
+        }
+        if(pr.getSommeGroupe()!=null && pr.getSommeGroupe().length>0){
+            for(String somme: pr.getSommeGroupe()){
+                strings.add(hash.get(somme));
+            }
+        }
+        String[] libEntete = new String[strings.size()];
+        strings.toArray(libEntete);
 %>
 <script>
     function changerDesignation() {
@@ -63,8 +100,12 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"ID","Date placement","Date &eacute;ch&eacute;ance","Entite", "Banque","Num&eacute;ro" ,"Dur&eacute;e", "Interet recevoir", "Montant"};
-            pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+            if(strings.size() == 0){
+                String libEnteteAffiche[] = {"ID","Date placement","Date &eacute;ch&eacute;ance","Entite", "Banque","Num&eacute;ro" ,"Dur&eacute;e", "Interet recevoir", "Montant"};
+                pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+            }
+            else
+                pr.getTableau().setLibelleAffiche(libEntete);
             String lienTableau[] = {
                 pr.getLien() + "?but=placement/details-analyse-placementMontant.jsp&recap=checked"};
             pr.getTableau().setLien(lienTableau);
