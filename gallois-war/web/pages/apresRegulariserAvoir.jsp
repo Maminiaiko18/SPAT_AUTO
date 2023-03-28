@@ -26,7 +26,7 @@
             String idavoirs = request.getParameter("idavoir");
             idavoirs = idavoirs.substring(0,idavoirs.length()-1);
             double m = Utilitaire.stringToDouble(request.getParameter("montant"));
-            (new FactureClientAvoir(id, idavoirs, m)).payerAvoirFacture(u.getUser().getTuppleID());
+            (new FactureClientAvoir(id, idavoirs, m,request.getParameter("daty"))).payerAvoirFacture(u.getUser().getTuppleID());
 %>
 <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=id%>&tab=facture-client-fille");</script>
 <% }

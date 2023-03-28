@@ -148,6 +148,7 @@ public class Constante {
     
     public static final String modePaiementEspece = "pay1";
     public static final String modeRecetteCaisseDepense = "pay8";
+    public static final String modeRegulAvoir = "pay9";
     public static final String typeChequeAuComptant = "TCHQ00001";
     public static final String idBonProvisoire = "CATGFF002";
     public static final String typeChequeAuComptantFF = "TFC002";
@@ -160,6 +161,7 @@ public class Constante {
     private static String traite = "pay6";
     private static String caisseTraite = "CAIS00000T00016"; 
     public static String caisseDepense = "CAI0000000015200311"; 
+    public static String caisseAvoir = "CAI0000000017083858"; 
     private static String typeCaissePhysique = "2"; 
     public static String EFFETSARECEVOIRREMISALENCAISSEMENT="CAIS000017";
     private static String typeACredit = "TCHQ00002";

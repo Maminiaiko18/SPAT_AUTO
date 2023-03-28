@@ -855,6 +855,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
     @Override
     public void viser(UserEJBBean user, Connection c) throws Exception {
+        System.out.println("atyyyyyyyyyy eeeeeee");
         int verif = 0;
         try {
             if (c == null) {
@@ -1262,6 +1263,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }else if(this.getIdmode().compareToIgnoreCase("pay7") == 0){
                 if (this.getCaisse().compareToIgnoreCase(Constante.caisseCentraleEspece)==0) return "E";
                 else return "C";
+            }else if(this.getIdmode().compareToIgnoreCase("pay9") == 0){
+                return "AV";
             }
         }
         return null;
