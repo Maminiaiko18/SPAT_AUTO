@@ -5,10 +5,14 @@ import affichage.PageRecherche;
 import affichage.PageRechercheGroupe;
 import affichage.TableauRecherche;
 import avoir.AvoirFC;
+import mg.spat.JournalCaisseBordereauPaie;
 import avoir.AvoirFCFille;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.lang.Math;
 import mg.spat.EtatRedevance;
 import facture.EtatFacture;
@@ -241,6 +245,9 @@ public class EtatPaieServlet extends HttpServlet {
                 factureParClient(request, response);
             } else if (action.equalsIgnoreCase("impressionEtat_facture")) {
                 impressionEtat_facture(request, response);
+            }
+            else if (action.equalsIgnoreCase("imprimerBP")) {
+                imprimerBP(request, response);
             }
 
         } catch (Exception ex) {
@@ -1349,7 +1356,7 @@ public class EtatPaieServlet extends HttpServlet {
                 facture.setNomTable(request.getParameter("etat"));
             }
             //awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by type,ordre,code asc";
-            awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by ordre,code,type asc";
+            awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by ordre asc";
 
             FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, awhere);
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
@@ -1360,6 +1367,48 @@ public class EtatPaieServlet extends HttpServlet {
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("facture_client1");
             UtilitaireImpression.imprimer(request, response, "facture_client", param, arrList, getReportPath(), rt);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+    /* Imprimer BP */
+    private void imprimerBP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Connection c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+            Map param = new HashMap();
+            String id = request.getParameter("id");
+            JournalCaisseBordereauPaie facture = new JournalCaisseBordereauPaie();
+            facture.setNomTable("JOURNALCAISSE_BORDEREAUPAIE");
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            JournalCaisseBordereauPaie[] mere = (JournalCaisseBordereauPaie[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
+            param.put("date",utilitaire.Utilitaire.dateDuJour().toString());
+            if(mere[0].getDateSaisie()==null){
+                param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"-"+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
+            }else{
+                param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"-"+mere[0].getDateSaisie()+"-"+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
+            }
+            param.put("destinataire",mere[0].getTiersLib());
+            param.put("destinataire", mere[0].getTiersLib());
+            String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantTotal())," Ariary");
+            param.put("motantLettre",montantlettre);
+            param.put("cheque", mere[0].getNumcheque()+" - "+mere[0].getDesignation()+" - "+mere[0].getDateSaisie());
+            ArrayList<JournalCaisseBordereauPaie> arrList = new ArrayList<JournalCaisseBordereauPaie>();
+            for (int i = 0; i < mere.length; i++) {
+               /* SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                String formattedDate = formatter.format(mere[i].getDaty());
+                java.util.Date utilDate = formatter.parse(formattedDate);
+                mere[i].setDaty(new java.sql.Date(utilDate.getYear(),utilDate.getMonth(),utilDate.getDate()));*/
+                arrList.add(mere[i]);
+            }
+            setNomJasper("Bordereaux_paiment");
+            UtilitaireImpression.imprimer(request, response, "BP", param, arrList, getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -2873,7 +2922,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             Map param = new HashMap();
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
-            String titre = "PIECE DE CAISSE PROVISION CONSTITUEE";
+            String titre = "GESTION DE PROVISION";
             if (result3[0].getIdcategorie() != null
                     && result3[0].getIdcategorie().compareTo(Constante.idCategorieFCDefinitive) == 0) {
                 titre = "PIECE DE CAISSE";
