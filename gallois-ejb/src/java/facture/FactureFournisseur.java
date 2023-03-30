@@ -5,6 +5,7 @@
  */
 package facture;
 
+import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.TypeObjet;
@@ -1014,15 +1015,34 @@ public class FactureFournisseur extends FactureClient {
             c.setAutoCommit(false);
             verif = 1;
             ff = (FactureFournisseur) u.updateObjectMultiple(mere, colonneMere, fille, c);
-            FactureFournisseur ffsum = (FactureFournisseur) (new FactureFournisseur()).getById(this.getId(), "factfourn_msum_lib_fiche", c);
-            OrdonnerPayement op = new OrdonnerPayement();
-            OrdonnerPayement[] ops = (OrdonnerPayement[]) CGenUtil.rechercher(op, null, null, c, String.format(" and ded_id = '%s'", this.getId()));
-            if(ops.length > 0){
-                op = ops[0];
-                if(ffsum.getMontantttc() != op.getMontant()){
-                    op.setMontant(ffsum.getMontantttc());
-                    u.updateObject(op, c);
-                }
+            LiaisonIntraTable lt = new LiaisonIntraTable();
+            lt.setNomTable("LIAISONINTRATABLE");
+            LiaisonIntraTable[] liaisonsop = (LiaisonIntraTable[]) CGenUtil.rechercher(lt, null, null, c, "and id1='" + this.getId()+"'");
+            if(liaisonsop.length > 0){
+                OrdonnerPayement op = (OrdonnerPayement) (new OrdonnerPayement()).getById(liaisonsop[0].getId2(), "OrdonnerPayement", c); 
+                LiaisonIntraTable[] liaisons = (LiaisonIntraTable[]) CGenUtil.rechercher(lt, null, null, c, "and id2='" + op.getId()+"'"); 
+                String where = "";
+                int t = liaisons.length;
+                boolean debut = true;
+                if(t > 0){
+                    where += " and id in (";
+                    for(int i = 0; i < t; i++){
+                        if(debut)
+                            where += "'" + liaisons[i].getId1() + "'";
+                        else
+                            where += ",'" + liaisons[i].getId1() + "'";
+                        debut = false;
+                    }
+                    where += ")";
+                    FactureFournisseur fact = new FactureFournisseur();
+                    fact.setNomTable("factfourn_msum_lib_fiche");
+                    FactureFournisseur[] ffs = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, where);
+                    double montant = AdminGen.calculSommeDouble(ffs, "montantttc");
+                    if(montant != op.getMontant()){
+                        op.setMontant(montant);
+                        u.updateObject(op, c);
+                    }              
+                }            
             }
             
             c.commit();
