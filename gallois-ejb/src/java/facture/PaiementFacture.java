@@ -232,7 +232,7 @@ public class PaiementFacture extends ClassMAPTable{
             //ajoutena source anle jc le idfacture
             String temp = jc.getIdplacement();
             if(temp == null) jc.setIdplacement(this.getIdFact());
-            else jc.setIdplacement(temp+";"+this.getIdFact());
+            else if(!this.getIdFact().matches(temp)) jc.setIdplacement(temp+";"+this.getIdFact());
 
             if(jc.getNumPiece()==null) {
                 if(jc.getDebit() == 0) jc.setNumPiece(jc.calculerNumeroPiece(c));
