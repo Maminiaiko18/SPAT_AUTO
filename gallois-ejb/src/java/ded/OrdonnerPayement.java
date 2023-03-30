@@ -752,6 +752,12 @@ public class OrdonnerPayement extends ClassEtat {
         }
         return retour;
     }
+
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        this.controleDoublonNumeroOP(c);
+    }
+
      public String genererNumeroOP(Connection c) throws Exception{
         String numero = ""; 
         try{   
@@ -804,8 +810,8 @@ public class OrdonnerPayement extends ClassEtat {
     
     public void controleDoublonNumeroOP(Connection c) throws Exception{
         OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and numeroop='"+this.getNumeroop()+"'");
-        if(op.length > 0) throw new Exception("Numero OP existant");
-    }
+        if(op.length > 0) throw new Exception("Numero OP "+this.getNumeroop()+" existant");
+    } 
     
     public JournalCaisse[] getPaiement(Connection c) throws Exception{
         boolean verif = false;
