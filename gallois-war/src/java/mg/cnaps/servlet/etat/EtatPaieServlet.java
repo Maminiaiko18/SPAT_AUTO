@@ -1520,9 +1520,16 @@ public class EtatPaieServlet extends HttpServlet {
                     " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
             FactureClientDetails[] liste = mere[0].getListeDetails();
-            facture.setNomTable("factureClientValide_tous");
+            facture.setNomTable("factureClientValide");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
+
+            /*
+             * ClientCategorie clg = new ClientCategorie();
+             * clg.setNomTable("CLIENT_UNION");
+             * ClientCategorie[] clientcat = (ClientCategorie[]) CGenUtil.rechercher(clg,
+             * null, null, c, " and cdclt = '" + mere[0].getTiers() + "'");
+             */
             param.put("stat", mere[0].getNmsttclt());
             param.put("nif", mere[0].getNif());
             param.put("rc", mere[0].getRc());
@@ -1530,6 +1537,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("tp", mere[0].getTp());
             param.put("Dttp", mere[0].getDttp());
             param.put("dtquit", mere[0].getDtquit());
+
             facture = mere[0];
             facture.setId(id);
             facture.initDetails(c);
@@ -1581,22 +1589,8 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("tenavire", facture.getTe());
 
                     setNomJasper("facture_client2 - Copie");// facture_client2 - Copie //facture_convention
-                    // //facture-client-sans-prevision
+                                                            // //facture-client-sans-prevision
                 } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
-                    /*--------------------16/03/2023---------------------------*/
-                    double srE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
-                    double redE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
-                    double htvaE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontant(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
-                    double tvaE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontanttva(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
-                    double netE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttcvrai(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
-                    param.put("srE",srE);
-                    param.put("redE",redE);
-                    param.put("htvaE",htvaE);
-                    param.put("tvaE",tvaE);
-                    param.put("netE",netE);
-                    /*-----------------------------------------------*/
-                    param.put("montantapred",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP));
-                    param.put("montantsansreduction",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP));
                     param.put("chef", "Le chef de D&eacute;partement");
                     param.put("responsable", "Le contr&ocirc;leur");
                     setNomJasper("facture-Mictsl");
@@ -1628,7 +1622,7 @@ public class EtatPaieServlet extends HttpServlet {
                     daty = details[0].getDatefact();
                 }
                 param.put("datyfact", mere[0].getDaty());
-                param.put("daty", daty);    
+                param.put("daty", daty);
                 if (Utilitaire.champNull(mere[0].getEscale()).compareTo("") != 0) {
                     param.put("datyfact", daty);
                     param.put("daty", mere[0].getDaty());
@@ -1637,12 +1631,8 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("type", mere[0].getTypelib());
                 cat = mere[0].getCategorielib();
                 param.put("cat", cat);
-                if(mere[0].getDesignation()!=null){
-                    designation = UtilitaireFacture.remplacerCharacteres(mere[0].getDesignation());
-                    param.put("designation", designation);
-                }
-                /*designation = UtilitaireFacture.remplacerCharacteres(mere[0].getDesignation());
-                param.put("designation", designation);*/
+                designation = UtilitaireFacture.remplacerCharacteres(mere[0].getDesignation());
+                param.put("designation", designation);
                 param.put("reduction", mere[0].getReduction());
                 param.put("client", mere[0].getNomclt());
                 param.put("adresse", mere[0].getAdrclt());
@@ -1658,6 +1648,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("armateur", mere[0].getArmateurlib());
 
                 param.put("tva", mere[0].getTva());
+
                 if (mere[0].getTypelib() != null) {
                     if (mere[0].getTypelib().compareToIgnoreCase("au comptant") != 0) {
                         param.put("dateEcheanceLib", "Date limite de paiement :");
@@ -1675,31 +1666,28 @@ public class EtatPaieServlet extends HttpServlet {
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars) == 0) {
                         String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
                         montantlettre = montantTexte[0];
-                        if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
                             montantlettre += " Ariary " + montantTexte[1];
-                        } else {
+                        else
                             montantlettre += " Ariary";
-                        }
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0) {
                         // montantlettre = ChiffreLettre.convertRealToString(new
                         // Double(mere[0].getMontantttc()), " Ariary");
                         String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
                         montantlettre = montantTexte[0];
-                        if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
                             montantlettre += " Ariary " + montantTexte[1];
-                        } else {
+                        else
                             montantlettre += " Ariary";
-                        }
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro) == 0) {
                         String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
                         montantlettre = montantTexte[0];
-                        if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
                             montantlettre += " Ariary " + montantTexte[1];
-                        } else {
+                        else
                             montantlettre += " Ariary";
-                        }
                     }
 
                 }
@@ -1708,31 +1696,28 @@ public class EtatPaieServlet extends HttpServlet {
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars) == 0) {
                         String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
                         montantlettre = montantTexte[0];
-                        if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
                             montantlettre += " Ariary " + montantTexte[1];
-                        } else {
+                        else
                             montantlettre += " Ariary";
-                        }
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0) {
                         // montantlettre = ChiffreLettre.convertRealToString(new
                         // Double(mere[0].getMontantttc()), " Ariary");
                         String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
                         montantlettre = montantTexte[0];
-                        if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
                             montantlettre += " Ariary " + montantTexte[1];
-                        } else {
+                        else
                             montantlettre += " Ariary";
-                        }
                     }
                     if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro) == 0) {
                         String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
                         montantlettre = montantTexte[0];
-                        if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                        if (montantTexte[1].compareToIgnoreCase("") != 0)
                             montantlettre += " Ariary " + montantTexte[1];
-                        } else {
+                        else
                             montantlettre += " Ariary";
-                        }
                     }
 
                 }
@@ -1777,8 +1762,8 @@ public class EtatPaieServlet extends HttpServlet {
                     String heuredebut = "";
                     String heurefin = "";
                     if (details[i].getHeureDebut() != null && details[i].getHeureDebut().length() == 8) {// manala anle
-                        // seconde any
-                        // amn farany
+                                                                                                         // seconde any
+                                                                                                         // amn farany
                         // details[i].getHeureDebut().
                         int len = 0;
                         while (len < 5) {
@@ -1789,8 +1774,8 @@ public class EtatPaieServlet extends HttpServlet {
 
                     }
                     if (details[i].getHeureFin() != null && details[i].getHeureFin().length() == 8) {// manala anle
-                        // seconde any amn
-                        // farany
+                                                                                                     // seconde any amn
+                                                                                                     // farany
                         // details[i].getHeureDebut().
                         int len = 0;
                         while (len < 5) {
@@ -1827,9 +1812,9 @@ public class EtatPaieServlet extends HttpServlet {
                     for (int k = 0; k < arrList.size(); k++) {
                         if ((separer_convention == 0) && (arrList.get(k).getRubrique() != null)
                                 && (arrList.get(k).getRubrique().compareTo("RB0000000144093258") == 0
-                                || arrList.get(k).getRubrique().compareTo("RB0000000143093146") == 0
-                                || arrList.get(k).getRubrique().compareTo("RB0000000060112257") == 0
-                                || arrList.get(k).getRubrique().compareTo("RB0000000066111845") == 0)) {
+                                        || arrList.get(k).getRubrique().compareTo("RB0000000143093146") == 0
+                                        || arrList.get(k).getRubrique().compareTo("RB0000000060112257") == 0
+                                        || arrList.get(k).getRubrique().compareTo("RB0000000066111845") == 0)) {
                             conventionExist = 0;
                             details2.getDetails().add(arrList.get(k));
                             details2.setTotal(details2.getTotal() + arrList.get(k).getMontantHTEuro());
@@ -1909,6 +1894,414 @@ public class EtatPaieServlet extends HttpServlet {
             }
         }
     }
+
+
+    // private void imprimerFactureClient(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    //     Connection c = null;
+    //     try {
+    //         c = (new UtilDB()).GetConn();
+    //         Map param = new HashMap();
+    //         List dataSource = null;
+    //         String id = request.getParameter("id");
+    //         FactureClient facture = new FactureClient();
+    //         facture.setEstDDPMICTSL(null);
+    //         facture.setNomTable("factureClient");
+    //         ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+    //         int separer_convention = 1;
+
+    //         FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c,
+    //                 " and id = '" + id + "' order by daty");
+    //         String code = mere[0].getCode();
+    //         FactureClientDetails[] liste = mere[0].getListeDetails();
+    //         facture.setNomTable("factureClientValide_tous");
+    //         mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
+    //         param.put("pourcomptelib", mere[0].getPourCompteLib());
+    //         param.put("stat", mere[0].getNmsttclt());
+    //         param.put("nif", mere[0].getNif());
+    //         param.put("rc", mere[0].getRc());
+    //         param.put("quittance", mere[0].getQuit());
+    //         param.put("tp", mere[0].getTp());
+    //         param.put("Dttp", mere[0].getDttp());
+    //         param.put("dtquit", mere[0].getDtquit());
+    //         facture = mere[0];
+    //         facture.setId(id);
+    //         facture.initDetails(c);
+    //         double hTEuro = facture.getMontantHTEuro();
+    //         double tvaEuro = facture.getMontantTVAEuro();
+    //         double ttcEuro = hTEuro + tvaEuro;
+    //         double hTDollar = facture.getMontantHTVADollar();
+    //         double tvaDollar = facture.getMontantTVADollar();
+    //         double ttcDollar = facture.getMontantTTCDollar();
+    //         double deviseEuro = facture.getDeviseEuro();
+    //         double deviseDollar = facture.getDeviseDollar();
+    //         String cat = facture.getCategorielib();
+    //         String designation = facture.getDesignation();
+    //         if (mere.length != 0) {
+    //             mg.spat.PrevisionLibComplet p = new mg.spat.PrevisionLibComplet();
+    //             p.setNomTable("PREVISIONLIBCOMPLETPDF");
+    //             mg.spat.PrevisionLibComplet[] pre = (mg.spat.PrevisionLibComplet[]) CGenUtil.rechercher(p, null, null,
+    //                     c, " and id = '" + mere[0].getIdprevision() + "'");
+    //             int convention = 0;
+    //             FactureClientDetails cht = new FactureClientDetails();
+    //             cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXE");
+
+    //             FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, c,
+    //                     " and idmere = '" + id + "'  order by rang, daty asc");
+    //             ArrayList<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
+
+    //             param.put("responsable", "Pr&eacute;par&eacute; Par");
+    //             param.put("chef", "Le Responsable Facturation");
+
+    //             if (facture.getBateaulib() != null || pre.length >= 1) {
+
+    //                 param.put("navire", facture.getBateaulib());
+    //                 // param.put("escale",pre[0].getEscale());
+    //                 param.put("date_arrivee", facture.getDatearrivee());
+    //                 // param.put("pavillon",pre[0].getPavillon);
+    //                 param.put("date_depart", facture.getDateDepart());
+    //                 param.put("destination", facture.getDestinationlib());
+    //                 param.put("lhtnavire", facture.getLht());
+    //                 System.out.println("nomtable" + facture.getNomTable());
+
+    //                 System.out.println("navire===" + facture.getLht());
+    //                 param.put("jntnavire", facture.getJnt());
+    //                 param.put("lmnavire", facture.getLm());
+    //                 param.put("provenance", facture.getProvenancelib());
+    //                 param.put("escale", facture.getEscale());
+    //                 param.put("pavillonlib", facture.getPavillonlib());
+    //                 param.put("heure_depart", facture.getHeureDepart());
+    //                 param.put("heure_arrivee", facture.getHeureArrivee());
+    //                 param.put("tenavire", facture.getTe());
+
+    //                 setNomJasper("facture_client2 - Copie");// facture_client2 - Copie //facture_convention
+    //                 // //facture-client-sans-prevision
+    //             } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
+    //                 /*--------------------16/03/2023---------------------------*/
+    //                 double srE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+    //                 double redE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+    //                 double htvaE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontant(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+    //                 double tvaE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontanttva(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+    //                 double netE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttcvrai(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+    //                 param.put("srE",srE);
+    //                 param.put("redE",redE);
+    //                 param.put("htvaE",htvaE);
+    //                 param.put("tvaE",tvaE);
+    //                 param.put("netE",netE);
+    //                 /*-----------------------------------------------*/
+    //                 param.put("montantapred",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP));
+    //                 param.put("montantsansreduction",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP));
+    //                 param.put("chef", "Le chef de D&eacute;partement");
+    //                 param.put("responsable", "Le contr&ocirc;leur");
+    //                 setNomJasper("facture-Mictsl");
+    //             } else {
+    //                 setNomJasper("facture-client-sans-prevision");
+    //                 if (mere[0].getCode().contains("09A")) {
+    //                     separer_convention = 0;
+    //                 }
+    //                 /*
+    //                  * if (mere[0].getCode().contains("09")) {
+    //                  * if (mere[0].getCode().charAt(5) == '0' && mere[0].getCode().charAt(6) == '9')
+    //                  * {
+    //                  * int i=0;
+    //                  * while(i<details.length){
+    //                  * if(details[i].getDesignation().toLowerCase().contains("redevance commun")){
+    //                  * setNomJasper("facture_convention");
+    //                  * break;
+    //                  * }
+    //                  * i=+1;
+    //                  * }
+    //                  * 
+    //                  * };
+    //                  * }
+    //                  */
+    //                 // setNomJasper("facture-client-sans-prevision");
+    //             }
+    //             Date daty = mere[0].getDaty();
+    //             if (details[0].getDatefact() != null) {
+    //                 daty = details[0].getDatefact();
+    //             }
+    //             param.put("datyfact", mere[0].getDaty());
+    //             param.put("daty", daty);    
+    //             if (Utilitaire.champNull(mere[0].getEscale()).compareTo("") != 0) {
+    //                 param.put("datyfact", daty);
+    //                 param.put("daty", mere[0].getDaty());
+    //             }
+    //             param.put("id", mere[0].getId());
+    //             param.put("type", mere[0].getTypelib());
+    //             cat = mere[0].getCategorielib();
+    //             param.put("cat", cat);
+    //             if(mere[0].getDesignation()!=null){
+    //                 designation = UtilitaireFacture.remplacerCharacteres(mere[0].getDesignation());
+    //                 param.put("designation", designation);
+    //             }
+    //             /*designation = UtilitaireFacture.remplacerCharacteres(mere[0].getDesignation());
+    //             param.put("designation", designation);*/
+    //             param.put("reduction", mere[0].getReduction());
+    //             param.put("client", mere[0].getNomclt());
+    //             param.put("adresse", mere[0].getAdrclt());
+    //             param.put("phone", mere[0].getContact());
+    //             param.put("montant",
+    //                     Utilitaire.arrondirDecimalWithMode(mere[0].getMontant(), "#.##", RoundingMode.HALF_UP));
+    //             param.put("montantTVA",
+    //                     Utilitaire.arrondirDecimalWithMode(mere[0].getMontanttva(), "#.##", RoundingMode.HALF_UP));
+    //             param.put("montantTTC",
+    //                     Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttcvrai(), "#.##", RoundingMode.HALF_UP));
+    //             param.put("montantAvoir", mere[0].getMontantavoir());
+    //             param.put("codeclient", mere[0].getTiers());
+    //             param.put("armateur", mere[0].getArmateurlib());
+
+    //             param.put("tva", mere[0].getTva());
+    //             if (mere[0].getTypelib() != null) {
+    //                 if (mere[0].getTypelib().compareToIgnoreCase("au comptant") != 0) {
+    //                     param.put("dateEcheanceLib", "Date limite de paiement :");
+    //                     param.put("dateEcheance", Utilitaire.formatterDatySql(mere[0].getDate_echeance()));
+    //                 }
+    //             }
+
+    //             param.put("deviseMere", mere[0].getDeviseMere());
+    //             param.put("payement", mere[0].getPaiementlib());
+    //             param.put("code", code);
+
+    //             String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()),
+    //                     " Ariary");
+    //             if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
+    //                 if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars) == 0) {
+    //                     String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+    //                     montantlettre = montantTexte[0];
+    //                     if (montantTexte[1].compareToIgnoreCase("") != 0) {
+    //                         montantlettre += " Ariary " + montantTexte[1];
+    //                     } else {
+    //                         montantlettre += " Ariary";
+    //                     }
+    //                 }
+    //                 if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0) {
+    //                     // montantlettre = ChiffreLettre.convertRealToString(new
+    //                     // Double(mere[0].getMontantttc()), " Ariary");
+    //                     String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+    //                     montantlettre = montantTexte[0];
+    //                     if (montantTexte[1].compareToIgnoreCase("") != 0) {
+    //                         montantlettre += " Ariary " + montantTexte[1];
+    //                     } else {
+    //                         montantlettre += " Ariary";
+    //                     }
+    //                 }
+    //                 if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro) == 0) {
+    //                     String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+    //                     montantlettre = montantTexte[0];
+    //                     if (montantTexte[1].compareToIgnoreCase("") != 0) {
+    //                         montantlettre += " Ariary " + montantTexte[1];
+    //                     } else {
+    //                         montantlettre += " Ariary";
+    //                     }
+    //                 }
+
+    //             }
+
+    //             if (mere[0].getDeviseMere() != null && mere[0].getEstMictsl().compareToIgnoreCase("1") != 0) {
+    //                 if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseDollars) == 0) {
+    //                     String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+    //                     montantlettre = montantTexte[0];
+    //                     if (montantTexte[1].compareToIgnoreCase("") != 0) {
+    //                         montantlettre += " Ariary " + montantTexte[1];
+    //                     } else {
+    //                         montantlettre += " Ariary";
+    //                     }
+    //                 }
+    //                 if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0) {
+    //                     // montantlettre = ChiffreLettre.convertRealToString(new
+    //                     // Double(mere[0].getMontantttc()), " Ariary");
+    //                     String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+    //                     montantlettre = montantTexte[0];
+    //                     if (montantTexte[1].compareToIgnoreCase("") != 0) {
+    //                         montantlettre += " Ariary " + montantTexte[1];
+    //                     } else {
+    //                         montantlettre += " Ariary";
+    //                     }
+    //                 }
+    //                 if (mere[0].getDeviseMere().compareToIgnoreCase(Constante.deviseEuro) == 0) {
+    //                     String[] montantTexte = ChiffreLettre.convertRealToStringSepare(mere[0].getMontantttc());
+    //                     montantlettre = montantTexte[0];
+    //                     if (montantTexte[1].compareToIgnoreCase("") != 0) {
+    //                         montantlettre += " Ariary " + montantTexte[1];
+    //                     } else {
+    //                         montantlettre += " Ariary";
+    //                     }
+    //                 }
+
+    //             }
+
+    //             param.put("montantlettre", montantlettre);
+    //             param.put("htdollar", hTDollar);
+    //             param.put("dollartva", tvaDollar);
+    //             param.put("dollarttc", ttcDollar);
+    //             param.put("hteuro", hTEuro);
+    //             param.put("tvaeuro", tvaEuro);
+    //             param.put("ttcEuro", ttcEuro);
+    //             param.put("valeuro", deviseEuro);
+
+    //             param.put("valdollar", deviseDollar);
+    //             param.put("datyecheance", mere[0].getDate_echeance());
+    //             param.put("cat", cat);
+
+    //             if (designation != null && (designation.length() > 66) && (pre.length != 0)) {
+    //                 param.put("designation", designation.substring(0, 66));
+    //                 param.put("designation+", designation.substring(66, designation.length()));
+    //             } else {
+    //                 param.put("designation", designation);
+    //             }
+
+    //             /**
+    //              * *********************************************************************************************
+    //              */
+    //             /*
+    //              * facture.setId(details[0].getIdmere());
+    //              * //facture.setListeDetails(details);
+    //              * facture.initDetails(null);
+    //              */
+    //             // if(facture.getEstMictsl()==null ||
+    //             // facture.getEstMictsl().compareTo("1")!=0)details = facture.getListeDetails();
+    //             details = facture.getListeDetails();
+    //             double total = 0;
+    //             double reduction = 0;
+    //             for (int i = 0; i < details.length; i++) {
+    //                 // details[i].setMontantHTEuro( details[i].getQuantite()*details[i].getPu());
+    //                 total = total + details[i].getMontantHTEuro();
+    //                 details[i].setMontantTTC(details[i].getMontanttaux() + details[i].getMontantTva());
+    //                 String heuredebut = "";
+    //                 String heurefin = "";
+    //                 if (details[i].getHeureDebut() != null && details[i].getHeureDebut().length() == 8) {// manala anle
+    //                     // seconde any
+    //                     // amn farany
+    //                     // details[i].getHeureDebut().
+    //                     int len = 0;
+    //                     while (len < 5) {
+    //                         heuredebut += details[i].getHeureDebut().charAt(len);
+    //                         len = len + 1;
+    //                     }
+    //                     details[i].setHeureDebut(heuredebut);
+
+    //                 }
+    //                 if (details[i].getHeureFin() != null && details[i].getHeureFin().length() == 8) {// manala anle
+    //                     // seconde any amn
+    //                     // farany
+    //                     // details[i].getHeureDebut().
+    //                     int len = 0;
+    //                     while (len < 5) {
+    //                         heurefin += details[i].getHeureFin().charAt(len);
+    //                         len = len + 1;
+    //                     }
+    //                     details[i].setHeureFin(heurefin);
+
+    //                 }
+    //                 arrList.add(details[i]);
+    //                 reduction += details[i].getReduction();
+
+    //                 // total=
+    //             }
+
+    //             // mere[0].setArrayDetails(arrList);
+    //             // List<FactureClientDetails> res = new ArrayList<FactureClientDetails>();
+    //             /*
+    //              * List dataSources = new ArrayList();
+    //              * dataSources.addAll(mere[0].getArrayDetails());
+    //              */
+    //             param.put("total", total);
+    //             param.put("montantsns", hTEuro);
+    //             param.put("reduction", reduction);
+    //             param.put("list_table", arrList);
+
+    //             if (getNomJasper().compareTo("facture-client-sans-prevision") == 0) {
+    //                 List<FactureClientDetailsPDF> detailsPDF = new ArrayList<FactureClientDetailsPDF>();
+    //                 FactureClientDetailsPDF details1 = new FactureClientDetailsPDF();
+    //                 FactureClientDetailsPDF details2 = new FactureClientDetailsPDF();
+    //                 details1.setDetails(new ArrayList<FactureClientDetails>());
+    //                 details2.setDetails(new ArrayList<FactureClientDetails>());
+    //                 int conventionExist = 1;
+    //                 for (int k = 0; k < arrList.size(); k++) {
+    //                     if ((separer_convention == 0) && (arrList.get(k).getRubrique() != null)
+    //                             && (arrList.get(k).getRubrique().compareTo("RB0000000144093258") == 0
+    //                             || arrList.get(k).getRubrique().compareTo("RB0000000143093146") == 0
+    //                             || arrList.get(k).getRubrique().compareTo("RB0000000060112257") == 0
+    //                             || arrList.get(k).getRubrique().compareTo("RB0000000066111845") == 0)) {
+    //                         conventionExist = 0;
+    //                         details2.getDetails().add(arrList.get(k));
+    //                         details2.setTotal(details2.getTotal() + arrList.get(k).getMontantHTEuro());
+    //                         details2.setMontantdevise(details2.getMontantdevise() + arrList.get(k).getMontanttaux());
+    //                         details2.setMontantTVAdevise(details2.getMontantTVAdevise() + arrList.get(k).getTva());
+    //                         details2.setMontantTTCdevise(details2.getMontantdevise() + details2.getMontantTVAdevise());
+    //                     } else {
+    //                         details1.getDetails().add(arrList.get(k));
+    //                         details1.setTotal(details1.getTotal() + arrList.get(k).getMontantHTEuro());
+    //                         details1.setMontantdevise(details1.getMontantdevise() + arrList.get(k).getMontanttaux());
+    //                         details1.setMontantTVAdevise(details1.getMontantTVAdevise() + arrList.get(k).getTva());
+    //                         details1.setMontantTTCdevise(details1.getMontantdevise() + details1.getMontantTVAdevise());
+    //                     }
+    //                 }
+
+    //                 double montantDevise = mere[0].getMontant(), montantTVADevise = mere[0].getMontanttva(),
+    //                         montantTTCDevise = mere[0].getMontantttc();
+    //                 String codeFacture = mere[0].getCode();
+
+    //                 if (mere[0].getDeviseMere() != null) {
+    //                     if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseAr)) {
+    //                         // if (codeFacture.contains("09A") || codeFacture.contains("01A")) {
+    //                         if (codeFacture.contains("09A")) {
+    //                             montantDevise = hTEuro;
+    //                             montantTVADevise = tvaEuro;
+    //                             montantTTCDevise = ttcEuro;
+    //                         }
+    //                     }
+    //                     if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseDollars)) {
+    //                         montantDevise = hTDollar;
+    //                         montantTVADevise = tvaDollar;
+    //                         montantTTCDevise = ttcDollar;
+    //                     }
+    //                     if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseEuro)) {
+    //                         montantDevise = hTEuro;
+    //                         montantTVADevise = tvaEuro;
+    //                         montantTTCDevise = ttcEuro;
+    //                     }
+    //                     /*
+    //                      * if (mere[0].getDeviseMere().equalsIgnoreCase(Constante.deviseDollars)) {
+    //                      * if (codeFacture.contains("01A") || codeFacture.contains("08A")) {
+    //                      * montantDevise = hTDollar;
+    //                      * montantTVADevise = tvaDollar;
+    //                      * montantTTCDevise = ttcDollar;
+    //                      * }
+    //                      * }
+    //                      */
+
+    //                     details1.setMontantdevise(montantDevise);
+    //                     details1.setMontantTVAdevise(montantTVADevise);
+    //                     details1.setMontantTTCdevise(montantTTCDevise);
+    //                 }
+
+    //                 detailsPDF.add(details1);
+    //                 if (conventionExist == 0) {
+    //                     detailsPDF.add(details2);
+    //                 }
+
+    //                 FactureClientDetailsPDFMere fiche = new FactureClientDetailsPDFMere();
+    //                 fiche.setList_table(detailsPDF);
+
+    //                 List<FactureClientDetailsPDFMere> ficheMultiple = new ArrayList<FactureClientDetailsPDFMere>();
+    //                 ficheMultiple.add(fiche);
+    //                 dataSource = new ArrayList(ficheMultiple);
+    //             }
+
+    //         }
+    //         // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+    //         // setNomJasper("facture_client2 - Copie");
+    //         UtilitaireImpression.imprimer(request, response, "facture-client", param, dataSource, getReportPath(), rt);
+
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     } finally {
+    //         if (c != null) {
+    //             c.close();
+    //         }
+    //     }
+    // }
 
     /**
      * *****************************************************************************************************************************************************************************************
