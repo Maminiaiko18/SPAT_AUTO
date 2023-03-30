@@ -121,8 +121,8 @@
                                <a class="btn btn-info pull-warning"  href="${pageContext.request.contextPath}/Paie?action=imprimerBP&id=<%=base.getId()%>" style="margin-right: 10px">Imprimer BP</a> 
                             <%
                             } 
-                            else if(jcaisse.getCredit() > 0 && jcaisse.getIdcaisse().compareToIgnoreCase(Constante.caisseDepense)==0){ %>
-                                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeRecetteDepense&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de caisse</a>
+                            if(jcaisse.getCredit() > 0 && jcaisse.getIdcaisse().compareToIgnoreCase(Constante.caisseDepense)==0){ %>
+                                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeRecetteDepense&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de recette</a>
                             <%
                             }                            
                             else if(jcaisse.getCredit()!=0){
@@ -132,7 +132,7 @@
                             }
                             else if(jcaisse.getDebit()!=0){
                             %>
-                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseDepense&idop=<%=jcaisse.getIdordre()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de caisse</a>
+                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseDepense&idop=<%=jcaisse.getIdordre()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de depense</a>
                             <%
                             }
                             %>
