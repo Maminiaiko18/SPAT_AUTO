@@ -1390,17 +1390,17 @@ public class EtatPaieServlet extends HttpServlet {
             JournalCaisseBordereauPaie[] mere = (JournalCaisseBordereauPaie[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("date",utilitaire.Utilitaire.dateDuJour().toString());
             if(mere[0].getDateSaisie()==null){
-                param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"-"+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
+                param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"  "+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
             }else{
-                param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"-"+mere[0].getDateSaisie()+"-"+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
+                param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"  "+mere[0].getDateSaisie()+"  "+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
             }
             param.put("destinataire",mere[0].getTiersLib());
             param.put("destinataire", mere[0].getTiersLib());
             String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantTotal())," Ariary");
             param.put("motantLettre",montantlettre);
-            param.put("cheque", mere[0].getNumcheque()+" - "+mere[0].getDesignation()+" - "+mere[0].getDateSaisie());
             ArrayList<JournalCaisseBordereauPaie> arrList = new ArrayList<JournalCaisseBordereauPaie>();
             for (int i = 0; i < mere.length; i++) {
+                mere[i].setMontant(Utilitaire.arrondirDecimalWithMode(mere[i].getMontant(), "#.##", RoundingMode.HALF_UP));
                /* SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 String formattedDate = formatter.format(mere[i].getDaty());
                 java.util.Date utilDate = formatter.parse(formattedDate);

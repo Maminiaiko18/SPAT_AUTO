@@ -50,13 +50,13 @@ Société du Port à gestion Autonome de Toamasina
 
 ]]></text>
 			</staticText>
-			<image>
-				<reportElement x="411" y="2" width="144" height="77" uuid="83e3d7d5-3201-4fe3-9807-1c42444ecc32"/>
-				<imageExpression><![CDATA["D:\\BICI\\Kandra\\spat-capitainerie\\gallois-war\\web\\report\\cnaps_logo.jpg"]]></imageExpression>
-			</image>
 			<line>
 				<reportElement x="63" y="63" width="100" height="1" uuid="0c3bc1f9-6a83-41b6-abdc-50b8324662d4"/>
 			</line>
+			<image>
+				<reportElement x="463" y="-3" width="72" height="82" uuid="83313a9f-ad4c-4775-9070-9802e28dcf93"/>
+				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -103,6 +103,7 @@ Société du Port à gestion Autonome de Toamasina
 			</staticText>
 			<textField>
 				<reportElement x="313" y="55" width="223" height="20" uuid="8474e3cf-781e-4645-a513-52d1f8ea7f35"/>
+				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA[$P{cheque}]]></textFieldExpression>
 			</textField>
 			<line>
@@ -187,7 +188,7 @@ Société du Port à gestion Autonome de Toamasina
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{numFact}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="162" y="0" width="105" height="23" uuid="5c2d2c12-3e35-4056-89a4-7bbbe99bb6c8"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
@@ -199,7 +200,7 @@ Société du Port à gestion Autonome de Toamasina
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="266" y="0" width="125" height="23" uuid="2bcb997c-8045-408c-b6eb-ce6a319281d3"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
@@ -262,7 +263,7 @@ Société du Port à gestion Autonome de Toamasina
 				<reportElement x="390" y="87" width="100" height="20" uuid="b59dedbc-21f0-4eca-9486-e1c7a4aca9de"/>
 				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="266" y="1" width="125" height="20" uuid="f18cfd1a-c12b-41e9-badd-000190132408"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
