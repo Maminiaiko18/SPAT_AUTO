@@ -2563,25 +2563,25 @@ public class FactureClient extends ClassMere {
     }
 
 
-    public void payerAPartirAvoirs(AvoirFC[] avoirFCs,double montant,String u,Connection con) throws Exception{
+    public void payerAPartirAvoirs(Date daty,AvoirFC[] avoirFCs,double montant,String u,Connection con) throws Exception{
         
         double montantReste = montant;
         for(AvoirFC avoirFC : avoirFCs){
             montantReste = montantReste - avoirFC.getMontantreste();
             double montantAPayer = montantReste > 0 ? avoirFC.getMontantreste() : avoirFC.getMontantreste() + montantReste;
-            this.payerAPartirAvoir(avoirFC,montantAPayer,u,con);
+            this.payerAPartirAvoir(daty,avoirFC,montantAPayer,u,con);
             if(montantReste <= 0){
                 break;
             }
         }
     }
         
-    public void payerAPartirAvoir(AvoirFC avoirFC, double montant, String u,Connection con) throws Exception{
-        avoirFC.libererPaiement(montant,"Régularisation de l'avoir "+avoirFC.getId()+" pour facture "+this.getId(), u, con);
-        JournalCaisse journalCaisse =  new JournalCaisse(null, Constante.caisseCentraleBP,null , "Régularisation facture à partir avoir "+avoirFC.getId(), null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), 0, montant);
+    public void payerAPartirAvoir(Date daty,AvoirFC avoirFC, double montant, String u,Connection con) throws Exception{
+        avoirFC.libererPaiement(daty,montant,"Régularisation de l'avoir "+avoirFC.getId()+" pour facture "+this.getId(), u, con);
+        JournalCaisse journalCaisse =  new JournalCaisse(null, Constante.caisseAvoir,null , "Régularisation facture à partir avoir "+avoirFC.getId(), null, daty, daty, 0, montant);
         journalCaisse.setIdplacement(this.getId());
         journalCaisse.setTiers(this.getTiers());
-        journalCaisse.setIdmode(Constante.modePaiementEspece);
+        journalCaisse.setIdmode(Constante.modeRegulAvoir);
         journalCaisse.setIdTypeCheque(Constante.getTypeACredit());
         journalCaisse.createObject(u, con);
         journalCaisse.validerObject(u, con);

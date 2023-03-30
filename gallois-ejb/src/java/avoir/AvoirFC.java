@@ -489,22 +489,22 @@ public class AvoirFC extends ClassMere {
         PaiementFacture contrePaiement = new PaiementFacture(jc.getId(),this.getIdfacture(),-1*jc.getDebit());
         contrePaiement.createObject(u, con);
     }    
-    public void libererPaiement(double montant,String remarque, String u, Connection con) throws Exception{
+    public void libererPaiement(Date daty,double montant,String remarque, String u, Connection con) throws Exception{
         if(montant > this.montantreste){
-            throw new Exception("Montant à libérer supérieur au montant disponible");
+            throw new Exception("Montant à libérer de la facture supérieur au montant disponible de l'avoir");
         }
         OrdonnerPayement op = new OrdonnerPayement();
         op.setDed_Id(this.getId());
         op.setMontant(montant);
-        op.setDaty(Utilitaire.dateDuJourSql());
+        op.setDaty(daty);
         op.setTiers(this.getTiers());
         op.setRemarque(remarque);
         op.createObject(u, con);
         op.validerObject(u, con);
-        JournalCaisse jc =  new JournalCaisse(null, Constante.caisseCentraleBP,null , remarque, null, Utilitaire.dateDuJourSql(), Utilitaire.dateDuJourSql(), montant, 0);
+        JournalCaisse jc =  new JournalCaisse(null, Constante.caisseAvoir,null , remarque, null, daty, daty, montant, 0);
         jc.setTiers(this.getTiers());
         jc.setIdordre(op.getId());
-        jc.setIdmode(Constante.modePaiementEspece);
+        jc.setIdmode(Constante.modeRegulAvoir);
         jc.setIdTypeCheque(Constante.getTypeACredit());
         jc.createObject(u, con);
         jc.validerObject(u, con);

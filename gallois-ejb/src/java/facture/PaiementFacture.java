@@ -235,7 +235,7 @@ public class PaiementFacture extends ClassMAPTable{
             else jc.setIdplacement(temp+";"+this.getIdFact());
 
             if(jc.getNumPiece()==null) {
-                jc.setNumPiece(jc.calculerNumeroPiece(c));
+                if(jc.getDebit() == 0) jc.setNumPiece(jc.calculerNumeroPiece(c));
             }
             jc.updateToTable(c);
 

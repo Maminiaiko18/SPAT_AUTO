@@ -60,8 +60,8 @@
 				<text><![CDATA[Liste]]></text>
 			</staticText>
 			<image>
-				<reportElement x="0" y="0" width="220" height="52" uuid="6a0eb66a-a2e5-4131-bdb7-157183c68257"/>
-				<imageExpression><![CDATA["F:\\BICI\\Kandra\\spat-capitainerie\\gallois-war\\web\\report\\cnaps_logo.jpg"]]></imageExpression>
+				<reportElement x="9" y="1" width="62" height="75" uuid="253cc39c-a6ec-465d-a9ad-27f0e1267051"/>
+				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

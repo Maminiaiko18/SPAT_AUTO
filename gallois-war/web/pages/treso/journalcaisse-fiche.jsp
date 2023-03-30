@@ -42,8 +42,8 @@
     pc.getChampByName("idTypeCheque").setLibelle("Type ch&egrave;que");
     pc.getChampByName("idplacement").setLibelle("Source");
     pc.getChampByName("idbanquelib").setLibelle("Banque");
-     pc.getChampByName("valTypeCheque").setLibelle("Type ch�que");
-     pc.getChampByName("tierslib").setLibelle("tiers");
+    pc.getChampByName("valTypeCheque").setLibelle("Type ch�que");
+    pc.getChampByName("tierslib").setLibelle("tiers");
     pc.getChampByName("idDevise").setLibelle("devise");
     pc.getChampByName("valCaisse").setLibelle("caisse");
     pc.getChampByName("DESCETYPECHEQUE").setLibelle("mode de paiement");
@@ -60,6 +60,7 @@
             pc.getChampByName("idplacement").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
         }
     }
+
 
     pc.getChampByName("idordre").setLibelle("Ordre");
     pc.getChampByName("idordre").setLien((String) session.getValue("lien") + "?but=ded/ordonnerpayement-fiche.jsp", "id=");
@@ -85,6 +86,7 @@
     map.put("ventilation-ff", "");
     map.put("ventilation-fc", "");
     map.put("ordonnerpaiement", "");
+    map.put("bordereau-p","");
     
     String tab = request.getParameter("tab");
     if (tab == null) {
@@ -114,12 +116,16 @@
                     <br/>
                     <div class="pull-right">
                         <p>
-                            <%if(jcaisse.getEtat() != ConstanteEtat.getEtatValider()){%>
-                            <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=treso/journalcaisse-fiche.jsp&classe=mg.spat.JournalCaisse">Viser</a>
-                            <%}%>
-                            <%    
-                            if(jcaisse.getCredit() > 0 && jcaisse.getIdcaisse().compareToIgnoreCase(Constante.caisseDepense)==0){
-                            %>
+                            <% 
+                            if(jcaisse.getIdordre()!=null) if(jcaisse.getIdordre().startsWith("ORP")==true){%>
+                               <a class="btn btn-info pull-warning"  href="${pageContext.request.contextPath}/Paie?action=imprimerBP&id=<%=base.getId()%>" style="margin-right: 10px">Imprimer BP</a> 
+                            <%
+                            }
+                            else if(jcaisse.getEtat() != ConstanteEtat.getEtatValider()){%>
+                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=treso/journalcaisse-fiche.jsp&classe=mg.spat.JournalCaisse">Viser</a>
+                            <% 
+                            } 
+                            else if(jcaisse.getCredit() > 0 && jcaisse.getIdcaisse().compareToIgnoreCase(Constante.caisseDepense)==0){ %>
                                     <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeRecetteDepense&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de caisse</a>
                             <%
                             }                            
@@ -157,7 +163,9 @@
                     <li class="<%= map.get("ventilation-fc")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-fc">Ventilation FC</a></li>
                     <li class="<%= map.get("ventilation-ff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-ff">Ventilation FF</a></li>
                     <li class="<%= map.get("ordonnerpaiement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ordonnerpaiement">Ordonner Paiement</a></li>
-                    
+                    <% if(jcaisse.getIdordre()!=null) if(jcaisse.getIdordre().startsWith("ORP")==true){ %>
+                        <li class="<%= map.get("bordereau-p")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=bordereau-p">Bordereaux de Paiement</a></li>
+                    <% } %>
                 </ul>
                 <div class="tab-content">       
 

@@ -627,7 +627,7 @@ public class OrdonnerPayement extends ClassEtat {
                 throw new Exception("OP Deja valide");
             }
 
-
+            this.gererVisaFF(c);
             if(getLiaison(c).length == 0) this.gererFF( u, c);
             this.gererAvoirFC( u, c);
             
@@ -878,6 +878,17 @@ public class OrdonnerPayement extends ClassEtat {
         finally {
             if (c != null && verif == true) {
                 c.close();
+            }
+        }
+    }
+    
+    
+    public void gererVisaFF(Connection c)throws Exception{
+        FactureFournisseur[] factures=this.getFactures(c);
+        if(factures.length>0){
+            for (int i = 0; i < factures.length; i++) {
+                if(factures[i].getEtat() < ConstanteEtat.getEtatValider())
+                    throw new Exception("Facture Fournisseur non visée. Impossible de viser L'OP.");
             }
         }
     }
