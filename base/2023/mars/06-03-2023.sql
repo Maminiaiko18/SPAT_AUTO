@@ -224,7 +224,7 @@ CREATE OR REPLACE VIEW FACTURECLIENT_EMISE_TOUS (ID, DATY, TIERS, DESIGNATION, T
 		THEN CAST((fact.DATE_ECHEANCE - current_date) AS integer)
 	ELSE  0
 	END AS nbjours,
-     nvl(PF.montant, 0) as montantprov
+     cast(nvl(PF.montant, 0) as number (30,2))as montantprov
 FROM (
          select *FROM FACTURE_CLIENT_MICTSL
          union
