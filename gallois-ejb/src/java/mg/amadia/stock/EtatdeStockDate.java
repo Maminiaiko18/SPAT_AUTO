@@ -351,8 +351,8 @@ public class EtatdeStockDate extends ClassMAPTable {
                 + " and mvt.daty>='"+datyInf+"' group by mvt.idingredients,mvt.unite, mvt.ingredients) mvt "
                 + "  where inv.daty=(select max(inv2.daty) "
                 + " from  reportdetailscaisse inv2 where inv2.IDING=inv.idIng and inv2.daty<'" + datySup + "')"
-                + " and inv.IDING=mvt.IDINGREDIENTS(+)";
-            //  System.out.println("**********************REQQQQQQQQQQQQ**************"+req);
+                + " and inv.IDING=mvt.IDINGREDIENTS(+) order by inv.PLACESITCPTCRT asc, inv.RANGSITCPTCRT asc";
+            //System.out.println("**********************REQQQQQQQQQQQQ**************"+req);
         return caculEtatStock(ingr, null, idIngredient, c, req, colonne, valorder);
     }
 
