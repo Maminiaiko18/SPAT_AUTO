@@ -117,7 +117,7 @@
                     <div class="pull-right">
                         <p>
                             <% 
-                            if(jc.getIdordre()!=null) if(jcaisse.getIdordre().startsWith("ORP")==true){%>
+                            if(jcaisse.getIdordre()!=null) if(jcaisse.getIdordre().startsWith("ORP")==true){%>
                                <a class="btn btn-info pull-warning"  href="${pageContext.request.contextPath}/Paie?action=imprimerBP&id=<%=base.getId()%>" style="margin-right: 10px">Imprimer BP</a> 
                             <%
                             }
@@ -163,7 +163,7 @@
                     <li class="<%= map.get("ventilation-fc")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-fc">Ventilation FC</a></li>
                     <li class="<%= map.get("ventilation-ff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-ff">Ventilation FF</a></li>
                     <li class="<%= map.get("ordonnerpaiement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ordonnerpaiement">Ordonner Paiement</a></li>
-                    <% if(jc.getIdordre()!=null) if(jcaisse.getIdordre().startsWith("ORP")==true){ %>
+                    <% if(jcaisse.getIdordre()!=null) if(jcaisse.getIdordre().startsWith("ORP")==true){ %>
                         <li class="<%= map.get("bordereau-p")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=bordereau-p">Bordereaux de Paiement</a></li>
                     <% } %>
                 </ul>
