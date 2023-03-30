@@ -9,6 +9,8 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import java.sql.Connection;
+import java.sql.Date;
+
 import mg.spat.JournalCaisse;
 import utilitaire.Constante;
 import utilitaire.UtilDB;
@@ -19,15 +21,25 @@ import utilitaire.Utilitaire;
  * @author Heriniaina
  */
 public class FactureClientAvoir extends ClassMAPTable{
+    Date daty;
     String id;
     String idfc;
     String idavoir;
     double montant, montantavoir;
 
-    public FactureClientAvoir(String idfc, String idavoir, double montant) throws Exception {
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
+
+    public FactureClientAvoir(String idfc, String idavoir, double montant,String daty) throws Exception {
         this.idfc = idfc;
         this.idavoir = idavoir;
         this.setMontant(montant);
+        this.setDaty(Utilitaire.stringDate(daty));
         this.setNomTable("FactureClientAvoir");
     }
 
@@ -114,14 +126,14 @@ public class FactureClientAvoir extends ClassMAPTable{
     }
     public void controlerPayerFacture(FactureClient aPayer, AvoirFC[] avoirFCs) throws Exception{
         if(aPayer.getMontantreste() < this.montant){
-            throw new Exception("Il n'est pas possible de regulariser un montant supérieur au montant à Payer");
+            throw new Exception("Il n'est pas possible de regulariser un montant supérieur("+this.montant+") au montant à Payer("+aPayer.getMontantreste() +")");
         }
     } 
     public void payerAvoirFacture(String u,Connection con) throws Exception{
         FactureClient aPayer = getFactureAPayer(con);
         AvoirFC[] avoirFCs = getAvoirsOrderByDate(con);
         this.controlerPayerFacture(aPayer, avoirFCs);
-        aPayer.payerAPartirAvoirs(avoirFCs, this.montant, u, con);
+        aPayer.payerAPartirAvoirs(this.getDaty(),avoirFCs, this.montant, u, con);
     }
 
     public double getMontantavoir() {
