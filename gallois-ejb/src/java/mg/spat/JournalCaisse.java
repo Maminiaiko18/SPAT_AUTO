@@ -855,6 +855,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
     @Override
     public void viser(UserEJBBean user, Connection c) throws Exception {
+        System.out.println("atyyyyyyyyyy eeeeeee");
         int verif = 0;
         try {
             if (c == null) {
@@ -1550,10 +1551,6 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         try{
             if(this.getIdmode()!=null && this.getIdmode().compareToIgnoreCase(Constante.getTraite()) == 0 && this.getIdtraite() == null)
                 throw new Exception("Paiement avec mode de paiement Traite doit être attaché à un traite");
-
-            if(this.getIdmode().compareToIgnoreCase(Constante.getTraite())==0){
-                if(this.getIdplacement()== null) throw new Exception("Ce journal caisse doit etre attaché a une facture");
-            }
         }
         catch(Exception e){
             e.printStackTrace();
