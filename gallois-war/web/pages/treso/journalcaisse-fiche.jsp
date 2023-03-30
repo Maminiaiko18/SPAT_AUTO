@@ -121,11 +121,10 @@
                             <%
                             }
                             else if(jcaisse.getEtat() != ConstanteEtat.getEtatValider()){%>
-                            <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=treso/journalcaisse-fiche.jsp&classe=mg.spat.JournalCaisse">Viser</a>
-                            <%}%>
-                            <%    
-                            if(jcaisse.getCredit() > 0 && jcaisse.getIdcaisse().compareToIgnoreCase(Constante.caisseDepense)==0){
-                            %>
+                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=treso/journalcaisse-fiche.jsp&classe=mg.spat.JournalCaisse">Viser</a>
+                            <% 
+                            } 
+                            else if(jcaisse.getCredit() > 0 && jcaisse.getIdcaisse().compareToIgnoreCase(Constante.caisseDepense)==0){ %>
                                     <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeRecetteDepense&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de caisse</a>
                             <%
                             }                            
