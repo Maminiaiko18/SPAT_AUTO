@@ -54,7 +54,7 @@ public class OrdonnerPayement extends ClassEtat {
 
     public void checkDoublonNumeroOP(Connection c) throws Exception {
 			this.setNomTable("ordonnerpayement");
-			String query = " and numeroop='"+this.getNumeroop()+"'";
+			String query = " and id != '"+this.getId()+"' numeroop='"+this.getNumeroop()+"'";
 			OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, query);
 			if(op.length > 0) throw new Exception("Numero OP existant");
     }
