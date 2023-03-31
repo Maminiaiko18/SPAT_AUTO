@@ -43,9 +43,11 @@ public class UtilitaireFacture {
         NumeroFacture num = new NumeroFacture();
         num.setNomTable(nomtable);
 
-        String awhere = " and annee = %s AND numeroactuelle IS NOT null order by NUMEROSUIVANT desc";
+        String awhere = " and annee = %s AND mois=%s AND numeroactuelle IS NOT null order by NUMEROSUIVANT desc";
         String annee = Utilitaire.getAnnee(date);
-        awhere = String.format(awhere, annee);
+        String mois = Utilitaire.getMois(date);
+        awhere = String.format(awhere, annee,mois);
+
 
         NumeroFacture[] nums = (NumeroFacture[]) CGenUtil.rechercher(num, null, null, c, awhere);
 
