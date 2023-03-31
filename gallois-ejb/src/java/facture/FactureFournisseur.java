@@ -767,9 +767,11 @@ public class FactureFournisseur extends FactureClient {
     public String calculerCodeSimple(Connection c) throws Exception {
         String daty = Utilitaire.datetostring(this.getDaty());
         String code = "";
+        String tableName = "NUMEROCOMPTAVAOVAO";
         code += Utilitaire.genererAnnee(daty);
         code += Utilitaire.genererMois(daty);
-        code += UtilitaireFacture.genererSequence(c, "NUMEROCOMPTA", 4, daty);
+        if(this.getIdcategorie().compareToIgnoreCase(Constante.getCategorieFFBP())==0) tableName = "NUMEROCOMPTABP";
+        code += UtilitaireFacture.genererSequence(c, tableName, 4, daty);
         return code;
     }
 

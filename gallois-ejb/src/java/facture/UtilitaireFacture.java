@@ -43,7 +43,7 @@ public class UtilitaireFacture {
         NumeroFacture num = new NumeroFacture();
         num.setNomTable(nomtable);
 
-        String awhere = " and annee = %s";
+        String awhere = " and annee = %s AND numeroactuelle IS NOT null order by NUMEROSUIVANT desc";
         String annee = Utilitaire.getAnnee(date);
         awhere = String.format(awhere, annee);
 
