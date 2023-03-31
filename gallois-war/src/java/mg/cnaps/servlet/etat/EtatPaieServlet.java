@@ -1132,6 +1132,12 @@ public class EtatPaieServlet extends HttpServlet {
                 soustitre = "PIECE DE CAISSE";
                 titre = "PROVISION CONSTITUEE";
             }
+
+            if (tabJournal[0].getIdmode().compareTo(Constante.modeRegulAvoir)==0)
+            {
+                soustitre = "PIECE DE CAISSE";
+                titre = "DEDUCTION SUR AVOIR";
+            }
             param.put("soustitre", Utilitaire.champNull(soustitre));
 
             String chaine = request.getParameter("numPiece");
