@@ -97,3 +97,113 @@ create view PaiementOPJCUnion as
     select * from JOURNALCAISSELIBCOMPLET
         UNION ALL
     select * from PaiementOPLIBCOMPLET;
+
+create view ORDONNERPAYEMENTLIBCOMPLET
+            (ID, DATESAISIE, DATEEFFET, FOLIO, CAISSE, NUMPIECE, LIBELLE, DEBIT, CREDIT, REMARQUE, ETAT, TIERS,
+             IDTYPECHEQUE, DESIGNATION, IDDEVISE, IDMODE, NUMCHEQUE, TYPEMVT, IDORDRE, IDPLACEMENT, IDCAISSE, VALCAISSE,
+             DESCECAISSE, VALTYPECHEQUE, DESCETYPECHEQUE, TIERSLIB, CODETIERS, IDBANQUE, IDBANQUELIB, NUMEROOP, TYPE,
+             TYPELIB, IDTRAITE)
+as
+SELECT j.ID,
+       j.DATESAISIE,
+       j.DATEEFFET,
+       j.FOLIO,
+       j.CAISSE,
+       j.NUMPIECE,
+       j.LIBELLE,
+       cast(op.MONTANT as number(30,2)),
+       cast(j.CREDIT as number(30,2)),
+       j.REMARQUE,
+       j.ETAT,
+       j.TIERS,
+       j.IDTYPECHEQUE,
+       j.DESIGNATION,
+       j.IDDEVISE,
+       j.IDMODE,
+       j.NUMCHEQUE,
+       j.TYPEMVT,
+       j.IDORDRE,
+       j.IDPLACEMENT,
+       c.ID    AS idcaisse,
+       c.val   AS valcaisse,
+       c.desce AS descecaisse,
+       tc.val  AS valtypecheque,
+       m.val   AS descetypecheque,
+       ti.NOM  AS tierslib,
+       ti.CDCLT AS codetiers,
+       j.IDBANQUE,
+       b.val as idbanquelib,
+        op.NUMEROOP,
+        fc.idcategorie AS TYPE,
+       categ.VAL AS typelib,
+	    j.IDTRAITE
+FROM ORDONNERPAYEMENT op
+        left join Journalcaisse j on op.id=j.IDORDRE
+    JOIN CAISSE C
+              ON j.CAISSE = C.ID
+         LEFT JOIN TYPECHEQUE tc ON tc.id = j.idtypecheque
+         LEFT JOIN FOURNISSEUR_UNION_PERSONNEL ti ON ti.id = j.TIERS
+         LEFT JOIN MODEPAIEMENT m on j.idmode = m.id
+         LEFT JOIN BANQUE b on j.idbanque = b.ID
+         left join factureclient fc on fc.id=j.idplacement
+         LEFT JOIN CATEGORIEFC categ ON categ.ID = fc.idcategorie;
+
+create view OPPaiementLIBCOMPLET
+            (ID, DATESAISIE, DATEEFFET, FOLIO, CAISSE, NUMPIECE, LIBELLE, DEBIT, CREDIT, REMARQUE, ETAT, TIERS,
+             IDTYPECHEQUE, DESIGNATION, IDDEVISE, IDMODE, NUMCHEQUE, TYPEMVT, IDORDRE, IDPLACEMENT, IDCAISSE, VALCAISSE,
+             DESCECAISSE, VALTYPECHEQUE, DESCETYPECHEQUE, TIERSLIB, CODETIERS, IDBANQUE, IDBANQUELIB, NUMEROOP, TYPE,
+             TYPELIB, IDTRAITE)
+as
+SELECT j.ID,
+       j.DATESAISIE,
+       j.DATEEFFET,
+       j.FOLIO,
+       j.CAISSE,
+       j.NUMPIECE,
+       j.LIBELLE,
+       cast(op.montant as number(30,2)),
+       cast(j.CREDIT as number(30,2)),
+       j.REMARQUE,
+       j.ETAT,
+       j.TIERS,
+       j.IDTYPECHEQUE,
+       j.DESIGNATION,
+       j.IDDEVISE,
+       j.IDMODE,
+       j.NUMCHEQUE,
+       j.TYPEMVT,
+       op.id as idordre,
+       j.IDPLACEMENT,
+       c.ID    AS idcaisse,
+       c.val   AS valcaisse,
+       c.desce AS descecaisse,
+       tc.val  AS valtypecheque,
+       m.val   AS descetypecheque,
+       ti.NOM  AS tierslib,
+       ti.CDCLT AS codetiers,
+       j.IDBANQUE,
+       b.val as idbanquelib,
+        op.NUMEROOP,
+        fc.idcategorie AS TYPE,
+       categ.VAL AS typelib,
+	    j.IDTRAITE
+FROM ORDONNERPAYEMENT op
+    join PaiementOP pop  on op.id=pop.IDOP
+    JOIN Journalcaisse j on pop.IDMVT = j.id
+         JOIN CAISSE C
+              ON j.CAISSE = C.ID
+         LEFT JOIN TYPECHEQUE tc ON tc.id = j.idtypecheque
+         LEFT JOIN FOURNISSEUR_UNION_PERSONNEL ti ON ti.id = j.TIERS
+         LEFT JOIN MODEPAIEMENT m on j.idmode = m.id
+         LEFT JOIN BANQUE b on j.idbanque = b.ID
+         left join factureclient fc on fc.id=j.idplacement
+         LEFT JOIN CATEGORIEFC categ ON categ.ID = fc.idcategorie;
+
+
+create view OPPaiementJCUnion as
+    select * from ORDONNERPAYEMENTLIBCOMPLET
+        UNION ALL
+    select * from OPPaiementLIBCOMPLET;
+	
+	
+	

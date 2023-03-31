@@ -65,6 +65,10 @@
                         <option value="OrdonnerPayement_Annule" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("OrdonnerPayement_Annule") == 0) {
                                 out.print("selected");
                             }%>>Annul&eacute;</option>
+
+                            <option value="OPREGULAVOIR" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("OPREGULAVOIR") == 0) {
+                                out.print("selected");
+                            }%>>Régularisation avoir</option>
                     </select>
                 </div>
             </div>
