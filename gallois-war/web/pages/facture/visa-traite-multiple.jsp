@@ -67,6 +67,10 @@
         
         <%
             String libEnteteAffiche[] = {"ID","Date", "Tiers", "banque","Date Echeance","Reference","Montant","Etat"};
+            String lienTableau[] = {pr.getLien() + "?but=facture/traite-fiche.jsp"};
+            String colonneLien[] = {"id"};
+            pr.getTableau().setLien(lienTableau);
+            pr.getTableau().setColonneLien(colonneLien);
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setNameBoutton("Transferer");
             pr.getTableau().setNameActe("viserTraite");
