@@ -1355,14 +1355,13 @@ public class EtatPaieServlet extends HttpServlet {
                     && request.getParameter("daty2").length() != 0) {
                 mois = request.getParameter("daty2").split("/")[1];
             }
-            facture.setNomTable("factureclient_emise");
+            facture.setNomTable("factureclient_emise_tous");
             if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("null") != 0
                     && request.getParameter("etat").length() != 0) {
                 System.out.println("état : "+request.getParameter("etat"));
                 facture.setNomTable(request.getParameter("etat"));
             }
-            awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by type,ordre,code asc";
-
+            awhere += " AND daty>= '" + daty1 + "' AND daty<= '" + daty2 + "' order by ordre,code asc";
             FactureClient[] details = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, awhere);
             ArrayList<FactureClient> arrList = new ArrayList<FactureClient>();
             for (int i = 0; i < details.length; i++) {
