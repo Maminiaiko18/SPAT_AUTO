@@ -1739,13 +1739,14 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("valdollar", deviseDollar);
                 param.put("datyecheance", mere[0].getDate_echeance());
                 param.put("cat", cat);
+                param.put("designation", designation);
 
-                if (designation != null && (designation.length() > 66) && (pre.length != 0)) {
+                /*if (designation != null && (designation.length() > 66) && (pre.length != 0)) {
                     param.put("designation", designation.substring(0, 66));
-                    param.put("designation+", designation.substring(66, designation.length()));
+                    param.put("designation+", designation.substring(66, .length()));
                 } else {
                     param.put("designation", designation);
-                }
+                }*/
 
                 /**
                  * *********************************************************************************************
