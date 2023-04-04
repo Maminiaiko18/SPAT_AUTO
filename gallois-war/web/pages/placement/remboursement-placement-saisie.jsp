@@ -40,7 +40,14 @@
         pi.getFormu().getChamp("IRCM").setDefaut(Utilitaire.formaterAr(data[0].getIrcm()));
         pi.getFormu().getChamp("caisse").setDefaut(data[0].getIdcaisse());
     }
-    
+
+    if(request.getParameter("disable") != null){
+        pi.getFormu().getChamp("interet").setAutre("readonly");
+        pi.getFormu().getChamp("interetBrut").setAutre("readonly");
+        pi.getFormu().getChamp("IRCM").setAutre("readonly");
+    }
+    pi.getFormu().getChamp("montantplace").setAutre("readonly");
+
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>

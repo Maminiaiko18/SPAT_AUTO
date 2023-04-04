@@ -1442,6 +1442,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if(this.getDebit()>0)
                 fc=this.genererFactureFournisseurAuto(c,user,compte,annee,mois,tva);
             if(fc!=null){
+                fc.setDesignation("Facture auto via placement");
                this.setIdplacement(fc.getId());
                this.updateToTableWithHisto(user, c);
             }
@@ -1473,6 +1474,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             if(this.getDebit()>0)
                 fc=this.genererFactureFournisseurAuto(c,user,compte,annee,mois,tva,pu);
             if(fc!=null){
+                fc.setDesignation("Facture auto via placement");
                this.setIdplacement(fc.getId());
                this.updateToTableWithHisto(user, c);
             }
