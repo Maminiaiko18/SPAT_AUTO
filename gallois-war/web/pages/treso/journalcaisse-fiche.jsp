@@ -90,7 +90,7 @@
     
     String tab = request.getParameter("tab");
     if (tab == null) {
-        tab = "ventilation-fc";
+        tab = "ordonnerpaiement";
     }
     map.put(tab, "active");
     tab = "inc/" + tab + ".jsp";
