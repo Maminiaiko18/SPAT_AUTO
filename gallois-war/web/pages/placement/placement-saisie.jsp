@@ -53,6 +53,7 @@
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
 //    pi.getFormu().getChamp("montantdevise").setLibelle("Montant devise");
     pi.getFormu().getChamp("montantdevise").setVisible(false);
+    pi.getFormu().getChamp("taux").setLibelle("Taux annuel");
     
     pi.setLien((String) session.getValue("lien"));
     Placement placement=null;
