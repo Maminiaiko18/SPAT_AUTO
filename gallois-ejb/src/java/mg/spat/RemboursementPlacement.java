@@ -197,7 +197,7 @@ public class RemboursementPlacement extends ClassEtat{
         //  Entrée Montant placé
             String designation = String.format("Echeance placement %s/%s: montant place", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
             Date dateDuJour = Utilitaire.dateDuJourSql();
-            JournalCaisse j1 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, placementLibComplet.getMontant());
+            JournalCaisse j1 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, placementLibComplet.getMontant());
             j1.setIddevise(placement.getIddevise());
             j1.setIdplacement(this.getIdplacement());
             j1.setMode(Constante.idmodeVirement);
@@ -213,7 +213,7 @@ public class RemboursementPlacement extends ClassEtat{
                 //Entrée intérêt brut
                 designation = String.format("Echeance placement %s/%s: montant interet brut", placementLibComplet.getValentite(), placementLibComplet.getValbanque()); 
 
-                JournalCaisse brut = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, this.getInteretBrut(), placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant);
+                JournalCaisse brut = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, this.getInteretBrut(), placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant);
                 brut.setIdplacementvrai(this.getIdplacement());
                 brut.createObject(refuser, c);
                 brut.genererFacture(c, refuser, compte, Integer.parseInt(Utilitaire.getAnneeEnCours()), Utilitaire.getMoisEnCours(), (this.getIRCM()/this.getInteret())*100,this.getInteret());
@@ -223,7 +223,7 @@ public class RemboursementPlacement extends ClassEtat{
                 //Sortie IRCM
                 designation = String.format("Echeance placement %s/%s: montant IRCM", placementLibComplet.getValentite(), placementLibComplet.getValbanque());     
                 
-                JournalCaisse ircm = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, this.getIRCM(), 0, placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant,this.getIdplacement());
+                JournalCaisse ircm = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), this.getIRCM(), 0, placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant,this.getIdplacement());
                 ircm.setIdplacementvrai(this.getIdplacement());
                 ircm.createObject(refuser, c);
                 ircm.viser(user, c);
@@ -231,13 +231,13 @@ public class RemboursementPlacement extends ClassEtat{
             //  Entrée Intérêts
                 designation = String.format("Echeance placement %s/%s: montant interet net", placementLibComplet.getValentite(), placementLibComplet.getValbanque());                
 
-                JournalCaisse j2 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, dateDuJour, 0, placementLibComplet.getInteret_net());
+                JournalCaisse j2 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, placementLibComplet.getInteret_net());
                 j2.setIddevise(placement.getIddevise());
                 j2.setMode(Constante.idmodeVirement);
                 j2.setIdTypeCheque(Constante.typeChequeAuComptant);
                 j2.setIdplacementvrai(this.getIdplacement());
                 j2.createObject(refuser, c);
-                j2.genererFacture( c, refuser, compte, Utilitaire.getAneeEnCours(), Utilitaire.getMoisEnCours(), 0 );
+                j2.genererFacture( c, refuser, compte, Utilitaire.getAneeEnCours(), Utilitaire.getMoisEnCours(), 20 );
                 j2.viser(user, c);
             }
             
