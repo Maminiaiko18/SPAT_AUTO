@@ -352,7 +352,7 @@ public class Placement extends ClassEtat {
             JournalCaisse jc = new JournalCaisse();
             jc.setCaisse(pb.getDesce());
             jc.setLibelle(String.format("Débit placement %s - %s du %s", pc.getValentite(), pc.getValbanque(), p.getDate_placement()));
-            jc.setDateEffet(Utilitaire.dateDuJourSql());
+            jc.setDateEffet(p.getDate_placement());
             jc.setDebit(p.getMontant());
             jc.setIdTypeCheque(Constante.typeChequeAuComptant);
             jc.setIddevise(Constante.deviseAr);

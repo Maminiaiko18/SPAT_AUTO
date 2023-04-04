@@ -13,6 +13,7 @@
 <%
     JournalCaisseLibComplet t = new JournalCaisseLibComplet();
     t.setNomTable("OPPaiementJCUnion");
+    String id = request.getParameter("id");
     String listeCrt[] = {"id"};
     String listeInt[] = {};
     String libEntete[] = {"idordre", "numeroop", "dateSaisie", "dateEffet", "tierslib", "debit"};
@@ -43,11 +44,16 @@
         }
         else
             {
-               %><center><h4>Aucune donnée trouvé</h4></center><%
+               %><center><h4>Aucune donnï¿½e trouvï¿½</h4></center><%
+        }
+
+        if(liste != null) {
+            if(liste[0].getEtat()==ConstanteEtat.getEtatValider()) {
+        %>
+            <a class="btn btn-info pull-warning" href="${pageContext.request.contextPath}/Paie?action=imprimerBP&id=<%=id%>" style="margin-right: 10px">Imprimer Bordereaux</a>
+        <% } else { %>
+            <a class="btn btn-info pull-warning" href="${pageContext.request.contextPath}/Paie?action=imprimerBP&id=<%=id%>" style="margin-right: 10px" disabled>Imprimer Bordereaux</a>
+        <% }
         }
     %>
-            
-
-   
-
 </div>

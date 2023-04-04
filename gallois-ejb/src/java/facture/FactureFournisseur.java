@@ -929,6 +929,7 @@ public class FactureFournisseur extends FactureClient {
 
     public Engagement getEngagement() throws Exception {
         Engagement retour = new Engagement(this.getDesignation(), this.getCode_etablissement(), this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, this.getDaty());
+        retour.setAvecFacture(1);
         return retour;
     }
 
