@@ -67,19 +67,19 @@ public class OrdonnerPayementPDF extends OrdonnerPayement {
     }
 
     public String getMontant_lettre() {
-        String montantString = String.valueOf((int) this.getMontant());
-        long montantLong = Long.valueOf(montantString);
-//        System.out.println("ity "+this.getDeviselib());
+        String montantString = String.valueOf((double) this.getMontant());
+        double montantLong = Double.valueOf(montantString);
+        System.out.println("ity ----------------->>"+montantLong);
 //        this.setMontant_lettre((ChiffreLettre.convertIntToString(montantLong) + " " + this.getDeviselib()).toUpperCase());
     if( this.getDevise().compareTo("Ar") == 0){
         
-        this.setMontant_lettre((ChiffreLettre.convertIntToString(montantLong) + " ariary").toUpperCase());
+        this.setMontant_lettre((ChiffreLettre.convertRealToString(montantLong) + " ariary").toUpperCase());
     }if( this.getDevise().compareTo("Eur") == 0){
         
-        this.setMontant_lettre((ChiffreLettre.convertIntToString(montantLong) + " euro").toUpperCase());
+        this.setMontant_lettre((ChiffreLettre.convertRealToString(montantLong) + " euro").toUpperCase());
     }if( this.getDevise().compareTo("Dollars") == 0){
         
-        this.setMontant_lettre((ChiffreLettre.convertIntToString(montantLong) + " Dollars").toUpperCase()); 
+        this.setMontant_lettre((ChiffreLettre.convertRealToString(montantLong) + " Dollars").toUpperCase()); 
     }
         return montant_lettre;
     }

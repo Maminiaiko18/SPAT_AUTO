@@ -33,15 +33,37 @@
 //    pi.getFormufle().getChamp("idMvt_0").setLibelle("Mouvement");     
     pi.getFormufle().getChamp("montant_0").setLibelle("Montant");     
     pi.getFormufle().getChamp("idFact_0").setLibelle("Facture"); 
+    pi.getFormu().getChamp("montant").setAutre("onchange=\"setFilleValue('montant_0', this)\"");
+    int taille = pi.getNombreLigne();
+    for (int i = 0; i < taille; i++) {
+        if (i == 0) {
+            pi.getFormufle().getChamp("montant_" + i).setAutre("onchange=\"setOnblurInMere('montant_0', this)\"");
+        }
+        else {
+            pi.getFormufle().getChamp("montant_" + i).setAutre("onchange=\"calculTotal()\"");
+        }
+    }
         
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
 
     pi.preparerDataFormu();
        
 %>
+<style>
+    .total-section {
+        font-size: 25px;
+        font-style: bold;
+        padding: 10px;
+        margin-right: 120px;
+        float: right;
+    }
+    #totalAmount {
+        margin: 0 50px;
+    }
+</style>
 <div class="content-wrapper">
     <h1>Enregistrer Paiement Facture</h1>
-    <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
+    <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="paiement" id="paiement">
         <div class="form-group row">
             <div class="col-md-3">
                 <label for="idTraite">Mouvement</label>
@@ -63,7 +85,51 @@
     </form>
 
 </div>
+<script>
+    function initTotalSection() {
+        const engagementForm = document.getElementById('paiement');
+        const boxFooterElmts = engagementForm.getElementsByClassName('box-footer');
+        const lastFooter = boxFooterElmts[boxFooterElmts.length - 1];
+        const parentNode = lastFooter.parentNode;
+        const total = document.createElement("p");
+        total.className = "total-section";
+        total.innerHTML = "Total:<span id='totalAmount'>0</span>";
 
+        parentNode.insertBefore(total, lastFooter);
+    }
+    
+    function getValeurMontant(numLigne) {
+        const valeur = Number($('#montant_' + numLigne).val());
+        return !isNaN(valeur) ? valeur : 0;
+    }
+
+    function calculTotal() {
+        let total = 0;
+        const ligneTab = document.getElementById('ajout_multiple_ligne').children;
+        
+        for(let i=0; i < ligneTab.length; i++) {
+            total += getValeurMontant(i);
+        }
+
+        const nouvelValeur = Intl.NumberFormat('fr-FR').format(total);
+        $('#totalAmount').text(nouvelValeur);
+    }
+
+    $(document).ready(function () {
+        initTotalSection();
+        calculTotal();
+    });
+</script>
+<script>
+    function setOnblurInMere(idMere, elemFille) {
+        console.log('calcul total');
+        calculTotal();
+        var elemMere = document.getElementById(idMere);
+        if (elemMere && elemFille.value != "") {
+            elemMere.onblur = calculTotal();
+        }
+    }
+</script>  
 <%
 	} catch (Exception e) {
 		e.printStackTrace();

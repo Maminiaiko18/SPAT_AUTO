@@ -1389,7 +1389,7 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             String id = request.getParameter("id");
             JournalCaisseBordereauPaie facture = new JournalCaisseBordereauPaie();
-            facture.setNomTable("JOURNALCAISSE_BORDEREAUPAIE");
+            facture.setNomTable("BPAIEMENT");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             JournalCaisseBordereauPaie[] mere = (JournalCaisseBordereauPaie[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("date",utilitaire.Utilitaire.dateDuJour().toString());
