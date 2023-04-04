@@ -1,6 +1,6 @@
 <%-- 
     Document   : analyse-journal-de-caisse
-    Created on : 2 déc. 2019, 08:22:05
+    Created on : 2 dï¿½c. 2019, 08:22:05
     Author     : Antsa
 --%>
 
@@ -34,9 +34,9 @@
         pr.setLien((String) session.getValue("lien"));
 
         pr.getFormu().getChamp("date_placement1").setLibelle("Date placement  min");
-        pr.getFormu().getChamp("date_echeance1").setLibelle("Date échéance min");
+        pr.getFormu().getChamp("date_echeance1").setLibelle("Date ï¿½chï¿½ance min");
         pr.getFormu().getChamp("date_placement2").setLibelle("Date placement  max");
-        pr.getFormu().getChamp("date_echeance2").setLibelle("Date échéance max");
+        pr.getFormu().getChamp("date_echeance2").setLibelle("Date ï¿½chï¿½ance max");
 
         pr.getFormu().getChamp("date_placement1").setDefaut(fin[0]);
         pr.getFormu().getChamp("date_echeance1").setDefaut(fin[0]);
@@ -52,7 +52,7 @@
         hash.put("entite","ID Entite");
         hash.put("date_placement","Date placement");
         hash.put("date_echeance","Date &eacute;ch&eacute;ance");
-        hash.put("duree","Dur&eacute;e");
+        hash.put("duree","Dur&eacute;e (en mois)");
         hash.put("montant","Montant");
         hash.put("taux","Taux");
         hash.put("etat","Etat");
@@ -101,7 +101,7 @@
         <br>
         <%
             if(strings.size() == 0){
-                String libEnteteAffiche[] = {"ID","Date placement","Date &eacute;ch&eacute;ance","Entite", "Banque","Num&eacute;ro" ,"Dur&eacute;e", "Interet recevoir", "Montant"};
+                String libEnteteAffiche[] = {"ID","Date placement","Date &eacute;ch&eacute;ance","Entite", "Banque","Num&eacute;ro" ,"Dur&eacute;e (en mois)", "Interet recevoir", "Montant"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             }
             else
