@@ -11,6 +11,7 @@
 <%@ page import="affichage.*" %>
 <%@page import="mg.spat.AttacherFichier"%>
 <%@page import="service.UploadService"%>
+<%@page import="java.util.HashMap"%>
 
 <% try {
         SpatService serv = new SpatService();
@@ -39,11 +40,22 @@
         pc.getChampByName("interet_net").setLibelle("Interet net");
         pc.getChampByName("valentite").setLibelle("Entite");*/
         PlacementLibComplet bi = (PlacementLibComplet) pc.getBase();
-
+        String bute = "placement/placement-fiche.jsp";
         AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
         configuration.CynthiaConf.load();
         String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
         String dossier = "placement";
+        
+        /* 04-04-2023 */
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("detail_placement", "");
+        map.put("Journal_Caisse", "");
+        String tab = request.getParameter("tab");
+        if (tab == null) {
+            tab = "DetailPlacement";
+        }
+        map.put(tab, "active");
+        tab = "inc/" + tab + ".jsp";
 
 %>
 
@@ -69,12 +81,12 @@
                                 <a href="<%=(String) session.getValue("lien") + "?but=placement/placement-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning">Modifier</button></a>
                                 <%}%>
                                 <%if (bi.getEtat() < ConstanteEtat.getEtatEchu()) {%>
-                                <a href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-saisie.jsp&idplacement=" + bi.getId()%>" style="margin-right: 5px"><button class="btn btn-danger" >Echu</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-saisie.jsp&disable&idplacement=" + bi.getId()%>" style="margin-right: 5px"><button class="btn btn-danger" >Echu</button></a>
                                 <%}%>
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=placement/placement-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
 
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idplacement="+ bi.getId() +"&param=sortie"+"&auto=1"%>" style="margin-right: 10px">Rendre effectif</a>   
-                                  <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-saisie.jsp&idplacement="+ bi.getId()%>" style="margin-right: 10px">Remboursement anticipé</a> 
+                                  <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-saisie.jsp&idplacement="+ bi.getId()%>" style="margin-right: 10px">Remboursement anticipï¿½</a> 
                                    <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/placement-saisie.jsp&idplacement="+ bi.getId()%>" style="margin-right: 10px">Replacer </a> 
                                    <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresPlacement.jsp&acte=viserEtRendreEffectif&id="+ bi.getId()%>" style="margin-right: 10px">Viser et rendre effectif</a> 
                             
@@ -84,89 +96,38 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+       
 
-    <div class="row">    
+            <div class="col-md-10 col-md-offset-1 ">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs nav-center">
+                        <li class="<%= map.get("detail_placement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=bi.getId()%>&tab=DetailPlacement">Details Placements</a></li>
+                        <li class="<%= map.get("Journal_Caisse")%>"><a href="module.jsp?but=<%=bute%>&idPlacement=<%=bi.getId()%>&tab=journalCaisse-liste">Journal Caisse</a></li>
+                    </ul>
+                    <div class="tab-content">       
 
-        <section class="content-header">
-
-        </section>
-        <section class="content">
-            <div class="row col-md-12">
-                <div class="box box-solid">
-                    <div style="background:#ffb401; color:white;" class="box-header">
-                        <h3 class="box-title" align="center">LISTE</h3>
-                    </div>
-                    <div class="box-body table-responsive no-padding">
-                        <div id="selectnonee">
-                            <table width="100%" border="0" align="center" cellpadding="3" cellspacing="3" class="table table-hover table-bordered">
-                                <thead><tr class="head">
-                                        <th width="10%" align="center" valign="top" style="background-color:#103a8e">
-                                            <a href="#" style="color:white;">Id</a>
-                                        </th>
-                                        <th width="10%" align="center" valign="top" style="background-color:#103a8e">
-                                            <a href="#" style="color:white;">Mois</a>
-                                        </th>
-                                        <th width="10%" align="center" valign="top" style="background-color:#103a8e">
-                                            <a href="#" style="color:white;">Montant terme</a>
-                                        </th>
-                                        <th width="10%" align="center" valign="top" style="background-color:#103a8e">
-                                            <a href="#" style="color:white;">Interet recevoir</a>
-                                        </th>
-                                        <th width="10%" align="center" valign="top" style="background-color:#103a8e">
-                                            <a href="#" style="color:white;">Interet net</a>
-                                        </th>
-                                        <th width="10%" align="center" valign="top" style="background-color:#103a8e">
-                                            <a href="#" style="color:white;">Modifier</a>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%
-
-                                        DetailsPlacements[] temp = serv.getDetailsPlacements(null, bi.getId());
-                                        System.out.println(temp + " DETAILSPLACEMENTTABLES");
-                                        /*String libEnteteAffiche[] = {"id", "idMere", "mois", "montant_terme", "Interet_recevoir", "Interet_net", "Modifier"};
-                                        pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-                                        out.println(pr.getTableau().getHtml());*/
-
-                                        for (int i = 0; i < temp.length; i++) {
-                                    %>
-                                    <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
-                                        <td width="10%" align="left"><%= temp[i].getId()%> </td>
-                                        <td width="10%" align="left"><%=temp[i].getMois()%> </td>
-                                        <td width="10%" align="left"><%= Utilitaire.formaterAr(temp[i].getMontant_terme())%> </td>
-                                        <td width="10%" align="left"><%=Utilitaire.formaterAr(temp[i].getInteret_recevoir())%> </td>
-                                        <td width="10%" align="left"><%=Utilitaire.formaterAr(temp[i].getInteret_net())%> </td>
-                                        <td width="10%" align="left"> <a href="<%=(String) session.getValue("lien") + "?but=placement/detailsPlacement-modif.jsp&id=" + temp[i].getId()%>">Modifier</a> </td>
-                                    </tr>
-                                    <%
-                                        }
-                                    %>
-                                </tbody>
-                            </table>
+                        <div class="tab-content">
+                            <jsp:include page="<%=tab%>" >
+                                <jsp:param name="idmvt" value="<%=bi.getId()%>" />
+                            </jsp:include>
                         </div>
                     </div>
                 </div>
-            </div>
-
-        </section>  
-
-    </div> 
-
+            </div>  
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <div class="box-title with-border">
 
-                <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
+                <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachï¿½s</h2>
             </div>
             <div class="box-body">
                 <table class="table table-striped table-bordered table-condensed table-responsive tree">
                     <thead>
                         <tr>
                             <th style="background-color:#bed1dd;"></th>
-                            <th style="background-color:#bed1dd;">Libellé</th>
+                            <th style="background-color:#bed1dd;">Libellï¿½</th>
                             <th style="background-color:#bed1dd;">Fichier</th>
                             <th style="background-color:#bed1dd;">Voir</th>
                             <th style="background-color:#bed1dd;">#</th>
