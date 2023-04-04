@@ -209,7 +209,7 @@ public class Engagement extends ClassEtat {
     }
 
     public void setMontant(double montant)throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&&montant<=0) throw new Exception("montant invalide");
+        if(this.getMode().compareToIgnoreCase("modif")==0&&montant<=0) throw new Exception("montant engagement invalide");
         this.montant = montant;
     }
 
