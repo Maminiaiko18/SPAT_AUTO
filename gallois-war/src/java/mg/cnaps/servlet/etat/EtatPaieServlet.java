@@ -1398,9 +1398,11 @@ public class EtatPaieServlet extends HttpServlet {
             }else{
                 param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"  "+mere[0].getDateSaisie()+"  "+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
             }
+            double montantTotal = AdminGen.calculSommeDouble(mere,"montant");
             param.put("destinataire",mere[0].getTiersLib());
             param.put("destinataire", mere[0].getTiersLib());
-            String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantTotal())," Ariary");
+            //String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantTotal())," Ariary");
+            String montantlettre = ChiffreLettre.convertRealToString(montantTotal," Ariary");
             param.put("motantLettre",montantlettre);
             ArrayList<JournalCaisseBordereauPaie> arrList = new ArrayList<JournalCaisseBordereauPaie>();
             for (int i = 0; i < mere.length; i++) {
@@ -1409,7 +1411,10 @@ public class EtatPaieServlet extends HttpServlet {
                 String formattedDate = formatter.format(mere[i].getDaty());
                 java.util.Date utilDate = formatter.parse(formattedDate);
                 mere[i].setDaty(new java.sql.Date(utilDate.getYear(),utilDate.getMonth(),utilDate.getDate()));*/
-                arrList.add(mere[i]);
+               if(i>0) {
+                   mere[i].setObservation("");
+               }
+               arrList.add(mere[i]);
             }
             setNomJasper("Bordereaux_paiment");
             UtilitaireImpression.imprimer(request, response, "BP", param, arrList, getReportPath(), rt);

@@ -48,7 +48,7 @@
         }
 
         if(liste != null) {
-            if(liste[0].getEtat()==ConstanteEtat.getEtatValider()) {
+            if(liste.length > 0) if(liste[0].getEtat()==ConstanteEtat.getEtatValider()) {
         %>
             <a class="btn btn-info pull-warning" href="${pageContext.request.contextPath}/Paie?action=imprimerBP&id=<%=id%>" style="margin-right: 10px">Imprimer Bordereaux</a>
         <% } else { %>

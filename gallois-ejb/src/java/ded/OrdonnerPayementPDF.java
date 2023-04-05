@@ -72,8 +72,14 @@ public class OrdonnerPayementPDF extends OrdonnerPayement {
         System.out.println("ity ----------------->>"+montantLong);
 //        this.setMontant_lettre((ChiffreLettre.convertIntToString(montantLong) + " " + this.getDeviselib()).toUpperCase());
     if( this.getDevise().compareTo("Ar") == 0){
-        
-        this.setMontant_lettre((ChiffreLettre.convertRealToString(montantLong) + " ariary").toUpperCase());
+        String[] montantTexte = ChiffreLettre.convertRealToStringSepare(montantLong);
+        String montantlettre = montantTexte[0];
+        if (montantTexte[1].compareToIgnoreCase("") != 0)
+            montantlettre += " Ariary " + montantTexte[1];
+        else
+            montantlettre += " Ariary";
+        this.setMontant_lettre(montantlettre.toUpperCase());
+        //this.setMontant_lettre((ChiffreLettre.convertRealToString(montantLong) + " ariary").toUpperCase());
     }if( this.getDevise().compareTo("Eur") == 0){
         
         this.setMontant_lettre((ChiffreLettre.convertRealToString(montantLong) + " euro").toUpperCase());

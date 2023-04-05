@@ -7,9 +7,16 @@ public class JournalCaisseBordereauPaie extends JournalCaisse{
     private String idFF,numFact,tiersLib,caisse;
     private double montanttotal,montant;
     private Date daty;
+    private String observation;
 
     public Date getDaty(){
         return this.daty;
+    }
+    public String getObservation() {
+        return observation;
+    }
+    public void setObservation(String observation) {
+        this.observation = observation;
     }
     public void setDaty(Date d){
         this.daty=d;
