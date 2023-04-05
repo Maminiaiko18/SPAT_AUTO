@@ -33,7 +33,7 @@
 	<field name="daty" class="java.util.Date"/>
 	<field name="montant" class="java.lang.Double"/>
 	<field name="observation" class="java.lang.String"/>
-	<variable name="montant_1" class="java.lang.Double" resetType="Column" calculation="Sum">
+	<variable name="montant_1" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{montant}]]></variableExpression>
 	</variable>
 	<background>
@@ -222,7 +222,7 @@ Société du Port à gestion Autonome de Toamasina
 	<summary>
 		<band height="102">
 			<staticText>
-				<reportElement x="162" y="0" width="107" height="20" uuid="a7825fcb-6588-4336-bf90-b60e4fd1bb42"/>
+				<reportElement x="162" y="0" width="108" height="20" uuid="a7825fcb-6588-4336-bf90-b60e4fd1bb42"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -235,20 +235,6 @@ Société du Port à gestion Autonome de Toamasina
 				</textElement>
 				<text><![CDATA[TOTAL :]]></text>
 			</staticText>
-			<textField pattern="#,##0.00">
-				<reportElement x="269" y="0" width="122" height="20" uuid="f18cfd1a-c12b-41e9-badd-000190132408"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{montant_1}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="391" y="0" width="165" height="20" uuid="d81e890c-4739-41cc-9976-a9ccf855777e"/>
 				<box>
@@ -277,6 +263,18 @@ Société du Port à gestion Autonome de Toamasina
 			<textField>
 				<reportElement x="391" y="77" width="100" height="20" uuid="b59dedbc-21f0-4eca-9486-e1c7a4aca9de"/>
 				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="269" y="0" width="122" height="20" uuid="3939f974-6a6b-48af-97c8-d9d4603e384e"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{montant_1}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
