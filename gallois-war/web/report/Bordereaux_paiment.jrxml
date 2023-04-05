@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Bordereaux_paiment" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="8e5778f4-7403-46fc-ae1c-fc4c9be879f4">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="93"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -32,14 +32,15 @@
 	<field name="numFact" class="java.lang.String"/>
 	<field name="daty" class="java.util.Date"/>
 	<field name="montant" class="java.lang.Double"/>
-	<variable name="montant_1" class="java.lang.Double" resetType="Column" calculation="Sum">
+	<field name="observation" class="java.lang.String"/>
+	<variable name="montant_1" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{montant}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="239" splitType="Stretch">
 			<staticText>
 				<reportElement x="1" y="19" width="224" height="45" uuid="904d005f-f788-4ad3-b37e-42ebb3a00c31"/>
 				<textElement textAlignment="Center">
@@ -57,73 +58,69 @@ Société du Port à gestion Autonome de Toamasina
 				<reportElement x="463" y="-3" width="72" height="82" uuid="83313a9f-ad4c-4775-9070-9802e28dcf93"/>
 				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
 			</image>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement x="190" y="4" width="225" height="20" uuid="b3cb2b65-4b9a-4d35-a090-f3c9af05aea5"/>
+				<reportElement x="182" y="79" width="225" height="20" uuid="b3cb2b65-4b9a-4d35-a090-f3c9af05aea5"/>
 				<textElement textAlignment="Justified">
-					<font size="14" isBold="true"/>
+					<font size="14" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[BORDEREAU DE PAIEMENT]]></text>
 			</staticText>
 			<line>
-				<reportElement x="192" y="23" width="183" height="1" uuid="ee65e037-d279-4ff2-aeef-0dc10cea7db8"/>
+				<reportElement x="182" y="99" width="189" height="1" uuid="ee65e037-d279-4ff2-aeef-0dc10cea7db8"/>
 			</line>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="155" splitType="Stretch">
+			<textField>
+				<reportElement x="101" y="112" width="455" height="19" uuid="59d012d6-64d0-4486-ae12-66bf5f531882"/>
+				<textFieldExpression><![CDATA[$P{destinataire}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="101" y="128" width="445" height="1" uuid="bfbe6159-7a75-4582-bb9c-2ef48cb1a86a"/>
+			</line>
 			<staticText>
-				<reportElement x="1" y="0" width="100" height="20" uuid="a933387b-bfdb-45b8-b1af-4c7d0dea5765"/>
+				<reportElement x="0" y="112" width="100" height="20" uuid="a933387b-bfdb-45b8-b1af-4c7d0dea5765"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Destinataire : ]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="100" y="0" width="168" height="19" uuid="59d012d6-64d0-4486-ae12-66bf5f531882"/>
-				<textFieldExpression><![CDATA[$P{destinataire}]]></textFieldExpression>
-			</textField>
 			<line>
-				<reportElement x="101" y="15" width="167" height="1" uuid="2ad1bf1a-2eeb-4d36-9ed9-45db93c479e2"/>
-			</line>
-			<line>
-				<reportElement x="1" y="36" width="554" height="1" uuid="bea73d81-3f42-440c-9baa-776f2446ce48"/>
+				<reportElement x="0" y="145" width="555" height="1" uuid="9088c5d5-797f-4de0-b9c3-01738a2d7d66"/>
 			</line>
 			<staticText>
-				<reportElement x="1" y="36" width="100" height="20" uuid="8e570191-10da-4054-9aef-519c8c2076b0"/>
+				<reportElement x="5" y="150" width="100" height="20" uuid="8e570191-10da-4054-9aef-519c8c2076b0"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
 				<text><![CDATA[Monsieur,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="55" width="214" height="20" uuid="d2ce0c21-c497-4f7b-a1f7-6cd6d23744f6"/>
+				<reportElement x="105" y="165" width="214" height="20" uuid="d2ce0c21-c497-4f7b-a1f7-6cd6d23744f6"/>
 				<text><![CDATA[Nous vous prions de trouver ci-joint un chèque : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="313" y="55" width="223" height="20" uuid="8474e3cf-781e-4645-a513-52d1f8ea7f35"/>
+				<reportElement x="319" y="165" width="223" height="20" uuid="8474e3cf-781e-4645-a513-52d1f8ea7f35"/>
 				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA[$P{cheque}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="314" y="70" width="222" height="1" uuid="bf9c7102-a40e-47bf-a9bb-64a11b2e56d4"/>
+				<reportElement x="325" y="180" width="208" height="1" uuid="a8ec9932-9f74-4325-b213-52f1cd16df30"/>
 			</line>
 			<line>
-				<reportElement x="1" y="95" width="554" height="1" uuid="5ca373ca-f1ee-400a-b1a4-d28865abfb3e"/>
+				<reportElement x="1" y="199" width="554" height="1" uuid="d35bb362-8247-4fe5-a186-2dca08feafa2"/>
 			</line>
 			<staticText>
-				<reportElement x="4" y="101" width="138" height="20" uuid="087c4c1a-2ba4-41ca-b581-aafce3c219b5"/>
+				<reportElement x="1" y="209" width="138" height="20" uuid="087c4c1a-2ba4-41ca-b581-aafce3c219b5"/>
 				<text><![CDATA[ En règlement de vos factures]]></text>
 			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="135" width="162" height="20" uuid="8dde1e93-205b-465e-8ff4-2a31cd7d71a7"/>
+				<reportElement x="0" y="0" width="162" height="20" uuid="8dde1e93-205b-465e-8ff4-2a31cd7d71a7"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
@@ -131,7 +128,7 @@ Société du Port à gestion Autonome de Toamasina
 				<text><![CDATA[FACTURE N°]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="162" y="135" width="105" height="20" uuid="3c3beccd-bec4-40dd-8a44-5b935335d23e"/>
+				<reportElement x="162" y="0" width="107" height="20" uuid="3c3beccd-bec4-40dd-8a44-5b935335d23e"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -145,11 +142,11 @@ Société du Port à gestion Autonome de Toamasina
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="266" y="135" width="125" height="20" uuid="79b0bd9e-57b5-4077-95b3-b80a9ad7f4c0"/>
+				<reportElement x="269" y="0" width="122" height="20" uuid="79b0bd9e-57b5-4077-95b3-b80a9ad7f4c0"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
@@ -159,7 +156,7 @@ Société du Port à gestion Autonome de Toamasina
 				<text><![CDATA[Montant	]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="390" y="135" width="165" height="20" uuid="d0c21df6-cc2d-4578-88e7-cc809b36fb8d"/>
+				<reportElement x="391" y="0" width="164" height="20" uuid="d0c21df6-cc2d-4578-88e7-cc809b36fb8d"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -176,20 +173,20 @@ Société du Port à gestion Autonome de Toamasina
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
-			<textField>
-				<reportElement x="1" y="0" width="162" height="23" uuid="284ae3a8-9d61-4291-8a1f-b25916124bf6"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="163" height="23" uuid="284ae3a8-9d61-4291-8a1f-b25916124bf6"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{numFact}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="162" y="0" width="105" height="23" uuid="5c2d2c12-3e35-4056-89a4-7bbbe99bb6c8"/>
+				<reportElement x="162" y="0" width="107" height="23" uuid="5c2d2c12-3e35-4056-89a4-7bbbe99bb6c8"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -201,7 +198,7 @@ Société du Port à gestion Autonome de Toamasina
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="266" y="0" width="125" height="23" uuid="2bcb997c-8045-408c-b6eb-ce6a319281d3"/>
+				<reportElement x="269" y="0" width="122" height="23" uuid="2bcb997c-8045-408c-b6eb-ce6a319281d3"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -212,29 +209,26 @@ Société du Port à gestion Autonome de Toamasina
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="390" y="0" width="165" height="23" uuid="c1dde50f-8741-40a0-91b1-0ed426c5ce6f"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="391" y="0" width="164" height="23" uuid="9cca42cd-c5de-46b8-8a64-df30b498e64c"/>
+				<box>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{observation}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="118" splitType="Stretch">
+	<summary>
+		<band height="102">
 			<staticText>
-				<reportElement x="162" y="1" width="104" height="20" uuid="a7825fcb-6588-4336-bf90-b60e4fd1bb42"/>
+				<reportElement x="162" y="0" width="108" height="20" uuid="a7825fcb-6588-4336-bf90-b60e4fd1bb42"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
@@ -242,32 +236,37 @@ Société du Port à gestion Autonome de Toamasina
 				<text><![CDATA[TOTAL :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="5" y="38" width="141" height="16" uuid="29535cc9-4f1e-401e-80c1-be745e8a29c8"/>
+				<reportElement x="391" y="0" width="165" height="20" uuid="d81e890c-4739-41cc-9976-a9ccf855777e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="34" width="141" height="16" uuid="29535cc9-4f1e-401e-80c1-be745e8a29c8"/>
 				<text><![CDATA[Arrêté à la somme d'Ariary : ]]></text>
 			</staticText>
-			<line>
-				<reportElement x="4" y="59" width="138" height="1" uuid="3f2d846d-f160-45e4-b0a5-bb62d74e1397"/>
-			</line>
 			<textField>
-				<reportElement x="164" y="38" width="226" height="16" uuid="1acecb74-6dba-4e40-a683-3afb4a2217ac"/>
+				<reportElement x="145" y="34" width="411" height="32" uuid="1acecb74-6dba-4e40-a683-3afb4a2217ac"/>
 				<textFieldExpression><![CDATA[$P{motantLettre}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="1" y="71" width="554" height="1" uuid="5fa531bf-7904-4a81-a1ee-6643505f9df4"/>
+				<reportElement x="5" y="49" width="140" height="1" uuid="318eea8f-c271-4e30-9bde-fb827bdb6f5e"/>
+			</line>
+			<line>
+				<reportElement x="5" y="66" width="560" height="1" uuid="a1c98326-a57f-4e61-9a49-fe469f6dcbf1"/>
 			</line>
 			<staticText>
-				<reportElement x="326" y="87" width="64" height="20" uuid="95f333f2-c4ae-4400-b0d7-f80066fd564b"/>
+				<reportElement x="327" y="77" width="64" height="20" uuid="95f333f2-c4ae-4400-b0d7-f80066fd564b"/>
 				<text><![CDATA[Tamatave le,]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="390" y="87" width="100" height="20" uuid="b59dedbc-21f0-4eca-9486-e1c7a4aca9de"/>
+				<reportElement x="391" y="77" width="100" height="20" uuid="b59dedbc-21f0-4eca-9486-e1c7a4aca9de"/>
 				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="266" y="1" width="125" height="20" uuid="f18cfd1a-c12b-41e9-badd-000190132408"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
+				<reportElement x="269" y="0" width="122" height="20" uuid="3939f974-6a6b-48af-97c8-d9d4603e384e"/>
+				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
@@ -278,5 +277,5 @@ Société du Port à gestion Autonome de Toamasina
 				<textFieldExpression><![CDATA[$V{montant_1}]]></textFieldExpression>
 			</textField>
 		</band>
-	</columnFooter>
+	</summary>
 </jasperReport>

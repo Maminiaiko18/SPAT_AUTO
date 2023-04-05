@@ -30,7 +30,9 @@
         pr.setApres("facture/facture-client-fille-liste.jsp");
 
         pr.getFormu().getChamp("daty1").setLibelle("date min");
+         pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("daty2").setLibelle("date max");
+          pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("annee").setLibelle("Année");
         pr.getFormu().getChamp("type").setLibelle("Type");
         pr.getFormu().getChamp("compte").setLibelle("Compte");
@@ -68,7 +70,7 @@
         pr.getFormu().getChamp("compte").setLibelle("Compte");
         pr.getFormu().getChamp("mereca").setLibelle("Grande rubrique");
         
-        String[] colSomme = {"montant", "montanttva", "montantttc"};
+        String[] colSomme = {"montanttva", "montantttc"};
         pr.setTitre("Liste facture client details");
         pr.setNpp(300);
         pr.creerObjetPage(libEntete, colSomme);
