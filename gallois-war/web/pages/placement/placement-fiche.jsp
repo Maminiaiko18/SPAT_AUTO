@@ -25,6 +25,10 @@
         pc.getChampByName("montantdevise").setLibelle("Montant devise");
         pc.getChampByName("ancienplacement").setLibelle("Ancien placement");
         pc.getChampByName("ancienPlacement").setLien((String) session.getValue("lien") + "?but=placement/placement-fiche.jsp", "id=");
+        pc.getChampByName("banque").setVisible(false);
+        pc.getChampByName("banquelib").setLibelle("Banque");
+        pc.getChampByName("valentite").setLibelle("Entite");
+        pc.getChampByName("entite").setVisible(false);
         /*pc.getChampByName("entite").setVisible(false);
         pc.getChampByName("identite").setVisible(false);
         pc.getChampByName("idbanque").setVisible(false);
@@ -38,7 +42,7 @@
         pc.getChampByName("idmeredetails").setLibelle("Mere Details");
         pc.getChampByName("interet_recevoir").setLibelle("Interet recevoir");
         pc.getChampByName("interet_net").setLibelle("Interet net");
-        pc.getChampByName("valentite").setLibelle("Entite");*/
+        */
         PlacementLibComplet bi = (PlacementLibComplet) pc.getBase();
         String bute = "placement/placement-fiche.jsp";
         AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
@@ -88,7 +92,7 @@
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idplacement="+ bi.getId() +"&param=sortie"+"&auto=1"%>" style="margin-right: 10px">Rendre effectif</a>   
                                   <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-saisie.jsp&idplacement="+ bi.getId()%>" style="margin-right: 10px">Remboursement anticip�</a> 
                                    <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/placement-saisie.jsp&idplacement="+ bi.getId()%>" style="margin-right: 10px">Replacer </a> 
-                                   <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresPlacement.jsp&acte=viserEtRendreEffectif&id="+ bi.getId()%>" style="margin-right: 10px">Viser et rendre effectif</a> 
+                                   <%-- <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresPlacement.jsp&acte=viserEtRendreEffectif&id="+ bi.getId()%>" style="margin-right: 10px">Viser et rendre effectif</a>  --%>
                             
                             </p>
                         </div>

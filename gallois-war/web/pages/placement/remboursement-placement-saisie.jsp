@@ -45,8 +45,8 @@
         pi.getFormu().getChamp("interet").setAutre("readonly");
         pi.getFormu().getChamp("interetBrut").setAutre("readonly");
         pi.getFormu().getChamp("IRCM").setAutre("readonly");
+        pi.getFormu().getChamp("montantplace").setAutre("readonly");
     }
-    pi.getFormu().getChamp("montantplace").setAutre("readonly");
 
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();

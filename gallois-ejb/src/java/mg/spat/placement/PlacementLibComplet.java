@@ -21,6 +21,15 @@ public class PlacementLibComplet extends ClassEtat{
     private Date date_placement, date_echeance;
     private double duree,ircm, montant, taux, montant_mere, interet_recevoir, interet_net,montantdevise;
     private String ancienplacement,idcaisse,descecaisse;
+    private String banquelib;
+
+    public String getBanquelib() {
+        return banquelib;
+    }
+
+    public void setBanquelib(String banquelib) {
+        this.banquelib = banquelib;
+    }
 
     public String getIdcaisse() {
         return idcaisse;
