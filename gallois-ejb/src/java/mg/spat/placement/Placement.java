@@ -9,6 +9,7 @@ import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.TypeObjet;
 import mg.spat.JournalCaisse;
+import mg.spat.RemboursementPlacement;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -425,6 +426,27 @@ public class Placement extends ClassEtat {
             jc.setIdplacement(this.getTuppleID());
             String aWhere = " AND credit!=0";
             retour = (JournalCaisse[])CGenUtil.rechercher(jc,null,null,c,aWhere);
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+        return retour;
+    }
+
+    RemboursementPlacement[] getRemboursement(Connection c, String nomTable)throws Exception{
+        RemboursementPlacement[] retour = null;
+        int verif=0;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
+            RemboursementPlacement rp = new RemboursementPlacement();
+            rp.setNomTable(nomTable);
+            rp.setIdplacement(this.getId());
+            retour = (RemboursementPlacement[])CGenUtil.rechercher(rp,null,null,c,"");
         }catch(Exception e){
             e.printStackTrace();
             throw e;
