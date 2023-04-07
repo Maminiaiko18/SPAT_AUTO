@@ -464,4 +464,9 @@ public class Placement extends ClassEtat {
         }
         return retour;
     }
+
+    public Object validerObject(String u, Connection c) throws Exception{
+        this.setDisponible(this.getMontant());
+        return super.validerObject(u, c);
+    }
 }
