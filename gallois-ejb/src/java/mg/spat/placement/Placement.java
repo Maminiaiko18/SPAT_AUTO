@@ -42,6 +42,7 @@ public class Placement extends ClassEtat {
     private double interet_recevoir;
     private double interetNet;
     private String ancienPlacement,designation;
+    private double disponible;
 
     public String getDesignation() {
         return designation;
@@ -275,6 +276,14 @@ public class Placement extends ClassEtat {
 
     public void setAncienPlacement(String ancienPlacement) {
         this.ancienPlacement = ancienPlacement;
+    }
+
+    public double getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(double disponible) {
+        this.disponible = disponible;
     }
 
     
