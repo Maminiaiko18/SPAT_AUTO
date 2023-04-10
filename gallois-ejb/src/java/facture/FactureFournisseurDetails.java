@@ -194,6 +194,6 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     }
 
     public EngagementFille createEngagementFille(String idEngagement)throws Exception{
-        return new EngagementFille(idEngagement,this.getDesignation(),this.getQuantite()*this.getPu());
+        return new EngagementFille(idEngagement,this.getDesignation(),this.getMontant());
     }
 }
