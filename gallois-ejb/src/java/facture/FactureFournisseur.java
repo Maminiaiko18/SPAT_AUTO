@@ -950,9 +950,13 @@ public class FactureFournisseur extends FactureClient {
             }
             engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
             engagement.construirePK(c);
-            engagement.insertToTableWithHisto(u, c);
 
-            FactureFournisseurDetails[] filles = (FactureFournisseurDetails[]) this.getFille("facture_fournisseur_fille", c, "");
+            FactureFournisseurDetails[] filles = (FactureFournisseurDetails[]) this.getFille("FACTFOURN_FILL_LIB_REST_TAXE", c, "");
+
+            double mtt = AdminGen.calculSommeDouble(filles, "montant");
+            engagement.setMontant(mtt);
+            engagement.createObject(u, c);
+
             for (int i = 0; i < filles.length; i++) {
                 EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());
                 engFille.construirePK(c);

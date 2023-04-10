@@ -1601,7 +1601,7 @@ public class EtatPaieServlet extends HttpServlet {
                                                             // //facture-client-sans-prevision
                 } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
                     param.put("chef", "Le chef de D&eacute;partement");
-                    param.put("responsable", "Le contr&ocirc;leur");
+                    param.put("responsable", "Le chef de service");
                     setNomJasper("facture-Mictsl");
                 } else {
                     setNomJasper("facture-client-sans-prevision");

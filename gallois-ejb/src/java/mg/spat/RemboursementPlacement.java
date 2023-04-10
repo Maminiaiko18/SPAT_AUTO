@@ -170,6 +170,22 @@ public class RemboursementPlacement extends ClassEtat{
     public void viser(UserEJBBean user, Connection c) throws Exception {
         checkDoublonRemboursement(c);
         echu(c, user);
+        
+        Placement p = findPlacement(c);
+        if(p.getDisponible() < this.getMontantplace()){
+            throw new Exception("Montant à rembourser supérieur au montant disponible.");
+        }
+        double dispoNouv = p.getDisponible() - this.getMontantplace();
+        double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
+        double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree);
+        this.setInteret(intRemb);
+        this.setInteretBrut(intRemb*0.8);
+        this.updateToTableWithHisto(user.getUser().getTuppleID(), c);
+        double intPlacement = Utilitaire.calculerInteret(dispoNouv, p.getTaux(), (p.getDuree() - duree));
+        p.setInteret_recevoir(intPlacement*0.8);
+        p.setDisponible(dispoNouv);
+        p.updateToTableWithHisto(user.getUser().getTuppleID(), c);
+        
         super.viser(user, c);
     }
     

@@ -100,6 +100,8 @@
 
         pc.getChampByName("designation").setLibelle("Note explicative");
         //pc.getChampByName("idengagement").setVisible(false);
+        pc.getChampByName("idbc").setLien((String) session.getValue("lien") + "?but=stock/bc/asBonDeCommande-fiche.jsp&id=" + e.getIdbc(), "");
+        pc.getChampByName("idbl").setLien((String) session.getValue("lien") + "?but=stock/bl/bondelivraison-fiche.jsp&id=" + e.getIdBL(), "");
 
         //
 //Si categorieFC = proforma alors “Fiche Facture Proforma”
