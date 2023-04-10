@@ -5,32 +5,36 @@
 --%>
 
 <%@page import="mg.spat.placement.PlacementLibComplet"%>
-<%@page import="mg.spat.placement.Placement"%>
 <%@page import="mg.spat.Report"%>
 <%@page import="affichage.PageRecherche"%>
 <% 
     try{
         String nomTable = "placementlib";
-        Placement placement = new Placement();
+        PlacementLibComplet placement = new PlacementLibComplet();
        if(request.getParameter("table")!=null && request.getParameter("table").compareToIgnoreCase("")!=0) nomTable=request.getParameter("table");
         placement.setNomTable(nomTable);
-        String listeCrt[] = {"id", "entite", "date_placement", "date_echeance", "banque"};
+        String listeCrt[] = {"id", "valentite", "date_placement", "date_echeance", "banquelib"};
         String listeInt[] = {"date_placement","date_echeance"};
-        String libEntete[] = {"id", "entite", "banque", "date_placement", "date_echeance","duree","montant","taux"};
+        String libEntete[] = {"id", "valentite", "banquelib", "date_placement", "date_echeance","duree","montant","taux"};
         PageRecherche pr = new PageRecherche(placement, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-       pr.getFormu().getChamp("date_placement1").setLibelle("Date Placement min");
+        pr.getFormu().getChamp("date_placement1").setLibelle("Date Placement min");
         pr.getFormu().getChamp("date_placement2").setLibelle("Date Placement max");
         pr.getFormu().getChamp("date_echeance1").setLibelle("Date Echeance min");
         pr.getFormu().getChamp("date_echeance2").setLibelle("Date Echeance max");
-
+        pr.getFormu().getChamp("banquelib").setLibelle("Banque");
+        pr.getFormu().getChamp("valentite").setLibelle("Entite");
     
         pr.setApres("placement/placement-liste.jsp");
+        pr.getFormu().getChamp("date_placement1").setDefaut(utilitaire.Utilitaire.getFirstDayOfMonth());
+        pr.getFormu().getChamp("date_placement2").setDefaut(utilitaire.Utilitaire.getLastDayOfMonth());  
+
+        pr.setOrdre(" order by date_placement desc");
         String[] colSomme = {"montant"};
         pr.creerObjetPage(libEntete, colSomme);
-        pr.getFormu().getChamp("date_placement1").setDefaut(utilitaire.Utilitaire.dateDuJour());
-        pr.getFormu().getChamp("date_placement2").setDefaut(utilitaire.Utilitaire.dateDuJour());        
+        
+
 %>
 <script>
     function changerDesignation() {
@@ -67,10 +71,10 @@
                         <option value="PLACEMENTLIB_V" > Vis&eacute; </option>
                         <% } %>
                         
-                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("PLACEMENTLIB_EFF") == 0) {%>
-                        <option value="PLACEMENTLIB_EFF" selected> Effectif </option>
+                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("placementlib_renouvelle") == 0) {%>
+                        <option value="placementlib_renouvelle" selected> Renouvel�s </option>
                         <% } else { %>
-                        <option value="PLACEMENTLIB_EFF"> Effectif </option>
+                        <option value="placementlib_renouvelle"> Renouvel�s </option>
                         <% } %>
                         
                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("PLACEMENTLIB_ECHU") == 0) {%>
