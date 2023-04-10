@@ -56,32 +56,27 @@
                         <% } else { %>
                         <option value="placementlib" >Tous</option>
                         <% } %>
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("placementlib_cree") == 0) {%>    
-                        <option value="placementlib_cree" selected>Cr&eacute;e</option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("PLACEMENTLIB_C") == 0) {%>    
+                        <option value="PLACEMENTLIB_C" selected>Cr&eacute;e</option>
                         <% } else { %>
-                        <option value="placementlib_cree" > Cr&eacute;e </option>
+                        <option value="PLACEMENTLIB_C" > Cr&eacute;e </option>
                         <% } %>
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("placementlib_visee") == 0) {%>    
-                        <option value="placementlib_visee" selected> Vis&eacute; </option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("PLACEMENTLIB_V") == 0) {%>    
+                        <option value="PLACEMENTLIB_V" selected> Vis&eacute; </option>
                         <% } else { %>
-                        <option value="placementlib_visee" > Vis&eacute; </option>
-                        <% } %>
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("placementlib_echu") == 0) {%>
-                        <option value="placementlib_echu" selected> Echu </option>
-                        <% } else { %>
-                        <option value="placementlib_echu"> Echu </option>
+                        <option value="PLACEMENTLIB_V" > Vis&eacute; </option>
                         <% } %>
                         
-                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("placementlib_renouvelle") == 0) {%>
-                        <option value="placementlib_renouvelle" selected> Renouvelés </option>
+                         <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("PLACEMENTLIB_EFF") == 0) {%>
+                        <option value="PLACEMENTLIB_EFF" selected> Effectif </option>
                         <% } else { %>
-                        <option value="placementlib_renouvelle"> Renouvelés </option>
+                        <option value="PLACEMENTLIB_EFF"> Effectif </option>
                         <% } %>
                         
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("placementlib_nouveau") == 0) {%>
-                        <option value="placementlib_nouveau" selected> Nouveaux </option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("PLACEMENTLIB_ECHU") == 0) {%>
+                        <option value="PLACEMENTLIB_ECHU" selected> Echu </option>
                         <% } else { %>
-                        <option value="placementlib_nouveau"> Nouveaux </option>
+                        <option value="PLACEMENTLIB_ECHU"> Echu </option>
                         <% } %>
                         
                     </select>

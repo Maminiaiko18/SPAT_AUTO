@@ -61,6 +61,11 @@ public class Utilitaire extends Parametre {
     }
 //    final static String uploadImageCdnUri = "http://localhost:8080/cnaps-cdn/UploadServlet";
     final static char[] listSeparator = {' ', '-', '_', ',', '/', ';'};
+    
+    public static double calculerInteret (double capital, double taux, double duree){
+
+        return (capital*(taux/12)*duree);
+    }
 
     public static int doubleToInt(String s) {
         Double d = new Double(s);

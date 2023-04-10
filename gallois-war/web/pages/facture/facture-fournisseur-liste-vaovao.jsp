@@ -26,7 +26,7 @@
         String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib"};
         String listeInt[] = {"daty","date_echeance","exercice"};
 
-        String libEntete[] = {"id","daty","tierslib", "numeroop", "numOP","code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","etatLib"};
+        String libEntete[] = {"id", "daty", "tierslib", "numeroop", "numOP", "code", "idbc", "projetlib", "code_etablissementlib", "naturelib", "designation", "exercice", "date_echeance", "montant", "tva", "montantTVA", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -47,7 +47,7 @@
         pr.getFormu().getChamp("nature").setLibelle("Nature");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("numeroop").setLibelle("N° Facture");
-        pr.getFormu().getChamp("code").setLibelle("Numero compta");     
+        pr.getFormu().getChamp("code").setLibelle("Reference/Code");     
         pr.getFormu().getChamp("montantTTC").setLibelle("Montant TTC");
         pr.getFormu().getChamp("code_etablissementlib").setLibelle("Code direction");
         
@@ -123,7 +123,7 @@
             pr.getTableau().setColonneLien(colonneLien);
 
 
-            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero OP","Numero compta", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Etat"};
+            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero OP","Reference/Code", "Num Bon de Commande", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "Montant HT", "TVA", "Montant TVA", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Etat"};
 
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
