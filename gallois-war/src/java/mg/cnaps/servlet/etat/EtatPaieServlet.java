@@ -1402,7 +1402,13 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("destinataire",mere[0].getTiersLib());
             param.put("destinataire", mere[0].getTiersLib());
             //String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantTotal())," Ariary");
-            String montantlettre = ChiffreLettre.convertRealToString(montantTotal," Ariary");
+            String[] montantTexte = ChiffreLettre.convertRealToStringSepare(montantTotal);
+            String montantlettre = montantTexte[0];
+                if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                    montantlettre += " Ariary " + montantTexte[1];
+                } else {
+                    montantlettre += " Ariary";
+                }
             param.put("motantLettre",montantlettre);
             ArrayList<JournalCaisseBordereauPaie> arrList = new ArrayList<JournalCaisseBordereauPaie>();
             for (int i = 0; i < mere.length; i++) {
