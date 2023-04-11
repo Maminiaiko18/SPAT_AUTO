@@ -1,3 +1,33 @@
+------------------------------ 2023-04-07
+--------- create table interetplacement
+
+create table InteretPlacement (
+    id varchar(100) constraint interetplacement_pk primary key,
+    idPlacement constraint interet_placement_fk references Placement(id),
+    taux number,
+    duree int,
+    daty date
+);
+
+
+create sequence seqinteretplacement
+      minvalue 1
+      maxvalue 999999999999
+      start with 1
+      increment by 1
+      cache 20;
+      
+      
+
+CREATE OR REPLACE FUNCTION getseqinteretplacement
+   RETURN NUMBER
+IS
+   retour   NUMBER;
+BEGIN
+   SELECT seqinteretplacement.NEXTVAL INTO retour FROM DUAL;
+
+   RETURN retour;
+END; 
 
 -----create view
 CREATE VIEW PLACEMENTLIB_C
