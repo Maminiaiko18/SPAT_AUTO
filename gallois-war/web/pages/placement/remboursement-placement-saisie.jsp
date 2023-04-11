@@ -19,7 +19,9 @@
     pi.getFormu().getChamp("idplacement").setLibelle("Placement");
     pi.getFormu().getChamp("montantplace").setLibelle("Montant plac&eacute;");
     pi.getFormu().getChamp("interet").setLibelle("Int&eacute;r&ecirc;t net");
+    pi.getFormu().getChamp("interet").setVisible(false);
     pi.getFormu().getChamp("interetBrut").setLibelle("Int&eacute;r&ecirc;t brut");
+    pi.getFormu().getChamp("interetBrut").setVisible(false);
     //pi.getFormu().getChamp("ircm").setLibelle("IRCM");
     pi.getFormu().getChamp("etat").setVisible(false);
        

@@ -86,6 +86,7 @@
         pi.getFormu().getChamp("estMictsl").setVisible(false);
         pi.getFormu().getChamp("estAuto").setVisible(false);
         pi.getFormu().getChamp("typeEngagement").setVisible(false);
+        pi.getFormu().getChamp("remarque").setLibelle("Num Fiche Saisie Budgétaire");
 
         if (request.getParameter("idBL") != null) {
             pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
