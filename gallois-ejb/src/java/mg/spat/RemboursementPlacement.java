@@ -5,6 +5,7 @@
  */
 package mg.spat;
 
+import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import facture.FactureClient;
@@ -38,6 +39,19 @@ public class RemboursementPlacement extends ClassEtat{
             throw new Exception("Remboursement Placement deja enregistre");
         }
     }
+
+    public void checkMontantRemboursement(Connection c) throws Exception{
+        RemboursementPlacement rembourcement =new RemboursementPlacement();
+        rembourcement.setNomTable("remboursementplacementV");
+        RemboursementPlacement[] liste = (RemboursementPlacement[]) CGenUtil.rechercher(rembourcement, null, null,c, " and idplacement='" + this.getIdplacement() + "'");
+        double sommeRembourser = AdminGen.calculSommeDouble(liste, "montantplace");
+        Placement p = new Placement();
+        p.setId(this.getIdplacement());
+        p = p.getPlacement(c);
+        if(sommeRembourser + this.getMontantplace() > p.getMontant() ) throw new Exception("Montant remboursé supérieur au montant du placement");
+    }
+
+
     public RemboursementPlacement() {
         super.setNomTable("remboursementPlacement");
     }
@@ -168,7 +182,8 @@ public class RemboursementPlacement extends ClassEtat{
 
     @Override
     public void viser(UserEJBBean user, Connection c) throws Exception {
-        checkDoublonRemboursement(c);
+        //checkDoublonRemboursement(c);
+        checkMontantRemboursement(c);
         echu(c, user);
         
         Placement p = findPlacement(c);

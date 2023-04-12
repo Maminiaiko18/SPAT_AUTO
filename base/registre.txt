@@ -1,0 +1,8 @@
+dernier script exec:
+		prod: 11-04-2023.sql
+ 		preprod:11-04-2023.sql
+
+date derniere exec:
+		prod: 11-04-2023 17:17
+		preprod:11-04-2023 17:14
+
