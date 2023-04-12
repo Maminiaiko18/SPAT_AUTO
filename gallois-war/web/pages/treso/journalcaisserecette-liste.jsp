@@ -24,14 +24,18 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("treso/journalcaisserecette-liste.jsp");
 
-        Liste[] listes = new Liste[2];
+        Liste[] listes = new Liste[3];
         listes[0] = new Liste("descecaisse", new String[]{"Tous", "Caisse", "Banque"}, new String[]{"", "Caisse", "Banque"});
 
         TypeObjet typeCheque = new TypeObjet();
         typeCheque.setNomTable("typecheque");
         listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
 
+        TypeObjet caisserecette = new TypeObjet();
+        caisserecette.setNomTable("caisserecette");
+        listes[2] = new Liste("valcaisse", caisserecette, "val", "val");
         pr.getFormu().changerEnChamp(listes);
+        
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
         pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
@@ -39,7 +43,7 @@
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
         pr.getFormu().getChamp("valcaisse").setLibelle("Caisse");
-        pr.getFormu().getChamp("valcaisse").setDefaut("RECETTES");
+        //pr.getFormu().getChamp("valcaisse").setDefaut("RECETTES");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("idbanquelib").setLibelle("Banque");
