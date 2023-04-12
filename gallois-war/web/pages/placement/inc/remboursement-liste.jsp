@@ -3,14 +3,15 @@
     Created on : 9 mars 2023, 11:28:01
     Author     : BICI
 --%>
-<%@page import="mg.spat.JournalCaisse"%>
+
+<%@page import="mg.spat.RemboursementPlacement"%>
 <%@ page import="user.*" %>
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
 
 <%
-    JournalCaisse t = new JournalCaisse();
+    RemboursementPlacement t = new RemboursementPlacement();
     t.setNomTable("remboursementPlacement");
     String listeCrt[] = {"idPlacement"};
     String listeInt[] = {};
