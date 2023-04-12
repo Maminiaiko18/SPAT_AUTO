@@ -336,7 +336,7 @@
                     <li class="<%= map.get("etat-provision")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=etat-provision&idProvision=<%=e.getId()%>">Etat de provision</a></li>
                         <% } %>
                         <% if (e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {%>
-                    <li class="<%= map.get("provision-facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&idfact=<%=e.getId()%>&tab=provision-facturesdefinitives">Provisions</a></li>
+                    <li class="<%= map.get("provision-facturesdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfact=<%=e.getId()%>&tab=provision-facturesdefinitives">Provisions</a></li>
                         <% }%> 
                 </ul>
                 <div class="tab-content">       
