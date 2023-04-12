@@ -15,10 +15,10 @@
             suiteReq = " AND ETAT = 11";
             journal.setNomTable("JOURNALCAISSELIBDEPENSE");
         }
-        if (request.getParameter("table") != null) journal.setNomTable(request.getParameter("table"));
+        if (request.getParameter("tablename") != null) journal.setNomTable(request.getParameter("tablename"));
           String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","DESCETYPECHEQUE"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] =  {"id", "valcaisse","DESCETYPECHEQUE", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
+        String libEntete[] =  {"id", "valcaisse","DESCETYPECHEQUE", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "debit","idplacement","etatlib"};
         PageRecherche pr = new PageRecherche(journal, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -54,21 +54,21 @@
                 <div class="col-md-4"></div>
                     <div class="col-md-4">
                     Etat : 
-                    <select name="table" class="champ" id="table" onchange="changerDesignation()" >
+                    <select name="tablename" class="champ" id="tablename" onchange="changerDesignation()" >
                         
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("journalcaisselibdepenseBanqueT") == 0) {%>    
+                        <% if (request.getParameter("tablename") != null && request.getParameter("tablename").compareToIgnoreCase("journalcaisselibdepenseBanqueT") == 0) {%>    
                         <option value="journalcaisselibdepenseBanqueT" selected>Tous</option>
                         <% } else { %>
                         <option value="journalcaisselibdepenseBanqueT" >Tous</option>
                         <% } %>
                         
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("journalcaisselibdepenseBanqueC") == 0) {%>    
+                        <% if (request.getParameter("tablename") != null && request.getParameter("tablename").compareToIgnoreCase("journalcaisselibdepenseBanqueC") == 0) {%>    
                         <option value="journalcaisselibdepenseBanqueC" selected>Cr&eacute;&eacute;</option>
                         <% } else { %>
                         <option value="journalcaisselibdepenseBanqueC" >Cr&eacute;&eacute;</option>
                         <% } %>
 
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("journalcaisselibdepenseBanqueV") == 0) {%>    
+                        <% if (request.getParameter("tablename") != null && request.getParameter("tablename").compareToIgnoreCase("journalcaisselibdepenseBanqueV") == 0) {%>    
                         <option value="journalcaisselibdepenseBanqueV" selected>Valid&eacute;</option>
                         <% } else { %>
                         <option value="journalcaisselibdepenseBanqueV" >Valid&eacute;</option>
@@ -82,14 +82,23 @@
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
-            out.println(pr.getTableauRecap().getHtml());%>
-        <br>
-        <%
-            String entete[] =  {"id", "banque","type cheque", "numPiece", "Numero cheque","libelle", "date de saisie", "date d'effet", "credit", "debit","idplacement"};
-            pr.getTableau().setLibelleAffiche(entete);
-            out.println(pr.getTableau().getHtml());
-            out.println(pr.getBasPage());
+            out.println(pr.getTableauRecap().getHtml());
         %>
+        <br>
+        <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="id" id="journal-caisse-liste">
+            <input type="hidden" name="bute" value="treso/depense-liste.jsp"/>
+            <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
+            <input type="hidden" name="acte" value="viser"/>
+            <%
+                String entete[] =  {"id", "banque","type cheque", "numPiece", "Numero cheque","libelle", "date de saisie", "date d'effet", "debit","idplacement","etat"};
+                pr.getTableau().setLibelleAffiche(entete);
+                pr.getTableau().setNameActe("viser");
+                pr.getTableau().setNameBoutton("Viser");
+
+                out.println(pr.getTableau().getHtmlWithCheckbox());
+            %>
+        </form>
+        <% out.println(pr.getBasPage());%>
     </section>
 </div>
 <% }catch(Exception e){
