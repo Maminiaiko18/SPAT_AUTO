@@ -40,20 +40,26 @@
         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
         JournalCaisseLibComplet[] liste=(JournalCaisseLibComplet[]) pr.getTableau().getData();
         if(pr.getTableau().getHtml() != null){
-            out.println(pr.getTableau().getHtml());
-        }
+            out.println(pr.getTableau().getHtml());%>
+            <div>
+                <a class="btn btn-success"  
+                href="${pageContext.request.contextPath}/OrdonnerPayementExcel?action=journalCaisseExel&id=<%=request.getParameter("idmvt") %>&tab=ordonnerpaiement" 
+                style="margin-right: 10px">Export excel</a> 
+            </div>
+      <%  }
         else
             {
                %><center><h4>Aucune donn�e trouv�</h4></center><%
-        }
-
-        if(liste != null) {
-            if(liste.length > 0) if(liste[0].getEtat()==ConstanteEtat.getEtatValider()) {
-        %>
-            <a class="btn btn-info pull-warning" href="${pageContext.request.contextPath}/Paie?action=imprimerBP&id=<%=id%>" style="margin-right: 10px">Imprimer Bordereaux</a>
-        <% } else { %>
-            <a class="btn btn-info pull-warning" href="${pageContext.request.contextPath}/Paie?action=imprimerBP&id=<%=id%>" style="margin-right: 10px" disabled>Imprimer Bordereaux</a>
-        <% }
-        }
-    %>
+        }%>
+        <div>
+            <% if(liste != null) {
+                 if(liste.length > 0) if(liste[0].getEtat()==ConstanteEtat.getEtatValider()) {
+             %>
+                 <a class="btn btn-info pull-warning" href="${pageContext.request.contextPath}/Paie?action=imprimerBP&id=<%=id%>" style="margin-right: 10px">Imprimer Bordereaux</a>
+             <% } else { %>
+                 <a class="btn btn-info pull-warning" href="${pageContext.request.contextPath}/Paie?action=imprimerBP&id=<%=id%>" style="margin-right: 10px" disabled>Imprimer Bordereaux</a>
+             <% }
+                    }
+                %>
+        </div>
 </div>
