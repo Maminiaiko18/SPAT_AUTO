@@ -8,7 +8,12 @@
     try {
         String typecheque = request.getParameter("idtypecheque");
         JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
-        journalCaisse.setNomTable("etatjournalcaisselibdepense");
+        String[] etatVal = {"etatjournalcaisselibdepense","etatjournalcaisselibdepenseC","etatjournalcaisselibdepenseV"};
+        String[] etatAff = {"Tous", "Créée(s)", "Valider"};
+        journalCaisse.setNomTable(etatVal[0]);
+        if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
+            journalCaisse.setNomTable(request.getParameter("etat"));
+        }
 
         String listeCrt[] = {"id", "folio", "valcaisse", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "tierslib","numPiece"};
         String listeInt[] = {"dateEffet"};
@@ -38,9 +43,13 @@
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         String[] colSomme = { "debit"};
         pr.creerObjetPage(libEntete, colSomme);
-
+      
 %>
-
+<script>
+    function changerDesignation() {
+        document.incident.submit();
+    }
+</script>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>Journal de caisse DEPENSE</h1>
@@ -48,8 +57,24 @@
     <section class="content">
         <form action="<%=pr.getLien()%>?but=treso/journalcaissedepense-liste.jsp" method="post" name="incident" id="incident">
             <%
+                String libelleAffiche[] = {};
+                pr.getTableau().setLibelleAffiche(libelleAffiche);
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
+             <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    Etat : 
+                    <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
+                        <%for(int i=0; i<etatVal.length; i++){
+                            String selected = etatVal[i].equalsIgnoreCase(journalCaisse.getNomTable()) ? "selected" : "";
+                        %>
+                        <option value="<%=etatVal[i]%>" <%=selected%>><%=etatAff[i]%></option>
+                        <%}%>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
         </form>
 
         <%  String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};

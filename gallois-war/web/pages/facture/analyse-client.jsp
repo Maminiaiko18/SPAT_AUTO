@@ -44,6 +44,7 @@
         <br>
         <div class="box-footer">
             <a class="btn btn-primary" href="${pageContext.request.contextPath}/Paie?action=impressionAC&tierslib=<%=request.getParameter("tierslib")%>&date1=<%=request.getParameter("daty1")%>&date2=<%=request.getParameter("daty2")%>" style="float:right">Imprimer</a>
+            <a class="btn btn-success" href="${pageContext.request.contextPath}/FactureClientExcel?action=FactureAnalyseClientExcel&tierslib=<%=request.getParameter("tierslib")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>" style="float:right">Export Excel</a>
         </div>
         <%
            

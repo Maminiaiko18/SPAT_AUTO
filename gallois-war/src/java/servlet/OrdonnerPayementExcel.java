@@ -7,6 +7,7 @@ package servlet;
 
 import bean.CGenUtil;
 import ded.OrdonnerPayement;
+import facture.PaiementFacture;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mg.spat.JournalCaisseLibComplet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -42,6 +44,10 @@ public class OrdonnerPayementExcel extends HttpServlet {
             String action = request.getParameter("action");
             if (action.equalsIgnoreCase("OrdonnerPayementExcel")) {
                 OrdonnerPayementExcel(request, response);
+
+            } 
+            if (action.equalsIgnoreCase("journalCaisseExel")) {
+                journalCaisseExel(request, response);
 
             } 
 
@@ -119,7 +125,221 @@ public class OrdonnerPayementExcel extends HttpServlet {
         }
 
     }
+    
+    
+    public void journalCaisseExel(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        String tab= request.getParameter("tab");
+        String id= request.getParameter("id");
+        try {
+            HSSFWorkbook wb = new HSSFWorkbook();
+            Sheet sheet = wb.createSheet("new sheet");
+            HSSFCellStyle style = wb.createCellStyle();
+            style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+            style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 
+            HSSFCellStyle nombrestyle = wb.createCellStyle();
+            nombrestyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            nombrestyle.setAlignment(CellStyle.ALIGN_RIGHT);
+            nombrestyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            int headerTaille=1;
+            int index= -1;
+            JournalCaisseLibComplet jc = (JournalCaisseLibComplet) new JournalCaisseLibComplet().getById(id, "JOURNALCAISSELIBCOMPLET", null);
+            Row rowTitre = sheet.createRow(0);
+            Cell cellTitre1 = rowTitre.createCell(1);
+            cellTitre1.setCellValue("Journal Caisse");
+                
+            Row rowIDFiche = sheet.createRow(++headerTaille);
+             Cell cellFicheIdLib = rowIDFiche.createCell(0);
+                    cellFicheIdLib.setCellValue("ID");
+                    cellFicheIdLib.setCellStyle(nombrestyle);
+             Cell cellFicheId = rowIDFiche.createCell(1);
+                    cellFicheId.setCellValue(jc.getId());
+                    cellFicheId.setCellStyle(nombrestyle);
+                    
+            Row rowFicheDateSaisie = sheet.createRow(++headerTaille);
+             Cell cellFicheDateSaisieLib = rowFicheDateSaisie.createCell(0);
+                    cellFicheDateSaisieLib.setCellValue("Date De Saisie");
+                    cellFicheDateSaisieLib.setCellStyle(nombrestyle);
+             Cell cellChicheDateSaisie = rowFicheDateSaisie.createCell(1);
+                    cellChicheDateSaisie.setCellValue(Utilitaire.datetostring(jc.getDateSaisie()));
+                    cellChicheDateSaisie.setCellStyle(nombrestyle);
+                    
+            Row rowFicheDateEffet = sheet.createRow(++headerTaille);
+             Cell cellFicheDateEffetLib = rowFicheDateEffet.createCell(0);
+                    cellFicheDateEffetLib.setCellValue("Date D'effet");
+                    cellFicheDateEffetLib.setCellStyle(nombrestyle);
+             Cell cellFicheDateEffet = rowFicheDateEffet.createCell(1);
+                    cellFicheDateEffet.setCellValue(Utilitaire.datetostring(jc.getDateEffet()));
+                    cellFicheDateEffet.setCellStyle(nombrestyle);
+                    
+            Row rowFicheTiers = sheet.createRow(++headerTaille);
+             Cell cellFicheTierLib = rowFicheTiers.createCell(0);
+                    cellFicheTierLib.setCellValue("Tiers");
+                    cellFicheTierLib.setCellStyle(nombrestyle);
+             Cell cellFicheTiers = rowFicheTiers.createCell(1);
+                    cellFicheTiers.setCellValue(jc.getTierslib());
+                    cellFicheTiers.setCellStyle(nombrestyle);
+                    
+            Row rowFicheNumCheque = sheet.createRow(++headerTaille);
+             Cell cellFicheNumChequeLib = rowFicheNumCheque.createCell(0);
+                    cellFicheNumChequeLib.setCellValue("Numcheque");
+                    cellFicheNumChequeLib.setCellStyle(nombrestyle);
+             Cell cellFicheNumCheque = rowFicheNumCheque.createCell(1);
+                    cellFicheNumCheque.setCellValue(jc.getNumcheque());
+                    cellFicheNumCheque.setCellStyle(nombrestyle);
+                    
+            headerTaille++;
+
+                    
+            if(tab.equals("ventilation-ff")){
+                PaiementFacture cht = new PaiementFacture();
+                cht.setNomTable("paiementfactureF");
+                cht.setIdMvt(id);
+                PaiementFacture[] liste = (PaiementFacture[])CGenUtil.rechercher(cht, null, null, "");
+                Row row5 = sheet.createRow(++headerTaille);
+                Cell cellt = row5.createCell(1);
+                cellt.setCellValue("Ventilation FC");
+                String[] headers = {"Id", "Facture","Code", "Montant"};
+                headerTaille++;
+                Row row = sheet.createRow(++headerTaille);
+                for(int i=0; i<headers.length; i++){
+                    Cell cell = row.createCell(i);
+                    cell.setCellValue(headers[i]);
+                    sheet.setColumnWidth(i, 30* 256);
+                    
+                }
+                headerTaille++;
+                CellStyle cellStyle = wb.createCellStyle();
+                CreationHelper createHelper = wb.getCreationHelper();
+                cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd/mm/yyyy"));
+                for(int i=0; i<liste.length; i++){
+                    int cmp = -1;
+                    row = sheet.createRow(i+headerTaille);
+                    Cell cellId = row.createCell(++cmp);
+                        cellId.setCellValue(liste[i].getId());
+                        cellId.setCellStyle(nombrestyle);
+                    Cell cellFacture = row.createCell(++cmp);
+                        cellFacture.setCellValue(liste[i].getIdFact());
+                        cellFacture.setCellStyle(nombrestyle);
+                    Cell cellCode = row.createCell(++cmp);
+                        cellCode.setCellValue(liste[i].getCode());
+                        cellCode.setCellStyle(nombrestyle);
+                    Cell cellMontant = row.createCell(++cmp);
+                        cellMontant.setCellValue(liste[i].getMontant());
+                        cellMontant.setCellStyle(nombrestyle);
+                    }
+            }
+            else if(tab.equals("ordonnerpaiement")){
+                JournalCaisseLibComplet cht = new JournalCaisseLibComplet();
+                cht.setNomTable("OPPaiementJCUnion");
+                cht.setId(id);
+                JournalCaisseLibComplet[] liste = (JournalCaisseLibComplet[])CGenUtil.rechercher(cht, null, null, "");
+                Row row5 = sheet.createRow(++headerTaille);
+                Cell cellt = row5.createCell(1);
+                cellt.setCellValue("Ordonner paiement");
+                String[] headers = {"ID", "Numero OP", "Date saisie", "Date effet", "Tiers", "Montant"};
+                 headerTaille++;
+                Row row = sheet.createRow(++headerTaille);
+                for(int i=0; i<headers.length; i++){
+                    Cell cell = row.createCell(i);
+                    cell.setCellValue(headers[i]);
+                    sheet.setColumnWidth(i, 30* 256);
+                    
+                }
+                headerTaille++;
+                //String libEntete[] = {"idordre", "numeroop", "dateSaisie", "dateEffet", "tierslib", "debit"};
+                CellStyle cellStyle = wb.createCellStyle();
+                CreationHelper createHelper = wb.getCreationHelper();
+                cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd/mm/yyyy"));
+                for(int i=0; i<liste.length; i++){
+                    int cmp = -1;
+                    row = sheet.createRow(i+headerTaille);
+                    Cell cellIdOrdre = row.createCell(++cmp);
+                        cellIdOrdre.setCellValue(liste[i].getIdordre());
+                        cellIdOrdre.setCellStyle(nombrestyle);
+                    Cell cellNumeroOp = row.createCell(++cmp);
+                        cellNumeroOp.setCellValue(liste[i].getNumeroOP());
+                        cellNumeroOp.setCellStyle(nombrestyle);
+                    Cell cellDateSaisie = row.createCell(++cmp);
+                        cellDateSaisie.setCellValue(Utilitaire.datetostring(liste[i].getDateSaisie()));
+                        cellDateSaisie.setCellStyle(nombrestyle);
+                    Cell cellDateEffet = row.createCell(++cmp);
+                        cellDateEffet.setCellValue(Utilitaire.datetostring(liste[i].getDateEffet()));
+                        cellDateEffet.setCellStyle(nombrestyle);
+                    Cell cellTiersLib = row.createCell(++cmp);
+                        cellTiersLib.setCellValue(liste[i].getTiersLib());
+                        cellTiersLib.setCellStyle(nombrestyle);
+                    Cell cellDebit = row.createCell(++cmp);
+                        cellDebit.setCellValue(liste[i].getDebit());
+                        cellDebit.setCellStyle(nombrestyle);
+                    }
+            }
+            
+            else if(tab.equals("ventilation-fc")){
+                PaiementFacture cht = new PaiementFacture();
+                cht.setNomTable("paiementfacturelib");
+                cht.setIdMvt(id);
+                PaiementFacture[] liste = (PaiementFacture[])CGenUtil.rechercher(cht, null, null, "");
+                Row row5 = sheet.createRow(++headerTaille);
+                Cell cellt = row5.createCell(1);
+                cellt.setCellValue("Ventilation FC");
+                String[] headers = {"Id", "Facture","Code", "Montant"};
+                 headerTaille++;
+                Row row = sheet.createRow(++headerTaille);
+                for(int i=0; i<headers.length; i++){
+                    Cell cell = row.createCell(i);
+                    cell.setCellValue(headers[i]);
+                    sheet.setColumnWidth(i, 30* 256);
+                    
+                }
+                headerTaille++;
+                
+                CellStyle cellStyle = wb.createCellStyle();
+                CreationHelper createHelper = wb.getCreationHelper();
+                cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd/mm/yyyy"));
+                for(int i=0; i<liste.length; i++){
+                    int cmp = -1;
+                    row = sheet.createRow(i+headerTaille);
+                    Cell cellId = row.createCell(++cmp);
+                        cellId.setCellValue(liste[i].getId());
+                        cellId.setCellStyle(nombrestyle);
+                    Cell cellFacture = row.createCell(++cmp);
+                        cellFacture.setCellValue(liste[i].getIdFact());
+                        cellFacture.setCellStyle(nombrestyle);
+                    Cell cellCode = row.createCell(++cmp);
+                        cellCode.setCellValue(liste[i].getCode());
+                        cellCode.setCellStyle(nombrestyle);
+                    Cell cellMontant = row.createCell(++cmp);
+                        cellMontant.setCellValue(liste[i].getMontant());
+                        cellMontant.setCellStyle(nombrestyle);
+                    }
+            }
+            
+            
+             response.setContentType("application/ms-excel");
+            response.setHeader("Content-Disposition", "attachment; filename="+tab+"-"+id+".xls");
+            ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            wb.write(outByteStream);
+            byte[] outArray = outByteStream.toByteArray();
+            OutputStream outStream = response.getOutputStream();
+            outStream.write(outArray);
+            outStream.flush();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            PrintWriter out = response.getWriter();
+            response.setContentType("text/html; charset=UTF-8");
+            out.write("<script type=\"text/javascript\">alert('"+e.getMessage()+"'); history.back(); </script>");
+            out.flush();
+        }
+    }
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -260,6 +480,7 @@ public class OrdonnerPayementExcel extends HttpServlet {
             OutputStream outStream = response.getOutputStream();
             outStream.write(outArray);
             outStream.flush();
+            
         } catch (Exception e) {
             e.printStackTrace();
             PrintWriter out = response.getWriter();
