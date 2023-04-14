@@ -47,7 +47,16 @@
             <td align="right"></td>
             <td align="right"><%=Utilitaire.formaterAr(totalMontant)%></td>
         </tr>
+        <tr>
+            <td colspan="2">
+                <a class="btn btn-success"  
+                href="${pageContext.request.contextPath}/OrdonnerPayementExcel?action=journalCaisseExel&id=<%=request.getParameter("idmvt") %>&tab=ventilation-ff" 
+                style="margin-right: 10px">Export excel</a> 
+            </td>
+        </tr>
     </table>
+    
+   
 
     <% }else{
         %><center><h4>Aucun résultat </h4></center><%

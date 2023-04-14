@@ -1602,13 +1602,33 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("heure_depart", facture.getHeureDepart());
                     param.put("heure_arrivee", facture.getHeureArrivee());
                     param.put("tenavire", facture.getTe());
+                    setNomJasper("facture_client2 - Copie");
 
-                    setNomJasper("facture_client2 - Copie");// facture_client2 - Copie //facture_convention
-                                                            // //facture-client-sans-prevision
                 } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
-                    param.put("chef", "Le chef de D&eacute;partement");
-                    param.put("responsable", "Le chef de service");
-                    setNomJasper("facture-Mictsl");
+                    if(mere[0].getMontantApred()<=0){ //sans réduction
+                        param.put("montantapred",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP));
+                        param.put("montantsansreduction",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP));
+                        param.put("chef", "Le chef de D&eacute;partement");
+                        param.put("responsable", "Le contr&ocirc;leur");
+                        setNomJasper("facture-Mictsl_sansReduction");
+                    }else{ //avec reduction*/
+                        double srE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+                        double redE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+                        double htvaE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontant(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+                        double tvaE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontanttva(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+                        double netE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantttcvrai(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
+                        param.put("srE",srE);
+                        param.put("redE",redE);
+                        param.put("htvaE",htvaE);
+                        param.put("tvaE",tvaE);
+                        param.put("netE",netE);
+                    
+                        param.put("montantapred",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP));
+                        param.put("montantsansreduction",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP));
+                        param.put("chef", "Le chef de D&eacute;partement");
+                        param.put("responsable", "Le contr&ocirc;leur");
+                        setNomJasper("facture-Mictsl");    
+                    } 
                 } else {
                     setNomJasper("facture-client-sans-prevision");
                     if (mere[0].getCode().contains("09A")) {

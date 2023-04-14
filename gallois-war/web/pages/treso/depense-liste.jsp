@@ -12,8 +12,7 @@
         journal.setNomTable("journalcaisselibdepenseBanqueT");
         String suiteReq = "";
         if (request.getParameter("mode") != null)  {
-            suiteReq = " AND ETAT = 11";
-            journal.setNomTable("JOURNALCAISSELIBDEPENSE");
+            journal.setNomTable("journalcaisselibdepenseBanqueV");
         }
         if (request.getParameter("tablename") != null) journal.setNomTable(request.getParameter("tablename"));
           String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","DESCETYPECHEQUE"};

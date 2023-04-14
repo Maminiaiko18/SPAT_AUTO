@@ -114,34 +114,42 @@
                         out.println(pc.getHtml());
                     %>
                     <br/>
-                    <div class="pull-right">
+                    <div>
                         <p>
+                            
+                            <a href="<%=(String) session.getValue("lien") + "?but=treso/paiementfacture-saisie-multiple.jsp&idmvt=" + request.getParameter("id")%>" style="margin-right: 5px"><button class="btn btn-success">Attacher FC multiple</button></a>
+                            
+                            <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-modif-simple.jsp&id=" + request.getParameter("id")%>" style="margin-right: 5px"><button class="btn btn-info">Modifier Entete</button></a>
+                            <a class="btn btn-info"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseProvision&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin: 5px">imprimer piece de provision</a>
+                            <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=treso/journalcaisse-fiche.jsp&classe=mg.spat.JournalCaisse" style="margin: 5px">Viser</a>
+                            
                             <% 
                             if(jcaisse.getCredit() > 0 && jcaisse.getIdcaisse().compareToIgnoreCase(Constante.caisseDepense)==0){ %>
-                                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeRecetteDepense&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de recette</a>
+                                    <a class="btn btn-info"  href="${pageContext.request.contextPath}/Paie?action=pieceDeRecetteDepense&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin: 5px">imprimer pi�ce de recette</a>
                             <%
                             }                            
                             else if(jcaisse.getCredit()!=0){
                             %>
-                                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseRecette&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de caisse</a>
+                                    <a class="btn btn-info"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseRecette&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin: 5px">imprimer pi�ce de caisse</a>
                             <%
                             }
                             else if(jcaisse.getDebit()!=0){
                             %>
-                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseDepense&idop=<%=jcaisse.getIdordre()%>&id=<%=id%>" style="margin-right: 10px">imprimer pi�ce de depense</a>
+                                <a class="btn btn-info"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseDepense&idop=<%=jcaisse.getIdordre()%>&id=<%=id%>" style="margin: 5px">imprimer pi�ce de depense</a>
                             <%
                             }
                             %>
-                            <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=treso/journalcaisse-fiche.jsp&classe=mg.spat.JournalCaisse">Viser</a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=treso/paiementfacture-saisie-multiple.jsp&idmvt=" + request.getParameter("id")%>" style="margin-right: 5px"><button class="btn btn-success">Attacher FC multiple</button></a>
-                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseProvision&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin-right: 10px">imprimer piece de provision</a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-modif-simple.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-info">Modifier Entete</button></a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning">Modifier</button></a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=treso/paiementfacture-saisie.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-success">Attacher FC</button></a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=treso/journalcaisse-liste.jsp&classe=mg.spat.JournalCaisse" style="margin-right: 5px"><button class="btn btn-danger" >Supprimer</button></a>
-                            <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=treso/journalcaisse-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>
-                            <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liste-paiementfacture-multiple.jsp&idjc=" + id %>" style="margin-right: 10px">Attacher Traite</a>
-                            <!--<a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/cloture-saisie.jsp&caisse="%>" style="margin-right: 10px">cloture</a>--> 
+                            <!--<a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=treso/cloture-saisie.jsp&caisse="%>" style="margin: 5px">cloture</a>--> 
+                        </p>
+                        <hr>
+                        <p>
+                            
+                            <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-modif.jsp&id=" + request.getParameter("id")%>" style="margin: 5px"><button class="btn btn-warning">Modifier</button></a>
+                            <a href="<%=(String) session.getValue("lien") + "?but=treso/paiementfacture-saisie.jsp&id=" + request.getParameter("id")%>" style="margin: 5px"><button class="btn btn-success">Attacher FC</button></a>
+                            <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=treso/journalcaisse-liste.jsp&classe=mg.spat.JournalCaisse" style="margin: 5px"><button class="btn btn-danger" >Supprimer</button></a>
+                            <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liste-paiementfacture-multiple.jsp&idjc=" + id %>" style="margin: 5px">Attacher Traite</a>
+                            <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=treso/journalcaisse-fiche.jsp"%>" style="margin: 5px">Attacher Fichier</a>
+                            
                         </p>
                     </div>
                 </div>
