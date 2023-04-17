@@ -1605,11 +1605,11 @@ public class EtatPaieServlet extends HttpServlet {
                     setNomJasper("facture_client2 - Copie");
 
                 } else if (mere[0].getEstMictsl().compareToIgnoreCase("1") == 0) {
+                    param.put("responsable", "Le chef de service");
+                    param.put("chef", "Le chef de D&eacute;partement");
                     if(mere[0].getMontantApred()<=0){ //sans réduction
                         param.put("montantapred",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP));
                         param.put("montantsansreduction",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP));
-                        param.put("chef", "Le chef de D&eacute;partement");
-                        param.put("responsable", "Le contr&ocirc;leur");
                         setNomJasper("facture-Mictsl_sansReduction");
                     }else{ //avec reduction*/
                         double srE=(Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP))/deviseEuro;
@@ -1622,11 +1622,8 @@ public class EtatPaieServlet extends HttpServlet {
                         param.put("htvaE",htvaE);
                         param.put("tvaE",tvaE);
                         param.put("netE",netE);
-                    
                         param.put("montantapred",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantApred(), "#.##", RoundingMode.HALF_UP));
                         param.put("montantsansreduction",Utilitaire.arrondirDecimalWithMode(mere[0].getMontantSansReduction(), "#.##", RoundingMode.HALF_UP));
-                        param.put("chef", "Le chef de D&eacute;partement");
-                        param.put("responsable", "Le contr&ocirc;leur");
                         setNomJasper("facture-Mictsl");    
                     } 
                 } else {
