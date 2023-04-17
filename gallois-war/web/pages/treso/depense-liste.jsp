@@ -6,11 +6,13 @@
 
 <%@page import="mg.spat.JournalCaisse"%>
 <%@page import="affichage.PageRecherche"%>
+<%@ page import="bean.*" %>
+<%@ page import="affichage.*" %>
+
 <% 
     try{
         JournalCaisse journal = new JournalCaisse();
         journal.setNomTable("journalcaisselibdepenseBanqueT");
-        String suiteReq = "";
         if (request.getParameter("mode") != null)  {
             journal.setNomTable("journalcaisselibdepenseBanqueV");
         }
@@ -22,15 +24,22 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
-         pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libell�");
-        pr.getFormu().getChamp("DESCETYPECHEQUE").setLibelle("Type");
         pr.getFormu().getChamp("valcaisse").setLibelle("Banque");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
-        pr.setAWhere(suiteReq);
+        
+        affichage.Champ[] liste = new affichage.Champ[1];
+       
+        TypeObjet cheque = new TypeObjet();
+        cheque.setNomTable("MODEPAIEMENTBQ");
+        liste[0] = new Liste("DESCETYPECHEQUE", cheque, "VAL", "val");
+
+        pr.getFormu().changerEnChamp(liste);
+        pr.getFormu().getChamp("DESCETYPECHEQUE").setLibelle("Type");
 
         String[] colSomme = {"debit"};
         pr.creerObjetPage(libEntete, colSomme);
