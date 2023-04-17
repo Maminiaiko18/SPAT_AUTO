@@ -1,6 +1,7 @@
 <%@page import="mg.spat.JournalCaisseLibComplet"%>
 <%@page import="mg.spat.JournalCaisseMivadika"%>
 <%@page import="utilitaire.ConstanteEtat"%>
+<%@page import="utilitaire.Constante"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
@@ -16,9 +17,9 @@
 
         System.out.println("tablename"+journalCaisse.getNomTable());
 
-        String listeCrt[] = {"id", "folio", "valcaisse", "libelle", "remarque", "dateEffet", "idtypecheque", "codefacture", "descecaisse", "tierslib","idbanquelib","numPiece"};
+        String listeCrt[] = {"id", "folio", "caisse", "libelle", "remarque", "dateEffet", "idtypecheque", "codefacture", "descecaisse", "tierslib","idbanquelib","numPiece"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "codefacture", "tierslib","codetiers","idbanquelib"};
+        String libEntete[] = {"id", "folio", "caisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "codefacture", "tierslib","codetiers","idbanquelib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -33,7 +34,9 @@
 
         TypeObjet caisserecette = new TypeObjet();
         caisserecette.setNomTable("caisserecette");
-        listes[2] = new Liste("valcaisse", caisserecette, "val", "val");
+        listes[2] = new Liste("caisse", caisserecette, "val", "id");
+        listes[2].setDefaultSelected(Constante.caisseCentraleEspece);
+
         pr.getFormu().changerEnChamp(listes);
         
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
@@ -42,7 +45,7 @@
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
-        pr.getFormu().getChamp("valcaisse").setLibelle("Caisse");
+        pr.getFormu().getChamp("caisse").setLibelle("Caisse");
         //pr.getFormu().getChamp("valcaisse").setDefaut("RECETTES");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
@@ -105,7 +108,7 @@
                     typecheque = "";
                 }
             %>
-            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listeJournalCaisse&id=<%=request.getParameter("id")%>&folio=<%=request.getParameter("folio")%>&valcaisse=<%=request.getParameter("valcaisse")%>&libelle=<%=request.getParameter("libelle")%>&remarque=<%=request.getParameter("remarque")%>&dateEffet1=<%=request.getParameter("dateEffet1")%>&dateEffet2=<%=request.getParameter("dateEffet2")%>&idtypecheque=<%= typecheque%>&descecaisse=<%=request.getParameter("descecaisse")%>&idplacement=<%= request.getParameter("idplacement")%>&etat=<%= request.getParameter("etatvue")%>" style="margin-right: 10px">Imprimer</a>
+            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listeJournalCaisse&id=<%=request.getParameter("id")%>&folio=<%=request.getParameter("folio")%>&caisse=<%=request.getParameter("caisse")%>&valcaisse=<%=request.getParameter("valcaisse")%>&libelle=<%=request.getParameter("libelle")%>&remarque=<%=request.getParameter("remarque")%>&dateEffet1=<%=request.getParameter("dateEffet1")%>&dateEffet2=<%=request.getParameter("dateEffet2")%>&idtypecheque=<%= typecheque%>&descecaisse=<%=request.getParameter("descecaisse")%>&idplacement=<%= request.getParameter("idplacement")%>&etat=<%= request.getParameter("etatvue")%>" style="margin-right: 10px">Imprimer</a>
             <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/pages/globalnegoce.jsp?but=treso/journalcaisse-saisie.jsp&caisse=CAISSERECETTE" style="margin-right: 10px">Saisie Journal Caisse</a>
         </form>
         <% out.println(pr.getBasPage());%>
