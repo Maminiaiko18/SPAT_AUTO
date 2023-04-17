@@ -2715,6 +2715,9 @@ public class EtatPaieServlet extends HttpServlet {
             String id = request.getParameter("id");
             String folio = request.getParameter("folio");
             String valcaisse = request.getParameter("valcaisse");
+            String caisse = null;
+            if(request.getParameter("caisse")!=null) caisse = request.getParameter("caisse");
+            if(caisse==null) caisse = Constante.caisseCentraleEspece;
             String libelle = request.getParameter("libelle");
             String remarque = request.getParameter("remarque");
             String dateEffet1 = request.getParameter("dateEffet1");
@@ -2736,8 +2739,8 @@ public class EtatPaieServlet extends HttpServlet {
             if (folio != null && folio.compareToIgnoreCase("null") != 0 && folio.length() != 0) {
                 sql = sql + " and UPPER(folio) like UPPER('%" + folio + "%')";
             }
-            if (valcaisse != null && valcaisse.compareToIgnoreCase("null") != 0 && valcaisse.length() != 0) {
-                sql = sql + " and UPPER(valcaisse) like UPPER('%" + valcaisse + "%') ";
+            if (caisse != null && caisse.compareToIgnoreCase("null") != 0 && caisse.length() != 0) {
+                sql = sql + " and UPPER(caisse) like UPPER('%" + caisse + "%') ";
             }
             if (libelle != null && libelle.compareToIgnoreCase("null") != 0 && libelle.length() != 0) {
                 sql = sql + " and UPPER(libelle) like UPPER('%" + libelle + "%') ";
@@ -2836,7 +2839,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("lettre", ChiffreLettre.convertRealToString(totalfinale, "Ariary"));
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             String nomjasper = "journalcaisse";
-            if (valcaisse.compareToIgnoreCase("CHEQUE A L ENCAISSEMENT") == 0) {
+            if (caisse.compareToIgnoreCase(Constante.caisseChequeEncaissement) == 0) {
                 nomjasper = "journalcaisse_cheque";
             }
             setNomJasper(nomjasper);
