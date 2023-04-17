@@ -2726,7 +2726,7 @@ public class EtatPaieServlet extends HttpServlet {
             String daty = "";
 
             String sql = "";
-            System.out.println("ETAT=====" + etat);
+            //System.out.println("ETAT=====" + etat);
             if (etat != null && !etat.trim().isEmpty() && etat.equalsIgnoreCase("JOURNALCAISSELIB_PROVISION")) {
                 daty += "SUR PROVISION ";
             }
@@ -2836,7 +2836,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("lettre", ChiffreLettre.convertRealToString(totalfinale, "Ariary"));
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             String nomjasper = "journalcaisse";
-            if (valcaisse.compareTo("cheque") == 0) {
+            if (valcaisse.compareToIgnoreCase("CHEQUE A L ENCAISSEMENT") == 0) {
                 nomjasper = "journalcaisse_cheque";
             }
             setNomJasper(nomjasper);
