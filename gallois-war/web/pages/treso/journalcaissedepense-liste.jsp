@@ -9,7 +9,7 @@
         String typecheque = request.getParameter("idtypecheque");
         JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
         String[] etatVal = {"etatjournalcaisselibdepense","etatjournalcaisselibdepenseC","etatjournalcaisselibdepenseV"};
-        String[] etatAff = {"Tous", "Créée(s)", "Valider"};
+        String[] etatAff = {"Tous", "Crï¿½ï¿½e(s)", "Valider"};
         journalCaisse.setNomTable(etatVal[0]);
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             journalCaisse.setNomTable(request.getParameter("etat"));
@@ -17,7 +17,7 @@
 
         String listeCrt[] = {"id", "folio", "valcaisse", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "tierslib","numPiece"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "libelle", "dateSaisie", "dateEffet", "debit", "idplacement", "tierslib"};
+        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "libelle", "dateSaisie", "dateEffet", "debit","tierslib","idplacement"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -89,7 +89,7 @@
             <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
             <input type="hidden" name="acte" value="viser"/>
             <%
-                String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "LibellÃ©", "Date Saisie", "Date Effet", "Sortie", "Source", "Tiers"};
+                String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "LibellÃ©", "Date Saisie", "Date Effet", "Sortie", "Tiers", "Source"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");
