@@ -2715,18 +2715,21 @@ public class EtatPaieServlet extends HttpServlet {
             String id = request.getParameter("id");
             String folio = request.getParameter("folio");
             String valcaisse = request.getParameter("valcaisse");
+            String caisse = Constante.caisseCentraleEspece;
+            if(request.getParameter("caisse")!=null) caisse = request.getParameter("caisse");
+            String idtypecheque = Constante.typeChequeAuComptant;
+            if(request.getParameter("idtypecheque")!=null) idtypecheque = request.getParameter("idtypecheque");
             String libelle = request.getParameter("libelle");
             String remarque = request.getParameter("remarque");
             String dateEffet1 = request.getParameter("dateEffet1");
             String dateEffet2 = request.getParameter("dateEffet2");
-            String idtypecheque = request.getParameter("idtypecheque");
             String idplacement = request.getParameter("idplacement");
             String descecaisse = request.getParameter("descecaisse");
             String etat = request.getParameter("etat");
             String daty = "";
 
             String sql = "";
-            System.out.println("ETAT=====" + etat);
+            //System.out.println("ETAT=====" + etat);
             if (etat != null && !etat.trim().isEmpty() && etat.equalsIgnoreCase("JOURNALCAISSELIB_PROVISION")) {
                 daty += "SUR PROVISION ";
             }
@@ -2736,8 +2739,8 @@ public class EtatPaieServlet extends HttpServlet {
             if (folio != null && folio.compareToIgnoreCase("null") != 0 && folio.length() != 0) {
                 sql = sql + " and UPPER(folio) like UPPER('%" + folio + "%')";
             }
-            if (valcaisse != null && valcaisse.compareToIgnoreCase("null") != 0 && valcaisse.length() != 0) {
-                sql = sql + " and UPPER(valcaisse) like UPPER('%" + valcaisse + "%') ";
+            if (caisse != null && caisse.compareToIgnoreCase("null") != 0 && caisse.length() != 0) {
+                sql = sql + " and UPPER(caisse) like UPPER('%" + caisse + "%') ";
             }
             if (libelle != null && libelle.compareToIgnoreCase("null") != 0 && libelle.length() != 0) {
                 sql = sql + " and UPPER(libelle) like UPPER('%" + libelle + "%') ";
@@ -2836,7 +2839,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("lettre", ChiffreLettre.convertRealToString(totalfinale, "Ariary"));
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             String nomjasper = "journalcaisse";
-            if (valcaisse.compareTo("cheque") == 0) {
+            if (caisse.compareToIgnoreCase(Constante.caisseChequeEncaissement) == 0) {
                 nomjasper = "journalcaisse_cheque";
             }
             setNomJasper(nomjasper);

@@ -124,6 +124,7 @@ public class Constante {
     public static final String caisseCentrale = "CAIS000016";
     public static final String caisseCentraleBP = "CAIS000016";
     public static final String caisseCentraleEspece = "CAIS000015";
+    public static final String caisseChequeEncaissement = "CAIS000014";
     public static final String deviseAr = "Ar";
     public static final String deviseEuro = "Eur";
     public static final String deviseDollars = "Dollars";
