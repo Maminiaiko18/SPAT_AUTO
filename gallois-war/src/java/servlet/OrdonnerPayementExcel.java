@@ -194,6 +194,38 @@ public class OrdonnerPayementExcel extends HttpServlet {
                     cellFicheNumCheque.setCellValue(jc.getNumcheque());
                     cellFicheNumCheque.setCellStyle(nombrestyle);
                     
+             Row rowFicheNumPiece = sheet.createRow(++headerTaille);
+             Cell cellFicheNumPieceLib = rowFicheNumPiece.createCell(0);
+                    cellFicheNumPieceLib.setCellValue("Numero piece");
+                    cellFicheNumPieceLib.setCellStyle(nombrestyle);
+             Cell cellFichePiece = rowFicheNumPiece.createCell(1);
+                    cellFichePiece.setCellValue(jc.getNumPiece());
+                    cellFichePiece.setCellStyle(nombrestyle);
+             
+             Row rowFicheBAnque = sheet.createRow(++headerTaille);
+             Cell cellFicheBanqueLib = rowFicheBAnque.createCell(0);
+                    cellFicheBanqueLib.setCellValue("Banque");
+                    cellFicheBanqueLib.setCellStyle(nombrestyle);
+             Cell cellFicheBanque = rowFicheBAnque.createCell(1);
+                    cellFicheBanque.setCellValue(jc.getBanque());
+                    cellFicheBanque.setCellStyle(nombrestyle);
+                    
+             Row rowFicheLibelle = sheet.createRow(++headerTaille);
+             Cell cellFicheLibelleLib = rowFicheLibelle.createCell(0);
+                    cellFicheLibelleLib.setCellValue("Libelle");
+                    cellFicheLibelleLib.setCellStyle(nombrestyle);
+             Cell cellFicheLibelle = rowFicheLibelle.createCell(1);
+                    cellFicheLibelle.setCellValue(jc.getLibelle());
+                    cellFicheLibelle.setCellStyle(nombrestyle);
+                    
+            Row rowFicheMontant = sheet.createRow(++headerTaille);
+             Cell cellFicheMontantLib = rowFicheMontant.createCell(0);
+                    cellFicheMontantLib.setCellValue("Montant");
+                    cellFicheMontantLib.setCellStyle(nombrestyle);
+             Cell cellFicheMontant = rowFicheMontant.createCell(1);
+                    cellFicheMontant.setCellValue(jc.getCredit());
+                    cellFicheMontant.setCellStyle(nombrestyle);
+                    
             headerTaille++;
 
                     
