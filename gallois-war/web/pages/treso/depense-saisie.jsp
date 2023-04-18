@@ -54,11 +54,14 @@
         pi.getFormu().getChamp("debit").setLibelle("Montant");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("designation").setVisible(false);
-        pi.getFormu().getChamp("idbanque").setVisible(false);
         pi.getFormu().getChamp("banque").setVisible(false);
         pi.getFormu().getChamp("dateeffet").setLibelle("Date effet");
-        pi.getFormu().getChamp("idplacement").setAutre("readonly");
-        pi.getFormu().getChamp("idplacement").setLibelle("Source");
+        pi.getFormu().getChamp("idbanque").setLibelle("Banque");
+        pi.getFormu().getChamp("idplacementvrai").setVisible(false);
+        pi.getFormu().getChamp("idtraite").setVisible(false);
+        pi.getFormu().getChamp("etatversement").setVisible(false);
+        pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
+        pi.getFormu().getChamp("idplacement").setVisible(false);
 
         String typeCaisse = request.getParameter("mode");
         String vueCaisse = "caisse_banque";
@@ -72,7 +75,7 @@
             }
         }
 
-        affichage.Champ[] liste = new affichage.Champ[4];
+        affichage.Champ[] liste = new affichage.Champ[5];
         Caisse esc = new Caisse();
         esc.setNomTable(vueCaisse);
         liste[0] = new Liste("caisse", esc, "VAL", "id");
@@ -87,6 +90,11 @@
         cheque.setNomTable("TYPECHEQUE");
         liste[3] = new Liste("idTypeCheque", cheque, "VAL", "id");
         liste[3].setDefaut(Constante.typeChequeAuComptant);
+
+        TypeObjet banq = new TypeObjet();
+        banq.setNomTable("BANQUE");
+        liste[4] = new Liste("idbanque", banq, "VAL", "id");
+
         pi.getFormu().changerEnChamp(liste);
 
         pi.getFormu().getChamp("idTypeCheque").setLibelle("Type");
