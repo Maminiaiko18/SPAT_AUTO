@@ -413,6 +413,8 @@ public class BonDeCommande extends ClassEtat {
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         setIduser(u);
+        LigneCredit lc=this.checkBudget(c);
+        if(lc==null)throw new Exception("Budget non trouvé");
         return super.createObject(u, c); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -537,7 +539,7 @@ public class BonDeCommande extends ClassEtat {
     
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        LigneCredit lc=this.getBudget(c);
+        LigneCredit lc=this.checkBudget(c);
         if(lc==null)throw new Exception("Budget non trouvé");
 
         if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
@@ -556,7 +558,7 @@ public class BonDeCommande extends ClassEtat {
             c=new UtilDB().GetConn();
             c.setAutoCommit(false);
 
-            LigneCredit lc=this.getBudget(c);
+            LigneCredit lc=this.checkBudget(c);
             if(lc==null)throw new Exception("Budget non trouvé");
 
             if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
@@ -587,7 +589,7 @@ public class BonDeCommande extends ClassEtat {
 
             Engagement engagement = this.getEngagement();
 
-            LigneCredit lc=this.getBudget(c);
+            LigneCredit lc=this.checkBudget(c);
             if(lc!=null){
                 engagement.setCompte(lc.getCompte());
             }
@@ -640,7 +642,7 @@ public class BonDeCommande extends ClassEtat {
 
             Engagement engagement = this.getEngagement();
 
-            LigneCredit lc=this.getBudget(c);
+            LigneCredit lc=this.checkBudget(c);
             if(lc!=null){
                 engagement.setCompte(lc.getCompte());
             }
@@ -682,26 +684,39 @@ public class BonDeCommande extends ClassEtat {
         }
     }
     
-    public LigneCredit getBudget(Connection c)throws Exception{
-        int verif=0;
-        LigneCredit retour=null;
-        try{
-            if(c==null){
-                c=new UtilDB().GetConn();
-                verif=1;
-            }
-            LigneCredit lc=new LigneCredit();
-            lc.setNomTable("LIGNECREDITDEPENSE");
-            lc.setIdcodeEtablissement(this.getCode_etab());
-            lc.setIdprojet(this.getProjet());
-            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee="+Utilitaire.getAnnee(this.getDaty()));
-            if(ligneCredits.length>0)retour=ligneCredits[0];   
-        }catch(Exception e){
-            e.printStackTrace();
-            throw e;
-        }finally{
-            if(c!=null && verif==1)c.close();
+    // public LigneCredit getBudget(Connection c)throws Exception{
+    //     int verif=0;
+    //     LigneCredit retour=null;
+    //     try{
+    //         if(c==null){
+    //             c=new UtilDB().GetConn();
+    //             verif=1;
+    //         }
+    //         LigneCredit lc=new LigneCredit();
+    //         lc.setNomTable("LIGNECREDITDEPENSE");
+    //         lc.setIdcodeEtablissement(this.getCode_etab());
+    //         lc.setIdprojet(this.getProjet());
+    //         LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee="+Utilitaire.getAnnee(this.getDaty()));
+    //         if(ligneCredits.length>0)retour=ligneCredits[0];   
+    //     }catch(Exception e){
+    //         e.printStackTrace();
+    //         throw e;
+    //     }finally{
+    //         if(c!=null && verif==1)c.close();
+    //     }
+    //     return retour;
+    // }
+
+    public LigneCredit checkBudget(Connection c) throws Exception{
+
+        LigneCredit lc = new LigneCredit();
+        //lc.setNomTable("ligneCreditDepenseGrp");
+        lc.setNomTable("SITUATIONLCDEPENSEGRP");
+        String dir=this.getCode_etab();
+        String prj=this.getProjet();
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
+        if(ligneCredits.length > 0) return ligneCredits[0];
+        return null;
         }
-        return retour;
-    }
+
 }
