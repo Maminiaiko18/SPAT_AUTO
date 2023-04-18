@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_provisoir" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5df9011-35af-48b5-bccd-75233c87301c">
 	<property name="ireport.zoom" value="2.357947691000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="300"/>
+	<property name="ireport.y" value="543"/>
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="client" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
@@ -316,15 +316,15 @@ Direction Utilisatrice]]></text>
 		</band>
 	</detail>
 	<summary>
-		<band height="115" splitType="Stretch">
+		<band height="96" splitType="Stretch">
 			<staticText>
-				<reportElement x="49" y="10" width="506" height="105" uuid="5cf23f9f-96d5-4c53-86cb-c52ba884ed64"/>
+				<reportElement x="49" y="10" width="506" height="85" uuid="5cf23f9f-96d5-4c53-86cb-c52ba884ed64"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Ce bon doit être régularisé deux jours au plus tard à compter de la date d'émission sinon les prochaines demandes du département de rattachement du demandeur  seront refusées jusqu’à présentation de la facture définitive ou accord préalable de la Direction Générale.
 (*) Au cas ou la production de la pièce justificative devient impossible,
-la signature du Directeur ( direction utilisatrice ) est nécessaire à la case resserve.]]></text>
+la signature du Directeur ( direction utilisatrice ) est nécessaire à la case reservée.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="10" width="49" height="20" uuid="0e30f8b5-4811-45cc-bc29-5dde63d70577"/>
