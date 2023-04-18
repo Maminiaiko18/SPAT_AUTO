@@ -1150,7 +1150,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             if(prov == true && cptDef > 0){
-                titre = "SUIVIE PROVISION";
+                titre = "SUIVI PROVISION";
                 nomJasper = "gestion_provision_caisse";
                 param.put("datyPiece", Utilitaire.dateDuJourSql());
             }
@@ -2665,6 +2665,8 @@ public class EtatPaieServlet extends HttpServlet {
                 String montantlettrePro = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()))
                         + " Ariary ";
                 param.put("montantlettrePro", montantlettrePro);
+                param.put("codePr", mere[0].getProjetlib());
+                param.put("codeEtb", mere[0].getCode_etablissementlib());
                 setNomJasper("bon_provisoir");
             } else {
                 setNomJasper("facture-client-sans-prevision");

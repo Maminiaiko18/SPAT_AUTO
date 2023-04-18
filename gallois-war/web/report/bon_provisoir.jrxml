@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_provisoir" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5df9011-35af-48b5-bccd-75233c87301c">
 	<property name="ireport.zoom" value="2.357947691000002"/>
-	<property name="ireport.x" value="67"/>
-	<property name="ireport.y" value="2"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="300"/>
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="client" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
@@ -12,6 +12,8 @@
 	<parameter name="montantRetourner" class="java.lang.Double"/>
 	<parameter name="designation" class="java.lang.String"/>
 	<parameter name="num" class="java.lang.String"/>
+	<parameter name="codePr" class="java.lang.String"/>
+	<parameter name="codeEtb" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -36,7 +38,7 @@
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[DEMANDE D' ACHAT AU COMPTANT]]></text>
+				<text><![CDATA[DEMANDE D' ESPÈCE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="66" width="49" height="20" uuid="d2571bdf-febd-4644-9297-24bf2466af80"/>
@@ -53,11 +55,11 @@
 				<text><![CDATA[Nom du demandeur :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="106" width="174" height="20" uuid="ee67c2f1-5741-42df-9b9d-85c88c05cc87"/>
+				<reportElement x="0" y="106" width="134" height="20" uuid="ee67c2f1-5741-42df-9b9d-85c88c05cc87"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Désignation de l' article :]]></text>
+				<text><![CDATA[Code établissement :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="146" width="208" height="20" uuid="15d8d486-056d-48eb-94b2-bf21a1fb3f69"/>
@@ -129,6 +131,21 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{num}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="126" width="134" height="20" uuid="119ca607-403d-4d80-9cec-529f3ff49613"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Code projet :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="134" y="126" width="112" height="20" uuid="08781106-51bd-45d0-b3ef-25230281cc21"/>
+				<textFieldExpression><![CDATA[$P{codePr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="106" width="112" height="20" uuid="29018e37-0e16-467f-b63b-55795cef7793"/>
+				<textFieldExpression><![CDATA[$P{codeEtb}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<detail>
@@ -160,7 +177,7 @@
 Direction Utilisatrice]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="0" width="102" height="20" uuid="8a1c14be-f21d-488e-9867-c78cdbaa8332"/>
+				<reportElement x="222" y="0" width="147" height="20" uuid="8a1c14be-f21d-488e-9867-c78cdbaa8332"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -172,14 +189,14 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[Responsable financier]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="324" y="0" width="101" height="20" uuid="46ade6eb-c8c1-4c7a-9607-3d3e65584c8d"/>
+				<reportElement x="369" y="0" width="91" height="20" uuid="46ade6eb-c8c1-4c7a-9607-3d3e65584c8d"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 				</box>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[ Montant obtenu :]]></text>
+				<text><![CDATA[ Montant obtenu:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="100" y="90" width="122" height="35" uuid="db295db9-a095-4972-a7b1-9ab3cdcc236f"/>
@@ -193,7 +210,7 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[Reçu conforme]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="20" width="102" height="20" uuid="b9581865-d1cf-450d-9ed6-6cd509d77b9c"/>
+				<reportElement x="222" y="20" width="147" height="20" uuid="b9581865-d1cf-450d-9ed6-6cd509d77b9c"/>
 				<box>
 					<rightPen lineWidth="0.75"/>
 				</box>
@@ -203,7 +220,7 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[ DAF :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="40" width="102" height="20" uuid="902d6b31-7b7a-4b69-b69f-8c75f6c3bae8"/>
+				<reportElement x="222" y="40" width="147" height="20" uuid="902d6b31-7b7a-4b69-b69f-8c75f6c3bae8"/>
 				<box>
 					<rightPen lineWidth="0.75"/>
 				</box>
@@ -213,7 +230,7 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[ DEP/FIN :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="60" width="102" height="65" uuid="bbf0f835-49d9-46e2-b323-007ffe4d5488"/>
+				<reportElement x="222" y="60" width="147" height="65" uuid="bbf0f835-49d9-46e2-b323-007ffe4d5488"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
@@ -224,21 +241,21 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[ CAISSIER :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="324" y="20" width="101" height="20" uuid="ad6331b0-addf-49dc-b4f2-8de8fb80754a"/>
+				<reportElement x="369" y="20" width="101" height="20" uuid="ad6331b0-addf-49dc-b4f2-8de8fb80754a"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[ Montant facture :]]></text>
+				<text><![CDATA[ Montant facture:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="324" y="40" width="91" height="20" uuid="5c9df3b1-39cc-4b35-8147-42149bcb7255"/>
+				<reportElement x="373" y="40" width="87" height="20" uuid="5c9df3b1-39cc-4b35-8147-42149bcb7255"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[ Dif. à retourner:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="324" y="60" width="91" height="20" uuid="a76e2900-79f1-46ce-b543-2ad97bb2eeb6"/>
+				<reportElement x="373" y="60" width="87" height="20" uuid="a76e2900-79f1-46ce-b543-2ad97bb2eeb6"/>
 				<box>
 					<bottomPen lineWidth="0.0"/>
 				</box>
@@ -259,7 +276,7 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[(*)]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="425" y="0" width="130" height="20" uuid="b70eba01-7ff4-42a6-a00b-9cb44e46296d"/>
+				<reportElement x="460" y="0" width="114" height="20" uuid="b70eba01-7ff4-42a6-a00b-9cb44e46296d"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 				</box>
@@ -269,28 +286,28 @@ Direction Utilisatrice]]></text>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="425" y="20" width="130" height="20" uuid="86032721-bb10-47ba-a135-2660b65bdaaa"/>
+				<reportElement x="460" y="20" width="114" height="20" uuid="86032721-bb10-47ba-a135-2660b65bdaaa"/>
 				<textElement>
 					<font size="12" isUnderline="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantfact}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="425" y="60" width="130" height="20" uuid="c276a965-d6e4-4532-8ef0-1313fba339b2"/>
+				<reportElement x="460" y="60" width="114" height="20" uuid="c276a965-d6e4-4532-8ef0-1313fba339b2"/>
 				<textElement>
 					<font size="12" isUnderline="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantApayer}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="425" y="40" width="130" height="20" uuid="a87b6cbe-5fbd-4af7-9417-8c49089bf07c"/>
+				<reportElement x="460" y="40" width="114" height="20" uuid="a87b6cbe-5fbd-4af7-9417-8c49089bf07c"/>
 				<textElement>
 					<font size="12" isUnderline="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantRetourner}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="324" y="80" width="231" height="45" uuid="6a9ba787-3e2a-4dd9-82e6-c11f7bf7b0d6"/>
+				<reportElement x="369" y="80" width="186" height="45" uuid="6a9ba787-3e2a-4dd9-82e6-c11f7bf7b0d6"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 				</box>
@@ -299,14 +316,13 @@ Direction Utilisatrice]]></text>
 		</band>
 	</detail>
 	<summary>
-		<band height="91" splitType="Stretch">
+		<band height="115" splitType="Stretch">
 			<staticText>
-				<reportElement x="49" y="10" width="478" height="81" uuid="5cf23f9f-96d5-4c53-86cb-c52ba884ed64"/>
+				<reportElement x="49" y="10" width="506" height="105" uuid="5cf23f9f-96d5-4c53-86cb-c52ba884ed64"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Ce bon doit être régularisé deux jours au plus tard à compter de la date d'émission sinon le montant
-du bon sera imputé au compte personnel du demandeur.
+				<text><![CDATA[Ce bon doit être régularisé deux jours au plus tard à compter de la date d'émission sinon les prochaines demandes du département de rattachement du demandeur  seront refusées jusqu’à présentation de la facture définitive ou accord préalable de la Direction Générale.
 (*) Au cas ou la production de la pièce justificative devient impossible,
 la signature du Directeur ( direction utilisatrice ) est nécessaire à la case resserve.]]></text>
 			</staticText>
