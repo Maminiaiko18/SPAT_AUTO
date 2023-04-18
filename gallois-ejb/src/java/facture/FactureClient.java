@@ -965,6 +965,9 @@ public class FactureClient extends ClassMere {
         if (!this.getIdcategorie().equals(Constante.idCategorieFCProvision)) {
             throw new Exception("Cette facture n est pas une facture de provision!");
         }
+
+        FactureClient[] def = (FactureClient[]) CGenUtil.rechercher(new FactureClient(), null, null, c, "and idprovision='"+this.getId()+"'");
+        if(def.length>0)  throw new Exception("Ce facture de provision comporte déja une facture définitive");
 //        JournalCaisse[]journalCaisses= this.getPaiement(c);
 //        if(journalCaisses.length==0){
 //            throw new Exception("Provision non payée");
