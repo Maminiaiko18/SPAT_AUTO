@@ -56,12 +56,14 @@
             pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
             pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(fc.getTiers()));
             pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(fc.getTierslib()));
+
         } else if (idFacturesF != null) {
             FactureClient fc = datas.getFacture();
             pi.getFormu().getChamp("idplacement").setDefaut(idFacturesF);
             pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
             pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(fc.getTiers()));
             pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(fc.getTierslib()));
+            pi.getFormu().getChamp("Idplacementvrai").setVisible(false);
         }
 
         affichage.Liste[] liste = new affichage.Liste[5];
