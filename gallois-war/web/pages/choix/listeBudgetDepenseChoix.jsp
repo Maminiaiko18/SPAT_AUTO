@@ -14,9 +14,9 @@
 <%
     try{
     UserEJB u = (UserEJB) session.getAttribute("u");
-    String listeCrt[] = {"id","designation", "compte", "comptestr", "montant","direction","annee"};
+    String listeCrt[] = {"id","designation", "compte", "montant","direction","annee"};
     String listeInt[] = {};
-    String libEntete[] = {"id","designation", "compte", "comptestr", "montant","direction","annee"};
+    String libEntete[] = {"id","designation", "compte", "montant","direction","annee"};
     
      LigneCredit cons = new LigneCredit();
     cons.setNomTable("SITUATIONLCDEPENSETOUS");
@@ -60,7 +60,7 @@
                 </form>
                 <%
 
-                    String libelles[] = {"id","designation", "compte", "comptestr", "montant","direction","annee"};
+                    String libelles[] = {"id","designation", "compte", "montant","direction","annee"};
                     pr.getTableau().setLibelleAffiche(libelles);
                     out.println(pr.getTableauRecap().getHtml());
                 %>
