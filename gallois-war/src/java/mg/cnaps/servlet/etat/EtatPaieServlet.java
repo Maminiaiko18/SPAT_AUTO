@@ -932,7 +932,7 @@ public class EtatPaieServlet extends HttpServlet {
 
 
             for (int i = 0; i < tabFact.length; i++) {
-                if (tabFact[i].getIdfact().compareToIgnoreCase(idFacture)==0) {
+                if (tabFact[i].getCode().startsWith("3")) {
                     arrList.add(tabFact[i]);
                 }
             }
@@ -1023,28 +1023,40 @@ public class EtatPaieServlet extends HttpServlet {
             double arrondi = 0;
             double totalGeneral = 0;
             int cptDef = 0;
+            String titre = "PIECE DE CAISSE";
+            String soustitre = "";
+            String nomJasper = "piece_de_caisse";
 
             for (int i = 0; i < tabFact.length; i++) {
                 if (tabFact[i].getTypefacture().contains("FF")) {
                     cptDef += 1;
                 }
+                if (tabFact[i].getTypefacture().contains("PROV")) {
+                    prov = true;
+                }
             }
 
             for (int i = 0; i < tabFact.length; i++) {
-                double montantPro = tabFact[i].getMontant();
-
-                if (tabFact[i].getTypefacture().contains("PROV")) {
-                    prov = true;
-                    if (cptDef > 0) {
-                        montantPro = montantPro * -1;
+                if(prov == true && cptDef > 0){
+                    titre = "SUIVIE PROVISION";
+                    nomJasper = "gestion_provision_caisse";
+                    if (tabFact[i].getTypefacture().contains("FF")) {
+                        montantFacture += tabFact[i].getMontant();
+                        arrList.add(tabFact[i]);
                     }
                 }
-                montantFacture = montantFacture + montantPro;
-                arrList.add(tabFact[i]);
+                else
+                {
+                    montantFacture += tabFact[i].getMontant();
+                    arrList.add(tabFact[i]);
+                }
+                
             }
             // tabJournal[0].arrondir();
             if (prov) {
                 arrondi = 0;
+            }if(prov == true && cptDef > 0){
+                arrondi = tabJournal[0].getCredit() - montantFacture;
             } else {
                 arrondi = tabJournal[0].getCredit() - montantFacture;
             }
@@ -1114,15 +1126,13 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("datyPiece", tabJournal[0].getDateEffet());
                 }
             }
-            String nomJasper = "piece_de_caisse";
+            
             if (tabJournal[0].getIdmode().equalsIgnoreCase("pay1") == false) {
 
                 nomJasper = "piece_de_caisse_banque";
                 param.put("banque", tabJournal[0].getIdbanquelib());
                 param.put("numCheque", tabJournal[0].getNumcheque());
             }
-            String titre = "PIECE DE CAISSE";
-            String soustitre = "";
             String findP = tabJournal[0].getNumPiece();
             if (findP == null) {
                 findP = "";
@@ -1138,6 +1148,13 @@ public class EtatPaieServlet extends HttpServlet {
                 soustitre = "PIECE DE CAISSE";
                 titre = "DEDUCTION SUR AVOIR";
             }
+
+            if(prov == true && cptDef > 0){
+                titre = "SUIVIE PROVISION";
+                nomJasper = "gestion_provision_caisse";
+                param.put("datyPiece", Utilitaire.dateDuJourSql());
+            }
+
             param.put("soustitre", Utilitaire.champNull(soustitre));
 
             String chaine = request.getParameter("numPiece");
