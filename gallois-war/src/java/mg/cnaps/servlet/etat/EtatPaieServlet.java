@@ -2395,6 +2395,7 @@ public class EtatPaieServlet extends HttpServlet {
             FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(fcavoir, null, null, c, awhere);
             if (result.length != 0) {
                 param.put("codefact1", result[0].getCode());
+                param.put("pdaty1", Utilitaire.datetostring(result[0].getDaty()));
             }
 
             // param.put("pdaty", daty);
