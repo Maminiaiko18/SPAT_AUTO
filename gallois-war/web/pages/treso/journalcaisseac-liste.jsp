@@ -18,6 +18,7 @@
         String listeInt[] = {"dateEffet"};
         String libEntete[] = {"id", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "codefacture", "tierslib","codetiers","idbanquelib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+        pr.setOrdre(" ORDER BY numPiece DESC");
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("treso/journalcaisseac-liste.jsp");
