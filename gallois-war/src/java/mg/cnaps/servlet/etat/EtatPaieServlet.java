@@ -826,7 +826,7 @@ public class EtatPaieServlet extends HttpServlet {
                 tabFact = jc.getPayementFactureTous(null);
             }
             Map param = new HashMap();
-            param.put("datyJ", Utilitaire.dateDuJourSql());
+            param.put("datyJ", Utilitaire.dateDuJour());
             ArrayList<PayementFacture> arrList = new ArrayList<PayementFacture>();
             double montantFacture = 0;
             double arrondi = 0;
@@ -881,7 +881,7 @@ public class EtatPaieServlet extends HttpServlet {
                     param.put("datyPiece", tabJournal[0].getDateEffet());
                 }
             }
-            String nomJasper = "piece_de_caisse";
+            String nomJasper = "piece_de_caisse_depense";
             String titre = "PIECE DE RECETTE";
             String soustitre = "";
             String findP = tabJournal[0].getNumPiece();
@@ -923,7 +923,7 @@ public class EtatPaieServlet extends HttpServlet {
                 tabFact = jc.getPayementFactureTous(null);
             }
             Map param = new HashMap();
-            param.put("datyJ", Utilitaire.dateDuJourSql());
+            param.put("datyJ", Utilitaire.dateDuJour());
             ArrayList<PayementFacture> arrList = new ArrayList<PayementFacture>();
             double montantFacture = 0;
             double arrondi = 0;
@@ -1017,7 +1017,7 @@ public class EtatPaieServlet extends HttpServlet {
                 tabFact = jc.getPayementFactureTous(null);
             }
             Map param = new HashMap();
-            param.put("datyJ", Utilitaire.dateDuJourSql());
+            param.put("datyJ", Utilitaire.dateDuJour());
             ArrayList<PayementFacture> arrList = new ArrayList<PayementFacture>();
             double montantFacture = 0;
             double arrondi = 0;
@@ -2395,6 +2395,7 @@ public class EtatPaieServlet extends HttpServlet {
             FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(fcavoir, null, null, c, awhere);
             if (result.length != 0) {
                 param.put("codefact1", result[0].getCode());
+                param.put("pdaty1", Utilitaire.datetostring(result[0].getDaty()));
             }
 
             // param.put("pdaty", daty);
