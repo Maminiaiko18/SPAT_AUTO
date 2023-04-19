@@ -19,6 +19,7 @@ import mg.allosakafo.produits.LiaisonIntraTable;
 import mg.spat.Engagement;
 import mg.spat.EngagementFille;
 import mg.spat.JournalCaisse;
+import mg.spat.stock.BonDeLivraison;
 import mg.spat.stock.BonDeLivraisonFilleReste;
 import user.UserEJB;
 import utilitaire.Constante;
@@ -329,6 +330,11 @@ public class FactureFournisseur extends FactureClient {
         this.setId(null);
         if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
             this.setCode(calculerCodeSimple(cnctn));
+        }
+        if(this.getIdBL() != null){
+            BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(this.getIdBL(), "AS_BONDELIVRAISON_BC", cnctn);
+            if(bl.getIdengagement() != null)
+                this.setIdengagement(bl.getIdengagement());
         }
         return super.createObject(iduser, cnctn);
     }

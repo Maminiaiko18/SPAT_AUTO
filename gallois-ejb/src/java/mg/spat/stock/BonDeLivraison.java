@@ -22,7 +22,7 @@ public class BonDeLivraison extends ClassEtat {
     private String id, idbc, point, id_bc, remarque,numbc;
     private double montant, montanttva, montantttc, montantfactttc, montantpaye, rap, reste_a_facturer;
     private double montantHT,montanttc;
-    private String etatlib;
+    private String etatlib, idengagement;
 
     public double getMontantHT() {
         return montantHT;
@@ -261,6 +261,14 @@ public class BonDeLivraison extends ClassEtat {
 
     public void setReste_a_facturer(double reste_a_facturer) {
         this.reste_a_facturer = reste_a_facturer;
+    }
+
+    public String getIdengagement() {
+        return idengagement;
+    }
+
+    public void setIdengagement(String idengagement) {
+        this.idengagement = idengagement;
     }
 
 }
