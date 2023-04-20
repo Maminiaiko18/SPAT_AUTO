@@ -979,6 +979,12 @@ public class EtatPaieServlet extends HttpServlet {
                 }
             }
             String nomJasper = "piece_de_caisse";
+            if (tabJournal[0].getIdmode().equalsIgnoreCase("pay1") == false) {
+
+                nomJasper = "piece_de_caisse_banque";
+                param.put("banque", tabJournal[0].getIdbanquelib());
+                param.put("numCheque", tabJournal[0].getNumcheque());
+            }
             String titre = "PROVISION CONSTITUEE";
             String soustitre = "PIECE DE CAISSE";
             String findP = tabJournal[0].getNumPiece();

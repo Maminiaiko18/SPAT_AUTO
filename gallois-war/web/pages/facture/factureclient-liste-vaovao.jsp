@@ -47,6 +47,9 @@
         pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("nbJours1").setLibelle("Jours d'echeance min");
         pr.getFormu().getChamp("nbJours2").setLibelle("Jours d'echeance max");
+        pr.getFormu().getChamp("tierslib").setPageAppel("choix/clientChoix.jsp");
+        pr.getFormu().getChamp("tierslib").setAutre("readonly");
+
         Date firstDate = Utilitaire.dateDuJourSql();
         firstDate.setDate(1);
         Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);

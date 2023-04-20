@@ -9,7 +9,7 @@
 		<field name="daty" class="java.util.Date"/>
 		<field name="typefacture" class="java.lang.String"/>
 	</subDataset>
-	<parameter name="datyJ" class="java.util.Date"/>
+	<parameter name="datyJ" class="java.lang.String"/>
 	<parameter name="numPiece" class="java.lang.String"/>
 	<parameter name="client" class="java.lang.String"/>
 	<parameter name="operation" class="java.lang.String"/>
