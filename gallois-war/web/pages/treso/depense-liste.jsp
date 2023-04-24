@@ -14,7 +14,7 @@
         JournalCaisse journal = new JournalCaisse();
         journal.setNomTable("journalcaisselibdepenseBanqueT");
         if (request.getParameter("mode") != null)  {
-            journal.setNomTable("journalcaisselibdepenseBanqueV");
+            journal.setNomTable("journalcaisselibdepenseVise");
         }
         if (request.getParameter("tablename") != null) journal.setNomTable(request.getParameter("tablename"));
           String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","DESCETYPECHEQUE","tierslib"};
