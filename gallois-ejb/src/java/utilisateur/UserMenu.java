@@ -21,16 +21,27 @@ public class UserMenu  extends ClassMAPTable {
     private String codeservice;
     private String codedir;
     private int interdit;
-    private String refuser;
+    private int refuser;
+    private String login;
+    private String nomUser;
+    
+  
+ 
 
-    public UserMenu(String idrole, String idmenu, String codeservice, String codedir, int interdit, String refuser) {
+    public UserMenu(String id, String idrole, String idmenu, String codeservice, String codedir, int interdit, int refuser, String login, String nomUser) {
+        this.id = id;
         this.idrole = idrole;
         this.idmenu = idmenu;
         this.codeservice = codeservice;
         this.codedir = codedir;
         this.interdit = interdit;
         this.refuser = refuser;
+        this.login = login;
+        this.nomUser = nomUser;
     }
+    
+
+   
     
     public void construirePK(Connection c) throws Exception {
         super.setNomTable("usermenu");
@@ -40,7 +51,21 @@ public class UserMenu  extends ClassMAPTable {
     public UserMenu() {
         super.setNomTable("usermenu");
     }
+    public String getLogin() {
+          return login;
+    }
 
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getNomUser() {
+        return nomUser;
+    }
+
+    public void setNomUser(String nomUser) {
+        this.nomUser = nomUser;
+    }
     public String getId() {
         return id;
     }
@@ -81,11 +106,11 @@ public class UserMenu  extends ClassMAPTable {
         this.codedir = codedir;
     }
 
-    public String getRefuser() {
+    public int getRefuser() {
         return refuser;
     }
 
-    public void setRefuser(String refuser) {
+    public void setRefuser(int refuser) {
         this.refuser = refuser;
     }
 

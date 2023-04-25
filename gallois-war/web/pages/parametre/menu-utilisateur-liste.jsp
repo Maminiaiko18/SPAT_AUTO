@@ -7,9 +7,9 @@
 <% try{ 
     UserMenu menu = new UserMenu();
     menu.setNomTable("v_usermenu");
-    String listeCrt[] = {"refuser","id", "idrole", "idmenu", "codeservice", "codedir", "interdit"};
-    String listeInt[] = {"interdit","refuser"};
-    String libEntete[] = {"refuser","id", "idrole", "idmenu", "codeservice", "codedir", "interdit"};
+    String listeCrt[] = {"login","nomUser","refuser","id", "idrole", "idmenu", "codeservice", "codedir", "interdit"};
+    String listeInt[] = {"refuser"};
+    String libEntete[] = {"refuser","login","nomUser","id", "idrole", "idmenu", "codeservice", "codedir", "interdit"};
     PageRecherche pr = new PageRecherche(menu, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -46,7 +46,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Reference","Id", "Role", "Menu", "Code service", "Code dir", "Interdit"};
+            String libEnteteAffiche[] = {"Reference","Login","Utilisateur","Id", "Role", "Menu", "Code service", "Code dir", "Interdit"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
