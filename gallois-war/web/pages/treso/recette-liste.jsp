@@ -84,12 +84,22 @@
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
+          <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="id" >
+            <input type="hidden" name="bute" value="treso/recette-liste.jsp"/>
+            <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
+            <input type="hidden" name="acte" value="viser"/>
         <%
             String entete[] =  {"id", "folio", "banque","type cheque", "num piece", "num cheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
             pr.getTableau().setLibelleAffiche(entete);
-            out.println(pr.getTableau().getHtml());
+           
+            pr.getTableau().setNameActe("viser");
+            pr.getTableau().setNameBoutton("Viser");
+            
+            out.println(pr.getTableau().getHtmlWithCheckbox());
+            
             out.println(pr.getBasPage());
         %>
+           </form>
     </section>
 </div>
 <% }catch(Exception e){
