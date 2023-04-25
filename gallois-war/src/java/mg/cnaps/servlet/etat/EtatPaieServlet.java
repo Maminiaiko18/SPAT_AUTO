@@ -1044,8 +1044,8 @@ public class EtatPaieServlet extends HttpServlet {
 
             for (int i = 0; i < tabFact.length; i++) {
                 if(prov == true && cptDef > 0){
-                    titre = "SUIVIE PROVISION";
-                    nomJasper = "gestion_provision_caisse";
+                    tabFact = null;
+                    tabFact = jc.getGestionProvFc(null);
                     if (tabFact[i].getTypefacture().contains("FF")) {
                         montantFacture += tabFact[i].getMontant();
                         arrList.add(tabFact[i]);
@@ -1156,7 +1156,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             if(prov == true && cptDef > 0){
-                titre = "SUIVI PROVISION";
+                titre = "SUIVIE PROVISION";
                 nomJasper = "gestion_provision_caisse";
                 param.put("datyPiece", Utilitaire.dateDuJourSql());
             }
