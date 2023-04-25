@@ -1029,6 +1029,28 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
         }
     }
+
+    public PayementFacture[] getGestionProvFc(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            PayementFacture pf = new PayementFacture();
+            pf.setNomTable("LIAISONPROVDEF");
+            String awhere = String.format(" and idmvt = '%s' order by typefacture desc", this.getId());
+            PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
+            return result;
+        }  catch(Exception ex) {
+            throw ex;
+        }  finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
     
     public PaiementFacture[] getPayementFacture(Connection c) throws Exception{
         int verif = 0;

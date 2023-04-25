@@ -162,9 +162,12 @@ public class FcDefPr extends ClassEtat {
             // if(tp>0 && tp < montant){
             //     montant = tp; 
             // }
+
+            if(this.getMontant() == 0 ) throw new Exception("Montant saisie incorrecte");
+
             if(tp < this.getMontant()) throw new Exception("Solde de la facture de provision est insuffisante");
 
-            if(def.getMontantreste() < this.getMontant()) throw new Exception("Reste a payer inferieur au reste a payer de la facture");
+            if(def.getMontantreste() < this.getMontant()) throw new Exception("Reste a payer de la facture inferieur au montant saisie");
             
             FcDefPr fc = new FcDefPr();
             fc.setId2(def.getIdProvision());
