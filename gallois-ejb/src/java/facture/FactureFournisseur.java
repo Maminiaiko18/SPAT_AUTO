@@ -19,6 +19,7 @@ import mg.allosakafo.produits.LiaisonIntraTable;
 import mg.spat.Engagement;
 import mg.spat.EngagementFille;
 import mg.spat.JournalCaisse;
+import mg.spat.stock.BonDeLivraison;
 import mg.spat.stock.BonDeLivraisonFilleReste;
 import user.UserEJB;
 import utilitaire.Constante;
@@ -329,6 +330,11 @@ public class FactureFournisseur extends FactureClient {
         this.setId(null);
         if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
             this.setCode(calculerCodeSimple(cnctn));
+        }
+        if(this.getIdBL() != null){
+            BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(this.getIdBL(), "AS_BONDELIVRAISON_BC", cnctn);
+            if(bl.getIdengagement() != null)
+                this.setIdengagement(bl.getIdengagement());
         }
         return super.createObject(iduser, cnctn);
     }
@@ -731,6 +737,39 @@ public class FactureFournisseur extends FactureClient {
                 //si provision dia tsy engagena
                 System.out.println("ityy "+ this.getIdcategorie()+" and "+Constante.idBonProvisoire);
                 if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0) this.insertEngagement(u, controleMontant,c);
+            }
+            if (this.getIdengagement() != null) {
+                Engagement eg = this.findEngagement(c);
+                if (eg != null) {
+                    double reste = eg.getResteAFacturer(c);
+                    FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+                    if (ff != null && reste < ff.getMontant()) {
+                        //insertion engagement
+                        double diff = ff.getMontant() - reste;
+                        Engagement engagement = ff.getEngagement();
+
+                        if (lc != null) {
+                            engagement.setIdLC(lc.getTuppleID());
+                        }
+                        engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+                        engagement.construirePK(c);
+
+                        engagement.setMontant(diff);
+                        engagement.createObject(u, c);
+
+                        FactureFournisseurDetails fille = new FactureFournisseurDetails();
+                        System.out.println("ff.getNumeroop() = "+ ff.getNumeroop());
+                        fille.setDesignation(ff.getNumeroop());
+                        fille.setMontant(diff);
+                        EngagementFille engFille = fille.createEngagementFille(engagement.getTuppleID());
+                        engFille.construirePK(c);
+                        engFille.insertToTableWithHisto(u, c);
+
+                        engagement.validerObject(u, c);
+
+                        this.setIdengagement(engagement.getTuppleID());
+                    }
+                }
             }
 
             this.setNomTable("facture_fournisseur_mere");

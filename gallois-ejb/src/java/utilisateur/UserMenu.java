@@ -21,15 +21,37 @@ public class UserMenu  extends ClassMAPTable {
     private String codeservice;
     private String codedir;
     private int interdit;
-    private String refuser;
+    private int refuser;
+    private String nomUser;
+    private String login;
+    
+    public String getNomUser() {
+        return nomUser;
+    }
 
-    public UserMenu(String idrole, String idmenu, String codeservice, String codedir, int interdit, String refuser) {
+    public String getLogin() {
+        return login;
+    }
+
+    public void setNomUser(String nomUser) {
+        this.nomUser = nomUser;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    
+     public UserMenu(String id, String idrole, String idmenu, String codeservice, String codedir, int interdit, int refuser, String nomUser, String login) {
+        this.id = id;
         this.idrole = idrole;
         this.idmenu = idmenu;
         this.codeservice = codeservice;
         this.codedir = codedir;
         this.interdit = interdit;
         this.refuser = refuser;
+        this.nomUser = nomUser;
+        this.login = login;
     }
     
     public void construirePK(Connection c) throws Exception {
@@ -81,11 +103,11 @@ public class UserMenu  extends ClassMAPTable {
         this.codedir = codedir;
     }
 
-    public String getRefuser() {
+    public int getRefuser() {
         return refuser;
     }
 
-    public void setRefuser(String refuser) {
+    public void setRefuser(int refuser) {
         this.refuser = refuser;
     }
 

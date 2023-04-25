@@ -855,7 +855,6 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
     @Override
     public void viser(UserEJBBean user, Connection c) throws Exception {
-        System.out.println("atyyyyyyyyyy eeeeeee");
         int verif = 0;
         try {
             if (c == null) {
@@ -953,8 +952,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     }
             }
            
-            if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece) && 
-                   getIdTypeCheque()!=null && getIdTypeCheque().equals(Constante.typeChequeAuComptant)){
+            if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece)){
                 this.arrondir();
             }
 
