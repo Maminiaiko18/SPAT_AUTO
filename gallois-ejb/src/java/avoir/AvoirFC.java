@@ -447,6 +447,7 @@ public class AvoirFC extends ClassMere {
         return op;
     }
     
+    
     public FactureClient creerFactureRempl(Connection c, String user) throws Exception{
         int verif = 0;
         try {
@@ -455,6 +456,13 @@ public class AvoirFC extends ClassMere {
                 verif = 1;
                 c.setAutoCommit(false);
             }
+
+            FactureClient pf = new FactureClient();
+            pf.setNomTable("FactureClient");
+            String awhere = String.format(" and idavoir = '%s' ", this.getId());
+            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(pf, null, null, c, awhere);
+            if(result.length > 0) throw new Exception("Ce facture d'avoir comporte deja une facture de remplacement");
+
             FactureClient factureLiee = getFactureLiee("factureclient", c);
             factureLiee.setIdavoir(this.getId());
             factureLiee.setEtat(ConstanteEtat.getEtatCreer());
