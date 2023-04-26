@@ -6,6 +6,8 @@
 
 <%@page import="mg.spat.JournalCaisse"%>
 <%@page import="affichage.PageRecherche"%>
+<%@ page import="bean.*" %>
+<%@ page import="affichage.*" %>
 <% 
     try{
         JournalCaisse journal = new JournalCaisse();
@@ -16,9 +18,9 @@
             journal.setNomTable("JOURNALCAISSELIBRECETTE");
         }
         if (request.getParameter("tablename") != null) journal.setNomTable(request.getParameter("tablename"));
-          String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement"};
+          String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","DESCETYPECHEQUE"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] =  {"id", "folio", "valcaisse","DESCETYPECHEQUE", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
+        String libEntete[] =  {"id", "folio", "valcaisse","DESCETYPECHEQUE", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit","etatlib"};
         PageRecherche pr = new PageRecherche(journal, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -27,10 +29,18 @@
         pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
-        pr.getFormu().getChamp("libelle").setLibelle("Libell�");
-        pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
+        pr.getFormu().getChamp("libelle").setLibelle("Libelle");
         pr.getFormu().getChamp("valcaisse").setLibelle("Banque");
         pr.setAWhere(suiteReq);
+
+        affichage.Champ[] liste = new affichage.Champ[1];
+       
+        TypeObjet cheque = new TypeObjet();
+        cheque.setNomTable("MODEPAIEMENTBQ");
+        liste[0] = new Liste("DESCETYPECHEQUE", cheque, "VAL", "val");
+
+        pr.getFormu().changerEnChamp(liste);
+        pr.getFormu().getChamp("DESCETYPECHEQUE").setLibelle("Type");
 
         String[] colSomme = {"credit"};
         pr.creerObjetPage(libEntete, colSomme);
@@ -89,7 +99,7 @@
             <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
             <input type="hidden" name="acte" value="viser"/>
             <%
-                String entete[] =  {"id", "folio", "banque","type cheque", "num piece", "num cheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
+                String entete[] =  {"id", "folio", "banque","type cheque", "num piece", "num cheque","libelle", "dateSaisie", "dateEffet", "credit", "etat"};
                 pr.getTableau().setLibelleAffiche(entete);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");

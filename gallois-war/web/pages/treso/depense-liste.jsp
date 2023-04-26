@@ -13,8 +13,10 @@
     try{
         JournalCaisse journal = new JournalCaisse();
         journal.setNomTable("journalcaisselibdepenseBanqueT");
+         String suiteReq = "";
         if (request.getParameter("mode") != null)  {
-            journal.setNomTable("journalcaisselibdepenseBanqueV");
+            suiteReq = " AND ETAT = 11";
+            journal.setNomTable("journalcaisselibdepense");
         }
         if (request.getParameter("tablename") != null) journal.setNomTable(request.getParameter("tablename"));
           String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","DESCETYPECHEQUE","tierslib"};
@@ -31,6 +33,7 @@
         pr.getFormu().getChamp("libelle").setLibelle("Libell�");
         pr.getFormu().getChamp("valcaisse").setLibelle("Banque");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+        pr.setAWhere(suiteReq);
         
         affichage.Champ[] liste = new affichage.Champ[1];
        
