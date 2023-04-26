@@ -58,7 +58,7 @@
 				<textFieldExpression><![CDATA[$P{MONTANT_LETTRE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="106" y="176" width="297" height="20" uuid="5fca5e01-b20b-4234-bf33-d0b9a77e07ce"/>
+				<reportElement x="106" y="176" width="482" height="20" uuid="5fca5e01-b20b-4234-bf33-d0b9a77e07ce"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true" isUnderline="true"/>
 					<paragraph leftIndent="2"/>
