@@ -28,7 +28,6 @@
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme); 
 %>
-%>
 
 <html>
     <head>
@@ -41,11 +40,11 @@
     <body class="skin-blue sidebar-mini">
         <div class="wrapper">
             <section class="content-header">
-                <h1>Liste Client Cat�gorie</h1>
+                <h1>Liste Client Categorie</h1>
             </section>
             <section class="content">
                 <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="cc" id="cc">
-                    <% out.println(pr.getFormu().getHtmlEnsemble2());%>
+                    <% out.println(pr.getFormu().getHtmlEnsemble());%>
                 </form>
                 <%
 

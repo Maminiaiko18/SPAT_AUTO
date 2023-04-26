@@ -1,4 +1,4 @@
-/*
+"/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -22,27 +22,13 @@ public class UserMenu  extends ClassMAPTable {
     private String codedir;
     private int interdit;
     private int refuser;
-    private String nomUser;
     private String login;
+    private String nomUser;
     
-    public String getNomUser() {
-        return nomUser;
-    }
+  
+ 
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setNomUser(String nomUser) {
-        this.nomUser = nomUser;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    
-     public UserMenu(String id, String idrole, String idmenu, String codeservice, String codedir, int interdit, int refuser, String nomUser, String login) {
+    public UserMenu(String id, String idrole, String idmenu, String codeservice, String codedir, int interdit, int refuser, String login, String nomUser) {
         this.id = id;
         this.idrole = idrole;
         this.idmenu = idmenu;
@@ -50,9 +36,12 @@ public class UserMenu  extends ClassMAPTable {
         this.codedir = codedir;
         this.interdit = interdit;
         this.refuser = refuser;
-        this.nomUser = nomUser;
         this.login = login;
+        this.nomUser = nomUser;
     }
+    
+
+   
     
     public void construirePK(Connection c) throws Exception {
         super.setNomTable("usermenu");
@@ -62,7 +51,21 @@ public class UserMenu  extends ClassMAPTable {
     public UserMenu() {
         super.setNomTable("usermenu");
     }
+    public String getLogin() {
+          return login;
+    }
 
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getNomUser() {
+        return nomUser;
+    }
+
+    public void setNomUser(String nomUser) {
+        this.nomUser = nomUser;
+    }
     public String getId() {
         return id;
     }
