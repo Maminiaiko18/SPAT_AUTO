@@ -8,7 +8,7 @@
     UserMenu menu = new UserMenu();
     menu.setNomTable("v_usermenu");
     String listeCrt[] = {"login","nomUser","refuser","id", "idrole", "idmenu", "codeservice", "codedir", "interdit"};
-    String listeInt[] = {"refuser"};
+    String listeInt[] = {};
     String libEntete[] = {"refuser","login","nomUser","id", "idrole", "idmenu", "codeservice", "codedir", "interdit"};
     PageRecherche pr = new PageRecherche(menu, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));

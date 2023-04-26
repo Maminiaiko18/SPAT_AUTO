@@ -21,14 +21,14 @@ public class UserMenu  extends ClassMAPTable {
     private String codeservice;
     private String codedir;
     private int interdit;
-    private int refuser;
+    private String refuser;
     private String login;
     private String nomUser;
     
   
  
 
-    public UserMenu(String id, String idrole, String idmenu, String codeservice, String codedir, int interdit, int refuser, String login, String nomUser) {
+    public UserMenu(String id, String idrole, String idmenu, String codeservice, String codedir, int interdit, String refuser, String login, String nomUser) {
         this.id = id;
         this.idrole = idrole;
         this.idmenu = idmenu;
@@ -106,11 +106,11 @@ public class UserMenu  extends ClassMAPTable {
         this.codedir = codedir;
     }
 
-    public int getRefuser() {
+    public String getRefuser() {
         return refuser;
     }
 
-    public void setRefuser(int refuser) {
+    public void setRefuser(String refuser) {
         this.refuser = refuser;
     }
 
