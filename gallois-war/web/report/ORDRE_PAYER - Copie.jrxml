@@ -99,9 +99,9 @@
 				<textFieldExpression><![CDATA[$P{MONTANT_DEV}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="541" y="135" width="45" height="20" uuid="ce9510d0-6042-46d9-901d-eb0ce5e23d41"/>
+				<reportElement x="541" y="135" width="67" height="20" uuid="ce9510d0-6042-46d9-901d-eb0ce5e23d41"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font size="7" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{DEVISE}]]></textFieldExpression>
 			</textField>

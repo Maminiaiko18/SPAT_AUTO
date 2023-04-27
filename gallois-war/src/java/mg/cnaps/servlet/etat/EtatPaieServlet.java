@@ -459,13 +459,10 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("ADRESSE", op.getAdresse());
                 param.put("MOTIF", op.getRemarque());
                 param.put("FACTURE", op.getNumfact());
-                param.put("DEVISE", op.getDevise());
-                if(op.getMontantdevise()!=0) param.put("MONTANT_DEV", op.getMontantdevise());
-                else {
-                    param.put("MONTANT_DEVISE", "");
-                    param.put("DEVISE", "");
+                if(op.getMontantdevise()!=0) {
+                    param.put("MONTANT_DEV", op.getMontantdevise());
+                    param.put("DEVISE", op.getDeviselib());
                 }
-
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("ORDRE_PAYER - Copie");

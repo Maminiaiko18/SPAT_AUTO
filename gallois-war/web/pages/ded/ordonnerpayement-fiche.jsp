@@ -16,6 +16,7 @@
         a = (OrdonnerPayement) pc.getBase();
         String id = a.getId();
         pc.getChampByName("idLigne").setVisible(false);
+        pc.getChampByName("devise").setVisible(false);
 
         pc.getChampByName("Ded_Id").setLibelle("Facture");
         pc.getChampByName("Ded_Id").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
@@ -27,6 +28,7 @@
         pc.getChampByName("numfact").setLibelle("Numero facture");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("montantdevise").setLibelle("Montant devise");
+        pc.getChampByName("deviselib").setLibelle("Devise");
 
 
 //        pc.getChampByName("nomfournisseur").setLien("module.jsp?but=travaux/tiers-fiche.jsp&id=" + a.getIdFournisseur(), "nom=");

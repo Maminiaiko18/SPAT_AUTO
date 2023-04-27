@@ -52,7 +52,15 @@ public class OrdonnerPayement extends ClassEtat {
     private String idfacture,type,idengagement,numeroCompta;
     private String adresse, montant_lettre,devise,beneficiaire, destinationlib;
     private double montantdevise;
+    private String deviselib;
 
+    public String getDeviselib() {
+        return deviselib;
+    }
+
+    public void setDeviselib(String deviselib) {
+        this.deviselib = deviselib;
+    }
 
     public double getMontantdevise() {
         return montantdevise;
