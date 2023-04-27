@@ -80,7 +80,7 @@
         }
 
         liste[0] = new Liste("caisse", esc, "VAL", "id");
-            liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
+        liste[0].setDefaultSelected(Constante.caisseDepense);
 
         
         TypeObjet cheque = new TypeObjet();
