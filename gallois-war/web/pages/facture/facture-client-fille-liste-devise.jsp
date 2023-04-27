@@ -16,7 +16,7 @@
     try {
         CaFcFilleComplet cht = new CaFcFilleComplet();
         cht.setNomTable("CAFCFILLECOMPLET_DEVISE");
-        String libEntete[] = { "idmere","daty","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montanthtdevise"};
+        String libEntete[] = { "idmere","daty","client", "code", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montanthtdevise"};
         String listeCrt[] = {"compte", "mois", "annee", "type", "designation", "client"};
         String listeInt[] = {"mois"};
 
@@ -57,12 +57,12 @@
         pr.getFormu().getChamp("type").setLibelle("Type");
         pr.getFormu().getChamp("compte").setLibelle("Compte");
         
-        String[] colSomme = {"montant", "montanttva", "montantttc"};
+        String[] colSomme = {"montant"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
     function changerDesignation() {
-        document.incident.submit();
+        //document.incident.submit();
     }
 </script>
 <div class="content-wrapper">
@@ -87,7 +87,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Num Facture","date","client", "navire", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA", "Montant", "Montant HT(Euro)"};
+            String libEnteteAffiche[] = {"Num Facture","date","client", "code facture", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA", "Montant", "Montant HT(Euro)"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
