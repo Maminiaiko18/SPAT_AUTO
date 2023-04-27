@@ -475,6 +475,12 @@
                 if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID(),false);
             }
         }
+        if(acte.compareToIgnoreCase("validerBCEng") == 0){
+            BonDeCommande bc=new BonDeCommande();
+            bc.setId(request.getParameter("id"));
+            bc = (BonDeCommande)bc.getById(request.getParameter("id"), "as_bondecommande", null);
+            if(bc!=null)bc.validerObjectAvecEngagement(u.getUser().getTuppleID());
+        }
         
         String idAttributeName = "id";
         if(t != null && t.getAttributIDName() != null && !t.getAttributIDName().trim().isEmpty()) idAttributeName = t.getAttributIDName();
