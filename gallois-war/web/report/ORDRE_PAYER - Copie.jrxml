@@ -13,6 +13,7 @@
 	<parameter name="MOTIF" class="java.lang.String"/>
 	<parameter name="FACTURE" class="java.lang.String"/>
 	<parameter name="DEVISE" class="java.lang.String"/>
+	<parameter name="MONTANT_DEV" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -43,7 +44,7 @@
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="402" y="110" width="119" height="20" uuid="0a82b684-a182-49d9-811c-7f91e23420a6"/>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
@@ -58,7 +59,7 @@
 				<textFieldExpression><![CDATA[$P{MONTANT_LETTRE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="106" y="176" width="297" height="20" uuid="5fca5e01-b20b-4234-bf33-d0b9a77e07ce"/>
+				<reportElement x="106" y="176" width="482" height="20" uuid="5fca5e01-b20b-4234-bf33-d0b9a77e07ce"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true" isUnderline="true"/>
 					<paragraph leftIndent="2"/>
@@ -89,13 +90,28 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{FACTURE}]]></textFieldExpression>
 			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="403" y="135" width="119" height="20" uuid="4e6032da-f538-4a0f-803f-a8f5a8709d43"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{MONTANT_DEV}]]></textFieldExpression>
+			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="521" y="110" width="45" height="20" uuid="7c52cd79-ea59-49ec-9e5b-766bc5663f93"/>
+				<reportElement x="541" y="135" width="67" height="20" uuid="ce9510d0-6042-46d9-901d-eb0ce5e23d41"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font size="7" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{DEVISE}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="541" y="115" width="67" height="20" uuid="c822d18b-13e3-49fe-936e-e318f8044cf6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ariary]]></text>
+			</staticText>
 		</band>
 	</title>
 </jasperReport>

@@ -47,10 +47,28 @@ public class OrdonnerPayement extends ClassEtat {
     private String numeroop, destination, modepaiement,etatlib,tiers;
     private String numerobed;
     private String folio, numcheque, numfact;
-  private double montantpaye,reste;
-  private String modepaiementlib, tierslib;
+    private double montantpaye,reste;
+    private String modepaiementlib, tierslib;
     private String idfacture,type,idengagement,numeroCompta;
     private String adresse, montant_lettre,devise,beneficiaire, destinationlib;
+    private double montantdevise;
+    private String deviselib;
+
+    public String getDeviselib() {
+        return deviselib;
+    }
+
+    public void setDeviselib(String deviselib) {
+        this.deviselib = deviselib;
+    }
+
+    public double getMontantdevise() {
+        return montantdevise;
+    }
+
+    public void setMontantdevise(double montantdevise) {
+        this.montantdevise = montantdevise;
+    }
 
     public void checkDoublonNumeroOP(Connection c) throws Exception {
 			this.setNomTable("ordonnerpayement");
@@ -439,6 +457,7 @@ public class OrdonnerPayement extends ClassEtat {
         if(factures.length>0){
             this.setMontant(AdminGen.calculSommeDouble(factures, "montantreste"));
         }*/
+
         this.construirePK(c);
         this.gererFF( u, c);
         this.setNumeroop(genererNumeroOP(c));
@@ -888,7 +907,14 @@ public class OrdonnerPayement extends ClassEtat {
         }
     }
     
-    
+    public void gereDevise(Connection c)throws Exception{
+        FactureFournisseur[] factures=this.getFactures(c);
+        if(factures.length>0){
+            FactureFournisseur temp = factures[0];
+            //find FF fille, si devise hafa dia ovaina ilay OP
+        }
+    }
+
     public void gererVisaFF(Connection c)throws Exception{
         FactureFournisseur[] factures=this.getFactures(c);
         if(factures.length>0){

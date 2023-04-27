@@ -445,7 +445,7 @@ public class EtatPaieServlet extends HttpServlet {
             String id = request.getParameter("id");
             OrdonnerPayementPDF op = new OrdonnerPayementPDF();
             op.setId(id);
-            op.setNomTable("OrdonnerPayement_LIB");
+            op.setNomTable("OrdonnerPayement_LIB_devise");
             OrdonnerPayementPDF[] tabOp = (OrdonnerPayementPDF[]) CGenUtil.rechercher(op, null, null, "  ");
             Map param = new HashMap();
             if (tabOp.length > 0) {
@@ -459,7 +459,10 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("ADRESSE", op.getAdresse());
                 param.put("MOTIF", op.getRemarque());
                 param.put("FACTURE", op.getNumfact());
-                param.put("DEVISE", op.getDevise());
+                if(op.getMontantdevise()!=0) {
+                    param.put("MONTANT_DEV", op.getMontantdevise());
+                    param.put("DEVISE", op.getDeviselib());
+                }
             }
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("ORDRE_PAYER - Copie");
