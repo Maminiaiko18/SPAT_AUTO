@@ -1159,7 +1159,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             if(prov == true && cptDef > 0){
-                titre = "SUIVIE PROVISION";
+                titre = "SUIVI PROVISION";
                 nomJasper = "gestion_provision_caisse";
                 param.put("datyPiece", Utilitaire.dateDuJourSql());
             }
