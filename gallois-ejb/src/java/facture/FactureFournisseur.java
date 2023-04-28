@@ -737,6 +737,39 @@ public class FactureFournisseur extends FactureClient {
                 System.out.println("ityy "+ this.getIdcategorie()+" and "+Constante.idBonProvisoire);
                 if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0) this.insertEngagement(u, controleMontant,c);
             }
+            if (this.getIdengagement() != null) {
+                Engagement eg = this.findEngagement(c);
+                if (eg != null) {
+                    double reste = eg.getResteAFacturer(c);
+                    FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+                    if (ff != null && reste < ff.getMontant()) {
+                        //insertion engagement
+                        double diff = ff.getMontant() - reste;
+                        Engagement engagement = ff.getEngagement();
+
+                        if (lc != null) {
+                            engagement.setIdLC(lc.getTuppleID());
+                        }
+                        engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+                        engagement.construirePK(c);
+
+                        engagement.setMontant(diff);
+                        engagement.createObject(u, c);
+
+                        FactureFournisseurDetails fille = new FactureFournisseurDetails();
+                        System.out.println("ff.getNumeroop() = "+ ff.getNumeroop());
+                        fille.setDesignation(ff.getNumeroop());
+                        fille.setMontant(diff);
+                        EngagementFille engFille = fille.createEngagementFille(engagement.getTuppleID());
+                        engFille.construirePK(c);
+                        engFille.insertToTableWithHisto(u, c);
+
+                        engagement.validerObject(u, c);
+
+                        this.setIdengagement(engagement.getTuppleID());
+                    }
+                }
+            }
 
             this.setNomTable("facture_fournisseur_mere");
             super.validerObject(u, c);
