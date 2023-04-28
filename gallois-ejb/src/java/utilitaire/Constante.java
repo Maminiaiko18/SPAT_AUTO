@@ -121,6 +121,9 @@ public class Constante {
     public static final String tpmvtdepart = "TPMM00003";
     public static final String typeff = "TFF0001";
     public static final String modepaiementDefaut = "pay1";
+    public static final String modepaiementChq = "pay2";
+    public static final String modepaiementProvision = "pay7";
+
     public static final String caisseCentrale = "CAIS000016";
     public static final String caisseCentraleBP = "CAIS000016";
     public static final String caisseCentraleEspece = "CAIS000015";
