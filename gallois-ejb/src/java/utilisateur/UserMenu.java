@@ -1,4 +1,4 @@
-"/*
+/**
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,10 +26,16 @@ public class UserMenu  extends ClassMAPTable {
     private String nomUser;
     
   
- 
+    public UserMenu(String idrole, String idmenu, String codeservice, String codedir, int interdit, String refuser) {
+        this.idrole = idrole;
+        this.idmenu = idmenu;
+        this.codeservice = codeservice;
+        this.codedir = codedir;
+        this.interdit = interdit;
+        this.refuser = refuser;
+    }
 
-    public UserMenu(String id, String idrole, String idmenu, String codeservice, String codedir, int interdit, String refuser, String login, String nomUser) {
-        this.id = id;
+    public UserMenu(String idrole, String idmenu, String codeservice, String codedir, int interdit, String refuser, String login, String nomUser) {
         this.idrole = idrole;
         this.idmenu = idmenu;
         this.codeservice = codeservice;
@@ -40,11 +46,8 @@ public class UserMenu  extends ClassMAPTable {
         this.nomUser = nomUser;
     }
     
-
-   
-    
     public void construirePK(Connection c) throws Exception {
-        super.setNomTable("usermenu");
+            super.setNomTable("usermenu");
         this.preparePk("MEN", "getSeqUserMenu");
         this.setId(makePK(c));
     }

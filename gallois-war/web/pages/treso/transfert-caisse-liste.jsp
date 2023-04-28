@@ -80,11 +80,19 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br/>
          
-        <%
-            String libEnteteAffiche[] ={"id","date","caisse depart","caisse arrivee","mode de paiement","montant"};
-            pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            out.println(pr.getTableau().getHtml());
-        %>
+        <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="id" >
+            <input type="hidden" name="bute" value="treso/transfert-caisse-liste.jsp"/>
+            <input type="hidden" name="classe" value="mg.spat.MvttIntraCaisse"/>
+            <input type="hidden" name="acte" value="viser"/>
+            <%
+                String entete[] =  {"id","date","caisse depart","caisse arrivee","mode de paiement","montant"};;
+                pr.getTableau().setLibelleAffiche(entete);
+                pr.getTableau().setNameActe("viser");
+                pr.getTableau().setNameBoutton("Viser");
+                
+                out.println(pr.getTableau().getHtmlWithCheckbox());            
+            %>
+        </form>
 
         <% out.println(pr.getBasPage());%>
     </section>
