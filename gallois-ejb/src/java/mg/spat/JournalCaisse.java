@@ -984,7 +984,23 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 }
             }
         }
+        this.checkModePaiement();
+
         return super.createObject(u, c);
+    }
+
+    public void checkModePaiement() throws Exception{
+        if(this.getCaisse().compareToIgnoreCase(Constante.caisseCentraleEspece)==0)
+            {
+                if(this.getIdmode().compareToIgnoreCase(Constante.modepaiementDefaut)!=0) throw new Exception("Le mode de paiement a la caisse centrale espece doit etre un paiement par espece");
+            }
+        if(this.getCaisse().compareToIgnoreCase(Constante.caisseChequeEncaissement)==0)
+        {
+            if(this.getIdmode().compareToIgnoreCase(Constante.modepaiementChq)!=0) 
+            {
+                if(this.getIdmode().compareToIgnoreCase(Constante.modepaiementProvision)!=0) throw new Exception("Le mode de paiement a la caisse cheque a l'encaissement doit etre un paiement par cheque");
+            }
+        }
     }
     
     public FactureClient[] findFactureClient(Connection c) throws Exception{
