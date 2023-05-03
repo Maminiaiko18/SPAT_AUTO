@@ -43,7 +43,7 @@
 				<textFieldExpression><![CDATA[$P{PAIEMENT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="402" y="110" width="119" height="20" uuid="0a82b684-a182-49d9-811c-7f91e23420a6"/>
+				<reportElement x="403" y="109" width="119" height="20" uuid="0a82b684-a182-49d9-811c-7f91e23420a6"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 					<paragraph leftIndent="10"/>
@@ -51,7 +51,7 @@
 				<textFieldExpression><![CDATA[$P{MONTANT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="106" y="135" width="297" height="39" uuid="eeb56261-43bf-4f37-9f4e-d0934bcef7cf"/>
+				<reportElement x="106" y="135" width="482" height="39" uuid="eeb56261-43bf-4f37-9f4e-d0934bcef7cf"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
@@ -91,7 +91,7 @@
 				<textFieldExpression><![CDATA[$P{FACTURE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="403" y="135" width="119" height="20" uuid="4e6032da-f538-4a0f-803f-a8f5a8709d43"/>
+				<reportElement x="403" y="89" width="119" height="20" uuid="4e6032da-f538-4a0f-803f-a8f5a8709d43"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 					<paragraph leftIndent="10"/>
@@ -99,14 +99,14 @@
 				<textFieldExpression><![CDATA[$P{MONTANT_DEV}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="541" y="135" width="67" height="20" uuid="ce9510d0-6042-46d9-901d-eb0ce5e23d41"/>
+				<reportElement x="541" y="90" width="67" height="20" uuid="ce9510d0-6042-46d9-901d-eb0ce5e23d41"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{DEVISE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="541" y="115" width="67" height="20" uuid="c822d18b-13e3-49fe-936e-e318f8044cf6"/>
+				<reportElement x="542" y="114" width="67" height="20" uuid="c822d18b-13e3-49fe-936e-e318f8044cf6"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
