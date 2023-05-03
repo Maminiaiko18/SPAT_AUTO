@@ -9,15 +9,15 @@
     try {
 
         Engagement eng = new Engagement();
-        eng.setNomTable("engagementlib");
+        eng.setNomTable("engagementlibv");
         String nomTableEtat = request.getParameter("nomTableEtat");
         if(nomTableEtat!=null && !nomTableEtat.isEmpty()){
         eng.setNomTable(nomTableEtat);
         }
 
-        String listeCrt[] = {"id", "designation","codeetablissementlib","projetlib", "daty", "tierslib","num"};
+        String listeCrt[] = {"id", "designation","codeEtablissement","codeetablissementlib","projet","projetlib", "daty", "tierslib","num", "annee"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "designation", "montant","montantOP", "montantreste","dispoavant","dispoapres","codeetablissementlib","projetlib", "tierslib", "daty","num"};
+        String libEntete[] = {"id", "designation", "montant","montantOP", "montantreste","dispoavant","dispoapres","codeetablissementlib","projetlib", "tierslib", "daty","num", "annee"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -30,7 +30,7 @@
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.getFormu().getChamp("num").setLibelle("No.");
-        pr.setApres("depense/engagement-liste.jsp");
+        pr.setApres("depense/engagement-listefcc.jsp");
         String[] colSomme ={"montant"};
         pr.creerObjetPage(libEntete, colSomme);
         String[] etatVal = {"engagementlib", "engagementlibC", "engagementlibV"};
@@ -48,7 +48,7 @@
         <h1>Liste des Engagements </h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=depense/engagement-liste.jsp" method="post" name="engagement" id="engagement">
+        <form action="<%=pr.getLien()%>?but=depense/engagement-listefcc.jsp" method="post" name="engagement" id="engagement">
             <% out.println(pr.getFormu().getHtmlEnsemble());%>
             <div class="row">
                 <div class="col-md-12">
@@ -72,7 +72,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "D&eacute;signation", "Montant", "Montant d'ordre payment","Disponibilit&eacute;","Disponibilit&eacute; avant","Disponibilit&eacute; apr&egrave;s","Code &eacute;tablissement","Projet", "Tiers", "Date","No."};
+            String libEnteteAffiche[] ={"Id", "D&eacute;signation", "Montant", "Montant d'ordre payment","Disponibilit&eacute;","Disponibilit&eacute; avant","Disponibilit&eacute; apr&egrave;s","Code &eacute;tablissement","Projet", "Tiers", "Date","No.", "Ann&eacutee"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

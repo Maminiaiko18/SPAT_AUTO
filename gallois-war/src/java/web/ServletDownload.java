@@ -167,7 +167,7 @@ public class ServletDownload extends HttpServlet {
                 }
 
                 //System.out.println(donn);
-                else if (ext.compareToIgnoreCase("xml") == 0) {
+                if (ext.compareToIgnoreCase("xml") == 0) {
                     os.write(tr.getExpxml().getBytes());
                     //System.out.println(donn+tr.getExpxml());
                 }
