@@ -25,6 +25,10 @@
         pc.getChampByName("montantdevise").setLibelle("Montant devise");
         pc.getChampByName("ancienplacement").setLibelle("Ancien placement");
         pc.getChampByName("ancienPlacement").setLien((String) session.getValue("lien") + "?but=placement/placement-fiche.jsp", "id=");
+        pc.getChampByName("banque").setVisible(false);
+        pc.getChampByName("banquelib").setLibelle("Banque");
+        pc.getChampByName("valentite").setLibelle("Entite");
+        pc.getChampByName("entite").setVisible(false);
         /*pc.getChampByName("entite").setVisible(false);
         pc.getChampByName("identite").setVisible(false);
         pc.getChampByName("idbanque").setVisible(false);
@@ -38,7 +42,7 @@
         pc.getChampByName("idmeredetails").setLibelle("Mere Details");
         pc.getChampByName("interet_recevoir").setLibelle("Interet recevoir");
         pc.getChampByName("interet_net").setLibelle("Interet net");
-        pc.getChampByName("valentite").setLibelle("Entite");*/
+        */
         PlacementLibComplet bi = (PlacementLibComplet) pc.getBase();
         String bute = "placement/placement-fiche.jsp";
         AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
@@ -50,6 +54,7 @@
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("detail_placement", "");
         map.put("Journal_Caisse", "");
+        map.put("RemboursementPlacement", "");
         String tab = request.getParameter("tab");
         if (tab == null) {
             tab = "DetailPlacement";
@@ -88,7 +93,7 @@
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idplacement="+ bi.getId() +"&param=sortie"+"&auto=1"%>" style="margin-right: 10px">Rendre effectif</a>   
                                   <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-saisie.jsp&idplacement="+ bi.getId()+"&remboursement=true"%>" style="margin-right: 10px">Remboursement anticip&eacute;</a> 
                                    <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/placement-saisie.jsp&idplacement="+ bi.getId()%>" style="margin-right: 10px">Replacer </a> 
-                                   <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresPlacement.jsp&acte=viserEtRendreEffectif&id="+ bi.getId()%>" style="margin-right: 10px">Viser et rendre effectif</a> 
+                                   <%-- <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresPlacement.jsp&acte=viserEtRendreEffectif&id="+ bi.getId()%>" style="margin-right: 10px">Viser et rendre effectif</a>  --%>
                             
                             </p>
                         </div>
@@ -104,6 +109,7 @@
                     <ul class="nav nav-tabs nav-center">
                         <li class="<%= map.get("detail_placement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=bi.getId()%>&tab=DetailPlacement">Details Placements</a></li>
                         <li class="<%= map.get("Journal_Caisse")%>"><a href="module.jsp?but=<%=bute%>&idPlacement=<%=bi.getId()%>&tab=journalCaisse-liste">Journal Caisse</a></li>
+                        <li class="<%= map.get("RemboursementPlacement ")%>"><a href="module.jsp?but=<%=bute%>&idPlacement=<%=bi.getId()%>&id=<%=bi.getId()%>&tab=remboursement-liste">Remboursement</a></li>
                     </ul>
                     <div class="tab-content">       
 

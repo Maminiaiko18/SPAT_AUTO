@@ -14,10 +14,10 @@
     
     pi.getFormu().getChamp("date_placement").setLibelle("Date placement");
    // pi.getFormu().getChamp("date_placement").setDefaut(Utilitaire.dateDuJour());
-    pi.getFormu().getChamp("date_echeance").setLibelle("Date échéance");
+    pi.getFormu().getChamp("date_echeance").setLibelle("Date ï¿½chï¿½ance");
 
     pi.getFormu().getChamp("banque").setLibelle("Banque");
-    pi.getFormu().getChamp("numero").setLibelle("Référence");
+    pi.getFormu().getChamp("numero").setLibelle("Rï¿½fï¿½rence");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("duree").setVisible(false);
        pi.getFormu().getChamp("ancienPlacement").setLibelle("Ancien placement");
@@ -71,6 +71,7 @@
             pi.getFormu().getChamp("banque").setValeur(placement.getBanque()+"") ;
             pi.getFormu().getChamp("iddevise").setValeur(placement.getIddevise()+"") ;
              pi.getFormu().getChamp("ancienPlacement").setDefaut(request.getParameter("idplacement"));
+             pi.getFormu().getChamp("banque").setAutre("readonly");
         }
           
     }

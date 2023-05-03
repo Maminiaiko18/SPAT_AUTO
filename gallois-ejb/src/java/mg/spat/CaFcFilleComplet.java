@@ -19,6 +19,16 @@ public class CaFcFilleComplet extends ClassEtat {
     private double montantav;
     String client,mereca,code,numpiece ;
     private Date datefact,daty;
+    private double montanthtdevise;
+
+
+    public double getMontanthtdevise() {
+        return montanthtdevise;
+    }
+
+    public void setMontanthtdevise(double montanthtdevise) {
+        this.montanthtdevise = montanthtdevise;
+    }
 
     public String getCode() {
         return code;

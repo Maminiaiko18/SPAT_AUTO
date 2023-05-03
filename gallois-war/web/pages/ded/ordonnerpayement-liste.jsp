@@ -3,6 +3,7 @@
 <%@page import="ded.OrdonnerPayement"%>
 <%@page import="mg.spat.ChantierLibComplet"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="java.sql.Date"%>
 <% 
     try{
     OrdonnerPayement op = new OrdonnerPayement();
@@ -19,6 +20,20 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("ded/ordonnerpayement-liste.jsp&etatvue="+ request.getParameter("etatvue"));
+    
+ 
+    Date lastDate = Utilitaire.dateDuJourSql();
+    lastDate.setDate(31);
+    lastDate.setMonth(11);
+    String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());
+    String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+
+    if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+        pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+        pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+    }
+    
+    
     pr.getFormu().getChamp("daty1").setLibelle("date de d&eacute;but");
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
     pr.getFormu().getChamp("tiers").setLibelle("Tiers");

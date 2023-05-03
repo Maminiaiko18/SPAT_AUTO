@@ -37,6 +37,12 @@
         JournalCaisseData datas = new JournalCaisseData(request);
         datas.init(null);
 
+        affichage.Liste[] liste = new affichage.Liste[5];
+        TypeObjet esc = new TypeObjet();
+        liste[0] = new Liste("caisse", esc, "VAL", "id");
+        esc.setNomTable("CAISSE");
+        liste[0].setDefaultSelected(Constante.caisseDepense);
+
         if (idfact != null) {
             facture = datas.getFactureAnalyse();
             double reste = facture.getReste();
@@ -44,7 +50,8 @@
 
             pi.getFormu().getChamp("libelle").setDefaut(facture.getDesignation());
             pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + reste));
-
+            esc.setNomTable("caisserecette");
+            liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
             pi.getFormu().getChamp("idplacement").setDefaut("" + facture.getNmfact());
             pi.getFormu().getChamp("tiers").setDefaut(client);
             pi.getFormu().getChamp("idplacement").setDefaut(idfact);
@@ -56,6 +63,8 @@
             pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
             pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(fc.getTiers()));
             pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(fc.getTierslib()));
+            esc.setNomTable("caisserecette");
+            liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
 
         } else if (idFacturesF != null) {
             FactureClient fc = datas.getFacture();
@@ -66,22 +75,13 @@
             pi.getFormu().getChamp("Idplacementvrai").setVisible(false);
         }
 
-        affichage.Liste[] liste = new affichage.Liste[5];
-
-        TypeObjet esc = new TypeObjet();
         boolean estCasisseDep = false;
         if (request.getParameter("caisse") != null) {
             if(request.getParameter("caisse").compareToIgnoreCase("CAISSEDEPENSE")==0){
                 estCasisseDep = true;
             }
             esc.setNomTable(request.getParameter("caisse"));
-        } else {
-            esc.setNomTable("CAISSE");
-        }
-
-        liste[0] = new Liste("caisse", esc, "VAL", "id");
-            liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
-
+        } 
         
         TypeObjet cheque = new TypeObjet();
         cheque.setNomTable("TYPECHEQUE");

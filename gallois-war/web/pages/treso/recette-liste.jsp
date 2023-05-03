@@ -6,6 +6,8 @@
 
 <%@page import="mg.spat.JournalCaisse"%>
 <%@page import="affichage.PageRecherche"%>
+<%@ page import="bean.*" %>
+<%@ page import="affichage.*" %>
 <% 
     try{
         JournalCaisse journal = new JournalCaisse();
@@ -15,10 +17,10 @@
             suiteReq = " AND ETAT = 11";
             journal.setNomTable("JOURNALCAISSELIBRECETTE");
         }
-        if (request.getParameter("table") != null) journal.setNomTable(request.getParameter("table"));
-          String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","idtypecheque","idplacement"};
+        if (request.getParameter("tablename") != null) journal.setNomTable(request.getParameter("tablename"));
+          String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","DESCETYPECHEQUE"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] =  {"id", "folio", "valcaisse","DESCETYPECHEQUE", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
+        String libEntete[] =  {"id", "folio", "valcaisse","DESCETYPECHEQUE", "numPiece", "numcheque","libelle", "dateSaisie", "dateEffet", "credit","etatlib"};
         PageRecherche pr = new PageRecherche(journal, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -27,10 +29,18 @@
         pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
-        pr.getFormu().getChamp("libelle").setLibelle("Libell�");
-        pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
+        pr.getFormu().getChamp("libelle").setLibelle("Libelle");
         pr.getFormu().getChamp("valcaisse").setLibelle("Banque");
         pr.setAWhere(suiteReq);
+
+        affichage.Champ[] liste = new affichage.Champ[1];
+       
+        TypeObjet cheque = new TypeObjet();
+        cheque.setNomTable("MODEPAIEMENTBQ");
+        liste[0] = new Liste("DESCETYPECHEQUE", cheque, "VAL", "val");
+
+        pr.getFormu().changerEnChamp(liste);
+        pr.getFormu().getChamp("DESCETYPECHEQUE").setLibelle("Type");
 
         String[] colSomme = {"credit"};
         pr.creerObjetPage(libEntete, colSomme);
@@ -54,21 +64,21 @@
                 <div class="col-md-4"></div>
                     <div class="col-md-4">
                     Etat : 
-                    <select name="table" class="champ" id="table" onchange="changerDesignation()" >
+                    <select name="tablename" class="champ" id="tablename" onchange="changerDesignation()" >
                         
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("journalcaisselibrecetteBanqueT") == 0) {%>    
+                        <% if (request.getParameter("tablename") != null && request.getParameter("tablename").compareToIgnoreCase("journalcaisselibrecetteBanqueT") == 0) {%>    
                         <option value="journalcaisselibrecetteBanqueT" selected>Tous</option>
                         <% } else { %>
                         <option value="journalcaisselibrecetteBanqueT" >Tous</option>
                         <% } %>
                         
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("journalcaisselibrecetteBanqueC") == 0) {%>    
+                        <% if (request.getParameter("tablename") != null && request.getParameter("tablename").compareToIgnoreCase("journalcaisselibrecetteBanqueC") == 0) {%>    
                         <option value="journalcaisselibrecetteBanqueC" selected>Cr&eacute;&eacute;</option>
                         <% } else { %>
                         <option value="journalcaisselibrecetteBanqueC" >Cr&eacute;&eacute;</option>
                         <% } %>
 
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("journalcaisselibrecetteBanqueV") == 0) {%>    
+                        <% if (request.getParameter("tablename") != null && request.getParameter("tablename").compareToIgnoreCase("journalcaisselibrecetteBanqueV") == 0) {%>    
                         <option value="journalcaisselibrecetteBanqueV" selected>Valid&eacute;</option>
                         <% } else { %>
                         <option value="journalcaisselibrecetteBanqueV" >Valid&eacute;</option>
@@ -84,12 +94,21 @@
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
-        <%
-            String entete[] =  {"id", "folio", "banque","type cheque", "num piece", "num cheque","libelle", "dateSaisie", "dateEffet", "credit", "debit","idplacement"};
-            pr.getTableau().setLibelleAffiche(entete);
-            out.println(pr.getTableau().getHtml());
-            out.println(pr.getBasPage());
-        %>
+          <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="id" >
+            <input type="hidden" name="bute" value="treso/recette-liste.jsp"/>
+            <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
+            <input type="hidden" name="acte" value="viser"/>
+            <%
+                String entete[] =  {"id", "folio", "banque","type cheque", "num piece", "num cheque","libelle", "dateSaisie", "dateEffet", "credit", "etat"};
+                pr.getTableau().setLibelleAffiche(entete);
+                pr.getTableau().setNameActe("viser");
+                pr.getTableau().setNameBoutton("Viser");
+                
+                out.println(pr.getTableau().getHtmlWithCheckbox());            
+            %>
+        </form>
+        <% out.println(pr.getBasPage());%>
+
     </section>
 </div>
 <% }catch(Exception e){

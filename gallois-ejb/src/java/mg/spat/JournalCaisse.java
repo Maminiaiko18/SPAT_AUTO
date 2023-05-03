@@ -984,7 +984,23 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 }
             }
         }
+        this.checkModePaiement();
+
         return super.createObject(u, c);
+    }
+
+    public void checkModePaiement() throws Exception{
+        if(this.getCaisse().compareToIgnoreCase(Constante.caisseCentraleEspece)==0)
+            {
+                if(this.getIdmode().compareToIgnoreCase(Constante.modepaiementDefaut)!=0) throw new Exception("Le mode de paiement a la caisse centrale espece doit etre un paiement par espece");
+            }
+        if(this.getCaisse().compareToIgnoreCase(Constante.caisseChequeEncaissement)==0)
+        {
+            if(this.getIdmode().compareToIgnoreCase(Constante.modepaiementChq)!=0) 
+            {
+                if(this.getIdmode().compareToIgnoreCase(Constante.modepaiementProvision)!=0) throw new Exception("Le mode de paiement a la caisse cheque a l'encaissement doit etre un paiement par cheque");
+            }
+        }
     }
     
     public FactureClient[] findFactureClient(Connection c) throws Exception{
@@ -1018,6 +1034,28 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             PayementFacture pf = new PayementFacture();
             pf.setNomTable("paiementfacturecp");
+            String awhere = String.format(" and idmvt = '%s' order by typefacture desc", this.getId());
+            PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
+            return result;
+        }  catch(Exception ex) {
+            throw ex;
+        }  finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
+    public PayementFacture[] getGestionProvFc(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            PayementFacture pf = new PayementFacture();
+            pf.setNomTable("LIAISONPROVDEF");
             String awhere = String.format(" and idmvt = '%s' order by typefacture desc", this.getId());
             PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;

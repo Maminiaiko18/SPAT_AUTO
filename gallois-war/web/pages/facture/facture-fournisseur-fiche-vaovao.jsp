@@ -30,6 +30,7 @@
         e.setNomTable("factfourn_msum_lib_fiche");
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE FOURNISSEUR");
+        pc.getChampByName("deviseMere").setLibelle("Devise");
 
         //pc.getChampByName("iduser").setVisible(false);
         //pc.getChampByName("type").setVisible(false);

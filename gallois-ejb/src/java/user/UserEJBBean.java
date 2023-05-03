@@ -1543,6 +1543,11 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             if (o.getClassName().compareTo("mg.cnaps.paie.Elementpaiemanuel") == 0) {
                 o.setNomTable("elementpaiemanuel");
             }
+
+            if (o.getClassName().compareTo("mg.spat.MvttIntraCaisse") == 0) {
+                o.setNomTable("MvtIntracaisse");
+            }
+            
             if (o.getClassName().compareTo("mg.spat.JournalCaisse") == 0) {
                 String id = Utilitaire.tabToString(listeIdObjet, "'", ",");
                 JournalCaisse[] tJournalCaisse = (JournalCaisse[]) CGenUtil.rechercher(new JournalCaisse(), null, null, c, " and id in (" + id + ")");
