@@ -315,6 +315,8 @@ public class MvttIntraCaisse extends ClassEtat {
         entree.setEtatversement(ConstanteEtat.getEtatEncaissee());
         entree.setRemarque(this.getRemarque());
         entree.setTiers(temp.getTiers());
+        String numpiece = entree.calculerNumeroRecuTraite(null);
+        entree.setNumPiece(numpiece);
 
         entree.createObject(u, c);
         entree.validerObject(u, c);

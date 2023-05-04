@@ -1033,6 +1033,12 @@ public class EtatPaieServlet extends HttpServlet {
                 traite.setId(tabJournal[0].getIdtraite());
                 JournalCaisse temp = traite.getPieceTraite(null);
                 jc.setId(temp.getId());
+                if(tabJournal[0].getNumPiece()==null){
+                    String numpiece = tabJournal[0].calculerNumeroRecuTraite(null);
+                    tabJournal[0].setNumPiece(numpiece);
+                    tabJournal[0].setNomTable("journalcaisse");
+                    tabJournal[0].upDateToTable();
+                }                
                 titre = "RECU TRAITE";
             }
 
