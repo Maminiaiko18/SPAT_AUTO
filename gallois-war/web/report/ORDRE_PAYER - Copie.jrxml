@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ORDRE_PAYER" pageWidth="620" pageHeight="842" columnWidth="620" leftMargin="0" rightMargin="0" topMargin="10" bottomMargin="10" uuid="482ea57c-6d82-4138-ae48-165f25e19e79">
 	<property name="ireport.zoom" value="1.100000000000005"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="6"/>
 	<parameter name="NUM_OP" class="java.lang.String"/>
 	<parameter name="DESTINATION" class="java.lang.String"/>
 	<parameter name="PAIEMENT" class="java.lang.String"/>
@@ -20,14 +20,14 @@
 	<title>
 		<band height="369" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="541" y="40" width="73" height="16" uuid="43fc8f71-56f9-4908-99e5-e8ae3fe79b86"/>
+				<reportElement x="540" y="43" width="73" height="16" uuid="43fc8f71-56f9-4908-99e5-e8ae3fe79b86"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{NUM_OP}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="106" y="90" width="297" height="20" uuid="64a3ba47-706d-4897-87b4-fbef6fb02ab7"/>
+				<reportElement x="106" y="94" width="239" height="20" uuid="64a3ba47-706d-4897-87b4-fbef6fb02ab7"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
@@ -35,7 +35,7 @@
 				<textFieldExpression><![CDATA[$P{DESTINATION}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="106" y="109" width="114" height="20" uuid="2b3a33c8-780a-4d44-a33e-acaa8b28736c"/>
+				<reportElement x="106" y="113" width="114" height="20" uuid="2b3a33c8-780a-4d44-a33e-acaa8b28736c"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
@@ -43,7 +43,7 @@
 				<textFieldExpression><![CDATA[$P{PAIEMENT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="403" y="109" width="119" height="20" uuid="0a82b684-a182-49d9-811c-7f91e23420a6"/>
+				<reportElement x="389" y="114" width="119" height="20" uuid="0a82b684-a182-49d9-811c-7f91e23420a6"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 					<paragraph leftIndent="10"/>
@@ -51,7 +51,7 @@
 				<textFieldExpression><![CDATA[$P{MONTANT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="106" y="135" width="482" height="39" uuid="eeb56261-43bf-4f37-9f4e-d0934bcef7cf"/>
+				<reportElement x="106" y="139" width="482" height="39" uuid="eeb56261-43bf-4f37-9f4e-d0934bcef7cf"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
@@ -59,7 +59,7 @@
 				<textFieldExpression><![CDATA[$P{MONTANT_LETTRE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="106" y="176" width="482" height="20" uuid="5fca5e01-b20b-4234-bf33-d0b9a77e07ce"/>
+				<reportElement x="106" y="180" width="482" height="20" uuid="5fca5e01-b20b-4234-bf33-d0b9a77e07ce"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true" isUnderline="true"/>
 					<paragraph leftIndent="2"/>
@@ -67,7 +67,7 @@
 				<textFieldExpression><![CDATA[$P{BENEFICIAIRE} == null ? "-" : $P{BENEFICIAIRE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="106" y="198" width="297" height="20" uuid="e60f717c-5e48-4f6f-87cb-3a580a8f50c7"/>
+				<reportElement x="106" y="202" width="297" height="20" uuid="e60f717c-5e48-4f6f-87cb-3a580a8f50c7"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
@@ -75,7 +75,7 @@
 				<textFieldExpression><![CDATA[$P{ADRESSE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="107" y="223" width="481" height="38" uuid="8245b9ad-99aa-4894-9d55-6d0b1ca05cfe"/>
+				<reportElement x="107" y="227" width="481" height="38" uuid="8245b9ad-99aa-4894-9d55-6d0b1ca05cfe"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
@@ -83,7 +83,7 @@
 				<textFieldExpression><![CDATA[$P{MOTIF}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="108" y="271" width="481" height="34" uuid="cada7ed8-0c54-4ff2-92c9-8688d55ea177"/>
+				<reportElement x="108" y="275" width="481" height="34" uuid="cada7ed8-0c54-4ff2-92c9-8688d55ea177"/>
 				<textElement verticalAlignment="Top">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
@@ -91,7 +91,7 @@
 				<textFieldExpression><![CDATA[$P{FACTURE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="403" y="89" width="119" height="20" uuid="4e6032da-f538-4a0f-803f-a8f5a8709d43"/>
+				<reportElement x="389" y="94" width="119" height="20" uuid="4e6032da-f538-4a0f-803f-a8f5a8709d43"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 					<paragraph leftIndent="10"/>
@@ -99,14 +99,14 @@
 				<textFieldExpression><![CDATA[$P{MONTANT_DEV}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="541" y="90" width="67" height="20" uuid="ce9510d0-6042-46d9-901d-eb0ce5e23d41"/>
+				<reportElement x="527" y="95" width="67" height="20" uuid="ce9510d0-6042-46d9-901d-eb0ce5e23d41"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{DEVISE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="542" y="114" width="67" height="20" uuid="c822d18b-13e3-49fe-936e-e318f8044cf6"/>
+				<reportElement x="528" y="119" width="67" height="20" uuid="c822d18b-13e3-49fe-936e-e318f8044cf6"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
