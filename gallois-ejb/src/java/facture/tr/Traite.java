@@ -213,7 +213,6 @@ public class Traite extends ClassEtat {
                 verif = 1;
             }
             JournalCaisse jc = new JournalCaisse();
-            System.out.println("atyy"+ this.getId());
             JournalCaisse[] j = (JournalCaisse[]) CGenUtil.rechercher(jc,null,null,c," AND idtraite = '"+this.getId()+"' and etatversement = 0");
             if(j.length > 0) return j[0];
             return null;

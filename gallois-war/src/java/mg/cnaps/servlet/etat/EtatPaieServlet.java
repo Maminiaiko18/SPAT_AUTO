@@ -1029,7 +1029,6 @@ public class EtatPaieServlet extends HttpServlet {
                     " order by NUMPIECE ASC  ");
 
             if(tabJournal[0].getCredit() > 0 && tabJournal[0].getEtatversement() == -2){
-                System.out.println("heloo");
                 Traite traite = new Traite();
                 traite.setId(tabJournal[0].getIdtraite());
                 JournalCaisse temp = traite.getPieceTraite(null);
