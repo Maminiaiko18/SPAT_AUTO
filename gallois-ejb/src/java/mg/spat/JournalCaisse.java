@@ -47,8 +47,7 @@ public class JournalCaisse extends ClassEtat {
     private String banque,type;
     private String descecaisse, idcaisse,numeroOP,idplacementvrai,bonprovisoire;
     public String codefacture;
-
-    String idtraite;
+    private String idtraite;
     int etatversement;
     String idfinaledestination, etatlib, etatversementlib;
     

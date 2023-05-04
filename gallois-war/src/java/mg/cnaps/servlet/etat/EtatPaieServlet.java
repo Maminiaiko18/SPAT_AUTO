@@ -129,7 +129,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.Utilitaire;
-
+import facture.tr.Traite;
 /**
  *
  * @author Manda
@@ -1012,19 +1012,6 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             JournalCaisse jc = new JournalCaisse();
             boolean prov = false;
-            jc.setId(request.getParameter("id"));
-            jc.setNomTable("JOURNALCAISSELIBCOMPLET");
-            JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null,
-                    " order by NUMPIECE ASC  ");
-
-            PayementFacture[] tabFact = null;
-            String idFacture = request.getParameter("idFacture");
-
-            if (tabJournal.length > 0) {
-                // requete = "select * from factureclientmsum_lib where id in
-                // ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
-                tabFact = jc.getPayementFactureTous(null);
-            }
             Map param = new HashMap();
             param.put("datyJ", Utilitaire.dateDuJour());
             ArrayList<PayementFacture> arrList = new ArrayList<PayementFacture>();
@@ -1035,6 +1022,30 @@ public class EtatPaieServlet extends HttpServlet {
             String titre = "PIECE DE CAISSE";
             String soustitre = "";
             String nomJasper = "piece_de_caisse";
+            
+            jc.setId(request.getParameter("id"));
+            jc.setNomTable("JOURNALCAISSELIBCOMPLET");
+            JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null,
+                    " order by NUMPIECE ASC  ");
+
+            if(tabJournal[0].getCredit() > 0 && tabJournal[0].getEtatversement() == -2){
+                System.out.println("heloo");
+                Traite traite = new Traite();
+                traite.setId(tabJournal[0].getIdtraite());
+                JournalCaisse temp = traite.getPieceTraite(null);
+                jc.setId(temp.getId());
+                titre = "RECU TRAITE";
+            }
+
+            PayementFacture[] tabFact = null;
+            String idFacture = request.getParameter("idFacture");
+
+            if (tabJournal.length > 0) {
+                // requete = "select * from factureclientmsum_lib where id in
+                // ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
+                tabFact = jc.getPayementFactureTous(null);
+            }
+
 
             for (int i = 0; i < tabFact.length; i++) {
                 if (tabFact[i].getTypefacture().contains("FF")) {
