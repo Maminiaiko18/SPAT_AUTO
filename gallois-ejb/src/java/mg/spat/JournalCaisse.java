@@ -47,8 +47,7 @@ public class JournalCaisse extends ClassEtat {
     private String banque,type;
     private String descecaisse, idcaisse,numeroOP,idplacementvrai,bonprovisoire;
     public String codefacture;
-
-    String idtraite;
+    private String idtraite;
     int etatversement;
     String idfinaledestination, etatlib, etatversementlib;
     
@@ -100,10 +99,6 @@ public class JournalCaisse extends ClassEtat {
     public void setIdfinaledestination(String idfinaledestination) {
         this.idfinaledestination = idfinaledestination;
     }
-    
-    
-    
-    
 
     public String getType() {
         return type;
@@ -1357,6 +1352,16 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(7, result[0].getNumerosuivant());
         return Utilitaire.genererAnnee(dateEffetStr) + "-CD-" + seq;
+    }
+
+    public String calculerNumeroRecuTraite(Connection c) throws Exception{
+        String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
+        String annee = Utilitaire.getAnnee(dateEffetStr);
+        String seq="";
+        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM SEQ_JOURNAL_RECU_TRAITE where annee="+annee;
+        NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+        if(result.length>0) seq=Utilitaire.completerInt(5, result[0].getNumerosuivant());
+        return "REC"+seq+"/"+Utilitaire.genererAnnee(dateEffetStr);
     }
 
     

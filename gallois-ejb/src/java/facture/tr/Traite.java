@@ -204,6 +204,27 @@ public class Traite extends ClassEtat {
        }
        return this.getMontant() - toReturn;
     }
+
+    public JournalCaisse getPieceTraite(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            JournalCaisse jc = new JournalCaisse();
+            JournalCaisse[] j = (JournalCaisse[]) CGenUtil.rechercher(jc,null,null,c," AND idtraite = '"+this.getId()+"' and etatversement = 0");
+            if(j.length > 0) return j[0];
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
     
     public Escompte[] getEscompte(Connection c) throws Exception {
         int verif = 0;

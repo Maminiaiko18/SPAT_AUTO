@@ -25,6 +25,8 @@
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("typemvt").setVisible(false);
+    pi.getFormu().getChamp("Etatversement").setVisible(false);
+
     affichage.Champ[] liste = new affichage.Champ[1];
         TypeObjet banque = new TypeObjet();
         banque.setNomTable("banque");
