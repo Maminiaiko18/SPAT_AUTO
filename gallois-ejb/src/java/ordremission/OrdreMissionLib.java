@@ -10,7 +10,7 @@ package ordremission;
  * @author Nouta
  */
 public class OrdreMissionLib extends OrdreMission{
-    private String nom,prenom,fonction,classeprofessionnel,matricule;
+    private String nom,prenom,fonction,classeprofessionnel,matricule,idindemnitemissionlib,idmotifvoyagelib,estForfaitairelib;
 
     public OrdreMissionLib() {
         super.setNomTable("ordre_mission_lib");
@@ -54,6 +54,30 @@ public class OrdreMissionLib extends OrdreMission{
 
     public void setMatricule(String matricule) {
         this.matricule = matricule;
+    }
+
+    public String getIdindemnitemissionlib() {
+        return idindemnitemissionlib;
+    }
+
+    public void setIdindemnitemissionlib(String idindemnitemissionlib) {
+        this.idindemnitemissionlib = idindemnitemissionlib;
+    }
+
+    public String getIdmotifvoyagelib() {
+        return idmotifvoyagelib;
+    }
+
+    public void setIdmotifvoyagelib(String idmotifvoyagelib) {
+        this.idmotifvoyagelib = idmotifvoyagelib;
+    }
+
+    public String getEstForfaitairelib() {
+        return estForfaitairelib;
+    }
+
+    public void setEstForfaitairelib(String estForfaitairelib) {
+        this.estForfaitairelib = estForfaitairelib;
     }
     
 }
