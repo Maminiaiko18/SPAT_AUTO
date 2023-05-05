@@ -13,12 +13,12 @@ import java.sql.Date;
  *
  * @author Nouta
  */
-public class IntemniteMission extends ClassEtat {
+public class IndemniteMission extends ClassEtat {
     private String id,idcategorieprofessionnel,idcategorieprofessionnellib;
     private double fraishebergement,fraisrestauration,fraisdeplacement,fraisforfaitaire;
     private Date daty;
 
-    public IntemniteMission() {
+    public IndemniteMission() {
         super.setNomTable("indemnite_mission");
     }
 
