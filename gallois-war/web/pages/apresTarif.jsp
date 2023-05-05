@@ -214,7 +214,7 @@
 
 
             if (acte.compareToIgnoreCase("enteteJournal") == 0) {
-                    Page p = new Page(new JournalCaisse(), request);
+                    PageInsert p = new PageInsert(new JournalCaisse(), request);
                     JournalCaisse journal = (JournalCaisse)p.getObjectAvecValeur();
                     journal.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
                 %>
