@@ -5,9 +5,7 @@
     <%
         String criteria = "";
         String champReturn = request.getParameter("champReturn");
-//        id,idcategorieprofessionnel,idcategorieprofessionnellib;
-//    private double fraishebergement,fraisrestauration,fraisdeplacement,fraisforfaitaire;
-//    private Date daty;
+        
         IndemniteMission indemnite = new IndemniteMission();
         indemnite.setNomTable("indemnite_mission_lib");
 
@@ -32,7 +30,7 @@
     <html>
         <head>
             <meta charset="UTF-8">
-            <title>Nom Application</title>
+            <title>Choix indemnite mission</title>
             <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
             <jsp:include page='../elements/css.jsp'/>
         </head>
