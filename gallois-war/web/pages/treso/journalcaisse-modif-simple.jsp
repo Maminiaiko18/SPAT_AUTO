@@ -13,7 +13,7 @@
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     JournalCaisse jc = new JournalCaisse();
-    jc.setNomTable("JOURNALCAISSELIBCOMPLET");
+    jc.setNomTable("JOURNALCAISSE");
     PageUpdate pi = new PageUpdate(jc, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     jc =(JournalCaisse)pi.getBase();
@@ -61,19 +61,10 @@
     pi.getFormu().getChamp("idordre").setVisible(false);
     pi.getFormu().getChamp("iddevise").setVisible(false);
     pi.getFormu().getChamp("idMode").setVisible(false);
-    pi.getFormu().getChamp("IDBANQUELIB").setVisible(false);
+    pi.getFormu().getChamp("Idplacementvrai").setVisible(false);
     pi.getFormu().getChamp("idtraite").setVisible(false);
-    pi.getFormu().getChamp("idcaisse").setVisible(false);
-    pi.getFormu().getChamp("valcaisse").setVisible(false);
-    pi.getFormu().getChamp("descecaisse").setVisible(false);
-    pi.getFormu().getChamp("valtypecheque").setVisible(false);
-    pi.getFormu().getChamp("descetypecheque").setVisible(false);
-    pi.getFormu().getChamp("tierslib").setVisible(false);
-    pi.getFormu().getChamp("codetiers").setVisible(false);
-    pi.getFormu().getChamp("type").setVisible(false);
-    pi.getFormu().getChamp("typelib").setVisible(false);
-    pi.getFormu().getChamp("numeroOP").setVisible(false);
-
+    pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
+    pi.getFormu().getChamp("banque").setVisible(false);
     pi.preparerDataFormu();
     
 %>
