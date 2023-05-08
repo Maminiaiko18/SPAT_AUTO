@@ -42,7 +42,66 @@ public class FactureFournisseur extends FactureClient {
     private double montantHTSansRemise;
     private String bonprovisoire, num;
     private String idbordereau, numBordereau;
+    private String idrefpmt,valcaisserefpmt,numpiecerefpmt,numchequerefpmt,libellerefpmt;
+    Date dateeffetrefpmt;
+    Double debitrefpmt;
 
+    public String getIdrefpmt() {
+        return idrefpmt;
+    }
+
+    public void setIdrefpmt(String idrefpmt) {
+        this.idrefpmt = idrefpmt;
+    }
+
+    public String getValcaisserefpmt() {
+        return valcaisserefpmt;
+    }
+
+    public void setValcaisserefpmt(String valcaisserefpmt) {
+        this.valcaisserefpmt = valcaisserefpmt;
+    }
+
+    public String getNumpiecerefpmt() {
+        return numpiecerefpmt;
+    }
+
+    public void setNumpiecerefpmt(String numpiecerefpmt) {
+        this.numpiecerefpmt = numpiecerefpmt;
+    }
+
+    public String getNumchequerefpmt() {
+        return numchequerefpmt;
+    }
+
+    public void setNumchequerefpmt(String numchequerefpmt) {
+        this.numchequerefpmt = numchequerefpmt;
+    }
+
+    public String getLibellerefpmt() {
+        return libellerefpmt;
+    }
+
+    public void setLibellerefpmt(String libellerefpmt) {
+        this.libellerefpmt = libellerefpmt;
+    }
+
+    public Date getDateeffetrefpmt() {
+        return dateeffetrefpmt;
+    }
+
+    public void setDateeffetrefpmt(Date dateeffetrefpmt) {
+        this.dateeffetrefpmt = dateeffetrefpmt;
+    }
+
+    public Double getDebitrefpmt() {
+        return debitrefpmt;
+    }
+
+    public void setDebitrefpmt(Double debitrefpmt) {
+        this.debitrefpmt = debitrefpmt;
+    }
+    
     public String getIdbordereau() {
         return idbordereau;
     }
