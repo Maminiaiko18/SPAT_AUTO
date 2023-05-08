@@ -41,7 +41,24 @@ public class FactureFournisseur extends FactureClient {
     private Date dateRegul;
     private double montantHTSansRemise;
     private String bonprovisoire, num;
+    private String idbordereau, numBordereau;
 
+    public String getIdbordereau() {
+        return idbordereau;
+    }
+
+    public void setIdbordereau(String idbordereau) {
+        this.idbordereau = idbordereau;
+    }
+
+    public String getNumBordereau() {
+        return numBordereau;
+    }
+
+    public void setNumBordereau(String numBordereau) {
+        this.numBordereau = numBordereau;
+    }
+    
     public String getNum() {
         return num;
     }
