@@ -11,12 +11,14 @@ import bean.ClassEtat;
 import bean.ClassFille;
 import bean.ClassMAPTable;
 import static bean.ClassMere.getNomClasseFille;
+import bean.ValidationException;
 import facture.FactureFournisseur;
 import facture.FactureFournisseurDetails;
 import lignecredit.LigneCredit;
 
 import java.sql.Connection;
 import java.sql.Date;
+import mg.allosakafo.produits.LiaisonIntraTable;
 import mg.spat.Engagement;
 import mg.spat.EngagementFille;
 import utilitaire.Constante;
@@ -41,6 +43,7 @@ public class BonDeCommande extends ClassEtat {
     private String adresse;
     private double remise, montantRemise, montantHTSansRemise;
     private String idengagement, idengagementlib, code_etablib;
+    private double montantreste;
 
     public String getCode_etablib() {
         return code_etablib;
@@ -388,6 +391,14 @@ public class BonDeCommande extends ClassEtat {
         this.etatlib = etatlib;
     }
 
+    public double getMontantreste() {
+        return montantreste;
+    }
+
+    public void setMontantreste(double montantreste) {
+        this.montantreste = montantreste;
+    }
+
     public static String getSequence() throws Exception {
         try {
             return String.valueOf(Utilitaire.getMaxSeq("get_seqbccommande"));
@@ -541,14 +552,104 @@ public class BonDeCommande extends ClassEtat {
     public Object validerObject(String u, Connection c) throws Exception {
         LigneCredit lc=this.checkBudget(c);
         if(lc==null)throw new Exception("Budget non trouvé");
+        
+        BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
+        LiaisonIntraTable liaison = new LiaisonIntraTable();
+        liaison.setNomTable("liaisonengagement");
 
         if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
-            BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
             this.setMontant(bc.getMontant());
-            this.insertEngagement(u,c);
+            Engagement e = this.insertEngagementRetour(u,c);
             this.updateToTableWithHisto(u, c);
-           }this.setNomTable("as_bondecommande");
+            liaison.setId1(e.getId());
+            liaison.setId2(this.getId());
+            liaison.setMontant(bc.getMontant());
+            liaison.createObject(u, c);
+        }
+        else{
+            Engagement eng = findEngagement("liaisonEngagementBCFF", "idengagement", c);
+            if(eng.getMontantreste() < this.getMontant()){
+                throw new ValidationException("Le montant du bon de commande depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerBCEng");
+            }
+            else{
+                liaison.setId1(eng.getIdengagement());
+                liaison.setId2(this.getId());
+                liaison.setMontant(bc.getMontant());
+                liaison.createObject(u, c);
+            }
+        }
+        this.setNomTable("as_bondecommande");
         super.validerObject(u, c);
+        return this;
+    }
+    
+    public Object validerObjectAvecEngagement(String u) throws Exception {
+        Connection c = null;
+        try{
+            c=new UtilDB().GetConn();
+            c.setAutoCommit(false);
+
+            LigneCredit lc=this.checkBudget(c);
+            if(lc==null)throw new Exception("Budget non trouvé");
+            
+            LiaisonIntraTable liaison1 = new LiaisonIntraTable();
+            liaison1.setNomTable("liaisonengagement");
+
+            if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
+                BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
+                this.setMontant(bc.getMontant());
+                Engagement e = this.insertEngagementRetour(u,c);
+                this.updateToTableWithHisto(u, c);
+                liaison1.setId1(e.getId());
+                liaison1.setId2(this.getId());
+                liaison1.setMontant(bc.getMontant());
+                liaison1.createObject(u, c);
+            }
+            else{
+                Engagement eng = findEngagement("liaisonEngagementBCFF", "idengagement", c);
+                if(eng.getMontantreste() < this.getMontant()){
+                    double diff = this.getMontant() - eng.getMontantreste();
+                    Engagement e = new Engagement();
+                    e.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+                    e.setDaty(this.getDaty());
+                    e.construirePK(c);
+                    e.setMontant(diff);
+                    if (lc != null) {
+                        e.setIdLC(lc.getTuppleID());
+                    }
+                    e.createObject(u, c);
+                    BonDeCommandeFille fille = new BonDeCommandeFille();
+                    fille.setMontant(diff);
+                    fille.setRemarque(this.getRemarque());
+                    EngagementFille engFille = fille.createEngagementFille(e.getTuppleID());
+                    engFille.construirePK(c);
+                    engFille.insertToTableWithHisto(u, c);
+
+                    e.validerObject(u, c);
+
+                    this.setIdengagement(e.getTuppleID());
+                    
+                    liaison1.setId1(eng.getIdengagement());
+                    liaison1.setId2(this.getId());
+                    liaison1.setMontant(eng.getMontantreste());
+                    liaison1.createObject(u, c);
+                    
+                    LiaisonIntraTable liaison2 = new LiaisonIntraTable();
+                    liaison2.setNomTable("liaisonengagement");
+                    liaison2.setId1(e.getId());
+                    liaison2.setId2(this.getId());
+                    liaison2.setMontant(diff);
+                    liaison2.createObject(u, c);
+                }
+            }
+            this.setNomTable("as_bondecommande");
+            super.validerObject(u, c);c.commit();
+        }catch(Exception e){
+            if(c!=null)c.rollback();
+            throw e;
+        }finally{
+            if(c!=null)c.close();
+        }
         return this;
     }
 
@@ -578,16 +679,16 @@ public class BonDeCommande extends ClassEtat {
         return this;
     }
     
-    public void insertEngagement(String u, Connection c) throws Exception {
+    public Engagement insertEngagementRetour(String u, Connection c) throws Exception {
         int verif = 0;
+        Engagement engagement = this.getEngagement();
+        
         try {
             if (c == null) {
                 c = new UtilDB().GetConn();
                 c.setAutoCommit(false);
                 verif = 1;
             }
-
-            Engagement engagement = this.getEngagement();
 
             LigneCredit lc=this.checkBudget(c);
             if(lc!=null){
@@ -629,6 +730,12 @@ public class BonDeCommande extends ClassEtat {
                 c.close();
             }
         }
+        
+        return engagement;
+    }
+    
+    public void insertEngagement(String u, Connection c) throws Exception {
+        insertEngagementRetour(u, c);
     }
 
     public void insertEngagementSansControleMontant(String u, Connection c) throws Exception {
@@ -711,7 +818,7 @@ public class BonDeCommande extends ClassEtat {
 
         LigneCredit lc = new LigneCredit();
         //lc.setNomTable("ligneCreditDepenseGrp");
-        lc.setNomTable("SITUATIONLCDEPENSEGRP");
+        lc.setNomTable("SITUATIONLCDEPENSEGRP_TEMP");
         String dir=this.getCode_etab();
         String prj=this.getProjet();
         LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
@@ -719,4 +826,13 @@ public class BonDeCommande extends ClassEtat {
         return null;
         }
 
+    public Engagement findEngagement(String nomTable, String nomCol, Connection c) throws Exception {
+        Engagement e = new Engagement();
+        e.setNomTable(nomTable);
+        Engagement[] ls = (Engagement[]) CGenUtil.rechercher(e, null, null, c, " and " + nomCol + "='" + this.getIdengagement() + "'");
+        if (ls.length > 0) {
+            return ls[0];
+        }
+        return null;
+    }
 }

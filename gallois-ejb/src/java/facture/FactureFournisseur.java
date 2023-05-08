@@ -19,6 +19,7 @@ import mg.allosakafo.produits.LiaisonIntraTable;
 import mg.spat.Engagement;
 import mg.spat.EngagementFille;
 import mg.spat.JournalCaisse;
+import mg.spat.stock.BonDeCommande;
 import mg.spat.stock.BonDeLivraison;
 import mg.spat.stock.BonDeLivraisonFilleReste;
 import user.UserEJB;
@@ -695,12 +696,34 @@ public class FactureFournisseur extends FactureClient {
         }
 
         if (this.getIdengagement() != null) {
-            Engagement eg = this.findEngagement(c);
-            if (eg != null) {
-                double reste = eg.getResteAFacturer(c);
-                FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-                if (ff != null && reste < ff.getMontant()) {
-                    throw new ValidationException("Le montant de la facture depasse le reste de l'engagement",null,"validerFF");
+            BonDeCommande bc = findBCResteAFacturer(c);
+            FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+            Engagement e = findEngagement("liaisonEngagementBCFF", "idengagement", c);
+            LiaisonIntraTable liaison = new LiaisonIntraTable();
+            liaison.setNomTable("liaisonengagement");
+            if(bc != null){
+                if(bc.getMontantreste() < ff.getMontant()){
+                    double diff = ff.getMontant() - bc.getMontantreste();
+                    if(e.getMontantreste() >= diff){
+                        liaison.setId1(e.getIdengagement());
+                        liaison.setId2(ff.getId());
+                        liaison.setMontant(diff);
+                        liaison.createObject(u, c);
+                    }
+                    else{
+                        throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
+                    }
+                }
+            }
+            else{
+                if(e.getMontantreste() >= ff.getMontant()){
+                    liaison.setId1(e.getIdengagement());
+                    liaison.setId2(ff.getId());
+                    liaison.setMontant(ff.getMontant());
+                    liaison.createObject(u, c);
+                }
+                else{
+                    throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
                 }
             }
         } else {
@@ -708,7 +731,16 @@ public class FactureFournisseur extends FactureClient {
                 FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
                 this.setMontant(ff.getMontant());
                 //si provision dia tsy engagena
-                if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0) this.insertEngagement(u, true,c);
+                System.out.println("ityy "+ this.getIdcategorie()+" and "+Constante.idBonProvisoire);
+                if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0){
+                    Engagement e = this.insertEngagementRetour(u, true,c);
+                    LiaisonIntraTable liaison = new LiaisonIntraTable();
+                    liaison.setNomTable("liaisonengagement");
+                    liaison.setId1(e.getId());
+                    liaison.setId2(ff.getId());
+                    liaison.setMontant(ff.getMontant());
+                    liaison.createObject(u, c);
+                }
             }
         }
         this.setNomTable("facture_fournisseur_mere");
@@ -738,35 +770,146 @@ public class FactureFournisseur extends FactureClient {
                 if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0) this.insertEngagement(u, controleMontant,c);
             }
             if (this.getIdengagement() != null) {
-                Engagement eg = this.findEngagement(c);
-                if (eg != null) {
-                    double reste = eg.getResteAFacturer(c);
-                    FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-                    if (ff != null && reste < ff.getMontant()) {
-                        //insertion engagement
-                        double diff = ff.getMontant() - reste;
-                        Engagement engagement = ff.getEngagement();
+                BonDeCommande bc = findBCResteAFacturer(c);
+                FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+                Engagement e = findEngagement("liaisonEngagementBCFF", "idengagement", c);
+                LiaisonIntraTable liaison = new LiaisonIntraTable();
+                liaison.setNomTable("liaisonengagement");
+                if(bc != null){
+                    if(bc.getMontantreste() < ff.getMontant()){
+                        double diff = ff.getMontant() - bc.getMontantreste();
+                        if(e.getMontantreste() >= diff){
+                            liaison.setId1(e.getIdengagement());
+                            liaison.setId2(ff.getId());
+                            liaison.setMontant(diff);
+                            liaison.createObject(u, c);
+                        }
+                        else if(e.getMontantreste() < diff && e.getMontantreste() > 0){
+                            liaison.setId1(e.getIdengagement());
+                            liaison.setId2(ff.getId());
+                            liaison.setMontant(e.getMontantreste());
+                            liaison.createObject(u, c);
 
+                            double diff2 = diff - e.getMontantreste();
+                            Engagement engagement = new Engagement();
+                            if (lc != null) {
+                                engagement.setIdLC(lc.getTuppleID());
+                            }
+                            engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+                            engagement.setDaty(this.getDaty());
+                            engagement.construirePK(c);
+                            engagement.setMontant(diff2);
+                            engagement.createObject(u, c);
+
+                            FactureFournisseurDetails fille = new FactureFournisseurDetails();
+                            fille.setDesignation(ff.getNumeroop());
+                            fille.setMontant(diff2);
+                            EngagementFille engFille = fille.createEngagementFille(engagement.getId());
+                            engFille.construirePK(c);
+                            engFille.insertToTableWithHisto(u, c);
+                            engagement.validerObject(u, c);
+
+                            LiaisonIntraTable liaison2 = new LiaisonIntraTable();
+                            liaison2.setNomTable("liaisonengagement");
+                            liaison2.setId1(engagement.getId());
+                            liaison2.setId2(ff.getId());
+                            liaison2.setMontant(diff2);
+                            liaison2.createObject(u, c);
+
+                            this.setIdengagement(engagement.getId());
+                        }
+                        else{
+                            Engagement engagement = new Engagement();
+                            if (lc != null) {
+                                engagement.setIdLC(lc.getTuppleID());
+                            }
+                            engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+                            engagement.setDaty(this.getDaty());
+                            engagement.construirePK(c);
+                            engagement.setMontant(diff);
+                            engagement.createObject(u, c);
+
+                            FactureFournisseurDetails fille = new FactureFournisseurDetails();
+                            fille.setDesignation(ff.getNumeroop());
+                            fille.setMontant(diff);
+                            EngagementFille engFille = fille.createEngagementFille(engagement.getId());
+                            engFille.construirePK(c);
+                            engFille.insertToTableWithHisto(u, c);
+                            engagement.validerObject(u, c);
+                            
+                            liaison.setId1(engagement.getId());
+                            liaison.setId2(ff.getId());
+                            liaison.setMontant(diff);
+                            liaison.createObject(u, c);
+                        }
+                    }
+                }
+                else{
+                    if(e.getMontantreste() >= ff.getMontant()){
+                        liaison.setId1(e.getIdengagement());
+                        liaison.setId2(ff.getId());
+                        liaison.setMontant(ff.getMontant());
+                        liaison.createObject(u, c);
+                    }
+                    else if(e.getMontantreste() < ff.getMontant() && e.getMontantreste() > 0){
+                        liaison.setId1(e.getIdengagement());
+                        liaison.setId2(ff.getId());
+                        liaison.setMontant(e.getMontantreste());
+                        liaison.createObject(u, c);
+                        
+                        double diff = ff.getMontant() - e.getMontantreste();
+                        Engagement engagement = new Engagement();
                         if (lc != null) {
                             engagement.setIdLC(lc.getTuppleID());
                         }
                         engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+                        engagement.setDaty(this.getDaty());
                         engagement.construirePK(c);
-
                         engagement.setMontant(diff);
                         engagement.createObject(u, c);
 
                         FactureFournisseurDetails fille = new FactureFournisseurDetails();
-                        System.out.println("ff.getNumeroop() = "+ ff.getNumeroop());
                         fille.setDesignation(ff.getNumeroop());
                         fille.setMontant(diff);
-                        EngagementFille engFille = fille.createEngagementFille(engagement.getTuppleID());
+                        EngagementFille engFille = fille.createEngagementFille(engagement.getId());
                         engFille.construirePK(c);
                         engFille.insertToTableWithHisto(u, c);
-
                         engagement.validerObject(u, c);
+                        
+                        LiaisonIntraTable liaison2 = new LiaisonIntraTable();
+                        liaison2.setNomTable("liaisonengagement");
+                        liaison2.setId1(engagement.getId());
+                        liaison2.setId2(ff.getId());
+                        liaison2.setMontant(diff);
+                        liaison2.createObject(u, c);
+                        
+                        this.setIdengagement(engagement.getId());
+                    }
+                    else{
+                        Engagement engagement = new Engagement();
+                        if (lc != null) {
+                            engagement.setIdLC(lc.getTuppleID());
+                        }
+                        engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+                        engagement.setDaty(this.getDaty());
+                        engagement.construirePK(c);
+                        engagement.setMontant(ff.getMontant());
+                        engagement.createObject(u, c);
 
-                        this.setIdengagement(engagement.getTuppleID());
+                        FactureFournisseurDetails fille = new FactureFournisseurDetails();
+                        fille.setDesignation(ff.getNumeroop());
+                        fille.setMontant(ff.getMontant());
+                        EngagementFille engFille = fille.createEngagementFille(engagement.getId());
+                        engFille.construirePK(c);
+                        engFille.insertToTableWithHisto(u, c);
+                        engagement.validerObject(u, c);
+                        
+                        liaison.setId1(engagement.getId());
+                        liaison.setId2(ff.getId());
+                        liaison.setMontant(ff.getMontant());
+                        liaison.createObject(u, c);
+                        
+                        this.setIdengagement(engagement.getId());
                     }
                 }
             }
@@ -853,14 +996,18 @@ public class FactureFournisseur extends FactureClient {
         this.setEstAuto(estAuto);
     }
 
-    public Engagement findEngagement(Connection c) throws Exception {
+    public Engagement findEngagement(String nomTable, String nomCol, Connection c) throws Exception {
         Engagement e = new Engagement();
-        e.setNomTable("engagementlibV");
-        Engagement[] ls = (Engagement[]) CGenUtil.rechercher(e, null, null, c, " and id='" + this.getIdengagement() + "'");
+        e.setNomTable(nomTable);
+        Engagement[] ls = (Engagement[]) CGenUtil.rechercher(e, null, null, c, " and " + nomCol + "='" + this.getIdengagement() + "'");
         if (ls.length > 0) {
             return ls[0];
         }
         return null;
+    }
+    
+    public Engagement findEngagement(Connection c) throws Exception {
+        return  findEngagement("engagementlibV", "id", c);
     }
 
     @Override
@@ -971,16 +1118,16 @@ public class FactureFournisseur extends FactureClient {
         return retour;
     }
 
-    public void insertEngagement(String u, boolean controleMontant,Connection c) throws Exception {
+    public Engagement insertEngagementRetour(String u, boolean controleMontant,Connection c) throws Exception {
         int verif = 0;
+        Engagement engagement = this.getEngagement();
+        
         try {
             if (c == null) {
                 c = new UtilDB().GetConn();
                 c.setAutoCommit(false);
                 verif = 1;
             }
-
-            Engagement engagement = this.getEngagement();
 
             LigneCredit lc = this.getBudget(c);
             if (lc != null) {
@@ -1020,6 +1167,12 @@ public class FactureFournisseur extends FactureClient {
                 c.close();
             }
         }
+        
+        return engagement;
+    }
+    
+    public void insertEngagement(String u, boolean controleMontant,Connection c) throws Exception {
+        insertEngagementRetour(u, controleMontant, c);
     }
 
     public LigneCredit getBudget(Connection c) throws Exception {
@@ -1103,5 +1256,16 @@ public class FactureFournisseur extends FactureClient {
         }
         
         return ff;
+    }
+
+    public BonDeCommande findBCResteAFacturer(Connection c) throws Exception {
+        if(this.getIdBL() != null){
+            BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(this.getIdBL(), "AS_BONDELIVRAISON_BC", c);
+            BonDeCommande bc = (BonDeCommande)(new BonDeCommande()).getById(bl.getId_bc(), "bc_ff_diff", c);
+            
+            return bc;
+        }
+        
+        return null;
     }
 }

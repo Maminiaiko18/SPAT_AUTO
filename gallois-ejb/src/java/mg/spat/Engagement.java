@@ -28,8 +28,8 @@ import bean.ValidationException;
  */
 public class Engagement extends ClassEtat {
     private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib,observation;
-    private String codeEtablissementlib,projetlib,tiers ,tierslib,num;
-    private double montant,disponible,dispoAvant,dispoApres,montantOP;
+    private String codeEtablissementlib,projetlib,tiers ,tierslib,num, idengagement;
+    private double montant,disponible,dispoAvant,dispoApres,montantOP,montantreste;
     private Date daty;
     private int avecFacture,annee;
 
@@ -237,6 +237,22 @@ public class Engagement extends ClassEtat {
         this.dispoApres = dispoApres;
     }
 
+    public String getIdengagement() {
+        return idengagement;
+    }
+
+    public void setIdengagement(String idengagement) {
+        this.idengagement = idengagement;
+    }
+
+    public double getMontantreste() {
+        return montantreste;
+    }
+
+    public void setMontantreste(double montantreste) {
+        this.montantreste = montantreste;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -296,7 +312,7 @@ public class Engagement extends ClassEtat {
 
         LigneCredit lc = new LigneCredit();
         //lc.setNomTable("ligneCreditDepenseGrp");
-        lc.setNomTable("SITUATIONLCDEPENSEGRP");
+        lc.setNomTable("SITUATIONLCDEPENSEGRP_TEMP");
         String dir=this.getCodeEtablissement();
         String prj=this.getProjet();
         if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)

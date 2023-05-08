@@ -293,7 +293,7 @@ public class LigneCredit extends ClassEtat {
                     + where
                     + " GROUP BY l.DIRECTION, l.projet, n.montant, non.montant, nt.MONTANT, gr.MONTANT, fd.facture, fd.PAYE,\n" +
                     "         l.direction, l.projet, l.COMPTEFULL, l.idprojet, l.iddirection, bc.montant,bp.montant";
-            System.out.println("rqt FCC Dep===="+req);
+            //System.out.println("rqt FCC Dep===="+req);
             LigneCredit stock = new LigneCredit();
             stock.setNomTable("situationLC_vide");
             return CGenUtil.rechercher(stock, req, c, colSomme);
@@ -320,11 +320,11 @@ public class LigneCredit extends ClassEtat {
                 where+=" and annee="+annee+" ";
             }
 
-            where = where.replaceAll("designation", "l.designation");
+            /* = where.replaceAll("designation", "l.designation");
             where = where.replaceAll("compte", "l.compte");
             where = where.replaceAll("annee", "l.annee");
             where = where.replaceAll("direction", "l.direction");
-            where = where.replaceAll("projet", "l.projet");
+            where = where.replaceAll("projet", "l.projet");*/
 
             String whereDaty = "";
 
@@ -335,7 +335,7 @@ public class LigneCredit extends ClassEtat {
                 whereDaty += " and daty <= to_date('" + date2 + "','dd/mm/yyyy')";
             }
 
-            String req = "select l.direction,\n"
+            /*String req = "select l.direction,\n"
                     + "       l.projet,\n"
                     + "       l.directionprojet,\n"
                     + "       l.COMPTEFULL                                                                         as compte,\n"
@@ -389,8 +389,9 @@ public class LigneCredit extends ClassEtat {
 "                    group by COMPTEFULL) bp on bp.compte=l.COMPTEFULL"
                     + where
                     + " GROUP BY l.DIRECTION, l.projet, n.montant, non.montant, nt.MONTANT, gr.MONTANT, fd.facture, fd.PAYE,\n" +
-                    "         l.direction, l.projet, l.COMPTEFULL, l.idprojet, l.iddirection, bc.montant,bp.montant";
-            //System.out.println("rqt FCC Dep===="+req);
+                    "         l.direction, l.projet, l.COMPTEFULL, l.idprojet, l.iddirection, bc.montant,bp.montant";*/
+            String req = " SELECT * FROM SITUATIONLCDEPENSEGRP_TEMP "+ where +" ";
+            System.out.println("rqt FCC Dep===="+req);
             LigneCredit stock = new LigneCredit();
             stock.setNomTable("situationLC_vide");
             return CGenUtil.rechercher(stock, req, c, colSomme);
