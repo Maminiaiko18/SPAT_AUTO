@@ -75,7 +75,7 @@ public class Liberer extends ClassEtat {
 			String nomTable = "engagementlibV";
 			Engagement engagement = findEngagement(nomTable, c);
 			if(engagement == null) throw new Exception("engagement introuvable ou non visé");
-			if(engagement.getDisponible() < this.getMontant()) throw new Exception("Reste \u00e0 engager inferieur au montant \u00e0 lib\u00e9rer");
+			if(engagement.getMontant() < this.getMontant()) throw new Exception("Reste engager inferieur au montant liberer "+engagement.getDisponible());
 			super.controler(c);
     }
     
