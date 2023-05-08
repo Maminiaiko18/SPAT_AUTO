@@ -27,11 +27,12 @@
     try {
         UserEJB u = (user.UserEJB) session.getValue("u");
         FactureFournisseur e = new FactureFournisseur();
-        e.setNomTable("factfourn_msum_lib_fiche");
+        e.setNomTable("factfourn_msum_lib_ficheB");
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE FOURNISSEUR");
         pc.getChampByName("deviseMere").setLibelle("Devise");
-
+        pc.getChampByName("idbordereau").setLibelle("Bordereau");
+        pc.getChampByName("numBordereau").setLibelle("Numero Bordereau");
         //pc.getChampByName("iduser").setVisible(false);
         //pc.getChampByName("type").setVisible(false);
 //        pc.getChampByName("tiers").setVisible(false);
