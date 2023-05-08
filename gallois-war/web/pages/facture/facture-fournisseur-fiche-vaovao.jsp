@@ -33,6 +33,10 @@
         pc.getChampByName("deviseMere").setLibelle("Devise");
         pc.getChampByName("idbordereau").setLibelle("Bordereau");
         pc.getChampByName("numBordereau").setLibelle("Numero Bordereau");
+        String lien = (String)session.getValue("lien");
+        e = (FactureFournisseur) pc.getBase();
+        pc.getChampByName("idbordereau").setLien(lien+"?but=ded/bordereauxFF-fiche.jsp", "id=");
+
         //pc.getChampByName("iduser").setVisible(false);
         //pc.getChampByName("type").setVisible(false);
 //        pc.getChampByName("tiers").setVisible(false);
@@ -79,7 +83,6 @@
        // pc.setOrdre(attribus);
 
         pc.getChampByName("code").setLibelle("Numero Compta");
-        e = (FactureFournisseur) pc.getBase();
         pc.getChampByName("IdProvision").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
         String categorie = "";
         if (e.getIdcategorie() != null) {
@@ -115,7 +118,6 @@
         String classefille = "facture.FactureFournisseurDetails";
         String modifPage = "facture/facture-fournisseur-modif-vaovao.jsp";
 
-        String lien = (String) session.getValue("lien");
         String redirect = lien + "?but=" + modifPage + "&id=" + request.getParameter("id");
         //if(e.getEtat() < ConstanteEtat.getEtatValider()) out.println("<script language='JavaScript'> document.location.replace('"+redirect+"'); </script>");
 
