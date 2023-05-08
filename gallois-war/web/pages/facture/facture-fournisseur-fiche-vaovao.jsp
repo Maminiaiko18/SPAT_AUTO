@@ -231,6 +231,9 @@
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=1"%>" style="margin-right: 10px">Sortie banque</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=2"%>" style="margin-right: 10px">Sortie caisse</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-saisie.jsp&ded_id=" + id%>" style="margin-right: 10px">Editer OP</a>
+                       
+                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&acte=editerBED&id=" + request.getParameter("id")+"&bute=ded/bordereauxFF-saisie.jsp"%>" style="margin-right: 10px">Editer BED</a>
+                            
                     <hr>
                     
                     <p>
