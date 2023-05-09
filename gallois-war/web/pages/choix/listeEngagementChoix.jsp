@@ -11,20 +11,20 @@
 <%
    try { 
       Engagement e = new Engagement();
-    e.setNomTable("engagement");
+    e.setNomTable("engagementlib");
     String champReturn = request.getParameter("champReturn");
     String listeCrt[] = {"id","designation"};
     String listeInt[] = {};
-    String libEntete[] = {"id","designation","montant","dispoAvant","dispoApres"};
+    String libEntete[] = {"id","designation","montant","dispoAvant","dispoApres","montantreste"};
     PageRechercheChoix pr = new PageRechercheChoix(e, request, listeCrt, listeInt, 2, libEntete, libEntete.length);
     
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
         pr.getFormu().getChamp("id").setLibelle("ID");
     pr.getFormu().getChamp("designation").setLibelle("Désignation");
-    pr.setApres("choix/listeEngagementChoix.jsp");
+    pr.setApres("listeEngagementChoix.jsp");
     pr.setChampReturn(champReturn);
-    
+    pr.setAWhere(" and montantreste > 0");
     
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
@@ -43,11 +43,11 @@
                 <h1>Choix Engagement</h1>
             </section>
             <section class="content">
-                <form action="/spat/pages/globalnegoce.jsp?but=<%=pr.getApres()%>" method="post" name="rubrique" id="rubrique">
+                <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="cc" id="cc">
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
                 </form>
                 <%
-                    String libelles[] = {"Id","Désignation","Montant","dispo Avant","dispo Apres"};
+                    String libelles[] = {"Id","Désignation","Montant","dispo Avant","dispo Apres","Montant reste"};
                     pr.getTableau().setLibelleAffiche(libelles);
                     out.println(pr.getTableauRecap().getHtml());
                 %>
