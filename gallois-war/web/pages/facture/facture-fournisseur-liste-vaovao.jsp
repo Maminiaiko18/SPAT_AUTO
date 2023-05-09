@@ -31,7 +31,7 @@
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.setOrdre(" order by code desc");
+        pr.setOrdre(" order by daty desc");
         pr.setApres("facture/facture-fournisseur-liste-vaovao.jsp");
         
         affichage.Champ[]liste = new affichage.Champ[1];
