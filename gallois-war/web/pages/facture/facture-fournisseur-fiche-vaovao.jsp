@@ -70,7 +70,7 @@
         pc.getChampByName("typelib").setLibelle("Type");
        pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoire");
         pc.getChampByName("projetlib").setLibelle("Projet");
-        pc.getChampByName("idEngagementlib").setLibelle("Engagement");
+        pc.getChampByName("idEngagementlib").setVisible(false);
         pc.getChampByName("dateRegul").setLibelle("Date de régul");
 //        pc.getChampByName("numeroop").setVisible(false);
         pc.getChampByName("code_etablissementlib").setLibelle("Code direction");
@@ -104,8 +104,9 @@
         //pc.getChampByName("deviseMere").setLibelle("Devise");
 
         pc.getChampByName("designation").setLibelle("Note explicative");
-        //pc.getChampByName("idengagement").setVisible(true); 
-        pc.getChampByName("idengagement").setLibelle("Id Engagement");
+        pc.getChampByName("Idbc").setLibelle("bon commande"); 
+        pc.getChampByName("IdBL").setLibelle("bon livraison"); 
+        pc.getChampByName("idengagement").setLibelle("Engagement");
         pc.getChampByName("idengagement").setLien((String) session.getValue("lien") + "?but=depense/engagement-fiche.jsp&id=" + e.getIdengagement(), "");
         pc.getChampByName("idbc").setLien((String) session.getValue("lien") + "?but=stock/bc/asBonDeCommande-fiche.jsp&id=" + e.getIdbc(), "");
         pc.getChampByName("idbl").setLien((String) session.getValue("lien") + "?but=stock/bl/bondelivraison-fiche.jsp&id=" + e.getIdBL(), "");
