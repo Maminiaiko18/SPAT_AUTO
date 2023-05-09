@@ -44,6 +44,17 @@ public class FactureFournisseur extends ClassEtat {
 	private String code_etablissementlibelle;
 	private String tierslibelle;
     private String num;
+    private String idom;
+
+    public String getIdom() {
+        return idom;
+    }
+
+    public void setIdom(String idom) {
+        this.idom = idom;
+    }
+    
+    
 
     public String getNum() {
         return num;

@@ -5,6 +5,7 @@
  */
 package ordremission;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
@@ -18,7 +19,25 @@ public class OrdreMission extends ClassEtat {
     private  double duree;
     private Date datedepart;
     private int estForfaitaire;
+    private OrdreMissionIndemnite[] indemnites;
+    
+    public OrdreMissionIndemnite[] getOrdreMissionIndemnites() throws Exception{
+        return this.getOrdreMissionIndemnites(null);
+    }
+    
+    public OrdreMissionIndemnite[] getOrdreMissionIndemnites(Connection connection) throws Exception{
+        OrdreMissionIndemnite[] ordreMissionIndemnites= (OrdreMissionIndemnite[]) CGenUtil.rechercher(new OrdreMissionIndemnite(), null, null, connection, " and id= '"+this.getId()+"'");;
+        return ordreMissionIndemnites;
+    }
 
+    public OrdreMissionIndemnite[] getIndemnites() {
+        return indemnites;
+    }
+
+    public void setIndemnites(OrdreMissionIndemnite[] indemnites) {
+        this.indemnites = indemnites;
+    }
+    
     public OrdreMission() {
         super.setNomTable("ordre_mission");
     }
