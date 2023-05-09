@@ -44,7 +44,7 @@ public class FactureFournisseur extends FactureClient {
     private String idbordereau, numBordereau;
     private String idrefpmt,valcaisserefpmt,numpiecerefpmt,numchequerefpmt,libellerefpmt;
     Date dateeffetrefpmt;
-    Double debitrefpmt;
+    double debitrefpmt;
 
     public String getIdrefpmt() {
         return idrefpmt;
@@ -94,11 +94,11 @@ public class FactureFournisseur extends FactureClient {
         this.dateeffetrefpmt = dateeffetrefpmt;
     }
 
-    public Double getDebitrefpmt() {
+    public double getDebitrefpmt() {
         return debitrefpmt;
     }
 
-    public void setDebitrefpmt(Double debitrefpmt) {
+    public void setDebitrefpmt(double debitrefpmt) {
         this.debitrefpmt = debitrefpmt;
     }
     
