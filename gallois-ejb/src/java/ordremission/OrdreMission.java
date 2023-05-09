@@ -9,6 +9,8 @@ import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -26,7 +28,11 @@ public class OrdreMission extends ClassEtat {
     }
     
     public OrdreMissionIndemnite[] getOrdreMissionIndemnites(Connection connection) throws Exception{
-        OrdreMissionIndemnite[] ordreMissionIndemnites= (OrdreMissionIndemnite[]) CGenUtil.rechercher(new OrdreMissionIndemnite(), null, null, connection, " and id= '"+this.getId()+"'");;
+        OrdreMissionIndemnite ordre= new OrdreMissionIndemnite();
+        if(this.getEstForfaitaire()==1){
+            ordre.setNomTable("ORDRE_MISSION_FORFAITAIRE");
+        }
+        OrdreMissionIndemnite[] ordreMissionIndemnites= (OrdreMissionIndemnite[]) CGenUtil.rechercher(ordre, null, null, connection, " and id= '"+this.getId()+"'");;
         return ordreMissionIndemnites;
     }
 

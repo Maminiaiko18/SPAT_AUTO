@@ -20,7 +20,7 @@ public class OrdreMissionIndemnite  extends ClassEtat {
     String montant;
     
     public OrdreMissionIndemnite() {
-        super.setNomTable("ordre_mission_indemnite  ");
+        super.setNomTable("ordre_mission_indemnite");
     }
 
     @Override

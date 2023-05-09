@@ -5,13 +5,33 @@
  */
 package ordremission;
 
+import java.sql.Connection;
+import utilitaire.UtilDB;
+
 /**
  *
  * @author Nouta
  */
 public class OrdreMissionLib extends OrdreMission{
     private String nom,prenom,fonction,classeprofessionnel,matricule,idindemnitemissionlib,idmotifvoyagelib,estForfaitairelib;
-
+    
+    public OrdreMissionLib getByIdAvecOrdreMissionIndemnite(String id) throws Exception{
+        Connection connection=null;
+        try{
+            connection = new UtilDB().GetConn();
+            OrdreMissionLib ordreMission=(OrdreMissionLib) new OrdreMissionLib().getById(id, "ordre_mission_lib", connection);
+            ordreMission.setIndemnites(ordreMission.getOrdreMissionIndemnites(connection));
+            return ordreMission;
+        }
+        catch(Exception exception){
+            throw exception;
+        }
+        finally{
+            if(connection!=null)
+                connection.close();
+        }
+    }
+    
     public OrdreMissionLib() {
         super.setNomTable("ordre_mission_lib");
     }

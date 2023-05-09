@@ -1,4 +1,6 @@
 <%@page import="mg.cnaps.formation.CodeEtablissement"%>
+<%@ page import="ordremission.OrdreMissionLib" %>
+<%@ page import="ordremission.OrdreMissionIndemnite" %>
 <%@page import="mg.spat.Engagement"%>
 <%@page import="mg.spat.stock.BonDeLivraisonFilleReste"%>
 <%@page import="utilisateur.Utilisateur"%>
@@ -112,6 +114,21 @@
             pi.getFormu().getChamp("code_etablissement").setValeurLibelle(engagement.getCodeEtablissementlib());
             pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(engagement.getTiers()));
             pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(engagement.getTierslib()));
+        }
+        if(request.getParameter("idom")!=null && request.getParameter("idom").length()>0){
+            OrdreMissionLib odreMission= new OrdreMissionLib().getByIdAvecOrdreMissionIndemnite(request.getParameter("idom"));
+            pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
+            if(odreMission.getNom()==null && odreMission.getPrenom()==null)
+                pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getId()));
+            else 
+                pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getNom())+ " "+Utilitaire.champNull(odreMission.getPrenom()));
+            OrdreMissionIndemnite[] indemnites= odreMission.getIndemnites();
+            
+            for(int i=0;i<indemnites.length;i++){
+                pi.getFormufle().getChamp("quantite_" + i).setDefaut(odreMission.getDuree()+"");
+                pi.getFormufle().getChamp("designation_" + i).setDefaut(indemnites[i].getTypeIndemnite());
+                pi.getFormufle().getChamp("pu_" + i).setDefaut(indemnites[i].getMontant()+"");
+            }
         }
         affichage.Liste[] listes = new affichage.Liste[3];
 
