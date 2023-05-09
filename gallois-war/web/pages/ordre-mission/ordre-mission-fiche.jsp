@@ -9,6 +9,8 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 
 <%
     try{
@@ -17,7 +19,7 @@
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));
     
     t = (OrdreMissionLib) pc.getBase();
-    String id = request.getParameter("id");
+    String id = t.getId();
     pc.getChampByName("id").setLibelle("Id");
     pc.getChampByName("numom").setLibelle("Num OM");
     pc.getChampByName("nom").setLibelle("Nom");
@@ -39,12 +41,21 @@
     String lien = (String) session.getValue("lien");
     String pageModif = "ordre-mission/ordre-mission-modif.jsp";
     String classe = "ordremission.OrdreMission";
+    Map<String, String> map = new HashMap<String, String>();
+    String bute="ordre-mission/ordre-mission-fiche.jsp"; 
+       map.put("bon-provisoire", "");
+    String tab = request.getParameter("tab");
+    if (tab == null) {
+        tab = "bon-provisoire";
+    }
+    map.put(tab, "active");
+    tab = "inc/" + tab + ".jsp";
 %>
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <div class="box-fiche">
+            <dOiv class="box-fiche">
                 <div class="box">
                     <div class="box-title with-border">
                         <h1 class="box-title"><a href="<%= lien %>?but=ordre-mission/ordre-mission-fiche.jsp"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
@@ -64,6 +75,23 @@
                         </div>
                         <br/>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 ">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs nav-center">
+                        <li class="<%= map.get("bon-provisoire")%>"><a href="module.jsp?but=<%=bute%>&id=<%=id%>&tab=bon-provisoire">Bon Provisoire</a></li>
+                    </ul>
+                    <div class="tab-content">       
+
+                        <div class="tab-content">       
+                            <jsp:include page="<%=tab%>" >
+                                <jsp:param name="idom" value="<%=id%>" />
+                            </jsp:include>
+                        </div>
                     </div>
                 </div>
             </div>

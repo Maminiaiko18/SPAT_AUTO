@@ -41,6 +41,15 @@ public class FactureFournisseur extends FactureClient {
     private Date dateRegul;
     private double montantHTSansRemise;
     private String bonprovisoire, num;
+    private String idom;
+
+    public String getIdom() {
+        return idom;
+    }
+
+    public void setIdom(String idom) {
+        this.idom = idom;
+    }
 
     public String getNum() {
         return num;

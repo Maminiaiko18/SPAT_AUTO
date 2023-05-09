@@ -118,6 +118,9 @@
         if(request.getParameter("idom")!=null && request.getParameter("idom").length()>0){
             OrdreMissionLib odreMission= new OrdreMissionLib().getByIdAvecOrdreMissionIndemnite(request.getParameter("idom"));
             pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
+            pi.getFormu().getChamp("idom").setDefaut(request.getParameter("idom"));
+            pi.getFormu().getChamp("idom").setAutre("readonly");
+            pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
             if(odreMission.getNom()==null && odreMission.getPrenom()==null)
                 pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getId()));
             else 
