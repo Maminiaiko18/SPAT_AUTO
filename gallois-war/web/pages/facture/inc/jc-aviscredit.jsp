@@ -10,7 +10,7 @@
 <%
     JournalCaisse cht = new JournalCaisse();
     cht.setNomTable("TRAITE_JC");
-    String libEntete[] = {"id","valCaisse","libelle", "debit", "credit", "iddevise", "montant","datesaisie","etatlib","etatversementlib"};
+    String libEntete[] = {"id","numpiece","libelle", "debit", "credit", "iddevise", "montant","datesaisie","etatlib","etatversementlib"};
     String listeCrt[] = {};
     String listeInt[] = {};
 
@@ -24,7 +24,7 @@
         pr.setAWhere(" and idtraite = '"+request.getParameter("id")+"' and etatversement = -2 and credit > 0");
     }
     pr.creerObjetPage(libEntete, colSomme);
-    String libEnteteAffiche[] = {"id","Caisse","Libelle", "Debit", "Credit", "Devise", "Montant","Date de saisie", "Etat", "Etat versement"};
+    String libEnteteAffiche[] = {"id","Numero Piece","Libelle", "Debit", "Credit", "Devise", "Montant","Date de saisie", "Etat", "Etat versement"};
     String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);

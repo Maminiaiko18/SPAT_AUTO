@@ -3383,7 +3383,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             FactureClient fc = new FactureClient();
-            fc.setNomTable("PMENTFACTHORSPROVAVPROVCPLT2");
+            fc.setNomTable("PMENTFACTHORSPROVAVPROVCPLT3");
             FactureClient[] factDef = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c,
                     " and idprovision = '" + id + "'");
 
