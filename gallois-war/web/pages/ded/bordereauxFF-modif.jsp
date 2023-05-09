@@ -26,8 +26,11 @@ try{
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idop"), "choix/listeFactureFournisseurChoix.jsp","idop;idoplibelle;idoplibelle");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
-    pi.getFormu().getChamp("Etat").setAutre("readonly");
-    pi.getFormu().getChamp("numero").setAutre("readonly");
+    pi.getFormu().getChamp("Etat").setVisible(false);
+    pi.getFormu().getChamp("montantbudget").setVisible(false);
+    pi.getFormu().getChamp("montantav").setVisible(false);
+    pi.getFormu().getChamp("montantap").setVisible(false);
+    pi.getFormu().getChamp("numero").setLibelle("Numéro");
     pi.getFormu().getChamp("Daty").setLibelle("Date");
     
     pi.getFormu().getChamp("tierslib").setVisible(false);
