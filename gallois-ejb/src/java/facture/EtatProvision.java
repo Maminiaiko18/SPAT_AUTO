@@ -35,12 +35,38 @@ public class EtatProvision extends ClassMAPTable {
     private String code ;
     
     
-    @Override
-	public ClassMAPTable createObject(String u, Connection c) throws Exception {
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
 		if(this.getIdFacture()!=null && this.getIdFacture().compareTo("")!=0)
 			setNumProvision(calculerCode(c));
-		return super.createObject(u, c);
+                try{
+                    ClassMAPTable val= super.createObject(u, c);
+                    return val;
+                }catch(Exception e){
+                    throw e;
+                }
 	}
+
+
+    @Override
+    public void controler(Connection c)throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+            c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            EtatProvision[] tmp = (EtatProvision[]) CGenUtil.rechercher(new EtatProvision(), null, null, c, String.format(" and idfacture in (select idfacture from etat_provision where IDFACTURE='%s')", this.getIdFacture()));
+            if (tmp != null && tmp.length > 0) {
+                throw new Exception("Cette facture provision possède déja un état de provision!");
+            }
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if (c != null && verif == 1) {
+            c.close();
+            }
+        }
+    }
 
 	public String getCode() {
         return code;
