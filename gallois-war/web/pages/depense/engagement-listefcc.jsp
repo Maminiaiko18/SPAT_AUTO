@@ -30,6 +30,8 @@
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.getFormu().getChamp("num").setLibelle("No.");
+        pr.setOrdre(" order by num desc");
+
         pr.setApres("depense/engagement-liste.jsp");
         String[] colSomme ={"montant"};
         pr.creerObjetPage(libEntete, colSomme);

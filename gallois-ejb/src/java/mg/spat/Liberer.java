@@ -16,6 +16,16 @@ import java.sql.Connection;
 public class Liberer extends ClassEtat {
     private String id,idengagement,idengagementlib;
     private double montant;
+    private String remarque;
+
+	public String getRemarque() {
+		return this.remarque;
+	}
+
+	public void setRemarque(String remarque) {
+		this.remarque = remarque;
+	}
+
 
     public Liberer() {
         super.setNomTable("liberer");
