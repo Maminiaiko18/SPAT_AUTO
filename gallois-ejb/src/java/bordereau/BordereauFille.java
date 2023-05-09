@@ -55,9 +55,9 @@ public class BordereauFille extends ClassMAPTable {
         }
 
         FactureFournisseur filtre = new FactureFournisseur();
-        String where = " and id in (SELECT IDOP FROM liaisonbordereauFF WHERE IDOP='"+this.getIdop()+"')";
-        FactureFournisseur[] ff = (FactureFournisseur[]) CGenUtil.rechercher(filtre, null, null, c, where);
-        if(ff.length>0){
+        filtre.setNomTable("factfourn_msum_lib_ficheB");
+        FactureFournisseur[] ff = (FactureFournisseur[]) CGenUtil.rechercher(filtre, null, null, c, " and id='"+this.getIdop()+"'");
+        if(ff.length >0 && ff[0].getIdbordereau()!=null){
             throw new Exception("Facture comporte deja un bordereau");
         }
     }
