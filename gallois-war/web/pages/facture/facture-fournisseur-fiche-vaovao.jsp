@@ -104,7 +104,9 @@
         //pc.getChampByName("deviseMere").setLibelle("Devise");
 
         pc.getChampByName("designation").setLibelle("Note explicative");
-        //pc.getChampByName("idengagement").setVisible(false);
+        //pc.getChampByName("idengagement").setVisible(true); 
+        pc.getChampByName("idengagement").setLibelle("Id Engagement");
+        pc.getChampByName("idengagement").setLien((String) session.getValue("lien") + "?but=depense/engagement-fiche.jsp&id=" + e.getIdengagement(), "");
         pc.getChampByName("idbc").setLien((String) session.getValue("lien") + "?but=stock/bc/asBonDeCommande-fiche.jsp&id=" + e.getIdbc(), "");
         pc.getChampByName("idbl").setLien((String) session.getValue("lien") + "?but=stock/bl/bondelivraison-fiche.jsp&id=" + e.getIdBL(), "");
 
