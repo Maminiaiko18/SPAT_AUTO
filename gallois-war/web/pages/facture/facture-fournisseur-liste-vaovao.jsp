@@ -23,7 +23,7 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib"};
+        String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib"};
         String listeInt[] = {"daty","date_echeance","exercice"};
 
         String libEntete[] = {"id", "daty", "tierslib", "numeroop", "numOP", "code", "idbc", "projetlib", "code_etablissementlib", "naturelib", "designation", "exercice", "date_echeance", "montant", "tva", "montantTVA", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib","idrefpmt","valcaisserefpmt","numpiecerefpmt","dateeffetrefpmt","numchequerefpmt","libellerefpmt","debitrefpmt"};
@@ -33,18 +33,23 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setOrdre(" order by daty desc");
         pr.setApres("facture/facture-fournisseur-liste-vaovao.jsp");
+
+        pr.getFormu().getChamp("nature").setLibelle("Nature");
+        pr.getFormu().getChamp("valcaisserefpmt").setLibelle("Caisse");
         
-        affichage.Champ[]liste = new affichage.Champ[1];
+        affichage.Champ[]liste = new affichage.Champ[2];
         TypeObjet nature = new TypeObjet();
         nature.setNomTable("nature");
         liste[0] = new Liste("nature", nature, "val", "id");
+        TypeObjet caisse = new TypeObjet();
+        caisse.setNomTable("CAISSE");
+        liste[1] = new Liste("valcaisserefpmt", caisse, "val", "val");
         pr.setNpp(100);
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("exercice1").setLibelle("debut exercice");
         pr.getFormu().getChamp("exercice2").setLibelle("fin exercice");
         pr.getFormu().getChamp("tierslib").setLibelle("Fournisseur");
-        pr.getFormu().getChamp("nature").setLibelle("Nature");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("numeroop").setLibelle("N° Facture");
         pr.getFormu().getChamp("code").setLibelle("Reference/Code");     
