@@ -120,10 +120,10 @@
             <input type="hidden" name="classe" id="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp"};
-            String colonneLien[] = {"id"};
-            String[] urlLienMultiple = {"id"};
-            String[] urlLienAffiche = {"id"};
+            String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "?but=treso/journalcaisse-fiche.jsp"};
+            String colonneLien[] = {"id","idrefpmt"};
+            String[] urlLienMultiple = {"id","idrefpmt"};
+            String[] urlLienAffiche = {"id","id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
