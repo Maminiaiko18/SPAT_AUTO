@@ -34,8 +34,7 @@
         pr.setOrdre(" order by daty desc");
         pr.setApres("facture/facture-fournisseur-liste-vaovao.jsp");
 
-        pr.getFormu().getChamp("nature").setLibelle("Nature");
-        pr.getFormu().getChamp("valcaisserefpmt").setLibelle("Caisse");
+       
         
         affichage.Champ[]liste = new affichage.Champ[2];
         TypeObjet nature = new TypeObjet();
@@ -57,6 +56,8 @@
         pr.getFormu().getChamp("code_etablissementlib").setLibelle("Code direction");
         
         pr.getFormu().changerEnChamp(liste);
+        pr.getFormu().getChamp("nature").setLibelle("Nature");
+        pr.getFormu().getChamp("valcaisserefpmt").setLibelle("Caisse");
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);
         firstDate.setMonth(0);
