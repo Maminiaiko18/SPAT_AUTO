@@ -47,8 +47,7 @@
     OrdonnerPayement base = (OrdonnerPayement)pi.getBase();
 %>
 <div class="content-wrapper">
-    <h1>Modification Ordre de payer</h1>
-    <!--  -->
+    <h1>Modification Entette Ordre de payer</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="ded_op" id="ded_op" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
