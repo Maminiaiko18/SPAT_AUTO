@@ -129,7 +129,7 @@
             pr.getTableau().setColonneLien(colonneLien);
 
 
-            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero OP","Reference/Code", "Num Bon de Commande", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "Montant HT", "TVA", "Montant TVA", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Etat","idrefpmt","Caisse","Num Piece","Date Effet","Num cheque","libelle","Sortie"};
+            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero OP","Reference/Code", "Bon de Commande", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "Montant HT", "TVA", "Montant TVA", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Etat","idrefpmt","Caisse","Num Piece","Date Effet","Num cheque","libelle","Sortie"};
 
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
