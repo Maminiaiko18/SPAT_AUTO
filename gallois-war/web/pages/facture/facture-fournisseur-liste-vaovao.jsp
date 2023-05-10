@@ -26,7 +26,7 @@
         String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib"};
         String listeInt[] = {"daty","date_echeance","exercice"};
 
-        String libEntete[] = {"id", "daty", "tierslib", "numeroop", "numOP", "code", "idbc", "projetlib", "code_etablissementlib", "naturelib", "designation", "exercice", "date_echeance", "montant", "tva", "montantTVA", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib","valcaisserefpmt","numpiecerefpmt","dateeffetrefpmt","numchequerefpmt","libellerefpmt","debitrefpmt"};
+        String libEntete[] = {"id", "daty", "tierslib", "numeroop", "numOP", "code", "idbc", "projetlib", "code_etablissementlib", "naturelib", "designation", "exercice", "date_echeance", "montant", "tva", "montantTVA", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib","valcaisserefpmt","numpiecerefpmt","dateeffetrefpmt","numchequerefpmt","debitrefpmt"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -129,7 +129,7 @@
             pr.getTableau().setColonneLien(colonneLien);
 
 
-            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero OP","Reference/Code", "Bon de Commande", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "Montant HT", "TVA", "Montant TVA", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Etat","Caisse","Num Piece","Date Effet","Num cheque","libelle","Sortie"};
+            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero OP","Reference/Code", "Bon de Commande", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "Montant HT", "TVA", "Montant TVA", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Etat","Caisse","Num Piece","Date Effet","Num cheque","Sortie"};
 
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
