@@ -31,6 +31,7 @@
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.getFormu().getChamp("num").setLibelle("No.");
         pr.setApres("depense/engagement-listefcc.jsp");
+        pr.setOrdre(" order by num desc");
         String[] colSomme ={"montant"};
         pr.creerObjetPage(libEntete, colSomme);
         String[] etatVal = {"engagementlib", "engagementlibC", "engagementlibV"};
