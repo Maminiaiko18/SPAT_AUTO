@@ -31,8 +31,8 @@
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE FOURNISSEUR");
         pc.getChampByName("deviseMere").setLibelle("Devise");
-        pc.getChampByName("idbordereau").setLibelle("Bordereau");
-        pc.getChampByName("numBordereau").setLibelle("Numero Bordereau");
+        pc.getChampByName("idbordereau").setLibelle("BED");
+        pc.getChampByName("numBordereau").setLibelle("Numero BED");
         String lien = (String)session.getValue("lien");
         e = (FactureFournisseur) pc.getBase();
         pc.getChampByName("idbordereau").setLien(lien+"?but=ded/bordereauxFF-fiche.jsp", "id=");

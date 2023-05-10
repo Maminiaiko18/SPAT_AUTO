@@ -23,28 +23,32 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib"};
+        String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib"};
         String listeInt[] = {"daty","date_echeance","exercice"};
 
-        String libEntete[] = {"id", "daty", "tierslib", "numeroop", "numOP", "code", "idbc", "projetlib", "code_etablissementlib", "naturelib", "designation", "exercice", "date_echeance", "montant", "tva", "montantTVA", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib","idrefpmt","valcaisserefpmt","numpiecerefpmt","dateeffetrefpmt","numchequerefpmt","libellerefpmt","debitrefpmt"};
+        String libEntete[] = {"id", "daty", "tierslib", "numeroop", "numOP", "code", "idbc", "projetlib", "code_etablissementlib", "naturelib", "designation", "exercice", "date_echeance", "montant", "tva", "montantTVA", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib","valcaisserefpmt","numpiecerefpmt","dateeffetrefpmt","numchequerefpmt","debitrefpmt"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setOrdre(" order by daty desc");
         pr.setApres("facture/facture-fournisseur-liste-vaovao.jsp");
+
+       
         
-        affichage.Champ[]liste = new affichage.Champ[1];
+        affichage.Champ[]liste = new affichage.Champ[2];
         TypeObjet nature = new TypeObjet();
         nature.setNomTable("nature");
         liste[0] = new Liste("nature", nature, "val", "id");
+        TypeObjet caisse = new TypeObjet();
+        caisse.setNomTable("CAISSE");
+        liste[1] = new Liste("valcaisserefpmt", caisse, "val", "val");
         pr.setNpp(100);
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("exercice1").setLibelle("debut exercice");
         pr.getFormu().getChamp("exercice2").setLibelle("fin exercice");
         pr.getFormu().getChamp("tierslib").setLibelle("Fournisseur");
-        pr.getFormu().getChamp("nature").setLibelle("Nature");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("numeroop").setLibelle("N° Facture");
         pr.getFormu().getChamp("code").setLibelle("Reference/Code");     
@@ -52,6 +56,8 @@
         pr.getFormu().getChamp("code_etablissementlib").setLibelle("Code direction");
         
         pr.getFormu().changerEnChamp(liste);
+        pr.getFormu().getChamp("nature").setLibelle("Nature");
+        pr.getFormu().getChamp("valcaisserefpmt").setLibelle("Caisse");
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);
         firstDate.setMonth(0);
@@ -115,15 +121,15 @@
             <input type="hidden" name="classe" id="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp"};
-            String colonneLien[] = {"id"};
-            String[] urlLienMultiple = {"id"};
-            String[] urlLienAffiche = {"id"};
+            String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "?but=treso/journalcaisse-fiche.jsp"};
+            String colonneLien[] = {"id","idrefpmt"};
+            String[] urlLienMultiple = {"id","idrefpmt"};
+            String[] urlLienAffiche = {"id","id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
 
-            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero OP","Reference/Code", "Num Bon de Commande", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "Montant HT", "TVA", "Montant TVA", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Etat","idrefpmt","Caisse","Num Piece","Date Effet","Num cheque","libelle","Sortie"};
+            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero OP","Reference/Code", "Bon de Commande", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "Montant HT", "TVA", "Montant TVA", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Etat","Caisse","Num Piece","Date Effet","Num cheque","Sortie"};
 
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);

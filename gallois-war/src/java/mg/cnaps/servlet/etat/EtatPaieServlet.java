@@ -1039,7 +1039,7 @@ public class EtatPaieServlet extends HttpServlet {
                     tabJournal[0].setNomTable("journalcaisse");
                     tabJournal[0].upDateToTable();
                 }                
-                titre = "RECU TRAITE";
+                titre = "RECU AVIS DE CREDIT PAR TRAITE";
             }
 
             PayementFacture[] tabFact = null;
