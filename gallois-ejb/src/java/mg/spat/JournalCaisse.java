@@ -906,6 +906,12 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     }
                 }
             }else{
+
+                if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0 &&  this.getCredit() > 0){
+                    String numeroPiece = calculerNumeroPieceRecette(c);
+                    this.setNumPiece(numeroPiece);
+                }
+                
                     if (this.getIdplacement() != null) {
                     /*if (!this.getIdplacement().startsWith("FC")) {
                         Placement placement = this.findPlacement(c);
@@ -926,19 +932,6 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                         viserFacturesRattachees(refuser, c);
                         genererPaiement(c, refuser);
                     } else {
-                        // entrer caisse depense num
-                        if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0 &&  this.getCredit() > 0){
-                            this.setIdTypeCheque(Constante.typeChequeAuComptant);
-                            String numeroPiece = calculerNumeroPieceRecette(c);
-                            this.setNumPiece(numeroPiece);
-                        }
-                        
-                        //if(caisse.isBanque(c) &&  this.getCredit() > 0 ){
-                        //    this.setIdTypeCheque("TCHQ00002");
-                        //    String numeroPiece = calculerNumeroPiece(c);
-                        //    this.setNumPiece(numeroPiece);
-                        //}
-
                         //num piece pour depense simple dans la caisse depenses
                         if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0 &&  this.getDebit() > 0 ){
                             String numeroPiece = calculerNumeroPieceDepense(c);
@@ -1348,7 +1341,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
         String annee = Utilitaire.getAnnee(dateEffetStr);
         String seq="";
-        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_vaovao where annee="+annee+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque());
+        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_dep_entree where annee="+annee;
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(7, result[0].getNumerosuivant());
         return Utilitaire.genererAnnee(dateEffetStr) + "-CD-" + seq;
