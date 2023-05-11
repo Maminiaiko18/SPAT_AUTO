@@ -1022,6 +1022,7 @@ public class EtatPaieServlet extends HttpServlet {
             String titre = "PIECE DE CAISSE";
             String soustitre = "";
             String nomJasper = "piece_de_caisse";
+            String pdfName = "piece_de_caisse";
             
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
@@ -1172,10 +1173,14 @@ public class EtatPaieServlet extends HttpServlet {
             {
                 soustitre = "PIECE DE CAISSE";
                 titre = "DEDUCTION SUR AVOIR";
+                nomJasper = "deduction_avoir";
+                pdfName = "deduction avoir";
+
             }
 
             if(prov == true && cptDef > 0){
                 titre = "SUIVI PROVISION";
+                pdfName = "Suivi provision";
                 nomJasper = "gestion_provision_caisse";
                 param.put("datyPiece", Utilitaire.dateDuJourSql());
             }
@@ -1190,7 +1195,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("heure", heure);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper(nomJasper);
-            UtilitaireImpression.imprimer(request, response, "piece_de_caisse", param, new ArrayList(), getReportPath(),
+            UtilitaireImpression.imprimer(request, response, pdfName, param, new ArrayList(), getReportPath(),
                     rt);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2564,6 +2569,7 @@ public class EtatPaieServlet extends HttpServlet {
             facture.FactureFournisseur facture = new facture.FactureFournisseur();
             facture.setEstDDPMICTSL(null);
             facture.setNomTable("FACTFOURN_MSUM_LIB");
+            String pdfName = "facture-fournisseur";
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
 
             facture.FactureFournisseur[] mere = (facture.FactureFournisseur[]) CGenUtil.rechercher(facture, null, null,
@@ -2694,8 +2700,10 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("codePr", mere[0].getProjetlib());
                 param.put("codeEtb", mere[0].getCode_etablissementlib());
                 setNomJasper("bon_provisoir");
+                pdfName = "Bon Provisoire";
             } else {
                 setNomJasper("facture-client-sans-prevision");
+                pdfName = "facture client sans prevision";
             }
             /**
              * *********************************************************************************************
@@ -2703,7 +2711,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             // setNomJasper("facture_client2 - Copie");
-            UtilitaireImpression.imprimer(request, response, "facture-fournisseur", param, null, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, pdfName, param, null, getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();

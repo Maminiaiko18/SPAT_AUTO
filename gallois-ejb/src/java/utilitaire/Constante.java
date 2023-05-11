@@ -151,7 +151,6 @@ public class Constante {
     public static final String categorieAvoirFF="CT001X";
     
     public static final String modePaiementEspece = "pay1";
-    public static final String modeRecetteCaisseDepense = "pay8";
     public static final String modeRegulAvoir = "pay9";
     public static final String typeChequeAuComptant = "TCHQ00001";
     public static final String idBonProvisoire = "CATGFF002";
