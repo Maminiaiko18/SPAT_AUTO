@@ -1022,6 +1022,7 @@ public class EtatPaieServlet extends HttpServlet {
             String titre = "PIECE DE CAISSE";
             String soustitre = "";
             String nomJasper = "piece_de_caisse";
+            String pdfName = "piece_de_caisse";
             
             jc.setId(request.getParameter("id"));
             jc.setNomTable("JOURNALCAISSELIBCOMPLET");
@@ -1172,10 +1173,14 @@ public class EtatPaieServlet extends HttpServlet {
             {
                 soustitre = "PIECE DE CAISSE";
                 titre = "DEDUCTION SUR AVOIR";
+                nomJasper = "deduction_avoir";
+                pdfName = "deduction avoir";
+
             }
 
             if(prov == true && cptDef > 0){
                 titre = "SUIVI PROVISION";
+                pdfName = "Suivi provision";
                 nomJasper = "gestion_provision_caisse";
                 param.put("datyPiece", Utilitaire.dateDuJourSql());
             }
@@ -1190,7 +1195,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("heure", heure);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper(nomJasper);
-            UtilitaireImpression.imprimer(request, response, "piece_de_caisse", param, new ArrayList(), getReportPath(),
+            UtilitaireImpression.imprimer(request, response, pdfName, param, new ArrayList(), getReportPath(),
                     rt);
         } catch (Exception e) {
             e.printStackTrace();
