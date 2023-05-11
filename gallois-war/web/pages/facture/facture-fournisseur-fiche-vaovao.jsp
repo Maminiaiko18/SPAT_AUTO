@@ -84,6 +84,8 @@
 
         pc.getChampByName("code").setLibelle("Numero Compta");
         pc.getChampByName("IdProvision").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
+        pc.getChampByName("idProvisionlib").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
+
         String categorie = "";
         if (e.getIdcategorie() != null) {
             categorie = e.getIdcategorie();
