@@ -20,8 +20,8 @@
     pc.getChampByName("compte").setVisible(false);
     pc.getChampByName("montant").setLibelle("Montant");
     pc.getChampByName("disponible").setLibelle("Disponible à facturer");
-    pc.getChampByName("dispoAvant").setLibelle("DispoAvant");
-    pc.getChampByName("dispoApres").setLibelle("DispoApres");
+    pc.getChampByName("dispoAvant").setLibelle("Disponible Avant");
+    pc.getChampByName("dispoApres").setLibelle("Disponible Apres");
     pc.getChampByName("compte").setLibelle("Compte");
     pc.getChampByName("codeEtablissementlib").setLibelle("Code Etablissement");
  //   pc.getChampByName("codeEtablissementlib").setVisible(false);
@@ -35,6 +35,8 @@
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("tiers").setVisible(false);
     pc.getChampByName("observation").setLibelle("Observation");
+    pc.getChampByName("montantreste").setLibelle("Montant reste");
+    pc.getChampByName("montantOP").setLibelle("Montant OP");
 
     engagement = (Engagement) pc.getBase();
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp","id="+engagement.getIdLC()+"&id=");
