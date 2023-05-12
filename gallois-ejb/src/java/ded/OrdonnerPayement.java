@@ -873,10 +873,14 @@ public class OrdonnerPayement extends ClassEtat {
     }
     
     public void controlerDoublon(Connection c) throws Exception{
-        OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id = '"+this.getDed_Id()+"'");
-        if(ordonnerPayment.length>0){
-            throw new Exception("OP deja saisi pour la facture :"+this.getDed_Id());
+        String [] idFacture = this.getDed_Id().split(";");
+        for(int i = 0 ; i < idFacture.length ; i++){
+            OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+idFacture[i]+"%'");
+            if(ordonnerPayment.length>0){
+                throw new Exception("OP deja saisi pour la facture : "+idFacture[i]);
+            }
         }
+            
     }
     
     @Override
