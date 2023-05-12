@@ -18,7 +18,12 @@
     pi.setLien((String) session.getValue("lien"));
     jc =(JournalCaisse)pi.getBase();
     UserEJB u = (UserEJB) session.getAttribute("u");
-
+    String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
+    if(idUser.compareToIgnoreCase("1060")!=0 ) {
+        if(idUser.compareToIgnoreCase("1602")!=0){
+            pi.getFormu().getChamp("dateEffet").setVisible(false);
+        }
+    }
     pi.getFormu().getChamp("numcheque").setLibelle("Numero ch�que");
     pi.getFormu().getChamp("idordre").setLibelle("Ordre");
     pi.getFormu().getChamp("idordre").setAutre("readonly");
@@ -49,7 +54,6 @@
     pi.getFormu().getChamp("debit").setLibelle("Sorti");
 
     pi.getFormu().getChamp("id").setVisible(false);
-    pi.getFormu().getChamp("dateEffet").setVisible(false);
     pi.getFormu().getChamp("folio").setVisible(false);
     pi.getFormu().getChamp("caisse").setVisible(false);
     pi.getFormu().getChamp("numpiece").setVisible(false);
