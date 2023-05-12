@@ -594,6 +594,50 @@ public class OrdonnerPayement extends ClassEtat {
             }
         }
     }
+
+    public void ajouterFF(String u,String idFacture) throws Exception{
+        int verif = 0;
+        Connection c = null;
+        LiaisonIntraTable[] retour=null;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            OrdonnerPayement[]op=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and id='"+this.getId()+"'");
+
+            String temp = op[0].getDed_Id();
+                if(op[0].getEtat()==11) throw new Exception("OP deja vise, impossible d'ajouter une facture.");
+                op[0].setDed_Id(idFacture);
+                op[0].controlerDoublon(c);
+                op[0].setDed_Id(temp+";"+idFacture);
+
+                FactureFournisseur fact= new FactureFournisseur();
+                fact.setNomTable("FACTFOURN_MSUM_LIB");
+                FactureFournisseur[] ff=(FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, " and id='"+idFacture+"'");
+                if(ff.length > 0){
+                    if(ff[0].getEtat()==1) throw new Exception("Facture fournisseur non vise");
+                    LiaisonIntraTable liaison = new LiaisonIntraTable(ff[0].getId(), op[0].getTuppleID(), ff[0].getMontantttc());
+                    liaison.createObject(u, c);
+                }
+
+                op[0].setMontant(op[0].getMontant()+ff[0].getMontantttc());
+                op[0].updateToTable(c);
+                    
+            } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
     public LiaisonIntraTable[] getLiaisonIntratable(Connection c) throws Exception{
         int verif = 0;
         LiaisonIntraTable[] retour=null;
