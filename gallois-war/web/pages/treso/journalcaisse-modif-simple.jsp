@@ -19,7 +19,6 @@
     jc =(JournalCaisse)pi.getBase();
     UserEJB u = (UserEJB) session.getAttribute("u");
     String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
-    System.out.println("atooo"+idUser);
     if(idUser.compareToIgnoreCase("1060")!=0 ) {
         if(idUser.compareToIgnoreCase("1602")!=0){
             pi.getFormu().getChamp("dateEffet").setVisible(false);
