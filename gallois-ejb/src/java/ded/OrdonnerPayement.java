@@ -871,10 +871,18 @@ public class OrdonnerPayement extends ClassEtat {
             if((float)rap<(float)this.getMontant())throw new Exception("Montant superieur au reste à payer");
         }
     }
-
+    
+    public void controlerDoublon(Connection c) throws Exception{
+        OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id = '"+this.getDed_Id()+"'");
+        if(ordonnerPayment.length>0){
+            throw new Exception("OP deja saisi pour la facture :"+this.getDed_Id());
+        }
+    }
+    
     @Override
     public void controler(Connection c) throws Exception {
         this.controlerMotantFF(c);
+        this.controlerDoublon(c);
     }
     
     public void annulerOP(String refUser, Connection c) throws Exception {
