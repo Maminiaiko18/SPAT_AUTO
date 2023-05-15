@@ -46,7 +46,42 @@ public class FactureFournisseur extends FactureClient {
     private String idrefpmt,valcaisserefpmt,numpiecerefpmt,numchequerefpmt,libellerefpmt;
     Date dateeffetrefpmt;
     double debitrefpmt;
+    Date dateFacture;
+    String numBc, numBed, paimentLib;
 
+    public Date getDateFacture() {
+        return dateFacture;
+    }
+
+    public void setDateFacture(Date dateFacture) {
+        this.dateFacture = dateFacture;
+    }
+
+    public String getNumBc() {
+        return numBc;
+    }
+
+    public void setNumBc(String numBc) {
+        this.numBc = numBc;
+    }
+
+    public String getNumBed() {
+        return numBed;
+    }
+
+    public void setNumBed(String numBed) {
+        this.numBed = numBed;
+    }
+
+    public String getPaimentLib() {
+        return paimentLib;
+    }
+
+    public void setPaimentLib(String paimentLib) {
+        this.paimentLib = paimentLib;
+    }
+    
+    
     public String getIdrefpmt() {
         return idrefpmt;
     }
