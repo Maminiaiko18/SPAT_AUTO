@@ -554,12 +554,13 @@ public class BonDeCommande extends ClassEtat {
         if(lc==null)throw new Exception("Budget non trouvé");
         
         BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
+        this.setMontant(bc.getMontant());
         LiaisonIntraTable liaison = new LiaisonIntraTable();
         liaison.setNomTable("liaisonengagement");
 
         if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
-            this.setMontant(bc.getMontant());
             Engagement e = this.insertEngagementRetour(u,c);
+            this.setIdengagement(e.getIdengagement());
             this.updateToTableWithHisto(u, c);
             liaison.setId1(e.getId());
             liaison.setId2(this.getId());
@@ -594,24 +595,15 @@ public class BonDeCommande extends ClassEtat {
             
             LiaisonIntraTable liaison1 = new LiaisonIntraTable();
             liaison1.setNomTable("liaisonengagement");
-
-            if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
-                BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
-                this.setMontant(bc.getMontant());
-                Engagement e = this.insertEngagementRetour(u,c);
-                this.updateToTableWithHisto(u, c);
-                liaison1.setId1(e.getId());
-                liaison1.setId2(this.getId());
-                liaison1.setMontant(bc.getMontant());
-                liaison1.createObject(u, c);
-            }
-            else{
+            
+            if(this.getIdengagement() != null){
                 Engagement eng = findEngagement("liaisonEngagementBCFF", "idengagement", c);
-                if(eng.getMontantreste() < this.getMontant()){
-                    double diff = this.getMontant() - eng.getMontantreste();
+                BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
+                if(eng.getMontantreste() < bc.getMontant()){
+                    double diff = bc.getMontant() - eng.getMontantreste();
                     Engagement e = new Engagement();
-                    e.setAnnee(Utilitaire.getAnnee(this.getDaty()));
-                    e.setDaty(this.getDaty());
+                    e.setAnnee(Utilitaire.getAnnee(bc.getDaty()));
+                    e.setDaty(bc.getDaty());
                     e.construirePK(c);
                     e.setMontant(diff);
                     if (lc != null) {
@@ -620,7 +612,7 @@ public class BonDeCommande extends ClassEtat {
                     e.createObject(u, c);
                     BonDeCommandeFille fille = new BonDeCommandeFille();
                     fille.setMontant(diff);
-                    fille.setRemarque(this.getRemarque());
+                    fille.setRemarque(bc.getRemarque());
                     EngagementFille engFille = fille.createEngagementFille(e.getTuppleID());
                     engFille.construirePK(c);
                     engFille.insertToTableWithHisto(u, c);
