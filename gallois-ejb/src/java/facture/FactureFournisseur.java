@@ -44,10 +44,10 @@ public class FactureFournisseur extends FactureClient {
     private String bonprovisoire, num;
     private String idbordereau, numBordereau;
     private String idrefpmt,valcaisserefpmt,numpiecerefpmt,numchequerefpmt,libellerefpmt;
-    Date dateeffetrefpmt;
-    double debitrefpmt;
-    Date dateFacture;
-    String numBc, numBed, paimentLib;
+    private Date dateeffetrefpmt;
+    private double debitrefpmt;
+    private Date dateFacture;
+    private String numBc, numBed, paimentLib;
 
     public Date getDateFacture() {
         return dateFacture;
