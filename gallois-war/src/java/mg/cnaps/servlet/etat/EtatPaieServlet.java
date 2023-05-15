@@ -1582,7 +1582,7 @@ public class EtatPaieServlet extends HttpServlet {
                     " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
             FactureClientDetails[] liste = mere[0].getListeDetails();
-            facture.setNomTable("factureClientValide");
+            facture.setNomTable("FACTURECLIENTVALIDEImp");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
 
