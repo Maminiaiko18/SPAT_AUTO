@@ -27,7 +27,7 @@
     pr.creerObjetPage(libEntete, colSomme);
     
     String libEnteteAffiche[] = {"id","daty","Code", "Numero BP","Note explicative","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste às payer"};
-    String lienTableau[] = {pr.getLien() + "?but=exploitants/activites-fiche.jsp"};
+    String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
