@@ -71,6 +71,7 @@
                         <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-modif-entete.jsp&id=" + id%>"  style="margin-right: 10px">Modifier entete</a>
                         <a class="btn btn-danger pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&classe=ded.OrdonnerPayement&bute=ded/ordonnerpayement-fiche.jsp&id=" + id%>"  style="margin-right: 10px">Annuler visa</a>
                         <a class="btn btn-success pull-left"  href="${pageContext.request.contextPath}/Paie?action=imprimerBed2&id=<%=id%>" style="margin-right: 10px">Editer BED</a>
+                        <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=treso/ajout-factureOp.jsp&id=" + id%>"  style="margin-right: 10px">Ajouter Facture</a>
                     </div>
                     <div>
                          <% if(a.getDed_Id() != null && a.getDed_Id().startsWith("FC")){%>

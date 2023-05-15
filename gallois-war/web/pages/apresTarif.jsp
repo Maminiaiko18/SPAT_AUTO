@@ -492,6 +492,14 @@
             bc = (BonDeCommande)bc.getById(request.getParameter("id"), "as_bondecommande", null);
             if(bc!=null)bc.validerObjectAvecEngagement(u.getUser().getTuppleID());
         }
+
+        if(acte.compareToIgnoreCase("ajouterFF") == 0){
+            String idFacture = request.getParameter("idFacture");
+            String idOp = request.getParameter("idOp");
+            ded.OrdonnerPayement op = new ded.OrdonnerPayement();
+            op.setId(idOp);
+            op.ajouterFF(String.valueOf(u.getUser().getRefuser()),idFacture);
+        }
         
         String idAttributeName = "id";
         if(t != null && t.getAttributIDName() != null && !t.getAttributIDName().trim().isEmpty()) idAttributeName = t.getAttributIDName();
