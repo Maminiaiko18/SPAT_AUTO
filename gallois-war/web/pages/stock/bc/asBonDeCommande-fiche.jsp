@@ -41,6 +41,7 @@
     pc.getChampByName("numbc").setLibelle("Numero Bon De Commande");
     pc.getChampByName("remarque").setLibelle("Reference");
     pc.getChampByName("code_etab").setLibelle("Code etablissement");
+    pc.getChampByName("idengagementlib").setLibelle("Engagement");
     
     
     pc.setTitre("Fiche Bon de commande");
