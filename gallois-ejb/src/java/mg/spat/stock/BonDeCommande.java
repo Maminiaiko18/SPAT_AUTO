@@ -672,7 +672,7 @@ public class BonDeCommande extends ClassEtat {
 
                     e.validerObject(u, c);
                     
-                    liaison1.setId1(eng.getIdengagement());
+                    liaison1.setId1(e.getTuppleID());
                     liaison1.setId2(this.getId());
                     liaison1.setMontant(eng.getMontantreste());
                     liaison1.createObject(u, c);

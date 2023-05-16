@@ -730,7 +730,6 @@ public class FactureFournisseur extends FactureClient {
         } else {
             if (this.getIdbc() == null) {
                 FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-                this.setMontant(ff.getMontant());
                 //si provision dia tsy engagena
                 if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0){
                     this.insertEngagement(u, true, c);
@@ -739,6 +738,7 @@ public class FactureFournisseur extends FactureClient {
                     liaison.setId2(ff.getId());
                     liaison.setMontant(ff.getMontant());
                     liaison.createObject(u, c);
+                    liaison.validerObject(u, c);
                 }
             }
         }
