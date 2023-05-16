@@ -834,6 +834,8 @@ public class FactureFournisseur extends FactureClient {
                             liaison.setId2(ff.getId());
                             liaison.setMontant(diff);
                             liaison.createObject(u, c);
+                            
+                            this.setIdengagement(engagement.getId());
                         }
                     }
                 }
