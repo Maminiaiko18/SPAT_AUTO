@@ -130,6 +130,10 @@ import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.Utilitaire;
 import facture.tr.Traite;
+import facture.GestionProvision;
+import user.*;
+import bean.*;
+import javax.servlet.http.HttpSession;
 /**
  *
  * @author Manda
@@ -1582,7 +1586,7 @@ public class EtatPaieServlet extends HttpServlet {
                     " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
             FactureClientDetails[] liste = mere[0].getListeDetails();
-            facture.setNomTable("factureClientValide");
+            facture.setNomTable("FACTURECLIENTVALIDEImp");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
 
@@ -3387,9 +3391,25 @@ public class EtatPaieServlet extends HttpServlet {
             EtatProvision ep = new EtatProvision();
             EtatProvision epv = new EtatProvision();
             FactureClient prov = new FactureClient();
+            Map param = new HashMap();
             String id = request.getParameter("id");
             EtatProvision etaProv = new EtatProvision();
             etaProv.setNomTable("etat_provisionlib");
+            UserEJB u = (UserEJB) request.getSession().getValue("u");
+            String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
+
+            GestionProvision[] gestion = (GestionProvision[]) CGenUtil.rechercher( new GestionProvision(), null, null, c," and idprovision = '" + id + "'");
+            if(gestion.length > 0){
+                param.put("identification", gestion[0].getIdentification());
+            }else{
+                GestionProvision temp = new GestionProvision();
+                temp.setIdProvision(id);
+                temp.setDaty(Utilitaire.dateDuJourSql());
+                temp.setIdentification(temp.calculerIndentification(c));
+                temp = (GestionProvision)temp.createObject(idUser, c);
+                param.put("identification", temp.getIdentification());
+            }
+
             EtatProvision[] result1 = (EtatProvision[]) CGenUtil.rechercher(etaProv, null, null, c,
                     " and idfacture = '" + id + "'");
             if (result1.length != 0) {
@@ -3416,14 +3436,14 @@ public class EtatPaieServlet extends HttpServlet {
                 prov = result3[0];
             }
 
-            Map param = new HashMap();
+            
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
             String titre = "GESTION DE PROVISION";
             if (result3[0].getIdcategorie() != null
                     && result3[0].getIdcategorie().compareTo(Constante.idCategorieFCDefinitive) == 0) {
                 titre = "PIECE DE CAISSE";
             }
-            param.put("identification", ep.getNumpiece());
+            //param.put("identification", ep.getNumpiece());
             param.put("titre", titre);
             if (factDef.length != 0) {
                 param.put("date", factDef[0].getDaty());

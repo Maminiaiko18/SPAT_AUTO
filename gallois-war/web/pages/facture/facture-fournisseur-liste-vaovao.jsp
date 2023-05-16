@@ -26,7 +26,7 @@
         String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib"};
         String listeInt[] = {"daty","date_echeance","exercice"};
 
-        String libEntete[] = {"id", "daty", "tierslib", "numeroop", "numOP", "code", "idbc", "projetlib", "code_etablissementlib", "naturelib", "designation", "exercice", "date_echeance", "montant", "tva", "montantTVA", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib","valcaisserefpmt","numpiecerefpmt","dateeffetrefpmt","numchequerefpmt","debitrefpmt"};
+       String libEntete[] = { "id", "daty", "code", "tierslib", "montant", "tva", "montantTVA", "montantTTCvrai", "numeroop", "datefacture", "designation", "numBed", "projetlib", "code_etablissementlib", /*"remarque",*/ "naturelib", "modepaiement", "numOP", "numBc", "exercice", "date_echeance", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib", "valcaisserefpmt", "numpiecerefpmt", "dateeffetrefpmt", "numchequerefpmt", "libellerefpmt", "debitrefpmt"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -121,15 +121,15 @@
             <input type="hidden" name="classe" id="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "?but=treso/journalcaisse-fiche.jsp"};
-            String colonneLien[] = {"id","idrefpmt"};
-            String[] urlLienMultiple = {"id","idrefpmt"};
-            String[] urlLienAffiche = {"id","id"};
+            String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "?but=treso/journalcaisse-fiche.jsp","?but=stock/bc/asBonDeCommande-fiche.jsp"};
+            String colonneLien[] = {"id","idrefpmt","numBc"};
+            String[] urlLienMultiple = {"id","idrefpmt","numBc"};
+            String[] urlLienAffiche = {"id","id","idbc"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
 
 
-            String libEnteteAffiche[] = {"id","Date","Fournisseur", "N° Facture","Numero OP","Reference/Code", "Bon de Commande", "Projet", "Code direction", "Nature","Note explicative","exercice", "date echeance", "Montant HT", "TVA", "Montant TVA", "montant TTC", "montant Avoir", "Net à payer", "Montant payé","Reste à payer","Etat","Caisse","Num Piece","Date Effet","Num cheque","Sortie"};
+            String libEnteteAffiche[] = { "id", "Date", "Reference/Code", "Fournisseur", "Montant HT", "TVA", "Montant TVA", "montant TTC", "N° Facture", "Date Facture", "Note explicative", "BED", "Projet", "Code direction", /*"Num fiche Suivi Budgetaire",*/ "Nature", "Paiement", "Numero OP", "Bon de Commande", "exercice", "date echeance", "montant Avoir", "Net à payer", "Montant payé", "Reste à payer", "Etat", "Caisse", "Num Piece", "Date Effet", "Num cheque", "libelle", "Sortie"};
 
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
