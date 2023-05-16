@@ -973,8 +973,27 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
         }
         this.checkModePaiement();
+        this.verifyTypeCheque(c);
 
         return super.createObject(u, c);
+    }
+
+    public void verifyTypeCheque(Connection c) throws Exception{
+        if(this.getIdplacement()!=null){
+            FactureClient[] factures = this.findFactureClient(c);
+            if(factures != null){
+                if(factures[0].getType()!=null){
+                    if(factures[0].getType().compareToIgnoreCase(Constante.typeFCAuComptant)==0)
+                    {
+                        if(this.getIdTypeCheque().compareToIgnoreCase(Constante.typeChequeAuComptant)!=0) throw new Exception("Ce paiement doit etre au comptant.");
+                    }
+                    else if(factures[0].getType().compareToIgnoreCase(Constante.typeFCAcredit)==0)
+                    {
+                        if(this.getIdTypeCheque().compareToIgnoreCase(Constante.typeACredit)!=0) throw new Exception("Ce paiement doit etre a credit.");
+                    }
+                }
+            }
+        }        
     }
 
     public void checkModePaiement() throws Exception{

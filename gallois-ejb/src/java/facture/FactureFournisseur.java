@@ -44,9 +44,46 @@ public class FactureFournisseur extends FactureClient {
     private String bonprovisoire, num;
     private String idbordereau, numBordereau;
     private String idrefpmt,valcaisserefpmt,numpiecerefpmt,numchequerefpmt,libellerefpmt;
-    Date dateeffetrefpmt;
-    double debitrefpmt;
+    private Date dateeffetrefpmt;
+    private double debitrefpmt;
+    private Date dateFacture;
+    private String numBc, numBed;
+    private String modepaiement;
 
+	public String getModepaiement() {
+		return this.modepaiement;
+	}
+
+	public void setModepaiement(String modepaiement) {
+		this.modepaiement = modepaiement;
+	}
+
+
+    public Date getDateFacture() {
+        return dateFacture;
+    }
+
+    public void setDateFacture(Date dateFacture) {
+        this.dateFacture = dateFacture;
+    }
+
+    public String getNumBc() {
+        return numBc;
+    }
+
+    public void setNumBc(String numBc) {
+        this.numBc = numBc;
+    }
+
+    public String getNumBed() {
+        return numBed;
+    }
+
+    public void setNumBed(String numBed) {
+        this.numBed = numBed;
+    }
+    
+    
     public String getIdrefpmt() {
         return idrefpmt;
     }
