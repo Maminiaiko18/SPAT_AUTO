@@ -946,7 +946,7 @@ public class OrdonnerPayement extends ClassEtat {
     public void controlerDoublon(Connection c) throws Exception{
         String [] idFacture = this.getDed_Id().split(";");
         for(int i = 0 ; i < idFacture.length ; i++){
-            OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+idFacture[i]+"%' and id!='"+this.getId()+"'");
+            OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+idFacture[i]+"%' and id!='"+this.getId()+"' and etat!=0");
             if(ordonnerPayment.length>0){
                 throw new Exception("OP deja saisi pour la facture : "+idFacture[i]);
             }
