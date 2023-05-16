@@ -15,11 +15,11 @@
         BonDeLivraisonFille[] filles = (BonDeLivraisonFille[]) CGenUtil.rechercher(fille, null, null, idbl);
         double sommeHT = AdminGen.calculSommeDouble(filles, "montantHT");
         double sommeTVA = AdminGen.calculSommeDouble(filles, "montanttva");
-        double sommeTTC = AdminGen.calculSommeDouble(filles, "montanttc");
+        double sommeTTC = sommeHT + sommeTVA;
 %>
             <div class="box">
                 <div class="box-title with-border">
-                    <h1 class="box-title">Détails</h1>
+                    <h1 class="box-title">Dï¿½tails</h1>
                 </div>
                 <div class="box-body no padding">
                     <table class="table table-bordered">

@@ -2509,7 +2509,21 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("tp", clientcat[0].getTp());
             param.put("pdaty3", clientcat[0].getDtquit());
             param.put("pdaty2", clientcat[0].getDttp());
+            double hTEuro = fc.getMontantHTEuro();
+            double tvaEuro = fc.getMontantTVAEuro();
+            double ttcEuro = hTEuro + tvaEuro;
+            double hTDollar = fc.getMontantHTVADollar();
+            double tvaDollar = fc.getMontantTVADollar();
+            double ttcDollar = fc.getMontantTTCDollar();
+                param.put("htdollar", hTDollar);
+                param.put("dollartva", tvaDollar);
+                param.put("dollarttc", ttcDollar);
+                param.put("hteuro", hTEuro);
+                param.put("tvaeuro", tvaEuro);
+                param.put("ttcEuro", ttcEuro);
+                
             setNomJasper("facture-client-avoir");
+            
 
             // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             // setNomJasper("facture_client2 - Copie");
