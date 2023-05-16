@@ -47,7 +47,7 @@ public class FactureFournisseur extends FactureClient {
     private Date dateeffetrefpmt;
     private double debitrefpmt;
     private Date dateFacture;
-    private String numBc, numBed, paimentLib;
+    private String numBc, numBed, paiementLib;
 
     public Date getDateFacture() {
         return dateFacture;
@@ -73,12 +73,12 @@ public class FactureFournisseur extends FactureClient {
         this.numBed = numBed;
     }
 
-    public String getPaimentLib() {
-        return paimentLib;
+    public String getPaiementLib() {
+        return paiementLib;
     }
 
-    public void setPaimentLib(String paimentLib) {
-        this.paimentLib = paimentLib;
+    public void setPaiementLib(String paiementLib) {
+        this.paiementLib = paiementLib;
     }
     
     
