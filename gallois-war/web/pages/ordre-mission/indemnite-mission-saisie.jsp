@@ -21,7 +21,7 @@
     pi.getFormu().getChamp("fraisforfaitaire").setLibelle("Frais forfaitaire");
     //Variables de navigation
     String classe = "ordremission.IndemniteMission";
-    String butApresPost = "ordre-mission/indemnite-mission-saisie.jsp";
+    String butApresPost = "ordre-mission/indemnite-mission-fiche.jsp";
     String nomTable = "indemnite_mission";
     //Generer les affichages
     pi.preparerDataFormu();

@@ -29,6 +29,7 @@
     pc.setTitre("Fiche d'un indemnité de mission ");
     String lien = (String) session.getValue("lien");
     String pageModif = "ordre-mission/indemnite-mission-modif.jsp";
+    String pageFiche = "ordre-mission/indemnite-mission-fiche.jsp";
     String classe = "ordremission.IndemniteMission";
 %>
 <div class="content-wrapper">
@@ -46,7 +47,10 @@
                         %>
                         <br/>
                         <div class="box-footer">
-                            <a class="btn btn-warning pull-left"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin-right: 10px">Modifier</a>
+                            <a class="btn btn-warning"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin-right: 10px">Modifier</a>
+                            <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=<%=pageFiche%>&classe=<%=classe %>" style="margin-right: 10px">Viser</a>
+                            <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&id=" + request.getParameter("id")%>&bute=<%=pageFiche%>&classe=<%=classe %>" style="margin-right: 10px">Annuler Visa</a>
+                            
                         </div>
                         <br/>
 
