@@ -23,7 +23,7 @@
     pi.getFormu().getChamp("idindemnitemission").setAutre("readonly");
     pi.getFormu().getChamp("idmotifvoyage").setPageAppel("choix/motif-voyage-choix.jsp");
     pi.getFormu().getChamp("idmotifvoyage").setAutre("readonly");
-    pi.getFormu().getChamp("idtiers").setPageAppel("choix/tiersChoix.jsp");
+    pi.getFormu().getChamp("idtiers").setPageAppel("choix/info-personnel-global-choix.jsp","idtiers;idtiers;idtierslibelle");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
     String[]valeurChampestForfaitaire = {"1", "-1"};
     String[]afficheChampestForfaitaire = {"oui", "non"};
