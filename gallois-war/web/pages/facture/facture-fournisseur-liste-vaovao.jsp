@@ -26,7 +26,7 @@
         String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib"};
         String listeInt[] = {"daty","date_echeance","exercice"};
 
-       String libEntete[] = { "id", "daty", "code", "tierslib", "montant", "tva", "montantTVA", "montantTTCvrai", "numeroop", "datefacture", "designation", "numBed", "projetlib", "code_etablissementlib", /*"remarque",*/ "naturelib", "paiementLib ", "numOP", "numBc", "exercice", "date_echeance", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib", "valcaisserefpmt", "numpiecerefpmt", "dateeffetrefpmt", "numchequerefpmt", "libellerefpmt", "debitrefpmt"};
+       String libEntete[] = { "id", "daty", "code", "tierslib", "montant", "tva", "montantTVA", "montantTTCvrai", "numeroop", "datefacture", "designation", "numBed", "projetlib", "code_etablissementlib", /*"remarque",*/ "naturelib", "modepaiement", "numOP", "numBc", "exercice", "date_echeance", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib", "valcaisserefpmt", "numpiecerefpmt", "dateeffetrefpmt", "numchequerefpmt", "libellerefpmt", "debitrefpmt"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
