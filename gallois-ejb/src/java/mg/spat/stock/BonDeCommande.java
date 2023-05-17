@@ -14,6 +14,7 @@ import static bean.ClassMere.getNomClasseFille;
 import bean.ValidationException;
 import facture.FactureFournisseur;
 import facture.FactureFournisseurDetails;
+import facture.LiaisonEngagement;
 import lignecredit.LigneCredit;
 
 import java.sql.Connection;
@@ -44,6 +45,7 @@ public class BonDeCommande extends ClassEtat {
     private double remise, montantRemise, montantHTSansRemise;
     private String idengagement, idengagementlib, code_etablib;
     private double montantreste;
+    private String idfournisseur, idprojet, codeetablissement;
 
     public String getCode_etablib() {
         return code_etablib;
@@ -399,6 +401,30 @@ public class BonDeCommande extends ClassEtat {
         this.montantreste = montantreste;
     }
 
+    public String getIdfournisseur() {
+        return idfournisseur;
+    }
+
+    public void setIdfournisseur(String idfournisseur) {
+        this.idfournisseur = idfournisseur;
+    }
+
+    public String getIdprojet() {
+        return idprojet;
+    }
+
+    public void setIdprojet(String idprojet) {
+        this.idprojet = idprojet;
+    }
+
+    public String getCodeetablissement() {
+        return codeetablissement;
+    }
+
+    public void setCodeetablissement(String codeetablissement) {
+        this.codeetablissement = codeetablissement;
+    }
+
     public static String getSequence() throws Exception {
         try {
             return String.valueOf(Utilitaire.getMaxSeq("get_seqbccommande"));
@@ -544,7 +570,7 @@ public class BonDeCommande extends ClassEtat {
     public Engagement getEngagement() throws Exception {
         Engagement retour = new Engagement(this.getNumbc(), this.getCode_etab() , this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, this.getDaty());
         retour.setTiers(this.getFournisseur());
-        retour.setAvecFacture(1);
+        retour.setAvecFacture(0);
         return retour;
     }
     
@@ -554,17 +580,17 @@ public class BonDeCommande extends ClassEtat {
         if(lc==null)throw new Exception("Budget non trouvé");
         
         BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
-        LiaisonIntraTable liaison = new LiaisonIntraTable();
-        liaison.setNomTable("liaisonengagement");
+        this.setMontant(bc.getMontant());
+        LiaisonEngagement liaison = new LiaisonEngagement();
 
         if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
-            this.setMontant(bc.getMontant());
-            Engagement e = this.insertEngagementRetour(u,c);
+            this.insertEngagement(u,c);
             this.updateToTableWithHisto(u, c);
-            liaison.setId1(e.getId());
+            liaison.setId1(this.getIdengagement());
             liaison.setId2(this.getId());
             liaison.setMontant(bc.getMontant());
             liaison.createObject(u, c);
+            liaison.validerObject(u, c);
         }
         else{
             Engagement eng = findEngagement("liaisonEngagementBCFF", "idengagement", c);
@@ -576,6 +602,7 @@ public class BonDeCommande extends ClassEtat {
                 liaison.setId2(this.getId());
                 liaison.setMontant(bc.getMontant());
                 liaison.createObject(u, c);
+                liaison.validerObject(u, c);
             }
         }
         this.setNomTable("as_bondecommande");
@@ -592,54 +619,66 @@ public class BonDeCommande extends ClassEtat {
             LigneCredit lc=this.checkBudget(c);
             if(lc==null)throw new Exception("Budget non trouvé");
             
-            LiaisonIntraTable liaison1 = new LiaisonIntraTable();
-            liaison1.setNomTable("liaisonengagement");
-
-            if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
-                BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
-                this.setMontant(bc.getMontant());
-                Engagement e = this.insertEngagementRetour(u,c);
-                this.updateToTableWithHisto(u, c);
-                liaison1.setId1(e.getId());
-                liaison1.setId2(this.getId());
-                liaison1.setMontant(bc.getMontant());
-                liaison1.createObject(u, c);
-            }
-            else{
+            LiaisonEngagement liaison1 = new LiaisonEngagement();
+            
+            if(this.getIdengagement() != null){
                 Engagement eng = findEngagement("liaisonEngagementBCFF", "idengagement", c);
-                if(eng.getMontantreste() < this.getMontant()){
-                    double diff = this.getMontant() - eng.getMontantreste();
-                    Engagement e = new Engagement();
-                    e.setAnnee(Utilitaire.getAnnee(this.getDaty()));
-                    e.setDaty(this.getDaty());
+                BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
+                if(eng.getMontantreste() < bc.getMontant() && eng.getMontantreste() > 0){
+                    double diff = bc.getMontant() - eng.getMontantreste();
+                    Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), diff, Utilitaire.getAnnee(bc.getDaty()), bc.getDaty(), bc.getIdfournisseur(), 0);
                     e.construirePK(c);
-                    e.setMontant(diff);
                     if (lc != null) {
                         e.setIdLC(lc.getTuppleID());
                     }
                     e.createObject(u, c);
                     BonDeCommandeFille fille = new BonDeCommandeFille();
                     fille.setMontant(diff);
-                    fille.setRemarque(this.getRemarque());
+                    fille.setRemarque(bc.getRemarque());
                     EngagementFille engFille = fille.createEngagementFille(e.getTuppleID());
                     engFille.construirePK(c);
                     engFille.insertToTableWithHisto(u, c);
 
                     e.validerObject(u, c);
-
-                    this.setIdengagement(e.getTuppleID());
                     
                     liaison1.setId1(eng.getIdengagement());
                     liaison1.setId2(this.getId());
                     liaison1.setMontant(eng.getMontantreste());
                     liaison1.createObject(u, c);
+                    liaison1.validerObject(u, c);
+
+                    this.setIdengagement(e.getTuppleID());
                     
-                    LiaisonIntraTable liaison2 = new LiaisonIntraTable();
-                    liaison2.setNomTable("liaisonengagement");
+                    LiaisonEngagement liaison2 = new LiaisonEngagement();
                     liaison2.setId1(e.getId());
                     liaison2.setId2(this.getId());
                     liaison2.setMontant(diff);
                     liaison2.createObject(u, c);
+                    liaison2.validerObject(u, c);
+                }
+                else{
+                    Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), bc.getMontant(), Utilitaire.getAnnee(bc.getDaty()), bc.getDaty(), bc.getIdfournisseur(), 0);
+                    e.construirePK(c);
+                    if (lc != null) {
+                        e.setIdLC(lc.getTuppleID());
+                    }
+                    e.createObject(u, c);
+                    BonDeCommandeFille fille = new BonDeCommandeFille();
+                    fille.setMontant(bc.getMontant());
+                    fille.setRemarque(bc.getRemarque());
+                    EngagementFille engFille = fille.createEngagementFille(e.getTuppleID());
+                    engFille.construirePK(c);
+                    engFille.insertToTableWithHisto(u, c);
+
+                    e.validerObject(u, c);
+                    
+                    liaison1.setId1(e.getTuppleID());
+                    liaison1.setId2(this.getId());
+                    liaison1.setMontant(eng.getMontantreste());
+                    liaison1.createObject(u, c);
+                    liaison1.validerObject(u, c);
+
+                    this.setIdengagement(e.getTuppleID());
                 }
             }
             this.setNomTable("as_bondecommande");
@@ -679,7 +718,7 @@ public class BonDeCommande extends ClassEtat {
         return this;
     }
     
-    public Engagement insertEngagementRetour(String u, Connection c) throws Exception {
+    public void insertEngagement(String u, Connection c) throws Exception {
         int verif = 0;
         Engagement engagement = this.getEngagement();
         
@@ -730,12 +769,6 @@ public class BonDeCommande extends ClassEtat {
                 c.close();
             }
         }
-        
-        return engagement;
-    }
-    
-    public void insertEngagement(String u, Connection c) throws Exception {
-        insertEngagementRetour(u, c);
     }
 
     public void insertEngagementSansControleMontant(String u, Connection c) throws Exception {
