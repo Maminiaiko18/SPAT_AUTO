@@ -129,7 +129,11 @@ import org.apache.poi.ss.usermodel.Sheet;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.Utilitaire;
-
+import facture.tr.Traite;
+import facture.GestionProvision;
+import user.*;
+import bean.*;
+import javax.servlet.http.HttpSession;
 /**
  *
  * @author Manda
@@ -1012,19 +1016,6 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             JournalCaisse jc = new JournalCaisse();
             boolean prov = false;
-            jc.setId(request.getParameter("id"));
-            jc.setNomTable("JOURNALCAISSELIBCOMPLET");
-            JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null,
-                    " order by NUMPIECE ASC  ");
-
-            PayementFacture[] tabFact = null;
-            String idFacture = request.getParameter("idFacture");
-
-            if (tabJournal.length > 0) {
-                // requete = "select * from factureclientmsum_lib where id in
-                // ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
-                tabFact = jc.getPayementFactureTous(null);
-            }
             Map param = new HashMap();
             param.put("datyJ", Utilitaire.dateDuJour());
             ArrayList<PayementFacture> arrList = new ArrayList<PayementFacture>();
@@ -1035,6 +1026,36 @@ public class EtatPaieServlet extends HttpServlet {
             String titre = "PIECE DE CAISSE";
             String soustitre = "";
             String nomJasper = "piece_de_caisse";
+            String pdfName = "piece_de_caisse";
+            
+            jc.setId(request.getParameter("id"));
+            jc.setNomTable("JOURNALCAISSELIBCOMPLET");
+            JournalCaisse[] tabJournal = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null,
+                    " order by NUMPIECE ASC  ");
+
+            if(tabJournal[0].getCredit() > 0 && tabJournal[0].getEtatversement() == -2){
+                Traite traite = new Traite();
+                traite.setId(tabJournal[0].getIdtraite());
+                JournalCaisse temp = traite.getPieceTraite(null);
+                jc.setId(temp.getId());
+                if(tabJournal[0].getNumPiece()==null){
+                    String numpiece = tabJournal[0].calculerNumeroRecuTraite(null);
+                    tabJournal[0].setNumPiece(numpiece);
+                    tabJournal[0].setNomTable("journalcaisse");
+                    tabJournal[0].upDateToTable();
+                }                
+                titre = "RECU AVIS DE CREDIT PAR TRAITE";
+            }
+
+            PayementFacture[] tabFact = null;
+            String idFacture = request.getParameter("idFacture");
+
+            if (tabJournal.length > 0) {
+                // requete = "select * from factureclientmsum_lib where id in
+                // ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
+                tabFact = jc.getPayementFactureTous(null);
+            }
+
 
             for (int i = 0; i < tabFact.length; i++) {
                 if (tabFact[i].getTypefacture().contains("FF")) {
@@ -1156,10 +1177,14 @@ public class EtatPaieServlet extends HttpServlet {
             {
                 soustitre = "PIECE DE CAISSE";
                 titre = "DEDUCTION SUR AVOIR";
+                nomJasper = "deduction_avoir";
+                pdfName = "deduction avoir";
+
             }
 
             if(prov == true && cptDef > 0){
                 titre = "SUIVI PROVISION";
+                pdfName = "Suivi provision";
                 nomJasper = "gestion_provision_caisse";
                 param.put("datyPiece", Utilitaire.dateDuJourSql());
             }
@@ -1174,7 +1199,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("heure", heure);
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper(nomJasper);
-            UtilitaireImpression.imprimer(request, response, "piece_de_caisse", param, new ArrayList(), getReportPath(),
+            UtilitaireImpression.imprimer(request, response, pdfName, param, new ArrayList(), getReportPath(),
                     rt);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1561,7 +1586,7 @@ public class EtatPaieServlet extends HttpServlet {
                     " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
             FactureClientDetails[] liste = mere[0].getListeDetails();
-            facture.setNomTable("factureClientValide");
+            facture.setNomTable("FACTURECLIENTVALIDEImp");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
 
@@ -2562,6 +2587,7 @@ public class EtatPaieServlet extends HttpServlet {
             facture.FactureFournisseur facture = new facture.FactureFournisseur();
             facture.setEstDDPMICTSL(null);
             facture.setNomTable("FACTFOURN_MSUM_LIB");
+            String pdfName = "facture-fournisseur";
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
 
             facture.FactureFournisseur[] mere = (facture.FactureFournisseur[]) CGenUtil.rechercher(facture, null, null,
@@ -2692,8 +2718,10 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("codePr", mere[0].getProjetlib());
                 param.put("codeEtb", mere[0].getCode_etablissementlib());
                 setNomJasper("bon_provisoir");
+                pdfName = "Bon Provisoire";
             } else {
                 setNomJasper("facture-client-sans-prevision");
+                pdfName = "facture client sans prevision";
             }
             /**
              * *********************************************************************************************
@@ -2701,7 +2729,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             // setNomJasper("facture_client2 - Copie");
-            UtilitaireImpression.imprimer(request, response, "facture-fournisseur", param, null, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, pdfName, param, null, getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -3363,9 +3391,13 @@ public class EtatPaieServlet extends HttpServlet {
             EtatProvision ep = new EtatProvision();
             EtatProvision epv = new EtatProvision();
             FactureClient prov = new FactureClient();
+            Map param = new HashMap();
             String id = request.getParameter("id");
             EtatProvision etaProv = new EtatProvision();
             etaProv.setNomTable("etat_provisionlib");
+            UserEJB u = (UserEJB) request.getSession().getValue("u");
+            String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
+
             EtatProvision[] result1 = (EtatProvision[]) CGenUtil.rechercher(etaProv, null, null, c,
                     " and idfacture = '" + id + "'");
             if (result1.length != 0) {
@@ -3381,7 +3413,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             FactureClient fc = new FactureClient();
-            fc.setNomTable("PMENTFACTHORSPROVAVPROVCPLT2");
+            fc.setNomTable("PMENTFACTHORSPROVAVPROVCPLT3");
             FactureClient[] factDef = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c,
                     " and idprovision = '" + id + "'");
 
@@ -3391,19 +3423,33 @@ public class EtatPaieServlet extends HttpServlet {
             if (result3.length != 0) {
                 prov = result3[0];
             }
-
-            Map param = new HashMap();
+            
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
             String titre = "GESTION DE PROVISION";
             if (result3[0].getIdcategorie() != null
                     && result3[0].getIdcategorie().compareTo(Constante.idCategorieFCDefinitive) == 0) {
                 titre = "PIECE DE CAISSE";
             }
-            param.put("identification", ep.getNumpiece());
+            //param.put("identification", ep.getNumpiece());
             param.put("titre", titre);
             if (factDef.length != 0) {
                 param.put("date", factDef[0].getDaty());
+                if(factDef[0].getEtat()==11){
+                    GestionProvision[] gestion = (GestionProvision[]) CGenUtil.rechercher( new GestionProvision(), null, null, c," and idprovision = '" + id + "'");
+                    if(gestion.length > 0){
+                        param.put("identification", gestion[0].getIdentification());
+                    }else{
+                        GestionProvision temp = new GestionProvision();
+                        temp.setIdProvision(id);
+                        temp.setDaty(Utilitaire.dateDuJourSql());
+                        temp.setIdentification(temp.calculerIndentification(c));
+                        temp = (GestionProvision)temp.createObject(idUser, c);
+                        param.put("identification", temp.getIdentification());
+                    }
+                }
             }
+
+
             param.put("client", ep.getTierslib());
             param.put("navire", ep.getIdnavirelib());
             param.put("mode", ep.getIdmodelib());

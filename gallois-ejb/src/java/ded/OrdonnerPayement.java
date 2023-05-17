@@ -499,6 +499,33 @@ public class OrdonnerPayement extends ClassEtat {
         }
     }
 
+    public OrdonnerPayement modifierEntete(String refUser, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            this.updateToTableWithHisto(refUser, c);
+
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return this;
+    }
+
     public OrdonnerPayement getOP(Connection c) throws Exception {
         int verif = 0;
         try {
@@ -919,7 +946,7 @@ public class OrdonnerPayement extends ClassEtat {
     public void controlerDoublon(Connection c) throws Exception{
         String [] idFacture = this.getDed_Id().split(";");
         for(int i = 0 ; i < idFacture.length ; i++){
-            OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+idFacture[i]+"%'");
+            OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+idFacture[i]+"%' and id!='"+this.getId()+"' and etat!=0");
             if(ordonnerPayment.length>0){
                 throw new Exception("OP deja saisi pour la facture : "+idFacture[i]);
             }

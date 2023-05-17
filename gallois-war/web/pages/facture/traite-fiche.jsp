@@ -87,6 +87,8 @@
                 <ul class="nav nav-tabs">
                     <li class="<%= map.get("fftraite-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=fftraite-liste">Factures rattach�es</a></li>
                     <li class="<%= map.get("jc-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=jc-liste">Journal caisse</a></li>
+                    <li class="<%= map.get("jc-traite-piece")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=traite-piece">Piece</a></li>
+                    <li class="<%= map.get("jc-aviscredit")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=jc-aviscredit">Paiement</a></li>
                     <li class="<%= map.get("escompte-liste")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=escompte-liste">Escomptes</a></li>
                     <li class="<%= map.get("versement")%>"><a href="<%=lien+"?but=facture/traite-fiche.jsp&id="+traite.getId()%>&tab=versement">Transfert</a></li>
                 </ul>

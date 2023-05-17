@@ -33,8 +33,8 @@
     pc.getChampByName("idTypeCheque").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);   
     pc.getChampByName("type").setVisible(false);
+    pc.getChampByName("etatversement").setVisible(false);
 
-    
     pc.getChampByName("credit").setLibelle("Entree");
     pc.getChampByName("debit").setLibelle("Sortie");
     pc.getChampByName("dateEffet").setLibelle("Date D'effet");

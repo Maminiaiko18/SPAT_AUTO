@@ -198,7 +198,7 @@
 								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
 								<subreportExpression><![CDATA["journalcaisse_subreport1.jasper"]]></subreportExpression>
 							</subreport>
-							<textField pattern="#,##0.000" isBlankWhenNull="true">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="101" height="15" uuid="a296d4ee-71d3-4c22-839c-861142c44780"/>
 								<box>
 									<bottomPen lineWidth="0.5"/>
@@ -230,7 +230,7 @@
 								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{jcaisse})]]></dataSourceExpression>
 								<subreportExpression><![CDATA["journalcaisse_subreport2.jasper"]]></subreportExpression>
 							</subreport>
-							<textField pattern="#,##0.000" isBlankWhenNull="true">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="109" height="15" uuid="de32a1e5-6243-47d6-876f-8c95904a4a83"/>
 								<box>
 									<bottomPen lineWidth="0.5"/>
@@ -263,21 +263,21 @@
 				</textElement>
 				<text><![CDATA[Arretée à la somme de]]></text>
 			</staticText>
-			<textField pattern="#,##0.000" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="146" y="0" width="116" height="20" uuid="b2e2f078-dca8-44e0-84dd-aa01be8e6f37"/>
 				<textElement verticalAlignment="Top">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalmontant}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.000" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="296" y="0" width="100" height="20" uuid="cf578b90-262f-43f6-86e0-5e800c7db7fa"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalcredit}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.000" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="433" y="0" width="100" height="20" uuid="5c967209-2f32-4e8e-9fa9-bf7758e72e8d"/>
 				<textElement>
 					<font size="12" isBold="true"/>

@@ -223,7 +223,7 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell height="16" rowSpan="1">
-							<textField pattern="#,##0.000" isBlankWhenNull="true">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="138" height="16" uuid="933bff53-2ecb-4aac-978c-a863c8e159d4"/>
 								<textElement textAlignment="Right">
 									<font size="12" isBold="true"/>

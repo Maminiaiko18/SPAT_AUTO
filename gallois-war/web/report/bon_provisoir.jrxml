@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_provisoir" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5df9011-35af-48b5-bccd-75233c87301c">
 	<property name="ireport.zoom" value="2.357947691000002"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="543"/>
+	<property name="ireport.x" value="105"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="client" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
@@ -38,7 +38,7 @@
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[DEMANDE D' ESPÈCE]]></text>
+				<text><![CDATA[DEMANDE D' ESPÈCE OU DE CHÈQUE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="66" width="49" height="20" uuid="d2571bdf-febd-4644-9297-24bf2466af80"/>
@@ -199,7 +199,7 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[ Montant obtenu:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="90" width="122" height="35" uuid="db295db9-a095-4972-a7b1-9ab3cdcc236f"/>
+				<reportElement x="100" y="70" width="122" height="55" uuid="db295db9-a095-4972-a7b1-9ab3cdcc236f"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
@@ -210,7 +210,7 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[Reçu conforme]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="20" width="147" height="20" uuid="b9581865-d1cf-450d-9ed6-6cd509d77b9c"/>
+				<reportElement x="222" y="20" width="147" height="50" uuid="b9581865-d1cf-450d-9ed6-6cd509d77b9c"/>
 				<box>
 					<rightPen lineWidth="0.75"/>
 				</box>
@@ -220,17 +220,7 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[ DAF :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="40" width="147" height="20" uuid="902d6b31-7b7a-4b69-b69f-8c75f6c3bae8"/>
-				<box>
-					<rightPen lineWidth="0.75"/>
-				</box>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[ DEP/FIN :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="222" y="60" width="147" height="65" uuid="bbf0f835-49d9-46e2-b323-007ffe4d5488"/>
+				<reportElement x="222" y="70" width="147" height="55" uuid="bbf0f835-49d9-46e2-b323-007ffe4d5488"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
@@ -238,7 +228,7 @@ Direction Utilisatrice]]></text>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[ CAISSIER :]]></text>
+				<text><![CDATA[ DEP/FIN :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="369" y="20" width="101" height="20" uuid="ad6331b0-addf-49dc-b4f2-8de8fb80754a"/>
@@ -263,17 +253,6 @@ Direction Utilisatrice]]></text>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[ ou à payer]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="100" y="70" width="122" height="20" uuid="3a269c1a-60a4-4d8f-9b1f-e8cfefe18c65"/>
-				<box>
-					<bottomPen lineWidth="0.75"/>
-					<rightPen lineWidth="0.75"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[(*)]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
 				<reportElement x="460" y="0" width="114" height="20" uuid="b70eba01-7ff4-42a6-a00b-9cb44e46296d"/>

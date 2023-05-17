@@ -17,6 +17,7 @@
 <%@ page import="user.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="bean.*" %>
+<%@ page import="ded.OrdonnerPayement" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="affichage.*" %>
 
@@ -214,11 +215,21 @@
 
 
             if (acte.compareToIgnoreCase("enteteJournal") == 0) {
-                    Page p = new Page(new JournalCaisse(), request);
+                    PageInsert p = new PageInsert(new JournalCaisse(), request);
                     JournalCaisse journal = (JournalCaisse)p.getObjectAvecValeur();
                     journal.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
                 %>
                     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= bute %>&id=<%= journal.getId() %>");</script>
+                <%
+            }
+
+
+            if (acte.compareToIgnoreCase("enteteOP") == 0) {
+                    PageInsert p = new PageInsert(new OrdonnerPayement(), request);
+                    OrdonnerPayement op = (OrdonnerPayement)p.getObjectAvecValeur();
+                    op.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
+                %>
+                    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%= bute %>&id=<%= op.getId() %>");</script>
                 <%
             }
 

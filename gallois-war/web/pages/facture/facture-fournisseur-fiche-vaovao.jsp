@@ -27,10 +27,15 @@
     try {
         UserEJB u = (user.UserEJB) session.getValue("u");
         FactureFournisseur e = new FactureFournisseur();
-        e.setNomTable("factfourn_msum_lib_fiche");
+        e.setNomTable("factfourn_msum_lib_ficheB");
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE FOURNISSEUR");
         pc.getChampByName("deviseMere").setLibelle("Devise");
+        pc.getChampByName("idbordereau").setLibelle("BED");
+        pc.getChampByName("numBordereau").setLibelle("Numero BED");
+        String lien = (String)session.getValue("lien");
+        e = (FactureFournisseur) pc.getBase();
+        pc.getChampByName("idbordereau").setLien(lien+"?but=ded/bordereauxFF-fiche.jsp", "id=");
 
         //pc.getChampByName("iduser").setVisible(false);
         //pc.getChampByName("type").setVisible(false);
@@ -65,7 +70,6 @@
         pc.getChampByName("typelib").setLibelle("Type");
        pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoire");
         pc.getChampByName("projetlib").setLibelle("Projet");
-        pc.getChampByName("idEngagementlib").setLibelle("Engagement");
         pc.getChampByName("dateRegul").setLibelle("Date de régul");
 //        pc.getChampByName("numeroop").setVisible(false);
         pc.getChampByName("code_etablissementlib").setLibelle("Code direction");
@@ -78,8 +82,9 @@
        // pc.setOrdre(attribus);
 
         pc.getChampByName("code").setLibelle("Numero Compta");
-        e = (FactureFournisseur) pc.getBase();
         pc.getChampByName("IdProvision").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
+        pc.getChampByName("idProvisionlib").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
+
         String categorie = "";
         if (e.getIdcategorie() != null) {
             categorie = e.getIdcategorie();
@@ -100,7 +105,11 @@
         //pc.getChampByName("deviseMere").setLibelle("Devise");
 
         pc.getChampByName("designation").setLibelle("Note explicative");
-        //pc.getChampByName("idengagement").setVisible(false);
+        pc.getChampByName("Idbc").setLibelle("bon commande"); 
+        pc.getChampByName("IdBL").setLibelle("bon livraison"); 
+        pc.getChampByName("idEngagement").setVisible(false);
+        pc.getChampByName("idEngagementlib").setLien((String) session.getValue("lien") + "?but=depense/engagement-fiche.jsp&id=" + e.getIdengagement(), "");
+        pc.getChampByName("idEngagementlib").setLibelle("Engagement");
         pc.getChampByName("idbc").setLien((String) session.getValue("lien") + "?but=stock/bc/asBonDeCommande-fiche.jsp&id=" + e.getIdbc(), "");
         pc.getChampByName("idbl").setLien((String) session.getValue("lien") + "?but=stock/bl/bondelivraison-fiche.jsp&id=" + e.getIdBL(), "");
 
@@ -114,7 +123,6 @@
         String classefille = "facture.FactureFournisseurDetails";
         String modifPage = "facture/facture-fournisseur-modif-vaovao.jsp";
 
-        String lien = (String) session.getValue("lien");
         String redirect = lien + "?but=" + modifPage + "&id=" + request.getParameter("id");
         //if(e.getEtat() < ConstanteEtat.getEtatValider()) out.println("<script language='JavaScript'> document.location.replace('"+redirect+"'); </script>");
 
@@ -231,6 +239,9 @@
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=1"%>" style="margin-right: 10px">Sortie banque</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=2"%>" style="margin-right: 10px">Sortie caisse</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-saisie.jsp&ded_id=" + id%>" style="margin-right: 10px">Editer OP</a>
+                       
+                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&acte=editerBED&id=" + request.getParameter("id")+"&bute=ded/bordereauxFF-saisie.jsp"%>" style="margin-right: 10px">Editer BED</a>
+                            
                     <hr>
                     
                     <p>

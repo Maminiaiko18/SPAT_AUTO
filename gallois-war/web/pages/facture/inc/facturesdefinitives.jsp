@@ -11,7 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     FactureClient base = new FactureClient();
-    base.setNomTable("PMENTFACTHORSPROVAVPROVCPLT");
+    base.setNomTable("PMENTFACTHORSPROVAVPROVCPLT3");
     
     String listeCrt[] = {"idProvision"};
     String listeInt[] = {};

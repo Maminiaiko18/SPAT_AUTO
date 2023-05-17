@@ -126,8 +126,10 @@ public class ServletDownloadGroupe extends HttpServlet {
                 if (colInt.compareTo("") != 0 || colInt != null) {
                     lcI = Utilitaire.split(colInt, ",");
                 }
-                if (valInt.compareTo("") != 0 || valInt != null) {
-                    lvI = Utilitaire.split(valInt, ",");
+                if(valInt != null){
+                    if (valInt.compareTo("") != 0) {
+                        lvI = Utilitaire.split(valInt, ",");
+                    }
                 }
                 ClassMAPTable o = (ClassMAPTable) arg0.getSession().getAttribute("critere");
 

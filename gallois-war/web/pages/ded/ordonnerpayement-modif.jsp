@@ -18,13 +18,13 @@
     
 
     pi.getFormu().getChamp("id").setVisible(false);
-    pi.getFormu().getChamp("ded_Id").setLibelle("N° facture");
+    pi.getFormu().getChamp("ded_Id").setLibelle("Nï¿½ facture");
     pi.getFormu().getChamp("ded_Id").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
 
     pi.getFormu().getChamp("daty").setLibelle("Date");
-    pi.getFormu().getChamp("numeroop").setLibelle("Numéro OP");
+    pi.getFormu().getChamp("numeroop").setLibelle("Numï¿½ro OP");
     pi.getFormu().getChamp("remarque").setLibelle("Motif de paiement");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("remarque").setType("textarea");
@@ -36,7 +36,7 @@
     
     affichage.Champ[] liste = new affichage.Champ[2];
     TypeObjet op = new TypeObjet();
-    op.setNomTable("MODEPAIEMENT");
+    op.setNomTable("MODEPAIEMENTBQ");
     liste[0] = new Liste("modepaiement", op, "desce", "id");
 
     TypeObjet liste2 = new TypeObjet();

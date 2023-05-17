@@ -1,7 +1,3 @@
-INSERT INTO MODEPAIEMENT
-(ID, VAL, DESCE)
-VALUES('pay8', 'Recette Caisse depense', 'Recette Caisse depense');
-
 
 
 -----------cast as number(30,2)

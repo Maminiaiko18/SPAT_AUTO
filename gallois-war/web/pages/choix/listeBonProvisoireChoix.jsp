@@ -1,6 +1,6 @@
 <%-- 
     Document   : listeBonProvisoireChoix
-    Created on : 30 déc. 2020, 20:52:34
+    Created on : 30 dï¿½c. 2020, 20:52:34
     Author     : Lenovo
 --%>
 
@@ -26,7 +26,7 @@
     pr.setChampReturn(champReturn);
 //    pr.getFormu().getChamp("id").setLibelleAffiche("ID");
 //    pr.getFormu().getChamp("nom").setLibelleAffiche("Nom");
-//    pr.getFormu().getChamp("specialisation").setLibelleAffiche("Spécialisation");
+//    pr.getFormu().getChamp("specialisation").setLibelleAffiche("Spï¿½cialisation");
 //    pr.getFormu().getChamp("daty1").setLibelleAffiche("Date Min");
 //    pr.getFormu().getChamp("daty2").setLibelleAffiche("Date Max");
 //    pr.getFormu().getChamp("adresse").setLibelleAffiche("Adresse");

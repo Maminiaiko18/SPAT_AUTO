@@ -141,7 +141,10 @@ public class AnalyseDetailBCsExcel extends HttpServlet {
        String codelib = request.getParameter("codelib");
        String projetlib = request.getParameter("projetlib");
        String daty1 = request.getParameter("daty1");
+       if(daty1.compareToIgnoreCase("null") ==0 ) daty1 = Utilitaire.dateDuJour();
        String daty2 = request.getParameter("daty2");
+       if(daty2.compareToIgnoreCase("null") ==0 ) daty2 = Utilitaire.dateDuJour();
+
        String produit = request.getParameter("produit");
        String fournisseurlib = request.getParameter("fournisseurlib");
         

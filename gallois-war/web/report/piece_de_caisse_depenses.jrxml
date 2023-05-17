@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="piece_de_caisse_depenses" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48507b75-f3ed-4992-8bc5-60c122b5167c">
 	<property name="ireport.zoom" value="1.6528925619834758"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="336"/>
 	<parameter name="libelle" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
 	<parameter name="daty" class="java.util.Date"/>
@@ -1498,14 +1498,14 @@
 	<summary>
 		<band height="174">
 			<staticText>
-				<reportElement x="0" y="1" width="105" height="76" uuid="eca040f5-55d6-4c6d-8c30-fdcc4b90ce51"/>
+				<reportElement x="0" y="1" width="122" height="105" uuid="eca040f5-55d6-4c6d-8c30-fdcc4b90ce51"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Visé par
@@ -1514,7 +1514,7 @@ ou DAF
 et DEP/FIN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="105" y="20" width="105" height="57" uuid="fb04659d-8f49-47fa-bfdf-747f22cf114f"/>
+				<reportElement x="122" y="20" width="100" height="86" uuid="fb04659d-8f49-47fa-bfdf-747f22cf114f"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -1526,7 +1526,7 @@ et DEP/FIN]]></text>
 				<text><![CDATA[Le Caissier]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="210" y="20" width="114" height="57" uuid="02c33497-8687-4f23-9246-fb135b84e5f1"/>
+				<reportElement x="222" y="20" width="119" height="86" uuid="02c33497-8687-4f23-9246-fb135b84e5f1"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -1538,7 +1538,7 @@ et DEP/FIN]]></text>
 				<text><![CDATA[Le Beneficiaire]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="324" y="20" width="231" height="57" uuid="9c39432a-5336-41a9-ad00-3af4a7483897"/>
+				<reportElement x="341" y="20" width="214" height="86" uuid="9c39432a-5336-41a9-ad00-3af4a7483897"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -1550,7 +1550,7 @@ et DEP/FIN]]></text>
 				<text><![CDATA[Observations :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="105" y="1" width="105" height="19" uuid="6f5897f9-4ff4-4bf2-b50a-ba9928824fb2"/>
+				<reportElement x="122" y="1" width="100" height="19" uuid="6f5897f9-4ff4-4bf2-b50a-ba9928824fb2"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -1562,7 +1562,7 @@ et DEP/FIN]]></text>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="210" y="1" width="114" height="19" uuid="17d08e43-847d-4755-bfcf-e0f150eeb8a2"/>
+				<reportElement x="222" y="1" width="119" height="19" uuid="17d08e43-847d-4755-bfcf-e0f150eeb8a2"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -1574,7 +1574,7 @@ et DEP/FIN]]></text>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="324" y="1" width="231" height="19" uuid="8a22da1c-dab5-4400-a765-bbede22e9d0d"/>
+				<reportElement x="341" y="1" width="214" height="19" uuid="8a22da1c-dab5-4400-a765-bbede22e9d0d"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>

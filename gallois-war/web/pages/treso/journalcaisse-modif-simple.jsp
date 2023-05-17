@@ -13,18 +13,25 @@
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     JournalCaisse jc = new JournalCaisse();
-    jc.setNomTable("JOURNALCAISSELIBCOMPLET");
+    jc.setNomTable("JOURNALCAISSE");
     PageUpdate pi = new PageUpdate(jc, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     jc =(JournalCaisse)pi.getBase();
     UserEJB u = (UserEJB) session.getAttribute("u");
-
+    String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
+    if(idUser.compareToIgnoreCase("1060")!=0 ) {
+        if(idUser.compareToIgnoreCase("1602")!=0){
+            pi.getFormu().getChamp("dateEffet").setVisible(false);
+        }
+    }
     pi.getFormu().getChamp("numcheque").setLibelle("Numero ch�que");
     pi.getFormu().getChamp("idordre").setLibelle("Ordre");
     pi.getFormu().getChamp("idordre").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("typemvt").setVisible(false);
+    pi.getFormu().getChamp("Etatversement").setVisible(false);
+
     affichage.Champ[] liste = new affichage.Champ[1];
         TypeObjet banque = new TypeObjet();
         banque.setNomTable("banque");
@@ -46,7 +53,6 @@
     pi.getFormu().getChamp("debit").setLibelle("Sorti");
 
     pi.getFormu().getChamp("id").setVisible(false);
-    pi.getFormu().getChamp("dateEffet").setVisible(false);
     pi.getFormu().getChamp("folio").setVisible(false);
     pi.getFormu().getChamp("caisse").setVisible(false);
     pi.getFormu().getChamp("numpiece").setVisible(false);
@@ -59,19 +65,10 @@
     pi.getFormu().getChamp("idordre").setVisible(false);
     pi.getFormu().getChamp("iddevise").setVisible(false);
     pi.getFormu().getChamp("idMode").setVisible(false);
-    pi.getFormu().getChamp("IDBANQUELIB").setVisible(false);
+    pi.getFormu().getChamp("Idplacementvrai").setVisible(false);
     pi.getFormu().getChamp("idtraite").setVisible(false);
-    pi.getFormu().getChamp("idcaisse").setVisible(false);
-    pi.getFormu().getChamp("valcaisse").setVisible(false);
-    pi.getFormu().getChamp("descecaisse").setVisible(false);
-    pi.getFormu().getChamp("valtypecheque").setVisible(false);
-    pi.getFormu().getChamp("descetypecheque").setVisible(false);
-    pi.getFormu().getChamp("tierslib").setVisible(false);
-    pi.getFormu().getChamp("codetiers").setVisible(false);
-    pi.getFormu().getChamp("type").setVisible(false);
-    pi.getFormu().getChamp("typelib").setVisible(false);
-    pi.getFormu().getChamp("numeroOP").setVisible(false);
-
+    pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
+    pi.getFormu().getChamp("banque").setVisible(false);
     pi.preparerDataFormu();
     
 %>

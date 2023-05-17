@@ -47,8 +47,7 @@ public class JournalCaisse extends ClassEtat {
     private String banque,type;
     private String descecaisse, idcaisse,numeroOP,idplacementvrai,bonprovisoire;
     public String codefacture;
-
-    String idtraite;
+    private String idtraite;
     int etatversement;
     String idfinaledestination, etatlib, etatversementlib;
     
@@ -100,10 +99,6 @@ public class JournalCaisse extends ClassEtat {
     public void setIdfinaledestination(String idfinaledestination) {
         this.idfinaledestination = idfinaledestination;
     }
-    
-    
-    
-    
 
     public String getType() {
         return type;
@@ -911,6 +906,12 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     }
                 }
             }else{
+
+                if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0 &&  this.getCredit() > 0){
+                    String numeroPiece = calculerNumeroPieceRecette(c);
+                    this.setNumPiece(numeroPiece);
+                }
+                
                     if (this.getIdplacement() != null) {
                     /*if (!this.getIdplacement().startsWith("FC")) {
                         Placement placement = this.findPlacement(c);
@@ -931,19 +932,6 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                         viserFacturesRattachees(refuser, c);
                         genererPaiement(c, refuser);
                     } else {
-                        // entrer caisse depense num
-                        if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0 &&  this.getCredit() > 0){
-                            this.setIdTypeCheque(Constante.typeChequeAuComptant);
-                            String numeroPiece = calculerNumeroPieceRecette(c);
-                            this.setNumPiece(numeroPiece);
-                        }
-                        
-                        //if(caisse.isBanque(c) &&  this.getCredit() > 0 ){
-                        //    this.setIdTypeCheque("TCHQ00002");
-                        //    String numeroPiece = calculerNumeroPiece(c);
-                        //    this.setNumPiece(numeroPiece);
-                        //}
-
                         //num piece pour depense simple dans la caisse depenses
                         if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0 &&  this.getDebit() > 0 ){
                             String numeroPiece = calculerNumeroPieceDepense(c);
@@ -985,8 +973,27 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
         }
         this.checkModePaiement();
+        this.verifyTypeCheque(c);
 
         return super.createObject(u, c);
+    }
+
+    public void verifyTypeCheque(Connection c) throws Exception{
+        if(this.getIdplacement()!=null){
+            FactureClient[] factures = this.findFactureClient(c);
+            if(factures != null){
+                if(factures[0].getType()!=null){
+                    if(factures[0].getType().compareToIgnoreCase(Constante.typeFCAuComptant)==0)
+                    {
+                        if(this.getIdTypeCheque().compareToIgnoreCase(Constante.typeChequeAuComptant)!=0) throw new Exception("Ce paiement doit etre au comptant.");
+                    }
+                    else if(factures[0].getType().compareToIgnoreCase(Constante.typeFCAcredit)==0)
+                    {
+                        if(this.getIdTypeCheque().compareToIgnoreCase(Constante.typeACredit)!=0) throw new Exception("Ce paiement doit etre a credit.");
+                    }
+                }
+            }
+        }        
     }
 
     public void checkModePaiement() throws Exception{
@@ -1353,10 +1360,20 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
         String annee = Utilitaire.getAnnee(dateEffetStr);
         String seq="";
-        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_vaovao where annee="+annee+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque());
+        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_dep_entree where annee="+annee;
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(7, result[0].getNumerosuivant());
         return Utilitaire.genererAnnee(dateEffetStr) + "-CD-" + seq;
+    }
+
+    public String calculerNumeroRecuTraite(Connection c) throws Exception{
+        String dateEffetStr = Utilitaire.datetostring(this.getDateEffet()) ;
+        String annee = Utilitaire.getAnnee(dateEffetStr);
+        String seq="";
+        String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM SEQ_JOURNAL_RECU_TRAITE where annee="+annee;
+        NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+        if(result.length>0) seq=Utilitaire.completerInt(5, result[0].getNumerosuivant());
+        return "REC"+seq+"/"+Utilitaire.genererAnnee(dateEffetStr);
     }
 
     

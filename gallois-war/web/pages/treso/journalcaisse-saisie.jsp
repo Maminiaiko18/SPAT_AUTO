@@ -75,11 +75,7 @@
             pi.getFormu().getChamp("Idplacementvrai").setVisible(false);
         }
 
-        boolean estCasisseDep = false;
         if (request.getParameter("caisse") != null) {
-            if(request.getParameter("caisse").compareToIgnoreCase("CAISSEDEPENSE")==0){
-                estCasisseDep = true;
-            }
             esc.setNomTable(request.getParameter("caisse"));
         } 
         
@@ -99,7 +95,6 @@
             mode.setNomTable(request.getParameter("idmode"));
         }
         liste[3] = new Liste("idmode", mode, "desce", "id");
-        if(estCasisseDep)  liste[3].setDefaultSelected(Constante.modeRecetteCaisseDepense);
 
         TypeObjet banq = new TypeObjet();
         banq.setNomTable("BANQUE");
