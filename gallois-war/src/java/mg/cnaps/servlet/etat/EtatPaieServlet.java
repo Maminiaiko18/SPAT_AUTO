@@ -3398,18 +3398,6 @@ public class EtatPaieServlet extends HttpServlet {
             UserEJB u = (UserEJB) request.getSession().getValue("u");
             String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
 
-            GestionProvision[] gestion = (GestionProvision[]) CGenUtil.rechercher( new GestionProvision(), null, null, c," and idprovision = '" + id + "'");
-            if(gestion.length > 0){
-                param.put("identification", gestion[0].getIdentification());
-            }else{
-                GestionProvision temp = new GestionProvision();
-                temp.setIdProvision(id);
-                temp.setDaty(Utilitaire.dateDuJourSql());
-                temp.setIdentification(temp.calculerIndentification(c));
-                temp = (GestionProvision)temp.createObject(idUser, c);
-                param.put("identification", temp.getIdentification());
-            }
-
             EtatProvision[] result1 = (EtatProvision[]) CGenUtil.rechercher(etaProv, null, null, c,
                     " and idfacture = '" + id + "'");
             if (result1.length != 0) {
@@ -3435,7 +3423,6 @@ public class EtatPaieServlet extends HttpServlet {
             if (result3.length != 0) {
                 prov = result3[0];
             }
-
             
             param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
             String titre = "GESTION DE PROVISION";
@@ -3447,7 +3434,22 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("titre", titre);
             if (factDef.length != 0) {
                 param.put("date", factDef[0].getDaty());
+                if(factDef[0].getEtat()==11){
+                    GestionProvision[] gestion = (GestionProvision[]) CGenUtil.rechercher( new GestionProvision(), null, null, c," and idprovision = '" + id + "'");
+                    if(gestion.length > 0){
+                        param.put("identification", gestion[0].getIdentification());
+                    }else{
+                        GestionProvision temp = new GestionProvision();
+                        temp.setIdProvision(id);
+                        temp.setDaty(Utilitaire.dateDuJourSql());
+                        temp.setIdentification(temp.calculerIndentification(c));
+                        temp = (GestionProvision)temp.createObject(idUser, c);
+                        param.put("identification", temp.getIdentification());
+                    }
+                }
             }
+
+
             param.put("client", ep.getTierslib());
             param.put("navire", ep.getIdnavirelib());
             param.put("mode", ep.getIdmodelib());

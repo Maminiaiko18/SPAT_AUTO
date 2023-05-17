@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_provisoir" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5df9011-35af-48b5-bccd-75233c87301c">
 	<property name="ireport.zoom" value="2.357947691000002"/>
 	<property name="ireport.x" value="105"/>
-	<property name="ireport.y" value="514"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="client" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
@@ -38,7 +38,7 @@
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[DEMANDE D' ESPÈCE]]></text>
+				<text><![CDATA[DEMANDE D' ESPÈCE OU DE CHÈQUE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="66" width="49" height="20" uuid="d2571bdf-febd-4644-9297-24bf2466af80"/>
