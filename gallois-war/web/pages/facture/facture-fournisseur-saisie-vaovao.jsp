@@ -60,7 +60,7 @@
         pi.getFormu().getChamp("exercice").setLibelle("Exercice");
         pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
-        pi.getFormu().getChamp("numeroop").setLibelle("N° Facture");
+        pi.getFormu().getChamp("numeroop").setLibelle("Nï¿½ Facture");
         pi.getFormu().getChamp("numeroop").setVisible(true);
         pi.getFormu().getChamp("dateRegul").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
@@ -79,14 +79,14 @@
         pi.getFormu().getChamp("projet").setLibelle("Projet");
         pi.getFormu().getChamp("idBL").setDefaut(Utilitaire.champNull(request.getParameter("idBL")));
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
-        pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+        pi.getFormu().getChamp("idProvision").setPageAppel("choix/bonProvisoirNonRegulariser.jsp");
         pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
         pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
         pi.getFormu().getChamp("tva").setVisible(false);
         pi.getFormu().getChamp("estMictsl").setVisible(false);
         pi.getFormu().getChamp("estAuto").setVisible(false);
         pi.getFormu().getChamp("typeEngagement").setVisible(false);
-        pi.getFormu().getChamp("remarque").setLibelle("Num Fiche Saisie Budgétaire");
+        pi.getFormu().getChamp("remarque").setLibelle("Num Fiche Saisie Budgï¿½taire");
 
         if (request.getParameter("idBL") != null) {
             pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
