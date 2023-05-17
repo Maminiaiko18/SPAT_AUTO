@@ -940,7 +940,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     }
             }
            
-            if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece)){
+            if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece) && this.getCaisse().compareToIgnoreCase(Constante.caisseDepense)!=0){
                 this.arrondir();
             }
 
