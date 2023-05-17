@@ -21,7 +21,7 @@
     PageRechercheChoix pr = new PageRechercheChoix(e, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.setApres("listeBonProvisoireChoix.jsp");
+    pr.setApres("bonProvisoirNonRegulariser.jsp");
     pr.setAWhere(" and etat = 11");
     pr.setChampReturn(champReturn);
 //    pr.getFormu().getChamp("id").setLibelleAffiche("ID");

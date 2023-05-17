@@ -44,6 +44,9 @@
     pc.getChampByName("remarque").setLibelle("Reference");
     pc.getChampByName("code_etab").setLibelle("Code etablissement");
     pc.getChampByName("idengagementlib").setLibelle("Engagement");
+    pc.getChampByName("codeetablissement").setVisible(false);
+    pc.getChampByName("idfournisseur").setVisible(false);
+    pc.getChampByName("idprojet").setVisible(false);
     
     
     pc.setTitre("Fiche Bon de commande");
