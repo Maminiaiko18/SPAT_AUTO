@@ -30,18 +30,20 @@
         PageInsertMultiple pi = new PageInsertMultiple(objet, objetFille, request, nbLigne, u);
         pi.setLien((String) session.getValue("lien"));
 
-        Liste[] listes = new Liste[1];
-        String[] avecFactureAff = {"oui", "non"};
-        String[] avecFactureVal = {"1", "0"};
-        listes[0] = new Liste("avecFacture", avecFactureAff, avecFactureVal);
+        //Liste[] listes = new Liste[1];
+        //String[] avecFactureAff = {"non", "oui"};
+        //String[] avecFactureVal = {"0", "1"};
+        //listes[0] = new Liste("avecFacture", avecFactureAff, avecFactureVal);
 
-        pi.getFormu().changerEnChamp(listes);
+        //pi.getFormu().changerEnChamp(listes);
 
         pi.getFormu().getChamp("etat").setVisible(false);
 
         pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
         pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+        pi.getFormu().getChamp("avecFacture").setDefaut("0");
+        pi.getFormu().getChamp("avecFacture").setVisible(false);
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
         pi.getFormu().getChamp("projet").setAutre("readonly");
