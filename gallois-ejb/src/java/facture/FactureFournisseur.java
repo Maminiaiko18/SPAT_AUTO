@@ -439,6 +439,7 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public ClassMAPTable createObject(String iduser, Connection cnctn) throws Exception {
+        this.setEstAncienne(1);
         this.setNomClasseFille("facture.FactureFournisseurDetails");
         this.setIduser(iduser);
         this.setId(null);
@@ -820,6 +821,7 @@ public class FactureFournisseur extends FactureClient {
                         liaison.setId1(e.getIdengagement());
                         liaison.setId2(ff.getId());
                         liaison.setMontant(diff);
+                        liaison.setEtat(ConstanteEtat.getEtatCreer());
                         liaison.createObject(u, c);
                         liaison.validerObject(u, c);
                     }
@@ -833,6 +835,7 @@ public class FactureFournisseur extends FactureClient {
                     liaison.setId1(e.getIdengagement());
                     liaison.setId2(ff.getId());
                     liaison.setMontant(ff.getMontant());
+                    liaison.setEtat(ConstanteEtat.getEtatCreer());
                     liaison.createObject(u, c);
                     liaison.validerObject(u, c);
                 }
@@ -851,6 +854,7 @@ public class FactureFournisseur extends FactureClient {
                     liaison.setId1(this.getIdengagement());
                     liaison.setId2(ff.getId());
                     liaison.setMontant(ff.getMontant());
+                    liaison.setEtat(ConstanteEtat.getEtatCreer());
                     liaison.createObject(u, c);
                     liaison.validerObject(u, c);
                 }
@@ -893,6 +897,7 @@ public class FactureFournisseur extends FactureClient {
                             liaison.setId1(e.getIdengagement());
                             liaison.setId2(ff.getId());
                             liaison.setMontant(diff);
+                            liaison.setEtat(ConstanteEtat.getEtatCreer());
                             liaison.createObject(u, c);
                             liaison.validerObject(u, c);
                         }
@@ -900,6 +905,7 @@ public class FactureFournisseur extends FactureClient {
                             liaison.setId1(e.getIdengagement());
                             liaison.setId2(ff.getId());
                             liaison.setMontant(e.getMontantreste());
+                            liaison.setEtat(ConstanteEtat.getEtatCreer());
                             liaison.createObject(u, c);
                             liaison.validerObject(u, c);
 
@@ -923,6 +929,7 @@ public class FactureFournisseur extends FactureClient {
                             liaison2.setId1(engagement.getId());
                             liaison2.setId2(ff.getId());
                             liaison2.setMontant(diff2);
+                            liaison2.setEtat(ConstanteEtat.getEtatCreer());
                             liaison2.createObject(u, c);
                             liaison2.validerObject(u, c);
 
@@ -947,6 +954,7 @@ public class FactureFournisseur extends FactureClient {
                             liaison.setId1(engagement.getId());
                             liaison.setId2(ff.getId());
                             liaison.setMontant(diff);
+                            liaison.setEtat(ConstanteEtat.getEtatCreer());
                             liaison.createObject(u, c);
                             liaison.validerObject(u, c);
                             
@@ -959,6 +967,7 @@ public class FactureFournisseur extends FactureClient {
                         liaison.setId1(e.getIdengagement());
                         liaison.setId2(ff.getId());
                         liaison.setMontant(ff.getMontant());
+                        liaison.setEtat(ConstanteEtat.getEtatCreer());
                         liaison.createObject(u, c);
                         liaison.validerObject(u, c);
                     }
@@ -966,6 +975,7 @@ public class FactureFournisseur extends FactureClient {
                         liaison.setId1(e.getIdengagement());
                         liaison.setId2(ff.getId());
                         liaison.setMontant(e.getMontantreste());
+                        liaison.setEtat(ConstanteEtat.getEtatCreer());
                         liaison.createObject(u, c);
                         liaison.validerObject(u, c);
                         
@@ -989,6 +999,7 @@ public class FactureFournisseur extends FactureClient {
                         liaison2.setId1(engagement.getId());
                         liaison2.setId2(ff.getId());
                         liaison2.setMontant(diff);
+                        liaison2.setEtat(ConstanteEtat.getEtatCreer());
                         liaison2.createObject(u, c);
                         liaison2.validerObject(u, c);
                         
@@ -1013,6 +1024,7 @@ public class FactureFournisseur extends FactureClient {
                         liaison.setId1(engagement.getId());
                         liaison.setId2(ff.getId());
                         liaison.setMontant(ff.getMontant());
+                        liaison.setEtat(ConstanteEtat.getEtatCreer());
                         liaison.createObject(u, c);
                         liaison.validerObject(u, c);
                         
@@ -1370,5 +1382,18 @@ public class FactureFournisseur extends FactureClient {
         }
         
         return null;
+    }
+    
+    @Override
+    public int annulerVisa(String user,Connection c) throws Exception {
+        if(this.getIdengagement() != null){
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, "and id1='" + this.getIdengagement() +"' and id2 = '" + this.getId() + "'"); 
+            if(liaisons.length > 0){
+                LiaisonEngagement liaison = liaisons[0];
+                liaison.annulerVisa(user, c);
+            }
+        }
+        
+        return super.annulerVisa(user, c);
     }
 }
