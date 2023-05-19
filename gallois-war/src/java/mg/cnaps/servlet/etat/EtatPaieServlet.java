@@ -124,6 +124,7 @@ import mg.spat.DemandeAchatMere;
 import mg.spat.DemandeAchatFille;
 import mg.spat.MvtIntraCaisseFille;
 import mg.spat.MvttIntraCaisse;
+import ordremission.OrdreMissionLib;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import utilitaire.Constante;
@@ -248,6 +249,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             else if (action.equalsIgnoreCase("imprimerBP")) {
                 imprimerBP(request, response);
+            }
+            else if (action.equalsIgnoreCase("imprimerDemandeOrdreDeMission")) {
+                imprimerDemandeOrdreDeMission(request, response);
             }
 
         } catch (Exception ex) {
@@ -4258,6 +4262,32 @@ public class EtatPaieServlet extends HttpServlet {
         }
 
     }
+    private void imprimerDemandeOrdreDeMission(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String id = request.getParameter("id");
+            OrdreMissionLib mc = new OrdreMissionLib();
+            mc.setNomTable("ordre_mission_lib");
+            OrdreMissionLib[] mere = (OrdreMissionLib[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "'");
+            Map param = new HashMap();
+            param.put("nom", mere[0].getNom());
+            param.put("prenom", mere[0].getPrenom());
+            param.put("fonction", mere[0].getFonction());
+            param.put("matricule", mere[0].getMatricule());
+            param.put("classeProf", mere[0].getClasseprofessionnel());
+            param.put("direction", mere[0].getDirection());
+            param.put("lieuDeDep", Utilitaire.champNull(mere[0].getLieudeplacement()));
+            param.put("duree", mere[0].getDuree());
+            param.put("motif", mere[0].getIdmotifvoyagelib());
+            param.put("dateDedepart", mere[0].getDatedepart());
+             param.put("daty", utilitaire.Utilitaire.dateDuJour());
+            setNomJasper("Demande_ordre_de_mission");
+            UtilitaireImpression.imprimer(request, response, "Demande ordre de mission", param, null, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /*private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
