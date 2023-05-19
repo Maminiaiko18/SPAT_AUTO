@@ -1387,7 +1387,7 @@ public class FactureFournisseur extends FactureClient {
     @Override
     public int annulerVisa(String user,Connection c) throws Exception {
         if(this.getIdengagement() != null){
-            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, "and id1='" + this.getIdengagement() +"' and id2 = '" + this.getId() + "'"); 
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, "and id1='" + this.getIdengagement() +"' and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()); 
             if(liaisons.length > 0){
                 LiaisonEngagement liaison = liaisons[0];
                 liaison.annulerVisa(user, c);
