@@ -1,6 +1,6 @@
 <%-- 
     Document   : asBonDeCommande-modif
-    Created on : 8 déc. 2020, 09:28:55
+    Created on : 8 dï¿½c. 2020, 09:28:55
     Author     : Sanda
 --%>
 <%@page import="mg.spat.Liberer"%>
@@ -17,6 +17,7 @@
 
 <%
     Engagement base = new Engagement();
+    base.setId(request.getParameter("id"));
     base.setNomTable("engagementlib");
     PageUpdate pi = new PageUpdate(base, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
@@ -30,37 +31,31 @@
          
         pi.getFormu().getChamp("avecFacture").setVisible(false);
         pi.getFormu().getChamp("avecFacturelib").setAutre("readonly");
-        pi.getFormu().getChamp("avecFacturelib").setLibelle("avec Facture");
-        pi.getFormu().getChamp("designation").setLibelle("Désignation");
-        pi.getFormu().getChamp("designation").setAutre("readonly");
-        pi.getFormu().getChamp("codeetablissement").setLibelle("Code établissement");
+        pi.getFormu().getChamp("avecFacturelib").setVisible(false);
+        pi.getFormu().getChamp("designation").setLibelle("Designation");
+        pi.getFormu().getChamp("designation").setType("textarea");
+        pi.getFormu().getChamp("observation").setType("textarea");
+        pi.getFormu().getChamp("codeetablissement").setVisible(false);
         pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
-        pi.getFormu().getChamp("projet").setLibelle("Projet");
-        pi.getFormu().getChamp("projet").setAutre("readonly");
-        pi.getFormu().getChamp("montant").setLibelle("Montant");
-        pi.getFormu().getChamp("montant").setAutre("readonly");
+        pi.getFormu().getChamp("projet").setVisible(false);
+        pi.getFormu().getChamp("montant").setVisible(false);
         pi.getFormu().getChamp("disponible").setVisible(false);
         pi.getFormu().getChamp("disponible").setLibelle("Disponible");
         pi.getFormu().getChamp("dispoavant").setLibelle("Disponible avant");
         pi.getFormu().getChamp("dispoavant").setVisible(false);
-        pi.getFormu().getChamp("dispoapres").setLibelle("Disponible après");
+        pi.getFormu().getChamp("dispoapres").setLibelle("Disponible aprï¿½s");
         pi.getFormu().getChamp("dispoapres").setVisible(false);
         pi.getFormu().getChamp("montantop").setVisible(false);
         pi.getFormu().getChamp("tierslib").setVisible(false);
-        pi.getFormu().getChamp("idLC").setLibelle("Budget");
-        pi.getFormu().getChamp("idLC").setAutre("readonly");
-        pi.getFormu().getChamp("daty").setLibelle("Date");
-        pi.getFormu().getChamp("daty").setAutre("readonly");
-        pi.getFormu().getChamp("num").setAutre("readonly");
+        pi.getFormu().getChamp("idLC").setVisible(false);
+        pi.getFormu().getChamp("idLC").setVisible(false);
+        pi.getFormu().getChamp("daty").setVisible(false);
+        pi.getFormu().getChamp("num").setVisible(false);
+        pi.getFormu().getChamp("tiers").setVisible(false);
+        pi.getFormu().getChamp("montantreste").setVisible(false);
+        pi.getFormu().getChamp("annee").setVisible(false);
 
-        pi.getFormu().getChamp("projet").setAutre("readonly");
 
-        pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
-
-        pi.getFormu().getChamp("idLC").setAutre("readonly");
-
-        pi.getFormu().getChamp("tiers").setAutre("readonly");
-    
     pi.preparerDataFormu();
     base = (Engagement)pi.getBase();
 %>

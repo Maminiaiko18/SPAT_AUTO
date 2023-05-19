@@ -32,10 +32,7 @@
         String titre = "Enregistrer facture fournisseur";
         String categorie = Constante.categorieFFdefault;
         String mode = request.getParameter("mode");
-        if ((mode != null) && (mode.compareToIgnoreCase("1") == 0)) {
-            titre = "Enregistrer Bon provisoire";
-            categorie = Constante.getCategorieFFBP();
-        }
+
         facture.FactureFournisseurDetails fcfille = new facture.FactureFournisseurDetails();
         fcfille.setNomTable("FACTFOURN_FILLE_PLUS");
 
@@ -45,6 +42,17 @@
         }
 
         PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, taille, u);
+        if ((mode != null) && (mode.compareToIgnoreCase("1") == 0)) {
+            titre = "Enregistrer Bon provisoire";
+            categorie = Constante.getCategorieFFBP();
+            pi.getFormu().getChamp("idProvision").setVisible(false);
+            pi.getFormu().getChamp("idBL").setVisible(false);
+            pi.getFormu().getChamp("numeroop").setVisible(false);
+            pi.getFormu().getChamp("idengagement").setVisible(false);
+            pi.getFormu().getChamp("num").setVisible(false);
+            pi.getFormu().getChamp("idcategorie").setVisible(false);
+
+        }
         pi.setLien((String) session.getValue("lien"));
         System.out.println("u.getUser().getCodeEtablissement()==" + u.getUser().getCodeEtablissement());
         if (u.getUser().getCodeEtablissement() != null) {

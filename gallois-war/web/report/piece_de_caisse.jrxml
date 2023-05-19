@@ -86,6 +86,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{soustitre}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="205" height="20" uuid="19ec197e-69c0-4235-b3f8-f0614ab321c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S.P.A.T]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>

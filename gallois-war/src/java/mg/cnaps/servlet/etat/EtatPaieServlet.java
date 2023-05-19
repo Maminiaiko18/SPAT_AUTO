@@ -2714,6 +2714,14 @@ public class EtatPaieServlet extends HttpServlet {
                 }
                 String montantlettrePro = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()))
                         + " Ariary ";
+                String[] montantTexte = ChiffreLettre.convertRealToStringSepare(new Double(mere[0].getMontant()));
+                montantlettrePro = montantTexte[0];
+                if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                    montantlettrePro += " Ariary " + montantTexte[1];
+                } else {
+                    montantlettrePro += " Ariary";
+                }
+            
                 param.put("montantlettrePro", montantlettrePro);
                 param.put("codePr", mere[0].getProjetlib());
                 param.put("codeEtb", mere[0].getCode_etablissementlib());
