@@ -17,7 +17,7 @@ import utilitaire.UtilDB;
  * @author Nouta
  */
 public class OrdreMission extends ClassEtat {
-    private String id,idindemnitemission,idtiers,idmotifvoyage,lieudeplacement,numOM;
+    private String id,idindemnitemission,idtiers,idmotifvoyage,lieudeplacement,numOM,idmoyendeplacement,motifvoyage;
     private  double duree;
     private Date datedepart;
     private int estForfaitaire;
@@ -46,6 +46,22 @@ public class OrdreMission extends ClassEtat {
     
     public OrdreMission() {
         super.setNomTable("ordre_mission");
+    }
+
+    public String getIdmoyendeplacement() {
+        return idmoyendeplacement;
+    }
+
+    public void setIdmoyendeplacement(String idmoyendeplacement) {
+        this.idmoyendeplacement = idmoyendeplacement;
+    }
+
+    public String getMotifvoyage() {
+        return motifvoyage;
+    }
+
+    public void setMotifvoyage(String motifvoyage) {
+        this.motifvoyage = motifvoyage;
     }
 
     public String getId() {
