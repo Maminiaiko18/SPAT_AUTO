@@ -54,13 +54,13 @@ try{
     pi.getFormu().getChamp("modepaiement").setDefaut(Constante.modepaiementDefaut);
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("remarque").setLibelle("Référence");
-    pi.getFormu().getChamp("designation").setLibelle("Designation");
+    pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     pi.getFormu().getChamp("fournisseur").setLibelle("Fournisseur");
     pi.getFormu().getChamp("fournisseur").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("fournisseur").setValeurLibelle(mere.getFournisseurlibelle());
-    pi.getFormu().getChamp("numbc").setLibelle("Numero bon de commande");
+    pi.getFormu().getChamp("numbc").setLibelle("Num&eacute;ro bon de commande");
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
-    pi.getFormu().getChamp("code_etab").setLibelle("Code etablissement");
+    pi.getFormu().getChamp("code_etab").setLibelle("Code &eacute;tablissement");
     pi.getFormu().getChamp("delaipaiement").setLibelle("Délai de paiement (Jours)");
     pi.getFormu().getChamp("delailivraison").setLibelle("Délai de livraison");
     pi.getFormu().getChamp("typepaiement").setLibelle("Type paiement");
@@ -69,6 +69,7 @@ try{
     pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp", "idengagement;idengagementlibelle");
     pi.getFormu().getChamp("idengagement").setValeurLibelle(Utilitaire.champNull(mere.getIdengagementlib()));
     pi.getFormu().getChamp("idengagementlib").setVisible(false);
+    pi.getFormu().getChamp("etat").setVisible(false);
     affichage.Champ[] listeUnit = new affichage.Champ[2];
     TypeObjet branche=new TypeObjet();
     branche.setNomTable("UNITECHANTIER");
@@ -79,7 +80,8 @@ try{
     pi.getFormufle().changerEnChamp(listeUnit);
 
     pi.getFormufle().getChamp("Unite_0").setLibelle("Unite");
-    pi.getFormufle().getChamp("Remarque_0").setLibelle("Désignation");
+    pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
+    pi.getFormufle().getChamp("Remarque_0").setLibelle("Remarque");
     pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
     pi.getFormufle().getChamp("produit_0").setLibelle("Produit");
     pi.getFormufle().getChamp("pu_0").setLibelle("Prix Unitaire");

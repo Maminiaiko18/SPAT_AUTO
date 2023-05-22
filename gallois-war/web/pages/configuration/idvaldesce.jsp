@@ -66,6 +66,8 @@
 
     titre.put("typeclient", "Type Client");
     titre.put("armateur_tbd", "Armateur");
+    titre.put("MOTIF_VOYAGE", "Motif de Voyage");
+    titre.put("CATEGORIE_PROFESSIONNEL", "Catégorie Professionnel");
     
     TypeObjet act = new TypeObjet();
     act.setNomTable(cible);

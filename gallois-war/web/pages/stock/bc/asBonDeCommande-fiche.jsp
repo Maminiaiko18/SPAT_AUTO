@@ -34,17 +34,21 @@
     //pc.getChampByName("etatlib").setLibelle("Etat");
     pc.getChampByName("modepaiement").setLibelle("Mode de paiement");
     pc.getChampByName("montant").setLibelle("montant HT");
-    pc.getChampByName("montant_paye_reel").setLibelle("Montant paye reel");
+    pc.getChampByName("montant_paye_reel").setLibelle("Montant pay&eacute; r&eacute;el");
     pc.getChampByName("montant_A_payer").setLibelle("Montant BL TTC");
-    pc.getChampByName("restepayergeneral").setLibelle("Reste a livrer");
-    pc.getChampByName("resteapayerreel").setLibelle("Reste a payer reel");
+    pc.getChampByName("restepayergeneral").setLibelle("Reste &agrave; livrer");
+    pc.getChampByName("resteapayerreel").setLibelle("Reste &agrave; payer r&eacute;el");
     pc.getChampByName("montantTTC").setLibelle("Montant TTC");
     pc.getChampByName("montanttva").setLibelle("Montant TVA");
-    pc.getChampByName("numbc").setLibelle("Numero Bon De Commande");
-    pc.getChampByName("remarque").setLibelle("Reference");
-    pc.getChampByName("code_etab").setLibelle("Code etablissement");
-    pc.getChampByName("code_etab").setLibelle("Code etablissement");
-
+    pc.getChampByName("numbc").setLibelle("Num&eacute;ro Bon De Commande");
+    pc.getChampByName("remarque").setLibelle("R&eacute;f&eacute;rence");
+    pc.getChampByName("code_etab").setLibelle("Code &eacute;tablissement");
+    pc.getChampByName("idengagementlib").setLibelle("Engagement");
+    pc.getChampByName("codeetablissement").setVisible(false);
+    pc.getChampByName("idfournisseur").setVisible(false);
+    pc.getChampByName("idprojet").setVisible(false);
+    pc.getChampByName("designation").setLibelle("D&eacute;signation");
+    pc.getChampByName("Montanthtsansremise").setLibelle("Montant HT Sans Remise");
     
     
     pc.setTitre("Fiche Bon de commande");
@@ -85,19 +89,19 @@
                         %>
                         <br/>
                         <div class="box-footer">
-                            <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=stock/bc/asBonDeCommande-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
+                            <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=stock/bc/asBonDeCommande-fiche.jsp"%>" style="margin: 5px 10px 0 0">Attacher Fichier</a>              
                             <% if (bondecommande.getEtat() == ConstanteEtat.getEtatCreer()) {%>
-                                    <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annuler&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin-right: 10px">Annuler</a>
-                                    <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bc/asBonDeCommande-modif-multiple.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
-                                    <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin-right: 10px">Viser</a>
-                                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/DetailsBCExcel?action=detailsBcExcel&id=<%=bondecommande.getId()%>" style="margin-right: 10px">Exporter Excel</a>
-                                    <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bc/bonDeCommandeFille-saisie.jsp&idbc=" + request.getParameter("id")%>" style="margin-right: 10px">Ajouter d�tails BC</a>
+                                    <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annuler&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">Annuler</a>
+                                    <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bc/asBonDeCommande-modif-multiple.jsp&id=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">Modifier</a>
+                                    <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">Viser</a>
+                                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/DetailsBCExcel?action=detailsBcExcel&id=<%=bondecommande.getId()%>" style="margin: 5px 10px 0 0">Exporter Excel</a>
+                                    <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bc/bonDeCommandeFille-saisie.jsp&idbc=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">Ajouter d&eacute;tails BC</a>
                             <% }%>
 
                             <% if (bondecommande.getEtat() == ConstanteEtat.getEtatValider()) {%>
                                 
-                                <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin-right: 10px">Annuler VISA</a>
-                                <a class="btn btn-default pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/asBonDeLivraison-direct.jsp&id_bc=" + request.getParameter("id")%>" style="margin-right: 10px">Reception</a>
+                                <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">Annuler VISA</a>
+                                <a class="btn btn-default pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/asBonDeLivraison-direct.jsp&id_bc=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">R&eacute;ception</a>
                             <% } %>
                             <%
                                 if (bondecommande.getEtat() == ConstanteEtat.getEtatLivraison()) {
@@ -105,11 +109,11 @@
                                     String idbl = " AND idbc = '" + request.getParameter("id").trim() + "'";
                                     BonDeLivraison[] filles = (BonDeLivraison[]) CGenUtil.rechercher(liv, null, null, idbl);
                             %>
-                                    <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/bondelivraison-fiche.jsp&id=" + filles[0].getId()%>" style="margin-right: 10px">Etat de livraison</a>
+                                    <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/bondelivraison-fiche.jsp&id=" + filles[0].getId()%>" style="margin: 5px 10px 0 0">Etat de livraison</a>
                             <% } %>
-                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=boncommande&id=<%=bondecommande.getId()%>" style="margin-right: 10px">Imprimer</a>
-                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") %>?but=facture/facture-fournisseur-saisie-vaovao.jsp&idBC=<%=bondecommande.getId()%>" style="margin-right: 10px">Facturer</a>
-                            <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerremplacer&nomtable=as_bondecommande&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin-right: 10px">Annuler et remplacer</a>
+                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=boncommande&id=<%=bondecommande.getId()%>" style="margin: 5px 10px 0 0">Imprimer</a>
+                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") %>?but=facture/facture-fournisseur-saisie-vaovao.jsp&idBC=<%=bondecommande.getId()%>" style="margin: 5px 10px 0 0">Facturer</a>
+                            <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerremplacer&nomtable=as_bondecommande&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">Annuler et remplacer</a>
                         </div>
                     </div>
                 </div>
@@ -120,7 +124,7 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="<%= map.get("details-bc")%>"><a href="globalnegoce.jsp?but=stock/bc/asBonDeCommande-fiche.jsp&id=<%=request.getParameter("id")%>&tab=details-bc&tva=<%=bondecommande.getTva()%>">Details BC</a></li>
+                    <li class="<%= map.get("details-bc")%>"><a href="globalnegoce.jsp?but=stock/bc/asBonDeCommande-fiche.jsp&id=<%=request.getParameter("id")%>&tab=details-bc&tva=<%=bondecommande.getTva()%>">D&eacute;tails BC</a></li>
                     <li class="<%= map.get("bondelivraison-liste")%>"><a href="globalnegoce.jsp?but=stock/bc/asBonDeCommande-fiche.jsp&id=<%=request.getParameter("id")%>&tab=bondelivraison-liste&id_bc=<%=bondecommande.getId()%>">Bon de livraison</a></li>
                     <li class="<%= map.get("facture-fournisseur")%>"><a href="globalnegoce.jsp?but=stock/bc/asBonDeCommande-fiche.jsp&id=<%=request.getParameter("id")%>&tab=facture-fournisseur&idbc=<%=bondecommande.getId()%>">Facture fournisseur</a></li>
                 </ul>
@@ -136,14 +140,14 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="box-title with-border">
-                    <h2 class="box-title" style="margin-left: 10px;">Les fichiers attach�s</h2>
+                    <h2 class="box-title" style="margin-left: 10px;">Les fichiers attach&eacute;s</h2>
                 </div>
                 <div class="box-body">
                     <table class="table table-striped table-bordered table-condensed table-responsive tree">
                         <thead>
                             <tr>
                                 <th style="background-color:#bed1dd;"></th>
-                                <th style="background-color:#bed1dd;">Libell�</th>
+                                <th style="background-color:#bed1dd;">Libell&eacute;</th>
                                 <th style="background-color:#bed1dd;">Fichier</th>
                                 <th style="background-color:#bed1dd;">Voir</th>
                                 <th style="background-color:#bed1dd;">#</th>

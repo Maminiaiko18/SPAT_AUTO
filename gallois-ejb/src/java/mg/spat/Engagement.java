@@ -342,7 +342,7 @@ public class Engagement extends ClassEtat {
         this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
         super.validerObject(u, c);
-        if(avecFacture==0){
+        if(avecFacture==1){
              this.genererFacture(u, c, filles,lc);
         }
         return this; 
@@ -457,5 +457,16 @@ public class Engagement extends ClassEtat {
             if(check && c != null) c.close();
         }
     }    
-    
+
+    public Engagement(String designation, String codeEtablissement, String projet, double montant, int annee, Date daty, String tiers, int avecFacture)throws Exception{
+        this.setNomTable("engagement");
+        this.setDesignation(designation);
+        this.setCodeEtablissement(codeEtablissement);
+        this.setProjet(projet);
+        this.setAnnee(annee);
+        this.setDaty(daty);
+        this.setTiers(tiers);
+        this.setAvecFacture(avecFacture);
+        this.setMontant(montant);
+    }
 }

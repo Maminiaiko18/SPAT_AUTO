@@ -1,22 +1,12 @@
 -----------script engagement 
 
-
-
-
-create view factfourn_grp as
-select
-----maka ze factfourn valide 
- * from FACTFOURN_MERE_FILLE were etat>=11 group by f.idmere;
-
-
-
 CREATE  OR REPLACE VIEW AS_BONDECOMMANDE_engagement as
 SELECT
 ----- manao bc mere fille + where misy idengagement sy where etat vise
 abf.*,A.DATY,A.ETAT,A.IDENGAGEMENT  
 FROM  AS_BONDECOMMANDE_FILLE abf 
 LEFT JOIN AS_BONDECOMMANDE a ON abf.IDBC = a.ID  
-WHERE a.IDENGAGEMENT IS NOT NULL AND a.etat>=11;
+WHERE a.idengagement is not null and a.etat>=11;
 
 
 CREATE OR replace VIEW AS_BONDECOMMANDE_grp
@@ -38,6 +28,8 @@ FROM FACTFOURN_MERE_FILLE f
 JOIN AS_BONDELIVRAISON AB ON AB.ID= F.IDBL 
 JOIN AS_BONDECOMMANDE ab2 ON AB2.ID= AB.ID_BC
 WHERE f.ETAT >=11;
+
+
 
 
 
@@ -79,7 +71,7 @@ SELECT
 f.*,CAST(NVL(F.QUANTITE,0)*NVL(F.PU,0) AS NUMBER(30,2)) AS MONTANT 
 FROM FACTFOURN_MERE_FILLE f
 WHERE  NOT EXISTS (SELECT id FROM FACTFOURN_BC fb WHERE fb.id=f.id) 
-AND IDENGAGEMENT IS NOT NULL 
+and f.idengagement is not null  
 AND etat>=11;
 
 
@@ -90,6 +82,9 @@ SELECT
 idengagement,sum(nvl(montant,0)) AS montant 
 FROM   FACTFOURN_engag_nonbc 
 GROUP BY idengagement;
+
+
+
 
 
 CREATE OR REPLACE VIEW liaisonEngagementBCFF AS 
@@ -252,3 +247,244 @@ FROM
 	engagementlib
 WHERE
 	etat >= 11;
+	
+
+
+
+
+
+---------------update engagement taloa
+	
+alter table FACTURE_FOURNISSEUR_MERE drop constraint FK_ENGAGEMENTFF;
+
+alter table AS_BONDECOMMANDE drop constraint FK_ENGAGEMENT_BC;
+
+alter table engagement_fille drop constraint FK_ENGAGEMENTMRE;
+
+
+CREATE TABLE ENGAGEMENT_tmp AS
+SELECT
+	----backup table engagement(backup sad ho ampiasaina apres)
+ *
+FROM
+	ENGAGEMENT e;
+	
+
+CREATE TABLE ENGAGEMENT_fille_tmp AS
+SELECT
+	----backup table engagement(backup sad ho ampiasaina apres)
+ *
+FROM
+	ENGAGEMENT_fille e;
+
+	
+delete from engagement where 1<2;
+	
+delete from engagement_fille where 1<2;
+	
+	
+	
+-------ze montant BC no MAX
+					 CREATE OR REPLACE VIEW FACTFOURN_BC_BC AS
+					SELECT
+						-----maka ze BC no ambony montant donc BC no atao insert anaty engagement
+					a.idbc AS id,
+					a.montant AS montantbc,
+					f.montant AS montantff,
+					ae.idengagement
+					FROM
+						AS_BONDECOMMANDE_grp a
+					LEFT JOIN FACTFOURN_BC_GRP f ON
+						f.id = a.idbc
+					LEFT JOIN AS_BONDECOMMANDE ae ON
+						ae.id = a.idbc
+					WHERE
+						(nvl(a.montant,0) >= nvl(f.montant,0))  ;
+
+
+						
+					-----------jointure entre engagement sy le bc (amzay, ze info tamini'ireo engagement efa nisy ho an'le bc iany ampiasaina amreo engagement vaovao)
+						
+						
+					---------table anaovana insert anaty engagement (micreer engagement ho an'ireo BC )
+					 CREATE TABLE ENGAGEMENTBCUP AS
+					SELECT
+						'CRI00000' || getseqengagement() AS id,
+						e.DESIGNATION,
+						e.CODEETABLISSEMENT,
+						e.PROJET,
+						f.MONTANTbc AS montant,
+						0 AS DISPONIBLE,
+						0 AS DISPOAVANT,
+						0 AS DISPOAPRES,
+						e.COMPTE,
+						11 AS ETAT,
+						e.IDLC,
+						e.DATY,
+						e.AVECFACTURE,
+						e.TIERS,
+						e.NUM,
+						e.ANNEE,
+						e.OBSERVATION,
+						f.id as idbc
+					FROM
+						FACTFOURN_BC_BC f
+					LEFT JOIN ENGAGEMENT_tmp e ON
+						e.id = f.idengagement ;
+					
+					
+					---------table anaovana insert anaty liaisonengagement (micreer liaisonengagement ho an'ireo BC  sy engagementireo)
+					 CREATE TABLE tliaisonengagbcup AS
+					SELECT
+						'LTABI000000' || getseqliaisonengagement() AS id,
+						e.id AS id1,
+						e.idbc AS id2,
+						e.montant
+					FROM
+						ENGAGEMENTBCUP e;
+						
+------------ze montant ff no ambony
+					 CREATE OR REPLACE
+					VIEW FACTFOURN_BC_ff AS
+					SELECT
+						-----maka ze ff no ambony montant donc BC no atao insert anaty engagement
+					 a.idbc AS id,
+						a.montant AS montantbc,
+						f.montant AS montantff,
+						ae.idengagement
+					FROM
+						AS_BONDECOMMANDE_grp a
+					LEFT JOIN FACTFOURN_BC_GRP f ON
+						f.id = a.idbc
+					LEFT JOIN AS_BONDECOMMANDE ae ON
+						ae.id = a.idbc
+					WHERE
+						(nvl(a.montant,0) < nvl(f.montant,0)) ;
+						
+						
+						
+						
+
+					CREATE VIEW ff_ainsert_engag AS					
+					SELECT m.id,m.montant,f.idengagement from(
+					SELECT
+						-------miverina any amle FACTFOURN_BC bola tsy grp by idbc 
+					 IDMERE AS id, sum(montant) AS montant
+					FROM
+						FACTFOURN_BC f
+					WHERE
+						EXISTS(
+						SELECT
+							id
+						FROM
+							FACTFOURN_BC_ff bc
+						WHERE
+							f.IDBC = bc.id)	
+					GROUP BY f.idmere)m JOIN FACTURE_FOURNISSEUR_MERE f on m.id=f.id;
+					---------table anaovana insert anaty engagement (micreer engagement ho an'ireo ff )
+					 CREATE TABLE ENGAGEMENTffUP AS
+					SELECT
+						'CRI00000' || getseqengagement() AS id,
+						e.DESIGNATION,
+						e.CODEETABLISSEMENT,
+						e.PROJET,
+						f.MONTANT AS montant,
+						0 AS DISPONIBLE,
+						0 AS DISPOAVANT,
+						0 AS DISPOAPRES,
+						e.COMPTE,
+						11 AS ETAT,
+						e.IDLC,
+						e.DATY,
+						e.AVECFACTURE,
+						e.TIERS,
+						e.NUM,
+						e.ANNEE,
+						e.OBSERVATION,
+						f.id as idff 
+					FROM
+						ff_ainsert_engag f
+					LEFT JOIN ENGAGEMENT_tmp e ON
+						e.id = f.idengagement ;
+					---------table anaovana insert anaty liaisonengagement (micreer liaisonengagement ho an'ireo ff  sy engagementireo)
+					 CREATE TABLE tliaisonengagffup AS
+					SELECT
+						'LTABI000000' || getseqliaisonengagement() AS id,
+						e.id AS id1,
+						e.idff AS id2,
+						e.montant
+					FROM
+						ENGAGEMENTffUP e;
+						
+				
+-----ze ff tsy rattache BC :		
+CREATE VIEW ff_ainsert_engagnonbc as
+SELECT m.id,m.montant,f.IDENGAGEMENT from
+(SELECT idmere AS id,sum(montant) AS montant FROM FACTFOURN_engag_nonbc GROUP BY idmere)m JOIN FACTURE_FOURNISSEUR_MERE f on m.id=f.id; 
+
+
+	---------table anaovana insert anaty engagement (micreer engagement ho an'ireo ff tsy rattache BC )
+					 CREATE TABLE ENGAGEMENTffsansbcUP AS
+					SELECT
+						'CRI00000' || getseqengagement() AS id,
+						e.DESIGNATION,
+						e.CODEETABLISSEMENT,
+						e.PROJET,
+						f.MONTANT AS montant,
+						0 AS DISPONIBLE,
+						0 AS DISPOAVANT,
+						0 AS DISPOAPRES,
+						e.COMPTE,
+						11 AS ETAT,
+						e.IDLC,
+						e.DATY,
+						e.AVECFACTURE,
+						e.TIERS,
+						e.NUM,
+						e.ANNEE,
+						e.OBSERVATION,
+						f.id as idff 
+					FROM
+						ff_ainsert_engagnonbc f
+					LEFT JOIN ENGAGEMENT_tmp e ON
+						e.id = f.idengagement ;
+					---------table anaovana insert anaty liaisonengagement (micreer liaisonengagement ho an'ireo ff  sy engagementireo)
+					 CREATE TABLE tliaisonengagffsansbcup AS
+					SELECT
+						'LTABI000000' || getseqliaisonengagement() AS id,
+						e.id AS id1,
+						e.idff AS id2,
+						e.montant
+					FROM
+						ENGAGEMENTffsansbcUP e;
+						
+
+							
+						insert into engagement select id,designation,codeetablissement,projet,montant,disponible,dispoavant,dispoapres,compte,etat,idlc,daty,avecFacture,tiers,num,annee,observation from ENGAGEMENTBCUP;
+						
+						insert into engagement_fille select 'CRFI0000'||getseqengagement_fille(),id as idmere,designation,montant from ENGAGEMENTBCUP;
+						insert into  liaisonengagement select * from tliaisonengagbcup;
+						
+						
+						
+						insert into engagement select id,designation,codeetablissement,projet,montant,disponible,dispoavant,dispoapres,compte,etat,idlc,daty,avecFacture,tiers,num,annee,observation from ENGAGEMENTffUP;
+						insert into engagement_fille select 'CRFI0000'||getseqengagement_fille(),id as idmere,designation,montant from ENGAGEMENTffUP;
+						insert into  liaisonengagement select * from tliaisonengagffup;
+						
+					
+						insert into engagement select id,designation,codeetablissement,projet,montant,disponible,dispoavant,dispoapres,compte,etat,idlc,daty,avecFacture,tiers,num,annee,observation from ENGAGEMENTffsansbcUP;
+												insert into engagement_fille select 'CRFI0000'||getseqengagement_fille(),id as idmere,designation,montant from ENGAGEMENTffsansbcUP;
+						insert into  liaisonengagement select * from tliaisonengagffsansbcup;
+						
+						UPDATE AS_BONDECOMMANDE a SET a.IDENGAGEMENT =(SELECT l.id1 FROM liaisonengagement l WHERE l.id2=a.id ) WHERE 
+						EXISTS (SELECT id FROM liaisonengagement l WHERE 
+						a.id=l.id2);
+						
+						
+		
+		
+		UPDATE FACTURE_FOURNISSEUR_MERE a SET a.IDENGAGEMENT =(SELECT l.id1 FROM liaisonengagement l WHERE l.id2=a.id ) WHERE 
+						EXISTS (SELECT id FROM liaisonengagement l WHERE 
+						a.id=l.id2);
+						
+						

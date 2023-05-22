@@ -37,6 +37,9 @@
         titres.put("categoriefacturation", "Catégorie");
         titres.put("redevance", "Redevance");
         titres.put("unite_activite", "Unité");
+        titres.put("armateur_tbd", "Armateur");
+        titres.put("MOTIF_VOYAGE", "Motif de Voyage");
+        titres.put("CATEGORIE_PROFESSIONNEL", "Catégorie Professionnel");
 
         TypeObjet p = new TypeObjet();
         p.setNomTable(nomtable);
