@@ -31,9 +31,12 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     
-    pr.getFormu().getChamp("code_etab").setLibelle("Code");
+    pr.getFormu().getChamp("code_etab").setLibelle("Code Etablissement");
     pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
+    pr.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
+    pr.getFormu().getChamp("numbc").setLibelle("Num&eacute;ro BC");
+    pr.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     
     /*affichage.Champ[] liste = new affichage.Champ[1];
 	
@@ -56,7 +59,7 @@
 
     }
     
-    pr.getFormu().getChamp("daty1").setLibelle("Date debut");
+    pr.getFormu().getChamp("daty1").setLibelle("Date d&eacute;but");
     pr.getFormu().getChamp("daty2").setLibelle("Date fin");
 
     pr.setOrdre(" order by daty desc");
@@ -85,9 +88,9 @@
                     Etat : 
                     <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
                         <% if (etat == null || etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_lib") == 0) {%>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_lib" selected>tous</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_lib" selected>Tous</option>
                         <% } else { %>
-                        <option value="AS_BONDECOMMANDE_LIBELLE_lib">tous</option>
+                        <option value="AS_BONDECOMMANDE_LIBELLE_lib">Tous</option>
                         <% } %>
 
                         <% if (etat == null || etat.compareToIgnoreCase("AS_BONDECOMMANDE_LIBELLE_AN") == 0) {%>
@@ -141,11 +144,11 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Date","Code","Projet", "Fournisseur", "Designation", "Mode de paiement", "Remarque","numero BC","Montant HT","Montant Remise","Montant TVA","Montant TTC","Montant BL TTC","Reste � livrer","Montant factur&eacute;","Montant pay� r��l","Reste � payer r�el", "Etat"};
+            String libEnteteAffiche[] = {"Id", "Date","Code","Projet", "Fournisseur", "D&eacute;signation", "Mode de paiement", "Remarque","num&eacute;ro BC","Montant HT","Montant Remise","Montant TVA","Montant TTC","Montant BL TTC","Reste &agrave; livrer","Montant factur&eacute;","Montant pay&eacute; r&eacute;el","Reste &agrave; payer r&eacute;el", "Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-			  
-				out.println(pr.getTableau().getHtml());
-				out.println(pr.getBasPage());
-		%>
+	    	  
+            out.println(pr.getTableau().getHtml());
+            out.println(pr.getBasPage());
+        %>
     </section>
 </div>

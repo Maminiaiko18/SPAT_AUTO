@@ -1,6 +1,6 @@
 <%-- 
     Document   : asBonDeCommande-modif
-    Created on : 8 dec. 2020, 09:28:55
+    Created on : 8 d�c. 2020, 09:28:55
     Author     : Sanda
 --%>
 <%@page import="mg.spat.EngagementFille"%>
@@ -42,15 +42,12 @@
         //pi.getFormu().changerEnChamp(listes);
         
 //        pi.getFormu().getChamp("annee").setLibelle("Annee") ; 
-        pi.getFormu().getChamp("designation").setLibelle("Designation");
-        pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
+        pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
+        pi.getFormu().getChamp("codeetablissement").setLibelle("Code &eacute;tablissement");
         pi.getFormu().getChamp("projet").setLibelle("Projet");
         pi.getFormu().getChamp("montant").setLibelle("Montant");
         pi.getFormu().getChamp("disponible").setVisible(false);
-        pi.getFormu().getChamp("disponible").setLibelle("Disponible");
-        pi.getFormu().getChamp("dispoavant").setLibelle("Disponible avant");
         pi.getFormu().getChamp("dispoavant").setVisible(false);
-        pi.getFormu().getChamp("dispoapres").setLibelle("Disponible apres");
         pi.getFormu().getChamp("dispoapres").setVisible(false);
         pi.getFormu().getChamp("montantop").setVisible(false);
         pi.getFormu().getChamp("tierslib").setVisible(false);
@@ -60,6 +57,7 @@
         pi.getFormu().getChamp("AvecFacture").setVisible(false);
         pi.getFormu().getChamp("num").setVisible(false);
         pi.getFormu().getChamp("montantreste").setVisible(false);
+        pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
 
 
         pi.getFormu().getChamp("projet").setAutre("readonly");
@@ -80,7 +78,7 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("estpaye"), false);
         
         pi.getFormufle().getChamp("Id_0").setLibelle("Id");
-        pi.getFormufle().getChamp("designation_0").setLibelle("Designation");
+        pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
         
         pi.preparerDataFormu();

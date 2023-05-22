@@ -67,4 +67,12 @@ public class LiaisonEngagement extends ClassEtat {
         this.preparePk("LIE", "getseqliaisonengagement");
         this.setId(makePK(c));
     }
+
+    public LiaisonEngagement(String id1, String id2, double montant, int etat) {
+        this.setNomTable("liaisonengagement");
+        this.setId1(id1);
+        this.setId2(id2);
+        this.setMontant(montant);
+        this.setEtat(etat);
+    }
 }

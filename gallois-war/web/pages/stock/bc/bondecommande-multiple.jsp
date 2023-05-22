@@ -71,7 +71,7 @@
         pi.getFormu().getChamp("modepaiement").setDefaut(Constante.modepaiementDefaut);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("remarque").setLibelle("R&eacute;f&eacute;rence");
-        pi.getFormu().getChamp("designation").setLibelle("Designation");
+        pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
         pi.getFormu().getChamp("fournisseur").setLibelle("Fournisseur");
         pi.getFormu().getChamp("numbc").setLibelle("Numero bon de commande");
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
@@ -140,7 +140,8 @@
         pi.getFormufle().changerEnChamp(listeUnit);
         
         pi.getFormufle().getChamp("Unite_0").setLibelle("Unite");
-        pi.getFormufle().getChamp("Remarque_0").setLibelle("D&eacute;signation");
+        pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
+        pi.getFormufle().getChamp("Remarque_0").setLibelle("Remarque");
         pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
         pi.getFormufle().getChamp("produit_0").setLibelle("Produit");
         pi.getFormufle().getChamp("pu_0").setLibelle("Prix Unitaire");
