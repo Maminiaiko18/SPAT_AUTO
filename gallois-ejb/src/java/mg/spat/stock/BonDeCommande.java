@@ -601,6 +601,7 @@ public class BonDeCommande extends ClassEtat {
                 liaison.setId1(eng.getIdengagement());
                 liaison.setId2(this.getId());
                 liaison.setMontant(bc.getMontant());
+                liaison.setEtat(ConstanteEtat.getEtatCreer());
                 liaison.createObject(u, c);
                 liaison.validerObject(u, c);
             }
@@ -644,6 +645,7 @@ public class BonDeCommande extends ClassEtat {
                     liaison1.setId1(eng.getIdengagement());
                     liaison1.setId2(this.getId());
                     liaison1.setMontant(eng.getMontantreste());
+                    liaison1.setEtat(ConstanteEtat.getEtatCreer());
                     liaison1.createObject(u, c);
                     liaison1.validerObject(u, c);
 
@@ -653,6 +655,7 @@ public class BonDeCommande extends ClassEtat {
                     liaison2.setId1(e.getId());
                     liaison2.setId2(this.getId());
                     liaison2.setMontant(diff);
+                    liaison2.setEtat(ConstanteEtat.getEtatCreer());
                     liaison2.createObject(u, c);
                     liaison2.validerObject(u, c);
                 }
@@ -675,6 +678,7 @@ public class BonDeCommande extends ClassEtat {
                     liaison1.setId1(e.getTuppleID());
                     liaison1.setId2(this.getId());
                     liaison1.setMontant(eng.getMontantreste());
+                    liaison1.setEtat(ConstanteEtat.getEtatCreer());
                     liaison1.createObject(u, c);
                     liaison1.validerObject(u, c);
 

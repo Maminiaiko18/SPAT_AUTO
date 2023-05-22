@@ -39,6 +39,7 @@
     pc.getChampByName("observation").setLibelle("Observation");
     pc.getChampByName("montantreste").setLibelle("Montant reste");
     pc.getChampByName("montantOP").setLibelle("Montant OP");
+    pc.getChampByName("disponible").setVisible(false);
 
     engagement = (Engagement) pc.getBase();
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp","id="+engagement.getIdLC()+"&id=");
