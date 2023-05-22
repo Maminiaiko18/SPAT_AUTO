@@ -25,7 +25,7 @@
     pr.setChampReturn(champReturn);
     
     pr.getFormu().getChamp("val").setLibelle("Désignation");
-    pr.getFormu().getChamp("desce").setLibelle("Déscription");
+    pr.getFormu().getChamp("desce").setLibelle("Description");
     pr.getFormu().getChamp("departement").setLibelle("Département");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
@@ -55,7 +55,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">                    
                     <% 
-                        String libEnteteAffiche[] = {"id", "Désignation", "Déscription", "Département", "Service"};
+                        String libEnteteAffiche[] = {"id", "D&eacute;signation", "Description", "D&eacute;partement", "Service"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); 
                     %>

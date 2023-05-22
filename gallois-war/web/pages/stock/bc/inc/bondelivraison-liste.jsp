@@ -39,7 +39,13 @@
         %>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Date", "N° BC", "Montant","TVA","Montant TTC","Montant facturé","Montant Payé facture","RAP facture"};
+            String libEnteteAffiche[] = {"Id", "Date", "N&deg; BC", "Montant","TVA","Montant TTC","Montant factur&eacute;","Montant Pay&eacute; facture","RAP facture"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            out.println(pr.getTableau().getHtml());
+            if(pr.getTableau().getHtml() != null){
+                out.println(pr.getTableau().getHtml());
+            }
+            else
+            {
+               %><center><h4>Pas de r&eacute;sultat</h4></center><%
+            }
         %>  
