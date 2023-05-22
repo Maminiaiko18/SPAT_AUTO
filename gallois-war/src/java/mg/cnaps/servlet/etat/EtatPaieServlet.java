@@ -4279,7 +4279,10 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("duree", mere[0].getDuree());
             param.put("motif", mere[0].getIdmotifvoyagelib());
             param.put("dateDedepart", mere[0].getDatedepart());
-             param.put("daty", utilitaire.Utilitaire.dateDuJour());
+            param.put("daty", utilitaire.Utilitaire.dateDuJour());
+            String hebergement = "- Prise en charge par la société";
+            if(mere[0].getEstForfaitaire()==1) hebergement = "- Indemnite forfaitaire";
+            param.put("hebergement", hebergement);
             setNomJasper("Demande_ordre_de_mission");
             UtilitaireImpression.imprimer(request, response, "Demande ordre de mission", param, null, getReportPath());
 
