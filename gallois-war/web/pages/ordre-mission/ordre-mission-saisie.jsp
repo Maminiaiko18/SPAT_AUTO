@@ -12,7 +12,7 @@
     pi.setLien((String) session.getValue("lien"));
     //Modification des affichages
     pi.getFormu().getChamp("estForfaitaire").setLibelle("Forfaitaire");
-    pi.getFormu().getChamp("idmotifvoyage").setLibelle("Motif de voyage");
+    pi.getFormu().getChamp("motifvoyage").setLibelle("Motif de voyage");
     pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
     pi.getFormu().getChamp("idindemnitemission").setLibelle("Indemnité de Mission");
     pi.getFormu().getChamp("lieudeplacement").setLibelle("Lieu de Placement");
@@ -21,8 +21,6 @@
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("idindemnitemission").setPageAppel("choix/indemnite-mission-choix.jsp");
     pi.getFormu().getChamp("idindemnitemission").setAutre("readonly");
-    pi.getFormu().getChamp("idmotifvoyage").setPageAppel("choix/motif-voyage-choix.jsp");
-    pi.getFormu().getChamp("idmotifvoyage").setAutre("readonly");
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/info-personnel-global-choix.jsp","idtiers;idtiers;idtierslibelle");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
     String[]valeurChampestForfaitaire = {"1", "-1"};
@@ -33,6 +31,9 @@
     lst[0].ajouterValeur(valeurChampestForfaitaire, afficheChampestForfaitaire);
     pi.getFormu().changerEnChamp(lst);
     pi.getFormu().getChamp("estForfaitaire").setLibelle("Est Forfaitaire");
+    pi.getFormu().getChamp("idmoyendeplacement").setLibelle("Moyen de d&eacute;placement");
+    pi.getFormu().getChamp("idmoyendeplacement").setPageAppel("choix/moyen-deplacement.jsp","idmoyendeplacement;idmoyendeplacementlibelle");
+    pi.getFormu().getChamp("idmoyendeplacement").setAutre("readonly");
     
     //Variables de navigation
     String classe = "ordremission.OrdreMission";
