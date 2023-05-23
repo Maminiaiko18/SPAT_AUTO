@@ -36,6 +36,11 @@
         pi.getFormu().getChamp("idtiers").setPageAppel("choix/info-personnel-global-choix.jsp","idtiers;idtiers;idtierslibelle");
         pi.getFormu().getChamp("idtiers").setAutre("readonly");
         pi.getFormu().getChamp("idtiers").setValeurLibelle(((OrdreMissionLib)pi.getBase()).getNom());
+        pi.getFormu().getChamp("idmoyendeplacement").setLibelle("Moyen de d&eacute;placement");
+        pi.getFormu().getChamp("idmoyendeplacementlib").setVisible(false);
+        pi.getFormu().getChamp("idmoyendeplacement").setPageAppel("choix/moyen-deplacement.jsp");
+        pi.getFormu().getChamp("idmoyendeplacement").setAutre("readonly");
+        pi.getFormu().getChamp("idmoyendeplacement").setValeurLibelle(((OrdreMissionLib)pi.getBase()).getIdmoyendeplacementlib());
         String[]valeurChampestForfaitaire = {"1", "-1"};
         String[]afficheChampestForfaitaire = {"oui", "non"};
 
