@@ -17,7 +17,7 @@
     pi.getFormu().getChamp("idindemnitemission").setLibelle("Indemnité de Mission");
     pi.getFormu().getChamp("lieudeplacement").setLibelle("Lieu de Placement");
     pi.getFormu().getChamp("datedepart").setLibelle("Date depart");
-    pi.getFormu().getChamp("numOM").setLibelle("Num OM");
+    pi.getFormu().getChamp("numOM").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("idindemnitemission").setPageAppel("choix/indemnite-mission-choix.jsp");
     pi.getFormu().getChamp("idindemnitemission").setAutre("readonly");

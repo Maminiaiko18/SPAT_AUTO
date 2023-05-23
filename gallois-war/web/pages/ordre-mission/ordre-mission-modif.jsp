@@ -18,14 +18,13 @@
 
 
         pi.getFormu().getChamp("estForfaitaire").setLibelle("Forfaitaire");
-        pi.getFormu().getChamp("idmotifvoyage").setLibelle("Motif de voyage");
+        pi.getFormu().getChamp("motifvoyage").setLibelle("Motif de voyage");
         pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
         pi.getFormu().getChamp("idindemnitemission").setLibelle("Indemnité de Mission");
         pi.getFormu().getChamp("lieudeplacement").setLibelle("Lieu de Placement");
         pi.getFormu().getChamp("datedepart").setLibelle("Date depart");
         pi.getFormu().getChamp("numOM").setLibelle("Num OM");
         pi.getFormu().getChamp("etat").setVisible(false);
-        pi.getFormu().getChamp("idmotifvoyagelib").setVisible(false);
         pi.getFormu().getChamp("idindemnitemissionlib").setVisible(false);
         pi.getFormu().getChamp("fonction").setVisible(false);
         pi.getFormu().getChamp("nom").setVisible(false);
@@ -34,9 +33,6 @@
         pi.getFormu().getChamp("idindemnitemission").setPageAppel("choix/indemnite-mission-choix.jsp");
         pi.getFormu().getChamp("idindemnitemission").setAutre("readonly");
         pi.getFormu().getChamp("idindemnitemission").setValeurLibelle(((OrdreMissionLib)pi.getBase()).getIdindemnitemissionlib());
-        pi.getFormu().getChamp("idmotifvoyage").setPageAppel("choix/motif-voyage-choix.jsp");
-        pi.getFormu().getChamp("idmotifvoyage").setAutre("readonly");
-        pi.getFormu().getChamp("idmotifvoyage").setValeurLibelle(((OrdreMissionLib)pi.getBase()).getIdmotifvoyagelib());
         pi.getFormu().getChamp("idtiers").setPageAppel("choix/info-personnel-global-choix.jsp","idtiers;idtiers;idtierslibelle");
         pi.getFormu().getChamp("idtiers").setAutre("readonly");
         pi.getFormu().getChamp("idtiers").setValeurLibelle(((OrdreMissionLib)pi.getBase()).getNom());
@@ -48,6 +44,7 @@
         lst[0].ajouterValeur(valeurChampestForfaitaire, afficheChampestForfaitaire);
         pi.getFormu().changerEnChamp(lst);
         pi.getFormu().getChamp("estForfaitaire").setLibelle("Est Forfaitaire");
+        pi.getFormu().getChamp("estForfaitairelib").setVisible(false);
 
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();

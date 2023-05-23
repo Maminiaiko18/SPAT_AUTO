@@ -120,6 +120,7 @@
             pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
             pi.getFormu().getChamp("idom").setDefaut(request.getParameter("idom"));
             pi.getFormu().getChamp("idom").setAutre("readonly");
+            pi.getFormu().getChamp("idom").setLibelle("Id OM");
             pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
             if(odreMission.getNom()==null && odreMission.getPrenom()==null)
                 pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getId()));
@@ -132,6 +133,7 @@
                 pi.getFormufle().getChamp("designation_" + i).setDefaut(indemnites[i].getTypeIndemnite());
                 pi.getFormufle().getChamp("pu_" + i).setDefaut(indemnites[i].getMontant()+"");
             }
+            pi.getFormu().getChamp("designation").setDefaut("Provision de mission n&deg;" + odreMission.getNumOM());
         }
         affichage.Liste[] listes = new affichage.Liste[3];
 
