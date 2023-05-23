@@ -4280,6 +4280,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("motif", mere[0].getMotifvoyage());
             param.put("dateDedepart", mere[0].getDatedepart());
             param.put("daty", utilitaire.Utilitaire.dateDuJour());
+            param.put("numOM", mere[0].getNumOM());
             String hebergement = "- Prise en charge par la soci&eacute;t&eacute;";
             if(mere[0].getEstForfaitaire()==1) hebergement = "- Indemnit&eacute; forfaitaire";
             param.put("hebergement", hebergement);
