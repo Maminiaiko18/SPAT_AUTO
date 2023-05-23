@@ -285,7 +285,7 @@
 			</staticText>
 			<textField>
 				<reportElement x="42" y="80" width="240" height="20" uuid="af8d1792-c458-4a69-869a-6ff7ca3ce6b8"/>
-				<textElement>
+				<textElement markup="html">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hebergement}]]></textFieldExpression>
