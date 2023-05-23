@@ -68,6 +68,7 @@
     titre.put("armateur_tbd", "Armateur");
     titre.put("MOTIF_VOYAGE", "Motif de Voyage");
     titre.put("CATEGORIE_PROFESSIONNEL", "Catégorie Professionnel");
+    titre.put("moyen_deplacement", "Moyen de d&eacute;placement");
     
     TypeObjet act = new TypeObjet();
     act.setNomTable(cible);
