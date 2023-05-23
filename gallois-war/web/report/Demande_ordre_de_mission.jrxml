@@ -19,7 +19,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="287" splitType="Stretch">
+		<band height="301" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="20" uuid="f8b1d4a6-536b-4b89-8f00-c0990f66e165"/>
 				<textElement textAlignment="Center">
@@ -210,6 +210,13 @@
 				</textElement>
 				<text><![CDATA[jour(s)]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="183" y="267" width="372" height="33" uuid="bf849d31-db8e-46b2-b961-bbd6672c6086"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motif}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<summary>
@@ -272,13 +279,6 @@
 				<reportElement x="42" y="0" width="128" height="35" uuid="62426d0f-b089-4db1-a7af-98fad6281f9b"/>
 				<text><![CDATA[MOYEN DE DEPLACEMENT]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="183" y="0" width="372" height="35" uuid="bf849d31-db8e-46b2-b961-bbd6672c6086"/>
-				<textElement>
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{motif}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="170" y="0" width="13" height="21" uuid="2ee142c5-134b-4ea8-8b02-490195e29297"/>
 				<text><![CDATA[:]]></text>
