@@ -29,11 +29,10 @@
     pc.getChampByName("lieudeplacement").setLibelle("Lieu de Placement");
     pc.getChampByName("datedepart").setLibelle("Date départ");
     pc.getChampByName("duree").setLibelle("Durée");
-    pc.getChampByName("idmotifvoyagelib").setLibelle("Motif voyage");
     pc.getChampByName("estForfaitairelib").setLibelle("Est Forfaitaire");
     pc.getChampByName("idindemnitemissionlib").setLibelle("Indemnité de Mission");
     pc.getChampByName("duree").setLibelle("Durée");
-    pc.getChampByName("idmotifvoyage").setVisible(false);
+    pc.getChampByName("motifvoyage").setLibelle("Motif de voyage");
     pc.getChampByName("idindemnitemission").setVisible(false);
     pc.getChampByName("estForfaitaire").setVisible(false);
     pc.getChampByName("idtiers").setVisible(false);
