@@ -23,7 +23,8 @@
         pi.getFormu().getChamp("idindemnitemission").setLibelle("Indemnité de Mission");
         pi.getFormu().getChamp("lieudeplacement").setLibelle("Lieu de Placement");
         pi.getFormu().getChamp("datedepart").setLibelle("Date depart");
-        pi.getFormu().getChamp("numOM").setLibelle("Num OM");
+        pi.getFormu().getChamp("numOM").setLibelle("Num&eacute;ro OM");
+        pi.getFormu().getChamp("numOM").setAutre("readonly");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idindemnitemissionlib").setVisible(false);
         pi.getFormu().getChamp("fonction").setVisible(false);
