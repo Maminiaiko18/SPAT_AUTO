@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_provisoir" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5df9011-35af-48b5-bccd-75233c87301c">
 	<property name="ireport.zoom" value="2.357947691000002"/>
-	<property name="ireport.x" value="105"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="217"/>
+	<property name="ireport.y" value="384"/>
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="client" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
@@ -18,7 +18,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="226" splitType="Stretch">
+		<band height="227" splitType="Stretch">
 			<staticText>
 				<reportElement x="148" y="0" width="175" height="20" uuid="312379d7-9f4b-4612-bdf6-df46b8361d4c"/>
 				<textElement>
@@ -205,9 +205,9 @@ Direction Utilisatrice]]></text>
 					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement>
-					<font size="12" isUnderline="true"/>
+					<font size="12" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Reçu conforme]]></text>
+				<text><![CDATA[Caissier]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="222" y="20" width="147" height="50" uuid="b9581865-d1cf-450d-9ed6-6cd509d77b9c"/>
@@ -238,14 +238,14 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[ Montant facture:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="373" y="40" width="87" height="20" uuid="5c9df3b1-39cc-4b35-8147-42149bcb7255"/>
+				<reportElement x="369" y="40" width="87" height="20" uuid="5c9df3b1-39cc-4b35-8147-42149bcb7255"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[ Dif. à retourner:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="373" y="60" width="87" height="20" uuid="a76e2900-79f1-46ce-b543-2ad97bb2eeb6"/>
+				<reportElement x="369" y="60" width="87" height="20" uuid="a76e2900-79f1-46ce-b543-2ad97bb2eeb6"/>
 				<box>
 					<bottomPen lineWidth="0.0"/>
 				</box>
@@ -255,33 +255,33 @@ Direction Utilisatrice]]></text>
 				<text><![CDATA[ ou à payer]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="460" y="0" width="114" height="20" uuid="b70eba01-7ff4-42a6-a00b-9cb44e46296d"/>
+				<reportElement x="460" y="0" width="95" height="20" uuid="b70eba01-7ff4-42a6-a00b-9cb44e46296d"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 				</box>
 				<textElement>
-					<font size="12" isUnderline="true"/>
+					<font size="12" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="460" y="20" width="114" height="20" uuid="86032721-bb10-47ba-a135-2660b65bdaaa"/>
+				<reportElement x="460" y="20" width="95" height="20" uuid="86032721-bb10-47ba-a135-2660b65bdaaa"/>
 				<textElement>
-					<font size="12" isUnderline="true"/>
+					<font size="12" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantfact}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="460" y="60" width="114" height="20" uuid="c276a965-d6e4-4532-8ef0-1313fba339b2"/>
+				<reportElement x="460" y="60" width="95" height="20" uuid="c276a965-d6e4-4532-8ef0-1313fba339b2"/>
 				<textElement>
-					<font size="12" isUnderline="true"/>
+					<font size="12" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantApayer}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="460" y="40" width="114" height="20" uuid="a87b6cbe-5fbd-4af7-9417-8c49089bf07c"/>
+				<reportElement x="460" y="40" width="95" height="20" uuid="a87b6cbe-5fbd-4af7-9417-8c49089bf07c"/>
 				<textElement>
-					<font size="12" isUnderline="true"/>
+					<font size="12" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantRetourner}]]></textFieldExpression>
 			</textField>
@@ -292,6 +292,21 @@ Direction Utilisatrice]]></text>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="100" height="55" uuid="b38e148c-8658-4014-afe3-018d87a9da3e"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Département]]></text>
+			</staticText>
+			<line>
+				<reportElement x="554" y="0" width="1" height="125" uuid="1aa9db34-7be9-4ed2-ae65-6f594e67d75c"/>
+			</line>
 		</band>
 	</detail>
 	<summary>
