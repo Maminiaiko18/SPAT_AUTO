@@ -20,9 +20,9 @@
         pi.getFormu().getChamp("estForfaitaire").setLibelle("Forfaitaire");
         pi.getFormu().getChamp("motifvoyage").setLibelle("Motif de voyage");
         pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
-        pi.getFormu().getChamp("idindemnitemission").setLibelle("Indemnité de Mission");
+        pi.getFormu().getChamp("idindemnitemission").setLibelle("Indemnit&eacute; de Mission");
         pi.getFormu().getChamp("lieudeplacement").setLibelle("Lieu de Placement");
-        pi.getFormu().getChamp("datedepart").setLibelle("Date depart");
+        pi.getFormu().getChamp("datedepart").setLibelle("Date d&eacute;part");
         pi.getFormu().getChamp("numOM").setLibelle("Num&eacute;ro OM");
         pi.getFormu().getChamp("numOM").setAutre("readonly");
         pi.getFormu().getChamp("etat").setVisible(false);
@@ -51,6 +51,7 @@
         pi.getFormu().changerEnChamp(lst);
         pi.getFormu().getChamp("estForfaitaire").setLibelle("Est Forfaitaire");
         pi.getFormu().getChamp("estForfaitairelib").setVisible(false);
+        pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
 
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();

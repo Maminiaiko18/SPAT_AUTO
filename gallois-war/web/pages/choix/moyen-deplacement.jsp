@@ -15,7 +15,7 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("moyen-deplacement.jsp");
-    pr.getFormu().getChamp("val").setLibelle("Nom");
+    pr.getFormu().getChamp("val").setLibelle("Moyen de d&eacute;placement");
     pr.getFormu().getChamp("desce").setLibelle("Description");
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
@@ -44,7 +44,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     <%
-                        String libEnteteAffiche[] =  {"ID", "valeur","Description"};
+                        String libEnteteAffiche[] =  {"ID", "Moyen de d&eacute;placement", "Description"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); 
                     %>

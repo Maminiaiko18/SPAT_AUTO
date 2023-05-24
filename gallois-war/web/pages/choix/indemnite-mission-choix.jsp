@@ -21,7 +21,7 @@
 
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
-        pr.getFormu().getChamp("idcategorieprofessionnellib").setLibelle("Categorie professionnel");
+        pr.getFormu().getChamp("idcategorieprofessionnellib").setLibelle("Cat&eacute;gorie professionnel");
 
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
@@ -30,14 +30,14 @@
     <html>
         <head>
             <meta charset="UTF-8">
-            <title>Choix indemnite mission</title>
+            <title>Choix indemnit&eacute; mission</title>
             <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
             <jsp:include page='../elements/css.jsp'/>
         </head>
         <body class="skin-blue sidebar-mini">
             <div class="wrapper">
                 <section class="content-header">
-                    <h1>Titre</h1>
+                    <h1>Choix indemnit&eacute; mission</h1>
                 </section>
                 <section class="content">
                     <form action="<%=pr.getApres()%>?champReturn=<%=champReturn%>" method="post" name="fcdetailsliste" id="fcdetailsliste">
@@ -46,7 +46,7 @@
                     <form action="apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                         <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                         <% 
-                            String libEnteteAff[] =   {"ID","Categorie professionnel","Frais hebergement","Frais restauration","Frais deplacement","Frais forfaitaire"};
+                            String libEnteteAff[] =   {"ID","Cat&eacute;gorie professionnel","Frais h&eacute;bergement","Frais restauration","Frais d&eacute;placement","Frais forfaitaire"};
                             pr.getTableau().setLibeEntete(libEnteteAff);
                             out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                     </form>
