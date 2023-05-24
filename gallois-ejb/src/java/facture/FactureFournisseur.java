@@ -1387,6 +1387,7 @@ public class FactureFournisseur extends FactureClient {
         Connection c = null;
         try {
             c = (new UtilDB()).GetConn();
+            this.setNomTable("facture_Fournisseur_Mere");
             String cal = calculerCodeSimple(c);
             this.setCode(cal);
             u.updateObject(this, c);

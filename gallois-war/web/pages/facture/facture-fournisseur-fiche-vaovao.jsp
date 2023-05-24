@@ -27,10 +27,6 @@
     try {
         UserEJB u = (user.UserEJB) session.getValue("u");
         FactureFournisseur e = new FactureFournisseur();
-        if(request.getParameter("type")!=null && request.getParameter("type").compareTo("null")!=0 && request.getParameter("type").compareTo("")!=0 && request.getParameter("type").compareTo("attribuerCode")==0)
-        {
-           e.attribuerCode(u);
-        }
         e.setNomTable("factfourn_msum_lib_ficheB");
         PageConsulte pc = new PageConsulte(e, request, u);
         pc.setTitre("FICHE FACTURE FOURNISSEUR");
@@ -39,6 +35,10 @@
         pc.getChampByName("numBordereau").setLibelle("Numero BED");
         String lien = (String)session.getValue("lien");
         e = (FactureFournisseur) pc.getBase();
+        if(request.getParameter("type")!=null && request.getParameter("type").compareTo("null")!=0 && request.getParameter("type").compareTo("")!=0 && request.getParameter("type").compareTo("attribuerCode")==0)
+        {
+            e.attribuerCode(u);
+        }
         pc.getChampByName("idbordereau").setLien(lien+"?but=ded/bordereauxFF-fiche.jsp", "id=");
 
         //pc.getChampByName("iduser").setVisible(false);
@@ -251,7 +251,7 @@
                     <p>
 
                         <a class="btn"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFF-saisie.jsp&idfacture=" + e.getId()%>&type=2" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir</a>
-                        <a class="btn"  type="button" href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&type=attribuerCode"%>" style="margin-right: 10px; background-color: #947a31!important; color: white!important;" >Attribuer Codes</a>
+                        <a class="btn"  type="button" href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&type=attribuerCode&id=" + e.getId()%>" style="margin-right: 10px; background-color: #947a31!important; color: white!important;" >Attribuer Codes</a>
                         <a class="btn btn-success pull-right" href="<%=(String) session.getValue("lien") + "?but=additif/additif-saisie.jsp&idfacture="+ e.getId()%>" >Additif</a>
                     </p>
                     <hr>
