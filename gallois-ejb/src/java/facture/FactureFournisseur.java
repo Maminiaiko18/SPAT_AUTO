@@ -1390,4 +1390,22 @@ public class FactureFournisseur extends FactureClient {
             throw ex;
         }
     }
+
+    public void attribuerCode(UserEJB u) throws Exception{
+        Connection c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+            this.setNomTable("facture_Fournisseur_Mere");
+            String cal = calculerCodeSimple(c);
+            this.setCode(cal);
+            u.updateObject(this, c);
+        } catch (Exception e) {
+            throw e;
+        }
+        finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
 }

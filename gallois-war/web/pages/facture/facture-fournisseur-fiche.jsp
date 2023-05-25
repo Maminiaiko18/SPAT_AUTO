@@ -5,6 +5,7 @@
 <%@page import="facturefournisseur.EtatFactureData"%>
 <%@page import="mg.spat.AttacherFichier"%>
 <%@page import="facturefournisseur.EtatFactureMontantDaty"%>
+<%@page import="facture.FactureFournisseur"%>
 <%@page import="service.UploadService"%>
 <%@ page import="user.*" %>
 <%@ page import="bean.*" %>
@@ -12,7 +13,12 @@
 <%@ page import="affichage.*" %>
 <%
     try {
-
+        FactureFournisseur f = new FactureFournisseur();
+        UserEJB u = u = (UserEJB) session.getValue("u");
+        if(request.getParameter("type")!=null && request.getParameter("type").compareTo("null")!=0 && request.getParameter("type").compareTo("")!=0 && request.getParameter("type").compareTo("attribuerCode")==0)
+        {
+           f.attribuerCode(u);
+        }
         EtatFactureMontantDaty a = new EtatFactureMontantDaty();
         a.setNomTable("ETATFACTUREMONTANTDATYETATLIB");
         PageConsulte pc = new PageConsulte(a, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
@@ -20,22 +26,22 @@
 
 //        pc.getChampByName("etat").setDefaut(a.getEtatText());
         pc.getChampByName("montantTTDevise").setVisible(false);
-        pc.getChampByName("numid").setLibelle("Numéro compta");
-        pc.getChampByName("montantPaye").setLibelle("Montant payé");
+        pc.getChampByName("numid").setLibelle("Numï¿½ro compta");
+        pc.getChampByName("montantPaye").setLibelle("Montant payï¿½");
         pc.getChampByName("id").setLibelle("ID");
-        pc.getChampByName("reste").setLibelle("Reste à payer");
+        pc.getChampByName("reste").setLibelle("Reste ï¿½ payer");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("idfournisseur").setLibelle("ID Fournisseur");
         pc.getChampByName("nomfournisseur").setLibelle("Fournisseur");
         pc.getChampByName("budget").setVisible(false);
         pc.getChampByName("retenue").setVisible(false);
-        pc.getChampByName("remarque").setLibelle("Référence");
-        pc.getChampByName("numfact").setLibelle("Numéro Facture");
-        pc.getChampByName("designation").setLibelle("Désignation");
+        pc.getChampByName("remarque").setLibelle("Rï¿½fï¿½rence");
+        pc.getChampByName("numfact").setLibelle("Numï¿½ro Facture");
+        pc.getChampByName("designation").setLibelle("Dï¿½signation");
         pc.getChampByName("iddevise").setLibelle("Devise");
         pc.getChampByName("montantttc").setLibelle("Montant TTC");
-        pc.getChampByName("dateemission").setLibelle("Date émission");
-        pc.getChampByName("datyecheance").setLibelle("Date echéance");
+        pc.getChampByName("dateemission").setLibelle("Date ï¿½mission");
+        pc.getChampByName("datyecheance").setLibelle("Date echï¿½ance");
         pc.getChampByName("etatlib").setLibelle("Etat");
         pc.getChampByName("etat").setVisible(false);
         pc.getChampByName("montanttva").setLibelle("Montant TVA");
@@ -148,7 +154,7 @@
 <div class="content-wrapper">
     <form action="<%=(String) session.getValue("lien")%>?but=apresMdp.jsp" method="post" id="form-avoir-interne">
         <div id="div-password">
-            <div id="div-password-header">Sécurité</div>
+            <div id="div-password-header">Sï¿½curitï¿½</div>
             <br/>
             <p><b>Mot de passe</b></p>
             <p><input name="mdp" type="password" id="mdp"></p>
@@ -181,15 +187,16 @@
                     <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-modif-multiple.jsp&id=" + id%>" style="margin-right: 10px">Modifier</a>
 
                     <%if (request.getParameter("idbon") != null && request.getParameter("idbon").compareTo("") != 0) {%>
-                    <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regularisation.jsp&idfacture=" + id + "&idbon=" + request.getParameter("idbon")%>" style="margin-right: 10px">Régulariser bon</a>
+                    <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regularisation.jsp&idfacture=" + id + "&idbon=" + request.getParameter("idbon")%>" style="margin-right: 10px">Rï¿½gulariser bon</a>
                     <%} else {%>
-                    <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regularisation.jsp&idfacture=" + id%>" style="margin-right: 10px">Régulariser bon</a>
+                    <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regularisation.jsp&idfacture=" + id%>" style="margin-right: 10px">Rï¿½gulariser bon</a>
                     <%}%>
 
                     <hr>
                     <h4><i class="fa fa-plus"></i> Actions </h4>
                     <a style="margin-right : 5px" class="btn btn-success "  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&acte=payer&id=" + a.getId()%>">Payer</a>
                     <a class="btn"  href="<%=(String) session.getValue("lien") + "?but=avoir/avoirFF-saisie.jsp&idfacture=" + ff.getId()%>&type=2" style="margin-right: 10px; background-color: #947a31!important; color: white!important;">Avoir</a>
+                    <a class="btn"  type="button" href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche.jsp&type=attribuerCode"%>" style="margin-right: 10px; background-color: #947a31!important; color: white!important;" >Attribuer Codes</a>
                 </div>
 
             </div>
@@ -336,14 +343,14 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <div class="">
-                <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
+                <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachï¿½s</h2>
             </div>
             <div class="box-body">
                 <table class="table table-striped table-bordered table-condensed table-responsive tree">
                     <thead>
                         <tr>
                             <th style="background-color:#bed1dd;"></th>
-                            <th style="background-color:#bed1dd;">Libellé</th>
+                            <th style="background-color:#bed1dd;">Libellï¿½</th>
                             <th style="background-color:#bed1dd;">Fichier</th>
                             <th style="background-color:#bed1dd;">Voir</th>
                             <th style="background-color:#bed1dd;">#</th>
