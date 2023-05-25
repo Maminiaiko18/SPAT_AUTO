@@ -156,7 +156,7 @@ public class OrdreMission extends ClassEtat {
         String numOM = "";
         
         try{
-            String rqt = "SELECT nvl(max(numOM)+1,1) AS numerosuivant FROM ordre_mission where EXTRACT(YEAR FROM datedepart) = " + Utilitaire.getAnnee(this.getDatedepart());
+            String rqt = "SELECT  nvl(max(TO_NUMBER(numOM))+1,1) AS numerosuivant FROM ordre_mission where EXTRACT(YEAR FROM datedepart) = " + Utilitaire.getAnnee(this.getDatedepart());
             NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
             if(result.length>0) numOM = Utilitaire.completerInt(7, result[0].getNumerosuivant());
         }
