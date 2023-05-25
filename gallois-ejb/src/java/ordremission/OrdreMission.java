@@ -7,10 +7,12 @@ package ordremission;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import facture.NumeroFacture;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -150,5 +152,33 @@ public class OrdreMission extends ClassEtat {
         this.setId(makePK(c));
     }
 
+    public String calculerNumeroOM(Connection c) throws Exception {
+        String numOM = "";
+        
+        try{
+            String rqt = "SELECT nvl(max(numOM)+1,1) AS numerosuivant FROM ordre_mission where EXTRACT(YEAR FROM datedepart) = " + Utilitaire.getAnnee(this.getDatedepart());
+            NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+            if(result.length>0) numOM = Utilitaire.completerInt(7, result[0].getNumerosuivant());
+        }
+        catch(Exception e){
+            throw e;
+        }
+        
+        return numOM;
+    }
     
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        try{
+            if(this.getNumOM() == null || this.getNumOM().isEmpty() || this.getNumOM().compareToIgnoreCase("") == 0){
+                String numOM = this.calculerNumeroOM(c);
+                this.setNumOM(numOM);
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+        
+        return super.validerObject(u, c);
+    }
 }

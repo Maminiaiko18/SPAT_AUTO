@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Demande_ordre_de_mission" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d0c3b98a-d7e6-4b8f-9565-d20a8a77aeee">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="177"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -15,11 +15,13 @@
 	<parameter name="dateDedepart" class="java.util.Date"/>
 	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="hebergement" class="java.lang.String"/>
+	<parameter name="numOM" class="java.lang.String"/>
+	<parameter name="moyenDeDep" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="287" splitType="Stretch">
+		<band height="301" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="20" uuid="f8b1d4a6-536b-4b89-8f00-c0990f66e165"/>
 				<textElement textAlignment="Center">
@@ -210,6 +212,13 @@
 				</textElement>
 				<text><![CDATA[jour(s)]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="183" y="267" width="372" height="33" uuid="bf849d31-db8e-46b2-b961-bbd6672c6086"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motif}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<summary>
@@ -222,7 +231,7 @@
 				<text><![CDATA[DATE DE DEPART ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="42" y="61" width="240" height="19" uuid="b8de8bfb-6d67-46df-8a45-b041aa92af58"/>
+				<reportElement x="42" y="91" width="240" height="19" uuid="b8de8bfb-6d67-46df-8a45-b041aa92af58"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
@@ -230,21 +239,21 @@
   ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="411" y="140" width="100" height="20" uuid="d24bf305-63c0-402a-88ca-aaee0a82c044"/>
+				<reportElement x="411" y="170" width="100" height="20" uuid="d24bf305-63c0-402a-88ca-aaee0a82c044"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[Toamasina,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="42" y="160" width="100" height="20" uuid="fde6d4c5-bfb2-4f2f-a3fc-bdd8b3299bfc"/>
+				<reportElement x="42" y="190" width="100" height="20" uuid="fde6d4c5-bfb2-4f2f-a3fc-bdd8b3299bfc"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[LE DEMANDEUR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="379" y="204" width="132" height="20" uuid="a5212f90-c42d-4847-946e-49ca3a405dd3"/>
+				<reportElement x="379" y="234" width="132" height="20" uuid="a5212f90-c42d-4847-946e-49ca3a405dd3"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
@@ -258,7 +267,7 @@
 				<textFieldExpression><![CDATA[$P{dateDedepart}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="411" y="160" width="100" height="20" uuid="409f18e2-4266-421d-9ca0-441354d9f591"/>
+				<reportElement x="411" y="190" width="100" height="20" uuid="409f18e2-4266-421d-9ca0-441354d9f591"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
@@ -272,23 +281,41 @@
 				<reportElement x="42" y="0" width="128" height="35" uuid="62426d0f-b089-4db1-a7af-98fad6281f9b"/>
 				<text><![CDATA[MOYEN DE DEPLACEMENT]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="183" y="0" width="372" height="35" uuid="bf849d31-db8e-46b2-b961-bbd6672c6086"/>
-				<textElement>
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{motif}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="170" y="0" width="13" height="21" uuid="2ee142c5-134b-4ea8-8b02-490195e29297"/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="42" y="80" width="240" height="20" uuid="af8d1792-c458-4a69-869a-6ff7ca3ce6b8"/>
-				<textElement>
+				<reportElement x="42" y="110" width="240" height="20" uuid="af8d1792-c458-4a69-869a-6ff7ca3ce6b8"/>
+				<textElement markup="html">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hebergement}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="42" y="55" width="100" height="20" uuid="88e28ab7-f329-4acf-b1e8-e7a8431d86a6"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[NUM OM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="55" width="13" height="20" uuid="27faf908-c257-4f14-8518-ac93a8478bc3"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="183" y="55" width="372" height="20" uuid="2db2b281-0c02-4a2e-bd81-d630dabde00f"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numOM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="1" width="372" height="34" uuid="99b4dbdb-431f-4578-b695-8ac3a587f5e8"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{moyenDeDep}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

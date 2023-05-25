@@ -21,9 +21,9 @@
     t = (OrdreMissionLib) pc.getBase();
     String id = t.getId();
     pc.getChampByName("id").setLibelle("Id");
-    pc.getChampByName("numom").setLibelle("Num OM");
+    pc.getChampByName("numom").setLibelle("Num&eacute;ro OM");
     pc.getChampByName("nom").setLibelle("Nom");
-    pc.getChampByName("prenom").setLibelle("Prenom");
+    pc.getChampByName("prenom").setLibelle("Pr&eacute;nom");
     pc.getChampByName("fonction").setLibelle("Fonction");
     pc.getChampByName("matricule").setLibelle("Matricule");
     pc.getChampByName("lieudeplacement").setLibelle("Lieu de Placement");
@@ -36,6 +36,8 @@
     pc.getChampByName("idindemnitemission").setVisible(false);
     pc.getChampByName("estForfaitaire").setVisible(false);
     pc.getChampByName("idtiers").setVisible(false);
+    pc.getChampByName("idmoyendeplacement").setVisible(false);
+    pc.getChampByName("idmoyendeplacementlib").setLibelle("Moyen de d&eacute;placement");
     pc.setTitre("Fiche Ordre de Mission");
     String lien = (String) session.getValue("lien");
     String pageModif = "ordre-mission/ordre-mission-modif.jsp";

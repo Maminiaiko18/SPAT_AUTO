@@ -37,7 +37,7 @@
         out.println(pr.getTableau().getHtml());
 %>   
 <% } else {
-%><center><h4>Aucun details </h4></center><%
+%><center><h4>Aucun r&eacute;sultat </h4></center><%
     }
     %>
 

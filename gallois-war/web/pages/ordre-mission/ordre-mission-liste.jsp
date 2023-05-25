@@ -13,12 +13,13 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("ordre-mission/ordre-mission-liste.jsp");
-    pr.getFormu().getChamp("datedepart1").setLibelle("Date depart min");
-    pr.getFormu().getChamp("datedepart2").setLibelle("Date depart max");
-    pr.getFormu().getChamp("duree1").setLibelle("Durée min");
-    pr.getFormu().getChamp("duree2").setLibelle("Durée max");
-    pr.getFormu().getChamp("numom").setLibelle("Num OM");
+    pr.getFormu().getChamp("datedepart1").setLibelle("Date d&eacute;part min");
+    pr.getFormu().getChamp("datedepart2").setLibelle("Date d&eacute;part max");
+    pr.getFormu().getChamp("duree1").setLibelle("Dur&eacute;e min");
+    pr.getFormu().getChamp("duree2").setLibelle("Dur&eacute;e max");
+    pr.getFormu().getChamp("numom").setLibelle("Num&eacute;ro OM");
     pr.getFormu().getChamp("lieudeplacement").setLibelle("Lieu de Placement");
+    pr.getFormu().getChamp("prenom").setLibelle("Pr&eacute;nom");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -41,7 +42,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Num OM", "Nom", "Prénom", "Fonction", "Matricule", "Date départ", "Durée", "Lieu de Placement"};
+            String libEnteteAffiche[] = {"Id", "Num&eacute;ro OM", "Nom", "Pr&eacute;nom", "Fonction", "Matricule", "Date d&eacute;part", "Dur&eacute;e", "Lieu de Placement"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
