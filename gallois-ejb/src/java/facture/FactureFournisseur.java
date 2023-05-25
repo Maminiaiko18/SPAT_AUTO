@@ -1372,7 +1372,7 @@ public class FactureFournisseur extends FactureClient {
             EngagementFille engFille = fille.createEngagementFille(engagement.getId());
             engFille.construirePK(c);
             engFille.insertToTableWithHisto(u, c);
-            engagement.validerObject(u, c);
+            engagement.validerObjectSansControleMontant(u, c);
 
             LiaisonEngagement liaison = new LiaisonEngagement(engagement.getId(), this.getId(), montant, ConstanteEtat.getEtatCreer());
             liaison.createObject(u, c);
