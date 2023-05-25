@@ -835,7 +835,7 @@ public class FactureFournisseur extends FactureClient {
                                 liaison.validerObject(u, c);
                             }
                             if(e.getMontantreste() >= diff2){
-                                liaison = new LiaisonEngagement(e.getIdengagement(), ff.getId(), diff, ConstanteEtat.getEtatCreer());
+                                liaison = new LiaisonEngagement(e.getIdengagement(), ff.getId(), diff2, ConstanteEtat.getEtatCreer());
                                 liaison.createObject(u, c);
                                 liaison.validerObject(u, c);
                             }
@@ -887,6 +887,7 @@ public class FactureFournisseur extends FactureClient {
     public Object validerSansControleResteEngagement(String u,boolean controleMontant) throws Exception {
         Connection c = null;
         try {
+            this.setEstAncienne(1);
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
             LigneCredit lc = this.getBudget(c);
@@ -929,7 +930,7 @@ public class FactureFournisseur extends FactureClient {
                                 liaison.validerObject(u, c);
                             }
                             if(e.getMontantreste() >= diff2){
-                                liaison = new LiaisonEngagement(e.getIdengagement(), ff.getId(), diff, ConstanteEtat.getEtatCreer());
+                                liaison = new LiaisonEngagement(e.getIdengagement(), ff.getId(), diff2, ConstanteEtat.getEtatCreer());
                                 liaison.createObject(u, c);
                                 liaison.validerObject(u, c);
                             }
