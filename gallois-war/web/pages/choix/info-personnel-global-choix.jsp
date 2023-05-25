@@ -18,6 +18,9 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("info-personnel-global-choix.jsp");
+        pr.getFormu().getChamp("prenom").setLibelle("Pr&eacute;nom");
+        pr.getFormu().getChamp("categorie").setLibelle("Cat&eacute;gorie");
+        pr.getFormu().getChamp("numero_matricule").setLibelle("Num&eacute;ro matricule");
 
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
@@ -42,7 +45,7 @@
                     <form action="apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                         <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                         <% 
-                            String libEnteteAff[] = {"ID", "Nom", "Prenom","Poste", "Categorie", "Numero matricule","Adresse"};
+                            String libEnteteAff[] = {"ID", "Nom", "Pr&eacute;nom", "Poste", "Cat&eacute;gorie", "Num&eacute;ro matricule", "Adresse"};
                             pr.getTableau().setLibeEntete(libEnteteAff);
                             out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                     </form>

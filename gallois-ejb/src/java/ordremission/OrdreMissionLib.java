@@ -13,7 +13,7 @@ import utilitaire.UtilDB;
  * @author Nouta
  */
 public class OrdreMissionLib extends OrdreMission{
-    private String nom,prenom,fonction,classeprofessionnel,matricule,idindemnitemissionlib,idmotifvoyagelib,estForfaitairelib;
+    private String nom,prenom,fonction,classeprofessionnel,matricule,idindemnitemissionlib,idmotifvoyagelib,estForfaitairelib,idmoyendeplacementlib;
     
     public OrdreMissionLib getByIdAvecOrdreMissionIndemnite(String id) throws Exception{
         Connection connection=null;
@@ -98,6 +98,14 @@ public class OrdreMissionLib extends OrdreMission{
 
     public void setEstForfaitairelib(String estForfaitairelib) {
         this.estForfaitairelib = estForfaitairelib;
+    }
+
+    public String getIdmoyendeplacementlib() {
+        return idmoyendeplacementlib;
+    }
+
+    public void setIdmoyendeplacementlib(String idmoyendeplacementlib) {
+        this.idmoyendeplacementlib = idmoyendeplacementlib;
     }
     
 }
