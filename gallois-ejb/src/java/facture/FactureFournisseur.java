@@ -452,9 +452,9 @@ public class FactureFournisseur extends FactureClient {
         this.setNomClasseFille("facture.FactureFournisseurDetails");
         this.setIduser(iduser);
         this.setId(null);
-        if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
+        /*if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
             this.setCode(calculerCodeSimple(cnctn));
-        }
+        }*/
         if(this.getIdBL() != null){
             BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(this.getIdBL(), "AS_BONDELIVRAISON_BC", cnctn);
             if(bl.getIdengagement() != null)
@@ -804,6 +804,7 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        this.setEstAncienne(1);
         LigneCredit lc = this.getBudget(c);
         if (lc == null) {
             throw new Exception("Budget non trouvé");
