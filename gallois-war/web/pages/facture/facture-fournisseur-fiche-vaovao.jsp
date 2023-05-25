@@ -37,7 +37,7 @@
         e = (FactureFournisseur) pc.getBase();
         if(request.getParameter("type")!=null && request.getParameter("type").compareTo("null")!=0 && request.getParameter("type").compareTo("")!=0 && request.getParameter("type").compareTo("attribuerCode")==0)
         {
-            e.attribuerCode(u);
+            if(e.getCode()==null) e.attribuerCode(u);
         }
         pc.getChampByName("idbordereau").setLien(lien+"?but=ded/bordereauxFF-fiche.jsp", "id=");
 
