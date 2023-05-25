@@ -452,9 +452,9 @@ public class FactureFournisseur extends FactureClient {
         this.setNomClasseFille("facture.FactureFournisseurDetails");
         this.setIduser(iduser);
         this.setId(null);
-        if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
+        /*if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
             this.setCode(calculerCodeSimple(cnctn));
-        }
+        }*/
         if(this.getIdBL() != null){
             BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(this.getIdBL(), "AS_BONDELIVRAISON_BC", cnctn);
             if(bl.getIdengagement() != null)
@@ -804,6 +804,7 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        this.setEstAncienne(1);
         LigneCredit lc = this.getBudget(c);
         if (lc == null) {
             throw new Exception("Budget non trouvé");
@@ -842,7 +843,7 @@ public class FactureFournisseur extends FactureClient {
                                 liaison.validerObject(u, c);
                             }
                             if(e.getMontantreste() >= diff2){
-                                liaison = new LiaisonEngagement(e.getIdengagement(), ff.getId(), diff, ConstanteEtat.getEtatCreer());
+                                liaison = new LiaisonEngagement(e.getIdengagement(), ff.getId(), diff2, ConstanteEtat.getEtatCreer());
                                 liaison.createObject(u, c);
                                 liaison.validerObject(u, c);
                             }
@@ -894,6 +895,7 @@ public class FactureFournisseur extends FactureClient {
     public Object validerSansControleResteEngagement(String u,boolean controleMontant) throws Exception {
         Connection c = null;
         try {
+            this.setEstAncienne(1);
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
             LigneCredit lc = this.getBudget(c);
@@ -936,7 +938,7 @@ public class FactureFournisseur extends FactureClient {
                                 liaison.validerObject(u, c);
                             }
                             if(e.getMontantreste() >= diff2){
-                                liaison = new LiaisonEngagement(e.getIdengagement(), ff.getId(), diff, ConstanteEtat.getEtatCreer());
+                                liaison = new LiaisonEngagement(e.getIdengagement(), ff.getId(), diff2, ConstanteEtat.getEtatCreer());
                                 liaison.createObject(u, c);
                                 liaison.validerObject(u, c);
                             }
@@ -1378,7 +1380,7 @@ public class FactureFournisseur extends FactureClient {
             EngagementFille engFille = fille.createEngagementFille(engagement.getId());
             engFille.construirePK(c);
             engFille.insertToTableWithHisto(u, c);
-            engagement.validerObject(u, c);
+            engagement.validerObjectSansControleMontant(u, c);
 
             LiaisonEngagement liaison = new LiaisonEngagement(engagement.getId(), this.getId(), montant, ConstanteEtat.getEtatCreer());
             liaison.createObject(u, c);

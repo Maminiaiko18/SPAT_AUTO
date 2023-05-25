@@ -362,7 +362,7 @@ public class Engagement extends ClassEtat {
         this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
         super.validerObject(u, c);
-        if(avecFacture==0){
+        if(avecFacture==1){
              this.genererFacture(u, c, filles,lc);
         }
         return this; 
