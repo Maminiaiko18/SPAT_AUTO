@@ -1397,10 +1397,11 @@ public class FactureFournisseur extends FactureClient {
         Connection c = null;
         try {
             c = (new UtilDB()).GetConn();
-            this.setNomTable("facture_Fournisseur_Mere");
-            String cal = calculerCodeSimple(c);
-            this.setCode(cal);
-            u.updateObject(this, c);
+            if(this.getCode()==null) {
+                String cal = calculerCodeSimple(c);
+                this.setCode(cal);
+                u.updateObject(this, c);
+            }else throw new Exception("Ce facture possede deja un numero compta.");             
         } catch (Exception e) {
             throw e;
         }
