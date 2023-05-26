@@ -53,6 +53,33 @@ public class Engagement extends ClassEtat {
         return this.getMontant() - totalFF;
     }
 
+    public Engagement modifierEntete(String refUser, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            this.updateToTableWithHisto(refUser, c);
+
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return this;
+    }
+
     public String getObservation() {
         return observation;
     }

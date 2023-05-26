@@ -76,7 +76,7 @@
                         <br><br> 
                     </div>
                     
-                    <input name="acte" type="hidden" id="nature" value="updateSimple">
+                    <input name="acte" type="hidden" id="nature" value="engagementEntete">
                     <input name="bute" type="hidden" id="bute" value="depense/engagement-fiche.jsp">
                     <input name="classe" type="hidden" id="classe" value="<%= base.getClass().getName() %>">
                     <input name="nomtable" type="hidden" id="nomtable" value="engagement">
