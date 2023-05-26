@@ -12,6 +12,7 @@
 <%@page import="mg.spat.relationhumaine.InfoPersonnel"%>
 <%@page import="mg.spat.relationhumaine.InfoProfessionnel"%>
 <%@page import="mg.spat.Cloture"%>
+<%@page import="mg.spat.Engagement"%>
 <%@page import="java.util.List"%>
 
 <%@ page import="user.*" %>
@@ -88,6 +89,13 @@
             }
 
             int type = Utilitaire.stringToInt(typeBoutton);
+
+            if (acte != null && acte.equalsIgnoreCase("engagementEntete")) { 
+                Page p = new Page(new Engagement(), request);
+                Engagement fc = (Engagement)p.getObjectAvecValeur();
+                fc.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
+            }
+
             if (acte.compareToIgnoreCase("insertMenu") == 0) {
                 String utilisateur = request.getParameter("refuser");
                 String menu = request.getParameter("idmenu");

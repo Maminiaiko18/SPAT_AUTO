@@ -5,6 +5,10 @@
 <%@page import="affichage.PageRecherche"%>
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
+<%@page import="java.sql.Date"%>
+<%@page import="utilitaire.Utilitaire"%>
+
+
 <%
     try {
         String typecheque = request.getParameter("idtypecheque");
@@ -15,9 +19,13 @@
             journalCaisse.setNomTable(request.getParameter("etatvue"));
         }
 
-        System.out.println("tablename"+journalCaisse.getNomTable());
+        Date lastDate = Utilitaire.dateDuJourSql();
+        lastDate.setDate(31);
+        lastDate.setMonth(11);
+        String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());
+        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
 
-        String listeCrt[] = {"id", "folio", "caisse", "libelle", "remarque", "dateEffet", "idtypecheque", "codefacture", "descecaisse", "tierslib","idbanquelib","numPiece"};
+        String listeCrt[] = {"id", "folio", "valcaisse", "libelle", "remarque", "dateEffet", "idtypecheque", "codefacture", "descecaisse", "tierslib","idbanquelib","numPiece"};
         String listeInt[] = {"dateEffet"};
         String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "codefacture", "tierslib","codetiers","idbanquelib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -38,17 +46,16 @@
         listes[2].setDefaultSelected(Constante.caisseCentraleEspece);
 */
         pr.getFormu().changerEnChamp(listes);
-        pr.getFormu().getChamp("caisse").setDefaut("CAISSE AVOIR");
+        pr.getFormu().getChamp("valcaisse").setDefaut("CAISSE AVOIR");
 
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
 
-        pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
-        pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
+        pr.getFormu().getChamp("dateEffet1").setDefaut(debutDate);
+        pr.getFormu().getChamp("dateEffet2").setDefaut(dateFin);
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
-        pr.getFormu().getChamp("caisse").setLibelle("Caisse");
-        //pr.getFormu().getChamp("valcaisse").setDefaut("RECETTES");
+        pr.getFormu().getChamp("valcaisse").setLibelle("Caisse");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("idbanquelib").setLibelle("Banque");

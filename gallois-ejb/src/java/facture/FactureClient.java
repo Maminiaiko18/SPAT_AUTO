@@ -1079,7 +1079,8 @@ public class FactureClient extends ClassMere {
                     listeProvision[i].setId(null);
                     listeProvision[i].createObject(u, c);
                 }
-            }
+            } else throw new Exception("Provision non payée");
+            
         } catch (Exception e) {
             throw e;
         } finally {
