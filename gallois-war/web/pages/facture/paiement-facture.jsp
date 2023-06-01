@@ -16,39 +16,38 @@
         }
 
      //   System.out.println("tablename"+journalCaisse.getNomTable());
-        String listeCrt[] = {"id", "VALCAISSE", "NUMPIECE", "LIBELLE", "DATEEFFET", "codefacture", "tierslib","idbanquelib"};
-        String listeInt[] = {"dateEffet","DATESAISIE"};
-        String libEntete[] = {"ID","DATESAISIE","DATEEFFET","VALCAISSE","NUMPIECE","LIBELLE","CREDIT","TIERSLIB","VALTYPECHEQUE","DESCETYPECHEQUE","NUMCHEQUE","CODETIERS","IDBANQUELIB","MONTANT","CODEFACTURE","CATEGORIELIB"};
+        String listeCrt[] = {"id", "caisse", "numpiece", "libelle", "DATEEFFET", "codefacture", "tierslib","idbanquelib","DESCETYPECHEQUE"};
+        String listeInt[] = {"dateEffet"};
+        String libEntete[] = {"id","DATESAISIE","DATEEFFET","valcaisse","numpiece","libelle","CREDIT","TIERSLIB","VALTYPECHEQUE","DESCETYPECHEQUE","NUMCHEQUE","CODETIERS","IDBANQUELIB","MONTANT","CODEFACTURE","CATEGORIELIB"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("facture/paiement-facture.jsp");
 
         Liste[] listes = new Liste[2];
-        listes[0] = new Liste("VALCAISSE", new String[]{"Tous", "Caisse", "Banque"}, new String[]{"", "Caisse", "Banque"});
+        TypeObjet caisse = new TypeObjet();
+        caisse.setNomTable("caisse");
+        listes[0] = new Liste("caisse", caisse, "val", "id");
 
-        TypeObjet typeCheque = new TypeObjet();
-        typeCheque.setNomTable("typecheque");
-        listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
-
-       // TypeObjet caisserecette = new TypeObjet();
-       //  caisserecette.setNomTable("caisserecette");
-      //   listes[2] = new Liste("caisse", caisserecette, "val", "id");
-      //   listes[2].setDefaultSelected(Constante.caisseCentraleEspece);
+        TypeObjet cheque = new TypeObjet();
+        cheque.setNomTable("MODEPAIEMENTBQ");
+        listes[1] = new Liste("DESCETYPECHEQUE", cheque, "VAL", "val");
 
         pr.getFormu().changerEnChamp(listes);
         
       //  pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
 //        pr.getFormu().getChamp("dateEffet1").setDefaut("01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql()););
-        pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
-        pr.getFormu().getChamp("libelle").setLibelle("Libellé");
-        pr.getFormu().getChamp("VALCAISSE").setLibelle("Caisse");
         //pr.getFormu().getChamp("valcaisse").setDefaut("RECETTES");
        // pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+        pr.getFormu().getChamp("numpiece").setLibelle("Numero Piece");
+        pr.getFormu().getChamp("codefacture").setLibelle("Code facture");
         pr.getFormu().getChamp("idbanquelib").setLibelle("Banque");
+        pr.getFormu().getChamp("DESCETYPECHEQUE").setLibelle("Mode paiement");
+        pr.setOrdre(" order by dateeffet desc");
+
         String[] colSomme = {"credit"};
         pr.creerObjetPage(libEntete, colSomme);
 
@@ -56,34 +55,16 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Journal de caisse RECETTE</h1>
+        <h1>Paiement Facture client</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=facture/paiement-facture.jsp" method="post" name="incident" id="incident">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Etat : </label>
-                    <select name="etatvue" class="champ form-control" id="etatvue" onchange="changerDesignation()" style="display: inline-block; width: 250px;">
-                        <option value="JOURNALCAISSELIB_SANSPROV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSPROV") == 0) {
-                                out.print("selected");
-                            }%>>Recettes sans provisions</option>
-                        <option value="JOURNALCAISSELIB_PROVISION" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_PROVISION") == 0) {
-                                out.print("selected");
-                            }%>>Provisions</option>
-                        <option value="etatjournalcaisselibrecette" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("etatjournalcaisselibrecette") == 0) {
-                                out.print("selected");
-                            }%>>Tous</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-4"></div>
         </form>
 
-        <%  String lienTableau[] = {pr.getLien() + "?but=facture/paiement-facture.jsp"};
+        <%  String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
@@ -95,8 +76,7 @@
             <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
             <input type="hidden" name="acte" value="viser"/>
             <%
-                //String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "num cheque", "Libellé", "Date Saisie", "Date Effet", "Entrée", "Facture", "Tiers","Codetiers","Banque","codefacture"};
-                String libEnteteAffiche[] = {"ID","DATESAISIE","DATEEFFET","VALCAISSE","NUMPIECE","LIBELLE","CREDIT","TIERSLIB","VALTYPECHEQUE","DESCETYPECHEQUE","NUMCHEQUE","CODETIERS","IDBANQUELIB","MONTANT","CODEFACTURE","CATEGORIELIB"};
+                String libEnteteAffiche[] = {"Id","Date saisie","Date effet","Caisse","Numero piece","Libelle","Credit","Tiers","Type","Mode de paiement","Num cheque","Code Tiers","Banque","Montant payee","Code facture","Categorie"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");
