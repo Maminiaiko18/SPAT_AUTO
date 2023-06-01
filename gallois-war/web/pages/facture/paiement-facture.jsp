@@ -16,7 +16,7 @@
         }
 
      //   System.out.println("tablename"+journalCaisse.getNomTable());
-        String listeCrt[] = {"id", "caisse", "numpiece", "libelle", "DATEEFFET", "codefacture", "tierslib","idbanquelib","DESCETYPECHEQUE"};
+        String listeCrt[] = {"id", "caisse", "numpiece", "libelle", "DATEEFFET", "codefacture", "tierslib","idbanquelib","DESCETYPECHEQUE","idtypecheque"};
         String listeInt[] = {"dateEffet"};
         String libEntete[] = {"id","DATESAISIE","DATEEFFET","valcaisse","numpiece","libelle","CREDIT","TIERSLIB","VALTYPECHEQUE","DESCETYPECHEQUE","NUMCHEQUE","CODETIERS","IDBANQUELIB","MONTANT","CODEFACTURE","CATEGORIELIB"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -24,7 +24,7 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("facture/paiement-facture.jsp");
 
-        Liste[] listes = new Liste[2];
+        Liste[] listes = new Liste[3];
         TypeObjet caisse = new TypeObjet();
         caisse.setNomTable("caisse");
         listes[0] = new Liste("caisse", caisse, "val", "id");
@@ -32,6 +32,10 @@
         TypeObjet cheque = new TypeObjet();
         cheque.setNomTable("MODEPAIEMENTBQ");
         listes[1] = new Liste("DESCETYPECHEQUE", cheque, "VAL", "val");
+
+        TypeObjet typeCheque = new TypeObjet();
+        typeCheque.setNomTable("typecheque");
+        listes[2] = new Liste("idtypecheque", typeCheque, "val", "id");
 
         pr.getFormu().changerEnChamp(listes);
         
@@ -48,7 +52,7 @@
         pr.getFormu().getChamp("DESCETYPECHEQUE").setLibelle("Mode paiement");
         pr.setOrdre(" order by dateeffet desc");
 
-        String[] colSomme = {"credit"};
+        String[] colSomme = {"montant"};
         pr.creerObjetPage(libEntete, colSomme);
 
 %>
@@ -76,7 +80,7 @@
             <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
             <input type="hidden" name="acte" value="viser"/>
             <%
-                String libEnteteAffiche[] = {"Id","Date saisie","Date effet","Caisse","Numero piece","Libelle","Credit","Tiers","Type","Mode de paiement","Num cheque","Code Tiers","Banque","Montant payee","Code facture","Categorie"};
+                String libEnteteAffiche[] = {"Id","Date saisie","Date effet","Caisse","Numero piece","Libelle","Credit","Tiers","Type","Mode de paiement","Num cheque","Code Tiers","Banque","Montant","Code facture","Categorie"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");
