@@ -1217,8 +1217,6 @@ public class FactureFournisseur extends FactureClient {
 
             FactureFournisseurDetails[] filles = (FactureFournisseurDetails[]) this.getFille("FACTFOURN_FILL_LIB_REST_TAXE", c, "");
 
-            double mtt = AdminGen.calculSommeDouble(filles, "montant");
-            engagement.setMontant(mtt);
             engagement.setAvecFacture(0);
             engagement.createObject(u, c);
 
