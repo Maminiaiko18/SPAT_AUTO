@@ -492,8 +492,15 @@
                 ff.setId(request.getParameter("id"));
                 ff = (facture.FactureFournisseur)ff.getById(request.getParameter("id"), "facture_fournisseur_mere", null);
                 if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID(),false);
+                else{
+                    Engagement engagement=new Engagement();
+                    engagement.setId(request.getParameter("id"));
+                    engagement = (Engagement)engagement.getById(request.getParameter("id"), "engagement", null);
+                    if(engagement!=null)engagement.validerObjectSansControleMontant(u.getUser().getTuppleID(),null);
+                }
             }
         }
+
         if(acte.compareToIgnoreCase("validerBCEng") == 0){
             BonDeCommande bc=new BonDeCommande();
             bc.setId(request.getParameter("id"));
