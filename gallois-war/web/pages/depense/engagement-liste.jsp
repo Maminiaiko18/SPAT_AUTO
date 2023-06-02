@@ -7,10 +7,13 @@
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="mg.spat.Engagement"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="user.UserEJB"%> 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%
     try {
-
         Engagement eng = new Engagement();
+        user.UserEJB u = (user.UserEJB) session.getValue("u");
         eng.setNomTable("engagementlib");
         String nomTableEtat = request.getParameter("nomTableEtat");
         if(nomTableEtat!=null && !nomTableEtat.isEmpty()){
@@ -25,6 +28,19 @@
         pr.setLien((String) session.getValue("lien"));
         pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
+        String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
+
+        if(idUser.compareToIgnoreCase("1060")!=0 ) {
+        if(idUser.compareToIgnoreCase("1477")!=0 ) {
+            if(idUser.compareToIgnoreCase("1543")!=0 ) {
+                if(idUser.compareToIgnoreCase("1544")!=0 ) {
+                    if (u.getCodeEtablissement() != null) {
+                            pr.getFormu().getChamp("codeetablissementlib").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
+                        }
+                    }
+            }
+        }
+    }
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
         Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
@@ -40,8 +56,8 @@
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
-        pr.getFormu().getChamp("codeetablissementlib").setLibelle("Code �tablissemment");
-        pr.getFormu().getChamp("designation").setLibelle("D�signation");
+        pr.getFormu().getChamp("codeetablissementlib").setLibelle("Code établissemment");
+        pr.getFormu().getChamp("designation").setLibelle("Désignation");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.getFormu().getChamp("num").setLibelle("No.");
@@ -49,7 +65,7 @@
         String[] colSomme =null;
         pr.creerObjetPage(libEntete, colSomme);
         String[] etatVal = {"engagementlib", "engagementlibC", "engagementlibV"};
-    String[] etatAff = {"Tous", "Cr��e", "Vis�e"};
+    String[] etatAff = {"Tous", "Crée", "Visée"};
 
 %>
 <script>
@@ -87,7 +103,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "D�signation", "Montant", "Montant d'ordre payment","Disponibilit�","Disponibilit� avant","Disponibilit� apr�s","Code �tablissement","Projet", "Tiers", "Date","No."};
+            String libEnteteAffiche[] ={"Id", "D�signation", "Montant", "Montant d'ordre payment","Disponibilité","Disponibilité avant","Disponibilité après","Code établissement","Projet", "Tiers", "Date","No."};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

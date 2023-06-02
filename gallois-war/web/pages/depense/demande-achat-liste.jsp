@@ -1,10 +1,15 @@
 
 <%@page import="mg.spat.DemandeAchatMere"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="user.UserEJB"%> 
+<%@page import="utilitaire.*"%>
+
 <%
     try {
 
         DemandeAchatMere demandeMere = new DemandeAchatMere();
+        UserEJB u = (user.UserEJB) session.getValue("u");
+
         demandeMere.setNomTable("dem_achat_merelib");
 
         String listeCrt[] = {"id","num", "designation","codeetablissementlib","projetlib","idengagementlib","daty"};
@@ -19,6 +24,9 @@
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("codeetablissementlib").setLibelle("Code etablissemment");
+        if (u.getCodeEtablissement() != null) {
+            pr.getFormu().getChamp("codeetablissementlib").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
+        }
         pr.getFormu().getChamp("designation").setLibelle("Designation");
         pr.getFormu().getChamp("idengagementlib").setLibelle("Engagement");
         pr.getFormu().getChamp("num").setLibelle("No.");
@@ -50,7 +58,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "No.", "Désignation", "Code établissement","Projet","Engagement","Date"};
+            String libEnteteAffiche[] ={"Id", "No.", "Dï¿½signation", "Code ï¿½tablissement","Projet","Engagement","Date"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

@@ -5,11 +5,13 @@
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureClient"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="user.UserEJB"%> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
         FactureFournisseur ff = new FactureFournisseur();
         //ff.setNomTable("FACTUREFOURNVALIDE_P");
+        UserEJB u = (user.UserEJB) session.getValue("u");
         ff.setNomTable("FACTUREFOURNVALIDE_PNP");
 
         String listeCrt[] = {"id","daty","tierslib","designation","exercice","date_echeance","nature", "numeroop", "numpiece", "code", "projetlib","montantTTC","code_etablissementlib"};
@@ -40,6 +42,9 @@
         pr.getFormu().getChamp("code").setLibelle("Numero compta");     
         pr.getFormu().getChamp("montantTTC").setLibelle("Montant TTC");
         pr.getFormu().getChamp("code_etablissementlib").setLibelle("Code direction");
+        if (u.getCodeEtablissement() != null) {
+        pr.getFormu().getChamp("code_etablissementlib").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
+    }
         
         pr.getFormu().changerEnChamp(liste);
         Date firstDate = Utilitaire.dateDuJourSql();   
