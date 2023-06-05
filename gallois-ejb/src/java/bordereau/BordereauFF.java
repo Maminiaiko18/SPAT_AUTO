@@ -12,6 +12,7 @@ import bean.CGenUtil;
 import bean.ResultatEtSomme;
 import facture.FactureFournisseur;
 import lignecredit.LigneCredit;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -101,6 +102,7 @@ public class BordereauFF extends Bordereau{
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        this.checkFacture(c);
         BordereauFilleLibComplet[] listeFille=this.getFille(c);
         if(listeFille!=null && listeFille.length>0){
             FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
@@ -122,5 +124,15 @@ public class BordereauFF extends Bordereau{
             }
         }
         return super.validerObject(u, c);
+    }
+
+    public void checkFacture(Connection c) throws Exception {
+            BordereauFilleLibComplet[] listeFille=this.getFille(c);
+            if(listeFille!=null && listeFille.length>0){
+            for(BordereauFilleLibComplet details : listeFille){
+                FactureFournisseur ff = ((BordereauFille)details).getFF("FACTURE_FOURNISSEUR_MERE",c);
+                if(ff.getEtat()==ConstanteEtat.getEtatCreer()) throw new Exception("Facture non visé");
+            }
+        }
     }
 }
