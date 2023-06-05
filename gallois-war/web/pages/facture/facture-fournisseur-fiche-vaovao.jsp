@@ -111,6 +111,7 @@
         pc.getChampByName("idEngagement").setVisible(false);
         pc.getChampByName("idEngagementlib").setLien((String) session.getValue("lien") + "?but=depense/engagement-fiche.jsp&id=" + e.getIdengagement(), "");
         pc.getChampByName("idEngagementlib").setLibelle("Engagement");
+         pc.getChampByName("idEngagementlib").setVisible(false);
         pc.getChampByName("idbc").setLien((String) session.getValue("lien") + "?but=stock/bc/asBonDeCommande-fiche.jsp&id=" + e.getIdbc(), "");
         pc.getChampByName("idbl").setLien((String) session.getValue("lien") + "?but=stock/bl/bondelivraison-fiche.jsp&id=" + e.getIdBL(), "");
         pc.getChampByName("tiers").setVisible(false);
@@ -327,6 +328,7 @@
                     <li class="<%= map.get("additif-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=additif-liste">Additif</a></li>
                     
                     <li class="<%= map.get("paiementFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfact=<%=e.getId()%>&tab=paiementFF">Paiement</a></li>
+                     <li class="<%= map.get("engagement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=engagement&&idfacturefournisseur=<%=e.getId()%>">Engagement</a></li>
                     <% if (e.getIdcategorie().equals(Constante.getCategorieFFBP())) {%>
                     <li class="<%= map.get("facturesfdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesfdefinitives">Factures d&eacute;finitives</a></li>
                     <li class="<%= map.get("regularisationFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=regularisationFF&idProvision=<%=e.getId()%>">Régularisation</a></li>
