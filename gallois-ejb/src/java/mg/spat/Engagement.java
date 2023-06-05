@@ -12,6 +12,8 @@ import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import facture.FactureFournisseur;
 import facture.FactureFournisseurDetails;
+import facture.NumeroFacture;
+
 import java.sql.Connection;
 import java.sql.Date;
 //import javax.validation.executable.ValidateOnExecution;
@@ -302,7 +304,7 @@ public class Engagement extends ClassEtat {
     
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {        
-        this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqNumeroEngagement",c)));
+        // this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqNumeroEngagement",c)));
         return super.createObject(u, c); 
     }
 
@@ -354,8 +356,17 @@ public class Engagement extends ClassEtat {
         return null;
         }
 
+    public String calculerNumero(Connection c) throws Exception{
+        String seq="";
+        String rqt="SELECT nvl(max(maxidparanee)+1,1) AS numerosuivant FROM seq_engagement where CODEETABLISSEMENT='"+this.getCodeEtablissement()+"' AND ANNEE="+this.getAnnee();
+        NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+        if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
+        return seq;
+    }
+    
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        this.setNum(this.calculerNumero(c));
         LigneCredit lc = this.findSituationCredit(c);
         if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
         EngagementFille[] filles = this.getEngagementFilles(null, c);
@@ -383,6 +394,7 @@ public class Engagement extends ClassEtat {
                 check = true;
                 c.setAutoCommit(false);
             }
+            this.setNum(this.calculerNumero(c));
             LigneCredit lc = this.findSituationCredit(c);
             if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
             EngagementFille[] filles = this.getEngagementFilles(null, c);
