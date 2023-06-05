@@ -7,12 +7,14 @@
 <%@page import="mg.spat.stock.BonDeCommande"%>
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
+<%@page import="user.UserEJB"%> 
 <%@page import="affichage.PageRecherche"%>
 <%@page import="utilitaire.*"%>
 
+
 <% 
     BonDeCommande lv = new BonDeCommande();
-    
+        UserEJB u = (user.UserEJB) session.getValue("u");
     String etat = "AS_BONDECOMMANDE_LIBELLE_lib";
     
      
@@ -32,6 +34,9 @@
     pr.setLien((String) session.getValue("lien"));
     
     pr.getFormu().getChamp("code_etab").setLibelle("Code Etablissement");
+    if (u.getCodeEtablissement() != null) {
+        pr.getFormu().getChamp("code_etab").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
+    }
     pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");

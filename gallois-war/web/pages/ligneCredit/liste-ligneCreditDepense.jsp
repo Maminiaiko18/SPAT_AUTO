@@ -34,6 +34,18 @@
     pr.getFormu().getChamp("annee2").setDefaut(Utilitaire.getAnneeEnCours());
     pr.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     pr.getFormu().getChamp("comptestr").setLibelle("Compte Pur");
+    String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
+    if(idUser.compareToIgnoreCase("1060")!=0 ) {
+        if(idUser.compareToIgnoreCase("1477")!=0 ) {
+            if(idUser.compareToIgnoreCase("1543")!=0 ) {
+                if(idUser.compareToIgnoreCase("1544")!=0 ) {
+                    if (u.getCodeEtablissement() != null) {
+                            pr.getFormu().getChamp("direction").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
+                        }
+                    }
+            }
+        }
+    }
     String[] colSomme = {"montant","facture","paye","arecouvrir","restebudget"};
     pr.creerObjetPage(libEntete, colSomme);
 	pr.getTableauRecap().setLibeEntete(new String[]{"", "Nombre", "Somme De Montant","Somme De Factur&eacute;","Somme De Pay&eacute;","Somme De A Recouvrir","Somme De Reste Sur Budget"});
