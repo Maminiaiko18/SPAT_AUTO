@@ -11,6 +11,7 @@ import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ResultatEtSomme;
 import facture.FactureFournisseur;
+import facture.NumeroFacture;
 import lignecredit.LigneCredit;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -25,6 +26,24 @@ public class BordereauFF extends Bordereau{
     private double montantbudget;
     private double montantav;
     private double montantap;
+    private String projet;
+    private String direction;
+
+    public String getProjet() {
+        return this.projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getDirection() {
+        return this.direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
 
     public double getMontantbudget(){
         return this.montantbudget;
@@ -111,6 +130,8 @@ public class BordereauFF extends Bordereau{
                 critere.setNomTable("situationLC_vide");
                 critere.setProjet(ff.getProjetlib());
                 critere.setDirection(ff.getCode_etablissementlib());
+                this.setDirection(ff.getCode_etablissementlib());
+                this.setNumero(this.calculerNumero(c));
                 String[] colSomme = {};
                 ResultatEtSomme lc = LigneCredit.findSituationCreditDepense(critere, null, null, String.valueOf(Utilitaire.getAnnee(ff.getDaty())),c, colSomme);
                 if(lc.getResultat().length>0){
@@ -124,6 +145,16 @@ public class BordereauFF extends Bordereau{
             }
         }
         return super.validerObject(u, c);
+    }
+
+    public String calculerNumero(Connection c) throws Exception{
+        String dateEffetStr = Utilitaire.datetostring(this.getDaty()) ;
+        String annee = Utilitaire.getAnnee(dateEffetStr);
+        String seq="";
+        String rqt="SELECT  nvl(max(TO_NUMBER(numero))+1,1) AS numerosuivant FROM BORDEREAUFF_LIB_MONTANT where direction='"+this.getDirection()+"' AND extract(YEAR FROM  daty)="+annee;
+        NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+        if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
+        return seq;
     }
 
     public void checkFacture(Connection c) throws Exception {
