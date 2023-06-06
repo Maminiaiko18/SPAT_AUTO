@@ -67,9 +67,9 @@
         lastDate.setDate(31);
         lastDate.setMonth(11);
 
-        if (u.getCodeEtablissement() != null) {
-            pr.getFormu().getChamp("code_etablissementlib").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
-        }
+        //if (u.getCodeEtablissement() != null) {
+        //    pr.getFormu().getChamp("code_etablissementlib").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
+        //}
         
 //        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
         String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());
