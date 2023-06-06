@@ -530,6 +530,7 @@ public class EtatPaieServlet extends HttpServlet {
             double remise = data.getBc().getMontantRemise();
             double nbrligne = 0;
             for (int i = 0; i < liste.length; i++) {
+                if(liste[i].getProduit()==null) liste[i].setProduit(liste[i].getDesignation());
                 nbrligne = nbrligne + 1;
             }
             System.out.println("----" + nbrligne);
