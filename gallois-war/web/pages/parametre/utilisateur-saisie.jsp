@@ -33,7 +33,8 @@
     
     pi.getFormu().getChamp("adruser").setLibelle("Direction");
     pi.getFormu().getChamp("idrole").setLibelle("Rôle");
-    
+    pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("codeEtablissement").setAutre("readOnly"); 
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>
