@@ -99,7 +99,7 @@
                             <% }%>
 
                             <% if (bondecommande.getEtat() == ConstanteEtat.getEtatValider()) {%>
-                                
+                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=boncommande&id=<%=bondecommande.getId()%>" style="margin: 5px 10px 0 0">Imprimer</a>
                                 <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">Annuler VISA</a>
                                 <a class="btn btn-default pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/asBonDeLivraison-direct.jsp&id_bc=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">R&eacute;ception</a>
                             <% } %>
@@ -111,7 +111,6 @@
                             %>
                                     <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/bondelivraison-fiche.jsp&id=" + filles[0].getId()%>" style="margin: 5px 10px 0 0">Etat de livraison</a>
                             <% } %>
-                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=boncommande&id=<%=bondecommande.getId()%>" style="margin: 5px 10px 0 0">Imprimer</a>
                             <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") %>?but=facture/facture-fournisseur-saisie-vaovao.jsp&idBC=<%=bondecommande.getId()%>" style="margin: 5px 10px 0 0">Facturer</a>
                             <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerremplacer&nomtable=as_bondecommande&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">Annuler et remplacer</a>
                         </div>
