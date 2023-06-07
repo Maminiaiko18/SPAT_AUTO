@@ -4213,8 +4213,8 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             String id = request.getParameter("id");
             BordereauLibComplet bordereau = new BordereauLibComplet();
-            bordereau.setNomTable("bordereauFF_libcomplet");
-            BordereauLibComplet[] mere = (BordereauLibComplet[]) CGenUtil.rechercher(bordereau,  "select br.ID,br.DATY,br.NUMERO,br.DESIGNATION,br.ETAT,br.TIERS,fup.NOM as tierslib,montantbudget, montantav, montantap,(SELECT PROJET  FROM liaisonbordereauFF_libcomplet WHERE IDBORDEREAU = br.id AND ROWNUM = 1) AS PROJET,(SELECT DIRECTION  FROM liaisonbordereauFF_libcomplet WHERE IDBORDEREAU = br.id AND ROWNUM = 1) AS DIRECTION from bordereauFF br left join FOURNISSEUR_UNION_PERSONNEL fup on fup.id=br.TIERS and br.id='" + id + "'");
+            bordereau.setNomTable("FSBBED");
+            BordereauLibComplet[] mere = (BordereauLibComplet[]) CGenUtil.rechercher(bordereau, null, null, null, " and id='" + id + "'");
             Map param = new HashMap();
 
                 param.put("code_etab", mere[0].getDirection());
@@ -4222,7 +4222,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("piece", mere[0].getNumero());
                 param.put("du", mere[0].getDaty());
                 param.put("projet", mere[0].getProjet());
-                param.put("numero", mere[0].getNumero());
+                //param.put("numero", mere[0].getNumero());
 
 
                 param.put("annuel", Utilitaire.formaterAr((mere[0].getMontantbudget())));
