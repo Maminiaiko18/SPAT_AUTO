@@ -9,6 +9,7 @@ import java.sql.Connection;
 
 import bean.AdminGen;
 import bean.CGenUtil;
+import bean.ClassMAPTable;
 import bean.ResultatEtSomme;
 import facture.FactureFournisseur;
 import facture.NumeroFacture;
@@ -120,8 +121,7 @@ public class BordereauFF extends Bordereau{
     }
 
     @Override
-    public Object validerObject(String u, Connection c) throws Exception {
-        this.checkFacture(c);
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
         BordereauFilleLibComplet[] listeFille=this.getFille(c);
         if(listeFille!=null && listeFille.length>0){
             FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
@@ -132,6 +132,24 @@ public class BordereauFF extends Bordereau{
                 critere.setDirection(ff.getCode_etablissementlib());
                 this.setDirection(ff.getCode_etablissementlib());
                 this.setNumero(this.calculerNumero(c));
+            }
+        }else throw new Exception("Bordereau comporte aucune facture");
+        return super.createObject(u, c);
+    }
+    
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        this.checkFacture(c);
+        BordereauFilleLibComplet[] listeFille=this.getFille(c);
+        if(listeFille!=null && listeFille.length>0){
+            FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
+            if(ff!=null){
+                LigneCredit critere=new LigneCredit();
+                critere.setNomTable("situationLC_vide");
+                critere.setProjet(ff.getProjetlib());
+                critere.setDirection(ff.getCode_etablissementlib());
+                //this.setDirection(ff.getCode_etablissementlib());
+                //this.setNumero(this.calculerNumero(c));
                 String[] colSomme = {};
                 ResultatEtSomme lc = LigneCredit.findSituationCreditDepense(critere, null, null, String.valueOf(Utilitaire.getAnnee(ff.getDaty())),c, colSomme);
                 if(lc.getResultat().length>0){
