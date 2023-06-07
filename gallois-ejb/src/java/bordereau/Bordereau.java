@@ -28,6 +28,16 @@ public class Bordereau extends ClassEtat {
     private Date daty;
     private double montant;
     private String nomTableFille, nomFonctionSequence;
+    private String numfsb;
+
+
+    public String getNumfsb() {
+        return numfsb;
+    }
+
+    public void setNumfsb(String numfsb) {
+        this.numfsb = numfsb;
+    }
 
     public Bordereau() {
         this.setNomTable("bordereau");
