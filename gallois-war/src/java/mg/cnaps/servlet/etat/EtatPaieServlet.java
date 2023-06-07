@@ -4217,23 +4217,29 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             String id = request.getParameter("id");
             BordereauLibComplet bordereau = new BordereauLibComplet();
-            bordereau.setNomTable("bordereauFF_libcomplet");
-            BordereauLibComplet[] mere = (BordereauLibComplet[]) CGenUtil.rechercher(bordereau, null, null, " and id='" + id + "'");
+            bordereau.setNomTable("FSBBED");
+            BordereauLibComplet[] mere = (BordereauLibComplet[]) CGenUtil.rechercher(bordereau, null, null, null, " and id='" + id + "'");
             Map param = new HashMap();
-            param.put("designation", utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
-            param.put("daty", mere[0].getDaty());
-            param.put("numero", mere[0].getNumero());
-            param.put("prevision", mere[0].getMontantbudget());
-            param.put("montantAvant", mere[0].getMontantav());
-            param.put("montantApres", mere[0].getMontantap());
+
+                param.put("code_etab", mere[0].getDirection());
+                param.put("annee", Utilitaire.getAnnee(mere[0].getDaty()) + "");
+                param.put("piece", mere[0].getNumero());
+                param.put("du", mere[0].getDaty());
+                param.put("projet", mere[0].getProjet());
+                //param.put("numero", mere[0].getNumero());
+
+
+                param.put("annuel", Utilitaire.formaterAr((mere[0].getMontantbudget())));
+                param.put("avant", Utilitaire.formaterAr(mere[0].getMontantav()));
+                param.put("apres", Utilitaire.formaterAr(mere[0].getMontantap()));
+
             BordereauFilleLibComplet fille = new BordereauFilleLibComplet();
             fille.setIdbordereau(id);
             fille.setNomTable("liaisonbordereauFF_libcomplet");
             BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
             double total = AdminGen.calculSommeDouble(liste, "montant");
-            param.put("montant", total);
-            param.put("code", utilitaire.Utilitaire.champNull(liste[0].getCode_etablissement()));
-            setNomJasper("suivi_budgetaire");
+            param.put("montant", Utilitaire.formaterAr(total));
+            setNomJasper("engagement");
             UtilitaireImpression.imprimer(request, response, "suivi_budgetaire", param, null, getReportPath());
 
         } catch (Exception e) {

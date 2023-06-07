@@ -37,8 +37,7 @@ public class Bordereau extends ClassEtat {
     
      @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
-        setNumero(creerNumeroSequence(c));
-        
+        //setNumero(creerNumeroSequence(c));
         return super.createObject(u, c);
     }
     
