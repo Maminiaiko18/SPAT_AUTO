@@ -358,7 +358,11 @@ public class Engagement extends ClassEtat {
 
     public String calculerNumero(Connection c) throws Exception{
         String seq="";
-        String rqt="SELECT nvl(max(maxidparanee)+1,1) AS numerosuivant FROM seq_engagement where CODEETABLISSEMENT='"+this.getCodeEtablissement()+"' AND ANNEE="+this.getAnnee();
+        // System.out.println("eeeeeeeeeee"+this.getCodeEtablissementlib());
+        Engagement engagement  = new Engagement();
+        engagement.setNomTable("engagementlib");
+        engagement = (Engagement)engagement.getById(this.getId(), null, c);
+        String rqt="SELECT  nvl(max(TO_NUMBER(num))+1,1) AS numerosuivant FROM NUMEROFSB where codeetablissementlib='"+engagement.getCodeEtablissementlib()+"' AND annee="+annee;
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
         return seq;
