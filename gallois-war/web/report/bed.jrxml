@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5a2a4c-d9f3-419e-bdaf-7d68b4b0a8e6">
 	<property name="ireport.zoom" value="1.1000000000000287"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="160"/>
+	<property name="ireport.y" value="146"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
 	<parameter name="code_etab" class="java.lang.String"/>
@@ -379,7 +379,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="9" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
@@ -393,6 +393,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
@@ -406,6 +407,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montanttva}]]></textFieldExpression>
@@ -419,7 +421,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="8" isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
@@ -433,6 +435,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
@@ -446,6 +449,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{numFact}]]></textFieldExpression>
@@ -469,7 +473,7 @@
 				<text><![CDATA[ETABLI PAR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="189" y="71" width="160" height="15" uuid="b832e82f-739f-45b7-8150-c4185e7bb549"/>
+				<reportElement x="394" y="71" width="160" height="15" uuid="b832e82f-739f-45b7-8150-c4185e7bb549"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -590,7 +594,7 @@
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="189" y="86" width="160" height="48" uuid="bcd3a69e-2c98-4ebd-a6c4-b1db0331ad90"/>
+				<reportElement x="394" y="86" width="160" height="48" uuid="bcd3a69e-2c98-4ebd-a6c4-b1db0331ad90"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -602,7 +606,7 @@
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="189" y="134" width="160" height="15" uuid="ed8597cb-fcf6-458e-b21a-6197076cd364"/>
+				<reportElement x="394" y="134" width="160" height="15" uuid="ed8597cb-fcf6-458e-b21a-6197076cd364"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
