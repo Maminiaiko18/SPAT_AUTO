@@ -3,7 +3,7 @@ package mg.spat;
 public class EngagementLib extends Engagement{
     
     String idfacturefournisseur;
-    
+    double montantengager;
     
     public EngagementLib()
     {
@@ -17,4 +17,13 @@ public class EngagementLib extends Engagement{
     {
         this.idfacturefournisseur=idfacturefournisseur;
     }
+
+    public double getMontantengager() {
+        return montantengager;
+    }
+
+    public void setMontantengager(double montantengager) {
+        this.montantengager = montantengager;
+    }
+    
 }
