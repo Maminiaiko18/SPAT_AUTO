@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_de_commande" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="85" uuid="5de4b302-b873-4cc5-ac86-c7d51ce58f1b">
 	<property name="ireport.zoom" value="1.6105100000000314"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="488"/>
+	<property name="ireport.x" value="105"/>
+	<property name="ireport.y" value="172"/>
 	<parameter name="DATY" class="java.util.Date"/>
 	<parameter name="NOMFOURNISSEUR" class="java.lang.String"/>
 	<parameter name="ADRESSE" class="java.lang.String"/>
@@ -108,7 +108,7 @@
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Désignation :]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="71" y="182" width="483" height="20" uuid="70f9c5b8-887b-4c02-a11b-f3aa94baa89c"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{DESIGNATION}]]></textFieldExpression>
@@ -523,7 +523,7 @@ MATIERES ET APPROVISIONNEMENTS]]></text>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="347" y="38" width="193" height="15" uuid="fa2405d0-9e9f-4cab-a275-0465b9e9908d"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$P{totalHtRemise} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{totalHtRemise}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="-1" y="25" width="151" height="17" uuid="d11c3065-8736-4120-bdd4-5a01724d08ac"/>
