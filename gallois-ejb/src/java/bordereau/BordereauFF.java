@@ -179,7 +179,7 @@ public class BordereauFF extends Bordereau{
         String dateEffetStr = Utilitaire.datetostring(this.getDaty()) ;
         String annee = Utilitaire.getAnnee(dateEffetStr);
         String seq="";
-        String rqt="SELECT  nvl(max(TO_NUMBER(numfsb))+1,1) AS numerosuivant FROM BORDEREAUFF_LIB_MONTANT where direction='"+this.getDirection()+"' AND extract(YEAR FROM  daty)="+annee;
+        String rqt="SELECT  nvl(max(TO_NUMBER(num))+1,1) AS numerosuivant FROM NUMEROFSB where codeetablissementlib='"+this.getDirection()+"' AND annee="+annee;
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
         return seq;
