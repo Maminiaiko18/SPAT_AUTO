@@ -4222,7 +4222,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("piece", mere[0].getNumero());
                 param.put("du", mere[0].getDaty());
                 param.put("projet", mere[0].getProjet());
-                //param.put("numero", mere[0].getNumero());
+                param.put("numero", mere[0].getNumfsb());
 
 
                 param.put("annuel", Utilitaire.formaterAr((mere[0].getMontantbudget())));
