@@ -18,8 +18,8 @@
         bordereaux.setNomTable(request.getParameter("etatvue"));
     }
     
-    String libEntete[] = {"id", "daty","numero","designation","tiers","montant","montantbudget","montantav","montantap"};
-    String listeCrt[] = {"id","designation", "daty","tiers"};
+    String libEntete[] = {"id", "daty","projet","direction","numero","designation","tiers","montant","montantbudget","montantav","montantap"};
+    String listeCrt[] = {"id","designation","projet","direction", "daty","tiers"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(bordereaux, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -76,7 +76,7 @@
             %>
             <br>
             <%
-                String libEnteteAffiche[] = {"id", "Date","num&eacute;ro","Désignation","Tiers","Montant","Montant Budget","Montant dispo avant","Montant dispo apres"};
+                String libEnteteAffiche[] = {"id", "Date","projet","direction","num&eacute;ro","Désignation","Tiers","Montant","Montant Budget","Montant dispo avant","Montant dispo apres"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 out.println(pr.getTableau().getHtml());
                 out.println(pr.getBasPage());

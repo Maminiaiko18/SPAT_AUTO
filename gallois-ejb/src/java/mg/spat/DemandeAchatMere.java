@@ -5,7 +5,10 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
+import facture.NumeroFacture;
+
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.Utilitaire;
@@ -127,10 +130,18 @@ public class DemandeAchatMere extends ClassMAPTable{
 
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
-        this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqnumda",c)));
+        this.setNum(this.calculerNumero(c));
         return super.createObject(u, c); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
+    public String calculerNumero(Connection c) throws Exception{
+        String dateEffetStr = Utilitaire.datetostring(this.getDaty()) ;
+        String annee = Utilitaire.getAnnee(dateEffetStr);
+        String seq="";
+        String rqt="SELECT  nvl(max(TO_NUMBER(num))+1,1) AS numerosuivant FROM dem_achat_mere where CODEETABLISSEMENT='"+this.getCodeetablissement()+"' AND  extract(YEAR FROM  daty)="+annee;
+        NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+        if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
+        return seq;
+    }
     
 }
