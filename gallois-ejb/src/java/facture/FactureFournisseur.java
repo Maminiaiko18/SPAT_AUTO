@@ -814,7 +814,6 @@ public class FactureFournisseur extends FactureClient {
             BonDeCommande bc = findBCResteAFacturer(c);
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
             Engagement[] lies = this.getEngagementLiee(c);
-            int t = lies.length;
             double resteAEngager = ff.getMontant();
             LiaisonEngagement liaison = new LiaisonEngagement();
             double restetemp = 0;
@@ -837,34 +836,14 @@ public class FactureFournisseur extends FactureClient {
                                 liaison.validerObject(u, c);
                                 resteAEngager -= engbc.getMontantreste();
                             }
-                            for(int i = 0; i < t; i++){
-                                restetemp = resteAEngager;
-                                if(resteAEngager > 0){
-                                    if(resteAEngager > lies[i].getMontantreste())
-                                        restetemp = lies[i].getMontantreste();
-                                    liaison = new LiaisonEngagement(lies[i].getIdengagement(), ff.getId(), restetemp, ConstanteEtat.getEtatCreer());
-                                    liaison.createObject(u, c);
-                                    liaison.validerObject(u, c);
-                                    resteAEngager -= restetemp;
-                                }
-                            }
+                            traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                             if(resteAEngager > 0){
                                 throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
                             }
                         }
                     }
                     else{ 
-                        for(int i = 0; i < t; i++){
-                            restetemp = resteAEngager;
-                            if(resteAEngager > 0){
-                                if(resteAEngager > lies[i].getMontantreste())
-                                    restetemp = lies[i].getMontantreste();
-                                liaison = new LiaisonEngagement(lies[i].getIdengagement(), ff.getId(), restetemp, ConstanteEtat.getEtatCreer());
-                                liaison.createObject(u, c);
-                                liaison.validerObject(u, c);
-                                resteAEngager -= restetemp;
-                            }
-                        }
+                        traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                         if(resteAEngager > 0){
                             throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
                         }
@@ -872,17 +851,7 @@ public class FactureFournisseur extends FactureClient {
                 }
             }
             else{
-                for(int i = 0; i < t; i++){
-                    restetemp = resteAEngager;
-                    if(resteAEngager > 0){
-                        if(resteAEngager > lies[i].getMontantreste())
-                            restetemp = lies[i].getMontantreste();
-                        liaison = new LiaisonEngagement(lies[i].getIdengagement(), ff.getId(), restetemp, ConstanteEtat.getEtatCreer());
-                        liaison.createObject(u, c);
-                        liaison.validerObject(u, c);
-                        resteAEngager -= restetemp;
-                    }
-                }
+                traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                 if(resteAEngager > 0){
                     throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
                 }
@@ -930,7 +899,6 @@ public class FactureFournisseur extends FactureClient {
                 BonDeCommande bc = findBCResteAFacturer(c);
                 FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
                 Engagement[] lies = this.getEngagementLiee(c);
-                int t = lies.length;
                 double resteAEngager = ff.getMontant();
                 LiaisonEngagement liaison = new LiaisonEngagement();
                 double restetemp = 0;
@@ -945,17 +913,7 @@ public class FactureFournisseur extends FactureClient {
                             liaison.validerObject(u, c);
                         }
                         resteAEngager = ff.getMontant() - bc.getMontantreste() - engbc.getMontantreste();
-                        for(int i = 0; i < t; i++){
-                            restetemp = resteAEngager;
-                            if(resteAEngager > 0){
-                                if(resteAEngager > lies[i].getMontantreste())
-                                    restetemp = lies[i].getMontantreste();
-                                liaison = new LiaisonEngagement(lies[i].getIdengagement(), ff.getId(), restetemp, ConstanteEtat.getEtatCreer());
-                                liaison.createObject(u, c);
-                                liaison.validerObject(u, c);
-                                resteAEngager -= restetemp;
-                            }
-                        }
+                        traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                         if(resteAEngager > 0){
                             ff.createEngagement(u, c, resteAEngager, lc);                                
                             this.setIdengagement(ff.getIdengagement());
@@ -963,17 +921,7 @@ public class FactureFournisseur extends FactureClient {
                     }
                     else{
                         resteAEngager = ff.getMontant() - bc.getMontantreste();
-                        for(int i = 0; i < t; i++){
-                            restetemp = resteAEngager;
-                            if(resteAEngager > 0){
-                                if(resteAEngager > lies[i].getMontantreste())
-                                    restetemp = lies[i].getMontantreste();
-                                liaison = new LiaisonEngagement(lies[i].getIdengagement(), ff.getId(), restetemp, ConstanteEtat.getEtatCreer());
-                                liaison.createObject(u, c);
-                                liaison.validerObject(u, c);
-                                resteAEngager -= restetemp;
-                            }
-                        }
+                        traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                         if(resteAEngager > 0){ 
                             ff.createEngagement(u, c, resteAEngager, lc);
                             this.setIdengagement(ff.getIdengagement());
@@ -981,17 +929,7 @@ public class FactureFournisseur extends FactureClient {
                     }
                 }
                 else{ 
-                    for(int i = 0; i < t; i++){
-                        restetemp = resteAEngager;
-                        if(resteAEngager > 0){
-                            if(resteAEngager > lies[i].getMontantreste())
-                                restetemp = lies[i].getMontantreste();
-                            liaison = new LiaisonEngagement(lies[i].getIdengagement(), ff.getId(), restetemp, ConstanteEtat.getEtatCreer());
-                            liaison.createObject(u, c);
-                            liaison.validerObject(u, c);
-                            resteAEngager -= restetemp;
-                        }
-                    }
+                    traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                     if(resteAEngager > 0){
                         ff.createEngagement(u, c, resteAEngager, lc);
                         this.setIdengagement(ff.getIdengagement());
@@ -1424,5 +1362,26 @@ public class FactureFournisseur extends FactureClient {
         }
         
         return liste;
+    }
+    
+    public void traiterEngagementLiee(double restetemp, double resteAEngager, Engagement[] lies, String u, Connection c) throws Exception {
+        int t = lies.length;
+        try{
+            for(int i = 0; i < t; i++){
+                restetemp = resteAEngager;
+                if(resteAEngager > 0){
+                    if(resteAEngager > lies[i].getMontantreste())
+                        restetemp = lies[i].getMontantreste();
+                    LiaisonEngagement liaison = new LiaisonEngagement(lies[i].getIdengagement(), this.getId(), restetemp, ConstanteEtat.getEtatCreer());
+                    liaison.createObject(u, c);
+                    liaison.validerObject(u, c);
+                    resteAEngager -= restetemp;
+                }
+            }
+            
+        }
+        catch(Exception e){
+            throw e;
+        }
     }
 }
