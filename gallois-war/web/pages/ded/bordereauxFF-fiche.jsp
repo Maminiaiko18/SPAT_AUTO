@@ -86,7 +86,7 @@
                                     <th style="background-color:#bed1dd;">Designation</th>
                                     <th style="background-color:#bed1dd;">Facture</th>
                                     <th style="background-color:#bed1dd;">Code Dir</th>
-                                    <th style="background-color:#bed1dd;">Montant OP</th>
+                                    <th style="background-color:#bed1dd;">Montant HT</th>
                                     <th style="background-color:#bed1dd;"></th>
                                 </tr>
                             </thead>
