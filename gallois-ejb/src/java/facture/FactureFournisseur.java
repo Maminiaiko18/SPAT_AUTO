@@ -836,14 +836,14 @@ public class FactureFournisseur extends FactureClient {
                                 liaison.validerObject(u, c);
                                 resteAEngager -= engbc.getMontantreste();
                             }
-                            traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
+                            resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                             if(resteAEngager > 0){
                                 throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
                             }
                         }
                     }
                     else{ 
-                        traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
+                        resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                         if(resteAEngager > 0){
                             throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
                         }
@@ -851,7 +851,7 @@ public class FactureFournisseur extends FactureClient {
                 }
             }
             else{
-                traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
+                resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                 if(resteAEngager > 0){
                     throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
                 }
@@ -913,7 +913,7 @@ public class FactureFournisseur extends FactureClient {
                             liaison.validerObject(u, c);
                         }
                         resteAEngager = ff.getMontant() - bc.getMontantreste() - engbc.getMontantreste();
-                        traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
+                        resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                         if(resteAEngager > 0){
                             ff.createEngagement(u, c, resteAEngager, lc);                                
                             this.setIdengagement(ff.getIdengagement());
@@ -921,7 +921,7 @@ public class FactureFournisseur extends FactureClient {
                     }
                     else{
                         resteAEngager = ff.getMontant() - bc.getMontantreste();
-                        traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
+                        resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                         if(resteAEngager > 0){ 
                             ff.createEngagement(u, c, resteAEngager, lc);
                             this.setIdengagement(ff.getIdengagement());
@@ -929,7 +929,7 @@ public class FactureFournisseur extends FactureClient {
                     }
                 }
                 else{ 
-                    traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
+                    resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
                     if(resteAEngager > 0){
                         ff.createEngagement(u, c, resteAEngager, lc);
                         this.setIdengagement(ff.getIdengagement());
@@ -1352,7 +1352,6 @@ public class FactureFournisseur extends FactureClient {
         
         try{
             String requete = "SELECT * FROM liaisonEngagementBCFF WHERE IDENGAGEMENT IN (SELECT ID1 FROM LIAISONENGAGEMENT WHERE ID2 = '" + this.getId() + "') AND MONTANTRESTE > 0 ORDER BY DATY";
-            System.out.println("requete = " + requete);
             Engagement e = new Engagement();
             e.setNomTable("liaisonEngagementBCFF");
             liste = (Engagement[])CGenUtil.rechercher(e, requete, c);
@@ -1364,7 +1363,7 @@ public class FactureFournisseur extends FactureClient {
         return liste;
     }
     
-    public void traiterEngagementLiee(double restetemp, double resteAEngager, Engagement[] lies, String u, Connection c) throws Exception {
+    public double traiterEngagementLiee(double restetemp, double resteAEngager, Engagement[] lies, String u, Connection c) throws Exception {
         int t = lies.length;
         try{
             for(int i = 0; i < t; i++){
@@ -1378,7 +1377,7 @@ public class FactureFournisseur extends FactureClient {
                     resteAEngager -= restetemp;
                 }
             }
-            
+            return resteAEngager;
         }
         catch(Exception e){
             throw e;
