@@ -703,7 +703,7 @@ public class LigneCredit extends ClassEtat {
     public void setCompte(String compte) throws Exception {
         if(this.getMode().compareTo("modif")==0){
             if(compte.length() != 11)
-                throw new Exception("La taille du champ compte doit &ecirc;tre &eacute; &aacute; 11");
+                throw new Exception("La taille du champ compte doit être égal à 11");
         }
         this.compte = compte;
     }
