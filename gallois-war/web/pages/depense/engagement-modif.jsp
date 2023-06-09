@@ -34,12 +34,12 @@
         pi.getFormu().getChamp("idLClib").setVisible(false);
         pi.getFormu().getChamp("compte").setVisible(false);
         
-        Liste[] listes = new Liste[1];
-        String[] avecFactureAff = {"oui", "non"};
-        String[] avecFactureVal = {"1", "0"}; 
-        listes[0] = new Liste("avecFacture", avecFactureAff, avecFactureVal);
+        //Liste[] listes = new Liste[1];
+        //String[] avecFactureAff = {"oui", "non"};
+        //String[] avecFactureVal = {"1", "0"}; 
+        //listes[0] = new Liste("avecFacture", avecFactureAff, avecFactureVal);
     
-        pi.getFormu().changerEnChamp(listes);
+        //pi.getFormu().changerEnChamp(listes);
         
 //        pi.getFormu().getChamp("annee").setLibelle("Annee") ; 
         pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");

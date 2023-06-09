@@ -50,9 +50,9 @@ public class BordereauFille extends ClassMAPTable {
             throw new Exception("Details non trouvé");
         }
         
-        if (tmp[0].getEtat() < ConstanteEtat.getEtatValider()) {
-            throw new Exception("Facture/OP non visé(e)");
-        }
+        // if (tmp[0].getEtat() < ConstanteEtat.getEtatValider()) {
+        //     throw new Exception("Facture/OP non visé(e)");
+        // }
 
         FactureFournisseur filtre = new FactureFournisseur();
         filtre.setNomTable("factfourn_msum_lib_ficheB");

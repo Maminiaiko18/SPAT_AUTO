@@ -940,7 +940,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     }
             }
            
-            if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece)){
+            if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece) && this.getCaisse().compareToIgnoreCase(Constante.caisseDepense)!=0){
                 this.arrondir();
             }
 
@@ -1041,7 +1041,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             }
             PayementFacture pf = new PayementFacture();
             pf.setNomTable("paiementfacturecp");
-            String awhere = String.format(" and idmvt = '%s' order by typefacture desc", this.getId());
+            String awhere = String.format(" and idmvt = '%s' order by code asc", this.getId());
             PayementFacture[] result = (PayementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
             return result;
         }  catch(Exception ex) {

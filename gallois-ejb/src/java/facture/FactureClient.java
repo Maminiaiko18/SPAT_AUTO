@@ -1079,7 +1079,8 @@ public class FactureClient extends ClassMere {
                     listeProvision[i].setId(null);
                     listeProvision[i].createObject(u, c);
                 }
-            }
+            } else throw new Exception("Provision non payée");
+            
         } catch (Exception e) {
             throw e;
         } finally {
@@ -1683,7 +1684,8 @@ public class FactureClient extends ClassMere {
             }
             JournalCaisse j = new JournalCaisse();
             j.setNomTable("journalcaisselib_vise");
-            JournalCaisse[] journals = (JournalCaisse[]) CGenUtil.rechercher(j, null, null, c, " and idplacement ='" + this.getId() + "'");
+            String where = " and idplacement like'%" + this.getId() + "%'";
+            JournalCaisse[] journals = (JournalCaisse[]) CGenUtil.rechercher(j, null, null, c, where);
             return journals;
         } catch (Exception e) {
             throw e;

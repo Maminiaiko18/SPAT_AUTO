@@ -42,6 +42,15 @@ public class FactureFournisseur extends FactureClient {
     private Date dateRegul;
     private double montantHTSansRemise;
     private String bonprovisoire, num;
+    private String idom;
+
+    public String getIdom() {
+        return idom;
+    }
+
+    public void setIdom(String idom) {
+        this.idom = idom;
+    }
     private String idbordereau, numBordereau;
     private String idrefpmt,valcaisserefpmt,numpiecerefpmt,numchequerefpmt,libellerefpmt;
     private Date dateeffetrefpmt;
@@ -604,9 +613,8 @@ public class FactureFournisseur extends FactureClient {
             }
 
             if (type == 1) {
-                JournalCaisse[] jc = this.getPaiement(null);
-                if (jc.length == 0) {
-                    throw new Exception("Bon provisoire non sortie caisse. Impossible de générer facture définitive");
+                if (!this.checkPaiement(c)) {
+                    throw new Exception("Bon provisoire non sortie payer. Impossible de générer facture définitive");
                 }
                 fc.controlerDefinitive(c);
                 categorie = Constante.categorieFFdefault;

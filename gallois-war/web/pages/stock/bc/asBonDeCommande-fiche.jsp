@@ -99,9 +99,8 @@
                             <% }%>
 
                             <% if (bondecommande.getEtat() == ConstanteEtat.getEtatValider()) {%>
-                                
-                                <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">Annuler VISA</a>
-                                <a class="btn btn-default pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/asBonDeLivraison-direct.jsp&id_bc=" + request.getParameter("id")%>" style="margin: 5px 10px 0 0">R&eacute;ception</a>
+                                <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&bute=stock/bc/asBonDeCommande-fiche.jsp&classe=mg.spat.stock.BonDeCommande&id=" + request.getParameter("id")%>" style="margin-right: 10px">Annuler VISA</a>
+                                <a class="btn btn-default pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/asBonDeLivraison-direct.jsp&id_bc=" + request.getParameter("id")%>" style="margin-right: 10px">Reception</a>
                             <% } %>
                             <%
                                 if (bondecommande.getEtat() == ConstanteEtat.getEtatLivraison()) {

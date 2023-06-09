@@ -12,6 +12,8 @@ import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
 import facture.FactureFournisseur;
 import facture.FactureFournisseurDetails;
+import facture.NumeroFacture;
+
 import java.sql.Connection;
 import java.sql.Date;
 //import javax.validation.executable.ValidateOnExecution;
@@ -51,6 +53,33 @@ public class Engagement extends ClassEtat {
         FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_libV",c);
         double totalFF = AdminGen.calculSommeDouble(factures, "montant");
         return this.getMontant() - totalFF;
+    }
+
+    public Engagement modifierEntete(String refUser, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            this.updateToTableWithHisto(refUser, c);
+
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return this;
     }
 
     public String getObservation() {
@@ -275,7 +304,7 @@ public class Engagement extends ClassEtat {
     
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {        
-        this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqNumeroEngagement",c)));
+        // this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqNumeroEngagement",c)));
         return super.createObject(u, c); 
     }
 
@@ -327,8 +356,21 @@ public class Engagement extends ClassEtat {
         return null;
         }
 
+    public String calculerNumero(Connection c) throws Exception{
+        String seq="";
+        // System.out.println("eeeeeeeeeee"+this.getCodeEtablissementlib());
+        Engagement engagement  = new Engagement();
+        engagement.setNomTable("engagementlib");
+        engagement = (Engagement)engagement.getById(this.getId(), null, c);
+        String rqt="SELECT  nvl(max(TO_NUMBER(num))+1,1) AS numerosuivant FROM NUMEROFSB where codeetablissementlib='"+engagement.getCodeEtablissementlib()+"' AND annee="+annee;
+        NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+        if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
+        return seq;
+    }
+    
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        this.setNum(this.calculerNumero(c));
         LigneCredit lc = this.findSituationCredit(c);
         if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
         EngagementFille[] filles = this.getEngagementFilles(null, c);
@@ -349,23 +391,39 @@ public class Engagement extends ClassEtat {
     }
 
     public Object validerObjectSansControleMontant(String u, Connection c) throws Exception {
-        LigneCredit lc = this.findSituationCredit(c);
-        if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
-        EngagementFille[] filles = this.getEngagementFilles(null, c);
-        if(filles.length==0){
-            throw new Exception ("Doit contenir au moins un détail engagement");
+        boolean check = false;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                check = true;
+                c.setAutoCommit(false);
+            }
+            this.setNum(this.calculerNumero(c));
+            LigneCredit lc = this.findSituationCredit(c);
+            if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
+            EngagementFille[] filles = this.getEngagementFilles(null, c);
+            if(filles.length==0){
+                throw new Exception ("Doit contenir au moins un détail engagement");
+            }
+
+            double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
+            if(montantTotal > this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
+            //if((float)this.getMontant() > (float)lc.getRestebudget()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getRestebudget())+")");
+            this.setDispoAvant(lc.getResteApresEngmt());
+            this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
+            super.validerObject(u, c);
+            if(avecFacture==1){
+                 this.genererFacture(u, c, filles,lc);
+            }
+            return this; 
         }
-        
-        double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
-        if((float)montantTotal > (float)this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
-        //if((float)this.getMontant() > (float)lc.getRestebudget()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getRestebudget())+")");
-        this.setDispoAvant(lc.getResteApresEngmt());
-        this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
-        super.validerObject(u, c);
-        if(avecFacture==1){
-             this.genererFacture(u, c, filles,lc);
+        catch(Exception e){
+            if(check && c != null) c.rollback();
+            throw e;
         }
-        return this; 
+        finally{
+            if(check && c != null) c.close();
+        }
     }
     
     public FactureFournisseur[] getFacturesLiees(String nomtable, Connection c) throws Exception{

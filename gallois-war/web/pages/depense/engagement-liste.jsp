@@ -7,10 +7,13 @@
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="mg.spat.Engagement"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="user.UserEJB"%> 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%
     try {
-
         Engagement eng = new Engagement();
+        user.UserEJB u = (user.UserEJB) session.getValue("u");
         eng.setNomTable("engagementlib");
         String nomTableEtat = request.getParameter("nomTableEtat");
         if(nomTableEtat!=null && !nomTableEtat.isEmpty()){
@@ -25,6 +28,19 @@
         pr.setLien((String) session.getValue("lien"));
         pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
+        String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
+
+        if(idUser.compareToIgnoreCase("1060")!=0 ) {
+        if(idUser.compareToIgnoreCase("1477")!=0 ) {
+            if(idUser.compareToIgnoreCase("1543")!=0 ) {
+                if(idUser.compareToIgnoreCase("1544")!=0 ) {
+                    if (u.getCodeEtablissement() != null) {
+                            pr.getFormu().getChamp("codeetablissementlib").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
+                        }
+                    }
+            }
+        }
+    }
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
         Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);

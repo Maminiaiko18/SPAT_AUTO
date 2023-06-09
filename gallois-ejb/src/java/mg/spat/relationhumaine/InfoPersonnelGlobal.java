@@ -20,6 +20,15 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     private Date datenaissance, date_embauche;
     private int age, anciennete, indice;
     private double salaire_base, indemnite_fonction, indemnite_conge_paye, indemnite_deplacement, indemnite_risque;
+    private String idtiers;
+
+    public String getIdtiers() {
+        return idtiers;
+    }
+
+    public void setIdtiers(String idtiers) {
+        this.idtiers = idtiers;
+    }
 
     public InfoPersonnelGlobal() {
         super.setNomTable("infopersonnelglobal");
@@ -419,5 +428,10 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     public void construirePK(Connection c) throws Exception {
         this.preparePk("IPG", "getseq_infopersonnelglobal");
         this.setId(makePK(c));
+    }
+    
+    @Override
+    public String getValColLibelle() {
+        return idtiers+";"+nom+" "+prenom;
     }
 }

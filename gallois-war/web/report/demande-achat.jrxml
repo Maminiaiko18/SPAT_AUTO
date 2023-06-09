@@ -118,6 +118,10 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{designation}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="11" y="8" width="71" height="61" uuid="f30b0be6-0dba-4c5a-8bd5-7757630672d5"/>
+				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<detail>

@@ -8,6 +8,7 @@
 <%@page import="bean.TypeObjet"%>
 <%@page import="facture.FactureFournisseur"%>
 <%@page import="java.sql.Date"%>
+<%@page import="user.UserEJB"%> 
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureClient"%>
 <%@page import="affichage.PageRecherche"%>
@@ -15,6 +16,7 @@
 <%
     try {
         FactureFournisseur ff = new FactureFournisseur();
+        UserEJB u = (user.UserEJB) session.getValue("u");
         String[] etatVal = {"FACTUREFOURNVALIDE_TOUS", "FACTUREFOURNVALIDE_C", "FACTUREFOURNVALIDE_V", "FACTUREFOURNVALIDE_EP", "FACTUREFOURNVALIDE_P"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "En attente de paiement", "Payéé(s)"};
     
@@ -64,6 +66,10 @@
         Date lastDate = Utilitaire.dateDuJourSql();
         lastDate.setDate(31);
         lastDate.setMonth(11);
+
+        //if (u.getCodeEtablissement() != null) {
+        //    pr.getFormu().getChamp("code_etablissementlib").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
+        //}
         
 //        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
         String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());

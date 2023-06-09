@@ -124,6 +124,7 @@ import mg.spat.DemandeAchatMere;
 import mg.spat.DemandeAchatFille;
 import mg.spat.MvtIntraCaisseFille;
 import mg.spat.MvttIntraCaisse;
+import ordremission.OrdreMissionLib;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import utilitaire.Constante;
@@ -252,6 +253,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             else if (action.equalsIgnoreCase("imprimerBP")) {
                 imprimerBP(request, response);
+            }
+            else if (action.equalsIgnoreCase("imprimerDemandeOrdreDeMission")) {
+                imprimerDemandeOrdreDeMission(request, response);
             }
 
         } catch (Exception ex) {
@@ -530,6 +534,7 @@ public class EtatPaieServlet extends HttpServlet {
             double remise = data.getBc().getMontantRemise();
             double nbrligne = 0;
             for (int i = 0; i < liste.length; i++) {
+                if(liste[i].getProduit()==null) liste[i].setProduit(liste[i].getDesignation());
                 nbrligne = nbrligne + 1;
             }
             System.out.println("----" + nbrligne);
@@ -2714,6 +2719,14 @@ public class EtatPaieServlet extends HttpServlet {
                 }
                 String montantlettrePro = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()))
                         + " Ariary ";
+                String[] montantTexte = ChiffreLettre.convertRealToStringSepare(new Double(mere[0].getMontant()));
+                montantlettrePro = montantTexte[0];
+                if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                    montantlettrePro += " Ariary " + montantTexte[1];
+                } else {
+                    montantlettrePro += " Ariary";
+                }
+            
                 param.put("montantlettrePro", montantlettrePro);
                 param.put("codePr", mere[0].getProjetlib());
                 param.put("codeEtb", mere[0].getCode_etablissementlib());
@@ -4204,23 +4217,29 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             String id = request.getParameter("id");
             BordereauLibComplet bordereau = new BordereauLibComplet();
-            bordereau.setNomTable("bordereauFF_libcomplet");
-            BordereauLibComplet[] mere = (BordereauLibComplet[]) CGenUtil.rechercher(bordereau, null, null, " and id='" + id + "'");
+            bordereau.setNomTable("FSBBED");
+            BordereauLibComplet[] mere = (BordereauLibComplet[]) CGenUtil.rechercher(bordereau, null, null, null, " and id='" + id + "'");
             Map param = new HashMap();
-            param.put("designation", utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
-            param.put("daty", mere[0].getDaty());
-            param.put("numero", mere[0].getNumero());
-            param.put("prevision", mere[0].getMontantbudget());
-            param.put("montantAvant", mere[0].getMontantav());
-            param.put("montantApres", mere[0].getMontantap());
+
+                param.put("code_etab", mere[0].getDirection());
+                param.put("annee", Utilitaire.getAnnee(mere[0].getDaty()) + "");
+                param.put("piece", mere[0].getNumero());
+                param.put("du", mere[0].getDaty());
+                param.put("projet", mere[0].getProjet());
+                param.put("numero", mere[0].getNumfsb());
+
+
+                param.put("annuel", Utilitaire.formaterAr((mere[0].getMontantbudget())));
+                param.put("avant", Utilitaire.formaterAr(mere[0].getMontantav()));
+                param.put("apres", Utilitaire.formaterAr(mere[0].getMontantap()));
+
             BordereauFilleLibComplet fille = new BordereauFilleLibComplet();
             fille.setIdbordereau(id);
             fille.setNomTable("liaisonbordereauFF_libcomplet");
             BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
             double total = AdminGen.calculSommeDouble(liste, "montant");
-            param.put("montant", total);
-            param.put("code", utilitaire.Utilitaire.champNull(liste[0].getCode_etablissement()));
-            setNomJasper("suivi_budgetaire");
+            param.put("montant", Utilitaire.formaterAr(total));
+            setNomJasper("engagement");
             UtilitaireImpression.imprimer(request, response, "suivi_budgetaire", param, null, getReportPath());
 
         } catch (Exception e) {
@@ -4318,6 +4337,37 @@ public class EtatPaieServlet extends HttpServlet {
         }
 
     }
+    private void imprimerDemandeOrdreDeMission(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String id = request.getParameter("id");
+            OrdreMissionLib mc = new OrdreMissionLib();
+            mc.setNomTable("ordre_mission_lib");
+            OrdreMissionLib[] mere = (OrdreMissionLib[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "'");
+            Map param = new HashMap();
+            param.put("nom", mere[0].getNom());
+            param.put("prenom", mere[0].getPrenom());
+            param.put("fonction", mere[0].getFonction());
+            param.put("matricule", mere[0].getMatricule());
+            param.put("classeProf", mere[0].getClasseprofessionnel());
+            param.put("direction", mere[0].getDirection());
+            param.put("lieuDeDep", Utilitaire.champNull(mere[0].getLieudeplacement()));
+            param.put("moyenDeDep", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
+            param.put("duree", mere[0].getDuree());
+            param.put("motif", mere[0].getMotifvoyage());
+            param.put("dateDedepart", mere[0].getDatedepart());
+            param.put("daty", utilitaire.Utilitaire.dateDuJour());
+            param.put("numOM", mere[0].getNumOM());
+            String hebergement = "- Prise en charge par la soci&eacute;t&eacute;";
+            if(mere[0].getEstForfaitaire()==1) hebergement = "- Indemnit&eacute; forfaitaire";
+            param.put("hebergement", hebergement);
+            setNomJasper("Demande_ordre_de_mission");
+            UtilitaireImpression.imprimer(request, response, "Demande ordre de mission", param, null, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /*private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {

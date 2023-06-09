@@ -12,6 +12,7 @@
 <%@page import="mg.spat.relationhumaine.InfoPersonnel"%>
 <%@page import="mg.spat.relationhumaine.InfoProfessionnel"%>
 <%@page import="mg.spat.Cloture"%>
+<%@page import="mg.spat.Engagement"%>
 <%@page import="java.util.List"%>
 
 <%@ page import="user.*" %>
@@ -88,6 +89,13 @@
             }
 
             int type = Utilitaire.stringToInt(typeBoutton);
+
+            if (acte != null && acte.equalsIgnoreCase("engagementEntete")) { 
+                Page p = new Page(new Engagement(), request);
+                Engagement fc = (Engagement)p.getObjectAvecValeur();
+                fc.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
+            }
+
             if (acte.compareToIgnoreCase("insertMenu") == 0) {
                 String utilisateur = request.getParameter("refuser");
                 String menu = request.getParameter("idmenu");
@@ -484,8 +492,15 @@
                 ff.setId(request.getParameter("id"));
                 ff = (facture.FactureFournisseur)ff.getById(request.getParameter("id"), "facture_fournisseur_mere", null);
                 if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID(),false);
+                else{
+                    Engagement engagement=new Engagement();
+                    engagement.setId(request.getParameter("id"));
+                    engagement = (Engagement)engagement.getById(request.getParameter("id"), "engagement", null);
+                    if(engagement!=null)engagement.validerObjectSansControleMontant(u.getUser().getTuppleID(),null);
+                }
             }
         }
+
         if(acte.compareToIgnoreCase("validerBCEng") == 0){
             BonDeCommande bc=new BonDeCommande();
             bc.setId(request.getParameter("id"));

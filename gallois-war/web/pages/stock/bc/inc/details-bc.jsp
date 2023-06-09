@@ -27,6 +27,7 @@
                             <tr>
                                 <th>N°</th>
                                 <th>Produit</th>
+                                <th>Designation</th>
                                 <th>Quantit&eacute; command&eacute;e</th>
                                 <th>Quantit&eacute; livr&eacute;e</th>
                                 <th>Reste à livrer</th>
@@ -52,6 +53,7 @@
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
                                 <td  align="center"><%=liste[i].getNumeroLigne()%> </td>
                                 <td  align="center"><%=Utilitaire.champNull(liste[i].getProduit())%> </td>
+                                <td  align="center"><%=Utilitaire.champNull(liste[i].getDesignation())%> </td>
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantite())%></td>
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantitelivre())%></td>
                                 <td  align="center"><%=Utilitaire.formaterAr(liste[i].getQuantitereste())%></td>

@@ -17,7 +17,7 @@
 <%
     UserEJB u = (UserEJB) session.getAttribute("u");
     res = new BordereauLibComplet();
-    res.setNomTable("bordereauFF_libcomplet");
+    res.setNomTable("FSBBED");
     if( request.getParameter("idmere")!=null){
         res.setId(request.getParameter("idmere"));
     }
@@ -31,6 +31,8 @@
     pc.getChampByName("montantbudget").setLibelle("Montant budget");
     pc.getChampByName("montantav").setLibelle("Montant avant");
     pc.getChampByName("montantap").setLibelle("Montant apres");
+    pc.getChampByName("numfsb").setLibelle("Num FSB");
+
     pc.setTitre("Fiche bordereau facture fournisseur");
     String id=res.getId();
     BordereauFilleLibComplet fille=new BordereauFilleLibComplet();
@@ -73,7 +75,7 @@
             <div class="box-fiche">
                 <div class="box">
                     <div class="box-title with-border">
-                        <h2 class="box-title" style="margin-left: 10px;">Liste détails bordereaux</h2>
+                        <h2 class="box-title" style="margin-left: 10px;">Liste dï¿½tails bordereaux</h2>
                     </div>
                     <div class="box-body">
                                 
