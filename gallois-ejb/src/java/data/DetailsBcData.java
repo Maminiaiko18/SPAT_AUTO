@@ -72,7 +72,9 @@ public class DetailsBcData {
             }            
             BonDeCommandeFille p = new BonDeCommandeFille();
             p.setNomTable(vue_fille);
-            bcFille = (BonDeCommandeFille[]) CGenUtil.rechercher(p, null, null, " and idbc = '" + id+ "' order by produit asc");
+//            bcFille = (BonDeCommandeFille[]) CGenUtil.rechercher(p, null, null, " and idbc = '" + id+ "' order by produit asc");
+            bcFille = (BonDeCommandeFille[]) CGenUtil.rechercher(p, null, null, " and idbc = '" + id+ "' order by designation asc");
+
             bc = new BonDeCommande();
             bc.setNomTable(vue_mere);
             BonDeCommande[] liste2 = (BonDeCommande[]) CGenUtil.rechercher(bc, null, null, " and id = '" + id+ "'");

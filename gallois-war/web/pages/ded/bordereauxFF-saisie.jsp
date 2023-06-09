@@ -52,6 +52,7 @@
 
         pi.getFormu().getChamp("Etat").setVisible(false);
         pi.getFormu().getChamp("numero").setVisible(false);
+        pi.getFormu().getChamp("numfsb").setVisible(false);
         pi.getFormu().getChamp("montantbudget").setVisible(false);
         pi.getFormu().getChamp("montantav").setVisible(false);
         pi.getFormu().getChamp("montantap").setVisible(false);
@@ -78,6 +79,7 @@
                     pi.getFormufle().getChamp("montant_" + i).setDefaut(Utilitaire.formaterAr(factures[i].getMontantttc()) + "");
                     pi.getFormufle().getChamp("idop_" + i).setDefaut(factures[i].getId());
                     pi.getFormufle().getChamp("idop_" + i).setValeurLibelle(factures[i].getId());
+                    pi.getFormufle().getChamp("Code_etablissementlib_"+i).setVisible(false);
                 }
             }
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
@@ -88,7 +90,7 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("code_etablissement"), false);
         pi.getFormufle().getChamp("idop_0").setLibelle("Facture");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
-        pi.getFormufle().getChamp("Code_etablissementlib_0").setVisible(false);
+
 
 
         pi.preparerDataFormu();

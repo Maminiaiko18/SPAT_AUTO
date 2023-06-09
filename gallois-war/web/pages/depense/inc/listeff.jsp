@@ -10,7 +10,7 @@
 <%@page import="facture.FactureFournisseur"%>
 <%
     FactureFournisseur j = new FactureFournisseur();
-        j.setNomTable("FACTUREFOURNVALIDE_TOUS");
+        j.setNomTable("facture_fournisseur_engagement");
      String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP", "etatlib"};
     String listeCrt[] = {"idengagement"};
     String listeInt[] = {};

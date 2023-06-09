@@ -34,9 +34,9 @@
     pr.setLien((String) session.getValue("lien"));
     
     pr.getFormu().getChamp("code_etab").setLibelle("Code Etablissement");
-    if (u.getCodeEtablissement() != null) {
-        pr.getFormu().getChamp("code_etab").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
-    }
+//    if (u.getCodeEtablissement() != null) {
+//        pr.getFormu().getChamp("code_etab").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
+//    }
     pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
