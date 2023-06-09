@@ -432,7 +432,7 @@
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{projet}.charAt( 2 )]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="12" y="311" width="531" height="40" uuid="6d4ef01e-a007-4d91-b3ba-de2ae737ca56"/>
 				<textElement>
 					<font isBold="true"/>
