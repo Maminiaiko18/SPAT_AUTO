@@ -21,9 +21,9 @@
     PageInsert pi = new PageInsert(obj, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     
-    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp","projet;projetlibelle;compte");
     pi.getFormu().getChamp("projet").setAutre("readonly");
-    pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp","codeEtablissement;codeEtablissementlibelle;compte");
     pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
     pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");

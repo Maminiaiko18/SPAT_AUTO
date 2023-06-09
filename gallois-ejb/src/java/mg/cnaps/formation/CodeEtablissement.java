@@ -67,6 +67,6 @@ public class CodeEtablissement extends TypeObjet{
     
     @Override
     public String getValColLibelle(){
-        return this.val;
+        return this.val + ";" + this.val;
     }
 }

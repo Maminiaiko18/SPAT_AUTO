@@ -144,7 +144,7 @@ public class Projet extends ClassEtat{
     
     @Override
     public String getValColLibelle(){
-        return designation;
+        return designation + ";" + designation;
     }
     
     public void checkDoublonCode(Connection c) throws Exception{
