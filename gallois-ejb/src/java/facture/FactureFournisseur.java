@@ -882,9 +882,13 @@ public class FactureFournisseur extends FactureClient {
         return this;
     }
 
-    public Object validerSansControleResteEngagement(String u,boolean controleMontant) throws Exception {
-        Connection c = null;
-        try {
+    public Object validerSansControleResteEngagement(String u, boolean controleMontant, Connection c) throws Exception {
+        int verif=0;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
             this.setEstAncienne(1);
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
@@ -948,18 +952,23 @@ public class FactureFournisseur extends FactureClient {
             this.setNomTable("facture_fournisseur_mere");
             super.validerObject(u, c);
             c.commit();
-        } catch (Exception e) {
-            if (c != null) {
-                c.rollback();
-            }
+        }catch(Exception e){
+            c.rollback();
             e.printStackTrace();
             throw e;
-        } finally {
-            if (c != null) {
-                c.close();
-            }
+        }finally{
+            if(c!=null && verif==1)c.close();
         }
         return this;
+    }
+
+    public Object validerSansControleResteEngagement(String u,boolean controleMontant) throws Exception {
+        try {
+            return validerSansControleResteEngagement(u,controleMontant,null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     public static FactureFournisseur grouperFacture(String ids, Connection c) throws Exception {

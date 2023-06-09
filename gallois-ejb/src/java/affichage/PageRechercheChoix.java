@@ -119,6 +119,7 @@ public class PageRechercheChoix extends Page {
         Vector colIntv = new Vector();
         Vector valIntv = new Vector();
         Champ[] tempChamp = formu.getCrtFormu();
+        this.getCritere().setMode("select");
 
         String temp = "";
         for (int i = 0; i < tempChamp.length; i++) {

@@ -139,7 +139,8 @@ public class BordereauFF extends Bordereau{
     
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        this.checkFacture(c);
+        //this.checkFacture(c);
+        visaFacture(u, c);
         BordereauFilleLibComplet[] listeFille=this.getFille(c);
         if(listeFille!=null && listeFille.length>0){
             FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
@@ -191,6 +192,16 @@ public class BordereauFF extends Bordereau{
             for(BordereauFilleLibComplet details : listeFille){
                 FactureFournisseur ff = ((BordereauFille)details).getFF("FACTURE_FOURNISSEUR_MERE",c);
                 if(ff.getEtat()==ConstanteEtat.getEtatCreer()) throw new Exception("Facture non visé");
+            }
+        }
+    }
+
+    public void visaFacture(String u, Connection c) throws Exception {
+            BordereauFilleLibComplet[] listeFille=this.getFille(c);
+            if(listeFille!=null && listeFille.length>0){
+            for(BordereauFilleLibComplet details : listeFille){
+                FactureFournisseur ff = ((BordereauFille)details).getFF("factfourn_msum_lib",c);
+                ff.validerSansControleResteEngagement(u, true, c);
             }
         }
     }
