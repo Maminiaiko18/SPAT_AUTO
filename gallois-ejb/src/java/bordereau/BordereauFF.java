@@ -139,8 +139,8 @@ public class BordereauFF extends Bordereau{
     
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        //this.checkFacture(c);
-        visaFacture(u, c);
+        this.checkFacture(c);
+        //visaFacture(u, c);
         BordereauFilleLibComplet[] listeFille=this.getFille(c);
         if(listeFille!=null && listeFille.length>0){
             FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
