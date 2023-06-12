@@ -13,6 +13,7 @@
          %>
 
          window.opener.document.all.<%=champs[i]%>.value = "<%=lstChoix[i]%>";
+        window.opener.document.all.<%=champs[i]%>.dispatchEvent(new Event('change'));
 	 <%}}%>        
       window.close(); 
         
