@@ -189,7 +189,7 @@
 				<text><![CDATA[N°]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="0" y="95" width="299" height="47" uuid="7e8f9fd8-6c95-4bfa-be10-d250030c85a9"/>
+				<reportElement x="0" y="95" width="318" height="47" uuid="7e8f9fd8-6c95-4bfa-be10-d250030c85a9"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -222,7 +222,7 @@
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement x="318" y="95" width="229" height="47" uuid="23d3e5ad-4e2d-4045-aaa4-0fa71f865793"/>
+				<reportElement x="326" y="95" width="229" height="47" uuid="23d3e5ad-4e2d-4045-aaa4-0fa71f865793"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -264,21 +264,21 @@
 				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="89" y="95" width="210" height="15" uuid="6a3434e6-7b0b-4b09-9fed-697b463fd4ff"/>
+				<reportElement x="71" y="95" width="247" height="15" uuid="6a3434e6-7b0b-4b09-9fed-697b463fd4ff"/>
 				<textElement verticalAlignment="Top">
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{direction}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="89" y="111" width="210" height="15" uuid="80fee1c3-cc2f-45b9-bc36-fa66d65c2ca2"/>
+				<reportElement x="89" y="111" width="229" height="15" uuid="80fee1c3-cc2f-45b9-bc36-fa66d65c2ca2"/>
 				<textElement verticalAlignment="Top">
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{departement}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="89" y="127" width="210" height="15" uuid="b33a44be-aec1-4d25-851d-70cb23dc8231"/>
+				<reportElement x="55" y="127" width="263" height="15" uuid="b33a44be-aec1-4d25-851d-70cb23dc8231"/>
 				<textElement verticalAlignment="Top">
 					<paragraph rightIndent="3"/>
 				</textElement>
