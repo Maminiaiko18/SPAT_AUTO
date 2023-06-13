@@ -46,20 +46,27 @@
         }
 
         BordereauFF mere = new BordereauFF();
+        mere.setNomTable("BORDEREAUFF_LIB_MONTANT");
         BordereauFilleFFLibComplet fille = new BordereauFilleFFLibComplet();
         PageInsertMultiple pi = new PageInsertMultiple(mere, fille, request, taille, u);
         pi.setLien((String) session.getValue("lien"));
 
         pi.getFormu().getChamp("Etat").setVisible(false);
         pi.getFormu().getChamp("numero").setVisible(false);
+        pi.getFormu().getChamp("numfsb").setVisible(false);
         pi.getFormu().getChamp("montantbudget").setVisible(false);
         pi.getFormu().getChamp("montantav").setVisible(false);
         pi.getFormu().getChamp("montantap").setVisible(false);
+        pi.getFormu().getChamp("montant").setVisible(false);
+        pi.getFormu().getChamp("projet").setVisible(false);
+        pi.getFormu().getChamp("direction").setVisible(false);
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("daty").setLibelle("Date");
-
+        if(factures.length > 0){
+            pi.getFormu().getChamp("direction").setDefaut(factures[0].getCode_etablissementlib());
+        }
 //        for( int i = 0 ; i < taille ; i++ ){
 //            pi.getFormufle().getChamp("idop_"+i).setAutre("readonly");
 //            pi.getFormufle().getChamp("idop_"+i).setPageAppel("choix/listeOrdonnerPayementChoix.jsp","idop;idoplibelle");
@@ -78,6 +85,7 @@
                     pi.getFormufle().getChamp("montant_" + i).setDefaut(Utilitaire.formaterAr(factures[i].getMontantttc()) + "");
                     pi.getFormufle().getChamp("idop_" + i).setDefaut(factures[i].getId());
                     pi.getFormufle().getChamp("idop_" + i).setValeurLibelle(factures[i].getId());
+                    pi.getFormufle().getChamp("Code_etablissementlib_"+i).setVisible(false);
                 }
             }
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
@@ -88,7 +96,7 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("code_etablissement"), false);
         pi.getFormufle().getChamp("idop_0").setLibelle("Facture");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
-        pi.getFormufle().getChamp("Code_etablissementlib_0").setVisible(false);
+
 
 
         pi.preparerDataFormu();
