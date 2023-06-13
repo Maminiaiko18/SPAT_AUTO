@@ -23,7 +23,6 @@ import utilitaire.Utilitaire;
  * @author Audace
  */
 public class BordereauFF extends Bordereau{
-
     private double montantbudget;
     private double montantav;
     private double montantap;
@@ -126,11 +125,6 @@ public class BordereauFF extends Bordereau{
         if(listeFille!=null && listeFille.length>0){
             FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
             if(ff!=null){
-                LigneCredit critere=new LigneCredit();
-                critere.setNomTable("situationLC_vide");
-                critere.setProjet(ff.getProjetlib());
-                critere.setDirection(ff.getCode_etablissementlib());
-                this.setDirection(ff.getCode_etablissementlib());
                 this.setNumero(this.calculerNumero(c));
             }
         }else throw new Exception("Bordereau comporte aucune facture");

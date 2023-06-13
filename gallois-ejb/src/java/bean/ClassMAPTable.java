@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -1428,7 +1429,12 @@ public abstract class ClassMAPTable implements Serializable {
             enTete += ")";
             int j = 1;
             return j;
-        } catch (Exception e) {
+        } 
+        catch(SQLIntegrityConstraintViolationException e){
+            cDb.rollback();
+            throw new Exception("Erreur integrite de donnee.");
+        }
+        catch (Exception e) {
             try {
                 cDb.rollback();
 
@@ -1439,7 +1445,8 @@ public abstract class ClassMAPTable implements Serializable {
                 throw ex;
                 //return 0;
             }
-        } finally {
+        } 
+        finally {
             try {
                 if (stmt != null) {
                     stmt.close();
