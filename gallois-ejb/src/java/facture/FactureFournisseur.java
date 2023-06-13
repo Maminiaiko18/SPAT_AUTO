@@ -849,6 +849,7 @@ public class FactureFournisseur extends FactureClient {
                             liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), resteAEngager, ConstanteEtat.getEtatCreer());
                             liaison.createObject(u, c);
                             liaison.validerObject(u, c);
+                            resteAEngager = 0;
                         }
                         else{ 
                             if(engbc.getMontantreste() > 0){
