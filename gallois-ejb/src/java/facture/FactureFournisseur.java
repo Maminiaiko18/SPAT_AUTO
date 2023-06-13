@@ -819,12 +819,25 @@ public class FactureFournisseur extends FactureClient {
         }
 
         if (this.getIdengagement() != null) {
-            BonDeCommande bc = findBCResteAFacturer(c);
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-            Engagement[] lies = this.getEngagementLiee(c);
             double resteAEngager = ff.getMontant();
             LiaisonEngagement liaison = new LiaisonEngagement();
-            double restetemp = 0;
+            String requete = "select * from liaisonengagement where id1 = '" + this.getIdengagement() + "' and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider();
+            LiaisonEngagement[] liaisonengff = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), requete, c);
+            String id = null;
+            if(liaisonengff.length == 0){
+                Engagement engff = this.findEngagement("engagementlib", "id", c);
+                if(engff != null && engff.getMontant() > 0){
+                    double m = (resteAEngager - engff.getMontantreste() == 0) ? resteAEngager : engff.getMontantreste();
+                    liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                    liaison.createObject(u, c);
+                    liaison.validerObject(u, c);
+                    resteAEngager -= m;
+                    id = this.getIdengagement();
+                }
+            }
+            BonDeCommande bc = findBCResteAFacturer(c);
+            Engagement[] lies = this.getEngagementLiee(id, c);
             if(bc != null){
                 if(bc.getMontantreste() < ff.getMontant()){
                     resteAEngager -= bc.getMontantreste();
@@ -844,25 +857,19 @@ public class FactureFournisseur extends FactureClient {
                                 liaison.validerObject(u, c);
                                 resteAEngager -= engbc.getMontantreste();
                             }
-                            resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
-                            if(resteAEngager > 0){
-                                throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
-                            }
+                            resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                         }
                     }
                     else{ 
-                        resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
-                        if(resteAEngager > 0){
-                            throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
-                        }
+                        resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                     }
                 }
             }
             else{
-                resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
-                if(resteAEngager > 0){
-                    throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
-                }
+                resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
+            }
+            if(resteAEngager > 0){
+                throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
             }
         } else {
             if (this.getIdbc() == null) {
@@ -908,12 +915,25 @@ public class FactureFournisseur extends FactureClient {
                 if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0) this.insertEngagement(u, controleMontant,c);
             }
             if (this.getIdengagement() != null) {
-                BonDeCommande bc = findBCResteAFacturer(c);
                 FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-                Engagement[] lies = this.getEngagementLiee(c);
                 double resteAEngager = ff.getMontant();
                 LiaisonEngagement liaison = new LiaisonEngagement();
-                double restetemp = 0;
+                String requete = "select * from liaisonengagement where id1 = '" + this.getIdengagement() + "' and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider();
+                LiaisonEngagement[] liaisonengff = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), requete, c);
+                String id = null;
+                if(liaisonengff.length == 0){
+                    Engagement engff = this.findEngagement("engagementlib", "id", c);
+                    if(engff != null && engff.getMontant() > 0){
+                        double m = (resteAEngager - engff.getMontantreste() == 0) ? resteAEngager : engff.getMontantreste();
+                        liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                        liaison.createObject(u, c);
+                        liaison.validerObject(u, c);
+                        resteAEngager -= m;
+                        id = this.getIdengagement();
+                    }
+                }
+                BonDeCommande bc = findBCResteAFacturer(c);
+                Engagement[] lies = this.getEngagementLiee(id, c);
                 if(bc != null){
                     if(bc.getIdengagement().compareToIgnoreCase( this.getIdengagement()) != 0){
                         FactureFournisseur f = new FactureFournisseur();
@@ -925,27 +945,19 @@ public class FactureFournisseur extends FactureClient {
                             liaison.validerObject(u, c);
                         }
                         resteAEngager = ff.getMontant() - bc.getMontantreste() - engbc.getMontantreste();
-                        resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
-                        if(resteAEngager > 0){
-                            ff.createEngagement(u, c, resteAEngager, lc);                                
-                            this.setIdengagement(ff.getIdengagement());
-                        }
+                        resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                     }
                     else{
                         resteAEngager = ff.getMontant() - bc.getMontantreste();
-                        resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
-                        if(resteAEngager > 0){ 
-                            ff.createEngagement(u, c, resteAEngager, lc);
-                            this.setIdengagement(ff.getIdengagement());
-                        }
+                        resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                     }
                 }
                 else{ 
-                    resteAEngager = traiterEngagementLiee(restetemp, resteAEngager, lies, u, c);
-                    if(resteAEngager > 0){
-                        ff.createEngagement(u, c, resteAEngager, lc);
-                        this.setIdengagement(ff.getIdengagement());
-                    }
+                    resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
+                }
+                if(resteAEngager > 0){
+                    ff.createEngagement(u, c, resteAEngager, lc);
+                    this.setIdengagement(ff.getIdengagement());
                 }
             }
 
@@ -1364,11 +1376,14 @@ public class FactureFournisseur extends FactureClient {
         }
     }
     
-    public Engagement[] getEngagementLiee(Connection c) throws Exception {
+    public Engagement[] getEngagementLiee(String id, Connection c) throws Exception {
         Engagement[] liste = null;
         
         try{
-            String requete = "SELECT * FROM liaisonEngagementBCFF WHERE IDENGAGEMENT IN (SELECT ID1 FROM LIAISONENGAGEMENT WHERE ID2 = '" + this.getId() + "') AND MONTANTRESTE > 0 ORDER BY DATY";
+            String requete = "SELECT * FROM liaisonEngagementBCFF WHERE IDENGAGEMENT IN (SELECT ID1 FROM LIAISONENGAGEMENT WHERE ID2 = '" + this.getId() + "'";
+            if(id != null)
+                requete += " and ID1 != '" + id + "'";
+            requete += ") AND MONTANTRESTE > 0 ORDER BY DATY";
             Engagement e = new Engagement();
             e.setNomTable("liaisonEngagementBCFF");
             liste = (Engagement[])CGenUtil.rechercher(e, requete, c);
@@ -1380,8 +1395,9 @@ public class FactureFournisseur extends FactureClient {
         return liste;
     }
     
-    public double traiterEngagementLiee(double restetemp, double resteAEngager, Engagement[] lies, String u, Connection c) throws Exception {
+    public double traiterEngagementLiee(double resteAEngager, Engagement[] lies, String u, Connection c) throws Exception {
         int t = lies.length;
+        double restetemp;
         try{
             for(int i = 0; i < t; i++){
                 restetemp = resteAEngager;
