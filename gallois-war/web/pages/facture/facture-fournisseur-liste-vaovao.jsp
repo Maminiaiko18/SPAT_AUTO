@@ -119,10 +119,12 @@
                 <div class="col-md-4"></div>
             </div>
         </form>
+       
         <%out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <form action="<%=pr.getLien()%>?but=apresTarif.jsp" method="post" name="form_arif" id="form_arif">
             <input type="button" class="btn btn-info" onclick="editerOP()" style="margin:10px" value="Editer OP"/>
+             <input type="button" class="btn btn-info" onclick="editerBED()" style="margin:10px" value="Editer BED"/>
             <input type="hidden" name="bute" id="bute" value="ded/ordonnerpayement-saisie.jsp"/>
             <input type="hidden" name="classe" id="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
