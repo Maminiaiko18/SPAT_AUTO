@@ -46,6 +46,7 @@
         }
 
         BordereauFF mere = new BordereauFF();
+        mere.setNomTable("BORDEREAUFF_LIB_MONTANT");
         BordereauFilleFFLibComplet fille = new BordereauFilleFFLibComplet();
         PageInsertMultiple pi = new PageInsertMultiple(mere, fille, request, taille, u);
         pi.setLien((String) session.getValue("lien"));
@@ -56,11 +57,16 @@
         pi.getFormu().getChamp("montantbudget").setVisible(false);
         pi.getFormu().getChamp("montantav").setVisible(false);
         pi.getFormu().getChamp("montantap").setVisible(false);
+        pi.getFormu().getChamp("montant").setVisible(false);
+        pi.getFormu().getChamp("projet").setVisible(false);
+        pi.getFormu().getChamp("direction").setVisible(false);
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("daty").setLibelle("Date");
-
+        if(factures.length > 0){
+            pi.getFormu().getChamp("direction").setDefaut(factures[0].getCode_etablissementlib());
+        }
 //        for( int i = 0 ; i < taille ; i++ ){
 //            pi.getFormufle().getChamp("idop_"+i).setAutre("readonly");
 //            pi.getFormufle().getChamp("idop_"+i).setPageAppel("choix/listeOrdonnerPayementChoix.jsp","idop;idoplibelle");
