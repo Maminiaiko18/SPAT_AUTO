@@ -4215,6 +4215,9 @@ public class EtatPaieServlet extends HttpServlet {
     private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String id = request.getParameter("id");
+            String option = request.getParameter("option");
+            String jaspername = "engagement-sanssignature";
+            if(option!=null)  if(option.compareToIgnoreCase("1")==0) jaspername = "engagement";
             BordereauLibComplet bordereau = new BordereauLibComplet();
             bordereau.setNomTable("FSBBED");
             BordereauLibComplet[] mere = (BordereauLibComplet[]) CGenUtil.rechercher(bordereau, null, null, null, " and id='" + id + "'");
@@ -4238,7 +4241,7 @@ public class EtatPaieServlet extends HttpServlet {
             BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
             double total = AdminGen.calculSommeDouble(liste, "montant");
             param.put("montant", Utilitaire.formaterAr(total));
-            setNomJasper("engagement");
+            setNomJasper(jaspername);
             UtilitaireImpression.imprimer(request, response, "suivi_budgetaire", param, null, getReportPath());
 
         } catch (Exception e) {
