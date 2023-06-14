@@ -1338,11 +1338,8 @@ public class FactureFournisseur extends FactureClient {
             }
             engagement.construirePK(c);
             engagement.createObject(u, c);
-
-            FactureFournisseurDetails fille = new FactureFournisseurDetails();
-            fille.setDesignation(this.getNumeroop());
-            fille.setMontant(montant);
-            EngagementFille engFille = fille.createEngagementFille(engagement.getId());
+            
+            EngagementFille engFille = new EngagementFille(engagement.getId(),this.getNumeroop(),montant);
             engFille.construirePK(c);
             engFille.insertToTableWithHisto(u, c);
             engagement.validerObjectSansControleMontant(u, c);
