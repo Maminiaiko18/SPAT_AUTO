@@ -70,7 +70,7 @@
         pi.getFormu().getChamp("exercice").setLibelle("Exercice");
         pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
-        pi.getFormu().getChamp("numeroop").setLibelle("N� Facture");
+        pi.getFormu().getChamp("numeroop").setLibelle("Numero Facture");
         pi.getFormu().getChamp("numeroop").setVisible(true);
         pi.getFormu().getChamp("dateRegul").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
@@ -78,9 +78,11 @@
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("idprevision").setVisible(false);
         pi.getFormu().getChamp("nature").setVisible(false);
-        pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
-        pi.getFormu().getChamp("idBL").setAutre("readonly");
-        pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");
+        pi.getFormu().getChamp("num").setVisible(false);
+        //pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
+       // pi.getFormu().getChamp("idBL").setAutre("readonly");
+        pi.getFormu().getChamp("idBL").setVisible(false);
+        //pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");
         pi.getFormu().getChamp("code_etablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp", "code_etablissement;code_etablissementlibelle");
         pi.getFormu().getChamp("code_etablissement").setAutre("readonly");
         pi.getFormu().getChamp("code_etablissement").setLibelle("Code direction");
@@ -96,9 +98,13 @@
         pi.getFormu().getChamp("estMictsl").setVisible(false);
         pi.getFormu().getChamp("estAuto").setVisible(false);
         pi.getFormu().getChamp("typeEngagement").setVisible(false);
-        pi.getFormu().getChamp("remarque").setLibelle("Num Fiche Saisie Budg�taire");
+        pi.getFormu().getChamp("remarque").setLibelle("Num FSB");
 
         if (request.getParameter("idBL") != null) {
+            pi.getFormu().getChamp("idBL").setVisible(true);
+            pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
+             pi.getFormu().getChamp("idBL").setAutre("readonly");
+            pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");
             pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
             pi.getFormu().getChamp("projet").setValeurLibelle(livraisons[0].getProjetlib());
             pi.getFormu().getChamp("code_etablissement").setValeur(livraisons[0].getCode_etablissement());

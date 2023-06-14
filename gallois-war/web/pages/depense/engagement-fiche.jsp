@@ -89,9 +89,16 @@
         
                                 
                                 <a class="btn btn-info " href="<%=(String) session.getValue("lien") + "?but=depense/engagement-fille-liste.jsp&idmere=" + engagement.getId() %>" style="margin-right: 5px">Payer</a>
-                                 <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer</button></a>
+                                
+                                 <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer</button></a>
                                 <%-- <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=dse&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer DSE</button></a> --%>
                                 <a href="<%=(String) session.getValue("lien") +"?but=depense/engagement-modif-simple.jsp&id="+ engagement.getId()%>"><button class="btn btn-primary pull-right" style="margin-right: 5px">Observation</button></a>
+                                <label style="float:right;padding-right:10px">Accord : 
+                                    <select id="choix" onchange="choix()">
+                                        <option value="1">Oui</option>
+                                        <option value="0" selected>Non</option>
+                                    </select>
+                                </label>
                             </p>
                         </div>
                     </div>
@@ -122,3 +129,11 @@
         </div>        
     </div>
 </div>
+<script>
+  function choix() {
+    var selectedOption = document.getElementById("choix").value;
+    var link = document.getElementById("imprimer");
+    var href = "<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + engagement.getId()%>"+"&option=" + selectedOption;
+    link.href = href;
+  }
+</script>
