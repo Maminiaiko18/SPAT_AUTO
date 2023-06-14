@@ -21,7 +21,7 @@
     pc.getChampByName("montant").setLibelle("Montant");
     pc.getChampByName("num").setLibelle("Numero");
 
-    pc.getChampByName("disponible").setLibelle("Disponible � facturer");
+    pc.getChampByName("disponible").setLibelle("Disponible à facturer");
     pc.getChampByName("dispoAvant").setLibelle("Disponible Avant");
     pc.getChampByName("dispoApres").setLibelle("Disponible Apres");
     pc.getChampByName("compte").setLibelle("Compte");
