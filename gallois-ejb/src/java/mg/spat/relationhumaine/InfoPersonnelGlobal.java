@@ -8,7 +8,7 @@ package mg.spat.relationhumaine;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
-import utilitaire.Utilitaire;
+import mg.spat.Tiers;
 
 /**
  *
@@ -433,5 +433,17 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     @Override
     public String getValColLibelle() {
         return idtiers+";"+nom+" "+prenom;
+    }
+    
+    public Tiers genererTiers() throws Exception{
+        Tiers tiers = new Tiers();
+        tiers.setNom(nom + " " + prenom);
+        tiers.setDescription(poste);
+        tiers.setContact(telephone);
+        tiers.setAdresse(adresse);
+        tiers.setType("TC009");
+        tiers.setEtat(11);
+        tiers.setCin(numero_cin);
+        return tiers;
     }
 }

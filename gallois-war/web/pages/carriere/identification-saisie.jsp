@@ -61,7 +61,7 @@
     liste[2] = mode;
     
     Liste contrat = new Liste("type_contrat");
-    String [] val_contrat = {"CDD", "CDI"};
+    String [] val_contrat = {"TC00002", "TC00001"};
     String [] aff_contrat = {"CDD", "CDI"};
     contrat.ajouterValeur(val_contrat, aff_contrat);
     liste[3] = contrat;
