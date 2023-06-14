@@ -121,13 +121,6 @@
 				<textFieldExpression><![CDATA[$P{code_etab}.charAt( 2 )]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="417" y="47" width="32" height="15" uuid="e27464c5-eb28-471c-a3f6-b63965d32de9"/>
-				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[C/I]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="449" y="2" width="45" height="15" uuid="7326f4b7-4eb9-44da-9430-3f4467bfa673"/>
 				<textElement verticalAlignment="Middle">
 					<font size="9" isBold="true"/>

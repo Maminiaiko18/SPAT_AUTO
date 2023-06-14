@@ -3643,6 +3643,9 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             c = (new UtilDB()).GetConn();
             String id = request.getParameter("id");
+            String option = request.getParameter("option");
+            String jaspername = "engagement-sanssignature";
+            if(option!=null)  if(option.compareToIgnoreCase("1")==0) jaspername = "engagement";
             Engagement engagement = new Engagement();
             engagement.setId(id);
             engagement.setNomTable("engagementlib");
@@ -3678,7 +3681,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-            setNomJasper("engagement");
+            setNomJasper(jaspername);
             UtilitaireImpression.imprimer(request, response, "engagement", param, null, getReportPath(), rt);
         } catch (Exception e) {
             e.printStackTrace();
