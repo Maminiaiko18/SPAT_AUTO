@@ -19,7 +19,7 @@
 //    pc.getChampByName("disponible").setVisible(false);
     pc.getChampByName("compte").setVisible(false);
     pc.getChampByName("montant").setLibelle("Montant");
-    //pc.getChampByName("disponible").setLibelle("Disponible � facturer");
+    //pc.getChampByName("disponible").setLibelle("Disponible à facturer");
     pc.getChampByName("num").setLibelle("Num&eacute;ro");
     pc.getChampByName("dispoAvant").setLibelle("Disponible Avant");
     pc.getChampByName("dispoApres").setLibelle("Disponible Apr&egrave;s");
