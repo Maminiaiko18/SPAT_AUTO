@@ -47,6 +47,7 @@ import mg.spat.Prevision;
 import mg.spat.StatistiqueActivite;
 import mg.spat.StatistiqueMICTSL;
 import mg.spat.StatistiquePTP;
+import mg.spat.Tiers;
 import mg.spat.relationhumaine.HistoEvoCarriere;
 import mg.spat.relationhumaine.InfoPersonnelGlobal;
 import mg.spat.relationhumaine.MouvementEffectif;
@@ -876,6 +877,9 @@ public class SpatService {
     }
     
     public static void insererInfoPersonnelGlobal(InfoPersonnelGlobal ipg, String refuser, Connection c) throws Exception {
+        Tiers tiers = ipg.genererTiers();
+        ClassMAPTable genere = tiers.createObject(refuser, c);
+        ipg.setIdtiers(genere.getTuppleID());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(ipg.getDatenaissance());
         int anneeNaiss = calendar.get(Calendar.YEAR);
