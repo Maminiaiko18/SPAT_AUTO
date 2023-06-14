@@ -821,23 +821,9 @@ public class FactureFournisseur extends FactureClient {
         if (this.getIdengagement() != null) {
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
             double resteAEngager = ff.getMontant();
-            LiaisonEngagement liaison = new LiaisonEngagement();
-            String requete = "select * from liaisonengagement where id1 = '" + this.getIdengagement() + "' and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider();
-            LiaisonEngagement[] liaisonengff = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), requete, c);
-            String id = null;
-            if(liaisonengff.length == 0){
-                Engagement engff = this.findEngagement("engagementlib", "id", c);
-                if(engff != null && engff.getMontant() > 0){
-                    double m = (resteAEngager <= engff.getMontantreste()) ? resteAEngager : engff.getMontantreste();
-                    liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
-                    liaison.createObject(u, c);
-                    liaison.validerObject(u, c);
-                    resteAEngager -= m;
-                    id = this.getIdengagement();
-                }
-            }
             BonDeCommande bc = findBCResteAFacturer(c);
-            Engagement[] lies = this.getEngagementLiee(id, c);
+            Engagement[] lies = this.getEngagementLiee(null, c);
+            LiaisonEngagement liaison = new LiaisonEngagement();
             if(bc != null){
                 if(bc.getMontantreste() < ff.getMontant()){
                     resteAEngager -= bc.getMontantreste();
@@ -865,8 +851,26 @@ public class FactureFournisseur extends FactureClient {
                         resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                     }
                 }
+                else{
+                    resteAEngager = 0;
+                }
             }
             else{
+                String requete = "select * from liaisonengagement where id1 = '" + this.getIdengagement() + "' and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider();
+                LiaisonEngagement[] liaisonengff = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), requete, c);
+                String id = null;
+                if(liaisonengff.length == 0){
+                    Engagement engff = this.findEngagement("engagementlib", "id", c);
+                    if(engff != null && engff.getMontant() > 0){
+                        double m = (resteAEngager <= engff.getMontantreste()) ? resteAEngager : engff.getMontantreste();
+                        liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                        liaison.createObject(u, c);
+                        liaison.validerObject(u, c);
+                        resteAEngager -= m;
+                        id = this.getIdengagement();
+                        lies = this.getEngagementLiee(id, c);
+                    }
+                }
                 resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
             }
             if(resteAEngager > 0){
@@ -919,22 +923,8 @@ public class FactureFournisseur extends FactureClient {
                 FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
                 double resteAEngager = ff.getMontant();
                 LiaisonEngagement liaison = new LiaisonEngagement();
-                String requete = "select * from liaisonengagement where id1 = '" + this.getIdengagement() + "' and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider();
-                LiaisonEngagement[] liaisonengff = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), requete, c);
-                String id = null;
-                if(liaisonengff.length == 0){
-                    Engagement engff = this.findEngagement("engagementlib", "id", c);
-                    if(engff != null && engff.getMontant() > 0){
-                        double m = (resteAEngager - engff.getMontantreste() == 0) ? resteAEngager : engff.getMontantreste();
-                        liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
-                        liaison.createObject(u, c);
-                        liaison.validerObject(u, c);
-                        resteAEngager -= m;
-                        id = this.getIdengagement();
-                    }
-                }
                 BonDeCommande bc = findBCResteAFacturer(c);
-                Engagement[] lies = this.getEngagementLiee(id, c);
+                Engagement[] lies = this.getEngagementLiee(null, c);
                 if(bc != null){
                     if(bc.getIdengagement().compareToIgnoreCase( this.getIdengagement()) != 0){
                         FactureFournisseur f = new FactureFournisseur();
@@ -953,7 +943,22 @@ public class FactureFournisseur extends FactureClient {
                         resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                     }
                 }
-                else{ 
+                else{
+                    String requete = "select * from liaisonengagement where id1 = '" + this.getIdengagement() + "' and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider();
+                    LiaisonEngagement[] liaisonengff = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), requete, c);
+                    String id = null;
+                    if(liaisonengff.length == 0){
+                        Engagement engff = this.findEngagement("engagementlib", "id", c);
+                        if(engff != null && engff.getMontant() > 0){
+                            double m = (resteAEngager - engff.getMontantreste() == 0) ? resteAEngager : engff.getMontantreste();
+                            liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                            liaison.createObject(u, c);
+                            liaison.validerObject(u, c);
+                            resteAEngager -= m;
+                            id = this.getIdengagement();
+                            lies = this.getEngagementLiee(id, c);
+                        }
+                    }
                     resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                 }
                 if(resteAEngager > 0){
