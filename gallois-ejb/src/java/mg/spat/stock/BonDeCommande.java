@@ -43,9 +43,25 @@ public class BonDeCommande extends ClassEtat {
     private String projet_lib, code_etab_lib, fournisseur_lib, modepaiement_lib;
     private String adresse;
     private double remise, montantRemise, montantHTSansRemise;
-    private String idengagement, idengagementlib, code_etablib;
+    private String idengagement, idengagementlib, code_etablib, fournisseurlib, projetlib;
     private double montantreste;
     private String idfournisseur, idprojet, codeetablissement;
+
+    public String getFournisseurlib() {
+        return fournisseurlib;
+    }
+
+    public void setFournisseurlib(String fournisseurlib) {
+        this.fournisseurlib = fournisseurlib;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
 
     public String getCode_etablib() {
         return code_etablib;
