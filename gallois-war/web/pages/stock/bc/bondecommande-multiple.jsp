@@ -55,7 +55,7 @@
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
         affichage.Champ[] liste = new affichage.Champ[2];
         TypeObjet d = new TypeObjet();
-        d.setNomTable("modepaiement");
+        d.setNomTable("modepaiementbq");
         liste[0] = new Liste("modepaiement", d, "val", "id");
         TypeObjet liste2 = new TypeObjet();
         liste2.setNomTable("typecheque");
