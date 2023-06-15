@@ -23,7 +23,7 @@
     String idengagement=e.getIdengagement();
     String lien = (String) session.getValue("lien");
        
-    pc.getChampByName("idengagementlib").setLibelle("Engagement");
+    pc.getChampByName("idengagementlib").setVisible(false);
     pc.getChampByName("codeetablissementlib").setLibelle("Code &eacute;tablissement");
     pc.getChampByName("projetlib").setLibelle("Projet");
     pc.getChampByName("num").setLibelle("Num&eacute;ro");

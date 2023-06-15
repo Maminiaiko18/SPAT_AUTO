@@ -1,6 +1,6 @@
 <%-- 
     Document   : asBonDeCommande-modif
-    Created on : 8 déc. 2020, 09:28:55
+    Created on : 8 dÃ©c. 2020, 09:28:55
     Author     : Sanda
 --%>
 <%@page import="mg.spat.DemandeAchatFille"%>
@@ -13,7 +13,7 @@
 <%@ page import="bean.CGenUtil" %>
 <%@ page import="utilitaire.Utilitaire" %>
 <%@ page import="affichage.Liste" %>
-
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%
     try {
         String classeMere = DemandeAchatMere.class.getName(),
@@ -31,24 +31,24 @@
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
         
-        pi.getFormu().getChamp("codeetablissement").setLibelle("Code établissement");
+        pi.getFormu().getChamp("codeetablissement").setLibelle("Code Ã©tablissement");
         pi.getFormu().getChamp("projet").setLibelle("Projet");
         pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
-        pi.getFormu().getChamp("designation").setLibelle("Désignation");
-        pi.getFormu().getChamp("num").setLibelle("Numéro");
+        pi.getFormu().getChamp("designation").setLibelle("DÃ©signation");
+        pi.getFormu().getChamp("num").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("codeetablissementlib").setVisible(false);
         pi.getFormu().getChamp("projetlib").setVisible(false);
         pi.getFormu().getChamp("idengagementlib").setVisible(false);
-        
+        pi.getFormu().getChamp("etat").setVisible(false);
+        pi.getFormu().getChamp("etatlib").setVisible(false);
         pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
         pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
         
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
         pi.getFormu().getChamp("projet").setAutre("readonly");
         
-        pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
-        pi.getFormu().getChamp("idengagement").setAutre("readonly");
+        pi.getFormu().getChamp("idengagement").setVisible(false);
         
         
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
@@ -64,9 +64,9 @@
         
         pi.getFormufle().getChamp("id_0").setLibelle("Id");
         pi.getFormufle().getChamp("produit_0").setLibelle("Produit");
-        pi.getFormufle().getChamp("designation_0").setLibelle("Désignation");
-        pi.getFormufle().getChamp("unite_0").setLibelle("Unité");
-        pi.getFormufle().getChamp("qte_0").setLibelle("Qté");
+        pi.getFormufle().getChamp("designation_0").setLibelle("DÃ©signation");
+        pi.getFormufle().getChamp("unite_0").setLibelle("UnitÃ©");
+        pi.getFormufle().getChamp("qte_0").setLibelle("QtÃ©");
         pi.getFormufle().getChamp("pu_0").setLibelle("PU");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
         
