@@ -32,6 +32,7 @@
     pc.getChampByName("codeetablissement").setVisible(false);
     pc.getChampByName("projet").setVisible(false);
     pc.getChampByName("idengagementlib").setLien(lien + "?but=depense/engagement-fiche.jsp","id="+idengagement+"&id=");
+    pc.getChampByName("etatlib").setVisible(false);
     
     Map<String, String> map = new HashMap();
     map.put("details-demande-achat","");
@@ -62,6 +63,7 @@
                 <div class="box-footer">
                     <p>
                         <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=depense/demande-achat-modif.jsp&id=" + id %>" style="margin-right:10px">Modifier</a>
+                        <a class="btn btn-success"   href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.DemandeAchatMere&bute=depense/demande-achat-fiche.jsp&id=" + id%>" style="margin-right: 5px">Viser</a>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=stock/bc/bondecommande-multiple.jsp&idDa=" + id %>" style="margin-right: 10px">Saisir BC</a>
                         <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDemandeAchat&id=<%=id%>" style="margin-right: 10px">Imprimer DASE</a>
                     </p>

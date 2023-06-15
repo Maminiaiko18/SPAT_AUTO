@@ -11,10 +11,14 @@
         UserEJB u = (user.UserEJB) session.getValue("u");
 
         demandeMere.setNomTable("dem_achat_merelib");
+        String nomTableEtat = request.getParameter("nomTableEtat");
+        if(nomTableEtat!=null && !nomTableEtat.isEmpty()){
+            demandeMere.setNomTable(nomTableEtat);
+        }
 
         String listeCrt[] = {"id","num", "designation","codeetablissementlib","projetlib","idengagementlib","daty"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id","num","designation","codeetablissementlib","projetlib","idengagementlib","daty"};
+        String libEntete[] = {"id","num","designation","codeetablissementlib","projetlib","idengagementlib","daty","etatlib"};
 
         PageRecherche pr = new PageRecherche(demandeMere, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -35,6 +39,8 @@
         
         String[] colSomme =null;
         pr.creerObjetPage(libEntete, colSomme);
+        String[] etatVal = {"dem_achat_merelib", "dem_achat_merelib_cree", "DEM_ACHAT_MERELIB_vise"};
+        String[] etatAff = {"Toutes", "Cr&eacute;&eacute;e", "Vis&eacute;e"};
 %>
 <script>
     function submitFormulaire(){
@@ -49,7 +55,19 @@
     <section class="content">
         <form action="<%=pr.getLien()%>?but=depense/demande-achat-liste.jsp" method="post" name="achat" id="engagement">
             <% out.println(pr.getFormu().getHtmlEnsemble());%>
-
+            <div class="row">
+                <div class="col-md-12">
+                    <br>
+                    <select name="nomTableEtat" id="nomTableEtat" onchange="submitFormulaire()" class="form-control"style="max-width: 200px; margin: 0 auto;">
+                            <%for(int i=0; i<etatVal.length; i++){
+                                String selected = demandeMere.getNomTable().equalsIgnoreCase(etatVal[i]) ? "selected" : "";
+                            %>
+                            <option value="<%=etatVal[i]%>" <%=selected%>><%=etatAff[i]%></option>
+                            <%}%>
+                        </select>
+                    <br>
+                </div>
+            </div>
         </form>
         <%  String lienTableau[] = {pr.getLien() + "?but=depense/demande-achat-fiche.jsp"};
             String colonneLien[] = {"id"};
@@ -58,7 +76,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "No.", "D�signation", "Code �tablissement","Projet","Engagement","Date"};
+            String libEnteteAffiche[] ={"Id", "No.", "D&eacute;signation", "Code &eacute;tablissement","Projet","Engagement","Date","Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
