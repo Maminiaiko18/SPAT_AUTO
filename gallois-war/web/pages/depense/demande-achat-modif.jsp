@@ -76,6 +76,8 @@
        
         pi.preparerDataFormu();
         mere = (DemandeAchatMere) pi.getBase();
+        
+        pi.getFormufle().setApres("depense/demande-achat-modif.jsp&idmere="+mere.getId());
 %>      
 
 <div class="content-wrapper">

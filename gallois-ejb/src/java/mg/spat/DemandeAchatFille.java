@@ -5,8 +5,11 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
+import utilitaire.ConstanteEtat;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -120,5 +123,41 @@ public class DemandeAchatFille extends ClassMAPTable {
         setId(makePK(c));
     }
     
-    
+    @Override
+    public int deleteToTableWithHisto(String refUser, Connection con) throws Exception {
+        DemandeAchatMere mere = getMere(con);
+
+        if (mere != null && mere.getEtat() >= ConstanteEtat.getEtatValider()) {
+            throw new Exception("Ne peut etre supprime car demande achat deja vise");
+        }
+
+        return super.deleteToTableWithHisto(refUser, con);
+    }
+
+    public DemandeAchatMere getMere(Connection c) throws Exception {
+        int verif = 0;
+        DemandeAchatMere res = null;
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+
+            DemandeAchatMere da = new DemandeAchatMere();
+            DemandeAchatMere[] tmp = (DemandeAchatMere[]) CGenUtil.rechercher(da, null, null, c, " and id = '" + this.getIdmere()+ "'");
+
+            if (tmp != null && tmp.length > 0) {
+                res = tmp[0];
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return res;
+    }
 }
