@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Demande_ordre_de_mission" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d0c3b98a-d7e6-4b8f-9565-d20a8a77aeee">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="177"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -128,7 +128,7 @@
 				<textFieldExpression><![CDATA[$P{prenom}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="183" y="147" width="372" height="20" uuid="cc3354cd-8e1d-4a3a-87ed-f241c941e2b2"/>
+				<reportElement x="183" y="187" width="372" height="20" uuid="cc3354cd-8e1d-4a3a-87ed-f241c941e2b2"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
@@ -142,7 +142,7 @@
 				<textFieldExpression><![CDATA[$P{matricule}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="183" y="187" width="372" height="20" uuid="4325bd3b-2b22-4a53-9572-2ddca6ce53bc"/>
+				<reportElement x="183" y="147" width="372" height="20" uuid="4325bd3b-2b22-4a53-9572-2ddca6ce53bc"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
