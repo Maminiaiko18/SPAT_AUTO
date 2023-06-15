@@ -3678,6 +3678,12 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("avant", Utilitaire.formaterAr(engagement.getDispoAvant()));
                 param.put("apres", Utilitaire.formaterAr(engagement.getDispoApres()));
                 param.put("observation", Utilitaire.champNull(engagement.getObservation()));
+                Double realiser = lc.getMontant()-engagement.getDispoApres();
+                Double pourcentageRealiser = (realiser*100)/lc.getMontant();
+                String[] partie = pourcentageRealiser.toString().split("\\.");
+                String av = partie[0];
+                if(partie.length > 1) av = partie[0]+","+partie[1].substring(0, 2);
+                param.put("pourc", av);
             }
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
@@ -4241,6 +4247,14 @@ public class EtatPaieServlet extends HttpServlet {
             BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
             double total = AdminGen.calculSommeDouble(liste, "montant");
             param.put("montant", Utilitaire.formaterAr(total));
+
+            Double realiser = mere[0].getMontantbudget()-mere[0].getMontantap();
+            Double pourcentageRealiser = (realiser*100)/mere[0].getMontantbudget();
+            String[] partie = pourcentageRealiser.toString().split("\\.");
+            String av = partie[0];
+            if(partie.length > 1) av = partie[0]+","+partie[1].substring(0, 2);
+            param.put("pourc", av);
+
             setNomJasper(jaspername);
             UtilitaireImpression.imprimer(request, response, "suivi_budgetaire", param, null, getReportPath());
 

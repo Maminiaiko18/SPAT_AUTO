@@ -20,6 +20,7 @@
 	<parameter name="avant" class="java.lang.String"/>
 	<parameter name="apres" class="java.lang.String"/>
 	<parameter name="observation" class="java.lang.String"/>
+	<parameter name="pourc" class="java.lang.String"/>
 	<field name="id" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String"/>
 	<field name="montanttva" class="java.lang.Double"/>
@@ -28,6 +29,7 @@
 	<field name="daty" class="java.util.Date"/>
 	<field name="numFact" class="java.lang.String"/>
 	<field name="montant" class="java.lang.Double"/>
+	<field name="field1" class="java.lang.String"/>
 	<variable name="totalht" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{montant}]]></variableExpression>
 	</variable>
@@ -237,7 +239,7 @@
 				<text><![CDATA[CODE PROJET]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="197" width="141" height="15" uuid="c2cfaf14-b6c6-4f0a-b10a-88ed4031cdf3"/>
+				<reportElement x="18" y="212" width="141" height="15" uuid="c2cfaf14-b6c6-4f0a-b10a-88ed4031cdf3"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -251,7 +253,7 @@
 				<text><![CDATA[Visa Directeur Sectoriel]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="366" y="197" width="160" height="15" uuid="b832e82f-739f-45b7-8150-c4185e7bb549"/>
+				<reportElement x="372" y="212" width="160" height="15" uuid="b832e82f-739f-45b7-8150-c4185e7bb549"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -265,7 +267,7 @@
 				<text><![CDATA[Accord Direction Générale]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="12" y="212" width="141" height="48" uuid="7ae471ae-7034-43b3-80b2-fda834468e88"/>
+				<reportElement x="18" y="227" width="141" height="48" uuid="7ae471ae-7034-43b3-80b2-fda834468e88"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -277,7 +279,7 @@
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="12" y="260" width="141" height="15" uuid="49034249-6058-4431-bfca-cc97aaa6ba5a"/>
+				<reportElement x="18" y="275" width="141" height="15" uuid="49034249-6058-4431-bfca-cc97aaa6ba5a"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -291,7 +293,7 @@
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="366" y="212" width="160" height="48" uuid="bcd3a69e-2c98-4ebd-a6c4-b1db0331ad90"/>
+				<reportElement x="372" y="227" width="160" height="48" uuid="bcd3a69e-2c98-4ebd-a6c4-b1db0331ad90"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -303,7 +305,7 @@
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="366" y="260" width="160" height="15" uuid="ed8597cb-fcf6-458e-b21a-6197076cd364"/>
+				<reportElement x="372" y="275" width="160" height="15" uuid="ed8597cb-fcf6-458e-b21a-6197076cd364"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -317,7 +319,7 @@
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="311" width="542" height="56" uuid="ff33574a-0a15-4e2f-8d1b-a8b12142e915"/>
+				<reportElement x="12" y="321" width="542" height="66" uuid="ff33574a-0a15-4e2f-8d1b-a8b12142e915"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -379,14 +381,14 @@
 				<textFieldExpression><![CDATA[$P{annuel}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="241" y="137" width="253" height="20" uuid="feff4bb3-e177-4b7e-8da8-79c361ffda6c"/>
+				<reportElement x="242" y="136" width="253" height="20" uuid="feff4bb3-e177-4b7e-8da8-79c361ffda6c"/>
 				<textElement>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{avant}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="242" y="156" width="253" height="20" uuid="dad42b9b-41f9-46f3-b892-9faa2aa19f23"/>
+				<reportElement x="243" y="155" width="253" height="20" uuid="dad42b9b-41f9-46f3-b892-9faa2aa19f23"/>
 				<textElement>
 					<paragraph leftIndent="2"/>
 				</textElement>
@@ -426,11 +428,22 @@
 				<textFieldExpression><![CDATA[$P{projet}.charAt( 2 )]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="12" y="311" width="531" height="40" uuid="6d4ef01e-a007-4d91-b3ba-de2ae737ca56"/>
+				<reportElement x="14" y="321" width="229" height="15" uuid="6d4ef01e-a007-4d91-b3ba-de2ae737ca56"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Observations du Controle de gestion : "+ $P{observation}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Taux de réalisation: "+ $P{pourc}+" %"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="301" width="253" height="20" uuid="07283f5a-7fec-4b9a-acf3-bc33850ec292"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observations du Controle de gestion :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="18" y="336" width="536" height="51" uuid="6f87b497-15cb-467f-837a-3d4ddb5b3ef3"/>
+				<textFieldExpression><![CDATA[$P{observation}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
