@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="demande-achat" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1a39488f-7d87-40a2-bfc1-4eb65e953b59">
 	<property name="ireport.zoom" value="2.357947691000002"/>
 	<property name="ireport.x" value="50"/>
-	<property name="ireport.y" value="32"/>
+	<property name="ireport.y" value="192"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -112,7 +112,7 @@
 				<text><![CDATA[Intitulé de travaux:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="146" y="100" width="365" height="20" uuid="bc6ff199-b885-4e82-9114-2962889fb4b4"/>
+				<reportElement x="146" y="100" width="365" height="50" uuid="bc6ff199-b885-4e82-9114-2962889fb4b4"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -144,7 +144,7 @@
 						</jr:tableHeader>
 						<jr:detailCell style="table_TD" height="21" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="228" height="20" uuid="af9fc6b6-98ac-4926-be7a-17ad177158f2"/>
+								<reportElement x="0" y="0" width="228" height="21" uuid="af9fc6b6-98ac-4926-be7a-17ad177158f2"/>
 								<textElement>
 									<font size="10"/>
 								</textElement>
