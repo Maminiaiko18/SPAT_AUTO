@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="demande-achat" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1a39488f-7d87-40a2-bfc1-4eb65e953b59">
-	<property name="ireport.zoom" value="2.357947691000002"/>
-	<property name="ireport.x" value="50"/>
-	<property name="ireport.y" value="32"/>
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -40,7 +40,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="165" splitType="Stretch">
+		<band height="151" splitType="Stretch">
 			<staticText>
 				<reportElement x="146" y="0" width="300" height="20" uuid="0d73bdd2-aa0c-4bce-b091-b0bd752189f0"/>
 				<textElement>
@@ -112,7 +112,7 @@
 				<text><![CDATA[Intitulé de travaux:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="146" y="100" width="365" height="20" uuid="bc6ff199-b885-4e82-9114-2962889fb4b4"/>
+				<reportElement x="146" y="100" width="365" height="50" uuid="bc6ff199-b885-4e82-9114-2962889fb4b4"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -125,75 +125,77 @@
 		</band>
 	</title>
 	<detail>
-		<band height="46" splitType="Stretch">
-			<componentElement>
-				<reportElement key="table" style="table" x="0" y="0" width="555" height="44" uuid="5d6bf98a-bebd-4ca0-9261-af1b1cb51e2b"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="5a5335f9-acd5-440b-b600-a8e90087f4cb">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
-					</datasetRun>
-					<jr:column width="228" uuid="0ca9d68e-cf74-4277-9456-f4a4c6ae1921">
-						<jr:tableHeader style="table_TH" height="21" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="228" height="20" uuid="08f75ec8-849b-4fcc-95a2-6cd9bd738f1f"/>
-								<textElement textAlignment="Center">
-									<font size="10"/>
-								</textElement>
-								<text><![CDATA[DESIGNATIONS]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell style="table_TD" height="21" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="228" height="20" uuid="af9fc6b6-98ac-4926-be7a-17ad177158f2"/>
-								<textElement>
-									<font size="10"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="141" uuid="9d6ff8a4-3458-45cd-b0b7-6d04cd8631dc">
-						<jr:tableHeader style="table_TH" height="21" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="56" height="20" uuid="1a8b84b2-d4c9-40af-b984-8fe80da85e43"/>
-								<textElement textAlignment="Center">
-									<font size="10"/>
-								</textElement>
-								<text><![CDATA[U]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell style="table_TD" height="21" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="56" height="20" uuid="c74a8704-499a-4b20-a9b6-da735a99fb88"/>
-								<textElement textAlignment="Center">
-									<font size="10"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{unitelib}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="195" uuid="5494acbf-ad4d-4ed3-9c60-b6abdda59c5f">
-						<jr:tableHeader style="table_TH" height="21" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="74" height="20" uuid="c7f9097a-6647-4c72-80d4-8f1184e71768"/>
-								<textElement textAlignment="Center">
-									<font size="10"/>
-								</textElement>
-								<text><![CDATA[QTE]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell style="table_TD" height="21" rowSpan="1">
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="74" height="20" uuid="0dff01da-ddcb-4529-8644-80f31d42fbe4"/>
-								<textElement textAlignment="Right">
-									<font size="10"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{qte}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
+		<band height="64" splitType="Stretch">
+			<elementGroup>
+				<componentElement>
+					<reportElement key="table" style="table" x="0" y="0" width="555" height="64" uuid="5d6bf98a-bebd-4ca0-9261-af1b1cb51e2b"/>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Table Dataset 1" uuid="5a5335f9-acd5-440b-b600-a8e90087f4cb">
+							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
+						</datasetRun>
+						<jr:column width="380" uuid="0ca9d68e-cf74-4277-9456-f4a4c6ae1921">
+							<jr:tableHeader style="table_TH" height="21" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="380" height="20" uuid="08f75ec8-849b-4fcc-95a2-6cd9bd738f1f"/>
+									<textElement textAlignment="Center">
+										<font size="10"/>
+									</textElement>
+									<text><![CDATA[DESIGNATIONS]]></text>
+								</staticText>
+							</jr:tableHeader>
+							<jr:detailCell style="table_TD" height="41" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement x="10" y="0" width="370" height="41" uuid="af9fc6b6-98ac-4926-be7a-17ad177158f2"/>
+									<textElement verticalAlignment="Top">
+										<font size="10"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="9d6ff8a4-3458-45cd-b0b7-6d04cd8631dc">
+							<jr:tableHeader style="table_TH" height="21" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="90" height="20" uuid="1a8b84b2-d4c9-40af-b984-8fe80da85e43"/>
+									<textElement textAlignment="Center">
+										<font size="10"/>
+									</textElement>
+									<text><![CDATA[U]]></text>
+								</staticText>
+							</jr:tableHeader>
+							<jr:detailCell style="table_TD" height="41" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="90" height="20" uuid="c74a8704-499a-4b20-a9b6-da735a99fb88"/>
+									<textElement textAlignment="Center">
+										<font size="10"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{unitelib}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="84" uuid="5494acbf-ad4d-4ed3-9c60-b6abdda59c5f">
+							<jr:tableHeader style="table_TH" height="21" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="84" height="20" uuid="c7f9097a-6647-4c72-80d4-8f1184e71768"/>
+									<textElement textAlignment="Center">
+										<font size="10"/>
+									</textElement>
+									<text><![CDATA[QTE]]></text>
+								</staticText>
+							</jr:tableHeader>
+							<jr:detailCell style="table_TD" height="41" rowSpan="1">
+								<textField pattern="#,##0.00" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="84" height="20" uuid="0dff01da-ddcb-4529-8644-80f31d42fbe4"/>
+									<textElement textAlignment="Center">
+										<font size="10"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{qte}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+			</elementGroup>
 		</band>
 	</detail>
 	<summary>

@@ -30,6 +30,7 @@ try{
     pi.setLien((String) session.getValue("lien"));
     mere = (BonDeCommande)pi.getBase();
     pi.getFormu().getChamp("tva").setVisible(false);
+    pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("Fournisseurlibelle").setVisible(false);
     pi.getFormu().getChamp("Code_etablibelle").setVisible(false);
     pi.getFormu().getChamp("Projetlibelle").setVisible(false);
@@ -37,7 +38,7 @@ try{
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
     affichage.Champ[] listess = new affichage.Champ[2];
     TypeObjet d = new TypeObjet();
-    d.setNomTable("modepaiement");
+    d.setNomTable("modepaiementbq");
     listess[0] = new Liste("modepaiement", d, "val", "id");
     TypeObjet liste2 = new TypeObjet();
     liste2.setNomTable("typecheque");

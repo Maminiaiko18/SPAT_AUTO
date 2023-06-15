@@ -6,6 +6,7 @@
 package mg.spat;
 
 import bean.CGenUtil;
+import bean.ClassEtat;
 import bean.ClassMAPTable;
 import facture.NumeroFacture;
 
@@ -17,9 +18,10 @@ import utilitaire.Utilitaire;
  *
  * @author Nouta
  */
-public class DemandeAchatMere extends ClassMAPTable{
+public class DemandeAchatMere extends ClassEtat{
     private String id,codeetablissement,projet,num,idengagement,designation,codeetablissementlib, projetlib, idengagementlib;
     private Date daty;
+    private String etatlib;
 
     public DemandeAchatMere() {
         super.setNomTable("dem_achat_mere");
@@ -142,6 +144,14 @@ public class DemandeAchatMere extends ClassMAPTable{
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
         return seq;
+    }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
     }
     
 }

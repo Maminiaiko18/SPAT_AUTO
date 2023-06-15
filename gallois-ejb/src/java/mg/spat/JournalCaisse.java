@@ -907,7 +907,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                 }
             }else{
 
-                if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0 &&  this.getCredit() > 0){
+                if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0 &&  this.getCredit() > 0 && this.getIdplacement()==null){
                     String numeroPiece = calculerNumeroPieceRecette(c);
                     this.setNumPiece(numeroPiece);
                 }

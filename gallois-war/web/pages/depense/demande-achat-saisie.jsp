@@ -38,6 +38,7 @@
         pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
         pi.getFormu().getChamp("daty").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pi.getFormu().getChamp("num").setVisible(false);
+        pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
         pi.getFormufle().getChamp("id_0").setLibelle("Id");
         pi.getFormufle().getChamp("produit_0").setLibelle("Produit");
@@ -151,6 +152,33 @@
     <% } %>
 
     Total();
+    window.onload = () =>{
+        var submitBtns = document.querySelectorAll("button[name='Submit2'][type='submit']");
+        for(var i=0; i < submitBtns.length; i++){
+            modifySubmitBtn(submitBtns[i]);    
+        }
+    }
+    
+    function modifySubmitBtn(btn){
+        btn.setAttribute("type","button");
+        btn.onclick = save;
+    }
+    
+    function save() {
+        var btn = this;
+        btn.disabled = true;
+        var query = $('#demandeAchat').serialize();
+        $.get("apresMultipleAjax.jsp?"+query, function(data, status){
+            var temp = data.trim().split("_");
+            if(temp[0] === 'error'){
+                btn.disabled = false;
+                alert(temp[1]);
+            }
+            else{
+                window.location.href = "<%=pi.getLien()%>?but=depense/demande-achat-fiche.jsp&id="+temp[1];
+            }
+        });
+    }
 </script>
 <%
 } catch (Exception e) {
