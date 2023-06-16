@@ -44,7 +44,7 @@
                         <br/>
                         <div class="box-footer">
                             <a class="btn btn-warning pull-left"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin-right: 10px">Modifier</a>
-                            <a href="<%= lien + "?but=apresTarif.jsp&id=" + id+"&acte=delete&bute=#&classe="+classe %>"><button class="btn btn-danger">Supprimer</button></a>
+                            <a href="<%= lien + "?but=apresTarif.jsp&id=" + id+"&acte=delete&bute=treso/journalcaisse-liste.jsp&classe="+classe %>"><button class="btn btn-danger">Supprimer</button></a>
                             <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=treso/additifjc-fiche.jsp&classe=mg.spat.AdditifJc" style="margin-right: 10px">Viser</a>
 
                         </div>
