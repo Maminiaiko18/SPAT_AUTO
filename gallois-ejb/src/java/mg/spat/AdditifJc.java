@@ -31,7 +31,7 @@ public class AdditifJc extends ClassEtat{
         JournalCaisse[] li= (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, " and id = '" + this.getIdjc()+ "'");
         jc = li[0];
         double mtt = jc.getCredit()+this.getMontant();
-        jc.setMontant(mtt);
+        jc.setCredit(mtt);
         System.out.println("jcccccc"+mtt);
         jc.updateToTableWithHisto(u, c);
         super.validerObject(u, c);

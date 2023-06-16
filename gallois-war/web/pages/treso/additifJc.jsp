@@ -20,7 +20,7 @@
 
     //Variables de navigation
     String classe = "mg.spat.AdditifJc";
-    String butApresPost = "treso/additifJc-fiche.jsp";
+    String butApresPost = "treso/additifjc-fiche.jsp";
     String nomTable = "AdditifJc";
     //Generer les affichages
     pi.preparerDataFormu();

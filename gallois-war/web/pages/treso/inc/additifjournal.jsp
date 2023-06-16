@@ -31,7 +31,7 @@
 
 <div class="box-body">
     <%
-        String lienTableau[] = {pr.getLien() + "?but=treso/additifJc-fiche.jsp"};
+        String lienTableau[] = {pr.getLien() + "?but=treso/additifjc-fiche.jsp"};
         String colonneLien[] = {"id"};
         pr.getTableau().setLien(lienTableau);
         pr.getTableau().setColonneLien(colonneLien);
