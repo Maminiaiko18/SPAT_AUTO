@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 
 import avoir.AvoirFC;
+import bean.CGenUtil;
 import bean.ClassEtat;
 
 public class AdditifJc extends ClassEtat{
@@ -24,10 +25,14 @@ public class AdditifJc extends ClassEtat{
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        if(this.getMontant()==0) throw new Exception("Montant invalide!");
         JournalCaisse jc  = new JournalCaisse();
         jc.setNomTable("journalcaisse");
-        jc = (JournalCaisse)jc.getById(this.getIdjc(), null, c);
-        jc.setMontant(jc.getMontant()+this.getMontant());
+        JournalCaisse[] li= (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, " and id = '" + this.getIdjc()+ "'");
+        jc = li[0];
+        double mtt = jc.getCredit()+this.getMontant();
+        jc.setMontant(mtt);
+        System.out.println("jcccccc"+mtt);
         jc.updateToTableWithHisto(u, c);
         super.validerObject(u, c);
         return this;
