@@ -20,10 +20,12 @@
     //pc.getChampByName("id").setLibelle("Id");
     //pc.getChampByName("nom").setLibelle("Nom");
     //pc.getChampByName("code").setLibelle("Code");
-    //pc.getChampByName("date").setLibelle("Date");
+    pc.getChampByName("idjc").setLibelle("Journal caisse");
+    pc.getChampByName("idjc").setLien((String) session.getValue("lien") + "?but=treso/journalcaisse-fiche.jsp&", "id=");
+
     //pc.setTitre("Fiche simple ");
     String lien = (String) session.getValue("lien");
-    String pageModif = "update/update-simple.jsp";
+    String pageModif = "treso/additifjc-modif.jsp";
     String classe = "mg.spat.AdditifJc";
 %>
 <div class="content-wrapper">
