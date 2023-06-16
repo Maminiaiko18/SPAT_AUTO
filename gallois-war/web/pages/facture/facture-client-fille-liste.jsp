@@ -16,7 +16,7 @@
 <%
     try {
         CaFcFilleComplet cht = new CaFcFilleComplet();
-        cht.setNomTable("CAFCFILLECOMPLET_AVOIRnp2");
+        cht.setNomTable("CAFCFILLECOMPLET_AVOIRNP3");
         if (request.getParameter("etatvue") != null) {
             cht.setNomTable(request.getParameter("etatvue"));
         }
@@ -94,14 +94,14 @@
                 <div class="form-group">
                     <label>Etat : </label>
                     <select name="etatvue" class="champ form-control" id="etatvue" onchange="changerDesignation()" style="display: inline-block; width: 250px;">
-                             <option value="CAFCFILLECOMPLET_AVOIRnp2" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIRnp2") == 0) {
+                             <option value="CAFCFILLECOMPLET_AVOIRNP3" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIRNP3") == 0) {
                                 out.print("selected");
                             }%>>Tous</option>
                         
-                        <option value="CAFCFILLECOMPLET_AVOIRC2" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIRC2") == 0) {
+                        <option value="CAFCFILLECOMPLET_AVOIRC3" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIRC3") == 0) {
                                 out.print("selected");
                             }%>>Créé</option>
-                        <option value="CAFCFILLECOMPLET_AVOIRV2" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIRV2") == 0) {
+                        <option value="CAFCFILLECOMPLET_AVOIRV3" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIRV3") == 0) {
                                 out.print("selected");
                             }%>>Visé</option>
                     </select>
