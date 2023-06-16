@@ -169,7 +169,7 @@
 				<text><![CDATA[Montant]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="40" width="213" height="20" uuid="d605ecc4-0141-4d7a-a481-b17ab83961a0"/>
+				<reportElement x="0" y="40" width="213" height="32" uuid="d605ecc4-0141-4d7a-a481-b17ab83961a0"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -427,13 +427,6 @@
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{projet}.charAt( 2 )]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="14" y="321" width="229" height="15" uuid="6d4ef01e-a007-4d91-b3ba-de2ae737ca56"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Taux de réalisation: "+ $P{pourc}+" %"]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="12" y="301" width="253" height="20" uuid="07283f5a-7fec-4b9a-acf3-bc33850ec292"/>
 				<textElement>
@@ -444,6 +437,14 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="18" y="336" width="536" height="51" uuid="6f87b497-15cb-467f-837a-3d4ddb5b3ef3"/>
 				<textFieldExpression><![CDATA[$P{observation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="18" y="321" width="98" height="15" uuid="525b3a8f-bc37-4481-af05-90fff3a1f449"/>
+				<text><![CDATA[Taux de réalisation :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="116" y="321" width="97" height="15" uuid="3805d9f8-ab57-4a8b-bb69-07e8103096b7"/>
+				<textFieldExpression><![CDATA[$P{pourc}+" %"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
