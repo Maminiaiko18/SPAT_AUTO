@@ -118,6 +118,7 @@
                         <p>
                             
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/paiementfacture-saisie-multiple.jsp&idmvt=" + request.getParameter("id")%>" style="margin-right: 5px"><button class="btn btn-success">Attacher FC multiple</button></a>
+                            <a href="<%=(String) session.getValue("lien") + "?but=treso/additifJc.jsp?idjc=" + request.getParameter("id")%>" style="margin-right: 5px"><button class="btn btn-success">Additif</button></a>
                             
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-modif-simple.jsp&id=" + request.getParameter("id")%>" style="margin-right: 5px"><button class="btn btn-info">Modifier Entete</button></a>
                             <a class="btn btn-info"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseProvision&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin: 5px">imprimer piece de provision</a>
