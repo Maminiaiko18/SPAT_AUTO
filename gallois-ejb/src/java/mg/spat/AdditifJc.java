@@ -12,8 +12,17 @@ public class AdditifJc extends ClassEtat{
     private String idjc;
     private double montant;
     private String remarque;
+    private String etatlib;
 
-     @Override
+     public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
+    }
+
+    @Override
     public Object validerObject(String u, Connection c) throws Exception {
         JournalCaisse jc  = new JournalCaisse();
         jc.setNomTable("journalcaisse");

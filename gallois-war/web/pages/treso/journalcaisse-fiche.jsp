@@ -16,6 +16,7 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
     try {
@@ -42,7 +43,7 @@
     pc.getChampByName("idTypeCheque").setLibelle("Type ch&egrave;que");
     pc.getChampByName("idplacement").setLibelle("Source");
     pc.getChampByName("idbanquelib").setLibelle("Banque");
-    pc.getChampByName("valTypeCheque").setLibelle("Type ch�que");
+    pc.getChampByName("valTypeCheque").setLibelle("Type chèque");
     pc.getChampByName("tierslib").setLibelle("tiers");
     pc.getChampByName("idDevise").setLibelle("devise");
     pc.getChampByName("valCaisse").setLibelle("caisse");
@@ -164,6 +165,8 @@
                     <li class="<%= map.get("ventilation-fc")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-fc">Ventilation FC</a></li>
                     <li class="<%= map.get("ventilation-ff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-ff">Ventilation FF</a></li>
                     <li class="<%= map.get("ordonnerpaiement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ordonnerpaiement">Ordonner Paiement</a></li>
+                    <li class="<%= map.get("additifjournal")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=additifjournal">Additif</a></li>
+
                     <%-- <% if(jcaisse.getIdordre()!=null) if(jcaisse.getIdordre().startsWith("ORP")==true){ %>
                         <li class="<%= map.get("bordereau-p")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=bordereau-p">Bordereaux de Paiement</a></li>
                     <% } %> --%>
@@ -183,14 +186,14 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <div class="box-title with-border">
-                        <h2 class="box-title" style="margin-left: 10px;">Les fichiers attach�s</h2>
+                        <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
                     </div>
                     <div class="box-body">
                         <table class="table table-striped table-bordered table-condensed table-responsive tree">
                             <thead>
                                 <tr>
                                     <th style="background-color:#bed1dd;"></th>
-                                    <th style="background-color:#bed1dd;">Libell�</th>
+                                    <th style="background-color:#bed1dd;">Libellé</th>
                                     <th style="background-color:#bed1dd;">Fichier</th>
                                     <th style="background-color:#bed1dd;">Voir</th>
                                     <th style="background-color:#bed1dd;">#</th>
