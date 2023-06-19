@@ -20,7 +20,6 @@
 
     //Variables de navigation
     String classe = "mg.spat.AdditifJc";
-    String butApresPost = "treso/additifjc-fiche.jsp";
     String nomTable = "AdditifJc";
     //Generer les affichages
     pi.preparerDataFormu();
@@ -33,7 +32,7 @@
             out.println(pi.getFormu().getHtmlInsert());
         %>
         <input name="acte" type="hidden" id="nature" value="insert">
-        <input name="bute" type="hidden" id="bute" value="treso/additifJc-fiche.jsp">
+        <input name="bute" type="hidden" id="bute" value="treso/additifjc-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="<%= classe %>">
         <input name="nomtable" type="hidden" id="nomtable" value="<%= nomTable %>">
     </form>
