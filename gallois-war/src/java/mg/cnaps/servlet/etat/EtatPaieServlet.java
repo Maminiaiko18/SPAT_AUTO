@@ -135,6 +135,8 @@ import facture.GestionProvision;
 import user.*;
 import bean.*;
 import javax.servlet.http.HttpSession;
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Manda
@@ -3684,10 +3686,9 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("observation", Utilitaire.champNull(engagement.getObservation()));
                 Double realiser = lc.getMontant()-engagement.getDispoApres();
                 Double pourcentageRealiser = (realiser*100)/lc.getMontant();
-                String[] partie = pourcentageRealiser.toString().split("\\.");
-                String av = partie[0];
-                if(partie.length > 1) av = partie[0]+","+partie[1].substring(0, 2);
-                param.put("pourc", av);
+                DecimalFormat df = new DecimalFormat("#.##");
+                String pc = df.format(pourcentageRealiser);
+                param.put("pourc", pc);
             }
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
@@ -4252,12 +4253,11 @@ public class EtatPaieServlet extends HttpServlet {
             double total = AdminGen.calculSommeDouble(liste, "montant");
             param.put("montant", Utilitaire.formaterAr(total));
 
-            Double realiser = mere[0].getMontantbudget()-mere[0].getMontantap();
-            Double pourcentageRealiser = (realiser*100)/mere[0].getMontantbudget();
-            String[] partie = pourcentageRealiser.toString().split("\\.");
-            String av = partie[0];
-            if(partie.length > 1) av = partie[0]+","+partie[1].substring(0, 2);
-            param.put("pourc", av);
+            double realiser = mere[0].getMontantbudget()-mere[0].getMontantap();
+            double pourcentageRealiser = (realiser*100)/mere[0].getMontantbudget();
+            DecimalFormat df = new DecimalFormat("#.##");
+            String pc = df.format(pourcentageRealiser);
+            param.put("pourc", pc);
 
             setNomJasper(jaspername);
             UtilitaireImpression.imprimer(request, response, "suivi_budgetaire", param, null, getReportPath());
