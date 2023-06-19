@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5a2a4c-d9f3-419e-bdaf-7d68b4b0a8e6">
-	<property name="ireport.zoom" value="5.324000000000023"/>
-	<property name="ireport.x" value="376"/>
-	<property name="ireport.y" value="1971"/>
+	<property name="ireport.zoom" value="2.257895720215118"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="522"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
 	<parameter name="code_etab" class="java.lang.String"/>
@@ -428,7 +428,7 @@
 				<textFieldExpression><![CDATA[$P{projet}.charAt( 2 )]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="18" y="321" width="269" height="15" uuid="07283f5a-7fec-4b9a-acf3-bc33850ec292"/>
+				<reportElement x="18" y="321" width="253" height="15" uuid="07283f5a-7fec-4b9a-acf3-bc33850ec292"/>
 				<textElement>
 					<font isBold="true" isUnderline="false"/>
 				</textElement>
@@ -439,22 +439,19 @@
 				<textFieldExpression><![CDATA[$P{observation}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="18" y="337" width="114" height="15" uuid="525b3a8f-bc37-4481-af05-90fff3a1f449"/>
+				<reportElement x="18" y="337" width="98" height="15" uuid="525b3a8f-bc37-4481-af05-90fff3a1f449"/>
 				<textElement>
-					<font isBold="true"/>
+					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Taux de réalisation :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="132" y="337" width="155" height="15" uuid="3805d9f8-ab57-4a8b-bb69-07e8103096b7"/>
+				<reportElement x="116" y="337" width="155" height="15" uuid="3805d9f8-ab57-4a8b-bb69-07e8103096b7"/>
 				<textElement>
 					<font isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pourc}+" %"]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement positionType="Float" x="18" y="336" width="179" height="1" uuid="4abaf745-56fa-4403-9355-645b053443be"/>
-			</line>
 		</band>
 	</detail>
 </jasperReport>
