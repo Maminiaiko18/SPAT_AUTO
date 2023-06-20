@@ -68,14 +68,14 @@
 
         affichage.Champ[] liste = new affichage.Champ[4];
         Caisse esc = new Caisse();
-        esc.setNomTable("caisse_banque");
+        esc.setNomTable("caisse");
         liste[0] = new Liste("caisse", esc, "VAL", "id");
 
         TypeObjet op = new TypeObjet();
         op.setNomTable("DEVISE");
         liste[1] = new Liste("iddevise", op, "desce", "id");
         TypeObjet mode = new TypeObjet();
-        mode.setNomTable("modepaiement");
+        mode.setNomTable("MODEPAIEMENTCV");
         liste[2] = new Liste("idmode", mode, "desce", "id");
         liste[2].setDefaut(Constante.idmodeVirement);
 
