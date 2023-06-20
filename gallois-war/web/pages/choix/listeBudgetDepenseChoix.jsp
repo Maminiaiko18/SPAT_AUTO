@@ -27,14 +27,17 @@
     pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("choix/listeBudgetDepenseChoix.jsp");
-    
-    pr.getFormu().getChamp("annee").setDefaut(Utilitaire.getAnneeEnCours());
+    String annee = Utilitaire.getAnneeEnCours();
+    if(request.getParameter("annee")!=null) annee = request.getParameter("annee");
+    pr.getFormu().getChamp("annee").setDefaut(annee);
     
     if(u.getCodeEtablissement() != null && request.getParameter("direction") == null) { 
         String code = u.getCodeEtablissement().getVal();
         pr.getFormu().getChamp("direction").setDefaut(Utilitaire.champNull(code)); 
         pr.setAWhere(String.format(pr.getAWhere() + " and direction like '%s'", code));
     }
+
+    pr.setAWhere(" and annee ="+annee);
     
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme); 
