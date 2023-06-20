@@ -3680,11 +3680,12 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("avant", Utilitaire.formaterAr(engagement.getDispoAvant()));
                 param.put("apres", Utilitaire.formaterAr(engagement.getDispoApres()));
                 param.put("observation", Utilitaire.champNull(engagement.getObservation()));
-                Double realiser = lc.getMontant()-engagement.getDispoApres();
-                Double pourcentageRealiser = (realiser*100)/lc.getMontant();
+                double realiser = lc.getMontant()-engagement.getDispoApres();
+                double pourcentageRealiser = (realiser*100)/lc.getMontant();
                 DecimalFormat df = new DecimalFormat("#.##");
                 String pc = df.format(pourcentageRealiser);
-                param.put("pourc", pc);
+                param.put("pourc", "<b><i>"+pc+" %</i></b>");
+                param.put("mttrealiser", "<b><i>Ar "+Utilitaire.formaterAr(realiser)+"</i></b>");
             }
 
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
@@ -4253,7 +4254,8 @@ public class EtatPaieServlet extends HttpServlet {
             double pourcentageRealiser = (realiser*100)/mere[0].getMontantbudget();
             DecimalFormat df = new DecimalFormat("#.##");
             String pc = df.format(pourcentageRealiser);
-            param.put("pourc", pc);
+            param.put("pourc", "<b><i>"+pc+" %</i></b>");
+            param.put("mttrealiser", "<b><i>Ar "+Utilitaire.formaterAr(realiser)+"</i></b>");
 
             setNomJasper(jaspername);
             UtilitaireImpression.imprimer(request, response, "suivi_budgetaire", param, null, getReportPath());
