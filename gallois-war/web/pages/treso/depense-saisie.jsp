@@ -8,6 +8,8 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%
     try {
         String autreparsley = "data-parsley-range='[8, 40]' required";
@@ -45,7 +47,7 @@
         pi.getFormu().getChamp("idordre").setLibelle("Ordre");
         pi.getFormu().getChamp("iddevise").setLibelle("Devise");
         pi.getFormu().getChamp("idmode").setLibelle("Mode");
-        pi.getFormu().getChamp("numcheque").setLibelle("Numero ch�que");
+        pi.getFormu().getChamp("numcheque").setLibelle("Numero chèque");
         pi.getFormu().getChamp("typemvt").setLibelle("Type mouvement");
         pi.getFormu().getChamp("datesaisie").setVisible(false);
         pi.getFormu().getChamp("dateeffet").setDefaut(Utilitaire.dateDuJour());
@@ -166,7 +168,7 @@
     }
 </style>
 <div class="content-wrapper">
-    <h1>Saisie d'une d�pense</h1>
+    <h1>Saisie d'une dépense</h1>
     <form action="<%=pi.getLien()%>?but=apresJournalCaisse.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
