@@ -471,6 +471,7 @@ public class BonDeCommande extends ClassEtat {
             this.setEtat(ConstanteEtat.getEtatCreer());
 
             value = (BonDeCommande) this.dupliquer(user, c);
+            value.setIdengagement(null);
             value = (BonDeCommande) value.createObject(user, c);
 
             BonDeCommandeFille bcFille = new BonDeCommandeFille();
