@@ -511,8 +511,18 @@ public class BonDeCommande extends ClassEtat {
             this.setEtat(ConstanteEtat.getEtatAnnuler());
             this.updateToTableWithHisto(user, c);
             this.setEtat(ConstanteEtat.getEtatCreer());
+            
+            if(this.getIdengagement() != null){
+                LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()); 
+                for(int i = 0; i < liaisons.length; i++){
+                    LiaisonEngagement liaison = liaisons[i];
+                    liaison.setEtat(-2);
+                    liaison.updateToTableWithHisto(user,c);
+                }
+            }
 
             value = (BonDeCommande) this.dupliquer(user, c);
+            value.setIdengagement(null);
             value = (BonDeCommande) value.createObject(user, c);
 
             BonDeCommandeFille bcFille = new BonDeCommandeFille();
