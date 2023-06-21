@@ -61,7 +61,7 @@
         liste2.setNomTable("typecheque");
         liste[1] = new Liste("typepaiement", liste2, "val", "id");
         pi.getFormu().changerEnChamp(liste);
-        pi.getFormu().getChamp("numbc").setDefaut(BonDeCommande.getNumBCDefaut());
+        pi.getFormu().getChamp("numbc").setDefaut(new BonDeCommande().calculerNumero(null));
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
         pi.getFormu().getChamp("projet").setAutre("readonly");
         pi.getFormu().getChamp("code_etab").setPageAppel("choix/listeCodeEtablissementChoix.jsp");

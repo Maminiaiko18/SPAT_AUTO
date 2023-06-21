@@ -15,6 +15,7 @@ import bean.ValidationException;
 import facture.FactureFournisseur;
 import facture.FactureFournisseurDetails;
 import facture.LiaisonEngagement;
+import facture.NumeroFacture;
 import lignecredit.LigneCredit;
 
 import java.sql.Connection;
@@ -434,6 +435,32 @@ public class BonDeCommande extends ClassEtat {
         }
     }
 
+    public String calculerNumero(Connection c) throws Exception{
+        boolean check = false;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                check = true;
+            }
+            String annee = Utilitaire.getAnneeEnCours();
+            String seq="";
+            String rqt="SELECT nvl(max(TO_NUMBER(NUMBC))+1,1) AS numerosuivant FROM BC_SEQUENCE WHERE ANNEE = "+annee;
+            NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+            if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
+            seq+=Constante.bc;
+            seq+=annee;
+            return  seq;
+            } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (check && c != null) {
+                c.close();
+            }
+        }
+
+    }
+
     public static String getNumBCDefaut() throws Exception {
         try {
             String temporaire = "";
@@ -497,6 +524,8 @@ public class BonDeCommande extends ClassEtat {
             this.setEtat(ConstanteEtat.getEtatCreer());
 
             value = (BonDeCommande) this.dupliquer(user, c);
+            value.setIdengagement(null);
+            value.setNumbc(this.calculerNumero(c));
             value = (BonDeCommande) value.createObject(user, c);
 
             BonDeCommandeFille bcFille = new BonDeCommandeFille();
