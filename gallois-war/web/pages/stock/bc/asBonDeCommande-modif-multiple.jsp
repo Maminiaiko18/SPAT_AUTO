@@ -21,7 +21,7 @@ try{
     
     String autreparsley = "data-parsley-range='[8, 40]' required";
     BonDeCommande mere = new BonDeCommande();
-    mere.setNomTable("AS_BONDECOMMANDE_LIBCOMPLET");
+    mere.setNomTable("AS_BONDECOMMANDE_LIBCOMPLET2");
     BonDeCommandeFille fille = new BonDeCommandeFille();
     fille.setNomTable("AS_BONDECOMMANDE_FILLE_PRD");
     fille.setIdbc(request.getParameter("id"));
@@ -30,10 +30,6 @@ try{
     pi.setLien((String) session.getValue("lien"));
     mere = (BonDeCommande)pi.getBase();
     pi.getFormu().getChamp("tva").setVisible(false);
-    pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("Fournisseurlibelle").setVisible(false);
-    pi.getFormu().getChamp("Code_etablibelle").setVisible(false);
-    pi.getFormu().getChamp("Projetlibelle").setVisible(false);
     pi.getFormu().getChamp("etat").setAutre("readonly");
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
     affichage.Champ[] listess = new affichage.Champ[2];
@@ -46,10 +42,10 @@ try{
     pi.getFormu().changerEnChamp(listess);
     pi.getFormu().getChamp("projet").setAutre("readonly");
     pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
-    pi.getFormu().getChamp("projet").setValeurLibelle(mere.getProjetlibelle());
+    pi.getFormu().getChamp("projet").setValeurLibelle(Utilitaire.champNull(mere.getProjetlib()));
     pi.getFormu().getChamp("code_etab").setAutre("readonly");
     pi.getFormu().getChamp("code_etab").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
-    pi.getFormu().getChamp("code_etab").setValeurLibelle(mere.getCode_etablibelle());
+    pi.getFormu().getChamp("code_etab").setValeurLibelle(Utilitaire.champNull(mere.getCode_etablib()));
     pi.getFormu().getChamp("fournisseur").setAutre("readonly");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("modepaiement").setDefaut(Constante.modepaiementDefaut);
@@ -58,7 +54,7 @@ try{
     pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
     pi.getFormu().getChamp("fournisseur").setLibelle("Fournisseur");
     pi.getFormu().getChamp("fournisseur").setPageAppel("choix/listeTiersChoix.jsp");
-    pi.getFormu().getChamp("fournisseur").setValeurLibelle(mere.getFournisseurlibelle());
+    pi.getFormu().getChamp("fournisseur").setValeurLibelle(Utilitaire.champNull(mere.getFournisseurlib()));
     pi.getFormu().getChamp("numbc").setLibelle("Num&eacute;ro bon de commande");
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
     pi.getFormu().getChamp("code_etab").setLibelle("Code &eacute;tablissement");
@@ -71,6 +67,9 @@ try{
     pi.getFormu().getChamp("idengagement").setValeurLibelle(Utilitaire.champNull(mere.getIdengagementlib()));
     pi.getFormu().getChamp("idengagementlib").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("fournisseurlib").setVisible(false);
+    pi.getFormu().getChamp("code_etablib").setVisible(false);
+    pi.getFormu().getChamp("projetlib").setVisible(false);
     affichage.Champ[] listeUnit = new affichage.Champ[2];
     TypeObjet branche=new TypeObjet();
     branche.setNomTable("UNITECHANTIER");

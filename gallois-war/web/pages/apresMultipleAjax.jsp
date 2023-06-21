@@ -3,6 +3,7 @@
     Created on : Oct 19, 2018, 2:55:36 PM
     Author     : Jerry
 --%>
+<%@page import="facture.PaiementFacture"%>
 <%@page import="factureclient.FactureClientDetail"%>
 <%@ page import="user.*" %>
 <%@ page import="utilitaire.*" %>
@@ -93,6 +94,15 @@
                 idmere = o.getTuppleID();
             }
             response.getWriter().print("success_"+idmere);
+        }
+        
+        if(acte.compareToIgnoreCase("insertPaiementFacture") == 0){
+            mere = (ClassMAPTable) (Class.forName(classe).newInstance());
+            fille = (ClassMAPTable) (Class.forName(classe).newInstance());
+            PageInsertMultiple p = new PageInsertMultiple(mere, fille, request, nbLine, tId);
+            ClassMAPTable[] cfille = p.getObjectFilleAvecValeur();
+            PaiementFacture.genererPaiementFacture((PaiementFacture[])cfille,u.getUser().getTuppleID(),request.getParameter("idmvt"));
+            response.getWriter().print("success_"+request.getParameter("idmvt"));
         }
 } catch (Exception ex) {
     ex.printStackTrace();

@@ -1,3 +1,4 @@
+<%@page import="bordereau.BordereauFF"%>
 <%@page import="facture.FactureFournisseur"%>
 <%@page import="mg.spat.stock.BonDeCommande"%>
 <%@page import="mg.spat.OccupationMaterielNaval"%>
@@ -483,21 +484,30 @@
             if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID(),true);
         }
         if(acte.compareToIgnoreCase("validerBC") == 0){
-            BonDeCommande bc=new BonDeCommande();
-            bc.setId(request.getParameter("id"));
-            bc = (BonDeCommande)bc.getById(request.getParameter("id"), "as_bondecommande", null);
-            if(bc!=null)bc.validerObjectSansControleMontant(u.getUser().getTuppleID());
-            else{
+            String typeeng = request.getParameter("type");
+            if(typeeng.compareToIgnoreCase(Constante.typeEngagementBC) == 0){
+                BonDeCommande bc=new BonDeCommande();
+                bc.setId(request.getParameter("id"));
+                bc = (BonDeCommande)bc.getById(request.getParameter("id"), "as_bondecommande", null);
+                if(bc!=null)bc.validerObjectSansControleMontant(u.getUser().getTuppleID());
+            }
+            else if(typeeng.compareToIgnoreCase(Constante.typeEngagementFF) == 0){
                 facture.FactureFournisseur ff=new facture.FactureFournisseur();
                 ff.setId(request.getParameter("id"));
                 ff = (facture.FactureFournisseur)ff.getById(request.getParameter("id"), "facture_fournisseur_mere", null);
                 if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID(),false);
-                else{
-                    Engagement engagement=new Engagement();
-                    engagement.setId(request.getParameter("id"));
-                    engagement = (Engagement)engagement.getById(request.getParameter("id"), "engagement", null);
-                    if(engagement!=null)engagement.validerObjectSansControleMontant(u.getUser().getTuppleID(),null);
-                }
+            }
+            else if(typeeng.compareToIgnoreCase(Constante.typeEngagementBED) == 0){
+                BordereauFF bed = new BordereauFF();
+                bed.setId(request.getParameter("id"));
+                bed = (BordereauFF)bed.getById(request.getParameter("id"), "BordereauFF", null);
+                bed.validerObjectSansControleBudget(u.getUser().getTuppleID(),null);
+            }
+            else{
+                Engagement engagement=new Engagement();
+                engagement.setId(request.getParameter("id"));
+                engagement = (Engagement)engagement.getById(request.getParameter("id"), "engagement", null);
+                if(engagement!=null)engagement.validerObjectSansControleMontant(u.getUser().getTuppleID(),null);
             }
         }
 
@@ -524,11 +534,12 @@
 
     } catch(ValidationException validation){
         String acte = validation.getActe();
+        String type = (String)validation.getObject();
 %>
     <script language="JavaScript">
         var result=confirm("<%= validation.getMessageavalider()%>");
         if (result) {
-            document.location.replace("<%=lien%>?but=apresTarif.jsp&id=<%=Utilitaire.champNull(request.getParameter("id"))%>&bute=<%=bute%>&acte=<%=acte%>");
+            document.location.replace("<%=lien%>?but=apresTarif.jsp&id=<%=Utilitaire.champNull(request.getParameter("id"))%>&bute=<%=bute%>&acte=<%=acte%>&type=<%=type%>");
         } else {
             history.back();
         }

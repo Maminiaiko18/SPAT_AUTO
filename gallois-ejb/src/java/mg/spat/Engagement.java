@@ -34,6 +34,7 @@ public class Engagement extends ClassEtat {
     private double montant,disponible,dispoAvant,dispoApres,montantOP,montantreste;
     private Date daty;
     private int avecFacture,annee;
+    private String type = Constante.typeEngagementEng;
 
     public Engagement(String designation,String codeEtablissement,String projet,double montant,double disponible,double dispoAvant,double dispoApres,String compte,String idLC,Date daty)throws Exception{
         this.setNomTable("ENGAGEMENT");
@@ -287,6 +288,14 @@ public class Engagement extends ClassEtat {
         return id;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String getAttributIDName() {
         return "id";
@@ -380,7 +389,7 @@ public class Engagement extends ClassEtat {
         
         double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
         if((float)montantTotal > (float)this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
-        if((float)this.getMontant() > (float)lc.getResteApresEngmt()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au reste apres engagement disponible ("+Utilitaire.formaterAr(lc.getResteApresEngmt())+")",null,"validerBC");
+        if((float)this.getMontant() > (float)lc.getResteApresEngmt()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au reste apres engagement disponible ("+Utilitaire.formaterAr(lc.getResteApresEngmt())+")",this.getType(),"validerBC");
         this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
         super.validerObject(u, c);

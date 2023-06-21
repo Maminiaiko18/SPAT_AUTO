@@ -14,6 +14,7 @@ import bean.ResultatEtSomme;
 import facture.FactureFournisseur;
 import facture.NumeroFacture;
 import lignecredit.LigneCredit;
+import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -23,6 +24,7 @@ import utilitaire.Utilitaire;
  * @author Audace
  */
 public class BordereauFF extends Bordereau{
+
     private double montantbudget;
     private double montantav;
     private double montantap;
@@ -125,6 +127,11 @@ public class BordereauFF extends Bordereau{
         if(listeFille!=null && listeFille.length>0){
             FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
             if(ff!=null){
+                LigneCredit critere=new LigneCredit();
+                critere.setNomTable("situationLC_vide");
+                critere.setProjet(ff.getProjetlib());
+                critere.setDirection(ff.getCode_etablissementlib());
+                this.setDirection(ff.getCode_etablissementlib());
                 this.setNumero(this.calculerNumero(c));
             }
         }else throw new Exception("Bordereau comporte aucune facture");
@@ -133,8 +140,8 @@ public class BordereauFF extends Bordereau{
     
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        this.checkFacture(c);
-        //visaFacture(u, c);
+        this.checkFactureVisee(c);
+        visaFacture(u, c, true);
         BordereauFilleLibComplet[] listeFille=this.getFille(c);
         if(listeFille!=null && listeFille.length>0){
             FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
@@ -190,12 +197,65 @@ public class BordereauFF extends Bordereau{
         }
     }
 
-    public void visaFacture(String u, Connection c) throws Exception {
+    public void visaFacture(String u, Connection c, boolean controleBudget) throws Exception {
+        BordereauFilleLibComplet[] listeFille=this.getFille(c);
+        if(listeFille!=null && listeFille.length>0){
+            for(BordereauFilleLibComplet details : listeFille){
+                FactureFournisseur ff = ((BordereauFille)details).getFF("factfourn_msum_lib",c);
+                ff.setTypeEngagement(Constante.typeEngagementBED);
+                ff.validerSansControleResteEngagement(u, controleBudget, c);
+            }
+        }
+    }
+    
+    public Object validerObjectSansControleBudget(String u, Connection c) throws Exception {
+        int verif=0;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif=1;
+            }
+            visaFacture(u, c, false);
+            BordereauFilleLibComplet[] listeFille=this.getFille(c);
+            if(listeFille!=null && listeFille.length>0){
+                FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
+                if(ff!=null){
+                    LigneCredit critere=new LigneCredit();
+                    critere.setNomTable("situationLC_vide");
+                    critere.setProjet(ff.getProjetlib());
+                    critere.setDirection(ff.getCode_etablissementlib());
+                    this.setDirection(ff.getCode_etablissementlib());
+                    this.setNumfsb(this.calculerNumeroFsb(c));
+                    String[] colSomme = {};
+                    ResultatEtSomme lc = LigneCredit.findSituationCreditDepense(critere, null, null, String.valueOf(Utilitaire.getAnnee(ff.getDaty())),c, colSomme);
+                    if(lc.getResultat().length>0){
+                        double montantBudget=AdminGen.calculSommeDouble(listeFille, "montant");
+                        LigneCredit ligneCredit=(LigneCredit)lc.getResultat()[0];
+                        this.setMontantbudget(ligneCredit.getMontant());
+                        this.setMontantav(ligneCredit.getResteApresEngmt()+montantBudget);
+                        this.setMontantap(ligneCredit.getResteApresEngmt());
+                    }
+
+                }
+            }
+            c.commit();
+        }catch(Exception e){
+            c.rollback();
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+        return super.validerObject(u, c);
+    }
+
+    public void checkFactureVisee(Connection c) throws Exception {
             BordereauFilleLibComplet[] listeFille=this.getFille(c);
             if(listeFille!=null && listeFille.length>0){
             for(BordereauFilleLibComplet details : listeFille){
-                FactureFournisseur ff = ((BordereauFille)details).getFF("factfourn_msum_lib",c);
-                ff.validerSansControleResteEngagement(u, true, c);
+                FactureFournisseur ff = ((BordereauFille)details).getFF("FACTURE_FOURNISSEUR_MERE",c);
+                if(ff.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture deja visée");
             }
         }
     }

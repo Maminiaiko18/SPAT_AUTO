@@ -44,9 +44,25 @@ public class BonDeCommande extends ClassEtat {
     private String projet_lib, code_etab_lib, fournisseur_lib, modepaiement_lib;
     private String adresse;
     private double remise, montantRemise, montantHTSansRemise;
-    private String idengagement, idengagementlib, code_etablib;
+    private String idengagement, idengagementlib, code_etablib, fournisseurlib, projetlib;
     private double montantreste;
     private String idfournisseur, idprojet, codeetablissement;
+
+    public String getFournisseurlib() {
+        return fournisseurlib;
+    }
+
+    public void setFournisseurlib(String fournisseurlib) {
+        this.fournisseurlib = fournisseurlib;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
 
     public String getCode_etablib() {
         return code_etablib;
@@ -522,6 +538,15 @@ public class BonDeCommande extends ClassEtat {
             this.setEtat(ConstanteEtat.getEtatAnnuler());
             this.updateToTableWithHisto(user, c);
             this.setEtat(ConstanteEtat.getEtatCreer());
+            
+            if(this.getIdengagement() != null){
+                LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()); 
+                for(int i = 0; i < liaisons.length; i++){
+                    LiaisonEngagement liaison = liaisons[i];
+                    liaison.setEtat(-2);
+                    liaison.updateToTableWithHisto(user,c);
+                }
+            }
 
             value = (BonDeCommande) this.dupliquer(user, c);
             value.setIdengagement(null);
@@ -661,6 +686,7 @@ public class BonDeCommande extends ClassEtat {
                     if (lc != null) {
                         e.setIdLC(lc.getTuppleID());
                     }
+                    e.setType(Constante.typeEngagementBC);
                     e.createObject(u, c);
                     BonDeCommandeFille fille = new BonDeCommandeFille();
                     fille.setMontant(diff);
