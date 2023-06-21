@@ -486,6 +486,9 @@ public class EtatPaieServlet extends HttpServlet {
             bc.setId(id);
             bc.setNomTable("AS_BONDECOMMANDE_LIBELLE_TIERS");
             BonDeCommande[] tabBc = (BonDeCommande[]) CGenUtil.rechercher(bc, null, null, " ");
+            DetailsBcData data = new DetailsBcData(request.getParameter("id"));
+            data.setBCOrderByProduitAsc("AS_BONDECOMMANDE_LIBELLE_lib", "BC_BL_LIVRE");
+            BonDeCommandeFille[] liste = data.getBcFille();
             Map param = new HashMap();
             if (tabBc.length > 0) {
                 bc = tabBc[0];
@@ -497,12 +500,12 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("CODE_ETATLIB", bc.getCode_etablib());
                 param.put("CODE_ETAB", bc.getCode_etab());
                 param.put("DELAI", bc.getDelaipaiement());
-                param.put("TOTAL_HT", bc.getMontantHTSansRemise());
-                param.put("totalHtRemise", bc.getMontant());
+                param.put("TOTAL_HT", bc.getMontantHTSansRemise()/liste[0].getTaux());
+                param.put("totalHtRemise", bc.getMontant()/liste[0].getTaux());
 
                 // param.put("REMISE",bc.getRemise());
-                param.put("TOTAL_TVA", bc.getMontanttva());
-                param.put("TOTAL_TTC", bc.getMontantTTC());
+                param.put("TOTAL_TVA", bc.getMontanttva()/liste[0].getTaux());
+                param.put("TOTAL_TTC", bc.getMontantTTC()/liste[0].getTaux());
 
                 param.put("MODE_PAIEMENT", bc.getModepaiement());
                 param.put("LB", bc.getProjet());
@@ -523,9 +526,7 @@ public class EtatPaieServlet extends HttpServlet {
              * BonDeCommandeFille[] liste = (BonDeCommandeFille[]) CGenUtil.rechercher(f,
              * null, null, " and IDBC = '" + id + "' order by produit ASC");
              */
-            DetailsBcData data = new DetailsBcData(request.getParameter("id"));
-            data.setBCOrderByProduitAsc("AS_BONDECOMMANDE_LIBELLE_lib", "BC_BL_LIVRE");
-            BonDeCommandeFille[] liste = data.getBcFille();
+            
             data.attribuerLigne();
             double total = data.getBc().getMontantTTC();
             double tva = data.getBc().getMontanttva();
@@ -544,8 +545,9 @@ public class EtatPaieServlet extends HttpServlet {
                 totalremise = totalremise + liste[i].getMontantremise();
                 i = i + 1;
             }
-            param.put("REMISE", totalremise);
+            param.put("REMISE", totalremise/liste[0].getTaux());
             for (BonDeCommandeFille fille : liste) {
+                fille.setMontantHTSansRemise(fille.getMontantHTSansRemise()/fille.getTaux());
                 dataSources.add(fille);
             }
 
