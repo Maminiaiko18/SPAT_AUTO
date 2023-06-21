@@ -170,6 +170,10 @@ public class Constante {
     public static String typeACredit = "TCHQ00002";
     private static String typePieceCheque = "TP02";
     private static String typePieceTraite = "TP01";
+    public static String typeEngagementBC = "BC";
+    public static String typeEngagementFF = "FF";
+    public static String typeEngagementEng = "ENG";
+    public static String typeEngagementBED = "BED";
 
     public static String getTypePieceTraite(){
         return typePieceTraite;

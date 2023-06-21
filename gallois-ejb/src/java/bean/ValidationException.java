@@ -17,7 +17,7 @@ public class ValidationException extends Exception {
     private ClassMAPTable objet;
     private String acte;
     private List<ClassMAPTable> liste_object;
-    
+    private Object object; 
     
     
     public ClassMAPTable getObjet() {
@@ -78,6 +78,20 @@ public class ValidationException extends Exception {
 
     public void setListe_object(List<ClassMAPTable> liste_object) {
         this.liste_object = liste_object;
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+
+    public ValidationException(String messageavalider, Object object, String acte) {
+        this.messageavalider = messageavalider;
+        this.acte = acte;
+        this.object = object;
     }
 
     

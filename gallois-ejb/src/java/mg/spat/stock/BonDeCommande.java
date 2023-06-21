@@ -658,6 +658,7 @@ public class BonDeCommande extends ClassEtat {
                     if (lc != null) {
                         e.setIdLC(lc.getTuppleID());
                     }
+                    e.setType(Constante.typeEngagementBC);
                     e.createObject(u, c);
                     BonDeCommandeFille fille = new BonDeCommandeFille();
                     fille.setMontant(diff);

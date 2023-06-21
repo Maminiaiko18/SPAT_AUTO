@@ -10,6 +10,7 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.TypeObjet;
 import bean.ValidationException;
+import bordereau.BordereauFilleFF;
 import ded.OrdonnerPayement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -58,6 +59,7 @@ public class FactureFournisseur extends FactureClient {
     private Date dateFacture;
     private String numBc, numBed;
     private String modepaiement;
+    private String typeEngagement;
 
 	public String getModepaiement() {
 		return this.modepaiement;
@@ -309,6 +311,14 @@ public class FactureFournisseur extends FactureClient {
         this.idbc = idbc;
     }
 
+    public String getTypeEngagement() {
+        return typeEngagement;
+    }
+
+    public void setTypeEngagement(String typeEngagement) {
+        this.typeEngagement = typeEngagement;
+    }
+    
     public FactureFournisseur() throws Exception {
         this.setNomTable("facture_Fournisseur_Mere");
         this.setLiaisonFille("idmere");
@@ -827,27 +837,22 @@ public class FactureFournisseur extends FactureClient {
             if(bc != null){
                 if(bc.getMontantreste() < ff.getMontant()){
                     resteAEngager -= bc.getMontantreste();
-                    if(bc.getIdengagement().compareToIgnoreCase( this.getIdengagement()) != 0){
-                        FactureFournisseur f = new FactureFournisseur();
-                        f.setIdengagement(bc.getIdengagement());
-                        Engagement engbc = f.findEngagement("liaisonEngagementBCFF", "idengagement", c);
-                        if(engbc.getMontantreste() >= resteAEngager){
-                            liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), resteAEngager, ConstanteEtat.getEtatCreer());
-                            liaison.createObject(u, c);
-                            liaison.validerObject(u, c);
-                            resteAEngager = 0;
-                        }
-                        else{ 
-                            if(engbc.getMontantreste() > 0){
-                                liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), engbc.getMontantreste(), ConstanteEtat.getEtatCreer());
-                                liaison.createObject(u, c);
-                                liaison.validerObject(u, c);
-                                resteAEngager -= engbc.getMontantreste();
-                            }
-                            resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
-                        }
+                    FactureFournisseur f = new FactureFournisseur();
+                    f.setIdengagement(bc.getIdengagement());
+                    Engagement engbc = f.findEngagement("liaisonEngagementBCFF", "idengagement", c);
+                    if(engbc.getMontantreste() >= resteAEngager){
+                        liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), resteAEngager, ConstanteEtat.getEtatCreer());
+                        liaison.createObject(u, c);
+                        liaison.validerObject(u, c);
+                        resteAEngager = 0;
                     }
                     else{ 
+                        if(engbc.getMontantreste() > 0){
+                            liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), engbc.getMontantreste(), ConstanteEtat.getEtatCreer());
+                            liaison.createObject(u, c);
+                            liaison.validerObject(u, c);
+                            resteAEngager -= engbc.getMontantreste();
+                        }
                         resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                     }
                 }
@@ -899,11 +904,10 @@ public class FactureFournisseur extends FactureClient {
         try{
             if(c==null){
                 c=new UtilDB().GetConn();
+                c.setAutoCommit(false);
                 verif=1;
             }
             this.setEstAncienne(1);
-            c = new UtilDB().GetConn();
-            c.setAutoCommit(false);
             LigneCredit lc = this.getBudget(c);
             if (lc == null) {
                 throw new Exception("Budget non trouvé");
@@ -921,27 +925,23 @@ public class FactureFournisseur extends FactureClient {
             }
             if (this.getIdengagement() != null) {
                 FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+                if(this.getTypeEngagement() != null)ff.setTypeEngagement(this.getTypeEngagement());
                 double resteAEngager = ff.getMontant();
                 LiaisonEngagement liaison = new LiaisonEngagement();
                 BonDeCommande bc = findBCResteAFacturer(c);
                 Engagement[] lies = this.getEngagementLiee(null, c);
                 if(bc != null){
-                    if(bc.getIdengagement().compareToIgnoreCase( this.getIdengagement()) != 0){
-                        FactureFournisseur f = new FactureFournisseur();
-                        f.setIdengagement(bc.getIdengagement());
-                        Engagement engbc = f.findEngagement("liaisonEngagementBCFF", "idengagement", c);
-                        if(engbc.getMontantreste() > 0){
-                            liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), engbc.getMontantreste(), ConstanteEtat.getEtatCreer());
-                            liaison.createObject(u, c);
-                            liaison.validerObject(u, c);
-                        }
-                        resteAEngager = ff.getMontant() - bc.getMontantreste() - engbc.getMontantreste();
-                        resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
+                    resteAEngager -= bc.getMontantreste();
+                    FactureFournisseur f = new FactureFournisseur();
+                    f.setIdengagement(bc.getIdengagement());
+                    Engagement engbc = f.findEngagement("liaisonEngagementBCFF", "idengagement", c);
+                    if(engbc.getMontantreste() > 0){
+                        liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), engbc.getMontantreste(), ConstanteEtat.getEtatCreer());
+                        liaison.createObject(u, c);
+                        liaison.validerObject(u, c);
+                        resteAEngager -= engbc.getMontantreste();
                     }
-                    else{
-                        resteAEngager = ff.getMontant() - bc.getMontantreste();
-                        resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
-                    }
+                    resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                 }
                 else{
                     String requete = "select * from liaisonengagement where id1 = '" + this.getIdengagement() + "' and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider();
@@ -962,16 +962,16 @@ public class FactureFournisseur extends FactureClient {
                     resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                 }
                 if(resteAEngager > 0){
-                    ff.createEngagement(u, c, resteAEngager, lc);
+                    ff.createEngagement(u, c, resteAEngager, lc, controleMontant);
                     this.setIdengagement(ff.getIdengagement());
                 }
             }
 
             this.setNomTable("facture_fournisseur_mere");
             super.validerObject(u, c);
-            c.commit();
+            if(verif == 1)c.commit();
         }catch(Exception e){
-            c.rollback();
+            if(verif == 1)c.rollback();
             e.printStackTrace();
             throw e;
         }finally{
@@ -1161,6 +1161,11 @@ public class FactureFournisseur extends FactureClient {
             if (paiements != null && paiements.length > 0) {
                 throw new Exception("Impossible, paiements existants");
             }
+            
+            BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
+            if(bedfilles.length > 0){
+                throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
+            }
         } catch (Exception e) {
             throw e;
         } finally {
@@ -1206,7 +1211,10 @@ public class FactureFournisseur extends FactureClient {
                 engFille.insertToTableWithHisto(u, c);
             }
 
-            if(controleMontant)engagement.validerObject(u, c);
+            if(controleMontant){
+                if(this.getTypeEngagement() != null) engagement.setType(this.getTypeEngagement());
+                engagement.validerObject(u, c);
+            }
             else engagement.validerObjectSansControleMontant(u, c);
 
             this.setIdengagement(engagement.getTuppleID());
@@ -1335,7 +1343,7 @@ public class FactureFournisseur extends FactureClient {
         return super.annulerVisa(user, c);
     }
     
-    public void createEngagement(String u, Connection c, double montant, LigneCredit lc) throws Exception {
+    public void createEngagement(String u, Connection c, double montant, LigneCredit lc, boolean controleBudget) throws Exception {
         try{
             Engagement engagement = new Engagement(this.getNumeroop(), this.getCodeEtablissement() , this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), this.getDaty(), this.getTiers(), 0);
             if (lc != null) {
@@ -1347,7 +1355,12 @@ public class FactureFournisseur extends FactureClient {
             EngagementFille engFille = new EngagementFille(engagement.getId(),this.getNumeroop(),montant);
             engFille.construirePK(c);
             engFille.insertToTableWithHisto(u, c);
-            engagement.validerObjectSansControleMontant(u, c);
+            if(controleBudget){
+                if(this.getTypeEngagement() != null)
+                    engagement.setType(this.getTypeEngagement());
+                engagement.validerObject(u, c);
+            }
+            else engagement.validerObjectSansControleMontant(u, c);
 
             LiaisonEngagement liaison = new LiaisonEngagement(engagement.getId(), this.getId(), montant, ConstanteEtat.getEtatCreer());
             liaison.createObject(u, c);
