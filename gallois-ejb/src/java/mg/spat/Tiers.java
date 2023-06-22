@@ -99,9 +99,9 @@ public class Tiers extends ClassEtat {
                 } catch (NumberFormatException ex) {
                     throw new Exception("nif invalide");
                 }
-                if (nif.length() != 10) {
-                    throw new Exception("le nif doit contenir 10 caratères");
-                }
+                // if (nif.length() != 10) {
+                //     throw new Exception("le nif doit contenir 10 caratères");
+                // }
                 if (nif.contains("-") || nif.contains(",") || nif.contains(":") || nif.contains(".") || nif.contains("!") || nif.contains("+")) {
                     throw new Exception("nif invalide");
                 }

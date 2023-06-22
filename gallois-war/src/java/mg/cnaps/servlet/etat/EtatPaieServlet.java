@@ -518,10 +518,15 @@ public class EtatPaieServlet extends HttpServlet {
 
                 param.put("DELAILIVRAISON", bc.getDelailivraison());
 
-                String montantString = String.valueOf((int) bc.getMontantTTC());
-                long montantLong = Long.valueOf(montantString);
-                param.put("TOTAL_TTC_LETTRE",
-                        (ChiffreLettre.convertIntToString(montantLong)).toUpperCase() + " ARIARY ");
+                double total_ttc_devise = bc.getMontantTTC()/liste[0].getTaux();
+                String[] montantTexte = ChiffreLettre.convertRealToStringSepare(total_ttc_devise);
+                String montantlettre = montantTexte[0];
+                    if (montantTexte[1].compareToIgnoreCase("") != 0) {
+                        montantlettre += " "+liste[0].getDevise()+" " + montantTexte[1];
+                    } else {
+                        montantlettre += " "+liste[0].getDevise();
+                    }
+                param.put("TOTAL_TTC_LETTRE",montantlettre);
             }
 
             /*

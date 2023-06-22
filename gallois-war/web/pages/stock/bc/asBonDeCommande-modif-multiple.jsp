@@ -65,6 +65,10 @@ try{
     pi.getFormu().getChamp("idengagement").setAutre("readonly");
     pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp", "idengagement;idengagementlibelle");
     pi.getFormu().getChamp("idengagement").setValeurLibelle(Utilitaire.champNull(mere.getIdengagementlib()));
+    if(mere.getIdengagementlib()!=null){
+        pi.getFormu().getChamp("projet").setVisible(false);
+        pi.getFormu().getChamp("code_etab").setVisible(false);
+    }
     pi.getFormu().getChamp("idengagementlib").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("fournisseurlib").setVisible(false);
