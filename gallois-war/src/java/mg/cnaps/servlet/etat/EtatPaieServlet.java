@@ -718,6 +718,9 @@ public class EtatPaieServlet extends HttpServlet {
                             param.put("service", ce.getServicelib());
 
                         }
+                        String defaut = "Visa Directeur Sectoriel";
+                        if(ce.getVal().startsWith("1")) defaut ="Visa chef de d&eacute;partement";
+                        param.put("defaut", defaut);
 
                         Projet prj = new Projet();
                         prj.setNomTable("projet");
