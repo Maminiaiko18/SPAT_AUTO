@@ -107,11 +107,13 @@
         pc.getChampByName("designation").setLibelle("Note explicative");
         pc.getChampByName("Idbc").setLibelle("bon commande"); 
         pc.getChampByName("IdBL").setLibelle("bon livraison"); 
-        pc.getChampByName("idEngagement").setVisible(true);
         pc.getChampByName("idEngagementlib").setLien((String) session.getValue("lien") + "?but=depense/engagement-fiche.jsp&id=" + e.getIdengagement(), "");
         pc.getChampByName("idEngagementlib").setLibelle("Engagement");
         pc.getChampByName("idbc").setLien((String) session.getValue("lien") + "?but=stock/bc/asBonDeCommande-fiche.jsp&id=" + e.getIdbc(), "");
         pc.getChampByName("idbl").setLien((String) session.getValue("lien") + "?but=stock/bl/bondelivraison-fiche.jsp&id=" + e.getIdBL(), "");
+        pc.getChampByName("idEngagementlib").setVisible(true);
+        pc.getChampByName("idEngagement").setVisible(false);
+        
 
         //
 //Si categorieFC = proforma alors “Fiche Facture Proforma”
