@@ -125,8 +125,10 @@ public class BordereauFF extends Bordereau{
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         BordereauFilleLibComplet[] listeFille=this.getFille(c);
         if(listeFille!=null && listeFille.length>0){
-            FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
+            FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("factfourn_msum_lib",c);
             if(ff!=null){
+                if(ff.getEtat() == ConstanteEtat.getEtatValider())
+                    throw new Exception("Facture " + ff.getId() + " d\\351j\\340 vis\\351e.");
                 LigneCredit critere=new LigneCredit();
                 critere.setNomTable("situationLC_vide");
                 critere.setProjet(ff.getProjetlib());
@@ -144,8 +146,10 @@ public class BordereauFF extends Bordereau{
         visaFacture(u, c, true);
         BordereauFilleLibComplet[] listeFille=this.getFille(c);
         if(listeFille!=null && listeFille.length>0){
-            FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
+            FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("factfourn_msum_lib",c);
             if(ff!=null){
+                if(ff.getEtat() == ConstanteEtat.getEtatValider())
+                    throw new Exception("Facture " + ff.getId() + " d\\351j\\340 vis\\351e.");
                 LigneCredit critere=new LigneCredit();
                 critere.setNomTable("situationLC_vide");
                 critere.setProjet(ff.getProjetlib());
