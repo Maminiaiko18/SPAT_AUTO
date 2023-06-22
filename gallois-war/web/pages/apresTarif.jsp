@@ -481,7 +481,16 @@
             facture.FactureFournisseur ff=new facture.FactureFournisseur();
             ff.setId(request.getParameter("id"));
             ff = (facture.FactureFournisseur)ff.getById(request.getParameter("id"), nomtable, null);
-            if(ff!=null)ff.validerSansControleResteEngagement(u.getUser().getTuppleID(),true);
+            if(ff!=null){
+                boolean apresValidationException = Boolean.parseBoolean(request.getParameter("type"));
+                if(apresValidationException){
+                    ff.setApresValidationException(apresValidationException);
+                    ff.validerObject(u.getUser().getTuppleID(), null);
+                }
+                else{
+                    ff.validerSansControleResteEngagement(u.getUser().getTuppleID(),true);
+                }
+            }
         }
         if(acte.compareToIgnoreCase("validerBC") == 0){
             String typeeng = request.getParameter("type");
@@ -534,12 +543,12 @@
 
     } catch(ValidationException validation){
         String acte = validation.getActe();
-        String type = (String)validation.getObject();
+        String objet = (String)validation.getObject();
 %>
     <script language="JavaScript">
         var result=confirm("<%= validation.getMessageavalider()%>");
         if (result) {
-            document.location.replace("<%=lien%>?but=apresTarif.jsp&id=<%=Utilitaire.champNull(request.getParameter("id"))%>&bute=<%=bute%>&acte=<%=acte%>&type=<%=type%>");
+            document.location.replace("<%=lien%>?but=apresTarif.jsp&id=<%=Utilitaire.champNull(request.getParameter("id"))%>&bute=<%=bute%>&acte=<%=acte%>&type=<%=objet%>");
         } else {
             history.back();
         }

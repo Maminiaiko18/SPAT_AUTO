@@ -60,6 +60,7 @@ public class FactureFournisseur extends FactureClient {
     private String numBc, numBed;
     private String modepaiement;
     private String typeEngagement;
+    private boolean apresValidationException;
 
 	public String getModepaiement() {
 		return this.modepaiement;
@@ -317,6 +318,14 @@ public class FactureFournisseur extends FactureClient {
 
     public void setTypeEngagement(String typeEngagement) {
         this.typeEngagement = typeEngagement;
+    }
+
+    public boolean isApresValidationException() {
+        return apresValidationException;
+    }
+
+    public void setApresValidationException(boolean apresValidationException) {
+        this.apresValidationException = apresValidationException;
     }
     
     public FactureFournisseur() throws Exception {
@@ -814,6 +823,20 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
+        if(bedfilles.length > 0){
+            throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
+        }
+        
+        FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+        if(!this.isApresValidationException()){
+            FactureFournisseur[] doublons = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), "select * from factfourn_msum_lib where lower(numeroop) = '" + ff.getNumeroop().toLowerCase() + "' and montant = " + ff.getMontant() + " and etat >= " + ConstanteEtat.getEtatCreer(), c);
+            if(doublons.length > 0){
+                this.setApresValidationException(true);
+                throw new ValidationException("Une facture avec le numero: " + ff.getNumeroop() + " et avec montant HT: " + ff.getMontant() + " existe d\\351j\\340, voulez vous viser?",String.valueOf(this.isApresValidationException()),"validerFF");
+            }
+        }
+        
         this.setEstAncienne(1);
         LigneCredit lc = this.getBudget(c);
         if (lc == null) {
@@ -829,7 +852,6 @@ public class FactureFournisseur extends FactureClient {
         }
 
         if (this.getIdengagement() != null) {
-            FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
             double resteAEngager = ff.getMontant();
             BonDeCommande bc = findBCResteAFacturer(c);
             Engagement[] lies = this.getEngagementLiee(null, c);
@@ -883,10 +905,10 @@ public class FactureFournisseur extends FactureClient {
             }
         } else {
             if (this.getIdbc() == null) {
-                FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
                 this.setMontant(ff.getMontant());
                 //si provision dia tsy engagena
                 if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0){
+                    this.setTypeEngagement(Constante.typeEngagementFF);
                     this.insertEngagement(u, true, c);
                     LiaisonEngagement liaison = new LiaisonEngagement(this.getIdengagement(), ff.getId(), ff.getMontant(), ConstanteEtat.getEtatCreer());
                     liaison.createObject(u, c);
