@@ -94,8 +94,8 @@
                                 <a href="<%=(String) session.getValue("lien") +"?but=depense/engagement-modif-simple.jsp&id="+ engagement.getId()%>"><button class="btn btn-primary pull-right" style="margin-right: 5px">Observation</button></a>
                                 <label style="float:right;padding-right:10px">Accord : 
                                     <select id="choix" onchange="choix()">
-                                        <option value="1">Oui</option>
-                                        <option value="0" selected>Non</option>
+                                        <option value="1" selected>Oui</option>
+                                        <option value="0">Non</option>
                                     </select>
                                 </label>
                             </p>

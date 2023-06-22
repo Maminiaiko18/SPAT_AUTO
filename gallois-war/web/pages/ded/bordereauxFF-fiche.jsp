@@ -63,8 +63,8 @@
                             <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-modif.jsp&id=" + id %>" style="margin-right: 10px">Modifier</a>
                            <label style="float:right;padding-right:10px">Accord : 
                                     <select id="choix" onchange="choix()">
-                                        <option value="1">Oui</option>
-                                        <option value="0" selected>Non</option>
+                                        <option value="1" selected>Oui</option>
+                                        <option value="0">Non</option>
                                     </select>
                                 </label>
                         </div>
