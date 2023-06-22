@@ -320,7 +320,7 @@ public class FactureFournisseur extends FactureClient {
         this.typeEngagement = typeEngagement;
     }
 
-    public boolean isApresValidationException() {
+    public boolean getApresValidationException() {
         return apresValidationException;
     }
 
@@ -829,11 +829,11 @@ public class FactureFournisseur extends FactureClient {
         }
         
         FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-        if(!this.isApresValidationException()){
+        if(!this.getApresValidationException()){
             FactureFournisseur[] doublons = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), "select * from factfourn_msum_lib where lower(numeroop) = '" + ff.getNumeroop().toLowerCase() + "' and montant = " + ff.getMontant() + " and etat >= " + ConstanteEtat.getEtatCreer(), c);
             if(doublons.length > 0){
                 this.setApresValidationException(true);
-                throw new ValidationException("Une facture avec le numero: " + ff.getNumeroop() + " et avec montant HT: " + ff.getMontant() + " existe d\\351j\\340, voulez vous viser?",String.valueOf(this.isApresValidationException()),"validerFF");
+                throw new ValidationException("Une facture avec le numero: " + ff.getNumeroop() + " et avec montant HT: " + ff.getMontant() + " existe d\\351j\\340, voulez vous viser?",String.valueOf(this.getApresValidationException()),"validerFF");
             }
         }
         
@@ -1453,5 +1453,17 @@ public class FactureFournisseur extends FactureClient {
         catch(Exception e){
             throw e;
         }
+    }
+    
+    @Override
+    public ClassMAPTable dupliquer(String user,Connection c) throws Exception
+    { 
+        try{
+            this.setIdengagement(null);
+        }
+        catch(Exception e){
+            throw e;
+        }
+        return super.dupliquer(user, c);
     }
 }
