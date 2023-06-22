@@ -830,12 +830,13 @@ public class FactureFournisseur extends FactureClient {
         
         FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
         if(!this.getApresValidationException()){
-            FactureFournisseur[] doublons = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), "select * from factfourn_msum_lib where lower(numeroop) = '" + ff.getNumeroop().toLowerCase() + "' and montant = " + ff.getMontant() + " and etat >= " + ConstanteEtat.getEtatCreer(), c);
+            if(ff.getNumeroop()==null) throw new Exception("Numero facture obligatoire.");
+            String sql = "select * from factfourn_msum_lib where lower(numeroop) = '" + ff.getNumeroop().toLowerCase() + "' and montant = " + ff.getMontant() + " and etat >= " + ConstanteEtat.getEtatCreer()+" and id!='"+this.getId()+"'";
+            FactureFournisseur[] doublons = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), sql, c);
             if(doublons.length > 0){
                 this.setApresValidationException(true);
-                throw new ValidationException("Une facture avec le numero: " + ff.getNumeroop() + " et avec montant HT: " + ff.getMontant() + " existe d\\351j\\340, voulez vous viser?",String.valueOf(this.getApresValidationException()),"validerFF");
+                throw new ValidationException("Une facture("+doublons[0].getId()+") avec le numero: " + ff.getNumeroop() + " et avec montant HT: " + Utilitaire.formaterAr(ff.getMontant()) + " existe d\\351j\\340, voulez vous viser?",String.valueOf(this.getApresValidationException()),"validerFF");
             }
-        }
         
         this.setEstAncienne(1);
         LigneCredit lc = this.getBudget(c);
