@@ -8,9 +8,9 @@
     SuiviProvision suiviProvision = new SuiviProvision();
     String setNomTableNormale = "SUIVI_PROVISION";
     suiviProvision.setNomTable(setNomTableNormale);
-    String listeCrt[] = {"id", "caisse","daty","libelle","credit","tiers","code","codeprovision"};
+    String listeCrt[] = {"id", "caisse","daty","numpiece","tiers","code","codeprovision"};
     String listeInt[] = {"daty"};       
-    String libEntete[] = {"id", "daty", "caisse","numpiece","libelle","credit", "tiers","montant","code","codeprovision"};
+    String libEntete[] = {"id", "daty", "caisse","credit","numpiece","codeprovision","montantprovision", "tiers","montant","code"};
     PageRecherche pr = new PageRecherche(suiviProvision, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
 
     pr.setTitre("Suivi Provision");
@@ -33,6 +33,8 @@
     pr.getFormu().getChamp("code").setLibelle("Code Facture");
     pr.getFormu().getChamp("daty1").setLibelle("Date min");
     pr.getFormu().getChamp("daty2").setLibelle("Date max");
+    pr.getFormu().getChamp("numpiece").setLibelle("Numero piece");
+
     pr.getFormu().changerEnChamp(liste);
 
     String[] colSomme = null;
@@ -42,8 +44,8 @@
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
-    //Definition des libelles à afficher
-    String libEnteteAffiche[] = {"id", "daty", "caisse","numpiece","libelle","credit", "tiers","montant","Code Facture","Code Provision"};
+    //Definition des libelles ï¿½ afficher
+    String libEnteteAffiche[] = {"id", "daty", "caisse","credit","numero piece","code provision","montant provision", "tiers","montant","code facture"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
 

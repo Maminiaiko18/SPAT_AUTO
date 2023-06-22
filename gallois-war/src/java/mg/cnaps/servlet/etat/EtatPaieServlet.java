@@ -3657,8 +3657,8 @@ public class EtatPaieServlet extends HttpServlet {
             c = (new UtilDB()).GetConn();
             String id = request.getParameter("id");
             String option = request.getParameter("option");
-            String jaspername = "engagement-sanssignature";
-            if(option!=null)  if(option.compareToIgnoreCase("1")==0) jaspername = "engagement";
+            String jaspername = "engagement";
+            if(option!=null)  if(option.compareToIgnoreCase("0")==0) jaspername = "engagement-sanssignature";
             Engagement engagement = new Engagement();
             engagement.setId(id);
             engagement.setNomTable("engagementlib");
@@ -3683,6 +3683,9 @@ public class EtatPaieServlet extends HttpServlet {
                     }
                 }
 
+                String defaut = "Visa Directeur Sectoriel";
+                if(engagement.getCodeEtablissementlib().startsWith("1")) defaut ="Visa chef de d&eacute;partement";
+                param.put("defaut", defaut);
                 lc = engagement.findSituationCredit(c);
                 if (lc != null) {
                     param.put("annuel", Utilitaire.formaterAr(lc.getMontant()));
@@ -4235,8 +4238,8 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             String id = request.getParameter("id");
             String option = request.getParameter("option");
-            String jaspername = "engagement-sanssignature";
-            if(option!=null)  if(option.compareToIgnoreCase("1")==0) jaspername = "engagement";
+            String jaspername = "engagement";
+            if(option!=null)  if(option.compareToIgnoreCase("0")==0) jaspername = "engagement-sanssignature";
             BordereauLibComplet bordereau = new BordereauLibComplet();
             bordereau.setNomTable("FSBBED");
             BordereauLibComplet[] mere = (BordereauLibComplet[]) CGenUtil.rechercher(bordereau, null, null, null, " and id='" + id + "'");
@@ -4248,6 +4251,10 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("du", mere[0].getDaty());
                 param.put("projet", mere[0].getProjet());
                 param.put("numero", mere[0].getNumfsb());
+
+                 String defaut = "Visa Directeur Sectoriel";
+                if(mere[0].getDirection().startsWith("1")) defaut ="Visa chef de d&eacute;partement";
+                param.put("defaut", defaut);
 
 
                 param.put("annuel", Utilitaire.formaterAr((mere[0].getMontantbudget())));
