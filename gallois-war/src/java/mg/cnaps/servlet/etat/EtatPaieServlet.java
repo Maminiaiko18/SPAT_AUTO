@@ -3653,8 +3653,8 @@ public class EtatPaieServlet extends HttpServlet {
             c = (new UtilDB()).GetConn();
             String id = request.getParameter("id");
             String option = request.getParameter("option");
-            String jaspername = "engagement-sanssignature";
-            if(option!=null)  if(option.compareToIgnoreCase("1")==0) jaspername = "engagement";
+            String jaspername = "engagement";
+            if(option!=null)  if(option.compareToIgnoreCase("1")==0) jaspername = "engagement-sanssignature";
             Engagement engagement = new Engagement();
             engagement.setId(id);
             engagement.setNomTable("engagementlib");
@@ -3679,6 +3679,9 @@ public class EtatPaieServlet extends HttpServlet {
                     }
                 }
 
+                String defaut = "Visa Directeur Sectoriel";
+                if(engagement.getCodeEtablissementlib().startsWith("1")) defaut ="Visa chef de d&eacute;partement";
+                param.put("defaut", defaut);
                 lc = engagement.findSituationCredit(c);
                 if (lc != null) {
                     param.put("annuel", Utilitaire.formaterAr(lc.getMontant()));
