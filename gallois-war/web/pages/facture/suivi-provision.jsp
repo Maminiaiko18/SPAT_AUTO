@@ -1,38 +1,49 @@
 
+<%@page import="utilitaire.Utilitaire"%>
+<%@page import="bean.TypeObjet"%>
 <%@page import="facture.SuiviProvision"%>
-<%@page import="test.*"%>
 <%@page import="affichage.PageRecherche"%>
 
 <% try{ 
     SuiviProvision suiviProvision = new SuiviProvision();
     String setNomTableNormale = "SUIVI_PROVISION";
-//    String setNomTableViser = "visee";
-//    String setNomTableCreer = "creer";
-//    if (request.getParameter("etat") != null && !request.getParameter("etat").equals("")) {
-        suiviProvision.setNomTable(setNomTableNormale);
-//    } else {
-//        suiviProvision.setNomTable(setNomTableNormale);
-//    }
+    suiviProvision.setNomTable(setNomTableNormale);
     String listeCrt[] = {"id", "caisse","daty","libelle","credit","tiers","code","codeprovision"};
-    String listeInt[] = {"daty"};
-        
+    String listeInt[] = {"daty"};       
     String libEntete[] = {"id", "daty", "caisse","numpiece","libelle","credit", "tiers","montant","code","codeprovision"};
     PageRecherche pr = new PageRecherche(suiviProvision, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+
     pr.setTitre("Suivi Provision");
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-  pr.setApres("facture/suivi-provision.jsp");
+    pr.setApres("facture/suivi-provision.jsp");
+   
+    affichage.Champ[]liste = new affichage.Champ[1];
+    TypeObjet caisse = new TypeObjet();
+    caisse.setNomTable("CAISSE");
+    liste[0] = new affichage.Liste("caisse", caisse, "val", "val");
+
+    String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());
+    String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", Utilitaire.dateDuJourSql());
+    if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+        pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+        pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+    }
+        
+    pr.getFormu().getChamp("code").setLibelle("Code Facture");
     pr.getFormu().getChamp("daty1").setLibelle("Date min");
     pr.getFormu().getChamp("daty2").setLibelle("Date max");
+    pr.getFormu().changerEnChamp(liste);
+
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
     //Definition des lienTableau et des colonnes de lien
-    String lienTableau[] = {};
-    String colonneLien[] = {};
+    String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
+    String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     //Definition des libelles à afficher
-    String libEnteteAffiche[] = {"id", "daty", "caisse","numpiece","libelle","credit", "tiers","montant","code","codeprovision"};
+    String libEnteteAffiche[] = {"id", "daty", "caisse","numpiece","libelle","credit", "tiers","montant","Code Facture","Code Provision"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
 
