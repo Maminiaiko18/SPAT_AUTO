@@ -15,6 +15,15 @@ public class SuiviProvision extends ClassMAPTable{
     private String code;
     private String codeprovision;
     private Date datefacture;
+    private double montantprovision;
+
+    public double getMontantprovision() {
+        return montantprovision;
+    }
+
+    public void setMontantprovision(double montantprovision) {
+        this.montantprovision = montantprovision;
+    }
 
     public String getId() {
         return id;
