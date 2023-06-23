@@ -88,7 +88,7 @@ public class BordereauFF extends Bordereau{
             BordereauFilleLibComplet fille = new BordereauFilleLibComplet();
             fille.setNomTable("liaisonbordereauFF_libcomplet");
             fille.setIdbordereau(this.getId());
-            retour = (BordereauFilleLibComplet[])CGenUtil.rechercher(fille, null, null, c, "");
+            retour = (BordereauFilleLibComplet[])CGenUtil.rechercher(fille, null, null, c,"");
         }catch(Exception e){
             e.printStackTrace();
             throw e;
@@ -125,10 +125,12 @@ public class BordereauFF extends Bordereau{
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         BordereauFilleLibComplet[] listeFille=this.getFille(c);
         if(listeFille!=null && listeFille.length>0){
-            FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("factfourn_msum_lib",c);
+        FactureFournisseur ff = null;
+        for(BordereauFilleLibComplet details : listeFille){
+            ff = ((BordereauFille)details).getFF("FACTURE_FOURNISSEUR_MERE",c);
+            if(ff.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + ff.getId() + " d\\351j\\340 vis\\351e.");
+        }
             if(ff!=null){
-                if(ff.getEtat() == ConstanteEtat.getEtatValider())
-                    throw new Exception("Facture " + ff.getId() + " d\\351j\\340 vis\\351e.");
                 LigneCredit critere=new LigneCredit();
                 critere.setNomTable("situationLC_vide");
                 critere.setProjet(ff.getProjetlib());
@@ -142,14 +144,16 @@ public class BordereauFF extends Bordereau{
     
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        this.checkFactureVisee(c);
-        visaFacture(u, c, true);
         BordereauFilleLibComplet[] listeFille=this.getFille(c);
         if(listeFille!=null && listeFille.length>0){
-            FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("factfourn_msum_lib",c);
+        FactureFournisseur ff = null;
+        for(BordereauFilleLibComplet details : listeFille){
+            ff = ((BordereauFille)details).getFF("FACTURE_FOURNISSEUR_MERE",c);
+            if(ff.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + ff.getId() + " d\\351j\\340 vis\\351e.");
+        }
+
+        visaFacture(u, c, true);
             if(ff!=null){
-                if(ff.getEtat() == ConstanteEtat.getEtatValider())
-                    throw new Exception("Facture " + ff.getId() + " d\\351j\\340 vis\\351e.");
                 LigneCredit critere=new LigneCredit();
                 critere.setNomTable("situationLC_vide");
                 critere.setProjet(ff.getProjetlib());
@@ -157,7 +161,7 @@ public class BordereauFF extends Bordereau{
                 this.setDirection(ff.getCode_etablissementlib());
                 this.setNumfsb(this.calculerNumeroFsb(c));
                 String[] colSomme = {};
-                ResultatEtSomme lc = LigneCredit.findSituationCreditDepense(critere, null, null, String.valueOf(Utilitaire.getAnnee(ff.getDaty())),c, colSomme);
+                ResultatEtSomme lc = LigneCredit.findSituationCreditDepense(critere, null, null, String.valueOf(Utilitaire.getAnnee(this.getDaty())),c, colSomme);
                 if(lc.getResultat().length>0){
                     double montantBudget=AdminGen.calculSommeDouble(listeFille, "montant");
                     LigneCredit ligneCredit=(LigneCredit)lc.getResultat()[0];
