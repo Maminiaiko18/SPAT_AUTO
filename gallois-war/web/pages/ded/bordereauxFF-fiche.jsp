@@ -33,6 +33,12 @@
     pc.getChampByName("montantap").setLibelle("Montant apres");
     pc.getChampByName("numfsb").setLibelle("Num FSB");
 
+    pc.getChampByName("idfactures").setLibelle("Factures");
+    pc.getChampByName("projet").setVisible(false);
+    pc.getChampByName("direction").setVisible(false);
+    pc.getChampByName("directionlib").setLibelle("Direction");
+    pc.getChampByName("projetlib").setLibelle("Projet");
+
     pc.setTitre("Fiche bordereau facture fournisseur");
     String id=res.getId();
     BordereauFilleLibComplet fille=new BordereauFilleLibComplet();

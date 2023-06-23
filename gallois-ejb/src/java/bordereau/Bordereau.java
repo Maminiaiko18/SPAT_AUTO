@@ -29,7 +29,51 @@ public class Bordereau extends ClassEtat {
     private double montant;
     private String nomTableFille, nomFonctionSequence;
     private String numfsb;
+    private String projet;
+    private String direction;
+    private String projetlib;
+    private String directionlib;
+    private String idfactures;
 
+    public String getIdfactures() {
+        return idfactures;
+    }
+
+    public void setIdfactures(String idfactures) {
+        this.idfactures = idfactures;
+    }
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
+
+    public String getDirectionlib() {
+        return directionlib;
+    }
+
+    public void setDirectionlib(String directionlib) {
+        this.directionlib = directionlib;
+    }
 
     public String getNumfsb() {
         return numfsb;

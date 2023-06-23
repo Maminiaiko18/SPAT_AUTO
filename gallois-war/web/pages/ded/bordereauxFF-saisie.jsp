@@ -60,10 +60,15 @@
         pi.getFormu().getChamp("montant").setVisible(false);
         pi.getFormu().getChamp("projet").setVisible(false);
         pi.getFormu().getChamp("direction").setVisible(false);
+        pi.getFormu().getChamp("idfactures").setDefaut(request.getParameter("idsOP"));
+        pi.getFormu().getChamp("idfactures").setVisible(false);
+        pi.getFormu().getChamp("idfactures").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("daty").setLibelle("Date");
+        pi.getFormu().getChamp("directionlib").setVisible(false);
+        pi.getFormu().getChamp("projetlib").setVisible(false);
         if(factures.length > 0){
             pi.getFormu().getChamp("direction").setDefaut(factures[0].getCode_etablissementlib());
         }
