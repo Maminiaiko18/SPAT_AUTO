@@ -919,6 +919,7 @@ public class FactureFournisseur extends FactureClient {
         }
         this.setNomTable("facture_fournisseur_mere");
         super.validerObject(u, c);
+    }
         return this;
     }
 
