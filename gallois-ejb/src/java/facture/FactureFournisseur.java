@@ -1019,7 +1019,7 @@ public class FactureFournisseur extends FactureClient {
             throw new Exception("Factures introuvables ou non visees");
         }
         if (factures.length > 1) {
-            throw new Exception("Fournisseur differents!");
+           // throw new Exception("Fournisseur differents!");
         } else if (factures.length == 1) {
             return factures[0];
         }
