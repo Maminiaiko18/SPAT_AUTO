@@ -218,7 +218,7 @@ public class BordereauFF extends Bordereau{
     }
     
     public Object validerObjectSansControleBudget(String u, Connection c) throws Exception {
-        int verif=0;
+        int verif=0; 
         try{
             if(c==null){
                 c=new UtilDB().GetConn();
@@ -248,6 +248,7 @@ public class BordereauFF extends Bordereau{
 
                 }
             }
+            super.validerObject(u, c);
             c.commit();
         }catch(Exception e){
             c.rollback();
@@ -256,7 +257,7 @@ public class BordereauFF extends Bordereau{
         }finally{
             if(c!=null && verif==1)c.close();
         }
-        return super.validerObject(u, c);
+        return this;
     }
 
     public void checkFactureVisee(Connection c) throws Exception {
