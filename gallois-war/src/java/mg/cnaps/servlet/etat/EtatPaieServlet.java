@@ -526,7 +526,7 @@ public class EtatPaieServlet extends HttpServlet {
                     } else {
                         montantlettre += " "+liste[0].getDevise();
                     }
-                param.put("TOTAL_TTC_LETTRE",montantlettre);
+                param.put("TOTAL_TTC_LETTRE",montantlettre.toUpperCase());
             }
 
             /*
