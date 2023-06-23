@@ -234,7 +234,7 @@ public class BordereauFF extends Bordereau{
                     critere.setNomTable("situationLC_vide");
                     critere.setProjet(ff.getProjetlib());
                     critere.setDirection(ff.getCode_etablissementlib());
-                    this.setDirection(ff.getCode_etablissementlib());
+                    //this.setDirection(ff.getCode_etablissementlib());
                     this.setNumfsb(this.calculerNumeroFsb(c));
                     String[] colSomme = {};
                     ResultatEtSomme lc = LigneCredit.findSituationCreditDepense(critere, null, null, String.valueOf(Utilitaire.getAnnee(ff.getDaty())),c, colSomme);
@@ -248,7 +248,7 @@ public class BordereauFF extends Bordereau{
 
                 }
             }
-            super.setNomTable("bordereauFF");
+            this.setNomTable("bordereauFF");
             super.validerObject(u, c);
             c.commit();
         }catch(Exception e){
