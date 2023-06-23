@@ -28,24 +28,7 @@ public class BordereauFF extends Bordereau{
     private double montantbudget;
     private double montantav;
     private double montantap;
-    private String projet;
-    private String direction;
 
-    public String getProjet() {
-        return this.projet;
-    }
-
-    public void setProjet(String projet) {
-        this.projet = projet;
-    }
-
-    public String getDirection() {
-        return this.direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
 
     public double getMontantbudget(){
         return this.montantbudget;
@@ -87,8 +70,8 @@ public class BordereauFF extends Bordereau{
             }
             BordereauFilleLibComplet fille = new BordereauFilleLibComplet();
             fille.setNomTable("liaisonbordereauFF_libcomplet");
-            fille.setIdbordereau(this.getId());
-            retour = (BordereauFilleLibComplet[])CGenUtil.rechercher(fille, null, null, c,"");
+            //fille.setIdbordereau(this.getId());
+            retour = (BordereauFilleLibComplet[])CGenUtil.rechercher(fille, null, null, c,"and idbordereau='"+this.getId()+"'");
         }catch(Exception e){
             e.printStackTrace();
             throw e;
@@ -97,6 +80,27 @@ public class BordereauFF extends Bordereau{
         }
         return retour;
     }
+
+    public FactureFournisseur[] getFactures(Connection c)throws Exception{
+        FactureFournisseur retour[] = null;
+        int verif=0;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
+            FactureFournisseur fille = new FactureFournisseur();
+            fille.setNomTable("FACTURE_FOURNISSEUR_MERE");
+            retour = (FactureFournisseur[])CGenUtil.rechercher(fille, null, null, c," and id in (" + Utilitaire.tabToString(this.getIdfactures().split(";"), "'", ",") + ")");
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+        return retour;
+    }
+
 
     public void controlerFF(Connection c)throws Exception{
         int verif=0;
@@ -123,22 +127,19 @@ public class BordereauFF extends Bordereau{
 
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
-        BordereauFilleLibComplet[] listeFille=this.getFille(c);
+        FactureFournisseur[] listeFille=this.getFactures(c);
         if(listeFille!=null && listeFille.length>0){
-        FactureFournisseur ff = null;
-        for(BordereauFilleLibComplet details : listeFille){
-            ff = ((BordereauFille)details).getFF("FACTURE_FOURNISSEUR_MERE",c);
-            if(ff.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + ff.getId() + " d\\351j\\340 vis\\351e.");
-        }
-            if(ff!=null){
-                LigneCredit critere=new LigneCredit();
-                critere.setNomTable("situationLC_vide");
-                critere.setProjet(ff.getProjetlib());
-                critere.setDirection(ff.getCode_etablissementlib());
-                this.setDirection(ff.getCode_etablissementlib());
+            for(FactureFournisseur details : listeFille){
+                if(details.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + details.getId() + " d\\351j\\340 vis\\351e.");
+            }
+
+            if(listeFille[0]!=null){
+                this.setDirection(listeFille[0].getCode_etablissement());
+                this.setProjet(listeFille[0].getProjet());
                 this.setNumero(this.calculerNumero(c));
             }
-        }else throw new Exception("Bordereau comporte aucune facture");
+        }
+        else throw new Exception("Bordereau comporte aucune facture");
         return super.createObject(u, c);
     }
     
@@ -189,7 +190,7 @@ public class BordereauFF extends Bordereau{
         String dateEffetStr = Utilitaire.datetostring(this.getDaty()) ;
         String annee = Utilitaire.getAnnee(dateEffetStr);
         String seq="";
-        String rqt="SELECT  nvl(max(TO_NUMBER(num))+1,1) AS numerosuivant FROM NUMEROFSB where codeetablissementlib='"+this.getDirection()+"' AND annee="+annee;
+        String rqt="SELECT  nvl(max(TO_NUMBER(num))+1,1) AS numerosuivant FROM NUMEROFSB where codeetablissement='"+this.getDirection()+"' AND annee="+annee;
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
         return seq;

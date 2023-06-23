@@ -10,6 +10,7 @@ import bean.ClassMAPTable;
 import bean.ClassEtat;
 import ded.OrdonnerPayement;
 import facture.FactureFournisseur;
+import historique.Objet;
 
 import java.sql.Connection;
 import utilitaire.ConstanteEtat;
@@ -71,6 +72,51 @@ public class BordereauFille extends ClassMAPTable {
         }
 
         return super.deleteToTableWithHisto(refUser, con);
+    }
+
+    @Override
+    public ClassMAPTable createObject(String refUser, Connection con) throws Exception {
+        Bordereau mere = getMereff(con);
+        mere.setNomTable("bordereauFF");
+        if(mere.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Bordereau d\\351j\\340 vis\\351e.");
+
+        FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getIdop(), "FACTURE_FOURNISSEUR_MERE", con);
+        if(ff.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture d\\351j\\340 vis\\351e.");
+
+        String temp = mere.getIdfactures();
+        if(temp == null) mere.setIdfactures(this.getIdop());
+        else if(!this.getIdop().matches(temp)) mere.setIdfactures(temp+";"+this.getIdop());
+        mere.updateToTable(con);
+
+        return super.createObject(refUser, con);
+    }
+
+     public BordereauFF getMereff(Connection c) throws Exception {
+        int verif = 0;
+        BordereauFF res = null;
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+
+            BordereauFF op = new BordereauFF();
+            op.setNomTable(this.getNomTableMere());
+            BordereauFF[] tmp = (BordereauFF[]) CGenUtil.rechercher(op, null, null, c, " and id = '" + this.getIdbordereau() + "'");
+
+            if (tmp != null && tmp.length > 0) {
+                res = tmp[0];
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return res;
     }
 
     public Bordereau getMere(Connection c) throws Exception {

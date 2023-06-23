@@ -32,8 +32,13 @@ try{
     pi.getFormu().getChamp("montantap").setVisible(false);
     pi.getFormu().getChamp("numero").setLibelle("Numéro");
     pi.getFormu().getChamp("Daty").setLibelle("Date");
-    
-    pi.getFormu().getChamp("tierslib").setVisible(false);
+    pi.getFormu().getChamp("idfactures").setVisible(false);
+    pi.getFormu().getChamp("projet").setVisible(false);
+    pi.getFormu().getChamp("direction").setVisible(false);
+    pi.getFormu().getChamp("directionlib").setVisible(false);
+    pi.getFormu().getChamp("projetlib").setVisible(false);
+    pi.getFormu().getChamp("numero").setVisible(false);
+    pi.getFormu().getChamp("numfsb").setVisible(false);
     
         for(int i=0; i < pi.getNombreLigne(); i++) {
             pi.getFormufle().getChamp("idop_" + i).setAutre("readonly");

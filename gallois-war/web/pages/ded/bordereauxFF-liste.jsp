@@ -18,8 +18,8 @@
         bordereaux.setNomTable(request.getParameter("etatvue"));
     }
     
-    String libEntete[] = {"id", "daty","projet","direction","numfsb","numero","designation","tiers","montant","montantbudget","montantav","montantap"};
-    String listeCrt[] = {"id","designation","numfsb","projet","direction", "daty","tiers"};
+    String libEntete[] = {"id", "daty","projetlib","directionlib","numfsb","numero","designation","tiers","montant","montantbudget","montantav","montantap"};
+    String listeCrt[] = {"id","designation","numfsb","projetlib","directionlib", "daty","tiers"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(bordereaux, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -28,6 +28,8 @@
     pr.getFormu().getChamp("daty1").setLibelle("date de début");
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
     pr.getFormu().getChamp("numfsb").setLibelle("Num FSB");
+    pr.getFormu().getChamp("projetlib").setLibelle("projet");
+    pr.getFormu().getChamp("directionlib").setLibelle("direction");
     pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
     String[] colSomme = {"montant"};

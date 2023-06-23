@@ -12,25 +12,6 @@ package bordereau;
 public class BordereauLibComplet extends Bordereau{
     private String tierslib;
     private double montantbudget,montantav,montantap;
-    private String projet;
-    private String direction;
-
-    
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
-    public String getProjet() {
-        return projet;
-    }
-
-    public void setProjet(String projet) {
-        this.projet = projet;
-    }
 
     public BordereauLibComplet(){
         setNomTable("bordereau_libcomplet");
