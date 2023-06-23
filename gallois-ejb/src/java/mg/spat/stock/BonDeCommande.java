@@ -658,7 +658,6 @@ public class BonDeCommande extends ClassEtat {
                     if (lc != null) {
                         e.setIdLC(lc.getTuppleID());
                     }
-                    e.setType(Constante.typeEngagementBC);
                     e.createObject(u, c);
                     BonDeCommandeFille fille = new BonDeCommandeFille();
                     fille.setMontant(diff);
@@ -667,6 +666,7 @@ public class BonDeCommande extends ClassEtat {
                     engFille.construirePK(c);
                     engFille.insertToTableWithHisto(u, c);
 
+                    e.setType(Constante.typeEngagementBC);
                     e.validerObject(u, c);
                     
                     liaison1.setId1(eng.getIdengagement());
@@ -700,6 +700,7 @@ public class BonDeCommande extends ClassEtat {
                     engFille.construirePK(c);
                     engFille.insertToTableWithHisto(u, c);
 
+                    e.setType(Constante.typeEngagementBC);
                     e.validerObject(u, c);
                     
                     liaison1.setId1(e.getTuppleID());
@@ -782,6 +783,7 @@ public class BonDeCommande extends ClassEtat {
                 engFille.insertToTableWithHisto(u, c);
             }
 
+            engagement.setType(Constante.typeEngagementBC);
             engagement.validerObject(u, c);
 
             this.setIdengagement(engagement.getTuppleID());
