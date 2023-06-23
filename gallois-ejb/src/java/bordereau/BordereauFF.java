@@ -248,6 +248,7 @@ public class BordereauFF extends Bordereau{
 
                 }
             }
+            super.setNomTable("bordereauFF");
             super.validerObject(u, c);
             c.commit();
         }catch(Exception e){
