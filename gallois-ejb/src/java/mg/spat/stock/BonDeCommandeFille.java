@@ -28,7 +28,14 @@ public class BonDeCommandeFille extends ClassMAPTable {
     private String observation;
     private String code,codelib,projet,projetlib,devise;
     private String designation;
+    private String deviselib;
 
+    public String getDeviselib() {
+        return deviselib;
+    }
+    public void setDeviselib(String deviselib) {
+        this.deviselib = deviselib;
+    }
     public void setDesignation(String designation){
         this.designation=designation;
     }

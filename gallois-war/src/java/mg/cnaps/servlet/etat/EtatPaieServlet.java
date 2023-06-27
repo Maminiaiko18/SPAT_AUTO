@@ -522,10 +522,11 @@ public class EtatPaieServlet extends HttpServlet {
                 String[] montantTexte = ChiffreLettre.convertRealToStringSepare(total_ttc_devise);
                 String montantlettre = montantTexte[0];
                     if (montantTexte[1].compareToIgnoreCase("") != 0) {
-                        montantlettre += " "+liste[0].getDevise()+" " + montantTexte[1];
+                        montantlettre += " "+liste[0].getDeviselib()+" " + montantTexte[1];
                     } else {
-                        montantlettre += " "+liste[0].getDevise();
+                        montantlettre += " "+liste[0].getDeviselib();
                     }
+                param.put("deviselib",liste[0].getDeviselib());
                 param.put("TOTAL_TTC_LETTRE",montantlettre.toUpperCase());
             }
 
