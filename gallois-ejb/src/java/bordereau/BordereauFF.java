@@ -149,7 +149,7 @@ public class BordereauFF extends Bordereau{
         if(listeFille!=null && listeFille.length>0){
         FactureFournisseur ff = null;
         for(BordereauFilleLibComplet details : listeFille){
-            ff = ((BordereauFille)details).getFF("FACTUREFOURNVALIDE_TOUS",c);
+            ff = ((BordereauFille)details).getFF("FACTFOURN_MSUM_LIB",c);
             if(ff.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + ff.getId() + " d\\351j\\340 vis\\351e.");
         }
 
@@ -228,7 +228,7 @@ public class BordereauFF extends Bordereau{
             visaFacture(u, c, false);
             BordereauFilleLibComplet[] listeFille=this.getFille(c);
             if(listeFille!=null && listeFille.length>0){
-                FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTUREFOURNVALIDE_TOUS",c);
+                FactureFournisseur ff = ((BordereauFille)listeFille[0]).getFF("FACTFOURN_MSUM_LIB",c);
                 if(ff!=null){
                     LigneCredit critere=new LigneCredit();
                     critere.setNomTable("situationLC_vide");
