@@ -149,7 +149,7 @@ public class BordereauFF extends Bordereau{
         if(listeFille!=null && listeFille.length>0){
         FactureFournisseur ff = null;
         for(BordereauFilleLibComplet details : listeFille){
-            ff = ((BordereauFille)details).getFF("FACTURE_FOURNISSEUR_MERE",c);
+            ff = ((BordereauFille)details).getFF("FACTUREFOURNVALIDE_TOUS",c);
             if(ff.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + ff.getId() + " d\\351j\\340 vis\\351e.");
         }
 
