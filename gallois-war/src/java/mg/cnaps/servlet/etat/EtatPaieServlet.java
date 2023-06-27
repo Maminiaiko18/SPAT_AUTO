@@ -4221,11 +4221,11 @@ public class EtatPaieServlet extends HttpServlet {
             BordereauLibComplet[] mere = (BordereauLibComplet[]) CGenUtil.rechercher(bordereau, null, null, null, " and id='" + id + "'");
             Map param = new HashMap();
 
-                param.put("code_etab", mere[0].getDirection());
+                param.put("code_etab", mere[0].getDirectionlib());
                 param.put("annee", Utilitaire.getAnnee(mere[0].getDaty()) + "");
                 param.put("piece", mere[0].getNumero());
                 param.put("du", mere[0].getDaty());
-                param.put("projet", mere[0].getProjet());
+                param.put("projet", mere[0].getProjetlib());
                 param.put("numero", mere[0].getNumfsb());
 
 
