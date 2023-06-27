@@ -10,7 +10,7 @@
     suiviProvision.setNomTable(setNomTableNormale);
     String listeCrt[] = {"id", "caisse","daty","numpiece","tiers","code","codeprovision"};
     String listeInt[] = {"daty"};       
-    String libEntete[] = {"id", "daty", "caisse","credit","numpiece","codeprovision","montantprovision", "tiers","montant","code"};
+    String libEntete[] = {"id", "daty", "caisse","credit","numpiece","codeprovision","montantprovision", "tiers","montant","dateliaison","code"};
     PageRecherche pr = new PageRecherche(suiviProvision, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
 
     pr.setTitre("Suivi Provision");
@@ -45,7 +45,7 @@
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     //Definition des libelles � afficher
-    String libEnteteAffiche[] = {"id", "daty", "caisse","credit","numero piece","code provision","montant provision", "tiers","montant","code facture"};
+    String libEnteteAffiche[] = {"id", "daty", "caisse","credit","numero piece","code provision","montant provision", "tiers","montant","date liaison","code facture"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
 

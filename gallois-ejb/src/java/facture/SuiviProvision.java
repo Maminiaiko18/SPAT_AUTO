@@ -16,6 +16,15 @@ public class SuiviProvision extends ClassMAPTable{
     private String codeprovision;
     private Date datefacture;
     private double montantprovision;
+    private Date dateliaison;
+
+    public Date getDateliaison() {
+        return dateliaison;
+    }
+
+    public void setDateliaison(Date dateliaison) {
+        this.dateliaison = dateliaison;
+    }
 
     public double getMontantprovision() {
         return montantprovision;
