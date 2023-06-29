@@ -911,6 +911,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     String numeroPiece = calculerNumeroPieceRecette(c);
                     this.setNumPiece(numeroPiece);
                 }
+                if(caisse.getId().compareToIgnoreCase(Constante.caisseCentraleEspece)==0 &&  this.getCredit() > 0 && this.getIdplacement()==null){
+                    String numeroPiece = calculerNumeroPiece(c);
+                    this.setNumPiece(numeroPiece);
+                }
                 
                     if (this.getIdplacement() != null) {
                     /*if (!this.getIdplacement().startsWith("FC")) {
