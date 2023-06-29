@@ -551,7 +551,8 @@ public class Engagement extends ClassEtat {
             if(liaisons.length > 0)
                 throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
             
-            if(this.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Impossible \\340 lib\\351rer, d\\351j\\340 annul\\351");
+            if(this.getEtat() < ConstanteEtat.getEtatValider()) 
+                throw new Exception("Impossible \\340 lib\\351rer, d\\351j\\340 annul\\351");
             
             super.controleAnnulerVisa(c);
         } catch(Exception ex){
@@ -574,5 +575,11 @@ public class Engagement extends ClassEtat {
         catch(Exception e){
             throw e;
         }
+    }
+    
+    @Override
+    public void controler(Connection c) throws Exception {
+        if(this.getEtat() == ConstanteEtat.getEtatAnnuler()) 
+            throw new Exception("Impossible \\340 viser, d\\351j\\340 annul\\351");
     }
 }
