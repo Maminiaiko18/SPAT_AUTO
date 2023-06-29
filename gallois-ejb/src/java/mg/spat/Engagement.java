@@ -23,6 +23,7 @@ import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import bean.ValidationException;
+import facture.LiaisonEngagement;
 
 /**
  *
@@ -536,5 +537,42 @@ public class Engagement extends ClassEtat {
         this.setTiers(tiers);
         this.setAvecFacture(avecFacture);
         this.setMontant(montant);
+    }
+    
+    public void controleAnnulerVisa(Connection c) throws Exception
+    {
+        boolean ouvert = false;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                ouvert = true;
+            }
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider());
+            if(liaisons.length > 0)
+                throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
+            
+            if(this.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Impossible \\340 lib\\351rer, d\\351j\\340 annul\\351");
+            
+            super.controleAnnulerVisa(c);
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(ouvert && c != null) c.close();
+        }
+    }
+    
+    @Override
+    public void controleAnnuler(Connection c) throws Exception
+    {
+        try{
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider());
+            if(liaisons.length > 0)
+                throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
+            
+            super.controleAnnuler(c);
+        }
+        catch(Exception e){
+            throw e;
+        }
     }
 }
