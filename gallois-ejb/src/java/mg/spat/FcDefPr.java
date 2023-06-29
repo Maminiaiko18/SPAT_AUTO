@@ -1,6 +1,7 @@
 package mg.spat;
 
 import java.sql.Connection;
+import java.sql.Date;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
@@ -14,6 +15,16 @@ import utilitaire.Utilitaire;
 public class FcDefPr extends ClassEtat {
     String id, id1, id2;
     double montant;
+    Date dateliaison;
+
+
+    public Date getDateliaison() {
+        return dateliaison;
+    }
+
+    public void setDateliaison(Date dateliaison) {
+        this.dateliaison = dateliaison;
+    }
 
     public double getMontant() {
         return montant;

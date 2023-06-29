@@ -1131,6 +1131,8 @@ public class EtatPaieServlet extends HttpServlet {
                     montantLettre += " Ariary";
                 }
             }
+
+            if(tabFact.length==0 ) montantFacture = totalGeneral;arrondi=0;
             param.put("montant", montantFacture);
             param.put("arrondi", arrondi);
             param.put("total", totalGeneral);

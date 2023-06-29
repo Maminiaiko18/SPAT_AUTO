@@ -24,6 +24,8 @@ try{
     pi.setLien((String) session.getValue("lien"));  
     pi.getFormu().getChamp("id1").setLibelle("Facture client");
     pi.getFormu().getChamp("id2").setLibelle("Provision");
+    pi.getFormu().getChamp("dateliaison").setLibelle("Date");
+    pi.getFormu().getChamp("dateliaison").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("etat").setVisible(false);
 
     pi.getFormu().getChamp("id2").setPageAppel("choix/listeFactureClientChoix.jsp");
