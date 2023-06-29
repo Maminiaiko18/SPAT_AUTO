@@ -830,12 +830,14 @@ public class FactureFournisseur extends FactureClient {
         
         FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
         if(!this.getApresValidationException()){
-            if(ff.getNumeroop()==null) throw new Exception("Numero facture obligatoire.");
-            String sql = "select * from factfourn_msum_lib where lower(numeroop) = '" + ff.getNumeroop().toLowerCase() + "' and montant = " + ff.getMontant() + " and etat >= " + ConstanteEtat.getEtatCreer()+" and id!='"+this.getId()+"'";
-            FactureFournisseur[] doublons = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), sql, c);
-            if(doublons.length > 0){
-                this.setApresValidationException(true);
-                throw new ValidationException("Une facture("+doublons[0].getId()+") avec le numero: " + ff.getNumeroop() + " et avec montant HT: " + Utilitaire.formaterAr(ff.getMontant()) + " existe d\\351j\\340, voulez vous viser?",String.valueOf(this.getApresValidationException()),"validerFF");
+            if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) != 0 && this.getIdProvision()==null) {
+                if(ff.getNumeroop()==null) throw new Exception("Numero facture obligatoire.");
+                String sql = "select * from factfourn_msum_lib where lower(numeroop) = '" + ff.getNumeroop().toLowerCase() + "' and montant = " + ff.getMontant() + " and etat >= " + ConstanteEtat.getEtatCreer()+" and id!='"+this.getId()+"'";
+                FactureFournisseur[] doublons = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), sql, c);
+                if(doublons.length > 0){
+                    this.setApresValidationException(true);
+                    throw new ValidationException("Une facture("+doublons[0].getId()+") avec le numero: " + ff.getNumeroop() + " et avec montant HT: " + Utilitaire.formaterAr(ff.getMontant()) + " existe d\\351j\\340, voulez vous viser?",String.valueOf(this.getApresValidationException()),"validerFF");
+                }
             }
         
         this.setEstAncienne(1);
