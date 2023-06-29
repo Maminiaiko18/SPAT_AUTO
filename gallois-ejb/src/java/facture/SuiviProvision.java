@@ -14,8 +14,26 @@ public class SuiviProvision extends ClassMAPTable{
     private double montant;
     private String code;
     private String codeprovision;
+    private String numcheque;
     private Date datefacture;
     private double montantprovision;
+    private Date dateliaison;
+
+    public String getNumcheque() {
+        return numcheque;
+    }
+
+    public void setNumcheque(String numcheque) {
+        this.numcheque = numcheque;
+    }
+
+    public Date getDateliaison() {
+        return dateliaison;
+    }
+
+    public void setDateliaison(Date dateliaison) {
+        this.dateliaison = dateliaison;
+    }
 
     public double getMontantprovision() {
         return montantprovision;
