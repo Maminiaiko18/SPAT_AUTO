@@ -1,6 +1,6 @@
 <%-- 
     Document   : asBonDeLivraison-direct
-    Created on : 1 déc. 2020, 09:44:52
+    Created on : 1 dï¿½c. 2020, 09:44:52
     Author     : Finaritra 
 --%>
 
@@ -22,7 +22,7 @@
     
     if (request.getParameter("id_bc") != null) {
         idbc = request.getParameter("id_bc");
-        pi.getFormu().getChamp("id_bc").setLibelle("N° Bon de commande");
+        pi.getFormu().getChamp("id_bc").setLibelle("Nï¿½ Bon de commande");
         pi.getFormu().getChamp("id_bc").setAutre("readonly");
         pi.getFormu().getChamp("idbc").setVisible(false);
     }else{
@@ -32,7 +32,7 @@
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("remarque").setLibelle("numero BL");
-    pi.getFormu().getChamp("idbc").setLibelle("N° Bon de commande");
+    pi.getFormu().getChamp("idbc").setLibelle("Nï¿½ Bon de commande");
     pi.getFormu().getChamp("idbc").setDefaut(idbc);
     pi.getFormu().getChamp("id_bc").setDefaut(idbc);
     pi.getFormu().getChamp("etat").setVisible(false);
@@ -63,7 +63,7 @@
                                             <th style="background-color:#bed1dd">PU</th>
                                             <th style="background-color:#bed1dd">Remise</th>
                                             <th style="background-color:#bed1dd">TVA</th>
-                                            <th style="background-color:#bed1dd">Quantité</th>
+                                            <th style="background-color:#bed1dd">Quantitï¿½</th>
                                             <th style="background-color:#bed1dd">Montant</th>
                                         </tr>
                                     </thead>
@@ -77,7 +77,15 @@
                                     <input type="hidden" class="form form-control" name="nb" id="nb" value="<%=listef.length%>">
                                     <tr>
                                         <td><input type="hidden" class="form form-control" name="id" id="id<%=i%>" value="<%=listef[i].getId()%>"><%=listef[i].getId()%></td>
-                                        <td><input type="hidden" class="form form-control" name="produit" id="produit<%=i%>" value="<%=listef[i].getProduit()%>"><%=listef[i].getProduit()%></td>
+                                        <td>
+                                            <% if(listef[i].getProduit()==null) {  %>
+                                                <input type="hidden" class="form form-control" name="produit" id="produit<%=i%>" value="<%=listef[i].getDesignation()%>">
+                                                <%=listef[i].getDesignation()%>
+                                            <% } else { %>
+                                                <input type="hidden" class="form form-control" name="produit" id="produit<%=i%>" value="<%=listef[i].getProduit()%>">
+                                                <%=listef[i].getProduit()%>
+                                            <% } %>
+                                        </td>
                                         <td><input type="text" class="form form-control" name="pu" id="pu<%=i%>" value="<%=listef[i].getPu()%>" onchange="calculMontant(<%= i %>)"></td>
                                         <td><input type="text" class="form form-control" name="remise" id="remise<%=i%>" value="<%=listef[i].getRemise()%>" readonly></td>
                                         <td><input type="text" class="form form-control" name="tva" id="tva<%=i%>" value="<%=listef[i].getTva()%>" readonly></td>
