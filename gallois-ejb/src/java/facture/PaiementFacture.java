@@ -219,7 +219,7 @@ public class PaiementFacture extends ClassMAPTable{
                 if(fc.getMontantreste() * this.getMontant() < 0){
                     throw new Exception("Opération non autorisée");
                 }
-                if(Math.abs((float)fc.getMontantreste()) - Math.abs((float)this.getMontant()) < -0.000001){
+                if(Math.abs((float)fc.getMontantreste()) - Math.abs((float)this.getMontant()) < -0.1){
                     throw new Exception("Reste a payer facture inferieur au montant saisi");
                 }
             }

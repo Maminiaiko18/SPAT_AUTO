@@ -191,6 +191,8 @@
         pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
         pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
         pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
+        
+        pi.getFormufle().setApres("facture/facture-fournisseur-modif-vaovao.jsp&idmere="+mere.getId());
 
         pi.preparerDataFormu();
         mere = (FactureFournisseur) pi.getBase();

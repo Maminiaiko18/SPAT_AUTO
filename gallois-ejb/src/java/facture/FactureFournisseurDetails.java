@@ -16,6 +16,7 @@ import lignecredit.LigneCredit;
 import mg.spat.EngagementFille;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
+import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
 /**
@@ -195,5 +196,43 @@ public class FactureFournisseurDetails extends FactureClientDetails{
 
     public EngagementFille createEngagementFille(String idEngagement)throws Exception{
         return new EngagementFille(idEngagement,this.getDesignation(),this.getPu() * this.getQuantite() - this.getPu() * this.getQuantite() * this.getReduction() / 100);
+    }
+    
+    @Override
+    public int deleteToTableWithHisto(String refUser, Connection con) throws Exception {
+        FactureFournisseur mere = getMere(con);
+
+        if (mere != null && mere.getEtat() >= ConstanteEtat.getEtatValider()) {
+            throw new Exception("Ne peut \\352tre supprim\\351 car facture fournisseur d\\351j\\340 vis\\351e");
+        }
+
+        return super.deleteToTableWithHisto(refUser, con);
+    }
+
+    public FactureFournisseur getMere(Connection c) throws Exception {
+        int verif = 0;
+        FactureFournisseur res = null;
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+
+            FactureFournisseur ff = new FactureFournisseur();
+            FactureFournisseur[] tmp = (FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, c, " and id = '" + this.getIdmere()+ "'");
+
+            if (tmp != null && tmp.length > 0) {
+                res = tmp[0];
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return res;
     }
 }
