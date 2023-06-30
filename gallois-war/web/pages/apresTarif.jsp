@@ -369,7 +369,7 @@
     <%
         }else{
             %>
-                <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie+ rajoutLieFormu%>");</script>
+                <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie+ rajoutLieFormu%>&id=<%=request.getParameter("idmere")%>");</script>
             <%
         }
 

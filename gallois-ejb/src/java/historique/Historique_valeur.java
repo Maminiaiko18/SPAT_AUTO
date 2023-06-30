@@ -23,7 +23,7 @@ public class Historique_valeur extends ClassMAPTable {
     private String nom_table;
     private String nom_classe;
     private String val1, val2, val3, val4, val5, val6, val7, val8, val9, val10, val11, val12, val13, val14, val15, val16, val17, val18, val19, val20, val21, val22, val23, val24, val25, val26, val27, val28, val29, val30, val31, val32, val33, val34, val35, val36, val37, val38, val39, val40,
-                    val41, val42, val43, val44, val45, val46, val47, val48, val49, val50, val51, val52, val53, val54;
+                    val41, val42, val43, val44, val45, val46, val47, val48, val49, val50, val51, val52, val53, val54, val55, val56, val57, val58, val59, val60;
     private String ipuser;
 
     public String getVal54() {
@@ -849,5 +849,53 @@ public class Historique_valeur extends ClassMAPTable {
 
     public void setIpuser(String ipuser) {
 	this.ipuser = ipuser;
+    }
+
+    public String getVal55() {
+        return val55;
+    }
+
+    public void setVal55(String val55) {
+        this.val55 = val55;
+    }
+
+    public String getVal56() {
+        return val56;
+    }
+
+    public void setVal56(String val56) {
+        this.val56 = val56;
+    }
+
+    public String getVal57() {
+        return val57;
+    }
+
+    public void setVal57(String val57) {
+        this.val57 = val57;
+    }
+
+    public String getVal58() {
+        return val58;
+    }
+
+    public void setVal58(String val58) {
+        this.val58 = val58;
+    }
+
+    public String getVal59() {
+        return val59;
+    }
+
+    public void setVal59(String val59) {
+        this.val59 = val59;
+    }
+
+    public String getVal60() {
+        return val60;
+    }
+
+    public void setVal60(String val60) {
+        this.val60 = val60;
     }
 }
