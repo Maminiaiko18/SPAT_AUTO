@@ -1128,7 +1128,10 @@ public class EtatPaieServlet extends HttpServlet {
                 }
             }
 
-            if(tabFact.length==0 ) montantFacture = totalGeneral;arrondi=0;
+            if(tabFact.length==0 ){
+                 montantFacture = totalGeneral;
+                 arrondi=0;
+            }
             param.put("montant", montantFacture);
             param.put("arrondi", arrondi);
             param.put("total", totalGeneral);
