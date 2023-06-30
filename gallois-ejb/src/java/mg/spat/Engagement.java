@@ -23,6 +23,7 @@ import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import bean.ValidationException;
+import facture.LiaisonEngagement;
 
 /**
  *
@@ -34,7 +35,7 @@ public class Engagement extends ClassEtat {
     private double montant,disponible,dispoAvant,dispoApres,montantOP,montantreste;
     private Date daty;
     private int avecFacture,annee;
-    private String type = Constante.typeEngagementEng;
+    private String type;
 
     public Engagement(String designation,String codeEtablissement,String projet,double montant,double disponible,double dispoAvant,double dispoApres,String compte,String idLC,Date daty)throws Exception{
         this.setNomTable("ENGAGEMENT");
@@ -371,7 +372,7 @@ public class Engagement extends ClassEtat {
         Engagement engagement  = new Engagement();
         engagement.setNomTable("engagementlib");
         engagement = (Engagement)engagement.getById(this.getId(), null, c);
-        String rqt="SELECT  nvl(max(TO_NUMBER(num))+1,1) AS numerosuivant FROM NUMEROFSB where codeetablissementlib='"+engagement.getCodeEtablissementlib()+"' AND annee="+annee;
+        String rqt="SELECT  nvl(max(TO_NUMBER(num))+1,1) AS numerosuivant FROM NUMEROFSB where codeetablissement='"+engagement.getCodeEtablissement()+"' AND annee="+annee;
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
         return seq;
@@ -389,6 +390,7 @@ public class Engagement extends ClassEtat {
         
         double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
         if((float)montantTotal > (float)this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
+        if(this.getType() == null) this.setType(Constante.typeEngagementEng);
         if((float)this.getMontant() > (float)lc.getResteApresEngmt()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au reste apres engagement disponible ("+Utilitaire.formaterAr(lc.getResteApresEngmt())+")",this.getType(),"validerBC");
         this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
@@ -535,5 +537,49 @@ public class Engagement extends ClassEtat {
         this.setTiers(tiers);
         this.setAvecFacture(avecFacture);
         this.setMontant(montant);
+    }
+    
+    public void controleAnnulerVisa(Connection c) throws Exception
+    {
+        boolean ouvert = false;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                ouvert = true;
+            }
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider());
+            if(liaisons.length > 0)
+                throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
+            
+            if(this.getEtat() < ConstanteEtat.getEtatValider()) 
+                throw new Exception("Impossible \\340 lib\\351rer, d\\351j\\340 annul\\351");
+            
+            super.controleAnnulerVisa(c);
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(ouvert && c != null) c.close();
+        }
+    }
+    
+    @Override
+    public void controleAnnuler(Connection c) throws Exception
+    {
+        try{
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider());
+            if(liaisons.length > 0)
+                throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
+            
+            super.controleAnnuler(c);
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+    
+    @Override
+    public void controler(Connection c) throws Exception {
+        if(this.getEtat() == ConstanteEtat.getEtatAnnuler()) 
+            throw new Exception("Impossible \\340 viser, d\\351j\\340 annul\\351");
     }
 }

@@ -82,11 +82,11 @@ public class Liberer extends ClassEtat {
 
     @Override
     public void controler(Connection c) throws Exception {
-			String nomTable = "engagementlibV";
-			Engagement engagement = findEngagement(nomTable, c);
-			if(engagement == null) throw new Exception("engagement introuvable ou non visé");
-			if(engagement.getMontant() < this.getMontant()) throw new Exception("Reste engager inferieur au montant liberer "+engagement.getDisponible());
-			super.controler(c);
+        String nomTable = "engagementlibV";
+        Engagement engagement = findEngagement(nomTable, c);
+        if(engagement == null) throw new Exception("engagement introuvable ou non visé");
+        if(engagement.getMontantreste() < this.getMontant()) throw new Exception("Montant reste de l'engagement = " +engagement.getMontantreste() + " inf\\351rieur au montant \\340 liberer.");
+        super.controler(c);
     }
     
     
@@ -103,13 +103,13 @@ public class Liberer extends ClassEtat {
         return null;
     }
 
-    public Object validerObject(String u, Connection c) throws Exception{
+    /*public Object validerObject(String u, Connection c) throws Exception{
         Engagement engagement=findEngagement(null, c);
         if(engagement!=null){
-            engagement.setDispoApres(engagement.getDispoApres()-this.getMontant());
+            engagement.setDispoApres(engagement.getDispoApres()+this.getMontant());
             engagement.updateToTableWithHisto(u, c);
         }  
         return super.validerObject(u, c);
-    }
+    }*/
     
 }
