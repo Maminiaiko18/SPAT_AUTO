@@ -61,8 +61,18 @@ public class FactureFournisseur extends FactureClient {
     private String modepaiement;
     private String typeEngagement;
     private boolean apresValidationException;
+    private Date datedevise;
 
-	public String getModepaiement() {
+
+	public Date getDatedevise() {
+        return datedevise;
+    }
+
+    public void setDatedevise(Date datedevise) {
+        this.datedevise = datedevise;
+    }
+
+    public String getModepaiement() {
 		return this.modepaiement;
 	}
 
@@ -311,7 +321,6 @@ public class FactureFournisseur extends FactureClient {
     public void setIdbc(String idbc) {
         this.idbc = idbc;
     }
-
     public String getTypeEngagement() {
         return typeEngagement;
     }
