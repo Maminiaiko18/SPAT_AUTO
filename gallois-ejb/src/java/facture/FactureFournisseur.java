@@ -49,8 +49,18 @@ public class FactureFournisseur extends FactureClient {
     private Date dateFacture;
     private String numBc, numBed;
     private String modepaiement;
+    private Date datedevise;
 
-	public String getModepaiement() {
+
+	public Date getDatedevise() {
+        return datedevise;
+    }
+
+    public void setDatedevise(Date datedevise) {
+        this.datedevise = datedevise;
+    }
+
+    public String getModepaiement() {
 		return this.modepaiement;
 	}
 
