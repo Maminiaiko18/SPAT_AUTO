@@ -69,7 +69,15 @@ public class FactureClient extends ClassMere {
     private double nbJours, montantfacture, montanttraite;
     private double montantapred,montanthtsimple;
     private double montantsansreduction;
+    private String nomnavire;
 
+
+    public String getNomnavire() {
+        return nomnavire;
+    }
+    public void setNomnavire(String nomnavire) {
+        this.nomnavire = nomnavire;
+    }
     public double getMontantSansReduction(){
         return this.montantsansreduction;
     }
