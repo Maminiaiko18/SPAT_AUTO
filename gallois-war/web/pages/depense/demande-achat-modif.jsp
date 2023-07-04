@@ -1,6 +1,6 @@
 <%-- 
     Document   : asBonDeCommande-modif
-    Created on : 8 déc. 2020, 09:28:55
+    Created on : 8 dï¿½c. 2020, 09:28:55
     Author     : Sanda
 --%>
 <%@page import="mg.spat.DemandeAchatFille"%>
@@ -31,11 +31,11 @@
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
         
-        pi.getFormu().getChamp("codeetablissement").setLibelle("Code établissement");
+        pi.getFormu().getChamp("codeetablissement").setLibelle("Code ï¿½tablissement");
         pi.getFormu().getChamp("projet").setLibelle("Projet");
         pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
-        pi.getFormu().getChamp("designation").setLibelle("Désignation");
-        pi.getFormu().getChamp("num").setLibelle("Numéro");
+        pi.getFormu().getChamp("designation").setLibelle("Dï¿½signation");
+        pi.getFormu().getChamp("num").setLibelle("Numï¿½ro");
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("codeetablissementlib").setVisible(false);
         pi.getFormu().getChamp("projetlib").setVisible(false);
@@ -64,9 +64,9 @@
         
         pi.getFormufle().getChamp("id_0").setLibelle("Id");
         pi.getFormufle().getChamp("produit_0").setLibelle("Produit");
-        pi.getFormufle().getChamp("designation_0").setLibelle("Désignation");
-        pi.getFormufle().getChamp("unite_0").setLibelle("Unité");
-        pi.getFormufle().getChamp("qte_0").setLibelle("Qté");
+        pi.getFormufle().getChamp("designation_0").setLibelle("Dï¿½signation");
+        pi.getFormufle().getChamp("unite_0").setLibelle("Unitï¿½");
+        pi.getFormufle().getChamp("qte_0").setLibelle("Qtï¿½");
         pi.getFormufle().getChamp("pu_0").setLibelle("PU");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
         
@@ -110,6 +110,44 @@
     </div>
 </div>                    
 <script>
+    function add_line_tab(champ){
+        var firstElement = document.getElementById("ajout_multiple_ligne").lastChild.innerHTML;
+        var indiceNew = $("#ajout_multiple_ligne tr").length;
+        console.log("firstElement",firstElement)
+        var indiceAvant = indiceNew-1;
+        var selectElement = document.getElementById("unite_"+indiceAvant);
+        var contenu = '<select name="unite_'+indiceNew +'" class="form-control" id="unite_'+indiceNew +'" >'+selectElement.innerHTML + '</select>';
+        //var newElem = firstElement.toString().replaceAll(/(?<=[^0-9])0(?=[^0-9])/g, ''+indiceNew);
+        var newElem = firstElement.replaceAll(/[0-9]/g, indiceNew);
+        newElem = newElem.replaceAll(indiceNew+""+indiceNew, indiceNew);
+        console.log("newElen",newElem)
+        $("#ajout_multiple_ligne").append("<tr id='ligne-multiple-"+indiceNew+"'>"+newElem+"</tr>");
+        $("#nombreLigne").val(indiceNew+1);
+        var parentElement = document.getElementById("unite_"+indiceNew).parentNode; 
+        parentElement.innerHTML = contenu;
+
+    }
+
+    function add_line_tabs(champ){
+        var firstElement = document.getElementById("ajout_multiple_ligne").lastChild.innerHTML;
+        
+        for(let i=0;i<10;i++){
+            var indiceNew = $("#ajout_multiple_ligne tr").length;
+            var indiceAvant = indiceNew-1
+            var selectElement = document.getElementById("unite_"+indiceAvant);
+            var contenu = '<select name="unite_'+indiceNew +'" class="form-control" id="unite_'+indiceNew +'" >'+selectElement.innerHTML+ '</select>';
+            //var newElem = firstElement.replaceAll(/(?<=[^0-9])0(?=[^0-9])/g, (indiceNew+i));
+            var newElem = firstElement.replaceAll(/[0-9]/g, indiceNew);
+            newElem = newElem.replaceAll(indiceNew+""+indiceNew, indiceNew);
+            newElem = newElem.replaceAll(indiceNew+""+indiceNew+""+indiceNew+""+indiceNew, indiceNew);
+            $("#ajout_multiple_ligne").append("<tr id='ligne-multiple-"+(indiceNew)+"'>"+newElem+"</tr>");
+            $("#nombreLigne").val(indiceNew+(1));
+            var parentElement = document.getElementById("unite_"+indiceNew).parentNode;
+            parentElement.innerHTML = contenu;
+
+        }
+    }
+
     function getMontant(i){
         var qteStr = $('#qte_'+i).val().trim();
         var puStr = $('#pu_'+i).val().trim();
