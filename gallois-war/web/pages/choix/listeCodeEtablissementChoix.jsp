@@ -1,6 +1,6 @@
 <%-- 
     Document   : listeCodeEtablissementChoix.jsp
-    Created on : 29 déc. 2020, 09:30:11
+    Created on : 29 dï¿½c. 2020, 09:30:11
     Author     : Lenovo
 --%>
 
@@ -24,9 +24,9 @@
     pr.setApres("listeCodeEtablissementChoix.jsp");
     pr.setChampReturn(champReturn);
     
-    pr.getFormu().getChamp("val").setLibelle("Désignation");
-    pr.getFormu().getChamp("desce").setLibelle("Déscription");
-    pr.getFormu().getChamp("departement").setLibelle("Département");
+    pr.getFormu().getChamp("val").setLibelle("Dï¿½signation");
+    pr.getFormu().getChamp("desce").setLibelle("Dï¿½scription");
+    pr.getFormu().getChamp("departement").setLibelle("Dï¿½partement");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -46,7 +46,7 @@
                 <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="personneliste" id="personneliste">
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
                 </form>
-                <a  class="btn btn-success" style="margin: 0 47%;" href="<%="/spat/pages/globalnegoce.jsp?but=configuration/idvaldesce.jsp&ciblename=codeetablissement"%>"> Nouveau </a>
+                <%-- <a  class="btn btn-success" style="margin: 0 47%;" href="<%="/spat/pages/globalnegoce.jsp?but=configuration/idvaldesce.jsp&ciblename=codeetablissement"%>"> Nouveau </a> --%>
                 <br><br>
                 
                 <%
@@ -55,7 +55,7 @@
                 <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">                    
                     <% 
-                        String libEnteteAffiche[] = {"id", "Désignation", "Déscription", "Département", "Service"};
+                        String libEnteteAffiche[] = {"id", "Dï¿½signation", "Dï¿½scription", "Dï¿½partement", "Service"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); 
                     %>
