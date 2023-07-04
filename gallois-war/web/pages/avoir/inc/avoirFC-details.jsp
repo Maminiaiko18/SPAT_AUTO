@@ -5,7 +5,7 @@
     String id = request.getParameter("id");
     AvoirFCFille avoirFille=new AvoirFCFille();
     avoirFille.setNomTable("AVOIRFCFILLE_PLUS");
-    AvoirFCFille[] detail= (AvoirFCFille[]) CGenUtil.rechercher(avoirFille , null, null, " and idmere = '" + id+ "'");
+    AvoirFCFille[] detail= (AvoirFCFille[]) CGenUtil.rechercher(avoirFille , null, null, " and idmere = '" + id+ "'order by rang asc, DATEFACTUREFILLE  ASC");
     
 %>
     <!--    detail      -->
