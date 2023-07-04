@@ -437,11 +437,13 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     }
     
     @Override
-    public ClassMAPTable createObject(String u, Connection c){
-        Tiers t= new Tiers( this.getNom()+" "+this.getPrenom(), null, null, null, null, null, this.getAdresse(), null);
-        t.createObject(u,c);
-        this.setIdtiers(t.getId());
-        super.createObject();
+    public ClassMAPTable createObject(String u, Connection c) throws Exception{
+        Tiers t = this.genererTiers();
+                //new Tiers(this.getNom()+" "+this.getPrenom(), null, null, null, null, null, this.getAdresse(), null);
+        ClassMAPTable genere = t.createObject(u,c);
+        this.setIdtiers(genere.getTuppleID());
+        
+        return super.createObject(u, c);
     }
 
     public Tiers genererTiers() throws Exception{

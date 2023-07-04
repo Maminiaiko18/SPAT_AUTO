@@ -32,7 +32,8 @@ public class Tiers extends ClassEtat {
         this.setAdresse(adresse);
         this.setType(type);
     }
-        public Tiers(String nom, String description, String nif, String stat, String contact, String responsable, String adresse, String type ) throws Exception {
+        
+    public Tiers(String nom, String description, String nif, String stat, String contact, String responsable, String adresse, String type) throws Exception {
         this.setNomTable("tiers");
         this.setNom(nom);
         this.setDescription(description);
