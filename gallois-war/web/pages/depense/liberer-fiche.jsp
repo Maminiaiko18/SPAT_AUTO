@@ -38,8 +38,9 @@
     
         pc.getChampByName("idengagementlib").setLibelle("Engagement");
 //    pc.getChampByName("quantite").setVisible(false);
-    pc.getChampByName("idengagement").setVisible(false);
-   pc.getChampByName("idengagementlib").setLien(lien + "?but=depense/engagement-fiche.jsp","id="+idengagement+"&id=");
+        pc.getChampByName("idengagement").setVisible(false);
+        pc.getChampByName("daty").setLibelle("date");
+        pc.getChampByName("idengagementlib").setLien(lien + "?but=depense/engagement-fiche.jsp","id="+idengagement+"&id=");
 //    AttacherFichier[] fichiers = UploadService.getUploadFile(id);
 //    configuration.CynthiaConf.load();
 //    String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");

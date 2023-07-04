@@ -33,6 +33,8 @@
     }
     
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("daty").setLibelle("date");
+    pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     
     pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
     pi.getFormu().getChamp("idengagement").setAutre("readonly");

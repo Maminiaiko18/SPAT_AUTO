@@ -1,6 +1,6 @@
 <%-- 
     Document   : listeProjetChoix
-    Created on : 29 déc. 2020, 09:20:16
+    Created on : 29 dï¿½c. 2020, 09:20:16
     Author     : ACER
 --%>
 
@@ -21,7 +21,7 @@
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("listeProjetChoix.jsp");
     pr.getFormu().getChamp("designation").setLibelle("Code");
-    pr.getFormu().getChamp("projet").setLibelle("Désignation");
+    pr.getFormu().getChamp("projet").setLibelle("Dï¿½signation");
     
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
@@ -44,7 +44,7 @@
                  <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="personneliste" id="personneliste">
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
                 </form>
-                <a  class="btn btn-success" style="margin: 0 47.5%;" href="<%="/spat/pages/globalnegoce.jsp?but=budget/projet-saisie.jsp"%>"> Nouveau </a>
+                <%-- <a  class="btn btn-success" style="margin: 0 47.5%;" href="<%="/spat/pages/globalnegoce.jsp?but=budget/projet-saisie.jsp"%>"> Nouveau </a> --%>
                 <br><br>
                 <%
                     out.println(pr.getTableauRecap().getHtml());
@@ -53,7 +53,7 @@
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     
                     <% 
-                        String libEnteteAffiche[] = {"id", "Désignation", "Code"};
+                        String libEnteteAffiche[] = {"id", "Dï¿½signation", "Code"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>
