@@ -36,6 +36,7 @@
         pi.getFormu().getChamp("idengagement").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
+        pi.getFormu().getChamp("designation").setType("textarea");
         pi.getFormu().getChamp("daty").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pi.getFormu().getChamp("num").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);

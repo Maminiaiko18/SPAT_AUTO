@@ -72,6 +72,7 @@
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("remarque").setLibelle("R&eacute;f&eacute;rence");
         pi.getFormu().getChamp("designation").setLibelle("Designation");
+        pi.getFormu().getChamp("designation").setType("textarea");
         pi.getFormu().getChamp("fournisseur").setLibelle("Fournisseur");
         pi.getFormu().getChamp("numbc").setLibelle("Numero bon de commande");
         pi.getFormu().getChamp("numbc").setAutre("readonly");
