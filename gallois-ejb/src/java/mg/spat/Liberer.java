@@ -8,7 +8,7 @@ package mg.spat;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
-
+import java.sql.Date;
 /**
  *
  * @author Nouta
@@ -17,8 +17,17 @@ public class Liberer extends ClassEtat {
     private String id,idengagement,idengagementlib;
     private double montant;
     private String remarque;
+    private Date daty;
 
-	public String getRemarque() {
+	public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
+
+    public String getRemarque() {
 		return this.remarque;
 	}
 
@@ -82,6 +91,7 @@ public class Liberer extends ClassEtat {
 
     @Override
     public void controler(Connection c) throws Exception {
+            if(this.getMontant()<=0) throw new Exception("Montant invalide.");
 			String nomTable = "engagementlibV";
 			Engagement engagement = findEngagement(nomTable, c);
 			if(engagement == null) throw new Exception("engagement introuvable ou non visé");

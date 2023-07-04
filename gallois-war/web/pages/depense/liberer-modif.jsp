@@ -1,6 +1,6 @@
 <%-- 
     Document   : asBonDeCommande-modif
-    Created on : 8 déc. 2020, 09:28:55
+    Created on : 8 dï¿½c. 2020, 09:28:55
     Author     : Sanda
 --%>
 <%@page import="mg.spat.Liberer"%>
@@ -28,6 +28,8 @@
     pi.getFormu().getChamp("montant").setLibelle("Montant");
     
     pi.getFormu().getChamp("idengagement").setAutre("readonly");
+    pi.getFormu().getChamp("daty").setLibelle("date");
+
     pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp", "idengagement;idengagementlibelle");
     
     pi.preparerDataFormu();
