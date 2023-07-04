@@ -93,11 +93,11 @@ public class CreateObject {
                  rens.inserer(u.getTuppleID(),c);
                 return o;
             }
-            if( o instanceof InfoPersonnelGlobal) {
+            /*if( o instanceof InfoPersonnelGlobal) {
                 InfoPersonnelGlobal ipg = (InfoPersonnelGlobal)o;
                 SpatService.insererInfoPersonnelGlobal(ipg, refusers, c);
                 return o;
-            }
+            }*/
             
             /*if( o instanceof Prevision) {
                 Prevision prevision = (Prevision)o;

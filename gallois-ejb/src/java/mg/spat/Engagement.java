@@ -32,7 +32,7 @@ import facture.LiaisonEngagement;
 public class Engagement extends ClassEtat {
     private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib,observation;
     private String codeEtablissementlib,projetlib,tiers ,tierslib,num, idengagement;
-    private double montant,disponible,dispoAvant,dispoApres,montantOP,montantreste;
+    private double montant,disponible,dispoAvant,dispoApres,montantOP,montantreste,montantliberer;
     private Date daty;
     private int avecFacture,annee;
     private String type;
@@ -158,6 +158,14 @@ public class Engagement extends ClassEtat {
 
     public void setDaty(Date daty) {
         this.daty = daty;
+    }
+
+    public double getMontantliberer() {
+        return montantliberer;
+    }
+
+    public void setMontantliberer(double montantliberer) {
+        this.montantliberer = montantliberer;
     }
 
     public String getIdLC() {

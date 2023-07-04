@@ -10,18 +10,16 @@
         UserEJB u = (user.UserEJB) session.getValue("u");
         Liberer mvt = new Liberer();
         mvt.setNomTable("libererlib");
+        String libEntete[] = {"id", "idengagementlib", "montant"};
         String listeCrt[] = {"idengagement"};
         String listeInt[] = {};
         String libEntete[] = {"id", "remarque", "montant"};
 
         PageRecherche pr = new PageRecherche(mvt, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-        pr.setUtilisateur(u);
+        pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
-        String[] colSomme = null;
-        pr.creerObjetPage(libEntete, colSomme);
-        if(pr.getTableau().getHtml() != null){
-%>
+        pr.creerObjetPage(libEntete, null);
 
     <%
             String libEnteteAffiche[]= {"Id", "Remarque", "Montant"};
@@ -34,7 +32,10 @@
         else{
     %>
             <center><h4>Pas de r&eacute;sultat</h4></center>
-    <%
+<%
         }
-    %>
-    <%} catch(Exception e){e.printStackTrace();}%>
+    } 
+    catch(Exception e){
+        e.printStackTrace();
+    }
+%>
