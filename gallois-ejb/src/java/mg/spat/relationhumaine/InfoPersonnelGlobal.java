@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.Tiers;
 
+
 /**
  *
  * @author Antsa
@@ -435,6 +436,14 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
         return idtiers+";"+nom+" "+prenom;
     }
     
+    @Override
+    public ClassMAPTable createObject(String u, Connection c){
+        Tiers t= new Tiers( this.getNom()+" "+this.getPrenom(), null, null, null, null, null, this.getAdresse(), null);
+        t.createObject(u,c);
+        this.setIdtiers(t.getId());
+        super.createObject();
+    }
+
     public Tiers genererTiers() throws Exception{
         Tiers tiers = new Tiers();
         tiers.setNom(nom + " " + prenom);
