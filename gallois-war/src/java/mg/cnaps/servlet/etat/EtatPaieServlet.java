@@ -135,6 +135,7 @@ import user.*;
 import bean.*;
 import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
+import mg.spat.LibererLib;
 
 /**
  *
@@ -163,9 +164,12 @@ public class EtatPaieServlet extends HttpServlet {
             String action = request.getParameter("action");
             if (action.equalsIgnoreCase("ordonnerpayement")) {
                 ordonnerpayement(request, response);
-            } else if (action.equalsIgnoreCase("boncommande")) {
+            } else if (action.equalsIgnoreCase("imprimerLiberer")) {
+                imprimerLiberer(request, response);
+            }else if (action.equalsIgnoreCase("boncommande")) {
                 boncommande(request, response);
-            } else if (action.equalsIgnoreCase("imprimerBed")) {
+            }
+            else if (action.equalsIgnoreCase("imprimerBed")) {
                 imprimerBed(request, response);
             } else if (action.equalsIgnoreCase("recapitulatifCompteCourant")) {
                 recapitulatifCompteCourant(request, response);
@@ -320,6 +324,59 @@ public class EtatPaieServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
+    private void imprimerLiberer(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Connection c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+            
+            String id = request.getParameter("id");
+            LibererLib liberer = new LibererLib();
+            liberer.setId(request.getParameter("id"));
+            liberer.setNomTable("libererlib");
+            
+            Object[] objLiberer = (LibererLib[]) CGenUtil.rechercher(liberer, null, null,
+                    " and id = '" + liberer.getId() + "'");
+            liberer = (LibererLib)objLiberer[0];
+            
+//            System.out.println("XXXXXXXXXXXXXXXXXXX");
+//            System.out.println(liberer.getMontant());
+//            System.out.println("HUHU");
+//            System.out.println(liberer.getRemarque());
+//            
+            String remarque = liberer.getRemarque();
+            double montant = liberer.getMontant();
+            String etat = liberer.getEtatText(liberer.getEtat());
+            Date daty = liberer.getDaty();
+            String engagement = liberer.getIdengagementlib();
+
+            String montantlettrePro = ChiffreLettre.convertRealToString(new Double(montant))
+                    + " Ariary ";
+            String[] montantTexte = ChiffreLettre.convertRealToStringSepare(new Double(montant));
+            montantlettrePro = montantTexte[0];
+            
+            Map param = new HashMap();
+            param.put("montantPro", montantTexte);
+            param.put("num", montantTexte);
+            param.put("remarque", remarque);
+            param.put("etat", etat);
+            param.put("daty", daty);
+            param.put("engagement", engagement);
+   
+            setNomJasper("liberer");
+            String pdfName = "liberer";
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            UtilitaireImpression.imprimer(request, response, pdfName, param, null, getReportPath(), rt);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+    
     private void demandeAchat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             DemandeAchatMere jc = new DemandeAchatMere();

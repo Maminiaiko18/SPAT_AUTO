@@ -64,9 +64,9 @@
                 </div>
                 <div class="box-footer">
                     <p>
-                         <a class="btn btn-warning"   href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.Liberer&bute=depense/liberer-fiche.jsp&id=" + request.getParameter("id")%>" style="margin-right: 5px">Viser</a>
+                        <a class="btn btn-warning"   href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.Liberer&bute=depense/liberer-fiche.jsp&id=" + request.getParameter("id")%>" style="margin-right: 5px">Viser</a>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + id %>&nomtable=<%=table%>" style="margin-right: 10px">Modifier</a>
-
+                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerLiberer&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
                     </p>
                     <hr>
                 </div>
