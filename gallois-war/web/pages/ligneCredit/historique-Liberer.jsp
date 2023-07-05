@@ -14,12 +14,12 @@
         liberer.setNomTable(request.getParameter("etat"));
     }
 
-    String listeCrt[] = {"id",  "montant", "etatLib", "remarque", "daty","num", "codeEtablissementLib", "projetLib"}; 
+    String listeCrt[] = {"id",  "montant", "etatLib", "remarque", "daty","num", "codeEtablissementLib", "projetLib","idengagementlib"}; 
     String listeInt[] = {"daty"};       
-    String libEntete[] = {"id","daty","codeEtablissementLib", "projetLib", "montant", "num","remarque","etatLib"};
+    String libEntete[] = {"id","daty","idengagementlib","codeEtablissementLib", "projetLib", "montant", "num","remarque","etatLib"};
     PageRecherche pr = new PageRecherche(liberer, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
 
-    pr.setTitre("Historique liberer");
+    pr.setTitre("Historique libéré");
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("ligneCredit/historique-Liberer.jsp");
@@ -35,6 +35,7 @@
 //        pr.getFormu().getChamp("daty1").setDefaut(debutDate);
 //        pr.getFormu().getChamp("daty2").setDefaut(dateFin);
 //    }    
+    pr.getFormu().getChamp("idengagementlib").setLibelle("Engagement");
     pr.getFormu().getChamp("daty1").setLibelle("Date min");
     pr.getFormu().getChamp("daty2").setLibelle("Date max");
     pr.getFormu().getChamp("MONTANT").setLibelle("Montant");
@@ -49,12 +50,12 @@
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
     //Definition des lienTableau et des colonnes de lien
-    String lienTableau[] = {pr.getLien() + "?but=depense/liberer-fiche.jsp"};
-    String colonneLien[] = {"id"};
+    String lienTableau[] = {pr.getLien() + "?but=depense/liberer-fiche.jsp",pr.getLien() + "?but=depense/engagement-fiche.jsp"};
+    String colonneLien[] = {"id"/*,"idengagementlib"*/};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     //Definition des libelles  afficher
-    String libEnteteAffiche[] = {"id","date","code etablissement", "projet", "montant", "num FSB","remarque","etat"};
+    String libEnteteAffiche[] = {"id","date","engagement","code etablissement", "projet", "montant", "num FSB","remarque","etat"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
 <script>
