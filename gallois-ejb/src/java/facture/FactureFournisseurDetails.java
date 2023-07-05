@@ -181,6 +181,7 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
         try{
+            if(this.getDesignation()==null || this.getDesignation().compareToIgnoreCase("")==0) throw new Exception("Désignation details facture obligatoire.");
             String nomtable="situationLCDepenseGRP"; //budget groupé par direction et projet
             if(this.getCompte()!=null && this.getCompte().compareTo("")!=0) {
                 if(this.getCompte().length()==11) nomtable="SITUATIONLCDEPENSEVSD"; //budgetindividuel

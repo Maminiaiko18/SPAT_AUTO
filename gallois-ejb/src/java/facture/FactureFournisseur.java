@@ -1134,13 +1134,32 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public void controler(Connection c) throws Exception {
-        super.controler(c);
         if (this.getIdengagement() != null && this.getIdengagement().compareTo("") != 0) {
             Engagement eg = this.findEngagement(c);
             if (eg == null) {
                 throw new Exception("Engagement non visé");
             }
         }
+
+        if((this.getProjet()==null ||  this.getProjet().compareToIgnoreCase("")==0) ) {
+            throw new Exception("Code projet obligatoire.");
+        }
+
+        if(this.getCode_etablissement()==null || this.getCode_etablissement().compareToIgnoreCase("")==0)
+        {
+            throw new Exception("Code établissement obligatoire.");
+        }
+
+        if(this.getTiers()==null || this.getTiers().compareToIgnoreCase("")==0)
+        {
+            throw new Exception("Tiers Obligatoire.");
+        }
+
+        if(this.getDesignation()==null || this.getDesignation().compareToIgnoreCase("")==0)
+        {
+            throw new Exception("Designation Obligatoire.");
+        }
+        super.controler(c);
     }
 
     public LigneCredit[] findLigneCredit(String nomtable, Connection c, String compte) throws Exception {
