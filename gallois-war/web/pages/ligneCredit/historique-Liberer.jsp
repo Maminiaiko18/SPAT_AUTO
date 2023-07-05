@@ -3,19 +3,20 @@
 <%@page import="bean.TypeObjet"%>
 <%@page import="mg.spat.LibererLib"%>
 <%@page import="affichage.PageRecherche"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <% try{ 
     LibererLib liberer = new LibererLib();
     String[] etatVal = {"LIBERERLIB", "LIBERERLIBC", "LIBERERLIBV"};
-    String[] etatAff = {"Tous", "Créée(s)", "Visée(s)"};
+    String[] etatAff = {"Tous", "CrÃ©e(s)", "VisÃ©(s)"};
     liberer.setNomTable(etatVal[0]);        
     if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
         liberer.setNomTable(request.getParameter("etat"));
     }
 
-    String listeCrt[] = {"id",  "montant", "etat", "etatLib", "remarque", "daty","num", "codeEtablissementLib", "projetLib"}; 
+    String listeCrt[] = {"id",  "montant", "etatLib", "remarque", "daty","num", "codeEtablissementLib", "projetLib"}; 
     String listeInt[] = {"daty"};       
-    String libEntete[] = {"id",  "montant", "etat", "etatLib", "remarque", "daty","num", "codeEtablissementLib", "projetLib"};
+    String libEntete[] = {"id","daty","codeEtablissementLib", "projetLib", "montant", "num","remarque","etatLib"};
     PageRecherche pr = new PageRecherche(liberer, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
 
     pr.setTitre("Historique liberer");
@@ -37,24 +38,23 @@
     pr.getFormu().getChamp("daty1").setLibelle("Date min");
     pr.getFormu().getChamp("daty2").setLibelle("Date max");
     pr.getFormu().getChamp("MONTANT").setLibelle("Montant");
-    pr.getFormu().getChamp("ETAT").setLibelle("Etat");
-    pr.getFormu().getChamp("ETATLIB").setLibelle("Etat Lib");
+    pr.getFormu().getChamp("ETATLIB").setLibelle("Etat");
     pr.getFormu().getChamp("REMARQUE").setLibelle("Remarque");
     pr.getFormu().getChamp("NUM").setLibelle("Numero");
-    pr.getFormu().getChamp("CODEETABLISSEMENTLIB").setLibelle("Code Etab");
-    pr.getFormu().getChamp("PROJETLIB").setLibelle("Projet Lib");
+    pr.getFormu().getChamp("CODEETABLISSEMENTLIB").setLibelle("Code Ã©tablissement");
+    pr.getFormu().getChamp("PROJETLIB").setLibelle("Projet");
 
 //    pr.getFormu().changerEnChamp(liste);
 
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
     //Definition des lienTableau et des colonnes de lien
-    String lienTableau[] = {pr.getLien() + "?but=ligneCredit/historique-liberer.jsp"};
+    String lienTableau[] = {pr.getLien() + "?but=depense/liberer-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
-    //Definition des libelles ï¿½ afficher
-    String libEnteteAffiche[] = {"id",  "montant", "etat", "etatLib", "remarque", "daty","num", "codeEtablissementLib", "projetLib"};
+    //Definition des libelles  afficher
+    String libEnteteAffiche[] = {"id","date","code etablissement", "projet", "montant", "num FSB","remarque","etat"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
 <script>
