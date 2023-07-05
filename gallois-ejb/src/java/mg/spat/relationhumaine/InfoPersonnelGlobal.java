@@ -8,7 +8,9 @@ package mg.spat.relationhumaine;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.Calendar;
 import mg.spat.Tiers;
+
 
 /**
  *
@@ -435,6 +437,23 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
         return idtiers+";"+nom+" "+prenom;
     }
     
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception{
+        Tiers t = this.genererTiers();
+                //new Tiers(this.getNom()+" "+this.getPrenom(), null, null, null, null, null, this.getAdresse(), null);
+        ClassMAPTable genere = t.createObject(u,c);
+        this.setIdtiers(genere.getTuppleID());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.getDatenaissance());
+        int anneeNaiss = calendar.get(Calendar.YEAR);
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        int age = calendar.get(Calendar.YEAR) - anneeNaiss;
+        if(age < 18) throw new Exception("Age invalide. ( = "+(age)+")");
+        this.setAge(age);
+        
+        return super.createObject(u, c);
+    }
+
     public Tiers genererTiers() throws Exception{
         Tiers tiers = new Tiers();
         tiers.setNom(nom + " " + prenom);

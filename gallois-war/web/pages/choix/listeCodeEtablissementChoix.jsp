@@ -1,6 +1,6 @@
 <%-- 
     Document   : listeCodeEtablissementChoix.jsp
-    Created on : 29 déc. 2020, 09:30:11
+    Created on : 29 dï¿½c. 2020, 09:30:11
     Author     : Lenovo
 --%>
 
@@ -24,9 +24,9 @@
     pr.setApres("listeCodeEtablissementChoix.jsp");
     pr.setChampReturn(champReturn);
     
-    pr.getFormu().getChamp("val").setLibelle("Désignation");
+    pr.getFormu().getChamp("val").setLibelle("Dï¿½signation");
     pr.getFormu().getChamp("desce").setLibelle("Description");
-    pr.getFormu().getChamp("departement").setLibelle("Département");
+    pr.getFormu().getChamp("departement").setLibelle("Dï¿½partement");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -46,7 +46,7 @@
                 <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="personneliste" id="personneliste">
                     <% out.println(pr.getFormu().getHtmlEnsemble());%>
                 </form>
-                <a  class="btn btn-success" style="margin: 0 47%;" href="<%="/spat/pages/globalnegoce.jsp?but=configuration/idvaldesce.jsp&ciblename=codeetablissement"%>"> Nouveau </a>
+                <%-- <a  class="btn btn-success" style="margin: 0 47%;" href="<%="/spat/pages/globalnegoce.jsp?but=configuration/idvaldesce.jsp&ciblename=codeetablissement"%>"> Nouveau </a> --%>
                 <br><br>
                 
                 <%

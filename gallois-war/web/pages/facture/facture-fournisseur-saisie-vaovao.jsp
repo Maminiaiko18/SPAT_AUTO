@@ -75,7 +75,6 @@
         pi.getFormu().getChamp("dateRegul").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("Datedevise").setVisible(false);
-        pi.getFormu().getChamp("idom").setVisible(false);
         pi.getFormu().getChamp("Datedevise").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());

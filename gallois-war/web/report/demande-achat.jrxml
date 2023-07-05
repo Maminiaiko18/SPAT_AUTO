@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="demande-achat" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1a39488f-7d87-40a2-bfc1-4eb65e953b59">
-	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.zoom" value="1.3310000000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="52"/>
+	<property name="ireport.y" value="88"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -125,11 +125,11 @@
 		</band>
 	</title>
 	<detail>
-		<band height="51" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<elementGroup>
 				<elementGroup>
 					<componentElement>
-						<reportElement key="table" style="table" x="0" y="0" width="555" height="51" uuid="5d6bf98a-bebd-4ca0-9261-af1b1cb51e2b"/>
+						<reportElement key="table" style="table" x="0" y="0" width="555" height="24" uuid="5d6bf98a-bebd-4ca0-9261-af1b1cb51e2b"/>
 						<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 							<datasetRun subDataset="Table Dataset 1" uuid="5a5335f9-acd5-440b-b600-a8e90087f4cb">
 								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
@@ -144,7 +144,7 @@
 										<text><![CDATA[DESIGNATIONS]]></text>
 									</staticText>
 								</jr:tableHeader>
-								<jr:detailCell style="table_TD" height="34" rowSpan="1">
+								<jr:detailCell style="table_TD" height="20" rowSpan="1">
 									<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 										<reportElement x="10" y="0" width="370" height="20" uuid="af9fc6b6-98ac-4926-be7a-17ad177158f2"/>
 										<textElement verticalAlignment="Top">
@@ -164,7 +164,7 @@
 										<text><![CDATA[U]]></text>
 									</staticText>
 								</jr:tableHeader>
-								<jr:detailCell style="table_TD" height="34" rowSpan="1">
+								<jr:detailCell style="table_TD" height="20" rowSpan="1">
 									<textField isBlankWhenNull="true">
 										<reportElement x="0" y="0" width="90" height="20" uuid="c74a8704-499a-4b20-a9b6-da735a99fb88"/>
 										<textElement textAlignment="Center">
@@ -184,7 +184,7 @@
 										<text><![CDATA[QTE]]></text>
 									</staticText>
 								</jr:tableHeader>
-								<jr:detailCell style="table_TD" height="34" rowSpan="1">
+								<jr:detailCell style="table_TD" height="20" rowSpan="1">
 									<textField pattern="#,##0.00" isBlankWhenNull="true">
 										<reportElement x="0" y="0" width="84" height="20" uuid="0dff01da-ddcb-4529-8644-80f31d42fbe4"/>
 										<textElement textAlignment="Center">
