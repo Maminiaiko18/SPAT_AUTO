@@ -357,14 +357,18 @@ public class EtatPaieServlet extends HttpServlet {
             
             Map param = new HashMap();
             param.put("montantPro", montantTexte);
-            param.put("num", montantTexte);
+            param.put("num", liberer.getNum());
             param.put("remarque", remarque);
             param.put("etat", etat);
             param.put("daty", daty);
-            param.put("engagement", engagement);
+            param.put("engagement", engagement); 
+            param.put("etb", liberer.getCodeEtablissementLib()); 
+            param.put("prj", liberer.getProjetLib()); 
+            param.put("mtt", liberer.getMontant()); 
+            System.out.println("montantlettrePro"+liberer.getMontant());
    
-            setNomJasper("liberer");
-            String pdfName = "liberer";
+            setNomJasper("liberation");
+            String pdfName = "liberation";
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             UtilitaireImpression.imprimer(request, response, pdfName, param, null, getReportPath(), rt);
 
