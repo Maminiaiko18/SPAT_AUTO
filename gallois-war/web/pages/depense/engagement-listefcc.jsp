@@ -5,6 +5,8 @@
 --%>
 <%@page import="mg.spat.Engagement"%>
 <%@page import="affichage.PageRecherche"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%
     try {
 
@@ -15,15 +17,16 @@
         eng.setNomTable(nomTableEtat);
         }
 
-        String listeCrt[] = {"id", "designation","codeEtablissement","codeetablissementlib","projet","projetlib", "daty", "tierslib","num", "annee"};
+        String listeCrt[] = {"id", "designation","codeetablissementlib","projetlib", "daty", "tierslib","num", "annee"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "designation", "montant"/*,"montantOP", "montantreste"*/,"dispoavant","dispoapres","codeetablissementlib","projetlib", "tierslib", "daty","num", "annee"};
+        String libEntete[] = {"id", "designation", "montant"/*,"montantOP", "montantreste"*/,"dispoavant","dispoapres","codeetablissementlib","projetlib", "tierslib", "daty","num", "annee","montantliberer"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
+
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("codeetablissementlib").setLibelle("Code &eacute;tablissemment");
         pr.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
@@ -73,7 +76,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "D&eacute;signation", "Montant"/*, "Montant d'ordre payment","Disponibilit&eacute;"*/,"Disponibilit&eacute; avant","Disponibilit&eacute; apr&egrave;s","Code &eacute;tablissement","Projet", "Tiers", "Date","No.", "Ann&eacutee"};
+            String libEnteteAffiche[] ={"Id", "D&eacute;signation", "Montant"/*, "Montant d'ordre payment","Disponibilit&eacute;"*/,"Disponibilit&eacute; avant","Disponibilit&eacute; apr&egrave;s","Code &eacute;tablissement","Projet", "Tiers", "Date","No.", "Ann&eacutee","montant liberé"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
