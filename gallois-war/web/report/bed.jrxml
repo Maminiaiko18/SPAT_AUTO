@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5a2a4c-d9f3-419e-bdaf-7d68b4b0a8e6">
-	<property name="ireport.zoom" value="1.2100000000000328"/>
+	<property name="ireport.zoom" value="1.771561000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="39"/>
+	<property name="ireport.y" value="111"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
 	<parameter name="code_etab" class="java.lang.String"/>
@@ -372,23 +372,23 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="40" splitType="Stretch">
-			<textField isBlankWhenNull="true">
-				<reportElement x="231" y="0" width="156" height="40" uuid="58bbaedb-4347-465e-8214-aed8a97ef0c0"/>
+		<band height="29" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="231" y="0" width="156" height="29" uuid="58bbaedb-4347-465e-8214-aed8a97ef0c0"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="387" y="0" width="98" height="40" uuid="035abaf2-ba4d-41d1-9334-f0fc93aaaac2"/>
+				<reportElement stretchType="RelativeToBandHeight" x="387" y="0" width="98" height="29" uuid="035abaf2-ba4d-41d1-9334-f0fc93aaaac2"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -402,7 +402,7 @@
 				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="485" y="0" width="70" height="40" uuid="c6981dc8-08bc-4e51-ba8c-3c8b9839355d"/>
+				<reportElement stretchType="RelativeToBandHeight" x="485" y="0" width="70" height="29" uuid="c6981dc8-08bc-4e51-ba8c-3c8b9839355d"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -415,8 +415,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montanttva}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="141" y="0" width="90" height="40" uuid="de72a936-8c6f-4767-ac2a-1d467a8a580d"/>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="141" y="0" width="90" height="29" uuid="de72a936-8c6f-4767-ac2a-1d467a8a580d"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -430,7 +430,7 @@
 				<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="71" y="0" width="70" height="40" uuid="2cac3462-297b-4fa1-97fe-c285fa9c6e19"/>
+				<reportElement stretchType="RelativeToBandHeight" x="71" y="0" width="70" height="29" uuid="2cac3462-297b-4fa1-97fe-c285fa9c6e19"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -444,7 +444,7 @@
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="71" height="40" uuid="03c73c9d-ee80-488b-b9b3-d209456da601"/>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="71" height="29" uuid="03c73c9d-ee80-488b-b9b3-d209456da601"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
