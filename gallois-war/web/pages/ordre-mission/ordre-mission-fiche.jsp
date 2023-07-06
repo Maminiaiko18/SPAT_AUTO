@@ -11,6 +11,7 @@
 <%@ page import="affichage.*" %>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
     try{
@@ -27,11 +28,11 @@
     pc.getChampByName("fonction").setLibelle("Fonction");
     pc.getChampByName("matricule").setLibelle("Matricule");
     pc.getChampByName("lieudeplacement").setLibelle("Lieu de Placement");
-    pc.getChampByName("datedepart").setLibelle("Date départ");
-    pc.getChampByName("duree").setLibelle("Durée");
+    pc.getChampByName("datedepart").setLibelle("Date dÃ©part");
+    pc.getChampByName("duree").setLibelle("DurÃ©e");
     pc.getChampByName("estForfaitairelib").setLibelle("Est Forfaitaire");
-    pc.getChampByName("idindemnitemissionlib").setLibelle("Indemnité de Mission");
-    pc.getChampByName("duree").setLibelle("Durée");
+    pc.getChampByName("idindemnitemissionlib").setLibelle("IndemnitÃ© de Mission");
+    pc.getChampByName("duree").setLibelle("DurÃ©e");
     pc.getChampByName("motifvoyage").setLibelle("Motif de voyage");
     pc.getChampByName("idindemnitemission").setVisible(false);
     pc.getChampByName("estForfaitaire").setVisible(false);
@@ -71,8 +72,10 @@
                             <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=ordre-mission/ordre-mission-fiche.jsp&classe=<%=classe %>" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&id=" + request.getParameter("id")%>&bute=ordre-mission/ordre-mission-fiche.jsp&classe=<%=classe %>" style="margin-right: 10px">Annuler Visa</a>
                             <hr>
-                            <a class="btn btn-default"  href="<%= lien + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&mode=1&idom=" + id%>" style="margin-right: 10px">Générer Bon Provisoire</a>
-                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDemandeOrdreDeMission&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
+                            <% if(t.getEtat()==ConstanteEtat.getEtatValider()) { %>
+                                <a class="btn btn-default"  href="<%= lien + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&mode=1&idom=" + id%>" style="margin-right: 10px">GÃ©nÃ©rer Bon Provisoire</a>
+                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDemandeOrdreDeMission&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
+                            <% } %>
                          </div>
                         <br/>
 
@@ -80,23 +83,23 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1 ">
-                <div class="nav-tabs-custom">
-                    <ul class="nav nav-tabs nav-center">
-                        <li class="<%= map.get("bon-provisoire")%>"><a href="module.jsp?but=<%=bute%>&id=<%=id%>&tab=bon-provisoire">Bon Provisoire</a></li>
-                    </ul>
-                    <div class="tab-content">       
-
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 ">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs nav-center">
+                            <li class="<%= map.get("bon-provisoire")%>"><a href="module.jsp?but=<%=bute%>&id=<%=id%>&tab=bon-provisoire">Bon Provisoire</a></li>
+                        </ul>
                         <div class="tab-content">       
-                            <jsp:include page="<%=tab%>" >
-                                <jsp:param name="idom" value="<%=id%>" />
-                            </jsp:include>
+
+                            <div class="tab-content">       
+                                <jsp:include page="<%=tab%>" >
+                                    <jsp:param name="idom" value="<%=id%>" />
+                                </jsp:include>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 
