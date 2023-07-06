@@ -1381,12 +1381,12 @@ public class FactureFournisseur extends FactureClient {
             EngagementFille engFille = new EngagementFille(engagement.getId(),this.getNumeroop(),montant);
             engFille.construirePK(c);
             engFille.insertToTableWithHisto(u, c);
-            if(controleBudget){
-                if(this.getTypeEngagement() != null)
-                    engagement.setType(this.getTypeEngagement());
+            if(this.getTypeEngagement() != null)
+                engagement.setType(this.getTypeEngagement());
+            if(controleBudget)
                 engagement.validerObject(u, c);
-            }
-            else engagement.validerObjectSansControleMontant(u, c);
+            else 
+                engagement.validerObjectSansControleMontant(u, c);
 
             LiaisonEngagement liaison = new LiaisonEngagement(engagement.getId(), this.getId(), montant, ConstanteEtat.getEtatCreer());
             liaison.createObject(u, c);
