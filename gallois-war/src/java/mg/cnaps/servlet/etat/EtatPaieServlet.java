@@ -2043,6 +2043,7 @@ public class EtatPaieServlet extends HttpServlet {
                 }
 
             }
+            param.put("compte", facture.getPourCompteLib());
             // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             // setNomJasper("facture_client2 - Copie");
             UtilitaireImpression.imprimer(request, response, "facture-client", param, dataSource, getReportPath(), rt);
