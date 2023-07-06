@@ -16,17 +16,17 @@
 <%@page import="service.UploadService"%>
 <%@page import="mg.spat.AttacherFichier"%>
 <%@page import="affichage.PageConsulte"%>
-<%@page import="mg.spat.Liberer"%>
+<%@page import="mg.spat.LibererLib"%>
 <%@page import="user.UserEJB"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
-    Liberer e = new Liberer();
+    LibererLib e = new LibererLib();
     e.setNomTable("libererlib");
     PageConsulte pc = new PageConsulte(e, request, u);
     pc.setTitre("FICHE LIBERER");
-    e = (Liberer) pc.getBase();
+    e = (LibererLib) pc.getBase();
     String id= e.getId();
     String idengagement=e.getIdengagement();
     String bute="depense/liberer-fiche.jsp";
@@ -37,7 +37,12 @@
     
     
         pc.getChampByName("idengagementlib").setLibelle("Engagement");
-//    pc.getChampByName("quantite").setVisible(false);
+        pc.getChampByName("etatlib").setVisible(false);
+        pc.getChampByName("CodeEtablissementLib").setLibelle("Code établissement");
+        pc.getChampByName("ProjetLib").setLibelle("Projet");
+        pc.getChampByName("num").setLibelle("Numero FSB");
+
+        
         pc.getChampByName("idengagement").setVisible(false);
         pc.getChampByName("daty").setLibelle("date");
         pc.getChampByName("idengagementlib").setLien(lien + "?but=depense/engagement-fiche.jsp","id="+idengagement+"&id=");
@@ -64,9 +69,9 @@
                 </div>
                 <div class="box-footer">
                     <p>
-                         <a class="btn btn-warning"   href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.Liberer&bute=depense/liberer-fiche.jsp&id=" + request.getParameter("id")%>" style="margin-right: 5px">Viser</a>
+                        <a class="btn btn-warning"   href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.Liberer&bute=depense/liberer-fiche.jsp&id=" + request.getParameter("id")%>" style="margin-right: 5px">Viser</a>
                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but="+modifPage+"&id=" + id %>&nomtable=<%=table%>" style="margin-right: 10px">Modifier</a>
-
+                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerLiberer&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
                     </p>
                     <hr>
                 </div>

@@ -136,6 +136,7 @@ import user.*;
 import bean.*;
 import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
+import mg.spat.LibererLib;
 
 /**
  *
@@ -164,9 +165,12 @@ public class EtatPaieServlet extends HttpServlet {
             String action = request.getParameter("action");
             if (action.equalsIgnoreCase("ordonnerpayement")) {
                 ordonnerpayement(request, response);
-            } else if (action.equalsIgnoreCase("boncommande")) {
+            } else if (action.equalsIgnoreCase("imprimerLiberer")) {
+                imprimerLiberer(request, response);
+            }else if (action.equalsIgnoreCase("boncommande")) {
                 boncommande(request, response);
-            } else if (action.equalsIgnoreCase("imprimerBed")) {
+            }
+            else if (action.equalsIgnoreCase("imprimerBed")) {
                 imprimerBed(request, response);
             } else if (action.equalsIgnoreCase("recapitulatifCompteCourant")) {
                 recapitulatifCompteCourant(request, response);
@@ -324,6 +328,63 @@ public class EtatPaieServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
+    private void imprimerLiberer(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Connection c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+            
+            String id = request.getParameter("id");
+            LibererLib liberer = new LibererLib();
+            liberer.setId(request.getParameter("id"));
+            liberer.setNomTable("libererlib");
+            
+            Object[] objLiberer = (LibererLib[]) CGenUtil.rechercher(liberer, null, null,
+                    " and id = '" + liberer.getId() + "'");
+            liberer = (LibererLib)objLiberer[0];
+            
+//            System.out.println("XXXXXXXXXXXXXXXXXXX");
+//            System.out.println(liberer.getMontant());
+//            System.out.println("HUHU");
+//            System.out.println(liberer.getRemarque());
+//            
+            String remarque = liberer.getRemarque();
+            double montant = liberer.getMontant();
+            String etat = liberer.getEtatText(liberer.getEtat());
+            Date daty = liberer.getDaty();
+            String engagement = liberer.getIdengagementlib();
+
+            String montantlettrePro = ChiffreLettre.convertRealToString(new Double(montant))
+                    + " Ariary ";
+            String[] montantTexte = ChiffreLettre.convertRealToStringSepare(new Double(montant));
+            montantlettrePro = montantTexte[0];
+            
+            Map param = new HashMap();
+            param.put("montantPro", montantTexte);
+            param.put("num", liberer.getNum());
+            param.put("remarque", remarque);
+            param.put("etat", etat);
+            param.put("daty", daty);
+            param.put("engagement", engagement); 
+            param.put("etb", liberer.getCodeEtablissementLib()); 
+            param.put("prj", liberer.getProjetLib()); 
+            param.put("mtt", liberer.getMontant()); 
+            System.out.println("montantlettrePro"+liberer.getMontant());
+   
+            setNomJasper("liberation");
+            String pdfName = "liberation";
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            UtilitaireImpression.imprimer(request, response, pdfName, param, null, getReportPath(), rt);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+    
     private void demandeAchat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             DemandeAchatMere jc = new DemandeAchatMere();
@@ -1986,6 +2047,7 @@ public class EtatPaieServlet extends HttpServlet {
                 }
 
             }
+            param.put("compte", facture.getPourCompteLib());
             // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             // setNomJasper("facture_client2 - Copie");
             UtilitaireImpression.imprimer(request, response, "facture-client", param, dataSource, getReportPath(), rt);
@@ -4388,9 +4450,9 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             param.put("nom", mere[0].getNom());
             param.put("prenom", mere[0].getPrenom());
-            param.put("fonction", mere[0].getFonction());
+            param.put("fonction", mere[0].getIdindemnitemissionlib());
             param.put("matricule", mere[0].getMatricule());
-            param.put("classeProf", mere[0].getIdindemnitemissionlib());
+            param.put("classeProf", mere[0].getFonction());
             param.put("direction", mere[0].getDirection());
             param.put("lieuDeDep", Utilitaire.champNull(mere[0].getLieudeplacement()));
             param.put("moyenDeDep", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
