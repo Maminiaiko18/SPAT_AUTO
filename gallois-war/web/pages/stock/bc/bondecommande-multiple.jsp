@@ -75,7 +75,7 @@
         pi.getFormu().getChamp("designation").setType("textarea");
         pi.getFormu().getChamp("fournisseur").setLibelle("Fournisseur");
         pi.getFormu().getChamp("numbc").setLibelle("Numero bon de commande");
-        pi.getFormu().getChamp("numbc").setAutre("readonly");
+        //pi.getFormu().getChamp("numbc").setAutre("readonly");
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
         pi.getFormu().getChamp("fournisseur").setPageAppel("choix/listeTiersChoix.jsp");
         pi.getFormu().getChamp("code_etab").setLibelle("Code etablissement");
