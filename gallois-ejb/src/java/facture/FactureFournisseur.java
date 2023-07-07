@@ -839,6 +839,7 @@ public class FactureFournisseur extends FactureClient {
                     throw new ValidationException("Une facture("+doublons[0].getId()+") avec le numero: " + ff.getNumeroop() + " et avec montant HT: " + Utilitaire.formaterAr(ff.getMontant()) + " existe d\\351j\\340, voulez vous viser?",String.valueOf(this.getApresValidationException()),"validerFF");
                 }
             }
+        }
         
         this.setEstAncienne(1);
         LigneCredit lc = this.getBudget(c);
@@ -921,7 +922,6 @@ public class FactureFournisseur extends FactureClient {
         }
         this.setNomTable("facture_fournisseur_mere");
         super.validerObject(u, c);
-    }
         return this;
     }
 
