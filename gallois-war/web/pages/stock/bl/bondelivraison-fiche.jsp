@@ -64,8 +64,8 @@
                             <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + livraison.getId()%>&acte=annulerVisa&bute=stock/bl/bondelivraison-fiche.jsp&classe=mg.spat.stock.BonDeLivraison&nomtable=AS_BONDELIVRAISON" style="margin-right:10px">Annuler</a>
                             <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=stock/bl/bondelivraison-modif.jsp&id=" + livraison.getId()%>" style="margin-right:10px">Modifier</a>
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&classe=mg.spat.stock.BonDeLivraison&bute=stock/bl/bondelivraison-fiche.jsp&id=" + livraison.getId()%>" style="margin-right: 10px">Viser</a>
-                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idBL=" + livraison.getId()%>" style="margin-right:10px">Facturer</a>
                             <%if(livraison.getEtat() == ConstanteEtat.getEtatValider()) { %>
+                                <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&idBL=" + livraison.getId()%>" style="margin-right:10px">Facturer</a>
                                 <a class="btn btn-info pull-right"  href="${pageContext .request.contextPath}/Paie?action=bondelivraison&id=<%=livraison.getId()%>" style="margin-right: 10px">Imprimer</a>         
                             <% } %>
                         </div>
@@ -79,7 +79,7 @@
         <div class="col-md-10 col-md-offset-1">
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-                <li class="<%= map.get("detail-bl")%>"><a href="globalnegoce.jsp?but=stock/bl/bondelivraison-fiche.jsp&id=<%=request.getParameter("id")%>&tab=detail-bl">Détails</a></li>
+                <li class="<%= map.get("detail-bl")%>"><a href="globalnegoce.jsp?but=stock/bl/bondelivraison-fiche.jsp&id=<%=request.getParameter("id")%>&tab=detail-bl">Dï¿½tails</a></li>
                 <li class="<%= map.get("facture-fournisseur-liste")%>"><a href="globalnegoce.jsp?but=stock/bl/bondelivraison-fiche.jsp&id=<%=request.getParameter("id")%>&tab=facture-fournisseur-liste&idbl=<%=livraison.getId()%>">Facture fournisseur</a></li>
             </ul>
 
