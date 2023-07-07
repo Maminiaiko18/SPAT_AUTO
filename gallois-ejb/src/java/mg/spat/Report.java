@@ -61,6 +61,10 @@ public class Report extends ClassEtat{
     public void controler(Connection c) throws Exception{
 //        Report report = this.getReportFarany(this.getDaty(),this.getCaisse(),c);
 //        this.montant=report.getMontant()+JournalService.getSoldeJournal(report.getDaty() , Utilitaire.getDateAvant(this.getDaty(), 1), this.getCaisse(), c);
+        if(this.getCaisse().compareToIgnoreCase("CAIS000011")==0 || this.getCaisse().compareToIgnoreCase("CAIS000012")==0)
+        {
+            if(this.getDevise().compareToIgnoreCase("Eur")!=0) throw new Exception("Report doit etre en devise pour ce caisse.");
+        }
         if(checkDoublon(c)){
             throw new Exception("Report deja effectue pour cette caisse");
         }    
