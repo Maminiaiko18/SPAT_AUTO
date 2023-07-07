@@ -52,7 +52,7 @@ public class DemandeAchatFille extends ClassMAPTable {
     }
 
     public void setDesignation(String designation) throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&&(designation==null || designation.compareTo("")==0 )) throw new Exception("designation obligatoire");
+        if(this.getMode().compareToIgnoreCase("modif")==0&&(designation==null || designation.compareTo("")==0 )) throw new Exception("designation details obligatoire");
         this.designation = designation;
     }
 

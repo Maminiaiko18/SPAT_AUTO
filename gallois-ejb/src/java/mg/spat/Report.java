@@ -37,7 +37,9 @@ public class Report extends ClassEtat{
         return montant;
     }
 
-    public void setMontant(double montant) {
+    public void setMontant(double montant) throws Exception {
+        System.out.println("coucouuuu"+this.getMode());
+        if(this.getMode().compareToIgnoreCase("select")!=0&&montant<=0) throw new Exception("montant report invalide");
         this.montant = montant;
     }
 
@@ -94,7 +96,7 @@ public class Report extends ClassEtat{
         return "id";
     }
     
-    public Report(Date daty, double montant) {
+    public Report(Date daty, double montant) throws Exception {
         super.setNomTable("report");
         this.setDaty(daty);
         this.setMontant(montant);
