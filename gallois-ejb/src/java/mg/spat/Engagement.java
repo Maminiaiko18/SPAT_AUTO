@@ -388,7 +388,8 @@ public class Engagement extends ClassEtat {
     
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        this.setNum(this.calculerNumero(c));
+        if(this.getType() == null) this.setType(Constante.typeEngagementEng);
+        if(this.getType().compareToIgnoreCase(Constante.typeEngagementBED) != 0)this.setNum(this.calculerNumero(c));
         LigneCredit lc = this.findSituationCredit(c);
         if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
         EngagementFille[] filles = this.getEngagementFilles(null, c);
@@ -398,7 +399,6 @@ public class Engagement extends ClassEtat {
         
         double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
         if((float)montantTotal > (float)this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
-        if(this.getType() == null) this.setType(Constante.typeEngagementEng);
         if((float)this.getMontant() > (float)lc.getResteApresEngmt()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au reste apres engagement disponible ("+Utilitaire.formaterAr(lc.getResteApresEngmt())+")",this.getType(),"validerBC");
         this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
@@ -417,7 +417,7 @@ public class Engagement extends ClassEtat {
                 check = true;
                 c.setAutoCommit(false);
             }
-            this.setNum(this.calculerNumero(c));
+            if(this.getType().compareToIgnoreCase(Constante.typeEngagementBED) != 0)this.setNum(this.calculerNumero(c));
             LigneCredit lc = this.findSituationCredit(c);
             if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
             EngagementFille[] filles = this.getEngagementFilles(null, c);
