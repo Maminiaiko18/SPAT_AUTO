@@ -823,105 +823,127 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
-        if(bedfilles.length > 0){
-            throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
-        }
-        
-        FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-        if(!this.getApresValidationException()){
-            if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) != 0 && this.getIdProvision()==null) {
-                if(ff.getNumeroop()==null) throw new Exception("Numero facture obligatoire.");
-                String sql = "select * from factfourn_msum_lib where lower(numeroop) = '" + ff.getNumeroop().toLowerCase() + "' and montant = " + ff.getMontant() + " and etat >= " + ConstanteEtat.getEtatCreer()+" and id!='"+this.getId()+"'";
-                FactureFournisseur[] doublons = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), sql, c);
-                if(doublons.length > 0){
-                    this.setApresValidationException(true);
-                    throw new ValidationException("Une facture("+doublons[0].getId()+") avec le numero: " + ff.getNumeroop() + " et avec montant HT: " + Utilitaire.formaterAr(ff.getMontant()) + " existe d\\351j\\340, voulez vous viser?",String.valueOf(this.getApresValidationException()),"validerFF");
+        boolean ouvert = false;
+        try{
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
+            if(bedfilles.length > 0){
+                throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
+            }
+
+            FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+            if(!this.getApresValidationException()){
+                if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) != 0 && this.getIdProvision()==null) {
+                    if(ff.getNumeroop()==null) throw new Exception("Numero facture obligatoire.");
+                    String sql = "select * from factfourn_msum_lib where lower(numeroop) = '" + ff.getNumeroop().toLowerCase() + "' and montant = " + ff.getMontant() + " and etat >= " + ConstanteEtat.getEtatCreer()+" and id!='"+this.getId()+"'";
+                    FactureFournisseur[] doublons = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), sql, c);
+                    if(doublons.length > 0){
+                        this.setApresValidationException(true);
+                        throw new ValidationException("Une facture("+doublons[0].getId()+") avec le numero: " + ff.getNumeroop() + " et avec montant HT: " + Utilitaire.formaterAr(ff.getMontant()) + " existe d\\351j\\340, voulez vous viser?",String.valueOf(this.getApresValidationException()),"validerFF");
+                    }
                 }
             }
-        }
-        
-        this.setEstAncienne(1);
-        LigneCredit lc = this.getBudget(c);
-        if (lc == null) {
-            throw new Exception("Budget non trouvé");
-        }
 
-        if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
-            this.genererPaiementDefinitive(u, this.getIdProvision(), c);
-        }
+            this.setEstAncienne(1);
+            LigneCredit lc = this.getBudget(c);
+            if (lc == null) {
+                throw new Exception("Budget non trouvé");
+            }
 
-        if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
-            this.setNum(this.calculerNumeroBP(c));
-        }
+            if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
+                this.genererPaiementDefinitive(u, this.getIdProvision(), c);
+            }
 
-        if (this.getIdengagement() != null) {
-            double resteAEngager = ff.getMontant();
-            BonDeCommande bc = findBCResteAFacturer(c);
-            Engagement[] lies = this.getEngagementLiee(null, c);
-            LiaisonEngagement liaison = new LiaisonEngagement();
-            if(bc != null){
-                if(bc.getMontantreste() < ff.getMontant()){
-                    resteAEngager -= bc.getMontantreste();
-                    FactureFournisseur f = new FactureFournisseur();
-                    f.setIdengagement(bc.getIdengagement());
-                    Engagement engbc = f.findEngagement("liaisonEngagementBCFF", "idengagement", c);
-                    if(engbc.getMontantreste() >= resteAEngager){
-                        liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), resteAEngager, ConstanteEtat.getEtatCreer());
-                        liaison.createObject(u, c);
-                        liaison.validerObject(u, c);
-                        resteAEngager = 0;
-                    }
-                    else{ 
-                        if(engbc.getMontantreste() > 0){
-                            liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), engbc.getMontantreste(), ConstanteEtat.getEtatCreer());
+            if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
+                this.setNum(this.calculerNumeroBP(c));
+            }
+
+            if (this.getIdengagement() != null) {
+                double resteAEngager = ff.getMontant();
+                BonDeCommande bc = findBCResteAFacturer(c);
+                Engagement[] lies = this.getEngagementLiee(null, c);
+                LiaisonEngagement liaison = new LiaisonEngagement();
+                if(bc != null){
+                    if(bc.getMontantreste() < ff.getMontant()){
+                        resteAEngager -= bc.getMontantreste();
+                        FactureFournisseur f = new FactureFournisseur();
+                        f.setIdengagement(bc.getIdengagement());
+                        Engagement engbc = f.findEngagement("liaisonEngagementBCFF", "idengagement", c);
+                        if(engbc.getMontantreste() >= resteAEngager){
+                            liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), resteAEngager, ConstanteEtat.getEtatCreer());
                             liaison.createObject(u, c);
                             liaison.validerObject(u, c);
-                            resteAEngager -= engbc.getMontantreste();
+                            resteAEngager = 0;
                         }
-                        resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
+                        else{ 
+                            if(engbc.getMontantreste() > 0){
+                                liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), engbc.getMontantreste(), ConstanteEtat.getEtatCreer());
+                                liaison.createObject(u, c);
+                                liaison.validerObject(u, c);
+                                resteAEngager -= engbc.getMontantreste();
+                            }
+                            resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
+                        }
+                    }
+                    else{
+                        resteAEngager = 0;
                     }
                 }
                 else{
-                    resteAEngager = 0;
+                    String requete = "select * from liaisonengagement where id1 = '" + this.getIdengagement() + "' and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider();
+                    LiaisonEngagement[] liaisonengff = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), requete, c);
+                    String id = null;
+                    if(liaisonengff.length == 0){
+                        Engagement engff = this.findEngagement("engagementlib", "id", c);
+                        if(engff != null && engff.getMontant() > 0){
+                            double m = (resteAEngager <= engff.getMontantreste()) ? resteAEngager : engff.getMontantreste();
+                            liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                            liaison.createObject(u, c);
+                            liaison.validerObject(u, c);
+                            resteAEngager -= m;
+                            id = this.getIdengagement();
+                            lies = this.getEngagementLiee(id, c);
+                        }
+                    }
+                    resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                 }
-            }
-            else{
-                String requete = "select * from liaisonengagement where id1 = '" + this.getIdengagement() + "' and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider();
-                LiaisonEngagement[] liaisonengff = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), requete, c);
-                String id = null;
-                if(liaisonengff.length == 0){
-                    Engagement engff = this.findEngagement("engagementlib", "id", c);
-                    if(engff != null && engff.getMontant() > 0){
-                        double m = (resteAEngager <= engff.getMontantreste()) ? resteAEngager : engff.getMontantreste();
-                        liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                if(resteAEngager > 0){
+                    throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
+                }
+            } else {
+                if (this.getIdbc() == null) {
+                    this.setMontant(ff.getMontant());
+                    //si provision dia tsy engagena
+                    if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0){
+                        this.setTypeEngagement(Constante.typeEngagementFF);
+                        this.insertEngagement(u, true, c);
+                        LiaisonEngagement liaison = new LiaisonEngagement(this.getIdengagement(), ff.getId(), ff.getMontant(), ConstanteEtat.getEtatCreer());
                         liaison.createObject(u, c);
                         liaison.validerObject(u, c);
-                        resteAEngager -= m;
-                        id = this.getIdengagement();
-                        lies = this.getEngagementLiee(id, c);
                     }
                 }
-                resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
             }
-            if(resteAEngager > 0){
-                throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
-            }
-        } else {
-            if (this.getIdbc() == null) {
-                this.setMontant(ff.getMontant());
-                //si provision dia tsy engagena
-                if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0){
-                    this.setTypeEngagement(Constante.typeEngagementFF);
-                    this.insertEngagement(u, true, c);
-                    LiaisonEngagement liaison = new LiaisonEngagement(this.getIdengagement(), ff.getId(), ff.getMontant(), ConstanteEtat.getEtatCreer());
-                    liaison.createObject(u, c);
-                    liaison.validerObject(u, c);
-                }
+            this.setNomTable("facture_fournisseur_mere");
+            super.validerObject(u, c);
+            
+            if(c != null && ouvert) {
+                c.commit();
             }
         }
-        this.setNomTable("facture_fournisseur_mere");
-        super.validerObject(u, c);
+        catch (Exception ex) {
+            if (c != null && ouvert) {
+                c.rollback();
+            }
+            throw ex;
+        } finally {
+            if (c != null && ouvert) {
+                c.close();
+            }
+        }
         return this;
     }
 
