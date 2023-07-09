@@ -1134,6 +1134,10 @@ public class FactureFournisseur extends FactureClient {
             }
         }
 
+        if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) != 0 && this.getIdProvision()==null) {
+            if(this.getNumeroop()==null) throw new Exception("Numero facture obligatoire.");
+        }
+
         if((this.getProjet()==null ||  this.getProjet().compareToIgnoreCase("")==0) ) {
             throw new Exception("Code projet obligatoire.");
         }
