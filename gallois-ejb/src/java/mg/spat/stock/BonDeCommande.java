@@ -879,6 +879,7 @@ public class BonDeCommande extends ClassEtat {
                 engFille.insertToTableWithHisto(u, c);
             }
 
+            engagement.setType(Constante.typeEngagementBC);
             engagement.validerObjectSansControleMontant(u, c);
 
             this.setIdengagement(engagement.getTuppleID());
