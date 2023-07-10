@@ -364,7 +364,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("num", liberer.getNum());
             param.put("remarque", remarque);
             param.put("etat", etat);
-            param.put("daty", daty);
+            param.put("daty", Utilitaire.datetostring(daty));
             param.put("engagement", engagement); 
             param.put("etb", liberer.getCodeEtablissementLib()); 
             param.put("prj", liberer.getProjetLib()); 
