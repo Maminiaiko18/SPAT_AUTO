@@ -112,7 +112,7 @@
 				<textElement textAlignment="Center">
 					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MOUVEMENT INTRA CAISSE]]></text>
+				<text><![CDATA[TRANSFERT INTRA CAISSE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="166" width="100" height="20" uuid="7c5769bf-20c6-4bd5-a6ec-8b525b122da8"/>
@@ -201,7 +201,7 @@
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{reference}]]></textFieldExpression>
