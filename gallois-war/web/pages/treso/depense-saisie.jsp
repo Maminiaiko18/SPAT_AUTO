@@ -19,6 +19,10 @@
         PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
 
         FactureFournisseur facture = new FactureFournisseur();
+        String modepaiement="";
+        if (request.getParameter("modepaiement") != null) {
+            modepaiement = request.getParameter("modepaiement");
+        }
         if (request.getParameter("idFacture") != null) {
             FactureFournisseur temporaire = new FactureFournisseur();
             temporaire.setNomTable("FACTFOURN_MSUM_LIB");
@@ -77,7 +81,7 @@
             }
         }
 
-        affichage.Champ[] liste = new affichage.Champ[5];
+        affichage.Liste[] liste = new affichage.Liste[5];
         Caisse esc = new Caisse();
         esc.setNomTable(vueCaisse);
         liste[0] = new Liste("caisse", esc, "VAL", "id");
@@ -87,6 +91,7 @@
         TypeObjet mode = new TypeObjet();
         mode.setNomTable(modeP);
         liste[2] = new Liste("idmode", mode, "desce", "id");
+        liste[2].setDefaultSelected(modepaiement);
 
         TypeObjet cheque = new TypeObjet();
         cheque.setNomTable("TYPECHEQUE");
@@ -141,10 +146,9 @@
                 pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr("" + ord[0].getMontant()));
                 pi.getFormu().getChamp("idordre").setDefaut(ord[0].getId());
                 pi.getFormu().getChamp("idordre").setValeurLibelle(ord[0].getRemarque());
-                pi.getFormu().getChamp("idmode").setDefaut(ord[0].getModepaiement());
+                pi.getFormu().getChamp("idmode").setDefaut(ord[0].getModepaiementlib());
                 pi.getFormu().getChamp("tiers").setValeurLibelle(ord[0].getTiers());
                 pi.getFormu().getChamp("tiers").setDefaut(ord[0].getBeneficiaire());
-                pi.getFormu().getChamp("idmode").setDefaut(ord[0].getModepaiement());
             }
         }
 

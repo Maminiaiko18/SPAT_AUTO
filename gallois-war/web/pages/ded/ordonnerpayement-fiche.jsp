@@ -17,6 +17,7 @@
         String id = a.getId();
         pc.getChampByName("idLigne").setVisible(false);
         pc.getChampByName("devise").setVisible(false);
+        pc.getChampByName("modepaiementlib").setVisible(false);
 
         pc.getChampByName("Ded_Id").setLibelle("Facture");
         pc.getChampByName("Ded_Id").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
@@ -77,9 +78,11 @@
                          <% if(a.getDed_Id() != null && a.getDed_Id().startsWith("FC")){%>
                             <a class="btn btn-success pull-primary"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&id=" + id +"&entree=1" %>"  style="margin-right: 10px">Entre caisse</a>
                         <%} else{%>
-                            <a class="btn btn-primary pull-primary"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&id=" + id%>"  style="margin-right: 10px">sortie caisse</a>
-                            <a class="btn btn-primary pull-primary"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&id=" + a.getId()%>" style="margin-right: 10px">Sortie banque</a>
-                    <%}%>
+                            <% if(a.getModepaiementlib().compareToIgnoreCase(Constante.modepaiementDefaut)==0){%>
+                                <a class="btn btn-primary pull-primary"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&id=" + id%>"  style="margin-right: 10px">sortie caisse</a>
+                            <%} else{%>
+                                <a class="btn btn-primary pull-primary"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&modepaiement="+a.getModepaiementlib()+"&id=" + a.getId()%>" style="margin-right: 10px">Sortie banque</a>
+                    <%} }%>
                         <a class="btn btn-danger pull-left"  href="<%=(String) session.getValue("lien") + "?but=ded/apresOrdonner.jsp&acte=annuler&classe=ded.OrdonnerPayement&bute=ded/ordonnerpayement-fiche.jsp&id=" + id%>"  style="margin-right: 10px">Annuler</a>
                     </div>
                     <div>
