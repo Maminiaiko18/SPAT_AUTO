@@ -256,7 +256,10 @@ public class BonDeCommande extends ClassEtat {
         return remarque;
     }
 
-    public void setRemarque(String remarque) {
+    public void setRemarque(String remarque) throws Exception {
+         if (this.getMode().compareToIgnoreCase("modif") == 0 && (remarque == null || remarque.compareToIgnoreCase("") == 0)) {
+            throw new Exception("Reference mere Obligatoire");
+        } 
         this.remarque = remarque;
     }
 
@@ -264,7 +267,12 @@ public class BonDeCommande extends ClassEtat {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+
+    
+    public void setDesignation(String designation) throws Exception {
+        if (this.getMode().compareToIgnoreCase("modif") == 0 && (designation == null || designation.compareToIgnoreCase("") == 0)) {
+            throw new Exception("Designation mere Obligatoire");
+        } 
         this.designation = designation;
     }
 
@@ -280,7 +288,10 @@ public class BonDeCommande extends ClassEtat {
         return fournisseur;
     }
 
-    public void setFournisseur(String fournisseur) {
+    public void setFournisseur(String fournisseur) throws Exception {
+         if (this.getMode().compareToIgnoreCase("modif") == 0 && (fournisseur == null || fournisseur.compareToIgnoreCase("") == 0)) {
+            throw new Exception("Fournisseur Obligatoire");
+        } 
         this.fournisseur = fournisseur;
     }
 
@@ -382,7 +393,10 @@ public class BonDeCommande extends ClassEtat {
         return projet;
     }
 
-    public void setProjet(String projet) {
+    public void setProjet(String projet) throws Exception {
+         if (this.getMode().compareToIgnoreCase("modif") == 0 && (projet == null || projet.compareToIgnoreCase("") == 0)) {
+            throw new Exception("Projet Obligatoire");
+        } 
         this.projet = projet;
     }
 
