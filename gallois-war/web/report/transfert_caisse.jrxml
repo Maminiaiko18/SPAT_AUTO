@@ -140,7 +140,7 @@
 	<columnHeader>
 		<band height="41" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="150" height="40" uuid="e9277b0d-9c64-434c-a7e1-e8e337ad8963"/>
+				<reportElement x="0" y="1" width="360" height="40" uuid="cc45926d-3a0d-4f8f-a24a-3980470be24a"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -150,20 +150,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Id]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="150" y="0" width="210" height="40" uuid="cc45926d-3a0d-4f8f-a24a-3980470be24a"/>
-				<box>
-					<topPen lineWidth="0.75"/>
-					<leftPen lineWidth="0.75"/>
-					<bottomPen lineWidth="0.75"/>
-					<rightPen lineWidth="0.75"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Référence]]></text>
+				<text><![CDATA[Chèques]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="360" y="0" width="195" height="40" uuid="21af20cb-448f-4170-b3db-caa2f581f363"/>
@@ -183,19 +170,7 @@
 	<detail>
 		<band height="40" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="150" height="40" uuid="ee417ff3-9d2a-40f6-82ea-b0dba550256d"/>
-				<box>
-					<leftPen lineWidth="0.75"/>
-					<bottomPen lineWidth="0.75"/>
-					<rightPen lineWidth="0.75"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="0" width="210" height="40" uuid="3e5d27b6-a93f-42d3-bf5f-55a1cc526aae"/>
+				<reportElement x="0" y="0" width="360" height="40" uuid="3e5d27b6-a93f-42d3-bf5f-55a1cc526aae"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -206,7 +181,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{reference}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="360" y="0" width="195" height="40" uuid="8a2b47b5-7f17-4623-99bd-de48a380048d"/>
 				<box>
 					<leftPen lineWidth="0.75"/>

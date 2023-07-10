@@ -61,7 +61,6 @@ public class MvtIntraCaisseFille extends ClassMAPTable{
     }
 
     public String getRemarque() {
-        if(remarque!=null) return Utilitaire.formaterAr(remarque);
         return remarque;
     }
 
