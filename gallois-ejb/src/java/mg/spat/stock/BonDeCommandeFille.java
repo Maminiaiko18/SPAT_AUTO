@@ -344,9 +344,6 @@ public class BonDeCommandeFille extends ClassMAPTable {
     }
 
     public void setRemarque(String remarque) throws Exception {
-         if (this.getMode().compareToIgnoreCase("modif") == 0 && (remarque == null || remarque.compareToIgnoreCase("") == 0)) {
-            throw new Exception("Remarque detail Obligatoire");
-        } 
         this.remarque = remarque;
     }
 

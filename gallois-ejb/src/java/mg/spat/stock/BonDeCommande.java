@@ -258,7 +258,7 @@ public class BonDeCommande extends ClassEtat {
 
     public void setRemarque(String remarque) throws Exception {
          if (this.getMode().compareToIgnoreCase("modif") == 0 && (remarque == null || remarque.compareToIgnoreCase("") == 0)) {
-            throw new Exception("Reference mere Obligatoire");
+            throw new Exception("Reference Obligatoire");
         } 
         this.remarque = remarque;
     }
@@ -271,7 +271,7 @@ public class BonDeCommande extends ClassEtat {
     
     public void setDesignation(String designation) throws Exception {
         if (this.getMode().compareToIgnoreCase("modif") == 0 && (designation == null || designation.compareToIgnoreCase("") == 0)) {
-            throw new Exception("Designation mere Obligatoire");
+            throw new Exception("Designation Obligatoire");
         } 
         this.designation = designation;
     }
