@@ -67,12 +67,12 @@
                             <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-details-saisie.jsp&idbordereau="+id%>" style="margin-right: 10px">Ajouter facture</a> 
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-modif.jsp&id=" + id %>" style="margin-right: 10px">Modifier</a>
-                           <label style="float:right;padding-right:10px">Accord : 
+                           <%-- <label style="float:right;padding-right:10px">Accord : 
                                     <select id="choix" onchange="choix()">
                                         <option value="1" selected>Oui</option>
                                         <option value="0">Non</option>
                                     </select>
-                                </label>
+                                </label> --%>
                         </div>
                     </div>
                 </div>
