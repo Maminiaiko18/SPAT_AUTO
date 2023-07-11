@@ -68,7 +68,7 @@
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             
             
-            String lienTableau[] = {pr.getLien() + "?but=avoir/avoirFF-fiche.jsp", pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
+            String lienTableau[] = {pr.getLien() + "?but=avoir/avoirFF-fiche.jsp", pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp"};
             String colonneLien[] = {"id", "idfacture"};
             String[] urlLienMultiple = {"id", "idfacture"};
             String[] urlLienAffiche = {"id", "id"};

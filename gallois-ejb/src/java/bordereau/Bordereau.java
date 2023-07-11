@@ -319,7 +319,8 @@ public class Bordereau extends ClassEtat {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+    public void setDesignation(String designation) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (designation==null || designation.compareToIgnoreCase("")==0)) throw new Exception("Designation obligatoire.");
         this.designation = designation;
     }
 
@@ -335,7 +336,8 @@ public class Bordereau extends ClassEtat {
         return tiers;
     }
 
-    public void setTiers(String tiers) {
+    public void setTiers(String tiers) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (tiers==null || tiers.compareToIgnoreCase("")==0)) throw new Exception("Tiers obligatoire.");
         this.tiers = tiers;
     }
 

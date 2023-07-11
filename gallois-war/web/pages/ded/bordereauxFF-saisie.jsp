@@ -70,7 +70,11 @@
         pi.getFormu().getChamp("directionlib").setVisible(false);
         pi.getFormu().getChamp("projetlib").setVisible(false);
         if(factures.length > 0){
-            pi.getFormu().getChamp("direction").setDefaut(factures[0].getCode_etablissementlib());
+            pi.getFormu().getChamp("direction").setDefaut(factures[0].getCode_etablissement());
+            pi.getFormu().getChamp("projet").setDefaut(factures[0].getProjet());
+            pi.getFormu().getChamp("tiers").setDefaut(factures[0].getTiers());
+            pi.getFormu().getChamp("tiers").setValeurLibelle(factures[0].getTierslib());
+            if(factures[0].getIdProvision()!=null) pi.getFormu().getChamp("designation").setDefaut(factures[0].getDesignation());
         }
 //        for( int i = 0 ; i < taille ; i++ ){
 //            pi.getFormufle().getChamp("idop_"+i).setAutre("readonly");
@@ -108,7 +112,7 @@
 %>
 <div class="content-wrapper">
     <h1><%=titre%></h1>
-    <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="<%=nomSaisie%>" id="<%=nomSaisie%>">
+    <form class='container' action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="bordereau" id="bordereau">
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             pi.getFormufle().makeHtmlInsertTableauIndex();
@@ -125,7 +129,36 @@
         <input name="nomFonctionSequence" type="hidden" id="colonneMere" value="<%=nomFonctionSequence%>">
     </form>
 </div>
+<script>
+    window.onload = () =>{
+        var submitBtns = document.querySelectorAll("button[name='Submit2'][type='submit']");
+        for(var i=0; i < submitBtns.length; i++){
+            modifySubmitBtn(submitBtns[i]);    
+        }
+    }
     
+    function modifySubmitBtn(btn){
+        btn.setAttribute("type","button");
+        btn.onclick = save;
+    }
+    
+    function save() {
+        var btn = this;
+        btn.disabled = true;
+        var query = $('#bordereau').serialize();
+        $.get("apresMultipleAjax.jsp?"+query, function(data, status){
+            var temp = data.trim().split("_");
+            if(temp[0] === 'error'){
+                btn.disabled = false;
+                alert(temp[1]);
+            }
+            else{
+                window.location.href = "<%=pi.getLien()%>?but=ded/bordereauxFF-fiche.jsp&id="+temp[1];
+            }
+        });
+    }
+
+</script>
 
 <%
 } catch (Exception e) {
