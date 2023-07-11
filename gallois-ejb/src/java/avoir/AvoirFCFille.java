@@ -27,7 +27,7 @@ public class AvoirFCFille extends ClassFille {
     private String idmere, compte, iddetailfacture, devise, designation;
     private double taux,montantHTDevise;
     private double maj,red;
-    double reduction;
+    private double reduction,majoration;
 
     public double getReduction() {
         return reduction;
@@ -313,6 +313,14 @@ public class AvoirFCFille extends ClassFille {
         }
         
         return null;
+    }
+
+    public double getMajoration() {
+        return majoration;
+    }
+
+    public void setMajoration(double majoration) {
+        this.majoration = majoration;
     }
 
 }
