@@ -47,8 +47,7 @@ from AvoirFCFille fc
 
 
 
-
-CREATE OR REPLACE  VIEW AVOIRFCFILLE_PDF (ID, IDMERE, IDDETAILFACTURE, MONTANT, COMPTE, REMISE, DESIGNATION, TAUX, DEVISE, TVA, QTE, PU, DUREE, MONTANTHTDEVISE, MAJ, RED, RANG, DATEFACTUREFILLE,reduction) AS 
+CREATE OR REPLACE  VIEW AVOIRFCFILLE_PDF (ID, IDMERE, IDDETAILFACTURE, MONTANT, COMPTE, REMISE, DESIGNATION, TAUX, DEVISE, TVA, QTE, PU, DUREE, MONTANTHTDEVISE, MAJ, reduction, RANG, DATEFACTUREFILLE,red) AS 
   SELECT av.ID,
        av.IDMERE,
        av.IDDETAILFACTURE,
@@ -64,7 +63,7 @@ CREATE OR REPLACE  VIEW AVOIRFCFILLE_PDF (ID, IDMERE, IDDETAILFACTURE, MONTANT, 
        CAST(nvl(av.duree, ca.duree) as NUMBER(30, 3))                                                  duree,
        CAST(CASE WHEN devise = 'Ar' THEN av.montant / ca.taux else av.montant END AS NUMBER(30, 3)) AS montantHTDevise,
        ca.majoration                                                                                AS maj,
-       ca.reduction                                                                                 AS red,
+       ca.reduction                                                                                 AS REDUCTION ,
        ca.rang,
        ca.datefacturefille ,
        av.reduction as red
