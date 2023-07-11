@@ -269,10 +269,7 @@ public class BonDeCommande extends ClassEtat {
 
 
     
-    public void setDesignation(String designation) throws Exception {
-        if (this.getMode().compareToIgnoreCase("modif") == 0 && (designation == null || designation.compareToIgnoreCase("") == 0)) {
-            throw new Exception("Designation Obligatoire");
-        } 
+    public void setDesignation(String designation) {
         this.designation = designation;
     }
 

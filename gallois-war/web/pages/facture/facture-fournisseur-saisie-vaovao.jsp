@@ -100,7 +100,9 @@
         pi.getFormu().getChamp("estMictsl").setVisible(false);
         pi.getFormu().getChamp("estAuto").setVisible(false);
         pi.getFormu().getChamp("typeEngagement").setVisible(false);
-        pi.getFormu().getChamp("remarque").setLibelle("Num FSB");
+        pi.getFormu().getChamp("remarque").setLibelle("Ref Compta");
+        pi.getFormu().getChamp("idom").setVisible(false);
+
 
         if (request.getParameter("idBL") != null) {
             pi.getFormu().getChamp("idBL").setVisible(true);
@@ -137,6 +139,7 @@
             pi.getFormu().getChamp("idom").setDefaut(request.getParameter("idom"));
             pi.getFormu().getChamp("idom").setAutre("readonly");
             pi.getFormu().getChamp("idom").setLibelle("Id OM");
+            pi.getFormu().getChamp("idom").setVisible(true);
             pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
             if(odreMission.getNom()==null && odreMission.getPrenom()==null)
                 pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getId()));

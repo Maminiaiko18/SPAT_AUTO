@@ -658,13 +658,13 @@ public class PageRecherche extends Page {
             temp += "<input type=\"hidden\" name=\"entete\" value=\"" + Utilitaire.tabToString(this.getTableau().getLibeEntete(), "", ";") + "\" />";
             temp += "<input type=\"hidden\" name=\"entetelibelle\" value=\"" + Utilitaire.tabToString(this.getTableau().getLibelleAffiche(), "", ";") + "\" />";
         }
-        int sommeId = Utilitaire.estIlDedans("montant", getColSomme());
+        /*int sommeId = Utilitaire.estIlDedans("montant", getColSomme());
         if (sommeId > -1) {
             temp += "<input type=\"hidden\" name=\"nombreEncours\" value=\"" + Utilitaire.formaterSansVirgule(rs.getSommeEtNombre()[getColSomme().length]) + "\" />";
             double test = rs.getSommeEtNombre()[sommeId];
             String testEnString = Utilitaire.enleverExponentielleDouble(test);
             temp += "<input type=\"hidden\" name=\"recap\" value=\"" + testEnString + "\" />";
-        }
+        }*/
 
         temp += "<input type='submit' value='" + RB.getString("exporter") + "' class='btn btn-default' />";
         temp += "<input type='hidden' name='titre' value='" + getTitre() + "' />";
