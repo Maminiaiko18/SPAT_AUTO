@@ -269,10 +269,7 @@ public class BonDeCommande extends ClassEtat {
 
 
     
-    public void setDesignation(String designation) throws Exception {
-        if (this.getMode().compareToIgnoreCase("modif") == 0 && (designation == null || designation.compareToIgnoreCase("") == 0)) {
-            throw new Exception("Designation Obligatoire");
-        } 
+    public void setDesignation(String designation) {
         this.designation = designation;
     }
 
@@ -879,6 +876,7 @@ public class BonDeCommande extends ClassEtat {
                 engFille.insertToTableWithHisto(u, c);
             }
 
+            engagement.setType(Constante.typeEngagementBC);
             engagement.validerObjectSansControleMontant(u, c);
 
             this.setIdengagement(engagement.getTuppleID());

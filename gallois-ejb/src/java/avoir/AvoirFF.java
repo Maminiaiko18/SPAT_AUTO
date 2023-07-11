@@ -8,7 +8,7 @@ package avoir;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import ded.OrdonnerPayement;
-import facturefournisseur.FactureFournisseur;
+import facture.FactureFournisseur;
 import java.sql.Connection;
 import mg.spat.JournalCaisse;
 import utilitaire.ConstanteEtat;
