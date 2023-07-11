@@ -63,12 +63,12 @@
             pi.getFormufle().getChamp("montant_"+i).setDefaut(data[i].getMontantnet()+"");
             pi.getFormufle().getChamp("tva_"+i).setDefaut(data[i].getTva()+"");
             pi.getFormufle().getChamp("qte_"+i).setAutre("oninput='calcMontant(" + i + ")'");
-            pi.getFormufle().getChamp("red_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("reduction_"+i).setAutre("oninput='calcMontant(" + i + ")'");
             pi.getFormufle().getChamp("pu_"+i).setAutre("oninput='calcMontant(" + i + ")'");
             pi.getFormufle().getChamp("maj_"+i).setAutre("oninput='calcMontant(" + i + ")'");
             pi.getFormufle().getChamp("duree_"+i).setAutre("oninput='calcMontant(" + i + ")'");
              pi.getFormufle().getChamp("maj_"+i).setDefaut(data[i].getMajoration()+"");
-            pi.getFormufle().getChamp("red_"+i).setDefaut(data[i].getReduction()+"");
+            pi.getFormufle().getChamp("reduction_"+i).setDefaut(data[i].getReduction()+"");
            pi.getFormufle().getChamp("duree_"+i).setDefaut(data[i].getDuree()+"");
         }
     }
@@ -141,16 +141,17 @@
     pi.getFormufle().getChamp("qte_0").setLibelle("Quantit&eacute;");
     pi.getFormufle().getChamp("pu_0").setLibelle("PU");
     pi.getFormufle().getChamp("maj_0").setLibelle("Majoration");
-    pi.getFormufle().getChamp("red_0").setLibelle("Reduction");
+    pi.getFormufle().getChamp("reduction_0").setLibelle("Reduction");    
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("designation"), "readonly");
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("montantdf"), "readonly");
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("tvaAv"), false);
-    
+    affichage.Champ.setVisible(pi.getFormufle().getChampFille("red"), false);
+
     String[] ordre = {"id","daty","idfacture","etat","designation","code","type","categorie","motif"};
     pi.getFormu().setOrdre(ordre);
-    String[] ordreFille ={"iddetailfacture","designation","devise","qte","pu","duree","maj","red","montant","tva","montantdf","tvadf","remise"};
+    String[] ordreFille ={"iddetailfacture","designation","devise","qte","pu","duree","maj","reduction","montant","tva","montantdf","tvadf","remise"};
     pi.getFormufle().setColOrdre(ordreFille);
     pi.preparerDataFormu();
 %>
@@ -185,11 +186,11 @@
         const pu = parseFloat(document.getElementById('pu_'+index).value);
         const maj = document.getElementById('maj_'+index).value;
         const duree = document.getElementById('duree_'+index).value;
-        const red = document.getElementById('red_'+index).value;
+        const reduction = document.getElementById('reduction_'+index).value;
         
         if(!isNaN(qte) && !isNaN(pu)) {
             let montant = qte * pu * parseNumberOrDefault(duree, 1);
-            montant = montant * (1 + (parseNumberOrDefault(maj)/100) - (parseNumberOrDefault(red)/100));
+            montant = montant * (1 + (parseNumberOrDefault(maj)/100) - (parseNumberOrDefault(reduction)/100));
             document.getElementById('montant_'+index).value = montant.toFixed(3);
         }
     }
