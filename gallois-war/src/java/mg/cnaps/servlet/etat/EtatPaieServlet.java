@@ -806,7 +806,15 @@ public class EtatPaieServlet extends HttpServlet {
                 dataSources.addAll(Arrays.asList(etatfmd));
 
                 ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
-                setNomJasper("bed");
+                String option = request.getParameter("option");
+                String jaspername = "bed";
+                String titre = "BON D'ENGAGEMENT DE DEPENSES DIVERSES";
+                if(option!=null)  if(option.compareToIgnoreCase("0")==0) {
+                    jaspername = "bed-sanssignature";
+                    titre = "ETAT DE DEPENSE";
+                }
+                param.put("titre", titre);
+                setNomJasper(jaspername);
                 UtilitaireImpression.imprimer(request, response, "bed", param, dataSources, getReportPath(), rt);
             }
 

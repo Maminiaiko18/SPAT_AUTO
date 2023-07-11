@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5a2a4c-d9f3-419e-bdaf-7d68b4b0a8e6">
-	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.zoom" value="1.2100000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="111"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
 	<parameter name="code_etab" class="java.lang.String"/>
@@ -12,6 +12,7 @@
 	<parameter name="direction" class="java.lang.String"/>
 	<parameter name="departement" class="java.lang.String"/>
 	<parameter name="numero" class="java.lang.String"/>
+	<parameter name="titre" class="java.lang.String"/>
 	<field name="id" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String"/>
 	<field name="montanttva" class="java.lang.Double"/>
@@ -45,7 +46,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[BON D'ENGAGEMENT DE DEPENSES DIVERSES]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="434" y="32" width="15" height="15" uuid="ac69e1a8-9b1e-4e5d-90df-516f3eb6d011"/>
@@ -286,6 +287,13 @@
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{service}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="17" width="286" height="15" uuid="727d8bbf-b996-437c-a84b-368dd9049783"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titre}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
