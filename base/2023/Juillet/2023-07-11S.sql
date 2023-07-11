@@ -67,7 +67,7 @@ CREATE OR REPLACE  VIEW AVOIRFCFILLE_PDF (ID, IDMERE, IDDETAILFACTURE, MONTANT, 
        ca.reduction                                                                                 AS red,
        ca.rang,
        ca.datefacturefille ,
-       av.reduction
+       av.reduction as red
 from AvoirFCFille av
          left join fcfillecomplet ca on ca.id = av.IDDETAILFACTURE
 ;
