@@ -100,7 +100,7 @@
         pi.getFormu().getChamp("estMictsl").setVisible(false);
         pi.getFormu().getChamp("estAuto").setVisible(false);
         pi.getFormu().getChamp("typeEngagement").setVisible(false);
-        //pi.getFormu().getChamp("remarque").setLibelle("Num FSB");
+        pi.getFormu().getChamp("remarque").setLibelle("Ref Compta");
         pi.getFormu().getChamp("idom").setVisible(false);
 
 
