@@ -170,7 +170,7 @@ public class FactureFournisseurDetails extends FactureClientDetails{
                         return;
                     }
                 }
-                throw new Exception("Compte introuvable dans les lignes de credit ou Reste sur budget insuffisant");
+                throw new Exception("Budget non trouvé.");
             }
         }
         catch(Exception e){
