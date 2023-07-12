@@ -29,7 +29,7 @@
 
     //pr.setApres("facture/inc/avoir-liste.jsp");
     String[] colSomme = {"montant"};
-    pr.setOrdre(" order by rang asc, daty asc");
+    pr.setOrdre("order by rang asc, daty asc");
     pr.creerObjetPage(libEntete, colSomme);
 
 //    FactureClientDetails[] liste = (FactureClientDetails[]) pr.getTableau().getData();
@@ -54,7 +54,7 @@
         FactureClientFilleData dataF = new FactureClientFilleData(id, null, null);
         FactureClient facture = dataF.getFacture();
         FactureClientDetails[] liste = facture.getListeDetails();
-
+        System.out.println("lenghhhhhh   " + liste.length);
 //        out.println(pr.getTableau().getHtml());
 //        double total=0;
 //        total=AdminGen.calculSommeDouble(liste,"montanttaux");

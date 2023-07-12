@@ -158,7 +158,7 @@
             elemMere.onblur = calculTotal();
         }
     }
-    function add_line_tab(champ){
+    /*function add_line_tab(champ){
         var firstElement = document.getElementById("ajout_multiple_ligne").lastChild.innerHTML;
         var indiceNew = $("#ajout_multiple_ligne tr").length;
         //console.log("firstElement",firstElement)
@@ -184,7 +184,7 @@
             $("#ajout_multiple_ligne").append("<tr id='ligne-multiple-"+(indiceNew)+"'>"+newElem+"</tr>");
             $("#nombreLigne").val(indiceNew+(1));
         }
-    }
+    }*/
 </script>  
 <%
 	} catch (Exception e) {
