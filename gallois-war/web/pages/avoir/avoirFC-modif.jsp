@@ -72,9 +72,9 @@ try{
     
         for( int i = 0 ; i < pi.getNombreLigne() ; i++ ){
             pi.getFormufle().getChamp("qte_"+i).setAutre("oninput='calcMontant(" + i + ")'");
-            pi.getFormufle().getChamp("red_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("reduction_"+i).setAutre("oninput='calcMontant(" + i + ")'");
             pi.getFormufle().getChamp("pu_"+i).setAutre("oninput='calcMontant(" + i + ")'");
-            pi.getFormufle().getChamp("maj_"+i).setAutre("oninput='calcMontant(" + i + ")'");
+            pi.getFormufle().getChamp("majoration_"+i).setAutre("oninput='calcMontant(" + i + ")'");
             pi.getFormufle().getChamp("duree_"+i).setAutre("oninput='calcMontant(" + i + ")'");
         }
 
@@ -89,8 +89,8 @@ try{
     pi.getFormufle().getChamp("qte_0").setLibelle("qte");
     pi.getFormufle().getChamp("pu_0").setLibelle("pu");
     pi.getFormufle().getChamp("duree_0").setLibelle("duree");
-    pi.getFormufle().getChamp("maj_0").setLibelle("maj");
-    pi.getFormufle().getChamp("red_0").setLibelle("red");
+    pi.getFormufle().getChamp("majoration_0").setLibelle("Majoration");
+    pi.getFormufle().getChamp("reduction_0").setLibelle("Reduction");
 
     pi.getFormufle().getChamp("tva_0").setLibelle("TVA Avoir");
     pi.getFormufle().getChamp("tvaDf_0").setLibelle("TVA detail facture");
@@ -108,7 +108,7 @@ try{
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("iddetailfacture"), "readonly");
     
     
-    String[] ordreFille ={"iddetailfacture","designation","devise","qte","pu","duree","maj","red","montant","tva","montantdf","tvadf","remise"};
+    String[] ordreFille ={"iddetailfacture","designation","devise","qte","pu","duree","majoration","reduction","montant","tva","montantdf","tvadf","remise"};
     pi.getFormufle().setColOrdre(ordreFille);
     
     mere = (AvoirFC) pi.getBase();
@@ -154,13 +154,13 @@ try{
     function calcMontant(index) {
         const qte = parseFloat(document.getElementById('qte_'+index).value);
         const pu = parseFloat(document.getElementById('pu_'+index).value);
-        const maj = document.getElementById('maj_'+index).value;
+        const majoration = document.getElementById('majoration_'+index).value;
         const duree = document.getElementById('duree_'+index).value;
-        const red = document.getElementById('red_'+index).value;
+        const reduction = document.getElementById('reduction_'+index).value;
         
         if(!isNaN(qte) && !isNaN(pu)) {
             let montant = qte * pu * parseNumberOrDefault(duree, 1);
-            montant = montant * (1 + (parseNumberOrDefault(maj)/100) - (parseNumberOrDefault(red)/100));
+            montant = montant * (1 + (parseNumberOrDefault(majoration)/100) - (parseNumberOrDefault(reduction)/100));
             document.getElementById('montant_'+index).value = montant.toFixed(3);
         }
     }
