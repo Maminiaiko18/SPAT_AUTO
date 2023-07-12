@@ -27,7 +27,7 @@ public class AvoirFCFille extends ClassFille {
     private String idmere, compte, iddetailfacture, devise, designation;
     private double taux,montantHTDevise;
     private double maj,red;
-    double reduction;
+    private double reduction,majoration;
 
     public double getReduction() {
         return reduction;
@@ -198,9 +198,9 @@ public class AvoirFCFille extends ClassFille {
                 setTva(fcd.getTva());
             }
     
-            if (this.getMontant() > fcd.getMontant()) {
-                throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + fcd.getMontant() + ") ");
-            }
+//            if (this.getMontant() > fcd.getMontant()) {
+//                throw new Exception("Montant (" + this.getMontant() + ") supérieur à celui du détail! (" + fcd.getMontant() + ") ");
+//            }
             
             if(fcd.getTva() < this.getTva()) throw new Exception("Tva invalide pour l`avoir");
             
@@ -313,6 +313,14 @@ public class AvoirFCFille extends ClassFille {
         }
         
         return null;
+    }
+
+    public double getMajoration() {
+        return majoration;
+    }
+
+    public void setMajoration(double majoration) {
+        this.majoration = majoration;
     }
 
 }
