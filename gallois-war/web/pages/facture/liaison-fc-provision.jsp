@@ -28,7 +28,7 @@ try{
     pi.getFormu().getChamp("dateliaison").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("etat").setVisible(false);
 
-    pi.getFormu().getChamp("id2").setPageAppel("choix/listeFactureClientChoix.jsp");
+    pi.getFormu().getChamp("id2").setPageAppel("choix/listeFactureClientChoix.jsp","id2;id2libelle;id2libelle;id2libelle");
     
     pi.getFormu().getChamp("id1").setAutre("readonly");
     pi.getFormu().getChamp("id2").setAutre("readonly");
