@@ -44,13 +44,14 @@ public class FactureFournisseur extends FactureClient {
     private double montantHTSansRemise;
     private String bonprovisoire, num;
     private String idom;
-    private int numfsb;
+    private String numfsb;
 
-    public int getNumfsb() {
+
+    public String getNumfsb() {
         return numfsb;
     }
 
-    public void setNumfsb(int numfsb) {
+    public void setNumfsb(String numfsb) {
         this.numfsb = numfsb;
     }
 
