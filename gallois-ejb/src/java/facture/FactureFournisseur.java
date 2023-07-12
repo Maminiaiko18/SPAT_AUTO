@@ -1531,6 +1531,7 @@ public class FactureFournisseur extends FactureClient {
         try{
             this.setIdengagement(null);
             this.setNumeroop(null);
+            this.setCode(null);
         }
         catch(Exception e){
             throw e;
