@@ -1209,7 +1209,10 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public Object validerObject(ClassMAPTable o, Connection c) throws Exception {
-        if (u.getRang() < 4 && o.getClassName().compareTo("mg.cnaps.compta.ComptaEcriture") != 0) // (testRestriction(u.getIdrole(), "ACT000006", o.getNomTable(), c) == 1)
+        if(testRestriction(u.getIdrole(), "ACT000006", o.getNomTable(), c) == 1) {
+            throw new Exception("ERREUR DE DROIT");
+        }
+        if (u.getRang() < 4 && o.getClassName().compareTo("mg.cnaps.compta.ComptaEcriture") != 0)
         {
             throw new Exception("ERREUR DE DROIT");
         }
@@ -1922,7 +1925,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public Object createObject(ClassMAPTable o, Connection c) throws Exception {
-        if (u.getRang() < 1) // (testRestriction(u.getIdrole(), "ACT000006", o.getNomTable(), c) == 1)
+        if (testRestriction(u.getIdrole(), "ACT000006", o.getNomTable(), c) == 1)
         {
             throw new Exception("ERREUR DE DROIT");
         }
@@ -2006,9 +2009,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     public Object updateObject(ClassMAPTable o, Connection c) throws Exception {
         //Connection c=null;
         //System.out.println("ato updateObject");
-        /*if (testRestriction(u.getIdrole(), ConstanteUtilisateur.acteUpdate, o.getNomTable(), c) == 1) {
+        if (testRestriction(u.getIdrole(), ConstanteUtilisateur.acteUpdate, o.getNomTable(), c) == 1) {
             throw new Exception("ERREUR DE DROIT");
-        }*/
+        }
         if (o.getClassName().compareToIgnoreCase("mg.spat.Tiers") != 0 && o.getClassName().compareToIgnoreCase("mg.cnaps.paie.EmployeComplet") != 0 && o.getClassName().compareToIgnoreCase("mg.spat.compta.ContratChantier") != 0) {
             testUpdate(o, c);
         }
@@ -2155,10 +2158,10 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         try {
             GestionRole g = new GestionRole();
             //System.out.println("uuuu:" + u.getAdruser());
-//            return g.testRestriction(user, permission, table, u.getAdruser(), con);
+            return g.testRestriction(user, permission, table, u.getAdruser(), con);
 
             // Temporaire
-            return 0;
+            //return 0;
         } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
@@ -2816,12 +2819,10 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 
     public void annulerVisa(ClassMAPTable o, Connection c) throws Exception {
         try {
-//            if (/*
-//                     * testRestriction(u.getIdrole(), "ACT000009",
-//                     * o.getNomTable(), c) == 1
+            if(testRestriction(u.getIdrole(), "ACT000009", o.getNomTable(), c) == 1){
 //                     */u.getRang() < ConstanteUser.rangDir && o.getClassName().compareTo("mg.cnaps.compta.ComptaEcriture") != 0) {
-//                throw new Exception("ERREUR DE DROIT");
-//            }
+                throw new Exception("ERREUR DE DROIT");
+            }
             boolean defaultVisa = true;
             String id = o.getValInsert("id");
             o.setValChamp("id", id);
@@ -3161,9 +3162,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public Object dupliquerObject(ClassMAPTable o, String mapFille, String nomColonneMere, Connection c) throws Exception {
-//        if (testRestriction(u.getIdrole(), "ACT000010", o.getNomTable(), c) == 1) {
-//            throw new Exception("ERREUR DE DROIT");
-//        }
+        if (testRestriction(u.getIdrole(), "ACT000010", o.getNomTable(), c) == 1) {
+            throw new Exception("ERREUR DE DROIT");
+        }
         try {
             o.setMode("modif");
             String id = o.getValInsert("id");
@@ -3321,7 +3322,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public Object createObject(ClassMAPTable o, Connection c, String action) throws Exception {
-        if (u.getRang() < 1) // (testRestriction(u.getIdrole(), "ACT000006", o.getNomTable(), c) == 1)
+        if(testRestriction(u.getIdrole(), "ACT000006", o.getNomTable(), c) == 1)
         {
             throw new Exception("ERREUR DE DROIT");
         }
