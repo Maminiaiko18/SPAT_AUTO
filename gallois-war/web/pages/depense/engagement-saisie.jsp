@@ -70,9 +70,9 @@
         pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
 
-        if (u.getCodeEtablissement() != null) {
-            pi.getFormu().getChamp("codeEtablissement").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getId()));
-        }
+        //if (u.getCodeEtablissement() != null) {
+        //    pi.getFormu().getChamp("codeEtablissement").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getId()));
+        //}
         pi.getFormu().getChamp("designation").setAutre("onchange=\"setFilleValue('designation_0', this)\"");
         pi.getFormu().getChamp("montant").setAutre("onchange=\"setFilleValue('montant_0', this)\"");
         int taille = pi.getNombreLigne();
@@ -154,9 +154,9 @@
     });
 </script>
 <script>
-    <% if (u.getCodeEtablissement() != null) {%>
+    <%-- <% if (u.getCodeEtablissement() != null) {%>
     $("#codeEtablissementlibelle").val("<%= Utilitaire.champNull(u.getCodeEtablissement().getVal())%>");
-    <% } %>
+    <% } %> --%>
     function setFilleValue(idFille, elem) {
         var elemFille = document.getElementById(idFille);
         if (elemFille) {
