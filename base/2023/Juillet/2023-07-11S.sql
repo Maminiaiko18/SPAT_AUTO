@@ -1,7 +1,7 @@
 ALTER TABLE AVOIRFCFILLE ADD reduction number(30,3);
+ALTER TABLE AvoirFCFille ADD majoration number(30,3);
 
-
-CREATE OR REPLACE  VIEW AVOIRFCFILLE_PLUS (ID, IDMERE, IDDETAILFACTURE, MONTANT, COMPTE, MONTANTDF, DESIGNATION, DEVISE, REMISE, TVADF, TVAAV, TVA, QTE, PU, MAJ, RED, DUREE, RANG, DATEFACTUREFILLE,reduction) AS 
+CREATE OR REPLACE  VIEW AVOIRFCFILLE_PLUS (ID, IDMERE, IDDETAILFACTURE, MONTANT, COMPTE, MONTANTDF, DESIGNATION, DEVISE, REMISE, TVADF, TVAAV, TVA, QTE, PU, MAJ, RED, DUREE, RANG, DATEFACTUREFILLE,reduction,majoration) AS 
   select
 
          fc.ID,
@@ -39,7 +39,8 @@ CREATE OR REPLACE  VIEW AVOIRFCFILLE_PLUS (ID, IDMERE, IDDETAILFACTURE, MONTANT,
        fc.DUREE,
        ca.rang,
        ca.datefacturefille ,
-       fc.reduction
+       fc.reduction,
+       fc.majoration
 
 from AvoirFCFille fc
 
@@ -47,7 +48,7 @@ from AvoirFCFille fc
 
 
 
-CREATE OR REPLACE  VIEW AVOIRFCFILLE_PDF (ID, IDMERE, IDDETAILFACTURE, MONTANT, COMPTE, REMISE, DESIGNATION, TAUX, DEVISE, TVA, QTE, PU, DUREE, MONTANTHTDEVISE, MAJ, reduction, RANG, DATEFACTUREFILLE,red) AS 
+CREATE OR REPLACE  VIEW AVOIRFCFILLE_PDF (ID, IDMERE, IDDETAILFACTURE, MONTANT, COMPTE, REMISE, DESIGNATION, TAUX, DEVISE, TVA, QTE, PU, DUREE, MONTANTHTDEVISE, MAJ, reduction, RANG, DATEFACTUREFILLE,red,majoration) AS 
   SELECT av.ID,
        av.IDMERE,
        av.IDDETAILFACTURE,
@@ -66,7 +67,8 @@ CREATE OR REPLACE  VIEW AVOIRFCFILLE_PDF (ID, IDMERE, IDDETAILFACTURE, MONTANT, 
        ca.reduction                                                                                 AS REDUCTION ,
        ca.rang,
        ca.datefacturefille ,
-       av.reduction as red
+       av.reduction as red,
+       av.majoration
 from AvoirFCFille av
          left join fcfillecomplet ca on ca.id = av.IDDETAILFACTURE
 ;
