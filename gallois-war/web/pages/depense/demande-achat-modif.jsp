@@ -112,7 +112,7 @@
     </div>
 </div>                    
 <script>
-    function add_line_tab(champ){
+    /*function add_line_tab(champ){
         var firstElement = document.getElementById("ajout_multiple_ligne").lastChild.innerHTML;
         var indiceNew = $("#ajout_multiple_ligne tr").length;
         console.log("firstElement",firstElement)
@@ -148,7 +148,7 @@
             parentElement.innerHTML = contenu;
 
         }
-    }
+    }*/
 
     function getMontant(i){
         var qteStr = $('#qte_'+i).val().trim();
