@@ -172,7 +172,8 @@ public class Engagement extends ClassEtat {
         return idLC;
     }
 
-    public void setIdLC(String idLC) {
+    public void setIdLC(String idLC) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
         this.idLC = idLC;
     }
 
@@ -197,7 +198,8 @@ public class Engagement extends ClassEtat {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+    public void setDesignation(String designation) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (designation==null || designation.compareToIgnoreCase("")==0)) throw new Exception("Désignation obligatoire.");
         this.designation = designation;
     }
 
@@ -205,7 +207,8 @@ public class Engagement extends ClassEtat {
         return codeEtablissement;
     }
 
-    public void setCodeEtablissement(String codeEtablissement) {
+    public void setCodeEtablissement(String codeEtablissement) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (codeEtablissement==null || codeEtablissement.compareToIgnoreCase("")==0)) throw new Exception("Code établissement obligatoire.");
         this.codeEtablissement = codeEtablissement;
     }
 
@@ -213,7 +216,8 @@ public class Engagement extends ClassEtat {
         return projet;
     }
 
-    public void setProjet(String projet) {
+    public void setProjet(String projet) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (projet==null || projet.compareToIgnoreCase("")==0)) throw new Exception("Code projet obligatoire.");
         this.projet = projet;
     }
 
@@ -362,12 +366,14 @@ public class Engagement extends ClassEtat {
         lc.setNomTable("SITUATIONLCDEPENSEGRP_TEMP");
         String dir=this.getCodeEtablissement();
         String prj=this.getProjet();
-        if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
+        if(dir!=null||dir.compareToIgnoreCase("")!=0||prj!=null||prj.compareToIgnoreCase("")!=0)
         {
-            if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Ligne de crédit invalide");
+            if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Budget invalide");
             LigneCredit ligne = findLigneCredit(c);
-            dir=ligne.getCodeEtablissement();
-            prj=ligne.getProjet();
+            if(this.getCodeEtablissement().compareToIgnoreCase(ligne.getCodeEtablissement())!=0) throw new Exception("Code établissement incohérent avec le budget choisi.");
+            if(this.getProjet().compareToIgnoreCase(ligne.getProjet())!=0) throw new Exception("Code projet incohérent avec le budget choisi.");
+            //dir=ligne.getCodeEtablissement();
+            //prj=ligne.getProjet();
         }
         LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+this.getAnnee());
         if(ligneCredits.length > 0) return ligneCredits[0];
@@ -391,7 +397,7 @@ public class Engagement extends ClassEtat {
         if(this.getType() == null) this.setType(Constante.typeEngagementEng);
         if(this.getType().compareToIgnoreCase(Constante.typeEngagementBED) != 0)this.setNum(this.calculerNumero(c));
         LigneCredit lc = this.findSituationCredit(c);
-        if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
+        if(lc == null) throw new Exception("Budjet non trouv&eacute;");
         EngagementFille[] filles = this.getEngagementFilles(null, c);
         if(filles.length==0){
             throw new Exception ("Doit contenir au moins un détail engagement");

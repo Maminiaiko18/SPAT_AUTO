@@ -71,8 +71,7 @@
         pi.getFormu().getChamp("modepaiement").setDefaut(Constante.modepaiementDefaut);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("remarque").setLibelle("R&eacute;f&eacute;rence");
-        pi.getFormu().getChamp("designation").setVisible(false);
-        //pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
+        pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
         //pi.getFormu().getChamp("designation").setType("textarea");
         pi.getFormu().getChamp("fournisseur").setLibelle("Fournisseur");
         pi.getFormu().getChamp("numbc").setLibelle("Numero bon de commande");
