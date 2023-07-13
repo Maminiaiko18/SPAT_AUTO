@@ -1028,6 +1028,7 @@ public class FactureFournisseur extends FactureClient {
                     resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                 }
                 if(resteAEngager > 0){
+                    ff.setTypeEngagement(Constante.typeEngagementFF);
                     ff.createEngagement(u, c, resteAEngager, lc, controleMontant);
                     this.setIdengagement(ff.getIdengagement());
                 }
