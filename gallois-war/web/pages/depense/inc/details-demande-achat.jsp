@@ -13,7 +13,7 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setOrdre(" order by designation asc");
-
+    pr.setNpp(1000);
     pr.creerObjetPage(libEntete, null);
 
     pr.getTableau().setLibelleAffiche(new String[]{"ID", "D&eacute;signation", "PU","Qantit&eacute;","Unit&eacute;"});
@@ -24,6 +24,6 @@
     <% out.println(html); %>
 </form
 <% } else {
-%><center><h4>Pas de résultat</h4></center><%
+%><center><h4>Pas de rï¿½sultat</h4></center><%
     }
     %>
