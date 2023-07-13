@@ -1209,21 +1209,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public Object validerObject(ClassMAPTable o, Connection c) throws Exception {
-        if(testRestriction(u.getIdrole(), "ACT000006", o.getNomTable(), c) == 1) {
-            throw new Exception("ERREUR DE DROIT");
-        }
-        if (u.getRang() < 4 && o.getClassName().compareTo("mg.cnaps.compta.ComptaEcriture") != 0)
-        {
-            throw new Exception("ERREUR DE DROIT");
-        }
-        if (o.getClassName().compareTo("cotation.Cotation") == 0 && u.getRang() < 4) {
-            throw new Exception("ERREUR DE DROIT");
-        }
-        if (o.getClassName().compareTo("cotation.InfoManquant") == 0 && u.getRang() < 4) {
-            throw new Exception("ERREUR DE DROIT");
-        }
-        if (o.getClassName().compareTo("cotation.DemandeCotation") == 0 && u.getRang() < 4) {
-            throw new Exception("ERREUR DE DROIT");
+        
+        if(testRestriction(u.getIdrole(), ConstanteUtilisateur.acteViser, o.getNomTable(), c) == 1) {
+            throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
         }
         if (u.getRang() < 4) {
             throw new Exception("ERREUR DE DROIT");
@@ -1925,9 +1913,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public Object createObject(ClassMAPTable o, Connection c) throws Exception {
-        if (testRestriction(u.getIdrole(), "ACT000006", o.getNomTable(), c) == 1)
+        if (testRestriction(u.getIdrole(), ConstanteUtilisateur.acteInsert, o.getNomTable(), c) == 1)
         {
-            throw new Exception("ERREUR DE DROIT");
+            throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
         }
         try {
             if (o.getMode() != null && o.getMode().compareToIgnoreCase("annul") == 0) {
@@ -2010,7 +1998,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         //Connection c=null;
         //System.out.println("ato updateObject");
         if (testRestriction(u.getIdrole(), ConstanteUtilisateur.acteUpdate, o.getNomTable(), c) == 1) {
-            throw new Exception("ERREUR DE DROIT");
+            throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
         }
         if (o.getClassName().compareToIgnoreCase("mg.spat.Tiers") != 0 && o.getClassName().compareToIgnoreCase("mg.cnaps.paie.EmployeComplet") != 0 && o.getClassName().compareToIgnoreCase("mg.spat.compta.ContratChantier") != 0) {
             testUpdate(o, c);
@@ -2154,11 +2142,12 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     @Override
-    public int testRestriction(String user, String permission, String table, Connection con) throws Exception {
+    public int testRestriction(String idrole, String idaction, String table, Connection con) throws Exception {
         try {
             GestionRole g = new GestionRole();
             //System.out.println("uuuu:" + u.getAdruser());
-            return g.testRestriction(user, permission, table, u.getAdruser(), con);
+
+            return g.testRestriction(u, idaction, table, u.getAdruser(), con);
 
             // Temporaire
             //return 0;
@@ -2771,8 +2760,8 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public Object annulerObject(ClassMAPTable o, Connection c) throws Exception {
-        if (testRestriction(u.getIdrole(), "ACT000005", o.getNomTable(), c) == 1) {
-            throw new Exception("ERREUR DE DROIT");
+        if (testRestriction(u.getIdrole(), ConstanteUtilisateur.acteAnnuler, o.getNomTable(), c) == 1) {
+            throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
         }
         testValidationEtat(o, c);
         try {
@@ -3162,8 +3151,8 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     public Object dupliquerObject(ClassMAPTable o, String mapFille, String nomColonneMere, Connection c) throws Exception {
-        if (testRestriction(u.getIdrole(), "ACT000010", o.getNomTable(), c) == 1) {
-            throw new Exception("ERREUR DE DROIT");
+        if (testRestriction(u.getIdrole(), ConstanteUtilisateur.acteDupliquer, o.getNomTable(), c) == 1) {
+            throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
         }
         try {
             o.setMode("modif");
