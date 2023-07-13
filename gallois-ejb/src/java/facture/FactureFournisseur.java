@@ -392,7 +392,9 @@ public class FactureFournisseur extends FactureClient {
                 nomtable = "ordonnerpayement";
             }
             oo.setNomTable(nomtable);
-            OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%' and etat >= " + ConstanteEtat.getEtatValider());
+            //OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%' and etat >= " + ConstanteEtat.getEtatValider());
+            OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%'");
+
             if (results != null && results.length > 0) {
                 return results[0];
             }
@@ -1241,7 +1243,7 @@ public class FactureFournisseur extends FactureClient {
             c = (new UtilDB()).GetConn();
             OrdonnerPayement op = findOP(null, c);
             if (op != null) {
-                throw new Exception("Impossible, OP existant et OP déjà visé");
+                throw new Exception("Impossible, OP ("+op.getNumeroop()+") existant.");
             }
 
             //LiaisonIntraTable[] liaisons = findLiaisonIntratable(c);
