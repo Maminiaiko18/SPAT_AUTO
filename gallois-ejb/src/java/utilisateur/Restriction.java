@@ -17,6 +17,7 @@ public class Restriction extends ClassMAPTable {
     private String id;
     private String idrole;
     private String idaction;
+    private String refuser;
     private String tablename;
     private String autorisation;
     private String description;
@@ -27,16 +28,26 @@ public class Restriction extends ClassMAPTable {
         return autorise;
     }
 
+    public String getRefuser() {
+        return refuser;
+    }
+
+    public void setRefuser(String refuser) {
+        this.refuser = refuser;
+    }
+
     public void setAutorise(int autorise) {
         this.autorise = autorise;
     }
 
-    public Restriction(String idrole, String idaction, String tablename, String autorisation, String description, String iddirection) {
+    public Restriction(String idrole, String idaction, String tablename, String autorisation, String description, String iddirection,String refuser) {
         this.setIdrole(idrole);
         this.setIdaction(idaction);
         this.setTablename(tablename);
         this.setAutorisation("false");
         this.setDescription(description);
+        this.setIddirection(iddirection);
+        this.setRefuser(refuser);
         this.setIddirection(iddirection);
         super.setNomTable("restriction");
     }
@@ -49,21 +60,23 @@ public class Restriction extends ClassMAPTable {
         this.iddirection = iddirection;
     }
 
-    public Restriction(String idrole, String idpermission, String nt) {
+    public Restriction(String idrole, String idpermission, String nt,String refuser) {
         super.setNomTable("restriction");
         this.setIdrole(idrole);
         this.setIdaction(idpermission);
         this.setTablename(nt);
         this.setAutorisation("false");
+          this.setRefuser(refuser);
         this.setDescription("");
     }
 
-    public Restriction(String idrole, String action, String nt, String direction) {
+    public Restriction(String idrole, String action, String nt, String direction,String refuser) {
         super.setNomTable("restriction");
         this.setIdrole(idrole);
         this.setIdaction(action);
         this.setTablename(nt);
         this.setAutorisation("non");
+          this.setRefuser(refuser);
            this.setIddirection(direction);
     }
 
