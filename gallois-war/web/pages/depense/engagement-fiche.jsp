@@ -99,12 +99,12 @@
                                  <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer</button></a>
                                 <%-- <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=dse&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer DSE</button></a> --%>
                                 <a href="<%=(String) session.getValue("lien") +"?but=depense/engagement-modif-simple.jsp&id="+ engagement.getId()%>"><button class="btn btn-primary pull-right" style="margin-right: 5px">Observation</button></a>
-                                <%-- <label style="float:right;padding-right:10px">Accord : 
+                                <label style="float:right;padding-right:10px">Accord : 
                                     <select id="choix" onchange="choix()">
                                         <option value="1" selected>Oui</option>
                                         <option value="0">Non</option>
                                     </select>
-                                </label> --%>
+                                </label>
                             </p>
                         </div>
                     </div>
