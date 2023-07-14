@@ -173,7 +173,7 @@ public class Engagement extends ClassEtat {
     }
 
     public void setIdLC(String idLC) throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
+        //if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
         this.idLC = idLC;
     }
 
