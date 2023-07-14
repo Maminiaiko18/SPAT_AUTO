@@ -104,22 +104,6 @@
                 String acces = request.getParameter("interdit");
                 u.ajouterMenuUtilisateur(utilisateur, menu, null, acces);
             }
-            
-            if (acte.compareToIgnoreCase("insertRestriction") == 0) {
-                String idrole = request.getParameter("idrole");
-                String refuser = request.getParameter("refuser");
-                String idaction = request.getParameter("idaction");
-                String tablename = request.getParameter("tablename");
-                String description = request.getParameter("description");
-                String autorise = request.getParameter("autorise");
-    //          String menu = request.getParameter("idmenu");
-                    //String idrole = request.getParameter("idrole");
-            
-                System.out.println("==res:"+idrole+";"+refuser+";"+idaction+";"+tablename+";"+description+";"+autorise);
-//            String acces = request.getParameter("interdit");
-           // u.testRestriction(user, permission, table, con)
-            }
-             
             if (acte.compareToIgnoreCase("insert") == 0) {
                 System.out.println("navire : " + request.getParameter("idnavire"));
                 t = (ClassMAPTable) (Class.forName(classe).newInstance());
