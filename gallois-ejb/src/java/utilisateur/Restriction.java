@@ -21,6 +21,15 @@ public class Restriction extends ClassMAPTable {
     private String autorisation;
     private String description;
     private String iddirection;
+    private int autorise;
+
+    public int getAutorise() {
+        return autorise;
+    }
+
+    public void setAutorise(int autorise) {
+        this.autorise = autorise;
+    }
 
     public Restriction(String idrole, String idaction, String tablename, String autorisation, String description, String iddirection) {
         this.setIdrole(idrole);
