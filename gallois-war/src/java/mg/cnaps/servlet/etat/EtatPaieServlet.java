@@ -3732,9 +3732,9 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             c = (new UtilDB()).GetConn();
             String id = request.getParameter("id");
-            //String option = request.getParameter("option");
+            String option = request.getParameter("option");
             String jaspername = "engagement";
-            //if(option!=null)  if(option.compareToIgnoreCase("0")==0) jaspername = "engagement-sanssignature";
+            if(option!=null)  if(option.compareToIgnoreCase("0")==0) jaspername = "engagement-sanssignature";
             Engagement engagement = new Engagement();
             engagement.setId(id);
             engagement.setNomTable("engagementlib");
