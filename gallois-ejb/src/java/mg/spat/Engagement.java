@@ -366,14 +366,12 @@ public class Engagement extends ClassEtat {
         lc.setNomTable("SITUATIONLCDEPENSEGRP_TEMP");
         String dir=this.getCodeEtablissement();
         String prj=this.getProjet();
-        if(dir!=null||dir.compareToIgnoreCase("")!=0||prj!=null||prj.compareToIgnoreCase("")!=0)
+        if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
         {
             if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Budget invalide");
             LigneCredit ligne = findLigneCredit(c);
-            if(this.getCodeEtablissement().compareToIgnoreCase(ligne.getCodeEtablissement())!=0) throw new Exception("Code établissement incohérent avec le budget choisi.");
-            if(this.getProjet().compareToIgnoreCase(ligne.getProjet())!=0) throw new Exception("Code projet incohérent avec le budget choisi.");
-            //dir=ligne.getCodeEtablissement();
-            //prj=ligne.getProjet();
+            dir=ligne.getCodeEtablissement();
+            prj=ligne.getProjet();
         }
         LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+this.getAnnee());
         if(ligneCredits.length > 0) return ligneCredits[0];
