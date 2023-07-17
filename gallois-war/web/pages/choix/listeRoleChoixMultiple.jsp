@@ -20,7 +20,7 @@
     PageRechercheChoix pr=new PageRechercheChoix(role,request,listeCtr,listeInt,3,libEntete,libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.setApres("listeUtilisateurChoixMultiple.jsp");
+    pr.setApres("listeRoleChoixMultiple.jsp");
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
