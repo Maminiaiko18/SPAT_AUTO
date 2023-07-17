@@ -252,7 +252,8 @@
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-saisie.jsp&ded_id=" + id%>" style="margin-right: 10px">Editer OP</a>
                        
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&acte=editerBED&id=" + request.getParameter("id")+"&bute=ded/bordereauxFF-saisie.jsp"%>" style="margin-right: 10px">Editer BED</a>
-                            
+                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=depense/libere-engagement-facture.jsp&id1=" + e.getId()%>">Liberer Engagement</a>
+    
                     <hr>
                     
                     <p>
