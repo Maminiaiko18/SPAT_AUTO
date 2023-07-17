@@ -12,7 +12,7 @@
         Restriction res = new Restriction();
         PageInsert pi = new PageInsert(res, request,(user.UserEJB) session.getValue("u"));
         pi.setLien((String) session.getValue("lien"));
-        
+             
         affichage.Champ[] liste = new affichage.Champ[1];
  
         String[] affiche = {"Interdit","Autorisé"};
@@ -28,12 +28,17 @@
 
         pi.getFormu().getChamp("refuser").setLibelle("Utilisateur");
         pi.getFormu().getChamp("iddirection").setVisible(false);
-        pi.getFormu().getChamp("idaction").setLibelle("action");
+      
 
         pi.getFormu().getChamp("autorise").setLibelle("Accès");
         pi.getFormu().getChamp("refuser").setAutre("readonly");
         pi.getFormu().getChamp("refuser").setPageAppel("choix/listeUtilisateurChoixMultiple.jsp");
-
+        
+        pi.getFormu().getChamp("idaction").setLibelle("action");
+        pi.getFormu().getChamp("idaction").setAutre("readonly");
+        pi.getFormu().getChamp("idaction").setPageAppel("choix/listeActionChoixMultiple.jsp");
+       
+        
         pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
