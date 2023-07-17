@@ -71,9 +71,10 @@ public class FactureFournisseur extends FactureClient {
     private String typeEngagement;
     private boolean apresValidationException;
     private Date datedevise;
+    private String idengaggrp;
 
 
-	public Date getDatedevise() {
+    public Date getDatedevise() {
         return datedevise;
     }
 
@@ -345,6 +346,14 @@ public class FactureFournisseur extends FactureClient {
     public void setApresValidationException(boolean apresValidationException) {
         this.apresValidationException = apresValidationException;
     }
+
+    public String getIdengaggrp() {
+        return idengaggrp;
+    }
+
+    public void setIdengaggrp(String idengaggrp) {
+        this.idengaggrp = idengaggrp;
+    }
     
     public FactureFournisseur() throws Exception {
         this.setNomTable("facture_Fournisseur_Mere");
@@ -354,7 +363,7 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public String getValColLibelle() {
-        return getDesignation() + ";" + getId();
+        return getDesignation() + ";" + getId() + ";" + getIdengaggrp();
     }
 
     public FactureFournisseur(String id, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String idcategorie, double tva, Date daty, Date dateEcheance, int etat) throws Exception {
@@ -893,6 +902,7 @@ public class FactureFournisseur extends FactureClient {
                         Engagement engbc = f.findEngagement("liaisonEngagementBCFF", "idengagement", c);
                         if(engbc.getMontantreste() >= resteAEngager){
                             liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), resteAEngager, ConstanteEtat.getEtatCreer());
+                            liaison.setNonliberation(true);
                             liaison.createObject(u, c);
                             liaison.validerObject(u, c);
                             resteAEngager = 0;
@@ -900,6 +910,7 @@ public class FactureFournisseur extends FactureClient {
                         else{ 
                             if(engbc.getMontantreste() > 0){
                                 liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), engbc.getMontantreste(), ConstanteEtat.getEtatCreer());
+                                liaison.setNonliberation(true);
                                 liaison.createObject(u, c);
                                 liaison.validerObject(u, c);
                                 resteAEngager -= engbc.getMontantreste();
@@ -920,6 +931,7 @@ public class FactureFournisseur extends FactureClient {
                         if(engff != null && engff.getMontant() > 0){
                             double m = (resteAEngager <= engff.getMontantreste()) ? resteAEngager : engff.getMontantreste();
                             liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                            liaison.setNonliberation(true);
                             liaison.createObject(u, c);
                             liaison.validerObject(u, c);
                             resteAEngager -= m;
@@ -940,6 +952,7 @@ public class FactureFournisseur extends FactureClient {
                         this.setTypeEngagement(Constante.typeEngagementFF);
                         this.insertEngagement(u, true, c);
                         LiaisonEngagement liaison = new LiaisonEngagement(this.getIdengagement(), ff.getId(), ff.getMontant(), ConstanteEtat.getEtatCreer());
+                        liaison.setNonliberation(true);
                         liaison.createObject(u, c);
                         liaison.validerObject(u, c);
                     }
@@ -1003,6 +1016,7 @@ public class FactureFournisseur extends FactureClient {
                     Engagement engbc = f.findEngagement("liaisonEngagementBCFF", "idengagement", c);
                     if(engbc.getMontantreste() > 0){
                         liaison = new LiaisonEngagement(engbc.getIdengagement(), ff.getId(), engbc.getMontantreste(), ConstanteEtat.getEtatCreer());
+                        liaison.setNonliberation(true);
                         liaison.createObject(u, c);
                         liaison.validerObject(u, c);
                         resteAEngager -= engbc.getMontantreste();
@@ -1018,6 +1032,7 @@ public class FactureFournisseur extends FactureClient {
                         if(engff != null && engff.getMontant() > 0){
                             double m = (resteAEngager - engff.getMontantreste() == 0) ? resteAEngager : engff.getMontantreste();
                             liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                            liaison.setNonliberation(true);
                             liaison.createObject(u, c);
                             liaison.validerObject(u, c);
                             resteAEngager -= m;
@@ -1455,6 +1470,7 @@ public class FactureFournisseur extends FactureClient {
                 engagement.validerObjectSansControleMontant(u, c);
 
             LiaisonEngagement liaison = new LiaisonEngagement(engagement.getId(), this.getId(), montant, ConstanteEtat.getEtatCreer());
+            liaison.setNonliberation(true);
             liaison.createObject(u, c);
             liaison.validerObject(u, c);
 
@@ -1513,6 +1529,7 @@ public class FactureFournisseur extends FactureClient {
                     if(resteAEngager > lies[i].getMontantreste())
                         restetemp = lies[i].getMontantreste();
                     LiaisonEngagement liaison = new LiaisonEngagement(lies[i].getIdengagement(), this.getId(), restetemp, ConstanteEtat.getEtatCreer());
+                    liaison.setNonliberation(true);
                     liaison.createObject(u, c);
                     liaison.validerObject(u, c);
                     resteAEngager -= restetemp;
