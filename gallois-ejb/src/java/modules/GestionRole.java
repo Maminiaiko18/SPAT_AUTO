@@ -7,6 +7,8 @@ package modules;
 
 import bean.CGenUtil;
 import config.Table;
+import historique.MapUtilisateurServiceDirection;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,20 +24,20 @@ import utilitaire.UtilDB;
  */
 public class GestionRole {
 
-    public int  testRestriction(String idrole, String permission, String table,String direc,Connection c) throws Exception {
+    public int  testRestriction(MapUtilisateurServiceDirection user, String idaction, String table,String direc,Connection c) throws Exception {
 
         try {
             Restriction r = new Restriction();
             //TypeObjet to=new TypeObjet();
-           // r.setIdrole(idrole);
-
-            
-           // r.setIdaction(act);
-            r.setTablename(table);
-            String aw=" AND idaction='"+permission+"' and IDDIRECTION='"+direc+"'";
+            // r.setIdrole(idrole);
+            // r.setIdaction(act);
+            //r.setTablename(table);
+            String aw=" AND idaction='"+idaction+"' and (idrole='"+user.getIdrole()+"' or refuser="+user.getRefuser()+") and LOWER(tablename) = LOWER('"+table+"')";
             // System.out.print("awhere="+aw);
             Restriction[] res = (Restriction[]) CGenUtil.rechercher(r, null, null, c, aw);
-           
+            for (Restriction restriction : res) {
+                    if(restriction.getAutorise()==1) return 0;
+            }
             if (res!=null&&res.length != 0) {
                 return 1;
             }

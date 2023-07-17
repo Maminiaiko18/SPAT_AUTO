@@ -5,7 +5,11 @@
  */
 package utilisateur;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
+import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
+
 import java.sql.Connection;
 
 /**
@@ -21,9 +25,106 @@ public class Restriction extends ClassMAPTable {
     private String autorisation;
     private String description;
     private String iddirection;
+    private int autorise;
+    private String refuser;
+
+
+    public Restriction(String idaction, String tablename, String description, int autorise,String refuser,String idrole) {
+        this.idaction = idaction;
+        this.tablename = tablename;
+        this.description = description;
+        this.autorise = autorise;
+        this.refuser = refuser;
+        this.idrole = idrole;
+    }
+
+
+    public void ajouterRestrictionUser(String utilisateur, String actions) throws Exception {
+        Connection c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+
+            String[] user = utilisateur.split(";");
+            String[] action = actions.split(";");
+
+            if (user != null && user.length > 0) {
+                for (String u : user) {
+                        if(action!=null && action.length >0){
+                            for (String a : action) {
+                            Restriction restriction = new  Restriction(a, this.getTablename(),  this.getDescription(), this.getAutorise(),u,null);
+                            restriction.setNomTable("restriction");
+                            restriction.construirePK(c);
+                            restriction.insertToTable(c);
+                        }
+                    }       
+                    else throw new Exception("Veuillez choisir au moins une action.");
+                }
+            }            
+            else throw new Exception("Veuillez choisir au moins un utilisateur.");
+            c.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+
+    public void ajouterRestrictionRole(String roles, String actions) throws Exception {
+        Connection c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+
+            String[] role = roles.split(";");
+            String[] action = actions.split(";");
+
+            if (role != null && role.length > 0) {
+                for (String r : role) {
+                        if(action!=null && action.length >0){
+                            for (String a : action) {
+                            Restriction restriction = new  Restriction(a, this.getTablename(),  this.getDescription(), this.getAutorise(),null,r);
+                            restriction.setNomTable("restriction");
+                            restriction.construirePK(c);
+                            restriction.insertToTable(c);
+                        }
+                    }       
+                    else throw new Exception("Veuillez choisir au moins une action.");
+                }
+            }            
+            else throw new Exception("Veuillez choisir au moins un utilisateur.");
+            c.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+
+    public String getRefuser() {
+        return refuser;
+    }
+
+    public void setRefuser(String refuser) {
+        this.refuser = refuser;
+    }
+
+    public int getAutorise() {
+        return autorise;
+    }
+
+    public void setAutorise(int autorise) {
+        this.autorise = autorise;
+    }
 
     public Restriction(String idrole, String idaction, String tablename, String autorisation, String description, String iddirection) {
-        this.setIdrole(idrole);
+            this.setIdrole(idrole);
         this.setIdaction(idaction);
         this.setTablename(tablename);
         this.setAutorisation("false");
