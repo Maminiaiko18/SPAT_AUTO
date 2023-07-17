@@ -37,11 +37,13 @@
         
         pi.getFormu().getChamp("idRole").setPageAppel("choix/listeRoleChoixMultiple.jsp");
         pi.getFormu().getChamp("idRole").setAutre("readonly");
+        pi.getFormu().getChamp("idRole").setLibelle("Roles");
+
         
         pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-    <h1 align="center">Ajout Restriction par Utilisateur</h1>
+    <h1 align="center">Ajout Restriction par Rôle</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="menu" id="menu" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
