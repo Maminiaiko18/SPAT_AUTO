@@ -22,6 +22,8 @@
 <%@ page import="ded.OrdonnerPayement" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="affichage.*" %>
+<%@ page import="utilisateur.*" %>
+
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -97,6 +99,32 @@
                 fc.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
             }
 
+            if (acte.compareToIgnoreCase("restrictionUser") == 0) {
+                String idaction = request.getParameter("idaction");
+                String tablename = request.getParameter("tablename");
+                String description = request.getParameter("description");
+                String utilisateur = request.getParameter("refuser");
+                String autorise = request.getParameter("autorise");
+                Restriction restriction = new  Restriction();
+                restriction.setTablename(tablename);
+                restriction.setDescription(description);
+                restriction.setAutorise(Integer.parseInt(autorise));
+                restriction.ajouterRestrictionUser(utilisateur, idaction);
+            }
+
+            if (acte.compareToIgnoreCase("restrictionRole") == 0) {
+                String idaction = request.getParameter("idaction");
+                String tablename = request.getParameter("tablename");
+                String description = request.getParameter("description");
+                String idrole = request.getParameter("idrole");
+                String autorise = request.getParameter("autorise");
+                Restriction restriction = new  Restriction();
+                restriction.setTablename(tablename);
+                restriction.setDescription(description);
+                restriction.setAutorise(Integer.parseInt(autorise));
+                restriction.ajouterRestrictionRole(idrole, idaction);
+            }
+
             if (acte.compareToIgnoreCase("insertMenu") == 0) {
                 String utilisateur = request.getParameter("refuser");
                 String menu = request.getParameter("idmenu");
@@ -104,6 +132,7 @@
                 String acces = request.getParameter("interdit");
                 u.ajouterMenuUtilisateur(utilisateur, menu, null, acces);
             }
+
             if (acte.compareToIgnoreCase("insert") == 0) {
                 System.out.println("navire : " + request.getParameter("idnavire"));
                 t = (ClassMAPTable) (Class.forName(classe).newInstance());
