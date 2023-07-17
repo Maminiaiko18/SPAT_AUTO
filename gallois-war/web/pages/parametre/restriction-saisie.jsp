@@ -4,6 +4,8 @@
 <%@page import="bean.TypeObjet"%>
 <%@page import="utilisateur.Role"%>
 <%@page import="affichage.PageInsert"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%
     try{
        
@@ -13,7 +15,7 @@
         
         affichage.Champ[] liste = new affichage.Champ[1];
  
-        String[] affiche = {"Autoris�","Interdit"};
+        String[] affiche = {"Interdit","Autorisé"};
         String[] value = {"0","1"};
         Liste lst = new Liste();
         lst.ajouterValeur(value, affiche);
@@ -22,23 +24,26 @@
     
         pi.getFormu().changerEnChamp(liste);
 //        pi.getFormu().getChamp("idmenu").setLibelle("Menu");
+        pi.getFormu().getChamp("idrole").setVisible(false);
+
         pi.getFormu().getChamp("refuser").setLibelle("Utilisateur");
         pi.getFormu().getChamp("iddirection").setVisible(false);
+        pi.getFormu().getChamp("idaction").setLibelle("action");
 
-        pi.getFormu().getChamp("autorise").setLibelle("Acc�s");
+        pi.getFormu().getChamp("autorise").setLibelle("Accès");
         pi.getFormu().getChamp("refuser").setAutre("readonly");
         pi.getFormu().getChamp("refuser").setPageAppel("choix/listeUtilisateurChoixMultiple.jsp");
 
         pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-    <h1 align="center">Ajout Restriction</h1>
+    <h1 align="center">Ajout Restriction par Utilisateur</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="menu" id="menu" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
             out.println(pi.getFormu().getHtmlInsert());
         %>
-        <input name="acte" type="hidden" id="nature" value="insertRestriction">
+        <input name="acte" type="hidden" id="nature" value="restrictionUser">
         <input name="bute" type="hidden" id="bute" value="parametre/restriction-saisie.jsp">
         <input name="classe" type="hidden" id="classe" value="utilisateur.Restriction">
     </form>
