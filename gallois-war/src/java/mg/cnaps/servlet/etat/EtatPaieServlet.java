@@ -1533,12 +1533,13 @@ public class EtatPaieServlet extends HttpServlet {
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             JournalCaisseBordereauPaie[] mere = (JournalCaisseBordereauPaie[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
             param.put("date",utilitaire.Utilitaire.dateDuJour().toString());
-            if(mere[0].getDateSaisie()==null){
-                param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"  "+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
-            }else{
-                param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"  "+mere[0].getDateSaisie()+"  "+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
-            }
+            // if(mere[0].getDateSaisie()==null){
+            //     param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"  "+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
+            // }else{
+            //     param.put("cheque",utilitaire.Utilitaire.champNull(mere[0].getNumcheque())+"  "+mere[0].getDateSaisie()+"  "+utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
+            // }
             double montantTotal = AdminGen.calculSommeDouble(mere,"montant");
+            param.put("cheque",(mere[0].getNumcheque()+" d'Ar "+Utilitaire.formaterAr(montantTotal)));
             param.put("destinataire",mere[0].getTiersLib());
             param.put("destinataire", mere[0].getTiersLib());
             //String montantlettre = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantTotal())," Ariary");
