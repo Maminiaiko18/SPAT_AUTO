@@ -8,6 +8,8 @@
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="affichage.PageUpdate"%>
 <%@page import="affichage.Liste"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%
     String autreparsley = "data-parsley-range='[8, 40]' required";
     try{
@@ -17,7 +19,7 @@
                 table = "FACTURE_FOURNISSEUR_MERE",
                 classe = "facture.FactureFournisseur",
                 bute = "facture/facture-fournisseur-fiche-vaovao.jsp",
-                titre = "Modification entête facture fournisseur"
+                titre = "Modification entÃªte facture fournisseur"
         ;
         FactureFournisseur o = new FactureFournisseur();
         o.setNomTable("FACTURE_FOURNISSEUR_MERE");
@@ -34,7 +36,13 @@
         
         pi.getFormu().getChamp("type").setVisible(false);
         pi.getFormu().getChamp("tva").setVisible(false);
-        pi.getFormu().getChamp("remarque").setVisible(false);
+        pi.getFormu().getChamp("remarque").setLibelle("ref compta");
+        pi.getFormu().getChamp("idom").setVisible(false);
+        pi.getFormu().getChamp("datedevise").setVisible(false);
+        pi.getFormu().getChamp("num").setVisible(false);
+        pi.getFormu().getChamp("id").setVisible(false);
+
+
         pi.getFormu().getChamp("date_echeance").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idprevision").setVisible(false);
@@ -57,8 +65,8 @@
         nature.setNomTable("nature");
         listes[0] = new Liste("nature", nature, "val", "id");
         pi.getFormu().changerEnChamp(listes);
-        pi.getFormu().getChamp("numeroop").setLibelle("N° facture");
-        pi.getFormu().getChamp("code").setLibelle("N° Compta");
+        pi.getFormu().getChamp("numeroop").setLibelle("NÂ° facture");
+        pi.getFormu().getChamp("code").setLibelle("NÂ° Compta");
         
         
         
