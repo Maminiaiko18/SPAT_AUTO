@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Bordereaux_paiment" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="8e5778f4-7403-46fc-ae1c-fc4c9be879f4">
 	<property name="ireport.zoom" value="1.6500000000000008"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="250"/>
+	<property name="ireport.x" value="190"/>
+	<property name="ireport.y" value="159"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -96,12 +96,11 @@ Société du Port à gestion Autonome de Toamasina
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="343" y="165" width="203" height="40" uuid="8474e3cf-781e-4645-a513-52d1f8ea7f35"/>
-				<textElement textAlignment="Justified"/>
+				<textElement textAlignment="Justified">
+					<font isUnderline="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{cheque}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="345" y="180" width="188" height="1" uuid="a8ec9932-9f74-4325-b213-52f1cd16df30"/>
-			</line>
 			<line>
 				<reportElement x="1" y="206" width="554" height="1" uuid="d35bb362-8247-4fe5-a186-2dca08feafa2"/>
 			</line>
@@ -114,6 +113,9 @@ Société du Port à gestion Autonome de Toamasina
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="75" y="207" width="480" height="34" uuid="6ddd9b9b-27f2-4326-8b92-925ae4d08344"/>
+				<textElement>
+					<font isUnderline="false"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{observation}]]></textFieldExpression>
 			</textField>
 			<staticText>
