@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Bordereaux_paiment" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="8e5778f4-7403-46fc-ae1c-fc4c9be879f4">
 	<property name="ireport.zoom" value="1.6500000000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="440"/>
+	<property name="ireport.y" value="350"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -170,7 +170,7 @@ Société du Port à gestion Autonome de Toamasina
 	</columnHeader>
 	<detail>
 		<band height="15">
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="162" y="0" width="128" height="15" uuid="5c2d2c12-3e35-4056-89a4-7bbbe99bb6c8"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
@@ -182,7 +182,7 @@ Société du Port à gestion Autonome de Toamasina
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="290" y="0" width="137" height="15" uuid="2bcb997c-8045-408c-b6eb-ce6a319281d3"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
