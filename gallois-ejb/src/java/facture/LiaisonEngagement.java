@@ -5,8 +5,12 @@
  */
 package facture;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import java.sql.Connection;
+import java.sql.Date;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -16,6 +20,7 @@ public class LiaisonEngagement extends ClassEtat {
     
     private String id, id1, id2;
     private double montant;
+    private Date daty;
 
     @Override
     public String getTuppleID() {
@@ -74,5 +79,51 @@ public class LiaisonEngagement extends ClassEtat {
         this.setId2(id2);
         this.setMontant(montant);
         this.setEtat(etat);
+    }
+
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
+    
+    public String libererLiaison(String u, Connection c) throws Exception {
+        try{
+            c = (new UtilDB()).GetConn();
+            FactureFournisseur facture = (FactureFournisseur) (new FactureFournisseur()).getById(this.getId2(), "FACTFOURN_MSUM_LIB", c);
+            if(facture.getMontantttc() < this.getMontant()){
+                throw new Exception("Le montant \\340 lib\\351rer sup\\351rieur au montant TTC.");
+            }
+            String requete = "SELECT * FROM liaisonengagement_datefact WHERE ID2 = '" + this.getId2() + "' and etat = 11 ORDER BY DATY";
+            LiaisonEngagement[] liste = (LiaisonEngagement[])CGenUtil.rechercher(new LiaisonEngagement(), requete, c);
+            LiaisonEngagement liaison;
+            int t = liste.length;
+            double montant = this.getMontant();
+            for(int i = 0; i < t; i++){
+                if(montant > 0){
+                    liaison = new LiaisonEngagement();
+                    liaison.setId1(liste[i].getId1());
+                    liaison.setId2(liste[i].getId2());
+                    double montantAlib = (liste[i].getMontant() <= montant) ? liste[i].getMontant() : montant;
+                    liaison.setMontant(montantAlib * (-1));
+                    montant -= montantAlib;
+                    liaison.createObject(u, c);
+                    liaison.validerObject(u, c);
+                }
+            }
+            
+            c.commit();
+        }
+        catch(Exception e){
+            c.rollback();
+            throw e;
+        }
+        finally{
+            c.close();
+        }
+        
+        return this.getId2();
     }
 }

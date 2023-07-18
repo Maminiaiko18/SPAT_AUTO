@@ -1,3 +1,4 @@
+<%@page import="facture.LiaisonEngagement"%>
 <%@page import="bordereau.BordereauFF"%>
 <%@page import="facture.FactureFournisseur"%>
 <%@page import="mg.spat.stock.BonDeCommande"%>
@@ -533,6 +534,11 @@
             ded.OrdonnerPayement op = new ded.OrdonnerPayement();
             op.setId(idOp);
             op.ajouterFF(String.valueOf(u.getUser().getRefuser()),idFacture);
+        }
+
+        if(acte.compareToIgnoreCase("libererEngagementFF") == 0){
+            LiaisonEngagement liaison = new LiaisonEngagement(request.getParameter("id1"), request.getParameter("id2"), Utilitaire.stringToDouble(request.getParameter("montant")), 1);
+            id = liaison.libererLiaison(u.getUser().getTuppleID(), null);
         }
         
         String idAttributeName = "id";

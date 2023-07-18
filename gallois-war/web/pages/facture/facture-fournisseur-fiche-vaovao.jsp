@@ -250,11 +250,13 @@
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=1"%>" style="margin-right: 10px">Sortie banque</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=2"%>" style="margin-right: 10px">Sortie caisse</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/ordonnerpayement-saisie.jsp&ded_id=" + id%>" style="margin-right: 10px">Editer OP</a>
-                       
-                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&acte=editerBED&id=" + request.getParameter("id")+"&bute=ded/bordereauxFF-saisie.jsp"%>" style="margin-right: 10px">Editer BED</a>
-                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=depense/libere-engagement-facture.jsp&id1=" + e.getId()%>">Liberer Engagement</a>
-    
+                    </p>   
                     <hr>
+                    <p>
+                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=depense/libere-engagement-facture.jsp&id2=" + e.getId()%>" style="margin-right: 10px">Lib&eacute;rer Engagement</a>
+                        <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&acte=editerBED&id=" + request.getParameter("id")+"&bute=ded/bordereauxFF-saisie.jsp"%>" style="margin-right: 10px">Editer BED</a>
+                    </p>
+                    <hr
                     
                     <p>
 
