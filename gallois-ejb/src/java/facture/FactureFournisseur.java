@@ -863,12 +863,6 @@ public class FactureFournisseur extends FactureClient {
             }
 
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-            if(ff.getIdBL() != null){
-                BonDeCommande bc = (BonDeCommande)(new BonDeCommande()).getById(ff.getIdBL(), "AS_BONDECOMMANDE_LIB_fiche", c);
-                if(bc.getMontantTTC() < ff.getMontantttc()){
-                    throw new Exception("Montant TTC de la facture fournisseur sup\\351rieur au montant TTC du bon de commande.");
-                }
-            }
             if(!this.getApresValidationException()){
                 if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) != 0 && this.getIdProvision()==null) {
                     if(ff.getNumeroop()==null) throw new Exception("Numero facture obligatoire.");
