@@ -1560,7 +1560,7 @@ public class FactureFournisseur extends FactureClient {
             }
             FactureFournisseur facture = new FactureFournisseur();
             facture.setNomTable("factfourn_msum_lib_ficheB");
-            FactureFournisseur[] factures = (FactureFournisseur[])CGenUtil.rechercher(facture, null, null, c, " and id != " + this.getId() + " and idbc ='" + bl.getId_bc() + "' and etat >= 11");
+            FactureFournisseur[] factures = (FactureFournisseur[])CGenUtil.rechercher(facture, null, null, c, " and id != '" + this.getId() + "' and idbc ='" + bl.getId_bc() + "' and etat >= 11");
             if(factures.length > 0){
                 montant += AdminGen.calculSommeDouble(factures, "montantTTC");
                 if(montant > bc.getMontantTTC()){
