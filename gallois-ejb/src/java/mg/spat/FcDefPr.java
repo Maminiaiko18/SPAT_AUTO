@@ -30,7 +30,8 @@ public class FcDefPr extends ClassEtat {
         return montant;
     }
 
-    public void setMontant(double montant) {
+    public void setMontant(double montant) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&&montant<=0) throw new Exception("montant liaison invalide");
         this.montant = montant;
     }
 
@@ -46,7 +47,8 @@ public class FcDefPr extends ClassEtat {
         return id1;
     }
 
-    public void setId1(String id1) {
+    public void setId1(String id1) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (id1==null || id1.compareToIgnoreCase("")==0)) throw new Exception("facture définitive obligatoire");
         this.id1 = id1;
     }
 
@@ -54,7 +56,8 @@ public class FcDefPr extends ClassEtat {
         return id2;
     }
 
-    public void setId2(String id2) {
+    public void setId2(String id2) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (id2==null || id2.compareToIgnoreCase("")==0)) throw new Exception("facture de provision obligatoire");
         this.id2 = id2;
     }
 
