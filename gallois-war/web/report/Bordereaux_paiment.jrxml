@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Bordereaux_paiment" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="8e5778f4-7403-46fc-ae1c-fc4c9be879f4">
 	<property name="ireport.zoom" value="1.6500000000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="126"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -42,7 +42,7 @@
 	<title>
 		<band height="270" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="19" width="224" height="45" uuid="904d005f-f788-4ad3-b37e-42ebb3a00c31"/>
+				<reportElement x="161" y="-20" width="224" height="45" uuid="904d005f-f788-4ad3-b37e-42ebb3a00c31"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -52,7 +52,7 @@ Société du Port à gestion Autonome de Toamasina
 ]]></text>
 			</staticText>
 			<line>
-				<reportElement x="63" y="63" width="100" height="1" uuid="0c3bc1f9-6a83-41b6-abdc-50b8324662d4"/>
+				<reportElement x="228" y="25" width="100" height="1" uuid="0c3bc1f9-6a83-41b6-abdc-50b8324662d4"/>
 			</line>
 			<image>
 				<reportElement x="463" y="-3" width="72" height="82" uuid="83313a9f-ad4c-4775-9070-9802e28dcf93"/>
@@ -121,6 +121,27 @@ Société du Port à gestion Autonome de Toamasina
 			<staticText>
 				<reportElement x="1" y="241" width="138" height="20" uuid="087c4c1a-2ba4-41ca-b581-aafce3c219b5"/>
 				<text><![CDATA[ En règlement de vos factures]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="210" height="13" uuid="3d85b802-f500-461a-95b9-efe9f30cbd76"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DEPARTEMENT FINANCE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="52" width="210" height="13" uuid="d0562e8f-8ceb-46a1-963e-5f5a6eead306"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[SERVICE TRESORERIE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="26" width="210" height="13" uuid="ed7d475d-030e-48e4-a1eb-a773cd9eeeaf"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DIRECTION ADMNISITRATIVE ET FINANCIERE]]></text>
 			</staticText>
 		</band>
 	</title>
