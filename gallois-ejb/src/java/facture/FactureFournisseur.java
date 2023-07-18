@@ -863,6 +863,9 @@ public class FactureFournisseur extends FactureClient {
             }
 
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
+            if(ff.getIdBL() != null){
+                ff.controleMontant(c);
+            }
             if(!this.getApresValidationException()){
                 if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) != 0 && this.getIdProvision()==null) {
                     if(ff.getNumeroop()==null) throw new Exception("Numero facture obligatoire.");
@@ -939,7 +942,7 @@ public class FactureFournisseur extends FactureClient {
                     resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                 }
                 if(resteAEngager > 0){
-                    throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
+                    throw new ValidationException("Le montant de la facture d\\351passe le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera cr\\351\\351.",null,"validerFF");
                 }
             } else {
                 if (this.getIdbc() == null) {
@@ -1545,5 +1548,28 @@ public class FactureFournisseur extends FactureClient {
             throw e;
         }
         return super.dupliquer(user, c);
+    }
+    
+    public void controleMontant(Connection c) throws Exception {
+        try{
+            BonDeLivraison bl = (BonDeLivraison)(new BonDeLivraison()).getById(this.getIdBL(), "AS_BONDELIVRAISON", c);
+            BonDeCommande bc = (BonDeCommande)(new BonDeCommande()).getById(bl.getId_bc(), "AS_BONDECOMMANDE_LIB_fiche", c);
+            double montant = this.getMontantttc();
+            if(montant > bc.getMontantTTC()){
+                throw new Exception("Montant TTC de la facture fournisseur : " + this.getMontantttc() + " sup\\351rieur au montant TTC du bon de commande : " + bc.getMontantTTC() + ".");
+            }
+            FactureFournisseur facture = new FactureFournisseur();
+            facture.setNomTable("factfourn_msum_lib_ficheB");
+            FactureFournisseur[] factures = (FactureFournisseur[])CGenUtil.rechercher(facture, null, null, c, " and id != " + this.getId() + " and idbc ='" + bl.getId_bc() + "' and etat >= 11");
+            if(factures.length > 0){
+                montant += AdminGen.calculSommeDouble(factures, "montantTTC");
+                if(montant > bc.getMontantTTC()){
+                    throw new Exception("Montant TTC des factures fournisseur : " + montant + " sup\\351rieur au montant TTC du bon de commande : " + bc.getMontantTTC() + ".");
+                }
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
     }
 }
