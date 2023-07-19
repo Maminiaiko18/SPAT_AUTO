@@ -28,6 +28,7 @@ public class BordereauFF extends Bordereau{
     private double montantbudget;
     private double montantav;
     private double montantap;
+    private String idops;
 
 
     public double getMontantbudget(){
@@ -52,6 +53,14 @@ public class BordereauFF extends Bordereau{
 
     public void setMontantbudget(double montantbudget) {
         this.montantbudget = montantbudget;
+    }
+
+    public String getIdops() {
+        return idops;
+    }
+
+    public void setIdops(String idops) {
+        this.idops = idops;
     }
     
     public BordereauFF(){
@@ -113,6 +122,18 @@ public class BordereauFF extends Bordereau{
             String requete = "SELECT projet,code_etablissement from FACTURE_FOURNISSEUR_MERE WHERE id IN (select idop from liaisonbordereauFF where idbordereau='"+this.getId()+"') group by projet,code_etablissement";
             FactureFournisseur[] retour= (FactureFournisseur[])CGenUtil.rechercher(facture, requete, c);
             if(retour.length>1)throw new Exception("Les codes projet et direction doivent etre identiques pour les factures.");
+            String[] facturesTab = Utilitaire.stringToTab(this.getIdops(), ";");
+            String factures = Utilitaire.tabToString(facturesTab, "'", ",");
+            requete = "SELECT * from FACTURE_FOURNISSEUR_MERE where id in (" + factures + ")";
+            FactureFournisseur[] ff = (FactureFournisseur[])CGenUtil.rechercher(facture, requete, c);
+            String[] projet = AdminGen.getDistinct(ff, "projet");
+            String[] code_etablissement = AdminGen.getDistinct(ff, "code_etablissement");
+            if(projet.length > 1){
+                throw new Exception("Les factures fournisseur doivent avoir le m\352me projet.");
+            }
+            if(code_etablissement.length > 1){
+                throw new Exception("Les factures fournisseur doivent avoir le m\352me code \351tablissement.");
+            }
         }catch(Exception e){
             e.printStackTrace();
             throw e;
@@ -129,9 +150,9 @@ public class BordereauFF extends Bordereau{
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         FactureFournisseur[] listeFille=this.getFactures(c);
         if(listeFille!=null && listeFille.length>0){
-            for(FactureFournisseur details : listeFille){
-                if(details.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + details.getId() + " d\\351j\\340 vis\\351e.");
-            }
+//            for(FactureFournisseur details : listeFille){
+//                if(details.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + details.getId() + " d\\351j\\340 vis\\351e.");
+//            }
 
             if(listeFille[0]!=null){
                 this.setDirection(listeFille[0].getCode_etablissement());
