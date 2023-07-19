@@ -31,6 +31,9 @@
         
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp", "tiers;tierslibelle");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
+        pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
+        pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
+        pi.getFormu().getChamp("idengagement").setAutre("readonly");
         
         pi.getFormu().getChamp("type").setVisible(false);
         pi.getFormu().getChamp("tva").setVisible(false);
@@ -48,7 +51,6 @@
         pi.getFormu().getChamp("projet").setVisible(false);
         pi.getFormu().getChamp("code_etablissement").setVisible(false);
         pi.getFormu().getChamp("estAuto").setVisible(false);
-        pi.getFormu().getChamp("idengagement").setVisible(false);
         pi.getFormu().getChamp("typeEngagement").setVisible(false);
 
 
