@@ -7,6 +7,7 @@ package facturefournisseur;
 
 import bean.CGenUtil;
 import java.sql.Connection;
+import java.sql.Date;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -19,6 +20,15 @@ public class EtatFactureMontantDaty extends EtatFacture{
     private String typefacture,type,tierslib;
 
     private String code_etablissement,projet,numid,etatlib;
+    private Date datefacture;
+
+    public Date getDatefacture() {
+        return datefacture;
+    }
+
+    public void setDatefacture(Date datefacture) {
+        this.datefacture = datefacture;
+    }
 
     public String getCode_etablissement() {
         return code_etablissement;
