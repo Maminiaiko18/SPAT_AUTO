@@ -71,10 +71,9 @@ public class FactureFournisseur extends FactureClient {
     private String typeEngagement;
     private boolean apresValidationException;
     private Date datedevise;
-    private String idengaggrp;
 
 
-    public Date getDatedevise() {
+	public Date getDatedevise() {
         return datedevise;
     }
 
@@ -346,14 +345,6 @@ public class FactureFournisseur extends FactureClient {
     public void setApresValidationException(boolean apresValidationException) {
         this.apresValidationException = apresValidationException;
     }
-
-    public String getIdengaggrp() {
-        return idengaggrp;
-    }
-
-    public void setIdengaggrp(String idengaggrp) {
-        this.idengaggrp = idengaggrp;
-    }
     
     public FactureFournisseur() throws Exception {
         this.setNomTable("facture_Fournisseur_Mere");
@@ -363,7 +354,7 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public String getValColLibelle() {
-        return getDesignation() + ";" + getId() + ";" + getIdengaggrp();
+        return getDesignation() + ";" + getId();
     }
 
     public FactureFournisseur(String id, String tiers, String designation, String type, String remarque, String iduser, String idprevision, String idcategorie, double tva, Date daty, Date dateEcheance, int etat) throws Exception {
@@ -942,7 +933,7 @@ public class FactureFournisseur extends FactureClient {
                     resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                 }
                 if(resteAEngager > 0){
-                    throw new ValidationException("Le montant de la facture d\\351passe le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera cr\\351\\351.",null,"validerFF");
+                    throw new ValidationException("Le montant de la facture d\351passe le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera cr\351\351.",null,"validerFF");
                 }
             } else {
                 if (this.getIdbc() == null) {
