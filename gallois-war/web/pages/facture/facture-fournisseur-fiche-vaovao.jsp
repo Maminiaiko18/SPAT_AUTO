@@ -239,9 +239,7 @@
                 </div>
                 <div class="box-footer">
                     <p>
-                        <% if(e.getIdProvision()==null) { %>
-                            <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur" style="margin-right: 10px">Viser</a>
-                        <% } %>
+                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur" style="margin-right: 10px">Viser</a>
                         <% if(e.getEtat()==ConstanteEtat.getEtatValider()) { %>
                             <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur" style="margin-right: 10px">Annuler Visa</a>
                         <% } %>
