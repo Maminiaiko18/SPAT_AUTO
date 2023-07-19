@@ -848,10 +848,11 @@ public class FactureFournisseur extends FactureClient {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            // BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
-            // if(bedfilles.length > 0){
-            //     throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
-            // }
+            BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
+            if(bedfilles.length > 0){
+                // throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
+                throw new Exception("Veuillez attacher cet facture a un engagement");
+            }
 
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
             if(ff.getIdBL() != null){
