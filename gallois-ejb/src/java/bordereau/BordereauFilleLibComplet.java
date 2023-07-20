@@ -5,12 +5,23 @@
  */
 package bordereau;
 
+import java.sql.Date;
+
 /**
  *
  * @author nyamp
  */
 public class BordereauFilleLibComplet extends BordereauFille{
-    private String remarque,idfacture,idbordereaulib,code_etablissement,code_etablissementlib ;
+    private String remarque,idfacture,idbordereaulib,code_etablissement,code_etablissementlib;
+    private Date datefacture;
+
+    public Date getDatefacture() {
+        return datefacture;
+    }
+
+    public void setDatefacture(Date datefacture) {
+        this.datefacture = datefacture;
+    }
 
     
     public BordereauFilleLibComplet(){

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5a2a4c-d9f3-419e-bdaf-7d68b4b0a8e6">
 	<property name="ireport.zoom" value="1.2100000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="64"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
 	<parameter name="code_etab" class="java.lang.String"/>
@@ -18,7 +18,7 @@
 	<field name="montanttva" class="java.lang.Double"/>
 	<field name="montantTTC" class="java.lang.Double"/>
 	<field name="tierslib" class="java.lang.String"/>
-	<field name="daty" class="java.util.Date"/>
+	<field name="datefacture" class="java.util.Date"/>
 	<field name="numFact" class="java.lang.String"/>
 	<field name="montant" class="java.lang.Double"/>
 	<variable name="totalht" class="java.lang.Double" calculation="Sum">
@@ -449,7 +449,7 @@
 					<font isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{datefacture}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="71" height="29" uuid="03c73c9d-ee80-488b-b9b3-d209456da601"/>
