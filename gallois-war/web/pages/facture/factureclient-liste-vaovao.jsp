@@ -27,7 +27,7 @@
 
         String listeCrt[] = {"id", "daty", "tierslib", "tiers", "designation", "armateurlib", "exercice", "date_echeance", "escale", "categorielib", "code", "codeFiltre", "typelib", "nbJours","nomnavire"};
         String listeInt[] = {"daty", "date_echeance", "exercice", "nbJours"};
-        String libEntete[] = {"id", "daty", "tiers", "code", "escale","nomnavire", "designation", "armateurlib", "exercice", "categorielib", "tva", "date_echeance", "typelib", "montant", "montantTVA", "montantTTC", "montantTTCvrai", "montantAvoir", "montantpaye", "montantreste", "etatlib", "numpiece", "nbJours"};
+        String libEntete[] = {"id", "daty", "tierslib", "tiers", "code", "escale","nomnavire", "designation", "armateurlib", "exercice", "categorielib", "tva", "date_echeance", "typelib", "montant", "montantTVA", "montantTTC", "montantTTCvrai", "montantAvoir", "montantpaye", "montantreste", "etatlib", "numpiece", "nbJours"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -138,7 +138,7 @@
                 pr.getTableau().setLien(lienTableau);
                 pr.getTableau().setColonneLien(colonneLien);
 
-                String libEnteteAffiche[] = {"id", "daty", "Code Clt", "Code", "Escale","Navire", "Note explicative", "armateur", "exercice", "Catégorie", "tva", "date echeance", "Type", "montant HT", "montant TVA", "Montant TTC", "Net à payer", "montant Avoir", "Montant payé", "Reste à payer", "Etat", "Num Piece", "Jours d'echeance"};
+                String libEnteteAffiche[] = {"id", "daty", "Client", "Code Clt", "Code", "Escale","Navire", "Note explicative", "armateur", "exercice", "Catégorie", "tva", "date echeance", "Type", "montant HT", "montant TVA", "Montant TTC", "Net à payer", "montant Avoir", "Montant payé", "Reste à payer", "Etat", "Num Piece", "Jours d'echeance"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setUrlLienAffiche(urlLienAffiche);
                 pr.getTableau().setUrlLien(urlLienMultiple);
