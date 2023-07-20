@@ -23,7 +23,7 @@
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.setApres("facture/facture-client-fille-liste.jsp");
+        pr.setApres("facture/facture-client-fille-listeSP.jsp");
 
         pr.getFormu().getChamp("mois1").setLibelle("mois min");
         pr.getFormu().getChamp("mois2").setLibelle("mois max");
