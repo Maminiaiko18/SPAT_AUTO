@@ -9,19 +9,19 @@
 
 <% try{ 
     MapUtilisateur utilisateur = new MapUtilisateur();
-    //info.setNomTable("vue_personnel");
-    String listeCrt[] = {"loginuser", "idrole", "nomuser","adruser","teluser","refuser"};
-    String listeInt[] = {"refuser","rang"};
-    String libEntete[] = {"refuser","loginuser", "idrole", "nomuser","adruser","teluser"};
+    utilisateur.setNomTable("UTILISATEURLIB");
+    String listeCrt[] = {"loginuser", "idrole", "nomuser","adruser",/*"teluser",*/"refuser"};
+    String listeInt[] = {"rang"};
+    String libEntete[] = {"refuser","loginuser", "idrole", "nomuser","adruser"/*,"teluser"*/};
     PageRecherche pr = new PageRecherche(utilisateur, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    /*pr.getFormu().getChamp("loginuser").setLibelle("Login");
+    pr.getFormu().getChamp("loginuser").setLibelle("Login");
     pr.getFormu().getChamp("idrole").setLibelle("Role");
     pr.getFormu().getChamp("nomuser").setLibelle("Nom");
-    pr.getFormu().getChamp("adruser").setLibelle("Adresse");
-    pr.getFormu().getChamp("teluser").setLibelle("Telephone");
-    pr.getFormu().getChamp("refuser").setLibelle("Reference");*/
+    pr.getFormu().getChamp("adruser").setLibelle("Direction");
+    //pr.getFormu().getChamp("teluser").setLibelle("Telephone");
+    pr.getFormu().getChamp("refuser").setLibelle("Reference");
     pr.setApres("parametre/utilisateur-liste.jsp");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
@@ -50,7 +50,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Reference","Login", "Role", "Nom","Adresse","Telephone"};
+            String libEnteteAffiche[] = {"Reference","Login", "Role", "Nom","Direction"/*,"Telephone"*/};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
