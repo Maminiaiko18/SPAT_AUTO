@@ -49,21 +49,21 @@
                 <div class="col-md-4">
                     Etat : 
                     <select name="table" class="champ" id="table" onchange="changerDesignation()" >
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("tiers") == 0) {%>    
-                        <option value="tiers" selected>Tous</option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("FOURNISSEUR_UNION_PERSONNEL") == 0) {%>    
+                        <option value="FOURNISSEUR_UNION_PERSONNEL" selected>Tous</option>
                         <% } else { %>
-                        <option value="tiers" >Tous</option>
+                        <option value="FOURNISSEUR_UNION_PERSONNEL" >Tous</option>
                         <% } %>
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("tiers_cree") == 0) {%>    
-                        <option value="tiers_cree" selected>Cré&eacute; </option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("FOURNISSEUR_UNION_PERSONNEL_C") == 0) {%>    
+                        <option value="FOURNISSEUR_UNION_PERSONNEL_C" selected>Cré&eacute; </option>
                         <% } else { %>
-                        <option value="tiers_cree" > Cré&eacute; </option>
+                        <option value="FOURNISSEUR_UNION_PERSONNEL_C" > Cré&eacute; </option>
                         <% } %>
 
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("tiers_valide") == 0) {%>
-                        <option value="tiers_valide" selected> Valid&eacute; </option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("FOURNISSEUR_UNION_PERSONNEL_V") == 0) {%>
+                        <option value="FOURNISSEUR_UNION_PERSONNEL_V" selected> Valid&eacute; </option>
                         <% } else { %>
-                        <option value="tiers_valide"> Valid&eacute; </option>
+                        <option value="FOURNISSEUR_UNION_PERSONNEL_V"> Valid&eacute; </option>
                         <% } %>
 
                     </select>
