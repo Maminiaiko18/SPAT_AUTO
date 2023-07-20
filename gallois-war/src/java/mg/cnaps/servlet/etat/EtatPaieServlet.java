@@ -754,13 +754,17 @@ public class EtatPaieServlet extends HttpServlet {
                 fille.setIdbordereau(id);
                 fille.setNomTable("liaisonbordereauFF_libcomplet");
                 BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null,
-                        "");
+                        " and idbordereau='"+id+"'");
                 EtatFactureMontantDaty[] etatfmd = (EtatFactureMontantDaty[]) CGenUtil.rechercher(
                         new EtatFactureMontantDaty(),
                         "select * from factfourn_msum_lib where id in (select idop from liaisonbordereauFF where idbordereau = '"
                         + id + "')");
-
                 if (etatfmd.length > 0) {
+                    for(int i=0;i<etatfmd.length;i++)
+                    {
+                         etatfmd[i].setDatefacture(liste[i].getDatefacture());
+                    }
+                   
                     facture.FactureFournisseur factf = new facture.FactureFournisseur();
                     // factf.setId(etatfmd[0].getId());
                     // factf = (facture.FactureFournisseur)factf.getById(factf.getId(), null, null);
