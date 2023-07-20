@@ -28,12 +28,15 @@
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("tiers").setVisible(false);
-    pc.getChampByName("montantbudget").setLibelle("Montant budget");
-    pc.getChampByName("montantav").setLibelle("Montant avant");
-    pc.getChampByName("montantap").setLibelle("Montant apres");
-    pc.getChampByName("numfsb").setLibelle("Num FSB");
+    pc.getChampByName("montantbudget").setVisible(false);
+    pc.getChampByName("montantav").setVisible(false);
+    pc.getChampByName("montantap").setVisible(false);
+    pc.getChampByName("numfsb").setVisible(false);
+    pc.getChampByName("etat").setVisible(false);
+    pc.getChampByName("idfactures").setVisible(false);
 
-    pc.getChampByName("idfactures").setLibelle("Factures");
+
+    //pc.getChampByName("idfactures").setLibelle("Factures");
     pc.getChampByName("projet").setVisible(false);
     pc.getChampByName("direction").setVisible(false);
     pc.getChampByName("directionlib").setLibelle("Direction");
@@ -63,9 +66,9 @@
                         <br/>
                         <div class="box-footer">
                             <a id="imprimer" class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerBed2&id=<%=id%>" style="margin-right: 10px"> Imprimer BED</a>
-                             <a id="imprimerfsb"  class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerSuiviBudgetaire&id=<%=id%>" style="margin-right: 10px">Imprimer FSB</a>
-                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-details-saisie.jsp&idbordereau="+id%>" style="margin-right: 10px">Ajouter facture</a> 
-                            <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Viser</a>
+                             <%-- <a  class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerSuiviBudgetaire&id=<%=id%>" style="margin-right: 10px">Imprimer FSB</a> --%>
+                            <%-- <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-details-saisie.jsp&idbordereau="+id%>" style="margin-right: 10px">Ajouter facture</a>  --%>
+                            <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Viser</a>-->
                             <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-modif.jsp&id=" + id %>" style="margin-right: 10px">Modifier</a>
                            <label style="float:right;padding-right:10px">Accord : 
                                     <select id="choix" onchange="choix()">
@@ -86,7 +89,7 @@
             <div class="box-fiche">
                 <div class="box">
                     <div class="box-title with-border">
-                        <h2 class="box-title" style="margin-left: 10px;">Liste d�tails bordereaux</h2>
+                        <h2 class="box-title" style="margin-left: 10px;">Liste d&eacute;tails bordereaux</h2>
                     </div>
                     <div class="box-body">
                                 
