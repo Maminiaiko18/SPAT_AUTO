@@ -851,7 +851,7 @@ public class FactureFournisseur extends FactureClient {
             BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
             if(bedfilles.length > 0){
                 // throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
-                throw new Exception("Veuillez attacher cet facture a un engagement");
+                if(this.getIdengagement()==null) throw new Exception("Veuillez attacher cet facture a un engagement");
             }
 
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
