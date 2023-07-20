@@ -48,7 +48,7 @@ public class FactureClient extends ClassMere {
     private String id;
     private Date daty, date_echeance;
     private String tiers, designation, type, remarque, iduser, idprevision, escale, deviseMere,armateurlib,factureRemplacement;
-    private double tva, montant, montanttva, montantttc, montantpaye, montantreste, montantprov;
+    private double tva, montant, montanttva, montantttc, montantpaye, montantreste, montantprov,montantprovision;
     private String tierslib;
     private double montantavoir;
     private ArrayList<FactureClientDetails> arrayDetails;
@@ -70,6 +70,14 @@ public class FactureClient extends ClassMere {
     private double montantapred,montanthtsimple;
     private double montantsansreduction;
     private String nomnavire;
+
+    public double getMontantprovision() {
+        return montantprovision;
+    }
+
+    public void setMontantprovision(double montantprovision) {
+        this.montantprovision = montantprovision;
+    }
 
 
     public String getNomnavire() {
@@ -1573,7 +1581,7 @@ public class FactureClient extends ClassMere {
 
     @Override
     public String getValColLibelle() {
-        return Utilitaire.formaterAr(montantreste)+";"+this.getId();
+        return Utilitaire.formaterAr(montantreste)+";"+this.getId()+";"+this.getCode();
     }
 
     public double getMontantavoir() {

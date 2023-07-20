@@ -18,7 +18,7 @@
 	<field name="montanttva" class="java.lang.Double"/>
 	<field name="montantTTC" class="java.lang.Double"/>
 	<field name="tierslib" class="java.lang.String"/>
-	<field name="daty" class="java.util.Date"/>
+	<field name="datefacture" class="java.util.Date"/>
 	<field name="numFact" class="java.lang.String"/>
 	<field name="montant" class="java.lang.Double"/>
 	<variable name="totalht" class="java.lang.Double" calculation="Sum">
@@ -449,7 +449,7 @@
 					<font isBold="true"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{datefacture}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="71" height="29" uuid="03c73c9d-ee80-488b-b9b3-d209456da601"/>

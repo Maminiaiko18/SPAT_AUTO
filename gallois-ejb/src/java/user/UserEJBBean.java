@@ -2111,6 +2111,10 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     public void deleteObject(ClassMAPTable o, Connection c) throws Exception {
 
         try {
+            if (testRestriction(u.getIdrole(), ConstanteUtilisateur.acteDelete, o.getNomTable(), c) == 1)
+            {
+                throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
+            }
             /*
              * if (u.isSuperUser() == false) { throw new Exception("Pas de
              * droit"); }
@@ -2808,9 +2812,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 
     public void annulerVisa(ClassMAPTable o, Connection c) throws Exception {
         try {
-            if(testRestriction(u.getIdrole(), "ACT000009", o.getNomTable(), c) == 1){
+            if(testRestriction(u.getIdrole(), ConstanteUtilisateur.acteAnnulerVisa, o.getNomTable(), c) == 1){
 //                     */u.getRang() < ConstanteUser.rangDir && o.getClassName().compareTo("mg.cnaps.compta.ComptaEcriture") != 0) {
-                throw new Exception("ERREUR DE DROIT");
+                throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
             }
             boolean defaultVisa = true;
             String id = o.getValInsert("id");

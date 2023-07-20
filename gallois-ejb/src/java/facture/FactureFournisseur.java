@@ -1478,6 +1478,7 @@ public class FactureFournisseur extends FactureClient {
             c = (new UtilDB()).GetConn();
             if(this.getCode()==null) {
                 String cal = calculerCodeSimple(c);
+                this.setDateRegul(Utilitaire.dateDuJourSql());
                 this.setCode(cal);
                 u.updateObject(this, c);
             }else throw new Exception("Ce facture possede deja un numero compta.");             

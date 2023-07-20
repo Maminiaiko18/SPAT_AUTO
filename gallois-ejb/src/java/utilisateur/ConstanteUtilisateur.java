@@ -18,6 +18,7 @@ public class ConstanteUtilisateur {
    public static final String acteRead="ACT0005";
    public static final String acteAnnuler="ACT0006";
    public static final String acteDupliquer="ACT0007";
+   public static final String acteAnnulerVisa="ACT0008";
 
    public static final int acteTerminer=12;
    public static final int acteActiver=2;
