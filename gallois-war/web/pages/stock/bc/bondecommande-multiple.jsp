@@ -125,7 +125,7 @@
 
         for(int i=0;i<data.getDemandeAchatfilles().length;i++){
             pi.getFormufle().getChamp("produit_"+i).setDefaut(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getProduit()));
-            pi.getFormufle().getChamp("Remarque_"+i).setDefaut(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getDesignation()));
+            pi.getFormufle().getChamp("designation_"+i).setDefaut(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getDesignation()));
             pi.getFormufle().getChamp("produit_"+i).setValeurLibelle(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getProduitlib()));
             pi.getFormufle().getChamp("quantite_"+i).setDefaut(Utilitaire.formaterAr( data.getDemandeAchatfilles()[i].getQte()));
             pi.getFormufle().getChamp("pu_"+i).setDefaut(Utilitaire.formaterSansVirgule(data.getDemandeAchatfilles()[i].getPu()));
@@ -142,7 +142,7 @@
         pi.getFormufle().changerEnChamp(listeUnit);
         
         pi.getFormufle().getChamp("Unite_0").setLibelle("Unite");
-        pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
+        pi.getFormufle().getChamp("designation_0").setLibelle("Designation");
         pi.getFormufle().getChamp("Remarque_0").setLibelle("Remarque");
         pi.getFormufle().getChamp("Montant_0").setLibelle("Montant");
         pi.getFormufle().getChamp("produit_0").setLibelle("Produit");
