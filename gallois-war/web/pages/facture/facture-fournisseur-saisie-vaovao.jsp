@@ -226,8 +226,7 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubrique"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureDebut"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"), false);
-
-        affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
+        if ( idBL == null ) affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
         pi.getFormufle().getChamp("idBLF_0").setLibelle("BL d&eacute;tail");
         pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
         pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
