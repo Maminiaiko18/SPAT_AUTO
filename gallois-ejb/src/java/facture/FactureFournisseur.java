@@ -393,7 +393,7 @@ public class FactureFournisseur extends FactureClient {
             }
             oo.setNomTable(nomtable);
             //OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%' and etat >= " + ConstanteEtat.getEtatValider());
-            OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and ded_id like '%" + this.getId() + "%'");
+            OrdonnerPayement[] results = (OrdonnerPayement[]) CGenUtil.rechercher(oo, null, null, c, " and etat=11 and ded_id like '%" + this.getId() + "%'");
 
             if (results != null && results.length > 0) {
                 return results[0];
@@ -492,6 +492,7 @@ public class FactureFournisseur extends FactureClient {
         this.setNomClasseFille("facture.FactureFournisseurDetails");
         this.setIduser(iduser);
         this.setId(null);
+        this.setDatedevise(Utilitaire.dateDuJourSql());
         /*if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
             this.setCode(calculerCodeSimple(cnctn));
         }*/
@@ -1535,6 +1536,8 @@ public class FactureFournisseur extends FactureClient {
             this.setIdengagement(null);
             this.setNumeroop(null);
             this.setCode(null);
+            this.setDatedevise(Utilitaire.dateDuJourSql());
+            this.setDaty(Utilitaire.dateDuJourSql());
         }
         catch(Exception e){
             throw e;
