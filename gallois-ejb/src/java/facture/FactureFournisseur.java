@@ -950,6 +950,8 @@ public class FactureFournisseur extends FactureClient {
                 }
             }
             this.setNomTable("facture_fournisseur_mere");
+            this.verifyOPmtt(u,c);
+
             super.validerObject(u, c);
             
             if(c != null && ouvert) {
@@ -967,6 +969,43 @@ public class FactureFournisseur extends FactureClient {
             }
         }
         return this;
+    }
+
+
+    public void verifyOPmtt(String u,Connection c) throws Exception{
+        try{
+            LiaisonIntraTable lt = new LiaisonIntraTable();
+            lt.setNomTable("LIAISONINTRATABLE");
+            LiaisonIntraTable[] liaisonsop = (LiaisonIntraTable[]) CGenUtil.rechercher(lt, null, null, c, "and id1='" + this.getId()+"'");
+            if(liaisonsop.length > 0){
+                OrdonnerPayement op = (OrdonnerPayement) (new OrdonnerPayement()).getById(liaisonsop[0].getId2(), "OrdonnerPayement", c); 
+                LiaisonIntraTable[] liaisons = (LiaisonIntraTable[]) CGenUtil.rechercher(lt, null, null, c, "and id2='" + op.getId()+"'"); 
+                String where = "";
+                int t = liaisons.length;
+                boolean debut = true;
+                if(t > 0){
+                    where += " and id in (";
+                    for(int i = 0; i < t; i++){
+                        if(debut)
+                            where += "'" + liaisons[i].getId1() + "'";
+                        else
+                            where += ",'" + liaisons[i].getId1() + "'";
+                        debut = false;
+                    }
+                    where += ")";
+                    FactureFournisseur fact = new FactureFournisseur();
+                    fact.setNomTable("factfourn_msum_lib_fiche");
+                    FactureFournisseur[] ffs = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, where);
+                    double montant = AdminGen.calculSommeDouble(ffs, "montantttc");
+                    if(montant != op.getMontant()){
+                        op.setMontant(montant);
+                        op.updateToTableWithHisto(u,c);
+                    }              
+                }            
+            }
+        }catch(Exception e){
+            throw e;
+        }
     }
 
     public Object validerSansControleResteEngagement(String u, boolean controleMontant, Connection c) throws Exception {
@@ -1367,37 +1406,8 @@ public class FactureFournisseur extends FactureClient {
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
             verif = 1;
+            //this.verifyOPmtt(String.valueOf(u.getUser().getRefuser()),c);
             ff = (FactureFournisseur) u.updateObjectMultiple(mere, colonneMere, fille, c);
-            LiaisonIntraTable lt = new LiaisonIntraTable();
-            lt.setNomTable("LIAISONINTRATABLE");
-            LiaisonIntraTable[] liaisonsop = (LiaisonIntraTable[]) CGenUtil.rechercher(lt, null, null, c, "and id1='" + this.getId()+"'");
-            if(liaisonsop.length > 0){
-                OrdonnerPayement op = (OrdonnerPayement) (new OrdonnerPayement()).getById(liaisonsop[0].getId2(), "OrdonnerPayement", c); 
-                LiaisonIntraTable[] liaisons = (LiaisonIntraTable[]) CGenUtil.rechercher(lt, null, null, c, "and id2='" + op.getId()+"'"); 
-                String where = "";
-                int t = liaisons.length;
-                boolean debut = true;
-                if(t > 0){
-                    where += " and id in (";
-                    for(int i = 0; i < t; i++){
-                        if(debut)
-                            where += "'" + liaisons[i].getId1() + "'";
-                        else
-                            where += ",'" + liaisons[i].getId1() + "'";
-                        debut = false;
-                    }
-                    where += ")";
-                    FactureFournisseur fact = new FactureFournisseur();
-                    fact.setNomTable("factfourn_msum_lib_fiche");
-                    FactureFournisseur[] ffs = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, where);
-                    double montant = AdminGen.calculSommeDouble(ffs, "montantttc");
-                    if(montant != op.getMontant()){
-                        op.setMontant(montant);
-                        u.updateObject(op, c);
-                    }              
-                }            
-            }
-            
             c.commit();
         }
         catch(Exception e){
