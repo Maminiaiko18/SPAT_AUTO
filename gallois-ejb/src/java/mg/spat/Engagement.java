@@ -393,7 +393,7 @@ public class Engagement extends ClassEtat {
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
         if(this.getType() == null) this.setType(Constante.typeEngagementEng);
-        if(this.getType().compareToIgnoreCase(Constante.typeEngagementBED) != 0)this.setNum(this.calculerNumero(c));
+        this.setNum(this.calculerNumero(c));
         LigneCredit lc = this.findSituationCredit(c);
         if(lc == null) throw new Exception("Budjet non trouv&eacute;");
         EngagementFille[] filles = this.getEngagementFilles(null, c);
