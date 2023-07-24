@@ -12,8 +12,11 @@ import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.ResultatEtSomme;
 import facture.FactureFournisseur;
+import facture.LiaisonEngagement;
 import facture.NumeroFacture;
 import lignecredit.LigneCredit;
+import mg.spat.Engagement;
+import mg.spat.EngagementFille;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -28,7 +31,7 @@ public class BordereauFF extends Bordereau{
     private double montantbudget;
     private double montantav;
     private double montantap;
-    private String idops;
+    private String idengagement, tierslib;
 
 
     public double getMontantbudget(){
@@ -55,12 +58,20 @@ public class BordereauFF extends Bordereau{
         this.montantbudget = montantbudget;
     }
 
-    public String getIdops() {
-        return idops;
+    public String getIdengagement() {
+        return idengagement;
     }
 
-    public void setIdops(String idops) {
-        this.idops = idops;
+    public void setIdengagement(String idengagement) {
+        this.idengagement = idengagement;
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
     }
     
     public BordereauFF(){
@@ -122,7 +133,7 @@ public class BordereauFF extends Bordereau{
             String requete = "SELECT projet,code_etablissement from FACTURE_FOURNISSEUR_MERE WHERE id IN (select idop from liaisonbordereauFF where idbordereau='"+this.getId()+"') group by projet,code_etablissement";
             FactureFournisseur[] retour= (FactureFournisseur[])CGenUtil.rechercher(facture, requete, c);
             if(retour.length>1)throw new Exception("Les codes projet et direction doivent etre identiques pour les factures.");
-            String[] facturesTab = Utilitaire.stringToTab(this.getIdops(), ";");
+            String[] facturesTab = Utilitaire.stringToTab(this.getIdfactures(), ";");
             String factures = Utilitaire.tabToString(facturesTab, "'", ",");
             requete = "SELECT * from FACTURE_FOURNISSEUR_MERE where id in (" + factures + ")";
             FactureFournisseur[] ff = (FactureFournisseur[])CGenUtil.rechercher(facture, requete, c);
@@ -290,5 +301,86 @@ public class BordereauFF extends Bordereau{
                 if(ff.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture deja visée");
             }
         }
+    }
+    
+    public String engager(String u, Connection c, boolean controleBudget) throws Exception {
+        boolean ouvert = false;
+        
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                ouvert = true;
+            }
+            
+            String idengagement = this.createEngagement(u, c, controleBudget);
+            this.setIdengagement(idengagement);
+            this.setNomTable("BORDEREAUFF");
+            this.updateToTableWithHisto(u, c);
+            
+            if(ouvert) 
+                c.commit();
+        }
+        catch(Exception e){
+            if(ouvert) 
+                c.rollback();
+            e.printStackTrace();
+            throw e;
+        }
+        finally{
+            if(c != null && ouvert)c.close();
+        }
+        
+        return this.getId();
+    }
+    
+    public String createEngagement(String u, Connection c, boolean controleBudget) throws Exception {
+        String idengagement = "";
+        
+        try{
+            LigneCredit lc = new LigneCredit();
+            lc.setNomTable("LIGNECREDITDEPENSE");
+            lc.setCodeEtablissement(this.getDirection());
+            lc.setProjet(this.getProjet());
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee=" + Utilitaire.getAnnee(this.getDaty()));
+            if (ligneCredits.length > 0) {
+                lc = ligneCredits[0];
+            }
+            
+            String[] facturesTab = Utilitaire.stringToTab(this.getIdfactures(), ";");
+            String factures = Utilitaire.tabToString(facturesTab, "'", ",");
+            String requete = "SELECT * from factfourn_msum_lib where id in (" + factures + ")";
+            FactureFournisseur fact = new FactureFournisseur();
+            fact.setNomTable("factfourn_msum_lib");
+            FactureFournisseur[] ff = (FactureFournisseur[])CGenUtil.rechercher(fact, requete, c);
+            double montant = AdminGen.calculSommeDouble(ff, "montant");
+            Engagement engagement = new Engagement(this.getNumero(), this.getDirection(), this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), this.getDaty(), this.getTiers(), 0);
+            if (lc != null) {
+                engagement.setIdLC(lc.getTuppleID());
+            }
+            engagement.construirePK(c);
+            engagement.createObject(u, c);
+            
+            EngagementFille engFille = new EngagementFille(engagement.getId(),this.getNumero(),montant);
+            engFille.construirePK(c);
+            engFille.insertToTableWithHisto(u, c);
+            engagement.setType(Constante.typeEngagementBED);
+            if(controleBudget)
+                engagement.validerObject(u, c);
+            else 
+                engagement.validerObjectSansControleMontant(u, c);
+
+            LiaisonEngagement liaison = new LiaisonEngagement(engagement.getId(), this.getId(), montant, ConstanteEtat.getEtatCreer());
+            liaison.createObject(u, c);
+            liaison.validerObject(u, c);
+            
+            idengagement = engagement.getId();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+        
+        return idengagement;
     }
 }
