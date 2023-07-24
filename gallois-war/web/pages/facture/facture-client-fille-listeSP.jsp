@@ -16,14 +16,14 @@
     try {
         CaFcFilleComplet cht = new CaFcFilleComplet();
         cht.setNomTable("CAFCFILLECOMPLET");
-        String libEntete[] = { "idmere","daty","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
-        String listeCrt[] = {"compte", "mois", "annee", "type", "designation", "client"};
+        String libEntete[] = { "idmere","daty","code","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
+        String listeCrt[] = {"compte", "mois","code", "annee", "type", "designation", "client"};
         String listeInt[] = {"mois"};
 
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.setApres("facture/facture-client-fille-liste.jsp");
+        pr.setApres("facture/facture-client-fille-listeSP.jsp");
 
         pr.getFormu().getChamp("mois1").setLibelle("mois min");
         pr.getFormu().getChamp("mois2").setLibelle("mois max");
@@ -87,7 +87,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Num Facture","date","client", "navire", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA", "Montant", "Montant TVA", "Montant TTC"};
+            String libEnteteAffiche[] = {"Num Facture","date","code","client", "navire", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA", "Montant", "Montant TVA", "Montant TTC"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

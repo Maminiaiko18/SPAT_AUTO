@@ -80,8 +80,8 @@ public class BordereauFille extends ClassMAPTable {
         mere.setNomTable("bordereauFF");
         if(mere.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Bordereau d\\351j\\340 vis\\351e.");
 
-        FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getIdop(), "FACTURE_FOURNISSEUR_MERE", con);
-        if(ff.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture d\\351j\\340 vis\\351e.");
+//        FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getIdop(), "FACTURE_FOURNISSEUR_MERE", con);
+//        if(ff.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture d\351j\340 vis\351e.");
 
         String temp = mere.getIdfactures();
         if(temp == null) mere.setIdfactures(this.getIdop());

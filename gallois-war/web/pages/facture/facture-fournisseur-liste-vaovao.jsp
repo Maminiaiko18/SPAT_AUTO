@@ -25,8 +25,8 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","dateRegul","tierslib","designation","exercice","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib","numfsb","remarque"};
-        String listeInt[] = {"daty","date_echeance","exercice","dateRegul"};
+        String listeCrt[] = {"id","daty","dateRegul","tierslib","designation","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib","numfsb","remarque","numOP"};
+        String listeInt[] = {"daty","date_echeance","dateRegul"};
 
         String libEntete[] = { "id", "code", "daty","dateRegul", "tierslib", "montant", "tva", "montantTVA", "montantTTCvrai", "numeroop", "datefacture", "designation", "numBed","numBc", "projetlib", "code_etablissementlib","numfsb", /*"remarque",*/ "naturelib", "modepaiement", "numOP", "exercice", "date_echeance", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib", "valcaisserefpmt", "numpiecerefpmt", "dateeffetrefpmt", "numchequerefpmt", "libellerefpmt", "debitrefpmt","remarque"};
         String libEnteteAffiche[] = { "id", "Reference/Code", "date","date Regul", "Fournisseur", "Montant HT", "TVA", "Montant TVA", "montant TTC", "N° Facture", "Date Facture", "Note explicative", "BED","Bon de commande", "Projet", "Code direction","Num FSB", /*"Num fiche Suivi Budgetaire",*/ "Nature", "Paiement", "Numero OP", "exercice", "date echeance", "montant Avoir", "Net à payer", "Montant payé", "Reste à payer", "Etat", "Caisse", "Num Piece", "Date Effet", "Num cheque", "libelle", "Sortie","ref compta"};
@@ -48,11 +48,12 @@
         liste[1] = new Liste("valcaisserefpmt", caisse, "val", "val");
         pr.setNpp(100);
         pr.getFormu().getChamp("dateRegul1").setLibelle("date Regule min");
-         pr.getFormu().getChamp("dateRegul2").setLibelle("date Regule max");
-         pr.getFormu().getChamp("daty1").setLibelle("date debut");
+        pr.getFormu().getChamp("dateRegul2").setLibelle("date Regule max");
+        pr.getFormu().getChamp("numOP").setLibelle("numero OP");
+        pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
-        pr.getFormu().getChamp("exercice1").setLibelle("debut exercice");
-        pr.getFormu().getChamp("exercice2").setLibelle("fin exercice");
+        //pr.getFormu().getChamp("exercice1").setLibelle("debut exercice");
+        //pr.getFormu().getChamp("exercice2").setLibelle("fin exercice");
         pr.getFormu().getChamp("tierslib").setLibelle("Fournisseur");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("numeroop").setLibelle("N° Facture");

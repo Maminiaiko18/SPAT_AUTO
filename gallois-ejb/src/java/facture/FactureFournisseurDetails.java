@@ -182,6 +182,8 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
         try{
+            FactureFournisseur fact = (FactureFournisseur) new FactureFournisseur().getById(this.getIdmere(), "FACTURE_FOURNISSEUR_MERE", c);
+            if(fact.getDeviseMere().compareToIgnoreCase(this.getDevise())!=0) throw new Exception("Devise different dans la facture details et la facture mere.");
             if(this.getDesignation()==null || this.getDesignation().compareToIgnoreCase("")==0) throw new Exception("Désignation details facture obligatoire.");
             String nomtable="situationLCDepenseGRP"; //budget groupé par direction et projet
             if(this.getCompte()!=null && this.getCompte().compareTo("")!=0) {

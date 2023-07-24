@@ -39,6 +39,7 @@ try{
     pi.getFormu().getChamp("projetlib").setVisible(false);
     pi.getFormu().getChamp("numero").setVisible(false);
     pi.getFormu().getChamp("numfsb").setVisible(false);
+    pi.getFormu().getChamp("tierslib").setVisible(false);
     
         for(int i=0; i < pi.getNombreLigne(); i++) {
             pi.getFormufle().getChamp("idop_" + i).setAutre("readonly");
@@ -57,35 +58,37 @@ try{
     pi.getFormu().getChamp("tiers").setValeurLibelle(mere.getTierslib());
 %>
 <div class="content-wrapper">
-    <div class="row">
-        <div class="box">
+    <div class="row"><div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="box">
 
-            <h1>Modification bordereau facture fournisseur</h1>
+                <h1>Modification bordereau facture fournisseur</h1>
 
-            <form action="<%=(String) session.getValue("lien")%>?but=apresMultiple.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
-                <%
-                    pi.getFormu().makeHtmlInsertTabIndex();
-                    pi.getFormufle().makeHtmlInsertTableauIndex();
-                    out.println(pi.getFormu().getHtmlInsert());
-                %>
-                   <center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=ded/bordereaux-fiche.jsp&classe=bordereau.Bordereau">Viser</a> </center>
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <%
-                            out.println(pi.getFormufle().getHtmlTableauInsert());
-                        %>
+                <form action="<%=(String) session.getValue("lien")%>?but=apresMultiple.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="medhospi">
+                    <%
+                        pi.getFormu().makeHtmlInsertTabIndex();
+                        pi.getFormufle().makeHtmlInsertTableauIndex();
+                        out.println(pi.getFormu().getHtmlInsert());
+                    %>
+                       <!--<center style="margin-bottom: 10px;"> <a class="btn btn-success button-margin"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=ded/bordereaux-fiche.jsp&classe=bordereau.Bordereau">Viser</a> </center>-->
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <%
+                                out.println(pi.getFormufle().getHtmlTableauInsert());
+                            %>
+                        </div>
                     </div>
-                </div>
 
-                <input name="acte" type="hidden" id="nature" value="updateInsert">
-                <input name="bute" type="hidden" id="bute" value="ded/bordereauxFF-fiche.jsp?id=<%=request.getParameter("id")%>">
-                <input name="classe" type="hidden" id="classe" value="bordereau.BordereauFF">
-                <input name="classefille" type="hidden" id="classefille" value="bordereau.BordereauFilleFF">
-                <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=pi.getNombreLigne()%>">
-                <input name="colonneMere" type="hidden" id="colonneMere" value="idbordereau">
-                
-                
-            </form>
+                    <input name="acte" type="hidden" id="nature" value="updateInsert">
+                    <input name="bute" type="hidden" id="bute" value="ded/bordereauxFF-fiche.jsp?id=<%=request.getParameter("id")%>">
+                    <input name="classe" type="hidden" id="classe" value="bordereau.BordereauFF">
+                    <input name="classefille" type="hidden" id="classefille" value="bordereau.BordereauFilleFF">
+                    <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=pi.getNombreLigne()%>">
+                    <input name="colonneMere" type="hidden" id="colonneMere" value="idbordereau">
+
+
+                </form>
+            </div>
         </div>
     </div>
 </div>

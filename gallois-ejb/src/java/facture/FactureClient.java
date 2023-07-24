@@ -68,8 +68,17 @@ public class FactureClient extends ClassMere {
     private String nomclt ,adrclt ,nmsttclt ,telclt ,nif ,rc ,tp ,quit , cdclt,idtraite,idfc,factureclientlib, idfact;
     private double nbJours, montantfacture, montanttraite;
     private double montantapred,montanthtsimple;
-    private double montantsansreduction;
+    private double montantsansreduction,montantresteAPayer;
     private String nomnavire;
+
+    public double getMontantresteAPayer() {
+        return this.montantprovision - montantttc;
+    }
+
+    public void setMontantresteAPayer(double montantresteAPayer) {
+        this.montantresteAPayer = montantresteAPayer;
+    }
+    
 
     public double getMontantprovision() {
         return montantprovision;
@@ -1581,7 +1590,7 @@ public class FactureClient extends ClassMere {
 
     @Override
     public String getValColLibelle() {
-        return Utilitaire.formaterAr(montantreste)+";"+this.getId();
+        return Utilitaire.formaterAr(montantreste)+";"+this.getId()+";"+this.getCode();
     }
 
     public double getMontantavoir() {
