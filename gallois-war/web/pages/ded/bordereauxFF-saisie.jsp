@@ -127,7 +127,6 @@
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=pi.getNombreLigne()%>">
         <input name="colonneMere" type="hidden" id="colonneMere" value="<%=colonneMere%>">
         <input name="nomFonctionSequence" type="hidden" id="colonneMere" value="<%=nomFonctionSequence%>">
-        <input name="idops" type="hidden" id="idops" value="<%=request.getParameter("idsOP")%>">
     </form>
 </div>
 <script>
