@@ -540,7 +540,7 @@
                 BordereauFF bed = new BordereauFF();
                 bed.setId(request.getParameter("id"));
                 bed = (BordereauFF)bed.getById(request.getParameter("id"), "BordereauFF", null);
-                bed.validerObjectSansControleBudget(u.getUser().getTuppleID(),null);
+                id = bed.engager(u.getUser().getTuppleID(), null, false);
             }
             else{
                 Engagement engagement=new Engagement();
@@ -568,6 +568,13 @@
         if(acte.compareToIgnoreCase("libererEngagementFF") == 0){
             LiaisonEngagement liaison = new LiaisonEngagement(request.getParameter("id1"), request.getParameter("id2"), Utilitaire.stringToDouble(request.getParameter("montant")), 1);
             id = liaison.libererLiaison(u.getUser().getTuppleID(), null);
+        }
+        
+        if(acte.compareToIgnoreCase("engagerBED") == 0){
+            BordereauFF bed = new BordereauFF();
+            bed.setId(request.getParameter("id"));
+            bed = (BordereauFF)bed.getById(request.getParameter("id"), "BordereauFF", null);
+            id = bed.engager(u.getUser().getTuppleID(), null, true);
         }
         
         String idAttributeName = "id";
