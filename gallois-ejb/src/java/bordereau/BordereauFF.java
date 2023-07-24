@@ -313,6 +313,7 @@ public class BordereauFF extends Bordereau{
                 ouvert = true;
             }
             
+            if(this.getIdengagement()!=null) throw new Exception("BED déja engagé.");
             String idengagement = this.createEngagement(u, c, controleBudget);
             this.setIdengagement(idengagement);
             this.setNomTable("BORDEREAUFF");
@@ -354,7 +355,7 @@ public class BordereauFF extends Bordereau{
             fact.setNomTable("factfourn_msum_lib");
             FactureFournisseur[] ff = (FactureFournisseur[])CGenUtil.rechercher(fact, requete, c);
             double montant = AdminGen.calculSommeDouble(ff, "montant");
-            Engagement engagement = new Engagement(this.getNumero(), this.getDirection(), this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), this.getDaty(), this.getTiers(), 0);
+            Engagement engagement = new Engagement(this.getDesignation(), this.getDirection(), this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), this.getDaty(), this.getTiers(), 0);
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }
