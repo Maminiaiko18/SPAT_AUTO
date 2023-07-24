@@ -559,6 +559,10 @@ public class Engagement extends ClassEtat {
                 c = new UtilDB().GetConn();
                 ouvert = true;
             }
+            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, "and codeetablissement='"+this.getCodeEtablissement()+"' and num < " + this.getNum() + " and etat = " + ConstanteEtat.getEtatValider());
+            if(engagement.length > 0)
+                throw new Exception("Un autre engagement a été créé après celui-ci.");
+                
             LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider());
             if(liaisons.length > 0)
                 throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
