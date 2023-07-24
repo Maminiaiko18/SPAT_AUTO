@@ -2500,7 +2500,8 @@ public class EtatPaieServlet extends HttpServlet {
             }
             String signature = "";
 
-            param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
+            //param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
+            param.put("daty", mere[0].getDaty());
             param.put("code", mere[0].getCode());
             param.put("designationAvoir", mere[0].getDesignation());
             param.put("designation", mere[0].getMotiflib());
