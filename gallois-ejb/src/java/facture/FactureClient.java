@@ -277,6 +277,7 @@ public class FactureClient extends ClassMere {
     private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
     private Date dateDepart,datearrivee;
     private String provenance,destination,armateur,codeFiltre,paiement,paiementlib;
+    private double montantdiff;
 
     public String getDestination() {
         return destination;
@@ -2610,5 +2611,13 @@ public class FactureClient extends ClassMere {
 
     public void setMontantfacture(double montantfacture) {
         this.montantfacture = montantfacture;
+    }
+
+    public double getMontantdiff() {
+        return montantdiff;
+    }
+
+    public void setMontantdiff(double montantdiff) {
+        this.montantdiff = montantdiff;
     }
 }
