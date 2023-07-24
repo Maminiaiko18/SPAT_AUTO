@@ -365,7 +365,7 @@ public class BordereauFF extends Bordereau{
             EngagementFille engFille = new EngagementFille(engagement.getId(),this.getNumero(),montant);
             engFille.construirePK(c);
             engFille.insertToTableWithHisto(u, c);
-            //engagement.setType(Constante.typeEngagementBED);
+            engagement.setType(Constante.typeEngagementBED);
             if(controleBudget)
                 engagement.validerObject(u, c);
             else 
