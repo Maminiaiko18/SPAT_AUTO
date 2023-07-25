@@ -161,9 +161,9 @@ public class BordereauFF extends Bordereau{
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         FactureFournisseur[] listeFille=this.getFactures(c);
         if(listeFille!=null && listeFille.length>0){
-//            for(FactureFournisseur details : listeFille){
-//                if(details.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + details.getId() + " d\\351j\\340 vis\\351e.");
-//            }
+           for(FactureFournisseur details : listeFille){
+               if(details.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + details.getId() + " d\\351j\\340 vis\\351e.");
+           }
 
             if(listeFille[0]!=null){
                 this.setDirection(listeFille[0].getCode_etablissement());
@@ -313,6 +313,7 @@ public class BordereauFF extends Bordereau{
                 ouvert = true;
             }
             
+            if(this.getIdengagement()!=null) throw new Exception("BED déja engagé.");
             String idengagement = this.createEngagement(u, c, controleBudget);
             this.setIdengagement(idengagement);
             this.setNomTable("BORDEREAUFF");
@@ -354,7 +355,7 @@ public class BordereauFF extends Bordereau{
             fact.setNomTable("factfourn_msum_lib");
             FactureFournisseur[] ff = (FactureFournisseur[])CGenUtil.rechercher(fact, requete, c);
             double montant = AdminGen.calculSommeDouble(ff, "montant");
-            Engagement engagement = new Engagement(this.getNumero(), this.getDirection(), this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), this.getDaty(), this.getTiers(), 0);
+            Engagement engagement = new Engagement(this.getDesignation(), this.getDirection(), this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), this.getDaty(), this.getTiers(), 0);
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }
