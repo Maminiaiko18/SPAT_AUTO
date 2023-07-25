@@ -560,7 +560,7 @@ public class Engagement extends ClassEtat {
                 c = new UtilDB().GetConn();
                 ouvert = true;
             }
-            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, "and codeetablissement='"+this.getCodeEtablissement()+"' and num < " + this.getNum() + " and etat = " + ConstanteEtat.getEtatValider());
+            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, "and codeetablissement='"+this.getCodeEtablissement()+"' and num > " + this.getNum() + " and etat = " + ConstanteEtat.getEtatValider());
             if(engagement.length > 0)
                 throw new Exception("Un autre engagement a été créé après celui-ci.");
                 
