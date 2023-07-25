@@ -864,11 +864,11 @@ public class BonDeCommande extends ClassEtat {
             
             BonDeCommandeFille bcFille = new BonDeCommandeFille();
             bcFille.setIdbc(this.id);
-            bcFille.setNomTable("AS_BONDECOMMANDE_FILLEMTT");
+            bcFille.setNomTable("BC_BL_LIVRE");
             BonDeCommandeFille[] filles = (BonDeCommandeFille[]) CGenUtil.rechercher(bcFille, null, null, c, "");
             
             double mtt = AdminGen.calculSommeDouble(filles, "montantht");
-            engagement.setMontant(mtt);
+            engagement.setMontant(this.getMontant());
             engagement.createObject(u, c);
             for (int i = 0; i < filles.length; i++) {
                 EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());
