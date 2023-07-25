@@ -944,8 +944,10 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
                     }
             }
            
-            if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece) && this.getCaisse().compareToIgnoreCase(Constante.caisseDepense)!=0){
-                this.arrondir();
+            if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece)){
+                if(this.getIdplacement()!=null){
+                    if(this.getCredit() > 0) this.arrondir();
+                }
             }
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
