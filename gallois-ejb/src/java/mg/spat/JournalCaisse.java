@@ -821,6 +821,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public void checkMontantFactureFournisseur(FactureFournisseur fc,Connection c) throws Exception {
 
         if (fc != null) {
+            if(fc.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Facture "+fc.getId()+" non visee");
             if(fc.getType().equals(Constante.typeCheque)) {
                 if(this.getDebit() != fc.getMontantreste()) throw new Exception("Une facture au comptant doit etre payee en totalite");
             }
@@ -831,7 +832,6 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     }
     
      public void checkMontantFactureFournisseur(FactureFournisseur[] fc,Connection c) throws Exception {
-
         if (fc != null && fc.length > 0) {
             double sommeReste = 0;
             for(int i=0; i<fc.length; i++){
@@ -1400,7 +1400,7 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
     public FactureFournisseur[] findFactureFournisseur(Connection c) throws Exception{
         FactureFournisseur ff = new FactureFournisseur();
         //ff.setNomTable("FACTUREFOURNVALIDE_V");
-        ff.setNomTable("FACTFOURN_MSUM_LIBV");
+        ff.setNomTable("FACTFOURN_MSUM_LIB");
         String ids = this.getIdplacement().contains(";") ? this.getIdplacement().replace(";", "','") : this.getIdplacement();
         String where = " and id in ('" +ids+"')";
         FactureFournisseur[] result = (FactureFournisseur[])CGenUtil.rechercher(ff, null, null, c, where);
