@@ -61,9 +61,9 @@
         </div>
         <jsp:include page='../elements/js.jsp'/>
          
-    <%-- <script>
+    <script>
         document.getElementById('btnSave').insertAdjacentHTML('afterend', '<a href="../<%=pr.getLien()%>?but=travaux/tiers-saisie.jsp&param=1" class="btn btn-primary" id="new" data-toggle="modal" tabindex="27" style="margin-left: 50%">Nouveau</a>')        
-    </script> --%>
+    </script>
    
     </body>
 </html>
