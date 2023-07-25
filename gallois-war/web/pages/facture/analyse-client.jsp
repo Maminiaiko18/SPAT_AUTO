@@ -7,17 +7,16 @@
     try {
 
         FactureClient lv = new FactureClient();
-        lv.setNomTable("FACTURE_CLIENT_UNIONV");
+        lv.setNomTable("FACTURE_CLIENT_UNIONV_PROV");
         String listeCrt[] = {"daty","tierslib"};
         String listeInt[] = {"daty"};
         
         
         String[] pourcentage = {};        
-        String somDefaut[] = {"montantreste","montantttc","montantpaye"};
+        String somDefaut[] = {"montantttc","montantpaye","montantreste","montantdiff"};
         String colDefaut[] = {"tierslib"};
 
         PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, 0);
-        
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         
@@ -53,7 +52,7 @@
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             
-            String libelleAffiche[] = {"Tiers","Montant reste","Montant TTC","Montant Paye",""};
+            String libelleAffiche[] = {"Tiers","Montant TTC","Montant Paye","Montant reste","Trop/moins per&ccedil;u",""};
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             out.println(pr.getTableau().getHtml());
         %>
