@@ -126,7 +126,7 @@
                             <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=treso/journalcaisse-fiche.jsp&classe=mg.spat.JournalCaisse" style="margin: 5px">Viser</a>
                             
                             <% 
-                            if(jcaisse.getCredit() > 0 && jcaisse.getIdcaisse().compareToIgnoreCase(Constante.caisseDepense)==0){ %>
+                            if(jcaisse.getCredit() > 0 && jcaisse.getIdcaisse().compareToIgnoreCase(Constante.caisseDepense)==0 && jcaisse.getIdplacement()==null){ %>
                                     <a class="btn btn-info"  href="${pageContext.request.contextPath}/Paie?action=pieceDeRecetteDepense&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin: 5px">imprimer pi�ce de recette</a>
                             <%
                             }                            
