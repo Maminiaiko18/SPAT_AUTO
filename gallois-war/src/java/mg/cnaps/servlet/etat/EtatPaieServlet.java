@@ -1,4 +1,4 @@
-package mg.cnaps.servlet.etat;
+        package mg.cnaps.servlet.etat;
 
 import affichage.Liste;
 import affichage.PageRecherche;
@@ -556,13 +556,24 @@ public class EtatPaieServlet extends HttpServlet {
             BonDeCommandeFille[] liste = data.getBcFille();
             Map param = new HashMap();
             if (tabBc.length > 0) {
+                
+                CodeEtablissement ce = new CodeEtablissement();
+                ce.setNomTable("codeetablissement_libcomplet");
+                CodeEtablissement[] cde = (CodeEtablissement[]) CGenUtil.rechercher(ce, null, null,
+                            String.format(" and val = '%s'", tabBc[0].getCode_etab()));
+                String suite = "";
+                if (cde.length > 0) {
+                    ce = cde[0];
+                    suite = ce.getServicelib() == null ? ce.getDepartementlib() : ce.getServicelib();
+                }
+
                 bc = tabBc[0];
                 param.put("DATY", bc.getDaty());
                 param.put("NOMFOURNISSEUR", bc.getNomfournisseur());
                 param.put("ADRESSE", bc.getAdresse());
                 param.put("REMARQUE", bc.getRemarque());
                 param.put("DESIGNATION", bc.getDesignation());
-                param.put("CODE_ETATLIB", bc.getCode_etablib());
+                param.put("CODE_ETATLIB", bc.getCode_etablib().concat("-").concat(suite));
                 param.put("CODE_ETAB", bc.getCode_etab());
                 param.put("DELAI", bc.getDelaipaiement());
                 param.put("TOTAL_HT", bc.getMontantHTSansRemise()/liste[0].getTaux());
@@ -590,7 +601,6 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("deviselib",liste[0].getDeviselib());
                 param.put("TOTAL_TTC_LETTRE",montantlettre.toUpperCase());
             }
-
             /*
              * BonDeCommandeFille f = new BonDeCommandeFille();
              * f.setNomTable("AS_BONDECOMMANDE_FILLE_LIB");
