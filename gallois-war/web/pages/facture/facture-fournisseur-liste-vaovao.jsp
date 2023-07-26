@@ -25,11 +25,11 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","dateRegul","tierslib","designation","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib","numfsb","remarque","numOP"};
+        String listeCrt[] = {"id","daty","dateRegul","tierslib","designation","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib","numfsb","remarque","numOP","numBed"};
         String listeInt[] = {"daty","date_echeance","dateRegul"};
 
-        String libEntete[] = { "id", "code", "daty","dateRegul", "tierslib", "montant", "tva", "montantTVA", "montantTTCvrai", "numeroop", "datefacture", "designation", "numBed","numBc", "projetlib", "code_etablissementlib","numfsb", /*"remarque",*/ "naturelib", "modepaiement", "numOP", "exercice", "date_echeance", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib", "valcaisserefpmt", "numpiecerefpmt", "dateeffetrefpmt", "numchequerefpmt", "libellerefpmt", "debitrefpmt","remarque"};
-        String libEnteteAffiche[] = { "id", "Reference/Code", "date","date Regul", "Fournisseur", "Montant HT", "TVA", "Montant TVA", "montant TTC", "N° Facture", "Date Facture", "Note explicative", "BED","Bon de commande", "Projet", "Code direction","Num FSB", /*"Num fiche Suivi Budgetaire",*/ "Nature", "Paiement", "Numero OP", "exercice", "date echeance", "montant Avoir", "Net à payer", "Montant payé", "Reste à payer", "Etat", "Caisse", "Num Piece", "Date Effet", "Num cheque", "libelle", "Sortie","ref compta"};
+        String libEntete[] = { "id", "code", "daty","dateRegul", "tierslib", "montant", "tva", "montantTVA", "montantTTCvrai", "numeroop", "datefacture", "designation", "numBed","numBc", "projetlib", "code_etablissementlib","numfsb",  "naturelib", "modepaiement", "numOP","remarque", "exercice", "date_echeance", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib", "valcaisserefpmt", "numpiecerefpmt", "dateeffetrefpmt", "numchequerefpmt", "libellerefpmt", "debitrefpmt","remarque"};
+        String libEnteteAffiche[] = { "id", "Reference/Code", "date","date Regul", "Fournisseur", "Montant HT", "TVA", "Montant TVA", "montant TTC", "N° Facture", "Date Facture", "Note explicative", "BED","Bon de commande", "Projet", "Code direction","Num FSB", "Nature", "Paiement", "Numero OP", "Ref Compta", "exercice", "date echeance", "montant Avoir", "Net à payer", "Montant payé", "Reste à payer", "Etat", "Caisse", "Num Piece", "Date Effet", "Num cheque", "libelle", "Sortie","ref compta"};
 
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, listeInt.length, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
