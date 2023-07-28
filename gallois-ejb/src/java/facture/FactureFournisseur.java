@@ -501,6 +501,10 @@ public class FactureFournisseur extends FactureClient {
             if(bl.getIdengagement() != null)
                 this.setIdengagement(bl.getIdengagement());
         }
+        if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
+            this.setNum(this.calculerNumeroBP(cnctn));
+        }
+        
         return super.createObject(iduser, cnctn);
     }
 
@@ -859,7 +863,7 @@ public class FactureFournisseur extends FactureClient {
             }
 
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-            if(ff.getIdBL() != null){
+            if(ff.getIdBL() != null && ff.getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0){
                 ff.controleMontant(c);
             }
             if(!this.getApresValidationException()){
@@ -884,7 +888,7 @@ public class FactureFournisseur extends FactureClient {
                 this.genererPaiementDefinitive(u, this.getIdProvision(), c);
             }
 
-            if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
+            if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getNum() == null) {
                 this.setNum(this.calculerNumeroBP(c));
             }
 
