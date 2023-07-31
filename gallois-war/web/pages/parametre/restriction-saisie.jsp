@@ -13,7 +13,7 @@
         PageInsert pi = new PageInsert(res, request,(user.UserEJB) session.getValue("u"));
         pi.setLien((String) session.getValue("lien"));
              
-        affichage.Champ[] liste = new affichage.Champ[1];
+        affichage.Champ[] liste = new affichage.Champ[2];
  
         String[] affiche = {"Interdit","Autorisé"};
         String[] value = {"0","1"};
@@ -21,7 +21,10 @@
         lst.ajouterValeur(value, affiche);
         liste[0] = lst;
         liste[0].setNom("autorise");
-    
+        
+        TypeObjet ficheRestriction = new TypeObjet();
+        ficheRestriction.setNomTable("FicheRestriction");
+        liste[1] = new Liste("tablename", ficheRestriction, "DESCE", "VAL");
         pi.getFormu().changerEnChamp(liste);
 //        pi.getFormu().getChamp("idmenu").setLibelle("Menu");
         pi.getFormu().getChamp("idrole").setVisible(false);
