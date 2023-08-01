@@ -56,7 +56,6 @@
     TypeObjet devise = new TypeObjet();
     devise.setNomTable("devise");
     liste[0] = new Liste("devisemere", devise, "VAL", "id");
-    liste[0].setDefaultSelected(Constante.deviseAr);
     pr.getFormu().changerEnChamp(liste);
     
     Date firstDate = Utilitaire.dateDuJourSql();   
