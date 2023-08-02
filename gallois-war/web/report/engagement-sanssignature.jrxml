@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5a2a4c-d9f3-419e-bdaf-7d68b4b0a8e6">
-	<property name="ireport.zoom" value="1.6963904734899427"/>
+	<property name="ireport.zoom" value="1.4019755979255706"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="192"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="tiers" class="java.lang.String"/>
 	<parameter name="code_etab" class="java.lang.String"/>
@@ -24,6 +24,7 @@
 	<parameter name="mttrealiser" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
+	<parameter name="dateimpression" class="java.lang.String"/>
 	<field name="id" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String"/>
 	<field name="montanttva" class="java.lang.Double"/>
@@ -149,7 +150,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="402" splitType="Stretch">
+		<band height="514" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="20" width="100" height="20" uuid="17cf3cde-b8bf-4f45-b3eb-348c5b1bc398"/>
 				<textElement>
@@ -242,7 +243,7 @@
 				<text><![CDATA[CODE PROJET]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="321" width="542" height="81" uuid="ff33574a-0a15-4e2f-8d1b-a8b12142e915"/>
+				<reportElement x="1" y="345" width="554" height="103" uuid="ff33574a-0a15-4e2f-8d1b-a8b12142e915"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -351,32 +352,32 @@
 				<textFieldExpression><![CDATA[$P{projet}.charAt( 2 )]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="18" y="321" width="253" height="15" uuid="07283f5a-7fec-4b9a-acf3-bc33850ec292"/>
+				<reportElement x="12" y="345" width="253" height="15" uuid="07283f5a-7fec-4b9a-acf3-bc33850ec292"/>
 				<textElement>
 					<font isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Observations du contrôle de gestion :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="19" y="352" width="536" height="50" uuid="6f87b497-15cb-467f-837a-3d4ddb5b3ef3"/>
+				<reportElement x="12" y="376" width="375" height="72" uuid="6f87b497-15cb-467f-837a-3d4ddb5b3ef3"/>
 				<textFieldExpression><![CDATA[$P{observation}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="18" y="337" width="66" height="15" uuid="525b3a8f-bc37-4481-af05-90fff3a1f449"/>
+				<reportElement x="12" y="361" width="66" height="15" uuid="525b3a8f-bc37-4481-af05-90fff3a1f449"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Réalisation de ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="84" y="337" width="468" height="15" uuid="b6f2f7b3-fef7-4044-985d-0214f7663af9"/>
+				<reportElement x="78" y="361" width="309" height="15" uuid="b6f2f7b3-fef7-4044-985d-0214f7663af9"/>
 				<textElement markup="html">
 					<font isBold="false" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{mttrealiser}+" soit "+$P{pourc}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="12" y="275" width="141" height="15" uuid="ed199352-95ad-4a61-83d9-6c176878088a"/>
+				<reportElement x="387" y="296" width="168" height="21" uuid="84169e4e-6627-4e92-af0d-6d4b96d3b9e7"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -390,7 +391,7 @@
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="12" y="227" width="141" height="48" uuid="82a7a023-6d5f-46f9-af62-3594249c6b2c"/>
+				<reportElement x="387" y="227" width="168" height="69" uuid="fa7d28d4-053d-4363-8003-90144bb66d1b"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -402,7 +403,26 @@
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="12" y="212" width="141" height="15" uuid="5df84330-9a82-460d-a4b1-9bbf8e659e24"/>
+				<reportElement x="387" y="212" width="168" height="15" uuid="7ff3f5b1-d73a-41a2-a850-5db8f5e05dfc"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Accord Direction Générale]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="433" y="431" width="121" height="17" uuid="58afe05d-5459-4164-97d6-76339160033a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{dateimpression}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="212" width="168" height="15" uuid="86afd123-0697-49d0-b105-4a0cb8caba53"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -415,22 +435,8 @@
 				</textElement>
 				<text><![CDATA[Visa Directeur Sectoriel]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="414" y="275" width="141" height="15" uuid="84169e4e-6627-4e92-af0d-6d4b96d3b9e7"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
-					<paragraph leftIndent="3"/>
-				</textElement>
-				<text><![CDATA[Date :]]></text>
-			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="414" y="227" width="141" height="48" uuid="fa7d28d4-053d-4363-8003-90144bb66d1b"/>
+				<reportElement x="1" y="227" width="168" height="69" uuid="8854e6b3-57b1-4b72-8f15-8027f4f6aa0d"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -442,7 +448,7 @@
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="414" y="212" width="141" height="15" uuid="7ff3f5b1-d73a-41a2-a850-5db8f5e05dfc"/>
+				<reportElement x="1" y="296" width="168" height="21" uuid="c4891df7-a84e-4e8e-a434-9572cec43560"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -453,7 +459,7 @@
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
-				<text><![CDATA[Accord Direction Générale]]></text>
+				<text><![CDATA[Date :]]></text>
 			</staticText>
 		</band>
 	</detail>

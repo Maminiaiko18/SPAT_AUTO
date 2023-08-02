@@ -3750,6 +3750,11 @@ public class EtatPaieServlet extends HttpServlet {
             engagement.setId(id);
             engagement.setNomTable("engagementlib");
             Engagement[] mere = (Engagement[]) CGenUtil.rechercher(engagement, null, null, c, "");
+            if(mere[0].getDateImpression()==null){
+                mere[0].setNomTable("engagement");
+                mere[0].setDateImpression(Utilitaire.dateDuJourSql());
+                mere[0].upDateToTable();
+            }
             Map param = new HashMap();
             if (mere.length != 0) {
                 engagement = mere[0];
@@ -3759,7 +3764,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("du", engagement.getDaty());
                 param.put("projet", engagement.getProjetlib());
                 param.put("numero", engagement.getNum());
-
+                param.put("dateimpression", Utilitaire.datetostring(engagement.getDateImpression()));
                 LigneCredit lc = engagement.findLigneCredit(c);
                 if (lc != null) {
                     if (engagement.getCodeEtablissementlib() == null) {

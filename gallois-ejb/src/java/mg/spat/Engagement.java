@@ -36,6 +36,16 @@ public class Engagement extends ClassEtat {
     private Date daty;
     private int avecFacture,annee;
     private String type;
+    private Date dateImpression;
+
+
+    public Date getDateImpression() {
+        return dateImpression;
+    }
+
+    public void setDateImpression(Date dateImpression) {
+        this.dateImpression = dateImpression;
+    }
 
     public Engagement(String designation,String codeEtablissement,String projet,double montant,double disponible,double dispoAvant,double dispoApres,String compte,String idLC,Date daty)throws Exception{
         this.setNomTable("ENGAGEMENT");
