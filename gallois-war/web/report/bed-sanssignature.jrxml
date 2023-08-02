@@ -468,21 +468,7 @@
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="175">
-			<staticText>
-				<reportElement x="0" y="71" width="141" height="15" uuid="c2cfaf14-b6c6-4f0a-b10a-88ed4031cdf3"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
-					<paragraph leftIndent="3"/>
-				</textElement>
-				<text><![CDATA[ETABLI PAR]]></text>
-			</staticText>
+		<band height="213">
 			<staticText>
 				<reportElement x="349" y="0" width="53" height="20" uuid="f8ec3380-2e29-48c6-a720-cb35809e1a26"/>
 				<box>
@@ -564,20 +550,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalttc}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="0" y="86" width="141" height="48" uuid="7ae471ae-7034-43b3-80b2-fda834468e88"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<paragraph rightIndent="3"/>
-				</textElement>
-			</textField>
 			<staticText>
-				<reportElement x="0" y="134" width="141" height="15" uuid="49034249-6058-4431-bfca-cc97aaa6ba5a"/>
+				<reportElement x="2" y="161" width="152" height="15" uuid="480a25ab-9faf-4d64-8236-8d01573ba5a7"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -589,6 +563,32 @@
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="2" y="98" width="152" height="63" uuid="ef548400-7f84-4f55-a097-3d5938c8151e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<paragraph rightIndent="3"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="83" width="152" height="15" uuid="d9a7fc7a-58b9-4599-ae16-dac1c654ebbc"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[ETABLI PAR]]></text>
 			</staticText>
 		</band>
 	</lastPageFooter>
