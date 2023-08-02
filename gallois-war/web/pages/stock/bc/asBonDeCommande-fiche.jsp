@@ -49,6 +49,7 @@
     pc.getChampByName("idprojet").setVisible(false);
     pc.getChampByName("designation").setLibelle("D&eacute;signation");
     pc.getChampByName("Montanthtsansremise").setLibelle("Montant HT Sans Remise");
+    pc.getChampByName("devisemere").setLibelle("Devise");
     
     
     pc.setTitre("Fiche Bon de commande");

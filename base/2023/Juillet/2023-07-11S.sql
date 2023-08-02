@@ -47,8 +47,7 @@ from AvoirFCFille fc
         left join fcfillecomplet ca on ca.id=fc.IDDETAILFACTURE;
 
 
-
-CREATE OR REPLACE  VIEW AVOIRFCFILLE_PDF (ID, IDMERE, IDDETAILFACTURE, MONTANT, COMPTE, REMISE, DESIGNATION, TAUX, DEVISE, TVA, QTE, PU, DUREE, MONTANTHTDEVISE, MAJ, reduction, RANG, DATEFACTUREFILLE,red,majoration) AS 
+CREATE OR REPLACE  VIEW AVOIRFCFILLE_PDF (ID, IDMERE, IDDETAILFACTURE, MONTANT, COMPTE, REMISE, DESIGNATION, TAUX, DEVISE, TVA, QTE, PU, DUREE, MONTANTHTDEVISE, majoration, reduction, RANG, DATEFACTUREFILLE,red,maj) AS 
   SELECT av.ID,
        av.IDMERE,
        av.IDDETAILFACTURE,
@@ -63,12 +62,12 @@ CREATE OR REPLACE  VIEW AVOIRFCFILLE_PDF (ID, IDMERE, IDDETAILFACTURE, MONTANT, 
        CAST(nvl(av.pu, ca.pu) AS NUMBER(30, 3))                                                        pu,
        CAST(nvl(av.duree, ca.duree) as NUMBER(30, 3))                                                  duree,
        CAST(CASE WHEN devise = 'Ar' THEN av.montant / ca.taux else av.montant END AS NUMBER(30, 3)) AS montantHTDevise,
-       ca.majoration                                                                                AS maj,
+       ca.majoration                                                                                ,
        ca.reduction                                                                                 AS REDUCTION ,
        ca.rang,
        ca.datefacturefille ,
        av.reduction as red,
-       av.majoration
+       av.majoration as maj
 from AvoirFCFille av
          left join fcfillecomplet ca on ca.id = av.IDDETAILFACTURE
 ;

@@ -9,7 +9,7 @@
     try{
         UserEJB u = (user.UserEJB) session.getValue("u");
         Liberer mvt = new Liberer();
-        mvt.setNomTable("libererlib");
+        mvt.setNomTable("liberer");
         String listeCrt[] = {"idengagement"};
         String listeInt[] = {};
         String libEntete[] = {"id", "remarque", "montant"};
