@@ -46,7 +46,7 @@ public class BonDeCommande extends ClassEtat {
     private double remise, montantRemise, montantHTSansRemise;
     private String idengagement, idengagementlib, code_etablib, fournisseurlib, projetlib;
     private double montantreste;
-    private String idfournisseur, idprojet, codeetablissement;
+    private String idfournisseur, idprojet, codeetablissement, devisemere;
 
     public String getFournisseurlib() {
         return fournisseurlib;
@@ -451,6 +451,14 @@ public class BonDeCommande extends ClassEtat {
 
     public void setCodeetablissement(String codeetablissement) {
         this.codeetablissement = codeetablissement;
+    }
+
+    public String getDevisemere() {
+        return devisemere;
+    }
+
+    public void setDevisemere(String devisemere) {
+        this.devisemere = devisemere;
     }
 
     public static String getSequence() throws Exception {

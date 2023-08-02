@@ -53,13 +53,17 @@
         pi.getFormu().getChamp("iduser").setVisible(false);
         pi.getFormu().getChamp("idDa").setVisible(false);
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
-        affichage.Champ[] liste = new affichage.Champ[2];
+        affichage.Liste[] liste = new affichage.Liste[3];
         TypeObjet d = new TypeObjet();
         d.setNomTable("modepaiementbq");
         liste[0] = new Liste("modepaiement", d, "val", "id");
         TypeObjet liste2 = new TypeObjet();
         liste2.setNomTable("typecheque");
         liste[1] = new Liste("typepaiement", liste2, "val", "id");
+        TypeObjet devisemere = new TypeObjet();
+        devisemere.setNomTable("devise");
+        liste[2] = new Liste("devisemere", devisemere, "VAL", "id");
+        liste[2].setDefaultSelected(Constante.deviseAr);
         pi.getFormu().changerEnChamp(liste);
         pi.getFormu().getChamp("numbc").setDefaut(new BonDeCommande().calculerNumero(null));
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
@@ -95,6 +99,7 @@
         pi.getFormu().getChamp("code_etab").setValeurLibelle(Utilitaire.champNull(engagement.getCodeEtablissementlib()));
         pi.getFormu().getChamp("fournisseur").setDefaut(Utilitaire.champNull(engagement.getTiers()));
         pi.getFormu().getChamp("fournisseur").setValeurLibelle(Utilitaire.champNull(engagement.getTierslib()));
+        pi.getFormu().getChamp("devisemere").setLibelle("Devise");
         
         
         

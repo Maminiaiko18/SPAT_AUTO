@@ -24,7 +24,7 @@
     }
 	
     String libEntete[] = {"id", "daty","code_etab","projet", "fournisseur","designation", "modepaiement", "remarque","numbc","montant","montantRemise","montanttva","montantTTC","montant_A_payer","restepayergeneral","montantfacture","montant_paye_reel","resteapayerreel","etatlib"};
-    String listeCrt[] = {"id","daty","code_etab","projet", "fournisseur","designation", "modepaiement", "remarque","numbc"};
+    String listeCrt[] = {"id","daty","code_etab","projet", "fournisseur","designation", "modepaiement", "remarque","numbc","devisemere"};
     String listeInt[] = {"daty"};
 
     
@@ -52,6 +52,12 @@
 	
     pr.getFormu().changerEnChamp(liste);*/
     
+    affichage.Liste[] liste = new affichage.Liste[1];
+    TypeObjet devise = new TypeObjet();
+    devise.setNomTable("devise");
+    liste[0] = new Liste("devisemere", devise, "VAL", "id");
+    pr.getFormu().changerEnChamp(liste);
+    
     Date firstDate = Utilitaire.dateDuJourSql();   
     firstDate.setDate(1);        
     Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
@@ -67,11 +73,13 @@
     
     pr.getFormu().getChamp("daty1").setLibelle("Date d&eacute;but");
     pr.getFormu().getChamp("daty2").setLibelle("Date fin");
+    pr.getFormu().getChamp("devisemere").setLibelle("Devise");
 
     pr.setOrdre(" order by daty desc");
     
     pr.setApres("stock/bc/asBonDeCommande-liste.jsp");
     String[] colSomme = {"montantTTC"};
+    
     pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
