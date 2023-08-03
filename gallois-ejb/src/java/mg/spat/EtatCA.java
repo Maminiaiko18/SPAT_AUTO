@@ -169,7 +169,7 @@ public class EtatCA {
 
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
-                    if(cas[i].getMois()<mois)
+                    if(cas[i].getMois()==mois)
                     {
                         //temp.setAnciencumul(temp.getAnciencumul()+cas[i].getMontant());
                         //temp.setRegulEETP(temp.getRegulEETP()+cas[i].getAvoir());
@@ -182,7 +182,7 @@ public class EtatCA {
                 }
                 if(cahmap.get(cas[i].getCompte())==null){
                     CA temp = cas[i];
-                    if(cas[i].getMois()<mois)
+                    if(cas[i].getMois()==mois)
                     {
                         temp.setReportAvoir(cas[i].getAvoir());
                     }
