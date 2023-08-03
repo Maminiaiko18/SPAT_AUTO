@@ -125,7 +125,7 @@ public class EtatCA {
 
         for(int i = 0;i< taillecas;i++){
             //System.out.println("numero du compte "+cas[i].getCompte());
-            if ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee()))){
+            if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee())))&& cas[i].getCheckReport()==0 ){
               //  System.out.println("Niditra IFFF");
 
                 if(cahmap.get(cas[i].getCompte())!=null){
@@ -157,6 +157,37 @@ public class EtatCA {
                         temp.setAnciencumul(cas[i].getMontant());
                         temp.setRegulEETP(cas[i].getAvoir());
                     }
+                    temp.setComptant(0);
+                    temp.setCredit(0);
+                    temp.setAvoir(0);
+                    cahmap.put(cas[i].getCompte(),temp);
+                }
+                
+            }
+            
+            else if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee())))&&cas[i].getCheckReport()==1 ){
+
+                if(cahmap.get(cas[i].getCompte())!=null){
+                    CA temp = cahmap.get(cas[i].getCompte());
+                    if(cas[i].getMois()==mois)
+                    {
+                        //temp.setAnciencumul(temp.getAnciencumul()+cas[i].getMontant());
+                        //temp.setRegulEETP(temp.getRegulEETP()+cas[i].getAvoir());
+                        temp.setReportAvoir(temp.getReportAvoir()+cas[i].getAvoir());
+                    }
+                    //temp.setComptant(0);
+                    //temp.setCredit(0);
+                    //temp.setAvoir(0);
+                    cahmap.put(cas[i].getCompte(),temp);
+                }
+                if(cahmap.get(cas[i].getCompte())==null){
+                    CA temp = cas[i];
+                    if(cas[i].getMois()==mois)
+                    {
+                        temp.setReportAvoir(cas[i].getAvoir());
+                    }
+                    temp.setRegulEETP(0);
+                    temp.setAnciencumul(0);
                     temp.setComptant(0);
                     temp.setCredit(0);
                     temp.setAvoir(0);

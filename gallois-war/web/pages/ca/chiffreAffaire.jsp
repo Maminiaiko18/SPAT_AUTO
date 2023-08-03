@@ -115,8 +115,9 @@
                             <th rowspan="2">Taux</th>
                         </tr>
                         <tr>
+                            <th>Avoir Cumul</th>
                             <th>Ancien Cumul</th>
-                            <th>Regul 1</th>
+                            
                             <th>Regul E & P</th>
                             <th>A. Cum. Regul</th>
                             <th>Avoir E & P</th>
@@ -134,12 +135,13 @@
                         <% for (CA ca : listeParRubrique.get(rubrique)) {%>
                         <tr>
                             <td><%=Utilitaire.champNull(ca.getLibelle())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(ca.getReportAvoir())%></td>
                             <td align="right">
                                 <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&mois2=<%=moisAvant%>&annee=<%=anneeInt%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getAnciencumul())%>
                                 </a>
                             </td>
-                            <td align="right"><%=Utilitaire.formaterAr(ca.getRegul())%></td>
+                            
                             <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirEETP())%></td>
@@ -163,8 +165,8 @@
                         %>
                         <tr class="total">
                             <td align="center"><%=rubrique.toUpperCase()%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(partiel.getReportAvoir())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAnciencumul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(partiel.getRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirEETP())%></td>
@@ -186,8 +188,8 @@
                         <% if (totalGeneral != null) {%>
                         <tr class="category total general">
                             <td align="left"><%=Utilitaire.champNull(totalGeneral.getLibelle().toUpperCase())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getReportAvoir())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAnciencumul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirCumRegul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirEETP())%></td>
