@@ -27,6 +27,7 @@ public class Restriction extends ClassMAPTable {
     private String iddirection;
     private int autorise;
     private String refuser;
+    private String tablenamelib;
 
 
     public Restriction(String idaction, String tablename, String description, int autorise,String refuser,String idrole) {
@@ -226,5 +227,13 @@ public class Restriction extends ClassMAPTable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTablenamelib() {
+        return tablenamelib;
+    }
+
+    public void setTablenamelib(String tablenamelib) {
+        this.tablenamelib = tablenamelib;
     }
 }

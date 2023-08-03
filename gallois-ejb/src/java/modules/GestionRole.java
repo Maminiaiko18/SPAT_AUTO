@@ -32,11 +32,12 @@ public class GestionRole {
             // r.setIdrole(idrole);
             // r.setIdaction(act);
             //r.setTablename(table);
-            String aw=" AND idaction='"+idaction+"' and (idrole='"+user.getIdrole()+"' or refuser="+user.getRefuser()+") and LOWER(tablename) = LOWER('"+table+"')";
+            r.setNomTable("RESTRICTIONLIB_CPL");
+            String aw=" AND idaction='"+idaction+"' and (idrole='"+user.getIdrole()+"' or refuser="+user.getRefuser()+") and LOWER(tablenamelib) = LOWER('"+table+"')";
             // System.out.print("awhere="+aw);
             Restriction[] res = (Restriction[]) CGenUtil.rechercher(r, null, null, c, aw);
             for (Restriction restriction : res) {
-                    if(restriction.getAutorise()==1) return 0;
+                if(restriction.getAutorise()==1) return 0;
             }
             if (res!=null&&res.length != 0) {
                 return 1;

@@ -24,7 +24,7 @@
         
         TypeObjet ficheRestriction = new TypeObjet();
         ficheRestriction.setNomTable("FicheRestriction");
-        liste[1] = new Liste("tablename", ficheRestriction, "DESCE", "VAL");
+        liste[1] = new Liste("tablename", ficheRestriction, "DESCE", "ID");
         pi.getFormu().changerEnChamp(liste);
 //        pi.getFormu().getChamp("idmenu").setLibelle("Menu");
         pi.getFormu().getChamp("idrole").setVisible(false);
