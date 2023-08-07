@@ -72,7 +72,7 @@ public class FactureClient extends ClassMere {
     private String nomnavire;
 
     public double getMontantresteAPayer() {
-        return this.montantprovision - montantttc;
+        return this.montantttc - montantprovision;
     }
 
     public void setMontantresteAPayer(double montantresteAPayer) {
