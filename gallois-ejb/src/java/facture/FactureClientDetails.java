@@ -609,6 +609,15 @@ public class FactureClientDetails extends ClassFille {
 
         return rub != null && rub.length > 0 ? rub[0] : null;
     }
+    
+    public Rubrique getRubriqueById(Connection c, String id) throws Exception {
+        String awhere = " and id = '%s'";
+
+        awhere = String.format(awhere, id);
+        Rubrique[] rub = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, awhere);
+
+        return rub != null && rub.length > 0 ? rub[0] : null;
+    }
 
     public Activite getActivite(Connection c) throws Exception {
         Activite retour = null;

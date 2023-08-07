@@ -229,9 +229,10 @@ public class Prevision extends ClassEtat {
         return rubrique;
     }
     public Activite[] genererActiviteViseesBP(String u, Connection c) throws Exception {
-        java.util.List<Activite> activites = new java.util.ArrayList<>();
+        //java.util.List<Activite> activites = new java.util.ArrayList<>();
         String[] designations = {"Droit de port " + this.getEscale(), "Stationnement " + this.getEscale(), "Redevance sanitaire " + this.getEscale(), "Redevance communale " + this.getEscale()};
         String[] idRubriques = {Constante.getDroitDePortBP(), Constante.getStationnementBP(), Constante.getRedevanceSanitaire(), Constante.getRedevanceCommBP()};
+        Activite[] activites = new Activite[idRubriques.length];
 
         String awhere = " and etat >= " + ConstanteEtat.getEtatValider()
                 + " and bateau = '" + this.getId() + "'"
@@ -246,11 +247,13 @@ public class Prevision extends ClassEtat {
                 if (act != null) {
                     act.createObject(u, c);
                     act.validerObject(u, c);
-                    activites.add(act);
+                    //activites.add(act);
+                    activites[i] = act;
                 }
             }
         }
-        return activites.toArray(new Activite[activites.size()]);
+        //return activites.toArray(new Activite[activites.size()]);
+        return activites;
     }
     public Activite[] genererActiviteVisees(String u, Connection c) throws Exception {
         java.util.List<Activite> activites = new java.util.ArrayList<>();
