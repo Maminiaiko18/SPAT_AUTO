@@ -421,7 +421,7 @@ public class Engagement extends ClassEtat {
                 check = true;
                 c.setAutoCommit(false);
             }
-            if(this.getType() == null || ((this.getType() != null) && (this.getType().compareToIgnoreCase(Constante.typeEngagementBED)) != 0))this.setNum(this.calculerNumero(c));
+            this.setNum(this.calculerNumero(c));
             LigneCredit lc = this.findSituationCredit(c);
             if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
             EngagementFille[] filles = this.getEngagementFilles(null, c);
