@@ -36,7 +36,7 @@
     
     Map<String, String> map = new HashMap();
     map.put("details-demande-achat","");
-    
+    map.put("liste-bc_1", "");
     String tab = request.getParameter("tab");
     if (tab == null) {
         tab = "details-demande-achat";
@@ -79,14 +79,12 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("details-demande-achat")%>"><a href="module.jsp?but=depense/demande-achat-fiche.jsp&id=<%=e.getId()%>&tab=details-demande-achat">Détails DASE</a></li>
-                    
+                     <li class="<%= map.get("liste-bc")%>"><a href="module.jsp?but=depense/demande-achat-fiche.jsp&id=<%=e.getId()%>&tab=liste-bc_1">Liste bon de commande</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-content">       
                         <jsp:include page="<%=tab%>">
                             <jsp:param name='idengagement' value="<%=e.getId()%>"/> 
-
-
                         </jsp:include>
                     </div>
                 </div>

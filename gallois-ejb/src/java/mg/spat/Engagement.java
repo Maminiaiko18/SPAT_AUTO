@@ -576,7 +576,7 @@ public class Engagement extends ClassEtat {
                 
             LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider());
             if(liaisons.length > 0)
-                throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
+                throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur ou BED.");
             
             if(this.getEtat() < ConstanteEtat.getEtatValider()) 
                 throw new Exception("Impossible \\340 lib\\351rer, d\\351j\\340 annul\\351");
