@@ -51,7 +51,6 @@
         pi.getFormu().getChamp("tva").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("iduser").setVisible(false);
-        pi.getFormu().getChamp("idDa").setVisible(false);
         pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
         affichage.Liste[] liste = new affichage.Liste[3];
         TypeObjet d = new TypeObjet();
@@ -123,6 +122,10 @@
             pi.getFormufle().getChamp("observation_"+i).setPageAppel("choix/listeDAchoix.jsp","observation;observation;observationlibelle");
         }
         // rehefa mandray paramï¿½tre idDa
+        pi.getFormu().getChamp("idda").setLibelle("DASE");
+        pi.getFormu().getChamp("idda").setAutre("readonly");
+        pi.getFormu().getChamp("idda").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getId()));
+        pi.getFormu().getChamp("designation").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getDesignation()));
         pi.getFormu().getChamp("projet").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getProjet()));
         pi.getFormu().getChamp("projet").setValeurLibelle(Utilitaire.champNull( data.getDemandeAchatMere().getProjetlib()));
         pi.getFormu().getChamp("code_etab").setDefaut(Utilitaire.champNull( data.getDemandeAchatMere().getCodeetablissement()));
