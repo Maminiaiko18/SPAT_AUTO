@@ -1122,7 +1122,7 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public String calculerCodeSimple(Connection c) throws Exception {
-        String daty = Utilitaire.datetostring(this.getDaty());
+        String daty = Utilitaire.datetostring(Utilitaire.dateDuJourSql());
         String code = "";
         String tableName = "NUMEROCOMPTAVAOVAO";
         code += Utilitaire.genererAnnee(daty);
