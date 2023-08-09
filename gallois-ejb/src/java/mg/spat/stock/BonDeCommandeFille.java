@@ -422,7 +422,10 @@ public class BonDeCommandeFille extends ClassMAPTable {
         try{
             BonDeCommande mere=this.getMere(c);
             if(mere.getEtat()>=ConstanteEtat.getEtatValider()) throw new Exception("Ajout détails BC impossible pour un BC déjà visé");
-            if(mere.getDevisemere().compareToIgnoreCase(this.getDevise()) != 0) throw new Exception("Devise different dans le  bon de commande detail et le bon de commande mere.");
+            if(mere.getDevisemere()!=null)
+            {
+                if(mere.getDevisemere().compareToIgnoreCase(this.getDevise()) != 0) throw new Exception("Devise different dans le  bon de commande detail et le bon de commande mere.");
+            }
         }catch(Exception e){
             throw e;
         }
