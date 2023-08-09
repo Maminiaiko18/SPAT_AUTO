@@ -720,7 +720,13 @@ public class LigneCredit extends ClassEtat {
         return montant;
     }
 
-    public void setMontant(double montant) {
+
+    public void setMontant(double montant) throws Exception {
+        // lasa misy division par 0 si atao 0 mtt
+        if(this.getMode().compareTo("modif")==0){
+            if(montant < 1)
+                throw new Exception("Montant invalide.");
+        }
         this.montant = montant;
     }
 
