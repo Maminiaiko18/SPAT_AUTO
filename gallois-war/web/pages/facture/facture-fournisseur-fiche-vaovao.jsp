@@ -147,6 +147,7 @@
         map.put("regularisationFF", "");
         map.put("etatprovision", "");
         map.put("additif-liste", "");
+        map.put("liste-op_1", "");
 //        map.put("activite", "");
 //        map.put("facturesdefinitives", "");
 //        map.put("provision-facturesdefinitives", "");
@@ -335,10 +336,13 @@
                     
                     <li class="<%= map.get("paiementFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfact=<%=e.getId()%>&tab=paiementFF">Paiement</a></li>
                      <li class="<%= map.get("engagement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=engagement&&idfacturefournisseur=<%=e.getId()%>">Engagement</a></li>
+                     <li class="<%= map.get("liste-op_1")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=liste-op_1">Liste Op</a></li>
                     <% if (e.getIdcategorie().equals(Constante.getCategorieFFBP())) {%>
                     <li class="<%= map.get("facturesfdefinitives")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesfdefinitives">Factures d&eacute;finitives</a></li>
                     <li class="<%= map.get("regularisationFF")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=regularisationFF&idProvision=<%=e.getId()%>">Régularisation</a></li>
                     <li class="<%= map.get("etatprovision")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=etatprovision">Etat de provision</a></li>
+                    <li class="<%= map.get("liste-op_1")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=liste-op_1">Liste Op</a></li>
+
                     <% } %>
                 </ul>
                 <div class="tab-content">       
