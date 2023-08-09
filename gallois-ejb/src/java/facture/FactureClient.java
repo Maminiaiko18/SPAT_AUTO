@@ -70,6 +70,7 @@ public class FactureClient extends ClassMere {
     private double montantapred,montanthtsimple;
     private double montantsansreduction,montantresteAPayer;
     private String nomnavire;
+    private int estBornageEtPeche;
 
     public double getMontantresteAPayer() {
         return this.montantttc - montantprovision;
@@ -845,7 +846,12 @@ public class FactureClient extends ClassMere {
             TypeObjet obj = new TypeObjet();
             obj.setNomTable("code_prestation");
 
-            Rubrique rubrique = ((FactureClientDetails) filles[0]).getRubrique(c);
+            FactureClientDetails d = (FactureClientDetails)filles[0];
+            Rubrique rubrique = null;
+            if(this.getEstBornageEtPeche() == 1)
+                rubrique = ((FactureClientDetails) filles[0]).getRubriqueById(c, Constante.getDroitDePortBP());
+            else
+                rubrique = ((FactureClientDetails) filles[0]).getRubrique(c);
 
             // Factures automatiques
             if (rubrique == null) {
@@ -2636,5 +2642,13 @@ public class FactureClient extends ClassMere {
 
     public void setMontantdiff(double montantdiff) {
         this.montantdiff = montantdiff;
+    }
+
+    public int getEstBornageEtPeche() {
+        return estBornageEtPeche;
+    }
+
+    public void setEstBornageEtPeche(int estBornageEtPeche) {
+        this.estBornageEtPeche = estBornageEtPeche;
     }
 }
