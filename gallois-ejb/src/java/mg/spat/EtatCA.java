@@ -224,6 +224,13 @@ public class EtatCA {
         this.calculerTauxEtHashMap(tout);
         this.calculerHashMapPartiel();
     }
+        
+    public EtatCA(int mois, int annee, String idGrandrubrique, boolean estGroupeAncien) throws Exception {
+        CA[] tout = getCACpl(mois, idGrandrubrique, annee);
+        this.calculCATotal(tout);
+        this.calculerTauxEtHashMap(tout);
+        this.calculerHashMapPartiel();
+    }
     
     public EtatCA(int mois, int annee, boolean estGroupeAncien,String devise) throws Exception {
         CA[] tout = getCACpl(mois, annee, devise);
@@ -312,6 +319,43 @@ public class EtatCA {
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
             CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " and mois<="+mois+" order by mois asc, compte asc");
+            String[] listeCompte=AdminGen.getDistinct(result, "compte");
+            HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
+            base.setNomTable("factureClientMAGroupe");
+            CA[] resultNombre = (CA[]) CGenUtil.rechercher(base, null, null, c, " and mois="+mois+" and annee="+annee);
+            if(resultNombre.length>0)
+            {
+                this.setNbFactComptant(resultNombre[0].getNbComptant());
+                this.setNbFactCredit(resultNombre[0].getNbCredit());
+            }
+            
+            CA[] tabCA = new CA[mapCA.size()];
+            int i = 0;
+            if(tabCA==null||tabCA.length==0)return null;
+            /*for(Map.Entry map:mapCA.entrySet())
+            {
+                System.out.println("Anaty MAP "+map.getKey());
+            }*/
+            for(String key: listeCompte){
+                //System.out.println("i= "+i+" cleee  "+key);
+                tabCA[i] = mapCA.get(key);
+                i++;
+            }
+            return tabCA;
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(c != null) c.close();
+        }
+    }
+     
+    public CA[] getCACpl(int mois, String idGrandRubrique, int annee) throws Exception{
+        Connection c = null;
+        try{
+            c = new UtilDB().GetConn();
+            CA base = new CA();
+            base.setNomTable("CompteCAFactAvoir_grp");
+            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " and mois<="+mois+" and idgrandrubrique = " + idGrandRubrique + "order by mois asc, compte asc");
             String[] listeCompte=AdminGen.getDistinct(result, "compte");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
             base.setNomTable("factureClientMAGroupe");
