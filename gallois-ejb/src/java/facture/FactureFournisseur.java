@@ -934,6 +934,8 @@ public class FactureFournisseur extends FactureClient {
                     resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                 }
                 if(resteAEngager > 0){
+                    this.verifyOPmtt(u,c);
+                    c.commit();
                     throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
                 }
             } else {
@@ -997,9 +999,6 @@ public class FactureFournisseur extends FactureClient {
                     fact.setNomTable("factfourn_msum_lib_fiche");
                     FactureFournisseur[] ffs = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, where);
                     double montant = AdminGen.calculSommeDouble(ffs, "montantttc");
-                    System.out.println("montant aftet modif"+montant);
-                    System.out.println("montant OP"+op.getMontant());
-
                     if(montant != op.getMontant()){
                         op.setMontant(montant);
                         op.updateToTableWithHisto(u,c);
