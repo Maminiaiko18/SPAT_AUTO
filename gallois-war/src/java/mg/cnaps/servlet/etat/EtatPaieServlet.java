@@ -568,12 +568,15 @@ public class EtatPaieServlet extends HttpServlet {
                 }
 
                 bc = tabBc[0];
+
                 param.put("DATY", bc.getDaty());
                 param.put("NOMFOURNISSEUR", bc.getNomfournisseur());
                 param.put("ADRESSE", bc.getAdresse());
                 param.put("REMARQUE", bc.getRemarque());
                 param.put("DESIGNATION", bc.getDesignation());
-                param.put("CODE_ETATLIB", bc.getCode_etablib().concat("-").concat(suite));
+                String codeetb = bc.getCode_etablib();
+                if(suite!=null) codeetb+= " - "+suite;
+                param.put("CODE_ETATLIB", codeetb);
                 param.put("CODE_ETAB", bc.getCode_etab());
                 param.put("DELAI", bc.getDelaipaiement());
                 param.put("TOTAL_HT", bc.getMontantHTSansRemise()/liste[0].getTaux());
