@@ -2233,9 +2233,9 @@ public class FactureClient extends ClassMere {
     }
 
     public String calculerCode(Connection c) throws Exception {
-        if (estMictsl != null && estMictsl.compareTo("1") == 0) {
-            return calculerCodeMictsl(c);
-        }
+        // if (estMictsl != null && estMictsl.compareTo("1") == 0) {
+        //     return calculerCodeMictsl(c);
+        // }
 
         return calculerCodeSimple(c);
     }
