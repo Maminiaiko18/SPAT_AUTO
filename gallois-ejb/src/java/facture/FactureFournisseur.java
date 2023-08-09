@@ -852,10 +852,10 @@ public class FactureFournisseur extends FactureClient {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
-            if(bedfilles.length > 0){
-                throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
-            }
+            // BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
+            // if(bedfilles.length > 0){
+            //     throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
+            // }
 
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
             if(!this.getApresValidationException()){
@@ -997,6 +997,9 @@ public class FactureFournisseur extends FactureClient {
                     fact.setNomTable("factfourn_msum_lib_fiche");
                     FactureFournisseur[] ffs = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, where);
                     double montant = AdminGen.calculSommeDouble(ffs, "montantttc");
+                    System.out.println("montant aftet modif"+montant);
+                    System.out.println("montant OP"+op.getMontant());
+
                     if(montant != op.getMontant()){
                         op.setMontant(montant);
                         op.updateToTableWithHisto(u,c);
@@ -1296,10 +1299,10 @@ public class FactureFournisseur extends FactureClient {
                 throw new Exception("Impossible, paiements existants");
             }
             
-            BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
-            if(bedfilles.length > 0){
-                throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
-            }
+            // BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
+            // if(bedfilles.length > 0){
+            //     throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
+            // }
         } catch (Exception e) {
             throw e;
         } finally {
