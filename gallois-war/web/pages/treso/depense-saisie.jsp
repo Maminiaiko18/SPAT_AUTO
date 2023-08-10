@@ -53,7 +53,7 @@
         pi.getFormu().getChamp("idmode").setLibelle("Mode");
         pi.getFormu().getChamp("numcheque").setLibelle("Numero chèque");
         pi.getFormu().getChamp("typemvt").setLibelle("Type mouvement");
-        pi.getFormu().getChamp("datesaisie").setVisible(false);
+        //pi.getFormu().getChamp("datesaisie").setVisible(false);
         pi.getFormu().getChamp("dateeffet").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("numpiece").setLibelle("Numero pi�ce");
         pi.getFormu().getChamp("credit").setVisible(false);
