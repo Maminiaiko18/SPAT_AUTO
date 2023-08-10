@@ -7,13 +7,13 @@
 <%@page import="affichage.PageRecherche"%>
 <%
     OrdonnerPayement j = new OrdonnerPayement();
-        j.setNomTable("OP_engagement");
+        j.setNomTable("ORDONNERPAYEMENT_LIB");
      String libEntete[] =  {"id","ded_Id", "tiers","numeroop","daty" ,"remarque","montant"};
     String listeCrt[] = {"ded_id"};
     String listeInt[] = {};
     
     PageRecherche pr = new PageRecherche(j, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-          pr.setAWhere("and DED_ID like '%"+request.getParameter("id")+"%' and  ROWNUM <= 1");
+          pr.setAWhere("and DED_ID like '%"+request.getParameter("id")+"%'");
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         
