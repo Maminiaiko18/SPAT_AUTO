@@ -20,7 +20,7 @@
     pc.getChampByName("desce").setLibelle("Libellé");
     pc.setTitre("Fiche de MereCA");
     String lien = (String) session.getValue("lien");
-    String pageModif = "modif/mereca-modif.jsp";
+    String pageModif = "ca/mereca-modif.jsp";
     String classe = "mg.spat.MereCA";
 %>
 <div class="content-wrapper">
@@ -30,7 +30,7 @@
             <div class="box-fiche">
                 <div class="box">
                     <div class="box-title with-border">
-                        <h1 class="box-title"><a href="#"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
+                        <h1 class="box-title"><a href="<%= lien + "?but=ca/mereca-liste.jsp"%>"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
                     </div>
                     <div class="box-body">
                         <%
