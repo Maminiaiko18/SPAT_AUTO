@@ -6,6 +6,8 @@
 
 <%@page import="mg.spat.Caisse"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="utilitaire.*"%>
+
 <% 
     try{
         Caisse billetage = new Caisse();
@@ -44,14 +46,34 @@
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
-            out.println(pr.getTableauRecap().getHtml());%>
+                out.println(pr.getTableauRecap().getHtml());%>
         <br>
+        <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post">
+        <input type="hidden" name="acte" id="acte" value="cloturermultiple">
+        <input type="hidden" name="bute" id="bute" value="treso/cloture-liste.jsp">
+        <div>
+            <center>
+            <label for="remarque">Remarque:</label>
+            <input type="text" name="remarque" id="remarque">
+            
+            <label for="date cloture">Date:</label>
+            <input type="text" class="datepicker" onkeydown="return searchKeyPress(event)" name="date" id="date" value="<%=Utilitaire.dateDuJour()%>">
+            </center>
+        </div>
+        <br>
+        
         <%
             String libEnteteAffiche[] = {"id","valeur","description","numero"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            out.println(pr.getTableau().getHtml());
+            pr.getTableau().setNameActe("cloturermultiple");
+            pr.getTableau().setNameBoutton("Colturer");
+            out.println(pr.getTableau().getHtmlWithCheckbox());
             out.println(pr.getBasPage());
         %>
+        </form>
+        <% out.println(pr.getBasPage());
+         %>
+        
     </section>
 </div>
 <% }catch(Exception e){
