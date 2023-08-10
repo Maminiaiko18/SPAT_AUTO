@@ -21,7 +21,7 @@
     pi.getFormu().getChamp("val").setLibelle("Compte");
     pi.getFormu().getChamp("desce").setLibelle("Libellé");
     
-    pi.getFormu().getChamp("idgrandrubrique").setPageAppel("choix/grandRubiqueChoix.jsp");
+    pi.getFormu().getChamp("idgrandrubrique").setPageAppel("choix/grandRubriqueChoix.jsp");
     
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
