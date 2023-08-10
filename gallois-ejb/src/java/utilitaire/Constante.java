@@ -4,7 +4,7 @@ public class Constante {
     public static  final String  idmodeVirement="pay3";
     public static  final String  idCatDroitDePort="CATFC006";
     public static  final String  idCategorieFCDefinitive="CATFCO3";
-    public static  final String  idCatRubConteneur="CATFC002";
+    public static  final String  idCatRubConteneur="CATFM5";
     public static String idCategorieFCProvision="CATFCO2";
     public static String idCategorieFCProforma="CATFCO1";
     public static String idcategorieCapitainerie="CATFC001";
@@ -167,6 +167,7 @@ public class Constante {
     public static String caisseAvoir = "CAI0000000017083858"; 
     private static String typeCaissePhysique = "2"; 
     public static String EFFETSARECEVOIRREMISALENCAISSEMENT="CAIS000017";
+    public static String COFFRE_PRINCIPAL="CAI0000000017093442";
     public static String typeACredit = "TCHQ00002";
     private static String typePieceCheque = "TP02";
     private static String typePieceTraite = "TP01";
