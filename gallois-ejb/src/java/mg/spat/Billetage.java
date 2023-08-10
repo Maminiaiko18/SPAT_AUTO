@@ -128,10 +128,40 @@ public class Billetage extends ClassEtat{
         report.createObject(user, c);
         report.validerObject(user, c);
     }
+
+    public void genererTransfert(Connection c, String user) throws Exception{
+        MvttIntraCaisse mvm = new MvttIntraCaisse();
+        String nomcaisse = "";
+        if(this.getCaisse().compareToIgnoreCase(Constante.caisseCentraleEspece)==0) nomcaisse="CAISSE RECETTES";
+        else nomcaisse = "CAISSE DEPENSES";
+        mvm.setDaty(this.getDaty());
+        mvm.setCaissedepart(this.getCaisse());
+        mvm.setCaissearrivee(Constante.COFFRE_PRINCIPAL);
+        mvm.setModepaiement(Constante.modepaiementDefaut);
+        mvm.setMontant(this.getMontant());
+        mvm.setDesignation("Transfert du "+Utilitaire.formatterDaty(this.getDaty())+" de la caisse "+nomcaisse+" vers la COFFRE PRINCIPAL");
+        mvm.createObject(user, c);
+        mvm.validerObject(user, c);
+        this.genererTranferDetails(c, user, mvm.getId());
+    }
+
+    public void genererTranferDetails(Connection c, String user,String idmere) throws Exception{
+        DetailsBilletage[] details = this.getDetails(c);
+        for(DetailsBilletage d : details){
+            MvtIntraCaisseFille fille = new MvtIntraCaisseFille();
+            fille.setReference(d.getBillet());
+            fille.setRemarque(String.valueOf(d.getNombre()));
+            fille.setIdmere(idmere);
+            fille.createObject(user, c);
+        }
+    }
     
     public Object validerObject(String u, Connection c) throws Exception
     {
-        this.genererReportVise(c, u);
+        if(this.getCaisse().compareToIgnoreCase(Constante.caisseCentraleEspece)==0 || this.getCaisse().compareToIgnoreCase(Constante.caisseDepense)==0){
+            genererTransfert(c,u);
+        }
+        //this.genererReportVise(c, u);
         return super.validerObject(u, c);
     }
 }
