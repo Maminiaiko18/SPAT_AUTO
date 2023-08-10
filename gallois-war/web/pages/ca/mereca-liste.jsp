@@ -15,7 +15,7 @@
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
     //Definition des lienTableau et des colonnes de lien
-    String lienTableau[] = {pr.getLien() + "?but=ca/mereca-liste.jsp"};
+    String lienTableau[] = {pr.getLien() + "?but=ca/mereca-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
