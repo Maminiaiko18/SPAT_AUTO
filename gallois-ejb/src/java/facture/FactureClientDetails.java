@@ -694,12 +694,18 @@ public class FactureClientDetails extends ClassFille {
 
         if (getEstMictsl != null && getEstMictsl.equals(Constante.estMictsl) && this.getRubrique() != null) {
             Rubrique[] rubs = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, " and CATEGORIE = '" + Constante.idCatRubConteneur + "'");
-
+            System.out.println("-----------------------------------------------------------");
+            System.out.println("rubriqueeeeee"+this.getRubrique()); 
             for (int i = 0; i < rubs.length; i++) {
+                
+                System.out.println("teste"+rubs[i].getId());
+                
                 if (this.getRubrique().equals(rubs[i].getId())) {
                     return true;
                 }
             }
+                        System.out.println("-----------------------------------------------------------");
+
         }
         return false;
     }
@@ -713,8 +719,10 @@ public class FactureClientDetails extends ClassFille {
             return getTauxFinDuMois(c, this.getMois(), this.getAnnee(), this.getDevise());
         }
         if (verifTauxRecentMICTSL(c)) {
+            System.out.println("marinaaaaa");
             return getTauxRecentMICTSL(c);
         }
+            System.out.println("disooo");
 
         return getTauxRecentNormal(c);
     }

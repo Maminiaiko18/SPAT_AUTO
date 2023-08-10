@@ -14,8 +14,6 @@
 <%@ page import="affichage.*" %>
 <%
     try{
-        
-        out.print("*********************************************************************************");
         String autreparsley = "data-parsley-range='[8, 40]' required";
         UserEJB u = (user.UserEJB) session.getValue("u");
         Billetage billetage = new Billetage();
@@ -28,7 +26,9 @@
         affichage.Champ[] liste = new affichage.Champ[1];
         
         TypeObjet esc = new TypeObjet();
-        esc.setNomTable("CAISSE_PHYSIQUE");
+
+        esc.setNomTable("CAISSE_BILLETAGE");
+        
         liste[0] = new Liste("caisse", esc, "VAL", "id");
 
         pi.getFormu().changerEnChamp(liste);
