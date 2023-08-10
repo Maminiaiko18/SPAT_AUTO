@@ -12,18 +12,18 @@ import bean.TypeObjet;
  */
 public class MereCA extends TypeObjet {
     private String idgrandrubrique;
-    private String idgrandrubiquelib;
+    private String idgrandrubriquelib;
     
     public MereCA (){
         setNomTable("MERECA");
     }
 
     public String getIdgrandrubiquelib() {
-        return idgrandrubiquelib;
+        return idgrandrubriquelib;
     }
 
-    public void setIdgrandrubiquelib(String idgrandrubiquelib) {
-        this.idgrandrubiquelib = idgrandrubiquelib;
+    public void setIdgrandrubiquelib(String idgrandrubriquelib) {
+        this.idgrandrubriquelib = idgrandrubriquelib;
     }
 
     public String getIdgrandrubrique() {
