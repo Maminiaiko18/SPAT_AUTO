@@ -2466,9 +2466,12 @@ public class FactureClient extends ClassMere {
             FactureClient cc = new FactureClient();
             cc.setNomTable("factureclientgroupvide");
             String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,2)) as montant  "
-                    + " from FACTURECLIENTMSUM_LIBV "
+                    + " from FACTURECLIENTMSUM_LIB "
                     + " where id in('"+ids.replace(";", "','")+"') group by tiers,tierslib";
             FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(cc, requete, c);
+            for(FactureClient fc : result){
+                if(fc.getEtat()!=ConstanteEtat.getEtatObjetValider()) throw new Exception("Facture non visé");
+            }
             if (result != null && result.length > 0) {
                 return result;
             }
