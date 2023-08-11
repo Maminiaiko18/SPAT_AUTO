@@ -18,11 +18,11 @@ public class MereCA extends TypeObjet {
         setNomTable("MERECA");
     }
 
-    public String getIdgrandrubiquelib() {
+    public String getIdgrandrubriquelib() {
         return idgrandrubriquelib;
     }
 
-    public void setIdgrandrubiquelib(String idgrandrubriquelib) {
+    public void setIdgrandrubriquelib(String idgrandrubriquelib) {
         this.idgrandrubriquelib = idgrandrubriquelib;
     }
 

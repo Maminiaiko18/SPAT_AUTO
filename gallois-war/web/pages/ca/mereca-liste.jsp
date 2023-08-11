@@ -3,6 +3,7 @@
 
 <% try{ 
     MereCA mereCA = new MereCA();
+    mereCA.setNomTable("MERECALIB_CPL");
     String listeCrt[] = {"id", "val", "desce"};
     String libEntete[] = {"id", "val", "desce"};
     PageRecherche pr = new PageRecherche(mereCA, request, listeCrt, null, 3, libEntete, libEntete.length);

@@ -13,6 +13,7 @@
 <%
     try{
     MereCA mereCA = new MereCA();
+    mereCA.setNomTable("MERECALIB_CPL");
     PageConsulte pc = new PageConsulte(mereCA, request, (user.UserEJB) session.getValue("u"));
     String id=pc.getBase().getTuppleID( );
     pc.getChampByName("id").setLibelle("Id");
