@@ -68,7 +68,6 @@
             pr.getTableau().setNameActe("cloturermultiple");
             pr.getTableau().setNameBoutton("Colturer");
             out.println(pr.getTableau().getHtmlWithCheckbox());
-            out.println(pr.getBasPage());
         %>
         </form>
         <% out.println(pr.getBasPage());
