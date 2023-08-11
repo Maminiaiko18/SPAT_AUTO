@@ -136,6 +136,7 @@ public class EtatGrandCA {
             }
             
             tout = CAtout.toArray(new CA[CAtout.size()]);
+            this.calculerTotalGeneral();
 
         }
         catch(Exception e){
