@@ -37,6 +37,7 @@
         
         pi.getFormu().getChamp("daty").setDefaut(""+new Utilitaire().dateDuJour());
         pi.getFormu().getChamp("montant").setVisible(false);
+        pi.getFormu().getChamp("idtransfert").setVisible(false);    
         
         for(int i = 0 ; i < pi.getFormufle().getNbLigne() ; i ++ )
         {

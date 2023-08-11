@@ -31,6 +31,16 @@ public class Billetage extends ClassEtat{
     private Date daty;
     private double montant;
     private String idcaisse;
+    private String idtransfert;
+
+
+    public String getIdtransfert() {
+        return idtransfert;
+    }
+
+    public void setIdtransfert(String idtransfert) {
+        this.idtransfert = idtransfert;
+    }
 
     public String getIdcaisse() {
         return idcaisse;
@@ -142,6 +152,7 @@ public class Billetage extends ClassEtat{
         mvm.setDesignation("Transfert du "+Utilitaire.formatterDaty(this.getDaty())+" de la caisse "+nomcaisse+" vers la COFFRE PRINCIPAL");
         mvm.createObject(user, c);
         mvm.validerObject(user, c);
+        this.setIdtransfert(mvm.getId());
         this.genererTranferDetails(c, user, mvm.getId());
     }
 

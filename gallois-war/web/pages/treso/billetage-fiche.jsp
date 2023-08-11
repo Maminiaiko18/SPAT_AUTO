@@ -27,6 +27,8 @@
     pc.setTitre("Fiche Billetage");
     Billetage bi = (Billetage)pc.getBase();
     pc.getChampByName("idcaisse").setVisible(false);
+    pc.getChampByName("idtransfert").setLien((String) session.getValue("lien") + "?but=treso/transfert-caisse-fiche.jsp&id=" + bi.getIdtransfert(), "");
+    pc.getChampByName("idtransfert").setLibelle("Transfert");  
     
     JournalCaisseLibComplet jc = new JournalCaisseLibComplet();
     jc.setNomTable("JOURNALCAISSELIBCOMPLET");
@@ -88,7 +90,7 @@
         
             <% if(!(Boolean)test.get(0)){%>
             <div class="alert alert-danger" role="alert">
-                Attention! Le montant du billetage n'est pas conforme à la somme dans le journal caisse. Montant billetage: <b><%=Utilitaire.formaterAr((Double)test.get(1))%>Ar</b> et Solde journal caisse: <b><%=Utilitaire.formaterAr((Double)test.get(2))%>Ar</b>
+                Attention! Le montant du billetage n'est pas conforme ï¿½ la somme dans le journal caisse. Montant billetage: <b><%=Utilitaire.formaterAr((Double)test.get(1))%>Ar</b> et Solde journal caisse: <b><%=Utilitaire.formaterAr((Double)test.get(2))%>Ar</b>
             </div>
             <% } %>
             <section class="content-header">
@@ -114,14 +116,14 @@
                     <div class="col-md-8">
                         <div class="box-title with-border">
 
-                            <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
+                            <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachï¿½s</h2>
                         </div>
                         <div class="box-body">
 			<table class="table table-striped table-bordered table-condensed table-responsive tree">
                                 <thead>
                                     <tr>
                                         <th style="background-color:#bed1dd;"></th>
-                                        <th style="background-color:#bed1dd;">Libellé</th>
+                                        <th style="background-color:#bed1dd;">Libellï¿½</th>
                                         <th style="background-color:#bed1dd;">Fichier</th>
                                         <th style="background-color:#bed1dd;">Voir</th>
                                         <th style="background-color:#bed1dd;">#</th>
