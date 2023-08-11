@@ -1209,6 +1209,7 @@ public class FactureClient extends ClassMere {
         Activite crt = new Activite();
         crt.setNomTable("ActiviteLibComContGPMA");
         Activite[] listeAct = (Activite[]) CGenUtil.rechercher(crt, null, null, c, " and mois =" + mois + " and annee=" + annee);
+        if(listeAct.length == 0) throw new Exception("Aucune activité n'a été trouvée.");
         double qte = AdminActivite.getQteEVP(listeAct);
 
         FactureClientDetails[] ret = new FactureClientDetails[1];
