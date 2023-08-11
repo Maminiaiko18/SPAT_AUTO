@@ -12,6 +12,7 @@
 <%
     String autreparsley = "data-parsley-range='[8, 40]' required";
     MereCA mereCA =new MereCA();
+    mereCA.setNomTable("MERECALIB_CPL");
     PageUpdate pi = new PageUpdate(mereCA, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
 
@@ -22,12 +23,16 @@
     pi.getFormu().getChamp("desce").setLibelle("Libellé");
     
     pi.getFormu().getChamp("idgrandrubrique").setPageAppel("choix/grandRubriqueChoix.jsp");
+    pi.getFormu().getChamp("idgrandrubrique").setAutre("readonly");
+    pi.getFormu().getChamp("idgrandrubrique").setLibelle("Grand rubrique");
+    pi.getFormu().getChamp("idgrandrubriquelib").setVisible(false);
     
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
     <div class="row">
+        <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="box-fiche">
                 <div class="box">
@@ -43,10 +48,10 @@
                             <br><br> 
                         </div>
                         <input name="acte" type="hidden" id="acte" value="update">
-                        <input name="bute" type="hidden" id="bute" value="ca/mereca-modif.jsp">
+                        <input name="bute" type="hidden" id="bute" value="ca/mereca-fiche.jsp">
                         <input name="classe" type="hidden" id="classe" value="mg.spat.MereCA">
                         <input name="rajoutLien" type="hidden" id="rajoutLien" value="id-<%out.print(request.getParameter("id"));%>" >
-                        <input name="nomtable" type="hidden" id="nomtable" value="MERECALIB_CPL">
+                        <input name="nomtable" type="hidden" id="nomtable" value="MERECA">
                     </form>
                 </div>
             </div>

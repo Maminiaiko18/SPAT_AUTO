@@ -4,15 +4,16 @@
 <% try{ 
     MereCA mereCA = new MereCA();
     mereCA.setNomTable("MERECALIB_CPL");
-    String listeCrt[] = {"id", "val", "desce"};
-    String libEntete[] = {"id", "val", "desce"};
+    String listeCrt[] = {"id", "val", "desce", "idgrandrubriquelib"};
+    String libEntete[] = {"id", "val", "desce", "idgrandrubriquelib"};
     PageRecherche pr = new PageRecherche(mereCA, request, listeCrt, null, 3, libEntete, libEntete.length);
     pr.setTitre("Liste de MereCA");
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("ca/mereca-liste.jsp");
-    pr.getFormu().getChamp("desce").setLibelle("Libellé");
+    pr.getFormu().getChamp("desce").setLibelle("Libell&eacute;");
     pr.getFormu().getChamp("val").setLibelle("Compte");
+    pr.getFormu().getChamp("idgrandrubriquelib").setLibelle("Grand rubrique");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
     //Definition des lienTableau et des colonnes de lien
@@ -21,7 +22,7 @@
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     //Definition des libelles à afficher
-    String libEnteteAffiche[] = {"Id", "Compte", "Libellé"};
+    String libEnteteAffiche[] = {"Id", "Compte", "Libell&eacute;", "Grand rubrique"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
 
