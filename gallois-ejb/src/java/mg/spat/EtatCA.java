@@ -355,7 +355,7 @@ public class EtatCA {
             c = new UtilDB().GetConn();
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
-            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " and mois<="+mois+" and idgrandrubrique = " + idGrandRubrique + "order by mois asc, compte asc");
+            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " and mois<="+mois+" and idgrandrubrique = '" + idGrandRubrique + "' order by mois asc, compte asc");
             String[] listeCompte=AdminGen.getDistinct(result, "compte");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
             base.setNomTable("factureClientMAGroupe");

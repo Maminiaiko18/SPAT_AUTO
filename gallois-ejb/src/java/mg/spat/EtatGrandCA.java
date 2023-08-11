@@ -135,7 +135,8 @@ public class EtatGrandCA {
                 listeCA.put(grandrubriques[i].getVal(), etatca);
             }
             
-            tout = (CA[])CAtout.toArray();
+            tout = CAtout.toArray(new CA[CAtout.size()]);
+
         }
         catch(Exception e){
             throw e;
