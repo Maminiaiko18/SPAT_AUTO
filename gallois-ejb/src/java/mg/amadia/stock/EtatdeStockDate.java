@@ -30,6 +30,15 @@ public class EtatdeStockDate extends ClassMAPTable {
     private String idmagasin, magasin, typemagasin;
     double pump, dernierprix;
     private int rangsitcptcrt,placesitcptcrt;
+    private String caisse;
+
+    public String getCaisse() {
+        return caisse;
+    }
+
+    public void setCaisse(String caisse) {
+        this.caisse = caisse;
+    }
 
     public double getAacheter() {
         return aacheter;
@@ -382,7 +391,7 @@ public class EtatdeStockDate extends ClassMAPTable {
         return etatCaisse;
     }
     public static mg.amadia.stock.EtatdeStockDate[] calculEtatCaisseAncien(String datySup, String ingr, String idIngredient, Connection c, String colonne, String valorder, String datyInf) throws Exception {
-        String req = "select inv.idcategorieIngredient, inv.daty,inv.unite, nvl(mvt.entree,0) as entree,nvl(mvt.sortie,0) as sortie, (inv.QUANTITER-nvl(mvt.sortie,0)+nvl(mvt.entree,0)) as reste,inv.idingredient as ingredients,inv.quantiter as report "
+        String req = "select inv.idcategorieIngredient, inv.daty,inv.caisse as caisse,inv.unite, nvl(mvt.entree,0) as entree,nvl(mvt.sortie,0) as sortie, (inv.QUANTITER-nvl(mvt.sortie,0)+nvl(mvt.entree,0)) as reste,inv.idingredient as ingredients,inv.quantiter as report "
                 + ",nvl((select inv3.quantiter from reportdetailscaisse inv3 where INV3.DATY='" + datySup + "' and INV3.ETAT>=11 and INV3.IDING=inv.iding ),0) as reportSuiv"
                 + " from reportdetailscaisse inv,(select sum(mvt.entree) as entree,sum(mvt.sortie) as sortie,mvt.idingredients,mvt.unite, mvt.ingredients"
                 + " from mvtcaissedetailslib mvt  where "
