@@ -4396,8 +4396,12 @@ public class EtatPaieServlet extends HttpServlet {
             MvtIntraCaisseFille[] listeDetails = (MvtIntraCaisseFille[]) CGenUtil.rechercher(details, null, null, " and idmere='" + id + "'");
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(listeDetails));
-            setNomJasper("transfert_caisse");
-            UtilitaireImpression.imprimer(request, response, "transfert_caisse", param, dataSource, getReportPath());
+            String jaspername = "transfert_caisse";
+            if(mere[0].getCaissedepart().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearrivee().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
+                jaspername = "transfert_interne";
+            }
+            setNomJasper(jaspername);
+            UtilitaireImpression.imprimer(request, response, "Transfert", param, dataSource, getReportPath());
 
         } catch (Exception e) {
             e.printStackTrace();
