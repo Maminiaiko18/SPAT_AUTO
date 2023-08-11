@@ -21,6 +21,7 @@
     pc.getChampByName("desce").setLibelle("Libell&eacute;");
     pc.getChampByName("idgrandrubriquelib").setLibelle("Grand rubrique");
     pc.getChampByName("idgrandrubrique").setVisible(false);
+    pc.getChampByName("idgrandrubriquelib").setLien((String) session.getValue("lien") + "?but=configuration/idvaldesce.jsp&ciblename=grandrubrique","");
     pc.setTitre("Fiche de MereCA");
     String lien = (String) session.getValue("lien");
     String pageModif = "ca/mereca-modif.jsp";
