@@ -12,6 +12,7 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+
 <%
     try{
         String autreparsley = "data-parsley-range='[8, 40]' required";
@@ -23,13 +24,19 @@
         PageInsertMultiple pi = new PageInsertMultiple(billetage, billetageFille, request, size, u);
         pi.setLien((String) session.getValue("lien"));
         
-        affichage.Champ[] liste = new affichage.Champ[1];
+        affichage.Liste[] liste = new affichage.Liste[1];
         
         TypeObjet esc = new TypeObjet();
 
         esc.setNomTable("CAISSE_BILLETAGE");
         
         liste[0] = new Liste("caisse", esc, "VAL", "id");
+        String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
+        if(idUser.compareToIgnoreCase("1469")==0 ) {
+            liste[0].setDefaultSelected(Constante.caisseDepense);
+        }else if(idUser.compareToIgnoreCase("1502")==0 ){
+            liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
+        }
 
         pi.getFormu().changerEnChamp(liste);
         
@@ -37,6 +44,7 @@
         
         pi.getFormu().getChamp("daty").setDefaut(""+new Utilitaire().dateDuJour());
         pi.getFormu().getChamp("montant").setVisible(false);
+        pi.getFormu().getChamp("idtransfert").setVisible(false);    
         
         for(int i = 0 ; i < pi.getFormufle().getNbLigne() ; i ++ )
         {

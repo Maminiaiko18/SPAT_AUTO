@@ -10,11 +10,14 @@ import historique.MapHistorique;
 import historique.MapUtilisateurServiceDirection;
 import java.sql.Connection;
 import java.sql.Date;
+
+import mg.amadia.stock.EtatdeStockDate;
 import mg.spat.Billetage;
 import mg.spat.Cloture;
 import mg.spat.JournalCaisse;
 import mg.spat.SoldeCaisse;
 import user.UserEJB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -25,15 +28,20 @@ public class ClotureService {
     public static double getSoldeFarany(Date daty, String caisse, Connection c) throws Exception {
         double solde=0;
         try {
-            
-            SoldeCaisse[] lsoldeTaloha = (SoldeCaisse[]) CGenUtil.rechercher(new SoldeCaisse(), null, null, c, "and dateEffet=to_date('" + daty + "','YYYY-MM-DD') and caisse='" + caisse + "'");
-            if (lsoldeTaloha.length>0) {
-                solde=lsoldeTaloha[0].getSolde();
-            }
-            Cloture[] clo=(Cloture[]) CGenUtil.rechercher(new Cloture(), null, null, c, " and daty<to_date('"+ daty +"','YYYY-MM-DD') and caisse='"+caisse+"' order by daty desc");
-            if(clo.length>0){
-                solde+=clo[0].getSolde();
-            }
+                EtatdeStockDate [] li = EtatdeStockDate.calculEtatCaisse(Utilitaire.formatterDaty(daty), null, null, c, null, null, Utilitaire.formatterDaty(daty));
+                for(EtatdeStockDate ca : li){
+                    if(ca.getCaisse().compareToIgnoreCase(caisse)==0) {
+                        solde = ca.getReste();
+                    }
+                }
+            // SoldeCaisse[] lsoldeTaloha = (SoldeCaisse[]) CGenUtil.rechercher(new SoldeCaisse(), null, null, c, "and dateEffet=to_date('" + daty + "','YYYY-MM-DD') and caisse='" + caisse + "'");
+            // if (lsoldeTaloha.length>0) {
+            //     solde=lsoldeTaloha[0].getSolde();
+            // }
+            // Cloture[] clo=(Cloture[]) CGenUtil.rechercher(new Cloture(), null, null, c, " and daty<to_date('"+ daty +"','YYYY-MM-DD') and caisse='"+caisse+"' order by daty desc");
+            // if(clo.length>0){
+            //     solde+=clo[0].getSolde();
+            // }
             return solde;
         } catch (Exception e) {
             throw e;

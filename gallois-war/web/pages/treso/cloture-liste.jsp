@@ -6,19 +6,22 @@
 
 <%@page import="mg.spat.Cloture"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="utilitaire.*"%>
 <% 
     try{
     Cloture cloture = new Cloture();
     cloture.setNomTable("cloturerlib");
-    String listeCrt[] = {"id", "caisse", "solde","remarque"};
-    String listeInt[] = {};
+    String listeCrt[] = {"id","daty" ,"caisse", "solde","remarque"};
+    String listeInt[] = {"daty"};
     String libEntete[] = {"id","daty", "caisse", "solde","remarque"};
     PageRecherche pr = new PageRecherche(cloture, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     
-    //pr.getFormu().getChamp("daty").setLibelle("Date");
-    
+    pr.getFormu().getChamp("daty1").setDefaut(utilitaire.Utilitaire.dateDuJour());
+    pr.getFormu().getChamp("daty2").setDefaut(utilitaire.Utilitaire.dateDuJour());
+    pr.getFormu().getChamp("daty1").setLibelle("Date min");
+    pr.getFormu().getChamp("daty2").setLibelle("Date max");
     
     pr.setApres("treso/cloture-liste.jsp");
     String[] colSomme = null;
@@ -26,7 +29,7 @@
 %>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste des Clôtures</h1>
+        <h1>Liste des Clotures</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=treso/cloture-liste.jsp" method="post" name="listenavire" id="listenavire">
