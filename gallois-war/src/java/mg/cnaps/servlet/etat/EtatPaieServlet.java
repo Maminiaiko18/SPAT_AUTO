@@ -4397,7 +4397,7 @@ public class EtatPaieServlet extends HttpServlet {
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(listeDetails));
             String jaspername = "transfert_caisse";
-            if(mere[0].getCaissedepart().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearrivee().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
+            if(mere[0].getCaissedepartlib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearriveelib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
                 jaspername = "transfert_interne";
             }
             setNomJasper(jaspername);
