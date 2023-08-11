@@ -6,8 +6,10 @@
 
 <%@page import="mg.spat.Billetage"%>
 <%@page import="affichage.PageRecherche"%>
+<%@ page import="user.*"%>
 <% 
     try{
+        UserEJB u = (UserEJB) session.getAttribute("u");
         Billetage billetage = new Billetage();
         billetage.setNomTable("billetagelib");
         if (request.getParameter("table") != null) billetage.setNomTable(request.getParameter("table"));
@@ -21,6 +23,13 @@
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
 
+        String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
+        if(idUser.compareToIgnoreCase("1469")==0 ) {
+            pr.getFormu().getChamp("caisse").setDefaut("DEPENSES");
+        }else if(idUser.compareToIgnoreCase("1502")==0 ){
+            pr.getFormu().getChamp("caisse").setDefaut("RECETTES");
+        }
+        
         pr.setApres("treso/billetage-liste.jsp");
         String[] colSomme = {"montant"};
         pr.creerObjetPage(libEntete, colSomme);
