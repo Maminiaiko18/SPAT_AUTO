@@ -6,6 +6,8 @@
 <%@ page import="bean.*" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="affichage.*" %>
+<%@page import="mg.spat.Caisse"%>
+
 <html>
     <%
         System.out.println("niditra tao @visa-multiple");
@@ -21,11 +23,14 @@
         String nomTableRejet = request.getParameter("nomTableRejet");
         String nomTableCategorieRejet = request.getParameter("nomTableCategorieRejet");
         UserEJB u = (user.UserEJB) session.getValue("u");
+        String refUser = u.getUser().getRefuser()+"";
         String lien = (String) session.getValue("lien");
         String bute = request.getParameter("bute");
         String classe = request.getParameter("classe");
         String acte = request.getParameter("acte");
         String[] ids = request.getParameterValues("id");
+        String date=request.getParameter("date");
+        String remarque=request.getParameter("remarque");
 
         ClassEtat t = null;
         System.out.println(" mbola niditra tao @visa-multiple");
@@ -37,6 +42,22 @@
                 t.setNomTable(table);
                 u.viserObjectMultiple(t, val);
             }
+            if (acte.compareToIgnoreCase("marquerLu") == 0) {
+                t = (ClassEtat) (Class.forName(classe).newInstance());
+                t.setNomTable(table);
+                u.marquerLuMultiple(t, val);
+            }
+
+            if (acte.compareToIgnoreCase("cloturermultiple") == 0) {
+                Caisse caisse=new Caisse();
+                caisse.setNomTable("caisse");
+
+                Caisse[] lcaisse=(Caisse[])CGenUtil.rechercher(caisse,null,null," and id in ("+Utilitaire.tabToString(ids, "'", ",")+")");
+                for(int i=0;i<lcaisse.length;i++){
+                    lcaisse[i].cloturerCaisse(refUser,date,remarque);
+                }
+            }
+
             if (acte.compareToIgnoreCase("marquerLu") == 0) {
                 t = (ClassEtat) (Class.forName(classe).newInstance());
                 t.setNomTable(table);

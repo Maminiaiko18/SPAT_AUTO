@@ -7,7 +7,12 @@ package mg.spat;
 
 import bean.ClassMAPTable;
 import bean.TypeObjet;
+import service.ClotureService;
+import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
+
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
@@ -71,6 +76,34 @@ public class Caisse extends TypeObjet{
         this.preparePk("CAI", "getseqcaisse");
         this.setId(makePK(c));
 
+    }
+
+    public void cloturerCaisse(String u,String date, String remarque) throws Exception{
+        int verif = 0;
+        Connection c = null;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            Cloture clo = new Cloture();
+            clo.setDaty(Utilitaire.stringDate(date));
+            clo.setCaisse(this.getId());
+            clo.setRemarque(remarque);
+            double mtt = ClotureService.getSoldeFarany(clo.getDaty(), clo.getCaisse(),c );
+            clo.setSolde(mtt);
+            clo.createObject(u, c);
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
     }
 
     public boolean isBanque(Connection c) throws Exception {

@@ -24,11 +24,16 @@
         }
         fa.setNomTable("situationLC_vide");
 
-        String listeCrt[] = {"compteInv", "compteSimple", "direction", "projet", "directionProjet", "daty", "annee"};
-        String listeInt[] = {"daty"};
+        // String listeCrt[] = {"compteInv", "compteSimple", "direction", "projet", "directionProjet", "daty", "annee"};
+         String listeCrt[] = {"compteInv", "compteSimple", "direction", "projet", "directionProjet", "annee"};
+
+         
+        // String listeInt[] = {"daty"};
+        
 //        String libEntete[] = {"id", "designation", "compte", "annee", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget"};
         String libEntete[] = {"direction", "projet", "montant", "engageer", "facture", "pourcEngage", "paye", "pourcPaye", "arecouvrir", "restebudget", "resteApresEngmt"};
-        PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+        //PageRecherche pr = new PageRecherche(fa, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+        PageRecherche pr = new PageRecherche(fa, request, listeCrt, null, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("ligneCredit/situation-ligneCreditDepense.jsp");
@@ -37,7 +42,7 @@
         
         if(date1 == null || date1.trim().isEmpty()) { 
             date1 = "01/01/"+Utilitaire.getAnneeEnCours(); 
-            pr.getFormu().getChamp("daty1").setDefaut(date1);
+            // pr.getFormu().getChamp("daty1").setDefaut(date1);
         }
         //if(date2 == null || date2.trim().isEmpty()) date2 = "31/12/"+Utilitaire.getAnneeEnCours();
         if(annee == null || annee.trim().isEmpty()) { 
@@ -47,8 +52,11 @@
         
 //        pr.getFormu().getChamp("daty2").setDefaut(date2);
         
-        pr.getFormu().getChamp("daty1").setLibelle("Date Min");
-        pr.getFormu().getChamp("daty2").setLibelle("Date Max");
+        // pr.getFormu().getChamp("daty1").setLibelle("Date Min");
+        // pr.getFormu().getChamp("daty2").setLibelle("Date Max");
+     
+       
+        
         pr.getFormu().getChamp("compteInv").setLibelle("Compte inv");
         pr.getFormu().getChamp("compteSimple").setLibelle("Compte compta");
         pr.getFormu().getChamp("direction").setLibelle("Direction");

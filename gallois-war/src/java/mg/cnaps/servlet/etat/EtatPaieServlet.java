@@ -771,7 +771,8 @@ public class EtatPaieServlet extends HttpServlet {
                         " and idbordereau='"+id+"'");
                 EtatFactureMontantDaty[] etatfmd = (EtatFactureMontantDaty[]) CGenUtil.rechercher(
                         new EtatFactureMontantDaty(),
-                        "select * from factfourn_msum_lib where id in (select idop from liaisonbordereauFF where idbordereau = '"
+                        "select ID, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, IDPREVISION, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, ESCALE, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, ESTDDPMICTSL, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, ETATLIB, MONTANTTTCVRAI, IDBL, CODE_ETABLISSEMENT, CODE_ETABLISSEMENTLIB, NUMEROOP, PROJET, PROJETLIB, NUMFACT, NATURE, NATURELIB, IDBC, EXERCICE, IDENGAGEMENT, IDENGAGEMENTLIB, DATEREGUL, MONTANTHTSANSREMISE, NUM, IDOM, DATEFACTURE as DATY"+
+                                " from factfourn_msum_lib where id in (select idop from liaisonbordereauFF where idbordereau = '"
                         + id + "')");
                 if (etatfmd.length > 0) {
                     for(int i=0;i<etatfmd.length;i++)
@@ -4401,9 +4402,17 @@ public class EtatPaieServlet extends HttpServlet {
             details.setNomTable("mvtintracaisse_fille");
             MvtIntraCaisseFille[] listeDetails = (MvtIntraCaisseFille[]) CGenUtil.rechercher(details, null, null, " and idmere='" + id + "'");
             List dataSource = new ArrayList();
+            String jaspername = "transfert_caisse";
+            if(mere[0].getCaissedepartlib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearriveelib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
+                jaspername = "transfert_interne";
+                for(int i = 0; i < listeDetails.length ; i++){
+                    listeDetails[i].setReference(Utilitaire.formaterAr(listeDetails[i].getReference()));
+                    listeDetails[i].setRemarque(Utilitaire.formaterAr(listeDetails[i].getRemarque()));
+                }
+            }
             dataSource.addAll(Arrays.asList(listeDetails));
-            setNomJasper("transfert_caisse");
-            UtilitaireImpression.imprimer(request, response, "transfert_caisse", param, dataSource, getReportPath());
+            setNomJasper(jaspername);
+            UtilitaireImpression.imprimer(request, response, "Transfert", param, dataSource, getReportPath());
 
         } catch (Exception e) {
             e.printStackTrace();

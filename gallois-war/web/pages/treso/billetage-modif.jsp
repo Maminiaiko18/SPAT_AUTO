@@ -14,8 +14,6 @@
 <%@ page import="affichage.*" %>
 <%
     try{
-        
-        out.print("*********************************************************************************");
         String autreparsley = "data-parsley-range='[8, 40]' required";
         UserEJB u = (user.UserEJB) session.getValue("u");
         Billetage billetage = new Billetage();
@@ -24,6 +22,10 @@
         DetailsBilletage[] liste = (DetailsBilletage[])CGenUtil.rechercher(billetageFille, null, null, "");
         PageUpdateMultiple pi = new PageUpdateMultiple(billetage, billetageFille, liste , request,(user.UserEJB) session.getValue("u") , 1);
         pi.setLien((String) session.getValue("lien"));
+
+        pi.getFormu().getChamp("Etat").setVisible(false);
+        pi.getFormu().getChamp("idtransfert").setVisible(false);
+        pi.getFormu().getChamp("Daty").setLibelle("Date");
       
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         
