@@ -131,8 +131,10 @@ public class EtatGrandCA {
             for(int i = 0; i < t; i++){
                 EtatCA etatca = new EtatCA(mois, annee, grandrubriques[i].getId(), estGroupeAncien);
                 CA[] tout = etatca.getCACpl(mois, annee);
-                CAtout.addAll(Arrays.asList(tout));
-                listeCA.put(grandrubriques[i].getVal(), etatca);
+                if(tout != null){
+                    CAtout.addAll(Arrays.asList(tout));
+                    listeCA.put(grandrubriques[i].getVal(), etatca);
+                }
             }
             
             tout = CAtout.toArray(new CA[CAtout.size()]);

@@ -252,7 +252,7 @@
                             <td align="right"></td>
                             <td align="right"></td>
                         </tr>
-                        <% }%>
+                        <% } } %>
                         <tr class="category total generalfinal">
                             <td align="left">TOTAL GENERAL</td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getReportAvoir())%></td>
@@ -284,7 +284,6 @@
     </section>
 </div>
 <%
-    }
     } catch (Exception ex) {
         ex.printStackTrace();
     }%>

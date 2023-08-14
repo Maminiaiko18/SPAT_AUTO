@@ -13,7 +13,7 @@
     pr.setApres("ca/mereca-liste.jsp");
     pr.getFormu().getChamp("desce").setLibelle("Libell&eacute;");
     pr.getFormu().getChamp("val").setLibelle("Compte");
-    pr.getFormu().getChamp("idgrandrubriquelib").setLibelle("Grand rubrique");
+    pr.getFormu().getChamp("idgrandrubriquelib").setLibelle("Grande rubrique");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
     //Definition des lienTableau et des colonnes de lien
@@ -22,7 +22,7 @@
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     //Definition des libelles à afficher
-    String libEnteteAffiche[] = {"Id", "Compte", "Libell&eacute;", "Grand rubrique"};
+    String libEnteteAffiche[] = {"Id", "Compte", "Libell&eacute;", "Grande rubrique"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
 

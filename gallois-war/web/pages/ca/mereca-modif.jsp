@@ -24,7 +24,7 @@
     
     pi.getFormu().getChamp("idgrandrubrique").setPageAppel("choix/grandRubriqueChoix.jsp");
     pi.getFormu().getChamp("idgrandrubrique").setAutre("readonly");
-    pi.getFormu().getChamp("idgrandrubrique").setLibelle("Grand rubrique");
+    pi.getFormu().getChamp("idgrandrubrique").setLibelle("Grande rubrique");
     pi.getFormu().getChamp("idgrandrubriquelib").setVisible(false);
     
     pi.setLien((String) session.getValue("lien"));
