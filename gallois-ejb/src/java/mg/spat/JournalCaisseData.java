@@ -65,6 +65,8 @@ public class JournalCaisseData {
             temporaire.setId(idFact);
         }
 
+        FactureClient.checkEtatFactures(idFact, c);
+
         FactureAnalyse[] liste = (FactureAnalyse[]) CGenUtil.rechercher(temporaire, null, null, c, "");
         if (liste != null && liste.length > 0) {
             factureAnalyse = liste[0];
