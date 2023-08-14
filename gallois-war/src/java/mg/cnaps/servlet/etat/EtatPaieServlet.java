@@ -4396,11 +4396,15 @@ public class EtatPaieServlet extends HttpServlet {
             details.setNomTable("mvtintracaisse_fille");
             MvtIntraCaisseFille[] listeDetails = (MvtIntraCaisseFille[]) CGenUtil.rechercher(details, null, null, " and idmere='" + id + "'");
             List dataSource = new ArrayList();
-            dataSource.addAll(Arrays.asList(listeDetails));
             String jaspername = "transfert_caisse";
             if(mere[0].getCaissedepartlib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearriveelib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
                 jaspername = "transfert_interne";
+                for(int i = 0; i < listeDetails.length ; i++){
+                    listeDetails[i].setReference(Utilitaire.formaterAr(listeDetails[i].getReference()));
+                    listeDetails[i].setRemarque(Utilitaire.formaterAr(listeDetails[i].getRemarque()));
+                }
             }
+            dataSource.addAll(Arrays.asList(listeDetails));
             setNomJasper(jaspername);
             UtilitaireImpression.imprimer(request, response, "Transfert", param, dataSource, getReportPath());
 
