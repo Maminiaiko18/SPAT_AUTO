@@ -13,6 +13,7 @@ import bean.TypeObjet;
 import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
@@ -2454,6 +2455,28 @@ public class FactureClient extends ClassMere {
             }
         }
     }
+
+    public static void checkEtatFactures(String ids,Connection c) throws Exception{
+        int verif = 0;
+            try {
+                if (c == null) {
+                    c = (new UtilDB()).GetConn();
+                    c.setAutoCommit(false);
+                    verif = 1;
+                }
+            FactureClient fc = new FactureClient();
+            fc.setNomTable("FACTURECLIENT");
+            String awhere = " and id in('"+ids.replace(";", "','")+"')";
+            FactureClient[] result = (FactureClient[])CGenUtil.rechercher(fc, null, null, c, awhere);
+            for(FactureClient dt : result){
+                if(dt.getEtat()!=ConstanteEtat.getEtatObjetValider()) throw new Exception("Une facture non valid\u00E9e a \u00E9t\u00E9 d\u00E9tect\u00E9e parmi les factures s\u00E9lectionn\u00E9es.");
+            }
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
     
     public static FactureClient[] getFactures(String ids, Connection c) throws Exception {
         int verif = 0;
@@ -2463,15 +2486,13 @@ public class FactureClient extends ClassMere {
                 c.setAutoCommit(false);
                 verif = 1;
             }
+            checkEtatFactures(ids,c);
             FactureClient cc = new FactureClient();
             cc.setNomTable("factureclientgroupvide");
             String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,2)) as montant  "
                     + " from FACTURECLIENTMSUM_LIB "
                     + " where id in('"+ids.replace(";", "','")+"') group by tiers,tierslib";
             FactureClient[] result = (FactureClient[]) CGenUtil.rechercher(cc, requete, c);
-            for(FactureClient fc : result){
-                if(fc.getEtat()!=ConstanteEtat.getEtatObjetValider()) throw new Exception("Facture non visé");
-            }
             if (result != null && result.length > 0) {
                 return result;
             }
