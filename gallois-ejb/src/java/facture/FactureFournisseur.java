@@ -923,9 +923,9 @@ public class FactureFournisseur extends FactureClient {
                         Engagement engff = this.findEngagement("engagementlib", "id", c);
                         if(engff != null && engff.getMontant() > 0){
                             double m = (resteAEngager <= engff.getMontantreste()) ? resteAEngager : engff.getMontantreste();
-                            liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
-                            liaison.createObject(u, c);
-                            liaison.validerObject(u, c);
+                            // liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                            // liaison.createObject(u, c);
+                            // liaison.validerObject(u, c);
                             resteAEngager -= m;
                             id = this.getIdengagement();
                             lies = this.getEngagementLiee(id, c);
