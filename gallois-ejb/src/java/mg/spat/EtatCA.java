@@ -159,7 +159,6 @@ public class EtatCA {
                     temp.setAvoir(0);
                     cahmap.put(cas[i].getCompte(),temp);
                 }
-                
             }
             
             else if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee())))&&cas[i].getCheckReport()==1 ){
@@ -362,7 +361,7 @@ public class EtatCA {
 "	nvl(c.MOIS," + mois + ") AS mois,\n" +
 "	nvl(c.ANNEE," + annee + ") AS annee,\n" +
 "	nvl(c.MOISFACT,0) AS moisfact,\n" +
-"	nvl(c.ANNEEFACT,0) AS annefact,\n" +
+"	nvl(c.ANNEEFACT,0) AS anneefact,\n" +
 "	nvl(c.NBCREDIT,0) AS nbcredit,\n" +
 "	nvl(c.NBCOMPTANT,0) AS nbcomptant,\n" +
 "	nvl(c.CREDIT,0) AS credit,\n" +
