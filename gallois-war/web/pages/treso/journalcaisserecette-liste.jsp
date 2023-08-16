@@ -6,9 +6,12 @@
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
 <%
+    String caisserec ="";
     try {
         String typecheque = request.getParameter("idtypecheque");
         JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
+        caisserec = Constante.caisseCentraleEspece;
+        if(request.getParameter("caisse")!=null) caisserec = request.getParameter("caisse");
         journalCaisse.setNomTable("etatjournalcaisselibrecette");
 
         if (request.getParameter("etatvue") != null) {
@@ -108,7 +111,7 @@
                     typecheque = "";
                 }
             %>
-            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listeJournalCaisse&id=<%=request.getParameter("id")%>&folio=<%=request.getParameter("folio")%>&caisse=<%=request.getParameter("caisse")%>&valcaisse=<%=request.getParameter("valcaisse")%>&libelle=<%=request.getParameter("libelle")%>&remarque=<%=request.getParameter("remarque")%>&dateEffet1=<%=request.getParameter("dateEffet1")%>&dateEffet2=<%=request.getParameter("dateEffet2")%>&idtypecheque=<%= typecheque%>&descecaisse=<%=request.getParameter("descecaisse")%>&idplacement=<%= request.getParameter("idplacement")%>&etat=<%= request.getParameter("etatvue")%>" style="margin-right: 10px">Imprimer</a>
+            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listeJournalCaisse&id=<%=request.getParameter("id")%>&folio=<%=request.getParameter("folio")%>&caisse=<%= caisserec %>&valcaisse=<%=request.getParameter("valcaisse")%>&libelle=<%=request.getParameter("libelle")%>&remarque=<%=request.getParameter("remarque")%>&dateEffet1=<%=request.getParameter("dateEffet1")%>&dateEffet2=<%=request.getParameter("dateEffet2")%>&idtypecheque=<%= typecheque%>&descecaisse=<%=request.getParameter("descecaisse")%>&idplacement=<%= request.getParameter("idplacement")%>&etat=<%= request.getParameter("etatvue")%>" style="margin-right: 10px">Imprimer</a>
             <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/pages/globalnegoce.jsp?but=treso/journalcaisse-saisie.jsp&caisse=CAISSERECETTE" style="margin-right: 10px">Saisie Journal Caisse</a>
         </form>
         <% out.println(pr.getBasPage());%>
