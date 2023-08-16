@@ -224,35 +224,8 @@
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getNCumul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getTaux())%></td>
                         </tr>
-                        <% }%>
-                        <tr class="total general">
-                            <td align="left">TAUX</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcAvoir())%>%</td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourComptant())%>%</td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcCredit())%>%</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                        </tr>
-                        <% if (totalGeneral != null) {%>
-                        <tr class="total general">
-                            <td align="left">Nombres des factures</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"><%= Utilitaire.formaterAr(etatCA.getNbFactComptant()) %></td>
-                            <td align="right"><%= Utilitaire.formaterAr(etatCA.getNbFactCredit()) %></td>
-                            <td align="right"><%= Utilitaire.formaterAr(etatCA.getNbFactureTotal()) %></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                        </tr>
-                        <% } } %>
+                        <% } 
+                            } %>
                         <tr class="category total generalfinal">
                             <td align="left">TOTAL GENERAL</td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getReportAvoir())%></td>
@@ -273,6 +246,32 @@
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getTotal())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getNCumul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getTaux())%></td>
+                        </tr>
+                        <tr class="total general generalfinal">
+                            <td align="left">Nombres des factures</td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbComptant()) %></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbCredit()) %></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbFactureTotal()) %></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                        </tr>
+                        <tr class="total general generalfinal">
+                            <td align="left">TAUX</td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatGrandCA.getPourcAvoir())%>%</td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatGrandCA.getPourComptant())%>%</td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatGrandCA.getPourcCredit())%>%</td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
                         </tr>
                     </tbody>
                 </table>

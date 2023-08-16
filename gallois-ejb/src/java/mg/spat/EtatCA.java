@@ -225,6 +225,13 @@ public class EtatCA {
         this.calculerTauxEtHashMap(tout);
         this.calculerHashMapPartiel();
     }
+        
+    public EtatCA(int mois, int annee, String idGrandrubrique, boolean estGroupeAncien, Connection c) throws Exception {
+        CA[] tout = getCACpl(mois, idGrandrubrique, annee, c);
+        this.calculCATotal(tout);
+        this.calculerTauxEtHashMap(tout);
+        this.calculerHashMapPartiel();
+    }
     
     public EtatCA(int mois, int annee, boolean estGroupeAncien,String devise) throws Exception {
         CA[] tout = getCACpl(mois, annee, devise);
@@ -243,7 +250,7 @@ public class EtatCA {
             double[] total = AdminGen.calculSommeDouble(tout, cols);
 
             if (total!=null&&total.length > 0) {
-                totalGeneral = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
+                totalGeneral = new CA(null, "TOTAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
                 totalGeneral.setNbComptant((int)total[6]);
                 totalGeneral.setNbCredit((int)total[7]);
 
@@ -259,7 +266,10 @@ public class EtatCA {
         List<String> compteMereAlreadyExist = new ArrayList<String>();
         for(int i=0; i<tout.length; i++) {
             if(compteMere.equalsIgnoreCase(tout[i].getCompteMerelib())) {
-                tout[i].setTaux(tout[i].getTotal() / totalGeneral.getTotal() * 100);
+                if(totalGeneral.getTotal() == 0)
+                    tout[i].setTaux(0);
+                else
+                    tout[i].setTaux(tout[i].getTotal() / totalGeneral.getTotal() * 100);
                 caList.add(tout[i]);
             }
         }
@@ -307,10 +317,13 @@ public class EtatCA {
         totalGeneral.setTaux(totalTaux);
     }
      
-    public CA[] getCACpl(int mois, int annee) throws Exception{
-        Connection c = null;
+    public CA[] getCACpl(int mois, int annee, Connection c, boolean b) throws Exception{
+        boolean ouvert = false;
         try{
-            c = new UtilDB().GetConn();
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                ouvert = true;
+            }
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
             CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " and mois<="+mois+" order by mois asc, compte asc");
@@ -340,14 +353,25 @@ public class EtatCA {
         } catch(Exception ex){
             throw ex;
         } finally{
-            if(c != null) c.close();
+            if(c != null && ouvert) c.close();
         }
     }
      
-    public CA[] getCACpl(int mois, String idGrandRubrique, int annee) throws Exception{
-        Connection c = null;
+    public CA[] getCACpl(int mois, int annee) throws Exception{
         try{
-            c = new UtilDB().GetConn();
+            return this.getCACpl(mois, annee, null, false);
+        } catch(Exception ex){
+            throw ex;
+        }
+    }
+     
+    public CA[] getCACpl(int mois, String idGrandRubrique, int annee, Connection c) throws Exception{
+        boolean ouvert = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                ouvert = true;
+            }
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
             String requete = "SELECT\n" +
@@ -403,7 +427,16 @@ public class EtatCA {
         } catch(Exception ex){
             throw ex;
         } finally{
-            if(c != null) c.close();
+            if(c != null && ouvert) c.close();
+        }
+    }
+    
+    public CA[] getCACpl(int mois, String idGrandRubrique, int annee) throws Exception{
+        try{
+            return this.getCACpl(mois, idGrandRubrique, annee, null);
+        }
+        catch(Exception e){
+            throw e;
         }
     }
     

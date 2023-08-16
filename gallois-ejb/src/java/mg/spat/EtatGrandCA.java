@@ -8,9 +8,11 @@ package mg.spat;
 import bean.AdminGen;
 import bean.CGenUtil;
 import bean.TypeObjet;
+import java.sql.Connection;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -119,18 +121,19 @@ public class EtatGrandCA {
     }
 
     public EtatGrandCA(int mois, int annee, boolean estGroupeAncien) throws Exception {
-        
+        Connection c = null;
         try{
+            c = new UtilDB().GetConn();
             List<CA> CAtout = new java.util.ArrayList<>();
             TypeObjet grandrubrique = new TypeObjet();
             grandrubrique.setNomTable("GRANDRUBRIQUE");
-            TypeObjet[] grandrubriques = (TypeObjet[])CGenUtil.rechercher(grandrubrique, null, null, null, "");
+            TypeObjet[] grandrubriques = (TypeObjet[])CGenUtil.rechercher(grandrubrique, null, null, c, "");
             
             int t = grandrubriques.length;
             listeCA = new HashMap<>();
             for(int i = 0; i < t; i++){
                 EtatCA etatca = new EtatCA(mois, annee, grandrubriques[i].getId(), estGroupeAncien);
-                CA[] tout = etatca.getCACpl(mois, annee);
+                CA[] tout = etatca.getCACpl(mois, annee, c, false);
                 if(tout != null){
                     CAtout.addAll(Arrays.asList(tout));
                     listeCA.put(grandrubriques[i].getVal(), etatca);
@@ -138,16 +141,18 @@ public class EtatGrandCA {
             }
             
             tout = CAtout.toArray(new CA[CAtout.size()]);
-            this.calculerTotalGeneral();
+            this.calculerTotalGeneral(mois, annee, c);
 
         }
         catch(Exception e){
             throw e;
         }
-        
+        finally{
+            if(c != null)c.close();
+        }
     }
     
-    public void calculerTotalGeneral() throws Exception {
+    public void calculerTotalGeneral(int mois, int annee, Connection c) throws Exception {
         
         try{
             String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "nbComptant", "nbCredit"};
@@ -161,6 +166,16 @@ public class EtatGrandCA {
                 pourcAvoir = (totalgeneralgrandrubrique.getAvoirEETP() / totalgeneralgrandrubrique.getTotal()) * 100;
                 pourComptant = (totalgeneralgrandrubrique.getComptant() / totalgeneralgrandrubrique.getTotal()) * 100;
                 pourcCredit = (totalgeneralgrandrubrique.getCredit() / totalgeneralgrandrubrique.getTotal()) * 100;
+            }
+            
+            CA base = new CA();
+            base.setNomTable("factureClientMAGroupe");
+            CA[] resultNombre = (CA[]) CGenUtil.rechercher(base, null, null, c, " and mois="+mois+" and annee="+annee);
+            if(resultNombre.length>0)
+            {
+                totalgeneralgrandrubrique.setNbComptant(resultNombre[0].getNbComptant());
+                totalgeneralgrandrubrique.setNbCredit(resultNombre[0].getNbCredit());
+                totalgeneralgrandrubrique.setNbFactureTotal(resultNombre[0].getNbComptant()+resultNombre[0].getNbCredit());
             }
         }
         catch(Exception e){
