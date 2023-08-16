@@ -13,8 +13,8 @@
       Engagement e = new Engagement();
     e.setNomTable("engagementlib");
     String champReturn = request.getParameter("champReturn");
-    String listeCrt[] = {"id","designation"};
-    String listeInt[] = {};
+    String listeCrt[] = {"id","designation","daty"};
+    String listeInt[] = {"daty"};
     String libEntete[] = {"id","designation","montant","dispoAvant","dispoApres","montantreste"};
     PageRechercheChoix pr = new PageRechercheChoix(e, request, listeCrt, listeInt, 2, libEntete, libEntete.length);
     
@@ -22,6 +22,9 @@
     pr.setLien((String) session.getValue("lien"));
         pr.getFormu().getChamp("id").setLibelle("ID");
     pr.getFormu().getChamp("designation").setLibelle("Désignation");
+    pr.getFormu().getChamp("daty1").setLibelle("Date min");
+    pr.getFormu().getChamp("daty2").setLibelle("Date max");
+
     pr.setApres("listeEngagementChoix.jsp");
     pr.setChampReturn(champReturn);
     pr.setAWhere(" and montantreste > 0");
