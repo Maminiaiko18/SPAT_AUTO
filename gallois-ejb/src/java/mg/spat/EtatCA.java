@@ -124,10 +124,7 @@ public class EtatCA {
         int taillecas = cas.length;
 
         for(int i = 0;i< taillecas;i++){
-            //System.out.println("numero du compte "+cas[i].getCompte());
             if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee())))&& cas[i].getCheckReport()==0 ){
-              //  System.out.println("Niditra IFFF");
-
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     if(cas[i].getMois()<mois)
@@ -166,7 +163,6 @@ public class EtatCA {
             }
             
             else if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee())))&&cas[i].getCheckReport()==1 ){
-
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     if(cas[i].getMois()==mois)
@@ -197,7 +193,6 @@ public class EtatCA {
             }
             
             else if (cas[i].getMois()==mois && cas[i].getAnnee()== annee&&cas[i].getMoisFact()==cas[i].getMois()&&cas[i].getAnneeFact()==annee){
-                //System.out.println("NIditra Else IFFF");
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     temp.setAvoirEETP(temp.getAvoirEETP()+cas[i].getAvoir());
@@ -356,7 +351,34 @@ public class EtatCA {
             c = new UtilDB().GetConn();
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
-            CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " and mois<="+mois+" and idgrandrubrique = '" + idGrandRubrique + "' order by mois asc, compte asc");
+            String requete = "SELECT\n" +
+"	nvl(c.RUBRIQUE,'-') AS rubrique,\n" +
+"	nvl(c.RUBRIQUELIB,'-') AS rubriquelib,\n" +
+"	nvl(c.COMPTE,j.VAL) AS compte ,\n" +
+"	nvl(c.LIBELLE,j.LIBELLE ) AS LIBELLE ,\n" +
+"	nvl(c.COMPTEMERE,j.comptemere) AS comptemere,\n" +
+"	nvl(c.COMPTEMERELIB,j.comptemerelib) AS comptemerelib,\n" +
+"	nvl(c.MERE,j.DESCE) AS mere,\n" +
+"	nvl(c.MOIS," + mois + ") AS mois,\n" +
+"	nvl(c.ANNEE," + annee + ") AS annee,\n" +
+"	nvl(c.MOISFACT,0) AS moisfact,\n" +
+"	nvl(c.ANNEEFACT,0) AS annefact,\n" +
+"	nvl(c.NBCREDIT,0) AS nbcredit,\n" +
+"	nvl(c.NBCOMPTANT,0) AS nbcomptant,\n" +
+"	nvl(c.CREDIT,0) AS credit,\n" +
+"	nvl(c.COMPTANT,0) AS comptant,\n" +
+"	nvl(c.MONTANT,0) AS montant,\n" +
+"	nvl(c.AVOIR,0) AS avoir,\n" +
+"	nvl(c.IDGRANDRUBRIQUE,j.IDGRANDRUBRIQUE) AS IDGRANDRUBRIQUE  FROM\n" +
+"	JOINTURECA j,\n" +
+"(\n" +
+"select * from CompteCAFactAvoir_grp where 1<2  and annee = " + annee + " and mois <= " + mois + " and idgrandrubrique = '" + idGrandRubrique + "' order by mois asc, compte ASC)c \n" +
+"WHERE \n" +
+"	j.val = c.COMPTE(+)\n" +
+"	AND j.desce = c.MERE(+)\n" +
+"	AND j.idgrandrubrique = c.IDGRANDRUBRIQUE (+)\n" +
+"    AND j.IDGRANDRUBRIQUE = '" + idGrandRubrique + "'";
+            CA[] result = (CA[]) CGenUtil.rechercher(base, requete, c);
             String[] listeCompte=AdminGen.getDistinct(result, "compte");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
             base.setNomTable("factureClientMAGroupe");
@@ -375,7 +397,6 @@ public class EtatCA {
                 System.out.println("Anaty MAP "+map.getKey());
             }*/
             for(String key: listeCompte){
-                //System.out.println("i= "+i+" cleee  "+key);
                 tabCA[i] = mapCA.get(key);
                 i++;
             }
