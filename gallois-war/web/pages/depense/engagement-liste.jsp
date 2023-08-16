@@ -64,8 +64,8 @@
         pr.setApres("depense/engagement-liste.jsp");
         String[] colSomme =null;
         pr.creerObjetPage(libEntete, colSomme);
-        String[] etatVal = {"engagementlib", "engagementlibC", "engagementlibV"};
-        String[] etatAff = {"Tous", "Cr&eacute;&eacute;", "Vis&eacute;"};
+        String[] etatVal = {"engagementlib", "engagementlibC", "engagementlibV","engagementlibA"};
+        String[] etatAff = {"Tous", "Cr&eacute;&eacute;", "Vis&eacute;","Annul&eacute;"};
 
 %>
 <script>
