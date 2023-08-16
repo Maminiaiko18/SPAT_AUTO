@@ -641,7 +641,7 @@ public class BonDeCommande extends ClassEtat {
     }
      
     public Engagement getEngagement() throws Exception {
-        Engagement retour = new Engagement("BC "+this.getNumbc().split("/")[0]+" - "+this.getDesignation(), this.getCode_etab() , this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, this.getDaty());
+        Engagement retour = new Engagement("BC "+this.getNumbc().split("/")[0]+" - "+this.getDesignation(), this.getCode_etab() , this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, Utilitaire.dateDuJourSql());
         retour.setTiers(this.getFournisseur());
         retour.setAvecFacture(0);
         return retour;
@@ -700,7 +700,7 @@ public class BonDeCommande extends ClassEtat {
                 BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
                 if(eng.getMontantreste() < bc.getMontant() && eng.getMontantreste() > 0){
                     double diff = bc.getMontant() - eng.getMontantreste();
-                    Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), diff, Utilitaire.getAnnee(bc.getDaty()), bc.getDaty(), bc.getIdfournisseur(), 0);
+                    Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), diff, Utilitaire.getAnnee(bc.getDaty()), Utilitaire.dateDuJourSql(), bc.getIdfournisseur(), 0);
                     e.construirePK(c);
                     if (lc != null) {
                         e.setIdLC(lc.getTuppleID());
@@ -734,7 +734,7 @@ public class BonDeCommande extends ClassEtat {
                     liaison2.validerObject(u, c);
                 }
                 else{
-                    Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), bc.getMontant(), Utilitaire.getAnnee(bc.getDaty()), bc.getDaty(), bc.getIdfournisseur(), 0);
+                    Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), bc.getMontant(), Utilitaire.getAnnee(bc.getDaty()), Utilitaire.dateDuJourSql(), bc.getIdfournisseur(), 0);
                     e.construirePK(c);
                     if (lc != null) {
                         e.setIdLC(lc.getTuppleID());

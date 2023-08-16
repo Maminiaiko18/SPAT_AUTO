@@ -856,10 +856,10 @@ public class FactureFournisseur extends FactureClient {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
-            // BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
-            // if(bedfilles.length > 0){
-            //     throw new Exception("Impossible, la facture est attach\\351e \\340 un BED");
-            // }
+            BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
+            if(bedfilles.length > 0){
+                if(this.getIdengagement()==null )throw new Exception("Veuillez attacher cet facture à l'engagement dans le BED.");
+            }
 
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
             if(ff.getIdBL() != null && ff.getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0){
@@ -1006,14 +1006,30 @@ public class FactureFournisseur extends FactureClient {
                     fact.setNomTable("factfourn_msum_lib_fiche");
                     FactureFournisseur[] ffs = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, where);
                     double montant = AdminGen.calculSommeDouble(ffs, "montantttc");
+                    this.controlerLiaisonOP(ffs,liaisons,c);            
                     if(montant != op.getMontant()){
                         op.setMontant(montant);
                         op.updateToTableWithHisto(u,c);
-                    }              
+                    }
                 }            
             }
         }catch(Exception e){
             throw e;
+        }
+    }
+
+    public void controlerLiaisonOP(FactureFournisseur[] ffs,LiaisonIntraTable[] liaisons,Connection c) throws Exception{
+        System.out.println("controle liaison intratable");
+        for(FactureFournisseur ff : ffs){
+            for(LiaisonIntraTable l : liaisons){
+                if(l.getId1().compareToIgnoreCase(ff.getId())==0){
+                    if(l.getMontant()!=ff.getMontantttc()){
+                        l.setMontant(ff.getMontantttc());
+                        l.updateToTable(c);
+                    }
+                
+                }
+            }
         }
     }
 
@@ -1320,7 +1336,7 @@ public class FactureFournisseur extends FactureClient {
     }
 
     public Engagement getEngagement() throws Exception {
-        Engagement retour = new Engagement(this.getDesignation(), this.getCode_etablissement(), this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, this.getDaty());
+        Engagement retour = new Engagement(this.getDesignation(), this.getCode_etablissement(), this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, Utilitaire.dateDuJourSql());
         retour.setAvecFacture(0);
         return retour;
     }
@@ -1460,7 +1476,7 @@ public class FactureFournisseur extends FactureClient {
     
     public void createEngagement(String u, Connection c, double montant, LigneCredit lc, boolean controleBudget) throws Exception {
         try{
-            Engagement engagement = new Engagement(this.getNumeroop(), this.getCode_etablissement() , this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), this.getDaty(), this.getTiers(), 0);
+            Engagement engagement = new Engagement(this.getNumeroop(), this.getCode_etablissement() , this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), Utilitaire.dateDuJourSql(), this.getTiers(), 0);
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }
@@ -1496,7 +1512,7 @@ public class FactureFournisseur extends FactureClient {
                 String cal = calculerCodeSimple(c);
                 this.setDateRegul(Utilitaire.dateDuJourSql());
                 this.setCode(cal);
-                u.updateObject(this, c);
+                this.updateToTableWithHisto(String.valueOf(u.getUser().getRefuser()), c);
             }else throw new Exception("Ce facture possede deja un numero compta.");             
         } catch (Exception e) {
             throw e;
