@@ -811,6 +811,8 @@ public class BonDeCommande extends ClassEtat {
             LigneCredit lc=this.checkBudget(c);
             if(lc!=null){
                 engagement.setCompte(lc.getCompte());
+                LigneCredit temp = this.getBudget(c);
+                engagement.setIdLC(temp.getId());
             }
             engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
 
@@ -905,28 +907,28 @@ public class BonDeCommande extends ClassEtat {
         }
     }
     
-    // public LigneCredit getBudget(Connection c)throws Exception{
-    //     int verif=0;
-    //     LigneCredit retour=null;
-    //     try{
-    //         if(c==null){
-    //             c=new UtilDB().GetConn();
-    //             verif=1;
-    //         }
-    //         LigneCredit lc=new LigneCredit();
-    //         lc.setNomTable("LIGNECREDITDEPENSE");
-    //         lc.setIdcodeEtablissement(this.getCode_etab());
-    //         lc.setIdprojet(this.getProjet());
-    //         LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee="+Utilitaire.getAnnee(this.getDaty()));
-    //         if(ligneCredits.length>0)retour=ligneCredits[0];   
-    //     }catch(Exception e){
-    //         e.printStackTrace();
-    //         throw e;
-    //     }finally{
-    //         if(c!=null && verif==1)c.close();
-    //     }
-    //     return retour;
-    // }
+    public LigneCredit getBudget(Connection c)throws Exception{
+        int verif=0;
+        LigneCredit retour=null;
+        try{
+            if(c==null){
+                c=new UtilDB().GetConn();
+                verif=1;
+            }
+            LigneCredit lc=new LigneCredit();
+            lc.setNomTable("LIGNECREDITDEPENSE");
+            //lc.setIdcodeEtablissement(this.getCode_etab());
+            //lc.setIdprojet(this.getProjet());
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, "and codeetablissement='"+this.getCode_etab()+"' and projet ='"+this.getProjet()+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
+            if(ligneCredits.length>0)retour=ligneCredits[0];   
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }finally{
+            if(c!=null && verif==1)c.close();
+        }
+        return retour;
+    }
 
     public LigneCredit checkBudget(Connection c) throws Exception{
 
