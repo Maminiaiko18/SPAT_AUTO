@@ -3791,7 +3791,10 @@ public class EtatPaieServlet extends HttpServlet {
                 double pourcentageRealiser = (realiser*100)/lc.getMontant();
                 DecimalFormat df = new DecimalFormat("#.##");
                 String pc = df.format(pourcentageRealiser);
-                param.put("pourc", "<b><i>"+pc+" %</i></b>");
+                String rq= " <b>- En d&eacute;passement </b>";
+                if(pourcentageRealiser > 100) {
+                    param.put("pourc", "<b><i>"+pc+" %</i></b>"+rq);
+                }else param.put("pourc", "<b><i>"+pc+" %</i></b>");
                 param.put("mttrealiser", "<b><i>Ar "+Utilitaire.formaterAr(realiser)+"</i></b>");
             }
 
