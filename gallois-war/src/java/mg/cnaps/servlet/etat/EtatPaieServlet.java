@@ -401,11 +401,24 @@ public class EtatPaieServlet extends HttpServlet {
                     " and idmere = '" + jc.getId() + "'");
 
             Map param = new HashMap();
-            param.put("codeEtb", jc.getCodeetablissementlib());
             param.put("numero", jc.getNum());
             param.put("daty", jc.getDaty());
             param.put("codePrj", jc.getProjetlib());
             param.put("designation", jc.getDesignation());
+
+            CodeEtablissement ce = new CodeEtablissement();
+            ce.setNomTable("CODEETABLISSEMENT_LIBCOMPLET");
+            CodeEtablissement[] cde = (CodeEtablissement[]) CGenUtil.rechercher(ce, null, null,String.format(" and val = '%s'", jc.getCodeetablissementlib()));
+            String codeetb = jc.getCodeetablissementlib()+" - ";
+            if (cde.length > 0) {
+                ce = cde[0];
+                if(ce.getServicelib()!=null) codeetb += ce.getServicelib();
+                else if(ce.getDepartementlib()!= null) codeetb += ce.getDepartementlib();
+                else  codeetb += ce.getDescelib();
+            }
+
+            param.put("codeEtb", codeetb);
+
 
             ArrayList<DemandeAchatFille> arrList = new ArrayList<DemandeAchatFille>();
             for (int i = 0; i < tabJournalFille.length; i++) {
@@ -561,10 +574,12 @@ public class EtatPaieServlet extends HttpServlet {
                 ce.setNomTable("codeetablissement_libcomplet");
                 CodeEtablissement[] cde = (CodeEtablissement[]) CGenUtil.rechercher(ce, null, null,
                             String.format(" and val = '%s'", tabBc[0].getCode_etab()));
-                String suite = "";
+                String codeetb = "";
                 if (cde.length > 0) {
                     ce = cde[0];
-                    suite = ce.getServicelib() == null ? ce.getDepartementlib() : ce.getServicelib();
+                    if(ce.getServicelib()!=null) codeetb = ce.getServicelib();
+                    else if(ce.getDepartementlib()!= null) codeetb = ce.getDepartementlib();
+                    else  codeetb = ce.getDescelib();
                 }
 
                 bc = tabBc[0];
@@ -574,8 +589,6 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("ADRESSE", bc.getAdresse());
                 param.put("REMARQUE", bc.getRemarque());
                 param.put("DESIGNATION", bc.getDesignation());
-                String codeetb = bc.getCode_etablib();
-                if(suite!=null) codeetb+= " - "+suite;
                 param.put("CODE_ETATLIB", codeetb);
                 param.put("CODE_ETAB", bc.getCode_etab());
                 param.put("DELAI", bc.getDelaipaiement());
