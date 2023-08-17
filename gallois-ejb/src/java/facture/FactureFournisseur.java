@@ -934,8 +934,6 @@ public class FactureFournisseur extends FactureClient {
                     resteAEngager = traiterEngagementLiee(resteAEngager, lies, u, c);
                 }
                 if(resteAEngager > 0){
-                    this.verifyOPmtt(u,c);
-                    c.commit();
                     throw new ValidationException("Le montant de la facture depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerFF");
                 }
             } else {
@@ -1095,6 +1093,7 @@ public class FactureFournisseur extends FactureClient {
             }
 
             this.setNomTable("facture_fournisseur_mere");
+            this.verifyOPmtt(u,c);
             super.validerObject(u, c);
             if(verif == 1)c.commit();
         }catch(Exception e){
