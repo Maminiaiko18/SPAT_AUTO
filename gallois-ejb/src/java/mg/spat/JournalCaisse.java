@@ -50,7 +50,20 @@ public class JournalCaisse extends ClassEtat {
     private String idtraite;
     int etatversement;
     String idfinaledestination, etatlib, etatversementlib;
+    private String designation, iddevise, idmode, numcheque, typemvt, idordre;
+    private double reste;
+    private Date dateSaisie, dateEffet;
+    private double debit, credit, montant;
+    private String retour;
     
+    public String getRetour() {
+        return retour;
+    }
+
+    public void setRetour(String retour) {
+        this.retour = retour;
+    }
+
     public String getCodefacture() {
         return codefacture;
     }
@@ -144,6 +157,36 @@ public class JournalCaisse extends ClassEtat {
     @Override
     public void controlerUpdate(Connection c) throws Exception {
         updateFactureRattachee(c);
+    }
+
+    public JournalCaisse findJournalCaisse(String id) throws Exception{
+        int verif = 0;
+        Connection c = null;
+        JournalCaisse jc = new JournalCaisse();
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            jc.setNomTable("JOURNALCAISSELIBCOMPLET");
+            jc.setId(id);
+            jc = (JournalCaisse) jc.getById(id, jc.getNomTable(), c);
+
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return jc;
     }
 
     public Placement findPlacement(Connection c) throws Exception {
@@ -273,10 +316,6 @@ public class JournalCaisse extends ClassEtat {
     public void setDesceTypeCheque(String desceTypeCheque) {
         this.desceTypeCheque = desceTypeCheque;
     }
-private String designation, iddevise, idmode, numcheque, typemvt, idordre;
-    private double reste;
-    private Date dateSaisie, dateEffet;
-    private double debit, credit, montant;
 
     public String getTiersLib() {
         return tiersLib;
@@ -848,6 +887,36 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
         if(nomtable != null && !nomtable.trim().isEmpty()) op.setNomTable(nomtable);
         return (OrdonnerPayement) op.getById(op.getId(), op.getNomTable(), c);
     }
+
+    public void controleRetour(UserEJBBean user, Connection c)throws Exception{
+        JournalCaisse[] ret = (JournalCaisse[]) CGenUtil.rechercher(new JournalCaisse(), null, null, c, " and retour='"+this.getRetour()+"' and etat=11");
+        if(ret.length == 1 ) throw new Exception("Paiement déjà retourné.");
+
+        if(this.getRetour()!=null){
+            //this.idordre set null
+            JournalCaisse retour = this.findJournalCaisse(this.getRetour());
+            retour.setNomTable("journalcaisse");
+            if(retour.getIdordre()!=null){
+                retour.setIdordre(null);
+                retour.updateToTableWithHisto(String.valueOf(user.getUser().getRefuser()), c);
+            }
+
+            // paiement op
+            PaiementOP[] tab = (PaiementOP[]) CGenUtil.rechercher(new PaiementOP(), null, null, c, " and idmvt='"+this.getRetour()+"'");
+            for(PaiementOP pop : tab) {
+                pop.deleteToTableWithHisto(String.valueOf(user.getUser().getRefuser()),c);
+            }
+
+            //paiement facture
+            PaiementFacture temp = new PaiementFacture();
+            temp.setNomTable("PAIEMENTFACTUREF");
+            PaiementFacture[] lp = (PaiementFacture[]) CGenUtil.rechercher(temp, null, null, c, " and idmvt='"+this.getRetour()+"'");
+            for(PaiementFacture pf : lp) {
+                pf.deleteToTableWithHisto(String.valueOf(user.getUser().getRefuser()),c);
+            }
+        }
+    }
+
     @Override
     public void viser(UserEJBBean user, Connection c) throws Exception {
         int verif = 0;
@@ -866,6 +935,8 @@ private String designation, iddevise, idmode, numcheque, typemvt, idordre;
             String refuser = "" + user.getUser().getRefuser();
             Caisse caisse = new Caisse();
             caisse.setId(this.getCaisse());
+
+            this.controleRetour(user, c);
 
             if (this.getEtat() >= ConstanteEtat.getEtatValider()) {
                 throw new Exception("mouvement caissse deja valide");
