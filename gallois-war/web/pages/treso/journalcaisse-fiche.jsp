@@ -145,7 +145,7 @@
                         </p>
                         <hr>
                         <p>
-                            
+                            <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&retour=" + jcaisse.getId() %>" style="margin: 5px"><button class="btn btn-primary">Retour</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-modif.jsp&id=" + request.getParameter("id")%>" style="margin: 5px"><button class="btn btn-warning">Modifier</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/paiementfacture-saisie.jsp&id=" + request.getParameter("id")%>" style="margin: 5px"><button class="btn btn-success">Attacher FC</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=treso/journalcaisse-liste.jsp&classe=mg.spat.JournalCaisse" style="margin: 5px"><button class="btn btn-danger" >Supprimer</button></a>
@@ -166,6 +166,7 @@
                     <li class="<%= map.get("ventilation-ff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ventilation-ff">Ventilation FF</a></li>
                     <li class="<%= map.get("ordonnerpaiement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=ordonnerpaiement">Ordonner Paiement</a></li>
                     <li class="<%= map.get("additifjournal")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=additifjournal">Additif</a></li>
+                    <li class="<%= map.get("retour")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=retour">Retour</a></li>
 
                     <%-- <% if(jcaisse.getIdordre()!=null) if(jcaisse.getIdordre().startsWith("ORP")==true){ %>
                         <li class="<%= map.get("bordereau-p")%>"><a href="module.jsp?but=<%=bute%>&id=<%=base.getId()%>&tab=bordereau-p">Bordereaux de Paiement</a></li>

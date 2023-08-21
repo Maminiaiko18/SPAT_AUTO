@@ -16,6 +16,7 @@
 <%@ page import="affichage.PageInsert" %>
 <%@ page import="affichage.Liste" %>
 <%@page import="mg.spat.FactureAnalyse"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
         String autreparsley = "data-parsley-range='[8, 40]' required";
@@ -27,6 +28,7 @@
         String idfact = request.getParameter("idFacture");
         String idFactures = request.getParameter("idFactures");
         String idFacturesF = request.getParameter("idFacturesF");
+        String retour = request.getParameter("retour");
         String idOP = request.getParameter("id");
         String idplacement = request.getParameter("idplacement");
         String idmvtcaisse = request.getParameter("idmvtcaisse");
@@ -100,10 +102,27 @@
         banq.setNomTable("BANQUE");
         liste[4] = new Liste("idbanque", banq, "VAL", "id");
 
+        if (retour != null) {
+            JournalCaisse jc = new JournalCaisse().findJournalCaisse(retour);
+            pi.getFormu().getChamp("retour").setDefaut(retour);
+            pi.getFormu().getChamp("libelle").setDefaut("Retour cheque n° "+jc.getNumcheque());
+            pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(jc.getDebit()));
+            pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(jc.getTiers()));
+            pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(jc.getTiersLib()));
+            pi.getFormu().getChamp("Idplacementvrai").setVisible(false);
+            pi.getFormu().getChamp("debit").setVisible(false);
+            pi.getFormu().getChamp("credit").setAutre("readonly");            
+
+            liste[0].setDefaultSelected(jc.getCaisse());
+            liste[3].setDefaultSelected(jc.getIdmode());
+            liste[4].setDefaultSelected(jc.getIdbanque());
+        }
+
         pi.getFormu().changerEnChamp(liste);
 
         pi.getFormu().changerEnChamp(liste);
         //pi.getFormu().getChamp("dateSaisie").setVisible(false);
+        pi.getFormu().getChamp("retour").setVisible(false);
         pi.getFormu().getChamp("typemvt").setVisible(false);
         pi.getFormu().getChamp("dateSaisie").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("idbanque").setLibelle("Banque");
