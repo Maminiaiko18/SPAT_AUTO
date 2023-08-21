@@ -7,23 +7,22 @@
 
 <% try{ 
     Restriction restriction = new Restriction();
-    restriction.setNomTable("RESTRICTIONLIB");
+    restriction.setNomTable("RESTRICTION_LIB");
 
 
-    String listeCrt[] = { "ID", "IDROLE", "IDACTION", "TABLENAME", "DESCRIPTION", "REFUSER", "Autorise"};
+    String listeCrt[] = { "ID", "ROLELIB", "ACTIONLIB", "TABLENAME", "Description", "loginuser", "AUTORISELIB"};
     String listeInt[] = {};
-    String libEntete[] = { "ID", "REFUSER","IDROLE", "IDACTION", "TABLENAME", "DESCRIPTION", "AUTORISE"};
+    String libEntete[] = { "ID", "loginuser","ROLELIB", "ACTIONLIB", "TABLENAME", "Description", "AUTORISELIB"};
     PageRecherche pr = new PageRecherche(restriction, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
    
-    pr.getFormu().getChamp("refuser").setLibelle("Utilisateur");
-    pr.getFormu().getChamp("IDACTION").setLibelle("Action");
-    pr.getFormu().getChamp("idrole").setLibelle("Role");
+    pr.getFormu().getChamp("loginuser").setLibelle("Utilisateur");
+    pr.getFormu().getChamp("ACTIONLIB").setLibelle("Action");
+    pr.getFormu().getChamp("ROLELIB").setLibelle("Role");
     pr.getFormu().getChamp("TABLENAME").setLibelle("Fiche");
-
-    
-    
+    pr.getFormu().getChamp("AUTORISELIB").setLibelle("Autorisation");
+        
     pr.setApres("parametre/restriction-liste.jsp");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
