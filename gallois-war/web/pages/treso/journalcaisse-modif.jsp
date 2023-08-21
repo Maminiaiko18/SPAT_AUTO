@@ -9,6 +9,8 @@
 <%@ page import="bean.*"%>
 <%@ page import="utilitaire.*"%>
 <%@ page import="affichage.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
@@ -18,7 +20,7 @@
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
 
-    pi.getFormu().getChamp("numcheque").setLibelle("Numero chèque");
+    pi.getFormu().getChamp("numcheque").setLibelle("Numero chÃ¨que");
     pi.getFormu().getChamp("idordre").setLibelle("Ordre");
     pi.getFormu().getChamp("idordre").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
@@ -57,10 +59,21 @@
     pi.getFormu().getChamp("numPiece").setLibelle("Num&eacute;ro pi&egrave;ce");
     pi.getFormu().getChamp("idTypeCheque").setLibelle("Type ch&egrave;que");
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("folio").setVisible(false);
+    pi.getFormu().getChamp("numpiece").setVisible(false);
+    pi.getFormu().getChamp("idordre").setVisible(false);
+    pi.getFormu().getChamp("numpiece").setVisible(false);
+    pi.getFormu().getChamp("idplacementvrai").setVisible(false);
+    pi.getFormu().getChamp("banque").setVisible(false);
+    pi.getFormu().getChamp("idtraite").setVisible(false);
+    pi.getFormu().getChamp("Etatversement").setVisible(false);
+    pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
+    pi.getFormu().getChamp("retour").setVisible(false);
+
     pi.getFormu().getChamp("idplacement").setAutre("readonly");
     pi.getFormu().getChamp("idplacement").setLibelle("Source");
     
-    pi.getFormu().getChamp("credit").setLibelle("Entrée");
+    pi.getFormu().getChamp("credit").setLibelle("EntrÃ©e");
     pi.getFormu().getChamp("debit").setLibelle("Sorti");
     
     pi.preparerDataFormu();
