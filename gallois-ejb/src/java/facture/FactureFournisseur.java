@@ -659,7 +659,7 @@ public class FactureFournisseur extends FactureClient {
 
             if (type == 1) {
                 if (!this.checkPaiement(c)) {
-                    throw new Exception("Bon provisoire non sortie payer. Impossible de générer facture définitive");
+                    throw new Exception("Bon provisoire non payer. Impossible de générer facture définitive");
                 }
                 fc.controlerDefinitive(c);
                 categorie = Constante.categorieFFdefault;
