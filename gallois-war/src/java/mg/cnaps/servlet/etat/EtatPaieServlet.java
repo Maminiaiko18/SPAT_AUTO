@@ -2783,7 +2783,8 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("client", mere[0].getTierslib());
                 param.put("adresse", mere[0].getAdresse());
                 param.put("phone", mere[0].getContact());
-                param.put("montant", mere[0].getMontant());
+                param.put("montant", mere[0].getMontantttc());
+                System.out.println("montantttt"+mere[0].getMontantttc());
                 param.put("montantTVA", mere[0].getMontanttva());
                 param.put("montantTTC", mere[0].getMontantttc());
                 param.put("montantAvoir", mere[0].getMontantavoir());
@@ -2826,19 +2827,19 @@ public class EtatPaieServlet extends HttpServlet {
                     c, " and idprovision = '" + id + "' and etat >="+ConstanteEtat.getEtatValider());
             if (mere[0].getIdcategorie().compareTo(Constante.idBonProvisoire) == 0) {
                 if (detailsfact.length != 0) {
-                    param.put("montantfact", detailsfact[0].getMontant());
+                    param.put("montantfact", detailsfact[0].getMontantttc());
                     double montantApayerRetoruner;
-                    if (detailsfact[0].getMontant() > mere[0].getMontant()) {
-                        montantApayerRetoruner = detailsfact[0].getMontant() - mere[0].getMontant();
+                    if (detailsfact[0].getMontantttc() > mere[0].getMontantttc()) {
+                        montantApayerRetoruner = detailsfact[0].getMontantttc() - mere[0].getMontantttc();
                         param.put("montantApayer", montantApayerRetoruner);
                     } else {
-                        montantApayerRetoruner = mere[0].getMontant() - detailsfact[0].getMontant();
+                        montantApayerRetoruner = mere[0].getMontantttc() - detailsfact[0].getMontantttc();
                         param.put("montantRetourner", montantApayerRetoruner);
                     }
                 }
-                String montantlettrePro = ChiffreLettre.convertRealToString(new Double(mere[0].getMontant()))
+                String montantlettrePro = ChiffreLettre.convertRealToString(new Double(mere[0].getMontantttc()))
                         + " Ariary ";
-                String[] montantTexte = ChiffreLettre.convertRealToStringSepare(new Double(mere[0].getMontant()));
+                String[] montantTexte = ChiffreLettre.convertRealToStringSepare(new Double(mere[0].getMontantttc()));
                 montantlettrePro = montantTexte[0];
                 if (montantTexte[1].compareToIgnoreCase("") != 0) {
                     montantlettrePro += " Ariary " + montantTexte[1];
@@ -2871,6 +2872,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
         }
     }
+
 
     public void listefactureClient(HttpServletRequest request, HttpServletResponse response) {
         try {
