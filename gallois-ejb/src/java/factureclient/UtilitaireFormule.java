@@ -90,7 +90,14 @@ public class UtilitaireFormule {
                         Configuration conf=(Configuration)AdminGen.findUnique(lConfig, attrFiltre, attrValeur);
                         if(conf==null) throw new Exception("Configuration inexistante");
                         valeur=CGenUtil.getValeurFieldByMethod(conf,"valmin").toString();
-                        if(splitPointPoint.length>1&&splitPointPoint[1].compareToIgnoreCase("valmax")==0) valeur=CGenUtil.getValeurFieldByMethod(conf,"valmax").toString();
+                        if(splitPointPoint.length>1){
+                            if(splitPointPoint[1].compareToIgnoreCase("valmax")==0){
+                                valeur=CGenUtil.getValeurFieldByMethod(conf,"valmax").toString();
+                            } else if(splitPointPoint[1].compareToIgnoreCase("desce")==0){
+                                valeur=CGenUtil.getValeurFieldByMethod(conf,"desce ").toString();
+                            }
+                            
+                        }
                     }
                     
                 }
@@ -132,6 +139,15 @@ public class UtilitaireFormule {
         if(formuleSansRub==null || formuleSansRub.compareTo("")==0) return 0;
         return Double.parseDouble(engine.eval(formuleSansRub).toString());
     }
+    
+    public static String calculerFormuleS(String formuleSansRub) throws Exception
+    {
+        //ScriptEngineManager mgr = new ScriptEngineManager();
+        //ScriptEngine engine = mgr.getEngineByName("JavaScript");
+        if(formuleSansRub==null || formuleSansRub.compareTo("")==0) return null;
+        return engine.eval(formuleSansRub).toString();
+    }
+    
     public static String evaluerFormule(String formuleSansRub) throws Exception
     {
         //ScriptEngineManager mgr = new ScriptEngineManager();
