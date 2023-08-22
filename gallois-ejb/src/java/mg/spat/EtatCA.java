@@ -33,6 +33,7 @@ public class EtatCA {
     double pourcCredit;
     int mois;
     int annee;
+    CA[] CAtout;
 
     public CA getTotalGeneral() {
         return totalGeneral;
@@ -112,6 +113,14 @@ public class EtatCA {
 
     public void setAnnee(int annee) {
         this.annee = annee;
+    }
+
+    public CA[] getCAtout() {
+        return CAtout;
+    }
+
+    public void setCAtout(CA[] CAtout) {
+        this.CAtout = CAtout;
     }
 
     public EtatCA() {
@@ -221,6 +230,7 @@ public class EtatCA {
         
     public EtatCA(int mois, int annee, String idGrandrubrique, boolean estGroupeAncien) throws Exception {
         CA[] tout = getCACpl(mois, idGrandrubrique, annee);
+        this.setCAtout(tout);
         this.calculCATotal(tout);
         this.calculerTauxEtHashMap(tout);
         this.calculerHashMapPartiel();

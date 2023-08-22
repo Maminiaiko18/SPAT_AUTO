@@ -133,7 +133,7 @@ public class EtatGrandCA {
             listeCA = new HashMap<>();
             for(int i = 0; i < t; i++){
                 EtatCA etatca = new EtatCA(mois, annee, grandrubriques[i].getId(), estGroupeAncien);
-                CA[] tout = etatca.getCACpl(mois, annee, c, false);
+                CA[] tout = etatca.getCAtout();
                 if(tout != null){
                     CAtout.addAll(Arrays.asList(tout));
                     listeCA.put(grandrubriques[i].getVal(), etatca);
@@ -142,7 +142,19 @@ public class EtatGrandCA {
             
             tout = CAtout.toArray(new CA[CAtout.size()]);
             this.calculerTotalGeneral(mois, annee, c);
-
+            double tauxTotal = 0;
+            double total = 0;
+            
+            //calcul taux par grande rubrique
+            for(int i = 0; i < t; i++){
+                EtatCA tmp = listeCA.get(grandrubriques[i].getVal());
+                double tauxTmp = tmp.getTotalGeneral().getTotal() / totalgeneralgrandrubrique.getTotal() * 100;
+                tmp.getTotalGeneral().setTaux(tauxTmp);
+                listeCA.replace(grandrubriques[i].getVal(), tmp);
+                tauxTotal += tauxTmp;
+                total += tmp.getTotalGeneral().getTotal();
+            }
+            totalgeneralgrandrubrique.setTaux(tauxTotal);
         }
         catch(Exception e){
             throw e;

@@ -248,7 +248,7 @@
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getTaux())%></td>
                         </tr>
                         <tr class="total general generalfinal">
-                            <td align="left">Nombres des factures</td>
+                            <td align="left">Nombre de factures</td>
                             <td align="right"></td>
                             <td align="right"></td>
                             <td align="right"></td>
