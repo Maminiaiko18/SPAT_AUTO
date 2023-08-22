@@ -105,7 +105,7 @@
         if (retour != null) {
             JournalCaisse jc = new JournalCaisse().findJournalCaisse(retour);
             pi.getFormu().getChamp("retour").setDefaut(retour);
-            pi.getFormu().getChamp("libelle").setDefaut("Retour cheque n° "+jc.getNumcheque());
+            pi.getFormu().getChamp("libelle").setDefaut("Retour cheque n° "+jc.getNumcheque()+" du "+ Utilitaire.formatterDaty(jc.getDateSaisie()));
             pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(jc.getDebit()));
             pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(jc.getTiers()));
             pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(jc.getTiersLib()));

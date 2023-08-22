@@ -145,7 +145,9 @@
                         </p>
                         <hr>
                         <p>
-                            <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&retour=" + jcaisse.getId() %>" style="margin: 5px"><button class="btn btn-primary">Retour</button></a>
+                            <% if(jcaisse.getEtat()==ConstanteEtat.getEtatValider()){ %>
+                                <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&retour=" + jcaisse.getId() %>" style="margin: 5px"><button class="btn btn-primary">Retour</button></a>
+                            <% } %>
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-modif.jsp&id=" + request.getParameter("id")%>" style="margin: 5px"><button class="btn btn-warning">Modifier</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=treso/paiementfacture-saisie.jsp&id=" + request.getParameter("id")%>" style="margin: 5px"><button class="btn btn-success">Attacher FC</button></a>
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=treso/journalcaisse-liste.jsp&classe=mg.spat.JournalCaisse" style="margin: 5px"><button class="btn btn-danger" >Supprimer</button></a>
