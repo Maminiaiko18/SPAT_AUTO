@@ -28,6 +28,46 @@ public class Restriction extends ClassMAPTable {
     private int autorise;
     private String refuser;
     private String tablenamelib;
+    private String autoriselib;
+    private String actionlib;
+    private String loginuser;
+
+
+    public String getLoginuser() {
+        return loginuser;
+    }
+
+    public void setLoginuser(String loginuser) {
+        this.loginuser = loginuser;
+    }
+
+    public String getActionlib() {
+        return actionlib;
+    }
+
+    public void setActionlib(String actionlib) {
+        this.actionlib = actionlib;
+    }
+
+    public String getRolelib() {
+        return rolelib;
+    }
+
+    public void setRolelib(String rolelib) {
+        this.rolelib = rolelib;
+    }
+
+    private String rolelib;
+
+
+
+    public String getAutoriselib() {
+        return autoriselib;
+    }
+
+    public void setAutoriselib(String autoriselib) {
+        this.autoriselib = autoriselib;
+    }
 
 
     public Restriction(String idaction, String tablename, String description, int autorise,String refuser,String idrole) {
