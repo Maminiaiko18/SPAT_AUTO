@@ -131,6 +131,7 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
         //affichage.Champ.setAutre(pi.getFormufle().getChampFille("Taux"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("activitelib"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("produit_lib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rang"), false);
