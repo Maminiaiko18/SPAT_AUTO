@@ -1512,7 +1512,9 @@ public class FactureFournisseur extends FactureClient {
                 this.setDateRegul(Utilitaire.dateDuJourSql());
                 this.setCode(cal);
                 this.updateToTableWithHisto(String.valueOf(u.getUser().getRefuser()), c);
-            }else throw new Exception("Ce facture possede deja un numero compta.");             
+            }
+            else throw new Exception("Ce facture possede deja un numero compta.");  
+            c.commit();     
         } catch (Exception e) {
             throw e;
         }
