@@ -94,9 +94,8 @@ public class UtilitaireFormule {
                             if(splitPointPoint[1].compareToIgnoreCase("valmax")==0){
                                 valeur=CGenUtil.getValeurFieldByMethod(conf,"valmax").toString();
                             } else if(splitPointPoint[1].compareToIgnoreCase("desce")==0){
-                                valeur=CGenUtil.getValeurFieldByMethod(conf,"desce ").toString();
+                                valeur=CGenUtil.getValeurFieldByMethod(conf,"desce").toString();
                             }
-                            
                         }
                     }
                     
