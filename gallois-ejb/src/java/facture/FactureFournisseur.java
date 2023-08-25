@@ -1143,7 +1143,7 @@ public class FactureFournisseur extends FactureClient {
         String tableName = "NUMEROCOMPTAVAOVAO";
         code += Utilitaire.genererAnnee(daty);
         code += Utilitaire.genererMois(daty);
-        if(this.getIdcategorie().compareToIgnoreCase(Constante.getCategorieFFBP())==0) tableName = "NUMEROCOMPTABP";
+        //if(this.getIdcategorie().compareToIgnoreCase(Constante.getCategorieFFBP())==0) tableName = "NUMEROCOMPTABP";
         code += UtilitaireFacture.genererSequence(c, tableName, 4, daty);
         return code;
     }
@@ -1512,7 +1512,9 @@ public class FactureFournisseur extends FactureClient {
                 this.setDateRegul(Utilitaire.dateDuJourSql());
                 this.setCode(cal);
                 this.updateToTableWithHisto(String.valueOf(u.getUser().getRefuser()), c);
-            }else throw new Exception("Ce facture possede deja un numero compta.");             
+            }
+            else throw new Exception("Ce facture possede deja un numero compta.");  
+            c.commit();     
         } catch (Exception e) {
             throw e;
         }
