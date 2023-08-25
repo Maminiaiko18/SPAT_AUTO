@@ -1143,7 +1143,7 @@ public class FactureFournisseur extends FactureClient {
         String tableName = "NUMEROCOMPTAVAOVAO";
         code += Utilitaire.genererAnnee(daty);
         code += Utilitaire.genererMois(daty);
-        if(this.getIdcategorie().compareToIgnoreCase(Constante.getCategorieFFBP())==0) tableName = "NUMEROCOMPTABP";
+        //if(this.getIdcategorie().compareToIgnoreCase(Constante.getCategorieFFBP())==0) tableName = "NUMEROCOMPTABP";
         code += UtilitaireFacture.genererSequence(c, tableName, 4, daty);
         return code;
     }
