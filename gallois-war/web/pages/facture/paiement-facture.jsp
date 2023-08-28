@@ -16,9 +16,9 @@
         }
 
      //   System.out.println("tablename"+journalCaisse.getNomTable());
-        String listeCrt[] = {"id", "caisse", "numpiece", "libelle", "DATEEFFET", "codefacture", "tierslib","idbanquelib","DESCETYPECHEQUE","idtypecheque"};
-        String listeInt[] = {"dateEffet"};
-        String libEntete[] = {"id","DATESAISIE","DATEEFFET","valcaisse","numpiece","libelle","CREDIT","TIERSLIB","VALTYPECHEQUE","DESCETYPECHEQUE","NUMCHEQUE","CODETIERS","IDBANQUELIB","MONTANT","CODEFACTURE","CATEGORIELIB"};
+        String listeCrt[] = {"id", "caisse", "numpiece", "libelle", "DATEEFFET", "codefacture", "tierslib","idbanquelib","DESCETYPECHEQUE","idtypecheque","datesaisie"};
+        String listeInt[] = {"dateEffet","datesaisie"};
+        String libEntete[] = {"id","datesaisie","DATEEFFET","valcaisse","numpiece","libelle","CREDIT","TIERSLIB","VALTYPECHEQUE","DESCETYPECHEQUE","NUMCHEQUE","CODETIERS","IDBANQUELIB","MONTANT","CODEFACTURE","CATEGORIELIB"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -43,6 +43,8 @@
 //        pr.getFormu().getChamp("dateEffet1").setDefaut("01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql()););
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
+        pr.getFormu().getChamp("dateSaisie1").setLibelle("Date saisie min");
+        pr.getFormu().getChamp("dateSaisie2").setLibelle("Date saisie max");
         //pr.getFormu().getChamp("valcaisse").setDefaut("RECETTES");
        // pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
