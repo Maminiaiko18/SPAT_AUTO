@@ -4,7 +4,20 @@ import bean.ClassEtat;
 import java.sql.Date;
 
 public class PayementFacture extends ClassEtat {
-    
+    private String id,tiers,patient,designation,typee,devise,compte,remarque,idjournal,idtiers, matricule, code, typefacture, idfact;
+    private Date daty,date_echeance;
+    private double montant,tva,montanttva,coursdevise,montantpayer,resteapayer, montanttotal,avoir;
+    private String codeprovision;
+    private String dateliaison;
+
+    public String getDateliaison() {
+        return dateliaison;
+    }
+
+    public void setDateliaison(String dateliaison) {
+        this.dateliaison = dateliaison;
+    }
+
     @Override
     public String getTuppleID() {
         return id; //To change body of generated methods, choose Tools | Templates.
@@ -221,9 +234,6 @@ public class PayementFacture extends ClassEtat {
         this.codeprovision = codeprovision;
     }
     
-    private String id,tiers,patient,designation,typee,devise,compte,remarque,idjournal,idtiers, matricule, code, typefacture, idfact;
-    private Date daty,date_echeance;
-    private double montant,tva,montanttva,coursdevise,montantpayer,resteapayer, montanttotal,avoir;
-    private String codeprovision;
+
 
 }
