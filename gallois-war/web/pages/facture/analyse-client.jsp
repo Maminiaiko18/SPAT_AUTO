@@ -57,6 +57,8 @@
             out.println(pr.getTableau().getHtml());
         %>
     </section>
+        <% out.println(pr.getBasPage());%>
+
 </div>
 <%
     } catch (Exception e) {
