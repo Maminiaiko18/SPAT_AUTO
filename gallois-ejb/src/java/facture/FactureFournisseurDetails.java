@@ -8,12 +8,17 @@ package facture;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.ClassMere;
+import fin.Coursdevise;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lignecredit.LigneCredit;
 import mg.spat.EngagementFille;
+import mg.spat.stock.BonDeCommande;
+import mg.spat.stock.BonDeLivraison;
+import mg.spat.stock.BonDeLivraisonFilleReste;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -184,6 +189,21 @@ public class FactureFournisseurDetails extends FactureClientDetails{
         try{
             FactureFournisseur fact = (FactureFournisseur) new FactureFournisseur().getById(this.getIdmere(), "FACTURE_FOURNISSEUR_MERE", c);
             if(fact.getDeviseMere().compareToIgnoreCase(this.getDevise())!=0) throw new Exception("Devise different dans la facture details et la facture mere.");
+
+            //si FF via BC, prendre taux BC
+            if(fact.getIdBL()!=null) {
+                if(fact.getDeviseMere().compareToIgnoreCase(Constante.deviseAr)!=0){
+                    BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(fact.getIdBL(), "AS_BONDELIVRAISON_BC", c);
+                    BonDeCommande bc = (BonDeCommande) new BonDeCommande().getById(bl.getId_bc(), "AS_BONDECOMMANDE", c);
+                    Coursdevise temp = new Coursdevise();
+                    temp.setIddevise(this.getDevise()); 
+                    temp.setEstMICTSL("0");
+                    String daty = Utilitaire.formatterDatySql(bc.getDaty());
+                    temp = ((Coursdevise[]) CGenUtil.rechercher(temp, null, null, c, " AND DATY = TO_DATE('"+daty+"', 'dd/MM/yyyy')"))[0];
+                    this.setTaux(temp.getMontant());
+                    this.setTauxDonne(true);
+                }
+            }
             if(this.getDesignation()==null || this.getDesignation().compareToIgnoreCase("")==0) throw new Exception("Désignation details facture obligatoire.");
             String nomtable="situationLCDepenseGRP"; //budget groupé par direction et projet
             if(this.getCompte()!=null && this.getCompte().compareTo("")!=0) {
