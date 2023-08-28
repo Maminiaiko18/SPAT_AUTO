@@ -54,6 +54,14 @@
             pi.getFormu().getChamp("num").setVisible(false);
             pi.getFormu().getChamp("idcategorie").setVisible(false);
 
+           // pi.getFormu().getChamp("modepaiement").setDefaut("-");
+            affichage.Liste[] liste = new affichage.Liste[1];
+            TypeObjet modepaiement = new TypeObjet();
+            modepaiement.setNomTable("modepaiementbp");
+            liste[0] = new Liste("modepaiement", modepaiement, "desce", "id");
+            liste[0].setDefaultSelected("-");
+            pi.getFormu().changerEnChamp(liste);
+
         }
         pi.setLien((String) session.getValue("lien"));
         System.out.println("u.getUser().getCodeEtablissement()==" + u.getUser().getCodeEtablissement());
