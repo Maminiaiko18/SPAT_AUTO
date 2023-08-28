@@ -8,13 +8,13 @@ public class PayementFacture extends ClassEtat {
     private Date daty,date_echeance;
     private double montant,tva,montanttva,coursdevise,montantpayer,resteapayer, montanttotal,avoir;
     private String codeprovision;
-    private String dateliaison;
+    private Date dateliaison;
 
-    public String getDateliaison() {
+    public Date getDateliaison() {
         return dateliaison;
     }
 
-    public void setDateliaison(String dateliaison) {
+    public void setDateliaison(Date dateliaison) {
         this.dateliaison = dateliaison;
     }
 
