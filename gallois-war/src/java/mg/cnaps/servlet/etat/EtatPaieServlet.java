@@ -842,7 +842,7 @@ public class EtatPaieServlet extends HttpServlet {
                 String jaspername = "bed";
                 String titre = "BON D'ENGAGEMENT DE DEPENSES DIVERSES";
                 if(option!=null)  if(option.compareToIgnoreCase("0")==0) {
-                    jaspername = "bed-sanssignature";
+                    //jaspername = "bed-sanssignature";
                     titre = "ETAT DE DEPENSES";
                 }
                 param.put("titre", titre);

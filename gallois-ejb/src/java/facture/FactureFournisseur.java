@@ -500,6 +500,10 @@ public class FactureFournisseur extends FactureClient {
             BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(this.getIdBL(), "AS_BONDELIVRAISON_BC", cnctn);
             if(bl.getIdengagement() != null)
                 this.setIdengagement(bl.getIdengagement());
+
+            //si FF a partir BC dia date BC no datedevise
+            BonDeCommande bc = (BonDeCommande) new BonDeCommande().getById(bl.getId_bc(), "AS_BONDECOMMANDE", cnctn);
+            if(bc!=null) this.setDatedevise(bc.getDaty());
         }
         if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
             this.setNum(this.calculerNumeroBP(cnctn));
