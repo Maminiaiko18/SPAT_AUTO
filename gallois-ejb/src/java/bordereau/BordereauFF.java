@@ -347,8 +347,11 @@ public class BordereauFF extends Bordereau{
             if (ligneCredits.length > 0) {
                 lc = ligneCredits[0];
             }
-            
-            String[] facturesTab = Utilitaire.stringToTab(this.getIdfactures(), ";");
+
+            BordereauFilleFF temp = new BordereauFilleFF();
+            temp.setNomTable("LIAISONBORDEREAUFF");
+            BordereauFilleFF[] liaisonBordFF = (BordereauFilleFF[]) CGenUtil.rechercher(temp, null, null, c, " and IDBORDEREAU='"+this.getId()+"'");
+            String[] facturesTab = AdminGen.getDistinct(liaisonBordFF, "idop");
             String factures = Utilitaire.tabToString(facturesTab, "'", ",");
             String requete = "SELECT * from factfourn_msum_lib where id in (" + factures + ")";
             FactureFournisseur fact = new FactureFournisseur();
