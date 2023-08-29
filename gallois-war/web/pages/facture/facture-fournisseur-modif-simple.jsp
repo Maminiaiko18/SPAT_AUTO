@@ -62,7 +62,6 @@
         pi.getFormu().getChamp("code_etablissement").setVisible(false);
         pi.getFormu().getChamp("estAuto").setVisible(false);
         pi.getFormu().getChamp("typeEngagement").setVisible(false);
-        pi.getFormu().getChamp("modepaiement").setDefaut("-");
 
         Liste[] listes = new Liste[2];
         TypeObjet nature = new TypeObjet();
@@ -77,6 +76,7 @@
 
         pi.getFormu().getChamp("numeroop").setLibelle("N° facture");
         pi.getFormu().getChamp("code").setLibelle("N° Compta");
+        pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
 
         pi.preparerDataFormu();
         
