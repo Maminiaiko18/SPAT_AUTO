@@ -72,9 +72,9 @@ public class FactureFournisseur extends FactureClient {
     private String typeEngagement;
     private boolean apresValidationException;
     private Date datedevise;
+    private String modepaiementlib;
 
-
-	public Date getDatedevise() {
+    public Date getDatedevise() {
         return datedevise;
     }
 
@@ -345,6 +345,14 @@ public class FactureFournisseur extends FactureClient {
 
     public void setApresValidationException(boolean apresValidationException) {
         this.apresValidationException = apresValidationException;
+    }
+
+    public String getModepaiementlib() {
+        return modepaiementlib;
+    }
+
+    public void setModepaiementlib(String modepaiementlib) {
+        this.modepaiementlib = modepaiementlib;
     }
     
     public FactureFournisseur() throws Exception {
@@ -890,6 +898,10 @@ public class FactureFournisseur extends FactureClient {
             if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getNum() == null) {
                 this.setNum(this.calculerNumeroBP(c));
             }
+            
+            if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && (this.getModepaiement() == null || this.getModepaiement().compareToIgnoreCase(Constante.paiementNull) == 0)) {
+                throw new Exception("Vous devez choisir un mode de paiement");
+            }
 
             if (this.getIdengagement() != null) {
                 double resteAEngager = ff.getMontant();
@@ -1359,7 +1371,10 @@ public class FactureFournisseur extends FactureClient {
             engagement.setTiers(this.getTiers());
             engagement.construirePK(c);
 
-            FactureFournisseurDetails[] filles = (FactureFournisseurDetails[]) this.getFille("FACTFOURN_FILL_LIB_REST_TAXE", c, "");
+            FactureFournisseurDetails dets = new FactureFournisseurDetails();
+            dets.setNomTable("FACTFOURN_FILL_LIB_REST_TAXE");
+            FactureFournisseurDetails[] filles = (FactureFournisseurDetails[]) CGenUtil.rechercher(new FactureFournisseurDetails(), null, null, c, " and idmere = '" + this.getId() + "'");
+                    //this.getFille("FACTFOURN_FILL_LIB_REST_TAXE", c, "");
 
             engagement.setAvecFacture(0);
             engagement.createObject(u, c);
