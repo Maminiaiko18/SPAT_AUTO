@@ -18,7 +18,7 @@
         bordereaux.setNomTable(request.getParameter("etatvue"));
     }
     
-    String libEntete[] = {"id", "daty","projetlib","directionlib","numfsb","numero","designation","tiers","montant","montantbudget","montantav","montantap"};
+    String libEntete[] = {"id", "daty","projetlib","directionlib","numfsb","numero","designation","tiers","montant"};
     String listeCrt[] = {"id","designation","numfsb","projetlib","directionlib", "daty","tiers","numero"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(bordereaux, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -58,12 +58,12 @@
                         <option value="BORDEREAUFF_LIB_MONTANT" <% if (request.getParameter("etatvue") == null || request.getParameter("etatvue").compareToIgnoreCase("") == 0 || request.getParameter("etatvue").compareToIgnoreCase("BORDEREAUFF_LIB_MONTANT")==0) {
                                 out.print(" selected");
                             }%>>Tous</option>
-                        <option value="BORDEREAUFF_LIB_MONTANTC" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("BORDEREAUFF_LIB_MONTANTC") == 0) {
+                        <option value="BORDEREAUFF_LIB_MONTANTV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("BORDEREAUFF_LIB_MONTANTC") == 0) {
                                 out.print("selected");
-                            }%>>Cr&eacute;e(s)</option>
-                        <option value="BORDEREAUFF_LIB_MONTANTV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("BORDEREAUFF_LIB_MONTANTV") == 0) {
+                            }%>>Engag&eacute;(s)</option>
+                        <option value="BORDEREAUFF_LIB_MONTANTC" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("BORDEREAUFF_LIB_MONTANTV") == 0) {
                                 out.print("selected");
-                            }%>>Vis&eacute;(s)</option>
+                            }%>>Non engag&eacute;(s)</option>
                     </select>
                 </div>
                 <div class="col-md-4"></div>
@@ -79,7 +79,7 @@
             %>
             <br>
             <%
-                String libEnteteAffiche[] = {"id", "Date","projet","direction","Num FSB","num&eacute;ro","Désignation","Tiers","Montant","Montant Budget","Montant dispo avant","Montant dispo apres"};
+                String libEnteteAffiche[] = {"id", "Date","projet","direction","Num FSB","num&eacute;ro","Désignation","Tiers","Montant"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 out.println(pr.getTableau().getHtml());
                 out.println(pr.getBasPage());
