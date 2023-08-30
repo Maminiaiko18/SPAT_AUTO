@@ -85,6 +85,9 @@
         pc.getChampByName("code").setLibelle("Numero Compta");
         pc.getChampByName("IdProvision").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
         pc.getChampByName("idProvisionlib").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=" + e.getIdProvision(), "");
+        
+        pc.getChampByName("modepaiement").setVisible(false);
+        pc.getChampByName("modepaiementlib").setVisible(false);
 
         String categorie = "";
         if (e.getIdcategorie() != null) {
@@ -94,7 +97,8 @@
             pc.setTitre("Fiche Bon provisoire");
             pc.getChampByName("num").setVisible(true);
             pc.getChampByName("num").setLibelle("Numero BP");
-
+            pc.getChampByName("modepaiementlib").setVisible(true);
+            pc.getChampByName("modepaiementlib").setLibelle("Mode de paiement");
         } else {
             pc.setTitre("Fiche Facture Fournisseur");
             pc.getChampByName("num").setVisible(false);
