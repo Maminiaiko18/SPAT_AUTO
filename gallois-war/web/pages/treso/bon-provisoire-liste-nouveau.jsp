@@ -12,8 +12,15 @@
 <%@page import="mg.spat.StatistiqueActivite"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="utilitaire.ConstanteEtat"%>
+<%@page import="user.*"%>
+<%@page import="utilitaire.*"%>
+
 
 <% try{ 
+    UserEJB u = null;
+        String idUser = "";
+        u = (UserEJB) session.getValue("u");
+        idUser = "" + u.getUser().getTuppleID();
     FactureFournisseur bonProvisoire = new FactureFournisseur();
     String nomTable = "BPvalide";
     if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("") != 0) {
@@ -21,9 +28,9 @@
     }
     bonProvisoire.setNomTable(nomTable);
     
-    String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","num","categorielib", "code"};
+    String listeCrt[] = {"id","daty","tierslib","designation","date_echeance","num","categorielib", "code","modepaiementlib"};
     String listeInt[] = {"daty","date_echeance"};
-    String libEntete[] = {"id","daty","tierslib", "code", "num","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+    String libEntete[] = {"id","daty","tierslib","modepaiementlib", "code", "num","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     PageRecherche pr = new PageRecherche(bonProvisoire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -33,6 +40,7 @@
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("categorielib").setLibelle("Cat�gorie");
         pr.getFormu().getChamp("num").setLibelle("Numero BP");
+        pr.getFormu().getChamp("modepaiementlib").setLibelle("mode paiement");
         
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
@@ -51,7 +59,15 @@
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");        
     
     pr.setApres("treso/bon-provisoire-liste-nouveau.jsp");
-    //pr.setAWhere(" and etat != "+ConstanteEtat.getEtatRegulariser());
+    String where = "";
+    if(idUser.compareToIgnoreCase("1469")==0) {
+        where = " and modepaiement = '"+Constante.modepaiementDefaut+"'";
+    }else if(idUser.compareToIgnoreCase("3583")==0 || idUser.compareToIgnoreCase("1322")==0){
+        where = " and modepaiement != '"+Constante.modepaiementDefaut+"'";
+    }
+
+    pr.setAWhere(where);
+
     String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -116,7 +132,7 @@
             <input type="hidden" name="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
-            String libEnteteAffiche[] = {"id","daty","Client","Code", "Numero BP","Note explicative","Cat�gorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant pay�","Reste � payer"};
+            String libEnteteAffiche[] = {"id","daty","Bénéficiaire","mode paiement","Code", "Numero BP","Note explicative","Cat�gorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant pay�","Reste � payer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);            
