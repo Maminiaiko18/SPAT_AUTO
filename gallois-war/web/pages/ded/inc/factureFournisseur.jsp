@@ -17,7 +17,7 @@
     String ded_id = request.getParameter("ded_id");
     
     FactureFournisseur act = new FactureFournisseur();
-    act.setNomTable("LIAISONOPFF_msum");
+    act.setNomTable("liaisonOPFF");
     String listeCrt[] = {"id2"};
     String listeInt[] = {};
         String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP"};

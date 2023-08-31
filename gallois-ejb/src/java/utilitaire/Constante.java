@@ -175,7 +175,6 @@ public class Constante {
     public static String typeEngagementFF = "FF";
     public static String typeEngagementEng = "ENG";
     public static String typeEngagementBED = "BED";
-    public static String banqueBP = "CAI0000000017120108";
 
     public static String getTypePieceTraite(){
         return typePieceTraite;
