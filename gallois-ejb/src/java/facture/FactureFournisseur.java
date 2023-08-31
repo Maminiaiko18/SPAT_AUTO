@@ -796,8 +796,18 @@ public class FactureFournisseur extends FactureClient {
             transfert.setIddevise(this.getDeviseMere());
             transfert.setIdmode(bp.getModepaiement());
             transfert.setEtat(ConstanteEtat.getEtatValider());
-
             transfert.createObject(u, con);
+
+            OrdonnerPayement op = ((OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, con, " and DED_ID = '" + this.getIdProvision() + "'"))[0];
+            if( op != null){
+                op.setDed_Id(op.getDed_Id()+";"+this.getId());
+                op.updateToTable(con);
+
+                LiaisonIntraTable liaison = new LiaisonIntraTable(this.getId(), op.getId(), montant);
+                liaison.setCheckfacture(false);
+                liaison.createObject(u, con);
+            }
+
 
             if (verif) {
                 con.commit();
