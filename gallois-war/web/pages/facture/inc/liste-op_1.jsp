@@ -7,7 +7,7 @@
 <%@page import="affichage.PageRecherche"%>
 <%
     OrdonnerPayement j = new OrdonnerPayement();
-        j.setNomTable("ORDONNERPAYEMENT_LIB");
+        j.setNomTable("ORDONNERPAYEMENT_LIBgrp");
      String libEntete[] =  {"id","ded_Id", "tiers","numeroop","daty" ,"remarque","montant"};
     String listeCrt[] = {"ded_id"};
     String listeInt[] = {};
