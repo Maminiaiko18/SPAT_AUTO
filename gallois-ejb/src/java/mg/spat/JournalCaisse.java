@@ -1773,6 +1773,7 @@ public class JournalCaisse extends ClassEtat {
             else if(this.getIdplacement() != null){ 
                 awhere = String.format(" and id = '%s' ", this.getIdplacement());
             }
+
             if(nomtable == null || nomtable.compareTo("")==0) nomtable = "facture_fournisseur_mere";
             FactureFournisseur ff = new FactureFournisseur();
             ff.setNomTable(nomtable);
@@ -1806,7 +1807,7 @@ public class JournalCaisse extends ClassEtat {
             caisse.setCreationAuto(true);
             caisse.setCredit(this.getDebit());
             caisse.setDateSaisie(Utilitaire.dateDuJourSql());
-            caisse.setDateEffet(Utilitaire.dateDuJourSql());
+            caisse.setDateEffet(this.getDateEffet());
             caisse.setTiers(this.getTiers());
             caisse.setMode(this.getMode());
             caisse.setIdordre(this.getIdordre());
