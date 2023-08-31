@@ -24,11 +24,11 @@
     
     String awhere = "";
     
-    if(etatOP < ConstanteEtat.getEtatValider()) {
+    /*if(etatOP < ConstanteEtat.getEtatValider()) {
         act.setNomTable("FACTUREFOURNVALIDE_TOUS");
         listeCrt = new String[] {};
         awhere += String.format(" and id in (%s)", Utilitaire.tabToString(Utilitaire.stringToTab(ded_id, ";"), "'", ","));
-    }
+    }*/
         
     PageRecherche pr = new PageRecherche(act, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
