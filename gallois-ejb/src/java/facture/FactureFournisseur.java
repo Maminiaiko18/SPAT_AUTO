@@ -787,10 +787,10 @@ public class FactureFournisseur extends FactureClient {
 
             Date dateDuJour = this.getDateRegul();
             FactureFournisseur bp = (FactureFournisseur)(new FactureFournisseur()).getById(this.getIdProvision(), "factfourn_msum_lib_fiche", con);
-            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, bp.getDesignation() , null, dateDuJour, dateDuJour, montant, 0, this.getId());
+            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, bp.getDesignation() , null, dateDuJour, dateDuJour, bp.getMontantttc(), 0, this.getId());
             transfert.setTiers(this.getTiers());
             transfert.setIddevise(this.getDeviseMere());
-            transfert.setIdmode(Constante.modePaiementEspece);
+            transfert.setIdmode(bp.getModepaiement());
             transfert.setEtat(ConstanteEtat.getEtatValider());
 
             transfert.createObject(u, con);
