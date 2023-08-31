@@ -787,7 +787,11 @@ public class FactureFournisseur extends FactureClient {
 
             Date dateDuJour = this.getDateRegul();
             FactureFournisseur bp = (FactureFournisseur)(new FactureFournisseur()).getById(this.getIdProvision(), "factfourn_msum_lib_fiche", con);
-            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, bp.getDesignation() , null, dateDuJour, dateDuJour, bp.getMontantttc(), 0, this.getId());
+            if(bp.getModepaiement()==null) throw new Exception("Mode de paiement Bon provisoire invalide");
+            String caisseBP = "";
+            if(bp.getModepaiement().compareToIgnoreCase(Constante.modePaiementEspece)==0) caisseBP = Constante.caisseCentraleBP;
+            else caisseBP = Constante.banqueBP;
+            JournalCaisse transfert = new JournalCaisse(null,caisseBP, null, bp.getDesignation() , null, dateDuJour, dateDuJour, bp.getMontantttc(), 0, this.getId());
             transfert.setTiers(this.getTiers());
             transfert.setIddevise(this.getDeviseMere());
             transfert.setIdmode(bp.getModepaiement());
