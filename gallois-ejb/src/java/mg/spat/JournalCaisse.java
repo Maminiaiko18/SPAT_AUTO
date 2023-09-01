@@ -35,6 +35,7 @@ import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 import ded.PaiementOP;
+import mg.allosakafo.produits.LiaisonIntraTable;
 
 /**
  *
@@ -55,6 +56,7 @@ public class JournalCaisse extends ClassEtat {
     private Date dateSaisie, dateEffet;
     private double debit, credit, montant;
     private String retour;
+    private boolean creationAuto;
     
     public String getRetour() {
         return retour;
@@ -773,6 +775,14 @@ public class JournalCaisse extends ClassEtat {
         this.reste = reste;
     }
 
+    public boolean getCreationAuto() {
+        return creationAuto;
+    }
+
+    public void setCreationAuto(boolean creationAuto) {
+        this.creationAuto = creationAuto;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -966,7 +976,7 @@ public class JournalCaisse extends ClassEtat {
                         String numeroPiece = calculerNumeroPieceDepense(c);
                         this.setNumPiece(numeroPiece);
                     }
-                    if(opTsotra!=null){
+                    if(opTsotra!=null && this.getCreationAuto() == false){
                         PaiementFacture[] lpf=opTsotra.genererPaiementFacture(c,this);
                         if(lpf.length>0){
                             for(int i=0;i<lpf.length;i++){
@@ -1019,6 +1029,11 @@ public class JournalCaisse extends ClassEtat {
                 if(this.getIdplacement()!=null){
                     if(this.getCredit() > 0) this.arrondir();
                 }
+            }
+            
+            FactureFournisseur facture = this.getFacture("facture_fournisseur_mere", c);
+            if(facture.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getCreationAuto() == false){
+                this.genererAutoParBP(user, c);
             }
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
@@ -1758,7 +1773,6 @@ public class JournalCaisse extends ClassEtat {
             else if(this.getIdplacement() != null){ 
                 awhere = String.format(" and id = '%s' ", this.getIdplacement());
             }
-
             if(nomtable == null || nomtable.compareTo("")==0) nomtable = "facture_fournisseur_mere";
             FactureFournisseur ff = new FactureFournisseur();
             ff.setNomTable(nomtable);
@@ -1779,28 +1793,27 @@ public class JournalCaisse extends ClassEtat {
         
         try{
             JournalCaisse caisse = new JournalCaisse();
-            caisse.setIdmode(this.getIdmode());
             if(this.getIdmode().compareToIgnoreCase(Constante.modePaiementEspece) == 0){
                 caisse.setCaisse(Constante.caisseCentraleBP);
-                caisse.setLibelle(this.getLibelle());
+                caisse.setLibelle("Transfert vers Bon Provisoire a la caisse centrale");
             }
-            else {
+            else if(this.getIdmode().compareToIgnoreCase(Constante.modepaiementChq) == 0){
                 caisse.setCaisse(Constante.banqueBP);
-                caisse.setLibelle(this.getLibelle());
+                caisse.setLibelle("Transfert vers Bon Provisoire Banque");
                 caisse.setIdbanque(this.getIdbanque());
             }
             caisse.setCreationAuto(true);
             caisse.setCredit(this.getDebit());
             caisse.setDateSaisie(Utilitaire.dateDuJourSql());
-            caisse.setDateEffet(this.getDateEffet());
+            caisse.setDateEffet(Utilitaire.dateDuJourSql());
             caisse.setTiers(this.getTiers());
             caisse.setMode(this.getMode());
             caisse.setIdordre(this.getIdordre());
             caisse.setIdplacement(this.getIdplacement());
             caisse.setIdTypeCheque(this.getIdTypeCheque());
             caisse.setIdmode(this.getIdmode());
-            caisse.setEtat(ConstanteEtat.getEtatObjetValider());
             caisse.createObject(user.getUser().getTuppleID(), c);
+            caisse.viser(user, c);
         }
         catch(Exception e){
             throw e;

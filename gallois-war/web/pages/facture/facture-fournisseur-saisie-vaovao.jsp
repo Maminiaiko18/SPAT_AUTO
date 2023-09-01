@@ -44,6 +44,7 @@
         }
 
         PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, taille, u);
+        pi.getFormu().getChamp("modepaiement").setVisible(false);
         if ((mode != null) && (mode.compareToIgnoreCase("1") == 0)) {
             titre = "Enregistrer Bon provisoire";
             categorie = Constante.getCategorieFFBP();
@@ -66,7 +67,6 @@
 
         }
         pi.setLien((String) session.getValue("lien"));
-        System.out.println("u.getUser().getCodeEtablissement()==" + u.getUser().getCodeEtablissement());
         if (u.getUser().getCodeEtablissement() != null) {
             CodeEtablissement code = u.getCodeEtablissement();
             pi.getFormu().getChamp("code_etablissement").setDefaut(u.getUser().getCodeEtablissement());
