@@ -97,6 +97,7 @@
             mode.setNomTable(request.getParameter("idmode"));
         }
         liste[3] = new Liste("idmode", mode, "desce", "id");
+        liste[3].setDefaultSelected(Constante.modepaiementDefaut);
 
         TypeObjet banq = new TypeObjet();
         banq.setNomTable("BANQUE");
