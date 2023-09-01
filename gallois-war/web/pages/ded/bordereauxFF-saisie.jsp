@@ -52,6 +52,7 @@
         pi.setLien((String) session.getValue("lien"));
 
         pi.getFormu().getChamp("Etat").setVisible(false);
+        pi.getFormu().getChamp("Idengagement").setVisible(false);
         pi.getFormu().getChamp("numero").setVisible(false);
         pi.getFormu().getChamp("numfsb").setVisible(false);
         pi.getFormu().getChamp("montantbudget").setVisible(false);

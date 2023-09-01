@@ -111,6 +111,8 @@
         pi.getFormu().getChamp("estDDPMICTSL").setVisible(false);    
         pi.getFormu().getChamp("tva").setVisible(false);    
         pi.getFormu().getChamp("estMictsl").setVisible(false);
+        pi.getFormu().getChamp("MontantHTSansRemise").setVisible(false);
+        pi.getFormu().getChamp("Modepaiement").setVisible(false);
         
         pi.getFormu().getChamp("projetlib").setVisible(false);    
         pi.getFormu().getChamp("code_etablissementlib").setVisible(false);
