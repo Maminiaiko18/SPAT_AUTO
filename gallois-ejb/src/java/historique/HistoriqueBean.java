@@ -187,6 +187,54 @@ public class HistoriqueBean implements HistoriqueRemote, HistoriqueLocal, Sessio
         }
     }
 
+    public String createUtilisateurs(String loginuser, String pwduser, String nomuser, String adruser, String teluser, String idrole, String refUser,String codeetb) throws Exception {
+        Connection c = null;
+        try {
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            MapUtilisateur[] uT = this.findUtilisateurs("%", loginuser, "%", "%", "%", "%", "%");
+            if (uT.length > 0) {
+                throw new Exception("Login deja utilise!");
+            }
+
+            String passCrypt = null;
+            int niveau = (int) Math.round(Math.random() * 10);
+            int sens = (int) Math.round(Math.random());
+            if (niveau == 0) {
+                niveau = -5; //raha zero ny niveau de atao -5
+            }
+            if (sens == 0) {
+                passCrypt = Utilitaire.cryptWord(pwduser.toLowerCase(), niveau, true);
+            } else {
+                passCrypt = Utilitaire.cryptWord(pwduser.toLowerCase(), niveau, false);
+            }
+
+            MapUtilisateur u = new MapUtilisateur(loginuser, passCrypt, nomuser, adruser, teluser, idrole);
+            u.setCodeEtablissement(codeetb);
+            u.insertToTableWithHisto(refUser, c);
+            ParamCrypt pc = new ParamCrypt(niveau, sens, u.getTuppleID());
+            pc.insertToTable(c);
+            
+            CNAPSUser cu=new CNAPSUser("DIR00001", "1", "1", "1", nomuser, "2030", u.getTuppleID());
+            cu.construirePK(c);
+            cu.insertToTableWithHisto(u.getTuppleID(), c);
+            c.commit();
+            return u.getTuppleID();
+        } catch (CreateException ex) {
+            ex.printStackTrace();
+            c.rollback();
+            throw new Exception(ex.getMessage());
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            c.rollback();
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
     public String updateUtilisateurs(String iduser, String loginuser, String pwduser, String nomuser, String adruser, String teluser, String idrole, String refUser) throws Exception {
 //    MapUtilisateur u=new MapUtilisateur(utilitaire.Utilitaire.stringToInt(iduser),loginuser, pwduser, nomuser, adruser, teluser, idrole);
         try {
