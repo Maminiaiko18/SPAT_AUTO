@@ -7,10 +7,12 @@ package ordremission;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import facture.NumeroFacture;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import mg.spat.relationhumaine.InfoPersonnelGlobal;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -180,5 +182,32 @@ public class OrdreMission extends ClassEtat {
         }
         
         return super.validerObject(u, c);
+    }
+    
+    public void setIndemniteMission(Connection c) throws Exception {
+        try{
+            InfoPersonnelGlobal[] tiers = (InfoPersonnelGlobal[]) CGenUtil.rechercher(new InfoPersonnelGlobal(), null, null, c, " and idtiers = '" + this.getIdtiers() + "'");
+            if(tiers.length > 0){
+                IndemniteMission[] indemniteMissions = (IndemniteMission[]) CGenUtil.rechercher(new IndemniteMission(), null, null, c, " and idcategorieprofessionnel = '" + tiers[0].getIdcategorieprofessionel() + "'");
+                if(indemniteMissions.length > 0)
+                    this.setIdindemnitemission(indemniteMissions[0].getId());
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+    
+    @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        
+        try{
+            this.setIndemniteMission(c);
+        }
+        catch(Exception e){
+            throw e;
+        }
+        
+        return super.createObject(u, c);
     }
 }
