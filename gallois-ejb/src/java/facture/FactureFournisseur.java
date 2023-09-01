@@ -987,7 +987,9 @@ public class FactureFournisseur extends FactureClient {
                 }
             }
             this.setNomTable("facture_fournisseur_mere");
-            this.verifyOPmtt(u,c);
+            if(this.getIdProvision()==null){
+                this.verifyOPmtt(u,c);
+            }
 
             super.validerObject(u, c);
             
@@ -1131,7 +1133,9 @@ public class FactureFournisseur extends FactureClient {
             }
 
             this.setNomTable("facture_fournisseur_mere");
-            this.verifyOPmtt(u,c);
+             if(this.getIdProvision()==null){
+                this.verifyOPmtt(u,c);
+            }
             super.validerObject(u, c);
             if(verif == 1)c.commit();
         }catch(Exception e){
