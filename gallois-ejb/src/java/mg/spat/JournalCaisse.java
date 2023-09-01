@@ -1773,6 +1773,7 @@ public class JournalCaisse extends ClassEtat {
             else if(this.getIdplacement() != null){ 
                 awhere = String.format(" and id = '%s' ", this.getIdplacement());
             }
+
             if(nomtable == null || nomtable.compareTo("")==0) nomtable = "facture_fournisseur_mere";
             FactureFournisseur ff = new FactureFournisseur();
             ff.setNomTable(nomtable);
@@ -1793,27 +1794,28 @@ public class JournalCaisse extends ClassEtat {
         
         try{
             JournalCaisse caisse = new JournalCaisse();
+            caisse.setIdmode(this.getIdmode());
             if(this.getIdmode().compareToIgnoreCase(Constante.modePaiementEspece) == 0){
                 caisse.setCaisse(Constante.caisseCentraleBP);
-                caisse.setLibelle("Transfert vers Bon Provisoire a la caisse centrale");
+                caisse.setLibelle(this.getLibelle());
             }
-            else if(this.getIdmode().compareToIgnoreCase(Constante.modepaiementChq) == 0){
+            else {
                 caisse.setCaisse(Constante.banqueBP);
-                caisse.setLibelle("Transfert vers Bon Provisoire Banque");
+                caisse.setLibelle(this.getLibelle());
                 caisse.setIdbanque(this.getIdbanque());
             }
             caisse.setCreationAuto(true);
             caisse.setCredit(this.getDebit());
             caisse.setDateSaisie(Utilitaire.dateDuJourSql());
-            caisse.setDateEffet(Utilitaire.dateDuJourSql());
+            caisse.setDateEffet(this.getDateEffet());
             caisse.setTiers(this.getTiers());
             caisse.setMode(this.getMode());
             caisse.setIdordre(this.getIdordre());
             caisse.setIdplacement(this.getIdplacement());
             caisse.setIdTypeCheque(this.getIdTypeCheque());
             caisse.setIdmode(this.getIdmode());
+            caisse.setEtat(ConstanteEtat.getEtatObjetValider());
             caisse.createObject(user.getUser().getTuppleID(), c);
-            caisse.viser(user, c);
         }
         catch(Exception e){
             throw e;
