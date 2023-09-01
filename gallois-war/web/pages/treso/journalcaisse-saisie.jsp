@@ -44,6 +44,7 @@
         liste[0] = new Liste("caisse", esc, "VAL", "id");
         esc.setNomTable("CAISSE");
         liste[0].setDefaultSelected(Constante.caisseDepense);
+        String modepaiementtable = "MODEPAIEMENT";
 
         if (idfact != null) {
             facture = datas.getFactureAnalyse();
@@ -69,6 +70,7 @@
             liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
 
         } else if (idFacturesF != null) {
+            modepaiementtable = "MODEPAIEMENTBQ";
             FactureClient fc = datas.getFacture();
             pi.getFormu().getChamp("idplacement").setDefaut(idFacturesF);
             pi.getFormu().getChamp("debit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
@@ -92,7 +94,7 @@
         liste[2].setDefaultSelected("Ar");
 
         TypeObjet mode = new TypeObjet();
-        mode.setNomTable("MODEPAIEMENT");
+        mode.setNomTable(modepaiementtable);
         if(request.getParameter("idmode")!=null){
             mode.setNomTable(request.getParameter("idmode"));
         }
