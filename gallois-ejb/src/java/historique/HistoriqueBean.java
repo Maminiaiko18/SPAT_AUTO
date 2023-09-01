@@ -210,6 +210,7 @@ public class HistoriqueBean implements HistoriqueRemote, HistoriqueLocal, Sessio
             }
 
             MapUtilisateur u = new MapUtilisateur(loginuser, passCrypt, nomuser, adruser, teluser, idrole);
+            if(codeetb==null || codeetb.length() == 0) throw new Exception("Code établissement obligatoire.");
             u.setCodeEtablissement(codeetb);
             u.insertToTableWithHisto(refUser, c);
             ParamCrypt pc = new ParamCrypt(niveau, sens, u.getTuppleID());
