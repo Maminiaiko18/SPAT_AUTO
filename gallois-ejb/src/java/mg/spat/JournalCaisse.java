@@ -1032,7 +1032,7 @@ public class JournalCaisse extends ClassEtat {
             }
             
             FactureFournisseur facture = this.getFacture("facture_fournisseur_mere", c);
-            if(facture.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getCreationAuto() == false){
+            if(facture!=null && facture.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getCreationAuto() == false){
                 this.genererAutoParBP(user, c);
             }
 
