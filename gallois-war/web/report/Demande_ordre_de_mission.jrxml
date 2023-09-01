@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Demande_ordre_de_mission" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d0c3b98a-d7e6-4b8f-9565-d20a8a77aeee">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="116"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -303,7 +303,7 @@
 				<reportElement x="170" y="55" width="13" height="20" uuid="27faf908-c257-4f14-8518-ac93a8478bc3"/>
 				<text><![CDATA[:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="183" y="55" width="372" height="20" uuid="2db2b281-0c02-4a2e-bd81-d630dabde00f"/>
 				<textElement>
 					<font size="11"/>

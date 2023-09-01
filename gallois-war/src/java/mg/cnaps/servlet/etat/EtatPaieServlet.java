@@ -4548,6 +4548,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("motif", mere[0].getMotifvoyage());
             param.put("dateDedepart", mere[0].getDatedepart());
             param.put("daty", utilitaire.Utilitaire.dateDuJour());
+            param.put("moyenDeDep", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
             
             setNomJasper("Ordre_de_mission");
             UtilitaireImpression.imprimer(request, response, "ordre de mission", param, null, getReportPath());
