@@ -233,6 +233,21 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         }
     }
 
+    public String createUtilisateurs(String loginuser, String pwduser, String nomuser, String adruser, String teluser, String idrole) throws Exception {
+        HistoriqueLocal rl = null;
+        try {
+            if (u.getIdrole().compareTo("dg") == 0) {
+                rl = HistoriqueEJBClient.lookupHistoriqueEJBBeanLocal();
+                String s = rl.createUtilisateurs(loginuser, pwduser, nomuser, adruser, teluser, idrole, u.getTuppleID());
+                return s;
+            } else {
+                throw new Exception("ERREUR DE DROIT");
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+    }
+
     @Override
     public String updateUtilisateurs(String refuser, String loginuser, String pwduser, String nomuser, String adruser, String teluser, String idrole) throws Exception {
         HistoriqueLocal rl = null;
