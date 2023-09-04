@@ -172,6 +172,7 @@ public class OrdreMission extends ClassEtat {
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
         try{
+            if(this.getIdindemnitemission()==null) throw new Exception("Indemnité de mission introuvable.");
             if(this.getNumOM() == null || this.getNumOM().isEmpty() || this.getNumOM().compareToIgnoreCase("") == 0){
                 String numOM = this.calculerNumeroOM(c);
                 this.setNumOM(numOM);
