@@ -135,6 +135,8 @@ public interface UserEJB {
 
     public String createUtilisateurs(String loginuser, String pwduser, String nomuser, String adruser, String teluser, String idrole) throws Exception;
 
+    public String createUtilisateurs(String loginuser, String pwduser, String nomuser, String adruser, String teluser, String idrole,String codeetb) throws Exception;
+
     public int desactiveUtilisateur(String ref) throws Exception;
 
     public int activeUtilisateur(String ref) throws Exception;

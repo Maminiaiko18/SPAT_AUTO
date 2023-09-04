@@ -12,11 +12,19 @@
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="facture.FactureClient"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="utilisateur.*"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
         FactureFournisseur ff = new FactureFournisseur();
         UserEJB u = (user.UserEJB) session.getValue("u");
+
+        Prioritaire prioritaire = new Prioritaire();
+        String aWhere = prioritaire.makeListConfidentiality(u,"code_etablissementlib");
+
+        System.out.println("wahereeee "+aWhere);
+
         String[] etatVal = {"FACTUREFOURNVALIDE_TOUS", "FACTUREFOURNVALIDE_C", "FACTUREFOURNVALIDE_V", "FACTUREFOURNVALIDE_EP", "FACTUREFOURNVALIDE_P"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "En attente de paiement", "Payéé(s)"};
     
@@ -90,7 +98,7 @@
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
-        
+        //pr.setAWhere(aWhere);
         
         String[] colSomme = {"montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste"};
         pr.creerObjetPage(libEntete, colSomme);

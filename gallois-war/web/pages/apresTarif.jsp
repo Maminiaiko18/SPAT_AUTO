@@ -181,7 +181,7 @@
                 ClassMAPTable f = p.getObjectAvecValeur();
                 f.setNomTable(nomtable);
                 MapUtilisateur util = (MapUtilisateur) f;
-                id = u.createUtilisateurs(util.getLoginuser(), util.getPwduser(), util.getNomuser(), util.getAdruser(), util.getTeluser(), util.getIdrole());
+                id = u.createUtilisateurs(util.getLoginuser(), util.getPwduser(), util.getNomuser(), util.getAdruser(), util.getTeluser(), util.getIdrole(),util.getCodeEtablissement());
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&refuser=<%=Utilitaire.champNull(id)%>");</script>
     <%

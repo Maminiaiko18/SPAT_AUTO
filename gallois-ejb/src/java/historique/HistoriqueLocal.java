@@ -19,6 +19,8 @@ public interface HistoriqueLocal {
 
     public String createUtilisateurs(String loginuser, String pwduser, String nomuser, String adruser, String teluser, String idrole, String refUser) throws Exception;
 
+    public String createUtilisateurs(String loginuser, String pwduser, String nomuser, String adruser, String teluser, String idrole, String refUser,String codeetb) throws Exception;
+
     public String updateUtilisateurs(String iduser, String loginuser, String pwduser, String nomuser, String adruser, String teluser, String idrole, String refUser) throws Exception;
 
     public int deleteUtilisateurs(String iduser, String refUser);
