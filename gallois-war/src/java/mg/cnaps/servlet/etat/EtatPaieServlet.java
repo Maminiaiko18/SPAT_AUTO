@@ -4539,6 +4539,7 @@ public class EtatPaieServlet extends HttpServlet {
             OrdreMissionLib[] mere = (OrdreMissionLib[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "' and etat='"+ConstanteEtat.getEtatValider()+"'");
             Map param = new HashMap();
             param.put("nom", mere[0].getNom());
+            param.put("num", mere[0].getNumOM());
             param.put("prenom", mere[0].getPrenom());
             param.put("fonction", mere[0].getIdindemnitemissionlib());
             param.put("matricule", mere[0].getMatricule());
