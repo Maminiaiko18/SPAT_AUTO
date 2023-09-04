@@ -188,7 +188,7 @@ public class OrdreMission extends ClassEtat {
         try{
             InfoPersonnelGlobal[] tiers = (InfoPersonnelGlobal[]) CGenUtil.rechercher(new InfoPersonnelGlobal(), null, null, c, " and idtiers = '" + this.getIdtiers() + "'");
             if(tiers.length > 0){
-                IndemniteMission[] indemniteMissions = (IndemniteMission[]) CGenUtil.rechercher(new IndemniteMission(), null, null, c, " and idcategorieprofessionnel = '" + tiers[0].getIdcategorieprofessionel() + "'");
+                IndemniteMission[] indemniteMissions = (IndemniteMission[]) CGenUtil.rechercher(new IndemniteMission(), null, null, c, " and idcategorieprofessionnel = '" + tiers[0].getIdcategorieprofessionel() + "' ORDER BY DATY DESC");
                 if(indemniteMissions.length > 0)
                     this.setIdindemnitemission(indemniteMissions[0].getId());
             }
