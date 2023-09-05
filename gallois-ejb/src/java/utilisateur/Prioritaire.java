@@ -15,10 +15,12 @@ public class Prioritaire extends ClassEtat{
     private String id;
     private String idrole;
     private String refuser;
+    private String utilisateur;
+    private String roles;
     private int rang; //si 1 tous si 0 dia nenazy ihany zany hoe ex : 400 dia zay manombka am 4
 
     public Prioritaire() {
-        this.setNomTable("PRIORITAIRE");
+       this.setNomTable("PRIORITAIRE");
     }
 
     public String makeListConfidentiality(UserEJB u,String nomolumn) throws Exception{
@@ -70,6 +72,22 @@ public class Prioritaire extends ClassEtat{
                 }
             }
         }
+
+    public String getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(String utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 	
 
 
