@@ -926,8 +926,9 @@ public class JournalCaisse extends ClassEtat {
                 c.setAutoCommit(false);
                 verif = 1;
             }
+            ClotureService.testDateCloture(this.dateEffet, this.caisse, c);
             this.controlerAttacheTraite();
-            
+
             if(this.getMode().equalsIgnoreCase("modif") && this.getCaisse().equals(Constante.getCaisseTraite()) && this.getIdTypeCheque().equals(Constante.getTypeACredit())==false){
                 throw new Exception("Le type pour la caisse traite devrait être à crédit");
             }
