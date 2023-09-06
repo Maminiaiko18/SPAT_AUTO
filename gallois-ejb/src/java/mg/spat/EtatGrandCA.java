@@ -11,6 +11,7 @@ import bean.TypeObjet;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import utilitaire.UtilDB;
 
@@ -125,12 +126,12 @@ public class EtatGrandCA {
         try{
             c = new UtilDB().GetConn();
             List<CA> CAtout = new java.util.ArrayList<>();
-            TypeObjet grandrubrique = new TypeObjet();
+            GrandRubriqueLib grandrubrique = new GrandRubriqueLib();
             grandrubrique.setNomTable("GRANDRUBRIQUE");
-            TypeObjet[] grandrubriques = (TypeObjet[])CGenUtil.rechercher(grandrubrique, null, null, c, "");
+            GrandRubriqueLib[] grandrubriques = (GrandRubriqueLib[])CGenUtil.rechercher(grandrubrique, null, null, c, " order by rang");
             
             int t = grandrubriques.length;
-            listeCA = new HashMap<>();
+            listeCA = new LinkedHashMap<>();
             for(int i = 0; i < t; i++){
                 EtatCA etatca = new EtatCA(mois, annee, grandrubriques[i].getId(), estGroupeAncien);
                 etatca.setIdgrandrubrique(grandrubriques[i].getId());

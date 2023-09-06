@@ -11,7 +11,11 @@ import fin.Coursdevise;
 import java.sql.Connection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import utilitaire.UtilDB;
@@ -137,7 +141,7 @@ public class EtatCA {
 
     public HashMap<String, CA> getetatcagen (int mois, int annee,CA[] cas){
         //ArrayList<CA> ca = new ArrayList<CA>();
-        HashMap<String, CA> cahmap=new HashMap<String, CA>();
+        HashMap<String, CA> cahmap=new LinkedHashMap<String, CA>();
         
         int taillecas = cas.length;
 
@@ -311,7 +315,7 @@ public class EtatCA {
     public void calculerTauxEtHashMap(CA[] tout) {
         if(totalGeneral==null)return;
         String[] compteMereAlreadyExist = null;
-        this.listeParRubrique = new HashMap<String, CA[]>();
+        this.listeParRubrique = new LinkedHashMap<String, CA[]>();
         totalGeneral.setTaux(0);
         for(int i=0; i<tout.length; i++) {
             if(!this.checkCompteMereAlreadyExist(tout[i].getCompteMerelib(), compteMereAlreadyExist)) {
@@ -394,6 +398,7 @@ public class EtatCA {
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
             String requete = "SELECT\n" +
+"	RANGMERECA AS RANGMERECA,\n" +
 "	nvl(c.RUBRIQUE,'-') AS rubrique,\n" +
 "	nvl(c.RUBRIQUELIB,'-') AS rubriquelib,\n" +
 "	nvl(c.COMPTE,j.VAL) AS compte ,\n" +
@@ -419,7 +424,7 @@ public class EtatCA {
 "	j.val = c.COMPTE(+)\n" +
 "	AND j.desce = c.MERE(+)\n" +
 "	AND j.idgrandrubrique = c.IDGRANDRUBRIQUE (+)\n" +
-"    AND j.IDGRANDRUBRIQUE = '" + idGrandRubrique + "'";
+"    AND j.IDGRANDRUBRIQUE = '" + idGrandRubrique + "' order by RANGMERECA";
             CA[] result = (CA[]) CGenUtil.rechercher(base, requete, c);
             String[] listeCompte=AdminGen.getDistinct(result, "compte");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
