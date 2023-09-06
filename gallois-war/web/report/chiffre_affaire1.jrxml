@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="spat next" pageWidth="1416" pageHeight="1190" orientation="Landscape" columnWidth="1386" leftMargin="15" rightMargin="15" topMargin="2" bottomMargin="2" uuid="c73e71bd-5b8e-490c-adc2-cb453f42f950">
-	<property name="ireport.zoom" value="0.6830134553650709"/>
-	<property name="ireport.x" value="152"/>
+	<property name="ireport.zoom" value="1.0000000000000089"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["E:\\BICI\\projet BICI\\spat-capitainerie\\gallois-war\\web\\report\\"]]></defaultValueExpression>
@@ -39,354 +39,307 @@
 	<field name="nCumul" class="java.lang.Double"/>
 	<field name="id" class="java.lang.String"/>
 	<field name="compteMerelib" class="java.lang.String"/>
-	<variable name="anciencumul_1" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{anciencumul}]]></variableExpression>
-	</variable>
-	<variable name="regul_1" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{regul}]]></variableExpression>
-	</variable>
-	<variable name="regulEETP_1" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{regulEETP}]]></variableExpression>
-	</variable>
-	<variable name="avoirCumRegul_1" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
+	<field name="grandrubriquelibelle" class="java.lang.String"/>
+	<variable name="avoirCumRegul_1" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
 		<variableExpression><![CDATA[$F{avoirCumRegul}]]></variableExpression>
 	</variable>
-	<variable name="avoirEETP_1" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{avoirEETP}]]></variableExpression>
-	</variable>
-	<variable name="comptant_1" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{comptant}]]></variableExpression>
-	</variable>
-	<variable name="credit_1" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{credit}]]></variableExpression>
-	</variable>
-	<variable name="total_1" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{total}]]></variableExpression>
-	</variable>
-	<variable name="taux_1" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{taux}]]></variableExpression>
-	</variable>
-	<variable name="anciencumul_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{anciencumul}]]></variableExpression>
-	</variable>
-	<variable name="regul_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{regul}]]></variableExpression>
-	</variable>
-	<variable name="regulEETP_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{regulEETP}]]></variableExpression>
-	</variable>
-	<variable name="avoirCumRegul_2" class="java.lang.Double" calculation="Sum">
+	<variable name="avoirCumRegul_2" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
 		<variableExpression><![CDATA[$F{avoirCumRegul}]]></variableExpression>
 	</variable>
-	<variable name="total_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	<variable name="avoirCumRegul_3" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
+		<variableExpression><![CDATA[$F{avoirCumRegul}]]></variableExpression>
 	</variable>
-	<variable name="taux_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{taux}]]></variableExpression>
-	</variable>
-	<variable name="nCumul_1" class="java.lang.Double" resetType="Group" resetGroup="rubrique" calculation="Sum">
-		<variableExpression><![CDATA[$F{nCumul}]]></variableExpression>
-	</variable>
-	<variable name="nCumul_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{nCumul}]]></variableExpression>
-	</variable>
-	<variable name="avoirEETP_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{avoirEETP}]]></variableExpression>
-	</variable>
-	<variable name="comptant_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{comptant}]]></variableExpression>
-	</variable>
-	<variable name="credit_2" class="java.lang.Double" calculation="Sum">
+	<variable name="credit_1" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
 		<variableExpression><![CDATA[$F{credit}]]></variableExpression>
 	</variable>
-	<group name="id" isReprintHeaderOnEachPage="true">
-		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+	<variable name="total_1" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="nCumul_1" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
+		<variableExpression><![CDATA[$F{nCumul}]]></variableExpression>
+	</variable>
+	<variable name="taux_1" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
+		<variableExpression><![CDATA[$F{taux}]]></variableExpression>
+	</variable>
+	<variable name="avoirEETP_1" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
+		<variableExpression><![CDATA[$F{avoirEETP}]]></variableExpression>
+	</variable>
+	<variable name="comptant_1" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
+		<variableExpression><![CDATA[$F{comptant}]]></variableExpression>
+	</variable>
+	<variable name="avoirCumRegul_4" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{avoirCumRegul}]]></variableExpression>
+	</variable>
+	<variable name="avoirEETP_2" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{avoirEETP}]]></variableExpression>
+	</variable>
+	<variable name="comptant_2" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{comptant}]]></variableExpression>
+	</variable>
+	<variable name="credit_2" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{credit}]]></variableExpression>
+	</variable>
+	<variable name="total_2" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="nCumul_2" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{nCumul}]]></variableExpression>
+	</variable>
+	<variable name="taux_2" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{taux}]]></variableExpression>
+	</variable>
+	<variable name="regulEETP_1" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
+		<variableExpression><![CDATA[$F{regulEETP}]]></variableExpression>
+	</variable>
+	<variable name="regul_1" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
+		<variableExpression><![CDATA[$F{regul}]]></variableExpression>
+	</variable>
+	<variable name="anciencumul_1" class="java.lang.Double" resetType="Group" resetGroup="compteMerelib" calculation="Sum">
+		<variableExpression><![CDATA[$F{anciencumul}]]></variableExpression>
+	</variable>
+	<variable name="regulEETP_2" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{regulEETP}]]></variableExpression>
+	</variable>
+	<variable name="regul_2" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{regul}]]></variableExpression>
+	</variable>
+	<variable name="avoirCumRegul_6" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{avoirCumRegul}]]></variableExpression>
+	</variable>
+	<variable name="regul_3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{regul}]]></variableExpression>
+	</variable>
+	<variable name="regulEETP_3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{regulEETP}]]></variableExpression>
+	</variable>
+	<variable name="avoirCumRegul_7" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{avoirCumRegul}]]></variableExpression>
+	</variable>
+	<variable name="avoirEETP_3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{avoirEETP}]]></variableExpression>
+	</variable>
+	<variable name="comptant_3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{comptant}]]></variableExpression>
+	</variable>
+	<variable name="credit_3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{credit}]]></variableExpression>
+	</variable>
+	<variable name="total_3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="nCumul_3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{nCumul}]]></variableExpression>
+	</variable>
+	<variable name="taux_3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{taux}]]></variableExpression>
+	</variable>
+	<variable name="anciencumul_2" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{anciencumul}]]></variableExpression>
+	</variable>
+	<variable name="anciencumul_3" class="java.lang.Double" resetType="Group" resetGroup="grandrubriquelibelle" calculation="Sum">
+		<variableExpression><![CDATA[$F{anciencumul}]]></variableExpression>
+	</variable>
+	<variable name="anciencumul_4" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{anciencumul}]]></variableExpression>
+	</variable>
+	<variable name="comptant_4" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{comptant}]]></variableExpression>
+	</variable>
+	<group name="grandrubriquelibelle">
+		<groupExpression><![CDATA[$F{grandrubriquelibelle}]]></groupExpression>
 		<groupHeader>
-			<band height="41">
-				<staticText>
-					<reportElement x="0" y="1" width="201" height="39" uuid="bb23238d-fd67-435e-bb05-9bcbac9b6e07"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-						<paragraph leftIndent="5"/>
-					</textElement>
-					<text><![CDATA[Libelle]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="201" y="1" width="488" height="20" uuid="2b55361d-5701-4b92-8420-37d2a8545f41"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
+			<band height="45">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="482" y="2" width="455" height="37" uuid="1f39d365-7db0-42ab-9426-724831e00569"/>
 					<textElement textAlignment="Center">
-						<font size="12" isBold="true"/>
+						<font size="15" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Mouvement du mois anterieur]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="201" y="20" width="122" height="20" uuid="03c067f3-06b8-48a3-9305-74656557ea7c"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center">
-						<font size="12"/>
-						<paragraph leftIndent="5"/>
-					</textElement>
-					<text><![CDATA[Ancien Cumul]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="323" y="20" width="124" height="20" uuid="cd0029c3-046b-42a5-a68c-eeca24312552"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center">
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Regul 1]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="447" y="20" width="117" height="20" uuid="12232927-1519-4daf-a739-5f2cfce92eba"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center">
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Regul E & P]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="564" y="20" width="125" height="20" uuid="64c9b101-f872-4b90-984a-a72b850ce920"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center">
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[A. Cumul Regul]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="689" y="1" width="475" height="20" uuid="eb239161-72ad-4525-9336-0ebfc6b0663d"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Mouvement du mois en cours]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="689" y="20" width="117" height="20" uuid="06025e8d-3d5d-48a9-aa65-374a644aabc9"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center">
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Avoir E&P]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="806" y="20" width="110" height="20" uuid="a15d8089-a044-46b5-8d58-c24d856bf435"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center">
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Comptant]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="916" y="20" width="131" height="20" uuid="7e934ae3-4df2-4873-92a4-e484a6b1992a"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center">
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Credit]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1048" y="20" width="116" height="20" uuid="d60cb6db-f19e-4470-85ef-94e961447e46"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center">
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Total]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1164" y="1" width="120" height="39" uuid="d2b8b551-7fa7-4971-a529-0835adef24e5"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[N. Cumule]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1284" y="0" width="102" height="41" uuid="8486134e-9cda-47f5-b352-d4d3ba86eb0f"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Taux]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$F{grandrubriquelibelle}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="38" width="1384" height="1" uuid="c0e15040-0b97-422f-8864-19e0868b1c55"/>
+				</line>
+				<line>
+					<reportElement x="2" y="0" width="1384" height="1" uuid="3a66bdc5-b0e4-48ee-85fb-cff3ab563493"/>
+				</line>
 			</band>
 		</groupHeader>
+		<groupFooter>
+			<band height="37">
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="26" uuid="fe10df4b-4fa2-4404-9b90-1d4e2d7051b6"/>
+					<textElement>
+						<font size="15" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<textField pattern="#,##0.00">
+					<reportElement x="563" y="0" width="125" height="26" uuid="c8922e77-af9b-4cbf-94e8-ee4430fe000e"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{avoirCumRegul_4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="688" y="0" width="119" height="26" uuid="5fd04d0e-8dd8-4e27-a9cb-da16ec4278a0"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{avoirEETP_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="806" y="0" width="111" height="26" uuid="be12213e-51bc-4c2d-bb55-843515ebf37a"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{comptant_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="916" y="0" width="132" height="26" uuid="68778132-525b-413e-9cf0-49592381bee0"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{credit_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="1047" y="0" width="117" height="26" uuid="25db8bca-0201-49a2-9e9d-0c64b294eebd"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{total_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="1163" y="0" width="122" height="26" uuid="ff3e7a07-c4dc-4d84-bc85-6f81a19c9ffd"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{nCumul_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="1284" y="0" width="102" height="26" uuid="38b17a49-9f36-42e0-b0d5-29c0e7fff25a"/>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{taux_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="446" y="0" width="117" height="26" uuid="cc4b79bc-b841-49de-b5bc-3d3bcbaace34"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{regulEETP_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="201" y="0" width="125" height="26" uuid="edd88b55-f060-45b5-b0df-d393849f9e0b"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{regul_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="325" y="0" width="122" height="26" uuid="8ea50bbe-4c3c-4073-964b-5d26f1d17892"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{anciencumul_3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
 	</group>
-	<group name="rubrique">
+	<group name="compteMerelib">
 		<groupExpression><![CDATA[$F{compteMerelib}]]></groupExpression>
 		<groupHeader>
-			<band height="30">
-				<line>
-					<reportElement x="1" y="4" width="1382" height="1" uuid="e542abae-4877-4170-8ffe-2ec130d5abb7"/>
-				</line>
+			<band height="34">
 				<textField>
-					<reportElement x="1" y="8" width="200" height="20" uuid="2ebe722d-1278-4c33-ae60-1c9f52e57c9e"/>
+					<reportElement x="0" y="0" width="201" height="20" uuid="a9aa3894-a1f8-4513-a65b-9e86d7f58719"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{compteMerelib}.toUpperCase()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{compteMerelib}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="36">
-				<textField>
-					<reportElement x="0" y="0" width="201" height="27" uuid="698f1b76-6501-4592-8706-d353584f02d0"/>
-					<textElement>
-						<font size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{compteMerelib}.toUpperCase()]]></textFieldExpression>
-				</textField>
+			<band height="33">
 				<textField pattern="#,##0.00">
-					<reportElement x="201" y="0" width="122" height="27" uuid="fb30edfa-2f8a-4cce-9a50-5a2f87d523dc"/>
+					<reportElement x="564" y="0" width="125" height="20" uuid="2cc441a7-c04f-460d-9982-3410c5ea617d"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{anciencumul_1}]]></textFieldExpression>
-				</textField>
-				<line>
-					<reportElement x="1" y="30" width="1382" height="1" uuid="60ea90c3-84d7-4be8-b776-f7210f82b2bd"/>
-				</line>
-				<textField pattern="#,##0.00">
-					<reportElement x="323" y="0" width="124" height="27" uuid="b94e28ba-3b22-4f4a-8ec9-1c5905d811a3"/>
-					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{regul_1}]]></textFieldExpression>
-				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement x="447" y="0" width="117" height="27" uuid="a8e871cd-70db-4c4d-8217-4deff973e756"/>
-					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{regulEETP_1}]]></textFieldExpression>
-				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement x="564" y="0" width="125" height="27" uuid="79ba874e-bb39-4c40-9a3a-065a5cc664f6"/>
-					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font size="11" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{avoirCumRegul_1}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement x="689" y="0" width="117" height="27" uuid="141f18e3-d90e-4f16-8837-843a1df0b63b"/>
-					<textElement textAlignment="Right">
+				<textField>
+					<reportElement x="2" y="0" width="199" height="20" uuid="4199a381-3fd2-4464-85b6-ed0647dedc22"/>
+					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{avoirEETP_1}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{compteMerelib}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
-					<reportElement x="807" y="0" width="109" height="27" uuid="51433540-7df2-4a4e-8096-d3da32b2c8b3"/>
+					<reportElement x="917" y="0" width="131" height="20" uuid="c0a629d6-7045-46b8-995e-6d3fb96fe90b"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{comptant_1}]]></textFieldExpression>
-				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement x="917" y="0" width="130" height="27" uuid="5c7e5458-0515-470d-9b89-f2ea91932b06"/>
-					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font size="11" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{credit_1}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
-					<reportElement x="1048" y="0" width="118" height="27" uuid="b8f7545f-ff5d-49e0-b51c-2994a9c3d6cc"/>
+					<reportElement x="1048" y="0" width="116" height="20" uuid="244e9327-bfd8-4f1b-868b-54b7f9405337"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font size="11" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.000">
-					<reportElement x="1286" y="0" width="100" height="27" uuid="5ba85566-780a-4e78-b7c3-b4329b553312"/>
+				<textField pattern="#,##0.00">
+					<reportElement x="1164" y="0" width="121" height="20" uuid="e2ff8141-e950-4eaf-a037-59cab0573b93"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{nCumul_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="1284" y="0" width="102" height="20" uuid="2d6ac1e9-4979-49b8-a292-58bd6ed8aed8"/>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{taux_1}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
-					<reportElement x="1169" y="0" width="115" height="27" uuid="c40ab022-8931-442b-ae8b-651d34fb236c"/>
+					<reportElement x="689" y="0" width="118" height="20" uuid="6830230f-acdf-4a5a-b2c9-41c302e9387d"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font size="11" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{nCumul_1}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{avoirEETP_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="807" y="0" width="110" height="20" uuid="067e7a37-b280-4422-baad-e6320f4c768b"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{comptant_1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="2" y="26" width="1384" height="1" uuid="fb8415a8-ae4b-4fee-82dc-e60c5c116711"/>
+				</line>
+				<textField pattern="#,##0.00">
+					<reportElement x="447" y="0" width="117" height="20" uuid="123fdc2f-73da-428e-bb7e-ad61cca0739a"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{regulEETP_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="203" y="0" width="124" height="20" uuid="f0da7868-fb83-44e0-bb0c-8245c96162f8"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{regul_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="326" y="0" width="122" height="20" uuid="ab3e2bec-2737-46de-92cd-780e19a05f39"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{anciencumul_1}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -441,19 +394,182 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="11" splitType="Stretch"/>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="209" y="0" width="488" height="22" uuid="2b55361d-5701-4b92-8420-37d2a8545f41"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mouvement du mois anterieur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="209" y="22" width="124" height="20" uuid="cd0029c3-046b-42a5-a68c-eeca24312552"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Avoir Cumul]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="22" width="117" height="20" uuid="12232927-1519-4daf-a739-5f2cfce92eba"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Regul E & P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="572" y="22" width="125" height="20" uuid="64c9b101-f872-4b90-984a-a72b850ce920"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[A. Cumul Regul]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="697" y="0" width="475" height="22" uuid="eb239161-72ad-4525-9336-0ebfc6b0663d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mouvement du mois en cours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="697" y="22" width="117" height="20" uuid="06025e8d-3d5d-48a9-aa65-374a644aabc9"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Avoir E&P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="815" y="22" width="110" height="20" uuid="a15d8089-a044-46b5-8d58-c24d856bf435"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Comptant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="925" y="22" width="131" height="20" uuid="7e934ae3-4df2-4873-92a4-e484a6b1992a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Credit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1056" y="22" width="116" height="20" uuid="d60cb6db-f19e-4470-85ef-94e961447e46"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1173" y="1" width="111" height="41" uuid="d2b8b551-7fa7-4971-a529-0835adef24e5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N. Cumule]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1285" y="1" width="98" height="41" uuid="8486134e-9cda-47f5-b352-d4d3ba86eb0f"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Taux]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="22" width="123" height="20" uuid="03c067f3-06b8-48a3-9305-74656557ea7c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Ancien Cumul]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
 		<band height="27" splitType="Stretch">
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="323" y="0" width="124" height="27" uuid="743ca3ee-8bb4-4bf4-8ca7-2fb03c1d9946"/>
-				<textElement textAlignment="Right" markup="html">
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{regul}]]></textFieldExpression>
-			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="201" height="27" uuid="8f0e18b7-b9ba-48e2-9ab8-2220222b775f"/>
+				<reportElement x="16" y="0" width="185" height="27" uuid="8f0e18b7-b9ba-48e2-9ab8-2220222b775f"/>
 				<textElement markup="html">
 					<font size="12"/>
 				</textElement>
@@ -474,7 +590,7 @@
 				<textFieldExpression><![CDATA[$F{avoirCumRegul}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="689" y="0" width="117" height="27" uuid="0d39d2d1-1e84-443d-a6e0-fe0a331f6c18"/>
+				<reportElement x="689" y="0" width="118" height="27" uuid="0d39d2d1-1e84-443d-a6e0-fe0a331f6c18"/>
 				<textElement textAlignment="Right" markup="html">
 					<font size="11"/>
 				</textElement>
@@ -501,164 +617,180 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.000" isBlankWhenNull="true">
-				<reportElement x="1284" y="0" width="100" height="27" uuid="7e651785-efc1-4e55-8259-c1eea3847ce8"/>
-				<textElement textAlignment="Right" markup="html">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="1284" y="0" width="102" height="27" uuid="7e651785-efc1-4e55-8259-c1eea3847ce8"/>
+				<textElement textAlignment="Center" markup="html">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{taux}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="201" y="0" width="122" height="27" uuid="1bcadedb-1111-4efd-bfd8-a9f1d3bc53b3"/>
-				<textElement textAlignment="Right" markup="html">
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{anciencumul}]]></textFieldExpression>
-			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="1166" y="0" width="118" height="27" uuid="f5ad0a99-da57-4eb4-9e91-af0f99fd1d10"/>
+				<reportElement x="1164" y="0" width="121" height="27" uuid="f5ad0a99-da57-4eb4-9e91-af0f99fd1d10"/>
 				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nCumul}]]></textFieldExpression>
 			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="326" y="0" width="122" height="27" uuid="1bcadedb-1111-4efd-bfd8-a9f1d3bc53b3"/>
+				<textElement textAlignment="Right" markup="html">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anciencumul}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="203" y="0" width="124" height="27" uuid="743ca3ee-8bb4-4bf4-8ca7-2fb03c1d9946"/>
+				<textElement textAlignment="Right" markup="html">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{regul}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<summary>
-		<band height="63">
-			<textField>
-				<reportElement x="689" y="20" width="117" height="20" uuid="17409648-bf54-4f02-a6b0-d90e875cfc76"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+		<band height="121">
+			<staticText>
+				<reportElement x="0" y="0" width="170" height="26" uuid="7f071385-0ee5-4ab7-b78c-fa6a9eb43eaf"/>
+				<textElement>
+					<font size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{avoirtaux}]]></textFieldExpression>
+				<text><![CDATA[TOTAL GENERAL]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="203" y="0" width="125" height="26" uuid="fa91e329-7cdf-4482-be04-12c4465b0540"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{regul_3}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="806" y="20" width="110" height="20" uuid="523ff418-14f8-4615-b0a0-1831c393b9a1"/>
+			<textField pattern="#,##0.00">
+				<reportElement x="447" y="0" width="117" height="26" uuid="f3e3ad1f-066e-4945-82a4-741563515697"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{comptanttaux}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{regulEETP_3}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="916" y="20" width="132" height="20" uuid="a08c8be1-e89d-4b2e-9724-870bac599446"/>
+			<textField pattern="#,##0.00">
+				<reportElement x="563" y="0" width="125" height="26" uuid="13bb432c-9fd2-4e76-9d8a-8cdc52c7503d"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{credittaux}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{avoirCumRegul_7}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="688" y="0" width="119" height="26" uuid="aa6e526a-baa4-4294-aff8-7fb41fc6e0c3"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{avoirEETP_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="806" y="0" width="111" height="26" uuid="b57a1145-d57f-4da2-b77b-6e177bd38202"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{comptant_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="916" y="0" width="132" height="26" uuid="dd726a75-415d-4af2-9fa4-4b60686f407f"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{credit_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="1047" y="0" width="117" height="26" uuid="c02511db-ed9e-4b90-9837-f2e806ab2434"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="1163" y="0" width="122" height="26" uuid="285af4dc-0ed1-4d9f-bbff-4eb37d786ad1"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{nCumul_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="1284" y="0" width="102" height="26" uuid="6dd5a5bc-cf66-4560-8f2d-641c44af746e"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{taux_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="327" y="0" width="121" height="26" uuid="bfa08180-4e59-4d6c-8d4d-48b34c54db16"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{anciencumul_4}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="20" width="201" height="20" uuid="b6ebc24c-a583-408c-ae18-2e95019bc3c0"/>
+				<reportElement x="2" y="38" width="170" height="26" uuid="98e38d63-b195-4823-b0de-89be552cfdaa"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Taux]]></text>
+				<text><![CDATA[Nombre De Factures]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="0" y="0" width="201" height="20" uuid="eb3838f8-3b3a-47e0-b415-530109839bbf"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Total"]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="0" y="40" width="201" height="20" uuid="07ad95f5-a75f-48a2-a2c9-293f161b9697"/>
+				<reportElement x="2" y="77" width="170" height="26" uuid="468aa2d0-c791-42fd-a148-18620841dbc0"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nombres des factures]]></text>
+				<text><![CDATA[TAUX]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="806" y="40" width="111" height="20" uuid="e3d91281-b12a-42b9-a95c-04d9026e6b8d"/>
+			<textField pattern="#,##0.00">
+				<reportElement x="806" y="38" width="109" height="20" uuid="829f7b72-66c6-4353-844f-9320f537b67c"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{nbr2}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="689" y="40" width="117" height="20" uuid="36f625cc-068e-4939-b774-ede26e5732d2"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nbr}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="916" y="40" width="131" height="20" uuid="856b0b4d-5c2f-4138-8a79-4b775ec27225"/>
+			<textField pattern="#,##0.00">
+				<reportElement x="916" y="38" width="130" height="20" uuid="ffda7378-fc67-4394-8840-10a15788af2d"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nbr2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="1046" y="38" width="116" height="20" uuid="0576c842-1ba8-4d1c-b624-d72f2496b211"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nbr3}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="201" y="1" width="122" height="20" uuid="ca4b13b6-e91b-4f4b-a5f6-74cd8199956b"/>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="805" y="77" width="110" height="20" uuid="66a0afe5-a78f-448c-9f09-246c526de290"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{anciencumul_2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{avoirtaux}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="323" y="1" width="124" height="20" uuid="b8ef46e1-cc71-429e-b5b5-414ee050ff4d"/>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="915" y="77" width="130" height="20" uuid="831c2ab7-b8a1-4476-9190-5164ea97e155"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{regul_2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{comptanttaux}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="447" y="1" width="117" height="20" uuid="fa0fe5f3-f9ab-41f5-83bf-6c5977c5458a"/>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="1045" y="77" width="117" height="20" uuid="5d780989-eabf-4bd1-b3aa-a4e37a910647"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{regulEETP_2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{credittaux}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="564" y="1" width="125" height="20" uuid="52884203-6dd1-4fb1-97e6-3e4834693c30"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{avoirCumRegul_2}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="1047" y="1" width="119" height="20" uuid="cb1bbf80-3223-48de-a4d5-c59acf4f4507"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{total_2}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.000">
-				<reportElement x="1286" y="1" width="100" height="20" uuid="dc0ebdd1-c727-4f08-ba39-b02e3eec87de"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{taux_2}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="1169" y="1" width="115" height="20" uuid="f778101e-7b42-4059-b0aa-14101cf10a7d"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{nCumul_2}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="689" y="0" width="117" height="20" uuid="4440d215-f282-4d49-81ea-bfcb5c7b0e64"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{avoirEETP_2}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="807" y="1" width="110" height="20" uuid="5b46661c-7d09-4e72-a6e9-05101a5ea6d4"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{comptant_2}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="917" y="1" width="130" height="20" uuid="c624015b-71e8-4fad-98b8-1c67879760d1"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{credit_2}]]></textFieldExpression>
-			</textField>
+			<line>
+				<reportElement x="0" y="30" width="1384" height="1" uuid="2f2a1d47-ec43-4542-aba3-302354458c33"/>
+			</line>
+			<line>
+				<reportElement x="0" y="70" width="1384" height="1" uuid="4cb779a1-3039-481a-b365-b2b2ae293f58"/>
+			</line>
+			<line>
+				<reportElement x="2" y="114" width="1384" height="1" uuid="d22d80c4-d965-4539-b1af-bcd52460c7a6"/>
+			</line>
 		</band>
 	</summary>
 </jasperReport>
