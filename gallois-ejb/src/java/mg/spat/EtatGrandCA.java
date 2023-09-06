@@ -175,10 +175,15 @@ public class EtatGrandCA {
                 totalgeneralgrandrubrique = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
                 totalgeneralgrandrubrique.setNbComptant((int)total[6]);
                 totalgeneralgrandrubrique.setNbCredit((int)total[7]);
+                
+                double totalG = 0;
+                if(totalgeneralgrandrubrique.getTotal() > 0){
+                    totalG = totalgeneralgrandrubrique.getTotal();
+                }
 
-                pourcAvoir = (totalgeneralgrandrubrique.getAvoirEETP() / totalgeneralgrandrubrique.getTotal()) * 100;
-                pourComptant = (totalgeneralgrandrubrique.getComptant() / totalgeneralgrandrubrique.getTotal()) * 100;
-                pourcCredit = (totalgeneralgrandrubrique.getCredit() / totalgeneralgrandrubrique.getTotal()) * 100;
+                pourcAvoir = (totalgeneralgrandrubrique.getTotal() == 0) ? 0 : (totalgeneralgrandrubrique.getAvoirEETP() / totalgeneralgrandrubrique.getTotal()) * 100;
+                pourComptant = (totalgeneralgrandrubrique.getTotal() == 0) ? 0 : (totalgeneralgrandrubrique.getComptant() / totalgeneralgrandrubrique.getTotal()) * 100;
+                pourcCredit = (totalgeneralgrandrubrique.getTotal() == 0) ? 0 : (totalgeneralgrandrubrique.getCredit() / totalgeneralgrandrubrique.getTotal()) * 100;
             }
             
             CA base = new CA();

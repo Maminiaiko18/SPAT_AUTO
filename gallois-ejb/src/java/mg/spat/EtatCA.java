@@ -273,9 +273,9 @@ public class EtatCA {
                 totalGeneral.setNbComptant((int)total[6]);
                 totalGeneral.setNbCredit((int)total[7]);
 
-                pourcAvoir = (totalGeneral.getAvoirEETP() / totalGeneral.getTotal()) * 100;
-                pourComptant = (totalGeneral.getComptant() / totalGeneral.getTotal()) * 100;
-                pourcCredit = (totalGeneral.getCredit() / totalGeneral.getTotal()) * 100;
+                pourcAvoir = (totalGeneral.getTotal() == 0) ? 0 : (totalGeneral.getAvoirEETP() / totalGeneral.getTotal()) * 100;
+                pourComptant = (totalGeneral.getTotal() == 0) ? 0 : (totalGeneral.getComptant() / totalGeneral.getTotal()) * 100;
+                pourcCredit = (totalGeneral.getTotal() == 0) ? 0 : (totalGeneral.getCredit() / totalGeneral.getTotal()) * 100;
             }
         }
     }
