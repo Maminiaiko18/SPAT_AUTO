@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="spat next" pageWidth="1416" pageHeight="1190" orientation="Landscape" columnWidth="1386" leftMargin="15" rightMargin="15" topMargin="2" bottomMargin="2" uuid="c73e71bd-5b8e-490c-adc2-cb453f42f950">
-	<property name="ireport.zoom" value="1.4641000000000133"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="1.331000000000012"/>
+	<property name="ireport.x" value="22"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["E:\\BICI\\projet BICI\\spat-capitainerie\\gallois-war\\web\\report\\"]]></defaultValueExpression>
@@ -640,7 +640,7 @@
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="203" y="0" width="124" height="27" uuid="743ca3ee-8bb4-4bf4-8ca7-2fb03c1d9946"/>
-				<textElement textAlignment="Right" markup="html">
+				<textElement textAlignment="Center" markup="html">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{regul}]]></textFieldExpression>
