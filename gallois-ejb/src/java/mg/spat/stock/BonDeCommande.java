@@ -866,6 +866,8 @@ public class BonDeCommande extends ClassEtat {
 
             LigneCredit lc=this.checkBudget(c);
             if(lc!=null){
+                LigneCredit temp = this.getBudget(c);
+                engagement.setIdLC(temp.getId());
                 engagement.setCompte(lc.getCompte());
             }
             engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
