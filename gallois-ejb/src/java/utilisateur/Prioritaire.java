@@ -34,29 +34,30 @@ public class Prioritaire extends ClassEtat{
                 MapUtilisateur user = u.getUser();
                 Prioritaire[] li = this.getListePriorite(c,user);
                 boolean rangUser = true;
-                CodeEtablissement pr = (CodeEtablissement)new CodeEtablissement().getById(user.getCodeEtablissement(), "CODEETABLISSEMENT_LIB", c);
-                String codeetb = pr.getVal();
-                if(li == null){
-                    if(user.getCodeEtablissement()!=null){
+                if(user.getCodeEtablissement()!=null)
+                {
+                    CodeEtablissement pr = (CodeEtablissement)new CodeEtablissement().getById(user.getCodeEtablissement(), "CODEETABLISSEMENT_LIB", c);
+                    String codeetb = pr.getVal();
+                    if(li == null){
                         if(codeetb.endsWith("00")){
-                            where += " and "+ nomolumn +" like '"+codeetb.substring(0,1)+"%'";
+                            where = " and "+ nomolumn +" like '"+codeetb.substring(0,1)+"%'";
                         }
                         else if(codeetb.endsWith("0")){
-                            where += " and "+ nomolumn +" like '"+codeetb.substring(0,2)+"%'";
+                            where = " and "+ nomolumn +" like '"+codeetb.substring(0,2)+"%'";
                         }
-                        else where += " and "+ nomolumn +" like '"+codeetb+"%'";
-                    }
-                }else{
-                    for(Prioritaire dt : li){
-                        if(dt.rang == 0) {
-                            rangUser = false;
+                        else where = " and "+ nomolumn +" like '"+codeetb+"%'";
+                    }else{
+                        for(Prioritaire dt : li){
+                            if(dt.rang == 0) {
+                                rangUser = false;
+                            }
                         }
-                    }
 
-                    if(!rangUser){
-                        where += " and "+ nomolumn +" like '"+codeetb.substring(0,1)+"%'";
-                    }
+                        if(!rangUser){
+                            where = " and "+ nomolumn +" like '"+codeetb.substring(0,1)+"%'";
+                        }
 
+                    }
                 }
                 return where;
             } catch (Exception e) {
