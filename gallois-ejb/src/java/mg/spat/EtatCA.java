@@ -34,6 +34,7 @@ public class EtatCA {
     int mois;
     int annee;
     CA[] CAtout;
+    String idgrandrubrique;
 
     public CA getTotalGeneral() {
         return totalGeneral;
@@ -121,6 +122,14 @@ public class EtatCA {
 
     public void setCAtout(CA[] CAtout) {
         this.CAtout = CAtout;
+    }
+
+    public String getIdgrandrubrique() {
+        return idgrandrubrique;
+    }
+
+    public void setIdgrandrubrique(String idgrandrubrique) {
+        this.idgrandrubrique = idgrandrubrique;
     }
 
     public EtatCA() {

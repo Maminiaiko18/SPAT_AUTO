@@ -133,6 +133,7 @@ public class EtatGrandCA {
             listeCA = new HashMap<>();
             for(int i = 0; i < t; i++){
                 EtatCA etatca = new EtatCA(mois, annee, grandrubriques[i].getId(), estGroupeAncien);
+                etatca.setIdgrandrubrique(grandrubriques[i].getId());
                 CA[] tout = etatca.getCAtout();
                 if(tout != null){
                     CAtout.addAll(Arrays.asList(tout));
