@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import lignecredit.LigneCredit;
 import mg.spat.EngagementFille;
 import mg.spat.stock.BonDeCommande;
+import mg.spat.stock.BonDeCommandeFille;
 import mg.spat.stock.BonDeLivraison;
 import mg.spat.stock.BonDeLivraisonFilleReste;
 import utilitaire.Constante;
@@ -190,17 +191,15 @@ public class FactureFournisseurDetails extends FactureClientDetails{
             FactureFournisseur fact = (FactureFournisseur) new FactureFournisseur().getById(this.getIdmere(), "FACTURE_FOURNISSEUR_MERE", c);
             if(fact.getDeviseMere().compareToIgnoreCase(this.getDevise())!=0) throw new Exception("Devise different dans la facture details et la facture mere.");
 
-            //si FF via BC, prendre taux BC
+            //si FF via BC, prendre taux BC pour les BC en devise
             if(fact.getIdBL()!=null) {
                 if(fact.getDeviseMere().compareToIgnoreCase(Constante.deviseAr)!=0){
                     BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(fact.getIdBL(), "AS_BONDELIVRAISON_BC", c);
                     BonDeCommande bc = (BonDeCommande) new BonDeCommande().getById(bl.getId_bc(), "AS_BONDECOMMANDE", c);
-                    Coursdevise temp = new Coursdevise();
-                    temp.setIddevise(this.getDevise()); 
-                    temp.setEstMICTSL("0");
-                    String daty = Utilitaire.formatterDatySql(bc.getDaty());
-                    temp = ((Coursdevise[]) CGenUtil.rechercher(temp, null, null, c, " AND DATY = TO_DATE('"+daty+"', 'dd/MM/yyyy')"))[0];
-                    this.setTaux(temp.getMontant());
+                    BonDeCommandeFille temp = new BonDeCommandeFille();
+                    temp.setIdbc(bc.getId());
+                    BonDeCommandeFille[] bfille= (BonDeCommandeFille[]) CGenUtil.rechercher(temp, null, null, c, "");
+                    this.setTaux(bfille[0].getTaux());
                     this.setTauxDonne(true);
                 }
             }
