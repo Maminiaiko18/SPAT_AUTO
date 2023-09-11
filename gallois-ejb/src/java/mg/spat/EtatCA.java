@@ -416,7 +416,7 @@ public class EtatCA {
 "	nvl(c.COMPTANT,0) AS comptant,\n" +
 "	nvl(c.MONTANT,0) AS montant,\n" +
 "	nvl(c.AVOIR,0) AS avoir,\n" +
-"	nvl(c.IDGRANDRUBRIQUE,j.IDGRANDRUBRIQUE) AS IDGRANDRUBRIQUE  FROM\n" +
+"	nvl(c.IDGRANDRUBRIQUE,j.IDGRANDRUBRIQUE) AS IDGRANDRUBRIQUE, c.CHECKREPORT  FROM\n" +
 "	JOINTURECA j,\n" +
 "(\n" +
 "select * from CompteCAFactAvoir_grp where 1<2  and annee = " + annee + " and mois <= " + mois + " and idgrandrubrique = '" + idGrandRubrique + "' order by mois asc, compte ASC)c \n" +
@@ -425,6 +425,8 @@ public class EtatCA {
 "	AND j.desce = c.MERE(+)\n" +
 "	AND j.idgrandrubrique = c.IDGRANDRUBRIQUE (+)\n" +
 "    AND j.IDGRANDRUBRIQUE = '" + idGrandRubrique + "' order by RANGMERECA";
+            
+            System.out.println("REQUETE ===== "+requete);
             CA[] result = (CA[]) CGenUtil.rechercher(base, requete, c);
             String[] listeCompte=AdminGen.getDistinct(result, "compte");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
