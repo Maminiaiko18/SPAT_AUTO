@@ -36,8 +36,16 @@ public class AvoirFCFille extends ClassFille {
     
     private String idavoirfille,codeavoir, type , idfc , codefc , client, mois;
     private double mtthtva, montanttva ,montantttc;
-    private Date datyavoirfc;
+    private Date datyavoirfc, datyFC;
     private int annee;
+
+    public Date getDatyFC() {
+        return datyFC;
+    }
+
+    public void setDatyFC(Date datyFC) {
+        this.datyFC = datyFC;
+    }
 
     public String getMois() {
         return mois;

@@ -8,7 +8,7 @@
     t.setNomTable("AVOIRDETAILFCFILLE");
     String listeCrt[] = {"idavoirfille", "id","datyavoirfc","codeavoir","codefc","client","type","compte","mois","annee"};
     String listeInt[] = {"datyavoirfc"};
-    String libEntete[] = {"idavoirfille","id","codeavoir", "type","codefc","client", "designation", "pu", "qte", "duree", "compte", "remise", "tva", "reduction", "majoration", "devise", "taux", "montanthtdevise", "mtthtva", "montanttva", "montantttc", "datyavoirfc"};
+    String libEntete[] = {"idavoirfille","id","codeavoir", "datyavoirfc","type","codefc","datyfc","client", "designation", "pu", "qte", "duree", "compte", "remise", "tva", "reduction", "majoration", "devise", "taux", "montanthtdevise", "mtthtva", "montanttva", "montantttc"};
     PageRecherche pr = new PageRecherche(t, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     //pr.setNpp(10);
     pr.setTitre("Liste Avoir Fille");
@@ -50,7 +50,7 @@
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     //Definition des libelles à afficher
-    String libEnteteAffiche[] = {"id Avoir Fille","Id Avoir", "code avoir", "type","Code Facture","client","designation", "pu", "qte", "duree", "compte", "remise", "tva", "reduction", "majoration", "devise", "taux", "Mtt Devise ", "MttHTVA", "Mtt TVA", "Mtt TTC", "Date d'avoir"};
+    String libEnteteAffiche[] = {"id Avoir Fille","Id Avoir", "code avoir", "Date d'avoir", "type","Code Facture","Date Facture","client","designation", "pu", "qte", "duree", "compte", "remise", "tva", "reduction", "majoration", "devise", "taux", "Mtt Devise ", "MttHTVA", "Mtt TVA", "Mtt TTC"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
 
