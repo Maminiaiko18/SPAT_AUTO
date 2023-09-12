@@ -13,6 +13,7 @@ import java.sql.Connection;
 import utilitaire.ConstanteEtat;
 import facture.FactureClientDetails;
 import factureclient.FactureClientDetail;
+import java.sql.Date;
 import java.text.DecimalFormat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -23,12 +24,119 @@ import utilitaire.Utilitaire;
  */
 public class AvoirFCFille extends ClassFille {
 
+    
     private String id;
     private String idmere, compte, iddetailfacture, devise, designation;
     private double taux,montantHTDevise;
     private double maj,red;
     private double reduction,majoration;
+    private double remise;
+    private double montant, montantdf, montantDFTaux,tva;
+    private double qte ,pu,duree;
+    
+    private String idavoirfille,codeavoir, type , idfc , codefc , client, mois;
+    private double mtthtva, montanttva ,montantttc;
+    private Date datyavoirfc;
+    private int annee;
 
+    public String getMois() {
+        return mois;
+    }
+
+    public void setMois(String mois) {
+        this.mois = mois;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+    
+    
+    public String getIdavoirfille() {
+        return idavoirfille;
+    }
+
+    public void setIdavoirfille(String idavoirfille) {
+        this.idavoirfille = idavoirfille;
+    }
+    
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    
+    public String getCodeavoir() {
+        return codeavoir;
+    }
+
+    public void setCodeavoir(String codeavoir) {
+        this.codeavoir = codeavoir;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getIdfc() {
+        return idfc;
+    }
+
+    public void setIdfc(String idfc) {
+        this.idfc = idfc;
+    }
+
+    public String getCodefc() {
+        return codefc;
+    }
+
+    public void setCodefc(String codefc) {
+        this.codefc = codefc;
+    }
+
+    public double getMtthtva() {
+        return mtthtva;
+    }
+
+    public void setMtthtva(double mtthtva) {
+        this.mtthtva = mtthtva;
+    }
+
+    public double getMontanttva() {
+        return montanttva;
+    }
+
+    public void setMontanttva(double montanttva) {
+        this.montanttva = montanttva;
+    }
+
+    public double getMontantttc() {
+        return montantttc;
+    }
+
+    public void setMontantttc(double montantttc) {
+        this.montantttc = montantttc;
+    }
+
+    public Date getDatyavoirfc() {
+        return datyavoirfc;
+    }
+
+    public void setDatyavoirfc(Date datyavoirfc) {
+        this.datyavoirfc = datyavoirfc;
+    }
+    
     public double getReduction() {
         return reduction;
     }
@@ -79,11 +187,7 @@ public class AvoirFCFille extends ClassFille {
     public void setDuree(double duree) {
         this.duree = duree;
     }
-    private double remise;
-    private double montant, montantdf, montantDFTaux,tva;
-    private double qte ,pu,duree;
     
-
     public double getQte() {
         return qte;
     }
