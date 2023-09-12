@@ -10,8 +10,8 @@
             prdt.setNomTable(request.getParameter("etat"));
         }
         
-        String libEntete[] = {"id","utilisateur","roles","etat", "rang"};
-        String listeCrt[] = {"id","utilisateur","roles","etat","rang"};
+        String libEntete[] = {"id","utilisateur","roles","etatlib", "ranglib"};
+        String listeCrt[] = {"id","utilisateur","roles","etatlib","ranglib"};
         String listeInt[] = {""};
         
         PageRecherche pr = new PageRecherche(prdt, request, listeCrt, listeInt, 3, libEntete, libEntete.length);

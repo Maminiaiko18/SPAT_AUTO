@@ -8,6 +8,8 @@
 <%@page import="user.*"%> 
 <%@ page import="bean.TypeObjet" %>
 <%@page import="affichage.*"%>
+<%@page import="affichage.Liste"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -23,13 +25,23 @@
 
     pi.getFormu().getChamp("refuser").setPageAppel("choix/listeUtilisateurChoix.jsp");
     pi.getFormu().getChamp("refuser").setAutre("readonly");
-    pi.getFormu().getChamp("refuser").setLibelle("Numéro Utilisateur");
+    pi.getFormu().getChamp("refuser").setLibelle("Utilisateur");
 
     pi.getFormu().getChamp("idrole").setPageAppel("choix/listeRoleChoix.jsp");
     pi.getFormu().getChamp("idrole").setAutre("readonly");
     pi.getFormu().getChamp("idrole").setLibelle("Role");
-    pi.getFormu().getChamp("rang").setLibelle("Rang");
+    pi.getFormu().getChamp("idrole").setVisible(false);
+
     pi.getFormu().getChamp("etat").setVisible(false);
+
+    Liste[] listes = new Liste[1];
+        String[] avecFactureAff = {"oui","non"};
+        String[] avecFactureVal = {"1", "0"};
+        listes[0] = new Liste("rang", avecFactureAff, avecFactureVal);
+    pi.getFormu().changerEnChamp(listes);
+    pi.getFormu().getChamp("rang").setLibelle("Tous");
+
+
     pi.preparerDataFormu();
 
 %><div class="content-wrapper">

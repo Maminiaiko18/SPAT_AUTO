@@ -17,10 +17,28 @@ public class Prioritaire extends ClassEtat{
     private String refuser;
     private String utilisateur;
     private String roles;
+    private String ranglib;
+    private String etatlib;
     private int rang; //si 1 tous si 0 dia nenazy ihany zany hoe ex : 400 dia zay manombka am 4
 
     public Prioritaire() {
        this.setNomTable("PRIORITAIRE");
+    }
+
+    public String getRanglib() {
+        return ranglib;
+    }
+
+    public void setRanglib(String ranglib) {
+        this.ranglib = ranglib;
+    }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
     }
 
     public String makeListConfidentiality(UserEJB u,String nomolumn) throws Exception{
