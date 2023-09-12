@@ -8,17 +8,22 @@
 <%@page import="mg.spat.Engagement"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="user.UserEJB"%> 
+<%@page import="utilisateur.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     try {
         Engagement eng = new Engagement();
-        user.UserEJB u = (user.UserEJB) session.getValue("u");
         eng.setNomTable("engagementlib");
         String nomTableEtat = request.getParameter("nomTableEtat");
         if(nomTableEtat!=null && !nomTableEtat.isEmpty()){
         eng.setNomTable(nomTableEtat);
         }
+
+        UserEJB u = (user.UserEJB) session.getValue("u");
+        Prioritaire prioritaire = new Prioritaire();
+        String aWhere = prioritaire.makeListConfidentiality(u,"codeetablissementlib");
+        System.out.println("aWhere "+aWhere);
 
         String listeCrt[] = {"id", "designation","codeetablissementlib","projetlib", "daty", "tierslib","num"};
         String listeInt[] = {"daty"};
@@ -28,19 +33,7 @@
         pr.setLien((String) session.getValue("lien"));
         pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
         pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
-        String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
 
-        if(idUser.compareToIgnoreCase("1060")!=0 ) {
-        if(idUser.compareToIgnoreCase("1477")!=0 ) {
-            if(idUser.compareToIgnoreCase("1543")!=0 ) {
-                if(idUser.compareToIgnoreCase("1544")!=0 ) {
-                    if (u.getCodeEtablissement() != null) {
-                            pr.getFormu().getChamp("codeetablissementlib").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
-                        }
-                    }
-            }
-        }
-    }
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
         Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
@@ -62,6 +55,9 @@
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.getFormu().getChamp("num").setLibelle("No.");
         pr.setApres("depense/engagement-liste.jsp");
+        pr.setAWhere(aWhere);
+
+
         String[] colSomme =null;
         pr.creerObjetPage(libEntete, colSomme);
         String[] etatVal = {"engagementlib", "engagementlibC", "engagementlibV","engagementlibA"};
