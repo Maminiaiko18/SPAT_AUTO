@@ -45,7 +45,7 @@
     pi.preparerDataFormu();
 
 %><div class="content-wrapper">
-    <h1>Saisie prioritaire User</h1>
+    <h1>Saisie prioritaire</h1>
     <!--  -->
     <form class='container' action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="starticle" id="starticle">
         <%
