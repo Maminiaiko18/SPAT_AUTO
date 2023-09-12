@@ -7,7 +7,7 @@
         String champReturn = request.getParameter("champReturn");
         
         InfoPersonnelGlobal tiers = new InfoPersonnelGlobal();
-        tiers.setNomTable("INFOPERSONNELGLOBAL");
+        tiers.setNomTable("TIERS_ORDREMISSION");
 
         String listeCrt[] = {"id", "nom", "prenom","poste", "categorie", "numero_matricule"};
         String listeInt[] = {};
