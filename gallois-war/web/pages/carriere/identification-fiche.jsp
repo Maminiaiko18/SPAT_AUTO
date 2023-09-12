@@ -16,6 +16,7 @@
 <%
     try {
         InfoPersonnelGlobal ip = new InfoPersonnelGlobal();
+        ip.setNomTable("INFOPERSONNELGLOBAL_LIB");
         PageConsulte pc = new PageConsulte(ip, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
         pc.setTitre("Fiche Infos Personnel");
@@ -26,7 +27,7 @@
         pc.getChampByName("numero_cin").setLibelle("Numero CIN");
         pc.getChampByName("date_embauche").setLibelle("Date d'embauche");
         pc.getChampByName("numero_matricule").setLibelle("Numero matricule");
-        pc.getChampByName("type_contrat").setLibelle("Type de contrat");
+        pc.getChampByName("type_contratlib").setLibelle("Type de contrat");
         pc.getChampByName("anciennete_poste").setLibelle("Ancienneté poste");
         pc.getChampByName("situation_matrimoniale").setLibelle("Situation matrimoniale");
         pc.getChampByName("datenaissance").setLibelle("Date de naissance");
@@ -39,6 +40,10 @@
         pc.getChampByName("mode_paiement").setLibelle("Mode de paiement");
         pc.getChampByName("numero_virement").setLibelle("Numéro de virement");
         pc.getChampByName("numero_cnaps").setLibelle("Numéro CNAPS");
+        pc.getChampByName("idtiers").setVisible(false);
+        pc.getChampByName("idcategorieprofessionel").setVisible(false);
+        pc.getChampByName("idcategorieprofessionellib").setLibelle("Cat&eacute;gorie professionnel");
+        pc.getChampByName("type_contrat").setVisible(false);
                 
         AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
         configuration.CynthiaConf.load();
@@ -61,15 +66,21 @@
                         %>
                         <br/>
                         <div class="box-footer">
-                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=carriere/identification-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=carriere/identification-liste.jsp&classe=mg.spat.relationhumaine.InfoPersonnel"><button class="btn btn-danger">Supprimer</button></a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=carriere/renseignement-interne-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout renseignement interne</button></a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=carriere/enfant-personnel-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout enfant</button></a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=carriere/parcours-professionnel-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout parcours professionnel</button></a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=carriere/diplomes-obtenus-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout diplômes obtenus</button></a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=carriere/conge-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout congé</button></a>
-                            <a href="<%=(String) session.getValue("lien") + "?but=carriere/permission-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout permission</button></a>
-                            <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=carriere/identification-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
+                            <p>
+                                <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=carriere/identification-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=carriere/identification-liste.jsp&classe=mg.spat.relationhumaine.InfoPersonnel"><button class="btn btn-danger" style="margin-right: 10px">Supprimer</button></a>
+                                <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=carriere/identification-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a> 
+                            </p>
+                            <p>
+                                <a href="<%=(String) session.getValue("lien") + "?but=carriere/renseignement-interne-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout renseignement interne</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=carriere/parcours-professionnel-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout parcours professionnel</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=carriere/diplomes-obtenus-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout diplômes obtenus</button></a>
+                            </p>
+                            <p>
+                                <a href="<%=(String) session.getValue("lien") + "?but=carriere/enfant-personnel-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout enfant</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=carriere/conge-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout congé</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=carriere/permission-saisie.jsp&idpersonnel=" + ip.getId()%>"><button class="btn btn-info">Ajout permission</button></a> 
+                            </p>       
                         </div>
                         <br/>
 

@@ -11,7 +11,7 @@
 
         String listeCrt[] = {"id", "nom", "prenom","poste", "categorie", "numero_matricule"};
         String listeInt[] = {};
-        String libEntete[] = {"id", "nom", "prenom","poste", "categorie", "numero_matricule","adresse"};
+        String libEntete[] = {"id", "nom", "prenom","poste", "categorie", "idcategorieprofessionellib", "numero_matricule","adresse"};
         int range = 2;
         PageRechercheChoix pr = new PageRechercheChoix(tiers, request, listeCrt, listeInt, range, libEntete, libEntete.length);
         pr.setChampReturn(champReturn);
@@ -45,7 +45,7 @@
                     <form action="apresChoix.jsp" method="post" name="frmchx" id="frmchx">
                         <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                         <% 
-                            String libEnteteAff[] = {"ID", "Nom", "Pr&eacute;nom", "Poste", "Cat&eacute;gorie", "Num&eacute;ro matricule", "Adresse"};
+                            String libEnteteAff[] = {"ID", "Nom", "Pr&eacute;nom", "Poste", "Cat&eacute;gorie", "Cat&eacute;gorie professionnel", "Num&eacute;ro matricule", "Adresse"};
                             pr.getTableau().setLibeEntete(libEnteteAff);
                             out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                     </form>

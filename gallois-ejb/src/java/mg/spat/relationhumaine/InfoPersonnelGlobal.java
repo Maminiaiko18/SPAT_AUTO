@@ -22,7 +22,7 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     private Date datenaissance, date_embauche;
     private int age, anciennete, indice;
     private double salaire_base, indemnite_fonction, indemnite_conge_paye, indemnite_deplacement, indemnite_risque;
-    private String idtiers, idcategorieprofessionel;
+    private String idtiers, idcategorieprofessionel, idcategorieprofessionellib, type_contratlib;
 
     public String getIdtiers() {
         return idtiers;
@@ -423,6 +423,22 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
 
     public void setIdcategorieprofessionel(String idcategorieprofessionel) {
         this.idcategorieprofessionel = idcategorieprofessionel;
+    }
+
+    public String getIdcategorieprofessionellib() {
+        return idcategorieprofessionellib;
+    }
+
+    public void setIdcategorieprofessionellib(String idcategorieprofessionellib) {
+        this.idcategorieprofessionellib = idcategorieprofessionellib;
+    }
+
+    public String getType_contratlib() {
+        return type_contratlib;
+    }
+
+    public void setType_contratlib(String type_contratlib) {
+        this.type_contratlib = type_contratlib;
     }
 
     @Override
