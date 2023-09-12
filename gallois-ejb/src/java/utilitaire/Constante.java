@@ -174,6 +174,7 @@ public class Constante {
     public static String typeEngagementFF = "FF";
     public static String typeEngagementEng = "ENG";
     public static String typeEngagementBED = "BED";
+    public static String typeFCCAAvoirCumul = "avoircumul";
 
     public static String getTypePieceTraite(){
         return typePieceTraite;

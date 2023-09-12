@@ -152,7 +152,11 @@
                         <% for (CA ca : listeParRubrique.get(rubrique)) {%>
                         <tr>
                             <td><%=Utilitaire.champNull(ca.getLibelle())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(ca.getReportAvoir())%></td>
+                            <td align="right">
+                                <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&typeFC=<%=Constante.typeFCCAAvoirCumul%>&mois=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                    <%=Utilitaire.formaterAr(ca.getReportAvoir())%>
+                                </a>
+                            </td>
                             <td align="right">
                                 <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&mois2=<%=moisAvant%>&annee=<%=anneeInt%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getAnciencumul())%>
@@ -161,7 +165,11 @@
                             
                             <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirCumRegul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirEETP())%></td>
+                            <td align="right">
+                                <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&mois=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                    <%=Utilitaire.formaterAr(ca.getAvoirEETP())%>
+                                </a>
+                            </td>
                             <td align="right">
                                 <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getComptant())%>

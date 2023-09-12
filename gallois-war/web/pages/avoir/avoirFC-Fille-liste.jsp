@@ -1,4 +1,6 @@
 
+<%@page import="java.util.Date"%>
+<%@page import="utilitaire.Constante"%>
 <%@page import="affichage.Liste"%>
 <%@page import="avoir.*"%>
 <%@page import="affichage.PageRecherche"%>
@@ -32,15 +34,14 @@
     liste[0].setNom("type");
     pr.getFormu().changerEnChamp(liste);
     
-    affichage.Champ[] liste1 = new affichage.Champ[1];
-        
-    String[] affiche1 = {"Tous", "janvier", "fevrier","mars","avril","mai","juin","juillet","aout","septembre","octobre","novembre","decembre"};
-    String[] value1 = {"%", "janvier", "fevrier","mars","avril","mai","juin","juillet","aout","septembre","octobre","novembre","decembre"};
-    Liste lst1 = new Liste();
-    lst1.ajouterValeur(value1, affiche1);
-    liste1[0] = lst1;
-    liste1[0].setNom("mois");
+    affichage.Liste[] liste1 = new affichage.Liste[1];
+    liste1[0] = new Liste("mois");
+    liste1[0].makeListeMois();
     pr.getFormu().changerEnChamp(liste1);
+    
+    if(request.getParameter("typeFC") != null && !request.getParameter("typeFC").isEmpty() && request.getParameter("typeFC").compareTo(Constante.typeFCCAAvoirCumul) == 0){
+        pr.setAWhere(" and datyfc < TO_DATE('" + request.getParameter("annee") + "-01-01', 'yyyy-mm-dd')");
+    }
 
     String[] colSomme = {"montanthtdevise","mtthtva","montanttva","montantttc"};
     pr.creerObjetPage(libEntete, colSomme);
