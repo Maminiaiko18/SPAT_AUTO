@@ -263,6 +263,9 @@ public class EtatPaieServlet extends HttpServlet {
             else if (action.equalsIgnoreCase("imprimerDemandeOrdreDeMission")) {
                 imprimerDemandeOrdreDeMission(request, response);
             }
+            else if (action.equalsIgnoreCase("imprimerOrdreDeMission")) {
+                imprimerOrdreDeMission(request, response);
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -4523,6 +4526,33 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("hebergement", hebergement);
             setNomJasper("Demande_ordre_de_mission");
             UtilitaireImpression.imprimer(request, response, "Demande ordre de mission", param, null, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void imprimerOrdreDeMission(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String id = request.getParameter("id");
+            OrdreMissionLib mc = new OrdreMissionLib();
+            mc.setNomTable("ordre_mission_lib");
+            OrdreMissionLib[] mere = (OrdreMissionLib[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "' and etat='"+ConstanteEtat.getEtatValider()+"'");
+            Map param = new HashMap();
+            param.put("nom", mere[0].getNom());
+            param.put("num", mere[0].getNumOM());
+            param.put("prenom", mere[0].getPrenom());
+            param.put("fonction", mere[0].getIdindemnitemissionlib());
+            param.put("matricule", mere[0].getMatricule());
+            param.put("direction", mere[0].getDirection());
+            param.put("lieuDeDep", Utilitaire.champNull(mere[0].getLieudeplacement()));
+            param.put("duree", mere[0].getDuree());
+            param.put("motif", mere[0].getMotifvoyage());
+            param.put("dateDedepart", mere[0].getDatedepart());
+            param.put("daty", utilitaire.Utilitaire.dateDuJour());
+            param.put("moyenDeDep", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
+            
+            setNomJasper("Ordre_de_mission");
+            UtilitaireImpression.imprimer(request, response, "ordre de mission", param, null, getReportPath());
 
         } catch (Exception e) {
             e.printStackTrace();
