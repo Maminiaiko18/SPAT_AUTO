@@ -57,6 +57,11 @@
         pr.creerObjetPage(libEntete, colSomme);
 
 %>
+<script>
+    function changerDesignation() {
+        document.incident.submit();
+    }
+</script>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -75,9 +80,15 @@
                         <option value="JOURNALCAISSELIB_SANSPROV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSPROV") == 0) {
                                 out.print("selected");
                             }%>>Recettes sans provisions</option>
+                            
                         <option value="JOURNALCAISSELIB_PROVISION" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_PROVISION") == 0) {
                                 out.print("selected");
                             }%>>Provisions</option>
+
+                        <option value="JOURNALCAISSELIB_SANSFACTURE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSFACTURE") == 0) {
+                                out.print("selected");
+                            }%>>Recettes sans facture</option>
+
                         <option value="etatjournalcaisselibrecette" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("etatjournalcaisselibrecette") == 0) {
                                 out.print("selected");
                             }%>>Tous</option>
