@@ -60,19 +60,7 @@
         pr.getFormu().getChamp("compteInv").setLibelle("Compte inv");
         pr.getFormu().getChamp("compteSimple").setLibelle("Compte compta");
         pr.getFormu().getChamp("direction").setLibelle("Direction");
-        String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
 
-        if(idUser.compareToIgnoreCase("1060")!=0 ) {
-            if(idUser.compareToIgnoreCase("1477")!=0 ) {
-                if(idUser.compareToIgnoreCase("1543")!=0 ) {
-                    if(idUser.compareToIgnoreCase("1544")!=0 ) {
-                        if (u.getCodeEtablissement() != null) {
-                                pr.getFormu().getChamp("direction").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
-                            }
-                        }
-                }
-            }
-        }
         pr.getFormu().getChamp("projet").setLibelle("Code projet");
         pr.getFormu().getChamp("directionProjet").setLibelle("Direction & Projet");
                 
