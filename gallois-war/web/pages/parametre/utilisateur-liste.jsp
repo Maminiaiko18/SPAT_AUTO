@@ -10,9 +10,9 @@
 <% try{ 
     MapUtilisateur utilisateur = new MapUtilisateur();
     utilisateur.setNomTable("UTILISATEURLIB");
-    String listeCrt[] = {"loginuser", "idrole", "nomuser","adruser",/*"teluser",*/"refuser"};
+    String listeCrt[] = {"loginuser", "idrole", "nomuser","adruser",/*"teluser",*/"refuser","codeetablissement"};
     String listeInt[] = {"rang"};
-    String libEntete[] = {"refuser","loginuser", "idrole", "nomuser","adruser"/*,"teluser"*/};
+    String libEntete[] = {"refuser","loginuser", "idrole", "nomuser","adruser"/*,"teluser"*/,"codeetablissement"};
     PageRecherche pr = new PageRecherche(utilisateur, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -50,7 +50,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Reference","Login", "Role", "Nom","Direction"/*,"Telephone"*/};
+            String libEnteteAffiche[] = {"Reference","Login", "Role", "Nom","Direction"/*,"Telephone"*/,"code etablissement"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
