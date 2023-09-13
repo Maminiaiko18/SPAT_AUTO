@@ -53,7 +53,7 @@
             out.println(pi.getFormu().getHtmlInsert());
         %>
         <input name="acte" type="hidden" id="nature" value="insert">
-        <input name="bute" type="hidden" id="bute" value="prioritaire/prioritaire-liste.jsp">
+        <input name="bute" type="hidden" id="bute" value="prioritaire/prioritaire-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="utilisateur.Prioritaire">
     </form>
 </div>
