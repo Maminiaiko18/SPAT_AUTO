@@ -176,7 +176,18 @@
                                 </a>
                             </td>
                             <td align="right">
-                                <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                <%
+                                    String moisBoucle = new String(mois);
+                                    String anneeBoucle = new String(annee);
+                                    if(ca.getCompte() != null && (ca.getCompte().compareTo(Constante.compteMICTSL1) == 0 || ca.getCompte().compareTo(Constante.compteMICTSL2) == 0 || ca.getCompte().compareTo(Constante.compteMICTSL3) == 0 )){
+                                        if(Integer.parseInt(moisBoucle) == 12){
+                                            moisBoucle = "1";
+                                            anneeBoucle = String.valueOf(Integer.parseInt(anneeBoucle)+1);
+                                        }
+                                        else moisBoucle = String.valueOf((Integer.parseInt(moisBoucle))+1);
+                                    }
+                                %>
+                                <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=moisBoucle%>&mois2=<%=moisBoucle%>&annee=<%=anneeBoucle%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getCredit())%>
                                 </a>
                             </td>
