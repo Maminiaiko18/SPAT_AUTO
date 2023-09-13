@@ -3,12 +3,16 @@
 <%@page import="affichage.PageRecherche"%>
 <%@page import="user.UserEJB"%> 
 <%@page import="utilitaire.*"%>
+<%@page import="utilisateur.*"%>
 
 <%
     try {
 
         DemandeAchatMere demandeMere = new DemandeAchatMere();
         UserEJB u = (user.UserEJB) session.getValue("u");
+        Prioritaire prioritaire = new Prioritaire();
+        String aWhere = prioritaire.makeListConfidentiality(u,"codeetablissementlib");
+        System.out.println("aWhere "+aWhere);
 
         demandeMere.setNomTable("dem_achat_merelib");
         String nomTableEtat = request.getParameter("nomTableEtat");
@@ -28,14 +32,14 @@
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("codeetablissementlib").setLibelle("Code etablissemment");
-        if (u.getCodeEtablissement() != null) {
-            pr.getFormu().getChamp("codeetablissementlib").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
-        }
+
         pr.getFormu().getChamp("designation").setLibelle("Designation");
         pr.getFormu().getChamp("idengagementlib").setLibelle("Engagement");
         pr.getFormu().getChamp("num").setLibelle("No.");
 
         pr.setApres("depense/demande-achat-liste.jsp");
+        pr.setAWhere(aWhere);
+
         
         String[] colSomme =null;
         pr.creerObjetPage(libEntete, colSomme);
