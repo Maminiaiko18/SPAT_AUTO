@@ -30,7 +30,7 @@
 
         Liste[] listes = new Liste[3];
         listes[0] = new Liste("descecaisse", new String[]{"Tous", "Caisse", "Banque"}, new String[]{"", "Caisse", "Banque"});
-
+        
         TypeObjet typeCheque = new TypeObjet();
         typeCheque.setNomTable("typecheque");
         listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
@@ -38,7 +38,7 @@
         TypeObjet caisserecette = new TypeObjet();
         caisserecette.setNomTable("caisserecette");
         listes[2] = new Liste("caisse", caisserecette, "val", "id");
-        listes[2].setDefaultSelected(Constante.caisseCentraleEspece);
+        listes[2].setDefaultSelected("%");
 
         pr.getFormu().changerEnChamp(listes);
         
@@ -57,6 +57,11 @@
         pr.creerObjetPage(libEntete, colSomme);
 
 %>
+<script>
+    function changerDesignation() {
+        document.incident.submit();
+    }
+</script>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -72,15 +77,22 @@
                 <div class="form-group">
                     <label>Etat : </label>
                     <select name="etatvue" class="champ form-control" id="etatvue" onchange="changerDesignation()" style="display: inline-block; width: 250px;">
+                            <option value="etatjournalcaisselibrecette" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("etatjournalcaisselibrecette") == 0) {
+                                out.print("selected");
+                            }%>>Tous</option>
                         <option value="JOURNALCAISSELIB_SANSPROV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSPROV") == 0) {
                                 out.print("selected");
                             }%>>Recettes sans provisions</option>
+                            
                         <option value="JOURNALCAISSELIB_PROVISION" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_PROVISION") == 0) {
                                 out.print("selected");
                             }%>>Provisions</option>
-                        <option value="etatjournalcaisselibrecette" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("etatjournalcaisselibrecette") == 0) {
+
+                        <option value="JOURNALCAISSELIB_SANSFACTURE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSFACTURE") == 0) {
                                 out.print("selected");
-                            }%>>Tous</option>
+                            }%>>Recettes sans facture</option>
+
+                   
                     </select>
                 </div>
             </div>
