@@ -16,7 +16,7 @@
     try {
         CaFcFilleComplet cht = new CaFcFilleComplet();
         cht.setNomTable("CAFCFILLECOMPLET");
-        String libEntete[] = { "idmere","daty","code","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
+        String libEntete[] = { "id","idmere","daty","code","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
         String listeCrt[] = {"compte", "mois","code", "annee", "type", "designation", "client"};
         String listeInt[] = {"mois"};
 
@@ -87,7 +87,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Num Facture","date","code","client", "navire", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA", "Montant", "Montant TVA", "Montant TTC"};
+            String libEnteteAffiche[] = {"ID Fille","ID mere","date","code","client", "navire", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA", "Montant", "Montant TVA", "Montant TTC"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

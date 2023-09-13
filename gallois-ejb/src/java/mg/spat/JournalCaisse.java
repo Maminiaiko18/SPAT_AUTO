@@ -1055,6 +1055,7 @@ public class JournalCaisse extends ClassEtat {
     }
     @Override
     public ClassMAPTable createObject(String u,Connection c)throws Exception{
+        if(this.getCredit() == 0 && this.getDebit() == 0) throw new Exception("Journal de caisse invalide.");
         if(this.getIdplacement() != null && this.getIdplacement().equalsIgnoreCase("") == false){
             Placement placement = new Placement();
             placement.setId(this.getIdplacement());

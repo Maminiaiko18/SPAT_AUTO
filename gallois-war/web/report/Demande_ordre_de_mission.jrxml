@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Demande_ordre_de_mission" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d0c3b98a-d7e6-4b8f-9565-d20a8a77aeee">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="50"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -231,7 +231,7 @@
 				<text><![CDATA[DATE DE DEPART ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="42" y="91" width="240" height="19" uuid="b8de8bfb-6d67-46df-8a45-b041aa92af58"/>
+				<reportElement x="42" y="65" width="240" height="19" uuid="b8de8bfb-6d67-46df-8a45-b041aa92af58"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
@@ -286,29 +286,11 @@
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="42" y="110" width="240" height="20" uuid="af8d1792-c458-4a69-869a-6ff7ca3ce6b8"/>
+				<reportElement x="42" y="84" width="240" height="20" uuid="af8d1792-c458-4a69-869a-6ff7ca3ce6b8"/>
 				<textElement markup="html">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hebergement}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="42" y="55" width="100" height="20" uuid="88e28ab7-f329-4acf-b1e8-e7a8431d86a6"/>
-				<textElement>
-					<font size="11"/>
-				</textElement>
-				<text><![CDATA[NUM OM]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="170" y="55" width="13" height="20" uuid="27faf908-c257-4f14-8518-ac93a8478bc3"/>
-				<text><![CDATA[:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="183" y="55" width="372" height="20" uuid="2db2b281-0c02-4a2e-bd81-d630dabde00f"/>
-				<textElement>
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{numOM}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="183" y="1" width="372" height="34" uuid="99b4dbdb-431f-4578-b695-8ac3a587f5e8"/>
