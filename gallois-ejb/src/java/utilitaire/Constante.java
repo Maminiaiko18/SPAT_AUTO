@@ -177,6 +177,10 @@ public class Constante {
     public static String typeEngagementBED = "BED";
     public static String banqueBP = "CAI0000000017120108";
     public static String paiementNull = "pay10";
+    public static String typeFCCAAvoirCumul = "avoircumul";
+    public static String compteMICTSL1 = "70600";
+    public static String compteMICTSL2 = "70610";
+    public static String compteMICTSL3 = "70611";
 
     public static String getTypePieceTraite(){
         return typePieceTraite;
