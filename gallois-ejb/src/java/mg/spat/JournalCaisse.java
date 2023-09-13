@@ -1009,9 +1009,18 @@ public class JournalCaisse extends ClassEtat {
                         genererPaiement(c, refuser);
                     } else {
                         //num piece pour depense simple dans la caisse depenses
-                        if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0 &&  this.getDebit() > 0 ){
-                            String numeroPiece = calculerNumeroPieceDepense(c);
-                            this.setNumPiece(numeroPiece);
+                        if(this.getDebit() > 0)
+                        {
+                            if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0){
+                                String numeroPiece = calculerNumeroPieceDepense(c);
+                                this.setNumPiece(numeroPiece);
+                            }
+                        }
+
+                        if(this.getCredit() > 0){
+                            if(caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissement)==0 || caisse.getId().compareToIgnoreCase(Constante.caisseCentraleEspece)==0){
+                                this.setNumPiece(calculerNumeroPiece(c));
+                            }
                         }
                     }
             }
