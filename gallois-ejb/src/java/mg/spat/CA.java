@@ -18,7 +18,7 @@ import utilitaire.Utilitaire;
 public class CA extends ClassMAPTable {
     String id, libelle,compteMere,compteMerelib,compte; 
     double anciencumul, regul, regulEETP, avoirEETP, comptant, credit, esttotal,taux,avoir,montant, reportAvoir;
-    int nbComptant,nbCredit,mois,annee,moisFact,anneeFact, checkReport;
+    int nbComptant,nbCredit,mois,annee,moisFact,anneeFact, checkReport, nbFactureTotal;
 
     public int getMoisFact() {
         return moisFact;
@@ -216,6 +216,14 @@ public class CA extends ClassMAPTable {
 
     public void setCheckReport(int checkReport) {
         this.checkReport = checkReport;
+    }
+
+    public int getNbFactureTotal() {
+        return nbFactureTotal;
+    }
+
+    public void setNbFactureTotal(int nbFactureTotal) {
+        this.nbFactureTotal = nbFactureTotal;
     }
 
     public CA() {
