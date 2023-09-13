@@ -1,3 +1,8 @@
+-------------- add idcategorieprofessionel
+ALTER TABLE INFOPERSONNELGLOBAL ADD idcategorieprofessionel varchar(100) ;
+ALTER TABLE INFOPERSONNELGLOBAL ADD CONSTRAINT 
+INFO_CATEGORIE_PRO_fk FOREIGN KEY (idcategorieprofessionel) REFERENCES CATEGORIE_PROFESSIONNEL(id);
+
 insert into INFOPERSONNELGLOBAL (id,nom,prenom,genre,numero_matricule,categorie,poste) values ('PERS_2000511','RAZAKARISOA','Henintsoa Cynthia','F',replace('A0536',' ',''),'MICTSL','agent');
 insert into INFOPERSONNELGLOBAL (id,nom,prenom,genre,numero_matricule,categorie,poste) values ('PERS009170082647','RAZAKASOA','EUGENE','M',replace('A0536',' ',''),'MICTSL','agent');
 insert into INFOPERSONNELGLOBAL (id,nom,prenom,genre,numero_matricule,categorie,poste) values ('PERS008721112214','RABIBISOA','DERA NDRIANIAINA','M',replace('A0620',' ',''),'MICTSL','agent');
@@ -1446,3 +1451,394 @@ INSERT INTO TYPE_CONTRAT
 VALUES('TC00003', 'TiersCemedi', 'TiersCemedi');
 
        update INFOPERSONNELGLOBAL i SET TYPE_CONTRAT ='TC00003' WHERE id LIKE 'PERS%';
+	   
+	   
+	   
+	   
+	   
+	   
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='1981188';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='1985009';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='1985016';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1988001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1988020';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='1988024';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='1989007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1989071';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1990050';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1990064';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1990090';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1990098';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='1990102';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='1991011';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='1992026';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1993013';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='1993014';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1994001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1994004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1994011';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='1994039';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1994045';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1994048';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='1995001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1995016';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='1995037';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1995044';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1995058';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1995062';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='1995067';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='1995071';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='1996005';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1997003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1997004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1997013';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='1997023';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='1997035';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1997038';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='1997040';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1997041';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1997047';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1997057';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1997061';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1997062';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1997063';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1997071';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1997109';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1997113';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1997118';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1997125';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1997127';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1997130';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='1997137';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='1997149';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='1998002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2001004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2002001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2002005';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2002007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2003003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2004004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2007010';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2008002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2008003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2008004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2008006';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2008007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2008009';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2009002';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2009003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2009004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2010004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2011001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2011002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2011003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2011004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2011006';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2011007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2011008';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2011009';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2013001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2013002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2013003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2013004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2013005';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2013006';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2013007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2013008';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2013009';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2014001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2014002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2014003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2014004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2014005';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2014006';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2014007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2014008';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2014009';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2014010';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2014011';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2014012';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2014013';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2014014';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2014015';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2014016';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2014017';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2015002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015005';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015006';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015008';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015009';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015010';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015011';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015012';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015013';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015014';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015015';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015016';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015017';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015018';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015019';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015020';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015021';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015022';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015023';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015024';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2015025';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015026';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015027';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015028';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015029';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015030';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2015031';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2016001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2016002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2016003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2016004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2016005';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2016008';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2016009';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2016011';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2016013';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2016014';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2016015';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2016017';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2016018';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2016019';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2016021';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2016023';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2016024';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2016025';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2016026';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2016027';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2016028';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2016029';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2016030';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2016031';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2016032';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2017002';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2017003';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2017004';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2017005';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2017006';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2017007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2017008';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2017009';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2017010';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2017011';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2017012';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2017013';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2017014';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2017015';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2017016';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2017017';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2017018';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2017020';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2017021';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2017022';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2017023';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2017024';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2017025';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2017026';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2017027';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2017030';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2017031';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2017032';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2017033';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2017034';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144550' where numero_matricule='2018001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2018002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2018003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2018004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2018005';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2018006';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2018007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2018008';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2018009';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2018010';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2018011';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2018012';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2018013';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2018014';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2018015';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2018016';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2018017';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2019001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2020001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2020002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2020003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2020004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2020005';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2020006';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020007';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020008';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020009';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020010';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020011';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020012';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020013';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020014';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020015';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020016';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020017';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020018';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020019';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020020';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2020021';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2020023';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2020024';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2020025';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2020026';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2020027';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2021001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2021002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2021004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2021005';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021006';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021008';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021009';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021010';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021011';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021012';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021013';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021014';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021015';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021016';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2021017';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2021018';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2021020';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2021021';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2021022';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2021023';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2021024';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2021025';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021026';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021027';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021028';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2021029';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2021030';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2021031';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2021032';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2021033';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2021034';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2021035';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2021036';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2021037';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2021038';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2021039';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2021040';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2021041';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2021042';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2021044';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2021045';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2021046';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2022001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2022002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2022003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2022004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2022005';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022006';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022007';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022008';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022009';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022010';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022011';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022012';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022013';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022014';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022015';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022016';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022017';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022018';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022019';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022020';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022021';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2022022';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2022024';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2022025';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2022026';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2022027';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2022028';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2022029';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2022030';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2022031';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2022032';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2022033';
+update infopersonnelglobal  set idcategorieprofessionel ='' where numero_matricule='2022034';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022035';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2022036';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2022037';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2022038';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2022039';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2022040';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144702' where numero_matricule='2023001';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2023002';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000145141' where numero_matricule='2023003';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2023004';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144942' where numero_matricule='2023005';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144653' where numero_matricule='2023006';
+update infopersonnelglobal  set idcategorieprofessionel ='CATE0000000000144957' where numero_matricule='2023007';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
