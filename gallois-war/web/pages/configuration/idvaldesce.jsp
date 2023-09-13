@@ -69,6 +69,7 @@
     titre.put("MOTIF_VOYAGE", "Motif de Voyage");
     titre.put("CATEGORIE_PROFESSIONNEL", "Catégorie Professionnel");
     titre.put("moyen_deplacement", "Moyen de d&eacute;placement");
+    titre.put("grandrubrique", "Grande rubrique");
     
     TypeObjet act = new TypeObjet();
     act.setNomTable(cible);

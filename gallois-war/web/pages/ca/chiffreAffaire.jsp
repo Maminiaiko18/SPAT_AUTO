@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="mg.spat.EtatGrandCA"%>
 <%@page import="utilitaire.Constante"%>
 <%@page import="mg.spat.CA"%>
 <%@page import="java.util.Map"%>
@@ -27,15 +29,9 @@
 
         String moisEnLettre = (String) moisL.getValeurBrute()[moisAvant];
 
-        EtatCA etatCA = new EtatCA(Integer.parseInt(mois), Integer.parseInt(annee), false);
-        Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
-        Map<String, CA> sommePartiel = etatCA.getSommePartiel();
-        CA totalGeneral = etatCA.getTotalGeneral();
-
-        if (moisAvant == 1) {
-            moisAvant = 12;
-            anneeInt -= 1;
-        }
+        EtatGrandCA etatGrandCA = new EtatGrandCA(Integer.parseInt(mois), Integer.parseInt(annee), false);
+        HashMap<String, EtatCA> listeCA = etatGrandCA.getListeCA();
+        CA totalgeneralgrandrubrique = etatGrandCA.getTotalgeneralgrandrubrique();
 %>
 <style>
     th {
@@ -58,6 +54,9 @@
 
     .tableca thead th{
         border: #000 solid 2px;
+    }
+    .generalfinal {
+        font-size: 20px;
     }
 </style>
 <div class="content-wrapper">
@@ -127,7 +126,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% if (listeParRubrique != null) {
+                    <% 
+                        for (Map.Entry<String, EtatCA> entry : listeCA.entrySet()) {
+                            String cle = entry.getKey();
+                            EtatCA etatCA = entry.getValue();
+                            Map<String, CA[]> listeParRubrique = etatCA.getListeParRubrique();
+                            Map<String, CA> sommePartiel = etatCA.getSommePartiel();
+                            CA totalGeneral = etatCA.getTotalGeneral();
+                    %>
+                        
+                        <tr class="category total general">
+                            <th colspan="14"><%=Utilitaire.champNull(cle)%></th>
+                        </tr>
+                    
+                    <%
+                            if (moisAvant == 1) {
+                                moisAvant = 12;
+                                anneeInt -= 1;
+                            }
+                            if (listeParRubrique != null) {
                                 for (String rubrique : listeParRubrique.keySet()) {%>
                         <tr class="category">
                             <th><%=Utilitaire.champNull(rubrique.toUpperCase())%></th>
@@ -135,7 +152,11 @@
                         <% for (CA ca : listeParRubrique.get(rubrique)) {%>
                         <tr>
                             <td><%=Utilitaire.champNull(ca.getLibelle())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(ca.getReportAvoir())%></td>
+                            <td align="right">
+                                <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&typeFC=<%=Constante.typeFCCAAvoirCumul%>&mois=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                    <%=Utilitaire.formaterAr(ca.getReportAvoir())%>
+                                </a>
+                            </td>
                             <td align="right">
                                 <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&mois2=<%=moisAvant%>&annee=<%=anneeInt%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getAnciencumul())%>
@@ -144,14 +165,29 @@
                             
                             <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirCumRegul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirEETP())%></td>
+                            <td align="right">
+                                <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&mois=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                    <%=Utilitaire.formaterAr(ca.getAvoirEETP())%>
+                                </a>
+                            </td>
                             <td align="right">
                                 <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getComptant())%>
                                 </a>
                             </td>
                             <td align="right">
-                                <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                <%
+                                    String moisBoucle = new String(mois);
+                                    String anneeBoucle = new String(annee);
+                                    if(ca.getCompte() != null && (ca.getCompte().compareTo(Constante.compteMICTSL1) == 0 || ca.getCompte().compareTo(Constante.compteMICTSL2) == 0 || ca.getCompte().compareTo(Constante.compteMICTSL3) == 0 )){
+                                        if(Integer.parseInt(moisBoucle) == 12){
+                                            moisBoucle = "1";
+                                            anneeBoucle = String.valueOf(Integer.parseInt(anneeBoucle)+1);
+                                        }
+                                        else moisBoucle = String.valueOf((Integer.parseInt(moisBoucle))+1);
+                                    }
+                                %>
+                                <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=moisBoucle%>&mois2=<%=moisBoucle%>&annee=<%=anneeBoucle%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getCredit())%>
                                 </a>
                             </td>
@@ -207,35 +243,55 @@
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getNCumul())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getTaux())%></td>
                         </tr>
-                        <% }%>
-                        <tr class="total general">
+                        <% } 
+                            } %>
+                        <tr class="category total generalfinal">
+                            <td align="left">TOTAL GENERAL</td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getReportAvoir())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAnciencumul())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getRegulEETP())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAvoirCumRegul())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAvoirEETP())%></td>
+                            <td align="right">
+                                <!--<a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&recap=checked">-->
+                                <%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getComptant())%>
+                                <!--</a>-->
+                            </td>
+                            <td align="right">
+                                <!--<a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&recap=checked">-->
+                                <%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getCredit())%>
+                                <!--</a>-->
+                            </td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getTotal())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getNCumul())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getTaux())%></td>
+                        </tr>
+                        <tr class="total general generalfinal">
+                            <td align="left">Nombre de factures</td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbComptant()) %></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbCredit()) %></td>
+                            <td align="right"><%= Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbFactureTotal()) %></td>
+                            <td align="right"></td>
+                            <td align="right"></td>
+                        </tr>
+                        <tr class="total general generalfinal">
                             <td align="left">TAUX</td>
                             <td align="right"></td>
                             <td align="right"></td>
                             <td align="right"></td>
                             <td align="right"></td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcAvoir())%>%</td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourComptant())%>%</td>
-                            <td align="right"><%=Utilitaire.formaterAr(etatCA.getPourcCredit())%>%</td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatGrandCA.getPourcAvoir())%>%</td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatGrandCA.getPourComptant())%>%</td>
+                            <td align="right"><%=Utilitaire.formaterAr(etatGrandCA.getPourcCredit())%>%</td>
                             <td align="right"></td>
                             <td align="right"></td>
                             <td align="right"></td>
                         </tr>
-                        <% if (totalGeneral != null) {%>
-                        <tr class="total general">
-                            <td align="left">Nombres des factures</td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                            <td align="right"><%= Utilitaire.formaterAr(etatCA.getNbFactComptant()) %></td>
-                            <td align="right"><%= Utilitaire.formaterAr(etatCA.getNbFactCredit()) %></td>
-                            <td align="right"><%= Utilitaire.formaterAr(etatCA.getNbFactureTotal()) %></td>
-                            <td align="right"></td>
-                            <td align="right"></td>
-                        </tr>
-                        <% }%>
                     </tbody>
                 </table>
             </div>
@@ -245,6 +301,7 @@
         </div>
     </section>
 </div>
-<%} catch (Exception ex) {
+<%
+    } catch (Exception ex) {
         ex.printStackTrace();
     }%>
