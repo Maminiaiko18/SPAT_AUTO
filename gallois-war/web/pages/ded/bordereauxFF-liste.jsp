@@ -9,10 +9,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="utilitaire.Utilitaire"%>
-
+<%@page import="user.UserEJB"%> 
+<%@page import="utilisateur.*"%>
 <% 
     BordereauFF bordereaux = new BordereauFF();
     bordereaux.setNomTable("BORDEREAUFF_LIB_MONTANT");
+    UserEJB u = (user.UserEJB) session.getValue("u");
+    Prioritaire prioritaire = new Prioritaire();
+    String aWhere = prioritaire.makeListConfidentiality(u,"directionlib");
+
+        System.out.println("aWhere "+aWhere);
     
     if(request.getParameter("etatvue")!=null && request.getParameter("etatvue").length()>0){
         bordereaux.setNomTable(request.getParameter("etatvue"));
@@ -32,6 +38,8 @@
     pr.getFormu().getChamp("directionlib").setLibelle("direction");
     pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.dateDuJour());
     pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.dateDuJour());
+    pr.setAWhere(aWhere);
+
     String[] colSomme = {"montant"};
     pr.creerObjetPage(libEntete, colSomme);
 %>

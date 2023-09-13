@@ -23,7 +23,7 @@
         Prioritaire prioritaire = new Prioritaire();
         String aWhere = prioritaire.makeListConfidentiality(u,"code_etablissementlib");
 
-        System.out.println("wahereeee "+aWhere);
+        System.out.println("aWhere "+aWhere);
 
         String[] etatVal = {"FACTUREFOURNVALIDE_TOUS", "FACTUREFOURNVALIDE_C", "FACTUREFOURNVALIDE_V", "FACTUREFOURNVALIDE_EP", "FACTUREFOURNVALIDE_P"};
         String[] etatAff = {"Tous", "Créée(s)", "Visée(s)", "En attente de paiement", "Payéé(s)"};
@@ -82,9 +82,6 @@
         lastDate.setDate(31);
         lastDate.setMonth(11);
 
-        //if (u.getCodeEtablissement() != null) {
-        //    pr.getFormu().getChamp("code_etablissementlib").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
-        //}
         
 //        String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
         String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());
@@ -98,7 +95,7 @@
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
-        //pr.setAWhere(aWhere);
+        pr.setAWhere(aWhere);
         
         String[] colSomme = {"montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste"};
         pr.creerObjetPage(libEntete, colSomme);
