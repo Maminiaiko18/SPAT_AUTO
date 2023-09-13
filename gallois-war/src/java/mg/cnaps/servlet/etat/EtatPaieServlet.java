@@ -4542,6 +4542,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("num", mere[0].getNumOM());
             param.put("prenom", mere[0].getPrenom());
             param.put("fonction", mere[0].getIdindemnitemissionlib());
+            param.put("classification", mere[0].getIdindemnitemission());
             param.put("matricule", mere[0].getMatricule());
             param.put("direction", mere[0].getDirection());
             param.put("lieuDeDep", Utilitaire.champNull(mere[0].getLieudeplacement()));
