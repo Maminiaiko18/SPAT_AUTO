@@ -181,6 +181,8 @@ public class Constante {
     public static String compteMICTSL1 = "70600";
     public static String compteMICTSL2 = "70610";
     public static String compteMICTSL3 = "70611";
+    public static String typeBED = "TYPB1";
+    public static String typeEtatDepense = "TYPB2";
 
     public static String getTypePieceTraite(){
         return typePieceTraite;
