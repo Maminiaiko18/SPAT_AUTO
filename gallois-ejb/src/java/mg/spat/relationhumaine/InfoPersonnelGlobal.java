@@ -423,6 +423,7 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
 
     public void setIdcategorieprofessionel(String idcategorieprofessionel) {
         this.idcategorieprofessionel = idcategorieprofessionel;
+    }
 
     public String getIdcategorieprofessionellib() {
         return idcategorieprofessionellib;

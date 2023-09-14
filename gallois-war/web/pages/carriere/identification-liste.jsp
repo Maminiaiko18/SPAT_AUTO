@@ -22,6 +22,12 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("carriere/identification-liste.jsp");
+    pr.getFormu().getChamp("numero_cin").setLibelle("No. CIN");
+    pr.getFormu().getChamp("numero_matricule").setLibelle("No. Matricule");
+    pr.getFormu().getChamp("datenaissance1").setLibelle("Date naissance min");
+    pr.getFormu().getChamp("datenaissance2").setLibelle("Date naissance max");
+    pr.getFormu().getChamp("date_embauche1").setLibelle("Date embauche min");
+    pr.getFormu().getChamp("date_embauche2").setLibelle("Date embauche max");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
