@@ -23,7 +23,8 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     private int age, anciennete, indice;
     private double salaire_base, indemnite_fonction, indemnite_conge_paye, indemnite_deplacement, indemnite_risque;
     private String idtiers, idcategorieprofessionel;
-
+    private String IDCATEGORIEPROFESSIONELLIB ;
+    private String type_contratlib;
     public String getIdtiers() {
         return idtiers;
     }
@@ -473,4 +474,21 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
         tiers.setCin(numero_cin);
         return tiers;
     }
+
+    public String getIDCATEGORIEPROFESSIONELLIB() {
+        return IDCATEGORIEPROFESSIONELLIB;
+    }
+
+    public void setIDCATEGORIEPROFESSIONELLIB(String IDCATEGORIEPROFESSIONELLIB) {
+        this.IDCATEGORIEPROFESSIONELLIB = IDCATEGORIEPROFESSIONELLIB;
+    }
+
+    public String getType_contratlib() {
+        return type_contratlib;
+    }
+
+    public void setType_contratlib(String type_contratlib) {
+        this.type_contratlib = type_contratlib;
+    }
+
 }
