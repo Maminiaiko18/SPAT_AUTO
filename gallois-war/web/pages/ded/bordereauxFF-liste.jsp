@@ -4,6 +4,8 @@
     Author     : ACER
 --%>
 
+<%@page import="affichage.Liste"%>
+<%@page import="bean.TypeObjet"%>
 <%@page import="bordereau.Bordereau"%>
 <%@page import="bordereau.BordereauFF"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,12 +27,21 @@
     }
     
     String libEntete[] = {"id", "daty","projetlib","directionlib","numfsb","numero","designation","tiers","montant"};
-    String listeCrt[] = {"id","designation","numfsb","projetlib","directionlib", "daty","tiers","numero"};
+    String listeCrt[] = {"id","designation","typebordereau","numfsb","projetlib","directionlib", "daty","tiers","numero"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(bordereaux, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("ded/bordereauxFF-liste.jsp");
+    
+    affichage.Liste[] listes= new affichage.Liste[1];
+        
+    TypeObjet type = new TypeObjet();
+    type.setNomTable("TYPEBORDEREAU");
+    listes[0] = new Liste("typebordereau", type, "VAL", "id");
+    
+    pr.getFormu().changerEnChamp(listes);
+    pr.getFormu().getChamp("typebordereau").setLibelle("Type Bordereau");
     pr.getFormu().getChamp("daty1").setLibelle("date de début");
     pr.getFormu().getChamp("daty2").setLibelle("date fin");
     pr.getFormu().getChamp("numfsb").setLibelle("Num FSB");
@@ -87,7 +98,7 @@
             %>
             <br>
             <%
-                String libEnteteAffiche[] = {"id", "Date","projet","direction","Num FSB","num&eacute;ro","Désignation","Tiers","Montant"};
+                String libEnteteAffiche[] = {"id", "Date","Type Bordereau","projet","direction","Num FSB","num&eacute;ro","Désignation","Tiers","Montant"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 out.println(pr.getTableau().getHtml());
                 out.println(pr.getBasPage());
