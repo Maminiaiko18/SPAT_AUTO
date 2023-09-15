@@ -38,7 +38,7 @@
         TypeObjet caisserecette = new TypeObjet();
         caisserecette.setNomTable("caisserecette");
         listes[2] = new Liste("caisse", caisserecette, "val", "id");
-        listes[2].setDefaultSelected("%");
+        listes[2].setDefaultSelected(Constante.caisseCentraleEspece);
 
         pr.getFormu().changerEnChamp(listes);
         
@@ -80,13 +80,13 @@
                             <option value="etatjournalcaisselibrecette" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("etatjournalcaisselibrecette") == 0) {
                                 out.print("selected");
                             }%>>Tous</option>
-                        <option value="JOURNALCAISSELIB_SANSPROV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSPROV") == 0) {
+                        <option value="JOURNALCAISSELIB_AVECFACTURE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSPROV") == 0) {
                                 out.print("selected");
-                            }%>>Recettes sans provisions</option>
+                            }%>>Recettes avec facture(s)</option>
                             
-                        <option value="JOURNALCAISSELIB_PROVISION" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_PROVISION") == 0) {
+                        <%-- <option value="JOURNALCAISSELIB_PROVISION" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_PROVISION") == 0) {
                                 out.print("selected");
-                            }%>>Provisions</option>
+                            }%>>Provisions</option> --%>
 
                         <option value="JOURNALCAISSELIB_SANSFACTURE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSFACTURE") == 0) {
                                 out.print("selected");
