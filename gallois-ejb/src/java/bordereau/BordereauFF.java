@@ -31,9 +31,25 @@ public class BordereauFF extends Bordereau{
     private double montantbudget;
     private double montantav;
     private double montantap;
-    private String idengagement, tierslib;
+    private String idengagement, tierslib,typebordereau,typelib;
+    public String getTypebordereau() {
+        return typebordereau;
+    }
 
+    public void setTypebordereau(String typebordereau) {
+        this.typebordereau = typebordereau;
+    }
 
+    public String getTypelib() {
+        return typelib;
+    }
+
+    public void setTypelib(String typelib) {
+        this.typelib = typelib;
+    }
+  
+
+    
     public double getMontantbudget(){
         return this.montantbudget;
     }

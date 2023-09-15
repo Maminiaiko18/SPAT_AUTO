@@ -185,6 +185,8 @@ public class Constante {
     public static String projetOMlib = "MHI";
     public static String directionOM = "CODE000023";
     public static String directionOMlib = "121";
+    public static String typeBED = "TYPB1";
+    public static String typeEtatDepense = "TYPB2";
 
     public static String getTypePieceTraite(){
         return typePieceTraite;

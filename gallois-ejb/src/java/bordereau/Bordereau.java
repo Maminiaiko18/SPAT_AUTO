@@ -33,7 +33,7 @@ public class Bordereau extends ClassEtat {
     private String direction;
     private String projetlib;
     private String directionlib;
-    private String idfactures;
+    private String idfactures, idengagement;
 
     public String getIdfactures() {
         return idfactures;
@@ -81,6 +81,14 @@ public class Bordereau extends ClassEtat {
 
     public void setNumfsb(String numfsb) {
         this.numfsb = numfsb;
+    }
+
+    public String getIdengagement() {
+        return idengagement;
+    }
+
+    public void setIdengagement(String idengagement) {
+        this.idengagement = idengagement;
     }
 
     public Bordereau() {
