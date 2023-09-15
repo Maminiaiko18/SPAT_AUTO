@@ -1,3 +1,4 @@
+<%@page import="ordremission.IndemniteMission"%>
 <%@page import="mg.cnaps.formation.CodeEtablissement"%>
 <%@ page import="ordremission.OrdreMissionLib" %>
 <%@ page import="ordremission.OrdreMissionIndemnite" %>
@@ -130,6 +131,8 @@
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("iduser").setAutre("readonly");
         pi.getFormu().getChamp("idengagement").setAutre("readonly");
+        
+        if ( idBL == null ) affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
 
         Engagement engagement = new Engagement();
         if (request.getParameter("idEngagement") != null) {
@@ -151,16 +154,22 @@
             pi.getFormu().getChamp("idom").setLibelle("Odre de mission");
             pi.getFormu().getChamp("idom").setVisible(true);
             pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
+            pi.getFormu().getChamp("projet").setValeurLibelle(Constante.projetOMlib);
+            pi.getFormu().getChamp("projet").setDefaut(Constante.projetOM);
+            pi.getFormu().getChamp("code_etablissement").setValeurLibelle(Constante.directionOMlib);
+            pi.getFormu().getChamp("code_etablissement").setDefaut(Constante.directionOM);
             if(odreMission.getNom()==null && odreMission.getPrenom()==null)
                 pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getId()));
             else 
                 pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getNom())+ " "+Utilitaire.champNull(odreMission.getPrenom()));
-            OrdreMissionIndemnite[] indemnites= odreMission.getIndemnites();
+//            OrdreMissionIndemnite[] indemnites= odreMission.getIndemnites();
+            IndemniteMission[] indemniteMissions = odreMission.getIndemniteMissions();
             
-            for(int i=0;i<indemnites.length;i++){
+            for(int i=0;i<indemniteMissions.length;i++){
                 pi.getFormufle().getChamp("quantite_" + i).setDefaut(odreMission.getDuree()+"");
-                pi.getFormufle().getChamp("designation_" + i).setDefaut(indemnites[i].getTypeIndemnite());
-                pi.getFormufle().getChamp("pu_" + i).setDefaut(indemnites[i].getMontant()+"");
+                pi.getFormufle().getChamp("designation_" + i).setDefaut(indemniteMissions[i].getLibelleFrais());
+                pi.getFormufle().getChamp("pu_" + i).setDefaut(indemniteMissions[i].getFrais()+"");
+                pi.getFormufle().getChamp("tva_" + i).setDefaut(0+"");
             }
             pi.getFormu().getChamp("designation").setDefaut("Provision de mission n&deg;" + odreMission.getNumOM());
         }
@@ -236,7 +245,6 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubrique"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureDebut"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"), false);
-        if ( idBL == null ) affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
         pi.getFormufle().getChamp("idBLF_0").setLibelle("BL d&eacute;tail");
         pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
         pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");

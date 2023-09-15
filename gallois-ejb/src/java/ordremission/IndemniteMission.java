@@ -17,6 +17,8 @@ public class IndemniteMission extends ClassEtat {
     private String id,idcategorieprofessionnel,idcategorieprofessionnellib;
     private double fraishebergement,fraisrestauration,fraisdeplacement,fraisforfaitaire;
     private Date daty;
+    private String libelleFrais;
+    private double frais;
 
     public IndemniteMission() {
         super.setNomTable("indemnite_mission");
@@ -86,6 +88,22 @@ public class IndemniteMission extends ClassEtat {
         this.daty = daty;
     }
 
+    public String getLibelleFrais() {
+        return libelleFrais;
+    }
+
+    public void setLibelleFrais(String libelleFrais) {
+        this.libelleFrais = libelleFrais;
+    }
+
+    public double getFrais() {
+        return frais;
+    }
+
+    public void setFrais(double frais) {
+        this.frais = frais;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -98,6 +116,11 @@ public class IndemniteMission extends ClassEtat {
     public void construirePK(Connection c) throws Exception {     
         this.preparePk("IM", "GETSEQINDEMNITE_MISSION");
         this.setId(makePK(c));
+    }
+
+    public IndemniteMission(String libelleFrais, double frais) {
+        this.libelleFrais = libelleFrais;
+        this.frais = frais;
     }
 
     
