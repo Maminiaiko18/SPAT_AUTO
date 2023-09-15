@@ -11,7 +11,8 @@
 <%
 try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
-    BordereauLibComplet mere = new BordereauLibComplet();
+    //BordereauLibComplet mere = new BordereauLibComplet();
+    BordereauFF mere = new BordereauFF();
     mere.setNomTable("bordereauFF_libcomplet");
     BordereauFilleFF fille = new BordereauFilleFF();
     
@@ -24,6 +25,17 @@ try{
     affichage.Champ.setAutre(pi.getFormufle().getChampFille("idbordereau"), "readonly");
 
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idop"), "choix/listeFactureFournisseurChoix.jsp","idop;idoplibelle;idoplibelle");
+    
+    affichage.Liste[] listes= new affichage.Liste[1];
+    TypeObjet type = new TypeObjet();
+    type.setNomTable("TYPEBORDEREAU");
+    listes[0] = new Liste("typebordereau", type, "VAL", "id");
+    
+    pi.getFormu().changerEnChamp(listes);
+    pi.getFormu().getChamp("typebordereau").setLibelle("Type Bordereau");
+    pi.getFormu().getChamp("idengagement").setLibelle("id Engagement");
+    pi.getFormu().getChamp("idengagement").setAutre("readonly");
+    pi.getFormu().getChamp("typelib").setVisible(false);
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("Etat").setVisible(false);
@@ -54,7 +66,7 @@ try{
     pi.preparerDataFormu();
     
 // Initialisation valeurs champs défaut
-    mere = (BordereauLibComplet) pi.getBase();
+    mere = (BordereauFF) pi.getBase();
     pi.getFormu().getChamp("tiers").setValeurLibelle(mere.getTierslib());
 %>
 <div class="content-wrapper">
