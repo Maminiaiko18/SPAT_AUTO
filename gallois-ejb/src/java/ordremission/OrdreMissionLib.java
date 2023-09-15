@@ -14,13 +14,15 @@ import utilitaire.UtilDB;
  */
 public class OrdreMissionLib extends OrdreMission{
     private String nom,prenom,fonction,classeprofessionnel,matricule,idindemnitemissionlib,idmotifvoyagelib,estForfaitairelib,idmoyendeplacementlib;
+    private IndemniteMission[] indemniteMissions;
     
     public OrdreMissionLib getByIdAvecOrdreMissionIndemnite(String id) throws Exception{
         Connection connection=null;
         try{
             connection = new UtilDB().GetConn();
             OrdreMissionLib ordreMission=(OrdreMissionLib) new OrdreMissionLib().getById(id, "ordre_mission_lib", connection);
-            ordreMission.setIndemnites(ordreMission.getOrdreMissionIndemnites(connection));
+//            ordreMission.setIndemnites(ordreMission.getOrdreMissionIndemnites(connection));
+            ordreMission.setIndemnitesMissionByOM(connection);
             return ordreMission;
         }
         catch(Exception exception){
@@ -107,7 +109,37 @@ public class OrdreMissionLib extends OrdreMission{
     public void setIdmoyendeplacementlib(String idmoyendeplacementlib) {
         this.idmoyendeplacementlib = idmoyendeplacementlib;
     }
+
+    public IndemniteMission[] getIndemniteMissions() {
+        return indemniteMissions;
+    }
+
+    public void setIndemniteMissions(IndemniteMission[] indemniteMissions) {
+        this.indemniteMissions = indemniteMissions;
+    }
     
+    public void setIndemnitesMissionByOM(Connection c) throws Exception {
+        
+        try{
+            IndemniteMission[] indemniteMissions = null;
+            IndemniteMission indemniteMission = (IndemniteMission) (new IndemniteMission()).getById(this.getIndemnitemission(), "INDEMNITE_MISSION", c);
+            if(this.getEstForfaitaire() == -1){
+                indemniteMissions = new IndemniteMission[3];
+                indemniteMissions[0] = new IndemniteMission("Frais h&eacute;bergement", indemniteMission.getFraishebergement());
+                indemniteMissions[1] = new IndemniteMission("Frais restauration", indemniteMission.getFraisrestauration());
+                indemniteMissions[2] = new IndemniteMission("Frais d&eacute;placement", indemniteMission.getFraisdeplacement());
+            }
+            else{
+                indemniteMissions = new IndemniteMission[1];
+                indemniteMissions[0] = new IndemniteMission("Frais forfaitaire", indemniteMission.getFraisforfaitaire());
+            }
+            this.setIndemniteMissions(indemniteMissions);
+        }
+        catch(Exception e){
+            throw e;
+        }
+        
+    }
 }
     
 
