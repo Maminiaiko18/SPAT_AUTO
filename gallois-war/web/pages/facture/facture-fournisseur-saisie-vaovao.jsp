@@ -165,13 +165,19 @@
 //            OrdreMissionIndemnite[] indemnites= odreMission.getIndemnites();
             IndemniteMission[] indemniteMissions = odreMission.getIndemniteMissions();
             
+            String jsScript_checkbox = "<script>\n";
             for(int i=0;i<indemniteMissions.length;i++){
+                jsScript_checkbox += "window.addEventListener('load', function() {";
+                jsScript_checkbox += "    document.getElementById('checkbox" + i + "').checked = true;";
+                jsScript_checkbox += "});";
                 pi.getFormufle().getChamp("quantite_" + i).setDefaut(odreMission.getDuree()+"");
                 pi.getFormufle().getChamp("designation_" + i).setDefaut(indemniteMissions[i].getLibelleFrais());
                 pi.getFormufle().getChamp("pu_" + i).setDefaut(indemniteMissions[i].getFrais()+"");
                 pi.getFormufle().getChamp("montant_" + i).setDefaut(odreMission.getDuree()*indemniteMissions[i].getFrais()+"");
                 pi.getFormufle().getChamp("tva_" + i).setDefaut(0+"");
             }
+            jsScript_checkbox += "</script>";
+            out.println(jsScript_checkbox);
             pi.getFormu().getChamp("designation").setDefaut("Provision de mission n&deg;" + odreMission.getNumOM());
         }
         affichage.Liste[] listes = new affichage.Liste[3];
@@ -225,7 +231,6 @@
             pi.getFormufle().getChamp("annee_" + i).setDefaut(Utilitaire.getAnneeEnCours());
             pi.getFormufle().getChamp("idactivite_" + i).setVisible(false);
             //pi.getFormufle().getChamp("compte_"+i).setPageAppel("choix/listeBudgetDepenseChoix.jsp", "compte_" + i+";comptelibelle_"+i  );
-
             if (i < livraisons.length) {
                 pi.getFormufle().getChamp("idBLF_" + i).setDefaut(livraisons[i].getId());
                 pi.getFormufle().getChamp("pu_" + i).setDefaut(Utilitaire.formaterAr(livraisons[i].getPu()));
