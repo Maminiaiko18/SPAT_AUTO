@@ -80,9 +80,7 @@
                              <%-- <a  class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerSuiviBudgetaire&id=<%=id%>" style="margin-right: 10px">Imprimer FSB</a> --%>
                             <%-- <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-details-saisie.jsp&idbordereau="+id%>" style="margin-right: 10px">Ajouter facture</a>  --%>
                             <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Viser</a>-->
-                            <% if(!etatDepense){ %>
-                                <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=engagerBED&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Engager</a>
-                            <% } %>
+                            <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=engagerBED&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Engager</a>
                         <% 
                                 if(res.getIdengagement() == null){
                             %>
