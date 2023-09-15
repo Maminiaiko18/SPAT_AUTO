@@ -203,7 +203,7 @@
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="253" y="405" width="299" height="20" uuid="a5f3db64-64f8-4597-a276-0fa58b76eaa2"/>
 				<textElement>
 					<font size="11"/>

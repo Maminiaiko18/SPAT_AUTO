@@ -181,6 +181,10 @@ public class Constante {
     public static String compteMICTSL1 = "70600";
     public static String compteMICTSL2 = "70610";
     public static String compteMICTSL3 = "70611";
+    public static String projetOM = "PR000115";
+    public static String projetOMlib = "MHI";
+    public static String directionOM = "CODE000023";
+    public static String directionOMlib = "121";
 
     public static String getTypePieceTraite(){
         return typePieceTraite;
