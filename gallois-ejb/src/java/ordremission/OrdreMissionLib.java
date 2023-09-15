@@ -126,8 +126,8 @@ public class OrdreMissionLib extends OrdreMission{
             if(this.getEstForfaitaire() == -1){
                 indemniteMissions = new IndemniteMission[3];
                 indemniteMissions[0] = new IndemniteMission("Frais h&eacute;bergement", indemniteMission.getFraishebergement());
-                indemniteMissions[1] = new IndemniteMission("Frais restauration", indemniteMission.getFraishebergement());
-                indemniteMissions[2] = new IndemniteMission("Frais d&eacute;placement", indemniteMission.getFraishebergement());
+                indemniteMissions[1] = new IndemniteMission("Frais restauration", indemniteMission.getFraisrestauration());
+                indemniteMissions[2] = new IndemniteMission("Frais d&eacute;placement", indemniteMission.getFraisdeplacement());
             }
             else{
                 indemniteMissions = new IndemniteMission[1];
