@@ -19,14 +19,11 @@
     UserEJB u = (user.UserEJB) session.getValue("u");
     Prioritaire prioritaire = new Prioritaire();
     String aWhere = prioritaire.makeListConfidentiality(u,"directionlib");
-
-        System.out.println("aWhere "+aWhere);
-    
     if(request.getParameter("etatvue")!=null && request.getParameter("etatvue").length()>0){
         bordereaux.setNomTable(request.getParameter("etatvue"));
     }
     
-    String libEntete[] = {"id", "daty","projetlib","directionlib","numfsb","numero","designation","tiers","montant"};
+    String libEntete[] = {"id", "daty","projetlib","directionlib","numfsb","numero","designation","tiers","montant","typebordereaulib"};
     String listeCrt[] = {"id","designation","typebordereau","numfsb","projetlib","directionlib", "daty","tiers","numero"};
     String listeInt[] = {"daty"};
     PageRecherche pr = new PageRecherche(bordereaux, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -98,7 +95,7 @@
             %>
             <br>
             <%
-                String libEnteteAffiche[] = {"id", "Date","Type Bordereau","projet","direction","Num FSB","num&eacute;ro","Désignation","Tiers","Montant"};
+                String libEnteteAffiche[] = {"id", "Date","projet","direction","Num FSB","num&eacute;ro","Désignation","Tiers","Montant","Type"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 out.println(pr.getTableau().getHtml());
                 out.println(pr.getBasPage());
