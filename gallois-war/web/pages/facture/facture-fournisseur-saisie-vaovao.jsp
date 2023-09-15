@@ -60,7 +60,7 @@
             TypeObjet modepaiement = new TypeObjet();
             modepaiement.setNomTable("modepaiementbp");
             liste[0] = new Liste("modepaiement", modepaiement, "desce", "id");
-            if(idUser.compareToIgnoreCase("1469")==0) liste[0].setDefaultSelected(Constante.modepaiementDefaut);
+            if(idUser.compareToIgnoreCase("1469")==0 || request.getParameter("idom")!=null) liste[0].setDefaultSelected(Constante.modepaiementDefaut);
             else liste[0].setDefaultSelected("-");
             pi.getFormu().changerEnChamp(liste);
             pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
@@ -148,7 +148,7 @@
             pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
             pi.getFormu().getChamp("idom").setDefaut(request.getParameter("idom"));
             pi.getFormu().getChamp("idom").setAutre("readonly");
-            pi.getFormu().getChamp("idom").setLibelle("Id OM");
+            pi.getFormu().getChamp("idom").setLibelle("Odre de mission");
             pi.getFormu().getChamp("idom").setVisible(true);
             pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
             if(odreMission.getNom()==null && odreMission.getPrenom()==null)
