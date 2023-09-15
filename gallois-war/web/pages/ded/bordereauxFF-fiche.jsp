@@ -44,6 +44,8 @@
     pc.getChampByName("projetlib").setLibelle("Projet");
     pc.getChampByName("idengagement").setLien((String) session.getValue("lien") + "?but=depense/engagement-fiche.jsp&id=" + res.getIdengagement(), "");
     pc.getChampByName("idengagement").setLibelle("Engagement");
+    pc.getChampByName("typelib").setLibelle("Type");
+    pc.getChampByName("typebordereau").setVisible(false);
 
     pc.setTitre("Fiche bordereau facture fournisseur");
     String id=res.getId();
@@ -52,6 +54,12 @@
     fille.setNomTable("liaisonbordereauFF_libcomplet");
     BordereauFilleLibComplet[] liste = (BordereauFilleLibComplet[]) CGenUtil.rechercher(fille, null, null, "");
     double total=AdminGen.calculSommeDouble(liste, "montant");
+    boolean etatDepense = false;
+    String option = "1";
+    if(res.getTypebordereau() != null && res.getTypebordereau().compareToIgnoreCase(Constante.typeEtatDepense) == 0){
+        option = "0";
+        etatDepense = true;
+    }
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -68,24 +76,18 @@
                         %>
                         <br/>
                         <div class="box-footer">
-                            <a id="imprimer" class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerBed2&id=<%=id%>" style="margin-right: 10px"> Imprimer BED</a>
+                            <a id="imprimer" class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerBed2&id=<%=id%>&option=<%=option%>" style="margin-right: 10px"> Imprimer BED</a>
                              <%-- <a  class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerSuiviBudgetaire&id=<%=id%>" style="margin-right: 10px">Imprimer FSB</a> --%>
                             <%-- <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-details-saisie.jsp&idbordereau="+id%>" style="margin-right: 10px">Ajouter facture</a>  --%>
                             <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Viser</a>-->
                             <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=engagerBED&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Engager</a>
-                            <% 
+                        <% 
                                 if(res.getIdengagement() == null){
                             %>
                             <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-modif.jsp&id=" + id %>" style="margin-right: 10px">Modifier</a>
                             <% 
                                 }
                             %>
-                            <label style="float:right;padding-right:10px">Accord : 
-                                    <select id="choix" onchange="choix()">
-                                        <option value="1" selected>Oui</option>
-                                        <option value="0">Non</option>
-                                    </select>
-                                </label>
                         </div>
                     </div>
                 </div>

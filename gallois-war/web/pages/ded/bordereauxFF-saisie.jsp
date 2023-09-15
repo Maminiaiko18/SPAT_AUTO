@@ -1,3 +1,5 @@
+<%@page import="bean.TypeObjet"%>
+<%@page import="affichage.Liste"%>
 <%@page import="facture.FactureFournisseur"%>
 @@ -0,0 +1,100 @@
 <%-- 
@@ -50,7 +52,16 @@
         BordereauFilleFFLibComplet fille = new BordereauFilleFFLibComplet();
         PageInsertMultiple pi = new PageInsertMultiple(mere, fille, request, taille, u);
         pi.setLien((String) session.getValue("lien"));
-
+        
+        affichage.Liste[] listes= new affichage.Liste[1];
+        
+        TypeObjet type = new TypeObjet();
+        type.setNomTable("TYPEBORDEREAU");
+        listes[0] = new Liste("typebordereau", type, "VAL", "id");
+        
+        pi.getFormu().changerEnChamp(listes);
+        pi.getFormu().getChamp("typebordereau").setLibelle("Type Bordereau");
+        pi.getFormu().getChamp("typelib").setVisible(false);
         pi.getFormu().getChamp("Etat").setVisible(false);
         pi.getFormu().getChamp("Idengagement").setVisible(false);
         pi.getFormu().getChamp("numero").setVisible(false);
