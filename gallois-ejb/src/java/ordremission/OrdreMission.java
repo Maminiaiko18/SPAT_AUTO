@@ -26,6 +26,7 @@ public class OrdreMission extends ClassEtat {
     private Date datedepart;
     private int estForfaitaire;
     private OrdreMissionIndemnite[] indemnites;
+    private String indemnitemission;
     
     public OrdreMissionIndemnite[] getOrdreMissionIndemnites() throws Exception{
         return this.getOrdreMissionIndemnites(null);
@@ -138,6 +139,14 @@ public class OrdreMission extends ClassEtat {
 
     public void setEstForfaitaire(int estForfaitaire) {
         this.estForfaitaire = estForfaitaire;
+    }
+
+    public String getIndemnitemission() {
+        return indemnitemission;
+    }
+
+    public void setIndemnitemission(String indemnitemission) {
+        this.indemnitemission = indemnitemission;
     }
 
     @Override
