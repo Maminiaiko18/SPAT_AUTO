@@ -169,6 +169,7 @@
                 pi.getFormufle().getChamp("quantite_" + i).setDefaut(odreMission.getDuree()+"");
                 pi.getFormufle().getChamp("designation_" + i).setDefaut(indemniteMissions[i].getLibelleFrais());
                 pi.getFormufle().getChamp("pu_" + i).setDefaut(indemniteMissions[i].getFrais()+"");
+                pi.getFormufle().getChamp("montant_" + i).setDefaut(odreMission.getDuree()*indemniteMissions[i].getFrais()+"");
                 pi.getFormufle().getChamp("tva_" + i).setDefaut(0+"");
             }
             pi.getFormu().getChamp("designation").setDefaut("Provision de mission n&deg;" + odreMission.getNumOM());
