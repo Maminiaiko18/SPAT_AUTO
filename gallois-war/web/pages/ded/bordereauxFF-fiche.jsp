@@ -44,7 +44,7 @@
     pc.getChampByName("projetlib").setLibelle("Projet");
     pc.getChampByName("idengagement").setLien((String) session.getValue("lien") + "?but=depense/engagement-fiche.jsp&id=" + res.getIdengagement(), "");
     pc.getChampByName("idengagement").setLibelle("Engagement");
-    pc.getChampByName("typelib").setLibelle("Type");
+    pc.getChampByName("typebordereaulib").setLibelle("Type");
     pc.getChampByName("typebordereau").setVisible(false);
 
     pc.setTitre("Fiche bordereau facture fournisseur");
