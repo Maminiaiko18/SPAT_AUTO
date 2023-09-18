@@ -35,7 +35,7 @@ try{
     pi.getFormu().getChamp("typebordereau").setLibelle("Type Bordereau");
     pi.getFormu().getChamp("idengagement").setLibelle("id Engagement");
     pi.getFormu().getChamp("idengagement").setAutre("readonly");
-    pi.getFormu().getChamp("typelib").setVisible(false);
+    pi.getFormu().getChamp("typebordereaulib").setVisible(false);
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("Etat").setVisible(false);
