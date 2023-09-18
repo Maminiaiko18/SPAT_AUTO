@@ -61,7 +61,7 @@
         
         pi.getFormu().changerEnChamp(listes);
         pi.getFormu().getChamp("typebordereau").setLibelle("Type Bordereau");
-        pi.getFormu().getChamp("typelib").setVisible(false);
+        pi.getFormu().getChamp("typebordereaulib").setVisible(false);
         pi.getFormu().getChamp("Etat").setVisible(false);
         pi.getFormu().getChamp("Idengagement").setVisible(false);
         pi.getFormu().getChamp("numero").setVisible(false);
