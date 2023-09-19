@@ -23,6 +23,7 @@ public class BonDeLivraison extends ClassEtat {
     private double montant, montanttva, montantttc, montantfactttc, montantpaye, rap, reste_a_facturer;
     private double montantHT,montanttc;
     private String etatlib, idengagement;
+    private double pourcentage;
 
     public double getMontantHT() {
         return montantHT;
@@ -130,6 +131,14 @@ public class BonDeLivraison extends ClassEtat {
 
     public void setIdbc(String idbc) {
         this.idbc = idbc;
+    }
+
+    public double getPourcentage() {
+        return pourcentage;
+    }
+
+    public void setPourcentage(double pourcentage) {
+        this.pourcentage = pourcentage;
     }
 
     public void controlQuantite(Connection c) throws Exception {
