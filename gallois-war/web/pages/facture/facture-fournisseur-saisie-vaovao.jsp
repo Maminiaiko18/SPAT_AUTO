@@ -22,7 +22,7 @@
 
         String autreparsley = "data-parsley-range='[8, 40]' required";
         facture.FactureFournisseur fc = new facture.FactureFournisseur();
-        fc.setNomTable("facture_Fournisseur_Mere");
+        fc.setNomTable("FACTURE_FOURNISSEUR_SAISIE");
 
 // Data BL
         String idBL = request.getParameter("idBL");
@@ -86,6 +86,7 @@
         pi.getFormu().getChamp("dateRegul").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("Datedevise").setVisible(false);
+        pi.getFormu().getChamp("datefacture").setLibelle("Date facture");
         pi.getFormu().getChamp("Datedevise").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());

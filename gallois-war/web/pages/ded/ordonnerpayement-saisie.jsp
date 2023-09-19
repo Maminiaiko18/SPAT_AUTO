@@ -24,7 +24,7 @@
     pi.getFormu().getChamp("tiers").setAutre("readonly");
 
     pi.getFormu().getChamp("daty").setLibelle("Date");
-    pi.getFormu().getChamp("numeroop").setLibelle("Num&eacute;ro OP");
+    pi.getFormu().getChamp("numeroop").setVisible(false);
     pi.getFormu().getChamp("remarque").setLibelle("Motif de paiement");
 //    pi.getFormu().getChamp("montant").setLibelle("Montant");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());

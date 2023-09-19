@@ -4531,7 +4531,7 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             param.put("nom", mere[0].getNom());
             param.put("prenom", mere[0].getPrenom());
-            param.put("fonction", mere[0].getIdindemnitemissionlib());
+            param.put("fonction", mere[0].getFonction());
             param.put("matricule", mere[0].getMatricule());
             param.put("classeProf", mere[0].getFonction());
             param.put("direction", mere[0].getDirection());
