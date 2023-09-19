@@ -19,7 +19,7 @@
 %>
             <div class="box">
                 <div class="box-title with-border">
-                    <h1 class="box-title">D�tails</h1>
+                    <h1 class="box-title">D&eacute;tails</h1>
                 </div>
                 <div class="box-body no padding">
                     <table class="table table-bordered">

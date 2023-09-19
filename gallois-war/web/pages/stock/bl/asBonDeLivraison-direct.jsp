@@ -22,7 +22,7 @@
     
     if (request.getParameter("id_bc") != null) {
         idbc = request.getParameter("id_bc");
-        pi.getFormu().getChamp("id_bc").setLibelle("N� Bon de commande");
+        pi.getFormu().getChamp("id_bc").setLibelle("N&deg; Bon de commande");
         pi.getFormu().getChamp("id_bc").setAutre("readonly");
         pi.getFormu().getChamp("idbc").setVisible(false);
     }else{
