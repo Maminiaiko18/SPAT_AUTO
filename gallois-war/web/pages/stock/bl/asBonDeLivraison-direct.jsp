@@ -22,7 +22,7 @@
     
     if (request.getParameter("id_bc") != null) {
         idbc = request.getParameter("id_bc");
-        pi.getFormu().getChamp("id_bc").setLibelle("N� Bon de commande");
+        pi.getFormu().getChamp("id_bc").setLibelle("N&deg; Bon de commande");
         pi.getFormu().getChamp("id_bc").setAutre("readonly");
         pi.getFormu().getChamp("idbc").setVisible(false);
     }else{
@@ -32,7 +32,9 @@
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("remarque").setLibelle("numero BL");
-    pi.getFormu().getChamp("idbc").setLibelle("N� Bon de commande");
+    pi.getFormu().getChamp("idbc").setLibelle("N&deg; Bon de commande");
+    pi.getFormu().getChamp("pourcentage").setLibelle("Pourcentage en %");
+    pi.getFormu().getChamp("pourcentage").setAutre("onkeyup='calculPourcentage()'");
     pi.getFormu().getChamp("idbc").setDefaut(idbc);
     pi.getFormu().getChamp("id_bc").setDefaut(idbc);
     pi.getFormu().getChamp("etat").setVisible(false);
@@ -86,11 +88,12 @@
                                                 <%=listef[i].getProduit()%>
                                             <% } %>
                                         </td>
-                                        <td><input type="text" class="form form-control" name="pu" id="pu<%=i%>" value="<%=listef[i].getPu()%>" onchange="calculMontant(<%= i %>)"></td>
+                                        <td><input type="text" class="form form-control" name="pu" id="pu<%=i%>" value="<%=listef[i].getPu()%>" onkeyup="calculMontant(<%= i %>)"></td>
                                         <td><input type="text" class="form form-control" name="remise" id="remise<%=i%>" value="<%=listef[i].getRemise()%>" readonly></td>
                                         <td><input type="text" class="form form-control" name="tva" id="tva<%=i%>" value="<%=listef[i].getTva()%>" readonly></td>
-                                        <td><input type="text" class="form form-control" name="quantite" id="quantite<%=i%>" value="<%=listef[i].getQuantitereste()%>" onchange="calculMontant(<%= i %>)"></td>
+                                        <td><input type="text" class="form form-control" name="quantite" id="quantite<%=i%>" value="<%=listef[i].getQuantitereste()%>" onkeyup="calculMontant(<%= i %>)"></td>
                                         <td align="right" id="montant<%= i %>"><%= Utilitaire.formaterAr(listef[i].getPu() * listef[i].getQuantitereste()) %></td>
+                                        <input type="hidden" id="qteinitiale<%=i%>" value="<%=listef[i].getQuantite() %>"/>
                                     </tr>
                                     <%
                                         }
@@ -142,4 +145,18 @@
         $('#montantTotal').html(nbrFormatter.format(total));
     }
     calculerMontantTotal();
+    function calculQuantite(i,pourcentage)
+    {
+        var qteinitiale = $('#qteinitiale'+i).val().trim();
+        if(pourcentage==0)pourcentage=100;
+        return (pourcentage*qteinitiale)/100;
+    }
+    function calculPourcentage()
+    {
+        var pourcentage = $('#pourcentage').val().trim();
+         for(var i=0; i<<%= listef.length %>; i++){
+            $('#quantite'+i).val(calculQuantite(i,pourcentage));
+            calculMontant(i);
+        }
+    }
 </script>

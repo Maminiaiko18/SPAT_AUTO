@@ -3452,9 +3452,15 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             bl.setNomTable("AS_BONDELIVRAISON");
             //this.updateObject(bl, c);
             bl.updateToTableWithHisto(u.getTuppleID(), c);
+            BonDeCommandeFilleReste inst = new BonDeCommandeFilleReste();
+            inst.setNomTable("BC_BL_LIVRE");
+            BonDeCommandeFilleReste[] bcF = (BonDeCommandeFilleReste[]) CGenUtil.rechercher(inst, null, null, c, String.format(" and idbc = '%s'", bl.getId_bc()));
             if (id != null & id.length > 0) {
                 for (int i = 0; i < id.length; i++) {
                     double qte = Utilitaire.stringToDouble(quantite[i]);
+                    if(bl.getPourcentage() > 0){
+                        qte = (bl.getPourcentage() * (bcF[i].getQuantitereste() + bcF[i].getQuantitelivre())) / 100;
+                    }
                     if (qte >= 0) {
                         BonDeLivraisonFille p = new BonDeLivraisonFille();
                         p.setId(id[i]);
@@ -3462,6 +3468,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                         BonDeLivraisonFille fille = lsd[0];
 //                        fille.setQuantiteparpack(Utilitaire.stringToDouble(quantiteparpack[i]));
                         fille.setQuantite(qte);
+                        fille.controlQuantite(bcF);
                         fille.updateToTableWithHisto(u.getTuppleID(), c);
                     }
                 }
@@ -3495,6 +3502,9 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 
             for (int i = 0; i < idproduit.length; i++) {
                 double qte = Utilitaire.stringToDouble(quantite[i]);
+                if(bl.getPourcentage() > 0){
+                    qte = (bl.getPourcentage() * (bcF[i].getQuantitereste() + bcF[i].getQuantitelivre())) / 100;
+                }
                 if (qte > 0) {
                     //double qtepack = Utilitaire.stringToDouble(quantiteparpack[i]);
                     BonDeLivraisonFille fille = new BonDeLivraisonFille(idbc[i], idproduit[i], bl.getTuppleID(), qte);
