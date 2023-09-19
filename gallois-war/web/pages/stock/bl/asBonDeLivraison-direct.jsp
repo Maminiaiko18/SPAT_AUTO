@@ -32,7 +32,7 @@
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("remarque").setLibelle("numero BL");
-    pi.getFormu().getChamp("idbc").setLibelle("N� Bon de commande");
+    pi.getFormu().getChamp("idbc").setLibelle("N&deg; Bon de commande");
     pi.getFormu().getChamp("pourcentage").setLibelle("Pourcentage en %");
     pi.getFormu().getChamp("pourcentage").setAutre("onkeyup='calculPourcentage()'");
     pi.getFormu().getChamp("idbc").setDefaut(idbc);

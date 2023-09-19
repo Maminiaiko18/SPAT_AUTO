@@ -30,7 +30,7 @@
 //    
     pi.getFormu().getChamp("point").setVisible(false);
     pi.getFormu().getChamp("remarque").setLibelle("Numero BL");
-    pi.getFormu().getChamp("id_bc").setLibelle("N� Bon de commande");
+    pi.getFormu().getChamp("id_bc").setLibelle("N&deg; Bon de commande");
     pi.getFormu().getChamp("id_bc").setAutre("readonly");
     pi.getFormu().getChamp("pourcentage").setLibelle("Pourcentage en %");
     pi.getFormu().getChamp("pourcentage").setAutre("onkeyup='calculPourcentage()'");
@@ -75,7 +75,7 @@
                                 <tbody>
                                     <%
                                         BonDeLivraisonFille p = new BonDeLivraisonFille();      
-                                        p.setNomTable("as_bondelivraison_fille");
+                                        p.setNomTable("AS_BONDELIVRAISON_FILLE_LIB");
                                         BonDeLivraisonFille[] listef = (BonDeLivraisonFille[]) CGenUtil.rechercher(p, null, null, " and NUMBL='"+request.getParameter("id").trim()+"'");
                                     %>
                                         <input type="hidden" class="form form-control" name="nb" id="nb" value="<%=listef.length%>">
@@ -88,7 +88,7 @@
                                     <td><input type="hidden" class="form form-control" name="idFille" id="idFille<%=i%>" value="<%=listef[i].getId()%>"><%=listef[i].getId()%></td>
                                     <td><%=listef[i].getProduit()%></td>
                                     <td><input type="text" class="form form-control" name="quantite" id="quantite<%=i%>" value="<%=listef[i].getQuantite()%>"></td>
-                                    <input type="hidden" id="qteinitiale<%=i%>" value="<%=listef[i].getQuantite() %>"/>
+                                    <input type="hidden" id="qteinitiale<%=i%>" value="<%=listef[i].getQteinitiale() %>"/>
                                 </tr>
                                 <%
                                         }
