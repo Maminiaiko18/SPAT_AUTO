@@ -30,9 +30,10 @@
 //    
     pi.getFormu().getChamp("point").setVisible(false);
     pi.getFormu().getChamp("remarque").setLibelle("Numero BL");
-    pi.getFormu().getChamp("id_bc").setLibelle("N° Bon de commande");
+    pi.getFormu().getChamp("id_bc").setLibelle("Nï¿½ Bon de commande");
     pi.getFormu().getChamp("id_bc").setAutre("readonly");
-
+    pi.getFormu().getChamp("pourcentage").setLibelle("Pourcentage en %");
+    pi.getFormu().getChamp("pourcentage").setAutre("onkeyup='calculPourcentage()'");
     pi.getFormu().getChamp("idbc").setVisible(false);
 
 //    POPUP BON DE COMMANDE
@@ -87,13 +88,14 @@
                                     <td><input type="hidden" class="form form-control" name="idFille" id="idFille<%=i%>" value="<%=listef[i].getId()%>"><%=listef[i].getId()%></td>
                                     <td><%=listef[i].getProduit()%></td>
                                     <td><input type="text" class="form form-control" name="quantite" id="quantite<%=i%>" value="<%=listef[i].getQuantite()%>"></td>
+                                    <input type="hidden" id="qteinitiale<%=i%>" value="<%=listef[i].getQuantite() %>"/>
                                 </tr>
                                 <%
                                         }
                                     }else{   
                                 %>
                                 <tr>
-                                    <td colspan="4" class="text-center bold"> Aucune données </td>
+                                    <td colspan="4" class="text-center bold"> Aucune donnï¿½es </td>
                                 </tr>
                                 <%
                                     }
@@ -113,3 +115,18 @@
         <button type="reset" name="Submit2" class="btn btn-default pull-right" style="margin-right: 15px;">R&eacute;initialiser</button>
     </form>
 </div>
+<script>
+     function calculQuantite(i,pourcentage)
+    {
+        var qteinitiale = $('#qteinitiale'+i).val().trim();
+        if(pourcentage==0)pourcentage=100;
+        return (pourcentage*qteinitiale)/100;
+    }
+    function calculPourcentage()
+    {
+        var pourcentage = $('#pourcentage').val().trim();
+         for(var i=0; i<<%= listef.length %>; i++){
+            $('#quantite'+i).val(calculQuantite(i,pourcentage));
+        }
+    }
+</script>

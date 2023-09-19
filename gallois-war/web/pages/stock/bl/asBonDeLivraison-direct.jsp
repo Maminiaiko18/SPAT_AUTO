@@ -93,7 +93,7 @@
                                         <td><input type="text" class="form form-control" name="tva" id="tva<%=i%>" value="<%=listef[i].getTva()%>" readonly></td>
                                         <td><input type="text" class="form form-control" name="quantite" id="quantite<%=i%>" value="<%=listef[i].getQuantitereste()%>" onkeyup="calculMontant(<%= i %>)"></td>
                                         <td align="right" id="montant<%= i %>"><%= Utilitaire.formaterAr(listef[i].getPu() * listef[i].getQuantitereste()) %></td>
-                                        <td align="right"><input type="hidden" id="qteinitiale<%=i%>" value="<%=listef[i].getQuantite() %>"/> </td>
+                                        <input type="hidden" id="qteinitiale<%=i%>" value="<%=listef[i].getQuantite() %>"/>
                                     </tr>
                                     <%
                                         }
