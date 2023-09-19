@@ -3496,7 +3496,7 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             for (int i = 0; i < idproduit.length; i++) {
                 double qte = Utilitaire.stringToDouble(quantite[i]);
                 if(bl.getPourcentage() > 0){
-                    qte = (bl.getPourcentage() * (bcF[i].getQteReste() + bcF[i].getQuantitelivre())) / 100;
+                    qte = (bl.getPourcentage() * (bcF[i].getQuantitereste() + bcF[i].getQuantitelivre())) / 100;
                 }
                 if (qte > 0) {
                     //double qtepack = Utilitaire.stringToDouble(quantiteparpack[i]);
