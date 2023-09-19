@@ -74,8 +74,7 @@
         pi.getFormu().getChamp("numeroop").setVisible(true);
         pi.getFormu().getChamp("dateRegul").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
-        pi.getFormu().getChamp("Datedevise").setAutre("readonly");
-        pi.getFormu().getChamp("Datedevise").setLibelle("Date devise");
+        pi.getFormu().getChamp("Datedevise").setVisible(false);
         pi.getFormu().getChamp("datefacture").setLibelle("Date facture");
         pi.getFormu().getChamp("Datedevise").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
