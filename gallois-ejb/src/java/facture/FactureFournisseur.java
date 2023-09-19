@@ -496,7 +496,7 @@ public class FactureFournisseur extends FactureClient {
         /*if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
             this.setCode(calculerCodeSimple(cnctn));
         }*/
-        if(this.getIdBL() != null){
+        if(this.getIdBL() != null && !this.getIdBL().isEmpty() && this.getIdBL().compareToIgnoreCase("")!=0){
             BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(this.getIdBL(), "AS_BONDELIVRAISON_BC", cnctn);
             if(bl.getIdengagement() != null)
                 this.setIdengagement(bl.getIdengagement());
@@ -1511,7 +1511,7 @@ public class FactureFournisseur extends FactureClient {
         Connection c = null;
         try {
             c = (new UtilDB()).GetConn();
-            if(this.getCode()==null) {
+            if(this.getCode() == null || this.getCode().isEmpty() || this.getCode().compareToIgnoreCase("")==0){
                 String cal = calculerCodeSimple(c);
                 this.setDateRegul(Utilitaire.dateDuJourSql());
                 this.setCode(cal);
