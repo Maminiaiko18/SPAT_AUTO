@@ -120,6 +120,8 @@
             pi.getFormufle().getChamp("observation_"+i).setAutre("readonly");
             pi.getFormufle().getChamp("produit_"+i).setPageAppel("choix/produitChoix.jsp","produit;produitlibelle;pu;pu");
             pi.getFormufle().getChamp("observation_"+i).setPageAppel("choix/listeDAchoix.jsp","observation;observation;observationlibelle");
+            pi.getFormufle().getChamp("tva_"+i).setDefaut("20");
+
         }
         // rehefa mandray paramï¿½tre idDa
         pi.getFormu().getChamp("idda").setLibelle("DASE");
