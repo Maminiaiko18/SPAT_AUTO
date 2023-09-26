@@ -12,6 +12,7 @@
 <%
     String autreparsley = "data-parsley-range='[8, 40]' required";
     Travaux travaux = new Travaux();
+    travaux.setNomTable("travauxlib");
     PageUpdate pi = new PageUpdate(travaux, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
@@ -32,9 +33,13 @@
     pi.preparerDataFormu();
     pi.getFormu().getChamp("idtypetravaux").setLibelle("Type de travaux");
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
-    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
-    pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("projetlib").setVisible(false);
+    pi.getFormu().getChamp("codeetablissementlib").setVisible(false);
     pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
+    pi.getFormu().getChamp("projet").setAutre("readonly");
+    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
+    pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
 %>
 <div class="content-wrapper">
     <div class="row">

@@ -14,11 +14,15 @@
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
+        String id = request.getParameter("id");
+        if (id != null) {
+            pr.setAWhere(" and chantier = '" + id + "'");
+        }
         pr.setApres("#");
         String[] colSomme = null;
         pr.setNpp(10);
         pr.creerObjetPage(libEntete, colSomme);
-        String id = request.getParameter("id");
+        String nom = request.getParameter("nom");
 %>
 
 <div class="box-body">
@@ -35,10 +39,10 @@
             }
             else
                 {
-                   %><center><h4>Aucune donn&eacute;e trouv&eacute;</h4></center><%
+                   %><center><h4>Pas de résultat</h4></center><%
             }
     %>
-    <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=depense/engagement-saisie.jsp&idchantier="+id%>" style="margin-right: 10px">Saisir contrat</a>
+    <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=depense/engagement-saisie.jsp&idchantier="+id+"&nom="+nom%>" style="margin-right: 10px">Saisir contrat</a>
 </div>
 <%
     } catch (Exception e) {

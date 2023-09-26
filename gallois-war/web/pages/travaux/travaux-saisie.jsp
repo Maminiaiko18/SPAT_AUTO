@@ -38,6 +38,8 @@
     pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
     pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
     pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
+    pi.getFormu().getChamp("projet").setAutre("readonly");
+    pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">

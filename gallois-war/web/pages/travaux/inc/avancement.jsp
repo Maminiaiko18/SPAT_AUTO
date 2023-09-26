@@ -36,7 +36,13 @@
             pr.getTableau().setColonneLien(colonneLien);
         String libEnteteAffiche[] = {"id", "Date", "pourcentage", "observation", "etat"};
         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-        out.println(pr.getTableau().getHtml());
+        if(pr.getTableau().getHtml() != null){
+            out.println(pr.getTableau().getHtml());
+        }
+        else
+            {
+               %><center><h4>Pas de résultat</h4></center><%
+        }
     %>
     <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/pourcentage-realisation-saisie.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Ajouter pourcentage de réalisation</a>
 </div>

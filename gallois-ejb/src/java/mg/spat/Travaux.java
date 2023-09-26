@@ -25,41 +25,6 @@ public class Travaux extends ClassEtat{
     private Date datedebut,datefin;
     private double montant,avancement;
 
-    public String getProjet() {
-        return projet;
-    }
-
-    public void setProjet(String projet) {
-        this.projet = projet;
-    }
-
-    public String getCodeetablissement() {
-        return codeetablissement;
-    }
-
-    public void setCodeetablissement(String codeetablissement) {
-        this.codeetablissement = codeetablissement;
-    }
-
-    public String getProjetlib() {
-        return projetlib;
-    }
-
-    public void setProjetlib(String projetlib) {
-        this.projetlib = projetlib;
-    }
-
-    public String getCodeetablissementlib() {
-        return codeetablissementlib;
-    }
-
-    public void setCodeetablissementlib(String codeetablissementlib) {
-        this.codeetablissementlib = codeetablissementlib;
-    }
-
- 
-
-
     public Travaux(String id){
         this.setId(id);
         this.setNomTable("travaux");
@@ -91,7 +56,38 @@ public class Travaux extends ClassEtat{
         this.setIddevise(iddevise);
         this.setAvancement(avancement);
     }
-    
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getCodeetablissement() {
+        return codeetablissement;
+    }
+
+    public void setCodeetablissement(String codeetablissement) {
+        this.codeetablissement = codeetablissement;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
+
+    public String getCodeetablissementlib() {
+        return codeetablissementlib;
+    }
+
+    public void setCodeetablissementlib(String codeetablissementlib) {
+        this.codeetablissementlib = codeetablissementlib;
+    }
     
     @Override
     public String getValColLibelle() {
@@ -178,6 +174,30 @@ public class Travaux extends ClassEtat{
          }
          this.avancement = avancement;
     }
+
+    public String getIddevise() {
+        return iddevise;
+    }
+
+    public void setIddevise(String iddevise) {
+        this.iddevise = iddevise;
+    }
+    
+    @Override
+    public String getTuppleID() {
+      return id;
+    }
+
+    @Override
+    public String getAttributIDName() {
+    return "id";
+    }
+    
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("TRA", "getseq_travaux");
+        this.setId(makePK(c));
+    }
+    
     public double getValueAvancement(String idtravaux,Connection c)throws Exception{
        int verif = 0;
         try {
@@ -201,6 +221,7 @@ public class Travaux extends ClassEtat{
             }
         }
     }
+    
     public Chantier[] getChantierProjet(String idtravaux,Connection c)throws Exception{
         Chantier[] chantier=null;
         int verif = 0;
@@ -222,6 +243,7 @@ public class Travaux extends ClassEtat{
         }
         return chantier;    
     }
+    
     public double moyenneAvancementProjet(Chantier[] chantier,Connection c)
     {
         double valiny=0;
@@ -235,27 +257,6 @@ public class Travaux extends ClassEtat{
             throw e;
         }
         return valiny;
-    }
-    @Override
-    public String getTuppleID() {
-      return id;
-    }
-
-    @Override
-    public String getAttributIDName() {
-    return "id";
-    }
-    public void construirePK(Connection c) throws Exception {
-        this.preparePk("TRA", "getseq_travaux");
-        this.setId(makePK(c));
-    }
-
-    public String getIddevise() {
-        return iddevise;
-    }
-
-    public void setIddevise(String iddevise) {
-        this.iddevise = iddevise;
     }
     
 }

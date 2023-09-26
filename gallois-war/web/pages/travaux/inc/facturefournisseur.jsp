@@ -18,8 +18,12 @@
     
     PageRecherche pr = new PageRecherche(j, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
        
-        pr.setUtilisateur((user.UserEJB) session.getValue("u"));
-        pr.setLien((String) session.getValue("lien"));
+    pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+    pr.setLien((String) session.getValue("lien"));
+    String id = request.getParameter("id");
+    if (id != null) {
+        pr.setAWhere(" and chantier = '" + id + "'");
+    }
         
     pr.creerObjetPage(libEntete, null);
     
