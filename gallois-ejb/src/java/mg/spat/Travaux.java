@@ -21,9 +21,44 @@ import utilitaire.Utilitaire;
  */
 public class Travaux extends ClassEtat{
     
-    private String id,nom,description,idtypetravaux,iddevise;
+    private String id,nom,description,idtypetravaux,iddevise,projet,codeetablissement,projetlib,codeetablissementlib;
     private Date datedebut,datefin;
     private double montant,avancement;
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getCodeetablissement() {
+        return codeetablissement;
+    }
+
+    public void setCodeetablissement(String codeetablissement) {
+        this.codeetablissement = codeetablissement;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
+
+    public String getCodeetablissementlib() {
+        return codeetablissementlib;
+    }
+
+    public void setCodeetablissementlib(String codeetablissementlib) {
+        this.codeetablissementlib = codeetablissementlib;
+    }
+
+ 
+
 
     public Travaux(String id){
         this.setId(id);
