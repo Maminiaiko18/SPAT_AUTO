@@ -68,6 +68,7 @@
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
         pi.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
+        pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
         
         
 
