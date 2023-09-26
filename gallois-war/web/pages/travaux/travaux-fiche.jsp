@@ -26,6 +26,8 @@
     pc.getChampByName("id").setVisible(false);
     pc.getChampByName("avancement").setVisible(false);
     pc.getChampByName("datedebut").setLibelle("date debut");
+    pc.getChampByName("PROJETLIB").setLibelle("Projet");
+    pc.getChampByName("CODEETABLISSEMENTLIB").setLibelle("Code Etablissement");
     pc.getChampByName("datefin").setLibelle("date fin");
     pc.getChampByName("iddevise").setLibelle("Devise");
     pc.getChampByName("idtypetravaux").setLibelle("type travaux");
