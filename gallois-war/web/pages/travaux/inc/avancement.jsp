@@ -28,13 +28,15 @@
     pr.creerObjetPage(libEntete, colSomme);
 
 %>
-<%
-    String lienTableau[] = {pr.getLien() + "?but=travaux/pourcentage-realisation-fiche.jsp"};
-        String colonneLien[] = {"id"};
-        pr.getTableau().setLien(lienTableau);
-        pr.getTableau().setColonneLien(colonneLien);
-    String libEnteteAffiche[] = {"id", "Date", "pourcentage", "observation", "etat"};
-    pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-    out.println(pr.getTableau().getHtml());
-%>
-<a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/pourcentage-realisation-saisie.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Ajouter pourcentage de réalisation</a>
+<div class="box-body">
+    <%
+        String lienTableau[] = {pr.getLien() + "?but=travaux/pourcentage-realisation-fiche.jsp"};
+            String colonneLien[] = {"id"};
+            pr.getTableau().setLien(lienTableau);
+            pr.getTableau().setColonneLien(colonneLien);
+        String libEnteteAffiche[] = {"id", "Date", "pourcentage", "observation", "etat"};
+        pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+        out.println(pr.getTableau().getHtml());
+    %>
+    <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/pourcentage-realisation-saisie.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Ajouter pourcentage de réalisation</a>
+</div>

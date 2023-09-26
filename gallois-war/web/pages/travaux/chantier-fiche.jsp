@@ -37,7 +37,8 @@
     String tab = null;
     Map<String, String> map = new HashMap<String, String>();
     map.put("avancement", "");
-    map.put("contrat-liste", "");
+    map.put("engagement", "");
+    map.put("facturefournisseur", "");
 
     String id = cVise.getId();
     tab = request.getParameter("tab");
@@ -74,7 +75,8 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="<%= map.get("avancement")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&tab=avancement">Avancement</a></li>
-                    <li class="<%= map.get("contrat-liste")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&nom=<%=cVise.getNom()%>&tab=contrat-liste">Contrats</a></li>
+                    <li class="<%= map.get("engagement")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&nom=<%=cVise.getNom()%>&tab=engagement">Contrat</a></li>
+                    <li class="<%= map.get("facturefournisseur")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&tab=facturefournisseur">Facture Fournisseur</a></li>
                 </ul>
                 
                 <div class="tab-content">       
