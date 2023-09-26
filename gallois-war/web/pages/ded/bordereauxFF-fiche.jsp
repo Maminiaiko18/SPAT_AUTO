@@ -11,6 +11,7 @@
 <%@ page import="affichage.*" %>
 <%@ page import="bordereau.BordereauLibComplet" %>
 <%@ page import="bordereau.BordereauFilleLibComplet" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try{
     BordereauFF res;
@@ -56,9 +57,11 @@
     double total=AdminGen.calculSommeDouble(liste, "montant");
     boolean etatDepense = false;
     String option = "1";
+    String btnLib = "Imprimer BED";
     if(res.getTypebordereau() != null && res.getTypebordereau().compareToIgnoreCase(Constante.typeEtatDepense) == 0){
         option = "0";
         etatDepense = true;
+        btnLib = "Imprimer Etat de dépenses";
     }
 %>
 <div class="content-wrapper">
@@ -76,7 +79,7 @@
                         %>
                         <br/>
                         <div class="box-footer">
-                            <a id="imprimer" class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerBed2&id=<%=id%>&option=<%=option%>" style="margin-right: 10px"> Imprimer BED</a>
+                            <a id="imprimer" class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerBed2&id=<%=id%>&option=<%=option%>" style="margin-right: 10px"> <%= btnLib %></a>
                              <%-- <a  class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerSuiviBudgetaire&id=<%=id%>" style="margin-right: 10px">Imprimer FSB</a> --%>
                             <%-- <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=ded/bordereauxFF-details-saisie.jsp&idbordereau="+id%>" style="margin-right: 10px">Ajouter facture</a>  --%>
                             <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id %>&acte=valider&bute=ded/bordereauxFF-fiche.jsp&classe=bordereau.BordereauFF&nomtable=bordereauFF" style="margin-right: 10px">Viser</a>-->

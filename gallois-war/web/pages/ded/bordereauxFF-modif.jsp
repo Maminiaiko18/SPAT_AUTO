@@ -13,7 +13,7 @@ try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     //BordereauLibComplet mere = new BordereauLibComplet();
     BordereauFF mere = new BordereauFF();
-    mere.setNomTable("bordereauFF_libcomplet");
+    mere.setNomTable("FSBBED");
     BordereauFilleFF fille = new BordereauFilleFF();
     
     
@@ -33,7 +33,7 @@ try{
     
     pi.getFormu().changerEnChamp(listes);
     pi.getFormu().getChamp("typebordereau").setLibelle("Type Bordereau");
-    pi.getFormu().getChamp("idengagement").setLibelle("id Engagement");
+    pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
     pi.getFormu().getChamp("idengagement").setAutre("readonly");
     pi.getFormu().getChamp("typebordereaulib").setVisible(false);
     pi.getFormu().getChamp("tiers").setAutre("readonly");
