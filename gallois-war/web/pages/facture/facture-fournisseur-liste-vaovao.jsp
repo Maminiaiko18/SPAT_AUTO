@@ -33,7 +33,7 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","daty","dateRegul","tierslib","designation","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib","numfsb","remarque","numOP","numBed"};
+        String listeCrt[] = {"id","daty","dateRegul","tierslib","designation","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib","numfsb","remarque","numOP","numBed","numchequerefpmt"};
         String listeInt[] = {"daty","date_echeance","dateRegul"};
 
         String libEntete[] = { "id", "code", "daty","dateRegul", "tierslib", "montant", "tva", "montantTVA", "montantTTCvrai", "numeroop", "datefacture", "designation", "numBed","numBc", "projetlib", "code_etablissementlib","numfsb",  "naturelib", "modepaiement", "numOP","remarque", "exercice", "date_echeance", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib", "valcaisserefpmt", "numpiecerefpmt", "dateeffetrefpmt", "numchequerefpmt", "libellerefpmt", "debitrefpmt","remarque"};
@@ -57,6 +57,7 @@
         pr.setNpp(100);
         pr.getFormu().getChamp("dateRegul1").setLibelle("date Regule min");
         pr.getFormu().getChamp("dateRegul2").setLibelle("date Regule max");
+        pr.getFormu().getChamp("numchequerefpmt").setLibelle("numero chq");
         pr.getFormu().getChamp("numOP").setLibelle("numero OP");
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
