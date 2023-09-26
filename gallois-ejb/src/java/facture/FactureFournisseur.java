@@ -73,6 +73,7 @@ public class FactureFournisseur extends FactureClient {
     private boolean apresValidationException;
     private Date datedevise;
     private String modepaiementlib;
+    private String chantier;
 
     public Date getDatedevise() {
         return datedevise;
@@ -353,6 +354,14 @@ public class FactureFournisseur extends FactureClient {
 
     public void setModepaiementlib(String modepaiementlib) {
         this.modepaiementlib = modepaiementlib;
+    }
+
+    public String getChantier() {
+        return chantier;
+    }
+
+    public void setChantier(String chantier) {
+        this.chantier = chantier;
     }
     
     public FactureFournisseur() throws Exception {
