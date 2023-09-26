@@ -1542,8 +1542,11 @@ public class FactureFournisseur extends FactureClient {
 
     public void attribuerCode(UserEJB u) throws Exception{
         Connection c = null;
-        try {
-            c = (new UtilDB()).GetConn();
+        int verif = 0;        
+        try{
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            verif = 1;
             if(this.getCode() == null || this.getCode().isEmpty() || this.getCode().compareToIgnoreCase("")==0){
                 String cal = calculerCodeSimple(c);
                 this.setDateRegul(Utilitaire.dateDuJourSql());
@@ -1552,11 +1555,13 @@ public class FactureFournisseur extends FactureClient {
             }
             else throw new Exception("Ce facture possede deja un numero compta.");  
             c.commit();     
-        } catch (Exception e) {
+        
+        } catch(Exception e){
+            c.rollback();
             throw e;
         }
         finally {
-            if (c != null) {
+            if (c != null && verif == 1) {
                 c.close();
             }
         }
