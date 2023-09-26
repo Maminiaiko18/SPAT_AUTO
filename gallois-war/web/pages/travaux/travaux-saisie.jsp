@@ -35,6 +35,9 @@
     pi.getFormu().getChamp("Idtypetravaux").setLibelle("Type travaux");
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
     pi.setLien((String) session.getValue("lien"));
+    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">

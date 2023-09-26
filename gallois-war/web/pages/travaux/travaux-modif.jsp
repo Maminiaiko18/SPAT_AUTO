@@ -32,6 +32,9 @@
     pi.preparerDataFormu();
     pi.getFormu().getChamp("idtypetravaux").setLibelle("Type de travaux");
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
+    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
 %>
 <div class="content-wrapper">
     <div class="row">
