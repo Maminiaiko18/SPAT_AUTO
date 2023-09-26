@@ -40,6 +40,11 @@
         pi.getFormu().getChamp("etat").setVisible(false);
 
         pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+         pi.getFormu().getChamp("chantier").setPageAppel("choix/listeChantierChoix.jsp");
+         if (request.getParameter("idchantier") != null) {
+            pi.getFormu().getChamp("chantier").setValeurLibelle(request.getParameter("idchantier"));
+        }
+         pi.getFormu().getChamp("chantier").setAutre("readonly");
         pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("avecFacture").setDefaut("0");
