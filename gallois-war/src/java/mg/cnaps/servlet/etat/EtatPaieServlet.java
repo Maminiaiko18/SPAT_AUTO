@@ -845,13 +845,15 @@ public class EtatPaieServlet extends HttpServlet {
                 String option = request.getParameter("option");
                 String jaspername = "bed";
                 String titre = "BON D'ENGAGEMENT DE DEPENSES DIVERSES";
+                String filename = "BED";
                 if(option!=null)  if(option.compareToIgnoreCase("0")==0) {
-                    //jaspername = "bed-sanssignature";
+                    jaspername = "bed-sanssignature";
                     titre = "ETAT DE DEPENSES";
+                    filename = "ETAT DE DEPENSES";
                 }
                 param.put("titre", titre);
                 setNomJasper(jaspername);
-                UtilitaireImpression.imprimer(request, response, "bed", param, dataSources, getReportPath(), rt);
+                UtilitaireImpression.imprimer(request, response, filename, param, dataSources, getReportPath(), rt);
             }
 
         } catch (Exception e) {
