@@ -20,7 +20,9 @@
     pc.setTitre("Fiche Chantier");
     pc.getChampByName("id").setVisible(false);
     pc.getChampByName("idtiers").setVisible(false);
-    pc.getChampByName("idtiers").setLibelle("Tiers");
+   
+    pc.getChampByName("tierslib").setLibelle("Tiers");
+    
     pc.getChampByName("idtravaux").setLibelle("travaux");
     pc.getChampByName("datydebut").setLibelle("Date début");
     pc.getChampByName("datyfin").setLibelle("Date fin");

@@ -33,7 +33,10 @@
         pi.getFormu().getChamp("datydebut").setDefaut(Utilitaire.dateDuJour());    
         pi.getFormu().getChamp("datyfin").setAutre("Date de fin");
         pi.getFormu().getChamp("datyfin").setDefaut(Utilitaire.dateDuJour());    
-        pi.getFormu().getChamp("idtiers").setVisible(false);
+        pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+        pi.getFormu().getChamp("idtiers").setAutre("readonly");
+        pi.getFormu().getChamp("idtiers").setLibelle("Tier");
+
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("avancement").setVisible(false);
         pi.getFormu().getChamp("idtravaux").setLibelle("Travaux");

@@ -5,9 +5,9 @@
     chantier.setNomTable("CHANTIER_LIB_NOM");
     if(request.getParameter("etatvue")!=null)
         chantier.setNomTable(request.getParameter("etatvue"));
-    String listeCrt[] = {"id","idtravaux", "nomtravaux", "nom","datydebut","datyfin"};
+    String listeCrt[] = {"id","idtravaux", "nomtravaux", "nom","datydebut","datyfin","tierslib"};
     String listeInt[] = {};
-    String libEntete[] = {"id", "idtravaux", "nomtravaux", "nom","datydebut","datyfin","montant","avancement"};
+    String libEntete[] = {"id", "idtravaux", "nomtravaux","tierslib", "nom","datydebut","datyfin","montant","avancement"};
     PageRecherche pr = new PageRecherche(chantier, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -60,7 +60,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"ID", "ID travaux", "travaux", "nom","date de début","date de fin","montant","avancement"};
+            String libEnteteAffiche[] = {"ID", "ID travaux", "travaux","Tiers", "nom","date de début","date de fin","montant","avancement"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

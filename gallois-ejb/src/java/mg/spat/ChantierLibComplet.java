@@ -22,7 +22,7 @@ public class ChantierLibComplet extends ClassEtat{
     private Date datyfin;
     private double montant;
     private double avancement;
-    private String idtiers;
+    private String idtiers, tierslib;
     private String nomtiers;
     private String desctiers;
     private String nif;
@@ -46,6 +46,14 @@ public class ChantierLibComplet extends ClassEtat{
 
     public ChantierLibComplet() {
         this.setNomTable("chantierlibcomplet");
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
     }
     
     public String getId() {

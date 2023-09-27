@@ -20,7 +20,7 @@
     pi.getFormu().getChamp("idtiers").setValeurLibelle(base.getNomtiers());
     pi.getFormu().getChamp("idtravaux").setValeurLibelle(base.getNomtravaux());
     pi.getFormu().getChamp("idtravaux").setPageAppel("choix/listeTravauxChoix.jsp");
-    pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
+    pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
     pi.getFormu().getChamp("idtravaux").setAutre("readonly");
     pi.getFormu().getChamp("idtiers").setLibelle("tiers");

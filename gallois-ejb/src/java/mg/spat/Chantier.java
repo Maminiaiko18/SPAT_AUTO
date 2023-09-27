@@ -16,12 +16,20 @@ import utilitaire.Utilitaire;
  */
 public class Chantier extends ClassEtat{
     
-    private String id,idtravaux,nom,idtiers,nomtiers,nomtravaux, tiers;
+    private String id,idtravaux,nom,idtiers,nomtiers,nomtravaux, tiers,tierslib;
     private Date datydebut,datyfin;
     private double montant,avancement;
 
     public Chantier() {
         this.setNomTable("chantier");
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierlib) {
+        this.tierslib = tierlib;
     }
 
     public String getTiers() {
@@ -89,7 +97,11 @@ public class Chantier extends ClassEtat{
         return idtiers;
     }
 
-    public void setIdtiers(String idtiers) {
+    public void setIdtiers(String idtiers) throws Exception {
+         if(this.getMode().compareTo("modif")==0){
+            if(idtiers==null || ""==idtiers)
+                throw new Exception("Tier Obligatoire");
+        }
         this.idtiers = idtiers;
     }
 
