@@ -5,6 +5,8 @@
  */
 package mg.spat.travaux;
 
+import bean.AdminGen;
+import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
@@ -79,9 +81,9 @@ public class PourcentageProjet extends ClassEtat{
     public void setPourcentage(double pourcentage)throws Exception {
         if(getMode().compareToIgnoreCase("modif")==0)
         {
-            if(pourcentage<0)
+            if(pourcentage < 0 || pourcentage > 100)
             {
-                throw new Exception("Pourcentage ne peut pas être inférieure à 0");
+                throw new Exception("Pourcentage ne peut pas \\352tre inf\\351rieure \\340 0 ou sup\\351rieur \\340 100.");
             }
         }
         this.pourcentage = pourcentage;
@@ -102,5 +104,32 @@ public class PourcentageProjet extends ClassEtat{
         this.setId(makePK(c));
     }
     
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        try{
+            if(this.getIdChantier() != null){
+                this.controlePourcentage(c);
+            }
+            
+            return super.validerObject(u, c);
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
     
+    public void controlePourcentage(Connection c) throws Exception {
+        try{
+            PourcentageProjet[] pourcentageProjets = (PourcentageProjet[]) CGenUtil.rechercher(new PourcentageProjet(), null, null, c, " and idchantier ='" + this.getIdChantier() + "' and etat >= 11");
+            double somme = this.getPourcentage();
+            if(pourcentageProjets.length > 0)
+                somme += AdminGen.calculSommeDouble(pourcentageProjets, "pourcentage");
+            if(somme > 100){
+                throw new Exception("Pourcentage total sup\\351rieur \\340 100.");
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
 }
