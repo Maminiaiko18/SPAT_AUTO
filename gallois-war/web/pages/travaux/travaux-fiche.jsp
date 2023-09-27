@@ -33,6 +33,8 @@
     pc.getChampByName("idtypetravaux").setLibelle("type travaux");
     pc.getChampByName("projet").setVisible(false);
     pc.getChampByName("codeetablissement").setVisible(false);
+    pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("tierslib").setLibelle("Tiers");
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");

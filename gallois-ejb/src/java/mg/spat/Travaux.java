@@ -21,9 +21,25 @@ import utilitaire.Utilitaire;
  */
 public class Travaux extends ClassEtat{
     
-    private String id,nom,description,idtypetravaux,iddevise,projet,codeetablissement,projetlib,codeetablissementlib;
+    private String id,nom,description,idtypetravaux,iddevise,projet,codeetablissement,projetlib,codeetablissementlib,tiers,tierslib;
     private Date datedebut,datefin;
     private double montant,avancement;
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
+
+    public String getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(String tiers) {
+        this.tiers = tiers;
+    }
 
     public Travaux(String id){
         this.setId(id);

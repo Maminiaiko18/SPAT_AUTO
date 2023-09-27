@@ -11,9 +11,9 @@
 <% try{ 
     Travaux info = new Travaux();
     info.setNomTable("travauxlib");
-    String listeCrt[] = {"id","nom","description","datedebut","datefin","PROJETLIB","CODEETABLISSEMENTLIB"};
+    String listeCrt[] = {"id","nom","tierslib","description","datedebut","datefin","PROJETLIB","CODEETABLISSEMENTLIB"};
     String listeInt[] = {"datedebut","datefin"};
-    String libEntete[] = {"id","PROJETLIB","CODEETABLISSEMENTLIB","nom","description","datedebut","datefin","iddevise"};
+    String libEntete[] = {"id","PROJETLIB","CODEETABLISSEMENTLIB","tierslib","nom","description","datedebut","datefin","iddevise"};
     PageRecherche pr = new PageRecherche(info, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -24,6 +24,7 @@
     pr.getFormu().getChamp("datefin2").setLibelle("Date Fin max");
     pr.getFormu().getChamp("PROJETLIB").setLibelle("Projet");
     pr.getFormu().getChamp("CODEETABLISSEMENTLIB").setLibelle("code Etab");
+    pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
 
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
@@ -52,7 +53,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id","Projet","Code Etab","Nom","Description","Date debut","Date fin","Devise"};
+            String libEnteteAffiche[] = {"Id","Projet","Code Etab","Tiers","Nom","Description","Date debut","Date fin","Devise"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

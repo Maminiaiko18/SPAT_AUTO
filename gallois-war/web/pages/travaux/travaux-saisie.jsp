@@ -40,6 +40,9 @@
     pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
     pi.getFormu().getChamp("projet").setAutre("readonly");
     pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
+    pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+    pi.getFormu().getChamp("tiers").setAutre("readonly");
+
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">

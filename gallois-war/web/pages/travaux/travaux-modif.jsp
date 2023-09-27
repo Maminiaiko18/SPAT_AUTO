@@ -40,6 +40,9 @@
     pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
     pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
     pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+    pi.getFormu().getChamp("tiers").setAutre("readonly");
+    pi.getFormu().getChamp("tierslib").setVisible(false);
 %>
 <div class="content-wrapper">
     <div class="row">
