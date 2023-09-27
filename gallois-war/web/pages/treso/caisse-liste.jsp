@@ -7,15 +7,15 @@
 <%@page import="mg.spat.Caisse"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="utilitaire.*"%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
     try{
-        Caisse billetage = new Caisse();
-        //billetage.setNomTable("billetagelib");
+        Caisse caisse = new Caisse();
+        caisse.setNomTable("CAISSE_REEL");
         String listeCrt[] = {"id","val","desce","numero"};
         String listeInt[] = {};
         String libEntete[] = {"id","val","desce","numero"};
-        PageRecherche pr = new PageRecherche(billetage, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+        PageRecherche pr = new PageRecherche(caisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
@@ -66,7 +66,7 @@
             String libEnteteAffiche[] = {"id","valeur","description","numero"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setNameActe("cloturermultiple");
-            pr.getTableau().setNameBoutton("Colturer");
+            pr.getTableau().setNameBoutton("Cloturer");
             out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
         </form>
