@@ -16,9 +16,17 @@ import utilitaire.Utilitaire;
  */
 public class Chantier extends ClassEtat{
     
-    private String id,idtravaux,nom,idtiers,nomtiers,nomtravaux, tiers,tierslib;
+    private String id,idtravaux,travaux, nom,idtiers,nomtiers,nomtravaux, tiers,tierslib;
     private Date datydebut,datyfin;
     private double montant,avancement;
+
+    public String getTravaux() {
+        return travaux;
+    }
+
+    public void setTravaux(String travaux) {
+        this.travaux = travaux;
+    }
 
     public Chantier() {
         this.setNomTable("chantier");

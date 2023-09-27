@@ -20,14 +20,15 @@
     pc.setTitre("Fiche Chantier");
     pc.getChampByName("id").setVisible(false);
     pc.getChampByName("idtiers").setVisible(false);
-   
+    pc.getChampByName("tiers").setVisible(false);
+
     pc.getChampByName("tierslib").setLibelle("Tiers");
-    
     pc.getChampByName("idtravaux").setLibelle("travaux");
     pc.getChampByName("datydebut").setLibelle("Date début");
     pc.getChampByName("datyfin").setLibelle("Date fin");
     pc.getChampByName("avancement").setLibelle("Avancement %");
-
+    c = (Chantier) pc.getBase();
+    pc.getChampByName("idtravaux").setLien((String) session.getValue("lien") + "?but=travaux/travaux-fiche.jsp","id="+ c.getTravaux()+"&id=");
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
