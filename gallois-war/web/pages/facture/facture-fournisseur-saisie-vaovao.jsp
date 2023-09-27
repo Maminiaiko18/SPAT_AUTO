@@ -57,11 +57,11 @@
         }
         pi.setLien((String) session.getValue("lien"));
         System.out.println("u.getUser().getCodeEtablissement()==" + u.getUser().getCodeEtablissement());
-        if (u.getUser().getCodeEtablissement() != null) {
+        /*if (u.getUser().getCodeEtablissement() != null) {
             CodeEtablissement code = u.getCodeEtablissement();
             pi.getFormu().getChamp("code_etablissement").setDefaut(u.getUser().getCodeEtablissement());
             pi.getFormu().getChamp("code_etablissement").setValeurLibelle(code.getVal());
-        }
+        }*/
         String mere = request.getParameter("idmere");
         if (mere != null && mere.compareToIgnoreCase("") != 0) {
             pi.getFormu().getChamp("idmere").setDefaut(mere);
