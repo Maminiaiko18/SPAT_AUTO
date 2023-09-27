@@ -66,7 +66,7 @@
             String libEnteteAffiche[] = {"id","valeur","description","numero"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setNameActe("cloturermultiple");
-            pr.getTableau().setNameBoutton("Colturer");
+            pr.getTableau().setNameBoutton("Cloturer");
             out.println(pr.getTableau().getHtmlWithCheckbox());
         %>
         </form>
