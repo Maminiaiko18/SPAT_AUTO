@@ -47,6 +47,7 @@
     engagement = (Engagement) pc.getBase();
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp","id="+engagement.getIdLC()+"&id=");
     pc.getChampByName("tierslib").setLien((String) session.getValue("lien") + "?but=travaux/tiers-fiche.jsp","id="+engagement.getTiers()+"&id=");
+    pc.getChampByName("chantier").setLien((String) session.getValue("lien") + "?but=travaux/chantier-fiche.jsp","id="+engagement.getChantier()+"&id=");
     String bute="depense/engagement-fiche.jsp";
     Map<String, String> map = new HashMap();
     map.put("details-engagement","");
