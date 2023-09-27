@@ -5,6 +5,7 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassMAPTable;
 import bean.TypeObjet;
 import service.ClotureService;
@@ -87,6 +88,8 @@ public class Caisse extends TypeObjet{
                 c.setAutoCommit(false);
                 verif = 1;
             }
+            Cloture[] liste = (Cloture[]) CGenUtil.rechercher(new Cloture(), null, null, c, " and daty >=to_date('"+ Utilitaire.stringDate(date) +"','YYYY-MM-DD') and caisse='"+this.getId()+"'");
+            if(liste.length >0 ) throw new Exception("Caisse "+ this.getId() +" déjà cloture a ce date");
             Cloture clo = new Cloture();
             clo.setDaty(Utilitaire.stringDate(date));
             clo.setCaisse(this.getId());

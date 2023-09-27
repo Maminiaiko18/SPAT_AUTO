@@ -42,7 +42,7 @@
         affichage.Liste[] liste = new affichage.Liste[5];
         TypeObjet esc = new TypeObjet();
         liste[0] = new Liste("caisse", esc, "VAL", "id");
-        esc.setNomTable("CAISSE");
+        esc.setNomTable("CAISSE_REEL");
         liste[0].setDefaultSelected(Constante.caisseDepense);
         String modepaiementtable = "MODEPAIEMENT";
 

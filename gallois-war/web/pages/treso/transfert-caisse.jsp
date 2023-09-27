@@ -47,10 +47,10 @@
         }
         affichage.Champ[] liste = new affichage.Champ[3]; ///////
         Caisse listedepart = new Caisse();
-        listedepart.setNomTable("caisse");
+        listedepart.setNomTable("CAISSE_REEL");
 
         Caisse listearriver = new Caisse();
-        listearriver.setNomTable("caisse");
+        listearriver.setNomTable("CAISSE_REEL");
 
        
         
@@ -61,7 +61,7 @@
         liste[0] = new Liste("caissedepart", listedepart, "val", "id");
         liste[1] = new Liste("caissearrivee", listearriver, "val", "id");
         TypeObjet liste2 = new TypeObjet();
-        liste2.setNomTable("MODEPAIEMENT");
+        liste2.setNomTable("MODEPAIEMENTBQ");
         liste[2] = new Liste("modepaiement", liste2, "val", "id");
         
         pi.getFormu().changerEnChamp(liste);

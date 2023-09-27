@@ -36,7 +36,7 @@
         listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
 
         TypeObjet caisse = new TypeObjet();
-        caisse.setNomTable("caisse");
+        caisse.setNomTable("CAISSE_REEL");
         listes[2] = new Liste("caisse", caisse, "val", "id");
 
         pr.getFormu().changerEnChamp(listes);
