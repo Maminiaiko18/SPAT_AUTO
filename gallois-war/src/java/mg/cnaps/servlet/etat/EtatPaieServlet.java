@@ -136,6 +136,7 @@ import user.*;
 import bean.*;
 import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
+import mg.spat.Chantier;
 import mg.spat.EtatGrandCA;
 import mg.spat.LibererLib;
 
@@ -266,6 +267,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             else if (action.equalsIgnoreCase("imprimerOrdreDeMission")) {
                 imprimerOrdreDeMission(request, response);
+            }
+            else if (action.equalsIgnoreCase("imprimerSuiviContrat")) {
+                imprimerSuiviContrat(request, response);
             }
 
         } catch (Exception ex) {
@@ -4582,6 +4586,43 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    private void imprimerSuiviContrat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String id = request.getParameter("id");
+            Engagement engagement = new Engagement();
+            engagement.setNomTable("engagementlib");
+            Engagement[] mere = (Engagement[]) CGenUtil.rechercher(engagement, null, null, " and id='" + id + "'");
+            Chantier c = new Chantier();
+            c.setNomTable("chantierlibelle");
+            Chantier[] chantier = (Chantier[]) CGenUtil.rechercher(c, null, null, " and id='" + mere[0].getChantier() + "'");
+            Map param = new HashMap();
+            if(chantier.length > 0){
+                param.put("travaux",chantier[0].getIdtravaux());
+                param.put("chantier",chantier[0].getNom());
+                param.put("direction",chantier[0].getDirTravaux());
+            }
+            if(mere.length > 0){
+            param.put("titulaire",mere[0].getTierslib());
+            param.put("objet",mere[0].getObjet());
+            param.put("daty",mere[0].getDaty());
+            param.put("duree",mere[0].getDuree());
+            param.put("contrat",mere[0].getDesignation());
+            param.put("cr",mere[0].getCodeEtablissementlib());
+            param.put("montantContrat",mere[0].getMontant());
+            }
+            facture.FactureFournisseur ff = new facture.FactureFournisseur();
+            ff.setNomTable("facture_fournisseur_engagement");
+            facture.FactureFournisseur[] fille = (facture.FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, " and idengagement='" + id + "'");
+            List dataSource = new ArrayList();
+            dataSource.addAll(Arrays.asList(fille));
+            setNomJasper("SUIVI_CONTRAT");
+            UtilitaireImpression.imprimer(request, response, "Suivi_contrat", param, dataSource, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     /*private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {

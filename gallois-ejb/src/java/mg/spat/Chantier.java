@@ -16,9 +16,17 @@ import utilitaire.Utilitaire;
  */
 public class Chantier extends ClassEtat{
     
-    private String id,idtravaux,travaux, nom,idtiers,nomtiers,nomtravaux, tiers,tierslib;
+    private String id,idtravaux,travaux, nom,idtiers,nomtiers,nomtravaux, tiers,tierslib,dirTravaux;
     private Date datydebut,datyfin;
     private double montant,avancement;
+
+    public String getDirTravaux() {
+        return dirTravaux;
+    }
+
+    public void setDirTravaux(String dirTravaux) {
+        this.dirTravaux = dirTravaux;
+    }
 
     public String getTravaux() {
         return travaux;
