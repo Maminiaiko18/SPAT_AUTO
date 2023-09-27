@@ -31,7 +31,7 @@
     lst[0] = new Liste("estForfaitaire");
     lst[0].ajouterValeur(valeurChampestForfaitaire, afficheChampestForfaitaire);
     pi.getFormu().changerEnChamp(lst);
-    pi.getFormu().getChamp("estForfaitaire").setLibelle("Est Forfaitaire");
+    pi.getFormu().getChamp("estForfaitaire").setLibelle("Forfaitaire");
     pi.getFormu().getChamp("idmoyendeplacement").setLibelle("Moyen de d&eacute;placement");
     pi.getFormu().getChamp("idmoyendeplacement").setPageAppel("choix/moyen-deplacement.jsp","idmoyendeplacement;idmoyendeplacementlibelle");
     pi.getFormu().getChamp("idmoyendeplacement").setAutre("readonly");
