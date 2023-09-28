@@ -78,9 +78,7 @@ public class UtilDB {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             //conn = DriverManager.getConnection("jdbc:oracle:thin:@10.211.55.5:1521:orcl", "sigi", "sigi16");
             //conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.88.223:1521:orcl", "gallois3", "gallois3");
-//            conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:orcl", "spat_capitainerie", "spat2020");
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@26.243.86.27:1521:orcl", "spat_develop", "spat_develop");
-
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:orcl", "spat_capitainerie", "spat2020");
             Connection connection2 = conn;
             return connection2;
         } catch (Exception ne) {
