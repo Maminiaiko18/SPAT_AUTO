@@ -5,17 +5,22 @@
     chantier.setNomTable("CHANTIER_LIB_NOM");
     if(request.getParameter("etatvue")!=null)
         chantier.setNomTable(request.getParameter("etatvue"));
-    String listeCrt[] = {"id","idtravaux", "nomtravaux", "nom","datydebut","datyfin","tierslib"};
+    String listeCrt[] = {"id","idtravaux", "nomtravaux", "nom", "datydebut", "datyfin", "nomtiers", "projetlib", "codeetablissementlib"};
     String listeInt[] = {};
-    String libEntete[] = {"id", "idtravaux", "nomtravaux","tierslib", "nom","datydebut","datyfin","montant","avancement"};
+    String libEntete[] = {"id", "nomtravaux", "nom", "nomtiers", "datydebut", "datyfin", "montant", "avancement", "projetlib", "codeetablissementlib"};
     PageRecherche pr = new PageRecherche(chantier, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("travaux/chantier-liste.jsp");
     pr.setOrdre(" order by datydebut desc");
     pr.getFormu().getChamp("idtravaux").setLibelle("travaux");
-    pr.getFormu().getChamp("datydebut").setLibelle("date de début");
+    pr.getFormu().getChamp("datydebut").setLibelle("date de d&eacute;but");
     pr.getFormu().getChamp("datyfin").setLibelle("date fin");
+    pr.getFormu().getChamp("nomtravaux").setLibelle("Nom travaux");
+    pr.getFormu().getChamp("nomtiers").setLibelle("Tiers");
+    pr.getFormu().getChamp("nom").setLibelle("Nom chantier");
+    pr.getFormu().getChamp("PROJETLIB").setLibelle("Projet");
+    pr.getFormu().getChamp("CODEETABLISSEMENTLIB").setLibelle("code Etab");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -60,7 +65,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"ID", "ID travaux", "travaux","Tiers", "nom","date de début","date de fin","montant","avancement"};
+            String libEnteteAffiche[] = {"ID", "travaux", "chantier", "Tiers", "date de d&eacute;but", "date de fin", "montant", "avancement %", "Projet", "Code Etab"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

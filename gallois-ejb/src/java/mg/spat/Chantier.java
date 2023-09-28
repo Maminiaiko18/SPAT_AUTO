@@ -16,36 +16,12 @@ import utilitaire.Utilitaire;
  */
 public class Chantier extends ClassEtat{
     
-    private String id,idtravaux,travaux, nom,idtiers,nomtiers,nomtravaux, tiers,tierslib,dirTravaux;
-    private Date datydebut,datyfin;
-    private double montant,avancement;
-
-    public String getDirTravaux() {
-        return dirTravaux;
-    }
-
-    public void setDirTravaux(String dirTravaux) {
-        this.dirTravaux = dirTravaux;
-    }
-
-    public String getTravaux() {
-        return travaux;
-    }
-
-    public void setTravaux(String travaux) {
-        this.travaux = travaux;
-    }
+    private String id, idtravaux, travaux, nom, idtiers, nomtiers, nomtravaux, tiers, tierslib, dirTravaux, projet, codeetablissement, projetlib, codeetablissementlib;
+    private Date datydebut, datyfin;
+    private double montant, avancement;
 
     public Chantier() {
         this.setNomTable("chantier");
-    }
-
-    public String getTierslib() {
-        return tierslib;
-    }
-
-    public void setTierslib(String tierlib) {
-        this.tierslib = tierlib;
     }
 
     public String getTiers() {
@@ -54,18 +30,6 @@ public class Chantier extends ClassEtat{
 
     public void setTiers(String tiers) {
         this.tiers = tiers;
-    }
-
-    public Chantier(String id, String idtravaux, String nom, String idtiers, Date datydebut, Date datyfin, double montant, double avancement) throws Exception {
-        this.setNomTable("chantier");
-        this.setId(id);
-        this.setIdtravaux(idtravaux);
-        this.setNom(nom);
-        this.setIdtiers(idtiers);
-        this.setDatydebut(datydebut);
-        this.setDatyfin(datyfin);
-        this.setMontant(montant);
-        this.setAvancement(avancement);
     }
 
     public String getNomtiers() {
@@ -114,9 +78,9 @@ public class Chantier extends ClassEtat{
     }
 
     public void setIdtiers(String idtiers) throws Exception {
-         if(this.getMode().compareTo("modif")==0){
-            if(idtiers==null || ""==idtiers)
-                throw new Exception("Tier Obligatoire");
+        if(this.getMode().compareTo("modif")==0){
+            if(idtiers == null || idtiers.isEmpty())
+                throw new Exception("Tiers obligatoire.");
         }
         this.idtiers = idtiers;
     }
@@ -166,8 +130,62 @@ public class Chantier extends ClassEtat{
         }
         this.avancement = avancement;
     }
-    
-    
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getCodeetablissement() {
+        return codeetablissement;
+    }
+
+    public void setCodeetablissement(String codeetablissement) {
+        this.codeetablissement = codeetablissement;
+    }
+
+    public String getTravaux() {
+        return travaux;
+    }
+
+    public void setTravaux(String travaux) {
+        this.travaux = travaux;
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
+
+    public String getDirTravaux() {
+        return dirTravaux;
+    }
+
+    public void setDirTravaux(String dirTravaux) {
+        this.dirTravaux = dirTravaux;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
+
+    public String getCodeetablissementlib() {
+        return codeetablissementlib;
+    }
+
+    public void setCodeetablissementlib(String codeetablissementlib) {
+        this.codeetablissementlib = codeetablissementlib;
+    }
 
     @Override
     public String getTuppleID() {
@@ -184,6 +202,18 @@ public class Chantier extends ClassEtat{
     }
     public String getValColLibelle(){
         return nom;
+    }
+
+    public Chantier(String id, String idtravaux, String nom, String idtiers, Date datydebut, Date datyfin, double montant, double avancement) throws Exception {
+        this.setNomTable("chantier");
+        this.setId(id);
+        this.setIdtravaux(idtravaux);
+        this.setNom(nom);
+        this.setIdtiers(idtiers);
+        this.setDatydebut(datydebut);
+        this.setDatyfin(datyfin);
+        this.setMontant(montant);
+        this.setAvancement(avancement);
     }
     
 }

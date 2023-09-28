@@ -29,20 +29,25 @@
         pi.getFormu().getChamp("idtravaux").setPageAppel("choix/listeTravauxChoix.jsp");
         pi.getFormu().getChamp("idtravaux").setAutre("readonly");
         
-        pi.getFormu().getChamp("datydebut").setAutre("Date de début");
+        pi.getFormu().getChamp("datydebut").setAutre("Date de d&eacute;but");
         pi.getFormu().getChamp("datydebut").setDefaut(Utilitaire.dateDuJour());    
         pi.getFormu().getChamp("datyfin").setAutre("Date de fin");
         pi.getFormu().getChamp("datyfin").setDefaut(Utilitaire.dateDuJour());    
         pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("idtiers").setAutre("readonly");
-        pi.getFormu().getChamp("idtiers").setLibelle("Tier");
-
+        pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("avancement").setVisible(false);
         pi.getFormu().getChamp("idtravaux").setLibelle("Travaux");
         pi.getFormu().getChamp("datydebut").setLibelle("Date debut");
         pi.getFormu().getChamp("datyfin").setLibelle("Date fin");
-        pi.getFormu().getChamp("nom").setLibelle("Désignation");
+        pi.getFormu().getChamp("nom").setLibelle("D&eacute;signation");
+        
+        pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+        pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+        pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
+        pi.getFormu().getChamp("projet").setAutre("readonly");
+        pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
 
         pi.preparerDataFormu();
 %>

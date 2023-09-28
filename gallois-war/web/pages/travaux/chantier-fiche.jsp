@@ -21,12 +21,18 @@
     pc.getChampByName("id").setVisible(false);
     pc.getChampByName("idtiers").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("codeetablissement").setVisible(false);
+    pc.getChampByName("projet").setVisible(false);
+    pc.getChampByName("travaux").setVisible(false);
 
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("idtravaux").setLibelle("travaux");
     pc.getChampByName("datydebut").setLibelle("Date début");
     pc.getChampByName("datyfin").setLibelle("Date fin");
     pc.getChampByName("avancement").setLibelle("Avancement %");
+    pc.getChampByName("dirtravaux").setLibelle("Direction");
+    pc.getChampByName("codeetablissementlib").setLibelle("Code &eacute;tablissement");
+    pc.getChampByName("projetlib").setLibelle("Projet");
     c = (Chantier) pc.getBase();
     pc.getChampByName("idtravaux").setLien((String) session.getValue("lien") + "?but=travaux/travaux-fiche.jsp","id="+ c.getTravaux()+"&id=");
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));

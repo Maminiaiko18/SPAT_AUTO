@@ -10,6 +10,7 @@
 <%@ page import="utilitaire.*"%>
 <%@ page import="affichage.*"%>
 <%
+    try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     Chantier chantier = new Chantier();
     chantier.setNomTable("CHANTIER_LIB_NOM");
@@ -19,6 +20,8 @@
     Chantier base = (Chantier) pi.getBase();
     pi.getFormu().getChamp("idtiers").setValeurLibelle(base.getNomtiers());
     pi.getFormu().getChamp("idtravaux").setValeurLibelle(base.getNomtravaux());
+    pi.getFormu().getChamp("codeetablissement").setValeurLibelle(base.getCodeetablissementlib());
+    pi.getFormu().getChamp("projet").setValeurLibelle(base.getProjetlib());
     pi.getFormu().getChamp("idtravaux").setPageAppel("choix/listeTravauxChoix.jsp");
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
@@ -33,6 +36,16 @@
     pi.getFormu().getChamp("avancement").setVisible(false);
     pi.getFormu().getChamp("nomtiers").setVisible(false);
     pi.getFormu().getChamp("nomtravaux").setVisible(false);
+    pi.getFormu().getChamp("dirtravaux").setVisible(false);
+    pi.getFormu().getChamp("codeetablissementlib").setVisible(false);
+    pi.getFormu().getChamp("projetlib").setVisible(false);
+    
+    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
+    pi.getFormu().getChamp("projet").setAutre("readonly");
+    pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
+    
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
@@ -59,3 +72,12 @@
         </div>
     </div>
 </div>
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+%>
+    <script language="JavaScript">
+        alert('<%=e.getMessage()%>');
+        history.back();
+    </script>
+<% }%>
