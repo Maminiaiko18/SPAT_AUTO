@@ -23,7 +23,9 @@
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
     pi.getFormu().getChamp("idtravaux").setAutre("readonly");
-    pi.getFormu().getChamp("idtiers").setLibelle("tiers");
+    pi.getFormu().getChamp("tiers").setVisible(false);
+    pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
+    pi.getFormu().getChamp("tierslib").setVisible(false);
     pi.getFormu().getChamp("idtravaux").setLibelle("Travaux");
     pi.getFormu().getChamp("datydebut").setLibelle("date de début");
     pi.getFormu().getChamp("datyfin").setLibelle("date fin");
