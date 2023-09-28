@@ -68,7 +68,7 @@
 
         affichage.Champ[] liste = new affichage.Champ[4];
         Caisse esc = new Caisse();
-        esc.setNomTable("caisse");
+        esc.setNomTable("CAISSE_REEL");
         liste[0] = new Liste("caisse", esc, "VAL", "id");
 
         TypeObjet op = new TypeObjet();
