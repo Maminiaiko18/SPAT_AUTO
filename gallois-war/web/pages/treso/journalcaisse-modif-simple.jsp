@@ -9,6 +9,7 @@
 <%@ page import="bean.*"%>
 <%@ page import="utilitaire.*"%>
 <%@ page import="affichage.*"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
@@ -24,13 +25,15 @@
             pi.getFormu().getChamp("dateEffet").setVisible(false);
         }
     }
-    pi.getFormu().getChamp("numcheque").setLibelle("Numero ch�que");
+    pi.getFormu().getChamp("numcheque").setLibelle("Numero chèque");
     pi.getFormu().getChamp("idordre").setLibelle("Ordre");
     pi.getFormu().getChamp("idordre").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("typemvt").setVisible(false);
     pi.getFormu().getChamp("Etatversement").setVisible(false);
+    pi.getFormu().getChamp("retour").setVisible(false);
+
 
     affichage.Champ[] liste = new affichage.Champ[1];
         TypeObjet banque = new TypeObjet();
