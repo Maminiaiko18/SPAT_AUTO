@@ -33,6 +33,8 @@
     pi.getFormu().getChamp("Numero_cnaps").setLibelle("numero cnaps");
     pi.getFormu().getChamp("Salaire_base").setLibelle("salaire de base *");
     pi.getFormu().getChamp("age").setVisible(true);
+    pi.getFormu().getChamp("direction").setPageAppel("choix/listeDirectionChoix.jsp");
+    pi.getFormu().getChamp("direction").setAutre("readonly");
     
   
     

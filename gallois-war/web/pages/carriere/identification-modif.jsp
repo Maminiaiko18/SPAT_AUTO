@@ -34,6 +34,8 @@
     pi.getFormu().getChamp("Numero_virement").setLibelle("numero virement");
     pi.getFormu().getChamp("Numero_cnaps").setLibelle("numero cnaps");
     pi.getFormu().getChamp("Salaire_base").setLibelle("salaire de base *");
+    pi.getFormu().getChamp("direction").setPageAppel("choix/listeDirectionChoix.jsp");
+    pi.getFormu().getChamp("direction").setAutre("readonly");
    
     affichage.Champ[] liste = new affichage.Champ[4];
     

@@ -36,6 +36,11 @@ public class Direction extends ClassMAPTable {
 	}
 
         @Override
+        public String getValColLibelle(){
+            return getLibelledir();
+        }
+        
+        @Override
 	public String getAttributIDName() {
 		return "idDir";
 	}
