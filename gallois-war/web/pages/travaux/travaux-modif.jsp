@@ -16,6 +16,7 @@
     PageUpdate pi = new PageUpdate(travaux, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
+    Travaux base = (Travaux) pi.getBase();
 
     pi.getFormu().getChamp("datedebut").setLibelle("Date début");
     pi.getFormu().getChamp("datefin").setLibelle("Date fin");
@@ -43,6 +44,9 @@
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tierslib").setVisible(false);
+    pi.getFormu().getChamp("tiers").setValeurLibelle(base.getTierslib());
+    pi.getFormu().getChamp("projet").setValeurLibelle(base.getProjetlib());
+    pi.getFormu().getChamp("codeetablissement").setValeurLibelle(base.getCodeetablissementlib());
 %>
 <div class="content-wrapper">
     <div class="row">
