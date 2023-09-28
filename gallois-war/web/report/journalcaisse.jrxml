@@ -79,7 +79,7 @@
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["JOURNAL CAISSE "+$P{daty}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["JOURNAL CAISSE DU "+$P{daty}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="477" y="19" width="78" height="20" uuid="04044644-40e8-4016-8670-79a7baf88706"/>

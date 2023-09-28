@@ -339,7 +339,7 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{lettre}+" Ariary"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{lettre}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
