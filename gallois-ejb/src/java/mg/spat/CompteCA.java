@@ -13,6 +13,15 @@ import bean.TypeObjet;
  */
 public class CompteCA extends TypeObjet{
     String libelle; 
+    String idGrandRubrique;
+
+    public String getIdGrandRubrique() {
+        return idGrandRubrique;
+    }
+
+    public void setIdGrandRubrique(String idGrandRubrique) {
+        this.idGrandRubrique = idGrandRubrique;
+    }
 
     public String getLibelle() {
         return libelle;

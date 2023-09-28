@@ -108,6 +108,7 @@ import mg.spat.CA;
 import mg.spat.CaPDF;
 import mg.spat.CargaisonAnalyse;
 import mg.spat.ClientCategorie;
+import mg.spat.CompteCA;
 import mg.spat.Engagement;
 import mg.spat.EngagementFille;
 import mg.spat.EtatCA;
@@ -2530,7 +2531,6 @@ public class EtatPaieServlet extends HttpServlet {
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
 
             AvoirFC[] mere = (AvoirFC[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
-
             TypeObjet cat = mere[0].getCategorie(null);
             if (cat != null && cat.getVal().compareTo("-") != 0) {
                 param.put("categorie", cat.getVal());
@@ -2539,6 +2539,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
             String signature = "";
 
+             param.put("daty", mere[0].getDaty());
             //param.put("daty", utilitaire.Utilitaire.dateDuJourSql());
             param.put("daty", mere[0].getDaty());
             param.put("code", mere[0].getCode());
@@ -2625,7 +2626,18 @@ public class EtatPaieServlet extends HttpServlet {
                 signature = "Le Chef du Service Traitement et Reclamations";
                 param.put("signature", signature);
             } else {
+                FactureClientDetails[] fcdetails = (FactureClientDetails[]) CGenUtil.rechercher(new FactureClientDetails(), null, null, c, " and idmere = '" + mere[0].getIdfacture() + "'");
+                CompteCA temp = new CompteCA();
+                temp.setNomTable("COMPTECA");
+                CompteCA[] compte = (CompteCA[]) CGenUtil.rechercher( temp,null, null, c, " and val = '" + fcdetails[0].getCompte() + "'");
+                //mere CA
+                CompteCA temp2 = new CompteCA();
+                temp2.setNomTable("MERECA");
+                CompteCA[] mereCA = (CompteCA[]) CGenUtil.rechercher( temp2,null, null, c, " and id = '" + compte[0].getDesce() + "'");
                 signature = "Le Capitaine du Port";
+                if(mereCA[0].getIdGrandRubrique().compareToIgnoreCase(Constante.prestationConventions)==0){
+                    signature = "Le Directeur des Affaires Juridiques et du Patrimoine Portuaire";
+                }
                 param.put("signature", signature);
             }
             ClientCategorie clg = new ClientCategorie();
