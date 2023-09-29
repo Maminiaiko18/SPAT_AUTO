@@ -161,10 +161,11 @@ public class BordereauFF extends Bordereau{
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         FactureFournisseur[] listeFille=this.getFactures(c);
         if(listeFille!=null && listeFille.length>0){
-           for(FactureFournisseur details : listeFille){
-               if(details.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + details.getId() + " d\\351j\\340 vis\\351e.");
-           }
-
+            if(this.getTypebordereau().compareToIgnoreCase(Constante.typeEtatDepense)!=0){
+                for(FactureFournisseur details : listeFille){
+                    if(details.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + details.getId() + " déjà visée.");
+                }
+            }
             if(listeFille[0]!=null){
                 this.setDirection(listeFille[0].getCode_etablissement());
                 this.setProjet(listeFille[0].getProjet());
