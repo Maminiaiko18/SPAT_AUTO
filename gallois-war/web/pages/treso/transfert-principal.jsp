@@ -1,0 +1,118 @@
+<%-- 
+    Document   : billetage-saisie
+    Created on : 6 nov. 2019, 15:57:44
+    Author     : john
+--%>
+
+<%@page import="mg.spat.Billetage"%>
+<%@page import="mg.spat.DetailsBilletage"%>
+<%@page import="mg.spat.Cloture"%>
+<%@page import="mg.spat.JournalCaisse"%>
+<%@ page import="user.*" %>
+<%@ page import="bean.*" %>
+<%@ page import="utilitaire.*" %>
+<%@ page import="affichage.*" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    try{
+        String autreparsley = "data-parsley-range='[8, 40]' required";
+        UserEJB u = (user.UserEJB) session.getValue("u");
+        Billetage billetage = new Billetage();
+        billetage.setNomTable("TRANFERT_COFFRE");
+        DetailsBilletage billetageFille = new DetailsBilletage();
+        String[] billets = {"20000", "10000", "5000", "2000", "1000", "500", "200","100"};
+        int size = billets.length;
+        PageInsertMultiple pi = new PageInsertMultiple(billetage, billetageFille, request, size, u);
+        pi.setLien((String) session.getValue("lien"));
+        
+        affichage.Liste[] liste = new affichage.Liste[2];
+        
+        TypeObjet esc = new TypeObjet();
+        esc.setNomTable("CAISSE_BILLETAGE");
+        
+        liste[0] = new Liste("caisse", esc, "VAL", "id");
+        String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
+        if(idUser.compareToIgnoreCase("1469")==0 ) {
+            liste[0].setDefaultSelected(Constante.caisseDepense);
+        }else if(idUser.compareToIgnoreCase("1502")==0 ){
+            liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
+        }
+
+        TypeObjet coffre = new TypeObjet();
+        coffre.setNomTable("COFFRE_PRINCIPAL");
+        liste[1] = new Liste("caissedepart", coffre, "VAL", "id");
+
+        pi.getFormu().changerEnChamp(liste);
+        
+        pi.preparerDataFormu();
+        
+        pi.getFormu().getChamp("daty").setDefaut(""+new Utilitaire().dateDuJour());
+        pi.getFormu().getChamp("montant").setVisible(false);
+        pi.getFormu().getChamp("idtransfert").setVisible(false);    
+        
+        for(int i = 0 ; i < pi.getFormufle().getNbLigne() ; i ++ )
+        {
+            pi.getFormufle().getChamp("idmere_"+i).setVisible(false);
+            pi.getFormufle().getChamp("id_"+i).setVisible(false);
+            pi.getFormufle().getChamp("billet_"+i).setDefaut(billets[i]);
+            pi.getFormufle().getChamp("billet_"+i).setAutre("readonly");
+            pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
+            pi.getFormufle().getChamp("nombre_"+i).setAutre("onchange=\"afficherMontant('billet_"+i+"','nombre_"+i+"','montant_"+i+"')\"");
+        }
+        pi.getFormu().getChamp("caissedepart").setLibelle("Caisse départ");
+        pi.getFormu().getChamp("caisse").setLibelle("Caisse arrivée");
+        pi.getFormu().getChamp("etat").setVisible(false);
+        pi.getFormu().getChamp("daty").setLibelle("Date");
+        pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+        pi.getFormufle().getChamp("billet_0").setLibelle("Billet");
+        pi.getFormufle().getChamp("nombre_0").setLibelle("Nombre");
+        
+        
+        
+%>
+<div class="content-wrapper">
+    <h1>Transfert coffre principal vers caisse physique</h1>
+    <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="attInscription" id="attInscription" data-parsley-validate>
+        <%
+            pi.getFormu().makeHtmlInsertTabIndex();
+            pi.getFormufle().makeHtmlInsertTableauIndex();
+            //System.out.println(pi.getFormu().getHtmlTableauInsert());
+            out.println(pi.getFormu().getHtmlInsert());
+            out.println(pi.getFormufle().getHtmlTableauInsert());
+        %>
+        
+        <input name="size" type="hidden" id="size" value="<%=size%>">
+        <input name="acte" type="hidden" id="nature" value="insert">
+        <input name="bute" type="hidden" id="bute" value="treso/transfert-principal-fiche.jsp">
+        <input name="classe" type="hidden" id="classe" value="mg.spat.Billetage">
+        <input name="classefille" type="hidden" id="classefille" value="mg.spat.DetailsBilletage">
+        <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%= size %>">
+        <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
+    </form>
+</div>
+<script>
+var tfoot = document.createElement("tr");
+tfoot.setAttribute("id","totalfarany");
+document.getElementsByClassName("table-bordered")[1].appendChild(tfoot);
+document.getElementById("totalfarany").innerHTML='<tr><td></td><td></td><td>TOTAL</td><td ><input type="textbox" class="form-control" id="totalBillet" readonly></td></tr>';
+function afficherMontant(billet,quantite,montant) {
+    var x = document.getElementById(billet).value;
+    var y = document.getElementById(quantite).value;
+    var result = x*y;
+    document.getElementById(montant).value =  result;
+    var size=document.getElementById('size').value;
+    var total=0;
+    for(i=0;i<size;i++){
+        montant=document.getElementById('montant_'+i).value;
+        if(montant === null || montant===""){
+            montant=0;
+        }
+        total+=parseInt(montant);
+    }
+    document.getElementById('totalBillet').value =  total;
+}
+</script>
+<%}catch(Exception e){
+    e.printStackTrace();
+}%>

@@ -17,6 +17,7 @@
 <%@ page import="affichage.*" %>
 <%@page import="mg.spat.AttacherFichier"%>
 <%@page import="service.UploadService"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     try{
@@ -75,7 +76,7 @@
                                 <%if (bi.getEtat() != ConstanteEtat.getEtatValider()) {%>
                                 <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=treso/billetage-fiche.jsp&classe=mg.spat.Billetage">Viser</a> 
                                 <%} %>
-                                
+                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerTransfertCaisse&id=<%=bi.getIdtransfert()%>" style="margin-right: 10px">Imprimer</a>
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=treso/billetage-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                             </p>
                         </div>
@@ -88,11 +89,12 @@
     <div class="row">
         <div class="col-md-12">
         
-            <% if(!(Boolean)test.get(0)){%>
+            <% if(!(Boolean)test.get(0)){
+                if(bi.getEtat()!=11) {%>
             <div class="alert alert-danger" role="alert">
-                Attention! Le montant du billetage n'est pas conforme � la somme dans le journal caisse. Montant billetage: <b><%=Utilitaire.formaterAr((Double)test.get(1))%>Ar</b> et Solde journal caisse: <b><%=Utilitaire.formaterAr((Double)test.get(2))%>Ar</b>
+                Attention! Le montant du billetage n'est pas conforme à la somme dans le journal caisse. Montant billetage: <b><%=Utilitaire.formaterAr((Double)test.get(1))%>Ar</b> et Solde journal caisse: <b><%=Utilitaire.formaterAr((Double)test.get(2))%>Ar</b>
             </div>
-            <% } %>
+            <% } }%>
             <section class="content-header">
 
             </section>
