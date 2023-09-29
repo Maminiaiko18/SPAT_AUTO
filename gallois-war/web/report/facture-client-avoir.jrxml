@@ -151,6 +151,7 @@
 	<parameter name="pdaty3" class="java.util.Date"/>
 	<parameter name="tp" class="java.lang.String"/>
 	<parameter name="ttcEuro" class="java.lang.Double"/>
+	<parameter name="suite" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -718,10 +719,10 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="499" y="248" width="410" height="20" uuid="85575c7b-9ba1-4a6e-b214-f4a333e7d9de"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="15" isBold="true"/>
+			<textField>
+				<reportElement x="546" y="248" width="363" height="20" uuid="85575c7b-9ba1-4a6e-b214-f4a333e7d9de"/>
+				<textElement verticalAlignment="Top">
+					<font size="15" isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{signature}]]></textFieldExpression>
 			</textField>
@@ -867,6 +868,13 @@
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="546" y="268" width="363" height="20" uuid="2159468e-a24f-4c06-b75b-07d0f6f88d2d"/>
+				<textElement>
+					<font size="15" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{suite}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
