@@ -1144,6 +1144,7 @@ public class FactureFournisseur extends FactureClient {
                 }
                 if(resteAEngager > 0){
                     ff.setTypeEngagement(Constante.typeEngagementFF);
+                    if(lies.length > 0)ff.setChantier(lies[0].getChantier());
                     ff.createEngagement(u, c, resteAEngager, lc, controleMontant);
                     this.setIdengagement(ff.getIdengagement());
                 }
@@ -1530,6 +1531,7 @@ public class FactureFournisseur extends FactureClient {
     public void createEngagement(String u, Connection c, double montant, LigneCredit lc, boolean controleBudget) throws Exception {
         try{
             Engagement engagement = new Engagement(this.getNumeroop(), this.getCode_etablissement() , this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), Utilitaire.dateDuJourSql(), this.getTiers(), 0);
+            engagement.setChantier(this.getChantier());
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }
