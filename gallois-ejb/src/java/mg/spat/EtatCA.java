@@ -11,7 +11,11 @@ import fin.Coursdevise;
 import java.sql.Connection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import utilitaire.UtilDB;
@@ -33,6 +37,8 @@ public class EtatCA {
     double pourcCredit;
     int mois;
     int annee;
+    CA[] CAtout;
+    String idgrandrubrique;
 
     public CA getTotalGeneral() {
         return totalGeneral;
@@ -114,20 +120,33 @@ public class EtatCA {
         this.annee = annee;
     }
 
+    public CA[] getCAtout() {
+        return CAtout;
+    }
+
+    public void setCAtout(CA[] CAtout) {
+        this.CAtout = CAtout;
+    }
+
+    public String getIdgrandrubrique() {
+        return idgrandrubrique;
+    }
+
+    public void setIdgrandrubrique(String idgrandrubrique) {
+        this.idgrandrubrique = idgrandrubrique;
+    }
+
     public EtatCA() {
     }
 
     public HashMap<String, CA> getetatcagen (int mois, int annee,CA[] cas){
         //ArrayList<CA> ca = new ArrayList<CA>();
-        HashMap<String, CA> cahmap=new HashMap<String, CA>();
+        HashMap<String, CA> cahmap=new LinkedHashMap<String, CA>();
         
         int taillecas = cas.length;
 
         for(int i = 0;i< taillecas;i++){
-            //System.out.println("numero du compte "+cas[i].getCompte());
             if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee())))&& cas[i].getCheckReport()==0 ){
-              //  System.out.println("Niditra IFFF");
-
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     if(cas[i].getMois()<mois)
@@ -162,11 +181,9 @@ public class EtatCA {
                     temp.setAvoir(0);
                     cahmap.put(cas[i].getCompte(),temp);
                 }
-                
             }
             
             else if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee())))&&cas[i].getCheckReport()==1 ){
-
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     if(cas[i].getMois()==mois)
@@ -197,7 +214,6 @@ public class EtatCA {
             }
             
             else if (cas[i].getMois()==mois && cas[i].getAnnee()== annee&&cas[i].getMoisFact()==cas[i].getMois()&&cas[i].getAnneeFact()==annee){
-                //System.out.println("NIditra Else IFFF");
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     temp.setAvoirEETP(temp.getAvoirEETP()+cas[i].getAvoir());
@@ -224,6 +240,21 @@ public class EtatCA {
         this.calculerTauxEtHashMap(tout);
         this.calculerHashMapPartiel();
     }
+        
+    public EtatCA(int mois, int annee, String idGrandrubrique, boolean estGroupeAncien) throws Exception {
+        CA[] tout = getCACpl(mois, idGrandrubrique, annee);
+        this.setCAtout(tout);
+        this.calculCATotal(tout);
+        this.calculerTauxEtHashMap(tout);
+        this.calculerHashMapPartiel();
+    }
+        
+    public EtatCA(int mois, int annee, String idGrandrubrique, boolean estGroupeAncien, Connection c) throws Exception {
+        CA[] tout = getCACpl(mois, idGrandrubrique, annee, c);
+        this.calculCATotal(tout);
+        this.calculerTauxEtHashMap(tout);
+        this.calculerHashMapPartiel();
+    }
     
     public EtatCA(int mois, int annee, boolean estGroupeAncien,String devise) throws Exception {
         CA[] tout = getCACpl(mois, annee, devise);
@@ -237,19 +268,20 @@ public class EtatCA {
     }
 
     public void calculCATotal(CA[] tout) {
-        String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "nbComptant", "nbCredit"};
-        double[] total = AdminGen.calculSommeDouble(tout, cols);
+        if(tout != null && tout.length > 0){
+            String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "nbComptant", "nbCredit"};
+            double[] total = AdminGen.calculSommeDouble(tout, cols);
 
-        if (total!=null&&total.length > 0) {
-            totalGeneral = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
-            totalGeneral.setNbComptant((int)total[6]);
-            totalGeneral.setNbCredit((int)total[7]);
-            
-            pourcAvoir = (totalGeneral.getAvoirEETP() / totalGeneral.getTotal()) * 100;
-            pourComptant = (totalGeneral.getComptant() / totalGeneral.getTotal()) * 100;
-            pourcCredit = (totalGeneral.getCredit() / totalGeneral.getTotal()) * 100;
+            if (total!=null&&total.length > 0) {
+                totalGeneral = new CA(null, "TOTAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
+                totalGeneral.setNbComptant((int)total[6]);
+                totalGeneral.setNbCredit((int)total[7]);
+
+                pourcAvoir = (totalGeneral.getTotal() == 0) ? 0 : (totalGeneral.getAvoirEETP() / totalGeneral.getTotal()) * 100;
+                pourComptant = (totalGeneral.getTotal() == 0) ? 0 : (totalGeneral.getComptant() / totalGeneral.getTotal()) * 100;
+                pourcCredit = (totalGeneral.getTotal() == 0) ? 0 : (totalGeneral.getCredit() / totalGeneral.getTotal()) * 100;
+            }
         }
-        
     }
 
     public String[] addCAByCompteMere(String compteMere, CA[] tout) {
@@ -257,7 +289,10 @@ public class EtatCA {
         List<String> compteMereAlreadyExist = new ArrayList<String>();
         for(int i=0; i<tout.length; i++) {
             if(compteMere.equalsIgnoreCase(tout[i].getCompteMerelib())) {
-                tout[i].setTaux(tout[i].getTotal() / totalGeneral.getTotal() * 100);
+                if(totalGeneral.getTotal() == 0)
+                    tout[i].setTaux(0);
+                else
+                    tout[i].setTaux(tout[i].getTotal() / totalGeneral.getTotal() * 100);
                 caList.add(tout[i]);
             }
         }
@@ -280,7 +315,7 @@ public class EtatCA {
     public void calculerTauxEtHashMap(CA[] tout) {
         if(totalGeneral==null)return;
         String[] compteMereAlreadyExist = null;
-        this.listeParRubrique = new HashMap<String, CA[]>();
+        this.listeParRubrique = new LinkedHashMap<String, CA[]>();
         totalGeneral.setTaux(0);
         for(int i=0; i<tout.length; i++) {
             if(!this.checkCompteMereAlreadyExist(tout[i].getCompteMerelib(), compteMereAlreadyExist)) {
@@ -305,10 +340,13 @@ public class EtatCA {
         totalGeneral.setTaux(totalTaux);
     }
      
-    public CA[] getCACpl(int mois, int annee) throws Exception{
-        Connection c = null;
+    public CA[] getCACpl(int mois, int annee, Connection c, boolean b) throws Exception{
+        boolean ouvert = false;
         try{
-            c = new UtilDB().GetConn();
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                ouvert = true;
+            }
             CA base = new CA();
             base.setNomTable("CompteCAFactAvoir_grp");
             CA[] result = (CA[]) CGenUtil.rechercher(base, null, null, c, " and annee="+annee+ " and mois<="+mois+" order by mois asc, compte asc");
@@ -338,7 +376,92 @@ public class EtatCA {
         } catch(Exception ex){
             throw ex;
         } finally{
-            if(c != null) c.close();
+            if(c != null && ouvert) c.close();
+        }
+    }
+     
+    public CA[] getCACpl(int mois, int annee) throws Exception{
+        try{
+            return this.getCACpl(mois, annee, null, false);
+        } catch(Exception ex){
+            throw ex;
+        }
+    }
+     
+    public CA[] getCACpl(int mois, String idGrandRubrique, int annee, Connection c) throws Exception{
+        boolean ouvert = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                ouvert = true;
+            }
+            CA base = new CA();
+            base.setNomTable("CompteCAFactAvoir_grp");
+            String requete = "SELECT\n" +
+"	RANGMERECA AS RANGMERECA,\n" +
+"	nvl(c.RANGCOMPTECA,j.rangcompteca) as RANGCOMPTECA,\n" +
+"	nvl(c.RUBRIQUE,'-') AS rubrique,\n" +
+"	nvl(c.RUBRIQUELIB,'-') AS rubriquelib,\n" +
+"	nvl(c.COMPTE,j.VAL) AS compte ,\n" +
+"	nvl(c.LIBELLE,j.LIBELLE ) AS LIBELLE ,\n" +
+"	nvl(c.COMPTEMERE,j.comptemere) AS comptemere,\n" +
+"	nvl(c.COMPTEMERELIB,j.comptemerelib) AS comptemerelib,\n" +
+"	nvl(c.MERE,j.DESCE) AS mere,\n" +
+"	nvl(c.MOIS," + mois + ") AS mois,\n" +
+"	nvl(c.ANNEE," + annee + ") AS annee,\n" +
+"	nvl(c.MOISFACT,0) AS moisfact,\n" +
+"	nvl(c.ANNEEFACT,0) AS anneefact,\n" +
+"	nvl(c.NBCREDIT,0) AS nbcredit,\n" +
+"	nvl(c.NBCOMPTANT,0) AS nbcomptant,\n" +
+"	nvl(c.CREDIT,0) AS credit,\n" +
+"	nvl(c.COMPTANT,0) AS comptant,\n" +
+"	nvl(c.MONTANT,0) AS montant,\n" +
+"	nvl(c.AVOIR,0) AS avoir,\n" +
+"	nvl(c.IDGRANDRUBRIQUE,j.IDGRANDRUBRIQUE) AS IDGRANDRUBRIQUE, c.CHECKREPORT  FROM\n" +
+"	JOINTURECA j,\n" +
+"(\n" +
+"select * from CompteCAFactAvoir_grp where 1<2  and annee = " + annee + " and mois <= " + mois + " and idgrandrubrique = '" + idGrandRubrique + "' order by mois asc, compte ASC)c \n" +
+"WHERE \n" +
+"	j.val = c.COMPTE(+)\n" +
+"	AND j.desce = c.MERE(+)\n" +
+"	AND j.idgrandrubrique = c.IDGRANDRUBRIQUE (+)\n" +
+"    AND j.IDGRANDRUBRIQUE = '" + idGrandRubrique + "' order by RANGMERECA,RANGCOMPTECA";
+            CA[] result = (CA[]) CGenUtil.rechercher(base, requete, c);
+            String[] listeCompte=AdminGen.getDistinct(result, "compte");
+            HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);
+            base.setNomTable("factureClientMAGroupe");
+            CA[] resultNombre = (CA[]) CGenUtil.rechercher(base, null, null, c, " and mois="+mois+" and annee="+annee);
+            if(resultNombre.length>0)
+            {
+                this.setNbFactComptant(resultNombre[0].getNbComptant());
+                this.setNbFactCredit(resultNombre[0].getNbCredit());
+            }
+            
+            CA[] tabCA = new CA[mapCA.size()];
+            int i = 0;
+            if(tabCA==null||tabCA.length==0)return null;
+            /*for(Map.Entry map:mapCA.entrySet())
+            {
+                System.out.println("Anaty MAP "+map.getKey());
+            }*/
+            for(String key: listeCompte){
+                tabCA[i] = mapCA.get(key);
+                i++;
+            }
+            return tabCA;
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(c != null && ouvert) c.close();
+        }
+    }
+    
+    public CA[] getCACpl(int mois, String idGrandRubrique, int annee) throws Exception{
+        try{
+            return this.getCACpl(mois, idGrandRubrique, annee, null);
+        }
+        catch(Exception e){
+            throw e;
         }
     }
     

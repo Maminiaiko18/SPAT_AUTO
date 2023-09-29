@@ -24,6 +24,15 @@ public class LiaisonIntraTable extends ClassMAPTable {
 
     private String id, id1, id2;
     private double montant;
+    public boolean checkfacture = true ;
+
+    public boolean isCheckfacture() {
+        return checkfacture;
+    }
+
+    public void setCheckfacture(boolean checkfacture) {
+        this.checkfacture = checkfacture;
+    }
 
     public LiaisonIntraTable() {
         this.setNomTable("liaisonintratable");
@@ -56,8 +65,10 @@ public class LiaisonIntraTable extends ClassMAPTable {
     public void controler(Connection c) throws Exception {
         FactureFournisseur factureFournisseur = isFactureFournisseur(c);
         if(factureFournisseur!=null) {
-            if(factureFournisseur.getEtat()< ConstanteEtat.getEtatValider()){
-                throw new Exception("Facture fournisseur avec ID ="+factureFournisseur.getId() +" non visee");
+            if(isCheckfacture()){
+                if(factureFournisseur.getEtat()< ConstanteEtat.getEtatValider()){
+                    throw new Exception("Facture fournisseur avec ID ="+factureFournisseur.getId() +" non visee");
+                }
             }
         }
         AvoirFF avoir = isAvoirFF(c);

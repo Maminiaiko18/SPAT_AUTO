@@ -72,9 +72,9 @@ public class FactureFournisseur extends FactureClient {
     private String typeEngagement;
     private boolean apresValidationException;
     private Date datedevise;
+    private String modepaiementlib;
 
-
-	public Date getDatedevise() {
+    public Date getDatedevise() {
         return datedevise;
     }
 
@@ -345,6 +345,14 @@ public class FactureFournisseur extends FactureClient {
 
     public void setApresValidationException(boolean apresValidationException) {
         this.apresValidationException = apresValidationException;
+    }
+
+    public String getModepaiementlib() {
+        return modepaiementlib;
+    }
+
+    public void setModepaiementlib(String modepaiementlib) {
+        this.modepaiementlib = modepaiementlib;
     }
     
     public FactureFournisseur() throws Exception {
@@ -783,13 +791,27 @@ public class FactureFournisseur extends FactureClient {
 
             Date dateDuJour = this.getDateRegul();
             FactureFournisseur bp = (FactureFournisseur)(new FactureFournisseur()).getById(this.getIdProvision(), "factfourn_msum_lib_fiche", con);
-            JournalCaisse transfert = new JournalCaisse(null, Constante.caisseCentraleBP, null, bp.getDesignation() , null, dateDuJour, dateDuJour, montant, 0, this.getId());
+            if(bp.getModepaiement()==null) throw new Exception("Mode de paiement Bon provisoire invalide");
+            String caisseBP = "";
+            if(bp.getModepaiement().compareToIgnoreCase(Constante.modePaiementEspece)==0) caisseBP = Constante.caisseCentraleBP;
+            else caisseBP = Constante.banqueBP;
+            JournalCaisse transfert = new JournalCaisse(null,caisseBP, null, bp.getDesignation() , null, dateDuJour, dateDuJour, bp.getMontantttc(), 0, this.getId());
             transfert.setTiers(this.getTiers());
             transfert.setIddevise(this.getDeviseMere());
-            transfert.setIdmode(Constante.modePaiementEspece);
+            transfert.setIdmode(bp.getModepaiement());
             transfert.setEtat(ConstanteEtat.getEtatValider());
-
             transfert.createObject(u, con);
+
+            OrdonnerPayement[] op = ((OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, con, " and DED_ID = '" + this.getIdProvision() + "'"));
+            if( op.length > 0 && op[0] != null){
+                op[0].setDed_Id(op[0].getDed_Id()+";"+this.getId());
+                op[0].updateToTable(con);
+
+                LiaisonIntraTable liaison = new LiaisonIntraTable(this.getId(), op[0].getId(), montant);
+                liaison.setCheckfacture(false);
+                liaison.createObject(u, con);
+            }
+
 
             if (verif) {
                 con.commit();
@@ -894,6 +916,10 @@ public class FactureFournisseur extends FactureClient {
             if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getNum() == null) {
                 this.setNum(this.calculerNumeroBP(c));
             }
+            
+            if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && (this.getModepaiement() == null || this.getModepaiement().compareToIgnoreCase(Constante.paiementNull) == 0)) {
+                throw new Exception("Vous devez choisir un mode de paiement");
+            }
 
             if (this.getIdengagement() != null) {
                 double resteAEngager = ff.getMontant();
@@ -961,7 +987,9 @@ public class FactureFournisseur extends FactureClient {
                 }
             }
             this.setNomTable("facture_fournisseur_mere");
-            this.verifyOPmtt(u,c);
+            if(this.getIdProvision()==null){
+                this.verifyOPmtt(u,c);
+            }
 
             super.validerObject(u, c);
             
@@ -1105,7 +1133,9 @@ public class FactureFournisseur extends FactureClient {
             }
 
             this.setNomTable("facture_fournisseur_mere");
-            this.verifyOPmtt(u,c);
+             if(this.getIdProvision()==null){
+                this.verifyOPmtt(u,c);
+            }
             super.validerObject(u, c);
             if(verif == 1)c.commit();
         }catch(Exception e){
@@ -1363,7 +1393,10 @@ public class FactureFournisseur extends FactureClient {
             engagement.setTiers(this.getTiers());
             engagement.construirePK(c);
 
-            FactureFournisseurDetails[] filles = (FactureFournisseurDetails[]) this.getFille("FACTFOURN_FILL_LIB_REST_TAXE", c, "");
+            FactureFournisseurDetails dets = new FactureFournisseurDetails();
+            dets.setNomTable("FACTFOURN_FILL_LIB_REST_TAXE");
+            FactureFournisseurDetails[] filles = (FactureFournisseurDetails[]) CGenUtil.rechercher(new FactureFournisseurDetails(), null, null, c, " and idmere = '" + this.getId() + "'");
+                    //this.getFille("FACTFOURN_FILL_LIB_REST_TAXE", c, "");
 
             engagement.setAvecFacture(0);
             engagement.createObject(u, c);

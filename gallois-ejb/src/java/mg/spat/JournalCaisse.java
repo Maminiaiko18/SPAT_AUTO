@@ -35,6 +35,7 @@ import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 import ded.PaiementOP;
+import mg.allosakafo.produits.LiaisonIntraTable;
 
 /**
  *
@@ -55,6 +56,7 @@ public class JournalCaisse extends ClassEtat {
     private Date dateSaisie, dateEffet;
     private double debit, credit, montant;
     private String retour;
+    private boolean creationAuto;
     
     public String getRetour() {
         return retour;
@@ -773,6 +775,14 @@ public class JournalCaisse extends ClassEtat {
         this.reste = reste;
     }
 
+    public boolean getCreationAuto() {
+        return creationAuto;
+    }
+
+    public void setCreationAuto(boolean creationAuto) {
+        this.creationAuto = creationAuto;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -967,7 +977,7 @@ public class JournalCaisse extends ClassEtat {
                         String numeroPiece = calculerNumeroPieceDepense(c);
                         this.setNumPiece(numeroPiece);
                     }
-                    if(opTsotra!=null){
+                    if(opTsotra!=null && this.getCreationAuto() == false){
                         PaiementFacture[] lpf=opTsotra.genererPaiementFacture(c,this);
                         if(lpf.length>0){
                             for(int i=0;i<lpf.length;i++){
@@ -1029,6 +1039,11 @@ public class JournalCaisse extends ClassEtat {
                 if(this.getIdplacement()!=null){
                     if(this.getCredit() > 0) this.arrondir();
                 }
+            }
+            
+            FactureFournisseur facture = this.getFacture("facture_fournisseur_mere", c);
+            if(facture!=null && facture.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getCreationAuto() == false){
+                this.genererAutoParBP(user, c);
             }
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
@@ -1238,7 +1253,7 @@ public class JournalCaisse extends ClassEtat {
                     if(ff.getIdcategorie() != null && ff.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())){
                         aPayer = genererMontantPaiement(c, "etatbpvrai", ff.getId(), aPayer);
                         //Insérer dans bon provisoire
-                        insererDansBonProvisoire(refuser, c, 0, this.getDebit(), Utilitaire.dateDuJourSql());
+                        //insererDansBonProvisoire(refuser, c, 0, this.getDebit(), Utilitaire.dateDuJourSql());
                     }
                     
                     PaiementFacture pf = new PaiementFacture();
@@ -1751,5 +1766,71 @@ public class JournalCaisse extends ClassEtat {
         }
     }
     
+    public FactureFournisseur getFacture(String nomtable, Connection c) throws Exception {
+    int verif = 0;
+        try {
+            if (c == null) {
+                    c = (new UtilDB()).GetConn();
+                    verif = 1;
+            }
+            String awhere = "";
+            if(this.getIdplacement() == null && this.getIdordre() != null){
+                LiaisonIntraTable liaison = new LiaisonIntraTable();
+                LiaisonIntraTable[] liaisonIntraTables = (LiaisonIntraTable[])CGenUtil.rechercher(liaison, null, null, c, " and id2 = '" + this.getIdordre() + "'");
+                if(liaisonIntraTables.length > 0){
+                    awhere = String.format(" and id = '%s' ", liaisonIntraTables[0].getId1());
+                }
+            }
+            else if(this.getIdplacement() != null){ 
+                awhere = String.format(" and id = '%s' ", this.getIdplacement());
+            }
+
+            if(nomtable == null || nomtable.compareTo("")==0) nomtable = "facture_fournisseur_mere";
+            FactureFournisseur ff = new FactureFournisseur();
+            ff.setNomTable(nomtable);
+            FactureFournisseur[] result = (FactureFournisseur[])CGenUtil.rechercher(ff, null, null, c, awhere);
+            if(result != null && result.length > 0) 
+                return result[0];
+            return null;
+        } catch(Exception e){
+            throw e;
+        }finally {
+            if (c != null && verif == 1) {
+                    c.close();
+            }
+        }
+    }
     
+    public void genererAutoParBP(UserEJBBean user, Connection c) throws Exception {
+        
+        try{
+            JournalCaisse caisse = new JournalCaisse();
+            caisse.setIdmode(this.getIdmode());
+            if(this.getIdmode().compareToIgnoreCase(Constante.modePaiementEspece) == 0){
+                caisse.setCaisse(Constante.caisseCentraleBP);
+                caisse.setLibelle(this.getLibelle());
+            }
+            else {
+                caisse.setCaisse(Constante.banqueBP);
+                caisse.setLibelle(this.getLibelle());
+                caisse.setIdbanque(this.getIdbanque());
+            }
+            caisse.setCreationAuto(true);
+            caisse.setCredit(this.getDebit());
+            caisse.setDateSaisie(Utilitaire.dateDuJourSql());
+            caisse.setDateEffet(this.getDateEffet());
+            caisse.setTiers(this.getTiers());
+            caisse.setMode(this.getMode());
+            caisse.setIdordre(this.getIdordre());
+            caisse.setIdplacement(this.getIdplacement());
+            caisse.setIdTypeCheque(this.getIdTypeCheque());
+            caisse.setIdmode(this.getIdmode());
+            caisse.setEtat(ConstanteEtat.getEtatObjetValider());
+            caisse.createObject(user.getUser().getTuppleID(), c);
+        }
+        catch(Exception e){
+            throw e;
+        }
+        
+    }
 }

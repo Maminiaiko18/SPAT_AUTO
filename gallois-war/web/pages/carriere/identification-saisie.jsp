@@ -21,18 +21,19 @@
     pi.getFormu().getChamp("telephone").setLibelle("Telephone *");
     pi.getFormu().getChamp("numero_matricule").setLibelle("Numero matricule *");
     pi.getFormu().getChamp("date_embauche").setLibelle("Date embauche *");
-    pi.getFormu().getChamp("anciennete_poste").setLibelle("Ancienneté poste");
-    pi.getFormu().getChamp("nom_prenom_epoux").setLibelle("Nom et prénom de l'époux");
-    pi.getFormu().getChamp("nom_prenom_pere").setLibelle("Nom et prénom du père *");
-    pi.getFormu().getChamp("nom_prenom_mere").setLibelle("Nom et prénom de la mère *");
+    pi.getFormu().getChamp("anciennete_poste").setLibelle("Anciennetï¿½ poste");
+    pi.getFormu().getChamp("nom_prenom_epoux").setLibelle("Nom et prï¿½nom de l'ï¿½poux");
+    pi.getFormu().getChamp("nom_prenom_pere").setLibelle("Nom et prï¿½nom du pï¿½re *");
+    pi.getFormu().getChamp("nom_prenom_mere").setLibelle("Nom et prï¿½nom de la mï¿½re *");
     pi.getFormu().getChamp("Indemnite_fonction").setLibelle("Indemnite de fonction *");
-    pi.getFormu().getChamp("Indemnite_conge_paye").setLibelle("Indemnite de conge payé *");
-    pi.getFormu().getChamp("Indemnite_deplacement").setLibelle("Indemnite de déplacement *");
+    pi.getFormu().getChamp("Indemnite_conge_paye").setLibelle("Indemnite de conge payï¿½ *");
+    pi.getFormu().getChamp("Indemnite_deplacement").setLibelle("Indemnite de dï¿½placement *");
     pi.getFormu().getChamp("Indemnite_risque").setLibelle("Indemnite de risque *");
     pi.getFormu().getChamp("Numero_virement").setLibelle("numero virement");
     pi.getFormu().getChamp("Numero_cnaps").setLibelle("numero cnaps");
     pi.getFormu().getChamp("Salaire_base").setLibelle("salaire de base *");
     pi.getFormu().getChamp("age").setVisible(true);
+    pi.getFormu().getChamp("idtiers").setVisible(false);
     pi.getFormu().getChamp("direction").setPageAppel("choix/listeDirectionChoix.jsp");
     pi.getFormu().getChamp("direction").setAutre("readonly");
     
@@ -43,16 +44,16 @@
 //    pi.getFormu().getChamp("mode_paiement").setLibelle("Mode de paiement");
 //    pi.getFormu().getChamp("situation_matrimoniale").setLibelle("Situation matrimoniale");
     
-    affichage.Champ[] liste = new affichage.Champ[4];
+    affichage.Champ[] liste = new affichage.Champ[5];
     Liste li = new Liste("genre");
     String [] val_li = {"M", "F"};
-    String [] aff_li = {"Masculin", "Féminin"};
+    String [] aff_li = {"Masculin", "Fï¿½minin"};
     li.ajouterValeur(val_li, aff_li);
     liste[0]=li;
     
     Liste situation = new Liste("situation_matrimoniale");
-    String [] val_situation = {"Célibataire", "Marié", "Divorcé", "Veuf"};
-    String [] aff_situation = {"Célibataire", "Marié", "Divorcé", "Veuf"};
+    String [] val_situation = {"Cï¿½libataire", "Mariï¿½", "Divorcï¿½", "Veuf"};
+    String [] aff_situation = {"Cï¿½libataire", "Mariï¿½", "Divorcï¿½", "Veuf"};
     situation.ajouterValeur(val_situation, aff_situation);
     liste[1]=situation;
     
@@ -68,11 +69,16 @@
     contrat.ajouterValeur(val_contrat, aff_contrat);
     liste[3] = contrat;
     
+    TypeObjet categ = new TypeObjet();
+    categ.setNomTable("CATEGORIE_PROFESSIONNEL");
+    liste[4] = new Liste("idcategorieprofessionel", categ, "VAL", "id");
+    
     pi.getFormu().changerEnChamp(liste);
     
     pi.getFormu().getChamp("situation_matrimoniale").setLibelle("Situation matrimoniale *");
     pi.getFormu().getChamp("Mode_paiement").setLibelle("Mode de paiement *");
     pi.getFormu().getChamp("type_contrat").setLibelle("Type contrat *");
+    pi.getFormu().getChamp("idcategorieprofessionel").setLibelle("Cat&eacute;gorie professionnel");
     
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
@@ -89,6 +95,17 @@
     <input name="classe" type="hidden" id="classe" value="mg.spat.relationhumaine.InfoPersonnelGlobal">
     </form>
 </div>
+<script>
+    var selectElement = document.getElementById("idcategorieprofessionel");
+
+    var nullOption = document.createElement("option");
+    nullOption.value = "";
+    nullOption.text = "-";
+    nullOption.selected = true;
+
+    // Add the null option as the first option in the select
+    selectElement.insertBefore(nullOption, selectElement.firstChild);
+</script>
 <%}catch(Exception e){
     e.printStackTrace();
 }%>

@@ -137,6 +137,7 @@ import user.*;
 import bean.*;
 import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
+import mg.spat.EtatGrandCA;
 import mg.spat.LibererLib;
 
 /**
@@ -263,6 +264,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             else if (action.equalsIgnoreCase("imprimerDemandeOrdreDeMission")) {
                 imprimerDemandeOrdreDeMission(request, response);
+            }
+            else if (action.equalsIgnoreCase("imprimerOrdreDeMission")) {
+                imprimerOrdreDeMission(request, response);
             }
 
         } catch (Exception ex) {
@@ -842,13 +846,15 @@ public class EtatPaieServlet extends HttpServlet {
                 String option = request.getParameter("option");
                 String jaspername = "bed";
                 String titre = "BON D'ENGAGEMENT DE DEPENSES DIVERSES";
+                String filename = "BED";
                 if(option!=null)  if(option.compareToIgnoreCase("0")==0) {
-                    //jaspername = "bed-sanssignature";
+                    jaspername = "bed-sanssignature";
                     titre = "ETAT DE DEPENSES";
+                    filename = "ETAT DE DEPENSES";
                 }
                 param.put("titre", titre);
                 setNomJasper(jaspername);
-                UtilitaireImpression.imprimer(request, response, "bed", param, dataSources, getReportPath(), rt);
+                UtilitaireImpression.imprimer(request, response, filename, param, dataSources, getReportPath(), rt);
             }
 
         } catch (Exception e) {
@@ -3273,7 +3279,7 @@ public class EtatPaieServlet extends HttpServlet {
         }
         
     }
-    public void impressionCA1(HttpServletRequest request, HttpServletResponse response) {
+    public void impressionCA1(HttpServletRequest request, HttpServletResponse response) throws Exception {
          try {
             String mois = request.getParameter("mois");
             String annee = request.getParameter("annee");
@@ -3295,9 +3301,9 @@ public class EtatPaieServlet extends HttpServlet {
             Map<String, CA> sommePartiel = etatCA.getSommePartiel();
             CA totalGeneral = etatCA.getTotalGeneral();
             List result = new ArrayList();
-            if (listeParRubrique != null) {
+//            if (listeParRubrique != null) {
                 /* Details */
-                System.out.println("rubrique=="+listeParRubrique.keySet());
+                /*System.out.println("rubrique=="+listeParRubrique.keySet());
                 for (String rubrique : listeParRubrique.keySet()) {
                     CaPDF ca1 =null;
                     for (CA ca : listeParRubrique.get(rubrique)) {
@@ -3307,16 +3313,36 @@ public class EtatPaieServlet extends HttpServlet {
                     }
                     //result.add(temp2);
                 }
+            }*/
+            
+            EtatGrandCA etatGrandCA = new EtatGrandCA(Integer.parseInt(mois), Integer.parseInt(annee), false);
+            HashMap<String, EtatCA> listeCA = etatGrandCA.getListeCA();
+            CA totalgeneralgrandrubrique = etatGrandCA.getTotalgeneralgrandrubrique();
+            for (Map.Entry<String, EtatCA> entry : listeCA.entrySet()) {
+                String cle = entry.getKey();
+                EtatCA etatCAb = entry.getValue();
+                Map<String, CA[]> listeParRubriqueb = etatCAb.getListeParRubrique();
+                if (listeParRubriqueb != null) {
+                    for (String rubrique : listeParRubriqueb.keySet()) {
+                        for (CA ca : listeParRubriqueb.get(rubrique)) {
+                            CaPDF ca1 = new CaPDF(ca);
+                            ca1.setCompteMerelib(rubrique);
+                            ca1.setIdgrandrubrique(etatCAb.getIdgrandrubrique());
+                            ca1.setGrandrubriquelibelle(cle);
+                            result.add(ca1);
+                        }
+                    }
+                }
             }
             
              Map param = new HashMap();
-                param.put("avoirtaux", Utilitaire.formaterAr(etatCA.getPourcAvoir()));
-                param.put("comptanttaux", Utilitaire.formaterAr(etatCA.getPourComptant()));
-                param.put("credittaux", Utilitaire.formaterAr(etatCA.getPourcCredit()));
+                param.put("avoirtaux", Utilitaire.formaterAr(etatGrandCA.getPourcAvoir()));
+                param.put("comptanttaux", Utilitaire.formaterAr(etatGrandCA.getPourComptant()));
+                param.put("credittaux", Utilitaire.formaterAr(etatGrandCA.getPourcCredit()));
                 /* taux */
-                param.put("nbr", Utilitaire.formaterAr(Utilitaire.formaterAr(etatCA.getNbFactComptant())));
-                param.put("nbr2", Utilitaire.formaterAr(etatCA.getNbFactCredit()));
-                param.put("nbr3", Utilitaire.formaterAr(etatCA.getNbFactureTotal()));
+                param.put("nbr", Utilitaire.formaterAr(Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbComptant())));
+                param.put("nbr2", Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbCredit()));
+                param.put("nbr3", Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbFactureTotal()));
                 param.put("mois", Constante.getMois()[Utilitaire.stringToInt(mois) - 1]);
                 param.put("annee", annee);
                 param.put("daty", Utilitaire.dateDuJour());
@@ -4548,6 +4574,34 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("hebergement", hebergement);
             setNomJasper("Demande_ordre_de_mission");
             UtilitaireImpression.imprimer(request, response, "Demande ordre de mission", param, null, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void imprimerOrdreDeMission(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String id = request.getParameter("id");
+            OrdreMissionLib mc = new OrdreMissionLib();
+            mc.setNomTable("ordre_mission_lib");
+            OrdreMissionLib[] mere = (OrdreMissionLib[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "' and etat='"+ConstanteEtat.getEtatValider()+"'");
+            Map param = new HashMap();
+            param.put("nom", mere[0].getNom());
+            param.put("num", mere[0].getNumOM());
+            param.put("prenom", mere[0].getPrenom());
+            param.put("fonction", mere[0].getIdindemnitemissionlib());
+            param.put("classification", mere[0].getIdindemnitemission());
+            param.put("matricule", mere[0].getMatricule());
+            param.put("direction", mere[0].getDirection());
+            param.put("lieuDeDep", Utilitaire.champNull(mere[0].getLieudeplacement()));
+            param.put("duree", mere[0].getDuree());
+            param.put("motif", mere[0].getMotifvoyage());
+            param.put("dateDedepart", mere[0].getDatedepart());
+            param.put("daty", utilitaire.Utilitaire.dateDuJour());
+            param.put("moyenDeDep", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
+            
+            setNomJasper("Ordre_de_mission");
+            UtilitaireImpression.imprimer(request, response, "ordre de mission", param, null, getReportPath());
 
         } catch (Exception e) {
             e.printStackTrace();

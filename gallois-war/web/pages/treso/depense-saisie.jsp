@@ -72,14 +72,6 @@
         String typeCaisse = request.getParameter("mode");
         String vueCaisse = "caisse_banque";
         String modeP = "MODEPAIEMENTCV";
-        if (typeCaisse != null && typeCaisse.compareTo("") != 0) {
-            if (typeCaisse.compareTo(Constante.getTypeCaissePhysique()) == 0) {
-                pi.getFormu().getChamp("caisse").setDefaut(Constante.getCaisseDepense());
-                vueCaisse = "caisse_physique";
-                modeP = "modepaiement";
-                libCaisse = "caisse";
-            }
-        }
 
         affichage.Liste[] liste = new affichage.Liste[5];
         Caisse esc = new Caisse();
@@ -88,7 +80,20 @@
         TypeObjet op = new TypeObjet();
         op.setNomTable("DEVISE");
         liste[1] = new Liste("iddevise", op, "desce", "id");
-        TypeObjet mode = new TypeObjet();
+
+
+
+        if (typeCaisse != null && typeCaisse.compareTo("") != 0) {
+            if (typeCaisse.compareTo(Constante.getTypeCaissePhysique()) == 0) {
+                pi.getFormu().getChamp("caisse").setDefaut(Constante.getCaisseDepense());
+                modepaiement = Constante.modePaiementEspece;
+                vueCaisse = "caisse_physique";
+                modeP = "modepaiementbq";
+                libCaisse = "caisse";
+            }
+        }
+
+                TypeObjet mode = new TypeObjet();
         mode.setNomTable(modeP);
         liste[2] = new Liste("idmode", mode, "desce", "id");
         liste[2].setDefaultSelected(modepaiement);
@@ -103,6 +108,7 @@
         liste[4] = new Liste("idbanque", banq, "VAL", "id");
 
         pi.getFormu().changerEnChamp(liste);
+
 
         pi.getFormu().getChamp("idTypeCheque").setLibelle("Type");
 

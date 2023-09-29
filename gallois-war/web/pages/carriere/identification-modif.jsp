@@ -9,6 +9,7 @@
 <%
     String autreparsley = "data-parsley-range='[8, 40]' required";
     InfoPersonnelGlobal ident = new InfoPersonnelGlobal();
+    ident.setNomTable("INFOPERSONNELGLOBAL_LIB");
  
     PageUpdate pi = new PageUpdate(ident, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
@@ -37,7 +38,7 @@
     pi.getFormu().getChamp("direction").setPageAppel("choix/listeDirectionChoix.jsp");
     pi.getFormu().getChamp("direction").setAutre("readonly");
    
-    affichage.Champ[] liste = new affichage.Champ[4];
+    affichage.Champ[] liste = new affichage.Champ[5];
     
     Liste li = new Liste("genre");
     String [] val = {"M", "F"};
@@ -58,22 +59,32 @@
     liste[2] = mode;
     
     Liste contrat = new Liste("type_contrat");
-    String [] val_contrat = {"CDD", "CDI"};
+    String [] val_contrat = {"TC00002", "TC00001"};
     String [] aff_contrat = {"CDD", "CDI"};
     contrat.ajouterValeur(val_contrat, aff_contrat);
     liste[3] = contrat;
+    
+    TypeObjet categ = new TypeObjet();
+    categ.setNomTable("CATEGORIE_PROFESSIONNEL");
+    liste[4] = new Liste("idcategorieprofessionel", categ, "VAL", "id");
     
     pi.getFormu().changerEnChamp(liste);
     
     pi.getFormu().getChamp("situation_matrimoniale").setLibelle("Situation matrimoniale *");
     pi.getFormu().getChamp("Mode_paiement").setLibelle("Mode de paiement *");
     pi.getFormu().getChamp("type_contrat").setLibelle("Type contrat *");
+    pi.getFormu().getChamp("idtiers").setVisible(false);
+    pi.getFormu().getChamp("idcategorieprofessionellib").setVisible(false);
+    pi.getFormu().getChamp("idcategorieprofessionel").setLibelle("Cat&eacute;gorie professionnel");
+    pi.getFormu().getChamp("type_contratlib").setVisible(false);
     
     pi.preparerDataFormu();
-    
+    InfoPersonnelGlobal infoperso = (InfoPersonnelGlobal)pi.getBase();
+    boolean selected = infoperso.getIdcategorieprofessionel() == null;
 %>
 <div class="content-wrapper">
     <div class="row">
+        <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="box-fiche">
                 <div class="box">
@@ -99,4 +110,15 @@
         </div>
     </div>
 </div>
-                        
+
+<script>
+    var selectElement = document.getElementById("idcategorieprofessionel");
+
+    var nullOption = document.createElement("option");
+    nullOption.value = "";
+    nullOption.text = "-";
+    nullOption.selected = <%=selected%>;
+
+    // Add the null option as the first option in the select
+    selectElement.insertBefore(nullOption, selectElement.firstChild);
+</script>                        

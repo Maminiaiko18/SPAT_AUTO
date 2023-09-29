@@ -19,8 +19,7 @@
     pi.getFormu().getChamp("datedepart").setLibelle("Date d&eacute;part");
     pi.getFormu().getChamp("numOM").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("idindemnitemission").setPageAppel("choix/indemnite-mission-choix.jsp");
-    pi.getFormu().getChamp("idindemnitemission").setAutre("readonly");
+    pi.getFormu().getChamp("idindemnitemission").setVisible(false);
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/info-personnel-global-choix.jsp","idtiers;idtiers;idtierslibelle");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
     pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");

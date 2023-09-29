@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce1f3f99-b941-4998-8da0-3d76101166df">
 	<property name="ireport.zoom" value="2.1435888100000016"/>
-	<property name="ireport.x" value="552"/>
-	<property name="ireport.y" value="337"/>
+	<property name="ireport.x" value="94"/>
+	<property name="ireport.y" value="246"/>
 	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="daty1" class="java.lang.String"/>
 	<parameter name="daty2" class="java.lang.String"/>
@@ -15,7 +15,7 @@
 	<field name="desce" class="java.lang.String"/>
 	<field name="typelib" class="java.lang.String"/>
 	<field name="val" class="java.lang.String"/>
-	<field name="montantresteAPayer" class="java.lang.Double"/>
+	<field name="montantreste" class="java.lang.Double"/>
 	<field name="codeProvision" class="java.lang.String"/>
 	<field name="montantpaye" class="java.lang.Double"/>
 	<field name="montantprovision" class="java.lang.Double"/>
@@ -43,11 +43,17 @@
 	<variable name="montantprovision_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
 		<variableExpression><![CDATA[$F{montantprovision}]]></variableExpression>
 	</variable>
-	<variable name="montantresteAPayer_1" class="java.lang.Double" resetType="Group" resetGroup="val" calculation="Sum">
-		<variableExpression><![CDATA[$F{montantresteAPayer}]]></variableExpression>
+	<variable name="montantpaye_1" class="java.lang.Double" resetType="Group" resetGroup="val" calculation="Sum">
+		<variableExpression><![CDATA[$F{montantpaye}]]></variableExpression>
 	</variable>
-	<variable name="montantresteAPayer_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
-		<variableExpression><![CDATA[$F{montantresteAPayer}]]></variableExpression>
+	<variable name="montantpaye_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
+		<variableExpression><![CDATA[$F{montantpaye}]]></variableExpression>
+	</variable>
+	<variable name="montantreste_1" class="java.lang.Double" resetType="Group" resetGroup="val" calculation="Sum">
+		<variableExpression><![CDATA[$F{montantreste}]]></variableExpression>
+	</variable>
+	<variable name="montantreste_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
+		<variableExpression><![CDATA[$F{montantreste}]]></variableExpression>
 	</variable>
 	<group name="type">
 		<groupExpression><![CDATA[$F{typelib}]]></groupExpression>
@@ -80,19 +86,19 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$V{type_COUNT}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement x="309" y="0" width="118" height="20" uuid="431cb5e7-83ce-431b-9d4f-7587ff4e6f7e"/>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="309" y="0" width="118" height="20" uuid="0a1a0ede-be83-4998-ba2d-3bb6585b5ff8"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{montantprovision_2}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{montantpaye_2}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement x="429" y="0" width="126" height="20" uuid="adbe2848-3e23-44aa-af4f-d74f0ac8fd5c"/>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="429" y="0" width="126" height="20" uuid="488a428b-7039-4c8d-9931-d40255ffaede"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{montantresteAPayer_2}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{montantreste_2}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -202,19 +208,19 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$V{val_COUNT}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement x="309" y="0" width="118" height="20" uuid="395a1010-80e1-4542-b494-2ee90d4f75a9"/>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="309" y="0" width="118" height="20" uuid="2ad0e963-498e-48fd-a3d8-a4e44035fc4c"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{montantprovision_1}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{montantpaye_1}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement x="429" y="0" width="126" height="20" uuid="0edd000b-ca39-4422-8338-c1b1923cf9ee"/>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="429" y="0" width="126" height="20" uuid="083c22a9-cc6a-4d4a-80f9-9910231805cc"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{montantresteAPayer_1}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{montantreste_1}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -306,7 +312,7 @@
 				<textElement textAlignment="Right">
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{montantresteAPayer}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montantreste}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="139" y="0" width="66" height="20" isPrintWhenDetailOverflows="true" uuid="9612afb7-60a9-4ff6-b8be-1e7e1290a19f"/>
@@ -331,7 +337,7 @@
 				<textElement textAlignment="Right">
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{montantprovision}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montantpaye}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

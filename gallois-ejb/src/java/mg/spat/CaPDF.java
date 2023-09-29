@@ -13,6 +13,7 @@ public class CaPDF {
     double anciencumul, regul, regulEETP, avoirEETP, comptant, credit, esttotal,taux,avoir,montant,AvoirCumRegul;
     String nbComptant,nbCredit,mois,annee;
     double  total, nCumul;
+    String idgrandrubrique, grandrubriquelibelle;
 
     public String getId() {
         return id;
@@ -188,6 +189,22 @@ public class CaPDF {
 
     public void setnCumul(double nCumul) {
         this.nCumul = nCumul;
+    }
+
+    public String getIdgrandrubrique() {
+        return idgrandrubrique;
+    }
+
+    public void setIdgrandrubrique(String idgrandrubrique) {
+        this.idgrandrubrique = idgrandrubrique;
+    }
+
+    public String getGrandrubriquelibelle() {
+        return grandrubriquelibelle;
+    }
+
+    public void setGrandrubriquelibelle(String grandrubriquelibelle) {
+        this.grandrubriquelibelle = grandrubriquelibelle;
     }
     
     
