@@ -2635,10 +2635,13 @@ public class EtatPaieServlet extends HttpServlet {
                 temp2.setNomTable("MERECA");
                 CompteCA[] mereCA = (CompteCA[]) CGenUtil.rechercher( temp2,null, null, c, " and id = '" + compte[0].getDesce() + "'");
                 signature = "Le Capitaine du Port";
+                String suite ="";
                 if(mereCA[0].getIdGrandRubrique().compareToIgnoreCase(Constante.prestationConventions)==0){
-                    signature = "Le Directeur des Affaires Juridiques et du Patrimoine Portuaire";
+                    signature = "Le Directeur des Affaires Juridiques";
+                    suite = "et du Patrimoine Portuaire";
                 }
                 param.put("signature", signature);
+                param.put("suite", suite);
             }
             ClientCategorie clg = new ClientCategorie();
             clg.setNomTable("CLIENT_UNION");
@@ -2669,7 +2672,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             // setNomJasper("facture_client2 - Copie");
-            UtilitaireImpression.imprimer(request, response, "facture-clien-avoirt", param, null, getReportPath(), rt);
+            UtilitaireImpression.imprimer(request, response, "facture-client-avoir", param, null, getReportPath(), rt);
 
         } catch (Exception e) {
             e.printStackTrace();
