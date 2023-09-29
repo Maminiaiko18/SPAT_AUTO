@@ -39,10 +39,9 @@
             }
             else
                 {
-                   %><center><h4>Pas de résultat</h4></center><%
+                   %><center><h4>Pas de rï¿½sultat</h4></center><%
             }
     %>
-    <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=depense/engagement-saisie.jsp&idchantier="+id+"&nom="+nom%>" style="margin-right: 10px">Saisir contrat</a>
 </div>
 <%
     } catch (Exception e) {

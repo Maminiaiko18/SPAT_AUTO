@@ -1,6 +1,6 @@
 <%-- 
     Document   : chantier-fiche
-    Created on : 4 déc. 2019, 09:25:52
+    Created on : 4 dï¿½c. 2019, 09:25:52
     Author     : Tin
 --%>
 <%@page import="java.util.HashMap"%>
@@ -27,7 +27,7 @@
 
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("idtravaux").setLibelle("travaux");
-    pc.getChampByName("datydebut").setLibelle("Date début");
+    pc.getChampByName("datydebut").setLibelle("Date dï¿½but");
     pc.getChampByName("datyfin").setLibelle("Date fin");
     pc.getChampByName("avancement").setLibelle("Avancement %");
     pc.getChampByName("dirtravaux").setLibelle("Direction");
@@ -70,6 +70,7 @@
                     %>
                     <br/>
                     <div class="box-footer">
+                        <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=depense/engagement-saisie.jsp&idchantier="+cVise.getId()%>" style="margin-right: 10px">Saisir contrat</a>
                         <a class="btn btn-info pull-left"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=travaux/chantier-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                         <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/chantier-modif.jsp&id=" + cVise.getId()%>" style="margin-right: 10px">Modifier</a>
                         <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" +cVise.getId()%>&acte=delete&bute=travaux/chantier-liste.jsp&classe=mg.spat.Chantier"><button class="btn btn-danger">Supprimer</button></a>
@@ -84,7 +85,7 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="<%= map.get("avancement")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&tab=avancement">Avancement</a></li>
-                    <li class="<%= map.get("engagement")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&nom=<%=cVise.getNom()%>&tab=engagement">Contrat</a></li>
+                    <li class="<%= map.get("engagement")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&tab=engagement">Contrat</a></li>
                     <li class="<%= map.get("facturefournisseur")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&tab=facturefournisseur">Facture Fournisseur</a></li>
                 </ul>
                 
@@ -97,14 +98,14 @@
                     <div class="col-md-8 col-md-offset-2">
                         <div class="box-title with-border">
 
-                            <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
+                            <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachï¿½s</h2>
                         </div>
                         <div class="box-body">
                             <table class="table table-striped table-bordered table-condensed table-responsive tree">
                                 <thead>
                                     <tr>
                                         <th style="background-color:#bed1dd;"></th>
-                                        <th style="background-color:#bed1dd;">Libellé</th>
+                                        <th style="background-color:#bed1dd;">Libellï¿½</th>
                                         <th style="background-color:#bed1dd;">Fichier</th>
                                         <th style="background-color:#bed1dd;">Voir</th>
                                         <th style="background-color:#bed1dd;">#</th>

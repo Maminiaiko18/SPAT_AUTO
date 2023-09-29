@@ -43,7 +43,7 @@
          pi.getFormu().getChamp("chantier").setPageAppel("choix/listeChantierChoix.jsp");
          if (request.getParameter("idchantier") != null) {
             pi.getFormu().getChamp("chantier").setValeur(request.getParameter("idchantier"));
-            pi.getFormu().getChamp("chantier").setValeurLibelle(request.getParameter("nom"));
+            pi.getFormu().getChamp("chantier").setValeurLibelle(request.getParameter("idchantier"));
         }
          pi.getFormu().getChamp("chantier").setAutre("readonly");
         pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
