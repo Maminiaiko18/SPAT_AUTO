@@ -32,13 +32,6 @@
         esc.setNomTable("CAISSE_BILLETAGE");
         
         liste[0] = new Liste("caisse", esc, "VAL", "id");
-        String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
-        if(idUser.compareToIgnoreCase("1469")==0 ) {
-            liste[0].setDefaultSelected(Constante.caisseDepense);
-        }else if(idUser.compareToIgnoreCase("1502")==0 ){
-            liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
-        }
-
         TypeObjet coffre = new TypeObjet();
         coffre.setNomTable("COFFRE_PRINCIPAL");
         liste[1] = new Liste("caissedepart", coffre, "VAL", "id");
