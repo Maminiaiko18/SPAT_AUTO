@@ -64,6 +64,7 @@
     contrat.ajouterValeur(val_contrat, aff_contrat);
     liste[3] = contrat;
     
+    
     TypeObjet categ = new TypeObjet();
     categ.setNomTable("CATEGORIE_PROFESSIONNEL");
     liste[4] = new Liste("idcategorieprofessionel", categ, "VAL", "id");

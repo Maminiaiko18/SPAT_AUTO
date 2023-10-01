@@ -17,15 +17,28 @@
         String autreparsley = "data-parsley-range='[8, 40]' required";
         UserEJB u = (user.UserEJB) session.getValue("u");
         Billetage billetage = new Billetage();
+        billetage.setNomTable("TRANFERT_COFFRE");
         DetailsBilletage billetageFille = new DetailsBilletage();
         billetageFille.setIdmere(request.getParameter("id"));
         DetailsBilletage[] liste = (DetailsBilletage[])CGenUtil.rechercher(billetageFille, null, null, "");
         PageUpdateMultiple pi = new PageUpdateMultiple(billetage, billetageFille, liste , request,(user.UserEJB) session.getValue("u") , 1);
         pi.setLien((String) session.getValue("lien"));
+        Billetage bi = (Billetage)pi.getBase();
+        String bute = "treso/billetage-fiche.jsp";
+        if(bi.getCaissedepart()!=null) bute = "treso/transfert-principal-fiche.jsp";
 
         pi.getFormu().getChamp("Etat").setVisible(false);
         pi.getFormu().getChamp("idtransfert").setVisible(false);
+        pi.getFormu().getChamp("caissedepart").setVisible(false);
         pi.getFormu().getChamp("Daty").setLibelle("Date");
+
+         affichage.Liste[] deroulante = new affichage.Liste[1];
+        
+        TypeObjet caisse = new TypeObjet();
+        caisse.setNomTable("CAISSE_BILLETAGE");
+        
+        deroulante[0] = new Liste("caisse", caisse, "VAL", "id");
+        pi.getFormu().changerEnChamp(deroulante);
       
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         
@@ -45,8 +58,7 @@
         
         pi.preparerDataFormu();
         
-        String buteLien = "treso/billetage-modif.jsp" , 
-                classeMere = "mg.spat.Billetage" , 
+        String classeMere = "mg.spat.Billetage" , 
                 classeFille = "mg.spat.DetailsBilletage" , 
                 colonneMereDansFille = "idmere" , 
              buteApresVisa = "facture/bondelivraison-client-fiche.jsp";   
@@ -77,7 +89,7 @@
    
       
         <input name="acte" type="hidden" id="nature" value="updateInsert">
-        <input name="bute" type="hidden" id="bute" value="<%= buteLien %>?id=<%=billetage.getId()%>">
+        <input name="bute" type="hidden" id="bute" value="<%= bute %>?id=<%=billetage.getId()%>">
         <input name="classe" type="hidden" id="classe" value="<%= classeMere %>">
         <input name="classefille" type="hidden" id="classefille" value="<%= classeFille %>">
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=pi.getNombreLigne()%>">

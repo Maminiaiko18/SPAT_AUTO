@@ -19,7 +19,7 @@
         UserEJB u = (user.UserEJB) session.getValue("u");
         Billetage billetage = new Billetage();
         DetailsBilletage billetageFille = new DetailsBilletage();
-        String[] billets = {"20000", "10000", "5000", "2000", "1000", "500", "200","100","50","20","10","5","2","1"};
+        String[] billets = {"20000", "10000", "5000", "2000", "1000", "500", "200","100"};
         int size = billets.length;
         PageInsertMultiple pi = new PageInsertMultiple(billetage, billetageFille, request, size, u);
         pi.setLien((String) session.getValue("lien"));
@@ -57,6 +57,7 @@
         }
        
         pi.getFormu().getChamp("etat").setVisible(false);
+        pi.getFormu().getChamp("caissedepart").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
         pi.getFormufle().getChamp("billet_0").setLibelle("Billet");

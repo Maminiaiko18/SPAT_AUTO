@@ -32,7 +32,15 @@ public class Billetage extends ClassEtat{
     private double montant;
     private String idcaisse;
     private String idtransfert;
+    private String caissedepart;
 
+    public String getCaissedepart() {
+        return caissedepart;
+    }
+
+    public void setCaissedepart(String caissedepart) {
+        this.caissedepart = caissedepart;
+    }
 
     public String getIdtransfert() {
         return idtransfert;
@@ -144,17 +152,29 @@ public class Billetage extends ClassEtat{
         String nomcaisse = "";
         if(this.getCaisse().compareToIgnoreCase(Constante.caisseCentraleEspece)==0) nomcaisse="CAISSE RECETTES";
         else nomcaisse = "CAISSE DEPENSES";
-        mvm.setDaty(this.getDaty());
-        mvm.setCaissedepart(this.getCaisse());
-        mvm.setCaissearrivee(Constante.COFFRE_PRINCIPAL);
-        mvm.setModepaiement(Constante.modepaiementDefaut);
-        mvm.setMontant(this.getMontant());
-        mvm.setDesignation("Transfert du "+Utilitaire.formatterDaty(this.getDaty())+" de la caisse "+nomcaisse+" vers la COFFRE PRINCIPAL");
-        mvm.createObject(user, c);
-        mvm.validerObject(user, c);
+        if(this.getCaissedepart() == null || this.getCaissedepart().compareToIgnoreCase("")==0)
+        {    
+            mvm.setDaty(this.getDaty());
+            mvm.setCaissedepart(this.getCaisse());
+            mvm.setCaissearrivee(Constante.COFFRE_PRINCIPAL);
+            mvm.setModepaiement(Constante.modepaiementDefaut);
+            mvm.setMontant(this.getMontant());
+            mvm.setDesignation("Transfert du "+Utilitaire.formatterDaty(this.getDaty())+" de la caisse "+nomcaisse+" vers la COFFRE PRINCIPAL");
+            mvm.createObject(user, c);
+            mvm.validerObject(user, c);
+        }else {
+            mvm.setDaty(this.getDaty());
+            mvm.setCaissedepart(this.getCaissedepart());
+            mvm.setCaissearrivee(this.getCaisse());
+            mvm.setModepaiement(Constante.modepaiementDefaut);
+            mvm.setMontant(this.getMontant());
+            mvm.setDesignation("Transfert du "+Utilitaire.formatterDaty(this.getDaty())+" de la COFFRE PRINCIPAL vers la "+nomcaisse);
+            mvm.createObject(user, c);
+            mvm.validerObject(user, c);
+        }
         this.setIdtransfert(mvm.getId());
         this.genererTranferDetails(c, user, mvm.getId());
-    }
+    }   
 
     public void genererTranferDetails(Connection c, String user,String idmere) throws Exception{
         DetailsBilletage[] details = this.getDetails(c);
