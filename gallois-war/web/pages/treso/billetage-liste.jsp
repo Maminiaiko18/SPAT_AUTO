@@ -11,7 +11,7 @@
     try{
         UserEJB u = (UserEJB) session.getAttribute("u");
         Billetage billetage = new Billetage();
-        billetage.setNomTable("billetagelib");
+        billetage.setNomTable("BILLETAGELIB_CAISSE_TOUS");
         if (request.getParameter("table") != null) billetage.setNomTable(request.getParameter("table"));
         String listeCrt[] = {"id", "caisse", "daty"};
         String listeInt[] = {"daty"};
@@ -55,22 +55,22 @@
                     Etat : 
                     <select name="table" class="champ" id="table" onchange="changerDesignation()" >
                         
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BILLETAGELIB") == 0) {%>    
-                        <option value="BILLETAGELIB" selected>Tous</option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BILLETAGELIB_CAISSE_TOUS") == 0) {%>    
+                        <option value="BILLETAGELIB_CAISSE_TOUS" selected>Tous</option>
                         <% } else { %>
-                        <option value="BILLETAGELIB" >Tous</option>
+                        <option value="BILLETAGELIB_CAISSE_TOUS" >Tous</option>
                         <% } %>
                         
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BILLETAGELIB_CREE") == 0) {%>    
-                        <option value="BILLETAGELIB_CREE" selected>Cr&eacute;&eacute;</option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BILLETAGELIB_CAISSE_CREE") == 0) {%>    
+                        <option value="BILLETAGELIB_CAISSE_CREE" selected>Cr&eacute;&eacute;</option>
                         <% } else { %>
-                        <option value="BILLETAGELIB_CREE" >Cr&eacute;&eacute;</option>
+                        <option value="BILLETAGELIB_CAISSE_CREE" >Cr&eacute;&eacute;</option>
                         <% } %>
 
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BILLETAGELIB_VISER") == 0) {%>    
-                        <option value="BILLETAGELIB_VISER" selected>Valid&eacute;</option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BILLETAGELIB_CAISSE_VISEE") == 0) {%>    
+                        <option value="BILLETAGELIB_CAISSE_VISEE" selected>Valid&eacute;</option>
                         <% } else { %>
-                        <option value="BILLETAGELIB_VISER" >Valid&eacute;</option>
+                        <option value="BILLETAGELIB_CAISSE_VISEE" >Valid&eacute;</option>
                         <% } %>
                     </select>
                 </div>
