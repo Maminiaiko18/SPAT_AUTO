@@ -37,8 +37,7 @@ public class Engagement extends ClassEtat {
     private int avecFacture,annee;
     private String type;
     private Date dateImpression;
-    private String chantier, objet;
-    private double duree;
+    private String chantier, objet, duree;
 
     public String getChantier() {
         return chantier;
@@ -337,11 +336,11 @@ public class Engagement extends ClassEtat {
         this.objet = objet;
     }
 
-    public double getDuree() {
+    public String getDuree() {
         return duree;
     }
 
-    public void setDuree(double duree) {
+    public void setDuree(String duree) {
         this.duree = duree;
     }
 

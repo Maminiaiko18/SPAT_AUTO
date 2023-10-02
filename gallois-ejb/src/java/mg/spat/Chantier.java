@@ -16,7 +16,7 @@ import utilitaire.Utilitaire;
  */
 public class Chantier extends ClassEtat{
     
-    private String id, idtravaux, travaux, nom, idtiers, nomtiers, nomtravaux, tiers, tierslib, dirTravaux, projet, codeetablissement, projetlib, codeetablissementlib;
+    private String id, idtravaux, travaux, nom, idtiers, nomtiers, nomtravaux, tiers, tierslib, dirTravaux, projet, codeetablissement, projetlib, codeetablissementlib, etatlib;
     private Date datydebut, datyfin;
     private double montant, avancement;
 
@@ -185,6 +185,14 @@ public class Chantier extends ClassEtat{
 
     public void setCodeetablissementlib(String codeetablissementlib) {
         this.codeetablissementlib = codeetablissementlib;
+    }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
     }
 
     @Override
