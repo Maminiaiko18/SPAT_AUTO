@@ -41,12 +41,20 @@ public class FactureFournisseur extends FactureClient {
     private String id2;
     private String codeEtablissement;
     private Date dateRegul;
-    private double montantHTSansRemise;
+    private double montantHTSansRemise, montantht;
     private String bonprovisoire, num;
     private String idom;
     private String numfsb;
 
+    public double getMontantht() {
+        return montantht;
+    }
 
+    public void setMontantht(double montantht) {
+        this.montantht = montantht;
+    }
+
+    
     public String getNumfsb() {
         return numfsb;
     }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUIVI_CONTRAT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc854c4c-cca7-4334-b317-4b1746075475">
-	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.zoom" value="1.0980750000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="184"/>
 	<parameter name="contrat" class="java.lang.String"/>
 	<parameter name="titulaire" class="java.lang.String"/>
 	<parameter name="objet" class="java.lang.String"/>
 	<parameter name="daty" class="java.util.Date"/>
-	<parameter name="duree" class="java.lang.Double"/>
+	<parameter name="duree" class="java.lang.String"/>
 	<parameter name="montantContrat" class="java.lang.Double"/>
 	<parameter name="travaux" class="java.lang.String"/>
 	<parameter name="chantier" class="java.lang.String"/>
@@ -18,6 +18,7 @@
 	<field name="montantreste" class="java.lang.Double"/>
 	<field name="daty" class="java.util.Date"/>
 	<field name="designation" class="java.lang.String"/>
+	<field name="montantht" class="java.lang.Double"/>
 	<variable name="montantpaye_1" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{montantpaye}]]></variableExpression>
 	</variable>
@@ -194,7 +195,7 @@
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="134" height="20" uuid="eb362757-8da5-4db8-8412-ab3ffdc7e868"/>
+				<reportElement mode="Opaque" x="0" y="0" width="134" height="20" forecolor="#000000" backcolor="#99CCFF" uuid="eb362757-8da5-4db8-8412-ab3ffdc7e868"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -208,7 +209,7 @@
 				<text><![CDATA[FACTURE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="134" y="0" width="52" height="20" uuid="adfb92ee-b36a-4aaf-a4aa-9af5733f2e85"/>
+				<reportElement mode="Opaque" x="134" y="0" width="52" height="20" forecolor="#000000" backcolor="#99CCFF" uuid="adfb92ee-b36a-4aaf-a4aa-9af5733f2e85"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -221,7 +222,7 @@
 				<text><![CDATA[DATE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="186" y="0" width="136" height="20" uuid="2ad507ea-6e1a-4aaf-bbe9-72567c70014e"/>
+				<reportElement mode="Opaque" x="186" y="0" width="136" height="20" forecolor="#000000" backcolor="#99CCFF" uuid="2ad507ea-6e1a-4aaf-bbe9-72567c70014e"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -234,7 +235,7 @@
 				<text><![CDATA[MONTANT FACTURE HT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="322" y="0" width="129" height="20" uuid="a955f253-c0ca-4db1-950c-236c04324e1b"/>
+				<reportElement mode="Opaque" x="322" y="0" width="129" height="20" forecolor="#000000" backcolor="#99CCFF" uuid="a955f253-c0ca-4db1-950c-236c04324e1b"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -247,7 +248,7 @@
 				<text><![CDATA[PAYEMENT EFFECTUEE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="451" y="0" width="104" height="20" uuid="0ec1f614-9cdf-47d2-ba7b-34f4e811c1ba"/>
+				<reportElement mode="Opaque" x="451" y="0" width="104" height="20" forecolor="#000000" backcolor="#99CCFF" uuid="0ec1f614-9cdf-47d2-ba7b-34f4e811c1ba"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -278,11 +279,6 @@
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="186" y="0" width="136" height="20" uuid="20dedef2-e0dd-445f-9a73-211bc813fcc2"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="322" y="0" width="129" height="20" uuid="7cd3fb71-f388-487b-b5d3-068aa243a625"/>
 				<textElement textAlignment="Right">
 					<paragraph rightIndent="2"/>
@@ -295,6 +291,11 @@
 					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantreste}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="186" y="0" width="136" height="20" uuid="65481256-3aa7-4b07-acb9-53041984a2ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{montantht}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -337,7 +338,7 @@
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="17" width="321" height="20" uuid="a0442a84-4f37-4acc-b3fa-54b83637b02d"/>
+				<reportElement mode="Opaque" x="1" y="17" width="321" height="20" backcolor="#99CCFF" uuid="a0442a84-4f37-4acc-b3fa-54b83637b02d"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -350,7 +351,7 @@
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="322" y="17" width="129" height="20" uuid="c94c06de-84b6-4b99-83f3-097491255109"/>
+				<reportElement mode="Opaque" x="322" y="17" width="129" height="20" backcolor="#99CCFF" uuid="c94c06de-84b6-4b99-83f3-097491255109"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -364,7 +365,7 @@
 				<textFieldExpression><![CDATA[$V{montantpaye_1}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="451" y="17" width="104" height="20" uuid="df5f1a1b-3e74-4bc5-b873-d604e96b3492"/>
+				<reportElement mode="Opaque" x="451" y="17" width="104" height="20" backcolor="#99CCFF" uuid="df5f1a1b-3e74-4bc5-b873-d604e96b3492"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
