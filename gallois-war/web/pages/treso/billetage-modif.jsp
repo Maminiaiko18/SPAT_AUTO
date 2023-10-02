@@ -97,24 +97,24 @@
     </form>
 </div>
 <script>
-    
-function afficherMontant(billet,quantite,montant) {
-    var x = document.getElementById(billet).value;
-    var y = document.getElementById(quantite).value;
-    var result = x*y;
-    document.getElementById(montant).value =  result;
-    var size=document.getElementById('size').value;
-    var total=0;
-    for(i=0;i<size;i++){
-        montant=document.getElementById('montant_'+i).value;
-        if(montant === null || montant===""){
-            montant=0;
+    function calculateTotal() {
+        let total = 0;
+        for (let i = 0; i < <%=pi.getFormufle().getNbLigne()%>; i++) { 
+            const billetBlInput = document.getElementById('billet_'+i);
+            const nombreInput = document.getElementById('nombre_'+i);
+            billetBlInput.addEventListener('input', calculateTotal);
+            nombreInput.addEventListener('input', calculateTotal);
+
+            const billetBl = parseFloat(billetBlInput.value) || 0; 
+            const nombre = parseInt(nombreInput.value) || 0;
+            
+            total += billetBl * nombre;
         }
-        total+=parseInt(montant);
+        document.getElementById('montant').value = total;
     }
-    document.getElementById('totalBillet').value =  total;
-}
+    calculateTotal();
 </script>
+
 <%}catch(Exception e){
     e.printStackTrace();
 }%>
