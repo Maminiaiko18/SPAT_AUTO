@@ -4605,7 +4605,10 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("titulaire",mere[0].getTierslib());
             param.put("objet",mere[0].getObjet());
             param.put("daty",mere[0].getDaty());
-            param.put("duree",mere[0].getDuree());
+            if(mere[0].getDuree()==null){
+                param.put("duree","-");
+            }
+            param.put("contrat",mere[0].getDuree());
             param.put("contrat",mere[0].getDesignation());
             param.put("cr",mere[0].getCodeEtablissementlib());
             param.put("montantContrat",mere[0].getMontant());
