@@ -35,7 +35,8 @@
             if (objet.getListeJournal() != null) {
                 pi.getFormu().getChamp("caissedepart").setDefaut((objet.getListeJournal())[0].getCaisse());
                 for (int i = 0; i < (objet.getListeJournal()).length; i++) {
-                    pi.getFormufle().getChamp("reference_" + i).setDefaut((objet.getListeJournal())[i].getNumcheque());
+                    pi.getFormufle().getChamp("reference_" + i).setDefaut((objet.getListeJournal()[i]).getId());
+                    pi.getFormufle().getChamp("remarque_" + i).setDefaut(Utilitaire.formaterAr((objet.getListeJournal()[i]).getCredit()));
                 }
             }
         }
