@@ -33,7 +33,7 @@
             pr.getFormu().getChamp("caisse").setDefaut("RECETTES");
         }
         
-        pr.setApres("treso/billetage-liste.jsp");
+        pr.setApres("treso/transfert-principal-liste.jsp");
         String[] colSomme = {"montant"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -48,7 +48,7 @@
         <h1>Liste des transferts</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=treso/billetage-liste.jsp" method="post" name="listebilletage" id="listebilletage">
+        <form action="<%=pr.getLien()%>?but=treso/transfert-principal-liste.jsp" method="post" name="listebilletage" id="listebilletage">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
@@ -80,7 +80,7 @@
             </div>
         </form>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=treso/billetage-fiche.jsp"};
+            String lienTableau[] = {pr.getLien() + "?but=treso/transfert-principal-fiche.jsp"};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);

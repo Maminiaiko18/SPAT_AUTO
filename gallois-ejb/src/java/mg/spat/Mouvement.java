@@ -416,8 +416,8 @@ public class Mouvement extends ClassEtat {
                 dateinf = getTimestamp(dinf, hinf);
 
         long diffInMillies = Math.abs(datesup.getTime() - dateinf.getTime());
-        double diff = TimeUnit.HOURS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        
+        double diff = diffInMillies / (60.0 * 60.0 * 1000.0);
+
         return diff;
     }
 
@@ -433,7 +433,7 @@ public class Mouvement extends ClassEtat {
             }
         }
         
-        return Math.floor(d);
+        return Math.ceil(d);
     }
 
     public void setDuree(double duree) throws Exception {
