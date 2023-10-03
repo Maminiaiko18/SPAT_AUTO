@@ -789,7 +789,7 @@ public class FactureFournisseur extends FactureClient {
                 throw new Exception("Date de regul vide");
             }
 
-            Date dateDuJour = this.getDateRegul();
+            Date dateDuJour = this.getDaty();
             FactureFournisseur bp = (FactureFournisseur)(new FactureFournisseur()).getById(this.getIdProvision(), "factfourn_msum_lib_fiche", con);
             if(bp.getModepaiement()==null) throw new Exception("Mode de paiement Bon provisoire invalide");
             String caisseBP = "";
