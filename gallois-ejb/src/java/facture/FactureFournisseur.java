@@ -1551,7 +1551,7 @@ public class FactureFournisseur extends FactureClient {
                 String cal = calculerCodeSimple(c);
                 this.setDateRegul(Utilitaire.dateDuJourSql());
                 this.setCode(cal);
-                this.updateToTableWithHisto(String.valueOf(u.getUser().getRefuser()), c);
+                this.updateToTableWithHisto(String.valueOf(u.getUser().getRefuser()), c,"ATTRIBUTION NUMERO COMPTA");
             }
             else throw new Exception("Ce facture possede deja un numero compta.");  
             c.commit();     

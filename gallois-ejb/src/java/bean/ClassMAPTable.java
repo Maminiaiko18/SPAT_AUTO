@@ -847,6 +847,48 @@ public abstract class ClassMAPTable implements Serializable {
         }
     }
 
+    public int updateToTableWithHisto(String refUser, Connection c,String action) throws Exception {
+
+        try {
+            String temps = refUser;
+            if (refUser != null && refUser.contains("/")) {
+                String[] g = Utilitaire.split(refUser, "/");
+                refUser = g[0];
+            }
+            MapHistorique histo = new MapHistorique(this.getNomTable(), action+" par " + temps, refUser, this.getTuppleID(), c);
+            histo.setObjet(this.getClassName());
+            ClassMAPTable obj = (ClassMAPTable) (Class.forName(this.getClassName()).newInstance());
+            if (obj != null) {
+                System.out.println("----select * from " + histo.getNomTable() + " where " + obj.getAttributIDName() + " = '" + histo.getRefObjet() + "' ");
+                ClassMAPTable[] tabObj = (ClassMAPTable[]) CGenUtil.rechercher(obj, null, null, c, " and " + obj.getAttributIDName() + " = '" + histo.getRefObjet() + "'");
+                Historique_valeur valeur = new Historique_valeur();
+                if (tabObj.length != 0 && getEstHistorise()) {
+                    Field[] listeField = this.getFieldList();
+                    for (int i = 0; i < listeField.length; i++) {
+//                    String nomVal = "setVal"+i;
+                        int temp = i + 1;
+//                    String get = "get"+Utilitaire.convertDebutMajuscule(listeField[i].getName());
+//                        System.out.println(listeField[i].getName() + " : "+ tabObj[0].getValInsert(listeField[i].getName()));
+                        valeur.setValChamp("val" + temp, listeField[i].getName() + ":" + tabObj[0].getValInsert(listeField[i].getName()));
+                    }
+                    valeur.setIdhisto(histo.getIdHistorique());
+                    valeur.setRefhisto(histo.getRefObjet());
+                    valeur.setNom_table(this.getValInsert("nomTable"));
+                    valeur.setNom_classe(this.getClassName());
+                    valeur.setVal40(getMemo());
+                    valeur.construirePK(c);
+                    valeur.insertToTable(c);
+                }
+            }
+
+            return this.updateToTableWithHisto(histo, c);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("ERREUR UPDATE 2" + e.getMessage());
+        }
+
+    }
+
     public int updateToTableWithHisto(String refUser, Connection c) throws Exception {
 
         try {
