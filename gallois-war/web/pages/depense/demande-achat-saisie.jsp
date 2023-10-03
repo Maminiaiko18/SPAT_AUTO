@@ -237,6 +237,24 @@
         }
     }*/
 
+    // Efface le cache du navigateur
+    window.addEventListener('load', function () {
+    if ('caches' in window) {
+        caches.keys().then(function (cacheNames) {
+            cacheNames.forEach(function (cacheName) {
+                caches.delete(cacheName);
+            });
+        });
+    }
+
+    // Efface les cookies
+    document.cookie.split(";").forEach(function(c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    
+});
+
+
 </script>
 <%
 } catch (Exception e) {
