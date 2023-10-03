@@ -335,7 +335,8 @@ public class Engagement extends ClassEtat {
     }
     
     @Override
-    public ClassMAPTable createObject(String u, Connection c) throws Exception {        
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {  
+        this.setDateImpression(null);      
         // this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqNumeroEngagement",c)));
         return super.createObject(u, c); 
     }
