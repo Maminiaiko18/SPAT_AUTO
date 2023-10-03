@@ -114,6 +114,21 @@
     <% } %>
 </script>
 <script>
+
+    document.getElementsByClassName("btn btn-default pull-right")[2].addEventListener('click', e => {
+        var indice = ($("#nombreLigne")[0].value)-1;
+        document.getElementById("qte_"+indice).setAttribute("onblur","calculerMontant("+indice+"),Total()");
+        document.getElementById("pu_"+indice).setAttribute("onblur","calculerMontant("+indice+"),Total()");
+    })
+    
+    document.getElementsByClassName("btn btn-default pull-right")[3].addEventListener('click', e => {
+        var indice = ($("#nombreLigne")[0].value)-10;
+        for (let i = indice; i < indice+10; i++) {
+            document.getElementById("qte_"+i).setAttribute("onblur","calculerMontant("+i+"),Total()");
+            document.getElementById("pu_"+i).setAttribute("onblur","calculerMontant("+i+"),Total()");
+        }
+    })
+    
     console.log("mande");
     var footer = document.getElementsByClassName('box-footer')[1].querySelector("div");
     var tot = document.createElement('p');
@@ -139,11 +154,12 @@
 
     function Total() {
         var total = 0;
-    <% for (int j = 0; j < pi.getNombreLigne(); j++) {%>
-        var montantstr = $('#montant_<%= j%>').val().trim();
-        var montant = montantstr === '' ? 0 : parseFloat(montantstr);
-        total += montant;
-    <% } %>
+        var nbligne = $("#nombreLigne")[0].value;
+        for(let j = 0; j < nbligne; j++){
+            var montantstr = $('#montant_'+j).val().trim();
+            var montant = montantstr === '' ? 0 : parseFloat(montantstr);
+            total += montant;
+        }
         $('#total').text("Total: "+ new Intl.NumberFormat('fr-FR').format(total));
     }
 
@@ -220,6 +236,24 @@
 
         }
     }*/
+
+    // Efface le cache du navigateur
+    window.addEventListener('load', function () {
+    if ('caches' in window) {
+        caches.keys().then(function (cacheNames) {
+            cacheNames.forEach(function (cacheName) {
+                caches.delete(cacheName);
+            });
+        });
+    }
+
+    // Efface les cookies
+    document.cookie.split(";").forEach(function(c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    
+});
+
 
 </script>
 <%
