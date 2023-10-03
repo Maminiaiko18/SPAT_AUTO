@@ -512,6 +512,7 @@ public class BonDeCommande extends ClassEtat {
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         setIduser(u);
+        this.setNumbc(calculerNumero(c));
         LigneCredit lc=this.checkBudget(c);
         if(lc==null)throw new Exception("Budget non trouvé");
         return super.createObject(u, c); //To change body of generated methods, choose Tools | Templates.

@@ -58,6 +58,7 @@
         pi.getFormu().getChamp("dispoAvant").setVisible(false);
         pi.getFormu().getChamp("dispoApres").setVisible(false);
         pi.getFormu().getChamp("disponible").setVisible(false);
+        pi.getFormu().getChamp("dateimpression").setVisible(false);
         pi.getFormu().getChamp("idLC").setLibelle("Budget");
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");

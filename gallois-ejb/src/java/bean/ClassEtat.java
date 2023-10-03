@@ -85,21 +85,21 @@ public abstract class ClassEtat extends ClassUser{
         controleAnnuler(c);
         setMode("modif");
         this.setEtat(ConstanteEtat.getEtatAnnuler());
-        return this.updateToTableWithHisto(user, c);
+        return this.updateToTableWithHisto(user, c,"ANNULATION");
     }
     public int annulerVisa(String user,Connection c) throws Exception
     {
         controleAnnulerVisa(c);
         setMode("modif");
         this.setEtat(ConstanteEtat.getEtatCreer());
-        return this.updateToTableWithHisto(user,c);
+        return this.updateToTableWithHisto(user,c,"ANNULER VISA");
     }
     public Object validerObject(String u, Connection c) throws Exception
     {
         setMode("modif");
         controler(c);
         this.setEtat(ConstanteEtat.getEtatValider());
-        this.updateToTableWithHisto(u, c);
+        this.updateToTableWithHisto(u, c,"VISA"); 
         return this;
     }
     public void viser(UserEJBBean user,Connection c) throws Exception

@@ -5,6 +5,8 @@
  */
 package mg.spat;
 
+import java.sql.Date;
+
 /**
  *
  * @author nyamp
@@ -12,6 +14,15 @@ package mg.spat;
 public class JournalCaisseLibComplet extends JournalCaisse{
     private String tierslib,valcaisse, descecaisse, valtypecheque,descetypecheque,idfact,etatlib,idTraite, categorieLib;
     private double montant;
+    private Date datepaiement;
+
+    public Date getDatepaiement() {
+        return datepaiement;
+    }
+
+    public void setDatepaiement(Date datepaiement) {
+        this.datepaiement = datepaiement;
+    }
 
     public String getCategorieLib() {
         return categorieLib;

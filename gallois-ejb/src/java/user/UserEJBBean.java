@@ -2801,8 +2801,12 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             /*String req = "update " + e.getNomTable() + " set etat='" + valeurEtat + "' where id = '" + id + "'";
             cmd = c.createStatement();
             cmd.executeUpdate(req);*/
+            String action = "";
+            if(valeurEtat == ConstanteEtat.getEtatValider()) action = "VISA";
+            if(valeurEtat == ConstanteEtat.getEtatAnnuler()) action = "ANNULATION";
+            if(valeurEtat == ConstanteEtat.getEtatCreer()) action = "ANNULER VISA";
             e.setValChamp("etat", valeurEtat);
-            e.updateToTableWithHisto(this.getUser().getTuppleID(), c);
+            e.updateToTableWithHisto(this.getUser().getTuppleID(), c,action);
         } catch (Exception ex) {
             throw ex;
         }

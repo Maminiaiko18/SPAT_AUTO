@@ -18,6 +18,15 @@ public class SuiviProvision extends ClassMAPTable{
     private Date datefacture;
     private double montantprovision;
     private Date dateliaison;
+    private Date datepaiement;
+
+    public Date getDatepaiement() {
+        return datepaiement;
+    }
+
+    public void setDatepaiement(Date datepaiement) {
+        this.datepaiement = datepaiement;
+    }
 
     public String getNumcheque() {
         return numcheque;

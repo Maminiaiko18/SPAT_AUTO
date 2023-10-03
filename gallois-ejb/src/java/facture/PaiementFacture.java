@@ -11,6 +11,7 @@ import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.JournalCaisse;
+import mg.spat.placement.Placement;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -27,7 +28,14 @@ public class PaiementFacture extends ClassMAPTable{
     private String designation;
     private String numFact;
     private String idProvision;
+    private Date datepaiement;
 
+    public Date getDatepaiement() {
+        return datepaiement;
+    }
+    public void setDatepaiement(Date datepaiement) {
+        this.datepaiement = datepaiement;
+    }
     public void setIdProvision(String idProvision){
         this.idProvision=idProvision;
     }
@@ -143,6 +151,12 @@ public class PaiementFacture extends ClassMAPTable{
 
     @Override
     public String getAttributIDName() {return "id";}
+
+     @Override
+    public ClassMAPTable createObject(String u,Connection c)throws Exception{
+        this.setDatepaiement(Utilitaire.dateDuJourSql());
+        return super.createObject(u, c);
+    }
 
     public FactureClient getFacture(Connection c) throws Exception{
         int verif = 0;
