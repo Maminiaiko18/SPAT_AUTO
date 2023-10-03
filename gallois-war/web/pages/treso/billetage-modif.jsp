@@ -31,6 +31,7 @@
         pi.getFormu().getChamp("idtransfert").setVisible(false);
         pi.getFormu().getChamp("caissedepart").setVisible(false);
         pi.getFormu().getChamp("Daty").setLibelle("Date");
+        pi.getFormu().getChamp("montant").setAutre("readonly");
 
          affichage.Liste[] deroulante = new affichage.Liste[1];
         
@@ -46,6 +47,7 @@
         {
             pi.getFormufle().getChamp("idmere_"+i).setAutre("readonly");
             pi.getFormufle().getChamp("id_"+i).setAutre("readonly");
+            pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
         }
         
         pi.getFormufle().getChamp("id_0").setLibelle("Id");
@@ -107,7 +109,7 @@
 
             const billetBl = parseFloat(billetBlInput.value) || 0; 
             const nombre = parseInt(nombreInput.value) || 0;
-            
+            document.getElementById('montant_'+i).value=billetBl*nombre;
             total += billetBl * nombre;
         }
         document.getElementById('montant').value = total;
