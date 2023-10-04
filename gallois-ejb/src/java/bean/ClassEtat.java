@@ -7,7 +7,12 @@ package bean;
 
 import java.sql.Connection;
 import java.sql.Statement;
+
+import historique.MapUtilisateur;
+import historique.MapUtilisateurServiceDirection;
 import user.UserEJBBean;
+import utilisateur.ConstanteUtilisateur;
+import utilisateur.Utilisateur;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 
@@ -82,6 +87,12 @@ public abstract class ClassEtat extends ClassUser{
     }
     public int annuler(String user,Connection c)throws Exception
     {
+        MapUtilisateurServiceDirection u = getUser(user, c);
+        UserEJBBean ejb = new UserEJBBean();
+        if (ejb.testRestriction(u, ConstanteUtilisateur.acteAnnuler, this.getNomTable(), c) == 1)
+        {
+            throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
+        }
         controleAnnuler(c);
         setMode("modif");
         this.setEtat(ConstanteEtat.getEtatAnnuler());
@@ -89,13 +100,26 @@ public abstract class ClassEtat extends ClassUser{
     }
     public int annulerVisa(String user,Connection c) throws Exception
     {
+        MapUtilisateurServiceDirection u = getUser(user, c);
+        UserEJBBean ejb = new UserEJBBean();
+        if (ejb.testRestriction(u, ConstanteUtilisateur.acteAnnulerVisa, this.getNomTable(), c) == 1)
+        {
+            throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
+        }
         controleAnnulerVisa(c);
         setMode("modif");
         this.setEtat(ConstanteEtat.getEtatCreer());
         return this.updateToTableWithHisto(user,c,"ANNULER VISA");
     }
+
     public Object validerObject(String u, Connection c) throws Exception
     {
+        MapUtilisateurServiceDirection user = getUser(u, c);
+        UserEJBBean ejb = new UserEJBBean();
+        if (ejb.testRestriction(user, ConstanteUtilisateur.acteViser, this.getNomTable(), c) == 1)
+        {
+            throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
+        }
         setMode("modif");
         controler(c);
         this.setEtat(ConstanteEtat.getEtatValider());

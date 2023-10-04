@@ -7,6 +7,8 @@ import bean.TypeObjet;
 import bean.ValidationException;
 import historique.MapRoles;
 import historique.MapUtilisateur;
+import historique.MapUtilisateurServiceDirection;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -198,6 +200,8 @@ public interface UserEJB {
     public ResultatEtSomme findResultatFinalePage(String nomTable, String apresW, String colonne, String ordre) throws Exception;
 
     public int testRestriction(String user, String permission, String table, Connection con) throws Exception;
+
+    public int testRestriction(MapUtilisateurServiceDirection user, String permission, String table, Connection con) throws Exception;
 
     public String[] getAllTable() throws Exception;
 

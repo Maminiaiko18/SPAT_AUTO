@@ -7,6 +7,12 @@ package bean;
 import factureclient.UtilitaireFormule;
 import historique.Historique_valeur;
 import historique.MapHistorique;
+import historique.MapUtilisateur;
+import historique.MapUtilisateurServiceDirection;
+import user.UserEJBBean;
+import utilisateur.ConstanteUtilisateur;
+import utilisateur.Utilisateur;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -21,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+
+import facture.EtatProvision;
 import utilitaire.Log;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -133,8 +141,35 @@ public abstract class ClassMAPTable implements Serializable {
             }
         }
     }
+    
+    public MapUtilisateurServiceDirection getUser(String refuser,Connection c) throws Exception{
+        int verify = 0;
+        MapUtilisateurServiceDirection result = null;
+        try{
+            if(c == null){
+                c = new UtilDB().GetConn();
+                verify = 1;
+            }
+            MapUtilisateurServiceDirection temp = new MapUtilisateurServiceDirection();
+            MapUtilisateurServiceDirection[] user = (MapUtilisateurServiceDirection[])CGenUtil.rechercher(temp, null, null, c, " AND REFUSER='"+refuser+"'");
+            if(user.length>0) {
+                return user[0];
+            }
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if(c!=null && verify==1) c.close();
+        }
+        return result;
+    }
 
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        MapUtilisateurServiceDirection user = getUser(u, c);
+        UserEJBBean ejb = new UserEJBBean();
+        if (ejb.testRestriction(user, ConstanteUtilisateur.acteInsert, this.getNomTable(), c) == 1)
+        {
+            throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
+        }
         controler(c);
         if (getTuppleID() == null || getTuppleID().compareToIgnoreCase("") == 0 || getTuppleID().compareToIgnoreCase("0") == 0) {
             construirePK(c);
