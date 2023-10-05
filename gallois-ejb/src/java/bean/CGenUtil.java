@@ -428,7 +428,7 @@ public class CGenUtil {
             cmd = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dr = cmd.executeQuery(comandeInterne);
             Object[] ret= transformeDataReader(dr, e, c);
-//            System.out.println("commande sql = "+comandeInterne);
+            //System.out.println("RETOUUUUUUUR   "+ret.length);
             return ret;
         } catch (Exception x) {
             x.printStackTrace();
@@ -662,7 +662,7 @@ public class CGenUtil {
             int indiceSup = npp * (numPage);
             String comande = "select * from (select " + getListeChampPage(e, c) + " from (select * from " + e.getNomTableSelect() + " where " + makeWhere(e) + makeWhereIntervalle(colInt, valInt) + " " + apresWhere + ")) where rownum <="+ indiceSup;
             //String comande = "select * from (select " + getListeChampPage(e, c) + ",rowNum as r from " + e.getNomTableSelect() + " where " + makeWhere(e) + makeWhereIntervalle(colInt, valInt) + " " + apresWhere + ") where r between " + indiceInf + " and " + indiceSup;
-//            System.out.println(" ========== commmande liste " + comande);
+            //System.out.println(" ========== commmande " + comande);
             st = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             dr = st.executeQuery(comande);
             Object[] resultat = transformeDataReader(dr, e, c);
@@ -716,7 +716,7 @@ public class CGenUtil {
             int indiceSup = npp * (numPage);
             String comande = "select * from (select " + getListeChampPage(e, c) + ",rowNum as r from (select * from " + e.getNomTableSelect() + " where " + makeWhere(e) + makeWhereIntervalle(colInt, valInt) + " " + apresWhere + ")) where r between " + indiceInf + " and " + indiceSup;
             //String comande = "select * from (select " + getListeChampPage(e, c) + ",rowNum as r from " + e.getNomTableSelect() + " where " + makeWhere(e) + makeWhereIntervalle(colInt, valInt) + " " + apresWhere + ") where r between " + indiceInf + " and " + indiceSup;
-//            System.out.println(" requete requete ========== totra" + comande);
+            //System.out.println(" requete requete ========== totra" + comande);
             st = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             dr = st.executeQuery(comande);
 		//	System.out.println("requete 2: " + comande);
@@ -859,7 +859,7 @@ public class CGenUtil {
             String selectInterne = "select " + getListeChampGroupeSomme(groupe, sommeGroupe) + ", COUNT(*) as nombrepargroupe from " + e.getNomTableSelect() + " where " + makeWhere(e) + makeWhereIntervalle(colInt, valInt) + " " + apresWhere + " group by " + getListeChampGroupeSomme(groupe, null) + " " + ordre;
             String comande = "select * from (select " + getListeChampGroupeSimple(groupe, sommeGroupe) + ",nombrepargroupe,rowNum as r from (" + selectInterne + ")) where r between " + indiceInf + " and " + indiceSup;
             //if (e.getNomTable().compareToIgnoreCase("opPayelc")==0) 
-//            System.out.println("La comande groupe SQL = "+comande);
+            //System.out.println("La comande groupe SQL = "+comande);
             st = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             dr = st.executeQuery(comande);
             Object[] resultat = transformeDataReader(dr, e, c);
@@ -1099,10 +1099,8 @@ public class CGenUtil {
                         retour = retour + " and " + ch[k].getNomClasse().getName() + " like '%" + Utilitaire.replaceChar(valeurk.toString()) + "%'";
                     }
                     else{
-                        if(Utilitaire.replaceChar(valeurk.toString()).startsWith("%") || Utilitaire.replaceChar(valeurk.toString()).endsWith("%"))
-                            retour = retour + " and upper(" + ch[k].getNomClasse().getName() + ") like upper('" + Utilitaire.replaceChar(valeurk.toString()) + "')";
-                        else
-                            retour = retour + " and upper(" + ch[k].getNomClasse().getName() + ") like upper('%" + Utilitaire.replaceChar(valeurk.toString()) + "%')";
+                        retour = retour + " and upper(" + ch[k].getNomClasse().getName() + ") like upper('%" + Utilitaire.replaceChar(valeurk.toString()) + "%')";
+                
                     }
                 }    
             }
@@ -1144,6 +1142,7 @@ public class CGenUtil {
         try {
             String retour = "1<2";
             Champ[] ch = ListeColonneTable.getFromListe(e, con);
+            //System.out.println("nomTable = "+e.getNomTableSelect()+" > taille : "+ch);
             for (int k = 0; k < ch.length; k++) {
                 //if (!e.getListeAttributsIgnores().Contains(((String)g[k].Name).ToLower()))
                 {
