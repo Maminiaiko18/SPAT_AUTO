@@ -333,7 +333,7 @@ public class BordereauFF extends Bordereau{
             String idengagement = this.createEngagement(u, c, controleBudget);
             this.setIdengagement(idengagement);
             this.setNomTable("BORDEREAUFF");
-            this.updateToTableWithHisto(u, c);
+            this.updateToTableWithHisto(u, c,"Engager Bordereau");
             
             if(ouvert) 
                 c.commit();

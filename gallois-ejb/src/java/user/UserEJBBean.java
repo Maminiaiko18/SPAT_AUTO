@@ -2161,6 +2161,18 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     }
 
     @Override
+    public int testRestriction(MapUtilisateurServiceDirection user, String idaction, String table, Connection con) throws Exception {
+        try {
+            GestionRole g = new GestionRole();
+            return g.testRestriction(user, idaction, table, user.getAdruser(), con);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
+
+    @Override
     public int testRestriction(String idrole, String idaction, String table, Connection con) throws Exception {
         try {
             GestionRole g = new GestionRole();
