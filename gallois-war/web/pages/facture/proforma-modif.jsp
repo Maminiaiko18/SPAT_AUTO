@@ -273,6 +273,22 @@ try {
         $('#compte_<%=i%>').parent().attr('style', ''); 
     <%}%>
         
+    document.getElementsByClassName("btn btn-default pull-right")[2].addEventListener('click', e => {
+        var indice = ($("#nombreLigne")[0].value)-1;
+        document.getElementById("quantite_"+indice).setAttribute("onblur","calculerMontant("+indice+")");
+        document.getElementById("pu_"+indice).setAttribute("onblur","calculerMontant("+indice+")");
+        document.getElementById("duree_"+indice).setAttribute("onblur","calculerMontant("+indice+")");
+    })
+    
+    document.getElementsByClassName("btn btn-default pull-right")[3].addEventListener('click', e => {
+        var indice = ($("#nombreLigne")[0].value)-10;
+        for (let i = indice; i < indice+10; i++) {
+            document.getElementById("quantite_"+i).setAttribute("onblur","calculerMontant("+i+")");
+            document.getElementById("pu_"+i).setAttribute("onblur","calculerMontant("+i+")");
+            document.getElementById("duree_"+i).setAttribute("onblur","calculerMontant("+i+")");
+        }
+    })
+        
 </script>
 <%} catch (Exception e) {
     e.printStackTrace();

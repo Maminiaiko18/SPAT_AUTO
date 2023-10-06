@@ -173,6 +173,19 @@
     <% } %>
     $('label[for="id"]').html('');
     
+    document.getElementsByClassName("btn btn-default pull-right")[2].addEventListener('click', e => {
+        var indice = ($("#nombreLigne")[0].value)-1;
+        document.getElementById("qte_"+indice).setAttribute("onblur","calculerMontant("+indice+")");
+        document.getElementById("pu_"+indice).setAttribute("onblur","calculerMontant("+indice+")");
+    })
+    
+    document.getElementsByClassName("btn btn-default pull-right")[3].addEventListener('click', e => {
+        var indice = ($("#nombreLigne")[0].value)-10;
+        for (let i = indice; i < indice+10; i++) {
+            document.getElementById("qte_"+i).setAttribute("onblur","calculerMontant("+i+")");
+            document.getElementById("pu_"+i).setAttribute("onblur","calculerMontant("+i+")");
+        }
+    })
     
 </script>
 <% } catch (Exception ex) {
