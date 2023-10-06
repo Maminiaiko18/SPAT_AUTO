@@ -42,7 +42,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Num&eacute;ro OM", "Nom", "Pr&eacute;nom", "Fonction", "Matricule", "Date d&eacute;part", "Dur&eacute;e", "Lieu de Placement"};
+            String libEnteteAffiche[] = {"Id", "Num&eacute;ro OM", "Nom", "Pr&eacute;nom", "Matricule","Fonction", "Date d&eacute;part", "Dur&eacute;e", "Lieu de Placement"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
