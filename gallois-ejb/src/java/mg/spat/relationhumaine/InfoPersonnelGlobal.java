@@ -203,7 +203,7 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
 
     public void setDirection(String direction) throws Exception {
         if (getMode().compareToIgnoreCase("modif") == 0) {
-            if(this.getDirection()==null || this.getDirection().compareToIgnoreCase("")==0) throw new Exception("Direction obligatoire!");
+            if(direction==null || direction.compareToIgnoreCase("")==0) throw new Exception("Direction obligatoire!");
         }
         this.direction = direction;
     }
@@ -426,7 +426,7 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
 
     public void setIdcategorieprofessionel(String idcategorieprofessionel) throws Exception {
         if (getMode().compareToIgnoreCase("modif") == 0) {
-            if(this.getIdcategorieprofessionel()==null || this.getIdcategorieprofessionel().compareToIgnoreCase("")==0) throw new Exception("Catégorie professionnel obligatoire!");
+            if(idcategorieprofessionel==null || idcategorieprofessionel.compareToIgnoreCase("")==0) throw new Exception("Catégorie professionnel obligatoire!");
         }
         this.idcategorieprofessionel = idcategorieprofessionel;
     }
