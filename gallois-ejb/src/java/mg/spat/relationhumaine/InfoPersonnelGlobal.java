@@ -201,7 +201,10 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
         return direction;
     }
 
-    public void setDirection(String direction) {
+    public void setDirection(String direction) throws Exception {
+        if (getMode().compareToIgnoreCase("modif") == 0) {
+            if(this.getDirection()==null || this.getDirection().compareToIgnoreCase("")==0) throw new Exception("Direction obligatoire!");
+        }
         this.direction = direction;
     }
 
@@ -421,7 +424,10 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
         return idcategorieprofessionel;
     }
 
-    public void setIdcategorieprofessionel(String idcategorieprofessionel) {
+    public void setIdcategorieprofessionel(String idcategorieprofessionel) throws Exception {
+        if (getMode().compareToIgnoreCase("modif") == 0) {
+            if(this.getIdcategorieprofessionel()==null || this.getIdcategorieprofessionel().compareToIgnoreCase("")==0) throw new Exception("Catégorie professionnel obligatoire!");
+        }
         this.idcategorieprofessionel = idcategorieprofessionel;
     }
 
@@ -474,7 +480,6 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
         int age = calendar.get(Calendar.YEAR) - anneeNaiss;
         if(age < 18) throw new Exception("Age invalide. ( = "+(age)+")");
         this.setAge(age);
-        
         return super.createObject(u, c);
     }
 
