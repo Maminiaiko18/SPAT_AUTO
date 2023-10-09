@@ -54,7 +54,7 @@
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
     pi.getFormu().getChamp("idbanque").setLibelle("Banque");
     pi.getFormu().getChamp("idmode").setLibelle("Mode de paiement");
-    pi.getFormu().getChamp("dateSaisie").setVisible(false);
+    //pi.getFormu().getChamp("dateSaisie").setVisible(false);
     pi.getFormu().getChamp("dateEffet").setLibelle("Date");
     pi.getFormu().getChamp("numPiece").setLibelle("Num&eacute;ro pi&egrave;ce");
     pi.getFormu().getChamp("idTypeCheque").setLibelle("Type ch&egrave;que");

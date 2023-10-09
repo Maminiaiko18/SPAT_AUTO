@@ -10,6 +10,8 @@
 <%@page import="affichage.PageRecherche"%>
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
+<%@page import="mg.spat.Caisse"%>
+
 <%
     try {
         String typecheque = request.getParameter("idtypecheque");
@@ -35,7 +37,7 @@
         typeCheque.setNomTable("typecheque");
         listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
 
-        TypeObjet caisse = new TypeObjet();
+        Caisse caisse = new Caisse();
         caisse.setNomTable("CAISSE_REEL");
         listes[2] = new Liste("caisse", caisse, "val", "id");
 

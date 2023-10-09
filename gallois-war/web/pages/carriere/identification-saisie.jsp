@@ -106,6 +106,34 @@
 
     // Add the null option as the first option in the select
     selectElement.insertBefore(nullOption, selectElement.firstChild);
+    
+    window.onload = () =>{
+        var submitBtns = document.querySelectorAll("button[name='Submit2'][type='submit']");
+        for(var i=0; i < submitBtns.length; i++){
+            modifySubmitBtn(submitBtns[i]);    
+        }
+    }
+    
+    function modifySubmitBtn(btn){
+        btn.setAttribute("type","button");
+        btn.onclick = save;
+    }
+    
+    function save() {
+        var btn = this;
+        btn.disabled = true;
+        var query = $('#sig_commune').serialize();
+        $.get("apresAjax.jsp?"+query, function(data, status){
+            var temp = data.trim().split("_");
+            if(temp[0] === 'error'){
+                btn.disabled = false;
+                alert(temp[1]);
+            }
+            else{
+                window.location.href = "<%=pi.getLien()%>?but=carriere/identification-fiche.jsp&id="+temp[1];
+            }
+        });
+    }
 </script>
 <%}catch(Exception e){
     e.printStackTrace();

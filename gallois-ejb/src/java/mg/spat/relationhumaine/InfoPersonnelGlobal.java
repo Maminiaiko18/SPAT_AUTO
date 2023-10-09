@@ -131,7 +131,7 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
             } 
             else {
                 if(numero_cin.length()!=12){
-                    throw new Exception("Le nombre de caractères pour numero_cin doit être égale à 12");
+                    throw new Exception("Le nombre de caract\350res pour numero cin doit \352tre \351gale \340 12");
                 }
            }
          }
@@ -201,7 +201,10 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
         return direction;
     }
 
-    public void setDirection(String direction) {
+    public void setDirection(String direction) throws Exception {
+        if (getMode().compareToIgnoreCase("modif") == 0) {
+            if(direction==null || direction.compareToIgnoreCase("")==0) throw new Exception("Direction obligatoire!");
+        }
         this.direction = direction;
     }
 
@@ -359,7 +362,7 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     public void setSalaire_base(double salaire_base) throws Exception {
         if (getMode().compareToIgnoreCase("modif") == 0) {
             if (salaire_base < 0) {
-                throw new Exception("salaire_base invalide");
+                throw new Exception("salaire base invalide");
             }
         }
         this.salaire_base = salaire_base;
@@ -372,7 +375,7 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     public void setIndemnite_fonction(double indemnite_fonction) throws Exception {
         if (getMode().compareToIgnoreCase("modif") == 0) {
             if (indemnite_fonction < 0) {
-                throw new Exception("indemnite_fonction invalide");
+                throw new Exception("indemnite fonction invalide");
             }
         }
         this.indemnite_fonction = indemnite_fonction;
@@ -385,7 +388,7 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     public void setIndemnite_conge_paye(double indemnite_conge_paye) throws Exception {
         if (getMode().compareToIgnoreCase("modif") == 0) {
             if (indemnite_conge_paye < 0) {
-                throw new Exception("indemnite_conge_paye invalide");
+                throw new Exception("indemnite conge paye invalide");
             }
         }
         this.indemnite_conge_paye = indemnite_conge_paye;
@@ -398,7 +401,7 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     public void setIndemnite_deplacement(double indemnite_deplacement) throws Exception {
         if (getMode().compareToIgnoreCase("modif") == 0) {
             if (indemnite_deplacement < 0) {
-                throw new Exception("indemnite_deplacement invalide");
+                throw new Exception("indemnite deplacement invalide");
             }
         }
         this.indemnite_deplacement = indemnite_deplacement;
@@ -411,7 +414,7 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
     public void setIndemnite_risque(double indemnite_risque) throws Exception {
         if (getMode().compareToIgnoreCase("modif") == 0) {
             if (indemnite_risque < 0) {
-                throw new Exception("indemnite_fonction invalide");
+                throw new Exception("indemnite fonction invalide");
             }
         }
         this.indemnite_risque = indemnite_risque;
@@ -421,7 +424,10 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
         return idcategorieprofessionel;
     }
 
-    public void setIdcategorieprofessionel(String idcategorieprofessionel) {
+    public void setIdcategorieprofessionel(String idcategorieprofessionel) throws Exception {
+        if (getMode().compareToIgnoreCase("modif") == 0) {
+            if(idcategorieprofessionel==null || idcategorieprofessionel.compareToIgnoreCase("")==0) throw new Exception("Catégorie professionnel obligatoire!");
+        }
         this.idcategorieprofessionel = idcategorieprofessionel;
     }
 
@@ -474,7 +480,6 @@ public class InfoPersonnelGlobal extends ClassMAPTable {
         int age = calendar.get(Calendar.YEAR) - anneeNaiss;
         if(age < 18) throw new Exception("Age invalide. ( = "+(age)+")");
         this.setAge(age);
-        
         return super.createObject(u, c);
     }
 

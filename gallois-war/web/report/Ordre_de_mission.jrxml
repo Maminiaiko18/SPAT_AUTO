@@ -68,7 +68,7 @@
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Il est ordonné à Monsieur]]></text>
+				<text><![CDATA[Il est ordonné à]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="253" y="285" width="300" height="20" uuid="92ff2757-8b7a-4108-a6b4-57f822cebc25"/>

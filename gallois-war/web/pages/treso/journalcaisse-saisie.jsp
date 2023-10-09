@@ -16,6 +16,7 @@
 <%@ page import="affichage.PageInsert" %>
 <%@ page import="affichage.Liste" %>
 <%@page import="mg.spat.FactureAnalyse"%>
+<%@page import="mg.spat.Caisse"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
@@ -40,7 +41,7 @@
         datas.init(null);
 
         affichage.Liste[] liste = new affichage.Liste[5];
-        TypeObjet esc = new TypeObjet();
+        Caisse esc = new Caisse();
         liste[0] = new Liste("caisse", esc, "VAL", "id");
         esc.setNomTable("CAISSE_REEL");
         liste[0].setDefaultSelected(Constante.caisseDepense);

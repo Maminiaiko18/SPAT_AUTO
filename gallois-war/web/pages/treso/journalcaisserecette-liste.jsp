@@ -5,6 +5,7 @@
 <%@page import="affichage.PageRecherche"%>
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
+<%@page import="mg.spat.Caisse"%>
 <%
     String caisserec ="";
     try {
@@ -35,7 +36,7 @@
         typeCheque.setNomTable("typecheque");
         listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
 
-        TypeObjet caisserecette = new TypeObjet();
+        Caisse caisserecette = new Caisse();
         caisserecette.setNomTable("caisserecette");
         listes[2] = new Liste("caisse", caisserecette, "val", "id");
         listes[2].setDefaultSelected(Constante.caisseCentraleEspece);
