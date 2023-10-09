@@ -251,6 +251,9 @@ public class BonDeCommandeFille extends ClassMAPTable {
                 c = new UtilDB().GetConn();
                 verif = 1;
             }
+
+            this.setMontant(this.getQuantite()*this.getPu());
+
             if(estProduit(this.getProduit(), c)){
                 LiaisonDetailsBCProduit liaison = new LiaisonDetailsBCProduit(this.getIdbc(), this.getProduit());
                 liaison.createObject(u, c);
@@ -432,6 +435,7 @@ public class BonDeCommandeFille extends ClassMAPTable {
     }
     public void controlerUpdate(Connection c) throws Exception {
         try{
+            this.setMontant(this.getQuantite()*this.getPu());
             BonDeCommande mere=this.getMere(c);
             if(mere.getEtat()>=ConstanteEtat.getEtatValider()) throw new Exception("Modification impossible, BC déjà visé");
             this.setTaux(this.getTauxRecent(c));
