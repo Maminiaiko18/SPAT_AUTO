@@ -768,7 +768,7 @@ public class FactureClientDetails extends ClassFille {
                 }
             }
         } else {
-            if (mere.getBateau() != null && mere.getDateDepart() != null && mere.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0) {
+            if (mere.getBateau() != null && mere.getDateDepart() != null && ( mere.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0 || mere.getIdcategorie().compareTo(Constante.idCategorieFCProforma) == 0) ){
                 date = mere.getDateDepart();
             }
         }
