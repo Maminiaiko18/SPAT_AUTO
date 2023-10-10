@@ -1821,8 +1821,9 @@ public class JournalCaisse extends ClassEtat {
             caisse.setDateEffet(this.getDateEffet());
             caisse.setTiers(this.getTiers());
             caisse.setMode(this.getMode());
-            caisse.setIdordre(this.getIdordre());
-            caisse.setIdplacement(this.getIdplacement());
+            OrdonnerPayement op = new OrdonnerPayement();
+            op = (OrdonnerPayement) op.getById(this.getIdordre(), op.getNomTable(), c);
+            caisse.setIdplacement(op.getDed_Id());
             caisse.setIdTypeCheque(this.getIdTypeCheque());
             caisse.setIdmode(this.getIdmode());
             caisse.setEtat(ConstanteEtat.getEtatObjetValider());
