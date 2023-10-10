@@ -574,6 +574,10 @@ public class FactureClientDetails extends ClassFille {
 
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
+        FactureClient mere = this.findMere(c);
+        if (mere.getBateau() != null && mere.getDateDepart() != null && ( mere.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0 || mere.getIdcategorie().compareTo(Constante.idCategorieFCProforma) == 0) ){
+                this.setDatefact(mere.getDateDepart());
+        }
         if (getTauxDonne() == false) {
             setTaux(getTauxRecent(c));
         }
