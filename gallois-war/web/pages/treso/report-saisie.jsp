@@ -3,6 +3,8 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@page import="mg.spat.Caisse"%>
+
 <%
     try{
     Report report = new Report();
@@ -10,7 +12,7 @@
     
     affichage.Champ[] liste = new affichage.Champ[2];
     
-    TypeObjet esc = new TypeObjet();
+    Caisse esc = new Caisse();
     esc.setNomTable("CAISSE_REEL");
     liste[0] = new Liste("caisse", esc, "VAL", "id");
     

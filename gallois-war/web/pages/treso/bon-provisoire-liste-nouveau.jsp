@@ -67,8 +67,10 @@
     String where = "";
     if(idUser.compareToIgnoreCase("1469")==0) {
         where = " and modepaiement = '"+Constante.modepaiementDefaut+"'";
+        pr.setAWhere(where);
     }else if(idUser.compareToIgnoreCase("3583")==0 || idUser.compareToIgnoreCase("1322")==0){
         where = " and modepaiement != '"+Constante.modepaiementDefaut+"'";
+        pr.setAWhere(where);
     }else pr.setAWhere(aWhere);
 
     String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};

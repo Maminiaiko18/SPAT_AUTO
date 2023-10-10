@@ -44,7 +44,7 @@
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
     pi.getFormu().getChamp("idbanque").setLibelle("Banque");
     pi.getFormu().getChamp("idmode").setLibelle("Mode de paiement");
-    pi.getFormu().getChamp("dateSaisie").setVisible(false);
+    //pi.getFormu().getChamp("dateSaisie").setVisible(false);
     pi.getFormu().getChamp("dateEffet").setLibelle("Date");
     pi.getFormu().getChamp("numPiece").setLibelle("Num&eacute;ro pi&egrave;ce");
     pi.getFormu().getChamp("idTypeCheque").setLibelle("Type ch&egrave;que");
@@ -61,7 +61,7 @@
     pi.getFormu().getChamp("numpiece").setVisible(false);
     pi.getFormu().getChamp("credit").setVisible(false);
     pi.getFormu().getChamp("debit").setVisible(false);
-    pi.getFormu().getChamp("remarque").setVisible(false);
+    //pi.getFormu().getChamp("remarque").setVisible(false);
     pi.getFormu().getChamp("idTypeCheque").setVisible(false);
     pi.getFormu().getChamp("designation").setVisible(false);
     pi.getFormu().getChamp("idplacement").setVisible(false);
