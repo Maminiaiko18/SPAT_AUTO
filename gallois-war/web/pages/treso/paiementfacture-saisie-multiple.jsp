@@ -29,6 +29,7 @@
         pi.getFormufle().getChamp("idFact_"+i).setPageAppelAvecFiltre("choix/listeFactureClientViseeChoix.jsp", "idFact_"+i+";montant_"+i+";idFactlibelle_"+i, col, val);
         pi.getFormufle().getChamp("idFact_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("idMvt_"+i).setVisible(false);
+        pi.getFormufle().getChamp("datepaiement_"+i).setVisible(false);
     }
 //    pi.getFormufle().getChamp("idMvt_0").setLibelle("Mouvement");     
     pi.getFormufle().getChamp("montant_0").setLibelle("Montant");     
@@ -36,12 +37,7 @@
     pi.getFormu().getChamp("montant").setAutre("onchange=\"setFilleValue('montant_0', this)\"");
     int taille = pi.getNombreLigne();
     for (int i = 0; i < taille; i++) {
-        if (i == 0) {
-            pi.getFormufle().getChamp("montant_" + i).setAutre("onchange=\"setOnblurInMere('montant_0', this)\"");
-        }
-        else {
-            pi.getFormufle().getChamp("montant_" + i).setAutre("onchange=\"calculTotal()\"");
-        }
+        pi.getFormufle().getChamp("montant_" + i).setAutre("onchange=\"setOnblurInMere('montant_"+i+"', this)\"");
     }
         
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
@@ -146,17 +142,19 @@
 
     $(document).ready(function () {
         initTotalSection();
-        calculTotal();
+//        calculTotal();
     });
 </script>
 <script>
     function setOnblurInMere(idMere, elemFille) {
-        console.log('calcul total');
-        calculTotal();
-        var elemMere = document.getElementById(idMere);
-        if (elemMere && elemFille.value != "") {
-            elemMere.onblur = calculTotal();
-        }
+        var total = 0;
+        <% for (int j = 0; j < pi.getNombreLigne(); j++) {%>
+            var montantstr = $('#montant_<%= j%>').val().trim();
+            montantstr = montantstr.replace(/\s/g, '').replace(',', '.');
+            var montant = montantstr === '' ? 0 : parseFloat(montantstr);
+            total += montant;
+        <% } %>
+        $('#totalAmount').text(new Intl.NumberFormat('fr-FR').format(total));
     }
     /*function add_line_tab(champ){
         var firstElement = document.getElementById("ajout_multiple_ligne").lastChild.innerHTML;
