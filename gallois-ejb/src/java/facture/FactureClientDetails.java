@@ -14,8 +14,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-
-import mg.spat.Mouvement;
 import mg.spat.OccupationMaterielNaval;
 import mg.spat.Prevision;
 import mg.spat.exploitant.Activite;
@@ -576,23 +574,10 @@ public class FactureClientDetails extends ClassFille {
 
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
-        this.checkTauxEscale(c);
         if (getTauxDonne() == false) {
             setTaux(getTauxRecent(c));
         }
         return super.createObject(user, c);
-    }
-
-    public void checkTauxEscale(Connection c) throws Exception{
-        FactureClient fclient = this.findMere(c);
-        if(fclient.getBateau()!=null){
-            if(fclient.getDateDepart()!=null){
-                String datyTaux = Utilitaire.formatterDaty(fclient.getDateDepart());
-                Coursdevise[] devise = Coursdevise.getCours(c,datyTaux);
-                setTaux(devise[0].getMontant());
-                setTauxDonne(true);
-            } 
-        }
     }
 
     public void verifActivite(Connection c) throws Exception {
@@ -605,10 +590,7 @@ public class FactureClientDetails extends ClassFille {
     @Override
     public void controlerUpdate(Connection c) throws Exception {
         verifActivite(c);
-        checkTauxEscale(c);
-        if (getTauxDonne() == false) {
-            setTaux(getTauxRecent(c));
-        }
+        setTaux(getTauxRecent(c));
         super.controlerUpdate(c);
     }
 
