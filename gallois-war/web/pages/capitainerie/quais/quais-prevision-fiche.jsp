@@ -15,7 +15,8 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
-
+<%@page import="affichage.PageRecherche"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     
     try {
@@ -39,8 +40,8 @@
         prevision.setNomTable("previsionfiche_ordre");
         PageConsulte pc = pc = new PageConsulte(prevision, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
-        pc.getChampByName("heure_arrivee").setLibelle("Heure d'arriv�e");
-        pc.getChampByName("heure_depart").setLibelle("Heure de d�part");
+        pc.getChampByName("heure_arrivee").setLibelle("Heure d'arrivée");
+        pc.getChampByName("heure_depart").setLibelle("Heure de départ");
         pc.getChampByName("nomnavire").setLibelle("Navire");
         pc.getChampByName("armateurlib").setLibelle("Armateur");
         pc.getChampByName("idnavire").setVisible(false);
@@ -53,8 +54,8 @@
         pc.getChampByName("valpilote").setLibelle("Commandant");
         pc.getChampByName("valquaisprovenance").setLibelle("Quai de provenance");
         pc.getChampByName("valquaisdestination").setLibelle("Quai de destination");
-        pc.getChampByName("date_arrivee").setLibelle("Date d'arriv�e");
-        pc.getChampByName("date_depart").setLibelle("Date de d�part");
+        pc.getChampByName("date_arrivee").setLibelle("Date d'arrivée");
+        pc.getChampByName("date_depart").setLibelle("Date de départ");
         pc.getChampByName("valpaysprovenance").setLibelle("Pays de provenance");
         pc.getChampByName("valpaysdestination").setLibelle("Pays de destination");
         pc.getChampByName("type").setLibelle("type navire");
@@ -91,7 +92,9 @@
                         </p>
                         <br/>
                         <p>
-                            <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=TPMM00004&idPrevision=" + base.getId()%>" style="margin-right: 10px">Arriv�e</a>   
+                            <% if(!base.isArrived(null)) { %>
+                                <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=TPMM00004&idPrevision=" + base.getId()%>" style="margin-right: 10px">Arrivée</a>   
+                            <% } %>
                             <a class="btn btn-info pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir prestation</a>   
                             <a class="btn btn-default pull-left"  href="<%=(String) session.getValue("lien") + "?but=exploitants/activites-saisie.jsp&idPrevision=" + base.getId()%>" style="margin-right: 10px">Saisir activite </a>   
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresPrevision.jsp&acte=factureGlobale&idPrevision=" + base.getId()%>" style="margin-right: 10px">Facturer </a>   

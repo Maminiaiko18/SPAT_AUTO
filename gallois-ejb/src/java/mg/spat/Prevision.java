@@ -102,6 +102,28 @@ public class Prevision extends ClassEtat {
         String where = String.format("and escale = '%s'", this.getId());
         return (Mouvement[]) CGenUtil.rechercher(mvt, null, null, c, where);
     }
+
+    public boolean isArrived(Connection c)throws Exception {
+        int verif = 0;
+        Mouvement [] retour;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            Mouvement mvt = new Mouvement();
+            String where=" and escale ='" + this.getId() + "'";
+            retour =(Mouvement[]) CGenUtil.rechercher(mvt, null, null, c, where);
+            if(retour.length > 0) return true;
+            return false;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();;
+            }
+        }
+    }
     
     @Override   
     public Object annulerValidation(String u, Connection c) throws Exception {
