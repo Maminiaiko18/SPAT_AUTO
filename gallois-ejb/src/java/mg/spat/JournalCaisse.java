@@ -803,7 +803,11 @@ public class JournalCaisse extends ClassEtat {
                 verif = 1;
             }
 
-            this.updateToTableWithHisto(refUser, c);
+            JournalCaisse j = (JournalCaisse) new JournalCaisse().getById(this.getId(), "journalcaisse", c);
+            if (!(this.getDateEffet().toLocalDate().equals(j.getDateEffet().toLocalDate()))) {
+                ClotureService.testDateCloture(j.getDateEffet(), this.caisse, c);
+            }
+            this.updateToTableWithHisto(refUser, c,"Modifier entete");
 
             if (verif == 1) {
                 c.commit();
