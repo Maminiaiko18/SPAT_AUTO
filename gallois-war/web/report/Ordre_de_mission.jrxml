@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ordre_de_mission" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cd195319-b5a6-4c93-919d-3ccb223d1017">
 	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="341"/>
+	<property name="ireport.y" value="363"/>
 	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -203,7 +203,7 @@
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="253" y="405" width="299" height="20" uuid="a5f3db64-64f8-4597-a276-0fa58b76eaa2"/>
 				<textElement>
 					<font size="11"/>
