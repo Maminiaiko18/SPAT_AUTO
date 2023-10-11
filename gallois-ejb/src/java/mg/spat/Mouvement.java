@@ -555,6 +555,7 @@ public class Mouvement extends ClassEtat {
 
     public Mouvement[] getMouvementMemeEscalePrec(Connection c) throws Exception {
         int verif = 0;
+        Mouvement [] retour;
         try {
             if (c == null) {
                 c = new UtilDB().GetConn();
@@ -570,7 +571,11 @@ public class Mouvement extends ClassEtat {
                 mvt.setNomTable("MOUVEMENT_DEPART_PREV");
                 order = " order by date_depart desc, heure_depart desc ";
             }
-            return (Mouvement[]) CGenUtil.rechercher(mvt, null, null, c, " and escale ='" + this.getEscale() + "' and id != '" + this.getId() + "' and etat>="+ConstanteEtat.getEtatValider()+" " + order);
+            retour =(Mouvement[]) CGenUtil.rechercher(mvt, null, null, c, " and escale ='" + this.getEscale() + "' and id != '" + this.getId() + "'  " + order);
+            for(Mouvement precedent : retour){
+                if(precedent.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Mouvement précédent non visée");
+            }
+            return retour;
         } catch (Exception e) {
             throw e;
         } finally {
