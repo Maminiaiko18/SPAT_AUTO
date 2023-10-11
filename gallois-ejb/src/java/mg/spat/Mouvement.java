@@ -76,6 +76,7 @@ public class Mouvement extends ClassEtat {
 
     @Override
     public void viser(UserEJBBean u, Connection c) throws Exception {
+        this.checkEtatPrecedent(c);
         this.updateMouvementPrecedent(u, c);
         Activite stationnement=null;
         if (this.getTypeMvt().equals(Constante.idtypeMvtDepart)) {
@@ -571,6 +572,43 @@ public class Mouvement extends ClassEtat {
                 order = " order by date_depart desc, heure_depart desc ";
             }
             return (Mouvement[]) CGenUtil.rechercher(mvt, null, null, c, " and escale ='" + this.getEscale() + "' and id != '" + this.getId() + "' and etat>="+ConstanteEtat.getEtatValider()+" " + order);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();;
+            }
+        }
+    }
+
+    public void checkEtatPrecedent(Connection c)throws Exception {
+        int verif = 0;
+        Mouvement [] retour;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            Mouvement mvt = new Mouvement();
+            String where=" and escale ='" + this.getEscale() + "' and id != '" + this.getId() + "'  ";
+            String dateHeure="";
+
+            if (this.getTypeMvt().compareTo(Constante.getTpmvtdepart()) == 0) {
+                mvt.setNomTable("MOUVEMENT_ARRIVEE_PREV");
+                dateHeure = this.getDate_depart()+" "+this.getHeure_depart();
+                where += " AND TO_TIMESTAMP(DATEARRIVEE||' '||HEURE) <= TO_TIMESTAMP('"+dateHeure+"', 'YYYY-MM-DD HH24:MI:SS')";
+                where += " order by datearrivee desc, heure desc ";
+            } else {
+                mvt.setNomTable("MOUVEMENT_DEPART_PREV");
+                dateHeure = this.getDatearrivee()+" "+getHeure();
+                where += "AND TO_TIMESTAMP(DATE_DEPART ||' '||HEURE_DEPART) <= TO_TIMESTAMP('"+dateHeure+"', 'YYYY-MM-DD HH24:MI:SS')";
+                where += " order by date_depart desc, heure_depart desc ";
+            }
+
+            retour =(Mouvement[]) CGenUtil.rechercher(mvt, null, null, c, where);
+            for(Mouvement precedent : retour){
+                if(precedent.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Mouvement précédent non visée!");
+            }
         } catch (Exception e) {
             throw e;
         } finally {
