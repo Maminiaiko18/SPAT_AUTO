@@ -7,6 +7,7 @@ package mg.spat;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
 import service.JournalService;
@@ -61,10 +62,6 @@ public class Report extends ClassEtat{
     public void controler(Connection c) throws Exception{
 //        Report report = this.getReportFarany(this.getDaty(),this.getCaisse(),c);
 //        this.montant=report.getMontant()+JournalService.getSoldeJournal(report.getDaty() , Utilitaire.getDateAvant(this.getDaty(), 1), this.getCaisse(), c);
-        if(this.getCaisse().compareToIgnoreCase("CAIS000011")==0 || this.getCaisse().compareToIgnoreCase("CAIS000012")==0)
-        {
-            if(this.getDevise().compareToIgnoreCase("Eur")!=0) throw new Exception("Report doit etre en devise pour ce caisse.");
-        }
         if(checkDoublon(c)){
             throw new Exception("Report deja effectue pour cette caisse");
         }    
@@ -125,5 +122,31 @@ public class Report extends ClassEtat{
         String sqlWhere = String.format(" and daty = to_date('%s', 'YYYY-MM-DD') and idcaisse = '%s' ", getDaty(), getCaisse());
         Report[] result = (Report[])CGenUtil.rechercher(base, null, null, c, sqlWhere);
         return result.length > 0;
+    }
+    
+    public void setDevise(Connection c) throws Exception {
+        try{
+            Caisse[] caisses = (Caisse[])CGenUtil.rechercher(new Caisse(), null, null, c, " and id = '" + this.getCaisse() + "'");
+            if(caisses.length > 0){
+                if(caisses[0].getDevise() == null)
+                    throw new Exception("Devise non d\\351finie pour la caisse.");
+                this.setDevise(caisses[0].getDevise());
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+    
+    @Override
+    public ClassMAPTable createObject(String iduser, Connection c) throws Exception {
+        try{
+            this.setDevise(c);
+        }
+        catch(Exception e){
+            throw e;
+        }
+        
+        return super.createObject(iduser, c);
     }
 }

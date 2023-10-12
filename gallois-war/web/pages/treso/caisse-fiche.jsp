@@ -14,13 +14,18 @@
 
 <%
     Caisse c = new Caisse();
-    c.setNomTable("caisse");
+    c.setNomTable("caisselibelle");
     PageConsulte pc = new PageConsulte(c, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
     pc.setTitre("Fiche Caisse");
     pc.getChampByName("id").setVisible(false);
     pc.getChampByName("val").setLibelle("Caisse");
     pc.getChampByName("desce").setLibelle("Description");
+    pc.getChampByName("deviselib").setLibelle("Devise");
+    pc.getChampByName("numero").setVisible(false);
+    pc.getChampByName("rangsitcptcrt").setVisible(false);
+    pc.getChampByName("placesitcptcrt").setVisible(false);
+    pc.getChampByName("devise").setVisible(false);
     
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
     configuration.CynthiaConf.load();
