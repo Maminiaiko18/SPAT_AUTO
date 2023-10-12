@@ -12,9 +12,9 @@
     try{
         Caisse caisse = new Caisse();
         caisse.setNomTable("CAISSE_REEL");
-        String listeCrt[] = {"id","val","desce","numero"};
+        String listeCrt[] = {"id","val","desce","numero","devise"};
         String listeInt[] = {};
-        String libEntete[] = {"id","val","desce","numero"};
+        String libEntete[] = {"id","val","desce","numero","devise"};
         PageRecherche pr = new PageRecherche(caisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -63,7 +63,7 @@
         <br>
         
         <%
-            String libEnteteAffiche[] = {"id","valeur","description","numero"};
+            String libEnteteAffiche[] = {"id","valeur","description","numero","devise"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setNameActe("cloturermultiple");
             pr.getTableau().setNameBoutton("Cloturer");
