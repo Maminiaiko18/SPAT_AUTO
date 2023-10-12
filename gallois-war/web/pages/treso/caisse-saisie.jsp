@@ -12,12 +12,19 @@
     Caisse pj = new Caisse();
     PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
     
-    affichage.Champ[] liste = new affichage.Champ[1];
+    affichage.Champ[] liste = new affichage.Champ[2];
+    
     Liste li = new Liste("desce");
     String [] val = {"Banque", "Caisse"};
     String [] aff = {"Banque", "Caisse"};
     li.ajouterValeur( val, aff );
+    
     liste[0]=li;
+    
+    TypeObjet devise=new TypeObjet();
+    devise.setNomTable("DEVISE");
+    liste[1]=new Liste("devise",devise,"val","id");
+    
     pi.getFormu().changerEnChamp(liste);
     
     pi.setLien((String) session.getValue("lien"));
