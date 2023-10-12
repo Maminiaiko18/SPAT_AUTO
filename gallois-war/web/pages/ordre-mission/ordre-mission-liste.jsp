@@ -13,12 +13,19 @@
      if (u.getUser().getCodeEtablissement() != null) {
             CodeEtablissement code = u.getCodeEtablissement();
             String codeetb = code.getVal();
-            //si mdm Fanja et Admin 
-            if(idUser.compareToIgnoreCase("1637")!=0 || idUser.compareToIgnoreCase("1060")!=0)
+            //si mdm Fanja et Admin ,Nelson,Mahavory,Aldain
+            if (!"1637".equalsIgnoreCase(idUser) &&
+                !"1060".equalsIgnoreCase(idUser) &&
+                !"1469".equalsIgnoreCase(idUser) &&
+                !"1602".equalsIgnoreCase(idUser) &&
+                !"1601".equalsIgnoreCase(idUser)) 
+            {
                 if(codeetb.compareToIgnoreCase("120")== 0 || codeetb.compareToIgnoreCase("121")== 0){
                     where = " and iduser != '1637' " ;
                 }else where = " and iduser ='"+idUser+"'" ;
             }
+    }
+      
 
     System.out.println("whereeeee OM"+where);
         
