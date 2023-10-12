@@ -22,7 +22,8 @@
     
     pi.getFormu().changerEnChamp(liste);
     
-    pi.getFormu().getChamp("devise").setDefaut("Ar");
+    //pi.getFormu().getChamp("devise").setDefaut("Ar");
+    pi.getFormu().getChamp("devise").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("daty").setLibelle("Date");
