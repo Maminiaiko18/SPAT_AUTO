@@ -23,8 +23,8 @@
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/info-personnel-global-choix.jsp","idtiers;idtiers;idtierslibelle");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
     pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
-    String[]valeurChampestForfaitaire = {"-1", "1"};
-    String[]afficheChampestForfaitaire = {"non", "oui"};
+    String[]valeurChampestForfaitaire = {"1", "-1"};
+    String[]afficheChampestForfaitaire = {"oui", "non"};
     
     affichage.Liste[] lst= new affichage.Liste[1];
     lst[0] = new Liste("estForfaitaire");
