@@ -10,20 +10,21 @@
     UserEJB u = (user.UserEJB) session.getValue("u");
     String where = "";
     String idUser = "" + u.getUser().getTuppleID();
-     if (u.getUser().getCodeEtablissement() != null) {
-            CodeEtablissement code = u.getCodeEtablissement();
-            String codeetb = code.getVal();
-            //si mdm Fanja et Admin ,Nelson,Mahavory,Aldain
-            if (!"1637".equalsIgnoreCase(idUser) &&
-                !"1060".equalsIgnoreCase(idUser) &&
-                !"1469".equalsIgnoreCase(idUser) &&
-                !"1602".equalsIgnoreCase(idUser) &&
-                !"1601".equalsIgnoreCase(idUser)) 
+
+    //si tsy mdm Fanja et tsy Admin 
+    if (!"1637".equalsIgnoreCase(idUser) && !"1060".equalsIgnoreCase(idUser) )
+    {
+        if (u.getUser().getCodeEtablissement() != null){
+        CodeEtablissement code = u.getCodeEtablissement();
+        String codeetb = code.getVal();
             {
                 if(codeetb.compareToIgnoreCase("120")== 0 || codeetb.compareToIgnoreCase("121")== 0){
                     where = " and iduser != '1637' " ;
-                }else where = " and iduser ='"+idUser+"'" ;
+                }
+                else where = " and iduser ='"+idUser+"'" ;
             }
+        }else where = " and iduser ='"+idUser+"'" ;
+        
     }
       
 

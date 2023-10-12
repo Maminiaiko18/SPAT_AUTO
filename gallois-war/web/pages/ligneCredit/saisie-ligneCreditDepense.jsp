@@ -34,7 +34,7 @@
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("quantite").setVisible(false);
 
-    
+    pi.getFormu().setOrdre(new String[] {"designation", "montant", "annee", "codeEtablissement","projet","compte","compteg","etat","quantite"});
 
     
     pi.preparerDataFormu();

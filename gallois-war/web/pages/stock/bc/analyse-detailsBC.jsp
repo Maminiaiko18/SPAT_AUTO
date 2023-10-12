@@ -13,10 +13,10 @@ try{
     
     String nomTable = "AS_BC_ANALYSEFILLE_LIB";
     p.setNomTable(nomTable);
-    String listeCrt[] = {"idbc","numbc","daty", "codelib", "projetlib", "produit", "fournisseurlib"};
+    String listeCrt[] = {"idbc","numbc","daty", "codelib", "projetlib", "produit","designation", "fournisseurlib"};
     String listeInt[] = {"daty"};
     String[] pourcentage = {};
-    String colDefaut[] = {"idbc","numbc", "daty", "codelib", "projetlib", "produit", "quantite", "unite", "pu", "montantht", "fournisseurlib"};
+    String colDefaut[] = {"idbc","numbc", "daty", "codelib", "projetlib", "produit","designation", "quantite", "unite", "pu", "montantht", "fournisseurlib"};
     String somDefaut[] = {};
         //PageRechercheGroupe pr=new PageRechercheGroupe(p,request,listeCrt,listeInt,3,colDefaut,somDefaut,pourcentage,listeCrt.length,colDefaut.length);
     PageRechercheGroupe pr = new PageRechercheGroupe(p, request, listeCrt, listeInt, 3, colDefaut, somDefaut, null, 2 , 2);
@@ -77,7 +77,7 @@ try{
 </div>
 		
 		<%
-                    String libEnteteAffiche[] = {"IDBC","NUMBC", "date", "code", "projet", "produit", "quantite", "unite", "pu", "montant HT", "fournisseur"};
+                    String libEnteteAffiche[] = {"IDBC","NUMBC", "date", "code", "projet", "produit","designation", "quantite", "unite", "pu", "montant HT", "fournisseur"};
                     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                     out.println(pr.getTableau().getHtml());
                     out.println(pr.getBasPage());
