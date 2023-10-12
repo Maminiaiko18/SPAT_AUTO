@@ -155,7 +155,7 @@
 
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
-        //affichage.Champ.setAutre(pi.getFormufle().getChampFille("Taux"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("Taux"), "readonly");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("activitelib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idrubrique"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubriquelib"), false);
@@ -173,7 +173,7 @@
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("rubrique"), "readonly");
 
-        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte;comptelibelle");
+        //affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeCompteCAchoix.jsp", "compte;comptelibelle");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("compte"), "readonly");
 
         affichage.Liste[] listed = new affichage.Liste[2];

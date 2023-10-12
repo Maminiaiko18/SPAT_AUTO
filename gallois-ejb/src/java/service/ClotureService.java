@@ -51,7 +51,7 @@ public class ClotureService {
     public static void testDateCloture(Date daty,String caisse, Connection c) throws Exception {
         try {
             Cloture[] liste = (Cloture[]) CGenUtil.rechercher(new Cloture(), null, null, c, " and daty >=to_date('"+ daty +"','YYYY-MM-DD') and caisse='"+caisse+"'");
-            if(liste.length>0) throw new Exception("Cette caisse a déjà été cloturée à cette date");
+            if(liste.length>0) throw new Exception("Cette caisse a déjà été cloturée à la date du "+Utilitaire.formatterDaty(daty));
         } catch (Exception e) {
             throw e;
         }
