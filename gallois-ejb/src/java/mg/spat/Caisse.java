@@ -23,6 +23,7 @@ public class Caisse extends TypeObjet{
     
     private String numero;
     private int rangsitcptcrt,placesitcptcrt;
+    private String devise, deviselib;
 
 
     public Caisse() {
@@ -59,6 +60,22 @@ public class Caisse extends TypeObjet{
 
     public void setPlacesitcptcrt(int placesitcptcrt) {
         this.placesitcptcrt = placesitcptcrt;
+    }
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
+    }
+
+    public String getDeviselib() {
+        return deviselib;
+    }
+
+    public void setDeviselib(String deviselib) {
+        this.deviselib = deviselib;
     }
     
     

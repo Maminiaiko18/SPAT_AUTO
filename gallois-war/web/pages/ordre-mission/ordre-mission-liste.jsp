@@ -1,9 +1,27 @@
 
 <%@page import="ordremission.OrdreMissionLib"%>
 <%@page import="affichage.PageRecherche"%>
+<%@page import="user.UserEJB"%> 
+<%@page import="mg.cnaps.formation.CodeEtablissement"%>
+
 
 <% try{ 
     OrdreMissionLib t = new OrdreMissionLib();
+    UserEJB u = (user.UserEJB) session.getValue("u");
+    String where = "";
+    String idUser = "" + u.getUser().getTuppleID();
+     if (u.getUser().getCodeEtablissement() != null) {
+            CodeEtablissement code = u.getCodeEtablissement();
+            String codeetb = code.getVal();
+            //si mdm Fanja et Admin 
+            if(idUser.compareToIgnoreCase("1637")!=0 || idUser.compareToIgnoreCase("1060")!=0)
+                if(codeetb.compareToIgnoreCase("120")== 0 || codeetb.compareToIgnoreCase("121")== 0){
+                    where = " and iduser != '1637' " ;
+                }else where = " and iduser ='"+idUser+"'" ;
+            }
+
+    System.out.println("whereeeee OM"+where);
+        
     t.setNomTable("ordre_mission_lib");
     String listeCrt[] = {"id", "nom", "prenom", "matricule", "numom", "datedepart", "duree", "lieudeplacement"};
     String listeInt[] = {"datedepart", "duree"};
@@ -20,6 +38,7 @@
     pr.getFormu().getChamp("numom").setLibelle("Num&eacute;ro OM");
     pr.getFormu().getChamp("lieudeplacement").setLibelle("Lieu de Placement");
     pr.getFormu().getChamp("prenom").setLibelle("Pr&eacute;nom");
+    pr.setAWhere(where);
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>

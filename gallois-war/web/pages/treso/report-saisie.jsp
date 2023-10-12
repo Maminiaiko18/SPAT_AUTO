@@ -10,19 +10,16 @@
     Report report = new Report();
     PageInsert pi = new PageInsert(report, request, (user.UserEJB) session.getValue("u"));
     
-    affichage.Champ[] liste = new affichage.Champ[2];
+    affichage.Champ[] liste = new affichage.Champ[1];
     
     Caisse esc = new Caisse();
     esc.setNomTable("CAISSE_REEL");
     liste[0] = new Liste("caisse", esc, "VAL", "id");
     
-    TypeObjet dev = new TypeObjet();
-    dev.setNomTable("devise");
-    liste[1] = new Liste("devise", dev, "VAL", "ID");
-    
     pi.getFormu().changerEnChamp(liste);
     
-    pi.getFormu().getChamp("devise").setDefaut("Ar");
+    //pi.getFormu().getChamp("devise").setDefaut("Ar");
+    pi.getFormu().getChamp("devise").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("daty").setLibelle("Date");

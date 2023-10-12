@@ -18,7 +18,7 @@
 <%@page import="ded.OrdonnerPayement"%>
 <%@page import="user.UserEJB"%> 
 <%@page import="utilitaire.Utilitaire"%> 
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
         String autreparsley = "data-parsley-range='[8, 40]' required";
@@ -105,8 +105,9 @@
                 if (i < factures.length) {
                     pi.getFormufle().getChamp("montant_" + i).setDefaut(Utilitaire.formaterAr(factures[i].getMontantttc()) + "");
                     pi.getFormufle().getChamp("idop_" + i).setDefaut(factures[i].getId());
-                    pi.getFormufle().getChamp("idop_" + i).setValeurLibelle(factures[i].getId());
+                    pi.getFormufle().getChamp("idop_" + i).setValeurLibelle(factures[i].getDesignation());
                     pi.getFormufle().getChamp("Code_etablissementlib_"+i).setVisible(false);
+                    pi.getFormufle().getChamp("Datefacture_"+i).setVisible(false);
                 }
             }
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);

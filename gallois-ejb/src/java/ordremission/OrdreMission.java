@@ -27,7 +27,16 @@ public class OrdreMission extends ClassEtat {
     private int estForfaitaire;
     private OrdreMissionIndemnite[] indemnites;
     private String indemnitemission;
+    private String iduser;
     
+    public String getIduser() {
+        return iduser;
+    }
+
+    public void setIduser(String iduser) {
+        this.iduser = iduser;
+    }
+
     public OrdreMissionIndemnite[] getOrdreMissionIndemnites() throws Exception{
         return this.getOrdreMissionIndemnites(null);
     }
@@ -212,6 +221,7 @@ public class OrdreMission extends ClassEtat {
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         
         try{
+            this.setIduser(u);
             this.setIndemniteMission(c);
         }
         catch(Exception e){
