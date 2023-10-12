@@ -26,7 +26,17 @@ public class OrdreMission extends ClassEtat {
     private Date datedepart;
     private int estForfaitaire;
     private OrdreMissionIndemnite[] indemnites;
+    private String indemnitemission;
+    private String iduser;
     
+    public String getIduser() {
+        return iduser;
+    }
+
+    public void setIduser(String iduser) {
+        this.iduser = iduser;
+    }
+
     public OrdreMissionIndemnite[] getOrdreMissionIndemnites() throws Exception{
         return this.getOrdreMissionIndemnites(null);
     }
@@ -140,6 +150,14 @@ public class OrdreMission extends ClassEtat {
         this.estForfaitaire = estForfaitaire;
     }
 
+    public String getIndemnitemission() {
+        return indemnitemission;
+    }
+
+    public void setIndemnitemission(String indemnitemission) {
+        this.indemnitemission = indemnitemission;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -203,6 +221,7 @@ public class OrdreMission extends ClassEtat {
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         
         try{
+            this.setIduser(u);
             this.setIndemniteMission(c);
         }
         catch(Exception e){

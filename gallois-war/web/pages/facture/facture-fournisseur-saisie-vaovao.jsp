@@ -1,3 +1,4 @@
+<%@page import="ordremission.IndemniteMission"%>
 <%@page import="mg.cnaps.formation.CodeEtablissement"%>
 <%@ page import="ordremission.OrdreMissionLib" %>
 <%@ page import="ordremission.OrdreMissionIndemnite" %>
@@ -60,7 +61,7 @@
             TypeObjet modepaiement = new TypeObjet();
             modepaiement.setNomTable("modepaiementbp");
             liste[0] = new Liste("modepaiement", modepaiement, "desce", "id");
-            if(idUser.compareToIgnoreCase("1469")==0) liste[0].setDefaultSelected(Constante.modepaiementDefaut);
+            if(idUser.compareToIgnoreCase("1469")==0 || request.getParameter("idom")!=null) liste[0].setDefaultSelected(Constante.modepaiementDefaut);
             else liste[0].setDefaultSelected("-");
             pi.getFormu().changerEnChamp(liste);
             pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
@@ -132,6 +133,8 @@
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("iduser").setAutre("readonly");
         pi.getFormu().getChamp("idengagement").setAutre("readonly");
+        
+        if ( idBL == null ) affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
 
         Engagement engagement = new Engagement();
         if (request.getParameter("idEngagement") != null) {
@@ -150,20 +153,33 @@
             pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
             pi.getFormu().getChamp("idom").setDefaut(request.getParameter("idom"));
             pi.getFormu().getChamp("idom").setAutre("readonly");
-            pi.getFormu().getChamp("idom").setLibelle("Id OM");
+            pi.getFormu().getChamp("idom").setLibelle("Odre de mission");
             pi.getFormu().getChamp("idom").setVisible(true);
             pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
+            pi.getFormu().getChamp("projet").setValeurLibelle(Constante.projetOMlib);
+            pi.getFormu().getChamp("projet").setDefaut(Constante.projetOM);
+            pi.getFormu().getChamp("code_etablissement").setValeurLibelle(Constante.directionOMlib);
+            pi.getFormu().getChamp("code_etablissement").setDefaut(Constante.directionOM);
             if(odreMission.getNom()==null && odreMission.getPrenom()==null)
                 pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getId()));
             else 
                 pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getNom())+ " "+Utilitaire.champNull(odreMission.getPrenom()));
-            OrdreMissionIndemnite[] indemnites= odreMission.getIndemnites();
+//            OrdreMissionIndemnite[] indemnites= odreMission.getIndemnites();
+            IndemniteMission[] indemniteMissions = odreMission.getIndemniteMissions();
             
-            for(int i=0;i<indemnites.length;i++){
+            String jsScript_checkbox = "<script>\n";
+            for(int i=0;i<indemniteMissions.length;i++){
+                jsScript_checkbox += "window.addEventListener('load', function() {";
+                jsScript_checkbox += "    document.getElementById('checkbox" + i + "').checked = true;";
+                jsScript_checkbox += "});";
                 pi.getFormufle().getChamp("quantite_" + i).setDefaut(odreMission.getDuree()+"");
-                pi.getFormufle().getChamp("designation_" + i).setDefaut(indemnites[i].getTypeIndemnite());
-                pi.getFormufle().getChamp("pu_" + i).setDefaut(indemnites[i].getMontant()+"");
+                pi.getFormufle().getChamp("designation_" + i).setDefaut(indemniteMissions[i].getLibelleFrais());
+                pi.getFormufle().getChamp("pu_" + i).setDefaut(indemniteMissions[i].getFrais()+"");
+                pi.getFormufle().getChamp("montant_" + i).setDefaut(odreMission.getDuree()*indemniteMissions[i].getFrais()+"");
+                pi.getFormufle().getChamp("tva_" + i).setDefaut(0+"");
             }
+            jsScript_checkbox += "</script>";
+            out.println(jsScript_checkbox);
             pi.getFormu().getChamp("designation").setDefaut("Provision de mission n&deg;" + odreMission.getNumOM());
         }
         affichage.Liste[] listes = new affichage.Liste[3];
@@ -217,7 +233,6 @@
             pi.getFormufle().getChamp("annee_" + i).setDefaut(Utilitaire.getAnneeEnCours());
             pi.getFormufle().getChamp("idactivite_" + i).setVisible(false);
             //pi.getFormufle().getChamp("compte_"+i).setPageAppel("choix/listeBudgetDepenseChoix.jsp", "compte_" + i+";comptelibelle_"+i  );
-
             if (i < livraisons.length) {
                 pi.getFormufle().getChamp("idBLF_" + i).setDefaut(livraisons[i].getId());
                 pi.getFormufle().getChamp("pu_" + i).setDefaut(Utilitaire.formaterAr(livraisons[i].getPu()));
@@ -238,7 +253,6 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubrique"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureDebut"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"), false);
-        if ( idBL == null ) affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
         pi.getFormufle().getChamp("idBLF_0").setLibelle("BL d&eacute;tail");
         pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
         pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");

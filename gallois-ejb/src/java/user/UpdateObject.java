@@ -16,6 +16,7 @@ import mg.cnaps.notification.NotificationService;
 import mg.spat.placement.Placement;
 import mg.spat.relationhumaine.Conge;
 import mg.spat.relationhumaine.Permission;
+import ordremission.OrdreMission;
 import service.SpatService;
 import utilitaire.ConstanteEtat;
 import utilitaire.Utilitaire;
@@ -80,6 +81,11 @@ public class UpdateObject {
                 System.out.println("REFUSER******* "+util.getRefuser());
                 //return null;
                 o = util;
+            }
+            if(o instanceof ordremission.OrdreMission){
+                OrdreMission ordreMission = (OrdreMission) o;
+                ordreMission.setIndemniteMission(c);
+                o = ordreMission;
             }
             o.controlerUpdate(c);
             o.updateToTableWithHisto(u.getTuppleID(), c);
