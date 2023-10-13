@@ -11,23 +11,20 @@
     String where = "";
     String idUser = "" + u.getUser().getTuppleID();
 
-    //si tsy mdm Fanja et tsy Admin 
-    if (!"1637".equalsIgnoreCase(idUser) && !"1060".equalsIgnoreCase(idUser) )
+    //tsy Admin 
+    if (!"1060".equalsIgnoreCase(idUser))
     {
+        where = " and iduser ='"+idUser+"'" ;
         if (u.getUser().getCodeEtablissement() != null){
-        CodeEtablissement code = u.getCodeEtablissement();
-        String codeetb = code.getVal();
-            {
-                if(codeetb.compareToIgnoreCase("120")== 0 || codeetb.compareToIgnoreCase("121")== 0){
-                    where = " and iduser != '1637' " ;
-                }
-                else where = " and iduser ='"+idUser+"'" ;
+            CodeEtablissement code = u.getCodeEtablissement();
+            String codeetb = code.getVal();
+            if(codeetb.compareToIgnoreCase("120")== 0 || codeetb.compareToIgnoreCase("121")== 0){
+                // mahita ny rehetra akotran nen Mdm Fanja
+                where = " and iduser != '1637' " ;
             }
-        }else where = " and iduser ='"+idUser+"'" ;
+        }
         
-    }
-      
-
+    } 
     System.out.println("whereeeee OM"+where);
         
     t.setNomTable("ordre_mission_lib");
