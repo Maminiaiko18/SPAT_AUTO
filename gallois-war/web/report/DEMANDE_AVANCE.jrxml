@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DEMANDE_AVANCE" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c59ed13-7470-4738-bea8-af4aa1e06d11">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="418"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -85,7 +85,7 @@
 				<text><![CDATA[N° MLE :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="137" width="278" height="17" uuid="b933ca44-c9f8-4e86-ab46-1ad3f723d2a7"/>
+				<reportElement x="0" y="0" width="278" height="154" uuid="b933ca44-c9f8-4e86-ab46-1ad3f723d2a7"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -215,28 +215,28 @@
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="642" width="100" height="20" uuid="881e8436-ede0-41a3-a319-bde567557146"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Total indemnité:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="662" width="100" height="20" uuid="6c6c4d65-1fbf-47e7-8eab-2222458ade00"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Total provision :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="682" width="100" height="20" uuid="7ff25e10-e8d7-4176-8efb-88959d937f28"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Différence :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="702" width="100" height="20" uuid="cf84db27-b124-4523-9c72-6e6b18c174e4"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[A payer : ]]></text>
@@ -251,42 +251,42 @@
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="563" width="100" height="20" uuid="014a3f2e-b476-420b-92a1-c2377e1f642e"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Hébergement : ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="583" width="100" height="20" uuid="9a70b6c3-ecbe-4f70-8a2c-530d74053349"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Restauration :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="603" width="100" height="20" uuid="33bc7136-d10c-423b-bfc3-7cfd5ba685f2"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Déplacement : ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="623" width="100" height="20" uuid="d9cd9044-944f-4c59-9f40-477564a6796b"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[AUTRES (à justifier)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="722" width="100" height="20" uuid="e4fd4751-a57e-40d4-94b8-03cffd42861f"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[A retourner :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="742" width="100" height="20" uuid="e5e8d7d1-31df-41cd-b146-f84a3e4b9b0b"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Me Caisse ,]]></text>
@@ -340,35 +340,35 @@
 				<text><![CDATA[Restauration : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="643" width="100" height="20" uuid="cb278939-80d2-4dfa-a85a-e04c33737e4a"/>
+				<reportElement x="100" y="643" width="100" height="14" uuid="cb278939-80d2-4dfa-a85a-e04c33737e4a"/>
 				<box>
 					<bottomPen lineWidth="0.75" lineStyle="Dotted"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="663" width="100" height="20" uuid="750b1016-eca7-421f-9870-0b82b8829b35"/>
+				<reportElement x="100" y="663" width="100" height="14" uuid="750b1016-eca7-421f-9870-0b82b8829b35"/>
 				<box>
 					<bottomPen lineWidth="0.75" lineStyle="Dotted"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="682" width="100" height="20" uuid="e3c13c0e-5804-4946-a000-17f087cc2c19"/>
+				<reportElement x="100" y="682" width="100" height="14" uuid="e3c13c0e-5804-4946-a000-17f087cc2c19"/>
 				<box>
 					<bottomPen lineWidth="0.75" lineStyle="Dotted"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="702" width="100" height="20" uuid="7e91e970-a0fd-44e1-bd0a-ea6472e75412"/>
+				<reportElement x="100" y="702" width="100" height="14" uuid="7e91e970-a0fd-44e1-bd0a-ea6472e75412"/>
 				<box>
 					<bottomPen lineWidth="0.75" lineStyle="Dotted"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="722" width="100" height="20" uuid="70a9404c-1a8f-4c79-97c9-5e7195847751"/>
+				<reportElement x="100" y="722" width="100" height="14" uuid="70a9404c-1a8f-4c79-97c9-5e7195847751"/>
 				<box>
 					<bottomPen lineWidth="0.75" lineStyle="Dotted"/>
 				</box>
@@ -382,7 +382,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="519" width="230" height="243" uuid="03195c61-fe82-4af3-abed-f96788d81d35"/>
+				<reportElement x="0" y="762" width="230" height="0" uuid="03195c61-fe82-4af3-abed-f96788d81d35"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -440,6 +440,9 @@
 			</textField>
 			<textField>
 				<reportElement x="0" y="423" width="100" height="20" uuid="13e9c13c-5142-4fbb-b426-69a625806397"/>
+				<textElement>
+					<paragraph leftIndent="3"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{type} + ":"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
