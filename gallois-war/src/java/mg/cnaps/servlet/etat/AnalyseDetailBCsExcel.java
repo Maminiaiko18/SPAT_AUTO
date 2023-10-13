@@ -145,7 +145,9 @@ public class AnalyseDetailBCsExcel extends HttpServlet {
        String daty2 = request.getParameter("daty2");
        if(daty2.compareToIgnoreCase("null") ==0 ) daty2 = Utilitaire.dateDuJour();
 
-       String produit = request.getParameter("produit");
+        String produit = request.getParameter("produit");
+        String designation = request.getParameter("designation");
+
        String fournisseurlib = request.getParameter("fournisseurlib");
         
         try {
@@ -202,6 +204,12 @@ public class AnalyseDetailBCsExcel extends HttpServlet {
         {
             awhere+=" AND produit='"+produit+"'";
         }
+
+        if(designation != null && !designation.trim().isEmpty() && designation.compareToIgnoreCase("null") != 0)
+        {
+            awhere+=" AND designation='"+designation+"'";
+        }
+
          if(fournisseurlib != null && !fournisseurlib.trim().isEmpty() && fournisseurlib.compareToIgnoreCase("null") != 0)
         {
             awhere+=" AND fournisseurlib='"+fournisseurlib+"'";
@@ -251,7 +259,7 @@ public class AnalyseDetailBCsExcel extends HttpServlet {
               Cell celldaty = row2.createCell(1);*/
                 //celldaty.setCellValue("Demande de prix n°: "+id);
                 
-            String[] headers = {"IDBC","NUMBC", "date", "code", "projet", "produit", "quantite", "unite", "pu", "montant HT", "fournisseur"};
+            String[] headers = {"IDBC","NUMBC", "date", "code", "projet", "produit","designation", "quantite", "unite", "pu", "montant HT", "fournisseur"};
             Row row = sheet.createRow(12);
             for(int i=0; i<headers.length; i++){
                 Cell cell = row.createCell(i);
@@ -271,33 +279,35 @@ public class AnalyseDetailBCsExcel extends HttpServlet {
                  
                 //sheet.setColumnWidth(indice[cmp], width[cmp] * 100);
                 //if(attestations[i].getIdmedicament()!= null)
-                    Cell celling = row.createCell(1);
+                Cell celling = row.createCell(1);
                 celling.setCellValue(attestations[i].getNumbc());
                 
-                  Cell cellDaty = row.createCell(2);
+                Cell cellDaty = row.createCell(2);
                 cellDaty.setCellValue(Utilitaire.formatterDaty( attestations[i].getDaty()));
-                
                 
                 Cell cell1 = row.createCell(3);
                     cell1.setCellValue(attestations[i].getCodelib());
+
                 Cell cellProjet = row.createCell(4);
                     cellProjet.setCellValue(attestations[i].getProjetlib());
+
                 Cell cellproduit = row.createCell(5);
                     cellproduit.setCellValue(attestations[i].getProduit());
+
+                Cell cellDesignation = row.createCell(6);
+                cellDesignation.setCellValue(attestations[i].getDesignation());
                    
-                Cell cellquantite = row.createCell(6);
+                Cell cellquantite = row.createCell(7);
                     cellquantite.setCellValue(attestations[i].getQuantite());
-                Cell cellUnite = row.createCell(7);
+
+                Cell cellUnite = row.createCell(8);
                     cellUnite.setCellValue(attestations[i].getUnite());
-                Cell cellPu = row.createCell(8);
+                Cell cellPu = row.createCell(9);
                     cellPu.setCellValue(attestations[i].getPu());
-                Cell cellmontantht = row.createCell(9);
+                Cell cellmontantht = row.createCell(10);
                     cellmontantht.setCellValue(attestations[i].getMontantht());
-                Cell cellfournisseurlib = row.createCell(10);
+                Cell cellfournisseurlib = row.createCell(11);
                     cellfournisseurlib.setCellValue(attestations[i].getFournisseurlib());
-                
-                    
-                
                 }
             
             response.setContentType("application/ms-excel");
