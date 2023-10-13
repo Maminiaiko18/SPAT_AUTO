@@ -52,6 +52,7 @@
         pi.getFormu().getChamp("estForfaitaire").setLibelle("Est Forfaitaire");
         pi.getFormu().getChamp("estForfaitairelib").setVisible(false);
         pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
+        pi.getFormu().getChamp("datearrivee").setVisible(false);
 
         pi.setLien((String) session.getValue("lien"));
         pi.preparerDataFormu();

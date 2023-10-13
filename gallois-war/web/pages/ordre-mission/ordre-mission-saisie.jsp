@@ -34,6 +34,7 @@
     pi.getFormu().getChamp("idmoyendeplacement").setLibelle("Moyen de d&eacute;placement");
     pi.getFormu().getChamp("idmoyendeplacement").setPageAppel("choix/moyen-deplacement.jsp","idmoyendeplacement;idmoyendeplacementlibelle");
     pi.getFormu().getChamp("idmoyendeplacement").setAutre("readonly");
+    pi.getFormu().getChamp("datearrivee").setVisible(false);
     
     //Variables de navigation
     String classe = "ordremission.OrdreMission";

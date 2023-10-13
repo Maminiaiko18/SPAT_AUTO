@@ -23,7 +23,7 @@ import utilitaire.Utilitaire;
 public class OrdreMission extends ClassEtat {
     private String id,idindemnitemission,idtiers,idmotifvoyage,lieudeplacement,numOM,idmoyendeplacement,motifvoyage;
     private  double duree;
-    private Date datedepart;
+    private Date datedepart, datearrivee;
     private int estForfaitaire;
     private OrdreMissionIndemnite[] indemnites;
     private String indemnitemission;
@@ -156,6 +156,16 @@ public class OrdreMission extends ClassEtat {
 
     public void setIndemnitemission(String indemnitemission) {
         this.indemnitemission = indemnitemission;
+    }
+
+    public Date getDatearrivee() {
+        return datearrivee;
+    }
+
+    public void setDatearrivee(Date datearrivee) {
+        this.datearrivee = datearrivee;
+        if(getMode().equals("modif"))
+            this.datearrivee = Utilitaire.ajoutJourDate(this.getDatedepart(), (int) Math.ceil(this.getDuree()));
     }
 
     @Override
