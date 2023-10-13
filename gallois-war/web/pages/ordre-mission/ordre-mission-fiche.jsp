@@ -77,6 +77,8 @@
                                 <a class="btn btn-default"  href="<%= lien + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&mode=1&idom=" + id%>" style="margin-right: 10px">Générer Bon Provisoire</a>
                                 <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerOrdreDeMission&id=<%=id%>" style="margin-right: 10px">Imprimer OM</a>
                             <% } %>
+                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDecompte&id=<%=id%>" style="margin-right: 10px">Imprimer décompte</a>
+                            
                          </div>
                         <br/>
 
