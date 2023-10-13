@@ -47,6 +47,7 @@
     pr.getFormu().getChamp("lieudeplacement").setLibelle("Lieu de Placement");
     pr.getFormu().getChamp("prenom").setLibelle("Pr&eacute;nom");
     pr.setAWhere(where);
+    pr.setOrdre(" ORDER  BY NUMOM DESC");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
