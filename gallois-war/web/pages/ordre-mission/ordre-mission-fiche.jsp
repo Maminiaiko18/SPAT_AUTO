@@ -39,6 +39,7 @@
     pc.getChampByName("idtiers").setVisible(false);
     pc.getChampByName("idmoyendeplacement").setVisible(false);
     pc.getChampByName("idmoyendeplacementlib").setLibelle("Moyen de d&eacute;placement");
+    pc.getChampByName("datearrivee").setLibelle("Date arriv&eacute;e");
     pc.setTitre("Fiche Ordre de Mission");
     String lien = (String) session.getValue("lien");
     String pageModif = "ordre-mission/ordre-mission-modif.jsp";
