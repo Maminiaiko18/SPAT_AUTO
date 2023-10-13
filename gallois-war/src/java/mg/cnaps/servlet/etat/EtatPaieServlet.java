@@ -2095,6 +2095,10 @@ public class EtatPaieServlet extends HttpServlet {
                 }
 
             }
+            if (facture.getBateau() != null && facture.getDateDepart() != null && ( facture.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0 || facture.getIdcategorie().compareTo(Constante.idCategorieFCProforma) == 0) )
+                { 
+                    param.put("datyfact", facture.getDateDepart());
+                }
             param.put("compte", facture.getPourCompteLib());
             // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             // setNomJasper("facture_client2 - Copie");

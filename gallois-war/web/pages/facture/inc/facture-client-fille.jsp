@@ -12,7 +12,7 @@
 <%@page import="affichage.TableauRecherche"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRecherche"%>
-
+<%@page import="utilitaire.Constante"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     FactureClientDetails cht = new FactureClientDetails();
@@ -74,6 +74,9 @@
         double deviseEur = facture.getDeviseEuro();
         double deviseDollar = facture.getDeviseDollar();
         String dateFacture = liste[0].getDatefact() != null ? Utilitaire.datetostring(liste[0].getDatefact()) : Utilitaire.datetostring(facture.getDaty());
+        if (facture.getBateau() != null && facture.getDateDepart() != null && ( facture.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0 || facture.getIdcategorie().compareTo(Constante.idCategorieFCProforma) == 0) ){
+                dateFacture = Utilitaire.datetostring(facture.getDateDepart());
+        }
 %>
 <div class="row">
     <div class="row col-md-12">
