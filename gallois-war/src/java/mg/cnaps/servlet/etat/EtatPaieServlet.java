@@ -4576,25 +4576,32 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("fonction", mere[0].getIdindemnitemissionlib());
             param.put("modeTransport", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
             param.put("deplacement", mere[0].getDuree());
-            param.put("num", mere[0].getNumOM());
-            param.put("daty", mere[0].getDatedepart());
+            param.put("numOM", mere[0].getNumOM());
+            param.put("dateArrive", mere[0].getDatearrivee());
+            param.put("date", mere[0].getDatedepart());
             IndemniteMission t = new IndemniteMission();
             t.setNomTable("indemnite_mission_lib");
              String type = "H&eacute;bergement";
             IndemniteMission[] liste = (IndemniteMission[]) CGenUtil.rechercher(t, null, null, " and id='" + mere[0].getIndemnitemission() + "'");
             param.put("deplacements", liste[0].getFraisdeplacement());
             param.put("restauration", liste[0].getFraisrestauration());
+            double total = 0;
             if(mere[0].getEstForfaitairelib().compareToIgnoreCase("oui") == 0){
                 param.put("hebergement", liste[0].getFraishebergement());
+                total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration()+liste[0].getFraishebergement();
             }
             else{
                 type = "BC";
+                total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration();
+                
             }
              param.put("type",type);
-            
+             param.put("total",total);
             param.put("deplacementDP", liste[0].getFraisdeplacement() * mere[0].getDuree() );
             param.put("restaurationDP", liste[0].getFraisrestauration() * mere[0].getDuree());
             param.put("hebergementDP", liste[0].getFraishebergement()* mere[0].getDuree());
+            double totalDP = (liste[0].getFraisdeplacement() * mere[0].getDuree()) + (liste[0].getFraisrestauration() * mere[0].getDuree()) + (liste[0].getFraishebergement()* mere[0].getDuree());
+            param.put("totalDP",totalDP);
             setNomJasper("DEMANDE_AVANCe");
             UtilitaireImpression.imprimer(request, response, "Demande d' avance", param, null, getReportPath());
 

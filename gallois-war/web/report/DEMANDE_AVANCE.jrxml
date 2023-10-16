@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DEMANDE_AVANCE" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c59ed13-7470-4738-bea8-af4aa1e06d11">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="446"/>
+	<property name="ireport.y" value="47"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -18,6 +18,10 @@
 	<parameter name="restaurationDP" class="java.lang.Double"/>
 	<parameter name="hebergementDP" class="java.lang.Double"/>
 	<parameter name="num" class="java.lang.String"/>
+	<parameter name="numOM" class="java.lang.String"/>
+	<parameter name="dateArrive" class="java.util.Date"/>
+	<parameter name="total" class="java.lang.Double"/>
+	<parameter name="totalDP" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -70,11 +74,6 @@
 			<staticText>
 				<reportElement x="292" y="17" width="55" height="20" uuid="d0fadc0c-a84b-4014-a145-fb8f88ac5a1a"/>
 				<text><![CDATA[N° OM]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="380" y="17" width="122" height="20" uuid="fe8cd296-501c-4f11-837c-1e61f4e08e35"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[/SPAT/DG/DEPAG/23]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="292" y="117" width="100" height="20" uuid="a05c0954-cd92-422a-919b-b0832018fc26"/>
@@ -144,7 +143,7 @@
 				<text><![CDATA[FORFAITAIRE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="155" width="555" height="195" uuid="03909257-6aa4-42a8-8377-384a039a4d02"/>
+				<reportElement x="0" y="350" width="555" height="0" uuid="03909257-6aa4-42a8-8377-384a039a4d02"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.75"/>
@@ -426,6 +425,7 @@
 			</textField>
 			<textField>
 				<reportElement x="280" y="314" width="82" height="20" uuid="8486b6a7-d4cf-47bc-a2a4-67eb0215221b"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{type} +" :"]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
@@ -442,7 +442,7 @@
 			</textField>
 			<textField>
 				<reportElement x="0" y="423" width="100" height="20" uuid="13e9c13c-5142-4fbb-b426-69a625806397"/>
-				<textElement>
+				<textElement markup="html">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{type} + ":"]]></textFieldExpression>
@@ -451,6 +451,35 @@
 				<reportElement x="188" y="77" width="90" height="20" uuid="9596bfdd-9b0d-4903-b802-bcd1032452f2"/>
 				<textFieldExpression><![CDATA[$P{num}]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="347" y="17" width="208" height="20" uuid="fcd55cd9-0b32-44e3-8da3-a199f5bbf137"/>
+				<textFieldExpression><![CDATA[$P{numOM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="334" width="82" height="20" uuid="c2c4c84b-aebb-4428-8d51-df955f43ce61"/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="362" y="334" width="193" height="20" uuid="9d7d21d6-a719-4fd9-8764-45981f459bbc"/>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="392" y="583" width="152" height="20" uuid="74856b7a-420f-4eb2-8951-17b322efe5e4"/>
+				<textFieldExpression><![CDATA[$P{dateArrive}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="82" y="463" width="365" height="20" uuid="39252722-92b4-426b-9614-6101a0c56aa6"/>
+				<textFieldExpression><![CDATA[$P{totalDP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="154" width="555" height="196" uuid="0871c486-9f80-4645-99ac-71cccb95e426"/>
+				<box>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
 		</band>
 	</title>
 </jasperReport>
