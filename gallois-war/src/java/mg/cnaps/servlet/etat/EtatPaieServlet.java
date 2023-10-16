@@ -137,6 +137,7 @@ import user.*;
 import bean.*;
 import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
+import mg.spat.DetailsBilletage;
 import mg.spat.EtatGrandCA;
 import mg.spat.LibererLib;
 
@@ -4458,9 +4459,10 @@ public class EtatPaieServlet extends HttpServlet {
     private void imprimerTransfertCaisse(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String id = request.getParameter("id");
+            String idtransfert = request.getParameter("idtransfert");
             MvttIntraCaisse mc = new MvttIntraCaisse();
             mc.setNomTable("mvtintracaisse_lib");
-            MvttIntraCaisse[] mere = (MvttIntraCaisse[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "'");
+            MvttIntraCaisse[] mere = (MvttIntraCaisse[]) CGenUtil.rechercher(mc, null, null, " and id='" + idtransfert + "'");
             Map param = new HashMap();
             param.put("designation", utilitaire.Utilitaire.champNull(mere[0].getDesignation()));
             param.put("daty", mere[0].getDaty());
@@ -4471,17 +4473,13 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("remarque", Utilitaire.champNull(mere[0].getRemarque()));
             String montantLettre = ChiffreLettre.convertRealToString(mere[0].getMontant(), "Ariary");
             param.put("montantlettre", montantLettre);
-            MvtIntraCaisseFille details = new MvtIntraCaisseFille();
-            details.setNomTable("mvtintracaisse_fille");
-            MvtIntraCaisseFille[] listeDetails = (MvtIntraCaisseFille[]) CGenUtil.rechercher(details, null, null, " and idmere='" + id + "'");
+            DetailsBilletage details = new DetailsBilletage();
+            details.setNomTable("detailsbilletage");
+            DetailsBilletage[] listeDetails = (DetailsBilletage[]) CGenUtil.rechercher(details, null, null, " and idmere='" + id + "'");
             List dataSource = new ArrayList();
             String jaspername = "transfert_caisse";
             if(mere[0].getCaissedepartlib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearriveelib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
                 jaspername = "transfert_interne";
-                for(int i = 0; i < listeDetails.length ; i++){
-                    listeDetails[i].setReference(Utilitaire.formaterAr(listeDetails[i].getReference()));
-                    listeDetails[i].setRemarque(Utilitaire.formaterAr(listeDetails[i].getRemarque()));
-                }
             }
             dataSource.addAll(Arrays.asList(listeDetails));
             setNomJasper(jaspername);
