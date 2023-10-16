@@ -149,6 +149,7 @@ public class Billetage extends ClassEtat{
 
     public void genererTransfert(Connection c, String user) throws Exception{
         MvttIntraCaisse mvm = new MvttIntraCaisse();
+        mvm.setVisaArrive(false);
         String nomcaisse = "";
         if(this.getCaisse().compareToIgnoreCase(Constante.caisseCentraleEspece)==0) nomcaisse="CAISSE RECETTES";
         else nomcaisse = "CAISSE DEPENSES";
