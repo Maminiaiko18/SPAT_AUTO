@@ -3,7 +3,7 @@
 <%@page import="affichage.PageRecherche"%>
 <%@page import="user.UserEJB"%> 
 <%@page import="mg.cnaps.formation.CodeEtablissement"%>
-
+<%@ page import="java.util.*" %>
 
 <% try{ 
     OrdreMissionLib t = new OrdreMissionLib();
@@ -18,7 +18,10 @@
         if (u.getUser().getCodeEtablissement() != null){
             CodeEtablissement code = u.getCodeEtablissement();
             String codeetb = code.getVal();
-            if(codeetb.compareToIgnoreCase("120")== 0 || codeetb.compareToIgnoreCase("121")== 0){
+            Set<String> validCodeEtb = new HashSet<>(Arrays.asList("120", "121"));
+            Set<String> validUserIds = new HashSet<>(Arrays.asList("1602", "1601"));
+
+            if (validCodeEtb.contains(codeetb) || validUserIds.contains(idUser)) {
                 // mahita ny rehetra akotran nen Mdm Fanja
                 where = " and iduser != '1637' " ;
             }
