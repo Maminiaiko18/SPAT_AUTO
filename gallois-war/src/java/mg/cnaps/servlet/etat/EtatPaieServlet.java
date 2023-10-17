@@ -4476,14 +4476,23 @@ public class EtatPaieServlet extends HttpServlet {
             MvtIntraCaisseFille[] listeDetails = (MvtIntraCaisseFille[]) CGenUtil.rechercher(details, null, null, " and idmere='" + id + "'");
             List dataSource = new ArrayList();
             String jaspername = "transfert_caisse";
-            if(mere[0].getCaissedepartlib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearriveelib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
+            DetailsBilletage details = new DetailsBilletage();
+            details.setNomTable("detailsbilletage");
+            DetailsBilletage[] listeDetails = (DetailsBilletage[]) CGenUtil.rechercher(details, null, null, " and idmere='" + idtransfert + "'");
+            MvtIntraCaisseFille detailsCaisse = new MvtIntraCaisseFille();
+            detailsCaisse.setNomTable("mvtintracaisse_fille");
+            MvtIntraCaisseFille[] listeDetailsCaisse = (MvtIntraCaisseFille[]) CGenUtil.rechercher(detailsCaisse, null, null, " and idmere='" + id + "'");
+             if(mere[0].getCaissedepartlib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearriveelib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
                 jaspername = "transfert_interne";
                 for(int i = 0; i < listeDetails.length ; i++){
-                    listeDetails[i].setReference(Utilitaire.formaterAr(listeDetails[i].getReference()));
-                    listeDetails[i].setRemarque(Utilitaire.formaterAr(listeDetails[i].getRemarque()));
+                    listeDetails[i].setBillet(Utilitaire.formaterAr(listeDetails[i].getBillet()));
                 }
+                dataSource.addAll(Arrays.asList(listeDetails));
+                
             }
-            dataSource.addAll(Arrays.asList(listeDetails));
+            else{
+                 dataSource.addAll(Arrays.asList(listeDetailsCaisse));
+            }
             setNomJasper(jaspername);
             UtilitaireImpression.imprimer(request, response, "Transfert", param, dataSource, getReportPath());
 

@@ -426,7 +426,7 @@ public class FactureFournisseur extends FactureClient {
             }
             FactureFournisseur cc = new FactureFournisseur();
             cc.setNomTable("factureclientgroupvide");
-            String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,3)) as montant  "
+            String requete = "select tiers,tierslib,cast(sum(montantreste) as NUMBER(30,2)) as montant  "
                     + " from FACTFOURN_MSUM_LIB "
                     + " where id in('" + ids.replace(";", "','") + "') "
                     + " and etat >= " + ConstanteEtat.getEtatValider()

@@ -182,18 +182,18 @@ public class SituationCredit extends LigneCredit {
 "            l.ANNEE,\n" +
 "            l.montant AS montant,\n" +
 "            l.etat,\n" +
-"            CAST (NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 3)) AS facture,\n" +
-"            CAST (NVL (SUM (MONTANTPAYE), 0) AS NUMBER (30, 3)) AS PAYE,\n" +
+"            CAST (NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 2)) AS facture,\n" +
+"            CAST (NVL (SUM (MONTANTPAYE), 0) AS NUMBER (30, 2)) AS PAYE,\n" +
 "            CAST (\n" +
-"               (NVL (SUM (MONTANTHT), 0) - NVL (SUM (montantpaye), 0)) AS NUMBER (30, 3))\n" +
+"               (NVL (SUM (MONTANTHT), 0) - NVL (SUM (montantpaye), 0)) AS NUMBER (30, 2))\n" +
 "               AS arecouvrir,\n" +
-"            CAST ( (l.montant) - NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 3))\n" +
+"            CAST ( (l.montant) - NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 2))\n" +
 "               AS restebudget,\n" +
 "            CAST (\n" +
-"               (NVL (SUM (MONTANTHT), 0) / l.MONTANT) * 100 AS NUMBER (30, 3))\n" +
+"               (NVL (SUM (MONTANTHT), 0) / l.MONTANT) * 100 AS NUMBER (30, 2))\n" +
 "               AS pourcEngage,\n" +
 "            CAST (\n" +
-"               NVL(NVL (SUM (MONTANTPAYE), 0) / SUM (MONTANTHT), 0) * 100 AS NUMBER (30, 3))\n" +
+"               NVL(NVL (SUM (MONTANTPAYE), 0) / SUM (MONTANTHT), 0) * 100 AS NUMBER (30, 2))\n" +
 "               AS pourcPaye\n" +
 "       FROM LIGNECREDITRECETTE l\n" +
 "            LEFT JOIN FACTURE_CLIENT_MF_PAYE_BDG mf\n" +
@@ -219,21 +219,21 @@ public class SituationCredit extends LigneCredit {
             if (exercice > 0) where += " and l.annee = " + exercice;
             if (mois > 0) whereFact += " and mf.mois = " + mois;
             
-        String req = "select CAST (NVL (SUM (MONTANTPAYE), 0) AS NUMBER (30, 3)) as PAYE,\n" +
-"         CAST (NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 3))  as facture,\n" +
+        String req = "select CAST (NVL (SUM (MONTANTPAYE), 0) AS NUMBER (30, 2)) as PAYE,\n" +
+"         CAST (NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 2))  as facture,\n" +
 "         CAST (\n" +
-"               (NVL (SUM (MONTANTHT), 0) - NVL (SUM (montantpaye), 0)) AS NUMBER (30, 3))\n" +
+"               (NVL (SUM (MONTANTHT), 0) - NVL (SUM (montantpaye), 0)) AS NUMBER (30, 2))\n" +
 "               AS arecouvrir,\n" +
 "         l.ANNEE,\n" +
 "         l.compte,\n" +
 "         cr.LIBELLE       as libelle,\n" +
 "         l.montant   as montant,\n" +
-"         CAST ( (l.montant) - NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 3)) as restebudget,\n" +
+"         CAST ( (l.montant) - NVL (SUM (MONTANTHT), 0) AS NUMBER (30, 2)) as restebudget,\n" +
 "          CAST (\n" +
-"               (NVL (SUM (MONTANTHT), 0) / l.MONTANT) * 100 AS NUMBER (30, 3))\n" +
+"               (NVL (SUM (MONTANTHT), 0) / l.MONTANT) * 100 AS NUMBER (30, 2))\n" +
 "               AS pourcEngage,\n" +
 "        CAST (\n" +
-"               NVL(NVL (SUM (MONTANTPAYE), 0) / SUM (MONTANTHT), 0) * 100 AS NUMBER (30, 3))\n" +
+"               NVL(NVL (SUM (MONTANTPAYE), 0) / SUM (MONTANTHT), 0) * 100 AS NUMBER (30, 2))\n" +
 "               AS pourcPaye\n" +
 "  from (\n" +
 "           (SELECT\n" +

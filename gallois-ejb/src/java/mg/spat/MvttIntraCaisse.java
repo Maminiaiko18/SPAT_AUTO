@@ -25,7 +25,14 @@ public class MvttIntraCaisse extends ClassEtat {
     private String id,caissedepart,caissearrivee,modepaiement,remarque,designation,idTraite,caissedepartlib,caissearriveelib,modepaiementlib,etatlib;
     private Date daty, dateecheance;
     private Traite traite;
+    private boolean visaArrive = true;
     
+    public boolean isVisaArrive() {
+        return visaArrive;
+    }
+    public void setVisaArrive(boolean visaArrive) {
+        this.visaArrive = visaArrive;
+    }
     public Traite getTraite() {
         return traite;
     }
@@ -259,7 +266,7 @@ public class MvttIntraCaisse extends ClassEtat {
         entree.setEtatversement(this.getEtatversement());
 
         entree.createObject(u, c);
-        entree.validerObject(u, c);
+        if(isVisaArrive()) entree.validerObject(u, c);
         
         this.setEtatversement(ConstanteEtat.getEtatValider());
         
