@@ -4588,12 +4588,14 @@ public class EtatPaieServlet extends HttpServlet {
             double total = 0;
             double totalDP = 0;
             String hebergement = "BC";
+            String hebergementDP = hebergement;
             if(mere[0].getEstForfaitairelib().compareToIgnoreCase("oui") == 0){
                 hebergement = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement()));
                 total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration()+liste[0].getFraishebergement();
                 totalDP = (liste[0].getFraisdeplacement() * mere[0].getDuree()) + (liste[0].getFraisrestauration() * mere[0].getDuree()) + (liste[0].getFraishebergement()* mere[0].getDuree());
-                param.put("hebergementDP", liste[0].getFraishebergement()* mere[0].getDuree());
+                hebergementDP = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement()* mere[0].getDuree()));
             }
+            param.put("hebergementDP",hebergementDP );
             param.put("hebergement", hebergement );
             total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration();
             totalDP = (liste[0].getFraisdeplacement() * mere[0].getDuree()) + (liste[0].getFraisrestauration()* mere[0].getDuree());

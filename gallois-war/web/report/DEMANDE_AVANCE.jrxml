@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DEMANDE_AVANCE" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c59ed13-7470-4738-bea8-af4aa1e06d11">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="195"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -16,7 +16,7 @@
 	<parameter name="type" class="java.lang.String"/>
 	<parameter name="deplacementDP" class="java.lang.Double"/>
 	<parameter name="restaurationDP" class="java.lang.Double"/>
-	<parameter name="hebergementDP" class="java.lang.Double"/>
+	<parameter name="hebergementDP" class="java.lang.String"/>
 	<parameter name="num" class="java.lang.String"/>
 	<parameter name="numOM" class="java.lang.String"/>
 	<parameter name="dateArrive" class="java.util.Date"/>
@@ -319,8 +319,8 @@
 				<textFieldExpression><![CDATA[$P{fonction}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="112" y="117" width="100" height="20" uuid="250d26d0-80ac-4268-a475-db4d6a7a6c7b"/>
-				<textFieldExpression><![CDATA[$P{deplacement}]]></textFieldExpression>
+				<reportElement x="112" y="117" width="166" height="20" uuid="250d26d0-80ac-4268-a475-db4d6a7a6c7b"/>
+				<textFieldExpression><![CDATA[$P{deplacement}+" jour(s)"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="392" y="117" width="163" height="20" uuid="cec01076-896a-41e8-b460-337bc8768cf8"/>
