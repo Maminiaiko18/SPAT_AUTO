@@ -204,14 +204,8 @@
 	</detail>
 	<summary>
 		<band height="116">
-			<textField pattern="#,##0.00">
+			<textField>
 				<reportElement x="382" y="0" width="173" height="20" uuid="1135e67d-2862-435b-9d30-8cc80bb92a23"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
