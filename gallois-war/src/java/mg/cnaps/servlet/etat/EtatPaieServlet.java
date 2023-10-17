@@ -4460,8 +4460,6 @@ public class EtatPaieServlet extends HttpServlet {
         try {
             String id = request.getParameter("id");
             String idtransfert = request.getParameter("idtransfert");
-            System.err.println("id==="+id);
-            System.err.println("id==="+idtransfert);
             MvttIntraCaisse mc = new MvttIntraCaisse();
             mc.setNomTable("mvtintracaisse_lib");
             MvttIntraCaisse[] mere = (MvttIntraCaisse[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "'");
@@ -4477,11 +4475,14 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("montantlettre", montantLettre);
             List dataSource = new ArrayList();
             String jaspername = "transfert_caisse";
-            if(mere[0].getCaissedepartlib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearriveelib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
+            DetailsBilletage details = new DetailsBilletage();
+            details.setNomTable("detailsbilletage");
+            DetailsBilletage[] listeDetails = (DetailsBilletage[]) CGenUtil.rechercher(details, null, null, " and idmere='" + idtransfert + "'");
+            MvtIntraCaisseFille detailsCaisse = new MvtIntraCaisseFille();
+            detailsCaisse.setNomTable("mvtintracaisse_fille");
+            MvtIntraCaisseFille[] listeDetailsCaisse = (MvtIntraCaisseFille[]) CGenUtil.rechercher(detailsCaisse, null, null, " and idmere='" + id + "'");
+             if(mere[0].getCaissedepartlib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearriveelib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
                 jaspername = "transfert_interne";
-                DetailsBilletage details = new DetailsBilletage();
-                details.setNomTable("detailsbilletage");
-                DetailsBilletage[] listeDetails = (DetailsBilletage[]) CGenUtil.rechercher(details, null, null, " and idmere='" + idtransfert + "'");
                 for(int i = 0; i < listeDetails.length ; i++){
                     listeDetails[i].setBillet(Utilitaire.formaterAr(listeDetails[i].getBillet()));
                 }
@@ -4489,9 +4490,6 @@ public class EtatPaieServlet extends HttpServlet {
                 
             }
             else{
-                MvtIntraCaisseFille detailsCaisse = new MvtIntraCaisseFille();
-                detailsCaisse.setNomTable("mvtintracaisse_fille");
-                MvtIntraCaisseFille[] listeDetailsCaisse = (MvtIntraCaisseFille[]) CGenUtil.rechercher(detailsCaisse, null, null, " and idmere='" + id + "'");
                  dataSource.addAll(Arrays.asList(listeDetailsCaisse));
             }
             setNomJasper(jaspername);
