@@ -176,7 +176,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{billet}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="203" y="0" width="179" height="20" uuid="8a2b47b5-7f17-4623-99bd-de48a380048d"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
