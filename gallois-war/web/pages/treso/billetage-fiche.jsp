@@ -76,7 +76,7 @@
                                 <%if (bi.getEtat() != ConstanteEtat.getEtatValider()) {%>
                                 <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=treso/billetage-fiche.jsp&classe=mg.spat.Billetage">Viser</a> 
                                 <%} else { %>
-                                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerTransfertCaisse&id=<%=bi.getIdtransfert()%>" style="margin-right: 10px">Imprimer</a>
+                                    <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerTransfertCaisse&idtransfert=<%=bi.getId()%>&id=<%=bi.getIdtransfert()%>" style="margin-right: 10px">Imprimer</a>
                                 <% } %>
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=treso/billetage-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                             </p>
