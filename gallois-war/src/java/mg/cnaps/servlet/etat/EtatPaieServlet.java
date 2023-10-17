@@ -4573,9 +4573,9 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             param.put("nom", mere[0].getNom());
             param.put("prenom", mere[0].getPrenom());
-            param.put("fonction", mere[0].getIdindemnitemissionlib());
+            param.put("fonction", mere[0].getFonction());
             param.put("modeTransport", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
-            param.put("deplacement", mere[0].getDuree());
+            param.put("deplacement", (int) Math.ceil(mere[0].getDuree()));
             param.put("numOM", mere[0].getNumOM());
             param.put("dateArrive", mere[0].getDatearrivee());
             param.put("daty", mere[0].getDatedepart());
@@ -4587,13 +4587,14 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("restauration", liste[0].getFraisrestauration());
             double total = 0;
             double totalDP = 0;
+            String hebergement = "BC";
             if(mere[0].getEstForfaitairelib().compareToIgnoreCase("oui") == 0){
-                type = "H&eacute;bergement";
-                param.put("hebergement", liste[0].getFraishebergement());
+                hebergement = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement()));
                 total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration()+liste[0].getFraishebergement();
                 totalDP = (liste[0].getFraisdeplacement() * mere[0].getDuree()) + (liste[0].getFraisrestauration() * mere[0].getDuree()) + (liste[0].getFraishebergement()* mere[0].getDuree());
                 param.put("hebergementDP", liste[0].getFraishebergement()* mere[0].getDuree());
             }
+            param.put("hebergement", hebergement );
             total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration();
             totalDP = (liste[0].getFraisdeplacement() * mere[0].getDuree()) + (liste[0].getFraisrestauration()* mere[0].getDuree());
             param.put("type",type);
