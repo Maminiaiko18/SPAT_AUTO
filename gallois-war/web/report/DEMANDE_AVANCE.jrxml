@@ -474,6 +474,9 @@
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="423" width="82" height="20" uuid="9046753e-0fb6-4da1-8494-b3ad43acce14"/>
+				<textElement>
+					<paragraph leftIndent="3"/>
+				</textElement>
 				<text><![CDATA[Hébergement: ]]></text>
 			</staticText>
 		</band>
