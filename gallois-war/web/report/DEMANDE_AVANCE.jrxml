@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DEMANDE_AVANCE" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c59ed13-7470-4738-bea8-af4aa1e06d11">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="47"/>
+	<property name="ireport.y" value="158"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -132,11 +132,11 @@
 				<text><![CDATA[PRISE EN CHARGE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="229" width="98" height="20" uuid="9ed7f1d1-ec09-4505-95de-4408c125692e"/>
+				<reportElement x="241" y="229" width="98" height="20" uuid="9ed7f1d1-ec09-4505-95de-4408c125692e"/>
 				<text><![CDATA[Heure :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="254" width="100" height="20" uuid="94ddd944-3eb6-4397-a2a1-7d9a9d4ef04a"/>
+				<reportElement x="241" y="254" width="100" height="20" uuid="94ddd944-3eb6-4397-a2a1-7d9a9d4ef04a"/>
 				<textElement>
 					<font isUnderline="true"/>
 				</textElement>
@@ -326,16 +326,16 @@
 				<reportElement x="392" y="117" width="163" height="20" uuid="cec01076-896a-41e8-b460-337bc8768cf8"/>
 				<textFieldExpression><![CDATA[$P{modeTransport}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="98" y="209" width="100" height="20" uuid="00930ddc-afc2-48a6-a29a-a7be2f91894a"/>
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="280" y="274" width="82" height="20" uuid="0cd5af7b-d1c3-49f4-974e-c9fed4d1983f"/>
+				<reportElement x="241" y="274" width="82" height="20" uuid="0cd5af7b-d1c3-49f4-974e-c9fed4d1983f"/>
 				<text><![CDATA[Déplacement : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="294" width="82" height="20" uuid="8a750065-e018-4d6d-bf8d-3e23ac18aa71"/>
+				<reportElement x="241" y="294" width="82" height="20" uuid="8a750065-e018-4d6d-bf8d-3e23ac18aa71"/>
 				<text><![CDATA[Restauration : ]]></text>
 			</staticText>
 			<staticText>
@@ -412,19 +412,19 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="362" y="274" width="193" height="20" uuid="55871fb0-8150-41da-bce6-666717f3d28f"/>
+				<reportElement x="323" y="274" width="193" height="20" uuid="55871fb0-8150-41da-bce6-666717f3d28f"/>
 				<textFieldExpression><![CDATA[$P{deplacements}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="362" y="294" width="193" height="20" uuid="7308b8b4-07c9-4d26-982d-6ba731285c34"/>
-				<textFieldExpression><![CDATA[$P{restauration}]]></textFieldExpression>
+				<reportElement x="323" y="294" width="113" height="20" uuid="7308b8b4-07c9-4d26-982d-6ba731285c34"/>
+				<textFieldExpression><![CDATA[$P{restauration} ]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="362" y="314" width="193" height="20" uuid="1c2636d2-0dca-4ced-ab57-ff7f85bd2bbb"/>
+				<reportElement x="323" y="314" width="193" height="20" uuid="1c2636d2-0dca-4ced-ab57-ff7f85bd2bbb"/>
 				<textFieldExpression><![CDATA[$P{hebergement}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="314" width="82" height="20" uuid="8486b6a7-d4cf-47bc-a2a4-67eb0215221b"/>
+				<reportElement x="241" y="314" width="82" height="20" uuid="8486b6a7-d4cf-47bc-a2a4-67eb0215221b"/>
 				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{type} +" :"]]></textFieldExpression>
 			</textField>
@@ -453,14 +453,10 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="347" y="17" width="208" height="20" uuid="fcd55cd9-0b32-44e3-8da3-a199f5bbf137"/>
-				<textFieldExpression><![CDATA[$P{numOM}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{numOM} +"  /SPAT/DG/DEPAG/23"]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="280" y="334" width="82" height="20" uuid="c2c4c84b-aebb-4428-8d51-df955f43ce61"/>
-				<text><![CDATA[TOTAL]]></text>
-			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="362" y="334" width="193" height="20" uuid="9d7d21d6-a719-4fd9-8764-45981f459bbc"/>
+				<reportElement x="447" y="294" width="108" height="20" uuid="9d7d21d6-a719-4fd9-8764-45981f459bbc"/>
 				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
@@ -479,6 +475,10 @@
 					<rightPen lineWidth="0.75"/>
 				</box>
 				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="294" width="11" height="20" uuid="480b679c-eae0-42f8-ba1b-c3d01c89ebe0"/>
+				<text><![CDATA[ = ]]></text>
 			</staticText>
 		</band>
 	</title>
