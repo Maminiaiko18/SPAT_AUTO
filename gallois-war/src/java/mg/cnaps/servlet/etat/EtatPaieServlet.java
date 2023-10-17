@@ -4575,7 +4575,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("prenom", mere[0].getPrenom());
             param.put("fonction", mere[0].getFonction());
             param.put("modeTransport", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
-            param.put("deplacement", (int) Math.ceil(mere[0].getDuree()));
+            param.put("deplacement", mere[0].getDuree());
             param.put("numOM", mere[0].getNumOM());
             param.put("dateArrive", mere[0].getDatearrivee());
             param.put("daty", mere[0].getDatedepart());
