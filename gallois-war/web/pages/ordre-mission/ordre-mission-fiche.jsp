@@ -69,16 +69,16 @@
                         %>
                         <br/>
                         <div class="box-footer">
-                            <a class="btn btn-warning"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin-right: 10px">Modifier</a>
-                            <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=ordre-mission/ordre-mission-fiche.jsp&classe=<%=classe %>" style="margin-right: 10px">Viser</a>
+                            <a class="btn btn-warning"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin: 5px 10px 0px 0px">Modifier</a>
+                            <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=ordre-mission/ordre-mission-fiche.jsp&classe=<%=classe %>" style="margin: 5px 10px 0px 0px">Viser</a>
                             <hr>
-                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDemandeOrdreDeMission&id=<%=id%>" style="margin-right: 10px">Imprimer demande</a>
+                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDemandeOrdreDeMission&id=<%=id%>" style="margin: 5px 10px 0px 0px">Imprimer demande</a>
                             <% if(t.getEtat()==ConstanteEtat.getEtatValider()) { %>
-                                <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&id=" + request.getParameter("id")%>&bute=ordre-mission/ordre-mission-fiche.jsp&classe=<%=classe %>" style="margin-right: 10px">Annuler Visa</a>
-                                <a class="btn btn-default"  href="<%= lien + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&mode=1&idom=" + id%>" style="margin-right: 10px">Générer Bon Provisoire</a>
-                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerOrdreDeMission&id=<%=id%>" style="margin-right: 10px">Imprimer OM</a>
+                                <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&id=" + request.getParameter("id")%>&bute=ordre-mission/ordre-mission-fiche.jsp&classe=<%=classe %>" style="margin: 5px 10px 0px 0px">Annuler Visa</a>
+                                <a class="btn btn-default"  href="<%= lien + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&mode=1&idom=" + id%>" style="margin: 5px 10px 0px 0px">Générer Bon Provisoire</a>
+                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerOrdreDeMission&id=<%=id%>" style="margin: 5px 10px 0px 0px">Imprimer OM</a>
+                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDecompte&id=<%=id%>" style="margin: 5px 10px 0px 0px">Imprimer décompte</a>
                             <% } %>
-                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDecompte&id=<%=id%>" style="margin-right: 10px">Imprimer décompte</a>
                             
                          </div>
                         <br/>
