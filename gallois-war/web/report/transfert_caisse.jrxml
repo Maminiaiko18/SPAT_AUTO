@@ -12,17 +12,13 @@
 	<parameter name="remarque" class="java.lang.String"/>
 	<parameter name="montantlettre" class="java.lang.String"/>
 	<field name="id" class="java.lang.String"/>
-	<field name="billet" class="java.lang.String"/>
-	<field name="nombre" class="java.lang.Integer"/>
-	<field name="montant" class="java.lang.Double"/>
-	<variable name="montant_1" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{montant}]]></variableExpression>
-	</variable>
+	<field name="reference" class="java.lang.String"/>
+	<field name="remarque" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="206" splitType="Stretch">
+		<band height="251" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="-3" width="72" height="82" uuid="3b49bc2e-5f92-4d3b-9494-e4601a9e3b6b"/>
 				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
@@ -98,6 +94,20 @@
 				<textFieldExpression><![CDATA[$P{designation}]]></textFieldExpression>
 			</textField>
 			<staticText>
+				<reportElement x="0" y="186" width="100" height="20" uuid="69a20d2f-602b-424b-8ab3-de7a7c541973"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="100" y="186" width="455" height="20" uuid="44a4a536-2c59-417b-956b-4c8b3e130263"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
+			</textField>
+			<staticText>
 				<reportElement x="0" y="28" width="555" height="20" uuid="7c54021e-0182-41f1-afec-01f1bb7db2a8"/>
 				<textElement textAlignment="Center">
 					<font size="13" isBold="true"/>
@@ -118,12 +128,19 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{remarque}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="100" y="206" width="455" height="40" uuid="b170b367-d448-4ac8-ad05-eb4aea94b5f3"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montantlettre}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="21" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="1" width="203" height="20" uuid="cc45926d-3a0d-4f8f-a24a-3980470be24a"/>
+				<reportElement x="0" y="1" width="360" height="40" uuid="cc45926d-3a0d-4f8f-a24a-3980470be24a"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -136,7 +153,7 @@
 				<text><![CDATA[Chèques]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="203" y="0" width="179" height="21" uuid="21af20cb-448f-4170-b3db-caa2f581f363"/>
+				<reportElement x="360" y="0" width="195" height="40" uuid="21af20cb-448f-4170-b3db-caa2f581f363"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -148,24 +165,12 @@
 				</textElement>
 				<text><![CDATA[Montant]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="382" y="0" width="173" height="20" uuid="22f6792e-0ed2-47f4-a30f-ae20977d8252"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="203" height="20" uuid="3e5d27b6-a93f-42d3-bf5f-55a1cc526aae"/>
+				<reportElement x="0" y="0" width="360" height="40" uuid="3e5d27b6-a93f-42d3-bf5f-55a1cc526aae"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -174,10 +179,10 @@
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{billet}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{reference}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="203" y="0" width="179" height="20" uuid="8a2b47b5-7f17-4623-99bd-de48a380048d"/>
+				<reportElement x="360" y="0" width="195" height="40" uuid="8a2b47b5-7f17-4623-99bd-de48a380048d"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -186,45 +191,8 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="382" y="0" width="173" height="20" uuid="65c421a1-5854-4b69-b8fa-6bd9e575b375"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{remarque}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<summary>
-		<band height="116">
-			<textField>
-				<reportElement x="382" y="0" width="173" height="20" uuid="1135e67d-2862-435b-9d30-8cc80bb92a23"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{montant_1}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="39" width="146" height="20" uuid="e0649e5f-e3f5-4773-94a0-668d70ad1ff6"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Arrêté à la somme de :]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="146" y="39" width="409" height="60" uuid="943fc570-a2e8-4946-b473-9051a09a9764"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{montantlettre}]]></textFieldExpression>
-			</textField>
-		</band>
-	</summary>
 </jasperReport>
