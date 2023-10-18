@@ -139,6 +139,7 @@ import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
 import mg.spat.EtatGrandCA;
 import mg.spat.LibererLib;
+import ordremission.IndemniteMission;
 
 /**
  *
@@ -268,6 +269,10 @@ public class EtatPaieServlet extends HttpServlet {
             else if (action.equalsIgnoreCase("imprimerOrdreDeMission")) {
                 imprimerOrdreDeMission(request, response);
             }
+            else if (action.equalsIgnoreCase("imprimerDecompte")) {
+                imprimerDecompte(request, response);
+            }
+            
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -4620,6 +4625,57 @@ public class EtatPaieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    private void imprimerDecompte(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String id = request.getParameter("id");
+            OrdreMissionLib mc = new OrdreMissionLib();
+            mc.setNomTable("ordre_mission_lib");
+            OrdreMissionLib[] mere = (OrdreMissionLib[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "'");
+            Map param = new HashMap();
+            param.put("nom", mere[0].getNom());
+            param.put("prenom", mere[0].getPrenom());
+            param.put("fonction", mere[0].getFonction());
+            param.put("modeTransport", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
+            param.put("deplacement", mere[0].getDuree());
+            param.put("numOM", mere[0].getNumOM());
+            param.put("dateArrive", mere[0].getDatearrivee());
+            param.put("daty", mere[0].getDatedepart());
+            IndemniteMission t = new IndemniteMission();
+            t.setNomTable("indemnite_mission_lib");
+             String type = "BC";
+            IndemniteMission[] liste = (IndemniteMission[]) CGenUtil.rechercher(t, null, null, " and id='" + mere[0].getIndemnitemission() + "'");
+            param.put("deplacements", liste[0].getFraisdeplacement());
+            param.put("restauration", liste[0].getFraisrestauration());
+            double total = 0;
+            double totalDP = 0;
+            String hebergement = "BC";
+            String hebergementDP = hebergement;
+            if(mere[0].getEstForfaitairelib().compareToIgnoreCase("oui") == 0){
+                hebergement = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement()));
+                total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration()+ liste[0].getFraishebergement();
+                totalDP = (liste[0].getFraisdeplacement() * mere[0].getDuree()) + (liste[0].getFraisrestauration() * mere[0].getDuree()) + (liste[0].getFraishebergement()* mere[0].getDuree());
+                hebergementDP = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement()* mere[0].getDuree()));
+            }
+            else{
+            total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration();
+            totalDP = (liste[0].getFraisdeplacement() * mere[0].getDuree()) + (liste[0].getFraisrestauration()* mere[0].getDuree());
+            }
+            param.put("hebergementDP",hebergementDP );
+            param.put("hebergement", hebergement );
+            param.put("type",type);
+            param.put("total",total);
+            param.put("deplacementDP", liste[0].getFraisdeplacement() * mere[0].getDuree() );
+            param.put("restaurationDP", liste[0].getFraisrestauration() * mere[0].getDuree());
+           
+            param.put("totalDP",totalDP);
+            setNomJasper("DEMANDE_AVANCE");
+            UtilitaireImpression.imprimer(request, response, "Demande d' avance", param, null, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 
 
     /*private void imprimerSuiviBudgetaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
