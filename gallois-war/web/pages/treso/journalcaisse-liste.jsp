@@ -22,8 +22,8 @@
             journalCaisse.setNomTable(request.getParameter("etatvue"));
         }
 
-        String listeCrt[] = {"id", "folio", "caisse", "numPiece", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "numeroOP", "tierslib"};
-        String listeInt[] = {"dateEffet"};
+        String listeCrt[] = {"id", "folio", "caisse", "numPiece", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "numeroOP", "tierslib","credit","debit"};
+        String listeInt[] = {"dateEffet","credit","debit"};
         String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "debit", "idplacement", "numeroOP", "tierslib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -42,6 +42,10 @@
         listes[2] = new Liste("caisse", caisse, "val", "id");
 
         pr.getFormu().changerEnChamp(listes);
+        pr.getFormu().getChamp("credit1").setLibelle("entree min");
+        pr.getFormu().getChamp("credit2").setLibelle("entree max");
+        pr.getFormu().getChamp("debit1").setLibelle("sortie min");
+        pr.getFormu().getChamp("debit2").setLibelle("sortie max");
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
         pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
