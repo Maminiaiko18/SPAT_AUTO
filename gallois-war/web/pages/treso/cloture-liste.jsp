@@ -18,10 +18,11 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     
-    pr.getFormu().getChamp("daty1").setDefaut(utilitaire.Utilitaire.dateDuJour());
-    pr.getFormu().getChamp("daty2").setDefaut(utilitaire.Utilitaire.dateDuJour());
+    //pr.getFormu().getChamp("daty1").setDefaut(utilitaire.Utilitaire.dateDuJour());
+    //pr.getFormu().getChamp("daty2").setDefaut(utilitaire.Utilitaire.dateDuJour());
     pr.getFormu().getChamp("daty1").setLibelle("Date min");
     pr.getFormu().getChamp("daty2").setLibelle("Date max");
+    pr.setOrdre(" ORDER  BY DATY DESC");
     
     pr.setApres("treso/cloture-liste.jsp");
     String[] colSomme = null;

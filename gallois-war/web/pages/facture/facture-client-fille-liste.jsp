@@ -21,7 +21,7 @@
             cht.setNomTable(request.getParameter("etatvue"));
         }
         String libEntete[] = { "id","idmere","numpiece","daty","code","client", "designation", "compte", "pu", "quantite", "duree", "tva","devise", "montant", "montantTva", "montantttc"};
-        String listeCrt[] = {"compte","numpiece","annee", "type","daty","mereca","code","devise"};
+        String listeCrt[] = {"compte","designation","numpiece","annee", "type","daty","mereca","code","devise"};
         String listeInt[] = {"daty"};
 
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
