@@ -12,44 +12,18 @@
         base.setNomTable("FACTFOURN_FILL_LIB_REST_TAXE");
 
 
-        String listeCrt[] = {"id", "idmere", "designation", "devise", "compte"};
-        String listeInt[] = {};
+        String listeCrt[] = {"id", "idmere", "designation", "devise", "compte", "daty"};
+        String listeInt[] = {"daty"};
         String colDefaut[] = {"id", "idmere", "designation", "devise", "compte"};
         String[] pourcentage = {};
-//        montant=HT
-//montanttva=
-//montantttc
-//    }
-        String somDefaut[] = {"quantite", "pu", "montant","montantTVAEuro", "montantTTC"};
+        String somDefaut[] = {"quantite", "pu", "montant", "montantTva", "montantreduction", "montantTTC"};
         
         
-        PageRechercheGroupe pr = new PageRechercheGroupe(base, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, 18, somDefaut.length);
+        PageRechercheGroupe pr = new PageRechercheGroupe(base, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, somDefaut.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("facture/facture-fournisseur-details-analyse.jsp");
-        
-     //   pr.getFormu().getChamp("daty1").setLibelle("Date debut");
-       // pr.getFormu().getChamp("daty2").setLibelle("Date fin");
-//        Date finMois = utilitaire.Utilitaire.getLastDayOfDateSQL(utilitaire.Utilitaire.dateDuJourSql());
-//        Date debutMois = utilitaire.Utilitaire.dateDuJourSql();
-//        debutMois.setDate(1);
-//        String awhere = "";
-//        if(request.getParameter("daty1") == null || request.getParameter("daty1").isEmpty()){
-//            pr.getFormu().getChamp("daty1").setDefaut(Utilitaire.stringToDateJ("dd/MM/yyyy", debutMois));
-//            awhere = awhere + String.format(" and daty>= '%s'", Utilitaire.stringToDateJ("dd/MM/yyyy", debutMois));
-//            pr.setAWhere(awhere);
-//        }
-//        if(request.getParameter("daty2") == null || request.getParameter("daty2").isEmpty()){
-//            pr.getFormu().getChamp("daty2").setDefaut(Utilitaire.stringToDateJ("dd/MM/yyyy", finMois));
-//            awhere = awhere + String.format(" and daty<= '%s'", Utilitaire.stringToDateJ("dd/MM/yyyy", finMois));
-//            pr.setAWhere(awhere);
-//        }                
-//        
-        
-     //   pr.getFormu().getChamp("tierslib").setLibelle("Client");
-       // pr.getFormu().getChamp("date_echeance1").setLibelle("Date echeance min");
-       // pr.getFormu().getChamp("date_echeance2").setLibelle("Date echeance max");
-       // pr.getFormu().getChamp("categorielib").setLibelle("Categorie");
+
         pr.creerObjetPage();
 %>
 <script>
