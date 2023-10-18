@@ -473,7 +473,6 @@ public class AvoirFC extends ClassMere {
                 }
             }
             factureLiee.setFille(details);
-            factureLiee.setDaty(Utilitaire.dateDuJourSql());
             factureLiee.createObject(user, c);
             if(verif==1)c.commit();
             return factureLiee;
