@@ -23,7 +23,9 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("facture/facture-fournisseur-details-analyse.jsp");
-
+        pr.getFormu().getChamp("daty1").setLibelle("Date min");
+        pr.getFormu().getChamp("daty2").setLibelle("Date max");
+        
         pr.creerObjetPage();
 %>
 <script>
@@ -33,7 +35,7 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Analyse Factures fournisseurs</h1>
+        <h1>Analyse Factures fournisseurs D&eacute;tails</h1>
     </section>
     <section class="content">
         <form action='<%= pr.getLien() + "?but="+pr.getApres() %>' method="post" name="analyse" id="analyse">
