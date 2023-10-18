@@ -30,8 +30,9 @@ import utilitaire.Utilitaire;
  * @author rijan
  */
 public class FactureFournisseurDetails extends FactureClientDetails{
-    private double montanttaxe;
+    private double montanttaxe, montantreduction;
     private String comptestr;
+    String idBLF;
 
     public String getComptestr() {
         return comptestr;
@@ -48,8 +49,22 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     public void setMontanttaxe(double montanttaxe) {
         this.montanttaxe = montanttaxe;
     }
-    
-   
+
+    public String getIdBLF() {
+        return idBLF;
+    }
+
+    public void setIdBLF(String idBLF) {
+        this.idBLF = idBLF;
+    }
+
+    public double getMontantreduction() {
+        return montantreduction;
+    }
+
+    public void setMontantreduction(double montantreduction) {
+        this.montantreduction = montantreduction;
+    }
     
     public FactureFournisseurDetails() throws Exception{ 
         this.setNomTable("facture_fournisseur_fille");
@@ -117,15 +132,6 @@ public class FactureFournisseurDetails extends FactureClientDetails{
      @Override
     public String getValColLibelle() {
         return getLibDesignation()+";"+getLibDesignation()+";"+getDevise();
-    }
-    String idBLF;
-
-    public String getIdBLF() {
-        return idBLF;
-    }
-
-    public void setIdBLF(String idBLF) {
-        this.idBLF = idBLF;
     }
 
     public FactureFournisseurDetails(String idmere, double quantite, double pu, String compte, String designation, double duree) throws Exception {
