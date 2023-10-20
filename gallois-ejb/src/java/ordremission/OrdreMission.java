@@ -66,7 +66,8 @@ public class OrdreMission extends ClassEtat {
         return idmoyendeplacement;
     }
 
-    public void setIdmoyendeplacement(String idmoyendeplacement) {
+    public void setIdmoyendeplacement(String idmoyendeplacement) throws Exception {
+        if(getMode().equals("modif") && idmoyendeplacement.compareToIgnoreCase("")==0 || idmoyendeplacement == null) throw new Exception("Moyen de déplacement obligatoire."); 
         this.idmoyendeplacement = idmoyendeplacement;
     }
 
@@ -98,7 +99,8 @@ public class OrdreMission extends ClassEtat {
         return idtiers;
     }
 
-    public void setIdtiers(String idtiers) {
+    public void setIdtiers(String idtiers) throws Exception {
+         if(getMode().equals("modif") && idtiers.compareToIgnoreCase("")==0 || idtiers == null) throw new Exception("Tiers obligatoire."); 
         this.idtiers = idtiers;
     }
 
@@ -130,7 +132,8 @@ public class OrdreMission extends ClassEtat {
         return duree;
     }
 
-    public void setDuree(double duree) {
+    public void setDuree(double duree) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&&duree<=0) throw new Exception("Durée de mission invalide.");
         this.duree = duree;
     }
 
