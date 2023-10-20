@@ -16,7 +16,7 @@
         String listeInt[] = {"daty"};
         String colDefaut[] = {"id", "idmere", "designation", "devise", "compte"};
         String[] pourcentage = {};
-        String somDefaut[] = {"quantite", "pu", "montant", "montantTva", "montantreduction", "montantTTC"};
+        String somDefaut[] = {"quantite", "pu", "montant", "montanttva", "montantreduction", "montantTTC"};
         
         
         PageRechercheGroupe pr = new PageRechercheGroupe(base, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, somDefaut.length);

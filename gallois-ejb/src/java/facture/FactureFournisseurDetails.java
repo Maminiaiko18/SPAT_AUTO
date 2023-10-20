@@ -30,7 +30,7 @@ import utilitaire.Utilitaire;
  * @author rijan
  */
 public class FactureFournisseurDetails extends FactureClientDetails{
-    private double montanttaxe, montantreduction;
+    private double montanttaxe, montantreduction, montanttva;
     private String comptestr;
     String idBLF;
 
@@ -64,6 +64,14 @@ public class FactureFournisseurDetails extends FactureClientDetails{
 
     public void setMontantreduction(double montantreduction) {
         this.montantreduction = montantreduction;
+    }
+
+    public double getMontanttva() {
+        return montanttva;
+    }
+
+    public void setMontanttva(double montanttva) {
+        this.montanttva = montanttva;
     }
     
     public FactureFournisseurDetails() throws Exception{ 
