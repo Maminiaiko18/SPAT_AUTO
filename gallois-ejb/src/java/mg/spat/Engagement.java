@@ -37,7 +37,16 @@ public class Engagement extends ClassEtat {
     private int avecFacture,annee;
     private String type;
     private Date dateImpression;
+    private String iduser;
 
+
+    public String getIduser() {
+        return iduser;
+    }
+
+    public void setIduser(String iduser) {
+        this.iduser = iduser;
+    }
 
     public Date getDateImpression() {
         return dateImpression;
@@ -336,7 +345,8 @@ public class Engagement extends ClassEtat {
     
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {  
-        this.setDateImpression(null);      
+        this.setDateImpression(null);  
+        this.setIduser(u);    
         // this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqNumeroEngagement",c)));
         return super.createObject(u, c); 
     }

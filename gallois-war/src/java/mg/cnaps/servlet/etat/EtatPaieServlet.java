@@ -3832,10 +3832,18 @@ public class EtatPaieServlet extends HttpServlet {
             engagement.setNomTable("engagementlib");
             Engagement[] mere = (Engagement[]) CGenUtil.rechercher(engagement, null, null, c, "");
             if(mere[0].getDateImpression()==null){
-                mere[0].setNomTable("engagement");
+                Engagement temp = new Engagement();
+                temp.setId(id);
+                Engagement[] engagementArray = (Engagement[]) CGenUtil.rechercher(temp, null, null, c, "");
+                if (engagementArray.length > 0) {
+                    temp = engagementArray[0];
+                }
+                temp.setDateImpression(Utilitaire.dateDuJourSql());
                 mere[0].setDateImpression(Utilitaire.dateDuJourSql());
-                mere[0].upDateToTable();
+                temp.upDateToTable();
             }
+
+
             Map param = new HashMap();
             if (mere.length != 0) {
                 engagement = mere[0];
@@ -3864,6 +3872,8 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("avant", Utilitaire.formaterAr(engagement.getDispoAvant()));
                 param.put("apres", Utilitaire.formaterAr(engagement.getDispoApres()));
                 param.put("observation", Utilitaire.champNull(engagement.getObservation()));
+                param.put("refuser", Utilitaire.champNull(username));
+
                 double realiser = lc.getMontant()-engagement.getDispoApres();
                 double pourcentageRealiser = (realiser*100)/lc.getMontant();
                 DecimalFormat df = new DecimalFormat("#.##");
