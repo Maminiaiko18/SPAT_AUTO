@@ -3872,7 +3872,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("avant", Utilitaire.formaterAr(engagement.getDispoAvant()));
                 param.put("apres", Utilitaire.formaterAr(engagement.getDispoApres()));
                 param.put("observation", Utilitaire.champNull(engagement.getObservation()));
-                param.put("refuser", Utilitaire.champNull(username));
+                param.put("refuser", Utilitaire.champNull(engagement.getIduser()));
 
                 double realiser = lc.getMontant()-engagement.getDispoApres();
                 double pourcentageRealiser = (realiser*100)/lc.getMontant();
