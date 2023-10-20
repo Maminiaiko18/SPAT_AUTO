@@ -56,6 +56,8 @@
         pi.getFormu().getChamp("AvecFacturelib").setVisible(false);
         pi.getFormu().getChamp("AvecFacture").setVisible(false);
         pi.getFormu().getChamp("num").setVisible(false);
+        pi.getFormu().getChamp("Montantliberer").setVisible(false);
+        pi.getFormu().getChamp("DateImpression").setVisible(false);
         pi.getFormu().getChamp("montantreste").setVisible(false);
         pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
 
