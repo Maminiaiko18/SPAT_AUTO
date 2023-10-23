@@ -67,7 +67,7 @@ public class OrdreMission extends ClassEtat {
     }
 
     public void setIdmoyendeplacement(String idmoyendeplacement) throws Exception {
-        if(getMode().equals("modif") && idmoyendeplacement.compareToIgnoreCase("")==0 || idmoyendeplacement == null) throw new Exception("Moyen de déplacement obligatoire."); 
+        if(getMode().equals("modif") && (idmoyendeplacement.compareToIgnoreCase("")==0 || idmoyendeplacement == null)) throw new Exception("Moyen de déplacement obligatoire."); 
         this.idmoyendeplacement = idmoyendeplacement;
     }
 
@@ -100,7 +100,7 @@ public class OrdreMission extends ClassEtat {
     }
 
     public void setIdtiers(String idtiers) throws Exception {
-         if(getMode().equals("modif") && idtiers.compareToIgnoreCase("")==0 || idtiers == null) throw new Exception("Tiers obligatoire."); 
+         if(getMode().equals("modif") && (idtiers.compareToIgnoreCase("")==0 || idtiers == null)) throw new Exception("Tiers obligatoire."); 
         this.idtiers = idtiers;
     }
 
