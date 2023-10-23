@@ -1628,17 +1628,17 @@ public class FactureFournisseur extends FactureClient {
         try{
             BonDeLivraison bl = (BonDeLivraison)(new BonDeLivraison()).getById(this.getIdBL(), "AS_BONDELIVRAISON", c);
             BonDeCommande bc = (BonDeCommande)(new BonDeCommande()).getById(bl.getId_bc(), "AS_BONDECOMMANDE_LIB_fiche", c);
-            double montant = this.getMontantttc();
-            if(montant > bc.getMontantTTC()){
-                throw new Exception("Montant TTC de la facture fournisseur : " + this.getMontantttc() + " sup\\351rieur au montant TTC du bon de commande : " + bc.getMontantTTC() + ".");
+            double montant = this.getMontant();
+            if(montant > bc.getMontant()){
+                throw new Exception("Montant HT de la facture fournisseur : " + this.getMontant() + " sup\\351rieur au montant HT du bon de commande : " + bc.getMontant() + ".");
             }
             FactureFournisseur facture = new FactureFournisseur();
             facture.setNomTable("factfourn_msum_lib_ficheB");
             FactureFournisseur[] factures = (FactureFournisseur[])CGenUtil.rechercher(facture, null, null, c, " and id != '" + this.getId() + "' and idbc ='" + bl.getId_bc() + "' and etat >= 11");
             if(factures.length > 0){
-                montant += AdminGen.calculSommeDouble(factures, "montantTTC");
-                if(montant > bc.getMontantTTC()){
-                    throw new Exception("Montant TTC des factures fournisseur : " + montant + " sup\\351rieur au montant TTC du bon de commande : " + bc.getMontantTTC() + ".");
+                montant += AdminGen.calculSommeDouble(factures, "montant");
+                if(montant > bc.getMontant()){
+                    throw new Exception("Montant HT des factures fournisseur : " + montant + " sup\\351rieur au montant HT du bon de commande : " + bc.getMontant() + ".");
                 }
             }
         }
