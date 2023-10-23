@@ -888,9 +888,9 @@ public class FactureFournisseur extends FactureClient {
             }
 
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
-            //if(ff.getIdBL() != null && ff.getDeviseMere().compareToIgnoreCase(Constante.deviseAr) == 0){
+            if(ff.getIdBL() != null){
                 ff.controleMontant(c);
-            //}
+            }
             if(!this.getApresValidationException()){
                 if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) != 0 && this.getIdProvision()==null) {
                     if(ff.getNumeroop()==null) throw new Exception("Numero facture obligatoire.");
