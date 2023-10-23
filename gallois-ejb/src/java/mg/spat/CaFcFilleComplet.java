@@ -17,7 +17,7 @@ public class CaFcFilleComplet extends ClassEtat {
     private double quantite,pu,taux,tva,montanttva,montantttc,montant,reduction,majoration,test,rang,duree;
     private int mois,annee;
     private double montantav;
-    String client,mereca,code,numpiece ;
+    String client,mereca,code,numpiece,etatlib;
     private Date datefact,daty;
     private double montanthtdevise;
 
@@ -330,6 +330,14 @@ public class CaFcFilleComplet extends ClassEtat {
 
     public void setNumpiece(String numpiece) {
         this.numpiece = numpiece;
+    }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
     }
     
 

@@ -20,7 +20,7 @@
         if (request.getParameter("etatvue") != null) {
             cht.setNomTable(request.getParameter("etatvue"));
         }
-        String libEntete[] = { "id","idmere","numpiece","daty","code","client", "designation", "compte", "pu", "quantite", "duree", "tva","devise", "montant", "montantTva", "montantttc"};
+        String libEntete[] = { "id","idmere","numpiece","daty","code","client", "designation", "compte", "pu", "quantite", "duree", "tva","devise", "montant", "montantTva", "montantttc", "etatlib"};
         String listeCrt[] = {"compte","designation","numpiece","annee", "type","daty","mereca","code","devise"};
         String listeInt[] = {"daty"};
 
@@ -104,6 +104,9 @@
                         <option value="CAFCFILLECOMPLET_AVOIRV3" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIRV3") == 0) {
                                 out.print("selected");
                             }%>>Visé</option>
+                        <option value="CAFCFILLECOMPLET_AVOIRANNULE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("CAFCFILLECOMPLET_AVOIRANNULE") == 0) {
+                                out.print("selected");
+                            }%>>Annulé</option>
                     </select>
                 </div>
             </div>
@@ -120,7 +123,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"ID Fille","ID mere","numpiece","date","Code","client", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA","Devise", "Montant", "Montant TVA", "Montant TTC"};
+            String libEnteteAffiche[] = {"ID Fille","ID mere","numpiece","date","Code","client", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA","Devise", "Montant", "Montant TVA", "Montant TTC", "Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

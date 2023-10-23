@@ -28,6 +28,7 @@
     pc.getChampByName("codeEtablissementlib").setLibelle("Code Etablissement");
  //   pc.getChampByName("codeEtablissementlib").setVisible(false);
     pc.getChampByName("projetlib").setLibelle("Projet");
+    pc.getChampByName("iduser").setLibelle("utilisateur");
 //    pc.getChampByName("projetlib").setVisible(false);
     pc.getChampByName("idLC").setVisible(false);
     pc.getChampByName("avecFacture").setVisible(false);

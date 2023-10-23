@@ -37,7 +37,16 @@ public class Engagement extends ClassEtat {
     private int avecFacture,annee;
     private String type;
     private Date dateImpression;
+    private String iduser;
 
+
+    public String getIduser() {
+        return iduser;
+    }
+
+    public void setIduser(String iduser) {
+        this.iduser = iduser;
+    }
 
     public Date getDateImpression() {
         return dateImpression;
@@ -336,7 +345,8 @@ public class Engagement extends ClassEtat {
     
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {  
-        this.setDateImpression(null);      
+        this.setDateImpression(null);  
+        this.setIduser(u);    
         // this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqNumeroEngagement",c)));
         return super.createObject(u, c); 
     }
@@ -571,13 +581,13 @@ public class Engagement extends ClassEtat {
                 c = new UtilDB().GetConn();
                 ouvert = true;
             }
-            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, "and codeetablissement='"+this.getCodeEtablissement()+"' and num > " + this.getNum() + " and etat = " + ConstanteEtat.getEtatValider());
+            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, "and codeetablissement='"+this.getCodeEtablissement()+"' and projet='"+this.getProjet()+"' and  num > " + this.getNum() + " and etat = " + ConstanteEtat.getEtatValider());
             if(engagement.length > 0)
                 throw new Exception("Un autre engagement a été créé après celui-ci.");
                 
-            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider());
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()+" AND ID2 NOT LIKE '%BRD%'");
             if(liaisons.length > 0)
-                throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur ou BED.");
+                throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
             
             if(this.getEtat() < ConstanteEtat.getEtatValider()) 
                 throw new Exception("Impossible \\340 lib\\351rer, d\\351j\\340 annul\\351");

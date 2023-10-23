@@ -25,6 +25,7 @@
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
 	<parameter name="dateimpression" class="java.lang.String"/>
+	<parameter name="refuser" class="java.lang.String"/>
 	<field name="id" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String"/>
 	<field name="montanttva" class="java.lang.Double"/>
@@ -461,6 +462,13 @@
 				</textElement>
 				<text><![CDATA[Date :]]></text>
 			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="388" y="448" width="167" height="16" uuid="2ff7ec2b-5a32-4c4a-9a9c-98e5ef8bdd5a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{refuser}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

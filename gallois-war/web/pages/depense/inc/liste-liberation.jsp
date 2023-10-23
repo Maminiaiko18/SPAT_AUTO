@@ -19,7 +19,7 @@
         pr.setLien((String) session.getValue("lien"));
 
         pr.creerObjetPage(libEntete, null);
-        String libEnteteAffiche[]= {"Id", "Remarque", "Montant"};
+        String libEnteteAffiche[]= {"id", "Remarque", "Montant"};
         pr.getTableau().setLibeEntete(libEnteteAffiche);
         pr.getTableau().setLien(new String[]{pr.getLien()+"?but=depense/liberer-fiche.jsp"});
         pr.getTableau().setColonneLien(new String[]{"id"});
