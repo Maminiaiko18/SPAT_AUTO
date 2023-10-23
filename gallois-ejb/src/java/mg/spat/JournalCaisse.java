@@ -1419,21 +1419,22 @@ public class JournalCaisse extends ClassEtat {
         }
         return null;
     }
-    public String genererCodeType()
+    public String genererCodeType() throws Exception
     {
         String result="";
-        if(this.getIdmode()!=null && this.getIdmode().compareToIgnoreCase("pay7") == 0){
-            return "P";
-        }
+        if(this.getIdTypeCheque()==null) throw new Exception("Veuillez préciser le type de mouvement.");
+            if(this.getIdmode()!=null && this.getIdmode().compareToIgnoreCase("pay7") == 0){
+                return "P";
+            }
 
-        else if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00001")==0)
-        {
-            result = "1";
-        }
-        else if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00002")==0)
-        {
-            result = "3";
-        }
+            else if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00001")==0)
+            {
+                result = "1";
+            }
+            else if(this.getIdTypeCheque().compareToIgnoreCase("TCHQ00002")==0)
+            {
+                result = "3";
+            }
         
         return result;
     }
