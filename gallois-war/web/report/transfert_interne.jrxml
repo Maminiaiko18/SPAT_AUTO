@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="transfert_caisse" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="296033f2-48ac-47e7-ac3e-d15a7c02428a">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="146"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="caissedepart" class="java.lang.String"/>
 	<parameter name="caissearrivee" class="java.lang.String"/>
 	<parameter name="modepaiement" class="java.lang.String"/>
@@ -276,6 +276,20 @@
 				</textElement>
 				<text><![CDATA[Date : ]]></text>
 			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="37" y="171" width="136" height="20" uuid="72d79084-cd59-41b4-a43c-e52626d2aac0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="397" y="171" width="136" height="20" uuid="514ad9b7-629c-4369-8f32-5423f7cf73dc"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
