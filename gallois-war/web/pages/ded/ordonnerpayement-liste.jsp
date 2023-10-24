@@ -4,6 +4,8 @@
 <%@page import="mg.spat.ChantierLibComplet"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="java.sql.Date"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <% 
     try{
     OrdonnerPayement op = new OrdonnerPayement();
@@ -105,14 +107,14 @@
             <br>
             <div class="box-footer">
                 <a class="btn btn-success pull-right"  href="${pageContext.request.contextPath}/OrdonnerPayementExcel?action=OrdonnerPayementExcel&etat=<%=request.getParameter("etatvue") %>&id=<%=request.getParameter("id") %>&ded_Id=<%=request.getParameter("ded_Id") %>&tiers=<%=request.getParameter("tiers") %>&numeroop=<%=request.getParameter("numeroop") %>&modepaiementlib=<%=request.getParameter("modepaiementlib") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>" style="margin-right: 10px">Export excel</a>                            
+                <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
             </div>
-
             <%
                 String libEnteteAffiche[] = {"id", "Etat", "Num&eacute;ro OP", "Date", "Tiers", "Montant", "Motif de paiement", "Mode de paiement"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("ajouterOP");
                 out.println(pr.getTableau().getHtmlWithCheckbox());%>
-                <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="D?caisser"/>
+                <input type="button" class="btn btn-info" onclick="decaisser()" style="margin-right:30px" value="Décaisser"/>
                 
         </form>
         <%out.println(pr.getBasPage());%>
