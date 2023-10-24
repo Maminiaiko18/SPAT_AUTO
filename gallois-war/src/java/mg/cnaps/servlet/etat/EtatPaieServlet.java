@@ -4504,6 +4504,11 @@ public class EtatPaieServlet extends HttpServlet {
                 }
             }
             else{
+                for(int i = 0; i < listeDetailsCaisse.length ; i++){
+                        listeDetailsCaisse[i].setRemarque(Utilitaire.formaterAr(listeDetailsCaisse[i].getRemarque()));
+                        listeDetailsCaisse[i].setReference(Utilitaire.formaterAr(listeDetailsCaisse[i].getReference()));
+                    
+                }
                  dataSource.addAll(Arrays.asList(listeDetailsCaisse));
             }
             setNomJasper(jaspername);
