@@ -31,10 +31,10 @@
         esc.setNomTable("CAISSE_BILLETAGE");
         
         liste[0] = new Liste("caisse", esc, "VAL", "id");
-        String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
-        if(idUser.compareToIgnoreCase("1469")==0 ) {
+        String userRole = u.getUser().getIdrole();
+        if(userRole.compareToIgnoreCase("ROL0000001321113437")==0 ) {
             liste[0].setDefaultSelected(Constante.caisseDepense);
-        }else if(idUser.compareToIgnoreCase("1502")==0 ){
+        }else if(userRole.compareToIgnoreCase("ROL0000001322113705")==0 ){
             liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
         }
 

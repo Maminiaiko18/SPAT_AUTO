@@ -19,9 +19,9 @@
     pi.setLien((String) session.getValue("lien"));
     jc =(JournalCaisse)pi.getBase();
     UserEJB u = (UserEJB) session.getAttribute("u");
-    String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
-    if(idUser.compareToIgnoreCase("1060")!=0 ) {
-        if(idUser.compareToIgnoreCase("1602")!=0){
+    String userRole = u.getUser().getIdrole();
+    if(userRole.compareToIgnoreCase("dg")!=0 ) {
+        if(userRole.compareToIgnoreCase("ROL000422")!=0){
             pi.getFormu().getChamp("dateEffet").setVisible(false);
         }
     }

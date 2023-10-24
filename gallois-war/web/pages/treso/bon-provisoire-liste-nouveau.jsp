@@ -23,7 +23,6 @@
         userRole = u.getUser().getIdrole();
         Prioritaire prioritaire = new Prioritaire();
         String aWhere = prioritaire.makeListConfidentiality(u,"code_etablissementlib");
-        System.out.println("aWhere "+aWhere);
     FactureFournisseur bonProvisoire = new FactureFournisseur();
     String nomTable = "BPvalide";
     if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("") != 0) {
@@ -72,6 +71,7 @@
         where = " and modepaiement != '"+Constante.modepaiementDefaut+"'";
         pr.setAWhere(where);
     }else pr.setAWhere(aWhere);
+
 
     String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     pr.creerObjetPage(libEntete, colSomme);
