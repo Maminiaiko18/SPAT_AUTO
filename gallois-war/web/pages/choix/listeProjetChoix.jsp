@@ -9,7 +9,7 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String champReturn = request.getParameter("champReturn");
     Projet projet = new Projet();
@@ -21,7 +21,7 @@
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("listeProjetChoix.jsp");
     pr.getFormu().getChamp("designation").setLibelle("Code");
-    pr.getFormu().getChamp("projet").setLibelle("D�signation");
+    pr.getFormu().getChamp("projet").setLibelle("Désignation");
     
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
@@ -53,7 +53,7 @@
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     
                     <% 
-                        String libEnteteAffiche[] = {"id", "D�signation", "Code"};
+                        String libEnteteAffiche[] = {"id", "Désignation", "Code"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>

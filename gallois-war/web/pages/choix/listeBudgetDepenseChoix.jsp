@@ -10,6 +10,7 @@
 <%@page import="affichage.PageRecherche"%>
 <%@page import="user.UserEJB"%>
 <%@page import="utilitaire.Utilitaire"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     try{
@@ -41,7 +42,6 @@
     
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme); 
-%>
 %>
 
 <html>

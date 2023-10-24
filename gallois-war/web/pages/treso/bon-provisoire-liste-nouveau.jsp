@@ -15,7 +15,7 @@
 <%@page import="user.*"%>
 <%@page import="utilitaire.*"%>
 <%@page import="utilisateur.*"%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% try{ 
     UserEJB u = null;
         String userRole = "";
@@ -40,7 +40,8 @@
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
-        pr.getFormu().getChamp("categorielib").setLibelle("Cat�gorie");
+        pr.getFormu().getChamp("projetlib").setLibelle("Projet");
+        pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
         pr.getFormu().getChamp("num").setLibelle("Numero BP");
         pr.getFormu().getChamp("modepaiementlib").setLibelle("mode paiement");
         pr.getFormu().getChamp("code_etablissementlib").setLibelle("code etablissement");
@@ -137,7 +138,7 @@
             <input type="hidden" name="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
-            String libEnteteAffiche[] = {"id","daty","Bénéficiaire","code etablissement","projet","mode paiement","Code", "Numero BP","Note explicative","Cat�gorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant pay�","Reste � payer"};
+            String libEnteteAffiche[] = {"id","daty","Tiers","code etablissement","projet","mode paiement","Code", "Numero BP","Note explicative","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);            
