@@ -11,7 +11,7 @@
     }
     String listeCrt[] = {"id", "caisse", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "tierslib", "numPiece"};
     String listeInt[] = {"dateEffet"};
-    String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "libelle", "dateSaisie", "dateEffet", "debit", "credit", "tierslib", "idplacement"};
+    String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "libelle", "dateSaisie", "dateEffet", "debit", "credit", "tierslib", "etatlib"};
     PageRecherche pr = new PageRecherche(jc, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setTitre("Liste Entr&eacute;e");
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -30,7 +30,7 @@
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
-    String libEnteteAffiche[] = {"ID", "Folio", "Caisse", "Type ch&egrave;que", "Num pi&egrave;ce", "Libell&eacute;", "Date saisie", "Date effet", "D&eacute;bit", "Cr&eacute;dit", "Tiers", "ID placement"};
+    String libEnteteAffiche[] = {"ID", "Folio", "Caisse", "Type ch&egrave;que", "Num pi&egrave;ce", "Libell&eacute;", "Date saisie", "Date effet", "D&eacute;bit", "Cr&eacute;dit", "Tiers", "Etat"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
     String[] etatVal = {"JOURNALCAISSELIB_COFFRE", "JOURNALCAISSELIB_COFFRE_CREE", "JOURNALCAISSELIB_COFFRE_VISE"};
     String[] etatAff = {"Tous", "Cr&eacute;&eacute;", "Vis&eacute;"};
@@ -65,13 +65,20 @@
                 </div>
             </div>
         </form>
-        <%
-            out.println(pr.getTableauRecap().getHtml());%>
-        <br>
-        <%
-            out.println(pr.getTableau().getHtml());
-            out.println(pr.getBasPage());
-        %>
+        <% out.println(pr.getTableauRecap().getHtml()); %>
+            <br>
+            <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="id" >
+                <input type="hidden" name="bute" value="treso/coffre-entree.jsp"/>
+                <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
+                <input type="hidden" name="acte" value="viser"/>
+                <%
+                    pr.getTableau().setNameActe("viser");
+                    pr.getTableau().setNameBoutton("Viser");
+                    
+                    out.println(pr.getTableau().getHtmlWithCheckbox());            
+                %>
+            </form>
+        <%    out.println(pr.getBasPage()); %>
     </section>
 </div>
     <%
