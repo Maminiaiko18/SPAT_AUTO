@@ -1,34 +1,42 @@
 <%@page import="mg.spat.JournalCaisseLibComplet"%>
-<%@page import="mg.spat.JournalCaisseMivadika"%>
+<%@page import="mg.spat.*"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
+<%@ page import="utilitaire.Constante" %>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
         String typecheque = request.getParameter("idtypecheque");
         JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
         String[] etatVal = {"etatjournalcaisselibdepense","etatjournalcaisselibdepenseC","etatjournalcaisselibdepenseV"};
-        String[] etatAff = {"Tous", "Cr��e(s)", "Valider"};
+        String[] etatAff = {"Tous", "Crée(s)", "Valider"};
         journalCaisse.setNomTable(etatVal[0]);
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             journalCaisse.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id", "folio", "valcaisse", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "tierslib","numPiece"};
+        String listeCrt[] = {"id", "folio", "caisse", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "tierslib","numPiece"};
         String listeInt[] = {"dateEffet"};
-        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "libelle", "dateSaisie", "dateEffet", "debit","tierslib","idplacement"};
+        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "libelle", "dateSaisie", "dateEffet", "debit","credit","tierslib","idplacement"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("treso/journalcaissedepense-liste.jsp");
 
-        Liste[] listes = new Liste[2];
+        Liste[] listes = new Liste[3];
         listes[0] = new Liste("descecaisse", new String[]{"Tous", "Caisse", "Banque"}, new String[]{"", "Caisse", "Banque"});
 
         TypeObjet typeCheque = new TypeObjet();
         typeCheque.setNomTable("typecheque");
         listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
+
+        Caisse caisse = new Caisse();
+        caisse.setNomTable("CAISSE_DEPENSES");
+        listes[2] = new Liste("caisse", caisse, "val", "id");
+        listes[2].setDefaultSelected(Constante.caisseDepense);
 
         pr.getFormu().changerEnChamp(listes);
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
@@ -37,11 +45,12 @@
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
-        pr.getFormu().getChamp("valcaisse").setLibelle("Caisse");
-        pr.getFormu().getChamp("valcaisse").setDefaut("DEPENSES");
+        pr.getFormu().getChamp("caisse").setLibelle("Caisse");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
+        pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
+        pr.getFormu().getChamp("idplacement").setLibelle("source");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
-        String[] colSomme = { "debit"};
+        String[] colSomme = { "debit","credit"};
         pr.creerObjetPage(libEntete, colSomme);
       
 %>
@@ -89,7 +98,7 @@
             <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
             <input type="hidden" name="acte" value="viser"/>
             <%
-                String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "Libellé", "Date Saisie", "Date Effet", "Sortie", "Tiers", "Source"};
+                String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "Libellé", "Date Saisie", "Date Effet", "Sortie","Entrée", "Tiers", "Source"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");
