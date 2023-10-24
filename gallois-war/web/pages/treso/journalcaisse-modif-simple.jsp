@@ -20,11 +20,7 @@
     jc =(JournalCaisse)pi.getBase();
     UserEJB u = (UserEJB) session.getAttribute("u");
     String userRole = u.getUser().getIdrole();
-    if(userRole.compareToIgnoreCase("dg")!=0 ) {
-        if(userRole.compareToIgnoreCase("ROL000422")!=0){
-            pi.getFormu().getChamp("dateEffet").setVisible(false);
-        }
-    }
+    pi.getFormu().getChamp("dateEffet").setVisible(userRole.equalsIgnoreCase("dg") || userRole.equalsIgnoreCase("ROL000422"));
     pi.getFormu().getChamp("numcheque").setLibelle("Numero chèque");
     pi.getFormu().getChamp("idordre").setLibelle("Ordre");
     pi.getFormu().getChamp("idordre").setAutre("readonly");

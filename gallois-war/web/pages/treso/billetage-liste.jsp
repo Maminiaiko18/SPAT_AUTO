@@ -24,9 +24,9 @@
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
 
         String userRole = u.getUser().getIdrole();
-        if(idUser.compareToIgnoreCase("ROL0000001321113437")==0 ) {
+        if(userRole.compareToIgnoreCase("ROL0000001321113437")==0 ) {
             pr.getFormu().getChamp("caisse").setDefaut("DEPENSES");
-        }else if(idUser.compareToIgnoreCase("ROL0000001322113705")==0 ){
+        }else if(userRole.compareToIgnoreCase("ROL0000001322113705")==0 ){
             pr.getFormu().getChamp("caisse").setDefaut("RECETTES");
         }
         
