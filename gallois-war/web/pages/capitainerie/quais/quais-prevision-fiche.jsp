@@ -62,7 +62,7 @@
         pc.getChampByName("noVoyage").setLibelle("No voyage");
         pc.getChampByName("tonnage").setLibelle("Tonnage deb. prev.");
 
-        pc.setTitre("Fiche prevision");
+        pc.setTitre("Fiche pr&eacute;vision");
 
         AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
         configuration.CynthiaConf.load();
