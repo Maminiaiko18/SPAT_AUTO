@@ -18,9 +18,9 @@
 
 <% try{ 
     UserEJB u = null;
-        String idUser = "";
+        String userRole = "";
         u = (UserEJB) session.getValue("u");
-        idUser = "" + u.getUser().getTuppleID();
+        userRole = u.getUser().getIdrole();
         Prioritaire prioritaire = new Prioritaire();
         String aWhere = prioritaire.makeListConfidentiality(u,"code_etablissementlib");
         System.out.println("aWhere "+aWhere);
@@ -65,10 +65,10 @@
     
     pr.setApres("treso/bon-provisoire-liste-nouveau.jsp");
     String where = "";
-    if(idUser.compareToIgnoreCase("1469")==0) {
+    if(userRole.compareToIgnoreCase("ROL0000001321113437")==0) {
         where = " and modepaiement = '"+Constante.modepaiementDefaut+"'";
         pr.setAWhere(where);
-    }else if(idUser.compareToIgnoreCase("3583")==0 || idUser.compareToIgnoreCase("1322")==0){
+    }else if(userRole.compareToIgnoreCase("ROL000450")==0 || userRole.compareToIgnoreCase("ROL000002")==0){
         where = " and modepaiement != '"+Constante.modepaiementDefaut+"'";
         pr.setAWhere(where);
     }else pr.setAWhere(aWhere);
