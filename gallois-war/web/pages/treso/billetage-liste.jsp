@@ -23,10 +23,10 @@
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
 
-        String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
-        if(idUser.compareToIgnoreCase("1469")==0 ) {
+        String userRole = u.getUser().getIdrole();
+        if(userRole.compareToIgnoreCase("ROL0000001321113437")==0 ) {
             pr.getFormu().getChamp("caisse").setDefaut("DEPENSES");
-        }else if(idUser.compareToIgnoreCase("1502")==0 ){
+        }else if(userRole.compareToIgnoreCase("ROL0000001322113705")==0 ){
             pr.getFormu().getChamp("caisse").setDefaut("RECETTES");
         }
         

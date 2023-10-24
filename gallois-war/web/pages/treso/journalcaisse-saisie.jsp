@@ -123,8 +123,6 @@
         }
 
         pi.getFormu().changerEnChamp(liste);
-
-        pi.getFormu().changerEnChamp(liste);
         //pi.getFormu().getChamp("dateSaisie").setVisible(false);
         pi.getFormu().getChamp("retour").setVisible(false);
         pi.getFormu().getChamp("typemvt").setVisible(false);

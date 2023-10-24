@@ -168,9 +168,9 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="40" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="360" height="40" uuid="3e5d27b6-a93f-42d3-bf5f-55a1cc526aae"/>
+				<reportElement x="0" y="0" width="360" height="20" uuid="3e5d27b6-a93f-42d3-bf5f-55a1cc526aae"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -182,7 +182,7 @@
 				<textFieldExpression><![CDATA[$F{reference}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="360" y="0" width="195" height="40" uuid="8a2b47b5-7f17-4623-99bd-de48a380048d"/>
+				<reportElement x="360" y="0" width="195" height="20" uuid="8a2b47b5-7f17-4623-99bd-de48a380048d"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>

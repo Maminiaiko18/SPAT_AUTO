@@ -4499,15 +4499,19 @@ public class EtatPaieServlet extends HttpServlet {
             MvtIntraCaisseFille detailsCaisse = new MvtIntraCaisseFille();
             detailsCaisse.setNomTable("mvtintracaisse_fille");
             MvtIntraCaisseFille[] listeDetailsCaisse = (MvtIntraCaisseFille[]) CGenUtil.rechercher(detailsCaisse, null, null, " and idmere='" + id + "'");
-             if(mere[0].getCaissedepartlib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearriveelib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
-                jaspername = "transfert_interne";
-                for(int i = 0; i < listeDetails.length ; i++){
-                    listeDetailsb[i].setBillet(Utilitaire.formaterAr(listeDetailsb[i].getBillet()));
+            if(idtransfert!=null){
+                if(mere[0].getCaissedepartlib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0 || mere[0].getCaissearriveelib().compareToIgnoreCase(Constante.COFFRE_PRINCIPAL)== 0){
+                    jaspername = "transfert_interne";
+                    for(int i = 0; i < listeDetails.length ; i++){
+                        listeDetailsb[i].setBillet(Utilitaire.formaterAr(listeDetailsb[i].getBillet()));
+                    }
+                    dataSource.addAll(Arrays.asList(listeDetailsb));  
                 }
-                dataSource.addAll(Arrays.asList(listeDetailsb));
-                
             }
             else{
+                for(int i = 0; i < listeDetailsCaisse.length ; i++){
+                        listeDetailsCaisse[i].setRemarque(Utilitaire.formaterAr(listeDetailsCaisse[i].getRemarque()));
+                }
                  dataSource.addAll(Arrays.asList(listeDetailsCaisse));
             }
             setNomJasper(jaspername);

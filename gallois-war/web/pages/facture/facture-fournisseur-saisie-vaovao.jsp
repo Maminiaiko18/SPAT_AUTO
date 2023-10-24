@@ -16,9 +16,9 @@
 <%
     try {
         UserEJB u = null;
-        String idUser = "";
+        String userRole = "";
         u = (UserEJB) session.getValue("u");
-        idUser = "" + u.getUser().getTuppleID();
+        userRole = u.getUser().getIdrole();
 
         String autreparsley = "data-parsley-range='[8, 40]' required";
         facture.FactureFournisseur fc = new facture.FactureFournisseur();
@@ -61,7 +61,7 @@
             TypeObjet modepaiement = new TypeObjet();
             modepaiement.setNomTable("modepaiementbp");
             liste[0] = new Liste("modepaiement", modepaiement, "desce", "id");
-            if(idUser.compareToIgnoreCase("1469")==0 || request.getParameter("idom")!=null) liste[0].setDefaultSelected(Constante.modepaiementDefaut);
+            if(userRole.compareToIgnoreCase("ROL0000001321113437")==0 || request.getParameter("idom")!=null) liste[0].setDefaultSelected(Constante.modepaiementDefaut);
             else liste[0].setDefaultSelected("-");
             pi.getFormu().changerEnChamp(liste);
             pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");

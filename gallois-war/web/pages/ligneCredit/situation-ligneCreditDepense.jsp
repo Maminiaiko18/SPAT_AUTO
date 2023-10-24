@@ -78,7 +78,7 @@
         pr.setTableau(new TableauRecherche((bean.ClassMAPTable[]) rs.getResultat(), libEntete));
         pr.makeTableauRecap();
 
-        String[] libEtat = {"Tous", "Cr��s", "Vis�s"};
+        String[] libEtat = {"Tous", "Crées", "Visés"};
         String[] etat = {"", "" + ConstanteEtat.getEtatCreer(), "" + ConstanteEtat.getEtatValider()};
         
         LigneCredit[] data = (LigneCredit[])pr.getTableau().getData();
@@ -116,7 +116,7 @@
     <section class="content">
         <form action="<%=pr.getLien()%>?but=ligneCredit/situation-ligneCreditDepense.jsp" method="post" name="absence" id="absence">
             <% out.println(pr.getFormu().getHtmlEnsemble());%>
-            <div class="row col-md-12">
+            <%-- <div class="row col-md-12">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
                     Etat : 
@@ -130,7 +130,7 @@
                         <% } %>
                     </select>
                 </div>
-            </div>
+            </div> --%>
         </form>
         <%
             String lienTableau[] = {pr.getLien() + "?but=ligneCredit/fiche-ligneCreditDepense.jsp"};

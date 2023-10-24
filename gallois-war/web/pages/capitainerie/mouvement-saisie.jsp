@@ -92,11 +92,11 @@
             pi.getFormu().getChamp("typeMvt").setDefaut(typemvt);
 
             if (typemvt.equals(Constante.tpmvtdepart)) {
-                pi.setTitre("Saisie d�part");
+                pi.setTitre("Saisie d&eacute;part");
                 pi.getFormu().getChamp("heure").setVisible(false);
                 pi.getFormu().getChamp("datearrivee").setVisible(false);
             } else {
-                pi.setTitre("Saisie arriv�e");
+                pi.setTitre("Saisie arriv&eacute;e");
                 pi.getFormu().getChamp("heure_depart").setVisible(false);
                 pi.getFormu().getChamp("date_depart").setVisible(false);
             }
@@ -108,10 +108,10 @@
         liste[0] = new Liste("typeMvt", liste1, "val", "id");
         pi.getFormu().changerEnChamp(liste);
 
-        pi.getFormu().getChamp("heure").setLibelle("Heure d'arrivee");
+        pi.getFormu().getChamp("heure").setLibelle("Heure d'arriv&eacute;e");
         pi.getFormu().getChamp("date_depart").setLibelle("Date depart");
         pi.getFormu().getChamp("heure_depart").setLibelle("Heure de depart");
-        pi.getFormu().getChamp("dateArrivee").setLibelle("Date Arrivee");
+        pi.getFormu().getChamp("dateArrivee").setLibelle("Date Arriv&eacute;e");
         pi.getFormu().getChamp("escale").setPageAppel("choix/listePrevisionChoix.jsp");
         pi.getFormu().getChamp("escale").setAutre("readonly");
         pi.getFormu().getChamp("navire").setLibelle("Navire");
@@ -123,20 +123,28 @@
 
         pi.preparerDataFormu();
 %>
-<div class="content-wrapper">
-    <h1><%=pi.getTitre()%></h1>
-    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
-        <%
-            pi.getFormu().makeHtmlInsertTabIndex();
-            out.println(pi.getFormu().getHtmlInsert());
-        %>
-    <!--<input name="typeMvt" type="hidden" id="daty" value="<%=request.getParameter("typemvt")%>">-->
-    <!--<input name="daty" type="hidden" id="daty" value="<%=Utilitaire.dateDuJour()%>">-->
-        <input name="acte" type="hidden" id="nature" value="insert">
-        <input name="bute" type="hidden" id="bute" value="capitainerie/mouvement-fiche.jsp">
-        <input name="classe" type="hidden" id="classe" value="mg.spat.Mouvement">
-    </form>
-</div>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title><%=pi.getTitre()%></title>
+    </head>
+    <body>
+        <div class="content-wrapper">
+            <h1><%=pi.getTitre()%></h1>
+            <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
+                <%
+                    pi.getFormu().makeHtmlInsertTabIndex();
+                    out.println(pi.getFormu().getHtmlInsert());
+                %>
+            <!--<input name="typeMvt" type="hidden" id="daty" value="<%=request.getParameter("typemvt")%>">-->
+            <!--<input name="daty" type="hidden" id="daty" value="<%=Utilitaire.dateDuJour()%>">-->
+                <input name="acte" type="hidden" id="nature" value="insert">
+                <input name="bute" type="hidden" id="bute" value="capitainerie/mouvement-fiche.jsp">
+                <input name="classe" type="hidden" id="classe" value="mg.spat.Mouvement">
+            </form>
+        </div>
+    </body>
+</html>
 <script>
     <%
         if(typemvt == null || !typemvt.equals(Constante.tpmvtdepart)) {

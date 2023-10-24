@@ -9,24 +9,25 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     CodeEtablissement code = new CodeEtablissement();
-    code.setNomTable("CODEETABLISSEMENT_LIB");
+    code.setNomTable("CODEETABLISSEMENT_LIBCOMPLET");
     String champReturn = request.getParameter("champReturn");
     
-    String listeCrt[] = {"id","val","desce","departement","service"};
+    String listeCrt[] = {"id","val","descelib","departementlib","servicelib"};
     String listeInt[] = {};
-    String libEntete[] = {"id","val","desce","departement","service"};
+    String libEntete[] = {"id","val","descelib","departementlib","servicelib"};
     PageRechercheChoix pr = new PageRechercheChoix(code, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("listeCodeEtablissementChoix.jsp");
     pr.setChampReturn(champReturn);
-    
-    pr.getFormu().getChamp("val").setLibelle("D�signation");
-    pr.getFormu().getChamp("desce").setLibelle("Description");
-    pr.getFormu().getChamp("departement").setLibelle("D�partement");
+    pr.getFormu().getChamp("val").setLibelle("Désignation");
+    pr.getFormu().getChamp("descelib").setLibelle("Direction");
+    pr.getFormu().getChamp("servicelib").setLibelle("Service");
+    pr.getFormu().getChamp("departementlib").setLibelle("Département");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>

@@ -504,7 +504,7 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="387" y="448" width="167" height="16" uuid="05d33363-2a61-45a9-b429-9184ebf8c34b"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{refuser}]]></textFieldExpression>
