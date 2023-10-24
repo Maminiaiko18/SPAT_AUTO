@@ -94,6 +94,7 @@
         pc.getChampByName("descetypequaisprovenance").setVisible(false);
         pc.getChampByName("etatnavire").setVisible(false);
         pc.getChampByName("valmvt").setLibelle("Type de mouvement");
+        
         pc.getChampByName("Etatlib").setVisible(false);
         pc.getChampByName("escale").setLibelle("Prévision");
         pc.getChampByName("noVoyage").setLibelle("No voyage");
@@ -143,8 +144,12 @@
                                 <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px"><button class="btn btn-warning">Modifier</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=capitainerie/mouvement-liste.jsp&classe=mg.spat.Mouvement" style="margin-right: 10px"><button class="btn btn-danger">Supprimer</button></a>
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/mouvement-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a> 
-                                <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=" + Constante.tpmvtarrive + "&id=" + request.getParameter("id")%>" style="margin-right: 10px">Arrivee</a>
-                                <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=" + Constante.tpmvtdepart + "&id=" + request.getParameter("id")%>" style="margin-right: 10px">Depart</a>
+                                <% if(!mouvementVise.getTypeMvt().equals("TPMM00004")){ %>
+                                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=" + Constante.tpmvtarrive + "&id=" + request.getParameter("id")%>" style="margin-right: 10px">Arrivee</a>
+                                    <%}
+                                    if(!mouvementVise.getTypeMvt().equals("TPMM00003")){%>
+                                        <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-saisie.jsp&typemvt=" + Constante.tpmvtdepart + "&id=" + request.getParameter("id")%>" style="margin-right: 10px">Depart</a>
+                                    <% } %>
                                 <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-saisie.jsp&idmvt=" + id %>" style="margin-right: 10px">Saisir Prestation</a>
                             </p>
                         </div>
