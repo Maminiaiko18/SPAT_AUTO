@@ -109,6 +109,21 @@
         <input name="colonneMere" type="hidden" id="colonneMere" value="<%=colonneMere%>">
     </form>
 </div>
+<script>
+    function Total() {
+        var total = 0;
+    <% for (int j = 0; j < pi.getNombreLigne(); j++) {%>
+        var montantstr = $('#remarque_<%= j%>').val().trim();
+        var montant = montantstr === '' ? 0 : parseFloat(montantstr);
+        total += montant;
+    <% } %>
+        document.getElementById("montant").value = total;
+    }
+
+    <% for (int i = 0; i < pi.getNombreLigne(); i++) {%>
+        $('#remarque_<%= i%>').attr('onblur', 'Total()');
+    <% } %>
+</script>
 <%
 } catch (Exception e) {
     e.printStackTrace();
