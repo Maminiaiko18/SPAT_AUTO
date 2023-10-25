@@ -2940,6 +2940,8 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                 double montant = 0;
                 int size = fille.length;
                 //System.out.println("SIZE: " + size);
+                if(Integer.parseInt(billetage.getId()) > 0)
+                    billetage.setId("0");
                 for (int i = 0; i < size; i++) {
                     //System.out.println("ATO: "+((mg.spat.DetailsBilletage)fille[i]).getMontant());
                     montant += ((mg.spat.DetailsBilletage) fille[i]).getMontant();
