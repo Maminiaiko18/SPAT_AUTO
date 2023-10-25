@@ -24,15 +24,21 @@
         Prioritaire prioritaire = new Prioritaire();
         String aWhere = prioritaire.makeListConfidentiality(u,"code_etablissementlib");
     FactureFournisseur bonProvisoire = new FactureFournisseur();
-    String nomTable = "BPvalide";
+    String nomTable = "BPVALIDE_LIBTOUS";
     if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("") != 0) {
         nomTable = request.getParameter("table");
     }
+    System.out.println("table name"+nomTable);
     bonProvisoire.setNomTable(nomTable);
     
-    String listeCrt[] = {"id","daty","tierslib","code_etablissementlib","projetlib","designation","date_echeance","num","categorielib", "code","modepaiementlib"};
-    String listeInt[] = {"daty","date_echeance"};
-    String libEntete[] = {"id","daty","tierslib","code_etablissementlib","projetlib","modepaiementlib", "code", "num","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
+    String listeCrt[] = {"id","daty","dateRegul","tierslib","num","designation","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib","numfsb","remarque","numOP","numBed","numchequerefpmt","modepaiement"};
+    String listeInt[] = {"daty","date_echeance","dateRegul"};
+
+    String libEntete[] = { "id", "code", "daty","dateRegul", "tierslib", "montant", "tva", "montantTVA", "montantTTCvrai", "numeroop", "datefacture", "designation", "numBed","numBc", "projetlib", "code_etablissementlib","numfsb",  "naturelib", "modepaiement", "numOP","remarque", "exercice", "date_echeance", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib", "valcaisserefpmt", "numpiecerefpmt", "dateeffetrefpmt", "numchequerefpmt", "libellerefpmt", "debitrefpmt","remarque"};
+    String libEnteteAffiche[] = { "id", "Reference/Code", "date","date Regul", "Fournisseur", "Montant HT", "TVA", "Montant TVA", "montant TTC", "N° Facture", "Date Facture", "Note explicative", "BED","Bon de commande", "Projet", "Code direction","Num FSB", "Nature", "Paiement", "Numero OP", "Ref Compta", "exercice", "date echeance", "montant Avoir", "Net à payer", "Montant payé", "Reste à payer", "Etat", "Caisse", "Num Piece", "Date Effet", "Num cheque", "libelle", "Sortie","ref compta"};
+
+    
+    //String libEntete[] = {"id","code","daty","dateRegul","tierslib", "montant", "tva", "montantTVA", "montantTTCvrai","code_etablissementlib","projetlib","modepaiementlib", "code", "num","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     PageRecherche pr = new PageRecherche(bonProvisoire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -41,11 +47,13 @@
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
-        pr.getFormu().getChamp("categorielib").setLibelle("Catégorie");
         pr.getFormu().getChamp("num").setLibelle("Numero BP");
-        pr.getFormu().getChamp("modepaiementlib").setLibelle("mode paiement");
+        pr.getFormu().getChamp("modepaiement").setLibelle("mode paiement");
         pr.getFormu().getChamp("code_etablissementlib").setLibelle("code etablissement");
-
+        pr.getFormu().getChamp("valcaisserefpmt").setLibelle("Caisse");
+        pr.getFormu().getChamp("dateRegul1").setLibelle("date Regule min");
+        pr.getFormu().getChamp("dateRegul2").setLibelle("date Regule max");
+        pr.getFormu().getChamp("numchequerefpmt").setLibelle("numero chq");
         
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
@@ -97,28 +105,28 @@
                     Etat : 
                     <select name="table" class="champ" id="table" onchange="changerDesignation()" >
                         
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("bon_provisoire_libcomplet") == 0) {%>    
-                        <option value="BPvalide" selected>Tous</option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BPVALIDE_LIBTOUS") == 0) {%>    
+                        <option value="BPVALIDE_LIBTOUS" selected>Tous</option>
                         <% } else { %>
-                        <option value="BPvalide" >Tous</option>
+                        <option value="BPVALIDE_LIBTOUS" >Tous</option>
                         <% } %>
                         
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BON_PROVISOIRE_LIB_cree") == 0) {%>    
-                        <option value="BPvalide_c" selected>Cr&eacute;&eacute;</option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BPVALIDE_LIBCREE") == 0) {%>    
+                        <option value="BPVALIDE_LIBCREE" selected>Cr&eacute;&eacute;</option>
                         <% } else { %>
-                        <option value="BPvalide_c" >Cr&eacute;&eacute;</option>
+                        <option value="BPVALIDE_LIBCREE" >Cr&eacute;&eacute;</option>
                         <% } %>
 
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BON_PROVISOIRE_LIB_valide") == 0) {%>    
-                        <option value="BPvalide_v" selected>Valid&eacute;</option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BPVALIDE_LIBVISE") == 0) {%>    
+                        <option value="BPVALIDE_LIBVISE" selected>Valid&eacute;</option>
                         <% } else { %>
-                        <option value="BPvalide_v" >Valid&eacute;</option>
+                        <option value="BPVALIDE_LIBVISE" >Valid&eacute;</option>
                         <% } %>
 
-                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BPNONREGULARISER") == 0) {%>    
-                        <option value="BPNONREGULARISER" selected>Non regulariser</option>
+                        <% if (request.getParameter("table") != null && request.getParameter("table").compareToIgnoreCase("BPNONREGULARISER_LIB") == 0) {%>    
+                        <option value="BPNONREGULARISER_LIB" selected>Non regularisé</option>
                         <% } else { %>
-                        <option value="BPNONREGULARISER" >Non regulariser</option>
+                        <option value="BPNONREGULARISER_LIB" >Non regularisé</option>
                         <% } %>
                     </select>
                 </div>
@@ -138,7 +146,6 @@
             <input type="hidden" name="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
-            String libEnteteAffiche[] = {"id","daty","Tiers","code etablissement","projet","mode paiement","Code", "Numero BP","Note explicative","Catégorie", "tva", "date echeance","montant HT", "montant TVA", "montant TTC", "montant Avoir","Montant payé","Reste à payer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().setUrlLienAffiche(urlLienAffiche);
             pr.getTableau().setUrlLien(urlLienMultiple);            
