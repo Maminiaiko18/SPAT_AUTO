@@ -28,7 +28,6 @@
     pc.getChampByName("codeEtablissementlib").setLibelle("Code Etablissement");
  //   pc.getChampByName("codeEtablissementlib").setVisible(false);
     pc.getChampByName("projetlib").setLibelle("Projet");
-    pc.getChampByName("iduser").setLibelle("utilisateur");
 //    pc.getChampByName("projetlib").setVisible(false);
     pc.getChampByName("idLC").setVisible(false);
     pc.getChampByName("avecFacture").setVisible(false);
@@ -37,6 +36,7 @@
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("tiers").setVisible(false);
+    pc.getChampByName("iduser").setVisible(false);
     pc.getChampByName("observation").setLibelle("Observation");
     pc.getChampByName("montantreste").setLibelle("Montant reste");
     pc.getChampByName("montantOP").setLibelle("Montant OP");

@@ -196,6 +196,7 @@
                     AvoirFC av = datas.getAvoirFC();
                     pi.getFormu().getChamp("idplacement").setDefaut(av.getIdfacture());
                 }
+                liste[3].setDefaultSelected(Constante.modepaiementDefaut);
             }
         }
         if (idplacement != null) {

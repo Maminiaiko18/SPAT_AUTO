@@ -1122,7 +1122,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("numCheque", tabJournal[0].getNumcheque());
             }
             String titre = "PROVISION CONSTITUEE";
-            String soustitre = "PIECE DE CAISSE";
+            String soustitre = "PIECE DE CAISSE - RECETTES";
             String findP = tabJournal[0].getNumPiece();
             param.put("soustitre", Utilitaire.champNull(soustitre));
 
@@ -1152,7 +1152,7 @@ public class EtatPaieServlet extends HttpServlet {
             double arrondi = 0;
             double totalGeneral = 0;
             int cptDef = 0;
-            String titre = "PIECE DE CAISSE";
+            String titre = "PIECE DE CAISSE - RECETTES";
             String soustitre = "";
             String nomJasper = "piece_de_caisse";
             String pdfName = "piece_de_caisse";
@@ -1303,13 +1303,13 @@ public class EtatPaieServlet extends HttpServlet {
             }
             // int p = findP.indexOf("P");
             if (prov && cptDef == 0) {
-                soustitre = "PIECE DE CAISSE";
+                soustitre = "PIECE DE CAISSE - RECETTES";
                 titre = "PROVISION CONSTITUEE";
             }
 
             if (tabJournal[0].getIdmode().compareTo(Constante.modeRegulAvoir)==0)
             {
-                soustitre = "PIECE DE CAISSE";
+                soustitre = "PIECE DE CAISSE - RECETTES";
                 titre = "DEDUCTION SUR AVOIR";
                 nomJasper = "deduction_avoir";
                 pdfName = "deduction avoir";
@@ -3623,7 +3623,7 @@ public class EtatPaieServlet extends HttpServlet {
             String titre = "GESTION DE PROVISION";
             if (result3[0].getIdcategorie() != null
                     && result3[0].getIdcategorie().compareTo(Constante.idCategorieFCDefinitive) == 0) {
-                titre = "PIECE DE CAISSE";
+                titre = "PIECE DE CAISSE - RECETTES";
             }
             //param.put("identification", ep.getNumpiece());
             param.put("titre", titre);

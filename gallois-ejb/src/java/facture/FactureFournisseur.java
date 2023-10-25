@@ -1617,6 +1617,9 @@ public class FactureFournisseur extends FactureClient {
             this.setCode(null);
             this.setDatedevise(Utilitaire.dateDuJourSql());
             this.setDaty(Utilitaire.dateDuJourSql());
+            if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
+                this.setNum(this.calculerNumeroBP(c));
+            }
         }
         catch(Exception e){
             throw e;
