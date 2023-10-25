@@ -81,9 +81,6 @@
         pr.setAWhere(where);
     }else pr.setAWhere(aWhere);
 
-    System.out.println("ty za"+pr.getAWhere());
-
-
     String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     pr.creerObjetPage(libEntete, colSomme);
 %>
