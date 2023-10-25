@@ -74,12 +74,14 @@
     pr.setApres("treso/bon-provisoire-liste-nouveau.jsp");
     String where = "";
     if(userRole.compareToIgnoreCase("ROL0000001321113437")==0) {
-        where = " and modepaiement = '"+Constante.modepaiementDefaut+"'";
+        where = " and idmodepaiement = '"+Constante.modepaiementDefaut+"'";
         pr.setAWhere(where);
     }else if(userRole.compareToIgnoreCase("ROL000450")==0 || userRole.compareToIgnoreCase("ROL000002")==0){
-        where = " and modepaiement != '"+Constante.modepaiementDefaut+"'";
+        where = " and idmodepaiement != '"+Constante.modepaiementDefaut+"'";
         pr.setAWhere(where);
     }else pr.setAWhere(aWhere);
+
+    System.out.println("ty za"+pr.getAWhere());
 
 
     String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
