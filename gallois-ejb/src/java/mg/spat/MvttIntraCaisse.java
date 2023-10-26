@@ -250,7 +250,7 @@ public class MvttIntraCaisse extends ClassEtat {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, this.getId() + "-" + this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
+        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
         sortie.setIddevise(Constante.deviseAr);
         sortie.setIdmode(this.getModepaiement());
         sortie.setIdtraite(this.getIdTraite());

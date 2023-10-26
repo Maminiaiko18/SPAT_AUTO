@@ -18,7 +18,7 @@
             journalCaisse.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id", "folio", "caisse", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "tierslib","numPiece"};
+        String listeCrt[] = {"id", "folio", "caisse", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "tierslib","numPiece","checkmvt"};
         String listeInt[] = {"dateEffet"};
         String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "libelle", "dateSaisie", "dateEffet", "debit","credit","tierslib","idplacement"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -26,7 +26,7 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("treso/journalcaissedepense-liste.jsp");
 
-        Liste[] listes = new Liste[3];
+        Liste[] listes = new Liste[4];
         listes[0] = new Liste("descecaisse", new String[]{"Tous", "Caisse", "Banque"}, new String[]{"", "Caisse", "Banque"});
 
         TypeObjet typeCheque = new TypeObjet();
@@ -37,6 +37,10 @@
         caisse.setNomTable("CAISSE_DEPENSES");
         listes[2] = new Liste("caisse", caisse, "val", "id");
         listes[2].setDefaultSelected(Constante.caisseDepense);
+        
+        String[] avecTransfertAff = {"avec","sans"};
+        String[] avecTransfertVal = {"1", "0"};
+        listes[3] = new Liste("checkmvt", avecTransfertAff, avecTransfertVal);
 
         pr.getFormu().changerEnChamp(listes);
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
@@ -50,6 +54,7 @@
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pr.getFormu().getChamp("idplacement").setLibelle("source");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+        pr.getFormu().getChamp("checkmvt").setLibelle("Transfert");
         String[] colSomme = { "debit","credit"};
         pr.creerObjetPage(libEntete, colSomme);
       

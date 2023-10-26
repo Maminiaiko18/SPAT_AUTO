@@ -15,6 +15,7 @@ public class JournalCaisseLibComplet extends JournalCaisse{
     private String tierslib,valcaisse, descecaisse, valtypecheque,descetypecheque,idfact,etatlib,idTraite, categorieLib;
     private double montant;
     private Date datepaiement;
+    private int checkmvt;
 
     public Date getDatepaiement() {
         return datepaiement;
@@ -106,6 +107,14 @@ public class JournalCaisseLibComplet extends JournalCaisse{
 
     public void setEtatlib(String etatlib) {
         this.etatlib = etatlib;
+    }
+
+    public int getCheckmvt() {
+        return checkmvt;
+    }
+
+    public void setCheckmvt(int checkmvt) {
+        this.checkmvt = checkmvt;
     }
     
 }
