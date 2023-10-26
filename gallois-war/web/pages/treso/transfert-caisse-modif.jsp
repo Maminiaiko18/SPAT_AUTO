@@ -42,6 +42,9 @@
 
             pi.getFormu().getChamp("etat").setVisible(false);
             pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
+             pi.getFormu().getChamp("IdTraite").setVisible(false);
+            pi.getFormu().getChamp("Etatversement").setVisible(false);
+            pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
             pi.getFormu().getChamp("daty").setLibelle("Date");
             pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
             pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv&eacute;e");
