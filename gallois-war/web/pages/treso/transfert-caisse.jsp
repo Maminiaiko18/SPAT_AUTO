@@ -73,6 +73,8 @@
         pi.getFormu().getChamp("Etatversement").setVisible(false);
         pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
         pi.getFormu().getChamp("idTraite").setVisible(false);
+        pi.getFormu().getChamp("montant").setAutre("readonly");
+
 
         pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
         
@@ -111,13 +113,15 @@
 </div>
 <script>
     function Total() {
-        var total = 0;
-    <% for (int j = 0; j < pi.getNombreLigne(); j++) {%>
-        var montantstr = $('#remarque_<%= j%>').val().trim();
-        var montant = montantstr === '' ? 0 : parseFloat(montantstr);
+    var total = 0;
+
+    <% for (int j = 0; j < pi.getNombreLigne(); j++) { %>
+        var montantstr = $('#remarque_<%= j %>').val().replace(' ', '').trim();
+        var montant = montantstr === '' ? 0 : parseFloat(montantstr.replace(',', '.'));
         total += montant;
     <% } %>
-        document.getElementById("montant").value = total;
+
+    document.getElementById("montant").value = total;
     }
 
     <% for (int i = 0; i < pi.getNombreLigne(); i++) {%>
