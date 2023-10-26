@@ -250,12 +250,13 @@ public class MvttIntraCaisse extends ClassEtat {
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
+        JournalCaisse sortie = new JournalCaisse(null, this.getCaissedepart(), null, this.getId() + "-" + this.getDesignation(), null, Utilitaire.dateDuJourSql(), this.getDaty(), this.getMontant(), 0);
         sortie.setIddevise(Constante.deviseAr);
         sortie.setIdmode(this.getModepaiement());
         sortie.setIdtraite(this.getIdTraite());
         sortie.setIdTypeCheque(Constante.typeCheque);
         sortie.setEtatversement(this.getEtatversement());
+        sortie.setIdmvtcaisse(this.getId());
 
         sortie.createObject(u, c);
         sortie.validerObject(u, c);
@@ -266,6 +267,7 @@ public class MvttIntraCaisse extends ClassEtat {
         entree.setIdtraite(this.getIdTraite());
         entree.setIdTypeCheque(Constante.typeCheque);
         entree.setEtatversement(this.getEtatversement());
+        entree.setIdmvtcaisse(this.getId());
 
         entree.createObject(u, c);
         if(isVisaArrive()) entree.validerObject(u, c);
