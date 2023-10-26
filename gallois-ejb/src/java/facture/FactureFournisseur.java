@@ -73,6 +73,15 @@ public class FactureFournisseur extends FactureClient {
     private boolean apresValidationException;
     private Date datedevise;
     private String modepaiementlib;
+    private String idmodepaiement;
+
+    public String getIdmodepaiement() {
+        return idmodepaiement;
+    }
+
+    public void setIdmodepaiement(String idmodepaiement) {
+        this.idmodepaiement = idmodepaiement;
+    }
 
     public Date getDatedevise() {
         return datedevise;

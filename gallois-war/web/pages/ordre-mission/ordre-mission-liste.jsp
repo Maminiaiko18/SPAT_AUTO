@@ -10,18 +10,18 @@
     UserEJB u = (user.UserEJB) session.getValue("u");
     String where = "";
     String idUser = "" + u.getUser().getTuppleID();
-
+    String userRole = u.getUser().getIdrole();
     //tsy Admin 
-    if (!"1060".equalsIgnoreCase(idUser))
+    if (!"dg".equalsIgnoreCase(userRole))
     {
         where = " and iduser ='"+idUser+"'" ;
         if (u.getUser().getCodeEtablissement() != null){
             CodeEtablissement code = u.getCodeEtablissement();
             String codeetb = code.getVal();
             Set<String> validCodeEtb = new HashSet<>(Arrays.asList("120", "121"));
-            Set<String> validUserIds = new HashSet<>(Arrays.asList("1602", "1601"));
+            Set<String> validUserRoleIds = new HashSet<>(Arrays.asList("ROL000422", "ROL000421","ROL0000001321113437"));
 
-            if (validCodeEtb.contains(codeetb) || validUserIds.contains(idUser)) {
+            if (validCodeEtb.contains(codeetb) || validUserRoleIds.contains(userRole)) {
                 // mahita ny rehetra akotran nen Mdm Fanja
                 where = " and iduser != '1637' " ;
             }

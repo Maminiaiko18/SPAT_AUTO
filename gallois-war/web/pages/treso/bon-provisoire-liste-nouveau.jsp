@@ -11,10 +11,13 @@
 <%@page import="mg.spat.BonProvisoireRetourRegule"%>
 <%@page import="mg.spat.StatistiqueActivite"%>
 <%@page import="affichage.PageRecherche"%>
+<%@ page import="affichage.Liste" %>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="user.*"%>
 <%@page import="utilitaire.*"%>
 <%@page import="utilisateur.*"%>
+<%@ page import="bean.TypeObjet" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% try{ 
     UserEJB u = null;
@@ -31,7 +34,7 @@
     System.out.println("table name"+nomTable);
     bonProvisoire.setNomTable(nomTable);
     
-    String listeCrt[] = {"id","daty","dateRegul","tierslib","num","designation","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib","numfsb","remarque","numOP","numBed","numchequerefpmt","modepaiement"};
+    String listeCrt[] = {"id","daty","dateRegul","tierslib","num","designation","date_echeance","nature","valcaisserefpmt", "numeroop", "code", "projetlib","montantTTC","code_etablissementlib","numfsb","remarque","numOP","numBed","numchequerefpmt","idmodepaiement"};
     String listeInt[] = {"daty","date_echeance","dateRegul"};
 
     String libEntete[] = { "id", "code", "daty","dateRegul","num", "tierslib", "montant", "tva", "montantTVA", "montantTTCvrai", "numeroop", "datefacture", "designation", "numBed","numBc", "projetlib", "code_etablissementlib","numfsb",  "naturelib", "modepaiement", "numOP","remarque", "exercice", "date_echeance", "montantAvoir", "montantTTC", "montantpaye", "montantreste", "etatLib", "valcaisserefpmt", "numpiecerefpmt", "dateeffetrefpmt", "numchequerefpmt", "libellerefpmt", "debitrefpmt","remarque"};
@@ -48,13 +51,19 @@
         pr.getFormu().getChamp("tierslib").setLibelle("Client");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("num").setLibelle("Numero BP");
-        pr.getFormu().getChamp("modepaiement").setLibelle("mode paiement");
         pr.getFormu().getChamp("code_etablissementlib").setLibelle("code etablissement");
         pr.getFormu().getChamp("valcaisserefpmt").setLibelle("Caisse");
         pr.getFormu().getChamp("dateRegul1").setLibelle("date Regule min");
         pr.getFormu().getChamp("dateRegul2").setLibelle("date Regule max");
         pr.getFormu().getChamp("numchequerefpmt").setLibelle("numero chq");
         
+        affichage.Liste[] liste = new affichage.Liste[1];
+        TypeObjet mode = new TypeObjet();
+        mode.setNomTable("MODEPAIEMENTBQ");
+        liste[0] = new Liste("idmodepaiement", mode, "desce", "id");
+        pr.getFormu().changerEnChamp(liste);
+        pr.getFormu().getChamp("idmodepaiement").setLibelle("mode paiement");
+
         Date firstDate = Utilitaire.dateDuJourSql();   
         firstDate.setDate(1);        
         Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
@@ -74,13 +83,12 @@
     pr.setApres("treso/bon-provisoire-liste-nouveau.jsp");
     String where = "";
     if(userRole.compareToIgnoreCase("ROL0000001321113437")==0) {
-        where = " and modepaiement = '"+Constante.modepaiementDefaut+"'";
+        where = " and idmodepaiement = '"+Constante.modepaiementDefaut+"'";
         pr.setAWhere(where);
     }else if(userRole.compareToIgnoreCase("ROL000450")==0 || userRole.compareToIgnoreCase("ROL000002")==0){
-        where = " and modepaiement != '"+Constante.modepaiementDefaut+"'";
+        where = " and idmodepaiement != '"+Constante.modepaiementDefaut+"'";
         pr.setAWhere(where);
     }else pr.setAWhere(aWhere);
-
 
     String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     pr.creerObjetPage(libEntete, colSomme);

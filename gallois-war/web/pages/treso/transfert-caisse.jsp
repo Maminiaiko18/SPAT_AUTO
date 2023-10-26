@@ -73,6 +73,8 @@
         pi.getFormu().getChamp("Etatversement").setVisible(false);
         pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
         pi.getFormu().getChamp("idTraite").setVisible(false);
+        pi.getFormu().getChamp("montant").setAutre("readonly");
+
 
         pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
         
@@ -109,6 +111,53 @@
         <input name="colonneMere" type="hidden" id="colonneMere" value="<%=colonneMere%>">
     </form>
 </div>
+<script>
+    function Total() {
+    var total = 0;
+
+    <% for (int j = 0; j < pi.getNombreLigne(); j++) { %>
+        var montantstr = $('#remarque_<%= j %>').val().replace(' ', '').trim();
+        var montant = montantstr === '' ? 0 : parseFloat(montantstr.replace(',', '.'));
+        total += montant;
+    <% } %>
+
+    document.getElementById("montant").value = total;
+    }
+
+    <% for (int i = 0; i < pi.getNombreLigne(); i++) {%>
+        $('#remarque_<%= i%>').attr('onblur', 'Total()');
+    <% } %>
+</script>
+<script>
+window.onload = () =>{
+        var submitBtns = document.querySelectorAll("button[name='Submit2'][type='submit']");
+        for(var i=0; i < submitBtns.length; i++){
+            modifySubmitBtn(submitBtns[i]);    
+        }
+    }
+    
+    function modifySubmitBtn(btn){
+        btn.setAttribute("type","button");
+        btn.onclick = save;
+    }
+    
+    function save() {
+        var btn = this;
+        btn.disabled = true;
+        var query = $('#mvtintracaisse').serialize();
+        $.get("apresMultipleAjax.jsp?"+query, function(data, status){
+            var temp = data.trim().split("_");
+            if(temp[0] === 'error'){
+                btn.disabled = false;
+                alert(temp[1]);
+            }
+            else{
+                window.location.href = "<%=pi.getLien()%>?but=treso/transfert-caisse-fiche.jsp&id="+temp[1];
+            }
+        });
+    }
+</script>
+
 <%
 } catch (Exception e) {
     e.printStackTrace();

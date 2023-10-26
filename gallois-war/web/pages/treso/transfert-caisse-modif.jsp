@@ -42,11 +42,15 @@
 
             pi.getFormu().getChamp("etat").setVisible(false);
             pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
+             pi.getFormu().getChamp("IdTraite").setVisible(false);
+            pi.getFormu().getChamp("Etatversement").setVisible(false);
+            pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
             pi.getFormu().getChamp("daty").setLibelle("Date");
             pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
             pi.getFormu().getChamp("caissearrivee").setLibelle("Arriv&eacute;e");
             pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
             pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
+            pi.getFormu().getChamp("montant").setAutre("readonly");
 
            pi.getFormufle().getChamp("Reference_0").setLibelle("R&eacute;ference");
            pi.getFormufle().getChamp("Remarque_0").setLibelle("Remarque");
@@ -89,6 +93,22 @@
         </form>
     </div>
 </div>
+<script>
+    function Total() {
+    var total = 0;
+
+    <% for (int j = 0; j < pi.getNombreLigne(); j++) { %>
+        var montantstr = $('#remarque_<%= j %>').val().replace(' ', '').trim();
+        var montant = montantstr === '' ? 0 : parseFloat(montantstr.replace(',', '.'));
+        total += montant;
+    <% } %>
+
+    document.getElementById("montant").value = total;
+    }
+    <% for (int i = 0; i < pi.getNombreLigne(); i++) {%>
+        $('#remarque_<%= i%>').attr('onblur', 'Total()');
+    <% } %>
+</script>
 <%}catch(Exception ex){
     ex.printStackTrace();
 }%>
