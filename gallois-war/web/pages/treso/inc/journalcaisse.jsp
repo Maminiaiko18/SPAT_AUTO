@@ -21,7 +21,7 @@
         pr.creerObjetPage(libEntete, colSomme);
 
         
-        String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp&id="+request.getParameter("id")};
+        String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
         String colonneLien[] = {"id"};
         pr.getTableau().setLien(lienTableau);
         pr.getTableau().setColonneLien(colonneLien);
