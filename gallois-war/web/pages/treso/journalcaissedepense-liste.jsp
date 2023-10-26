@@ -12,7 +12,7 @@
         String typecheque = request.getParameter("idtypecheque");
         JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
         String[] etatVal = {"etatjournalcaisselibdepense","etatjournalcaisselibdepenseC","etatjournalcaisselibdepenseV"};
-        String[] etatAff = {"Tous", "Crée(s)", "Valider"};
+        String[] etatAff = {"Tous", "Cr&eacute;&eacute;(s)", "Valid&eacute;(s)"};
         journalCaisse.setNomTable(etatVal[0]);
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
             journalCaisse.setNomTable(request.getParameter("etat"));
