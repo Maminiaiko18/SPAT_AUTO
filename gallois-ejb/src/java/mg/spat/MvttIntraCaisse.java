@@ -256,6 +256,7 @@ public class MvttIntraCaisse extends ClassEtat {
         sortie.setIdtraite(this.getIdTraite());
         sortie.setIdTypeCheque(Constante.typeCheque);
         sortie.setEtatversement(this.getEtatversement());
+        sortie.setIdmvtcaisse(this.getId());
 
         sortie.createObject(u, c);
         sortie.validerObject(u, c);
@@ -266,6 +267,7 @@ public class MvttIntraCaisse extends ClassEtat {
         entree.setIdtraite(this.getIdTraite());
         entree.setIdTypeCheque(Constante.typeCheque);
         entree.setEtatversement(this.getEtatversement());
+        entree.setIdmvtcaisse(this.getId());
 
         entree.createObject(u, c);
         if(isVisaArrive()) entree.validerObject(u, c);

@@ -37,6 +37,7 @@
         String tab = null;
         Map<String, String> map = new HashMap<String, String>();
         map.put("details-transfert", "");
+        map.put("journalcaisse", "");
         
         tab = request.getParameter("tab");
         if (tab == null) {
@@ -78,6 +79,7 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="<%= map.get("details-transfert")%>"><a href="globalnegoce.jsp?but=treso/transfert-caisse-fiche.jsp&id=<%=request.getParameter("id")%>&tab=details-transfert">Détails transfert</a></li>
+                    <li class="<%= map.get("journalcaisse")%>"><a href="globalnegoce.jsp?but=treso/transfert-caisse-fiche.jsp&id=<%=request.getParameter("id")%>&tab=journalcaisse">Journal caisse</a></li>
                 </ul>
                 <div class="tab-content">       
                     <jsp:include page="<%=tab%>">
