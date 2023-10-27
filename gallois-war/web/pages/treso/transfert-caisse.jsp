@@ -23,6 +23,8 @@
                 apres = "treso/transfert-caisse-fiche.jsp", colonneMere = "idmere",
                 titre = "Transfert Caisse";
         int taille = 10;
+        if (request.getParameter("ids") != null)
+            taille = Utilitaire.stringToTab(request.getParameter("ids"), ";").length;
         MvttIntraCaisse objet = new MvttIntraCaisse();
         objet.setNomTable(nomtable);
         MvtIntraCaisseFille fille = new MvtIntraCaisseFille();
@@ -73,6 +75,8 @@
         pi.getFormu().getChamp("Etatversement").setVisible(false);
         pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
         pi.getFormu().getChamp("idTraite").setVisible(false);
+        pi.getFormu().getChamp("montant").setAutre("readonly");
+
 
         pi.getFormu().getChamp("caissedepart").setLibelle("D&eacute;part");
         
@@ -109,6 +113,80 @@
         <input name="colonneMere" type="hidden" id="colonneMere" value="<%=colonneMere%>">
     </form>
 </div>
+<script>
+    function Total() {
+        var total = 0;
+        
+        for (var i = 0; i < $("#nombreLigne")[0].value; i++) {
+            var montantstr = $('#remarque_'+i).val().replace(' ', '').trim();
+            var montant = montantstr === '' ? 0 : parseFloat(montantstr.replace(',', '.'));
+            total += montant;
+        }
+
+        document.getElementById("montant").value = total;
+        $('#total').text("Total: "+ new Intl.NumberFormat('fr-FR').format(total));
+    }
+
+    <% 
+        if (request.getParameter("ids") == null){%>
+            for (var i = 0; i < $("#nombreLigne")[0].value; i++) {
+                $('#remarque_'+i).attr('onblur', 'Total()');
+            }
+            Total();
+    <% } %>
+</script>
+<script>
+    var footer = document.getElementsByClassName('box-footer')[1].querySelector("div");
+    var tot = document.createElement('p');
+    tot.readOnly = true;
+    tot.type = "text";
+    tot.id = "total";
+    tot.style.fontSize = "21px";
+    tot.style.color = "blue";
+    tot.classList= ["pull-left"];
+    footer.appendChild(tot);
+    
+    document.getElementsByClassName("btn btn-default pull-right")[2].addEventListener('click', e => {
+        var indice = ($("#nombreLigne")[0].value)-1;
+        document.getElementById("remarque_"+indice).setAttribute("onblur","Total()");
+    })
+    
+    document.getElementsByClassName("btn btn-default pull-right")[3].addEventListener('click', e => {
+        var indice = ($("#nombreLigne")[0].value)-10;
+        for (let i = indice; i < indice+10; i++) {
+            document.getElementById("remarque_"+i).setAttribute("onblur","Total()");
+        }
+    })
+    
+window.onload = () =>{
+        var submitBtns = document.querySelectorAll("button[name='Submit2'][type='submit']");
+        for(var i=0; i < submitBtns.length; i++){
+            modifySubmitBtn(submitBtns[i]);    
+        }
+    }
+    
+    function modifySubmitBtn(btn){
+        btn.setAttribute("type","button");
+        btn.onclick = save;
+    }
+    
+    function save() {
+        var btn = this;
+        btn.disabled = true;
+        var query = $('#mvtintracaisse').serialize();
+        $.get("apresMultipleAjax.jsp?"+query, function(data, status){
+            var temp = data.trim().split("_");
+            if(temp[0] === 'error'){
+                btn.disabled = false;
+                alert(temp[1]);
+            }
+            else{
+                window.location.href = "<%=pi.getLien()%>?but=treso/transfert-caisse-fiche.jsp&id="+temp[1];
+            }
+        });
+    }
+</script>
+
 <%
 } catch (Exception e) {
     e.printStackTrace();
