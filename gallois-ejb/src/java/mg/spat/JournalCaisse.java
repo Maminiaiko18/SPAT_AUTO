@@ -43,7 +43,7 @@ import mg.allosakafo.produits.LiaisonIntraTable;
  */
 public class JournalCaisse extends ClassEtat {
 
-    private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib,codetiers,typelib,idmvtcaisse;
+    private String id, folio, caisse, numPiece, libelle, remarque, tiers, idTypeCheque, idplacement,valCaisse,valTypeCheque,desceTypeCheque,tiersLib,idbanque,idbanquelib,codetiers,typelib,idmouvcaisse;
     private double sommeCredit, sortie, entree;
     private String banque,type;
     private String descecaisse, idcaisse,numeroOP,idplacementvrai,bonprovisoire;
@@ -783,12 +783,12 @@ public class JournalCaisse extends ClassEtat {
         this.creationAuto = creationAuto;
     }
 
-    public String getIdmvtcaisse() {
-        return idmvtcaisse;
+    public String getIdmouvcaisse() {
+        return idmouvcaisse;
     }
 
-    public void setIdmvtcaisse(String idmvtcaisse) {
-        this.idmvtcaisse = idmvtcaisse;
+    public void setIdmouvcaisse(String idmouvcaisse) {
+        this.idmouvcaisse = idmouvcaisse;
     }
 
     @Override
