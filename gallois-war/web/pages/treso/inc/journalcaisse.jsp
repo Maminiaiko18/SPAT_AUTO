@@ -7,7 +7,7 @@
         JournalCaisseLibComplet jc = new JournalCaisseLibComplet();       
         jc.setNomTable("JOURNALCAISSELIBCOMPLET");
         String libEntete[] = {"id", "libelle", "valcaisse", "dateeffet", "debit", "credit"};
-        String listeCrt[] = {"idmvtcaisse"};
+        String listeCrt[] = {"idmouvcaisse"};
         String listeInt[] = {};
         PageRecherche pr = new PageRecherche(jc, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -15,7 +15,7 @@
         pr.setApres("treso/inc/journalcaisse.jsp");
         String[] colSomme = null;
         if(request.getParameter("id") != null){
-            condition = " and idmvtcaisse='"+request.getParameter("id")+"'";
+            condition = " and idmouvcaisse='"+request.getParameter("id")+"'";
         }
         pr.setAWhere(condition);
         pr.creerObjetPage(libEntete, colSomme);

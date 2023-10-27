@@ -38,8 +38,8 @@
         listes[2] = new Liste("caisse", caisse, "val", "id");
         listes[2].setDefaultSelected(Constante.caisseDepense);
         
-        String[] avecTransfertAff = {"avec","sans"};
-        String[] avecTransfertVal = {"1", "0"};
+        String[] avecTransfertAff = {"Tous","Avec","Sans"};
+        String[] avecTransfertVal = {"","1", "0"};
         listes[3] = new Liste("checkmvt", avecTransfertAff, avecTransfertVal);
 
         pr.getFormu().changerEnChamp(listes);
