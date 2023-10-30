@@ -4490,7 +4490,7 @@ public class EtatPaieServlet extends HttpServlet {
             String jaspername = "transfert_caisse";
             DetailsBilletage detailsb = new DetailsBilletage();
             details.setNomTable("detailsbilletage");
-            DetailsBilletage[] listeDetailsb = (DetailsBilletage[]) CGenUtil.rechercher(detailsb, null, null, " and idmere='" + idtransfert + "'");
+            DetailsBilletage[] listeDetailsb = (DetailsBilletage[]) CGenUtil.rechercher(detailsb, null, null, " and idmere='" + idtransfert + "' ORDER BY TO_NUMBER(BILLET)  desc");
             MvtIntraCaisseFille detailsCaisse = new MvtIntraCaisseFille();
             detailsCaisse.setNomTable("mvtintracaisse_fille");
             MvtIntraCaisseFille[] listeDetailsCaisse = (MvtIntraCaisseFille[]) CGenUtil.rechercher(detailsCaisse, null, null, " and idmere='" + id + "'");

@@ -41,6 +41,7 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setAWhere(" and idmere='"+bi.getId()+"'");
+    pr.setOrdre(" ORDER BY TO_NUMBER(BILLET)  desc");
     pr.setApres("treso/transfert-principal-fiche.jsp");
   
     
