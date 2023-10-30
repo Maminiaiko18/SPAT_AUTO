@@ -54,7 +54,7 @@
             
             for (int i = 0; i < data.length; i++) {;
                 pi.getFormufle().getChamp("iddetailfacture_" + i).setDefaut(data[i].getId());
-                pi.getFormufle().getChamp("montantdf_" + i).setDefaut("" + data[i].getMontantTTC());
+                pi.getFormufle().getChamp("montantdf_" + i).setDefaut(Utilitaire.formaterAr(data[i].getMontantTTC()));
                 pi.getFormufle().getChamp("devise_"+i).setDefaut(data[i].getDevise());
                 pi.getFormufle().getChamp("designation_" + i).setDefaut(data[i].getDesignation());
                 //pi.getFormufle().getChamp("remise_" + i).setDefaut("100");
