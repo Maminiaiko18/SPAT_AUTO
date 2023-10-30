@@ -150,7 +150,7 @@
 		<band height="21" splitType="Stretch">
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="360" y="0" width="195" height="20" uuid="8a2b47b5-7f17-4623-99bd-de48a380048d"/>
-				<box>
+				<box rightPadding="10">
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
@@ -162,7 +162,7 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="360" height="20" uuid="3e5d27b6-a93f-42d3-bf5f-55a1cc526aae"/>
-				<box>
+				<box leftPadding="10">
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
@@ -178,7 +178,7 @@
 		<band height="97">
 			<textField pattern="#,##0.00">
 				<reportElement x="360" y="0" width="195" height="20" uuid="4ef7122d-c965-405a-bd30-6e6df6890236"/>
-				<box>
+				<box rightPadding="10">
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
