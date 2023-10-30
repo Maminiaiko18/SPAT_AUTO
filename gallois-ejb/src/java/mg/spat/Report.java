@@ -39,7 +39,7 @@ public class Report extends ClassEtat{
     }
 
     public void setMontant(double montant) throws Exception {
-        if(this.getMode().compareToIgnoreCase("select")!=0&&montant<=0) throw new Exception("montant report invalide");
+        if(this.getMode().compareToIgnoreCase("select")!=0&&montant < 0) throw new Exception("montant report invalide");
         this.montant = montant;
     }
 
