@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="transfert_caisse" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="296033f2-48ac-47e7-ac3e-d15a7c02428a">
-	<property name="ireport.zoom" value="0.9090909090909091"/>
+	<property name="ireport.zoom" value="1.3310000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="175"/>
 	<parameter name="caissedepart" class="java.lang.String"/>
 	<parameter name="caissearrivee" class="java.lang.String"/>
 	<parameter name="modepaiement" class="java.lang.String"/>
@@ -22,7 +22,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="218" splitType="Stretch">
+		<band height="217" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="-3" width="72" height="82" uuid="3b49bc2e-5f92-4d3b-9494-e4601a9e3b6b"/>
 				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
@@ -123,7 +123,7 @@
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="203" height="20" uuid="cc45926d-3a0d-4f8f-a24a-3980470be24a"/>
+				<reportElement x="0" y="0" width="128" height="21" uuid="cc45926d-3a0d-4f8f-a24a-3980470be24a"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -136,7 +136,7 @@
 				<text><![CDATA[Billets]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="203" y="0" width="179" height="20" uuid="21af20cb-448f-4170-b3db-caa2f581f363"/>
+				<reportElement x="128" y="0" width="104" height="21" uuid="21af20cb-448f-4170-b3db-caa2f581f363"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -149,7 +149,7 @@
 				<text><![CDATA[Nombres]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="382" y="0" width="173" height="20" uuid="9a1c99f8-4816-4ee1-b924-b64effd36abd"/>
+				<reportElement x="232" y="0" width="205" height="21" uuid="9a1c99f8-4816-4ee1-b924-b64effd36abd"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -164,22 +164,20 @@
 	</columnHeader>
 	<detail>
 		<band height="21" splitType="Stretch">
-			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="203" height="20" uuid="3e5d27b6-a93f-42d3-bf5f-55a1cc526aae"/>
-				<box>
-					<leftPen lineWidth="0.75"/>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="232" y="1" width="205" height="20" uuid="4e04d6ae-008e-4dd7-809a-ca8a136afc4d"/>
+				<box rightPadding="10">
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{billet}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="203" y="0" width="179" height="20" uuid="8a2b47b5-7f17-4623-99bd-de48a380048d"/>
-				<box>
-					<leftPen lineWidth="0.75"/>
+				<reportElement x="128" y="1" width="104" height="20" uuid="8a2b47b5-7f17-4623-99bd-de48a380048d"/>
+				<box rightPadding="10">
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
@@ -188,17 +186,17 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="382" y="0" width="173" height="20" uuid="4e04d6ae-008e-4dd7-809a-ca8a136afc4d"/>
-				<box>
-					<topPen lineWidth="0.0"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="1" width="128" height="20" uuid="3e5d27b6-a93f-42d3-bf5f-55a1cc526aae"/>
+				<box rightPadding="10">
+					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{billet}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -309,8 +307,8 @@
 				<textFieldExpression><![CDATA[$P{montantlettre}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="382" y="0" width="173" height="20" uuid="a7475df4-0cc0-4e67-bcf6-9dc844ea63bb"/>
-				<box>
+				<reportElement x="232" y="0" width="205" height="20" uuid="a7475df4-0cc0-4e67-bcf6-9dc844ea63bb"/>
+				<box rightPadding="10">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>

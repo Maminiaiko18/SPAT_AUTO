@@ -63,13 +63,13 @@
         pc.getChampByName("montant").setLibelle("Montant HT");
         pc.getChampByName("montanttva").setLibelle("Montant TVA");
         pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
-//        pc.getChampByName("montantttcvrai").setLibelle("Montant TTC");
+        pc.getChampByName("montantttcvrai").setLibelle("Montant TTC");
         pc.getChampByName("montantttc").setLibelle("Net à payer");
         pc.getChampByName("date_echeance").setLibelle("Date echeance");
         pc.getChampByName("montantpaye").setLibelle("Montant payé");
         pc.getChampByName("montantreste").setLibelle("Reste à payer");
         pc.getChampByName("typelib").setLibelle("Type");
-       pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoire");
+        pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoire");
         pc.getChampByName("projetlib").setLibelle("Projet");
         pc.getChampByName("dateRegul").setLibelle("Date de régul");
 //        pc.getChampByName("numeroop").setVisible(false);
