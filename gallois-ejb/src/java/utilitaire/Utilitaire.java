@@ -640,7 +640,7 @@ public class Utilitaire extends Parametre {
     }
 
     public static String replaceChar(String s) {
-        //s = s.replace(''', '''');
+        s = s.replaceAll("'", "''");
         s = s.replace('*', '%');
         s = s.replace(',', '%');
         return s;
