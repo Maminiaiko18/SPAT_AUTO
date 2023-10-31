@@ -56,6 +56,7 @@
         pi.getFormu().getChamp("categorielib").setVisible(false);
         pi.getFormu().getChamp("typelib").setVisible(false);
         pi.getFormu().getChamp("armateurlib").setVisible(false);
+        pi.getFormu().getChamp("cdclt").setVisible(false);
         
         pi.preparerDataFormu();
 %>
