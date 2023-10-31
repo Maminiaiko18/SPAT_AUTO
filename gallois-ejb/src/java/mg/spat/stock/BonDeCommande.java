@@ -656,28 +656,28 @@ public class BonDeCommande extends ClassEtat {
         BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
         this.setMontant(bc.getMontant());
         LiaisonEngagement liaison = new LiaisonEngagement();
+        double resteAEngager = bc.getMontant();
 
         if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
             this.insertEngagement(u,c);
             this.updateToTableWithHisto(u, c);
-            liaison.setId1(this.getIdengagement());
-            liaison.setId2(this.getId());
-            liaison.setMontant(bc.getMontant());
+            liaison = new LiaisonEngagement(this.getIdengagement(), this.getId(), bc.getMontant(), ConstanteEtat.getEtatCreer());
             liaison.createObject(u, c);
             liaison.validerObject(u, c);
         }
         else{
-            Engagement eng = findEngagement("liaisonEngagementBCFF", "idengagement", c);
-            if(eng.getMontantreste() < this.getMontant()){
-                throw new ValidationException("Le montant du bon de commande depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerBCEng");
-            }
-            else{
-                liaison.setId1(eng.getIdengagement());
-                liaison.setId2(this.getId());
-                liaison.setMontant(bc.getMontant());
-                liaison.setEtat(ConstanteEtat.getEtatCreer());
+            Engagement[] lies = this.getEngagementLiee(c);
+            int t = lies.length;
+            for(int i = 0; i < t; i++){
+                Engagement eng = lies[i];
+                double m = (resteAEngager <= eng.getMontantreste()) ? resteAEngager : eng.getMontantreste();
+                liaison = new LiaisonEngagement(eng.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
                 liaison.createObject(u, c);
                 liaison.validerObject(u, c);
+                resteAEngager -= eng.getMontantreste();
+            }
+            if(resteAEngager > 0){
+                throw new ValidationException("Le montant du bon de commande depasse le reste de l'engagement. En cliquant sur Ok, un nouvel engagement sera créé.",null,"validerBCEng");
             }
         }
         this.setNomTable("as_bondecommande");
@@ -695,71 +695,41 @@ public class BonDeCommande extends ClassEtat {
             if(lc==null)throw new Exception("Budget non trouvé");
             
             LiaisonEngagement liaison1 = new LiaisonEngagement();
-            
-            if(this.getIdengagement() != null){
-                Engagement eng = findEngagement("liaisonEngagementBCFF", "idengagement", c);
-                BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
-                if(eng.getMontantreste() < bc.getMontant() && eng.getMontantreste() > 0){
-                    double diff = bc.getMontant() - eng.getMontantreste();
-                    Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), diff, Utilitaire.getAnnee(bc.getDaty()), Utilitaire.dateDuJourSql(), bc.getIdfournisseur(), 0);
-                    e.construirePK(c);
-                    if (lc != null) {
-                        e.setIdLC(lc.getTuppleID());
-                    }
-                    e.createObject(u, c);
-                    BonDeCommandeFille fille = new BonDeCommandeFille();
-                    fille.setMontant(diff);
-                    fille.setRemarque(bc.getRemarque());
-                    EngagementFille engFille = fille.createEngagementFille(e.getTuppleID());
-                    engFille.construirePK(c);
-                    engFille.insertToTableWithHisto(u, c);
-
-                    e.setType(Constante.typeEngagementBC);
-                    e.validerObject(u, c);
-                    
-                    liaison1.setId1(eng.getIdengagement());
-                    liaison1.setId2(this.getId());
-                    liaison1.setMontant(eng.getMontantreste());
-                    liaison1.setEtat(ConstanteEtat.getEtatCreer());
-                    liaison1.createObject(u, c);
-                    liaison1.validerObject(u, c);
-
-                    this.setIdengagement(e.getTuppleID());
-                    
-                    LiaisonEngagement liaison2 = new LiaisonEngagement();
-                    liaison2.setId1(e.getId());
-                    liaison2.setId2(this.getId());
-                    liaison2.setMontant(diff);
-                    liaison2.setEtat(ConstanteEtat.getEtatCreer());
-                    liaison2.createObject(u, c);
-                    liaison2.validerObject(u, c);
+            BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
+            double resteAEngager = bc.getMontant();
+                
+            Engagement[] lies = this.getEngagementLiee(c);
+            int t = lies.length;
+            for(int i = 0; i < t; i++){
+                Engagement eng = lies[i];
+                double m = (resteAEngager <= eng.getMontantreste()) ? resteAEngager : eng.getMontantreste();
+                LiaisonEngagement liaison = new LiaisonEngagement(eng.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                liaison.createObject(u, c);
+                liaison.validerObject(u, c);
+                resteAEngager -= eng.getMontantreste();
+            }
+            if(resteAEngager > 0){
+                Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), resteAEngager, Utilitaire.getAnnee(bc.getDaty()), Utilitaire.dateDuJourSql(), bc.getIdfournisseur(), 0);
+                e.construirePK(c);
+                if (lc != null) {
+                    e.setIdLC(lc.getTuppleID());
                 }
-                else{
-                    Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), bc.getMontant(), Utilitaire.getAnnee(bc.getDaty()), Utilitaire.dateDuJourSql(), bc.getIdfournisseur(), 0);
-                    e.construirePK(c);
-                    if (lc != null) {
-                        e.setIdLC(lc.getTuppleID());
-                    }
-                    e.createObject(u, c);
-                    BonDeCommandeFille fille = new BonDeCommandeFille();
-                    fille.setMontant(bc.getMontant());
-                    fille.setRemarque(bc.getRemarque());
-                    EngagementFille engFille = fille.createEngagementFille(e.getTuppleID());
-                    engFille.construirePK(c);
-                    engFille.insertToTableWithHisto(u, c);
+                e.createObject(u, c);
+                BonDeCommandeFille fille = new BonDeCommandeFille();
+                fille.setMontant(resteAEngager);
+                fille.setRemarque(bc.getRemarque());
+                EngagementFille engFille = fille.createEngagementFille(e.getTuppleID());
+                engFille.construirePK(c);
+                engFille.insertToTableWithHisto(u, c);
 
-                    e.setType(Constante.typeEngagementBC);
-                    e.validerObject(u, c);
-                    
-                    liaison1.setId1(e.getTuppleID());
-                    liaison1.setId2(this.getId());
-                    liaison1.setMontant(eng.getMontantreste());
-                    liaison1.setEtat(ConstanteEtat.getEtatCreer());
-                    liaison1.createObject(u, c);
-                    liaison1.validerObject(u, c);
+                e.setType(Constante.typeEngagementBC);
+                e.validerObject(u, c);
 
-                    this.setIdengagement(e.getTuppleID());
-                }
+                liaison1 = new LiaisonEngagement(e.getTuppleID(), this.getId(), resteAEngager, ConstanteEtat.getEtatCreer());
+                liaison1.createObject(u, c);
+                liaison1.validerObject(u, c);
+
+                this.setIdengagement(e.getTuppleID());
             }
             this.setNomTable("as_bondecommande");
             super.validerObject(u, c);c.commit();
@@ -781,12 +751,56 @@ public class BonDeCommande extends ClassEtat {
             LigneCredit lc=this.checkBudget(c);
             if(lc==null)throw new Exception("Budget non trouvé");
 
+            LiaisonEngagement liaison1 = new LiaisonEngagement();
+            BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
+
             if(this.getIdengagement() == null || this.getIdengagement().isEmpty()){
-                BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(this.getId(), "AS_BONDECOMMANDE_LIB_fiche", c);
                 this.setMontant(bc.getMontant());
                 this.insertEngagementSansControleMontant(u,c);
                 this.updateToTableWithHisto(u, c);
-            }this.setNomTable("as_bondecommande");
+                liaison1 = new LiaisonEngagement(this.getIdengagement(), this.getId(), bc.getMontant(), ConstanteEtat.getEtatCreer());
+                liaison1.createObject(u, c);
+                liaison1.validerObject(u, c);
+            }
+            else{
+                double resteAEngager = bc.getMontant();
+
+                Engagement[] lies = this.getEngagementLiee(c);
+                int t = lies.length;
+                for(int i = 0; i < t; i++){
+                    Engagement eng = lies[i];
+                    double m = (resteAEngager <= eng.getMontantreste()) ? resteAEngager : eng.getMontantreste();
+                    LiaisonEngagement liaison = new LiaisonEngagement(eng.getIdengagement(), this.getId(), m, ConstanteEtat.getEtatCreer());
+                    liaison.createObject(u, c);
+                    liaison.validerObject(u, c);
+                    resteAEngager -= eng.getMontantreste();
+                }
+                if(resteAEngager > 0){
+                    Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), resteAEngager, Utilitaire.getAnnee(bc.getDaty()), Utilitaire.dateDuJourSql(), bc.getIdfournisseur(), 0);
+                    e.construirePK(c);
+                    if (lc != null) {
+                        e.setIdLC(lc.getTuppleID());
+                    }
+                    e.createObject(u, c);
+                    BonDeCommandeFille fille = new BonDeCommandeFille();
+                    fille.setMontant(resteAEngager);
+                    fille.setRemarque(bc.getRemarque());
+                    EngagementFille engFille = fille.createEngagementFille(e.getTuppleID());
+                    engFille.construirePK(c);
+                    engFille.insertToTableWithHisto(u, c);
+
+                    e.setType(Constante.typeEngagementBC);
+                    e.validerObjectSansControleMontant(u, c);
+
+                    liaison1 = new LiaisonEngagement(e.getTuppleID(), this.getId(), resteAEngager, ConstanteEtat.getEtatCreer());
+                    liaison1.createObject(u, c);
+                    liaison1.validerObject(u, c);
+
+                    this.setIdengagement(e.getTuppleID());
+                }
+            }
+
+            this.setNomTable("as_bondecommande");
             super.validerObject(u, c);
 
             c.commit();
@@ -953,5 +967,36 @@ public class BonDeCommande extends ClassEtat {
             return ls[0];
         }
         return null;
+    }
+    
+    @Override
+    public int annulerVisa(String user,Connection c) throws Exception {
+        if(this.getIdengagement() != null){
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()); 
+            for(int i = 0; i < liaisons.length; i++){
+                LiaisonEngagement liaison = liaisons[i];
+                liaison.setEtat(-2);
+                liaison.updateToTableWithHisto(user,c);
+            }
+        }
+        
+        return super.annulerVisa(user, c);
+    }
+    
+    public Engagement[] getEngagementLiee(Connection c) throws Exception {
+        Engagement[] liste = null;
+        
+        try{
+            String requete = "SELECT * FROM liaisonEngagementBCFF WHERE IDENGAGEMENT IN (SELECT ID1 FROM LIAISONENGAGEMENT WHERE ID2 = '" + this.getId() + "'";
+            requete += ") AND MONTANTRESTE > 0 ORDER BY DATY";
+            Engagement e = new Engagement();
+            e.setNomTable("liaisonEngagementBCFF");
+            liste = (Engagement[])CGenUtil.rechercher(e, requete, c);
+        }
+        catch(Exception e){
+            throw e;
+        }
+        
+        return liste;
     }
 }
