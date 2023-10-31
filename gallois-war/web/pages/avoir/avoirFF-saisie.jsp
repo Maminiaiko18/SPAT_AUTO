@@ -27,8 +27,8 @@
         d.findFFDetails();
         facture.FactureFournisseurDetails[] data = d.getFfdetails();
         int nbLigneFille = 10;
-        //if(data.length > 0)
-        //    nbLigneFille = data.length;
+        if(data.length > 0)
+        nbLigneFille = data.length;
         PageInsertMultiple pi = new PageInsertMultiple(avoir, avoirfille, request, nbLigneFille, u);
         pi.setLien((String) session.getValue("lien"));
 
