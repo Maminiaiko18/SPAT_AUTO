@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import mg.spat.relationhumaine.InfoPersonnelGlobal;
+import facture.FactureFournisseur;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -39,6 +40,28 @@ public class OrdreMission extends ClassEtat {
 
     public OrdreMissionIndemnite[] getOrdreMissionIndemnites() throws Exception{
         return this.getOrdreMissionIndemnites(null);
+    }
+
+    public boolean hadBonProvisoire(Connection c)throws Exception {
+        int verif = 0;
+        FactureFournisseur [] retour;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            FactureFournisseur mvt = new FactureFournisseur();
+            String where=" AND IDOM ='" + this.getId() + "'";
+            retour =(FactureFournisseur[]) CGenUtil.rechercher(mvt, null, null, c, where);
+            if(retour.length > 0) return true;
+            return false;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();;
+            }
+        }
     }
     
     public OrdreMissionIndemnite[] getOrdreMissionIndemnites(Connection connection) throws Exception{
