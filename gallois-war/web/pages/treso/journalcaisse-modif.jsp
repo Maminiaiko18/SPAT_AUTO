@@ -75,6 +75,8 @@
     
     pi.getFormu().getChamp("credit").setLibelle("Entrée");
     pi.getFormu().getChamp("debit").setLibelle("Sorti");
+    pi.getFormu().getChamp("Idmouvcaisse").setVisible(false);
+
     
     pi.preparerDataFormu();
 %>

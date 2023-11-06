@@ -29,6 +29,7 @@
     pi.getFormu().getChamp("typemvt").setVisible(false);
     pi.getFormu().getChamp("Etatversement").setVisible(false);
     pi.getFormu().getChamp("retour").setVisible(false);
+    pi.getFormu().getChamp("Idmouvcaisse").setVisible(false);
 
 
     affichage.Champ[] liste = new affichage.Champ[1];
