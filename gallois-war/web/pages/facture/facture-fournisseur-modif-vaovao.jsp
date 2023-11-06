@@ -64,6 +64,8 @@
         pi.getFormu().getChamp("exercice").setLibelle("Exercice");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
+        pi.getFormu().getChamp("num").setAutre("readonly");
+        pi.getFormu().getChamp("num").setLibelle("Numéro BP");
         pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
         pi.getFormu().getChamp("idengagement").setAutre("readonly");
         pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
