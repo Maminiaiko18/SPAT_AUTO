@@ -22,7 +22,7 @@
     ligncredit.setNomTable(nomTable);
     
     //String listeCrt[] = {"id","escale","nomnavire", "valconsignataire", "valcargaison", "valquaisdestination","datearrivee", "date_depart","quaisdestination"};
-    String listeCrt[] = {"id", "direction", "projet", "designation","compte","annee","comptestr"/*,"niveau1", "niveau2", "niveau3", "niveau4"*/};
+    String listeCrt[] = {"id", "direction", "projet", "designation","compte","annee"/*,"comptestr","niveau1", "niveau2", "niveau3", "niveau4"*/};
     String listeInt[] = {"annee"};
     String libEntete[] = {"id", "direction", "projet", "designation","compte","annee","montant"/*,"facture","pourcEngage","paye","pourcPaye","arecouvrir","restebudget"*/};
     PageRecherche pr = new PageRecherche(ligncredit, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -33,7 +33,7 @@
     pr.getFormu().getChamp("annee2").setLibelle("Ann&eacute;e max");
     pr.getFormu().getChamp("annee2").setDefaut(Utilitaire.getAnneeEnCours());
     pr.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
-    pr.getFormu().getChamp("comptestr").setLibelle("Compte Pur");
+    //pr.getFormu().getChamp("comptestr").setLibelle("Compte Pur");
     String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
     String[] colSomme = {"montant"/*,"facture","paye","arecouvrir","restebudget"*/};
     pr.creerObjetPage(libEntete, colSomme);
