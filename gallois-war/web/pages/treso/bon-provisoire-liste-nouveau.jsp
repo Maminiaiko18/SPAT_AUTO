@@ -71,11 +71,11 @@
         String debutDate = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
         String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
         
-        if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
-            pr.getFormu().getChamp("daty1").setDefaut(debutDate);
-            pr.getFormu().getChamp("daty2").setDefaut(dateFin);
-            
-        }
+        //if(request.getParameter("daty1") == null && request.getParameter("daty2") == null){
+        //    pr.getFormu().getChamp("daty1").setDefaut(debutDate);
+        //    pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+        //    
+        //}
         pr.getFormu().getChamp("date_echeance1").setLibelle("date echeance debut");
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");        
@@ -90,6 +90,7 @@
         pr.setAWhere(where);
     }else pr.setAWhere(aWhere);
 
+    pr.setOrdre(" ORDER  BY DATY DESC");
     String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
     pr.creerObjetPage(libEntete, colSomme);
 %>

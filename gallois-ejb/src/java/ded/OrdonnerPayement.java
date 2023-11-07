@@ -912,8 +912,9 @@ public class OrdonnerPayement extends ClassEtat {
                 verif = true;
             }
             JournalCaisse jc = new JournalCaisse();
+            jc.setNomTable("PAIEMENTOPJCUNION");
             jc.setIdordre(this.getId());
-            JournalCaisse[] listeJc = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, c, "");
+            JournalCaisse[] listeJc = (JournalCaisse[]) CGenUtil.rechercher(jc, null, null, c, " and etat=11");
             return listeJc;
         } catch (Exception e) {
             if (c != null && verif == true) {

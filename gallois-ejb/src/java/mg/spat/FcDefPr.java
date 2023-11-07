@@ -184,7 +184,7 @@ public class FcDefPr extends ClassEtat {
             if(def.getMontantreste() < this.getMontant()) throw new Exception("Reste a payer de la facture inferieur au montant saisie");
             
             FcDefPr fc = new FcDefPr();
-            fc.setId2(def.getIdProvision());
+            fc.setId2(prov.getId());
             fc.setMontant(-1*this.getMontant());
             fc.setEtat(ConstanteEtat.getEtatValider());
             fc.createObject(u, c);

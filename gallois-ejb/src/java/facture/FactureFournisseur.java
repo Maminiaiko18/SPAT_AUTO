@@ -1623,11 +1623,12 @@ public class FactureFournisseur extends FactureClient {
         try{
             this.setIdengagement(null);
             this.setNumeroop(null);
-            this.setCode(null);
             this.setDatedevise(Utilitaire.dateDuJourSql());
             this.setDaty(Utilitaire.dateDuJourSql());
             if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
                 this.setNum(this.calculerNumeroBP(c));
+            }else {
+                this.setCode(null);
             }
         }
         catch(Exception e){

@@ -22,9 +22,9 @@
     ligncredit.setNomTable(nomTable);
     
     //String listeCrt[] = {"id","escale","nomnavire", "valconsignataire", "valcargaison", "valquaisdestination","datearrivee", "date_depart","quaisdestination"};
-    String listeCrt[] = {"id", "direction", "projet", "designation","compte","annee","comptestr","niveau1", "niveau2", "niveau3", "niveau4"};
+    String listeCrt[] = {"id", "direction", "projet", "designation","compte","annee"/*,"comptestr","niveau1", "niveau2", "niveau3", "niveau4"*/};
     String listeInt[] = {"annee"};
-    String libEntete[] = {"id", "direction", "projet", "designation","compte","annee","montant","facture","pourcEngage","paye","pourcPaye","arecouvrir","restebudget"};
+    String libEntete[] = {"id", "direction", "projet", "designation","compte","annee","montant"/*,"facture","pourcEngage","paye","pourcPaye","arecouvrir","restebudget"*/};
     PageRecherche pr = new PageRecherche(ligncredit, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
@@ -33,22 +33,11 @@
     pr.getFormu().getChamp("annee2").setLibelle("Ann&eacute;e max");
     pr.getFormu().getChamp("annee2").setDefaut(Utilitaire.getAnneeEnCours());
     pr.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
-    pr.getFormu().getChamp("comptestr").setLibelle("Compte Pur");
+    //pr.getFormu().getChamp("comptestr").setLibelle("Compte Pur");
     String idUser = String.valueOf(u.getUserEJBBeanInstance().getUser().getRefuser());
-    if(idUser.compareToIgnoreCase("1060")!=0 ) {
-        if(idUser.compareToIgnoreCase("1477")!=0 ) {
-            if(idUser.compareToIgnoreCase("1543")!=0 ) {
-                if(idUser.compareToIgnoreCase("1544")!=0 ) {
-                    if (u.getCodeEtablissement() != null) {
-                            pr.getFormu().getChamp("direction").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getVal()));
-                        }
-                    }
-            }
-        }
-    }
-    String[] colSomme = {"montant","facture","paye","arecouvrir","restebudget"};
+    String[] colSomme = {"montant"/*,"facture","paye","arecouvrir","restebudget"*/};
     pr.creerObjetPage(libEntete, colSomme);
-	pr.getTableauRecap().setLibeEntete(new String[]{"", "Nombre", "Somme De Montant","Somme De Factur&eacute;","Somme De Pay&eacute;","Somme De A Recouvrir","Somme De Reste Sur Budget"});
+	pr.getTableauRecap().setLibeEntete(new String[]{"", "Nombre", "Somme De Montant"/*,"Somme De Factur&eacute;","Somme De Pay&eacute;","Somme De A Recouvrir","Somme De Reste Sur Budget"*/});
 %>
 <script>
     function changerDesignation() {
@@ -99,7 +88,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "Direction", "Projet", "D&eacute;signation","Compte","Ann&eacute;e","Montant","Factur&eacute;","% factur&eacute;","Pay&eacute;","% pay&eacute;"," A recouvrir","reste sur budget"};
+            String libEnteteAffiche[] = {"id", "Direction", "Projet", "D&eacute;signation","Compte","Ann&eacute;e","Montant"/*,"Factur&eacute;","% factur&eacute;","Pay&eacute;","% pay&eacute;"," A recouvrir","reste sur budget"*/};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
