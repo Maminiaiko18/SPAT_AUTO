@@ -2935,13 +2935,17 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
 
+            if (mere.getTuppleID() != null && mere.getTuppleID().matches("\\d+")) {
+                int id = Integer.parseInt(mere.getTuppleID());
+                if (id > 0) {
+                    mere.setTuppleId("0");
+                }
+            }
             if (mere instanceof mg.spat.Billetage) {
                 mg.spat.Billetage billetage = (mg.spat.Billetage) mere;
                 double montant = 0;
                 int size = fille.length;
                 //System.out.println("SIZE: " + size);
-                if(Integer.parseInt(billetage.getId()) > 0)
-                    billetage.setId("0");
                 for (int i = 0; i < size; i++) {
                     //System.out.println("ATO: "+((mg.spat.DetailsBilletage)fille[i]).getMontant());
                     montant += ((mg.spat.DetailsBilletage) fille[i]).getMontant();
