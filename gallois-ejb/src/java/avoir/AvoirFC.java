@@ -476,6 +476,7 @@ public class AvoirFC extends ClassMere {
             if (factureLiee.getBateau() != null && factureLiee.getDateDepart() != null){
                 factureLiee.setDaty(Utilitaire.dateDuJourSql());
             }
+            factureLiee.setDaty(Utilitaire.dateDuJourSql());
             factureLiee.createObject(user, c);
             if(verif==1)c.commit();
             return factureLiee;
