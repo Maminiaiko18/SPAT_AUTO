@@ -157,7 +157,7 @@
         pi.getFormu().getChamp("idplacement").setLibelle("Placement");
         pi.getFormu().getChamp("idplacementvrai").setVisible(false);
         pi.getFormu().getChamp("datesaisie").setVisible(false);
-
+        pi.getFormu().getChamp("Idmouvcaisse").setVisible(false);
 
         if (idOP != null) {
 
