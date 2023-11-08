@@ -10,24 +10,27 @@
 <%@page import="affichage.TableauRecherche"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRecherche"%>
+<%@ page import="user.*"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     //int etatOP = Utilitaire.stringToInt(request.getParameter("etatOP"));
     //String ded_id = request.getParameter("ded_id");
-    
+    UserEJB u = (UserEJB) session.getAttribute("u");
+    String userRole = u.getUser().getIdrole();
     JournalCaisse act = new JournalCaisse();
     act.setNomTable("PAIEMENTOPJCUNION");
     String listeCrt[] = {"idordre"};
     String listeInt[] = {};
-        String libEntete[] = {"id","valcaisse","numpiece", "DATEEFFET","numcheque", "libelle", "debit"};
-    
-    String awhere = "";
-        
+    String libEntete[] = {"id","valcaisse","numpiece", "DATEEFFET","numcheque", "libelle", "debit"};
+
     PageRecherche pr = new PageRecherche(act, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-
+    if(userRole.compareToIgnoreCase("ROL000002")==0 || userRole.compareToIgnoreCase("ROL000450")==0){
+       pr.setAWhere(" AND ETAT = 11");
+    }
+    
     String[] colSomme = null;
     
     pr.creerObjetPage(libEntete, colSomme);
