@@ -10,13 +10,19 @@
 <%
 try{
     BonDeCommandeFille  p = new BonDeCommandeFille ();
+    String[] etatVal = {"AS_BC_ANALYSEFILLE_LIB", "AS_BC_ANALYSEFILLE_LIBC", "AS_BC_ANALYSEFILLE_LIBV", "AS_BC_ANALYSEFILLE_LIBA"};
+    String[] etatAff = {"Tous", "Cr&eacute;e(s)", "Vis&eacute;e(s)", "Annul&eacute;e(s)"};
     
-    String nomTable = "AS_BC_ANALYSEFILLE_LIB";
-    p.setNomTable(nomTable);
-    String listeCrt[] = {"idbc","numbc","daty", "codelib", "projetlib", "produit","designation", "fournisseurlib"};
+    p.setNomTable(etatVal[0]);
+    if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
+        System.out.println("tonga atoooooo=="+request.getParameter("etat"));
+            p.setNomTable(request.getParameter("etat"));
+        }
+    
+    String listeCrt[] = {"idbc","numbc","daty", "codelib", "projetlib", "produit", "fournisseurlib"};
     String listeInt[] = {"daty"};
-    String[] pourcentage = {};
-    String colDefaut[] = {"idbc","numbc", "daty", "codelib", "projetlib", "produit","designation", "quantite", "unite", "pu", "montantht", "fournisseurlib"};
+//    String[] pourcentage = {};
+    String colDefaut[] = {"idbc","numbc", "daty", "codelib", "projetlib", "produit", "quantite", "unite", "pu", "montantht", "fournisseurlib"};
     String somDefaut[] = {};
         //PageRechercheGroupe pr=new PageRechercheGroupe(p,request,listeCrt,listeInt,3,colDefaut,somDefaut,pourcentage,listeCrt.length,colDefaut.length);
     PageRechercheGroupe pr = new PageRechercheGroupe(p, request, listeCrt, listeInt, 3, colDefaut, somDefaut, null, 2 , 2);
@@ -55,6 +61,20 @@ try{
                             </div>
                         </div>
                         <div class="col-md-4"></div>
+                         <div class="row col-md-12">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    Etat : 
+                    <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
+                        <%for(int i=0; i<etatVal.length; i++){
+                            String selected = etatVal[i].equalsIgnoreCase(p.getNomTable()) ? "selected" : "";
+                        %>
+                        <option value="<%=etatVal[i]%>" <%=selected%>><%=etatAff[i]%></option>
+                        <%}%>
+                    </select>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
 		</form>
                
 
@@ -77,7 +97,7 @@ try{
 </div>
 		
 		<%
-                    String libEnteteAffiche[] = {"IDBC","NUMBC", "date", "code", "projet", "produit","designation", "quantite", "unite", "pu", "montant HT", "fournisseur"};
+                    String libEnteteAffiche[] = {"IDBC","NUMBC", "date", "code", "projet", "produit", "quantite", "unite", "pu", "montant HT", "fournisseur"};
                     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                     out.println(pr.getTableau().getHtml());
                     out.println(pr.getBasPage());
