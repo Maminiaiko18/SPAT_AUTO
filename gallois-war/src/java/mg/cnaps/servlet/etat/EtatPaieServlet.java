@@ -4577,7 +4577,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("modeTransport", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
             param.put("deplacement", mere[0].getDuree());
             param.put("numOM", mere[0].getNumOM());
-            param.put("dateArrive", mere[0].getDatearrivee());
+            //param.put("dateArrive", mere[0].getDatearrivee());
             param.put("daty", mere[0].getDatedepart());
             IndemniteMission t = new IndemniteMission();
             t.setNomTable("indemnite_mission_lib");
