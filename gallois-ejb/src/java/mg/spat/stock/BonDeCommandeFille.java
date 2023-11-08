@@ -460,8 +460,8 @@ public class BonDeCommandeFille extends ClassMAPTable {
     }
      
     public EngagementFille createEngagementFille(String idEngagement)throws Exception{
-        String designation = Utilitaire.champNull(this.getRemarque());
-        if(designation=="") designation = "-";
+        String designation = this.getProduit();
+        if(designation==null) designation = this.getDesignation();
         return new EngagementFille(idEngagement, designation,this.getMontant());
     }
 }

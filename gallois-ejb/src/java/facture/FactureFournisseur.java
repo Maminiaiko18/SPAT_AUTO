@@ -28,6 +28,7 @@ import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
+import historique.MapUtilisateur;
 
 /**
  *
@@ -891,6 +892,16 @@ public class FactureFournisseur extends FactureClient {
                 c.setAutoCommit(false);
                 ouvert = true;
             }
+
+            if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
+                MapUtilisateur[] user = (MapUtilisateur[]) CGenUtil.rechercher(new MapUtilisateur(), null, null, null, " and refuser="+u);
+                // pas de visa Bon provsoire pour la caisse depenses
+                if(user[0].getIdrole().equalsIgnoreCase("ROL0000001321113437")) throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
+                if (this.getNum() == null) {
+                    this.setNum(this.calculerNumeroBP(c));
+                }
+            }
+
             BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
             if(bedfilles.length > 0){
                 if(this.getIdengagement()==null )throw new Exception("Veuillez attacher cet facture à l'engagement dans le BED.");
@@ -920,10 +931,6 @@ public class FactureFournisseur extends FactureClient {
 
             if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
                 this.genererPaiementDefinitive(u, this.getIdProvision(), c);
-            }
-
-            if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getNum() == null) {
-                this.setNum(this.calculerNumeroBP(c));
             }
             
             if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && (this.getModepaiement() == null || this.getModepaiement().compareToIgnoreCase(Constante.paiementNull) == 0)) {

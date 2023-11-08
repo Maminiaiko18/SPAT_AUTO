@@ -25,7 +25,7 @@
         fa.setNomTable("situationLC_vide");
 
         // String listeCrt[] = {"compteInv", "compteSimple", "direction", "projet", "directionProjet", "daty", "annee"};
-         String listeCrt[] = {"compteInv", "compteSimple", "direction", "projet", "directionProjet", "annee"};
+         String listeCrt[] = {"direction", "projet", "directionProjet", "annee"};
 
          
         // String listeInt[] = {"daty"};
@@ -57,8 +57,8 @@
      
        
         
-        pr.getFormu().getChamp("compteInv").setLibelle("Compte inv");
-        pr.getFormu().getChamp("compteSimple").setLibelle("Compte compta");
+        //pr.getFormu().getChamp("compteInv").setLibelle("Compte inv");
+        //pr.getFormu().getChamp("compteSimple").setLibelle("Compte compta");
         pr.getFormu().getChamp("direction").setLibelle("Direction");
 
         pr.getFormu().getChamp("projet").setLibelle("Code projet");

@@ -20,8 +20,8 @@
         if (request.getParameter("etatvue") != null) {
             cht.setNomTable(request.getParameter("etatvue"));
         }
-        String libEntete[] = { "id","idmere","numpiece","daty","code","client", "designation", "compte", "pu", "quantite", "duree", "tva","devise", "montant", "montantTva", "montantttc", "etatlib"};
-        String listeCrt[] = {"compte","designation","numpiece","annee", "type","daty","mereca","code","devise"};
+        String libEntete[] = { "id","idmere","numpiece","daty","code","client","cdclt", "designation", "compte", "pu", "quantite", "duree", "tva","devise", "montant", "montantTva", "montantttc", "etatlib"};
+        String listeCrt[] = {"compte","designation","numpiece","annee", "type","daty","mereca","code","devise","client","cdclt"};
         String listeInt[] = {"daty"};
 
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -37,7 +37,7 @@
         pr.getFormu().getChamp("type").setLibelle("Type");
         pr.getFormu().getChamp("compte").setLibelle("Compte");
          pr.getFormu().getChamp("code").setLibelle("Code");
-        
+         pr.getFormu().getChamp("cdclt").setLibelle("Code client");
         
         pr.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
         
@@ -123,7 +123,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"ID Fille","ID mere","numpiece","date","Code","client", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA","Devise", "Montant", "Montant TVA", "Montant TTC", "Etat"};
+            String libEnteteAffiche[] = {"ID Fille","ID mere","numpiece","date","Code","client","Code client", "Désignation", "Compte", "Prix unitaire", "Quantité", "Durée", "TVA","Devise", "Montant", "Montant TVA", "Montant TTC", "Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

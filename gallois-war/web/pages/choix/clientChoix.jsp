@@ -14,7 +14,7 @@
     
     PageRechercheChoix pr = new PageRechercheChoix(cons, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     
-    pr.setChampReturn("tiers;tierslib");
+    pr.setChampReturn("tierslib;tierslib");
     pr.setUtilisateur(u);
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("clientCategorieChoix.jsp");
