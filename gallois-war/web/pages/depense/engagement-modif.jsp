@@ -60,7 +60,7 @@
         pi.getFormu().getChamp("DateImpression").setVisible(false);
         pi.getFormu().getChamp("montantreste").setVisible(false);
         pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
-
+        pi.getFormu().getChamp("montant").setAutre("readonly");
 
         pi.getFormu().getChamp("projet").setAutre("readonly");
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp", "projet;projetlibelle");
@@ -124,6 +124,27 @@
     $('#idLClibelle').val('<%= Utilitaire.champNull(mere.getIdLClib())%>');
     $('#tierslibelle').val('<%= Utilitaire.champNull(mere.getTierslib())%>');
     $('label[for="id"]').html('');
+
+    document.getElementById('engagement').addEventListener('input', function(event) {
+    const targetId = event.target.id;
+    if (targetId && targetId.startsWith('montant_')) {
+        calculTotal(); 
+    }
+    });
+      function calculTotal() {
+        let total = 0;
+        const ligneTab = document.getElementById('ajout_multiple_ligne').children;
+        for (let i = 0; i <ligneTab.length; i++) { 
+            const mtfilleInput = document.getElementById('montant_'+i);
+            mtfilleInput.addEventListener('input', calculTotal);
+            const mtfille = parseFloat(mtfilleInput.value) || 0; 
+           total +=  mtfille;
+        }
+        document.getElementById('montant').value = total;
+    }
+    $(document).ready(function () {
+        calculTotal();
+    });
 </script>
 <% } catch (Exception ex) {
         ex.printStackTrace();
