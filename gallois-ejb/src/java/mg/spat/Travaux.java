@@ -21,9 +21,39 @@ import utilitaire.Utilitaire;
  */
 public class Travaux extends ClassEtat{
     
-    private String id,nom,description,idtypetravaux,iddevise,projet,codeetablissement,projetlib,codeetablissementlib,tiers,tierslib;
+    private String id,nom,description,idpatrimoine ,idtypetravaux,iddevise,projet,codeetablissement,projetlib,codeetablissementlib,tiers,tierslib;
     private Date datedebut,datefin;
     private double montant,avancement;
+    private String patrimoinelib;;
+    private String patrimoinedesce;
+    
+
+    public String getPatrimoinelib() {
+        return patrimoinelib;
+    }
+
+    public String getIdpatrimoine() {
+        return idpatrimoine;
+    }
+
+    public void setIdpatrimoine(String idpatrimoine) {
+        this.idpatrimoine = idpatrimoine;
+    }
+    
+
+    public void setPatrimoinelib(String patrimoinelib) {
+        this.patrimoinelib = patrimoinelib;
+    }
+
+    public String getPatrimoinedesce() {
+        return patrimoinedesce;
+    }
+
+    public void setPatrimoinedesce(String patrimoinedesce) {
+        this.patrimoinedesce = patrimoinedesce;
+    }
+
+
 
     public String getTierslib() {
         return tierslib;
