@@ -30,9 +30,9 @@
     pc.getChampByName("CODEETABLISSEMENTLIB").setVisible(false);
     pc.getChampByName("datefin").setLibelle("date fin");
     pc.getChampByName("iddevise").setLibelle("Devise");
-    pc.getChampByName("patrimoinelib").setLibelle("Patrimoine");
+    pc.getChampByName("patrimoinelib").setLibelle("Libelle patrimoine");
+    pc.getChampByName("idpatrimoine").setLibelle("Patrimoine");
     pc.getChampByName("patrimoinedesce").setLibelle("Description patrimoine");
-
     pc.getChampByName("idtypetravaux").setLibelle("type travaux");
     pc.getChampByName("projet").setVisible(false);
     pc.getChampByName("codeetablissement").setVisible(false);
