@@ -19,7 +19,7 @@
     UserEJB u = (UserEJB) session.getAttribute("u");
     Chantier base = (Chantier) pi.getBase();
     pi.getFormu().getChamp("idtiers").setValeurLibelle(base.getNomtiers());
-    pi.getFormu().getChamp("idtravaux").setValeurLibelle(base.getNomtravaux());
+    pi.getFormu().getChamp("idtravaux").setValeurLibelle(base.getPatrimoinelib());
     pi.getFormu().getChamp("codeetablissement").setValeurLibelle(base.getCodeetablissementlib());
     pi.getFormu().getChamp("projet").setValeurLibelle(base.getProjetlib());
     pi.getFormu().getChamp("idtravaux").setPageAppel("choix/listeTravauxChoix.jsp");
@@ -32,6 +32,8 @@
     pi.getFormu().getChamp("idtravaux").setLibelle("Travaux");
     pi.getFormu().getChamp("datydebut").setLibelle("date de début");
     pi.getFormu().getChamp("datyfin").setLibelle("date fin");
+    pi.getFormu().getChamp("patrimoinelib").setLibelle("Libellé Patrimoine");
+    pi.getFormu().getChamp("patrimoinedesce").setLibelle("Description Patrimoine");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("avancement").setVisible(false);
     pi.getFormu().getChamp("nomtiers").setVisible(false);

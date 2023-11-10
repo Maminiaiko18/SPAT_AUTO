@@ -44,6 +44,8 @@ public class ChantierLibComplet extends ClassEtat{
     private double montantFacture;
     private double montantReste;
     private String tiers, dirtravaux, projetlib, codeetablissementlib;
+    private String patrimoinelib;
+    private String patrimoinedesce;
 
     public ChantierLibComplet() {
         this.setNomTable("chantierlibcomplet");
@@ -321,6 +323,22 @@ public class ChantierLibComplet extends ClassEtat{
     @Override
     public String getAttributIDName() {
         return "id";
+    }
+
+    public String getPatrimoinelib() {
+        return patrimoinelib;
+    }
+
+    public void setPatrimoinelib(String patrimoinelib) {
+        this.patrimoinelib = patrimoinelib;
+    }
+
+    public String getPatrimoinedesce() {
+        return patrimoinedesce;
+    }
+
+    public void setPatrimoinedesce(String patrimoinedesce) {
+        this.patrimoinedesce = patrimoinedesce;
     }
 
 }

@@ -29,6 +29,8 @@
     pc.getChampByName("idtravaux").setLibelle("travaux");
     pc.getChampByName("datydebut").setLibelle("Date dï¿½but");
     pc.getChampByName("datyfin").setLibelle("Date fin");
+    pc.getChampByName("patrimoinelib").setLibelle("Libellé du patrimoine");
+    pc.getChampByName("patrimoinedesce").setLibelle("description du patrimoine");
     pc.getChampByName("avancement").setLibelle("Avancement %");
     pc.getChampByName("dirtravaux").setLibelle("Direction");
     pc.getChampByName("codeetablissementlib").setLibelle("Code &eacute;tablissement");
