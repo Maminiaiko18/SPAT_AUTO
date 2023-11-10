@@ -1,5 +1,6 @@
 package mg.spat;
 
+
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,15 +11,16 @@ import utilitaire.Utilitaire;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  *
  * @author Asus
  */
-public class Patrimoine extends ClassMAPTable {
-
-    private String id, idObjet, idTypePatrimoine, remarque, etat, libelle, description, occupant, utilisation, devise;
+public class Patrimoine extends ClassMAPTable{
+    
+    private String id,idObjet,idTypePatrimoine,remarque,etat,libelle, description,occupant,utilisation,devise;
     private Date date_change;
-    private double cours_change, superficie;
+    private double cours_change,superficie;
     private String valtypepatrimoine;
     private Date date_debut_contrat;
     private Date date_fin_contrat;
@@ -38,12 +40,8 @@ public class Patrimoine extends ClassMAPTable {
     public void setDate_fin_contrat(Date date_fin_contrat) {
         this.date_fin_contrat = date_fin_contrat;
     }
-    
-    @Override
-    public String getValColLibelle() {
-        return this.getLibelle();
-    }
 
+    
     public String getValtypepatrimoine() {
         return valtypepatrimoine;
     }
@@ -60,6 +58,7 @@ public class Patrimoine extends ClassMAPTable {
         this.superficie = superficie;
     }
 
+    
     public String getDevise() {
         return devise;
     }
@@ -81,12 +80,10 @@ public class Patrimoine extends ClassMAPTable {
     }
 
     public void setCours_change(double cours_change) throws Exception {
-        if (cours_change < 0) {
-            throw new Exception("Cours de change invalide");
-        }
+        if(cours_change<0) throw new Exception("Cours de change invalide");
         this.cours_change = cours_change;
     }
-
+    
     public String getUtilisation() {
         return utilisation;
     }
@@ -95,10 +92,10 @@ public class Patrimoine extends ClassMAPTable {
         this.utilisation = utilisation;
     }
     private double montant;
-    private Date debut_contrat, fin_contrat;
+    private Date debut_contrat,fin_contrat;
 
     public Patrimoine() {
-        this.setNomTable("patrimoine");
+         this.setNomTable("patrimoine");
     }
 
     public Patrimoine(String id, String idObjet, String idTypePatrimoine, String remarque, String etat) {
@@ -134,7 +131,7 @@ public class Patrimoine extends ClassMAPTable {
         /*if(this.getMode().compareTo("modif")==0){
             if(occupant.equalsIgnoreCase("")) throw new Exception("Occupant ne doit pas etre vide");
         }*/
-
+       
         this.occupant = occupant;
     }
 
@@ -143,10 +140,8 @@ public class Patrimoine extends ClassMAPTable {
     }
 
     public void setMontant(double montant) throws Exception {
-        if (this.getMode().compareTo("modif") == 0) {
-            if (montant < 0) {
-                throw new Exception("Montant invalide");
-            }
+        if(this.getMode().compareTo("modif")==0){
+            if(montant<0) throw new Exception("Montant invalide");
         }
         this.montant = montant;
     }
@@ -210,20 +205,23 @@ public class Patrimoine extends ClassMAPTable {
     public void setEtat(String etat) {
         this.etat = etat;
     }
+    
+    
+    
+    
 
     @Override
     public String getTuppleID() {
-        return id;
+     return id;
     }
 
     @Override
     public String getAttributIDName() {
-        return "id";
+     return "id"; 
     }
-
-    public void construirePK(Connection c) throws Exception {
+     public void construirePK(Connection c) throws Exception {
         this.preparePk("PAT", "getseq_patrimoine");
         this.setId(makePK(c));
     }
-
+    
 }
