@@ -53,6 +53,8 @@
         
         pi.getFormu().getChamp("idpatrimoine").setPageAppel("choix/listePatrimoineChoix.jsp");
         pi.getFormu().getChamp("idpatrimoine").setAutre("readonly");
+                pi.getFormu().getChamp("idpatrimoine").setLibelle("Patrimoine");
+
 
         pi.preparerDataFormu();
 %>
