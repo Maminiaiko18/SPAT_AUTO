@@ -26,7 +26,7 @@
     
     pc.setTitre("Fiche retour OM");
     String lien = (String) session.getValue("lien");
-    String pageModif = "ordre-mission/ordre-mission-modif.jsp";
+    String pageModif = "ordre-mission/retourom-modif.jsp";
     String classe = "ordremission.RetourOM";
     String bute="ordre-mission/retourom-fiche.jsp"; 
        
