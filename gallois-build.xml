@@ -1,6 +1,6 @@
 <project name="deploy-ejb" default="deploy" basedir="./build-file">
     <property environment="env"/>
-    <property name="deploy.dir" value="D:/kandra/Dev gallois/env/jboss-as-7.1.1.Final/standalone/deployments"/>
+    <property name="deploy.dir" value="E:\BICI\BICI\wildfly-10\wildfly-10\standalone\deployments"/>
     <property name="gallois-warname" value="gallois.war"/>
     <property name="gallois-jarname" value="gallois-ejb.jar"/>
     <property name="gallois-earname" value="gallois.ear"/>
