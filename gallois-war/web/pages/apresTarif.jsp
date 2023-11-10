@@ -385,7 +385,6 @@
         if (acte.compareToIgnoreCase("delete") == 0) {
             String error = ""; %>
     <%//if(request.getParameter("confirm") != null){
-        try {
             System.out.println("suppression : " + request.getParameter("confirm") + " nom table : " + nomtable);
             t = (ClassMAPTable) (Class.forName(classe).newInstance());
             t.setValChamp(t.getAttributIDName(), request.getParameter("id"));
@@ -402,12 +401,7 @@
                 <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie+ rajoutLieFormu%>&id=<%=request.getParameter("idmere")%>");</script>
             <%
         }
-
-    } catch (Exception e) {%>
-    <script language="JavaScript">alert('<%=e.getMessage()%>');history.back();</script>
-    <%
-        }
-//                }else{%>
+%>
     <%//  }
         }
         if (acte.compareToIgnoreCase("annulerremplacer") == 0) {
