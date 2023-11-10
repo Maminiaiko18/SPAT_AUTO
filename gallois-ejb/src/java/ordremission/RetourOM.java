@@ -6,8 +6,8 @@
 package ordremission;
 
 import bean.ClassEtat;
-import bean.ClassMAPTable;
 import java.sql.Date;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -39,7 +39,10 @@ public class RetourOM extends ClassEtat{
         return heurearrivee;
     }
 
-    public void setHeurearrivee(String heurearrivee) {
+    public void setHeurearrivee(String heurearrivee) throws Exception {
+        if (getMode().compareToIgnoreCase("modif") == 0) {
+            Utilitaire.testHeureValide(heurearrivee);
+        }
         this.heurearrivee = heurearrivee;
     }
 
@@ -92,6 +95,10 @@ public class RetourOM extends ClassEtat{
     @Override
     public String getAttributIDName() {
         return "id";
+    }
+
+    public RetourOM() {
+        super.setNomTable("RETOUR_OM");
     }
     
 }
