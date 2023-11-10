@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUIVI_CONTRAT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc854c4c-cca7-4334-b317-4b1746075475">
 	<property name="ireport.zoom" value="1.0980750000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="184"/>
+	<property name="ireport.y" value="206"/>
 	<parameter name="contrat" class="java.lang.String"/>
 	<parameter name="titulaire" class="java.lang.String"/>
 	<parameter name="objet" class="java.lang.String"/>
@@ -232,7 +232,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MONTANT FACTURE HT]]></text>
+				<text><![CDATA[MONTANT FACTURE TTC]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="322" y="0" width="129" height="20" forecolor="#000000" backcolor="#99CCFF" uuid="a955f253-c0ca-4db1-950c-236c04324e1b"/>
@@ -295,7 +295,7 @@
 			<textField pattern="#,##0.00">
 				<reportElement x="186" y="0" width="136" height="20" uuid="65481256-3aa7-4b07-acb9-53041984a2ea"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{montantht}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
