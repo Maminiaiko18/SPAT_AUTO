@@ -86,12 +86,12 @@ public class RetourOM extends ClassEtat{
     
     @Override
     public String getTuppleID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return id;
     }
 
     @Override
     public String getAttributIDName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "id";
     }
     
 }
