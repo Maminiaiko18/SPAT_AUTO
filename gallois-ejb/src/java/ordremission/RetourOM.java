@@ -6,6 +6,7 @@
 package ordremission;
 
 import bean.ClassEtat;
+import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.Utilitaire;
 
@@ -96,9 +97,31 @@ public class RetourOM extends ClassEtat{
     public String getAttributIDName() {
         return "id";
     }
+    
+    @Override
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("ROM", "getseqretour_om");
+        this.setId(makePK(c));
+    }
 
     public RetourOM() {
         super.setNomTable("RETOUR_OM");
     }
     
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        try{
+            OrdreMission om = new OrdreMission();
+            OrdreMission ordremission = (OrdreMission)om.getById(this.getIdom(), "ordre_mission", c);
+            double dureereelle = Utilitaire.getDiffJour(ordremission.getDatedepart(), this.getDatearrivee());
+            int heure = Integer.parseInt(this.getHeurearrivee().substring(0, 2));
+            if(heure < 12)
+                dureereelle -= 0.5;
+            this.setDureereelle(dureereelle);
+            return super.validerObject(u, c);
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
 }
