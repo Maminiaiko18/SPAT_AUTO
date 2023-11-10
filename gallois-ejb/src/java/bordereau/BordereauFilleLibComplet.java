@@ -14,6 +14,31 @@ import java.sql.Date;
 public class BordereauFilleLibComplet extends BordereauFille{
     private String remarque,idfacture,idbordereaulib,code_etablissement,code_etablissementlib;
     private Date datefacture;
+    private String direction,projet,numerofact;
+
+    public String getNumerofact() {
+        return numerofact;
+    }
+
+    public void setNumerofact(String numerofact) {
+        this.numerofact = numerofact;
+    }
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String  direction) {
+        this.direction = direction;
+    }
 
     public Date getDatefacture() {
         return datefacture;
