@@ -242,4 +242,16 @@ public class Chantier extends ClassEtat{
         this.patrimoinedesce = patrimoinedesce;
     }
     
+    @Override
+    public void controler(Connection c) throws Exception {
+        try{
+            Travaux t = new Travaux();
+            Travaux travaux = (Travaux)t.getById(this.getIdtravaux(), null, c);
+            if((travaux.getDatedebut().after(this.getDatydebut())) || (this.getDatydebut().after(travaux.getDatefin())) || (travaux.getDatefin().before(this.getDatyfin())) || (this.getDatyfin().before(travaux.getDatedebut())))
+                throw new Exception("Les dates du chantier doivent etre comprises entre les dates du travaux");
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
 }

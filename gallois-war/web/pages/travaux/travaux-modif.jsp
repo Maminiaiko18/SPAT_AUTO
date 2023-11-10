@@ -22,7 +22,7 @@
     pi.getFormu().getChamp("datefin").setLibelle("Date fin");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("datefin").setLibelle("Date fin");
-    
+
     affichage.Champ[] liste = new affichage.Champ[2];
     TypeObjet mvt = new TypeObjet();
     mvt.setNomTable("typeTravaux");
@@ -37,14 +37,30 @@
     pi.getFormu().getChamp("projetlib").setVisible(false);
     pi.getFormu().getChamp("codeetablissementlib").setVisible(false);
     pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
-    pi.getFormu().getChamp("projet").setAutre("readonly");
-    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
-    pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
-    pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    //pi.getFormu().getChamp("projet").setAutre("readonly");
+    // pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    // pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
+    //pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("projet").setVisible(false);
+    // pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setVisible(false);
+    //pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+
+    pi.getFormu().getChamp("idpatrimoine").setLibelle("Patrimoine");
+    pi.getFormu().getChamp("idpatrimoine").setAutre("readonly");
+
+//    idimmo: popup 
+    pi.getFormu().getChamp("idpatrimoine").setPageAppel("choix/listePatrimoineChoix.jsp");
+    pi.getFormu().getChamp("patrimoinelib").setVisible(false);
+    pi.getFormu().getChamp("patrimoinedesce").setVisible(false);
+
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tierslib").setVisible(false);
     pi.getFormu().getChamp("tiers").setValeurLibelle(base.getTierslib());
+    pi.getFormu().getChamp("idpatrimoine").setValeurLibelle(base.getPatrimoinelib());
+
     pi.getFormu().getChamp("projet").setValeurLibelle(base.getProjetlib());
     pi.getFormu().getChamp("codeetablissement").setValeurLibelle(base.getCodeetablissementlib());
 %>

@@ -8,26 +8,30 @@
 <%@page import="mg.spat.Travaux"%>
 <%@page import="affichage.PageRecherche"%>
 
-<% try{ 
-    Travaux info = new Travaux();
-    info.setNomTable("travauxlib");
-    String listeCrt[] = {"id","nom","tierslib","description","datedebut","datefin","PROJETLIB","CODEETABLISSEMENTLIB"};
-    String listeInt[] = {"datedebut","datefin"};
-    String libEntete[] = {"id","PROJETLIB","CODEETABLISSEMENTLIB","tierslib","nom","description","datedebut","datefin","iddevise"};
-    PageRecherche pr = new PageRecherche(info, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-    pr.setUtilisateur((user.UserEJB) session.getValue("u"));
-    pr.setLien((String) session.getValue("lien"));
-    pr.setApres("travaux/travaux-liste.jsp");
-    pr.getFormu().getChamp("datedebut1").setLibelle("Date Debut min");
-    pr.getFormu().getChamp("datedebut2").setLibelle("Date Debut max");
-    pr.getFormu().getChamp("datefin1").setLibelle("Date Fin min");
-    pr.getFormu().getChamp("datefin2").setLibelle("Date Fin max");
-    pr.getFormu().getChamp("PROJETLIB").setLibelle("Projet");
-    pr.getFormu().getChamp("CODEETABLISSEMENTLIB").setLibelle("code Etab");
-    pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+<% try {
+        Travaux info = new Travaux();
+        info.setNomTable("travauxlib");
+        String listeCrt[] = {"id", "nom", "tierslib", "description", "datedebut", "datefin", "patrimoinelib", "patrimoinedesce"};
+        String listeInt[] = {"datedebut", "datefin"};
+        String libEntete[] = {"id", "tierslib", "nom", "description", "datedebut", "datefin", "iddevise", "patrimoinelib", "patrimoinedesce"};
+        PageRecherche pr = new PageRecherche(info, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+        pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+        pr.setLien((String) session.getValue("lien"));
+        pr.setApres("travaux/travaux-liste.jsp");
+        pr.getFormu().getChamp("datedebut1").setLibelle("Date Debut min");
+        pr.getFormu().getChamp("datedebut2").setLibelle("Date Debut max");
+        pr.getFormu().getChamp("datefin1").setLibelle("Date Fin min");
+        pr.getFormu().getChamp("datefin2").setLibelle("Date Fin max");
+//    pr.getFormu().getChamp("PROJETLIB").setLibelle("Projet");
+//        pr.getFormu().getChamp("PROJETLIB").setVisible(false);
+        pr.getFormu().getChamp("patrimoinelib").setLibelle("Patrimoine");
+        pr.getFormu().getChamp("patrimoinedesce").setLibelle("Description patrimoine");
 
-    String[] colSomme = null;
-    pr.creerObjetPage(libEntete, colSomme);
+//        pr.getFormu().getChamp("patrimoinedesce").setVisible(false);
+        pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+
+        String[] colSomme = null;
+        pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
     function changerDesignation() {
@@ -46,22 +50,22 @@
         </form>
         <%
             String lienTableau[] = {pr.getLien() + "?but=travaux"
-                    + "/travaux-fiche.jsp"};
+                + "/travaux-fiche.jsp"};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id","Projet","Code Etab","Tiers","Nom","Description","Date debut","Date fin","Devise"};
+            String libEnteteAffiche[] = {"Id", "Tiers", "Nom", "Description", "Date debut", "Date fin", "Devise", "Patrimoine", "Desce patrimoine"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
         %>
     </section>
 </div>
-    <%
-    }catch(Exception e){
+<%
+    } catch (Exception e) {
         e.printStackTrace();
     }
 %>
