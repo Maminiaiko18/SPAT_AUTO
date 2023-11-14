@@ -178,13 +178,13 @@
 			</textField>
 			<textField>
 				<reportElement x="194" y="0" width="361" height="20" uuid="78f84620-9421-421f-9824-1351d3a6c547"/>
-				<box>
+				<box leftPadding="10">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{idmenu}]]></textFieldExpression>
 			</textField>
 		</band>
