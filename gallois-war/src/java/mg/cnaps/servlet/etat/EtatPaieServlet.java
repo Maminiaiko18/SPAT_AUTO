@@ -138,6 +138,7 @@ import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
 import mg.spat.LibererLib;
 import ordremission.IndemniteMission;
+import ordremission.RetourOM;
 
 /**
  *
@@ -4605,8 +4606,30 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("total",total);
             param.put("deplacementDP", liste[0].getFraisdeplacement() * mere[0].getDuree() );
             param.put("restaurationDP", liste[0].getFraisrestauration() * mere[0].getDuree());
-           
             param.put("totalDP",totalDP);
+            if(mere[0].getIdretour_om() != null && mere[0].getEtat() == ConstanteEtat.getEtatValider()){
+            RetourOM retOM = new RetourOM();
+            RetourOM[] listeRetOM = (RetourOM[]) CGenUtil.rechercher(retOM, null, null, " and id='" + mere[0].getIdretour_om()+ "'");
+            double montantDec = listeRetOM[0].getPrixunitaire() * listeRetOM[0].getDureereelle();
+            double totalIndemnite = (listeRetOM[0].getPrixunitaire()) * (listeRetOM[0].getDureereelle()) *(3) ;
+            if(listeRetOM[0].getNombres() > 0 ){
+                double pu = listeRetOM[0].getNombres() * listeRetOM[0].getPrixunitaire();
+                totalIndemnite = totalIndemnite + pu;
+             }
+            double difference = totalIndemnite - totalDP;
+            double retourner = 0 ;
+            double   payer = 0;
+            if(difference > 0 )
+              retourner = Math.abs(difference);
+            if(difference < 0)
+                payer = Math.abs(difference);
+            param.put("montantDec", montantDec);
+            param.put("totalIndemnite", totalIndemnite );
+            param.put("payer", payer );
+            param.put("retourner", retourner );
+            param.put("difference", Math.abs(difference));
+            param.put("totalProv", totalDP);
+            }
             setNomJasper("DEMANDE_AVANCE");
             UtilitaireImpression.imprimer(request, response, "Demande d' avance", param, null, getReportPath());
 
