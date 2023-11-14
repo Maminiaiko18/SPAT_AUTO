@@ -37,7 +37,7 @@
 
 %>
 <div class="content-wrapper">
-    <h1 align="center">Saisie Ordre de Mission</h1>
+    <h1 align="center">Saisie Retour Ordre de Mission</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post"  data-parsley-validate>
         <%
             out.println(pi.getFormu().getHtmlInsert());

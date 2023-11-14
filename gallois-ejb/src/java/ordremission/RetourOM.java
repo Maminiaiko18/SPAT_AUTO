@@ -13,6 +13,7 @@ import facture.FactureFournisseurDetails;
 import java.sql.Connection;
 import java.sql.Date;
 import user.UserEJB;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -171,6 +172,31 @@ public class RetourOM extends ClassEtat{
         }
     }
     
+    @Override
+    public void controler(Connection c) throws Exception {
+        try{
+            FactureFournisseur[] factures = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and idom = '" + this.getIdom() + "'");
+            if(factures.length == 0)
+                throw new Exception("Aucun bon provisoire existant pour cet OM.");
+            else{
+                if(factures[0].getEtat() != ConstanteEtat.getEtatValider())
+                    throw new Exception("Bon provisoire non vis\\351. Impossible de g\\351n\\351rer facture d\\351finitive");
+                if(!factures[0].checkPaiement(c)) {
+                    throw new Exception("Bon provisoire non pay\\351. Impossible de g\\351n\\351rer facture d\\351finitive");
+                }
+            }
+            String condition = " and idom = '" + this.getIdom() + "'";
+            if(this.getId() != null || this.getId().compareToIgnoreCase("") != 0 || this.getId().compareToIgnoreCase("0") != 0)
+                condition += " and id != '" + this.getId() + "'";
+            RetourOM[] retour = (RetourOM[]) CGenUtil.rechercher(new RetourOM(), null, null, c, condition);
+                if(retour.length > 0)
+                    throw new Exception("Retour d\\351j\\340 existant pour cet OM.");
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+    
     public void genererFactureDefinitive(UserEJB u, Connection c) throws Exception {
         try{
             FactureFournisseur[] factures = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and idom = '" + this.getIdom() + "'");
@@ -191,13 +217,11 @@ public class RetourOM extends ClassEtat{
                     ffnv.setAnnee(ffdetails[0].getAnnee());
                     ffnv.setCompte(ffdetails[0].getCompte());
                     ffnv.setTaux(ffdetails[0].getTaux());
-                    ffnvdets[0] = ffnv;
-                    int j = 0;
-                    for(int i = 1; i < t; i++){
-                        ffdetails[j].setQuantite(this.getDureereelle());
-                        ffnvdets[i] = ffdetails[j];
-                        j++;
-                    }
+                    ffnvdets[t] = ffnv;
+                }
+                for(int i = 0; i < t; i++){
+                    ffdetails[i].setQuantite(this.getDureereelle());
+                    ffnvdets[i] = ffdetails[i];
                 }
                 factures[0].setFille(ffnvdets);
                 FactureFournisseur ff = factures[0].genererDefinitive(u, 1, c);
