@@ -3108,16 +3108,12 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
     public String isExistMenu(utilisateur.UserMenu[] listE, String menu, String refuser,String role) throws Exception {
         for (int i = 0; i < listE.length; i++) {
             if(refuser != null){
-                System.out.println("EXISTENCE YSER");
-
                 if (listE[i].getIdmenu().compareToIgnoreCase(menu) == 0 && listE[i].getRefuser().equalsIgnoreCase(refuser)) {
                     return listE[i].getId();
                 }
             }
 
             if(role != null){
-                System.out.println("EXISTENCE ROLE");
-
                 if (listE[i].getIdmenu().compareToIgnoreCase(menu) == 0 && listE[i].getIdrole().equalsIgnoreCase(role)) {
                     return listE[i].getId();
                 }
