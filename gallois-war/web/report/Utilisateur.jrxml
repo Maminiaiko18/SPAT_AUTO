@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Utilisateur" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b0a9a09-7944-47ce-ba53-f8127b39ec36">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="mdp" class="java.lang.String"/>
+	<parameter name="role" class="java.lang.String"/>
+	<parameter name="nom" class="java.lang.String"/>
+	<parameter name="login" class="java.lang.String"/>
+	<parameter name="tel" class="java.lang.String"/>
+	<parameter name="Direction" class="java.lang.String"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="idmenu" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="160" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="47" width="100" height="20" uuid="028073c4-8a62-46b4-b30e-b94918ef86c3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mots de passe ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="47" width="438" height="20" uuid="1cadc0f7-5f14-428f-91da-ea5c1c30a734"/>
+				<textFieldExpression><![CDATA[$P{mdp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="127" width="100" height="20" uuid="06f0106a-c644-467c-8b43-742c0bb02835"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rôle ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="127" width="438" height="20" uuid="468f8543-330d-441e-b731-71cb3eff350a"/>
+				<textFieldExpression><![CDATA[$P{role}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="67" width="100" height="20" uuid="cc93cb53-1186-43ca-91e0-a608e9d45ae2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nom de l'utilisateur ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="67" width="438" height="20" uuid="7d1b40a5-2fdc-47c7-aaca-87b40f63f9f4"/>
+				<textFieldExpression><![CDATA[$P{nom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="27" width="100" height="20" uuid="37d3fb2c-de91-465d-bc5c-c297db626859"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Login ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="27" width="438" height="20" uuid="8b2775d9-0c83-496d-a36d-89e8fa2f66d8"/>
+				<textFieldExpression><![CDATA[$P{login}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="87" width="100" height="20" uuid="fcd2f8c3-6c4a-472a-93d6-19b0f0517e66"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Téléphone ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="87" width="438" height="20" uuid="d59fd845-6f8c-4aaf-936c-b01b549963fc"/>
+				<textFieldExpression><![CDATA[$P{tel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="107" width="100" height="20" uuid="f0e161d8-e9c8-4fe4-a20d-c130433eb8e3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Direction]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="107" width="438" height="20" uuid="2e6c56a3-d7fa-419d-a691-8ad42b7c4e44"/>
+				<textFieldExpression><![CDATA[$P{Direction}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="47" width="17" height="20" uuid="c5096182-2a62-4460-850c-7bbde3d99aea"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="127" width="17" height="20" uuid="b4394d25-2b47-4ad8-9126-0d4fe492fecf"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="67" width="17" height="20" uuid="c86a9ca3-bcd1-4ee6-a6f7-0a8760d30019"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="27" width="17" height="20" uuid="f0d8f31a-c1cb-4664-a740-660018b1e9f6"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="87" width="17" height="20" uuid="e890c0d8-89a2-462f-808c-227ea26bd385"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="107" width="17" height="20" uuid="2b6837b0-af7a-420c-8fc4-2de8130c2754"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="be1c77e5-1817-43a4-8cc5-c9c976fbd132"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fiche utilisateur]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="194" height="20" uuid="08211323-a312-42e4-af5d-d9ba210ce03b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="0" width="361" height="20" uuid="294aec88-09ab-4240-955b-49bceb9e56f3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Menu]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<textField>
+				<reportElement x="0" y="0" width="194" height="20" uuid="1935e2c1-cc87-4473-ba76-583492a2229e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="0" width="361" height="20" uuid="78f84620-9421-421f-9824-1351d3a6c547"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idmenu}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

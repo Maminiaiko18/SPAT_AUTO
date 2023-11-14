@@ -60,6 +60,8 @@
                         <br/>
                         <div class="box-footer">
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=utilisateur/utilisateur-modif.jsp&refuser=" + request.getParameter("refuser")%>" style="margin-right: 10px">Modifier</a>       
+                            <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerUtilisateur&refuser=<%=request.getParameter("refuser")%>" style="margin-right: 10px">Imprimer </a>                            
+                        
                         </div>
                         <br/>
 
