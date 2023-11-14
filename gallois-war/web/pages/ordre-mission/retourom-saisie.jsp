@@ -22,6 +22,11 @@
     pi.getFormu().getChamp("prixunitaire").setLibelle("Prix Unitaire");
 //    pi.getFormu().getChamp("fraisdeplacement").setLibelle("Frais de déplacement");
     pi.getFormu().getChamp("autres").setLibelle("Autres");
+    pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("dureereelle").setVisible(false);
+    pi.getFormu().getChamp("idom").setLibelle("Ordre mission");
+    pi.getFormu().getChamp("idom").setAutre("readonly");
+    pi.getFormu().getChamp("idom").setDefaut(request.getParameter("idom"));
     //Variables de navigation
     String classe = "ordremission.RetourOM";
     String butApresPost = "ordre-mission/retourom-fiche.jsp";
