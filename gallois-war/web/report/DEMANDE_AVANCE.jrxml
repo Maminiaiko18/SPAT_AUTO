@@ -349,7 +349,7 @@
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75" lineStyle="Dotted"/>
-					<rightPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -365,6 +365,7 @@
 			<staticText>
 				<reportElement x="230" y="519" width="325" height="243" uuid="53de74dd-4929-48d7-b001-82f8965297ec"/>
 				<box>
+					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
@@ -374,7 +375,7 @@
 				<reportElement x="242" y="635" width="302" height="1" uuid="21ab68bc-990f-4192-9aa0-5d5b8001dda5"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="519" width="242" height="258" uuid="56ba49be-9ccd-46d9-ab13-81088d8f007f"/>
+				<reportElement x="0" y="519" width="555" height="258" uuid="56ba49be-9ccd-46d9-ab13-81088d8f007f"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
