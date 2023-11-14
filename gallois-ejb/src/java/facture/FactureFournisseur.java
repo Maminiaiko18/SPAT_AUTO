@@ -1238,6 +1238,14 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public void controler(Connection c) throws Exception {
+        
+        if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getIdom() != null){
+            FactureFournisseur[] factures = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and idom = '" + this.getIdom() + "' and id != '" + this.getTuppleID() + "'");
+            if(factures.length > 0){
+                throw new Exception("Bon provisoire d\351j\340 existant pour cet OM.");
+            }
+        }
+        
         if (this.getIdengagement() != null && this.getIdengagement().compareTo("") != 0) {
             Engagement eg = this.findEngagement(c);
             if (eg == null) {

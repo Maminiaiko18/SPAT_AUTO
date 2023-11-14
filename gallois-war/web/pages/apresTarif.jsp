@@ -1,3 +1,4 @@
+<%@page import="ordremission.RetourOM"%>
 <%@page import="facture.LiaisonEngagement"%>
 <%@page import="bordereau.BordereauFF"%>
 <%@page import="facture.FactureFournisseur"%>
@@ -575,6 +576,14 @@
             bed.setId(request.getParameter("id"));
             bed = (BordereauFF)bed.getById(request.getParameter("id"), "BordereauFF", null);
             id = bed.engager(u.getUser().getTuppleID(), null, true);
+        }
+
+        if(acte.compareToIgnoreCase("validerROM") == 0){
+            RetourOM retour = new RetourOM();
+            retour.setId(request.getParameter("id"));
+            retour = (RetourOM)retour.getById(request.getParameter("id"), "retour_om", null);
+            retour.validerObjectOM(u, null);
+            id = retour.getIdfactfournisseur();
         }
         
         String idAttributeName = "id";

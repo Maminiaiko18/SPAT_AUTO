@@ -20,6 +20,7 @@
     pc.getChampByName("datearrivee").setLibelle("Date arriv&eacute;e");
     pc.getChampByName("heurearrivee").setLibelle("Heure arriv&eacute;e");
     pc.getChampByName("prixunitaire").setLibelle("Prix unitaire");
+    pc.getChampByName("dureereelle").setLibelle("Dur&eacute;e r&eacute;elle");
     pc.getChampByName("nombres").setVisible(false);
     pc.getChampByName("autres").setVisible(false);
     pc.getChampByName("idom").setVisible(false);
@@ -47,7 +48,7 @@
                         <br/>
                         <div class="box-footer">
                             <a class="btn btn-warning"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin: 5px 10px 0px 0px">Modifier</a>
-                            <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=ordre-mission/retourom-fiche.jsp&classe=<%=classe %>" style="margin: 5px 10px 0px 0px">Viser</a>
+                            <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=validerROM&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-modif-vaovao.jsp&classe=<%=classe %>" style="margin: 5px 10px 0px 0px">Viser</a>
                          </div>
                         <br/>
 
