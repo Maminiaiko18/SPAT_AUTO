@@ -150,28 +150,6 @@ public class RetourOM extends ClassEtat{
         }
     }
     
-    public void controlerRetourOMUnique(Connection c) throws Exception {
-        try{
-            RetourOM[] retour = (RetourOM[]) CGenUtil.rechercher(new RetourOM(), null, null, c, " and idom = '" + this.getIdom() + "'");
-            if(retour.length > 0)
-                throw new Exception("Retour d\\351j\\340 existant pour cet OM.");
-        }
-        catch(Exception e){
-            throw e;
-        }
-    }
-    
-    @Override
-    public ClassMAPTable createObject(String u, Connection c) throws Exception {
-        try{
-            controlerRetourOMUnique(c);
-            return super.createObject(u, c);
-        }
-        catch(Exception e){
-            throw e;
-        }
-    }
-    
     @Override
     public void controler(Connection c) throws Exception {
         try{

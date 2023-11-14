@@ -21,8 +21,7 @@
     pc.getChampByName("heurearrivee").setLibelle("Heure arriv&eacute;e");
     pc.getChampByName("prixunitaire").setLibelle("Prix unitaire");
     pc.getChampByName("dureereelle").setLibelle("Dur&eacute;e r&eacute;elle");
-    pc.getChampByName("nombres").setVisible(false);
-    pc.getChampByName("autres").setVisible(false);
+    pc.getChampByName("nombres").setLibelle("Quantit&eacute;");
     pc.getChampByName("idom").setVisible(false);
     
     pc.setTitre("Fiche retour OM");
