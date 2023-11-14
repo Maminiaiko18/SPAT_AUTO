@@ -1,19 +1,20 @@
 <%-- 
     Document   : listeff.jsp
-    Created on : 22 févr. 2022, 15:20:49
+    Created on : 22 fï¿½vr. 2022, 15:20:49
     Author     : andri
 --%>
 <%@page import="ded.OrdonnerPayement"%>
 <%@page import="affichage.PageRecherche"%>
 <%
     OrdonnerPayement j = new OrdonnerPayement();
-        j.setNomTable("ORDONNERPAYEMENT_LIBgrp");
+        j.setNomTable("ORDONNERPAYEMENT_LIB");
      String libEntete[] =  {"id","ded_Id", "tiers","numeroop","daty" ,"remarque","montant"};
     String listeCrt[] = {"ded_id"};
     String listeInt[] = {};
+    String id = request.getParameter("id");
     
     PageRecherche pr = new PageRecherche(j, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-          pr.setAWhere("and DED_ID like '%"+request.getParameter("id")+"%'");
+          pr.setAWhere("and DED_ID like '%"+id+"%'");
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         
@@ -30,7 +31,7 @@
         out.println(pr.getTableau().getHtmlWithCheckbox());
     %> 
     <% }else{
-        %><center><h4>Pas de résultat</h4></center><%
+        %><center><h4>Pas de rï¿½sultat</h4></center><%
     }
 %>
   

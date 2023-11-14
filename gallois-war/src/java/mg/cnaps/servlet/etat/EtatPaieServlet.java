@@ -135,12 +135,14 @@ import facture.tr.Traite;
 import facture.GestionProvision;
 import user.*;
 import bean.*;
+import historique.MapUtilisateurLib;
 import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
 import mg.spat.DetailsBilletage;
 import mg.spat.EtatGrandCA;
 import mg.spat.LibererLib;
 import ordremission.IndemniteMission;
+import utilisateur.UserMenu;
 
 /**
  *
@@ -274,6 +276,9 @@ public class EtatPaieServlet extends HttpServlet {
                 imprimerDecompte(request, response);
             }
             
+            else if (action.equalsIgnoreCase("imprimerUtilisateur")) {
+                imprimerUtilisateur(request, response);
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -4686,6 +4691,25 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("totalDP",totalDP);
             setNomJasper("DEMANDE_AVANCE");
             UtilitaireImpression.imprimer(request, response, "Demande d' avance", param, null, getReportPath());
+    private void imprimerUtilisateur(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String refuser = request.getParameter("refuser");
+            MapUtilisateurLib mp = new MapUtilisateurLib();
+            MapUtilisateurLib[] mere = (MapUtilisateurLib[]) CGenUtil.rechercher(mp, null, null, " and refuser='" + refuser + "' ");
+            Map param = new HashMap();
+            param.put("nom", mere[0].getNomuser());
+            param.put("tel", mere[0].getTeluser());
+            param.put("Direction", mere[0].getAdruser());
+            param.put("mdp", mere[0].getPwduser());
+            param.put("role", mere[0].getIdrole());
+            param.put("login", mere[0].getLoginuser());
+            UserMenu user = new UserMenu();
+            user.setNomTable("v_usermenu");
+            UserMenu[] fille = (UserMenu[]) CGenUtil.rechercher(user, null, null, " and refuser='" + refuser + "' OR idrole='"+mere[0].getIdrole()+"'  and interdit != 1 ");
+            List dataSource = new ArrayList();
+            dataSource.addAll(Arrays.asList(fille));
+            setNomJasper("Utilisateur");
+            UtilitaireImpression.imprimer(request, response, "Utilisateur", param, dataSource, getReportPath());
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -121,6 +121,7 @@ try{
 
 //    String[] colOrdreF={"id","idfacture","medicament","Designation","quantite","montant","montantT","remarque"};
 //    pi.getFormufle().setColOrdre(colOrdreF);
+    pi.getFormufle().setApres("stock/bc/asBonDeCommande-modif-multiple.jsp&idmere="+request.getParameter("id"));
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">

@@ -63,7 +63,7 @@
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
         pi.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
-        
+          pi.getFormu().getChamp("montant").setAutre("readonly");
         
 
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
@@ -74,18 +74,9 @@
         //if (u.getCodeEtablissement() != null) {
         //    pi.getFormu().getChamp("codeEtablissement").setDefaut(Utilitaire.champNull(u.getCodeEtablissement().getId()));
         //}
-        pi.getFormu().getChamp("designation").setAutre("onchange=\"setFilleValue('designation_0', this)\"");
-        pi.getFormu().getChamp("montant").setAutre("onchange=\"setFilleValue('montant_0', this)\"");
+      
         int taille = pi.getNombreLigne();
-        for (int i = 0; i < taille; i++) {
-            if (i == 0) {
-                pi.getFormufle().getChamp("designation_" + i).setAutre("onchange=\"setOnblurInMere('designation_0', this)\"");
-                pi.getFormufle().getChamp("montant_" + i).setAutre("onchange=\"setOnblurInMere('montant_0', this)\"");
-            }
-            else {
-                pi.getFormufle().getChamp("montant_" + i).setAutre("onchange=\"calculTotal()\"");
-            }
-        }
+      
         pi.preparerDataFormu();
 %>
 <style>
@@ -120,7 +111,7 @@
     </form>
 </div>
 <script>
-    window.onload = () =>{
+ window.onload = () =>{
         var submitBtns = document.querySelectorAll("button[name='Submit2'][type='submit']");
         for(var i=0; i < submitBtns.length; i++){
             modifySubmitBtn(submitBtns[i]);    
@@ -147,8 +138,6 @@
             }
         });
     }
-
-
     function initTotalSection() {
         const engagementForm = document.getElementById('engagement');
         const boxFooterElmts = engagementForm.getElementsByClassName('box-footer');
@@ -157,51 +146,36 @@
         const total = document.createElement("p");
         total.className = "total-section";
         total.innerHTML = "Total:<span id='totalAmount'>0</span>";
-
         parentNode.insertBefore(total, lastFooter);
     }
-    
-    function getValeurMontant(numLigne) {
-        const valeur = Number($('#montant_' + numLigne).val());
-        return !isNaN(valeur) ? valeur : 0;
+    document.getElementById('engagement').addEventListener('input', function(event) {
+    const targetId = event.target.id;
+    if (targetId && targetId.startsWith('montant_')) {
+        calculTotal(); 
     }
-
-    function calculTotal() {
+    });
+      function calculTotal() {
         let total = 0;
         const ligneTab = document.getElementById('ajout_multiple_ligne').children;
-        
-        for(let i=0; i < ligneTab.length; i++) {
-            total += getValeurMontant(i);
+        for (let i = 0; i <ligneTab.length; i++) { 
+            const mtfilleInput = document.getElementById('montant_'+i);
+            mtfilleInput.addEventListener('input', calculTotal);
+            const mtfille = parseFloat(mtfilleInput.value) || 0; 
+           total +=  mtfille;
         }
-
-        const nouvelValeur = Intl.NumberFormat('fr-FR').format(total);
-        $('#totalAmount').text(nouvelValeur);
+        document.getElementById('montant').value = total;
     }
-
     $(document).ready(function () {
         initTotalSection();
         calculTotal();
     });
+  
 </script>
 <script>
     <%-- <% if (u.getCodeEtablissement() != null) {%>
     $("#codeEtablissementlibelle").val("<%= Utilitaire.champNull(u.getCodeEtablissement().getVal())%>");
     <% } %> --%>
-    function setFilleValue(idFille, elem) {
-        var elemFille = document.getElementById(idFille);
-        if (elemFille) {
-            elemFille.value = elem.value;
-        }
-    }
 
-    function setOnblurInMere(idMere, elemFille) {
-        console.log('calcul total');
-        calculTotal();
-        var elemMere = document.getElementById(idMere);
-        if (elemMere && elemFille.value != "") {
-            elemMere.onblur = calculTotal();
-        }
-    }
 </script>        
 <%
 } catch (Exception e) {

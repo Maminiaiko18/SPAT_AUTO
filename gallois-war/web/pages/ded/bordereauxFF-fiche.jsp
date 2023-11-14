@@ -114,7 +114,9 @@
                                     <th style="background-color:#bed1dd;">ID</th>
                                     <th style="background-color:#bed1dd;">Designation</th>
                                     <th style="background-color:#bed1dd;">Facture</th>
-                                    <th style="background-color:#bed1dd;">Code Dir</th>
+                                    <th style="background-color:#bed1dd;">N°Facture</th>
+                                    <th style="background-color:#bed1dd;">Projet</th>
+                                    <th style="background-color:#bed1dd;">Direction</th>
                                     <th style="background-color:#bed1dd;">Montant HT</th>
                                     <th style="background-color:#bed1dd;"></th>
                                 </tr>
@@ -132,7 +134,9 @@
                                             <%=utilitaire.Utilitaire.champNull(detail.getIdfacture())%>
                                         </a>
                                     </td>
-                                    <td align="right"><%=utilitaire.Utilitaire.champNull(detail.getCode_etablissementlib())%></td>
+                                    <td align="right"><%=utilitaire.Utilitaire.champNull(detail.getNumerofact())%></td>
+                                    <td align="right"><%=utilitaire.Utilitaire.champNull(detail.getProjet())%></td>
+                                    <td align="right"><%=utilitaire.Utilitaire.champNull(detail.getDirection())%></td>
                                     <td align="right"><%=utilitaire.Utilitaire.formaterAr(detail.getMontant())%></td>
                                     <td>
                                     <form action="<%=(String) session.getValue("lien")+"?but=apresTarif.jsp&id=" + detail.getId()%>" method="post">
@@ -175,9 +179,14 @@
   }
 </script>
 
-   <%
-   }catch(Exception e){
-    e.printStackTrace();
-}
-   %>
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+    %>
+    <script language="JavaScript"> 
+        alert('<%=e.getMessage()%>');
+        history.back();
+    </script>
+    <% }%>
+   
 

@@ -3023,18 +3023,33 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         Connection c = null;
         try {
             c = (new UtilDB()).GetConn();
+            String[] user= null;
+            String[] menu=null;
+            String[] roles = null;
+            String req = "";
+            String req2 = "";
+            String req3 = "";
 
-            String[] user = utilisateur.split(";");
-            String[] menu = menus.split(";");
+            if(utilisateur != null && utilisateur.length() != 0 ) {
+                user = utilisateur.split(";");
+                req2 = Utilitaire.tabToString(user, "'", ",");
+            }
+            if(menus != null && menus.length() != 0) {
+                menu = menus.split(";");
+                req = Utilitaire.tabToString(menu, "'", ",");
+            }
+            if(role != null && role.length() != 0){
+                roles = role.split(";");
+                req3 = Utilitaire.tabToString(roles, "'", ",");
+            }
 
-            String req = Utilitaire.tabToString(menu, "'", ",");
-            String req2 = Utilitaire.tabToString(user, "'", ",");
-            utilisateur.UserMenu[] listE = (utilisateur.UserMenu[]) CGenUtil.rechercher(new utilisateur.UserMenu(), null, null, c, " and IDMENU in (" + req + ") and REFUSER in (" + req2 + ")");
+            utilisateur.UserMenu[] listE = null;
             if (user != null && user.length > 0) {
+                listE = (utilisateur.UserMenu[]) CGenUtil.rechercher(new utilisateur.UserMenu(), null, null, c, " and IDMENU in (" + req + ") and REFUSER in (" + req2 + ")");
                 for (int i = 0; i < user.length; i++) {
                     if (menu != null && menu.length > 0) {
                         for (int j = 0; j < menu.length; j++) {
-                            String idmenu = isExistMenu(listE, menu[j], user[i]);
+                            String idmenu = isExistMenu(listE, menu[j], user[i],null);
                             if (idmenu == null) {
                                 utilisateur.UserMenu um = new utilisateur.UserMenu(role, menu[j], "", "", Integer.parseInt(acces), user[i]);
                                 um.setNomTable("usermenu");
@@ -3052,8 +3067,31 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
                         throw new Exception("Veuillez choisir au moin un menu");
                     }
                 }
+            } else if (roles != null && roles.length > 0) {
+            listE = (utilisateur.UserMenu[]) CGenUtil.rechercher(new utilisateur.UserMenu(), null, null, c, " and IDMENU in (" + req + ") and IDROLE in (" + req3 + ")");
+                for (int i = 0; i < roles.length; i++) {
+                    if (menu != null && menu.length > 0) {
+                        for (int j = 0; j < menu.length; j++) {
+                            String idmenu = isExistMenu(listE, menu[j],null, roles[i]);
+                            if (idmenu == null) {
+                                utilisateur.UserMenu um = new utilisateur.UserMenu(roles[i], menu[j], "", "", Integer.parseInt(acces), null);
+                                um.setNomTable("usermenu");
+                                um.construirePK(c);
+                                um.insertToTableWithHisto(u.getTuppleID(), c);
+                            } else {
+                                utilisateur.UserMenu um = new utilisateur.UserMenu(roles[i], menu[j], "", "", Integer.parseInt(acces), null);
+                                um.setNomTable("usermenu");
+                                um.setId(idmenu);
+                                um.updateToTableWithHisto(u.getTuppleID(), c);
+                            }
+
+                        }
+                    } else {
+                        throw new Exception("Veuillez choisir au moin un menu");
+                    }
+                }
             } else {
-                throw new Exception("Veuillez choisir au moin un utilisateur");
+                throw new Exception("Veuillez choisir au moin un utilisateur ou un role");
             }
 
             c.commit();
@@ -3067,11 +3105,24 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
         }
     }
 
-    public String isExistMenu(utilisateur.UserMenu[] listE, String menu, String refuser) throws Exception {
+    public String isExistMenu(utilisateur.UserMenu[] listE, String menu, String refuser,String role) throws Exception {
         for (int i = 0; i < listE.length; i++) {
-            if (listE[i].getIdmenu().compareToIgnoreCase(menu) == 0 && listE[i].getRefuser() == refuser) {
-                return listE[i].getId();
+            if(refuser != null){
+                System.out.println("EXISTENCE YSER");
+
+                if (listE[i].getIdmenu().compareToIgnoreCase(menu) == 0 && listE[i].getRefuser().equalsIgnoreCase(refuser)) {
+                    return listE[i].getId();
+                }
             }
+
+            if(role != null){
+                System.out.println("EXISTENCE ROLE");
+
+                if (listE[i].getIdmenu().compareToIgnoreCase(menu) == 0 && listE[i].getIdrole().equalsIgnoreCase(role)) {
+                    return listE[i].getId();
+                }
+            }
+                
         }
         return null;
     }
