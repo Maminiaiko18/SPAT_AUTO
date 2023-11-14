@@ -22,10 +22,10 @@
     pc.getChampByName("refuser").setVisible(false);
     String dossier="parametre";
     pc.getChampByName("pwduser").setLibelle("Mots de passe");
-    pc.getChampByName("idrole").setLibelle("Rôle");
+    pc.getChampByName("idrole").setLibelle("Rï¿½le");
     pc.getChampByName("nomuser").setLibelle("Nom de l'utilisateur");
     pc.getChampByName("loginuser").setLibelle("Login");
-    pc.getChampByName("teluser").setLibelle("Téléphone");
+    pc.getChampByName("teluser").setLibelle("Tï¿½lï¿½phone");
     pc.getChampByName("adruser").setLibelle("Direction");
     
     MapUtilisateurLib map = (MapUtilisateurLib) pc.getBase();
@@ -39,7 +39,7 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("parametre/utilisateur-fiche.jsp");
-    pr.setAWhere(" and refuser = '" + map.getRefuser() + "' and interdit != 1 ");
+    pr.setAWhere(" and (refuser = '" + map.getRefuser() + "' OR idrole='"+map.getIdrole()+"')  and interdit != 1 ");
     String colSomme[] = null;
     pr.setNpp(1000);
     pr.creerObjetPage(libEntete, colSomme);
