@@ -218,8 +218,6 @@ public class AnalyseDetailBCsExcel extends HttpServlet {
         }
       
         BonDeCommandeFille[] attestations = (BonDeCommandeFille[])CGenUtil.rechercher(tr, null, null, awhere);
-        System.out.println("awhereawhereawhere"+awhere);
-
             //Connection c = null;
             //try{
                /*c = new UtilDB().GetConn();
