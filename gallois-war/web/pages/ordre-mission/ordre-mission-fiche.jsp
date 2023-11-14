@@ -40,6 +40,8 @@
     pc.getChampByName("idmoyendeplacement").setVisible(false);
     pc.getChampByName("idmoyendeplacementlib").setLibelle("Moyen de d&eacute;placement");
     pc.getChampByName("datearrivee").setLibelle("Date arriv&eacute;e");
+    pc.getChampByName("idretour_om").setLibelle("Retour");
+    pc.getChampByName("idretour_om").setLien((String)session.getValue("lien")+"?but=ordre-mission/retourom-fiche.jsp", "id=");
     pc.setTitre("Fiche Ordre de Mission");
     String lien = (String) session.getValue("lien");
     String pageModif = "ordre-mission/ordre-mission-modif.jsp";

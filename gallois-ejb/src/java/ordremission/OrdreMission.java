@@ -27,7 +27,7 @@ public class OrdreMission extends ClassEtat {
     private int estForfaitaire;
     private OrdreMissionIndemnite[] indemnites;
     private String indemnitemission;
-    private String iduser;
+    private String iduser, idretour_om;
     
     public String getIduser() {
         return iduser;
@@ -166,6 +166,14 @@ public class OrdreMission extends ClassEtat {
         this.datearrivee = datearrivee;
         if(getMode().equals("modif"))
             this.datearrivee = Utilitaire.ajoutJourDate(this.getDatedepart(), (int) Math.ceil(this.getDuree()));
+    }
+
+    public String getIdretour_om() {
+        return idretour_om;
+    }
+
+    public void setIdretour_om(String idretour_om) {
+        this.idretour_om = idretour_om;
     }
 
     @Override
