@@ -17,7 +17,7 @@
         mvt.setNomTable("roles");
         liste[1] = new Liste("idrole",mvt,"descrole","idrole");*/
         
-        String[] affiche = {"Autorisé","Interdit"};
+        String[] affiche = {"Autorisï¿½","Interdit"};
         String[] value = {"0","1"};
         Liste lst = new Liste();
         lst.ajouterValeur(value, affiche);
@@ -29,11 +29,11 @@
         pi.getFormu().getChamp("idmenu").setLibelle("Menu");
         pi.getFormu().getChamp("refuser").setLibelle("Utilisateur");
         
-        //pi.getFormu().getChamp("idrole").setLibelle("Rôle");
+        //pi.getFormu().getChamp("idrole").setLibelle("Rï¿½le");
         pi.getFormu().getChamp("idrole").setVisible(false);
         pi.getFormu().getChamp("codeservice").setVisible(false);
         pi.getFormu().getChamp("codedir").setVisible(false);
-        pi.getFormu().getChamp("interdit").setLibelle("Accès");
+        pi.getFormu().getChamp("interdit").setLibelle("Accï¿½s");
         pi.getFormu().getChamp("idmenu").setAutre("readonly");
         pi.getFormu().getChamp("refuser").setAutre("readonly");
         
@@ -43,7 +43,7 @@
         pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-    <h1 align="center">Ajout Menu</h1>
+    <h1 align="center">Ajout Menu pour utilisateur</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="menu" id="menu" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
