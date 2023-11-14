@@ -12,12 +12,11 @@ try{
     BonDeCommandeFille  p = new BonDeCommandeFille ();
     String[] etatVal = {"AS_BC_ANALYSEFILLE_LIB", "AS_BC_ANALYSEFILLE_LIBC", "AS_BC_ANALYSEFILLE_LIBV", "AS_BC_ANALYSEFILLE_LIBA"};
     String[] etatAff = {"Tous", "Cr&eacute;e(s)", "Vis&eacute;e(s)", "Annul&eacute;e(s)"};
-    
-    p.setNomTable(etatVal[0]);
+    String tablename = etatVal[0];
     if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
-        System.out.println("tonga atoooooo=="+request.getParameter("etat"));
-            p.setNomTable(request.getParameter("etat"));
-        }
+        tablename = request.getParameter("etat");
+    }
+    p.setNomTable(tablename);
     
     String listeCrt[] = {"idbc","numbc","daty", "codelib", "projetlib", "produit", "fournisseurlib"};
     String listeInt[] = {"daty"};
@@ -92,7 +91,7 @@ try{
                 <br>
                  <div class="box-footer">
                     
-        <a class="btn btn-success pull-right"  href="${pageContext.request.contextPath}/AnalyseDetailBCsExcel?action=AnalyseDetailBC&idbc=<%=request.getParameter("idbc") %>&numbc=<%=request.getParameter("numbc") %>&codelib=<%=request.getParameter("codelib") %>&projetlib=<%=request.getParameter("projetlib") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>&produit=<%=request.getParameter("produit") %>&fournisseurlib=<%=request.getParameter("fournisseurlib") %>" style="margin-right: 10px">Export excel</a>                            <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=facturegallois/client/facture-client-saisie.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Dupliquer modele</a>-->
+        <a class="btn btn-success pull-right"  href="${pageContext.request.contextPath}/AnalyseDetailBCsExcel?action=AnalyseDetailBC&tablename=<%=tablename%>&idbc=<%=request.getParameter("idbc") %>&numbc=<%=request.getParameter("numbc") %>&codelib=<%=request.getParameter("codelib") %>&projetlib=<%=request.getParameter("projetlib") %>&daty1=<%=request.getParameter("daty1") %>&daty2=<%=request.getParameter("daty2") %>&produit=<%=request.getParameter("produit") %>&fournisseurlib=<%=request.getParameter("fournisseurlib") %>" style="margin-right: 10px">Export excel</a>                            <!--<a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=facturegallois/client/facture-client-saisie.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Dupliquer modele</a>-->
        
 </div>
 		
