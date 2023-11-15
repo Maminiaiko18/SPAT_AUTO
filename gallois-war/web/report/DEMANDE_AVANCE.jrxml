@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DEMANDE_AVANCE" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c59ed13-7470-4738-bea8-af4aa1e06d11">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="473"/>
+	<property name="ireport.y" value="474"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -28,7 +28,7 @@
 	<parameter name="payer" class="java.lang.Double"/>
 	<parameter name="retourner" class="java.lang.Double"/>
 	<parameter name="totalProv" class="java.lang.Double"/>
-	<parameter name="duree" class="java.lang.Double"/>
+	<parameter name="duree" class="java.lang.String"/>
 	<parameter name="HebergementDec" class="java.lang.Double"/>
 	<parameter name="RestaurationDec" class="java.lang.Double"/>
 	<parameter name="DeplacementDec" class="java.lang.Double"/>

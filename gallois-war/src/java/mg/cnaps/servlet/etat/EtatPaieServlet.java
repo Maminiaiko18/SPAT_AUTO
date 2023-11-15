@@ -4634,7 +4634,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("difference", Math.abs(difference));
             param.put("totalProv", totalDP);
             param.put("dateArrive", listeRetOM[0].getDatearrivee());
-            param.put("duree", listeRetOM[0].getDureereelle());
+            param.put("duree", listeRetOM[0].getHeurearrivee());
             }
             setNomJasper("DEMANDE_AVANCE");
             UtilitaireImpression.imprimer(request, response, "Demande d' avance", param, null, getReportPath());
