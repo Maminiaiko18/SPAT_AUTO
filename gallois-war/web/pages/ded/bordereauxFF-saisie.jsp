@@ -104,6 +104,8 @@
                 }
                 if (i < factures.length) {
                     pi.getFormufle().getChamp("montant_" + i).setDefaut(Utilitaire.formaterAr(factures[i].getMontantttc()) + "");
+                    pi.getFormufle().getChamp("numerofact_" + i).setDefaut(factures[i].getNumeroop());
+                    pi.getFormufle().getChamp("numerofact_" + i).setAutre("readonly");
                     pi.getFormufle().getChamp("idop_" + i).setDefaut(factures[i].getId());
                     pi.getFormufle().getChamp("idop_" + i).setValeurLibelle(factures[i].getDesignation());
                     pi.getFormufle().getChamp("Code_etablissementlib_"+i).setVisible(false);
@@ -116,9 +118,12 @@
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idfacture"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idbordereaulib"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("code_etablissement"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("projet"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("direction"), false);
+        //affichage.Champ.setVisible(pi.getFormufle().getChampFille("numerofact"), false);
         pi.getFormufle().getChamp("idop_0").setLibelle("Facture");
+        pi.getFormufle().getChamp("numerofact_0").setLibelle("Numero facture");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
-
 
 
         pi.preparerDataFormu();
