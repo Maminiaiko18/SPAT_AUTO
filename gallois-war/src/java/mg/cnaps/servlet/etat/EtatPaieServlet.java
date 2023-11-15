@@ -4595,7 +4595,7 @@ public class EtatPaieServlet extends HttpServlet {
                 total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration()+ liste[0].getFraishebergement();
                 totalDP = (liste[0].getFraisdeplacement() * mere[0].getDuree()) + (liste[0].getFraisrestauration() * mere[0].getDuree()) + (liste[0].getFraishebergement()* mere[0].getDuree());
                 hebergementDP = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement()* mere[0].getDuree()));
-                 
+        
             }
             else{
             total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration();
@@ -4612,9 +4612,12 @@ public class EtatPaieServlet extends HttpServlet {
             RetourOM retOM = new RetourOM();
             RetourOM[] listeRetOM = (RetourOM[]) CGenUtil.rechercher(retOM, null, null, " and id='" + mere[0].getIdretour_om()+ "'");
             String HebergementDec = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement() * listeRetOM[0].getDureereelle()));
-             double RestaurationDec = liste[0].getFraisrestauration() * listeRetOM[0].getDureereelle();
+            double RestaurationDec = liste[0].getFraisrestauration() * listeRetOM[0].getDureereelle();
             double DeplacementDec = liste[0].getFraisdeplacement()* listeRetOM[0].getDureereelle();
-            double totalIndemnite =  (liste[0].getFraishebergement() * listeRetOM[0].getDureereelle())+ RestaurationDec + DeplacementDec;
+            double totalIndemnite = 0 ;
+            if(mere[0].getEstForfaitairelib().compareToIgnoreCase("non") == 0 ){
+                totalIndemnite =  RestaurationDec + DeplacementDec;
+            }else totalIndemnite =  (liste[0].getFraishebergement() * listeRetOM[0].getDureereelle())+ RestaurationDec + DeplacementDec;
             if(listeRetOM[0].getNombres() > 0 ){
                 double pu = listeRetOM[0].getNombres() * listeRetOM[0].getPrixunitaire();
                 totalIndemnite = totalIndemnite + pu;
@@ -4639,7 +4642,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("totalProv", totalDP);
             param.put("dateArrive", listeRetOM[0].getDatearrivee());
             param.put("duree", listeRetOM[0].getHeurearrivee());
-            double Autre = (listeRetOM[0].getPrixunitaire()) * (listeRetOM[0].getNombres()) * (listeRetOM[0].getDureereelle());
+            double Autre = (listeRetOM[0].getPrixunitaire()) * (listeRetOM[0].getNombres());
             param.put("autre", Autre);
             }
             setNomJasper("DEMANDE_AVANCE");
