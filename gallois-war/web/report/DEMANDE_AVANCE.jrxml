@@ -507,7 +507,7 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{retourner}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="392" y="603" width="152" height="20" uuid="ca9544cc-26b7-4dd4-a7e8-b026f9be53b3"/>
 				<textFieldExpression><![CDATA[$P{duree}]]></textFieldExpression>
 			</textField>
