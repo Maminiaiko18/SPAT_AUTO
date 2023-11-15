@@ -13,10 +13,10 @@ import facture.FactureFournisseurDetails;
 import java.sql.Connection;
 import java.sql.Date;
 import user.UserEJB;
+import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
-import java.util.Vector;
 
 /**
  *
@@ -128,6 +128,7 @@ public class RetourOM extends ClassEtat{
         try{
             if(c == null){
                 c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
             }
             OrdreMission om = new OrdreMission();
             OrdreMission ordremission = (OrdreMission)om.getById(this.getIdom(), "ordre_mission", c);
@@ -139,9 +140,13 @@ public class RetourOM extends ClassEtat{
             
             this.genererFactureDefinitive(u, c);
             
-            return super.validerObject(u.getUser().getTuppleID(), c);
+            RetourOM retour = (RetourOM)super.validerObject(u.getUser().getTuppleID(), c);
+            if (c != null) c.commit();
+            
+            return retour;
         }
         catch(Exception e){
+            if (c != null) c.rollback();
             throw e;
         }
         finally {
@@ -154,7 +159,7 @@ public class RetourOM extends ClassEtat{
     @Override
     public void controler(Connection c) throws Exception {
         try{
-            FactureFournisseur[] factures = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and idom = '" + this.getIdom() + "'");
+            FactureFournisseur[] factures = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and idom = '" + this.getIdom() + "' and idcategorie = '" + Constante.idBonProvisoire + "'");
             if(factures.length == 0)
                 throw new Exception("Aucun bon provisoire existant pour cet OM.");
             else{
@@ -165,7 +170,7 @@ public class RetourOM extends ClassEtat{
                 }
             }
             String condition = " and idom = '" + this.getIdom() + "'";
-            if(this.getId() != null || this.getId().compareToIgnoreCase("") != 0 || this.getId().compareToIgnoreCase("0") != 0)
+            if(this.getId() != null && this.getId().compareToIgnoreCase("") != 0 && this.getId().compareToIgnoreCase("0") != 0)
                 condition += " and id != '" + this.getId() + "'";
             RetourOM[] retour = (RetourOM[]) CGenUtil.rechercher(new RetourOM(), null, null, c, condition);
                 if(retour.length > 0)
@@ -177,44 +182,39 @@ public class RetourOM extends ClassEtat{
     }
     
     public void genererFactureDefinitive(UserEJB u, Connection c) throws Exception {
-        try {
-            FactureFournisseur[] factures = (FactureFournisseur[])CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and idom = '" + this.getIdom() + "'");
-            if (factures.length > 0) {
-                FactureFournisseurDetails[] ffdt = (FactureFournisseurDetails[])factures[0].getFille("facture_fournisseur_fille", c, "");
-                Vector<FactureFournisseurDetails> ffdetails = new Vector<>();
-    
-                for (int i = 0; i < ffdt.length; i++) {
-                    ffdt[i].setQuantite(this.getDureereelle());
-                    ffdetails.add(ffdt[i]);
-                }
-    
-                if (this.getNombres() > 0) {
+        try{
+            FactureFournisseur[] factures = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and idom = '" + this.getIdom() + "'");
+            if(factures.length > 0){
+                FactureFournisseurDetails[] ffdetails = (FactureFournisseurDetails[])factures[0].getFille("facture_fournisseur_fille", c, "");
+                FactureFournisseurDetails[] ffnvdets = ffdetails;
+                int t = ffdetails.length;
+                if(this.getNombres() > 0){
+                    ffnvdets = new FactureFournisseurDetails[t+1];
                     FactureFournisseurDetails ffnv = new FactureFournisseurDetails();
                     ffnv.setIdmere(factures[0].getId());
                     ffnv.setDesignation(this.getAutres());
                     ffnv.setQuantite(this.getNombres());
                     ffnv.setPu(this.getPrixunitaire());
-                    ffnv.setDevise(ffdetails.get(0).getDevise());
-                    ffnv.setMois(ffdetails.get(0).getMois());
-                    ffnv.setAnnee(ffdetails.get(0).getAnnee());
-                    ffnv.setCompte(ffdetails.get(0).getCompte());
-                    ffnv.setTaux(ffdetails.get(0).getTaux());
-    
-                    if (ffnv != null) {
-                        ffdetails.add(ffnv);
-                    }
+                    ffnv.setDevise(ffdetails[0].getDevise());
+                    ffnv.setMois(ffdetails[0].getMois());
+                    ffnv.setAnnee(ffdetails[0].getAnnee());
+                    ffnv.setCompte(ffdetails[0].getCompte());
+                    ffnv.setTaux(ffdetails[0].getTaux());
+                    ffnvdets[t] = ffnv;
                 }
-
-                FactureFournisseurDetails[] ffdetailsArray = new FactureFournisseurDetails[ffdetails.size()];
-                ffdetails.toArray(ffdetailsArray);
-    
-                factures[0].setFille(ffdetailsArray);
+                for(int i = 0; i < ffdetails.length; i++){
+                    ffdetails[i].setQuantite(this.getDureereelle());
+                    ffnvdets[i] = ffdetails[i];
+                }
+                factures[0].setFille(ffnvdets);
                 FactureFournisseur ff = factures[0].genererDefinitive(u, 1, c);
                 this.setIdfactfournisseur(ff.getId());
-            } else {
+            }
+            else{
                 throw new Exception("Aucun bon provisoire existant pour cet OM.");
             }
-        } catch (Exception e) {
+        }
+        catch(Exception e){
             throw e;
         }
     }
