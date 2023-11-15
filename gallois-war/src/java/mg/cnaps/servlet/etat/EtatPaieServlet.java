@@ -4610,7 +4610,10 @@ public class EtatPaieServlet extends HttpServlet {
             if(mere[0].getIdretour_om() != null && mere[0].getEtat() == ConstanteEtat.getEtatValider()){
             RetourOM retOM = new RetourOM();
             RetourOM[] listeRetOM = (RetourOM[]) CGenUtil.rechercher(retOM, null, null, " and id='" + mere[0].getIdretour_om()+ "'");
-            double totalIndemnite = (listeRetOM[0].getPrixunitaire()) * (listeRetOM[0].getDureereelle()) *(3) ;
+            double HebergementDec = liste[0].getFraishebergement() * listeRetOM[0].getDureereelle();
+            double RestaurationDec = liste[0].getFraisrestauration() * listeRetOM[0].getDureereelle();
+            double DeplacementDec = liste[0].getFraisdeplacement()* listeRetOM[0].getDureereelle();
+            double totalIndemnite = HebergementDec + RestaurationDec + DeplacementDec;
             if(listeRetOM[0].getNombres() > 0 ){
                 double pu = listeRetOM[0].getNombres() * listeRetOM[0].getPrixunitaire();
                 totalIndemnite = totalIndemnite + pu;
@@ -4622,9 +4625,9 @@ public class EtatPaieServlet extends HttpServlet {
               payer = Math.abs(difference);
             if(totalIndemnite < totalDP)
                 retourner = Math.abs(difference);
-            param.put("HebergementDec", liste[0].getFraishebergement() * listeRetOM[0].getDureereelle());
-            param.put("RestaurationDec",liste[0].getFraisrestauration() * listeRetOM[0].getDureereelle());
-            param.put("DeplacementDec",liste[0].getFraisdeplacement()* listeRetOM[0].getDureereelle());
+            param.put("HebergementDec", HebergementDec);
+            param.put("RestaurationDec",RestaurationDec);
+            param.put("DeplacementDec",DeplacementDec);
             param.put("totalIndemnite", totalIndemnite );
             param.put("payer", payer );
             param.put("retourner", retourner );
