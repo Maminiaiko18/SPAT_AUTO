@@ -4610,7 +4610,6 @@ public class EtatPaieServlet extends HttpServlet {
             if(mere[0].getIdretour_om() != null && mere[0].getEtat() == ConstanteEtat.getEtatValider()){
             RetourOM retOM = new RetourOM();
             RetourOM[] listeRetOM = (RetourOM[]) CGenUtil.rechercher(retOM, null, null, " and id='" + mere[0].getIdretour_om()+ "'");
-            double montantDec = listeRetOM[0].getPrixunitaire() * listeRetOM[0].getDureereelle();
             double totalIndemnite = (listeRetOM[0].getPrixunitaire()) * (listeRetOM[0].getDureereelle()) *(3) ;
             if(listeRetOM[0].getNombres() > 0 ){
                 double pu = listeRetOM[0].getNombres() * listeRetOM[0].getPrixunitaire();
@@ -4619,16 +4618,20 @@ public class EtatPaieServlet extends HttpServlet {
             double difference = totalIndemnite - totalDP;
             double retourner = 0 ;
             double   payer = 0;
-            if(difference > 0 )
-              retourner = Math.abs(difference);
-            if(difference < 0)
-                payer = Math.abs(difference);
-            param.put("montantDec", montantDec);
+            if(totalIndemnite > totalDP )
+              payer = Math.abs(difference);
+            if(totalIndemnite < totalDP)
+                retourner = Math.abs(difference);
+            param.put("HebergementDec", liste[0].getFraishebergement() * listeRetOM[0].getDureereelle());
+            param.put("RestaurationDec",liste[0].getFraisrestauration() * listeRetOM[0].getDureereelle());
+            param.put("DeplacementDec",liste[0].getFraisdeplacement()* listeRetOM[0].getDureereelle());
             param.put("totalIndemnite", totalIndemnite );
             param.put("payer", payer );
             param.put("retourner", retourner );
             param.put("difference", Math.abs(difference));
             param.put("totalProv", totalDP);
+            param.put("dateArrive", listeRetOM[0].getDatearrivee());
+            param.put("duree", listeRetOM[0].getDureereelle());
             }
             setNomJasper("DEMANDE_AVANCE");
             UtilitaireImpression.imprimer(request, response, "Demande d' avance", param, null, getReportPath());
