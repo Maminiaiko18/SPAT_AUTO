@@ -4729,6 +4729,12 @@ public class EtatPaieServlet extends HttpServlet {
             }
             setNomJasper("DEMANDE_AVANCE");
             UtilitaireImpression.imprimer(request, response, "Demande d' avance", param, null, getReportPath());
+        } catch(Exception ex){
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
     private void imprimerUtilisateur(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String refuser = request.getParameter("refuser");
