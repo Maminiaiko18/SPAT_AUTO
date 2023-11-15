@@ -143,6 +143,7 @@ import mg.spat.EtatGrandCA;
 import mg.spat.LibererLib;
 import ordremission.IndemniteMission;
 import utilisateur.UserMenu;
+import ordremission.RetourOM;
 
 /**
  *
@@ -4676,6 +4677,7 @@ public class EtatPaieServlet extends HttpServlet {
                 total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration()+ liste[0].getFraishebergement();
                 totalDP = (liste[0].getFraisdeplacement() * mere[0].getDuree()) + (liste[0].getFraisrestauration() * mere[0].getDuree()) + (liste[0].getFraishebergement()* mere[0].getDuree());
                 hebergementDP = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement()* mere[0].getDuree()));
+        
             }
             else{
             total = liste[0].getFraisdeplacement() + liste[0].getFraisrestauration();
@@ -4687,8 +4689,44 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("total",total);
             param.put("deplacementDP", liste[0].getFraisdeplacement() * mere[0].getDuree() );
             param.put("restaurationDP", liste[0].getFraisrestauration() * mere[0].getDuree());
-           
             param.put("totalDP",totalDP);
+            if(mere[0].getIdretour_om() != null && mere[0].getEtat() == ConstanteEtat.getEtatValider()){
+            RetourOM retOM = new RetourOM();
+            RetourOM[] listeRetOM = (RetourOM[]) CGenUtil.rechercher(retOM, null, null, " and id='" + mere[0].getIdretour_om()+ "'");
+            String HebergementDec = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement() * listeRetOM[0].getDureereelle()));
+            double RestaurationDec = liste[0].getFraisrestauration() * listeRetOM[0].getDureereelle();
+            double DeplacementDec = liste[0].getFraisdeplacement()* listeRetOM[0].getDureereelle();
+            double totalIndemnite = 0 ;
+            if(mere[0].getEstForfaitairelib().compareToIgnoreCase("non") == 0 ){
+                totalIndemnite =  RestaurationDec + DeplacementDec;
+            }else totalIndemnite =  (liste[0].getFraishebergement() * listeRetOM[0].getDureereelle())+ RestaurationDec + DeplacementDec;
+            if(listeRetOM[0].getNombres() > 0 ){
+                double pu = listeRetOM[0].getNombres() * listeRetOM[0].getPrixunitaire();
+                totalIndemnite = totalIndemnite + pu;
+             }
+            double difference = totalIndemnite - totalDP;
+            double retourner = 0 ;
+            double   payer = 0;
+            if(totalIndemnite > totalDP )
+              payer = Math.abs(difference);
+            if(totalIndemnite < totalDP)
+                retourner = Math.abs(difference);
+            if(mere[0].getEstForfaitairelib().compareToIgnoreCase("non") == 0)
+               HebergementDec = "BC";
+            
+            param.put("HebergementDec", HebergementDec);
+            param.put("RestaurationDec",RestaurationDec);
+            param.put("DeplacementDec",DeplacementDec);
+            param.put("totalIndemnite", totalIndemnite );
+            param.put("payer", payer );
+            param.put("retourner", retourner );
+            param.put("difference", Math.abs(difference));
+            param.put("totalProv", totalDP);
+            param.put("dateArrive", listeRetOM[0].getDatearrivee());
+            param.put("duree", listeRetOM[0].getHeurearrivee());
+            double Autre = (listeRetOM[0].getPrixunitaire()) * (listeRetOM[0].getNombres());
+            param.put("autre", Autre);
+            }
             setNomJasper("DEMANDE_AVANCE");
             UtilitaireImpression.imprimer(request, response, "Demande d' avance", param, null, getReportPath());
     private void imprimerUtilisateur(HttpServletRequest request, HttpServletResponse response) throws Exception {

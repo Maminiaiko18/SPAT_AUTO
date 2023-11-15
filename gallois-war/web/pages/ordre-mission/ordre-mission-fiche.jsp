@@ -40,6 +40,8 @@
     pc.getChampByName("idmoyendeplacement").setVisible(false);
     pc.getChampByName("idmoyendeplacementlib").setLibelle("Moyen de d&eacute;placement");
     pc.getChampByName("datearrivee").setLibelle("Date arriv&eacute;e");
+    pc.getChampByName("idretour_om").setLibelle("Retour");
+    pc.getChampByName("idretour_om").setLien((String)session.getValue("lien")+"?but=ordre-mission/retourom-fiche.jsp", "id=");
     pc.setTitre("Fiche Ordre de Mission");
     String lien = (String) session.getValue("lien");
     String pageModif = "ordre-mission/ordre-mission-modif.jsp";
@@ -78,6 +80,7 @@
                                 <% if(!t.hadBonProvisoire(null)) { %>
                                     <a class="btn btn-default"  href="<%= lien + "?but=facture/facture-fournisseur-saisie-vaovao.jsp&mode=1&idom=" + id%>" style="margin: 5px 10px 0px 0px">Générer Bon Provisoire</a>
                                 <% } %>
+                                <a class="btn btn-success"  href="<%= lien + "?but=ordre-mission/retourom-saisie.jsp&idom=" + id%>" style="margin: 5px 10px 0px 0px">Saisir Retour</a>
                                 <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerOrdreDeMission&id=<%=id%>" style="margin: 5px 10px 0px 0px">Imprimer OM</a>
                                 <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDecompte&id=<%=id%>" style="margin: 5px 10px 0px 0px">Imprimer décompte</a>
                             <% } %>
