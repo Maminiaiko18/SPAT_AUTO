@@ -24,6 +24,24 @@ public class UserMenu  extends ClassMAPTable {
     private String refuser;
     private String login;
     private String nomuser;
+    private String role;
+    private String interditlib;
+
+	public String getRole() {
+		return this.role;
+	}
+
+	public String getInterditlib() {
+		return this.interditlib;
+	}
+
+	public void setInterditlib(String interditlib) {
+		this.interditlib = interditlib;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public String getNomuser() {
 		return this.nomuser;

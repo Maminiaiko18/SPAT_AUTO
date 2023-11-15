@@ -141,6 +141,7 @@ public class AnalyseDetailBCsExcel extends HttpServlet {
        String codelib = request.getParameter("codelib");
        String projetlib = request.getParameter("projetlib");
        String daty1 = request.getParameter("daty1");
+       String tablename = request.getParameter("tablename");
        if(daty1.compareToIgnoreCase("null") ==0 ) daty1 = Utilitaire.dateDuJour();
        String daty2 = request.getParameter("daty2");
        if(daty2.compareToIgnoreCase("null") ==0 ) daty2 = Utilitaire.dateDuJour();
@@ -173,7 +174,8 @@ public class AnalyseDetailBCsExcel extends HttpServlet {
                 
                 
             BonDeCommandeFille tr = new BonDeCommandeFille();
-            tr.setNomTable("AS_BC_ANALYSEFILLE_LIB");
+            tr.setNomTable(tablename);
+
         String awhere="";
         if(idbc != null && !idbc.trim().isEmpty() && idbc.compareToIgnoreCase("null") != 0)
         {
