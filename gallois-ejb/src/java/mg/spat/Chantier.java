@@ -19,6 +19,8 @@ public class Chantier extends ClassEtat{
     private String id, idtravaux, travaux, nom, idtiers, nomtiers, nomtravaux, tiers, tierslib, dirTravaux, projet, codeetablissement, projetlib, codeetablissementlib, etatlib;
     private Date datydebut, datyfin;
     private double montant, avancement;
+    private String patrimoinelib;
+    private String patrimoinedesce;
 
     public Chantier() {
         this.setNomTable("chantier");
@@ -222,6 +224,22 @@ public class Chantier extends ClassEtat{
         this.setDatyfin(datyfin);
         this.setMontant(montant);
         this.setAvancement(avancement);
+    }
+
+    public String getPatrimoinelib() {
+        return patrimoinelib;
+    }
+
+    public void setPatrimoinelib(String patrimoinelib) {
+        this.patrimoinelib = patrimoinelib;
+    }
+
+    public String getPatrimoinedesce() {
+        return patrimoinedesce;
+    }
+
+    public void setPatrimoinedesce(String patrimoinedesce) {
+        this.patrimoinedesce = patrimoinedesce;
     }
     
     @Override

@@ -5,9 +5,9 @@
     chantier.setNomTable("CHANTIER_LIB_NOM");
     if(request.getParameter("etatvue")!=null)
         chantier.setNomTable(request.getParameter("etatvue"));
-    String listeCrt[] = {"id", "nomtravaux", "nom", "datydebut", "datyfin", "nomtiers", "projetlib", "codeetablissementlib"};
+    String listeCrt[] = {"id", "nomtravaux", "nom", "datydebut", "datyfin", "nomtiers", "projetlib", "codeetablissementlib","patrimoinelib","patrimoinedesce"};
     String listeInt[] = {};
-    String libEntete[] = {"id", "nomtravaux", "nom", "nomtiers", "datydebut", "datyfin", "montant", "avancement", "projetlib", "codeetablissementlib"};
+    String libEntete[] = {"id", "nomtravaux", "nom", "nomtiers", "datydebut", "datyfin", "patrimoinelib","patrimoinedesce", "montant","avancement", "projetlib", "codeetablissementlib"};
     PageRecherche pr = new PageRecherche(chantier, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -20,6 +20,8 @@
     pr.getFormu().getChamp("nom").setLibelle("Chantier");
     pr.getFormu().getChamp("PROJETLIB").setLibelle("Projet");
     pr.getFormu().getChamp("CODEETABLISSEMENTLIB").setLibelle("code Etab");
+    pr.getFormu().getChamp("patrimoinelib").setLibelle("Libelle patrimoine");
+    pr.getFormu().getChamp("patrimoinedesce").setLibelle("Description patrimoine");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -64,7 +66,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"ID", "travaux", "chantier", "Tiers", "date de d&eacute;but", "date de fin", "montant", "avancement %", "Projet", "Code Etab"};
+            String libEnteteAffiche[] = {"ID", "travaux", "chantier", "Tiers", "date de d&eacute;but", "date de fin","Libellé du patrimoine","description du patrimoine", "montant", "avancement %", "Projet", "Code Etab"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
