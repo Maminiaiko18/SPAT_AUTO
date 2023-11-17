@@ -29,7 +29,7 @@ import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 import historique.MapUtilisateur;
-import java.sql.*;
+
 /**
  *
  * @author rijan
@@ -1558,20 +1558,16 @@ public class FactureFournisseur extends FactureClient {
 
     public void attribuerCode(UserEJB u) throws Exception{
         Connection c = null;
-        int verif = 0;       
-        Statement statement = null; 
+        int verif = 0;        
         try{
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
             verif = 1;
             if(this.getCode() == null || this.getCode().isEmpty() || this.getCode().compareToIgnoreCase("")==0){
                 String cal = calculerCodeSimple(c);
-                // this.setDateRegul(Utilitaire.dateDuJourSql());
+                this.setDateRegul(Utilitaire.dateDuJourSql());
                 this.setCode(cal);
-                this.updateToTableWithHisto(String.valueOf(u.getUser().getRefuser()), c,"Attribution numero compta le "+Utilitaire.formatterDaty(Utilitaire.dateDuJourSql()));
-                statement = c.createStatement();
-                String query = "UPDATE FACTURE_FOURNISSEUR_MERE SET DATEREGUL = '"+Utilitaire.dateDuJour()+"' WHERE id = '"+this.getId()+"'";
-                statement.executeUpdate(query);
+                this.updateToTableWithHisto(String.valueOf(u.getUser().getRefuser()), c,"ATTRIBUTION NUMERO COMPTA LE "+Utilitaire.formatterDaty(Utilitaire.dateDuJourSql()));
             }
             else throw new Exception("Ce facture possede deja un numero compta.");  
             c.commit();     
@@ -1581,9 +1577,6 @@ public class FactureFournisseur extends FactureClient {
             throw e;
         }
         finally {
-            if (statement != null) {
-                statement.close();
-            }
             if (c != null && verif == 1) {
                 c.close();
             }
