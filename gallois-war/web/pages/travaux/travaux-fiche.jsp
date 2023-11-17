@@ -21,6 +21,7 @@
     Travaux t = new Travaux();
     t.setNomTable("travauxlib");
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
+    t = (Travaux) pc.getBase();
 
     pc.setTitre("Fiche Travaux");
     pc.getChampByName("id").setVisible(false);
@@ -30,14 +31,15 @@
     pc.getChampByName("CODEETABLISSEMENTLIB").setVisible(false);
     pc.getChampByName("datefin").setLibelle("date fin");
     pc.getChampByName("iddevise").setLibelle("Devise");
-    pc.getChampByName("patrimoinelib").setLibelle("Libelle patrimoine");
-    pc.getChampByName("idpatrimoine").setLibelle("Patrimoine");
-    pc.getChampByName("patrimoinedesce").setLibelle("Description patrimoine");
+    pc.getChampByName("patrimoinelib").setLibelle("Patrimoine");
     pc.getChampByName("idtypetravaux").setLibelle("type travaux");
     pc.getChampByName("projet").setVisible(false);
     pc.getChampByName("codeetablissement").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);
     pc.getChampByName("tierslib").setLibelle("Tiers");
+    pc.getChampByName("idpatrimoine").setVisible(false);
+    pc.getChampByName("patrimoinedesce").setVisible(false);
+    pc.getChampByName("patrimoinelib").setLien((String) session.getValue("lien") + "?but=patrimoine/patrimoine-fiche.jsp","id="+ t.getIdpatrimoine()+"&id=");
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
@@ -97,7 +99,7 @@
                         <%}%>
                         <!-- <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/travaux-tiers-saisie.jsp&idtravaux=" + request.getParameter("id")%>&typetiers=partenaire" style="margin-right: 10px">Partenaire</a>
                          <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/travaux-tiers-saisie.jsp&idtravaux=" + request.getParameter("id")%>&typetiers=prestataire" style="margin-right: 10px">Prestataire</a> -->
-                        <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/chantier-saisie.jsp&idtravaux=" + request.getParameter("id") + "&nom=" + tVise.getNom()%>" style="margin-right: 10px">Saisir Chantier</a>
+                        <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/chantier-saisie.jsp&idtravaux=" + request.getParameter("id") + "&nom=" + tVise.getNom() + "&idpatrimoine=" + tVise.getIdpatrimoine() + "&patrimoine=" + tVise.getPatrimoinelib()%>" style="margin-right: 10px">Saisir Chantier</a>
 
                     </div>
                     <br/>

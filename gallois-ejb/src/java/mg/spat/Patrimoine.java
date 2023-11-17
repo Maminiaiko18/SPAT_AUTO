@@ -29,7 +29,7 @@ public class Patrimoine extends ClassMAPTable {
 
     @Override
     public String getValColLibelle() {
-        return id;
+        return libelle;
     }
 
     public void setDate_debut_contrat(Date date_debut_contrat) {

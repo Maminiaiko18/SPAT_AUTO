@@ -10,17 +10,21 @@
 <%@ page import="affichage.*" %>
 <%
     String champReturn = request.getParameter("champReturn");
-    Travaux navire = new Travaux();
-    //navire.setNomTable("navirelib");
-    String listeCrt[] = {"id","nom","description","datedebut","datefin","montant","avancement"};
-    String listeInt[] = {"datedebut","datefin","montant","avancement"};
+    Travaux travaux = new Travaux();
+    travaux.setNomTable("travauxlib");
+    String listeCrt[] = {"id","nom","description","datedebut","datefin","avancement"};
+    String listeInt[] = {"datedebut","datefin","avancement"};
     String libEntete[] = {"id","nom","description","datedebut","datefin","montant","avancement"};
-    PageRechercheChoix pr = new PageRechercheChoix(navire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+    PageRechercheChoix pr = new PageRechercheChoix(travaux, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("listeTravauxChoix.jsp");
-    
-    //pr.getFormu().getChamp("reference").setLibelle("Référence");
+    pr.getFormu().getChamp("datedebut1").setLibelle("Date Debut min");
+    pr.getFormu().getChamp("datedebut2").setLibelle("Date Debut max");
+    pr.getFormu().getChamp("datefin1").setLibelle("Date Fin min");
+    pr.getFormu().getChamp("datefin2").setLibelle("Date Fin max");
+    pr.getFormu().getChamp("avancement1").setLibelle("Avancement min");
+    pr.getFormu().getChamp("avancement2").setLibelle("Avancement max");
     
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
@@ -50,7 +54,7 @@
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     
                     <% 
-                        String libEnteteAffiche[] = {"id","nom","description","datedebut","datefin","montant","avancement"};
+                        String libEnteteAffiche[] = {"id","nom","description","Date de d&eacute;but","Date fin","montant","avancement"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>

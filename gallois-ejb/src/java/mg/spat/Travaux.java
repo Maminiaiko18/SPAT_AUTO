@@ -136,7 +136,7 @@ public class Travaux extends ClassEtat {
 
     @Override
     public String getValColLibelle() {
-        return nom+";"+idpatrimoine;
+        return nom+";"+idpatrimoine+";"+patrimoinelib;
     }
 
     public String getDescription() {
