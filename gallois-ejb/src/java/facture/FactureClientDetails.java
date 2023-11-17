@@ -723,11 +723,8 @@ public class FactureClientDetails extends ClassFille {
             return getTauxFinDuMois(c, this.getMois(), this.getAnnee(), this.getDevise());
         }
         if (verifTauxRecentMICTSL(c)) {
-            System.out.println("marinaaaaa");
             return getTauxRecentMICTSL(c);
         }
-            System.out.println("disooo");
-
         return getTauxRecentNormal(c);
     }
 
