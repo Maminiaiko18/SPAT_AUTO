@@ -1567,15 +1567,17 @@ public class FactureFournisseur extends FactureClient {
     public void attribuerCode(UserEJB u) throws Exception{
         Connection c = null;
         int verif = 0;        
+        Date dateDuJour = Utilitaire.dateDuJourSql();
         try{
             c = new UtilDB().GetConn();
             c.setAutoCommit(false);
             verif = 1;
             if(this.getCode() == null || this.getCode().isEmpty() || this.getCode().compareToIgnoreCase("")==0){
+                this.setDateRegul(null);
                 String cal = calculerCodeSimple(c);
-                this.setDateRegul(Utilitaire.dateDuJourSql());
+                this.setDateRegul(dateDuJour);
                 this.setCode(cal);
-                this.updateToTableWithHisto(String.valueOf(u.getUser().getRefuser()), c,"ATTRIBUTION NUMERO COMPTA LE "+Utilitaire.formatterDaty(Utilitaire.dateDuJourSql()));
+                this.updateToTableWithHisto(String.valueOf(u.getUser().getRefuser()), c,"ATTRIBUTION NUMERO COMPTA LE "+Utilitaire.formatterDaty(dateDuJour));
             }
             else throw new Exception("Ce facture possede deja un numero compta.");  
             c.commit();     
