@@ -94,7 +94,7 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-center">
                     <li class="<%= map.get("avoirFFfille")%>"><a href="module.jsp?but=<%=bute%>&idAvoir=<%=e.getId()%>&tab=avoirFFfille">D&eacute;tails Avoir</a></li>
-                    <li class="<%= map.get("paiements")%>"><a href="module.jsp?but=<%=bute%>&idplacement=<%=e.getId()%>&tab=paiements">Paiements</a></li>
+                    <li class="<%= map.get("paiements")%>"><a href="module.jsp?but=<%=bute%>&idAvoir=<%=e.getId()%>&tab=paiements">Paiements</a></li>
                 </ul>
                 <div class="tab-content">
                 <div class="tab-content">       
