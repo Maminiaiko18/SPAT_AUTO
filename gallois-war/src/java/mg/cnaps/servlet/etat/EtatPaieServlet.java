@@ -4611,13 +4611,17 @@ public class EtatPaieServlet extends HttpServlet {
             if(mere[0].getIdretour_om() != null && mere[0].getEtat() == ConstanteEtat.getEtatValider()){
             RetourOM retOM = new RetourOM();
             RetourOM[] listeRetOM = (RetourOM[]) CGenUtil.rechercher(retOM, null, null, " and id='" + mere[0].getIdretour_om()+ "'");
-            String HebergementDec = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement() * listeRetOM[0].getDureereelle()));
-            double RestaurationDec = liste[0].getFraisrestauration() * listeRetOM[0].getDureereelle();
-            double DeplacementDec = liste[0].getFraisdeplacement()* listeRetOM[0].getDureereelle();
+            double dureereelle = Utilitaire.getDiffJour(mere[0].getDatedepart(), listeRetOM[0].getDatearrivee());
+            int heure = Integer.parseInt(listeRetOM[0].getHeurearrivee().substring(0, 2));
+            if(heure < 12)
+                dureereelle -= 0.5;
+            String HebergementDec = Utilitaire.formaterAr(Double.toString(liste[0].getFraishebergement() * dureereelle));
+            double RestaurationDec = liste[0].getFraisrestauration() * dureereelle;
+            double DeplacementDec = liste[0].getFraisdeplacement()* dureereelle;
             double totalIndemnite = 0 ;
             if(mere[0].getEstForfaitairelib().compareToIgnoreCase("non") == 0 ){
                 totalIndemnite =  RestaurationDec + DeplacementDec;
-            }else totalIndemnite =  (liste[0].getFraishebergement() * listeRetOM[0].getDureereelle())+ RestaurationDec + DeplacementDec;
+            }else totalIndemnite =  (liste[0].getFraishebergement() * dureereelle)+ RestaurationDec + DeplacementDec;
             if(listeRetOM[0].getNombres() > 0 ){
                 double pu = listeRetOM[0].getNombres() * listeRetOM[0].getPrixunitaire();
                 totalIndemnite = totalIndemnite + pu;
