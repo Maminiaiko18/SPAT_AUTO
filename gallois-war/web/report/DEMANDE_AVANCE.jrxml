@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DEMANDE_AVANCE" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c59ed13-7470-4738-bea8-af4aa1e06d11">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="469"/>
+	<property name="ireport.y" value="219"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -515,7 +515,7 @@
 				<reportElement x="392" y="603" width="152" height="20" uuid="ca9544cc-26b7-4dd4-a7e8-b026f9be53b3"/>
 				<textFieldExpression><![CDATA[$P{duree}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="100" y="622" width="130" height="20" uuid="7cbc5bb5-a529-404c-95da-24bc3b296e61"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{autre}]]></textFieldExpression>
