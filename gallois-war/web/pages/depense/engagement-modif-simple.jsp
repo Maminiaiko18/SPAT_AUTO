@@ -41,6 +41,7 @@
         pi.getFormu().getChamp("tiers").setVisible(false);
         pi.getFormu().getChamp("annee").setVisible(false);
         pi.getFormu().getChamp("dateimpression").setVisible(false);
+        pi.getFormu().getChamp("iduser").setVisible(false);
 
     pi.preparerDataFormu();
     base = (Engagement)pi.getBase();

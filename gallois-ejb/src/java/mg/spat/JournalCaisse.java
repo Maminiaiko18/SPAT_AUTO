@@ -1048,7 +1048,7 @@ public class JournalCaisse extends ClassEtat {
             }
            
             if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece)){
-                if(this.getIdplacement()!=null){
+                if(this.getIdplacement()!=null && !this.getIdplacement().startsWith("AVRFF")){
                     if(this.getCredit() > 0) this.arrondir();
                 }
             }
@@ -1230,7 +1230,7 @@ public class JournalCaisse extends ClassEtat {
                 paiementFact.createObject(refuser, c);
                 FactureFournisseur ff = avoirFF.getFactureFournisseurLiee("BPvalide", c);
                 if(ff != null){
-                    this.insererDansBonProvisoire(refuser, c, this.getCredit(), 0, avoirFF.getDaty());
+                    //this.insererDansBonProvisoire(refuser, c, this.getCredit(), 0, avoirFF.getDaty());
                 }
             }
             FactureClient[] fcListe = findFactureClient(c);
