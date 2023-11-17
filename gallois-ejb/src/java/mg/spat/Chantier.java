@@ -22,6 +22,15 @@ public class Chantier extends ClassEtat{
     private String patrimoinelib;
     private String patrimoinedesce, idpatrimoine;
 
+    public String getEtatlib() {
+        return this.etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
+    }
+    private String etatlib;
+
     public Chantier() {
         this.setNomTable("chantier");
     }
