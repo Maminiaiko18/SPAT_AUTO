@@ -85,7 +85,7 @@ public class Engagement extends ClassEtat {
                 verif = 1;
             }
 
-            this.updateToTableWithHisto(refUser, c);
+            this.updateToTableWithHisto(refUser, c,"Observation engagement");
 
             if (verif == 1) {
                 c.commit();
