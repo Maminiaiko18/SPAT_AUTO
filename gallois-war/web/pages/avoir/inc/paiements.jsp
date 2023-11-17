@@ -11,7 +11,7 @@
     PageRecherche pr = new PageRecherche(j, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.setAWhere(" AND IDPLACEMENT='"+request.getParameter("idAvoir")+"'");
+        pr.setAWhere(" AND IDPLACEMENT='"+request.getParameter("id")+"'");
         
     pr.creerObjetPage(libEntete, null);
     
