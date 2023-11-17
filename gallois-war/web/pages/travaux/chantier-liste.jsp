@@ -20,7 +20,7 @@
     pr.getFormu().getChamp("nom").setLibelle("Chantier");
     pr.getFormu().getChamp("PROJETLIB").setLibelle("Projet");
     pr.getFormu().getChamp("CODEETABLISSEMENTLIB").setLibelle("code Etab");
-    pr.getFormu().getChamp("patrimoinelib").setLibelle("Libelle patrimoine");
+    pr.getFormu().getChamp("patrimoinelib").setLibelle("Patrimoine");
     pr.getFormu().getChamp("patrimoinedesce").setLibelle("Description patrimoine");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
@@ -66,7 +66,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"ID", "travaux", "chantier", "Tiers", "date de d&eacute;but", "date de fin","Libellé du patrimoine","description du patrimoine", "montant", "avancement %", "Projet", "Code Etab"};
+            String libEnteteAffiche[] = {"ID", "travaux", "chantier", "Tiers", "date de d&eacute;but", "date de fin","patrimoine","desc patrimoine", "montant", "avancement %", "Projet", "Code Etab"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

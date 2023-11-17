@@ -22,17 +22,15 @@
 
         if (request.getParameter("idtravaux") != null) {
             pi.getFormu().getChamp("idtravaux").setDefaut(request.getParameter("idtravaux"));
-        }
-        if (request.getParameter("idtravaux") != null && request.getParameter("nom") != null) {
             pi.getFormu().getChamp("idtravaux").setValeurLibelle(request.getParameter("nom"));
-           /// System.out.println(" request.getParameter('nom'') "+request.getParameter("nom"));
-            //System.out.println(" request.getParameter('nom'') "+request.getParameter("idpatrimoine"));
-          //  pi.getFormu().getChamp("idpatrimoine").setValeurLibelle(request.getParameter("idpatrimoine"));
+        }
+        if (request.getParameter("idpatrimoine") != null) {
+            pi.getFormu().getChamp("idpatrimoine").setDefaut(request.getParameter("idpatrimoine"));
+            pi.getFormu().getChamp("idpatrimoine").setValeurLibelle(request.getParameter("Opatrimoine"));
         }
         pi.getFormu().getChamp("idpatrimoine").setAutre("readonly");
         pi.getFormu().getChamp("idpatrimoine").setNom("idpatrimoine");
-        pi.getFormu().getChamp("idtravaux").setPageAppel("choix/listeTravauxChoix.jsp","idtravaux;idtravauxlibelle;idpatrimoinelibelle");
-        //System.out.println("====>"+pi.getFormu().getChamp("idtravaux").getValeurLibelle());
+        pi.getFormu().getChamp("idtravaux").setPageAppel("choix/listeTravauxChoix.jsp","idtravaux;idtravauxlibelle;idpatrimoine;idpatrimoinelibelle");
         pi.getFormu().getChamp("idpatrimoine").setPageAppel("choix/listePatrimoineChoix.jsp");
         pi.getFormu().getChamp("idtravaux").setAutre("readonly");
         pi.getFormu().getChamp("datydebut").setAutre("Date de d&eacute;but");
@@ -40,10 +38,6 @@
         pi.getFormu().getChamp("datyfin").setAutre("Date de fin");
         pi.getFormu().getChamp("datyfin").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
-        //pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
-//              pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersBEDChoix.jsp",;
-//numero_bl;numero_bllibelle
-        //pi.getFormu().getChamp("idtravaux").setChampReturn("idtravaux;idpatrimoine");
         pi.getFormu().getChamp("idtiers").setAutre("readonly");
         pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
         pi.getFormu().getChamp("etat").setVisible(false);
@@ -58,6 +52,7 @@
         pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
         pi.getFormu().getChamp("projet").setAutre("readonly");
         pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
+        pi.getFormu().getChamp("idpatrimoine").setLibelle("Patrimoine");
 
         pi.preparerDataFormu();
 %>

@@ -16,11 +16,11 @@ import utilitaire.Utilitaire;
  */
 public class Chantier extends ClassEtat{
     
-    private String id, idtravaux, travaux, nom, idtiers, nomtiers, nomtravaux, tiers, tierslib, dirTravaux, projet, codeetablissement, projetlib, codeetablissementlib, etatlib;
+    private String id, idtravaux, travaux, nom, idtiers, nomtiers, nomtravaux, tiers, tierslib, dirTravaux, projet, codeetablissement, projetlib, codeetablissementlib;
     private Date datydebut, datyfin;
     private double montant, avancement;
     private String patrimoinelib;
-    private String patrimoinedesce;
+    private String patrimoinedesce, idpatrimoine;
 
     public Chantier() {
         this.setNomTable("chantier");
@@ -189,12 +189,16 @@ public class Chantier extends ClassEtat{
         this.codeetablissementlib = codeetablissementlib;
     }
 
-    public String getEtatlib() {
-        return etatlib;
+    public String getIdpatrimoine() {
+        return idpatrimoine;
     }
 
-    public void setEtatlib(String etatlib) {
-        this.etatlib = etatlib;
+    public void setIdpatrimoine(String idpatrimoine) throws Exception {
+        if(this.getMode().compareTo("modif")==0){
+            if(idpatrimoine == null || idpatrimoine.compareTo("") == 0)
+                throw new Exception("Patrimoine obligatoire.");
+        }
+        this.idpatrimoine = idpatrimoine;
     }
 
     @Override
