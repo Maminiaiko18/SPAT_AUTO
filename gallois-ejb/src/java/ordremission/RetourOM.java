@@ -140,7 +140,7 @@ public class RetourOM extends ClassEtat{
             }
             OrdreMission om = new OrdreMission();
             OrdreMission ordremission = (OrdreMission)om.getById(this.getIdom(), "ordre_mission", c);
-            double dureereelle = Utilitaire.getDiffJour(ordremission.getDatedepart(), this.getDatearrivee());
+            double dureereelle = (Utilitaire.getDiffJour(ordremission.getDatedepart(), this.getDatearrivee())) + 1;
             int heure = Integer.parseInt(this.getHeurearrivee().substring(0, 2));
             if(heure < 12)
                 dureereelle -= 0.5;

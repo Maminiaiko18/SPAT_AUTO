@@ -165,7 +165,7 @@ public class OrdreMission extends ClassEtat {
     public void setDatearrivee(Date datearrivee) {
         this.datearrivee = datearrivee;
         if(getMode().equals("modif"))
-            this.datearrivee = Utilitaire.ajoutJourDate(this.getDatedepart(), (int) Math.ceil(this.getDuree()));
+            this.datearrivee = Utilitaire.ajoutJourDate(this.getDatedepart(), (int) Math.ceil(this.getDuree()-1));
     }
 
     public String getIdretour_om() {

@@ -4611,7 +4611,7 @@ public class EtatPaieServlet extends HttpServlet {
             if(mere[0].getIdretour_om() != null && mere[0].getEtat() == ConstanteEtat.getEtatValider()){
             RetourOM retOM = new RetourOM();
             RetourOM[] listeRetOM = (RetourOM[]) CGenUtil.rechercher(retOM, null, null, " and id='" + mere[0].getIdretour_om()+ "'");
-            double dureereelle = Utilitaire.getDiffJour(mere[0].getDatedepart(), listeRetOM[0].getDatearrivee());
+            double dureereelle = (Utilitaire.getDiffJour(mere[0].getDatedepart(), listeRetOM[0].getDatearrivee())) + 1;
             int heure = Integer.parseInt(listeRetOM[0].getHeurearrivee().substring(0, 2));
             if(heure < 12)
                 dureereelle -= 0.5;
