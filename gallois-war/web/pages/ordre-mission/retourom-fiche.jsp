@@ -11,7 +11,7 @@
 <%
     try{
     RetourOM  t = new RetourOM ();
-    t.setNomTable("RetourOMLIB");
+    t.setNomTable("RETOUROMLIBCPLT");
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));
     
     t = (RetourOM) pc.getBase();
@@ -22,6 +22,8 @@
     pc.getChampByName("prixunitaire").setLibelle("Prix unitaire");
     pc.getChampByName("dureereelle").setLibelle("Dur&eacute;e r&eacute;elle");
     pc.getChampByName("nombres").setLibelle("Quantit&eacute;");
+    pc.getChampByName("omlib").setLibelle("Ordre de mission");
+    pc.getChampByName("omlib").setLien((String)session.getValue("lien")+"?but=ordre-mission/ordre-mission-fiche.jsp", "id="+t.getIdom()+"&id=");
     pc.getChampByName("idom").setVisible(false);
     
     pc.setTitre("Fiche retour OM");
