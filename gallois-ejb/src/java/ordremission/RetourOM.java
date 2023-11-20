@@ -23,7 +23,7 @@ import utilitaire.Utilitaire;
  * @author Valiah Karen
  */
 public class RetourOM extends ClassEtat{
-    private String id, idom, heurearrivee, autres, idfactfournisseur;
+    private String id, idom, heurearrivee, autres, idfactfournisseur, omlib;
     private Date datearrivee;
     private int nombres;
     private double prixunitaire , dureereelle ;
@@ -101,6 +101,14 @@ public class RetourOM extends ClassEtat{
 
     public void setIdfactfournisseur(String idfactfournisseur) {
         this.idfactfournisseur = idfactfournisseur;
+    }
+
+    public String getOmlib() {
+        return omlib;
+    }
+
+    public void setOmlib(String omlib) {
+        this.omlib = omlib;
     }
 
     

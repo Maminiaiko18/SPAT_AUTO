@@ -11,7 +11,7 @@
 <%
     try{
     RetourOM  t = new RetourOM ();
-    t.setNomTable("RetourOMLIB");
+    t.setNomTable("RETOUROMLIBCPLT");
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));
     
     t = (RetourOM) pc.getBase();
@@ -22,6 +22,8 @@
     pc.getChampByName("prixunitaire").setLibelle("Prix unitaire");
     pc.getChampByName("dureereelle").setLibelle("Dur&eacute;e r&eacute;elle");
     pc.getChampByName("nombres").setLibelle("Quantit&eacute;");
+    pc.getChampByName("omlib").setLibelle("Ordre de mission");
+    pc.getChampByName("omlib").setLien((String)session.getValue("lien")+"?but=ordre-mission/ordre-mission-fiche.jsp", "id="+t.getIdom()+"&id=");
     pc.getChampByName("idom").setVisible(false);
     
     pc.setTitre("Fiche retour OM");
@@ -48,7 +50,8 @@
                         <div class="box-footer">
                             <a class="btn btn-warning"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin: 5px 10px 0px 0px">Modifier</a>
                             <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=validerROM&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-modif-vaovao.jsp&classe=<%=classe %>" style="margin: 5px 10px 0px 0px">Viser</a>
-                         </div>
+                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDecompte&id=<%=t.getIdom()%>" style="margin: 5px 10px 0px 0px">Imprimer décompte</a>
+                        </div>
                         <br/>
 
                     </div>
