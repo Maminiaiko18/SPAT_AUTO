@@ -50,7 +50,8 @@
                         <div class="box-footer">
                             <a class="btn btn-warning"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin: 5px 10px 0px 0px">Modifier</a>
                             <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=validerROM&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-modif-vaovao.jsp&classe=<%=classe %>" style="margin: 5px 10px 0px 0px">Viser</a>
-                         </div>
+                            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDecompte&id=<%=t.getIdom()%>" style="margin: 5px 10px 0px 0px">Imprimer décompte</a>
+                        </div>
                         <br/>
 
                     </div>
