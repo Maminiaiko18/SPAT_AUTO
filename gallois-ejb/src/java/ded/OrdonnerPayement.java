@@ -1050,7 +1050,7 @@ public class OrdonnerPayement extends ClassEtat {
             }
 
             op[0].setMontant(op[0].getMontant()-ff[0].getMontantttc());
-            op[0].updateToTable(c);
+            op[0].updateToTableWithHisto(u, c,"Supprimer facture "+idFacture);
                     
         } catch (Exception e) {
             if (c != null && verif == 1) {
