@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import mg.allosakafo.produits.LiaisonIntraTable;
 import mg.spat.JournalCaisse;
 import utilitaire.Constante;
@@ -636,10 +637,13 @@ public class OrdonnerPayement extends ClassEtat {
             OrdonnerPayement[]op=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and id='"+this.getId()+"'");
 
             String temp = op[0].getDed_Id();
+            String ded_id = idFacture;
                 if(op[0].getEtat()==11) throw new Exception("OP deja vise, impossible d'ajouter une facture.");
                 op[0].setDed_Id(idFacture);
                 op[0].controlerDoublon(c);
-                op[0].setDed_Id(temp+";"+idFacture);
+                if(temp != null)
+                    ded_id = temp + ";" + idFacture;
+                op[0].setDed_Id(ded_id);
 
                 FactureFournisseur fact= new FactureFournisseur();
                 fact.setNomTable("FACTFOURN_MSUM_LIB");
@@ -1005,6 +1009,57 @@ public class OrdonnerPayement extends ClassEtat {
             for (int i = 0; i < factures.length; i++) {
                 if(factures[i].getEtat() < ConstanteEtat.getEtatValider())
                     throw new Exception("Facture Fournisseur non visée. Impossible de viser L'OP.");
+            }
+        }
+    }
+    
+    public void supprimerFF(String u,String idFacture) throws Exception{
+        int verif = 0;
+        Connection c = null;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            OrdonnerPayement[]op=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and id='"+this.getId()+"'");
+
+            if(op[0].getEtat()==11) throw new Exception("OP d\\351j\\340 vis\\351, impossible de supprimer une facture.");
+            String[] ded_id = Utilitaire.stringToTab(op[0].getDed_Id(), ";");
+            int t = ded_id.length;
+            List<String> liste = new ArrayList<>();
+            for(int i = 0; i < t; i++){
+                if(ded_id[i].compareToIgnoreCase(idFacture) != 0)
+                    liste.add(ded_id[i]);
+            }
+            String idfact = "";
+            if(liste.size() > 0){
+                ded_id = liste.toArray(new String[liste.size()]);
+                idfact = Utilitaire.tabToString(ded_id, "", ";");
+            }
+            op[0].setDed_Id(idfact);
+
+            FactureFournisseur fact = new FactureFournisseur();
+            fact.setNomTable("FACTFOURN_MSUM_LIB");
+            FactureFournisseur[] ff = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, " and id='"+idFacture+"'");
+            if(ff.length > 0){
+                LiaisonIntraTable[] liaisons = (LiaisonIntraTable[]) CGenUtil.rechercher(new LiaisonIntraTable(), null, null, c, " and id1='"+idFacture+"' and id2='"+op[0].getId()+"'");
+                if(liaisons.length > 0)
+                    liaisons[0].deleteToTableWithHisto(u, c);
+            }
+
+            op[0].setMontant(op[0].getMontant()-ff[0].getMontantttc());
+            op[0].updateToTable(c);
+                    
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
             }
         }
     }
