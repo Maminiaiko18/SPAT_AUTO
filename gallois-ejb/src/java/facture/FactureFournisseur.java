@@ -931,6 +931,14 @@ public class FactureFournisseur extends FactureClient {
 
             if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
                 this.genererPaiementDefinitive(u, this.getIdProvision(), c);
+                FactureFournisseur bp = (FactureFournisseur) new FactureFournisseur().getById(this.getIdProvision(), "factfourn_msum_lib", c);
+                if(ff.getMontantttc() < bp.getMontantttc()){
+                    OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+ff.getId()+"%'");
+                    if(op.length > 0){
+                        op[0].setMontant(ff.getMontantttc());
+                        op[0].updateToTableWithHisto(u, c);
+                    }
+                }
             }
             
             if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && (this.getModepaiement() == null || this.getModepaiement().compareToIgnoreCase(Constante.paiementNull) == 0)) {
@@ -1092,19 +1100,27 @@ public class FactureFournisseur extends FactureClient {
             if (lc == null) {
                 throw new Exception("Budget non trouvé");
             }
+            
+            FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
 
             if (this.getIdcategorie() != null && this.getIdcategorie().equals(utilitaire.Constante.categorieFFdefault) && this.getIdProvision() != null) {
                 this.genererPaiementDefinitive(u, this.getIdProvision(), c);
+                FactureFournisseur bp = (FactureFournisseur) new FactureFournisseur().getById(this.getIdProvision(), "factfourn_msum_lib", c);
+                if(ff.getMontantttc() < bp.getMontantttc()){
+                    OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+ff.getId()+"%'");
+                    if(op.length > 0){
+                        op[0].setMontant(ff.getMontantttc());
+                        op[0].updateToTableWithHisto(u, c);
+                    }
+                }
             }
 
             if (this.getIdengagement() == null && this.getIdbc() == null) {
-                FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
                 this.setMontant(ff.getMontant());
                 //si provision dia tsy engagena
                 if(this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire)!=0) this.insertEngagement(u, controleMontant,c);
             }
             if (this.getIdengagement() != null) {
-                FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
                 if(this.getTypeEngagement() != null)ff.setTypeEngagement(this.getTypeEngagement());
                 double resteAEngager = ff.getMontant();
                 LiaisonEngagement liaison = new LiaisonEngagement();
