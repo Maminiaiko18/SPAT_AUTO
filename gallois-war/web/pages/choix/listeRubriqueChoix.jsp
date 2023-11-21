@@ -16,7 +16,7 @@
     objet.setNomTable("RUBRIQUE_ACTIVITELIB");
     String listeCrt[] = {"id","designation","categorie","compte","direction","code"};
     String listeInt[] = {};
-    String libEntete[] = {"id","designation","code","categorie","pu","devise", "compte", "unite","objet","tva","direction","condition"};
+    String libEntete[] = {"id","designation","code","categorie","pudouble","devise", "compte", "unite","objet","tva","direction","condition"};
 
     PageRechercheChoix pr = new PageRechercheChoix(objet, request, listeCrt, listeInt, 3, libEntete,libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));

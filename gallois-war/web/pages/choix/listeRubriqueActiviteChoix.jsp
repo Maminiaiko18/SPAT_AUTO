@@ -8,7 +8,7 @@
     
     String listeCrt[] = {"id", "designation", "categorie", "compte", "direction"};
     String listeInt[] = {};
-    String libEntete[] = {"id", "designation", "code", "categorie", "redevance", "pu", "devise", "compte", "unite", "objet", "tva", "direction", "condition"};
+    String libEntete[] = {"id", "designation", "code", "categorie", "redevance", "pudouble", "devise", "compte", "unite", "objet", "tva", "direction", "condition"};
     PageRechercheChoix pr = new PageRechercheChoix(rubrique, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     //pr.setOrdre(" order by daty desc");
