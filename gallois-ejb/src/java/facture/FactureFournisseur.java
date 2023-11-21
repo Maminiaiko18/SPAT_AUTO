@@ -43,8 +43,16 @@ public class FactureFournisseur extends FactureClient {
     private Date dateRegul;
     private double montantHTSansRemise;
     private String bonprovisoire, num;
-    private String idom;
+    private String idom,omlib;
     private String numfsb;
+
+    public String getOmlib() {
+        return this.omlib;
+    }
+
+    public void setOmlib(String omlib) {
+        this.omlib = omlib;
+    }
 
 
     public String getNumfsb() {
