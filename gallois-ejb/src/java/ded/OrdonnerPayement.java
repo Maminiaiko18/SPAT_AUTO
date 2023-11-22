@@ -1047,10 +1047,10 @@ public class OrdonnerPayement extends ClassEtat {
                 LiaisonIntraTable[] liaisons = (LiaisonIntraTable[]) CGenUtil.rechercher(new LiaisonIntraTable(), null, null, c, " and id1='"+idFacture+"' and id2='"+op[0].getId()+"'");
                 if(liaisons.length > 0)
                     liaisons[0].deleteToTableWithHisto(u, c);
-            }
 
-            op[0].setMontant(op[0].getMontant()-ff[0].getMontantttc());
-            op[0].updateToTableWithHisto(u, c,"Supprimer facture "+idFacture);
+                op[0].setMontant(op[0].getMontant()-ff[0].getMontantttc());
+                op[0].updateToTableWithHisto(u, c,"Supprimer facture "+idFacture);
+            }
                     
         } catch (Exception e) {
             if (c != null && verif == 1) {
