@@ -635,8 +635,8 @@ public class OrdonnerPayement extends ClassEtat {
             }
 
             OrdonnerPayement[]op=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and id='"+this.getId()+"'");
-
             String temp = op[0].getDed_Id();
+            if(temp.matches("(.*)"+idFacture+"(.*)")) throw new Exception("facture déjà dans le OP");
             String ded_id = idFacture;
                 if(op[0].getEtat()==11) throw new Exception("OP deja vise, impossible d'ajouter une facture.");
                 op[0].setDed_Id(idFacture);
@@ -655,7 +655,7 @@ public class OrdonnerPayement extends ClassEtat {
                 }
 
                 op[0].setMontant(op[0].getMontant()+ff[0].getMontantttc());
-                op[0].updateToTable(c);
+                op[0].updateToTableWithHisto(u, c,"Ajout facture "+idFacture);
                     
             } catch (Exception e) {
             if (c != null && verif == 1) {
