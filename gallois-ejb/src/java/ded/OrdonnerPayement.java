@@ -817,7 +817,7 @@ public class OrdonnerPayement extends ClassEtat {
         temp.setNomTable("PAIEMENTOPJCUNION");
         JournalCaisse[] jc = (JournalCaisse[]) CGenUtil.rechercher(temp, null, null, c, " and idordre = '"+this.getId()+"' and etat=11");
         double montantpaye = AdminGen.calculSommeDouble(jc, "debit");
-        if(op[0].getMontant() <  (montantpaye + paiement.getDebit())) throw new Exception ("OP déjà payé.");
+        if(op[0].getMontant() <  (montantpaye + paiement.getDebit())) throw new Exception ("Montant supérieur au reste à payer ou OP déjà payé.");
     } 
 
     public PaiementFacture[] genererPaiementFacture(Connection c, JournalCaisse jc) throws Exception{
