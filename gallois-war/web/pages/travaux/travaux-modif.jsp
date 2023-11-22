@@ -32,7 +32,7 @@
     liste[1] = new Liste("iddevise", mvt2, "VAL", "id");
     pi.getFormu().changerEnChamp(liste);
     pi.preparerDataFormu();
-    pi.getFormu().getChamp("idtypetravaux").setLibelle("Type de travaux");
+    pi.getFormu().getChamp("idtypetravaux").setLibelle("Type de projet");
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
     pi.getFormu().getChamp("projetlib").setVisible(false);
     pi.getFormu().getChamp("codeetablissementlib").setVisible(false);

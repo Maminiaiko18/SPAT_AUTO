@@ -32,7 +32,7 @@
         liste[1] = new Liste("iddevise", mvt2, "VAL", "id");
         
         pi.getFormu().changerEnChamp(liste);
-        pi.getFormu().getChamp("Idtypetravaux").setLibelle("Type travaux");
+        pi.getFormu().getChamp("Idtypetravaux").setLibelle("Type projet");
         pi.getFormu().getChamp("iddevise").setLibelle("Devise");
         pi.setLien((String) session.getValue("lien"));
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");

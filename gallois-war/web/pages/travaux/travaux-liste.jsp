@@ -40,7 +40,7 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste travaux</h1>
+        <h1>Liste projet</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=travaux/travaux-liste.jsp" method="post" name="listeidentification" id="listeidentification">

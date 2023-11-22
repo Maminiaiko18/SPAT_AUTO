@@ -23,7 +23,7 @@
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
     t = (Travaux) pc.getBase();
 
-    pc.setTitre("Fiche Travaux");
+    pc.setTitre("Fiche Projet");
     pc.getChampByName("id").setVisible(false);
     pc.getChampByName("avancement").setVisible(false);
     pc.getChampByName("datedebut").setLibelle("date debut");
@@ -32,7 +32,7 @@
     pc.getChampByName("datefin").setLibelle("date fin");
     pc.getChampByName("iddevise").setLibelle("Devise");
     pc.getChampByName("patrimoinelib").setLibelle("Patrimoine");
-    pc.getChampByName("idtypetravaux").setLibelle("type travaux");
+    pc.getChampByName("idtypetravaux").setLibelle("type projet");
     pc.getChampByName("projet").setVisible(false);
     pc.getChampByName("codeetablissement").setVisible(false);
     pc.getChampByName("tiers").setVisible(false);
