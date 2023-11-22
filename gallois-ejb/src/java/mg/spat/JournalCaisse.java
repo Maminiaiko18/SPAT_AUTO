@@ -805,7 +805,7 @@ public class JournalCaisse extends ClassEtat {
 
             JournalCaisse j = (JournalCaisse) new JournalCaisse().getById(this.getId(), "journalcaisse", c);
             if (!(this.getDateEffet().toLocalDate().equals(j.getDateEffet().toLocalDate()))) {
-                if(this.getEtat() == 11) ClotureService.testDateCloture(j.getDateEffet(), this.caisse, c);
+                if(j.getEtat() == 11) ClotureService.testDateCloture(j.getDateEffet(), this.caisse, c);
             }
             this.updateToTableWithHisto(refUser, c,"Modifier entete");
 
