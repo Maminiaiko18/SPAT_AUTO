@@ -810,6 +810,16 @@ public class OrdonnerPayement extends ClassEtat {
     public String getValColLibelle() {
         return this.getId()+";"+this.getRemarque()+";"+this.getDed_Id()+";"+Utilitaire.formaterAr(this.getMontant())+";"+numeroop;
     }
+
+    public void controlePaiementOP(Connection c,JournalCaisse paiement) throws Exception{
+        OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and id = '"+this.getId()+"'");
+        JournalCaisse temp = new JournalCaisse();
+        temp.setNomTable("PAIEMENTOPJCUNION");
+        JournalCaisse[] jc = (JournalCaisse[]) CGenUtil.rechercher(temp, null, null, c, " and idordre = '"+this.getId()+"' and etat=11");
+        double montantpaye = AdminGen.calculSommeDouble(jc, "debit");
+        if(op[0].getMontant() <  (montantpaye + paiement.getDebit())) throw new Exception ("OP déjà payé.");
+    } 
+
     public PaiementFacture[] genererPaiementFacture(Connection c, JournalCaisse jc) throws Exception{
         int verif = 0;
         PaiementFacture[] retour=null;
@@ -819,6 +829,7 @@ public class OrdonnerPayement extends ClassEtat {
                 c.setAutoCommit(false);
                 verif = 1;
             }
+            this.controlePaiementOP(c,jc);
             LiaisonIntraTable[] listeLiaison=this.getLiaisonIntratable(c);
             if(listeLiaison.length>0){
                 retour=new PaiementFacture[listeLiaison.length];
