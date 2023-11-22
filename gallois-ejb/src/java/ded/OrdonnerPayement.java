@@ -617,7 +617,7 @@ public class OrdonnerPayement extends ClassEtat {
             //double reste=AdminGen.calculSommeDouble(factures, "montantreste");
             //this.controlerMontant(montantTTc,reste, c);
             for (int i = 0; i < factures.length; i++) {
-                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getMontantttc());
+                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getMontantreste());
                 liaison.createObject(u, c);
             }
         }
@@ -635,8 +635,8 @@ public class OrdonnerPayement extends ClassEtat {
             }
 
             OrdonnerPayement[]op=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and id='"+this.getId()+"'");
-
             String temp = op[0].getDed_Id();
+            if(temp.matches("(.*)"+idFacture+"(.*)")) throw new Exception("facture déjà dans le OP");
             String ded_id = idFacture;
                 if(op[0].getEtat()==11) throw new Exception("OP deja vise, impossible d'ajouter une facture.");
                 op[0].setDed_Id(idFacture);
@@ -655,7 +655,7 @@ public class OrdonnerPayement extends ClassEtat {
                 }
 
                 op[0].setMontant(op[0].getMontant()+ff[0].getMontantttc());
-                op[0].updateToTable(c);
+                op[0].updateToTableWithHisto(u, c,"Ajout facture "+idFacture);
                     
             } catch (Exception e) {
             if (c != null && verif == 1) {
@@ -810,6 +810,16 @@ public class OrdonnerPayement extends ClassEtat {
     public String getValColLibelle() {
         return this.getId()+";"+this.getRemarque()+";"+this.getDed_Id()+";"+Utilitaire.formaterAr(this.getMontant())+";"+numeroop;
     }
+
+    public void controlePaiementOP(Connection c,JournalCaisse paiement) throws Exception{
+        OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and id = '"+this.getId()+"'");
+        JournalCaisse temp = new JournalCaisse();
+        temp.setNomTable("PAIEMENTOPJCUNION");
+        JournalCaisse[] jc = (JournalCaisse[]) CGenUtil.rechercher(temp, null, null, c, " and idordre = '"+this.getId()+"' and etat=11");
+        double montantpaye = AdminGen.calculSommeDouble(jc, "debit");
+        if(op[0].getMontant() <  (montantpaye + paiement.getDebit())) throw new Exception ("OP déjà payé.");
+    } 
+
     public PaiementFacture[] genererPaiementFacture(Connection c, JournalCaisse jc) throws Exception{
         int verif = 0;
         PaiementFacture[] retour=null;
@@ -819,6 +829,7 @@ public class OrdonnerPayement extends ClassEtat {
                 c.setAutoCommit(false);
                 verif = 1;
             }
+            this.controlePaiementOP(c,jc);
             LiaisonIntraTable[] listeLiaison=this.getLiaisonIntratable(c);
             if(listeLiaison.length>0){
                 retour=new PaiementFacture[listeLiaison.length];
@@ -950,10 +961,16 @@ public class OrdonnerPayement extends ClassEtat {
     
     public void controlerDoublon(Connection c) throws Exception{
         String [] idFacture = this.getDed_Id().split(";");
-        for(int i = 0 ; i < idFacture.length ; i++){
-            OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+idFacture[i]+"%' and id!='"+this.getId()+"' and etat!=0");
-            if(ordonnerPayment.length>0){
-                throw new Exception("OP deja saisi pour la facture : "+idFacture[i]);
+        FactureFournisseur facture = new FactureFournisseur();
+        String factures = Utilitaire.tabToString(idFacture, "'", ",");
+        String requete = "SELECT * from FACTURE_FOURNISSEUR_MERE where id in (" + factures + ")";
+        FactureFournisseur[] ff = (FactureFournisseur[])CGenUtil.rechercher(facture, requete, c);
+        for(int i = 0 ; i < ff.length ; i++){
+            if(ff[i].getIdProvision()==null){ // si tsy FF def ana provision de tkn OP ray ihany
+                OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+ff[i].getId()+"%' and id!='"+this.getId()+"' and etat!=0");
+                if(ordonnerPayment.length>0){
+                    throw new Exception("OP deja saisi pour la facture : "+idFacture[i]);
+                }
             }
         }
             
@@ -1047,10 +1064,10 @@ public class OrdonnerPayement extends ClassEtat {
                 LiaisonIntraTable[] liaisons = (LiaisonIntraTable[]) CGenUtil.rechercher(new LiaisonIntraTable(), null, null, c, " and id1='"+idFacture+"' and id2='"+op[0].getId()+"'");
                 if(liaisons.length > 0)
                     liaisons[0].deleteToTableWithHisto(u, c);
-            }
 
-            op[0].setMontant(op[0].getMontant()-ff[0].getMontantttc());
-            op[0].updateToTableWithHisto(u, c,"Supprimer facture "+idFacture);
+                op[0].setMontant(op[0].getMontant()-ff[0].getMontantttc());
+                op[0].updateToTableWithHisto(u, c,"Supprimer facture "+idFacture);
+            }
                     
         } catch (Exception e) {
             if (c != null && verif == 1) {
