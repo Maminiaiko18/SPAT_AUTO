@@ -35,6 +35,13 @@
         pc.getChampByName("numBordereau").setLibelle("Numero BED");
         String lien = (String)session.getValue("lien");
         e = (FactureFournisseur) pc.getBase();
+        pc.getChampByName("idom").setVisible(false);
+        pc.getChampByName("omlib").setVisible(false);
+        if(e.getIdom()!=null){
+            pc.getChampByName("idom").setVisible(true);
+            pc.getChampByName("idom").setLibelle("Ordre de mission");
+            pc.getChampByName("idom").setLien(lien+"?but=ordre-mission/ordre-mission-fiche.jsp", "id=");
+        }
 
         pc.getChampByName("idbordereau").setLien(lien+"?but=ded/bordereauxFF-fiche.jsp", "id=");
 
