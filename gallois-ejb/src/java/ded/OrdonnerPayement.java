@@ -617,7 +617,7 @@ public class OrdonnerPayement extends ClassEtat {
             //double reste=AdminGen.calculSommeDouble(factures, "montantreste");
             //this.controlerMontant(montantTTc,reste, c);
             for (int i = 0; i < factures.length; i++) {
-                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getMontantttc());
+                LiaisonIntraTable liaison = new LiaisonIntraTable(factures[i].getId(), this.getTuppleID(), factures[i].getMontantreste());
                 liaison.createObject(u, c);
             }
         }
@@ -950,10 +950,16 @@ public class OrdonnerPayement extends ClassEtat {
     
     public void controlerDoublon(Connection c) throws Exception{
         String [] idFacture = this.getDed_Id().split(";");
-        for(int i = 0 ; i < idFacture.length ; i++){
-            OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+idFacture[i]+"%' and id!='"+this.getId()+"' and etat!=0");
-            if(ordonnerPayment.length>0){
-                throw new Exception("OP deja saisi pour la facture : "+idFacture[i]);
+        FactureFournisseur facture = new FactureFournisseur();
+        String factures = Utilitaire.tabToString(idFacture, "'", ",");
+        String requete = "SELECT * from FACTURE_FOURNISSEUR_MERE where id in (" + factures + ")";
+        FactureFournisseur[] ff = (FactureFournisseur[])CGenUtil.rechercher(facture, requete, c);
+        for(int i = 0 ; i < ff.length ; i++){
+            if(ff[i].getIdProvision()==null){ // si tsy FF def ana provision de tkn OP ray ihany
+                OrdonnerPayement[]ordonnerPayment=(OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, c, " and ded_id like '%"+ff[i].getId()+"%' and id!='"+this.getId()+"' and etat!=0");
+                if(ordonnerPayment.length>0){
+                    throw new Exception("OP deja saisi pour la facture : "+idFacture[i]);
+                }
             }
         }
             
