@@ -74,6 +74,7 @@
                         %>
                         <br/>
                         <div class="box-footer">
+                            <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/avenant-saisie.jsp&idcontrat="+contrat.getId()+"&nomcontrat="+contrat.getDesignation()%>" style="margin-right: 10px">Saisir avenant</a>
                             <a class="btn btn-info pull-left"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + contrat.getId() + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=compta/contrat/contrat-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a> 
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/contrat-modif.jsp&id=" + contrat.getId()%>" style="margin-right: 10px">Modifier</a> 
                             <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/avancement-contrat-saisie.jsp&idcontrat="+ contrat.getId() %>" style="margin-right: 10px">Pourcentage de réalisation</a> 
