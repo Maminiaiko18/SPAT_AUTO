@@ -11,12 +11,23 @@
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
 <%@page import="mg.spat.Caisse"%>
-
+<%@page import="mg.amadia.stock.EtatdeStockDate"%>
+<%@page import="utilitaire.Utilitaire"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
         String typecheque = request.getParameter("idtypecheque");
         JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
         journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
+        EtatdeStockDate etatcaisse[] = null;
+        String date1 = utilitaire.Utilitaire.dateDuJour();
+        String date2 = utilitaire.Utilitaire.dateDuJour();
+        if(request.getParameter("dateEffet1")!=null) date1 = request.getParameter("dateEffet1");
+        if(request.getParameter("dateEffet2")!=null) date2 = request.getParameter("dateEffet2");
+        if(request.getParameter("caisse")!=null){
+            String caisse = request.getParameter("caisse");
+            etatcaisse = journalCaisse.etatdecaisse(date1,date2,caisse,null);
+        }
 
         if (request.getParameter("etatvue") != null) {
             journalCaisse.setNomTable(request.getParameter("etatvue"));
@@ -51,13 +62,14 @@
         pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
-        pr.getFormu().getChamp("libelle").setLibelle("Libell�");
+        pr.getFormu().getChamp("libelle").setLibelle("Libellé");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
         pr.getFormu().getChamp("numeroOP").setLibelle("Num&eacute;ro OP");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("numPiece").setLibelle("Num Piece");
         String[] colSomme = {"credit", "debit"};
         pr.creerObjetPage(libEntete, colSomme);
+        if(date1.equalsIgnoreCase(date2)) date1 = Utilitaire.ajoutJourDateString(Utilitaire.stringDate(date2), -1);
 
 %>
 
@@ -66,7 +78,7 @@
         <h1>Journal de caisse</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=treso/journalcaisse-liste.jsp" method="post" name="incident" id="incident">
+        <form action="<%=pr.getLien()%>?but=treso/journalcaisse-liste.jsp&recap=checked" method="post" name="incident" id="incident">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
@@ -103,13 +115,40 @@
             </div>
             <div class="col-md-4"></div>
         </form>
-
-        <%  String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
+            
+        <%  
+            String lienTableau[] = {pr.getLien() + "?but=treso/journalcaisse-fiche.jsp"};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
         <br/>
+
+        <div style="background:#ffb401; color:white;" class="box-header">
+                <h3 class="box-title" align="center">Solde</h3>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <div id="selectnonee">
+                    <table width="100%" border="0" align="center" cellpadding="3" cellspacing="3" class="table table-hover table-bordered">
+                        <thead>
+                            <tr class="head">
+                                <th width="25%" align="center" valign="top" style="background-color:#ffffff">Solde initial du <%= " "+date1 %></th>
+                                <th width="25%" align="center" valign="top" style="background-color:#ffffff">Solde final du<%= " "+date2 %></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onmouseover="this.style.backgroundColor='#EAEAEA'" onmouseout="this.style.backgroundColor='white'" style="background-color:white">
+                                <td width="25%" align="left">
+                                    <%= etatcaisse != null && etatcaisse[0] != null ? Utilitaire.formaterAr(etatcaisse[0].getReste()) : 0 %>
+                                </td>
+                                <td width="25%" align="left"> 
+                                    <%= etatcaisse != null && etatcaisse[1] != null ? Utilitaire.formaterAr(etatcaisse[1].getReste()) : 0 %>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
         <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="id" id="journal-caisse-liste">
             <input type="hidden" name="bute" value="treso/journalcaisse-liste.jsp"/>
