@@ -29,6 +29,11 @@
     Tva tva = new Tva();
     liste[0] = new Liste("tva", tva, "valeurtva", "valeurtva");
     pi.getFormu().changerEnChamp(liste);
+    
+    if (request.getParameter("idchantier") != null && request.getParameter("nomchantier") != null) {
+        pi.getFormu().getChamp("idchantier").setDefaut(request.getParameter("idchantier"));
+        pi.getFormu().getChamp("idchantier").setValeurLibelle(request.getParameter("nomchantier"));
+    }
         
     pi.getFormu().getChamp("idchantier").setPageAppel("choix/listeChantierChoix.jsp");
     pi.getFormu().getChamp("idchantier").setAutre("readonly");
@@ -40,10 +45,6 @@
     pi.getFormu().getChamp("code_etab").setAutre("readonly");
 
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("idchantier").setDefaut(request.getParameter("idchantier"));
-    if(request.getParameter("idchantier") != null && request.getParameter("nom") != null){
-        pi.getFormu().getChamp("idchantier").setValeurLibelle(request.getParameter("nom"));
-    }
     pi.getFormu().getChamp("idchantier").setLibelle("Chantier");
     pi.getFormu().getChamp("code_etab").setLibelle("Code etablissement");
             
