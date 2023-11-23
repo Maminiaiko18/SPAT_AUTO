@@ -15,11 +15,36 @@ import java.sql.Date;
  */
 public class Avenant extends ClassEtat {
     private String id,idTiers,objet,devise,unite,typedroitport,typeDuree,numeros,idContrat;
+    private String idTierslib,contratlib,etatlib;
     private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant;
     private Date date_signature,debut_avenant,fin_avenant;
     
     public Avenant() {
         super.setNomTable("AVENANT");
+    }
+
+    public String getIdTierslib() {
+        return idTierslib;
+    }
+
+    public void setIdTierslib(String idTierslib) {
+        this.idTierslib = idTierslib;
+    }
+
+    public String getContratlib() {
+        return contratlib;
+    }
+
+    public void setContratlib(String contratlib) {
+        this.contratlib = contratlib;
+    }
+
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
     }
 
     public String getId() {
