@@ -10,8 +10,10 @@
     Role pj = new Role();
     PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
     pi.getFormu().getChamp("descrole").setLibelle("description");
-    pi.getFormu().getChamp("rang").setLibelle("Rang");
-   
+    pi.getFormu().getChamp("rang").setLibelle("Rang");    
+    
+    pi.getFormu().getChamp("rang").setDefaut("6");
+    pi.getFormu().getChamp("rang").setVisible(false);
     
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
