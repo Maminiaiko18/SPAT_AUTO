@@ -30,7 +30,7 @@
     pi.getFormu().getChamp("tiers").setVisible(false);
     pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
     pi.getFormu().getChamp("tierslib").setVisible(false);
-    pi.getFormu().getChamp("idtravaux").setLibelle("Travaux");
+    pi.getFormu().getChamp("idtravaux").setLibelle("Projet");
     pi.getFormu().getChamp("datydebut").setLibelle("date de début");
     pi.getFormu().getChamp("datyfin").setLibelle("date fin");
     pi.getFormu().getChamp("patrimoinelib").setVisible(false);
@@ -44,6 +44,7 @@
     pi.getFormu().getChamp("projetlib").setVisible(false);
     pi.getFormu().getChamp("idpatrimoine").setAutre("readonly");
     pi.getFormu().getChamp("idpatrimoine").setLibelle("Patrimoine");
+    pi.getFormu().getChamp("projet").setLibelle("Code projet");
     pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
     pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
     pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");

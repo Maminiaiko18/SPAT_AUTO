@@ -42,11 +42,11 @@
         pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("avancement").setVisible(false);
-        pi.getFormu().getChamp("idtravaux").setLibelle("Travaux");
+        pi.getFormu().getChamp("idtravaux").setLibelle("projet");
         pi.getFormu().getChamp("datydebut").setLibelle("Date debut");
         pi.getFormu().getChamp("datyfin").setLibelle("Date fin");
         pi.getFormu().getChamp("nom").setLibelle("D&eacute;signation");
-
+        pi.getFormu().getChamp("projet").setLibelle("Code projet");
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
         pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
         pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");

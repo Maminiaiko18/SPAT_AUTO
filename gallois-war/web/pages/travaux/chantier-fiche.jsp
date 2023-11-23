@@ -28,14 +28,14 @@
     pc.getChampByName("patrimoinedesce").setVisible(false);
 
     pc.getChampByName("tierslib").setLibelle("Tiers");
-    pc.getChampByName("idtravaux").setLibelle("travaux");
+    pc.getChampByName("idtravaux").setLibelle("Projet");
     pc.getChampByName("datydebut").setLibelle("Date d&eacute;but");
     pc.getChampByName("datyfin").setLibelle("Date fin");
     pc.getChampByName("patrimoinelib").setLibelle("Patrimoine");
     pc.getChampByName("avancement").setLibelle("Avancement %");
     pc.getChampByName("dirtravaux").setLibelle("Direction");
     pc.getChampByName("codeetablissementlib").setLibelle("Code &eacute;tablissement");
-    pc.getChampByName("projetlib").setLibelle("Projet");
+    pc.getChampByName("projetlib").setLibelle("Code projet");
     c = (Chantier) pc.getBase();
     pc.getChampByName("idtravaux").setLien((String) session.getValue("lien") + "?but=travaux/travaux-fiche.jsp","id="+ c.getTravaux()+"&id=");
     pc.getChampByName("patrimoinelib").setLien((String) session.getValue("lien") + "?but=patrimoine/patrimoine-fiche.jsp","id="+ c.getIdpatrimoine()+"&id=");

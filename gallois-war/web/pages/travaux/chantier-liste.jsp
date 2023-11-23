@@ -15,10 +15,10 @@
     pr.setOrdre(" order by datydebut desc");
     pr.getFormu().getChamp("datydebut").setLibelle("date de d&eacute;but");
     pr.getFormu().getChamp("datyfin").setLibelle("date fin");
-    pr.getFormu().getChamp("nomtravaux").setLibelle("Travaux");
+    pr.getFormu().getChamp("nomtravaux").setLibelle("Projet");
     pr.getFormu().getChamp("nomtiers").setLibelle("Tiers");
     pr.getFormu().getChamp("nom").setLibelle("Chantier");
-    pr.getFormu().getChamp("PROJETLIB").setLibelle("Projet");
+    pr.getFormu().getChamp("PROJETLIB").setLibelle("Code Projet");
     pr.getFormu().getChamp("CODEETABLISSEMENTLIB").setLibelle("code Etab");
     pr.getFormu().getChamp("patrimoinelib").setLibelle("Patrimoine");
     pr.getFormu().getChamp("patrimoinedesce").setLibelle("Description patrimoine");
@@ -66,7 +66,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"ID", "travaux", "chantier", "Tiers", "date de d&eacute;but", "date de fin","patrimoine","desc patrimoine", "montant", "avancement %", "Projet", "Code Etab"};
+            String libEnteteAffiche[] = {"ID", "Projet", "chantier", "Tiers", "date de d&eacute;but", "date de fin","patrimoine","desc patrimoine", "montant", "avancement %", "Code projet", "Code Etab"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
