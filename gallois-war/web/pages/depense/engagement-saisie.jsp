@@ -41,11 +41,7 @@
 
         pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
          pi.getFormu().getChamp("chantier").setPageAppel("choix/listeChantierChoix.jsp");
-         if (request.getParameter("idchantier") != null) {
-            pi.getFormu().getChamp("chantier").setValeur(request.getParameter("idchantier"));
-            pi.getFormu().getChamp("chantier").setValeurLibelle(request.getParameter("idchantier"));
-        }
-         pi.getFormu().getChamp("chantier").setAutre("readonly");
+         pi.getFormu().getChamp("chantier").setVisible(false);
         pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("avecFacture").setDefaut("0");
@@ -68,7 +64,7 @@
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
         pi.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
-        pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
+        pi.getFormu().getChamp("duree").setVisible(false);
         
         
 

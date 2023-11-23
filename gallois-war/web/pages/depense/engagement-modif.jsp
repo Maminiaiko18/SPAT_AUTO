@@ -71,7 +71,8 @@
 
         pi.getFormu().getChamp("tiers").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp", "tiers;tierslibelle");
-        pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
+        pi.getFormu().getChamp("duree").setVisible(false);
+        pi.getFormu().getChamp("chantier").setVisible(false);
 
         
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");

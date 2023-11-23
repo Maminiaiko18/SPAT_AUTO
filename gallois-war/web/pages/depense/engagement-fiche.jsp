@@ -42,12 +42,12 @@
     pc.getChampByName("disponible").setVisible(false);
     pc.getChampByName("annee").setLibelle("Ann&eacute;e");
     pc.getChampByName("montantliberer").setLibelle("Montant lib&eacute;r&eacute;");
-    pc.getChampByName("duree").setLibelle("Dur&eacute;e");
+    pc.getChampByName("duree").setVisible(false);
+    pc.getChampByName("chantier").setVisible(false);
 
     engagement = (Engagement) pc.getBase();
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp","id="+engagement.getIdLC()+"&id=");
     pc.getChampByName("tierslib").setLien((String) session.getValue("lien") + "?but=travaux/tiers-fiche.jsp","id="+engagement.getTiers()+"&id=");
-    pc.getChampByName("chantier").setLien((String) session.getValue("lien") + "?but=travaux/chantier-fiche.jsp","id="+engagement.getChantier()+"&id=");
     String bute="depense/engagement-fiche.jsp";
     Map<String, String> map = new HashMap();
     map.put("details-engagement","");
