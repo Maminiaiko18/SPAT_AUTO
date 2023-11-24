@@ -37,7 +37,7 @@ public class Engagement extends ClassEtat {
     private int avecFacture,annee;
     private String type;
     private Date dateImpression;
-    private String chantier, objet, duree;
+    private String chantier, objet, duree, idavenant;
 
     public String getChantier() {
         return chantier;
@@ -342,6 +342,14 @@ public class Engagement extends ClassEtat {
 
     public void setDuree(String duree) {
         this.duree = duree;
+    }
+
+    public String getIdavenant() {
+        return idavenant;
+    }
+
+    public void setIdavenant(String idavenant) {
+        this.idavenant = idavenant;
     }
 
     @Override

@@ -39,7 +39,7 @@
             }
             else
                 {
-                   %><center><h4>Pas de r�sultat</h4></center><%
+                   %><center><h4>Pas de r&eacute;sultat</h4></center><%
             }
     %>
 </div>
