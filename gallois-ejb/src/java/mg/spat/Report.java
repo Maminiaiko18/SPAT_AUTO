@@ -13,6 +13,8 @@ import java.sql.Date;
 import service.JournalService;
 import service.ReportService;
 import utilitaire.Utilitaire;
+import service.ClotureService;
+import utilitaire.UtilDB;
 
 /**
  *
@@ -25,6 +27,22 @@ public class Report extends ClassEtat{
     private double montant;
     private String caisse;
     private String devise;
+
+    @Override
+    public void controleAnnulerVisa(Connection c) throws Exception {
+        c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+            Date situation = Utilitaire.ajoutJourDate(this.getDaty(),1);
+            ClotureService.testDateCloture(situation,this.getCaisse(),c);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
 
     public Date getDaty() {
         return daty;
@@ -62,9 +80,9 @@ public class Report extends ClassEtat{
     public void controler(Connection c) throws Exception{
 //        Report report = this.getReportFarany(this.getDaty(),this.getCaisse(),c);
 //        this.montant=report.getMontant()+JournalService.getSoldeJournal(report.getDaty() , Utilitaire.getDateAvant(this.getDaty(), 1), this.getCaisse(), c);
-        if(checkDoublon(c)){
-            throw new Exception("Report deja effectue pour cette caisse");
-        }    
+    Date situation = Utilitaire.ajoutJourDate(this.getDaty(),1);
+    ClotureService.testDateCloture(situation,this.getCaisse(),c);    
+    if(checkDoublon(c)) throw new Exception("Report deja effectue pour cette caisse");
     }
     
     public Report() {
