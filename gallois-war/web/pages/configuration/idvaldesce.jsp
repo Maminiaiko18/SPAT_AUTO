@@ -4,6 +4,7 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
     try{
     String cible = request.getParameter("ciblename");
@@ -16,11 +17,11 @@
     titre.put("typemesure", "Type mesure");
     titre.put("typemarchandise", "Type marchandise");
     titre.put("typemanipulation", "Type manipulation");
-    titre.put("nomsociete", "Sociï¿½tï¿½");
+    titre.put("nomsociete", "SociÃ©tÃ©");
     titre.put("typeactionconteneur", "Type Action Conteneur");
     titre.put("unitechantier", "Unite");
     titre.put("banque", "Banque");
-    titre.put("entite", "Entitï¿½");
+    titre.put("entite", "EntitÃ©");
     titre.put("consignataire", "Consignataire");
     titre.put("pays", "Pays");
     titre.put("typequais", "Type quais");
@@ -37,9 +38,9 @@
     titre.put("cargaison", "Cargaison");
     titre.put("pilote", "Capitaine");
     titre.put("typenavire", "type navire");
-    titre.put("categoriefacturation", "Catégorie");
+    titre.put("categoriefacturation", "CatÃ©gorie");
     titre.put("redevance", "Redevance");
-    titre.put("unite_activite", "Unité");
+    titre.put("unite_activite", "UnitÃ©");
 
     titre.put("Marque_Materiel", "Marque mat&eacute;riel");
 
@@ -47,9 +48,9 @@
     
     titre.put("CodeEtablissement", "code etablissement");
     
-    titre.put("consignatairetab", "Consignataire Société");
+    titre.put("consignatairetab", "Consignataire SociÃ©tÃ©");
     
-    titre.put("consignatairetab", "Consignataire Société");
+    titre.put("consignatairetab", "Consignataire SociÃ©tÃ©");
     
     titre.put("destination", "destination");
     
@@ -67,7 +68,8 @@
     titre.put("typeclient", "Type Client");
     titre.put("armateur_tbd", "Armateur");
     titre.put("MOTIF_VOYAGE", "Motif de Voyage");
-    titre.put("CATEGORIE_PROFESSIONNEL", "Catégorie Professionnel");
+    titre.put("MOYEN_DEPLACEMENT", "Moyen de dÃ©placement");
+    titre.put("CATEGORIE_PROFESSIONNEL", "CatÃ©gorie Professionnel");
     titre.put("moyen_deplacement", "Moyen de d&eacute;placement");
     titre.put("grandrubrique", "Grande rubrique");
     

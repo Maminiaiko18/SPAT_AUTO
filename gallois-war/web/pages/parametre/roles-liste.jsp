@@ -6,9 +6,17 @@
 
 <% try{ 
     Role role = new Role();
-    String listeCrt[] = {"idrole", "descrole", "rang"};
-    String listeInt[] = {"rang"};
-    String libEntete[] = {"idrole", "descrole", "rang"};
+    
+    //String listeCrt[] = {"idrole", "descrole", "rang"};
+    String listeCrt[] = {"idrole", "descrole"};
+
+
+    // String listeInt[] = {"rang"};
+    String listeInt[] = {}; 
+    
+    // String libEntete[] = {"idrole", "descrole", "rang"};
+    String libEntete[] = {"idrole", "descrole"};
+    
     PageRecherche pr = new PageRecherche(role, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -40,6 +48,11 @@
             String colonneLien[] = {"idrole"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);*/
+            String lienTableau[] = {pr.getLien() + "?but=parametre"
+                    + "/role-fiche.jsp"};
+            String colonneLien[] = {"idrole"};
+            pr.getTableau().setLien(lienTableau);
+            pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%

@@ -36,6 +36,7 @@ import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 import ded.PaiementOP;
 import mg.allosakafo.produits.LiaisonIntraTable;
+import mg.amadia.stock.EtatdeStockDate;
 
 /**
  *
@@ -800,6 +801,52 @@ public class JournalCaisse extends ClassEtat {
     public String getAttributIDName() {
         return "id";
     }
+
+    public static EtatdeStockDate[] etatdecaisse(String date1, String date2, String caisse, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+    
+            if(date1.equalsIgnoreCase(date2)) date1 = Utilitaire.ajoutJourDateString(Utilitaire.stringDate(date2), -1);
+            EtatdeStockDate[] li1 = EtatdeStockDate.calculEtatCaisse(date1, null, null, c, null, null, date1);
+            EtatdeStockDate[] li2 = EtatdeStockDate.calculEtatCaisse(date2, null, null, c, null, null, date2);
+    
+            EtatdeStockDate[] result = new EtatdeStockDate[2];
+    
+            for (EtatdeStockDate ca : li1) {
+                if (ca.getCaisse().compareToIgnoreCase(caisse) == 0) {
+                    result[0] = ca;
+                    break;
+                }
+            }
+    
+            for (EtatdeStockDate ca : li2) {
+                if (ca.getCaisse().compareToIgnoreCase(caisse) == 0) {
+                    result[1] = ca;
+                    break;
+                }
+            }
+    
+            if (verif == 1) {
+                c.commit();
+            }
+            return result;
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    
 
 
     public JournalCaisse modifierEntete(String refUser, Connection c) throws Exception {

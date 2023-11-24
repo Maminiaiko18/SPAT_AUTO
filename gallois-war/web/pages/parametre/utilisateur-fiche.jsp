@@ -27,6 +27,7 @@
     pc.getChampByName("loginuser").setLibelle("Login");
     pc.getChampByName("teluser").setLibelle("Tï¿½lï¿½phone");
     pc.getChampByName("adruser").setLibelle("Direction");
+    pc.getChampByName("codeetablissementlib").setLibelle("Code établissement");
     
     MapUtilisateurLib map = (MapUtilisateurLib) pc.getBase();
 
@@ -60,6 +61,9 @@
                         <br/>
                         <div class="box-footer">
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=utilisateur/utilisateur-modif.jsp&refuser=" + request.getParameter("refuser")%>" style="margin-right: 10px">Modifier</a>       
+                            
+                               <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=utilisateur/utilisateur-modification.jsp&refuser=" + request.getParameter("refuser")%>" style="margin-right: 10px">Modifier sans MDP</a> 
+                            
                             <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerUtilisateur&refuser=<%=request.getParameter("refuser")%>" style="margin-right: 10px">Imprimer </a>                            
                         
                         </div>

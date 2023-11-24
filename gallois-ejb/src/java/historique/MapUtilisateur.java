@@ -18,7 +18,8 @@ public class MapUtilisateur extends bean.ClassMAPTable implements java.io.Serial
         return codeEtablissement;
     }
 
-    public void setCodeEtablissement(String codeEtablissement) {
+    public void setCodeEtablissement(String codeEtablissement) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (codeEtablissement==null || codeEtablissement.compareToIgnoreCase("")==0)) throw new Exception("Code etablissement obligatoire.");
         this.codeEtablissement = codeEtablissement;
     }
     
