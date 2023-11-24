@@ -73,6 +73,7 @@
         <jsp:include page='../elements/js.jsp'/>
     </body>
 </html>
+
 <% } catch (Exception e) {
         e.printStackTrace();
     }%>
