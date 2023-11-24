@@ -40,6 +40,11 @@
             String colonneLien[] = {"idrole"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);*/
+            String lienTableau[] = {pr.getLien() + "?but=parametre"
+                    + "/role-fiche.jsp"};
+            String colonneLien[] = {"idrole"};
+            pr.getTableau().setLien(lienTableau);
+            pr.getTableau().setColonneLien(colonneLien);
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
