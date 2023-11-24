@@ -23,7 +23,10 @@ public class Contrat extends ClassEtat{
     public Contrat() {
         super.setNomTable("CONTRAT");
     }
-
+    @Override
+    public String getValColLibelle(){
+        return this.getObjet();
+    }
     public String getIdTierslib() {
         return idTierslib;
     }
