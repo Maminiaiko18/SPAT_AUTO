@@ -51,6 +51,7 @@
     String tab = null;
     Map<String, String> map = new HashMap<String, String>();
     map.put("avancement", "");
+    map.put("contrat", "");
     map.put("engagement", "");
     map.put("facturefournisseur", "");
 
@@ -90,7 +91,8 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="<%= map.get("avancement")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&tab=avancement">Avancement</a></li>
-                    <li class="<%= map.get("engagement")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&tab=engagement">Contrat</a></li>
+                    <li class="<%= map.get("contrat")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&tab=contrat">Contrat</a></li>
+                    <li class="<%= map.get("engagement")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&tab=engagement">Engagement</a></li>
                     <li class="<%= map.get("facturefournisseur")%>"><a href="globalnegoce.jsp?but=travaux/chantier-fiche.jsp&id=<%=id%>&tab=facturefournisseur">Facture Fournisseur</a></li>
                 </ul>
                 

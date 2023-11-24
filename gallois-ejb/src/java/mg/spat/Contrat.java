@@ -16,7 +16,7 @@ import utilitaire.Utilitaire;
  */
 public class Contrat extends ClassEtat{
     private String id,idTiers,objet,devise,unite,typedroitport,typeDuree,numeros,idchantier;
-    private String idTierslib,contratlib,nom;
+    private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib;
     private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant;
     private Date date_signature,debut_contrat,fin_contrat;
     
@@ -221,6 +221,73 @@ public class Contrat extends ClassEtat{
         this.nom = nom;
     }
 
+    public String getValunite() {
+        return valunite;
+    }
+
+    public void setValunite(String valunite) {
+        this.valunite = valunite;
+    }
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) throws Exception {
+        this.projet = projet;
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (projet==null || projet.compareToIgnoreCase("")==0)) throw new Exception("Projet obligatoire.");
+    }
+
+    public String getCodeetablissement() {
+        return codeetablissement;
+    }
+
+    public void setCodeetablissement(String codeetablissement) throws Exception {
+        this.codeetablissement = codeetablissement;
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (codeetablissement==null || codeetablissement.compareToIgnoreCase("")==0)) throw new Exception("Code etablissement obligatoire.");
+    }
+
+    public String getIdLC() {
+        return idLC;
+    }
+
+    public void setIdLC(String idLC) throws Exception{
+        this.idLC = idLC;
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
+
+    public String getCodeetablissementlib() {
+        return codeetablissementlib;
+    }
+
+    public void setCodeetablissementlib(String codeetablissementlib) {
+        this.codeetablissementlib = codeetablissementlib;
+    }
+
+    public String getLclib() {
+        return lclib;
+    }
+
+    public void setLclib(String lclib) {
+        this.lclib = lclib;
+    }
+
+    public String getChantierlib() {
+        return chantierlib;
+    }
+
+    public void setChantierlib(String chantierlib) {
+        this.chantierlib = chantierlib;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -233,5 +300,18 @@ public class Contrat extends ClassEtat{
     public void construirePK(Connection c) throws Exception {
         this.preparePk("CTRT", "GETSEQ_CONTRAT");
         this.setId(makePK(c));
+    }
+    
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        try{
+            Avenant avenant = new Avenant(this.getIdTiers(), "avenant initial", this.getUnite(), this.getId(), this.getDuree(), this.getMontant(), this.getDate_signature(), this.getDebut_contrat(), this.getFin_contrat());
+            avenant.createObject(u, c);
+            avenant.validerObject(u, c);
+            return super.validerObject(u, c);
+        }
+        catch(Exception e){
+            throw e;
+        }
     }
 }

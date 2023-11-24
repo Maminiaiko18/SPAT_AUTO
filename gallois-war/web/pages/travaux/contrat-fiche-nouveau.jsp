@@ -19,11 +19,27 @@
     Contrat t = new Contrat();
     t.setNomTable("CONTRATLIBCPLT");
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));
-//    t = (Contrat) pc.getBase();
-    String id=request.getParameter("id");
-//    pc.getChampByName("id").setLibelle("Id");
-//    pc.getChampByName("nom").setLibelle("Nom");
-//    pc.getChampByName("montantTotal").setLibelle("Montant Total");
+    t = (Contrat) pc.getBase();
+    pc.getChampByName("chantierlib").setLien((String) session.getValue("lien") + "?but=travaux/chantier-fiche.jsp","id="+ t.getIdchantier() +"&id=");
+    String id = request.getParameter("id");
+    pc.getChampByName("idtiers").setVisible(false);
+    pc.getChampByName("unite").setVisible(false);
+    pc.getChampByName("projet").setVisible(false);
+    pc.getChampByName("codeetablissement").setVisible(false);
+    pc.getChampByName("idlc").setVisible(false);
+    pc.getChampByName("idchantier").setVisible(false);
+    pc.getChampByName("typeduree").setVisible(false);
+    pc.getChampByName("nom").setLibelle("Tiers");
+    pc.getChampByName("date_signature").setLibelle("Date de signature");
+    pc.getChampByName("objet").setLibelle("Objet");
+    pc.getChampByName("debut_contrat").setLibelle("Date d&eacute;but");
+    pc.getChampByName("fin_contrat").setLibelle("Date fin");
+    pc.getChampByName("duree").setLibelle("Dur&eacute;e");
+    pc.getChampByName("valunite").setLibelle("Unit&eacute;");
+    pc.getChampByName("codeetablissementlib").setLibelle("Code Etablissement");
+    pc.getChampByName("projetlib").setLibelle("Projet");
+    pc.getChampByName("chantierlib").setLibelle("Chantier");
+    pc.getChampByName("lclib").setLibelle("Budget");
     pc.setTitre("Fiche contrat");
 
 
@@ -53,8 +69,9 @@
                         %>
                         <br/>
                         <div class="box-footer">
+                            <a class="btn btn-primary pull-left"  href="<%= lien + "?but=travaux/avenant-saisie.jsp&idcontrat=" + id + "&nomcontrat=" + t.getObjet() %>" style="margin-right: 10px">Saisir avenant</a>
                             <a class="btn btn-warning pull-left"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin-right: 10px">Modifier</a>
-                            <a href="<%= lien + "?but=apresTarif.jsp&id=" + id+"&acte=delete&bute=#&classe="+classe %>"><button class="btn btn-danger">Supprimer</button></a>
+                            <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id%>&acte=valider&bute=travaux/contrat-fiche-nouveau.jsp&id=<%=id%>&classe=mg.spat.Contrat" style="margin-right: 10px">Viser</a>
                         </div>
                         <br/>
 

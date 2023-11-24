@@ -30,6 +30,12 @@
     pi.getFormu().getChamp("idchantier").setAutre("readonly");
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
+    pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
+    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    pi.getFormu().getChamp("projet").setAutre("readonly");
+    pi.getFormu().getChamp("idLC").setPageAppel("choix/listeBudgetDepenseChoix.jsp", "idLC;idLClibelle;idLClibelle;idLClibelle");
+    pi.getFormu().getChamp("idLC").setAutre("readonly");
 
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("fin_contrat").setVisible(false);
@@ -50,6 +56,8 @@
     pi.getFormu().getChamp("debut_contrat").setLibelle("D&eacute;but contrat");
     pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
     pi.getFormu().getChamp("unite").setLibelle("Unit&eacute;");
+    pi.getFormu().getChamp("codeetablissement").setLibelle("Code &Eacute;tablissement");
+    pi.getFormu().getChamp("idLC").setLibelle("Budget");
     
     pi.preparerDataFormu();
 %>
