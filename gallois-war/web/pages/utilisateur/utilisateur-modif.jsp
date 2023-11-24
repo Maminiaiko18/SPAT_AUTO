@@ -49,8 +49,13 @@
         
         pi.getFormu().getChamp("adruser").setLibelle("Direction");
         pi.getFormu().getChamp("idrole").setLibelle("Rôle");
-         pi.getFormu().getChamp("codeetablissementlib").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
-        pi.getFormu().getChamp("codeetablissementlib").setAutre("readOnly"); 
+        
+        art = (MapUtilisateurLib)pi.getBase();
+        pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+        pi.getFormu().getChamp("codeEtablissement").setAutre("readOnly"); 
+        pi.getFormu().getChamp("codeEtablissement").setValeurLibelle(art.getCodeEtablissementlib());
+        pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &eacute;tablissement");
+        pi.getFormu().getChamp("codeEtablissementlib").setVisible(false);
         
         pi.preparerDataFormu();
 
@@ -58,6 +63,7 @@
 %>
 <div class="content-wrapper">
     <div class="row">
+        <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="box-fiche">
                 <div class="box">
