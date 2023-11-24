@@ -53,7 +53,7 @@
                         %>
                         <br/>
                         <div class="box-footer">
-                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=parametre/roles-modif.jsp&id=" + request.getParameter("idrole")%>" style="margin-right: 10px">Modifier</a>                              
+                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=parametre/roles-modif.jsp&idrole=" + request.getParameter("idrole")%>" style="margin-right: 10px">Modifier</a>                              
 
                         </div>
                         <br/>
