@@ -18,10 +18,19 @@ public class MapUtilisateurLib extends bean.ClassMAPTable{
     private String adruser;
     private String teluser;
     private String refuser;
+    private String codeetablissementlib;
 
     public MapUtilisateurLib() {
         setNomTable("UTILISATEURVUEFICHE_ID");
     }
+
+    public String getCodeetablissementlib() {
+        return codeetablissementlib;
+    }
+
+    public void setCodeetablissementlib(String codeetablissementlib) {
+        this.codeetablissementlib = codeetablissementlib;
+    }       
     
     public String getLoginuser() {
         return loginuser;

@@ -49,6 +49,8 @@
         
         pi.getFormu().getChamp("adruser").setLibelle("Direction");
         pi.getFormu().getChamp("idrole").setLibelle("Rôle");
+         pi.getFormu().getChamp("codeetablissementlib").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+        pi.getFormu().getChamp("codeetablissementlib").setAutre("readOnly"); 
         
         pi.preparerDataFormu();
 
