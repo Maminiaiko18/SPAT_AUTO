@@ -21,20 +21,23 @@
     pc.getChampByName("contratlib").setVisible(false);
     pc.getChampByName("Typedroitport").setVisible(false);
     pc.getChampByName("etatlib").setVisible(false);
+    pc.getChampByName("droit_entree").setVisible(false);
+    pc.getChampByName("devise").setVisible(false);
+    pc.getChampByName("redevance_variable").setVisible(false);
+    pc.getChampByName("redevance_fixe").setVisible(false);
+    pc.getChampByName("redevance_domaniale").setVisible(false);
+    pc.getChampByName("redevance_locative").setVisible(false);
+    pc.getChampByName("droit_port").setVisible(false);
+    
     pc.getChampByName("date_signature").setLibelle("Date de signature");
     pc.getChampByName("objet").setLibelle("Objet");
     pc.getChampByName("debut_avenant").setLibelle("Date d&eacute;but");
     pc.getChampByName("fin_avenant").setLibelle("Date fin");
-    pc.getChampByName("devise").setLibelle("Devise");
     pc.getChampByName("duree").setLibelle("Dur&eacute;e");
     pc.getChampByName("unite").setLibelle("Unit&eacute;");
-    pc.getChampByName("droit_entree").setLibelle("Droit d'entr&eacute;e");
-    pc.getChampByName("redevance_variable").setLibelle("Redevance variable");
-    pc.getChampByName("redevance_fixe").setLibelle("Redevance fixe");
-    pc.getChampByName("redevance_domaniale").setLibelle("Redevance domaniale");
-    pc.getChampByName("redevance_locative").setLibelle("Redevance locative");
     pc.getChampByName("montant").setLibelle("Montant");
     pc.getChampByName("idContrat").setLibelle("Contrat");
+    
     c = (Avenant) pc.getBase();
     pc.getChampByName("idContrat").setLien((String) session.getValue("lien") + "?but=travaux/contrat-fiche.jsp","id="+ c.getIdContrat()+"&id=");
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
@@ -66,50 +69,6 @@
                     </div>
                     <br/>
 
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="nav-tabs-custom">
-                <div class="col-md-12">
-                    <div class="col-md-8 col-md-offset-2">
-                        <div class="box-title with-border">
-
-                            <h2 class="box-title" style="margin-left: 10px;">Les fichiers attach�s</h2>
-                        </div>
-                        <div class="box-body">
-                            <table class="table table-striped table-bordered table-condensed table-responsive tree">
-                                <thead>
-                                    <tr>
-                                        <th style="background-color:#bed1dd;"></th>
-                                        <th style="background-color:#bed1dd;">Libell&eacute;</th>
-                                        <th style="background-color:#bed1dd;">Fichier</th>
-                                        <th style="background-color:#bed1dd;">Voir</th>
-                                        <th style="background-color:#bed1dd;">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%if(fichiers==null || fichiers.length==0){%>
-                                    <tr>
-                                        <td colspan="3" style="text-align: center;"><strong>Aucun fichier</strong></td>
-                                    </tr>
-                                    <%} else{
-                                        for (AttacherFichier fichier : fichiers) {%> 
-                                    <tr class="treegrid-1 treegrid-expanded">
-                                        <td><span class="treegrid-expander glyphicon glyphicon-minus"></span></td>
-                                        <td><%=fichier.getChemin()%></td>
-                                        <td><%=Utilitaire.champNull(fichier.getLibelle())%></td>
-                                        <td><a href="#" class="btn btn-primary" onclick="javascript:pagePopUp('<%=cdn + dossier + "/" + fichier.getChemin()%>')">Voir</a></td>
-                                        <td></td>
-                                    </tr>
-                                    <%}
-                                }%>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

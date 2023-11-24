@@ -8,6 +8,7 @@ package mg.spat;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -213,6 +214,8 @@ public class Avenant extends ClassEtat {
 
     public void setFin_avenant(Date fin_avenant) {
         this.fin_avenant = fin_avenant;
+        if(getMode().equals("modif"))
+            this.fin_avenant = Utilitaire.ajoutJourDate(this.getDebut_avenant(), (int) Math.ceil(this.getDuree()-1));
     }
 
     @Override

@@ -1,4 +1,4 @@
-<%@page import="mg.spat.Tva"%>
+
 <%@page import="mg.spat.Avenant"%>
 <%@ page import="user.*" %>
 <%@ page import="bean.*" %>
@@ -12,10 +12,14 @@
     String classe = "mg.spat.Avenant";
     String butApresPost = "travaux/avenant-fiche.jsp";
     String nomTable = "avenant";
-    affichage.Champ[] liste = new affichage.Champ[1];
-    Tva tva = new Tva();
-    liste[0] = new Liste("tva", tva, "valeurtva", "valeurtva");
-    pi.getFormu().changerEnChamp(liste);
+    
+    affichage.Liste[] listes = new affichage.Liste[1];
+
+    TypeObjet type = new TypeObjet();
+    type.setNomTable("unite");
+    listes[0] = new Liste("unite", type, "VAL", "id");
+
+    pi.getFormu().changerEnChamp(listes);
     
     if (request.getParameter("idcontrat") != null && request.getParameter("nomcontrat") != null) {
         pi.getFormu().getChamp("idcontrat").setDefaut(request.getParameter("idcontrat"));
@@ -26,17 +30,13 @@
     pi.getFormu().getChamp("idcontrat").setAutre("readonly");
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
-
+    
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("date_signature").setVisible(false);
-    pi.getFormu().getChamp("debut_avenant").setVisible(false);
     pi.getFormu().getChamp("fin_avenant").setVisible(false);
-    pi.getFormu().getChamp("duree").setVisible(false);
     pi.getFormu().getChamp("droit_entree").setVisible(false);
     pi.getFormu().getChamp("redevance_fixe").setVisible(false);
     pi.getFormu().getChamp("devise").setVisible(false);
     pi.getFormu().getChamp("redevance_variable").setVisible(false);
-    pi.getFormu().getChamp("unite").setVisible(false);
     pi.getFormu().getChamp("droit_port").setVisible(false);
     pi.getFormu().getChamp("typedroitport").setVisible(false);
     pi.getFormu().getChamp("redevance_domaniale").setVisible(false);
@@ -46,6 +46,10 @@
     
     pi.getFormu().getChamp("idcontrat").setLibelle("Contrat");
     pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
+    pi.getFormu().getChamp("date_signature").setLibelle("Date signature");
+    pi.getFormu().getChamp("debut_avenant").setLibelle("D&eacute;but avenant");
+    pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
+    pi.getFormu().getChamp("unite").setLibelle("Unit&eacute;");
     
     pi.preparerDataFormu();
 %>
