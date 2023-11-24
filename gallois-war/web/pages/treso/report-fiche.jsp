@@ -47,6 +47,9 @@
                             <p>
                                 <a href="<%=(String) session.getValue("lien") + "?but=treso/report-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning">Modifier</button></a>
                                 <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=treso/report-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Report" style="margin-right: 10px">Viser</a>
+                                <% if(base.getEtat()==ConstanteEtat.getEtatValider()) { %>
+                                    <a class="btn btn-danger"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&id=" + request.getParameter("id")%>&bute=treso/report-fiche.jsp&classe=mg.spat.Report" style="margin-right: 10px">Annuler Visa</a>
+                                <% } %>
                                 <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=treso/report-liste.jsp&classe=mg.spat.Report"><button class="btn btn-danger">Supprimer</button></a>
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=treso/report-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                             </p>
@@ -64,14 +67,14 @@
                     <div class="col-md-8">
                         <div class="box-title with-border">
 
-                            <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
+                            <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachï¿½s</h2>
                         </div>
                         <div class="box-body">
 			<table class="table table-striped table-bordered table-condensed table-responsive tree">
                                 <thead>
                                     <tr>
                                         <th style="background-color:#bed1dd;"></th>
-                                        <th style="background-color:#bed1dd;">Libellé</th>
+                                        <th style="background-color:#bed1dd;">Libellï¿½</th>
                                         <th style="background-color:#bed1dd;">Fichier</th>
                                         <th style="background-color:#bed1dd;">Voir</th>
                                         <th style="background-color:#bed1dd;">#</th>
