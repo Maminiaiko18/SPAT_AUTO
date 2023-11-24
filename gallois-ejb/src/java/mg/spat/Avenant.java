@@ -16,12 +16,25 @@ import utilitaire.Utilitaire;
  */
 public class Avenant extends ClassEtat {
     private String id,idTiers,objet,devise,unite,typedroitport,typeDuree,numeros,idContrat;
-    private String idTierslib,contratlib,etatlib;
+    private String idTierslib,contratlib,etatlib,tierslib,unitelib,idengagement,designationengagement;
     private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant;
     private Date date_signature,debut_avenant,fin_avenant;
     
     public Avenant() {
         super.setNomTable("AVENANT");
+    }
+
+    public Avenant(String idTiers, String objet, String unite, String idContrat, double duree, double montant, Date date_signature, Date debut_avenant, Date fin_avenant) {
+        super.setNomTable("AVENANT");
+        this.setIdTiers(idTiers);
+        this.setObjet(objet);
+        this.setUnite(unite);
+        this.setIdContrat(idContrat);
+        this.setDuree(duree);
+        this.setMontant(montant);
+        this.setDate_signature(date_signature);
+        this.setDebut_avenant(debut_avenant);
+        this.setFin_avenant(fin_avenant);
     }
 
     public String getIdTierslib() {
@@ -218,6 +231,38 @@ public class Avenant extends ClassEtat {
             this.fin_avenant = Utilitaire.ajoutJourDate(this.getDebut_avenant(), (int) Math.ceil(this.getDuree()-1));
     }
 
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
+
+    public String getUnitelib() {
+        return unitelib;
+    }
+
+    public void setUnitelib(String unitelib) {
+        this.unitelib = unitelib;
+    }
+
+    public String getIdengagement() {
+        return idengagement;
+    }
+
+    public void setIdengagement(String idengagement) {
+        this.idengagement = idengagement;
+    }
+
+    public String getDesignationengagement() {
+        return designationengagement;
+    }
+
+    public void setDesignationengagement(String designationengagement) {
+        this.designationengagement = designationengagement;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -232,5 +277,24 @@ public class Avenant extends ClassEtat {
         this.setId(makePK(c));
     }
     
-    
+    @Override
+    public Object validerObject(String u, Connection c) throws Exception {
+        try{
+            Contrat contrat = (Contrat)(new Contrat()).getById(this.getIdContrat(), null, c);
+            Engagement engagement = new Engagement();
+            engagement.setDesignation(this.getObjet());
+            engagement.setCodeEtablissement(contrat.getCodeetablissement());
+            engagement.setProjet(contrat.getProjet());
+            engagement.setIdLC(contrat.getIdLC());
+            engagement.setDaty(Utilitaire.dateDuJourSql());
+            engagement.setTiers(this.getIdTiers());
+            engagement.setAnnee(Utilitaire.getAneeEnCours());
+            engagement.setIdavenant(this.getId());
+            engagement.createObject(u, c);
+            return super.validerObject(u, c);
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
 }

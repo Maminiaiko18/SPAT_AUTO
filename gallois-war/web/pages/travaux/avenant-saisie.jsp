@@ -26,7 +26,7 @@
         pi.getFormu().getChamp("idcontrat").setValeurLibelle(request.getParameter("nomcontrat"));
     }
         
-    pi.getFormu().getChamp("idcontrat").setPageAppel("choix/listeChantierChoix.jsp");
+    pi.getFormu().getChamp("idcontrat").setPageAppel("choix/listeContratNouveauChoix.jsp");
     pi.getFormu().getChamp("idcontrat").setAutre("readonly");
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");

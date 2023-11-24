@@ -16,7 +16,7 @@
     String butApresPost = "travaux/avenant-fiche.jsp";
    
     
-     Avenant base = (Avenant) pi.getBase();
+    Avenant base = (Avenant) pi.getBase();
     affichage.Liste[] listes = new affichage.Liste[1];
 
     TypeObjet type = new TypeObjet();
@@ -34,7 +34,7 @@
     pi.getFormu().getChamp("idcontrat").setAutre("readonly");
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
-
+            
     pi.getFormu().getChamp("contratlib").setVisible(false);
     pi.getFormu().getChamp("etatlib").setVisible(false);
 
@@ -51,12 +51,14 @@
     pi.getFormu().getChamp("redevance_locative").setVisible(false);
     pi.getFormu().getChamp("pipeline").setVisible(false);
     pi.getFormu().getChamp("typeduree").setVisible(false);
+    pi.getFormu().getChamp("tierslib").setVisible(false);
+    pi.getFormu().getChamp("unitelib").setVisible(false);
     
     pi.getFormu().getChamp("idcontrat").setLibelle("Contrat");
     pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
     
     pi.getFormu().getChamp("idcontrat").setValeurLibelle(base.getContratlib());
-    pi.getFormu().getChamp("idtiers").setValeurLibelle(base.getIdTierslib());
+    pi.getFormu().getChamp("idtiers").setValeurLibelle(base.getTierslib());
 
     pi.getFormu().getChamp("date_signature").setLibelle("Date signature");
     pi.getFormu().getChamp("debut_avenant").setLibelle("D&eacute;but avenant");
