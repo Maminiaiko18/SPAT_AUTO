@@ -6,6 +6,8 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
@@ -14,11 +16,11 @@
     pi.getFormu().getChamp("loginuser").setLibelle("Login");
     pi.getFormu().getChamp("pwduser").setLibelle("Mot de passe");
     pi.getFormu().getChamp("pwduser").setType("password");
-    pi.getFormu().getChamp("nomuser").setLibelle("Nom");
-    
+    pi.getFormu().getChamp("nomuser").setLibelle("Nom utilisateur");
+    pi.getFormu().getChamp("CodeEtablissement").setLibelle("Code établissement");
     pi.getFormu().getChamp("teluser").setDefaut("1002067"); 
-    pi.getFormu().getChamp("teluser").setAutre("readOnly"); 
-    pi.getFormu().getChamp("teluser").setLibelle("Configuration");
+    pi.getFormu().getChamp("teluser").setVisible(false);
+    //pi.getFormu().getChamp("teluser").setLibelle("Configuration");
     
     affichage.Champ[] liste = new affichage.Champ[2];
     
@@ -32,7 +34,7 @@
     pi.getFormu().changerEnChamp(liste);
     
     pi.getFormu().getChamp("adruser").setLibelle("Direction");
-    pi.getFormu().getChamp("idrole").setLibelle("R�le");
+    pi.getFormu().getChamp("idrole").setLibelle("Rôle");
     pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
     pi.getFormu().getChamp("codeEtablissement").setAutre("readOnly"); 
     pi.setLien((String) session.getValue("lien"));
