@@ -33,7 +33,7 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("parametre/role-fiche.jsp");
-        pr.setAWhere(" and idrole='"+map.getIdrole()+"' and interdit = 0 ");
+        pr.setAWhere(" and idrole='"+map.getIdrole()+"' and interdit != 1 ");
         String colSomme[] = null;
         pr.setNpp(1000);
         pr.creerObjetPage(libEntete, colSomme);
@@ -53,7 +53,7 @@
                         %>
                         <br/>
                         <div class="box-footer">
-                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=parametre/roles-modif.jsp&refuser=" + request.getParameter("refuser")%>" style="margin-right: 10px">Modifier</a>                              
+                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=parametre/roles-modif.jsp&id=" + request.getParameter("idrole")%>" style="margin-right: 10px">Modifier</a>                              
 
                         </div>
                         <br/>
@@ -70,18 +70,19 @@
 
         </section>
         <section class="content">
-
             <%
                 String libEnteteAffiche[] = {"Id", "Idmenu"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-                out.println(pr.getTableau().getHtml());
-
+                if(pr.getTableau().getHtml() != null){
+                    out.println(pr.getTableau().getHtml());
+                }
+                else{
             %>
+            <center>Aucun r&eacute;sultat</center>
         </section>  
-
     </div>   
 </div>
 
-<%} catch (Exception e) {
+<%}} catch (Exception e) {
         e.printStackTrace();
     }%>
