@@ -30,7 +30,7 @@
         pi.getFormu().getChamp("PWDUSER").setValeur("");
         pi.getFormu().getChamp("PWDUSER").setType("password");
         pi.getFormu().getChamp("nomuser").setLibelle("Nom");
-        //pi.getFormu().getChamp("teluser").setVisible(false);
+        pi.getFormu().getChamp("teluser").setVisible(false);
         pi.getFormu().getChamp("IDROLE").setAutre("readonly");
         //pi.getFormu().getChamp("adruser").setValeur(art.getAdruser());
         //pi.getFormu().getChamp("adruser").setVisible(false);
@@ -48,7 +48,7 @@
         pi.getFormu().changerEnChamp(liste);
         
         pi.getFormu().getChamp("adruser").setLibelle("Direction");
-        pi.getFormu().getChamp("idrole").setLibelle("Rôle");
+        pi.getFormu().getChamp("idrole").setLibelle("Rï¿½le");
         
         art = (MapUtilisateurLib)pi.getBase();
         pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");

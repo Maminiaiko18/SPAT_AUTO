@@ -21,13 +21,14 @@
     pc.setTitre("Fiche Utilisateur");
     pc.getChampByName("refuser").setVisible(false);
     String dossier="parametre";
-    pc.getChampByName("pwduser").setLibelle("Mots de passe");
+    pc.getChampByName("pwduser").setVisible(false);
+    pc.getChampByName("CodeEtablissement").setVisible(false);
     pc.getChampByName("idrole").setLibelle("Rï¿½le");
     pc.getChampByName("nomuser").setLibelle("Nom de l'utilisateur");
     pc.getChampByName("loginuser").setLibelle("Login");
-    pc.getChampByName("teluser").setLibelle("Tï¿½lï¿½phone");
+    pc.getChampByName("teluser").setVisible(false);
     pc.getChampByName("adruser").setLibelle("Direction");
-    pc.getChampByName("codeetablissementlib").setLibelle("Code établissement");
+    pc.getChampByName("codeetablissementlib").setLibelle("Code ï¿½tablissement");
     
     MapUtilisateurLib map = (MapUtilisateurLib) pc.getBase();
 
