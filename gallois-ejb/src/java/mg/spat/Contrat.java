@@ -5,7 +5,9 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
+import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.Utilitaire;
@@ -303,11 +305,25 @@ public class Contrat extends ClassEtat{
     }
     
     @Override
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {        
+        try{
+            Avenant avenant = new Avenant(this.getIdTiers(), "avenant initial", this.getUnite(), this.getId(), this.getDuree(), this.getMontant(), this.getDate_signature(), this.getDebut_contrat(), this.getFin_contrat(), 0);
+            avenant.createObject(u, c);
+            return super.createObject(u, c); 
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+    
+    @Override
     public Object validerObject(String u, Connection c) throws Exception {
         try{
-            Avenant avenant = new Avenant(this.getIdTiers(), "avenant initial", this.getUnite(), this.getId(), this.getDuree(), this.getMontant(), this.getDate_signature(), this.getDebut_contrat(), this.getFin_contrat());
-            avenant.createObject(u, c);
-            avenant.validerObject(u, c);
+            Avenant[] avenants = (Avenant[])CGenUtil.rechercher(new Avenant(), null, null, c, " and idcontrat='"+this.getId()+"'");
+            if(avenants.length > 0){
+                avenants[0].validerObject(u, c);
+            }
+            
             return super.validerObject(u, c);
         }
         catch(Exception e){

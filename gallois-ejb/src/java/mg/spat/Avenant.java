@@ -19,12 +19,13 @@ public class Avenant extends ClassEtat {
     private String idTierslib,contratlib,etatlib,tierslib,unitelib,idengagement,designationengagement;
     private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant;
     private Date date_signature,debut_avenant,fin_avenant;
+    private int rang;
     
     public Avenant() {
         super.setNomTable("AVENANT");
     }
 
-    public Avenant(String idTiers, String objet, String unite, String idContrat, double duree, double montant, Date date_signature, Date debut_avenant, Date fin_avenant) {
+    public Avenant(String idTiers, String objet, String unite, String idContrat, double duree, double montant, Date date_signature, Date debut_avenant, Date fin_avenant, int rang) {
         super.setNomTable("AVENANT");
         this.setIdTiers(idTiers);
         this.setObjet(objet);
@@ -35,6 +36,7 @@ public class Avenant extends ClassEtat {
         this.setDate_signature(date_signature);
         this.setDebut_avenant(debut_avenant);
         this.setFin_avenant(fin_avenant);
+        this.setRang(rang);
     }
 
     public String getIdTierslib() {
@@ -263,6 +265,14 @@ public class Avenant extends ClassEtat {
         this.designationengagement = designationengagement;
     }
 
+    public int getRang() {
+        return rang;
+    }
+
+    public void setRang(int rang) {
+        this.rang = rang;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -291,6 +301,8 @@ public class Avenant extends ClassEtat {
             engagement.setAnnee(Utilitaire.getAneeEnCours());
             engagement.setIdavenant(this.getId());
             engagement.createObject(u, c);
+            engagement.validerObject(u, c);
+            
             return super.validerObject(u, c);
         }
         catch(Exception e){

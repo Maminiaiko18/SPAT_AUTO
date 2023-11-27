@@ -34,6 +34,7 @@
     pi.getFormu().getChamp("idcontrat").setAutre("readonly");
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
+    pi.getFormu().getChamp("rang").setDefaut("1");
             
     pi.getFormu().getChamp("contratlib").setVisible(false);
     pi.getFormu().getChamp("etatlib").setVisible(false);
@@ -53,6 +54,7 @@
     pi.getFormu().getChamp("typeduree").setVisible(false);
     pi.getFormu().getChamp("tierslib").setVisible(false);
     pi.getFormu().getChamp("unitelib").setVisible(false);
+    pi.getFormu().getChamp("rang").setVisible(false);
     
     pi.getFormu().getChamp("idcontrat").setLibelle("Contrat");
     pi.getFormu().getChamp("idtiers").setLibelle("Tiers");

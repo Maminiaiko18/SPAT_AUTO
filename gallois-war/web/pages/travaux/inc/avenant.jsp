@@ -19,7 +19,7 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("#");
-    pr.setAWhere(" and idcontrat = '" + request.getParameter("id") + "'");
+    pr.setAWhere(" and idcontrat = '" + request.getParameter("id") + "' and rang != 0");
     String[] colSomme = null;
     pr.setNpp(10);
     pr.creerObjetPage(libEntete, colSomme);

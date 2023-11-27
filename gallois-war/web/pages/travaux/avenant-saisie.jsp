@@ -30,6 +30,7 @@
     pi.getFormu().getChamp("idcontrat").setAutre("readonly");
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
+    pi.getFormu().getChamp("rang").setDefaut("1");
     
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("fin_avenant").setVisible(false);
@@ -43,6 +44,7 @@
     pi.getFormu().getChamp("redevance_locative").setVisible(false);
     pi.getFormu().getChamp("pipeline").setVisible(false);
     pi.getFormu().getChamp("typeduree").setVisible(false);
+    pi.getFormu().getChamp("rang").setVisible(false);
     
     pi.getFormu().getChamp("idcontrat").setLibelle("Contrat");
     pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
