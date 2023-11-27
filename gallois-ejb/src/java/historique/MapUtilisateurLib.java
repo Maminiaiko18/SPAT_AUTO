@@ -19,6 +19,7 @@ public class MapUtilisateurLib extends bean.ClassMAPTable{
     private String teluser;
     private String refuser;
     private String codeEtablissement, codeEtablissementlib;
+    private int sansmdp;
 
     public MapUtilisateurLib() {
         setNomTable("UTILISATEURVUEFICHE_ID");
@@ -94,6 +95,14 @@ public class MapUtilisateurLib extends bean.ClassMAPTable{
 
     public void setCodeEtablissementlib(String codeEtablissementlib) {
         this.codeEtablissementlib = codeEtablissementlib;
+    }
+
+    public int getSansmdp() {
+        return sansmdp;
+    }
+
+    public void setSansmdp(int sansmdp) {
+        this.sansmdp = sansmdp;
     }
 
     @Override

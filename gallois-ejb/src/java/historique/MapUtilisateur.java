@@ -13,6 +13,7 @@ public class MapUtilisateur extends bean.ClassMAPTable implements java.io.Serial
     private int refuser;
     private int rang;
     private String codeEtablissement;
+    private int sansmdp;
 
     public String getCodeEtablissement() {
         return codeEtablissement;
@@ -173,5 +174,13 @@ public class MapUtilisateur extends bean.ClassMAPTable implements java.io.Serial
 
     public void setRefuser(String refuser) {
         this.refuser = Integer.valueOf(refuser);
+    }
+
+    public int getSansmdp() {
+        return sansmdp;
+    }
+
+    public void setSansmdp(int sansmdp) {
+        this.sansmdp = sansmdp;
     }
 }

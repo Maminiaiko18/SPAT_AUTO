@@ -18,7 +18,7 @@
     try{
         String refuser = request.getParameter("refuser");
         MapUtilisateurLib art = new MapUtilisateurLib();
-        art.setNomTable("UTILISATEUR_ID");
+        art.setNomTable("UTILISATEUR_IDMDP");
         System.out.println(" Refuser =" + art.getRefuser());
 
         PageUpdate pi = new PageUpdate(art, request, (user.UserEJB) session.getValue("u"));
@@ -59,6 +59,8 @@
         pi.getFormu().getChamp("codeEtablissement").setValeurLibelle(art.getCodeEtablissementlib());
         pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &eacute;tablissement");
         pi.getFormu().getChamp("codeEtablissementlib").setVisible(false);
+        pi.getFormu().getChamp("sansmdp").setVisible(false);
+        pi.getFormu().getChamp("sansmdp").setDefaut("1");
         
         pi.preparerDataFormu();
 

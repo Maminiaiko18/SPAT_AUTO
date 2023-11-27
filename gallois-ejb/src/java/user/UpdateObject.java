@@ -69,18 +69,20 @@ public class UpdateObject {
             }
             if(o instanceof historique.MapUtilisateur){
                 MapUtilisateur util=(MapUtilisateur)o;
-                ParamCrypt crt = new ParamCrypt();
-                crt.setIdUtilisateur(String.valueOf(util.getRefuser()));
-                ParamCrypt[] pc = (ParamCrypt[]) CGenUtil.rechercher(crt, null, null, c, "");
-                if (pc.length == 0) {
-                    throw new Exception("Pas de cryptage associe");
+                if(util.getSansmdp()!=1){
+                    ParamCrypt crt = new ParamCrypt();
+                    crt.setIdUtilisateur(String.valueOf(util.getRefuser()));
+                    ParamCrypt[] pc = (ParamCrypt[]) CGenUtil.rechercher(crt, null, null, c, "");
+                    if (pc.length == 0) {
+                        throw new Exception("Pas de cryptage associe");
+                    }
+                    String passCrypt = Utilitaire.cryptWord(util.getPwduser(), pc[0].getNiveau(), pc[0].getCroissante());
+                    util.setPwduser(passCrypt);
+                    System.out.println("PWD******* "+util.getPwduser());
+                    System.out.println("REFUSER******* "+util.getRefuser());
+                    //return null;
+                    o = util;
                 }
-                String passCrypt = Utilitaire.cryptWord(util.getPwduser(), pc[0].getNiveau(), pc[0].getCroissante());
-                util.setPwduser(passCrypt);
-                System.out.println("PWD******* "+util.getPwduser());
-                System.out.println("REFUSER******* "+util.getRefuser());
-                //return null;
-                o = util;
             }
             if(o instanceof ordremission.OrdreMission){
                 OrdreMission ordreMission = (OrdreMission) o;
