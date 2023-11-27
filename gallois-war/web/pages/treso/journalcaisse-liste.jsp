@@ -11,7 +11,7 @@
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
 <%@page import="mg.spat.Caisse"%>
-<%@page import="mg.amadia.stock.EtatdeStockDate"%>
+<%@page import="mg.spat.JournalcaisseRecap"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -19,14 +19,14 @@
         String typecheque = request.getParameter("idtypecheque");
         JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
         journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
-        EtatdeStockDate etatcaisse[] = null;
+        JournalcaisseRecap etatcaisse = new JournalcaisseRecap();
         String date1 = utilitaire.Utilitaire.dateDuJour();
         String date2 = utilitaire.Utilitaire.dateDuJour();
         if(request.getParameter("dateEffet1")!=null) date1 = request.getParameter("dateEffet1");
         if(request.getParameter("dateEffet2")!=null) date2 = request.getParameter("dateEffet2");
         if(request.getParameter("caisse")!=null){
             String caisse = request.getParameter("caisse");
-            etatcaisse = journalCaisse.etatdecaisse(date1,date2,caisse,null);
+            etatcaisse = etatcaisse.getRecap(date1,date2,caisse,null);
         }
 
         if (request.getParameter("etatvue") != null) {
@@ -125,7 +125,7 @@
         <br/>
 
         <div style="background:#ffb401; color:white;" class="box-header">
-                <h3 class="box-title" align="center">Solde</h3>
+                <h3 class="box-title" align="center">Solde valide par caisse</h3>
             </div>
             <div class="box-body table-responsive no-padding">
                 <div id="selectnonee">
@@ -133,16 +133,24 @@
                         <thead>
                             <tr class="head">
                                 <th width="25%" align="center" valign="top" style="background-color:#ffffff">Solde initial du <%= " "+date1 %></th>
+                                <th width="25%" align="center" valign="top" style="background-color:#ffffff">Somme de crédit visé</th>
+                                <th width="25%" align="center" valign="top" style="background-color:#ffffff">Somme de débit visé</th>
                                 <th width="25%" align="center" valign="top" style="background-color:#ffffff">Solde final du<%= " "+date2 %></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr onmouseover="this.style.backgroundColor='#EAEAEA'" onmouseout="this.style.backgroundColor='white'" style="background-color:white">
                                 <td width="25%" align="left">
-                                    <%= etatcaisse != null && etatcaisse[0] != null ? Utilitaire.formaterAr(etatcaisse[0].getReste()) : 0 %>
+                                    <%= etatcaisse != null ? Utilitaire.formaterAr(etatcaisse.getSoldeinitial()) : 0 %>
+                                </td>
+                                <td width="25%" align="left">
+                                    <%= etatcaisse != null ? Utilitaire.formaterAr(etatcaisse.getCredit()) : 0 %>
+                                </td>
+                                <td width="25%" align="left">
+                                    <%= etatcaisse != null ? Utilitaire.formaterAr(etatcaisse.getDebit()) : 0 %>
                                 </td>
                                 <td width="25%" align="left"> 
-                                    <%= etatcaisse != null && etatcaisse[1] != null ? Utilitaire.formaterAr(etatcaisse[1].getReste()) : 0 %>
+                                    <%= etatcaisse != null ? Utilitaire.formaterAr(etatcaisse.getSoldefinal()) : 0 %>
                                 </td>
                             </tr>
                         </tbody>
