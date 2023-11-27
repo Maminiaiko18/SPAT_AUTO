@@ -187,6 +187,8 @@ public class Constante {
     public static String directionOMlib = "121";
     public static String typeBED = "TYPB1";
     public static String typeEtatDepense = "TYPB2";
+    public static String typeEngagementContrat = "CNT";
+    public static String typeEngagementAvenant = "AVT";
 
     public static String getTypePieceTraite(){
         return typePieceTraite;

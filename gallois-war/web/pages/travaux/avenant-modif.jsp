@@ -55,6 +55,8 @@
     pi.getFormu().getChamp("tierslib").setVisible(false);
     pi.getFormu().getChamp("unitelib").setVisible(false);
     pi.getFormu().getChamp("rang").setVisible(false);
+    pi.getFormu().getChamp("idengagement").setVisible(false);
+    pi.getFormu().getChamp("designationengagement").setVisible(false);
     
     pi.getFormu().getChamp("idcontrat").setLibelle("Contrat");
     pi.getFormu().getChamp("idtiers").setLibelle("Tiers");

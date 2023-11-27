@@ -5,9 +5,12 @@
  */
 package mg.spat;
 
+import bean.CGenUtil;
 import bean.ClassEtat;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.Constante;
+import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
 /**
@@ -19,7 +22,7 @@ public class Avenant extends ClassEtat {
     private String idTierslib,contratlib,etatlib,tierslib,unitelib,idengagement,designationengagement;
     private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant;
     private Date date_signature,debut_avenant,fin_avenant;
-    private int rang;
+    private int rang,controleMontant;
     
     public Avenant() {
         super.setNomTable("AVENANT");
@@ -273,6 +276,14 @@ public class Avenant extends ClassEtat {
         this.rang = rang;
     }
 
+    public int getControleMontant() {
+        return controleMontant;
+    }
+
+    public void setControleMontant(int controleMontant) {
+        this.controleMontant = controleMontant;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -287,26 +298,49 @@ public class Avenant extends ClassEtat {
         this.setId(makePK(c));
     }
     
-    @Override
+     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        boolean ouvert = false;
+        
         try{
-            Contrat contrat = (Contrat)(new Contrat()).getById(this.getIdContrat(), null, c);
-            Engagement engagement = new Engagement();
-            engagement.setDesignation(this.getObjet());
-            engagement.setCodeEtablissement(contrat.getCodeetablissement());
-            engagement.setProjet(contrat.getProjet());
-            engagement.setIdLC(contrat.getIdLC());
-            engagement.setDaty(Utilitaire.dateDuJourSql());
-            engagement.setTiers(this.getIdTiers());
-            engagement.setAnnee(Utilitaire.getAneeEnCours());
-            engagement.setIdavenant(this.getId());
-            engagement.createObject(u, c);
-            engagement.validerObject(u, c);
+            if(c == null){
+                c = new UtilDB().GetConn();
+                ouvert = true;
+                c.setAutoCommit(false);
+            }
+            if(this.getRang() != 0){
+                Contrat contrat = (Contrat)(new Contrat()).getById(this.getIdContrat(), null, c);
+                Engagement engagement = new Engagement();
+                engagement.setDesignation(this.getObjet());
+                engagement.setCodeEtablissement(contrat.getCodeetablissement());
+                engagement.setProjet(contrat.getProjet());
+                engagement.setIdLC(contrat.getIdLC());
+                engagement.setDaty(Utilitaire.dateDuJourSql());
+                engagement.setTiers(this.getIdTiers());
+                engagement.setAnnee(Utilitaire.getAneeEnCours());
+                engagement.setIdavenant(this.getId());
+                engagement.setMontant(this.getMontant());
+                engagement.createObject(u, c);
+                
+                EngagementFille engfille = new EngagementFille(engagement.getId(), this.getObjet(), this.getMontant());
+                engfille.createObject(u, c);
+                
+                engagement.setType(Constante.typeEngagementAvenant);
+                if(this.getControleMontant() == 0)engagement.validerObject(u, c);
+                else engagement.validerObjectSansControleMontant(u, c);
+            }
             
-            return super.validerObject(u, c);
+            super.validerObject(u, c);
+            c.commit();
+            
+            return this;
         }
         catch(Exception e){
+            if(ouvert && c != null) c.rollback();
             throw e;
+        }
+        finally{
+            if(ouvert && c != null) c.close();
         }
     }
 }

@@ -32,6 +32,7 @@
         pc.getChampByName("unite").setVisible(false);
         pc.getChampByName("idContrat").setVisible(false);
         pc.getChampByName("idengagement").setVisible(false);
+        pc.getChampByName("rang").setVisible(false);
 
         pc.getChampByName("date_signature").setLibelle("Date de signature");
         pc.getChampByName("objet").setLibelle("Objet");
