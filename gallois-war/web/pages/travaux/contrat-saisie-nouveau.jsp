@@ -7,6 +7,7 @@
 <%
     try{
     Contrat c = new Contrat();
+    c.setNomTable("CONTRATSAISIE");
     PageInsert pi = new PageInsert(c, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     String classe = "mg.spat.Contrat";

@@ -10,6 +10,8 @@ import bean.ClassEtat;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+import utilitaire.Constante;
+import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
 /**
@@ -21,6 +23,7 @@ public class Contrat extends ClassEtat{
     private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib;
     private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant;
     private Date date_signature,debut_contrat,fin_contrat;
+    private int controleMontant;
     
     public Contrat() {
         super.setNomTable("CONTRAT");
@@ -290,6 +293,14 @@ public class Contrat extends ClassEtat{
         this.chantierlib = chantierlib;
     }
 
+    public int getControleMontant() {
+        return controleMontant;
+    }
+
+    public void setControleMontant(int controleMontant) {
+        this.controleMontant = controleMontant;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -307,9 +318,25 @@ public class Contrat extends ClassEtat{
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {        
         try{
+            Contrat contrat = (Contrat)super.createObject(u, c); 
             Avenant avenant = new Avenant(this.getIdTiers(), "avenant initial", this.getUnite(), this.getId(), this.getDuree(), this.getMontant(), this.getDate_signature(), this.getDebut_contrat(), this.getFin_contrat(), 0);
             avenant.createObject(u, c);
-            return super.createObject(u, c); 
+            
+            Engagement engagement = new Engagement();
+            engagement.setDesignation(avenant.getObjet());
+            engagement.setCodeEtablissement(contrat.getCodeetablissement());
+            engagement.setProjet(contrat.getProjet());
+            engagement.setIdLC(contrat.getIdLC());
+            engagement.setDaty(Utilitaire.dateDuJourSql());
+            engagement.setTiers(avenant.getIdTiers());
+            engagement.setAnnee(Utilitaire.getAneeEnCours());
+            engagement.setIdavenant(avenant.getId());
+            engagement.setMontant(contrat.getMontant());
+            engagement.createObject(u, c);
+            EngagementFille engfille = new EngagementFille(engagement.getId(), avenant.getObjet(), contrat.getMontant());
+            engfille.createObject(u, c);
+            
+            return contrat;
         }
         catch(Exception e){
             throw e;
@@ -318,16 +345,38 @@ public class Contrat extends ClassEtat{
     
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
+        boolean ouvert = false;
+        
         try{
-            Avenant[] avenants = (Avenant[])CGenUtil.rechercher(new Avenant(), null, null, c, " and idcontrat='"+this.getId()+"'");
-            if(avenants.length > 0){
-                avenants[0].validerObject(u, c);
+            if(c == null){
+                c = new UtilDB().GetConn();
+                ouvert = true;
+                c.setAutoCommit(false);
             }
             
-            return super.validerObject(u, c);
+            Avenant[] avenants = (Avenant[])CGenUtil.rechercher(new Avenant(), null, null, c, " and idcontrat='"+this.getId()+"' and rang = 0");
+            if(avenants.length > 0){
+                avenants[0].validerObject(u, c);
+                Engagement[] engagements = (Engagement[])CGenUtil.rechercher(new Engagement(), null, null, c, " and idavenant='"+avenants[0].getId()+"'");
+                if(engagements.length > 0)
+                    engagements[0].setType(Constante.typeEngagementContrat);
+                    System.out.println("connection av = " + c);
+                    if(this.getControleMontant() == 0)engagements[0].validerObject(u, c);
+                    else engagements[0].validerObjectSansControleMontant(u, c);
+                    System.out.println("connection ap = " + c);
+            }
+            
+            super.validerObject(u, c);
+            c.commit();
+            
+            return this;
         }
         catch(Exception e){
+            if(ouvert && c != null) c.rollback();
             throw e;
+        }
+        finally{
+            if(ouvert && c != null) c.close();
         }
     }
 }
