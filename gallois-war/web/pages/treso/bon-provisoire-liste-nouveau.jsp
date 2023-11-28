@@ -48,7 +48,7 @@
     
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
-        pr.getFormu().getChamp("tierslib").setLibelle("Client");
+        pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("num").setLibelle("Numero BP");
         pr.getFormu().getChamp("code_etablissementlib").setLibelle("code etablissement");

@@ -22,6 +22,7 @@
         pc.setTitre("Fiche Role");
         String dossier = "parametre";
         pc.getChampByName("idrole").setLibelle("Id role");
+        pc.getChampByName("rang").setVisible(false);
         pc.getChampByName("descrole").setLibelle("Description role");
 
         UserMenu user = new UserMenu();

@@ -52,7 +52,15 @@
                     %>
 
                 </form>
-                <% out.println(pr.getTableauRecap().getHtml());%>
+                <% 
+                    String lienTableau[] = {pr.getLien() + "?but=facture/facture-fournisseur-fiche-vaovao.jsp"};
+                    String colonneLien[] = {"id"};
+                    String[] urlLienMultiple = {"id"};
+                    String[] urlLienAffiche = {"id"};
+                    pr.getTableau().setLien(lienTableau);
+                    pr.getTableau().setColonneLien(colonneLien);
+                    out.println(pr.getTableauRecap().getHtml());
+                %>
                 <br>
                 <%
                     out.println(pr.getTableau().getHtml());

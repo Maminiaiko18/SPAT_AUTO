@@ -302,7 +302,8 @@ public class PaiementFacture extends ClassMAPTable{
             float journalFloat = (float)journals[0].getCredit();
             float montantFactFloat = (float)montantFacture; 
 
-            if(journalFloat - montantFactFloat > 5 ) throw new Exception("La somme du montant des factures Choisies ("+Utilitaire.formaterAr(montantFactFloat)+") doit etre egale au montant du journal de caisse ("+Utilitaire.formaterAr(journalFloat)+")");
+            //if(journalFloat - montantFactFloat > 5 ) throw new Exception("La somme du montant des factures Choisies ("+Utilitaire.formaterAr(montantFactFloat)+") doit etre egale au montant du journal de caisse ("+Utilitaire.formaterAr(journalFloat)+")");
+            if(journalFloat - montantFactFloat < 0 ) throw new Exception("Le montant de la journal caisse est insuffisant par rapport au reste a payer des factures.");
             
             for(int i=0;i<listePaiement.length;i++){
                 for(int j=0;j<i;j++){

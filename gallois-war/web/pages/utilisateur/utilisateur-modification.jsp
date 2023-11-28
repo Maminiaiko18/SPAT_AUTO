@@ -18,7 +18,7 @@
     try{
         String refuser = request.getParameter("refuser");
         MapUtilisateurLib art = new MapUtilisateurLib();
-        art.setNomTable("UTILISATEUR_ID");
+        art.setNomTable("UTILISATEUR_IDMDP");
         System.out.println(" Refuser =" + art.getRefuser());
 
         PageUpdate pi = new PageUpdate(art, request, (user.UserEJB) session.getValue("u"));
@@ -33,7 +33,7 @@
         pi.getFormu().getChamp("PWDUSER").setDefaut(((MapUtilisateurLib)pi.getBase()).getPwduser());
         pi.getFormu().getChamp("PWDUSER").setType("password");
         pi.getFormu().getChamp("nomuser").setLibelle("Nom");
-        //pi.getFormu().getChamp("teluser").setVisible(false);
+        pi.getFormu().getChamp("teluser").setVisible(false);
         pi.getFormu().getChamp("IDROLE").setAutre("readonly");
         //pi.getFormu().getChamp("adruser").setValeur(art.getAdruser());
         //pi.getFormu().getChamp("adruser").setVisible(false);
@@ -51,7 +51,7 @@
         pi.getFormu().changerEnChamp(liste);
         
         pi.getFormu().getChamp("adruser").setLibelle("Direction");
-        pi.getFormu().getChamp("idrole").setLibelle("Rôle");
+        pi.getFormu().getChamp("idrole").setLibelle("Rï¿½le");
         
         art = (MapUtilisateurLib)pi.getBase();
         pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
@@ -59,6 +59,8 @@
         pi.getFormu().getChamp("codeEtablissement").setValeurLibelle(art.getCodeEtablissementlib());
         pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &eacute;tablissement");
         pi.getFormu().getChamp("codeEtablissementlib").setVisible(false);
+        pi.getFormu().getChamp("sansmdp").setVisible(false);
+        pi.getFormu().getChamp("sansmdp").setDefaut("1");
         
         pi.preparerDataFormu();
 

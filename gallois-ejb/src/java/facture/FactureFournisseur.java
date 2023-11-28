@@ -11,6 +11,7 @@ import bean.ClassMAPTable;
 import bean.TypeObjet;
 import bean.ValidationException;
 import bordereau.BordereauFilleFF;
+import bordereau.BordereauFF;
 import ded.OrdonnerPayement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -912,7 +913,12 @@ public class FactureFournisseur extends FactureClient {
 
             BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
             if(bedfilles.length > 0){
-                if(this.getIdengagement()==null )throw new Exception("Veuillez attacher cet facture à l'engagement dans le BED.");
+                if(this.getIdengagement()==null ){
+                    BordereauFF[] bed = (BordereauFF[]) CGenUtil.rechercher(new BordereauFF(), null, null, c, " and id = '" + bedfilles[0].getIdbordereau() + "'");
+                    if(bed[0].getIdengagement()==null) throw new Exception("Bordereau non engagé.");
+                    this.setIdengagement(bed[0].getIdengagement());
+                    //throw new Exception("Veuillez attacher cet facture à l'engagement dans le BED.");
+                }
             }
 
             FactureFournisseur ff = (FactureFournisseur) new FactureFournisseur().getById(this.getId(), "factfourn_msum_lib", c);
