@@ -112,7 +112,7 @@
                 <ul class="nav nav-tabs">
                     <li class="<%= map.get("chantier-travaux")%>"><a href="globalnegoce.jsp?but=travaux/travaux-fiche.jsp&id=<%=request.getParameter("id")%>&tab=chantier-travaux">Chantiers</a></li>
                     <li class="<%= map.get("facture-fournisseur-travaux")%>"><a href="globalnegoce.jsp?but=travaux/travaux-fiche.jsp&id=<%=request.getParameter("id")%>&remarque=<%=request.getParameter("remarque")%>&tab=facture-fournisseur-travaux">Facture fournisseurs</a></li>
-                    <li class="<%= map.get("contrat-travaux")%>"><a href="globalnegoce.jsp?but=travaux/travaux-fiche.jsp&id=<%=request.getParameter("id")%>&tab=contrat-travaux&idtravaux=<%=request.getParameter("id")%>">Contrats</a></li>
+                    <li class="<%= map.get("contrat-travaux")%>"><a href="globalnegoce.jsp?but=travaux/travaux-fiche.jsp&id=<%=request.getParameter("id")%>&tab=contrat-travaux&idtravaux=<%=request.getParameter("id")%>">Engagements</a></li>
                 </ul>
 
                 <div class="tab-content">       
