@@ -17,7 +17,7 @@
 
     //Information sur la fiche
     Contrat t = new Contrat();
-    t.setNomTable("CONTRATLIBCPLT");
+    t.setNomTable("CONTRATLIBCPLTTST");
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));
     t = (Contrat) pc.getBase();
     pc.getChampByName("chantierlib").setLien((String) session.getValue("lien") + "?but=travaux/chantier-fiche.jsp","id="+ t.getIdchantier() +"&id=");
@@ -29,6 +29,7 @@
     pc.getChampByName("idlc").setVisible(false);
     pc.getChampByName("idchantier").setVisible(false);
     pc.getChampByName("typeduree").setVisible(false);
+    pc.getChampByName("idavenant").setVisible(false);
     pc.getChampByName("nom").setLibelle("Tiers");
     pc.getChampByName("date_signature").setLibelle("Date de signature");
     pc.getChampByName("objet").setLibelle("Objet");
@@ -71,6 +72,7 @@
                         <div class="box-footer">
                             <a class="btn btn-primary pull-left"  href="<%= lien + "?but=travaux/avenant-saisie.jsp&idcontrat=" + id + "&nomcontrat=" + t.getObjet() %>" style="margin-right: 10px">Saisir avenant</a>
                             <a class="btn btn-warning pull-left"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin-right: 10px">Modifier</a>
+                            <a class="btn btn-warning pull-left"  href="<%= lien + "?but=travaux/avenant-modif.jsp&id=" + t.getIdavenant() + "&redirection=travaux/contrat-fiche-nouveau.jsp?id="+t.getId()%>" style="margin-right: 10px">Modifier montant</a>
                             <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id%>&acte=valider&bute=travaux/contrat-fiche-nouveau.jsp&id=<%=id%>&classe=mg.spat.Contrat" style="margin-right: 10px">Viser</a>
                         </div>
                         <br/>

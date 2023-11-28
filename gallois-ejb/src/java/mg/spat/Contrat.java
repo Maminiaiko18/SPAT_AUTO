@@ -20,7 +20,7 @@ import utilitaire.Utilitaire;
  */
 public class Contrat extends ClassEtat{
     private String id,idTiers,objet,devise,unite,typedroitport,typeDuree,numeros,idchantier;
-    private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib;
+    private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib,idavenant;
     private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant;
     private Date date_signature,debut_contrat,fin_contrat;
     private int controleMontant;
@@ -301,6 +301,14 @@ public class Contrat extends ClassEtat{
         this.controleMontant = controleMontant;
     }
 
+    public String getIdavenant() {
+        return idavenant;
+    }
+
+    public void setIdavenant(String idavenant) {
+        this.idavenant = idavenant;
+    }
+
     @Override
     public String getTuppleID() {
         return id;
@@ -321,20 +329,6 @@ public class Contrat extends ClassEtat{
             Contrat contrat = (Contrat)super.createObject(u, c); 
             Avenant avenant = new Avenant(this.getIdTiers(), "avenant initial", this.getUnite(), this.getId(), this.getDuree(), this.getMontant(), this.getDate_signature(), this.getDebut_contrat(), this.getFin_contrat(), 0);
             avenant.createObject(u, c);
-            
-            Engagement engagement = new Engagement();
-            engagement.setDesignation(avenant.getObjet());
-            engagement.setCodeEtablissement(contrat.getCodeetablissement());
-            engagement.setProjet(contrat.getProjet());
-            engagement.setIdLC(contrat.getIdLC());
-            engagement.setDaty(Utilitaire.dateDuJourSql());
-            engagement.setTiers(avenant.getIdTiers());
-            engagement.setAnnee(Utilitaire.getAneeEnCours());
-            engagement.setIdavenant(avenant.getId());
-            engagement.setMontant(contrat.getMontant());
-            engagement.createObject(u, c);
-            EngagementFille engfille = new EngagementFille(engagement.getId(), avenant.getObjet(), contrat.getMontant());
-            engfille.createObject(u, c);
             
             return contrat;
         }
@@ -357,15 +351,26 @@ public class Contrat extends ClassEtat{
             Avenant[] avenants = (Avenant[])CGenUtil.rechercher(new Avenant(), null, null, c, " and idcontrat='"+this.getId()+"' and rang = 0");
             if(avenants.length > 0){
                 avenants[0].validerObject(u, c);
-                Engagement[] engagements = (Engagement[])CGenUtil.rechercher(new Engagement(), null, null, c, " and idavenant='"+avenants[0].getId()+"'");
-                if(engagements.length > 0)
-                    engagements[0].setType(Constante.typeEngagementContrat);
-                    System.out.println("connection av = " + c);
-                    if(this.getControleMontant() == 0)engagements[0].validerObject(u, c);
-                    else engagements[0].validerObjectSansControleMontant(u, c);
-                    System.out.println("connection ap = " + c);
+                
+                Engagement engagement = new Engagement();
+                engagement.setDesignation(this.getObjet());
+                engagement.setCodeEtablissement(this.getCodeetablissement());
+                engagement.setProjet(this.getProjet());
+                engagement.setIdLC(this.getIdLC());
+                engagement.setDaty(Utilitaire.dateDuJourSql());
+                engagement.setTiers(avenants[0].getIdTiers());
+                engagement.setAnnee(Utilitaire.getAneeEnCours());
+                engagement.setIdavenant(avenants[0].getId());
+                engagement.setMontant(avenants[0].getMontant());
+                engagement.createObject(u, c);
+                EngagementFille engfille = new EngagementFille(engagement.getId(), this.getObjet(), avenants[0].getMontant());
+                engfille.createObject(u, c);
+                
+                engagement.setType(Constante.typeEngagementContrat);
+                if(this.getControleMontant() == 0)engagement.validerObject(u, c);
+                else engagement.validerObjectSansControleMontant(u, c);
             }
-            
+                
             super.validerObject(u, c);
             c.commit();
             

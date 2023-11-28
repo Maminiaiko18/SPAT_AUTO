@@ -7,14 +7,15 @@
 <%
     try{
     Avenant a = new Avenant();
-        String nomTable = "AVENANTLIBCPLT";
+    String nomTable = "AVENANTLIBCPLT";
 
-     a.setNomTable(nomTable);
+    a.setNomTable(nomTable);
     PageUpdate pi = new PageUpdate(a, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     String classe = "mg.spat.Avenant";
     String butApresPost = "travaux/avenant-fiche.jsp";
-   
+    if(request.getParameter("redirection") != null)
+        butApresPost = request.getParameter("redirection");
     
     Avenant base = (Avenant) pi.getBase();
     affichage.Liste[] listes = new affichage.Liste[1];
@@ -83,8 +84,8 @@
                 %>
                 
                   <input name="acte" type="hidden" id="acte" value="update">
-                    <input name="bute" type="hidden" id="bute" value="travaux/avenant-fiche.jsp">
-                    <input name="classe" type="hidden" id="classe" value="mg.spat.Avenant">
+                    <input name="bute" type="hidden" id="bute" value="<%=butApresPost%>">
+                    <input name="classe" type="hidden" id="classe" value="<%=classe%>">
                     <input name="nomtable" type="hidden" id="nomtable" value="avenant">
             </form>
         </div>
