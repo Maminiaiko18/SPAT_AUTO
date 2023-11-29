@@ -41,6 +41,8 @@
         pi.getFormu().getChamp("designation").setDefaut(facture.getDesignation());
         pi.getFormu().getChamp("datesaisie").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("datesaisie").setVisible(false);
+        pi.getFormu().getChamp("retour").setVisible(false);
+
         pi.getFormu().getChamp("dateeffet").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("numcheque").setLibelle("Numero du cheque"); 
         if(facture.getNomTable().compareTo("ANALYSEGLOBALEANTSIKA")==0){
@@ -114,7 +116,7 @@
         <input name="acte" type="hidden" id="nature" value="insert"> 
         <input name="bute" type="hidden" id="bute" value="treso/journalcaisse-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="mg.spat.JournalCaisse">
-        <div>
+        <%-- <div>
             <div class="box">
                 <div class="box-body" style="display:flex; flex-direction: column;">
                     <div style="display: flex; align-items: center;">
@@ -172,7 +174,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --%>
     </form>
 </div>
 <%} catch (Exception e) {

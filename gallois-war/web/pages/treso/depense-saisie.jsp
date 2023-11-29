@@ -126,10 +126,12 @@
         pi.getFormu().getChamp("Idordre").setAutre("readonly");
         pi.getFormu().getChamp("Tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("Tiers").setAutre("readonly");
-        pi.getFormu().getChamp("Idordre").setLibelle("Ordre");
+        pi.getFormu().getChamp("Idbanque").setLibelle("Banque");
         pi.getFormu().getChamp("Iddevise").setLibelle("devise");
         pi.getFormu().getChamp("idmode").setLibelle("Mode de paiement");
         pi.getFormu().getChamp("iddevise").setDefaut("Ar");
+        pi.getFormu().getChamp("retour").setVisible(false);
+
 
         if (request.getParameter("id") != null) {
             if (request.getParameter("id") != null && request.getParameter("id").compareTo("") != 0) {
@@ -188,7 +190,7 @@
         <input name="bute" type="hidden" id="bute" value="treso/journalcaisse-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="mg.spat.JournalCaisse">
 
-        <div>
+        <%-- <div>
             <div class="box">
                 <div class="box-body" style="display:flex; flex-direction: column;">
                     <div class="checkbox-form">
@@ -246,7 +248,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --%>
     </form>
 </div>
 <%} catch (Exception e) {
