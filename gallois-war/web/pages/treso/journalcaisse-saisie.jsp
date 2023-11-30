@@ -284,7 +284,7 @@
             <input name="idOPs" type="hidden" id="idOPs" value="<%=idOPs%>">
         <%}%>
         <!--<input name="nomtable" type="hidden" id="nomtable" value="journalcaisse">-->
-        <div>
+        <%-- <div>
             <div class="box">
                 <div class="box-body" style="display:flex; flex-direction: column;">
                     <div style="display: flex; align-items: center;">
@@ -342,7 +342,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --%>
     </form>
 </div>
 

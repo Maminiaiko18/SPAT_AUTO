@@ -26,13 +26,20 @@ public class EtatProvision extends ClassMAPTable {
     private String numProvision;
     private String operation;
     private String idnavire, idnavirelib;
-
- 
+    private String code_etablissementlib;
     private String idmode, idmodelib;
     private String idbanque, idbanquelib;
     private String idFacture, idFacturelib;
     private String idprovision;
     private String code ;
+
+    public String getCode_etablissementlib() {
+        return this.code_etablissementlib;
+    }
+
+    public void setCode_etablissementlib(String code_etablissementlib) {
+        this.code_etablissementlib = code_etablissementlib;
+    }
     
     
     public ClassMAPTable createObject(String u, Connection c) throws Exception {

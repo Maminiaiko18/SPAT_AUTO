@@ -85,7 +85,7 @@ public class Liberer extends ClassEtat {
 
     @Override
     public void construirePK(Connection c) throws Exception {
-        preparePk("CR","GETSEQ_LIBERER");
+        preparePk("LIB","GETSEQ_LIBERER");
         setId(makePK(c));
     }
 

@@ -10,11 +10,11 @@
 <% try {
 
         EtatProvision tiers = new EtatProvision();
-        tiers.setNomTable("etatbpvrai");
+        tiers.setNomTable("ETATBPVRAI_REEL");
 
-        String listeCrt[] = {"id", "tierslib", "daty"};
+        String listeCrt[] = {"id", "tierslib", "daty","code_etablissementlib"};
         String listeInt[] = {"daty"};
-        String[] colGr = {"id", "daty", "tierslib"};
+        String[] colGr = {"id", "daty", "tierslib","code_etablissementlib"};
         String[] sommGr =  {"montantprovision", "montantfacture", "montantpaye", "montantreste"};
         
         PageRechercheGroupe pr = new PageRechercheGroupe(tiers, request, listeCrt, listeInt, 3, colGr, sommGr, colGr.length+1, sommGr.length+1);

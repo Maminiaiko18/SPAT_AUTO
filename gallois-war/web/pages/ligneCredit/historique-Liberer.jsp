@@ -44,7 +44,7 @@
     pr.getFormu().getChamp("NUM").setLibelle("Numero");
     pr.getFormu().getChamp("CODEETABLISSEMENTLIB").setLibelle("Code établissement");
     pr.getFormu().getChamp("PROJETLIB").setLibelle("Projet");
-
+    pr.setOrdre(" order by daty desc ");
 //    pr.getFormu().changerEnChamp(liste);
 
     String[] colSomme = null;
