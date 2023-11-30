@@ -11,9 +11,9 @@
 <%
     try{
     FactureFournisseur j = new FactureFournisseur();
-        j.setNomTable("FFchantier");
-     String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP", "etatlib"};
-    String listeCrt[] = {"chantier"};
+    j.setNomTable("facture_fournisseur_travaux");
+    String libEntete[] = {"id","daty","tierslib", "numeroop", "code", "projetlib", "code_etablissementlib", "naturelib","designation","exercice","date_echeance", "montantTTCvrai", "montantAvoir", "montantTTC", "montantpaye","montantreste","numOP", "etatlib"};
+    String listeCrt[] = {"idchantier"};
     String listeInt[] = {};
     
     PageRecherche pr = new PageRecherche(j, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -22,7 +22,7 @@
     pr.setLien((String) session.getValue("lien"));
     String id = request.getParameter("id");
     if (id != null) {
-        pr.setAWhere(" and chantier = '" + id + "'");
+        pr.setAWhere(" and idchantier = '" + id + "'");
     }
         
     pr.creerObjetPage(libEntete, null);
