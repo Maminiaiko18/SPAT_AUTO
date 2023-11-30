@@ -21,7 +21,7 @@ import utilitaire.Utilitaire;
 public class Contrat extends ClassEtat{
     private String id,idTiers,objet,devise,unite,typedroitport,typeDuree,numeros,idchantier;
     private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib,idavenant;
-    private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant;
+    private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant,montantpaye;
     private Date date_signature,debut_contrat,fin_contrat;
     private int controleMontant;
     
@@ -307,6 +307,14 @@ public class Contrat extends ClassEtat{
 
     public void setIdavenant(String idavenant) {
         this.idavenant = idavenant;
+    }
+
+    public double getMontantpaye() {
+        return montantpaye;
+    }
+
+    public void setMontantpaye(double montantpaye) {
+        this.montantpaye = montantpaye;
     }
 
     @Override

@@ -9,7 +9,7 @@
         contrat.setNomTable("CONTRATLIBCPLT");
         String listeCrt[] = {"id", "projetlib", "codeetablissementlib", "nom", "debut_contrat", "fin_contrat"};
         String listeInt[] = {"debut_contrat", "fin_contrat"};
-        String libEntete[] = {"id", "nom", "objet", "date_signature", "debut_contrat", "fin_contrat", "duree", "valunite", "lclib", "projetlib", "codeetablissementlib", "montant"};
+        String libEntete[] = {"id", "nom", "objet", "date_signature", "debut_contrat", "fin_contrat", "duree", "valunite", "lclib", "projetlib", "codeetablissementlib", "montant", "montantpaye"};
         PageRecherche pr = new PageRecherche(contrat, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -43,7 +43,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"id", "Tiers", "objet", "date signature", "d&eacute;but contrat", "fin contrat", "dur&eacute;e", "unit&eacute;", "budget", "projet", "code etablissement", "montant"};
+            String libEnteteAffiche[] = {"id", "Tiers", "objet", "date signature", "d&eacute;but contrat", "fin contrat", "dur&eacute;e", "unit&eacute;", "budget", "projet", "code etablissement", "montant", "montant pay&eacute;"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
