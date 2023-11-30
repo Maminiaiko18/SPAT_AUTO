@@ -81,7 +81,7 @@ public class FactureFournisseur extends FactureClient {
     private boolean apresValidationException;
     private Date datedevise;
     private String modepaiementlib;
-    private String chantier, idtravaux;
+    private String chantier, idtravaux, idchantier, idcontrat;
 
     public Date getDatedevise() {
         return datedevise;
@@ -378,6 +378,22 @@ public class FactureFournisseur extends FactureClient {
 
     public void setIdtravaux(String idtravaux) {
         this.idtravaux = idtravaux;
+    }
+
+    public String getIdchantier() {
+        return idchantier;
+    }
+
+    public void setIdchantier(String idchantier) {
+        this.idchantier = idchantier;
+    }
+
+    public String getIdcontrat() {
+        return idcontrat;
+    }
+
+    public void setIdcontrat(String idcontrat) {
+        this.idcontrat = idcontrat;
     }
     
     public FactureFournisseur() throws Exception {
