@@ -17,7 +17,7 @@
 
     //Information sur la fiche
     Contrat t = new Contrat();
-    t.setNomTable("CONTRATLIBCPLTTST");
+    t.setNomTable("CONTRATLIBCPLT");
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));
     t = (Contrat) pc.getBase();
     pc.getChampByName("chantierlib").setLien((String) session.getValue("lien") + "?but=travaux/chantier-fiche.jsp","id="+ t.getIdchantier() +"&id=");
