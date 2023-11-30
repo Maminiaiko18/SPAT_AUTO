@@ -13,12 +13,6 @@
 <%
     try {
         StatistiquePatrimoine statPat = new StatistiquePatrimoine();
-        double nbTerrain = statPat.getTerrain().getNombre();
-        double nbMatNav = statPat.getMaterielNaval().getNombre();
-        double nbMatRoul = statPat.getMaterielRoulant().getNombre();
-        double nbLogBat = statPat.getLogementEtBatiment().getNombre();
-        double nbQuais = statPat.getQuais().getNombre();
-        double nbMagHang = statPat.getMagasinHangar().getNombre();
         double total = statPat.getTotal();
 %>
 <div class="content-wrapper">
@@ -28,46 +22,46 @@
         <div class="menu-container">
             <div class="row singlebtn">
                 <div class="col-lg-12">
-                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine=Terrains / Terre-pleine&currentMenu=MEN00200"> 
-                        <button class="menubtn">Terrains / Terre-pleines (<%=Utilitaire.doubleToInt(""+nbTerrain)%>)</button>
+                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine=<%=statPat.getBatimentEtConstruction().getPatrimoine()%>&currentMenu=MEN00200"> 
+                        <button class="menubtn" style="font-size: 150%"><%=statPat.getBatimentEtConstruction().getPatrimoine()%> (<%=Utilitaire.doubleToInt(""+statPat.getBatimentEtConstruction().getNombre())%>)</button>
                     </a>
                 </div>
             </div>
             <div class="row singlebtn">
                 <div class="col-lg-6">
-                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine= navals&currentMenu=MEN00200"> 
-                        <button class="menubtn">Matériels navals (<%=Utilitaire.doubleToInt(""+nbMatNav)%>)</button>
+                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine=<%=statPat.getMaterielsRoulants().getPatrimoine()%>&currentMenu=MEN00200"> 
+                        <button class="menubtn" style="font-size: 150%"><%=statPat.getMaterielsRoulants().getPatrimoine()%> (<%=Utilitaire.doubleToInt(""+statPat.getMaterielsRoulants().getNombre())%>)</button>
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine= roulants&currentMenu=MEN00200"> 
-                        <button class="menubtn">Matériels roulants (<%=Utilitaire.doubleToInt(""+nbMatRoul)%>)</button>
+                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine=<%=statPat.getMatMobBureau().getPatrimoine()%>&currentMenu=MEN00200"> 
+                        <button class="menubtn" style="font-size: 150%"><%=statPat.getMatMobBureau().getPatrimoine()%> (<%=Utilitaire.doubleToInt(""+statPat.getMatMobBureau().getNombre())%>)</button>
                     </a>
                 </div>
             </div>
             <div class="row singlebtn">
                 <div class="col-lg-6">
-                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine=Logements/&currentMenu=MEN00200"> 
-                        <button class="menubtn">Logements/Bâtiments (<%=Utilitaire.doubleToInt(""+nbLogBat)%>)</button>
+                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine=<%=statPat.getMaterielInfo().getPatrimoine()%>&currentMenu=MEN00200"> 
+                        <button class="menubtn" style="font-size: 150%"><%=statPat.getMaterielInfo().getPatrimoine()%> (<%=Utilitaire.doubleToInt(""+statPat.getMaterielInfo().getNombre())%>)</button>
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <a class ="menulink" href="#"> 
-                        <button class="menubtn">Quais (<%=Utilitaire.doubleToInt(""+nbQuais)%>)</button>
+                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine=<%=statPat.getMatMobHospitalier().getPatrimoine()%>&currentMenu=MEN00200"> 
+                        <button class="menubtn" style="font-size: 150%"><%=statPat.getMatMobHospitalier().getPatrimoine()%> (<%=Utilitaire.doubleToInt(""+statPat.getMatMobHospitalier().getNombre())%>)</button>
                     </a>
                 </div>
             </div>
             <div class="row singlebtn" >
                 <div class="col-lg-12">
-                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine=Magasins et Hangars&currentMenu=MEN00200"> 
-                        <button class="menubtn">Magasins et Hangars (<%=Utilitaire.doubleToInt(""+nbMagHang)%>)</button>
+                    <a class ="menulink" href="<%= session.getValue("lien")%>?but=patrimoine/analyse-patrimoine.jsp&idTypePatrimoine=<%=statPat.getAutreMatEquipement().getPatrimoine()%>&currentMenu=MEN00200"> 
+                        <button class="menubtn" style="font-size: 150%"><%=statPat.getAutreMatEquipement().getPatrimoine()%> (<%=Utilitaire.doubleToInt(""+statPat.getAutreMatEquipement().getNombre())%>)</button>
                     </a>
                 </div>
             </div>
             <div class="row singlebtn" >
                 <div class="col-lg-12">
                     <a class ="menulink" href="#"> 
-                        <button class="menubtn">Total: (<%=Utilitaire.doubleToInt(""+total)%>)</button>
+                        <button class="menubtn" style="font-size: 150%">Total: (<%=Utilitaire.doubleToInt(""+total)%>)</button>
                     </a>
                 </div>
             </div>
