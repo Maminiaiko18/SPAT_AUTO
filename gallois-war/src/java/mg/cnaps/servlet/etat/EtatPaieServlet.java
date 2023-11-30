@@ -271,6 +271,7 @@ public class EtatPaieServlet extends HttpServlet {
             else if (action.equalsIgnoreCase("imprimerSuiviContrat")) {
                 imprimerSuiviContrat(request, response);
             }
+            
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -4589,6 +4590,43 @@ public class EtatPaieServlet extends HttpServlet {
     private void imprimerSuiviContrat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String id = request.getParameter("id");
+            facture.FactureFournisseur ff = new facture.FactureFournisseur();
+            ff.setNomTable("facture_fournisseur_travaux");
+            facture.FactureFournisseur[] fille = (facture.FactureFournisseur[]) CGenUtil.rechercher(ff, null, null, " and idcontrat='" + id + "'");
+            
+            
+            Map param = new HashMap();
+            if(fille.length > 0){
+                param.put("travaux",fille[0].getIdtravaux());
+                //param.put("chantier",fille[0].getNom());
+                //param.put("direction",fille[0].getDirTravaux());
+                param.put("titulaire",fille[0].getTierslib());
+                //param.put("objet",fille[0].getObjet());
+                param.put("daty",fille[0].getDaty());
+            //
+            
+            /*if(mere[0].getDuree()==null){
+               param.put("duree","-");
+            }
+            else{
+                param.put("duree",mere[0].getDuree());
+            }*/
+            param.put("contrat",fille[0].getDesignation());
+            //param.put("cr",fille[0].getCodeEtablissementlib());
+            param.put("montantContrat",fille[0].getMontant());
+            }
+            List dataSource = new ArrayList();
+            dataSource.addAll(Arrays.asList(fille));
+            setNomJasper("SUIVI_CONTRAT");
+            UtilitaireImpression.imprimer(request, response, "Suivi_contrat", param, dataSource, getReportPath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /*private void imprimerSuiviContrat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            String id = request.getParameter("id");
             Engagement engagement = new Engagement();
             engagement.setNomTable("engagementlib");
             Engagement[] mere = (Engagement[]) CGenUtil.rechercher(engagement, null, null, " and id='" + id + "'");
@@ -4626,7 +4664,7 @@ public class EtatPaieServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
 
