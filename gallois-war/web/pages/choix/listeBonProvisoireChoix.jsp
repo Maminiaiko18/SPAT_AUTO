@@ -5,30 +5,33 @@
 --%>
 
 <%@page import="affichage.PageRechercheChoix"%>
-<%@page import="mg.spat.BonProvisoire"%>
-
+<%@page import="facture.FactureFournisseur"%>
 <%
-    
     try{
-        
-
     String champReturn = request.getParameter("champReturn");
-    BonProvisoire e = new BonProvisoire();
-    e.setNomTable("BON_PROVISOIRE_RST");
-    String listeCrt[] = {"id", "folio", "caisse", "numpiece", "libelle", "dateeffet"};
-    String listeInt[] = {""};
-    String libEntete[] = {"id", "folio", "caisse", "numpiece", "libelle", "remarque", "dateeffet","debit", "credit","reste"};
+    FactureFournisseur e = new FactureFournisseur();
+    e.setNomTable("BPNONREGULARISER");
+    String listeCrt[] = {"id", "daty", "code_etablissementlib", "projetlib", "modepaiementlib", "code", "num","designation"};
+    String listeInt[] = {"daty"};
+    String libEntete[] = {"id","daty","tierslib","code_etablissementlib","projetlib","modepaiementlib", "code", "num","designation","categorielib","tva","date_echeance","montant", "montantTVA", "montantTTC"};
     PageRechercheChoix pr = new PageRechercheChoix(e, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("listeBonProvisoireChoix.jsp");
     pr.setAWhere(" and etat = 11");
     pr.setChampReturn(champReturn);
-//    pr.getFormu().getChamp("id").setLibelleAffiche("ID");
+    pr.getFormu().getChamp("id").setLibelleAffiche("ID");
+    pr.getFormu().getChamp("Code_etablissementlib").setLibelleAffiche("code etablissement");
+    pr.getFormu().getChamp("Projetlib").setLibelleAffiche("Projet");
+    pr.getFormu().getChamp("Modepaiementlib").setLibelleAffiche("Mode de paiement");
+    pr.getFormu().getChamp("code").setLibelleAffiche("Numero compta");
+    pr.getFormu().getChamp("num").setLibelleAffiche("Numero BP");
+
+
 //    pr.getFormu().getChamp("nom").setLibelleAffiche("Nom");
 //    pr.getFormu().getChamp("specialisation").setLibelleAffiche("Sp�cialisation");
-//    pr.getFormu().getChamp("daty1").setLibelleAffiche("Date Min");
-//    pr.getFormu().getChamp("daty2").setLibelleAffiche("Date Max");
+        pr.getFormu().getChamp("daty1").setLibelleAffiche("Date Min");
+        pr.getFormu().getChamp("daty2").setLibelleAffiche("Date Max");
 //    pr.getFormu().getChamp("adresse").setLibelleAffiche("Adresse");
 //    pr.getFormu().getChamp("pays").setLibelleAffiche("Pays");
 //    pr.getFormu().getChamp("contact").setLibelleAffiche("Contact");
@@ -46,7 +49,7 @@
     <body class="skin-blue sidebar-mini">
         <div class="content-wrapper">
             <section class="content-header">
-                <h1>Bon Provisoire</h1>
+                <h1>Bon Provisoire a regulariser</h1>
             </section>
             <section class="content">
                 <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="etab" id="etab">
@@ -55,7 +58,7 @@
                 <%
 //                    String lienTableau[] = {pr.getLien() + "?but=employeur/employeur-fiche.jsp"};
 //                    String colonneLien[] = {"id"};
-                    String libelles[] = {"id", "folio", "caisse", "num piece", "libelle", "remarque","date effet","debit", "credit","Reste"};
+                    String libelles[] = {"id","daty","tiers","code etablissement","projet","mode de paiement", "numero compta", "Numero BP","designation","categorie","tva","date_echeance","montant", "montantTVA", "montantTTC"};
 //		    pr.getTableau().setLien(lienTableau);
 //                    pr.getTableau().setColonneLien(colonneLien);
                     pr.getTableau().setLibelleAffiche(libelles);
