@@ -83,7 +83,6 @@
                                     <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerOrdreDeMission&id=<%=id%>" style="margin: 5px 10px 0px 0px">Imprimer OM</a>
                                 <% } %>
                                 <a class="btn btn-success"  href="<%= lien + "?but=ordre-mission/retourom-saisie.jsp&idom=" + id%>" style="margin: 5px 10px 0px 0px">Saisir Retour</a>
-                                <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerOrdreDeMission&id=<%=id%>" style="margin: 5px 10px 0px 0px">Imprimer OM</a>
                                 <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerDecompte&id=<%=id%>" style="margin: 5px 10px 0px 0px">Imprimer décompte</a>
                             <% } %>
                             
