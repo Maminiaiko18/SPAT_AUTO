@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DEMANDE_AVANCE" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c59ed13-7470-4738-bea8-af4aa1e06d11">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="219"/>
+	<property name="ireport.y" value="218"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="prenom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -315,8 +315,8 @@
 				<text><![CDATA[HEURE :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="323" y="603" width="155" height="20" uuid="5474ae5d-0588-4c6e-a162-dc28a5a92e50"/>
-				<text><![CDATA[DIRECTEUR SELECTORIEL]]></text>
+				<reportElement x="241" y="603" width="155" height="20" uuid="5474ae5d-0588-4c6e-a162-dc28a5a92e50"/>
+				<text><![CDATA[Directeur sectoriel]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="65" y="57" width="213" height="20" uuid="2e106cf6-273d-45d0-9bcd-17b820159ede"/>
@@ -531,6 +531,12 @@
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Le responsable financier,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="603" width="135" height="20" uuid="f53475aa-f12e-4abc-96f1-2e7fb50c1262"/>
+				<box rightPadding="10"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Directeur général]]></text>
 			</staticText>
 		</band>
 	</title>
