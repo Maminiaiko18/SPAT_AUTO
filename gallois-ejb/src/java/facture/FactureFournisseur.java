@@ -811,7 +811,7 @@ public class FactureFournisseur extends FactureClient {
             transfert.setTiers(this.getTiers());
             transfert.setIddevise(this.getDeviseMere());
             transfert.setIdmode(bp.getModepaiement());
-            transfert.setEtat(ConstanteEtat.getEtatValider());
+            transfert.setEtat(ConstanteEtat.getEtatCreer());
             transfert.createObject(u, con);
 
             OrdonnerPayement[] op = ((OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, con, " and DED_ID = '" + this.getIdProvision() + "'"));
