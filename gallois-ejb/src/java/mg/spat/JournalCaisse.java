@@ -1092,6 +1092,7 @@ public class JournalCaisse extends ClassEtat {
                 }
             }
             
+            //si Bon provisoire, dia mceer journal de caisse entrer am caisse BP
             FactureFournisseur facture = this.getFacture("facture_fournisseur_mere", c);
             if(facture!=null && facture.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getCreationAuto() == false){
                 this.genererAutoParBP(user, c);
