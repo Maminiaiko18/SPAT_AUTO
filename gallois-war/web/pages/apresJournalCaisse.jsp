@@ -81,10 +81,10 @@
             int type = Utilitaire.stringToInt(typeBoutton);
            
             if (acte.compareToIgnoreCase("insert") == 0) {
-                String compte = request.getParameter("compte");
-                int mois = Utilitaire.stringToInt(request.getParameter("mois"));
-                int annee = Utilitaire.stringToInt(request.getParameter("annee"));
-                double tva = Utilitaire.stringToDouble(request.getParameter("tva"));
+                //String compte = request.getParameter("compte");
+                //int mois = Utilitaire.stringToInt(request.getParameter("mois"));
+                //int annee = Utilitaire.stringToInt(request.getParameter("annee"));
+                //double tva = Utilitaire.stringToDouble(request.getParameter("tva"));
                 System.out.println("navire : " + request.getParameter("idnavire"));
                 t = (ClassMAPTable) (Class.forName(classe).newInstance());
                 PageInsert p = new PageInsert(t, request);
@@ -100,7 +100,7 @@
                     JournalCaisse o = (JournalCaisse)f;
                     o.createObjectWithOP(u.getUser().getTuppleID(), idOPs);
 
-                    if(request.getParameter("factureAuto") != null) o.genererFacture(null, u.getUser().getRefuser()+"", compte, annee, mois, tva);
+                    //if(request.getParameter("factureAuto") != null) o.genererFacture(null, u.getUser().getRefuser()+"", compte, annee, mois, tva);
                     temp = (Object) o;
                     if (o != null) {
                         id = o.getTuppleID();
