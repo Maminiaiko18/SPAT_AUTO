@@ -57,9 +57,9 @@
         pi.getFormu().changerEnChamp(listeM);
 
         pi.getFormu().getChamp("estDDPMICTSL").setLibelle("Droit de Port MICTSL");
-        pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeFactureProvisionChoix.jsp");
+        pi.getFormu().getChamp("idProvision").setPageAppel("choix/listeBonProvisoireChoix.jsp");
         pi.getFormu().getChamp("idProvision").setAutre("readonly");
-        pi.getFormu().getChamp("idProvision").setLibelle("Provision");
+        pi.getFormu().getChamp("idProvision").setLibelle("Bon provisoire");
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
         pi.getFormu().getChamp("exercice").setLibelle("Exercice");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
