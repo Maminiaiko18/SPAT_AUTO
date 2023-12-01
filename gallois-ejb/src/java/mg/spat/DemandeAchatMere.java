@@ -19,7 +19,7 @@ import utilitaire.Utilitaire;
  * @author Nouta
  */
 public class DemandeAchatMere extends ClassEtat{
-    private String id,codeetablissement,projet,num,idengagement,designation,codeetablissementlib, projetlib, idengagementlib;
+    private String id,codeetablissement,projet,num,idengagement,designation,codeetablissementlib, projetlib, idengagementlib, idcategorieachat, idcategorieachatlib;
     private Date daty;
     private String etatlib;
 
@@ -109,6 +109,30 @@ public class DemandeAchatMere extends ClassEtat{
         this.idengagementlib = idengagementlib;
     }
 
+    public String getEtatlib() {
+        return etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
+    }
+
+    public String getIdcategorieachat() {
+        return idcategorieachat;
+    }
+
+    public void setIdcategorieachat(String idcategorieachat) {
+        this.idcategorieachat = idcategorieachat;
+    }
+
+    public String getIdcategorieachatlib() {
+        return idcategorieachatlib;
+    }
+
+    public void setIdcategorieachatlib(String idcategorieachatlib) {
+        this.idcategorieachatlib = idcategorieachatlib;
+    }
+
     @Override
     public String getValColLibelle() {
         return  this.getNum()+";"+this.getNum();
@@ -144,14 +168,6 @@ public class DemandeAchatMere extends ClassEtat{
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
         return seq;
-    }
-
-    public String getEtatlib() {
-        return etatlib;
-    }
-
-    public void setEtatlib(String etatlib) {
-        this.etatlib = etatlib;
     }
     
 }

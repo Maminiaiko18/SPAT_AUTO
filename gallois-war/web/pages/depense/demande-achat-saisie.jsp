@@ -40,6 +40,16 @@
         pi.getFormu().getChamp("daty").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pi.getFormu().getChamp("num").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
+        
+        affichage.Champ[] liste = new affichage.Champ[1];
+
+        TypeObjet catAchat = new TypeObjet();
+        catAchat.setNomTable("categorieachat");
+        liste[0] = new Liste("idcategorieachat", catAchat, "VAL", "id");
+        
+        pi.getFormu().changerEnChamp(liste);
+        pi.getFormu().getChamp("idcategorieachat").setLibelle("Cat&eacute;gorie achat");
+        
         pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
         pi.getFormufle().getChamp("id_0").setLibelle("Id");
         pi.getFormufle().getChamp("produit_0").setLibelle("Produit");
