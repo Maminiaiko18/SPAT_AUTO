@@ -1048,42 +1048,44 @@ public class JournalCaisse extends ClassEtat {
                     String numeroPiece = calculerNumeroPiece(c);
                     this.setNumPiece(numeroPiece);
                 }
-                
-                    if (this.getIdplacement() != null) {
-                    /*if (!this.getIdplacement().startsWith("FC")) {
-                        Placement placement = this.findPlacement(c);
-                        if(placement.getEtat()<11){
-                            placement.validerObject(refuser, c);
-                        }
-                    }*/
                     
-                        if(this.getIdplacement().startsWith("FC")){
-                            String numeroPiece = calculerNumeroPiece(c);
-                            this.setNumPiece(numeroPiece);
-                        }
-                        if(this.getDebit()>0){
+            if (this.getIdplacement() != null) {
+                if(!this.getCaisse().equalsIgnoreCase(Constante.caisseCentraleBP) && !this.getCaisse().equalsIgnoreCase(Constante.banqueBP)){
+            /*if (!this.getIdplacement().startsWith("FC")) {
+                Placement placement = this.findPlacement(c);
+                if(placement.getEtat()<11){
+                    placement.validerObject(refuser, c);
+                }
+            }*/
+        
+                    if(this.getIdplacement().startsWith("FC")){
+                        String numeroPiece = calculerNumeroPiece(c);
+                        this.setNumPiece(numeroPiece);
+                    }
+                    if(this.getDebit()>0){
+                        String numeroPiece = calculerNumeroPieceDepense(c);
+                        this.setNumPiece(numeroPiece);
+                    }
+
+                    viserFacturesRattachees(refuser, c);
+                    genererPaiement(c, refuser);
+                }
+            } else {
+                    //num piece pour depense simple dans la caisse depenses
+                    if(this.getDebit() > 0)
+                    {
+                        if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0){
                             String numeroPiece = calculerNumeroPieceDepense(c);
                             this.setNumPiece(numeroPiece);
                         }
+                    }
 
-                        viserFacturesRattachees(refuser, c);
-                        genererPaiement(c, refuser);
-                    } else {
-                        //num piece pour depense simple dans la caisse depenses
-                        if(this.getDebit() > 0)
-                        {
-                            if(caisse.getId().compareToIgnoreCase(Constante.caisseDepense)==0){
-                                String numeroPiece = calculerNumeroPieceDepense(c);
-                                this.setNumPiece(numeroPiece);
-                            }
-                        }
-
-                        if(this.getCredit() > 0){
-                            if(caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissement)==0 || caisse.getId().compareToIgnoreCase(Constante.caisseCentraleEspece)==0){
-                                this.setNumPiece(calculerNumeroPiece(c));
-                            }
+                    if(this.getCredit() > 0){
+                        if(caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissement)==0 || caisse.getId().compareToIgnoreCase(Constante.caisseCentraleEspece)==0){
+                            this.setNumPiece(calculerNumeroPiece(c));
                         }
                     }
+                }
             }
            
             if(getIdmode()!=null && getIdmode().equals(Constante.modePaiementEspece)){
