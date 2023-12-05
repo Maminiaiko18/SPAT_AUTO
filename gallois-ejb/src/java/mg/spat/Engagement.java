@@ -38,6 +38,15 @@ public class Engagement extends ClassEtat {
     private String type;
     private Date dateImpression;
     private String iduser;
+    private String chantier, objet, duree, idavenant;
+
+    public String getChantier() {
+        return chantier;
+    }
+
+    public void setChantier(String chantier) {
+        this.chantier = chantier;
+    }
 
 
     public String getIduser() {
@@ -326,6 +335,30 @@ public class Engagement extends ClassEtat {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getObjet() {
+        return objet;
+    }
+
+    public void setObjet(String objet) {
+        this.objet = objet;
+    }
+
+    public String getDuree() {
+        return duree;
+    }
+
+    public void setDuree(String duree) {
+        this.duree = duree;
+    }
+
+    public String getIdavenant() {
+        return idavenant;
+    }
+
+    public void setIdavenant(String idavenant) {
+        this.idavenant = idavenant;
     }
 
     @Override

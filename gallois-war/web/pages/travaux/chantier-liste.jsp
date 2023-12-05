@@ -5,17 +5,23 @@
     chantier.setNomTable("CHANTIER_LIB_NOM");
     if(request.getParameter("etatvue")!=null)
         chantier.setNomTable(request.getParameter("etatvue"));
-    String listeCrt[] = {"id","idtravaux", "nomtravaux", "nom","datydebut","datyfin"};
+    String listeCrt[] = {"id", "nomtravaux", "nom", "datydebut", "datyfin", "nomtiers", "projetlib", "codeetablissementlib","patrimoinelib","patrimoinedesce"};
     String listeInt[] = {};
-    String libEntete[] = {"id", "idtravaux", "nomtravaux", "nom","datydebut","datyfin","montant","avancement"};
+    String libEntete[] = {"id", "nomtravaux", "nom", "nomtiers", "datydebut", "datyfin", "patrimoinelib","patrimoinedesce", "montant","avancement", "projetlib", "codeetablissementlib"};
     PageRecherche pr = new PageRecherche(chantier, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("travaux/chantier-liste.jsp");
     pr.setOrdre(" order by datydebut desc");
-    pr.getFormu().getChamp("idtravaux").setLibelle("travaux");
-    pr.getFormu().getChamp("datydebut").setLibelle("date de début");
+    pr.getFormu().getChamp("datydebut").setLibelle("date de d&eacute;but");
     pr.getFormu().getChamp("datyfin").setLibelle("date fin");
+    pr.getFormu().getChamp("nomtravaux").setLibelle("Projet");
+    pr.getFormu().getChamp("nomtiers").setLibelle("Tiers");
+    pr.getFormu().getChamp("nom").setLibelle("Chantier");
+    pr.getFormu().getChamp("PROJETLIB").setLibelle("Code Projet");
+    pr.getFormu().getChamp("CODEETABLISSEMENTLIB").setLibelle("code Etab");
+    pr.getFormu().getChamp("patrimoinelib").setLibelle("Patrimoine");
+    pr.getFormu().getChamp("patrimoinedesce").setLibelle("Description patrimoine");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -60,7 +66,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"ID", "ID travaux", "travaux", "nom","date de début","date de fin","montant","avancement"};
+            String libEnteteAffiche[] = {"ID", "Projet", "chantier", "Tiers", "date de d&eacute;but", "date de fin","patrimoine","desc patrimoine", "montant", "avancement %", "Code projet", "Code Etab"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

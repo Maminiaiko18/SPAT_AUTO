@@ -43,6 +43,9 @@
     pc.getChampByName("disponible").setVisible(false);
     pc.getChampByName("annee").setLibelle("Ann&eacute;e");
     pc.getChampByName("montantliberer").setLibelle("Montant lib&eacute;r&eacute;");
+    pc.getChampByName("duree").setVisible(false);
+    pc.getChampByName("chantier").setVisible(false);
+    pc.getChampByName("idavenant").setVisible(false);
 
     engagement = (Engagement) pc.getBase();
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp","id="+engagement.getIdLC()+"&id=");
@@ -96,8 +99,9 @@
                             <p>    
                                 <a href="<%=(String) session.getValue("lien") + "?but=depense/liberer-saisie.jsp&idEngagement=" + engagement.getId()%>"><button class="btn btn-warning" style="margin-right: 5px" >Lib&eacute;rer </button></a>
                                 <%-- <a class="btn btn-info " href="<%=(String) session.getValue("lien") + "?but=depense/engagement-fille-liste.jsp&idmere=" + engagement.getId() %>" style="margin-right: 5px">Payer</a> --%>
-                                
-                                 <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer</button></a>
+                                <%--<a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=imprimerSuiviContrat&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right" >Imprimer suivi contrat</button></a>--%>
+  
+                                 <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right" style="margin-right: 5px">Imprimer</button></a>
                                 <%-- <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=dse&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer DSE</button></a> --%>
                                 <a href="<%=(String) session.getValue("lien") +"?but=depense/engagement-modif-simple.jsp&id="+ engagement.getId()%>"><button class="btn btn-primary pull-right" style="margin-right: 5px">Observation</button></a>
                                 <label style="float:right;padding-right:10px">Accord : 

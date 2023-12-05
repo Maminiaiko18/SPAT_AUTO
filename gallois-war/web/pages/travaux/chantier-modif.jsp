@@ -10,6 +10,7 @@
 <%@ page import="utilitaire.*"%>
 <%@ page import="affichage.*"%>
 <%
+    try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     Chantier chantier = new Chantier();
     chantier.setNomTable("CHANTIER_LIB_NOM");
@@ -19,18 +20,38 @@
     Chantier base = (Chantier) pi.getBase();
     pi.getFormu().getChamp("idtiers").setValeurLibelle(base.getNomtiers());
     pi.getFormu().getChamp("idtravaux").setValeurLibelle(base.getNomtravaux());
-    pi.getFormu().getChamp("idtravaux").setPageAppel("choix/listeTravauxChoix.jsp");
-    pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setValeurLibelle(base.getCodeetablissementlib());
+    pi.getFormu().getChamp("projet").setValeurLibelle(base.getProjetlib());
+    pi.getFormu().getChamp("idpatrimoine").setValeurLibelle(base.getPatrimoinelib());
+    pi.getFormu().getChamp("idtravaux").setPageAppel("choix/listeTravauxChoix.jsp","idtravaux;idtravauxlibelle;idpatrimoine;idpatrimoinelibelle");
+    pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("idtiers").setAutre("readonly");
     pi.getFormu().getChamp("idtravaux").setAutre("readonly");
-    pi.getFormu().getChamp("idtiers").setLibelle("tiers");
-    pi.getFormu().getChamp("idtravaux").setLibelle("Travaux");
+    pi.getFormu().getChamp("tiers").setVisible(false);
+    pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
+    pi.getFormu().getChamp("tierslib").setVisible(false);
+    pi.getFormu().getChamp("idtravaux").setLibelle("Projet");
     pi.getFormu().getChamp("datydebut").setLibelle("date de début");
     pi.getFormu().getChamp("datyfin").setLibelle("date fin");
+    pi.getFormu().getChamp("patrimoinelib").setVisible(false);
+    pi.getFormu().getChamp("patrimoinedesce").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("avancement").setVisible(false);
     pi.getFormu().getChamp("nomtiers").setVisible(false);
     pi.getFormu().getChamp("nomtravaux").setVisible(false);
+    pi.getFormu().getChamp("dirtravaux").setVisible(false);
+    pi.getFormu().getChamp("codeetablissementlib").setVisible(false);
+    pi.getFormu().getChamp("projetlib").setVisible(false);
+    pi.getFormu().getChamp("idpatrimoine").setAutre("readonly");
+    pi.getFormu().getChamp("idpatrimoine").setLibelle("Patrimoine");
+    pi.getFormu().getChamp("projet").setLibelle("Code projet");
+    pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
+    pi.getFormu().getChamp("projet").setAutre("readonly");
+    pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
+    pi.getFormu().getChamp("idpatrimoine").setPageAppel("choix/listePatrimoineChoix.jsp");
+    
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
@@ -57,3 +78,12 @@
         </div>
     </div>
 </div>
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+%>
+    <script language="JavaScript">
+        alert('<%=e.getMessage()%>');
+        history.back();
+    </script>
+<% }%>

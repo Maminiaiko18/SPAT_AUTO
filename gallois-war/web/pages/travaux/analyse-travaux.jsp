@@ -29,8 +29,8 @@
 
         PageRechercheGroupe pr = new PageRechercheGroupe(trv, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, 18, 2);
         pr.setOrdre("order by datedebut desc ");
-        pr.getFormu().getChamp("datedebut").setLibelle("Date travaux  min");
-        pr.getFormu().getChamp("datefin").setLibelle("Date travaux  max");
+        pr.getFormu().getChamp("datedebut").setLibelle("Date projet  min");
+        pr.getFormu().getChamp("datefin").setLibelle("Date projet  max");
         pr.getFormu().getChamp("nomtiers").setLibelle("Nom Tiers");
         pr.getFormu().getChamp("typetiers").setLibelle("Type Tiers");
 
@@ -49,7 +49,7 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Analyse travaux</h1>
+        <h1>Analyse Projet</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>" method="get" name="analyse" id="analyse">
@@ -63,7 +63,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Nom", "Description", "Date Debut", "Date Fin", "Type Travaux", "Travaux Tiers", "Nom Tiers", "Description Tiers", "Nif", "Stat", "Contact", "Responsable", "Adresse Tiers", "Type Tiers", "Montant Travaux Tiers", "Montant", "Avancement"};
+            String libEnteteAffiche[] = {"Id", "Nom", "Description", "Date Debut", "Date Fin", "Type projet", "Projet Tiers", "Nom Tiers", "Description Tiers", "Nif", "Stat", "Contact", "Responsable", "Adresse Tiers", "Type Tiers", "Montant Projet Tiers", "Montant", "Avancement"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

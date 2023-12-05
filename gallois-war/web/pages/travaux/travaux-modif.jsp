@@ -12,15 +12,17 @@
 <%
     String autreparsley = "data-parsley-range='[8, 40]' required";
     Travaux travaux = new Travaux();
+    travaux.setNomTable("travauxlib");
     PageUpdate pi = new PageUpdate(travaux, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
+    Travaux base = (Travaux) pi.getBase();
 
     pi.getFormu().getChamp("datedebut").setLibelle("Date début");
     pi.getFormu().getChamp("datefin").setLibelle("Date fin");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("datefin").setLibelle("Date fin");
-    
+
     affichage.Champ[] liste = new affichage.Champ[2];
     TypeObjet mvt = new TypeObjet();
     mvt.setNomTable("typeTravaux");
@@ -30,8 +32,37 @@
     liste[1] = new Liste("iddevise", mvt2, "VAL", "id");
     pi.getFormu().changerEnChamp(liste);
     pi.preparerDataFormu();
-    pi.getFormu().getChamp("idtypetravaux").setLibelle("Type de travaux");
+    pi.getFormu().getChamp("idtypetravaux").setLibelle("Type de projet");
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
+    pi.getFormu().getChamp("projetlib").setVisible(false);
+    pi.getFormu().getChamp("codeetablissementlib").setVisible(false);
+    pi.getFormu().getChamp("codeetablissement").setLibelle("Code etablissement");
+    //pi.getFormu().getChamp("projet").setAutre("readonly");
+    // pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    // pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
+    //pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+    pi.getFormu().getChamp("projet").setVisible(false);
+    // pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
+    pi.getFormu().getChamp("codeetablissement").setVisible(false);
+    //pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+
+    pi.getFormu().getChamp("idpatrimoine").setLibelle("Patrimoine");
+    pi.getFormu().getChamp("idpatrimoine").setAutre("readonly");
+
+//    idimmo: popup 
+    pi.getFormu().getChamp("idpatrimoine").setPageAppel("choix/listePatrimoineChoix.jsp");
+    pi.getFormu().getChamp("patrimoinelib").setVisible(false);
+    pi.getFormu().getChamp("patrimoinedesce").setVisible(false);
+
+    pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+
+    pi.getFormu().getChamp("tiers").setAutre("readonly");
+    pi.getFormu().getChamp("tierslib").setVisible(false);
+    pi.getFormu().getChamp("tiers").setValeurLibelle(base.getTierslib());
+    pi.getFormu().getChamp("idpatrimoine").setValeurLibelle(base.getPatrimoinelib());
+
+    pi.getFormu().getChamp("projet").setValeurLibelle(base.getProjetlib());
+    pi.getFormu().getChamp("codeetablissement").setValeurLibelle(base.getCodeetablissementlib());
 %>
 <div class="content-wrapper">
     <div class="row">

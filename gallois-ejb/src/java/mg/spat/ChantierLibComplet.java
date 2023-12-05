@@ -22,7 +22,7 @@ public class ChantierLibComplet extends ClassEtat{
     private Date datyfin;
     private double montant;
     private double avancement;
-    private String idtiers;
+    private String idtiers, tierslib;
     private String nomtiers;
     private String desctiers;
     private String nif;
@@ -43,9 +43,20 @@ public class ChantierLibComplet extends ClassEtat{
     private String valtypetravaux;
     private double montantFacture;
     private double montantReste;
+    private String tiers, dirtravaux, projetlib, codeetablissementlib;
+    private String patrimoinelib;
+    private String patrimoinedesce;
 
     public ChantierLibComplet() {
         this.setNomTable("chantierlibcomplet");
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
     }
     
     public String getId() {
@@ -255,16 +266,6 @@ public class ChantierLibComplet extends ClassEtat{
     public void setValtypetravaux(String valtypetravaux) {
         this.valtypetravaux = valtypetravaux;
     }
-    
-    @Override
-    public String getTuppleID() {
-        return id;
-    }
-
-    @Override
-    public String getAttributIDName() {
-        return "id";
-    }
 
     public double getMontantFacture() {
         return montantFacture;
@@ -280,6 +281,64 @@ public class ChantierLibComplet extends ClassEtat{
 
     public void setMontantReste(double montantReste) {
         this.montantReste = montantReste;
+    }
+
+    public String getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(String tiers) {
+        this.tiers = tiers;
+    }
+
+    public String getDirtravaux() {
+        return dirtravaux;
+    }
+
+    public void setDirtravaux(String dirtravaux) {
+        this.dirtravaux = dirtravaux;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
+
+    public String getCodeetablissementlib() {
+        return codeetablissementlib;
+    }
+
+    public void setCodeetablissementlib(String codeetablissementlib) {
+        this.codeetablissementlib = codeetablissementlib;
+    }
+    
+    @Override
+    public String getTuppleID() {
+        return id;
+    }
+
+    @Override
+    public String getAttributIDName() {
+        return "id";
+    }
+
+    public String getPatrimoinelib() {
+        return patrimoinelib;
+    }
+
+    public void setPatrimoinelib(String patrimoinelib) {
+        this.patrimoinelib = patrimoinelib;
+    }
+
+    public String getPatrimoinedesce() {
+        return patrimoinedesce;
+    }
+
+    public void setPatrimoinedesce(String patrimoinedesce) {
+        this.patrimoinedesce = patrimoinedesce;
     }
 
 }

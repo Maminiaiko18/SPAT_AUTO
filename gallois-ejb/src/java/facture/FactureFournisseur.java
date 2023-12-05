@@ -43,7 +43,7 @@ public class FactureFournisseur extends FactureClient {
     private String id2;
     private String codeEtablissement;
     private Date dateRegul;
-    private double montantHTSansRemise;
+    private double montantHTSansRemise, montantht;
     private String bonprovisoire, num;
     private String idom,omlib;
     private String numfsb;
@@ -56,7 +56,15 @@ public class FactureFournisseur extends FactureClient {
         this.omlib = omlib;
     }
 
+    public double getMontantht() {
+        return montantht;
+    }
 
+    public void setMontantht(double montantht) {
+        this.montantht = montantht;
+    }
+
+    
     public String getNumfsb() {
         return numfsb;
     }
@@ -92,6 +100,7 @@ public class FactureFournisseur extends FactureClient {
     public void setIdmodepaiement(String idmodepaiement) {
         this.idmodepaiement = idmodepaiement;
     }
+    private String chantier, idtravaux, idchantier, idcontrat;
 
     public Date getDatedevise() {
         return datedevise;
@@ -372,6 +381,38 @@ public class FactureFournisseur extends FactureClient {
 
     public void setModepaiementlib(String modepaiementlib) {
         this.modepaiementlib = modepaiementlib;
+    }
+
+    public String getChantier() {
+        return chantier;
+    }
+
+    public void setChantier(String chantier) {
+        this.chantier = chantier;
+    }
+
+    public String getIdtravaux() {
+        return idtravaux;
+    }
+
+    public void setIdtravaux(String idtravaux) {
+        this.idtravaux = idtravaux;
+    }
+
+    public String getIdchantier() {
+        return idchantier;
+    }
+
+    public void setIdchantier(String idchantier) {
+        this.idchantier = idchantier;
+    }
+
+    public String getIdcontrat() {
+        return idcontrat;
+    }
+
+    public void setIdcontrat(String idcontrat) {
+        this.idcontrat = idcontrat;
     }
     
     public FactureFournisseur() throws Exception {
@@ -1173,6 +1214,7 @@ public class FactureFournisseur extends FactureClient {
                 }
                 if(resteAEngager > 0){
                     ff.setTypeEngagement(Constante.typeEngagementFF);
+                    if(lies.length > 0)ff.setChantier(lies[0].getChantier());
                     ff.createEngagement(u, c, resteAEngager, lc, controleMontant);
                     this.setIdengagement(ff.getIdengagement());
                 }
@@ -1567,6 +1609,7 @@ public class FactureFournisseur extends FactureClient {
     public void createEngagement(String u, Connection c, double montant, LigneCredit lc, boolean controleBudget) throws Exception {
         try{
             Engagement engagement = new Engagement(this.getNumeroop(), this.getCode_etablissement() , this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), Utilitaire.dateDuJourSql(), this.getTiers(), 0);
+            engagement.setChantier(this.getChantier());
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }

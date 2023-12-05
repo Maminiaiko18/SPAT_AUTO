@@ -19,21 +19,65 @@ import utilitaire.Utilitaire;
  *
  * @author Asus
  */
-public class Travaux extends ClassEtat{
-    
-    private String id,nom,description,idtypetravaux,iddevise;
-    private Date datedebut,datefin;
-    private double montant,avancement;
+public class Travaux extends ClassEtat {
 
-    public Travaux(String id){
+    private String id, nom, description, idpatrimoine, idtypetravaux, iddevise, projet, codeetablissement, projetlib, codeetablissementlib, tiers, tierslib;
+    private Date datedebut, datefin;
+    private double montant, avancement;
+    private String patrimoinelib;
+    ;
+    private String patrimoinedesce;
+
+    public String getPatrimoinelib() {
+        return patrimoinelib;
+    }
+
+    public String getIdpatrimoine() {
+        return idpatrimoine;
+    }
+
+    public void setIdpatrimoine(String idpatrimoine) {
+        this.idpatrimoine = idpatrimoine;
+    }
+
+    public void setPatrimoinelib(String patrimoinelib) {
+        this.patrimoinelib = patrimoinelib;
+    }
+
+    public String getPatrimoinedesce() {
+        return patrimoinedesce;
+    }
+
+    public void setPatrimoinedesce(String patrimoinedesce) {
+        this.patrimoinedesce = patrimoinedesce;
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
+
+    public String getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(String tiers) {
+        this.tiers = tiers;
+    }
+
+    public Travaux(String id) {
         this.setId(id);
         this.setNomTable("travaux");
     }
+
     public Travaux() {
-         this.setNomTable("travaux");
+        this.setNomTable("travaux");
     }
 
-    public Travaux(String id, String nom,String description,String idtypetravaux, Date date_debut, Date date_fin, double montant_prevue, double avancement) throws Exception {
+    public Travaux(String id, String nom, String description, String idtypetravaux, Date date_debut, Date date_fin, double montant_prevue, double avancement) throws Exception {
         this.setNomTable("travaux");
         this.setId(id);
         this.setNom(nom);
@@ -44,7 +88,8 @@ public class Travaux extends ClassEtat{
         this.setMontant(montant_prevue);
         this.setAvancement(avancement);
     }
-    public Travaux(String id, String nom,String description,String idtypetravaux,String iddevise ,Date date_debut, Date date_fin, double montant_prevue, double avancement) throws Exception {
+
+    public Travaux(String id, String nom, String description, String idtypetravaux, String iddevise, Date date_debut, Date date_fin, double montant_prevue, double avancement) throws Exception {
         this.setNomTable("travaux");
         this.setId(id);
         this.setNom(nom);
@@ -56,11 +101,42 @@ public class Travaux extends ClassEtat{
         this.setIddevise(iddevise);
         this.setAvancement(avancement);
     }
-    
-    
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getCodeetablissement() {
+        return codeetablissement;
+    }
+
+    public void setCodeetablissement(String codeetablissement) {
+        this.codeetablissement = codeetablissement;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
+
+    public String getCodeetablissementlib() {
+        return codeetablissementlib;
+    }
+
+    public void setCodeetablissementlib(String codeetablissementlib) {
+        this.codeetablissementlib = codeetablissementlib;
+    }
+
     @Override
     public String getValColLibelle() {
-        return nom;
+        return nom+";"+idpatrimoine+";"+patrimoinelib;
     }
 
     public String getDescription() {
@@ -76,9 +152,9 @@ public class Travaux extends ClassEtat{
     }
 
     public void setDatedebut(Date datedebut) throws Exception {
-       
+
         this.datedebut = datedebut;
-        
+
     }
 
     public String getIdtypetravaux() {
@@ -94,9 +170,10 @@ public class Travaux extends ClassEtat{
     }
 
     public void setDatefin(Date datefin) throws Exception {
-         if(this.getMode().compareTo("modif")==0){
-            if(this.getDatedebut()!=null && Utilitaire.compareDaty(datefin, this.getDatedebut())==-1)
+        if (this.getMode().compareTo("modif") == 0) {
+            if (this.getDatedebut() != null && Utilitaire.compareDaty(datefin, this.getDatedebut()) == -1) {
                 throw new Exception("La date de début doit être supérieure à la date de fin");
+            }
         }
         this.datefin = datefin;
     }
@@ -106,12 +183,12 @@ public class Travaux extends ClassEtat{
     }
 
     public void setMontant(double montant) throws Exception {
-          if (getMode().compareToIgnoreCase("modif") == 0) {
+        if (getMode().compareToIgnoreCase("modif") == 0) {
             if (montant < 0) {
                 throw new Exception("montant invalide");
             }
         }
-       
+
         this.montant = montant;
     }
 
@@ -130,7 +207,7 @@ public class Travaux extends ClassEtat{
     public void setNom(String nom) {
         this.nom = nom;
     }
-   
+
     public double getAvancement() {
         return avancement;
     }
@@ -140,21 +217,44 @@ public class Travaux extends ClassEtat{
             if (avancement < 0) {
                 throw new Exception("avancement invalide");
             }
-         }
-         this.avancement = avancement;
+        }
+        this.avancement = avancement;
     }
-    public double getValueAvancement(String idtravaux,Connection c)throws Exception{
-       int verif = 0;
+
+    public String getIddevise() {
+        return iddevise;
+    }
+
+    public void setIddevise(String iddevise) {
+        this.iddevise = iddevise;
+    }
+
+    @Override
+    public String getTuppleID() {
+        return id;
+    }
+
+    @Override
+    public String getAttributIDName() {
+        return "id";
+    }
+
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("TRA", "getseq_travaux");
+        this.setId(makePK(c));
+    }
+
+    public double getValueAvancement(String idtravaux, Connection c) throws Exception {
+        int verif = 0;
         try {
             if (c == null) {
                 c = new UtilDB().GetConn();
                 verif = 1;
             }
-            Chantier[] tchantier=this.getChantierProjet(idtravaux,c);
-            double valiny=moyenneAvancementProjet(tchantier,c);
-            if(Double.isNaN(valiny))
-            {
-                valiny=0;
+            Chantier[] tchantier = this.getChantierProjet(idtravaux, c);
+            double valiny = moyenneAvancementProjet(tchantier, c);
+            if (Double.isNaN(valiny)) {
+                valiny = 0;
             }
             return valiny;
         } catch (Exception ex) {
@@ -166,8 +266,9 @@ public class Travaux extends ClassEtat{
             }
         }
     }
-    public Chantier[] getChantierProjet(String idtravaux,Connection c)throws Exception{
-        Chantier[] chantier=null;
+
+    public Chantier[] getChantierProjet(String idtravaux, Connection c) throws Exception {
+        Chantier[] chantier = null;
         int verif = 0;
         try {
             if (c == null) {
@@ -176,7 +277,7 @@ public class Travaux extends ClassEtat{
             }
             Chantier ch = new Chantier();
             ch.setNomTable("chantierlibelle");
-            chantier=(Chantier[])CGenUtil.rechercher(ch, null, null, c," and travaux='"+idtravaux+"' and etat>="+ConstanteEtat.getEtatValider());
+            chantier = (Chantier[]) CGenUtil.rechercher(ch, null, null, c, " and travaux='" + idtravaux + "' and etat>=" + ConstanteEtat.getEtatValider());
         } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
@@ -185,42 +286,18 @@ public class Travaux extends ClassEtat{
                 c.close();
             }
         }
-        return chantier;    
+        return chantier;
     }
-    public double moyenneAvancementProjet(Chantier[] chantier,Connection c)
-    {
-        double valiny=0;
-        try
-        {
+
+    public double moyenneAvancementProjet(Chantier[] chantier, Connection c) {
+        double valiny = 0;
+        try {
             valiny = AdminGen.calculSommeDouble(chantier, "avancement");
-            valiny=valiny/chantier.length;
-        }
-        catch(Exception e)
-        {
+            valiny = valiny / chantier.length;
+        } catch (Exception e) {
             throw e;
         }
         return valiny;
     }
-    @Override
-    public String getTuppleID() {
-      return id;
-    }
 
-    @Override
-    public String getAttributIDName() {
-    return "id";
-    }
-    public void construirePK(Connection c) throws Exception {
-        this.preparePk("TRA", "getseq_travaux");
-        this.setId(makePK(c));
-    }
-
-    public String getIddevise() {
-        return iddevise;
-    }
-
-    public void setIddevise(String iddevise) {
-        this.iddevise = iddevise;
-    }
-    
 }

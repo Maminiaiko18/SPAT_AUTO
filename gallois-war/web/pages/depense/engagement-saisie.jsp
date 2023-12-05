@@ -40,6 +40,8 @@
         pi.getFormu().getChamp("etat").setVisible(false);
 
         pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+         pi.getFormu().getChamp("chantier").setPageAppel("choix/listeChantierChoix.jsp");
+         pi.getFormu().getChamp("chantier").setVisible(false);
         pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("avecFacture").setDefaut("0");
@@ -64,6 +66,8 @@
         pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
         pi.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
           pi.getFormu().getChamp("montant").setAutre("readonly");
+        pi.getFormu().getChamp("duree").setVisible(false);
+        
         
 
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);

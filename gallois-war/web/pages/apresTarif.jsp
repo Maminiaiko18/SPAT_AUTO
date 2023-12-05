@@ -1,4 +1,6 @@
 <%@page import="ordremission.RetourOM"%>
+<%@page import="mg.spat.Avenant"%>
+<%@page import="mg.spat.Contrat"%>
 <%@page import="facture.LiaisonEngagement"%>
 <%@page import="bordereau.BordereauFF"%>
 <%@page import="facture.FactureFournisseur"%>
@@ -536,6 +538,20 @@
                 bed.setId(request.getParameter("id"));
                 bed = (BordereauFF)bed.getById(request.getParameter("id"), "BordereauFF", null);
                 id = bed.engager(u.getUser().getTuppleID(), null, false);
+            }
+            else if(typeeng.compareToIgnoreCase(Constante.typeEngagementContrat) == 0){
+                Contrat contrat = new Contrat();
+                contrat = (Contrat)contrat.getById(request.getParameter("id"), "contrat", null);
+                contrat.setControleMontant(1);
+                contrat.validerObject(u.getUser().getTuppleID(), null);
+                id = request.getParameter("id");
+            }
+            else if(typeeng.compareToIgnoreCase(Constante.typeEngagementAvenant) == 0){
+                Avenant avenant = new Avenant();
+                avenant = (Avenant)avenant.getById(request.getParameter("id"), "avenant", null);
+                avenant.setControleMontant(1);
+                avenant.validerObject(u.getUser().getTuppleID(), null);
+                id = request.getParameter("id");
             }
             else{
                 Engagement engagement=new Engagement();
