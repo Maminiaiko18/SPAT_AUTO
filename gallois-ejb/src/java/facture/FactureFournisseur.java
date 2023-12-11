@@ -796,6 +796,7 @@ public class FactureFournisseur extends FactureClient {
         return retour;
     }
 
+    //generer sortie a la caisse bon provisoire
     private void regulDefinitive(String u, double montant, Connection con) throws Exception {
         boolean verif = false;
         try {
@@ -818,13 +819,14 @@ public class FactureFournisseur extends FactureClient {
             transfert.setTiers(this.getTiers());
             transfert.setIddevise(this.getDeviseMere());
             transfert.setIdmode(bp.getModepaiement());
-            transfert.setEtat(ConstanteEtat.getEtatValider());
+            transfert.setEtat(ConstanteEtat.getEtatCreer());
             transfert.createObject(u, con);
 
             OrdonnerPayement[] op = ((OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, con, " and DED_ID = '" + this.getIdProvision() + "'"));
             if( op.length > 0 && op[0] != null){
                 op[0].setDed_Id(op[0].getDed_Id()+";"+this.getId());
-                op[0].updateToTable(con);
+                op[0].setRemarque(this.getDesignation());
+                op[0].updateToTableWithHisto(u, con,"Regularisation bon provisoire");
 
                 LiaisonIntraTable liaison = new LiaisonIntraTable(this.getId(), op[0].getId(), montant);
                 liaison.setCheckfacture(false);

@@ -1,4 +1,6 @@
 
+<%@page import="affichage.Liste"%>
+<%@page import="bean.TypeObjet"%>
 <%@page import="mg.spat.DemandeAchatMere"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="user.UserEJB"%> 
@@ -12,7 +14,6 @@
         UserEJB u = (user.UserEJB) session.getValue("u");
         Prioritaire prioritaire = new Prioritaire();
         String aWhere = prioritaire.makeListConfidentiality(u,"codeetablissementlib");
-        System.out.println("aWhere "+aWhere);
 
         demandeMere.setNomTable("dem_achat_merelib");
         String nomTableEtat = request.getParameter("nomTableEtat");
@@ -20,13 +21,21 @@
             demandeMere.setNomTable(nomTableEtat);
         }
 
-        String listeCrt[] = {"id","num", "designation","codeetablissementlib","projetlib","idengagementlib","daty"};
+        String listeCrt[] = {"id","num", "designation","codeetablissementlib","projetlib","idengagementlib","daty","idcategorieachat"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id","num","designation","codeetablissementlib","projetlib","idengagementlib","daty","etatlib"};
+        String libEntete[] = {"id","num","designation","idcategorieachatlib","codeetablissementlib","projetlib","idengagementlib","daty","etatlib"};
 
         PageRecherche pr = new PageRecherche(demandeMere, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
+        
+        affichage.Champ[] liste = new affichage.Champ[1];
+
+        TypeObjet catAchat = new TypeObjet();
+        catAchat.setNomTable("categorieachat");
+        liste[0] = new Liste("idcategorieachat", catAchat, "VAL", "id");
+        
+        pr.getFormu().changerEnChamp(liste);
 
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
@@ -36,6 +45,7 @@
         pr.getFormu().getChamp("designation").setLibelle("Designation");
         pr.getFormu().getChamp("idengagementlib").setLibelle("Engagement");
         pr.getFormu().getChamp("num").setLibelle("No.");
+        pr.getFormu().getChamp("idcategorieachat").setLibelle("Cat&eacute;gorie achat");
 
         pr.setApres("depense/demande-achat-liste.jsp");
         pr.setAWhere(aWhere);
@@ -80,7 +90,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "No.", "D&eacute;signation", "Code &eacute;tablissement","Projet","Engagement","Date","Etat"};
+            String libEnteteAffiche[] ={"Id", "No.", "D&eacute;signation", "Cat&eacute;gorie achat", "Code &eacute;tablissement","Projet","Engagement","Date","Etat"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
