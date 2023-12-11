@@ -49,6 +49,16 @@
         pi.getFormu().getChamp("projet").setAutre("readonly");
         
         pi.getFormu().getChamp("idengagement").setVisible(false);
+        pi.getFormu().getChamp("idcategorieachatlib").setVisible(false);
+        
+        affichage.Champ[] listem = new affichage.Champ[1];
+
+        TypeObjet catAchat = new TypeObjet();
+        catAchat.setNomTable("categorieachat");
+        listem[0] = new Liste("idcategorieachat", catAchat, "VAL", "id");
+        
+        pi.getFormu().changerEnChamp(listem);
+        pi.getFormu().getChamp("idcategorieachat").setLibelle("Cat&eacute;gorie achat");
         
         
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("id"), "readonly");

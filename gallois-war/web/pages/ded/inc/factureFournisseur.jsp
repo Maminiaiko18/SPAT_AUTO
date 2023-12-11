@@ -34,6 +34,7 @@
                     <th width="5%" align="center" valign="top" style="background-color:#103a8e;color:white">id</th>
                     <th width="5%" align="center" valign="top" style="background-color:#103a8e;color:white">Date</th>
                     <th width="5%" align="center" valign="top" style="background-color:#103a8e;color:white">Fournisseur</th>
+                    <th width="5%" align="center" valign="top" style="background-color:#103a8e;color:white">Catégorie</th>
                     <th width="5%" align="center" valign="top" style="background-color:#103a8e;color:white">N° Facture</th>
                     <th width="5%" align="center" valign="top" style="background-color:#103a8e;color:white">Numero compta</th>
                     <th width="5%" align="center" valign="top" style="background-color:#103a8e;color:white">Projet</th>
@@ -59,6 +60,7 @@
                     <td width="5%" align="left"><a href="globalnegoce.jsp?but=facture/facture-fournisseur-fiche-vaovao.jsp&id=<%= liste[i].getId() %>"><%= liste[i].getId() %></a> </td>
                     <td width="5%" align="left"><%= Utilitaire.formatterDaty(liste[i].getDaty()) %></td>
                     <td width="5%" align="left"><%= liste[i].getTierslib() %></td>
+                    <td width="5%" align="left"><%= liste[i].getCategorielib() %></td>
                     <td width="5%" align="left"><%= liste[i].getNumeroop() %></td>
                     <td width="5%" align="left"><%= liste[i].getCode() %></td>
                     <td width="5%" align="left"><%= liste[i].getProjetlib() %></td>

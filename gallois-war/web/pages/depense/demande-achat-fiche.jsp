@@ -33,6 +33,8 @@
     pc.getChampByName("projet").setVisible(false);
     pc.getChampByName("idengagementlib").setLien(lien + "?but=depense/engagement-fiche.jsp","id="+idengagement+"&id=");
     pc.getChampByName("etatlib").setVisible(false);
+    pc.getChampByName("idcategorieachatlib").setLibelle("Cat&eacute;gorie achat");
+    pc.getChampByName("idcategorieachat").setVisible(false);
     
     Map<String, String> map = new HashMap();
     map.put("details-demande-achat","");
