@@ -33,7 +33,7 @@
             journalCaisse.setNomTable(request.getParameter("etatvue"));
         }
 
-        String listeCrt[] = {"id", "folio", "caisse", "numPiece", "libelle", "remarque", "dateEffet", "idtypecheque", "descecaisse", "numeroOP", "tierslib","credit","debit"};
+        String listeCrt[] = {"id", "folio", "caisse", "numPiece", "libelle", "remarque", "dateEffet","numcheque", "idtypecheque", "descecaisse", "numeroOP", "tierslib","credit","debit"};
         String listeInt[] = {"dateEffet","credit","debit"};
         String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "debit", "numeroOP", "tierslib","etatlib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -53,6 +53,7 @@
         listes[2] = new Liste("caisse", caisse, "val", "id");
 
         pr.getFormu().changerEnChamp(listes);
+        pr.getFormu().getChamp("numcheque").setLibelle("num cheque");
         pr.getFormu().getChamp("credit1").setLibelle("entree min");
         pr.getFormu().getChamp("credit2").setLibelle("entree max");
         pr.getFormu().getChamp("debit1").setLibelle("sortie min");

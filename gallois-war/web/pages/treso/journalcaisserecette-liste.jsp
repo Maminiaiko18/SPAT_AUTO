@@ -21,7 +21,7 @@
 
         System.out.println("tablename"+journalCaisse.getNomTable());
 
-        String listeCrt[] = {"id", "folio", "caisse", "libelle", "remarque", "dateEffet", "idtypecheque", "codefacture", "descecaisse", "tierslib","idbanquelib","numPiece"};
+        String listeCrt[] = {"id", "folio", "caisse", "libelle", "remarque", "dateEffet","numcheque", "idtypecheque", "codefacture", "descecaisse", "tierslib","idbanquelib","numPiece"};
         String listeInt[] = {"dateEffet"};
         String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "codefacture", "tierslib","codetiers","idbanquelib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -42,7 +42,7 @@
         listes[2].setDefaultSelected(Constante.caisseCentraleEspece);
 
         pr.getFormu().changerEnChamp(listes);
-        
+        pr.getFormu().getChamp("numcheque").setLibelle("num cheque");
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
         pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
