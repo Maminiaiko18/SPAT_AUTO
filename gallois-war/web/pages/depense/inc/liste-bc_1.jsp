@@ -4,12 +4,12 @@
 <%@page import="mg.spat.stock.BonDeCommande"%>
 <%
     BonDeCommande j = new BonDeCommande();
-        j.setNomTable("AS_BONDECOMMANDE");
+    j.setNomTable("AS_BONDECOMMANDE_LIB_fiche");
     String libEntete[] = {"id", "DATY", "DESIGNATION", "FOURNISSEUR","NUMBC","REMARQUE"};
     String listeCrt[] = {"idda"};
     String listeInt[] = {};
     PageRecherche pr = new PageRecherche(j, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-        pr.setAWhere("and idda='"+request.getParameter("id")+"'");
+        pr.setAWhere("and idda like '%"+request.getParameter("id")+"%'");
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         

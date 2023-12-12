@@ -83,18 +83,23 @@
                 </div>
             </div>
         </form>
-        <%  String lienTableau[] = {pr.getLien() + "?but=depense/demande-achat-fiche.jsp"};
-            String colonneLien[] = {"id"};
-            pr.getTableau().setLien(lienTableau);
-            pr.getTableau().setColonneLien(colonneLien);
-            out.println(pr.getTableauRecap().getHtml());%>
-        <br>
+        <form action="<%=pr.getLien()%>?but=stock/bc/bondecommande-multiple.jsp" method="post" name="form_arif" id="form_arif">
+            <%  String lienTableau[] = {pr.getLien() + "?but=depense/demande-achat-fiche.jsp"};
+                String colonneLien[] = {"id"};
+                pr.getTableau().setLien(lienTableau);
+                pr.getTableau().setColonneLien(colonneLien);
+                out.println(pr.getTableauRecap().getHtml());%>
+            <br>
+            <%
+                String libEnteteAffiche[] ={"Id", "No.", "D&eacute;signation", "Cat&eacute;gorie achat", "Code &eacute;tablissement","Projet","Engagement","Date","Etat"};
+                pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+                pr.getTableau().setNameActe("genererBC");
+                pr.getTableau().setNameBoutton("G&eacute;n&eacute;rer BC");
+                out.println(pr.getTableau().getHtmlWithCheckbox());
+            %>
+        </form>
         <%
-            String libEnteteAffiche[] ={"Id", "No.", "D&eacute;signation", "Cat&eacute;gorie achat", "Code &eacute;tablissement","Projet","Engagement","Date","Etat"};
-            pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-            out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
-
         %>
     </section>
 </div>

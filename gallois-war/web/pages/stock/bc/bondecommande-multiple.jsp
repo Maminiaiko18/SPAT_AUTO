@@ -23,7 +23,10 @@
         String idEngagement  = request.getParameter("idEngagement");
         String autreparsley = "data-parsley-range='[8, 40]' required";
         UserEJB u = u = (UserEJB) session.getValue("u");
-        BonDeCommandeData data =new BonDeCommandeData(idEngagement,request.getParameter("idDa"));
+        
+        //si saisie à partir de DASE
+        BonDeCommandeData data = new BonDeCommandeData(idEngagement,request.getParameter("idDa"),request.getParameterValues("id"));
+        
         Engagement engagement=data.getEngagement();
         String classeMere = "mg.spat.stock.BonDeCommande",
                classeFille = "mg.spat.stock.BonDeCommandeFille",
@@ -35,6 +38,7 @@
         if(data.getDemandeAchatfilles().length>taille){
             taille=data.getDemandeAchatfilles().length;
         }
+        
         BonDeCommande mere = new BonDeCommande();
         BonDeCommandeFille fille = new BonDeCommandeFille();
         
@@ -100,9 +104,6 @@
         pi.getFormu().getChamp("fournisseur").setValeurLibelle(Utilitaire.champNull(engagement.getTierslib()));
         pi.getFormu().getChamp("devisemere").setLibelle("Devise");
         
-        
-        
-        System.out.println("u.getUser().getCodeEtablissement()=="+u.getUser().getCodeEtablissement());
         if(u.getUser().getCodeEtablissement()!=null){
             CodeEtablissement code= u.getCodeEtablissement();
             pi.getFormu().getChamp("code_etab").setDefaut(u.getUser().getCodeEtablissement());
@@ -139,6 +140,7 @@
             pi.getFormufle().getChamp("quantite_"+i).setDefaut(Utilitaire.formaterAr( data.getDemandeAchatfilles()[i].getQte()));
             pi.getFormufle().getChamp("pu_"+i).setDefaut(Utilitaire.formaterSansVirgule(data.getDemandeAchatfilles()[i].getPu()));
             pi.getFormufle().getChamp("Unite_"+i).setDefaut(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getUnite()));
+            pi.getFormufle().getChamp("observation_"+i).setDefaut(Utilitaire.champNull( data.getDemandeAchatfilles()[i].getIdmere()));
         }
         
         affichage.Champ[] listeUnit = new affichage.Champ[2];
@@ -271,11 +273,11 @@
 
 </script>
 <%
-    } catch (Exception e) {
-        e.printStackTrace();
+} catch (Exception e) {
+    e.printStackTrace();
 %>
-    <script language="JavaScript">
-        alert('<%=e.getMessage()%>');
-        history.back();
-    </script>
+<script language="JavaScript"> 
+    alert('<%=e.getMessage()%>');
+    history.back();
+</script>
 <% }%>

@@ -5,6 +5,7 @@
  */
 package data;
 
+import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import mg.spat.Engagement;
 import mg.spat.stock.BonDeCommande;
 import mg.spat.stock.BonDeCommandeFille;
 import utilitaire.UtilDB;
+import utilitaire.Utilitaire;
 
 /**
  *
@@ -32,7 +34,7 @@ public class BonDeCommandeData {
         }
     }
     
-    public BonDeCommandeData(String idEngagement,String idda) throws Exception{
+    public BonDeCommandeData(String idEngagement, String idda, String[] idsachat) throws Exception{
         
         Connection c=null;
         try
@@ -41,7 +43,7 @@ public class BonDeCommandeData {
             if(idEngagement !=null && !idEngagement.equals("")){
                 engagement=(Engagement)engagement.getById(idEngagement, "ENGAGEMENTLIB", null);
             }
-            initDa(idda, c);
+            initDa(idda, idsachat, c);
         }
         catch(Exception e)
         {
@@ -58,20 +60,39 @@ public class BonDeCommandeData {
     public BonDeCommandeData() throws Exception{
        
     }
-    public void initDa(String idDa, Connection c) throws Exception{
-        if(idDa==null) return;  
-        boolean estOuvert=false;
+    public void initDa(String idDa, String[] idsachat, Connection c) throws Exception{
+        boolean estOuvert = false;
         try
         {
-            if(c==null)
+            if(c == null)
             {
-                c=new UtilDB().GetConn();
-                estOuvert=true;
+                c = new UtilDB().GetConn();
+                estOuvert = true;
             }
-            demandeAchatMere=(DemandeAchatMere) (new DemandeAchatMere()).getById(idDa, "dem_achat_merelib", c);
-            DemandeAchatFille fille=new DemandeAchatFille();
+            DemandeAchatFille fille = new DemandeAchatFille();
             fille.setNomTable("dem_achat_fillelib");
-            demandeAchatfilles= (DemandeAchatFille[]) CGenUtil.rechercher(fille, null, null, c, "and idmere ='"+idDa+"'");
+            
+            if(idsachat != null){
+                String ids = Utilitaire.tabToString(idsachat, "'", ",");
+                DemandeAchatMere[] meres = (DemandeAchatMere[]) CGenUtil.rechercher(new DemandeAchatMere("dem_achat_merelib"), null, null, c, " and id in (" + ids + ")");
+                String[] projet = AdminGen.getDistinct(meres, "projet");
+                if(projet.length > 1)
+                    throw new Exception("Projets differents pour les demandes achat selectionees");
+                String[] coddeet = AdminGen.getDistinct(meres, "codeetablissement");
+                if(coddeet.length > 1)
+                    throw new Exception("Code etablissement differents pour les demandes achat selectionees");
+                demandeAchatMere.setId(Utilitaire.tabToString(idsachat, "", ";"));
+                demandeAchatMere.setProjet(meres[0].getProjet());
+                demandeAchatMere.setProjetlib(meres[0].getProjetlib());
+                demandeAchatMere.setCodeetablissement(meres[0].getCodeetablissement());
+                demandeAchatMere.setCodeetablissementlib(meres[0].getCodeetablissementlib());
+                demandeAchatfilles = (DemandeAchatFille[]) CGenUtil.rechercher(fille, null, null, c, "and idmere in (" + ids + ")");
+            }
+            else{
+                if(idDa == null) return;  
+                demandeAchatMere = (DemandeAchatMere) (new DemandeAchatMere()).getById(idDa, "dem_achat_merelib", c);
+                demandeAchatfilles = (DemandeAchatFille[]) CGenUtil.rechercher(fille, null, null, c, "and idmere ='"+idDa+"'");
+            }
             
         }
         catch(Exception e)
