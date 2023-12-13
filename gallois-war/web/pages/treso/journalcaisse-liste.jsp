@@ -33,9 +33,9 @@
             journalCaisse.setNomTable(request.getParameter("etatvue"));
         }
 
-        String listeCrt[] = {"id", "folio", "caisse", "numPiece", "libelle", "remarque", "dateEffet","numcheque", "idtypecheque", "descecaisse", "numeroOP", "tierslib","credit","debit"};
+        String listeCrt[] = {"id", "folio", "caisse", "numPiece", "libelle", "remarque", "dateEffet","numcheque", "idtypecheque", "descecaisse", "tierslib","credit","debit"};
         String listeInt[] = {"dateEffet","credit","debit"};
-        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "debit", "numeroOP", "tierslib","etatlib"};
+        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "debit","remarque", "tierslib","etatlib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -65,7 +65,7 @@
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
         pr.getFormu().getChamp("idtypecheque").setLibelle("Type");
-        pr.getFormu().getChamp("numeroOP").setLibelle("Num&eacute;ro OP");
+        pr.getFormu().getChamp("remarque").setLibelle("Num&eacute;ro OP");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("numPiece").setLibelle("Num Piece");
         String[] colSomme = {"credit", "debit"};
