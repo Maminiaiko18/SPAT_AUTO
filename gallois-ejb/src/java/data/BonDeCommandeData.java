@@ -15,6 +15,7 @@ import mg.spat.DemandeAchatMere;
 import mg.spat.Engagement;
 import mg.spat.stock.BonDeCommande;
 import mg.spat.stock.BonDeCommandeFille;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -75,6 +76,7 @@ public class BonDeCommandeData {
             if(idsachat != null){
                 String ids = Utilitaire.tabToString(idsachat, "'", ",");
                 DemandeAchatMere[] meres = (DemandeAchatMere[]) CGenUtil.rechercher(new DemandeAchatMere("dem_achat_merelib"), null, null, c, " and id in (" + ids + ")");
+                for(DemandeAchatMere dt : meres) if(dt.getEtat()==ConstanteEtat.getEtatCreer()) throw new Exception("DASE non vise.");
                 String[] projet = AdminGen.getDistinct(meres, "projet");
                 if(projet.length > 1)
                     throw new Exception("Projets differents pour les demandes achat selectionees");
