@@ -807,15 +807,10 @@ public class FactureFournisseur extends FactureClient {
             String caisseBP = "";
             if(bp.getModepaiement().compareToIgnoreCase(Constante.modePaiementEspece)==0) caisseBP = Constante.caisseCentraleBP;
             else caisseBP = Constante.banqueBP;
-            JournalCaisse transfert = new JournalCaisse(null,caisseBP, null, bp.getDesignation() , null, dateDuJour, dateDuJour, bp.getMontantttc(), 0, this.getId());
-            transfert.setTiers(this.getTiers());
-            transfert.setIddevise(this.getDeviseMere());
-            transfert.setIdmode(bp.getModepaiement());
-            transfert.setEtat(ConstanteEtat.getEtatCreer());
-            transfert.createObject(u, con);
-
+            String numop = null;
             OrdonnerPayement[] op = ((OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, con, " and etat=11 and ded_id like '%" + this.getIdProvision() + "%'"));
             if( op.length > 0 && op[0] != null){
+                numop=op[0].getNumeroop();
                 op[0].setDed_Id(op[0].getDed_Id()+";"+this.getId());
                 op[0].setRemarque(this.getDesignation());
                 op[0].updateToTableWithHisto(u, con,"Regularisation bon provisoire");
@@ -825,6 +820,14 @@ public class FactureFournisseur extends FactureClient {
                 liaison.createObject(u, con);
 
             }
+            JournalCaisse transfert = new JournalCaisse(null,caisseBP, null, bp.getDesignation() , numop, dateDuJour, dateDuJour, bp.getMontantttc(), 0, this.getId());
+            transfert.setTiers(this.getTiers());
+            transfert.setIddevise(this.getDeviseMere());
+            transfert.setIdmode(bp.getModepaiement());
+            transfert.setEtat(ConstanteEtat.getEtatCreer());
+            transfert.createObject(u, con);
+
+            
 
 
             if (verif) {
