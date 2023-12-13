@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.util.List;
 import java.util.ArrayList;
+import lignecredit.LigneCredit;
 import mg.spat.exploitant.Activite;
 import mg.spat.exploitant.AdminActivite;
 import utilitaire.Utilitaire;
@@ -271,6 +272,55 @@ public class ImportExcel {
             
             return ls;
             
+    }
+    
+    public static ArrayList<LigneCredit> importerLCDepense(InputStream fileUrl) throws Exception {
+        int ligne = 2;
+        try {
+            // Créer un Workbook à partir de l'InputStream
+            workbook = WorkbookFactory.create((fileUrl));
+
+            // Obtenir la première feuille de calcul
+            sheet = workbook.getSheetAt(0);
+
+            // Créer une liste d'objets
+            ArrayList<LigneCredit> lc = new ArrayList<>();
+
+            // Parcourir les lignes du tableau
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                // Créer un nouvel objet
+                LigneCredit lcdepense = new LigneCredit();
+                lcdepense.setNomTable("LIGNECREDITDEPENSE");
+
+                // Affecter les valeurs du tableau à l'objet
+                if(sheet.getRow(i).getCell(0).getCellType() == 0){
+                    lcdepense.setCodeEtablissement(Integer.toString((int) sheet.getRow(i).getCell(0).getNumericCellValue()));
+                }
+                else
+                    lcdepense.setCodeEtablissement(sheet.getRow(i).getCell(0).getStringCellValue());
+                lcdepense.setProjet(sheet.getRow(i).getCell(1).getStringCellValue());
+                lcdepense.setDesignation(sheet.getRow(i).getCell(2).getStringCellValue());
+                lcdepense.setCompte(sheet.getRow(i).getCell(3).getStringCellValue());
+                lcdepense.setAnnee((int) sheet.getRow(i).getCell(4).getNumericCellValue());
+                 if(sheet.getRow(i).getCell(5).getCellType() == 0){
+                    lcdepense.setMontant(sheet.getRow(i).getCell(5).getNumericCellValue());
+                }
+                else
+                    lcdepense.setMontant(Utilitaire.stringToDouble(sheet.getRow(i).getCell(5).getStringCellValue()));
+                
+                // Ajouter l'objet à la liste
+                lc.add(lcdepense);
+                ligne ++;
+            }
+
+            // Fermer le Workbook
+            workbook.close();
+            return lc;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new Exception("Erreur lors de l'import du fichier Excel. Ligne " + ligne + ". " + ex.getMessage());
+        }
+        
     }
 
 }

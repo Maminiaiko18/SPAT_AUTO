@@ -10,6 +10,10 @@ import bean.ClassEtat;
 import bean.ResultatEtSomme;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import mg.cnaps.formation.CodeEtablissement;
+import projet.Projet;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 
@@ -779,5 +783,58 @@ public class LigneCredit extends ClassEtat {
         return "LigneCredit{" + "id=" + id + ", designation=" + designation + ", compte=" + compte + ", compteCpl=" + compteCpl + ", compteInv=" + compteInv + ", compteSimple=" + compteSimple + ", directon=" + directon + ", projet=" + projet + ", directionProjet=" + directionProjet + ", comptestr=" + comptestr + ", compteG=" + compteG + ", codeEtablissement=" + codeEtablissement + ", direction=" + direction + ", codeEtablissementlib=" + codeEtablissementlib + ", projetlib=" + projetlib + ", idprojet=" + idprojet + ", idcodeEtablissement=" + idcodeEtablissement + ", resteApresEngmt=" + resteApresEngmt + ", niveau1=" + niveau1 + ", niveau2=" + niveau2 + ", niveau3=" + niveau3 + ", niveau4=" + niveau4 + ", quantite=" + quantite + ", montant=" + montant + ", engageer=" + engageer + ", facture=" + facture + ", paye=" + paye + ", annee=" + annee + ", mois=" + mois + ", arecouvrir=" + arecouvrir + ", restebudget=" + restebudget + ", pourcEngage=" + pourcEngage + ", pourcPaye=" + pourcPaye + ", daty=" + daty + '}';
     }
     
-    
+    public void insertLigneCreditDepenseMultiple(String u, ArrayList<LigneCredit> lcdepenses, Connection c) throws Exception {
+        boolean estOuvert = false;
+        int ligne = 2;
+        try
+        {
+            if(c == null)
+            {
+                c = new UtilDB().GetConn();
+                estOuvert = true;
+                c.setAutoCommit(false);
+            }
+            
+            Projet[] projets = (Projet[]) CGenUtil.rechercher(new Projet(), null, null, c, "");
+            HashMap<String,String> hashprojet = new HashMap<String,String>();
+            int t = projets.length;
+            for(int i = 0; i < t; i++){
+                hashprojet.put(projets[i].getDesignation(), projets[i].getId());
+            }
+            
+            CodeEtablissement[] codeetb = (CodeEtablissement[]) CGenUtil.rechercher(new CodeEtablissement(), null, null, c, "");
+            HashMap<String,String> hashcode = new HashMap<String,String>();
+            t = codeetb.length;
+            for(int i = 0; i < t; i++){
+                hashcode.put(codeetb[i].getVal(), codeetb[i].getId());
+            }
+            
+            t = lcdepenses.size();
+            String code, projet;
+            for(int i = 0; i < t; i++){
+                projet = hashprojet.get(lcdepenses.get(i).getProjet());
+                code = hashcode.get(lcdepenses.get(i).getCodeEtablissement());
+                if(projet == null || code == null){
+                    throw new Exception("Projet " + lcdepenses.get(i).getProjet() + " ou code etablissement " + lcdepenses.get(i).getCodeEtablissement() + " non trouve a la ligne " + (i+2));
+                }
+                lcdepenses.get(i).setProjet(projet);
+                lcdepenses.get(i).setCodeEtablissement(code);
+                lcdepenses.get(i).setEtat(ConstanteEtat.getEtatValider());
+                lcdepenses.get(i).createObject(u, c);
+                ligne ++;
+            }
+            
+            c.commit();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            if(c != null && estOuvert == true) c.rollback();
+            throw new Exception("Erreur a la ligne " + ligne + "." + e.getMessage());
+        }
+        finally
+        {
+            if(c != null && estOuvert == true) c.close();
+        }
+    }
 }

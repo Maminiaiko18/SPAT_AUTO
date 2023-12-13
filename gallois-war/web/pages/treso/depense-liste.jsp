@@ -19,13 +19,14 @@
             journal.setNomTable("journalcaisselibdepense");
         }
         if (request.getParameter("tablename") != null) journal.setNomTable(request.getParameter("tablename"));
-          String listeCrt[] = {"id","folio", "valcaisse", "libelle", "remarque", "dateEffet","DESCETYPECHEQUE","tierslib"};
+          String listeCrt[] = {"id","folio", "valcaisse", "libelle", "numcheque","remarque", "dateEffet","DESCETYPECHEQUE","tierslib"};
         String listeInt[] = {"dateEffet"};
         String libEntete[] =  {"id", "valcaisse","DESCETYPECHEQUE", "numcheque","libelle", "dateSaisie", "dateEffet", "debit","idplacement","tierslib","etatlib"};
         PageRecherche pr = new PageRecherche(journal, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
 
+        pr.getFormu().getChamp("numcheque").setLibelle("num cheque");
         pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");

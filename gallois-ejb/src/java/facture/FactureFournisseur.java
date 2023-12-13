@@ -822,7 +822,7 @@ public class FactureFournisseur extends FactureClient {
             transfert.setEtat(ConstanteEtat.getEtatCreer());
             transfert.createObject(u, con);
 
-            OrdonnerPayement[] op = ((OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, con, " and DED_ID = '" + this.getIdProvision() + "'"));
+            OrdonnerPayement[] op = ((OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, con, " and etat=11 and ded_id like '%" + this.getIdProvision() + "%'"));
             if( op.length > 0 && op[0] != null){
                 op[0].setDed_Id(op[0].getDed_Id()+";"+this.getId());
                 op[0].setRemarque(this.getDesignation());
@@ -831,6 +831,7 @@ public class FactureFournisseur extends FactureClient {
                 LiaisonIntraTable liaison = new LiaisonIntraTable(this.getId(), op[0].getId(), montant);
                 liaison.setCheckfacture(false);
                 liaison.createObject(u, con);
+
             }
 
 

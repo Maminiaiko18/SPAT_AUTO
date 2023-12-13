@@ -33,9 +33,9 @@
             journalCaisse.setNomTable(request.getParameter("etatvue"));
         }
 
-        String listeCrt[] = {"id", "folio", "caisse", "numPiece", "libelle", "remarque", "dateEffet", "idtypecheque", "idplacement", "descecaisse", "numeroOP", "tierslib","credit","debit"};
+        String listeCrt[] = {"id", "folio", "caisse", "numPiece", "libelle", "remarque", "dateEffet","numcheque", "idtypecheque", "descecaisse", "numeroOP", "tierslib","credit","debit"};
         String listeInt[] = {"dateEffet","credit","debit"};
-        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "debit", "idplacement", "numeroOP", "tierslib"};
+        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "debit", "numeroOP", "tierslib","etatlib"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -53,6 +53,7 @@
         listes[2] = new Liste("caisse", caisse, "val", "id");
 
         pr.getFormu().changerEnChamp(listes);
+        pr.getFormu().getChamp("numcheque").setLibelle("num cheque");
         pr.getFormu().getChamp("credit1").setLibelle("entree min");
         pr.getFormu().getChamp("credit2").setLibelle("entree max");
         pr.getFormu().getChamp("debit1").setLibelle("sortie min");
@@ -155,7 +156,7 @@
             <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
             <input type="hidden" name="acte" value="viser"/>
             <%
-                String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "num cheque", "Libell�", "Date Saisie", "Date Effet", "Entr�e", "Sortie", "Source", "Num&eacute;ro OP", "Tiers"};
+                String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "num cheque", "Libell�", "Date Saisie", "Date Effet", "Entr�e", "Sortie", "Num&eacute;ro OP", "Tiers","Etat"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");
