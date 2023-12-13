@@ -1,3 +1,4 @@
+<%@page import="lignecredit.LigneCredit"%>
 <%@page import="mg.spat.exploitant.AdminActivite"%>
 <%@page import="mg.spat.exploitant.Activite"%>
 <%@page import="java.util.ArrayList"%>
@@ -103,6 +104,30 @@
 
 
              }
+             
+            if(acte.compareTo("importLCDepense")==0){
+                DiskFileItemFactory factory = new DiskFileItemFactory();
+                ServletFileUpload upload = new ServletFileUpload(factory);
+                List items = upload.parseRequest(request);
+                Iterator i = items.iterator();
+                FileItem fichierExcel = null;
+                while (i.hasNext()) {
+                    FileItem itemTemp = (FileItem) i.next();
+                    if(!itemTemp.isFormField()) {
+                        fichierExcel = itemTemp;
+                    }
+                }
+                
+                ImportExcel ex = new ImportExcel();
+                ArrayList<LigneCredit> lcd = ex.importerLCDepense(fichierExcel.getInputStream());
+                String but = "ligneCredit/liste-ligneCreditDepense.jsp";
+                LigneCredit lc = new LigneCredit();
+                lc.insertLigneCreditDepenseMultiple(u.getUser().getRefuser()+"", lcd, null);
+            %>
+                <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=but%>");</script>
+            <% 
+
+            }
                 
             
         }catch(Exception e){
