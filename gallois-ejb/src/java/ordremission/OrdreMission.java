@@ -8,7 +8,10 @@ package ordremission;
 import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
+import ded.OrdonnerPayement;
 import facture.NumeroFacture;
+import facture.PaiementFacture;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -196,6 +199,22 @@ public class OrdreMission extends ClassEtat {
      public void construirePK(Connection c) throws Exception {     
         this.preparePk("OM", "GETSEQORDRE_MISSION");
         this.setId(makePK(c));
+    }
+
+    @Override
+    public void controleAnnulerVisa(Connection c) throws Exception {
+        c = null;
+
+        try {
+            c = (new UtilDB()).GetConn();
+            if(hadBonProvisoire(c)) throw new Exception("Impossible d'annuler visa, cet OM comporte deja un bon provisoire.");            
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
     }
 
     public String calculerNumeroOM(Connection c) throws Exception {
