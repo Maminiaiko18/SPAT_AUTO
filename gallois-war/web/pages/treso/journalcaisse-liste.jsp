@@ -13,6 +13,7 @@
 <%@page import="mg.spat.Caisse"%>
 <%@page import="mg.amadia.stock.EtatdeStockDate"%>
 <%@page import="utilitaire.Utilitaire"%>
+<%@page import="java.sql.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
@@ -60,8 +61,13 @@
         pr.getFormu().getChamp("debit1").setLibelle("sortie min");
         pr.getFormu().getChamp("debit2").setLibelle("sortie max");
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
-        pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
-        pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
+        Date lastDate = Utilitaire.dateDuJourSql();
+        lastDate.setDate(31);
+        lastDate.setMonth(11);
+        String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());
+        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+        pr.getFormu().getChamp("dateEffet1").setDefaut(debutDate);
+        pr.getFormu().getChamp("dateEffet2").setDefaut(dateFin);
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
