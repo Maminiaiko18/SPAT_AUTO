@@ -1108,6 +1108,12 @@ public class JournalCaisse extends ClassEtat {
                 this.genererAutoParBP(user, c);
             }
 
+            // si journal de caisse am caisse BON PROVISOIRE BANQUE, dia atao date de visa ny date effet an journal
+            if(this.getCaisse().equalsIgnoreCase(Constante.banqueBP)) {
+                this.setDateEffet(Utilitaire.dateDuJourSql());
+                this.updateToTable(c);
+            }
+
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
 
             if (verif == 1) {

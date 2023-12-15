@@ -1639,6 +1639,19 @@ public class FactureClient extends ClassMere {
     }
 
     @Override
+    public ClassMAPTable dupliquer(String user,Connection c) throws Exception
+    { 
+        try{
+            this.setDaty(Utilitaire.dateDuJourSql());
+            if(this.getEstAncienne()!=1)this.setCode(calculerCode(c));
+        }
+        catch(Exception e){
+            throw e;
+        }
+        return super.dupliquer(user, c);
+    }
+
+    @Override
     public ClassMAPTable createObject(String iduser, Connection cnctn) throws Exception {
         this.setNomClasseFille("facture.FactureClientDetails");
         this.setIduser(iduser);

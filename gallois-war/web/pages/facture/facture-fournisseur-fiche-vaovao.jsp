@@ -257,7 +257,7 @@
                         <% } %>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId()%>&acte=dupliquer&bute=<%=bute%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
                         <%-- <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrentFF.jsp&id=" + e.getId()%>" style="margin-right: 10px">Récurrent</a> --%>
-                        <% if (categorie.equals(Constante.getCategorieFFBP())) { %>
+                        <% if (categorie.equals(Constante.getCategorieFFBP()) || e.getIdProvision()!=null) { %>
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=1"%>" style="margin-right: 10px">Sortie banque</a>
                             <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/depense-saisie.jsp&idFacture=" + id+"&mode=2"%>" style="margin-right: 10px">Sortie caisse</a>
                         <% } %>
