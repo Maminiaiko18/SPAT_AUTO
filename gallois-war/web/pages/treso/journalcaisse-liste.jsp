@@ -13,6 +13,7 @@
 <%@page import="mg.spat.Caisse"%>
 <%@page import="mg.amadia.stock.EtatdeStockDate"%>
 <%@page import="utilitaire.Utilitaire"%>
+<%@page import="java.sql.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
@@ -60,8 +61,13 @@
         pr.getFormu().getChamp("debit1").setLibelle("sortie min");
         pr.getFormu().getChamp("debit2").setLibelle("sortie max");
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
-        pr.getFormu().getChamp("dateEffet1").setDefaut(utilitaire.Utilitaire.dateDuJour());
-        pr.getFormu().getChamp("dateEffet2").setDefaut(utilitaire.Utilitaire.dateDuJour());
+        Date lastDate = Utilitaire.dateDuJourSql();
+        lastDate.setDate(31);
+        lastDate.setMonth(11);
+        String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());
+        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
+        pr.getFormu().getChamp("dateEffet1").setDefaut(debutDate);
+        pr.getFormu().getChamp("dateEffet2").setDefaut(dateFin);
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
@@ -89,13 +95,13 @@
                 <div class="form-group">
                     <label>Etat : </label>
                     <select name="etatvue" class="champ form-control" id="etatvue" onchange="changerDesignation()" style="display: inline-block; width: 250px;">
-                        <option value="JOURNALCAISSELIBCOMPLET" <% if (request.getParameter("etatvue") == null || request.getParameter("etatvue").compareToIgnoreCase("") == 0 || request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIBmiv") == 0) {
+                        <option value="JOURNALCAISSELIBCOMPLET" <% if (request.getParameter("etatvue") == null || request.getParameter("etatvue").compareToIgnoreCase("") == 0 || request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIBCOMPLET") == 0) {
                                 out.print("selected");
                             }%>>Tous</option>
-                        <option value="JOURNALCAISSELIBCOMPLET_CREE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_CREE_miv") == 0) {
+                        <option value="JOURNALCAISSELIBCOMPLET_CREE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIBCOMPLET_CREE") == 0) {
                                 out.print("selected");
                             }%>>Cr&eacute;e</option>
-                        <option value="JOURNALCAISSELIBCOMPLET_VISE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_vise_miv") == 0) {
+                        <option value="JOURNALCAISSELIBCOMPLET_VISE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIBCOMPLET_VISE") == 0) {
                                 out.print("selected");
                             }%>>Vis&eacute;</option>
                         <option value="journalcaisselibrecette" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("journalcaisselibrecette") == 0) {
