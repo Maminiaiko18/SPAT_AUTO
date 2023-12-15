@@ -856,15 +856,11 @@ public class FactureFournisseur extends FactureClient {
             String caisseBP = "";
             if(bp.getModepaiement().compareToIgnoreCase(Constante.modePaiementEspece)==0) caisseBP = Constante.caisseCentraleBP;
             else caisseBP = Constante.banqueBP;
-            JournalCaisse transfert = new JournalCaisse(null,caisseBP, null, bp.getDesignation() , null, dateDuJour, dateDuJour, bp.getMontantttc(), 0, this.getId());
-            transfert.setTiers(this.getTiers());
-            transfert.setIddevise(this.getDeviseMere());
-            transfert.setIdmode(bp.getModepaiement());
-            transfert.setEtat(ConstanteEtat.getEtatCreer());
-            transfert.createObject(u, con);
 
-            OrdonnerPayement[] op = ((OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, con, " and DED_ID = '" + this.getIdProvision() + "'"));
+            String designation = null;
+            OrdonnerPayement[] op = ((OrdonnerPayement[]) CGenUtil.rechercher(new OrdonnerPayement(), null, null, con, " and etat=11 and ded_id like '%" + this.getIdProvision() + "%'"));
             if( op.length > 0 && op[0] != null){
+                designation = "OP "+op[0].getNumeroop()+" - ";
                 op[0].setDed_Id(op[0].getDed_Id()+";"+this.getId());
                 op[0].setRemarque(this.getDesignation());
                 op[0].updateToTableWithHisto(u, con,"Regularisation bon provisoire");
@@ -872,8 +868,15 @@ public class FactureFournisseur extends FactureClient {
                 LiaisonIntraTable liaison = new LiaisonIntraTable(this.getId(), op[0].getId(), montant);
                 liaison.setCheckfacture(false);
                 liaison.createObject(u, con);
-            }
 
+            }
+            designation = Utilitaire.champNull(designation)+ bp.getDesignation();
+            JournalCaisse transfert = new JournalCaisse(null,caisseBP, null,designation, null, dateDuJour, dateDuJour, bp.getMontantttc(), 0, this.getId());
+            transfert.setTiers(this.getTiers());
+            transfert.setIddevise(this.getDeviseMere());
+            transfert.setIdmode(bp.getModepaiement());
+            transfert.setEtat(ConstanteEtat.getEtatCreer());
+            transfert.createObject(u, con);
 
             if (verif) {
                 con.commit();

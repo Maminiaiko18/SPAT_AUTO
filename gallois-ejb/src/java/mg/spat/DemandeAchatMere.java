@@ -26,6 +26,10 @@ public class DemandeAchatMere extends ClassEtat{
     public DemandeAchatMere() {
         super.setNomTable("dem_achat_mere");
     }
+
+    public DemandeAchatMere(String nomtable) {
+        super.setNomTable(nomtable);
+    }
     
     public String getId() {
         return id;
@@ -169,5 +173,4 @@ public class DemandeAchatMere extends ClassEtat{
         if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
         return seq;
     }
-    
 }

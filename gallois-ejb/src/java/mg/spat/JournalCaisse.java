@@ -1872,11 +1872,15 @@ public class JournalCaisse extends ClassEtat {
             if(this.getIdmode().compareToIgnoreCase(Constante.modePaiementEspece) == 0){
                 caisse.setCaisse(Constante.caisseCentraleBP);
                 caisse.setLibelle(this.getLibelle());
+                caisse.setIdplacement(this.getIdplacement());
             }
             else {
                 caisse.setCaisse(Constante.banqueBP);
                 caisse.setLibelle(this.getLibelle());
                 caisse.setIdbanque(this.getIdbanque());
+                OrdonnerPayement op = new OrdonnerPayement();
+                op = (OrdonnerPayement) op.getById(this.getIdordre(), op.getNomTable(), c);
+                caisse.setIdplacement(op.getDed_Id());
             }
             caisse.setCreationAuto(true);
             caisse.setCredit(this.getDebit());
@@ -1884,9 +1888,6 @@ public class JournalCaisse extends ClassEtat {
             caisse.setDateEffet(this.getDateEffet());
             caisse.setTiers(this.getTiers());
             caisse.setMode(this.getMode());
-            OrdonnerPayement op = new OrdonnerPayement();
-            op = (OrdonnerPayement) op.getById(this.getIdordre(), op.getNomTable(), c);
-            caisse.setIdplacement(op.getDed_Id());
             caisse.setIdTypeCheque(this.getIdTypeCheque());
             caisse.setIdmode(this.getIdmode());
             caisse.setEtat(ConstanteEtat.getEtatObjetValider());
