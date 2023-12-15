@@ -196,8 +196,8 @@
                                 <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''" style="">
                                     <td align="left"><%=Utilitaire.champNull(caisse.getIngredients())%></td>
                                     <td align="right"><%=Utilitaire.formaterAr(caisse.getReport())%></td>
-                                    <td align="right"><%=Utilitaire.formaterAr(caisse.getEntree())%></td>
-                                    <td align="right"><%=Utilitaire.formaterAr(caisse.getSortie())%></td>
+                                    <td align="right"><a href="<%=lien%>?but=treso/recette-liste.jsp&mode&valcaisse=<%=Utilitaire.champNull(caisse.getIngredients())%>&etat=<%=ConstanteEtat.getEtatValider()%>&dateEffet1=<%=daty2%>&dateEffet2=<%=daty2%>"><%=Utilitaire.formaterAr(caisse.getEntree())%></a></td>
+                                    <td align="right"><a href="<%=lien%>?but=treso/depense-liste.jsp&mode&valcaisse=<%=Utilitaire.champNull(caisse.getIngredients())%>&etat=<%=ConstanteEtat.getEtatValider()%>&dateEffet1=<%=daty2%>&dateEffet2=<%=daty2%>"><%=Utilitaire.formaterAr(caisse.getSortie())%></a></td>
                                     <td align="right"><%=Utilitaire.formaterAr(caisse.getReste())%></td>
                                 </tr>
                                 <% }%>
