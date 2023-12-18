@@ -71,6 +71,35 @@
         <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
     </form>
 </div>
+<script>
+    window.onload = () =>{
+        var submitBtns = document.querySelectorAll("button[name='Submit2'][type='submit']");
+        for(var i=0; i < submitBtns.length; i++){
+            modifySubmitBtn(submitBtns[i]);    
+        }
+    }
+    
+    function modifySubmitBtn(btn){
+        btn.setAttribute("type","button");
+        btn.onclick = save;
+    }
+    
+    function save() {
+        var btn = this;
+        btn.disabled = true;
+        var query = $('#chantier').serialize();
+        $.get("apresAjax.jsp?"+query, function(data, status){
+            var temp = data.trim().split("_");
+            if(temp[0] === 'error'){
+                btn.disabled = false;
+                alert(temp[1]);
+            }
+            else{
+                window.location.href = "<%=pi.getLien()%>?but=travaux/chantier-fiche.jsp&id="+temp[1];
+            }
+        });
+    }
+</script>
 
 <%
 } catch (Exception e) {
