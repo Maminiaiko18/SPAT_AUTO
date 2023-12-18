@@ -14,9 +14,9 @@
     String champReturn = request.getParameter("champReturn");
     Patrimoine navire = new Patrimoine();
     navire.setNomTable("patrimoinelib");
-    String listeCrt[] = {"id","idTypePatrimoine", "etat", "libelle","occupant"};
+    String listeCrt[] = {"id","description","idTypePatrimoine", "etat", "libelle"};
     String listeInt[] = {};
-    String libEntete[] = {"id","idTypePatrimoine", "etat", "libelle","occupant"};
+    String libEntete[] = {"id","description","idTypePatrimoine", "etat", "libelle"};
     PageRechercheChoix pr = new PageRechercheChoix(navire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -52,7 +52,7 @@
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     
                     <% 
-                        String libEnteteAffiche[] = {"Id","Type patrimoine", "Etat", "Libelle","Occupant"};
+                        String libEnteteAffiche[] = {"Id","description","Type patrimoine", "Etat", "Libelle"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>
