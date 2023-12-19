@@ -20,7 +20,15 @@ public class CaFcFilleComplet extends ClassEtat {
     String client,mereca,code,numpiece,etatlib;
     private Date datefact,daty;
     private double montanthtdevise;
-    String cdclt;
+    String cdclt,escale;
+
+    public String getEscale() {
+        return escale;
+    }
+
+    public void setEscale(String escale) {
+        this.escale = escale;
+    }
 
     public String getCdclt() {
         return cdclt;
