@@ -25,12 +25,15 @@
         pi.getFormu().getChamp("datedepart").setLibelle("Date d&eacute;part");
         pi.getFormu().getChamp("numOM").setLibelle("Num&eacute;ro OM");
         pi.getFormu().getChamp("numOM").setAutre("readonly");
+        pi.getFormu().getChamp("Indemnitemission").setAutre("readonly");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idindemnitemission").setVisible(false);
         pi.getFormu().getChamp("fonction").setVisible(false);
         pi.getFormu().getChamp("nom").setVisible(false);
         pi.getFormu().getChamp("prenom").setVisible(false);
         pi.getFormu().getChamp("matricule").setVisible(false);
+        pi.getFormu().getChamp("Idretour_om").setVisible(false);
+        pi.getFormu().getChamp("Iduser").setVisible(false);
         //pi.getFormu().getChamp("idindemnitemission").setPageAppel("choix/indemnite-mission-choix.jsp");
         pi.getFormu().getChamp("idindemnitemissionlib").setAutre("readonly");
         pi.getFormu().getChamp("idindemnitemission").setValeurLibelle(((OrdreMissionLib)pi.getBase()).getIdindemnitemissionlib());
