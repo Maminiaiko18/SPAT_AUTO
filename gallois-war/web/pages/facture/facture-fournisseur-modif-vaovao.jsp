@@ -127,6 +127,9 @@
         pi.getFormu().getChamp("naturelib").setVisible(false);
         pi.getFormu().getChamp("numeroop").setLibelle("N° facture");
         pi.getFormu().getChamp("code").setLibelle("Numéro Compta");
+        pi.getFormu().getChamp("code").setAutre("readonly");
+        pi.getFormu().getChamp("idom").setLibelle("Ordre de mission");
+        pi.getFormu().getChamp("idom").setAutre("readonly");;
         pi.getFormu().getChamp("code_etablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp", "code_etablissement;code_etablissementlibelle");
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp", "projet;projetlibelle");
         pi.getFormu().getChamp("projet").setAutre("readonly");
