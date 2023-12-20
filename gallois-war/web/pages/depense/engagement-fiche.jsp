@@ -46,6 +46,7 @@
     pc.getChampByName("duree").setVisible(false);
     pc.getChampByName("chantier").setVisible(false);
     pc.getChampByName("idavenant").setVisible(false);
+    pc.getChampByName("idtype").setVisible(false);
 
     engagement = (Engagement) pc.getBase();
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp","id="+engagement.getIdLC()+"&id=");
