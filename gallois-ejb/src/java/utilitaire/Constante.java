@@ -189,6 +189,7 @@ public class Constante {
     public static String typeEtatDepense = "TYPB2";
     public static String typeEngagementContrat = "CNT";
     public static String typeEngagementAvenant = "AVT";
+    public static String idTypeEngContrat = "TYPEN0001";
 
     public static String getTypePieceTraite(){
         return typePieceTraite;

@@ -4,6 +4,7 @@
     Author     : Sanda
 --%>
 
+<%@page import="utilitaire.Constante"%>
 <%@page import="bean.TypeObjet"%>
 <%@page import="affichage.Liste"%>
 <%@page import="mg.spat.EngagementFille"%>
@@ -41,6 +42,7 @@
         TypeObjet catAchat = new TypeObjet();
         catAchat.setNomTable("typeengagement");
         listes[0] = new Liste("idtype", catAchat, "val", "id");
+        listes[0].setDefaultSelected(Constante.idTypeEngContrat);
         pi.getFormu().changerEnChamp(listes);
         pi.getFormu().getChamp("idavenant").setLibelle("Avenant");
         pi.getFormu().getChamp("idtype").setLibelle("Type");
