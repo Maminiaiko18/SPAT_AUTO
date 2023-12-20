@@ -3,6 +3,8 @@
     Created on : 14 Mars 2016, 10:26:05
     Author     : Do
 --%>
+<%@page import="bean.TypeObjet"%>
+<%@page import="affichage.Liste"%>
 <%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="mg.spat.Engagement"%>
@@ -54,6 +56,12 @@
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.getFormu().getChamp("num").setLibelle("No.");
+         Liste[] listes = new Liste[1];
+        TypeObjet catAchat = new TypeObjet();
+        catAchat.setNomTable("typeengagement");
+        listes[0] = new Liste("idtype", catAchat, "val", "id");
+        pr.getFormu().changerEnChamp(listes);
+        pr.preparerDataFormu();;
         pr.setApres("depense/engagement-liste.jsp");
         pr.setAWhere(aWhere);
 
