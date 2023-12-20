@@ -1837,3 +1837,137 @@ FROM factureclientMSumprof m
 
 
 
+
+CREATE OR REPLACE  VIEW FACTURE_CLIENT_UNIONprof (ID, DATY, TIERS, DESIGNATION, TYPE, TVA, REMARQUE, IDUSER, DATE_ECHEANCE, ETAT, MONTANT, MONTANTTVA, MONTANTAVOIR, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, TIERSLIB, CONTACT, ADRESSE, IDPREVISION, ESCALE, ETATLIB, TYPELIB, IDCATEGORIE, CATEGORIELIB, IDPROVISION, IDPROVISIONLIB, DEVISEMERE, CODEPRESTATION, CODEPRESTATIONLIB, CODE, ESTMICTSL, CODEPROVISION, MONTANTTTCVRAI, ARMATEURLIB, EXERCICE, IDAVOIR, POURCOMPTE, POURCOMPTELIB, ARMATEUR, PAIEMENT, PAIEMENTLIB, LHT, LM, TE, JNT, DATEDEPART, HEUREDEPART, DATEARRIVEE, HEUREARRIVEE, BATEAU, BATEAULIB, PROVENANCE, PROVENANCELIB, DESTINATION, DESTINATIONLIB, PAVILLON, PAVILLONLIB, NOMCLT, ADRCLT, NMSTTCLT, TELCLT, NIF, RC, DTTP, TP, DTQUIT, QUIT, CDCLT) AS 
+  SELECT
+    ID,
+    DATY,
+    TIERS,
+    DESIGNATION,
+    TYPE,
+    CAST(TVA AS NUMBER(20,
+    3)) AS tva,
+    REMARQUE,
+    IDUSER,
+    DATE_ECHEANCE,
+    CAST(ETAT AS NUMBER(10)) AS etat,
+    CAST(MONTANT AS NUMBER(32,
+    3)),
+    CAST(MONTANTTVA AS NUMBER(32,
+    3)),
+    CAST(MONTANTAVOIR AS NUMBER(32,
+    3)),
+    CAST(MONTANTTTC AS NUMBER(32,
+    3)),
+    CAST(MONTANTPAYE AS NUMBER(32,
+    3)),
+    CAST(MONTANTRESTE AS NUMBER(32,
+    3)),
+    TIERSLIB,
+    CONTACT,
+    ADRESSE,
+    IDPREVISION,
+    ESCALE,
+    CASE
+        WHEN ETAT = 1 THEN 'CREE(E)'
+        WHEN ETAT = 11 THEN 'VISE(E)'
+    END AS ETATLIB,
+    TYPELIB,
+    IDCATEGORIE,
+    CATEGORIELIB,
+    IDPROVISION,
+    IDPROVISIONLIB,
+    DEVISEMERE,
+    codePrestation,
+    codePrestationlib,
+    code,
+    ESTMICTSL,
+    CODEPROVISION,
+    CAST(MONTANTTTCVRAI AS NUMBER(32,
+    3)),
+    ARMATEURLIB,
+    EXERCICE,
+    idavoir,
+    pourcompte,
+    pourcomptelib,
+    armateur,
+    paiement,
+    paiementlib,
+    CAST(lht AS NUMBER(10, 2)),
+    CAST(lm AS NUMBER(10, 2)),
+    CAST(te AS NUMBER(10, 2)),
+    CAST(jnt AS NUMBER(10,2)) ,
+
+datedepart ,
+heuredepart ,
+datearrivee ,
+heurearrivee ,
+bateau , bateaulib  , provenance , provenancelib  , destination  , destinationlib , pavillon , pavillonlib,
+ nomclt,adrclt,nmsttclt,telclt,nif,rc,dttp,tp,dtquit,quit, cdclt
+FROM
+    (
+    SELECT
+        ID,
+        DATY,
+        TIERS,
+        DESIGNATION,
+        TYPE,
+        CAST(TVA AS NUMBER(20,3)) AS TVA,
+        REMARQUE,
+        IDUSER,
+        DATE_ECHEANCE,
+        CAST(ETAT AS NUMBER(10)) AS etat,
+        CAST(MONTANT AS NUMBER(32,3)) AS MONTANT,
+        CAST(MONTANTTVA AS NUMBER(32,3)) AS MONTANTTVA,
+        CAST(MONTANTAVOIR AS NUMBER(32,3)) AS MONTANTAVOIR,
+		CASE 
+        	WHEN abs(montantreste)<50 AND montantreste!=0 THEN CAST(MONTANTPAYE AS NUMBER(32,3))
+        	ELSE CAST(MONTANTTTC AS NUMBER(32,3)) 
+		END AS MONTANTTTC,		
+        CAST(MONTANTPAYE AS NUMBER(32,3)) AS MONTANTPAYE,
+		CASE 
+        	WHEN abs(montantreste)<50 AND montantreste!=0 THEN CAST(MONTANTPAYE-MONTANTPAYE AS NUMBER(32,3)) --here
+        	ELSE CAST(montantreste AS NUMBER(32,3)) 
+    	END AS montantreste,
+        TIERSLIB,
+        CONTACT,
+        ADRESSE,
+        IDPREVISION,
+        ESCALE,
+        TYPELIB,
+        IDCATEGORIE,
+        CATEGORIELIB,
+        IDPROVISION,
+        IDPROVISIONLIB,
+        DEVISEMERE,
+        codePrestation,
+        codePrestationlib,
+        code,
+        ESTMICTSL,
+        CODEPROVISION,
+        MONTANTTTCVRAI,
+        ARMATEURLIB,
+        EXERCICE,
+        IDAVOIR,
+        pourcompte,
+        pourcomptelib,
+        armateur,
+        paiement,
+        paiementlib,
+        CAST (lht AS NUMBER(10,2)) AS lht,
+        CAST (lm AS NUMBER(10,2)) AS lm,
+        CAST (te AS NUMBER(10,2)) AS te,
+        CAST (jnt AS NUMBER(10,2)) AS jnt , datedepart , heuredepart ,
+datearrivee ,
+heurearrivee ,
+bateau , bateaulib  , provenance , provenancelib  , destination  , destinationlib , pavillon , pavillonlib,
+ nomclt,adrclt,nmsttclt,telclt,nif,rc,dttp,tp,dtquit,quit, cdclt
+    FROM
+        FACTURECLIENTMSUM_LIBprof
+    WHERE
+        DATY >= TO_DATE('2021-10-01', 'YYYY-MM-DD')
+        OR ESTANCIENNE = 1);
+
+
+
+
