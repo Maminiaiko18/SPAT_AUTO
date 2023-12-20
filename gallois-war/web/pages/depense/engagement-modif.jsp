@@ -90,6 +90,8 @@
         pi.getFormu().changerEnChamp(listes);
           
         pi.getFormu().getChamp("idtype").setLibelle("Type");
+        pi.getFormu().getChamp("idtypelib").setVisible(false);
+        pi.getFormu().getChamp("idavenant").setVisible(false);
 
         pi.preparerDataFormu();
         mere = (Engagement) pi.getBase();
