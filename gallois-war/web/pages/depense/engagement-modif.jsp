@@ -83,6 +83,14 @@
         pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
         
+        Liste[] listes = new Liste[1];
+        TypeObjet catAchat = new TypeObjet();
+        catAchat.setNomTable("typeengagement");
+        listes[0] = new Liste("idtype", catAchat, "val", "id");
+        pi.getFormu().changerEnChamp(listes);
+          
+        pi.getFormu().getChamp("idtype").setLibelle("Type");
+
         pi.preparerDataFormu();
         mere = (Engagement) pi.getBase();
 %>

@@ -4,6 +4,7 @@
     Author     : Sanda
 --%>
 
+<%@page import="bean.TypeObjet"%>
 <%@page import="affichage.Liste"%>
 <%@page import="mg.spat.EngagementFille"%>
 <%@page import="affichage.PageInsertMultiple"%>
@@ -36,6 +37,14 @@
         //listes[0] = new Liste("avecFacture", avecFactureAff, avecFactureVal);
 
         //pi.getFormu().changerEnChamp(listes);
+        Liste[] listes = new Liste[1];
+        TypeObjet catAchat = new TypeObjet();
+        catAchat.setNomTable("typeengagement");
+        listes[0] = new Liste("idtype", catAchat, "val", "id");
+        pi.getFormu().changerEnChamp(listes);
+        pi.getFormu().getChamp("idavenant").setLibelle("Avenant");
+        pi.getFormu().getChamp("idtype").setLibelle("Type");
+
 
         pi.getFormu().getChamp("etat").setVisible(false);
 
