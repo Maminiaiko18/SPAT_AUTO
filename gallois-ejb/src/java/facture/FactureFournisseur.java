@@ -45,6 +45,31 @@ public class FactureFournisseur extends FactureClient {
     private String bonprovisoire, num;
     private String idom;
     private String numfsb;
+    private String nomtravaux,dureecontrat ,nomchantier ;
+
+    public String getNomtravaux() {
+        return nomtravaux;
+    }
+
+    public void setNomtravaux(String nomtravaux) {
+        this.nomtravaux = nomtravaux;
+    }
+
+    public String getDureecontrat() {
+        return dureecontrat;
+    }
+
+    public void setDureecontrat(String dureecontrat) {
+        this.dureecontrat = dureecontrat;
+    }
+
+    public String getNomchantier() {
+        return nomchantier;
+    }
+
+    public void setNomchantier(String nomchantier) {
+        this.nomchantier = nomchantier;
+    }
 
     public double getMontantht() {
         return montantht;

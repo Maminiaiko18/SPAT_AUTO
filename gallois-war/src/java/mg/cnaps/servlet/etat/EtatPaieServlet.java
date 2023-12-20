@@ -4597,23 +4597,15 @@ public class EtatPaieServlet extends HttpServlet {
             
             Map param = new HashMap();
             if(fille.length > 0){
-                param.put("travaux",fille[0].getIdtravaux());
-                //param.put("chantier",fille[0].getNom());
-                //param.put("direction",fille[0].getDirTravaux());
+                param.put("travaux",fille[0].getNomtravaux());
+                param.put("chantier",fille[0].getNomchantier());
+                param.put("direction",fille[0].getCode_etablissementlib());
                 param.put("titulaire",fille[0].getTierslib());
-                //param.put("objet",fille[0].getObjet());
+                param.put("objet",fille[0].getIdengagementlib());
                 param.put("daty",fille[0].getDaty());
-            //
-            
-            /*if(mere[0].getDuree()==null){
-               param.put("duree","-");
-            }
-            else{
-                param.put("duree",mere[0].getDuree());
-            }*/
-            param.put("contrat",fille[0].getDesignation());
-            //param.put("cr",fille[0].getCodeEtablissementlib());
-            param.put("montantContrat",fille[0].getMontant());
+                param.put("duree",fille[0].getDureecontrat());
+                param.put("contrat",fille[0].getDesignation());
+                param.put("montantContrat",fille[0].getMontant());
             }
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(fille));
