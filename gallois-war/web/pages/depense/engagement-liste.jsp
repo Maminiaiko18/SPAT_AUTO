@@ -3,6 +3,8 @@
     Created on : 14 Mars 2016, 10:26:05
     Author     : Do
 --%>
+<%@page import="bean.TypeObjet"%>
+<%@page import="affichage.Liste"%>
 <%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="mg.spat.Engagement"%>
@@ -25,9 +27,9 @@
         String aWhere = prioritaire.makeListConfidentiality(u,"codeetablissementlib");
         System.out.println("aWhere "+aWhere);
 
-        String listeCrt[] = {"id", "designation","codeetablissementlib","projetlib", "daty", "tierslib","num"};
+        String listeCrt[] = {"id", "designation", "codeetablissementlib", "projetlib", "daty", "tierslib", "num", "idtype"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "designation","compte", "montant", "montantOP", "montantreste", "dispoavant", "dispoapres", "codeetablissementlib", "projetlib", "tierslib", "daty", "num","montantliberer"};
+        String libEntete[] = {"id", "designation","idtypelib","compte", "montant", "montantOP", "montantreste", "dispoavant", "dispoapres", "codeetablissementlib", "projetlib", "tierslib", "daty", "num","montantliberer"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -54,6 +56,13 @@
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("id").setLibelle("Id");
         pr.getFormu().getChamp("num").setLibelle("No.");
+        
+        Liste[] listes = new Liste[1];
+        TypeObjet catAchat = new TypeObjet();
+        catAchat.setNomTable("typeengagement");
+        listes[0] = new Liste("idtype", catAchat, "val", "id");
+        pr.getFormu().changerEnChamp(listes);
+        pr.getFormu().getChamp("idtype").setLibelle("Type");
         pr.setApres("depense/engagement-liste.jsp");
         pr.setAWhere(aWhere);
 
@@ -99,7 +108,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "D&eacute;signation","compte", "Montant", "Montant d'ordre payement", "Disponibilit&eacute;", "Disponibilit&eacute; avant", "Disponibilit&eacute; apr&egrave;s", "Code &eacute;tablissement", "Projet", "Tiers", "Date", "No.","montant liberé"};
+            String libEnteteAffiche[] ={"Id", "D&eacute;signation","Type","compte", "Montant", "Montant d'ordre payement", "Disponibilit&eacute;", "Disponibilit&eacute; avant", "Disponibilit&eacute; apr&egrave;s", "Code &eacute;tablissement", "Projet", "Tiers", "Date", "No.","montant liberé"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

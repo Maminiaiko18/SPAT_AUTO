@@ -320,6 +320,7 @@ public class Avenant extends ClassEtat {
                 engagement.setAnnee(Utilitaire.getAneeEnCours());
                 engagement.setIdavenant(this.getId());
                 engagement.setMontant(this.getMontant());
+                engagement.setIdtype(Constante.idTypeEngContrat);
                 engagement.createObject(u, c);
                 
                 EngagementFille engfille = new EngagementFille(engagement.getId(), this.getObjet(), this.getMontant());

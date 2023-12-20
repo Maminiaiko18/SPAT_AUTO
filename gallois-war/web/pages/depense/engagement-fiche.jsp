@@ -39,6 +39,7 @@
     pc.getChampByName("observation").setLibelle("Observation");
     pc.getChampByName("montantreste").setLibelle("Montant reste");
     pc.getChampByName("montantOP").setLibelle("Montant OP");
+    pc.getChampByName("idtypelib").setLibelle("Type");
     pc.getChampByName("disponible").setVisible(false);
     pc.getChampByName("annee").setLibelle("Ann&eacute;e");
     pc.getChampByName("montantliberer").setLibelle("Montant lib&eacute;r&eacute;");
