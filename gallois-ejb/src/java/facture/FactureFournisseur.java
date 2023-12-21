@@ -515,9 +515,9 @@ public class FactureFournisseur extends FactureClient {
         /*if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
             this.setCode(calculerCodeSimple(cnctn));
         }*/
-        if(this.getIdProvision()!=null && (this.getCode()==null || this.getCode().equalsIgnoreCase(""))){
+         if(this.getIdProvision()!=null && this.getIdProvision().compareToIgnoreCase("")!=0 && (this.getCode()==null || this.getCode().equalsIgnoreCase(""))){
             FactureFournisseur[] bp = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, cnctn, " and id='"+this.getIdProvision()+"'");
-            if(bp!=null) this.setCode(bp[0].getCode());
+            if(bp!=null && bp.length > 0) this.setCode(bp[0].getCode());
         }
 
         if(this.getIdBL() != null && !this.getIdBL().isEmpty() && this.getIdBL().compareToIgnoreCase("")!=0){
@@ -596,9 +596,9 @@ public class FactureFournisseur extends FactureClient {
 
     @Override
     public void controlerUpdate(Connection c) throws Exception {
-        if(this.getIdProvision()!=null && (this.getCode()==null || this.getCode().equalsIgnoreCase(""))){
+         if(this.getIdProvision()!=null && this.getIdProvision().compareToIgnoreCase("")!=0 && (this.getCode()==null || this.getCode().equalsIgnoreCase(""))){
             FactureFournisseur[] bp = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and id='"+this.getIdProvision()+"'");
-            if(bp!=null) this.setCode(bp[0].getCode());
+            if(bp!=null && bp.length > 0) this.setCode(bp[0].getCode());
         }
     }
 
