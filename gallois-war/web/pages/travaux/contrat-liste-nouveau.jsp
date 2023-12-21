@@ -30,7 +30,7 @@
         <h1>Liste </h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=travaux/chantier-liste.jsp" method="post" name="travaux" id="travaux">
+        <form action="<%=pr.getLien()%>?but=travaux/contrat-liste-nouveau.jsp" method="post" name="travaux" id="travaux">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
