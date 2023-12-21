@@ -7,9 +7,9 @@
     try{
         Contrat contrat = new Contrat();
         contrat.setNomTable("CONTRATLIBCPLT");
-        String listeCrt[] = {"id", "projetlib", "codeetablissementlib", "nom", "debut_contrat", "fin_contrat"};
-        String listeInt[] = {"debut_contrat", "fin_contrat"};
-        String libEntete[] = {"id", "nom", "objet", "date_signature", "debut_contrat", "fin_contrat", "duree", "valunite", "lclib", "projetlib", "codeetablissementlib", "montant", "montantpaye"};
+        String listeCrt[] = {"id", "codeprojetlib", "codeetablissementlib", "nom", "debut_contrat", "fin_avenant"};
+        String listeInt[] = {"debut_contrat", "fin_avenant"};
+        String libEntete[] = {"id", "nom", "objet", "date_signature", "debut_contrat", "fin_avenant", "duree", "valunite", "lclib", "codeprojetlib", "codeetablissementlib", "montant", "montantpaye"};
         PageRecherche pr = new PageRecherche(contrat, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -17,9 +17,9 @@
         pr.setApres("travaux/contra-liste-nouveau.jsp");
         pr.getFormu().getChamp("debut_contrat1").setLibelle("D&eacute;but contrat min");
         pr.getFormu().getChamp("debut_contrat2").setLibelle("D&eacute;but contrat max");
-        pr.getFormu().getChamp("fin_contrat1").setLibelle("Fin contrat min");
-        pr.getFormu().getChamp("fin_contrat2").setLibelle("Fin contrat max");
-        pr.getFormu().getChamp("projetlib").setLibelle("Projet");
+        pr.getFormu().getChamp("fin_avenant1").setLibelle("Fin contrat min");
+        pr.getFormu().getChamp("fin_avenant2").setLibelle("Fin contrat max");
+        pr.getFormu().getChamp("codeprojetlib").setLibelle("Projet");
         pr.getFormu().getChamp("codeetablissementlib").setLibelle("Code etablissement");
         String[] colSomme = null;
         pr.setNpp(10);
