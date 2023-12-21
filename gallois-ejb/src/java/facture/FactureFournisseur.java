@@ -47,6 +47,31 @@ public class FactureFournisseur extends FactureClient {
     private String bonprovisoire, num;
     private String idom,omlib;
     private String numfsb;
+    private String nomtravaux,dureecontrat ,nomchantier ;
+
+    public String getNomtravaux() {
+        return nomtravaux;
+    }
+
+    public void setNomtravaux(String nomtravaux) {
+        this.nomtravaux = nomtravaux;
+    }
+
+    public String getDureecontrat() {
+        return dureecontrat;
+    }
+
+    public void setDureecontrat(String dureecontrat) {
+        this.dureecontrat = dureecontrat;
+    }
+
+    public String getNomchantier() {
+        return nomchantier;
+    }
+
+    public void setNomchantier(String nomchantier) {
+        this.nomchantier = nomchantier;
+    }
 
     public String getOmlib() {
         return this.omlib;
@@ -1501,6 +1526,7 @@ public class FactureFournisseur extends FactureClient {
             }
             engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
             engagement.setTiers(this.getTiers());
+            engagement.setIdtype(Constante.idTypeEngFF);
             engagement.construirePK(c);
 
             FactureFournisseurDetails dets = new FactureFournisseurDetails();
@@ -1628,6 +1654,7 @@ public class FactureFournisseur extends FactureClient {
                 engagement.setIdLC(lc.getTuppleID());
             }
             engagement.construirePK(c);
+            engagement.setIdtype(Constante.idTypeEngFF);
             engagement.createObject(u, c);
             
             EngagementFille engFille = new EngagementFille(engagement.getId(),this.getNumeroop(),montant);

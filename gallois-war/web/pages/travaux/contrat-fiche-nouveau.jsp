@@ -30,22 +30,26 @@
     pc.getChampByName("idchantier").setVisible(false);
     pc.getChampByName("typeduree").setVisible(false);
     pc.getChampByName("idavenant").setVisible(false);
+    pc.getChampByName("fin_contrat").setVisible(false);
     pc.getChampByName("nom").setLibelle("Tiers");
     pc.getChampByName("date_signature").setLibelle("Date de signature");
     pc.getChampByName("objet").setLibelle("Objet");
     pc.getChampByName("debut_contrat").setLibelle("Date d&eacute;but");
-    pc.getChampByName("fin_contrat").setLibelle("Date fin");
+    pc.getChampByName("fin_avenant").setLibelle("Date fin");
     pc.getChampByName("duree").setLibelle("Dur&eacute;e");
     pc.getChampByName("valunite").setLibelle("Unit&eacute;");
     pc.getChampByName("codeetablissementlib").setLibelle("Code Etablissement");
-    pc.getChampByName("projetlib").setLibelle("Projet");
+    pc.getChampByName("codeprojetlib").setLibelle("Projet");
     pc.getChampByName("chantierlib").setLibelle("Chantier");
     pc.getChampByName("lclib").setLibelle("Budget");
+    pc.getChampByName("montantpaye").setLibelle("Montant Pay&eacute;");
+    pc.getChampByName("annee").setLibelle("Ann&eacute;e");
     pc.setTitre("Fiche contrat");
 
 
     Map<String, String> map = new HashMap();
     map.put("avenant","");
+    map.put("engagement-contrat","");
     
     String tab = request.getParameter("tab");
     if (tab == null) {
@@ -89,6 +93,7 @@
                 <ul class="nav nav-tabs">
                     <!-- a modifier -->
                     <li class="<%=map.get("avenant")%>"><a href="<%= lien %>?but=<%= pageActuel %>&id=<%= id %>&tab=avenant">Avenants</a></li>
+                    <li class="<%=map.get("engagement-contrat")%>"><a href="<%= lien %>?but=<%= pageActuel %>&id=<%= id %>&tab=engagement-contrat">Engagements</a></li>
 
                 </ul>
                 <div class="tab-content">       

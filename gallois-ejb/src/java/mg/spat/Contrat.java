@@ -20,10 +20,10 @@ import utilitaire.Utilitaire;
  */
 public class Contrat extends ClassEtat{
     private String id,idTiers,objet,devise,unite,typedroitport,typeDuree,numeros,idchantier;
-    private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib,idavenant;
+    private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib,idavenant,codeprojetlib;
     private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant,montantpaye;
-    private Date date_signature,debut_contrat,fin_contrat;
-    private int controleMontant;
+    private Date date_signature,debut_contrat,fin_contrat,fin_avenant;
+    private int controleMontant, annee;
     
     public Contrat() {
         super.setNomTable("CONTRAT");
@@ -315,6 +315,30 @@ public class Contrat extends ClassEtat{
 
     public void setMontantpaye(double montantpaye) {
         this.montantpaye = montantpaye;
+    }
+
+    public Date getFin_avenant() {
+        return fin_avenant;
+    }
+
+    public void setFin_avenant(Date fin_avenant) {
+        this.fin_avenant = fin_avenant;
+    }
+
+    public String getCodeprojetlib() {
+        return codeprojetlib;
+    }
+
+    public void setCodeprojetlib(String codeprojetlib) {
+        this.codeprojetlib = codeprojetlib;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
     }
 
     @Override

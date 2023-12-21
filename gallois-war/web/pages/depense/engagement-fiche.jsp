@@ -40,12 +40,14 @@
     pc.getChampByName("observation").setLibelle("Observation");
     pc.getChampByName("montantreste").setLibelle("Montant reste");
     pc.getChampByName("montantOP").setLibelle("Montant OP");
+    pc.getChampByName("idtypelib").setLibelle("Type");
     pc.getChampByName("disponible").setVisible(false);
     pc.getChampByName("annee").setLibelle("Ann&eacute;e");
     pc.getChampByName("montantliberer").setLibelle("Montant lib&eacute;r&eacute;");
     pc.getChampByName("duree").setVisible(false);
     pc.getChampByName("chantier").setVisible(false);
     pc.getChampByName("idavenant").setVisible(false);
+    pc.getChampByName("idtype").setVisible(false);
 
     engagement = (Engagement) pc.getBase();
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp","id="+engagement.getIdLC()+"&id=");

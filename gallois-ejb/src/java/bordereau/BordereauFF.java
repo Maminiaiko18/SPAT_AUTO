@@ -377,6 +377,7 @@ public class BordereauFF extends Bordereau{
             FactureFournisseur[] ff = (FactureFournisseur[])CGenUtil.rechercher(fact, requete, c);
             double montant = AdminGen.calculSommeDouble(ff, "montant");
             Engagement engagement = new Engagement("BED "+this.getNumero()+" - "+ this.getDesignation(), this.getDirection(), this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), this.getDaty(), this.getTiers(), 0);
+            engagement.setIdtype(Constante.idTypeEngBED);
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }
