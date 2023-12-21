@@ -1458,6 +1458,7 @@ public class FactureFournisseur extends FactureClient {
             }
             engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
             engagement.setTiers(this.getTiers());
+            engagement.setIdtype(Constante.idTypeEngFF);
             engagement.construirePK(c);
 
             FactureFournisseurDetails dets = new FactureFournisseurDetails();
@@ -1585,6 +1586,7 @@ public class FactureFournisseur extends FactureClient {
                 engagement.setIdLC(lc.getTuppleID());
             }
             engagement.construirePK(c);
+            engagement.setIdtype(Constante.idTypeEngFF);
             engagement.createObject(u, c);
             
             EngagementFille engFille = new EngagementFille(engagement.getId(),this.getNumeroop(),montant);

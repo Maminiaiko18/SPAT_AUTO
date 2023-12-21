@@ -191,6 +191,8 @@ public class Constante {
     public static String typeEngagementAvenant = "AVT";
     public static String idTypeEngContrat = "TYPEN0001";
     public static String idTypeEngBED = "TYPEN0002";
+    public static String idTypeEngBC = "TYPEN0004";
+    public static String idTypeEngFF = "TYPEN0003";
 
     public static String getTypePieceTraite(){
         return typePieceTraite;
