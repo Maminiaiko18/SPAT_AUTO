@@ -680,7 +680,7 @@ public class JournalCaisse extends ClassEtat {
 
     public void controler(Connection c) throws Exception {
         try {
-            ClotureService.testDateCloture(this.dateEffet, this.caisse, c);
+            //ClotureService.testDateCloture(this.dateEffet, this.caisse, c);
             Report[] report = (Report[]) CGenUtil.rechercher(new Report(), null, null, c, " and daty >= to_date('" + Utilitaire.dateDuJourSql() + "','yyyy-mm-dd') and caisse='" + this.caisse + "' and etat=11");
             if (report.length > 0) {
                 throw new Exception("Caisse deja reportee");
