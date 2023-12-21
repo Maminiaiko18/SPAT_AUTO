@@ -4,7 +4,7 @@ public class EngagementLib extends Engagement{
     
     String idfacturefournisseur;
     double montantengager;
-    String chantier, idtravaux;
+    String chantier, idtravaux, idcontrat;
     
     public EngagementLib()
     {
@@ -41,6 +41,14 @@ public class EngagementLib extends Engagement{
 
     public void setIdtravaux(String idtravaux) {
         this.idtravaux = idtravaux;
+    }
+
+    public String getIdcontrat() {
+        return idcontrat;
+    }
+
+    public void setIdcontrat(String idcontrat) {
+        this.idcontrat = idcontrat;
     }
     
 }
