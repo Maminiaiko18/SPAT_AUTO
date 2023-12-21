@@ -710,6 +710,7 @@ public class BonDeCommande extends ClassEtat {
             }
             if(resteAEngager > 0){
                 Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), resteAEngager, Utilitaire.getAnnee(bc.getDaty()), Utilitaire.dateDuJourSql(), bc.getIdfournisseur(), 0);
+                e.setIdtype(Constante.idTypeEngBC);
                 e.construirePK(c);
                 if (lc != null) {
                     e.setIdLC(lc.getTuppleID());
@@ -777,6 +778,7 @@ public class BonDeCommande extends ClassEtat {
                 }
                 if(resteAEngager > 0){
                     Engagement e = new Engagement(bc.getNumbc(), bc.getCodeetablissement() , bc.getIdprojet(), resteAEngager, Utilitaire.getAnnee(bc.getDaty()), Utilitaire.dateDuJourSql(), bc.getIdfournisseur(), 0);
+                    e.setIdtype(Constante.idTypeEngBC);
                     e.construirePK(c);
                     if (lc != null) {
                         e.setIdLC(lc.getTuppleID());
@@ -840,6 +842,7 @@ public class BonDeCommande extends ClassEtat {
             
             double mtt = AdminGen.calculSommeDouble(filles, "montant");
             engagement.setMontant(mtt);
+            engagement.setIdtype(Constante.idTypeEngBC);
             engagement.createObject(u, c);
             for (int i = 0; i < filles.length; i++) {
                 EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());
@@ -896,6 +899,7 @@ public class BonDeCommande extends ClassEtat {
             
             double mtt = AdminGen.calculSommeDouble(filles, "montantht");
             engagement.setMontant(this.getMontant());
+            engagement.setIdtype(Constante.idTypeEngBC);
             engagement.createObject(u, c);
             for (int i = 0; i < filles.length; i++) {
                 EngagementFille engFille = filles[i].createEngagementFille(engagement.getTuppleID());

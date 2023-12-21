@@ -15,6 +15,7 @@ public class RecapitulationPatrimoine extends ClassMAPTable{
     private String type;
     private int nombre;
     private double montant;
+    private String patrimoine;
 
     public RecapitulationPatrimoine() {
         this.setNomTable("statistiquePatrimoine");
@@ -52,5 +53,13 @@ public class RecapitulationPatrimoine extends ClassMAPTable{
 
     public void setNombre(int nombre) {
         this.nombre = nombre;
+    }
+
+    public String getPatrimoine() {
+        return patrimoine;
+    }
+
+    public void setPatrimoine(String patrimoine) {
+        this.patrimoine = patrimoine;
     }
 }

@@ -17,7 +17,7 @@
     pi.setLien(lien);
     pi.getFormu().getChamp("Etat").setVisible(false);
     pi.getFormu().getChamp("Quantite").setVisible(false);
-    pi.getFormu().getChamp("Annee").setLibelle("Année");
+    pi.getFormu().getChamp("Annee").setLibelle("Annï¿½e");
     pi.getFormu().getChamp("compteG").setVisible(false);
     
     pi.getFormu().getChamp("codeEtablissementlib").setVisible(false);
@@ -38,7 +38,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="box">
-                <h1>Modification ligne credit dépense</h1>
+                <h1>Modification ligne credit dï¿½pense</h1>
                 <form action="<%=lien%>?but=apresTarif.jsp&id=<%=request.getParameter("id")%>" method="post" name="modif">
                     <%
                         out.println(pi.getFormu().getHtmlInsert());
@@ -50,7 +50,7 @@
                         <br><br> 
                     </div>
                     <input name="acte" type="hidden" id="acte" value="update">
-                    <input name="bute" type="hidden" id="bute" value="ligneCredit/modif-ligneCreditDepense.jsp?id=<%=request.getParameter("id")%>">
+                    <input name="bute" type="hidden" id="bute" value="ligneCredit/fiche-ligneCreditDepense.jsp?id=<%=request.getParameter("id")%>">
                     <input name="classe" type="hidden" id="classe" value="lignecredit.LigneCredit">
                     <input name="nomtable" type="hidden" id="nomtable" value="ligneCreditDepense">
                 </form>

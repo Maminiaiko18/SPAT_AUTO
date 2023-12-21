@@ -40,9 +40,14 @@
     pc.getChampByName("observation").setLibelle("Observation");
     pc.getChampByName("montantreste").setLibelle("Montant reste");
     pc.getChampByName("montantOP").setLibelle("Montant OP");
+    pc.getChampByName("idtypelib").setLibelle("Type");
     pc.getChampByName("disponible").setVisible(false);
     pc.getChampByName("annee").setLibelle("Ann&eacute;e");
     pc.getChampByName("montantliberer").setLibelle("Montant lib&eacute;r&eacute;");
+    pc.getChampByName("duree").setVisible(false);
+    pc.getChampByName("chantier").setVisible(false);
+    pc.getChampByName("idavenant").setVisible(false);
+    pc.getChampByName("idtype").setVisible(false);
 
     engagement = (Engagement) pc.getBase();
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp","id="+engagement.getIdLC()+"&id=");
@@ -53,6 +58,7 @@
     map.put("liste-bc", "");
     map.put("liste-liberation", "");
     map.put("liste-op", "");
+    map.put("liste-bed", "");
     
     String tab = request.getParameter("tab");
     if (tab == null) {
@@ -96,8 +102,9 @@
                             <p>    
                                 <a href="<%=(String) session.getValue("lien") + "?but=depense/liberer-saisie.jsp&idEngagement=" + engagement.getId()%>"><button class="btn btn-warning" style="margin-right: 5px" >Lib&eacute;rer </button></a>
                                 <%-- <a class="btn btn-info " href="<%=(String) session.getValue("lien") + "?but=depense/engagement-fille-liste.jsp&idmere=" + engagement.getId() %>" style="margin-right: 5px">Payer</a> --%>
-                                
-                                 <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer</button></a>
+                                <%--<a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=imprimerSuiviContrat&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right" >Imprimer suivi contrat</button></a>--%>
+  
+                                 <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=engagement&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right" style="margin-right: 5px">Imprimer</button></a>
                                 <%-- <a href="<%=(String) session.getValue("lien") + "/../../Paie?action=dse&id=" + engagement.getId()%>"><button class="btn btn-primary pull-right">Imprimer DSE</button></a> --%>
                                 <a href="<%=(String) session.getValue("lien") +"?but=depense/engagement-modif-simple.jsp&id="+ engagement.getId()%>"><button class="btn btn-primary pull-right" style="margin-right: 5px">Observation</button></a>
                                 <label style="float:right;padding-right:10px">Accord : 
@@ -122,6 +129,7 @@
                     <li class="<%= map.get("listeff")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=listeff">Liste Facture Fournisseur</a></li>
                     <li class="<%= map.get("liste-liberation")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-liberation">Liste lib&eacute;ration</a></li>
                     <li class="<%= map.get("liste-op")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-op">Liste OP</a></li>
+                    <li class="<%= map.get("liste-bed")%>"><a href="module.jsp?but=<%=bute%>&id=<%=engagement.getId()%>&tab=liste-bed">Liste BED</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-content">       

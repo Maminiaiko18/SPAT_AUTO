@@ -18,4 +18,11 @@ public class ConstantePatrimoine {
     public static final String patrimoineFoncier  = "TYPE000003";
     public static final String materielRoulant  = "TYPE000005";
     public static final String quais  = "TYPE000021";
+    
+    public static final String batimentEtConstruction = "TYPPATS0001";
+    public static final String materielsRoulants = "TYPPATS0002";
+    public static final String matMobBureau = "TYPPATS0003";
+    public static final String materielInfo = "TYPPATS0004";
+    public static final String matMobHospitalier = "TYPPATS0005";
+    public static final String autreMatEquipement = "TYPPATS0006";
 }

@@ -16,9 +16,20 @@ import utilitaire.Utilitaire;
  */
 public class Chantier extends ClassEtat{
     
-    private String id,idtravaux,nom,idtiers,nomtiers,nomtravaux, tiers;
-    private Date datydebut,datyfin;
-    private double montant,avancement;
+    private String id, idtravaux, travaux, nom, idtiers, nomtiers, nomtravaux, tiers, tierslib, dirTravaux, projet, codeetablissement, projetlib, codeetablissementlib;
+    private Date datydebut, datyfin;
+    private double montant, avancement;
+    private String patrimoinelib;
+    private String patrimoinedesce, idpatrimoine;
+
+    public String getEtatlib() {
+        return this.etatlib;
+    }
+
+    public void setEtatlib(String etatlib) {
+        this.etatlib = etatlib;
+    }
+    private String etatlib;
 
     public Chantier() {
         this.setNomTable("chantier");
@@ -30,18 +41,6 @@ public class Chantier extends ClassEtat{
 
     public void setTiers(String tiers) {
         this.tiers = tiers;
-    }
-
-    public Chantier(String id, String idtravaux, String nom, String idtiers, Date datydebut, Date datyfin, double montant, double avancement) throws Exception {
-        this.setNomTable("chantier");
-        this.setId(id);
-        this.setIdtravaux(idtravaux);
-        this.setNom(nom);
-        this.setIdtiers(idtiers);
-        this.setDatydebut(datydebut);
-        this.setDatyfin(datyfin);
-        this.setMontant(montant);
-        this.setAvancement(avancement);
     }
 
     public String getNomtiers() {
@@ -89,7 +88,11 @@ public class Chantier extends ClassEtat{
         return idtiers;
     }
 
-    public void setIdtiers(String idtiers) {
+    public void setIdtiers(String idtiers) throws Exception {
+        if(this.getMode().compareTo("modif")==0){
+            if(idtiers == null || idtiers.isEmpty())
+                throw new Exception("Tiers obligatoire.");
+        }
         this.idtiers = idtiers;
     }
 
@@ -138,8 +141,74 @@ public class Chantier extends ClassEtat{
         }
         this.avancement = avancement;
     }
-    
-    
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getCodeetablissement() {
+        return codeetablissement;
+    }
+
+    public void setCodeetablissement(String codeetablissement) {
+        this.codeetablissement = codeetablissement;
+    }
+
+    public String getTravaux() {
+        return travaux;
+    }
+
+    public void setTravaux(String travaux) {
+        this.travaux = travaux;
+    }
+
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
+
+    public String getDirTravaux() {
+        return dirTravaux;
+    }
+
+    public void setDirTravaux(String dirTravaux) {
+        this.dirTravaux = dirTravaux;
+    }
+
+    public String getProjetlib() {
+        return projetlib;
+    }
+
+    public void setProjetlib(String projetlib) {
+        this.projetlib = projetlib;
+    }
+
+    public String getCodeetablissementlib() {
+        return codeetablissementlib;
+    }
+
+    public void setCodeetablissementlib(String codeetablissementlib) {
+        this.codeetablissementlib = codeetablissementlib;
+    }
+
+    public String getIdpatrimoine() {
+        return idpatrimoine;
+    }
+
+    public void setIdpatrimoine(String idpatrimoine) throws Exception {
+        if(this.getMode().compareTo("modif")==0){
+            if(idpatrimoine == null || idpatrimoine.compareTo("") == 0)
+                throw new Exception("Patrimoine obligatoire.");
+        }
+        this.idpatrimoine = idpatrimoine;
+    }
 
     @Override
     public String getTuppleID() {
@@ -157,5 +226,45 @@ public class Chantier extends ClassEtat{
     public String getValColLibelle(){
         return nom;
     }
+
+    public Chantier(String id, String idtravaux, String nom, String idtiers, Date datydebut, Date datyfin, double montant, double avancement) throws Exception {
+        this.setNomTable("chantier");
+        this.setId(id);
+        this.setIdtravaux(idtravaux);
+        this.setNom(nom);
+        this.setIdtiers(idtiers);
+        this.setDatydebut(datydebut);
+        this.setDatyfin(datyfin);
+        this.setMontant(montant);
+        this.setAvancement(avancement);
+    }
+
+    public String getPatrimoinelib() {
+        return patrimoinelib;
+    }
+
+    public void setPatrimoinelib(String patrimoinelib) {
+        this.patrimoinelib = patrimoinelib;
+    }
+
+    public String getPatrimoinedesce() {
+        return patrimoinedesce;
+    }
+
+    public void setPatrimoinedesce(String patrimoinedesce) {
+        this.patrimoinedesce = patrimoinedesce;
+    }
     
+    @Override
+    public void controler(Connection c) throws Exception {
+        try{
+            Travaux t = new Travaux();
+            Travaux travaux = (Travaux)t.getById(this.getIdtravaux(), null, c);
+            if((travaux.getDatedebut().after(this.getDatydebut())) || (this.getDatydebut().after(travaux.getDatefin())) || (travaux.getDatefin().before(this.getDatyfin())) || (this.getDatyfin().before(travaux.getDatedebut())))
+                throw new Exception("Les dates du chantier doivent etre comprises entre les dates du travaux");
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
 }

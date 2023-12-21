@@ -6,6 +6,7 @@
 <%@page import="affichage.Liste"%>
 <%@page import="bean.TypeObjet"%>
 <%@page import="mg.spat.Caisse"%>
+<%@page import="utilitaire.Utilitaire"%>
 <%
     String caisserec ="";
     try {
@@ -18,6 +19,10 @@
         if (request.getParameter("etatvue") != null) {
             journalCaisse.setNomTable(request.getParameter("etatvue"));
         }
+        String date1 = Utilitaire.dateDuJour();
+        String date2 = Utilitaire.dateDuJour();
+        if(request.getParameter("dateEffet1")!=null) date1 = request.getParameter("dateEffet1");
+        if(request.getParameter("dateEffet2")!=null) date2 = request.getParameter("dateEffet2");
 
         System.out.println("tablename"+journalCaisse.getNomTable());
 
@@ -124,7 +129,7 @@
                     typecheque = "";
                 }
             %>
-            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listeJournalCaisse&id=<%=request.getParameter("id")%>&folio=<%=request.getParameter("folio")%>&caisse=<%= caisserec %>&valcaisse=<%=request.getParameter("valcaisse")%>&libelle=<%=request.getParameter("libelle")%>&remarque=<%=request.getParameter("remarque")%>&dateEffet1=<%=request.getParameter("dateEffet1")%>&dateEffet2=<%=request.getParameter("dateEffet2")%>&idtypecheque=<%= typecheque%>&descecaisse=<%=request.getParameter("descecaisse")%>&idplacement=<%= request.getParameter("idplacement")%>&etat=<%= request.getParameter("etatvue")%>" style="margin-right: 10px">Imprimer</a>
+            <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=listeJournalCaisse&id=<%=request.getParameter("id")%>&folio=<%=request.getParameter("folio")%>&caisse=<%= caisserec %>&valcaisse=<%=request.getParameter("valcaisse")%>&libelle=<%=request.getParameter("libelle")%>&remarque=<%=request.getParameter("remarque")%>&dateEffet1=<%= date1 %>&dateEffet2=<%= date2 %>&idtypecheque=<%= typecheque%>&descecaisse=<%=request.getParameter("descecaisse")%>&idplacement=<%= request.getParameter("idplacement")%>&etat=<%= request.getParameter("etatvue")%>" style="margin-right: 10px">Imprimer</a>
             <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/pages/globalnegoce.jsp?but=treso/journalcaisse-saisie.jsp&caisse=CAISSERECETTE" style="margin-right: 10px">Saisie Journal Caisse</a>
         </form>
         <% out.println(pr.getBasPage());%>

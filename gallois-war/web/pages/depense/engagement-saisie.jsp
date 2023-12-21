@@ -4,6 +4,8 @@
     Author     : Sanda
 --%>
 
+<%@page import="utilitaire.Constante"%>
+<%@page import="bean.TypeObjet"%>
 <%@page import="affichage.Liste"%>
 <%@page import="mg.spat.EngagementFille"%>
 <%@page import="affichage.PageInsertMultiple"%>
@@ -36,10 +38,21 @@
         //listes[0] = new Liste("avecFacture", avecFactureAff, avecFactureVal);
 
         //pi.getFormu().changerEnChamp(listes);
+        Liste[] listes = new Liste[1];
+        TypeObjet catAchat = new TypeObjet();
+        catAchat.setNomTable("typeengagement");
+        listes[0] = new Liste("idtype", catAchat, "val", "id");
+        listes[0].setDefaultSelected(Constante.idTypeEngContrat);
+        pi.getFormu().changerEnChamp(listes);
+        pi.getFormu().getChamp("idavenant").setLibelle("Avenant");
+        pi.getFormu().getChamp("idtype").setLibelle("Type");
+
 
         pi.getFormu().getChamp("etat").setVisible(false);
 
         pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+         pi.getFormu().getChamp("chantier").setPageAppel("choix/listeChantierChoix.jsp");
+         pi.getFormu().getChamp("chantier").setVisible(false);
         pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("avecFacture").setDefaut("0");
@@ -64,6 +77,8 @@
         pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
         pi.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
           pi.getFormu().getChamp("montant").setAutre("readonly");
+        pi.getFormu().getChamp("duree").setVisible(false);
+        
         
 
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);

@@ -30,7 +30,7 @@ import facture.LiaisonEngagement;
  * @author Nouta
  */
 public class Engagement extends ClassEtat {
-    private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib,observation;
+    private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib,observation,idtype,idtypelib;
     private String codeEtablissementlib,projetlib,tiers ,tierslib,num, idengagement;
     private double montant,disponible,dispoAvant,dispoApres,montantOP,montantreste,montantliberer;
     private Date daty;
@@ -38,6 +38,32 @@ public class Engagement extends ClassEtat {
     private String type;
     private Date dateImpression;
     private String iduser;
+    private String chantier, objet, duree, idavenant;
+
+    public String getChantier() {
+        return chantier;
+    }
+
+    public String getIdtype() {
+        return idtype;
+    }
+
+    public void setIdtype(String idtype) {
+        this.idtype = idtype;
+    }
+
+    public String getIdtypelib() {
+        return idtypelib;
+    }
+
+    public void setIdtypelib(String idtypelib) {
+        this.idtypelib = idtypelib;
+    }
+    
+
+    public void setChantier(String chantier) {
+        this.chantier = chantier;
+    }
 
 
     public String getIduser() {
@@ -326,6 +352,30 @@ public class Engagement extends ClassEtat {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getObjet() {
+        return objet;
+    }
+
+    public void setObjet(String objet) {
+        this.objet = objet;
+    }
+
+    public String getDuree() {
+        return duree;
+    }
+
+    public void setDuree(String duree) {
+        this.duree = duree;
+    }
+
+    public String getIdavenant() {
+        return idavenant;
+    }
+
+    public void setIdavenant(String idavenant) {
+        this.idavenant = idavenant;
     }
 
     @Override

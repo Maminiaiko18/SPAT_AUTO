@@ -43,10 +43,35 @@ public class FactureFournisseur extends FactureClient {
     private String id2;
     private String codeEtablissement;
     private Date dateRegul;
-    private double montantHTSansRemise;
+    private double montantHTSansRemise, montantht;
     private String bonprovisoire, num;
     private String idom,omlib;
     private String numfsb;
+    private String nomtravaux,dureecontrat ,nomchantier ;
+
+    public String getNomtravaux() {
+        return nomtravaux;
+    }
+
+    public void setNomtravaux(String nomtravaux) {
+        this.nomtravaux = nomtravaux;
+    }
+
+    public String getDureecontrat() {
+        return dureecontrat;
+    }
+
+    public void setDureecontrat(String dureecontrat) {
+        this.dureecontrat = dureecontrat;
+    }
+
+    public String getNomchantier() {
+        return nomchantier;
+    }
+
+    public void setNomchantier(String nomchantier) {
+        this.nomchantier = nomchantier;
+    }
 
     public String getOmlib() {
         return this.omlib;
@@ -56,7 +81,15 @@ public class FactureFournisseur extends FactureClient {
         this.omlib = omlib;
     }
 
+    public double getMontantht() {
+        return montantht;
+    }
 
+    public void setMontantht(double montantht) {
+        this.montantht = montantht;
+    }
+
+    
     public String getNumfsb() {
         return numfsb;
     }
@@ -92,6 +125,7 @@ public class FactureFournisseur extends FactureClient {
     public void setIdmodepaiement(String idmodepaiement) {
         this.idmodepaiement = idmodepaiement;
     }
+    private String chantier, idtravaux, idchantier, idcontrat;
 
     public Date getDatedevise() {
         return datedevise;
@@ -373,6 +407,38 @@ public class FactureFournisseur extends FactureClient {
     public void setModepaiementlib(String modepaiementlib) {
         this.modepaiementlib = modepaiementlib;
     }
+
+    public String getChantier() {
+        return chantier;
+    }
+
+    public void setChantier(String chantier) {
+        this.chantier = chantier;
+    }
+
+    public String getIdtravaux() {
+        return idtravaux;
+    }
+
+    public void setIdtravaux(String idtravaux) {
+        this.idtravaux = idtravaux;
+    }
+
+    public String getIdchantier() {
+        return idchantier;
+    }
+
+    public void setIdchantier(String idchantier) {
+        this.idchantier = idchantier;
+    }
+
+    public String getIdcontrat() {
+        return idcontrat;
+    }
+
+    public void setIdcontrat(String idcontrat) {
+        this.idcontrat = idcontrat;
+    }
     
     public FactureFournisseur() throws Exception {
         this.setNomTable("facture_Fournisseur_Mere");
@@ -523,6 +589,11 @@ public class FactureFournisseur extends FactureClient {
         /*if (this.getIdcategorie() != null && !this.getIdcategorie().equals(Constante.idBonProvisoire)) {
             this.setCode(calculerCodeSimple(cnctn));
         }*/
+        if(this.getIdProvision()!=null && (this.getCode()==null || this.getCode().equalsIgnoreCase(""))){
+            FactureFournisseur[] bp = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, cnctn, " and id='"+this.getIdProvision()+"'");
+            if(bp!=null) this.setCode(bp[0].getCode());
+        }
+
         if(this.getIdBL() != null && !this.getIdBL().isEmpty() && this.getIdBL().compareToIgnoreCase("")!=0){
             BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(this.getIdBL(), "AS_BONDELIVRAISON_BC", cnctn);
             if(bl.getIdengagement() != null)
@@ -597,8 +668,12 @@ public class FactureFournisseur extends FactureClient {
         this.idBL = idBL;
     }
 
+    @Override
     public void controlerUpdate(Connection c) throws Exception {
-
+        if(this.getIdProvision()!=null && (this.getCode()==null || this.getCode().equalsIgnoreCase(""))){
+            FactureFournisseur[] bp = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and id='"+this.getIdProvision()+"'");
+            if(bp!=null) this.setCode(bp[0].getCode());
+        }
     }
 
     public BonDeLivraisonFilleReste[] getBP(Connection c) throws Exception {
@@ -1178,6 +1253,7 @@ public class FactureFournisseur extends FactureClient {
                 }
                 if(resteAEngager > 0){
                     ff.setTypeEngagement(Constante.typeEngagementFF);
+                    if(lies.length > 0)ff.setChantier(lies[0].getChantier());
                     ff.createEngagement(u, c, resteAEngager, lc, controleMontant);
                     this.setIdengagement(ff.getIdengagement());
                 }
@@ -1450,6 +1526,7 @@ public class FactureFournisseur extends FactureClient {
             }
             engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
             engagement.setTiers(this.getTiers());
+            engagement.setIdtype(Constante.idTypeEngFF);
             engagement.construirePK(c);
 
             FactureFournisseurDetails dets = new FactureFournisseurDetails();
@@ -1572,10 +1649,12 @@ public class FactureFournisseur extends FactureClient {
     public void createEngagement(String u, Connection c, double montant, LigneCredit lc, boolean controleBudget) throws Exception {
         try{
             Engagement engagement = new Engagement(this.getNumeroop(), this.getCode_etablissement() , this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), Utilitaire.dateDuJourSql(), this.getTiers(), 0);
+            engagement.setChantier(this.getChantier());
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }
             engagement.construirePK(c);
+            engagement.setIdtype(Constante.idTypeEngFF);
             engagement.createObject(u, c);
             
             EngagementFille engFille = new EngagementFille(engagement.getId(),this.getNumeroop(),montant);

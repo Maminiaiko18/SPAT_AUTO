@@ -17,7 +17,7 @@
     cht.setNomTable("chantierlibelle");
     String listeCrt[] = {"id", "nom", "datydebut", "datyfin"};
     String listeInt[] = {};
-    String libEntete[] = {"id", "nom", "datydebut", "datyfin", "idtiers", "avancement","montant"};
+    String libEntete[] = {"id", "nom", "datydebut", "datyfin", "idtiers", "avancement", "montant", "etatlib"};
 
     PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     /*pr.getFormu().getChamp("datydebut1").setLibelle("Date début min");
@@ -44,7 +44,7 @@
         pr.setTableau(new TableauRecherche(liste, libEntete));
         total=AdminGen.calculSommeDouble(liste,"montant");
     }
-    String libEnteteAffiche[] = {"id", "Désignation chantier", "Date début", "Date fin", "Tiers", "Avancement (%)","Montant"};
+    String libEnteteAffiche[] = {"id", "Désignation chantier", "Date début", "Date fin", "Tiers", "Avancement (%)", "Montant", "Etat"};
     String lienTableau[] = {pr.getLien() + "?but=travaux/chantier-fiche.jsp"};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
