@@ -1643,7 +1643,7 @@ public class FactureClient extends ClassMere {
     { 
         try{
             this.setDaty(Utilitaire.dateDuJourSql());
-            if(this.getEstAncienne()!=1)this.setCode(calculerCode(c));
+            if(this.getEstAncienne()!=1 && this.getId().startsWith("FCL")) this.setCode(calculerCode(c));
         }
         catch(Exception e){
             throw e;

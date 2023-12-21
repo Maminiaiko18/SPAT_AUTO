@@ -180,6 +180,7 @@ public class BordereauFF extends Bordereau{
                 for(FactureFournisseur details : listeFille){
                     if(details.getIdBL()!=null) throw new Exception("Facture de bon de commande ne peut pas etre editer BED.");
                     if(details.getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Facture " + details.getId() + " deja visee.");
+                    if(details.getIdProvision()!=null && this.getTypebordereau().equalsIgnoreCase(Constante.typeBED)) this.setTypebordereau(Constante.typeEtatDepense); 
                 }
             }
             if(listeFille[0]!=null){

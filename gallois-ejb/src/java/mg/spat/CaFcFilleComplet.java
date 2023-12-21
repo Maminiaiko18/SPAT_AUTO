@@ -13,14 +13,22 @@ import java.sql.Date;
  * @author Nouta
  */
 public class CaFcFilleComplet extends ClassEtat {
-    private String id,idmere,compte,designation,idproduit,devise,devisemere,idactivite,moislib,rubrique,heuredebut,heurefin,rubriquecpl,idcategorie,type,nomnavire;
+    private String id,idmere,compte,designation,idproduit,devise,devisemere,idactivite,moislib,rubrique,heuredebut,heurefin,rubriquecpl,idcategorie,type,nomnavire,designationmere;
     private double quantite,pu,taux,tva,montanttva,montantttc,montant,reduction,majoration,test,rang,duree;
     private int mois,annee;
     private double montantav;
     String client,mereca,code,numpiece,etatlib;
     private Date datefact,daty;
     private double montanthtdevise;
-    String cdclt;
+    String cdclt,escale;
+
+    public String getEscale() {
+        return escale;
+    }
+
+    public void setEscale(String escale) {
+        this.escale = escale;
+    }
 
     public String getCdclt() {
         return cdclt;
@@ -346,6 +354,14 @@ public class CaFcFilleComplet extends ClassEtat {
 
     public void setEtatlib(String etatlib) {
         this.etatlib = etatlib;
+    }
+
+    public String getDesignationmere() {
+        return designationmere;
+    }
+
+    public void setDesignationmere(String designationmere) {
+        this.designationmere = designationmere;
     }
     
 
