@@ -45,7 +45,23 @@ public class FactureFournisseur extends FactureClient {
     private String bonprovisoire, num;
     private String idom;
     private String numfsb;
-    private String nomtravaux,dureecontrat ,nomchantier ;
+    private String nomtravaux,dureecontrat ,nomchantier,cr,unitelib ;
+
+    public String getUnitelib() {
+        return unitelib;
+    }
+
+    public void setUnitelib(String unitelib) {
+        this.unitelib = unitelib;
+    }
+
+    public String getCr() {
+        return cr;
+    }
+
+    public void setCr(String cr) {
+        this.cr = cr;
+    }
 
     public String getNomtravaux() {
         return nomtravaux;

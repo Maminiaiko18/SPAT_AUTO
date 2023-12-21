@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUIVI_CONTRAT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc854c4c-cca7-4334-b317-4b1746075475">
 	<property name="ireport.zoom" value="1.0980750000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="206"/>
+	<property name="ireport.y" value="115"/>
 	<parameter name="contrat" class="java.lang.String"/>
 	<parameter name="titulaire" class="java.lang.String"/>
 	<parameter name="objet" class="java.lang.String"/>
@@ -13,6 +13,8 @@
 	<parameter name="chantier" class="java.lang.String"/>
 	<parameter name="direction" class="java.lang.String"/>
 	<parameter name="cr" class="java.lang.String"/>
+	<parameter name="projet" class="java.lang.String"/>
+	<parameter name="unite" class="java.lang.String"/>
 	<field name="montantttc" class="java.lang.Double"/>
 	<field name="montantpaye" class="java.lang.Double"/>
 	<field name="montantreste" class="java.lang.Double"/>
@@ -29,7 +31,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="273" splitType="Stretch">
+		<band height="290" splitType="Stretch">
 			<staticText>
 				<reportElement x="98" y="0" width="457" height="42" uuid="9dcd59a2-1b0d-40c4-901b-24bf72452dcf"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -73,14 +75,14 @@
 				<text><![CDATA[DUREE :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="218" width="144" height="20" uuid="c0daf76a-dad7-436e-9209-16775cf0c018"/>
+				<reportElement x="0" y="237" width="144" height="20" uuid="c0daf76a-dad7-436e-9209-16775cf0c018"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MONTANT CONTRAT :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="238" width="144" height="20" uuid="c0ee283c-16e4-44d0-ace4-df30659f11ca"/>
+				<reportElement x="0" y="257" width="144" height="20" uuid="c0ee283c-16e4-44d0-ace4-df30659f11ca"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -114,15 +116,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="144" y="198" width="411" height="20" uuid="8ddd8c10-308f-417a-a4d9-f5919c6c57c2"/>
-				<textElement>
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{duree}]]></textFieldExpression>
-			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="144" y="218" width="411" height="20" uuid="10b7ba57-ef4d-4c36-936d-36fdbfe7e978"/>
+				<reportElement x="144" y="237" width="411" height="20" uuid="10b7ba57-ef4d-4c36-936d-36fdbfe7e978"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -189,6 +184,21 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="393" y="118" width="162" height="20" uuid="c62d286f-1e0e-4d32-a0d9-dc2abd45ac9f"/>
 				<textFieldExpression><![CDATA[$P{cr}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="218" width="144" height="20" uuid="41aa62d8-0791-44d5-9424-f98f72c915d5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROJET:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="218" width="411" height="20" uuid="82dc39cd-9ffe-4203-ba43-44bd5e3c0444"/>
+				<textFieldExpression><![CDATA[$P{projet}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="198" width="411" height="20" uuid="f4803bbb-1cdc-4832-a1b6-a8bb288b3e8b"/>
+				<textFieldExpression><![CDATA[$P{duree} + " "+$P{unite}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
