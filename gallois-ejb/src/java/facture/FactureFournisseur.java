@@ -908,14 +908,17 @@ public class FactureFournisseur extends FactureClient {
                 ouvert = true;
             }
 
+            MapUtilisateur[] user = (MapUtilisateur[]) CGenUtil.rechercher(new MapUtilisateur(), null, null, null, " and refuser="+u);
             if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
-                MapUtilisateur[] user = (MapUtilisateur[]) CGenUtil.rechercher(new MapUtilisateur(), null, null, null, " and refuser="+u);
                 // pas de visa Bon provsoire pour la caisse depenses
                 if(user[0].getIdrole().equalsIgnoreCase("ROL0000001321113437")) throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
                 if (this.getNum() == null) {
                     this.setNum(this.calculerNumeroBP(c));
                 }
             }
+            // visa Bon provisoire mais pas facture pour CHEF DEPART TRESO
+            if(user[0].getIdrole().equalsIgnoreCase("ROL000422") && !this.getIdcategorie().equalsIgnoreCase(Constante.idBonProvisoire))
+            throw new Exception("Désolé, vous n'avez pas les droits requis pour effectuer cette action");
 
             BordereauFilleFF[] bedfilles = (BordereauFilleFF[]) CGenUtil.rechercher(new BordereauFilleFF(), null, null, c, " and idop = '" + this.getId() + "'");
             if(bedfilles.length > 0){
