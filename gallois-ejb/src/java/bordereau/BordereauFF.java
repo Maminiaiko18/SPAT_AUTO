@@ -376,8 +376,6 @@ public class BordereauFF extends Bordereau{
             if (ligneCredits.length > 0) {
                 lc = ligneCredits[0];
             }
-            System.out.println("aneeee"+annee);
-            System.out.println("lcccccc"+lc.getId());
             BordereauFilleFF temp = new BordereauFilleFF();
             temp.setNomTable("LIAISONBORDEREAUFF");
             BordereauFilleFF[] liaisonBordFF = (BordereauFilleFF[]) CGenUtil.rechercher(temp, null, null, c, " and IDBORDEREAU='"+this.getId()+"'");
@@ -388,7 +386,7 @@ public class BordereauFF extends Bordereau{
             fact.setNomTable("factfourn_msum_lib");
             FactureFournisseur[] ff = (FactureFournisseur[])CGenUtil.rechercher(fact, requete, c);
             double montant = AdminGen.calculSommeDouble(ff, "montant");
-            Engagement engagement = new Engagement("BED "+this.getNumero()+" - "+ this.getDesignation(), this.getDirection(), this.getProjet(), montant, anneebudgetaire, this.getDaty(), this.getTiers(), 0);
+            Engagement engagement = new Engagement("BED "+this.getNumero()+" - "+ this.getDesignation(), this.getDirection(), this.getProjet(), montant, Integer.valueOf(annee), this.getDaty(), this.getTiers(), 0);
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }
