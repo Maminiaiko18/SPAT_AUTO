@@ -128,6 +128,11 @@ public class Constante {
     public static final String caisseCentraleBP = "CAIS000016";
     public static final String caisseCentraleEspece = "CAIS000015";
     public static final String caisseChequeEncaissement = "CAIS000014";
+    public static final String caisseChequeEncaissementPACT = "CAI0000000010174129";
+    public static final String caisseChequeEncaissementCSCS = "CAI0000000018094845";
+    public static final String caisseChequeEncaissementCEMEDI = "CAI0000000019094901";
+
+
     public static final String deviseAr = "Ar";
     public static final String deviseEuro = "Eur";
     public static final String deviseDollars = "Dollars";
