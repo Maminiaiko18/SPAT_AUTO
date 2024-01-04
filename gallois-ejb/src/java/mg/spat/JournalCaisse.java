@@ -1081,7 +1081,12 @@ public class JournalCaisse extends ClassEtat {
                     }
 
                     if(this.getCredit() > 0){
-                        if(caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissement)==0 || caisse.getId().compareToIgnoreCase(Constante.caisseCentraleEspece)==0){
+                        if(caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissement)==0 
+                        || caisse.getId().compareToIgnoreCase(Constante.caisseCentraleEspece)==0
+                        || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementPACT)==0
+                        || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementCSCS)==0
+                        || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementCEMEDI)==0)
+                        {
                             this.setNumPiece(calculerNumeroPiece(c));
                         }
                     }
