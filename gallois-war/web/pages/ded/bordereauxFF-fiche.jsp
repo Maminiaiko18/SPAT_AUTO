@@ -36,8 +36,7 @@
     pc.getChampByName("numfsb").setVisible(false);
     pc.getChampByName("etat").setVisible(false);
     pc.getChampByName("idfactures").setVisible(false);
-
-
+    pc.getChampByName("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
     //pc.getChampByName("idfactures").setLibelle("Factures");
     pc.getChampByName("projet").setVisible(false);
     pc.getChampByName("direction").setVisible(false);
