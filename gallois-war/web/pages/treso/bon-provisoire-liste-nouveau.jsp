@@ -151,8 +151,9 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <form action="<%=pr.getLien()%>?but=apresTarif.jsp" method="post" name="form_arif" id="form_arif">
+            <input type="button" class="btn btn-info" onclick="editerOP()" style="margin:10px" value="Editer OP"/>
             <input type="hidden" name="bute" id="bute" value="ded/ordonnerpayement-saisie.jsp"/>
-            <input type="hidden" name="classe" value="facturefournisseur.FactureFournisseur"/>
+            <input type="hidden" name="classe" id="classe" value="facturefournisseur.FactureFournisseur"/>
             <input type="hidden" name="acte" id="acte" value="editerOP"/>
         <%
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
@@ -170,6 +171,15 @@
     </section>
 </div>
     <script>
+
+        function editerOP() {
+            document.getElementById("acte").value =  "editerOP";
+            document.getElementById("classe").value =  "facturefournisseur.FactureFournisseur";
+            document.getElementById("bute").value =  "ded/ordonnerpayement-saisie.jsp";
+            document.getElementById("form_arif").action = '<%=pr.getLien()%>?but=apresTarif.jsp';
+            document.getElementById("form_arif").submit();
+        }
+
         function decaisser(){
         $('#form_arif').attr('action', '<%= pr.getLien() %>?but=apresFactureF.jsp');
         $('#acte').val('decaisserMultiple');
