@@ -390,10 +390,7 @@ public class BordereauFF extends Bordereau {
             lc.setNomTable("LIGNECREDITDEPENSE");
             lc.setCodeEtablissement(this.getDirection());
             lc.setProjet(this.getProjet());
-            String annee = String.valueOf(this.getAnneebudgetaire());
-            if (annee == null || annee.equalsIgnoreCase("0"))
-                annee = Utilitaire.getAnneeEnCours();
-            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee=" + annee);
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee=" + this.getAnneebudgetaire());
             if (ligneCredits.length > 0) {
                 lc = ligneCredits[0];
             }
@@ -409,7 +406,7 @@ public class BordereauFF extends Bordereau {
             FactureFournisseur[] ff = (FactureFournisseur[]) CGenUtil.rechercher(fact, requete, c);
             double montant = AdminGen.calculSommeDouble(ff, "montant");
             Engagement engagement = new Engagement("BED " + this.getNumero() + " - " + this.getDesignation(),
-                    this.getDirection(), this.getProjet(), montant, Integer.valueOf(annee), this.getDaty(),
+                    this.getDirection(), this.getProjet(), montant, this.getAnneebudgetaire(), this.getDaty(),
                     this.getTiers(), 0);
             engagement.setIdtype(Constante.idTypeEngBED);
             if (lc != null) {
