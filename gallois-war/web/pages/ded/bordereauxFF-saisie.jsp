@@ -79,6 +79,8 @@
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("daty").setLibelle("Date");
+        pi.getFormu().getChamp("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
+        pi.getFormu().getChamp("anneebudgetaire").setDefaut(Utilitaire.getAnneeEnCours());
         pi.getFormu().getChamp("directionlib").setVisible(false);
         pi.getFormu().getChamp("projetlib").setVisible(false);
         if(factures.length > 0){

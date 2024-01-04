@@ -32,7 +32,16 @@ public class BordereauFF extends Bordereau{
     private double montantav;
     private double montantap;
     private String idengagement, tierslib,typebordereau,typebordereaulib;
+    private int anneebudgetaire;
     
+    public int getAnneebudgetaire() {
+        return anneebudgetaire;
+    }
+
+    public void setAnneebudgetaire(int anneebudgetaire) {
+        this.anneebudgetaire = anneebudgetaire;
+    }
+
     public String getTypebordereau() {
         return typebordereau;
     }
@@ -361,11 +370,14 @@ public class BordereauFF extends Bordereau{
             lc.setNomTable("LIGNECREDITDEPENSE");
             lc.setCodeEtablissement(this.getDirection());
             lc.setProjet(this.getProjet());
-            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee=" + Utilitaire.getAnnee(this.getDaty()));
+            String annee = String.valueOf(this.getAnneebudgetaire());
+            if(annee == null || annee.equalsIgnoreCase("0")) annee = Utilitaire.getAnneeEnCours();
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee=" + annee);
             if (ligneCredits.length > 0) {
                 lc = ligneCredits[0];
             }
-
+            System.out.println("aneeee"+annee);
+            System.out.println("lcccccc"+lc.getId());
             BordereauFilleFF temp = new BordereauFilleFF();
             temp.setNomTable("LIAISONBORDEREAUFF");
             BordereauFilleFF[] liaisonBordFF = (BordereauFilleFF[]) CGenUtil.rechercher(temp, null, null, c, " and IDBORDEREAU='"+this.getId()+"'");
@@ -376,7 +388,7 @@ public class BordereauFF extends Bordereau{
             fact.setNomTable("factfourn_msum_lib");
             FactureFournisseur[] ff = (FactureFournisseur[])CGenUtil.rechercher(fact, requete, c);
             double montant = AdminGen.calculSommeDouble(ff, "montant");
-            Engagement engagement = new Engagement("BED "+this.getNumero()+" - "+ this.getDesignation(), this.getDirection(), this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), this.getDaty(), this.getTiers(), 0);
+            Engagement engagement = new Engagement("BED "+this.getNumero()+" - "+ this.getDesignation(), this.getDirection(), this.getProjet(), montant, anneebudgetaire, this.getDaty(), this.getTiers(), 0);
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }
