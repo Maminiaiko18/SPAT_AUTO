@@ -4893,6 +4893,9 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("duree",fille[0].getDureecontrat());
                 param.put("contrat",fille[0].getDesignation());
                 param.put("montantContrat",fille[0].getMontant());
+                param.put("projet",fille[0].getProjetlib());
+                param.put("cr",fille[0].getCr());
+                param.put("unite",Utilitaire.champNull(fille[0].getUnitelib()));
             }
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(fille));

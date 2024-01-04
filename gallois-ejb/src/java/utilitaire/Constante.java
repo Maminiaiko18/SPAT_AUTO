@@ -196,6 +196,10 @@ public class Constante {
     public static String idTypeEngBED = "TYPEN0002";
     public static String idTypeEngBC = "TYPEN0004";
     public static String idTypeEngFF = "TYPEN0003";
+    public static String uniteJour = "UNIC001";
+    public static String uniteMois = "UNIC002";
+    public static String uniteAnnee = "UNIC003";
+
 
     public static String getTypePieceTraite(){
         return typePieceTraite;

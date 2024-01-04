@@ -21,9 +21,10 @@ import utilitaire.Utilitaire;
 public class Contrat extends ClassEtat{
     private String id,idTiers,objet,devise,unite,typedroitport,typeDuree,numeros,idchantier;
     private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib,idavenant,codeprojetlib;
-    private double duree,droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant,montantpaye;
+    private double droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant,montantpaye;
     private Date date_signature,debut_contrat,fin_contrat,fin_avenant;
     private int controleMontant, annee;
+    private double duree;
     
     public Contrat() {
         super.setNomTable("CONTRAT");
@@ -126,6 +127,15 @@ public class Contrat extends ClassEtat{
 
     public void setDuree(double duree) {
         this.duree = duree;
+        if(getMode().equals("modif")){
+            if(fin_contrat != null && debut_contrat != null)
+            if(this.getUnite().compareToIgnoreCase(Constante.uniteJour) == 0)
+                this.duree = Utilitaire.diffJourDaty(this.getFin_contrat(), this.getDebut_contrat());
+            else if(this.getUnite().compareToIgnoreCase(Constante.uniteMois) == 0)
+                this.duree = Utilitaire.diffMoisDaty(fin_contrat, debut_contrat);
+            else
+                this.duree = Utilitaire.getAnnee(fin_contrat) - Utilitaire.getAnnee(debut_contrat);
+        }
     }
 
     public double getDroit_entree() {
@@ -214,8 +224,6 @@ public class Contrat extends ClassEtat{
 
     public void setFin_contrat(Date fin_contrat) {
         this.fin_contrat = fin_contrat;
-        if(getMode().equals("modif"))
-            this.fin_contrat = Utilitaire.ajoutJourDate(this.getDebut_contrat(), (int) Math.ceil(this.getDuree()-1));
     }
 
     public String getNom() {

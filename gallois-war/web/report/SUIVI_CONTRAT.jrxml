@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUIVI_CONTRAT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc854c4c-cca7-4334-b317-4b1746075475">
 	<property name="ireport.zoom" value="1.0980750000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="206"/>
+	<property name="ireport.y" value="102"/>
 	<parameter name="contrat" class="java.lang.String"/>
 	<parameter name="titulaire" class="java.lang.String"/>
 	<parameter name="objet" class="java.lang.String"/>
@@ -13,6 +13,8 @@
 	<parameter name="chantier" class="java.lang.String"/>
 	<parameter name="direction" class="java.lang.String"/>
 	<parameter name="cr" class="java.lang.String"/>
+	<parameter name="projet" class="java.lang.String"/>
+	<parameter name="unite" class="java.lang.String"/>
 	<field name="montantttc" class="java.lang.Double"/>
 	<field name="montantpaye" class="java.lang.Double"/>
 	<field name="montantreste" class="java.lang.Double"/>
@@ -114,13 +116,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="144" y="198" width="411" height="20" uuid="8ddd8c10-308f-417a-a4d9-f5919c6c57c2"/>
-				<textElement>
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{duree}]]></textFieldExpression>
-			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="144" y="218" width="411" height="20" uuid="10b7ba57-ef4d-4c36-936d-36fdbfe7e978"/>
 				<textElement>
@@ -154,7 +149,7 @@
 				<text><![CDATA[CHANTIER :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="144" y="98" width="411" height="20" uuid="3eb429b1-0212-4f76-a6a4-2cea6f1e5fb7"/>
+				<reportElement x="144" y="98" width="194" height="20" uuid="3eb429b1-0212-4f76-a6a4-2cea6f1e5fb7"/>
 				<textFieldExpression><![CDATA[$P{chantier}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -173,7 +168,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Direction :]]></text>
+				<text><![CDATA[DIRECTION :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="422" y="78" width="133" height="20" uuid="779d0e46-06c6-4c90-b4df-fba6a4309de3"/>
@@ -189,6 +184,21 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="393" y="118" width="162" height="20" uuid="c62d286f-1e0e-4d32-a0d9-dc2abd45ac9f"/>
 				<textFieldExpression><![CDATA[$P{cr}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="98" width="67" height="20" uuid="41aa62d8-0791-44d5-9424-f98f72c915d5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROJET:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="422" y="98" width="133" height="20" uuid="82dc39cd-9ffe-4203-ba43-44bd5e3c0444"/>
+				<textFieldExpression><![CDATA[$P{projet}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="198" width="411" height="20" uuid="f4803bbb-1cdc-4832-a1b6-a8bb288b3e8b"/>
+				<textFieldExpression><![CDATA[$P{duree} + " "+$P{unite}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
