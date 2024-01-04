@@ -47,7 +47,6 @@
     pr.getFormu().getChamp("lieudeplacement").setLibelle("Lieu de Placement");
     pr.getFormu().getChamp("prenom").setLibelle("Pr&eacute;nom");
     pr.setAWhere(where);
-    pr.setOrdre(" ORDER  BY NUMOM DESC");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -70,7 +69,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] = {"Id", "Num&eacute;ro OM", "Nom", "Pr&eacute;nom", "Matricule","Fonction", "Date d&eacute;part", "Dur&eacute;e", "Date arriv&eacute;e", "Lieu de Placement"};
+            String libEnteteAffiche[] = {"Id", "Num&eacute;ro OM", "Nom", "Pr&eacute;nom", "Matricule","Fonction", "Date d&eacute;part", "Dur&eacute;e", "Date arriv&eacute;e", "Lieu d&eacute;placement"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
