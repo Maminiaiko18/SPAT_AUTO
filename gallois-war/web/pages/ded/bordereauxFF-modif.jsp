@@ -40,6 +40,7 @@ try{
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("Etat").setVisible(false);
     pi.getFormu().getChamp("montantbudget").setVisible(false);
+    pi.getFormu().getChamp("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
     pi.getFormu().getChamp("montantav").setVisible(false);
     pi.getFormu().getChamp("montantap").setVisible(false);
     pi.getFormu().getChamp("numero").setLibelle("Numéro");

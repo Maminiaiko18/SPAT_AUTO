@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="mg.spat.JournalCaisseLibComplet"%>
 <%@page import="mg.spat.AttacherFichier"%>
 <%@page import="java.util.ArrayList"%>
@@ -40,7 +42,8 @@
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setAWhere(" and caisse like '%"+bi.getIdcaisse()+"%' and dateEffet = to_date('"+bi.getDaty()+"','YYYY-MM-DD')");
-    pr.setApres("treso/billetage-fiche.jsp");
+    String bute = "treso/billetage-fiche.jsp";
+    pr.setApres(bute);
   
     
     String colSomme[] = null;
@@ -52,6 +55,17 @@
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
     String dossier="billetage";
+    
+    Map<String, String> map = new HashMap();
+    map.put("detailsbilletage","");
+    map.put("liste-jc","");
+    
+    String tab = request.getParameter("tab");
+    if (tab == null) {
+        tab = "detailsbilletage";
+    }
+    map.put(tab, "active");
+    tab = "inc/" + tab + ".jsp";
 
 %>
 
@@ -99,27 +113,36 @@
             <section class="content-header">
 
             </section>
-            <section class="content">
 
-                <%
-                    String libEnteteAffiche[] ={"Id","Folio","Caisse","Num Piece","Libelle","Remarque","Date Saisie","Date Effet","Debit","Credit"};
-                    pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-                    String html = pr.getTableau().getHtml();
-                    if(html!=null)
-                        out.println(html);
-                    else{%>
-                        <center><h4>Aucun details </h4></center>
-                <%      } %>
-            </section>  
         </div>
     </div> 
+                                    
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 ">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("liste-jc")%>"><a href="module.jsp?but=<%=bute%>&id=<%=request.getParameter("id")%>&idcaisse=<%=bi.getIdcaisse()%>&daty=<%=bi.getDaty()%>&tab=liste-jc">Liste journal caisse</a></li>
+                    <li class="<%= map.get("detailsbilletage")%>"><a href="module.jsp?but=<%=bute%>&id=<%=request.getParameter("id")%>&tab=detailsbilletage">D&eacute;tails Billetage</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-content">       
+                        <jsp:include page="<%=tab%>">
+                            <jsp:param name="idmere" value="<%=bi.getId()%>" />
+
+
+                        </jsp:include>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
     
      <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <div class="box-title with-border">
 
-                            <h2 class="box-title" style="margin-left: 10px;">Les fichiers attach�s</h2>
+                            <h2 class="box-title" style="margin-left: 10px;">Les fichiers attach&eacute;s</h2>
                         </div>
                         <div class="box-body">
 			<table class="table table-striped table-bordered table-condensed table-responsive tree">
