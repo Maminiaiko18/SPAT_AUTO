@@ -31,7 +31,7 @@
     pc.getChampByName("idfacture").setLibelle("Facture");
     pc.getChampByName("type").setVisible(false);
     e = (AvoirLibComplet) pc.getBase();
-     pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche.jsp", "id=");
+     pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
 
     AttacherFichier[] fichiers = UploadService.getUploadFile(request.getParameter("id"));
     configuration.CynthiaConf.load();
