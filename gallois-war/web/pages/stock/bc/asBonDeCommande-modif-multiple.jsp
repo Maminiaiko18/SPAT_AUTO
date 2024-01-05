@@ -74,6 +74,7 @@ try{
     pi.getFormu().getChamp("fournisseurlib").setVisible(false);
     pi.getFormu().getChamp("code_etablib").setVisible(false);
     pi.getFormu().getChamp("projetlib").setVisible(false);
+    pi.getFormu().getChamp("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
     affichage.Champ[] listeUnit = new affichage.Champ[2];
     TypeObjet branche=new TypeObjet();
     branche.setNomTable("UNITECHANTIER");
