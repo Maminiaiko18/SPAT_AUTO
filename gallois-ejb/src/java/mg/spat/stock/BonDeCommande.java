@@ -824,7 +824,7 @@ public class BonDeCommande extends ClassEtat {
                 LigneCredit temp = this.getBudget(c);
                 engagement.setIdLC(temp.getId());
             }
-            engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+            engagement.setAnnee(this.getAnneebudgetaire());
 
             engagement.construirePK(c);
             
@@ -880,7 +880,7 @@ public class BonDeCommande extends ClassEtat {
                 engagement.setIdLC(temp.getId());
                 engagement.setCompte(lc.getCompte());
             }
-            engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+            engagement.setAnnee(this.getAnneebudgetaire());
 
             engagement.construirePK(c);
             
