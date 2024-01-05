@@ -59,7 +59,7 @@
 //        pc.getChampByName("numeroop").setLibelle("N° facture");
         pc.getChampByName("daty").setLibelle("Date");
         pc.getChampByName("montantHTSansRemise").setLibelle("Montant HT Sans Remise");
-
+        pc.getChampByName("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
         pc.getChampByName("montant").setLibelle("Montant HT");
         pc.getChampByName("montanttva").setLibelle("Montant TVA");
         pc.getChampByName("montantavoir").setLibelle("Montant Avoir");

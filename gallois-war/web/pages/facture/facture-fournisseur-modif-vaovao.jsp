@@ -70,6 +70,7 @@
         pi.getFormu().getChamp("idengagement").setAutre("readonly");
         pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
         pi.getFormu().getChamp("dateRegul").setVisible(false);
+        pi.getFormu().getChamp("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
         /*pi.getFormu().getChamp("idbc").setAutre("readonly");
         pi.getFormu().getChamp("idbc").setLibelle("Bon commande");
         pi.getFormu().getChamp("idbc").setPageAppel("choix/listeBonCommande.jsp");*/
