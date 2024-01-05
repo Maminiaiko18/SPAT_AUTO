@@ -284,6 +284,8 @@
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("codePrestation").setVisible(false);
         pi.getFormu().getChamp("code").setVisible(false);
+        pi.getFormu().getChamp("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
+        pi.getFormu().getChamp("anneebudgetaire").setDefaut(Utilitaire.getAnneeEnCours());
 
         String[] listeOrdre = {"designation", "quantite", "compte", "pu"};
         //pi.getFormufle().setOrdre(listeOrdre);

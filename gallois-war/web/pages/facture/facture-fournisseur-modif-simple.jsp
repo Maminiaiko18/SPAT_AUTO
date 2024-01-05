@@ -39,6 +39,7 @@
         pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
         pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
         pi.getFormu().getChamp("idengagement").setAutre("readonly");
+        pi.getFormu().getChamp("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
 
         pi.getFormu().getChamp("type").setVisible(false);
         pi.getFormu().getChamp("tva").setVisible(false);
