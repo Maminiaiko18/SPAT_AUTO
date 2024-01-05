@@ -1453,7 +1453,7 @@ public class FactureFournisseur extends FactureClient {
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }
-            engagement.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+            engagement.setAnnee(this.getAnneebudgetaire());
             engagement.setTiers(this.getTiers());
             engagement.construirePK(c);
 
