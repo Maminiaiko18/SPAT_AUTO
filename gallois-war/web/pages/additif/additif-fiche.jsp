@@ -56,6 +56,13 @@
                 <div class="box-footer">
                     <a class="btn btn-info"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + e.getId() + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=additif/additif-fiche.jsp&id=" + e.getId() %>" style="margin-right: 10px">Attacher Fichier</a> 
                     <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=additif/additif-modif.jsp&id=" + e.getId() %>" style="margin-right: 10px">Modifier</a>
+                    <%
+                        if(e.getEtat() == ConstanteEtat.getEtatValider()){
+                    %>        
+                            <a class="btn btn-danger pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annulerVisa&bute=additif/additif-fiche.jsp&classe=avoir.Avoir&nomtable=additif&id=" + e.getId()%>" style="margin-right: 10px">Annuler VISA</a>
+                    <%
+                        }
+                    %>
                     <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId() %>&acte=valider&nomtable=additif&bute=additif/additif-fiche.jsp&classe=avoir.Avoir" style="margin-right: 10px">Viser</a>
                 </div>
             </div>
