@@ -76,6 +76,7 @@ public class FactureFournisseur extends FactureClient {
     private Date datedevise;
     private String modepaiementlib;
     private String idmodepaiement;
+    private int anneebudgetaire;
 
     public String getIdmodepaiement() {
         return idmodepaiement;
@@ -364,6 +365,14 @@ public class FactureFournisseur extends FactureClient {
 
     public void setModepaiementlib(String modepaiementlib) {
         this.modepaiementlib = modepaiementlib;
+    }
+
+    public int getAnneebudgetaire() {
+        return anneebudgetaire;
+    }
+
+    public void setAnneebudgetaire(int anneebudgetaire) {
+        this.anneebudgetaire = anneebudgetaire;
     }
     
     public FactureFournisseur() throws Exception {
@@ -1498,7 +1507,7 @@ public class FactureFournisseur extends FactureClient {
             lc.setNomTable("LIGNECREDITDEPENSE");
             lc.setCodeEtablissement(this.getCode_etablissement());
             lc.setProjet(this.getProjet());
-            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee=" + Utilitaire.getAnnee(this.getDaty()));
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee=" + this.getAnneebudgetaire());
             if (ligneCredits.length > 0) {
                 retour = ligneCredits[0];
             }
