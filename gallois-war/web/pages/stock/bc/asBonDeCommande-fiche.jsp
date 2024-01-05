@@ -51,6 +51,7 @@
     pc.getChampByName("Montanthtsansremise").setLibelle("Montant HT Sans Remise");
     pc.getChampByName("devisemere").setLibelle("Devise");
     pc.getChampByName("idda").setVisible(false);
+    pc.getChampByName("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
     
     
     pc.setTitre("Fiche Bon de commande");

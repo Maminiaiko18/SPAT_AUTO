@@ -47,6 +47,7 @@ public class BonDeCommande extends ClassEtat {
     private String idengagement, idengagementlib, code_etablib, fournisseurlib, projetlib;
     private double montantreste;
     private String idfournisseur, idprojet, codeetablissement, devisemere;
+    private int anneebudgetaire;
 
     public String getFournisseurlib() {
         return fournisseurlib;
@@ -459,6 +460,14 @@ public class BonDeCommande extends ClassEtat {
 
     public void setDevisemere(String devisemere) {
         this.devisemere = devisemere;
+    }
+
+    public int getAnneebudgetaire() {
+        return anneebudgetaire;
+    }
+
+    public void setAnneebudgetaire(int anneebudgetaire) {
+        this.anneebudgetaire = anneebudgetaire;
     }
 
     public static String getSequence() throws Exception {
@@ -922,7 +931,7 @@ public class BonDeCommande extends ClassEtat {
             lc.setNomTable("LIGNECREDITDEPENSE");
             //lc.setIdcodeEtablissement(this.getCode_etab());
             //lc.setIdprojet(this.getProjet());
-            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, "and codeetablissement='"+this.getCode_etab()+"' and projet ='"+this.getProjet()+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, "and codeetablissement='"+this.getCode_etab()+"' and projet ='"+this.getProjet()+"' and annee="+this.getAnneebudgetaire());
             if(ligneCredits.length>0)retour=ligneCredits[0];   
         }catch(Exception e){
             e.printStackTrace();
@@ -940,7 +949,7 @@ public class BonDeCommande extends ClassEtat {
         lc.setNomTable("SITUATIONLCDEPENSEGRP_TEMP");
         String dir=this.getCode_etab();
         String prj=this.getProjet();
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+Utilitaire.getAnnee(this.getDaty()));
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+this.getAnneebudgetaire());
         if(ligneCredits.length > 0) return ligneCredits[0];
         return null;
         }

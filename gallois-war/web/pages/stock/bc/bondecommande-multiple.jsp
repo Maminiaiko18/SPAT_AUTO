@@ -103,6 +103,8 @@
         pi.getFormu().getChamp("fournisseur").setDefaut(Utilitaire.champNull(engagement.getTiers()));
         pi.getFormu().getChamp("fournisseur").setValeurLibelle(Utilitaire.champNull(engagement.getTierslib()));
         pi.getFormu().getChamp("devisemere").setLibelle("Devise");
+        pi.getFormu().getChamp("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
+        pi.getFormu().getChamp("anneebudgetaire").setDefaut(Utilitaire.getAnneeEnCours());
         
         if(u.getUser().getCodeEtablissement()!=null){
             CodeEtablissement code= u.getCodeEtablissement();
