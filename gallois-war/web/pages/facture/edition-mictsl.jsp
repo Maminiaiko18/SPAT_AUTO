@@ -27,11 +27,12 @@
     pi.setLien((String) session.getValue("lien"));  
     
     affichage.Champ[] liste = new affichage.Champ[2];
-    TypeObjet mois = new TypeObjet();
-    mois.setNomTable("mois");
-    liste[0] = new Liste("mois", mois, "VAL", "id");
+    Liste li = new Liste();
+    li.makeListeMois();
+    li.setNom("mois");
+    liste[0] = li;
     
-    String[] aff={"Redevance fixe", "Redevance variable","Droit de port","Penalité de retard","Penalite de performance"};
+    String[] aff={"Redevance fixe", "Redevance variable","Droit de port","Penalit&eacute; de retard","Penalite de performance"};
     String[] val={"1","2","3","4","5"};
     Liste lst = new Liste();
     lst.ajouterValeur(val, aff);
@@ -43,7 +44,7 @@
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("noteexplicative").setLibelle("Note explicative");
-    pi.getFormu().getChamp("annee").setLibelle("Année");
+    pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
     pi.getFormu().getChamp("annee").setDefaut(Utilitaire.getAnneeEnCours());
             
     pi.preparerDataFormu();
