@@ -799,6 +799,7 @@ public class FactureFournisseur extends FactureClient {
                 categorie = Constante.getCategorieFFBP();
             }
 
+            if(fc.getAnneebudgetaire()==0) fc.setAnneebudgetaire(Utilitaire.getAnnee(this.getDaty()));
             fact2 = (FactureFournisseur) fc.dupliquer(u.getUser().getTuppleID(), c);
             fact2 = (FactureFournisseur) fc.setIdProvision(fact2, type, u, c);
             fact2.setIdcategorie(categorie);
