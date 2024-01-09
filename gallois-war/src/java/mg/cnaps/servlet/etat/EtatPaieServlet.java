@@ -3853,7 +3853,7 @@ public class EtatPaieServlet extends HttpServlet {
             if (mere.length != 0) {
                 engagement = mere[0];
                 param.put("code_etab", engagement.getCodeEtablissementlib());
-                param.put("annee", Utilitaire.getAnnee(engagement.getDaty()) + "");
+                param.put("annee", String.valueOf(engagement.getAnnee()));
                 param.put("piece", engagement.getDesignation());
                 param.put("du", engagement.getDaty());
                 param.put("projet", engagement.getProjetlib());
