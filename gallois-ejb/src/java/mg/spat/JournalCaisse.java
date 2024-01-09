@@ -987,6 +987,12 @@ public class JournalCaisse extends ClassEtat {
                 c.setAutoCommit(false);
                 verif = 1;
             }
+            // si journal de caisse am caisse BON PROVISOIRE BANQUE, dia atao date de visa ny date effet an journal
+            if(this.getCaisse().equalsIgnoreCase(Constante.banqueBP)) {
+                this.setDateEffet(Utilitaire.dateDuJourSql());
+                this.updateToTable(c);
+            }
+            
             ClotureService.testDateCloture(this.dateEffet, this.caisse, c);
             this.controlerAttacheTraite();
 
@@ -1103,12 +1109,6 @@ public class JournalCaisse extends ClassEtat {
             FactureFournisseur facture = this.getFacture("facture_fournisseur_mere", c);
             if(facture!=null && facture.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0 && this.getCreationAuto() == false){
                 this.genererAutoParBP(user, c);
-            }
-
-            // si journal de caisse am caisse BON PROVISOIRE BANQUE, dia atao date de visa ny date effet an journal
-            if(this.getCaisse().equalsIgnoreCase(Constante.banqueBP)) {
-                this.setDateEffet(Utilitaire.dateDuJourSql());
-                this.updateToTable(c);
             }
 
             user.updateEtat(this, ConstanteEtat.getEtatValider(), this.getId(), c);
