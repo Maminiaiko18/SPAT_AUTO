@@ -1577,7 +1577,7 @@ public class FactureFournisseur extends FactureClient {
     
     public void createEngagement(String u, Connection c, double montant, LigneCredit lc, boolean controleBudget) throws Exception {
         try{
-            Engagement engagement = new Engagement(this.getNumeroop(), this.getCode_etablissement() , this.getProjet(), montant, Utilitaire.getAnnee(this.getDaty()), Utilitaire.dateDuJourSql(), this.getTiers(), 0);
+            Engagement engagement = new Engagement(this.getNumeroop(), this.getCode_etablissement() , this.getProjet(), montant, this.getAnneebudgetaire(), Utilitaire.dateDuJourSql(), this.getTiers(), 0);
             if (lc != null) {
                 engagement.setIdLC(lc.getTuppleID());
             }
