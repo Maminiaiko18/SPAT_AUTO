@@ -1532,6 +1532,11 @@ public class EtatPaieServlet extends HttpServlet {
                     && request.getParameter("date_echeance2").length() != 0) {
                 awhere += " AND date_echeance >= '" + request.getParameter("date_echeance2") + "'";
             }
+            if (request.getParameter("typelib") != null
+                    && request.getParameter("typelib").compareToIgnoreCase("null") != 0
+                    && request.getParameter("typelib").length() != 0) {
+                awhere+= "AND UPPER(typelib) like UPPER('%" + request.getParameter("typelib") + "%')";
+            }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
             FactureClient facture = new FactureClient();
@@ -1671,6 +1676,11 @@ public class EtatPaieServlet extends HttpServlet {
                     && request.getParameter("date_echeance2").compareToIgnoreCase("null") != 0
                     && request.getParameter("date_echeance2").length() != 0) {
                 awhere += " AND date_echeance >= '" + request.getParameter("date_echeance2") + "'";
+            }
+            if (request.getParameter("typelib") != null
+                    && request.getParameter("typelib").compareToIgnoreCase("null") != 0
+                    && request.getParameter("typelib").length() != 0) {
+                awhere+= "AND UPPER(typelib) like UPPER('%" + request.getParameter("typelib") + "%')";
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
