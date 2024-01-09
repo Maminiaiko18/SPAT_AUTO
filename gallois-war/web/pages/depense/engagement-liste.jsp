@@ -25,9 +25,9 @@
         String aWhere = prioritaire.makeListConfidentiality(u,"codeetablissementlib");
         System.out.println("aWhere "+aWhere);
 
-        String listeCrt[] = {"id", "designation","codeetablissementlib","projetlib", "daty", "tierslib","num"};
+        String listeCrt[] = {"id", "designation","codeetablissementlib","projetlib", "daty", "tierslib","num","annee"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "designation","compte", "montant"/*, "montantOP"*/, "montantreste", "dispoavant", "dispoapres", "codeetablissementlib", "projetlib", "tierslib", "daty", "num","montantliberer","observation"};
+        String libEntete[] = {"id", "designation","compte", "montant"/*, "montantOP"*/, "montantreste", "dispoavant", "dispoapres", "codeetablissementlib", "projetlib", "tierslib", "daty","annee", "num","montantliberer","observation"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -46,6 +46,7 @@
             pr.getFormu().getChamp("daty2").setDefaut(dateFin);
 
         }
+        pr.getFormu().getChamp("annee").setLibelle("Ann&eacute;e budg&eacute;taire");
         pr.getFormu().getChamp("daty1").setLibelle("Date Min");
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
@@ -99,7 +100,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "D&eacute;signation","compte", "Montant"/*, "Montant d'ordre payement"*/, "Disponibilit&eacute;", "Disponibilit&eacute; avant", "Disponibilit&eacute; apr&egrave;s", "Code &eacute;tablissement", "Projet", "Tiers", "Date", "No.","montant liberé","observation"};
+            String libEnteteAffiche[] ={"Id", "D&eacute;signation","compte", "Montant"/*, "Montant d'ordre payement"*/, "Disponibilit&eacute;", "Disponibilit&eacute; avant", "Disponibilit&eacute; apr&egrave;s", "Code &eacute;tablissement", "Projet", "Tiers", "Date","Ann&eacute;e budg&eacute;taire", "No.","montant liberé","observation"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
