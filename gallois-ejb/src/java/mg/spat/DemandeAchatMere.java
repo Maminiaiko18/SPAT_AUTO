@@ -22,6 +22,23 @@ public class DemandeAchatMere extends ClassEtat{
     private String id,codeetablissement,projet,num,idengagement,designation,codeetablissementlib, projetlib, idengagementlib, idcategorieachat, idcategorieachatlib;
     private Date daty;
     private String etatlib;
+    private String patrimoine,patrimoinelib;
+
+    public String getPatrimoine() {
+        return patrimoine;
+    }
+
+    public void setPatrimoine(String patrimoine) {
+        this.patrimoine = patrimoine;
+    }
+
+    public String getPatrimoinelib() {
+        return patrimoinelib;
+    }
+
+    public void setPatrimoinelib(String patrimoinelib) {
+        this.patrimoinelib = patrimoinelib;
+    }
 
     public DemandeAchatMere() {
         super.setNomTable("dem_achat_mere");
