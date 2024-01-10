@@ -232,8 +232,8 @@ public class Avenant extends ClassEtat {
 
     public void setFin_avenant(Date fin_avenant) {
         this.fin_avenant = fin_avenant;
-        if(getMode().equals("modif"))
-            this.fin_avenant = Utilitaire.ajoutJourDate(this.getDebut_avenant(), (int) Math.ceil(this.getDuree()-1));
+        //if(getMode().equals("modif"))
+            //this.fin_avenant = Utilitaire.ajoutJourDate(this.getDebut_avenant(), (int) Math.ceil(this.getDuree()-1));
     }
 
     public String getTierslib() {
@@ -308,7 +308,7 @@ public class Avenant extends ClassEtat {
                 ouvert = true;
                 c.setAutoCommit(false);
             }
-            if(this.getRang() != 0){
+            /*if(this.getRang() != 0){
                 Contrat contrat = (Contrat)(new Contrat()).getById(this.getIdContrat(), null, c);
                 Engagement engagement = new Engagement();
                 engagement.setDesignation(this.getObjet());
@@ -329,7 +329,7 @@ public class Avenant extends ClassEtat {
                 engagement.setType(Constante.typeEngagementAvenant);
                 if(this.getControleMontant() == 0)engagement.validerObject(u, c);
                 else engagement.validerObjectSansControleMontant(u, c);
-            }
+            }*/
             
             super.validerObject(u, c);
             c.commit();

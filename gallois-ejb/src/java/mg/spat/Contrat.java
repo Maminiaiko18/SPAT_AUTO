@@ -266,7 +266,7 @@ public class Contrat extends ClassEtat{
 
     public void setIdLC(String idLC) throws Exception{
         this.idLC = idLC;
-        if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
+        //if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
     }
 
     public String getProjetlib() {
@@ -392,23 +392,23 @@ public class Contrat extends ClassEtat{
             if(avenants.length > 0){
                 avenants[0].validerObject(u, c);
                 
-                Engagement engagement = new Engagement();
-                engagement.setDesignation(this.getObjet());
-                engagement.setCodeEtablissement(this.getCodeetablissement());
-                engagement.setProjet(this.getProjet());
-                engagement.setIdLC(this.getIdLC());
-                engagement.setDaty(Utilitaire.dateDuJourSql());
-                engagement.setTiers(avenants[0].getIdTiers());
-                engagement.setAnnee(Utilitaire.getAneeEnCours());
-                engagement.setIdavenant(avenants[0].getId());
-                engagement.setMontant(avenants[0].getMontant());
-                engagement.createObject(u, c);
-                EngagementFille engfille = new EngagementFille(engagement.getId(), this.getObjet(), avenants[0].getMontant());
-                engfille.createObject(u, c);
+                // Engagement engagement = new Engagement();
+                // engagement.setDesignation(this.getObjet());
+                // engagement.setCodeEtablissement(this.getCodeetablissement());
+                // engagement.setProjet(this.getProjet());
+                // engagement.setIdLC(this.getIdLC());
+                // engagement.setDaty(Utilitaire.dateDuJourSql());
+                // engagement.setTiers(avenants[0].getIdTiers());
+                // engagement.setAnnee(Utilitaire.getAneeEnCours());
+                // engagement.setIdavenant(avenants[0].getId());
+                // engagement.setMontant(avenants[0].getMontant());
+                // engagement.createObject(u, c);
+                // EngagementFille engfille = new EngagementFille(engagement.getId(), this.getObjet(), avenants[0].getMontant());
+                // engfille.createObject(u, c);
                 
-                engagement.setType(Constante.typeEngagementContrat);
-                if(this.getControleMontant() == 0)engagement.validerObject(u, c);
-                else engagement.validerObjectSansControleMontant(u, c);
+                // engagement.setType(Constante.typeEngagementContrat);
+                // if(this.getControleMontant() == 0)engagement.validerObject(u, c);
+                // else engagement.validerObjectSansControleMontant(u, c);
             }
                 
             super.validerObject(u, c);
