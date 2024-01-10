@@ -21,9 +21,9 @@
             demandeMere.setNomTable(nomTableEtat);
         }
 
-        String listeCrt[] = {"id","num", "designation","codeetablissementlib","projetlib","idengagementlib","daty","idcategorieachat"};
+        String listeCrt[] = {"id","num", "designation","codeetablissementlib","projetlib","patrimoinelib","daty","idcategorieachat"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id","num","designation","idcategorieachatlib","codeetablissementlib","projetlib","idengagementlib","daty","etatlib"};
+        String libEntete[] = {"id","num","designation","idcategorieachatlib","codeetablissementlib","projetlib","patrimoinelib","daty","etatlib"};
 
         PageRecherche pr = new PageRecherche(demandeMere, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -41,9 +41,9 @@
         pr.getFormu().getChamp("daty2").setLibelle("Date Max");
         pr.getFormu().getChamp("projetlib").setLibelle("Projet");
         pr.getFormu().getChamp("codeetablissementlib").setLibelle("Code etablissemment");
+        pr.getFormu().getChamp("patrimoinelib").setLibelle("Patrimoine");
 
         pr.getFormu().getChamp("designation").setLibelle("Designation");
-        pr.getFormu().getChamp("idengagementlib").setLibelle("Engagement");
         pr.getFormu().getChamp("num").setLibelle("No.");
         pr.getFormu().getChamp("idcategorieachat").setLibelle("Cat&eacute;gorie achat");
 
@@ -91,7 +91,7 @@
                 out.println(pr.getTableauRecap().getHtml());%>
             <br>
             <%
-                String libEnteteAffiche[] ={"Id", "No.", "D&eacute;signation", "Cat&eacute;gorie achat", "Code &eacute;tablissement","Projet","Engagement","Date","Etat"};
+                String libEnteteAffiche[] ={"Id", "No.", "D&eacute;signation", "Cat&eacute;gorie achat", "Code &eacute;tablissement","Projet","Patrimoine","Date","Etat"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("genererBC");
                 pr.getTableau().setNameBoutton("G&eacute;n&eacute;rer BC");

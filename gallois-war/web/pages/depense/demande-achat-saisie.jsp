@@ -27,12 +27,14 @@
         PageInsertMultiple pi = new PageInsertMultiple(dam, dafille, request, 10, u);
         pi.setLien((String) session.getValue("lien"));
         pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
-        pi.getFormu().getChamp("codeetablissement").setLibelle("Code Etablissement");
+        pi.getFormu().getChamp("codeetablissement").setLibelle("Code &eacute;tablissement");
         pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
         pi.getFormu().getChamp("projet").setAutre("readonly");
         //pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
         //pi.getFormu().getChamp("idengagement").setAutre("readonly");
+        pi.getFormu().getChamp("patrimoine").setPageAppel("choix/listePatrimoineChoix.jsp");
+        pi.getFormu().getChamp("patrimoine").setAutre("readonly");
         pi.getFormu().getChamp("idengagement").setVisible(false);
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");

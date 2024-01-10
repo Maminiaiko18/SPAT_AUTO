@@ -35,6 +35,8 @@
     pc.getChampByName("etatlib").setVisible(false);
     pc.getChampByName("idcategorieachatlib").setLibelle("Cat&eacute;gorie achat");
     pc.getChampByName("idcategorieachat").setVisible(false);
+    pc.getChampByName("patrimoine").setVisible(false);
+    pc.getChampByName("patrimoinelib").setLibelle("Patrimoine");
     
     Map<String, String> map = new HashMap();
     map.put("details-demande-achat","");
