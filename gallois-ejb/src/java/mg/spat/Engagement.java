@@ -581,11 +581,11 @@ public class Engagement extends ClassEtat {
                 c = new UtilDB().GetConn();
                 ouvert = true;
             }
-            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, "and codeetablissement='"+this.getCodeEtablissement()+"' and projet='"+this.getProjet()+"' and  num > " + this.getNum() + " and etat = " + ConstanteEtat.getEtatValider());
+            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, "and codeetablissement='"+this.getCodeEtablissement()+"' and num > " + this.getNum() + " and etat = " + ConstanteEtat.getEtatValider()+" and annee="+this.getAnnee());
             if(engagement.length > 0)
                 throw new Exception("Un autre engagement a été créé après celui-ci.");
                 
-            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()+" AND ID2 NOT LIKE '%BRD%'");
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()+" AND ID2 NOT like '%BRD%");
             if(liaisons.length > 0)
                 throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
             
