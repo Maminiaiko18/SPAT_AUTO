@@ -29,6 +29,8 @@
         fille.setIdmere(id);
         DemandeAchatFille[] liste = (DemandeAchatFille[]) CGenUtil.rechercher(fille, null, null, "");
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
+        mere = (DemandeAchatMere) pi.getBase();
+
         pi.setLien((String) session.getValue("lien"));
         
         pi.getFormu().getChamp("codeetablissement").setLibelle("Code établissement");
@@ -50,6 +52,14 @@
         
         pi.getFormu().getChamp("idengagement").setVisible(false);
         pi.getFormu().getChamp("idcategorieachatlib").setVisible(false);
+        pi.getFormu().getChamp("idcategorieachatlib").setVisible(false);
+
+        pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
+        pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
+        pi.getFormu().getChamp("patrimoine").setPageAppel("choix/listePatrimoineChoix.jsp");
+        pi.getFormu().getChamp("patrimoine").setAutre("readonly");
+        pi.getFormu().getChamp("patrimoine").setDefaut(mere.getPatrimoinelib());
+        pi.getFormu().getChamp("Patrimoinelib").setVisible(false);
         
         affichage.Champ[] listem = new affichage.Champ[1];
 
