@@ -20,15 +20,33 @@ import utilitaire.Utilitaire;
  */
 public class Contrat extends ClassEtat{
     private String id,idTiers,objet,devise,unite,typedroitport,typeDuree,numeros,idchantier;
-    private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib,idavenant,codeprojetlib;
+    private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib,idavenant,codeprojetlib,numero;
     private double droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant,montantpaye;
     private Date date_signature,debut_contrat,fin_contrat,fin_avenant;
     private int controleMontant, annee;
-    private double duree;
+    private double duree, resteaengager;
     
     public Contrat() {
         super.setNomTable("CONTRAT");
     }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public double getResteaengager() {
+        return resteaengager;
+    }
+
+    public void setResteaengager(double resteaengager) {
+        this.resteaengager = resteaengager;
+    }
+    
+    
     
     public String getValColLibelle(){
         return this.getObjet();

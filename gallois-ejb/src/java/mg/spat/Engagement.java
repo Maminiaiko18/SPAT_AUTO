@@ -30,7 +30,7 @@ import facture.LiaisonEngagement;
  * @author Nouta
  */
 public class Engagement extends ClassEtat {
-    private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib,observation,idtype,idtypelib;
+    private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib,observation,idtype,idtypelib, idcontrat;
     private String codeEtablissementlib,projetlib,tiers ,tierslib,num, idengagement;
     private double montant,disponible,dispoAvant,dispoApres,montantOP,montantreste,montantliberer;
     private Date daty;
@@ -58,6 +58,14 @@ public class Engagement extends ClassEtat {
 
     public void setIdtypelib(String idtypelib) {
         this.idtypelib = idtypelib;
+    }
+
+    public String getIdcontrat() {
+        return idcontrat;
+    }
+
+    public void setIdcontrat(String idcontrat) {
+        this.idcontrat = idcontrat;
     }
     
 
@@ -667,6 +675,11 @@ public class Engagement extends ClassEtat {
     
     @Override
     public void controler(Connection c) throws Exception {
+        Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(new Contrat(), null, null, c, " AND ID = '" + this.getIdcontrat() + "'");
+        Contrat ca = contrat[0];        
+        if(this.getIdcontrat()!=null &&  this.getMontant()> ca.getResteaengager()){
+            throw new Exception(" Le montant dépasse le montant reste du contrat");
+        }
         if(this.getEtat() == ConstanteEtat.getEtatAnnuler()) 
             throw new Exception("Impossible \\340 viser, d\\351j\\340 annul\\351");
     }
