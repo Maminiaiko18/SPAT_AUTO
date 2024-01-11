@@ -49,7 +49,9 @@
 
     Map<String, String> map = new HashMap();
     map.put("avenant","");
-    map.put("engagement-contrat","");
+    map.put("engagement-contrat","");   
+    map.put("facture-fournisseur-vaovao","");
+
     
     String tab = request.getParameter("tab");
     if (tab == null) {
@@ -94,6 +96,7 @@
                     <!-- a modifier -->
                     <li class="<%=map.get("avenant")%>"><a href="<%= lien %>?but=<%= pageActuel %>&id=<%= id %>&tab=avenant">Avenants</a></li>
                     <li class="<%=map.get("engagement-contrat")%>"><a href="<%= lien %>?but=<%= pageActuel %>&id=<%= id %>&tab=engagement-contrat">Engagements</a></li>
+                    <li class="<%=map.get("facture-fournisseur-vaovao")%>"><a href="<%= lien %>?but=<%= pageActuel %>&id=<%= id %>&tab=facture-fournisseur-vaovao">Facture fournisseur</a></li>
 
                 </ul>
                 <div class="tab-content">       
