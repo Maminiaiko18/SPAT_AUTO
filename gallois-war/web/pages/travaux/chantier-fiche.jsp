@@ -76,7 +76,7 @@
                     %>
                     <br/>
                     <div class="box-footer">
-                        <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/contrat-saisie-nouveau.jsp&idchantier="+cVise.getId()+"&nomchantier="+cVise.getNom()%>" style="margin-right: 10px">Saisir contrat</a>
+                        <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/contrat-saisie-nouveau.jsp&idchantier="+cVise.getId()+"&nomchantier="+cVise.getNom()%>&montant=<%=pc.getChampByName("montant").getValeur() %>&projet=<%=pc.getChampByName("projet").getValeur() %>&codeetablissement=<%=pc.getChampByName("codeetablissement").getValeur() %>" style="margin-right: 10px">Saisir contrat</a>
                         <a class="btn btn-info pull-left"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=travaux/chantier-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                         <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/chantier-modif.jsp&id=" + cVise.getId()%>" style="margin-right: 10px">Modifier</a>
                         <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" +cVise.getId()%>&acte=delete&bute=travaux/chantier-liste.jsp&classe=mg.spat.Chantier"><button class="btn btn-danger">Supprimer</button></a>
