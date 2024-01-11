@@ -46,7 +46,7 @@
         pi.getFormu().changerEnChamp(listes);
         
        
-        pi.getFormu().getChamp("idavenant").setLibelle("Avenant");
+        pi.getFormu().getChamp("idavenant").setVisible(false);
         pi.getFormu().getChamp("idtype").setLibelle("Type");
 
 
