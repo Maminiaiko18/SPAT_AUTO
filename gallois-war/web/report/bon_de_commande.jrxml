@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_de_commande" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="85" uuid="5de4b302-b873-4cc5-ac86-c7d51ce58f1b">
 	<property name="ireport.zoom" value="1.6105100000000314"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="156"/>
+	<property name="ireport.y" value="555"/>
 	<parameter name="DATY" class="java.util.Date"/>
 	<parameter name="NOMFOURNISSEUR" class="java.lang.String"/>
 	<parameter name="ADRESSE" class="java.lang.String"/>
@@ -24,6 +24,7 @@
 	<parameter name="CODE_ETATLIB" class="java.lang.String"/>
 	<parameter name="totalHtRemise" class="java.lang.Double"/>
 	<parameter name="deviselib" class="java.lang.String"/>
+	<parameter name="ACOMPTE" class="java.lang.Double"/>
 	<field name="produit" class="java.lang.String"/>
 	<field name="pu" class="java.lang.Double"/>
 	<field name="quantite" class="java.lang.Double"/>
@@ -547,6 +548,13 @@ MATIERES ET APPROVISIONNEMENTS]]></text>
 				</textElement>
 				<text><![CDATA[LE FOURNISSEUR]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="19" width="231" height="12" uuid="75cda6cd-4f96-4fbf-8ea5-948e478dd14d"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Acompte "+$P{ACOMPTE}+" % à la passation de la commande."]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
