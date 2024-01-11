@@ -7,7 +7,11 @@
 <%
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
+    String nomtable = request.getParameter("nomtable");
     Navire pj = new Navire();
+    if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+        pj.setNomTable(nomtable);
+    }
     PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
     
     affichage.Champ[] liste = new affichage.Champ[1];

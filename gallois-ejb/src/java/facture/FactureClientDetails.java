@@ -44,6 +44,15 @@ public class FactureClientDetails extends ClassFille {
     private double montantHTEuro, montantTVAEuro, montanttaxe, majoration, reduction, duree, montantnet, tvaDf;
     private int rang;
     private String idrubrique, catClient, libelleRubrique, unite;
+    private int estProformaEscale;
+
+    public int getEstProformaEscale() {
+        return estProformaEscale;
+    }
+
+    public void setEstProformaEscale(int estProformaEscale) {
+        this.estProformaEscale = estProformaEscale;
+    }
     
     public String getClient() {
         return client;
@@ -575,6 +584,7 @@ public class FactureClientDetails extends ClassFille {
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
         FactureClient mere = this.findMere(c);
+        if(mere.getEstProformaEscale()==1)this.setEstProformaEscale(1);
         if (mere.getBateau() != null && mere.getDateDepart() != null && ( mere.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0 || mere.getIdcategorie().compareTo(Constante.idCategorieFCProforma) == 0) ){
                 this.setDatefact(mere.getDateDepart());
         }
@@ -586,6 +596,13 @@ public class FactureClientDetails extends ClassFille {
 
     public void verifActivite(Connection c) throws Exception {
         Activite act = getActivite(c);
+        if (act != null && act.getEtat() < ConstanteEtat.getEtatValider()) {
+            throw new Exception("Activite non visee !");
+        }
+    }
+    
+    public void verifActiviteProf(Connection c) throws Exception {
+        Activite act = getActiviteProf(c);
         if (act != null && act.getEtat() < ConstanteEtat.getEtatValider()) {
             throw new Exception("Activite non visee !");
         }
@@ -614,11 +631,39 @@ public class FactureClientDetails extends ClassFille {
         return rub != null && rub.length > 0 ? rub[0] : null;
     }
     
+    public Rubrique getRubriqueProf(Connection c) throws Exception {
+        String awhere = " and id = '%s'";
+        String idRubrique = null;
+
+        if (this.getRubrique() != null) {
+            idRubrique = this.getRubrique();
+        } else if (this.getIdactivite() != null) {
+            idRubrique = this.getActiviteProf(c).getRubrique();
+        }
+
+        awhere = String.format(awhere, idRubrique);
+        Rubrique rubr = new Rubrique();
+        Rubrique[] rub = (Rubrique[]) CGenUtil.rechercher(rubr, null, null, c, awhere);
+
+        return rub != null && rub.length > 0 ? rub[0] : null;
+    }
+    
     public Rubrique getRubriqueById(Connection c, String id) throws Exception {
         String awhere = " and id = '%s'";
 
         awhere = String.format(awhere, id);
         Rubrique[] rub = (Rubrique[]) CGenUtil.rechercher(new Rubrique(), null, null, c, awhere);
+
+        return rub != null && rub.length > 0 ? rub[0] : null;
+    }
+    
+    public Rubrique getRubriqueById(Connection c, String id, String nomtable) throws Exception {
+        String awhere = " and id = '%s'";
+
+        awhere = String.format(awhere, id);
+        Rubrique rubr = new Rubrique();
+        rubr.setNomTable(nomtable);
+        Rubrique[] rub = (Rubrique[]) CGenUtil.rechercher(rubr, null, null, c, awhere);
 
         return rub != null && rub.length > 0 ? rub[0] : null;
     }
@@ -634,6 +679,31 @@ public class FactureClientDetails extends ClassFille {
             }
             Activite ac = new Activite();
             ac.setNomTable("ACTIVITELIBCOMPLET");
+            Activite[] liste = (Activite[]) CGenUtil.rechercher(ac, null, null, c, " and id='" + this.getIdactivite() + "'");
+            if (liste.length > 0) {
+                retour = liste[0];
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && estOuvert) {
+                c.close();
+            }
+        }
+        return retour;
+    }
+    
+    public Activite getActiviteProf(Connection c) throws Exception {
+        Activite retour = null;
+        Boolean estOuvert = false;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                estOuvert = true;
+            }
+            Activite ac = new Activite();
+            ac.setNomTable("ACTIVITELIBCOMPLETPROF");
             Activite[] liste = (Activite[]) CGenUtil.rechercher(ac, null, null, c, " and id='" + this.getIdactivite() + "'");
             if (liste.length > 0) {
                 retour = liste[0];
@@ -730,15 +800,17 @@ public class FactureClientDetails extends ClassFille {
 
     public FactureClient findMere(Connection c) throws Exception {
         if (this.getMere() == null) {
+            System.out.println("Naka mere vaovao");
             FactureClient fc = new FactureClient();
             fc.setId(this.getIdmere());
             fc.setEstDDPMICTSL(null);
             FactureClient[] tmp = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, "");
-
+            
             if (tmp != null && tmp.length > 0) {
                 this.setMere(tmp[0]);
                 return tmp[0];
             }
+            
         }
 
         return this.getMere();
@@ -762,7 +834,10 @@ public class FactureClientDetails extends ClassFille {
         FactureClient mere = this.getMere();
         Date date = mere.getDaty();
         if (mere.getIdprevision() != null) {
-            Prevision prev = mere.findPrevision("PREVISIONTYPEBORNAGE", c);
+            Prevision prev;
+            if(this.getEstProformaEscale()==1) prev = mere.findPrevision("PREVISIONTYPEBORNAGEPROF", c);
+            else prev = mere.findPrevision("PREVISIONTYPEBORNAGE", c);
+            
             if (prev.getType().compareToIgnoreCase("TYPES0001") != 0) { // cas escale
                 if (prev.getDate_depart() != null) {
                     date = prev.getDate_depart();
@@ -993,10 +1068,28 @@ public class FactureClientDetails extends ClassFille {
             }
         }
     }
+    
+    public void checkActiviteProf(Connection c) throws Exception {
+        if (this.getIdactivite() != null && this.getIdactivite().compareTo("") != 0) {
+            Activite act = new Activite();
+            act.setNomTable("ACTIVITESNONFACTUREESProf");
+            Activite[] activites = (Activite[]) CGenUtil.rechercher(act, null, null, c, " and id ='" + this.getIdactivite() + "'");
+
+            if (activites.length == 0) {
+                throw new Exception("Cette activite a deja ete facturee ou n est pas encore visee");
+            }
+        }
+    }
 
     public void controler(Connection c) throws Exception {
-        verifActivite(c);
-        this.checkActivite(c);
+        if(this.getEstProformaEscale()==1){
+            verifActiviteProf(c);
+            this.checkActiviteProf(c);
+        } else {
+            verifActivite(c);
+            this.checkActivite(c);
+        }
+        
     }
 
 }

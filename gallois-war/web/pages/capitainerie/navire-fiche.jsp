@@ -13,8 +13,13 @@
 <%@ page import="affichage.*" %>
 
 <%
+    String nomtable = request.getParameter("nomtable");
     Navire navire = new Navire();
     navire.setNomTable("navirelib");
+    
+    if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+        navire.setNomTable(nomtable);
+    }
     //if(request.getParameter("id")!=null && request.getParameter("id").compareToIgnoreCase("")!=0)navire.setId(request.getParameter("id"));
     PageConsulte pc = pc = new PageConsulte(navire, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 

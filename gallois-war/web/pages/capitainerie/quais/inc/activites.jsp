@@ -3,9 +3,14 @@
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRechercheChoix"%>
 <%
+    String nomtable = request.getParameter("nomtable");
     try {
         Activite activite = new Activite();
         activite.setNomTable("ACTIVITELIBCOMPLET");
+        
+        if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+            activite.setNomTable(nomtable);
+        }
 
         String bateau = request.getParameter("id");
 

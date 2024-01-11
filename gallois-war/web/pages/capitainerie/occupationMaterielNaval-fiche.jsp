@@ -18,8 +18,13 @@
 <%@ page import="affichage.*" %>
 
 <%
+    String nomtable = request.getParameter("nomtable");
     OccupationMaterielNaval prevision = new OccupationMaterielNaval();
+    
     prevision.setNomTable("occupmaterielnavallib");
+    if(nomtable != null && !nomtable.isEmpty()){
+        prevision.setNomTable(nomtable);
+    }
     PageConsulte pc = pc = new PageConsulte(prevision, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
     
     pc.getChampByName("positionlib").setLibelle("Position");
@@ -36,7 +41,12 @@
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("datefin").setLibelle("Date fin");
    
-    pc.getChampByName("idprevision").setLien(session.getValue("lien")+"?but=capitainerie/quais/quais-prevision-fiche.jsp","id=");
+    if(nomtable != null && !nomtable.isEmpty()){
+        pc.getChampByName("idprevision").setLien(session.getValue("lien")+"?but=capitainerie/quais/quais-prevision-prof-fiche.jsp","id=");
+    } else{
+        pc.getChampByName("idprevision").setLien(session.getValue("lien")+"?but=capitainerie/quais/quais-prevision-fiche.jsp","id=");
+    }
+    
     pc.getChampByName("idarrivee").setVisible(false);
     pc.getChampByName("idnavire").setVisible(false);
     pc.getChampByName("idpilote").setVisible(false);
@@ -52,8 +62,13 @@
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
     String dossier="occupationMaterielNaval";
     prevision = (OccupationMaterielNaval)pc.getBase();
-    pc.getChampByName("idarriveelib").setLien((String) session.getValue("lien") + "?but=capitainerie/mouvement-fiche.jsp&id="+prevision.getIdarrivee(), "idarriveelib=");
     
+    
+    if(nomtable != null && !nomtable.isEmpty()){
+        pc.getChampByName("idarriveelib").setLien((String) session.getValue("lien") + "?id="+ prevision.getIdarrivee() +"&but=capitainerie/mouvement-fiche.jsp?nomtable=mouvementlibcompletprof", "idarriveelib=");
+    } else{
+        pc.getChampByName("idarriveelib").setLien((String) session.getValue("lien") + "?but=capitainerie/mouvement-fiche.jsp&id="+prevision.getIdarrivee(), "idarriveelib=");
+    }
     Map<String, String> map = new HashMap<String, String>();
     map.put("liste_activites", "");
     String tab = request.getParameter("tab");
@@ -63,6 +78,10 @@
     map.put(tab, "active");
     tab = "inc/" + tab + ".jsp";
     String bute="capitainerie/occupationMaterielNaval-fiche.jsp";
+    if(nomtable!=null && !nomtable.isEmpty()){
+        bute="capitainerie/occupationMaterielNaval-fiche.jsp?nomtable=OCCUPMATERIELNAVALLIBPROF";
+    }
+    
 %>
 <div class="content-wrapper">
     <div class="row">
@@ -78,6 +97,17 @@
                             out.println(pc.getHtml());
                         %>
                         <br/>
+                        <% if(nomtable!=null && !nomtable.isEmpty()){ %>
+                        <div class="box-footer">
+                            <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&nomtable=occupationmaterielnaval_prof&acte=valider&bute=capitainerie/occupationMaterielNaval-fiche.jsp?nomtable=OCCUPMATERIELNAVALLIBPROF&classe=mg.spat.OccupationMaterielNaval&id=" + prevision.getId()%>" style="margin-right: 10px">Viser</a>
+                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-modif.jsp?nomtable=OCCUPMATERIELNAVALLIBPROF&id=" + prevision.getId()%>" style="margin-right: 10px">Modifier</a>
+                            <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + prevision.getId()%>&acte=delete&bute=capitainerie/occupationMaterielNaval-fiche.jsp&classe=mg.spat.OccupationMaterielNaval"><button class="btn btn-danger">Supprimer</button></a>
+                            <a href="<%=(String) session.getValue("lien") + "?but=apresPrestation.jsp&acte=genererActiviteProf&classe=mg.spat.OccupationMaterielNaval&bute=exploitants/activites-fiche.jsp?nomtable=ACTIVITELIBCOMPLETPROF&id="+prevision.getId()%>"><button class="btn btn-primary">Saisir activité</button></a>
+                            <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + prevision.getId() + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/occupationMaterielNaval-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
+                            
+                        </div>
+                        
+                        <% } else { %>
                         <div class="box-footer">
                             <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&bute=capitainerie/occupationMaterielNaval-fiche.jsp&classe=mg.spat.OccupationMaterielNaval&id=" + prevision.getId()%>" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-modif.jsp&id=" + prevision.getId()%>" style="margin-right: 10px">Modifier</a>
@@ -86,6 +116,7 @@
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + prevision.getId() + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/occupationMaterielNaval-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                             
                         </div>
+                        <% } %>
                         <br/>
 
                     </div>

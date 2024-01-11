@@ -45,8 +45,8 @@
         debutAnnee.setDate(1);
         debutAnnee.setMonth(0);
         if(request.getParameter("dateArrivee1") == null || request.getParameter("dateArrivee1").isEmpty()){            
-            pr.getFormu().getChamp("dateArrivee1").setDefaut(Utilitaire.stringToDateJ("dd/MM/yyyy", debutAnnee));   
-            pr.setAWhere(" and dateArrivee>= '"+Utilitaire.stringToDateJ("dd/MM/yyyy", debutAnnee)+"'");
+            pr.getFormu().getChamp("dateArrivee1").setDefaut(Utilitaire.stringToDateJ("dd-MM-yy", debutAnnee));   
+            pr.setAWhere(" and dateArrivee >= to_date('"+Utilitaire.stringToDateJ("dd-MM-yy", debutAnnee)+"', 'dd-MM-yy')");
         }        
         pr.getFormu().getChamp("dateArrivee2").setLibelle("Date arrive max");
         

@@ -72,6 +72,16 @@ public class FactureClient extends ClassMere {
     private double montantsansreduction,montantresteAPayer;
     private String nomnavire;
     private int estBornageEtPeche;
+    
+    private int estProformaEscale;
+
+    public int getEstProformaEscale() {
+        return estProformaEscale;
+    }
+
+    public void setEstProformaEscale(int estProformaEscale) {
+        this.estProformaEscale = estProformaEscale;
+    }
 
     public double getMontantresteAPayer() {
         return this.montantttc - montantprovision;
@@ -849,10 +859,19 @@ public class FactureClient extends ClassMere {
 
             FactureClientDetails d = (FactureClientDetails)filles[0];
             Rubrique rubrique = null;
-            if(this.getEstBornageEtPeche() == 1)
-                rubrique = ((FactureClientDetails) filles[0]).getRubriqueById(c, Constante.getDroitDePortBP());
-            else
-                rubrique = ((FactureClientDetails) filles[0]).getRubrique(c);
+            if(this.getEstProformaEscale()==1){
+                ((FactureClientDetails) filles[0]).setEstProformaEscale(1);
+                if(this.getEstBornageEtPeche() == 1)
+                    rubrique = ((FactureClientDetails) filles[0]).getRubriqueById(c, Constante.getDroitDePortBP());
+                else
+                    rubrique = ((FactureClientDetails) filles[0]).getRubriqueProf(c);
+            } else{
+                if(this.getEstBornageEtPeche() == 1)
+                    rubrique = ((FactureClientDetails) filles[0]).getRubriqueById(c, Constante.getDroitDePortBP());
+                else
+                    rubrique = ((FactureClientDetails) filles[0]).getRubrique(c);
+            }
+            
 
             // Factures automatiques
             if (rubrique == null) {
@@ -2121,6 +2140,7 @@ public class FactureClient extends ClassMere {
         {
             fd=getFirstFille();
             fd.setDevise(Constante.deviseDollars);
+            if(this.getEstProformaEscale()==1)fd.setEstProformaEscale(1);
             setDeviseDollar(fd.getTauxRecent(c));
             return;
         }
@@ -2138,6 +2158,7 @@ public class FactureClient extends ClassMere {
 
     public void setDevises(Connection c) throws Exception {
         this.setDeviseEuro(c);
+        System.out.println("setDevises ==== "+this.getEstProformaEscale());
         this.setDeviseDollar(c);
         if(this.getDateChange()!=this.getDaty())
         {
@@ -2155,6 +2176,50 @@ public class FactureClient extends ClassMere {
     }
 
     public void initDetails(Connection c) throws Exception {
+        int verif = 0;
+
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                verif = 1;
+            }
+
+            if (listeDetails == null) {
+                FactureClientDetails fcd = new FactureClientDetails();
+                fcd.setNomTable("facture_client_montanttc");
+                listeDetails = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, " and idmere = '" + this.getId() + "' order by rang asc, datyactivite asc");
+                if (listeDetails == null) {
+                    throw new Exception("Aucun details pour la facture " + this.getId());
+                }
+            }
+            System.out.println("initDetails ==== "+this.getEstProformaEscale());
+            this.setDevises(c);
+
+            for (int i = 0; i < listeDetails.length; i++) {
+                double montantHT = listeDetails[i].getMontant(), montantTVA = listeDetails[i].getMontanttaxe();
+                String devise = listeDetails[i].getDevise();
+                
+                if (devise != null && devise.equalsIgnoreCase(Constante.deviseAr)) {
+                    montantHT = montantHT / this.getDeviseEuro();
+                    montantTVA = montantTVA / this.getDeviseEuro();
+                }
+
+                listeDetails[i].setMontantHTEuro(listeDetails[i].getMontantAvecMajRed(montantHT));
+                listeDetails[i].setMontantTVAEuro(listeDetails[i].getMontantAvecMajRed(montantTVA));
+            }
+
+            coeff = deviseEuro / deviseDollar;
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    
+    public void initDetailsProf(Connection c) throws Exception {
         int verif = 0;
 
         try {

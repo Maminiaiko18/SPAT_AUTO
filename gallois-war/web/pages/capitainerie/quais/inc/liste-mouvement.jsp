@@ -8,9 +8,13 @@
 <%@page import="mg.spat.MouvementLibComplet"%>
 <%@page import="affichage.PageRecherche"%>
 <% 
+    String nomtable = request.getParameter("nomtable");
       try{
     MouvementLibComplet mouvement = new MouvementLibComplet();
 
+    if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+        mouvement.setNomTable(nomtable);
+    }
     String escale = request.getParameter("id");
     //String listeCrt[] = {"id","escale","nomnavire", "valconsignataire", "valcargaison", "valquaisdestination","datearrivee", "date_depart","quaisdestination"};
 //    String listeCrt[] = {"desceconsignataire","idprevision"};
@@ -33,7 +37,15 @@ String listeCrt[] = {"desceconsignataire","escale"};
 </script>
     <section class="content">
         <%
-            String lienTableau[] = {pr.getLien() + "?but=capitainerie/mouvement-fiche.jsp"};
+            String [] lienTableau = null;
+            if(nomtable != null && !nomtable.isEmpty()){
+                String lienTableau1[] = {pr.getLien() + "?but=capitainerie/mouvement-fiche.jsp?nomtable=mouvementLibCompletProf"};
+                lienTableau = lienTableau1;
+            } else {
+                String lienTableau2[] = {pr.getLien() + "?but=capitainerie/mouvement-fiche.jsp"};
+                lienTableau = lienTableau2;
+            }
+            
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);

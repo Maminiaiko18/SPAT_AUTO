@@ -62,12 +62,37 @@ public class MouvementLibComplet extends Mouvement{
                 c.close();
             }
         }
-    }        
+    }
+    
+    public MouvementLibComplet[] getMouvementMemeEscaleProf(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            MouvementLibComplet mvt = new MouvementLibComplet();
+            mvt.setNomTable("mouvementLibCompletprof");
+//            return (MouvementLibComplet[]) CGenUtil.rechercher(new MouvementLibComplet(), null, null, c, " and escale ='" + this.getEscale() + "' and id != '"+this.getId()+"' order by datearrivee asc");
+            return (MouvementLibComplet[]) CGenUtil.rechercher(mvt, null, null, c, " and escale ='" + this.getEscale() + "' and id != '"+this.getId()+"' order by id asc");
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    
     private double tirantprovenance,longueurprovenance,profondeurprovenance,tirantdestination,longueurdestination,profondeurdestination,jntnavire,jbtnavire,
                 pltnavire,lhtnavire,lmnavire,tenavire,volumenavire;
     private int etatnavire;
     private String etatlib, idprevision;
 
+    public MouvementLibComplet(String nomtable) {
+        super.setNomTable(nomtable);
+    }
+    
     public MouvementLibComplet() {
         super.setNomTable("mouvementLibComplet");
     }

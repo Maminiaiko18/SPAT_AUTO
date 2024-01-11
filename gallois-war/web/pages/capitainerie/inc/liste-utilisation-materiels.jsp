@@ -16,10 +16,13 @@
 <%@ page import="affichage.*" %>
 
 <%
+    String nomtable = request.getParameter("nomtable");
     try {
         OccupationMaterielNaval oprevision = new OccupationMaterielNaval();
         oprevision.setNomTable("OCCUPMATERIELNAVALLIB");
-
+        if(nomtable!=null && !nomtable.isEmpty()){
+            oprevision.setNomTable(nomtable);
+        }
 //        String[] champ = {"id", "idcommandant", "idnatureoperation","etatlib", "idmanoeuvrebord", "heuredebut", "heurefin", "observation", "daty", "datefin", "duree"};
 //        String[] libelle_comp = {"Id", "Commandant", "Nature operation","etat", "Manoeuvre bord", "Heure debut", "Heure fin", "Observation", "Date debut", "Date fin", "Duree"};
 
@@ -45,8 +48,9 @@
 
 
 <%
-    String lienTableau[] = {pr.getLien() + "?but=capita"
-        + "inerie/occupationMaterielNaval-fiche.jsp"};
+    String apresLien = "?but=capitainerie/occupationMaterielNaval-fiche.jsp";
+    if(nomtable!=null && !nomtable.isEmpty()) apresLien = "?but=capitainerie/occupationMaterielNaval-fiche.jsp?nomtable=occupmaterielnavallibprof";
+    String lienTableau[] = {pr.getLien() + apresLien};
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
