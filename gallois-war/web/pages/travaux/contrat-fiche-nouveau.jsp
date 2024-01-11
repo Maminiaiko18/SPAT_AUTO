@@ -80,7 +80,8 @@
                             <a class="btn btn-warning pull-left"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin-right: 10px">Modifier</a>
                             <a class="btn btn-warning pull-left"  href="<%= lien + "?but=travaux/avenant-modif.jsp&id=" + t.getIdavenant() + "&redirection=travaux/contrat-fiche-nouveau.jsp?id="+t.getId()%>" style="margin-right: 10px">Modifier montant</a>
                             <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id%>&acte=valider&bute=travaux/contrat-fiche-nouveau.jsp&id=<%=id%>&classe=mg.spat.Contrat" style="margin-right: 10px">Viser</a>
-                             <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=imprimerSuiviContrat&id=" + id%>"><button class="btn btn-primary pull-right" >Imprimer suivi contrat</button></a>
+                            <a class="btn btn-primary pull-left"  href="<%= lien + "?but=depense/engagement-saisie.jsp&idcontrat=" + id %>" style="margin-right: 10px">Engager</a>
+                            <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=imprimerSuiviContrat&id=" + id%>"><button class="btn btn-primary pull-right" >Imprimer suivi contrat</button></a>
                         </div>
                         <br/>
 

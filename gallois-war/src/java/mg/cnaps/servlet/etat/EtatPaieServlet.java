@@ -1,6 +1,7 @@
 package mg.cnaps.servlet.etat;
 
 import affichage.Liste;
+import mg.spat.Contrat;
 import affichage.PageRecherche;
 import affichage.PageRechercheGroupe;
 import affichage.TableauRecherche;
@@ -4887,6 +4888,10 @@ public class EtatPaieServlet extends HttpServlet {
     private void imprimerSuiviContrat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String id = request.getParameter("id");
+            Contrat c = new Contrat();
+            c.setNomTable("CONTRATLIBCPLT");
+            Contrat[] mere = (Contrat[]) CGenUtil.rechercher(c, null, null,
+                    " and id='" + id + "'");
             facture.FactureFournisseur ff = new facture.FactureFournisseur();
             ff.setNomTable("facture_fournisseur_travaux");
             facture.FactureFournisseur[] fille = (facture.FactureFournisseur[]) CGenUtil.rechercher(ff, null, null,
@@ -4896,15 +4901,15 @@ public class EtatPaieServlet extends HttpServlet {
             if(fille.length > 0){
                 param.put("travaux",fille[0].getNomtravaux());
                 param.put("chantier",fille[0].getNomchantier());
-                param.put("direction",fille[0].getCode_etablissementlib());
+                param.put("direction",fille[0].getCr());
                 param.put("titulaire",fille[0].getTierslib());
                 param.put("objet",fille[0].getIdengagementlib());
-                param.put("daty",fille[0].getDaty());
+                param.put("daty",mere[0].getDate_signature());
                 param.put("duree",fille[0].getDureecontrat());
-                param.put("contrat",fille[0].getDesignation());
-                param.put("montantContrat",fille[0].getMontant());
-                param.put("projet",fille[0].getProjetlib());
-                param.put("cr",fille[0].getCr());
+                param.put("contrat",mere[0].getNumero());
+                param.put("montantContrat",mere[0].getMontant());
+                param.put("projet",mere[0].getCodeprojetlib());
+                param.put("cr",fille[0].getCode_etablissementlib());
                 param.put("unite",Utilitaire.champNull(fille[0].getUnitelib()));
             }
             List dataSource = new ArrayList();
