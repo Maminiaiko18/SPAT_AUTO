@@ -26,7 +26,15 @@
         pi.getFormu().getChamp("idchantier").setDefaut(request.getParameter("idchantier"));
         pi.getFormu().getChamp("idchantier").setValeurLibelle(request.getParameter("nomchantier"));
     }
-        
+       if (request.getParameter("codeetablissement") != null) {
+        pi.getFormu().getChamp("codeetablissement").setDefaut(request.getParameter("codeetablissement"));
+    }   
+       if (request.getParameter("montant") != null) {
+        pi.getFormu().getChamp("montant").setDefaut(request.getParameter("montant"));
+    } 
+       if (request.getParameter("projet") != null) {
+        pi.getFormu().getChamp("projet").setDefaut(request.getParameter("projet"));
+    }  
     pi.getFormu().getChamp("idchantier").setPageAppel("choix/listeChantierChoix.jsp");
     pi.getFormu().getChamp("idchantier").setAutre("readonly");
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
@@ -57,7 +65,8 @@
     pi.getFormu().getChamp("debut_contrat").setLibelle("D&eacute;but contrat");
     pi.getFormu().getChamp("unite").setLibelle("Unit&eacute;");
     pi.getFormu().getChamp("codeetablissement").setLibelle("Code &Eacute;tablissement");
-    pi.getFormu().getChamp("idLC").setLibelle("Budget");
+    pi.getFormu().getChamp("idLC").setLibelle("Budget");  
+    pi.getFormu().getChamp("idLC").setVisible(false);
     pi.getFormu().getChamp("fin_contrat").setLibelle("Fin contrat");
     
     pi.preparerDataFormu();
