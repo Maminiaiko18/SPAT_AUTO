@@ -44,6 +44,8 @@
         listes[0] = new Liste("idtype", catAchat, "val", "id");
         listes[0].setDefaultSelected(Constante.idTypeEngContrat);
         pi.getFormu().changerEnChamp(listes);
+        
+       
         pi.getFormu().getChamp("idavenant").setLibelle("Avenant");
         pi.getFormu().getChamp("idtype").setLibelle("Type");
 
@@ -58,15 +60,19 @@
         pi.getFormu().getChamp("avecFacture").setDefaut("0");
         pi.getFormu().getChamp("avecFacture").setVisible(false);
         pi.getFormu().getChamp("tiers").setAutre("readonly");
+         pi.getFormu().getChamp("tiers").setDefaut(request.getParameter("tiers"));
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
         pi.getFormu().getChamp("projet").setAutre("readonly");
+        pi.getFormu().getChamp("projet").setDefaut(request.getParameter("projet"));
         pi.getFormu().getChamp("idLC").setPageAppel("choix/listeBudgetDepenseChoix.jsp", "idLC;idLClibelle;idLClibelle;idLClibelle");
         pi.getFormu().getChamp("idLC").setAutre("readonly");
 
         pi.getFormu().getChamp("compte").setVisible(false);
         pi.getFormu().getChamp("num").setVisible(false);
         pi.getFormu().getChamp("avecFacture").setLibelle("Avec Facture");
+        pi.getFormu().getChamp("designation").setDefaut(request.getParameter("designation"));
         pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
+        pi.getFormu().getChamp("codeEtablissement").setDefaut(request.getParameter("codeEtb"));
         pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &Eacute;tablissement");
         pi.getFormu().getChamp("dispoAvant").setVisible(false);
         pi.getFormu().getChamp("dispoApres").setVisible(false);
@@ -76,7 +82,8 @@
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
         pi.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
-          pi.getFormu().getChamp("montant").setAutre("readonly");
+        pi.getFormu().getChamp("montant").setAutre("readonly");
+        pi.getFormu().getChamp("montant").setDefaut(request.getParameter("montant"));
         pi.getFormu().getChamp("duree").setVisible(false);
         
         
