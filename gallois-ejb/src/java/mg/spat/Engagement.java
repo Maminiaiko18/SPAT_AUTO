@@ -675,7 +675,9 @@ public class Engagement extends ClassEtat {
     
     @Override
     public void controler(Connection c) throws Exception {
-        Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(new Contrat(), null, null, c, " AND ID = '" + this.getIdcontrat() + "'");
+        Contrat temp = new Contrat();
+        temp.setNomTable("CONTRATLIBCPLT");
+        Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(temp, null, null, c, " AND ID = '" + this.getIdcontrat() + "'");
         Contrat ca = contrat[0];        
         if(this.getIdcontrat()!=null &&  this.getMontant()> ca.getResteaengager()){
             throw new Exception(" Le montant dépasse le montant reste du contrat");
