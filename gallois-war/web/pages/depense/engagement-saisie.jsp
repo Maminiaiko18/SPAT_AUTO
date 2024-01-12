@@ -95,7 +95,7 @@
         pi.getFormu().getChamp("montant").setDefaut(contrat[0].getResteaengager()+"");
         pi.getFormu().getChamp("duree").setVisible(false);
         pi.getFormufle().getChamp("designation_"+0).setDefaut(contrat[0].getObjet());
-        pi.getFormufle().getChamp("montant_"+0).setDefaut(contrat[0].getResteaengager()+"");
+        pi.getFormufle().getChamp("montant_"+0).setDefaut(Utilitaire.formaterAr(contrat[0].getResteaengager()));
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
         pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
@@ -186,15 +186,18 @@
     });
       function calculTotal() {
         let total = 0;
-        const ligneTab = document.getElementById('ajout_multiple_ligne').children;
-        for (let i = 0; i <ligneTab.length; i++) { 
-            const mtfilleInput = document.getElementById('montant_'+i);
-            mtfilleInput.addEventListener('input', calculTotal);
-            const mtfille = parseFloat(mtfilleInput.value) || 0; 
-           total +=  mtfille;
+            const ligneTab = document.getElementById('ajout_multiple_ligne').children;
+
+            for (let i = 0; i < ligneTab.length; i++) {
+                const mtfilleInput = document.getElementById('montant_' + i);
+                mtfilleInput.addEventListener('input', calculTotal);
+                const mtfille = parseFloat(mtfilleInput.value.replace(/\s/g, '')) || 0;
+                total += mtfille;
+            }
+
+            document.getElementById('montant').value = total;
         }
-        document.getElementById('montant').value = total;
-    }
+
     $(document).ready(function () {
         initTotalSection();
         calculTotal();
