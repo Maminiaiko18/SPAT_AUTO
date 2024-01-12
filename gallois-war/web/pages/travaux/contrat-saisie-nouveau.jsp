@@ -32,7 +32,7 @@
         pi.getFormu().getChamp("codeetablissement").setDefaut(contrat.getCodeetablissement());
         pi.getFormu().getChamp("codeetablissement").setValeurLibelle(contrat.getCodeetablissementlib());
         
-        pi.getFormu().getChamp("montant").setDefaut(String.valueOf(contrat.getMontant()));
+        pi.getFormu().getChamp("montant").setDefaut(utilitaire.Utilitaire.formaterAr(contrat.getMontant()));
         pi.getFormu().getChamp("projet").setDefaut(contrat.getProjet());
         pi.getFormu().getChamp("projet").setValeurLibelle(contrat.getProjetlib());
 
