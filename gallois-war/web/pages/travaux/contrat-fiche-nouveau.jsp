@@ -31,6 +31,7 @@
     pc.getChampByName("typeduree").setVisible(false);
     pc.getChampByName("idavenant").setVisible(false);
     pc.getChampByName("fin_contrat").setVisible(false);
+    pc.getChampByName("lclib").setVisible(false);
     pc.getChampByName("nom").setLibelle("Tiers");
     pc.getChampByName("date_signature").setLibelle("Date de signature");
     pc.getChampByName("objet").setLibelle("Objet");
@@ -41,9 +42,9 @@
     pc.getChampByName("codeetablissementlib").setLibelle("Code Etablissement");
     pc.getChampByName("codeprojetlib").setLibelle("Projet");
     pc.getChampByName("chantierlib").setLibelle("Chantier");
-    pc.getChampByName("lclib").setLibelle("Budget");
     pc.getChampByName("montantpaye").setLibelle("Montant Pay&eacute;");
-    pc.getChampByName("annee").setLibelle("Ann&eacute;e");
+    pc.getChampByName("Resteaengager").setLibelle("Reste a engager");
+    pc.getChampByName("annee").setVisible(false);
     pc.setTitre("Fiche contrat");
 
 
