@@ -623,7 +623,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("LB", bc.getProjet());
                 param.put("REF", bc.getNumbc());
                 param.put("TYPE_PAIEMENT", bc.getTypepaiement());
-
+                param.put("ACOMPTE", bc.getAcompte());
                 param.put("DELAILIVRAISON", bc.getDelailivraison());
 
                 double total_ttc_devise = bc.getMontantTTC() / liste[0].getTaux();

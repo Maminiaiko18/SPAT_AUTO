@@ -48,6 +48,16 @@ public class BonDeCommande extends ClassEtat {
     private double montantreste;
     private String idfournisseur, idprojet, codeetablissement, devisemere;
     private int anneebudgetaire;
+    private double acompte;
+
+    public double getAcompte() {
+        return acompte;
+    }
+
+    public void setAcompte(double acompte) {
+        this.acompte = acompte;
+    }
+    
 
     public String getFournisseurlib() {
         return fournisseurlib;
