@@ -4,6 +4,8 @@
     Author     : Sanda
 --%>
 
+<%@page import="bean.CGenUtil"%>
+<%@page import="mg.spat.Contrat"%>
 <%@page import="utilitaire.Constante"%>
 <%@page import="bean.TypeObjet"%>
 <%@page import="affichage.Liste"%>
@@ -31,6 +33,11 @@
 
         PageInsertMultiple pi = new PageInsertMultiple(objet, objetFille, request, nbLigne, u);
         pi.setLien((String) session.getValue("lien"));
+        String idContrat = request.getParameter("idcontrat");
+        Contrat t = new Contrat();
+        t.setNomTable("CONTRATLIBCPLT");
+        Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(t, null, null, null, " and id ='" + idContrat+"'");
+            
 
         //Liste[] listes = new Liste[1];
         //String[] avecFactureAff = {"non", "oui"};
@@ -44,29 +51,37 @@
         listes[0] = new Liste("idtype", catAchat, "val", "id");
         listes[0].setDefaultSelected(Constante.idTypeEngContrat);
         pi.getFormu().changerEnChamp(listes);
-        pi.getFormu().getChamp("idavenant").setLibelle("Avenant");
+        pi.getFormu().getChamp("idavenant").setVisible(false);
         pi.getFormu().getChamp("idtype").setLibelle("Type");
-
-
         pi.getFormu().getChamp("etat").setVisible(false);
-
         pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
-         pi.getFormu().getChamp("chantier").setPageAppel("choix/listeChantierChoix.jsp");
-         pi.getFormu().getChamp("chantier").setVisible(false);
+        pi.getFormu().getChamp("chantier").setPageAppel("choix/listeChantierChoix.jsp");
+        pi.getFormu().getChamp("chantier").setVisible(false);
         pi.getFormu().getChamp("codeEtablissement").setAutre("readonly");
         pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
         pi.getFormu().getChamp("avecFacture").setDefaut("0");
         pi.getFormu().getChamp("avecFacture").setVisible(false);
+        pi.getFormu().getChamp("idcontrat").setAutre("readonly");
+        pi.getFormu().getChamp("idcontrat").setDefaut(idContrat);
+        pi.getFormu().getChamp("idcontrat").setLibelle("Contrat");
         pi.getFormu().getChamp("tiers").setAutre("readonly");
+        pi.getFormu().getChamp("tiers").setDefaut(contrat[0].getIdTiers());
+        pi.getFormu().getChamp("tiers").setValeurLibelle(contrat[0].getNom());
+        pi.getFormu().getChamp("projet").setDefaut(contrat[0].getProjet());
+        pi.getFormu().getChamp("projet").setValeurLibelle(contrat[0].getCodeprojetlib());
         pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
         pi.getFormu().getChamp("projet").setAutre("readonly");
+        
         pi.getFormu().getChamp("idLC").setPageAppel("choix/listeBudgetDepenseChoix.jsp", "idLC;idLClibelle;idLClibelle;idLClibelle");
         pi.getFormu().getChamp("idLC").setAutre("readonly");
 
         pi.getFormu().getChamp("compte").setVisible(false);
         pi.getFormu().getChamp("num").setVisible(false);
         pi.getFormu().getChamp("avecFacture").setLibelle("Avec Facture");
+        pi.getFormu().getChamp("designation").setDefaut(contrat[0].getObjet());
         pi.getFormu().getChamp("designation").setLibelle("D&eacute;signation");
+        pi.getFormu().getChamp("codeEtablissement").setDefaut(contrat[0].getCodeetablissement());
+        pi.getFormu().getChamp("codeEtablissement").setValeurLibelle(contrat[0].getCodeetablissementlib());
         pi.getFormu().getChamp("codeEtablissement").setLibelle("Code &Eacute;tablissement");
         pi.getFormu().getChamp("dispoAvant").setVisible(false);
         pi.getFormu().getChamp("dispoApres").setVisible(false);
@@ -76,11 +91,11 @@
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
         pi.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
-          pi.getFormu().getChamp("montant").setAutre("readonly");
+        pi.getFormu().getChamp("montant").setAutre("readonly");
+        pi.getFormu().getChamp("montant").setDefaut(contrat[0].getResteaengager()+"");
         pi.getFormu().getChamp("duree").setVisible(false);
-        
-        
-
+        pi.getFormufle().getChamp("designation_"+0).setDefaut(contrat[0].getObjet());
+        pi.getFormufle().getChamp("montant_"+0).setDefaut(Utilitaire.formaterAr(contrat[0].getResteaengager()));
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
         pi.getFormufle().getChamp("designation_0").setLibelle("D&eacute;signation");
@@ -171,15 +186,18 @@
     });
       function calculTotal() {
         let total = 0;
-        const ligneTab = document.getElementById('ajout_multiple_ligne').children;
-        for (let i = 0; i <ligneTab.length; i++) { 
-            const mtfilleInput = document.getElementById('montant_'+i);
-            mtfilleInput.addEventListener('input', calculTotal);
-            const mtfille = parseFloat(mtfilleInput.value) || 0; 
-           total +=  mtfille;
+            const ligneTab = document.getElementById('ajout_multiple_ligne').children;
+
+            for (let i = 0; i < ligneTab.length; i++) {
+                const mtfilleInput = document.getElementById('montant_' + i);
+                mtfilleInput.addEventListener('input', calculTotal);
+                const mtfille = parseFloat(mtfilleInput.value.replace(/\s/g, '')) || 0;
+                total += mtfille;
+            }
+
+            document.getElementById('montant').value = total;
         }
-        document.getElementById('montant').value = total;
-    }
+
     $(document).ready(function () {
         initTotalSection();
         calculTotal();

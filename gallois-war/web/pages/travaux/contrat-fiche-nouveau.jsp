@@ -31,6 +31,7 @@
     pc.getChampByName("typeduree").setVisible(false);
     pc.getChampByName("idavenant").setVisible(false);
     pc.getChampByName("fin_contrat").setVisible(false);
+    pc.getChampByName("lclib").setVisible(false);
     pc.getChampByName("nom").setLibelle("Tiers");
     pc.getChampByName("date_signature").setLibelle("Date de signature");
     pc.getChampByName("objet").setLibelle("Objet");
@@ -41,15 +42,17 @@
     pc.getChampByName("codeetablissementlib").setLibelle("Code Etablissement");
     pc.getChampByName("codeprojetlib").setLibelle("Projet");
     pc.getChampByName("chantierlib").setLibelle("Chantier");
-    pc.getChampByName("lclib").setLibelle("Budget");
     pc.getChampByName("montantpaye").setLibelle("Montant Pay&eacute;");
-    pc.getChampByName("annee").setLibelle("Ann&eacute;e");
+    pc.getChampByName("Resteaengager").setLibelle("Reste a engager");
+    pc.getChampByName("annee").setVisible(false);
     pc.setTitre("Fiche contrat");
 
 
     Map<String, String> map = new HashMap();
     map.put("avenant","");
-    map.put("engagement-contrat","");
+    map.put("engagement-contrat","");   
+    map.put("facture-fournisseur-vaovao","");
+
     
     String tab = request.getParameter("tab");
     if (tab == null) {
@@ -78,7 +81,8 @@
                             <a class="btn btn-warning pull-left"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin-right: 10px">Modifier</a>
                             <a class="btn btn-warning pull-left"  href="<%= lien + "?but=travaux/avenant-modif.jsp&id=" + t.getIdavenant() + "&redirection=travaux/contrat-fiche-nouveau.jsp?id="+t.getId()%>" style="margin-right: 10px">Modifier montant</a>
                             <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id%>&acte=valider&bute=travaux/contrat-fiche-nouveau.jsp&id=<%=id%>&classe=mg.spat.Contrat" style="margin-right: 10px">Viser</a>
-                             <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=imprimerSuiviContrat&id=" + id%>"><button class="btn btn-primary pull-right" >Imprimer suivi contrat</button></a>
+                            <a class="btn btn-primary pull-left"  href="<%= lien + "?but=depense/engagement-saisie.jsp&idcontrat=" + id %>" style="margin-right: 10px">Engager</a>
+                            <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=imprimerSuiviContrat&id=" + id%>"><button class="btn btn-primary pull-right" >Imprimer suivi contrat</button></a>
                         </div>
                         <br/>
 
@@ -94,6 +98,7 @@
                     <!-- a modifier -->
                     <li class="<%=map.get("avenant")%>"><a href="<%= lien %>?but=<%= pageActuel %>&id=<%= id %>&tab=avenant">Avenants</a></li>
                     <li class="<%=map.get("engagement-contrat")%>"><a href="<%= lien %>?but=<%= pageActuel %>&id=<%= id %>&tab=engagement-contrat">Engagements</a></li>
+                    <li class="<%=map.get("facture-fournisseur-vaovao")%>"><a href="<%= lien %>?but=<%= pageActuel %>&id=<%= id %>&tab=facture-fournisseur-vaovao">Facture fournisseur</a></li>
 
                 </ul>
                 <div class="tab-content">       

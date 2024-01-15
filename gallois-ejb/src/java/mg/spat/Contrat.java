@@ -20,15 +20,33 @@ import utilitaire.Utilitaire;
  */
 public class Contrat extends ClassEtat{
     private String id,idTiers,objet,devise,unite,typedroitport,typeDuree,numeros,idchantier;
-    private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib,idavenant,codeprojetlib;
+    private String idTierslib,contratlib,nom,valunite,projet,codeetablissement,idLC,projetlib,codeetablissementlib,lclib,chantierlib,idavenant,codeprojetlib,numero;
     private double droit_entree,redevance_fixe,redevance_variable,droit_port,redevance_domaniale,redevance_locative,pipeline,montant,montantpaye;
     private Date date_signature,debut_contrat,fin_contrat,fin_avenant;
     private int controleMontant, annee;
-    private double duree;
+    private double duree, resteaengager;
     
     public Contrat() {
         super.setNomTable("CONTRAT");
     }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public double getResteaengager() {
+        return resteaengager;
+    }
+
+    public void setResteaengager(double resteaengager) {
+        this.resteaengager = resteaengager;
+    }
+    
+    
     
     public String getValColLibelle(){
         return this.getObjet();
@@ -266,7 +284,7 @@ public class Contrat extends ClassEtat{
 
     public void setIdLC(String idLC) throws Exception{
         this.idLC = idLC;
-        if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
+        //if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
     }
 
     public String getProjetlib() {
@@ -392,23 +410,23 @@ public class Contrat extends ClassEtat{
             if(avenants.length > 0){
                 avenants[0].validerObject(u, c);
                 
-                Engagement engagement = new Engagement();
-                engagement.setDesignation(this.getObjet());
-                engagement.setCodeEtablissement(this.getCodeetablissement());
-                engagement.setProjet(this.getProjet());
-                engagement.setIdLC(this.getIdLC());
-                engagement.setDaty(Utilitaire.dateDuJourSql());
-                engagement.setTiers(avenants[0].getIdTiers());
-                engagement.setAnnee(Utilitaire.getAneeEnCours());
-                engagement.setIdavenant(avenants[0].getId());
-                engagement.setMontant(avenants[0].getMontant());
-                engagement.createObject(u, c);
-                EngagementFille engfille = new EngagementFille(engagement.getId(), this.getObjet(), avenants[0].getMontant());
-                engfille.createObject(u, c);
+                // Engagement engagement = new Engagement();
+                // engagement.setDesignation(this.getObjet());
+                // engagement.setCodeEtablissement(this.getCodeetablissement());
+                // engagement.setProjet(this.getProjet());
+                // engagement.setIdLC(this.getIdLC());
+                // engagement.setDaty(Utilitaire.dateDuJourSql());
+                // engagement.setTiers(avenants[0].getIdTiers());
+                // engagement.setAnnee(Utilitaire.getAneeEnCours());
+                // engagement.setIdavenant(avenants[0].getId());
+                // engagement.setMontant(avenants[0].getMontant());
+                // engagement.createObject(u, c);
+                // EngagementFille engfille = new EngagementFille(engagement.getId(), this.getObjet(), avenants[0].getMontant());
+                // engfille.createObject(u, c);
                 
-                engagement.setType(Constante.typeEngagementContrat);
-                if(this.getControleMontant() == 0)engagement.validerObject(u, c);
-                else engagement.validerObjectSansControleMontant(u, c);
+                // engagement.setType(Constante.typeEngagementContrat);
+                // if(this.getControleMontant() == 0)engagement.validerObject(u, c);
+                // else engagement.validerObjectSansControleMontant(u, c);
             }
                 
             super.validerObject(u, c);
