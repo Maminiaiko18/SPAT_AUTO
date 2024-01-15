@@ -99,7 +99,7 @@
                         <%}%>
                         <!-- <a class="btn btn-primary pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/travaux-tiers-saisie.jsp&idtravaux=" + request.getParameter("id")%>&typetiers=partenaire" style="margin-right: 10px">Partenaire</a>
                          <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/travaux-tiers-saisie.jsp&idtravaux=" + request.getParameter("id")%>&typetiers=prestataire" style="margin-right: 10px">Prestataire</a> -->
-                        <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/chantier-saisie.jsp&idtravaux=" + request.getParameter("id") + "&nom=" + tVise.getNom() + "&idpatrimoine=" + tVise.getIdpatrimoine() + "&patrimoine=" + tVise.getPatrimoinelib()%>" style="margin-right: 10px">Saisir Chantier</a>
+                        <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=travaux/chantier-saisie.jsp&idtravaux=" + request.getParameter("id") %>" style="margin-right: 10px">Saisir Chantier</a>
 
                     </div>
                     <br/>
