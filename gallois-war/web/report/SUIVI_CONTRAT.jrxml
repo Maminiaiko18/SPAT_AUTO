@@ -394,7 +394,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Reste à payer :]]></text>
+				<text><![CDATA[Reste à payer contrat :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="144" y="41" width="260" height="20" uuid="0386f138-1957-4907-9c32-cb29c3892f85"/>
