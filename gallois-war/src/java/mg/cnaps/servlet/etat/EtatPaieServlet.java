@@ -4912,6 +4912,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("cr",mere[0].getCodeetablissementlib());
                 param.put("unite",Utilitaire.champNull(mere[0].getValunite()));
             }
+            param.put("rapcontrat",rapcontrat);
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(fille));
             setNomJasper("SUIVI_CONTRAT");

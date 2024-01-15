@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUIVI_CONTRAT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc854c4c-cca7-4334-b317-4b1746075475">
 	<property name="ireport.zoom" value="1.0980750000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="284"/>
+	<property name="ireport.y" value="156"/>
 	<parameter name="contrat" class="java.lang.String"/>
 	<parameter name="titulaire" class="java.lang.String"/>
 	<parameter name="objet" class="java.lang.String"/>
@@ -15,6 +15,7 @@
 	<parameter name="cr" class="java.lang.String"/>
 	<parameter name="projet" class="java.lang.String"/>
 	<parameter name="unite" class="java.lang.String"/>
+	<parameter name="rapcontrat" class="java.lang.Double"/>
 	<field name="montantttc" class="java.lang.Double"/>
 	<field name="montantpaye" class="java.lang.Double"/>
 	<field name="montantreste" class="java.lang.Double"/>
@@ -387,6 +388,17 @@
 					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{montantreste_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="41" width="143" height="20" uuid="b83272c3-a12d-4a41-a948-9bbde941dac9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reste à payer :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="144" y="41" width="260" height="20" uuid="0386f138-1957-4907-9c32-cb29c3892f85"/>
+				<textFieldExpression><![CDATA[$P{rapcontrat}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
