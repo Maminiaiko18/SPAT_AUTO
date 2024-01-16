@@ -6,13 +6,16 @@
 <%
     try{
     RegulFFBP a = new RegulFFBP();
+    String lien = (String)session.getValue("lien");
     PageConsulte pc = new PageConsulte(a, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
     pc.getChampByName("id").setVisible(false);
     pc.getChampByName("idbp").setLibelle("Bon provisoire");
-    pc.getChampByName("idff").setLibelle("Id facture fournisseur");
+    pc.getChampByName("idff").setLibelle("Facture fournisseur");
     pc.getChampByName("montant").setLibelle("Montant");
     pc.getChampByName("etat").setVisible(false);
-    pc.setTitre("Fiche Regularisation Facture via Bon provisoire");
+    pc.getChampByName("idbp").setLien(lien+"?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
+    pc.getChampByName("idff").setLien(lien+"?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
+    pc.setTitre("Regularisation Facture via Bon provisoire");
     a=(RegulFFBP)pc.getBase();
     String id = a.getId();
 %>
