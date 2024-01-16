@@ -20,7 +20,7 @@
     pi.getFormu().getChamp("idff").setLibelle("Facture fournisseur");
     pi.getFormu().getChamp("idff").setDefaut(id);
     pi.getFormu().getChamp("idff").setAutre("readonly");
-    pi.getFormu().getChamp("montant").setDefaut(""+fact[0].getMontantreste());
+    pi.getFormu().getChamp("montant").setDefaut(Utilitaire.formaterAr(fact[0].getMontantreste()));
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
 %>
