@@ -80,7 +80,6 @@ public class RegulFFBP extends ClassEtat {
         OrdonnerPayement opp = new OrdonnerPayement();
         OrdonnerPayement[] op = (OrdonnerPayement[]) CGenUtil.rechercher(opp, null, null, c, " AND ded_id  like  '%"+this.getIdbp()+"%'");
         if (op.length > 0) {
-            op[0].setEtat(ConstanteEtat.getEtatCreer());
             op[0].ajouterFF(u, this.getIdff());
         } else {
             throw new Exception("Ordonner paiement inexistant.");
