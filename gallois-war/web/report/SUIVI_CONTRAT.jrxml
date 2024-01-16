@@ -2,12 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUIVI_CONTRAT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc854c4c-cca7-4334-b317-4b1746075475">
 	<property name="ireport.zoom" value="1.0980750000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="102"/>
+	<property name="ireport.y" value="156"/>
 	<parameter name="contrat" class="java.lang.String"/>
 	<parameter name="titulaire" class="java.lang.String"/>
 	<parameter name="objet" class="java.lang.String"/>
 	<parameter name="daty" class="java.util.Date"/>
-	<parameter name="duree" class="java.lang.String"/>
+	<parameter name="duree" class="java.lang.Double"/>
 	<parameter name="montantContrat" class="java.lang.Double"/>
 	<parameter name="travaux" class="java.lang.String"/>
 	<parameter name="chantier" class="java.lang.String"/>
@@ -15,6 +15,7 @@
 	<parameter name="cr" class="java.lang.String"/>
 	<parameter name="projet" class="java.lang.String"/>
 	<parameter name="unite" class="java.lang.String"/>
+	<parameter name="rapcontrat" class="java.lang.Double"/>
 	<field name="montantttc" class="java.lang.Double"/>
 	<field name="montantpaye" class="java.lang.Double"/>
 	<field name="montantreste" class="java.lang.Double"/>
@@ -302,7 +303,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantreste}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="186" y="0" width="136" height="20" uuid="65481256-3aa7-4b07-acb9-53041984a2ea"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
@@ -360,7 +361,7 @@
 				</textElement>
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
-			<textField pattern="#,##0.00">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="322" y="17" width="129" height="20" backcolor="#99CCFF" uuid="c94c06de-84b6-4b99-83f3-097491255109"/>
 				<box>
 					<topPen lineWidth="0.75"/>
@@ -374,7 +375,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{montantpaye_1}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="451" y="17" width="104" height="20" backcolor="#99CCFF" uuid="df5f1a1b-3e74-4bc5-b873-d604e96b3492"/>
 				<box>
 					<topPen lineWidth="0.75"/>
@@ -387,6 +388,17 @@
 					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{montantreste_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="41" width="143" height="20" uuid="b83272c3-a12d-4a41-a948-9bbde941dac9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reste à payer contrat :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="144" y="41" width="260" height="20" uuid="0386f138-1957-4907-9c32-cb29c3892f85"/>
+				<textFieldExpression><![CDATA[$P{rapcontrat}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

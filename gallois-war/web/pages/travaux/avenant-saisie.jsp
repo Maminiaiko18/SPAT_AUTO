@@ -13,13 +13,13 @@
     String butApresPost = "travaux/avenant-fiche.jsp";
     String nomTable = "avenant";
     
-    affichage.Liste[] listes = new affichage.Liste[1];
+    /*affichage.Liste[] listes = new affichage.Liste[1];
 
     TypeObjet type = new TypeObjet();
     type.setNomTable("unite");
     listes[0] = new Liste("unite", type, "VAL", "id");
 
-    pi.getFormu().changerEnChamp(listes);
+    pi.getFormu().changerEnChamp(listes);*/
     
     if (request.getParameter("idcontrat") != null && request.getParameter("nomcontrat") != null) {
         pi.getFormu().getChamp("idcontrat").setDefaut(request.getParameter("idcontrat"));
@@ -33,7 +33,7 @@
     pi.getFormu().getChamp("rang").setDefaut("1");
     
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("fin_avenant").setVisible(false);
+    pi.getFormu().getChamp("fin_avenant").setLibelle("Fin avenant");
     pi.getFormu().getChamp("droit_entree").setVisible(false);
     pi.getFormu().getChamp("redevance_fixe").setVisible(false);
     pi.getFormu().getChamp("devise").setVisible(false);
@@ -51,7 +51,7 @@
     pi.getFormu().getChamp("date_signature").setLibelle("Date signature");
     pi.getFormu().getChamp("debut_avenant").setLibelle("D&eacute;but avenant");
     pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
-    pi.getFormu().getChamp("unite").setLibelle("Unit&eacute;");
+    pi.getFormu().getChamp("unite").setVisible(false);
     
     pi.preparerDataFormu();
 %>
