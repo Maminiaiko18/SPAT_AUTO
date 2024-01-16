@@ -54,6 +54,7 @@ public class OrdonnerPayement extends ClassEtat {
     private String adresse, montant_lettre,devise,beneficiaire, destinationlib;
     private double montantdevise;
     private String deviselib;
+    public boolean checketat = false;
 
     public String getDeviselib() {
         return deviselib;
@@ -638,7 +639,7 @@ public class OrdonnerPayement extends ClassEtat {
             String temp = op[0].getDed_Id();
             if(temp.matches("(.*)"+idFacture+"(.*)")) throw new Exception("facture déjà dans le OP");
             String ded_id = idFacture;
-                if(op[0].getEtat()==11) throw new Exception("OP deja vise, impossible d'ajouter une facture.");
+                if(this.checketat) if(op[0].getEtat()==11) throw new Exception("OP deja vise, impossible d'ajouter une facture.");
                 op[0].setDed_Id(idFacture);
                 op[0].controlerDoublon(c);
                 if(temp != null)
