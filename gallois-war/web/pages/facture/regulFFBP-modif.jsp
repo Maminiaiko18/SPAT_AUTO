@@ -8,7 +8,8 @@
     RegulFFBP regul = new RegulFFBP();
     PageUpdate pi = new PageUpdate(regul, request, (user.UserEJB) session.getValue("u"));
 
-    pi.getFormu().getChamp("id").setLibelle("ID");
+    pi.getFormu().getChamp("id").setVisible(false);
+    pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("id").setAutre("readonly");
     pi.getFormu().getChamp("idbp").setLibelle("Bon provisoire");
     pi.getFormu().getChamp("idbp").setPageAppel("choix/bonprovisoire-tous.jsp");
