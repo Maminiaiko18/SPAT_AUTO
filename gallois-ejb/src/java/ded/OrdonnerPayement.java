@@ -624,9 +624,8 @@ public class OrdonnerPayement extends ClassEtat {
         }
     }
 
-    public void ajouterFF(String u,String idFacture) throws Exception{
+    public void ajouterFF(String u,String idFacture,Connection c) throws Exception{
         int verif = 0;
-        Connection c = null;
         LiaisonIntraTable[] retour=null;
         try {
             if (c == null) {
