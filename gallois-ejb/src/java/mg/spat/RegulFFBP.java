@@ -83,7 +83,7 @@ public class RegulFFBP extends ClassEtat {
             op[0].setEtat(ConstanteEtat.getEtatCreer());
             op[0].ajouterFF(u, this.getIdff());
         } else {
-            throw new Exception("Ordonner payement inexistant.");
+            throw new Exception("Ordonner paiement inexistant.");
         }
         
         PaiementFacture paiement = new PaiementFacture();
@@ -93,7 +93,7 @@ public class RegulFFBP extends ClassEtat {
             PaiementFacture paiementregul = new PaiementFacture("paiementfacturef", null, paie[0].getId(), this.getIdff(), this.getMontant());
             paiementregul.insertToTableWithHisto(u, c);
         } else {
-            throw new Exception("Paiement Facture inexistant.");
+            throw new Exception("Bon provisoire non payé.");
         }
     }
 
