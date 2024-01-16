@@ -101,4 +101,8 @@ public class RegulFFBP extends ClassEtat {
     public void viser(UserEJBBean user, Connection c) throws Exception {
         this.regulariserFFBP(user.getAddrIp(), c);        
     }
+    public void construirePK(Connection c) throws Exception{
+        this.preparePk("REGFFBP", "GET_SEQREGULFFBP");
+        this.setId(makePK(c));
+    }
 }
