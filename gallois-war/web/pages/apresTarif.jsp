@@ -574,7 +574,7 @@
             ded.OrdonnerPayement op = new ded.OrdonnerPayement();
             op.checketat = true;
             op.setId(idOp);
-            op.ajouterFF(String.valueOf(u.getUser().getRefuser()),idFacture);
+            op.ajouterFF(String.valueOf(u.getUser().getRefuser()),idFacture,null);
         }
 
         if(acte.compareToIgnoreCase("libererEngagementFF") == 0){

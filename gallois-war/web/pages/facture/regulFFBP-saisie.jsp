@@ -15,6 +15,7 @@
     ff.setNomTable("factfourn_msum_lib_ficheB");
     FactureFournisseur[] fact = (FactureFournisseur[])CGenUtil.rechercher(ff, null, null, " and id='"+id+"'");
     pi.getFormu().getChamp("etat").setVisible(false);
+    pi.getFormu().getChamp("idbp").setAutre("readonly");
     pi.getFormu().getChamp("idbp").setPageAppel("choix/bonprovisoire-tous.jsp");
     pi.getFormu().getChamp("idbp").setLibelle("Bon provisoire");   
     pi.getFormu().getChamp("idff").setLibelle("Facture fournisseur");
