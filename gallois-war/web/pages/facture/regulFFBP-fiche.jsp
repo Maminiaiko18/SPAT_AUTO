@@ -12,7 +12,6 @@
     pc.getChampByName("idbp").setLibelle("Bon provisoire");
     pc.getChampByName("idff").setLibelle("Facture fournisseur");
     pc.getChampByName("montant").setLibelle("Montant");
-    pc.getChampByName("etat").setVisible(false);
     pc.getChampByName("idbp").setLien(lien+"?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
     pc.getChampByName("idff").setLien(lien+"?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
     pc.setTitre("Regularisation Facture via Bon provisoire");
