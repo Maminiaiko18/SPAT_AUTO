@@ -4670,7 +4670,7 @@ public class EtatPaieServlet extends HttpServlet {
             String daty1 = request.getParameter("date1");
             String daty2 = request.getParameter("date2");
 
-            String requete = "";
+            String requete = "SELECT tierslib, SUM(MONTANTRESTE) AS MONTANTRESTE, SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
             if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
                 requete = requete + String.format(" and daty >= TO_DATE('%s','DD/MM/YYYY')", daty1);
             }
@@ -4680,10 +4680,11 @@ public class EtatPaieServlet extends HttpServlet {
             if (tiers != null && !tiers.trim().isEmpty() && tiers.compareToIgnoreCase("null") != 0) {
                 requete += " and upper(tierslib) like upper('%" + tiers + "%')";
             }
+            requete += " GROUP BY TIERSLIB ";
             // System.out.println("requete :"+requete);
             FactureClient mc = new FactureClient();
             mc.setNomTable("FACTURE_CLIENT_UNIONV");
-            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(mc, null, null, requete);
+            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(mc,requete);
             Map param = new HashMap();
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(mere));

@@ -104,17 +104,17 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="141" y="0" width="147" height="23" uuid="5d348ad1-f139-44f2-b2e6-fcf289b39988"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{montantreste}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="427" y="0" width="128" height="23" uuid="d4728cdb-c66d-4280-b0c3-e33a9b908aa8"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{montantpaye}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="288" y="0" width="139" height="23" uuid="88ec6996-afaf-483d-ad4e-8ed9e97d7557"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
@@ -123,17 +123,17 @@
 	</detail>
 	<summary>
 		<band height="50">
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="141" y="0" width="147" height="20" uuid="0747c34b-5469-4aea-9369-56a0aece999e"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{montantreste_1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="288" y="0" width="139" height="20" uuid="113f0c7d-8863-46f3-8160-00e74a95f2f1"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{montantttc_1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="427" y="-1" width="128" height="20" uuid="bd7b2eb9-835c-4f0d-b2de-4725cb7b6867"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{montantpaye_1}]]></textFieldExpression>
