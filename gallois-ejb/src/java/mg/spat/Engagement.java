@@ -677,12 +677,16 @@ public class Engagement extends ClassEtat {
     public void controler(Connection c) throws Exception {
         Contrat temp = new Contrat();
         temp.setNomTable("CONTRATLIBCPLT");
-        Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(temp, null, null, c, " AND ID = '" + this.getIdcontrat() + "'");
-        Contrat ca = contrat[0];        
-        if(this.getIdcontrat()!=null &&  this.getMontant()> ca.getResteaengager()){
-            throw new Exception(" Le montant dépasse le montant reste du contrat");
+        if(this.getIdcontrat()!=null){
+            Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(temp, null, null, c, " AND ID = '" + this.getIdcontrat() + "'");
+            if(contrat.length > 0){
+                Contrat ca = contrat[0];        
+                if(this.getMontant()> ca.getResteaengager()){
+                    throw new Exception(" Le montant dépasse le montant reste du contrat");
+                }
+                if(this.getEtat() == ConstanteEtat.getEtatAnnuler()) 
+                    throw new Exception("Impossible \\340 viser, d\\351j\\340 annul\\351");
+            }
         }
-        if(this.getEtat() == ConstanteEtat.getEtatAnnuler()) 
-            throw new Exception("Impossible \\340 viser, d\\351j\\340 annul\\351");
     }
 }
