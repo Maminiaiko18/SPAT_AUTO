@@ -14,7 +14,7 @@
 
         String listeCrt[] = {"id", "idmere", "designation", "devise", "compte", "daty"};
         String listeInt[] = {"daty"};
-        String colDefaut[] = {"id", "idmere", "designation", "devise", "compte"};
+        String colDefaut[] = {"id", "idmere", "designation", "devise", "compte","daty"};
         String[] pourcentage = {};
         String somDefaut[] = {"quantite", "pu", "montant", "montanttva", "montantreduction", "montantTTC"};
         

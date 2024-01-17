@@ -1,6 +1,7 @@
 package mg.cnaps.servlet.etat;
 
 import affichage.Liste;
+import mg.spat.Contrat;
 import affichage.PageRecherche;
 import affichage.PageRechercheGroupe;
 import affichage.TableauRecherche;
@@ -4669,7 +4670,7 @@ public class EtatPaieServlet extends HttpServlet {
             String daty1 = request.getParameter("date1");
             String daty2 = request.getParameter("date2");
 
-            String requete = "";
+            String requete = "SELECT tierslib, SUM(MONTANTRESTE) AS MONTANTRESTE, SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
             if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
                 requete = requete + String.format(" and daty >= TO_DATE('%s','DD/MM/YYYY')", daty1);
             }
@@ -4679,10 +4680,11 @@ public class EtatPaieServlet extends HttpServlet {
             if (tiers != null && !tiers.trim().isEmpty() && tiers.compareToIgnoreCase("null") != 0) {
                 requete += " and upper(tierslib) like upper('%" + tiers + "%')";
             }
+            requete += " GROUP BY TIERSLIB ";
             // System.out.println("requete :"+requete);
             FactureClient mc = new FactureClient();
             mc.setNomTable("FACTURE_CLIENT_UNIONV");
-            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(mc, null, null, requete);
+            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(mc,requete);
             Map param = new HashMap();
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(mere));
@@ -4887,26 +4889,31 @@ public class EtatPaieServlet extends HttpServlet {
     private void imprimerSuiviContrat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String id = request.getParameter("id");
+            Contrat c = new Contrat();
+            c.setNomTable("CONTRATLIBCPLT");
+            Contrat[] mere = (Contrat[]) CGenUtil.rechercher(c, null, null,
+                    " and id='" + id + "'");
             facture.FactureFournisseur ff = new facture.FactureFournisseur();
             ff.setNomTable("facture_fournisseur_travaux");
             facture.FactureFournisseur[] fille = (facture.FactureFournisseur[]) CGenUtil.rechercher(ff, null, null,
                     " and idcontrat='" + id + "'");
-
+            double rapcontrat = mere[0].getMontant() - mere[0].getMontantpaye();
             Map param = new HashMap();
-            if(fille.length > 0){
-                param.put("travaux",fille[0].getNomtravaux());
-                param.put("chantier",fille[0].getNomchantier());
-                param.put("direction",fille[0].getCode_etablissementlib());
-                param.put("titulaire",fille[0].getTierslib());
-                param.put("objet",fille[0].getIdengagementlib());
-                param.put("daty",fille[0].getDaty());
-                param.put("duree",fille[0].getDureecontrat());
-                param.put("contrat",fille[0].getDesignation());
-                param.put("montantContrat",fille[0].getMontant());
-                param.put("projet",fille[0].getProjetlib());
-                param.put("cr",fille[0].getCr());
-                param.put("unite",Utilitaire.champNull(fille[0].getUnitelib()));
+            if(mere.length > 0){
+                param.put("travaux",mere[0].getNomtravaux());
+                param.put("chantier",mere[0].getNomchantier());
+                param.put("direction",mere[0].getCr());
+                param.put("titulaire",mere[0].getTierslib());
+                param.put("objet",mere[0].getObjet());
+                param.put("daty",mere[0].getDate_signature());
+                param.put("duree",mere[0].getDuree());
+                param.put("contrat",mere[0].getNumero());
+                param.put("montantContrat",mere[0].getMontant());
+                param.put("projet",mere[0].getCodeprojetlib());
+                param.put("cr",mere[0].getCodeetablissementlib());
+                param.put("unite",Utilitaire.champNull(mere[0].getValunite()));
             }
+            param.put("rapcontrat",rapcontrat);
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(fille));
             setNomJasper("SUIVI_CONTRAT");

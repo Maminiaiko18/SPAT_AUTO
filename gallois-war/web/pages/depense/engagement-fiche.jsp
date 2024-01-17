@@ -33,6 +33,7 @@
     pc.getChampByName("avecFacture").setVisible(false);
     pc.getChampByName("avecFacturelib").setLibelle("Avec Facture");
     pc.getChampByName("idLClib").setLibelle("Budget");
+    pc.getChampByName("idcontrat").setLibelle("Contrat");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("tierslib").setLibelle("Tiers");
     pc.getChampByName("tiers").setVisible(false);
@@ -52,6 +53,8 @@
     engagement = (Engagement) pc.getBase();
     pc.getChampByName("idLClib").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp","id="+engagement.getIdLC()+"&id=");
     pc.getChampByName("tierslib").setLien((String) session.getValue("lien") + "?but=travaux/tiers-fiche.jsp","id="+engagement.getTiers()+"&id=");
+    pc.getChampByName("idcontrat").setLien((String) session.getValue("lien") + "?but=travaux/contrat-fiche-nouveau.jsp","id="+engagement.getIdcontrat()+"&id=");
+
     String bute="depense/engagement-fiche.jsp";
     Map<String, String> map = new HashMap();
     map.put("details-engagement","");
