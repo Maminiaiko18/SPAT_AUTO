@@ -40,10 +40,15 @@
     pc.getChampByName("duree").setLibelle("Dur&eacute;e");
     pc.getChampByName("valunite").setLibelle("Unit&eacute;");
     pc.getChampByName("codeetablissementlib").setLibelle("Code Etablissement");
-    pc.getChampByName("codeprojetlib").setLibelle("Projet");
+    pc.getChampByName("codeprojetlib").setLibelle("Code projet");
     pc.getChampByName("chantierlib").setLibelle("Chantier");
     pc.getChampByName("montantpaye").setLibelle("Montant Pay&eacute;");
     pc.getChampByName("Resteaengager").setLibelle("Reste a engager");
+    pc.getChampByName("Nomtravaux").setLibelle("Projet");
+    pc.getChampByName("Nomchantier").setLibelle("Chantier");
+    pc.getChampByName("Tierslib").setLibelle("Tiers");
+    
+
     pc.getChampByName("annee").setVisible(false);
     pc.setTitre("Fiche contrat");
 
@@ -79,7 +84,7 @@
                         <div class="box-footer">
                             <a class="btn btn-primary pull-left"  href="<%= lien + "?but=travaux/avenant-saisie.jsp&idcontrat=" + id + "&nomcontrat=" + t.getObjet() %>" style="margin-right: 10px">Saisir avenant</a>
                             <a class="btn btn-warning pull-left"  href="<%= lien + "?but="+ pageModif +"&id=" + id%>" style="margin-right: 10px">Modifier</a>
-                            <a class="btn btn-warning pull-left"  href="<%= lien + "?but=travaux/avenant-modif.jsp&id=" + t.getIdavenant() + "&redirection=travaux/contrat-fiche-nouveau.jsp?id="+t.getId()%>" style="margin-right: 10px">Modifier montant</a>
+                            <a class="btn btn-warning pull-left"  href="<%= lien + "?but=travaux/avenant-modif.jsp&id=" + t.getIdavenant() + "&montant&redirection=travaux/contrat-fiche-nouveau.jsp?id="+t.getId()%>" style="margin-right: 10px">Modifier montant</a>
                             <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + id%>&acte=valider&bute=travaux/contrat-fiche-nouveau.jsp&id=<%=id%>&classe=mg.spat.Contrat" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-primary pull-left"  href="<%= lien + "?but=depense/engagement-saisie.jsp&idcontrat=" + id %>" style="margin-right: 10px">Engager</a>
                             <a id="imprimer" href="<%=(String) session.getValue("lien") + "/../../Paie?action=imprimerSuiviContrat&id=" + id%>"><button class="btn btn-primary pull-right" >Imprimer suivi contrat</button></a>

@@ -24,6 +24,7 @@
         pc.getChampByName("etatlib").setVisible(false);
         pc.getChampByName("droit_entree").setVisible(false);
         pc.getChampByName("devise").setVisible(false);
+        pc.getChampByName("duree").setVisible(false);
         pc.getChampByName("redevance_variable").setVisible(false);
         pc.getChampByName("redevance_fixe").setVisible(false);
         pc.getChampByName("redevance_domaniale").setVisible(false);

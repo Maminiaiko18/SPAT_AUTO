@@ -50,7 +50,7 @@
     pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
     pi.getFormu().getChamp("date_signature").setLibelle("Date signature");
     pi.getFormu().getChamp("debut_avenant").setLibelle("D&eacute;but avenant");
-    pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
+    pi.getFormu().getChamp("duree").setVisible(false);
     pi.getFormu().getChamp("unite").setVisible(false);
     
     pi.preparerDataFormu();
