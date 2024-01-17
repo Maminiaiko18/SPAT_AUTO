@@ -1,3 +1,5 @@
+<%@page import="bean.CGenUtil"%>
+<%@page import="mg.spat.Travaux"%>
 <%@page import="user.UserEJB"%> 
 <%@page import="affichage.PageInsert"%>
 <%@page import="affichage.PageRecherche"%>
@@ -19,15 +21,16 @@
         Chantier objet = new Chantier();
         PageInsert pi = new PageInsert(objet, request, u);
         pi.setLien((String) session.getValue("lien"));
-
+        Travaux t = new Travaux();
+        t.setNomTable("travauxlib");
+        Travaux[] travaux = (Travaux[])CGenUtil.rechercher(t,null,null,null," and id = '"+request.getParameter("idtravaux")+"' ");
         if (request.getParameter("idtravaux") != null) {
             pi.getFormu().getChamp("idtravaux").setDefaut(request.getParameter("idtravaux"));
-            pi.getFormu().getChamp("idtravaux").setValeurLibelle(request.getParameter("nom"));
+            pi.getFormu().getChamp("idtravaux").setValeurLibelle(travaux[0].getNom());
         }
-        if (request.getParameter("idpatrimoine") != null) {
-            pi.getFormu().getChamp("idpatrimoine").setDefaut(request.getParameter("idpatrimoine"));
-            pi.getFormu().getChamp("idpatrimoine").setValeurLibelle(request.getParameter("Opatrimoine"));
-        }
+        pi.getFormu().getChamp("idpatrimoine").setDefaut(travaux[0].getIdpatrimoine());
+        pi.getFormu().getChamp("idpatrimoine").setValeurLibelle(travaux[0].getPatrimoinelib());
+        
         pi.getFormu().getChamp("idpatrimoine").setAutre("readonly");
         pi.getFormu().getChamp("idpatrimoine").setNom("idpatrimoine");
         pi.getFormu().getChamp("idtravaux").setPageAppel("choix/listeTravauxChoix.jsp","idtravaux;idtravauxlibelle;idpatrimoine;idpatrimoinelibelle");

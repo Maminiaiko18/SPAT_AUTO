@@ -25,11 +25,46 @@ public class Contrat extends ClassEtat{
     private Date date_signature,debut_contrat,fin_contrat,fin_avenant;
     private int controleMontant, annee;
     private double duree, resteaengager;
+    private String nomtravaux,nomchantier,cr,tierslib;
     
     public Contrat() {
         super.setNomTable("CONTRAT");
     }
 
+    public String getTierslib() {
+        return tierslib;
+    }
+
+    public void setTierslib(String tierslib) {
+        this.tierslib = tierslib;
+    }
+
+    public String getCr() {
+        return cr;
+    }
+
+    public void setCr(String cr) {
+        this.cr = cr;
+    }
+
+    public String getNomtravaux() {
+        return nomtravaux;
+    }
+
+    public void setNomtravaux(String nomtravaux) {
+        this.nomtravaux = nomtravaux;
+    }
+
+    public String getNomchantier() {
+        return nomchantier;
+    }
+
+    public void setNomchantier(String nomchantier) {
+        this.nomchantier = nomchantier;
+    }
+
+    
+    
     public String getNumero() {
         return numero;
     }

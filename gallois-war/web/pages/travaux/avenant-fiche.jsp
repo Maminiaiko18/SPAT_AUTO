@@ -39,11 +39,11 @@
         pc.getChampByName("debut_avenant").setLibelle("Date d&eacute;but");
         pc.getChampByName("fin_avenant").setLibelle("Date fin");
         pc.getChampByName("duree").setLibelle("Dur&eacute;e");
-        pc.getChampByName("unitelib").setLibelle("Unit&eacute;");
+        pc.getChampByName("unitelib").setVisible(false);
         pc.getChampByName("montant").setLibelle("Montant");
         pc.getChampByName("contratlib").setLibelle("Contrat");
         pc.getChampByName("tierslib").setLibelle("Tiers");
-        pc.getChampByName("designationengagement").setLibelle("Engagement");
+        pc.getChampByName("designationengagement").setVisible(false);
 
         c = (Avenant) pc.getBase();
         pc.getChampByName("contratlib").setLien((String) session.getValue("lien") + "?but=travaux/contrat-fiche-nouveau.jsp","id="+ c.getIdContrat()+"&id=");

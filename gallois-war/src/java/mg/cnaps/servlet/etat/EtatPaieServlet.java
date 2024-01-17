@@ -4899,20 +4899,21 @@ public class EtatPaieServlet extends HttpServlet {
                     " and idcontrat='" + id + "'");
             double rapcontrat = mere[0].getMontant() - mere[0].getMontantpaye();
             Map param = new HashMap();
-            if(fille.length > 0){
-                param.put("travaux",fille[0].getNomtravaux());
-                param.put("chantier",fille[0].getNomchantier());
-                param.put("direction",fille[0].getCr());
-                param.put("titulaire",fille[0].getTierslib());
-                param.put("objet",fille[0].getIdengagementlib());
+            if(mere.length > 0){
+                param.put("travaux",mere[0].getNomtravaux());
+                param.put("chantier",mere[0].getNomchantier());
+                param.put("direction",mere[0].getCr());
+                param.put("titulaire",mere[0].getTierslib());
+                param.put("objet",mere[0].getObjet());
                 param.put("daty",mere[0].getDate_signature());
-                param.put("duree",fille[0].getDureecontrat());
+                param.put("duree",mere[0].getDuree());
                 param.put("contrat",mere[0].getNumero());
                 param.put("montantContrat",mere[0].getMontant());
                 param.put("projet",mere[0].getCodeprojetlib());
-                param.put("cr",fille[0].getCode_etablissementlib());
-                param.put("unite",Utilitaire.champNull(fille[0].getUnitelib()));
+                param.put("cr",mere[0].getCodeetablissementlib());
+                param.put("unite",Utilitaire.champNull(mere[0].getValunite()));
             }
+            param.put("rapcontrat",rapcontrat);
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(fille));
             setNomJasper("SUIVI_CONTRAT");
