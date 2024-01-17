@@ -11,7 +11,7 @@
 <%
     try{
     FactureFournisseur j = new FactureFournisseur();
-    j.setNomTable("facturefournisseur_contrat");
+    j.setNomTable("FACTURE_FOURNISSEUR_TRAVAUX");
     String libEntete[] = {"id","daty", "montant", "tva", "montanttva", "montantttc","numeroop"};
     String listeCrt[] = {};
     String listeInt[] = {};
