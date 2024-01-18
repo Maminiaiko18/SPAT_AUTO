@@ -23,14 +23,15 @@
         pi.setLien((String) session.getValue("lien"));
         Travaux t = new Travaux();
         t.setNomTable("travauxlib");
-        Travaux[] travaux = (Travaux[])CGenUtil.rechercher(t,null,null,null," and id = '"+request.getParameter("idtravaux")+"' ");
-        if (request.getParameter("idtravaux") != null) {
-            pi.getFormu().getChamp("idtravaux").setDefaut(request.getParameter("idtravaux"));
-            pi.getFormu().getChamp("idtravaux").setValeurLibelle(travaux[0].getNom());
+        if(request.getParameter("idtravaux")!=null){
+            Travaux[] travaux = (Travaux[])CGenUtil.rechercher(t,null,null,null," and id = '"+request.getParameter("idtravaux")+"' ");
+            if (request.getParameter("idtravaux") != null) {
+                pi.getFormu().getChamp("idtravaux").setDefaut(request.getParameter("idtravaux"));
+                pi.getFormu().getChamp("idtravaux").setValeurLibelle(travaux[0].getNom());
+            }
+            pi.getFormu().getChamp("idpatrimoine").setDefaut(travaux[0].getIdpatrimoine());
+            pi.getFormu().getChamp("idpatrimoine").setValeurLibelle(travaux[0].getPatrimoinelib());
         }
-        pi.getFormu().getChamp("idpatrimoine").setDefaut(travaux[0].getIdpatrimoine());
-        pi.getFormu().getChamp("idpatrimoine").setValeurLibelle(travaux[0].getPatrimoinelib());
-        
         pi.getFormu().getChamp("idpatrimoine").setAutre("readonly");
         pi.getFormu().getChamp("idpatrimoine").setNom("idpatrimoine");
         pi.getFormu().getChamp("idtravaux").setPageAppel("choix/listeTravauxChoix.jsp","idtravaux;idtravauxlibelle;idpatrimoine;idpatrimoinelibelle");

@@ -15,9 +15,18 @@
         String butApresPost = "travaux/contrat-fiche-nouveau.jsp";
         String nomTable = "contrat";
         String idchantier = request.getParameter("idchantier");
-         Chantier contrat_base = new Chantier();
-        c.setNomTable("chantierlibelle");
-        Chantier contrat = (Chantier) contrat_base.getById(idchantier, "chantierlibelle", null);
+        if(idchantier!=null){
+            Chantier contrat = (Chantier) new Chantier().getById(idchantier, "chantierlibelle", null);
+            pi.getFormu().getChamp("idchantier").setDefaut(idchantier);
+            pi.getFormu().getChamp("idchantier").setValeurLibelle(contrat.getIdtravaux());
+            
+            pi.getFormu().getChamp("codeetablissement").setDefaut(contrat.getCodeetablissement());
+            pi.getFormu().getChamp("codeetablissement").setValeurLibelle(contrat.getCodeetablissementlib());
+            
+            pi.getFormu().getChamp("montant").setDefaut(utilitaire.Utilitaire.formaterAr(contrat.getMontant()));
+            pi.getFormu().getChamp("projet").setDefaut(contrat.getProjet());
+            pi.getFormu().getChamp("projet").setValeurLibelle(contrat.getProjetlib());
+        }
         affichage.Liste[] listes = new affichage.Liste[1];
 
         TypeObjet type = new TypeObjet();
@@ -25,17 +34,6 @@
         listes[0] = new Liste("unite", type, "VAL", "id");
 
         pi.getFormu().changerEnChamp(listes);
-
-        pi.getFormu().getChamp("idchantier").setDefaut(idchantier);
-        pi.getFormu().getChamp("idchantier").setValeurLibelle(contrat.getIdtravaux());
-        
-        pi.getFormu().getChamp("codeetablissement").setDefaut(contrat.getCodeetablissement());
-        pi.getFormu().getChamp("codeetablissement").setValeurLibelle(contrat.getCodeetablissementlib());
-        
-        pi.getFormu().getChamp("montant").setDefaut(utilitaire.Utilitaire.formaterAr(contrat.getMontant()));
-        pi.getFormu().getChamp("projet").setDefaut(contrat.getProjet());
-        pi.getFormu().getChamp("projet").setValeurLibelle(contrat.getProjetlib());
-
         pi.getFormu().getChamp("idchantier").setPageAppel("choix/listeChantierChoix.jsp");
         pi.getFormu().getChamp("idchantier").setAutre("readonly");
         pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
