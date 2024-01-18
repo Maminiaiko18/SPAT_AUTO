@@ -203,6 +203,7 @@
 								<jr:detailCell style="table_TD" height="30" rowSpan="1">
 									<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 										<reportElement x="0" y="0" width="345" height="20" uuid="af9fc6b6-98ac-4926-be7a-17ad177158f2"/>
+										<box leftPadding="10"/>
 										<textElement verticalAlignment="Top">
 											<font size="10"/>
 										</textElement>
