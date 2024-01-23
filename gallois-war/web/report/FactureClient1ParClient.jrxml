@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce1f3f99-b941-4998-8da0-3d76101166df">
 	<property name="ireport.zoom" value="2.1435888100000016"/>
-	<property name="ireport.x" value="94"/>
-	<property name="ireport.y" value="246"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="80"/>
 	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="daty1" class="java.lang.String"/>
 	<parameter name="daty2" class="java.lang.String"/>
+	<parameter name="etat" class="java.lang.String"/>
 	<field name="code" class="java.lang.String"/>
 	<field name="daty" class="java.util.Date"/>
 	<field name="tierslib" class="java.lang.String"/>
@@ -168,7 +169,7 @@
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<text><![CDATA[Reste à Payé]]></text>
+					<text><![CDATA[Reste à Payer]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="73" y="47" width="67" height="20" uuid="b80a850a-3ad8-4c34-acb6-46dfad717069"/>
@@ -253,7 +254,7 @@
 				<textFieldExpression><![CDATA[" "+$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="155" y="76" width="212" height="20" uuid="9cda2fb8-5400-4129-a0d3-89db54dee886"/>
+				<reportElement x="155" y="76" width="154" height="20" uuid="9cda2fb8-5400-4129-a0d3-89db54dee886"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -274,6 +275,14 @@
 			<textField>
 				<reportElement x="460" y="0" width="95" height="20" uuid="92ccad89-873c-43ec-9b56-37a348241f50"/>
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="309" y="76" width="125" height="20" uuid="b532eee2-f743-4983-8723-578d714b8ff2"/>
+				<textElement markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{etat}]]></textFieldExpression>
+				<patternExpression><![CDATA[$F{code}.toUpperCase()]]></patternExpression>
 			</textField>
 		</band>
 	</pageHeader>

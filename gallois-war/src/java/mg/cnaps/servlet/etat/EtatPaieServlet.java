@@ -1652,6 +1652,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("daty", sdf.format(utilitaire.Utilitaire.dateDuJourSql()));
             String daty1 = sdf.format(utilitaire.Utilitaire.dateDuJourSql());
             String daty2 = daty1;
+            int indice = Integer.valueOf(request.getParameter("indice"));
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
                     && request.getParameter("daty2").length() != 0) {
                 daty2 = sdf.format(sdf.parse(request.getParameter("daty2")));
@@ -1703,6 +1704,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
+            String[] etatAff = {"Tous", "CR&Eacute;E(s)", "Vis&Eacute;e(s)", "A payer", "Au comptant", "A cr&Eacute;dit", "Annul&Eacute;", "En retard", "En alerte", "Pay&Eacute;e(s)"};
+            String etat = etatAff[indice];
+            param.put("etat", etat.toUpperCase());
             FactureClient facture = new FactureClient();
             String mois = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "";
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
