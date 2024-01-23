@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce1f3f99-b941-4998-8da0-3d76101166df">
 	<property name="ireport.zoom" value="2.1435888100000016"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="450"/>
+	<property name="ireport.x" value="105"/>
+	<property name="ireport.y" value="340"/>
 	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="daty1" class="java.lang.String"/>
 	<parameter name="daty2" class="java.lang.String"/>
@@ -20,7 +20,7 @@
 	<field name="codeProvision" class="java.lang.String"/>
 	<field name="montantpaye" class="java.lang.Double"/>
 	<field name="montantprovision" class="java.lang.Double"/>
-	<field name="montantprov " class="java.lang.Double"/>
+	<field name="montantprov" class="java.lang.Double"/>
 	<variable name="montantttc_1" class="java.lang.Double" resetType="Group" resetGroup="val" calculation="Sum">
 		<variableExpression><![CDATA[$F{montantttc}]]></variableExpression>
 	</variable>
@@ -57,8 +57,8 @@
 	<variable name="montantreste_2" class="java.lang.Double" resetType="Group" resetGroup="type" calculation="Sum">
 		<variableExpression><![CDATA[$F{montantreste}]]></variableExpression>
 	</variable>
-	<variable name="montantprov _1" class="java.lang.Double" resetType="Group" resetGroup="val" calculation="Sum">
-		<variableExpression><![CDATA[$F{montantprov }]]></variableExpression>
+	<variable name="montantprov_1" class="java.lang.Double" resetType="Group" resetGroup="val" calculation="Sum">
+		<variableExpression><![CDATA[$F{montantprov}]]></variableExpression>
 	</variable>
 	<group name="type">
 		<groupExpression><![CDATA[$F{typelib}]]></groupExpression>
@@ -96,8 +96,8 @@
 					<text><![CDATA[Date]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="176" y="47" width="100" height="20" uuid="b9e5717b-6a33-4fa8-b00a-9a9eca709275"/>
-					<textElement textAlignment="Right">
+					<reportElement x="176" y="47" width="85" height="20" uuid="b9e5717b-6a33-4fa8-b00a-9a9eca709275"/>
+					<textElement textAlignment="Center">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Montant TTC]]></text>
@@ -138,8 +138,10 @@
 					<text><![CDATA[Provision]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="276" y="47" width="74" height="20" uuid="8eb5994a-ade3-41cb-be64-0f95a6adbed7"/>
-					<textElement textAlignment="Right"/>
+					<reportElement x="261" y="47" width="89" height="20" uuid="8eb5994a-ade3-41cb-be64-0f95a6adbed7"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[montant provision]]></text>
 				</staticText>
 			</band>
@@ -147,7 +149,7 @@
 		<groupFooter>
 			<band height="20">
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="176" y="0" width="100" height="20" uuid="6c61f4a2-282b-410e-9c00-0be8720b32d9"/>
+					<reportElement x="176" y="0" width="85" height="20" uuid="6c61f4a2-282b-410e-9c00-0be8720b32d9"/>
 					<box>
 						<topPen lineWidth="0.0"/>
 						<leftPen lineWidth="0.0"/>
@@ -156,6 +158,7 @@
 					</box>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
+						<paragraph rightIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{montantttc_1}]]></textFieldExpression>
 				</textField>
@@ -188,11 +191,11 @@
 					<textFieldExpression><![CDATA[$V{montantreste_1}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="276" y="0" width="74" height="20" uuid="d9b25ce2-6d42-4ec7-957b-9bac2b04e3ea"/>
-					<textElement textAlignment="Right" verticalAlignment="Top">
+					<reportElement x="261" y="0" width="89" height="20" uuid="1dc84e69-7724-4834-b1cd-2dd9048e9914"/>
+					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{montantprov _1}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{montantprov_1}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -225,13 +228,6 @@
 				<textFieldExpression><![CDATA[" "+$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="155" y="76" width="154" height="20" uuid="9cda2fb8-5400-4129-a0d3-89db54dee886"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[LISTE DES FACTURES EMISES]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="317" y="0" width="138" height="20" uuid="60afec81-bc46-497d-9577-dd591fb472b3"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Editée le ]]></text>
@@ -248,11 +244,11 @@
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="309" y="76" width="125" height="20" uuid="b532eee2-f743-4983-8723-578d714b8ff2"/>
+				<reportElement x="155" y="60" width="234" height="20" uuid="b532eee2-f743-4983-8723-578d714b8ff2"/>
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{etat}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["LISTE DES FACTURES EMISES "+$P{etat}]]></textFieldExpression>
 				<patternExpression><![CDATA[$F{code}.toUpperCase()]]></patternExpression>
 			</textField>
 		</band>
@@ -274,7 +270,7 @@
 				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="176" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="e0ce0623-37c5-4c9c-9a67-e95e35fdcd71"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="176" y="0" width="85" height="20" isPrintWhenDetailOverflows="true" uuid="e0ce0623-37c5-4c9c-9a67-e95e35fdcd71"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -283,7 +279,7 @@
 				</box>
 				<textElement textAlignment="Right">
 					<font isStrikeThrough="false"/>
-					<paragraph lineSpacing="Double"/>
+					<paragraph lineSpacing="Double" rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
 			</textField>
@@ -320,9 +316,9 @@
 				<textFieldExpression><![CDATA[$F{montantpaye}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="276" y="0" width="74" height="20" uuid="2d810c4a-b2af-4e67-94f5-b919e655d6c7"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{montantprov }]]></textFieldExpression>
+				<reportElement x="261" y="0" width="89" height="20" uuid="2d810c4a-b2af-4e67-94f5-b919e655d6c7"/>
+				<textElement textAlignment="Right" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{montantprov}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

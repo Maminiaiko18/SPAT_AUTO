@@ -1548,9 +1548,8 @@ public class EtatPaieServlet extends HttpServlet {
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
-            String[] etatAff = {"Tous", "CR&Eacute;E(s)", "Vis&Eacute;e(s)", "A payer", "Au comptant", "A cr&Eacute;dit", "Annul&Eacute;", "En retard", "En alerte", "Pay&Eacute;e(s)"};
+            String[] etatAff = {"Tous", "CR&Eacute;E(s)", "VIS&Eacute;E(s)", "A PAYER", "AU COMPTANT", "A CR&Eacute;dDIT", "ANNUL&Eacute;", "EN RETARD", "EN ALERTE", "PAY&Eacute;E(s)"};
             String etat = etatAff[indice];
-            System.out.println("==="+etat);
             param.put("etat", etat);
             FactureClient facture = new FactureClient();
             String mois = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "";
@@ -1709,9 +1708,8 @@ public class EtatPaieServlet extends HttpServlet {
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
-            String[] etatAff = {"Tous", "CR&Eacute;E(s)", "Vis&Eacute;e(s)", "A payer", "Au comptant", "A cr&Eacute;dit", "Annul&Eacute;", "En retard", "En alerte", "Pay&Eacute;e(s)"};
+            String[] etatAff = {"Tous", "CR&Eacute;E(s)", "VIS&Eacute;E(s)", "A PAYER", "AU COMPTANT", "A CR&Eacute;dDIT", "ANNUL&Eacute;", "EN RETARD", "EN ALERTE", "PAY&Eacute;E(s)"};
             String etat = etatAff[indice];
-            System.out.println("==="+etat);
             param.put("etat", etat);
             FactureClient facture = new FactureClient();
             String mois = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "";
