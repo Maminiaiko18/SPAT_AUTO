@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce1f3f99-b941-4998-8da0-3d76101166df">
 	<property name="ireport.zoom" value="2.1435888100000016"/>
-	<property name="ireport.x" value="105"/>
-	<property name="ireport.y" value="340"/>
+	<property name="ireport.x" value="215"/>
+	<property name="ireport.y" value="202"/>
 	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="daty1" class="java.lang.String"/>
 	<parameter name="daty2" class="java.lang.String"/>
@@ -82,14 +82,14 @@
 					<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="47" width="73" height="20" uuid="a1dc7533-988c-4eac-b557-2f0b94243ae2"/>
+					<reportElement x="0" y="47" width="65" height="20" uuid="a1dc7533-988c-4eac-b557-2f0b94243ae2"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[N° Facture]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="139" y="47" width="35" height="20" uuid="66f19efd-380e-42e4-ae61-50d6f548861d"/>
+					<reportElement x="125" y="47" width="51" height="20" uuid="66f19efd-380e-42e4-ae61-50d6f548861d"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
@@ -131,7 +131,7 @@
 					<text><![CDATA[Reste à Payer]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="73" y="47" width="67" height="20" uuid="b80a850a-3ad8-4c34-acb6-46dfad717069"/>
+					<reportElement x="65" y="47" width="60" height="20" uuid="b80a850a-3ad8-4c34-acb6-46dfad717069"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
@@ -142,7 +142,7 @@
 					<textElement textAlignment="Center">
 						<font isBold="true"/>
 					</textElement>
-					<text><![CDATA[montant provision]]></text>
+					<text><![CDATA[Montant provision]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
@@ -190,7 +190,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$V{montantreste_1}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00">
 					<reportElement x="261" y="0" width="89" height="20" uuid="1dc84e69-7724-4834-b1cd-2dd9048e9914"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
@@ -256,7 +256,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="73" height="20" isPrintWhenDetailOverflows="true" uuid="50ebcb8b-634e-4f92-99e6-b03439002ff2"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="65" height="20" isPrintWhenDetailOverflows="true" uuid="50ebcb8b-634e-4f92-99e6-b03439002ff2"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -291,7 +291,7 @@
 				<textFieldExpression><![CDATA[$F{montantreste}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="139" y="0" width="35" height="20" isPrintWhenDetailOverflows="true" uuid="9612afb7-60a9-4ff6-b8be-1e7e1290a19f"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="125" y="0" width="51" height="20" isPrintWhenDetailOverflows="true" uuid="9612afb7-60a9-4ff6-b8be-1e7e1290a19f"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -305,7 +305,7 @@
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="73" y="0" width="67" height="20" uuid="da0b27f8-d591-4493-a482-a6ae857764c4"/>
+				<reportElement x="65" y="0" width="60" height="20" uuid="da0b27f8-d591-4493-a482-a6ae857764c4"/>
 				<textFieldExpression><![CDATA[$F{codeProvision}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">

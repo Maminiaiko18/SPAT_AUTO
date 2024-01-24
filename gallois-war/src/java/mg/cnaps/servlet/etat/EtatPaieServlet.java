@@ -1548,7 +1548,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
-            String[] etatAff = {"TOUS", "CR&Eacute;E(s)", "VIS&Eacute;E(s)", "A PAYER", "AU COMPTANT", "A CR&Eacute;dDIT", "ANNUL&Eacute;", "EN RETARD", "EN ALERTE", "PAY&Eacute;E(s)"};
+            String[] etatAff = {"TOUS", "CR&Eacute;E(S)", "VIS&Eacute;E(S)", "A PAYER", "AU COMPTANT", "A CR&Eacute;dDIT", "ANNUL&Eacute;", "EN RETARD", "EN ALERTE", "PAY&Eacute;E(S)"};
             String etat = etatAff[indice];
             param.put("etat", etat);
             FactureClient facture = new FactureClient();
@@ -1708,7 +1708,7 @@ public class EtatPaieServlet extends HttpServlet {
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
-            String[] etatAff = {"TOUS", "CR&Eacute;E(s)", "VIS&Eacute;E(s)", "A PAYER", "AU COMPTANT", "A CR&Eacute;dDIT", "ANNUL&Eacute;", "EN RETARD", "EN ALERTE", "PAY&Eacute;E(s)"};
+            String[] etatAff = {"TOUS", "CR&Eacute;E(S)", "VIS&Eacute;E(S)", "A PAYER", "AU COMPTANT", "A CR&Eacute;dDIT", "ANNUL&Eacute;", "EN RETARD", "EN ALERTE", "PAY&Eacute;E(S)"};
             String etat = etatAff[indice];
             param.put("etat", etat);
             FactureClient facture = new FactureClient();
