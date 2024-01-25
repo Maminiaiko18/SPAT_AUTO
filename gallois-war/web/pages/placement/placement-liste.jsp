@@ -13,9 +13,9 @@
         PlacementLibComplet placement = new PlacementLibComplet();
        if(request.getParameter("table")!=null && request.getParameter("table").compareToIgnoreCase("")!=0) nomTable=request.getParameter("table");
         placement.setNomTable(nomTable);
-        String listeCrt[] = {"id", "valentite", "date_placement", "date_echeance", "banquelib"};
+        String listeCrt[] = {"id", "entite", "date_placement", "date_echeance", "banque"};
         String listeInt[] = {"date_placement","date_echeance"};
-        String libEntete[] = {"id", "valentite", "banquelib", "date_placement", "date_echeance","duree","montant","taux"};
+        String libEntete[] = {"id", "entite", "banque", "date_placement", "date_echeance","duree","montant","taux"};
         PageRecherche pr = new PageRecherche(placement, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -23,8 +23,6 @@
         pr.getFormu().getChamp("date_placement2").setLibelle("Date Placement max");
         pr.getFormu().getChamp("date_echeance1").setLibelle("Date Echeance min");
         pr.getFormu().getChamp("date_echeance2").setLibelle("Date Echeance max");
-        pr.getFormu().getChamp("banquelib").setLibelle("Banque");
-        pr.getFormu().getChamp("valentite").setLibelle("Entite");
     
         pr.setApres("placement/placement-liste.jsp");
         pr.getFormu().getChamp("date_placement1").setDefaut(utilitaire.Utilitaire.getFirstDayOfMonth());
