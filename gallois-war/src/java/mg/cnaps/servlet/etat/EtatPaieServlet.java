@@ -413,7 +413,7 @@ public class EtatPaieServlet extends HttpServlet {
             DemandeAchatFille j = new DemandeAchatFille();
             j.setNomTable("dem_achat_fillelib");
             DemandeAchatFille[] tabJournalFille = (DemandeAchatFille[]) CGenUtil.rechercher(j, null, null,
-                    " and idmere = '" + jc.getId() + "'");
+                    " and idmere = '" + jc.getId() + "' ORDER BY DESIGNATION ASC");
 
             Map param = new HashMap();
             param.put("numero", jc.getNum());
