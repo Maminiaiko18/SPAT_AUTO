@@ -19,7 +19,7 @@
     
     PageConsulte pc = pc = new PageConsulte(plb, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
-    pc.setTitre("Fiche de placement de banque");
+    pc.setTitre("Fiche liaison caisse et banque");
     pc.getChampByName("Id").setLibelle("Identifiant");
     pc.getChampByName("val").setVisible(false);
     pc.getChampByName("desce").setVisible(false);

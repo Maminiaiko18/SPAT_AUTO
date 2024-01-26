@@ -26,7 +26,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste placement de banque</h1>
+        <h1>Liste liaison caisse et banque</h1>
     </section>
     <section class="content">
         <form action="<%=pr.getLien()%>?but=placement/placement-banquecaisse-liste.jsp" method="post" name="listeliaisonplacement" id="listeliaisonplacement">

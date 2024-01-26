@@ -42,7 +42,7 @@
      */
 %>
 <div class="content-wrapper">
-    <h1>Saisie d'un Placement de Caisse</h1>
+    <h1>Saisie liaison caisse et banque</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();
