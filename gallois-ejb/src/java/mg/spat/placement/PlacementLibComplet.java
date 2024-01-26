@@ -19,7 +19,14 @@ import utilitaire.UtilDB;
 public class PlacementLibComplet extends ClassEtat{
     private String id,entite,identite,idbanque,valentite,desceentite,valbanque,descebanque,numero,iddetails,idmeredetails,mois,banque,iddevise;
     private Date date_placement, date_echeance;
-    private double duree,ircm, montant, taux, montant_mere, interet_recevoir, interet_net,montantdevise;
+    private double duree,ircm, montant, taux, montant_mere, interet_recevoir, interet_net,montantdevise,disponible;
+    public double getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(double disponible) {
+        this.disponible = disponible;
+    }
     private String ancienplacement,idcaisse,descecaisse;
     private String banquelib;
 
