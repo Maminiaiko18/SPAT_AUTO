@@ -16,6 +16,11 @@ public class Liaisonplacement extends ClassMAPTable{
     
     private String id,identite,idbanque;
 
+    public Liaisonplacement(String identite, String idbanque) {
+        this.identite = identite;
+        this.idbanque = idbanque;
+    }
+
     public Liaisonplacement() {
         super.setNomTable("liaisonplacement");
     }

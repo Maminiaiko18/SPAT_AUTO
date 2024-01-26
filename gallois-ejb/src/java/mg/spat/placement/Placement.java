@@ -300,8 +300,11 @@ public class Placement extends ClassEtat {
             if(!this.getBanque().equals("BANQ000000")){
                 lpla.setIdbanque(this.getBanque());
                 Liaisonplacement[] liste=(Liaisonplacement[]) CGenUtil.rechercher(lpla, null, null, c, " ");
-                if(liste.length == 0)
-                     throw new Exception("Cette entite n est pas liee a une banque.");
+                if(liste.length == 0){
+                    lpla.construirePK(c);
+                    lpla.insertToTable(c);
+                }
+                     
             }
             if(verif == 1) c.commit();
         }catch(Exception e){
