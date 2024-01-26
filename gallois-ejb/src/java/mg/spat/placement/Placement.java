@@ -10,6 +10,7 @@ import bean.ClassEtat;
 import bean.TypeObjet;
 import mg.spat.JournalCaisse;
 import mg.spat.RemboursementPlacement;
+import service.SpatService;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -179,6 +180,7 @@ public class Placement extends ClassEtat {
      public void controlerUpdate(Connection c) throws Exception {
          try{
             this.setDuree(Utilitaire.diffMoisDaty(this.getDate_echeance(), this.getDate_placement()));
+            SpatService.updateDetailsPlacement(this, c);
          }
          catch(Exception ex){
              throw ex;

@@ -492,11 +492,55 @@ public class SpatService {
         }
     }
 
+    public static void updateDetailsPlacement(Placement mere, Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            if (c != null && verif == 1) {
+                c.setAutoCommit(false);
+            }
+            int diffMois = Utilitaire.diffMoisDaty(mere.getDate_echeance(), mere.getDate_placement());
+            double taux=calculerTaux(mere.getTaux(),diffMois);
+            
+            double interet_recevoir = (mere.getMontant() * taux) / 100;
+            double ircm = (interet_recevoir * Constante.getTauxIRCM()) / 100;
+            double interet_net = interet_recevoir - ircm;
+            double montant_terme = mere.getMontant() + interet_net;
+
+            
+            int moisNombre = getNextMonth(getNextMonth(mere.getDate_placement().getMonth()));
+            String moisDep = Utilitaire.nbToMois(moisNombre);
+
+            DetailsPlacements[] details = getDetailsPlacements(c,mere.getId());
+            if(details!=null && details.length > 0){
+                DetailsPlacements dp = new DetailsPlacements(mere.getId(), moisDep, montant_terme, interet_recevoir, interet_net);
+                dp.setId(details[0].getId());
+                dp.updateToTable(c);
+            }
+            if (c != null && verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
+
     /*private static void Exception(String il_existe_déjà_une_prévision_pour_ce_mois) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }*/
 
-    public DetailsPlacements[] getDetailsPlacements(Connection c, String idMere) throws Exception {
+    public static DetailsPlacements[] getDetailsPlacements(Connection c, String idMere) throws Exception {
         System.out.println(idMere + " idMere DETAILSPLACEMENTTABLES");
         int verif = 0;
         try {
