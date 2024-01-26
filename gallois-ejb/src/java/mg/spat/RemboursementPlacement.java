@@ -222,7 +222,7 @@ public class RemboursementPlacement extends ClassEtat{
             Placement placement = findPlacement(c);
 
             JournalCaisse[] listeSortie = placement.getSortie(c);
-            if(listeSortie==null || listeSortie.length==0)throw new Exception("Remboursement invalide. Décaissement non effectif");
+            if(listeSortie==null || listeSortie.length==0)throw new Exception("Remboursement invalide. Placement non effectif");
             if(this.getDaty().before(listeSortie[0].getDateEffet()))throw new Exception("Date anterieure à la date de decaissement");
             
         //  Entrée Montant placé
