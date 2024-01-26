@@ -15,7 +15,7 @@
     t.setNomTable("journalcaisse");
     String listeCrt[] = {"idPlacement"};
     String listeInt[] = {};
-    String libEntete[] = {"id","dateSaisie", "dateEffet", "tiers", "libelle","credit"};
+    String libEntete[] = {"id","dateSaisie", "dateEffet", "tiers", "libelle","credit","debit"};
     PageRecherche pr = new PageRecherche(t, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -35,7 +35,7 @@
         String urlLienAffiche[] = {"id"};
         pr.getTableau().setUrlLien(colonneLien);
         pr.getTableau().setUrlLienAffiche(urlLienAffiche);
-        String libEnteteAffiche[] =  {"ID","Date saisie", "Date effet", "Tiers","Libelle", "Montant"};
+        String libEnteteAffiche[] =  {"ID","Date saisie", "Date effet", "Tiers","Libelle", "Cr&eacute;dit","D&eacute;bit"};
         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
         JournalCaisse[] liste=(JournalCaisse[]) pr.getTableau().getData();
         if(pr.getTableau().getHtml() != null){
