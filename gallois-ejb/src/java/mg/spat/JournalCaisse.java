@@ -1076,7 +1076,7 @@ public class JournalCaisse extends ClassEtat {
                         String numeroPiece = calculerNumeroPiece(c);
                         this.setNumPiece(numeroPiece);
                     }
-                    if(this.getDebit()>0){
+                    if(this.getDebit()>0 && !this.getIdplacement().startsWith("PLC")){
                         String numeroPiece = calculerNumeroPieceDepense(c);
                         this.setNumPiece(numeroPiece);
                     }
