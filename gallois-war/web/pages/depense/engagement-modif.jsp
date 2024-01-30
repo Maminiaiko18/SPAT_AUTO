@@ -33,6 +33,7 @@
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("idLClib").setVisible(false);
         pi.getFormu().getChamp("compte").setVisible(false);
+        pi.getFormu().getChamp("Idcontrat").setVisible(false);
         
         //Liste[] listes = new Liste[1];
         //String[] avecFactureAff = {"oui", "non"};
