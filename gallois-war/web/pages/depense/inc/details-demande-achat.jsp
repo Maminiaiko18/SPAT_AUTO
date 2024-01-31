@@ -47,10 +47,10 @@
                             %>
                             <tr onmouseover="this.style.backgroundColor = '#EAEAEA'" onmouseout="this.style.backgroundColor = ''">
                                 <td  align="center"><%= nbrligne %> </td>
-                                <td  align="center"><%=Utilitaire.champNull(da[i].getDesignation())%> </td>
-                                <td  align="center"><%=Utilitaire.formaterAr(da[i].getPu())%> </td>
-                                <td  align="center"><%= da[i].getQte() %></td>
-                                <td  align="center"><%=Utilitaire.champNull(da[i].getUnitelib())%></td>
+                                <td  align="left"><%=Utilitaire.champNull(da[i].getDesignation())%> </td>
+                                <td  align="right"><%=Utilitaire.formaterAr(da[i].getPu())%> </td>
+                                <td  align="right"><%= da[i].getQte() %></td>
+                                <td  align="left"><%=Utilitaire.champNull(da[i].getUnitelib())%></td>
                             </tr>
                             <%
                                      

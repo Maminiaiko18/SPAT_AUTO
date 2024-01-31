@@ -1864,9 +1864,13 @@ public class FactureClient extends ClassMere {
         return tiers;
     }
 
-    public void setTiers(String tiers) {
+    public void setTiers(String tiers) throws Exception {
         if(this.getMode().compareToIgnoreCase("modif")==0)
         {
+            if(tiers==null || tiers.compareToIgnoreCase("")==0)
+            {
+                throw new Exception("Client Obligatoire.");
+            }
             if(tiers!=null && (tiers.compareToIgnoreCase(Constante.idMICTSL)==0||tiers.compareToIgnoreCase(Constante.idMICTSL2)==0))
             {
                 this.setEstMictsl(Constante.estMictsl);

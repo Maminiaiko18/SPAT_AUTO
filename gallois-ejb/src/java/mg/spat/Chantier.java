@@ -203,10 +203,10 @@ public class Chantier extends ClassEtat{
     }
 
     public void setIdpatrimoine(String idpatrimoine) throws Exception {
-        if(this.getMode().compareTo("modif")==0){
+        /*if(this.getMode().compareTo("modif")==0){
             if(idpatrimoine == null || idpatrimoine.compareTo("") == 0)
                 throw new Exception("Patrimoine obligatoire.");
-        }
+        }*/
         this.idpatrimoine = idpatrimoine;
     }
 

@@ -413,7 +413,7 @@ public class EtatPaieServlet extends HttpServlet {
             DemandeAchatFille j = new DemandeAchatFille();
             j.setNomTable("dem_achat_fillelib");
             DemandeAchatFille[] tabJournalFille = (DemandeAchatFille[]) CGenUtil.rechercher(j, null, null,
-                    " and idmere = '" + jc.getId() + "'");
+                    " and idmere = '" + jc.getId() + "' ORDER BY DESIGNATION ASC");
 
             Map param = new HashMap();
             param.put("numero", jc.getNum());
@@ -1496,6 +1496,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("daty", sdf.format(utilitaire.Utilitaire.dateDuJourSql()));
             String daty1 = sdf.format(utilitaire.Utilitaire.dateDuJourSql());
             String daty2 = daty1;
+            int indice = Integer.valueOf(request.getParameter("indice"));
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
                     && request.getParameter("daty2").length() != 0) {
                 daty2 = sdf.format(sdf.parse(request.getParameter("daty2")));
@@ -1547,6 +1548,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
+            String[] etatAff = {"TOUS", "CR&Eacute;E(S)", "VIS&Eacute;E(S)", "A PAYER", "AU COMPTANT", "A CR&Eacute;dDIT", "ANNUL&Eacute;", "EN RETARD", "EN ALERTE", "PAY&Eacute;E(S)"};
+            String etat = etatAff[indice];
+            param.put("etat", etat);
             FactureClient facture = new FactureClient();
             String mois = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "";
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
@@ -1652,6 +1656,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("daty", sdf.format(utilitaire.Utilitaire.dateDuJourSql()));
             String daty1 = sdf.format(utilitaire.Utilitaire.dateDuJourSql());
             String daty2 = daty1;
+            int indice = Integer.valueOf(request.getParameter("indice"));
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
                     && request.getParameter("daty2").length() != 0) {
                 daty2 = sdf.format(sdf.parse(request.getParameter("daty2")));
@@ -1703,6 +1708,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
+            String[] etatAff = {"TOUS", "CR&Eacute;E(S)", "VIS&Eacute;E(S)", "A PAYER", "AU COMPTANT", "A CR&Eacute;dDIT", "ANNUL&Eacute;", "EN RETARD", "EN ALERTE", "PAY&Eacute;E(S)"};
+            String etat = etatAff[indice];
+            param.put("etat", etat);
             FactureClient facture = new FactureClient();
             String mois = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "";
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
@@ -4750,7 +4758,9 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("dateDedepart", mere[0].getDatedepart());
             param.put("daty", utilitaire.Utilitaire.dateDuJour());
             param.put("moyenDeDep", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
-
+            String annee = String.valueOf(mere[0].getDatedepart().getYear());
+            String anneEnCour = annee.substring(annee.length() - 2);
+            param.put("annee", anneEnCour);
             setNomJasper("Ordre_de_mission");
             UtilitaireImpression.imprimer(request, response, "ordre de mission", param, null, getReportPath());
 
@@ -4766,8 +4776,12 @@ public class EtatPaieServlet extends HttpServlet {
             mc.setNomTable("ordre_mission_lib");
             OrdreMissionLib[] mere = (OrdreMissionLib[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "'");
             Map param = new HashMap();
+            String annee = String.valueOf(mere[0].getDatedepart().getYear());
+            String anneEnCour = annee.substring(annee.length() - 2);
+            param.put("annee", anneEnCour);
             param.put("nom", mere[0].getNom());
             param.put("prenom", mere[0].getPrenom());
+            param.put("matricule", mere[0].getMatricule());
             param.put("fonction", mere[0].getFonction());
             param.put("modeTransport", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
             param.put("deplacement", mere[0].getDuree());

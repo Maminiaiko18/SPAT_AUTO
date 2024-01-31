@@ -163,7 +163,7 @@
         pi.getFormufle().getChamp("pu_0").setLibelle("Prix Unitaire");
         pi.getFormufle().getChamp("quantite_0").setLibelle("Quantit&eacute;");
         pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
-        pi.getFormufle().getChamp("observation_0").setLibelle("Observation");
+        pi.getFormufle().getChamp("observation_0").setLibelle("DASE");
         pi.getFormufle().getChamp("remise_0").setLibelle("Remise %");
         pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
         affichage.Champ.setVisible(pi.getFormufle().getChampFille("Quantiteparpack"), false);

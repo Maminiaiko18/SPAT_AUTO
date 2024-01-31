@@ -56,6 +56,7 @@ try{
     pi.getFormu().getChamp("fournisseur").setPageAppel("choix/listeTiersChoix.jsp");
     pi.getFormu().getChamp("fournisseur").setValeurLibelle(Utilitaire.champNull(mere.getFournisseurlib()));
     pi.getFormu().getChamp("numbc").setLibelle("Num&eacute;ro bon de commande");
+    pi.getFormu().getChamp("numbc").setAutre("readonly");
     pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
     pi.getFormu().getChamp("code_etab").setLibelle("Code &eacute;tablissement");
     pi.getFormu().getChamp("delaipaiement").setLibelle("Délai de paiement (Jours)");
