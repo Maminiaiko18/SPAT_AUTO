@@ -14,6 +14,7 @@
     String champReturn = request.getParameter("champReturn");
     Navire navire = new Navire();
     navire.setNomTable("navirelibValide");
+    System.out.println("NOMTABLE Liste navire choix === "+navire.getNomTable());
     String listeCrt[] = {"id", "nom","type", "pavillon"};
     String listeInt[] = {};
     String libEntete[] = {"id","nom","type", "pavillon","jnt", "jbt", "plt", "lht", "lm", "te", "volume","volume100"};

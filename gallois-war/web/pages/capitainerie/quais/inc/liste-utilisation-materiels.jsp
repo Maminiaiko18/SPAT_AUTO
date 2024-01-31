@@ -16,10 +16,14 @@
 <%@ page import="affichage.*" %>
 
 <%
+    String nomtable = request.getParameter("nomtable");
     try {
         OccupationMaterielNaval oprevision = new OccupationMaterielNaval();
         //oprevision.setNomTable("prestations_escale");OCCUPMATERIELNAVALLIB
         oprevision.setNomTable("OCCUPMATERIELNAVALLIB");
+        if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+            oprevision.setNomTable(nomtable);
+        }
         String id = request.getParameter("id");
         String listeCrt[] = {"idprevision"};
         String listeInt[] = {};
@@ -35,9 +39,18 @@
 
 
 <%
-    String lienTableau[] = {pr.getLien() + "?but=capitainerie/occupationMaterielNaval-fiche.jsp",
+    String lienTableau[] = null;
+    if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+        String lienTableau1[] = {pr.getLien() + "?but=capitainerie/occupationMaterielNaval-fiche.jsp?nomtable=OCCUPMATERIELNAVALLIBPROF",
+                            pr.getLien() + "?but=capitainerie/mouvement-fiche.jsp?nomtable=MOUVEMENTLIBCOMPLETPROF",
+                            pr.getLien() + "?but=exploitants/activites-fiche.jsp?nomtable=ACTIVITELIBCOMPLETPROF"};
+        lienTableau = lienTableau1;
+    } else {
+        String lienTableau1[] = {pr.getLien() + "?but=capitainerie/occupationMaterielNaval-fiche.jsp",
                             pr.getLien() + "?but=capitainerie/mouvement-fiche.jsp",
                             pr.getLien() + "?but=exploitants/activites-fiche.jsp"};
+        lienTableau = lienTableau1;
+    }
     String colonneLien[] = {"id","idarrivee", "idActivite"};
     String[] urlLienMultiple = {"id","idarrivee", "idActivite"};
     String[] urlLienAffiche = {"id","id", "id"};
@@ -59,8 +72,9 @@
     %>
     <input type="hidden" name="acte" id="acte" value="viser"/>
     <input name="idprevision" type="hidden" id="idprevision" value="<%=request.getParameter("idprevision")%>">
-    <input name="bute" type="hidden" id="bute" value="capitainerie/quais/quais-prevision-fiche.jsp&id=<%=request.getParameter("idprevision")%>">
+    <input name="bute" type="hidden" id="bute" value="capitainerie/quais/quais-prevision-prof-fiche.jsp&id=<%=request.getParameter("idprevision")%>">
     <input name="classe" type="hidden" id="classe" value="mg.spat.OccupationMaterielNaval">
+    <input name="nomtable" type="hidden" id="classe" value="occupationmaterielnaval_prof">
 </form>
 <%} catch (Exception e) {
         e.printStackTrace();

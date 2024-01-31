@@ -17,8 +17,13 @@
 
 <%
     try {
+        String nomtable = request.getParameter("nomtable");
         FactureClient ff = new FactureClient();
         ff.setNomTable("facture_client_union");
+        if(nomtable!=null&&!nomtable.isEmpty()){
+            ff.setNomTable(nomtable);
+        }
+        
         
         String id = request.getParameter("id");
         
@@ -30,7 +35,11 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         
-        pr.setApres("capitainerie/quais/inc/liste-factures.jsp");
+        if(nomtable!=null&&!nomtable.isEmpty()){
+            pr.setApres("capitainerie/quais/inc/liste-factures.jsp?nomtable=facture_client_unionPROF");
+        } else {
+            pr.setApres("capitainerie/quais/inc/liste-factures.jsp");
+        }
         pr.setAWhere(" and idprevision = '" + id + "'");
         
         String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir","montantpaye","montantreste"};
@@ -39,7 +48,11 @@
 
 
 <%
-    String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
+    String [] lienTableau = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp"};
+    if(nomtable!=null&&!nomtable.isEmpty()){
+        String [] lienTableau1 = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao-prof.jsp"};
+        lienTableau = lienTableau1;
+    }
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);

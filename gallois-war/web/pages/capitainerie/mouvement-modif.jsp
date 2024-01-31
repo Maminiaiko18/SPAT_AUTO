@@ -16,10 +16,18 @@
 <%@ page import="affichage.*"%>
 <%
     try{
+        String nomtable = request.getParameter("nomtable");
     String autreparsley = "data-parsley-range='[8, 40]' required";
     Mouvement pj = new Mouvement();
     pj.setId(request.getParameter("id"));
-    MouvementLibComplet mvtLibComp = pj.getMouvementLibCompletById(null);
+    MouvementLibComplet mvtLibComp = null;
+    if(nomtable!=null && !nomtable.isEmpty()){
+        mvtLibComp = pj.getMouvementLibCompletProfById(null);
+        pj.setNomTable("mouvement_prof");
+    } else {
+        mvtLibComp = pj.getMouvementLibCompletById(null);
+    }
+    
     
     
     PageUpdate pi = new PageUpdate(pj, request, (user.UserEJB) session.getValue("u"));
@@ -28,7 +36,12 @@
      if(request.getParameter("idPrevision")!=null){
         Prevision prev = new Prevision();
         prev.setId(request.getParameter("idPrevision"));
-        PrevisionLibComplet preveLibC = prev.getPrevisionLibCompletById(null);
+        PrevisionLibComplet preveLibC = null;
+        if(nomtable!=null && !nomtable.isEmpty()){
+            preveLibC = prev.getPrevisionLibCompletById(null, "previsionLibCompletProf");
+        } else {
+            preveLibC = prev.getPrevisionLibCompletById(null);
+        }
         
         pi.getFormu().getChamp("escale").setDefaut(preveLibC.getId());
         pi.getFormu().getChamp("escale").setValeurLibelle(preveLibC.getEscale());
@@ -43,8 +56,15 @@
         pi.getFormu().getChamp("destination").setDefaut(preveLibC.getDestination());
         pi.getFormu().getChamp("destination").setValeurLibelle(preveLibC.getValtypequaisdestination()+"-"+preveLibC.getValquaisdestination());
     }
-
-    pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
+     
+    if(nomtable!=null && !nomtable.isEmpty()){
+        pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireProfChoix.jsp");
+        pi.getFormu().getChamp("escale").setPageAppel("choix/listePrevisionProfChoix.jsp");
+    } else {
+        pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
+        pi.getFormu().getChamp("escale").setPageAppel("choix/listePrevisionChoix.jsp");
+    }
+    
     pi.getFormu().getChamp("consignataire").setPageAppel("choix/listeClientChoix.jsp");
     pi.getFormu().getChamp("provenance").setPageAppel("choix/listePostedestinataireTousChoix.jsp");
     pi.getFormu().getChamp("destination").setPageAppel("choix/listePostedestinataireTousChoix.jsp");
@@ -97,7 +117,7 @@
     pi.getFormu().getChamp("date_depart").setLibelle("Date depart");
     pi.getFormu().getChamp("heure_depart").setLibelle("Heure de depart");
     pi.getFormu().getChamp("dateArrivee").setLibelle("Date Arrivee");
-    pi.getFormu().getChamp("escale").setPageAppel("choix/listePrevisionChoix.jsp");
+    
     pi.getFormu().getChamp("escale").setAutre("readonly");
     pi.getFormu().getChamp("navire").setLibelle("Navire");
     pi.getFormu().getChamp("PROVENANCE").setLibelle("Provenance");
@@ -125,10 +145,14 @@
                             <br><br> 
                         </div>
                         <input name="acte" type="hidden" id="acte" value="update">
-                        <input name="bute" type="hidden" id="bute" value="capitainerie/mouvement-fiche.jsp">
                         <input name="classe" type="hidden" id="classe" value="mg.spat.Mouvement">
-                      
+                        <% if(nomtable!=null &&! nomtable.isEmpty()){ %>
+                        <input name="bute" type="hidden" id="bute" value="capitainerie/mouvement-fiche.jsp?nomtable=mouvementlibcompletprof">
+                        <input name="nomtable" type="hidden" id="nomtable" value="mouvement_prof">
+                        <% } else { %>
+                        <input name="bute" type="hidden" id="bute" value="capitainerie/mouvement-fiche.jsp">
                         <input name="nomtable" type="hidden" id="nomtable" value="mouvement">
+                        <% } %>
                     </form>
                 </div>
             </div>

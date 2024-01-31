@@ -12,6 +12,7 @@
 <%@ page import="affichage.*"%>
 
  <%
+     String nomtable = request.getParameter("nomtable");
     String autreparsley = "data-parsley-range='[8, 40]' required";
     OccupationMaterielNaval occupation = new OccupationMaterielNaval();
     //materielNaval.setNomTable("materielnavallib");

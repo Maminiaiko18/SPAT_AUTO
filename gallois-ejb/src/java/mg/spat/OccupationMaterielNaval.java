@@ -107,6 +107,18 @@ public class OccupationMaterielNaval extends ClassEtat {
         }
         return possedeActiviter;
     }
+    
+    public boolean possedeActiviteProfVisee(Connection c) throws Exception {
+        boolean possedeActiviter = false;
+        Activite act = new Activite();
+        act.setNomTable("activite_prof");
+        Activite[] activites = (Activite[]) CGenUtil.rechercher(act, null, null, c, " and etat>=" + ConstanteEtat.getEtatValider() + " and refobjet='" + this.getId() + "'");
+        System.out.println("Taille activite===" + activites.length);
+        if (activites.length > 0) {
+            possedeActiviter = true;
+        }
+        return possedeActiviter;
+    }
 
     public String getEstFacture() {
         return estFacture;
@@ -157,6 +169,17 @@ public class OccupationMaterielNaval extends ClassEtat {
 
         return null;
     }
+    
+    public Prevision getPrevision(Connection c, String nomTable) throws Exception {
+        Prevision prevision = new Prevision();
+        prevision.setNomTable(nomTable);
+        if (this.getIdprevision() != null) {
+            prevision = (Prevision) prevision.getById(this.getIdprevision(), prevision.getNomTable(), c);
+            return prevision;
+        }
+
+        return null;
+    }
 
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
@@ -181,6 +204,63 @@ public class OccupationMaterielNaval extends ClassEtat {
             OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallibcpl", c);
             rep = new Activite();
             Prevision prevision = this.getPrevision(c);
+            //System.out.println("Idclienttt dans prestation==" + prevision.getConsignataire());
+            Rubrique rubrique = occupation.getRubriqueCalcule(c);
+            String previsionId = "", idrubrique = "";
+
+            if (prevision != null) {
+                previsionId = prevision.getId();
+            }
+            if (rubrique != null) {
+                idrubrique = rubrique.getId();
+            }
+            rep.setDesignation(occupation.getIdnatureoperation() +" "+prevision.getEscale());
+
+            rep.setClient(prevision.getConsignataire());
+            rep.setRubrique(idrubrique);
+            rep.setMois(Utilitaire.getMois(this.getDaty()));
+            rep.setAnnee(Utilitaire.getAnnee(this.getDaty()));
+            rep.setDaty(this.getDaty());
+            rep.setBateau(previsionId);
+            rep.setRefobjet(this.getId());
+            rep.setDatedebut(this.getDaty());
+            rep.setHeuredebut(this.getHeuredebut());
+            rep.setDatefin(this.getDatefin());
+            rep.setHeurefin(this.getHeurefin());
+            rep.createObject(u, c);
+            
+            this.setActivite(rep);
+            
+            if(verif == 1) c.commit();
+        } catch (Exception e) {
+            if(c != null && verif == 1) c.rollback();
+            throw e;
+        }
+        finally {
+            if(c != null && verif == 1) c.close();
+        }
+        
+        return rep;
+    }
+    
+    public Activite genererActiviteProf(String u, Connection c) throws Exception {
+        int verif = 0;
+        Activite rep = null;
+        
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            if (possedeActiviteProfVisee(c)) {
+                throw new Exception("Il existe deja une activite visee pour cette prestation");
+            }
+
+            OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmatnavalproflibcpl", c);
+            rep = new Activite();
+            rep.setNomTable("activite_prof");
+            Prevision prevision = this.getPrevision(c, "prevision_prof");
             //System.out.println("Idclienttt dans prestation==" + prevision.getConsignataire());
             Rubrique rubrique = occupation.getRubriqueCalcule(c);
             String previsionId = "", idrubrique = "";
@@ -677,6 +757,15 @@ public class OccupationMaterielNaval extends ClassEtat {
         return CGenUtil.rechercher(activite, null, null, c, awhere).length > 0;
     }
     
+    public boolean possedeActiviteProf(Connection c) throws Exception {
+        Activite activite = new Activite();
+        activite.setNomTable("ACTIVITELIBCOMPLETPROF_V");
+        
+        String awhere = String.format("and refobjet = '%s'", this.getId());
+        
+        return CGenUtil.rechercher(activite, null, null, c, awhere).length > 0;
+    }
+    
     public  static boolean possedeActivite(OccupationMaterielNaval[] tOccup, Connection c) throws Exception {
         boolean ouvert = false;
         
@@ -701,9 +790,40 @@ public class OccupationMaterielNaval extends ClassEtat {
         
         return true;
     }
+    
+    public  static boolean possedeActiviteProf(OccupationMaterielNaval[] tOccup, Connection c) throws Exception {
+        boolean ouvert = false;
+        
+        if(tOccup.length == 0) return false;
+        
+        try {
+            if(c == null) {
+                c = (new UtilDB()).GetConn();
+                ouvert = true;
+            }
+            
+            for(OccupationMaterielNaval occup: tOccup) {
+                if(!occup.possedeActiviteProf(c)) return false;
+            }
+        }
+        catch(Exception ex) {
+            throw ex;
+        }
+        finally {
+            if(c != null && ouvert) c.close();
+        }
+        
+        return true;
+    }
 
     public void verifPrevision(Connection c) throws Exception {
-        Prevision p = getPrevision(c);
+        Prevision p = null;
+        if(this.getNomTable().compareToIgnoreCase("occupationmaterielnaval_prof")==0){
+            p = getPrevision(c, "prevision_prof");
+        }else{
+            p = getPrevision(c);
+        }
+        
 
         if (p == null) {
             throw new Exception("Previson introuvable");

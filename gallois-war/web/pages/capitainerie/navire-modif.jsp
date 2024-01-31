@@ -12,8 +12,13 @@
 <%@ page import="affichage.*"%>
 <%
     String autreparsley = "data-parsley-range='[8, 40]' required";
+    String nomtable = request.getParameter("nomtable");
     Navire navire = new Navire();
     navire.setNomTable("NAVIRE");
+    
+    if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+        navire.setNomTable(nomtable);
+    }
     PageUpdate pi = new PageUpdate(navire, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
