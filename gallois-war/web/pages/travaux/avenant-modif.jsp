@@ -18,19 +18,11 @@
         butApresPost = request.getParameter("redirection");
     
     Avenant base = (Avenant) pi.getBase();
-    affichage.Liste[] listes = new affichage.Liste[1];
-
-    TypeObjet type = new TypeObjet();
-    type.setNomTable("unite");
-    listes[0] = new Liste("unite", type, "VAL", "id");
-
-    pi.getFormu().changerEnChamp(listes);
-
+    
     if (request.getParameter("idcontrat") != null && request.getParameter("nomcontrat") != null) {
         pi.getFormu().getChamp("idcontrat").setDefaut(request.getParameter("idcontrat"));
         pi.getFormu().getChamp("idcontrat").setValeurLibelle(request.getParameter("nomcontrat"));
     }
-        
     pi.getFormu().getChamp("idcontrat").setPageAppel("choix/listeChantierChoix.jsp");
     pi.getFormu().getChamp("idcontrat").setAutre("readonly");
     pi.getFormu().getChamp("idtiers").setPageAppel("choix/listeTiersChoix.jsp");
@@ -42,7 +34,7 @@
 
 
     pi.getFormu().getChamp("etat").setVisible(false);
-    pi.getFormu().getChamp("fin_avenant").setVisible(false);
+    pi.getFormu().getChamp("fin_avenant").setLibelle("fin avenant");
     pi.getFormu().getChamp("droit_entree").setVisible(false);
     pi.getFormu().getChamp("redevance_fixe").setVisible(false);
     pi.getFormu().getChamp("devise").setVisible(false);
@@ -67,8 +59,18 @@
 
     pi.getFormu().getChamp("date_signature").setLibelle("Date signature");
     pi.getFormu().getChamp("debut_avenant").setLibelle("D&eacute;but avenant");
-    pi.getFormu().getChamp("duree").setLibelle("Dur&eacute;e");
-    pi.getFormu().getChamp("unite").setLibelle("Unit&eacute;");
+    pi.getFormu().getChamp("duree").setVisible(false);
+    pi.getFormu().getChamp("unite").setVisible(false);
+
+    if (request.getParameter("montant") != null) {
+            pi.getFormu().getChamp("idtiers").setVisible(false);
+            pi.getFormu().getChamp("date_signature").setVisible(false);
+            pi.getFormu().getChamp("objet").setVisible(false);
+            pi.getFormu().getChamp("debut_avenant").setVisible(false);
+            pi.getFormu().getChamp("fin_avenant").setVisible(false);
+           
+            pi.getFormu().getChamp("idcontrat").setVisible(false);
+    }
     
     pi.preparerDataFormu();
 %>

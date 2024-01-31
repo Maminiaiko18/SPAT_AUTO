@@ -307,6 +307,8 @@
 
                     <%}
                     %>
+                     <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=facture/regulFFBP-saisie.jsp&id=" + e.getId()%>" style="margin-right: 10px">régulariser via Bon provisoire </a>
+
 
                     <hr>
                 </div>

@@ -23,7 +23,7 @@
 
         String listeCrt[] = {"id","num", "designation","codeetablissementlib","projetlib","patrimoinelib","daty","idcategorieachat"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id","num","designation","idcategorieachatlib","codeetablissementlib","projetlib","patrimoinelib","daty","etatlib"};
+        String libEntete[] = {"id","num","designation","idcategorieachatlib","codeetablissementlib","projetlib","patrimoinelib","montantengager","daty","etatlib"};
 
         PageRecherche pr = new PageRecherche(demandeMere, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -91,7 +91,7 @@
                 out.println(pr.getTableauRecap().getHtml());%>
             <br>
             <%
-                String libEnteteAffiche[] ={"Id", "No.", "D&eacute;signation", "Cat&eacute;gorie achat", "Code &eacute;tablissement","Projet","Patrimoine","Date","Etat"};
+                String libEnteteAffiche[] ={"Id", "No.", "D&eacute;signation", "Cat&eacute;gorie achat", "Code &eacute;tablissement","Projet","Patrimoine","montant engag&eacute;","Date","Etat"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("genererBC");
                 pr.getTableau().setNameBoutton("G&eacute;n&eacute;rer BC");

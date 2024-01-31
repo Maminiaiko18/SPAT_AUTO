@@ -1,6 +1,7 @@
 package mg.cnaps.servlet.etat;
 
 import affichage.Liste;
+import mg.spat.Contrat;
 import affichage.PageRecherche;
 import affichage.PageRechercheGroupe;
 import affichage.TableauRecherche;
@@ -412,7 +413,7 @@ public class EtatPaieServlet extends HttpServlet {
             DemandeAchatFille j = new DemandeAchatFille();
             j.setNomTable("dem_achat_fillelib");
             DemandeAchatFille[] tabJournalFille = (DemandeAchatFille[]) CGenUtil.rechercher(j, null, null,
-                    " and idmere = '" + jc.getId() + "'");
+                    " and idmere = '" + jc.getId() + "' ORDER BY DESIGNATION ASC");
 
             Map param = new HashMap();
             param.put("numero", jc.getNum());
@@ -623,7 +624,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("LB", bc.getProjet());
                 param.put("REF", bc.getNumbc());
                 param.put("TYPE_PAIEMENT", bc.getTypepaiement());
-
+                param.put("ACOMPTE", bc.getAcompte());
                 param.put("DELAILIVRAISON", bc.getDelailivraison());
 
                 double total_ttc_devise = bc.getMontantTTC() / liste[0].getTaux();
@@ -1495,6 +1496,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("daty", sdf.format(utilitaire.Utilitaire.dateDuJourSql()));
             String daty1 = sdf.format(utilitaire.Utilitaire.dateDuJourSql());
             String daty2 = daty1;
+            int indice = Integer.valueOf(request.getParameter("indice"));
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
                     && request.getParameter("daty2").length() != 0) {
                 daty2 = sdf.format(sdf.parse(request.getParameter("daty2")));
@@ -1546,6 +1548,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
+            String[] etatAff = {"TOUS", "CR&Eacute;E(S)", "VIS&Eacute;E(S)", "A PAYER", "AU COMPTANT", "A CR&Eacute;dDIT", "ANNUL&Eacute;", "EN RETARD", "EN ALERTE", "PAY&Eacute;E(S)"};
+            String etat = etatAff[indice];
+            param.put("etat", etat);
             FactureClient facture = new FactureClient();
             String mois = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "";
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
@@ -1651,6 +1656,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("daty", sdf.format(utilitaire.Utilitaire.dateDuJourSql()));
             String daty1 = sdf.format(utilitaire.Utilitaire.dateDuJourSql());
             String daty2 = daty1;
+            int indice = Integer.valueOf(request.getParameter("indice"));
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
                     && request.getParameter("daty2").length() != 0) {
                 daty2 = sdf.format(sdf.parse(request.getParameter("daty2")));
@@ -1702,6 +1708,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             param.put("daty1", daty1);
             param.put("daty2", daty2);
+            String[] etatAff = {"TOUS", "CR&Eacute;E(S)", "VIS&Eacute;E(S)", "A PAYER", "AU COMPTANT", "A CR&Eacute;dDIT", "ANNUL&Eacute;", "EN RETARD", "EN ALERTE", "PAY&Eacute;E(S)"};
+            String etat = etatAff[indice];
+            param.put("etat", etat);
             FactureClient facture = new FactureClient();
             String mois = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "";
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
@@ -4669,7 +4678,7 @@ public class EtatPaieServlet extends HttpServlet {
             String daty1 = request.getParameter("date1");
             String daty2 = request.getParameter("date2");
 
-            String requete = "";
+            String requete = "SELECT tierslib, SUM(MONTANTRESTE) AS MONTANTRESTE, SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
             if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
                 requete = requete + String.format(" and daty >= TO_DATE('%s','DD/MM/YYYY')", daty1);
             }
@@ -4679,10 +4688,11 @@ public class EtatPaieServlet extends HttpServlet {
             if (tiers != null && !tiers.trim().isEmpty() && tiers.compareToIgnoreCase("null") != 0) {
                 requete += " and upper(tierslib) like upper('%" + tiers + "%')";
             }
+            requete += " GROUP BY TIERSLIB ";
             // System.out.println("requete :"+requete);
             FactureClient mc = new FactureClient();
             mc.setNomTable("FACTURE_CLIENT_UNIONV");
-            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(mc, null, null, requete);
+            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(mc,requete);
             Map param = new HashMap();
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(mere));
@@ -4748,7 +4758,9 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("dateDedepart", mere[0].getDatedepart());
             param.put("daty", utilitaire.Utilitaire.dateDuJour());
             param.put("moyenDeDep", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
-
+            String annee = String.valueOf(mere[0].getDatedepart().getYear());
+            String anneEnCour = annee.substring(annee.length() - 2);
+            param.put("annee", anneEnCour);
             setNomJasper("Ordre_de_mission");
             UtilitaireImpression.imprimer(request, response, "ordre de mission", param, null, getReportPath());
 
@@ -4764,8 +4776,12 @@ public class EtatPaieServlet extends HttpServlet {
             mc.setNomTable("ordre_mission_lib");
             OrdreMissionLib[] mere = (OrdreMissionLib[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "'");
             Map param = new HashMap();
+            String annee = String.valueOf(mere[0].getDatedepart().getYear());
+            String anneEnCour = annee.substring(annee.length() - 2);
+            param.put("annee", anneEnCour);
             param.put("nom", mere[0].getNom());
             param.put("prenom", mere[0].getPrenom());
+            param.put("matricule", mere[0].getMatricule());
             param.put("fonction", mere[0].getFonction());
             param.put("modeTransport", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
             param.put("deplacement", mere[0].getDuree());
@@ -4887,26 +4903,31 @@ public class EtatPaieServlet extends HttpServlet {
     private void imprimerSuiviContrat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String id = request.getParameter("id");
+            Contrat c = new Contrat();
+            c.setNomTable("CONTRATLIBCPLT");
+            Contrat[] mere = (Contrat[]) CGenUtil.rechercher(c, null, null,
+                    " and id='" + id + "'");
             facture.FactureFournisseur ff = new facture.FactureFournisseur();
             ff.setNomTable("facture_fournisseur_travaux");
             facture.FactureFournisseur[] fille = (facture.FactureFournisseur[]) CGenUtil.rechercher(ff, null, null,
                     " and idcontrat='" + id + "'");
-
+            double rapcontrat = mere[0].getMontant() - mere[0].getMontantpaye();
             Map param = new HashMap();
-            if(fille.length > 0){
-                param.put("travaux",fille[0].getNomtravaux());
-                param.put("chantier",fille[0].getNomchantier());
-                param.put("direction",fille[0].getCode_etablissementlib());
-                param.put("titulaire",fille[0].getTierslib());
-                param.put("objet",fille[0].getIdengagementlib());
-                param.put("daty",fille[0].getDaty());
-                param.put("duree",fille[0].getDureecontrat());
-                param.put("contrat",fille[0].getDesignation());
-                param.put("montantContrat",fille[0].getMontant());
-                param.put("projet",fille[0].getProjetlib());
-                param.put("cr",fille[0].getCr());
-                param.put("unite",Utilitaire.champNull(fille[0].getUnitelib()));
+            if(mere.length > 0){
+                param.put("travaux",mere[0].getNomtravaux());
+                param.put("chantier",mere[0].getNomchantier());
+                param.put("direction",mere[0].getCr());
+                param.put("titulaire",mere[0].getTierslib());
+                param.put("objet",mere[0].getObjet());
+                param.put("daty",mere[0].getDate_signature());
+                param.put("duree",mere[0].getDuree());
+                param.put("contrat",mere[0].getNumero());
+                param.put("montantContrat",mere[0].getMontant());
+                param.put("projet",mere[0].getCodeprojetlib());
+                param.put("cr",mere[0].getCodeetablissementlib());
+                param.put("unite",Utilitaire.champNull(mere[0].getValunite()));
             }
+            param.put("rapcontrat",rapcontrat);
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(fille));
             setNomJasper("SUIVI_CONTRAT");

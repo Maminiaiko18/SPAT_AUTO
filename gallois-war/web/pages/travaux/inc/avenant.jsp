@@ -14,7 +14,7 @@
     avenant.setNomTable("AVENANTLIBCPLT");
     String listeCrt[] = {};
     String listeInt[] = {};
-    String libEntete[] = {"id", "tierslib", "objet", "date_signature", "debut_avenant", "fin_avenant", "duree", "unitelib", "montant", "etatlib"};
+    String libEntete[] = {"id", "tierslib", "objet", "date_signature", "debut_avenant", "fin_avenant", "duree", "montant", "etatlib"};
     PageRecherche pr = new PageRecherche(avenant, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -32,7 +32,7 @@
         String colonneLien[] = {"id"};
         pr.getTableau().setLien(lienTableau);
         pr.getTableau().setColonneLien(colonneLien);
-        String libEnteteAffiche[] =  {"ID", "Tiers", "Objet", "Date signature", "D&eacute;but avenant", "Fin avenant", "Dur&eacute;e", "Unit&eacute;", "Montant", "Etat"};
+        String libEnteteAffiche[] =  {"ID", "Tiers", "Objet", "Date signature", "D&eacute;but avenant", "Fin avenant", "Dur&eacute;e", "Montant", "Etat"};
         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
         if(pr.getTableau().getHtml() != null){
             out.println(pr.getTableau().getHtml());

@@ -56,7 +56,11 @@
     pi.getFormu().getChamp("fin_avenant").setVisible(false);
     pi.getFormu().getChamp("montantpaye").setVisible(false);
     pi.getFormu().getChamp("annee").setVisible(false);
-    
+    pi.getFormu().getChamp("Resteaengager").setVisible(false);
+    pi.getFormu().getChamp("Nomtravaux").setVisible(false);
+    pi.getFormu().getChamp("Nomchantier").setVisible(false);
+    pi.getFormu().getChamp("Cr").setVisible(false);
+    pi.getFormu().getChamp("tierslib").setVisible(false);
     pi.getFormu().getChamp("idchantier").setLibelle("Chantier");
     pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
     pi.getFormu().getChamp("date_signature").setLibelle("Date signature");

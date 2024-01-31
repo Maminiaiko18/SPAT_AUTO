@@ -1347,7 +1347,9 @@ public class FactureFournisseur extends FactureClient {
                 verif = 1;
             }
 
-            //this.updateToTableWithHisto(refUser, c);
+            if(this.getCode()!=null && !this.getCode().equalsIgnoreCase("")){
+                if(!isNumeric(this.getCode())) throw new Exception("numero compta invalide");
+            }
             this.updateToTable(c);
 
             if (verif == 1) {
@@ -1390,6 +1392,10 @@ public class FactureFournisseur extends FactureClient {
     
     public Engagement findEngagement(Connection c) throws Exception {
         return  findEngagement("engagementlibV", "id", c);
+    }
+
+    static boolean isNumeric(String s) {
+        return s.matches("\\d+");  
     }
 
     @Override

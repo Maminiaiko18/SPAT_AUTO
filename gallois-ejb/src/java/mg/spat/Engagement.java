@@ -30,7 +30,7 @@ import facture.LiaisonEngagement;
  * @author Nouta
  */
 public class Engagement extends ClassEtat {
-    private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib,observation,idtype,idtypelib;
+    private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib,observation,idtype,idtypelib, idcontrat;
     private String codeEtablissementlib,projetlib,tiers ,tierslib,num, idengagement;
     private double montant,disponible,dispoAvant,dispoApres,montantOP,montantreste,montantliberer;
     private Date daty;
@@ -58,6 +58,14 @@ public class Engagement extends ClassEtat {
 
     public void setIdtypelib(String idtypelib) {
         this.idtypelib = idtypelib;
+    }
+
+    public String getIdcontrat() {
+        return idcontrat;
+    }
+
+    public void setIdcontrat(String idcontrat) {
+        this.idcontrat = idcontrat;
     }
     
 
@@ -218,7 +226,7 @@ public class Engagement extends ClassEtat {
     }
 
     public void setIdLC(String idLC) throws Exception {
-        //if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
         this.idLC = idLC;
     }
 
@@ -631,11 +639,11 @@ public class Engagement extends ClassEtat {
                 c = new UtilDB().GetConn();
                 ouvert = true;
             }
-            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, "and codeetablissement='"+this.getCodeEtablissement()+"' and projet='"+this.getProjet()+"' and  num > " + this.getNum() + " and etat = " + ConstanteEtat.getEtatValider());
+            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, "and codeetablissement='"+this.getCodeEtablissement()+"' and num > " + this.getNum() + " and etat = " + ConstanteEtat.getEtatValider()+" and annee="+this.getAnnee());
             if(engagement.length > 0)
                 throw new Exception("Un autre engagement a été créé après celui-ci.");
                 
-            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()+" AND ID2 NOT LIKE '%BRD%'");
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()+" AND ID2 NOT like '%BRD%' ");
             if(liaisons.length > 0)
                 throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
             
@@ -667,7 +675,18 @@ public class Engagement extends ClassEtat {
     
     @Override
     public void controler(Connection c) throws Exception {
-        if(this.getEtat() == ConstanteEtat.getEtatAnnuler()) 
-            throw new Exception("Impossible \\340 viser, d\\351j\\340 annul\\351");
+        Contrat temp = new Contrat();
+        temp.setNomTable("CONTRATLIBCPLT");
+        if(this.getIdcontrat()!=null){
+            Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(temp, null, null, c, " AND ID = '" + this.getIdcontrat() + "'");
+            if(contrat.length > 0){
+                Contrat ca = contrat[0];        
+                if(this.getMontant()> ca.getResteaengager()){
+                    throw new Exception(" Le montant dépasse le montant reste du contrat");
+                }
+                if(this.getEtat() == ConstanteEtat.getEtatAnnuler()) 
+                    throw new Exception("Impossible \\340 viser, d\\351j\\340 annul\\351");
+            }
+        }
     }
 }

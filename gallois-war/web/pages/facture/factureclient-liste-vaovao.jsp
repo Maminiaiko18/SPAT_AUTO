@@ -24,7 +24,17 @@
             ff.setNomTable(request.getParameter("etat"));
             System.out.println("etatA==" + request.getParameter("etat"));
         }
-
+        String typelib = "";
+        if(request.getParameter("typelib")!=null && !request.getParameter("typelib").equalsIgnoreCase("%")){
+            typelib = request.getParameter("typelib");
+        }
+        int indice = 0;
+        if(request.getParameter("etat")!=null && !request.getParameter("etat").equalsIgnoreCase("%")){
+            String temp = request.getParameter("etat");
+            for(int i = 0; i < etatVal.length; i++){
+                if(temp.equalsIgnoreCase(etatVal[i])) indice = i;
+            }
+        }
         String listeCrt[] = {"id", "daty", "tierslib", "tiers", "designation", "armateurlib", "exercice", "date_echeance", "escale", "categorielib", "code", "codeFiltre", "typelib", "nbJours","nomnavire"};
         String listeInt[] = {"daty", "date_echeance", "exercice", "nbJours"};
         String libEntete[] = {"id", "daty", "tierslib", "tiers", "code", "escale","nomnavire", "designation", "armateurlib", "exercice", "categorielib", "tva", "date_echeance", "typelib", "montant", "montantTVA", "montantTTC", "montantTTCvrai", "montantAvoir", "montantpaye", "montantreste", "etatlib", "numpiece", "nbJours"};
@@ -124,10 +134,10 @@
         <%out.println(pr.getTableauRecap().getHtml());%>
         <br/>
         <div class="col-md-4">                 
-            <a class="btn btn-info"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient1&etat=<%=request.getParameter("etat")%>&code=<%=request.getParameter("code")%>&categorielib=<%=request.getParameter("categorielib")%>&armateurlib=<%=request.getParameter("armateurlib")%>&designation=<%=request.getParameter("designation")%>&tierslib=<%=request.getParameter("tierslib")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&date_echeance1=<%=request.getParameter("date_echeance1")%>&date_echeance2=<%=request.getParameter("date_echeance2")%>&typelib=<%=request.getParameter("typelib")%>" style="float:right">Imprimer factures</a>                 
+            <a class="btn btn-info"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClient1&etat=<%=request.getParameter("etat")%>&code=<%=request.getParameter("code")%>&categorielib=<%=request.getParameter("categorielib")%>&armateurlib=<%=request.getParameter("armateurlib")%>&designation=<%=request.getParameter("designation")%>&tierslib=<%=request.getParameter("tierslib")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&date_echeance1=<%=request.getParameter("date_echeance1")%>&date_echeance2=<%=request.getParameter("date_echeance2")%>&typelib=<%=typelib%>&indice=<%=indice%>" style="float:right">Imprimer factures</a>                 
         </div>
         <div class="col-md-4">                 
-            <a class="btn btn-danger"  href="${pageContext.request.contextPath}/Paie?action=ImprimerFactureClient1ParClient&etat=<%=request.getParameter("etat")%>&code=<%=request.getParameter("code")%>&categorielib=<%=request.getParameter("categorielib")%>&armateurlib=<%=request.getParameter("armateurlib")%>&designation=<%=request.getParameter("designation")%>&tierslib=<%=request.getParameter("tierslib")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&date_echeance1=<%=request.getParameter("date_echeance1")%>&date_echeance2=<%=request.getParameter("date_echeance2")%>&typelib=<%=request.getParameter("typelib")%>" style="float:right">Imprimer factures par client</a>                 
+            <a class="btn btn-danger"  href="${pageContext.request.contextPath}/Paie?action=ImprimerFactureClient1ParClient&etat=<%=request.getParameter("etat")%>&code=<%=request.getParameter("code")%>&categorielib=<%=request.getParameter("categorielib")%>&armateurlib=<%=request.getParameter("armateurlib")%>&designation=<%=request.getParameter("designation")%>&tierslib=<%=request.getParameter("tierslib")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&date_echeance1=<%=request.getParameter("date_echeance1")%>&date_echeance2=<%=request.getParameter("date_echeance2")%>&typelib=<%=typelib%>&indice=<%=indice%>" style="float:right">Imprimer factures par client</a>                 
         </div>
         <form action="<%=pr.getLien()%>?but=apresFacture.jsp" method="post" name="incidents" id="incidents">
             <%
