@@ -4758,7 +4758,7 @@ public class EtatPaieServlet extends HttpServlet {
             param.put("dateDedepart", mere[0].getDatedepart());
             param.put("daty", utilitaire.Utilitaire.dateDuJour());
             param.put("moyenDeDep", Utilitaire.champNull(mere[0].getIdmoyendeplacementlib()));
-            String annee = Utilitaire.getAnneeEnCours();
+            String annee = String.valueOf(mere[0].getDatedepart().getYear());
             String anneEnCour = annee.substring(annee.length() - 2);
             param.put("annee", anneEnCour);
             setNomJasper("Ordre_de_mission");
@@ -4776,7 +4776,7 @@ public class EtatPaieServlet extends HttpServlet {
             mc.setNomTable("ordre_mission_lib");
             OrdreMissionLib[] mere = (OrdreMissionLib[]) CGenUtil.rechercher(mc, null, null, " and id='" + id + "'");
             Map param = new HashMap();
-            String annee = Utilitaire.getAnneeEnCours();
+            String annee = String.valueOf(mere[0].getDatedepart().getYear());
             String anneEnCour = annee.substring(annee.length() - 2);
             param.put("annee", anneEnCour);
             param.put("nom", mere[0].getNom());
