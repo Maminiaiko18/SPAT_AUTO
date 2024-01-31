@@ -23,6 +23,15 @@ public class DemandeAchatMere extends ClassEtat{
     private Date daty;
     private String etatlib;
     private String patrimoine,patrimoinelib;
+    private double montantengager;
+
+    public double getMontantengager() {
+        return montantengager;
+    }
+
+    public void setMontantengager(double montantengager) {
+        this.montantengager = montantengager;
+    }
 
     public String getPatrimoine() {
         return patrimoine;

@@ -44,6 +44,7 @@
         pi.getFormu().getChamp("idengagementlib").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("etatlib").setVisible(false);
+        pi.getFormu().getChamp("montantengager").setVisible(false);
         pi.getFormu().getChamp("codeetablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
         pi.getFormu().getChamp("codeetablissement").setAutre("readonly");
         
