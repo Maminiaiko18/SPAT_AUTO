@@ -191,22 +191,40 @@ public class RemboursementPlacement extends ClassEtat{
             throw new Exception("Montant à rembourser supérieur au montant disponible.");
         }
         double dispoNouv = p.getDisponible() - this.getMontantplace();
+        /*double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
+        double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree)/100;
+        double ircm = (intRemb * Constante.getTauxIRCM()) / 100;
+        this.setInteret(intRemb);
+        this.setIRCM(ircm);
+        this.setInteretBrut(intRemb - ircm);*/
+        this.updateToTableWithHisto(user.getUser().getTuppleID(), c);
+       // double intPlacement = Utilitaire.calculerInteret(dispoNouv, p.getTaux(), (p.getDuree() - duree));
+        //p.setInteret_recevoir(intPlacement*0.8);
+        p.setDisponible(dispoNouv);
+        p.updateToTableWithHisto(user.getUser().getTuppleID(), c);
+        
+        super.viser(user, c);
+    }
+
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        controler(c);
+    }
+    
+    @Override
+    public void controler(Connection c) throws Exception {
+        System.out.println("tayyyy");
+        Placement p = findPlacement(c);
+        if(p.getDisponible() < this.getMontantplace()){
+            throw new Exception("Montant à rembourser supérieur au montant disponible.");
+        }
         double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
         double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree)/100;
         double ircm = (intRemb * Constante.getTauxIRCM()) / 100;
         this.setInteret(intRemb);
         this.setIRCM(ircm);
         this.setInteretBrut(intRemb - ircm);
-        this.updateToTableWithHisto(user.getUser().getTuppleID(), c);
-        double intPlacement = Utilitaire.calculerInteret(dispoNouv, p.getTaux(), (p.getDuree() - duree));
-        p.setInteret_recevoir(intPlacement*0.8);
-        p.setDisponible(dispoNouv);
-        p.updateToTableWithHisto(user.getUser().getTuppleID(), c);
-        
-        super.viser(user, c);
     }
-    
-    
 
     public void echu(Connection c, UserEJBBean user) throws Exception {
         boolean ouvert = false;
