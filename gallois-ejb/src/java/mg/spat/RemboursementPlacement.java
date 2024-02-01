@@ -192,9 +192,11 @@ public class RemboursementPlacement extends ClassEtat{
         }
         double dispoNouv = p.getDisponible() - this.getMontantplace();
         double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
-        double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree);
+        double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree)/100;
+        double ircm = (intRemb * Constante.getTauxIRCM()) / 100;
         this.setInteret(intRemb);
-        this.setInteretBrut(intRemb*0.8);
+        this.setIRCM(ircm);
+        this.setInteretBrut(intRemb - ircm);
         this.updateToTableWithHisto(user.getUser().getTuppleID(), c);
         double intPlacement = Utilitaire.calculerInteret(dispoNouv, p.getTaux(), (p.getDuree() - duree));
         p.setInteret_recevoir(intPlacement*0.8);
