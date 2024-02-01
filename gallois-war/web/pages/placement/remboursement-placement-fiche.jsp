@@ -26,8 +26,8 @@
         pc.getChampByName("interet").setLibelle("Interet");        
         pc.getChampByName("caisselib").setLibelle("Caisse");     
         pc.getChampByName("etat").setLibelle("etat");
-
-
+        pc.getChampByName("interet").setLibelle("interet a recevoir");
+        pc.getChampByName("interetbrut").setLibelle("interet net");
 
 //        pc.getChampByName("nomfournisseur").setLien("module.jsp?but=travaux/tiers-fiche.jsp&id=" + a.getIdFournisseur(), "nom=");
         pc.setTitre("Fiche remboursement de placement");
@@ -70,14 +70,14 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <div class="">
-                <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachés</h2>
+                <h2 class="box-title" style="margin-left: 10px;">Les fichiers attachï¿½s</h2>
             </div>
             <div class="box-body">
                 <table class="table table-striped table-bordered table-condensed table-responsive tree">
                     <thead>
                         <tr>
                             <th style="background-color:#bed1dd;"></th>
-                            <th style="background-color:#bed1dd;">Libellé</th>
+                            <th style="background-color:#bed1dd;">Libellï¿½</th>
                             <th style="background-color:#bed1dd;">Fichier</th>
                             <th style="background-color:#bed1dd;">Voir</th>
                             <th style="background-color:#bed1dd;">#</th>
