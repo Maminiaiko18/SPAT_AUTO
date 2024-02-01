@@ -213,7 +213,6 @@ public class RemboursementPlacement extends ClassEtat{
     
     @Override
     public void controler(Connection c) throws Exception {
-        System.out.println("tayyyy");
         Placement p = findPlacement(c);
         if(p.getDisponible() < this.getMontantplace()){
             throw new Exception("Montant à rembourser supérieur au montant disponible.");
