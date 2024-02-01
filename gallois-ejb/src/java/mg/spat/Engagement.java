@@ -226,7 +226,7 @@ public class Engagement extends ClassEtat {
     }
 
     public void setIdLC(String idLC) throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
+        //if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
         this.idLC = idLC;
     }
 
@@ -675,9 +675,9 @@ public class Engagement extends ClassEtat {
     
     @Override
     public void controler(Connection c) throws Exception {
-        Contrat temp = new Contrat();
-        temp.setNomTable("CONTRATLIBCPLT");
-        if(this.getIdcontrat()!=null){
+        if(this.getIdcontrat()!=null && !this.getIdcontrat().equalsIgnoreCase("")){
+            Contrat temp = new Contrat();
+            temp.setNomTable("CONTRATLIBCPLT");
             Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(temp, null, null, c, " AND ID = '" + this.getIdcontrat() + "'");
             if(contrat.length > 0){
                 Contrat ca = contrat[0];        
