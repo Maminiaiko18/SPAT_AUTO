@@ -103,6 +103,19 @@ public class Engagement extends ClassEtat {
         this.setIdLC(idLC);
         this.setDaty(daty);
     }
+
+    public Engagement(String designation,String codeEtablissement,String projet,double montant,double disponible,double dispoAvant,double dispoApres,String compte,Date daty)throws Exception{
+        this.setNomTable("ENGAGEMENT");
+        this.setDesignation(designation);
+        this.setCodeEtablissement(codeEtablissement);
+        this.setProjet(projet);
+        this.setMontant(montant);
+        this.setDisponible(disponible);
+        this.setDispoAvant(dispoAvant);
+        this.setDispoApres(dispoApres);
+        this.setCompte(compte);
+        this.setDaty(daty);
+    }
     
     public double getResteAFacturer(Connection c) throws Exception{
         FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_libV",c);
@@ -675,9 +688,9 @@ public class Engagement extends ClassEtat {
     
     @Override
     public void controler(Connection c) throws Exception {
-        Contrat temp = new Contrat();
-        temp.setNomTable("CONTRATLIBCPLT");
-        if(this.getIdcontrat()!=null){
+        if(this.getIdcontrat()!=null && !this.getIdcontrat().equalsIgnoreCase("")){
+            Contrat temp = new Contrat();
+            temp.setNomTable("CONTRATLIBCPLT");
             Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(temp, null, null, c, " AND ID = '" + this.getIdcontrat() + "'");
             if(contrat.length > 0){
                 Contrat ca = contrat[0];        

@@ -661,7 +661,7 @@ public class BonDeCommande extends ClassEtat {
     }
      
     public Engagement getEngagement() throws Exception {
-        Engagement retour = new Engagement("BC "+this.getNumbc().split("/")[0]+" - "+this.getDesignation(), this.getCode_etab() , this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, Utilitaire.dateDuJourSql());
+        Engagement retour = new Engagement("BC "+this.getNumbc().split("/")[0]+" - "+this.getDesignation(), this.getCode_etab() , this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, Utilitaire.dateDuJourSql());
         retour.setTiers(this.getFournisseur());
         retour.setAvecFacture(0);
         return retour;
