@@ -103,6 +103,19 @@ public class Engagement extends ClassEtat {
         this.setIdLC(idLC);
         this.setDaty(daty);
     }
+
+    public Engagement(String designation,String codeEtablissement,String projet,double montant,double disponible,double dispoAvant,double dispoApres,String compte,Date daty)throws Exception{
+        this.setNomTable("ENGAGEMENT");
+        this.setDesignation(designation);
+        this.setCodeEtablissement(codeEtablissement);
+        this.setProjet(projet);
+        this.setMontant(montant);
+        this.setDisponible(disponible);
+        this.setDispoAvant(dispoAvant);
+        this.setDispoApres(dispoApres);
+        this.setCompte(compte);
+        this.setDaty(daty);
+    }
     
     public double getResteAFacturer(Connection c) throws Exception{
         FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_libV",c);
@@ -226,7 +239,7 @@ public class Engagement extends ClassEtat {
     }
 
     public void setIdLC(String idLC) throws Exception {
-        //if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
+        if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
         this.idLC = idLC;
     }
 

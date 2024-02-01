@@ -1539,15 +1539,14 @@ public class FactureFournisseur extends FactureClient {
     }
 
     public Engagement getEngagement() throws Exception {
-        Engagement retour = new Engagement(this.getDesignation(), this.getCode_etablissement(), this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, null, Utilitaire.dateDuJourSql());
+        Engagement retour = new Engagement(this.getDesignation(), this.getCode_etablissement(), this.getProjet(), this.getMontant(), 0.0, 0.0, 0.0, null, Utilitaire.dateDuJourSql());
         retour.setAvecFacture(0);
         return retour;
     }
 
     public void insertEngagement(String u, boolean controleMontant,Connection c) throws Exception {
         int verif = 0;
-        Engagement engagement = this.getEngagement();
-        
+        Engagement engagement = this.getEngagement();        
         try {
             if (c == null) {
                 c = new UtilDB().GetConn();
