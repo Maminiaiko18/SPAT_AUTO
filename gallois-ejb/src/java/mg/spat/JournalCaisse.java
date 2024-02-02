@@ -391,7 +391,7 @@ public class JournalCaisse extends ClassEtat {
         this.setDebit(debit);
         this.setCredit(credit);
         this.setIddevise(idDevise);
-        this.setMode(idMode);
+        this.setIdmode(idMode);
         this.setIdTypeCheque(idTypeCheque);
     }
     public JournalCaisse(String folio, String caisse, String numPiece, String libelle, String remarque, Date dateSaisie, Date dateEffet, double debit, double credit, String idDevise, String idMode, String idTypeCheque, String idplacement) throws Exception {
