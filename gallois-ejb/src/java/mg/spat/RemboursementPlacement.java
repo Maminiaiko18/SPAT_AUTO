@@ -220,9 +220,9 @@ public class RemboursementPlacement extends ClassEtat{
         double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
         double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree)/100;
         double ircm = (intRemb * Constante.getTauxIRCM()) / 100;
-        this.setInteret(intRemb);
+        this.setInteretBrut(intRemb);
         this.setIRCM(ircm);
-        this.setInteretBrut(intRemb - ircm);
+        this.setInteret(intRemb - ircm);
     }
 
     public void echu(Connection c, UserEJBBean user) throws Exception {
