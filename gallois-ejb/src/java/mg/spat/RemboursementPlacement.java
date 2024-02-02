@@ -270,7 +270,6 @@ public class RemboursementPlacement extends ClassEtat{
 
                 //Sortie IRCM
                 designation = String.format("Echeance placement %s/%s: montant IRCM", placementLibComplet.getValentite(), placementLibComplet.getValbanque());     
-                
                 JournalCaisse ircm = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), this.getIRCM(), 0, placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant,this.getIdplacement());
                 ircm.setIdplacementvrai(this.getIdplacement());
                 ircm.createObject(refuser, c);
@@ -296,6 +295,8 @@ public class RemboursementPlacement extends ClassEtat{
             RemboursementPlacement[] liste = (RemboursementPlacement[]) CGenUtil.rechercher(rembourcement, null, null,c, " and idplacement='" + this.getIdplacement() + "'");
             double sommeRembourser = AdminGen.calculSommeDouble(liste, "montantplace") + this.getMontantplace();
             if(placement.getMontant() == sommeRembourser){
+                placement.setDateechu(null);
+                placement.setDateechu(Utilitaire.dateDuJourSql());
                 placement.setEtat(ConstanteEtat.getEtatEchu());
                 placement.updateToTableWithHisto(refuser, c);
             }

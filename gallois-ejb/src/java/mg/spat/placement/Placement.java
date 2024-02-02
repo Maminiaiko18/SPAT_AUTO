@@ -44,6 +44,15 @@ public class Placement extends ClassEtat {
     private double interetNet;
     private String ancienPlacement,designation;
     private double disponible;
+    private Date dateechu;
+
+    public Date getDateechu() {
+        return dateechu;
+    }
+
+    public void setDateechu(Date dateechu) {
+        this.dateechu = dateechu;
+    }
 
     public String getDesignation() {
         return designation;

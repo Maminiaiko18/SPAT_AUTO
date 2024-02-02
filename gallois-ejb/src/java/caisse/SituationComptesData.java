@@ -403,7 +403,6 @@ public class SituationComptesData {
                     "    ingredients,\n"+
                     "    idCategorieIngredient,\n"+
                     "    iddevise";       
-                    System.out.println("requeteeee "+ req);     
             situations = (EtatdeStockDate[]) CGenUtil.rechercher(situation, req, c);
         } catch (Exception e) {
             throw e;
