@@ -26,8 +26,8 @@
         pc.getChampByName("interet").setLibelle("Interet");        
         pc.getChampByName("caisselib").setLibelle("Caisse");     
         pc.getChampByName("etat").setLibelle("etat");
-        pc.getChampByName("interet").setLibelle("interet a recevoir");
-        pc.getChampByName("interetbrut").setLibelle("interet net");
+        pc.getChampByName("interet").setLibelle("interet net");
+        pc.getChampByName("interetbrut").setLibelle("interet a recevoir");
 
 //        pc.getChampByName("nomfournisseur").setLien("module.jsp?but=travaux/tiers-fiche.jsp&id=" + a.getIdFournisseur(), "nom=");
         pc.setTitre("Fiche remboursement de placement");
