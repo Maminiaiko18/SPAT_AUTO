@@ -51,6 +51,7 @@
         map.put("detail_placement", "");
         map.put("Journal_Caisse", "");
         map.put("RemboursementPlacement", "");
+        map.put("factureClient-liste", "");
         String tab = request.getParameter("tab");
         if (tab == null) {
             tab = "DetailPlacement";
@@ -106,6 +107,7 @@
                         <li class="<%= map.get("detail_placement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=bi.getId()%>&tab=DetailPlacement">Details Placements</a></li>
                         <li class="<%= map.get("Journal_Caisse")%>"><a href="module.jsp?but=<%=bute%>&id=<%=bi.getId()%>&idPlacement=<%=bi.getId()%>&tab=journalCaisse-liste">Journal Caisse</a></li>
                         <li class="<%= map.get("RemboursementPlacement ")%>"><a href="module.jsp?but=<%=bute%>&id=<%=bi.getId()%>&idPlacement=<%=bi.getId()%>&id=<%=bi.getId()%>&tab=remboursement-liste">Remboursement</a></li>
+                        <li class="<%= map.get("factureClient-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=bi.getId()%>&idPlacement=<%=bi.getId()%>&id=<%=bi.getId()%>&tab=factureClient-liste">Listes Factures </a></li>
                     </ul>
                     <div class="tab-content">       
 
