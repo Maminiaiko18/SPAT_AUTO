@@ -196,10 +196,10 @@ public class RemboursementPlacement extends ClassEtat{
         double ircm = (intRemb * Constante.getTauxIRCM()) / 100;
         this.setInteret(intRemb);
         this.setIRCM(ircm);
-        this.setInteretBrut(intRemb - ircm);*/
+        this.setInteretBrut(intRemb - ircm);
         this.updateToTableWithHisto(user.getUser().getTuppleID(), c);
-       // double intPlacement = Utilitaire.calculerInteret(dispoNouv, p.getTaux(), (p.getDuree() - duree));
-        //p.setInteret_recevoir(intPlacement*0.8);
+        double intPlacement = Utilitaire.calculerInteret(dispoNouv, p.getTaux(), (p.getDuree() - duree));
+        p.setInteret_recevoir(intPlacement*0.8);*/
         p.setDisponible(dispoNouv);
         p.updateToTableWithHisto(user.getUser().getTuppleID(), c);
         
@@ -247,7 +247,7 @@ public class RemboursementPlacement extends ClassEtat{
         //  Entrée Montant placé
             String designation = String.format("Echeance placement %s/%s: montant place", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
             Date dateDuJour = Utilitaire.dateDuJourSql();
-            JournalCaisse j1 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, placementLibComplet.getMontant());
+            JournalCaisse j1 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, this.getMontantplace());
             j1.setIddevise(placement.getIddevise());
             j1.setIdplacement(this.getIdplacement());
             j1.setMode(Constante.idmodeVirement);
@@ -282,7 +282,7 @@ public class RemboursementPlacement extends ClassEtat{
             //  Entrée Intérêts
                 designation = String.format("Echeance placement %s/%s: montant interet net", placementLibComplet.getValentite(), placementLibComplet.getValbanque());                
 
-                JournalCaisse j2 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, placementLibComplet.getInteret_net());
+                JournalCaisse j2 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, this.getInteret());
                 j2.setIddevise(placement.getIddevise());
                 j2.setMode(Constante.idmodeVirement);
                 j2.setIdTypeCheque(Constante.typeChequeAuComptant);
