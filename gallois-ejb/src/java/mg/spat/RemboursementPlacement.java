@@ -214,9 +214,6 @@ public class RemboursementPlacement extends ClassEtat{
     @Override
     public void controler(Connection c) throws Exception {
         Placement p = findPlacement(c);
-        if(p.getDisponible() < this.getMontantplace()){
-            throw new Exception("Montant à rembourser supérieur au montant disponible.");
-        }
         double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
         double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree)/100;
         double ircm = (intRemb * Constante.getTauxIRCM()) / 100;
