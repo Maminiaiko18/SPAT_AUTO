@@ -296,7 +296,7 @@ public class RemboursementPlacement extends ClassEtat{
             double sommeRembourser = AdminGen.calculSommeDouble(liste, "montantplace") + this.getMontantplace();
             if(placement.getMontant() == sommeRembourser){
                 placement.setDateechu(null);
-                placement.setDateechu(Utilitaire.dateDuJourSql());
+                placement.setDateechu(this.getDaty());
                 placement.setEtat(ConstanteEtat.getEtatEchu());
                 placement.updateToTableWithHisto(refuser, c);
             }
