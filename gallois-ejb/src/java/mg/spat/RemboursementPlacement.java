@@ -266,6 +266,7 @@ public class RemboursementPlacement extends ClassEtat{
                 JournalCaisse brut = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, this.getInteretBrut(), placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant);
                 brut.setIdplacementvrai(this.getIdplacement());
                 brut.createObject(refuser, c);
+                brut.setTiers("TIE0000002348115131");
                 brut.genererFacture(c, refuser, compte, Integer.parseInt(Utilitaire.getAnneeEnCours()), Utilitaire.getMoisEnCours(), (this.getIRCM()/this.getInteret())*100,this.getInteret());
                 brut.viser(user, c);
                 
@@ -286,6 +287,7 @@ public class RemboursementPlacement extends ClassEtat{
                 j2.setMode(Constante.idmodeVirement);
                 j2.setIdTypeCheque(Constante.typeChequeAuComptant);
                 j2.setIdplacementvrai(this.getIdplacement());
+                j2.setTiers("TIE0000002348115131");
                 j2.createObject(refuser, c);
                 j2.genererFacture( c, refuser, compte, Utilitaire.getAneeEnCours(), Utilitaire.getMoisEnCours(), 20 );
                 j2.viser(user, c);

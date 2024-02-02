@@ -72,6 +72,15 @@ public class FactureClient extends ClassMere {
     private double montantsansreduction,montantresteAPayer;
     private String nomnavire;
     private int estBornageEtPeche;
+    private String idplacement;
+
+    public String getIdplacement() {
+        return idplacement;
+    }
+
+    public void setIdplacement(String idplacement) {
+        this.idplacement = idplacement;
+    }
 
     public double getMontantresteAPayer() {
         return this.montantttc - montantprovision;
