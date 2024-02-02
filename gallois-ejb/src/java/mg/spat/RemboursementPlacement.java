@@ -31,14 +31,14 @@ public class RemboursementPlacement extends ClassEtat{
     private Date daty;
     
     
-    public void checkDoublonRemboursement(Connection c) throws Exception{
+    /*public void checkDoublonRemboursement(Connection c) throws Exception{
         RemboursementPlacement rembourcement =new RemboursementPlacement();
         rembourcement.setNomTable("remboursementplacementV");
         RemboursementPlacement[] liste = (RemboursementPlacement[]) CGenUtil.rechercher(rembourcement, null, null,c, " and idplacement='" + this.getIdplacement() + "'");
         if(liste.length>0){
             throw new Exception("Remboursement Placement deja enregistre");
         }
-    }
+    }*/
 
     public void checkMontantRemboursement(Connection c) throws Exception{
         RemboursementPlacement rembourcement =new RemboursementPlacement();
@@ -290,12 +290,21 @@ public class RemboursementPlacement extends ClassEtat{
                 j2.viser(user, c);
             }
             
-        //  Etat échu 
-            Placement[] lp = Placement.findPlacementsPrecedants(c,this.getIdplacement());
+            //  Etat échu si rembourser totalement
+            RemboursementPlacement rembourcement =new RemboursementPlacement();
+            rembourcement.setNomTable("remboursementplacementV");
+            RemboursementPlacement[] liste = (RemboursementPlacement[]) CGenUtil.rechercher(rembourcement, null, null,c, " and idplacement='" + this.getIdplacement() + "'");
+            double sommeRembourser = AdminGen.calculSommeDouble(liste, "montantplace") + this.getMontantplace();
+            if(placement.getMontant() == sommeRembourser){
+                placement.setEtat(ConstanteEtat.getEtatEchu());
+                placement.updateToTableWithHisto(refuser, c);
+            }
+            /*Placement[] lp = Placement.findPlacementsPrecedants(c,this.getIdplacement());
             for(int i=0;i<lp.length;i++){
                 lp[i].setEtat(ConstanteEtat.getEtatEchu());
                 lp[i].updateToTableWithHisto(refuser, c);
-            }
+            }*/
+            
             
             if(ouvert) c.commit();
         } catch (Exception e) {
