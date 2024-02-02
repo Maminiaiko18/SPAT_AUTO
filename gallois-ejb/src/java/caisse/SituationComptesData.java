@@ -373,7 +373,7 @@ public class SituationComptesData {
                     "            CAST(montant - nvl(montantrembourse,0) AS number(30,2)) AS MONTANT ,\n"+
                     "            etat\n"+
                     "FROM\n"+
-                    "            placementlib_visee p,\n"+
+                    "            PLACEMENTLIBELLE p,\n"+
                     "            (\n"+
                     "    SELECT\n"+
                     "        nvl(SUM(nvl(MONTANTPLACE, 0)), 0) AS montantrembourse,\n"+
@@ -386,7 +386,7 @@ public class SituationComptesData {
                     "        IDPLACEMENT ) m\n"+
                     "WHERE\n"+
                     "    p.id=m.idplacement(+)\n"+
-                    "    AND\n"+
+                    "    AND (p.ETAT =11 OR ( p.etat=12 AND p.DATEECHU >'"+dateInf+"')) AND \n"+
                     "        (date_placement <= '"+dateInf+"'\n"+
                     "        OR date_placement <= '"+dateSup+"')\n"+
                     "    AND (date_echeance >= '"+dateInf+"'\n"+
