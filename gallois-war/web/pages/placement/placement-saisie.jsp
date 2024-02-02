@@ -20,6 +20,7 @@
     pi.getFormu().getChamp("numero").setLibelle("R&eacute;f&eacute;rence");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("duree").setVisible(false);
+    pi.getFormu().getChamp("Dateechu").setVisible(false);
        pi.getFormu().getChamp("ancienPlacement").setLibelle("Ancien placement");
        pi.getFormu().getChamp("ancienPlacement").setAutre("readonly");
         pi.getFormu().getChamp("ancienPlacement").setPageAppel("choix/listePlacementChoix.jsp");
