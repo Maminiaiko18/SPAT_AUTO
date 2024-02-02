@@ -224,6 +224,7 @@ public class JournalCaisse extends ClassEtat {
         //FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
         System.out.println("Niditra aaaaaato----");
         FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeAuComptant, Constante.idCategorieFCDefinitive, 1);
+        factureclient.setIdplacement(this.getIdplacementvrai());
         FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(),"Facture auto via", 1,compte);
         detail.setAnnee(annee);
         detail.setMois(mois);
