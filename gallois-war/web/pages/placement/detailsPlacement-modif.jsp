@@ -17,7 +17,7 @@
 <div class="content-wrapper">
     <div class="row">
         <a href="../apresTarifMultiple.jsp"></a>
-        <div class="col-md-6">
+        <div class="col-md-6 col-md-offset-3">
             <div class="box-fiche">
                 <div class="box">
                     <h1>Modification</h1>
@@ -32,7 +32,7 @@
                             <br><br> 
                         </div>
                         <input name="acte" type="hidden" id="acte" value="update">
-                        <input name="bute" type="hidden" id="bute" value="placement/detailsPlacement-fiche.jsp">
+                        <input name="bute" type="hidden" id="bute" value="placement/detailsPlacement-modif.jsp">
                         <input name="classe" type="hidden" id="classe" value="mg.spat.placement.DetailsPlacements">
                         <input name="nomtable" type="hidden" id="nomtable" value="detailsplacement">
                     </form>
