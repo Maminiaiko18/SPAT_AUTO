@@ -355,9 +355,54 @@ public class SituationComptesData {
 
             EtatdeStockDate situation = new EtatdeStockDate();
             situation.setNomTable("AS_ETATSTOCKVIDE");
-            String req = "select idCategorieIngredient,ingredients,iddevise as unite, nvl(sum(montant),0) as montantStock from (select  entite||'/'||banque as ingredients,banque as idCategorieIngredient, date_placement,iddevise, montant,etat from placementlib_visee p where date_placement<='" + dateInf + "' or date_placement<='" + dateSup + "'"
-                    + "and date_echeance>='" + dateInf + "' or date_echeance>='" + dateSup + "'  and id not in (select idplacement from journalcaisse)) where iddevise='" + devise + "'  group by ingredients,idCategorieIngredient,iddevise";
-
+            /*String req = "select idCategorieIngredient,ingredients,iddevise as unite, nvl(sum(montant),0) as montantStock from (select  entite||'/'||banque as ingredients,banque as idCategorieIngredient, date_placement,iddevise, montant,etat from placementlib_visee p where ( date_placement<='" + dateInf + "' or date_placement<='" + dateSup + "' )"
+                    + "and ( date_echeance>='" + dateInf + "' or date_echeance>='" + dateSup + "' )  and id in (select idplacement from journalcaisse)) where iddevise='" + devise + "'  group by ingredients,idCategorieIngredient,iddevise";
+            */
+            String req = "SELECT\n"+
+                    "    idCategorieIngredient,\n"+
+                    "    ingredients,\n"+
+                    "    iddevise AS unite,\n"+
+                    "    CAST(nvl(sum(montant), 0) AS number(30,2)) AS montantStock\n"+
+                    "FROM (\n"+
+                    "SELECT\n"+
+                    "        id,\n"+
+                    "            entite || '/' || banque AS ingredients,\n"+
+                    "            banque AS idCategorieIngredient,\n"+
+                    "            date_placement,\n"+
+                    "            iddevise,\n"+
+                    "            CAST(montant - nvl(montantrembourse,0) AS number(30,2)) AS MONTANT ,\n"+
+                    "            etat\n"+
+                    "FROM\n"+
+                    "            PLACEMENTLIBELLE p,\n"+
+                    "            (\n"+
+                    "    SELECT\n"+
+                    "        nvl(SUM(nvl(MONTANTPLACE, 0)), 0) AS montantrembourse,\n"+
+                    "        idplacement\n"+
+                    "    FROM\n"+
+                    "        REMBOURSEMENTPLACEMENTV  r\n"+
+                    "    WHERE\n"+
+                    "         DATY <= '"+dateInf+"'\n"+
+                    "    GROUP BY\n"+
+                    "        IDPLACEMENT ) m\n"+
+                    "WHERE\n"+
+                    "    p.id=m.idplacement(+)\n"+
+                    "    AND (p.ETAT =11 OR ( p.etat=12 AND p.DATEECHU >'"+dateInf+"')) AND \n"+
+                    "        (date_placement <= '"+dateInf+"'\n"+
+                    "        OR date_placement <= '"+dateSup+"')\n"+
+                    "    AND (date_echeance >= '"+dateInf+"'\n"+
+                    "        OR date_echeance >= '"+dateSup+"')\n"+
+                    "    AND id IN (\n"+
+                    "    SELECT\n"+
+                    "        idplacement\n"+
+                    "    FROM\n"+
+                    "        JOURNALCAISSELIB_VISE)\n"+
+                    "    )\n"+
+                    "WHERE\n"+
+                    "    iddevise = '"+ devise +"'\n"+
+                    "GROUP BY\n"+
+                    "    ingredients,\n"+
+                    "    idCategorieIngredient,\n"+
+                    "    iddevise";       
             situations = (EtatdeStockDate[]) CGenUtil.rechercher(situation, req, c);
         } catch (Exception e) {
             throw e;

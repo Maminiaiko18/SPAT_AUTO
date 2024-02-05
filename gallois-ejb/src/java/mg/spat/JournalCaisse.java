@@ -224,6 +224,7 @@ public class JournalCaisse extends ClassEtat {
         //FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
         System.out.println("Niditra aaaaaato----");
         FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeAuComptant, Constante.idCategorieFCDefinitive, 1);
+        factureclient.setIdplacement(this.getIdplacementvrai());
         FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(),"Facture auto via", 1,compte);
         detail.setAnnee(annee);
         detail.setMois(mois);
@@ -243,6 +244,7 @@ public class JournalCaisse extends ClassEtat {
     public FactureClient genererFactureClientAuto(Connection c,String user,String compte, int annee, int mois, double tva) throws Exception{
         //FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
         FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeAuComptant, Constante.idCategorieFCDefinitive, 1);
+        factureclient.setIdplacement(this.getIdplacementvrai());
         FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(), compte, "Facture auto via", 1);
         detail.setAnnee(annee);
         detail.setMois(mois);
@@ -251,10 +253,7 @@ public class JournalCaisse extends ClassEtat {
         detail.setPu(this.getCredit()/(1+tva/100));
         FactureClientDetails[] fille = {detail};
         factureclient.setFille(fille);
-        
         factureclient.createObject(user, c);
-        
-    
         return factureclient;
     }
 
@@ -392,7 +391,7 @@ public class JournalCaisse extends ClassEtat {
         this.setDebit(debit);
         this.setCredit(credit);
         this.setIddevise(idDevise);
-        this.setMode(idMode);
+        this.setIdmode(idMode);
         this.setIdTypeCheque(idTypeCheque);
     }
     public JournalCaisse(String folio, String caisse, String numPiece, String libelle, String remarque, Date dateSaisie, Date dateEffet, double debit, double credit, String idDevise, String idMode, String idTypeCheque, String idplacement) throws Exception {
@@ -1076,7 +1075,7 @@ public class JournalCaisse extends ClassEtat {
                         String numeroPiece = calculerNumeroPiece(c);
                         this.setNumPiece(numeroPiece);
                     }
-                    if(this.getDebit()>0){
+                    if(this.getDebit()>0 && !this.getIdplacement().startsWith("PLC")){
                         String numeroPiece = calculerNumeroPieceDepense(c);
                         this.setNumPiece(numeroPiece);
                     }

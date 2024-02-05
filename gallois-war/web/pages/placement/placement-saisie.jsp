@@ -14,12 +14,13 @@
     
     pi.getFormu().getChamp("date_placement").setLibelle("Date placement");
    // pi.getFormu().getChamp("date_placement").setDefaut(Utilitaire.dateDuJour());
-    pi.getFormu().getChamp("date_echeance").setLibelle("Date �ch�ance");
+    pi.getFormu().getChamp("date_echeance").setLibelle("Date &eacute;ch&eacute;ance");
 
     pi.getFormu().getChamp("banque").setLibelle("Banque");
-    pi.getFormu().getChamp("numero").setLibelle("R�f�rence");
+    pi.getFormu().getChamp("numero").setLibelle("R&eacute;f&eacute;rence");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("duree").setVisible(false);
+    pi.getFormu().getChamp("Dateechu").setVisible(false);
        pi.getFormu().getChamp("ancienPlacement").setLibelle("Ancien placement");
        pi.getFormu().getChamp("ancienPlacement").setAutre("readonly");
         pi.getFormu().getChamp("ancienPlacement").setPageAppel("choix/listePlacementChoix.jsp");
@@ -53,6 +54,7 @@
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
 //    pi.getFormu().getChamp("montantdevise").setLibelle("Montant devise");
     pi.getFormu().getChamp("montantdevise").setVisible(false);
+    pi.getFormu().getChamp("disponible").setVisible(false);
     pi.getFormu().getChamp("taux").setLibelle("Taux annuel");
     
     pi.setLien((String) session.getValue("lien"));

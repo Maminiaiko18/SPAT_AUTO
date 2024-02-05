@@ -31,14 +31,14 @@ public class RemboursementPlacement extends ClassEtat{
     private Date daty;
     
     
-    public void checkDoublonRemboursement(Connection c) throws Exception{
+    /*public void checkDoublonRemboursement(Connection c) throws Exception{
         RemboursementPlacement rembourcement =new RemboursementPlacement();
         rembourcement.setNomTable("remboursementplacementV");
         RemboursementPlacement[] liste = (RemboursementPlacement[]) CGenUtil.rechercher(rembourcement, null, null,c, " and idplacement='" + this.getIdplacement() + "'");
         if(liste.length>0){
             throw new Exception("Remboursement Placement deja enregistre");
         }
-    }
+    }*/
 
     public void checkMontantRemboursement(Connection c) throws Exception{
         RemboursementPlacement rembourcement =new RemboursementPlacement();
@@ -191,20 +191,36 @@ public class RemboursementPlacement extends ClassEtat{
             throw new Exception("Montant à rembourser supérieur au montant disponible.");
         }
         double dispoNouv = p.getDisponible() - this.getMontantplace();
-        double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
-        double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree);
+        /*double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
+        double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree)/100;
+        double ircm = (intRemb * Constante.getTauxIRCM()) / 100;
         this.setInteret(intRemb);
-        this.setInteretBrut(intRemb*0.8);
+        this.setIRCM(ircm);
+        this.setInteretBrut(intRemb - ircm);
         this.updateToTableWithHisto(user.getUser().getTuppleID(), c);
         double intPlacement = Utilitaire.calculerInteret(dispoNouv, p.getTaux(), (p.getDuree() - duree));
-        p.setInteret_recevoir(intPlacement*0.8);
+        p.setInteret_recevoir(intPlacement*0.8);*/
         p.setDisponible(dispoNouv);
         p.updateToTableWithHisto(user.getUser().getTuppleID(), c);
         
         super.viser(user, c);
     }
+
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        controler(c);
+    }
     
-    
+    @Override
+    public void controler(Connection c) throws Exception {
+        Placement p = findPlacement(c);
+        double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
+        double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree)/100;
+        double ircm = (intRemb * Constante.getTauxIRCM()) / 100;
+        this.setInteretBrut(intRemb);
+        this.setIRCM(ircm);
+        this.setInteret(intRemb - ircm);
+    }
 
     public void echu(Connection c, UserEJBBean user) throws Exception {
         boolean ouvert = false;
@@ -222,13 +238,13 @@ public class RemboursementPlacement extends ClassEtat{
             Placement placement = findPlacement(c);
 
             JournalCaisse[] listeSortie = placement.getSortie(c);
-            if(listeSortie==null || listeSortie.length==0)throw new Exception("Remboursement invalide. Décaissement non effectif");
+            if(listeSortie==null || listeSortie.length==0)throw new Exception("Remboursement invalide. Placement non effectif");
             if(this.getDaty().before(listeSortie[0].getDateEffet()))throw new Exception("Date anterieure à la date de decaissement");
             
         //  Entrée Montant placé
             String designation = String.format("Echeance placement %s/%s: montant place", placementLibComplet.getValentite(), placementLibComplet.getValbanque());
             Date dateDuJour = Utilitaire.dateDuJourSql();
-            JournalCaisse j1 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, placementLibComplet.getMontant());
+            JournalCaisse j1 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, this.getMontantplace());
             j1.setIddevise(placement.getIddevise());
             j1.setIdplacement(this.getIdplacement());
             j1.setMode(Constante.idmodeVirement);
@@ -247,13 +263,13 @@ public class RemboursementPlacement extends ClassEtat{
                 JournalCaisse brut = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, this.getInteretBrut(), placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant);
                 brut.setIdplacementvrai(this.getIdplacement());
                 brut.createObject(refuser, c);
+                brut.setTiers("TIE0000002348115131");
                 brut.genererFacture(c, refuser, compte, Integer.parseInt(Utilitaire.getAnneeEnCours()), Utilitaire.getMoisEnCours(), (this.getIRCM()/this.getInteret())*100,this.getInteret());
                 brut.viser(user, c);
                 
 
                 //Sortie IRCM
                 designation = String.format("Echeance placement %s/%s: montant IRCM", placementLibComplet.getValentite(), placementLibComplet.getValbanque());     
-                
                 JournalCaisse ircm = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), this.getIRCM(), 0, placement.getIddevise(), Constante.idmodeVirement, Constante.typeChequeAuComptant,this.getIdplacement());
                 ircm.setIdplacementvrai(this.getIdplacement());
                 ircm.createObject(refuser, c);
@@ -262,22 +278,34 @@ public class RemboursementPlacement extends ClassEtat{
             //  Entrée Intérêts
                 designation = String.format("Echeance placement %s/%s: montant interet net", placementLibComplet.getValentite(), placementLibComplet.getValbanque());                
 
-                JournalCaisse j2 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, placementLibComplet.getInteret_net());
+                JournalCaisse j2 = new JournalCaisse(null, this.getCaisse(), null, designation, null, dateDuJour, this.getDaty(), 0, this.getInteret());
                 j2.setIddevise(placement.getIddevise());
                 j2.setMode(Constante.idmodeVirement);
                 j2.setIdTypeCheque(Constante.typeChequeAuComptant);
                 j2.setIdplacementvrai(this.getIdplacement());
+                j2.setTiers("TIE0000002348115131");
                 j2.createObject(refuser, c);
                 j2.genererFacture( c, refuser, compte, Utilitaire.getAneeEnCours(), Utilitaire.getMoisEnCours(), 20 );
                 j2.viser(user, c);
             }
             
-        //  Etat échu 
-            Placement[] lp = Placement.findPlacementsPrecedants(c,this.getIdplacement());
+            //  Etat échu si rembourser totalement
+            RemboursementPlacement rembourcement =new RemboursementPlacement();
+            rembourcement.setNomTable("remboursementplacementV");
+            RemboursementPlacement[] liste = (RemboursementPlacement[]) CGenUtil.rechercher(rembourcement, null, null,c, " and idplacement='" + this.getIdplacement() + "'");
+            double sommeRembourser = AdminGen.calculSommeDouble(liste, "montantplace") + this.getMontantplace();
+            if(placement.getMontant() == sommeRembourser){
+                placement.setDateechu(null);
+                placement.setDateechu(this.getDaty());
+                placement.setEtat(ConstanteEtat.getEtatEchu());
+                placement.updateToTableWithHisto(refuser, c);
+            }
+            /*Placement[] lp = Placement.findPlacementsPrecedants(c,this.getIdplacement());
             for(int i=0;i<lp.length;i++){
                 lp[i].setEtat(ConstanteEtat.getEtatEchu());
                 lp[i].updateToTableWithHisto(refuser, c);
-            }
+            }*/
+            
             
             if(ouvert) c.commit();
         } catch (Exception e) {
