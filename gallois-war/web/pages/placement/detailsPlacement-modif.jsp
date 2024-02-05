@@ -12,6 +12,11 @@
     UserEJB u = (UserEJB) session.getAttribute("u");
     pi.getFormu().getChamp("idMere").setVisible(false);
     pi.getFormu().getChamp("mois").setAutre("readonly");
+    pi.getFormu().getChamp("Montant_terme").setLibelle("montant &agrave; terme");
+    pi.getFormu().getChamp("Interet_recevoir").setLibelle("Interet brut");
+    pi.getFormu().getChamp("Interet_net").setLibelle("Interet net");
+
+
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
@@ -32,7 +37,7 @@
                             <br><br> 
                         </div>
                         <input name="acte" type="hidden" id="acte" value="update">
-                        <input name="bute" type="hidden" id="bute" value="placement/detailsPlacement-modif.jsp">
+                        <input name="bute" type="hidden" id="bute" value="placement/detailsPlacement-fiche.jsp">
                         <input name="classe" type="hidden" id="classe" value="mg.spat.placement.DetailsPlacements">
                         <input name="nomtable" type="hidden" id="nomtable" value="detailsplacement">
                     </form>
