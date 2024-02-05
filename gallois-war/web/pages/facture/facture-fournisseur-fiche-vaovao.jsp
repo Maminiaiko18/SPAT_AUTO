@@ -296,16 +296,13 @@
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererDefinitiveFF&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
                         <%-- <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regul-ff-provision.jsp&idProvision=" + e.getId()%>" style="margin-right: 10px">Regulariser</a> --%>
                     </p><hr>
-                    <%}
-                    %>
+                    <%} else { %>
+                         <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=facture/regulFFBP-saisie.jsp&id=" + e.getId()%>" style="margin-right: 10px">régulariser via Bon provisoire </a>
+                    <% } %>
                     <%
-                        if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {%>
+                    if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {%>
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererProvision&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer Provision</a>
-
-                    <%}
-                    %>
-                     <a class="btn btn-warning"  href="<%=(String) session.getValue("lien") + "?but=facture/regulFFBP-saisie.jsp&id=" + e.getId()%>" style="margin-right: 10px">régulariser via Bon provisoire </a>
-
+                    <%}%>
 
                     <hr>
                 </div>

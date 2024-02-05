@@ -11,6 +11,8 @@ import ded.OrdonnerPayement;
 import facture.FactureFournisseur;
 import java.sql.Connection;
 import mg.spat.JournalCaisse;
+import mg.spat.stock.BonDeLivraison;
+import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
@@ -29,6 +31,12 @@ public class AvoirFF extends AvoirFC {
     @Override
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         this.setId(null);
+        // teste si la facture est bon provisoire et déja régulariser sinon erreur
+        FactureFournisseur facture = (FactureFournisseur)(new FactureFournisseur()).getById(this.getIdfacture(), "FACTURE_FOURNISSEUR_MERE", c);
+        if(facture!=null && facture.getIdcategorie().equalsIgnoreCase(Constante.getCategorieFFBP())){
+            FactureFournisseur[] factures = (FactureFournisseur[])CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and idprovision = '"+this.getIdfacture()+"' and etat=11");
+            if(factures==null || factures.length == 0) throw new Exception("Bon provisoire non regularise.");
+        }
         return super.createObject(u, c);
     }
 
