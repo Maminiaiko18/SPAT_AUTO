@@ -834,10 +834,8 @@ public class FactureClientDetails extends ClassFille {
         FactureClient mere = this.getMere();
         Date date = mere.getDaty();
         if (mere.getIdprevision() != null) {
-            Prevision prev;
-            if(this.getEstProformaEscale()==1) prev = mere.findPrevision("PREVISIONTYPEBORNAGEPROF", c);
-            else prev = mere.findPrevision("PREVISIONTYPEBORNAGE", c);
-            
+            Prevision prev = mere.findPrevision("PREVISIONTYPEBORNAGE", c);
+            if(prev == null) prev = mere.findPrevision("PREVISIONTYPEBORNAGEPROF", c);
             if (prev.getType().compareToIgnoreCase("TYPES0001") != 0) { // cas escale
                 if (prev.getDate_depart() != null) {
                     date = prev.getDate_depart();

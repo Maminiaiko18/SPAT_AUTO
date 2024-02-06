@@ -122,7 +122,7 @@
         String bute = "facture/factureclient-fiche-vaovao-prof.jsp";
         String classe = "facture.FactureClient";
         String classefille = "facture.FactureClientDetails";
-        String modifPage = "facture/factureclient-modif.jsp";
+        String modifPage = "facture/factureclient-modif-prof.jsp";
 
   //      String lien = (String) session.getValue("lien");
         String redirect = lien + "?but=" + modifPage + "&id=" + request.getParameter("id");
