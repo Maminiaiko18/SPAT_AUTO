@@ -22,6 +22,7 @@ import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 import mg.spat.JournalCaisse;
+import mg.spat.MvttIntraCaisse;
 import user.UserEJBBean;
 import utilitaire.Constante;
 import mg.spat.stock.BonDeLivraisonClient;
@@ -402,7 +403,10 @@ public class FactureClient extends ClassMere {
     @Override
     public void controlerUpdate(Connection c) throws Exception {
         FactureClient factureClient =(FactureClient)(new FactureClient()).getById(this.getId(), "Factureclient", c);
-        
+        Navire nav = (Navire) new Navire().getById(factureClient.getBateau(), "NAVIRE", null);
+        if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0){
+            this.setEstBornageEtPeche(1);
+        }
         if(this.getType().equals(factureClient.getType())==false && this.getEstAncienne()!=1){
             this.setCode(this.calculerCode(c));
         }
@@ -868,7 +872,8 @@ public class FactureClient extends ClassMere {
                 return "10";
             }
 
-            TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, " and val = '" + rubrique.getCategorie() + "' ");
+            String where =" and val = '" + rubrique.getCategorie() + "' ";
+            TypeObjet[] lst = (TypeObjet[]) CGenUtil.rechercher(obj, null, null, c, where);
             if (lst != null && lst.length > 0) {
                 return lst[0].getDesce();
             }
