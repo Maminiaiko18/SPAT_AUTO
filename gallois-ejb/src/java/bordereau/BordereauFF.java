@@ -192,8 +192,8 @@ public class BordereauFF extends Bordereau {
     public ClassMAPTable createObject(String u, Connection c) throws Exception {
         FactureFournisseur[] listeFille = this.getFactures(c);
         String designation = this.getDesignation();
-        if (designation != null && designation.length() > 0 && designation.length() > 20) {
-            throw new Exception("La d&eacute;signation d&eacute;passe les 20 caracteres.");
+        if (designation != null && designation.length() > 0 && designation.length() > 40) {
+            throw new Exception("La d&eacute;signation d&eacute;passe les 40 caracteres.");
         }
         if (listeFille != null && listeFille.length > 0) {
             if (this.getTypebordereau().compareToIgnoreCase(Constante.typeEtatDepense) != 0) {
