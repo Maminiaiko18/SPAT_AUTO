@@ -260,10 +260,10 @@ public class Chantier extends ClassEtat{
         try{
             Travaux t = new Travaux();
             Travaux travaux = (Travaux)t.getById(this.getIdtravaux(), null, c);
-            if((travaux.getDatedebut().after(this.getDatydebut())) || (this.getDatydebut().after(travaux.getDatefin())) || (travaux.getDatefin().before(this.getDatyfin())) || (this.getDatyfin().before(travaux.getDatedebut())))
+            if (!(this.getDatydebut().toLocalDate().compareTo(travaux.getDatedebut().toLocalDate()) >= 0 && this.getDatyfin().toLocalDate().compareTo(travaux.getDatefin().toLocalDate()) <= 0)) {
                 throw new Exception("Les dates du chantier doivent etre comprises entre les dates du travaux");
-        }
-        catch(Exception e){
+            }
+        }catch(Exception e){
             throw e;
         }
     }
