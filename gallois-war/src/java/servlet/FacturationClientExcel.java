@@ -155,7 +155,7 @@ public class FacturationClientExcel extends HttpServlet {
 
     public void FactureAnalyseClientExcel(HttpServletRequest request, HttpServletResponse response)throws IOException{
         try {
-            user.UserEJB user = (user.UserEJB) request.getSession().getValue("u");
+            //user.UserEJB user = (user.UserEJB) request.getSession().getValue("u");
 
             HSSFWorkbook wb = new HSSFWorkbook();
             Sheet sheet = wb.createSheet("new sheet");
@@ -163,7 +163,7 @@ public class FacturationClientExcel extends HttpServlet {
             HSSFCellStyle style = wb.createCellStyle();
             HSSFCellStyle nombrestyle = wb.createCellStyle();
            
-            UserEJB u = (user.UserEJB) request.getSession().getValue("u");
+            /*UserEJB u = (user.UserEJB) request.getSession().getValue("u");
             FactureClient recap = new FactureClient();
             recap.setNomTable("FACTURE_CLIENT_UNIONV");
             FactureClient lv = new FactureClient();
@@ -182,8 +182,8 @@ public class FacturationClientExcel extends HttpServlet {
             pr.creerObjetPagePourc();
             FactureClient[] fc = (FactureClient[])pr.getTableau().getData();*/
             String tiers = request.getParameter("tierslib");
-            String daty1 = request.getParameter("date1");
-            String daty2 = request.getParameter("date2");
+            String daty1 = request.getParameter("daty1");
+            String daty2 = request.getParameter("daty2");
 
             String requete = "SELECT tierslib, SUM(MONTANTRESTE) AS MONTANTRESTE, SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
             if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
@@ -196,7 +196,7 @@ public class FacturationClientExcel extends HttpServlet {
                 requete += " and upper(tierslib) like upper('%" + tiers + "%')";
             }
             requete += " GROUP BY TIERSLIB ";
-            // System.out.println("requete :"+requete);
+             System.out.println("requete :"+requete);
             FactureClient mc = new FactureClient();
             mc.setNomTable("FACTURE_CLIENT_UNIONV");
             FactureClient[] fc = (FactureClient[]) CGenUtil.rechercher(mc,requete);
