@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facture_client1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce1f3f99-b941-4998-8da0-3d76101166df">
 	<property name="ireport.zoom" value="2.1435888100000016"/>
-	<property name="ireport.x" value="283"/>
+	<property name="ireport.x" value="50"/>
 	<property name="ireport.y" value="256"/>
 	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="daty1" class="java.lang.String"/>
@@ -67,28 +67,28 @@
 					<textFieldExpression><![CDATA[$F{desce}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="47" width="89" height="20" uuid="a1dc7533-988c-4eac-b557-2f0b94243ae2"/>
+					<reportElement x="0" y="47" width="78" height="20" uuid="a1dc7533-988c-4eac-b557-2f0b94243ae2"/>
 					<textElement textAlignment="Center">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[N° Facture]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="89" y="47" width="66" height="20" uuid="66f19efd-380e-42e4-ae61-50d6f548861d"/>
+					<reportElement x="78" y="47" width="66" height="20" uuid="66f19efd-380e-42e4-ae61-50d6f548861d"/>
 					<textElement textAlignment="Center">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Date]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="155" y="47" width="106" height="20" uuid="af7f3951-1e15-4e8a-bd24-a29a677e2f8e"/>
+					<reportElement x="144" y="47" width="106" height="20" uuid="af7f3951-1e15-4e8a-bd24-a29a677e2f8e"/>
 					<textElement textAlignment="Center">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Client]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="260" y="47" width="64" height="20" uuid="47a5bd37-e658-4ec3-b4cf-c0e34519dfcd"/>
+					<reportElement x="250" y="47" width="73" height="20" uuid="47a5bd37-e658-4ec3-b4cf-c0e34519dfcd"/>
 					<textElement textAlignment="Center">
 						<font isBold="true"/>
 					</textElement>
@@ -123,7 +123,7 @@
 					<text><![CDATA[Nature de prestation]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="472" y="47" width="76" height="20" uuid="27549e4e-0018-414b-ac17-802a55cd5e5c"/>
+					<reportElement x="472" y="47" width="83" height="20" uuid="27549e4e-0018-414b-ac17-802a55cd5e5c"/>
 					<textElement textAlignment="Center">
 						<font isBold="true"/>
 					</textElement>
@@ -160,7 +160,7 @@
 					<textFieldExpression><![CDATA[$V{montanttva_1}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="260" y="0" width="64" height="20" uuid="d54c8ad2-a52e-4a4d-9b3f-e0e6b240d4e8"/>
+					<reportElement x="250" y="0" width="74" height="20" uuid="d54c8ad2-a52e-4a4d-9b3f-e0e6b240d4e8"/>
 					<box>
 						<topPen lineWidth="0.0"/>
 						<leftPen lineWidth="0.0"/>
@@ -173,21 +173,21 @@
 					<textFieldExpression><![CDATA[$V{montant_1}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="89" height="20" uuid="afeb265b-9b45-4249-a673-eb106c036ca5"/>
+					<reportElement x="0" y="0" width="78" height="20" uuid="afeb265b-9b45-4249-a673-eb106c036ca5"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total :]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="89" y="0" width="66" height="20" uuid="b3a201cf-3976-4c75-80f5-cb2bdb263474"/>
+					<reportElement x="78" y="0" width="66" height="20" uuid="b3a201cf-3976-4c75-80f5-cb2bdb263474"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{val_COUNT}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="474" y="0" width="74" height="20" uuid="afa006f2-0371-4da5-8e7e-8a10c6173865"/>
+					<reportElement x="474" y="0" width="81" height="20" uuid="afa006f2-0371-4da5-8e7e-8a10c6173865"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 						<paragraph rightIndent="5"/>
@@ -253,7 +253,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="89" height="20" isPrintWhenDetailOverflows="true" uuid="50ebcb8b-634e-4f92-99e6-b03439002ff2"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="78" height="20" isPrintWhenDetailOverflows="true" uuid="50ebcb8b-634e-4f92-99e6-b03439002ff2"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -267,7 +267,7 @@
 				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="89" y="0" width="66" height="20" isPrintWhenDetailOverflows="true" uuid="9612afb7-60a9-4ff6-b8be-1e7e1290a19f"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="78" y="0" width="66" height="20" isPrintWhenDetailOverflows="true" uuid="9612afb7-60a9-4ff6-b8be-1e7e1290a19f"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -281,7 +281,7 @@
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="155" y="0" width="106" height="20" isPrintWhenDetailOverflows="true" uuid="460b0c6a-840f-41cb-8770-d3b24ae68cfd"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="144" y="0" width="106" height="20" isPrintWhenDetailOverflows="true" uuid="460b0c6a-840f-41cb-8770-d3b24ae68cfd"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -295,7 +295,7 @@
 				<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="260" y="0" width="64" height="20" isPrintWhenDetailOverflows="true" uuid="3b00b553-53c1-4f88-9dda-5bdee4b6def4"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="250" y="0" width="74" height="20" isPrintWhenDetailOverflows="true" uuid="3b00b553-53c1-4f88-9dda-5bdee4b6def4"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -337,7 +337,7 @@
 				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="472" y="0" width="76" height="20" isPrintWhenDetailOverflows="true" uuid="9edb85b9-abed-4640-8f99-ff1f5b1ae150"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="472" y="0" width="83" height="20" isPrintWhenDetailOverflows="true" uuid="9edb85b9-abed-4640-8f99-ff1f5b1ae150"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
