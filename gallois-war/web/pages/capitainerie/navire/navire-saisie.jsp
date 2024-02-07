@@ -19,7 +19,7 @@
     liste1.setNomTable("typenavire");
     liste[0] = new Liste("type", liste1, "val", "id");
     pi.getFormu().changerEnChamp(liste);
-	
+    nomtable = pj.getNomTable();
     
     pi.getFormu().getChamp("pavillon").setPageAppel("choix/listePaysChoix.jsp");
     pi.getFormu().getChamp("pavillon").setAutre("readonly");
@@ -43,6 +43,7 @@
     <input name="acte" type="hidden" id="nature" value="insert">
     <input name="bute" type="hidden" id="bute" value="capitainerie/navire-fiche.jsp">
     <input name="classe" type="hidden" id="classe" value="mg.spat.Navire">
+    <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
     </form>
 </div>
 <%}catch(Exception e){

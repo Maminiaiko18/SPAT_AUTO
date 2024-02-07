@@ -19,6 +19,7 @@
     if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
         navire.setNomTable(nomtable);
     }
+    nomtable = navire.getNomTable();
     PageUpdate pi = new PageUpdate(navire, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
@@ -60,7 +61,7 @@
                         <input name="bute" type="hidden" id="bute" value="capitainerie/navire-fiche.jsp">
                         <input name="classe" type="hidden" id="classe" value="mg.spat.Navire">
                         <input name="rajoutLien" type="hidden" id="rajoutLien" value="id-<%out.print(request.getParameter("id"));%>" >
-                        <input name="nomtable" type="hidden" id="nomtable" value="navire">
+                        <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
                     </form>
                 </div>
             </div>
