@@ -176,11 +176,30 @@ public class FacturationClientExcel extends HttpServlet {
             String somDefaut[] = {"montantreste","montantttc","montantpaye"};
             String colDefaut[] = {"tierslib"};
 
-            PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, 0);
+            /*PageRechercheGroupe pr = new PageRechercheGroupe(lv, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, 0);
             pr.setUtilisateur(u);
             pr.setLien((String) request.getSession().getValue("lien"));
             pr.creerObjetPagePourc();
-            FactureClient[] fc = (FactureClient[])pr.getTableau().getData();
+            FactureClient[] fc = (FactureClient[])pr.getTableau().getData();*/
+            String tiers = request.getParameter("tierslib");
+            String daty1 = request.getParameter("date1");
+            String daty2 = request.getParameter("date2");
+
+            String requete = "SELECT tierslib, SUM(MONTANTRESTE) AS MONTANTRESTE, SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
+            if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
+                requete = requete + String.format(" and daty >= TO_DATE('%s','DD/MM/YYYY')", daty1);
+            }
+            if (daty2 != null && !daty2.trim().isEmpty() && daty2.compareToIgnoreCase("null") != 0) {
+                requete = requete + String.format(" and daty <= TO_DATE('%s','DD/MM/YYYY')", daty2);
+            }
+            if (tiers != null && !tiers.trim().isEmpty() && tiers.compareToIgnoreCase("null") != 0) {
+                requete += " and upper(tierslib) like upper('%" + tiers + "%')";
+            }
+            requete += " GROUP BY TIERSLIB ";
+            // System.out.println("requete :"+requete);
+            FactureClient mc = new FactureClient();
+            mc.setNomTable("FACTURE_CLIENT_UNIONV");
+            FactureClient[] fc = (FactureClient[]) CGenUtil.rechercher(mc,requete);
             Row row5 = sheet.createRow(0);
             Cell cellt = row5.createCell(1);
             cellt.setCellValue("Liste Facture Analyse Client");
