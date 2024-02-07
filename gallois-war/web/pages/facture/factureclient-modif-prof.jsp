@@ -18,7 +18,7 @@
         String titrePage = "Modification Facture Proforma",
                 classeMere = "facture.FactureClient",
                 classeFille = "facture.FactureClientDetails",
-                buteLien = "facture/factureclient-fiche-vaovao.jsp",
+                buteLien = "facture/factureclient-fiche-vaovao-prof.jsp",
                 colonneMereDansFille = "idmere",
                 buteApresVisa = "facture/factureclient-fiche-vaovao-prof.jsp";
         String autreparsley = "data-parsley-range='[8, 40]' required";
