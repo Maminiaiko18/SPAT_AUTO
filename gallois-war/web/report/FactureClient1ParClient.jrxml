@@ -315,7 +315,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantpaye}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="261" y="0" width="89" height="20" uuid="2d810c4a-b2af-4e67-94f5-b919e655d6c7"/>
 				<textElement textAlignment="Right" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{montantprov}]]></textFieldExpression>

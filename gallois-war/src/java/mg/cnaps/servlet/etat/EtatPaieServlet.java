@@ -1570,6 +1570,8 @@ public class EtatPaieServlet extends HttpServlet {
 
                 arrList.add(details[i]);
             }
+
+            awhere += " ORDER BY TIERSLIB ASC";
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("facture_client1");
             UtilitaireImpression.imprimer(request, response, "facture_client", param, arrList, getReportPath(), rt);
@@ -1729,6 +1731,8 @@ public class EtatPaieServlet extends HttpServlet {
             for (int i = 0; i < details.length; i++) {
                 arrList.add(details[i]);
             }
+
+            awhere += " ORDER BY TIERSLIB ASC";
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             setNomJasper("FactureClient1ParClient");
             UtilitaireImpression.imprimer(request, response, "facture_client", param, arrList, getReportPath(), rt);

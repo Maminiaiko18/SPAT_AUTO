@@ -88,12 +88,12 @@ public class BonDeCommandeData {
                 demandeAchatMere.setProjetlib(meres[0].getProjetlib());
                 demandeAchatMere.setCodeetablissement(meres[0].getCodeetablissement());
                 demandeAchatMere.setCodeetablissementlib(meres[0].getCodeetablissementlib());
-                demandeAchatfilles = (DemandeAchatFille[]) CGenUtil.rechercher(fille, null, null, c, "and idmere in (" + ids + ")");
+                demandeAchatfilles = (DemandeAchatFille[]) CGenUtil.rechercher(fille, null, null, c, "and idmere in (" + ids + ") ORDER BY DESIGNATION ASC");
             }
             else{
                 if(idDa == null) return;  
                 demandeAchatMere = (DemandeAchatMere) (new DemandeAchatMere()).getById(idDa, "dem_achat_merelib", c);
-                demandeAchatfilles = (DemandeAchatFille[]) CGenUtil.rechercher(fille, null, null, c, "and idmere ='"+idDa+"'");
+                demandeAchatfilles = (DemandeAchatFille[]) CGenUtil.rechercher(fille, null, null, c, "and idmere ='"+idDa+"' ORDER BY DESIGNATION ASC");
             }
             
         }
