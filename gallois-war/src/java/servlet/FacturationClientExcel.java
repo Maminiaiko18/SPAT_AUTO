@@ -184,6 +184,7 @@ public class FacturationClientExcel extends HttpServlet {
             String tiers = request.getParameter("tierslib");
             String daty1 = request.getParameter("daty1");
             String daty2 = request.getParameter("daty2");
+            String type = request.getParameter("type");
 
             String requete = "SELECT tierslib, SUM(MONTANTRESTE) AS MONTANTRESTE, SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
             if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
@@ -195,7 +196,12 @@ public class FacturationClientExcel extends HttpServlet {
             if (tiers != null && !tiers.trim().isEmpty() && tiers.compareToIgnoreCase("null") != 0) {
                 requete += " and upper(tierslib) like upper('%" + tiers + "%')";
             }
-            requete += " GROUP BY TIERSLIB ";
+
+            if (type != null && !type.trim().isEmpty() && type.compareToIgnoreCase("null") != 0) {
+                requete += " and type = '" + type + "'";
+            }
+
+            requete += "  GROUP BY TIERSLIB ORDER BY TIERSLIB ";
              System.out.println("requete :"+requete);
             FactureClient mc = new FactureClient();
             mc.setNomTable("FACTURE_CLIENT_UNIONV");

@@ -4681,6 +4681,7 @@ public class EtatPaieServlet extends HttpServlet {
             String tiers = request.getParameter("tierslib");
             String daty1 = request.getParameter("date1");
             String daty2 = request.getParameter("date2");
+            String type = request.getParameter("type");
 
             String requete = "SELECT tierslib, SUM(MONTANTRESTE) AS MONTANTRESTE, SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
             if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
@@ -4692,8 +4693,12 @@ public class EtatPaieServlet extends HttpServlet {
             if (tiers != null && !tiers.trim().isEmpty() && tiers.compareToIgnoreCase("null") != 0) {
                 requete += " and upper(tierslib) like upper('%" + tiers + "%')";
             }
-            requete += " GROUP BY TIERSLIB ";
-            // System.out.println("requete :"+requete);
+
+            if (type != null && !type.trim().isEmpty() && type.compareToIgnoreCase("null") != 0) {
+                requete += " and type = '" + type + "'";
+            }
+            requete += " GROUP BY TIERSLIB ORDER BY TIERSLIB ";
+             System.out.println("requete :"+requete);
             FactureClient mc = new FactureClient();
             mc.setNomTable("FACTURE_CLIENT_UNIONV");
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(mc,requete);
@@ -4701,7 +4706,7 @@ public class EtatPaieServlet extends HttpServlet {
             List dataSource = new ArrayList();
             dataSource.addAll(Arrays.asList(mere));
             setNomJasper("Analyse_Client");
-            UtilitaireImpression.imprimer(request, response, "Facture_Client", param, dataSource, getReportPath());
+            UtilitaireImpression.imprimer(request, response, "solde_client", param, dataSource, getReportPath());
         } catch (Exception e) {
             e.printStackTrace();
         }
