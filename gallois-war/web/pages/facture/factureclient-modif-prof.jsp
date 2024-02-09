@@ -153,6 +153,7 @@
          pi.getFormu().getChamp("bateau").setAutre("readonly");
         pi.getFormu().getChamp("bateau").setPageAppel("choix/listeNavireProfChoix.jsp","bateau;bateaulibelle;volume100;volume");
         pi.getFormu().getChamp("bateau").setLibelle("Navire");
+        pi.getFormu().getChamp("EstProformaEscale").setVisible(false);
         
         pi.getFormu().getChamp("lht").setVisible(false);
         pi.getFormu().getChamp("lm").setVisible(false);
