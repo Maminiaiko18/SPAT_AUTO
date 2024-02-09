@@ -50,8 +50,15 @@
             %>
         </form>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=capita"
-                + "inerie/navire-fiche.jsp"};
+            String link ="";
+            if(nomtable!=null&&!nomtable.isEmpty()){
+                link = pr.getLien() + "?but=capita"
+                + "inerie/navire-fiche.jsp?nomtable=navirelibprof";
+            } else {
+                link = pr.getLien() + "?but=capita"
+                + "inerie/navire-fiche.jsp";
+            }
+            String lienTableau[] = {link};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
