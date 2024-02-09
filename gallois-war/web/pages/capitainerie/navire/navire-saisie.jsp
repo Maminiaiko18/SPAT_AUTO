@@ -9,8 +9,10 @@
     String autreparsley = "data-parsley-range='[8, 40]' required";
     String nomtable = request.getParameter("nomtable");
     Navire pj = new Navire();
+    String apresLien ="";
     if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
         pj.setNomTable(nomtable);
+        apresLien = "?nomtable=navirelibprof";
     }
     PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
     
@@ -41,7 +43,7 @@
             out.println(pi.getFormu().getHtmlInsert());
         %>
     <input name="acte" type="hidden" id="nature" value="insert">
-    <input name="bute" type="hidden" id="bute" value="capitainerie/navire-fiche.jsp">
+    <input name="bute" type="hidden" id="bute" value="capitainerie/navire-fiche.jsp<%=apresLien%>">
     <input name="classe" type="hidden" id="classe" value="mg.spat.Navire">
     <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
     </form>
