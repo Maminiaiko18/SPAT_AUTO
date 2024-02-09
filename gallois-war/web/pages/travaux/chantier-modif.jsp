@@ -31,7 +31,7 @@
     pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
     pi.getFormu().getChamp("tierslib").setVisible(false);
     pi.getFormu().getChamp("idtravaux").setLibelle("Projet");
-    pi.getFormu().getChamp("datydebut").setLibelle("date de début");
+    pi.getFormu().getChamp("datydebut").setLibelle("date de d&eacute;but");
     pi.getFormu().getChamp("datyfin").setLibelle("date fin");
     pi.getFormu().getChamp("patrimoinelib").setVisible(false);
     pi.getFormu().getChamp("patrimoinedesce").setVisible(false);
