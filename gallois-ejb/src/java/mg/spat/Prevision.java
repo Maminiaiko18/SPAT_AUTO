@@ -291,7 +291,7 @@ public class Prevision extends ClassEtat {
 
 //                adminActivite.findactivite(getIdsFromTab(activites), c);
                 adminActivite.findactiviteProf(this.getId(), c);
-                adminActivite.setPrevision(this);
+                adminActivite.setPrevision(prevision);
                 facture = adminActivite.facturerProforma(user, c);
 //                facture.setIdprevision(this.getId());
                 facture.updateDeviseMere(c);
