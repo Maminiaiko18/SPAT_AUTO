@@ -3,12 +3,14 @@
 <%@page import="facture.FactureClient"%>
 <%@page import="affichage.PageRechercheGroupe"%>
 <%@page import="utilitaire.Utilitaire"%>
+<%@page import="bean.TypeObjet"%>
+<%@page import="affichage.Liste"%>
 <%
     try {
 
         FactureClient lv = new FactureClient();
         lv.setNomTable("FACTURE_CLIENT_UNIONV_PROV");
-        String listeCrt[] = {"daty","tierslib"};
+        String listeCrt[] = {"daty","tierslib","type"};
         String listeInt[] = {"daty"};
         
         
@@ -24,7 +26,13 @@
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
-         
+        
+        Liste[] listes = new Liste[1];
+        TypeObjet type = new TypeObjet();
+        type.setNomTable("TYPEFC");
+        listes[0] = new Liste("type", type, "val", "id");
+        pr.getFormu().changerEnChamp(listes);
+        
         pr.setApres("facture/analyse-client.jsp");
         pr.creerObjetPagePourc();
         
