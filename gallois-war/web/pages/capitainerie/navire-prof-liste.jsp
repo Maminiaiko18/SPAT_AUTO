@@ -1,6 +1,6 @@
 <%-- 
     Document   : navire-prof-liste
-    Created on : 9 févr. 2024, 14:19:55
+    Created on : 9 fï¿½vr. 2024, 14:19:55
     Author     : bruel
 --%>
 
@@ -27,11 +27,11 @@
         String libEntete[] = {"id", "nom", "pavillon","armateurlib", "jnt", "jbt", "plt", "lht", "lm", "te", "volume", "remarque", "type"};
         PageRecherche pr = new PageRecherche(navire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
-//        pr.getFormu().getChamp("reference").setLibelle("Référence");
+//        pr.getFormu().getChamp("reference").setLibelle("Rï¿½fï¿½rence");
         pr.getFormu().getChamp("armateurlib").setLibelle("Armateur");
         pr.setLien((String) session.getValue("lien"));
         pr.setAWhere(" and etat!=" + ConstanteEtat.getEtatAnnuler() + " order by nom asc");
-        pr.setApres("capitainerie/navire-liste.jsp");
+        pr.setApres("capitainerie/navire-prof-liste.jsp");
         String[] colSomme = null;
         pr.creerObjetPage(libEntete, colSomme);
 %>
@@ -45,7 +45,7 @@
         <h1>Liste Navire</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=capitainerie/navire-liste.jsp" method="post" name="listenavire" id="listenavire">
+        <form action="<%=pr.getLien()%>?but=capitainerie/navire-prof-liste.jsp" method="post" name="listenavire" id="listenavire">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
@@ -61,7 +61,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            //String libEnteteAffiche[] = {"Id","Référence", "Nom", "Pavillon","JNT", "JBT", "PLT", "LHT", "LM", "TE", "Volume","Remarque"};
+            //String libEnteteAffiche[] = {"Id","Rï¿½fï¿½rence", "Nom", "Pavillon","JNT", "JBT", "PLT", "LHT", "LM", "TE", "Volume","Remarque"};
             //pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             pr.getTableau().construire_libelle(champ, libelle_comp);
             out.println(pr.getTableau().getHtml());
