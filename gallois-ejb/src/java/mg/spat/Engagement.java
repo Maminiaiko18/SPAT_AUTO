@@ -16,6 +16,7 @@ import facture.NumeroFacture;
 
 import java.sql.Connection;
 import java.sql.Date;
+
 //import javax.validation.executable.ValidateOnExecution;
 import lignecredit.LigneCredit;
 import utilitaire.Utilitaire;
@@ -494,7 +495,8 @@ public class Engagement extends ClassEtat {
         }
         
         double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
-        if((float)montantTotal > (float)this.getMontant()) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
+        double montantEngagementArrondi = Math.round(this.getMontant() * 100.0) / 100.0;
+        if((float)montantTotal > (float)montantEngagementArrondi) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
         if((float)this.getMontant() > (float)lc.getResteApresEngmt()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au reste apres engagement disponible ("+Utilitaire.formaterAr(lc.getResteApresEngmt())+")",this.getType(),"validerBC");
         this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
