@@ -22,7 +22,7 @@
     PageRechercheChoix pr = new PageRechercheChoix(navire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.setApres("listeNavireChoix.jsp");
+    pr.setApres("listeNavireProfChoix.jsp");
     
     pr.getFormu().getChamp("type").setLibelle("type navire");
     pr.setChampReturn(champReturn);
