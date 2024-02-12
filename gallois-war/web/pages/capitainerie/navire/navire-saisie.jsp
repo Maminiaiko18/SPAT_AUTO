@@ -7,7 +7,13 @@
 <%
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
+    String nomtable = request.getParameter("nomtable");
     Navire pj = new Navire();
+    String apresLien ="";
+    if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+        pj.setNomTable(nomtable);
+        apresLien = "?nomtable=navirelibprof";
+    }
     PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
     
     affichage.Champ[] liste = new affichage.Champ[1];
@@ -15,7 +21,7 @@
     liste1.setNomTable("typenavire");
     liste[0] = new Liste("type", liste1, "val", "id");
     pi.getFormu().changerEnChamp(liste);
-	
+    nomtable = pj.getNomTable();
     
     pi.getFormu().getChamp("pavillon").setPageAppel("choix/listePaysChoix.jsp");
     pi.getFormu().getChamp("pavillon").setAutre("readonly");
@@ -37,8 +43,9 @@
             out.println(pi.getFormu().getHtmlInsert());
         %>
     <input name="acte" type="hidden" id="nature" value="insert">
-    <input name="bute" type="hidden" id="bute" value="capitainerie/navire-fiche.jsp">
+    <input name="bute" type="hidden" id="bute" value="capitainerie/navire-fiche.jsp<%=apresLien%>">
     <input name="classe" type="hidden" id="classe" value="mg.spat.Navire">
+    <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
     </form>
 </div>
 <%}catch(Exception e){

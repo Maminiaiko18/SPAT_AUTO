@@ -101,6 +101,20 @@
     <%
         }
 
+            if (acte.compareToIgnoreCase("factureGlobaleProf") == 0) {
+                String idprevision = request.getParameter("idPrevision");
+                mg.spat.Prevision prevision = new mg.spat.Prevision();
+                prevision.setNomTable("prevision_prof");
+                prevision.setId(idprevision);
+
+                facture.FactureClient fc = prevision.facturerProforma("" + u.getUser().getRefuser(), null);
+                bute = "facture/factureclient-modif-prof.jsp&factprev=true";
+                id = fc.getId();
+    %>
+    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>
+    <%
+        }
+
         /*if (ids == null || ids.length == 0) {
             throw new Exception("Vous devez  cocher au moins un element");
         }

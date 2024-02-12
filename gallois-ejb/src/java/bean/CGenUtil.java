@@ -856,10 +856,21 @@ public class CGenUtil {
             }
             int indiceInf = (npp * (numPage - 1)) + 1;
             int indiceSup = npp * (numPage);
-            String selectInterne = "select " + getListeChampGroupeSomme(groupe, sommeGroupe) + ", COUNT(*) as nombrepargroupe from " + e.getNomTableSelect() + " where " + makeWhere(e) + makeWhereIntervalle(colInt, valInt) + " " + apresWhere + " group by " + getListeChampGroupeSomme(groupe, null) + " " + ordre;
+            
+            String mkWhere = makeWhere(e);
+            String mkWhereIntervalle = makeWhereIntervalle(colInt, valInt);
+            
+            String selectInterne = "select " + getListeChampGroupeSomme(groupe, sommeGroupe) + ", COUNT(*) as nombrepargroupe from " + e.getNomTableSelect() + " where " + mkWhere + mkWhereIntervalle + " " + apresWhere + " group by " + getListeChampGroupeSomme(groupe, null) + " " + ordre;
             String comande = "select * from (select " + getListeChampGroupeSimple(groupe, sommeGroupe) + ",nombrepargroupe,rowNum as r from (" + selectInterne + ")) where r between " + indiceInf + " and " + indiceSup;
+            
+            System.out.println(" makeWhere(e)  == "+mkWhere);
+            System.out.println("");
+            System.out.println(" makeWhereIntervalle(colInt, valInt)  == "+mkWhereIntervalle);
+            System.out.println("");
             //if (e.getNomTable().compareToIgnoreCase("opPayelc")==0) 
-            //System.out.println("La comande groupe SQL = "+comande);
+            System.out.println("La comande groupe SQL = "+comande);
+            System.out.println("eto isika zao");
+            
             st = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             dr = st.executeQuery(comande);
             Object[] resultat = transformeDataReader(dr, e, c);

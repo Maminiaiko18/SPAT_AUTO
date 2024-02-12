@@ -11,13 +11,22 @@
 <%@page import="mg.spat.MouvementLibComplet"%>
 <%@page import="affichage.PageConsulte"%>
 <%
+    String nomtable = request.getParameter("nomtable");
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
     String id = request.getParameter("id");
     MouvementLibComplet mvt = new MouvementLibComplet();
+    if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+        mvt.setNomTable(nomtable);
+    }
     PageConsulte pc = new PageConsulte(mvt, request, u);
     mvt = (MouvementLibComplet) pc.getBase();
-    MouvementLibComplet[] mouvements = mvt.getMouvementMemeEscale(null);
+    MouvementLibComplet[] mouvements = null;
+    if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+        mouvements = mvt.getMouvementMemeEscaleProf(null);
+    } else {
+        mouvements = mvt.getMouvementMemeEscale(null);
+    }
     String listeCrt[] = {"id", "nomnavire", "escale", "consignataire"};
     String listeInt[] = {"date_depart", "datearrivee"};
     String libEntete[] = {"numero","id", "escale", "nomnavire", "desceconsignataire", "valcargaison", "valquaisprovenance", "valpaysprovenance", "valquaisdestination", "valpaysdestination", "datearrivee", "heure", "date_depart", "heure_depart", "duree", "descemvt","etatlib"};
@@ -44,7 +53,14 @@
     pr.setTableau(tr);
 %>
     <%
-        String lienTableau[] = {pr.getLien() + "?but=capitainerie/mouvement-fiche.jsp"};
+        String [] lienTableau = null;
+        if(nomtable != null && !nomtable.isEmpty()){
+            String lienTableau1[] = {pr.getLien() + "?but=capitainerie/mouvement-prof-fiche.jsp"};
+            lienTableau = lienTableau1;
+        } else {
+            String lienTableau2[] = {pr.getLien() + "?but=capitainerie/mouvement-fiche.jsp"};
+            lienTableau = lienTableau2;
+        }
         String colonneLien[] = {"id"};
         pr.getTableau().setLien(lienTableau);
         pr.getTableau().setColonneLien(colonneLien);

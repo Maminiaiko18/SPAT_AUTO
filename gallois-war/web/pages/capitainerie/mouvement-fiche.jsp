@@ -18,17 +18,27 @@
     map.put("liste-mouvement", "");
     map.put("liste-utilisation-materiels", "");
     String id = request.getParameter("id");
-
+    String nomtable = request.getParameter("nomtable");
     try {
         tab = request.getParameter("tab");
         if (tab == null) {
             tab = "liste-mouvement";
         }
         map.put(tab, "active");
-        tab = "inc/" + tab + ".jsp";
-
         MouvementLibComplet m = new MouvementLibComplet();
         m.setNomTable("mouvementlibcomplet");
+        if(nomtable!=null && !nomtable.isEmpty()){
+            if(tab.compareToIgnoreCase("liste-mouvement")==0){
+            tab = "inc/" + tab + ".jsp?nomtable=mouvementLibCompletProf";
+            } else if (tab.compareToIgnoreCase("liste-utilisation-materiels")==0){
+                tab = "inc/" + tab + ".jsp?nomtable=OCCUPMATERIELNAVALLIBPROF";
+            }
+            m.setNomTable(nomtable);
+        } else {
+            tab = "inc/" + tab + ".jsp";
+        }
+        
+        
         PageConsulte pc = new PageConsulte(m, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
         pc.setTitre("Fiche mouvement");
         
@@ -98,6 +108,9 @@
         pc.getChampByName("Etatlib").setVisible(false);
         pc.getChampByName("escale").setLibelle("Prévision");
         pc.getChampByName("noVoyage").setLibelle("No voyage");
+        if(nomtable!=null && !nomtable.isEmpty()){
+            pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-prof-fiche.jsp&tab=liste-mouvement", "id=");
+        } else
         pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-fiche.jsp&tab=liste-mouvement", "id=");
         
         
@@ -109,6 +122,9 @@
         
         id=mouvementVise.getId();
         MouvementLibComplet mouvementLibelleComplet = new MouvementLibComplet();
+        if(nomtable!=null && !nomtable.isEmpty()){
+            mouvementLibelleComplet.setNomTable("mouvementLibCompletProf");
+        }
 
         String[] champ = {"id", "escale", "valpaysprovenance", "valquaisprovenance", "valpaysdestination", "valquaisdestination", "datearrivee", "date_depart", "navire", "consignataire", "heure", "provenance", "destination", "remarque", "typemvt", "valconsignataire", "desceconsignataire", "referencenavire", "nomnavire", "pavillonnavire", "remarquenavire", "quaiprovenance", "interneprovenance", "paysprovenance", "internedestination", "paysdestination", "cargaison", "heure_depart", "daty", "datearrivee", "date_depart", "duree", "jntnavire", "jbtnavire", "pltnavire", "lhtnavire", "lmnavire", "tenavire", "volumenavire", "longueurdestination", "profondeurdestination", "tirantdestination", "longueurprovenance", "profondeurprovenance", "tirantprovenance"};
         String[] libelle_comp = {"Id", "Escale", "Pays provenance", "Quais provenance", "Pays destination", "Quais destination", "Date arrivee", "Date d&eacute;part", "Navire", "Consignataire", "Heure", "Provenance", "Destination", "Remarque", "Type mvt", "Consignataire", "Consignataire", "Reference navire", "Navire", "Pavillon navire", "Remarque navire", "Quai provenance", "Interne provenance", "Pays provenance", "Interne destination", "Pays destination", "cargaison", "Heure d&eacute;part", "Date", "Date arrivee", "Date d&eacute;part", "Duree", "JNT", "JBT", "PLT", "LHT", "LM", "TE", "Volume", "Long. quai dest.", "Prof. quai dest.", "Tirant", "Long. quai prov.", "Prof. quai prov.", "Tirant"};
@@ -119,7 +135,7 @@
         PageRecherche pr = new PageRecherche(mouvementLibelleComplet, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.setApres("capitainerie/mouvement-fiche.jsp");
+        pr.setApres("capitainerie/mouvement-fiche.jsp?nomtable=mouvementlibcompletprof");
         pr.setAWhere(" and escale ='" + mouvementVise.getEscale() + "'");
         String colSomme[] = null;
         pr.creerObjetPage(libEntete, colSomme);
@@ -138,6 +154,23 @@
                             out.println(pc.getHtml());
                         %>
                         <br/>
+                        <% if(nomtable!=null && !nomtable.isEmpty()){ %>
+                        <div class="pull-right">
+                            <p>
+                                <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&nomtable=mouvement_prof&acte=valider&bute=capitainerie/mouvement-fiche.jsp?nomtable=mouvementlibcompletprof&classe=mg.spat.Mouvement" style="margin-right: 10px">Viser</a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px"><button class="btn btn-warning">Modifier</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&nomtable=mouvement_prof&acte=delete&bute=capitainerie/mouvement-liste.jsp?nomtable=mouvementlibcompletprof&classe=mg.spat.Mouvement" style="margin-right: 10px"><button class="btn btn-danger">Supprimer</button></a>
+                                <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/mouvement-fiche.jsp?nomtable=mouvementlibcompletprof"%>" style="margin-right: 10px">Attacher Fichier</a> 
+                                <% if(!mouvementVise.getTypeMvt().equals("TPMM00004")){ %>
+                                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-prof-saisie.jsp&typemvt=" + Constante.tpmvtarrive + "&id=" + request.getParameter("id")%>" style="margin-right: 10px">Arrivee</a>
+                                    <%}
+                                    if(!mouvementVise.getTypeMvt().equals("TPMM00003")){%>
+                                        <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-prof-saisie.jsp&typemvt=" + Constante.tpmvtdepart + "&id=" + request.getParameter("id")%>" style="margin-right: 10px">Depart</a>
+                                    <% } %>
+                                <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNavalProf-saisie.jsp&idmvt=" + id %>" style="margin-right: 10px">Saisir Prestation</a>
+                            </p>
+                        </div>
+                        <% } else { %>
                         <div class="pull-right">
                             <p>
                                 <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=capitainerie/mouvement-fiche.jsp&classe=mg.spat.Mouvement" style="margin-right: 10px">Viser</a>
@@ -153,23 +186,37 @@
                                 <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/occupationMaterielNaval-saisie.jsp&idmvt=" + id %>" style="margin-right: 10px">Saisir Prestation</a>
                             </p>
                         </div>
+                        <% } %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!--Onglets -->
+    
     <div class="row">
         <div class="col-md-12">
-        <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs nav-center">
-                <li class="<%= map.get("liste-mouvement")%>"><a href="module.jsp?but=capitainerie/mouvement-fiche.jsp&id=<%=id%>&tab=liste-mouvement">Liste des mouvements</a></li>
-                <li class="<%= map.get("liste-utilisation-materiels")%>"><a href="module.jsp?but=capitainerie/mouvement-fiche.jsp&id=<%=id%>&idarrivee=<%=id%>&tab=liste-utilisation-materiels">Liste des prestations</a></li>
-            </ul>
-            <div class="tab-content">       
-                <jsp:include page="<%=tab%>" />  
+            <% if(nomtable!=null && !nomtable.isEmpty()){ %>
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("liste-mouvement")%>"><a href="module.jsp?but=capitainerie/mouvement-fiche.jsp&nomtable=MOUVEMENTLIBCOMPLETPROF&id=<%=id%>&tab=liste-mouvement">Liste des mouvements</a></li>
+                    <li class="<%= map.get("liste-utilisation-materiels")%>"><a href="module.jsp?but=capitainerie/mouvement-fiche.jsp?nomtable=MOUVEMENTLIBCOMPLETPROF&id=<%=id%>&idarrivee=<%=id%>&tab=liste-utilisation-materiels">Liste des prestations</a></li>
+                </ul>
+                <div class="tab-content">       
+                    <jsp:include page="<%=tab%>" />  
+                </div>
             </div>
-        </div>
+            <% } else { %>
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("liste-mouvement")%>"><a href="module.jsp?but=capitainerie/mouvement-fiche.jsp&id=<%=id%>&tab=liste-mouvement">Liste des mouvements</a></li>
+                    <li class="<%= map.get("liste-utilisation-materiels")%>"><a href="module.jsp?but=capitainerie/mouvement-fiche.jsp&id=<%=id%>&idarrivee=<%=id%>&tab=liste-utilisation-materiels">Liste des prestations</a></li>
+                </ul>
+                <div class="tab-content">       
+                    <jsp:include page="<%=tab%>" />  
+                </div>
+            </div>
+            <% } %>
         </div>
     </div>    
     <div class="row">

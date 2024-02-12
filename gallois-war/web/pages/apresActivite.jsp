@@ -30,7 +30,16 @@
             val = fc.getId();
         %>
         <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=val%>");</script>
-        <%}
+        <% }
+
+        if (acte.compareToIgnoreCase("facturerProforma") == 0) {
+            Activite a = new Activite();
+            a.setId(id);
+            FactureClient fc = a.facturer(u.getUser().getTuppleID(), null);
+            val = fc.getId();
+        %>
+        <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute%>&id=<%=val%>");</script>
+        <% }
 
         if (acte.compareToIgnoreCase("facturerMultiple") == 0) {
             FactureClient fc = new AdminActivite().facturerActivites(ids, u.getUser().getTuppleID(), null);

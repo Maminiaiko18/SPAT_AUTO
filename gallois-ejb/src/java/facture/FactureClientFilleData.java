@@ -40,6 +40,31 @@ public class FactureClientFilleData {
             if(in && c!=null) c.close();
         }
     }
+    
+    public FactureClientFilleData(String idFacture, FactureClientDetails[] liste, Connection c, int estProformaEscale) throws Exception {
+        boolean in = false;
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                in = true;
+            }
+            String nomTable="facture_client_unionprof";
+            facture =  new FactureClient();
+            facture.setEstDDPMICTSL(null);
+            facture.setNomTable(nomTable);
+            facture = (FactureClient) facture.getById(idFacture, null, c);
+            if(facture != null){
+//                facture.setListeDetails(liste);
+                facture.initDetailsProf(c);
+            }
+            
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(in && c!=null) c.close();
+        }
+    }
 
     public FactureClient getFacture() {
         return facture;

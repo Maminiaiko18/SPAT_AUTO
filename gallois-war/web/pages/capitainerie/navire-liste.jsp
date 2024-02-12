@@ -10,8 +10,13 @@
 <%
     try {
 
+        String nomtable = request.getParameter("nomtable");
         Navire navire = new Navire();
         navire.setNomTable("navirelib");
+
+        if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+            navire.setNomTable(nomtable);
+        }
 
         String[] champ = {"id", "nom", "pavillon", "armateurlib", "remarque", "jnt", "jbt", "plt", "lht", "lm", "te", "volume", "type"};
         String[] libelle_comp = {"id", "Nom", "Pavillon","Armateur", "Remarque", "jnt", "jbt", "plt", "lht", "lm", "te", "Volume", "type"};
@@ -45,8 +50,15 @@
             %>
         </form>
         <%
-            String lienTableau[] = {pr.getLien() + "?but=capita"
-                + "inerie/navire-fiche.jsp"};
+            String link ="";
+            if(nomtable!=null&&!nomtable.isEmpty()){
+                link = pr.getLien() + "?but=capita"
+                + "inerie/navire-fiche.jsp?nomtable=navirelibprof";
+            } else {
+                link = pr.getLien() + "?but=capita"
+                + "inerie/navire-fiche.jsp";
+            }
+            String lienTableau[] = {link};
             String colonneLien[] = {"id"};
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);

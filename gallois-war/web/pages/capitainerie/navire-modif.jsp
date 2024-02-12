@@ -12,8 +12,15 @@
 <%@ page import="affichage.*"%>
 <%
     String autreparsley = "data-parsley-range='[8, 40]' required";
+    String nomtable = request.getParameter("nomtable");
     Navire navire = new Navire();
     navire.setNomTable("NAVIRE");
+    String paramLien = "";
+    if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+        navire.setNomTable(nomtable);
+        paramLien = "?nomtable=navirelibprof";
+    }
+    nomtable = navire.getNomTable();
     PageUpdate pi = new PageUpdate(navire, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
@@ -52,10 +59,10 @@
                             <br><br> 
                         </div>
                         <input name="acte" type="hidden" id="acte" value="update">
-                        <input name="bute" type="hidden" id="bute" value="capitainerie/navire-fiche.jsp">
+                        <input name="bute" type="hidden" id="bute" value="capitainerie/navire-fiche.jsp<%=paramLien%>">
                         <input name="classe" type="hidden" id="classe" value="mg.spat.Navire">
                         <input name="rajoutLien" type="hidden" id="rajoutLien" value="id-<%out.print(request.getParameter("id"));%>" >
-                        <input name="nomtable" type="hidden" id="nomtable" value="navire">
+                        <input name="nomtable" type="hidden" id="nomtable" value="<%=nomtable%>">
                     </form>
                 </div>
             </div>
