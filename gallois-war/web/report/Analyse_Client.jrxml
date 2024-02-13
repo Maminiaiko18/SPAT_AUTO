@@ -47,7 +47,7 @@
 	<title>
 		<band height="96" splitType="Stretch">
 			<staticText>
-				<reportElement x="157" y="0" width="142" height="27" uuid="ce43710e-53e8-4d06-8c1e-e560fca3c709"/>
+				<reportElement x="215" y="0" width="142" height="27" uuid="ce43710e-53e8-4d06-8c1e-e560fca3c709"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
@@ -64,13 +64,6 @@
 				<reportElement x="9" y="1" width="62" height="75" uuid="253cc39c-a6ec-465d-a9ad-27f0e1267051"/>
 				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
 			</image>
-			<textField>
-				<reportElement x="299" y="1" width="100" height="26" uuid="8bd38861-7418-4357-bd01-9ea47a003282"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{titre}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<columnHeader>
