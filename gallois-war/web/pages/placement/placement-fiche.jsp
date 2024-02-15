@@ -24,6 +24,9 @@
         pc.getChampByName("iddevise").setLibelle("Devise");
         pc.getChampByName("montantdevise").setLibelle("Montant devise");
         pc.getChampByName("ancienplacement").setLibelle("Ancien placement");
+        pc.getChampByName("Annee").setLibelle("An&eacute;e");
+        pc.getChampByName("Typeinteretlib").setLibelle("Type inter&ecirc;t");
+
         pc.getChampByName("ancienPlacement").setLien((String) session.getValue("lien") + "?but=placement/placement-fiche.jsp", "id=");
         /*pc.getChampByName("entite").setVisible(false);
         pc.getChampByName("identite").setVisible(false);

@@ -21,7 +21,16 @@ public class PlacementLibComplet extends ClassEtat{
     private Date date_placement, date_echeance;
     private double duree,ircm, montant, taux, montant_mere, interet_recevoir, interet_net,montantdevise,disponible;
     private String typeinteretlib;
+    private String annee;
     
+    public String getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(String annee) {
+        this.annee = annee;
+    }
+
     public String getTypeinteretlib() {
         return typeinteretlib;
     }

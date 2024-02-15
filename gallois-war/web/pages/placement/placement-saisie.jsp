@@ -18,13 +18,15 @@
 
     pi.getFormu().getChamp("banque").setLibelle("Banque");
     pi.getFormu().getChamp("numero").setLibelle("R&eacute;f&eacute;rence");
+    pi.getFormu().getChamp("numero").setLibelle("R&eacute;f&eacute;rence");
+    pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
     pi.getFormu().getChamp("etat").setVisible(false);
     pi.getFormu().getChamp("duree").setVisible(false);
     pi.getFormu().getChamp("Dateechu").setVisible(false);
        pi.getFormu().getChamp("ancienPlacement").setLibelle("Ancien placement");
        pi.getFormu().getChamp("ancienPlacement").setAutre("readonly");
         pi.getFormu().getChamp("ancienPlacement").setPageAppel("choix/listePlacementChoix.jsp");
-    affichage.Champ[] liste = new affichage.Champ[3];
+    affichage.Champ[] liste = new affichage.Champ[5];
     
     TypeObjet mvt = new TypeObjet();
 //    mvt.setNomTable("v_liaisonplacement");
@@ -47,11 +49,20 @@
     op.setNomTable("DEVISE");
     liste[2] = new Liste("iddevise", op, "desce", "id");
 
+    String[] aff = {"360 jours","365 jours"};
+    String[] val = {"360", "365"};
+    liste[3] = new Liste("annee", aff, val);
+
+    TypeObjet type = new TypeObjet();
+    type.setNomTable("TYPEINTERET");
+    liste[4] = new Liste("typeinteret", type, "desce", "id");
+
     pi.getFormu().changerEnChamp(liste);
-    pi.getFormu().getChamp("idDevise").setDefaut(Constante.deviseAr) ; 
-    
+
 //    pi.getFormu().getChamp("iddevise").setAutre("onblur=\"dependanteChampUneValeur(this.value, 'montantdevise', 'coursdevise', 'fin.Coursdevise', 'iddevise', 'iddevise', 'montant','daty','desc');\"");
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
+    pi.getFormu().getChamp("Typeinteret").setLibelle("Type inter&ecirc;t");
+
 //    pi.getFormu().getChamp("montantdevise").setLibelle("Montant devise");
     pi.getFormu().getChamp("montantdevise").setVisible(false);
     pi.getFormu().getChamp("disponible").setVisible(false);
