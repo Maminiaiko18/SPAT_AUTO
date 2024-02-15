@@ -51,9 +51,9 @@
                         <option value="as_bondelivraison_MttCpl" >Tous</option>
                         <% } %>
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("as_bondelivraison_MttCplVISE") == 0) {%>
-                        <option value="as_bondelivraison_MttCplVISE" selected>Valid�</option>
+                        <option value="as_bondelivraison_MttCplVISE" selected>Valid&eacute;</option>
                         <% } else { %>
-                        <option value="as_bondelivraison_MttCplVISE">Valid�</option>
+                        <option value="as_bondelivraison_MttCplVISE">Valid&eacute;</option>
                         <% } %>
 
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("as_bondelivraison_MttCplCREE") == 0) {%>
@@ -79,7 +79,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%                                
-            String libEnteteAffiche[] = {"Id", "Date","Numero BC","Montant", "Montant TVA", "Montant TTC", "Montant factur�", "Montant pay�", "Reste � payer", "Reste � facturer"};
+            String libEnteteAffiche[] = {"Id", "Date","Numero BC","Montant", "Montant TVA", "Montant TTC", "Montant factur&eacute;", "Montant pay&eacute;", "Reste &agrave; payer", "Reste &agrave; facturer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
