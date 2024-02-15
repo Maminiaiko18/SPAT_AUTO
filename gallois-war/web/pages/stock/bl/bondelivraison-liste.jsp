@@ -12,8 +12,8 @@
     if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
         lv.setNomTable(request.getParameter("etat"));
     }
-    String libEntete[] = {"id", "daty", "id_bc", "numbc","montant","montanttva","montantttc","montantfactttc","montantpaye","rap","reste_a_facturer"};
-    String listeCrt[] = {"id", "daty", "id_bc"};
+    String libEntete[] = {"id", "daty", "numbc","montant","montanttva","montantttc","montantfactttc","montantpaye","rap","reste_a_facturer"};
+    String listeCrt[] = {"id", "daty", "numbc"};
     String listeInt[] = {"daty"};
 
     PageRecherche pr = new PageRecherche(lv, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
@@ -21,7 +21,7 @@
     pr.setLien((String) session.getValue("lien"));
     pr.getFormu().getChamp("daty1").setLibelle("Date min");
     pr.getFormu().getChamp("daty2").setLibelle("Date Max");
-    pr.getFormu().getChamp("id_bc").setLibelle("bon de livraison");
+    pr.getFormu().getChamp("numbc").setLibelle("Num&eacute;ro BC");
     pr.setApres("stock/bl/bondelivraison-liste.jsp");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);%>
@@ -51,9 +51,9 @@
                         <option value="as_bondelivraison_MttCpl" >Tous</option>
                         <% } %>
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("as_bondelivraison_MttCplVISE") == 0) {%>
-                        <option value="as_bondelivraison_MttCplVISE" selected>Validé</option>
+                        <option value="as_bondelivraison_MttCplVISE" selected>Validï¿½</option>
                         <% } else { %>
-                        <option value="as_bondelivraison_MttCplVISE">Validé</option>
+                        <option value="as_bondelivraison_MttCplVISE">Validï¿½</option>
                         <% } %>
 
                         <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("as_bondelivraison_MttCplCREE") == 0) {%>
@@ -69,7 +69,7 @@
 
         </form>
         <%  String lienTableau[] = {pr.getLien() + "?but=stock/bl/bondelivraison-fiche.jsp", pr.getLien() + "?but=stock/bc/asBonDeCommande-fiche.jsp"};
-            String colonneLien[] = {"id","id_bc"};
+            String colonneLien[] = {"id","numbc"};
             String[] urlLienMultiple = {"id","id_bc"};
             String[] urlLienAffiche = {"id","id"};
             pr.getTableau().setLien(lienTableau);
@@ -79,7 +79,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%                                
-            String libEnteteAffiche[] = {"Id", "Date", "BC","Numero BC","Montant", "Montant TVA", "Montant TTC", "Montant facturé", "Montant payé", "Reste à payer", "Reste à facturer"};
+            String libEnteteAffiche[] = {"Id", "Date","Numero BC","Montant", "Montant TVA", "Montant TTC", "Montant facturï¿½", "Montant payï¿½", "Reste ï¿½ payer", "Reste ï¿½ facturer"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());
