@@ -45,16 +45,17 @@ public class Placement extends ClassEtat {
     private String ancienPlacement,designation;
     private double disponible;
     private Date dateechu;
-    private int annee;
+    private double annee;
     private String typeinteret;
-
-    public int getAnnee() {
+    
+    public double getAnnee() {
         return annee;
     }
 
-    public void setAnnee(int annee) {
+    public void setAnnee(double annee) {
         this.annee = annee;
     }
+
     
     public String getTypeinteret() {
         return typeinteret;

@@ -204,6 +204,9 @@ public class Constante {
     public static String uniteJour = "UNIC001";
     public static String uniteMois = "UNIC002";
     public static String uniteAnnee = "UNIC003";
+    public static String typeinteretnet = "TYPEINT002";
+    public static String typeinteretbrut = "TYPEINT001";
+
 
 
     public static String getTypePieceTraite(){
