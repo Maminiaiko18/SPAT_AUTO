@@ -409,7 +409,11 @@ public class BordereauFF extends Bordereau {
             fact.setNomTable("factfourn_msum_lib");
             FactureFournisseur[] ff = (FactureFournisseur[]) CGenUtil.rechercher(fact, requete, c);
             double montant = AdminGen.calculSommeDouble(ff, "montant");
-            Engagement engagement = new Engagement("BED " + this.getNumero() + " - " + this.getDesignation(),
+            String designation = "BED " + this.getNumero() + " - " + this.getDesignation();
+            if(this.getTypebordereau().equalsIgnoreCase(Constante.typeEtatDepense)){
+                designation = "ED " + this.getNumero() + " - " + this.getDesignation();
+            }
+            Engagement engagement = new Engagement(designation,
                     this.getDirection(), this.getProjet(), montant, this.getAnneebudgetaire(), Utilitaire.dateDuJourSql(),
                     this.getTiers(), 0);
             engagement.setIdtype(Constante.idTypeEngBED);
