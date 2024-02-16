@@ -32,6 +32,8 @@ public class ImportExcel {
     private static Workbook workbook;
     private static Sheet sheet;
     public static ArrayList<Activite> importerTous(InputStream fileUrl, String idescale, int mois) throws Exception {
+        int column = 0;
+        int ligne = 0;
         try {
             String heuredeb = "00:00:00";
             String heurefin = "00:00:00";
@@ -55,7 +57,7 @@ public class ImportExcel {
             Row rowtype = sheet.getRow(9);// ligne anle type
             Row rowcategorie = sheet.getRow(7);
             while (row != null) {
-                //System.out.println(indice);
+                ligne = indice;
                     Cell clause = row.getCell(0);
                     if(clause.getCellType()!=0){
                         break;
@@ -64,14 +66,12 @@ public class ImportExcel {
                 int cellNumber = row.getPhysicalNumberOfCells();
                     String nomnavire = row.getCell(2).getStringCellValue();//col 3
                     String numerovoyage=row.getCell(3).getStringCellValue(); //col 4
-                    
                     for (int co = 0; co < cellNumber; co++) {
-                        //System.out.println(co);
+                        column = co;
                         Cell c = row.getCell(co);
                         
                         String idConteneur = act.genererRubrique(co);
                         if(idConteneur==null){
-                            //System.out.println(co);
                         }else if(c.getNumericCellValue()==0){
                         
                         }else{
@@ -107,7 +107,7 @@ public class ImportExcel {
             return ls;
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw new Exception("Erreur lors de l'import du fichier Excel");
+            throw new Exception("Erreur lors de l'import du fichier Excel, ligne: "+(ligne+1));
         }
         
     }
