@@ -1237,10 +1237,12 @@ public class FactureClient extends ClassMere {
 
     public FactureClientDetails[] genererRedevanceVariable(int mois, int annee, String u, Connection c) throws Exception {
         Activite crt = new Activite();
-        crt.setNomTable("ActiviteLibComContGPMA");
+        crt.setNomTable("ACTIVITELIBCOMCONTGP_TEMP");
         Activite[] listeAct = (Activite[]) CGenUtil.rechercher(crt, null, null, c, " and mois =" + mois + " and annee=" + annee);
         if(listeAct.length == 0) throw new Exception("Aucune activité n'a été trouvée.");
-        double qte = AdminActivite.getQteEVP(listeAct);
+        crt.setNomTable("ACTIVITELIBCOMCONTGP_TRANS");
+        Activite[] listeTrans = (Activite[]) CGenUtil.rechercher(crt, null, null, c, " and mois =" + mois + " and annee=" + annee);
+        double qte = AdminActivite.getQteEVP(listeAct,listeTrans);
 
         FactureClientDetails[] ret = new FactureClientDetails[1];
         double tauxFinDuMois = getTauxFinDuMois(c, mois, annee, listeAct[0].getDevise());
