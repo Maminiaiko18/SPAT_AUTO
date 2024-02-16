@@ -25,8 +25,8 @@
         pr.getFormu().getChamp("date_echeance2").setLibelle("Date Echeance max");
     
         pr.setApres("placement/placement-liste.jsp");
-        pr.getFormu().getChamp("date_placement1").setDefaut(utilitaire.Utilitaire.getFirstDayOfMonth());
-        pr.getFormu().getChamp("date_placement2").setDefaut(utilitaire.Utilitaire.getLastDayOfMonth());  
+        /*pr.getFormu().getChamp("date_placement1").setDefaut(utilitaire.Utilitaire.getFirstDayOfMonth());
+        pr.getFormu().getChamp("date_placement2").setDefaut(utilitaire.Utilitaire.getLastDayOfMonth());  */
 
         pr.setOrdre(" order by date_placement desc");
         String[] colSomme = {"montant"};
