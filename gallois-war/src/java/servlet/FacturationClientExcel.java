@@ -186,7 +186,7 @@ public class FacturationClientExcel extends HttpServlet {
             String daty2 = request.getParameter("daty2");
             String type = request.getParameter("type");
 
-            String requete = "SELECT tierslib, SUM(MONTANTRESTE) AS MONTANTRESTE, SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
+            String requete = "SELECT tierslib,SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE,SUM(MONTANTRESTE) AS MONTANTRESTE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
             if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
                 requete = requete + String.format(" and daty >= TO_DATE('%s','DD/MM/YYYY')", daty1);
             }
@@ -209,7 +209,7 @@ public class FacturationClientExcel extends HttpServlet {
             Row row5 = sheet.createRow(0);
             Cell cellt = row5.createCell(1);
             cellt.setCellValue("Liste Facture Analyse Client");
-            String[] headers = {"Tiers", "Montant Reste", "Montant TTC", "MontantPaye"};
+            String[] headers = {"Tiers", "Montant TTC", "Montant Paye","Montant Reste"};
             Row row = sheet.createRow(2);
             sheet.autoSizeColumn(50);
             for(int i=0; i<headers.length; i++){
@@ -228,13 +228,13 @@ public class FacturationClientExcel extends HttpServlet {
                     cell0.setCellValue(fc[i].getTierslib());
                     cell0.setCellStyle(nombrestyle);
                 Cell celletatlib = row.createCell(1);
-                    celletatlib.setCellValue(Utilitaire.formaterAr(fc[i].getMontantreste()));
+                    celletatlib.setCellValue(Utilitaire.formaterAr(fc[i].getMontantttc()));
                     celletatlib.setCellStyle(nombrestyle);
                 Cell cellNumeroop = row.createCell(2);
-                    cellNumeroop.setCellValue(Utilitaire.formaterAr(fc[i].getMontantttc()));
+                    cellNumeroop.setCellValue(Utilitaire.formaterAr(fc[i].getMontantpaye()));
                     cellNumeroop.setCellStyle(nombrestyle);
                 Cell cellNumeroCompta = row.createCell(3);
-                    cellNumeroCompta.setCellValue(Utilitaire.formaterAr(fc[i].getMontantpaye()));
+                    cellNumeroCompta.setCellValue(Utilitaire.formaterAr(fc[i].getMontantreste()));
                     cellNumeroCompta.setCellStyle(nombrestyle);
                 }
             
