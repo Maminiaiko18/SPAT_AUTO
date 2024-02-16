@@ -92,9 +92,7 @@
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=placement/placement-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
 
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idplacement="+ bi.getId() +"&param=sortie"+"&auto=1"%>" style="margin-right: 10px">Rendre effectif</a>   
-                                <%if (bi.getEtat() < ConstanteEtat.getEtatEchu()) {%>
-                                   <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/placement-saisie.jsp&idplacement="+ bi.getId()%>" style="margin-right: 10px">Replacer </a> 
-                                <%}%>
+                                <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/placement-saisie.jsp&idplacement="+ bi.getId()%>" style="margin-right: 10px">Replacer </a> 
                                 <%-- <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresPlacement.jsp&acte=viserEtRendreEffectif&id="+ bi.getId()%>" style="margin-right: 10px">Viser et rendre effectif</a>  --%>
                             
                             </p>
