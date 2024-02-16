@@ -14,9 +14,6 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.xmlbeans.impl.tool.Diff;
-
 import mg.spat.BonProvisoire;
 import mg.spat.JournalCaisse;
 import mg.spat.MaterielNaval;
