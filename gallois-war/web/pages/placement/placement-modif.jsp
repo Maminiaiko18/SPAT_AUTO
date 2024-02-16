@@ -9,7 +9,7 @@
     Placement placement = new Placement();
     //placement.setNomTable("placementordre");
     PageUpdate pi = new PageUpdate(placement, request, (user.UserEJB) session.getValue("u"));
-     affichage.Champ[] liste = new affichage.Champ[3];
+     affichage.Champ[] liste = new affichage.Champ[5];
      
     TypeObjet mvt = new TypeObjet();
     mvt.setNomTable("entite");
@@ -23,19 +23,29 @@
     op.setNomTable("DEVISE");
     liste[2] = new Liste("iddevise", op, "desce", "id");
 
+    String[] aff = {"360 jours","365 jours"};
+    String[] val = {"360", "365"};
+    liste[3] = new Liste("annee", aff, val);
+
+    TypeObjet type = new TypeObjet();
+    type.setNomTable("TYPEINTERET");
+    liste[4] = new Liste("typeinteret", type, "desce", "id");
+
 
     pi.getFormu().getChamp("date_placement").setLibelle("Date placement");
-    pi.getFormu().getChamp("date_echeance").setLibelle("Date échéance");
+    pi.getFormu().getChamp("date_echeance").setLibelle("Date &eacute;ch&eacute;ance");
 
     pi.getFormu().getChamp("banque").setLibelle("Banque");
-    pi.getFormu().getChamp("numero").setLibelle("Référence");
+    pi.getFormu().getChamp("numero").setLibelle("R&eacute;f&eacute;rence");
     
     pi.getFormu().changerEnChamp(liste);
-    
+    pi.getFormu().getChamp("dateechu").setVisible(false);
+    pi.getFormu().getChamp("annee").setLibelle("Ann&eacute;e");
+    pi.getFormu().getChamp("Typeinteret").setLibelle("Type inter&ecirc;t");
     pi.getFormu().getChamp("iddevise").setAutre("onblur=\"dependanteChampUneValeur(this.value, 'montantdevise', 'coursdevise', 'fin.Coursdevise', 'iddevise', 'iddevise', 'montant','daty','desc');\"");
     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
-    pi.getFormu().getChamp("montantdevise").setLibelle("Montant devise");
-    
+    pi.getFormu().getChamp("montantdevise").setVisible(false);
+    pi.getFormu().getChamp("disponible").setVisible(false);
     pi.getFormu().getChamp("ancienPlacement").setLibelle("Placement");
     pi.getFormu().getChamp("ancienPlacement").setAutre("readonly");
     pi.getFormu().getChamp("ancienPlacement").setPageAppel("choix/listePlacementChoix.jsp");
