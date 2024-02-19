@@ -451,6 +451,15 @@ public class SpatService {
         }
         return retour;
     }
+
+    public static double calculerTauxJ(double taux,int duree,double annee){
+        double retour=0;
+        if(duree!=0){
+            retour=taux*(duree/annee);
+        }
+        return retour;
+    }
+
     public static void insertDetailsPlacement(Placement mere, Connection c, String u) throws Exception {
         int verif = 0;
         try {
@@ -462,13 +471,27 @@ public class SpatService {
                 c.setAutoCommit(false);
             }
             int diffMois = Utilitaire.diffMoisDaty(mere.getDate_echeance(), mere.getDate_placement());
-            double taux=calculerTaux(mere.getTaux(),diffMois);
+            int diffjours = Utilitaire.diffJourDaty(mere.getDate_echeance(), mere.getDate_placement());
+            double interet_recevoir = 0;
+            double ircm = 0;
+            double interet_net = 0;
+            double montant_terme = 0;
+            /*double taux=calculerTaux(mere.getTaux(),diffMois);
             
             double interet_recevoir = (mere.getMontant() * taux) / 100;
             double ircm = (interet_recevoir * Constante.getTauxIRCM()) / 100;
             double interet_net = interet_recevoir - ircm;
-            double montant_terme = mere.getMontant() + interet_net;
-
+            double montant_terme = mere.getMontant() + interet_net;*/
+            if(mere.getTypeinteret().equalsIgnoreCase(Constante.typeinteretbrut)){
+                interet_recevoir = (mere.getMontant() * calculerTauxJ(mere.getTaux(),diffjours,mere.getAnnee()))/100;
+                ircm = (interet_recevoir * Constante.getTauxIRCM()) / 100;
+                interet_net = interet_recevoir - ircm;
+                montant_terme = mere.getMontant() + interet_net;
+            }else if(mere.getTypeinteret().equalsIgnoreCase(Constante.typeinteretnet)){
+                int nbj = diffjours + 1;
+                interet_net = (mere.getMontant() * calculerTauxJ(mere.getTaux(),nbj,mere.getAnnee()))/100;
+                montant_terme = mere.getMontant() + interet_net;
+            }
             
             int moisNombre = getNextMonth(getNextMonth(mere.getDate_placement().getMonth()));
             String moisDep = Utilitaire.nbToMois(moisNombre);
@@ -502,14 +525,29 @@ public class SpatService {
             if (c != null && verif == 1) {
                 c.setAutoCommit(false);
             }
-            int diffMois = Utilitaire.diffMoisDaty(mere.getDate_echeance(), mere.getDate_placement());
+            double interet_recevoir = 0;
+            double ircm = 0;
+            double interet_net = 0;
+            double montant_terme = 0;
+            int diffjours = Utilitaire.diffJourDaty(mere.getDate_echeance(), mere.getDate_placement());
+
+            /*int diffMois = Utilitaire.diffMoisDaty(mere.getDate_echeance(), mere.getDate_placement());
             double taux=calculerTaux(mere.getTaux(),diffMois);
             
             double interet_recevoir = (mere.getMontant() * taux) / 100;
             double ircm = (interet_recevoir * Constante.getTauxIRCM()) / 100;
             double interet_net = interet_recevoir - ircm;
-            double montant_terme = mere.getMontant() + interet_net;
-
+            double montant_terme = mere.getMontant() + interet_net;*/
+            if(mere.getTypeinteret().equalsIgnoreCase(Constante.typeinteretbrut)){
+                interet_recevoir = (mere.getMontant() * calculerTauxJ(mere.getTaux(),diffjours,mere.getAnnee()))/100;
+                ircm = (interet_recevoir * Constante.getTauxIRCM()) / 100;
+                interet_net = interet_recevoir - ircm;
+                montant_terme = mere.getMontant() + interet_net;
+            }else if(mere.getTypeinteret().equalsIgnoreCase(Constante.typeinteretnet)){
+                int nbj = diffjours + 1;
+                interet_net = (mere.getMontant() * calculerTauxJ(mere.getTaux(),nbj,mere.getAnnee()))/100;
+                montant_terme = mere.getMontant() + interet_net;
+            }
             
             int moisNombre = getNextMonth(getNextMonth(mere.getDate_placement().getMonth()));
             String moisDep = Utilitaire.nbToMois(moisNombre);
