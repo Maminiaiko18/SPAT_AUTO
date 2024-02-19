@@ -20,6 +20,25 @@ public class PlacementLibComplet extends ClassEtat{
     private String id,entite,identite,idbanque,valentite,desceentite,valbanque,descebanque,numero,iddetails,idmeredetails,mois,banque,iddevise;
     private Date date_placement, date_echeance;
     private double duree,ircm, montant, taux, montant_mere, interet_recevoir, interet_net,montantdevise,disponible;
+    private String typeinteretlib;
+    private String annee;
+    
+    public String getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(String annee) {
+        this.annee = annee;
+    }
+
+    public String getTypeinteretlib() {
+        return typeinteretlib;
+    }
+
+    public void setTypeinteretlib(String typeinteretlib) {
+        this.typeinteretlib = typeinteretlib;
+    }
+
     public double getDisponible() {
         return disponible;
     }

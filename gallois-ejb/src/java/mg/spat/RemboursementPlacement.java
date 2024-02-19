@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.placement.Placement;
 import mg.spat.placement.PlacementLibComplet;
+import service.SpatService;
 import user.UserEJBBean;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
@@ -214,12 +215,25 @@ public class RemboursementPlacement extends ClassEtat{
     @Override
     public void controler(Connection c) throws Exception {
         Placement p = findPlacement(c);
-        double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
+        /*double duree = Utilitaire.diffMoisDaty(this.getDaty(), p.getDate_placement());
         double intRemb = Utilitaire.calculerInteret(this.getMontantplace(), p.getTaux(), duree)/100;
-        double ircm = (intRemb * Constante.getTauxIRCM()) / 100;
-        this.setInteretBrut(intRemb);
+        double ircm = (intRemb * Constante.getTauxIRCM()) / 100;*/
+        double interet_recevoir = 0;
+        double ircm = 0;
+        double interet_net = 0;
+        int diffjours = Utilitaire.diffJourDaty(this.getDaty(), p.getDate_placement());
+        if(p.getTypeinteret().equalsIgnoreCase(Constante.typeinteretbrut)){
+            interet_recevoir = (this.getMontantplace() * SpatService.calculerTauxJ(p.getTaux(),diffjours,p.getAnnee()))/100;
+            ircm = (interet_recevoir * Constante.getTauxIRCM()) / 100;
+            interet_net = interet_recevoir - ircm;
+        }else if(p.getTypeinteret().equalsIgnoreCase(Constante.typeinteretnet)){
+            int nbj = diffjours + 1;
+            interet_net = (this.getMontantplace() * SpatService.calculerTauxJ(p.getTaux(),nbj,p.getAnnee()))/100;
+        }
+
+        this.setInteretBrut(interet_recevoir);
         this.setIRCM(ircm);
-        this.setInteret(intRemb - ircm);
+        this.setInteret(interet_net);
     }
 
     public void echu(Connection c, UserEJBBean user) throws Exception {

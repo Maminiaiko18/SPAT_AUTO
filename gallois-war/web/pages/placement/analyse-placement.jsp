@@ -1,6 +1,6 @@
 <%-- 
     Document   : analyse-journal-de-caisse
-    Created on : 2 d�c. 2019, 08:22:05
+    Created on : 2 d&eacute;c. 2019, 08:22:05
     Author     : Antsa
 --%>
 
@@ -34,9 +34,9 @@
         pr.setLien((String) session.getValue("lien"));
 
         pr.getFormu().getChamp("date_placement1").setLibelle("Date placement  min");
-        pr.getFormu().getChamp("date_echeance1").setLibelle("Date �ch�ance min");
+        pr.getFormu().getChamp("date_echeance1").setLibelle("Date &eacute;ch&eacute;ance min");
         pr.getFormu().getChamp("date_placement2").setLibelle("Date placement  max");
-        pr.getFormu().getChamp("date_echeance2").setLibelle("Date �ch�ance max");
+        pr.getFormu().getChamp("date_echeance2").setLibelle("Date &eacute;ch&eacute;ance max");
 
         pr.getFormu().getChamp("date_placement1").setDefaut(fin[0]);
         pr.getFormu().getChamp("date_echeance1").setDefaut(fin[0]);
@@ -60,7 +60,7 @@
         hash.put("iddetails","Details");
         hash.put("idmeredetails","Mere Details");
         hash.put("mois","Mois");
-        hash.put("interet_recevoir","Interet Recevoir");
+        hash.put("interet_recevoir","Interet Brut");
         hash.put("interet_net","Interet net");
         hash.put("identite","Identite");
         hash.put("idbanque","ID Banque");
