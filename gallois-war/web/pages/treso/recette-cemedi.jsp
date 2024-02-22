@@ -1,11 +1,12 @@
 <%-- 
-    Document   : journalcaisse-liste
+    Document   : recette-cemedi
     Created on : 6 nov. 2019, 15:02:52
     Author     : pro
 --%>
 
 <%@page import="mg.spat.JournalCaisseLibComplet"%>
 <%@page import="mg.spat.JournalCaisseMivadika"%>
+<%@page import="mg.spat.JournalCaisse"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="affichage.Liste"%>
@@ -40,7 +41,7 @@
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
-        pr.setApres("treso/journalcaisse-liste.jsp");
+        pr.setApres("treso/recette-cemedi.jsp");
 
         Liste[] listes = new Liste[3];
         listes[0] = new Liste("descecaisse", new String[]{"Tous", "Caisse", "Banque"}, new String[]{"", "Caisse", "Banque"});
@@ -50,7 +51,7 @@
         listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
 
         Caisse caisse = new Caisse();
-        caisse.setNomTable("CAISSE_REEL");
+        caisse.setNomTable("CAISSECEMEDI");
         listes[2] = new Liste("caisse", caisse, "val", "id");
 
         pr.getFormu().changerEnChamp(listes);
@@ -75,18 +76,24 @@
         pr.getFormu().getChamp("numeroOP").setLibelle("Num&eacute;ro OP");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("numPiece").setLibelle("Num Piece");
+        String where= new JournalCaisse().recettequery(null,"CAISSECEMEDI");
+        pr.setAWhere(where);
         String[] colSomme = {"credit", "debit"};
         pr.creerObjetPage(libEntete, colSomme);
         if(date1.equalsIgnoreCase(date2)) date1 = Utilitaire.ajoutJourDateString(Utilitaire.stringDate(date2), -1);
 
 %>
-
+<script>
+    function changerDesignation() {
+        document.incident.submit();
+    }
+</script>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>RECETTE CEMEDI</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=treso/journalcaisse-liste.jsp&recap=checked" method="post" name="incident" id="incident">
+        <form action="<%=pr.getLien()%>?but=treso/recette-cemedi.jsp&recap=checked" method="post" name="incident" id="incident">
             <%
                 out.println(pr.getFormu().getHtmlEnsemble());
             %>
@@ -104,20 +111,6 @@
                         <option value="JOURNALCAISSELIBCOMPLET_VISE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIBCOMPLET_VISE") == 0) {
                                 out.print("selected");
                             }%>>Vis&eacute;</option>
-                        <option value="journalcaisselibrecette" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("journalcaisselibrecette") == 0) {
-                                out.print("selected");
-                            }%>>Recettes</option>
-                        <option value="journalcaisselibdepense" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("journalcaisselibdepense") == 0) {
-                                out.print("selected");
-                            }%>>D&eacute;penses</option>
-                        <option value="JOURNALCAISSELIB_PROVISION" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_PROVISION") == 0) {
-                                out.print("selected");
-                            }%>>Provisions</option>
-                        <option value="JOURNALCAISSELIB_SANSPROV" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIB_SANSPROV") == 0) {
-                                out.print("selected");
-                            }%>>Recettes sans provisions</option>
-
-
                     </select>
                 </div>
             </div>
@@ -159,7 +152,7 @@
             </div>
 
         <form action="<%=pr.getLien()%>?but=visa-multiple.jsp" method="post" name="id" id="journal-caisse-liste">
-            <input type="hidden" name="bute" value="treso/journalcaisse-liste.jsp"/>
+            <input type="hidden" name="bute" value="treso/recette-cemedi.jsp"/>
             <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
             <input type="hidden" name="acte" value="viser"/>
             <%
