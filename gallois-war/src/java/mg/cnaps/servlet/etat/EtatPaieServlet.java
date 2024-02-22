@@ -1826,6 +1826,7 @@ public class EtatPaieServlet extends HttpServlet {
             FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c,
                     " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
+            String connexe = mere[0].getConnexe();
             FactureClientDetails[] liste = mere[0].getListeDetails();
             facture.setNomTable("FACTURECLIENTVALIDEImp");
             mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
@@ -2223,6 +2224,9 @@ public class EtatPaieServlet extends HttpServlet {
                     && (facture.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0
                             || facture.getIdcategorie().compareTo(Constante.idCategorieFCProforma) == 0)) {
                 param.put("datyfact", facture.getDateDepart());
+            }
+            if(connexe!=null){
+                setNomJasper("facture-simple");
             }
             param.put("compte", facture.getPourCompteLib());
             // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
