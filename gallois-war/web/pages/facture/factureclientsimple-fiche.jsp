@@ -123,7 +123,7 @@
 //Si categorieFC = proforma alors “Fiche Facture Proforma”
 //
 //Si categorieFC = provision alors “Fiche Facture de provision”
-        String bute = "facture/factureclient-fiche-vaovao.jsp";
+        String bute = "facture/factureclientsimple-fiche.jsp";
         String classe = "facture.FactureClient";
         String classefille = "facture.FactureClientDetails";
         String modifPage = "facture/factureclientsimple-modification.jsp";
@@ -236,13 +236,13 @@
                 </div>
                 <div class="box-footer">
                     <p>
-                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/factureclient-fiche-vaovao.jsp&classe=facture.FactureClient" style="margin-right: 10px">Viser</a>
+                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/factureclientsimple-fiche.jsp&classe=facture.FactureClient" style="margin-right: 10px">Viser</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId()%>&acte=dupliquer&bute=<%=bute%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
                         <%-- <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrent.jsp&id=" + e.getId()%>" style="margin-right: 10px">Récurrent</a> --%>
                        <!-- <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture=" + id + "&vue=" + vue%>" style="margin-right: 10px">Entrée banque</a>-->
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idFacture=" + id + "&vue=" + vue%>" style="margin-right: 10px">Encaisser</a>
                         <%-- <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/fille-multiple.jsp&idmere=" + id %>" style="margin-right: 10px">Scinder</a> --%>
-                        <!-- <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/fctraite-multiple.jsp&id=" + id +"&colonneMere=idFC&bute=facture/factureclient-fiche-vaovao.jsp" %>" style="margin-right: 10px">Attacher Traite</a>
+                        <!-- <a class="btn btn-warning pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/fctraite-multiple.jsp&id=" + id +"&colonneMere=idFC&bute=facture/factureclientsimple-fiche.jsp" %>" style="margin-right: 10px">Attacher Traite</a>
                     -->
                             <hr>
                     <!--<p><a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/bondelivraison-client-saisie.jsp&idfacture=" + e.getId()%>" style="margin-right: 10px">Livrer</a></p>-->
