@@ -43,7 +43,9 @@
     pi.getFormu().getChamp("tp").setVisible(false);
     pi.getFormu().getChamp("dtquit").setVisible(false);
     pi.getFormu().getChamp("quit").setVisible(false);
-    
+    pi.getFormu().getChamp("EstProformaEscale").setVisible(false);
+    pi.getFormu().getChamp("EstProformaEscale").setDefaut("0");
+
    // pi.getFormu().getChamp("estAncienne").setLibelle("Est ancienne");
     pi.getFormu().getChamp("designation").setLibelle("Note explicative");
     pi.getFormu().getChamp("exercice").setLibelle("Exercice");
@@ -75,7 +77,7 @@
     pi.getFormu().getChamp("escale").setVisible(false);
 
     
-    affichage.Liste[] listes= new affichage.Liste[4];
+    affichage.Liste[] listes= new affichage.Liste[5];
     
     TypeObjet type = new TypeObjet();
         type.setNomTable("typefc");
@@ -98,7 +100,11 @@
         paiement.setNomTable("devise");
         listes[3] = new Liste("paiement", paiement, "VAL", "id");
         listes[3].setDefaultSelected("Ar");
-    
+
+    TypeObjet connexe = new TypeObjet();
+        connexe.setNomTable("connexe");
+        listes[4] = new Liste("connexe", connexe, "VAL", "id");
+
     pi.getFormu().changerEnChamp(listes);
     
     pi.getFormu().getChamp("paiement").setLibelle("Paiement");
@@ -191,7 +197,7 @@
         %>
 
         <input name="acte" type="hidden" id="nature" value="insert">
-        <input name="bute" type="hidden" id="bute" value="facture/factureclientsimple-fiche">
+        <input name="bute" type="hidden" id="bute" value="facture/factureclientsimple-fiche.jsp">
         <input name="classe" type="hidden" id="classe" value="facture.FactureClient">
         <input name="classefille" type="hidden" id="classefille" value="facture.FactureClientDetails">
         <input name="nombreLigne" type="hidden" id="nombreLigne" value="10">
