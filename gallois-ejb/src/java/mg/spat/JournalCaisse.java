@@ -1188,6 +1188,36 @@ public class JournalCaisse extends ClassEtat {
         }        
     }
 
+    public static String recettequery(Connection c,String table) throws Exception{
+        int verif = 0;
+        String result=" AND CAISSE IN (";
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            Caisse pf = new Caisse();
+            pf.setNomTable(table);
+            Caisse[] tab = (Caisse[])CGenUtil.rechercher(pf, null, null, c, "");
+
+            for (int i = 0; i < tab.length; i++) {
+                result += "'"+tab[i].getId()+"'";
+                if (i < tab.length - 1) {
+                    result += ",";
+                }
+            }
+            result += ")";
+            return result;
+        }  catch(Exception ex) {
+            throw ex;
+        }  finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
     public void checkModePaiement() throws Exception{
         if(this.getCaisse().compareToIgnoreCase(Constante.caisseCentraleEspece)==0)
             {
