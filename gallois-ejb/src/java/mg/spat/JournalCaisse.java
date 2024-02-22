@@ -58,7 +58,16 @@ public class JournalCaisse extends ClassEtat {
     private double debit, credit, montant;
     private String retour;
     private boolean creationAuto;
+    private String connexe;
     
+    public String getConnexe() {
+        return connexe;
+    }
+
+    public void setConnexe(String connexe) {
+        this.connexe = connexe;
+    }
+
     public String getRetour() {
         return retour;
     }
@@ -1138,6 +1147,14 @@ public class JournalCaisse extends ClassEtat {
     public ClassMAPTable createObject(String u,Connection c)throws Exception{
         if(this.getCredit() == 0 && this.getDebit() == 0) throw new Exception("Journal de caisse invalide.");
         if(this.getIdplacement() != null && this.getIdplacement().equalsIgnoreCase("") == false){
+            String[] facture = this.getIdplacement().split("/");
+            if(facture.length > 0){
+                FactureClient fc = new FactureClient();
+                fc = (FactureClient) fc.getById(facture[0], "FACTURECLIENT", c);
+                if(fc!=null && fc.getConnexe()!=null) {
+                    this.setConnexe(fc.getConnexe());
+                }
+            }
             Placement placement = new Placement();
             placement.setId(this.getIdplacement());
             Placement[] tab = (Placement[]) CGenUtil.rechercher(placement, null, null, c, "");
