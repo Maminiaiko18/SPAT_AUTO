@@ -1105,9 +1105,9 @@ public class JournalCaisse extends ClassEtat {
                     if(this.getCredit() > 0){
                         if(caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissement)==0 
                         || caisse.getId().compareToIgnoreCase(Constante.caisseCentraleEspece)==0
-                        || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementPACT)==0
+                        /*|| caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementPACT)==0
                         || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementCSCS)==0
-                        || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementCEMEDI)==0)
+                        || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementCEMEDI)==0*/)
                         {
                             this.setNumPiece(calculerNumeroPiece(c));
                         }
@@ -1486,11 +1486,18 @@ public class JournalCaisse extends ClassEtat {
     }
     
     public String genererCodeModePaiement(){
+        String codeConnexe = "";
+        if(this.getConnexe()!=null)
+            {
+                if(this.getConnexe().equalsIgnoreCase(Constante.connexePact)) codeConnexe = "P";
+                if(this.getConnexe().equalsIgnoreCase(Constante.connexeCscs)) codeConnexe = "S";
+                if(this.getConnexe().equalsIgnoreCase(Constante.connexeCemedi)) codeConnexe = "C";
+            }
         if(this.getIdmode()!=null){
             if(this.getIdmode().compareToIgnoreCase("pay1") == 0){
-                    return "E";
+                    return codeConnexe+"E";
             }else if(this.getIdmode().compareToIgnoreCase("pay2") == 0){
-                    return "C";
+                    return codeConnexe+"C";
             }else if(this.getIdmode().compareToIgnoreCase("pay3") == 0){
                     return "V";
             }else if(this.getIdmode().compareToIgnoreCase("pay6") == 0){
@@ -1539,14 +1546,12 @@ public class JournalCaisse extends ClassEtat {
         String annee = Utilitaire.getAnnee(dateEffetStr), mois = Utilitaire.getMois(dateEffetStr);
         String seq="";
         String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_vaovao where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque());
+        if(this.getConnexe()!=null){
+            rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM SEQ_JOURNAL_CONNEXE where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque())+" AND CONNEXE='"+this.getConnexe()+"'";
+        }
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(7, result[0].getNumerosuivant());
-        return Utilitaire.genererAnnee(dateEffetStr) + 
-                mois + "-" + 
-                genererCodeModePaiement() + "-" + 
-                genererCodeType() + "-" + 
-                seq;
-
+        return Utilitaire.genererAnnee(dateEffetStr) + mois + "-" + genererCodeModePaiement() + "-" + genererCodeType() + "-" + seq;
     }
 
     public String calculerNumeroPieceRecette(Connection c) throws Exception{
