@@ -54,6 +54,8 @@
         pc.getChampByName("idprevision").setVisible(false);
         pc.getChampByName("escale").setVisible(false);
         pc.getChampByName("idprovision").setVisible(false);
+        pc.getChampByName("connexe").setVisible(false);
+        pc.getChampByName("connexelib").setLibelle("Connexe");
 
 //        pc.getChampByName("montanttva").setVisible(false);
         pc.getChampByName("tierslib").setLibelle("Tiers");
