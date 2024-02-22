@@ -144,7 +144,7 @@
         </div>
         <form action="<%=pr.getLien()%>?but=apresFacture.jsp" method="post" name="incidents" id="incidents">
             <%
-                String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
+                String lienTableau[] = {pr.getLien() + "?but=facture/factureclientsimple-fiche.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
                 String colonneLien[] = {"id", "escale"};
                 String[] urlLienMultiple = {"id", "idprevision"};
                 String[] urlLienAffiche = {"id", "id"};
