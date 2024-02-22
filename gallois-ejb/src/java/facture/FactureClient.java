@@ -317,6 +317,15 @@ public class FactureClient extends ClassMere {
     private Date dateDepart,datearrivee;
     private String provenance,destination,armateur,codeFiltre,paiement,paiementlib;
     private double montantdiff;
+    private String connexe;
+
+    public String getConnexe() {
+        return connexe;
+    }
+
+    public void setConnexe(String connexe) {
+        this.connexe = connexe;
+    }
 
     public String getDestination() {
         return destination;
@@ -2352,7 +2361,11 @@ public class FactureClient extends ClassMere {
         code += Utilitaire.champNull(codePrestation);
         code += "A";
 //        code += genererSequence(c, "numerofacturesimple", 3);
-        code += new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty, codePrestation, typecateg);
+        String seq = new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty, codePrestation, typecateg);
+        if(this.getConnexe()!=null || this.getConnexe().compareToIgnoreCase("")!=0){
+            seq = new UtilitaireFacture().genererSequence(c, "NUMEROFACTURECONNEXE_PARDATE", 3,daty, codePrestation, typecateg,this.getConnexe());
+        }
+        code += seq;
         return code;
     }
 
