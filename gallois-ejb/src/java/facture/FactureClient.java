@@ -74,6 +74,23 @@ public class FactureClient extends ClassMere {
     private String nomnavire;
     private int estBornageEtPeche;
     private String idplacement;
+    private String typeclientlib,factureLiee;//,idEngagement ; 
+    private int estAuto,estAncienne;
+    private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
+    private Date dateDepart,datearrivee;
+    private String provenance,destination,armateur,codeFiltre,paiement,paiementlib;
+    private double montantdiff;
+    private String connexe;
+    private String connexelib;
+
+
+    public String getConnexelib() {
+        return connexelib;
+    }
+
+    public void setConnexelib(String connexelib) {
+        this.connexelib = connexelib;
+    }
 
     public String getIdplacement() {
         return idplacement;
@@ -311,13 +328,7 @@ public class FactureClient extends ClassMere {
     public void setBateaulib(String bateaulib) {
         this.bateaulib = bateaulib;
     }
-    private String typeclientlib,factureLiee;//,idEngagement ; 
-    private int estAuto,estAncienne;
-    private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
-    private Date dateDepart,datearrivee;
-    private String provenance,destination,armateur,codeFiltre,paiement,paiementlib;
-    private double montantdiff;
-    private String connexe;
+
 
     public String getConnexe() {
         return connexe;
@@ -2356,19 +2367,23 @@ public class FactureClient extends ClassMere {
         String code = "", codePrestation = genererCodePrestation(c);
         String typecateg = genererPremierCaractere(c);
         String caratere = "A";
+//        code += genererSequence(c, "numerofacturesimple", 3);
+        String seq = new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty, codePrestation, typecateg);
+        if(this.getConnexe()!=null || this.getConnexe().compareToIgnoreCase("")!=0){
+            codePrestation = "10";
+            if(this.getConnexe().equals(Constante.connexePact)) caratere = "P";
+            if(this.getConnexe().equals(Constante.connexeCscs)) caratere = "S";
+            if(this.getConnexe().equals(Constante.connexeCemedi)) caratere = "C";
+            if(this.getType().equalsIgnoreCase(Constante.typeACredit)) typecateg = "1";
+            if(this.getType().equalsIgnoreCase(Constante.typeAuComptant)) typecateg = "2";
+            seq = new UtilitaireFacture().genererSequence(c, "NUMEROFACTURECONNEXE_PARDATE", 3,daty, codePrestation, typecateg,this.getConnexe());
+        }
         code += Utilitaire.champNull(typecateg);
         code += Utilitaire.genererAnnee(daty);
         code += Utilitaire.genererMois(daty);
         code += Utilitaire.champNull(codePrestation);
-//        code += genererSequence(c, "numerofacturesimple", 3);
-        String seq = new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty, codePrestation, typecateg);
-        if(this.getConnexe()!=null || this.getConnexe().compareToIgnoreCase("")!=0){
-            if(this.getConnexe().equals(Constante.connexePact)) caratere = "P";
-            if(this.getConnexe().equals(Constante.connexeCscs)) caratere = "S";
-            if(this.getConnexe().equals(Constante.connexeCemedi)) caratere = "C";
-            seq = new UtilitaireFacture().genererSequence(c, "NUMEROFACTURECONNEXE_PARDATE", 3,daty, codePrestation, typecateg,this.getConnexe());
-        }
-        code += caratere+seq;
+        code += caratere;
+        code += seq;
         return code;
     }
 
