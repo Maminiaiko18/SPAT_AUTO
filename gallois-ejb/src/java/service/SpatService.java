@@ -471,7 +471,7 @@ public class SpatService {
                 c.setAutoCommit(false);
             }
             int diffMois = Utilitaire.diffMoisDaty(mere.getDate_echeance(), mere.getDate_placement());
-            int diffjours = Utilitaire.diffJourDaty(mere.getDate_echeance(), mere.getDate_placement());
+            int diffjours = Utilitaire.diffJourDaty(mere.getDate_echeance(), mere.getDate_placement()) - 1;
             double interet_recevoir = 0;
             double ircm = 0;
             double interet_net = 0;
@@ -529,7 +529,7 @@ public class SpatService {
             double ircm = 0;
             double interet_net = 0;
             double montant_terme = 0;
-            int diffjours = Utilitaire.diffJourDaty(mere.getDate_echeance(), mere.getDate_placement());
+            int diffjours = Utilitaire.diffJourDaty(mere.getDate_echeance(), mere.getDate_placement()) - 1;
 
             /*int diffMois = Utilitaire.diffMoisDaty(mere.getDate_echeance(), mere.getDate_placement());
             double taux=calculerTaux(mere.getTaux(),diffMois);

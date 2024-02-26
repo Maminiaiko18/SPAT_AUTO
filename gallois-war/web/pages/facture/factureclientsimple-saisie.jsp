@@ -18,6 +18,7 @@
     String idUser= "";
     u = (UserEJB) session.getValue("u");
     idUser = ""+u.getUser().getTuppleID();
+    String userRole = u.getUser().getIdrole();
 
     String autreparsley = "data-parsley-range='[8, 40]' required";
     FactureClient  fc = new FactureClient();
@@ -104,6 +105,9 @@
     TypeObjet connexe = new TypeObjet();
         connexe.setNomTable("connexe");
         listes[4] = new Liste("connexe", connexe, "VAL", "id");
+        if(userRole.equalsIgnoreCase(Constante.rolePact))  listes[4].setDefaultSelected(Constante.connexePact);
+        if(userRole.equalsIgnoreCase(Constante.roleCscs))  listes[4].setDefaultSelected(Constante.connexeCscs);
+        if(userRole.equalsIgnoreCase(Constante.roleCemedi))  listes[4].setDefaultSelected(Constante.connexeCemedi);
 
     pi.getFormu().changerEnChamp(listes);
     

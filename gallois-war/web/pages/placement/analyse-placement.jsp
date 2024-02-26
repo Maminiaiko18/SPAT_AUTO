@@ -38,10 +38,10 @@
         pr.getFormu().getChamp("date_placement2").setLibelle("Date placement  max");
         pr.getFormu().getChamp("date_echeance2").setLibelle("Date &eacute;ch&eacute;ance max");
 
-        pr.getFormu().getChamp("date_placement1").setDefaut(fin[0]);
+        /*pr.getFormu().getChamp("date_placement1").setDefaut(fin[0]);
         pr.getFormu().getChamp("date_echeance1").setDefaut(fin[0]);
         pr.getFormu().getChamp("date_placement2").setDefaut(fin[1]);
-        pr.getFormu().getChamp("date_echeance2").setDefaut(fin[1]);
+        pr.getFormu().getChamp("date_echeance2").setDefaut(fin[1]);*/
 
         pr.getFormu().getChamp("valentite").setLibelle("Nature");
         pr.getFormu().getChamp("valbanque").setLibelle("Entite");
