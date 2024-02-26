@@ -2226,6 +2226,14 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("datyfact", facture.getDateDepart());
             }
             if(connexe!=null){
+                String logo = "";
+                if(connexe.compareToIgnoreCase(Constante.connexePact) == 0)
+                    logo = "logo_PACT.jpg";
+                if(connexe.compareToIgnoreCase(Constante.connexeCscs) == 0)
+                    logo = "cscs.png";
+                if(connexe.compareToIgnoreCase(Constante.connexeCemedi) == 0)
+                    logo = "cemedi.jpg";
+                param.put("logo" , logo);
                 setNomJasper("facture-simple");
             }
             param.put("compte", facture.getPourCompteLib());
