@@ -4699,6 +4699,7 @@ public class EtatPaieServlet extends HttpServlet {
             if (type != null && !type.trim().isEmpty() && type.compareToIgnoreCase("null") != 0) {
                 requete += " and type = '" + type + "'";
             }
+            requete += " AND MONTANTRESTE > 0 ";
             requete += " GROUP BY TIERSLIB ORDER BY TIERSLIB ";
              System.out.println("requete :"+requete);
             FactureClient mc = new FactureClient();
