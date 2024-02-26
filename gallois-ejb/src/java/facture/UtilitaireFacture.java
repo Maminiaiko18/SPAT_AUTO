@@ -35,6 +35,27 @@ public class UtilitaireFacture {
         return Utilitaire.completerInt(longueur, sequence);
     }
 
+    public static String genererSequence(Connection c, String nomtable, int longueur, String date, String code, String typecateg,String connexe) throws Exception {
+        //String daty = Utilitaire.datetostring(date);
+
+        String sequence = "1";
+
+        NumeroFacture num = new NumeroFacture();
+        num.setNomTable(nomtable);
+        
+        String awhere = " and mois = %s and annee = %s and code like '%s' and typecateg like '%s' and connexe like '%s'";
+        String mois = Utilitaire.genererMois(date), annee = Utilitaire.getAnnee(date);
+        awhere = String.format(awhere, mois, annee, code, typecateg,connexe);
+
+        NumeroFacture[] nums = (NumeroFacture[]) CGenUtil.rechercher(num, null, null, c, awhere);
+
+        if (nums != null && nums.length > 0) {
+            sequence = "" + nums[0].getNumerosuivant();
+        }
+
+        return Utilitaire.completerInt(longueur, sequence);
+    }
+
     public static String genererSequence(Connection c, String nomtable, int longueur, String date) throws Exception {
         //String daty = Utilitaire.datetostring(date);
 
