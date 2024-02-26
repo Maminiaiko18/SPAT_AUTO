@@ -2232,7 +2232,7 @@ public class EtatPaieServlet extends HttpServlet {
                 if(connexe.compareToIgnoreCase(Constante.connexeCscs) == 0)
                     logo = "cscs.png";
                 if(connexe.compareToIgnoreCase(Constante.connexeCemedi) == 0)
-                    logo = "cemedi.jpg";
+                    logo = "cemedi.png";
                 param.put("logo" , logo);
                 setNomJasper("facture-simple");
             }
