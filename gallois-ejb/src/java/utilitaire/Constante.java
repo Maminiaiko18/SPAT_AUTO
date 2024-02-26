@@ -204,7 +204,33 @@ public class Constante {
     public static String uniteJour = "UNIC001";
     public static String uniteMois = "UNIC002";
     public static String uniteAnnee = "UNIC003";
-    public static String typeinteretnet = "TYPEINT002";
+    public static String connexePact = "CON001";
+    public static String connexeCscs = "CON002";
+    public static String connexeCemedi = "CON003";
+
+    public static String getConnexePact() {
+        return connexePact;
+    }
+
+    public static void setConnexePact(String connexePact) {
+        Constante.connexePact = connexePact;
+    }
+
+    public static String getConnexeCscs() {
+        return connexeCscs;
+    }
+
+    public static void setConnexeCscs(String connexeCscs) {
+        Constante.connexeCscs = connexeCscs;
+    }
+
+    public static String getConnexeCemedi() {
+        return connexeCemedi;
+    }
+
+    public static void setConnexeCemedi(String connexeCemedi) {
+        Constante.connexeCemedi = connexeCemedi;
+    }    public static String typeinteretnet = "TYPEINT002";
     public static String typeinteretbrut = "TYPEINT001";
 
 
