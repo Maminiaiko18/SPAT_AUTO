@@ -2369,7 +2369,8 @@ public class FactureClient extends ClassMere {
         String caratere = "A";
 //        code += genererSequence(c, "numerofacturesimple", 3);
         String seq = new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty, codePrestation, typecateg);
-        if(this.getConnexe()!=null || this.getConnexe().compareToIgnoreCase("")!=0){
+
+        if(this.getConnexe()!=null && this.getConnexe().compareToIgnoreCase("")!=0){
             codePrestation = "10";
             if(this.getConnexe().equals(Constante.connexePact)) caratere = "P";
             if(this.getConnexe().equals(Constante.connexeCscs)) caratere = "S";
