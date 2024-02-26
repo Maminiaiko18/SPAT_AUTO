@@ -24,7 +24,6 @@ import mg.spat.JournalCaisse;
 import mg.spat.stock.BonDeCommande;
 import mg.spat.stock.BonDeLivraison;
 import mg.spat.stock.BonDeLivraisonFilleReste;
-import oracle.net.aso.f;
 import user.UserEJB;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
@@ -833,7 +832,7 @@ public class FactureFournisseur extends FactureClient {
                 verify = 1;
             }
             double resteApresEngmt = 0 ;
-            String where = " AND ETAT=11 AND CODEETABLISSEMENT = '"+this.getCode_etablissement()+"' AND PROJET ='"+this.getProjet()+"' AND DATY <= '"+Utilitaire.formatterDaty(this.getDaty())+"' ORDER BY DATY DESC ,NUM DESC";
+            String where = " AND ETAT=11 AND CODEETABLISSEMENT = '"+this.getCode_etablissement()+"' AND PROJET ='"+this.getProjet()+"' AND DATY <= '"+Utilitaire.formatterDaty(this.getDaty())+"' AND ANNEE='"+this.getAnneebudgetaire()+"' ORDER BY DATY DESC ,NUM DESC";
             Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, where);
             if(engagement.length > 0 ){
                 resteApresEngmt = engagement[0].getDispoApres();
