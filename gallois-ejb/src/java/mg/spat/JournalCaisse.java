@@ -1517,7 +1517,7 @@ public class JournalCaisse extends ClassEtat {
     
     public String genererCodeModePaiement(){
         String codeConnexe = "";
-        if(this.getConnexe()!=null)
+        if(this.getConnexe()!=null && this.getConnexe().compareToIgnoreCase("")!=0)
             {
                 if(this.getConnexe().equalsIgnoreCase(Constante.connexePact)) codeConnexe = "P";
                 if(this.getConnexe().equalsIgnoreCase(Constante.connexeCscs)) codeConnexe = "S";
