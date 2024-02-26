@@ -221,7 +221,7 @@ public class RemboursementPlacement extends ClassEtat{
         double interet_recevoir = 0;
         double ircm = 0;
         double interet_net = 0;
-        int diffjours = Utilitaire.diffJourDaty(this.getDaty(), p.getDate_placement());
+        int diffjours = Utilitaire.diffJourDaty(this.getDaty(), p.getDate_placement()) - 1;
         if(p.getTypeinteret().equalsIgnoreCase(Constante.typeinteretbrut)){
             interet_recevoir = (this.getMontantplace() * SpatService.calculerTauxJ(p.getTaux(),diffjours,p.getAnnee()))/100;
             ircm = (interet_recevoir * Constante.getTauxIRCM()) / 100;
