@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_provisoir" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5df9011-35af-48b5-bccd-75233c87301c">
 	<property name="ireport.zoom" value="1.9487171000000019"/>
-	<property name="ireport.x" value="145"/>
-	<property name="ireport.y" value="283"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="91"/>
 	<parameter name="daty" class="java.util.Date"/>
 	<parameter name="client" class="java.lang.String"/>
 	<parameter name="montant" class="java.lang.Double"/>
@@ -14,11 +14,12 @@
 	<parameter name="num" class="java.lang.String"/>
 	<parameter name="codePr" class="java.lang.String"/>
 	<parameter name="codeEtb" class="java.lang.String"/>
+	<parameter name="restebudget" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="227" splitType="Stretch">
+		<band height="236" splitType="Stretch">
 			<staticText>
 				<reportElement x="148" y="0" width="175" height="20" uuid="312379d7-9f4b-4612-bdf6-df46b8361d4c"/>
 				<textElement>
@@ -146,6 +147,21 @@
 				<reportElement x="134" y="106" width="112" height="20" uuid="29018e37-0e16-467f-b63b-55795cef7793"/>
 				<textFieldExpression><![CDATA[$P{codeEtb}]]></textFieldExpression>
 			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="100" y="206" width="454" height="20" uuid="ee5a425c-f812-43cc-bf11-55c2061620ff"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{restebudget}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="206" width="100" height="20" uuid="30e80ead-c9fc-4f5b-82a5-55a116ab91e8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Budget estimatif:
+]]></text>
+			</staticText>
 		</band>
 	</title>
 	<detail>

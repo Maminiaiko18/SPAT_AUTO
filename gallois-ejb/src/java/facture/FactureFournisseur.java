@@ -823,6 +823,50 @@ public class FactureFournisseur extends FactureClient {
         return fact2;
     }
 
+    public double getBudgetEstimatif(Connection c) throws Exception {
+        double result = 0.;
+        int verify = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verify = 1;
+            }
+            double resteApresEngmt = 0 ;
+            String where = " AND ETAT=11 AND CODEETABLISSEMENT = '"+this.getCode_etablissement()+"' AND PROJET ='"+this.getProjet()+"' AND DATY <= '"+Utilitaire.formatterDaty(this.getDaty())+"' AND ANNEE='"+this.getAnneebudgetaire()+"' ORDER BY DATY DESC ,NUM DESC";
+            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, where);
+            if(engagement.length > 0 ){
+                resteApresEngmt = engagement[0].getDispoApres();
+            }else {
+                // possible tsisy engagement mintsy ref budget vaovao na rehefa miova taona du coup alaina via FCC le mtt
+                Engagement filtre = new Engagement();
+                filtre.setCodeEtablissement(this.getCode_etablissement());
+                filtre.setProjet(this.getProjet());
+                filtre.setAnnee(this.getAnneebudgetaire());
+                LigneCredit lc = filtre.findSituationCredit(c);
+                resteApresEngmt = lc.getResteApresEngmt();
+            }
+            String datemin = engagement.length > 0 ? Utilitaire.formatterDaty(engagement[0].getDaty()) : "01/01/"+this.getAnneebudgetaire();
+            String datemax = Utilitaire.formatterDaty(this.getDaty());
+            String whereBp = " AND CODE_ETABLISSEMENT='"+this.getCode_etablissement()+"'  and projet='"+this.getProjet()+"' "; 
+            String[] numero = this.getNum().split("/");
+            whereBp+=" AND daty>='"+datemin+"' and daty<='"+datemax+"' AND TO_NUMBER(REGEXP_SUBSTR(num , '[^/ ]+', 1, 1)) <"+numero[0]+" and id!='"+this.getId()+"'";
+            FactureFournisseur bp = new FactureFournisseur();
+            bp.setNomTable("BPVALIDE_LIBTOUS");
+            // System.out.println("where bppp"+whereBp);
+            FactureFournisseur[] lbp = (FactureFournisseur[]) CGenUtil.rechercher(bp, null, null, c, whereBp);
+            double montantbp= 0 ;
+            if(lbp.length > 0) montantbp= AdminGen.calculSommeDouble(lbp, "montant");
+            result = resteApresEngmt - montantbp - this.getMontant();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verify == 1) {
+                c.close();
+            }
+        }
+        return result;
+    }
+
     public double getMontantResteProvision(Connection c) throws Exception {
         double result = 0.;
         int verify = 0;
