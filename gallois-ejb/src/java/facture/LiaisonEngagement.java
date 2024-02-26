@@ -10,6 +10,8 @@ import bean.ClassEtat;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 import java.sql.Date;
+
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 
 /**
@@ -79,6 +81,11 @@ public class LiaisonEngagement extends ClassEtat {
         this.setId2(id2);
         this.setMontant(montant);
         this.setEtat(etat);
+    }
+
+    @Override
+    public void controler(Connection c) throws Exception {
+        if(this.getMontant()<0) this.setMontant(0);
     }
 
     public Date getDaty() {

@@ -3442,6 +3442,7 @@ public class EtatPaieServlet extends HttpServlet {
                     null,
                     c, " and idprovision = '" + id + "' and etat >=" + ConstanteEtat.getEtatValider());
             if (mere[0].getIdcategorie().compareTo(Constante.idBonProvisoire) == 0) {
+                double budgetEstimer = mere[0].getBudgetEstimatif(null);
                 if (detailsfact.length != 0) {
                     param.put("montantfact", detailsfact[0].getMontantttc());
                     double montantApayerRetoruner;
@@ -3464,6 +3465,7 @@ public class EtatPaieServlet extends HttpServlet {
                 }
 
                 param.put("montantlettrePro", montantlettrePro);
+                param.put("restebudget", budgetEstimer);
                 param.put("codePr", mere[0].getProjetlib());
                 param.put("codeEtb", mere[0].getCode_etablissementlib());
                 setNomJasper("bon_provisoir");
@@ -5177,6 +5179,7 @@ public class EtatPaieServlet extends HttpServlet {
             if (type != null && !type.trim().isEmpty() && type.compareToIgnoreCase("null") != 0) {
                 requete += " and type = '" + type + "'";
             }
+            requete += " AND MONTANTRESTE > 0 ";
             requete += " GROUP BY TIERSLIB ORDER BY TIERSLIB ";
              System.out.println("requete :"+requete);
             FactureClient mc = new FactureClient();
