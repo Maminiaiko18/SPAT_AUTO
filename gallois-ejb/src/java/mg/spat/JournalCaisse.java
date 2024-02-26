@@ -1576,7 +1576,7 @@ public class JournalCaisse extends ClassEtat {
         String annee = Utilitaire.getAnnee(dateEffetStr), mois = Utilitaire.getMois(dateEffetStr);
         String seq="";
         String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_vaovao where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque());
-        if(this.getConnexe()!=null){
+        if(this.getConnexe()!=null && !this.getConnexe().equalsIgnoreCase("")){
             rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM SEQ_JOURNAL_CONNEXE where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque())+" AND CONNEXE='"+this.getConnexe()+"'";
         }
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
