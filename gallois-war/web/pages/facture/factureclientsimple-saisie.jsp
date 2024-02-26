@@ -105,9 +105,9 @@
     TypeObjet connexe = new TypeObjet();
         connexe.setNomTable("connexe");
         listes[4] = new Liste("connexe", connexe, "VAL", "id");
-        if(userRole.equalsIgnoreCase("ROL0000001331195343"))  listes[4].setDefaultSelected(Constante.connexePact);
-        if(userRole.equalsIgnoreCase("ROL0000001421143942"))  listes[4].setDefaultSelected(Constante.connexeCscs);
-        if(userRole.equalsIgnoreCase("ROL0000001422144013"))  listes[4].setDefaultSelected(Constante.connexeCemedi);
+        if(userRole.equalsIgnoreCase(Constante.rolePact))  listes[4].setDefaultSelected(Constante.connexePact);
+        if(userRole.equalsIgnoreCase(Constante.roleCscs))  listes[4].setDefaultSelected(Constante.connexeCscs);
+        if(userRole.equalsIgnoreCase(Constante.roleCemedi))  listes[4].setDefaultSelected(Constante.connexeCemedi);
 
     pi.getFormu().changerEnChamp(listes);
     
