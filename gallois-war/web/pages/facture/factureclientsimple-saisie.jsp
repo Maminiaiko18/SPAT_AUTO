@@ -83,6 +83,7 @@
     TypeObjet type = new TypeObjet();
         type.setNomTable("typefc");
         listes[0] = new Liste("type", type, "VAL", "id");
+        listes[0].setDefaultSelected(Constante.typeFCAuComptant);
         
      TypeObjet categ = new TypeObjet();
         categ.setNomTable("categorieFC");
