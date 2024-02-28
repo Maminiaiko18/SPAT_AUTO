@@ -5174,6 +5174,7 @@ public class EtatPaieServlet extends HttpServlet {
             String daty1 = request.getParameter("date1");
             String daty2 = request.getParameter("date2");
             String type = request.getParameter("type");
+            String categorie = request.getParameter("categorielib");
 
             String requete = "SELECT tierslib, SUM(MONTANTRESTE) AS MONTANTRESTE, SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
             if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
@@ -5189,6 +5190,11 @@ public class EtatPaieServlet extends HttpServlet {
             if (type != null && !type.trim().isEmpty() && type.compareToIgnoreCase("null") != 0) {
                 requete += " and type = '" + type + "'";
             }
+
+            if (categorie != null && !categorie.trim().isEmpty() && categorie.compareToIgnoreCase("null") != 0) {
+                requete += " and upper(categorielib) like upper('%" + categorie + "%')";
+            }
+
             requete += " GROUP BY TIERSLIB ORDER BY TIERSLIB ";
              System.out.println("requete :"+requete);
             FactureClient mc = new FactureClient();
