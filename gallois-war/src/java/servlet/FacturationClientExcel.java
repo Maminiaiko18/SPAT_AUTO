@@ -185,6 +185,7 @@ public class FacturationClientExcel extends HttpServlet {
             String daty1 = request.getParameter("daty1");
             String daty2 = request.getParameter("daty2");
             String type = request.getParameter("type");
+            String categorie = request.getParameter("categorielib");
 
             String requete = "SELECT tierslib,SUM (MONTANTTTC) AS MONTANTTTC , SUM(MONTANTPAYE) AS MONTANTPAYE,SUM(MONTANTRESTE) AS MONTANTRESTE FROM FACTURE_CLIENT_UNIONV WHERE 1=1 ";
             if (daty1 != null && !daty1.trim().isEmpty() && daty1.compareToIgnoreCase("null") != 0) {
@@ -199,6 +200,10 @@ public class FacturationClientExcel extends HttpServlet {
 
             if (type != null && !type.trim().isEmpty() && type.compareToIgnoreCase("null") != 0) {
                 requete += " and type = '" + type + "'";
+            }
+
+            if (categorie != null && !categorie.trim().isEmpty() && categorie.compareToIgnoreCase("null") != 0) {
+                requete += " and upper(categorielib) like upper('%" + categorie + "%')";
             }
             
             requete += " AND MONTANTRESTE > 0 ";

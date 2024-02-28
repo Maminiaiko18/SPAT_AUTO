@@ -10,10 +10,14 @@
 
         FactureClient lv = new FactureClient();
         lv.setNomTable("FACTURE_CLIENT_UNIONV_PROV");
-        String listeCrt[] = {"daty","tierslib","type"};
+        String listeCrt[] = {"daty","tierslib","type","categorielib"};
         String listeInt[] = {"daty"};
         
-        
+        String typelib = request.getParameter("type");
+        String categorielib = request.getParameter("categorielib");
+        if(typelib != null && typelib.equalsIgnoreCase("%")) typelib = "";
+        if(categorielib!=null && categorielib.equalsIgnoreCase("%")) categorielib = "";
+
         String[] pourcentage = {};        
         String somDefaut[] = {"montantttc","montantpaye","montantreste","montantdiff"};
         String colDefaut[] = {"tierslib"};
@@ -26,12 +30,19 @@
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+
         
-        Liste[] listes = new Liste[1];
+        Liste[] listes = new Liste[2];
         TypeObjet type = new TypeObjet();
         type.setNomTable("TYPEFC");
         listes[0] = new Liste("type", type, "val", "id");
+
+        TypeObjet cat = new TypeObjet();
+        cat.setNomTable("CATEGORIEFC");
+        listes[1] = new Liste("categorielib", cat, "val", "val");
+
         pr.getFormu().changerEnChamp(listes);
+        pr.getFormu().getChamp("categorielib").setLibelle("Categorie");
         
         pr.setApres("facture/analyse-client.jsp");
         pr.creerObjetPagePourc();
@@ -50,8 +61,8 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <div class="box-footer">
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/Paie?action=impressionAC&tierslib=<%=request.getParameter("tierslib")%>&date1=<%=request.getParameter("daty1")%>&date2=<%=request.getParameter("daty2")%>&type=<%=request.getParameter("type")%>" style="float:right">Imprimer</a>
-            <a class="btn btn-success" href="${pageContext.request.contextPath}/FactureClientExcel?action=FactureAnalyseClientExcel&tierslib=<%=request.getParameter("tierslib")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&type=<%=request.getParameter("type")%>" style="float:right">Export Excel</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/Paie?action=impressionAC&tierslib=<%=request.getParameter("tierslib")%>&date1=<%=request.getParameter("daty1")%>&date2=<%=request.getParameter("daty2")%>&type=<%=typelib%>&categorielib=<%=categorielib%>" style="float:right">Imprimer</a>
+            <a class="btn btn-success" href="${pageContext.request.contextPath}/FactureClientExcel?action=FactureAnalyseClientExcel&tierslib=<%=request.getParameter("tierslib")%>&daty1=<%=request.getParameter("daty1")%>&daty2=<%=request.getParameter("daty2")%>&type=<%=typelib%>&categorielib=<%=categorielib%>" style="float:right">Export Excel</a>
         </div>
         <%
            
