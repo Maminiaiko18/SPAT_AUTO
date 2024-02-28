@@ -47,6 +47,16 @@ public class Mouvement extends ClassEtat {
         }
         return prev[0];
     }
+    
+    public Prevision getPrevision(Connection c, String nomtable) throws Exception {
+        Prevision p = new Prevision();
+        p.setNomTable(nomtable);
+        Prevision[] prev = (Prevision[]) CGenUtil.rechercher(p, null, null, c, " and id='"+this.getEscale()+"'");
+        if(prev.length <= 0){
+            throw new Exception("Prevision non trouvee !");
+        }
+        return prev[0];
+    }
 
     public String getNumero() {
         return numero;
@@ -84,8 +94,11 @@ public class Mouvement extends ClassEtat {
             destination = (Postedestinataire) destination.getById(this.getDestination(), destination.getNomTable(), c);
             
             if(destination != null && destination.getInterne().compareTo("0") == 0) {
-                Prevision prevision = this.getPrevision(c);
                 
+                Prevision prevision = null;
+                System.out.println("THIS.GETNOMTABLE ==== "+this.getNomTable());
+                if(this.getNomTable().compareToIgnoreCase("mouvement_prof")==0) prevision = this.getPrevision(c, "prevision_prof");
+                else prevision = this.getPrevision(c);
                 prevision.setDate_depart(this.getDate_depart());
                 prevision.setHeure_depart(this.getHeure_depart());
                 
@@ -96,9 +109,9 @@ public class Mouvement extends ClassEtat {
                 stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
                 u.createObject(stationnement, c);
                 u.validerObject(stationnement, c);
-                stationnement.updateDernierStationnement(c,u.getUser().getTuppleID());
+                if(this.getNomTable().compareToIgnoreCase("mouvement_prof")==0) stationnement.updateDernierStationnementProf(c,u.getUser().getTuppleID());
+                else stationnement.updateDernierStationnement(c,u.getUser().getTuppleID());
             }
-            
         }
         if (this.estTouchee(c) && this.getEscale() == null) {
             this.creerPrevision(u, c);
@@ -539,6 +552,29 @@ public class Mouvement extends ClassEtat {
         }
         return mouvement;
     }
+    
+    public MouvementLibComplet getMouvementLibCompletProfById(Connection c) throws Exception {
+        boolean estOuvert = false;
+        MouvementLibComplet mouvement = null;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                estOuvert = true;
+            }
+            MouvementLibComplet[] liste = (MouvementLibComplet[]) CGenUtil.rechercher(new MouvementLibComplet("MOUVEMENTLIBCOMPLETPROF"), null, null, c, " and id='" + this.getId() + "'");
+            if (liste.length > 0) {
+                mouvement = liste[0];
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (c != null && estOuvert) {
+                c.close();
+            }
+        }
+        return mouvement;
+    }
 
     public Mouvement[] getMouvementMemeEscale() throws Exception {
         Connection c = null;
@@ -569,6 +605,33 @@ public class Mouvement extends ClassEtat {
                 order = " order by datearrivee desc, heure desc ";
             } else {
                 mvt.setNomTable("MOUVEMENT_DEPART_PREV");
+                order = " order by date_depart desc, heure_depart desc ";
+            }
+            return (Mouvement[]) CGenUtil.rechercher(mvt, null, null, c, " and escale ='" + this.getEscale() + "' and id != '" + this.getId() + "' and etat>="+ConstanteEtat.getEtatValider()+" " + order);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();;
+            }
+        }
+    }
+    
+    public Mouvement[] getMouvementMemeEscalePrecProf(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            Mouvement mvt = new Mouvement();
+            String order = "";
+
+            if (this.getTypeMvt().compareTo(Constante.getTpmvtdepart()) == 0) {
+                mvt.setNomTable("MOUVEMENT_ARRIVEE_PREVPROF");
+                order = " order by datearrivee desc, heure desc ";
+            } else {
+                mvt.setNomTable("MOUVEMENT_DEPART_PREVPROF");
                 order = " order by date_depart desc, heure_depart desc ";
             }
             return (Mouvement[]) CGenUtil.rechercher(mvt, null, null, c, " and escale ='" + this.getEscale() + "' and id != '" + this.getId() + "' and etat>="+ConstanteEtat.getEtatValider()+" " + order);
@@ -736,12 +799,25 @@ public class Mouvement extends ClassEtat {
     }
     
      public Activite creerActiviteStationnement(String u, Connection c) throws Exception{
-        Mouvement[] mvts = getMouvementMemeEscalePrec(c);
+        Mouvement[] mvts = null;
         Mouvement mvtPrec = null;
-        if(mvts != null && mvts.length > 0) mvtPrec = mvts[0];
-        Prevision prev = this.getPrevision(c);
         
         Activite a = new Activite();
+        Prevision prev = null;
+        
+        if(this.getNomTable().compareToIgnoreCase("mouvement_prof")==0){
+            mvts = getMouvementMemeEscalePrecProf(c);
+            prev = this.getPrevision(c, "prevision_prof");
+            a.setNomTable("activite_prof");
+        } else{
+            mvts = getMouvementMemeEscalePrec(c);
+            prev = this.getPrevision(c);
+        }
+        
+        if(mvts != null && mvts.length > 0){
+            mvtPrec = mvts[0];
+        } else throw new Exception("Mouvement inexistante!");
+        
         a.setRubrique(Constante.idStationnement);
         a.setDesignation("Stationnement");
         a.setClient(prev.getConsignataire());

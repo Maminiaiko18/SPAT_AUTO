@@ -58,7 +58,16 @@ public class JournalCaisse extends ClassEtat {
     private double debit, credit, montant;
     private String retour;
     private boolean creationAuto;
+    private String connexe;
     
+    public String getConnexe() {
+        return connexe;
+    }
+
+    public void setConnexe(String connexe) {
+        this.connexe = connexe;
+    }
+
     public String getRetour() {
         return retour;
     }
@@ -224,6 +233,7 @@ public class JournalCaisse extends ClassEtat {
         //FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
         System.out.println("Niditra aaaaaato----");
         FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeAuComptant, Constante.idCategorieFCDefinitive, 1);
+        factureclient.setIdplacement(this.getIdplacementvrai());
         FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(),"Facture auto via", 1,compte);
         detail.setAnnee(annee);
         detail.setMois(mois);
@@ -243,6 +253,7 @@ public class JournalCaisse extends ClassEtat {
     public FactureClient genererFactureClientAuto(Connection c,String user,String compte, int annee, int mois, double tva) throws Exception{
         //FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeChequeAuComptant, Constante.idCategorieFCDefinitive, 1);
         FactureClient factureclient=new FactureClient(Utilitaire.dateDuJourSql(), this.getTiers(), "Facture auto via", Constante.typeAuComptant, Constante.idCategorieFCDefinitive, 1);
+        factureclient.setIdplacement(this.getIdplacementvrai());
         FactureClientDetails detail= new FactureClientDetails(factureclient.getId(), 1, this.getCredit(), compte, "Facture auto via", 1);
         detail.setAnnee(annee);
         detail.setMois(mois);
@@ -251,10 +262,7 @@ public class JournalCaisse extends ClassEtat {
         detail.setPu(this.getCredit()/(1+tva/100));
         FactureClientDetails[] fille = {detail};
         factureclient.setFille(fille);
-        
         factureclient.createObject(user, c);
-        
-    
         return factureclient;
     }
 
@@ -392,7 +400,7 @@ public class JournalCaisse extends ClassEtat {
         this.setDebit(debit);
         this.setCredit(credit);
         this.setIddevise(idDevise);
-        this.setMode(idMode);
+        this.setIdmode(idMode);
         this.setIdTypeCheque(idTypeCheque);
     }
     public JournalCaisse(String folio, String caisse, String numPiece, String libelle, String remarque, Date dateSaisie, Date dateEffet, double debit, double credit, String idDevise, String idMode, String idTypeCheque, String idplacement) throws Exception {
@@ -1076,7 +1084,7 @@ public class JournalCaisse extends ClassEtat {
                         String numeroPiece = calculerNumeroPiece(c);
                         this.setNumPiece(numeroPiece);
                     }
-                    if(this.getDebit()>0){
+                    if(this.getDebit()>0 && !this.getIdplacement().startsWith("PLC")){
                         String numeroPiece = calculerNumeroPieceDepense(c);
                         this.setNumPiece(numeroPiece);
                     }
@@ -1097,9 +1105,9 @@ public class JournalCaisse extends ClassEtat {
                     if(this.getCredit() > 0){
                         if(caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissement)==0 
                         || caisse.getId().compareToIgnoreCase(Constante.caisseCentraleEspece)==0
-                        || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementPACT)==0
+                        /*|| caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementPACT)==0
                         || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementCSCS)==0
-                        || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementCEMEDI)==0)
+                        || caisse.getId().compareToIgnoreCase(Constante.caisseChequeEncaissementCEMEDI)==0*/)
                         {
                             this.setNumPiece(calculerNumeroPiece(c));
                         }
@@ -1139,6 +1147,14 @@ public class JournalCaisse extends ClassEtat {
     public ClassMAPTable createObject(String u,Connection c)throws Exception{
         if(this.getCredit() == 0 && this.getDebit() == 0) throw new Exception("Journal de caisse invalide.");
         if(this.getIdplacement() != null && this.getIdplacement().equalsIgnoreCase("") == false){
+            String[] facture = this.getIdplacement().split("/");
+            if(facture.length > 0){
+                FactureClient fc = new FactureClient();
+                fc = (FactureClient) fc.getById(facture[0], "FACTURECLIENT", c);
+                if(fc!=null && fc.getConnexe()!=null) {
+                    this.setConnexe(fc.getConnexe());
+                }
+            }
             Placement placement = new Placement();
             placement.setId(this.getIdplacement());
             Placement[] tab = (Placement[]) CGenUtil.rechercher(placement, null, null, c, "");
@@ -1170,6 +1186,36 @@ public class JournalCaisse extends ClassEtat {
                 }
             }
         }        
+    }
+
+    public static String recettequery(Connection c,String table) throws Exception{
+        int verif = 0;
+        String result=" AND CAISSE IN (";
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            Caisse pf = new Caisse();
+            pf.setNomTable(table);
+            Caisse[] tab = (Caisse[])CGenUtil.rechercher(pf, null, null, c, "");
+
+            for (int i = 0; i < tab.length; i++) {
+                result += "'"+tab[i].getId()+"'";
+                if (i < tab.length - 1) {
+                    result += ",";
+                }
+            }
+            result += ")";
+            return result;
+        }  catch(Exception ex) {
+            throw ex;
+        }  finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
     }
 
     public void checkModePaiement() throws Exception{
@@ -1470,11 +1516,18 @@ public class JournalCaisse extends ClassEtat {
     }
     
     public String genererCodeModePaiement(){
+        String codeConnexe = "";
+        if(this.getConnexe()!=null && this.getConnexe().compareToIgnoreCase("")!=0)
+            {
+                if(this.getConnexe().equalsIgnoreCase(Constante.connexePact)) codeConnexe = "P";
+                if(this.getConnexe().equalsIgnoreCase(Constante.connexeCscs)) codeConnexe = "S";
+                if(this.getConnexe().equalsIgnoreCase(Constante.connexeCemedi)) codeConnexe = "C";
+            }
         if(this.getIdmode()!=null){
             if(this.getIdmode().compareToIgnoreCase("pay1") == 0){
-                    return "E";
+                    return codeConnexe+"E";
             }else if(this.getIdmode().compareToIgnoreCase("pay2") == 0){
-                    return "C";
+                    return codeConnexe+"C";
             }else if(this.getIdmode().compareToIgnoreCase("pay3") == 0){
                     return "V";
             }else if(this.getIdmode().compareToIgnoreCase("pay6") == 0){
@@ -1523,14 +1576,12 @@ public class JournalCaisse extends ClassEtat {
         String annee = Utilitaire.getAnnee(dateEffetStr), mois = Utilitaire.getMois(dateEffetStr);
         String seq="";
         String rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM seq_journal_vaovao where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque());
+        if(this.getConnexe()!=null && !this.getConnexe().equalsIgnoreCase("")){
+            rqt="SELECT nvl(max(maxidparmoisane)+1,1) AS numerosuivant FROM SEQ_JOURNAL_CONNEXE where annee="+annee+" and mois="+mois+" and modepaiement = '"+this.getIdmode()+"' and type "+StringNullInRequete(this.getIdTypeCheque())+" AND CONNEXE='"+this.getConnexe()+"'";
+        }
         NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
         if(result.length>0) seq=Utilitaire.completerInt(7, result[0].getNumerosuivant());
-        return Utilitaire.genererAnnee(dateEffetStr) + 
-                mois + "-" + 
-                genererCodeModePaiement() + "-" + 
-                genererCodeType() + "-" + 
-                seq;
-
+        return Utilitaire.genererAnnee(dateEffetStr) + mois + "-" + genererCodeModePaiement() + "-" + genererCodeType() + "-" + seq;
     }
 
     public String calculerNumeroPieceRecette(Connection c) throws Exception{

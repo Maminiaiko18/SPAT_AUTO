@@ -73,6 +73,42 @@ public class FactureClient extends ClassMere {
     private double montantsansreduction,montantresteAPayer;
     private String nomnavire;
     private int estBornageEtPeche;
+    private String idplacement;
+    private String typeclientlib,factureLiee;//,idEngagement ; 
+    private int estAuto,estAncienne;
+    private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
+    private Date dateDepart,datearrivee;
+    private String provenance,destination,armateur,codeFiltre,paiement,paiementlib;
+    private double montantdiff;
+    private String connexe;
+    private String connexelib;
+
+
+    public String getConnexelib() {
+        return connexelib;
+    }
+
+    public void setConnexelib(String connexelib) {
+        this.connexelib = connexelib;
+    }
+
+    public String getIdplacement() {
+        return idplacement;
+    }
+
+    public void setIdplacement(String idplacement) {
+        this.idplacement = idplacement;
+    }
+    
+    private int estProformaEscale;
+
+    public int getEstProformaEscale() {
+        return estProformaEscale;
+    }
+
+    public void setEstProformaEscale(int estProformaEscale) {
+        this.estProformaEscale = estProformaEscale;
+    }
 
     public double getMontantresteAPayer() {
         return this.montantttc - montantprovision;
@@ -292,12 +328,15 @@ public class FactureClient extends ClassMere {
     public void setBateaulib(String bateaulib) {
         this.bateaulib = bateaulib;
     }
-    private String typeclientlib,factureLiee;//,idEngagement ; 
-    private int estAuto,estAncienne;
-    private String typeEngagement,pourCompte,pourCompteLib,heureDepart,heureArrivee,bateau;
-    private Date dateDepart,datearrivee;
-    private String provenance,destination,armateur,codeFiltre,paiement,paiementlib;
-    private double montantdiff;
+
+
+    public String getConnexe() {
+        return connexe;
+    }
+
+    public void setConnexe(String connexe) {
+        this.connexe = connexe;
+    }
 
     public String getDestination() {
         return destination;
@@ -853,10 +892,19 @@ public class FactureClient extends ClassMere {
 
             FactureClientDetails d = (FactureClientDetails)filles[0];
             Rubrique rubrique = null;
-            if(this.getEstBornageEtPeche() == 1)
-                rubrique = ((FactureClientDetails) filles[0]).getRubriqueById(c, Constante.getDroitDePortBP());
-            else
-                rubrique = ((FactureClientDetails) filles[0]).getRubrique(c);
+            if(this.getEstProformaEscale()==1){
+                ((FactureClientDetails) filles[0]).setEstProformaEscale(1);
+                if(this.getEstBornageEtPeche() == 1)
+                    rubrique = ((FactureClientDetails) filles[0]).getRubriqueById(c, Constante.getDroitDePortBP());
+                else
+                    rubrique = ((FactureClientDetails) filles[0]).getRubriqueProf(c);
+            } else{
+                if(this.getEstBornageEtPeche() == 1)
+                    rubrique = ((FactureClientDetails) filles[0]).getRubriqueById(c, Constante.getDroitDePortBP());
+                else
+                    rubrique = ((FactureClientDetails) filles[0]).getRubrique(c);
+            }
+            
 
             // Factures automatiques
             if (rubrique == null) {
@@ -2145,6 +2193,7 @@ public class FactureClient extends ClassMere {
         {
             fd=getFirstFille();
             fd.setDevise(Constante.deviseDollars);
+            if(this.getEstProformaEscale()==1)fd.setEstProformaEscale(1);
             setDeviseDollar(fd.getTauxRecent(c));
             return;
         }
@@ -2162,6 +2211,7 @@ public class FactureClient extends ClassMere {
 
     public void setDevises(Connection c) throws Exception {
         this.setDeviseEuro(c);
+        System.out.println("setDevises ==== "+this.getEstProformaEscale());
         this.setDeviseDollar(c);
         if(this.getDateChange()!=this.getDaty())
         {
@@ -2179,6 +2229,50 @@ public class FactureClient extends ClassMere {
     }
 
     public void initDetails(Connection c) throws Exception {
+        int verif = 0;
+
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                verif = 1;
+            }
+
+            if (listeDetails == null) {
+                FactureClientDetails fcd = new FactureClientDetails();
+                fcd.setNomTable("facture_client_montanttc");
+                listeDetails = (FactureClientDetails[]) CGenUtil.rechercher(fcd, null, null, c, " and idmere = '" + this.getId() + "' order by rang asc, datyactivite asc");
+                if (listeDetails == null) {
+                    throw new Exception("Aucun details pour la facture " + this.getId());
+                }
+            }
+            System.out.println("initDetails ==== "+this.getEstProformaEscale());
+            this.setDevises(c);
+
+            for (int i = 0; i < listeDetails.length; i++) {
+                double montantHT = listeDetails[i].getMontant(), montantTVA = listeDetails[i].getMontanttaxe();
+                String devise = listeDetails[i].getDevise();
+                
+                if (devise != null && devise.equalsIgnoreCase(Constante.deviseAr)) {
+                    montantHT = montantHT / this.getDeviseEuro();
+                    montantTVA = montantTVA / this.getDeviseEuro();
+                }
+
+                listeDetails[i].setMontantHTEuro(listeDetails[i].getMontantAvecMajRed(montantHT));
+                listeDetails[i].setMontantTVAEuro(listeDetails[i].getMontantAvecMajRed(montantTVA));
+            }
+
+            coeff = deviseEuro / deviseDollar;
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+    
+    public void initDetailsProf(Connection c) throws Exception {
         int verif = 0;
 
         try {
@@ -2272,13 +2366,25 @@ public class FactureClient extends ClassMere {
         String daty = Utilitaire.datetostring(this.getDaty());
         String code = "", codePrestation = genererCodePrestation(c);
         String typecateg = genererPremierCaractere(c);
+        String caratere = "A";
+//        code += genererSequence(c, "numerofacturesimple", 3);
+        String seq = new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty, codePrestation, typecateg);
+
+        if(this.getConnexe()!=null && this.getConnexe().compareToIgnoreCase("")!=0){
+            codePrestation = "10";
+            if(this.getConnexe().equals(Constante.connexePact)) caratere = "P";
+            if(this.getConnexe().equals(Constante.connexeCscs)) caratere = "S";
+            if(this.getConnexe().equals(Constante.connexeCemedi)) caratere = "C";
+            if(this.getType().equalsIgnoreCase(Constante.typeACredit)) typecateg = "1";
+            if(this.getType().equalsIgnoreCase(Constante.typeAuComptant)) typecateg = "2";
+            seq = new UtilitaireFacture().genererSequence(c, "NUMEROFACTURECONNEXE_PARDATE", 3,daty, codePrestation, typecateg,this.getConnexe());
+        }
         code += Utilitaire.champNull(typecateg);
         code += Utilitaire.genererAnnee(daty);
         code += Utilitaire.genererMois(daty);
         code += Utilitaire.champNull(codePrestation);
-        code += "A";
-//        code += genererSequence(c, "numerofacturesimple", 3);
-        code += new UtilitaireFacture().genererSequence(c, "NUMEROFACTURESIMPLE_PARDATE", 3,daty, codePrestation, typecateg);
+        code += caratere;
+        code += seq;
         return code;
     }
 

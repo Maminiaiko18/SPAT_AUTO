@@ -20,6 +20,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
+        UserEJB u = null;
+        String idUser= "";
+        u = (UserEJB) session.getValue("u");
+        idUser = ""+u.getUser().getTuppleID();
+        String userRole = u.getUser().getIdrole();
         String autreparsley = "data-parsley-range='[8, 40]' required";
         JournalCaisse pj = new JournalCaisse();
 
@@ -46,6 +51,10 @@
         esc.setNomTable("CAISSE_REEL");
         liste[0].setDefaultSelected(Constante.caisseDepense);
         String modepaiementtable = "MODEPAIEMENT";
+        String caisse = "caisserecette";
+         if(userRole.equalsIgnoreCase(Constante.rolePact))  caisse = "CAISSEPACT";
+        if(userRole.equalsIgnoreCase(Constante.roleCscs))  caisse = "CAISSECSCS";
+        if(userRole.equalsIgnoreCase(Constante.roleCemedi))  caisse = "CAISSECEMEDI";
 
         if (idfact != null) {
             facture = datas.getFactureAnalyse();
@@ -54,7 +63,7 @@
 
             pi.getFormu().getChamp("libelle").setDefaut(facture.getDesignation());
             pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr("" + reste));
-            esc.setNomTable("caisserecette");
+            esc.setNomTable(caisse);
             liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
             pi.getFormu().getChamp("idplacement").setDefaut("" + facture.getNmfact());
             pi.getFormu().getChamp("tiers").setDefaut(client);
@@ -67,7 +76,7 @@
             pi.getFormu().getChamp("credit").setDefaut(Utilitaire.formaterAr(fc.getMontant()));
             pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(fc.getTiers()));
             pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(fc.getTierslib()));
-            esc.setNomTable("caisserecette");
+            esc.setNomTable(caisse);
             liste[0].setDefaultSelected(Constante.caisseCentraleEspece);
 
         } else if (idFacturesF != null) {

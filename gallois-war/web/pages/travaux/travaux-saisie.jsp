@@ -10,13 +10,13 @@
         Travaux pj = new Travaux();
         PageInsert pi = new PageInsert(pj, request, (user.UserEJB) session.getValue("u"));
         
-        pi.getFormu().getChamp("datedebut").setLibelle("Date début");
+        pi.getFormu().getChamp("datedebut").setLibelle("Date d&eacute;but");
         pi.getFormu().getChamp("datedebut").setDefaut(Utilitaire.dateDuJour());
         
         pi.getFormu().getChamp("datefin").setLibelle("Date fin");
         pi.getFormu().getChamp("datefin").setDefaut(Utilitaire.dateDuJour());
         
-        pi.getFormu().getChamp("montant").setLibelle("Montant prévu");
+        pi.getFormu().getChamp("montant").setLibelle("Montant pr&eacute;vu");
         
         pi.getFormu().getChamp("avancement").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
@@ -55,7 +55,7 @@
         pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
-    <h1>Saisie de travaux</h1>
+    <h1>Saisie de projet</h1>
     <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" name="sig_commune" id="sig_commune" data-parsley-validate>
         <%
             pi.getFormu().makeHtmlInsertTabIndex();

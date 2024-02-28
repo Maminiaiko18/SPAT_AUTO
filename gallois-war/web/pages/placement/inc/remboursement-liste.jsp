@@ -12,10 +12,10 @@
 
 <%
     RemboursementPlacement t = new RemboursementPlacement();
-    t.setNomTable("remboursementPlacement");
+    t.setNomTable("REMBOURSEMENTPLACEMENTLIB");
     String listeCrt[] = {"idPlacement"};
     String listeInt[] = {};
-    String libEntete[] = {"id","caisse", "entite", "banque"};
+    String libEntete[] = {"id","caisselib","daty", "entite", "banque","montantplace","interet","ircm","interetbrut"};
     PageRecherche pr = new PageRecherche(t, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
@@ -35,7 +35,7 @@
         String urlLienAffiche[] = {"id"};
         pr.getTableau().setUrlLien(colonneLien);
         pr.getTableau().setUrlLienAffiche(urlLienAffiche);
-        String libEnteteAffiche[] =  {"ID","Caisse", "Entite", "Banque"};
+        String libEnteteAffiche[] =  {"id","caisse","date", "entite", "banque","montant plac&eacute;","interet","ircm","interet brut"};
         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
         //JournalCaisse[] liste=(JournalCaisse[]) pr.getTableau().getData();
         if(pr.getTableau().getHtml() != null){

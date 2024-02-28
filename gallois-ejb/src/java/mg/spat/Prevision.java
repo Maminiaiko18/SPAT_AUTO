@@ -142,9 +142,29 @@ public class Prevision extends ClassEtat {
         return liste;
     }
     
+    public OccupationMaterielNaval[] getPrestationsVisees(Connection c, String nomTable) throws Exception {
+        OccupationMaterielNaval occupation = new OccupationMaterielNaval();
+//       occupation.setNomTable("occupationmaterielnaval");
+        occupation.setNomTable(nomTable);
+        OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='" + this.getId() + "' and etat>=" + ConstanteEtat.getEtatValider());
+        return liste;
+    }
+    
+    
+    
     public Navire findNavire(Connection c) throws Exception{
         Navire navire = new Navire();
         navire.setNomTable("navire");
+        Navire [] liste = (Navire []) CGenUtil.rechercher(navire, null, null, c, " and id='" +this.getNavire()+"'");
+        if(liste.length > 0){
+            return liste [0];
+        }
+        return null;
+    }
+    
+    public Navire findNavire(Connection c, String nomtable) throws Exception{
+        Navire navire = new Navire();
+        navire.setNomTable(nomtable);
         Navire [] liste = (Navire []) CGenUtil.rechercher(navire, null, null, c, " and id='" +this.getNavire()+"'");
         if(liste.length > 0){
             return liste [0];
@@ -237,6 +257,62 @@ public class Prevision extends ClassEtat {
 
         return facture;
     }
+    
+    public FactureClient facturerProforma(String user, Connection c) throws Exception {
+        FactureClient facture = null;
+        int verif = 0;
+
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            Prevision prevision = new Prevision();
+            prevision.setNomTable("prevision_prof");
+            prevision = (Prevision) prevision.getById(this.getId(), prevision.getNomTable(), c);
+            if(prevision.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception("Prevision non visee");
+            
+            //FactureClient[] listeFactValide=this.findFacturesValide(c);
+            
+            AdminActivite adminActivite = new AdminActivite();
+            //Activite[] activites=findActivitesNonFacturees(c);
+            Navire nav=prevision.findNavire(c, "navire_prof");
+            if(nav!=null){
+                if(OccupationMaterielNaval.possedeActiviteProf(prevision.getPrestationsVisees(c, "OCCUPMATLNONAVALNFACTUREprof"), c) == false) {
+                //if(activites==null || activites.length==0){
+                    if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0){
+                        prevision.genererActiviteViseesBPProf(user, c);
+                        adminActivite.setEstBornage(1);
+                    }
+                    else prevision.genererActiviteProfVisees(user, c);
+                }
+
+//                adminActivite.findactivite(getIdsFromTab(activites), c);
+                adminActivite.findactiviteProf(this.getId(), c);
+                adminActivite.setPrevision(prevision);
+                facture = adminActivite.facturerProforma(user, c);
+//                facture.setIdprevision(this.getId());
+                facture.updateDeviseMere(c);
+                facture.updateToTableWithHisto(user, c);
+            }
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return facture;
+    }
 
     public Prevision() {
         super.setNomTable("prevision");
@@ -250,6 +326,7 @@ public class Prevision extends ClassEtat {
         }
         return rubrique;
     }
+    
     public Activite[] genererActiviteViseesBP(String u, Connection c) throws Exception {
         //java.util.List<Activite> activites = new java.util.ArrayList<>();
         String[] designations = {"Droit de port " + this.getEscale(), "Stationnement " + this.getEscale(), "Redevance sanitaire " + this.getEscale(), "Redevance communale " + this.getEscale()};
@@ -266,6 +343,36 @@ public class Prevision extends ClassEtat {
         if (tmp == null || tmp.length == 0) {
             for (int i = 0; i < idRubriques.length; i++) {
                 Activite act = (Activite) this.genererActivite(u, c, designations[i], String.format(awhere, idRubriques[i]));
+                if (act != null) {
+                    act.createObject(u, c);
+                    act.validerObject(u, c);
+                    //activites.add(act);
+                    activites[i] = act;
+                }
+            }
+        }
+        //return activites.toArray(new Activite[activites.size()]);
+        return activites;
+    }
+    
+    public Activite[] genererActiviteViseesBPProf(String u, Connection c) throws Exception {
+        //java.util.List<Activite> activites = new java.util.ArrayList<>();
+        String[] designations = {"Droit de port " + this.getEscale(), "Stationnement " + this.getEscale(), "Redevance sanitaire " + this.getEscale(), "Redevance communale " + this.getEscale()};
+        String[] idRubriques = {Constante.getDroitDePortBP(), Constante.getStationnementBP(), Constante.getRedevanceSanitaire(), Constante.getRedevanceCommBP()};
+        Activite[] activites = new Activite[idRubriques.length];
+
+        String awhere = " and etat >= " + ConstanteEtat.getEtatValider()
+                + " and bateau = '" + this.getId() + "'"
+                + " and rubrique in (" + Utilitaire.tabToString(idRubriques, "'", ",") + ")";
+
+        Activite activite = new Activite();
+        activite.setNomTable("activite_prof");
+        Activite[] tmp = (Activite[]) CGenUtil.rechercher(activite, null, null, c, awhere);
+
+        awhere = " and id = '%s'";
+        if (tmp == null || tmp.length == 0) {
+            for (int i = 0; i < idRubriques.length; i++) {
+                Activite act = (Activite) this.genererActiviteProf(u, c, designations[i], String.format(awhere, idRubriques[i]));
                 if (act != null) {
                     act.createObject(u, c);
                     act.validerObject(u, c);
@@ -314,11 +421,74 @@ public class Prevision extends ClassEtat {
 
         return activites.toArray(new Activite[activites.size()]);
     }
+    
+    public Activite[] genererActiviteProfVisees(String u, Connection c) throws Exception {
+        java.util.List<Activite> activites = new java.util.ArrayList<>();
+        String[] designations = {"Droit de port " + this.getEscale(), "Redevance communale " + this.getEscale()};
+        String[] idRubriques = {Constante.idDroitDePortCalcule, Constante.idRedevanceCommunaleCalcule};
+
+        String awhere = " and etat >= " + ConstanteEtat.getEtatValider()
+                + " and bateau = '" + this.getId() + "'"
+                + " and rubrique in (" + Utilitaire.tabToString(idRubriques, "'", ",") + ")";
+
+        Activite activiteProf = new Activite();
+        activiteProf.setNomTable("activite_prof");
+        Activite[] tmp = (Activite[]) CGenUtil.rechercher(activiteProf, null, null, c, awhere);
+
+        awhere = " and id = '%s'";
+        
+        if (tmp == null || tmp.length == 0) {
+            for (int i = 0; i < idRubriques.length; i++) {
+                Activite act = (Activite) this.genererActiviteProf(u, c, designations[i], String.format(awhere, idRubriques[i]));
+                if (act != null) {
+                    act.createObject(u, c);
+                    act.validerObject(u, c);
+                    activites.add(act);
+                }
+            }
+        }
+
+        OccupationMaterielNaval[] listePrestation = this.getPrestationsVisees(c, "OCCUPMATLNONAVALNFACTUREprof");
+        if (listePrestation != null || listePrestation.length > 0) {
+            for (int i = 0; i < listePrestation.length; i++) {
+                Activite act4 = (Activite) listePrestation[i].genererActiviteProf(u, c);
+                if (act4 != null) {
+                    act4.validerObject(u, c);
+                    activites.add(act4);
+                }
+            }
+        }
+
+        return activites.toArray(new Activite[activites.size()]);
+    }
 
     public Activite genererActivite(String u, Connection c, String designation, String awhere) throws Exception {
         Rubrique rubrique = getRubrique(c, awhere);
 
         Activite rep = new Activite();
+        rep.setDesignation(designation);
+        rep.setClient(getConsignataire());
+        rep.setMois(Utilitaire.getMois(getDate_arrivee()));
+        rep.setAnnee(Utilitaire.getAnnee(getDate_arrivee()));
+        if(rubrique.getCategorie()!=null && rubrique.getCategorie().equals(Constante.idCatDroitDePort)){
+            rep.setDaty(getDate_depart());
+        }else{
+            rep.setDaty(getDate_arrivee());
+        }
+        rep.setBateau(getId());
+        rep.setRubrique(rubrique.getId());
+        rep.setDatedebut(this.getDate_arrivee());
+        rep.setHeuredebut(this.getHeure_arrivee());
+        rep.setDatefin(this.getDate_depart());
+        rep.setHeurefin(this.getHeure_depart());
+        return rep;
+    }
+    
+    public Activite genererActiviteProf(String u, Connection c, String designation, String awhere) throws Exception {
+        Rubrique rubrique = getRubrique(c, awhere);
+
+        Activite rep = new Activite();
+        rep.setNomTable("activite_prof");
         rep.setDesignation(designation);
         rep.setClient(getConsignataire());
         rep.setMois(Utilitaire.getMois(getDate_arrivee()));
@@ -528,6 +698,30 @@ public class Prevision extends ClassEtat {
             }
             PrevisionLibComplet prev = new PrevisionLibComplet();
             prev.setId(this.getId());
+            PrevisionLibComplet[] liste = (PrevisionLibComplet[]) CGenUtil.rechercher(prev, null, null, c, "");
+            if (liste.length > 0) {
+                return liste[0];
+            }
+            return null;
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (verif == 1 && c != null) {
+                c.close();
+            }
+        }
+    }
+    
+    public PrevisionLibComplet getPrevisionLibCompletById(Connection c, String nomtable) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+            PrevisionLibComplet prev = new PrevisionLibComplet();
+            prev.setId(this.getId());
+            prev.setNomTable(nomtable);
             PrevisionLibComplet[] liste = (PrevisionLibComplet[]) CGenUtil.rechercher(prev, null, null, c, "");
             if (liste.length > 0) {
                 return liste[0];

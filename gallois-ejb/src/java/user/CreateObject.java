@@ -51,6 +51,7 @@ public class CreateObject {
             if(o instanceof mg.spat.placement.Placement ) {
                 o.controler(c);
                 Placement p = (Placement) o;
+                p.setDateechu(null);
                 p.construirePK(c);
                 p.controlerEntite(c);
                 p.insertToTableWithHisto(u.getTuppleID(), c);

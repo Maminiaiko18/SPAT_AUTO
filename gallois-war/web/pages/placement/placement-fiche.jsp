@@ -25,10 +25,6 @@
         pc.getChampByName("montantdevise").setLibelle("Montant devise");
         pc.getChampByName("ancienplacement").setLibelle("Ancien placement");
         pc.getChampByName("ancienPlacement").setLien((String) session.getValue("lien") + "?but=placement/placement-fiche.jsp", "id=");
-        pc.getChampByName("banque").setVisible(false);
-        pc.getChampByName("banquelib").setLibelle("Banque");
-        pc.getChampByName("valentite").setLibelle("Entite");
-        pc.getChampByName("entite").setVisible(false);
         /*pc.getChampByName("entite").setVisible(false);
         pc.getChampByName("identite").setVisible(false);
         pc.getChampByName("idbanque").setVisible(false);
@@ -55,6 +51,7 @@
         map.put("detail_placement", "");
         map.put("Journal_Caisse", "");
         map.put("RemboursementPlacement", "");
+        map.put("factureClient-liste", "");
         String tab = request.getParameter("tab");
         if (tab == null) {
             tab = "DetailPlacement";
@@ -85,15 +82,19 @@
                                 <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=valider&bute=placement/placement-fiche.jsp&classe=mg.spat.placement.Placement">Viser</a> 
                                 <a href="<%=(String) session.getValue("lien") + "?but=placement/placement-modif.jsp&id=" + request.getParameter("id")%>"><button class="btn btn-warning">Modifier</button></a>
                                 <%}%>
-                                <%if (bi.getEtat() < ConstanteEtat.getEtatEchu()) {%>
+                                <%if (bi.getMontant() == bi.getDisponible()) {%>
                                 <a href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-saisie.jsp&disable&idplacement=" + bi.getId()%>" style="margin-right: 5px"><button class="btn btn-danger" >Echu</button></a>
                                 <%}%>
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=placement/placement-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
 
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/journalcaisse-saisie.jsp&idplacement="+ bi.getId() +"&param=sortie"+"&auto=1"%>" style="margin-right: 10px">Rendre effectif</a>   
-                                  <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-saisie.jsp&idplacement="+ bi.getId()+"&remboursement=true"%>" style="margin-right: 10px">Remboursement anticip&eacute;</a> 
+                                 <%if (bi.getDisponible() > 0 ) {%>
+                                    <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/remboursement-placement-saisie.jsp&idplacement="+ bi.getId()+"&remboursement=true"%>" style="margin-right: 10px">Remboursement anticip&eacute;</a> 
+                                <%}%>
+                                <%if (bi.getEtat() < ConstanteEtat.getEtatEchu()) {%>
                                    <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=placement/placement-saisie.jsp&idplacement="+ bi.getId()%>" style="margin-right: 10px">Replacer </a> 
-                                   <%-- <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresPlacement.jsp&acte=viserEtRendreEffectif&id="+ bi.getId()%>" style="margin-right: 10px">Viser et rendre effectif</a>  --%>
+                                <%}%>
+                                <%-- <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresPlacement.jsp&acte=viserEtRendreEffectif&id="+ bi.getId()%>" style="margin-right: 10px">Viser et rendre effectif</a>  --%>
                             
                             </p>
                         </div>
@@ -108,8 +109,9 @@
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs nav-center">
                         <li class="<%= map.get("detail_placement")%>"><a href="module.jsp?but=<%=bute%>&id=<%=bi.getId()%>&tab=DetailPlacement">Details Placements</a></li>
-                        <li class="<%= map.get("Journal_Caisse")%>"><a href="module.jsp?but=<%=bute%>&idPlacement=<%=bi.getId()%>&tab=journalCaisse-liste">Journal Caisse</a></li>
-                        <li class="<%= map.get("RemboursementPlacement ")%>"><a href="module.jsp?but=<%=bute%>&idPlacement=<%=bi.getId()%>&id=<%=bi.getId()%>&tab=remboursement-liste">Remboursement</a></li>
+                        <li class="<%= map.get("Journal_Caisse")%>"><a href="module.jsp?but=<%=bute%>&id=<%=bi.getId()%>&idPlacement=<%=bi.getId()%>&tab=journalCaisse-liste">Journal Caisse</a></li>
+                        <li class="<%= map.get("RemboursementPlacement ")%>"><a href="module.jsp?but=<%=bute%>&id=<%=bi.getId()%>&idPlacement=<%=bi.getId()%>&id=<%=bi.getId()%>&tab=remboursement-liste">Remboursement</a></li>
+                        <li class="<%= map.get("factureClient-liste")%>"><a href="module.jsp?but=<%=bute%>&id=<%=bi.getId()%>&idPlacement=<%=bi.getId()%>&id=<%=bi.getId()%>&tab=factureClient-liste">Listes Factures </a></li>
                     </ul>
                     <div class="tab-content">       
 

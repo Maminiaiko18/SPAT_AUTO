@@ -27,7 +27,9 @@
     pi.getFormu().getChamp("daty").setLibelle("Date");
     pi.getFormu().getChamp("idplacement").setLibelle("Placement");
     pi.getFormu().getChamp("montantplace").setLibelle("Montant plac&eacute;");
-    pi.getFormu().getChamp("interet").setLibelle("Int&eacute;r&egrave;t");
+    pi.getFormu().getChamp("interet").setVisible(false);
+    pi.getFormu().getChamp("interetbrut").setVisible(false);
+    pi.getFormu().getChamp("ircm").setVisible(false);
     pi.getFormu().getChamp("etat").setVisible(false);
     
     affichage.Champ[] liste = new affichage.Champ[1];
@@ -51,7 +53,7 @@
 %>
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-md-offset-3">
             <div class="box-fiche">
                 <div class="box">
                     <h1>Modification</h1>

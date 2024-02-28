@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUIVI_CONTRAT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc854c4c-cca7-4334-b317-4b1746075475">
 	<property name="ireport.zoom" value="1.0980750000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="156"/>
+	<property name="ireport.y" value="23"/>
 	<parameter name="contrat" class="java.lang.String"/>
 	<parameter name="titulaire" class="java.lang.String"/>
 	<parameter name="objet" class="java.lang.String"/>
@@ -32,7 +32,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="273" splitType="Stretch">
+		<band height="265" splitType="Stretch">
 			<staticText>
 				<reportElement x="98" y="0" width="457" height="42" uuid="9dcd59a2-1b0d-40c4-901b-24bf72452dcf"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -66,7 +66,7 @@
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[DATE :]]></text>
+				<text><![CDATA[DATE DE SIGNATURE :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="198" width="144" height="20" uuid="999d37cb-55ba-4f5d-8a1f-7e50c9a746e5"/>
@@ -81,13 +81,6 @@
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MONTANT CONTRAT :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="238" width="144" height="20" uuid="c0ee283c-16e4-44d0-ace4-df30659f11ca"/>
-				<textElement>
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[LISTE DES PAIEMENTS :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="144" y="118" width="194" height="20" uuid="f72bc423-4132-4173-84c6-7c9296698786"/>
@@ -118,8 +111,8 @@
 				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="144" y="218" width="411" height="20" uuid="10b7ba57-ef4d-4c36-936d-36fdbfe7e978"/>
-				<textElement>
+				<reportElement x="144" y="218" width="194" height="20" uuid="10b7ba57-ef4d-4c36-936d-36fdbfe7e978"/>
+				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{montantContrat}]]></textFieldExpression>
@@ -201,10 +194,33 @@
 				<reportElement x="144" y="198" width="411" height="20" uuid="f4803bbb-1cdc-4832-a1b6-a8bb288b3e8b"/>
 				<textFieldExpression><![CDATA[$P{duree} + " "+$P{unite}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="1" y="238" width="143" height="20" uuid="b83272c3-a12d-4a41-a948-9bbde941dac9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESTE A PAYER CONTRAT:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="144" y="238" width="194" height="20" uuid="0386f138-1957-4907-9c32-cb29c3892f85"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{rapcontrat}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>
 		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="144" height="20" uuid="c0ee283c-16e4-44d0-ace4-df30659f11ca"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LISTE DES PAIEMENTS :]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="134" height="20" forecolor="#000000" backcolor="#99CCFF" uuid="eb362757-8da5-4db8-8412-ab3ffdc7e868"/>
 				<box>
@@ -256,7 +272,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PAYEMENT EFFECTUEE]]></text>
+				<text><![CDATA[PAIEMENT EFFECTUE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="451" y="0" width="104" height="20" forecolor="#000000" backcolor="#99CCFF" uuid="0ec1f614-9cdf-47d2-ba7b-34f4e811c1ba"/>
@@ -271,43 +287,6 @@
 				</textElement>
 				<text><![CDATA[RESTE A PAYER]]></text>
 			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="20" splitType="Stretch">
-			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="134" height="20" uuid="e41efa62-484a-407b-bffd-d86662a6d354"/>
-				<textElement>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="134" y="0" width="52" height="20" uuid="93eef09d-e094-4287-9390-42233c2f1c46"/>
-				<textElement textAlignment="Right">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="322" y="0" width="129" height="20" uuid="7cd3fb71-f388-487b-b5d3-068aa243a625"/>
-				<textElement textAlignment="Right">
-					<paragraph rightIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{montantpaye}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="451" y="0" width="104" height="20" uuid="c7d484d0-6c01-499b-9393-1bccdcb815e4"/>
-				<textElement textAlignment="Right">
-					<paragraph rightIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{montantreste}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="186" y="0" width="136" height="20" uuid="65481256-3aa7-4b07-acb9-53041984a2ea"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<summary>
@@ -349,7 +328,7 @@
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1" y="17" width="321" height="20" backcolor="#99CCFF" uuid="a0442a84-4f37-4acc-b3fa-54b83637b02d"/>
+				<reportElement mode="Opaque" x="1" y="38" width="321" height="20" backcolor="#99CCFF" uuid="a0442a84-4f37-4acc-b3fa-54b83637b02d"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -362,7 +341,7 @@
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="322" y="17" width="129" height="20" backcolor="#99CCFF" uuid="c94c06de-84b6-4b99-83f3-097491255109"/>
+				<reportElement mode="Opaque" x="322" y="38" width="129" height="20" backcolor="#99CCFF" uuid="c94c06de-84b6-4b99-83f3-097491255109"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -376,7 +355,7 @@
 				<textFieldExpression><![CDATA[$V{montantpaye_1}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="451" y="17" width="104" height="20" backcolor="#99CCFF" uuid="df5f1a1b-3e74-4bc5-b873-d604e96b3492"/>
+				<reportElement mode="Opaque" x="451" y="38" width="104" height="20" backcolor="#99CCFF" uuid="df5f1a1b-3e74-4bc5-b873-d604e96b3492"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -389,17 +368,75 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{montantreste_1}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="1" y="41" width="143" height="20" uuid="b83272c3-a12d-4a41-a948-9bbde941dac9"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="1" width="134" height="20" uuid="e41efa62-484a-407b-bffd-d86662a6d354"/>
 				<textElement>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="134" y="1" width="52" height="20" uuid="93eef09d-e094-4287-9390-42233c2f1c46"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Reste à payer contrat :]]></text>
-			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="144" y="41" width="260" height="20" uuid="0386f138-1957-4907-9c32-cb29c3892f85"/>
-				<textFieldExpression><![CDATA[$P{rapcontrat}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="322" y="1" width="129" height="20" uuid="7cd3fb71-f388-487b-b5d3-068aa243a625"/>
+				<textElement textAlignment="Right">
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montantpaye}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="451" y="1" width="104" height="20" uuid="c7d484d0-6c01-499b-9393-1bccdcb815e4"/>
+				<textElement textAlignment="Right">
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montantreste}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="186" y="1" width="136" height="20" uuid="65481256-3aa7-4b07-acb9-53041984a2ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{montantttc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="354" y="157" width="201" height="20" uuid="045b1dc8-7f39-4d46-9355-46e88139a10d"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="90" width="201" height="67" uuid="49c5b099-1edc-40e7-8d2f-b1eb22177d57"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="70" width="201" height="20" uuid="f71c6ee7-b850-431c-881d-76ee29aaac7b"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[VISA DU DIRECTEUR GENERAL]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

@@ -49,6 +49,7 @@
         pi.getFormu().getChamp("IRCM").setAutre("readonly");
         pi.getFormu().getChamp("montantplace").setAutre("readonly");
     }
+    pi.getFormu().getChamp("IRCM").setVisible(false);
 
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();

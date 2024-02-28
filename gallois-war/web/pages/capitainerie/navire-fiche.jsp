@@ -13,8 +13,13 @@
 <%@ page import="affichage.*" %>
 
 <%
+    String nomtable = request.getParameter("nomtable");
     Navire navire = new Navire();
     navire.setNomTable("navirelib");
+    
+    if(nomtable!=null && !nomtable.isEmpty() && nomtable.compareToIgnoreCase("")!=0){
+        navire.setNomTable(nomtable);
+    }
     //if(request.getParameter("id")!=null && request.getParameter("id").compareToIgnoreCase("")!=0)navire.setId(request.getParameter("id"));
     PageConsulte pc = pc = new PageConsulte(navire, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
@@ -41,12 +46,26 @@
                             out.println(pc.getHtml());
                         %>
                         <br/>
+                        <%if(nomtable!=null&&!nomtable.isEmpty()){
+                        %>
+                        <div class="box-footer">
+                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/navire-modif.jsp?nomtable=navire_prof&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
+                            <!---<a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=capitainerie/navire-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Navire" style="margin-right: 10px">Viser</a>--->
+                            <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=capitainerie/navire-liste.jsp&classe=mg.spat.Navire&nomtable=navire_prof"><button class="btn btn-danger">Supprimer</button></a>
+                            <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/navire-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
+                        </div>
+                        <%
+                        } else {
+                        %>
                         <div class="box-footer">
                             <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/navire-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
                             <!---<a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=capitainerie/navire-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Navire" style="margin-right: 10px">Viser</a>--->
                             <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&acte=delete&bute=capitainerie/navire-liste.jsp&classe=mg.spat.Navire"><button class="btn btn-danger">Supprimer</button></a>
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier="+dossier+"&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/navire-fiche.jsp"%>" style="margin-right: 10px">Attacher Fichier</a>              
                         </div>
+                        <%
+                        }%>
+                        
                         <br/>
 
                     </div>

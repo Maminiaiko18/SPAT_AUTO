@@ -10,6 +10,7 @@ import bean.ClassEtat;
 import bean.TypeObjet;
 import mg.spat.JournalCaisse;
 import mg.spat.RemboursementPlacement;
+import service.SpatService;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -43,6 +44,15 @@ public class Placement extends ClassEtat {
     private double interetNet;
     private String ancienPlacement,designation;
     private double disponible;
+    private Date dateechu;
+
+    public Date getDateechu() {
+        return dateechu;
+    }
+
+    public void setDateechu(Date dateechu) {
+        this.dateechu = dateechu;
+    }
 
     public String getDesignation() {
         return designation;
@@ -179,6 +189,7 @@ public class Placement extends ClassEtat {
      public void controlerUpdate(Connection c) throws Exception {
          try{
             this.setDuree(Utilitaire.diffMoisDaty(this.getDate_echeance(), this.getDate_placement()));
+            SpatService.updateDetailsPlacement(this, c);
          }
          catch(Exception ex){
              throw ex;
@@ -300,8 +311,11 @@ public class Placement extends ClassEtat {
             if(!this.getBanque().equals("BANQ000000")){
                 lpla.setIdbanque(this.getBanque());
                 Liaisonplacement[] liste=(Liaisonplacement[]) CGenUtil.rechercher(lpla, null, null, c, " ");
-                if(liste.length == 0)
-                     throw new Exception("Cette entite n est pas liee a une banque.");
+                if(liste.length == 0){
+                    lpla.construirePK(c);
+                    lpla.insertToTable(c);
+                }
+                     
             }
             if(verif == 1) c.commit();
         }catch(Exception e){

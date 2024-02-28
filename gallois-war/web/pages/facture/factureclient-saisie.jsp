@@ -72,6 +72,9 @@
     pi.getFormu().getChamp("lm").setVisible(false);
     pi.getFormu().getChamp("te").setVisible(false);
     pi.getFormu().getChamp("jnt").setVisible(false);
+    pi.getFormu().getChamp("Idplacement").setVisible(false);
+    pi.getFormu().getChamp("EstProformaEscale").setVisible(false);
+    pi.getFormu().getChamp("Connexe").setVisible(false);
     pi.getFormu().getChamp("pourCompte").setPageAppel("choix/clientCategorieChoix.jsp");
     pi.getFormu().getChamp("pourCompte").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setAutre("readonly");

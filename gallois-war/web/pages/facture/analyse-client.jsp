@@ -10,7 +10,7 @@
 
         FactureClient lv = new FactureClient();
         lv.setNomTable("FACTURE_CLIENT_UNIONV_PROV");
-        String listeCrt[] = {"daty","tierslib","type"};
+        String listeCrt[] = {"daty","tierslib","type","categorielib"};
         String listeInt[] = {"daty"};
         
         
@@ -26,12 +26,19 @@
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
+
         
-        Liste[] listes = new Liste[1];
+        Liste[] listes = new Liste[2];
         TypeObjet type = new TypeObjet();
         type.setNomTable("TYPEFC");
         listes[0] = new Liste("type", type, "val", "id");
+
+        TypeObjet cat = new TypeObjet();
+        cat.setNomTable("CATEGORIEFC");
+        listes[1] = new Liste("categorielib", cat, "val", "val");
+
         pr.getFormu().changerEnChamp(listes);
+        pr.getFormu().getChamp("categorielib").setLibelle("Categorie");
         
         pr.setApres("facture/analyse-client.jsp");
         pr.creerObjetPagePourc();
