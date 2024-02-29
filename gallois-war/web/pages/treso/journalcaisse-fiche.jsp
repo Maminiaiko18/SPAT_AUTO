@@ -36,6 +36,10 @@
     pc.getChampByName("type").setVisible(false);
     pc.getChampByName("etatversement").setVisible(false);
     pc.getChampByName("idmouvcaisse").setVisible(false);
+    pc.getChampByName("Connexe").setVisible(false);
+    pc.getChampByName("Etatlib").setLibelle("Etat");
+    pc.getChampByName("Descecaisse").setLibelle("Bureau");
+    
 
     pc.getChampByName("credit").setLibelle("Entree");
     pc.getChampByName("debit").setLibelle("Sortie");

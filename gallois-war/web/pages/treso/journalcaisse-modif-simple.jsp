@@ -69,6 +69,8 @@
     pi.getFormu().getChamp("idtraite").setVisible(false);
     pi.getFormu().getChamp("Idfinaledestination").setVisible(false);
     pi.getFormu().getChamp("banque").setVisible(false);
+    pi.getFormu().getChamp("connexe").setVisible(false);
+
     pi.preparerDataFormu();
     
 %>
