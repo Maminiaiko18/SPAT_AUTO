@@ -26,6 +26,8 @@
     pi.getFormu().getChamp("tiers").setAutre("readonly");
     pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
     pi.getFormu().getChamp("typemvt").setVisible(false);
+    pi.getFormu().getChamp("Connexe").setVisible(false);
+
     affichage.Champ[] liste = new affichage.Champ[5];
     TypeObjet typeObjet = new TypeObjet();
     TypeObjet esc = new TypeObjet();
@@ -74,7 +76,7 @@
     pi.getFormu().getChamp("idplacement").setLibelle("Source");
     
     pi.getFormu().getChamp("credit").setLibelle("Entrée");
-    pi.getFormu().getChamp("debit").setLibelle("Sorti");
+    pi.getFormu().getChamp("debit").setLibelle("Sortie");
     pi.getFormu().getChamp("Idmouvcaisse").setVisible(false);
 
     

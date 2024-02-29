@@ -142,6 +142,7 @@
         pi.getFormu().getChamp("dateEffet").setLibelle("Date Effet");
         pi.getFormu().getChamp("numPiece").setLibelle("Num&eacute;ro pi&egrave;ce");
         pi.getFormu().getChamp("numPiece").setVisible(false);
+        pi.getFormu().getChamp("connexe").setVisible(false);
 
         pi.getFormu().getChamp("libelle").setLibelle("Libell&eacute;");
 
