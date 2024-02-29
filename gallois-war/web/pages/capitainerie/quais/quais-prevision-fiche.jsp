@@ -127,14 +127,14 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="box-title with-border">
-                    <h2 class="box-title" style="margin-left: 10px;">Les fichiers attach�s</h2>
+                    <h2 class="box-title" style="margin-left: 10px;">Les fichiers attach&eacute;s</h2>
                 </div>
                 <div class="box-body">
                     <table class="table table-striped table-bordered table-condensed table-responsive tree">
                         <thead>
                             <tr>
                                 <th style="background-color:#bed1dd;"></th>
-                                <th style="background-color:#bed1dd;">Libell�</th>
+                                <th style="background-color:#bed1dd;">Libell&eacute;</th>
                                 <th style="background-color:#bed1dd;">Fichier</th>
                                 <th style="background-color:#bed1dd;">Voir</th>
                                 <th style="background-color:#bed1dd;">#</th>
