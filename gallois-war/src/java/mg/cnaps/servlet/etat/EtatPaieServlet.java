@@ -1252,6 +1252,8 @@ public class EtatPaieServlet extends HttpServlet {
                 titre = "RECU AVIS DE CREDIT PAR TRAITE";
             }
 
+            if(tabJournal[0].getConnexe()!=null) nomJasper ="piece_de_caissesimple";
+
             PayementFacture[] tabFact = null;
             String idFacture = request.getParameter("idFacture");
 
@@ -1366,8 +1368,8 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             if (tabJournal[0].getIdmode().equalsIgnoreCase("pay1") == false) {
-
-                nomJasper = "piece_de_caisse_banque";
+                if(tabJournal[0].getConnexe()!=null) nomJasper = "piece_de_caisse_banquesimple";
+                else nomJasper = "piece_de_caisse_banque";
                 param.put("banque", tabJournal[0].getIdbanquelib());
                 param.put("numCheque", tabJournal[0].getNumcheque());
             }
