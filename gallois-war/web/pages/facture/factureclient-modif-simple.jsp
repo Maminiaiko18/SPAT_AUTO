@@ -24,6 +24,9 @@
         pi.setLien((String) session.getValue("lien"));
         
         o =(FactureClient)pi.getBase();
+        if(o.getConnexe()!=null && o.getConnexe().compareToIgnoreCase("")!=0){
+            bute = "facture/factureclientsimple-fiche.jsp";
+        }
         
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
