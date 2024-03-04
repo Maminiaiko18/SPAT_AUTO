@@ -17,6 +17,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import mg.spat.relationhumaine.InfoPersonnelGlobal;
 import facture.FactureFournisseur;
+import facture.FactureFournisseurDetails;
+import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
 
@@ -219,13 +221,39 @@ public class OrdreMission extends ClassEtat {
         this.setId(makePK(c));
     }
 
-    @Override
+    /*@Override
     public void controleAnnulerVisa(Connection c) throws Exception {
         c = null;
 
         try {
             c = (new UtilDB()).GetConn();
             if(hadBonProvisoire(c)) throw new Exception("Impossible d'annuler visa, cet OM comporte deja un bon provisoire.");            
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }*/
+
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        c = null;
+        try {
+            c = (new UtilDB()).GetConn();
+            OrdreMission om =(OrdreMission)(new OrdreMission()).getById(this.getId(), "ORDRE_MISSION", c);
+            if(om.getDuree()!=this.getDuree() && this.hadBonProvisoire(c)){
+                String where = " AND IDOM='"+this.getId()+"'";
+                FactureFournisseur[] bp = (FactureFournisseur[])CGenUtil.rechercher(new FactureFournisseur(), null, null, c, where);
+                if(bp[0].getEtat()==ConstanteEtat.getEtatValider()) throw new Exception("Bon provisoire deja valide.");
+                where = " AND IDMERE='"+bp[0].getId()+"'";
+                FactureFournisseurDetails[] details = (FactureFournisseurDetails[])CGenUtil.rechercher(new FactureFournisseurDetails(), null, null, c, where);
+                for (FactureFournisseurDetails li : details) {
+                    li.setQuantite(this.getDuree());
+                    li.updateToTable(c);
+                }
+            }
         } catch (Exception e) {
             throw e;
         } finally {

@@ -121,7 +121,7 @@
         pc.getChampByName("IdBL").setLibelle("bon livraison"); 
         System.out.println(" EngagementLIB === "+pc.getChampByName("idEngagementlib").getValeur());
         
-        pc.getChampByName("idEngagementlib").setValeur("Andrana&eacute;");
+        //pc.getChampByName("idEngagementlib").setValeur("Andrana&eacute;");
         pc.getChampByName("idEngagementlib").setLien((String) session.getValue("lien") + "?but=depense/engagement-fiche.jsp&id=" + e.getIdengagement(), "");
         pc.getChampByName("idEngagementlib").setLibelle("Engagement");
          pc.getChampByName("idEngagementlib").setVisible(false);
