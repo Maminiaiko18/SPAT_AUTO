@@ -26,7 +26,7 @@
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
-        affichage.Liste[] listeM = new affichage.Liste[4];
+        affichage.Liste[] listeM = new affichage.Liste[5];
         TypeObjet oM = new TypeObjet();
         oM.setNomTable("TYPEFC");
         listeM[0] = new Liste("type", oM, "VAL", "id");
@@ -41,10 +41,17 @@
         devise.setNomTable("devise");
         listeM[2] = new Liste("deviseMere", devise, "VAL", "id");
         listeM[3] = new Liste("paiement", devise, "VAL", "id");
+
+        TypeObjet connexe = new TypeObjet();
+        connexe.setNomTable("connexe");
+        listeM[4] = new Liste("connexe", connexe, "VAL", "id");
+
         pi.getFormu().changerEnChamp(listeM);
 
         pi.getFormu().getChamp("EstMictsl").setVisible(false);
         pi.getFormu().getChamp("EstAncienne").setVisible(false);
+        pi.getFormu().getChamp("Connexelib").setVisible(false);
+
         pi.getFormu().getChamp("EstMictsl").setDefaut("0");
         pi.getFormu().getChamp("EstAncienne").setDefaut("0");
 

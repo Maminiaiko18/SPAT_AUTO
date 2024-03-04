@@ -24,6 +24,9 @@
         pi.setLien((String) session.getValue("lien"));
         
         o =(FactureClient)pi.getBase();
+        if(o.getConnexe()!=null && o.getConnexe().compareToIgnoreCase("")!=0){
+            bute = "facture/factureclientsimple-fiche.jsp";
+        }
         
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("designation").setLibelle("Note explicative");
@@ -41,6 +44,7 @@
         
         pi.getFormu().getChamp("type").setVisible(false);
         pi.getFormu().getChamp("tva").setVisible(false);
+        pi.getFormu().getChamp("connexe").setVisible(false);
         pi.getFormu().getChamp("remarque").setVisible(false);
         pi.getFormu().getChamp("date_echeance").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
