@@ -55,7 +55,9 @@ public class Navire extends ClassEtat{
                 c=new UtilDB().GetConn();
                 estOuvert=true;
             } 
-            Navire[] lnav=(Navire[])CGenUtil.rechercher(new Navire(), null, null, c, " and upper(nom) = upper('"+this.getNom()+"') and pavillon='"+this.getPavillon()+"'");
+            String query = " AND upper(nom) = '%s' AND pavillon = '%s'";
+            query = String.format(query, this.getNom().toUpperCase().replace("'", "''"), this.getPavillon());
+            Navire[] lnav=(Navire[])CGenUtil.rechercher(new Navire(), null, null, c, query);
             if(lnav.length>0)
                 throw new Exception("Il y a un doublon de navire!");
             super.createObject(u, c);
