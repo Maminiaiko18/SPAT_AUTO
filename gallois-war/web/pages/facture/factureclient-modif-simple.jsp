@@ -41,6 +41,7 @@
         
         pi.getFormu().getChamp("type").setVisible(false);
         pi.getFormu().getChamp("tva").setVisible(false);
+        pi.getFormu().getChamp("connexe").setVisible(false);
         pi.getFormu().getChamp("remarque").setVisible(false);
         pi.getFormu().getChamp("date_echeance").setVisible(false);
         pi.getFormu().getChamp("etat").setVisible(false);
