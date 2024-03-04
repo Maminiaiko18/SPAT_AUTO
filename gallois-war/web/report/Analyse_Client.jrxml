@@ -100,7 +100,7 @@
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="0" y="0" width="141" height="23" uuid="3e791f55-e97c-42f2-be66-70cb02c30df6"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{tierslib}]]></textFieldExpression>
