@@ -12,17 +12,17 @@
     UserEJB u = (UserEJB) session.getAttribute("u");
     pi.getFormu().getChamp("idMere").setVisible(false);
     pi.getFormu().getChamp("mois").setAutre("readonly");
-    pi.getFormu().getChamp("Montant_terme").setLibelle("montant &agrave; terme");
-    pi.getFormu().getChamp("Interet_recevoir").setLibelle("Interet brut");
+    pi.getFormu().getChamp("Montant_terme").setAutre("Montant &agrave; terme");
+    pi.getFormu().getChamp("Interet_recevoir").setLibelle("Interet &agrave; recevoir");
     pi.getFormu().getChamp("Interet_net").setLibelle("Interet net");
-
 
     pi.preparerDataFormu();
 %>
 <div class="content-wrapper">
     <div class="row">
         <a href="../apresTarifMultiple.jsp"></a>
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
             <div class="box-fiche">
                 <div class="box">
                     <h1>Modification</h1>
@@ -44,5 +44,7 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-3"></div>
+
     </div>
 </div>
