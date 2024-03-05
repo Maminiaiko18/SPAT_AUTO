@@ -15,7 +15,8 @@
     DetailsPlacements t = new DetailsPlacements();
     t.setNomTable("DetailsPlacement");
     PageConsulte pc = new PageConsulte(t, request, (user.UserEJB) session.getValue("u"));
-    String id=pc.getBase().getTuppleID( );
+    t = (DetailsPlacements)pc.getBase();
+    String id= t.getTuppleID();
     pc.getChampByName("id").setLibelle("Id");
     /*pc.getChampByName("nom").setLibelle("Nom");
     pc.getChampByName("code").setLibelle("Code");
@@ -23,6 +24,9 @@
     pc.getChampByName("Montant_terme").setLibelle("montant &agrave; terme");
     pc.getChampByName("Interet_recevoir").setLibelle("Interet brut");
     pc.getChampByName("Interet_net").setLibelle("Interet net");
+    pc.getChampByName("idmere").setLibelle("Placement");
+    pc.getChampByName("idmere").setLien((String) session.getValue("lien") + "?but=placement/placement-fiche.jsp&id=" + t.getIdmere(), "");
+
     pc.setTitre("D&eacute;tails placement");
     String lien = (String) session.getValue("lien");
     String pageModif = "placement/detailsPlacement-modif.jsp";
