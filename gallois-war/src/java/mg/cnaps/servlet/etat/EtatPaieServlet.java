@@ -4445,7 +4445,7 @@ public class EtatPaieServlet extends HttpServlet {
                     jaspername = "engagement";
             Engagement engagement = new Engagement();
             engagement.setId(id);
-            engagement.setNomTable("engagementlib");
+            engagement.setNomTable("ENGAGEMENTLIB_PDF");
             Engagement[] mere = (Engagement[]) CGenUtil.rechercher(engagement, null, null, c, "");
             if (mere[0].getDateImpression() == null) {
                 Engagement temp = new Engagement();
