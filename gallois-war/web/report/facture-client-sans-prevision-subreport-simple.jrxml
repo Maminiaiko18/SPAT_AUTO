@@ -154,7 +154,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="117" height="21" uuid="2ba1d4d3-2e40-4e46-bdf3-9a47f59b1018"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
@@ -228,7 +228,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="21" uuid="3751442a-f033-4062-8586-1ef2e8e34ebf"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
@@ -248,7 +248,7 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="96" height="21" uuid="a663e888-c2e9-4d5d-b972-e81db77160d1"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
