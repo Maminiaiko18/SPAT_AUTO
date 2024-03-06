@@ -27,7 +27,7 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="affichage.*" %>
 <%@ page import="utilisateur.*" %>
-
+<%@ page import="service.*" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -101,6 +101,15 @@
                 Page p = new Page(new Engagement(), request);
                 Engagement fc = (Engagement)p.getObjectAvecValeur();
                 fc.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
+            }
+
+            if (acte != null && acte.equalsIgnoreCase("approuverBC")) { 
+                //Page p = new Page(new Engagement(), request);
+                //Engagement fc = (Engagement)p.getObjectAvecValeur();
+                //fc.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
+                UtilisateurService u = new UtilisateurService();
+                String res = u.sendMail("teste","BON DE COMMANDE SPAT","liennnnnnnn");
+                System.out.println("response : "+res);
             }
 
             if (acte.compareToIgnoreCase("restrictionUser") == 0) {
