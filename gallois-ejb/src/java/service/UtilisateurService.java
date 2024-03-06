@@ -22,11 +22,10 @@ public class UtilisateurService {
     Connection c = null;
     protected static SecureRandom random = new SecureRandom();
 
-    public String sendMail(String destinataire, String subject, String lien) throws MessagingException {
+    public String sendMail(String destinataire, String subject, String message) throws MessagingException {
         String res = null;
         //String text = "Pour reinitialiset votre mail clique : " + lien + "/ketrika/joueurinitmotdepasse.jsp?token=" + token;
-        String text = "teste email BC";
-        mailUtility = new MailUtility(subject, text, "tsioryandrianintsoa2@gmail.com");
+        mailUtility = new MailUtility(subject, message, "tsioryandrianintsoa2@gmail.com");
         try {
             mailUtility.connect();
             mailUtility.send();

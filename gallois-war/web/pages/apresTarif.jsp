@@ -104,11 +104,13 @@
             }
 
             if (acte != null && acte.equalsIgnoreCase("approuverBC")) { 
-                //Page p = new Page(new Engagement(), request);
-                //Engagement fc = (Engagement)p.getObjectAvecValeur();
-                //fc.modifierEntete(String.valueOf(u.getUser().getRefuser()), null);
+                String idbc = request.getParameter("id");
+                BonDeCommande bc = (BonDeCommande)new BonDeCommande().getById(idbc, "AS_BONDECOMMANDE", null);
                 UtilisateurService u = new UtilisateurService();
-                String res = u.sendMail("teste","BON DE COMMANDE SPAT","liennnnnnnn");
+                String url = request.getRequestURL().toString()+"?but=stock/bc/asBonDeCommande-fiche.jsp&id="+bc.getId();
+                String text = "Bonjour, <br><br>";
+                text += "Veuiller cliquer sur le lien suivant pour approuver le bon de commande No "+bc.getNumbc()+" : " + url;
+                String res = u.sendMail("recipient@gmail.com","Bon de commande NO "+bc.getNumbc(),text);
                 System.out.println("response : "+res);
             }
 

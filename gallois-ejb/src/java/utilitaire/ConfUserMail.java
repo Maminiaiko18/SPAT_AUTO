@@ -11,7 +11,6 @@ package utilitaire;
  */
 public final class ConfUserMail {
     public static String login = "flavienrakotoarison8@gmail.com";
-    public static String password = "hwfb ggxj wbxw d";
     public static String smtpHost = "smtp.gmail.com";
     public static String protocol = "smtp";
     public static int smptPort = 587;
