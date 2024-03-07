@@ -511,7 +511,7 @@
 					<font size="9" isBold="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
-				<text><![CDATA[Accompte]]></text>
+				<text><![CDATA[Acompte]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="402" y="0" width="153" height="20" uuid="7d5b34a5-7ee2-48af-8f36-5e97651ef823"/>
