@@ -25,6 +25,7 @@ import bean.ResultatEtSomme;
 import bean.TypeObjet;
 import bean.ValeurEtiquette;
 import mg.spat.AnalyseMarchandisePDF;
+import bordereau.BordereauFF;
 import bordereau.BordereauFilleLibComplet;
 import bordereau.BordereauLibComplet;
 import ded.OrdonnerPayement;
@@ -863,6 +864,9 @@ public class EtatPaieServlet extends HttpServlet {
             }
             // res = (BordereauLibComplet)res.getById(id, null, null);
             if (res != null) {
+                BordereauFF bed = new BordereauFF();
+                bed.setId(res.getId());
+                double accompte = bed.getAccompte(null);
                 Map param = new HashMap();
                 param.put("numero", res.getNumero());
                 BordereauFilleLibComplet fille = new BordereauFilleLibComplet();
@@ -921,7 +925,19 @@ public class EtatPaieServlet extends HttpServlet {
 
                 param.put("date", res.getDaty());
                 param.put("tiers", res.getTierslib());
+                // accompte 
+                double sumHT = 0;
+                double sumTaxe = 0;
+                for (EtatFactureMontantDaty fact : etatfmd) {
+                    sumHT += fact.getMontant();
+                    sumTaxe += fact.getMontanttva();
+                }
+                
+                double ttcApayer = sumHT + sumTaxe  - accompte;
+                param.put("accompte", accompte);
+                param.put("ttcapyer", ttcApayer);
 
+                
                 List dataSources = new ArrayList();
                 dataSources.addAll(Arrays.asList(etatfmd));
 
@@ -930,11 +946,13 @@ public class EtatPaieServlet extends HttpServlet {
                 String jaspername = "bed";
                 String titre = "BON D'ENGAGEMENT DE DEPENSES DIVERSES";
                 String filename = "BED";
+                if(accompte > 0) jaspername = "bed-accompte";
                 if (option != null)
                     if (option.compareToIgnoreCase("0") == 0) {
                         jaspername = "bed-sanssignature";
                         titre = "ETAT DE DEPENSES";
                         filename = "ETAT DE DEPENSES";
+                        if(accompte > 0) jaspername = "bed-sanssignature-accompte";
                     }
                 param.put("titre", titre);
                 setNomJasper(jaspername);
