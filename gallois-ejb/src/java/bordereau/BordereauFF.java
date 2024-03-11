@@ -34,6 +34,60 @@ public class BordereauFF extends Bordereau {
     private String idengagement, tierslib, typebordereau, typebordereaulib;
     private int anneebudgetaire;
 
+    public double getAccompte(Connection c) throws Exception {
+        boolean verif = false;
+        double montant = 0;
+
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = true;
+            }
+            BordereauFille fille = new BordereauFille();
+            fille.setNomTable("LIAISONBORDEREAUFF");
+            BordereauFille[] tab = (BordereauFille[]) CGenUtil.rechercher(fille, null, null," and idbordereau='" + this.getId() + "'");
+            String where=" AND ID IN (";
+            if(tab !=null && tab.length > 0)
+                {
+                    for (int i = 0; i < tab.length; i++) {
+                        where += "'"+tab[i].getIdop()+"'";
+                        if (i < tab.length - 1) {
+                            where += ",";
+                        }
+                    }
+                    where += ")";
+                }
+            
+            FactureFournisseur[] factures = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null,where);
+            where=" AND ID IN (";
+            if(factures !=null && factures.length > 0)
+                {
+                    for (int i = 0; i < factures.length; i++) {
+                        where += "'"+factures[i].getIdProvision()+"'";
+                        if (i < factures.length - 1) {
+                            where += ",";
+                        }
+                    }
+                    where += ")";
+                }
+            FactureFournisseur temp = new FactureFournisseur();
+            temp.setNomTable("BPVALIDE");
+            FactureFournisseur[] bp = (FactureFournisseur[]) CGenUtil.rechercher(temp, null, null,where);
+            for (FactureFournisseur dt : bp) {
+                montant += dt.getMontantttcvrai();
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (c != null && verif) {
+                c.close();
+            }
+        }
+
+        return montant;
+    }
+
+
     public int getAnneebudgetaire() {
         return anneebudgetaire;
     }
