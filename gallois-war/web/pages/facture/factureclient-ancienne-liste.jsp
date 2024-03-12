@@ -33,7 +33,7 @@
         pr.getFormu().getChamp("date_echeance2").setLibelle("date echeance fin");
         pr.getFormu().getChamp("designation").setLibelle("Note explicative");
 
-        String[] colSomme = {"montant", "montantTVA", "montantTTCvrai", "montantTTC", "montantAvoir", "montantpaye", "montantreste"};
+        String[] colSomme = {"montant", "montantTVA"/*, "montantTTCvrai"*/, "montantTTC", "montantAvoir", "montantpaye", "montantreste"};
         pr.creerObjetPage(libEntete, colSomme);
 %>
 <script>
