@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUIVI_CONTRAT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc854c4c-cca7-4334-b317-4b1746075475">
 	<property name="ireport.zoom" value="1.0980750000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="174"/>
+	<property name="ireport.y" value="194"/>
 	<parameter name="contrat" class="java.lang.String"/>
 	<parameter name="titulaire" class="java.lang.String"/>
 	<parameter name="objet" class="java.lang.String"/>
@@ -192,7 +192,7 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="144" y="198" width="411" height="20" uuid="f4803bbb-1cdc-4832-a1b6-a8bb288b3e8b"/>
-				<textFieldExpression><![CDATA[$P{duree} + " "+$P{unite}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{duree} + "  jour(s)"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="238" width="144" height="20" uuid="b83272c3-a12d-4a41-a948-9bbde941dac9"/>
