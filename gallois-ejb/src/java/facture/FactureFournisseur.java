@@ -99,7 +99,7 @@ public class FactureFournisseur extends FactureClient {
             verif = 1;
             Engagement e = new Engagement();
             e = (Engagement) e.getById(this.getIdengagement(), "ENGAGEMENTLIB", c);
-            if(e.getIdcontrat()!=null || !e.getIdcontrat().equalsIgnoreCase("")) retour = true;
+            if(e!=null && e.getIdcontrat()!=null && !e.getIdcontrat().equalsIgnoreCase("")) retour = true;
         } catch(Exception e){
             c.rollback();
             throw e;
