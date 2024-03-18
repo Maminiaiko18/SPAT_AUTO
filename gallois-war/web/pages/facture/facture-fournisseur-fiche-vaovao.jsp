@@ -95,6 +95,12 @@
         
         pc.getChampByName("modepaiement").setVisible(false);
         pc.getChampByName("modepaiementlib").setVisible(false);
+        pc.getChampByName("prevalidation").setVisible(false);
+        pc.getChampByName("prevalidationlib").setVisible(false);
+        if(e.isFacturecontrat(null)== true){
+            pc.getChampByName("prevalidationlib").setVisible(true);
+            pc.getChampByName("prevalidationlib").setLibelle("Prevalidation");
+        }
 
         String categorie = "";
         if (e.getIdcategorie() != null) {
@@ -306,8 +312,9 @@
                     if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {%>
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererProvision&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer Provision</a>
                     <%}%>
-
                     <hr>
+                    <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=prevaliderFF&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur" style="margin-right: 10px">Prévalider</a>
+
                 </div>
             </div>
         </div>
