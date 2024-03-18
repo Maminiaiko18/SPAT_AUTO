@@ -5440,7 +5440,7 @@ public class EtatPaieServlet extends HttpServlet {
             facture.FactureFournisseur ff = new facture.FactureFournisseur();
             ff.setNomTable("facture_fournisseur_travaux");
             facture.FactureFournisseur[] fille = (facture.FactureFournisseur[]) CGenUtil.rechercher(ff, null, null,
-                    " and idcontrat='" + id + "' and etat = 11 ");
+                    " and idcontrat='" + id + "' and prevalidation = 1 ");
             double rapcontrat = mere[0].getMontant() - mere[0].getMontantpaye();
             Map param = new HashMap();
             if(mere.length > 0){
