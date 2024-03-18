@@ -48,6 +48,19 @@ public class FactureFournisseur extends FactureClient {
     private String idom,omlib;
     private String numfsb;
     private String nomtravaux,dureecontrat ,nomchantier,cr,unitelib ;
+    private String idbordereau, numBordereau;
+    private String idrefpmt,valcaisserefpmt,numpiecerefpmt,numchequerefpmt,libellerefpmt;
+    private Date dateeffetrefpmt;
+    private double debitrefpmt;
+    private Date dateFacture;
+    private String numBc, numBed;
+    private String modepaiement;
+    private String typeEngagement;
+    private boolean apresValidationException;
+    private Date datedevise;
+    private String modepaiementlib;
+    private String idmodepaiement;
+    private int anneebudgetaire;
 
     public String getUnitelib() {
         return unitelib;
@@ -121,19 +134,7 @@ public class FactureFournisseur extends FactureClient {
     public void setIdom(String idom) {
         this.idom = idom;
     }
-    private String idbordereau, numBordereau;
-    private String idrefpmt,valcaisserefpmt,numpiecerefpmt,numchequerefpmt,libellerefpmt;
-    private Date dateeffetrefpmt;
-    private double debitrefpmt;
-    private Date dateFacture;
-    private String numBc, numBed;
-    private String modepaiement;
-    private String typeEngagement;
-    private boolean apresValidationException;
-    private Date datedevise;
-    private String modepaiementlib;
-    private String idmodepaiement;
-    private int anneebudgetaire;
+
 
     public String getIdmodepaiement() {
         return idmodepaiement;
