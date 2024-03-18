@@ -12,7 +12,7 @@
     try{
     FactureFournisseur j = new FactureFournisseur();
     j.setNomTable("FACTURE_FOURNISSEUR_TRAVAUX");
-    String libEntete[] = {"id","daty", "montant", "tva", "montanttva", "montantttc","numeroop"};
+    String libEntete[] = {"id","daty", "montant", "tva", "montanttva", "montantttc","numeroop","prevalidationlib"};
     String listeCrt[] = {};
     String listeInt[] = {};
     
@@ -32,7 +32,7 @@
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
     
-    pr.getTableau().setLibelleAffiche(new String[] {"id","Date", "Montant HT", "TVA", "Montant TVA", "MontantTTC","Numero facture"});
+    pr.getTableau().setLibelleAffiche(new String[] {"id","Date", "Montant HT", "TVA", "Montant TVA", "MontantTTC","Numero facture","Pr&eacute;validation"});
     pr.getTableau().setNameActe("valider");
     String html = pr.getTableau().getHtml();    
     if(html != null){ 
