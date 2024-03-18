@@ -22,8 +22,11 @@
         JournalCaisseLibComplet journalCaisse = new JournalCaisseLibComplet();
         journalCaisse.setNomTable("JOURNALCAISSELIBCOMPLET");
         EtatdeStockDate etatcaisse[] = null;
-        String date1 = utilitaire.Utilitaire.dateDuJour();
-        String date2 = utilitaire.Utilitaire.dateDuJour();
+        Date firstDate = Utilitaire.dateDuJourSql();   
+        firstDate.setDate(1);        
+        Date lastDate = Utilitaire.getLastDayOfDateSQL(firstDate);
+        String date1 = Utilitaire.stringToDateJ("dd/MM/yyyy", firstDate);
+        String date2 = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
         if(request.getParameter("dateEffet1")!=null) date1 = request.getParameter("dateEffet1");
         if(request.getParameter("dateEffet2")!=null) date2 = request.getParameter("dateEffet2");
         if(request.getParameter("caisse")!=null){
@@ -62,13 +65,8 @@
         pr.getFormu().getChamp("debit1").setLibelle("sortie min");
         pr.getFormu().getChamp("debit2").setLibelle("sortie max");
         pr.getFormu().getChamp("descecaisse").setLibelle("Bureau");
-        Date lastDate = Utilitaire.dateDuJourSql();
-        lastDate.setDate(31);
-        lastDate.setMonth(11);
-        String debutDate = "01/01/"+Utilitaire.getAnnee(Utilitaire.dateDuJourSql());
-        String dateFin = Utilitaire.stringToDateJ("dd/MM/yyyy", lastDate);
-        pr.getFormu().getChamp("dateEffet1").setDefaut(debutDate);
-        pr.getFormu().getChamp("dateEffet2").setDefaut(dateFin);
+        pr.getFormu().getChamp("dateEffet1").setDefaut(date1);
+        pr.getFormu().getChamp("dateEffet2").setDefaut(date2);
         pr.getFormu().getChamp("dateEffet1").setLibelle("Date effet min");
         pr.getFormu().getChamp("dateEffet2").setLibelle("Date effet max");
         pr.getFormu().getChamp("libelle").setLibelle("Libellé");
