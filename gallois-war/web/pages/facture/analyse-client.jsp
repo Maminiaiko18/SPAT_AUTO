@@ -71,7 +71,7 @@
             pr.getTableau().setLien(lienTableau);
             pr.getTableau().setColonneLien(colonneLien);
             
-            String libelleAffiche[] = {"Tiers","Montant TTC","Montant Paye","Montant reste","Trop/moins per&ccedil;u",""};
+            String libelleAffiche[] = {"Tiers","Montant TTC","Montant Paye","Montant reste","Trop per&ccedil;u(-)/moins per&ccedil;u(+)",""};
             pr.getTableau().setLibelleAffiche(libelleAffiche);
             out.println(pr.getTableau().getHtml());
         %>

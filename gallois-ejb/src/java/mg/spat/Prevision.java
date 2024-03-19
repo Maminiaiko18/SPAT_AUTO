@@ -83,7 +83,6 @@ public class Prevision extends ClassEtat {
     }
 
     public void setArmateur(String armateur) {
-        System.out.println("Armateur==="+armateur);
         this.armateur = armateur;
     }
 

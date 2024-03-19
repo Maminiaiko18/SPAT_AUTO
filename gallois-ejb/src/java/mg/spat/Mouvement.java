@@ -754,6 +754,7 @@ public class Mouvement extends ClassEtat {
             if (this.getTypeMvt().compareToIgnoreCase(Constante.getTpmvtdepart()) == 0) {
                 Mouvement[] precedent = this.getMouvementMemeEscalePrec(c);
                 if (precedent.length != 0) {
+                    if(precedent[0].getDatearrivee().after(this.getDate_depart())) throw new Exception("La date arrivée est supérieur à la date de départ.");
                     precedent[0].setNomTable("mouvement");
                     precedent[0].setDate_depart(this.getDate_depart());
                     precedent[0].setHeure_depart(this.getHeure_depart());
