@@ -1120,6 +1120,8 @@ public class FactureFournisseur extends FactureClient {
                 ouvert = true;
             }
 
+            if(this.isFacturecontrat(c) && this.getPrevalidation() == 0) throw new Exception ("facture non prévalider.");
+
             MapUtilisateur[] user = (MapUtilisateur[]) CGenUtil.rechercher(new MapUtilisateur(), null, null, null, " and refuser="+u);
             if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
                 // pas de visa Bon provsoire pour la caisse depenses
@@ -1520,7 +1522,6 @@ public class FactureFournisseur extends FactureClient {
             }
         }
 
-        if(this.isFacturecontrat(c) && this.getPrevalidation() == 0) throw new Exception ("facture non prévalider.");
         
         if (this.getIdengagement() != null && this.getIdengagement().compareTo("") != 0) {
             Engagement eg = this.findEngagement(c);
