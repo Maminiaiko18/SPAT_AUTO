@@ -48,7 +48,87 @@ public class FactureFournisseur extends FactureClient {
     private String idom,omlib;
     private String numfsb;
     private String nomtravaux,dureecontrat ,nomchantier,cr,unitelib ;
+    private String idbordereau, numBordereau;
+    private String idrefpmt,valcaisserefpmt,numpiecerefpmt,numchequerefpmt,libellerefpmt;
+    private Date dateeffetrefpmt;
+    private double debitrefpmt;
+    private Date dateFacture;
+    private String numBc, numBed;
+    private String modepaiement;
+    private String typeEngagement;
+    private boolean apresValidationException;
+    private Date datedevise;
+    private String modepaiementlib;
+    private String idmodepaiement;
+    private int anneebudgetaire;
+    private int prevalidation;
+    private String prevalidationlib;
 
+    public void prevalider(UserEJB u) throws Exception{
+        Connection c = null;
+        int verif = 0;        
+        try{
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            verif = 1;
+            if(this.getPrevalidation() == 0){
+                this.setPrevalidation(1);
+                this.updateToTableWithHisto(String.valueOf(u.getUser().getRefuser()), c,"Prévalidation facture.");
+            }
+            else throw new Exception("Ce facture est déja prévalider.");  
+            c.commit();     
+        
+        } catch(Exception e){
+            c.rollback();
+            throw e;
+        }
+        finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
+
+    public boolean isFacturecontrat(Connection c) throws Exception{
+        c = null;
+        boolean retour = false;
+        int verif = 0;        
+        try{
+            c = new UtilDB().GetConn();
+            c.setAutoCommit(false);
+            verif = 1;
+            Engagement e = new Engagement();
+            e = (Engagement) e.getById(this.getIdengagement(), "ENGAGEMENTLIB", c);
+            if(e!=null && e.getIdcontrat()!=null && !e.getIdcontrat().equalsIgnoreCase("")) retour = true;
+        } catch(Exception e){
+            c.rollback();
+            throw e;
+        }
+        finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+        return retour;
+    }
+
+
+    public String getPrevalidationlib() {
+        return prevalidationlib;
+    }
+
+    public void setPrevalidationlib(String prevalidationlib) {
+        this.prevalidationlib = prevalidationlib;
+    }
+
+    public int getPrevalidation() {
+        return prevalidation;
+    }
+
+    public void setPrevalidation(int prevalidation) {
+        this.prevalidation = prevalidation;
+    }
+    
     public String getUnitelib() {
         return unitelib;
     }
@@ -121,19 +201,7 @@ public class FactureFournisseur extends FactureClient {
     public void setIdom(String idom) {
         this.idom = idom;
     }
-    private String idbordereau, numBordereau;
-    private String idrefpmt,valcaisserefpmt,numpiecerefpmt,numchequerefpmt,libellerefpmt;
-    private Date dateeffetrefpmt;
-    private double debitrefpmt;
-    private Date dateFacture;
-    private String numBc, numBed;
-    private String modepaiement;
-    private String typeEngagement;
-    private boolean apresValidationException;
-    private Date datedevise;
-    private String modepaiementlib;
-    private String idmodepaiement;
-    private int anneebudgetaire;
+
 
     public String getIdmodepaiement() {
         return idmodepaiement;
@@ -1052,6 +1120,8 @@ public class FactureFournisseur extends FactureClient {
                 ouvert = true;
             }
 
+            if(this.isFacturecontrat(c) && this.getPrevalidation() == 0) throw new Exception ("facture non prévalider.");
+
             MapUtilisateur[] user = (MapUtilisateur[]) CGenUtil.rechercher(new MapUtilisateur(), null, null, null, " and refuser="+u);
             if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
                 // pas de visa Bon provsoire pour la caisse depenses
@@ -1451,6 +1521,7 @@ public class FactureFournisseur extends FactureClient {
                 throw new Exception("Bon provisoire d\351j\340 existant pour cet OM.");
             }
         }
+
         
         if (this.getIdengagement() != null && this.getIdengagement().compareTo("") != 0) {
             Engagement eg = this.findEngagement(c);
