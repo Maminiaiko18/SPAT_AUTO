@@ -148,7 +148,7 @@ public class Projet extends ClassEtat{
     }
     
     public void checkDoublonCode(Connection c) throws Exception{
-        Projet[] projet = (Projet[]) CGenUtil.rechercher(new Projet(), null, null, c, " and upper(designation) like upper('"+this.getDesignation()+"')");
+        Projet[] projet = (Projet[]) CGenUtil.rechercher(new Projet(), null, null, c, " and upper(designation) like upper('"+this.getDesignation()+"') and upper(compte) like upper('"+this.getCompte()+"')");
         if(projet.length > 0) throw new Exception("Code existant");
     }
 
