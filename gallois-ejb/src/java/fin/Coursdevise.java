@@ -90,7 +90,8 @@ public class Coursdevise extends ClassMAPTable {
         return montant;
     }
 
-    public void setMontant(double montant) {
+    public void setMontant(double montant) throws Exception {
+        if(this.getMode().compareToIgnoreCase("modif")==0&&montant<=0) throw new Exception("montant cours de devise invalide");
         this.montant = montant;
     }
 
