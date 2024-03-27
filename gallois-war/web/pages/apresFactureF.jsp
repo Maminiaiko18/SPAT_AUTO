@@ -91,6 +91,13 @@
                 apresLien = "facture/facture-fournisseur-modif-vaovao.jsp&id=" + fact2.getId();
             }
 
+            if (acte != null && acte.compareToIgnoreCase("prevaliderFF") == 0) {   
+                FactureFournisseur facture = new FactureFournisseur(); facture.setNomTable("facture_Fournisseur_Mere"); 
+                facture = (FactureFournisseur) facture.getById(idfacture,facture.getNomTable(), null);
+                facture.prevalider(u);
+                apresLien = "facture/facture-fournisseur-fiche-vaovao.jsp&id=" + facture.getId(); 
+            }
+
             if (acte != null && acte.compareToIgnoreCase("attribuerCode") == 0) {
                 FactureFournisseur facture = new FactureFournisseur();
                 facture.setNomTable("facture_Fournisseur_Mere");
