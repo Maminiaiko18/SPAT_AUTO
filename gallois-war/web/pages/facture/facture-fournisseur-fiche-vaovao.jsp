@@ -428,6 +428,21 @@
             </div>
         </div>
     </div>
+    <script>
+    var tds = document.getElementsByTagName('td');
+    for (var i = 0; i < tds.length; i++) {
+        if (tds[i].classList.contains('left') && tds[i].getElementsByTagName('b').length > 0 && tds[i].getElementsByTagName('b')[0].innerText === 'Prevalidation') {
+            var nextTd = tds[i].nextElementSibling;
+            if (nextTd) {
+                if (nextTd.innerText.trim() === 'VALIDE') {
+                    nextTd.innerHTML = "<b style='color:lightskyblue'>" + nextTd.innerHTML + "</b>";
+                } else {
+                    nextTd.innerHTML = "<b style='color:red'>" + nextTd.innerHTML + "</b>";
+                }
+            }
+        }
+    }
+    </script>
     <%
     } catch (Exception e) {
         e.printStackTrace();
@@ -436,5 +451,6 @@
         alert('<%=e.getMessage()%>');
         history.back();
     </script>
+
     <% }%>
 
