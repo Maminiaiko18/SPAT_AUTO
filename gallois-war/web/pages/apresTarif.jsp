@@ -72,6 +72,9 @@
                     rajoutLieFormu = "&"+rajoutLienFormu[0]+"="+rajoutLienFormu[1];
                 }
             }
+            if(classe.equalsIgnoreCase("facture.FactureClientDetails")){
+                throw new Exception("Détails facture ne peut pas etre supprimer");
+            }
             
             if (bute == null || bute.compareToIgnoreCase("") == 0) {
                 bute = "pub/Pub.jsp";
