@@ -928,6 +928,7 @@ public class JournalCaisse extends ClassEtat {
             double sommeReste = 0;
             for(int i=0; i<fc.length; i++){
                 if(fc[i].getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Facture "+fc[i].getId()+" non visee");
+                if(fc[i].getIdcategorie().equalsIgnoreCase(Constante.idCategorieFCProforma)) throw new Exception("Impossible d'encaisser un facture proforma.");
                 sommeReste += fc[i].getMontantreste();
             }
             if(Utilitaire.stringToDouble((new DecimalFormat("###.###")).format(sommeReste))-Utilitaire.stringToDouble((new DecimalFormat("###.###")).format(this.getCredit()) ) < -0.5) throw new Exception("Montant supérieur au reste à payer");
