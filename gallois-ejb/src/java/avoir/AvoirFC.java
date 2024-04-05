@@ -477,6 +477,7 @@ public class AvoirFC extends ClassMere {
                 factureLiee.setDaty(Utilitaire.dateDuJourSql());
             }
             factureLiee.setDaty(Utilitaire.dateDuJourSql());
+            factureLiee.setDate_echeance(Utilitaire.ajoutJourDate(Utilitaire.dateDuJourSql(), 30));
             factureLiee.createObject(user, c);
             if(verif==1)c.commit();
             return factureLiee;
