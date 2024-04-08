@@ -73,6 +73,10 @@ public class FactureFournisseurDetails extends FactureClientDetails{
     public void setMontanttva(double montanttva) {
         this.montanttva = montanttva;
     }
+
+    @Override
+    public void controlerDelete(Connection c) throws Exception {
+    }
     
     public FactureFournisseurDetails() throws Exception{ 
         this.setNomTable("facture_fournisseur_fille");
