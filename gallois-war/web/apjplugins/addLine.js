@@ -14,6 +14,10 @@ function add_line_tab(champ) {
     document.getElementById("checkbox"+indiceNew).value = indiceNew;
 }
 
+function confirmDeleteLine() {
+    return confirm('Voulez-vous vraiment supprimer cet element ?');
+}
+
 function updateElementIds(element, newIndex) {
     
     var allElements = element.querySelectorAll("*");
