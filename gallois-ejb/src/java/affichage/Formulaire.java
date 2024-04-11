@@ -1712,7 +1712,7 @@ public class Formulaire {
                 }
             }
             
-            temp += "<td><a href='"+liendelete+"' onclick='return confirmDelete();' ><span class='glyphicon glyphicon-remove'></span></a></td>";
+            temp += "<td><a href='"+liendelete+"' onclick='return confirmDeleteLine();' ><span class='glyphicon glyphicon-remove'></span></a></td>";
             temp += "</tr>";
             
         }
@@ -1742,7 +1742,6 @@ public class Formulaire {
         temp += getHtmlAutocomplete();
         //System.out.println("temp + = "+temp);
         temp+=getHtmlChampInvisible();
-        temp +="<script>function confirmDelete() {return confirm('Voulez-vous vraiment supprimer cet element ?');}</script>";
         setHtmlTableauInsert(temp);
     }
     public String getHtmlAutocomplete(int k) throws Exception {
