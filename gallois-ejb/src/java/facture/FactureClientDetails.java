@@ -1081,7 +1081,6 @@ public class FactureClientDetails extends ClassFille {
 
     @Override
     public void controlerDelete(Connection c) throws Exception {
-        throw new Exception("Détails facture ne peut pas etre supprimer.");
     }
 
     public void controler(Connection c) throws Exception {

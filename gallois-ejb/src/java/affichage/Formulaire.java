@@ -1712,7 +1712,7 @@ public class Formulaire {
                 }
             }
             
-            temp += "<td><a href='"+liendelete+"'><span class='glyphicon glyphicon-remove'></span></a></td>";
+            temp += "<td><a href='"+liendelete+"' onclick='return confirmDeleteLine();' ><span class='glyphicon glyphicon-remove'></span></a></td>";
             temp += "</tr>";
             
         }
