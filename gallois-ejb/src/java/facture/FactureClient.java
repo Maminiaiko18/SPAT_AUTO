@@ -429,14 +429,19 @@ public class FactureClient extends ClassMere {
         this.paiementlib = paiementlib;
     }
     
+    public void checkBornageEtPeche(String bateau,Connection c) throws Exception{
+        if(bateau!=null && bateau!=""){
+            Navire nav = (Navire) new Navire().getById(bateau,"NAVIRE", null);
+            if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0){
+                this.setEstBornageEtPeche(1);
+            }
+        }
+    }
     
     @Override
     public void controlerUpdate(Connection c) throws Exception {
         FactureClient factureClient =(FactureClient)(new FactureClient()).getById(this.getId(), "Factureclient", c);
-        Navire nav = (Navire) new Navire().getById(factureClient.getBateau(), "NAVIRE", null);
-        if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0){
-            this.setEstBornageEtPeche(1);
-        }
+        this.checkBornageEtPeche(factureClient.getBateau(), c);
         if(this.getType().equals(factureClient.getType())==false && this.getEstAncienne()!=1){
             this.setCode(this.calculerCode(c));
         }
@@ -1708,10 +1713,11 @@ public class FactureClient extends ClassMere {
 
     @Override
     public ClassMAPTable createObject(String iduser, Connection cnctn) throws Exception {
+        this.checkBornageEtPeche(this.getBateau(), cnctn);
         this.setNomClasseFille("facture.FactureClientDetails");
         this.setIduser(iduser);
         this.setId(null);
-        if(this.getEstAncienne()!=1)this.setCode(calculerCode(cnctn));
+        if(this.getEstAncienne()!=1) this.setCode(calculerCode(cnctn));
         return super.createObject(iduser, cnctn);
     }
 
@@ -2211,7 +2217,6 @@ public class FactureClient extends ClassMere {
 
     public void setDevises(Connection c) throws Exception {
         this.setDeviseEuro(c);
-        System.out.println("setDevises ==== "+this.getEstProformaEscale());
         this.setDeviseDollar(c);
         if(this.getDateChange()!=this.getDaty())
         {
@@ -2245,7 +2250,6 @@ public class FactureClient extends ClassMere {
                     throw new Exception("Aucun details pour la facture " + this.getId());
                 }
             }
-            System.out.println("initDetails ==== "+this.getEstProformaEscale());
             this.setDevises(c);
 
             for (int i = 0; i < listeDetails.length; i++) {

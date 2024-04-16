@@ -151,7 +151,7 @@
     pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
     pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
-    pi.getFormufle().getChamp("duree_0").setLibelle("Dur�e");
+    pi.getFormufle().getChamp("duree_0").setLibelle("Dur&eacute;e");
     pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
     pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
     pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
@@ -161,7 +161,7 @@
     pi.getFormufle().getChamp("rubrique_0").setLibelle("Rubrique");
     pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
     
-    pi.getFormufle().getChamp("annee_0").setLibelle("Ann�e");
+    pi.getFormufle().getChamp("annee_0").setLibelle("Ann&eacute;e");
     pi.getFormufle().getChamp("heureDebut_0").setLibelle("Heure debut");
     pi.getFormufle().getChamp("heureFin_0").setLibelle("Heure fin");
     pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
@@ -169,7 +169,7 @@
     pi.getFormufle().getChamp("rang_0").setLibelle("Rang");
     pi.getFormufle().getChamp("daty_0").setLibelle("Date");
     
-    pi.getFormufle().getChamp("idactivite_0").setLibelle("Activit�");
+    pi.getFormufle().getChamp("idactivite_0").setLibelle("Activit&eacute;");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idactivite"), "choix/listeActiviteChoix.jsp", "idactivite;idactivitelibelle;quantite;pu;tva;datefact;designation");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
     affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("rubrique"), "choix/listeRubriqueChoix.jsp", "rubrique;rubriquelibelle;designation;pu;tva;compte;devise;comptelibelle");
