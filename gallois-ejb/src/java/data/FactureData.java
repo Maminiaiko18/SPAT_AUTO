@@ -15,6 +15,15 @@ public class FactureData {
     private String lib;
     private double montantTP;
     private boolean disabled;
+    private double reste;
+
+    public double getReste() {
+        return reste;
+    }
+
+    public void setReste(double reste) {
+        this.reste = reste;
+    }
 
     public boolean isDisabled() {
         return disabled;
@@ -58,6 +67,7 @@ public class FactureData {
             double reste=0;
             if(restePov!=null)reste=restePov.getEcart();
             disabled = reste < 0;
+            this.setReste(reste);
             this.setLib(factClient.affLibelle(reste));
             this.setMontantTP(factClient.affResteProvision(reste));
         }catch(Exception e){
