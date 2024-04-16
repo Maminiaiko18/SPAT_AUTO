@@ -48,7 +48,7 @@
                 </form>
                 <%
 
-                    String libelles[] = {"Code Client", "Code Cat�gorie", "Client", "Adresse", "Cat�gorie"};
+                    String libelles[] = {"Code Client", "Code Cat&eacute;gorie", "Client", "Adresse", "Cat&eacute;gorie"};
                     pr.getTableau().setLibelleAffiche(libelles);
                     out.println(pr.getTableauRecap().getHtml());
                 %>
