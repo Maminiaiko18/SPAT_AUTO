@@ -8,8 +8,12 @@ package facture;
 import bean.AdminGen;
 import bean.CGenUtil;
 import bean.ClassMAPTable;
+import data.FactureData;
+
 import java.sql.Connection;
 import java.sql.Date;
+
+import mg.spat.FcDefPr;
 import mg.spat.JournalCaisse;
 import mg.spat.placement.Placement;
 import utilitaire.Constante;
@@ -155,7 +159,25 @@ public class PaiementFacture extends ClassMAPTable{
      @Override
     public ClassMAPTable createObject(String u,Connection c)throws Exception{
         this.setDatepaiement(Utilitaire.dateDuJourSql());
+        this.removeManqueProvision(u,c);
         return super.createObject(u, c);
+    }
+
+    public void removeManqueProvision(String u,Connection c) throws Exception{
+        if(this.getIdFact()!=null && this.getIdFact().startsWith("FCL")){
+            FactureClient def = getFacture(c);
+            if (def.getIdProvision()!=null) {
+                FactureData factData = new FactureData();
+                factData.initData(def.getIdProvision());
+                if(factData.getReste() < 0) {
+                    FcDefPr fc = new FcDefPr();
+                    fc.setId2(def.getIdProvision());
+                    fc.setMontant(-1*this.getMontant());
+                    fc.setEtat(ConstanteEtat.getEtatValider());
+                    fc.createObject(u, c);
+                }
+            }
+        }
     }
 
     public FactureClient getFacture(Connection c) throws Exception{
