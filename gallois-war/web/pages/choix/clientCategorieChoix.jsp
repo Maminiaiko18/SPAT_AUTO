@@ -20,14 +20,13 @@
     pr.setApres("clientCategorieChoix.jsp");
     
     pr.getFormu().getChamp("cdclt").setLibelle("Code Client");
-    pr.getFormu().getChamp("cdcat").setLibelle("Code Catégorie");
+    pr.getFormu().getChamp("cdcat").setLibelle("Code Cat&eacute;gorie");
     pr.getFormu().getChamp("nomclt").setLibelle("Client");
     pr.getFormu().getChamp("adrclt").setLibelle("Adresse");
-    pr.getFormu().getChamp("categorie").setLibelle("Catégorie");
+    pr.getFormu().getChamp("categorie").setLibelle("Cat&eacute;gorie");
     
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme); 
-%>
 %>
 
 <html>
@@ -41,7 +40,7 @@
     <body class="skin-blue sidebar-mini">
         <div class="wrapper">
             <section class="content-header">
-                <h1>Liste Client Catégorie</h1>
+                <h1>Liste Client Cat&eacute;gorie</h1>
             </section>
             <section class="content">
                 <form action="<%=pr.getApres()%>?champReturn=<%=pr.getChampReturn()%>" method="post" name="cc" id="cc">
@@ -49,7 +48,7 @@
                 </form>
                 <%
 
-                    String libelles[] = {"Code Client", "Code Catégorie", "Client", "Adresse", "Catégorie"};
+                    String libelles[] = {"Code Client", "Code Catï¿½gorie", "Client", "Adresse", "Catï¿½gorie"};
                     pr.getTableau().setLibelleAffiche(libelles);
                     out.println(pr.getTableauRecap().getHtml());
                 %>
