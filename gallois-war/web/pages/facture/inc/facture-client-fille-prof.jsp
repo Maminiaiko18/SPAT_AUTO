@@ -54,7 +54,6 @@
         FactureClientFilleData dataF = new FactureClientFilleData(id, null, null, 1);
         FactureClient facture = dataF.getFacture();
         FactureClientDetails[] liste = facture.getListeDetails();
-        System.out.println("lenghhhhhh   " + liste.length);
 //        out.println(pr.getTableau().getHtml());
 //        double total=0;
 //        total=AdminGen.calculSommeDouble(liste,"montanttaux");

@@ -2217,7 +2217,6 @@ public class FactureClient extends ClassMere {
 
     public void setDevises(Connection c) throws Exception {
         this.setDeviseEuro(c);
-        System.out.println("setDevises ==== "+this.getEstProformaEscale());
         this.setDeviseDollar(c);
         if(this.getDateChange()!=this.getDaty())
         {
@@ -2251,7 +2250,6 @@ public class FactureClient extends ClassMere {
                     throw new Exception("Aucun details pour la facture " + this.getId());
                 }
             }
-            System.out.println("initDetails ==== "+this.getEstProformaEscale());
             this.setDevises(c);
 
             for (int i = 0; i < listeDetails.length; i++) {
