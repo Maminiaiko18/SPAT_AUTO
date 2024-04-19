@@ -45,7 +45,7 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setOrdre(" order by daty desc");
-        pr.setApres("facture/factureclientsimple-fiche.jsp&etat=" + request.getParameter("etat"));
+        pr.setApres("facture/factureclientcemedi-liste.jsp&etat=" + request.getParameter("etat"));
         pr.setNpp(300);
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
@@ -144,7 +144,7 @@
         </div>
         <form action="<%=pr.getLien()%>?but=apresFacture.jsp" method="post" name="incidents" id="incidents">
             <%
-                String lienTableau[] = {pr.getLien() + "?but=facture/factureclient-fiche-vaovao.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
+                String lienTableau[] = {pr.getLien() + "?but=facture/factureclientsimple-fiche.jsp", pr.getLien() + "?but=capitainerie/quais/quais-prevision-fiche.jsp"};
                 String colonneLien[] = {"id", "escale"};
                 String[] urlLienMultiple = {"id", "idprevision"};
                 String[] urlLienAffiche = {"id", "id"};
