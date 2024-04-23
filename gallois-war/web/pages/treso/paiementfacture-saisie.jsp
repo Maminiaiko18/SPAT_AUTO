@@ -1,4 +1,5 @@
 <%@page import="facture.PaiementFacture"%>
+<%@page import="mg.spat.JournalCaisse"%>
 <%@ page import="user.*" %>
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
@@ -11,8 +12,14 @@
     pf.setNomTable("paiementfacture");
     PageInsert pi = new PageInsert(pf, request, (user.UserEJB) session.getValue("u"));
     String id = request.getParameter("id");
-    if(id!=null)
+    if(id!=null){
+        double reste = 0;
+        JournalCaisse jc = new JournalCaisse();
+        jc.setId(id);
+        reste = jc.getResteJc(null);
         pi.getFormu().getChamp("idmvt").setDefaut(id);
+        pi.getFormu().getChamp("montant").setDefaut(String.valueOf(reste));
+    }
     pi.getFormu().getChamp("idmvt").setAutre("readonly");
     pi.getFormu().getChamp("idmvt").setLibelle("Mouvement");
     pi.getFormu().getChamp("idfact").setPageAppel("choix/listeFactureClientViseeChoix.jsp");
