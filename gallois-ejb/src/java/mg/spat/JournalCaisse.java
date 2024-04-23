@@ -1265,7 +1265,7 @@ public class JournalCaisse extends ClassEtat {
             }
             double utiliser = 0;
             PaiementFacture pf = new PaiementFacture();
-            pf.setNomTable("paiementfacture");
+            pf.setNomTable("paiementfactureHorsProvision");
             String awhere = String.format(" and idmvt = '%s'", this.getId());
             JournalCaisse jc = new JournalCaisse();
             jc = (JournalCaisse) jc.getById(this.getId(), jc.getNomTable(), c);
