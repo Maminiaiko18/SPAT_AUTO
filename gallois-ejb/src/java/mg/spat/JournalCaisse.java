@@ -1144,6 +1144,8 @@ public class JournalCaisse extends ClassEtat {
             }
         }
     }
+
+
     @Override
     public ClassMAPTable createObject(String u,Connection c)throws Exception{
         if(this.getCredit() == 0 && this.getDebit() == 0) throw new Exception("Journal de caisse invalide.");
@@ -1251,6 +1253,36 @@ public class JournalCaisse extends ClassEtat {
         if (result != null && result.length > 0) 
             return result[0];
         return null;
+    }
+
+    public double getResteJc(Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            double utiliser = 0;
+            PaiementFacture pf = new PaiementFacture();
+            pf.setNomTable("paiementfacture");
+            String awhere = String.format(" and idmvt = '%s'", this.getId());
+            JournalCaisse jc = new JournalCaisse();
+            jc = (JournalCaisse) jc.getById(this.getId(), jc.getNomTable(), c);
+            PaiementFacture[] result = (PaiementFacture[])CGenUtil.rechercher(pf, null, null, c, awhere);
+            if(result != null && result.length > 0){
+                for (PaiementFacture p : result) {
+                    utiliser += p.getMontant();
+                }
+            }
+            return (jc.getCredit() - utiliser);
+        }  catch(Exception ex) {
+            throw ex;
+        }  finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
     }
     
     
