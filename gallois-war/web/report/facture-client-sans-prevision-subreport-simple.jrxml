@@ -135,6 +135,7 @@
 						<jr:detailCell style="table 2_TD" height="21" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="512" height="21" uuid="f880f062-6403-492c-bf67-c3d142362d27"/>
+								<box leftPadding="10"/>
 								<textElement verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 									<paragraph leftIndent="2"/>
