@@ -55,6 +55,7 @@
          if(userRole.equalsIgnoreCase(Constante.rolePact))  caisse = "CAISSEPACT";
         if(userRole.equalsIgnoreCase(Constante.roleCscs))  caisse = "CAISSECSCS";
         if(userRole.equalsIgnoreCase(Constante.roleCemedi))  caisse = "CAISSECEMEDI";
+        if(userRole.equalsIgnoreCase(Constante.roleRecette))  caisse = "CAISSERECETTEONLY";
 
         if (idfact != null) {
             facture = datas.getFactureAnalyse();
