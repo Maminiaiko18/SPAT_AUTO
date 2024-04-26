@@ -120,7 +120,7 @@
 				<subreportExpression><![CDATA["recapitulatifCompteCourant_placemenentAr.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="105">
+		<band height="92">
 			<staticText>
 				<reportElement x="0" y="20" width="370" height="15" uuid="55da6d52-8611-49a2-8bae-b08a72fe5c2c"/>
 				<box>
@@ -144,7 +144,7 @@
 				<text><![CDATA[MONTANT EN ARIARY]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="0" y="35" width="555" height="70" uuid="09f022c2-de10-4293-bc18-79a55e5e85eb"/>
+				<reportElement x="0" y="35" width="555" height="57" uuid="09f022c2-de10-4293-bc18-79a55e5e85eb"/>
 				<subreportParameter name="type">
 					<subreportParameterExpression><![CDATA["TRESORERIE"]]></subreportParameterExpression>
 				</subreportParameter>
@@ -161,7 +161,7 @@
 		</band>
 		<band height="95">
 			<subreport>
-				<reportElement x="0" y="0" width="555" height="70" uuid="32f06027-381b-452d-a25c-239517a36571"/>
+				<reportElement x="0" y="0" width="555" height="60" uuid="32f06027-381b-452d-a25c-239517a36571"/>
 				<subreportParameter name="type">
 					<subreportParameterExpression><![CDATA["PLACEMENT"]]></subreportParameterExpression>
 				</subreportParameter>
@@ -169,7 +169,7 @@
 				<subreportExpression><![CDATA["recapitulatifCompteCourant_courant.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement x="0" y="72" width="370" height="20" uuid="47d14442-26e5-4708-ab9c-cfb3701e9b60"/>
+				<reportElement x="0" y="60" width="370" height="20" uuid="47d14442-26e5-4708-ab9c-cfb3701e9b60"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -183,7 +183,7 @@
 				<text><![CDATA[TOTAL TRESORERIE SPAT + TOTAL PLACEMENT SPAT]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="370" y="72" width="185" height="20" uuid="af76e274-da5b-47ff-9b4b-3a70854f3535"/>
+				<reportElement x="370" y="60" width="185" height="20" uuid="af76e274-da5b-47ff-9b4b-3a70854f3535"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
