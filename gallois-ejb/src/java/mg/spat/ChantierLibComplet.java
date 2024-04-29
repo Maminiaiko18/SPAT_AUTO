@@ -46,6 +46,15 @@ public class ChantierLibComplet extends ClassEtat{
     private String tiers, dirtravaux, projetlib, codeetablissementlib;
     private String patrimoinelib;
     private String patrimoinedesce;
+    private String devise;
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
+    }
 
     public ChantierLibComplet() {
         this.setNomTable("chantierlibcomplet");
