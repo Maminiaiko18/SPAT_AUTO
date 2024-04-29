@@ -422,10 +422,31 @@ public class Contrat extends ClassEtat{
             Contrat contrat = (Contrat)super.createObject(u, c); 
             Avenant avenant = new Avenant(this.getIdTiers(), "avenant initial", this.getUnite(), this.getId(), this.getDuree(), this.getMontant(), this.getDate_signature(), this.getDebut_contrat(), this.getFin_contrat(), 0);
             avenant.createObject(u, c);
-            
             return contrat;
         }
         catch(Exception e){
+            throw e;
+        }
+    }
+
+    @Override
+    public void controler(Connection c) throws Exception {
+        try{
+            Chantier t = new Chantier();
+            Chantier chantier = (Chantier)t.getById(this.getIdchantier(), null, c);
+            if(chantier!=null){
+                this.setDevise(chantier.getDevise());
+            }
+        }catch(Exception e){
+            throw e;
+        }
+    }
+
+    @Override
+    public void controlerUpdate(Connection c) throws Exception{
+        try {
+            this.controler(c);
+        } catch (Exception e) {
             throw e;
         }
     }
