@@ -33,6 +33,7 @@
     pc.getChampByName("avecFacture").setVisible(false);
     pc.getChampByName("avecFacturelib").setLibelle("Avec Facture");
     pc.getChampByName("idLClib").setLibelle("Budget");
+    pc.getChampByName("Montantdevise").setLibelle("Montant devise");
     pc.getChampByName("idcontrat").setLibelle("Contrat");
     pc.getChampByName("daty").setLibelle("Date");
     pc.getChampByName("tierslib").setLibelle("Tiers");

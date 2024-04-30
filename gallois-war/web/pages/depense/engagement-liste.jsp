@@ -27,9 +27,9 @@
         String aWhere = prioritaire.makeListConfidentiality(u,"codeetablissementlib");
         System.out.println("aWhere "+aWhere);
 
-        String listeCrt[] = {"id", "designation", "codeetablissementlib", "projetlib", "daty", "tierslib", "num","annee", "idtype"};
+        String listeCrt[] = {"id", "designation", "codeetablissementlib", "projetlib", "daty", "tierslib", "num","annee", "idtype","devise"};
         String listeInt[] = {"daty"};
-        String libEntete[] = {"id", "designation","idtypelib","compte", "montant"/*, "montantOP"*/, "montantreste", "dispoavant", "dispoapres", "codeetablissementlib", "projetlib", "tierslib", "daty","annee", "num","montantliberer","observation"};
+        String libEntete[] = {"id", "designation","idtypelib","compte", "montant"/*, "montantOP"*/, "montantreste", "dispoavant", "dispoapres", "codeetablissementlib", "projetlib", "tierslib", "daty","annee", "num","montantliberer","montantdevise","taux","devise","observation"};
         PageRecherche pr = new PageRecherche(eng, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -109,7 +109,7 @@
             out.println(pr.getTableauRecap().getHtml());%>
         <br>
         <%
-            String libEnteteAffiche[] ={"Id", "D&eacute;signation","Type","compte", "Montant"/*, "Montant d'ordre payement"*/, "Disponibilit&eacute;", "Disponibilit&eacute; avant", "Disponibilit&eacute; apr&egrave;s", "Code &eacute;tablissement", "Projet", "Tiers", "Date","Ann&eacute;e budg&eacute;taire", "No.","montant liberé","observation"};
+            String libEnteteAffiche[] ={"Id", "D&eacute;signation","Type","compte", "Montant en Ar"/*, "Montant d'ordre payement"*/, "Disponibilit&eacute;", "Disponibilit&eacute; avant", "Disponibilit&eacute; apr&egrave;s", "Code &eacute;tablissement", "Projet", "Tiers", "Date","Ann&eacute;e budg&eacute;taire", "No.","montant liberé","montant devise","taux","devise","observation"};
             pr.getTableau().setLibelleAffiche(libEnteteAffiche);
             out.println(pr.getTableau().getHtml());
             out.println(pr.getBasPage());

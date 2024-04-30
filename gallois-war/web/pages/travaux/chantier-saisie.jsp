@@ -1,3 +1,4 @@
+
 <%@page import="bean.CGenUtil"%>
 <%@page import="mg.spat.Travaux"%>
 <%@page import="user.UserEJB"%> 
@@ -45,6 +46,7 @@
         pi.getFormu().getChamp("idtiers").setAutre("readonly");
         pi.getFormu().getChamp("idtiers").setLibelle("Tiers");
         pi.getFormu().getChamp("etat").setVisible(false);
+        pi.getFormu().getChamp("devise").setVisible(false);
         pi.getFormu().getChamp("avancement").setVisible(false);
         pi.getFormu().getChamp("idtravaux").setLibelle("projet");
         pi.getFormu().getChamp("datydebut").setLibelle("Date debut");

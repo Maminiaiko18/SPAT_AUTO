@@ -21,6 +21,15 @@ public class Chantier extends ClassEtat{
     private double montant, avancement;
     private String patrimoinelib;
     private String patrimoinedesce, idpatrimoine;
+    private String devise;
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
+    }
 
     public String getEtatlib() {
         return this.etatlib;
@@ -260,10 +269,23 @@ public class Chantier extends ClassEtat{
         try{
             Travaux t = new Travaux();
             Travaux travaux = (Travaux)t.getById(this.getIdtravaux(), null, c);
-            if (!(this.getDatydebut().toLocalDate().compareTo(travaux.getDatedebut().toLocalDate()) >= 0 && this.getDatyfin().toLocalDate().compareTo(travaux.getDatefin().toLocalDate()) <= 0)) {
-                throw new Exception("Les dates du chantier doivent etre comprises entre les dates du travaux");
+            if(travaux != null){
+                this.setDevise(travaux.getIddevise());
+                if (!(this.getDatydebut().toLocalDate().compareTo(travaux.getDatedebut().toLocalDate()) >= 0 && this.getDatyfin().toLocalDate().compareTo(travaux.getDatefin().toLocalDate()) <= 0)) {
+                    throw new Exception("Les dates du chantier doivent etre comprises entre les dates du travaux");
+                }
             }
+
         }catch(Exception e){
+            throw e;
+        }
+    }
+
+    @Override
+    public void controlerUpdate(Connection c) throws Exception{
+        try {
+            this.controler(c);
+        } catch (Exception e) {
             throw e;
         }
     }
