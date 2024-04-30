@@ -64,6 +64,11 @@
         listes[0] = new Liste("idtype", catAchat, "val", "id");
         listes[0].setDefaultSelected(Constante.idTypeEngContrat);
         pi.getFormu().changerEnChamp(listes);
+
+        pi.getFormu().getChamp("Devise").setVisible(false);
+        pi.getFormu().getChamp("Montantdevise").setVisible(false);
+        pi.getFormu().getChamp("Taux").setVisible(false);
+        
         pi.getFormu().getChamp("idavenant").setVisible(false);
         pi.getFormu().getChamp("idtype").setLibelle("Type");
         pi.getFormu().getChamp("etat").setVisible(false);

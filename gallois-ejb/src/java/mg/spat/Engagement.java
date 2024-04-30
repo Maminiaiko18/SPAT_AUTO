@@ -13,6 +13,7 @@ import ded.OrdonnerPayement;
 import facture.FactureFournisseur;
 import facture.FactureFournisseurDetails;
 import facture.NumeroFacture;
+import fin.Coursdevise;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -31,15 +32,76 @@ import facture.LiaisonEngagement;
  * @author Nouta
  */
 public class Engagement extends ClassEtat {
-    private String id,designation,codeEtablissement,projet,compte,idLC,idLClib,avecFacturelib,observation,idtype,idtypelib, idcontrat;
-    private String codeEtablissementlib,projetlib,tiers ,tierslib,num, idengagement;
-    private double montant,disponible,dispoAvant,dispoApres,montantOP,montantreste,montantliberer;
+    private String id, designation, codeEtablissement, projet, compte, idLC, idLClib, avecFacturelib, observation,
+            idtype, idtypelib, idcontrat;
+    private String codeEtablissementlib, projetlib, tiers, tierslib, num, idengagement;
+    private double montant, disponible, dispoAvant, dispoApres, montantOP, montantreste, montantliberer;
     private Date daty;
-    private int avecFacture,annee;
+    private int avecFacture, annee;
     private String type;
     private Date dateImpression;
     private String iduser;
     private String chantier, objet, duree, idavenant;
+    private String devise;
+    private double montantdevise, taux;
+
+    public double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
+        String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= to_date('"
+                + Utilitaire.datetostring(date) + "', 'dd/mm/yyyy') and iddevise = '" + this.getDevise() + "') "
+                + " and iddevise = '" + this.getDevise() + "'";
+        Coursdevise cours = new Coursdevise();
+        cours.setNomTable(nomTable);
+        Coursdevise[] cd = (Coursdevise[]) CGenUtil.rechercher(cours, null, null, c, awhere);
+        return cd != null && cd.length > 0 ? cd[0].getMontant() : 0;
+    }
+
+    public double getTauxRecent(Connection c,Date d) throws Exception {
+        if(this.getDevise().equalsIgnoreCase("Ar")) return 1;
+        return getValeurTaux(c, "coursdeviseNonMICTSL",d );
+    }
+
+    public void calculerMontant(Connection c) throws Exception{
+        if (this.getIdcontrat() != null && !this.getIdcontrat().equalsIgnoreCase("")) {
+            Contrat temp = new Contrat();
+            temp.setNomTable("CONTRATLIBCPLT");
+            Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(temp, null, null, c,
+                    " AND ID = '" + this.getIdcontrat() + "'");
+            if (contrat.length > 0) {
+                Contrat ca = contrat[0];
+                this.setDevise(ca.getDevise());
+            }
+        }
+        if(this.getDevise() == null || this.getDevise().equalsIgnoreCase("")) this.setDevise("Ar");
+        double taux = this.getTauxRecent(c,this.getDaty());
+        this.setTaux(taux);
+        this.setMontantdevise(this.getMontant());
+        System.out.println("taux ----"+taux);
+        this.setMontant(taux*this.getMontantdevise());
+    }
+
+    public double getMontantdevise() {
+        return montantdevise;
+    }
+
+    public void setMontantdevise(double montantdevise) {
+        this.montantdevise = montantdevise;
+    }
+
+    public double getTaux() {
+        return taux;
+    }
+
+    public void setTaux(double taux) {
+        this.taux = taux;
+    }
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
+    }
 
     public String getChantier() {
         return chantier;
@@ -68,12 +130,10 @@ public class Engagement extends ClassEtat {
     public void setIdcontrat(String idcontrat) {
         this.idcontrat = idcontrat;
     }
-    
 
     public void setChantier(String chantier) {
         this.chantier = chantier;
     }
-
 
     public String getIduser() {
         return iduser;
@@ -91,7 +151,8 @@ public class Engagement extends ClassEtat {
         this.dateImpression = dateImpression;
     }
 
-    public Engagement(String designation,String codeEtablissement,String projet,double montant,double disponible,double dispoAvant,double dispoApres,String compte,String idLC,Date daty)throws Exception{
+    public Engagement(String designation, String codeEtablissement, String projet, double montant, double disponible,
+            double dispoAvant, double dispoApres, String compte, String idLC, Date daty) throws Exception {
         this.setNomTable("ENGAGEMENT");
         this.setDesignation(designation);
         this.setCodeEtablissement(codeEtablissement);
@@ -105,7 +166,8 @@ public class Engagement extends ClassEtat {
         this.setDaty(daty);
     }
 
-    public Engagement(String designation,String codeEtablissement,String projet,double montant,double disponible,double dispoAvant,double dispoApres,String compte,Date daty)throws Exception{
+    public Engagement(String designation, String codeEtablissement, String projet, double montant, double disponible,
+            double dispoAvant, double dispoApres, String compte, Date daty) throws Exception {
         this.setNomTable("ENGAGEMENT");
         this.setDesignation(designation);
         this.setCodeEtablissement(codeEtablissement);
@@ -117,9 +179,9 @@ public class Engagement extends ClassEtat {
         this.setCompte(compte);
         this.setDaty(daty);
     }
-    
-    public double getResteAFacturer(Connection c) throws Exception{
-        FactureFournisseur[]factures=this.getFacturesLiees("factfourn_msum_libV",c);
+
+    public double getResteAFacturer(Connection c) throws Exception {
+        FactureFournisseur[] factures = this.getFacturesLiees("factfourn_msum_libV", c);
         double totalFF = AdminGen.calculSommeDouble(factures, "montant");
         return this.getMontant() - totalFF;
     }
@@ -133,7 +195,7 @@ public class Engagement extends ClassEtat {
                 verif = 1;
             }
 
-            this.updateToTableWithHisto(refUser, c,"Observation engagement");
+            this.updateToTableWithHisto(refUser, c, "Observation engagement");
 
             if (verif == 1) {
                 c.commit();
@@ -158,7 +220,7 @@ public class Engagement extends ClassEtat {
     public void setObservation(String observation) {
         this.observation = observation;
     }
-    
+
     public int getAnnee() {
         return annee;
     }
@@ -166,7 +228,7 @@ public class Engagement extends ClassEtat {
     public void setAnnee(int annee) {
         this.annee = annee;
     }
-    
+
     public String getNum() {
         return num;
     }
@@ -174,7 +236,7 @@ public class Engagement extends ClassEtat {
     public void setNum(String num) {
         this.num = num;
     }
-    
+
     public String getTiers() {
         return tiers;
     }
@@ -190,7 +252,7 @@ public class Engagement extends ClassEtat {
     public void setTierslib(String tierslib) {
         this.tierslib = tierslib;
     }
-    
+
     public double getMontantOP() {
         return montantOP;
     }
@@ -206,7 +268,7 @@ public class Engagement extends ClassEtat {
     public void setAvecFacturelib(String avecFacturelib) {
         this.avecFacturelib = avecFacturelib;
     }
-    
+
     public int getAvecFacture() {
         return avecFacture;
     }
@@ -240,7 +302,8 @@ public class Engagement extends ClassEtat {
     }
 
     public void setIdLC(String idLC) throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&& (idLC==null || idLC.compareToIgnoreCase("")==0)) throw new Exception("Budget obligatoire.");
+        if (this.getMode().compareToIgnoreCase("modif") == 0 && (idLC == null || idLC.compareToIgnoreCase("") == 0))
+            throw new Exception("Budget obligatoire.");
         this.idLC = idLC;
     }
 
@@ -251,8 +314,7 @@ public class Engagement extends ClassEtat {
     public void setIdLClib(String idLClib) {
         this.idLClib = idLClib;
     }
-    
-    
+
     public String getId() {
         return id;
     }
@@ -266,7 +328,9 @@ public class Engagement extends ClassEtat {
     }
 
     public void setDesignation(String designation) throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&& (designation==null || designation.compareToIgnoreCase("")==0)) throw new Exception("Désignation obligatoire.");
+        if (this.getMode().compareToIgnoreCase("modif") == 0
+                && (designation == null || designation.compareToIgnoreCase("") == 0))
+            throw new Exception("Désignation obligatoire.");
         this.designation = designation;
     }
 
@@ -275,7 +339,9 @@ public class Engagement extends ClassEtat {
     }
 
     public void setCodeEtablissement(String codeEtablissement) throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&& (codeEtablissement==null || codeEtablissement.compareToIgnoreCase("")==0)) throw new Exception("Code établissement obligatoire.");
+        if (this.getMode().compareToIgnoreCase("modif") == 0
+                && (codeEtablissement == null || codeEtablissement.compareToIgnoreCase("") == 0))
+            throw new Exception("Code établissement obligatoire.");
         this.codeEtablissement = codeEtablissement;
     }
 
@@ -284,7 +350,8 @@ public class Engagement extends ClassEtat {
     }
 
     public void setProjet(String projet) throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&& (projet==null || projet.compareToIgnoreCase("")==0)) throw new Exception("Code projet obligatoire.");
+        if (this.getMode().compareToIgnoreCase("modif") == 0 && (projet == null || projet.compareToIgnoreCase("") == 0))
+            throw new Exception("Code projet obligatoire.");
         this.projet = projet;
     }
 
@@ -295,8 +362,6 @@ public class Engagement extends ClassEtat {
     public void setCompte(String compte) {
         this.compte = compte;
     }
-
-    
 
     public String getCodeEtablissementlib() {
         return codeEtablissementlib;
@@ -318,8 +383,9 @@ public class Engagement extends ClassEtat {
         return montant;
     }
 
-    public void setMontant(double montant)throws Exception {
-        if(this.getMode().compareToIgnoreCase("modif")==0&&montant<=0) throw new Exception("montant engagement invalide");
+    public void setMontant(double montant) throws Exception {
+        if (this.getMode().compareToIgnoreCase("modif") == 0 && montant <= 0)
+            throw new Exception("montant engagement invalide");
         this.montant = montant;
     }
 
@@ -404,9 +470,10 @@ public class Engagement extends ClassEtat {
     public String getAttributIDName() {
         return "id";
     }
+
     @Override
     public void construirePK(Connection c) throws Exception {
-        preparePk("CR","getseqengagement");
+        preparePk("CR", "getseqengagement");
         setId(makePK(c));
     }
 
@@ -414,32 +481,36 @@ public class Engagement extends ClassEtat {
     public String getValColLibelle() {
         return this.getDesignation();
     }
-    
+
     @Override
-    public ClassMAPTable createObject(String u, Connection c) throws Exception {  
-        this.setDateImpression(null);  
-        this.setIduser(u);    
+    public ClassMAPTable createObject(String u, Connection c) throws Exception {
+        this.controler(c);
+        this.setDateImpression(null);
+        this.setIduser(u);
+        this.calculerMontant(c);
         // this.setNum(String.valueOf(Utilitaire.getMaxSeq("getseqNumeroEngagement",c)));
-        return super.createObject(u, c); 
+        return super.createObject(u, c);
     }
 
-    public LigneCredit findLigneCredit(Connection c) throws Exception{
+    public LigneCredit findLigneCredit(Connection c) throws Exception {
         LigneCredit lc = new LigneCredit();
         lc.setNomTable("ligneCreditDepenseLib");
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and id='"+this.getIdLC()+"'");
-        if(ligneCredits.length > 0) return ligneCredits[0];
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c,
+                " and id='" + this.getIdLC() + "'");
+        if (ligneCredits.length > 0)
+            return ligneCredits[0];
         return null;
     }
-    
+
     public FactureFournisseur genererFactureFournisseurMere(LigneCredit lc) throws Exception {
         FactureFournisseur ff = new FactureFournisseur();
         ff.setDesignation(this.getDesignation());
         ff.setTypeEngagement("ED");
-        if(this.getIdLC()!=null && this.getIdLC().compareTo("")!=0){
-            ff.setCode_etablissement(lc.getIdcodeEtablissement()); 
+        if (this.getIdLC() != null && this.getIdLC().compareTo("") != 0) {
+            ff.setCode_etablissement(lc.getIdcodeEtablissement());
             ff.setProjet(lc.getIdprojet());
-        }else{
-            ff.setCode_etablissement(this.getCodeEtablissement()); 
+        } else {
+            ff.setCode_etablissement(this.getCodeEtablissement());
             ff.setProjet(this.getProjet());
         }
         ff.setDaty(Utilitaire.dateDuJourSql());
@@ -448,193 +519,228 @@ public class Engagement extends ClassEtat {
         ff.setType(Constante.getTypeFCAcredit());
         ff.setExercice(Utilitaire.getAneeEnCours());
         ff.setDeviseMere(Constante.deviseAr);
-        
+
         return ff;
     }
-    
-    public LigneCredit findSituationCredit(Connection c) throws Exception{
+
+    public LigneCredit findSituationCredit(Connection c) throws Exception {
 
         LigneCredit lc = new LigneCredit();
-        //lc.setNomTable("ligneCreditDepenseGrp");
+        // lc.setNomTable("ligneCreditDepenseGrp");
         lc.setNomTable("SITUATIONLCDEPENSEGRP_TEMP");
-        String dir=this.getCodeEtablissement();
-        String prj=this.getProjet();
-        if(dir==null||dir.compareToIgnoreCase("")==0||prj==null||prj.compareToIgnoreCase("")==0)
-        {
-            if(this.getIdLC()==null || this.getIdLC().compareTo("")==0) throw new Exception("Budget invalide");
+        String dir = this.getCodeEtablissement();
+        String prj = this.getProjet();
+        if (dir == null || dir.compareToIgnoreCase("") == 0 || prj == null || prj.compareToIgnoreCase("") == 0) {
+            if (this.getIdLC() == null || this.getIdLC().compareTo("") == 0)
+                throw new Exception("Budget invalide");
             LigneCredit ligne = findLigneCredit(c);
-            dir=ligne.getCodeEtablissement();
-            prj=ligne.getProjet();
+            dir = ligne.getCodeEtablissement();
+            prj = ligne.getProjet();
         }
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+this.getAnnee());
-        if(ligneCredits.length > 0) return ligneCredits[0];
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c,
+                " and idcodeEtablissement='" + dir + "' and idprojet='" + prj + "' and annee=" + this.getAnnee());
+        if (ligneCredits.length > 0)
+            return ligneCredits[0];
         return null;
-        }
+    }
 
-    public String calculerNumero(Connection c) throws Exception{
-        String seq="";
+    public String calculerNumero(Connection c) throws Exception {
+        String seq = "";
         // System.out.println("eeeeeeeeeee"+this.getCodeEtablissementlib());
-        Engagement engagement  = new Engagement();
+        Engagement engagement = new Engagement();
         engagement.setNomTable("engagementlib");
-        engagement = (Engagement)engagement.getById(this.getId(), null, c);
-        String rqt="SELECT  nvl(max(TO_NUMBER(num))+1,1) AS numerosuivant FROM NUMEROFSB where codeetablissement='"+engagement.getCodeEtablissement()+"' AND annee="+annee;
-        NumeroFacture[] result = (NumeroFacture[])CGenUtil.rechercher(new NumeroFacture(), rqt, c);
-        if(result.length>0) seq=Utilitaire.completerInt(4, result[0].getNumerosuivant());
+        engagement = (Engagement) engagement.getById(this.getId(), null, c);
+        String rqt = "SELECT  nvl(max(TO_NUMBER(num))+1,1) AS numerosuivant FROM NUMEROFSB where codeetablissement='"
+                + engagement.getCodeEtablissement() + "' AND annee=" + annee;
+        NumeroFacture[] result = (NumeroFacture[]) CGenUtil.rechercher(new NumeroFacture(), rqt, c);
+        if (result.length > 0)
+            seq = Utilitaire.completerInt(4, result[0].getNumerosuivant());
         return seq;
     }
-    
+
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
-        if(this.getType() == null) this.setType(Constante.typeEngagementEng);
+        if (this.getType() == null)
+            this.setType(Constante.typeEngagementEng);
         this.setNum(this.calculerNumero(c));
         LigneCredit lc = this.findSituationCredit(c);
-        if(lc == null) throw new Exception("Budjet non trouv&eacute;");
+        if (lc == null)
+            throw new Exception("Budjet non trouv&eacute;");
         EngagementFille[] filles = this.getEngagementFilles(null, c);
-        if(filles.length==0){
-            throw new Exception ("Doit contenir au moins un détail engagement");
+        if (filles.length == 0) {
+            throw new Exception("Doit contenir au moins un détail engagement");
         }
-        
-        double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
+
+        double montantTotal = AdminGen.calculSommeDouble(filles, "montant") * this.getTaux();
         double montantEngagementArrondi = Math.round(this.getMontant() * 100.0) / 100.0;
-        if((float)montantTotal > (float)montantEngagementArrondi) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
-        if((float)this.getMontant() > (float)lc.getResteApresEngmt()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au reste apres engagement disponible ("+Utilitaire.formaterAr(lc.getResteApresEngmt())+")",this.getType(),"validerBC");
+        if ((float) montantTotal > (float) montantEngagementArrondi)
+            throw new Exception("Montant details (" + Utilitaire.formaterAr(montantTotal)
+                    + ") superieur au montant de l'engagement (" + Utilitaire.formaterAr(this.getMontant()) + ")");
+        if ((float) this.getMontant() > (float) lc.getResteApresEngmt())
+            throw new ValidationException("Montant de l engagement (" + Utilitaire.formaterAr(this.getMontant())
+                    + ") superieur au reste apres engagement disponible ("
+                    + Utilitaire.formaterAr(lc.getResteApresEngmt()) + ")", this.getType(), "validerBC");
         this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
         super.validerObject(u, c);
-        if(avecFacture==1){
-             this.genererFacture(u, c, filles,lc);
+        if (avecFacture == 1) {
+            this.genererFacture(u, c, filles, lc);
         }
-        return this; 
+        return this;
     }
 
     public Object validerObjectSansControleMontant(String u, Connection c) throws Exception {
         boolean check = false;
-        try{
-            if(c == null){
+        try {
+            if (c == null) {
                 c = new UtilDB().GetConn();
                 check = true;
                 c.setAutoCommit(false);
             }
             this.setNum(this.calculerNumero(c));
             LigneCredit lc = this.findSituationCredit(c);
-            if(lc == null) throw new Exception("Ligne credit non trouv&eacute;");
+            if (lc == null)
+                throw new Exception("Ligne credit non trouv&eacute;");
             EngagementFille[] filles = this.getEngagementFilles(null, c);
-            if(filles.length==0){
-                throw new Exception ("Doit contenir au moins un détail engagement");
+            if (filles.length == 0) {
+                throw new Exception("Doit contenir au moins un détail engagement");
             }
 
-            double montantTotal = AdminGen.calculSommeDouble(filles, "montant");
-            double diff = Math.abs(montantTotal-this.getMontant());
-            if(diff > 0.01) throw new Exception("Montant details ("+Utilitaire.formaterAr(montantTotal)+") superieur au montant de l'engagement ("+Utilitaire.formaterAr(this.getMontant())+")");
-            //if((float)this.getMontant() > (float)lc.getRestebudget()) throw new ValidationException("Montant de l engagement ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible ("+Utilitaire.formaterAr(lc.getRestebudget())+")");
+            double montantTotal = AdminGen.calculSommeDouble(filles, "montant") * this.getTaux();
+            double diff = Math.abs(montantTotal - this.getMontant());
+            if (diff > 0.01)
+                throw new Exception("Montant details (" + Utilitaire.formaterAr(montantTotal)
+                        + ") superieur au montant de l'engagement (" + Utilitaire.formaterAr(this.getMontant()) + ")");
+            // if((float)this.getMontant() > (float)lc.getRestebudget()) throw new
+            // ValidationException("Montant de l engagement
+            // ("+Utilitaire.formaterAr(this.getMontant())+") superieur au budget disponible
+            // ("+Utilitaire.formaterAr(lc.getRestebudget())+")");
             this.setDispoAvant(lc.getResteApresEngmt());
             this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
             super.validerObject(u, c);
-            if(avecFacture==1){
-                 this.genererFacture(u, c, filles,lc);
+            if (avecFacture == 1) {
+                this.genererFacture(u, c, filles, lc);
             }
-            return this; 
-        }
-        catch(Exception e){
-            if(check && c != null) c.rollback();
+            return this;
+        } catch (Exception e) {
+            if (check && c != null)
+                c.rollback();
             throw e;
-        }
-        finally{
-            if(check && c != null) c.close();
+        } finally {
+            if (check && c != null)
+                c.close();
         }
     }
-    
-    public FactureFournisseur[] getFacturesLiees(String nomtable, Connection c) throws Exception{
-        try{
+
+    public FactureFournisseur[] getFacturesLiees(String nomtable, Connection c) throws Exception {
+        try {
             FactureFournisseur fact = new FactureFournisseur();
             fact.setNomTable(nomtable);
             fact.setIdengagement(this.getId());
             fact.setEtat(ConstanteEtat.getEtatValider());
             FactureFournisseur[] res = (FactureFournisseur[]) CGenUtil.rechercher(fact, null, null, c, "");
             return res;
-        }catch(Exception e){
+        } catch (Exception e) {
             throw e;
         }
     }
-    
-    public EngagementFille[] getEngagementFilles(String nomtable,Connection c) throws Exception{
-        if(nomtable == null || nomtable.compareToIgnoreCase("") == 0) nomtable = "engagement_fille";
+
+    public EngagementFille[] getEngagementFilles(String nomtable, Connection c) throws Exception {
+        if (nomtable == null || nomtable.compareToIgnoreCase("") == 0)
+            nomtable = "engagement_fille";
         EngagementFille engagement = new EngagementFille();
         engagement.setNomTable(nomtable);
-        EngagementFille[] ef = (EngagementFille[]) CGenUtil.rechercher(engagement, null, null, c, " and idmere = '"+this.getId()+"'");
-        if(ef.length > 0) return ef;
+        EngagementFille[] ef = (EngagementFille[]) CGenUtil.rechercher(engagement, null, null, c,
+                " and idmere = '" + this.getId() + "'");
+        if (ef.length > 0)
+            return ef;
         return null;
-    } 
-    
-    public FactureFournisseur genererFacture(String u, Connection c, EngagementFille[] filles,LigneCredit lc) throws Exception{
+    }
+
+    public FactureFournisseur genererFacture(String u, Connection c, EngagementFille[] filles, LigneCredit lc)
+            throws Exception {
         boolean check = false;
-        try{
-            if(c == null){
+        try {
+            if (c == null) {
                 c = new UtilDB().GetConn();
                 check = true;
                 c.setAutoCommit(false);
             }
             FactureFournisseur ff = this.genererFactureFournisseurMere(lc);
-            if(filles != null){
+            if (filles != null) {
                 FactureFournisseurDetails[] ffd = new FactureFournisseurDetails[filles.length];
-                for(int i=0; i<filles.length; i++){
+                for (int i = 0; i < filles.length; i++) {
                     ffd[i] = filles[i].genererFactureFournisseurDetail(c);
                 }
                 ff.setFille(ffd);
             }
             ff.createObject(u, c);
             ff.validerObject(u, c);
-            if(check) c.commit();
-        return ff;
-        } catch(Exception ex){
-            if(check && c != null) c.rollback();
+            if (check)
+                c.commit();
+            return ff;
+        } catch (Exception ex) {
+            if (check && c != null)
+                c.rollback();
             throw ex;
-        } finally{
-            if(check && c != null) c.close();
+        } finally {
+            if (check && c != null)
+                c.close();
         }
     }
-    
+
     public void payerEngagementFille(String idFilles, String u, Connection c) throws Exception {
         boolean check = false;
-        try{
-            if(c == null){
+        try {
+            if (c == null) {
                 c = new UtilDB().GetConn();
                 check = true;
                 c.setAutoCommit(false);
             }
-            Engagement eng = (Engagement)new Engagement().getById(this.getId(), null, c);
-            if(eng == null) throw new Exception("Engagement introuvable");
-            
-            if(eng.getEtat() < ConstanteEtat.getEtatValider()) throw new Exception("Engagement non vise");
-            if(eng.getAvecFacture()==1) throw new Exception("Paiement détail impossible pour un engagement avec facture");
-            
+            Engagement eng = (Engagement) new Engagement().getById(this.getId(), null, c);
+            if (eng == null)
+                throw new Exception("Engagement introuvable");
+
+            if (eng.getEtat() < ConstanteEtat.getEtatValider())
+                throw new Exception("Engagement non vise");
+            if (eng.getAvecFacture() == 1)
+                throw new Exception("Paiement détail impossible pour un engagement avec facture");
+
             String[] ids = Utilitaire.stringToTab(idFilles, ";");
             String idFillesIn = Utilitaire.tabToString(ids, "'", ",");
-            
+
             FactureFournisseur[] ff = eng.getFacturesLiees(null, c);
-            if(ff == null || ff.length == 0) throw new Exception("Facture introuvable pour cet engagement");
-            
-            EngagementFille[] filles=(EngagementFille[])CGenUtil.rechercher(new EngagementFille(), null, null, c, " and id in ("+idFillesIn+")");
-            if(filles == null || filles.length==0) throw new Exception("Aucun détail engement trouvé");
-            
-            for(int i=0; i < filles.length; i++) {
-                OrdonnerPayement op=new OrdonnerPayement(ff[0].getId(),filles[i].getMontant(),Utilitaire.dateDuJourSql(),u,"OP auto - "+filles[i].getDesignation(),ConstanteEtat.getEtatCreer(),ff[0].getTiers());
+            if (ff == null || ff.length == 0)
+                throw new Exception("Facture introuvable pour cet engagement");
+
+            EngagementFille[] filles = (EngagementFille[]) CGenUtil.rechercher(new EngagementFille(), null, null, c,
+                    " and id in (" + idFillesIn + ")");
+            if (filles == null || filles.length == 0)
+                throw new Exception("Aucun détail engement trouvé");
+
+            for (int i = 0; i < filles.length; i++) {
+                OrdonnerPayement op = new OrdonnerPayement(ff[0].getId(), filles[i].getMontant(),
+                        Utilitaire.dateDuJourSql(), u, "OP auto - " + filles[i].getDesignation(),
+                        ConstanteEtat.getEtatCreer(), ff[0].getTiers());
                 op.createObject(u, c);
                 PaiementEngagement engPaie = new PaiementEngagement(filles[i].getId(), op.getId());
                 engPaie.createObject(u, c);
             }
-            
-            
-            if(check) c.commit();
-        } catch(Exception ex){
-            if(check && c != null) c.rollback();
-            throw ex;
-        } finally{
-            if(check && c != null) c.close();
-        }
-    }    
 
-    public Engagement(String designation, String codeEtablissement, String projet, double montant, int annee, Date daty, String tiers, int avecFacture)throws Exception{
+            if (check)
+                c.commit();
+        } catch (Exception ex) {
+            if (check && c != null)
+                c.rollback();
+            throw ex;
+        } finally {
+            if (check && c != null)
+                c.close();
+        }
+    }
+
+    public Engagement(String designation, String codeEtablissement, String projet, double montant, int annee, Date daty,
+            String tiers, int avecFacture) throws Exception {
         this.setNomTable("engagement");
         this.setDesignation(designation);
         this.setCodeEtablissement(codeEtablissement);
@@ -645,63 +751,77 @@ public class Engagement extends ClassEtat {
         this.setAvecFacture(avecFacture);
         this.setMontant(montant);
     }
-    
-    public void controleAnnulerVisa(Connection c) throws Exception
-    {
+
+    public void controleAnnulerVisa(Connection c) throws Exception {
         boolean ouvert = false;
-        try{
-            if(c == null){
+        try {
+            if (c == null) {
                 c = new UtilDB().GetConn();
                 ouvert = true;
             }
-            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c, "and codeetablissement='"+this.getCodeEtablissement()+"' and num > " + this.getNum() + " and etat = " + ConstanteEtat.getEtatValider()+" and annee="+this.getAnnee());
-            if(engagement.length > 0)
+            Engagement[] engagement = (Engagement[]) CGenUtil.rechercher(new Engagement(), null, null, c,
+                    "and codeetablissement='" + this.getCodeEtablissement() + "' and num > " + this.getNum()
+                            + " and etat = " + ConstanteEtat.getEtatValider() + " and annee=" + this.getAnnee());
+            if (engagement.length > 0)
                 throw new Exception("Un autre engagement a été créé après celui-ci.");
-                
-            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()+" AND ID2 NOT like '%BRD%' ");
-            if(liaisons.length > 0)
-                throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
-            
-            if(this.getEtat() < ConstanteEtat.getEtatValider()) 
+
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null,
+                    null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()
+                            + " AND ID2 NOT like '%BRD%' ");
+            if (liaisons.length > 0)
+                throw new Exception(
+                        "Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
+
+            if (this.getEtat() < ConstanteEtat.getEtatValider())
                 throw new Exception("Impossible \\340 lib\\351rer, d\\351j\\340 annul\\351");
-            
+
             super.controleAnnulerVisa(c);
-        } catch(Exception ex){
+        } catch (Exception ex) {
             throw ex;
-        } finally{
-            if(ouvert && c != null) c.close();
+        } finally {
+            if (ouvert && c != null)
+                c.close();
         }
     }
-    
+
     @Override
-    public void controleAnnuler(Connection c) throws Exception
-    {
-        try{
-            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider());
-            if(liaisons.length > 0)
-                throw new Exception("Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
-            
+    public void controleAnnuler(Connection c) throws Exception {
+        try {
+            LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null,
+                    null, c, " and id1 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider());
+            if (liaisons.length > 0)
+                throw new Exception(
+                        "Engagement d\\351j\\340 li\\351 \\340 un bon de commande ou \\340 une facture fournisseur.");
+
             super.controleAnnuler(c);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             throw e;
         }
     }
     
+
     @Override
     public void controler(Connection c) throws Exception {
-        if(this.getIdcontrat()!=null && !this.getIdcontrat().equalsIgnoreCase("")){
+        if (this.getIdcontrat() != null && !this.getIdcontrat().equalsIgnoreCase("")) {
             Contrat temp = new Contrat();
             temp.setNomTable("CONTRATLIBCPLT");
-            Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(temp, null, null, c, " AND ID = '" + this.getIdcontrat() + "'");
-            if(contrat.length > 0){
-                Contrat ca = contrat[0];        
-                if(this.getMontant()> ca.getResteaengager()){
+            Contrat[] contrat = (Contrat[]) CGenUtil.rechercher(temp, null, null, c,
+                    " AND ID = '" + this.getIdcontrat() + "'");
+            if (contrat.length > 0) {
+                Contrat ca = contrat[0];
+                this.setDevise(ca.getDevise());
+                
+                if ( ca.getResteaengager() - this.getMontantdevise() < 0) {
                     throw new Exception(" Le montant dépasse le montant reste du contrat");
                 }
-                if(this.getEtat() == ConstanteEtat.getEtatAnnuler()) 
+                if (this.getEtat() == ConstanteEtat.getEtatAnnuler())
                     throw new Exception("Impossible \\340 viser, d\\351j\\340 annul\\351");
             }
         }
+    }
+
+    @Override
+    public void controlerUpdate(Connection c) throws Exception {
+        this.calculerMontant(c);
     }
 }

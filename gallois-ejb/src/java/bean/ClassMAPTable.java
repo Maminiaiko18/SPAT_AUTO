@@ -647,7 +647,7 @@ public abstract class ClassMAPTable implements Serializable {
 
     public int updateToTable(Connection cDb)
             throws Exception {
-        controlerUpdate(cDb);
+        // controlerUpdate(cDb);
         String tableName = getNomTable();
         PreparedStatement stmt = null, insertHistoSync = null;
         Field fld = null;
