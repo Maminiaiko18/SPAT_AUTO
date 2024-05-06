@@ -27,16 +27,17 @@
         String an = utilitaire.Utilitaire.getAnneeEnCours();
         String[] fin = utilitaire.Utilitaire.getBorneDatyMoisAnnee(mois, an);
 
-        String listeCrt[] = {"id","nomnavire","desceconsignataire","valQUAISPROVENANCE","DESCEMVT","VALQUAISDESTINATION","date_depart","dateArrivee","typenavire"};
+        String listeCrt[] = {"id","nomnavire","desceconsignataire","valQUAISPROVENANCE","DESCEMVT","VALQUAISDESTINATION","date_depart","dateArrivee","typenavire","numero"};
         String listeInt[] = {"date_depart","dateArrivee"};
         String[] pourcentage = {""};
-        String colDefaut[] = {"id","escale","nomnavire","desceconsignataire","valQUAISPROVENANCE","DESCEMVT","VALQUAISDESTINATION","dateArrivee","heure","date_depart","heure_depart","difference","typenavire"};
+        String colDefaut[] = {"id","numero","nomnavire","desceconsignataire","valQUAISPROVENANCE","DESCEMVT","VALQUAISDESTINATION","dateArrivee","heure","date_depart","heure_depart","difference","typenavire"};
         String somDefaut[] = {"arrivee"};
 
         PageRechercheGroupe pr = new PageRechercheGroupe(mvt, request, listeCrt, listeInt, 3, colDefaut, somDefaut, pourcentage, colDefaut.length, 2);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         //pr.setAWhere(" order by depart, arrivee");
+        pr.getFormu().getChamp("numero").setLibelle("Escale");
         pr.getFormu().getChamp("date_depart1").setLibelle("Date depart min");
         pr.getFormu().getChamp("date_depart2").setLibelle("Date depart max");
         
