@@ -4480,6 +4480,11 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             if (mere.length != 0) {
                 engagement = mere[0];
+                if(!engagement.getDevise().equalsIgnoreCase("Ar")){
+                    String designation = Utilitaire.formaterAr(engagement.getMontantdevise())+" "+engagement.getDevise()+" avec le taux "+engagement.getTaux()+" ariary";
+                    if(engagement.getObservation()!= null) engagement.setObservation(engagement.getObservation()+" | "+designation);
+                    else engagement.setObservation(designation);
+                }
                 param.put("code_etab", engagement.getCodeEtablissementlib());
                 param.put("annee", String.valueOf(engagement.getAnnee()));
                 param.put("piece", engagement.getDesignation());
