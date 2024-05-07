@@ -54,8 +54,8 @@ public class ServletDownload extends HttpServlet {
             SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd");
             String d = fd.format(new Date());
             String titre = "export";
-            if(arg0.getParameter("titre")!=null)
-                titre = arg0.getParameter("titre");
+            // if(arg0.getParameter("titre")!=null)
+            //     titre = arg0.getParameter("titre");
             String fileName = titre+"-" + d + "." + ext;
             arg1.setHeader("Content-Disposition", "attachment;filename=" + fileName);
             os = arg1.getOutputStream();
