@@ -2,7 +2,6 @@ package bean;
 
 import historique.MapHistorique;
 import java.lang.reflect.*;
-import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1017,30 +1016,38 @@ public class CGenUtil {
     }
 
     public static String makeWhereIntervalle(String[] numChamp, String[] val) throws Exception {
-        String retour = "";
-        if (numChamp == null) {
-            return "";
+    String retour = "";
+    if (numChamp == null) {
+        return "";
+    }
+
+    for (int i = 0; i < numChamp.length; i++) {
+        boolean isChampDate = numChamp[i].toUpperCase().contains("DATE") || numChamp[i].toUpperCase().contains("DATY");
+
+        if (val.length <= (2 * i) + 1) {
+            // Si l'index dépasse la taille de val, sortir de la boucle
+            break;
         }
 
-        for (int i = 0; i < numChamp.length; i++) {
-            boolean isChampDate = numChamp[i].toUpperCase().contains("DATE") || numChamp[i].toUpperCase().contains("DATY");
-            boolean isvalidData_1 = (!isChampDate && Utilitaire.isStringNumeric(val[2 * i])) || (isChampDate && Utilitaire.isValidDate(val[2 * i], "dd/MM/yyyy"));
-            boolean isvalidData_2 = (!isChampDate && Utilitaire.isStringNumeric(val[(2 * i) + 1])) || (isChampDate && Utilitaire.isValidDate(val[(2 * i) + 1], "dd/MM/yyyy"));
-            if ((val[2 * i] != "" && isvalidData_1) && (val[(2 * i) + 1] == "")) {
-                retour = retour + " AND " + numChamp[i] + " >= '" + val[2 * i] + "'";
-            }
-            if ((val[2 * i] == "") && (val[(2 * i) + 1] != "" && isvalidData_2)) {
-                retour = retour + " AND " + numChamp[i] + " <= '" + val[(2 * i) + 1] + "'";
-            }
-            if ((val[2 * i] != "" && isvalidData_1) && (val[(2 * i) + 1] != "" && isvalidData_2)) {
-                retour = retour + " AND " + numChamp[i] + " >= '" + val[2 * i] + "'" + " AND " + numChamp[i] + " <= '" + val[(2 * i) + 1] + "'";
-            }
-            if((val[2 * i] != "" && !isvalidData_1) || (val[(2 * i) + 1] != "" && !isvalidData_2)){
-                retour = " AND 1>2";
-            }
+        boolean isvalidData_1 = (!isChampDate && Utilitaire.isStringNumeric(val[2 * i])) || (isChampDate && Utilitaire.isValidDate(val[2 * i], "dd/MM/yyyy"));
+        boolean isvalidData_2 = (!isChampDate && Utilitaire.isStringNumeric(val[(2 * i) + 1])) || (isChampDate && Utilitaire.isValidDate(val[(2 * i) + 1], "dd/MM/yyyy"));
+
+        if ((val[2 * i] != null && !val[2 * i].isEmpty() && isvalidData_1) && (val[(2 * i) + 1] == null || val[(2 * i) + 1].isEmpty())) {
+            retour = retour + " AND " + numChamp[i] + " >= '" + val[2 * i] + "'";
         }
-        return retour;
+        if ((val[2 * i] == null || val[2 * i].isEmpty()) && (val[(2 * i) + 1] != null && !val[(2 * i) + 1].isEmpty() && isvalidData_2)) {
+            retour = retour + " AND " + numChamp[i] + " <= '" + val[(2 * i) + 1] + "'";
+        }
+        if ((val[2 * i] != null && !val[2 * i].isEmpty() && isvalidData_1) && (val[(2 * i) + 1] != null && !val[(2 * i) + 1].isEmpty() && isvalidData_2)) {
+            retour = retour + " AND " + numChamp[i] + " >= '" + val[2 * i] + "'" + " AND " + numChamp[i] + " <= '" + val[(2 * i) + 1] + "'";
+        }
+        if ((val[2 * i] != null && !val[2 * i].isEmpty() && !isvalidData_1) || (val[(2 * i) + 1] != null && !val[(2 * i) + 1].isEmpty() && !isvalidData_2)) {
+            retour = " AND 1>2";
+        }
     }
+    return retour;
+}
+
 
     public static Field getField(ClassMAPTable ec, String nomChamp) throws ClassMAPTableException {
         try {
@@ -1429,7 +1436,7 @@ public class CGenUtil {
             }
             String selectInterne = "select " + getListeChampGroupeSomme(groupe, sommeGroupe) + " from " + e.getNomTableSelect() + " where " + makeWhere(e) + makeWhereIntervalle(colInt, valInt) + " " + apresWhere + " group by " + getListeChampGroupeSomme(groupe, null) + " " + ordre;
             String comande = "select * from (select " + getListeChampGroupeSimple(groupe, sommeGroupe) + ",rowNum as r from (" + selectInterne + "))";
-            //System.out.println("comande==="+comande);
+            System.out.println("comande==="+comande);
 			st = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             dr = st.executeQuery(comande);
             Object[] resultat = transformeDataReader(dr, e, c);
