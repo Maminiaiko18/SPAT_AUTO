@@ -4480,7 +4480,7 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             if (mere.length != 0) {
                 engagement = mere[0];
-                if(!engagement.getDevise().equalsIgnoreCase("Ar")){
+                if(!engagement.getDevise().equalsIgnoreCase("Ariary")){
                     String designation = Utilitaire.formaterAr(engagement.getMontantdevise())+" "+engagement.getDevise()+" avec le taux "+engagement.getTaux()+" ariary";
                     if(engagement.getObservation()!= null) engagement.setObservation(engagement.getObservation()+" | "+designation);
                     else engagement.setObservation(designation);

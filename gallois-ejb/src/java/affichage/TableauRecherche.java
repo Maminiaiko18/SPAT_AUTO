@@ -321,6 +321,20 @@ public class TableauRecherche {
         Field[] listeFields = getListeField();
 
         nombreColonne = getDataDirecte()[0].length;
+        
+        // for (int i = 0; i < nombreColonne; i++) {
+        //     System.out.println("-------------------------");
+        //     System.out.println("nombre de colone"+getDataDirecte()[0][i]);
+        //     System.out.println("nombre colone affiher"+getLibelleAffiche()[i]);
+        // }
+        if(getLibelleAffiche().length != nombreColonne){
+            String[] newLibelleAffiche = new String[nombreColonne];
+            System.arraycopy(getLibelleAffiche(), 0, newLibelleAffiche, 0, getLibelleAffiche().length);
+            newLibelleAffiche[getLibelleAffiche().length] = " "; // Ajout de la chaîne vide
+            setLibelleAffiche(newLibelleAffiche);
+        }
+        
+        
         for (int i = 0; i < nombreColonne; i++) {
             String alignement = "center";
 
