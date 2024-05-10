@@ -36,7 +36,7 @@
 
         String listeCrt[] = {"id", "folio", "caisse", "numPiece", "libelle", "remarque", "dateEffet","numcheque", "idtypecheque", "descecaisse", "numeroOP", "tierslib","credit","debit","idplacement"};
         String listeInt[] = {"dateEffet","credit","debit"};
-        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "debit", "numeroOP", "tierslib","etatlib","idplacement"};
+        String libEntete[] = {"id", "folio", "valcaisse", "descetypecheque", "numPiece", "numcheque", "libelle", "dateSaisie", "dateEffet", "credit", "debit", "numeroOP", "tierslib","etatlib","idplacement","remarque"};
         PageRecherche pr = new PageRecherche(journalCaisse, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
@@ -163,7 +163,7 @@
             <input type="hidden" name="classe" value="mg.spat.JournalCaisse"/>
             <input type="hidden" name="acte" value="viser"/>
             <%
-                String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "num cheque", "Libell�", "Date Saisie", "Date Effet", "Entr�e", "Sortie", "Num&eacute;ro OP", "Tiers","Etat","source"};
+                String libEnteteAffiche[] = {"Id", "Folio", "Caisse", "Type", "Num Piece", "num cheque", "Libell�", "Date Saisie", "Date Effet", "Entr�e", "Sortie", "Num&eacute;ro OP", "Tiers","Etat","source","remarque"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 pr.getTableau().setNameActe("viser");
                 pr.getTableau().setNameBoutton("Viser");
