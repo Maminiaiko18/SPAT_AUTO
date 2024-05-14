@@ -40,13 +40,13 @@
                 <%
                     out.println(pr.getTableauRecap().getHtml());
                 %>
-                <form action="../<%=pr.getLien()%>?but=choix/apresChoix.jsp" method="post" name="frmchx" id="frmchx">
+                <form action="../<%=pr.getLien()%>?but=choixMultiple/apresChoixMultipleDase.jsp" method="post" name="frmchx" id="frmchx">
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     
                     <% 
                          String libEnteteAffiche[] = {"id", "nom", "designation","calorie","prixl"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-                        out.println(pr.getTableau().getHtmlWithRadioButton()); %>
+                        out.println(pr.getTableau().getHtmlWithMultipleCheckbox()); %>
                 </form>
                 <% out.println(pr.getBasPage());%>
             </section>
