@@ -133,11 +133,9 @@
         var designationElements = document.querySelectorAll("[id^='designation_']");
         
         designationElements.forEach(function(element) {
-            if (selectedValue === "CATEGA001") {
+            if (selectedValue === "CATEGA003" || selectedValue === "CATEGA004") {
                 element.readOnly = true;
-            } else if (selectedValue === "CATEGA002") {
-                element.readOnly = false;
-            }
+            } else element.readOnly = false;
         });
     }
 
