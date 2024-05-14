@@ -19,6 +19,15 @@ public class Produits extends ClassMAPTable{
     private String cdg,ccg,cda,cca ;
     private String id, nom, designation, photo, typeproduit, calorie, pa, idIngredient,categorieingredient;
     private double prixl,poidsprecuit;
+    private String idproduitcategorie;
+
+    public String getIdproduitcategorie() {
+        return idproduitcategorie;
+    }
+
+    public void setIdproduitcategorie(String idproduitcategorie) {
+        this.idproduitcategorie = idproduitcategorie;
+    }
 
     public String getCategorieingredient() {
         return categorieingredient;
