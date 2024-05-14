@@ -75,7 +75,7 @@
             pi.getFormu().getChamp("idmere").setDefaut(mere);
         }
         int taille = pi.getNombreLigne();
-        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("produit"), "choix/produitChoix.jsp", "produit;produitlibelle;produitlibelle;produitlibelle;produitlibelle;designation");
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("produit"), "choix/produitChoixDase.jsp", "produit;produitlibelle;produitlibelle;produitlibelle;produitlibelle;designation");
         
         String idEngagement = request.getParameter("idEngagement");
         DemandeAchatData dmdAchData = new DemandeAchatData();
