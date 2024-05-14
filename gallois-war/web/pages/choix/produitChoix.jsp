@@ -4,18 +4,28 @@
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
+<%@page import="bean.TypeObjet"%>
+<%@page import="affichage.Liste"%>
+
 <%
     String champReturn = request.getParameter("champReturn");
-    Produits navire = new Produits();
-    //navire.setNomTable("tiers_prestataire");
-    String libEntete[] = {"id","nom","designation","calorie","prixl"};
-    String listeCrt[] = {"id","nom","designation","calorie","prixl"};
+    Produits produit = new Produits();
+    produit.setNomTable("ProduitLibComplet");
+    //produit.setNomTable("tiers_prestataire");
+    String libEntete[] = {"id","nom","typeproduit","prixl"};
+    String listeCrt[] = {"id","nom","typeproduit","prixl"};
     String listeInt[] = {""};
-    PageRechercheChoix pr = new PageRechercheChoix(navire, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+    PageRechercheChoix pr = new PageRechercheChoix(produit, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("produitChoix.jsp");
-    
+
+    Liste[] listes = new Liste[1];
+    TypeObjet produitCat = new TypeObjet();
+    produitCat.setNomTable("PRODUITCATEGORIE");
+    listes[0] = new Liste("typeproduit", produitCat, "desce", "desce");
+    pr.getFormu().changerEnChamp(listes);
+    pr.getFormu().getChamp("typeproduit").setLibelle("Type produit");
     pr.setChampReturn(champReturn);
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
@@ -44,7 +54,7 @@
                     <input type="hidden" name="champReturn" value="<%=pr.getChampReturn()%>">
                     
                     <% 
-                         String libEnteteAffiche[] = {"id", "nom", "designation","calorie","prixl"};
+                         String libEnteteAffiche[] = {"id", "nom", "type produit","prixl"};
                         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                         out.println(pr.getTableau().getHtmlWithRadioButton()); %>
                 </form>
