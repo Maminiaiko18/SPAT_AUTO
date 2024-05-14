@@ -127,6 +127,23 @@
 </script>
 <script>
 
+    function gestionChangementSelection() {
+        var selectElement = document.getElementById("idcategorieachat");
+        var selectedValue = selectElement.value;
+        var designationElements = document.querySelectorAll("[id^='designation_']");
+        
+        designationElements.forEach(function(element) {
+            if (selectedValue === "CATEGA001") {
+                element.readOnly = true;
+            } else if (selectedValue === "CATEGA002") {
+                element.readOnly = false;
+            }
+        });
+    }
+
+    gestionChangementSelection()
+    document.getElementById("idcategorieachat").addEventListener("change", gestionChangementSelection);
+
     document.getElementsByClassName("btn btn-default pull-right")[2].addEventListener('click', e => {
         var indice = ($("#nombreLigne")[0].value)-1;
         document.getElementById("qte_"+indice).setAttribute("onblur","calculerMontant("+indice+"),Total()");
