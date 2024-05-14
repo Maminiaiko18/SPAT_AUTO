@@ -1,6 +1,6 @@
 <%-- 
     Document   : produit-fiche.jsp
-    Created on : 7 déc. 2020, 14:37:25
+    Created on : 7 dï¿½c. 2020, 14:37:25
     Author     : Lenovo
 --%>
 <%@page import="mg.allosakafo.produits.Produits" %>
@@ -16,14 +16,15 @@
 <%
     try {
         dma = new Produits();
+        dma.setNomTable("ProduitLibComplet");
         //dma.setNomTable("as_bondecommande_libelle");
         PageConsulte pc = new PageConsulte(dma, request, (user.UserEJB) session.getValue("u"));//ou avec argument liste Libelle si besoin
 
         pc.getChampByName("nom").setLibelle("nom");
         pc.getChampByName("designation").setVisible(false);
         pc.getChampByName("poids").setVisible(false);
-        pc.getChampByName("pa").setLibelle("Prix");
-        pc.getChampByName("prixl").setVisible(false);
+        pc.getChampByName("prixl").setLibelle("Prix");
+        pc.getChampByName("pa").setVisible(false);
         pc.getChampByName("categorieingredient").setVisible(false);
         pc.getChampByName("photo").setVisible(false);
         pc.getChampByName("poids").setVisible(false);
@@ -35,6 +36,8 @@
         pc.getChampByName("cda").setVisible(false);
         pc.getChampByName("cca").setVisible(false);
         pc.getChampByName("calorie").setVisible(false);
+        pc.getChampByName("idproduitcategorie").setVisible(false);
+        pc.getChampByName("Typeproduit").setLibelle("Cat&eacute;gorie");
 
         Produits produit = (Produits) pc.getBase();
 //    pc.getChampByName("produit").setLien((String) session.getValue("lien") + "?but=travaux/tiers-fiche.jsp&id="+produit.getIdfournisseur(), "nom=");
