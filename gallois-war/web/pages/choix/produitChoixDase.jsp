@@ -18,7 +18,7 @@
     PageRechercheChoix pr = new PageRechercheChoix(produit, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.setApres("produitChoix.jsp");
+    pr.setApres("produitChoixDase.jsp");
 
     Liste[] listes = new Liste[1];
     TypeObjet produitCat = new TypeObjet();
