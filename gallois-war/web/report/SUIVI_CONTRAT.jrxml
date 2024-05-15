@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUIVI_CONTRAT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc854c4c-cca7-4334-b317-4b1746075475">
 	<property name="ireport.zoom" value="1.0980750000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="23"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="contrat" class="java.lang.String"/>
 	<parameter name="titulaire" class="java.lang.String"/>
 	<parameter name="objet" class="java.lang.String"/>
@@ -16,6 +16,7 @@
 	<parameter name="projet" class="java.lang.String"/>
 	<parameter name="unite" class="java.lang.String"/>
 	<parameter name="rapcontrat" class="java.lang.Double"/>
+	<parameter name="devise" class="java.lang.String"/>
 	<field name="montantttc" class="java.lang.Double"/>
 	<field name="montantpaye" class="java.lang.Double"/>
 	<field name="montantreste" class="java.lang.Double"/>
@@ -205,6 +206,16 @@
 				<reportElement x="144" y="238" width="194" height="20" uuid="0386f138-1957-4907-9c32-cb29c3892f85"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{rapcontrat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="218" width="217" height="20" uuid="c053bf47-5bde-4671-bb4c-149225623c82"/>
+				<box leftPadding="5"/>
+				<textFieldExpression><![CDATA[$P{devise}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="238" width="217" height="20" uuid="1fd39eb9-89cb-418d-bdb6-97d0b928accd"/>
+				<box leftPadding="5"/>
+				<textFieldExpression><![CDATA[$P{devise}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
