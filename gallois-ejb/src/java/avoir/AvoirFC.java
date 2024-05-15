@@ -46,6 +46,65 @@ public class AvoirFC extends ClassMere {
     private double montanttva, montantttc;
     private String cdclt;
     private double montantrestefc;
+    private double HtEuro,TvaEuro,TTCEuro,HTDollar,TVADollar,TTCDollar;
+
+    public void initMontantDevise(double coursEuro, double coursDollar){
+        this.HtEuro = this.getMontant() / coursEuro;
+        this.TvaEuro = this.getMontanttva()  / coursEuro;
+        this.TTCEuro = this.getMontantttc() / coursEuro;
+
+        this.HTDollar = this.getMontant() / coursDollar;
+        this.TVADollar = this.getMontanttva()  / coursDollar;
+        this.TTCDollar = this.getMontantttc() / coursDollar;
+    }
+
+    public double getHtEuro() {
+        return HtEuro;
+    }
+
+    public void setHtEuro(double htEuro) {
+        HtEuro = htEuro;
+    }
+
+    public double getTvaEuro() {
+        return TvaEuro;
+    }
+
+    public void setTvaEuro(double tvaEuro) {
+        TvaEuro = tvaEuro;
+    }
+
+    public double getTTCEuro() {
+        return TTCEuro;
+    }
+
+    public void setTTCEuro(double tTCEuro) {
+        TTCEuro = tTCEuro;
+    }
+
+    public double getHTDollar() {
+        return HTDollar;
+    }
+
+    public void setHTDollar(double hTDollar) {
+        HTDollar = hTDollar;
+    }
+
+    public double getTVADollar() {
+        return TVADollar;
+    }
+
+    public void setTVADollar(double tVADollar) {
+        TVADollar = tVADollar;
+    }
+
+    public double getTTCDollar() {
+        return TTCDollar;
+    }
+
+    public void setTTCDollar(double tTCDollar) {
+        TTCDollar = tTCDollar;
+    }
 
     public Date getDatefacture() {
         return datefacture;
