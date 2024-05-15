@@ -1,12 +1,14 @@
 <%-- 
     Document   : produit-modif
-    Created on : 7 déc. 2020, 15:18:45
+    Created on : 7 dï¿½c. 2020, 15:18:45
     Author     : nyamp
 --%>
 
 <%@page import="mg.allosakafo.produits.Produits"%>
 <%@page import="affichage.PageUpdate"%>
 <%@page import="user.UserEJB"%>
+<%@page import="bean.TypeObjet"%>
+<%@page import="affichage.Liste"%>
 <%
     try{
     UserEJB u;
@@ -16,10 +18,10 @@
     PageUpdate pi = new PageUpdate(produit, request, (user.UserEJB) session.getValue("u"));
     pi.setLien((String) session.getValue("lien"));
     
-    pi.getFormu().getChamp("cdg").setLibelle("Compte débit général");
-    pi.getFormu().getChamp("ccg").setLibelle("Compte crédit général");
-    pi.getFormu().getChamp("cda").setLibelle("Compte débit auxiliaire");
-    pi.getFormu().getChamp("cca").setLibelle("Compte crédit auxiliaire");
+    pi.getFormu().getChamp("cdg").setLibelle("Compte dï¿½bit gï¿½nï¿½ral");
+    pi.getFormu().getChamp("ccg").setLibelle("Compte crï¿½dit gï¿½nï¿½ral");
+    pi.getFormu().getChamp("cda").setLibelle("Compte dï¿½bit auxiliaire");
+    pi.getFormu().getChamp("cca").setLibelle("Compte crï¿½dit auxiliaire");
     pi.getFormu().getChamp("cdg").setAutre("readonly");
     pi.getFormu().getChamp("ccg").setAutre("readonly");
     pi.getFormu().getChamp("cda").setAutre("readonly");
@@ -34,11 +36,19 @@
     pi.getFormu().getChamp("Designation").setVisible(false);
     pi.getFormu().getChamp("Poids").setVisible(false);
 //    pi.getFormu().getChamp("pa").setLibelleAffiche("Prix");
-    pi.getFormu().getChamp("pa").setLibelle("Prix");
+    pi.getFormu().getChamp("pa").setVisible(false);
     pi.getFormu().getChamp("idingredient").setVisible(false);
-    pi.getFormu().getChamp("prixL").setVisible(false);
+    pi.getFormu().getChamp("prixL").setLibelle("Prix");
     pi.getFormu().getChamp("poidsprecuit").setVisible(false);
     pi.getFormu().getChamp("poidsprecuit").setLibelle("Kg");
+
+    Liste[] listes = new Liste[1];
+    TypeObjet produitCat = new TypeObjet();
+    produitCat.setNomTable("PRODUITCATEGORIE");
+    listes[0] = new Liste("idproduitcategorie", produitCat, "desce", "id");
+    pi.getFormu().changerEnChamp(listes);
+    pi.getFormu().getChamp("Idproduitcategorie").setLibelle("Cat&eacute;gorie");
+
     produit=(Produits)pi.getBase();
     
     pi.preparerDataFormu();
@@ -48,7 +58,7 @@
         <div class="col-md-6 col-md-offset-3">
             <!--<div class="box-fiche">-->
                 <div class="box">
-                    <h1>Modification info liaison bon de commande</h1>
+                    <h1>Modification produit</h1>
                     <form action="<%=(String) session.getValue("lien")%>?but=apresTarif.jsp&id=<%out.print(request.getParameter("id"));%>" method="post" name="formabsence">
                         <%
                             out.println(pi.getFormu().getHtmlInsert());
