@@ -15,11 +15,15 @@
         String libelle = temp[1]; 
         String idFieldName = "produit_" + startingLine;
         String libelleFieldName = "produitlibelle_" + startingLine;
+        String designationFieldName = "designation_" + startingLine;
+
         startingLine = startingLine + 1;
         %>
         <script language="JavaScript">
             window.opener.document.all['<%=idFieldName%>'].value = "<%=id%>";
             window.opener.document.all['<%=libelleFieldName%>'].value = "<%=libelle%>";
+            window.opener.document.all['<%=designationFieldName%>'].value = "<%=libelle%>";
+
         </script>
         <%
     }
