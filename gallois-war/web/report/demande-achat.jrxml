@@ -269,8 +269,11 @@
 									</staticText>
 								</jr:tableHeader>
 								<jr:detailCell height="30" rowSpan="1">
-									<textField>
+									<textField isBlankWhenNull="true">
 										<reportElement x="0" y="0" width="170" height="30" uuid="b1cff0c6-9000-4869-b7c0-b4f9020dde05"/>
+										<box>
+											<bottomPen lineWidth="0.5"/>
+										</box>
 										<textElement textAlignment="Left" verticalAlignment="Middle">
 											<font size="8"/>
 											<paragraph leftIndent="5"/>
