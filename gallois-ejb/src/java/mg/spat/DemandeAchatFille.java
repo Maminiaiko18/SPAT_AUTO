@@ -18,7 +18,8 @@ import utilitaire.UtilDB;
 public class DemandeAchatFille extends ClassMAPTable {
     private String id,idmere,produit,designation,unite, produitlib, unitelib;
     private double qte,pu,montant;
-
+    private String remarque;
+    
     public DemandeAchatFille() {
         super.setNomTable("dem_achat_fille");
     }
@@ -159,5 +160,13 @@ public class DemandeAchatFille extends ClassMAPTable {
         }
 
         return res;
+    }
+
+    public String getRemarque() {
+        return remarque;
+    }
+
+    public void setRemarque(String remarque) {
+        this.remarque = remarque;
     }
 }

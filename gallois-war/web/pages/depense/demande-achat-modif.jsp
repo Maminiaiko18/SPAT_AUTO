@@ -90,6 +90,7 @@
         pi.getFormufle().getChamp("qte_0").setLibelle("Qté");
         pi.getFormufle().getChamp("pu_0").setLibelle("PU");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+        pi.getFormufle().getChamp("remarque_0").setLibelle("Remarque");
         
         affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("produit"), "choix/produitChoix.jsp", "produit;produitlibelle;produitlibelle;produitlibelle;produitlibelle;designation");
         affichage.Champ.setAutre(pi.getFormufle().getChampFille("produit"), "readonly");
