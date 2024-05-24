@@ -29,6 +29,7 @@
 		<field name="qte" class="java.lang.Double"/>
 		<field name="pu" class="java.lang.Double"/>
 		<field name="montant" class="java.lang.Double"/>
+		<field name="remarque" class="java.lang.String"/>
 		<variable name="item" class="java.lang.Integer">
 			<variableExpression><![CDATA[$V{item}+1]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
@@ -166,88 +167,115 @@
 							<datasetRun subDataset="Table Dataset 1" uuid="5a5335f9-acd5-440b-b600-a8e90087f4cb">
 								<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{list_table})]]></dataSourceExpression>
 							</datasetRun>
-							<jr:column width="39" uuid="e4f55575-8d27-4d16-a26c-4215518bfefe">
+							<jr:column width="30" uuid="e4f55575-8d27-4d16-a26c-4215518bfefe">
 								<jr:tableHeader height="30" rowSpan="1">
 									<staticText>
-										<reportElement x="0" y="0" width="39" height="20" uuid="76beb6b9-8862-4ac2-97b1-82236af74551"/>
-										<textElement textAlignment="Center"/>
+										<reportElement x="0" y="0" width="30" height="30" uuid="76beb6b9-8862-4ac2-97b1-82236af74551"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
+										</textElement>
 										<text><![CDATA[N°]]></text>
 									</staticText>
 								</jr:tableHeader>
 								<jr:detailCell height="30" rowSpan="1">
 									<textField isBlankWhenNull="true">
-										<reportElement x="0" y="0" width="39" height="20" uuid="44e824a1-f8cc-42c1-a517-fbe2da979449"/>
+										<reportElement x="0" y="0" width="30" height="30" uuid="44e824a1-f8cc-42c1-a517-fbe2da979449"/>
 										<box>
 											<topPen lineWidth="0.25"/>
 											<leftPen lineWidth="0.25"/>
 											<bottomPen lineWidth="0.0"/>
 											<rightPen lineWidth="0.25"/>
 										</box>
-										<textElement textAlignment="Center" verticalAlignment="Top">
-											<font isStrikeThrough="false"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8" isStrikeThrough="false"/>
 										</textElement>
 										<textFieldExpression><![CDATA[$V{item}]]></textFieldExpression>
 									</textField>
 								</jr:detailCell>
 							</jr:column>
-							<jr:column width="345" uuid="0ca9d68e-cf74-4277-9456-f4a4c6ae1921">
+							<jr:column width="250" uuid="0ca9d68e-cf74-4277-9456-f4a4c6ae1921">
 								<jr:tableHeader style="table_TH" height="30" rowSpan="1">
 									<staticText>
-										<reportElement x="0" y="0" width="345" height="20" uuid="08f75ec8-849b-4fcc-95a2-6cd9bd738f1f"/>
-										<textElement textAlignment="Center">
-											<font size="10"/>
+										<reportElement x="0" y="0" width="250" height="30" uuid="08f75ec8-849b-4fcc-95a2-6cd9bd738f1f"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
 										</textElement>
 										<text><![CDATA[DESIGNATIONS]]></text>
 									</staticText>
 								</jr:tableHeader>
 								<jr:detailCell style="table_TD" height="30" rowSpan="1">
 									<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-										<reportElement x="0" y="0" width="345" height="20" uuid="af9fc6b6-98ac-4926-be7a-17ad177158f2"/>
+										<reportElement x="0" y="0" width="250" height="30" uuid="af9fc6b6-98ac-4926-be7a-17ad177158f2"/>
 										<box leftPadding="10"/>
-										<textElement verticalAlignment="Top">
-											<font size="10"/>
+										<textElement textAlignment="Left" verticalAlignment="Middle">
+											<font size="8"/>
+											<paragraph leftIndent="5"/>
 										</textElement>
 										<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
 									</textField>
 								</jr:detailCell>
 							</jr:column>
-							<jr:column width="90" uuid="9d6ff8a4-3458-45cd-b0b7-6d04cd8631dc">
+							<jr:column width="50" uuid="9d6ff8a4-3458-45cd-b0b7-6d04cd8631dc">
 								<jr:tableHeader style="table_TH" height="30" rowSpan="1">
 									<staticText>
-										<reportElement x="0" y="0" width="90" height="20" uuid="1a8b84b2-d4c9-40af-b984-8fe80da85e43"/>
-										<textElement textAlignment="Center">
-											<font size="10"/>
+										<reportElement x="0" y="0" width="50" height="30" uuid="1a8b84b2-d4c9-40af-b984-8fe80da85e43"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
 										</textElement>
 										<text><![CDATA[U]]></text>
 									</staticText>
 								</jr:tableHeader>
 								<jr:detailCell style="table_TD" height="30" rowSpan="1">
 									<textField isBlankWhenNull="true">
-										<reportElement x="0" y="0" width="90" height="20" uuid="c74a8704-499a-4b20-a9b6-da735a99fb88"/>
-										<textElement textAlignment="Center">
-											<font size="10"/>
+										<reportElement x="0" y="0" width="50" height="30" uuid="c74a8704-499a-4b20-a9b6-da735a99fb88"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
 										</textElement>
 										<textFieldExpression><![CDATA[$F{unitelib}]]></textFieldExpression>
 									</textField>
 								</jr:detailCell>
 							</jr:column>
-							<jr:column width="84" uuid="5494acbf-ad4d-4ed3-9c60-b6abdda59c5f">
+							<jr:column width="50" uuid="5494acbf-ad4d-4ed3-9c60-b6abdda59c5f">
 								<jr:tableHeader style="table_TH" height="30" rowSpan="1">
 									<staticText>
-										<reportElement x="0" y="0" width="84" height="20" uuid="c7f9097a-6647-4c72-80d4-8f1184e71768"/>
-										<textElement textAlignment="Center">
-											<font size="10"/>
+										<reportElement x="0" y="0" width="50" height="30" uuid="c7f9097a-6647-4c72-80d4-8f1184e71768"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
 										</textElement>
 										<text><![CDATA[QTE]]></text>
 									</staticText>
 								</jr:tableHeader>
 								<jr:detailCell style="table_TD" height="30" rowSpan="1">
 									<textField pattern="#,##0.00" isBlankWhenNull="true">
-										<reportElement x="0" y="0" width="84" height="20" uuid="0dff01da-ddcb-4529-8644-80f31d42fbe4"/>
-										<textElement textAlignment="Center">
-											<font size="10"/>
+										<reportElement x="0" y="0" width="50" height="30" uuid="0dff01da-ddcb-4529-8644-80f31d42fbe4"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
 										</textElement>
 										<textFieldExpression><![CDATA[$F{qte}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="170" uuid="39ef4fe8-d7c4-460e-95c5-284a6b5bf63d">
+								<jr:tableHeader height="30" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="170" height="30" uuid="65d69755-a27e-4ed6-adc2-5836fa880aec"/>
+										<box>
+											<bottomPen lineWidth="0.5"/>
+										</box>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
+										</textElement>
+										<text><![CDATA[Remarque]]></text>
+									</staticText>
+								</jr:tableHeader>
+								<jr:detailCell height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="170" height="30" uuid="b1cff0c6-9000-4869-b7c0-b4f9020dde05"/>
+										<textElement textAlignment="Left" verticalAlignment="Middle">
+											<font size="8"/>
+											<paragraph leftIndent="5"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{remarque}]]></textFieldExpression>
 									</textField>
 								</jr:detailCell>
 							</jr:column>
