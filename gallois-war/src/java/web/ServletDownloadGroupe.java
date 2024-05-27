@@ -138,6 +138,7 @@ public class ServletDownloadGroupe extends HttpServlet {
                 con.close();
                 ClassMAPTable[] c = (ClassMAPTable[]) cx.getResultat();
                 TableauRecherche tr = new TableauRecherche(c, entete);
+                tr.setEstExport(true);
                 tr.setLibelleAffiche(entetelibelle);
                 tr.makeHtml();
 
