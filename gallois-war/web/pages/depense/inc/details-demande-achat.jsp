@@ -6,7 +6,7 @@
     DemandeAchatFille j = new DemandeAchatFille();
     j.setNomTable("dem_achat_fillelib");
     j.setIdmere(request.getParameter("id"));
-    String libEntete[] = {"id", "designation", "pu","qte","unitelib"};
+    String libEntete[] = {"id", "designation", "pu","qte","unitelib","remarque"};
     String listeCrt[] = {"idmere"};
     String listeInt[] = {};
 
@@ -18,7 +18,7 @@
     pr.setNpp(1000);
     pr.creerObjetPage(libEntete, null);
 
-    pr.getTableau().setLibelleAffiche(new String[]{"ID", "D&eacute;signation", "PU","Qantit&eacute;","Unit&eacute;"});
+    pr.getTableau().setLibelleAffiche(new String[]{"ID", "D&eacute;signation", "PU","Qantit&eacute;","Unit&eacute;","Remarque"});
     pr.getTableau().setNameActe("valider");
     String html = pr.getTableau().getHtml();
     DemandeAchatFille[] da = (DemandeAchatFille[])pr.getTableau().getData();
@@ -36,6 +36,7 @@
                                 <th>Prix Unitaire</th>
                                 <th>Quantit&eacute;</th>
                                 <th>Unit&eacute;</th>
+                                <th>Remarque</th>
                             </tr>
                         </thead>
 
@@ -51,6 +52,8 @@
                                 <td  align="right"><%=Utilitaire.formaterAr(da[i].getPu())%> </td>
                                 <td  align="right"><%= da[i].getQte() %></td>
                                 <td  align="left"><%=Utilitaire.champNull(da[i].getUnitelib())%></td>
+                                <td  align="left"><%=Utilitaire.champNull(da[i].getRemarque())%></td>
+
                             </tr>
                             <%
                                      

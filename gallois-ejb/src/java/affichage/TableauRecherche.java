@@ -75,6 +75,16 @@ public class TableauRecherche {
     ValeurEtiquette[][] valeurEtiquette;
     
     private Formulaire formu;
+    private boolean estExport = false;
+
+    public boolean isEstExport() {
+        return estExport;
+    }
+
+    public void setEstExport(boolean estExport) {
+        this.estExport = estExport;
+    }
+
     public Formulaire getFormu() {
         return formu;
     }
@@ -321,18 +331,16 @@ public class TableauRecherche {
         Field[] listeFields = getListeField();
 
         nombreColonne = getDataDirecte()[0].length;
-        
-        // for (int i = 0; i < nombreColonne; i++) {
-        //     System.out.println("-------------------------");
-        //     System.out.println("nombre de colone"+getDataDirecte()[0][i]);
-        //     System.out.println("nombre colone affiher"+getLibelleAffiche()[i]);
-        // }
-        if(getLibelleAffiche().length != nombreColonne){
-            String[] newLibelleAffiche = new String[nombreColonne];
-            System.arraycopy(getLibelleAffiche(), 0, newLibelleAffiche, 0, getLibelleAffiche().length);
-            newLibelleAffiche[getLibelleAffiche().length] = " "; // Ajout de la chaîne vide
-            setLibelleAffiche(newLibelleAffiche);
+
+        if(isEstExport()){  
+            if(getLibelleAffiche().length != nombreColonne){
+                String[] newLibelleAffiche = new String[nombreColonne];
+                System.arraycopy(getLibelleAffiche(), 0, newLibelleAffiche, 0, getLibelleAffiche().length);
+                newLibelleAffiche[getLibelleAffiche().length] = " "; // Ajout de la chaîne vide
+                setLibelleAffiche(newLibelleAffiche);
+            }
         }
+        
         
         
         for (int i = 0; i < nombreColonne; i++) {

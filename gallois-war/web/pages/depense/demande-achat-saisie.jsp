@@ -58,6 +58,8 @@
         pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
         pi.getFormufle().getChamp("qte_0").setLibelle("Qte");
         pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+        pi.getFormufle().getChamp("remarque_0").setLibelle("Remarque");
+
         Liste[] listef = new Liste[1];
         TypeObjet baseUnite = new TypeObjet();
         baseUnite.setNomTable("UNITECHANTIER");
