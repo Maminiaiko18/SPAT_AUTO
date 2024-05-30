@@ -301,7 +301,9 @@ public class OrdreMission extends ClassEtat {
                 IndemniteMission[] indemniteMissions = (IndemniteMission[]) CGenUtil.rechercher(new IndemniteMission(), null, null, c, " and idcategorieprofessionnel = '" + tiers[0].getIdcategorieprofessionel() + "' ORDER BY DATY DESC");
                 if(indemniteMissions.length > 0)
                     this.setIdindemnitemission(indemniteMissions[0].getId());
+                else throw new Exception("indemnité de mission introuvable.");
             }
+            else throw new Exception("Ce tiers n'es pas parmi la liste des personnels");
         }
         catch(Exception e){
             throw e;
