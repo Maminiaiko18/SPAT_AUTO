@@ -3568,15 +3568,19 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
 //            inst.setNomTable("AS_BONDECOMMANDE_DETSUMLIV");
             inst.setNomTable("BC_BL_LIVRE");
             BonDeCommandeFilleReste[] bcF = (BonDeCommandeFilleReste[]) CGenUtil.rechercher(inst, null, null, c, String.format(" and idbc = '%s'", bl.getId_bc()));
+            BonDeCommandeFilleReste concerne = new BonDeCommandeFilleReste();
 
             for (int i = 0; i < idproduit.length; i++) {
                 double qte = Utilitaire.stringToDouble(quantite[i]);
                 if(bl.getPourcentage() > 0){
-                    qte = (bl.getPourcentage() * (bcF[i].getQuantitereste() + bcF[i].getQuantitelivre())) / 100;
+                    for (int j = 0; j < bcF.length; j++) {
+                        if(idbc[i].equalsIgnoreCase(bcF[j].getId())) concerne = bcF[j];
+                    }
+                    qte = (bl.getPourcentage() * (concerne.getQuantitereste() + concerne.getQuantitelivre())) / 100;
                 }
                 if (qte > 0) {
                     //double qtepack = Utilitaire.stringToDouble(quantiteparpack[i]);
-                    BonDeLivraisonFille fille = new BonDeLivraisonFille(idbc[i], idproduit[i], bl.getTuppleID(), qte);
+                    BonDeLivraisonFille fille = new BonDeLivraisonFille(concerne.getId(), idproduit[i], bl.getTuppleID(), qte);
                     fille.controlQuantite(bcF);
                     createObject(fille, c);
                 }
