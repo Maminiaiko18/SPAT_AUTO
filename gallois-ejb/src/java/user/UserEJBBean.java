@@ -3569,18 +3569,21 @@ public class UserEJBBean implements UserEJB, UserEJBRemote, SessionBean {
             inst.setNomTable("BC_BL_LIVRE");
             BonDeCommandeFilleReste[] bcF = (BonDeCommandeFilleReste[]) CGenUtil.rechercher(inst, null, null, c, String.format(" and idbc = '%s'", bl.getId_bc()));
             BonDeCommandeFilleReste concerne = new BonDeCommandeFilleReste();
-
+            BonDeLivraisonFille fille = new BonDeLivraisonFille();
             for (int i = 0; i < idproduit.length; i++) {
                 double qte = Utilitaire.stringToDouble(quantite[i]);
                 if(bl.getPourcentage() > 0){
                     for (int j = 0; j < bcF.length; j++) {
-                        if(idbc[i].equalsIgnoreCase(bcF[j].getId())) concerne = bcF[j];
+                        if(idbc[i].compareToIgnoreCase(bcF[j].getId())==0) concerne = bcF[j];
                     }
                     qte = (bl.getPourcentage() * (concerne.getQuantitereste() + concerne.getQuantitelivre())) / 100;
+                    fille = new BonDeLivraisonFille(concerne.getId(), idproduit[i], bl.getTuppleID(), qte);
+                }else {
+                    fille = new BonDeLivraisonFille(idbc[i], idproduit[i], bl.getTuppleID(), qte);
                 }
+
                 if (qte > 0) {
                     //double qtepack = Utilitaire.stringToDouble(quantiteparpack[i]);
-                    BonDeLivraisonFille fille = new BonDeLivraisonFille(concerne.getId(), idproduit[i], bl.getTuppleID(), qte);
                     fille.controlQuantite(bcF);
                     createObject(fille, c);
                 }
