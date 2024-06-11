@@ -12,7 +12,7 @@
             if(champs[i]!=null || champs[i].compareTo("")!=0){               
          %>
 
-         window.opener.document.all.<%=champs[i]%>.value = "<%=lstChoix[i]%>";
+         window.opener.document.all.<%=champs[i]%>.value = "<%=lstChoix[i].trim() %>";
         window.opener.document.all.<%=champs[i]%>.dispatchEvent(new Event('change'));
 	 <%}}%>        
       window.close(); 
