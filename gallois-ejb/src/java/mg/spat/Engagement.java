@@ -809,6 +809,7 @@ public class Engagement extends ClassEtat {
                     " AND ID = '" + this.getIdcontrat() + "'");
             if (contrat.length > 0) {
                 Contrat ca = contrat[0];
+                if(!ca.getCodeetablissement().equalsIgnoreCase(this.getCodeEtablissement())) throw new Exception("Code etablissement different du code etablissement du contrat.");
                 this.setDevise(ca.getDevise());
                 
                 if ( ca.getResteaengager() - this.getMontantdevise() < 0) {

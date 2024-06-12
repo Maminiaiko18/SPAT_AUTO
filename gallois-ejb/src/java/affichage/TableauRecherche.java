@@ -430,10 +430,12 @@ public class TableauRecherche {
                     l++;
                     String lienAutre = "";
                     if (this.isGroupe()) {
-                        for (int g = 0; g < getLibeEntete().length - 1; g++) {
-                            lienAutre += getLibeEntete()[g] + "=" + getDataDirecte()[i][g] + "&";
-                        }
-                        lienAutre += getLibeEntete()[getLibeEntete().length - 1] + "=" + getDataDirecte()[i][getLibeEntete().length - 1]+"&"+getLienFormulaire();
+                        if(this.getAttLien()==null){
+                            for (int g = 0; g < getLibeEntete().length - 1; g++) {
+                                lienAutre += getLibeEntete()[g] + "=" + getDataDirecte()[i][g] + "&";
+                            }
+                            lienAutre += getLibeEntete()[getLibeEntete().length - 1] + "=" + getDataDirecte()[i][getLibeEntete().length - 1]+"&"+getLienFormulaire();
+                        } else lienAutre = colLien + "=" + valL;
                     }else{
                         lienAutre = colLien + "=" + valL;
                     }
