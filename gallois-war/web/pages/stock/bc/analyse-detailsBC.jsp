@@ -80,12 +80,11 @@ try{
 		<%
                 String lienTableau[] = {pr.getLien() + "?but=stock/bc/asBonDeCommande-fiche.jsp"};
                 String colonneLien[] = {"idbc"};
-                String valcolonnelien[] = {"id"};
+                String attLien[] = {"id"};
                 pr.getTableau().setLien(lienTableau);
                 pr.getTableau().setColonneLien(colonneLien);
-                pr.getTableau().setUrlLien(colonneLien);
-                pr.getTableau().setUrlLienAffiche(valcolonnelien);
-		out.println(pr.getTableauRecap().getHtml());
+                pr.getTableau().setAttLien(attLien);
+		        out.println(pr.getTableauRecap().getHtml());
                 
                 %>
                 <br>
@@ -96,7 +95,7 @@ try{
 </div>
 		
 		<%
-                    String libEnteteAffiche[] = {"IDBC","NUMBC", "date", "code", "projet", "produit","designation", "quantite", "unite", "pu", "montant HT", "fournisseur"};
+                    String libEnteteAffiche[] = {"BC","NUMBC", "date", "code", "projet", "produit","designation", "quantite", "unite", "pu", "montant HT", "fournisseur"};
                     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                     out.println(pr.getTableau().getHtml());
                     out.println(pr.getBasPage());
