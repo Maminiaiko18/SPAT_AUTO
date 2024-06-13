@@ -751,8 +751,8 @@ public class Mouvement extends ClassEtat {
             }
             String ref = String.valueOf(user.getUser().getRefuser());
             System.out.println("Refuser dans visa = " + ref);
+            Mouvement[] precedent = this.getMouvementMemeEscalePrec(c);
             if (this.getTypeMvt().compareToIgnoreCase(Constante.getTpmvtdepart()) == 0) {
-                Mouvement[] precedent = this.getMouvementMemeEscalePrec(c);
                 if (precedent.length != 0) {
                     if(precedent[0].getDatearrivee().after(this.getDate_depart())) throw new Exception("La date arrivée est supérieur à la date de départ.");
                     precedent[0].setNomTable("mouvement");
@@ -760,6 +760,8 @@ public class Mouvement extends ClassEtat {
                     precedent[0].setHeure_depart(this.getHeure_depart());
                     precedent[0].updateToTableWithHisto(ref, c);
                 }
+            }else{
+                if(this.getDatearrivee().before(precedent[0].getDate_depart())) throw new Exception("La date arrivée est avant à la date de départ du mouvement précedent.");
             }
             if (c != null && verif == 1) {
                 c.commit();
