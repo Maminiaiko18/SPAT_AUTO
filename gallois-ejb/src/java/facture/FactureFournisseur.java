@@ -1045,7 +1045,7 @@ public class FactureFournisseur extends FactureClient {
             designation = Utilitaire.champNull(designation)+ bp.getDesignation();
             JournalCaisse transfert = new JournalCaisse(null,caisseBP, null,designation, null, dateDuJour, dateDuJour, bp.getMontantttcvrai(), 0, this.getId());
             transfert.setTiers(this.getTiers());
-            transfert.setIddevise(this.getDeviseMere());
+            transfert.setIddevise(Constante.deviseAr);
             transfert.setIdmode(bp.getModepaiement());
             transfert.setEtat(ConstanteEtat.getEtatCreer());
             transfert.createObject(u, con);
