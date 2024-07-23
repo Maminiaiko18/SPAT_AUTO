@@ -41,7 +41,7 @@
     PageRecherche pr = new PageRecherche(jc, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.setAWhere(" and caisse like '%"+bi.getIdcaisse()+"%' and dateEffet = to_date('"+bi.getDaty()+"','YYYY-MM-DD')");
+    pr.setAWhere("and etat=11 and caisse like '%"+bi.getIdcaisse()+"%' and dateEffet = to_date('"+bi.getDaty()+"','YYYY-MM-DD')");
     String bute = "treso/billetage-fiche.jsp";
     pr.setApres(bute);
   
