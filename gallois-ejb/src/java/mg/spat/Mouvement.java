@@ -761,7 +761,9 @@ public class Mouvement extends ClassEtat {
                     precedent[0].updateToTableWithHisto(ref, c);
                 }
             }else{
-                if(this.getDatearrivee().before(precedent[0].getDate_depart())) throw new Exception("La date arrivée est avant la date de départ du mouvement précedent.");
+                if(precedent.length != 0 ){
+                    if(this.getDatearrivee().before(precedent[0].getDate_depart())) throw new Exception("La date arrivée est avant la date de départ du mouvement précedent.");
+                }
             }
             if (c != null && verif == 1) {
                 c.commit();
