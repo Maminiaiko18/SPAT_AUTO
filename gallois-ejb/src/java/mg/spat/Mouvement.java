@@ -113,9 +113,9 @@ public class Mouvement extends ClassEtat {
                 else stationnement.updateDernierStationnement(c,u.getUser().getTuppleID());
             }
         }
-        // if (this.estTouchee(c) && this.getEscale() == null) {
-        //     this.creerPrevision(u, c);
-        // }
+        if (this.estTouchee(c) && this.getEscale() == null) {
+            this.creerPrevision(u, c);
+        }
         this.setMode("modif");
         this.setEtat(utilitaire.ConstanteEtat.getEtatValider());
         u.updateObject(this, c);
