@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Bordereaux_paiment" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="8e5778f4-7403-46fc-ae1c-fc4c9be879f4">
 	<property name="ireport.zoom" value="1.6500000000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="290"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -148,7 +148,7 @@ Société du Port à gestion Autonome de Toamasina
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="162" height="20" uuid="8dde1e93-205b-465e-8ff4-2a31cd7d71a7"/>
+				<reportElement x="0" y="0" width="270" height="20" uuid="8dde1e93-205b-465e-8ff4-2a31cd7d71a7"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -162,7 +162,7 @@ Société du Port à gestion Autonome de Toamasina
 				<text><![CDATA[FACTURE N°]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="162" y="0" width="128" height="20" uuid="3c3beccd-bec4-40dd-8a44-5b935335d23e"/>
+				<reportElement x="270" y="0" width="128" height="20" uuid="3c3beccd-bec4-40dd-8a44-5b935335d23e"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -176,7 +176,7 @@ Société du Port à gestion Autonome de Toamasina
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="290" y="0" width="137" height="20" uuid="79b0bd9e-57b5-4077-95b3-b80a9ad7f4c0"/>
+				<reportElement x="398" y="0" width="137" height="20" uuid="79b0bd9e-57b5-4077-95b3-b80a9ad7f4c0"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -194,7 +194,7 @@ Société du Port à gestion Autonome de Toamasina
 	<detail>
 		<band height="15">
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="162" y="0" width="128" height="15" uuid="5c2d2c12-3e35-4056-89a4-7bbbe99bb6c8"/>
+				<reportElement x="270" y="0" width="128" height="15" uuid="5c2d2c12-3e35-4056-89a4-7bbbe99bb6c8"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -206,7 +206,7 @@ Société du Port à gestion Autonome de Toamasina
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="290" y="0" width="137" height="15" uuid="2bcb997c-8045-408c-b6eb-ce6a319281d3"/>
+				<reportElement x="398" y="0" width="137" height="15" uuid="2bcb997c-8045-408c-b6eb-ce6a319281d3"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -218,7 +218,7 @@ Société du Port à gestion Autonome de Toamasina
 				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="161" height="15" uuid="284ae3a8-9d61-4291-8a1f-b25916124bf6"/>
+				<reportElement x="0" y="0" width="270" height="15" uuid="284ae3a8-9d61-4291-8a1f-b25916124bf6"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -226,7 +226,6 @@ Société du Port à gestion Autonome de Toamasina
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{numFact}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -234,7 +233,7 @@ Société du Port à gestion Autonome de Toamasina
 	<summary>
 		<band height="136">
 			<staticText>
-				<reportElement x="162" y="0" width="128" height="20" uuid="a7825fcb-6588-4336-bf90-b60e4fd1bb42"/>
+				<reportElement x="270" y="0" width="128" height="20" uuid="a7825fcb-6588-4336-bf90-b60e4fd1bb42"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -256,7 +255,7 @@ Société du Port à gestion Autonome de Toamasina
 				<textFieldExpression><![CDATA[$P{motantLettre}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="5" y="11" width="140" height="1" uuid="318eea8f-c271-4e30-9bde-fb827bdb6f5e"/>
+				<reportElement x="5" y="11" width="254" height="1" uuid="318eea8f-c271-4e30-9bde-fb827bdb6f5e"/>
 			</line>
 			<line>
 				<reportElement x="6" y="66" width="560" height="1" uuid="a1c98326-a57f-4e61-9a49-fe469f6dcbf1"/>
@@ -270,7 +269,7 @@ Société du Port à gestion Autonome de Toamasina
 				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="290" y="0" width="137" height="20" uuid="3939f974-6a6b-48af-97c8-d9d4603e384e"/>
+				<reportElement x="398" y="0" width="137" height="20" uuid="3939f974-6a6b-48af-97c8-d9d4603e384e"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>

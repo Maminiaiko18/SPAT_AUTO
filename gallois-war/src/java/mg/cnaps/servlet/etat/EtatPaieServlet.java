@@ -4957,9 +4957,10 @@ public class EtatPaieServlet extends HttpServlet {
             String typelib = request.getParameter("typelib");
             String code = request.getParameter("code");
             String etat = request.getParameter("etat");
-            System.out.println("tierslib==" + tierslib);
-            System.out.println("typelib==" + typelib);
-
+            String idfacture = request.getParameter("idfacture");
+            if (idfacture != null && !idfacture.trim().isEmpty() && idfacture.compareToIgnoreCase("null") != 0) {
+                awhere += " AND idfacture='" + idfacture + "'";
+            }
             if (id != null && !id.trim().isEmpty() && id.compareToIgnoreCase("null") != 0) {
                 awhere += " AND id='" + id + "'";
             }
