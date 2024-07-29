@@ -4986,14 +4986,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             Map param = new HashMap();
             if (etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0) {
-
-                if (etat.compareToIgnoreCase("avoirFC_montant_C") == 0) {
-                    f.setNomTable("avoirFC_montant_C");
-
-                }
-                if (etat.compareToIgnoreCase("avoirFC_montant_V") == 0) {
-                    f.setNomTable("avoirFC_montant_V");
-                }
+                    f.setNomTable(etat);
             }
 
             System.out.println("sql=" + awhere);
