@@ -4985,7 +4985,6 @@ public class EtatPaieServlet extends HttpServlet {
             }
 
             Map param = new HashMap();
-            System.out.println("etat===================="+etat);
             if (etat != null && !etat.trim().isEmpty() && etat.compareToIgnoreCase("null") != 0) {
                     f.setNomTable(etat);
             }
