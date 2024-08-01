@@ -2247,14 +2247,16 @@ public class EtatPaieServlet extends HttpServlet {
             }
             if(connexe!=null){
                 String logo = "";
+                String jaspername = "facture-simple";
                 if(connexe.compareToIgnoreCase(Constante.connexePact) == 0)
                     logo = "logo_PACT.jpg";
+                    jaspername = "facture-simple-pact";
                 if(connexe.compareToIgnoreCase(Constante.connexeCscs) == 0)
                     logo = "cscs.png";
                 if(connexe.compareToIgnoreCase(Constante.connexeCemedi) == 0)
                     logo = "cemedi.png";
                 param.put("logo" , logo);
-                setNomJasper("facture-simple");
+                setNomJasper(jaspername);
             }
             param.put("compte", facture.getPourCompteLib());
             // ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
