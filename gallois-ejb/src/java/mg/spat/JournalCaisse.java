@@ -1552,9 +1552,9 @@ public class JournalCaisse extends ClassEtat {
         String codeConnexe = "";
         if(this.getConnexe()!=null && this.getConnexe().compareToIgnoreCase("")!=0)
             {
-                if(this.getConnexe().equalsIgnoreCase(Constante.connexePact)) codeConnexe = "P";
-                if(this.getConnexe().equalsIgnoreCase(Constante.connexeCscs)) codeConnexe = "S";
-                if(this.getConnexe().equalsIgnoreCase(Constante.connexeCemedi)) codeConnexe = "C";
+                if(this.getConnexe().equalsIgnoreCase(Constante.connexePact)) return "P";
+                if(this.getConnexe().equalsIgnoreCase(Constante.connexeCscs)) return "S";
+                if(this.getConnexe().equalsIgnoreCase(Constante.connexeCemedi)) return "C";
             }
         if(this.getIdmode()!=null){
             if(this.getIdmode().compareToIgnoreCase("pay1") == 0){
