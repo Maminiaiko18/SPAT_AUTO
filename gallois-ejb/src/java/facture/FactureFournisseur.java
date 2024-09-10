@@ -18,12 +18,14 @@ import java.sql.Date;
 import java.sql.SQLException;
 import lignecredit.LigneCredit;
 import mg.allosakafo.produits.LiaisonIntraTable;
+import mg.cnaps.formation.CodeEtablissement;
 import mg.spat.Engagement;
 import mg.spat.EngagementFille;
 import mg.spat.JournalCaisse;
 import mg.spat.stock.BonDeCommande;
 import mg.spat.stock.BonDeLivraison;
 import mg.spat.stock.BonDeLivraisonFilleReste;
+import projet.Projet;
 import user.UserEJB;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
@@ -1725,10 +1727,14 @@ public class FactureFournisseur extends FactureClient {
                 verif = 1;
             }
             LigneCredit lc = new LigneCredit();
-            lc.setNomTable("LIGNECREDITDEPENSE");
-            lc.setCodeEtablissement(this.getCode_etablissement());
-            lc.setProjet(this.getProjet());
-            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee=" + this.getAnneebudgetaire());
+            lc.setNomTable("LIGNECREDITDEPENSELIB");
+            CodeEtablissement code  = (CodeEtablissement) new CodeEtablissement().getById(this.getCode_etablissement(), "CODEETABLISSEMENT", null);
+            Projet projet = (Projet) new Projet().getById(this.getProjet(), "Projet", null);
+
+            String codelib = code.getVal();
+            String projetlib = projet.getDesignation();
+            String where = " AND LOWER(codeetablissementlib)='"+codelib.toLowerCase()+"' AND LOWER(projetlib)='"+projetlib.toLowerCase()+"' AND annee=" + this.getAnneebudgetaire();
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, where);
             if (ligneCredits.length > 0) {
                 retour = ligneCredits[0];
             }

@@ -15,8 +15,10 @@ import facture.FactureFournisseur;
 import facture.LiaisonEngagement;
 import facture.NumeroFacture;
 import lignecredit.LigneCredit;
+import mg.cnaps.formation.CodeEtablissement;
 import mg.spat.Engagement;
 import mg.spat.EngagementFille;
+import projet.Projet;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -445,10 +447,13 @@ public class BordereauFF extends Bordereau {
 
         try {
             LigneCredit lc = new LigneCredit();
-            lc.setNomTable("LIGNECREDITDEPENSE");
-            lc.setCodeEtablissement(this.getDirection());
-            lc.setProjet(this.getProjet());
-            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and annee=" + this.getAnneebudgetaire());
+            lc.setNomTable("LIGNECREDITDEPENSELIB");
+             CodeEtablissement code  = (CodeEtablissement) new CodeEtablissement().getById(this.getDirection(), "CODEETABLISSEMENT", null);
+            Projet projet = (Projet) new Projet().getById(this.getProjet(), "Projet", null);
+
+            String codelib = code.getVal();
+            String projetlib = projet.getDesignation();
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " AND LOWER(codeetablissementlib)='"+codelib.toLowerCase()+"' AND LOWER(projetlib)='"+projetlib.toLowerCase()+"' AND annee=" + this.getAnneebudgetaire());
             if (ligneCredits.length > 0) {
                 lc = ligneCredits[0];
             }

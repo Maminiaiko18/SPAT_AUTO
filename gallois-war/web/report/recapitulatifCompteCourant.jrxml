@@ -18,44 +18,44 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="76">
+		<band height="65">
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="15" uuid="b8b8b071-343a-4f50-87a0-7bc228b0568b"/>
+				<reportElement x="0" y="0" width="555" height="13" uuid="b8b8b071-343a-4f50-87a0-7bc228b0568b"/>
 				<textElement textAlignment="Center">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[SOCIETE DU PORT A GESTION AUTONOME DE TOAMASINA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="15" width="555" height="15" uuid="25e876dd-824d-4fc5-ab90-acc165bdbc23"/>
+				<reportElement x="0" y="13" width="555" height="13" uuid="25e876dd-824d-4fc5-ab90-acc165bdbc23"/>
 				<textElement textAlignment="Center">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[BP : 492]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="30" width="274" height="15" uuid="f25ba4f4-bbca-422c-ba44-2c6c2a957f33"/>
+				<reportElement x="0" y="26" width="274" height="13" uuid="f25ba4f4-bbca-422c-ba44-2c6c2a957f33"/>
 				<textElement>
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[DIRECTION ADMINISTRATIF ET FINANCIER]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="45" width="274" height="15" uuid="667ea3b4-e369-4055-ad81-28f1b6105ad3"/>
+				<reportElement x="0" y="39" width="274" height="13" uuid="667ea3b4-e369-4055-ad81-28f1b6105ad3"/>
 				<textElement>
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[DEPARTEMENT FINANCE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="60" width="179" height="15" uuid="3a4e9439-df05-4190-9c6f-f6069e38daf6"/>
+				<reportElement x="0" y="52" width="179" height="13" uuid="3a4e9439-df05-4190-9c6f-f6069e38daf6"/>
 				<textElement>
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[SERVICE TRESORERIE]]></text>
 			</staticText>
 			<image>
-				<reportElement x="483" y="-2" width="72" height="77" uuid="294c495d-ecf8-4c08-87f6-c24b05c3cbb2"/>
+				<reportElement x="494" y="-2" width="61" height="54" uuid="294c495d-ecf8-4c08-87f6-c24b05c3cbb2"/>
 				<imageExpression><![CDATA["cnaps_logo.jpg"]]></imageExpression>
 			</image>
 		</band>
@@ -169,7 +169,7 @@
 				<subreportExpression><![CDATA["recapitulatifCompteCourant_courant.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement x="0" y="56" width="370" height="20" uuid="47d14442-26e5-4708-ab9c-cfb3701e9b60"/>
+				<reportElement x="0" y="51" width="370" height="13" uuid="47d14442-26e5-4708-ab9c-cfb3701e9b60"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -183,7 +183,7 @@
 				<text><![CDATA[TOTAL TRESORERIE SPAT + TOTAL PLACEMENT SPAT]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="370" y="56" width="185" height="20" uuid="af76e274-da5b-47ff-9b4b-3a70854f3535"/>
+				<reportElement x="370" y="51" width="185" height="13" uuid="af76e274-da5b-47ff-9b4b-3a70854f3535"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
