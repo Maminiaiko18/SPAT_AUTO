@@ -20,6 +20,8 @@ import java.sql.Date;
 
 //import javax.validation.executable.ValidateOnExecution;
 import lignecredit.LigneCredit;
+import mg.cnaps.formation.CodeEtablissement;
+import projet.Projet;
 import utilitaire.Utilitaire;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
@@ -528,17 +530,23 @@ public class Engagement extends ClassEtat {
         LigneCredit lc = new LigneCredit();
         // lc.setNomTable("ligneCreditDepenseGrp");
         lc.setNomTable("SITUATIONLCDEPENSEGRP_TEMP");
-        String dir = this.getCodeEtablissement();
-        String prj = this.getProjet();
-        if (dir == null || dir.compareToIgnoreCase("") == 0 || prj == null || prj.compareToIgnoreCase("") == 0) {
-            if (this.getIdLC() == null || this.getIdLC().compareTo("") == 0)
-                throw new Exception("Budget invalide");
-            LigneCredit ligne = findLigneCredit(c);
-            dir = ligne.getCodeEtablissement();
-            prj = ligne.getProjet();
-        }
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c,
-                " and idcodeEtablissement='" + dir + "' and idprojet='" + prj + "' and annee=" + this.getAnnee());
+        // String dir = this.getCodeEtablissement();
+        // String prj = this.getProjet();
+        
+        // if (dir == null || dir.compareToIgnoreCase("") == 0 || prj == null || prj.compareToIgnoreCase("") == 0) {
+        //     if (this.getIdLC() == null || this.getIdLC().compareTo("") == 0)
+        //         throw new Exception("Budget invalide");
+        //     LigneCredit ligne = findLigneCredit(c);
+        //     dir = ligne.getCodeEtablissement();
+        //     prj = ligne.getProjet();
+        // }
+        CodeEtablissement code  = (CodeEtablissement) new CodeEtablissement().getById(this.getCodeEtablissement(), "CODEETABLISSEMENT", null);
+            Projet projet = (Projet) new Projet().getById(this.getProjet(), "Projet", null);
+
+        String dir= code.getVal();
+        String prj= projet.getDesignation();
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and LOWER(direction)='"+dir.toLowerCase() +"' and LOWER(projet)='"+prj.toLowerCase()+"' and annee="+this.getAnnee());
+        
         if (ligneCredits.length > 0)
             return ligneCredits[0];
         return null;
