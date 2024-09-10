@@ -21,8 +21,10 @@ import lignecredit.LigneCredit;
 import java.sql.Connection;
 import java.sql.Date;
 import mg.allosakafo.produits.LiaisonIntraTable;
+import mg.cnaps.formation.CodeEtablissement;
 import mg.spat.Engagement;
 import mg.spat.EngagementFille;
+import projet.Projet;
 import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
@@ -956,10 +958,13 @@ public class BonDeCommande extends ClassEtat {
                 verif=1;
             }
             LigneCredit lc=new LigneCredit();
-            lc.setNomTable("LIGNECREDITDEPENSE");
-            //lc.setIdcodeEtablissement(this.getCode_etab());
-            //lc.setIdprojet(this.getProjet());
-            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, "and codeetablissement='"+this.getCode_etab()+"' and projet ='"+this.getProjet()+"' and annee="+this.getAnneebudgetaire());
+            lc.setNomTable("LIGNECREDITDEPENSELIB");
+            CodeEtablissement code  = (CodeEtablissement) new CodeEtablissement().getById(this.getCode_etab(), "CODEETABLISSEMENT", null);
+            Projet projet = (Projet) new Projet().getById(this.getProjet(), "Projet", null);
+            String codelib = code.getVal();
+            String projetlib = projet.getDesignation();
+            String where = " AND LOWER(codeetablissementlib)='"+codelib.toLowerCase()+"' AND LOWER(projetlib)='"+projetlib.toLowerCase()+"' AND annee=" + this.getAnneebudgetaire();
+            LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, where);
             if(ligneCredits.length>0)retour=ligneCredits[0];   
         }catch(Exception e){
             e.printStackTrace();
@@ -975,9 +980,13 @@ public class BonDeCommande extends ClassEtat {
         LigneCredit lc = new LigneCredit();
         //lc.setNomTable("ligneCreditDepenseGrp");
         lc.setNomTable("SITUATIONLCDEPENSEGRP_TEMP");
-        String dir=this.getCode_etab();
-        String prj=this.getProjet();
-        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and idcodeEtablissement='"+dir +"' and idprojet='"+prj+"' and annee="+this.getAnneebudgetaire());
+
+        CodeEtablissement code  = (CodeEtablissement) new CodeEtablissement().getById(this.getCode_etab(), "CODEETABLISSEMENT", null);
+            Projet projet = (Projet) new Projet().getById(this.getProjet(), "Projet", null);
+
+        String dir= code.getVal();
+        String prj= projet.getDesignation();
+        LigneCredit[] ligneCredits = (LigneCredit[]) CGenUtil.rechercher(lc, null, null, c, " and LOWER(direction)='"+dir.toLowerCase() +"' and LOWER(projet)='"+prj.toLowerCase()+"' and annee="+this.getAnneebudgetaire());
         if(ligneCredits.length > 0) return ligneCredits[0];
         return null;
         }
