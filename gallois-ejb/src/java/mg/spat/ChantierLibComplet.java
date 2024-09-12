@@ -13,7 +13,7 @@ import java.sql.Date;
  *
  * @author pro
  */
-public class ChantierLibComplet extends ClassEtat{
+public class ChantierLibComplet extends Chantier{
     
     private String id;
     private String idtravaux;
