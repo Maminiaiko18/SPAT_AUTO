@@ -27,10 +27,14 @@
     <%
         String libEnteteAffiche[] = {"id","Source","Montant"};
         pr.getTableau().setLibelleAffiche(libEnteteAffiche);
-        //String lienTableau[] = {pr.getLien() + "?but=vente/factureclient-fiche.jsp"};
-        //String colonneLien[] = {"id"};
-        //pr.getTableau().setLien(lienTableau);
-       // pr.getTableau().setColonneLien(colonneLien);
+        String lienTableau[] = {pr.getLien() + "?but=ligneCredit/reamenagement-fiche.jsp"};
+        String colonneLien[] = {"source"};
+        String[] urlLienMultiple = {"source"};
+        String[] urlLienAffiche = {"id"};
+        pr.getTableau().setLien(lienTableau);
+        pr.getTableau().setColonneLien(colonneLien);           
+        pr.getTableau().setUrlLienAffiche(urlLienAffiche);
+        pr.getTableau().setUrlLien(urlLienMultiple);
         if(pr.getTableau().getHtml() != null){
             out.println(pr.getTableau().getHtml());
          }else
