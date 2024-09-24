@@ -67,13 +67,13 @@ public class Reamenagement extends ClassEtat {
         return "id";
     }
 
-    public void construirePK(Connection c) throws Exception {
-        this.preparePk(" REAM", "getseqreamenagement");
-        this.setId(makePK(c));
-    }
-
     public Reamenagement() {
         this.setNomTable("REAMENAGEMENT");
+    }
+
+    public void construirePK(Connection c) throws Exception {
+        this.preparePk("REAM", "getseqreamenagement");
+        this.setId(makePK(c));
     }
 
     public void createAvenant(String u, Connection c) throws Exception {
@@ -93,8 +93,8 @@ public class Reamenagement extends ClassEtat {
     @Override
     public Object validerObject(String u, Connection c) throws Exception {
         this.createAvenant(u, c);
-        this.validerObject(u, c);
-        return this;
+        this.setNomTable("REAMENAGEMENT");
+        return super.validerObject(u, c);
     }
 
 }
