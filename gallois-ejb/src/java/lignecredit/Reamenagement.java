@@ -3,6 +3,7 @@ package lignecredit;
 import java.sql.Connection;
 
 import bean.ClassEtat;
+import utilitaire.Utilitaire;
 
 public class Reamenagement extends ClassEtat {
     private String id;
@@ -81,12 +82,14 @@ public class Reamenagement extends ClassEtat {
         surplus.setIdLigneCredit(this.idLigneArrive);
         surplus.setMontant(this.montant);
         surplus.setSource(this.id);
+        surplus.setDaty(Utilitaire.dateDuJourSql());
         surplus.createObject(u, c);
 
         AvenantBudget moins = new AvenantBudget();
         moins.setIdLigneCredit(this.idLigneDepart);
         moins.setMontant(-1 * this.montant);
         moins.setSource(this.id);
+        surplus.setDaty(Utilitaire.dateDuJourSql());
         moins.createObject(u, c);
     }
 

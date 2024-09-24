@@ -1,6 +1,7 @@
 package lignecredit;
 
 import java.sql.Connection;
+import java.sql.Date;
 
 import bean.ClassMAPTable;
 
@@ -8,6 +9,15 @@ public class AvenantBudget extends ClassMAPTable {
     private String id;
     private String idLigneCredit, source;
     private double montant;
+    private Date daty;
+
+    public Date getDaty() {
+        return daty;
+    }
+
+    public void setDaty(Date daty) {
+        this.daty = daty;
+    }
 
     public String getId() {
         return id;
