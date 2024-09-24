@@ -46,6 +46,15 @@ public class Engagement extends ClassEtat {
     private String chantier, objet, duree, idavenant;
     private String devise;
     private double montantdevise, taux;
+    private double montantbudget;
+
+    public double getMontantbudget() {
+        return montantbudget;
+    }
+
+    public void setMontantbudget(double montantbudget) {
+        this.montantbudget = montantbudget;
+    }
 
     public double getValeurTaux(Connection c, String nomTable, Date date) throws Exception {
         String awhere = " and daty = (SELECT max(daty) FROM " + nomTable + " WHERE  daty <= to_date('"
@@ -590,6 +599,7 @@ public class Engagement extends ClassEtat {
                     + Utilitaire.formaterAr(lc.getResteApresEngmt()) + ")", this.getType(), "validerBC");
         this.setDispoAvant(lc.getResteApresEngmt());
         this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
+        this.setMontantbudget(lc.getMontant());
         super.validerObject(u, c);
         if (avecFacture == 1) {
             this.genererFacture(u, c, filles, lc);
