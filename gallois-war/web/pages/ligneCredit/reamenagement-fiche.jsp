@@ -21,10 +21,11 @@
     pc.setTitre("FICHE REAMENAGEMENT");
     pc.getChampByName("idLigneDepartLib").setLibelle("Ligne D&eacute;part");
     pc.getChampByName("idLigneArriveLib").setLibelle("Ligne Arriv&eacute;");
-    pc.getChampByName("idLigneDepart").setVisible(false);
-    pc.getChampByName("idLigneArrive").setVisible(false);
+
     pc.getChampByName("id").setVisible(false);
     e = (Reamenagement) pc.getBase();
+    pc.getChampByName("idLigneDepart").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp&id=" + e.getIdLigneDepart(), "");
+    pc.getChampByName("idLigneArrive").setLien((String) session.getValue("lien") + "?but=ligneCredit/fiche-ligneCreditDepense.jsp&id=" + e.getIdLigneArrive(), "");
     String id= e.getId();
     String bute="ligneCredit/reamenagement-fiche.jsp";
     String classe="lignecredit.Reamenagement";
