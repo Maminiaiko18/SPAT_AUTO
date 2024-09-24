@@ -45,16 +45,16 @@
         pr.setLien((String) session.getValue("lien"));
         pr.setApres("treso/aviscredit-pact.jsp");
 
-        Liste[] listes = new Liste[3];
+        Liste[] listes = new Liste[2];
         listes[0] = new Liste("descecaisse", new String[]{"Tous", "Caisse", "Banque"}, new String[]{"", "Caisse", "Banque"});
 
         TypeObjet typeCheque = new TypeObjet();
         typeCheque.setNomTable("typecheque");
         listes[1] = new Liste("idtypecheque", typeCheque, "val", "id");
 
-        Caisse caisse = new Caisse();
+        /*Caisse caisse = new Caisse();
         caisse.setNomTable("CAISSEPACT");
-        listes[2] = new Liste("caisse", caisse, "val", "id");
+        listes[2] = new Liste("caisse", caisse, "val", "id");*/
 
         pr.getFormu().changerEnChamp(listes);
         pr.getFormu().getChamp("idplacement").setLibelle("source");
@@ -73,8 +73,8 @@
         pr.getFormu().getChamp("numeroOP").setLibelle("Num&eacute;ro OP");
         pr.getFormu().getChamp("tierslib").setLibelle("Tiers");
         pr.getFormu().getChamp("numPiece").setLibelle("Num Piece");
-        String where= new JournalCaisse().recettequery(null,"CAISSEPACT");
-        pr.setAWhere(where);
+        //String where= new JournalCaisse().recettequery(null,"CAISSEPACT");
+        //pr.setAWhere(where);
         String[] colSomme = {"credit", "debit"};
         pr.creerObjetPage(libEntete, colSomme);
         if(date1.equalsIgnoreCase(date2)) date1 = Utilitaire.ajoutJourDateString(Utilitaire.stringDate(date2), -1);
@@ -99,13 +99,13 @@
                 <div class="form-group">
                     <label>Etat : </label>
                     <select name="etatvue" class="champ form-control" id="etatvue" onchange="changerDesignation()" style="display: inline-block; width: 250px;">
-                        <option value="JOURNALCAISSELIBCOMPLET" <% if (request.getParameter("etatvue") == null || request.getParameter("etatvue").compareToIgnoreCase("") == 0 || request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIBCOMPLET") == 0) {
+                        <option value="AVISCREDITPACT" <% if (request.getParameter("etatvue") == null || request.getParameter("etatvue").compareToIgnoreCase("") == 0 || request.getParameter("etatvue").compareToIgnoreCase("AVISCREDITPACT") == 0) {
                                 out.print("selected");
                             }%>>Tous</option>
-                        <option value="JOURNALCAISSELIBCOMPLET_CREE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIBCOMPLET_CREE") == 0) {
+                        <option value="AVISCREDITPACT_CREE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("AVISCREDITPACT_CREE") == 0) {
                                 out.print("selected");
                             }%>>Cr&eacute;e</option>
-                        <option value="JOURNALCAISSELIBCOMPLET_VISE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("JOURNALCAISSELIBCOMPLET_VISE") == 0) {
+                        <option value="AVISCREDITPACT_VISE" <%if (request.getParameter("etatvue") != null && request.getParameter("etatvue").compareToIgnoreCase("AVISCREDITPACT_VISE") == 0) {
                                 out.print("selected");
                             }%>>Vis&eacute;</option>
 
