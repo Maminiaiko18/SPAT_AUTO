@@ -70,6 +70,7 @@
         pi.getFormu().getChamp("Taux").setVisible(false);
         
         pi.getFormu().getChamp("idavenant").setVisible(false);
+        pi.getFormu().getChamp("montantbudget").setVisible(false);
         pi.getFormu().getChamp("idtype").setLibelle("Type");
         pi.getFormu().getChamp("etat").setVisible(false);
         pi.getFormu().getChamp("codeEtablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
