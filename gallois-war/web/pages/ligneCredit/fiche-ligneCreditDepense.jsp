@@ -38,10 +38,19 @@
     pc.getChampByName("compteG").setVisible(false);
       pc.getChampByName("codeEtablissementlib").setLibelle("Etablissement");
       pc.getChampByName("projetlib").setLibelle("projet");
+    
     AttacherFichier[] fichiers = UploadService.getUploadFile(id);
     configuration.CynthiaConf.load();
     String cdn = configuration.CynthiaConf.properties.getProperty("cdnReadUri");
     String dossier="ligneCreditDepense";
+    Map<String, String> map = new HashMap<String, String>();
+        map.put("liste-avenant-details", "");
+    String tab = request.getParameter("tab");
+        if (tab == null) {
+            tab = "liste-avenant-details";
+        }
+        map.put(tab, "active");
+        tab = "inc/" + tab + ".jsp";
     
 %>
 <div class="content-wrapper">
@@ -74,7 +83,22 @@
               
                 
     <!--    fin detail      -->
-        <div class="row">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 ">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs nav-center">
+                    <li class="<%= map.get("liste-avenant-details")%>"><a href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=liste-avenant-details%>">D&eacute;tails avenant</a></li>
+                    
+                </ul>       
+
+                    <div class="tab-content">       
+                        <jsp:include page="<%=tab%>" >
+                            <jsp:param name="avenant" value="<%=e.getId()%>" />
+                        </jsp:include>
+                    </div>
+                </div>
+            </div>
+        </div>  
            <div class="col-md-2"></div>
            <div class="col-md-8">
                <div class="box-title with-border">
