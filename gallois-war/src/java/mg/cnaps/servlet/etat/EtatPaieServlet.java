@@ -4506,10 +4506,10 @@ public class EtatPaieServlet extends HttpServlet {
                     }
                 }
 
-                lc = engagement.findSituationCredit(c);
-                if (lc != null) {
-                    param.put("annuel", Utilitaire.formaterAr(lc.getMontant()));
-                }
+                /*lc = engagement.findSituationCredit(c);
+                if (lc != null) {*/
+                    param.put("annuel", Utilitaire.formaterAr(engagement.getMontantbudget()));
+                // }
                 param.put("montant", Utilitaire.formaterAr((engagement.getMontant())));
                 param.put("avant", Utilitaire.formaterAr(engagement.getDispoAvant()));
                 param.put("apres", Utilitaire.formaterAr(engagement.getDispoApres()));
