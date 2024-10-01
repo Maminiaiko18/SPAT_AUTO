@@ -4496,7 +4496,7 @@ public class EtatPaieServlet extends HttpServlet {
                 param.put("projet", engagement.getProjetlib());
                 param.put("numero", engagement.getNum());
                 param.put("dateimpression", Utilitaire.datetostring(engagement.getDateImpression()));
-                LigneCredit lc = engagement.findLigneCredit(c);
+                LigneCredit lc = engagement.findSituationCredit(c);
                 if (lc != null) {
                     if (engagement.getCodeEtablissementlib() == null) {
                         param.put("code_etab", lc.getCodeEtablissementlib());
