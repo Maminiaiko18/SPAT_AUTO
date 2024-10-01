@@ -635,6 +635,8 @@ public class Engagement extends ClassEtat {
             // ("+Utilitaire.formaterAr(lc.getRestebudget())+")");
             this.setDispoAvant(lc.getResteApresEngmt());
             this.setDispoApres(lc.getResteApresEngmt() - this.getMontant());
+            this.setMontantbudget(lc.getMontant());
+
             super.validerObject(u, c);
             if (avecFacture == 1) {
                 this.genererFacture(u, c, filles, lc);
