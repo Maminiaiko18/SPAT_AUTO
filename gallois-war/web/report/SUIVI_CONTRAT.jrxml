@@ -324,7 +324,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daty}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00">
+			<textField pattern="#,##0.00">
 				<reportElement x="322" y="0" width="129" height="20" uuid="3f9e30ee-1bb2-479c-a0cb-774299d81b44"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -337,7 +337,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantpaye}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00">
+			<textField pattern="#,##0.00">
 				<reportElement x="451" y="0" width="104" height="20" uuid="5a9a92f1-5ee3-4555-bc87-10e3d218a856"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -350,7 +350,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montantreste}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00">
+			<textField pattern="#,##0.00">
 				<reportElement x="186" y="0" width="136" height="20" uuid="8f08cf79-62cb-4466-8d43-4823b15d0945"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -478,7 +478,7 @@
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="2"/>
 				</textElement>
-				<text><![CDATA[VISA DU DIRECTEUR GENERAL]]></text>
+				<text><![CDATA[VISA DU DIRECTEUR SECTORIEL]]></text>
 			</staticText>
 		</band>
 	</summary>
