@@ -311,7 +311,7 @@ public class LigneCredit extends ClassEtat {
             }
         }
     }
-    public static ResultatEtSomme findSituationCreditDepense(LigneCredit critere, String date1, String date2, String annee,Connection c, String[] colSomme) throws Exception {
+    public static ResultatEtSomme findSituationCreditDepense(LigneCredit critere, String date1, String date2, String annee,Connection c, String[] colSomme,String suiteReq) throws Exception {
         boolean newCon = false;
         try {
             if (c == null) {
@@ -394,7 +394,7 @@ public class LigneCredit extends ClassEtat {
                     + where
                     + " GROUP BY l.DIRECTION, l.projet, n.montant, non.montant, nt.MONTANT, gr.MONTANT, fd.facture, fd.PAYE,\n" +
                     "         l.direction, l.projet, l.COMPTEFULL, l.idprojet, l.iddirection, bc.montant,bp.montant";*/
-            String req = " SELECT * FROM SITUATIONLCDEPENSEGRP_TEMP "+ where +" ";
+            String req = " SELECT * FROM SITUATIONLCDEPENSEGRP_TEMP "+ where +" "+suiteReq;
             System.out.println("rqt FCC Dep===="+req);
             LigneCredit stock = new LigneCredit();
             stock.setNomTable("situationLC_vide");
