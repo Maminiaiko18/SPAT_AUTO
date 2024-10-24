@@ -11,12 +11,17 @@
 <%@page import="affichage.PageRecherche"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="user.UserEJB"%> 
+<%@page import="utilisateur.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try {
 
         LigneCredit fa = new LigneCredit();
         user.UserEJB u = (user.UserEJB) session.getValue("u");
+
+        Prioritaire prioritaire = new Prioritaire();
+        String aWhere = prioritaire.makeListConfidentiality(u,"direction");
+        System.out.println("aWhere "+aWhere);
 
         String etatp = "";
         if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
@@ -73,7 +78,7 @@
         pr.creerObjetPage(libEntete, colSomme);
         
 //        LigneCredit[] liste = LigneCredit.findSituationCreditDepense(request.getParameter("id"), request.getParameter("designation"), request.getParameter("compte"), request.getParameter("daty1"), request.getParameter("daty2"), etatp, reqniv, annee, request.getParameter("mois"), null);
-        ResultatEtSomme rs = LigneCredit.findSituationCreditDepense((LigneCredit) pr.getCritere(), date1, date2,annee, null, colSomme);
+        ResultatEtSomme rs = LigneCredit.findSituationCreditDepense((LigneCredit) pr.getCritere(), date1, date2,annee, null, colSomme,aWhere);
         pr.setRs(rs);
         pr.setTableau(new TableauRecherche((bean.ClassMAPTable[]) rs.getResultat(), libEntete));
         pr.makeTableauRecap();
