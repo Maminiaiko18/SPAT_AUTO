@@ -1741,8 +1741,8 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             param.put("daty", sdf.format(utilitaire.Utilitaire.dateDuJourSql()));
-            String daty1 = sdf.format(utilitaire.Utilitaire.dateDuJourSql());
-            String daty2 = daty1;
+            String daty1 = Utilitaire.getDateMoins6Mois();
+            String daty2 = sdf.format(utilitaire.Utilitaire.dateDuJourSql());
             int indice = Integer.valueOf(request.getParameter("indice"));
             if (request.getParameter("daty2") != null && request.getParameter("daty2").compareToIgnoreCase("null") != 0
                     && request.getParameter("daty2").length() != 0) {
@@ -1762,7 +1762,7 @@ public class EtatPaieServlet extends HttpServlet {
             if (request.getParameter("designation") != null
                     && request.getParameter("designation").compareToIgnoreCase("null") != 0
                     && request.getParameter("designation").length() != 0) {
-                awhere += " AND designation='" + request.getParameter("designation") + "'";
+                awhere += " AND designation like '%" + request.getParameter("designation") + "%'";
             }
             if (request.getParameter("categorielib") != null
                     && request.getParameter("categorielib").compareToIgnoreCase("null") != 0
