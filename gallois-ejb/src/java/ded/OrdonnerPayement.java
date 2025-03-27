@@ -464,6 +464,10 @@ public class OrdonnerPayement extends ClassEtat {
         this.gererFF( u, c);
         this.setNumeroop(genererNumeroOP(c));
         this.checkDoublonNumeroOP(c);
+        
+        OrdonnerPayementData opd = new OrdonnerPayementData(this.getDed_Id(), c);
+        
+        this.setMontant(opd.getMontant());
         return super.createObject(u, c);
     }
     
