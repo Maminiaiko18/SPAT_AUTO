@@ -113,5 +113,39 @@ public class OrdonnerPayementData {
             }
         }
     }
+    
+    public OrdonnerPayementData(String dedid, Connection c) throws Exception{
+        int verif = 0;
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+            
+            String[] ids=dedid.split(";");
+            String apres=Utilitaire.tabToString(ids, "'", ",");
+            FactureFournisseur ff=new FactureFournisseur();
+            ff.setNomTable("factfourn_msum_lib");
+             FactureFournisseur[] efd=(FactureFournisseur[])CGenUtil.rechercher(ff, null, null, c, " and id in ("+apres+")");
+             if(efd.length>0){
+                 for(int i=0;i<efd.length;i++){
+                     this.montant+=efd[i].getMontantreste(); 
+                 }
+                 this.tiers=efd[0].getTiers();
+                 this.tierslib=efd[0].getTierslib();
+             }
+            if(c!=null && verif==1) c.commit();
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
    
 }

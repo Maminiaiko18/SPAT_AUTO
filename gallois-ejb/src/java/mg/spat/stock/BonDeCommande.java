@@ -29,6 +29,7 @@ import utilitaire.Constante;
 import utilitaire.ConstanteEtat;
 import utilitaire.UtilDB;
 import utilitaire.Utilitaire;
+import mg.spat.Liberer;
 
 /**
  *
@@ -1004,12 +1005,29 @@ public class BonDeCommande extends ClassEtat {
     @Override
     public int annulerVisa(String user,Connection c) throws Exception {
         if(this.getIdengagement() != null){
+            Liberer libs = new Liberer(); // code vaovao
+            
             LiaisonEngagement[] liaisons = (LiaisonEngagement[]) CGenUtil.rechercher(new LiaisonEngagement(), null, null, c, " and id2 = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()); 
+            
             for(int i = 0; i < liaisons.length; i++){
                 LiaisonEngagement liaison = liaisons[i];
                 liaison.setEtat(-2);
                 liaison.updateToTableWithHisto(user,c);
+                
+                libs.construirePK(c); // code vaovao
+                libs.setIdengagement(liaison.getId1()); // code vaovao
+                libs.setMontant(liaison.getMontant()); // code vaovao
+                libs.setRemarque("Erreur BC"); // code vaovao
+                libs.setDaty(Utilitaire.dateDuJourSql()); // code vaovao
+                
+                libs.createObject(user, c);
+                libs.validerObject(user, c);
+                
+                
             }
+            this.setIdengagement(null);
+            this.updateToTableWithHisto(user,c);
+          
         }
         
         return super.annulerVisa(user, c);
