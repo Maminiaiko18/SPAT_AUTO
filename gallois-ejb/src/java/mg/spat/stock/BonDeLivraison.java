@@ -7,6 +7,7 @@ package mg.spat.stock;
 
 import bean.CGenUtil;
 import bean.ClassEtat;
+import facture.FactureFournisseur;
 import java.sql.Connection;
 import java.sql.Date;
 import utilitaire.UtilDB;
@@ -187,6 +188,34 @@ public class BonDeLivraison extends ClassEtat {
         return super.validerObject(u, c);
     }
     
+    @Override
+    public int annulerVisa(String user,Connection c) throws Exception { 
+        System.out.println("test : "+this.getId());
+        controleAnnulerVisa(c);
+        return super.annulerVisa(user, c);
+    }
+    @Override
+    public void controleAnnulerVisa(Connection c) throws Exception {
+        int verif = 0;
+        try {
+            if (c == null) {
+                verif = 1;
+                c = new UtilDB().GetConn();
+            }
+            FactureFournisseur ff = new FactureFournisseur();
+            FactureFournisseur[] ffs = (FactureFournisseur[]) CGenUtil.rechercher(new FactureFournisseur(), null, null, c, " and idbl = '" + this.getId() + "' and etat = " + ConstanteEtat.getEtatValider()); 
+           
+            if (ffs.length != 0) {
+                throw new Exception("Annulation BL non permise, BL déjà facturé ");
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (verif == 1 && c != null) {
+                c.close();
+            }
+        }
+    }
     public String[] getFilleBCIds(Connection c) throws Exception {
         BonDeLivraisonFille[] filles = this.getFille(c);
         String[] ids = new String[filles.length];
