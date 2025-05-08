@@ -21,15 +21,19 @@
             Set<String> validCodeEtb = new HashSet<>(Arrays.asList("120", "121"));
             Set<String> validUserRoleIds = new HashSet<>(Arrays.asList("ROL000422", "ROL000421","ROL0000001321113437"));
 
-            if (validCodeEtb.contains(codeetb)) {
+            if (validCodeEtb.contains(codeetb) || validUserRoleIds.contains(userRole)) {
                 // mahita ny rehetra akotran nen Mdm Fanja
-                where = " and iduser != '1637' " ;
-            }
-            if (validUserRoleIds.contains(userRole)){
-                //mahita ny rehetra
+                //where = " and iduser != '1637' " ;
                 where = "";
             }
+//            if (validUserRoleIds.contains(userRole)){
+//                //mahita ny rehetra
+//                where = "";
+//            }
         }
+
+        // iduser = '01'
+        // iduser = '01' and iduser != '1637'
         
     } 
     System.out.println("whereeeee OM"+where);
