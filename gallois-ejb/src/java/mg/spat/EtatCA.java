@@ -241,12 +241,12 @@ public class EtatCA {
         this.calculerHashMapPartiel();
     }
         
-    public EtatCA(int mois, int annee, String idGrandrubrique, boolean estGroupeAncien) throws Exception {
-        CA[] tout = getCACpl(mois, idGrandrubrique, annee);
-        this.setCAtout(tout);
-        this.calculCATotal(tout);
-        this.calculerTauxEtHashMap(tout);
-        this.calculerHashMapPartiel();
+    public EtatCA(int mois, int annee, String idGrandrubrique, boolean estGroupeAncien) throws Exception { System.out.println("01.=====================ZERO INIT 2 ========================");
+        CA[] tout = getCACpl(mois, idGrandrubrique, annee);System.out.println("02.=====================ZERO INIT 2 ========================");
+        this.setCAtout(tout);System.out.println("03.=====================ZERO INIT 2 ========================");
+        this.calculCATotal(tout);System.out.println("04.=====================ZERO INIT 2 ========================");
+        this.calculerTauxEtHashMap(tout);System.out.println("05.=====================ZERO INIT 2 ========================");
+        this.calculerHashMapPartiel();System.out.println("06.=====================ZERO INIT 2 ========================");
     }
         
     public EtatCA(int mois, int annee, String idGrandrubrique, boolean estGroupeAncien, Connection c) throws Exception {
@@ -269,11 +269,14 @@ public class EtatCA {
 
     public void calculCATotal(CA[] tout) {
         if(tout != null && tout.length > 0){
-            String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "nbComptant", "nbCredit"};
+         //   String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "nbComptant", "nbCredit"};
+            String[] cols = new String[]{"anciencumul", "regul", "regulEETP","regulEETPINT","regulEETPEXT", "avoirEETP","avoirEETPINT","avoirEETPEXT", "comptant", "credit", "nbComptant", "nbCredit"};
+            
             double[] total = AdminGen.calculSommeDouble(tout, cols);
 
             if (total!=null&&total.length > 0) {
-                totalGeneral = new CA(null, "TOTAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
+               // totalGeneral = new CA(null, "TOTAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
+                totalGeneral = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5],total[6],total[7],total[8],total[9], 0);
                 totalGeneral.setNbComptant((int)total[6]);
                 totalGeneral.setNbCredit((int)total[7]);
 
@@ -329,9 +332,13 @@ public class EtatCA {
          sommePartiel = new HashMap<String, CA>();
          double totalTaux = 0;
         for(String cle : listeParRubrique.keySet()){
-            String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "taux"};
+          //  String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "taux"};
+            String[] cols = new String[]{"anciencumul", "regul", "regulEETP","regulEETPINT","regulEETPEXT", "avoirEETP","avoirEETPINT","avoirEETPEXT", "comptant", "credit", "taux"};
+           
             double[] total = AdminGen.calculSommeDouble(listeParRubrique.get(cle), cols);
-            CA ca = new CA(null, cle, total[0], total[1], total[2], total[3], total[4], total[5], 0);
+        //    CA ca = new CA(null, cle, total[0], total[1], total[2], total[3], total[4], total[5],0);
+            CA ca =  new CA(null, cle, total[0], total[1], total[2], total[3], total[4], total[5],total[6],total[7],total[8],total[9],0);
+                
             ca.setTaux(total[6]);
             totalTaux += ca.getTaux();
             this.sommePartiel.put(cle, ca);

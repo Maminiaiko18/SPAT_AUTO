@@ -17,7 +17,7 @@ import utilitaire.Utilitaire;
  */
 public class CA extends ClassMAPTable {
     String id, libelle,compteMere,compteMerelib,compte; 
-    double anciencumul, regul, regulEETP, avoirEETP, comptant, credit, esttotal,taux,avoir,montant, reportAvoir;
+    double anciencumul, regul, regulEETP, regulEETPINT, regulEETPEXT,avoirEETP, avoirEETPINT, avoirEETPEXT,comptant, credit, esttotal,taux,avoir,montant, reportAvoir;
     int nbComptant,nbCredit,mois,annee,moisFact,anneeFact, checkReport, nbFactureTotal;
 
     public int getMoisFact() {
@@ -226,21 +226,59 @@ public class CA extends ClassMAPTable {
         this.nbFactureTotal = nbFactureTotal;
     }
 
+    public double getRegulEETPINT() {
+        return regulEETPINT;
+    }
+
+    public void setRegulEETPINT(double regulEETPINT) {
+        this.regulEETPINT = regulEETPINT;
+    }
+
+    public double getRegulEETPEXT() {
+        return regulEETPEXT;
+    }
+
+    public void setRegulEETPEXT(double regulEETPEXT) {
+        this.regulEETPEXT = regulEETPEXT;
+    }
+
+    public double getAvoirEETPINT() {
+        return avoirEETPINT;
+    }
+
+    public void setAvoirEETPINT(double avoirEETPINT) {
+        this.avoirEETPINT = avoirEETPINT;
+    }
+
+    public double getAvoirEETPEXT() {
+        return avoirEETPEXT;
+    }
+
+    public void setAvoirEETPEXT(double avoirEETPEXT) {
+        this.avoirEETPEXT = avoirEETPEXT;
+    }
+    
     public CA() {
         this.setNomTable("CA_vide");
     }
 
-    public CA(String id, String libelle, double anciencumul, double regul, double regulEETP, double avoirEETP, double comptant, double credit, double esttotal) {
+    public CA(String id, String libelle, double anciencumul, double regul, double regulEETP, double regulEETPINT, double regulEETPEXT, double avoirEETP,double avoirEETPINT ,double avoirEETPEXT , double comptant, double credit, double esttotal) {
+       
         this.setNomTable("CA_vide");
         this.setId(id);
         this.setLibelle(libelle);
         this.setAnciencumul(anciencumul);
         this.setRegul(regul);
+        this.setRegulEETPINT(regulEETPINT);
+        this.setRegulEETPEXT(regulEETPEXT);
         this.setRegulEETP(regulEETP);
         this.setAvoirEETP(avoirEETP);
+        this.setAvoirEETPINT(avoirEETPINT);
+        this.setAvoirEETPEXT(avoirEETPEXT);
         this.setComptant(comptant);
         this.setCredit(credit);
         this.setEsttotal(esttotal);
+        
     }
     
     public void construirePK(Connection c) throws Exception {
