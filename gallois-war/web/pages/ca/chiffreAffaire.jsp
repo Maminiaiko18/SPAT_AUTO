@@ -69,7 +69,7 @@
                 <form action="<%=lien%>?but=ca/chiffreAffaire.jsp" method="post" >
                     <div class="box box-solid collapsed">
                         <div style="background:#103a8e; color:white;" class="box-header with-border">
-                            <h3 class="box-title" color="#103a8e"><span color="#103a8e">Recherche avancée</span></h3>
+                            <h3 class="box-title" color="#103a8e"><span color="#103a8e">Recherche avancï¿½e</span></h3>
                             <div class="box-tools pull-right"><button data-original-title="Collapse" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" tabindex="1"><i class="fa fa-plus"></i></button> </div>
                         </div>
                         <div class="box-body" id="pagerecherche">
@@ -91,7 +91,7 @@
                             <div class="row"></div>
                             <div class="row">
                                 <div class="col-xs-4" align="center">
-                                    <button type="reset" class="btn btn-default" tabindex="33">Réinitialiser</button>
+                                    <button type="reset" class="btn btn-default" tabindex="33">Rï¿½initialiser</button>
                                 </div>
                                 <div class="col-xs-4" align="center">
                                     <input name="afficher" value="Afficher" type="submit" class="btn" style="background:#103a8e; color:white" id="btnListe" tabindex="34">
@@ -116,11 +116,9 @@
                         <tr>
                             <th>Avoir Cumul</th>
                             <th>Ancien Cumul</th>
-                            <th>Regul E & P</th>
                             <th>Regul E & P Int</th>
                             <th>Regul E & P Ext</th>
                             <th>A. Cum. Regul</th>
-                            <th>Avoir E & P</th>
                             <th>Avoir E & P Int</th>
                             <th>Avoir E & P Ext</th>
                             <th>Comptant</th>
@@ -165,16 +163,9 @@
                                     <%=Utilitaire.formaterAr(ca.getAnciencumul())%>
                                 </a>
                             </td>
-                            
-                            <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETPINT())%></td>
                              <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETPEXT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirCumRegul())%></td>
-                            <td align="right">
-                                <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&mois=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
-                                    <%=Utilitaire.formaterAr(ca.getAvoirEETP())%>
-                                </a>
-                            </td>
                              <td align="right">
                                 <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&mois=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
                                     <%=Utilitaire.formaterAr(ca.getAvoirEETPINT())%>
@@ -218,11 +209,9 @@
                             <td align="center"><%=rubrique.toUpperCase()%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getReportAvoir())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAnciencumul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(partiel.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getRegulEETPINT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getRegulEETPEXT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirCumRegul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirEETPINT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirEETPEXT())%></td>
                             <td align="right">
@@ -245,11 +234,9 @@
                             <td align="left"><%=Utilitaire.champNull(totalGeneral.getLibelle().toUpperCase())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getReportAvoir())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAnciencumul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegulEETPINT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegulEETPEXT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirCumRegul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirEETPINT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirEETPEXT())%></td>
                             <td align="right">
@@ -272,11 +259,9 @@
                             <td align="left">TOTAL GENERAL</td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getReportAvoir())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAnciencumul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getRegulEETP())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getRegulEETPINT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getRegulEETPEXT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAvoirCumRegul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAvoirEETP())%></td>
                              <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAvoirEETPINT())%></td>
                              <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAvoirEETPEXT())%></td>
                             

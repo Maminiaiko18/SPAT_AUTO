@@ -17,8 +17,24 @@ import utilitaire.Utilitaire;
  */
 public class CA extends ClassMAPTable {
     String id, libelle,compteMere,compteMerelib,compte; 
-    double anciencumul, regul, regulEETP, regulEETPINT, regulEETPEXT,avoirEETP, avoirEETPINT, avoirEETPEXT,comptant, credit, esttotal,taux,avoir,montant, reportAvoir;
+    double anciencumul, regul, regulEETP, regulEETPINT, regulEETPEXT,avoirEETP, avoirEETPINT, avoirEETPEXT,comptant, credit, esttotal,taux,avoir, avoirinterne, avoirexterne, montant, reportAvoir;
     int nbComptant,nbCredit,mois,annee,moisFact,anneeFact, checkReport, nbFactureTotal;
+
+    public double getAvoirexterne() {
+        return avoirexterne;
+    }
+
+    public void setAvoirexterne(double avoirexterne) {
+        this.avoirexterne = avoirexterne;
+    }
+
+    public double getAvoirinterne() {
+        return avoirinterne;
+    }
+
+    public void setAvoirinterne(double avoirinterne) {
+        this.avoirinterne = avoirinterne;
+    }
 
     public int getMoisFact() {
         return moisFact;

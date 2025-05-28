@@ -131,8 +131,7 @@ public class EtatGrandCA {
             GrandRubriqueLib[] grandrubriques = (GrandRubriqueLib[])CGenUtil.rechercher(grandrubrique, null, null, c, " order by rang");
             int t = grandrubriques.length;
             listeCA = new LinkedHashMap<>();
-            for(int i = 0; i < t; i++){  
-             System.out.println("00.=====================ZERO INIT 1 ========================");  
+            for(int i = 0; i < t; i++){
                 EtatCA etatca = new EtatCA(mois, annee, grandrubriques[i].getId(), estGroupeAncien);
                 etatca.setIdgrandrubrique(grandrubriques[i].getId());
                 CA[] tout = etatca.getCAtout();
