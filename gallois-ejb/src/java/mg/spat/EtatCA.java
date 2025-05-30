@@ -146,7 +146,7 @@ public class EtatCA {
         int taillecas = cas.length;
 
         for(int i = 0;i< taillecas;i++){
-            if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee())))&& cas[i].getCheckReport()==0 ){
+            if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()&&cas[i].getAnneeFact()<=cas[i].getAnnee())))&& cas[i].getCheckReport()==0 ){
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     if(cas[i].getMois()<mois)
@@ -158,6 +158,8 @@ public class EtatCA {
                     {
                         temp.setAnciencumul(temp.getAnciencumul()+cas[i].getMontant());
                         temp.setRegulEETP(temp.getRegulEETP()+cas[i].getAvoir());
+                        temp.setRegulEETPINT(temp.getRegulEETPINT()+cas[i].getAvoirinterne());
+                        temp.setRegulEETPEXT(temp.getRegulEETPEXT()+cas[i].getAvoirexterne());
                     }
                     //temp.setComptant(0);
                     //temp.setCredit(0);
@@ -175,6 +177,8 @@ public class EtatCA {
                     {
                         temp.setAnciencumul(cas[i].getMontant());
                         temp.setRegulEETP(cas[i].getAvoir());
+                        temp.setRegulEETPINT(cas[i].getAvoirinterne());
+                        temp.setRegulEETPEXT(cas[i].getAvoirexterne());
                     }
                     temp.setComptant(0);
                     temp.setCredit(0);
@@ -183,7 +187,7 @@ public class EtatCA {
                 }
             }
             
-            else if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<cas[i].getAnnee())))&&cas[i].getCheckReport()==1 ){
+            else if ( ((cas[i].getMois()<mois && cas[i].getAnnee()== annee)||(cas[i].getMois()==mois&&cas[i].getAnnee()==annee&&(cas[i].getMoisFact()<cas[i].getMois()||cas[i].getAnneeFact()<=cas[i].getAnnee())))&&cas[i].getCheckReport()==1 ){
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     if(cas[i].getMois()==mois)
@@ -217,12 +221,16 @@ public class EtatCA {
                 if(cahmap.get(cas[i].getCompte())!=null){
                     CA temp = cahmap.get(cas[i].getCompte());
                     temp.setAvoirEETP(temp.getAvoirEETP()+cas[i].getAvoir());
+                    temp.setAvoirEETPINT(temp.getAvoirEETPINT()+cas[i].getAvoirinterne());
+                    temp.setAvoirEETPEXT(temp.getAvoirEETPEXT()+cas[i].getAvoirexterne());
                     temp.setComptant(temp.getComptant()+cas[i].getComptant());
                     temp.setCredit(temp.getCredit()+cas[i].getCredit());
                     cahmap.put(cas[i].getCompte(),temp);
                 }
                 if(cahmap.get(cas[i].getCompte())==null){
                     CA temp = cas[i];
+                    temp.setAvoirEETPINT(cas[i].getAvoirinterne());
+                    temp.setAvoirEETPEXT(cas[i].getAvoirexterne());
                     temp.setAvoirEETP(cas[i].getAvoir());
                     cahmap.put(cas[i].getCompte(),temp);
                 }
@@ -269,11 +277,14 @@ public class EtatCA {
 
     public void calculCATotal(CA[] tout) {
         if(tout != null && tout.length > 0){
-            String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "nbComptant", "nbCredit"};
+         //   String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "nbComptant", "nbCredit"};
+            String[] cols = new String[]{"anciencumul", "regul", "regulEETP","regulEETPINT","regulEETPEXT", "avoirEETP","avoirEETPINT","avoirEETPEXT", "comptant", "credit", "nbComptant", "nbCredit"};
+            
             double[] total = AdminGen.calculSommeDouble(tout, cols);
 
             if (total!=null&&total.length > 0) {
-                totalGeneral = new CA(null, "TOTAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
+               // totalGeneral = new CA(null, "TOTAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
+                totalGeneral = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5],total[6],total[7],total[8],total[9], 0);
                 totalGeneral.setNbComptant((int)total[6]);
                 totalGeneral.setNbCredit((int)total[7]);
 
@@ -329,9 +340,13 @@ public class EtatCA {
          sommePartiel = new HashMap<String, CA>();
          double totalTaux = 0;
         for(String cle : listeParRubrique.keySet()){
-            String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "taux"};
+          //  String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "taux"};
+            String[] cols = new String[]{"anciencumul", "regul", "regulEETP","regulEETPINT","regulEETPEXT", "avoirEETP","avoirEETPINT","avoirEETPEXT", "comptant", "credit", "taux"};
+           
             double[] total = AdminGen.calculSommeDouble(listeParRubrique.get(cle), cols);
-            CA ca = new CA(null, cle, total[0], total[1], total[2], total[3], total[4], total[5], 0);
+        //    CA ca = new CA(null, cle, total[0], total[1], total[2], total[3], total[4], total[5],0);
+            CA ca =  new CA(null, cle, total[0], total[1], total[2], total[3], total[4], total[5],total[6],total[7],total[8],total[9],0);
+                
             ca.setTaux(total[6]);
             totalTaux += ca.getTaux();
             this.sommePartiel.put(cle, ca);
@@ -417,6 +432,8 @@ public class EtatCA {
 "	nvl(c.COMPTANT,0) AS comptant,\n" +
 "	nvl(c.MONTANT,0) AS montant,\n" +
 "	nvl(c.AVOIR,0) AS avoir,\n" +
+"	nvl(c.AVOIRinterne,0) AS avoirinterne,\n" +
+"	nvl(c.AVOIRexterne,0) AS avoirexterne,\n" +
 "	nvl(c.IDGRANDRUBRIQUE,j.IDGRANDRUBRIQUE) AS IDGRANDRUBRIQUE, c.CHECKREPORT  FROM\n" +
 "	JOINTURECA j,\n" +
 "(\n" +
@@ -426,6 +443,7 @@ public class EtatCA {
 "	AND j.desce = c.MERE(+)\n" +
 "	AND j.idgrandrubrique = c.IDGRANDRUBRIQUE (+)\n" +
 "    AND j.IDGRANDRUBRIQUE = '" + idGrandRubrique + "' order by RANGMERECA,RANGCOMPTECA";
+            System.out.println("Requete pour CA : "+requete);
             CA[] result = (CA[]) CGenUtil.rechercher(base, requete, c);
             String[] listeCompte=AdminGen.getDistinct(result, "compte");
             HashMap<String, CA> mapCA = getetatcagen(mois, annee, result);

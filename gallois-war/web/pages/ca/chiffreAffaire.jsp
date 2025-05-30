@@ -111,18 +111,19 @@
                     <thead>
                         <tr>
                             <th rowspan="2">Libelle</th>
-                            <th colspan="4">Mouvement du mois anterieur</th>
-                            <th colspan="4">Mouvement du mois en cours</th>
+                            <th colspan="5">Mouvement du mois anterieur</th>
+                            <th colspan="5">Mouvement du mois en cours</th>
                             <th rowspan="2">N. Cumule</th>
                             <th rowspan="2">Taux</th>
                         </tr>
                         <tr>
                             <th>Avoir Cumul</th>
                             <th>Ancien Cumul</th>
-                            
-                            <th>Regul E & P</th>
+                            <th>Regul Int</th>
+                            <th>Regul Ext</th>
                             <th>A. Cum. Regul</th>
-                            <th>Avoir E & P</th>
+                            <th>Avoir Int</th>
+                            <th>Avoir Ext</th>
                             <th>Comptant</th>
                             <th>Credit</th>
                             <th>Total</th>
@@ -165,12 +166,17 @@
                                     <%=Utilitaire.formaterAr(ca.getAnciencumul())%>
                                 </a>
                             </td>
-                            
-                            <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETP())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETPINT())%></td>
+                             <td align="right"><%=Utilitaire.formaterAr(ca.getRegulEETPEXT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(ca.getAvoirCumRegul())%></td>
-                            <td align="right">
+                             <td align="right">
                                 <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&mois=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
-                                    <%=Utilitaire.formaterAr(ca.getAvoirEETP())%>
+                                    <%=Utilitaire.formaterAr(ca.getAvoirEETPINT())%>
+                                </a>
+                            </td>
+                               <td align="right">
+                                <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&mois=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                                    <%=Utilitaire.formaterAr(ca.getAvoirEETPEXT())%>
                                 </a>
                             </td>
                             <td align="right">
@@ -206,9 +212,11 @@
                             <td align="center"><%=rubrique.toUpperCase()%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getReportAvoir())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAnciencumul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(partiel.getRegulEETP())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(partiel.getRegulEETPINT())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(partiel.getRegulEETPEXT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirCumRegul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirEETP())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirEETPINT())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(partiel.getAvoirEETPEXT())%></td>
                             <td align="right">
                                 <!--<a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=moisAvant%>&mois2=<%=moisAvant%>&annee=<%=annee%>&recap=checked">-->
                                     <%=Utilitaire.formaterAr(partiel.getComptant())%>
@@ -229,9 +237,11 @@
                             <td align="left"><%=Utilitaire.champNull(totalGeneral.getLibelle().toUpperCase())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getReportAvoir())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAnciencumul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegulEETP())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegulEETPINT())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getRegulEETPEXT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirCumRegul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirEETP())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirEETPINT())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalGeneral.getAvoirEETPEXT())%></td>
                             <td align="right">
                                 <!--<a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&recap=checked">-->
                                 <%=Utilitaire.formaterAr(totalGeneral.getComptant())%>
@@ -252,9 +262,12 @@
                             <td align="left">TOTAL GENERAL</td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getReportAvoir())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAnciencumul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getRegulEETP())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getRegulEETPINT())%></td>
+                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getRegulEETPEXT())%></td>
                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAvoirCumRegul())%></td>
-                            <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAvoirEETP())%></td>
+                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAvoirEETPINT())%></td>
+                             <td align="right"><%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getAvoirEETPEXT())%></td>
+                            
                             <td align="right">
                                 <!--<a href="<%= lien%>?but=facture/facture-client-fille-liste.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&recap=checked">-->
                                 <%=Utilitaire.formaterAr(totalgeneralgrandrubrique.getComptant())%>

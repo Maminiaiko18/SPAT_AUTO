@@ -129,7 +129,6 @@ public class EtatGrandCA {
             GrandRubriqueLib grandrubrique = new GrandRubriqueLib();
             grandrubrique.setNomTable("GRANDRUBRIQUE");
             GrandRubriqueLib[] grandrubriques = (GrandRubriqueLib[])CGenUtil.rechercher(grandrubrique, null, null, c, " order by rang");
-            
             int t = grandrubriques.length;
             listeCA = new LinkedHashMap<>();
             for(int i = 0; i < t; i++){
@@ -141,9 +140,9 @@ public class EtatGrandCA {
                     listeCA.put(grandrubriques[i].getVal(), etatca);
                 }
             }
-            
+           
             tout = CAtout.toArray(new CA[CAtout.size()]);
-            this.calculerTotalGeneral(mois, annee, c);
+            this.calculerTotalGeneral(mois, annee, c);   
             double tauxTotal = 0;
             double total = 0;
             
@@ -167,16 +166,14 @@ public class EtatGrandCA {
     }
     
     public void calculerTotalGeneral(int mois, int annee, Connection c) throws Exception {
-        
         try{
-            String[] cols = new String[]{"anciencumul", "regul", "regulEETP", "avoirEETP", "comptant", "credit", "nbComptant", "nbCredit"};
+            String[] cols = new String[]{"anciencumul", "regul", "regulEETP","regulEETPINT","regulEETPEXT", "avoirEETP","avoirEETPINT","avoirEETPEXT", "comptant", "credit", "nbComptant", "nbCredit"};
             double[] total = AdminGen.calculSommeDouble(tout, cols);
 
             if (total!=null&&total.length > 0) {
-                totalgeneralgrandrubrique = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5], 0);
-                totalgeneralgrandrubrique.setNbComptant((int)total[6]);
-                totalgeneralgrandrubrique.setNbCredit((int)total[7]);
-                
+                totalgeneralgrandrubrique = new CA(null, "TOTAL GENERAL", total[0], total[1], total[2], total[3], total[4], total[5],total[6],total[7],total[8],total[9], 0);
+                totalgeneralgrandrubrique.setNbComptant((int)total[10]);
+                totalgeneralgrandrubrique.setNbCredit((int)total[11]);
                 double totalG = 0;
                 if(totalgeneralgrandrubrique.getTotal() > 0){
                     totalG = totalgeneralgrandrubrique.getTotal();
