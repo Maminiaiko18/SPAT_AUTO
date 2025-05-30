@@ -116,11 +116,11 @@
                         <tr>
                             <th>Avoir Cumul</th>
                             <th>Ancien Cumul</th>
-                            <th>Regul E & P Int</th>
-                            <th>Regul E & P Ext</th>
+                            <th>Regul Int</th>
+                            <th>Regul Ext</th>
                             <th>A. Cum. Regul</th>
-                            <th>Avoir E & P Int</th>
-                            <th>Avoir E & P Ext</th>
+                            <th>Avoir Int</th>
+                            <th>Avoir Ext</th>
                             <th>Comptant</th>
                             <th>Credit</th>
                             <th>Total</th>

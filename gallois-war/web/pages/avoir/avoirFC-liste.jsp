@@ -15,10 +15,10 @@
             ff.setNomTable(request.getParameter("etat"));
         }
 
-        String listeCrt[] = {"id","tierslib","idfacture", "typelib", "daty", "code"};
+        String listeCrt[] = {"id","tierslib","idfacture", "typelib", "daty", "code","datefacture","mois_fact_lettre","annee_fact"};
         String listeInt[] = {"daty"};
-        String libEntete[] =  {"id","daty", "code", "tierslib","idfacture", "codefacture", "typelib","montant","montanttva", "montantttc" ,"montantpaye","montantreste","cdclt"};
-        String libelleAffiche[] = {"id", "date", "Code", "tiers", "facture", "N° facture", "Type","montant","montant TVA", "montant TTC", "montant payé","Reste à payer","Code tiers"};
+        String libEntete[] =  {"id","daty", "code", "tierslib","idfacture", "codefacture", "datefacture","typelib","montant","montanttva", "montantttc" ,"montantpaye","montantreste","cdclt","mois_fact_lettre","annee_fact"};
+        String libelleAffiche[] = {"id", "date", "Code", "tiers", "facture", "N° facture", "datefacture","Type","montant","montant TVA", "montant TTC", "montant payé","Reste à payer","Code tiers","mois facture","annee facture"};
         PageRecherche pr = new PageRecherche(ff, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setOrdre(" order by daty desc");
@@ -39,6 +39,8 @@
         pr.getFormu().getChamp("tierslib").setLibelle("tiers");
         pr.getFormu().getChamp("idfacture").setLibelle("facture");
         pr.getFormu().getChamp("typelib").setLibelle("Type");
+        pr.getFormu().getChamp("datefacture").setLibelle("Date facture");
+        pr.getFormu().getChamp("annee_fact").setLibelle("Année du facture");
         pr.getFormu().getChamp("daty1").setLibelle("Date min");
         pr.getFormu().getChamp("daty2").setLibelle("Date max");    
 	    pr.getFormu().getChamp("code").setLibelle("Code");    		

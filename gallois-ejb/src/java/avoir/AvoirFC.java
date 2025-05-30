@@ -47,7 +47,9 @@ public class AvoirFC extends ClassMere {
     private String cdclt;
     private double montantrestefc;
     private double HtEuro,TvaEuro,TTCEuro,HTDollar,TVADollar,TTCDollar;
-
+    private int mois_fact , annee_fact;
+    private String mois_fact_lettre;
+    
     public void initMontantDevise(double coursEuro, double coursDollar){
         this.HtEuro = this.getMontant() / coursEuro;
         this.TvaEuro = this.getMontanttva()  / coursEuro;
@@ -249,7 +251,7 @@ public class AvoirFC extends ClassMere {
         this.setNomClasseFille("avoir.AvoirFCFille");
     }
 
-    public AvoirFC(String id, Date daty, String idfacture, String designationFacture, String tiers, String tierslib, double montant, double montantpaye, double montantreste, String designation, String code, String categorie, String motif) {
+    public AvoirFC(String id, Date daty, String idfacture, String designationFacture, String tiers, String tierslib, double montant, double montantpaye, double montantreste, String designation, String code, String categorie, String motif, int mois_fact, int annee_fact) {
         setNomTable("AvoirFC");   
         this.id = id;
         this.daty = daty;
@@ -264,11 +266,13 @@ public class AvoirFC extends ClassMere {
         this.code = code;
         this.categorie = categorie;
         this.motif = motif;
+        this.mois_fact_lettre = Utilitaire.nbToMois(mois_fact);
+        this.annee_fact = annee_fact;
     }
     
     
     
-    public AvoirFC(String id, Date daty, String idfacture, String designationFacture, String tiers, String tierslib, double montant, double montantpaye, double montantreste) {
+    public AvoirFC(String id, Date daty, String idfacture, String designationFacture, String tiers, String tierslib, double montant, double montantpaye, double montantreste, int mois_fact, int annee_fact) {
         setNomTable("AvoirFC");        
         this.id = id;
         this.daty = daty;
@@ -279,9 +283,11 @@ public class AvoirFC extends ClassMere {
         this.montant = montant;
         this.montantpaye = montantpaye;
         this.montantreste = montantreste;
+        this.mois_fact_lettre = Utilitaire.nbToMois(mois_fact);
+        this.annee_fact = annee_fact;
     }    
     
-    public AvoirFC(String id, Date daty, String idfacture, String designationFacture, String tiers, String tierslib, double montant, double montantpaye, double montantreste, String designation, String code, String categorie) {
+    public AvoirFC(String id, Date daty, String idfacture, String designationFacture, String tiers, String tierslib, double montant, double montantpaye, double montantreste, String designation, String code, String categorie,int mois_fact, int annee_fact) {
         setNomTable("AvoirFC"); 
         this.id = id;
         this.daty = daty;
@@ -295,6 +301,8 @@ public class AvoirFC extends ClassMere {
         this.designation = designation;
         this.code = code;
         this.categorie = categorie;
+        this.mois_fact_lettre = Utilitaire.nbToMois(mois_fact);
+        this.annee_fact = annee_fact;
     }
     
     @Override
@@ -335,6 +343,34 @@ public class AvoirFC extends ClassMere {
 
     public void setIdfacture(String idfacture) {
         this.idfacture = idfacture;
+    }
+
+    public int getMois_fact() {
+        return mois_fact;
+    }
+    
+    public void setMois_fact(int mois_fact) {
+        
+        this.mois_fact = mois_fact;
+        
+    }
+
+    public String getMois_fact_lettre() {
+       return mois_fact_lettre;
+     
+    }
+
+    public void setMois_fact_lettre(String mois_fact_lettre) {
+        this.mois_fact_lettre = mois_fact_lettre  ;
+        
+    }
+    
+    public int getAnnee_fact() {
+        return annee_fact;
+    }
+
+    public void setAnnee_fact(int annee_fact) {
+        this.annee_fact = annee_fact;
     }
     
     public String genererSequence(Connection c, String nomtable, int longueur, String awhere) throws Exception {
