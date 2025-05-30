@@ -58,6 +58,9 @@
     .generalfinal {
         font-size: 20px;
     }
+    #boxListCA {
+        overflow-x: scroll!important;
+    }
 </style>
 <div class="content-wrapper">
     <section class="content-header">
@@ -69,7 +72,7 @@
                 <form action="<%=lien%>?but=ca/chiffreAffaire.jsp" method="post" >
                     <div class="box box-solid collapsed">
                         <div style="background:#103a8e; color:white;" class="box-header with-border">
-                            <h3 class="box-title" color="#103a8e"><span color="#103a8e">Recherche avancée</span></h3>
+                            <h3 class="box-title" color="#103a8e"><span color="#103a8e">Recherche avancï¿½e</span></h3>
                             <div class="box-tools pull-right"><button data-original-title="Collapse" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" tabindex="1"><i class="fa fa-plus"></i></button> </div>
                         </div>
                         <div class="box-body" id="pagerecherche">
@@ -91,7 +94,7 @@
                             <div class="row"></div>
                             <div class="row">
                                 <div class="col-xs-4" align="center">
-                                    <button type="reset" class="btn btn-default" tabindex="33">Réinitialiser</button>
+                                    <button type="reset" class="btn btn-default" tabindex="33">Rï¿½initialiser</button>
                                 </div>
                                 <div class="col-xs-4" align="center">
                                     <input name="afficher" value="Afficher" type="submit" class="btn" style="background:#103a8e; color:white" id="btnListe" tabindex="34">
@@ -103,7 +106,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="box list">
+            <div class="box list" id="boxListCA">
                 <table class="table table-responsive table-hover tableca" width="100%">
                     <thead>
                         <tr>
