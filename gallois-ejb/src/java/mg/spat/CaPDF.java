@@ -10,7 +10,7 @@ import utilitaire.Utilitaire;
 
 public class CaPDF {
     String id, libelle,compteMere,compteMerelib,compte; 
-    double anciencumul, regul, regulEETP, avoirEETP, comptant, credit, esttotal,taux,avoir,montant,AvoirCumRegul;
+    double anciencumul, regul, regulEETP,regulEETPINT, regulEETPEXT,avoirEETP,avoirEETPINT, avoirEETPEXT, comptant, credit, esttotal,taux,avoir,montant,AvoirCumRegul;
     String nbComptant,nbCredit,mois,annee;
     double  total, nCumul;
     String idgrandrubrique, grandrubriquelibelle;
@@ -206,6 +206,38 @@ public class CaPDF {
     public void setGrandrubriquelibelle(String grandrubriquelibelle) {
         this.grandrubriquelibelle = grandrubriquelibelle;
     }
+
+    public double getRegulEETPINT() {
+        return regulEETPINT;
+    }
+
+    public void setRegulEETPINT(double regulEETPINT) {
+        this.regulEETPINT = regulEETPINT;
+    }
+
+    public double getRegulEETPEXT() {
+        return regulEETPEXT;
+    }
+
+    public void setRegulEETPEXT(double regulEETPEXT) {
+        this.regulEETPEXT = regulEETPEXT;
+    }
+
+    public double getAvoirEETPINT() {
+        return avoirEETPINT;
+    }
+
+    public void setAvoirEETPINT(double avoirEETPINT) {
+        this.avoirEETPINT = avoirEETPINT;
+    }
+
+    public double getAvoirEETPEXT() {
+        return avoirEETPEXT;
+    }
+
+    public void setAvoirEETPEXT(double avoirEETPEXT) {
+        this.avoirEETPEXT = avoirEETPEXT;
+    }
     
     
     public CaPDF() {
@@ -216,8 +248,12 @@ public class CaPDF {
         this.setAnciencumul(ca.getAnciencumul());
         this.setRegul(ca.getRegul());
         this.setRegulEETP(ca.getRegulEETP());
+        this.setRegulEETPINT(ca.getRegulEETPINT());
+        this.setRegulEETPEXT(ca.getRegulEETPEXT());
         this.setAvoirCumRegul(ca.getAvoirCumRegul());
         this.setAvoirEETP(ca.getAvoirEETP());
+        this.setAvoirEETPINT(ca.getAvoirEETPINT());
+        this.setAvoirEETPEXT(ca.getAvoirEETPEXT());
         this.setComptant( ca.getComptant());
         this.setCredit(ca.getCredit());
         this.setTotal( ca.getTotal());
