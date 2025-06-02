@@ -58,6 +58,9 @@
     .generalfinal {
         font-size: 20px;
     }
+    #boxListCA {
+        overflow-x: scroll!important;
+    }
 </style>
 <div class="content-wrapper">
     <section class="content-header">
@@ -103,7 +106,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="box list">
+            <div class="box list" id="boxListCA">
                 <table class="table table-responsive table-hover tableca" width="100%">
                     <thead>
                         <tr>
