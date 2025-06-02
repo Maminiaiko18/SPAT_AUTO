@@ -926,7 +926,7 @@ public class FactureFournisseur extends FactureClient {
             FactureFournisseur[] lbp = (FactureFournisseur[]) CGenUtil.rechercher(bp, null, null, c, whereBp);
             double montantbp= 0 ;
             if(lbp.length > 0) montantbp= AdminGen.calculSommeDouble(lbp, "montant");
-            result = resteApresEngmt - montantbp - this.getMontant();
+            result = resteApresEngmt - montantbp ; //- this.getMontant();
         } catch (Exception e) {
             throw e;
         } finally {
