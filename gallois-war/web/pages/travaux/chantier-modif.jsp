@@ -18,6 +18,16 @@
     pi.setLien((String) session.getValue("lien"));
     UserEJB u = (UserEJB) session.getAttribute("u");
     Chantier base = (Chantier) pi.getBase();
+
+
+    affichage.Champ[] liste = new affichage.Champ[1];
+    TypeObjet mvt2 = new TypeObjet();
+    mvt2.setNomTable("devisedemat");
+    liste[0] = new Liste("devise", mvt2, "VAL", "id");
+    
+
+    pi.getFormu().changerEnChamp(liste);
+    pi.getFormu().getChamp("devise").setLibelle("Devise");
     pi.getFormu().getChamp("idtiers").setValeurLibelle(base.getNomtiers());
     pi.getFormu().getChamp("idtravaux").setValeurLibelle(base.getNomtravaux());
     pi.getFormu().getChamp("codeetablissement").setValeurLibelle(base.getCodeetablissementlib());
