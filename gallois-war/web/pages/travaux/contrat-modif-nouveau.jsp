@@ -18,12 +18,16 @@
     pi.setLien((String) session.getValue("lien"));
     t = (Contrat)pi.getBase();
 
-    affichage.Liste[] listes = new affichage.Liste[1];
+    affichage.Liste[] listes = new affichage.Liste[2];
 
     TypeObjet type = new TypeObjet();
     type.setNomTable("unitecontrat");
     listes[0] = new Liste("unite", type, "VAL", "id");
 
+    TypeObjet mvt2 = new TypeObjet();
+    mvt2.setNomTable("devisedemat");
+    listes[1] = new Liste("devise", mvt2, "VAL", "id");
+        
     pi.getFormu().changerEnChamp(listes);
  
     pi.getFormu().getChamp("idchantier").setPageAppel("choix/listeChantierChoix.jsp");
@@ -69,7 +73,7 @@
     pi.getFormu().getChamp("codeetablissement").setLibelle("Code &Eacute;tablissement");
     pi.getFormu().getChamp("idLC").setLibelle("Budget");
     pi.getFormu().getChamp("fin_contrat").setLibelle("Fin contrat");
-
+    pi.getFormu().getChamp("devise").setLibelle("Devise");
     
     pi.setLien((String) session.getValue("lien"));
     pi.preparerDataFormu();
