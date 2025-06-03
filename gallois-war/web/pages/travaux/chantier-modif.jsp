@@ -24,6 +24,7 @@
     TypeObjet mvt2 = new TypeObjet();
     mvt2.setNomTable("devisedemat");
     liste[0] = new Liste("devise", mvt2, "VAL", "id");
+    
     pi.getFormu().changerEnChamp(liste);
     pi.getFormu().getChamp("devise").setLibelle("Devise");
     pi.getFormu().getChamp("idtiers").setValeurLibelle(base.getNomtiers());
