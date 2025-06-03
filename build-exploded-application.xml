@@ -1,0 +1,138 @@
+<project name="deploy-ejb" default="deploy" basedir="./build-file">
+    <property environment="env"/>
+    <property name="deploy.dir" value="/opt/env/wildfly-10.0.0.Final/standalone/deployments"/>
+    <property name="gallois-warname" value="gallois.war"/>
+    <property name="gallois-jarname" value="gallois-ejb.jar"/>
+    <property name="gallois-earname" value="gallois.ear"/>
+    <property name="srcejb-dir" value="./gallois-ejb/src/"/>
+    <property name="srcwar-dir" value="./gallois-war/src/java"/>
+    
+    <property name="build-gallois-war_war" value="${basedir}/gallois_war" />
+    <property name="build-gallois-ejb_jar" value="${basedir}/gallois_jar" />
+    <property name="build-gallois-lib" value="${basedir}/lib" />
+    
+    <property name="buildEar.dir" value="${basedir}/ear"/>
+    <property name="webcontent.dir" value="../gallois-war/web"/>
+    
+    <property name="srcproperties.dir" value="../gallois-ejb/src/java/resources"/>
+
+
+    <path id="classpath">
+        <fileset dir="${basedir}\lib">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+	
+	
+
+	
+    <target name="clean" >
+        <echo> 
+            Compilation gallois GENIUS_ART_C [START]----------------
+        </echo>
+        <echo>JDK ${ant.java.version}  ${ant.version}  </echo>
+        <echo> clean </echo>
+        
+        <delete file="${build-gallois-ejb_jar}" />
+        <delete file="${build-gallois-war_war}" />
+        <delete file="${build-gallois-lib}" />
+        <delete file="${basedir}/${gallois-earname}" />
+        <delete file="${buildEar.dir}/${gallois-earname}" />
+		
+        <echo> clean done </echo>
+    </target>
+	
+    <tstamp>
+        <format property="dateDuJour" pattern="dd/MM/yyyy hh:mm aa" />
+    </tstamp>
+	
+    <target name="init" depends="clean">
+        <echo> initialisation ${dateDuJour} </echo>
+        
+        <mkdir dir="${build-gallois-war_war}"/>
+        <mkdir dir="${build-gallois-war_war}/WEB-INF"/>
+        <mkdir dir="${build-gallois-war_war}/WEB-INF/lib"/>
+        <mkdir dir="${build-gallois-war_war}/WEB-INF/classes"/>
+        <mkdir dir="${build-gallois-war_war}/WEB-INF/classes/META-INF"/>
+        
+        <mkdir dir="${build-gallois-ejb_jar}"/>
+		
+		
+        <echo file="${webcontent.dir}/dateBuild.txt" append="false" message="${dateDuJour}" />
+        
+        <copy todir="${build-gallois-war_war}/">
+            <fileset dir="${webcontent.dir}" excludes="WEB-INF/**"/>
+        </copy>
+        <copy todir="${build-gallois-war_war}/WEB-INF/lib/">
+            <fileset dir="${basedir}\lib" />
+        </copy>
+
+        <!--<copy file="../gallois-war/web/WEB-INF/web.xml" tofile="${build-gallois-war_war}/WEB-INF/web.xml" />-->
+        <copy file="../gallois-ejb/src/java/cynthia.properties" tofile="${build-gallois-ejb_jar}/cynthia.properties" />
+		
+		
+        <echo>  initialisation done </echo>
+    </target>
+	
+    <target name="compile" depends="init">
+        <echo> compilation </echo>	
+        <javac srcdir="../gallois-ejb/src/java" destdir="${build-gallois-ejb_jar}" nowarn="true" debug="on" deprecation="off" classpathref="classpath" includeantruntime="false" encoding="iso-8859-1">
+        </javac>
+        <copy todir="${build-gallois-ejb_jar}/i18n">
+            <fileset dir="../gallois-ejb/src/java/i18n" includes="**/*.properties" />
+        </copy>
+        <echo> compilation done </echo>	
+    </target>
+    
+    <target name="buildEjbJar" depends="compile">
+        <echo>Build EJB JAR</echo>
+        <jar basedir="${build-gallois-ejb_jar}" destfile="${buildEar.dir}/${gallois-jarname}" />
+        <copy file="${buildEar.dir}/${gallois-jarname}" todir="${build-gallois-war_war}/WEB-INF/lib/">
+        </copy>
+        <echo>End Build EJB JAR</echo>
+    </target>
+
+    <target name="compileWar" depends="buildEjbJar">
+        <echo> compilation </echo>
+        <javac srcdir="../gallois-war/src/java" destdir="${build-gallois-war_war}/WEB-INF/classes/" nowarn="true" debug="on" deprecation="off" classpathref="classpath" includeantruntime="false" encoding="iso-8859-1">
+            <classpath>
+                <pathelement location="${buildEar.dir}/${gallois-jarname}" />
+            </classpath>
+        </javac>
+        <echo> compilation done</echo>
+    </target>
+
+
+    <target name="copieProperties" depends="compileWar">
+        <echo> Copie des properties</echo>
+        <copy file="${srcproperties.dir}/text.properties" todir="${build-gallois-war_war}/WEB-INF/classes">
+        </copy>
+        <copy file="${srcproperties.dir}/text_zh.properties" todir="${build-gallois-war_war}/WEB-INF/classes">
+        </copy>
+        <echo> Fin de la copie </echo>
+    </target>
+	
+	
+    <target name="deploy" depends="copieProperties">	
+        <echo>${env.JBOSS_HOME}</echo>
+        <!--<echo> deployement ear </echo>-->
+        <!--                <copy todir="${deploy.dir}">
+            <fileset dir="${build.dir}" >
+                <include name="${ketrika-earname}"/>
+            </fileset>	
+        </copy>-->
+        <copy todir="${deploy.dir}/spat.war">
+            <fileset dir="${build-gallois-war_war}" >
+                <include name="**/*"/>
+            </fileset>	
+        </copy>
+        <echo> deployement exploded war done </echo>	
+        <echo> 
+            Compilation gallois GENIUS_ART_C [DONE]----------------
+        </echo>
+		
+    </target>	
+	
+	
+
+</project>
