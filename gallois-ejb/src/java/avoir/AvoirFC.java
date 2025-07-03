@@ -524,7 +524,7 @@ public class AvoirFC extends ClassMere {
         }
         if(this.getType()!=null && this.getType().equals("1")){
             factliee.setNomTable("factureclient");
-            factliee.annuler(c);
+           // factliee.annuler(c);
         }
         return super.validerObject(u, c); 
     }
