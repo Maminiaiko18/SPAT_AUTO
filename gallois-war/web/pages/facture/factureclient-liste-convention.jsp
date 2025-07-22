@@ -91,6 +91,7 @@
         pr.getFormu().changerEnChamp(listes);
         pr.getFormu().getChamp("typelib").setLibelle("Type");
         pr.getFormu().getChamp("codeFiltre").setLibelle("Rubriques");
+        pr.getFormu().getChamp("codeFiltre").setDefaut("09A");
         pr.setAWhere(" AND VAL = '09A'");
         
         String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir", "montantpaye", "montantreste"};
