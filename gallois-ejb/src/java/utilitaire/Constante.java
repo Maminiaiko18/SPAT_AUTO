@@ -211,7 +211,8 @@ public class Constante {
     public static String roleCscs = "ROL0000001421143942";
     public static String roleCemedi = "ROL0000001422144013";
     public static String roleRecette = "ROL0000001322113705";
-
+    public static String roleDepense = "ROL0000001381105343";
+    
     public static String getConnexePact() {
         return connexePact;
     }
