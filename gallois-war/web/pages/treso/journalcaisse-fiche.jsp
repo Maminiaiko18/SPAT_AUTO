@@ -137,6 +137,8 @@
                             else if(jcaisse.getCredit()!=0){
                             %>
                                     <a class="btn btn-info"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseRecette&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin: 5px">imprimer pi&egrave;ce de caisse</a>
+                                    
+                                    <a class="btn btn-primary"  href="${pageContext.request.contextPath}/Paie?action=pieceDeCaiseRecetteNew&idFacture=<%=jcaisse.getIdplacement()%>&id=<%=id%>" style="margin: 5px">imprimer AC Traite</a>
                             <%
                             }
                             else if(jcaisse.getDebit()!=0){
