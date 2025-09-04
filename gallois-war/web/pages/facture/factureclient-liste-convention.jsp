@@ -43,7 +43,7 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setOrdre(" order by daty desc");
-        pr.setApres("facture/factureclient-liste-vaovao.jsp&etat=" + request.getParameter("etat"));
+        pr.setApres("facture/factureclient-liste-convention.jsp&etat=" + request.getParameter("etat"));
         pr.setNpp(300);
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");
@@ -92,6 +92,7 @@
         pr.getFormu().getChamp("typelib").setLibelle("Type");
         pr.getFormu().getChamp("codeFiltre").setLibelle("Rubriques");
         pr.getFormu().getChamp("codeFiltre").setDefaut("09A");
+        pr.getFormu().getChamp("codeFiltre").setAutre("readonly");
         pr.setAWhere(" AND VAL = '09A'");
         
         String[] colSomme = {"montant", "montantTVA", "montantTTC", "montantAvoir", "montantpaye", "montantreste"};
@@ -107,7 +108,7 @@
         <h1>Liste facture client</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=facture/factureclient-liste-vaovao.jsp" method="post" name="incident" id="incident">
+        <form action="<%=pr.getLien()%>?but=facture/factureclient-liste-convention.jsp" method="post" name="incident" id="incident">
             <%
                 String libelleAffiche[] = {};
                 pr.getTableau().setLibelleAffiche(libelleAffiche);
