@@ -33,7 +33,7 @@
     pi.getFormu().getChamp("tonnage").setLibelle("Tonnage deb. prev.");
     pi.getFormu().getChamp("consignataire").setPageAppel("choix/listeClientChoix.jsp");
     pi.getFormu().getChamp("consignataire").setAutre("readonly");    
-    pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireProfChoix.jsp");
+    pi.getFormu().getChamp("navire").setPageAppel("choix/listeNavireChoix.jsp");
     pi.getFormu().getChamp("navire").setAutre("readonly");
     pi.getFormu().getChamp("date_arrivee").setDefaut(Utilitaire.dateDuJour());
     pi.getFormu().getChamp("heure_arrivee").setDefaut(Utilitaire.getHeureActuel());

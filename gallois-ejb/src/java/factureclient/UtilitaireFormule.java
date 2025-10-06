@@ -156,7 +156,7 @@ public class UtilitaireFormule {
         return (engine.eval(formuleSansRub).toString());
     }
     public static boolean evaluerCondition(String formuleSansRub) throws Exception
-    {
+    {   
         //ScriptEngineManager mgr = new ScriptEngineManager();
         //ScriptEngine engine = mgr.getEngineByName("JavaScript");
         return ((Boolean)engine.eval(formuleSansRub)).booleanValue();

@@ -45,7 +45,18 @@ public class FactureClientDetails extends ClassFille {
     private int rang;
     private String idrubrique, catClient, libelleRubrique, unite;
     private int estProformaEscale;
+    
+    private String nomtablemere = "factureclient";
 
+    public String getNomtablemere() {
+        return nomtablemere;
+    }
+
+    public void setNomtablemere(String nomtablemere) {
+        this.nomtablemere = nomtablemere;
+    }
+
+    
     public int getEstProformaEscale() {
         return estProformaEscale;
     }
@@ -583,7 +594,8 @@ public class FactureClientDetails extends ClassFille {
 
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
-        FactureClient mere = this.findMere(c);
+        FactureClient mere = this.findMere(c); 
+        
         if(mere.getEstProformaEscale()==1)this.setEstProformaEscale(1);
         if (mere.getBateau() != null && mere.getDateDepart() != null && ( mere.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0 || mere.getIdcategorie().compareTo(Constante.idCategorieFCProforma) == 0) ){
                 this.setDatefact(mere.getDateDepart());
@@ -802,6 +814,7 @@ public class FactureClientDetails extends ClassFille {
         if (this.getMere() == null) {
             System.out.println("Naka mere vaovao");
             FactureClient fc = new FactureClient();
+            fc.setNomTable(this.getNomtablemere());
             fc.setId(this.getIdmere());
             fc.setEstDDPMICTSL(null);
             FactureClient[] tmp = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, "");

@@ -277,7 +277,8 @@ public class Prevision extends ClassEtat {
             
             AdminActivite adminActivite = new AdminActivite();
             //Activite[] activites=findActivitesNonFacturees(c);
-            Navire nav=prevision.findNavire(c, "navire_prof");
+            //Navire nav=prevision.findNavire(c, "navire_prof");
+            Navire nav=prevision.findNavire(c, "navire");
             if(nav!=null){
                 if(OccupationMaterielNaval.possedeActiviteProf(prevision.getPrestationsVisees(c, "OCCUPMATLNONAVALNFACTUREprof"), c) == false) {
                 //if(activites==null || activites.length==0){

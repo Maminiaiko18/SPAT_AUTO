@@ -5521,8 +5521,10 @@ public class EtatPaieServlet extends HttpServlet {
                 // requete = "select * from factureclientmsum_lib where id in
                 // ('"+tabJournal[0].getIdplacement().replace(";", "','")+"')";
                 //tabFact = jc.getPayementFactureTous(null);     TALOHA
+                System.out.println("00.================COMBIEN ENCAISSEMENT jc================= : "+jcs.length);
                 for (int i = 0; i < jcs.length; i++) {
                     PayementFacture[] tabFacttmp = jcs[i].getPayementFactureTous(null);
+                    
                     for (int j = 0; j < tabFacttmp.length; j++){
                         listetabFact.add(tabFacttmp[j]);
                     }
@@ -5530,7 +5532,7 @@ public class EtatPaieServlet extends HttpServlet {
                 }
                 tabFact = listetabFact.toArray(new PayementFacture[0]);    
             }
-            
+            System.out.println("01.================COMBIEN PAIEMENT================= : "+tabFact.length);
             for (int i = 0; i < tabFact.length; i++) {
                 if (tabFact[i].getTypefacture().contains("FF")) {
                     cptDef += 1;

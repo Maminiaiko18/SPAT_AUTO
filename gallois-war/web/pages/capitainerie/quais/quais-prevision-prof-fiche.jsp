@@ -95,7 +95,7 @@
                     <br/>
                     <div class="box-footer">
                         <p>
-                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
+                            <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-prof-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px">Modifier</a>
                             <a class="btn btn-success pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=valider&bute=capitainerie/quais/quais-prevision-prof-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Prevision&nomtable=prevision_prof" style="margin-right: 10px">Viser</a>
                             <a class="btn btn-danger pull-left"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + base.getId()%>&acte=annulerVisa&bute=capitainerie/quais/quais-prevision-prof-fiche.jsp&id=<%=base.getId()%>&classe=mg.spat.Prevision&nomtable=prevision_prof" style="margin-right: 10px">Annuler Visa</a>
                             <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/quais/quais-prevision-prof-fiche.jsp&"%>" style="margin-right: 10px">Attacher Fichier</a>              
