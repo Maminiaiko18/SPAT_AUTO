@@ -131,7 +131,7 @@ public class ListeColonneTable {
 
     public static Champ[] getFromListe(ClassMAPTable e, Connection c) throws Exception {
         String nomTable = e.getNomTable();
-        ajouterAlaListe(e, c);
+        ajouterAlaListe(e, c); 
         return (Champ[]) listeColPTable.get(nomTable);
     }
     public static Champ getChamp(ClassMAPTable e, String col, Connection cnx) throws Exception {
@@ -225,8 +225,9 @@ public class ListeColonneTable {
         Statement st = null;
         ResultSet dr = null;
         try {
-            //Console.WriteLine("NIDITRA NAKA CHAMP "+nomT);
+            System.out.println("++++++++++++++TABLE***********"+nomT); //Console.WriteLine("NIDITRA NAKA CHAMP "+nomT);
             String comande = "SELECT * FROM USER_TAB_COLUMNS where table_Name = upper('" + nomT + "') order by column_id asc";
+            System.out.println("REQUETE= "+comande);
             //if (nomT.compareToIgnoreCase("sig_deposant_n_affilie")==0) System.out.println("Liste colonne venant de la base = "+comande);      
             st = c.createStatement();
             dr = st.executeQuery(comande);

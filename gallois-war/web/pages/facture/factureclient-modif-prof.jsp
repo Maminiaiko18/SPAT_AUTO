@@ -4,6 +4,8 @@
     Author     : bruel
 --%>
 
+<%@page import="facture.FactureClientDetailsProf"%>
+<%@page import="facture.FactureClientProf"%>
 <%@page import="mg.spat.exploitant.Activite"%>
 %@page import="java.sql.Date"%>
 <%@page import="facture.FactureClientDetails"%>
@@ -16,19 +18,19 @@
 <%
     try {
         String titrePage = "Modification Facture Proforma",
-                classeMere = "facture.FactureClient",
-                classeFille = "facture.FactureClientDetails",
+                classeMere = "facture.FactureClientProf",
+                classeFille = "facture.FactureClientDetailsProf",
                 buteLien = "facture/factureclient-fiche-vaovao-prof.jsp",
                 colonneMereDansFille = "idmere",
                 buteApresVisa = "facture/factureclient-fiche-vaovao-prof.jsp";
         String autreparsley = "data-parsley-range='[8, 40]' required";
-        FactureClient mere = new FactureClient();
-        mere.setNomTable("FACTURECLIENTMSUM_LIB");
+        FactureClientProf mere = new FactureClientProf();
+        mere.setNomTable("FACTURECLIENTMSUM_LIBPROF");
         mere.setEstDDPMICTSL(null);
-        FactureClientDetails fille = new FactureClientDetails();
-        fille.setNomTable("FACTURE_CLIENT_FILLE_LIBELLE");
+        FactureClientDetailsProf fille = new FactureClientDetailsProf();
+        fille.setNomTable("FC_FILLE_LIBELLE_PROF");
         fille.setIdmere(request.getParameter("id"));
-        FactureClientDetails[] liste = (FactureClientDetails[]) CGenUtil.rechercher(fille, null, null, " order by rang, daty asc");
+        FactureClientDetailsProf[] liste = (FactureClientDetailsProf[]) CGenUtil.rechercher(fille, null, null, " order by rang, daty asc");
         PageUpdateMultiple pi = new PageUpdateMultiple(mere, fille, liste, request, (user.UserEJB) session.getValue("u"), 2);
         pi.setLien((String) session.getValue("lien"));
 
@@ -278,7 +280,7 @@
         pi.getFormufle().getChamp("rang_0").setLibelle("Rang");
         pi.getFormufle().getChamp("daty_0").setLibelle("Date");
 
-        mere = (FactureClient) pi.getBase();
+        mere = (FactureClientProf) pi.getBase();
         String[] ordreFille = {"rubrique", "designation", "pu", "quantite", "duree", "taux", "id", "idmere", "compte", "idproduit", "devise", "montant", "tva", "idactivite", "datefact", "mois", "annee", "daty","heureDebut", "heureFin", "majoration", "reduction", "rang"};
         pi.getFormufle().setColOrdre(ordreFille);
         pi.preparerDataFormu();

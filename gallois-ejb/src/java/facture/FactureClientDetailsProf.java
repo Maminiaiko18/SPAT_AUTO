@@ -134,7 +134,7 @@ public class FactureClientDetailsProf extends ClassFille {
         this.montantTTC = montantTTC;
     }
 
-    public FactureClientDetailsProf(String id, String idmere, double quantite, double pu, double taux, String compte, String idproduit, String produit_lib, String devise, String designation, String idProduitLib, String idactivite, String categorieFacturelib, String categorieClientlib, String activitelib, String rubrique, FactureClient mere, double montant, double montanttaux, double montantavoirsanstaux, double montantavoiravectaux, double qtelivree, double restealivrer, Date datefact, String rubriquelib, String idprestation, String clientlib, int mois, int annee, String heureDebut, String heureFin, String moislib, String anneelib, double montantHTEuro, double montantTVAEuro, double montanttaxe, double majoration, double reduction, double tva) {
+    public FactureClientDetailsProf(String id, String idmere, double quantite, double pu, double taux, String compte, String idproduit, String produit_lib, String devise, String designation, String idProduitLib, String idactivite, String categorieFacturelib, String categorieClientlib, String activitelib, String rubrique, FactureClientProf mere, double montant, double montanttaux, double montantavoirsanstaux, double montantavoiravectaux, double qtelivree, double restealivrer, Date datefact, String rubriquelib, String idprestation, String clientlib, int mois, int annee, String heureDebut, String heureFin, String moislib, String anneelib, double montantHTEuro, double montantTVAEuro, double montanttaxe, double majoration, double reduction, double tva) {
         setNomTable("facture_client_fille_prof");
         this.id = id;
         this.idmere = idmere;
@@ -459,13 +459,13 @@ public class FactureClientDetailsProf extends ClassFille {
 
     public FactureClientDetailsProf() throws Exception {
         setNomTable("facture_client_fille_prof");
-        this.setNomClasseMere("facture.FactureClient");
+        this.setNomClasseMere("facture.FactureClientProf");
         this.setLiaisonMere("idmere");
     }
 
     public FactureClientDetailsProf(double Qte, double pu) throws Exception {
         setNomTable("facture_client_fille_prof");
-        this.setNomClasseMere("facture.FactureClient");
+        this.setNomClasseMere("facture.FactureClientProf");
         this.setLiaisonMere("idmere");
         this.quantite = Qte;
         this.pu = pu;
@@ -473,7 +473,7 @@ public class FactureClientDetailsProf extends ClassFille {
 
     public FactureClientDetailsProf(String idmere, double quantite, double pu, String compte, String designation, double duree, int annee, int mois, String devise) throws Exception {
         setNomTable("facture_client_fille_prof");
-        this.setNomClasseMere("facture.FactureClient");
+        this.setNomClasseMere("facture.FactureClientProf");
         this.setLiaisonMere("idmere");
         this.setIdmere(idmere);
         this.setQuantite(quantite);
@@ -488,7 +488,7 @@ public class FactureClientDetailsProf extends ClassFille {
 
     public FactureClientDetailsProf(String idmere, double quantite, double pu, String compte, String designation, double duree, int annee, int mois, String devise, double tva) throws Exception {
         setNomTable("facture_client_fille_prof");
-        this.setNomClasseMere("facture.FactureClient");
+        this.setNomClasseMere("facture.FactureClientProf");
         this.setLiaisonMere("idmere");
         this.setIdmere(idmere);
         this.setQuantite(quantite);
@@ -504,7 +504,7 @@ public class FactureClientDetailsProf extends ClassFille {
 
     public FactureClientDetailsProf(String idmere, double quantite, double pu, String compte, String designation, double duree) throws Exception {
         setNomTable("facture_client_fille_prof");
-        this.setNomClasseMere("facture.FactureClient");
+        this.setNomClasseMere("facture.FactureClientProf");
         this.setLiaisonMere("idmere");
         this.setIdmere(idmere);
         this.setQuantite(quantite);
@@ -515,7 +515,7 @@ public class FactureClientDetailsProf extends ClassFille {
     }
     public FactureClientDetailsProf(String idmere, double quantite, double pu, String designation, double duree,String compte) throws Exception {
         setNomTable("facture_client_fille_prof");
-        this.setNomClasseMere("facture.FactureClient");
+        this.setNomClasseMere("facture.FactureClientProf");
         this.setLiaisonMere("idmere");
         this.setIdmere(idmere);
         this.setQuantite(quantite);
@@ -525,7 +525,7 @@ public class FactureClientDetailsProf extends ClassFille {
         this.setDuree(duree);
     }
 
-    public FactureClientDetailsProf(String id, String idmere, double quantite, double pu, double taux, String compte, String idproduit, String produit_lib, String devise, String designation, String idProduitLib, String idactivite, String categorieFacturelib, String categorieClientlib, String activitelib, String rubrique, FactureClient mere, double montant, double montanttaux, double montantavoirsanstaux, double montantavoiravectaux, double qtelivree, double restealivrer, double montantTTC, Date datefact, Date daty, String rubriquelib, String idprestation, String clientlib, int mois, int annee, String heureDebut, String heureFin, String moislib, String anneelib, double montantHTEuro, double montantTVAEuro, double montanttaxe, double majoration, double reduction, int rang, double tva) {
+    public FactureClientDetailsProf(String id, String idmere, double quantite, double pu, double taux, String compte, String idproduit, String produit_lib, String devise, String designation, String idProduitLib, String idactivite, String categorieFacturelib, String categorieClientlib, String activitelib, String rubrique, FactureClientProf mere, double montant, double montanttaux, double montantavoirsanstaux, double montantavoiravectaux, double qtelivree, double restealivrer, double montantTTC, Date datefact, Date daty, String rubriquelib, String idprestation, String clientlib, int mois, int annee, String heureDebut, String heureFin, String moislib, String anneelib, double montantHTEuro, double montantTVAEuro, double montanttaxe, double majoration, double reduction, int rang, double tva) {
         this.id = id;
         this.idmere = idmere;
         this.quantite = quantite;
@@ -583,7 +583,7 @@ public class FactureClientDetailsProf extends ClassFille {
 
     @Override
     public ClassMAPTable createObject(String user, Connection c) throws Exception {
-        FactureClient mere = this.findMere(c); System.out.println("+++++++++++++MERE+++++++++++++++"+mere.getNomTable());
+        FactureClientProf mere = this.findMere(c); System.out.println("+++++++++++++MERE+++++++++++++++"+mere.getNomTable());
         System.out.println("+++++++++++++fille+++++++++++++++"+this.getNomTable());
         if(mere.getEstProformaEscale()==1)this.setEstProformaEscale(1);
         if (mere.getBateau() != null && mere.getDateDepart() != null && ( mere.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0 || mere.getIdcategorie().compareTo(Constante.idCategorieFCProforma) == 0) ){
@@ -799,13 +799,13 @@ public class FactureClientDetailsProf extends ClassFille {
         return getTauxRecentNormal(c);
     }
 
-    public FactureClient findMere(Connection c) throws Exception {
+    public FactureClientProf findMere(Connection c) throws Exception {
         if (this.getMere() == null) {
             System.out.println("Naka mere vaovao");
-            FactureClient fc = new FactureClient();
+            FactureClientProf fc = new FactureClientProf();
             fc.setId(this.getIdmere());
             fc.setEstDDPMICTSL(null);
-            FactureClient[] tmp = (FactureClient[]) CGenUtil.rechercher(fc, null, null, c, "");
+            FactureClientProf[] tmp = (FactureClientProf[]) CGenUtil.rechercher(fc, null, null, c, "");
             
             if (tmp != null && tmp.length > 0) {
                 this.setMere(tmp[0]);
@@ -832,7 +832,7 @@ public class FactureClientDetailsProf extends ClassFille {
     }*/
     public double getTauxRecentNormal(Connection c) throws Exception {
         this.findMere(c);
-        FactureClient mere = this.getMere();
+        FactureClientProf mere = this.getMere();
         Date date = mere.getDaty();
         if (mere.getIdprevision() != null) {
             Prevision prev = mere.findPrevision("PREVISIONTYPEBORNAGE", c);
@@ -1012,8 +1012,8 @@ public class FactureClientDetailsProf extends ClassFille {
     }
 
     @Override
-    public FactureClient getMere() {
-        return (FactureClient) super.getMere();
+    public FactureClientProf getMere() {
+        return (FactureClientProf) super.getMere();
     }
 
     public double getMontant() {

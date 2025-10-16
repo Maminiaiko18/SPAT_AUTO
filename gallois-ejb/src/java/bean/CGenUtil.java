@@ -1,5 +1,6 @@
 package bean;
 
+import static bean.ListeColonneTable.listeColPTable;
 import historique.MapHistorique;
 import java.lang.reflect.*;
 import java.sql.*;
@@ -413,16 +414,18 @@ public class CGenUtil {
         }
     }
     public static Object[] rechercher(ClassMAPTable e, String[] colInt, String[] valInt, Connection c, String apresWhere) throws Exception {
-        ResultSet dr = null;
+        ResultSet dr = null; 
         Statement cmd = null;
         boolean ifconnnull = false;
-        try {
+        try { 
             if (c == null) {
                 c = new UtilDB().GetConn();
                 ifconnnull = true;
-            }
-            String comandeInterne = "select * from " + e.getNomTableSelect();
+            } 
+            
+            String comandeInterne = "select * from " + e.getNomTableSelect(); 
             comandeInterne = comandeInterne + " where " + makeWhere(e, c) + makeWhereIntervalle(colInt, valInt) + " " + apresWhere;
+            
             //if(e.getNomTable().compareToIgnoreCase("coursdevise")==0) System.out.println("Requete "+comandeInterne);
             cmd = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dr = cmd.executeQuery(comandeInterne);
@@ -1158,9 +1161,9 @@ public class CGenUtil {
     
     public static String makeWhere(ClassMAPTable e, Connection con) throws Exception {
         try {
-            String retour = "1<2";
-            Champ[] ch = ListeColonneTable.getFromListe(e, con);
-            //System.out.println("nomTable = "+e.getNomTableSelect()+" > taille : "+ch);
+            String retour = "1<2"; 
+            Champ[] ch = ListeColonneTable.getFromListe(e, con);  
+            
             for (int k = 0; k < ch.length; k++) {
                 //if (!e.getListeAttributsIgnores().Contains(((String)g[k].Name).ToLower()))
                 {

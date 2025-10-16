@@ -4,6 +4,7 @@
     Author     : bruel
 --%>
 
+<%@page import="utilitaire.Constante"%>
 <%-- 
     Document   : factureclient-liste
     Created on : 14 janv. 2021, 16:30:52
@@ -49,7 +50,9 @@
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
         pr.setLien((String) session.getValue("lien"));
         pr.setOrdre(" order by daty desc");
-        pr.setApres("facture/factureclient-liste-vaovao.jsp&etat=" + request.getParameter("etat"));
+     //   pr.setAWhere(" idcategorie = "+ Constante.idCategorieFCProvision);
+     //   pr.setApres("facture/factureclient-liste-vaovao.jsp&etat=" + request.getParameter("etat"));
+        pr.setApres("facture/factureclient-prof-liste-vaovao.jsp&etat="+ request.getParameter("etat"));
         pr.setNpp(300);
         pr.getFormu().getChamp("daty1").setLibelle("date debut");
         pr.getFormu().getChamp("daty2").setLibelle("date fin");

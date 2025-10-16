@@ -4,6 +4,8 @@
     Author     : bruel
 --%>
 
+<%@page import="facture.FactureClientProf"%>
+<%@page import="facture.FactureClientDetailsProf"%>
 <%@page import="data.FactureData"%>
 <%@page import="utilitaire.Constante"%>
 
@@ -28,20 +30,21 @@
         String user = ""+u.getUser().getRefuser();
         String idFille = request.getParameter("idFille"), sens = request.getParameter("sens"), action = request.getParameter("action");
         if(idFille != null && sens != null) {
-            FactureClientDetails fcd = (new FactureClientDetails());
+            FactureClientDetailsProf fcd = (new FactureClientDetailsProf());
             fcd.setId(idFille);
             fcd.monter(idFille, Utilitaire.stringToInt(sens), null, user);
         }
         if(idFille != null && action != null && action.equalsIgnoreCase("remove")) {
-            (new FactureClientDetails()).remove(idFille, user);
+            (new FactureClientDetailsProf()).remove(idFille, user);
 %> <script> location.search = location.search.substring(0, location.search.indexOf("&action")) </script> <%
         }
         
-        FactureClient e = new FactureClient();
-        e.setNomTable("facture_client_union_ordre");
+        FactureClientProf e = new FactureClientProf();
+        //e.setNomTable("facture_client_union_ordre");
+        e.setNomTable("FACTURECLIENT_UNION_ORDRE_PROF");
         PageConsulte pc = new PageConsulte(e, request, u);
-        pc.setTitre("FICHE FACTURE CLIENT");
-        FactureClient fc=(FactureClient)pc.getBase();
+        pc.setTitre("FICHE FACTURE CLIENT PROFORMA");
+        FactureClientProf fc=(FactureClientProf)pc.getBase();
         String lien = (String)session.getValue("lien");
 
         pc.getChampByName("pourCompte").setVisible(false);
@@ -93,7 +96,7 @@
         pc.getChampByName("pavillon").setVisible(false);
         pc.getChampByName("bateaulib").setLibelle("Bateau");
         pc.getChampByName("bateaulib").setLien(lien+"?but=capitainerie/navire-fiche.jsp", "id="+fc.getBateau()+"&libelle=");
-        e = (FactureClient) pc.getBase();
+        e = (FactureClientProf) pc.getBase();
         pc.getChampByName("IdProvision").setLien((String) session.getValue("lien") + "?but=facture/factureclient-fiche-vaovao-prof.jsp&id=" + e.getIdProvision(), "");
         String categorie = "";
         if (e.getIdcategorie() != null) {
@@ -102,7 +105,7 @@
         if (categorie.equals(Constante.idCategorieFCDefinitive)) {
             pc.setTitre("Fiche Facture client");
         } else if (categorie.equals(Constante.idCategorieFCProforma)) {
-            pc.setTitre("Demande de prix");
+            pc.setTitre("Fiche Facture proforma");
         } else if (categorie.equals(Constante.idCategorieFCProvision)) {
             pc.setTitre("Fiche Facture de provision");
         }
@@ -120,8 +123,8 @@
 //Si categorieFC = provision alors “Fiche Facture de provision”
         pc.getChampByName("escale").setLien((String) session.getValue("lien") + "?but=capitainerie/quais/quais-prevision-fiche.jsp&id=" + e.getIdprevision(), "escale=");
         String bute = "facture/factureclient-fiche-vaovao-prof.jsp";
-        String classe = "facture.FactureClient";
-        String classefille = "facture.FactureClientDetails";
+        String classe = "facture.FactureClientProf";
+        String classefille = "facture.FactureClientDetailsProf";
         String modifPage = "facture/factureclient-modif-prof.jsp";
 
   //      String lien = (String) session.getValue("lien");
@@ -136,14 +139,14 @@
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("facture-client-fille-prof", "");
-        map.put("avoir-liste", "");
-        map.put("bondelivraison", "");
-        map.put("paiement", "");
+//        map.put("avoir-liste", "");
+//        map.put("bondelivraison", "");
+//        map.put("paiement", "");
         map.put("activite", "");
         map.put("facturesdefinitives", "");
-        map.put("provision-facturesdefinitives", "");
-        map.put("regularisation", "");
-        map.put("etat-provision", "");
+//        map.put("provision-facturesdefinitives", "");
+//        map.put("regularisation", "");
+//        map.put("etat-provision", "");
         String tab = request.getParameter("tab");
         if (tab == null) {
             tab = "facture-client-fille-prof";
@@ -232,7 +235,7 @@
                 </div>
                 <div class="box-footer">
                     <p>
-                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/factureclient-fiche-vaovao.jsp&classe=facture.FactureClient" style="margin-right: 10px">Viser</a>
+                        <a class="btn btn-success"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=valider&id=" + request.getParameter("id")%>&bute=facture/factureclient-fiche-vaovao-prof.jsp&classe=facture.FactureClientProf" style="margin-right: 10px">Viser</a>
 <!--                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + e.getId()%>&acte=dupliquer&bute=<%=bute%>&classe=<%=classe%>&nomClasseFille=<%=classefille%>&nomColonneMere=idmere" style="margin-right: 10px">Dupliquer</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/recurrent.jsp&id=" + e.getId()%>" style="margin-right: 10px">Récurrent</a>
                         <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=treso/recette-saisie.jsp&idFacture=" + id + "&vue=" + vue%>" style="margin-right: 10px">Entrée banque</a>
@@ -266,19 +269,21 @@
                     <%
                         if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCProvision)) {%>
                     <p>
-                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererDefinitive&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
+<!--                        <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererDefinitive&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer facture définitive</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/etatprovision-saisie.jsp&idFacture=" + e.getId()%>" style="margin-right: 10px">Saisir Etat de provision</a>
                         <a class="btn btn-primary"  href="<%=(String) session.getValue("lien") + "?but=facture/regul-fc-provision.jsp&idProvision=" + e.getId()%>" style="margin-right: 10px">Regulariser</a>
+                    -->
                     </p>
                     <hr>
                     <%}
                     %>
                     <%
                         if (e.getIdcategorie() != null && e.getIdcategorie().equals(Constante.idCategorieFCDefinitive)) {%>
-                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererProvision&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer Provision</a>
+<!--                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresFacture.jsp&id=" + e.getId()%>&acte=genererProvision&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Générer Provision</a>
                     <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liaison-fc-provision.jsp&id1=" + e.getId()%>&acte=lierProv&bute=<%=bute%>&classe=<%=classe%>" style="margin-right: 10px">Lier Provision</a>
-                    <!--<a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liste-paiementfacture-multiple.jsp&idFC=" + e.getId()%>" style="margin-right: 10px">Attacher traite</a>-->
-                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/regulariser-avoir.jsp&idFC=" + e.getId() %>" style="margin-right: 10px">Régulariser Avoir</a>
+                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/liste-paiementfacture-multiple.jsp&idFC=" + e.getId()%>" style="margin-right: 10px">Attacher traite</a>-->
+<!--                    <a class="btn btn-primary pull-right"  href="<%=(String) session.getValue("lien") + "?but=facture/regulariser-avoir.jsp&idFC=" + e.getId() %>" style="margin-right: 10px">Régulariser Avoir</a>
+                    -->
                     <%}
                     %>
 

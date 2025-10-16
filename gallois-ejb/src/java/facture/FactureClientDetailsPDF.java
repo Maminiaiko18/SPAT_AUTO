@@ -13,16 +13,23 @@ import java.util.ArrayList;
  */
 public class FactureClientDetailsPDF {
     public ArrayList<FactureClientDetails> details;
+    public ArrayList<FactureClientDetailsProf> details1;
+    
     public double total, montantdevise, montantTVAdevise, montantTTCdevise;
 
     public ArrayList<FactureClientDetails> getDetails() {
         return details;
     }
-
+    public ArrayList<FactureClientDetailsProf> getDetailsProf() {
+        return details1;
+    }
+    
     public void setDetails(ArrayList<FactureClientDetails> details) {
         this.details = details;
     }
-
+    public void setDetailsProf(ArrayList<FactureClientDetailsProf> details) {
+        this.details1 = details;
+    }
     public double getTotal() {
         return total;
     }

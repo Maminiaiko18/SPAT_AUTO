@@ -137,6 +137,8 @@ import facture.tr.Traite;
 import facture.GestionProvision;
 import user.*;
 import bean.*;
+import facture.FactureClientDetailsProf;
+import facture.FactureClientProf;
 import historique.MapUtilisateurLib;
 import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
@@ -2281,18 +2283,18 @@ public class EtatPaieServlet extends HttpServlet {
             Map param = new HashMap();
             List dataSource = null;
             String id = request.getParameter("id");
-            FactureClient facture = new FactureClient();
+            FactureClientProf facture = new FactureClientProf();
             facture.setEstDDPMICTSL(null);
-            facture.setNomTable("factureClient");
+            facture.setNomTable("FACTURECLIENT_PROF");
             ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
             int separer_convention = 1;
 
-            FactureClient[] mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c,
+            FactureClientProf[] mere = (FactureClientProf[]) CGenUtil.rechercher(facture, null, null, c,
                     " and id = '" + id + "' order by daty");
             String code = mere[0].getCode();
-            FactureClientDetails[] liste = mere[0].getListeDetails();
-            facture.setNomTable("FACTURECLIENTVALIDEImp");
-            mere = (FactureClient[]) CGenUtil.rechercher(facture, null, null, c, " and id = '" + id + "'");
+            FactureClientDetailsProf[] liste = mere[0].getListeDetails();
+            facture.setNomTable("FACTURECLIENTVALIDEIMP_PROF");// facture.setNomTable("FACTURECLIENTVALIDEImp");
+            mere = (FactureClientProf[]) CGenUtil.rechercher(facture, null, null, c, " and id = '"+id+"'");
             param.put("pourcomptelib", mere[0].getPourCompteLib());
 
             /*
@@ -2311,7 +2313,7 @@ public class EtatPaieServlet extends HttpServlet {
 
             facture = mere[0];
             facture.setId(id);
-            facture.initDetails(c);
+            facture.initDetailsProf(c);//facture.initDetails(c);
             double hTEuro = facture.getMontantHTEuro();
             double tvaEuro = facture.getMontantTVAEuro();
             double ttcEuro = hTEuro + tvaEuro;
@@ -2324,16 +2326,16 @@ public class EtatPaieServlet extends HttpServlet {
             String designation = facture.getDesignation();
             if (mere.length != 0) {
                 mg.spat.PrevisionLibComplet p = new mg.spat.PrevisionLibComplet();
-                p.setNomTable("PREVISIONLIBCOMPLETPROF_PDF");
+                p.setNomTable("PREVISIONLIBCOMPLETPDF_PROF");
                 mg.spat.PrevisionLibComplet[] pre = (mg.spat.PrevisionLibComplet[]) CGenUtil.rechercher(p, null, null,
                         c, " and id = '" + mere[0].getIdprevision() + "'");
                 int convention = 0;
-                FactureClientDetails cht = new FactureClientDetails();
-                cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXEP");
+                FactureClientDetailsProf cht = new FactureClientDetailsProf();
+                cht.setNomTable("FC_FILL_LIB_REST_TAXEP_PROF"); //cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXEP");
 
-                FactureClientDetails[] details = (FactureClientDetails[]) CGenUtil.rechercher(cht, null, null, c,
+                FactureClientDetailsProf[] details = (FactureClientDetailsProf[]) CGenUtil.rechercher(cht, null, null, c,
                         " and idmere = '" + id + "'  order by rang, daty asc");
-                ArrayList<FactureClientDetails> arrList = new ArrayList<FactureClientDetails>();
+                ArrayList<FactureClientDetailsProf> arrList = new ArrayList<FactureClientDetailsProf>();
 
                 param.put("responsable", "Pr&eacute;par&eacute; Par");
                 param.put("chef", "Le Responsable Facturation");
@@ -2595,8 +2597,8 @@ public class EtatPaieServlet extends HttpServlet {
                     List<FactureClientDetailsPDF> detailsPDF = new ArrayList<FactureClientDetailsPDF>();
                     FactureClientDetailsPDF details1 = new FactureClientDetailsPDF();
                     FactureClientDetailsPDF details2 = new FactureClientDetailsPDF();
-                    details1.setDetails(new ArrayList<FactureClientDetails>());
-                    details2.setDetails(new ArrayList<FactureClientDetails>());
+                    details1.setDetailsProf(new ArrayList<FactureClientDetailsProf>());
+                    details2.setDetailsProf(new ArrayList<FactureClientDetailsProf>());
                     int conventionExist = 1;
                     for (int k = 0; k < arrList.size(); k++) {
                         if ((separer_convention == 0) && (arrList.get(k).getRubrique() != null)
@@ -2605,13 +2607,13 @@ public class EtatPaieServlet extends HttpServlet {
                                         || arrList.get(k).getRubrique().compareTo("RB0000000060112257") == 0
                                         || arrList.get(k).getRubrique().compareTo("RB0000000066111845") == 0)) {
                             conventionExist = 0;
-                            details2.getDetails().add(arrList.get(k));
+                            details2.getDetailsProf().add(arrList.get(k));
                             details2.setTotal(details2.getTotal() + arrList.get(k).getMontantHTEuro());
                             details2.setMontantdevise(details2.getMontantdevise() + arrList.get(k).getMontanttaux());
                             details2.setMontantTVAdevise(details2.getMontantTVAdevise() + arrList.get(k).getTva());
                             details2.setMontantTTCdevise(details2.getMontantdevise() + details2.getMontantTVAdevise());
                         } else {
-                            details1.getDetails().add(arrList.get(k));
+                            details1.getDetailsProf().add(arrList.get(k));
                             details1.setTotal(details1.getTotal() + arrList.get(k).getMontantHTEuro());
                             details1.setMontantdevise(details1.getMontantdevise() + arrList.get(k).getMontanttaux());
                             details1.setMontantTVAdevise(details1.getMontantTVAdevise() + arrList.get(k).getTva());

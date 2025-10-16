@@ -107,7 +107,7 @@
                 prevision.setNomTable("prevision_prof");
                 prevision.setId(idprevision);
 
-                facture.FactureClient fc = prevision.facturerProforma("" + u.getUser().getRefuser(), null);
+                facture.FactureClientProf fc = prevision.facturerProforma("" + u.getUser().getRefuser(), null);
                 bute = "facture/factureclient-modif-prof.jsp&factprev=true";
                 id = fc.getId();
     %>

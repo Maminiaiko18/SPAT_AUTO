@@ -158,7 +158,7 @@
                         <div class="pull-right">
                             <p>
                                 <a class="btn btn-success pull-right"  href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&nomtable=mouvement_prof&acte=valider&bute=capitainerie/mouvement-fiche.jsp?nomtable=mouvementlibcompletprof&classe=mg.spat.Mouvement" style="margin-right: 10px">Viser</a>
-                                <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-modif.jsp&id=" + request.getParameter("id")%>" style="margin-right: 10px"><button class="btn btn-warning">Modifier</button></a>
+                                <a href="<%=(String) session.getValue("lien") + "?but=capitainerie/mouvement-modif.jsp&id=" + request.getParameter("id")%>&nomtable=mouvement_prof" style="margin-right: 10px"><button class="btn btn-warning">Modifier</button></a>
                                 <a href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&id=" + request.getParameter("id")%>&nomtable=mouvement_prof&acte=delete&bute=capitainerie/mouvement-liste.jsp?nomtable=mouvementlibcompletprof&classe=mg.spat.Mouvement" style="margin-right: 10px"><button class="btn btn-danger">Supprimer</button></a>
                                 <a class="btn btn-info pull-right"  href="<%=(String) session.getValue("lien") + "?but=pageupload.jsp&id=" + request.getParameter("id") + "&dossier=" + dossier + "&nomtable=ATTACHER_FICHIER&procedure=GETSEQ_ATTACHER_FICHIER&bute=capitainerie/mouvement-fiche.jsp?nomtable=mouvementlibcompletprof"%>" style="margin-right: 10px">Attacher Fichier</a> 
                                 <% if(!mouvementVise.getTypeMvt().equals("TPMM00004")){ %>

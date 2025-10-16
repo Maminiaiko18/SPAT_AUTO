@@ -493,7 +493,7 @@
             t.setValChamp(t.getAttributIDName(), request.getParameter("id"));
             t.setNomTable(nomtable);
             System.out.println(nomtable + " ::: " + request.getParameter("id"));
-            System.out.println("classename: " + t.getClassName());
+            System.out.println("***************************classename: " + t.getClassName());
             ClassMAPTable o = (ClassMAPTable) u.validerObject(t);
             temp = t;
             val = o.getTuppleID();

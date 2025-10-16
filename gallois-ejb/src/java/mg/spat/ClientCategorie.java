@@ -7,6 +7,7 @@ package mg.spat;
 
 import bean.CGenUtil;
 import facture.FactureClient;
+import facture.FactureClientProf;
 import java.sql.Connection;
 import utilitaire.UtilDB;
 
@@ -42,6 +43,24 @@ public class ClientCategorie extends Client{
 		factureClient.setNomTable("provisionEcart");
 		String awhere = String.format(" and ecart > 0 and tiers = '%s' ", this.getCdclt());
 		FactureClient[] result = (FactureClient[])CGenUtil.rechercher(factureClient, null, null, c, awhere);
+		return result;
+	} finally {
+		if (c != null && verif == 1) {
+			c.close();
+		}
+	}
+    }
+    public FactureClientProf[] getResteProvisionProf(Connection c) throws Exception {
+        int verif = 0;
+	try {
+		if (c == null) {
+			c = (new UtilDB()).GetConn();
+			verif = 1;
+		}
+		FactureClientProf factureClient = new FactureClientProf();
+		factureClient.setNomTable("provisionEcart");
+		String awhere = String.format(" and ecart > 0 and tiers = '%s' ", this.getCdclt());
+		FactureClientProf[] result = (FactureClientProf[])CGenUtil.rechercher(factureClient, null, null, c, awhere);
 		return result;
 	} finally {
 		if (c != null && verif == 1) {

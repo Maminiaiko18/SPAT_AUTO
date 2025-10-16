@@ -9,6 +9,7 @@ import bean.CGenUtil;
 import bean.ClassEtat;
 import bean.ClassMAPTable;
 import facture.FactureClient;
+import facture.FactureClientProf;
 import java.sql.Connection;
 import java.sql.Date;
 import mg.spat.exploitant.Activite;
@@ -257,8 +258,8 @@ public class Prevision extends ClassEtat {
         return facture;
     }
     
-    public FactureClient facturerProforma(String user, Connection c) throws Exception {
-        FactureClient facture = null;
+    public FactureClientProf facturerProforma(String user, Connection c) throws Exception {
+        FactureClientProf facture = null;
         int verif = 0;
 
         try {

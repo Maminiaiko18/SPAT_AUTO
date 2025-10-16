@@ -1,8 +1,10 @@
 <%-- 
-    Document   : facture-client-fille
+    Document   : facture-client-fille-prof
     Created on : 12 mai 2021, 14:37:18
     Author     : nyamp
 --%>
+<%@page import="facture.FactureClientProf"%>
+<%@page import="facture.FactureClientDetailsProf"%>
 <%@page import="facture.FactureClientFilleData"%>
 <%@page import="utilitaire.Utilitaire"%>
 <%@page import="bean.CGenUtil"%>
@@ -15,9 +17,10 @@
 <%@page import="utilitaire.Constante"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    FactureClientDetails cht = new FactureClientDetails();
+    FactureClientDetailsProf cht = new FactureClientDetailsProf();
 //    cht.setNomTable("facture_client_fille_lib_reste");
-    cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXEp");
+    cht.setNomTable("FC_FILL_LIB_REST_TAXEP_PROF"); 
+ //  cht.setNomTable("FACT_CLT_FILL_LIB_REST_TAXEp");
     //String libEntete[] = {"id", "designation", "pu", "quantite","duree", "devise", "compte", "taux", "montanttaux", "tva", "montantTva", "montantHTEuro", "montantTVAEuro", "activitelib", "heureDebut", "heureFin", "reduction", "majoration"};
     String libEntete[] = {"id", "designation", "pu", "quantite","duree", "devise", "compte", "taux", "montanttaux", "tva", "montantTva", "activitelib","datyactivite", "heureDebut", "heureFin", "reduction", "majoration","unite"};
     String listeCrt[] = {"idmere"};
@@ -51,9 +54,9 @@
     pr.getTableau().setLibeEntete(libEnteteAffiche);
 
     if (pr.getTableau().getHtml() != null) {
-        FactureClientFilleData dataF = new FactureClientFilleData(id, null, null, 1);
-        FactureClient facture = dataF.getFacture();
-        FactureClientDetails[] liste = facture.getListeDetails();
+        FactureClientFilleData dataF = new FactureClientFilleData(id, null, null, 1,0);
+        FactureClientProf facture = dataF.getFactureP();
+        FactureClientDetailsProf[] liste = facture.getListeDetails();
 //        out.println(pr.getTableau().getHtml());
 //        double total=0;
 //        total=AdminGen.calculSommeDouble(liste,"montanttaux");
@@ -113,13 +116,13 @@
                                     <% for(int i=0;i<liste.length;i++){%>
                                     <tr onmouseover="this.style.backgroundColor='#EAEAEA'" onmouseout="this.style.backgroundColor=''" >
                                         <td width="15%" align="center" style="vertical-align: middle;">
-                                            <a href="<%=pr.getLien()%>?but=facture/factureclient-fiche-vaovao.jsp&id=<%=id%>&idFille=<%=Utilitaire.champNull(liste[i].getId())%>&sens=1">
+                                            <a href="<%=pr.getLien()%>?but=facture/factureclient-fiche-vaovao-prof.jsp&id=<%=id%>&idFille=<%=Utilitaire.champNull(liste[i].getId())%>&sens=1">
                                                 <i class="fa fa-arrow-circle-up" style="font-size: 20px;"></i>
                                             </a>
-                                            <a href="<%=pr.getLien()%>?but=facture/factureclient-fiche-vaovao.jsp&id=<%=id%>&idFille=<%=Utilitaire.champNull(liste[i].getId())%>&sens=0">
+                                            <a href="<%=pr.getLien()%>?but=facture/factureclient-fiche-vaovao-prof.jsp&id=<%=id%>&idFille=<%=Utilitaire.champNull(liste[i].getId())%>&sens=0">
                                                 <i class="fa fa-arrow-circle-down" style="font-size: 20px;"></i>
                                             </a>
-                                            <a href="<%=pr.getLien()%>?but=facture/factureclient-fiche-vaovao.jsp&id=<%=id%>&idFille=<%=Utilitaire.champNull(liste[i].getId())%>&action=remove">
+                                            <a href="<%=pr.getLien()%>?but=facture/factureclient-fiche-vaovao-prof.jsp&id=<%=id%>&idFille=<%=Utilitaire.champNull(liste[i].getId())%>&action=remove">
                                                 <i class="fa fa-trash" style="color:#d73925;font-size: 20px;"></i>
                                             </a>
                                         </td>

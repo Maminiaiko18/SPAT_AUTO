@@ -15,6 +15,15 @@ import utilitaire.UtilDB;
  */
 public class FactureClientFilleData {
     private FactureClient facture;
+    private FactureClientProf factureP;
+
+    public FactureClientProf getFactureP() {
+        return factureP;
+    }
+
+    public void setFactureP(FactureClientProf factureP) {
+        this.factureP = factureP;
+    }
     
     public FactureClientFilleData(String idFacture, FactureClientDetails[] liste, Connection c) throws Exception {
         boolean in = false;
@@ -65,7 +74,30 @@ public class FactureClientFilleData {
             if(in && c!=null) c.close();
         }
     }
+    public FactureClientFilleData(String idFacture, FactureClientDetailsProf[] liste, Connection c, int estProformaEscale , int t) throws Exception {
+        boolean in = false;
 
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                in = true;
+            }
+            String nomTable="facture_client_union_prof";
+            factureP =  new FactureClientProf();
+            factureP.setEstDDPMICTSL(null);
+            factureP.setNomTable(nomTable);
+            factureP = (FactureClientProf) factureP.getById(idFacture, null, c);
+            if(factureP != null){
+//                facture.setListeDetails(liste);
+                factureP.initDetailsProf(c);
+            }
+            
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(in && c!=null) c.close();
+        }
+    }
     public FactureClient getFacture() {
         return facture;
     }

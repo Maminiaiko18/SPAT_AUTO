@@ -105,7 +105,7 @@ public class Mouvement extends ClassEtat {
                 prevision.updateToTableWithHisto(""+u.getUser().getRefuser(), c);
             }
             Navire navireObj = getNavireObjet(c);
-            if(navireObj != null && navireObj.getType() != null && !navireObj.getType().equals(Constante.getNavireBornageEtPeche())){
+            if(navireObj != null && navireObj.getType() != null && !navireObj.getType().equals(Constante.getNavireBornageEtPeche())){ System.out.println("Insert activite stationnement ");
                 stationnement = creerActiviteStationnement(String.valueOf(u.getUser().getRefuser()), c);
                 u.createObject(stationnement, c);
                 u.validerObject(stationnement, c);
