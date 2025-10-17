@@ -258,7 +258,7 @@
                     <p>
                         <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerFactureClientProf&id=<%=id%>" style="margin-right: 10px">Imprimer</a>
                         <!--<a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerEtatProvision&id=<%=id%>" style="margin-right: 10px">Imprimer Etat de provision</a>-->
-                        <a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerGestionProvision&id=<%=id%>" style="margin-right: 10px">Imprimer Gestion de provision</a>
+                        <!--<a class="btn btn-info pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerGestionProvision&id=<%=id%>" style="margin-right: 10px">Imprimer Gestion de provision</a>-->
                     </p>
                     </hr>
                     <p>

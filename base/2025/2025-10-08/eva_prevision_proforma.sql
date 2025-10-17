@@ -12,20 +12,20 @@ CREATE TABLE "DERNIER_STATIONNEMENT_PROF"
    ) ;
   
 
-ALTER TABLE PREVISION_PROF DROP CONSTRAINT SYS_C0080066;
+ALTER TABLE PREVISION_PROF DROP CONSTRAINT SYS_C0081983; -- FK navire
 
 ALTER TABLE PREVISION_PROF
 ADD CONSTRAINT FK_NAVIRE_PREV
 FOREIGN KEY (NAVIRE) REFERENCES NAVIRE(id);
 
 
-ALTER TABLE MOUVEMENT_PROF DROP CONSTRAINT SYS_C0079994;
-
+ALTER TABLE MOUVEMENT_PROF DROP CONSTRAINT SYS_C0081985;   -- FK navire
+ 
 ALTER TABLE MOUVEMENT_PROF
 ADD CONSTRAINT FK_NAVIRE_MVT FOREIGN KEY (NAVIRE)
 REFERENCES NAVIRE(id);
 
-ALTER TABLE MOUVEMENT_PROF  DISABLE CONSTRAINT SYS_C0072575; -- desactiver foreign key consignataire
+ALTER TABLE MOUVEMENT_PROF  DISABLE CONSTRAINT SYS_C0081942; -- desactiver foreign key consignataire
 
 
 CREATE TABLE "FACTURECLIENT_PROF" 
@@ -170,7 +170,7 @@ WHERE ETAT >= 11;
 
 
 
-CREATE OR REPLACE FORCE VIEW "PREVISIONTYPEBORNAGEPROF" ("ID", "DATE_RADE", "PROVENANCE", "NAVIRE", "CONSIGNATAIRE", "CARGAISON", "PILOTE", "DATE_ARRIVEE", "HEURE_ARRIVEE", "DATE_DEPART", "HEURE_DEPART", "DESTINATION", "ETAT", "ESCALE", "NOVOYAGE", "ARMATEUR", "TYPE") AS 
+CREATE OR REPLACE  VIEW "PREVISIONTYPEBORNAGEPROF" ("ID", "DATE_RADE", "PROVENANCE", "NAVIRE", "CONSIGNATAIRE", "CARGAISON", "PILOTE", "DATE_ARRIVEE", "HEURE_ARRIVEE", "DATE_DEPART", "HEURE_DEPART", "DESTINATION", "ETAT", "ESCALE", "NOVOYAGE", "ARMATEUR", "TYPE") AS 
   SELECT
     p.ID,
     p.DATE_RADE,
@@ -192,6 +192,259 @@ CREATE OR REPLACE FORCE VIEW "PREVISIONTYPEBORNAGEPROF" ("ID", "DATE_RADE", "PRO
 FROM
     prevision_prof p
     JOIN navire n ON p.navire = n.id;
+
+
+CREATE OR REPLACE  VIEW "FACTURE_CLIENT_FILLEHT_PROF" ("ID", "IDMERE", "DESIGNATION", "QUANTITE", "PU", "COMPTE", "IDPRODUIT", "DEVISE", "TAUX", "IDACTIVITE", "TVA", "DATEFACT", "RUBRIQUE", "MOIS", "ANNEE", "HEUREDEBUT", "HEUREFIN", "REDUCTION", "MAJORATION", "TEST", "MONTANTHTSIMPLE", "DUREE") AS 
+  select ff.ID,
+       ff.IDMERE,
+       ff.DESIGNATION,
+       ff.QUANTITE,
+       ff.PU,
+       ff.COMPTE,
+       ff.IDPRODUIT,
+       ff.DEVISE,
+       ff.TAUX,
+       ff.IDACTIVITE,
+       ff.TVA,
+       ff.DATEFACT,
+       ff.RUBRIQUE,
+       ff.MOIS,
+       ff.ANNEE,
+       ff.HEUREDEBUT,
+       ff.HEUREFIN,
+       ff.REDUCTION,
+       ff.MAJORATION,
+       ff.TEST,
+       cast(ff.quantite * ff.pu * nvl(ff.duree, 1) as number(30, 3)) as montantHTSimple,
+       ff.DUREE
+from facture_client_fille_prof ff;
+
+
+CREATE OR REPLACE  VIEW "FACTURE_CLIENT_FILLEMR_PROF" ("ID", "IDMERE", "DESIGNATION", "QUANTITE", "PU", "COMPTE", "IDPRODUIT", "DEVISE", "TAUX", "IDACTIVITE", "TVA", "DATEFACT", "RUBRIQUE", "MOIS", "ANNEE", "HEUREDEBUT", "HEUREFIN", "REDUCTION", "MAJORATION", "TEST", "MONTANTHTSIMPLE", "DUREE", "MONTANTMAJ", "MONTANTRED") AS 
+  select ff.ID,
+       ff.IDMERE,
+       ff.DESIGNATION,
+       ff.QUANTITE,
+       ff.PU,
+       ff.COMPTE,
+       ff.IDPRODUIT,
+       ff.DEVISE,
+       ff.TAUX,
+       ff.IDACTIVITE,
+       ff.TVA,
+       ff.DATEFACT,
+       ff.RUBRIQUE,
+       ff.MOIS,
+       ff.ANNEE,
+       ff.HEUREDEBUT,
+       ff.HEUREFIN,
+       ff.REDUCTION,
+       ff.MAJORATION,
+       ff.TEST,
+       ff.MONTANTHTSIMPLE,
+       ff.DUREE,
+       cast((montantHTSimple * majoration) / 100 as number(30, 3)) as montantMaj,
+       cast((montantHTSimple * reduction) / 100 as number(30, 3))  as montantRed
+from facture_client_filleHT_PROF ff;
+
+
+CREATE OR REPLACE  VIEW "FACTURE_CLIENT_FILLENET_PROF" ("ID", "IDMERE", "DESIGNATION", "QUANTITE", "PU", "COMPTE", "IDPRODUIT", "DEVISE", "TAUX", "IDACTIVITE", "TVA", "DATEFACT", "RUBRIQUE", "MOIS", "ANNEE", "HEUREDEBUT", "HEUREFIN", "REDUCTION", "MAJORATION", "TEST", "MONTANTHTSIMPLE", "MONTANTMAJ", "MONTANTRED", "MONTANTNET", "DUREE") AS 
+  select ff.ID,
+       ff.IDMERE,
+       ff.DESIGNATION,
+       ff.QUANTITE,
+       ff.PU,
+       ff.COMPTE,
+       ff.IDPRODUIT,
+       ff.DEVISE,
+       ff.TAUX,
+       ff.IDACTIVITE,
+       ff.TVA,
+       ff.DATEFACT,
+       ff.RUBRIQUE,
+       ff.MOIS,
+       ff.ANNEE,
+       ff.HEUREDEBUT,
+       ff.HEUREFIN,
+       ff.REDUCTION,
+       ff.MAJORATION,
+       ff.TEST,
+       ff.MONTANTHTSIMPLE,
+       ff.MONTANTMAJ,
+       ff.MONTANTRED,
+       cast(montantHTSimple + montantMaj - montantRed as number(30, 3)) as montantNET,
+       ff.DUREE
+from facture_client_filleMR_PROF ff;
+
+
+
+CREATE OR REPLACE  VIEW "FACTURE_CLIENT_FILLETVA_PROF" ("ID", "IDMERE", "DESIGNATION", "QUANTITE", "PU", "COMPTE", "IDPRODUIT", "DEVISE", "TAUX", "IDACTIVITE", "TVA", "DATEFACT", "RUBRIQUE", "MOIS", "ANNEE", "HEUREDEBUT", "HEUREFIN", "REDUCTION", "MAJORATION", "TEST", "MONTANTHTSIMPLE", "MONTANTMAJ", "MONTANTRED", "MONTANTNET", "DUREE", "MONTANTTVA") AS 
+  select ff."ID",
+       ff."IDMERE",
+       ff."DESIGNATION",
+       ff."QUANTITE",
+       ff."PU",
+       ff."COMPTE",
+       ff."IDPRODUIT",
+       ff."DEVISE",
+       ff."TAUX",
+       ff."IDACTIVITE",
+       ff."TVA",
+       ff."DATEFACT",
+       ff."RUBRIQUE",
+       ff."MOIS",
+       ff."ANNEE",
+       ff."HEUREDEBUT",
+       ff."HEUREFIN",
+       ff."REDUCTION",
+       ff."MAJORATION",
+       ff."TEST",
+       ff."MONTANTHTSIMPLE",
+       ff."MONTANTMAJ",
+       ff."MONTANTRED",
+       ff."MONTANTNET",
+       ff.DUREE,
+       cast((montantNET * tva) / 100 as number(30, 3)) as montantTVA
+from facture_client_filleNet_PROF ff;
+	
+
+CREATE OR REPLACE  VIEW  "FACTURE_CLIENT_FILLETTC_PROF" ("ID", "IDMERE", "DESIGNATION", "QUANTITE", "PU", "COMPTE", "IDPRODUIT", "DEVISE", "TAUX", "IDACTIVITE", "TVA", "DATEFACT", "RUBRIQUE", "MOIS", "ANNEE", "HEUREDEBUT", "HEUREFIN", "REDUCTION", "MAJORATION", "TEST", "MONTANTHTSIMPLE", "MONTANTMAJ", "MONTANTRED", "MONTANTNET", "MONTANTTVA", "MONTANTTTC", "DUREE") AS 
+  select ff.ID,
+       ff.IDMERE,
+       ff.DESIGNATION,
+       ff.QUANTITE,
+       ff.PU,
+       ff.COMPTE,
+       ff.IDPRODUIT,
+       ff.DEVISE,
+       ff.TAUX,
+       ff.IDACTIVITE,
+       ff.TVA,
+       ff.DATEFACT,
+       ff.RUBRIQUE,
+       ff.MOIS,
+       ff.ANNEE,
+       ff.HEUREDEBUT,
+       ff.HEUREFIN,
+       ff.REDUCTION,
+       ff.MAJORATION,
+       ff.TEST,
+       ff.MONTANTHTSIMPLE,
+       ff.MONTANTMAJ,
+       ff.MONTANTRED,
+       ff.MONTANTNET,
+       ff.MONTANTTVA,
+       cast(montantNET + montantTVA as number(30, 3)) as montantTTC,
+       ff.DUREE
+from FACTURE_CLIENT_FILLETVA_PROF ff;
+
+
+CREATE OR REPLACE  VIEW "FCFILLECOMPLETPROF2" ("ID", "IDMERE", "DESIGNATION", "QUANTITE", "PU", "COMPTE", "IDPRODUIT", "DEVISE", "TAUX", "IDACTIVITE", "TVA", "DATEFACT", "RUBRIQUE", "MOIS", "ANNEE", "HEUREDEBUT", "HEUREFIN", "REDUCTION", "MAJORATION", "TEST", "RANG", "DUREE", "MONTANTAV", "RUBRIQUECPL", "DATY", "TIERS", "IDCATEGORIE", "TYPE", "DEVISEMERE", "EXERCICE", "IDAVOIR", "ETAT", "MTAVOIR", "MONTANTREDUCTION", "MONTANTMAJORATION", "MONTANT", "MONTANTTVA", "MONTANTTTC", "MOISLIB", "MONTANTHTSIMPLE", "CLIENT", "MONTANTAVOIRAVECTSAUX", "MONTANTAVTTCAVECTAUX", "MONTANTAVTVAAVECTAUX", "CODE", "DATEFACTUREFILLE") AS 
+  SELECT
+    fcf.ID,
+    fcf.IDMERE,
+    fcf.DESIGNATION,
+    fcf.QUANTITE,
+    fcf.PU,
+    fcf.COMPTE,
+    fcf.IDPRODUIT,
+    fcf.DEVISE,
+    fcf.TAUX,
+    fcf.IDACTIVITE,
+    fcf.TVA,
+    fcf.DATEFACT,
+    fcf.RUBRIQUE,
+    EXTRACT(
+        MONTH
+        FROM
+            fc.DATY
+    ) AS mois,
+    EXTRACT(
+        YEAR
+        FROM
+            fc.DATY
+    ) AS annee,
+    fcf.HEUREDEBUT,
+    fcf.HEUREFIN,
+    fcf.REDUCTION,
+    fcf.MAJORATION,
+    fcf.TEST,
+    fcf.RANG,
+    fcf.DUREE,
+    fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) AS montantAV,
+    DECODE(fcf.rubrique, NULL, a.rubrique, fcf.rubrique) AS rubriquecpl,
+    fc.daty,
+    fc.tiers,
+    fc.idcategorie,
+    fc.TYPE,
+    fc.devisemere,
+    fc.exercice,
+    FC.IDAVOIr,
+    fc.etat,
+    NVL(AV.montantsanstaux, 0) AS mtavoir,
+    fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) * NVL(FCF.REDUCTION, 0) / 100 AS montantReduction,
+    fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) * NVL(FCF.MAJORATION, 0) / 100 AS montantMajoration,
+    fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) + (
+        fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) * NVL(FCF.MAJORATION, 0)
+    ) / 100 - (
+        fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) * NVL(FCF.REDUCTION, 0)
+    ) / 100 AS montant,
+    (
+        fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) + (
+            fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) * NVL(FCF.MAJORATION, 0)
+        ) / 100 - (
+            fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) * NVL(FCF.REDUCTION, 0)
+        ) / 100
+    ) * NVL(fcf.tva / 100, 0) AS montanttva,
+    (
+        fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) + (
+            fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) * NVL(FCF.MAJORATION, 0)
+        ) / 100 - (
+            fcf.pu * fcf.quantite * fcf.taux * NVL(fcf.duree, 1) * NVL(FCF.REDUCTION, 0)
+        ) / 100
+    ) * (1 + NVL(fcf.tva / 100, 0)) AS montantttc,
+    m.VAL AS moislib,
+    f.MONTANTHTSIMPLE,
+    t.nomclt,
+    CAST(nvl(av.montantavectsaux, 0) AS NUMBER (30, 3)) AS montantavoiravectsaux,
+    CAST(nvl(av.MONTANTTTC, 0) AS NUMBER (30, 3)) as montantavTTCavecTaux,
+    CAST(nvl(av.MONTANTTVA, 0) AS NUMBER (30, 3)) as montantavTVAavecTaux,
+    fc.code,
+    fcf.daty AS datefacturefille
+FROM
+    facture_client_fille_prof fcf
+    JOIN factureclient_prof fc ON fcf.idmere = fc.id
+    LEFT JOIN activite_prof a ON a.id = fcf.idactivite
+    LEFT JOIN AVOIRFCAVECTAUX_GRP av ON AV.IDDETAILFACTURE = fcf.id
+    LEFT JOIN mois m ON m.ID = EXTRACT(
+        MONTH
+        FROM
+            fc.DATY
+    )
+    LEFT JOIN facture_client_filleTTC_prof f ON f.ID = fcf.ID
+    left join client_union t on fc.TIERS = t.cdclt;
+	
+	
+	
+	
+CREATE OR REPLACE  VIEW "CAFCFILLECOMPLET_GRPPROF2" ("IDMERE", "MONTANTAV", "MTAVOIR", "MONTANTREDUCTION", "MONTANTMAJORATION", "MONTANT", "MONTANTTVA", "MONTANTTTC", "MONTANTHTSIMPLE", "MONTANTAVOIRAVECTSAUX", "MONTANTAVTTCAVECTAUX") AS 
+  select
+    idmere,
+    sum(nvl(montantav, 0)) as montantav,
+    sum(nvl(mtavoir, 0)) as mtavoir,
+    sum(nvl(montantreduction, 0)) as montantreduction,
+    sum(nvl(montantmajoration, 0)) as montantmajoration,
+    sum(nvl(montant, 0)) as montant,
+    sum(nvl(montanttva, 0)) as montanttva,
+    sum(nvl(montantttc, 0)) as montantttc,
+    sum(nvl(montanthtsimple, 0)) as montanthtsimple,
+    sum(nvl(MONTANTAVOIRAVECTSAUX, 0)) as MONTANTAVOIRAVECTSAUX,
+    sum(nvl(montantavTTCavecTaux, 0)) as montantavTTCavecTaux
+from
+    FCFILLECOMPLETprof2
+group by
+    idmere;
+	
 	
 	
 	
@@ -356,37 +609,3 @@ from
    
    
  
-CREATE OR REPLACE  VIEW "FC_FILLE_RANGFINAL_PROF" ("ID", "IDMERE", "DESIGNATION", "QUANTITE", "PU", "COMPTE", "IDPRODUIT", "DEVISE", "TAUX", "IDACTIVITE", "TVA", "DATEFACT", "RUBRIQUE", "MOIS", "ANNEE", "HEUREDEBUT", "HEUREFIN", "REDUCTION", "MAJORATION", "TEST", "DUREE", "RANG", "ESTPROFORMAESCALE") AS 
-  select
-    fc.ID,
-    IDMERE,
-    DESIGNATION,
-    QUANTITE,
-    PU,
-    COMPTE,
-    IDPRODUIT,
-    DEVISE,
-    TAUX,
-    IDACTIVITE,
-    TVA,
-    DATEFACT,
-    RUBRIQUE,
-    MOIS,
-    ANNEE,
-    HEUREDEBUT,
-    HEUREFIN,
-    REDUCTION,
-    MAJORATION,
-    TEST,
-    DUREE,
-    --  RANG_RUBRIQUE,
-    --  RANG_MANOEUVRE,
-    case
-        when fc.RANG_MANOEUVRE is null
-        or RANG_MANOEUVRE = 1 then RANG_RUBRIQUE
-        when fc.RANG_MANOEUVRE = 2 then 6
-        when fc.RANG_MANOEUVRE = 3 then RANG_RUBRIQUE + 5
-    end as rang,
-    fc.estProformaEscale
-from
-    FC_FILLE_RANG_DET_PROF fc; 

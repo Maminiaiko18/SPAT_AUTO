@@ -192,25 +192,6 @@ CREATE OR REPLACE  VIEW "FACTURE_CLIENT_UNION_PROF" ("ID", "DATY", "TIERS", "DES
         FROM
             FACTURECLIENTMSUM_LIBPROF;
 			
-CREATE OR REPLACE  VIEW "CAFCFILLECOMPLET_GRPPROF2" ("IDMERE", "MONTANTAV", "MTAVOIR", "MONTANTREDUCTION", "MONTANTMAJORATION", "MONTANT", "MONTANTTVA", "MONTANTTTC", "MONTANTHTSIMPLE", "MONTANTAVOIRAVECTSAUX", "MONTANTAVTTCAVECTAUX") AS 
-  select
-    idmere,
-    sum(nvl(montantav, 0)) as montantav,
-    sum(nvl(mtavoir, 0)) as mtavoir,
-    sum(nvl(montantreduction, 0)) as montantreduction,
-    sum(nvl(montantmajoration, 0)) as montantmajoration,
-    sum(nvl(montant, 0)) as montant,
-    sum(nvl(montanttva, 0)) as montanttva,
-    sum(nvl(montantttc, 0)) as montantttc,
-    sum(nvl(montanthtsimple, 0)) as montanthtsimple,
-    sum(nvl(MONTANTAVOIRAVECTSAUX, 0)) as MONTANTAVOIRAVECTSAUX,
-    sum(nvl(montantavTTCavecTaux, 0)) as montantavTTCavecTaux
-from
-    FCFILLECOMPLETprof2
-group by
-    idmere;
-	
-	
 
 
 CREATE OR REPLACE  VIEW "FCFILLECOMPLETPROF2" ("ID", "IDMERE", "DESIGNATION", "QUANTITE", "PU", "COMPTE", "IDPRODUIT", "DEVISE", "TAUX", "IDACTIVITE", "TVA", "DATEFACT", "RUBRIQUE", "MOIS", "ANNEE", "HEUREDEBUT", "HEUREFIN", "REDUCTION", "MAJORATION", "TEST", "RANG", "DUREE", "MONTANTAV", "RUBRIQUECPL", "DATY", "TIERS", "IDCATEGORIE", "TYPE", "DEVISEMERE", "EXERCICE", "IDAVOIR", "ETAT", "MTAVOIR", "MONTANTREDUCTION", "MONTANTMAJORATION", "MONTANT", "MONTANTTVA", "MONTANTTTC", "MOISLIB", "MONTANTHTSIMPLE", "CLIENT", "MONTANTAVOIRAVECTSAUX", "MONTANTAVTTCAVECTAUX", "MONTANTAVTVAAVECTAUX", "CODE", "DATEFACTUREFILLE") AS 
