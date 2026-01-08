@@ -33,7 +33,8 @@
         lst.ajouterValeur(value, affiche);
         liste[0] = lst;
         liste[0].setNom("typelib");
-    
+        
+        pr.setAWhere("  and codefacture like '%A%' "); // PACT ET CSCS ET CEMEDI non prise en compte
         pr.getFormu().changerEnChamp(liste);
         
         pr.getFormu().getChamp("tierslib").setLibelle("tiers");
