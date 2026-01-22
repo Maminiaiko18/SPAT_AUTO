@@ -190,7 +190,7 @@ public class SituationComptesData {
             etatcaisse = EtatdeStockDate.calculEtatCaisse(daty2, ingredients, null, c, colonne, ordre, daty1);
             caisseAr = getSituationCaisseAr(etatcaisse);
 //            banqueAr = getSituationBanqueAr(etatcaisse);
-
+            
 //            totalComptes = getTotalSituationComptesAr(banqueAr, caisseAr);
             totalComptes = getTotalSituation(caisseAr);
 
@@ -220,7 +220,49 @@ public class SituationComptesData {
             }
         }
     }
+    public SituationComptesData(String daty2, String daty1, String ingredients, String colonne, String ordre, int choix) throws Exception {
+        int verif = 0;
+        Connection c = null;
 
+        try {
+            if (c == null) {
+                c = new UtilDB().GetConn();
+                verif = 1;
+            }
+
+            etatcaisse = EtatdeStockDate.calculEtatCaisseNew(daty2, ingredients, null, c, colonne, ordre, daty1);
+            caisseAr = getSituationCaisseAr(etatcaisse);
+//            banqueAr = getSituationBanqueAr(etatcaisse);
+            
+//            totalComptes = getTotalSituationComptesAr(banqueAr, caisseAr);
+            totalComptes = getTotalSituation(caisseAr);
+
+            banqueDevise = getSituationBanqueDevise(etatcaisse);
+
+            totalBanqueDevise = getTotalSituationBanqueDevise(banqueDevise);
+
+            placementAr = getSituationPlacementAr(c, daty2, daty1);
+            placementDevise = getSituationPlacementDevise(c, daty2, daty1);
+            totalPlacementAr = getTotalPlacement(placementAr);
+            totalPlacementDevise = getTotalPlacement(placementDevise);
+
+            recapitulatifComptes = getRecapitulatifComptes(c, totalComptes.getReste(), totalBanqueDevise.getReste(), daty1);
+            recapitulatifPlacement = getRecapitulatifPlacement(c, totalPlacementAr, totalPlacementDevise, daty1);
+
+            totalTresorerie = getTotalPlacement(recapitulatifComptes);
+            totalPlacement = getTotalPlacement(recapitulatifPlacement);
+            
+            montantBP = getBonProvisoire(c);
+            
+            total = totalTresorerie + totalPlacement;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+    }
     public double convertirDevise(Connection c, String iddevise, double montant, String dateDebut) throws Exception {
         return getMontantDevise(c, iddevise, dateDebut) * montant;
     }
@@ -339,7 +381,7 @@ public class SituationComptesData {
     public ClassMAPTable[] getSituationCaisseAr(EtatdeStockDate[] etatcaisse) throws Exception {
         String[] atts = {"unite"};
         String[] vals = {deviseAr};
-
+        System.out.println("****************MANDALO ATO*****************");
         return AdminGen.find(etatcaisse, atts, vals);
     }
 
