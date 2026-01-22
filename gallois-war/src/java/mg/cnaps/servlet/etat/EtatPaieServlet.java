@@ -4964,6 +4964,7 @@ public class EtatPaieServlet extends HttpServlet {
             String code = request.getParameter("code");
             String etat = request.getParameter("etat");
             String idfacture = request.getParameter("idfacture");
+            awhere += " AND codefacture like '%A%' ";
             if (idfacture != null && !idfacture.trim().isEmpty() && idfacture.compareToIgnoreCase("null") != 0) {
                 awhere += " AND idfacture='" + idfacture + "'";
             }

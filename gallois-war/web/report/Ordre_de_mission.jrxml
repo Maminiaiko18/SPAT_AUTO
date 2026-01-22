@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ordre_de_mission" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cd195319-b5a6-4c93-919d-3ccb223d1017">
 	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="121"/>
+	<property name="ireport.y" value="465"/>
 	<parameter name="daty" class="java.lang.String"/>
 	<parameter name="nom" class="java.lang.String"/>
 	<parameter name="fonction" class="java.lang.String"/>
@@ -293,11 +293,11 @@
 				<text><![CDATA[LE DIRECTEUR GENERAL ,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="336" y="116" width="200" height="20" uuid="42601fab-d42f-4ca7-8254-d9965a6091e3"/>
+				<reportElement x="303" y="116" width="233" height="20" uuid="42601fab-d42f-4ca7-8254-d9965a6091e3"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[AVELLIN Christian Eddy]]></text>
+				<text><![CDATA[RANDRIAMBAHOAKA Heritiana Anicet]]></text>
 			</staticText>
 		</band>
 	</summary>

@@ -522,10 +522,12 @@ public class AvoirFC extends ClassMere {
             if(((factliee.getMontantreste() - avoir.getMontantttc())* (-1)) - factliee.getMontantpaye() > 0.5)
                 throw new Exception("Impossible à viser.Total de l'avoir excedant le montant total de la facture.");
         }
+
 //        if(this.getType()!=null && this.getType().equals("1")){
 //            factliee.setNomTable("factureclient");
 //            factliee.annuler(c);
 //        }
+
         return super.validerObject(u, c); 
     }
     
