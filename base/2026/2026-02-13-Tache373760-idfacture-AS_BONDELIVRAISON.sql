@@ -1,0 +1,1 @@
+ALTER TABLE AS_BONDELIVRAISON ADD idfacture varchar(255)
