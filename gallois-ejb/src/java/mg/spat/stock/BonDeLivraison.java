@@ -10,6 +10,9 @@ import bean.ClassEtat;
 import facture.FactureFournisseur;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import utilitaire.UtilDB;
 import facturefournisseur.Detailsffbonlivraison;
 import utilitaire.ConstanteEtat;
@@ -25,6 +28,15 @@ public class BonDeLivraison extends ClassEtat {
     private double montantHT,montanttc;
     private String etatlib, idengagement;
     private double pourcentage;
+    private String idfacture;
+
+    public String getIdfacture() {
+        return idfacture;
+    }
+
+    public void setIdfacture(String idfacture) {
+        this.idfacture = idfacture;
+    }
 
     public double getMontantHT() {
         return montantHT;
@@ -307,6 +319,38 @@ public class BonDeLivraison extends ClassEtat {
 
     public void setIdengagement(String idengagement) {
         this.idengagement = idengagement;
+    }
+
+
+    public BonDeLivraisonFille[] getBLFgroupByProduit(String[] ids) throws Exception {
+        Map<String, BonDeLivraisonFille> regroupement = new HashMap<>();
+        for (String id : ids) {
+            BonDeLivraison temp = new BonDeLivraison();
+            temp = (BonDeLivraison) CGenUtil.rechercher(temp, null, null, null, " and id = '" + id + "'")[0];
+            if (temp.getIdfacture() != null) {
+                throw new Exception("Le bon de livraison " + temp.getId()
+                        + " est déjà facturé, impossible de le regrouper");
+            }
+            BonDeLivraisonFille[] lignes = temp.getFille(null);
+            for (BonDeLivraisonFille ligne : lignes) {
+                String idProduit = ligne.getProduit();
+                if (regroupement.containsKey(idProduit) && regroupement.get(idProduit).getPu() == ligne.getPu()) {
+                    BonDeLivraisonFille existant = regroupement.get(idProduit);
+                    existant.setQuantite(
+                            existant.getQuantite() + ligne.getQuantite()
+                    );
+                    existant.setId(existant.getId()+";"+existant.getId());
+                } else {
+                    BonDeLivraisonFille copie = new BonDeLivraisonFille();
+                    copie.setProduit(ligne.getProduit());
+                    copie.setQuantite(ligne.getQuantite());
+                    copie.setId(ligne.getId());
+                    copie.setPu(ligne.getPu());
+                    regroupement.put(idProduit, copie);
+                }
+            }
+        }
+        return regroupement.values().toArray(new BonDeLivraisonFille[0]);
     }
 
 }

@@ -27,6 +27,8 @@
         pc.getChampByName("montant").setLibelle("Montant HT");
         pc.getChampByName("montanttva").setLibelle("Montant TVA");
         pc.getChampByName("montantttc").setLibelle("Montant TTC");
+        pc.getChampByName("idfacture").setLibelle("Id Facture");
+        pc.getChampByName("idfacture").setLien((String) session.getValue("lien") + "?but=facture/facture-fournisseur-fiche-vaovao.jsp", "id=");
         pc.getChampByName("point").setVisible(false);
         pc.getChampByName("idbc").setVisible(false);
         pc.setTitre("Fiche bon de livraison");
@@ -81,6 +83,7 @@
             <ul class="nav nav-tabs">
                 <li class="<%= map.get("detail-bl")%>"><a href="globalnegoce.jsp?but=stock/bl/bondelivraison-fiche.jsp&id=<%=request.getParameter("id")%>&tab=detail-bl">D&eacute;tails</a></li>
                 <li class="<%= map.get("facture-fournisseur-liste")%>"><a href="globalnegoce.jsp?but=stock/bl/bondelivraison-fiche.jsp&id=<%=request.getParameter("id")%>&tab=facture-fournisseur-liste&idbl=<%=livraison.getId()%>">Facture fournisseur</a></li>
+                <li class="<%= map.get("bl-liste")%>"><a href="globalnegoce.jsp?but=stock/bl/bondelivraison-fiche.jsp&id=<%=request.getParameter("id")%>&tab=bl-liste&idFacture=<%=pc.getChampByName("idfacture").getValeur()+"&id="+request.getParameter("id")%>">Liste BL du facture</a></li>
             </ul>
 
             <div class="tab-content">       

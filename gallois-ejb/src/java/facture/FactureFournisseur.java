@@ -689,7 +689,7 @@ public class FactureFournisseur extends FactureClient {
             if(bp!=null && bp.length > 0) this.setCode(bp[0].getCode());
         }
 
-        if(this.getIdBL() != null && !this.getIdBL().isEmpty() && this.getIdBL().compareToIgnoreCase("")!=0){
+        if(this.getIdBL() != null && !this.getIdBL().isEmpty() && this.getIdBL().compareToIgnoreCase("")!=0 && !this.getIdBL().contains(";")){
             BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(this.getIdBL(), "AS_BONDELIVRAISON_BC", cnctn);
             if(bl.getIdengagement() != null)
                 this.setIdengagement(bl.getIdengagement());
@@ -701,8 +701,29 @@ public class FactureFournisseur extends FactureClient {
         if (this.getIdcategorie().compareToIgnoreCase(Constante.idBonProvisoire) == 0) {
             this.setNum(this.calculerNumeroBP(cnctn));
         }
-        
-        return super.createObject(iduser, cnctn);
+
+
+        ClassMAPTable temp = super.createObject(iduser, cnctn);
+
+        if(this.getIdBL().contains(";")){
+            String[] idbls = this.getIdBL().split(";");
+            String numbls = "";
+            for(String idbl : idbls){
+                BonDeLivraison bl = (BonDeLivraison) new BonDeLivraison().getById(idbl, "AS_BONDELIVRAISON", cnctn);
+                if(bl.getIdengagement() != null)
+                    this.setIdengagement(bl.getIdengagement());
+
+                //si FF a partir BC dia date BC no datedevise
+                BonDeCommande bc = (BonDeCommande) new BonDeCommande().getById(bl.getId_bc(), "AS_BONDECOMMANDE", cnctn);
+                if(bc!=null) this.setDatedevise(bc.getDaty());
+
+                bl.setIdfacture(temp.getTuppleID());
+                bl.updateToTableWithHisto(iduser);
+            }
+            if(!numbls.isEmpty()) this.setIdBL(numbls.substring(0, numbls.length()-1));
+        }
+
+        return temp;
     }
 
     public FactureFournisseurDetails genererFFDetails() throws Exception {

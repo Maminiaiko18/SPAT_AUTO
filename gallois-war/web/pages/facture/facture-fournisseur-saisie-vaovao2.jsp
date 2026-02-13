@@ -1,0 +1,453 @@
+<%@page import="ordremission.IndemniteMission"%>
+<%@page import="mg.cnaps.formation.CodeEtablissement"%>
+<%@ page import="ordremission.OrdreMissionLib" %>
+<%@ page import="ordremission.OrdreMissionIndemnite" %>
+<%@page import="mg.spat.Engagement"%>
+<%@page import="mg.spat.stock.BonDeLivraisonFilleReste"%>
+<%@page import="utilisateur.Utilisateur"%>
+<%@page import="affichage.Liste"%>
+<%@page import="user.*"%>
+<%@page import="facture.FactureClient"%>
+<%@page import="facture.FactureClientDetails"%>
+<%@ page import="bean.*" %>
+<%@page import="affichage.*"%>
+<%@page import="utilitaire.*"%>
+<%@ page import="mg.spat.stock.BonDeLivraison" %>
+<%@ page import="mg.spat.stock.BonDeLivraisonFille" %>
+
+<%
+    try {
+        UserEJB u = null;
+        String userRole = "";
+        u = (UserEJB) session.getValue("u");
+        userRole = u.getUser().getIdrole();
+
+        String[] ids = request.getParameterValues("id");
+        BonDeLivraison bl = new BonDeLivraison();
+        BonDeLivraisonFille[] blfs = bl.getBLFgroupByProduit(ids);
+
+        String autreparsley = "data-parsley-range='[8, 40]' required";
+        facture.FactureFournisseur fc = new facture.FactureFournisseur();
+        fc.setNomTable("FACTURE_FOURNISSEUR_SAISIE");
+
+// Data BL
+        String idBL = request.getParameter("idBL");
+        if (idBL != null) {
+            fc.setIdBL(idBL);
+        }
+        BonDeLivraisonFilleReste[] livraisons = fc.getBP(request.getParameter("idBC"),null);
+//------------------------------------
+
+        String titre = "Enregistrer facture fournisseur";
+        String categorie = Constante.categorieFFdefault;
+        String mode = request.getParameter("mode");
+
+        facture.FactureFournisseurDetails fcfille = new facture.FactureFournisseurDetails();
+        fcfille.setNomTable("FACTFOURN_FILLE_PLUS");
+
+        int taille = 10;
+        if (livraisons.length > taille) {
+            taille = livraisons.length;
+        }
+
+        PageInsertMultiple pi = new PageInsertMultiple(fc, fcfille, request, taille, u);
+        pi.getFormu().getChamp("modepaiement").setVisible(false);
+        if ((mode != null) && (mode.compareToIgnoreCase("1") == 0)) {
+            titre = "Enregistrer Bon provisoire";
+            categorie = Constante.getCategorieFFBP();
+            pi.getFormu().getChamp("idProvision").setVisible(false);
+            pi.getFormu().getChamp("numeroop").setVisible(false);
+            pi.getFormu().getChamp("idengagement").setVisible(false);
+            pi.getFormu().getChamp("num").setVisible(false);
+            pi.getFormu().getChamp("idcategorie").setVisible(false);
+
+            // pi.getFormu().getChamp("modepaiement").setDefaut("-");
+            affichage.Liste[] liste = new affichage.Liste[1];
+            TypeObjet modepaiement = new TypeObjet();
+            modepaiement.setNomTable("modepaiementbp");
+            liste[0] = new Liste("modepaiement", modepaiement, "desce", "id");
+            if(userRole.compareToIgnoreCase("ROL0000001321113437")==0 || request.getParameter("idom")!=null) liste[0].setDefaultSelected(Constante.modepaiementDefaut);
+            else liste[0].setDefaultSelected("-");
+            pi.getFormu().changerEnChamp(liste);
+            pi.getFormu().getChamp("modepaiement").setLibelle("Mode de paiement");
+
+        }
+        pi.setLien((String) session.getValue("lien"));
+        /*if (u.getUser().getCodeEtablissement() != null) {
+            CodeEtablissement code = u.getCodeEtablissement();
+            pi.getFormu().getChamp("code_etablissement").setDefaut(u.getUser().getCodeEtablissement());
+            pi.getFormu().getChamp("code_etablissement").setValeurLibelle(code.getVal());
+        }*/
+        String mere = request.getParameter("idmere");
+        if (mere != null && mere.compareToIgnoreCase("") != 0) {
+            pi.getFormu().getChamp("idmere").setDefaut(mere);
+        }
+
+        pi.getFormu().getChamp("exercice").setLibelle("Exercice");
+        pi.getFormu().getChamp("exercice").setDefaut(String.valueOf(Utilitaire.getAnneeEnCours()));
+        pi.getFormu().getChamp("designation").setLibelle("Note explicative");
+        pi.getFormu().getChamp("numeroop").setLibelle("Numero Facture");
+        pi.getFormu().getChamp("numeroop").setVisible(true);
+        pi.getFormu().getChamp("dateRegul").setVisible(false);
+        pi.getFormu().getChamp("daty").setLibelle("Date");
+        pi.getFormu().getChamp("Datedevise").setLibelle("date devise");
+        pi.getFormu().getChamp("Datedevise").setAutre("readonly");
+        pi.getFormu().getChamp("Datedevise").setDefaut(Utilitaire.dateDuJour());
+        pi.getFormu().getChamp("datefacture").setLibelle("Date facture");
+        pi.getFormu().getChamp("date_echeance").setLibelle("Date echeance");
+        pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
+        pi.getFormu().getChamp("idprevision").setVisible(false);
+        pi.getFormu().getChamp("nature").setVisible(false);
+        pi.getFormu().getChamp("num").setVisible(false);
+        //pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
+        // pi.getFormu().getChamp("idBL").setAutre("readonly");
+        // pi.getFormu().getChamp("idBL").setVisible(false);
+        //pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");
+        pi.getFormu().getChamp("code_etablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp", "code_etablissement;code_etablissementlibelle");
+        pi.getFormu().getChamp("code_etablissement").setAutre("readonly");
+        pi.getFormu().getChamp("code_etablissement").setLibelle("Code direction");
+        pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp", "projet;projetlibelle");
+        pi.getFormu().getChamp("projet").setAutre("readonly");
+        pi.getFormu().getChamp("projet").setLibelle("Projet");
+        pi.getFormu().getChamp("idBL").setDefaut(Utilitaire.champNull(request.getParameter("idBL")));
+        pi.getFormu().getChamp("tiers").setPageAppel("choix/listeTiersBEDChoix.jsp");
+        pi.getFormu().getChamp("idProvision").setPageAppel("choix/bonProvisoirNonRegulariser.jsp");
+        pi.getFormu().getChamp("idengagement").setPageAppel("choix/listeEngagementChoix.jsp");
+        pi.getFormu().getChamp("idengagement").setLibelle("Engagement");
+        pi.getFormu().getChamp("tva").setVisible(false);
+        pi.getFormu().getChamp("estMictsl").setVisible(false);
+        pi.getFormu().getChamp("estAuto").setVisible(false);
+        pi.getFormu().getChamp("typeEngagement").setVisible(false);
+        pi.getFormu().getChamp("remarque").setLibelle("Ref Compta");
+        pi.getFormu().getChamp("idom").setVisible(false);
+
+
+        if (request.getParameter("idBL") != null) {
+            pi.getFormu().getChamp("idBL").setVisible(true);
+            pi.getFormu().getChamp("idBL").setPageAppel("choix/listeTiersChoix.jsp");
+            pi.getFormu().getChamp("idBL").setAutre("readonly");
+            pi.getFormu().getChamp("idBL").setLibelle("Bon de livraison");
+            pi.getFormu().getChamp("projet").setValeur(livraisons[0].getProjet());
+            pi.getFormu().getChamp("projet").setValeurLibelle(livraisons[0].getProjetlib());
+            pi.getFormu().getChamp("code_etablissement").setValeur(livraisons[0].getCode_etablissement());
+            pi.getFormu().getChamp("code_etablissement").setValeurLibelle(livraisons[0].getCode_etablissementlib());
+            pi.getFormu().getChamp("tiers").setValeur(livraisons[0].getIdtiers());
+            pi.getFormu().getChamp("tiers").setValeurLibelle(livraisons[0].getNomtiers());
+        }
+
+        pi.getFormu().getChamp("tiers").setAutre("readonly");
+        pi.getFormu().getChamp("iduser").setAutre("readonly");
+        pi.getFormu().getChamp("idengagement").setAutre("readonly");
+
+        if ( idBL == null ) affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
+
+        Engagement engagement = new Engagement();
+        if (request.getParameter("idEngagement") != null) {
+            engagement = (Engagement) engagement.getById(request.getParameter("idEngagement"), "engagementlib", null);
+            pi.getFormu().getChamp("idengagement").setDefaut(engagement.getId());
+            pi.getFormu().getChamp("idengagement").setValeurLibelle(engagement.getDesignation());
+            pi.getFormu().getChamp("projet").setDefaut(engagement.getProjet());
+            pi.getFormu().getChamp("projet").setValeurLibelle(engagement.getProjetlib());
+            pi.getFormu().getChamp("code_etablissement").setDefaut(engagement.getCodeEtablissement());
+            pi.getFormu().getChamp("code_etablissement").setValeurLibelle(engagement.getCodeEtablissementlib());
+            pi.getFormu().getChamp("tiers").setDefaut(Utilitaire.champNull(engagement.getTiers()));
+            pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(engagement.getTierslib()));
+        }
+        if(request.getParameter("idom")!=null && request.getParameter("idom").length()>0){
+            OrdreMissionLib odreMission= new OrdreMissionLib().getByIdAvecOrdreMissionIndemnite(request.getParameter("idom"));
+            pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
+            pi.getFormu().getChamp("idom").setDefaut(request.getParameter("idom"));
+            pi.getFormu().getChamp("idom").setAutre("readonly");
+            pi.getFormu().getChamp("idom").setLibelle("Odre de mission");
+            pi.getFormu().getChamp("idom").setVisible(true);
+            pi.getFormu().getChamp("tiers").setDefaut(odreMission.getIdtiers());
+            pi.getFormu().getChamp("projet").setValeurLibelle(Constante.projetOMlib);
+            pi.getFormu().getChamp("projet").setDefaut(Constante.projetOM);
+            pi.getFormu().getChamp("code_etablissement").setValeurLibelle(Constante.directionOMlib);
+            pi.getFormu().getChamp("code_etablissement").setDefaut(Constante.directionOM);
+            if(odreMission.getNom()==null && odreMission.getPrenom()==null)
+                pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getId()));
+            else
+                pi.getFormu().getChamp("tiers").setValeurLibelle(Utilitaire.champNull(odreMission.getNom())+ " "+Utilitaire.champNull(odreMission.getPrenom()));
+//            OrdreMissionIndemnite[] indemnites= odreMission.getIndemnites();
+            IndemniteMission[] indemniteMissions = odreMission.getIndemniteMissions();
+
+            String jsScript_checkbox = "<script>\n";
+            for(int i=0;i<indemniteMissions.length;i++){
+                jsScript_checkbox += "window.addEventListener('load', function() {";
+                jsScript_checkbox += "    document.getElementById('checkbox" + i + "').checked = true;";
+                jsScript_checkbox += "});";
+                pi.getFormufle().getChamp("quantite_" + i).setDefaut(odreMission.getDuree()+"");
+                pi.getFormufle().getChamp("designation_" + i).setDefaut(indemniteMissions[i].getLibelleFrais());
+                pi.getFormufle().getChamp("pu_" + i).setDefaut(indemniteMissions[i].getFrais()+"");
+                pi.getFormufle().getChamp("montant_" + i).setDefaut(odreMission.getDuree()*indemniteMissions[i].getFrais()+"");
+                pi.getFormufle().getChamp("tva_" + i).setDefaut(0+"");
+            }
+            jsScript_checkbox += "</script>";
+            out.println(jsScript_checkbox);
+            pi.getFormu().getChamp("designation").setDefaut("Provision de mission n&deg;" + odreMission.getNumOM());
+        }
+        affichage.Liste[] listes = new affichage.Liste[3];
+
+        TypeObjet type = new TypeObjet();
+        type.setNomTable("typefc");
+        listes[0] = new Liste("type", type, "VAL", "id");
+
+        TypeObjet categ = new TypeObjet();
+        categ.setNomTable("categorieFF");
+        listes[1] = new Liste("idcategorie", categ, "VAL", "id");
+        listes[1].setDefaultSelected(categorie);
+
+        TypeObjet devise = new TypeObjet();
+        devise.setNomTable("devise");
+        listes[2] = new Liste("deviseMere", devise, "VAL", "id");
+        listes[2].setDefaultSelected(Constante.deviseAr);
+
+        pi.getFormu().changerEnChamp(listes);
+
+        pi.getFormu().getChamp("deviseMere").setLibelle("Devise");
+        pi.getFormu().getChamp("codePrestation").setLibelle("Code prestation");
+        pi.getFormu().getChamp("idProvision").setAutre("readonly");
+        pi.getFormu().getChamp("idcategorie").setLibelle("Categorie");
+        pi.getFormu().getChamp("idProvision").setLibelle("Bon provisoire");
+
+        affichage.Liste[] listed = new affichage.Liste[2];
+        TypeObjet o = new TypeObjet();
+        o.setNomTable("devise");
+        listed[0] = new Liste("devise", o, "VAL", "id");
+
+        TypeObjet mois = new TypeObjet();
+        mois.setNomTable("mois");
+        listed[1] = new Liste("mois", mois, "val", "id");
+        listed[1].setApresW("order by id asc");
+        pi.getFormufle().changerEnChamp(listed);
+        if (livraisons.length > 0) {
+            pi.getFormu().getChamp("tiers").setDefaut(livraisons[0].getIdtiers());
+        }
+
+        String jsScript = "<script>\n";
+        for (int i = 0; i < taille; i++) {
+            jsScript += "$('#comptelibelle_" + i + "').change(function() { changerValeur(" + i + ") });\n";
+            pi.getFormufle().getChamp("idBLF_" + i).setAutre("readonly");
+            pi.getFormufle().getChamp("quantite_" + i).setAutre("onblur='calculerMontant(" + i + ")'");
+            pi.getFormufle().getChamp("pu_" + i).setAutre("onblur='calculerMontant(" + i + ")'");
+            pi.getFormufle().getChamp("montant_" + i).setAutre("readonly");
+            pi.getFormufle().getChamp("devise_" + i).setDefaut(Constante.deviseAr);
+            pi.getFormufle().getChamp("taux_" + i).setDefaut("1");
+            pi.getFormufle().getChamp("mois_" + i).setDefaut("" + Utilitaire.getMoisEnCoursReel());
+            pi.getFormufle().getChamp("annee_" + i).setDefaut(Utilitaire.getAnneeEnCours());
+            pi.getFormufle().getChamp("idactivite_" + i).setVisible(false);
+            //pi.getFormufle().getChamp("compte_"+i).setPageAppel("choix/listeBudgetDepenseChoix.jsp", "compte_" + i+";comptelibelle_"+i  );
+            if (i < livraisons.length) {
+                pi.getFormufle().getChamp("idBLF_" + i).setDefaut(livraisons[i].getId());
+                pi.getFormufle().getChamp("pu_" + i).setDefaut(Utilitaire.formaterAr(livraisons[i].getPu()));
+                pi.getFormufle().getChamp("quantite_" + i).setDefaut(Utilitaire.formaterAr(livraisons[i].getQuantiteReste()));
+                pi.getFormufle().getChamp("tva_" + i).setDefaut(Utilitaire.formaterAr(livraisons[i].getTva()));
+                pi.getFormufle().getChamp("designation_" + i).setDefaut(Utilitaire.champNull(livraisons[i].getProduit()));
+                if( idBL!=null){
+                    pi.getFormufle().getChamp("reduction_" + i).setDefaut(String.valueOf(livraisons[i].getRemise()));
+                }
+                pi.getFormufle().getChamp("devise_" + i).setDefaut(Utilitaire.champNull(livraisons[i].getDevise()));
+            }
+        }
+        jsScript += "</script>";
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("idactivite"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("rubrique"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureDebut"), false);
+        affichage.Champ.setVisible(pi.getFormufle().getChampFille("heureFin"), false);
+        pi.getFormufle().getChamp("idBLF_0").setLibelle("BL d&eacute;tail");
+        pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
+        pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
+        pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
+        pi.getFormufle().getChamp("pu_0").setLibelle("Pu");
+        pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
+        pi.getFormufle().getChamp("idproduit_0").setLibelle("Produit");
+        pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
+        pi.getFormufle().getChamp("tva_0").setLibelle("tva");
+        pi.getFormufle().getChamp("datefact_0").setLibelle("Date fact");
+        pi.getFormufle().getChamp("rubrique_0").setVisible(false);
+        pi.getFormufle().getChamp("mois_0").setLibelle("Mois");
+
+        pi.getFormufle().getChamp("annee_0").setLibelle("Ann&eacute;e");
+        pi.getFormufle().getChamp("reduction_0").setLibelle("RED. %");
+        pi.getFormufle().getChamp("majoration_0").setLibelle("MAJ. %");
+
+        if (ids != null) {
+            String idVirg = ids[0];
+            for (int i = 1; i < ids.length; i++) {
+                idVirg += ";"+ids[i] ;
+            }
+            pi.getFormu().getChamp("idBL").setDefaut(idVirg);
+            for (int i = 0; i < blfs.length; i++) {
+                pi.getFormufle().getChamp("idProduit_"+i).setDefaut(blfs[i].getProduit());
+                pi.getFormufle().getChamp("quantite_"+i).setDefaut(( blfs[i].getQuantite() + ""));
+                pi.getFormufle().getChamp("idBLF_"+i).setDefaut(blfs[i].getId());
+                pi.getFormufle().getChamp("Pu_"+i).setDefaut(blfs[i].getPu()+"");
+            }
+        }
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("idProduit"), "choix/produitChoix.jsp", "idproduit;idproduitlibelle;designation;designation;designation");
+        affichage.Champ.setPageAppel(pi.getFormufle().getChampFille("compte"), "choix/listeBudgetDepenseChoix.jsp", "compte;compte;compte;compte;compte;comptelibelle");
+
+        //affichage.Champ.setAutre(pi.getFormufle().getChampFille("compte"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("idProduit"), "readonly");
+        affichage.Champ.setAutre(pi.getFormufle().getChampFille("dateFact"), "readonly");
+
+        affichage.Champ.setDefaut(pi.getFormufle().getChampFille("annee"), Utilitaire.getAnneeEnCours());
+        affichage.Champ.setDefaut(pi.getFormufle().getChampFille("mois"), new Integer(Utilitaire.getMoisEnCours() + 1).toString());
+
+        pi.getFormu().getChamp("EstDDPMICTSL").setVisible(false);
+        pi.getFormu().getChamp("etat").setVisible(false);
+        pi.getFormu().getChamp("codePrestation").setVisible(false);
+        pi.getFormu().getChamp("code").setVisible(false);
+        pi.getFormu().getChamp("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
+        pi.getFormu().getChamp("anneebudgetaire").setDefaut(Utilitaire.getAnneeEnCours());
+
+        String[] listeOrdre = {"designation", "quantite", "compte", "pu"};
+        //pi.getFormufle().setOrdre(listeOrdre);
+
+        pi.preparerDataFormu();
+
+%>
+<div class="content-wrapper">
+    <h1>
+        <%= titre%>
+    </h1>
+    <!--  -->
+    <form action="<%=pi.getLien()%>?but=apresMultiple.jsp" method="post" name="starticle" id="starticle">
+        <%
+            pi.getFormu().makeHtmlInsertTabIndex();
+            pi.getFormufle().makeHtmlInsertTableauIndex();
+            out.println(pi.getFormu().getHtmlInsert());
+            out.println(pi.getFormufle().getHtmlTableauInsert());
+        %>
+
+        <input name="acte" type="hidden" id="nature" value="insert">
+        <input name="bute" type="hidden" id="bute" value="facture/facture-fournisseur-fiche-vaovao.jsp">
+        <input name="classe" type="hidden" id="classe" value="facture.FactureFournisseur">
+        <input name="classefille" type="hidden" id="classefille" value="facture.FactureFournisseurDetails">
+        <input name="nombreLigne" type="hidden" id="nombreLigne" value="<%=taille%>">
+        <input name="colonneMere" type="hidden" id="colonneMere" value="idmere">
+    </form>
+
+</div>
+<script language="JavaScript">
+    function changerValeur(indice) {
+        console.log('changer valeur');
+        const currentVal = $('#comptelibelle_'+indice).val();
+        if(currentVal) $('#compte_' + indice).val(currentVal);
+    }
+    function calculerMontant(indice) {
+        var quantite, pu, montant;
+        quantite = parseFloat($('#quantite_' + indice).val());
+        //        quantite = quantite / 1000;
+        pu = parseFloat($('#pu_' + indice).val());
+        if (!isNaN(quantite) && !isNaN(pu)) {
+            montant = quantite * pu;
+            $('#montant_' + indice).val(montant.toFixed(2));
+        } else {
+            $('#montant_' + indice).val('');
+        }
+    }
+    $('#designation').each(function () {
+        var textbox = $(document.createElement('textarea')).val(this.value);
+        console.log(this.attributes);
+        $.each(this.attributes, function () {
+            if (this.specified) {
+                textbox.prop(this.name, this.value)
+            }
+        });
+        $(this).replaceWith(textbox);
+    });
+    var selectList = $('#test option');
+
+    function sortList(select) {
+        var selectList = select.find("option");
+        selectList.sort(function (a, b) {
+            a = a.value;
+            b = b.value;
+
+            return a - b;
+        });
+        select.html(selectList);
+    }
+    for (var iL = 0; iL < <%= taille%>; iL++) {
+        sortList($('#mois_' + iL));
+    }
+    $('#starticle').find("label[for='compte_0']").parent().attr('colspan', 2);
+    <% for (int i = 0; i < pi.getNombreLigne(); i++) {%>
+    console.log('init');
+    var designation = document.getElementById("designation_<%=i%>");
+    var textarea = document.createElement("textarea");
+    textarea.name = "designation_<%=i%>";
+    textarea.id = "designation_<%=i%>";
+    textarea.className = "form-control";
+    textarea.style.height = "100px";
+    textarea.value = designation.value;
+    designation.parentNode.replaceChild(textarea, designation);
+
+
+
+    var td = document.getElementById('compte_<%=i%>').parentElement;
+    var tdel = document.createElement("td");
+    td.after(tdel);
+    <%}%>
+</script>
+
+<script>
+    window.onload = () =>{
+        var submitBtns = document.querySelectorAll("button[name='Submit2'][type='submit']");
+        for(var i=0; i < submitBtns.length; i++){
+            modifySubmitBtn(submitBtns[i]);
+        }
+    }
+
+    function modifySubmitBtn(btn){
+        btn.setAttribute("type","button");
+        btn.onclick = save;
+    }
+
+    function save() {
+        var btn = this;
+        btn.disabled = true;
+        var query = $('#starticle').serialize();
+        $.get("apresMultipleAjax.jsp?"+query, function(data, status){
+            var temp = data.trim().split("_");
+            if(temp[0] === 'error'){
+                btn.disabled = false;
+                alert(temp[1]);
+            }
+            else{
+                window.location.href = "<%=pi.getLien()%>?but=facture/facture-fournisseur-fiche-vaovao.jsp&id="+temp[1];
+            }
+        });
+    }
+
+    document.getElementsByClassName("btn btn-default pull-right")[2].addEventListener('click', e => {
+        var indice = ($("#nombreLigne")[0].value)-1;
+        document.getElementById("quantite_"+indice).setAttribute("onblur","calculerMontant("+indice+")");
+        document.getElementById("pu_"+indice).setAttribute("onblur","calculerMontant("+indice+")");
+    })
+
+    document.getElementsByClassName("btn btn-default pull-right")[3].addEventListener('click', e => {
+        var indice = ($("#nombreLigne")[0].value)-10;
+        for (let i = indice; i < indice+10; i++) {
+            document.getElementById("quantite_"+i).setAttribute("onblur","calculerMontant("+i+")");
+            document.getElementById("pu_"+i).setAttribute("onblur","calculerMontant("+i+")");
+        }
+    })
+</script>
+<%
+    out.println(jsScript);
+} catch (Exception e) {
+    e.printStackTrace();
+
+%>
+
+<script language="JavaScript">
+    alert('<%=e.getMessage()%>');
+    history.back();
+</script>
+<% }%>
