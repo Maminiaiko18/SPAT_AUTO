@@ -1,0 +1,1 @@
+INSERT INTO SPAT.MENUDYNAMIQUE (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE) VALUES ('MEND000000267868', 'Facture BL groupé', 'fa fa-plus', '/spat/pages/globalnegoce.jsp?but=stock/bl/bondelivraison-liste2.jsp', 2, 5, 'MEND0000001');
