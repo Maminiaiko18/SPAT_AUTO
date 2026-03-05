@@ -22,7 +22,7 @@
     pr.getFormu().getChamp("daty1").setLibelle("Date min");
     pr.getFormu().getChamp("daty2").setLibelle("Date Max");
     pr.getFormu().getChamp("numbc").setLibelle("Num&eacute;ro BC");
-    pr.setApres("stock/bl/bondelivraison-liste.jsp");
+    pr.setApres("stock/bl/bondelivraison-liste2.jsp");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);%>
 <script>
@@ -32,10 +32,10 @@
 </script>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Liste bon de livraison</h1>
+        <h1>Facturation des bons de livraisons group&eacute;s</h1>
     </section>
     <section class="content">
-        <form action="<%=pr.getLien()%>?but=stock/bl/bondelivraison-liste.jsp" method="post" name="incident" id="incident">
+        <form action="<%=pr.getLien()%>?but=stock/bl/bondelivraison-liste2.jsp" method="post" name="incident" id="incident">
             <%
 
                 out.println(pr.getFormu().getHtmlEnsemble());
@@ -87,8 +87,6 @@
         </form>
         <%
             out.println(pr.getBasPage());
-        %>
-    </section>
         %>
     </section>
 </div>

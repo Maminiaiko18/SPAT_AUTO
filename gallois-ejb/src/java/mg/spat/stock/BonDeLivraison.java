@@ -331,9 +331,11 @@ public class BonDeLivraison extends ClassEtat {
                 throw new Exception("Le bon de livraison " + temp.getId()
                         + " est déjà facturé, impossible de le regrouper");
             }
-            BonDeLivraisonFille[] lignes = temp.getFille(null);
+            BonDeLivraisonFille tempFille = new BonDeLivraisonFille();
+            tempFille.setNomTable("AS_BONDELIVRAISON_FILLE_MTT");
+            BonDeLivraisonFille[] lignes = (BonDeLivraisonFille[]) CGenUtil.rechercher(tempFille, null, null, null, " and NUMBL = '" + temp.getId() + "'");
             for (BonDeLivraisonFille ligne : lignes) {
-                String idProduit = ligne.getProduit();
+                String idProduit = ligne.getIdProduit();
                 if (regroupement.containsKey(idProduit) && regroupement.get(idProduit).getPu() == ligne.getPu()) {
                     BonDeLivraisonFille existant = regroupement.get(idProduit);
                     existant.setQuantite(

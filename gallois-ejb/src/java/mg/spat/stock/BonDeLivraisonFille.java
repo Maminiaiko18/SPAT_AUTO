@@ -6,6 +6,7 @@
 package mg.spat.stock;
 
 import bean.AdminGen;
+import bean.CGenUtil;
 import bean.ClassMAPTable;
 import java.sql.Connection;
 
@@ -217,5 +218,10 @@ public class BonDeLivraisonFille extends ClassMAPTable {
 
     public double getTotal() {
         return this.getQuantiteparpack() * this.getQuantite();
+    }
+
+    public String getIdProduit() throws Exception{
+        BonDeCommandeFille[] tempFille = (BonDeCommandeFille[])CGenUtil.rechercher(new BonDeCommandeFille(), null, null, null, " and id='" + this.getIdbondecommande() + "' ");
+        return tempFille[0].getProduit();
     }
 }

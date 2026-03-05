@@ -282,7 +282,8 @@
             }
             pi.getFormu().getChamp("idBL").setDefaut(idVirg);
             for (int i = 0; i < blfs.length; i++) {
-                pi.getFormufle().getChamp("idProduit_"+i).setDefaut(blfs[i].getProduit());
+                pi.getFormufle().getChamp("idproduit_"+i).setDefaut(blfs[i].getIdProduit());
+                pi.getFormufle().getChamp("designation_"+i).setDefaut(blfs[i].getProduit());
                 pi.getFormufle().getChamp("quantite_"+i).setDefaut(( blfs[i].getQuantite() + ""));
                 pi.getFormufle().getChamp("idBLF_"+i).setDefaut(blfs[i].getId());
                 pi.getFormufle().getChamp("Pu_"+i).setDefaut(blfs[i].getPu()+"");
