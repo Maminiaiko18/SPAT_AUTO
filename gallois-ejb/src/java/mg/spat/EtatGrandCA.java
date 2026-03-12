@@ -164,6 +164,55 @@ public class EtatGrandCA {
             if(c != null)c.close();
         }
     }
+
+    public EtatGrandCA(String datedebut, String datefin, boolean estGroupeAncien) throws Exception {
+        Connection c = null;
+        try{
+            c = new UtilDB().GetConn();
+            List<CA> CAtout = new java.util.ArrayList<>();
+            GrandRubriqueLib grandrubrique = new GrandRubriqueLib();
+            grandrubrique.setNomTable("GRANDRUBRIQUE");
+            GrandRubriqueLib[] grandrubriques = (GrandRubriqueLib[])CGenUtil.rechercher(grandrubrique, null, null, c, " order by rang");
+            int t = grandrubriques.length;
+            listeCA = new LinkedHashMap<>();
+            for (GrandRubriqueLib grandRubriqueLib : grandrubriques) {
+                EtatCA etatca = new EtatCA(datedebut, datefin, grandRubriqueLib.getId(), estGroupeAncien);
+                etatca.setIdgrandrubrique(grandRubriqueLib.getId());
+                CA[] tout = etatca.getCAtout();
+                if (tout != null) {
+                    CAtout.addAll(Arrays.asList(tout));
+                    listeCA.put(grandRubriqueLib.getVal(), etatca);
+                }
+            }
+
+            tout = CAtout.toArray(new CA[CAtout.size()]);
+            this.calculerTotalGeneral(mois, annee, c);
+            double tauxTotal = 0;
+            double total = 0;
+
+            //calcul taux par grande rubrique
+            for (GrandRubriqueLib grandRubriqueLib : grandrubriques) {
+                EtatCA tmp = listeCA.get(grandRubriqueLib.getVal());
+//                if(tmp!=null){
+                    double tauxTmp1 = tmp.getTotalGeneral().getTotal() / 100;
+
+                    double tauxTmp = tmp.getTotalGeneral().getTotal() / totalgeneralgrandrubrique.getTotal() * 100;
+                    tmp.getTotalGeneral().setTaux(tauxTmp);
+                    listeCA.replace(grandRubriqueLib.getVal(), tmp);
+                    tauxTotal += tauxTmp;
+                    total += tmp.getTotalGeneral().getTotal();
+//                }
+
+            }
+            totalgeneralgrandrubrique.setTaux(tauxTotal);
+        }
+        catch(Exception e){
+            throw e;
+        }
+        finally{
+            if(c != null)c.close();
+        }
+    }
     
     public void calculerTotalGeneral(int mois, int annee, Connection c) throws Exception {
         try{

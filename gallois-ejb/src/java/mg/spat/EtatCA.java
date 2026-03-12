@@ -10,6 +10,8 @@ import bean.CGenUtil;
 import fin.Coursdevise;
 import java.sql.Connection;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -241,6 +243,36 @@ public class EtatCA {
         return cahmap;
         
     }
+
+    public HashMap<String, CA> getetatcagen (CA[] cas){
+        //ArrayList<CA> ca = new ArrayList<CA>();
+        HashMap<String, CA> cahmap=new LinkedHashMap<String, CA>();
+
+        int taillecas = cas.length;
+
+
+        for(int i = 0;i< taillecas;i++){
+            if(cahmap.get(cas[i].getCompte())!=null){
+                CA temp = cahmap.get(cas[i].getCompte());
+                temp.setAvoirEETP(temp.getAvoirEETP()+cas[i].getAvoir());
+                temp.setAvoirEETPINT(temp.getAvoirEETPINT()+cas[i].getAvoirinterne());
+                temp.setAvoirEETPEXT(temp.getAvoirEETPEXT()+cas[i].getAvoirexterne());
+                temp.setComptant(temp.getComptant()+cas[i].getComptant());
+                temp.setCredit(temp.getCredit()+cas[i].getCredit());
+                cahmap.put(cas[i].getCompte(),temp);
+            }
+            if(cahmap.get(cas[i].getCompte())==null){
+                CA temp = cas[i];
+                temp.setAvoirEETPINT(cas[i].getAvoirinterne());
+                temp.setAvoirEETPEXT(cas[i].getAvoirexterne());
+                temp.setAvoirEETP(cas[i].getAvoir());
+                cahmap.put(cas[i].getCompte(),temp);
+            }
+
+        }
+        return cahmap;
+
+    }
         
     public EtatCA(int mois, int annee, boolean estGroupeAncien) throws Exception {
         CA[] tout = getCACpl(mois, annee);
@@ -251,6 +283,14 @@ public class EtatCA {
         
     public EtatCA(int mois, int annee, String idGrandrubrique, boolean estGroupeAncien) throws Exception {
         CA[] tout = getCACpl(mois, idGrandrubrique, annee);
+        this.setCAtout(tout);
+        this.calculCATotal(tout);
+        this.calculerTauxEtHashMap(tout);
+        this.calculerHashMapPartiel();
+    }
+
+    public EtatCA(String datedebut, String datefin, String idGrandrubrique, boolean estGroupeAncien) throws Exception {
+        CA[] tout = getCACpl(datedebut, idGrandrubrique, datefin);
         this.setCAtout(tout);
         this.calculCATotal(tout);
         this.calculerTauxEtHashMap(tout);
@@ -457,6 +497,141 @@ public class EtatCA {
             
             CA[] tabCA = new CA[mapCA.size()];
             int i = 0;
+            if(tabCA.length == 0)return null;
+            /*for(Map.Entry map:mapCA.entrySet())
+            {
+                System.out.println("Anaty MAP "+map.getKey());
+            }*/
+            for(String key: listeCompte){
+                tabCA[i] = mapCA.get(key);
+                i++;
+            }
+            return tabCA;
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(c != null && ouvert) c.close();
+        }
+    }
+
+    public CA[] getCACpl(String dateDebut, String idGrandRubrique, String dateFin, Connection c) throws Exception{
+
+//        dateFin = String.valueOf(Date.valueOf(Utilitaire.stringToDateJ("DD/MM/YYYY", Utilitaire.stringToDate("DD/MM/YYYY", dateFin))));
+//        dateDebut = String.valueOf(Date.valueOf(Utilitaire.stringToDateJ("DD/MM/YYYY", (Date) Utilitaire.stringToDate("DD/MM/YYYY", dateDebut))));
+
+        SimpleDateFormat sdf = null;
+        System.out.println( "dateDebut : "+dateDebut+" dateFin : "+dateFin);
+
+        String pattern = "YYYY-MM-dd";
+        if (dateDebut != null && dateDebut.length() >= 3 && dateDebut.charAt(2) == '/') {
+            System.out.println("Le 3eme caractère est /");
+            pattern = "dd/MM/yyyy";
+        }
+
+//        java.util.Date utilDateDebut = sdf.parse(dateDebut);
+//        java.util.Date utilDateFin = sdf.parse(dateFin);
+//
+//        java.sql.Date sqlDateDebut = new java.sql.Date(utilDateDebut.getTime());
+//        java.sql.Date sqlDateFin = new java.sql.Date(utilDateFin.getTime());
+
+//        System.out.println("DATE DEBUT : "+sqlDateDebut+" DATE FIN : "+sqlDateFin);
+        boolean ouvert = false;
+        try{
+            if(c == null) {
+                c = new UtilDB().GetConn();
+                ouvert = true;
+            }
+            CA base = new CA();
+            base.setNomTable("CompteCAFactAvoir_grp");
+//            String requete = "SELECT\n" +
+//                    "	RANGMERECA AS RANGMERECA,\n" +
+//                    "	nvl(c.RANGCOMPTECA,j.rangcompteca) as RANGCOMPTECA,\n" +
+//                    "	nvl(c.RUBRIQUE,'-') AS rubrique,\n" +
+//                    "	nvl(c.RUBRIQUELIB,'-') AS rubriquelib,\n" +
+//                    "	nvl(c.COMPTE,j.VAL) AS compte ,\n" +
+//                    "	nvl(c.LIBELLE,j.LIBELLE ) AS LIBELLE ,\n" +
+//                    "	nvl(c.COMPTEMERE,j.comptemere) AS comptemere,\n" +
+//                    "	nvl(c.COMPTEMERELIB,j.comptemerelib) AS comptemerelib,\n" +
+//                    "	nvl(c.MERE,j.DESCE) AS mere,\n" +
+//                    "	nvl(c.MOIS," + mois + ") AS mois,\n" +
+//                    "	nvl(c.ANNEE," + annee + ") AS annee,\n" +
+//                    "	nvl(c.MOISFACT,0) AS moisfact,\n" +
+//                    "	nvl(c.ANNEEFACT,0) AS anneefact,\n" +
+//                    "	nvl(c.NBCREDIT,0) AS nbcredit,\n" +
+//                    "	nvl(c.NBCOMPTANT,0) AS nbcomptant,\n" +
+//                    "	nvl(c.CREDIT,0) AS credit,\n" +
+//                    "	nvl(c.COMPTANT,0) AS comptant,\n" +
+//                    "	nvl(c.MONTANT,0) AS montant,\n" +
+//                    "	nvl(c.AVOIR,0) AS avoir,\n" +
+//                    "	nvl(c.AVOIRinterne,0) AS avoirinterne,\n" +
+//                    "	nvl(c.AVOIRexterne,0) AS avoirexterne,\n" +
+//                    "	nvl(c.IDGRANDRUBRIQUE,j.IDGRANDRUBRIQUE) AS IDGRANDRUBRIQUE, c.CHECKREPORT  FROM\n" +
+//                    "	JOINTURECA j,\n" +
+//                    "(\n" +
+//                    "select * from CompteCAFactAvoir_grp where 1<2  and annee = " + annee + " and mois <= " + mois + " and idgrandrubrique = '" + idGrandRubrique + "' order by mois asc, compte ASC)c \n" +
+//                    "WHERE \n" +
+//                    "	j.val = c.COMPTE(+)\n" +
+//                    "	AND j.desce = c.MERE(+)\n" +
+//                    "	AND j.idgrandrubrique = c.IDGRANDRUBRIQUE (+)\n" +
+//                    "    AND j.IDGRANDRUBRIQUE = '" + idGrandRubrique + "' order by RANGMERECA,RANGCOMPTECA";
+
+            System.out.println("DATE DEBUT : "+dateDebut+" DATE FIN : "+dateFin);
+
+            String requete = "SELECT RANGMERECA                                AS RANGMERECA,\n" +
+                    "        nvl(c.RANGCOMPTECA, j.rangcompteca)       as RANGCOMPTECA,\n" +
+                    "        nvl(c.RUBRIQUE, '-')                      AS rubrique,\n" +
+                    "        nvl(c.RUBRIQUELIB, '-')                   AS rubriquelib,\n" +
+                    "        nvl(c.COMPTE, j.VAL)                      AS compte,\n" +
+                    "        nvl(c.LIBELLE, j.LIBELLE)                 AS LIBELLE,\n" +
+                    "        nvl(c.COMPTEMERE, j.comptemere)           AS comptemere,\n" +
+                    "        nvl(c.COMPTEMERELIB, j.comptemerelib)     AS comptemerelib,\n" +
+                    "        nvl(c.MERE, j.DESCE)                      AS mere,\n" +
+                    "        nvl(c.MOIS, 0)                            AS mois,\n" +
+                    "        nvl(c.ANNEE, 0)                        AS annee,\n" +
+                    "        nvl(c.MOISFACT, 0)                        AS moisfact,\n" +
+                    "        nvl(c.ANNEEFACT, 0)                       AS anneefact,\n" +
+                    "        nvl(SUM(c.NBCREDIT), 0)                        AS nbcredit,\n" +
+                    "        nvl(SUM(c.NBCOMPTANT), 0)                      AS nbcomptant,\n" +
+                    "        nvl(SUM(c.CREDIT), 0)                          AS credit,\n" +
+                    "        nvl(SUM(c.COMPTANT), 0)                        AS comptant,\n" +
+                    "        nvl(SUM(c.MONTANT), 0)                         AS montant,\n" +
+                    "        nvl(SUM(c.AVOIR), 0)                           AS avoir,\n" +
+                    "        nvl(SUM(c.AVOIRinterne), 0)                    AS avoirinterne,\n" +
+                    "        nvl(SUM(c.AVOIRexterne), 0)                    AS avoirexterne,\n" +
+                    "        nvl(c.IDGRANDRUBRIQUE, j.IDGRANDRUBRIQUE) AS IDGRANDRUBRIQUE,\n" +
+                    "        c.CHECKREPORT\n" +
+                    "FROM JOINTURECA j,\n" +
+                    "      (select *\n" +
+                    "       from COMPTECAFACTAVOIR_GRP_DATY\n" +
+                    "       where 1 < 2\n" +
+                    "         and DATY >= to_date('"+dateDebut+"', '"+pattern+"')\n" +
+                    "         and DATY <= to_date('"+dateFin+"', '"+pattern+"')\n" +
+                    "         and idgrandrubrique = '"+idGrandRubrique+"'\n" +
+                    "       order by mois asc, compte ASC) c\n" +
+                    "  WHERE j.val = c.COMPTE(+)\n" +
+                    "   AND j.desce = c.MERE(+)\n" +
+                    "   AND j.idgrandrubrique = c.IDGRANDRUBRIQUE (+)\n" +
+                    "   AND j.IDGRANDRUBRIQUE = '"+idGrandRubrique+"'\n" +
+                    "group by RANGMERECA, c.RANGCOMPTECA, j.rangcompteca, c.RUBRIQUE, c.RUBRIQUELIB, c.COMPTE, j.VAL, c.LIBELLE, j.LIBELLE, c.COMPTEMERE, j.comptemere, c.COMPTEMERELIB, j.comptemerelib, c.MERE, j.DESCE, c.MOIS, c.ANNEE, c.MOISFACT, c.ANNEEFACT, c.IDGRANDRUBRIQUE, j.IDGRANDRUBRIQUE, c.CHECKREPORT\n" +
+                    "order by RANGMERECA, RANGCOMPTECA";
+            System.out.println("Requete pour CA : "+requete);
+            CA[] result = (CA[]) CGenUtil.rechercher(base, requete, c);
+            System.out.println("Resultat CA : "+result.length);
+            String[] listeCompte=AdminGen.getDistinct(result, "compte");
+            HashMap<String, CA> mapCA = getetatcagen(result);
+            base.setNomTable("factureClientMAGroupe");
+            String req2 = "select sum(nbreacredit) as nbCredit, sum(aucomptant) as nbComptant\n" +
+                    " from factureclientMA where DATY >= to_date('"+dateDebut+"', '"+pattern+"') and DATY <= to_date('"+dateFin+"', '"+pattern+"')";
+            CA[] resultNombre = (CA[]) CGenUtil.rechercher(base, req2, c);
+            if(resultNombre.length>0)
+            {
+                this.setNbFactComptant(resultNombre[0].getNbComptant());
+                this.setNbFactCredit(resultNombre[0].getNbCredit());
+            }
+
+            CA[] tabCA = new CA[mapCA.size()];
+            System.out.println("Resultat CA : "+tabCA.length);
+            int i = 0;
             if(tabCA==null||tabCA.length==0)return null;
             /*for(Map.Entry map:mapCA.entrySet())
             {
@@ -477,6 +652,15 @@ public class EtatCA {
     public CA[] getCACpl(int mois, String idGrandRubrique, int annee) throws Exception{
         try{
             return this.getCACpl(mois, idGrandRubrique, annee, null);
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+
+    public CA[] getCACpl(String datedebut, String idGrandRubrique, String datefin) throws Exception{
+        try{
+            return this.getCACpl(datedebut, idGrandRubrique, datefin, null);
         }
         catch(Exception e){
             throw e;

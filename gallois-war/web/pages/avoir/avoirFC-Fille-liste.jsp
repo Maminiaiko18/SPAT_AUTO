@@ -16,7 +16,7 @@
     pr.setTitre("Liste Avoir Fille");
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.setApres("avoir/inc/avoirFC-Fille-liste.jsp");
+    pr.setApres("avoir/avoirFC-Fille-liste.jsp");
     pr.getFormu().getChamp("idavoirfille").setLibelle("IdAvoirFille");
     pr.getFormu().getChamp("id").setLibelle("Id Avoir");
     pr.getFormu().getChamp("datyavoirfc1").setLibelle("Date Avoir Min");
@@ -50,7 +50,7 @@
     String colonneLien[] = {"id"};
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
-    //Definition des libelles à afficher
+    //Definition des libelles ï¿½ afficher
     String libEnteteAffiche[] = {"id Avoir Fille","Id Avoir", "code avoir", "Date d'avoir", "type","Code Facture","Date Facture","client","designation", "pu", "qte", "duree", "compte", "remise", "tva", "reduction", "majoration", "devise", "taux", "Mtt Devise ", "MttHTVA", "Mtt TVA", "Mtt TTC"};
     pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
