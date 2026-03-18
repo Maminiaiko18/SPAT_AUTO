@@ -84,11 +84,11 @@
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <label for="datedebut">Date debut</label>
-                                    <input name="datedebut" type="date" class="form-control" id="datedebut"  onkeydown="return searchKeyPress(event)" tabindex="3">
+                                    <input name="datedebut" type="date" class="form-control" id="datedebut" value="<%=datedebut%>" onkeydown="return searchKeyPress(event)" tabindex="3">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="datefin">Date fin</label>
-                                    <input name="datefin" type="date" class="form-control" id="datefin"  onkeydown="return searchKeyPress(event)" tabindex="3">
+                                    <input name="datefin" type="date" class="form-control" id="datefin" value="<%=datefin%>" onkeydown="return searchKeyPress(event)" tabindex="3">
                                 </div>
                             </div>
                         </div>
@@ -268,6 +268,11 @@
             </div>
             <div class="box-footer">
                 <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionCA&mois=<%=request.getParameter("mois")%>&annee=<%=request.getParameter("annee")%>" style="float:right">Imprimer</a>
+                    <a class="btn btn-success" 
+                        href="${pageContext.request.contextPath}/export/excel/ca?datedebut=<%=datedebut%>&datefin=<%=datefin%>" 
+                        style="float:right; margin-right:10px;">
+                        <i class="fa fa-file-excel-o"></i> Exporter Excel
+                    </a>
             </div>
         </div>
     </section>
