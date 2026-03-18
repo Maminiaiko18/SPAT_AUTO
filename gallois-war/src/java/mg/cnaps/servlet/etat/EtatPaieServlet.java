@@ -231,6 +231,8 @@ public class EtatPaieServlet extends HttpServlet {
                 listefactureClient(request, response);
             } else if (action.equalsIgnoreCase("impressionCA")) {
                 impressionCA1(request, response);
+            } else if (action.equalsIgnoreCase("impressionCAdate")) {
+                impressionCAdate(request, response);
             } else if (action.equalsIgnoreCase("impressionCA_devise")) {
                 impressionCA_devise(request, response);
             } else if (action.equalsIgnoreCase("rubrique_activite")) {
@@ -1079,7 +1081,7 @@ public class EtatPaieServlet extends HttpServlet {
             totalGeneral = montantFacture;
             String montantString = String.valueOf((long) totalGeneral);
             long montantLong = Long.valueOf(montantString);
-            String montantLettre = ChiffreLettre.convertRealToString(totalGeneral, "Ariary");
+            String montantLettre = "ChiffreLettre.convertRealToString(totalGeneral, );";
 
             if (tabJournal[0].getIdTypeCheque() != null && tabJournal[0].getIdmode() != null
                     && tabJournal[0].getIdTypeCheque().compareTo(Constante.typeChequeAuComptant) == 0
@@ -3997,6 +3999,92 @@ public class EtatPaieServlet extends HttpServlet {
 
     }
 
+    public void impressionCAdate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            
+            String datedebut = request.getParameter("datedebut");
+            String datefin = request.getParameter("datefin");
+
+            
+            if (datedebut == null || datedebut.trim().isEmpty() || datedebut.compareToIgnoreCase("null") == 0) {
+                datedebut = Utilitaire.dateDuJour();
+            }
+            if (datefin == null || datefin.trim().isEmpty() || datefin.compareToIgnoreCase("null") == 0) {
+                datefin = Utilitaire.dateDuJour();
+            }
+
+            
+            EtatGrandCA etatGrandCA = new EtatGrandCA(datedebut, datefin, false);
+            HashMap<String, EtatCA> listeCA = etatGrandCA.getListeCA();
+            CA totalgeneralgrandrubrique = etatGrandCA.getTotalgeneralgrandrubrique();
+
+            
+            List result = new ArrayList();
+
+            for (Map.Entry<String, EtatCA> entry : listeCA.entrySet()) {
+                String cle = entry.getKey();
+                EtatCA etatCAb = entry.getValue();
+                Map<String, CA[]> listeParRubriqueb = etatCAb.getListeParRubrique();
+                Map<String, CA> sommePartiel = etatCAb.getSommePartiel();
+
+                if (listeParRubriqueb != null) {
+                    for (String rubrique : listeParRubriqueb.keySet()) {
+                        // category header
+                        CaPDF temp = new CaPDF();
+                        temp.setLibelle(Utilitaire.champNull(rubrique.toUpperCase()));
+                        result.add(temp);
+
+                        CA[] listeCAArray = listeParRubriqueb.get(rubrique);
+                        if (listeCAArray != null) {
+                            for (CA ca : listeCAArray) {
+                                CaPDF ca1 = new CaPDF(ca);
+                                ca1.setCompteMerelib(rubrique);
+                                ca1.setIdgrandrubrique(etatCAb.getIdgrandrubrique());
+                                ca1.setGrandrubriquelibelle(cle);
+                                result.add(ca1);
+                            }
+                        }
+
+                        // subtotal for rubrique
+                        CA partiel = sommePartiel != null ? sommePartiel.get(rubrique) : null;
+                        if (partiel != null) {
+                            CaPDF temp2 = new CaPDF(partiel);
+                            temp2.setLibelle("<center><b>" + temp2.getLibelle().toUpperCase() + "</b></center>");
+                            result.add(temp2);
+                        }
+                    }
+                }
+            }
+
+        
+           
+            Map<String, Object> param = new HashMap<>();
+            
+           
+            param.put("avoirtaux", Utilitaire.formaterAr(etatGrandCA.getPourcAvoir()));
+            param.put("comptanttaux", Utilitaire.formaterAr(etatGrandCA.getPourComptant()));
+            param.put("credittaux", Utilitaire.formaterAr(etatGrandCA.getPourcCredit()));
+            
+           
+            param.put("nbr", Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbComptant()));
+            param.put("nbr2", Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbCredit()));
+            param.put("nbr3", Utilitaire.formaterAr(totalgeneralgrandrubrique.getNbFactureTotal()));
+
+
+            param.put("datedebut", datedebut);
+            param.put("datefin", datefin);
+            param.put("daty", Utilitaire.dateDuJour());
+
+            
+            ReportingUtils.ReportType rt = ReportingUtils.ReportType.PDF;
+            setNomJasper("chiffre_affaire_date");
+            UtilitaireImpression.imprimer(request, response, "chiffre d'affaires - periode", param, result, getReportPath(), rt);
+        
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e; 
+        }
+    }
     public void impressionCA(HttpServletRequest request, HttpServletResponse response) {
         try {
             String mois = request.getParameter("mois");

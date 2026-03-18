@@ -67,6 +67,8 @@
         overflow-x: scroll!important;
     }
 </style>
+<script src="${pageContext.request.contextPath}/assets/js/html2pdf.bundle.min.js"></script>
+
 <div class="content-wrapper">
     <section class="content-header">
         <h1>CHIFFRE D'AFFAIRES SUR LES FACTURES EMISES DU <%= datedebut%> AU <%= datefin%>  </h1>
@@ -266,17 +268,51 @@
                     </tbody>
                 </table>
             </div>
-            <div class="box-footer">
-                <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionCA&mois=<%=request.getParameter("mois")%>&annee=<%=request.getParameter("annee")%>" style="float:right">Imprimer</a>
-                    <a class="btn btn-success" 
-                        href="${pageContext.request.contextPath}/export/excel/ca?datedebut=<%=datedebut%>&datefin=<%=datefin%>" 
-                        style="float:right; margin-right:10px;">
+            <div class="box-footer">   
+                      <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionCAdate&datedebut=<%=datedebut%>&datefin=<%=datefin%>" style="float:right">Imprimer</a>
+                    <a class="btn btn-success" href="${pageContext.request.contextPath}/export/excel/ca?datedebut=<%=datedebut%>&datefin=<%=datefin%>" style="float:right; margin-right:10px;">
                         <i class="fa fa-file-excel-o"></i> Exporter Excel
                     </a>
             </div>
         </div>
     </section>
 </div>
+
+<script>
+    function exporterPDF() {
+
+        var element = document.getElementById('boxListCA');
+        
+        var opt = {
+            margin:       [10, 10, 10, 10], // marges [haut, gauche, bas, droite] en mm
+            filename:     'CA_<%=datedebut%>_au_<%=datefin%>.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { 
+                scale: 2, 
+                useCORS: true,
+                scrollY: 0 
+            },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        };
+
+        var box = element.closest('.box');
+        var wasCollapsed = box && box.classList.contains('collapsed-box');
+        if(wasCollapsed) {
+            var btn = box.querySelector('[data-widget="collapse"]');
+            if(btn) btn.click();
+        }
+
+
+        html2pdf().set(opt).from(element).save().then(function() {
+            if(wasCollapsed) {
+                setTimeout(function() {
+                    var btn = box.querySelector('[data-widget="collapse"]');
+                    if(btn) btn.click();
+                }, 500);
+            }
+        });
+    }
+</script>
 <%
     } catch (Exception ex) {
         ex.printStackTrace();
