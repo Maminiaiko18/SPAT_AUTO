@@ -5,23 +5,23 @@
 --%>
 <%@page import="affichage.PageRecherche"%>
 <%@page import="mg.spat.stock.BonDeLivraison"%>
+<%@ page import="mg.spat.stock.BonDeLivraisonTiers" %>
 <%
 
-    BonDeLivraison lv = new BonDeLivraison();
-    lv.setNomTable("as_bondelivraison_MttCpl");
+    BonDeLivraisonTiers lv = new BonDeLivraisonTiers();
     if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("") != 0) {
         lv.setNomTable(request.getParameter("etat"));
     }
-    String libEntete[] = {"id", "daty", "numbc","montant","montanttva","montantttc","montantfactttc","montantpaye","rap","reste_a_facturer"};
-    String listeCrt[] = {"id", "daty", "numbc"};
+    String libEntete[] = {"id", "daty", "numbc","montant","montanttva","montantttc","montantfactttc","montantpaye","rap","reste_a_facturer","fournisseurLib"};
+    String listeCrt[] = {"id", "daty", "numbc", "fournisseurLib"};
     String listeInt[] = {"daty"};
-
-    PageRecherche pr = new PageRecherche(lv, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+    PageRecherche pr = new PageRecherche(lv, request, listeCrt, listeInt, 5, libEntete, libEntete.length);
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.getFormu().getChamp("daty1").setLibelle("Date min");
     pr.getFormu().getChamp("daty2").setLibelle("Date Max");
     pr.getFormu().getChamp("numbc").setLibelle("Num&eacute;ro BC");
+    pr.getFormu().getChamp("fournisseurLib").setLibelle("Fournisseur");
     pr.setApres("stock/bl/bondelivraison-liste2.jsp");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);%>
@@ -45,21 +45,21 @@
                 <div class="col-md-4">
                     Etat :
                     <select name="etat" class="champ" id="etat" onchange="changerDesignation()" >
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("as_bondelivraison_MttCpl") == 0) {%>
-                        <option value="as_bondelivraison_MttCpl" selected>Tous</option>
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("AS_BONDELIVRAISON_MTTCPL_Tiers") == 0) {%>
+                        <option value="AS_BONDELIVRAISON_MTTCPL_Tiers" selected>Tous</option>
                         <% } else { %>
-                        <option value="as_bondelivraison_MttCpl" >Tous</option>
+                        <option value="AS_BONDELIVRAISON_MTTCPL_Tiers" >Tous</option>
                         <% } %>
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("as_bondelivraison_MttCplVISE") == 0) {%>
-                        <option value="as_bondelivraison_MttCplVISE" selected>Valid&eacute;</option>
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("AS_BONDELIVRAISON_MTTCPL_TierV") == 0) {%>
+                        <option value="AS_BONDELIVRAISON_MTTCPL_TierV" selected>Valid&eacute;</option>
                         <% } else { %>
-                        <option value="as_bondelivraison_MttCplVISE">Valid&eacute;</option>
+                        <option value="AS_BONDELIVRAISON_MTTCPL_TierV">Valid&eacute;</option>
                         <% } %>
 
-                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("as_bondelivraison_MttCplCREE") == 0) {%>
-                        <option value="as_bondelivraison_MttCplCREE" selected>En cours</option>
+                        <% if (request.getParameter("etat") != null && request.getParameter("etat").compareToIgnoreCase("AS_BONDELIVRAISON_MTTCPL_TierC") == 0) {%>
+                        <option value="AS_BONDELIVRAISON_MTTCPL_TierC" selected>En cours</option>
                         <% } else { %>
-                        <option value="as_bondelivraison_MttCplCREE">En cours</option>
+                        <option value="AS_BONDELIVRAISON_MTTCPL_TierC">En cours</option>
                         <% } %>
 
                     </select>
@@ -80,7 +80,7 @@
         <br>
         <form action="<%= pr.getLien() + "?but=facture/facture-fournisseur-saisie-vaovao2.jsp"%>" method="post" >
             <%
-                String libEnteteAffiche[] = {"Id", "Date","Numero BC","Montant", "Montant TVA", "Montant TTC", "Montant factur&eacute;", "Montant pay&eacute;", "Reste &agrave; payer", "Reste &agrave; facturer"};
+                String libEnteteAffiche[] = {"Id", "Date","Numero BC","Montant", "Montant TVA", "Montant TTC", "Montant factur&eacute;", "Montant pay&eacute;", "Reste &agrave; payer", "Reste &agrave; facturer","Fournisseur"};
                 pr.getTableau().setLibelleAffiche(libEnteteAffiche);
                 out.println(pr.getTableau().getHtmlWithCheckbox());
             %>
