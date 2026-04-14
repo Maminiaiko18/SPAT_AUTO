@@ -269,7 +269,7 @@
                 </table>
             </div>
             <div class="box-footer">   
-                      <a class="btn btn-default" href="${pageContext.request.contextPath}/Paie?action=impressionCAdate&datedebut=<%=datedebut%>&datefin=<%=datefin%>" style="float:right">Imprimer</a>
+                      <a class="btn btn-default" href="javascript:exporterPDF()" style="float:right">Imprimer</a>
                     <a class="btn btn-success" href="${pageContext.request.contextPath}/export/excel/ca?datedebut=<%=datedebut%>&datefin=<%=datefin%>" style="float:right; margin-right:10px;">
                         <i class="fa fa-file-excel-o"></i> Exporter Excel
                     </a>
@@ -284,15 +284,18 @@
         var element = document.getElementById('boxListCA');
         
         var opt = {
-            margin:       [10, 10, 10, 10], // marges [haut, gauche, bas, droite] en mm
+            margin:       [5, 8, 5, 8], // marges [haut, gauche, bas, droite] en mm
             filename:     'CA_<%=datedebut%>_au_<%=datefin%>.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
+            image:        { type: 'png', quality: 1 },
             html2canvas:  { 
-                scale: 2, 
+                scale: 3, 
                 useCORS: true,
-                scrollY: 0 
+                scrollY: 0,
+                allowTaint: true,
+                logging: false
             },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
+            pagebreak:    { mode: ['css', 'legacy'], before: '.page-break', avoid: ['tr', 'thead', 'tfoot'] }
         };
 
         var box = element.closest('.box');
