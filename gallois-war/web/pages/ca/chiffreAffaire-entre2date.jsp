@@ -151,17 +151,17 @@
                     <tr>
                         <td><%=Utilitaire.champNull(ca.getLibelle())%></td>
                         <td align="right">
-                            <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&mois=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                            <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&datedebut=<%=datedebut%>&datefin=<%=datefin%>&compte=<%=ca.getCompte()%>&recap=checked">
                                 <%=Utilitaire.formaterAr(ca.getAvoirEETPINT())%>
                             </a>
                         </td>
                         <td align="right">
-                            <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&mois=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                            <a href="<%= lien%>?but=avoir/avoirFC-Fille-liste.jsp&datedebut=<%=datedebut%>&datefin=<%=datefin%>&compte=<%=ca.getCompte()%>&recap=checked">
                                 <%=Utilitaire.formaterAr(ca.getAvoirEETPEXT())%>
                             </a>
                         </td>
                         <td align="right">
-                            <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.typeAuComptant%>&mois1=<%=mois%>&mois2=<%=mois%>&annee=<%=annee%>&compte=<%=ca.getCompte()%>&recap=checked">
+                            <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.typeAuComptant%>&datedebut=<%=datedebut%>&datefin=<%=datefin%>&compte=<%=ca.getCompte()%>&recap=checked">
                                 <%=Utilitaire.formaterAr(ca.getComptant())%>
                             </a>
                         </td>

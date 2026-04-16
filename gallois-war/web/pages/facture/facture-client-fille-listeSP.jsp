@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="facture.FactureClientDetails"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="mg.spat.CaFcFilleComplet"%>
 <%@page import="java.sql.Date"%>
 <%@page import="utilitaire.Utilitaire"%>
@@ -17,8 +18,8 @@
         CaFcFilleComplet cht = new CaFcFilleComplet();
         cht.setNomTable("CAFCFILLECOMPLET");
         String libEntete[] = { "id","idmere","daty","code","client", "nomnavire", "designation", "compte", "pu", "quantite", "duree", "tva", "montant", "montantTva", "montantttc"};
-        String listeCrt[] = {"compte", "mois","code", "annee", "type", "designation", "client"};
-        String listeInt[] = {"mois"};
+        String listeCrt[] = {"compte", "mois","code", "annee", "type", "designation", "client","daty"};
+        String listeInt[] = {"mois","daty"};
 
         PageRecherche pr = new PageRecherche(cht, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
         pr.setUtilisateur((user.UserEJB) session.getValue("u"));
@@ -27,33 +28,47 @@
 
         pr.getFormu().getChamp("mois1").setLibelle("mois min");
         pr.getFormu().getChamp("mois2").setLibelle("mois max");
+
+        pr.getFormu().getChamp("daty1").setLibelle("date min");
+        pr.getFormu().getChamp("daty2").setLibelle("date max");
+
+
+        if( request.getParameter("datedebut") != null && !request.getParameter("datedebut").isEmpty() && request.getParameter("datefin") != null && !request.getParameter("datefin").isEmpty()){
+            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String dateDebut = formatter.format(parser.parse(request.getParameter("datedebut")));
+            String dateFin = formatter.format(parser.parse(request.getParameter("datefin")));
+            pr.getFormu().getChamp("daty1").setDefaut(dateDebut);
+            pr.getFormu().getChamp("daty2").setDefaut(dateFin);
+        }else{
+            pr.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
+            affichage.Liste[] listes= new affichage.Liste[3];
+        
+            TypeObjet type = new TypeObjet();
+            type.setNomTable("typefc");
+            listes[0] = new Liste("type", type, "VAL", "id");
+            
+            listes[1] = new Liste("mois1");
+            listes[1].makeListeMois();
+            //listes[1].setDefaultSelected(utilitaire.Utilitaire.getMoisEnCours()+"");
+
+            listes[2] = new Liste("mois2");
+            listes[2].makeListeMois();        
+            //listes[2].setDefaultSelected(utilitaire.Utilitaire.getMoisEnCours()+"");
+            
+            pr.getFormu().changerEnChamp(listes);
+            
+            pr.getFormu().getChamp("mois1").setDefaut(utilitaire.Utilitaire.getMoisEnCours()+"");
+            pr.getFormu().getChamp("mois2").setDefaut(utilitaire.Utilitaire.getMoisEnCours()+"");
+        }
+        
+        
+        pr.getFormu().getChamp("annee").setLibelle("Année");
         pr.getFormu().getChamp("annee").setLibelle("Année");
         pr.getFormu().getChamp("type").setLibelle("Type");
         pr.getFormu().getChamp("compte").setLibelle("Compte");
         
-        pr.getFormu().getChamp("annee").setDefaut(utilitaire.Utilitaire.getAnneeEnCours());
         
-        affichage.Liste[] listes= new affichage.Liste[3];
-        
-        TypeObjet type = new TypeObjet();
-        type.setNomTable("typefc");
-        listes[0] = new Liste("type", type, "VAL", "id");
-        
-        listes[1] = new Liste("mois1");
-        listes[1].makeListeMois();
-        //listes[1].setDefaultSelected(utilitaire.Utilitaire.getMoisEnCours()+"");
-
-        listes[2] = new Liste("mois2");
-        listes[2].makeListeMois();        
-        //listes[2].setDefaultSelected(utilitaire.Utilitaire.getMoisEnCours()+"");
-        
-        pr.getFormu().changerEnChamp(listes);
-        
-        pr.getFormu().getChamp("mois1").setDefaut(utilitaire.Utilitaire.getMoisEnCours()+"");
-        pr.getFormu().getChamp("mois2").setDefaut(utilitaire.Utilitaire.getMoisEnCours()+"");
-        pr.getFormu().getChamp("mois1").setLibelle("mois min");
-        pr.getFormu().getChamp("mois2").setLibelle("mois max");
-        pr.getFormu().getChamp("annee").setLibelle("Année");
         pr.getFormu().getChamp("type").setLibelle("Type");
         pr.getFormu().getChamp("compte").setLibelle("Compte");
         

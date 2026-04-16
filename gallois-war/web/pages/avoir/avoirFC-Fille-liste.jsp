@@ -1,4 +1,4 @@
-
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="utilitaire.Constante"%>
 <%@page import="affichage.Liste"%>
@@ -21,6 +21,15 @@
     pr.getFormu().getChamp("id").setLibelle("Id Avoir");
     pr.getFormu().getChamp("datyavoirfc1").setLibelle("Date Avoir Min");
     pr.getFormu().getChamp("datyavoirfc2").setLibelle("Date Avoir Max");
+
+    if( request.getParameter("datedebut") != null && !request.getParameter("datedebut").isEmpty() && request.getParameter("datefin") != null && !request.getParameter("datefin").isEmpty()){
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateDebut = formatter.format(parser.parse(request.getParameter("datedebut")));
+        String dateFin = formatter.format(parser.parse(request.getParameter("datefin")));
+        pr.getFormu().getChamp("datyavoirfc1").setDefaut(dateDebut);
+        pr.getFormu().getChamp("datyavoirfc2").setDefaut(dateFin);
+    }
     pr.getFormu().getChamp("codeavoir").setLibelle("Numero d'Avoir");
     pr.getFormu().getChamp("codefc").setLibelle("Numero Facture");
     
@@ -34,14 +43,18 @@
     liste[0].setNom("type");
     pr.getFormu().changerEnChamp(liste);
     
-    affichage.Liste[] liste1 = new affichage.Liste[1];
-    liste1[0] = new Liste("mois");
-    liste1[0].makeListeMois();
-    pr.getFormu().changerEnChamp(liste1);
-    
-    if(request.getParameter("typeFC") != null && !request.getParameter("typeFC").isEmpty() && request.getParameter("typeFC").compareTo(Constante.typeFCCAAvoirCumul) == 0){
-        pr.setAWhere(" and datyfc < TO_DATE('" + request.getParameter("annee") + "-01-01', 'yyyy-mm-dd')");
+
+    if( request.getParameter("datedebut") == null  && request.getParameter("datefin") == null ){
+        affichage.Liste[] liste1 = new affichage.Liste[1];
+        liste1[0] = new Liste("mois");
+        liste1[0].makeListeMois();
+        pr.getFormu().changerEnChamp(liste1);
+
+        if( request.getParameter("typeFC") != null && !request.getParameter("typeFC").isEmpty() && request.getParameter("typeFC").compareTo(Constante.typeFCCAAvoirCumul) == 0){
+            pr.setAWhere(" and datyfc < TO_DATE('" + request.getParameter("annee") + "-01-01', 'yyyy-mm-dd')");
+        }
     }
+
 
     String[] colSomme = {"montanthtdevise","mtthtva","montanttva","montantttc"};
     pr.creerObjetPage(libEntete, colSomme);
