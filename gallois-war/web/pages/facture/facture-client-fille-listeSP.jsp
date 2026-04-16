@@ -13,6 +13,28 @@
 <%@ page import="bean.*" %>
 <%@page import="affichage.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!
+    String formatDate(String dateString) {
+        if (dateString == null || dateString.isEmpty()) {
+            return "";
+        }
+        // Check if date is already in dd/MM/yyyy format
+        if (dateString.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            return dateString;
+        }
+        // Otherwise, assume yyyy-MM-dd and convert
+        try {
+            // SimpleDateFormat is not thread-safe, so instantiate it here
+            java.text.SimpleDateFormat parser = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date date = parser.parse(dateString);
+            java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("dd/MM/yyyy");
+            return formatter.format(date);
+        } catch (Exception e) {
+            // If parsing fails, return original string to see the problematic value
+            return dateString;
+        }
+    }
+%>
 <%
     try {
         CaFcFilleComplet cht = new CaFcFilleComplet();
@@ -34,10 +56,8 @@
 
 
         if( request.getParameter("datedebut") != null && !request.getParameter("datedebut").isEmpty() && request.getParameter("datefin") != null && !request.getParameter("datefin").isEmpty()){
-            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            String dateDebut = formatter.format(parser.parse(request.getParameter("datedebut")));
-            String dateFin = formatter.format(parser.parse(request.getParameter("datefin")));
+            String dateDebut = formatDate(request.getParameter("datedebut"));
+            String dateFin = formatDate(request.getParameter("datefin"));
             pr.getFormu().getChamp("daty1").setDefaut(dateDebut);
             pr.getFormu().getChamp("daty2").setDefaut(dateFin);
         }else{

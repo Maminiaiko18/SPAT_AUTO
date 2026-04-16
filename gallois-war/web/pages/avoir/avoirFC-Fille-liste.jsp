@@ -5,6 +5,27 @@
 <%@page import="avoir.*"%>
 <%@page import="affichage.PageRecherche"%>
 
+<%!
+    String formatDate(String dateString) {
+        if (dateString == null || dateString.isEmpty()) {
+            return "";
+        }
+        // Check if date is already in dd/MM/yyyy format
+        if (dateString.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            return dateString;
+        }
+        // Otherwise, assume yyyy-MM-dd and convert
+        try {
+            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = parser.parse(dateString);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            return formatter.format(date);
+        } catch (Exception e) {
+            // If parsing fails, return original string to see the problematic value
+            return dateString;
+        }
+    }
+%>
 <% try{ 
     AvoirFCFille t = new AvoirFCFille();
     t.setNomTable("AVOIRDETAILFCFILLE");
@@ -23,10 +44,8 @@
     pr.getFormu().getChamp("datyavoirfc2").setLibelle("Date Avoir Max");
 
     if( request.getParameter("datedebut") != null && !request.getParameter("datedebut").isEmpty() && request.getParameter("datefin") != null && !request.getParameter("datefin").isEmpty()){
-        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String dateDebut = formatter.format(parser.parse(request.getParameter("datedebut")));
-        String dateFin = formatter.format(parser.parse(request.getParameter("datefin")));
+        String dateDebut = formatDate(request.getParameter("datedebut"));
+        String dateFin = formatDate(request.getParameter("datefin"));
         pr.getFormu().getChamp("datyavoirfc1").setDefaut(dateDebut);
         pr.getFormu().getChamp("datyavoirfc2").setDefaut(dateFin);
     }

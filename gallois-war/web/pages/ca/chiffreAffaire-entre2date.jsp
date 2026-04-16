@@ -177,7 +177,7 @@
                                     else moisBoucle = String.valueOf((Integer.parseInt(moisBoucle))+1);
                                 }
                             %>
-                            <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.getTypeFCAcredit()%>&mois1=<%=moisBoucle%>&mois2=<%=moisBoucle%>&annee=<%=anneeBoucle%>&compte=<%=ca.getCompte()%>&recap=checked">
+                            <a href="<%= lien%>?but=facture/facture-client-fille-listeSP.jsp&type=<%=Constante.getTypeFCAcredit()%>&datedebut=<%=datedebut%>&datefin=<%=datefin%>&compte=<%=ca.getCompte()%>&recap=checked">
                                 <%=Utilitaire.formaterAr(ca.getCredit())%>
                             </a>
                         </td>
