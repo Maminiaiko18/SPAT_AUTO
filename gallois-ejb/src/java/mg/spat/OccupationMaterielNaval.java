@@ -197,9 +197,9 @@ public class OccupationMaterielNaval extends ClassEtat {
                 c.setAutoCommit(false);
                 verif = 1;
             }
-            if (possedeActiviteVisee(c)) {
+          /*  if (possedeActiviteVisee(c)) {
                 throw new Exception("Il existe deja une activite visee pour cette prestation");
-            }
+            }*/
 
             OccupationMaterielNaval occupation = (OccupationMaterielNaval) new OccupationMaterielNaval().getById(this.getId(), "occupationmaterielnavallibcpl", c);
             rep = new Activite();

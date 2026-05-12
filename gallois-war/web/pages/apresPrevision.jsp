@@ -100,7 +100,18 @@
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>
     <%
         }
+            if (acte.compareToIgnoreCase("factureGlobaleShifting") == 0) {
+                String idprevision = request.getParameter("idPrevision");
+                mg.spat.Prevision prevision = new mg.spat.Prevision();
+                prevision.setId(idprevision);
 
+                facture.FactureClient fc = prevision.facturerShifting("" + u.getUser().getRefuser(), null);
+                bute = "facture/factureclient-modif.jsp&factprev=true";
+                id = fc.getId();
+    %>
+    <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&id=<%=Utilitaire.champNull(id)%>");</script>
+    <%
+        }
             if (acte.compareToIgnoreCase("factureGlobaleProf") == 0) {
                 String idprevision = request.getParameter("idPrevision");
                 mg.spat.Prevision prevision = new mg.spat.Prevision();
