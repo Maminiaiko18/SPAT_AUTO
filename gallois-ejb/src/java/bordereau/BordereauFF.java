@@ -293,7 +293,7 @@ public class BordereauFF extends Bordereau {
                 this.setNumfsb(this.calculerNumeroFsb(c));
                 String[] colSomme = {};
                 ResultatEtSomme lc = LigneCredit.findSituationCreditDepense(critere, null, null,
-                        String.valueOf(Utilitaire.getAnnee(this.getDaty())), c, colSomme);
+                        String.valueOf(Utilitaire.getAnnee(this.getDaty())), c, colSomme,"");
                 if (lc.getResultat().length > 0) {
                     double montantBudget = AdminGen.calculSommeDouble(listeFille, "montant");
                     LigneCredit ligneCredit = (LigneCredit) lc.getResultat()[0];
@@ -374,7 +374,7 @@ public class BordereauFF extends Bordereau {
                     this.setNumfsb(this.calculerNumeroFsb(c));
                     String[] colSomme = {};
                     ResultatEtSomme lc = LigneCredit.findSituationCreditDepense(critere, null, null,
-                            String.valueOf(Utilitaire.getAnnee(ff.getDaty())), c, colSomme);
+                            String.valueOf(Utilitaire.getAnnee(ff.getDaty())), c, colSomme,"");
                     if (lc.getResultat().length > 0) {
                         double montantBudget = AdminGen.calculSommeDouble(listeFille, "montant");
                         LigneCredit ligneCredit = (LigneCredit) lc.getResultat()[0];

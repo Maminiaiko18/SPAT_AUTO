@@ -257,7 +257,63 @@ public class Prevision extends ClassEtat {
 
         return facture;
     }
-    
+    public FactureClient facturerShifting(String user, Connection c) throws Exception {
+        FactureClient facture = null;
+        int verif = 0;
+
+        try {
+            if (c == null) {
+                c = (new UtilDB()).GetConn();
+                c.setAutoCommit(false);
+                verif = 1;
+            }
+
+            Prevision prevision = new Prevision();
+            prevision = (Prevision) prevision.getById(this.getId(), prevision.getNomTable(), c);
+            if(prevision.getEtat()<ConstanteEtat.getEtatValider()) throw new Exception("Prevision non visee");
+            
+            //FactureClient[] listeFactValide=this.findFacturesValide(c);
+            
+            AdminActivite adminActivite = new AdminActivite();
+            //Activite[] activites=findActivitesNonFacturees(c);
+            Navire nav=prevision.findNavire(c);
+            if(nav!=null){
+                //if(OccupationMaterielNaval.possedeActivite(prevision.getPrestationsVisees(c), c) == false) {
+                if(OccupationMaterielNaval.possedeActivite(prevision.getPrestationsShiftingVisees(c), c) == false) {
+                //if(activites==null || activites.length==0){
+                    if(nav.getType()!=null && nav.getType().compareTo(Constante.getNavireBornageEtPeche())==0){
+                        //prevision.genererActiviteViseesBP(user, c);
+                        //adminActivite.setEstBornage(1);
+                    }
+                  //  else prevision.genererActiviteVisees(user, c);
+                    else prevision.genererActiviteShiftingVisees(user, c);
+                }
+
+//                adminActivite.findactivite(getIdsFromTab(activites), c);
+        //        adminActivite.findactivite(this.getId(), c);
+                adminActivite.findactiviteShifting(this.getId(), c);
+                adminActivite.setPrevision(this);
+                facture = adminActivite.facturerShifting(user, c);
+//              facture.setIdprevision(this.getId());
+                facture.updateDeviseMere(c);
+                facture.updateToTableWithHisto(user, c);
+            }
+            if (verif == 1) {
+                c.commit();
+            }
+        } catch (Exception e) {
+            if (c != null && verif == 1) {
+                c.rollback();
+            }
+            throw e;
+        } finally {
+            if (c != null && verif == 1) {
+                c.close();
+            }
+        }
+
+        return facture;
+    }
     public FactureClientProf facturerProforma(String user, Connection c) throws Exception {
         FactureClientProf facture = null;
         int verif = 0;
@@ -409,7 +465,8 @@ public class Prevision extends ClassEtat {
             }
         }
 
-        OccupationMaterielNaval[] listePrestation = this.getPrestationsVisees(c);
+        //OccupationMaterielNaval[] listePrestation = this.getPrestationsVisees(c);
+        OccupationMaterielNaval[] listePrestation = this.getPrestationsNonShiftingVisees(c);
         if (listePrestation != null || listePrestation.length > 0) {
             for (int i = 0; i < listePrestation.length; i++) {
                 Activite act4 = (Activite) listePrestation[i].genererActivite(u, c);
@@ -422,7 +479,46 @@ public class Prevision extends ClassEtat {
 
         return activites.toArray(new Activite[activites.size()]);
     }
-    
+    public Activite[] genererActiviteShiftingVisees(String u, Connection c) throws Exception {
+        java.util.List<Activite> activites = new java.util.ArrayList<>();
+        //String[] designations = {"Droit de port " + this.getEscale(), "Redevance communale " + this.getEscale()};
+        //String[] idRubriques = {Constante.idDroitDePortCalcule, Constante.idRedevanceCommunaleCalcule};
+        String[] designations = null;
+        String[] idRubriques = null;
+
+        String awhere = " and etat >= " + ConstanteEtat.getEtatValider()
+                + " and bateau = '" + this.getId() + "'";
+            //    + " and rubrique in (" + Utilitaire.tabToString(idRubriques, "'", ",") + ")";
+
+        Activite[] tmp = (Activite[]) CGenUtil.rechercher(new Activite(), null, null, c, awhere);
+
+        awhere = " and id = '%s'";
+        
+        if (tmp == null || tmp.length == 0) {
+            for (int i = 0; i < idRubriques.length; i++) {
+                Activite act = (Activite) this.genererActivite(u, c, designations[i], String.format(awhere, idRubriques[i]));
+                if (act != null) {
+                    act.createObject(u, c);
+                    act.validerObject(u, c);
+                    activites.add(act);
+                }
+            }
+        }
+
+        OccupationMaterielNaval[] listePrestation = this.getPrestationsShiftingVisees(c);
+        //OccupationMaterielNaval[] listePrestation = this.getPrestationsNonShiftingVisees(c);
+        if (listePrestation != null || listePrestation.length > 0) {
+            for (int i = 0; i < listePrestation.length; i++) {
+                Activite act4 = (Activite) listePrestation[i].genererActivite(u, c);
+                if (act4 != null) {
+                    act4.validerObject(u, c);
+                    activites.add(act4);
+                }
+            }
+        }
+
+        return activites.toArray(new Activite[activites.size()]);
+    }
     public Activite[] genererActiviteProfVisees(String u, Connection c) throws Exception {
         java.util.List<Activite> activites = new java.util.ArrayList<>();
         String[] designations = {"Droit de port " + this.getEscale(), "Redevance communale " + this.getEscale()};
@@ -735,5 +831,19 @@ public class Prevision extends ClassEtat {
                 c.close();
             }
         }
+    }
+    public OccupationMaterielNaval[] getPrestationsShiftingVisees(Connection c) throws Exception {
+        OccupationMaterielNaval occupation = new OccupationMaterielNaval();
+//       occupation.setNomTable("occupationmaterielnaval");
+        occupation.setNomTable("OCCUPMATERIELNONAVALNFACTURE");
+        OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='" + this.getId() + "' and etat>=" + ConstanteEtat.getEtatValider()+" and IDMANOEUVREBORD = 'mouvement' ");
+        return liste;
+    }
+    public OccupationMaterielNaval[] getPrestationsNonShiftingVisees(Connection c) throws Exception {
+        OccupationMaterielNaval occupation = new OccupationMaterielNaval();
+//       occupation.setNomTable("occupationmaterielnaval");
+        occupation.setNomTable("OCCUPMATERIELNONAVALNFACTURE");
+        OccupationMaterielNaval[] liste = (OccupationMaterielNaval[]) CGenUtil.rechercher(occupation, null, null, c, " and idprevision='" + this.getId() + "' and etat>=" + ConstanteEtat.getEtatValider()+" and IDMANOEUVREBORD <> 'mouvement' ");
+        return liste;
     }
 }
