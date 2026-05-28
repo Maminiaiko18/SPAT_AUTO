@@ -341,7 +341,7 @@ public class BonDeLivraison extends ClassEtat {
                     existant.setQuantite(
                             existant.getQuantite() + ligne.getQuantite()
                     );
-                    existant.setId(existant.getId()+";"+existant.getId());
+                    existant.setId(existant.getId()+";"+ligne.getId());
                 } else {
                     BonDeLivraisonFille copie = new BonDeLivraisonFille();
                     copie.setProduit(ligne.getProduit());

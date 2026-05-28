@@ -1944,22 +1944,58 @@ public class FactureFournisseur extends FactureClient {
         }
         return super.dupliquer(user, c);
     }
-    
-    public void controleMontant(Connection c) throws Exception {
-        try{
+
+
+    public String listeBC(Connection c) throws Exception {
+        String temp = "";
+        if (this.getIdBL().contains(";")) {
+            String[] listeBL =  this.getIdBL().split(";");
+            for(int i = 0; i < listeBL.length; i++){
+                BonDeLivraison bl = (BonDeLivraison)(new BonDeLivraison()).getById(listeBL[i], "AS_BONDELIVRAISON", c);
+                temp += "'"+bl.getId_bc() +"'"+ ((i != listeBL.length - 1) ? "," : "");
+            }
+        }else {
             BonDeLivraison bl = (BonDeLivraison)(new BonDeLivraison()).getById(this.getIdBL(), "AS_BONDELIVRAISON", c);
             BonDeCommande bc = (BonDeCommande)(new BonDeCommande()).getById(bl.getId_bc(), "AS_BONDECOMMANDE_LIB_fiche", c);
+            return "'"+bl.getId_bc()+"'";
+        }
+        return temp;
+    }
+
+    public double getMontantBC(Connection c) throws Exception {
+        double temp = 0;
+        if (this.getIdBL().contains(";")) {
+            String[] listeBL =  this.getIdBL().split(";");
+            for(int i = 0; i < listeBL.length; i++){
+                BonDeLivraison bl = (BonDeLivraison)(new BonDeLivraison()).getById(listeBL[i], "AS_BONDELIVRAISON", c);
+                BonDeCommande bc = (BonDeCommande)(new BonDeCommande()).getById(bl.getId_bc(), "AS_BONDECOMMANDE_LIB_fiche", c);
+                temp += bc.getMontant();
+            }
+        }else {
+            BonDeLivraison bl = (BonDeLivraison)(new BonDeLivraison()).getById(this.getIdBL(), "AS_BONDELIVRAISON", c);
+            BonDeCommande bc = (BonDeCommande)(new BonDeCommande()).getById(bl.getId_bc(), "AS_BONDECOMMANDE_LIB_fiche", c);
+            return bc.getMontant();
+        }
+        return temp;
+    }
+
+
+    public void controleMontant(Connection c) throws Exception {
+        try{
+//            BonDeLivraison bl = (BonDeLivraison)(new BonDeLivraison()).getById(this.getIdBL(), "AS_BONDELIVRAISON", c);
+//            BonDeCommande bc = (BonDeCommande)(new BonDeCommande()).getById(bl.getId_bc(), "AS_BONDECOMMANDE_LIB_fiche", c);
             double montant = this.getMontant();
-            if(montant > bc.getMontant()){
-                throw new Exception("Montant HT de la facture fournisseur : " + this.getMontant() + " sup\\351rieur au montant HT du bon de commande : " + bc.getMontant() + ".");
+            double montantBC = this.getMontantBC(c);
+            if(montant > montantBC){
+                throw new Exception("Montant HT de la facture fournisseur : " + this.getMontant() + " sup\\351rieur au montant HT du bon de commande : " + montantBC + ".");
             }
             FactureFournisseur facture = new FactureFournisseur();
             facture.setNomTable("factfourn_msum_lib_ficheB");
-            FactureFournisseur[] factures = (FactureFournisseur[])CGenUtil.rechercher(facture, null, null, c, " and id != '" + this.getId() + "' and idbc ='" + bl.getId_bc() + "' and etat >= 11");
+            FactureFournisseur[] factures = (FactureFournisseur[])CGenUtil.rechercher(facture, null, null, c, " and id != '" + this.getId() + "' and idbc in (" + listeBC(c) + ") and etat >= 11");
             if(factures.length > 0){
                 montant += AdminGen.calculSommeDouble(factures, "montant");
-                if(montant > bc.getMontant()){
-                    throw new Exception("Montant HT des factures fournisseur : " + montant + " sup\\351rieur au montant HT du bon de commande : " + bc.getMontant() + ".");
+                if(montant > montantBC){
+                    throw new Exception("Montant HT des factures fournisseur : " + montant + " sup\\351rieur au montant HT du bon de commande : " + montantBC + ".");
                 }
             }
         }
