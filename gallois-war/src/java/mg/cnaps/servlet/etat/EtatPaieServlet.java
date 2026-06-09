@@ -3272,7 +3272,7 @@ public class EtatPaieServlet extends HttpServlet {
                 String suite = "";
                 if (mereCA[0].getIdGrandRubrique().compareToIgnoreCase(Constante.prestationConventions) == 0) {
                     signature = "Le Directeur des Affaires Juridiques";
-                    suite = "et du Patrimoine Portuaire";
+                   // suite = "et du Patrimoine Portuaire";
                 }
                 param.put("signature", signature);
                 param.put("suite", suite);
