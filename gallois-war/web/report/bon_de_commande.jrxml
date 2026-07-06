@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bon_de_commande" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="85" uuid="5de4b302-b873-4cc5-ac86-c7d51ce58f1b">
 	<property name="ireport.zoom" value="1.6105100000000314"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="578"/>
+	<property name="ireport.y" value="216"/>
 	<parameter name="DATY" class="java.util.Date"/>
 	<parameter name="NOMFOURNISSEUR" class="java.lang.String"/>
 	<parameter name="ADRESSE" class="java.lang.String"/>
@@ -459,7 +459,7 @@
 				<textFieldExpression><![CDATA[$P{TOTAL_TTC_LETTRE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="132" width="162" height="35" uuid="9201b265-fd31-46c5-b6c3-a811bc757f4c"/>
+				<reportElement x="0" y="132" width="107" height="35" uuid="9201b265-fd31-46c5-b6c3-a811bc757f4c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
@@ -556,14 +556,14 @@ MATIERES ET APPROVISIONNEMENTS]]></text>
 				<textFieldExpression><![CDATA[$P{DELAILIVRAISON}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="312" y="132" width="110" height="35" uuid="6c5b74af-cc67-4821-b93d-767cf13a5443"/>
+				<reportElement x="347" y="132" width="110" height="35" uuid="6c5b74af-cc67-4821-b93d-767cf13a5443"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LE DIRECTEUR GENERAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="178" y="132" width="124" height="35" uuid="e81ce436-9163-428e-aa79-01b97b5731b8"/>
+				<reportElement x="243" y="132" width="93" height="35" uuid="e81ce436-9163-428e-aa79-01b97b5731b8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
@@ -605,7 +605,7 @@ MATIERES ET APPROVISIONNEMENTS]]></text>
 				<text><![CDATA[Conditions de règlement :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="440" y="132" width="100" height="35" uuid="8f5ebe97-ebc9-4845-9c0f-43889dbb6af8"/>
+				<reportElement x="467" y="132" width="87" height="35" uuid="8f5ebe97-ebc9-4845-9c0f-43889dbb6af8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
@@ -618,6 +618,13 @@ MATIERES ET APPROVISIONNEMENTS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA["- Acompte : "+$P{ACOMPTE}+" % à la passation de la commande."]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="117" y="132" width="113" height="35" uuid="c0aff290-7a89-42f8-9e83-0bfeca2f4dc8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LE DIRECTEUR FINANCIER ET PERFORMANCE]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>
