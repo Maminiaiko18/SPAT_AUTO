@@ -140,15 +140,17 @@
         pi.getFormufle().getChamp("montant_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("devise_"+i).setDefaut(Constante.deviseAr);
         pi.getFormufle().getChamp("duree_"+i).setDefaut("1");
+        pi.getFormufle().getChamp("taux_"+i).setDefaut("1");
         pi.getFormufle().getChamp("daty_"+i).setDefaut(Utilitaire.dateDuJour());
         pi.getFormufle().getChamp("idactivite_"+i).setAutre("readonly");
         pi.getFormufle().getChamp("idactivite_"+i).setPageAppel("choix/listeActiviteChoix.jsp");
     }
-    affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false); 
+//    affichage.Champ.setVisible(pi.getFormufle().getChampFille("taux"),false);
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("id"),false); 
     affichage.Champ.setVisible(pi.getFormufle().getChampFille("idmere"),false);
     affichage.Champ.setDefaut(pi.getFormufle().getChampFille("tva"), "20");
     pi.getFormufle().getChamp("devise_0").setLibelle("Devise");
+    pi.getFormufle().getChamp("Taux_0").setLibelle("Taux");
     pi.getFormufle().getChamp("designation_0").setLibelle("d&eacute;signation");
     pi.getFormufle().getChamp("quantite_0").setLibelle("Quantite");
     pi.getFormufle().getChamp("duree_0").setLibelle("Dur&eacute;e");

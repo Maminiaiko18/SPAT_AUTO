@@ -600,7 +600,7 @@ public class FactureClientDetails extends ClassFille {
         if (mere.getBateau() != null && mere.getDateDepart() != null && ( mere.getIdcategorie().compareTo(Constante.idCategorieFCProvision) == 0 || mere.getIdcategorie().compareTo(Constante.idCategorieFCProforma) == 0) ){
                 this.setDatefact(mere.getDateDepart());
         }
-        if (getTauxDonne() == false) {
+        if (getTauxDonne() == false && this.getTaux() <= 1) {
             setTaux(getTauxRecent(c));
         }
         return super.createObject(user, c);
