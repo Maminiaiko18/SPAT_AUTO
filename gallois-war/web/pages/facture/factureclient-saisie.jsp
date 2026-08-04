@@ -248,7 +248,7 @@
        $('#dttp').val('');
        $('#dtquit').val('');
     });
-    $('#date_echeance').val('<%=Utilitaire.formatterDaty(Utilitaire.ajoutJourDate(Utilitaire.dateDuJour(), 30))%>');
+    $('#date_echeance').val('<%=Utilitaire.formatterDaty(Utilitaire.ajoutJourDate(Utilitaire.dateDuJour(), 15))%>');
     function calculerMontant(indice) {
         var quantite, pu, montant, duree;
         quantite = parseFloat($('#quantite_' + indice).val());
