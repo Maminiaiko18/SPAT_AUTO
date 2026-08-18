@@ -18,8 +18,8 @@
         if (u.getUser().getCodeEtablissement() != null){
             CodeEtablissement code = u.getCodeEtablissement();
             String codeetb = code.getVal();
-            Set<String> validCodeEtb = new HashSet<>(Arrays.asList("120", "121"));
-            Set<String> validUserRoleIds = new HashSet<>(Arrays.asList("ROL000422", "ROL000421","ROL0000001321113437"));
+            Set<String> validCodeEtb = new HashSet<>(Arrays.asList("120", "121", "F52", "F00"));
+            Set<String> validUserRoleIds = new HashSet<>(Arrays.asList("ROL000422", "ROL000421","ROL0000001321113437", "ROL0000001601172715"));
 
             if (validCodeEtb.contains(codeetb) || validUserRoleIds.contains(userRole)) {
                 // mahita ny rehetra akotran nen Mdm Fanja
