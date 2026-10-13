@@ -5,7 +5,8 @@ gallois-war/build
 nbproject
 gallois-ejb/nbproject
 gallois-war/nbproject
-.svnbuild/
+.svn
+build/
 dist/
 build-file/lib/
 *.class
