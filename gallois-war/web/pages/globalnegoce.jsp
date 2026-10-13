@@ -91,6 +91,6 @@
 </html>
 <%
     } catch (ConcurrentAccessTimeoutException e) {
-        out.println("<script language='JavaScript'> document.location.replace('/cnaps-war/');</script>");
+        out.println("<script language='JavaScript'> document.location.replace('" + request.getContextPath() + "/');</script>");
     }
 %>

@@ -5,4 +5,12 @@ gallois-war/build
 nbproject
 gallois-ejb/nbproject
 gallois-war/nbproject
-.svn
+.svnbuild/
+dist/
+build-file/lib/
+*.class
+nbproject/private/
+.idea/
+*.iml
+*.bak
+ORIGINAL_*
