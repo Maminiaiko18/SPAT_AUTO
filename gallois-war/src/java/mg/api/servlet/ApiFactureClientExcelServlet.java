@@ -15,6 +15,8 @@ import javax.servlet.http.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
@@ -47,6 +49,8 @@ public class ApiFactureClientExcelServlet
                         HttpServletRequest request,
                         HttpServletResponse response)
                         throws ServletException, IOException {
+
+                if (!authenticate(request, response)) return;
 
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/json;charset=UTF-8");
@@ -220,6 +224,65 @@ public class ApiFactureClientExcelServlet
                                         response.getWriter(),
                                         error);
                 }
+        }
+
+        private boolean authenticate(
+                        HttpServletRequest request,
+                        HttpServletResponse response)
+                        throws IOException {
+
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("application/json;charset=UTF-8");
+
+                String token = System.getenv("SPATERP_FACTURE_API_TOKEN");
+
+                if (token == null || token.trim().isEmpty()) {
+
+                        envoyerErreur(
+                                        response,
+                                        HttpServletResponse.SC_SERVICE_UNAVAILABLE,
+                                        "API factures non configurée sur le serveur");
+
+                        return false;
+                }
+
+                String authorization = request.getHeader("Authorization");
+
+                String supplied = authorization != null
+                                && authorization.startsWith("Bearer ")
+                                                ? authorization.substring("Bearer ".length())
+                                                : "";
+
+                if (!MessageDigest.isEqual(
+                                token.getBytes(StandardCharsets.UTF_8),
+                                supplied.getBytes(StandardCharsets.UTF_8))) {
+
+                        envoyerErreur(
+                                        response,
+                                        HttpServletResponse.SC_UNAUTHORIZED,
+                                        "Authentification requise");
+
+                        return false;
+                }
+
+                return true;
+        }
+
+        private void envoyerErreur(
+                        HttpServletResponse response,
+                        int status,
+                        String message)
+                        throws IOException {
+
+                response.setStatus(status);
+
+                Map<String, String> error = new HashMap<>();
+
+                error.put("error", message);
+
+                mapper.writeValue(
+                                response.getWriter(),
+                                error);
         }
 
         private void ecrireLog(
