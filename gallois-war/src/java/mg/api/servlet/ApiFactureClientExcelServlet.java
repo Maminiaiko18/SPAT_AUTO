@@ -62,15 +62,29 @@ public class ApiFactureClientExcelServlet
                          * CONFIGURATION
                          * =====================================================
                          */
-                        String cheminConfig = "D:/factures/config-facture.json";
+                        String cheminConfig = System.getenv("SPATERP_FACTURE_CONFIG_PATH");
+
+                        if (cheminConfig == null || cheminConfig.trim().isEmpty()) {
+
+                                envoyerErreur(
+                                                response,
+                                                HttpServletResponse.SC_SERVICE_UNAVAILABLE,
+                                                "Configuration des factures non définie sur le serveur (SPATERP_FACTURE_CONFIG_PATH)");
+
+                                return;
+                        }
 
                         File configFile = new File(cheminConfig);
 
                         if (!configFile.exists()) {
 
-                                throw new Exception(
+                                envoyerErreur(
+                                                response,
+                                                HttpServletResponse.SC_SERVICE_UNAVAILABLE,
                                                 "Fichier de configuration introuvable : "
                                                                 + cheminConfig);
+
+                                return;
                         }
 
                         /*
