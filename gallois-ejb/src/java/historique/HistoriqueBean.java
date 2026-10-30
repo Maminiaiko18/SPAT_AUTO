@@ -5,6 +5,8 @@ import bean.*;
 import utilitaire.Utilitaire;
 import utilitaire.UtilDB;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mg.cnaps.utilisateur.CNAPSUser;
@@ -243,10 +245,37 @@ public class HistoriqueBean implements HistoriqueRemote, HistoriqueLocal, Sessio
             if (pc.length == 0) {
                 throw new Exception("Pas de cryptage associe");
             }
-            MapUtilisateur[] utils = (MapUtilisateur[])CGenUtil.rechercher(new MapUtilisateur(), null, null, " AND REFUSER = "+refUser+"");
-            if(utils.length>0 && utils[0].getLoginuser().compareToIgnoreCase(loginuser)!=0){
-                MapUtilisateur[] util = (MapUtilisateur[])CGenUtil.rechercher(new MapUtilisateur(), null, null, " AND LOGINUSER = '"+loginuser+"'");
-                if(util.length>0) throw new Exception("LOGIN DEJA UTILISE");
+            Connection c = null;
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            try {
+                c = new UtilDB().GetConn();
+                MapUtilisateur modele = new MapUtilisateur();
+                ps = c.prepareStatement("SELECT * FROM " + modele.getNomTableSelect() + " WHERE REFUSER = ?");
+                ps.setString(1, refUser);
+                rs = ps.executeQuery();
+                MapUtilisateur[] utils = (MapUtilisateur[])CGenUtil.transformeDataReader(rs, modele, c);
+                rs.close();
+                rs = null;
+                ps.close();
+                ps = null;
+                if(utils.length>0 && utils[0].getLoginuser().compareToIgnoreCase(loginuser)!=0){
+                    ps = c.prepareStatement("SELECT * FROM " + modele.getNomTableSelect() + " WHERE LOGINUSER = ?");
+                    ps.setString(1, loginuser);
+                    rs = ps.executeQuery();
+                    MapUtilisateur[] util = (MapUtilisateur[])CGenUtil.transformeDataReader(rs, modele, c);
+                    if(util.length>0) throw new Exception("LOGIN DEJA UTILISE");
+                }
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (c != null) {
+                    c.close();
+                }
             }
             String passCrypt = Utilitaire.cryptWord(pwduser, pc[0].getNiveau(), pc[0].getCroissante());
             MapUtilisateur u = new MapUtilisateur(iduser, loginuser, passCrypt, nomuser, adruser, teluser, idrole);
